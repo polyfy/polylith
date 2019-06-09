@@ -13,7 +13,7 @@ Navigate to a Polylith project directory, configured with using deps.edn. Add th
 This command allow you to compile either the entire Polylith project (if you don't provide any arguments) or a specific service or environment defined in the deps.edn.
 
 ```sh
-clj -m:dev polylith.main compile backend-service
+clj -A:dev -m polylith.main compile backend-service
 ```
 
 ### test
@@ -21,5 +21,5 @@ clj -m:dev polylith.main compile backend-service
 This command lets you run tests under a specific service or environment defined in the deps.edn
 
 ```sh
-clj -m:dev polylith.main test backend-service
+clj -A:dev -m polylith.main test backend-service
 ```
