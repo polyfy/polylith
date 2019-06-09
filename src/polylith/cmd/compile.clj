@@ -70,7 +70,7 @@
   (compile-item libraries ws-path compile-path interface-path interface-expressions component :component))
 
 (defn compile [ws-path {:keys [polylith] :as deps} service-or-env]
-  (let [{:keys [compile-path]} polylith
+  (let [{:keys [compile-path] :or {compile-path "target"}} polylith
         libraries             (common/resolve-libraries deps service-or-env)
         interface-path        (str ws-path "/interfaces/src")
         interface-expressions (compile-expressions interface-path)
