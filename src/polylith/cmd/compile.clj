@@ -12,9 +12,8 @@
       (when (.exists f)
         (io/delete-file f)))))
 
-(defn ensure-compile-folder [ws-path compile-path]
-  (let [full-path      (str ws-path "/" compile-path)
-        compile-folder (io/file full-path)]
+(defn ensure-compile-folder [compile-path]
+  (let [compile-folder (io/file compile-path)]
     (delete-folder compile-folder)
     (.mkdir compile-folder)))
 
@@ -55,13 +54,18 @@
       (str "(binding [*compile-path* \"" compile-path "\"]" expressions ")"))))
 
 (defn compile-item [libraries ws-path compile-path interface-path interface-expressions item type]
-  (let [compile-path (str ws-path "/" compile-path)
-        item-path    (str ws-path "/" (if (= :base type) "bases" "components") "/" item "/src")
+  (let [sub-folder   (if (= :base type) "bases" "components")
+        compile-path (str ws-path "/" sub-folder "/" item "/" compile-path)
+        item-path    (str ws-path "/" sub-folder "/" item "/src")
         source-paths [compile-path interface-path item-path]
         classpath    (common/make-classpath libraries source-paths)
         expression   (compilation-expr compile-path item-path interface-expressions)]
+    (when-not (ensure-compile-folder compile-path)
+      (throw (ex-info "Could not create compile folder." {:ws-path      ws-path
+                                                          :compile-path compile-path})))
+    (println "-> Compiling" item)
     (common/run-in-jvm classpath expression ws-path "Exception during compilation.")
-    (println "Compiled" item)))
+    (println "-> Compiled" item)))
 
 (defn compile-base [libraries ws-path compile-path interface-path interface-expressions base]
   (compile-item libraries ws-path compile-path interface-path interface-expressions base :base))
@@ -80,11 +84,8 @@
                                                 {:service-or-env service-or-env})))
         all-bases             (common/all-bases ws-path paths)
         all-components        (common/all-components ws-path paths)]
-    (when-not (ensure-compile-folder ws-path compile-path)
-      (throw (ex-info "Could not create compile folder." {:ws-path      ws-path
-                                                          :compile-path compile-path})))
     (doseq [c all-components]
       (compile-component libraries ws-path compile-path interface-path interface-expressions c))
     (doseq [b all-bases]
       (compile-base libraries ws-path compile-path interface-path interface-expressions b))
-    (println "\nCompilation successful.")))
+    (println "\n-> Compilation successful.")))
