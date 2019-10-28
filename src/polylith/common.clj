@@ -1,13 +1,40 @@
 (ns polylith.common
-  (:require [clojure.java.io :as io]
+  (:require [clojure.core.async :refer [<! go-loop chan close!]]
+            [clojure.java.io :as io]
             [clojure.java.shell :as shell]
             [clojure.string :as str]
             [clojure.tools.deps.alpha :as tools-deps]
             [clojure.tools.deps.alpha.util.maven :as mvn])
-  (:import (java.io File)))
+  (:import (java.io File)
+           (java.util.concurrent ExecutorService Executors)))
 
 (def alias-nses #{"service" "env"})
 (def alias-nses-with-tests (into alias-nses #{"service.test" "env.test"}))
+
+(def number-of-processors
+  (memoize
+    (fn []
+      (max (int (/ (.availableProcessors (Runtime/getRuntime)) 2)) 1))))
+
+(defmacro execute-in [pool & body]
+  "Executes the body in a separate thread with using the given thread pool."
+  `(.submit ^ExecutorService ~pool
+            ^Callable (fn [] ~@body)))
+
+(defn ^ExecutorService create-thread-pool [size]
+  (Executors/newFixedThreadPool (or size (number-of-processors))))
+
+(defn create-print-channel []
+  (let [ch (chan 1)]
+    (go-loop []
+      (let [message (<! ch)]
+        (if (= :done message)
+          (do
+            (close! ch))
+          (do
+            (println message)
+            (recur)))))
+    ch))
 
 (defn extract-aliases
   ([deps service-or-env include-tests?]

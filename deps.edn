@@ -1,6 +1,7 @@
-{:paths ["src"]
- :deps  {org.clojure/clojure          {:mvn/version "1.10.0"}
-         org.clojure/tools.deps.alpha {:mvn/version "0.6.496"}}
+{:paths   ["src"]
+ :deps    {org.clojure/clojure          {:mvn/version "1.10.0"}
+           org.clojure/core.async       {:mvn/version "0.4.500"}
+           org.clojure/tools.deps.alpha {:mvn/version "0.6.496"}}
 
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps  {}}}}

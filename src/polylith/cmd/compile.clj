@@ -1,6 +1,7 @@
 (ns polylith.cmd.compile
   "Compile Clojure source into .class files."
-  (:require [clojure.java.io :as io]
+  (:require [clojure.core.async :refer [>!!]]
+            [clojure.java.io :as io]
             [clojure.string :as str]
             [polylith.common :as common])
   (:refer-clojure :exclude [compile])
@@ -53,7 +54,7 @@
     (let [expressions (str interface-expressions " " (compile-expressions src-path))]
       (str "(binding [*compile-path* \"" compile-path "\"]" expressions ")"))))
 
-(defn compile-item [libraries ws-path compile-path interface-path interface-expressions item type]
+(defn compile-item [print-channel libraries ws-path compile-path interface-path interface-expressions item type]
   (let [sub-folder   (if (= :base type) "bases" "components")
         compile-path (str ws-path "/" sub-folder "/" item "/" compile-path)
         item-path    (str ws-path "/" sub-folder "/" item "/src")
@@ -63,18 +64,19 @@
     (when-not (ensure-compile-folder compile-path)
       (throw (ex-info "Could not create compile folder." {:ws-path      ws-path
                                                           :compile-path compile-path})))
-    (println "-> Compiling" item)
+    (>!! print-channel (str "-> Compiling " item))
     (common/run-in-jvm classpath expression ws-path "Exception during compilation.")
-    (println "-> Compiled" item)))
+    (>!! print-channel (str "-> Compiled " item))))
 
-(defn compile-base [libraries ws-path compile-path interface-path interface-expressions base]
-  (compile-item libraries ws-path compile-path interface-path interface-expressions base :base))
+(defn compile-base [print-channel libraries ws-path compile-path interface-path interface-expressions base]
+  (compile-item print-channel libraries ws-path compile-path interface-path interface-expressions base :base))
 
-(defn compile-component [libraries ws-path compile-path interface-path interface-expressions component]
-  (compile-item libraries ws-path compile-path interface-path interface-expressions component :component))
+(defn compile-component [print-channel libraries ws-path compile-path interface-path interface-expressions component]
+  (compile-item print-channel libraries ws-path compile-path interface-path interface-expressions component :component))
 
 (defn compile [ws-path {:keys [polylith] :as deps} service-or-env]
-  (let [{:keys [compile-path] :or {compile-path "target"}} polylith
+  (let [start                 (. System (nanoTime))
+        {:keys [compile-path thread-pool-size] :or {compile-path "target"}} polylith
         libraries             (common/resolve-libraries deps service-or-env)
         interface-path        (str ws-path "/interfaces/src")
         interface-expressions (compile-expressions interface-path)
@@ -83,9 +85,16 @@
                                 (throw (ex-info (str "No source paths found. Check service or environment name: " service-or-env)
                                                 {:service-or-env service-or-env})))
         all-bases             (common/all-bases ws-path paths)
-        all-components        (common/all-components ws-path paths)]
-    (doseq [c all-components]
-      (compile-component libraries ws-path compile-path interface-path interface-expressions c))
-    (doseq [b all-bases]
-      (compile-base libraries ws-path compile-path interface-path interface-expressions b))
-    (println "\n-> Compilation successful.")))
+        all-components        (common/all-components ws-path paths)
+        print-channel         (common/create-print-channel)
+        thread-pool           (common/create-thread-pool thread-pool-size)
+        component-tasks       (mapv #(common/execute-in thread-pool
+                                       (compile-component print-channel libraries ws-path compile-path interface-path interface-expressions %))
+                                    all-components)
+        base-tasks            (mapv #(common/execute-in thread-pool
+                                       (compile-base print-channel libraries ws-path compile-path interface-path interface-expressions %))
+                                    all-bases)
+        all-tasks             (concat component-tasks base-tasks)]
+    (mapv deref all-tasks)
+    (>!! print-channel (str "\n-> Compiled " (count component-tasks) " components and " (count base-tasks) " bases in " (/ (double (- (. System (nanoTime)) start)) 1000000.0) " milliseconds."))
+    (>!! print-channel :done)))
