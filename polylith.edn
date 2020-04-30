@@ -1,0 +1,174 @@
+{:polylith {:top-namespace "clojure.realworld"},
+ :components
+ ({:type :component,
+   :name "article",
+   :interface
+   {:name "article",
+    :statements
+    ({:type def, :name create-article}
+     {:type def, :name update-article}
+     {:type defn,
+      :name article,
+      :overloads ({:args [auth-user slug], :arity 2})}
+     {:type defn,
+      :name articles,
+      :overloads
+      ({:args [auth-user limit offset author tag favorited],
+        :arity 6})}
+     {:type defn,
+      :name create-article!,
+      :overloads ({:args [auth-user article-input], :arity 2})}
+     {:type defn,
+      :name delete-article!,
+      :overloads ({:args [auth-user slug], :arity 2})}
+     {:type defn,
+      :name favorite-article!,
+      :overloads ({:args [auth-user slug], :arity 2})}
+     {:type defn,
+      :name feed,
+      :overloads ({:args [auth-user limit offset], :arity 3})}
+     {:type defn,
+      :name unfavorite-article!,
+      :overloads ({:args [auth-user slug], :arity 2})}
+     {:type defn,
+      :name update-article!,
+      :overloads ({:args [auth-user slug article-input], :arity 3})})}}
+  {:type :component,
+   :name "build-tools",
+   :interface {:name "build_tools", :statements ()}}
+  {:type :component,
+   :name "comment",
+   :interface
+   {:name "comment",
+    :statements
+    ({:type def, :name add-comment}
+     {:type def, :name id}
+     {:type defn,
+      :name add-comment!,
+      :overloads ({:args [auth-user slug comment], :arity 3})}
+     {:type defn,
+      :name article-comments,
+      :overloads ({:args [auth-user slug], :arity 2})}
+     {:type defn,
+      :name delete-comment!,
+      :overloads ({:args [auth-user id], :arity 2})})}}
+  {:type :component,
+   :name "database",
+   :interface
+   {:name "database",
+    :statements
+    ({:type defn,
+      :name db,
+      :overloads ({:args [], :arity 0} {:args [path], :arity 1})}
+     {:type defn, :name db-exists?, :overloads ({:args [], :arity 0})}
+     {:type defn, :name drop-db, :overloads ({:args [db], :arity 1})}
+     {:type defn,
+      :name generate-db,
+      :overloads ({:args [db], :arity 1})}
+     {:type defn,
+      :name valid-schema?,
+      :overloads ({:args [db], :arity 1})})}}
+  {:type :component,
+   :name "log",
+   :interface
+   {:name "log",
+    :statements
+    ({:type defn, :name init, :overloads ({:args [], :arity 0})})}}
+  {:type :component,
+   :name "profile",
+   :interface
+   {:name "profile",
+    :statements
+    ({:type def, :name profile}
+     {:type defn,
+      :name fetch-profile,
+      :overloads ({:args [auth-user username], :arity 2})}
+     {:type defn,
+      :name follow!,
+      :overloads ({:args [auth-user username], :arity 2})}
+     {:type defn,
+      :name unfollow!,
+      :overloads ({:args [auth-user username], :arity 2})})}}
+  {:type :component,
+   :name "spec",
+   :interface
+   {:name "spec",
+    :statements
+    ({:type def, :name email?}
+     {:type def, :name non-empty-string?}
+     {:type def, :name password?}
+     {:type def, :name slug?}
+     {:type def, :name uri-string?}
+     {:type def, :name username?})}}
+  {:type :component,
+   :name "tag",
+   :interface
+   {:name "tag",
+    :statements
+    ({:type defn, :name all-tags, :overloads ({:args [], :arity 0})})}}
+  {:type :component,
+   :name "user",
+   :interface
+   {:name "user",
+    :statements
+    ({:type def, :name login}
+     {:type def, :name register}
+     {:type def, :name update-user}
+     {:type def, :name user}
+     {:type defn,
+      :name find-by-username-or-id,
+      :overloads ({:args [username-or-id], :arity 1})}
+     {:type defn,
+      :name login!,
+      :overloads ({:args [login-input], :arity 1})}
+     {:type defn,
+      :name register!,
+      :overloads ({:args [register-input], :arity 1})}
+     {:type defn,
+      :name update-user!,
+      :overloads ({:args [auth-user user-input], :arity 2})}
+     {:type defn,
+      :name user-by-token,
+      :overloads ({:args [token], :arity 1})})}}),
+ :bases ({:type :base, :name "rest-api"}),
+ :aliases
+ ({:type :env,
+   :name "build-tools",
+   :components ({:name "build-tools", :type :component}),
+   :bases (),
+   :extra-paths (),
+   :dependencies
+   {clj-time #:mvn{:version "0.14.2"},
+    org.clojure/clojure #:mvn{:version "1.10.0"},
+    metosin/spec-tools #:mvn{:version "0.6.1"},
+    ring-server #:mvn{:version "0.5.0"}}}
+  {:type :service,
+   :name "realworld-backend",
+   :components
+   ({:name "article", :type :component}
+    {:name "comment", :type :component}
+    {:name "database", :type :component}
+    {:name "log", :type :component}
+    {:name "profile", :type :component}
+    {:name "spec", :type :component}
+    {:name "tag", :type :component}
+    {:name "user", :type :component}),
+   :bases ({:name "rest-api", :type :base}),
+   :extra-paths (),
+   :dependencies
+   {org.clojure/data.json #:mvn{:version "0.2.6"},
+    org.clojure/clojure #:mvn{:version "1.10.0"},
+    clj-time #:mvn{:version "0.14.2"},
+    compojure/compojure #:mvn{:version "1.6.0"},
+    crypto-password #:mvn{:version "0.2.0"},
+    metosin/spec-tools #:mvn{:version "0.6.1"},
+    clj-jwt #:mvn{:version "0.1.1"},
+    environ #:mvn{:version "1.1.0"},
+    slugger #:mvn{:version "1.0.1"},
+    ring/ring-jetty-adapter #:mvn{:version "1.6.3"},
+    ring/ring-json #:mvn{:version "0.5.0-beta1"},
+    com.taoensso/timbre #:mvn{:version "4.10.0"},
+    org.clojure/java.jdbc #:mvn{:version "0.7.5"},
+    ring-logger-timbre #:mvn{:version "0.7.6"},
+    org.xerial/sqlite-jdbc #:mvn{:version "3.7.2"},
+    honeysql #:mvn{:version "0.9.2"}}})}

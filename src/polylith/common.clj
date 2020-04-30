@@ -5,7 +5,7 @@
             [clojure.string :as str]
             [clojure.tools.deps.alpha :as tools-deps]
             [clojure.tools.deps.alpha.util.maven :as mvn])
-  (:import (java.io File)
+  (:import (java.io File FileNotFoundException PushbackReader)
            (java.util.concurrent ExecutorService Executors)))
 
 (def alias-nses #{"service" "env"})
@@ -46,7 +46,9 @@
                                (:aliases deps))]
      (doall aliases)))
   ([deps service-or-env]
-   (extract-aliases deps service-or-env false)))
+   (extract-aliases deps service-or-env false))
+  ([deps]
+   (extract-aliases deps nil)))
 
 (defn extract-extra-deps [deps service-or-env include-tests? additional-deps]
   (let [aliases     (extract-aliases deps service-or-env include-tests?)
@@ -99,6 +101,18 @@
        (filter directory?)
        (mapv file-name)
        (into #{})))
+
+(defn read-file [path]
+  (try
+    (with-open [rdr (-> path
+                        (io/reader)
+                        (PushbackReader.))]
+      (doall
+        (take-while #(not= ::done %)
+                    (repeatedly #(try (read rdr)
+                                      (catch Exception _ ::done))))))
+    (catch FileNotFoundException _
+      nil)))
 
 (defn- filter-paths [all paths prefix]
   (filterv #(contains? all %)
