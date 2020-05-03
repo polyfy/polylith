@@ -10,8 +10,8 @@
                                           "bases/core/src"
 
                                           ; Components
-                                          "components/common/src"
                                           "components/cmd/src"
+                                          "components/common/src"
                                           "components/file/src"
                                           "components/spec/src"]}
 
@@ -19,8 +19,8 @@
                                           "bases/core/test"
 
                                           ; Components
-                                          "components/common/test"
                                           "components/cmd/test"
+                                          "components/common/test"
                                           "components/file/test"
                                           "components/spec/test"]
                             :extra-deps  {}}}}

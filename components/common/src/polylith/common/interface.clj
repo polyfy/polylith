@@ -44,5 +44,5 @@
 (defn run-in-jvm [classpath expression dir ex-msg]
   (core/run-in-jvm classpath expression dir ex-msg))
 
-(defn read-workspace-map-from-disk [ws-path deps]
-  (workspace/read-workspace-map-from-disk ws-path deps))
+(defn read-workspace-from-disk [ws-path deps]
+  (workspace/read-workspace-from-disk ws-path deps))

@@ -8,10 +8,10 @@
       (or (= f 'def) (= f 'defn)))
     false))
 
-(defn read-declarations [path]
+(defn filter-declarations [statements]
   (filterv def-or-defn?
            ; Drops the namespace declaration on top of the file
-           (drop 1 (file/read-file path))))
+           (drop 1 statements)))
 
 (defn ->declarations-info [statement]
   "Takes a statement (def or defn) from source code,
@@ -39,8 +39,8 @@
         ; the name of the interface, in case the component's name is not same as it's interface.
         interface-name (first (file/directory-names component-base-src-folder))
         component-src-folder (str component-base-src-folder "/" interface-name)
-        interface-file-path (str component-src-folder "/interface.clj")
-        declarations (read-declarations interface-file-path)
+        interface-file-content (file/read-file (str component-src-folder "/interface.clj"))
+        declarations (filter-declarations interface-file-content)
         declarations-infos (vec (sort-by (juxt :type :name) (map ->declarations-info declarations)))]
     {:type      :component
      :name      component-name
@@ -104,7 +104,7 @@
 
 (defn all-components-from-disk
   ([ws-path paths]
-   (let [prefix         (str ws-path "/components")
+   (let [prefix (str ws-path "/components")
          all-components (file/directory-names prefix)]
      (if paths
        (filter-paths all-components paths prefix)
@@ -112,7 +112,7 @@
   ([ws-path]
    (all-components-from-disk ws-path nil)))
 
-(defn read-workspace-map-from-disk [ws-path {:keys [polylith] :as deps}]
+(defn read-workspace-from-disk [ws-path {:keys [polylith] :as deps}]
   (let [all-component-names (all-components-from-disk ws-path)
         all-base-names (all-bases-from-disk ws-path)
         base-src-folder (str/replace (:top-namespace polylith) #"\." "/")
@@ -123,7 +123,7 @@
      :bases      bases
      :aliases    (polylith-aliases deps)}))
 
-;(read-workspace-map-from-disk "." {:polylith {:top-namespace "polylith"}})
+;(read-workspace-from-disk "." {:polylith {:top-namespace "polylith"}})
 ;
 ;(def deps (-> "/Users/furkan/Workspace/clojure-polylith-realworld-example-app/deps.edn" slurp read-string))
 ;

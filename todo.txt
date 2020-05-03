@@ -1,7 +1,7 @@
 
 - validate polylith map:
-  - checks if more than one component implements the same interface and if they mismatch.
   - checks if a component depends on a namespace other than interface (and not itself).
+  - checks if more than one component implements the same interface and if they mismatch.
   - check for circular dependencies
   - check that components and bases don't share the same name.
 
