@@ -18,16 +18,20 @@
    :components [{:type :component
                   :name "x"
                   :interface {:name "x"
-                  :statements [{:type defn
-                                :name compile
-                                :overloads [:args [arg1 arg2]
-                                :arity 3]
+                  :declarations [{:type defn
+                                  :name compile
+                                  :overloads [:args [arg1 arg2]
+                                  :arity 3]
                   :imports ["..."]
                   :dependencies ["component1" "base1"]
     :bases [{:type :base
              :name "x"}]
     :messages {:errors [""]
                :warnings [""]}
+
+- check that we handle all corner cases when reading code (check lein-polylith).
+
+- add support for defmacro in interfaces.
 
 - when not needed anymore, remove cmd.compile and cmd.test.
 

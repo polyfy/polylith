@@ -9,12 +9,12 @@
       (or (= f 'def) (= f 'defn)))
     false))
 
-(defn read-code [path]
+(defn read-declarations [path]
   (filterv def-or-defn?
            ; Drops the namespace declaration on top of the file
            (drop 1 (file/read-file path))))
 
-(defn statement->statement-info [statement]
+(defn ->declarations-info [statement]
   "Takes a statement (def or defn) from source code,
    and returns a vector of information about those statements."
   (let [type (first statement)
@@ -25,8 +25,8 @@
     (if (= 'def type)
       {:type type
        :name name}
-      {:type      type
-       :name      name
+      {:type type
+       :name name
        :overloads (if (vector? (first code))
                     (vector {:args  (first code)
                              :arity (-> code first count)})
@@ -41,12 +41,12 @@
         interface-name (first (file/directory-names component-base-src-folder))
         component-src-folder (str component-base-src-folder "/" interface-name)
         interface-file-path (str component-src-folder "/interface.clj")
-        interface-statements (read-code interface-file-path)
-        statement-information (vec (sort-by (juxt :type :name) (map statement->statement-info interface-statements)))]
+        declarations (read-declarations interface-file-path)
+        declarations-infos (vec (sort-by (juxt :type :name) (map ->declarations-info declarations)))]
     {:type      :component
      :name      component-name
      :interface {:name       interface-name
-                 :statements statement-information}}))
+                 :declarations declarations-infos}}))
 
 (defn base-name->base [ws-path base-src-folder base-name]
   {:type :base

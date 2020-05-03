@@ -4,7 +4,7 @@
    :name "article",
    :interface
    {:name "article",
-    :statements
+    :declarations
     ({:type def, :name create-article}
      {:type def, :name update-article}
      {:type defn,
@@ -35,12 +35,12 @@
       :overloads ({:args [auth-user slug article-input], :arity 3})})}}
   {:type :component,
    :name "build-tools",
-   :interface {:name "build_tools", :statements ()}}
+   :interface {:name "build_tools", :declarations ()}}
   {:type :component,
    :name "comment",
    :interface
    {:name "comment",
-    :statements
+    :declarations
     ({:type def, :name add-comment}
      {:type def, :name id}
      {:type defn,
@@ -56,7 +56,7 @@
    :name "database",
    :interface
    {:name "database",
-    :statements
+    :declarations
     ({:type defn,
       :name db,
       :overloads ({:args [], :arity 0} {:args [path], :arity 1})}
@@ -72,13 +72,13 @@
    :name "log",
    :interface
    {:name "log",
-    :statements
+    :declarations
     ({:type defn, :name init, :overloads ({:args [], :arity 0})})}}
   {:type :component,
    :name "profile",
    :interface
    {:name "profile",
-    :statements
+    :declarations
     ({:type def, :name profile}
      {:type defn,
       :name fetch-profile,
@@ -93,7 +93,7 @@
    :name "spec",
    :interface
    {:name "spec",
-    :statements
+    :declarations
     ({:type def, :name email?}
      {:type def, :name non-empty-string?}
      {:type def, :name password?}
@@ -104,13 +104,13 @@
    :name "tag",
    :interface
    {:name "tag",
-    :statements
+    :declarations
     ({:type defn, :name all-tags, :overloads ({:args [], :arity 0})})}}
   {:type :component,
    :name "user",
    :interface
    {:name "user",
-    :statements
+    :declarations
     ({:type def, :name login}
      {:type def, :name register}
      {:type def, :name update-user}
