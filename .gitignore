@@ -1,5 +1,22 @@
-.cpcache
-.idea
-/.nrepl-port
-/polylith.iml
+**/classes
+**/.artifacts
+**/target
+**/.cpcache
 **/.DS_Store
+
+# User-specific stuff
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/shelf
+.idea/**/statistic.xml
+
+# File-based project format
+*.iws
+*.ipr
+
+# Cursive Clojure plugin
+.idea/replstate.xml
+
+.nrepl-port
+

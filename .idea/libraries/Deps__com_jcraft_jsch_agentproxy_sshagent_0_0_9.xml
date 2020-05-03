@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Deps: com.jcraft/jsch.agentproxy.sshagent:0.0.9">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jcraft/jsch.agentproxy.sshagent/0.0.9/jsch.agentproxy.sshagent-0.0.9.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

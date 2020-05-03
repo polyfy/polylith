@@ -1,17 +1,27 @@
-{:paths   []
+{:paths    []
 
  :polylith {:top-namespace "polylith"}
 
- :deps    {org.clojure/clojure          {:mvn/version "1.10.0"}
-           org.clojure/core.async       {:mvn/version "0.4.500"}
-           org.clojure/tools.deps.alpha {:mvn/version "0.6.496"}}
+ :deps     {org.clojure/clojure          {:mvn/version "1.10.0"}
+            org.clojure/core.async       {:mvn/version "0.4.500"}
+            org.clojure/tools.deps.alpha {:mvn/version "0.6.496"}}
 
- :aliases {:test {:extra-paths ["test"]
-                  :extra-deps  {}}
+ :aliases  {:env/core      {:extra-paths [; Base
+                                          "bases/core/src"
 
-           :env/compile {:extra-paths [; Other src
-                                       "src"
+                                          ; Components
+                                          "components/common/src"
+                                          "components/cmd/src"
+                                          "components/file/src"
+                                          "components/spec/src"]}
 
-                                       ; Components
-                                       "components/io/src"]}}}
+            :env.test/core {:extra-paths [; Base
+                                          "bases/core/test"
+
+                                          ; Components
+                                          "components/common/test"
+                                          "components/cmd/test"
+                                          "components/file/test"
+                                          "components/spec/test"]
+                            :extra-deps  {}}}}
 

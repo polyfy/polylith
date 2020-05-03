@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Deps: software.amazon.ion/ion-java:1.0.2">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/software/amazon/ion/ion-java/1.0.2/ion-java-1.0.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

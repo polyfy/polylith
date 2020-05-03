@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Deps: net.java.dev.jna/jna-platform:4.1.0">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/java/dev/jna/jna-platform/4.1.0/jna-platform-4.1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

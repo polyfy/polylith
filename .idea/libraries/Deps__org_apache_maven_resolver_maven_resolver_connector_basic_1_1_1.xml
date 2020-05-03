@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Deps: org.apache.maven.resolver/maven-resolver-connector-basic:1.1.1">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/maven/resolver/maven-resolver-connector-basic/1.1.1/maven-resolver-connector-basic-1.1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
