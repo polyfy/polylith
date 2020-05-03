@@ -86,31 +86,3 @@
     (if (= 0 exit)
       out
       (throw (ex-info ex-msg {:err err :exit-code exit})))))
-
-(defn filter-paths [all paths prefix]
-  (filterv #(contains? all %)
-           (into #{} (map #(-> %
-                               (str/replace prefix "")
-                               (str/split #"\/")
-                               (second))
-                          (filter #(str/starts-with? % prefix) paths)))))
-
-(defn all-bases-from-disk
-  ([ws-path paths]
-   (let [prefix    (str ws-path "/bases")
-         all-bases (file/directory-names prefix)]
-     (if paths
-       (filter-paths all-bases paths prefix)
-       all-bases)))
-  ([ws-path]
-   (all-bases-from-disk ws-path nil)))
-
-(defn all-components-from-disk
-  ([ws-path paths]
-   (let [prefix         (str ws-path "/components")
-         all-components (file/directory-names prefix)]
-     (if paths
-       (filter-paths all-components paths prefix)
-       all-components)))
-  ([ws-path]
-   (all-components-from-disk ws-path nil)))

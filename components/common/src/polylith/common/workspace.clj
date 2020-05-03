@@ -1,6 +1,5 @@
 (ns polylith.common.workspace
-  (:require [polylith.common.interface :as common]
-            [clojure.string :as str]
+  (:require [clojure.string :as str]
             [polylith.file.interface :as file]))
 
 (defn def-or-defn? [code]
@@ -85,9 +84,37 @@
   (let [polylith-aliases (filter #(contains? alias-namespaces (-> % key namespace)) aliases)]
     (vec (sort-by (juxt :type :name) (map #(alias->service-or-environment % paths deps) polylith-aliases)))))
 
-(defn create-workspace-map [ws-path {:keys [polylith] :as deps}]
-  (let [all-component-names (common/all-components-from-disk ws-path)
-        all-base-names (common/all-bases-from-disk ws-path)
+(defn filter-paths [all paths prefix]
+  (filterv #(contains? all %)
+           (into #{} (map #(-> %
+                               (str/replace prefix "")
+                               (str/split #"\/")
+                               (second))
+                          (filter #(str/starts-with? % prefix) paths)))))
+
+(defn all-bases-from-disk
+  ([ws-path paths]
+   (let [prefix    (str ws-path "/bases")
+         all-bases (file/directory-names prefix)]
+     (if paths
+       (filter-paths all-bases paths prefix)
+       all-bases)))
+  ([ws-path]
+   (all-bases-from-disk ws-path nil)))
+
+(defn all-components-from-disk
+  ([ws-path paths]
+   (let [prefix         (str ws-path "/components")
+         all-components (file/directory-names prefix)]
+     (if paths
+       (filter-paths all-components paths prefix)
+       all-components)))
+  ([ws-path]
+   (all-components-from-disk ws-path nil)))
+
+(defn read-workspace-map-from-disk [ws-path {:keys [polylith] :as deps}]
+  (let [all-component-names (all-components-from-disk ws-path)
+        all-base-names (all-bases-from-disk ws-path)
         base-src-folder (str/replace (:top-namespace polylith) #"\." "/")
         components (vec (sort-by :name (map #(component-name->component ws-path base-src-folder %) all-component-names)))
         bases (vec (sort-by :name (map #(base-name->base ws-path base-src-folder %) all-base-names)))]
@@ -96,8 +123,7 @@
      :bases      bases
      :aliases    (polylith-aliases deps)}))
 
-
-;(create-workspace-map "." {:polylith {:top-namespace "polylith"}})
+;(read-workspace-map-from-disk "." {:polylith {:top-namespace "polylith"}})
 ;
 ;(def deps (-> "/Users/furkan/Workspace/clojure-polylith-realworld-example-app/deps.edn" slurp read-string))
 ;

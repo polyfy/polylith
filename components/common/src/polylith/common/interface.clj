@@ -1,5 +1,6 @@
 (ns polylith.common.interface
-  (:require [polylith.common.core :as core]))
+  (:require [polylith.common.core :as core]
+            [polylith.common.workspace :as workspace]))
 
 (defmacro execute-in [pool & body]
   `(core/execute-in ~pool ~body))
@@ -43,14 +44,5 @@
 (defn run-in-jvm [classpath expression dir ex-msg]
   (core/run-in-jvm classpath expression dir ex-msg))
 
-(defn all-bases-from-disk
-  ([ws-path paths]
-   (core/all-bases-from-disk ws-path paths))
-  ([ws-path]
-   (core/all-bases-from-disk ws-path)))
-
-(defn all-components-from-disk
-  ([ws-path paths]
-   (core/all-components-from-disk ws-path paths))
-  ([ws-path]
-   (core/all-components-from-disk ws-path)))
+(defn read-workspace-map-from-disk [ws-path deps]
+  (workspace/read-workspace-map-from-disk ws-path deps))
