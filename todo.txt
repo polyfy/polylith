@@ -1,50 +1,42 @@
 
-- check lein-polylith for restrictions when it comes to naming, e.g. if bases and compoents can share the same name.
+- validate polylith map:
+  - checks if more than one component implements the same interface and if they mismatch.
+  - checks if a component depends on a namespace other than interface (and not itself).
+  - check for circular dependencies
+  - check that components and bases don't share the same name.
 
-- copy the function from furkan's repository that reads clojure code -> polylith map.
-  - support reading from disk
-  - support reading from git repository
+- calculate changes
+  - run the 'git diff' command:
+    - if no arguments, use HEAD.
+    - if one argument, diff against local changes
+    - if two arguments, diff against thowe two hashes.
   - read all :require statements
   - calculate dependencies (to 'component/interface' namespace).
 
-- validate polylith map:
-  - checks if more than one component implements the same interface and if they mismatch -> new polylith map.
-  - checks if a component depends on a namespace other than interface (and not itself) -> new polylith map.
-  - check for circular dependencies
-
-- read all files in a directory on disk -> list of files.
-- read all files in a git repository -> list of files.
-- calculate changed components and bases, based on:
-  - two list of files
-  - list of components and bases
-
 - the polylith map:
-  - components and bases
-  - imports.
-  - dependencies to other components
+  {:polylith {:top-namespace ""}}
+   :components [{:type :component
+                  :name "x"
+                  :interface {:name "x"
+                  :statements [{:type defn
+                                :name compile
+                                :overloads [:args [arg1 arg2]
+                                :arity 3]
+                  :imports ["..."]
+                  :dependencies ["component1" "base1"]
+    :bases [{:type :base
+             :name "x"}]
+    :messages {:errors [""]
+               :warnings [""]}
+
+- when not needed anymore, remove cmd.compile and cmd.test.
 
 - make sure we can compile the code into command line tool using GraalVM.
 
 Questions
 =========
-- should we have two different repositories, one for polylith-core and one for polylith-edn
-  or let them live in the same repository but as different project?
-  - if the API (the polylith map) is stable over time, then it's probably best to let them
-    live in different repositories.
-- if we only support "find last changes since last commit" then we are dependent on a working wifi.
-  maybe we should support comparing with dates in the same way as lein-polylith (that code is already written).
-- use only one name for env/service?
-  - would restrict duplicated names automatically, now we can have both env/x and service/x.
-  - add a property 'deploy' or similar per service/env instead (if needed).
 - maybe we could support different languages in this way:
   - parse the code as it is
   - have a "transcribe-map" that tells what keywords are functions and who are just data.
     - this will allow us to show the real name of e.g. functions in visualisation tools
       and at the same time show functions and data in different way, e.g. in different colors.
-
-- should we create another command line tool, polylith-deps, that uses the output from polylith-core to
-  update its deps.edn?
-  - how should they communicate with each other to be able to work on different operating systems
-    (e.g. windows and unix have differencies when it comes to / \ and EOF)?
-    - on of the reasons we prefere having a single map is that it works on windows so we
-      should aim for support for that.
