@@ -27,11 +27,11 @@
       {:type      type
        :name      name
        :overloads (if (vector? (first code))
-                    (list {:args  (first code)
-                           :arity (-> code first count)})
-                    (sort-by :arity (map #(hash-map :args (first %)
-                                                    :arity (-> % first count))
-                                         code)))})))
+                    (vector {:args  (first code)
+                             :arity (-> code first count)})
+                    (vec (sort-by :arity (map #(hash-map :args (first %)
+                                                         :arity (-> % first count))
+                                              code))))})))
 
 (defn component-name->component [ws-path base-src-folder component-name]
   (let [component-base-src-folder (str ws-path "/components/" component-name "/src/" base-src-folder)
@@ -41,7 +41,7 @@
         component-src-folder (str component-base-src-folder "/" interface-name)
         interface-file-path (str component-src-folder "/interface.clj")
         interface-statements (read-code interface-file-path)
-        statement-information (sort-by (juxt :type :name) (map statement->statement-info interface-statements))]
+        statement-information (vec (sort-by (juxt :type :name) (map statement->statement-info interface-statements)))]
     {:type      :component
      :name      component-name
      :interface {:name       interface-name
@@ -73,31 +73,30 @@
                                             all-paths)))]
     {:type         type
      :name         name
-     :components   components
-     :bases        bases
-     :extra-paths  extra-paths
+     :components   (vec components)
+     :bases        (vec bases)
+     :extra-paths  (vec extra-paths)
      :dependencies all-deps}))
 
 (def alias-namespaces #{"service" "env"})
 
 (defn polylith-aliases [{:keys [paths deps aliases]}]
   (let [polylith-aliases (filter #(contains? alias-namespaces (-> % key namespace)) aliases)]
-    (sort-by (juxt :type :name) (map #(alias->service-or-environment % paths deps) polylith-aliases))))
+    (vec (sort-by (juxt :type :name) (map #(alias->service-or-environment % paths deps) polylith-aliases)))))
 
 (defn create-polylith-map [ws-path {:keys [polylith] :as deps}]
   (let [all-component-names (common/all-components ws-path)
         all-base-names (common/all-bases ws-path)
         base-src-folder (str/replace (:top-namespace polylith) #"\." "/")
-        components (sort-by :name (map #(component-name->component ws-path base-src-folder %) all-component-names))
-        bases (sort-by :name (map #(base-name->base ws-path base-src-folder %) all-base-names))]
+        components (vec (sort-by :name (map #(component-name->component ws-path base-src-folder %) all-component-names)))
+        bases (vec (sort-by :name (map #(base-name->base ws-path base-src-folder %) all-base-names)))]
     {:polylith   polylith
      :components components
      :bases      bases
      :aliases    (polylith-aliases deps)}))
 
-;(map signatures (read-code "/Users/furkan/Workspace/pam-new/components/common/src/com/houseofradon/pam/common/interface.clj"))
-;
-;(create-polylith-map "/Users/furkan/Workspace/pam-new" {:polylith {:top-namespace "com.houseofradon.pam"}})
+
+;(create-polylith-map "." {:polylith {:top-namespace "polylith"}})
 ;
 ;(def deps (-> "/Users/furkan/Workspace/clojure-polylith-realworld-example-app/deps.edn" slurp read-string))
 ;
