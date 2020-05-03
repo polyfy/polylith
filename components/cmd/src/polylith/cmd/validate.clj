@@ -86,8 +86,8 @@
     (vec (sort-by (juxt :type :name) (map #(alias->service-or-environment % paths deps) polylith-aliases)))))
 
 (defn create-polylith-map [ws-path {:keys [polylith] :as deps}]
-  (let [all-component-names (common/all-components ws-path)
-        all-base-names (common/all-bases ws-path)
+  (let [all-component-names (common/all-components-from-disk ws-path)
+        all-base-names (common/all-bases-from-disk ws-path)
         base-src-folder (str/replace (:top-namespace polylith) #"\." "/")
         components (vec (sort-by :name (map #(component-name->component ws-path base-src-folder %) all-component-names)))
         bases (vec (sort-by :name (map #(base-name->base ws-path base-src-folder %) all-base-names)))]

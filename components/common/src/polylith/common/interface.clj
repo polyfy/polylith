@@ -43,14 +43,14 @@
 (defn run-in-jvm [classpath expression dir ex-msg]
   (core/run-in-jvm classpath expression dir ex-msg))
 
-(defn all-bases
+(defn all-bases-from-disk
   ([ws-path paths]
-   (core/all-bases ws-path paths))
+   (core/all-bases-from-disk ws-path paths))
   ([ws-path]
-   (core/all-bases ws-path)))
+   (core/all-bases-from-disk ws-path)))
 
-(defn all-components
+(defn all-components-from-disk
   ([ws-path paths]
-   (core/all-components ws-path paths))
+   (core/all-components-from-disk ws-path paths))
   ([ws-path]
-   (core/all-components ws-path)))
+   (core/all-components-from-disk ws-path)))

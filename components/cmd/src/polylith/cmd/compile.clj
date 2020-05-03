@@ -84,8 +84,8 @@
         _                     (when (= [] paths)
                                 (throw (ex-info (str "No source paths found. Check service or environment name: " service-or-env)
                                                 {:service-or-env service-or-env})))
-        all-bases             (common/all-bases ws-path paths)
-        all-components        (common/all-components ws-path paths)
+        all-bases             (common/all-bases-from-disk ws-path paths)
+        all-components        (common/all-components-from-disk ws-path paths)
         print-channel         (common/create-print-channel)
         thread-pool           (common/create-thread-pool thread-pool-size)
         component-tasks       (mapv #(common/execute-in thread-pool
