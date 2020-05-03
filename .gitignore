@@ -1,2 +1,5 @@
 .cpcache
 .idea
+/.nrepl-port
+/polylith.iml
+**/.DS_Store
