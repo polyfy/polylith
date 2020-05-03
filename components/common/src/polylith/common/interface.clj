@@ -43,18 +43,6 @@
 (defn run-in-jvm [classpath expression dir ex-msg]
   (core/run-in-jvm classpath expression dir ex-msg))
 
-(defn directory? [file]
-  (core/directory? file))
-
-(defn file-name [file]
-  (core/file-name file))
-
-(defn directory-names [dir]
-  (core/directory-names dir))
-
-(defn read-file [path]
-  (core/read-file path))
-
 (defn all-bases
   ([ws-path paths]
    (core/all-bases ws-path paths))

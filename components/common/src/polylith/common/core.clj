@@ -1,12 +1,11 @@
 (ns polylith.common.core
   (:require [clojure.core.async :refer [<! go-loop chan close!]]
-            [clojure.java.io :as io]
             [clojure.java.shell :as shell]
             [clojure.string :as str]
             [clojure.tools.deps.alpha :as tools-deps]
-            [clojure.tools.deps.alpha.util.maven :as mvn])
-  (:import (java.io File FileNotFoundException PushbackReader)
-           (java.util.concurrent ExecutorService Executors)))
+            [clojure.tools.deps.alpha.util.maven :as mvn]
+            [polylith.file.interface :as file])
+  (:import (java.util.concurrent ExecutorService Executors)))
 
 (def alias-nses #{"service" "env"})
 (def alias-nses-with-tests (into alias-nses #{"service.test" "env.test"}))
@@ -88,33 +87,7 @@
       out
       (throw (ex-info ex-msg {:err err :exit-code exit})))))
 
-(defn directory? [^File file]
-  (.isDirectory file))
-
-(defn file-name [^File file]
-  (.getName file))
-
-(defn directory-names [dir]
-  (->> dir
-       (io/file)
-       (.listFiles)
-       (filter directory?)
-       (mapv file-name)
-       (into #{})))
-
-(defn read-file [path]
-  (try
-    (with-open [rdr (-> path
-                        (io/reader)
-                        (PushbackReader.))]
-      (doall
-        (take-while #(not= ::done %)
-                    (repeatedly #(try (read rdr)
-                                      (catch Exception _ ::done))))))
-    (catch FileNotFoundException _
-      nil)))
-
-(defn- filter-paths [all paths prefix]
+(defn filter-paths [all paths prefix]
   (filterv #(contains? all %)
            (into #{} (map #(-> %
                                (str/replace prefix "")
@@ -125,7 +98,7 @@
 (defn all-bases
   ([ws-path paths]
    (let [prefix    (str ws-path "/bases")
-         all-bases (directory-names prefix)]
+         all-bases (file/directory-names prefix)]
      (if paths
        (filter-paths all-bases paths prefix)
        all-bases)))
@@ -135,7 +108,7 @@
 (defn all-components
   ([ws-path paths]
    (let [prefix         (str ws-path "/components")
-         all-components (directory-names prefix)]
+         all-components (file/directory-names prefix)]
      (if paths
        (filter-paths all-components paths prefix)
        all-components)))

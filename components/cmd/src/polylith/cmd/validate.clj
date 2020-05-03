@@ -1,6 +1,7 @@
 (ns polylith.cmd.validate
   (:require [polylith.common.interface :as common]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [polylith.file.interface :as file]))
 
 (defn def-or-defn? [code]
   (if (list? code)
@@ -11,7 +12,7 @@
 (defn read-code [path]
   (filterv def-or-defn?
            ; Drops the namespace declaration on top of the file
-           (drop 1 (common/read-file path))))
+           (drop 1 (file/read-file path))))
 
 (defn statement->statement-info [statement]
   "Takes a statement (def or defn) from source code,
@@ -37,7 +38,7 @@
   (let [component-base-src-folder (str ws-path "/components/" component-name "/src/" base-src-folder)
         ; Only one folder should be in each components base src folder. The name of the folder will be
         ; the name of the interface, in case the component's name is not same as it's interface.
-        interface-name (first (common/directory-names component-base-src-folder))
+        interface-name (first (file/directory-names component-base-src-folder))
         component-src-folder (str component-base-src-folder "/" interface-name)
         interface-file-path (str component-src-folder "/interface.clj")
         interface-statements (read-code interface-file-path)
