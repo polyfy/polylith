@@ -33,3 +33,10 @@
     (doseq [^File f files]
       (when (.exists f)
         (io/delete-file f)))))
+
+(defn paths [dir-path]
+  (drop-last (reverse (file-seq (io/file dir-path)))))
+
+(defn all-paths [dir-path]
+  "Returns all directories and files in a directory recursively"
+  (map str (paths dir-path)))

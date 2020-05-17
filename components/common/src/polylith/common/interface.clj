@@ -2,6 +2,18 @@
   (:require [polylith.common.core :as core]
             [polylith.common.workspace :as workspace]))
 
+(defn all-bases-from-disk
+  ([ws-path paths]
+   (workspace/all-bases-from-disk ws-path paths))
+  ([ws-path]
+   (workspace/all-bases-from-disk ws-path)))
+
+(defn all-components-from-disk
+  ([ws-path paths]
+   (workspace/all-components-from-disk ws-path paths))
+  ([ws-path]
+   (workspace/all-components-from-disk ws-path)))
+
 (defmacro execute-in [pool & body]
   `(core/execute-in ~pool ~body))
 

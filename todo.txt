@@ -1,4 +1,6 @@
 
+- support reading of macros.
+
 - validate polylith map:
   - checks if a component depends on a namespace other than interface (and not itself).
   - checks if more than one component implements the same interface and if they mismatch.
@@ -9,7 +11,7 @@
   - run the 'git diff' command:
     - if no arguments, use HEAD.
     - if one argument, diff against local changes
-    - if two arguments, diff against thowe two hashes.
+    - if two arguments, diff against the two hashes.
   - read all :require statements
   - calculate dependencies (to 'component/interface' namespace).
 
@@ -37,6 +39,8 @@
 
 - make sure we can compile the code into command line tool using GraalVM.
 
+-
+
 Questions
 =========
 - maybe we could support different languages in this way:
@@ -44,3 +48,7 @@ Questions
   - have a "transcribe-map" that tells what keywords are functions and who are just data.
     - this will allow us to show the real name of e.g. functions in visualisation tools
       and at the same time show functions and data in different way, e.g. in different colors.
+
+Doc
+===
+- example of how to add macros in the interface.
