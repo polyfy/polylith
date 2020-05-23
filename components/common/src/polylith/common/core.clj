@@ -1,5 +1,5 @@
 (ns polylith.common.core
-  (:require [polylith.common.readfromdisk :as disk]
+  (:require [polylith.common.readbricksfromdisk :as disk]
             [polylith.common.aliases :as aliases]))
 
 ;

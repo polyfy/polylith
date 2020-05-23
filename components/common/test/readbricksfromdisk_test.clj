@@ -1,8 +1,8 @@
-(ns readfromdisk-test
+(ns readbricksfromdisk-test
   (:require [clojure.test :refer :all]
             [polylith.file.interface :as file]
             [polylith.common.core :as core]
-            [polylith.common.readfromdisk :as readfromdisk]))
+            [polylith.common.readbricksfromdisk :as readfromdisk]))
 
 (deftest filter-declarations--returns-def-statements
   (let [code '((ns polylith.spec.interface

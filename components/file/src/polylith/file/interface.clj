@@ -1,6 +1,5 @@
 (ns polylith.file.interface
-  (:require [polylith.file.core :as core]
-            [clojure.java.io :as io])
+  (:require [polylith.file.core :as core])
   (:import (java.io File)))
 
 (defn directory? [^File file]
@@ -21,5 +20,5 @@
 (defn files-recursively [dir-path]
   (core/paths dir-path))
 
-(defn all-paths [dir-path]
-  (core/all-paths dir-path))
+(defn all-paths [dir]
+  (core/all-paths dir))

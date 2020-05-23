@@ -1,6 +1,12 @@
 
 - support reading of macros.
 
+{:imports [{:name "core"
+            :type "component"
+            :imports ["com.abc.interface"}
+
+
+
 - validate polylith map:
   - checks if a component depends on a namespace other than interface (and not itself).
   - checks if more than one component implements the same interface and if they mismatch.

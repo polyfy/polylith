@@ -1,17 +1,6 @@
-(ns polylith.common.readfromdisk
+(ns polylith.common.readbricksfromdisk
   (:require [clojure.string :as str]
             [polylith.file.interface :as file]))
-
-(defn require? [val]
-  (and (sequential? val)
-       (= :require (first val))))
-
-(defn ->imports [imports]
-  (rest (first (filter require? imports))))
-
-(defn filter-imports [code]
-  (mapv first (filterv #(= :as (second %))
-                       (->imports (first code)))))
 
 (defn definition? [code]
   (if (list? code)

@@ -37,6 +37,6 @@
 (defn paths [dir-path]
   (drop-last (reverse (file-seq (io/file dir-path)))))
 
-(defn all-paths [dir-path]
+(defn all-paths [dir]
   "Returns all directories and files in a directory recursively"
-  (map str (paths dir-path)))
+  (map str (paths dir)))
