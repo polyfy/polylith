@@ -45,7 +45,8 @@
 
 - make sure we can compile the code into command line tool using GraalVM.
 
--
+- replace \ with / at the entry point:
+  (str/replace top-ns #"\." "/")
 
 Questions
 =========

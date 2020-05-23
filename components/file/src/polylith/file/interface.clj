@@ -8,8 +8,8 @@
 (defn file-name [^File file]
   (core/file-name file))
 
-(defn directory-names [dir]
-  (core/directory-names dir))
+(defn directory-paths [dir]
+  (core/directory-paths dir))
 
 (defn read-file [path]
   (core/read-file path))
@@ -18,7 +18,8 @@
   (core/delete-folder file))
 
 (defn files-recursively [dir-path]
-  (core/paths dir-path))
+  (core/files-recursively dir-path))
 
-(defn all-paths [dir]
-  (core/all-paths dir))
+(defn paths-recursively [dir]
+  "Returns all directories and files in a directory recursively"
+  (core/paths-recursively dir))

@@ -1,6 +1,7 @@
 (ns polylith.common.readbricksfromdisk
   (:require [clojure.string :as str]
-            [polylith.file.interface :as file]))
+            [polylith.file.interface :as file]
+            [polylith.common.readimportsfromdisk :as importsfromdisk]))
 
 (defn definition? [code]
   (if (list? code)
@@ -37,12 +38,13 @@
 
 (defn read-component-from-disk [ws-path top-src-dir component-name]
   (let [component-src-dir (str ws-path "/components/" component-name "/src/" top-src-dir)
-        ; Only one folder should be in each components base src folder. The name of the folder will be
-        ; the name of the interface, in case the component's name is not same as it's interface.
-        interface-name (first (file/directory-names component-src-dir))
-        src-dir (str component-src-dir "/" interface-name)
+        ; Only one folder should be in each components base src folder.
+        ; The name of the folder will be the name of the interface,
+        ; in case the component's name is not same as it's interface.
+        interface-name (first (file/directory-paths component-src-dir))
+        src-dir (str component-src-dir interface-name)
         interface-file-content (file/read-file (str src-dir "/interface.clj"))
-        imports (filter-imports interface-file-content)
+        imports (importsfromdisk/all-imports component-src-dir)
         declarations (filter-declarations interface-file-content)
         declarations-infos (vec (sort-by (juxt :type :name) (map ->declarations-info declarations)))]
     {:type      :component
@@ -51,48 +53,40 @@
      :interface {:name         interface-name
                  :declarations declarations-infos}}))
 
-(defn read-bases-from-disk [ws-path top-src-dir base-name]
-  (let [base-src-dir (str ws-path "/bases/" base-name "/src/" top-src-dir)
-        src-dir (str base-src-dir "/" (str/replace base-name "-" "_"))
-        interface-file-content (file/read-file (str src-dir "/interface.clj"))
-        imports (filter-imports interface-file-content)]
-    {:type :base
+;(all-bricks "../clojure-polylith-realworld-example-app")
+;(all-bricks "../Nova/project-unicorn")
+
+
+
+;(read-component-from-disk "../clojure-polylith-realworld-example-app" "clojure/realworld/" "article")
+;(read-component-from-disk "../Nova/project-unicorn" "" "talent")
+
+
+(defn read-base-from-disk [ws-path top-src-dir base-name]
+  (let [bases-src-dir (str ws-path "/bases/" base-name "/src/" top-src-dir)
+        imports (importsfromdisk/all-imports bases-src-dir)]
+    {:type "base"
      :name base-name
      :imports imports}))
 
-(defn filter-paths [all paths prefix]
-  (filterv #(contains? all %)
-           (into #{} (map #(-> %
-                               (str/replace prefix "")
-                               (str/split #"\/")
-                               (second))
-                          (filter #(str/starts-with? % prefix) paths)))))
+;(read-base-from-disk "../clojure-polylith-realworld-example-app" "clojure/realworld/" "rest-api")
+;(read-base-from-disk "../Nova/project-unicorn" "" "backend")
 
-(defn all-bases-from-disk
-  ([ws-path paths]
-   (let [prefix    (str ws-path "/bases")
-         all-bases (file/directory-names prefix)]
-     (if paths
-       (filter-paths all-bases paths prefix)
-       all-bases)))
-  ([ws-path]
-   (all-bases-from-disk ws-path nil)))
+(defn ns-to-path [ns]
+  (let [path (str/replace ns "." "/")]
+    (if (str/blank? path)
+      ""
+      (str path "/"))))
 
-(defn all-components-from-disk
-  ([ws-path paths]
-   (let [prefix (str ws-path "/components")
-         all-components (file/directory-names prefix)]
-     (if paths
-       (filter-paths all-components paths prefix)
-       all-components)))
-  ([ws-path]
-   (all-components-from-disk ws-path nil)))
-
-(defn read-components-and-bases-from-disk [ws-path top-namespace]
-  (let [all-component-names (all-components-from-disk ws-path)
-        all-base-names (all-bases-from-disk ws-path)
-        top-src-dir (str/replace top-namespace #"\." "/")
-        components (vec (sort-by :name (map #(read-component-from-disk ws-path top-src-dir %) all-component-names)))
-        bases (vec (sort-by :name (map #(read-bases-from-disk ws-path top-src-dir %) all-base-names)))]
+(defn read-bricks-from-disk [ws-path top-ns]
+  (let [top-src-dir (ns-to-path top-ns)
+        component-names (file/directory-paths (str ws-path "/components"))
+        components (mapv #(read-component-from-disk ws-path top-src-dir %) component-names)
+        base-names (file/directory-paths (str ws-path "/bases"))
+        bases (mapv #(read-base-from-disk ws-path top-src-dir %) base-names)]
     {:components components
      :bases bases}))
+
+
+;(read-bricks-from-disk "../clojure-polylith-realworld-example-app" "clojure.realworld")
+

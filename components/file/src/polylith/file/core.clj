@@ -8,7 +8,7 @@
 (defn file-name [^File file]
   (.getName file))
 
-(defn directory-names [dir]
+(defn directory-paths [dir]
   (->> dir
        (io/file)
        (.listFiles)
@@ -34,9 +34,8 @@
       (when (.exists f)
         (io/delete-file f)))))
 
-(defn paths [dir-path]
+(defn files-recursively [dir-path]
   (drop-last (reverse (file-seq (io/file dir-path)))))
 
-(defn all-paths [dir]
-  "Returns all directories and files in a directory recursively"
-  (map str (paths dir)))
+(defn paths-recursively [dir]
+  (map str (files-recursively dir)))

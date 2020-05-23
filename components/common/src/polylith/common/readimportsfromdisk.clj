@@ -23,32 +23,9 @@
 
 (defn all-imports [root-dir]
   (let [file-paths (filter #(str/ends-with? % ".clj")
-                           (file/all-paths root-dir))]
-    (map #(imports root-dir %) file-paths)))
+                           (file/paths-recursively root-dir))]
+    (mapv #(imports root-dir %) file-paths)))
 
 ;(all-imports "../clojure-polylith-realworld-example-app/components/user/src")
+;(all-imports "../clojure-polylith-realworld-example-app/components/user/src/clojure/realworld/")
 ;(all-imports "../Nova/project-unicorn/components/talent/")
-
-
-
-; clojure.realworld.user.core
-
-;(def all-paths (file/all-paths "../clojure-polylith-realworld-example-app/components/user/src"))
-;
-;
-;(def dir "../clojure-polylith-realworld-example-app/components/user/src")
-;(def path (first all-paths))
-;
-;(file/read-file (first all-paths))
-;
-;
-;
-;
-;
-;(def clojure-files (filter #(str/ends-with? % ".clj") all-paths))
-;
-;(def content (file/read-file (first clojure-files)))
-;
-;
-;
-;(imports "../clojure-polylith-realworld-example-app/components/user/src")
