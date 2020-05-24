@@ -1,6 +1,9 @@
 (ns polylith.common.core
-  (:require [polylith.common.readbricksfromdisk :as disk]
-            [polylith.common.aliases :as aliases]))
+  (:require [clojure.string :as str]
+            [polylith.file.interface :as file]
+            [polylith.common.aliases :as aliases]
+            [polylith.common.read-components-from-disk :as componentsfromdisk]
+            [polylith.common.readbasesfromdisk :as basesfromdisk]))
 
 ;
 ;(def alias-nses #{"service" "env"})
@@ -83,46 +86,29 @@
 ;      out
 ;      (throw (ex-info ex-msg {:err err :exit-code exit})))))
 
+
+(defn top-namespace [{:keys [top-namespace]}]
+  "Makes sure the top namespace ends with a dot (.) if not empty."
+  (if (str/blank? top-namespace)
+    ""
+    (if (str/ends-with? top-namespace ".")
+      top-namespace
+      (str top-namespace "."))))
+
 (defn read-workspace-from-disk [ws-path {:keys [polylith] :as deps}]
-  (let [top-namespace (:top-namespace polylith)
-        {:keys [components bases]} (disk/read-components-and-bases-from-disk ws-path top-namespace)]
-    {:polylith   polylith
+  (let [top-ns (top-namespace polylith)
+        top-src-dir (str/replace top-ns "." "/")
+        component-names (file/directory-paths (str ws-path "/components"))
+        components (componentsfromdisk/read-components-from-disk ws-path top-ns top-src-dir component-names)
+        bases (basesfromdisk/read-bases-from-disk ws-path top-ns top-src-dir component-names)]
+    {:polylith polylith
      :components components
-     :bases      bases
-     :aliases    (aliases/polylith-aliases deps)}))
+     :bases bases
+     :aliases (aliases/polylith-aliases deps)}))
 
+;(componentsfromdisk/read-components-from-disk "." "polylith." "polylith/" (file/directory-paths "./components"))
+;
 ;(read-workspace-from-disk "." {:polylith {:top-namespace "polylith"}})
+;
 ;(read-workspace-from-disk "../clojure-polylith-realworld-example-app" {:polylith {:top-namespace "clojure.realworld"}})
-
-
-
-
-;(def deps (-> "/Users/furkan/Workspace/clojure-polylith-realworld-example-app/deps.edn" slurp read-string))
-;
-;(with-open [writer (io/writer (io/file "polylith.edn"))]
-;  (clojure.pprint/pprint (create-polylith-map "/Users/furkan/Workspace/clojure-polylith-realworld-example-app" deps) writer))
-;
-;(common/extract-aliases deps)
-;(polylith-aliases deps)
-;(name :a/bb)
-
-
-
-;(def ws-path ".")
-;(def component-name "common")
-;(def base-src-folder "polylith")
-;;
-;(def component-base-src-folder (str ws-path "/components/" component-name "/src/" base-src-folder))
-;(def interface-name (first (file/directory-names component-base-src-folder)))
-;(def component-src-folder (str component-base-src-folder "/" interface-name))
-;(def interface-file-content (file/read-file (str component-src-folder "/interface.clj")))
-;(def declarations (filter-declarations interface-file-content))
-;(def declarations-infos (vec (sort-by (juxt :type :name) (map ->declarations-info declarations))))
-;
-;(pp/pprint interface-file-content)
-;
-;(map str (pfile/files-recursively "./components/common"))
-
-
-;"./components/common/src/polylith/common"
-
+;(read-workspace-from-disk "../Nova/project-unicorn" {:polylith {:top-namespace ""}})
