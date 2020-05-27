@@ -3,6 +3,9 @@
             [polylith.common.readimportsfromdisk :as importsfromdisk]
             [polylith.common.dependencies :as deps]))
 
+(def type->generic-type {'defn 'function
+                         'defmacro 'macro})
+
 (defn definition? [code]
   (if (list? code)
     (let [f (first code)]
@@ -25,9 +28,9 @@
                                    (vector? %)))
                          statement)]
     (if (= 'def type)
-      {:type type
+      {:type 'data
        :name name}
-      {:type type
+      {:type (type->generic-type type)
        :name name
        :overloads (if (vector? (first code))
                     (vector {:args  (first code)

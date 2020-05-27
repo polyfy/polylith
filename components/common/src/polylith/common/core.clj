@@ -88,7 +88,7 @@
 
 
 (defn top-namespace [{:keys [top-namespace]}]
-  "Makes sure the top namespace ends with a dot (.) if not empty."
+  "Makes sure the top namespace ends with a dot (.) - if not empty."
   (if (str/blank? top-namespace)
     ""
     (if (str/ends-with? top-namespace ".")
