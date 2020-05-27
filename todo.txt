@@ -1,15 +1,8 @@
 
-- support reading of macros.
-
-{:imports [{:name "core"
-            :type "component"
-            :imports ["com.abc.interface"}
-
 - validate polylith map:
-  - checks if a component depends on a namespace other than interface (and not itself).
   - checks if more than one component implements the same interface and if they mismatch.
-  - check for circular dependencies
-  - check that components and bases don't share the same name.
+  - check that components and bases don't share the same name,
+    add in :messages {:errors []}} in the root of polylith map.
 
 - calculate changes
   - run the 'git diff' command:
@@ -19,32 +12,16 @@
   - read all :require statements
   - calculate dependencies (to 'component/interface' namespace).
 
-- the polylith map:
-  {:polylith {:top-namespace ""}}
-   :components [{:type :component
-                 :name "x"
-                 :interface {:name "x"
-                 :declarations [{:type defn
-                                 :name compile
-                                 :overloads [:args [arg1 arg2]
-                                 :arity 3]
-                 :imports ["..."]
-                 :dependencies ["component1" "base1"]
-    :bases [{:type :base
-             :name "x"}]
-    :messages {:errors [""]
-               :warnings [""]}
-
 - check that we handle all corner cases when reading code (check lein-polylith).
-
-- add support for defmacro in interfaces.
-
-- when not needed anymore, remove cmd.compile and cmd.test + :aliases.
 
 - make sure we can compile the code into command line tool using GraalVM.
 
 - replace \ with / at the entry point:
   (str/replace top-ns #"\." "/")
+
+- add :allow-non-interface-dependency-to-component-from-base in :polylith.
+
+- when not needed anymore, remove cmd.compile and cmd.test + :aliases.
 
 Questions
 =========

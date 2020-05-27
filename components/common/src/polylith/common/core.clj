@@ -2,6 +2,7 @@
   (:require [clojure.string :as str]
             [polylith.file.interface :as file]
             [polylith.common.aliases :as aliases]
+            [polylith.common.circulardeps :as circular]
             [polylith.common.read-components-from-disk :as componentsfromdisk]
             [polylith.common.readbasesfromdisk :as basesfromdisk]))
 
@@ -86,7 +87,6 @@
 ;      out
 ;      (throw (ex-info ex-msg {:err err :exit-code exit})))))
 
-
 (defn top-namespace [{:keys [top-namespace]}]
   "Makes sure the top namespace ends with a dot (.) - if not empty."
   (if (str/blank? top-namespace)
@@ -95,20 +95,25 @@
       top-namespace
       (str top-namespace "."))))
 
+(defn circular-deps-error [circular-deps]
+  (if circular-deps
+    {:errors [(str "Circular dependencies: " (str/join " > " circular-deps))]}
+    {:errors []}))
+
 (defn read-workspace-from-disk [ws-path {:keys [polylith] :as deps}]
   (let [top-ns (top-namespace polylith)
         top-src-dir (str/replace top-ns "." "/")
         component-names (file/directory-paths (str ws-path "/components"))
         components (componentsfromdisk/read-components-from-disk ws-path top-ns top-src-dir component-names)
-        bases (basesfromdisk/read-bases-from-disk ws-path top-ns top-src-dir component-names)]
+        bases (basesfromdisk/read-bases-from-disk ws-path top-ns top-src-dir component-names)
+        interfaces (vec (sort (map #(-> % :interface :name) components)))
+        circular-deps (circular/circular-deps interfaces components)]
     {:polylith polylith
      :components components
      :bases bases
-     :aliases (aliases/polylith-aliases deps)}))
-
-;(componentsfromdisk/read-components-from-disk "." "polylith." "polylith/" (file/directory-paths "./components"))
+     :aliases (aliases/polylith-aliases deps)
+     :messages (circular-deps-error circular-deps)}))
 
 ;(read-workspace-from-disk "." {:polylith {:top-namespace "polylith"}})
-;
 ;(read-workspace-from-disk "../clojure-polylith-realworld-example-app" {:polylith {:top-namespace "clojure.realworld"}})
 ;(read-workspace-from-disk "../Nova/project-unicorn" {:polylith {:top-namespace ""}})
