@@ -20,7 +20,7 @@
         (when (and (contains? components root-ns)
                    (not= root-ns brick))
           {:ns-path path
-           :depends-on-component root-ns
+           :depends-on-interface root-ns
            :depends-on-ns sub-ns})))))
 
 (defn brick-ns-dependencies [top-ns brick components {:keys [ns-path imports]}]
@@ -31,5 +31,5 @@
 
 (defn dependencies [top-ns brick components brick-imports]
   (let [deps (brick-dependencies top-ns brick components brick-imports)]
-    {:interfaces (vec (sort (set (map :depends-on-component deps))))
+    {:interfaces (vec (sort (set (map :depends-on-interface deps))))
      :illegal-deps (filterv #(not= "interface" (:depends-on-ns %)) deps)}))

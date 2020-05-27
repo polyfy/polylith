@@ -2,7 +2,7 @@
   (:require [clojure.string :as str]
             [polylith.file.interface :as file]
             [polylith.common.aliases :as aliases]
-            [polylith.common.circulardeps :as circular]
+            [polylith.common.validate :as validate]
             [polylith.common.read-components-from-disk :as componentsfromdisk]
             [polylith.common.readbasesfromdisk :as basesfromdisk]))
 
@@ -95,24 +95,20 @@
       top-namespace
       (str top-namespace "."))))
 
-(defn circular-deps-error [circular-deps]
-  (if circular-deps
-    {:errors [(str "Circular dependencies: " (str/join " > " circular-deps))]}
-    {:errors []}))
-
 (defn read-workspace-from-disk [ws-path {:keys [polylith] :as deps}]
   (let [top-ns (top-namespace polylith)
         top-src-dir (str/replace top-ns "." "/")
         component-names (file/directory-paths (str ws-path "/components"))
         components (componentsfromdisk/read-components-from-disk ws-path top-ns top-src-dir component-names)
         bases (basesfromdisk/read-bases-from-disk ws-path top-ns top-src-dir component-names)
-        interfaces (vec (sort (map #(-> % :interface :name) components)))
-        circular-deps (circular/circular-deps interfaces components)]
+        aliases (aliases/polylith-aliases deps)
+        interface-names (vec (sort (map #(-> % :interface :name) components)))
+        messages (validate/error-messages interface-names components bases)]
     {:polylith polylith
      :components components
      :bases bases
-     :aliases (aliases/polylith-aliases deps)
-     :messages (circular-deps-error circular-deps)}))
+     :aliases aliases
+     :messages messages}))
 
 ;(read-workspace-from-disk "." {:polylith {:top-namespace "polylith"}})
 ;(read-workspace-from-disk "../clojure-polylith-realworld-example-app" {:polylith {:top-namespace "clojure.realworld"}})

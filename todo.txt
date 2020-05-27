@@ -1,8 +1,10 @@
 
+- extract out the check for not depending on anything else than interfaces.
+
 - validate polylith map:
-  - checks if more than one component implements the same interface and if they mismatch.
   - check that components and bases don't share the same name,
     add in :messages {:errors []}} in the root of polylith map.
+  - checks if more than one component implements the same interface and if they mismatch.
 
 - calculate changes
   - run the 'git diff' command:
