@@ -31,5 +31,5 @@
 
 (defn dependencies [top-ns brick components brick-imports]
   (let [deps (brick-dependencies top-ns brick components brick-imports)]
-    {:components (vec (sort (set (map :depends-on-component (filterv #(= "interface" (:depends-on-ns %)) deps)))))
+    {:interfaces (vec (sort (set (map :depends-on-component deps))))
      :illegal-deps (filterv #(not= "interface" (:depends-on-ns %)) deps)}))

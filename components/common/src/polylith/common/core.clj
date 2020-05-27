@@ -107,7 +107,7 @@
      :aliases (aliases/polylith-aliases deps)}))
 
 ;(componentsfromdisk/read-components-from-disk "." "polylith." "polylith/" (file/directory-paths "./components"))
-;
+
 ;(read-workspace-from-disk "." {:polylith {:top-namespace "polylith"}})
 ;
 ;(read-workspace-from-disk "../clojure-polylith-realworld-example-app" {:polylith {:top-namespace "clojure.realworld"}})
