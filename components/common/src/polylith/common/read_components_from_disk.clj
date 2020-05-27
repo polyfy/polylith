@@ -53,9 +53,9 @@
     {:type :component
      :name component-name
      :imports imports
-     :dependencies (deps/dependencies top-ns component-name component-names imports)
      :interface {:name interface-name
-                 :declarations declarations-infos}}))
+                 :declarations declarations-infos}
+     :dependencies (deps/dependencies top-ns component-name component-names imports)}))
 
 (defn read-components-from-disk [ws-path top-ns top-src-dir component-names]
   (set (mapv #(read-component-from-disk ws-path top-ns top-src-dir component-names %) component-names)))
