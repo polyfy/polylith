@@ -1,4 +1,7 @@
 
+- dependencies must be calculated *after* all components have been read from disk,
+  and operate on all interfaces, which are known only after everything have been scanned.
+
 - extract out the check for not depending on anything else than interfaces.
 
 - validate polylith map:

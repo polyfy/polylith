@@ -1,7 +1,6 @@
 (ns polylith.common.read-components-from-disk
   (:require [polylith.file.interface :as file]
-            [polylith.common.readimportsfromdisk :as importsfromdisk]
-            [polylith.common.dependencies :as deps]))
+            [polylith.common.readimportsfromdisk :as importsfromdisk]))
 
 (def type->generic-type {'defn 'function
                          'defmacro 'macro})
@@ -39,7 +38,7 @@
                                                          :arity (-> % first count))
                                               code))))})))
 
-(defn read-component-from-disk [ws-path top-ns top-src-dir component-names component-name]
+(defn read-component-from-disk [ws-path top-src-dir component-name]
   (let [component-src-dir (str ws-path "/components/" component-name "/src/" top-src-dir)
         ; Only one folder should be in each components base src folder.
         ; The name of the folder will be the name of the interface,
@@ -54,11 +53,11 @@
      :name component-name
      :imports imports
      :interface {:name interface-name
-                 :declarations declarations-infos}
-     :dependencies (deps/dependencies top-ns component-name component-names imports)}))
+                 :declarations declarations-infos}}))
+     ;:dependencies (deps/dependencies top-ns component-name component-names imports)}))
 
-(defn read-components-from-disk [ws-path top-ns top-src-dir component-names]
-  (set (mapv #(read-component-from-disk ws-path top-ns top-src-dir component-names %) component-names)))
+(defn read-components-from-disk [ws-path top-src-dir component-names]
+  (set (mapv #(read-component-from-disk ws-path top-src-dir %) component-names)))
 
 ;(read-component-from-disk "." "polylith." "polylith/" #{"spec" "cmd" "file" "common"} "common")
 ;(read-components-from-disk "." "polylith." "polylith/" #{"spec" "cmd" "file" "common"})

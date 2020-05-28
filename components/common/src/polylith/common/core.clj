@@ -99,8 +99,8 @@
   (let [top-ns (top-namespace polylith)
         top-src-dir (str/replace top-ns "." "/")
         component-names (file/directory-paths (str ws-path "/components"))
-        components (componentsfromdisk/read-components-from-disk ws-path top-ns top-src-dir component-names)
-        bases (basesfromdisk/read-bases-from-disk ws-path top-ns top-src-dir component-names)
+        components (componentsfromdisk/read-components-from-disk ws-path top-src-dir component-names)
+        bases (basesfromdisk/read-bases-from-disk ws-path top-src-dir)
         aliases (aliases/polylith-aliases deps)
         interface-names (vec (sort (map #(-> % :interface :name) components)))
         messages (validate/error-messages interface-names components bases)]
