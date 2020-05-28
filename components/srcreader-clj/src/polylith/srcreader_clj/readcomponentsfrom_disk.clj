@@ -1,6 +1,6 @@
-(ns polylith.common.read-components-from-disk
+(ns polylith.srcreader-clj.readcomponentsfrom-disk
   (:require [polylith.file.interface :as file]
-            [polylith.common.readimportsfromdisk :as importsfromdisk]))
+            [polylith.srcreader-clj.readimportsfromdisk :as importsfromdisk]))
 
 (def type->generic-type {'defn 'function
                          'defmacro 'macro})
@@ -59,5 +59,4 @@
 (defn read-components-from-disk [ws-path top-src-dir component-names]
   (set (mapv #(read-component-from-disk ws-path top-src-dir %) component-names)))
 
-;(read-component-from-disk "." "polylith." "polylith/" #{"spec" "cmd" "file" "common"} "common")
-;(read-components-from-disk "." "polylith." "polylith/" #{"spec" "cmd" "file" "common"})
+;(read-component-from-disk "." "polylith/" "common")

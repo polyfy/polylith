@@ -1,4 +1,4 @@
-(ns polylith.common.test-dependencies
+(ns polylith.core.test-dependencies
   (:require [clojure.test :refer :all]
             [polylith.common.dependencies :as deps]))
 

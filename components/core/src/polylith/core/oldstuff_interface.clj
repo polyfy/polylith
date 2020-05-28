@@ -1,5 +1,4 @@
-(ns polylith.common.interface
-  (:require [polylith.common.core :as core]))
+(ns polylith.core.oldstuff-interface)
 
 ;(defn all-bases-from-disk
 ;  ([ws-path paths]
@@ -54,6 +53,3 @@
 ;
 ;(defn run-in-jvm [classpath expression dir ex-msg]
 ;  (core/run-in-jvm classpath expression dir ex-msg))
-
-(defn read-workspace-from-disk [ws-path deps]
-  (core/read-workspace-from-disk ws-path deps))

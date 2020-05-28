@@ -11,17 +11,18 @@
 
                                           ; Components
                                           "components/cmd/src"
-                                          "components/common/src"
+                                          "components/core/src"
                                           "components/file/src"
-                                          "components/spec/src"]}
+                                          "components/spec/src"
+                                          "components/srcreader-clj/src"]}
 
             :env.test/core {:extra-paths [; Base
                                           "bases/core/test"
 
                                           ; Components
                                           "components/cmd/test"
-                                          "components/common/test"
+                                          "components/core/test"
                                           "components/file/test"
-                                          "components/spec/test"]
+                                          "components/spec/test"
+                                          "components/srcreader-clj/test"]
                             :extra-deps  {}}}}
-

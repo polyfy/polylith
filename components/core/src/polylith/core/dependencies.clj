@@ -1,4 +1,4 @@
-(ns polylith.common.dependencies
+(ns polylith.core.dependencies
   (:require [clojure.string :as str]))
 
 (defn brick-namespace [namespace]

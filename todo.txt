@@ -4,6 +4,8 @@
 
 - extract out the check for not depending on anything else than interfaces.
 
+- change component name from 'file' to 'disk'?
+
 - validate polylith map:
   - check that components and bases don't share the same name,
     add in :messages {:errors []}} in the root of polylith map.

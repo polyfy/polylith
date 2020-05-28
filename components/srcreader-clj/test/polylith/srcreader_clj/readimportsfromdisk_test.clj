@@ -1,17 +1,6 @@
-(ns readbricksfromdisk-test
+(ns polylith.srcreader-clj.readimportsfromdisk-test
   (:require [clojure.test :refer :all]
-            [polylith.file.interface :as file]
-            [polylith.common.core :as core]
-            [polylith.common.readbricksfromdisk :as readfromdisk]))
-
-(deftest filter-declarations--returns-def-statements
-  (let [code '((ns polylith.spec.interface
-                 (:require [polylith.spec.core :as core]))
-               (defn valid-config? ['config]
-                 (core/valid-config? 'config)))]
-    (is (= '((defn valid-config? ['config]
-               (core/valid-config? 'config)))
-           (readfromdisk/filter-declarations code)))))
+            [polylith.srcreader-clj.readimportsfromdisk :as fromdisk]))
 
 (deftest filter-imports--require-is-first-statement--returns-def-statements
   (let [code '((ns polylith.spec.interface
@@ -21,7 +10,7 @@
                  (core/valid-config? 'config)))]
     (is (= '[clojure.test
              polylith.spec.core]
-           (readfromdisk/filter-imports code)))))
+           (fromdisk/filter-imports code)))))
 
 (deftest filter-imports--require-is-second-statement--returns-def-statements
   (let [code '((ns polylith.spec.interface
@@ -32,7 +21,4 @@
                  (core/valid-config? 'config)))]
     (is (= '[clojure.test
              polylith.spec.core]
-           (readfromdisk/filter-imports code)))))
-
-;(def code (file/read-file "./components/common/src/polylith/common/interface.clj"))
-
+           (fromdisk/filter-imports code)))))

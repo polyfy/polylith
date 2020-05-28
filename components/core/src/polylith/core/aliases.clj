@@ -1,4 +1,4 @@
-(ns polylith.common.aliases
+(ns polylith.core.aliases
   (:require [clojure.string :as str]))
 
 (defn alias->service-or-environment [[k {:keys [extra-paths extra-deps]}] paths deps]
@@ -30,6 +30,6 @@
 
 (def alias-namespaces #{"service" "env"})
 
-(defn polylith-aliases [{:keys [paths deps aliases]}]
+(defn aliases [paths deps aliases]
   (let [polylith-aliases (filter #(contains? alias-namespaces (-> % key namespace)) aliases)]
     (vec (sort-by (juxt :type :name) (map #(alias->service-or-environment % paths deps) polylith-aliases)))))

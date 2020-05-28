@@ -1,7 +1,7 @@
-(ns polylith.common.validate
+(ns polylith.core.validate
   (:require [clojure.string :as str]
             [clojure.set :as set]
-            [polylith.common.circulardeps :as circular]))
+            [polylith.core.circulardeps :as circular]))
 
 (defn circular-deps-messages [interfaces components]
   (let [circular-deps (circular/circular-deps interfaces components)]

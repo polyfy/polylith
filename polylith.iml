@@ -5,13 +5,15 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/bases/core/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/components/cmd/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/components/common/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/components/core/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/components/core/test" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/components/file/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/components/spec/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/components/spec/test" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/components/srcreader-clj/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/components/srcreader-clj/test" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bases/core/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/components/cmd/test" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/components/common/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/components/file/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
     </content>
