@@ -12,4 +12,4 @@
 
 (defn read-bases-from-disk [ws-path top-src-dir]
   (let [base-names (file/directory-paths (str ws-path "/bases"))]
-    (mapv #(read-base-from-disk ws-path top-src-dir %) base-names)))
+    (vec (sort-by :name (map #(read-base-from-disk ws-path top-src-dir %) base-names)))))

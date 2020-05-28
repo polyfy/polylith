@@ -57,6 +57,6 @@
      ;:dependencies (deps/dependencies top-ns component-name component-names imports)}))
 
 (defn read-components-from-disk [ws-path top-src-dir component-names]
-  (set (mapv #(read-component-from-disk ws-path top-src-dir %) component-names)))
+  (vec (sort-by :name (map #(read-component-from-disk ws-path top-src-dir %) component-names))))
 
 ;(read-component-from-disk "." "polylith/" "common")
