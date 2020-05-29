@@ -1,11 +1,4 @@
 
-- dependencies must be calculated *after* all components have been read from disk,
-  and operate on all interfaces, which are known only after everything have been scanned.
-
-- extract out the check for not depending on anything else than interfaces.
-
-- change component name from 'file' to 'disk'?
-
 - validate polylith map:
   - check for illegal imports.
   - check for circular dependencies.
@@ -20,6 +13,8 @@
   - read all :require statements
   - calculate dependencies (to 'component/interface' namespace).
 
+- support both .clj and -cljc files.
+
 - check that we handle all corner cases when reading code (check lein-polylith).
 
 - make sure we can compile the code into command line tool using GraalVM.
@@ -32,6 +27,9 @@
 - when not needed anymore, remove cmd.compile and cmd.test + :aliases.
 
 - to support other languages, each parameter also needs so handle the type.
+
+- find out a way to say that a base are allowed to depend on namespaces other than 'interface'
+  (used as a development environment, but not part of a system).
 
 Questions
 =========

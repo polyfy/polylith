@@ -40,3 +40,11 @@
         errors (filterv identity (map error (filterv #(not= "interface" (:depends-on-ns %)) deps)))]
     {:dependencies interface-deps
      :errors errors}))
+
+(def imports '[{:ns-path "cmd/interface.clj", :imports [polylith.cmd.compile polylith.cmd.test]}
+               {:ns-path "cmd/compile.clj", :imports [clojure.java.io clojure.string polylith.common.interface]}
+               {:ns-path "cmd/validate.clj", :imports []}
+               {:ns-path "cmd/test.clj", :imports [clojure.string polylith.common.interface]}])
+
+;(dependencies "." "cmd" #{"cmd" "core" "file" "spec" "workspace" "workspace_clj"} imports)
+
