@@ -1,9 +1,9 @@
-(ns polylith.srcreader-clj.core
+(ns polylith.workspace-clj.core
   (:require [clojure.string :as str]
             [polylith.file.interface :as file]
             [polylith.core.interface :as core]
-            [polylith.srcreader-clj.readcomponentsfrom-disk :as componentsfromdisk]
-            [polylith.srcreader-clj.readbasesfromdisk :as basesfromdisk]))
+            [polylith.workspace-clj.readcomponentsfrom-disk :as componentsfromdisk]
+            [polylith.workspace-clj.readbasesfromdisk :as basesfromdisk]))
 
 (defn top-namespace [{:keys [top-namespace]}]
   "Makes sure the top namespace ends with a dot (.) - if not empty."
@@ -31,3 +31,9 @@
 ;(read-workspace-from-disk "." {:polylith {:top-namespace "polylith"}})
 ;(read-workspace-from-disk "../clojure-polylith-realworld-example-app" {:polylith {:top-namespace "clojure.realworld"}})
 ;(read-workspace-from-disk "../Nova/project-unicorn" {:polylith {:top-namespace ""}})
+
+(def workspace (read-workspace-from-disk "." {:polylith {:top-namespace "polylith"}}))
+(def components (:components workspace))
+(def interface-names (vec (sort (map #(-> % :interface :name) components))))
+(def component (first components))
+(def dependencies (core/dependencies top-ns component-name component-names imports))

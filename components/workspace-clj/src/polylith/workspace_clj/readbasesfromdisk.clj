@@ -1,5 +1,5 @@
-(ns polylith.srcreader-clj.readbasesfromdisk
-  (:require [polylith.srcreader-clj.readimportsfromdisk :as importsfromdisk]
+(ns polylith.workspace-clj.readbasesfromdisk
+  (:require [polylith.workspace-clj.readimportsfromdisk :as importsfromdisk]
             [polylith.file.interface :as file]))
 
 (defn read-base-from-disk [ws-path top-src-dir base-name]

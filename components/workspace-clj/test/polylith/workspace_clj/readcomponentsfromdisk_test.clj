@@ -1,6 +1,6 @@
-(ns polylith.srcreader-clj.readcomponentsfromdisk-test
+(ns polylith.workspace-clj.readcomponentsfromdisk-test
   (:require [clojure.test :refer :all]
-            [polylith.srcreader-clj.readcomponentsfrom-disk :as fromdisk]))
+            [polylith.workspace-clj.readcomponentsfrom-disk :as fromdisk]))
 
 (deftest filter-declarations--returns-def-statements
   (let [code '((ns polylith.spec.interface

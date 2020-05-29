@@ -14,7 +14,7 @@
                                           "components/core/src"
                                           "components/file/src"
                                           "components/spec/src"
-                                          "components/srcreader-clj/src"]}
+                                          "components/workspace-clj/src"]}
 
             :env.test/core {:extra-paths [; Base
                                           "bases/core/test"
@@ -24,5 +24,5 @@
                                           "components/core/test"
                                           "components/file/test"
                                           "components/spec/test"
-                                          "components/srcreader-clj/test"]
+                                          "components/workspace-clj/test"]
                             :extra-deps  {}}}}

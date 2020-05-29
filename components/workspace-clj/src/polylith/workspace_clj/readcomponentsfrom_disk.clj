@@ -1,6 +1,6 @@
-(ns polylith.srcreader-clj.readcomponentsfrom-disk
+(ns polylith.workspace-clj.readcomponentsfrom-disk
   (:require [polylith.file.interface :as file]
-            [polylith.srcreader-clj.readimportsfromdisk :as importsfromdisk]))
+            [polylith.workspace-clj.readimportsfromdisk :as importsfromdisk]))
 
 (def type->generic-type {'defn 'function
                          'defmacro 'macro})
