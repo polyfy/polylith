@@ -10,8 +10,10 @@
       <sourceFolder url="file://$MODULE_DIR$/components/file/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/components/spec/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/components/spec/test" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/components/srcreader-clj/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/components/srcreader-clj/test" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/components/workspace-clj/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/components/workspace-clj/test" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/components/workspace/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/components/workspace/test" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bases/core/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/components/cmd/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/components/file/test" isTestSource="true" />

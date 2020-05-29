@@ -7,9 +7,10 @@
 - change component name from 'file' to 'disk'?
 
 - validate polylith map:
-  - check that components and bases don't share the same name,
-    add in :messages {:errors []}} in the root of polylith map.
-  - checks if more than one component implements the same interface and if they mismatch.
+  - check for illegal imports.
+  - check for circular dependencies.
+  - check that components and bases don't share the same name.
+  - check if more than one component implements the same interface and if they mismatch.
 
 - calculate changes
   - run the 'git diff' command:
@@ -30,7 +31,7 @@
 
 - when not needed anymore, remove cmd.compile and cmd.test + :aliases.
 
-- to support other languages, each parameter also need so handle the type.
+- to support other languages, each parameter also needs so handle the type.
 
 Questions
 =========

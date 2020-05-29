@@ -14,6 +14,7 @@
                                           "components/core/src"
                                           "components/file/src"
                                           "components/spec/src"
+                                          "components/workspace/src"
                                           "components/workspace-clj/src"]}
 
             :env.test/core {:extra-paths [; Base
@@ -24,5 +25,6 @@
                                           "components/core/test"
                                           "components/file/test"
                                           "components/spec/test"
+                                          "components/workspace/test"
                                           "components/workspace-clj/test"]
                             :extra-deps  {}}}}
