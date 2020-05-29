@@ -53,7 +53,7 @@
 (deftest dependencies--without-errors--returns-dependencies-and-errors
   (is (= {:dependencies ["cmd" "file" "invoice" "user"]
           :errors []}
-         (core/dependencies "polylith." "components" "common" #{"spec" "cmd" "file" "invoice" "user"}
+         (core/dependencies "polylith." "common" #{"spec" "cmd" "file" "invoice" "user"}
                             '[{:ns-path "/common:/readimportsfromdisk.clj"
                                :imports [clojure.string
                                          polylith.file.interface]}
@@ -67,7 +67,7 @@
   (is (= {:dependencies ["cmd" "file" "invoice" "user"]
           :errors       ["Illegal dependency on namespace 'invoice.core' in 'components/common/purchase.clj'. Change to 'invoice.interface' to solve the problem."
                          "Illegal dependency on namespace 'cmd.core' in 'components/common/billing.clj'. Change to 'cmd.interface' to solve the problem."]}
-         (core/dependencies "polylith." "components" "common" #{"spec" "cmd" "file" "invoice" "user"}
+         (core/dependencies "polylith." "common" #{"spec" "cmd" "file" "invoice" "user"}
                             '[{:ns-path "/common/purchase.clj"
                                :imports [clojure.string
                                          polylith.file.interface

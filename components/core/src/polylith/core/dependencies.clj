@@ -29,14 +29,14 @@
 (defn brick-dependencies [top-ns brick interface-names brick-imports]
   (vec (mapcat #(brick-ns-dependencies top-ns brick interface-names %) brick-imports)))
 
-(defn error [{:keys [ns-path depends-on-interface depends-on-ns]} dir]
+(defn error [{:keys [ns-path depends-on-interface depends-on-ns]}]
   (when ns-path
-    (str "Illegal dependency on namespace '" depends-on-interface "." depends-on-ns "' in '" dir ns-path
+    (str "Illegal dependency on namespace '" depends-on-interface "." depends-on-ns "' in 'components" ns-path
          "'. Change to '" depends-on-interface ".interface' to solve the problem.")))
 
-(defn dependencies [top-ns bricks-dir brick interface-names brick-imports]
+(defn dependencies [top-ns brick interface-names brick-imports]
   (let [deps (brick-dependencies top-ns brick interface-names brick-imports)
         interface-deps (vec (sort (set (map :depends-on-interface deps))))
-        errors (filterv identity (map #(error % bricks-dir) (filterv #(not= "interface" (:depends-on-ns %)) deps)))]
+        errors (filterv identity (map error (filterv #(not= "interface" (:depends-on-ns %)) deps)))]
     {:dependencies interface-deps
      :errors errors}))
