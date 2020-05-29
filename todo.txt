@@ -30,6 +30,8 @@
 
 - when not needed anymore, remove cmd.compile and cmd.test + :aliases.
 
+- to support other languages, each parameter also need so handle the type.
+
 Questions
 =========
 - maybe we could support different languages in this way:

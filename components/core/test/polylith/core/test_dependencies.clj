@@ -38,13 +38,20 @@
                                     {:ns-path "/common/abc.clj"
                                      :imports [polylith.user.interface]}]))))
 
-(deftest dependencies
-  (is (= {:interfaces ["cmd" "file" "user"]
-          :illegal-deps [{:ns-path "/common/abc.clj"
-                          :depends-on-interface "cmd"
-                          :depends-on-ns "core"}]}
-         (core/dependencies "polylith." "common" #{"spec" "cmd" "file" "common" "user"}
-                            '[{:ns-path "/common/readimportsfromdisk.clj"
+(deftest dependencies--without-errors--returns-dependencies-and-errors
+  (is (= {:dependencies ["cmd" "file" "user"]
+          :error nil}
+         (core/dependencies "polylith." "components" "common" #{"spec" "cmd" "file" "common" "user"}
+                            '[{:ns-path "/common:/readimportsfromdisk.clj"
+                               :imports [clojure.string polylith.file.interface]}
+                              {:ns-path "/common/abc.clj"
+                               :imports [polylith.user.interface polylith.cmd.interface]}]))))
+
+(deftest dependencies--with-errors--returns-dependencies-and-errors
+  (is (= {:dependencies ["cmd" "file" "user"]
+          :error "Illegal dependency on namespace 'cmd.core' in 'components/common/abc.clj'. Change to 'cmd.interface' to solve the problem."}
+         (core/dependencies "polylith." "components" "common" #{"spec" "cmd" "file" "common" "user"}
+                            '[{:ns-path "/common:/readimportsfromdisk.clj"
                                :imports [clojure.string polylith.file.interface]}
                               {:ns-path "/common/abc.clj"
                                :imports [polylith.user.interface polylith.cmd.core]}]))))
