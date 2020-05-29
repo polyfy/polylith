@@ -7,7 +7,7 @@
       namespace
       (subs namespace 0 idx))))
 
-(defn dependency [top-ns brick path components imported-ns]
+(defn dependency [top-ns brick path interface-names imported-ns]
   (let [import (if (str/starts-with? imported-ns top-ns)
                  (subs imported-ns (count top-ns))
                  imported-ns)
@@ -17,19 +17,19 @@
       nil
       (let [root-ns (subs import 0 idx)
             sub-ns (brick-namespace (subs import (inc idx)))]
-        (when (and (contains? components root-ns)
+        (when (and (contains? interface-names root-ns)
                    (not= root-ns brick))
           {:ns-path path
            :depends-on-interface root-ns
            :depends-on-ns sub-ns})))))
 
-(defn brick-ns-dependencies [top-ns brick components {:keys [ns-path imports]}]
-  (filterv identity (map #(dependency top-ns brick ns-path components (str %)) imports)))
+(defn brick-ns-dependencies [top-ns brick interface-names {:keys [ns-path imports]}]
+  (filterv identity (map #(dependency top-ns brick ns-path interface-names (str %)) imports)))
 
-(defn brick-dependencies [top-ns brick components brick-imports]
-  (vec (mapcat #(brick-ns-dependencies top-ns brick components %) brick-imports)))
+(defn brick-dependencies [top-ns brick interface-names brick-imports]
+  (vec (mapcat #(brick-ns-dependencies top-ns brick interface-names %) brick-imports)))
 
-(defn dependencies [top-ns brick components brick-imports]
-  (let [deps (brick-dependencies top-ns brick components brick-imports)]
+(defn dependencies [top-ns brick interface-names brick-imports]
+  (let [deps (brick-dependencies top-ns brick interface-names brick-imports)]
     {:interfaces (vec (sort (set (map :depends-on-interface deps))))
      :illegal-deps (filterv #(not= "interface" (:depends-on-ns %)) deps)}))
