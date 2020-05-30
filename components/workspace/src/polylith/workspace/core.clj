@@ -13,4 +13,8 @@
 (def component (nth components 5))
 (def imports (:imports component))
 
-(def dependencies (deps/dependencies "clojure.realworld." "profile" interface-names imports))
+(def acomponent (assoc component :messages {:errors ["err1"] :warnings ["w"]}))
+
+(deps/with-dependencies "clojure.realworld." component interface-names)
+(deps/with-dependencies "clojure.realworld." acomponent interface-names)
+

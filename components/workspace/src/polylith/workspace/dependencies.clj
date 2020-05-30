@@ -7,7 +7,7 @@
       namespace
       (subs namespace 0 idx))))
 
-(defn dependency [top-ns brick path interface-names imported-ns]
+(defn dependency [top-ns brick-name path interface-names imported-ns]
   (let [import (if (str/starts-with? imported-ns top-ns)
                  (subs imported-ns (count top-ns))
                  imported-ns)
@@ -18,35 +18,28 @@
       (let [root-ns (subs import 0 idx)
             sub-ns (brick-namespace (subs import (inc idx)))]
         (when (and (contains? interface-names root-ns)
-                   (not= root-ns brick))
+                   (not= root-ns brick-name))
           {:ns-path path
            :depends-on-interface root-ns
            :depends-on-ns sub-ns})))))
 
-(defn brick-ns-dependencies [top-ns brick interface-names {:keys [ns-path imports]}]
-  (filterv identity (map #(dependency top-ns brick ns-path interface-names (str %)) imports)))
+(defn brick-ns-dependencies [top-ns brick-name interface-names {:keys [ns-path imports]}]
+  (filterv identity (map #(dependency top-ns brick-name ns-path interface-names (str %)) imports)))
 
-(defn brick-dependencies [top-ns brick interface-names brick-imports]
-  (vec (mapcat #(brick-ns-dependencies top-ns brick interface-names %) brick-imports)))
+(defn brick-dependencies [top-ns brick-name interface-names brick-imports]
+  (vec (mapcat #(brick-ns-dependencies top-ns brick-name interface-names %) brick-imports)))
 
 (defn error [{:keys [ns-path depends-on-interface depends-on-ns]}]
   (when ns-path
     (str "Illegal dependency on namespace '" depends-on-interface "." depends-on-ns "' in 'components" ns-path
          "'. Change to '" depends-on-interface ".interface' to solve the problem.")))
 
-(defn dependencies [top-ns brick interface-names brick-imports]
-  (let [deps (brick-dependencies top-ns brick (set interface-names) brick-imports)
+(defn with-dependencies [top-ns {:keys [name imports messages] :or {messages {}} :as brick} interface-names]
+  "Take incoming brick (second argument) and return a pimped brick with calculated
+   :dependencies and :messages."
+  (let [deps (brick-dependencies top-ns name (set interface-names) imports)
         interface-deps (vec (sort (set (map :depends-on-interface deps))))
-        errors (filterv identity (map error (filterv #(not= "interface" (:depends-on-ns %)) deps)))]
-    {:dependencies interface-deps
-     :errors errors}))
-
-;(dependencies "polylith." "common" #{"spec" "cmd" "file" "invoice" "user"}
-;              '[{:ns-path "/common/core.clj"
-;                 :imports [clojure.string
-;                           polylith.file.interface]}
-;                {:ns-path "/common/abc.clj"
-;                 :imports [clojure.core
-;                           polylith.user.interface
-;                           polylith.cmd.core
-;                           polylith.invoice.core]}])
+        errors (concat (:errors messages [])
+                       (filterv identity (map error (filterv #(not= "interface" (:depends-on-ns %)) deps))))]
+    (assoc brick :dependencies interface-deps
+                 :messages (assoc messages :errors errors))))
