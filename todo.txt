@@ -1,8 +1,5 @@
 
 - validate polylith map:
-  - check for illegal imports.
-  - check for circular dependencies.
-  - check that components and bases don't share the same name.
   - check if more than one component implements the same interface and if they mismatch.
 
 - calculate changes
@@ -13,7 +10,7 @@
   - read all :require statements
   - calculate dependencies (to 'component/interface' namespace).
 
-- support both .clj and -cljc files.
+- support both .clj and .cljc files.
 
 - check that we handle all corner cases when reading code (check lein-polylith).
 
@@ -34,6 +31,8 @@
 
 - find out a way to say that a base are allowed to depend on namespaces other than 'interface'
   (used as a development environment, but not part of a system).
+  - if that is the case, we should allow dependencies to other namespaces than 'interface'.
+
 
 Questions
 =========
@@ -46,3 +45,10 @@ Questions
 Doc
 ===
 - example of how to add macros in the interface.
+
+
+Differences compared to lein-polylith
+=====================================
+- each service can have its own version of a library, so that service A has
+  version 1.1 of a library, but service B has 1.2 and the development
+  environment has 1.3.

@@ -34,7 +34,7 @@
     (str "Illegal dependency on namespace '" depends-on-interface "." depends-on-ns "' in '" type "s/" ns-path
          "'. Import '" depends-on-interface ".interface' instead to solve the problem.")))
 
-(defn with-dependencies [top-ns {:keys [name imports] :as brick} interface-names]
+(defn with-deps [top-ns {:keys [name imports] :as brick} interface-names]
   "Takes incoming brick and returns a pimped brick with dependencies + errors if any."
   (let [deps (brick-dependencies top-ns name (set interface-names) imports)
         interface-deps (vec (sort (set (map :depends-on-interface deps))))]
