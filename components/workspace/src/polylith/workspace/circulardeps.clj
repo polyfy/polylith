@@ -1,4 +1,4 @@
-(ns polylith.core.circulardeps
+(ns polylith.workspace.circulardeps
   (:require [clojure.string :as str]))
 
 (defn interface-deps [brick]

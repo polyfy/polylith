@@ -1,4 +1,4 @@
-(ns polylith.core.oldstuff-interface)
+(ns polylith.oldstuff.core-interface)
 
 ;(defn all-bases-from-disk
 ;  ([ws-path paths]

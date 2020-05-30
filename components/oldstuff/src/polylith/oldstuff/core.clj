@@ -1,4 +1,4 @@
-(ns polylith.core.oldstuff)
+(ns polylith.oldstuff.core)
 
 ;(def alias-nses #{"service" "env"})
 ;(def alias-nses-with-tests (into alias-nses #{"service.test" "env.test"}))

@@ -22,6 +22,10 @@
 - replace \ with / at the entry point:
   (str/replace top-ns #"\." "/")
 
+- try to figure out how the configuration should look like if the same project
+  contains workspaces for more than one language. Probably one workspace directory
+  per language and a project file in each directory.
+
 - add :allow-non-interface-dependency-to-component-from-base in :polylith.
 
 - when not needed anymore, remove cmd.compile and cmd.test + :aliases.

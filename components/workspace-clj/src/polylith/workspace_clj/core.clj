@@ -1,8 +1,8 @@
 (ns polylith.workspace-clj.core
   (:require [clojure.string :as str]
             [polylith.file.interface :as file]
-            [polylith.core.interface :as core]
-            [polylith.workspace-clj.readcomponentsfrom-disk :as componentsfromdisk]
+            [polylith.workspace-clj.aliases :as alias]
+            [polylith.workspace-clj.readcomponentsfromdisk :as componentsfromdisk]
             [polylith.workspace-clj.readbasesfromdisk :as basesfromdisk]))
 
 (defn top-namespace [{:keys [top-namespace]}]
@@ -13,18 +13,22 @@
       top-namespace
       (str top-namespace "."))))
 
-(defn read-workspace-from-disk [ws-path {:keys [polylith] :as config}]
-  (let [top-ns (top-namespace polylith)
-        top-src-dir (str/replace top-ns "." "/")
-        component-names (file/directory-paths (str ws-path "/components"))
-        components (componentsfromdisk/read-components-from-disk ws-path top-src-dir component-names)
-        bases (basesfromdisk/read-bases-from-disk ws-path top-src-dir)
-        aliases (core/aliases config)]
-        ;interface-names (vec (sort (map #(-> % :interface :name) components)))]
-    ;messages (validate/error-messages interface-names components bases)]
-    {:polylith polylith
-     :components components
-     :bases bases
-     :aliases aliases}))
+(defn read-workspace-from-disk
+  ([ws-path]
+   (let [config (read-string (slurp (str ws-path "/deps.edn")))]
+     (read-workspace-from-disk ws-path config)))
+  ([ws-path {:keys [polylith] :as config}]
+   (let [top-ns (top-namespace polylith)
+         top-src-dir (str/replace top-ns "." "/")
+         component-names (file/directory-paths (str ws-path "/components"))
+         components (componentsfromdisk/read-components-from-disk ws-path top-src-dir component-names)
+         bases (basesfromdisk/read-bases-from-disk ws-path top-src-dir)
+         aliases (alias/aliases config)]
+         ;interface-names (vec (sort (map #(-> % :interface :name) components)))]
+     ;messages (validate/error-messages interface-names components bases)]
+     {:polylith polylith
+      :components components
+      :bases bases
+      :aliases aliases})))
 ;:messages messages}))
 

@@ -1,4 +1,4 @@
-(ns polylith.core.validate
+(ns polylith.workspace.validate
   (:require [clojure.string :as str]
             [clojure.set :as set]
             [polylith.core.circulardeps :as circular]))

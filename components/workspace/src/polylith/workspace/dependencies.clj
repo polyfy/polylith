@@ -1,4 +1,4 @@
-(ns polylith.core.dependencies
+(ns polylith.workspace.dependencies
   (:require [clojure.string :as str]))
 
 (defn brick-namespace [namespace]
@@ -35,16 +35,18 @@
          "'. Change to '" depends-on-interface ".interface' to solve the problem.")))
 
 (defn dependencies [top-ns brick interface-names brick-imports]
-  (let [deps (brick-dependencies top-ns brick interface-names brick-imports)
+  (let [deps (brick-dependencies top-ns brick (set interface-names) brick-imports)
         interface-deps (vec (sort (set (map :depends-on-interface deps))))
         errors (filterv identity (map error (filterv #(not= "interface" (:depends-on-ns %)) deps)))]
     {:dependencies interface-deps
      :errors errors}))
 
-(def imports '[{:ns-path "cmd/interface.clj", :imports [polylith.cmd.compile polylith.cmd.test]}
-               {:ns-path "cmd/compile.clj", :imports [clojure.java.io clojure.string polylith.common.interface]}
-               {:ns-path "cmd/validate.clj", :imports []}
-               {:ns-path "cmd/test.clj", :imports [clojure.string polylith.common.interface]}])
-
-;(dependencies "." "cmd" #{"cmd" "core" "file" "spec" "workspace" "workspace_clj"} imports)
-
+;(dependencies "polylith." "common" #{"spec" "cmd" "file" "invoice" "user"}
+;              '[{:ns-path "/common/core.clj"
+;                 :imports [clojure.string
+;                           polylith.file.interface]}
+;                {:ns-path "/common/abc.clj"
+;                 :imports [clojure.core
+;                           polylith.user.interface
+;                           polylith.cmd.core
+;                           polylith.invoice.core]}])

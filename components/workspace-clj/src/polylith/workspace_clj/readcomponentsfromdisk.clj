@@ -1,4 +1,4 @@
-(ns polylith.workspace-clj.readcomponentsfrom-disk
+(ns polylith.workspace-clj.readcomponentsfromdisk
   (:require [polylith.file.interface :as file]
             [polylith.workspace-clj.readimportsfromdisk :as importsfromdisk]))
 
