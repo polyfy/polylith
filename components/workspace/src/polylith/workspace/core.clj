@@ -5,12 +5,9 @@
             [polylith.workspace.shared-names :as snames]
             [polylith.shared.interface :as shared]))
 
-;(ws-clj/read-workspace-from-disk "." {:polylith {:top-namespace "polylith"}})
-;(ws-clj/read-workspace-from-disk "../clojure-polylith-realworld-example-app")
-;(ws-clj/read-workspace-from-disk "../Nova/project-unicorn" {:polylith {:top-namespace ""}})
-
 ;(def workspace (ws-clj/read-workspace-from-disk "../clojure-polylith-realworld-example-app"))
 ;(def workspace (ws-clj/read-workspace-from-disk "."))
+(def workspace (ws-clj/read-workspace-from-disk "../Nova/project-unicorn" {:polylith {:top-namespace ""}}))
 ;(def components (:components workspace))
 ;(def bases (:bases workspace))
 ;(def interface-names (vec (sort (map #(-> % :interface :name) components))))
@@ -27,12 +24,12 @@
         interface-names (vec (sort (map #(-> % :interface :name) components)))
         pimped-components (mapv #(deps/with-deps top-ns % interface-names) components)
         pimped-bases (mapv #(deps/with-deps top-ns % interface-names) bases)
-        errors (vec (errors top-ns pimped-components bases interface-names))]
+        errors (vec (sort (errors top-ns pimped-components bases interface-names)))]
     (assoc workspace :components pimped-components
                      :bases pimped-bases
                      :messages {:errors errors})))
 
-;(pimp-workspace workspace)
+(pimp-workspace workspace)
 
 ;(snames/errors interface-names components bases)
 
