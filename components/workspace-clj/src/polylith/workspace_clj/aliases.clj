@@ -6,7 +6,7 @@
         name (name k)
         all-paths (into #{} (concat paths extra-paths))
         all-deps (merge deps extra-deps)
-        components (sort-by :name (into #{} (map #(hash-map :type :component
+        components (sort-by :name (into #{} (map #(hash-map :type "component"
                                                             :name (-> %
                                                                       (str/replace #"components/" "")
                                                                       (str/replace #"/src" "")

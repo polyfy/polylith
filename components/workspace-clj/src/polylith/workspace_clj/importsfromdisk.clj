@@ -1,4 +1,4 @@
-(ns polylith.workspace-clj.readimportsfromdisk
+(ns polylith.workspace-clj.importsfromdisk
   (:require [polylith.file.interface :as file]
             [clojure.string :as str]))
 

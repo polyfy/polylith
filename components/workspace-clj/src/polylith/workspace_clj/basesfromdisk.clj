@@ -1,5 +1,5 @@
-(ns polylith.workspace-clj.readbasesfromdisk
-  (:require [polylith.workspace-clj.readimportsfromdisk :as importsfromdisk]
+(ns polylith.workspace-clj.basesfromdisk
+  (:require [polylith.workspace-clj.importsfromdisk :as importsfromdisk]
             [polylith.file.interface :as file]))
 
 (defn read-base-from-disk [ws-path top-src-dir base-name]
@@ -8,7 +8,6 @@
     {:type "base"
      :name base-name
      :imports imports}))
-     ;:dependencies (deps/dependencies top-ns base-name component-names imports)}))
 
 (defn read-bases-from-disk [ws-path top-src-dir]
   (let [base-names (file/directory-paths (str ws-path "/bases"))]

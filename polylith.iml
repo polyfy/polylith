@@ -6,6 +6,8 @@
       <sourceFolder url="file://$MODULE_DIR$/bases/core/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/components/cmd/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/components/file/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/components/shared/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/components/shared/test" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/components/spec/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/components/spec/test" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/components/workspace-clj/src" isTestSource="false" />

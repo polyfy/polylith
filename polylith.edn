@@ -1,6 +1,6 @@
 {:polylith {:top-namespace "clojure.realworld"},
  :components
- ({:type :component,
+ ({:type "component",
    :name "article",
    :interface
    {:name "article",
@@ -33,10 +33,10 @@
      {:type defn,
       :name update-article!,
       :overloads ({:args [auth-user slug article-input], :arity 3})})}}
-  {:type :component,
+  {:type "component",
    :name "build-tools",
    :interface {:name "build_tools", :declarations ()}}
-  {:type :component,
+  {:type "component",
    :name "comment",
    :interface
    {:name "comment",
@@ -52,7 +52,7 @@
      {:type defn,
       :name delete-comment!,
       :overloads ({:args [auth-user id], :arity 2})})}}
-  {:type :component,
+  {:type "component",
    :name "database",
    :interface
    {:name "database",
@@ -68,13 +68,13 @@
      {:type defn,
       :name valid-schema?,
       :overloads ({:args [db], :arity 1})})}}
-  {:type :component,
+  {:type "component",
    :name "log",
    :interface
    {:name "log",
     :declarations
     ({:type defn, :name init, :overloads ({:args [], :arity 0})})}}
-  {:type :component,
+  {:type "component",
    :name "profile",
    :interface
    {:name "profile",
@@ -89,7 +89,7 @@
      {:type defn,
       :name unfollow!,
       :overloads ({:args [auth-user username], :arity 2})})}}
-  {:type :component,
+  {:type "component",
    :name "spec",
    :interface
    {:name "spec",
@@ -100,13 +100,13 @@
      {:type def, :name slug?}
      {:type def, :name uri-string?}
      {:type def, :name username?})}}
-  {:type :component,
+  {:type "component",
    :name "tag",
    :interface
    {:name "tag",
     :declarations
     ({:type defn, :name all-tags, :overloads ({:args [], :arity 0})})}}
-  {:type :component,
+  {:type "component",
    :name "user",
    :interface
    {:name "user",
@@ -134,7 +134,7 @@
  :aliases
  ({:type :env,
    :name "build-tools",
-   :components ({:name "build-tools", :type :component}),
+   :components ({:name "build-tools", :type "component"}),
    :bases (),
    :extra-paths (),
    :dependencies
@@ -145,14 +145,14 @@
   {:type :service,
    :name "realworld-backend",
    :components
-   ({:name "article", :type :component}
-    {:name "comment", :type :component}
-    {:name "database", :type :component}
-    {:name "log", :type :component}
-    {:name "profile", :type :component}
-    {:name "spec", :type :component}
-    {:name "tag", :type :component}
-    {:name "user", :type :component}),
+   ({:name "article", :type "component"}
+    {:name "comment", :type "component"}
+    {:name "database", :type "component"}
+    {:name "log", :type "component"}
+    {:name "profile", :type "component"}
+    {:name "spec", :type "component"}
+    {:name "tag", :type "component"}
+    {:name "user", :type "component"}),
    :bases ({:name "rest-api", :type :base}),
    :extra-paths (),
    :dependencies

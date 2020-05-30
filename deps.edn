@@ -12,6 +12,7 @@
                                           ; Components
                                           "components/cmd/src"
                                           "components/file/src"
+                                          "components/shared/src"
                                           "components/spec/src"
                                           "components/workspace/src"
                                           "components/workspace-clj/src"]}
@@ -22,6 +23,7 @@
                                           ; Components
                                           "components/cmd/test"
                                           "components/file/test"
+                                          "components/shared/test"
                                           "components/spec/test"
                                           "components/workspace/test"
                                           "components/workspace-clj/test"]

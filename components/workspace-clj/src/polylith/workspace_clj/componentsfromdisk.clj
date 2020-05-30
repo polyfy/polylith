@@ -1,6 +1,6 @@
-(ns polylith.workspace-clj.readcomponentsfromdisk
+(ns polylith.workspace-clj.componentsfromdisk
   (:require [polylith.file.interface :as file]
-            [polylith.workspace-clj.readimportsfromdisk :as importsfromdisk]))
+            [polylith.workspace-clj.importsfromdisk :as importsfromdisk]))
 
 (def type->generic-type {'defn 'function
                          'defmacro 'macro})
@@ -49,14 +49,11 @@
         imports (importsfromdisk/all-imports component-src-dir)
         declarations (filter-declarations interface-file-content)
         declarations-infos (vec (sort-by (juxt :type :name) (map ->declarations-info declarations)))]
-    {:type :component
+    {:type "component"
      :name component-name
      :imports imports
      :interface {:name interface-name
                  :declarations declarations-infos}}))
-     ;:dependencies (deps/dependencies top-ns component-name component-names imports)}))
 
 (defn read-components-from-disk [ws-path top-src-dir component-names]
   (vec (sort-by :name (map #(read-component-from-disk ws-path top-src-dir %) component-names))))
-
-;(read-component-from-disk "." "polylith/" "common")

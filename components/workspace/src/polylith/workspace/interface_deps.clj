@@ -1,4 +1,4 @@
-(ns polylith.workspace.dependencies
+(ns polylith.workspace.interface-deps
   (:require [clojure.string :as str]))
 
 (defn brick-namespace [namespace]
@@ -29,17 +29,19 @@
 (defn brick-dependencies [top-ns brick-name interface-names brick-imports]
   (vec (mapcat #(brick-ns-dependencies top-ns brick-name interface-names %) brick-imports)))
 
-(defn error [{:keys [ns-path depends-on-interface depends-on-ns]}]
+(defn error [{:keys [ns-path depends-on-interface depends-on-ns]} type]
   (when ns-path
-    (str "Illegal dependency on namespace '" depends-on-interface "." depends-on-ns "' in 'components/" ns-path
+    (str "Illegal dependency on namespace '" depends-on-interface "." depends-on-ns "' in '" type "s/" ns-path
          "'. Import '" depends-on-interface ".interface' instead to solve the problem.")))
 
-(defn with-dependencies [top-ns {:keys [name imports messages] :or {messages {}} :as brick} interface-names]
-  "Take incoming brick (second argument) and return a pimped brick with calculated
-   :dependencies and :messages."
+(defn with-dependencies [top-ns {:keys [name imports] :as brick} interface-names]
+  "Takes incoming brick and returns a pimped brick with dependencies + errors if any."
   (let [deps (brick-dependencies top-ns name (set interface-names) imports)
-        interface-deps (vec (sort (set (map :depends-on-interface deps))))
-        errors (concat (:errors messages [])
-                       (filterv identity (map error (filterv #(not= "interface" (:depends-on-ns %)) deps))))]
-    (assoc brick :dependencies interface-deps
-                 :messages (assoc messages :errors errors))))
+        interface-deps (vec (sort (set (map :depends-on-interface deps))))]
+    (assoc brick :dependencies interface-deps)))
+
+(defn errors [top-ns {:keys [name type imports]} interface-names errors]
+  (let [deps (brick-dependencies top-ns name (set interface-names) imports)
+        new-errors (filterv identity (map #(error % type)
+                                          (filterv #(not= "interface" (:depends-on-ns %)) deps)))]
+     (vec (concat errors new-errors))))
