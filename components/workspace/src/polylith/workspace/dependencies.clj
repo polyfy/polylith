@@ -31,8 +31,8 @@
 
 (defn error [{:keys [ns-path depends-on-interface depends-on-ns]}]
   (when ns-path
-    (str "Illegal dependency on namespace '" depends-on-interface "." depends-on-ns "' in 'components" ns-path
-         "'. Change to '" depends-on-interface ".interface' to solve the problem.")))
+    (str "Illegal dependency on namespace '" depends-on-interface "." depends-on-ns "' in 'components/" ns-path
+         "'. Import '" depends-on-interface ".interface' instead to solve the problem.")))
 
 (defn with-dependencies [top-ns {:keys [name imports messages] :or {messages {}} :as brick} interface-names]
   "Take incoming brick (second argument) and return a pimped brick with calculated
