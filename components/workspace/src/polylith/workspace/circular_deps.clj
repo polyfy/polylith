@@ -16,6 +16,7 @@
         first second)))
 
 (defn errors [interface-names components]
+  "Makes sure there are no cirkular dependencies between components."
   (let [deps-chain (first (sort-by count
                                    (filter identity
                                            (map #(component-circular-deps % components)
