@@ -1,4 +1,4 @@
-(ns polylith.workspace.interfaces-defined
+(ns polylith.workspace.validate.interfaces-defined
   (:require [clojure.set :as set]
             [clojure.string :as str]))
 

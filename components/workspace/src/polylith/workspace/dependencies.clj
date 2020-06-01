@@ -1,4 +1,4 @@
-(ns polylith.workspace.interface-deps
+(ns polylith.workspace.dependencies
   (:require [clojure.string :as str]))
 
 (defn brick-namespace [namespace]
@@ -29,22 +29,9 @@
 (defn brick-dependencies [top-ns interface-name interface-names brick-imports]
   (vec (mapcat #(brick-ns-dependencies top-ns interface-name interface-names %) brick-imports)))
 
-(defn error-message [{:keys [ns-path depends-on-interface depends-on-ns]} type]
-  (when ns-path
-    (str "Illegal dependency on namespace '" depends-on-interface "." depends-on-ns "' in '" type "s/" ns-path
-         "'. Import '" depends-on-interface ".interface' instead to solve the problem.")))
-
-(defn with-deps [top-ns {:keys [interface imports] :as brick} interface-names]
+(defn with-deps [top-ns interface-names {:keys [interface imports] :as brick}]
   "Takes incoming brick and returns a pimped brick with dependencies."
   (let [interface-name (:name interface)
         deps (brick-dependencies top-ns interface-name (set interface-names) imports)
         interface-deps (vec (sort (set (map :depends-on-interface deps))))]
     (assoc brick :dependencies interface-deps)))
-
-(defn errors [top-ns {:keys [interface type imports]} interface-names errors]
-  "Checks for dependencies to component interface namespaces other than 'interface'."
-  (let [interface-name (:name interface)
-        deps (brick-dependencies top-ns interface-name (set interface-names) imports)
-        error-messages (filterv identity (map #(error-message % type)
-                                              (filterv #(not= "interface" (:depends-on-ns %)) deps)))]
-    (vec (concat errors error-messages))))

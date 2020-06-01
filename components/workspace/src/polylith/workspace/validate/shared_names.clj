@@ -1,4 +1,4 @@
-(ns polylith.workspace.shared-names
+(ns polylith.workspace.validate.shared-names
   (:require [clojure.set :as set]
             [clojure.string :as str]))
 

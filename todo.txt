@@ -1,6 +1,9 @@
 
+- pimp components with :contract?.
+
 - validate polylith map:
   - check if more than one component implements the same interface and if they mismatch.
+    - determine which components are the contract.
 
 - calculate changes
   - run the 'git diff' command:
@@ -10,37 +13,38 @@
   - read all :require statements
   - calculate dependencies (to 'component/interface' namespace).
 
+- use sorted set for interface-names + remove explicit set commands.
+
 - support both .clj and .cljc files.
+
+- use only the prefix :env and :env.test in profiles, stop using :service
+  and :service.test as now. :env.test would be test environments.
+  Also support :env.prod and averything that starts with ":env.".
 
 - check that we handle all corner cases when reading code (check lein-polylith).
 
-- make sure we can compile the code into command line tool using GraalVM.
+- make sure we can compile the code into a command line tool using GraalVM.
 
 - replace \ with / at the entry point:
   (str/replace top-ns #"\." "/")
 
-- try to figure out how the configuration should look like if the same project
-  contains workspaces for more than one language. Probably one workspace directory
-  per language and a project file in each directory.
-
-- add :allow-non-interface-dependency-to-component-from-base in :polylith.
-
-- when not needed anymore, remove cmd.compile and cmd.test + :aliases.
-
 - to support other languages, each parameter also needs so handle the type.
 
-- find out a way to say that a base are allowed to depend on namespaces other than 'interface'
-  (used as a development environment, but not part of a system).
-  - if that is the case, we should allow dependencies to other namespaces than 'interface'.
-
+- eventually: create a migration tool that migrates lein-polylith projects to
+  polylith projects.
 
 Questions
 =========
-- maybe we could support different languages in this way:
-  - parse the code as it is
-  - have a "transcribe-map" that tells what keywords are functions and who are just data.
-    - this will allow us to show the real name of e.g. functions in visualisation tools
-      and at the same time show functions and data in different way, e.g. in different colors.
+- if each component has its environment, then we could calculate the list of
+  libraries that is needed for each environment.
+- If more than one component share the same interface, one of them will serve as
+  interface. If one of them has the same name as the interface, it will be that
+  component. If there is only one component with that interface, it will be that
+  component. If two or more components share the same interface but none of them
+  has the same name as the interface, then these components should be defined
+  in the {:polylith :components} key, e.g.:
+    :components {article {:interface? true
+                          :libraries [clj-jwt crypto-password]}}}
 
 Doc
 ===
@@ -52,3 +56,5 @@ Differences compared to lein-polylith
 - each service can have its own version of a library, so that service A has
   version 1.1 of a library, but service B has 1.2 and the development
   environment has 1.3.
+
+
