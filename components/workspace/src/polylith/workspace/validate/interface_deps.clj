@@ -4,7 +4,7 @@
 (defn error-message [{:keys [ns-path depends-on-interface depends-on-ns]} type]
   (when ns-path
     (str "Illegal dependency on namespace '" depends-on-interface "." depends-on-ns "' in '" type "s/" ns-path
-         "'. Import '" depends-on-interface ".interface' instead to solve the problem.")))
+         "'. Use '" depends-on-interface ".interface' instead to solve the problem.")))
 
 (defn brick-errors [top-ns {:keys [interface type imports]} interface-names errors]
   "Checks for dependencies to component interface namespaces other than 'interface'."

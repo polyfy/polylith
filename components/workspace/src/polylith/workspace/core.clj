@@ -18,7 +18,7 @@
         interface-names (vec (sort (set (map #(-> % :interface :name) components))))
         pimped-components (mapv #(deps/with-deps top-ns interface-names %) components)
         pimped-bases (mapv #(deps/with-deps top-ns interface-names %) bases)
-        errors (vec (sort (validate/errors top-ns interface-names pimped-components bases)))]
+        errors (validate/errors top-ns interface-names pimped-components bases)]
     (assoc workspace :components pimped-components
                      :bases pimped-bases
                      :messages {:errors errors})))
