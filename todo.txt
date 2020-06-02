@@ -1,9 +1,12 @@
 
-- pimp components with :contract?.
-
 - validate polylith map:
   - check if more than one component implements the same interface and if they mismatch.
     - determine which components are the contract.
+
+
+- add check (error):
+  - check if any overloaded function is duplicated, e.g. have the same
+    signature, e.g.: [a b] and [x y].
 
 - calculate changes
   - run the 'git diff' command:

@@ -1,6 +1,7 @@
 (ns polylith.workspace.core
   (:require [polylith.workspace-clj.interface :as ws-clj]
             [polylith.workspace.dependencies :as deps]
+            [polylith.workspace.interfaces :as ifcs]
             [polylith.workspace.validate.validate :as validate]
             [polylith.shared.interface :as shared]))
 
@@ -18,8 +19,10 @@
         interface-names (vec (sort (set (map #(-> % :interface :name) components))))
         pimped-components (mapv #(deps/with-deps top-ns interface-names %) components)
         pimped-bases (mapv #(deps/with-deps top-ns interface-names %) bases)
+        interfaces (ifcs/interfaces components)
         errors (validate/errors top-ns interface-names pimped-components bases)]
-    (assoc workspace :components pimped-components
+    (assoc workspace :interfaces interfaces
+                     :components pimped-components
                      :bases pimped-bases
                      :messages {:errors errors})))
 

@@ -2,8 +2,9 @@
   (:require [polylith.file.interface :as file]
             [polylith.workspace-clj.importsfromdisk :as importsfromdisk]))
 
-(def type->generic-type {'defn 'function
-                         'defmacro 'macro})
+(def ->generic-type {'def 'data
+                     'defn 'function
+                     'defmacro 'macro})
 
 (defn definition? [code]
   (if (list? code)
@@ -18,25 +19,25 @@
            ; Drops the namespace declaration on top of the file
            (drop 1 statements)))
 
-(defn ->declarations-info [statement]
-  "Takes a statement (def, defn or defmacro) from source code,
-   and returns a vector of information about those statements."
-  (let [type (first statement)
+(defn ->function [type name code]
+  {:type type
+   :name name
+   :signature (first code)})
+
+(defn ->function-declarations [statement]
+  "Takes a statement (def, defn or defmacro) from source code
+   and returns a vector of function declarations."
+  (let [type (-> statement first ->generic-type)
         name (second statement)
         code (drop-while #(not (or (list? %)
                                    (vector? %)))
                          statement)]
-    (if (= 'def type)
-      {:type 'data
-       :name name}
-      {:type (type->generic-type type)
-       :name name
-       :overloads (if (vector? (first code))
-                    (vector {:args  (first code)
-                             :arity (-> code first count)})
-                    (vec (sort-by :arity (map #(hash-map :args (first %)
-                                                         :arity (-> % first count))
-                                              code))))})))
+    (if (= 'data type)
+      [{:type type
+        :name name}]
+      (if (-> code first vector?)
+        [(->function type name code)]
+        (mapv #(->function type name %) code)))))
 
 (defn read-component-from-disk [ws-path top-src-dir component-name]
   (let [component-src-dir (str ws-path "/components/" component-name "/src/" top-src-dir)
@@ -48,12 +49,13 @@
         interface-file-content (file/read-file (str src-dir "/interface.clj"))
         imports (importsfromdisk/all-imports component-src-dir)
         declarations (filter-declarations interface-file-content)
-        declarations-infos (vec (sort-by (juxt :type :name) (map ->declarations-info declarations)))]
+        function-declarations (vec (sort-by (juxt :type :name :signature)
+                                            (mapcat ->function-declarations declarations)))]
     {:type "component"
      :name component-name
      :imports imports
      :interface {:name interface-name
-                 :declarations declarations-infos}}))
+                 :declarations function-declarations}}))
 
 (defn read-components-from-disk [ws-path top-src-dir component-names]
   (vec (sort-by :name (map #(read-component-from-disk ws-path top-src-dir %) component-names))))
