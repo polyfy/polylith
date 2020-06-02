@@ -16,10 +16,11 @@
 
 (defn pimp-workspace [{:keys [polylith components bases] :as workspace}]
   (let [top-ns (shared/top-namespace (:top-namespace polylith))
-        interface-names (vec (sort (set (map #(-> % :interface :name) components))))
+        interfaces (ifcs/interfaces components)
+        interface-names (mapv :name interfaces)
         pimped-components (mapv #(deps/with-deps top-ns interface-names %) components)
         pimped-bases (mapv #(deps/with-deps top-ns interface-names %) bases)
-        interfaces (ifcs/interfaces components)
+
         errors (validate/errors top-ns interface-names pimped-components bases)]
     (assoc workspace :interfaces interfaces
                      :components pimped-components
@@ -27,6 +28,4 @@
                      :messages {:errors errors})))
 
 (pimp-workspace workspace)
-
-;(snames/errors interface-names components bases)
 
