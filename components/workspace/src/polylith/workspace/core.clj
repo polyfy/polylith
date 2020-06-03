@@ -28,4 +28,3 @@
                      :messages {:errors errors})))
 
 (pimp-workspace workspace)
-

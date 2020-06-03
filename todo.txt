@@ -1,7 +1,11 @@
 
 - validate polylith map:
-  - check if more than one component implements the same interface and if they mismatch.
-    - determine which components are the contract.
+  - check for mismatching signature where the functino name and number of parameters are the same
+    but with different parameter names.
+  - check for unmatched functions, use set operation.
+    - two types of error messages, one where no matching function name + arity can be found
+      and one where it can be found. Also tell which components that implements the
+      mismatched function.
 
 
 - add check (error):
