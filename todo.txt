@@ -1,6 +1,4 @@
 
-- base the calculations of circular dependencies on interface dependencies.
-
 - validate workspace:
   - check for unimplemented interfaces.
 

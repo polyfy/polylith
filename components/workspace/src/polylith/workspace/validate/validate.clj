@@ -1,14 +1,14 @@
 (ns polylith.workspace.validate.validate
-  (:require [polylith.workspace.validate.none-interface-deps :as none-interface-deps]
+  (:require [polylith.workspace.validate.illegal-namespace-deps :as illegal-namespace-deps]
             [polylith.workspace.validate.circular-deps :as circular-deps]
             [polylith.workspace.validate.illegal-name-sharing :as illegal-name-sharing]
-            [polylith.workspace.validate.incomplete-contracts :as incomplete-contracts]))
+            [polylith.workspace.validate.illegal-signatures :as illegal-signatures]))
 
 (defn warnings [interfaces components]
-  (vec (sort (set (incomplete-contracts/warnings interfaces components)))))
+  (vec (sort (set (illegal-signatures/warnings interfaces components)))))
 
 (defn errors [top-ns interface-names interfaces components bases]
-  (vec (sort (set (concat (none-interface-deps/errors top-ns interface-names components bases)
+  (vec (sort (set (concat (illegal-namespace-deps/errors top-ns interface-names components bases)
                           (circular-deps/errors interfaces)
                           (illegal-name-sharing/errors interface-names components bases)
-                          (incomplete-contracts/errors components))))))
+                          (illegal-signatures/errors components))))))
