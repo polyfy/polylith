@@ -1,5 +1,5 @@
 
-- remove use of top-ns in validate/errors by using pimped-workspace.
+- base the calculations of circular dependencies on interface dependencies.
 
 - validate workspace:
   - check for unimplemented interfaces.
@@ -40,16 +40,6 @@ Questions
   - store the reset of the aliases as something generic?
 - only functions in interface.clj is part of the contract, but we allow dependencies
   to e.g. interface.spec which will show up as a dependency.
-- if each component has its environment, then we could calculate the list of
-  libraries that is needed for each environment.
-- If more than one component share the same interface, one of them will serve as
-  interface. If one of them has the same name as the interface, it will be that
-  component. If there is only one component with that interface, it will be that
-  component. If two or more components share the same interface but none of them
-  has the same name as the interface, then these components should be defined
-  in the {:polylith :components} key, e.g.:
-    :components {article {:interface? true
-                          :libraries [clj-jwt crypto-password]}}}
 
 Doc
 ===

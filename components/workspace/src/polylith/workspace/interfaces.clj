@@ -4,8 +4,8 @@
   (assoc interface :implemented-by [name]))
 
 (defn ->multi-interface [[interface-name components]]
-  {:type "interface"
-   :name interface-name
+  {:name interface-name
+   :type "interface"
    :declarations (vec (sort-by (juxt :type :name :signature)
                                (set (mapcat #(-> % :interface :declarations) components))))
    :implemented-by (vec (sort (map :name components)))})

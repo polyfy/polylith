@@ -6,25 +6,26 @@
         name (name k)
         all-paths (into #{} (concat paths extra-paths))
         all-deps (merge deps extra-deps)
-        components (sort-by :name (into #{} (map #(hash-map :type "component"
-                                                            :name (-> %
-                                                                      (str/replace #"components/" "")
-                                                                      (str/replace #"/src" "")
-                                                                      (str/replace #"/resources" "")))
-                                                 (filter #(str/starts-with? % "components/") all-paths))))
-        bases (sort-by :name (into #{} (map #(hash-map :type :base
-                                                       :name (-> %
-                                                                 (str/replace #"bases/" "")
-                                                                 (str/replace #"/src" "")
-                                                                 (str/replace #"/resources" "")))
-                                            (filter #(str/starts-with? % "bases/") all-paths))))
+        components (into #{} (map #(hash-map :name (-> %
+                                                       (str/replace #"components/" "")
+                                                       (str/replace #"/src" "")
+                                                       (str/replace #"/resources" ""))
+                                             :type "component")
+
+                                  (filter #(str/starts-with? % "components/") all-paths)))
+        bases (into #{} (map #(hash-map :name (-> %
+                                                  (str/replace #"bases/" "")
+                                                  (str/replace #"/src" "")
+                                                  (str/replace #"/resources" ""))
+                                        :type :base)
+                             (filter #(str/starts-with? % "bases/") all-paths)))
         extra-paths (sort (into #{} (filter #(and (not (str/starts-with? % "components/"))
                                                   (not (str/starts-with? % "bases/")))
                                             all-paths)))]
     {:type         type
      :name         name
-     :components   (vec components)
-     :bases        (vec bases)
+     :components   (vec (sort-by :name components))
+     :bases        (vec (sort-by :name bases))
      :extra-paths  (vec extra-paths)
      :dependencies all-deps}))
 

@@ -20,8 +20,8 @@
            (drop 1 statements)))
 
 (defn ->function [type name code]
-  {:type type
-   :name name
+  {:name name
+   :type type
    :signature (first code)})
 
 (defn ->function-declarations [statement]
@@ -51,8 +51,8 @@
         declarations (filter-declarations interface-file-content)
         function-declarations (vec (sort-by (juxt :type :name :signature)
                                             (mapcat ->function-declarations declarations)))]
-    {:type "component"
-     :name component-name
+    {:name component-name
+     :type "component"
      :imports imports
      :interface {:name interface-name
                  :declarations function-declarations}}))

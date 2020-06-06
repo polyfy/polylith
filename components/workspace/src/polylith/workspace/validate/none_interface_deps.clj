@@ -1,5 +1,5 @@
-(ns polylith.workspace.validate.interface-deps
-  (:require [polylith.workspace.dependencies :as deps]))
+(ns polylith.workspace.validate.none-interface-deps
+  (:require [polylith.workspace.deps.dependencies :as deps]))
 
 (defn error-message [{:keys [ns-path depends-on-interface depends-on-ns]} type]
   (when ns-path

@@ -1,6 +1,7 @@
 (ns polylith.workspace.core
   (:require [polylith.workspace-clj.interface :as ws-clojure]
-            [polylith.workspace.dependencies :as deps]
+            [polylith.workspace.deps.dependencies :as deps]
+            [polylith.workspace.deps.interface-deps :as ideps]
             [polylith.workspace.interfaces :as ifcs]
             [polylith.workspace.validate.validate :as validate]
             [polylith.shared.interface :as shared]))
@@ -20,9 +21,10 @@
         interface-names (mapv :name interfaces)
         pimped-components (mapv #(deps/with-deps top-ns interface-names %) components)
         pimped-bases (mapv #(deps/with-deps top-ns interface-names %) bases)
+        pimped-interfaces (ideps/with-deps interfaces components)
         warnings (validate/warnings interfaces components)
         errors (validate/errors top-ns interface-names pimped-components bases)]
-    (assoc workspace :interfaces interfaces
+    (assoc workspace :interfaces pimped-interfaces
                      :components pimped-components
                      :bases pimped-bases
                      :messages {:warnings warnings

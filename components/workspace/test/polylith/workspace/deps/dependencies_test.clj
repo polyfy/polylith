@@ -1,6 +1,6 @@
-(ns polylith.workspace.dependencies-test
+(ns polylith.workspace.deps.dependencies-test
   (:require [clojure.test :refer :all]
-            [polylith.workspace.dependencies :as deps]))
+            [polylith.workspace.deps.dependencies :as deps]))
 
 (deftest dependency--without-top-namespace--returns-dependencies
   (is (= {:ns-path "path"

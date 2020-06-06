@@ -1,6 +1,6 @@
-(ns polylith.workspace.validate.interface-deps-test
+(ns polylith.workspace.validate.none-interface-deps-test
   (:require [clojure.test :refer :all]
-            [polylith.workspace.validate.interface-deps :as ideps]))
+            [polylith.workspace.validate.none-interface-deps :as ideps]))
 
 (deftest brick-errors--without-errors--returns-no-errors
   (let [component '{:name "common"
