@@ -4,6 +4,8 @@
 - validate workspace:
   - check for unimplemented interfaces.
 
+- add tests.
+
 - calculate changes
   - run the 'git diff' command:
     - if no arguments, use HEAD.

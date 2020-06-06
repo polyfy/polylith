@@ -17,12 +17,13 @@
         other-component (-> other-component-names first name->component)
         other-function (first ((id->functions (:interface other-component)) id))
         [comp1 comp2] (sort [component-name (:name other-component)])
-        functions (str/join ", " (sort [(->function other-function)
-                                        (str name "[" (str/join " " signature) "]")]))]
+        functions (sort [(->function other-function)
+                         (str name "[" (str/join " " signature) "]")])]
     (when other-function
       [(str "Function in component " comp1 " "
             "is also defined in " comp2
-            " but with a different parameter list: " functions)])))
+            " but with a different parameter list: "
+            (str/join ", " functions))])))
 
 (defn duplicated-signature-error [component-name component-duplication]
   (str "Duplicated signatures found in component " component-name ": "

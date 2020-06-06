@@ -2,7 +2,7 @@
   (:require [clojure.test :refer :all]
             [polylith.workspace.validate.interface-deps :as ideps]))
 
-(deftest dependencies--without-errors--returns-no-errors
+(deftest brick-errors--without-errors--returns-no-errors
   (let [component '{:name "common"
                     :type "component"
                     :interface {:name "common"}
@@ -17,7 +17,7 @@
     (is (= []
            (ideps/brick-errors "polylith." component #{"spec" "cmd" "file" "invoice" "user"} [])))))
 
-(deftest dependencies--with-errors--returns-errors
+(deftest brick-errors--with-errors--returns-errors
   (let [component {:name "common"
                    :type "component"
                    :interface {:name "common"}
@@ -33,7 +33,7 @@
             "Illegal dependency on namespace 'cmd.core' in 'components/common/billing.clj'. Use 'cmd.interface' instead to solve the problem."]
            (ideps/brick-errors "polylith." component #{"spec" "cmd" "file" "invoice" "user"} [])))))
 
-(deftest dependencies--component-with-mismatching-interface-name--returns-no-errors
+(deftest errors--component-with-mismatching-interface-name--returns-no-errors
   (let [component '{:type "component",
                     :name "user1",
                     :interface {:name "user"}
