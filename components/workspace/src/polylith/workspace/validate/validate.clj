@@ -7,8 +7,8 @@
 (defn warnings [interfaces components]
   (vec (sort (set (incomplete-contracts/warnings interfaces components)))))
 
-(defn errors [top-ns interface-names components bases]
+(defn errors [top-ns interface-names interfaces components bases]
   (vec (sort (set (concat (none-interface-deps/errors top-ns interface-names components bases)
-                          (circular-deps/errors interface-names components)
+                          (circular-deps/errors interfaces)
                           (illegal-name-sharing/errors interface-names components bases)
                           (incomplete-contracts/errors components))))))

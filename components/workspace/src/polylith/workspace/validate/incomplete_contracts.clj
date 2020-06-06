@@ -26,7 +26,7 @@
             (str/join ", " functions))])))
 
 (defn duplicated-signature-error [component-name component-duplication]
-  (str "Duplicated signatures found in component " component-name ": "
+  (str "Duplicated signatures found in the " component-name " component: "
        (str/join ", " (map ->function component-duplication))))
 
 (defn component-errors [component]

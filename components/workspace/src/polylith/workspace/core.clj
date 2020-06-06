@@ -21,9 +21,9 @@
         interface-names (mapv :name interfaces)
         pimped-components (mapv #(deps/with-deps top-ns interface-names %) components)
         pimped-bases (mapv #(deps/with-deps top-ns interface-names %) bases)
-        pimped-interfaces (ideps/with-deps interfaces components)
+        pimped-interfaces (ideps/with-deps interfaces pimped-components)
         warnings (validate/warnings interfaces components)
-        errors (validate/errors top-ns interface-names pimped-components bases)]
+        errors (validate/errors top-ns interface-names pimped-interfaces pimped-components bases)]
     (assoc workspace :interfaces pimped-interfaces
                      :components pimped-components
                      :bases pimped-bases
