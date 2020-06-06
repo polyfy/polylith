@@ -80,14 +80,19 @@
                                               {:name func4, :type function, :signature []}
                                               {:name func5, :type function, :signature [a b c d]}],
                                :implemented-by ["user1" "user2"],
-                               :dependencies ["payment" "auth"]}],
-                 :messages {:warnings ["Function in component invoice is also defined in invoice2 but with a different parameter list: func1[a b], func1[x y]"
-                                       "Function in component invoice is also defined in invoice2 but with a different parameter list: func1[a], func1[b]"
-                                       "Function in component user1 is also defined in user2 but with a different parameter list: func2[a b], func2[x y]"
-                                       "Function in component user1 is also defined in user2 but with a different parameter list: func3[a b c], func3[x y z]"
-                                       "Function in component user1 is also defined in user2 but with a different parameter list: func5[a b c d], func5[a b c d]"],
-                            :errors ["Circular dependencies was found: invoice > user > payment > invoice"
-                                     "Duplicated signatures found in the payment component: pay[a], pay[b]"]}})
+                               :dependencies ["payment" "auth"]}]})
+
+(def interface '{:name "user",
+                 :type "interface",
+                 :declarations [{:name func1, :type function, :signature []}
+                                {:name func2, :type function, :signature [a b]}
+                                {:name func2, :type function, :signature [x y]}
+                                {:name func3, :type function, :signature [a b c]}
+                                {:name func3, :type function, :signature [x y z]}
+                                {:name func4, :type function, :signature []}
+                                {:name func5, :type function, :signature [a b c d]}],
+                 :implemented-by ["user1" "user2"],
+                 :dependencies ["payment" "auth"]})
 
 
 (defn function->id [{:keys [name signature]}]
@@ -108,7 +113,8 @@
         [comp1 comp2] (sort [component-name (:name other-component)])
         functions (sort [(->function other-function)
                          (str name "[" (str/join " " signature) "]")])]
-    (when other-function
+    (when (and (-> other-function nil? not)
+               (not= signature (:signature other-function)))
       [(str "Function in component " comp1 " "
             "is also defined in " comp2
             " but with a different parameter list: "
@@ -134,7 +140,7 @@
 
 (defn warnings [interfaces components]
   (let [name->component (into {} (map (juxt :name identity) components))]
-    (mapcat #(component-warnings % interfaces name->component) components)))
+    (vec (sort (set (mapcat #(component-warnings % interfaces name->component) components))))))
 
 (defn errors [components]
-  (mapcat component-errors components))
+  (vec (mapcat component-errors components)))
