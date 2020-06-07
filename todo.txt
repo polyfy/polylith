@@ -1,10 +1,4 @@
 
-- allow having a mix of functions and macros in components?
-- check for missing 'data in contracts.
-
-- validate workspace:
-  - check for unimplemented interfaces.
-
 - add tests.
 
 - calculate changes
@@ -37,6 +31,10 @@
 
 Questions
 =========
+- should we allow to have a function in one component and a macro in another
+  if the function/macro looks exactly the same, e.g.: unless[pred a b].
+  - maybe not, because a fanction can be used as a value, like an argument to
+    a function, but a macro can't.
 - store the environment definitions of :aliases as :environments?
   - store the reset of the aliases as something generic?
 - only functions in interface.clj is part of the contract, but we allow dependencies
@@ -44,7 +42,8 @@ Questions
 
 Doc
 ===
-- example of how to add macros in the interface.
+- example of how to add macros in the interface, e.g. 'unless' in:
+  - https://clojuredocs.org/clojure.core/defmacro
 
 
 Differences compared to lein-polylith
