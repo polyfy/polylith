@@ -16,7 +16,7 @@
 (def interface-names (vec (sort (set (map #(-> % :interface :name) components)))))
 ;(def component (nth components 5))
 
-(defn pimp-workspace [{:keys [polylith components bases] :as workspace}]
+(defn pimp-workspace [{:keys [polylith components bases aliases]}]
   (let [top-ns (shared/top-namespace (:top-namespace polylith))
         interfaces (ifcs/interfaces components)
         interface-names (mapv :name interfaces)
@@ -25,11 +25,13 @@
         pimped-interfaces (ideps/with-deps interfaces pimped-components)
         warnings (validate/warnings interfaces components)
         errors (validate/errors top-ns interface-names pimped-interfaces pimped-components bases)]
-    (assoc workspace :interfaces pimped-interfaces
-                     :components pimped-components
-                     :bases pimped-bases
-                     :messages {:warnings warnings
-                                :errors errors})))
+    {:polylith polylith
+     :interfaces pimped-interfaces
+     :components pimped-components
+     :bases pimped-bases
+     :aliases aliases
+     :messages {:warnings warnings
+                :errors errors}}))
 
 (pimp-workspace workspace)
 
