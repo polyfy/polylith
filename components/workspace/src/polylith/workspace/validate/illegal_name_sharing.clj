@@ -11,4 +11,4 @@
     (if (empty? shared-names)
       []
       [(str "A Base can't have the same name as an interface or component: "
-            (str/join ", ") (sort shared-names))])))
+            (str/join ", " (sort shared-names)))])))

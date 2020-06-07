@@ -10,6 +10,7 @@
 (def workspace (ws-clojure/read-workspace-from-disk "."))
 (def workspace (ws-clojure/read-workspace-from-disk "../Nova/project-unicorn" {:polylith {:top-namespace ""}}))
 (def workspace (ws-clojure/read-workspace-from-disk "../ws11" {:polylith {:top-namespace ""}}))
+(def workspace (ws-clojure/read-workspace-from-disk "../ws12" {:polylith {:top-namespace ""}}))
 (def components (:components workspace))
 ;(def bases (:bases workspace))
 (def interface-names (vec (sort (set (map #(-> % :interface :name) components)))))
