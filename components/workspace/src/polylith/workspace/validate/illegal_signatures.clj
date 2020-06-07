@@ -1,132 +1,45 @@
 (ns polylith.workspace.validate.illegal-signatures
   (:require [clojure.string :as str]))
 
-(def workspace '{:polylith {:top-namespace ""},
-                 :components [{:name "auth",
-                               :type "component",
-                               :imports [{:ns-path "auth/interface.clj", :imports [auth.core]} {:ns-path "auth/core.clj", :imports []}],
-                               :interface {:name "auth", :declarations [{:name add-two, :type function, :signature [x]}]},
-                               :dependencies []}
-                              {:name "invoice",
-                               :type "component",
-                               :imports [{:ns-path "invoice/interface.clj", :imports []}
-                                         {:ns-path "invoice/core.clj", :imports [user.interface]}],
-                               :interface {:name "invoice",
-                                           :declarations [{:type data, :name abc}
-                                                          {:name func1, :type function, :signature [a]}
-                                                          {:name func1, :type function, :signature [a b]}]},
-                               :dependencies ["user"]}
-                              {:name "invoice2",
-                               :type "component",
-                               :imports [{:ns-path "invoice/interface.clj", :imports []} {:ns-path "invoice/core.clj", :imports []}],
-                               :interface {:name "invoice",
-                                           :declarations [{:name func1, :type function, :signature [b]}
-                                                          {:name func1, :type function, :signature [x y]}]},
-                               :dependencies []}
-                              {:name "payment",
-                               :type "component",
-                               :imports [{:ns-path "payment/interface.clj", :imports [payment.core]}
-                                         {:ns-path "payment/core.clj", :imports [invoice.interface]}],
-                               :interface {:name "payment",
-                                           :declarations [{:name pay, :type function, :signature [a]}
-                                                          {:name pay, :type function, :signature [b]}]},
-                               :dependencies ["invoice"]}
-                              {:name "user1",
-                               :type "component",
-                               :imports [{:ns-path "user/interface.clj", :imports []}
-                                         {:ns-path "user/core.clj", :imports [payment.interface]}],
-                               :interface {:name "user",
-                                           :declarations [{:name func1, :type function, :signature []}
-                                                          {:name func2, :type function, :signature [a b]}
-                                                          {:name func3, :type function, :signature [a b c]}
-                                                          {:name func4, :type function, :signature []}
-                                                          {:name func5, :type function, :signature [a b c d]}]},
-                               :dependencies ["payment"]}
-                              {:name "user2",
-                               :type "component",
-                               :imports [{:ns-path "user/interface.clj", :imports []}
-                                         {:ns-path "user/core.clj", :imports [auth.interface]}],
-                               :interface {:name "user",
-                                           :declarations [{:name func2, :type function, :signature [x y]}
-                                                          {:name func3, :type function, :signature [x y z]}
-                                                          {:name func5, :type function, :signature [a b c d]}]},
-                               :dependencies ["auth"]}],
-                 :bases [],
-                 :aliases [],
-                 :interfaces [{:name "auth",
-                               :declarations [{:name add-two, :type function, :signature [x]}],
-                               :implemented-by ["auth"],
-                               :dependencies []}
-                              {:name "invoice",
-                               :type "interface",
-                               :declarations [{:type data, :name abc}
-                                              {:name func1, :type function, :signature [a]}
-                                              {:name func1, :type function, :signature [b]}
-                                              {:name func1, :type function, :signature [a b]}
-                                              {:name func1, :type function, :signature [x y]}],
-                               :implemented-by ["invoice" "invoice2"],
-                               :dependencies ["user"]}
-                              {:name "payment",
-                               :declarations [{:name pay, :type function, :signature [a]} {:name pay, :type function, :signature [b]}],
-                               :implemented-by ["payment"],
-                               :dependencies ["invoice"]}
-                              {:name "user",
-                               :type "interface",
-                               :declarations [{:name func1, :type function, :signature []}
-                                              {:name func2, :type function, :signature [a b]}
-                                              {:name func2, :type function, :signature [x y]}
-                                              {:name func3, :type function, :signature [a b c]}
-                                              {:name func3, :type function, :signature [x y z]}
-                                              {:name func4, :type function, :signature []}
-                                              {:name func5, :type function, :signature [a b c d]}],
-                               :implemented-by ["user1" "user2"],
-                               :dependencies ["payment" "auth"]}]})
-
-(def interface '{:name "user",
-                 :type "interface",
-                 :declarations [{:name func1, :type function, :signature []}
-                                {:name func2, :type function, :signature [a b]}
-                                {:name func2, :type function, :signature [x y]}
-                                {:name func3, :type function, :signature [a b c]}
-                                {:name func3, :type function, :signature [x y z]}
-                                {:name func4, :type function, :signature []}
-                                {:name func5, :type function, :signature [a b c d]}],
-                 :implemented-by ["user1" "user2"],
-                 :dependencies ["payment" "auth"]})
-
-
 (defn function->id [{:keys [name signature]}]
   [name (count signature)])
 
-(defn id->functions [{:keys [declarations]}]
+(defn id->functions-or-macro [{:keys [declarations]}]
   (group-by function->id
-            (filterv #(= 'function (:type %)) declarations)))
+            (filter #(not= 'data (:type %)) declarations)))
 
-(defn ->function [{:keys [name signature]}]
+(defn ->function-or-macro [{:keys [name signature]}]
   (str name "[" (str/join " " signature) "]"))
 
-(defn function-warnings [[id [{:keys [name signature]}]] interface component-name name->component]
+(def types->message {#{'function} "Function"
+                     #{'macro} "Macro"
+                     #('function 'macro) "Function and macro"})
+
+(defn function-warnings [[id [{:keys [name type signature]}]] interface component-name name->component]
   (let [other-component-names (filterv #(not= % component-name)
                                        (:implemented-by interface))
         other-component (-> other-component-names first name->component)
-        other-function (first ((-> other-component :interface id->functions) id))
-        [comp1 comp2] (sort [component-name (:name other-component)])
-        functions (sort [(->function other-function)
-                         (str name "[" (str/join " " signature) "]")])]
+        other-function (first ((-> other-component :interface id->functions-or-macro) id))]
+
     (when (and (-> other-function nil? not)
                (not= signature (:signature other-function)))
-      [(str "Function in component " comp1 " "
-            "is also defined in " comp2
-            " but with a different parameter list: "
-            (str/join ", " functions))])))
+      (let [[comp1 comp2] (sort [component-name (:name other-component)])
+            function-or-macro1 (str name "[" (str/join " " signature) "]")
+            function-or-macro2 (->function-or-macro other-function)
+            functions-and-macros (sort [function-or-macro1 function-or-macro2])
+            types (types->message (set [type (:type other-function)]))]
+        [(str types " in the " comp1 " component "
+              "is also defined in " comp2
+              " but with a different parameter list: "
+              (str/join ", " functions-and-macros))]))))
 
 (defn duplicated-signature-error [component-name component-duplication]
   (str "Duplicated signatures found in the " component-name " component: "
-       (str/join ", " (map ->function component-duplication))))
+       (str/join ", " (map ->function-or-macro component-duplication))))
 
 (defn component-errors [component]
   (let [component-name (:name component)
-        component-id->function (-> component :interface id->functions)
+        component-id->function (-> component :interface id->functions-or-macro)
         multi-id-functions (mapv second (filter #(> (-> % second count) 1) component-id->function))]
     (mapv #(duplicated-signature-error component-name %) multi-id-functions)))
 
@@ -134,7 +47,7 @@
   (let [interface-name (-> component :interface :name)
         interface (first (filter #(= interface-name (:name %)) interfaces))
         component-name (:name component)
-        component-id->function (-> component :interface id->functions)
+        component-id->function (-> component :interface id->functions-or-macro)
         single-id->functions (filter #(= (-> % second count) 1) component-id->function)]
     (mapcat #(function-warnings % interface component-name name->component) single-id->functions)))
 

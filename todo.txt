@@ -1,4 +1,7 @@
 
+- allow having a mix of functions and macros in components?
+- check for missing 'data in contracts.
+
 - validate workspace:
   - check for unimplemented interfaces.
 
