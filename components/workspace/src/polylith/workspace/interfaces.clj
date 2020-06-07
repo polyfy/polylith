@@ -1,7 +1,10 @@
 (ns polylith.workspace.interfaces)
 
 (defn ->interface [[_ [{:keys [name interface]}]]]
-  (assoc interface :implemented-by [name]))
+  {:name (:name interface)
+   :type "interface"
+   :declarations (:declarations interface)
+   :implemented-by [name]})
 
 (defn ->multi-interface [[interface-name components]]
   {:name interface-name
@@ -18,4 +21,4 @@
         multi-components (filter #(> (-> % second count) 1) grouped-components)
         single-interfaces (mapv ->interface single-components)
         multi-interfaces (map ->multi-interface multi-components)]
-    (vec (sort-by :name (concat single-interfaces multi-interfaces)))))
+    (concat single-interfaces multi-interfaces)))

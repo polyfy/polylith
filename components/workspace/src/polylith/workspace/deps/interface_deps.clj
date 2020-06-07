@@ -13,5 +13,5 @@
   (let [component-interface-groups (group-by #(-> % :interface :name) components)
         interface-deps (map deps component-interface-groups)
         name->interface (reduce merge-interface {} interfaces)]
-    (mapv second
-          (reduce merge-deps name->interface interface-deps))))
+    (vec (sort-by :name (map second
+                             (reduce merge-deps name->interface interface-deps))))))
