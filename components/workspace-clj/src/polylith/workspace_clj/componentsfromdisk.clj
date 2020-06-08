@@ -1,6 +1,7 @@
 (ns polylith.workspace-clj.componentsfromdisk
   (:require [polylith.file.interface :as file]
-            [polylith.workspace-clj.importsfromdisk :as importsfromdisk]))
+            [polylith.workspace-clj.importsfromdisk :as importsfromdisk]
+            [clojure.string :as str]))
 
 (def ->generic-type {'def 'data
                      'defn 'function
@@ -39,12 +40,15 @@
         [(->function type name code)]
         (mapv #(->function type name %) code)))))
 
+(defn replace-underscore [string]
+  (str/replace string "_" "-"))
+
 (defn read-component-from-disk [ws-path top-src-dir component-name]
   (let [component-src-dir (str ws-path "/components/" component-name "/src/" top-src-dir)
         ; Only one folder should be in each components base src folder.
         ; The name of the folder will be the name of the interface,
         ; in case the component's name is not same as it's interface.
-        interface-name (first (file/directory-paths component-src-dir))
+        interface-name (-> component-src-dir file/directory-paths first replace-underscore)
         src-dir (str component-src-dir interface-name)
         interface-file-content (file/read-file (str src-dir "/interface.clj"))
         imports (importsfromdisk/all-imports component-src-dir)

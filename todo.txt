@@ -1,6 +1,4 @@
 
-- add tests.
-
 - calculate changes
   - run the 'git diff' command:
     - if no arguments, use HEAD.
@@ -26,11 +24,17 @@
 
 - to support other languages, each parameter also needs so handle the type.
 
+- support migrating lein-polylith projects to deps.edn projects.
+
 - eventually: create a migration tool that migrates lein-polylith projects to
   polylith projects.
 
 Questions
 =========
+- make sub namespaces to 'interface' be bart of the contract, e.g. interface.spec.
+- it looks like 'build-tool' in the realworld project is not a component,
+  at least it has no interface.
+- should the name of a command line tool be 'poly'?
 - should we allow to have a function in one component and a macro in another
   if the function/macro looks exactly the same, e.g.: unless[pred a b].
   - maybe not, because a fanction can be used as a value, like an argument to
@@ -44,7 +48,8 @@ Doc
 ===
 - example of how to add macros in the interface, e.g. 'unless' in:
   - https://clojuredocs.org/clojure.core/defmacro
-
+- a function can't be used as an implememtor of a macro in two different components
+  and vice versa.
 
 Differences compared to lein-polylith
 =====================================
