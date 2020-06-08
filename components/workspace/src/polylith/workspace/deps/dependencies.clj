@@ -32,6 +32,6 @@
 (defn with-deps [top-ns interface-names {:keys [interface imports] :as brick}]
   "Takes incoming brick and returns a pimped brick with dependencies."
   (let [interface-name (:name interface)
-        deps (brick-dependencies top-ns interface-name (set interface-names) imports)
+        deps (brick-dependencies top-ns interface-name interface-names imports)
         interface-deps (vec (sort (set (map :depends-on-interface deps))))]
     (assoc brick :dependencies interface-deps)))

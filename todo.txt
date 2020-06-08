@@ -7,14 +7,6 @@
   - read all :require statements
   - calculate dependencies (to 'component/interface' namespace).
 
-- use sorted set for interface-names + remove explicit set commands.
-
-- support both .clj and .cljc files.
-
-- use only the prefix :env and :env.test in profiles, stop using :service
-  and :service.test as now. :env.test would be test environments.
-  Also support :env.prod and averything that starts with ":env.".
-
 - check that we handle all corner cases when reading code (check lein-polylith).
 
 - make sure we can compile the code into a command line tool using GraalVM.
@@ -24,13 +16,12 @@
 
 - to support other languages, each parameter also needs so handle the type.
 
-- support migrating lein-polylith projects to deps.edn projects.
-
 - eventually: create a migration tool that migrates lein-polylith projects to
   polylith projects.
 
 Questions
 =========
+- should we support all these file extensions?: .clj, .cljc, .cljs
 - make sub namespaces to 'interface' be bart of the contract, e.g. interface.spec.
 - it looks like 'build-tool' in the realworld project is not a component,
   at least it has no interface.

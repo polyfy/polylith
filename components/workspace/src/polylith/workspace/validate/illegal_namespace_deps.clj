@@ -9,7 +9,7 @@
 (defn brick-errors [top-ns {:keys [interface type imports]} interface-names errors]
   "Checks for dependencies to component interface namespaces other than 'interface'."
   (let [interface-name (:name interface)
-        dependencies (deps/brick-dependencies top-ns interface-name (set interface-names) imports)
+        dependencies (deps/brick-dependencies top-ns interface-name interface-names imports)
         error-messages (filterv identity (map #(error-message % type)
                                               (filterv #(not= "interface" (:depends-on-ns %)) dependencies)))]
     (vec (concat errors error-messages))))
