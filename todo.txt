@@ -1,7 +1,6 @@
 
-- change to:
-  - implementing-components
-  - implementing-deps
+- change:
+  - from :dependencies to :implementing-deps
 
 - change to 'parameters'
 - change from 'declarations' to 'definitions'.

@@ -29,7 +29,7 @@
                                                  (group-by function->id
                                                            (functions-and-macros interface)))))]
     (mapcat #(component-errors % interface-functions)
-            (map name->component (:implemented-by interface)))))
+            (map name->component (:implementing-components interface)))))
 
 (defn errors [interfaces components]
   (let [name->component (into {} (map (juxt :name identity) components))]

@@ -17,7 +17,7 @@
 
 (defn function-warnings [[id [{:keys [name type signature]}]] interface component-name name->component]
   (let [other-component-names (filterv #(not= % component-name)
-                                       (:implemented-by interface))
+                                       (:implementing-components interface))
         other-component (-> other-component-names first name->component)
         other-function (first ((-> other-component :interface id->functions-or-macro) id))]
 

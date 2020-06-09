@@ -4,14 +4,14 @@
   {:name (:name interface)
    :type "interface"
    :declarations (:declarations interface)
-   :implemented-by [name]})
+   :implementing-components [name]})
 
 (defn ->multi-interface [[interface-name components]]
   {:name interface-name
    :type "interface"
    :declarations (vec (sort-by (juxt :type :name :signature)
                                (set (mapcat #(-> % :interface :declarations) components))))
-   :implemented-by (vec (sort (map :name components)))})
+   :implementing-components (vec (sort (map :name components)))})
 
 (defn interfaces [components]
   "Calculates all interfaces, which are all definitions (data/function/macro)

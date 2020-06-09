@@ -4,7 +4,7 @@
 
 (def interfaces '[{:name "auth"
                    :declarations [{:name add-two, :type function, :signature [x]}]
-                   :implemented-by ["auth"]}
+                   :implementing-components ["auth"]}
                   {:name "invoice"
                    :type "interface"
                    :declarations [{:type data, :name abc}
@@ -12,11 +12,11 @@
                                   {:name func1, :type function, :signature [b]}
                                   {:name func1, :type function, :signature [a b]}
                                   {:name func1, :type function, :signature [x y]}]
-                   :implemented-by ["invoice" "invoice2"]}
+                   :implementing-components ["invoice" "invoice2"]}
                   {:name "payment"
                    :declarations [{:name pay, :type function, :signature [a]}
                                   {:name pay, :type function, :signature [b]}]
-                   :implemented-by ["payment"]}
+                   :implementing-components ["payment"]}
                   {:name "user"
                    :type "interface"
                    :declarations [{:name func1, :type function, :signature []}
@@ -26,7 +26,7 @@
                                   {:name func3, :type function, :signature [x y z]}
                                   {:name func4, :type function, :signature []}
                                   {:name func5, :type function, :signature [a b c d]}]
-                   :implemented-by ["user1" "user2"]}])
+                   :implementing-components ["user1" "user2"]}])
 
 (def components '[{:name "auth"
                    :type "component"

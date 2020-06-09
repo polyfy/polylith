@@ -6,12 +6,12 @@
                    :type "interface"
                    :declarations [{:type data, :name abc}
                                   {:name func1, :type function, :signature [a]}]
-                   :implemented-by ["invoice" "invoice2"]}
+                   :implementing-components ["invoice" "invoice2"]}
                   {:name "user"
                    :type "interface",
                    :declarations [{:type data, :name data1}
                                   {:name func1, :type function, :signature [a]}]
-                   :implemented-by ["user1" "user2"]}])
+                   :implementing-components ["user1" "user2"]}])
 
 (def components '[{:name "invoice"
                    :type "component"

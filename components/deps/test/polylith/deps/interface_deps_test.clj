@@ -2,24 +2,24 @@
   (:require [clojure.test :refer :all]
             [polylith.deps.interface :as deps]))
 
-(def interfaces '[{:name "auth", :declarations [{:name add-two, :type function, :signature [x]}], :implemented-by ["auth"]}
+(def interfaces '[{:name "auth", :declarations [{:name add-two, :type function, :signature [x]}], :implementing-components ["auth"]}
                   {:name "invoice"
                    :declarations [{:type data, :name abc}
                                   {:name func1, :type function, :signature [a]}
                                   {:name func1, :type function, :signature [b]}
                                   {:name func1, :type function, :signature [a b]}
                                   {:name func1, :type function, :signature [x y]}]
-                   :implemented-by ["invoice" "invoice2"]}
+                   :implementing-components ["invoice" "invoice2"]}
                   {:name "payment"
                    :declarations [{:name pay, :type function, :signature [a]} {:name pay, :type function, :signature [b]}],
-                   :implemented-by ["payment"]}
+                   :implementing-components ["payment"]}
                   {:name "user"
                    :declarations [{:name func1, :type function, :signature []}
                                   {:name func2, :type function, :signature [a b]}
                                   {:name func2, :type function, :signature [x y]}
                                   {:name func3, :type function, :signature [a b c]}
                                   {:name func3, :type function, :signature [x y z]}]
-                   :implemented-by ["user1" "user2"]}])
+                   :implementing-components ["user1" "user2"]}])
 
 (def components '[{:name "auth"
                    :interface {:name "auth", :declarations [{:name add-two, :type function, :signature [x]}]}
@@ -55,7 +55,7 @@
 (deftest interface-deps--a-workspace-with-dependencies-from-different-components--should-be-merged-into-a-single-list-of-dependencies
   (is (= '[{:name "auth",
             :declarations [{:name add-two, :type function, :signature [x]}],
-            :implemented-by ["auth"],
+            :implementing-components ["auth"],
             :dependencies []}
            {:name "invoice",
             :declarations [{:type data, :name abc}
@@ -63,11 +63,11 @@
                            {:name func1, :type function, :signature [b]}
                            {:name func1, :type function, :signature [a b]}
                            {:name func1, :type function, :signature [x y]}],
-            :implemented-by ["invoice" "invoice2"],
+            :implementing-components ["invoice" "invoice2"],
             :dependencies ["user"]}
            {:name "payment",
             :declarations [{:name pay, :type function, :signature [a]} {:name pay, :type function, :signature [b]}],
-            :implemented-by ["payment"],
+            :implementing-components ["payment"],
             :dependencies ["invoice"]}
            {:name "user",
             :declarations [{:name func1, :type function, :signature []}
@@ -75,6 +75,6 @@
                            {:name func2, :type function, :signature [x y]}
                            {:name func3, :type function, :signature [a b c]}
                            {:name func3, :type function, :signature [x y z]}],
-            :implemented-by ["user1" "user2"],
+            :implementing-components ["user1" "user2"],
             :dependencies ["payment" "auth"]}]
          (deps/interface-deps interfaces components))))

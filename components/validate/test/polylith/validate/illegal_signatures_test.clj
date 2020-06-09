@@ -4,7 +4,7 @@
 
 (def interfaces '[{:name "auth"
                    :declarations [{:name add-two, :type function, :signature [x]}]
-                   :implemented-by ["auth"]
+                   :implementing-components ["auth"]
                    :dependencies []}
                   {:name "invoice"
                    :type "interface"
@@ -13,11 +13,11 @@
                                   {:name func1, :type function, :signature [b]}
                                   {:name func1, :type function, :signature [a b]}
                                   {:name func1, :type function, :signature [x y]}]
-                   :implemented-by ["invoice" "invoice2"]
+                   :implementing-components ["invoice" "invoice2"]
                    :dependencies ["user"]}
                   {:name "payment"
                    :declarations [{:name pay, :type function, :signature [a]} {:name pay, :type function, :signature [b]}]
-                   :implemented-by ["payment"]
+                   :implementing-components ["payment"]
                    :dependencies ["invoice"]}
                   {:name "user"
                    :type "interface"
@@ -28,7 +28,7 @@
                                   {:name func3, :type function, :signature [x y z]}
                                   {:name func4, :type function, :signature []}
                                   {:name func5, :type function, :signature [a b c d]}]
-                   :implemented-by ["user1" "user2"]
+                   :implementing-components ["user1" "user2"]
                    :dependencies ["payment" "auth"]}])
 
 (def components '[{:name "auth"
@@ -83,7 +83,7 @@
 
 (def interfaces2 '[{:name "auth",
                     :declarations [{:name add-two, :type function, :signature [x]}],
-                    :implemented-by ["auth"],
+                    :implementing-components ["auth"],
                     :dependencies []}
                    {:name "invoice",
                     :type "interface",
@@ -92,11 +92,11 @@
                                    {:name func1, :type macro, :signature [b]}
                                    {:name func1, :type function, :signature [a b]}
                                    {:name func1, :type function, :signature [x y]}],
-                    :implemented-by ["invoice" "invoice2"],
+                    :implementing-components ["invoice" "invoice2"],
                     :dependencies ["user"]}
                    {:name "payment",
                     :declarations [{:name pay, :type function, :signature [a]} {:name pay, :type function, :signature [b]}],
-                    :implemented-by ["payment"],
+                    :implementing-components ["payment"],
                     :dependencies ["invoice"]}
                    {:name "user",
                     :type "interface",
@@ -107,7 +107,7 @@
                                    {:name func3, :type function, :signature [x y z]}
                                    {:name func4, :type function, :signature []}
                                    {:name func5, :type function, :signature [a b c d]}],
-                    :implemented-by ["user1" "user2"],
+                    :implementing-components ["user1" "user2"],
                     :dependencies ["payment" "auth"]}])
 
 (def components2 '[{:name "auth",

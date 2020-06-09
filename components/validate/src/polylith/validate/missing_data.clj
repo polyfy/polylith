@@ -13,8 +13,8 @@
     (when (-> missing-data-defs empty? not)
       [(str "Missing data definition in the " (:name component) " component: " data-defs)])))
 
-(defn interface-errors [{:keys [implemented-by] :as interface} name->component]
-  (let [ifc-components (map name->component implemented-by)]
+(defn interface-errors [{:keys [implementing-components] :as interface} name->component]
+  (let [ifc-components (map name->component implementing-components)]
     (mapcat #(component-errors interface %) ifc-components)))
 
 (defn errors [interfaces components]

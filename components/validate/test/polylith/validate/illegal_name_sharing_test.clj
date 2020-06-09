@@ -4,7 +4,7 @@
 
 (def interfaces '[{:name "mybase"
                    :declarations [{:name add-two, :type function, :signature [x]}]
-                   :implemented-by ["mybase"]}])
+                   :implementing-components ["mybase"]}])
 
 (def components '[{:name "mybase1"
                    :interface {:name "mybase1",
