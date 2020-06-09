@@ -5,7 +5,7 @@
 (def interfaces '[{:name "auth"
                    :declarations [{:name add-two, :type function, :signature [x]}]
                    :implementing-components ["auth"]
-                   :dependencies []}
+                   :implementing-deps []}
                   {:name "invoice"
                    :type "interface"
                    :declarations [{:type data, :name abc}
@@ -14,11 +14,11 @@
                                   {:name func1, :type function, :signature [a b]}
                                   {:name func1, :type function, :signature [x y]}]
                    :implementing-components ["invoice" "invoice2"]
-                   :dependencies ["user"]}
+                   :implementing-deps ["user"]}
                   {:name "payment"
                    :declarations [{:name pay, :type function, :signature [a]} {:name pay, :type function, :signature [b]}]
                    :implementing-components ["payment"]
-                   :dependencies ["invoice"]}
+                   :implementing-deps ["invoice"]}
                   {:name "user"
                    :type "interface"
                    :declarations [{:name func1, :type function, :signature []}
@@ -29,7 +29,7 @@
                                   {:name func4, :type function, :signature []}
                                   {:name func5, :type function, :signature [a b c d]}]
                    :implementing-components ["user1" "user2"]
-                   :dependencies ["payment" "auth"]}])
+                   :implementing-deps ["payment" "auth"]}])
 
 (def components '[{:name "auth"
                    :type "component"
@@ -84,7 +84,7 @@
 (def interfaces2 '[{:name "auth",
                     :declarations [{:name add-two, :type function, :signature [x]}],
                     :implementing-components ["auth"],
-                    :dependencies []}
+                    :implementing-deps []}
                    {:name "invoice",
                     :type "interface",
                     :declarations [{:type data, :name abc}
@@ -93,11 +93,11 @@
                                    {:name func1, :type function, :signature [a b]}
                                    {:name func1, :type function, :signature [x y]}],
                     :implementing-components ["invoice" "invoice2"],
-                    :dependencies ["user"]}
+                    :implementing-deps ["user"]}
                    {:name "payment",
                     :declarations [{:name pay, :type function, :signature [a]} {:name pay, :type function, :signature [b]}],
                     :implementing-components ["payment"],
-                    :dependencies ["invoice"]}
+                    :implementing-deps ["invoice"]}
                    {:name "user",
                     :type "interface",
                     :declarations [{:name func1, :type function, :signature []}
@@ -108,7 +108,7 @@
                                    {:name func4, :type function, :signature []}
                                    {:name func5, :type function, :signature [a b c d]}],
                     :implementing-components ["user1" "user2"],
-                    :dependencies ["payment" "auth"]}])
+                    :implementing-deps ["payment" "auth"]}])
 
 (def components2 '[{:name "auth",
                     :type "component",

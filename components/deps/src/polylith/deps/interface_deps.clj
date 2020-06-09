@@ -7,7 +7,7 @@
   (assoc result name interface))
 
 (defn merge-deps [result [interface deps]]
-  (assoc-in result [interface :dependencies] deps))
+  (assoc-in result [interface :implementing-deps] deps))
 
 (defn dependencies [interfaces components]
   "Calculates all interface dependencies, which are the set of dependencies for
