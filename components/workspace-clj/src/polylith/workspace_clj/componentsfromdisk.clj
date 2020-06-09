@@ -3,7 +3,7 @@
             [polylith.workspace-clj.importsfromdisk :as importsfromdisk]
             [clojure.string :as str]))
 
-(def ->generic-type {'def 'definition
+(def ->generic-type {'def 'data
                      'defn 'function
                      'defmacro 'macro})
 
@@ -33,7 +33,7 @@
         code (drop-while #(not (or (list? %)
                                    (vector? %)))
                          statement)]
-    (if (= 'definition type)
+    (if (= 'data type)
       [{:type type
         :name name}]
       (if (-> code first vector?)

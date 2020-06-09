@@ -6,7 +6,7 @@
 
 (defn id->functions-or-macro [{:keys [definitions]}]
   (group-by function->id
-            (filter #(not= 'definition (:type %)) definitions)))
+            (filter #(not= 'data (:type %)) definitions)))
 
 (defn ->function-or-macro [{:keys [name parameters]}]
   (str name "[" (str/join " " parameters) "]"))

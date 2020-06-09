@@ -3,7 +3,7 @@
             [clojure.string :as str]))
 
 (defn ->data-ifc [{:keys [definitions]}]
-  (set (filter #(= 'definition (:type %)) definitions)))
+  (set (filter #(= 'data (:type %)) definitions)))
 
 (defn component-errors [interface component]
   (let [data-interface (->data-ifc interface)

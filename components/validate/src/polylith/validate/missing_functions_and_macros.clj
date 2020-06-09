@@ -9,7 +9,7 @@
   (str name "[" (str/join " " parameters) "]"))
 
 (defn function-or-macro? [{:keys [type]}]
-  (not= 'definition type))
+  (not= 'data type))
 
 (defn functions-and-macros [{:keys [definitions]}]
   (set (filter function-or-macro? definitions)))

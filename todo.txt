@@ -1,7 +1,9 @@
 
+- change from 'declarations' to 'definitions'.
+- change type from 'data' top 'definition'.
 - change type to string in declarations.
 - change from "Missing data definition" to "Missing definition"
-- add 'lib-imports' to components that is the set of all imports, except component interfaces.
+- add 'lib-imports' to components that is the set of all imports, except components.
 
 
 - add :ns interface to each interface definition.
