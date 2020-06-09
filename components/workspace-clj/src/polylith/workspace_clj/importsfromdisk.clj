@@ -22,6 +22,7 @@
      :imports (filter-imports content)}))
 
 (defn all-imports [root-dir]
-  (let [file-paths (filter #(str/ends-with? % ".clj")
+  (let [file-paths (filter #(or (str/ends-with? % ".clj")
+                                (str/ends-with? % ".cljc"))
                            (file/paths-recursively root-dir))]
     (mapv #(imports root-dir %) file-paths)))

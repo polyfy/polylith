@@ -1,6 +1,4 @@
 
-- make components of validate and deps (dependencies).
-- support all these file extensions: .clj, .cljc
 - make sub namespaces to 'interface' be bart of the contract, e.g. interface.spec.
   - add :ns interface to each definition.
 
@@ -34,6 +32,7 @@
 
 Questions
 =========
+- how do we run all the tests using deps?
 
 Leave for now
 =============

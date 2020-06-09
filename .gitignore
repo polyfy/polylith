@@ -5,7 +5,7 @@
 **/.DS_Store
 
 # User-specific stuff
-.idea/**
+/.idea/
 
 # File-based project format
 *.iws
@@ -15,4 +15,3 @@
 .idea/replstate.xml
 
 .nrepl-port
-
