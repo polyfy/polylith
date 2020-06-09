@@ -1,6 +1,6 @@
-(ns polylith.workspace.validate.illegal-namespace-deps-test
+(ns polylith.validate.illegal-namespace-deps-test
   (:require [clojure.test :refer :all]
-            [polylith.workspace.validate.illegal-namespace-deps :as ideps]))
+            [polylith.validate.illegal-namespace-deps :as ideps]))
 
 (deftest brick-errors--without-errors--returns-no-errors
   (let [component '{:name "common"

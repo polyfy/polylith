@@ -1,6 +1,6 @@
-(ns polylith.workspace.validate.missing-functions-and-macros-test
+(ns polylith.validate.missing-functions-and-macros-test
   (:require [clojure.test :refer :all]
-            [polylith.workspace.validate.missing-functions-and-macros :as missing]))
+            [polylith.validate.missing-functions-and-macros :as missing]))
 
 (def interfaces '[{:name "auth"
                    :declarations [{:name add-two, :type function, :signature [x]}]

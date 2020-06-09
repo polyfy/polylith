@@ -1,4 +1,4 @@
-(ns polylith.workspace.validate.illegal-signatures
+(ns polylith.validate.illegal-signatures
   (:require [clojure.string :as str]))
 
 (defn function->id [{:keys [name signature]}]

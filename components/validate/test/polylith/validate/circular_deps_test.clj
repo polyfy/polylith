@@ -1,6 +1,6 @@
-(ns polylith.workspace.validate.circular-deps-test
+(ns polylith.validate.circular-deps-test
   (:require [clojure.test :refer :all]
-            [polylith.workspace.validate.circular-deps :as circular-deps]))
+            [polylith.validate.circular-deps :as circular-deps]))
 
 (deftest errors--interfaces-with-circular-dependencies--should-return-an-error
   (is (= ["Circular dependencies was found: invoice > user > payment > invoice"]

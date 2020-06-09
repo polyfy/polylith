@@ -1,16 +1,8 @@
 (ns polylith.workspace.core
-  (:require [polylith.workspace-clj.interface :as ws-clojure]
-            [polylith.workspace.deps.dependencies :as deps]
-            [polylith.workspace.deps.interface-deps :as ideps]
+  (:require [polylith.deps.interface :as deps]
+            [polylith.validate.interface :as validate]
             [polylith.workspace.interfaces :as ifcs]
-            [polylith.workspace.validate.validate :as validate]
             [polylith.shared.interface :as shared]))
-
-(def workspace (ws-clojure/read-workspace-from-disk "../clojure-polylith-realworld-example-app"))
-(def workspace (ws-clojure/read-workspace-from-disk "."))
-(def workspace (ws-clojure/read-workspace-from-disk "../Nova/project-unicorn" {:polylith {:top-namespace ""}}))
-(def workspace (ws-clojure/read-workspace-from-disk "../ws11" {:polylith {:top-namespace ""}}))
-(def workspace (ws-clojure/read-workspace-from-disk "../ws12" {:polylith {:top-namespace ""}}))
 
 (defn pimp-workspace [{:keys [polylith components bases aliases]}]
   (let [top-ns (shared/top-namespace (:top-namespace polylith))
@@ -18,7 +10,7 @@
         interface-names (apply sorted-set (mapv :name interfaces))
         pimped-components (mapv #(deps/with-deps top-ns interface-names %) components)
         pimped-bases (mapv #(deps/with-deps top-ns interface-names %) bases)
-        pimped-interfaces (ideps/with-deps interfaces pimped-components)
+        pimped-interfaces (deps/interface-deps interfaces pimped-components)
         warnings (validate/warnings interfaces components)
         errors (validate/errors top-ns interface-names pimped-interfaces pimped-components bases)]
     {:polylith polylith
@@ -28,5 +20,3 @@
      :aliases aliases
      :messages {:warnings warnings
                 :errors errors}}))
-
-(pimp-workspace workspace)

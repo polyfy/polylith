@@ -1,4 +1,4 @@
-(ns polylith.workspace.deps.interface-deps)
+(ns polylith.deps.interface-deps)
 
 (defn deps [[interface components]]
   [interface (vec (mapcat :dependencies components))])
@@ -9,7 +9,10 @@
 (defn merge-deps [result [interface deps]]
   (assoc-in result [interface :dependencies] deps))
 
-(defn with-deps [interfaces components]
+(defn dependencies [interfaces components]
+  "Calculates all interface dependencies, which are the set of dependencies for
+   all components that implement an interface."
+
   (let [component-interface-groups (group-by #(-> % :interface :name) components)
         interface-deps (map deps component-interface-groups)
         name->interface (reduce merge-interface {} interfaces)]

@@ -1,6 +1,6 @@
-(ns polylith.workspace.validate.missing-data-test
+(ns polylith.validate.missing-data-test
   (:require [clojure.test :refer :all]
-            [polylith.workspace.validate.missing-data :as missing-data]))
+            [polylith.validate.missing-data :as missing-data]))
 
 (def interfaces '[{:name "invoice"
                    :type "interface"

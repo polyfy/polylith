@@ -1,6 +1,6 @@
-(ns polylith.workspace.validate.illegal-signatures-test
+(ns polylith.validate.illegal-signatures-test
   (:require [clojure.test :refer :all]
-            [polylith.workspace.validate.illegal-signatures :as illegal-signatures]))
+            [polylith.validate.illegal-signatures :as illegal-signatures]))
 
 (def interfaces '[{:name "auth"
                    :declarations [{:name add-two, :type function, :signature [x]}]

@@ -1,5 +1,5 @@
-(ns polylith.workspace.validate.illegal-namespace-deps
-  (:require [polylith.workspace.deps.dependencies :as deps]))
+(ns polylith.validate.illegal-namespace-deps
+  (:require [polylith.deps.interface :as deps]))
 
 (defn error-message [{:keys [ns-path depends-on-interface depends-on-ns]} type]
   (when ns-path

@@ -11,9 +11,11 @@
 
                                           ; Components
                                           "components/cmd/src"
+                                          "components/deps/src"
                                           "components/file/src"
                                           "components/shared/src"
                                           "components/spec/src"
+                                          "components/validate/src"
                                           "components/workspace/src"
                                           "components/workspace-clj/src"]}
 
@@ -22,9 +24,11 @@
 
                                           ; Components
                                           "components/cmd/test"
+                                          "components/deps/test"
                                           "components/file/test"
                                           "components/shared/test"
                                           "components/spec/test"
+                                          "components/validate/test"
                                           "components/workspace/test"
                                           "components/workspace-clj/test"]
                             :extra-deps  {}}}}

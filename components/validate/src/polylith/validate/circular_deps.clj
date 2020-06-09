@@ -1,4 +1,4 @@
-(ns polylith.workspace.validate.circular-deps
+(ns polylith.validate.circular-deps
   (:require [clojure.string :as str]))
 
 (defn interface-circular-deps [interface-name completed-deps interface->deps path]

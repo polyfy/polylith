@@ -1,10 +1,10 @@
-(ns polylith.workspace.validate.validate
-  (:require [polylith.workspace.validate.illegal-namespace-deps :as illegal-namespace-deps]
-            [polylith.workspace.validate.circular-deps :as circular-deps]
-            [polylith.workspace.validate.illegal-name-sharing :as illegal-name-sharing]
-            [polylith.workspace.validate.illegal-signatures :as illegal-signatures]
-            [polylith.workspace.validate.missing-data :as missing-data]
-            [polylith.workspace.validate.missing-functions-and-macros :as missing-fn]))
+(ns polylith.validate.interface
+  (:require [polylith.validate.illegal-namespace-deps :as illegal-namespace-deps]
+            [polylith.validate.circular-deps :as circular-deps]
+            [polylith.validate.illegal-name-sharing :as illegal-name-sharing]
+            [polylith.validate.illegal-signatures :as illegal-signatures]
+            [polylith.validate.missing-data :as missing-data]
+            [polylith.validate.missing-functions-and-macros :as missing-fn]))
 
 (defn warnings [interfaces components]
   (vec (sort (set (illegal-signatures/warnings interfaces components)))))

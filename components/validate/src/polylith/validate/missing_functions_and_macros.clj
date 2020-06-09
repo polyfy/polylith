@@ -1,4 +1,4 @@
-(ns polylith.workspace.validate.missing-functions-and-macros
+(ns polylith.validate.missing-functions-and-macros
   (:require [clojure.string :as str]
             [clojure.set :as set]))
 

@@ -1,4 +1,4 @@
-(ns polylith.workspace.validate.illegal-name-sharing
+(ns polylith.validate.illegal-name-sharing
   (:require [clojure.set :as set]
             [clojure.string :as str]))
 

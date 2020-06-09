@@ -1,6 +1,6 @@
-(ns polylith.workspace.deps.interface-deps-test
+(ns polylith.deps.interface-deps-test
   (:require [clojure.test :refer :all]
-            [polylith.workspace.deps.interface-deps :as interface-deps]))
+            [polylith.deps.interface :as deps]))
 
 (def interfaces '[{:name "auth", :declarations [{:name add-two, :type function, :signature [x]}], :implemented-by ["auth"]}
                   {:name "invoice"
@@ -52,7 +52,7 @@
                                               {:name func3, :type function, :signature [x y z]}]}
                    :dependencies ["auth"]}])
 
-(deftest with-deps--a-workspace-with-dependencies-from-different-components--should-be-merged-into-correct-interfaces
+(deftest interface-deps--a-workspace-with-dependencies-from-different-components--should-be-merged-into-a-single-list-of-dependencies
   (is (= '[{:name "auth",
             :declarations [{:name add-two, :type function, :signature [x]}],
             :implemented-by ["auth"],
@@ -77,4 +77,4 @@
                            {:name func3, :type function, :signature [x y z]}],
             :implemented-by ["user1" "user2"],
             :dependencies ["payment" "auth"]}]
-         (interface-deps/with-deps interfaces components))))
+         (deps/interface-deps interfaces components))))

@@ -14,8 +14,8 @@
    :implemented-by (vec (sort (map :name components)))})
 
 (defn interfaces [components]
-  "Calculates all interfaces, which are all functions that are declared
-   for each component interface."
+  "Calculates all interfaces, which are all definitions (data/function/macro)
+   that are defined for all components that implements an interface."
   (let [grouped-components (group-by #(-> % :interface :name) components)
         single-components (filter #(= (-> % second count) 1) grouped-components)
         multi-components (filter #(> (-> % second count) 1) grouped-components)

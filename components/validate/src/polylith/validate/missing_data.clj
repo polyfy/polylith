@@ -1,4 +1,4 @@
-(ns polylith.workspace.validate.missing-data
+(ns polylith.validate.missing-data
   (:require [clojure.set :as set]
             [clojure.string :as str]))
 
