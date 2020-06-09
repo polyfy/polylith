@@ -4,9 +4,9 @@
 (defn function->id [{:keys [name parameters]}]
   [name (count parameters)])
 
-(defn id->functions-or-macro [{:keys [declarations]}]
+(defn id->functions-or-macro [{:keys [definitions]}]
   (group-by function->id
-            (filter #(not= 'data (:type %)) declarations)))
+            (filter #(not= 'data (:type %)) definitions)))
 
 (defn ->function-or-macro [{:keys [name parameters]}]
   (str name "[" (str/join " " parameters) "]"))
@@ -33,15 +33,15 @@
               " but with a different parameter list: "
               (str/join ", " functions-and-macros))]))))
 
-(defn duplicated-parameters-error [component-name component-duplication]
-  (str "Duplicated parameters found in the " component-name " component: "
+(defn duplicated-parameter-lists-error [component-name component-duplication]
+  (str "Duplicated parameter lists found in the " component-name " component: "
        (str/join ", " (map ->function-or-macro component-duplication))))
 
 (defn component-errors [component]
   (let [component-name (:name component)
         component-id->function (-> component :interface id->functions-or-macro)
         multi-id-functions (mapv second (filter #(> (-> % second count) 1) component-id->function))]
-    (mapv #(duplicated-parameters-error component-name %) multi-id-functions)))
+    (mapv #(duplicated-parameter-lists-error component-name %) multi-id-functions)))
 
 (defn component-warnings [component interfaces name->component]
   (let [interface-name (-> component :interface :name)

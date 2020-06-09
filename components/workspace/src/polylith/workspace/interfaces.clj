@@ -3,14 +3,14 @@
 (defn ->interface [[_ [{:keys [name interface]}]]]
   {:name (:name interface)
    :type "interface"
-   :declarations (:declarations interface)
+   :definitions (:definitions interface)
    :implementing-components [name]})
 
 (defn ->multi-interface [[interface-name components]]
   {:name interface-name
    :type "interface"
-   :declarations (vec (sort-by (juxt :type :name :parameters)
-                               (set (mapcat #(-> % :interface :declarations) components))))
+   :definitions (vec (sort-by (juxt :type :name :parameters)
+                              (set (mapcat #(-> % :interface :definitions) components))))
    :implementing-components (vec (sort (map :name components)))})
 
 (defn interfaces [components]

@@ -11,8 +11,8 @@
 (defn function-or-macro? [{:keys [type]}]
   (not= 'data type))
 
-(defn functions-and-macros [{:keys [declarations]}]
-  (set (filter function-or-macro? declarations)))
+(defn functions-and-macros [{:keys [definitions]}]
+  (set (filter function-or-macro? definitions)))
 
 (defn component-errors [component interface-functions]
   (let [component-functions-and-macros (-> component :interface functions-and-macros)

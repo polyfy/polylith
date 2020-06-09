@@ -2,8 +2,8 @@
   (:require [clojure.set :as set]
             [clojure.string :as str]))
 
-(defn ->data-ifc [{:keys [declarations]}]
-  (set (filter #(= 'data (:type %)) declarations)))
+(defn ->data-ifc [{:keys [definitions]}]
+  (set (filter #(= 'data (:type %)) definitions)))
 
 (defn component-errors [interface component]
   (let [data-interface (->data-ifc interface)
