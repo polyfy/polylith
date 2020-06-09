@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Deps: org.springframework.build/aws-maven:5.0.0.RELEASE">
-    <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/build/aws-maven/5.0.0.RELEASE/aws-maven-5.0.0.RELEASE.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

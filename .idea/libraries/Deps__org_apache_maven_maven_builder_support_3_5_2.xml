@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Deps: org.apache.maven/maven-builder-support:3.5.2">
-    <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/apache/maven/maven-builder-support/3.5.2/maven-builder-support-3.5.2.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Deps: org.apache.maven/maven-artifact:3.5.2">
-    <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/apache/maven/maven-artifact/3.5.2/maven-artifact-3.5.2.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

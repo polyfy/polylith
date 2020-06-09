@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Deps: com.amazonaws/aws-java-sdk-s3:1.11.184">
-    <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/com/amazonaws/aws-java-sdk-s3/1.11.184/aws-java-sdk-s3-1.11.184.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
