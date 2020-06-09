@@ -9,7 +9,7 @@
 (defn ->multi-interface [[interface-name components]]
   {:name interface-name
    :type "interface"
-   :declarations (vec (sort-by (juxt :type :name :signature)
+   :declarations (vec (sort-by (juxt :type :name :parameters)
                                (set (mapcat #(-> % :interface :declarations) components))))
    :implementing-components (vec (sort (map :name components)))})
 

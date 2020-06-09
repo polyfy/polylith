@@ -2,11 +2,11 @@
   (:require [clojure.string :as str]
             [clojure.set :as set]))
 
-(defn function->id [{:keys [name signature]}]
-  [name (count signature)])
+(defn function->id [{:keys [name parameters]}]
+  [name (count parameters)])
 
-(defn ->function [{:keys [name signature]}]
-  (str name "[" (str/join " " signature) "]"))
+(defn ->function [{:keys [name parameters]}]
+  (str name "[" (str/join " " parameters) "]"))
 
 (defn function-or-macro? [{:keys [type]}]
   (not= 'data type))

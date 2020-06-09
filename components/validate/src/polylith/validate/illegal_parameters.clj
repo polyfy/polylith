@@ -1,30 +1,30 @@
-(ns polylith.validate.illegal-signatures
+(ns polylith.validate.illegal-parameters
   (:require [clojure.string :as str]))
 
-(defn function->id [{:keys [name signature]}]
-  [name (count signature)])
+(defn function->id [{:keys [name parameters]}]
+  [name (count parameters)])
 
 (defn id->functions-or-macro [{:keys [declarations]}]
   (group-by function->id
             (filter #(not= 'data (:type %)) declarations)))
 
-(defn ->function-or-macro [{:keys [name signature]}]
-  (str name "[" (str/join " " signature) "]"))
+(defn ->function-or-macro [{:keys [name parameters]}]
+  (str name "[" (str/join " " parameters) "]"))
 
 (def types->message {#{'function} "Function"
                      #{'macro} "Macro"
                      #('function 'macro) "Function and macro"})
 
-(defn function-warnings [[id [{:keys [name type signature]}]] interface component-name name->component]
+(defn function-warnings [[id [{:keys [name type parameters]}]] interface component-name name->component]
   (let [other-component-names (filterv #(not= % component-name)
                                        (:implementing-components interface))
         other-component (-> other-component-names first name->component)
         other-function (first ((-> other-component :interface id->functions-or-macro) id))]
 
     (when (and (-> other-function nil? not)
-               (not= signature (:signature other-function)))
+               (not= parameters (:parameters other-function)))
       (let [[comp1 comp2] (sort [component-name (:name other-component)])
-            function-or-macro1 (str name "[" (str/join " " signature) "]")
+            function-or-macro1 (str name "[" (str/join " " parameters) "]")
             function-or-macro2 (->function-or-macro other-function)
             functions-and-macros (sort [function-or-macro1 function-or-macro2])
             types (types->message (set [type (:type other-function)]))]
@@ -33,15 +33,15 @@
               " but with a different parameter list: "
               (str/join ", " functions-and-macros))]))))
 
-(defn duplicated-signature-error [component-name component-duplication]
-  (str "Duplicated signatures found in the " component-name " component: "
+(defn duplicated-parameters-error [component-name component-duplication]
+  (str "Duplicated parameters found in the " component-name " component: "
        (str/join ", " (map ->function-or-macro component-duplication))))
 
 (defn component-errors [component]
   (let [component-name (:name component)
         component-id->function (-> component :interface id->functions-or-macro)
         multi-id-functions (mapv second (filter #(> (-> % second count) 1) component-id->function))]
-    (mapv #(duplicated-signature-error component-name %) multi-id-functions)))
+    (mapv #(duplicated-parameters-error component-name %) multi-id-functions)))
 
 (defn component-warnings [component interfaces name->component]
   (let [interface-name (-> component :interface :name)

@@ -23,7 +23,7 @@
 (defn ->function [type name code]
   {:name name
    :type type
-   :signature (first code)})
+   :parameters (first code)})
 
 (defn ->function-declarations [statement]
   "Takes a statement (def, defn or defmacro) from source code
@@ -53,7 +53,7 @@
         interface-file-content (file/read-file (str src-dir "/interface.clj"))
         imports (importsfromdisk/all-imports component-src-dir)
         declarations (filter-declarations interface-file-content)
-        function-declarations (vec (sort-by (juxt :type :name :signature)
+        function-declarations (vec (sort-by (juxt :type :name :parameters)
                                             (mapcat ->function-declarations declarations)))]
     {:name component-name
      :type "component"

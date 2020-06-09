@@ -1,8 +1,4 @@
 
-- change:
-  - from :dependencies to :implementing-deps
-
-- change to 'parameters'
 - change from 'declarations' to 'definitions'.
 - change type from 'data' top 'definition'.
 - change type to string in declarations.
