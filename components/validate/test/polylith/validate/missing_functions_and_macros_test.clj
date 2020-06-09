@@ -7,7 +7,7 @@
                    :implementing-components ["auth"]}
                   {:name "invoice"
                    :type "interface"
-                   :definitions [{:type data, :name abc}
+                   :definitions [{:type definition, :name abc}
                                  {:name func1, :type function, :parameters [a]}
                                  {:name func1, :type function, :parameters [b]}
                                  {:name func1, :type function, :parameters [a b]}
@@ -35,7 +35,7 @@
                   {:name "invoice"
                    :type "component"
                    :interface {:name "invoice"
-                               :definitions [{:type data, :name abc}
+                               :definitions [{:type definition, :name abc}
                                              {:name func1, :type function, :parameters [a]}
                                              {:name func1, :type function, :parameters [a b]}]}}
                   {:name "invoice2"

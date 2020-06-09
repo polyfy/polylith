@@ -4,7 +4,7 @@
 
 (def interfaces '[{:name "auth", :definitions [{:name add-two, :type function, :parameters [x]}], :implementing-components ["auth"]}
                   {:name "invoice"
-                   :definitions [{:type data, :name abc}
+                   :definitions [{:type definition, :name abc}
                                  {:name func1, :type function, :parameters [a]}
                                  {:name func1, :type function, :parameters [b]}
                                  {:name func1, :type function, :parameters [a b]}
@@ -26,7 +26,7 @@
                    :dependencies []}
                   {:name "invoice"
                    :interface {:name "invoice"
-                               :definitions [{:type data, :name abc}
+                               :definitions [{:type definition, :name abc}
                                              {:name func1, :type function, :parameters [a]}
                                              {:name func1, :type function, :parameters [a b]}]}
                    :dependencies ["user"]}
@@ -58,7 +58,7 @@
             :implementing-components ["auth"],
             :implementing-deps []}
            {:name "invoice",
-            :definitions [{:type data, :name abc}
+            :definitions [{:type definition, :name abc}
                           {:name func1, :type function, :parameters [a]}
                           {:name func1, :type function, :parameters [b]}
                           {:name func1, :type function, :parameters [a b]}

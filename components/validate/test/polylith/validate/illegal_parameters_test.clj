@@ -8,7 +8,7 @@
                    :implementing-deps []}
                   {:name "invoice"
                    :type "interface"
-                   :definitions [{:type data, :name abc}
+                   :definitions [{:type definition, :name abc}
                                  {:name func1, :type function, :parameters [a]}
                                  {:name func1, :type function, :parameters [b]}
                                  {:name func1, :type function, :parameters [a b]}
@@ -41,7 +41,7 @@
                    :imports [{:ns-path "invoice/interface.clj", :imports []}
                              {:ns-path "invoice/core.clj", :imports [user.interface]}]
                    :interface {:name "invoice"
-                               :definitions [{:type data, :name abc}
+                               :definitions [{:type definition, :name abc}
                                              {:name func1, :type function, :parameters [a]}
                                              {:name func1, :type function, :parameters [a b]}]}
                    :dependencies ["user"]}
@@ -87,7 +87,7 @@
                     :implementing-deps []}
                    {:name "invoice",
                     :type "interface",
-                    :definitions [{:type data, :name abc}
+                    :definitions [{:type definition, :name abc}
                                   {:name func1, :type macro, :parameters [a]}
                                   {:name func1, :type macro, :parameters [b]}
                                   {:name func1, :type function, :parameters [a b]}
@@ -120,7 +120,7 @@
                     :imports [{:ns-path "invoice/interface.clj", :imports []}
                               {:ns-path "invoice/core.clj", :imports [user.interface]}],
                     :interface {:name "invoice",
-                                :definitions [{:type data, :name abc}
+                                :definitions [{:type definition, :name abc}
                                               {:name func1, :type macro, :signature [a]}
                                               {:name func1, :type function, :signature [a b]}]},
                     :dependencies ["user"]}

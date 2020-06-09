@@ -4,29 +4,29 @@
 
 (def interfaces '[{:name "invoice"
                    :type "interface"
-                   :definitions [{:type data, :name abc}
+                   :definitions [{:type definition, :name abc}
                                  {:name func1, :type function, :parameters [a]}]
                    :implementing-components ["invoice" "invoice2"]}
                   {:name "user"
                    :type "interface",
-                   :definitions [{:type data, :name data1}
+                   :definitions [{:type definition, :name data1}
                                  {:name func1, :type function, :parameters [a]}]
                    :implementing-components ["user1" "user2"]}])
 
 (def components '[{:name "invoice"
                    :type "component"
                    :interface {:name "invoice"
-                               :definitions [{:type data, :name abc}
+                               :definitions [{:type definition, :name abc}
                                              {:name func1, :type function, :parameters [a]}]}}
                   {:name "invoice2"
                    :type "component"
                    :interface {:name "invoice"
-                               :definitions [{:type data, :name abc}
+                               :definitions [{:type definition, :name abc}
                                              {:name func1, :type function, :parameters [a]}]}}
                   {:name "user1"
                    :type "component"
                    :interface {:name "user"
-                               :definitions [{:type data, :name data1}
+                               :definitions [{:type definition, :name data1}
                                              {:name func1, :type function, :parameters []}]}}
                   {:name "user2"
                    :type "component"
