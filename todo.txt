@@ -1,4 +1,23 @@
 
+- make components of validate and deps (dependencies).
+- support all these file extensions: .clj, .cljc
+- make sub namespaces to 'interface' be bart of the contract, e.g. interface.spec.
+  - add :ns interface to each definition.
+
+- change to:
+  - implementing-components
+  - implementing-deps
+- change to 'parameters'
+- change from 'declarations' to 'definitions'.
+- change type from 'data' top 'definition'.
+
+- change type to string in declarations.
+- change from "Missing data definition" to "Missing definition"
+
+- add 'lib-imports' to components that is the set of all imports, except components.
+- use env/ prefix on all environments + '-test' postfix for tests.
+- rename :aliases to :environments.
+
 - calculate changes
   - run the 'git diff' command:
     - if no arguments, use HEAD.
@@ -11,29 +30,17 @@
 
 - make sure we can compile the code into a command line tool using GraalVM.
 
-- replace \ with / at the entry point:
-  (str/replace top-ns #"\." "/")
-
-- to support other languages, each parameter also needs so handle the type.
-
-- eventually: create a migration tool that migrates lein-polylith projects to
-  polylith projects.
+- check if support for .cljs files make sense.
 
 Questions
 =========
-- should we support all these file extensions?: .clj, .cljc, .cljs
-- make sub namespaces to 'interface' be bart of the contract, e.g. interface.spec.
-- it looks like 'build-tool' in the realworld project is not a component,
-  at least it has no interface.
+
+Leave for now
+=============
 - should the name of a command line tool be 'poly'?
-- should we allow to have a function in one component and a macro in another
-  if the function/macro looks exactly the same, e.g.: unless[pred a b].
-  - maybe not, because a fanction can be used as a value, like an argument to
-    a function, but a macro can't.
-- store the environment definitions of :aliases as :environments?
-  - store the reset of the aliases as something generic?
-- only functions in interface.clj is part of the contract, but we allow dependencies
-  to e.g. interface.spec which will show up as a dependency.
+- how to handle test dependencies?
+- create a migration tool that migrates lein-polylith projects to polylith projects.
+- html doc that automatically updates itself.
 
 Doc
 ===
