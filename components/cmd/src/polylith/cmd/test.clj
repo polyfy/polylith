@@ -1,6 +1,6 @@
 (ns polylith.cmd.test
-  (:require [clojure.string :as str]
-            [polylith.common.interface :as common])
+  (:require [clojure.string :as str])
+            ;[polylith.common.interface :as common])
   (:refer-clojure :exclude [test]))
 
 ;(def test-runner-dep {'com.cognitect/test-runner {:git/url "https://github.com/cognitect-labs/test-runner.git"

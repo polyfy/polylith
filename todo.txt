@@ -13,10 +13,6 @@
 - add :ns interface to each interface definition.
   - make sub namespaces to 'interface' be bart of the contract, e.g. interface.spec.
 
-
-
-- use env/ prefix on all environments + '-test' postfix for tests.
-
 - calculate changes
   - run the 'git diff' command:
     - if no arguments, use HEAD.

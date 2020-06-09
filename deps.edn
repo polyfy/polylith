@@ -19,7 +19,7 @@
                                           "components/workspace/src"
                                           "components/workspace-clj/src"]}
 
-            :env.test/core {:extra-paths [; Base
+            :env/core-test {:extra-paths [; Base
                                           "bases/core/test"
 
                                           ; Components

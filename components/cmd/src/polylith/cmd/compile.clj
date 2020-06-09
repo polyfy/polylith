@@ -2,8 +2,8 @@
   "Compile Clojure source into .class files."
   (:require [clojure.core.async :refer [>!!]]
             [clojure.java.io :as io]
-            [clojure.string :as str]
-            [polylith.common.interface :as common])
+            [clojure.string :as str])
+            ;[polylith.common.interface :as common])
   (:refer-clojure :exclude [compile])
   (:import (java.io File)))
 
