@@ -17,11 +17,7 @@
          components (componentsfromdisk/read-components-from-disk ws-path top-src-dir component-names)
          bases (basesfromdisk/read-bases-from-disk ws-path top-src-dir)
          aliases (alias/aliases config)]
-         ;interface-names (vec (sort (map #(-> % :interface :name) components)))]
-     ;messages (validate/error-messages interface-names components bases)]
      {:polylith polylith
       :components components
       :bases bases
-      :aliases aliases})))
-;:messages messages}))
-
+      :environments aliases})))

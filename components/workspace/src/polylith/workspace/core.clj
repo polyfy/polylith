@@ -4,7 +4,7 @@
             [polylith.workspace.interfaces :as ifcs]
             [polylith.shared.interface :as shared]))
 
-(defn pimp-workspace [{:keys [polylith components bases aliases]}]
+(defn pimp-workspace [{:keys [polylith components bases environments]}]
   (let [top-ns (shared/top-namespace (:top-namespace polylith))
         interfaces (ifcs/interfaces components)
         interface-names (apply sorted-set (mapv :name interfaces))
@@ -17,6 +17,6 @@
      :interfaces pimped-interfaces
      :components pimped-components
      :bases pimped-bases
-     :aliases aliases
+     :environments environments
      :messages {:warnings warnings
                 :errors errors}}))
