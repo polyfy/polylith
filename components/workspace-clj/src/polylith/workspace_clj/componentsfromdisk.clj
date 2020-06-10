@@ -63,10 +63,3 @@
 
 (defn read-components-from-disk [ws-path top-src-dir component-names]
   (vec (sort-by :name (map #(read-component-from-disk ws-path top-src-dir %) component-names))))
-
-;(def ws-path "../clojure-polylith-realworld-example-app")
-;(def component-src-dir (str ws-path "/components/article/src/clojure/realworld/"))
-;(def interface-name (-> component-src-dir file/directory-paths first replace-underscore))
-;(def src-dir (str component-src-dir interface-name))
-;(def interface-file-content (file/read-file (str src-dir "/interface.clj")))
-;(def imports (importsfromdisk/all-imports component-src-dir))

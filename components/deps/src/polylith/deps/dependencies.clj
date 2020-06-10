@@ -29,9 +29,8 @@
 (defn brick-dependencies [top-ns interface-name interface-names brick-imports]
   (vec (mapcat #(brick-ns-dependencies top-ns interface-name interface-names %) brick-imports)))
 
-(defn with-deps [top-ns interface-names {:keys [interface imports] :as brick}]
-  "Takes incoming brick and returns a pimped brick with dependencies."
+(defn interface-deps [top-ns interface-names {:keys [interface imports]}]
+  "Returns the interface dependencies for a brick (component or base)."
   (let [interface-name (:name interface)
-        deps (brick-dependencies top-ns interface-name interface-names imports)
-        interface-deps (vec (sort (set (map :depends-on-interface deps))))]
-    (assoc brick :dependencies interface-deps)))
+        deps (brick-dependencies top-ns interface-name interface-names imports)]
+    (vec (sort (set (map :depends-on-interface deps))))))

@@ -1,8 +1,4 @@
 
-- change from "Missing data definition" to "Missing definition"
-- add 'lib-imports' to components that is the set of all imports, except components.
-
-
 - add :ns interface to each interface definition.
   - make sub namespaces to 'interface' be bart of the contract, e.g. interface.spec.
 
