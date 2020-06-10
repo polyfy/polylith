@@ -7,13 +7,13 @@
                     :type "component"
                     :interface {:name "common"}
                     :imports [{:ns-path "common:/readimportsfromdisk.clj"
-                               :imports [clojure.string
-                                         polylith.file.interface]}
+                               :imports ["clojure.string"
+                                         "polylith.file.interface"]}
                               {:ns-path "common/abc.clj"
-                               :imports [clojure.core
-                                         polylith.user.interface
-                                         polylith.cmd.interface.v2.core
-                                         polylith.invoice.interface]}]}]
+                               :imports ["clojure.core"
+                                         "polylith.user.interface"
+                                         "polylith.cmd.interface.v2.core"
+                                         "polylith.invoice.interface"]}]}]
     (is (= []
            (ideps/brick-errors "polylith." component #{"spec" "cmd" "file" "invoice" "user"} [])))))
 
@@ -22,13 +22,13 @@
                    :type "component"
                    :interface {:name "common"}
                    :imports '[{:ns-path "common/purchase.clj"
-                               :imports [clojure.string
-                                         polylith.file.interface
-                                         polylith.invoice.core]}
+                               :imports ["clojure.string"
+                                         "polylith.file.interface"
+                                         "polylith.invoice.core"]}
                               {:ns-path "common/billing.clj"
-                               :imports [clojure.core
-                                         polylith.user.interface
-                                         polylith.cmd.core]}]}]
+                               :imports ["clojure.core"
+                                         "polylith.user.interface"
+                                         "polylith.cmd.core"]}]}]
     (is (= ["Illegal dependency on namespace 'invoice.core' in 'components/common/purchase.clj'. Use 'invoice.interface' instead to fix the problem."
             "Illegal dependency on namespace 'cmd.core' in 'components/common/billing.clj'. Use 'cmd.interface' instead to fix the problem."]
            (ideps/brick-errors "polylith." component #{"spec" "cmd" "file" "invoice" "user"} [])))))
@@ -38,7 +38,7 @@
                     :name "user1",
                     :interface {:name "user"}
                     :imports [{:ns-path "user/interface.clj"
-                               :imports [user.core]}
+                               :imports ["user.core"]}
                               {:ns-path "user/core.clj"
                                :imports []}]}]
     (is (= []

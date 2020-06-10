@@ -10,8 +10,9 @@
   (rest (first (filter require? imports))))
 
 (defn filter-imports [content]
-  (vec (sort (map first (filterv #(= :as (second %))
-                                 (->imports (first content)))))))
+  (vec (sort (map #(-> % first str)
+                  (filterv #(= :as (second %))
+                           (->imports (first content)))))))
 
 (defn short-path [root-dir path]
   (subs path (count root-dir)))

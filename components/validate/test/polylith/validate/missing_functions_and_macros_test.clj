@@ -30,7 +30,8 @@
 
 (def components '[{:name "auth"
                    :type "component"
-                   :imports [{:ns-path "auth/interface.clj", :imports [auth.core]} {:ns-path "auth/core.clj", :imports []}]
+                   :imports [{:ns-path "auth/interface.clj", :imports ["auth.core"]}
+                             {:ns-path "auth/core.clj", :imports []}]
                    :interface {:name "auth",
                                :definitions [{:name "add-two", :type "function", :parameters ["x"]}]}}
                   {:name "invoice"
@@ -59,8 +60,6 @@
                                              {:name "func5", :type "function", :parameters ["a" "b" "c" "d"]}]}}
                   {:name "user2"
                    :type "component"
-                   :imports [{:ns-path "user/interface.clj", :imports []}
-                             {:ns-path "user/core.clj", :imports [auth.interface]}]
                    :interface {:name "user"
                                :definitions [{:name "func2", :type "function", :parameters ["x" "y"]}
                                              {:name "func3", :type "function", :parameters ["x" "y" "z"]}
