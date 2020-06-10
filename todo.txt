@@ -1,5 +1,6 @@
 
 - handle :name, :type and :parameters as strings in definitions.
+- store imports as strings.
 
 - change from "Missing data definition" to "Missing definition"
 - add 'lib-imports' to components that is the set of all imports, except components.

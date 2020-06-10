@@ -3,12 +3,12 @@
             [polylith.validate.illegal-name-sharing :as illegal-name-sharing]))
 
 (def interfaces '[{:name "mybase"
-                   :definitions [{:name add-two, :type function, :parameters [x]}]
+                   :definitions [{:name "add-two", :type "function", :parameters ["x"]}]
                    :implementing-components ["mybase"]}])
 
 (def components '[{:name "mybase1"
                    :interface {:name "mybase1",
-                               :definitions [{:name add-two, :type function, :parameters [x]}]}}])
+                               :definitions [{:name "add-two", :type "function", :parameters ["x"]}]}}])
 
 (def bases [{:name "mybase",}])
 

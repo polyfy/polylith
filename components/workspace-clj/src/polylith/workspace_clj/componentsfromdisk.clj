@@ -3,9 +3,9 @@
             [polylith.workspace-clj.importsfromdisk :as importsfromdisk]
             [clojure.string :as str]))
 
-(def ->generic-type {'def 'data
-                     'defn 'function
-                     'defmacro 'macro})
+(def ->generic-type {'def "data"
+                     'defn "function"
+                     'defmacro "macro"})
 
 (defn definition? [code]
   (if (list? code)
@@ -21,9 +21,9 @@
            (drop 1 statements)))
 
 (defn ->function [type name code]
-  {:name name
-   :type type
-   :parameters (first code)})
+  {:name (str name)
+   :type (str type)
+   :parameters (mapv str (first code))})
 
 (defn ->definitions [statement]
   "Takes a statement (def, defn or defmacro) from source code
@@ -33,9 +33,9 @@
         code (drop-while #(not (or (list? %)
                                    (vector? %)))
                          statement)]
-    (if (= 'data type)
-      [{:type type
-        :name name}]
+    (if (= "data" type)
+      [{:name (str name)
+        :type (str type)}]
       (if (-> code first vector?)
         [(->function type name code)]
         (mapv #(->function type name %) code)))))
@@ -53,7 +53,7 @@
         interface-file-content (file/read-file (str src-dir "/interface.clj"))
         imports (importsfromdisk/all-imports component-src-dir)
         statements (filter-statements interface-file-content)
-        definitions (vec (sort-by (juxt :type :name :parameters)
+        definitions (vec (sort-by (juxt :name :type :parameters)
                                   (mapcat ->definitions statements)))]
     {:name component-name
      :type "component"
