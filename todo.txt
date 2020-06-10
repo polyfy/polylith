@@ -1,7 +1,6 @@
 
-- change from 'declarations' to 'definitions'.
-- change type from 'data' top 'definition'.
-- change type to string in declarations.
+- handle :name, :type and :parameters as strings in definitions.
+
 - change from "Missing data definition" to "Missing definition"
 - add 'lib-imports' to components that is the set of all imports, except components.
 
@@ -26,6 +25,7 @@
 Questions
 =========
 - how do we run all the tests using deps?
+- support both edn and JSON as output, with configuration?
 
 Leave for now
 =============

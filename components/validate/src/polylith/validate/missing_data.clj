@@ -11,7 +11,7 @@
         missing-data-defs (set/difference data-interface comp-interface)
         data-defs (str/join ", " (map :name missing-data-defs))]
     (when (-> missing-data-defs empty? not)
-      [(str "Missing data definition in the " (:name component) " component: " data-defs)])))
+      [(str "Missing definition in the " (:name component) " component: " data-defs)])))
 
 (defn interface-errors [{:keys [implementing-components] :as interface} name->component]
   (let [ifc-components (map name->component implementing-components)]

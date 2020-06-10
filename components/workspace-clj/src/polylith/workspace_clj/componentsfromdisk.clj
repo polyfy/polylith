@@ -15,7 +15,7 @@
           (= f 'defmacro)))
     false))
 
-(defn filter-definitions [statements]
+(defn filter-statements [statements]
   (filterv definition?
            ; Drops the namespace declaration on top of the file
            (drop 1 statements)))
@@ -25,9 +25,9 @@
    :type type
    :parameters (first code)})
 
-(defn ->function-definitions [statement]
+(defn ->definitions [statement]
   "Takes a statement (def, defn or defmacro) from source code
-   and returns a vector of function definitions."
+   and returns a vector of data function definitions."
   (let [type (-> statement first ->generic-type)
         name (second statement)
         code (drop-while #(not (or (list? %)
@@ -52,14 +52,14 @@
         src-dir (str component-src-dir interface-name)
         interface-file-content (file/read-file (str src-dir "/interface.clj"))
         imports (importsfromdisk/all-imports component-src-dir)
-        definitions (filter-definitions interface-file-content)
-        function-definitions (vec (sort-by (juxt :type :name :parameters)
-                                           (mapcat ->function-definitions definitions)))]
+        statements (filter-statements interface-file-content)
+        definitions (vec (sort-by (juxt :type :name :parameters)
+                                  (mapcat ->definitions statements)))]
     {:name component-name
      :type "component"
      :imports imports
      :interface {:name interface-name
-                 :definitions function-definitions}}))
+                 :definitions definitions}}))
 
 (defn read-components-from-disk [ws-path top-src-dir component-names]
   (vec (sort-by :name (map #(read-component-from-disk ws-path top-src-dir %) component-names))))

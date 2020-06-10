@@ -34,5 +34,5 @@
                                :definitions [{:name func2, :type function, :parameters [x y]}]}}])
 
 (deftest errors--missing-data-in-a-component--returns-error
-  (is (= ["Missing data definition in the user2 component: data1"]
+  (is (= ["Missing definition in the user2 component: data1"]
          (missing-data/errors interfaces components))))
