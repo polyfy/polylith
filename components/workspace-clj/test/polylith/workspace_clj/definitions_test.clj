@@ -1,6 +1,6 @@
-(ns polylith.workspace-clj.readcomponentsfromdisk-test
+(ns polylith.workspace-clj.definitions-test
   (:require [clojure.test :refer :all]
-            [polylith.workspace-clj.componentsfromdisk :as fromdisk]))
+            [polylith.workspace-clj.definitions :as defs]))
 
 (deftest filter-statements--returns-def-statements
   (let [code '((ns polylith.spec.interface
@@ -9,4 +9,4 @@
                  (core/valid-config? 'config)))]
     (is (= '((defn valid-config? ['config]
                (core/valid-config? 'config)))
-           (fromdisk/filter-statements code)))))
+           (defs/filter-statements code)))))

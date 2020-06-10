@@ -4,34 +4,34 @@
 
 (def interfaces '[{:name "invoice"
                    :type "interface"
-                   :definitions [{:name "abc", :type "data"}
-                                 {:name "func1", :type "function", :parameters ["a"]}]
+                   :definitions [{:name "abc", :type "data" :ns "interface"}
+                                 {:name "func1", :type "function", :parameters ["a"] :ns "interface"}]
                    :implementing-components ["invoice" "invoice2"]}
                   {:name "user"
                    :type "interface",
-                   :definitions [{:name "data1", :type "data"}
-                                 {:name "func1", :type "function", :parameters ["a"]}]
+                   :definitions [{:name "data1", :type "data" :ns "interface"}
+                                 {:name "func1", :type "function", :parameters ["a"] :ns "interface"}]
                    :implementing-components ["user1" "user2"]}])
 
 (def components '[{:name "invoice"
                    :type "component"
                    :interface {:name "invoice"
-                               :definitions [{:name "abc" :type "data"}
-                                             {:name "func1", :type "function", :parameters ["a"]}]}}
+                               :definitions [{:name "abc" :type "data" :ns "interface"}
+                                             {:name "func1", :type "function", :parameters ["a"] :ns "interface"}]}}
                   {:name "invoice2"
                    :type "component"
                    :interface {:name "invoice"
-                               :definitions [{:name "abc" :type "data"}
-                                             {:name "func1", :type "function", :parameters ["a"]}]}}
+                               :definitions [{:name "abc" :type "data" :ns "interface"}
+                                             {:name "func1", :type "function", :parameters ["a"] :ns "interface"}]}}
                   {:name "user1"
                    :type "component"
                    :interface {:name "user"
-                               :definitions [{:name "data1" :type "data"}
-                                             {:name "func1", :type "function", :parameters []}]}}
+                               :definitions [{:name "data1" :type "data" :ns "interface"}
+                                             {:name "func1", :type "function", :parameters [] :ns "interface"}]}}
                   {:name "user2"
                    :type "component"
                    :interface {:name "user"
-                               :definitions [{:name "func2", :type "function", :parameters ["x" "y"]}]}}])
+                               :definitions [{:name "func2", :type "function", :parameters ["x" "y"] :ns "interface"}]}}])
 
 (deftest errors--missing-data-in-a-component--returns-error
   (is (= ["Missing definition in the user2 component: data1"]

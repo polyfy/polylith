@@ -11,9 +11,9 @@
 (defn ->function-or-macro [{:keys [name parameters]}]
   (str name "[" (str/join " " parameters) "]"))
 
-(def types->message {#{'function} "Function"
-                     #{'macro} "Macro"
-                     #('function 'macro) "Function and macro"})
+(def types->message {#{"function"} "Function"
+                     #{"macro"} "Macro"
+                     #("function" "macro") "Function and macro"})
 
 (defn function-warnings [[id [{:keys [name type parameters]}]] interface component-name name->component]
   (let [other-component-names (filterv #(not= % component-name)

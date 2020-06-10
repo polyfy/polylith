@@ -1,4 +1,11 @@
 
+- also tell what namespace the interface is missing in "Function in invoice is also defined ...".
+- replace "Missing" with "Undefined" in error messages.
+
+
+- check how we handle several missing definitions, now it looks like we only
+  show one missing definition: "Missing definition ...".
+
 - add :ns interface to each interface definition.
   - make sub namespaces to 'interface' be bart of the contract, e.g. interface.spec.
 
@@ -14,7 +21,6 @@
 
 - make sure we can compile the code into a command line tool using GraalVM.
 
-- check if support for .cljs files make sense.
 
 Questions
 =========
@@ -27,6 +33,7 @@ Leave for now
 - how to handle test dependencies?
 - create a migration tool that migrates lein-polylith projects to polylith projects.
 - html doc that automatically updates itself.
+- check if support for .cljs files make sense.
 
 Doc
 ===
