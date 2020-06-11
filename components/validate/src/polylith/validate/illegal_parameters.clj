@@ -1,6 +1,10 @@
 (ns polylith.validate.illegal-parameters
   (:require [clojure.string :as str]))
 
+(def types->message {#{"function"} "Function"
+                     #{"macro"} "Macro"
+                     #("function" "macro") "Function and macro"})
+
 (defn function->id [{:keys [name parameters]}]
   [name (count parameters)])
 
@@ -8,14 +12,18 @@
   (group-by function->id
             (filter #(not= "data" (:type %)) definitions)))
 
-(defn ->function-or-macro [{:keys [name parameters]}]
-  (str name "[" (str/join " " parameters) "]"))
+(defn with-ns [ns name]
+  (if (str/blank? ns)
+    name
+    (str ns "." name)))
 
-(def types->message {#{"function"} "Function"
-                     #{"macro"} "Macro"
-                     #("function" "macro") "Function and macro"})
+(defn ->function-or-macro
+  ([{:keys [ns name parameters]}]
+   (->function-or-macro ns name parameters))
+  ([ns name parameters]
+   (str (with-ns ns name) "[" (str/join " " parameters) "]")))
 
-(defn function-warnings [[id [{:keys [name type parameters]}]] interface component-name name->component]
+(defn function-warnings [[id [{:keys [ns name type parameters]}]] interface component-name name->component]
   (let [other-component-names (filterv #(not= % component-name)
                                        (:implementing-components interface))
         other-component (-> other-component-names first name->component)
@@ -24,7 +32,7 @@
     (when (and (-> other-function nil? not)
                (not= parameters (:parameters other-function)))
       (let [[comp1 comp2] (sort [component-name (:name other-component)])
-            function-or-macro1 (str name "[" (str/join " " parameters) "]")
+            function-or-macro1 (->function-or-macro ns name parameters)
             function-or-macro2 (->function-or-macro other-function)
             functions-and-macros (sort [function-or-macro1 function-or-macro2])
             types (types->message (set [type (:type other-function)]))]

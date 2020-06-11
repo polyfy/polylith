@@ -1,4 +1,5 @@
-(ns polylith.workspace-clj.definitions)
+(ns polylith.workspace-clj.definitions
+  (:require [clojure.string :as str]))
 
 (def ->generic-type {'def "data"
                      'defn "function"
@@ -17,11 +18,16 @@
            ; Drops the namespace declaration on top of the file
            (drop 1 statements)))
 
+(defn sub-ns [namespace]
+  (if (= "interface" namespace)
+    ""
+    (subs namespace 10)))
+
 (defn ->function [namespace type name code]
   {:name (str name)
    :type (str type)
    :parameters (mapv str (first code))
-   :ns namespace})
+   :ns (sub-ns namespace)})
 
 (defn ->definitions [namespace statement]
   "Takes a statement (def, defn or defmacro) from source code
@@ -34,7 +40,7 @@
     (if (= "data" type)
       [{:name (str name)
         :type (str type)
-        :ns namespace}]
+        :ns (sub-ns namespace)}]
       (if (-> code first vector?)
         [(->function namespace type name code)]
         (mapv #(->function namespace type name %) code)))))
