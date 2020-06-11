@@ -6,10 +6,10 @@
             [polylith.workspace-clj.components-from-disk :as components-from-disk]
             [polylith.workspace-clj.bases-from-disk :as bases-from-disk]))
 
-(defn read-workspace-from-disk
+(defn workspace-from-disk
   ([ws-path]
    (let [config (read-string (slurp (str ws-path "/deps.edn")))]
-     (read-workspace-from-disk ws-path config)))
+     (workspace-from-disk ws-path config)))
   ([ws-path {:keys [polylith] :as config}]
    (let [top-ns (shared/top-namespace (:top-namespace polylith))
          top-src-dir (str/replace top-ns "." "/")

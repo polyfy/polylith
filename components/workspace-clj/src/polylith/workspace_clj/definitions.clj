@@ -27,7 +27,7 @@
   {:name (str name)
    :type (str type)
    :parameters (mapv str (first code))
-   :ns (sub-ns namespace)})
+   :sub-ns (sub-ns namespace)})
 
 (defn ->definitions [namespace statement]
   "Takes a statement (def, defn or defmacro) from source code
@@ -40,7 +40,7 @@
     (if (= "data" type)
       [{:name (str name)
         :type (str type)
-        :ns (sub-ns namespace)}]
+        :sub-ns (sub-ns namespace)}]
       (if (-> code first vector?)
         [(->function namespace type name code)]
         (mapv #(->function namespace type name %) code)))))
