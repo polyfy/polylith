@@ -10,6 +10,7 @@
                   {:name "user"
                    :type "interface",
                    :definitions [{:name "data1", :type "data" :sub-ns ""}
+                                 {:name "data2", :type "data" :sub-ns "a.b"}
                                  {:name "func1", :type "function", :parameters ["a"] :sub-ns ""}]
                    :implementing-components ["user1" "user2"]}])
 
@@ -27,12 +28,13 @@
                    :type "component"
                    :interface {:name "user"
                                :definitions [{:name "data1" :type "data" :sub-ns ""}
+                                             {:name "data2", :type "data" :sub-ns "a.b"}
                                              {:name "func1", :type "function", :parameters [] :sub-ns ""}]}}
                   {:name "user2"
                    :type "component"
                    :interface {:name "user"
                                :definitions [{:name "func2", :type "function", :parameters ["x" "y"] :sub-ns ""}]}}])
 
-(deftest errors--missing-data-in-a-component--returns-error
-  (is (= ["Missing definition in the user2 component: data1"]
+(deftest errors--when-having-missing-data-in-a-component--return-error
+  (is (= ["Missing definitions in the interface of user2: data1, a.b/data2"]
          (missing-data/errors interfaces components))))

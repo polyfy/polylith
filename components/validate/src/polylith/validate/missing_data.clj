@@ -1,17 +1,18 @@
 (ns polylith.validate.missing-data
   (:require [clojure.set :as set]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [polylith.validate.shared :as shared]))
 
 (defn ->data-ifc [{:keys [definitions]}]
   (set (filter #(= "data" (:type %)) definitions)))
 
 (defn component-errors [interface component]
-  (let [data-interface (->data-ifc interface)
-        comp-interface (->data-ifc (:interface component))
-        missing-data-defs (set/difference data-interface comp-interface)
-        data-defs (str/join ", " (map :name missing-data-defs))]
-    (when (-> missing-data-defs empty? not)
-      [(str "Missing definition in the " (:name component) " component: " data-defs)])))
+  (let [data-defs (->data-ifc interface)
+        comp-defs (->data-ifc (:interface component))
+        missing-defs (set/difference data-defs comp-defs)
+        data-defs (str/join ", " (map shared/full-name missing-defs))]
+    (when (-> missing-defs empty? not)
+      [(str "Missing definitions in the interface of " (:name component) ": " data-defs)])))
 
 (defn interface-errors [{:keys [implementing-components] :as interface} name->component]
   (let [ifc-components (map name->component implementing-components)]

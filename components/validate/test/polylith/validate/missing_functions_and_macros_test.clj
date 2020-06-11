@@ -24,7 +24,7 @@
                                  {:name "func2", :type "function", :parameters ["x" "y"] :sub-ns ""}
                                  {:name "func3", :type "function", :parameters ["a" "b" "c"] :sub-ns ""}
                                  {:name "func3", :type "function", :parameters ["x" "y" "z"] :sub-ns ""}
-                                 {:name "func4", :type "function", :parameters [] :sub-ns ""}
+                                 {:name "func4", :type "function", :parameters [] :sub-ns "subns"}
                                  {:name "func5", :type "function", :parameters ["a" "b" "c" "d"] :sub-ns ""}]
                    :implementing-components ["user1" "user2"]}])
 
@@ -56,7 +56,7 @@
                                :definitions [{:name "func1", :type "function", :parameters [] :sub-ns ""}
                                              {:name "func2", :type "function", :parameters ["a" "b"] :sub-ns ""}
                                              {:name "func3", :type "function", :parameters ["a" "b" "c"] :sub-ns ""}
-                                             {:name "func4", :type "function", :parameters [] :sub-ns ""}
+                                             {:name "func4", :type "function", :parameters [] :sub-ns "subns"}
                                              {:name "func5", :type "function", :parameters ["a" "b" "c" "d"] :sub-ns ""}]}}
                   {:name "user2"
                    :type "component"
@@ -65,13 +65,13 @@
                                              {:name "func3", :type "function", :parameters ["x" "y" "z"] :sub-ns ""}
                                              {:name "func5", :type "function", :parameters ["a" "b" "c" "d"] :sub-ns ""}]}}])
 
-(deftest errors--if-component-with-missing-functions--then-return-error-message
-  (is (= ["Missing functions in component user2: func1[], func4[]"]
+(deftest errors--when-having-a--component-with-missing-functions--return-error-message
+  (is (= ["Missing function definitions in the interface of user2: func1[], subns/func4[]"]
          (missing/errors interfaces components))))
 
-(deftest errors--if-component-with-missing-functions-and-macros--then-return-error-message
+(deftest errors--when-having-a-component-with-missing-functions-and-macros--return-error-message
   (let [interfaces-with-func1-in-comp1-as-macro (assoc-in interfaces [3 :definitions 0 :type] "macro")
         components-with-func1-in-comp1-as-macro (assoc-in components [4 :interface :definitions 0 :type] "macro")]
-    (is (= ["Missing functions and macros in component user2: func1[], func4[]"]
+    (is (= ["Missing function and macro definitions in the interface of user2: func1[], subns/func4[]"]
            (missing/errors interfaces-with-func1-in-comp1-as-macro
                            components-with-func1-in-comp1-as-macro)))))

@@ -1,12 +1,13 @@
 (ns polylith.validate.missing-functions-and-macros
   (:require [clojure.string :as str]
-            [clojure.set :as set]))
+            [clojure.set :as set]
+            [polylith.validate.shared :as shared]))
 
 (defn function->id [{:keys [name parameters]}]
   [name (count parameters)])
 
-(defn ->function [{:keys [name parameters]}]
-  (str name "[" (str/join " " parameters) "]"))
+(defn ->function [{:keys [sub-ns name parameters]}]
+  (str (shared/full-name sub-ns name) "[" (str/join " " parameters) "]"))
 
 (defn function-or-macro? [{:keys [type]}]
   (not= "data" type))
@@ -18,10 +19,10 @@
   (let [component-functions-and-macros (-> component :interface functions-and-macros)
         missing-functions-and-macros (set/difference interface-functions component-functions-and-macros)
         funcs-and-macros (str/join ", " (sort (map ->function missing-functions-and-macros)))
-        missing-types (set (map :type missing-functions-and-macros))
-        types (str/join " and " (sort (mapv #(str (name %) "s") missing-types)))]
+        missing-types (sort (set (map :type missing-functions-and-macros)))
+        types (str/join " and " missing-types)]
     (when (-> missing-functions-and-macros empty? not)
-      [(str "Missing " types " in component " (:name component) ": " funcs-and-macros)])))
+      [(str "Missing " types " definitions in the interface of " (:name component) ": " funcs-and-macros)])))
 
 (defn interface-errors [interface name->component]
   (let [interface-functions (set (mapcat second

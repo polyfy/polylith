@@ -168,20 +168,20 @@
                                               {:name "func5", :type "function", :parameters ["a" "b" "c" "d"] :sub-ns ""}]}
                     :dependencies ["auth"]}])
 
-(deftest warnings--when-have-functions-with-same-arity-but-with-different-parameter-lists--return-warnings
+(deftest warnings--when-having-functions-with-same-arity-but-with-different-parameter-lists--return-warnings
   (is (= ["Function in the invoice component is also defined in invoice2 but with a different parameter list: func1[a b], func1[x y]"
           "Function in the invoice component is also defined in invoice2 but with a different parameter list: func1[a], func1[b]"
           "Function in the user1 component is also defined in user2 but with a different parameter list: func2[a b], func2[x y]"
           "Function in the user1 component is also defined in user2 but with a different parameter list: func3[a b c], func3[x y z]"]
          (illegal-parameters/warnings interfaces components))))
 
-(deftest warnings--when-have-macros-with-same-arity-but-with-different-parameter-lists--return-warnings
+(deftest warnings--when-having-macros-with-same-arity-but-with-different-parameter-lists--return-warnings
   (is (= ["Function in the invoice component is also defined in invoice2 but with a different parameter list: func1[a b], func1[x y]"
           "Function in the user1 component is also defined in user2 but with a different parameter list: func2[a b], func2[x y]"
           "Function in the user1 component is also defined in user2 but with a different parameter list: func3[a b c], func3[x y z]"
           "Macro in the invoice component is also defined in invoice2 but with a different parameter list: sub.macro1[a], sub.macro1[b]"]
          (illegal-parameters/warnings interfaces2 components2))))
 
-(deftest errors--when-have-duplicated-parameter--return-error
+(deftest errors--when-having-duplicated-parameter-lists--return-error
   (is (= ["Duplicated parameter lists found in the payment component: pay[a], pay[b]"]
          (illegal-parameters/errors components))))

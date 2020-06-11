@@ -1,14 +1,4 @@
 
-- also tell what namespace the interface is missing in "Function in invoice is also defined ...".
-- replace "Missing" with "Undefined" in error messages.
-
-
-- check how we handle several missing definitions, now it looks like we only
-  show one missing definition: "Missing definition ...".
-
-- add :ns interface to each interface definition.
-  - make sub namespaces to 'interface' be bart of the contract, e.g. interface.spec.
-
 - calculate changes
   - run the 'git diff' command:
     - if no arguments, use HEAD.
@@ -21,18 +11,28 @@
 
 - make sure we can compile the code into a command line tool using GraalVM.
 
+- store the following information for each warning/error (e.g.):
+  {:interface "pyment"
+   :component "payment"
+   :definition {:name "pay", :type "function", :parameters ["a"] :sub-ns ""}
+  }
+
 
 Questions
 =========
+- how to decorate the errors and warnings so that a tool can easily mark what's
+  wrong in a e.g. a UI.
 - how do we run all the tests using deps?
 - support both edn and JSON as output, with configuration?
 
 Leave for now
 =============
+- create a githook that verifies the project.
 - should the name of a command line tool be 'poly'?
 - how to handle test dependencies?
 - create a migration tool that migrates lein-polylith projects to polylith projects.
 - html doc that automatically updates itself.
+- add support for another language, e.g. Java.
 - check if support for .cljs files make sense.
 
 Doc
