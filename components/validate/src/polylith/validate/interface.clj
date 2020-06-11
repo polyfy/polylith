@@ -3,8 +3,8 @@
             [polylith.validate.circular-deps :as circular-deps]
             [polylith.validate.illegal-name-sharing :as illegal-name-sharing]
             [polylith.validate.illegal-parameters :as illegal-parameters]
-            [polylith.validate.missing-data :as missing-data]
-            [polylith.validate.missing-functions-and-macros :as missing-fn]))
+            [polylith.validate.missing-data-defs :as missing-data]
+            [polylith.validate.missing-function-and-macro-defs :as missing-fn]))
 
 (defn warnings [interfaces components]
   (vec (sort (set (illegal-parameters/warnings interfaces components)))))

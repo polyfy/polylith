@@ -7,12 +7,10 @@
   - read all :require statements
   - calculate dependencies (to 'component/interface' namespace).
 
-- check that we handle all corner cases when reading code (check lein-polylith).
-
 - make sure we can compile the code into a command line tool using GraalVM.
 
-- store the following information for each warning/error (e.g.):
-  {:interface "pyment"
+- store extra information for each warning/error (e.g.):
+  {:interface "payment"
    :component "payment"
    :definition {:name "pay", :type "function", :parameters ["a"] :sub-ns ""}
   }

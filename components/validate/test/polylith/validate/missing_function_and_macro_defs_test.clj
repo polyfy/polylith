@@ -1,6 +1,6 @@
-(ns polylith.validate.missing-functions-and-macros-test
+(ns polylith.validate.missing-function-and-macro-defs-test
   (:require [clojure.test :refer :all]
-            [polylith.validate.missing-functions-and-macros :as missing]))
+            [polylith.validate.missing-function-and-macro-defs :as missing-defs]))
 
 (def interfaces '[{:name "auth"
                    :definitions [{:name "add-two", :type "function", :parameters ["x"] :sub-ns ""}]
@@ -67,11 +67,11 @@
 
 (deftest errors--when-having-a--component-with-missing-functions--return-error-message
   (is (= ["Missing function definitions in the interface of user2: func1[], subns/func4[]"]
-         (missing/errors interfaces components))))
+         (missing-defs/errors interfaces components))))
 
 (deftest errors--when-having-a-component-with-missing-functions-and-macros--return-error-message
   (let [interfaces-with-func1-in-comp1-as-macro (assoc-in interfaces [3 :definitions 0 :type] "macro")
         components-with-func1-in-comp1-as-macro (assoc-in components [4 :interface :definitions 0 :type] "macro")]
     (is (= ["Missing function and macro definitions in the interface of user2: func1[], subns/func4[]"]
-           (missing/errors interfaces-with-func1-in-comp1-as-macro
-                           components-with-func1-in-comp1-as-macro)))))
+           (missing-defs/errors interfaces-with-func1-in-comp1-as-macro
+                                components-with-func1-in-comp1-as-macro)))))

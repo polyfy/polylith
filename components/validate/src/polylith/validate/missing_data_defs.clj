@@ -1,4 +1,4 @@
-(ns polylith.validate.missing-data
+(ns polylith.validate.missing-data-defs
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [polylith.validate.shared :as shared]))

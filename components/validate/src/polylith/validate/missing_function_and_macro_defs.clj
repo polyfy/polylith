@@ -1,4 +1,4 @@
-(ns polylith.validate.missing-functions-and-macros
+(ns polylith.validate.missing-function-and-macro-defs
   (:require [clojure.string :as str]
             [clojure.set :as set]
             [polylith.validate.shared :as shared]))

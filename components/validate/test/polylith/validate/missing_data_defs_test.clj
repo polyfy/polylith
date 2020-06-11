@@ -1,6 +1,6 @@
-(ns polylith.validate.missing-data-test
+(ns polylith.validate.missing-data-defs-test
   (:require [clojure.test :refer :all]
-            [polylith.validate.missing-data :as missing-data]))
+            [polylith.validate.missing-data-defs :as missing-defs]))
 
 (def interfaces '[{:name "invoice"
                    :type "interface"
@@ -37,4 +37,4 @@
 
 (deftest errors--when-having-missing-data-in-a-component--return-error
   (is (= ["Missing definitions in the interface of user2: data1, a.b/data2"]
-         (missing-data/errors interfaces components))))
+         (missing-defs/errors interfaces components))))
