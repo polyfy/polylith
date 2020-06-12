@@ -1,11 +1,5 @@
 
-- calculate changes
-  - run the 'git diff' command:
-    - if no arguments, use HEAD.
-    - if one argument, diff against local changes
-    - if two arguments, diff against the two hashes.
-  - read all :require statements
-  - calculate dependencies (to 'component/interface' namespace).
+- calculate changed bases and components based on git diff.
 
 - make sure we can compile the code into a command line tool using GraalVM.
 
@@ -37,14 +31,21 @@ Doc
 ===
 - example of how to add macros in the interface, e.g. 'unless' in:
   - https://clojuredocs.org/clojure.core/defmacro
-- a function can't be used as an implememtor of a macro in two different components
-  and vice versa.
+- If using a function in two components that implement the same interface,
+  all definitions must be function. The same goes for macros.
+- tips on how to delegate from interfaces:
+  - use 'apply' if & in the parameter list, e.g.: (apply core/sh args)
+  - use back tick for macros, e.g.: `(core/info ~args))
+- you are allowed to access other namespaces than the interface from
+  the 'test' directory. Only the code under the 'src' directory is checked
+  to only access the 'interface' namespace.
 
 Differences compared to lein-polylith
 =====================================
 - each service can have its own version of a library, so that service A has
   version 1.1 of a library, but service B has 1.2 and the development
   environment has 1.3.
+
 
 Design decisions
 ================
