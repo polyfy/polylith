@@ -10,7 +10,6 @@
   (let [hash? (or hash1 hash2)
         hash-1 (when hash? (or hash1 "HEAD"))
         hash-2 (when hash? (or hash2 "HEAD"))
-        _ (println "#####" hash-1 hash-2)
         files (if hash?
                 (shell/sh "git" "diff" hash-1 hash-2 "--name-only" :dir ws-path)
                 (shell/sh "git" "diff" "--name-only" :dir ws-path))]
