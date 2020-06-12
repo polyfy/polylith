@@ -2,14 +2,17 @@
   (:require [clojure.test :refer :all]
             [polylith.git.interface :as git]))
 
-(deftest diff--when-comparing-two-hashes--return-made-changes
-  (is (= ["components/deps/test/polylith/deps/dependencies_test.clj"
-          "components/validate/test/polylith/validate/illegal_namespace_deps_test.clj"
-          "components/validate/test/polylith/validate/illegal_parameters_test.clj"
-          "components/validate/test/polylith/validate/missing_functions_and_macros_test.clj"
-          "components/workspace-clj/src/polylith/workspace_clj/componentsfromdisk.clj"
-          "components/workspace-clj/src/polylith/workspace_clj/importsfromdisk.clj"
+(deftest diff--when-comparing-two-hashes--return-changes
+  (is (= ["bases/core/src/polylith/core/main.clj"
+          "bases/core/test/polylith/core/main_test.clj"
+          "bases/core/test/polylith/workspace/main_test.clj"
+          "components/cmd/src/polylith/cmd/compile.clj"
+          "components/cmd/src/polylith/cmd/test.clj"
+          "components/workspace/src/polylith/core/core.clj"
+          "components/workspace/src/polylith/core/interface.clj"
+          "components/workspace/src/polylith/core/interfaces.clj"
+          "deps.edn"
           "todo.txt"]
          (git/diff "."
-                   "675293c20084a24ca0ed7865cd8bc9114313158f"
-                   "2d4640a9f7180ac0286f1106792d2a810318faa0"))))
+                   "1cedf53463829d53525db8c018e794c0d6020f7"
+                   "1d5962f09e8809a8bb48c98483f1e6ea94f8011a"))))
