@@ -1,7 +1,7 @@
 (ns polylith.workspace.core
   (:require [polylith.deps.interface :as deps]
             [polylith.validate.interface :as validate]
-            [polylith.workspace.interfaces :as ifcs]
+            [polylith.workspace.calculate-interfaces :as ifcs]
             [polylith.workspace.lib-imports :as lib-imports]
             [polylith.shared.interface :as shared]))
 

@@ -1,4 +1,4 @@
-(ns polylith.workspace.interfaces)
+(ns polylith.workspace.calculate-interfaces)
 
 (defn ->interface [[_ [{:keys [name interface]}]]]
   {:name (:name interface)
