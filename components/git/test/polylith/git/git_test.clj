@@ -13,6 +13,5 @@
           "components/workspace/src/polylith/core/interfaces.clj"
           "deps.edn"
           "todo.txt"]
-         (git/diff "."
-                   "1cedf53463829d53525db8c018e794c0d6020f7"
+         (git/diff "1cedf53463829d53525db8c018e794c0d6020f7"
                    "1d5962f09e8809a8bb48c98483f1e6ea94f8011a"))))

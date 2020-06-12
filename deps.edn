@@ -10,6 +10,7 @@
                                           "bases/core/src"
 
                                           ; Components
+                                          "components/change/src"
                                           "components/cmd/src"
                                           "components/deps/src"
                                           "components/file/src"
@@ -25,6 +26,7 @@
                                           "bases/core/test"
 
                                           ; Components
+                                          "components/change/test"
                                           "components/cmd/test"
                                           "components/deps/test"
                                           "components/file/test"
