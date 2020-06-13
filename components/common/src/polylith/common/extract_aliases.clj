@@ -25,10 +25,10 @@
     true))
 
 (defn extract
-  ([deps env]
-   (extract deps env false))
-  ([deps env include-tests?]
+  ([config env]
+   (extract config env false))
+  ([config env include-tests?]
    (let [src-env (remove-test-prefix env)
          aliases (filter #(include? % include-tests?)
-                         (:aliases deps))]
+                         (:aliases config))]
      (filterv #(matched? % src-env) aliases))))

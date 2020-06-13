@@ -21,13 +21,13 @@
 
 (defn -main [& [cmd env]]
   (let [ws-path (.getAbsolutePath (io/file ""))
-        deps    (-> "deps.edn" slurp read-string)]
-    (if-not (spec/valid-config? (:polylith deps))
+        config (-> "deps.edn" slurp read-string)]
+    (if-not (spec/valid-config? (:polylith config))
       (println "deps.edn file should contain a polylith config map with key :polylith.")
       (try
         (case cmd
-          "compile" (cmd/compile ws-path deps env)
-          "test" (cmd/test ws-path deps env)
+          "compile" (cmd/compile ws-path config env)
+          "test" (cmd/test ws-path config env)
           (println help-text))
         (catch Exception e
           (println (or (-> e ex-data :err) (.getMessage e)))

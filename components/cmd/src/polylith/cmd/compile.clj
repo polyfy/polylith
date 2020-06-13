@@ -74,13 +74,13 @@
 (defn compile-component [print-channel libraries ws-path compile-path interface-path interface-expressions component]
   (compile-item print-channel libraries ws-path compile-path interface-path interface-expressions component :component))
 
-(defn compile [ws-path {:keys [polylith] :as deps} env]
+(defn compile [ws-path {:keys [polylith] :as config} env]
   (let [start (. System (nanoTime))
         {:keys [compile-path thread-pool-size] :or {compile-path "target"}} polylith
-        libraries (common/resolve-libraries deps env)
+        libraries (common/resolve-libraries config env)
         interface-path (str ws-path "/interfaces/src")
         interface-expressions (compile-expressions interface-path)
-        paths (when env (common/extract-source-paths ws-path deps env))
+        paths (when env (common/extract-source-paths ws-path config env))
         _ (when (= [] paths)
             (throw (ex-info (str "No source paths found. Check service or environment name: " env)
                             {:service-or-env env})))

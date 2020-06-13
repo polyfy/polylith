@@ -23,23 +23,23 @@
   `(core/execute-in ~pool ~body))
 
 (defn extract-source-paths
-  ([ws-path deps service-or-env include-tests?]
-   (core/extract-source-paths ws-path deps service-or-env include-tests?))
-  ([ws-path deps service-or-env]
-   (core/extract-source-paths ws-path deps service-or-env false)))
+  ([ws-path config service-or-env include-tests?]
+   (core/extract-source-paths ws-path config service-or-env include-tests?))
+  ([ws-path config service-or-env]
+   (core/extract-source-paths ws-path config service-or-env false)))
 
 (defn make-classpath [libraries source-paths]
   (core/make-classpath libraries source-paths))
 
 (defn resolve-libraries
-  ([deps]
-   (core/resolve-libraries deps nil false nil))
-  ([deps service-or-env]
-   (core/resolve-libraries deps service-or-env false nil))
-  ([deps service-or-env include-tests?]
-   (core/resolve-libraries deps service-or-env include-tests? nil))
-  ([deps service-or-env include-tests? additional-deps]
-   (core/resolve-libraries deps service-or-env include-tests? additional-deps)))
+  ([config]
+   (core/resolve-libraries config nil false nil))
+  ([config service-or-env]
+   (core/resolve-libraries config service-or-env false nil))
+  ([config service-or-env include-tests?]
+   (core/resolve-libraries config service-or-env include-tests? nil))
+  ([config service-or-env include-tests? additional-deps]
+   (core/resolve-libraries config service-or-env include-tests? additional-deps)))
 
 (defn run-in-jvm [classpath expression dir ex-msg]
   (core/run-in-jvm classpath expression dir ex-msg))

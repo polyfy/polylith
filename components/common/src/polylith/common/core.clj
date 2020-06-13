@@ -34,25 +34,25 @@
             (recur)))))
     ch))
 
-(defn extract-extra-deps [deps env include-tests? additional-deps]
-  (let [aliases (extract-aliases/extract deps env include-tests?)
+(defn extract-extra-deps [config env include-tests? additional-deps]
+  (let [aliases (extract-aliases/extract config env include-tests?)
         alias-deps  (map #(-> % val (select-keys [:extra-deps])) aliases)
         merged-deps (apply merge-with merge alias-deps)]
     (merge additional-deps
            (:extra-deps merged-deps))))
 
-(defn extract-source-paths [ws-path deps env include-tests?]
-  (let [aliases (extract-aliases/extract deps env include-tests?)
+(defn extract-source-paths [ws-path config env include-tests?]
+  (let [aliases (extract-aliases/extract config env include-tests?)
         paths (into #{} (mapcat #(-> % val :extra-paths) aliases))
         absolute-paths (mapv #(str ws-path (if (str/starts-with? % "/") "" "/") %) paths)]
     absolute-paths))
 
 (defn resolve-libraries
-  ([{:keys [mvn/repos] :as deps} env include-tests? additional-deps]
+  ([{:keys [mvn/repos] :as config} env include-tests? additional-deps]
    (let [mvn-repos (merge mvn/standard-repos repos)
-         deps (assoc deps :mvn/repos mvn-repos)
-         extra-deps (extract-extra-deps deps env include-tests? additional-deps)]
-     (tools-deps/resolve-deps deps {:extra-deps extra-deps}))))
+         config-with-repos (assoc config :mvn/repos mvn-repos)
+         extra-deps (extract-extra-deps config-with-repos env include-tests? additional-deps)]
+     (tools-deps/resolve-deps config-with-repos {:extra-deps extra-deps}))))
 
 (defn make-classpath [libraries source-paths]
   (tools-deps/make-classpath libraries source-paths nil))
