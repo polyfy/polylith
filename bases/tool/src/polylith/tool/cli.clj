@@ -1,4 +1,4 @@
-(ns polylith.core.main
+(ns polylith.tool.cli
   (:require [clojure.java.io :as io]
             [polylith.cmd.interface :as cmd]
             [polylith.spec.interface :as spec]))
@@ -19,18 +19,18 @@
     "                             name 'backend' you can include :service/backend\n"
     "                             and :service.test/backend aliases in deps.edn\n"))
 
-;(defn -main [& [cmd env]]
-;  (let [ws-path (.getAbsolutePath (io/file ""))
-;        deps    (-> "deps.edn" slurp read-string)]
-;    (if-not (spec/valid-config? (:polylith deps))
-;      (println "deps.edn file should contain a polylith config map with key :polylith.")
-;      (try
-;        (case cmd
-;          "compile" (cmd/compile ws-path deps env)
-;          "test" (cmd/test ws-path deps env)
-;          (println help-text))
-;        (catch Exception e
-;          (println (or (-> e ex-data :err) (.getMessage e)))
-;          (System/exit (or (-> e ex-data :exit-code) 1)))
-;        (finally
-;          (System/exit 0))))))
+(defn -main [& [cmd env]]
+  (let [ws-path (.getAbsolutePath (io/file ""))
+        deps    (-> "deps.edn" slurp read-string)]
+    (if-not (spec/valid-config? (:polylith deps))
+      (println "deps.edn file should contain a polylith config map with key :polylith.")
+      (try
+        (case cmd
+          "compile" (cmd/compile ws-path deps env)
+          "test" (cmd/test ws-path deps env)
+          (println help-text))
+        (catch Exception e
+          (println (or (-> e ex-data :err) (.getMessage e)))
+          (System/exit (or (-> e ex-data :exit-code) 1)))
+        (finally
+          (System/exit 0))))))

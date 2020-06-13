@@ -18,10 +18,10 @@
     (str sub-ns "." name)))
 
 (defn ->function-or-macro
-  ([{:keys [ns name parameters]}]
-   (->function-or-macro ns name parameters))
-  ([ns name parameters]
-   (str (with-ns ns name) "[" (str/join " " parameters) "]")))
+  ([{:keys [sub-ns name parameters]}]
+   (->function-or-macro sub-ns name parameters))
+  ([sub-ns name parameters]
+   (str (with-ns sub-ns name) "[" (str/join " " parameters) "]")))
 
 (defn function-warnings [[id [{:keys [sub-ns name type parameters]}]] interface component-name name->component]
   (let [other-component-names (filterv #(not= % component-name)

@@ -1,11 +1,28 @@
 
+- move the 'test' command from the master branch into this branch.
+  - get it to work with the polylith workspace.
+  - create a base for the 'test' command.
+  - replace 'service-or-env- with 'env' + replace env.test with '-test'.
+
+- move things from 'shared' to 'common' and delete 'shared'.
+- calculate what environments that has changed.
 - make sure we can compile the code into a command line tool using GraalVM.
-
 - compile a 'poly' tool with GraalVM.
-
 - activate the 'oldstuff' code, create basees.
 
+- also store sha1 and sha2 in the result from changes.
 
+
+- commands:
+  - verify:
+    - prints the messages
+  - ws
+  - change
+    -
+  - test
+    -
+  - build
+    - build a simple jar
 
 - store extra information for each warning/error (e.g.):
   {:interface "payment"
@@ -13,16 +30,22 @@
    :definition {:name "pay", :type "function", :parameters ["a"] :sub-ns ""}
   }
 
+- poly
+  - parameters:
+    -output json
+      - could also be set in the project workspace or under ~/.polylith.
+    -since sha
+
+
 
 Questions
 =========
-- how to decorate the errors and warnings so that a tool can easily mark what's
-  wrong in a e.g. a UI.
-- how do we run all the tests using deps?
-- support both edn and JSON as output, with configuration?
+
 
 Leave for now
 =============
+- release the new tool + make it the default in the realworld repository +
+  create a branch for the old lein-polylith code.
 - create a githook that verifies the project.
 - should the name of a command line tool be 'poly'?
 - how to handle test dependencies?
@@ -30,6 +53,9 @@ Leave for now
 - html doc that automatically updates itself.
 - add support for another language, e.g. Java.
 - check if support for .cljs files make sense.
+- how to decorate the errors and warnings so that a tool can easily mark what's
+  wrong in a e.g. a UI.
+
 
 Doc
 ===
@@ -46,6 +72,9 @@ Doc
 
 Differences compared to lein-polylith
 =====================================
+- it is much faster.
+- the new tool is simpler and you can e.g. add, rename and delete components manually
+  without extra tooling.
 - each service can have its own version of a library, so that service A has
   version 1.1 of a library, but service B has 1.2 and the development
   environment has 1.3.

@@ -32,4 +32,5 @@ clj -A:dev -m polylith.main compile realworld-backend
 This command lets you run tests under a specific service or environment defined in `deps.edn`, e.g.:
 ```sh
 clj -A:dev -m polylith.main test realworld-backend
+clj -A:env/core -m polylith.tool.cli test core
 ```
