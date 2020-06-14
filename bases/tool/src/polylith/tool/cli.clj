@@ -6,24 +6,23 @@
 (def help-text
   (str
     "Allowed options:\n"
-    "  compile [service-or-env] : Takes an optional service or environment name.\n"
-    "                             If you run this without any arguments, it will\n"
-    "                             compile all components and bases. If you give\n"
-    "                             a specific environment or service name it will\n"
-    "                             compile components and bases attached to that.\n"
+    "  compile [env] : Takes an optional environment name.\n"
+    "                  If you run this without any arguments, it will\n"
+    "                  compile all components and bases.\n"
+    "                  If 'env' is given, it will compile all\n"
+    "                  components and bases for that environment.\n"
     "\n"
-    "  test service-or-env      : Runs tests for given service or environment.\n"
-    "                             You can define test sources and dependencies\n"
-    "                             under an alias with a namespace service.test/\n"
-    "                             or env.test/. E.g., if you have a service with\n"
-    "                             name 'backend' you can include :service/backend\n"
-    "                             and :service.test/backend aliases in deps.edn\n"))
+    "  test env      : Runs tests for a given environment.\n"
+    "                  You can define test sources and dependencies\n"
+    "                  under an alias with the same name as the/\n"
+    "                  environment you want to test in 'deps.edn'\n"
+    "                  followed  by '-test', e.g. 'backend-test'\n."))
 
 (defn -main [& [cmd env]]
   (let [ws-path (.getAbsolutePath (io/file ""))
         config (-> "deps.edn" slurp read-string)]
     (if-not (spec/valid-config? (:polylith config))
-      (println "deps.edn file should contain a polylith config map with key :polylith.")
+      (println "The 'deps.edn' file should contain a polylith config map with a :polylith key.")
       (try
         (case cmd
           "compile" (cmd/compile ws-path config env)
