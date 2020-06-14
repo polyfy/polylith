@@ -1,8 +1,24 @@
 
-- move the 'test' command from the master branch into this branch.
-  - get it to work with the polylith workspace.
-  - create a base for the 'test' command.
-  - replace 'service-or-env- with 'env' + replace env.test with '-test'.
+- rename from :extra-paths to :paths in an environment?
+  - more consistent with :dependencies
+  - also rename :dependencies to :deps?
+- do we need {:name :type} in an environment, or just the name?
+
+- calculate :environments, e.g.:
+  [{:name "build-tool"
+    :group "build-tool"
+    :test? false
+    :extra-paths ["bases/build-tools/src"]
+    :extra-deps {ring-server {:mvn/version "0.5.0"}}}
+   {:name "build-tool-test"
+    :group "build-tool"
+    :test? true
+    :extra-paths ["bases/build-tools/test"]
+    :extra-deps  {org.clojure/test.check {:mvn/version "0.10.0-alpha3"}}}]
+
+
+- refactor the 'test' command.
+- get 'compile' to work.
 
 - move things from 'shared' to 'common' and delete 'shared'.
 - calculate what environments that has changed.
@@ -40,7 +56,10 @@
 
 Questions
 =========
-
+- figure out a way to show the output while running the tests.
+- should we discard :type because it's not used by our code and can
+  be resolved via where it is stored in the map (:bases, :components)?
+  If not, then we need to add it to environments also.
 
 Leave for now
 =============
@@ -69,6 +88,8 @@ Doc
 - you are allowed to access other namespaces than the interface from
   the 'test' directory. Only the code under the 'src' directory is checked
   to only access the 'interface' namespace.
+- when we release the new version:
+  - write a note on lein-polylith that it is has been replaced by this tool.
 
 Differences compared to lein-polylith
 =====================================
