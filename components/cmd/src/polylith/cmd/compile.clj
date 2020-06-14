@@ -3,7 +3,8 @@
   (:require [clojure.core.async :refer [>!!]]
             [clojure.java.io :as io]
             [clojure.string :as str]
-            [polylith.common.interface :as common])
+            [polylith.common.interface :as common]
+            [polylith.workspace.interface :as ws])
   (:refer-clojure :exclude [compile])
   (:import (java.io File)))
 
@@ -74,16 +75,16 @@
 (defn compile-component [print-channel libraries ws-path compile-path interface-path interface-expressions component]
   (compile-item print-channel libraries ws-path compile-path interface-path interface-expressions component :component))
 
-(defn compile [ws-path {:keys [polylith] :as config} env]
+(defn compile [{:keys [ws-path polylith] :as workspace} env]
   (let [start (. System (nanoTime))
         {:keys [compile-path thread-pool-size] :or {compile-path "target"}} polylith
-        libraries (common/resolve-libraries config env)
+        libraries (common/resolve-libraries workspace env)
         interface-path (str ws-path "/interfaces/src")
         interface-expressions (compile-expressions interface-path)
-        paths (when env (common/extract-source-paths ws-path config env))
+        paths (when env (ws/src-paths workspace env))
         _ (when (= [] paths)
             (throw (ex-info (str "No source paths found. Check service or environment name: " env)
-                            {:service-or-env env})))
+                            {:env env})))
         all-bases (common/all-bases ws-path paths)
         all-components (common/all-components ws-path paths)
         print-channel (common/create-print-channel)

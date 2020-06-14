@@ -22,24 +22,18 @@
 (defmacro execute-in [pool & body]
   `(core/execute-in ~pool ~body))
 
-(defn extract-source-paths
-  ([ws-path config service-or-env include-tests?]
-   (core/extract-source-paths ws-path config service-or-env include-tests?))
-  ([ws-path config service-or-env]
-   (core/extract-source-paths ws-path config service-or-env false)))
-
 (defn make-classpath [libraries source-paths]
   (core/make-classpath libraries source-paths))
 
 (defn resolve-libraries
-  ([config]
-   (core/resolve-libraries config nil false nil))
-  ([config service-or-env]
-   (core/resolve-libraries config service-or-env false nil))
-  ([config service-or-env include-tests?]
-   (core/resolve-libraries config service-or-env include-tests? nil))
-  ([config service-or-env include-tests? additional-deps]
-   (core/resolve-libraries config service-or-env include-tests? additional-deps)))
+  ([workspace]
+   (core/resolve-libraries workspace nil false nil))
+  ([workspace env]
+   (core/resolve-libraries workspace env false nil))
+  ([workspace env include-tests?]
+   (core/resolve-libraries workspace env include-tests? nil))
+  ([workspace env include-tests? additional-deps]
+   (core/resolve-libraries workspace env include-tests? additional-deps)))
 
 (defn run-in-jvm [classpath expression dir ex-msg]
   (core/run-in-jvm classpath expression dir ex-msg))

@@ -58,11 +58,6 @@
     (subs key-name 0 (- (count key-name) 5))
     key-name))
 
-(defn not-a-brick? [path]
-  (and (string? path)
-       (not (str/starts-with? path "components/"))
-       (not (str/starts-with? path "bases/"))))
-
 (defn base? [path]
   (and (string? path)
        (str/starts-with? path "bases/")))
@@ -96,7 +91,7 @@
         all-deps (merge deps extra-deps)
         components (set (map component (filter component? all-paths)))
         bases (set (map base (filter base? all-paths)))
-        extra-paths (sort (set (filter not-a-brick? all-paths)))]
+        extra-paths (sort all-paths)]
     {:name key-name
      :group (group key-name)
      :test? (test? key-name)

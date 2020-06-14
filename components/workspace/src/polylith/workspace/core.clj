@@ -24,7 +24,7 @@
      :lib-imports lib-imports
      :dependencies dependencies}))
 
-(defn pimp-workspace [{:keys [polylith components bases environments]}]
+(defn pimp-workspace [{:keys [ws-path mvn/repos polylith components bases environments deps paths]}]
   (let [top-ns (shared/top-namespace (:top-namespace polylith))
         interfaces (ifcs/interfaces components)
         interface-names (apply sorted-set (mapv :name interfaces))
@@ -33,10 +33,15 @@
         pimped-interfaces (deps/interface-deps interfaces pimped-components)
         warnings (validate/warnings interfaces components)
         errors (validate/errors top-ns interface-names pimped-interfaces pimped-components bases)]
-    {:polylith polylith
+    {:ws-path ws-path
+     :mvn-repos repos
+     :deps deps
+     :paths paths
+     :polylith polylith
      :interfaces pimped-interfaces
      :components pimped-components
      :bases pimped-bases
      :environments environments
      :messages {:warnings warnings
                 :errors errors}}))
+

@@ -49,12 +49,12 @@
                                                :extra-deps  {org.clojure/test.check {:mvn/version "0.10.0-alpha3"}}}}})
 
 (deftest environments--config-map-with-aliases--returns-environments
-  (is (= '[{:name "build-tools"
+  (is (= '[{:name "build-tools",
             :group "build-tools"
             :test? false
             :components []
             :bases [{:name "build-tools", :type "base"}]
-            :extra-paths ["shared/src"]
+            :extra-paths ["bases/build-tools/src" "shared/src"]
             :dependencies {clj-time #:mvn{:version "0.14.2"}
                            org.clojure/clojure #:mvn{:version "1.10.0"}
                            metosin/spec-tools #:mvn{:version "0.6.1"}
@@ -64,7 +64,7 @@
             :test? true
             :components []
             :bases [{:name "build-tools", :type "base"}]
-            :extra-paths ["shared/src"]
+            :extra-paths ["bases/build-tools/test" "shared/src"]
             :dependencies {clj-time #:mvn{:version "0.14.2"}
                            org.clojure/clojure #:mvn{:version "1.10.0"}
                            metosin/spec-tools #:mvn{:version "0.6.1"}
@@ -76,7 +76,16 @@
                          {:name "comment", :type "component"}
                          {:name "database", :type "component"}]
             :bases [{:name "build-tools", :type "base"} {:name "rest-api", :type "base"}]
-            :extra-paths ["shared/src"]
+            :extra-paths ["bases/build-tools/src"
+                          "bases/rest-api/resources"
+                          "bases/rest-api/src"
+                          "components/article/resources"
+                          "components/article/src"
+                          "components/comment/resources"
+                          "components/comment/src"
+                          "components/database/resources"
+                          "components/database/src"
+                          "shared/src"]
             :dependencies {clj-time #:mvn{:version "0.14.2"}
                            org.clojure/clojure #:mvn{:version "1.10.0"}
                            metosin/spec-tools #:mvn{:version "0.6.1"}
@@ -91,9 +100,14 @@
                          {:name "comment", :type "component"}
                          {:name "database", :type "component"}]
             :bases [{:name "rest-api", :type "base"}]
-            :extra-paths ["include-me/test" "shared/src"]
+            :extra-paths ["bases/rest-api/test"
+                          "components/article/test"
+                          "components/comment/test"
+                          "components/database/test"
+                          "include-me/test"
+                          "shared/src"]
             :dependencies {clj-time #:mvn{:version "0.14.2"}
                            org.clojure/clojure #:mvn{:version "1.10.0"}
                            metosin/spec-tools #:mvn{:version "0.6.1"}
-                                     org.clojure/test.check #:mvn{:version "0.10.0-alpha3"}}}]
+                           org.clojure/test.check #:mvn{:version "0.10.0-alpha3"}}}]
          (env/environments config))))

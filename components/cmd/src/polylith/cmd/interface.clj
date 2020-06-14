@@ -3,8 +3,8 @@
             [polylith.cmd.test :as test])
   (:refer-clojure :exclude [compile test]))
 
-(defn compile [ws-path config service-or-env]
-  (compile/compile ws-path config service-or-env))
+(defn compile [workspace env]
+  (compile/compile workspace env))
 
-(defn test [ws-path config service-or-env]
-  (test/test ws-path config service-or-env))
+(defn test [workspace env]
+  (test/test workspace env))

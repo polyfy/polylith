@@ -1,7 +1,8 @@
 (ns polylith.tool.cli
-  (:require [clojure.java.io :as io]
-            [polylith.cmd.interface :as cmd]
-            [polylith.spec.interface :as spec]))
+  (:require [polylith.cmd.interface :as cmd]
+            [polylith.spec.interface :as spec]
+            [polylith.workspace.interface :as ws]
+            [polylith.workspace-clj.interface :as ws-clj]))
 
 (def help-text
   (str
@@ -19,14 +20,16 @@
     "                  followed  by '-test', e.g. 'backend-test'\n."))
 
 (defn -main [& [cmd env]]
-  (let [ws-path (.getAbsolutePath (io/file ""))
-        config (-> "deps.edn" slurp read-string)]
-    (if-not (spec/valid-config? (:polylith config))
-      (println "The 'deps.edn' file should contain a polylith config map with a :polylith key.")
+  (let [ws-path "."
+        workspace (-> ws-path
+                      ws-clj/workspace-from-disk
+                      ws/pimp-workspace)]
+    (if-not (spec/valid-config? (:polylith workspace))
+      (println "Expected to find a :polylith key in 'deps.edn'.")
       (try
         (case cmd
-          "compile" (cmd/compile ws-path config env)
-          "test" (cmd/test ws-path config env)
+          "compile" (cmd/compile workspace env)
+          "test" (cmd/test workspace env)
           (println help-text))
         (catch Exception e
           (println (or (-> e ex-data :err) (.getMessage e)))

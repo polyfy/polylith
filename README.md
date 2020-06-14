@@ -22,14 +22,14 @@ Navigate to a Polylith project directory that is configured with `deps.edn` (e.g
 
 ### compile
 
-This command allow you to compile either the entire Polylith project (if you don't provide any arguments) or a specific service or environment defined in the deps.edn. Execute this from your Polylith project root, e.g. `clojure-polylith-realworld-example-app`:
+This command allows you to compile either the entire Polylith project (if you don't provide any arguments) or a given environment, defined in deps.edn. Execute this from your Polylith workspace root, e.g. `clojure-polylith-realworld-example-app`:
 ```sh
 clj -A:dev -m polylith.main compile realworld-backend
 ```
 
 ### test
 
-This command lets you run tests under a specific service or environment defined in `deps.edn`, e.g.:
+This command allows you to run tests for a given environment, defined in `deps.edn`, e.g.:
 ```sh
 clj -A:dev -m polylith.main test realworld-backend
 clj -A:env/core -m polylith.tool.cli test core

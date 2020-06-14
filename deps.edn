@@ -1,5 +1,5 @@
 
-{:paths    []
+{:paths []
 
  :polylith {:top-namespace "polylith"}
 
