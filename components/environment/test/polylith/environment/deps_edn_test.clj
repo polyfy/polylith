@@ -49,26 +49,26 @@
                                                :extra-deps  {org.clojure/test.check {:mvn/version "0.10.0-alpha3"}}}}})
 
 (deftest environments--config-map-with-aliases--returns-environments
-  (is (= '[{:name "build-tools",
+  (is (= '[{:name "build-tools"
             :group "build-tools"
             :test? false
             :components []
             :bases [{:name "build-tools", :type "base"}]
             :extra-paths ["bases/build-tools/src" "shared/src"]
-            :dependencies {clj-time #:mvn{:version "0.14.2"}
-                           org.clojure/clojure #:mvn{:version "1.10.0"}
-                           metosin/spec-tools #:mvn{:version "0.6.1"}
-                           ring-server #:mvn{:version "0.5.0"}}}
+            :extra-deps {clj-time #:mvn{:version "0.14.2"}
+                         org.clojure/clojure #:mvn{:version "1.10.0"}
+                         metosin/spec-tools #:mvn{:version "0.6.1"}
+                         ring-server #:mvn{:version "0.5.0"}}}
            {:name "build-tools-test"
             :group "build-tools"
             :test? true
             :components []
             :bases [{:name "build-tools", :type "base"}]
             :extra-paths ["bases/build-tools/test" "shared/src"]
-            :dependencies {clj-time #:mvn{:version "0.14.2"}
-                           org.clojure/clojure #:mvn{:version "1.10.0"}
-                           metosin/spec-tools #:mvn{:version "0.6.1"}
-                           org.clojure/test.check #:mvn{:version "0.10.0-alpha3"}}}
+            :extra-deps {clj-time #:mvn{:version "0.14.2"}
+                         org.clojure/clojure #:mvn{:version "1.10.0"}
+                         metosin/spec-tools #:mvn{:version "0.6.1"}
+                         org.clojure/test.check #:mvn{:version "0.10.0-alpha3"}}}
            {:name "realworld-backend"
             :group "realworld-backend"
             :test? false
@@ -86,28 +86,28 @@
                           "components/database/resources"
                           "components/database/src"
                           "shared/src"]
-            :dependencies {clj-time #:mvn{:version "0.14.2"}
-                           org.clojure/clojure #:mvn{:version "1.10.0"}
-                           metosin/spec-tools #:mvn{:version "0.6.1"}
-                           clj-jwt #:mvn{:version "0.1.1"}
-                           com.taoensso/timbre #:mvn{:version "4.10.0"}
-                           compojure/compojure #:mvn{:version "1.6.0"}
-                           crypto-password #:mvn{:version "0.2.0"}}}
+            :extra-deps {clj-time #:mvn{:version "0.14.2"}
+                         org.clojure/clojure #:mvn{:version "1.10.0"}
+                         metosin/spec-tools #:mvn{:version "0.6.1"}
+                         clj-jwt #:mvn{:version "0.1.1"}
+                         com.taoensso/timbre #:mvn{:version "4.10.0"}
+                         compojure/compojure #:mvn{:version "1.6.0"}
+                         crypto-password #:mvn{:version "0.2.0"}}}
            {:name "realworld-backend-test"
             :group "realworld-backend"
             :test? true
             :components [{:name "article", :type "component"}
                          {:name "comment", :type "component"}
                          {:name "database", :type "component"}]
-            :bases [{:name "rest-api", :type "base"}]
+            :bases [{:name "rest-api", :type "base"}],
             :extra-paths ["bases/rest-api/test"
                           "components/article/test"
                           "components/comment/test"
                           "components/database/test"
                           "include-me/test"
                           "shared/src"]
-            :dependencies {clj-time #:mvn{:version "0.14.2"}
-                           org.clojure/clojure #:mvn{:version "1.10.0"}
-                           metosin/spec-tools #:mvn{:version "0.6.1"}
-                           org.clojure/test.check #:mvn{:version "0.10.0-alpha3"}}}]
+            :extra-deps {clj-time #:mvn{:version "0.14.2"}
+                         org.clojure/clojure #:mvn{:version "1.10.0"}
+                         metosin/spec-tools #:mvn{:version "0.6.1"}
+                         org.clojure/test.check #:mvn{:version "0.10.0-alpha3"}}}]
          (env/environments config))))

@@ -78,7 +78,7 @@
 (defn compile [{:keys [ws-path polylith] :as workspace} env]
   (let [start (. System (nanoTime))
         {:keys [compile-path thread-pool-size] :or {compile-path "target"}} polylith
-        libraries (common/resolve-libraries workspace env)
+        libraries (ws/resolve-libs workspace env)
         interface-path (str ws-path "/interfaces/src")
         interface-expressions (compile-expressions interface-path)
         paths (when env (ws/src-paths workspace env))

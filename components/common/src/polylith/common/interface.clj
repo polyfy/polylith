@@ -25,15 +25,5 @@
 (defn make-classpath [libraries source-paths]
   (core/make-classpath libraries source-paths))
 
-(defn resolve-libraries
-  ([workspace]
-   (core/resolve-libraries workspace nil false nil))
-  ([workspace env]
-   (core/resolve-libraries workspace env false nil))
-  ([workspace env include-tests?]
-   (core/resolve-libraries workspace env include-tests? nil))
-  ([workspace env include-tests? additional-deps]
-   (core/resolve-libraries workspace env include-tests? additional-deps)))
-
 (defn run-in-jvm [classpath expression dir ex-msg]
   (core/run-in-jvm classpath expression dir ex-msg))

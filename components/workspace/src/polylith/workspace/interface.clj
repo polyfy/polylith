@@ -1,6 +1,7 @@
 (ns polylith.workspace.interface
   (:require [polylith.workspace.core :as core]
             [polylith.workspace.source :as source]
+            [polylith.workspace.dependencies :as deps]
             [polylith.workspace-clj.interface :as ws-clojure]))
 
 (def workspace (ws-clojure/workspace-from-disk "../clojure-polylith-realworld-example-app"))
@@ -15,10 +16,19 @@
   ([workspace env include-tests?]
    (source/paths workspace env include-tests?)))
 
+(defn resolve-libs
+  "Resolves dependencies which most often are libraries."
+  ([workspace]
+   (deps/resolve-libs workspace nil false nil))
+  ([workspace env]
+   (deps/resolve-libs workspace env false nil))
+  ([workspace env include-tests?]
+   (deps/resolve-libs workspace env include-tests? nil))
+  ([workspace env include-tests? additional-deps]
+   (deps/resolve-libs workspace env include-tests? additional-deps)))
+
 (defn pimp-workspace [workspace]
   (core/pimp-workspace workspace))
 
 
 (pimp-workspace workspace)
-
-(src-paths workspace "core" true)

@@ -1,5 +1,6 @@
 (ns polylith.workspace.core
-  (:require [polylith.deps.interface :as deps]
+  (:require [clojure.tools.deps.alpha.util.maven :as mvn]
+            [polylith.deps.interface :as deps]
             [polylith.validate.interface :as validate]
             [polylith.workspace.calculate-interfaces :as ifcs]
             [polylith.workspace.lib-imports :as lib-imports]
@@ -34,7 +35,7 @@
         warnings (validate/warnings interfaces components)
         errors (validate/errors top-ns interface-names pimped-interfaces pimped-components bases)]
     {:ws-path ws-path
-     :mvn-repos repos
+     :mvn/repos (merge mvn/standard-repos repos)
      :deps deps
      :paths paths
      :polylith polylith

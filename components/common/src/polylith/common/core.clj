@@ -34,20 +34,6 @@
             (recur)))))
     ch))
 
-(defn extract-extra-deps [workspace env include-tests? additional-deps]
-  (let [aliases (extract-aliases/extract workspace env include-tests?)
-        alias-deps  (map #(-> % val (select-keys [:extra-deps])) aliases)
-        merged-deps (apply merge-with merge alias-deps)]
-    (merge additional-deps
-           (:extra-deps merged-deps))))
-
-(defn resolve-libraries
-  ([{:keys [mvn/repos] :as workspace} env include-tests? additional-deps]
-   (let [mvn-repos (merge mvn/standard-repos repos)
-         ws-with-repos (assoc workspace :mvn/repos mvn-repos)
-         extra-deps (extract-extra-deps ws-with-repos env include-tests? additional-deps)]
-     (tools-deps/resolve-deps ws-with-repos {:extra-deps extra-deps}))))
-
 (defn make-classpath [libraries source-paths]
   (tools-deps/make-classpath libraries source-paths nil))
 

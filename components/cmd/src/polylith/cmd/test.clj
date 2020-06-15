@@ -15,7 +15,7 @@
 (defn test [{:keys [ws-path] :as workspace} env]
   (when (str/blank? env)
     (throw (ex-info "Environment name is required for the test command." {})))
-  (let [libraries (common/resolve-libraries workspace env true test-runner-dep)
+  (let [libraries (ws/resolve-libs workspace env true test-runner-dep)
         paths (ws/src-paths workspace env true)
         _ (throw-exception-if-empty paths env)
         classpath (common/make-classpath libraries paths)
