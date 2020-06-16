@@ -23,10 +23,11 @@
          environments (env/environments config)
          settings (util/ordered-map :top-namespace top-namespace
                                     :compile-path compile-path
-                                    :thread-pool-size thread-pool-size)]
+                                    :thread-pool-size thread-pool-size
+                                    :maven-repos repos)]
+
      (util/ordered-map :ws-path ws-path
                        :settings settings
-                       :mvn/repos repos
                        :deps deps
                        :paths paths
                        :components components

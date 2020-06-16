@@ -25,20 +25,23 @@
                :lib-imports lib-imports
                :interface-deps interface-deps)))
 
-(defn pimp-workspace [{:keys [ws-path mvn/repos settings components bases environments deps paths]}]
+(defn pimp-settings [{:keys [maven-repos] :as settings}]
+  (assoc settings :maven-repos (merge mvn/standard-repos maven-repos)))
+
+(defn pimp-workspace [{:keys [ws-path settings components bases environments deps paths]}]
   (let [top-ns (shared/top-namespace (:top-namespace settings))
         interfaces (ifcs/interfaces components)
         interface-names (apply sorted-set (mapv :name interfaces))
         pimped-components (mapv #(pimp-component top-ns interface-names %) components)
         pimped-bases (mapv #(pimp-base top-ns interface-names %) bases)
         pimped-interfaces (deps/interface-deps interfaces pimped-components)
+        pimped-settings (pimp-settings settings)
         warnings (validate/warnings interfaces components)
         errors (validate/errors top-ns interface-names pimped-interfaces pimped-components bases)]
     (array-map :ws-path ws-path
-               :mvn/repos (merge mvn/standard-repos repos)
                :deps deps
                :paths paths
-               :settings settings
+               :settings pimped-settings
                :interfaces pimped-interfaces
                :components pimped-components
                :bases pimped-bases

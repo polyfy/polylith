@@ -12,8 +12,6 @@
   - double check, maybe it's done in workspace.
 - remove :paths on the :workspace root. It is added to each :env anyway.
 
-- move mvn/repos to :polylith.
-
 - refactor the 'test' command.
 - get 'compile' to work.
 

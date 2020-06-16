@@ -12,11 +12,15 @@
     (throw (ex-info (str "No source paths found for environment '" env "'.")
                   {:service-or-env env}))))
 
-(defn run-test [{:keys [ws-path] :as workspace} env]
+(defn with-mvn-repos [{:keys [maven-repos]} workspace]
+  (assoc workspace :mvn/repos maven-repos))
+
+(defn run-test [{:keys [ws-path settings] :as workspace} env]
   (when (str/blank? env)
     (throw (ex-info "Environment name is required for the test command." {})))
-  (let [libraries (ws/resolve-libs workspace env true test-runner-dep)
-        paths (ws/src-paths workspace env true)
+  (let [config (with-mvn-repos settings workspace)
+        libraries (ws/resolve-libs config env true test-runner-dep)
+        paths (ws/src-paths config env true)
         _ (throw-exception-if-empty paths env)
         classpath (common/make-classpath libraries paths)
         expression (str "(require '[cognitect.test-runner :as test-runner]) (def extra-paths " paths ") (test-runner/test {:dir extra-paths})")
