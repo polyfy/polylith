@@ -9,4 +9,4 @@
 (defn paths [{:keys [ws-path environments]} env include-tests?]
   (let [envs (env/select environments env include-tests?)]
     (vec (sort (map #(absolute-path ws-path %)
-                    (mapcat :extra-paths envs))))))
+                    (mapcat :paths envs))))))

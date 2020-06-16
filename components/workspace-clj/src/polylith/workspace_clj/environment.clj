@@ -51,7 +51,7 @@
      :test? (test? key-name)
      :components (vec (sort-by :name components))
      :bases (vec (sort-by :name bases))
-     :extra-paths (vec extra-paths)
+     :paths (vec extra-paths)
      :extra-deps all-deps}))
 
 (defn environments [{:keys [paths deps aliases]}]

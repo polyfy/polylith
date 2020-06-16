@@ -54,7 +54,7 @@
             :test? false
             :components []
             :bases [{:name "build-tools", :type "base"}]
-            :extra-paths ["bases/build-tools/src" "shared/src"]
+            :paths ["bases/build-tools/src" "shared/src"]
             :extra-deps {clj-time #:mvn{:version "0.14.2"}
                          org.clojure/clojure #:mvn{:version "1.10.0"}
                          metosin/spec-tools #:mvn{:version "0.6.1"}
@@ -64,7 +64,7 @@
             :test? true
             :components []
             :bases [{:name "build-tools", :type "base"}]
-            :extra-paths ["bases/build-tools/test" "shared/src"]
+            :paths ["bases/build-tools/test" "shared/src"]
             :extra-deps {clj-time #:mvn{:version "0.14.2"}
                          org.clojure/clojure #:mvn{:version "1.10.0"}
                          metosin/spec-tools #:mvn{:version "0.6.1"}
@@ -76,16 +76,16 @@
                          {:name "comment", :type "component"}
                          {:name "database", :type "component"}]
             :bases [{:name "build-tools", :type "base"} {:name "rest-api", :type "base"}]
-            :extra-paths ["bases/build-tools/src"
-                          "bases/rest-api/resources"
-                          "bases/rest-api/src"
-                          "components/article/resources"
-                          "components/article/src"
-                          "components/comment/resources"
-                          "components/comment/src"
-                          "components/database/resources"
-                          "components/database/src"
-                          "shared/src"]
+            :paths ["bases/build-tools/src"
+                    "bases/rest-api/resources"
+                    "bases/rest-api/src"
+                    "components/article/resources"
+                    "components/article/src"
+                    "components/comment/resources"
+                    "components/comment/src"
+                    "components/database/resources"
+                    "components/database/src"
+                    "shared/src"]
             :extra-deps {clj-time #:mvn{:version "0.14.2"}
                          org.clojure/clojure #:mvn{:version "1.10.0"}
                          metosin/spec-tools #:mvn{:version "0.6.1"}
@@ -100,12 +100,12 @@
                          {:name "comment", :type "component"}
                          {:name "database", :type "component"}]
             :bases [{:name "rest-api", :type "base"}],
-            :extra-paths ["bases/rest-api/test"
-                          "components/article/test"
-                          "components/comment/test"
-                          "components/database/test"
-                          "include-me/test"
-                          "shared/src"]
+            :paths ["bases/rest-api/test"
+                    "components/article/test"
+                    "components/comment/test"
+                    "components/database/test"
+                    "include-me/test"
+                    "shared/src"]
             :extra-deps {clj-time #:mvn{:version "0.14.2"}
                          org.clojure/clojure #:mvn{:version "1.10.0"}
                          metosin/spec-tools #:mvn{:version "0.6.1"}
