@@ -17,11 +17,11 @@
          components (components-from-disk/read-components-from-disk ws-path top-src-dir component-names)
          bases (bases-from-disk/read-bases-from-disk ws-path top-src-dir)
          environments (env/environments config)]
-     {:ws-path ws-path
-      :mvn/repos repos
-      :deps deps
-      :paths paths
-      :polylith polylith
-      :components components
-      :bases bases
-      :environments environments})))
+     (array-map {:ws-path ws-path
+                 :mvn/repos repos
+                 :deps deps
+                 :paths paths
+                 :polylith polylith
+                 :components components
+                 :bases bases
+                 :environments environments}))))
