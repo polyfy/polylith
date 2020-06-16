@@ -7,23 +7,23 @@
             [polylith.shared.interface :as shared]))
 
 (defn pimp-component [top-ns interface-names {:keys [name type imports interface] :as component}]
-  (let [dependencies (deps/brick-deps top-ns interface-names component)
+  (let [interface-deps (deps/brick-interface-deps top-ns interface-names component)
         lib-imports (lib-imports/lib-imports top-ns interface-names component)]
     {:name name
      :type type
      :interface interface
      :imports imports
      :lib-imports lib-imports
-     :dependencies dependencies}))
+     :interface-deps interface-deps}))
 
 (defn pimp-base [top-ns interface-names {:keys [name type imports] :as base}]
-  (let [dependencies (deps/brick-deps top-ns interface-names base)
+  (let [interface-deps (deps/brick-interface-deps top-ns interface-names base)
         lib-imports (lib-imports/lib-imports top-ns interface-names base)]
     {:name name
      :type type
      :imports imports
      :lib-imports lib-imports
-     :dependencies dependencies}))
+     :interface-deps interface-deps}))
 
 (defn pimp-workspace [{:keys [ws-path mvn/repos polylith components bases environments deps paths]}]
   (let [top-ns (shared/top-namespace (:top-namespace polylith))
@@ -45,4 +45,3 @@
      :environments environments
      :messages {:warnings warnings
                 :errors errors}}))
-

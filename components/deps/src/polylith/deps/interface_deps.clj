@@ -1,7 +1,7 @@
 (ns polylith.deps.interface-deps)
 
 (defn deps [[interface components]]
-  [interface (vec (mapcat :dependencies components))])
+  [interface (vec (mapcat :interface-deps components))])
 
 (defn merge-interface [result {:keys [name] :as interface}]
   (assoc result name interface))
@@ -9,7 +9,7 @@
 (defn merge-deps [result [interface deps]]
   (assoc-in result [interface :implementing-deps] deps))
 
-(defn dependencies [interfaces components]
+(defn interface-deps [interfaces components]
   "Calculates all interface dependencies, which are the set of dependencies for
    all components that implement an interface."
 

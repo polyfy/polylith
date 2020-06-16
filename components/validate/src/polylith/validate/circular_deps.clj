@@ -12,10 +12,10 @@
       first second))
 
 (defn errors [interfaces]
-  "Makes sure there are no circular dependencies between components (via interfaces).
+  "Makes sure there are no circular dependencies between components (via their interfaces).
    The calculations are based on the interface dependencies which are the set of
    all dependencies taken from the components that implement them."
-  (let [interface->deps (into {} (map (juxt :name :dependencies) interfaces))
+  (let [interface->deps (into {} (map (juxt :name :implementing-deps) interfaces))
         deps-chain (first (sort-by count
                                    (filter identity
                                            (map #(component-circular-deps % interface->deps)

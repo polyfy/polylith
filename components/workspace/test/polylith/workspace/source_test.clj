@@ -12,9 +12,9 @@
                                  :paths ["components/change/src"
                                          "components/cmd/src"
                                          "bases/cli/src"]
-                                 :dependencies #:org.clojure{clojure #:mvn{:version "1.10.1"}
-                                                             core.async #:mvn{:version "0.4.500"}
-                                                             tools.deps.alpha #:mvn{:version "0.6.496"}}}
+                                 :interface-deps #:org.clojure{clojure #:mvn{:version "1.10.1"}
+                                                               core.async #:mvn{:version "0.4.500"}
+                                                               tools.deps.alpha #:mvn{:version "0.6.496"}}}
                                 {:name "core-test"
                                  :group "core"
                                  :test? true
@@ -23,9 +23,9 @@
                                  :bases []
                                  :paths ["components/change/test"
                                          "components/cmd/test"],
-                                 :dependencies #:org.clojure{clojure #:mvn{:version "1.10.1"}
-                                                             core.async #:mvn{:version "0.4.500"}
-                                                             tools.deps.alpha #:mvn{:version "0.6.496"}}}]
+                                 :interface-deps #:org.clojure{clojure #:mvn{:version "1.10.1"}
+                                                               core.async #:mvn{:version "0.4.500"}
+                                                               tools.deps.alpha #:mvn{:version "0.6.496"}}}]
                  :messages {:warnings [], :errors []}})
 
 (deftest paths--when-include-test-path-flag-is-false---include-only-src-paths
