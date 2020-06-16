@@ -1,4 +1,4 @@
-(ns polylith.environment.deps-edn
+(ns polylith.workspace-clj.environment
   (:require [clojure.string :as str]))
 
 (defn test? [key-name]

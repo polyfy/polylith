@@ -2,7 +2,7 @@
   (:require [clojure.string :as str]
             [polylith.file.interface :as file]
             [polylith.shared.interface :as shared]
-            [polylith.environment.interface :as env]
+            [polylith.workspace-clj.environment :as env]
             [polylith.workspace-clj.components-from-disk :as components-from-disk]
             [polylith.workspace-clj.bases-from-disk :as bases-from-disk]))
 
@@ -16,7 +16,7 @@
          component-names (file/directory-paths (str ws-path "/components"))
          components (components-from-disk/read-components-from-disk ws-path top-src-dir component-names)
          bases (bases-from-disk/read-bases-from-disk ws-path top-src-dir)
-         environments (env/environments-from-deps-edn config)]
+         environments (env/environments config)]
      {:ws-path ws-path
       :mvn/repos repos
       :deps deps

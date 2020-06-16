@@ -14,7 +14,6 @@
                                           "components/change/src"
                                           "components/common/src"
                                           "components/deps/src"
-                                          "components/environment/src"
                                           "components/file/src"
                                           "components/git/src"
                                           "components/shared/src"
@@ -28,7 +27,6 @@
             :env/core-test {:extra-paths [; Components
                                           "components/change/test"
                                           "components/deps/test"
-                                          "components/environment/test"
                                           "components/file/test"
                                           "components/git/test"
                                           "components/shared/test"

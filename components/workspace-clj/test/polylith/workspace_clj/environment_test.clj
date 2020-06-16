@@ -1,6 +1,6 @@
-(ns polylith.environment.deps-edn-test
+(ns polylith.workspace-clj.environment-test
   (:require [clojure.test :refer :all]
-            [polylith.environment.deps-edn :as env]))
+            [polylith.workspace-clj.environment :as env]))
 
 (def config '{:paths ["shared/src"]
 
