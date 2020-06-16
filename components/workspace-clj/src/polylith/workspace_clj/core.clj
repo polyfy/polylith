@@ -1,7 +1,7 @@
 (ns polylith.workspace-clj.core
   (:require [clojure.string :as str]
+            [polylith.common.interface :as common]
             [polylith.file.interface :as file]
-            [polylith.shared.interface :as shared]
             [polylith.util.interface :as util]
             [polylith.workspace-clj.environment :as env]
             [polylith.workspace-clj.components-from-disk :as components-from-disk]
@@ -16,7 +16,7 @@
                  top-namespace
                  compile-path
                  thread-pool-size]} polylith
-         top-ns (shared/top-namespace top-namespace)
+         top-ns (common/top-namespace top-namespace)
          top-src-dir (str/replace top-ns "." "/")
          component-names (file/directory-paths (str ws-path "/components"))
          components (components-from-disk/read-components ws-path top-src-dir component-names)

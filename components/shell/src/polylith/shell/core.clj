@@ -1,6 +1,6 @@
 (ns polylith.shell.core
   (:require [clojure.java.shell :as shell]
-            [polylith.shared.interface :as shared]))
+            [polylith.common.interface :as common]))
 
 (defn sh [args]
   (let [current-env (into {} (System/getenv))
@@ -11,4 +11,4 @@
       (do
         ;; Print out the stack trace with the error message
         (println out)
-        (shared/throw-polylith-exception (str "Shell Err: " err " Exit code: " exit))))))
+        (common/throw-polylith-exception (str "Shell Err: " err " Exit code: " exit))))))

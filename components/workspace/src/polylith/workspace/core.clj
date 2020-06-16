@@ -1,10 +1,10 @@
 (ns polylith.workspace.core
   (:require [clojure.tools.deps.alpha.util.maven :as mvn]
+            [polylith.common.interface :as common]
             [polylith.deps.interface :as deps]
             [polylith.validate.interface :as validate]
             [polylith.workspace.calculate-interfaces :as ifcs]
-            [polylith.workspace.lib-imports :as lib-imports]
-            [polylith.shared.interface :as shared]))
+            [polylith.workspace.lib-imports :as lib-imports]))
 
 (defn pimp-component [top-ns interface-names {:keys [name type imports interface] :as component}]
   (let [interface-deps (deps/brick-interface-deps top-ns interface-names component)
@@ -29,7 +29,7 @@
   (assoc settings :maven-repos (merge mvn/standard-repos maven-repos)))
 
 (defn pimp-workspace [{:keys [ws-path settings components bases environments]}]
-  (let [top-ns (shared/top-namespace (:top-namespace settings))
+  (let [top-ns (common/top-namespace (:top-namespace settings))
         interfaces (ifcs/interfaces components)
         interface-names (apply sorted-set (mapv :name interfaces))
         pimped-components (mapv #(pimp-component top-ns interface-names %) components)

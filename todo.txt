@@ -1,36 +1,21 @@
 
-- make sure everything in the workspace is stored as strings.
-
-- remove :deps on the :workspace root. It is added to each :env anyway.
-  - double check, maybe it's done in workspace.
-- remove :paths on the :workspace root. It is added to each :env anyway.
-
-- refactor the 'test' command.
-- get 'compile' to work.
+- calculate what environments that has changed.
+- make sure we can compile the code into a command line tool using GraalVM.
+- compile a 'poly' tool with GraalVM.
 
 - store :deps as strings (and not symbols) but remember to convert them back to
   symbols before use.
 
-
-
-- move things from 'shared' to 'common' and delete 'shared'.
-- calculate what environments that has changed.
-- make sure we can compile the code into a command line tool using GraalVM.
-- compile a 'poly' tool with GraalVM.
-- activate the 'oldstuff' code, create basees.
-
-- also store sha1 and sha2 in the result from changes.
-
-
-
-- commands:
+- add tasks (arguments to the 'poly' command)':
   - verify:
     - prints the messages
   - ws
+    - view the workspace map.
+    - support returning JSON.
+      - configured in deps.edn
+      - stored in a config file in ~/.polylith
   - change
-    -
-  - test
-    -
+    - show changes + return sha1 and sha2.
   - build
     - build a simple jar
 
@@ -39,13 +24,6 @@
    :component "payment"
    :definition {:name "pay", :type "function", :parameters ["a"] :sub-ns ""}
   }
-
-- poly
-  - parameters:
-    -output json
-      - could also be set in the project workspace or under ~/.polylith.
-    -since sha
-
 
 
 Questions

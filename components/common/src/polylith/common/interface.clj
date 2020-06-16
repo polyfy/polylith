@@ -6,3 +6,9 @@
 
 (defn run-in-jvm [classpath expression dir ex-msg]
   (core/run-in-jvm classpath expression dir ex-msg))
+
+(defn throw-polylith-exception [message]
+  (core/throw-polylith-exception message))
+
+(defn top-namespace [namespace]
+  (core/top-namespace namespace))
