@@ -26,36 +26,36 @@
 (def components '[{:name "auth"
                    :interface {:name "auth",
                                :definitions [{:name "add-two", :type "function", :parameters ["x"] :sub-ns ""}]}
-                   :dependencies []}
+                   :interface-deps []}
                   {:name "invoice"
                    :interface {:name "invoice"
                                :definitions [{:name "abc" :type "data" :sub-ns ""}
                                              {:name "func1", :type "function", :parameters ["a"] :sub-ns ""}
                                              {:name "func1", :type "function", :parameters ["a" "b"] :sub-ns ""}]}
-                   :dependencies ["user"]}
+                   :interface-deps ["user"]}
                   {:name "invoice2"
                    :interface {:name "invoice"
                                :definitions [{:name "func1", :type "function", :parameters ["b"] :sub-ns ""}
                                              {:name "func1", :type "function", :parameters ["x" "y"] :sub-ns ""}]}
-                   :dependencies []}
+                   :interface-deps []}
                   {:name "payment"
                    :interface {:name "payment"
                                :definitions [{:name "pay", :type "function", :parameters ["a"] :sub-ns ""}
                                              {:name "pay", :type "function", :parameters ["b"] :sub-ns ""}]}
-                   :dependencies ["invoice"]}
+                   :interface-deps ["invoice"]}
                   {:name "user1"
                    :interface {:name "user"
                                :definitions [{:name "func1", :type "function", :parameters [] :sub-ns ""}
                                              {:name "func2", :type "function", :parameters ["a" "b"] :sub-ns ""}
                                              {:name "func3", :type "function", :parameters ["a" "b" "c"] :sub-ns ""}]}
-                   :dependencies ["payment"]}
+                   :interface-deps ["payment"]}
                   {:name "user2"
                    :interface {:name "user"
                                :definitions [{:name "func2", :type "function", :parameters ["x" "y"] :sub-ns ""}
                                              {:name "func3", :type "function", :parameters ["x" "y" "z"] :sub-ns ""}]}
-                   :dependencies ["auth"]}])
+                   :interface-deps ["auth"]}])
 
-(deftest interface-deps--a-workspace-with-implementing-deps-from-different-components--should-be-merged-into-a-single-list-of-dependencies
+(deftest interface-deps--a-workspace-with-implementing-deps-from-different-components--should-be-merged-into-a-single-list-of-interface-dependencies
   (is (= '[{:name "auth"
             :definitions [{:name "add-two", :type "function", :parameters ["x"]}]
             :implementing-components ["auth"]

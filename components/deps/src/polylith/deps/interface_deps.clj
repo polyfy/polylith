@@ -1,7 +1,7 @@
 (ns polylith.deps.interface-deps)
 
 (defn deps [[interface components]]
-  [interface (vec (mapcat :dependencies components))])
+  [interface (vec (mapcat :interface-deps components))])
 
 (defn merge-interface [result {:keys [name] :as interface}]
   (assoc result name interface))

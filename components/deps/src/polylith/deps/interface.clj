@@ -8,5 +8,5 @@
 (defn interface-deps [interfaces components]
   (interface-contracts/dependencies interfaces components))
 
-(defn brick-deps [top-ns interface-names brick]
+(defn brick-interface-deps [top-ns interface-names brick]
   (deps/interface-deps top-ns interface-names brick))
