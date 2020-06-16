@@ -23,14 +23,15 @@
   (let [paths (filterv interface-ns?
                        (map #(interface-path brick-src-ws-dir %)
                             (file/paths-recursively brick-src-ws-dir)))]
-    (mapv #(interface-ns brick-src-ws-dir %) paths)))
+    (vec (sort-by (juxt :sub-ns :type :name :parameters)
+                  (mapv #(interface-ns brick-src-ws-dir %) paths)))))
 
 (defn interface-from-disk [{:keys [sub-ns path]}]
   (let [content (file/read-file path)
         statements (defs/filter-statements content)]
-    (mapcat #(defs/definitions sub-ns %) statements)))
+    (vec (sort-by (juxt :sub-ns :type :name :parameters)
+                  (mapcat #(defs/definitions sub-ns %) statements)))))
 
 (defn defs-from-disk [src-dir]
-  (vec (sort-by (juxt :sub-ns :type :name :parameters)
-                (mapcat interface-from-disk
-                        (interface-namespaces src-dir)))))
+  (mapcat interface-from-disk
+          (interface-namespaces src-dir)))
