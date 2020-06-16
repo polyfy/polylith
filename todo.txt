@@ -1,8 +1,4 @@
 
-- move all settings into :settings.
-
-- add support for :env-prefix (default is "env") in :polylith.
-
 - make sure that we keep all keys in the workspace but at the same time put the keys in a nice order.
 - check that we can run tests (and compile) for both cases, e.g. 'core' and 'core-test'.
 

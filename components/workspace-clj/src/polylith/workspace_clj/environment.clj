@@ -4,8 +4,8 @@
 (defn test? [key-name]
   (str/ends-with? key-name "-test"))
 
-(defn env? [[key]]
-  (= "env" (namespace key)))
+(defn env? [[key] prefix]
+  (= prefix (namespace key)))
 
 (defn group [key-name]
   (if (test? key-name)
@@ -50,7 +50,7 @@
      :paths extra-paths
      :deps all-deps}))
 
-(defn environments [{:keys [paths deps aliases]}]
+(defn environments [env-prefix {:keys [paths deps aliases]}]
   (vec (sort-by (juxt :type :name)
                 (mapv #(environment % paths deps)
-                      (filter env? aliases)))))
+                      (filter #(env? % env-prefix) aliases)))))

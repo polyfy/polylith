@@ -19,34 +19,34 @@
               :aliases {:dev {:extra-deps {tengstrand/polylith {:git/url "https://github.com/rtengstrand/polylith.git"
                                                                 :sha "89a91b1c519b338eb5a15c90cb97559c09484e89"}}}
 
-                        :env/realworld-backend {:extra-paths ["bases/build-tools/src"
-                                                              "bases/rest-api/resources"
-                                                              "bases/rest-api/src"
-                                                              "components/article/src"
-                                                              "components/article/resources"
-                                                              "components/comment/src"
-                                                              "components/comment/resources"
-                                                              "components/database/src"
-                                                              "components/database/resources"]
+                        :environment/realworld-backend {:extra-paths ["bases/build-tools/src"
+                                                                      "bases/rest-api/resources"
+                                                                      "bases/rest-api/src"
+                                                                      "components/article/src"
+                                                                      "components/article/resources"
+                                                                      "components/comment/src"
+                                                                      "components/comment/resources"
+                                                                      "components/database/src"
+                                                                      "components/database/resources"]
 
-                                                :extra-deps  {clj-jwt                 {:mvn/version "0.1.1"}
-                                                              com.taoensso/timbre     {:mvn/version "4.10.0"}
-                                                              compojure/compojure     {:mvn/version "1.6.0"}
-                                                              crypto-password         {:mvn/version "0.2.0"}}}
+                                                        :extra-deps  {clj-jwt                 {:mvn/version "0.1.1"}
+                                                                      com.taoensso/timbre     {:mvn/version "4.10.0"}
+                                                                      compojure/compojure     {:mvn/version "1.6.0"}
+                                                                      crypto-password         {:mvn/version "0.2.0"}}}
 
-                        :env/realworld-backend-test {:extra-paths ["bases/rest-api/test"
-                                                                   "include-me/test"
-                                                                   "components/article/test"
-                                                                   "components/comment/test"
-                                                                   "components/database/test"]
-                                                     :extra-deps  {org.clojure/test.check {:mvn/version "0.10.0-alpha3"}}}
+                        :environment/realworld-backend-test {:extra-paths ["bases/rest-api/test"
+                                                                           "include-me/test"
+                                                                           "components/article/test"
+                                                                           "components/comment/test"
+                                                                           "components/database/test"]
+                                                             :extra-deps  {org.clojure/test.check {:mvn/version "0.10.0-alpha3"}}}
 
-                        :env/build-tools {:extra-paths ["bases/build-tools/src"]
-                                          :extra-deps  {ring-server {:mvn/version "0.5.0"}}}
+                        :environment/build-tools {:extra-paths ["bases/build-tools/src"]
+                                                  :extra-deps  {ring-server {:mvn/version "0.5.0"}}}
 
 
-                        :env/build-tools-test {:extra-paths ["bases/build-tools/test"]
-                                               :extra-deps  {org.clojure/test.check {:mvn/version "0.10.0-alpha3"}}}}})
+                        :environment/build-tools-test {:extra-paths ["bases/build-tools/test"]
+                                                       :extra-deps  {org.clojure/test.check {:mvn/version "0.10.0-alpha3"}}}}})
 
 (deftest environments--config-map-with-aliases--returns-environments
   (is (= '[{:name "build-tools",
@@ -110,4 +110,4 @@
                    org.clojure/clojure #:mvn{:version "1.10.0"},
                    metosin/spec-tools #:mvn{:version "0.6.1"},
                              org.clojure/test.check #:mvn{:version "0.10.0-alpha3"}}}]
-         (env/environments config))))
+         (env/environments "environment" config))))

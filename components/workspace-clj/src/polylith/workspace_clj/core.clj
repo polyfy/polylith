@@ -12,7 +12,8 @@
    (let [config (read-string (slurp (str ws-path "/deps.edn")))]
      (workspace-from-disk ws-path config)))
   ([ws-path {:keys [polylith mvn/repos] :as config}]
-   (let [{:keys [top-namespace
+   (let [{:keys [env-prefix
+                 top-namespace
                  compile-path
                  thread-pool-size]} polylith
          top-ns (shared/top-namespace top-namespace)
@@ -20,7 +21,8 @@
          component-names (file/directory-paths (str ws-path "/components"))
          components (components-from-disk/read-components ws-path top-src-dir component-names)
          bases (bases-from-disk/read-bases ws-path top-src-dir)
-         environments (env/environments config)
+         prefix (or env-prefix "env")
+         environments (env/environments prefix config)
          settings (util/ordered-map :top-namespace top-namespace
                                     :compile-path compile-path
                                     :thread-pool-size thread-pool-size
