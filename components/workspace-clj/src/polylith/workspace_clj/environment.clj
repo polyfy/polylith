@@ -44,6 +44,7 @@
     {:name key-name
      :group (group key-name)
      :test? (test? key-name)
+     :type "environment"
      :components components
      :bases bases
      :paths extra-paths

@@ -1,5 +1,5 @@
 
-- put a :type in each environment.
+- remove 'target' directories from version control.
 
 - remove interfaces/src from compilation (and test).
 
@@ -31,6 +31,7 @@
 - activate the 'oldstuff' code, create basees.
 
 - also store sha1 and sha2 in the result from changes.
+
 
 
 - commands:

@@ -52,6 +52,7 @@
   (is (= '[{:name "build-tools",
             :group "build-tools",
             :test? false,
+            :type "environment",
             :components [],
             :bases ["build-tools"],
             :paths ["bases/build-tools/src" "shared/src"],
@@ -62,6 +63,7 @@
            {:name "build-tools-test",
             :group "build-tools",
             :test? true,
+            :type "environment",
             :components [],
             :bases ["build-tools"],
             :paths ["bases/build-tools/test" "shared/src"],
@@ -72,6 +74,7 @@
            {:name "realworld-backend",
             :group "realworld-backend",
             :test? false,
+            :type "environment",
             :components ["article" "comment" "database"],
             :bases ["build-tools" "rest-api"],
             :paths ["bases/build-tools/src"
@@ -94,6 +97,7 @@
            {:name "realworld-backend-test",
             :group "realworld-backend",
             :test? true,
+            :type "environment",
             :components ["article" "comment" "database"],
             :bases ["rest-api"],
             :paths ["bases/rest-api/test"
@@ -105,5 +109,5 @@
             :deps {clj-time #:mvn{:version "0.14.2"},
                    org.clojure/clojure #:mvn{:version "1.10.0"},
                    metosin/spec-tools #:mvn{:version "0.6.1"},
-                   org.clojure/test.check #:mvn{:version "0.10.0-alpha3"}}}]
+                             org.clojure/test.check #:mvn{:version "0.10.0-alpha3"}}}]
          (env/environments config))))
