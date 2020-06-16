@@ -7,23 +7,23 @@
             [polylith.shared.interface :as shared]))
 
 (defn pimp-component [top-ns interface-names {:keys [name type imports interface] :as component}]
-  (let [interface-deps (deps/brick-interface-deps top-ns interface-names component)
+  (let [dependencies (deps/brick-deps top-ns interface-names component)
         lib-imports (lib-imports/lib-imports top-ns interface-names component)]
-    (array-map :name name
-               :type type
-               :interface interface
-               :imports imports
-               :lib-imports lib-imports
-               :interface-deps interface-deps)))
+    {:name name
+     :type type
+     :interface interface
+     :imports imports
+     :lib-imports lib-imports
+     :dependencies dependencies}))
 
 (defn pimp-base [top-ns interface-names {:keys [name type imports] :as base}]
-  (let [interface-deps (deps/brick-interface-deps top-ns interface-names base)
+  (let [dependencies (deps/brick-deps top-ns interface-names base)
         lib-imports (lib-imports/lib-imports top-ns interface-names base)]
-    (array-map :name name
-               :type type
-               :imports imports
-               :lib-imports lib-imports
-               :interface-deps interface-deps)))
+    {:name name
+     :type type
+     :imports imports
+     :lib-imports lib-imports
+     :dependencies dependencies}))
 
 (defn pimp-workspace [{:keys [ws-path mvn/repos polylith components bases environments deps paths]}]
   (let [top-ns (shared/top-namespace (:top-namespace polylith))
@@ -34,14 +34,15 @@
         pimped-interfaces (deps/interface-deps interfaces pimped-components)
         warnings (validate/warnings interfaces components)
         errors (validate/errors top-ns interface-names pimped-interfaces pimped-components bases)]
-    (array-map :ws-path ws-path
-               :mvn/repos (merge mvn/standard-repos repos)
-               :deps deps
-               :paths paths
-               :polylith polylith
-               :interfaces pimped-interfaces
-               :components pimped-components
-               :bases pimped-bases
-               :environments environments
-               :messages {:warnings warnings
-                          :errors errors})))
+    {:ws-path ws-path
+     :mvn/repos (merge mvn/standard-repos repos)
+     :deps deps
+     :paths paths
+     :polylith polylith
+     :interfaces pimped-interfaces
+     :components pimped-components
+     :bases pimped-bases
+     :environments environments
+     :messages {:warnings warnings
+                :errors errors}}))
+

@@ -8,27 +8,27 @@
                    :implementing-deps []}
                   {:name "invoice"
                    :type "interface"
-                   :definitions [{:name "abc" :type "data"}
-                                 {:name "func1", :type "function", :parameters ["a"]}
-                                 {:name "func1", :type "function", :parameters ["b"]}
-                                 {:name "func1", :type "function", :parameters ["a" "b"]}
-                                 {:name "func1", :type "function", :parameters ["x" "y"]}]
+                   :definitions [{:name "abc" :type "data" :sub-ns ""}
+                                 {:name "func1", :type "function", :parameters ["a"] :sub-ns ""}
+                                 {:name "func1", :type "function", :parameters ["b"] :sub-ns ""}
+                                 {:name "func1", :type "function", :parameters ["a" "b"] :sub-ns ""}
+                                 {:name "func1", :type "function", :parameters ["x" "y"] :sub-ns ""}]
                    :implementing-components ["invoice" "invoice2"]
                    :implementing-deps ["user"]}
                   {:name "payment"
-                   :definitions [{:name "pay", :type "function", :parameters ["a"]}
-                                 {:name "pay", :type "function", :parameters ["b"]}]
+                   :definitions [{:name "pay", :type "function", :parameters ["a"] :sub-ns ""}
+                                 {:name "pay", :type "function", :parameters ["b"] :sub-ns ""}]
                    :implementing-components ["payment"]
                    :implementing-deps ["invoice"]}
                   {:name "user"
                    :type "interface"
-                   :definitions [{:name "func1", :type "function", :parameters []}
-                                 {:name "func2", :type "function", :parameters ["a" "b"]}
-                                 {:name "func2", :type "function", :parameters ["x" "y"]}
-                                 {:name "func3", :type "function", :parameters ["a" "b" "c"]}
-                                 {:name "func3", :type "function", :parameters ["x" "y" "z"]}
-                                 {:name "func4", :type "function", :parameters []}
-                                 {:name "func5", :type "function", :parameters ["a" "b" "c" "d"]}]
+                   :definitions [{:name "func1", :type "function", :parameters [] :sub-ns ""}
+                                 {:name "func2", :type "function", :parameters ["a" "b"] :sub-ns ""}
+                                 {:name "func2", :type "function", :parameters ["x" "y"] :sub-ns ""}
+                                 {:name "func3", :type "function", :parameters ["a" "b" "c"] :sub-ns ""}
+                                 {:name "func3", :type "function", :parameters ["x" "y" "z"] :sub-ns ""}
+                                 {:name "func4", :type "function", :parameters [] :sub-ns ""}
+                                 {:name "func5", :type "function", :parameters ["a" "b" "c" "d"] :sub-ns ""}]
                    :implementing-components ["user1" "user2"]
                    :implementing-deps ["payment" "auth"]}])
 
@@ -37,53 +37,53 @@
                    :imports [{:ns-path "auth/interface.clj", :imports ["auth.core"]}
                              {:ns-path "auth/core.clj", :imports []}]
                    :interface {:name "auth",
-                               :definitions [{:name "add-two", :type "function", :parameters ["x"]}]}
-                   :interface-deps []}
+                               :definitions [{:name "add-two", :type "function", :parameters ["x"] :sub-ns ""}]}
+                   :dependencies []}
                   {:name "invoice"
                    :type "component"
                    :imports [{:ns-path "invoice/interface.clj", :imports []}
                              {:ns-path "invoice/core.clj", :imports ["user.interface"]}]
                    :interface {:name "invoice"
-                               :definitions [{:name "abc" :type "data"}
-                                             {:name "func1", :type "function", :parameters ["a"]}
-                                             {:name "func1", :type "function", :parameters ["a" "b"]}]}
-                   :interface-deps ["user"]}
+                               :definitions [{:name "abc" :type "data" :sub-ns ""}
+                                             {:name "func1", :type "function", :parameters ["a"] :sub-ns ""}
+                                             {:name "func1", :type "function", :parameters ["a" "b"] :sub-ns ""}]}
+                   :dependencies ["user"]}
                   {:name "invoice2"
                    :type "component"
                    :imports [{:ns-path "invoice/interface.clj", :imports []}
                              {:ns-path "invoice/core.clj", :imports []}]
                    :interface {:name "invoice"
-                               :definitions [{:name "func1", :type "function", :parameters ["b"]}
-                                             {:name "func1", :type "function", :parameters ["x" "y"]}]}
-                   :interface-deps []}
+                               :definitions [{:name "func1", :type "function", :parameters ["b"] :sub-ns ""}
+                                             {:name "func1", :type "function", :parameters ["x" "y"] :sub-ns ""}]}
+                   :dependencies []}
                   {:name "payment"
                    :type "component"
                    :imports [{:ns-path "payment/interface.clj", :imports ["payment.core"]}
                              {:ns-path "payment/core.clj", :imports ["invoice.interface"]}]
                    :interface {:name "payment"
-                               :definitions [{:name "pay", :type "function", :parameters ["a"]}
-                                             {:name "pay", :type "function", :parameters ["b"]}]}
-                   :interface-deps ["invoice"]}
+                               :definitions [{:name "pay", :type "function", :parameters ["a"] :sub-ns ""}
+                                             {:name "pay", :type "function", :parameters ["b"] :sub-ns ""}]}
+                   :dependencies ["invoice"]}
                   {:name "user1"
                    :type "component"
                    :imports [{:ns-path "user/interface.clj", :imports []}
                              {:ns-path "user/core.clj", :imports ["payment.interface"]}]
                    :interface {:name "user"
-                               :definitions [{:name "func1", :type "function", :parameters []}
-                                             {:name "func2", :type "function", :parameters ["a" "b"]}
-                                             {:name "func3", :type "function", :parameters ["a" "b" "c"]}
-                                             {:name "func4", :type "function2", :parameters []}
-                                             {:name "func5", :type "function", :parameters ["a" "b" "c" "d"]}]}
-                   :interface-deps ["payment"]}
+                               :definitions [{:name "func1", :type "function", :parameters [] :sub-ns ""}
+                                             {:name "func2", :type "function", :parameters ["a" "b"] :sub-ns ""}
+                                             {:name "func3", :type "function", :parameters ["a" "b" "c"] :sub-ns ""}
+                                             {:name "func4", :type "function2", :parameters [] :sub-ns ""}
+                                             {:name "func5", :type "function", :parameters ["a" "b" "c" "d"] :sub-ns ""}]}
+                   :dependencies ["payment"]}
                   {:name "user2"
                    :type "component"
                    :imports [{:ns-path "user/interface.clj", :imports []}
                              {:ns-path "user/core.clj", :imports ["auth.interface"]}]
                    :interface {:name "user"
-                               :definitions [{:name "func2", :type "function", :parameters ["x" "y"]}
-                                             {:name "func3", :type "function", :parameters ["x" "y" "z"]}
-                                             {:name "func5", :type "function", :parameters ["a" "b" "c" "d"]}]}
-                   :interface-deps ["auth"]}])
+                               :definitions [{:name "func2", :type "function", :parameters ["x" "y"] :sub-ns ""}
+                                             {:name "func3", :type "function", :parameters ["x" "y" "z"] :sub-ns ""}
+                                             {:name "func5", :type "function", :parameters ["a" "b" "c" "d"] :sub-ns ""}]}
+                   :dependencies ["auth"]}])
 
 (def interfaces2 '[{:name "auth",
                     :definitions [{:name "add-two", :type "function", :parameters ["x"]}]
@@ -91,27 +91,27 @@
                     :implementing-deps []}
                    {:name "invoice",
                     :type "interface"
-                    :definitions [{:name "abc" :type "data"}
-                                  {:name "macro1", :type "macro", :parameters ["a"]}
-                                  {:name "macro1", :type "macro", :parameters ["b"]}
-                                  {:name "func1", :type "function", :parameters ["a" "b"]}
-                                  {:name "func1", :type "function", :parameters ["x" "y"]}]
+                    :definitions [{:name "abc" :type "data" :sub-ns ""}
+                                  {:name "macro1", :type "macro", :parameters ["a"] :sub-ns ""}
+                                  {:name "macro1", :type "macro", :parameters ["b"] :sub-ns ""}
+                                  {:name "func1", :type "function", :parameters ["a" "b"] :sub-ns ""}
+                                  {:name "func1", :type "function", :parameters ["x" "y"] :sub-ns ""}]
                     :implementing-components ["invoice" "invoice2"]
                     :implementing-deps ["user"]}
                    {:name "payment"
-                    :definitions [{:name "pay", :type "function", :parameters ["a"]}
-                                  {:name "pay", :type "function", :parameters ["b"]}]
+                    :definitions [{:name "pay", :type "function", :parameters ["a"] :sub-ns ""}
+                                  {:name "pay", :type "function", :parameters ["b"] :sub-ns ""}]
                     :implementing-components ["payment"]
                     :implementing-deps ["invoice"]}
                    {:name "user"
                     :type "interface"
-                    :definitions [{:name "func1", :type "function", :parameters []}
-                                  {:name "func2", :type "function", :parameters ["a" "b"]}
-                                  {:name "func2", :type "function", :parameters ["x" "y"]}
-                                  {:name "func3", :type "function", :parameters ["a" "b" "c"]}
-                                  {:name "func3", :type "function", :parameters ["x" "y" "z"]}
-                                  {:name "func4", :type "function", :parameters []}
-                                  {:name "func5", :type "function", :parameters ["a" "b" "c" "d"]}]
+                    :definitions [{:name "func1", :type "function", :parameters [] :sub-ns ""}
+                                  {:name "func2", :type "function", :parameters ["a" "b"] :sub-ns ""}
+                                  {:name "func2", :type "function", :parameters ["x" "y"] :sub-ns ""}
+                                  {:name "func3", :type "function", :parameters ["a" "b" "c"] :sub-ns ""}
+                                  {:name "func3", :type "function", :parameters ["x" "y" "z"] :sub-ns ""}
+                                  {:name "func4", :type "function", :parameters [] :sub-ns ""}
+                                  {:name "func5", :type "function", :parameters ["a" "b" "c" "d"] :sub-ns ""}]
                     :implementing-components ["user1" "user2"]
                     :implementing-deps ["payment" "auth"]}])
 
@@ -120,53 +120,53 @@
                     :imports [{:ns-path "auth/interface.clj", :imports ["auth.core"]}
                               {:ns-path "auth/core.clj", :imports []}]
                     :interface {:name "auth"
-                                :definitions [{:name "add-two", :type "function", :parameters ["x"]}]}
-                    :interface-deps []}
+                                :definitions [{:name "add-two", :type "function", :parameters ["x"] :sub-ns ""}]}
+                    :dependencies []}
                    {:name "invoice"
                     :type "component"
                     :imports [{:ns-path "invoice/interface.clj", :imports []}
                               {:ns-path "invoice/core.clj", :imports ["user.interface"]}]
                     :interface {:name "invoice"
-                                :definitions [{:name "abc" :type "data"}
+                                :definitions [{:name "abc" :type "data" :sub-ns ""}
                                               {:name "macro1", :type "macro", :parameters ["a"] :sub-ns "sub"}
-                                              {:name "func1", :type "function", :parameters ["a" "b"]}]}
-                    :interface-deps ["user"]}
+                                              {:name "func1", :type "function", :parameters ["a" "b"] :sub-ns ""}]}
+                    :dependencies ["user"]}
                    {:name "invoice2"
                     :type "component"
                     :imports [{:ns-path "invoice/interface.clj", :imports []}
                               {:ns-path "invoice/core.clj", :imports []}]
                     :interface {:name "invoice"
                                 :definitions [{:name "macro1", :type "macro", :parameters ["b"] :sub-ns "sub"}
-                                              {:name "func1", :type "function", :parameters ["x" "y"]}]}
-                    :interface-deps []}
+                                              {:name "func1", :type "function", :parameters ["x" "y"] :sub-ns ""}]}
+                    :dependencies []}
                    {:name "payment",
                     :type "component"
                     :imports [{:ns-path "payment/interface.clj", :imports ["payment.core"]}
                               {:ns-path "payment/core.clj", :imports ["invoice.interface"]}]
                     :interface {:name "payment"
-                                :definitions [{:name "pay", :type "function", :parameters ["a"]}
-                                              {:name "pay", :type "function", :parameters ["b"]}]}
-                    :interface-deps ["invoice"]}
+                                :definitions [{:name "pay", :type "function", :parameters ["a"] :sub-ns ""}
+                                              {:name "pay", :type "function", :parameters ["b"] :sub-ns ""}]}
+                    :dependencies ["invoice"]}
                    {:name "user1"
                     :type "component"
                     :imports [{:ns-path "user/interface.clj", :imports []}
                               {:ns-path "user/core.clj", :imports ["payment.interface"]}]
                     :interface {:name "user"
-                                :definitions [{:name "macro1", :type "macro", :parameters []}
-                                              {:name "func2", :type "function", :parameters ["a" "b"]}
-                                              {:name "func3", :type "function", :parameters ["a" "b" "c"]}
-                                              {:name "func4", :type "function", :parameters []}
-                                              {:name "func5", :type "function", :parameters ["a" "b" "c" "d"]}]}
-                    :interface-deps ["payment"]}
+                                :definitions [{:name "macro1", :type "macro", :parameters [] :sub-ns ""}
+                                              {:name "func2", :type "function", :parameters ["a" "b"] :sub-ns ""}
+                                              {:name "func3", :type "function", :parameters ["a" "b" "c"] :sub-ns ""}
+                                              {:name "func4", :type "function", :parameters [] :sub-ns ""}
+                                              {:name "func5", :type "function", :parameters ["a" "b" "c" "d"] :sub-ns ""}]}
+                    :dependencies ["payment"]}
                    {:name "user2"
                     :type "component"
                     :imports [{:ns-path "user/interface.clj", :imports []}
                               {:ns-path "user/core.clj", :imports ["auth.interface"]}]
                     :interface {:name "user"
-                                :definitions [{:name "func2", :type "function", :parameters ["x" "y"]}
-                                              {:name "func3", :type "function", :parameters ["x" "y" "z"]}
-                                              {:name "func5", :type "function", :parameters ["a" "b" "c" "d"]}]}
-                    :interface-deps ["auth"]}])
+                                :definitions [{:name "func2", :type "function", :parameters ["x" "y"] :sub-ns ""}
+                                              {:name "func3", :type "function", :parameters ["x" "y" "z"] :sub-ns ""}
+                                              {:name "func5", :type "function", :parameters ["a" "b" "c" "d"] :sub-ns ""}]}
+                    :dependencies ["auth"]}])
 
 (deftest warnings--when-having-functions-with-same-arity-but-with-different-parameter-lists--return-warnings
   (is (= ["Function in the invoice component is also defined in invoice2 but with a different parameter list: func1[a b], func1[x y]"

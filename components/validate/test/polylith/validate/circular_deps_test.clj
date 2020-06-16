@@ -5,10 +5,10 @@
 (deftest errors--interfaces-with-circular-dependencies--should-return-an-error
   (is (= ["Circular dependencies was found: invoice > user > payment > invoice"]
          (circular-deps/errors '[{:name "auth",
-                                  :implementing-deps []}
+                                  :dependencies []}
                                  {:name "invoice",
-                                  :implementing-deps ["user"]}
+                                  :dependencies ["user"]}
                                  {:name "payment",
-                                  :implementing-deps ["invoice"]}
+                                  :dependencies ["invoice"]}
                                  {:name "user",
-                                  :implementing-deps ["payment" "auth"]}]))))
+                                  :dependencies ["payment" "auth"]}]))))

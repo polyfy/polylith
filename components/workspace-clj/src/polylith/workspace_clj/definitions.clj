@@ -44,15 +44,9 @@
                                    (vector? %)))
                          statement)]
     (if (= "data" type)
-      (let [sub-ns (sub-namespace namespace)
-            str-name (str name)
-            str-type (str type)]
-        (if sub-ns
-          [{:name str-name
-            :type str-type
-            :sub-ns sub-ns}]
-          [{:name str-name
-            :type str-type}]))
+      [{:name (str name)
+        :type (str type)
+        :sub-ns (sub-namespace namespace)}]
       (if (-> code first vector?)
         [(function namespace type name code)]
         (mapv #(function namespace type name %) code)))))
