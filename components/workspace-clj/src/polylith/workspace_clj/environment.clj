@@ -47,7 +47,7 @@
      :components components
      :bases bases
      :paths extra-paths
-     :extra-deps all-deps}))
+     :deps all-deps}))
 
 (defn environments [{:keys [paths deps aliases]}]
   (vec (sort-by (juxt :type :name)
