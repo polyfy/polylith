@@ -28,7 +28,6 @@
             :env/core-test {:extra-paths [; Components
                                           "components/change/test"
                                           "components/cmd/test"
-                                          "components/common/test"
                                           "components/deps/test"
                                           "components/environment/test"
                                           "components/file/test"
