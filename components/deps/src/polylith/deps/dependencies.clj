@@ -16,12 +16,12 @@
             (neg? idx))
       nil
       (let [root-ns (subs import 0 idx)
-            sub-ns (brick-namespace (subs import (inc idx)))]
+            brick-ns (brick-namespace (subs import (inc idx)))]
         (when (and (contains? interface-names root-ns)
                    (not= root-ns interface-name))
           {:ns-path path
            :depends-on-interface root-ns
-           :depends-on-ns sub-ns})))))
+           :depends-on-ns brick-ns})))))
 
 (defn brick-ns-dependencies [top-ns interface-name interface-names {:keys [ns-path imports]}]
   (filterv identity (map #(dependency top-ns interface-name ns-path interface-names (str %)) imports)))

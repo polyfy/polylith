@@ -30,7 +30,7 @@
   (let [content (file/read-file path)
         statements (defs/filter-statements content)]
     (vec (sort-by (juxt :sub-ns :type :name :parameters)
-                  (mapcat #(defs/->definitions sub-ns %) statements)))))
+                  (mapcat #(defs/definitions sub-ns %) statements)))))
 
 (defn defs-from-disk [src-dir]
   (mapcat interface-from-disk
