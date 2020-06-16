@@ -1,36 +1,14 @@
 (ns polylith.change.core
-  (:require [clojure.string :as str]
-            [polylith.git.interface :as git]))
+  (:require [polylith.change.brick :as brick]
+            [polylith.change.environment :as ws]))
 
-(defn base? [filename]
-  (str/starts-with? filename "bases/"))
+(defn changes [environments hash1 hash2]
+  "Returns changed components, bases and environments"
+   (let [{:keys [components bases]} (brick/changes hash1 hash2)
+         environments (ws/changes environments components bases)]
+     {:components components
+      :bases bases
+      :environments environments}))
 
-(defn component? [filename]
-  (str/starts-with? filename "components/"))
-
-(defn extract-brick [filename brick? length]
-  (when (brick? filename)
-    (let [path (subs filename length)
-          index (str/index-of path "/")]
-      (subs path 0 index))))
-
-(defn base [filename]
-  (extract-brick filename base? 6))
-
-(defn component [filename]
-  (extract-brick filename component? 11))
-
-(defn bricks [filenames]
-  {:bases (set (filter identity (map base filenames)))
-   :components (set (filter identity (map component filenames)))})
-
-(defn changes
-  ([]
-   (let [filenames (git/diff)]
-     (bricks filenames)))
-  ([hash1]
-   (let [filenames (git/diff hash1)]
-     (bricks filenames)))
-  ([hash1 hash2]
-   (let [filenames (git/diff hash1 hash2)]
-     (bricks filenames))))
+(defn with-changes [{:keys [environments] :as workspace} hash1 hash2]
+  (assoc workspace :changes (changes environments hash1 hash2)))

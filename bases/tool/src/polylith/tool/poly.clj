@@ -3,6 +3,7 @@
             [polylith.test.interface :as test]
             [polylith.workspace.interface :as ws]
             [polylith.workspace-clj.interface :as ws-clj]
+            [polylith.change.interface :as change]
             [clojure.java.io :as io]))
 
 (def help-text
@@ -18,7 +19,8 @@
   (let [ws-path (.getAbsolutePath (io/file ""))
         workspace (-> ws-path
                       ws-clj/workspace-from-disk
-                      ws/pimp-workspace)]
+                      ws/pimp-workspace
+                      change/with-changes)]
     (if-not (spec/valid-config? (:settings workspace))
       (println "Expected to find a :polylith key in 'deps.edn'.")
       (try
