@@ -7,7 +7,8 @@
 (defn replace-underscore [string]
   (str/replace string "_" "-"))
 
-(defn read-component-from-disk [ws-path top-src-dir component-name]
+(defn read-component [ws-path top-src-dir component-name]
+  "Reads component from disk."
   (let [component-src-dir (str ws-path "/components/" component-name "/src/" top-src-dir)
         ; Only one folder should be in each components base src folder.
         ; The name of the folder will be the name of the interface,
@@ -22,5 +23,6 @@
      :interface {:name interface-name
                  :definitions definitions}}))
 
-(defn read-components-from-disk [ws-path top-src-dir component-names]
-  (vec (sort-by :name (map #(read-component-from-disk ws-path top-src-dir %) component-names))))
+(defn read-components [ws-path top-src-dir component-names]
+  "Reads components from disk."
+  (vec (sort-by :name (map #(read-component ws-path top-src-dir %) component-names))))

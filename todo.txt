@@ -1,9 +1,5 @@
 
-- remove 'target' directories from version control.
-
-- remove interfaces/src from compilation (and test).
-
-- rename :extra-deps and :extra-paths in environments to :paths and :libs.
+- move all settings into :settings.
 
 - add support for :env-prefix (default is "env") in :polylith.
 
@@ -20,8 +16,6 @@
 
 - refactor the 'test' command.
 - get 'compile' to work.
-
-- put the attributes from deps.edn in :polylith as root attributes in the workspace.
 
 
 - move things from 'shared' to 'common' and delete 'shared'.

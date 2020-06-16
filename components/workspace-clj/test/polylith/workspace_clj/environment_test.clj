@@ -4,7 +4,7 @@
 
 (def config '{:paths ["shared/src"]
 
-              :polylith {:top-namespace "clojure.realworld"
+              :settings {:top-namespace "clojure.realworld"
                          :env-prefix "env"}
 
               :ring {:init clojure.realworld.rest-api.api/init

@@ -12,7 +12,7 @@
     (throw (ex-info (str "No source paths found for environment '" env "'.")
                   {:service-or-env env}))))
 
-(defn test [{:keys [ws-path] :as workspace} env]
+(defn run-test [{:keys [ws-path] :as workspace} env]
   (when (str/blank? env)
     (throw (ex-info "Environment name is required for the test command." {})))
   (let [libraries (ws/resolve-libs workspace env true test-runner-dep)

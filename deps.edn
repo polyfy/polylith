@@ -20,6 +20,7 @@
                                           "components/shell/src"
                                           "components/spec/src"
                                           "components/test/src"
+                                          "components/util/src"
                                           "components/validate/src"
                                           "components/workspace/src"
                                           "components/workspace-clj/src"]}
@@ -31,6 +32,7 @@
                                           "components/git/test"
                                           "components/shared/test"
                                           "components/spec/test"
+                                          "components/util/test"
                                           "components/validate/test"
                                           "components/workspace/test"
                                           "components/workspace-clj/test"]

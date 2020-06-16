@@ -25,8 +25,8 @@
                :lib-imports lib-imports
                :interface-deps interface-deps)))
 
-(defn pimp-workspace [{:keys [ws-path mvn/repos polylith components bases environments deps paths]}]
-  (let [top-ns (shared/top-namespace (:top-namespace polylith))
+(defn pimp-workspace [{:keys [ws-path mvn/repos settings components bases environments deps paths]}]
+  (let [top-ns (shared/top-namespace (:top-namespace settings))
         interfaces (ifcs/interfaces components)
         interface-names (apply sorted-set (mapv :name interfaces))
         pimped-components (mapv #(pimp-component top-ns interface-names %) components)
@@ -38,7 +38,7 @@
                :mvn/repos (merge mvn/standard-repos repos)
                :deps deps
                :paths paths
-               :polylith polylith
+               :settings settings
                :interfaces pimped-interfaces
                :components pimped-components
                :bases pimped-bases

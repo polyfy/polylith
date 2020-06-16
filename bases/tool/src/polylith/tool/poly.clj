@@ -19,7 +19,7 @@
         workspace (-> ws-path
                       ws-clj/workspace-from-disk
                       ws/pimp-workspace)]
-    (if-not (spec/valid-config? (:polylith workspace))
+    (if-not (spec/valid-config? (:settings workspace))
       (println "Expected to find a :polylith key in 'deps.edn'.")
       (try
         (case cmd

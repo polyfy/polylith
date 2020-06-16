@@ -30,5 +30,4 @@
 (defn pimp-workspace [workspace]
   (core/pimp-workspace workspace))
 
-
 (pimp-workspace workspace)
