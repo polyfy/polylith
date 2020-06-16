@@ -28,7 +28,7 @@
 (defn pimp-settings [{:keys [maven-repos] :as settings}]
   (assoc settings :maven-repos (merge mvn/standard-repos maven-repos)))
 
-(defn pimp-workspace [{:keys [ws-path settings components bases environments deps paths]}]
+(defn pimp-workspace [{:keys [ws-path settings components bases environments]}]
   (let [top-ns (shared/top-namespace (:top-namespace settings))
         interfaces (ifcs/interfaces components)
         interface-names (apply sorted-set (mapv :name interfaces))
@@ -39,8 +39,6 @@
         warnings (validate/warnings interfaces components)
         errors (validate/errors top-ns interface-names pimped-interfaces pimped-components bases)]
     (array-map :ws-path ws-path
-               :deps deps
-               :paths paths
                :settings pimped-settings
                :interfaces pimped-interfaces
                :components pimped-components

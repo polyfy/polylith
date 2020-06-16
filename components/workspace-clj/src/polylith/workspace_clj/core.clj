@@ -11,7 +11,7 @@
   ([ws-path]
    (let [config (read-string (slurp (str ws-path "/deps.edn")))]
      (workspace-from-disk ws-path config)))
-  ([ws-path {:keys [polylith mvn/repos deps paths] :as config}]
+  ([ws-path {:keys [polylith mvn/repos] :as config}]
    (let [{:keys [top-namespace
                  compile-path
                  thread-pool-size]} polylith
@@ -25,11 +25,8 @@
                                     :compile-path compile-path
                                     :thread-pool-size thread-pool-size
                                     :maven-repos repos)]
-
      (util/ordered-map :ws-path ws-path
                        :settings settings
-                       :deps deps
-                       :paths paths
                        :components components
                        :bases bases
                        :environments environments))))
