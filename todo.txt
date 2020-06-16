@@ -1,4 +1,6 @@
 
+- rename from :dependencies to :interface-deps.
+
 - put a :type in each environment.
 
 - remove interfaces/src from compilation (and test).
