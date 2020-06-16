@@ -1,24 +1,28 @@
 
-- rename from :extra-paths to :paths in an environment?
-  - more consistent with :dependencies
-  - also rename :dependencies to :deps?
-- do we need {:name :type} in an environment, or just the name?
+- put a :type in each environment.
 
-- calculate :environments, e.g.:
-  [{:name "build-tool"
-    :group "build-tool"
-    :test? false
-    :extra-paths ["bases/build-tools/src"]
-    :extra-deps {ring-server {:mvn/version "0.5.0"}}}
-   {:name "build-tool-test"
-    :group "build-tool"
-    :test? true
-    :extra-paths ["bases/build-tools/test"]
-    :extra-deps  {org.clojure/test.check {:mvn/version "0.10.0-alpha3"}}}]
+- remove interfaces/src from compilation (and test).
 
+- rename :extra-deps and :extra-paths in environments to :paths and :libs.
+
+- add support for :env-prefix (default is "env") in :polylith.
+
+- make sure that we keep all keys in the workspace but at the same time put the keys in a nice order.
+- check that we can run tests (and compile) for both cases, e.g. 'core' and 'core-test'.
+
+- make sure everything in the workspace is stored as strings.
+
+- remove :deps on the :workspace root. It is added to each :env anyway.
+  - double check, maybe it's done in workspace.
+- remove :paths on the :workspace root. It is added to each :env anyway.
+
+- move mvn/repos to :polylith.
 
 - refactor the 'test' command.
 - get 'compile' to work.
+
+- lägg attributen i :polylith på roten i workspace:t.
+
 
 - move things from 'shared' to 'common' and delete 'shared'.
 - calculate what environments that has changed.
@@ -56,13 +60,16 @@
 
 Questions
 =========
-- figure out a way to show the output while running the tests.
-- should we discard :type because it's not used by our code and can
-  be resolved via where it is stored in the map (:bases, :components)?
-  If not, then we need to add it to environments also.
+- should we store dependencies as strings as well, or continue as symbols?
+  There is a smaller risk for problems if we keep them as symbols?
+  But if we do, then it doesn't work well with JSON and use of other
+  languages than Clojure as input source.
+
 
 Leave for now
 =============
+- maybe we can use different class loaders as a way of running the tests
+  in isolation without the need to restart the jvm?
 - release the new tool + make it the default in the realworld repository +
   create a branch for the old lein-polylith code.
 - create a githook that verifies the project.
@@ -74,7 +81,7 @@ Leave for now
 - check if support for .cljs files make sense.
 - how to decorate the errors and warnings so that a tool can easily mark what's
   wrong in a e.g. a UI.
-
+- figure out a way to show the output while running the tests.
 
 Doc
 ===
@@ -90,6 +97,9 @@ Doc
   to only access the 'interface' namespace.
 - when we release the new version:
   - write a note on lein-polylith that it is has been replaced by this tool.
+- a good thing with interfaces. They serve as an interface, so parameters
+  can keep the names, like 'workspace' while the implementing function
+  can do destructuring.
 
 Differences compared to lein-polylith
 =====================================

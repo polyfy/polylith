@@ -10,7 +10,8 @@
   ([ws-path]
    (let [config (read-string (slurp (str ws-path "/deps.edn")))]
      (workspace-from-disk ws-path config)))
-  ([ws-path {:keys [polylith mvn/repos deps paths] :as config}]
+  ([ws-path {:keys [polylith mvn/repos deps paths] :as config
+             :or {repos []}}]
    (let [top-ns (shared/top-namespace (:top-namespace polylith))
          top-src-dir (str/replace top-ns "." "/")
          component-names (file/directory-paths (str ws-path "/components"))
