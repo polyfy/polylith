@@ -1,7 +1,4 @@
 
-- make sure that we keep all keys in the workspace but at the same time put the keys in a nice order.
-- check that we can run tests (and compile) for both cases, e.g. 'core' and 'core-test'.
-
 - make sure everything in the workspace is stored as strings.
 
 - remove :deps on the :workspace root. It is added to each :env anyway.

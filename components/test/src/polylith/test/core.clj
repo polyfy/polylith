@@ -15,10 +15,16 @@
 (defn with-mvn-repos [{:keys [maven-repos]} workspace]
   (assoc workspace :mvn/repos maven-repos))
 
-(defn run-test [{:keys [ws-path settings] :as workspace} env]
-  (when (str/blank? env)
+(defn trim-test [env]
+  (if (str/ends-with? env "-test")
+    (subs env 0 (- (count env) 5))
+    env))
+
+(defn run-test [{:keys [ws-path settings] :as workspace} environment]
+  (when (str/blank? environment)
     (throw (ex-info "Environment name is required for the test command." {})))
-  (let [config (with-mvn-repos settings workspace)
+  (let [env (trim-test environment)
+        config (with-mvn-repos settings workspace)
         libraries (ws/resolve-libs config env true test-runner-dep)
         paths (ws/src-paths config env true)
         _ (throw-exception-if-empty paths env)
