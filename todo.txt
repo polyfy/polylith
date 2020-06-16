@@ -1,4 +1,6 @@
 
+- make sure :environments comes after :components and :bases.
+
 - put a :type in each environment.
 
 - remove interfaces/src from compilation (and test).
@@ -21,7 +23,7 @@
 - refactor the 'test' command.
 - get 'compile' to work.
 
-- lägg attributen i :polylith på roten i workspace:t.
+- put the attributes from deps.edn in :polylith as root attributes in the workspace.
 
 
 - move things from 'shared' to 'common' and delete 'shared'.
@@ -60,11 +62,11 @@
 
 Questions
 =========
+- figure out a way to show the output while running the tests.
 - should we store dependencies as strings as well, or continue as symbols?
   There is a smaller risk for problems if we keep them as symbols?
   But if we do, then it doesn't work well with JSON and use of other
   languages than Clojure as input source.
-
 
 Leave for now
 =============
@@ -81,7 +83,7 @@ Leave for now
 - check if support for .cljs files make sense.
 - how to decorate the errors and warnings so that a tool can easily mark what's
   wrong in a e.g. a UI.
-- figure out a way to show the output while running the tests.
+
 
 Doc
 ===
@@ -97,9 +99,6 @@ Doc
   to only access the 'interface' namespace.
 - when we release the new version:
   - write a note on lein-polylith that it is has been replaced by this tool.
-- a good thing with interfaces. They serve as an interface, so parameters
-  can keep the names, like 'workspace' while the implementing function
-  can do destructuring.
 
 Differences compared to lein-polylith
 =====================================
