@@ -1,4 +1,4 @@
-(ns polylith.cmd.test
+(ns polylith.test.core
   (:require [clojure.string :as str]
             [polylith.common.interface :as common]
             [polylith.workspace.interface :as ws])
@@ -9,8 +9,8 @@
 
 (defn throw-exception-if-empty [paths env]
   (when (empty? paths)
-      (throw (ex-info (str "No source paths found for environment '" env "'.")
-              {:service-or-env env}))))
+    (throw (ex-info (str "No source paths found for environment '" env "'.")
+                  {:service-or-env env}))))
 
 (defn test [{:keys [ws-path] :as workspace} env]
   (when (str/blank? env)

@@ -1,6 +1,6 @@
 (ns polylith.tool.cli
-  (:require [polylith.cmd.interface :as cmd]
-            [polylith.spec.interface :as spec]
+  (:require [polylith.spec.interface :as spec]
+            [polylith.test.interface :as test]
             [polylith.workspace.interface :as ws]
             [polylith.workspace-clj.interface :as ws-clj]
             [clojure.java.io :as io]))
@@ -23,7 +23,7 @@
       (println "Expected to find a :polylith key in 'deps.edn'.")
       (try
         (case cmd
-          "test" (cmd/test workspace env)
+          "test" (test/run workspace env)
           (println help-text))
         (catch Exception e
           (println (or (-> e ex-data :err) (.getMessage e)))
