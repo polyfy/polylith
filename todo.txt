@@ -51,6 +51,9 @@
 
 - add error for the case that a namespace can't even be parsed.
 
+- handle the case that a component doesn not exist any more in the 'diff'
+  function, which especially can happen when seding in two SHA:s.
+
 Questions
 =========
 - how should we calculate workspace changes?

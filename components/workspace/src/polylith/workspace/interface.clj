@@ -7,9 +7,9 @@
 
 (def workspace (ws-clojure/workspace-from-disk "../clojure-polylith-realworld-example-app"))
 (def workspace (ws-clojure/workspace-from-disk "."))
-(def workspace (ws-clojure/workspace-from-disk "../Nova/project-unicorn" {:polylith {:top-namespace ""}}))
-(def workspace (ws-clojure/workspace-from-disk "../ws11" {:polylith {:top-namespace ""}}))
-(def workspace (ws-clojure/workspace-from-disk "../ws12" {:polylith {:top-namespace ""}}))
+;(def workspace (ws-clojure/workspace-from-disk "../Nova/project-unicorn" {:polylith {:top-namespace ""}}))
+;(def workspace (ws-clojure/workspace-from-disk "../ws11" {:polylith {:top-namespace ""}}))
+;(def workspace (ws-clojure/workspace-from-disk "../ws12" {:polylith {:top-namespace ""}}))
 
 (defn src-paths
   ([workspace env]
@@ -31,4 +31,5 @@
 (defn pimp-workspace [workspace]
   (core/pimp-workspace workspace))
 
-(-> workspace pimp-workspace change/with-changes)
+;(-> workspace pimp-workspace (change/with-changes "f0a84c47c284d9502ca4cd1a017d2b4b6161bfc5"))
+
