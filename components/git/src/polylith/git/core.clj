@@ -2,16 +2,20 @@
   (:require [clojure.string :as str]
             [polylith.shell.interface :as shell]))
 
-(defn diff [hash1 hash2]
-  "Lists the changed files between two hashes in git:
-    - if none of 'hash1' and 'hash2' is set: diff against local changes
-    - if only one of 'hash1' or 'hash2' is set: diff between the hash and HEAD
-    - if both 'hash1' and 'hash2' is set: diff changes between hash1 and hash2"
+(defn diff [sha1 sha2]
   (let [ws-path "."
-        hash? (or hash1 hash2)
-        hash-1 (when hash? (or hash1 "HEAD"))
-        hash-2 (when hash? (or hash2 "HEAD"))
-        files (if hash?
-                (shell/sh "git" "diff" hash-1 hash-2 "--name-only" :dir ws-path)
+        sha? (or sha1 sha2)
+        sha-1 (when sha? (or sha1 "HEAD"))
+        sha-2 (when sha? (or sha2 "HEAD"))
+        files (if sha?
+                (shell/sh "git" "diff" sha-1 sha-2 "--name-only" :dir ws-path)
                 (shell/sh "git" "diff" "--name-only" :dir ws-path))]
     (str/split files #"\n")))
+
+(defn diff-command [sha1 sha2]
+  (let [sha? (or sha1 sha2)
+        sha-1 (when sha? (or sha1 "HEAD"))
+        sha-2 (when sha? (or sha2 "HEAD"))]
+    (if sha?
+      (str "git diff " sha-1 " " sha-2 " --name-only")
+      (str "git diff --name-only"))))

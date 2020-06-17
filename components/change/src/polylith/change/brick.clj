@@ -24,13 +24,6 @@
   {:bases (vec (sort (set (filter identity (map base filenames)))))
    :components (vec (sort (set (filter identity (map component filenames)))))})
 
-(defn changes
-  ([]
-   (let [filenames (git/diff)]
-     (bricks filenames)))
-  ([hash1]
-   (let [filenames (git/diff hash1)]
-     (bricks filenames)))
-  ([hash1 hash2]
-   (let [filenames (git/diff hash1 hash2)]
-     (bricks filenames))))
+(defn changes [sha1 sha2]
+  (let [filenames (git/diff sha1 sha2)]
+    (bricks filenames)))

@@ -1,6 +1,4 @@
 
-- add :sha1 and :sha2 to :changes.
-
 - calculate lib-imports for environments.
 
 - rename :imports in each brick to :namespaces.
@@ -9,8 +7,11 @@
 - calculate :lines-of-code in each entry in :imports.
 
 - store each changed environment-group like e.g. this:
+  - also, when calculating changes, only check for paths that are included in :paths,
+    so that we only check 'test' directories for test environments and changes under
+    the 'src' directory for the "main" environment.
   {:group "core"
-   :main-changed? true
+   :src-changed? true
    :test-changed? false
    :changed-bricks ["file"]
    :indirectly-changed-bricks ["article"]
@@ -48,15 +49,13 @@
    :definition {:name "pay", :type "function", :parameters ["a"] :sub-ns ""}
   }
 
+- add error for the case that a namespace can't even be parsed.
 
 Questions
 =========
 - how should we calculate workspace changes?
   - include test environments?
 - figure out a way to show the output while running the tests.
-- should we discard :type because it's not used by our code and can
-  be resolved via where it is stored in the map (:bases, :components)?
-  If not, then we need to add it to environments also.
 
 Leave for now
 =============

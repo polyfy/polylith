@@ -1,12 +1,20 @@
 (ns polylith.change.core
   (:require [polylith.change.brick :as brick]
-            [polylith.change.environment :as ws]))
+            [polylith.change.environment :as env]
+            [polylith.git.interface :as git]))
 
-(defn changes [environments hash1 hash2]
-  "Returns changed components, bases and environments"
-   (let [{:keys [components bases]} (brick/changes hash1 hash2)
-         environments (ws/changes environments components bases)]
-     {:components components
+(defn changes [environments sha1 sha2]
+  "Returns changed components, bases and environments
+    - if none of 'sha1' or 'sha2' is set: diff against local changes
+    - if only one of 'sha1' or 'sha2' is set: diff between the SHA and HEAD
+    - if both 'sha1' and 'sha2' is set: diff changes between sha1 and sha2"
+   (let [sha? (or sha1 sha2)
+         sha-1 (when sha? (or sha1 "HEAD"))
+         sha-2 (when sha? (or sha2 "HEAD"))
+         {:keys [components bases]} (brick/changes sha-1 sha-2)
+         environments (env/changes environments components bases)]
+     {:git-command (git/diff-command sha-1 sha-2)
+      :components components
       :bases bases
       :environments environments}))
 

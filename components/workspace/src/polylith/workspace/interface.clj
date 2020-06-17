@@ -1,5 +1,6 @@
 (ns polylith.workspace.interface
-  (:require [polylith.workspace.core :as core]
+  (:require [polylith.change.interface :as change]
+            [polylith.workspace.core :as core]
             [polylith.workspace.source :as source]
             [polylith.workspace.dependencies :as deps]
             [polylith.workspace-clj.interface :as ws-clojure]))
@@ -30,4 +31,4 @@
 (defn pimp-workspace [workspace]
   (core/pimp-workspace workspace))
 
-(pimp-workspace workspace)
+(-> workspace pimp-workspace change/with-changes)
