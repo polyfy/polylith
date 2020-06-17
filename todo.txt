@@ -19,10 +19,11 @@
 - store :deps as strings (and not symbols) but remember to convert them back to
   symbols before use.
 
-- store each message like this, e.g.:
+- store each message with its own attributes, e.g.:
   {:type "error"
    :code 101
-   :bricks ["article"]}
+   :message "Circular dependencies was found: article > profile > article"
+   :bricks ["article" "profile"]}
 
 - make sure we can compile the code into a command line tool using GraalVM.
 - compile a 'poly' tool with GraalVM.
