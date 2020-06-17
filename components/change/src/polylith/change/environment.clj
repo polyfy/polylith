@@ -3,8 +3,8 @@
 
 (defn changed? [{:keys [components bases]} changed-components changed-bases]
   (let [changed-bricks (concat
-                         (set/intersection (set components) changed-components)
-                         (set/intersection (set bases) changed-bases))]
+                         (set/intersection (set components) (set changed-components))
+                         (set/intersection (set bases) (set changed-bases)))]
     (-> changed-bricks empty? not)))
 
 (defn changes [environments changed-components changed-bases]

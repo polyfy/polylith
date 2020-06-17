@@ -1,5 +1,5 @@
 
-- calculate lib-imports for environments.
+- add the list of diff:ed files to :changes.
 
 - rename :imports in each brick to :namespaces.
 - rename from :ns-path to :namespace + remove "brick/".
@@ -97,7 +97,8 @@ Differences compared to lein-polylith
   without extra tooling.
 - each service can have its own version of a library, so that service A has version 1.1
   of a library, but service B has 1.2 and the development environment has 1.3.
-- we base changes on git, not on both git and timestamps.
+- we base changes on git, not on both git and timestamps. The reason is to make it
+  simpler and that timestamps didn't work well with git.
 
 Design decisions
 ================
