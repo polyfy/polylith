@@ -19,6 +19,11 @@
 - store :deps as strings (and not symbols) but remember to convert them back to
   symbols before use.
 
+- store each message like this, e.g.:
+  {:type "error"
+   :code 101
+   :bricks ["article"]}
+
 - make sure we can compile the code into a command line tool using GraalVM.
 - compile a 'poly' tool with GraalVM.
 
@@ -71,7 +76,7 @@ Doc
 ===
 - example of how to add macros in the interface, e.g. 'unless' in:
   - https://clojuredocs.org/clojure.core/defmacro
-- If using a function in two components that implement the same interface,
+- if using a function in two components that implement the same interface,
   all definitions must be function. The same goes for macros.
 - tips on how to delegate from interfaces:
   - use 'apply' if & in the parameter list, e.g.: (apply core/sh args)
@@ -96,5 +101,6 @@ Differences compared to lein-polylith
 
 Design decisions
 ================
-- To be able to reload a whole comonent in the REPL, it's important that all functions
-  in the interface are implemented, so that we don't get a mix of function in the namespace.
+- to be able to reload a whole component in the REPL, it's important that all functions
+  in the interface are implemented, so that we don't get a mix of functions from
+  two different components in the namespace.
