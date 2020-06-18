@@ -1,6 +1,9 @@
 
 - change from :namespaces to :src-namespaces
 
+- change from :lib-imports to :src-lib-imports.
+- add :test-lib-imports.
+
 - store each changed environment-group like e.g. this:
   - also, when calculating changes, only check for paths that are included in :paths,
     so that we only check 'test' directories for test environments and changes under

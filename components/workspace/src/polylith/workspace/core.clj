@@ -18,27 +18,27 @@
     {:loc-src (apply + (map :lines-of-code-src locs))
      :loc-test (apply + (map :lines-of-code-test locs))}))
 
-(defn enrich-component [top-ns interface-names {:keys [name type namespaces test-namespaces interface] :as component}]
+(defn enrich-component [top-ns interface-names {:keys [name type src-namespaces test-namespaces interface] :as component}]
   (let [interface-deps (deps/brick-interface-deps top-ns interface-names component)
         lib-imports (lib-imports/lib-imports top-ns interface-names component)]
     (array-map :name name
                :type type
-               :lines-of-code-src (brick-loc namespaces)
+               :lines-of-code-src (brick-loc src-namespaces)
                :lines-of-code-test (brick-loc test-namespaces)
                :interface interface
-               :namespaces namespaces
+               :src-namespaces src-namespaces
                :test-namespaces test-namespaces
                :lib-imports lib-imports
                :interface-deps interface-deps)))
 
-(defn enrich-base [top-ns interface-names {:keys [name type namespaces test-namespaces] :as base}]
+(defn enrich-base [top-ns interface-names {:keys [name type src-namespaces test-namespaces] :as base}]
   (let [interface-deps (deps/brick-interface-deps top-ns interface-names base)
         lib-imports (lib-imports/lib-imports top-ns interface-names base)]
     (array-map :name name
                :type type
-               :lines-of-code-src (brick-loc namespaces)
+               :lines-of-code-src (brick-loc src-namespaces)
                :lines-of-code-test (brick-loc test-namespaces)
-               :namespaces namespaces
+               :src-namespaces src-namespaces
                :test-namespaces test-namespaces
                :lib-imports lib-imports
                :interface-deps interface-deps)))
@@ -90,6 +90,6 @@
                :messages {:warnings warnings
                           :errors   errors})))
 
-(def workspace (-> "../clojure-polylith-realworld-example-app"
-                   ws-clojure/workspace-from-disk
-                   enrich-workspace))
+(-> "../clojure-polylith-realworld-example-app"
+    ws-clojure/workspace-from-disk
+    enrich-workspace)

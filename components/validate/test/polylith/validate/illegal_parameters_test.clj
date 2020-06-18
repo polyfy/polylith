@@ -34,15 +34,15 @@
 
 (def components '[{:name "auth"
                    :type "component"
-                   :namespaces [{:name "auth/interface.clj", :imports ["auth.core"]}
-                                {:name "auth/core.clj", :imports []}]
+                   :src-namespaces [{:name "auth/interface.clj", :imports ["auth.core"]}
+                                    {:name "auth/core.clj", :imports []}]
                    :interface {:name "auth",
                                :definitions [{:name "add-two", :type "function", :parameters ["x"]}]}
                    :interface-deps []}
                   {:name "invoice"
                    :type "component"
-                   :namespaces [{:name "invoice/interface.clj", :imports []}
-                                {:name "invoice/core.clj", :imports ["user.interface"]}]
+                   :src-namespaces [{:name "invoice/interface.clj", :imports []}
+                                    {:name "invoice/core.clj", :imports ["user.interface"]}]
                    :interface {:name "invoice"
                                :definitions [{:name "abc" :type "data"}
                                              {:name "func1", :type "function", :parameters ["a"]}
@@ -50,24 +50,24 @@
                    :interface-deps ["user"]}
                   {:name "invoice2"
                    :type "component"
-                   :namespaces [{:name "invoice/interface.clj", :imports []}
-                                {:name "invoice/core.clj", :imports []}]
+                   :src-namespaces [{:name "invoice/interface.clj", :imports []}
+                                    {:name "invoice/core.clj", :imports []}]
                    :interface {:name "invoice"
                                :definitions [{:name "func1", :type "function", :parameters ["b"]}
                                              {:name "func1", :type "function", :parameters ["x" "y"]}]}
                    :interface-deps []}
                   {:name "payment"
                    :type "component"
-                   :namespaces [{:name "payment/interface.clj", :imports ["payment.core"]}
-                                {:name "payment/core.clj", :imports ["invoice.interface"]}]
+                   :src-namespaces [{:name "payment/interface.clj", :imports ["payment.core"]}
+                                    {:name "payment/core.clj", :imports ["invoice.interface"]}]
                    :interface {:name "payment"
                                :definitions [{:name "pay", :type "function", :parameters ["a"]}
                                              {:name "pay", :type "function", :parameters ["b"]}]}
                    :interface-deps ["invoice"]}
                   {:name "user1"
                    :type "component"
-                   :namespaces [{:name "user/interface.clj", :imports []}
-                                {:name "user/core.clj", :imports ["payment.interface"]}]
+                   :src-namespaces [{:name "user/interface.clj", :imports []}
+                                    {:name "user/core.clj", :imports ["payment.interface"]}]
                    :interface {:name "user"
                                :definitions [{:name "func1", :type "function", :parameters []}
                                              {:name "func2", :type "function", :parameters ["a" "b"]}
@@ -77,8 +77,8 @@
                    :interface-deps ["payment"]}
                   {:name "user2"
                    :type "component"
-                   :namespaces [{:name "user/interface.clj", :imports []}
-                                {:name "user/core.clj", :imports ["auth.interface"]}]
+                   :src-namespaces [{:name "user/interface.clj", :imports []}
+                                    {:name "user/core.clj", :imports ["auth.interface"]}]
                    :interface {:name "user"
                                :definitions [{:name "func2", :type "function", :parameters ["x" "y"]}
                                              {:name "func3", :type "function", :parameters ["x" "y" "z"]}
@@ -117,15 +117,15 @@
 
 (def components2 '[{:name "auth"
                     :type "component"
-                    :namespaces [{:name "auth/interface.clj", :imports ["auth.core"]}
-                                 {:name "auth/core.clj", :imports []}]
+                    :src-namespaces [{:name "auth/interface.clj", :imports ["auth.core"]}
+                                     {:name "auth/core.clj", :imports []}]
                     :interface {:name "auth"
                                 :definitions [{:name "add-two", :type "function", :parameters ["x"]}]}
                     :interface-deps []}
                    {:name "invoice"
                     :type "component"
-                    :namespaces [{:name "invoice/interface.clj", :imports []}
-                                 {:name "invoice/core.clj", :imports ["user.interface"]}]
+                    :src-namespaces [{:name "invoice/interface.clj", :imports []}
+                                     {:name "invoice/core.clj", :imports ["user.interface"]}]
                     :interface {:name "invoice"
                                 :definitions [{:name "abc" :type "data"}
                                               {:name "macro1", :type "macro", :parameters ["a"] :sub-ns "sub"}
@@ -133,24 +133,24 @@
                     :interface-deps ["user"]}
                    {:name "invoice2"
                     :type "component"
-                    :namespaces [{:name "invoice/interface.clj", :imports []}
-                                 {:name "invoice/core.clj", :imports []}]
+                    :src-namespaces [{:name "invoice/interface.clj", :imports []}
+                                     {:name "invoice/core.clj", :imports []}]
                     :interface {:name "invoice"
                                 :definitions [{:name "macro1", :type "macro", :parameters ["b"] :sub-ns "sub"}
                                               {:name "func1", :type "function", :parameters ["x" "y"]}]}
                     :interface-deps []}
                    {:name "payment",
                     :type "component"
-                    :namespaces [{:name "payment/interface.clj", :imports ["payment.core"]}
-                                 {:name "payment/core.clj", :imports ["invoice.interface"]}]
+                    :src-namespaces [{:name "payment/interface.clj", :imports ["payment.core"]}
+                                     {:name "payment/core.clj", :imports ["invoice.interface"]}]
                     :interface {:name "payment"
                                 :definitions [{:name "pay", :type "function", :parameters ["a"]}
                                               {:name "pay", :type "function", :parameters ["b"]}]}
                     :interface-deps ["invoice"]}
                    {:name "user1"
                     :type "component"
-                    :namespaces [{:name "user/interface.clj", :imports []}
-                                 {:name "user/core.clj", :imports ["payment.interface"]}]
+                    :src-namespaces [{:name "user/interface.clj", :imports []}
+                                     {:name "user/core.clj", :imports ["payment.interface"]}]
                     :interface {:name "user"
                                 :definitions [{:name "macro1", :type "macro", :parameters []}
                                               {:name "func2", :type "function", :parameters ["a" "b"]}
@@ -160,8 +160,8 @@
                     :interface-deps ["payment"]}
                    {:name "user2"
                     :type "component"
-                    :namespaces [{:name "user/interface.clj", :imports []}
-                                 {:name "user/core.clj", :imports ["auth.interface"]}]
+                    :src-namespaces [{:name "user/interface.clj", :imports []}
+                                     {:name "user/core.clj", :imports ["auth.interface"]}]
                     :interface {:name "user"
                                 :definitions [{:name "func2", :type "function", :parameters ["x" "y"]}
                                               {:name "func3", :type "function", :parameters ["x" "y" "z"]}
