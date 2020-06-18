@@ -20,7 +20,7 @@
 
 (defn enrich-component [top-ns interface-names {:keys [name type src-namespaces test-namespaces interface] :as component}]
   (let [interface-deps (deps/brick-interface-deps top-ns interface-names component)
-        lib-imports (lib-imports/lib-imports top-ns interface-names component)]
+        src-lib-imports (lib-imports/src-lib-imports top-ns interface-names component)]
     (array-map :name name
                :type type
                :lines-of-code-src (brick-loc src-namespaces)
@@ -28,26 +28,26 @@
                :interface interface
                :src-namespaces src-namespaces
                :test-namespaces test-namespaces
-               :lib-imports lib-imports
+               :src-lib-imports src-lib-imports
                :interface-deps interface-deps)))
 
 (defn enrich-base [top-ns interface-names {:keys [name type src-namespaces test-namespaces] :as base}]
   (let [interface-deps (deps/brick-interface-deps top-ns interface-names base)
-        lib-imports (lib-imports/lib-imports top-ns interface-names base)]
+        src-lib-imports (lib-imports/src-lib-imports top-ns interface-names base)]
     (array-map :name name
                :type type
                :lines-of-code-src (brick-loc src-namespaces)
                :lines-of-code-test (brick-loc test-namespaces)
                :src-namespaces src-namespaces
                :test-namespaces test-namespaces
-               :lib-imports lib-imports
+               :src-lib-imports src-lib-imports
                :interface-deps interface-deps)))
 
 (defn enrich-env [{:keys [name group test? type components bases paths deps]}
-                  brick->lib-imports
+                  brick->src-lib-imports
                   brick->loc]
   (let [brick-names (concat components bases)
-        lib-imports (mapcat brick->lib-imports brick-names)
+        src-lib-imports (mapcat brick->src-lib-imports brick-names)
         {:keys [loc-src loc-test]} (env-loc brick-names brick->loc)]
     (util/ordered-map :name name
                       :group group
@@ -58,11 +58,11 @@
                       :components components
                       :bases bases
                       :paths paths
-                      :lib-imports (vec (sort (set lib-imports)))
+                      :src-lib-imports (vec (sort (set src-lib-imports)))
                       :deps deps)))
 
-(defn brick->lib-imports [brick]
-  (into {} (mapv (juxt :name :lib-imports) brick)))
+(defn brick->src-lib-imports [brick]
+  (into {} (mapv (juxt :name :src-lib-imports) brick)))
 
 (defn enrich-settings [{:keys [maven-repos] :as settings}]
   (assoc settings :maven-repos (merge mvn/standard-repos maven-repos)))
@@ -75,9 +75,9 @@
         enriched-bases (mapv #(enrich-base top-ns interface-names %) bases)
         enriched-bricks (concat enriched-components enriched-bases)
         enriched-interfaces (deps/interface-deps interfaces enriched-components)
-        brick->lib-imports (brick->lib-imports enriched-bricks)
+        brick->src-lib-imports (brick->src-lib-imports enriched-bricks)
         brick->loc (into {} (map (juxt :name #(select-keys % [:lines-of-code-src :lines-of-code-test])) enriched-bricks))
-        enriched-environments (mapv #(enrich-env % brick->lib-imports brick->loc) environments)
+        enriched-environments (mapv #(enrich-env % brick->src-lib-imports brick->loc) environments)
         enriched-settings (enrich-settings settings)
         warnings (validate/warnings interfaces components)
         errors (validate/errors top-ns interface-names enriched-interfaces enriched-components bases)]

@@ -1,7 +1,4 @@
 
-- change from :namespaces to :src-namespaces
-
-- change from :lib-imports to :src-lib-imports.
 - add :test-lib-imports.
 
 - store each changed environment-group like e.g. this:
