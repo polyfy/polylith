@@ -1,7 +1,7 @@
 (ns polylith.workspace-clj.components-from-disk
   (:require [clojure.string :as str]
             [polylith.file.interface :as file]
-            [polylith.workspace-clj.imports-from-disk :as imports-from-disk]
+            [polylith.workspace-clj.namespaces-from-disk :as imports-from-disk]
             [polylith.workspace-clj.interface-defs-from-disk :as interface-defs-from-disk]))
 
 (defn replace-underscore [string]

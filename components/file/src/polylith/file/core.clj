@@ -1,5 +1,6 @@
 (ns polylith.file.core
-  (:require [clojure.java.io :as io])
+  (:require [clojure.java.io :as io]
+            [clojure.java.io :refer [reader]])
   (:import (java.io File FileNotFoundException PushbackReader)))
 
 (defn directory? [^File file]
@@ -7,6 +8,10 @@
 
 (defn file-name [^File file]
   (.getName file))
+
+(defn number-of-lines [path]
+  (with-open [rdr (reader path)]
+    (count (line-seq rdr))))
 
 (defn directory-paths [dir]
   (->> dir

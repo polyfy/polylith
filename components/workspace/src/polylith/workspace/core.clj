@@ -5,13 +5,22 @@
             [polylith.validate.interface :as validate]
             [polylith.workspace.calculate-interfaces :as ifcs]
             [polylith.workspace.lib-imports :as lib-imports]
-            [polylith.util.interface :as util]))
+            [polylith.util.interface :as util]
+            [polylith.workspace-clj.interface :as ws-clojure]))
+
+
+(defn loc
+  ([entities]
+   (apply + (map :loc entities)))
+ ([brick-names brick->loc]
+  (apply + (map brick->loc brick-names))))
 
 (defn enrich-component [top-ns interface-names {:keys [name type namespaces interface] :as component}]
   (let [interface-deps (deps/brick-interface-deps top-ns interface-names component)
         lib-imports (lib-imports/lib-imports top-ns interface-names component)]
     (array-map :name name
                :type type
+               :loc (loc namespaces)
                :interface interface
                :namespaces namespaces
                :lib-imports lib-imports
@@ -22,18 +31,24 @@
         lib-imports (lib-imports/lib-imports top-ns interface-names base)]
     (array-map :name name
                :type type
+               :loc (loc namespaces)
                :namespaces namespaces
                :lib-imports lib-imports
                :interface-deps interface-deps)))
 
 (defn enrich-env [{:keys [name group test? type components bases paths deps]}
-                  component->lib-imports base->lib-imports]
+                  component->lib-imports
+                  base->lib-imports
+                  brick->loc]
   (let [lib-imports (concat (mapcat component->lib-imports components)
-                            (mapcat base->lib-imports components))]
+                            (mapcat base->lib-imports components))
+        brick-names (concat components bases)
+        lines-of-code (loc brick-names brick->loc)]
     (util/ordered-map :name name
                       :group group
                       :test? test?
                       :type type
+                      :loc lines-of-code
                       :components components
                       :bases bases
                       :paths paths
@@ -52,10 +67,12 @@
         interface-names (apply sorted-set (mapv :name interfaces))
         enriched-components (mapv #(enrich-component top-ns interface-names %) components)
         enriched-bases (mapv #(enrich-base top-ns interface-names %) bases)
+        bricks (concat enriched-components enriched-bases)
         enriched-interfaces (deps/interface-deps interfaces enriched-components)
         component->lib-imports (brick->lib-imports enriched-components)
         base->lib-imports (brick->lib-imports enriched-bases)
-        enriched-environments (mapv #(enrich-env % component->lib-imports base->lib-imports) environments)
+        brick->loc (into {} (map (juxt :name :loc) bricks))
+        enriched-environments (mapv #(enrich-env % component->lib-imports base->lib-imports brick->loc) environments)
         enriched-settings (enrich-settings settings)
         warnings (validate/warnings interfaces components)
         errors (validate/errors top-ns interface-names enriched-interfaces enriched-components bases)]
