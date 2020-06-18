@@ -21,16 +21,16 @@
   (let [component {:name "common"
                    :type "component"
                    :interface {:name "common"}
-                   :namespaces '[{:name "common/purchase.clj"
+                   :namespaces '[{:name "purchase"
                                   :imports ["clojure.string"
                                             "polylith.file.interface"
                                             "polylith.invoice.core"]}
-                                 {:name "common/billing.clj"
+                                 {:name "billing"
                                   :imports ["clojure.core"
                                             "polylith.user.interface"
                                             "polylith.cmd.core"]}]}]
-    (is (= ["Illegal dependency on namespace 'invoice.core' in 'components/common/purchase.clj'. Use 'invoice.interface' instead to fix the problem."
-            "Illegal dependency on namespace 'cmd.core' in 'components/common/billing.clj'. Use 'cmd.interface' instead to fix the problem."]
+    (is (= ["Illegal dependency on namespace 'invoice.core' in namespace 'purchase' in the 'common' component. Use 'invoice.interface' instead to fix the problem."
+            "Illegal dependency on namespace 'cmd.core' in namespace 'billing' in the 'common' component. Use 'cmd.interface' instead to fix the problem."]
            (ideps/brick-errors "polylith." component #{"spec" "cmd" "file" "invoice" "user"} [])))))
 
 (deftest errors--component-with-mismatching-interface-name--returns-no-errors

@@ -1,16 +1,16 @@
 (ns polylith.validate.illegal-namespace-deps
   (:require [polylith.deps.interface :as deps]))
 
-(defn error-message [{:keys [ns-path depends-on-interface depends-on-ns]} type]
-  (when ns-path
-    (str "Illegal dependency on namespace '" depends-on-interface "." depends-on-ns "' in '" type "s/" ns-path
-         "'. Use '" depends-on-interface ".interface' instead to fix the problem.")))
+(defn error-message [{:keys [namespace depends-on-interface depends-on-ns]} brick-name type]
+  (when namespace
+    (str "Illegal dependency on namespace '" depends-on-interface "." depends-on-ns "' in namespace '" namespace "' in the '" brick-name "' " type
+         ". Use '" depends-on-interface ".interface' instead to fix the problem.")))
 
-(defn brick-errors [top-ns {:keys [interface type namespaces]} interface-names errors]
+(defn brick-errors [top-ns {:keys [name interface type namespaces]} interface-names errors]
   "Checks for dependencies to component interface namespaces other than 'interface'."
   (let [interface-name (:name interface)
         dependencies (deps/brick-dependencies top-ns interface-name interface-names namespaces)
-        error-messages (filterv identity (map #(error-message % type)
+        error-messages (filterv identity (map #(error-message % name type)
                                               (filterv #(not= "interface" (:depends-on-ns %)) dependencies)))]
     (vec (concat errors error-messages))))
 
