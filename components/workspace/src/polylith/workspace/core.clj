@@ -6,33 +6,40 @@
             [polylith.workspace.calculate-interfaces :as ifcs]
             [polylith.workspace.lib-imports :as lib-imports]
             [polylith.util.interface :as util]
+            [polylith.file.interface :as file]
             [polylith.workspace-clj.interface :as ws-clojure]))
 
+(defn brick-loc [namespaces]
+  (apply + (mapv #(file/lines-of-code %)
+                 (mapv :file-path namespaces))))
 
-(defn loc
-  ([entities]
-   (apply + (map :loc entities)))
- ([brick-names brick->loc]
-  (apply + (map brick->loc brick-names))))
+(defn env-loc [brick-names brick->loc]
+  (let [locs (map brick->loc brick-names)]
+    {:loc-src (apply + (map :loc-src locs))
+     :loc-test (apply + (map :loc-test locs))}))
 
-(defn enrich-component [top-ns interface-names {:keys [name type namespaces interface] :as component}]
+(defn enrich-component [top-ns interface-names {:keys [name type namespaces test-namespaces interface] :as component}]
   (let [interface-deps (deps/brick-interface-deps top-ns interface-names component)
         lib-imports (lib-imports/lib-imports top-ns interface-names component)]
     (array-map :name name
                :type type
-               :loc (loc namespaces)
+               :loc-src (brick-loc namespaces)
+               :loc-test (brick-loc test-namespaces)
                :interface interface
                :namespaces namespaces
+               :test-namespaces test-namespaces
                :lib-imports lib-imports
                :interface-deps interface-deps)))
 
-(defn enrich-base [top-ns interface-names {:keys [name type namespaces] :as base}]
+(defn enrich-base [top-ns interface-names {:keys [name type namespaces test-namespaces] :as base}]
   (let [interface-deps (deps/brick-interface-deps top-ns interface-names base)
         lib-imports (lib-imports/lib-imports top-ns interface-names base)]
     (array-map :name name
                :type type
-               :loc (loc namespaces)
+               :loc-src (brick-loc namespaces)
+               :loc-test (brick-loc test-namespaces)
                :namespaces namespaces
+               :test-namespaces test-namespaces
                :lib-imports lib-imports
                :interface-deps interface-deps)))
 
@@ -41,12 +48,13 @@
                   brick->loc]
   (let [brick-names (concat components bases)
         lib-imports (mapcat brick->lib-imports brick-names)
-        lines-of-code (loc brick-names brick->loc)]
+        {:keys [loc-src loc-test]} (env-loc brick-names brick->loc)]
     (util/ordered-map :name name
                       :group group
                       :test? test?
                       :type type
-                      :loc lines-of-code
+                      :loc-src loc-src
+                      :loc-test loc-test
                       :components components
                       :bases bases
                       :paths paths
@@ -68,7 +76,7 @@
         enriched-bricks (concat enriched-components enriched-bases)
         enriched-interfaces (deps/interface-deps interfaces enriched-components)
         brick->lib-imports (brick->lib-imports enriched-bricks)
-        brick->loc (into {} (map (juxt :name :loc) enriched-bricks))
+        brick->loc (into {} (map (juxt :name #(select-keys % [:loc-src :loc-test])) enriched-bricks))
         enriched-environments (mapv #(enrich-env % brick->lib-imports brick->loc) environments)
         enriched-settings (enrich-settings settings)
         warnings (validate/warnings interfaces components)

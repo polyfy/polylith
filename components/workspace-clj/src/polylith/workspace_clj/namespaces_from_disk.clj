@@ -1,7 +1,8 @@
 (ns polylith.workspace-clj.namespaces-from-disk
   (:require [clojure.string :as str]
             [polylith.file.interface :as file]
-            [polylith.util.interface.str :as str-util]))
+            [polylith.util.interface.str :as str-util]
+            [polylith.common.interface :as common]))
 
 (defn require? [val]
   (and (sequential? val)
@@ -23,14 +24,13 @@
       (str/replace "_" "-")))
 
 (defn ->namespace [root-dir file-path]
-  (let [loc (file/number-of-lines file-path)
-        content (file/read-file file-path)]
+  (let [content (file/read-file file-path)]
     {:name (namespace-name root-dir file-path)
-     :loc loc
+     :file-path file-path
      :imports (filter-imports content)}))
 
-(defn namespaces [root-dir]
-  (let [file-paths (filter #(or (str/ends-with? % ".clj")
-                                (str/ends-with? % ".cljc"))
-                           (file/paths-recursively root-dir))]
-    (mapv #(->namespace root-dir %) file-paths)))
+(defn namespaces-from-disk [root-dir]
+  (mapv #(->namespace root-dir %)
+        (-> root-dir
+            file/paths-recursively
+            common/filter-clojure-paths)))

@@ -20,8 +20,8 @@
 (defn files-recursively [dir-path]
   (core/files-recursively dir-path))
 
-(defn number-of-lines [path]
-  (core/number-of-lines path))
+(defn lines-of-code [file-path]
+  (core/lines-of-code file-path))
 
 (defn paths-recursively [dir]
   "Returns all directories and files in a directory recursively"

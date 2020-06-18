@@ -9,8 +9,8 @@
 (defn file-name [^File file]
   (.getName file))
 
-(defn number-of-lines [path]
-  (with-open [rdr (reader path)]
+(defn lines-of-code [file-path]
+  (with-open [rdr (reader file-path)]
     (count (line-seq rdr))))
 
 (defn directory-paths [dir]

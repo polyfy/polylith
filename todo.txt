@@ -1,5 +1,5 @@
 
-- calculate lines of code from the test folder if the environment is a test.
+- change from :namespaces to :src-namespaces
 
 - store each changed environment-group like e.g. this:
   - also, when calculating changes, only check for paths that are included in :paths,
@@ -47,6 +47,8 @@
 
 - handle the case that a component doesn not exist any more in the 'diff'
   function, which especially can happen when seding in two SHA:s.
+
+- check that we follow symbolic links in file/paths-recursively.
 
 Questions
 =========

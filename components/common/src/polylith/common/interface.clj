@@ -1,5 +1,6 @@
 (ns polylith.common.interface
-  (:require [polylith.common.core :as core]))
+  (:require [polylith.common.core :as core]
+            [clojure.string :as str]))
 
 (defn make-classpath [libraries source-paths]
   (core/make-classpath libraries source-paths))
@@ -12,3 +13,8 @@
 
 (defn top-namespace [namespace]
   (core/top-namespace namespace))
+
+(defn filter-clojure-paths [paths]
+  (filterv #(or (str/ends-with? % ".clj")
+                (str/ends-with? % ".cljc"))
+           paths))

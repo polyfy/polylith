@@ -1,13 +1,16 @@
 (ns polylith.workspace-clj.bases-from-disk
-  (:require [polylith.workspace-clj.namespaces-from-disk :as imports-from-disk]
+  (:require [polylith.workspace-clj.namespaces-from-disk :as ns-from-disk]
             [polylith.file.interface :as file]))
 
 (defn read-base [ws-path top-src-dir base-name]
-  (let [bases-src-dir (str ws-path "/bases/" base-name "/src/" top-src-dir)
-        namespaces (imports-from-disk/namespaces bases-src-dir)]
+  (let [src-dir (str ws-path "/bases/" base-name "/src/" top-src-dir)
+        test-dir (str ws-path "/bases/" base-name "/test/" top-src-dir)
+        namespaces (ns-from-disk/namespaces-from-disk src-dir)
+        test-namespaces (ns-from-disk/namespaces-from-disk test-dir)]
     {:name base-name
      :type "base"
-     :namespaces namespaces}))
+     :namespaces namespaces
+     :test-namespaces test-namespaces}))
 
 (defn read-bases [ws-path top-src-dir]
   "Reads bases from disk"
