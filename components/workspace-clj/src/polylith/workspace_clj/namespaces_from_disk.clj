@@ -22,7 +22,7 @@
       (str/replace "/" ".")
       (str/replace "_" "-")))
 
-(defn namespace [root-dir file-path]
+(defn ->namespace [root-dir file-path]
   (let [loc (file/number-of-lines file-path)
         content (file/read-file file-path)]
     {:name (namespace-name root-dir file-path)
@@ -33,4 +33,4 @@
   (let [file-paths (filter #(or (str/ends-with? % ".clj")
                                 (str/ends-with? % ".cljc"))
                            (file/paths-recursively root-dir))]
-    (mapv #(namespace root-dir %) file-paths)))
+    (mapv #(->namespace root-dir %) file-paths)))

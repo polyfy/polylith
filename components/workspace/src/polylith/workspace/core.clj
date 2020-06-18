@@ -37,12 +37,10 @@
                :interface-deps interface-deps)))
 
 (defn enrich-env [{:keys [name group test? type components bases paths deps]}
-                  component->lib-imports
-                  base->lib-imports
+                  brick->lib-imports
                   brick->loc]
-  (let [lib-imports (concat (mapcat component->lib-imports components)
-                            (mapcat base->lib-imports components))
-        brick-names (concat components bases)
+  (let [brick-names (concat components bases)
+        lib-imports (mapcat brick->lib-imports brick-names)
         lines-of-code (loc brick-names brick->loc)]
     (util/ordered-map :name name
                       :group group
@@ -67,12 +65,11 @@
         interface-names (apply sorted-set (mapv :name interfaces))
         enriched-components (mapv #(enrich-component top-ns interface-names %) components)
         enriched-bases (mapv #(enrich-base top-ns interface-names %) bases)
-        bricks (concat enriched-components enriched-bases)
+        enriched-bricks (concat enriched-components enriched-bases)
         enriched-interfaces (deps/interface-deps interfaces enriched-components)
-        component->lib-imports (brick->lib-imports enriched-components)
-        base->lib-imports (brick->lib-imports enriched-bases)
-        brick->loc (into {} (map (juxt :name :loc) bricks))
-        enriched-environments (mapv #(enrich-env % component->lib-imports base->lib-imports brick->loc) environments)
+        brick->lib-imports (brick->lib-imports enriched-bricks)
+        brick->loc (into {} (map (juxt :name :loc) enriched-bricks))
+        enriched-environments (mapv #(enrich-env % brick->lib-imports brick->loc) environments)
         enriched-settings (enrich-settings settings)
         warnings (validate/warnings interfaces components)
         errors (validate/errors top-ns interface-names enriched-interfaces enriched-components bases)]
@@ -84,3 +81,7 @@
                :environments enriched-environments
                :messages {:warnings warnings
                           :errors   errors})))
+
+(def workspace (-> "../clojure-polylith-realworld-example-app"
+                   ws-clojure/workspace-from-disk
+                   enrich-workspace))
