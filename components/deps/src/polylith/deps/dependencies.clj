@@ -12,25 +12,24 @@
                  (subs imported-ns (count top-ns))
                  imported-ns)
         idx (when import (str/index-of import "."))]
-    (if (or (nil? idx)
-            (neg? idx))
-      nil
+    (when (not (or (nil? idx)
+                   (neg? idx)))
       (let [root-ns (subs import 0 idx)
             brick-ns (brick-namespace (subs import (inc idx)))]
         (when (and (contains? interface-names root-ns)
                    (not= root-ns interface-name))
-          {:ns-path path
+          {:namespace path
            :depends-on-interface root-ns
            :depends-on-ns brick-ns})))))
 
-(defn brick-ns-dependencies [top-ns interface-name interface-names {:keys [ns-path imports]}]
-  (filterv identity (map #(dependency top-ns interface-name ns-path interface-names (str %)) imports)))
+(defn brick-ns-dependencies [top-ns interface-name interface-names {:keys [name imports]}]
+  (filterv identity (map #(dependency top-ns interface-name name interface-names (str %)) imports)))
 
-(defn brick-dependencies [top-ns interface-name interface-names brick-imports]
-  (vec (mapcat #(brick-ns-dependencies top-ns interface-name interface-names %) brick-imports)))
+(defn brick-dependencies [top-ns interface-name interface-names brick-namespaces]
+  (vec (mapcat #(brick-ns-dependencies top-ns interface-name interface-names %) brick-namespaces)))
 
-(defn interface-deps [top-ns interface-names {:keys [interface imports]}]
+(defn interface-deps [top-ns interface-names {:keys [interface namespaces]}]
   "Returns the interface dependencies for a brick (component or base)."
   (let [interface-name (:name interface)
-        deps (brick-dependencies top-ns interface-name interface-names imports)]
+        deps (brick-dependencies top-ns interface-name interface-names namespaces)]
     (vec (sort (set (map :depends-on-interface deps))))))

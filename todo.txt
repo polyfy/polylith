@@ -1,7 +1,8 @@
 
-- rename from :ns-path to :name + remove "brick/".
+- remove "brick/" for :name in a namespace.
 - change to :implementing-interface-deps
 
+- don't include sub-ns in type "data" if nil.
 
 - change from "pimp" to "enrich".
 

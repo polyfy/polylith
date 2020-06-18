@@ -61,24 +61,24 @@
             :implementing-components ["auth"]
             :implementing-deps []}
            {:name "invoice"
-            :definitions [{:name "abc" :type "data" :sub-ns ""}
-                          {:name "func1", :type "function", :parameters ["a"] :sub-ns ""}
-                          {:name "func1", :type "function", :parameters ["b"] :sub-ns ""}
-                          {:name "func1", :type "function", :parameters ["a" "b"] :sub-ns ""}
-                          {:name "func1", :type "function", :parameters ["x" "y"] :sub-ns ""}]
+            :definitions [{:name "abc" :type "data"}
+                          {:name "func1", :type "function", :parameters ["a"]}
+                          {:name "func1", :type "function", :parameters ["b"]}
+                          {:name "func1", :type "function", :parameters ["a" "b"]}
+                          {:name "func1", :type "function", :parameters ["x" "y"]}]
             :implementing-components ["invoice" "invoice2"]
             :implementing-deps ["user"]}
            {:name "payment",
-            :definitions [{:name "pay", :type "function", :parameters ["a"] :sub-ns ""}
-                          {:name "pay", :type "function", :parameters ["b"] :sub-ns ""}]
+            :definitions [{:name "pay", :type "function", :parameters ["a"]}
+                          {:name "pay", :type "function", :parameters ["b"]}]
             :implementing-components ["payment"],
             :implementing-deps ["invoice"]}
            {:name "user",
-            :definitions [{:name "func1", :type "function", :parameters [] :sub-ns ""}
-                          {:name "func2", :type "function", :parameters ["a" "b"] :sub-ns ""}
-                          {:name "func2", :type "function", :parameters ["x" "y"] :sub-ns ""}
-                          {:name "func3", :type "function", :parameters ["a" "b" "c"] :sub-ns ""}
-                          {:name "func3", :type "function", :parameters ["x" "y" "z"] :sub-ns ""}]
+            :definitions [{:name "func1", :type "function", :parameters []}
+                          {:name "func2", :type "function", :parameters ["a" "b"]}
+                          {:name "func2", :type "function", :parameters ["x" "y"]}
+                          {:name "func3", :type "function", :parameters ["a" "b" "c"]}
+                          {:name "func3", :type "function", :parameters ["x" "y" "z"]}]
             :implementing-components ["user1" "user2"]
             :implementing-deps ["payment" "auth"]}]
          (deps/interface-deps interfaces components))))

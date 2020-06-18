@@ -4,19 +4,19 @@
 
 (def component {:name "article"
                 :type "component"
-                :namespaces [{:ns-path "article/spec.clj"
+                :namespaces [{:name "article/spec.clj"
                               :imports ["clojure.realworld.profile.interface"
                                         "clojure.realworld.spec.interface"
                                         "spec-tools.data-spec"]}
-                             {:ns-path "article/interface.clj"
+                             {:name "article/interface.clj"
                               :imports ["clojure.realworld.article.core"
                                         "clojure.realworld.article.spec"]}
-                             {:ns-path "article/store.clj"
+                             {:name "article/store.clj"
                               :imports ["clojure.java.jdbc"
                                         "clojure.realworld.database.interface"
                                         "clojure.string"
                                         "honeysql.core"]}
-                             {:ns-path "article/core.clj"
+                             {:name "article/core.clj"
                               :imports ["clj-time.coerce"
                                         "clj-time.core"
                                         "clojure.realworld.article.store"

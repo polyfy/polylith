@@ -19,7 +19,7 @@
 
 (defn imports [root-dir file-path]
   (let [content (file/read-file file-path)]
-    {:ns-path (short-path root-dir file-path)
+    {:name (short-path root-dir file-path)
      :imports (filter-imports content)}))
 
 (defn namespaces [root-dir]

@@ -6,10 +6,10 @@
   (let [component '{:name "common"
                     :type "component"
                     :interface {:name "common"}
-                    :namespaces [{:ns-path "common:/readimportsfromdisk.clj"
+                    :namespaces [{:name "common/readimportsfromdisk.clj"
                                   :imports ["clojure.string"
                                             "polylith.file.interface"]}
-                                 {:ns-path "common/abc.clj"
+                                 {:name "common/abc.clj"
                                   :imports ["clojure.core"
                                             "polylith.user.interface"
                                             "polylith.cmd.interface.v2.core"
@@ -21,11 +21,11 @@
   (let [component {:name "common"
                    :type "component"
                    :interface {:name "common"}
-                   :namespaces '[{:ns-path "common/purchase.clj"
+                   :namespaces '[{:name "common/purchase.clj"
                                   :imports ["clojure.string"
                                             "polylith.file.interface"
                                             "polylith.invoice.core"]}
-                                 {:ns-path "common/billing.clj"
+                                 {:name "common/billing.clj"
                                   :imports ["clojure.core"
                                             "polylith.user.interface"
                                             "polylith.cmd.core"]}]}]
@@ -37,9 +37,9 @@
   (let [component '{:type "component",
                     :name "user1",
                     :interface {:name "user"}
-                    :namespaces [{:ns-path "user/interface.clj"
+                    :namespaces [{:name "user/interface.clj"
                                   :imports ["user.core"]}
-                                 {:ns-path "user/core.clj"
+                                 {:name "user/core.clj"
                                   :imports []}]}]
     (is (= []
            (ideps/errors "polylith." component #{"user"} [])))))
