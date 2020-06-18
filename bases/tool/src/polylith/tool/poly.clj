@@ -19,7 +19,7 @@
   (let [ws-path (.getAbsolutePath (io/file ""))
         workspace (-> ws-path
                       ws-clj/workspace-from-disk
-                      ws/pimp-workspace
+                      ws/enrich-workspace
                       change/with-changes)]
     (if-not (spec/valid-config? (:settings workspace))
       (println "Expected to find a :polylith key in 'deps.edn'.")

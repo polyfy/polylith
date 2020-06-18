@@ -1,6 +1,4 @@
 
-- change from "pimp" to "enrich".
-
 - calculate :lines-of-code in each entry in :imports.
 
 - store each changed environment-group like e.g. this:

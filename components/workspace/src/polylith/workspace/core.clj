@@ -7,7 +7,7 @@
             [polylith.workspace.lib-imports :as lib-imports]
             [polylith.util.interface :as util]))
 
-(defn pimp-component [top-ns interface-names {:keys [name type namespaces interface] :as component}]
+(defn enrich-component [top-ns interface-names {:keys [name type namespaces interface] :as component}]
   (let [interface-deps (deps/brick-interface-deps top-ns interface-names component)
         lib-imports (lib-imports/lib-imports top-ns interface-names component)]
     (array-map :name name
@@ -17,7 +17,7 @@
                :lib-imports lib-imports
                :interface-deps interface-deps)))
 
-(defn pimp-base [top-ns interface-names {:keys [name type namespaces] :as base}]
+(defn enrich-base [top-ns interface-names {:keys [name type namespaces] :as base}]
   (let [interface-deps (deps/brick-interface-deps top-ns interface-names base)
         lib-imports (lib-imports/lib-imports top-ns interface-names base)]
     (array-map :name name
@@ -26,8 +26,8 @@
                :lib-imports lib-imports
                :interface-deps interface-deps)))
 
-(defn pimp-env [{:keys [name group test? type components bases paths deps]}
-                component->lib-imports base->lib-imports]
+(defn enrich-env [{:keys [name group test? type components bases paths deps]}
+                  component->lib-imports base->lib-imports]
   (let [lib-imports (concat (mapcat component->lib-imports components)
                             (mapcat base->lib-imports components))]
     (util/ordered-map :name name
@@ -43,27 +43,27 @@
 (defn brick->lib-imports [brick]
   (into {} (mapv (juxt :name :lib-imports) brick)))
 
-(defn pimp-settings [{:keys [maven-repos] :as settings}]
+(defn enrich-settings [{:keys [maven-repos] :as settings}]
   (assoc settings :maven-repos (merge mvn/standard-repos maven-repos)))
 
-(defn pimp-workspace [{:keys [ws-path settings components bases environments]}]
+(defn enrich-workspace [{:keys [ws-path settings components bases environments]}]
   (let [top-ns (common/top-namespace (:top-namespace settings))
         interfaces (ifcs/interfaces components)
         interface-names (apply sorted-set (mapv :name interfaces))
-        pimped-components (mapv #(pimp-component top-ns interface-names %) components)
-        pimped-bases (mapv #(pimp-base top-ns interface-names %) bases)
-        pimped-interfaces (deps/interface-deps interfaces pimped-components)
-        component->lib-imports (brick->lib-imports pimped-components)
-        base->lib-imports (brick->lib-imports pimped-bases)
-        pimped-environments (mapv #(pimp-env % component->lib-imports base->lib-imports) environments)
-        pimped-settings (pimp-settings settings)
+        enriched-components (mapv #(enrich-component top-ns interface-names %) components)
+        enriched-bases (mapv #(enrich-base top-ns interface-names %) bases)
+        enriched-interfaces (deps/interface-deps interfaces enriched-components)
+        component->lib-imports (brick->lib-imports enriched-components)
+        base->lib-imports (brick->lib-imports enriched-bases)
+        enriched-environments (mapv #(enrich-env % component->lib-imports base->lib-imports) environments)
+        enriched-settings (enrich-settings settings)
         warnings (validate/warnings interfaces components)
-        errors (validate/errors top-ns interface-names pimped-interfaces pimped-components bases)]
+        errors (validate/errors top-ns interface-names enriched-interfaces enriched-components bases)]
     (array-map :ws-path ws-path
-               :settings pimped-settings
-               :interfaces pimped-interfaces
-               :components pimped-components
-               :bases pimped-bases
-               :environments pimped-environments
+               :settings enriched-settings
+               :interfaces enriched-interfaces
+               :components enriched-components
+               :bases enriched-bases
+               :environments enriched-environments
                :messages {:warnings warnings
-                          :errors errors})))
+                          :errors   errors})))
