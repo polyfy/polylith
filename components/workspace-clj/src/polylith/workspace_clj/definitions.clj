@@ -1,4 +1,5 @@
-(ns polylith.workspace-clj.definitions)
+(ns polylith.workspace-clj.definitions
+  (:require [polylith.util.interface :as util]))
 
 (def ->generic-type {'def "data"
                      'defn "function"
@@ -26,14 +27,10 @@
         parameters (mapv str (first code))
         str-name (str name)
         str-type (str type)]
-    (if sub-ns
-      {:name str-name
-       :type str-type
-       :parameters parameters
-       :sub-ns sub-ns}
-      {:name str-name
-       :type str-type
-       :parameters parameters})))
+    (util/ordered-map :name str-name
+                      :type str-type
+                      :parameters parameters
+                      :sub-ns sub-ns)))
 
 (defn definitions [namespace statement]
   "Takes a statement (def, defn or defmacro) from source code
@@ -44,9 +41,9 @@
                                    (vector? %)))
                          statement)]
     (if (= "data" type)
-      [{:name (str name)
-        :type (str type)
-        :sub-ns (sub-namespace namespace)}]
+      [(util/ordered-map :name (str name)
+                         :type (str type)
+                         :sub-ns (sub-namespace namespace))]
       (if (-> code first vector?)
         [(function namespace type name code)]
         (mapv #(function namespace type name %) code)))))

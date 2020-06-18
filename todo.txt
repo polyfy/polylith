@@ -1,6 +1,4 @@
 
-- don't include sub-ns in type "data" if nil.
-
 - change from "pimp" to "enrich".
 
 - calculate :lines-of-code in each entry in :imports.
@@ -44,7 +42,7 @@
 - store extra information for each warning/error (e.g.):
   {:interface "payment"
    :component "payment"
-   :definition {:name "pay", :type "function", :parameters ["a"] :sub-ns ""}
+   :definition {:name "pay", :type "function", :parameters ["a"]}
   }
 
 - add error for the case that a namespace can't even be parsed.
