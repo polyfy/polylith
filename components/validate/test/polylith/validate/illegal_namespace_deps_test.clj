@@ -6,7 +6,7 @@
   (let [component '{:name "common"
                     :type "component"
                     :interface {:name "common"}
-                    :src-namespaces [{:name "common/readimportsfromdisk.clj"
+                    :namespaces-src [{:name "common/readimportsfromdisk.clj"
                                       :imports ["clojure.string"
                                                 "polylith.file.interface"]}
                                      {:name "common/abc.clj"
@@ -21,7 +21,7 @@
   (let [component {:name "common"
                    :type "component"
                    :interface {:name "common"}
-                   :src-namespaces '[{:name "purchase"
+                   :namespaces-src '[{:name "purchase"
                                       :imports ["clojure.string"
                                                 "polylith.file.interface"
                                                 "polylith.invoice.core"]}
@@ -37,7 +37,7 @@
   (let [component '{:type "component",
                     :name "user1",
                     :interface {:name "user"}
-                    :src-namespaces [{:name "user/interface.clj"
+                    :namespaces-src [{:name "user/interface.clj"
                                       :imports ["user.core"]}
                                      {:name "user/core.clj"
                                       :imports []}]}]

@@ -5,11 +5,11 @@
 (defn read-base [ws-path top-src-dir base-name]
   (let [src-dir (str ws-path "/bases/" base-name "/src/" top-src-dir)
         test-dir (str ws-path "/bases/" base-name "/test/" top-src-dir)
-        src-namespaces (ns-from-disk/namespaces-from-disk src-dir)
+        namespaces-src (ns-from-disk/namespaces-from-disk src-dir)
         test-namespaces (ns-from-disk/namespaces-from-disk test-dir)]
     {:name base-name
      :type "base"
-     :src-namespaces src-namespaces
+     :namespaces-src namespaces-src
      :test-namespaces test-namespaces}))
 
 (defn read-bases [ws-path top-src-dir]

@@ -4,7 +4,7 @@
 
 (def component {:name "article"
                 :type "component"
-                :src-namespaces [{:name "article/spec.clj"
+                :namespaces-src [{:name "article/spec.clj"
                                   :imports ["clojure.realworld.profile.interface"
                                             "clojure.realworld.spec.interface"
                                             "spec-tools.data-spec"]}

@@ -1,5 +1,4 @@
 
-- change from src-namespaces to namespaces-src
 - change from test-namespaces to namespaces-test
 
 - store each changed environment-group like e.g. this:

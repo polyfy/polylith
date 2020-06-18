@@ -16,12 +16,12 @@
         ; in case the component's name is not same as it's interface.
         interface-name (-> component-src-dir file/directory-paths first replace-underscore)
         src-dir (str component-src-dir interface-name)
-        src-namespaces (ns-from-disk/namespaces-from-disk component-src-dir)
+        namespaces-src (ns-from-disk/namespaces-from-disk component-src-dir)
         test-namespaces (ns-from-disk/namespaces-from-disk component-test-dir)
         definitions (interface-defs-from-disk/defs-from-disk src-dir)]
     {:name component-name
      :type "component"
-     :src-namespaces src-namespaces
+     :namespaces-src namespaces-src
      :test-namespaces test-namespaces
      :interface {:name interface-name
                  :definitions definitions}}))
