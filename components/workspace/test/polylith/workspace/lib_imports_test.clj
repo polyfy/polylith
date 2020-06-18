@@ -25,7 +25,7 @@
 
 (def interface-names #{"article" "comment" "database" "log" "profile" "spec" "tag" "user"})
 
-(deftest src-lib-imports--given-a-component-with-interface-and-library-imports--return-all-imports-except-components
+(deftest lib-imports-src--given-a-component-with-interface-and-library-imports--return-all-imports-except-components
   (is (= ["clj-time.coerce"
           "clj-time.core"
           "clojure.java.jdbc"
@@ -33,4 +33,4 @@
           "honeysql.core"
           "slugger.core"
           "spec-tools.data-spec"]
-         (lib-imports/src-lib-imports "clojure.realworld." interface-names component))))
+         (lib-imports/lib-imports-src "clojure.realworld." interface-names component))))
