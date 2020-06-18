@@ -21,6 +21,7 @@
   (extract-brick filename component? 11))
 
 (defn bricks [filenames]
+  "Returns the bricks that has changed based on a list of files"
   {:bases (vec (sort (set (filter identity (map base filenames)))))
    :components (vec (sort (set (filter identity (map component filenames)))))})
 

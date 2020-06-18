@@ -1,6 +1,4 @@
 
-- add the list of diff:ed files to :changes.
-
 - rename :imports in each brick to :namespaces.
 - rename from :ns-path to :namespace + remove "brick/".
 

@@ -12,14 +12,16 @@
    (let [sha? (or sha1 sha2)
          sha-1 (when sha? (or sha1 "HEAD"))
          sha-2 (when sha? (or sha2 "HEAD"))
-         {:keys [components bases]} (brick/changes sha-1 sha-2)
-         environments (env/changes environments components bases)]
+         changed-files (git/diff sha1 sha2)
+         {:keys [components bases]} (brick/bricks changed-files)
+         changed-environments (env/changes environments components bases)]
      (util/ordered-map :sha1 sha-1
                        :sha2 sha-2
                        :git-command (git/diff-command sha-1 sha-2)
+                       :changed-files changed-files
                        :components components
                        :bases bases
-                       :environments environments)))
+                       :environments changed-environments)))
 
 (defn with-changes [{:keys [environments] :as workspace} hash1 hash2]
   (assoc workspace :changes (changes environments hash1 hash2)))
