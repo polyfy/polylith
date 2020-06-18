@@ -17,12 +17,12 @@
         interface-name (-> component-src-dir file/directory-paths first replace-underscore)
         src-dir (str component-src-dir interface-name)
         namespaces-src (ns-from-disk/namespaces-from-disk component-src-dir)
-        test-namespaces (ns-from-disk/namespaces-from-disk component-test-dir)
+        namespaces-test (ns-from-disk/namespaces-from-disk component-test-dir)
         definitions (interface-defs-from-disk/defs-from-disk src-dir)]
     {:name component-name
      :type "component"
      :namespaces-src namespaces-src
-     :test-namespaces test-namespaces
+     :namespaces-test namespaces-test
      :interface {:name interface-name
                  :definitions definitions}}))
 

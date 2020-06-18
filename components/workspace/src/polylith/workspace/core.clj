@@ -18,31 +18,31 @@
     {:loc-src (apply + (map :lines-of-code-src locs))
      :loc-test (apply + (map :lines-of-code-test locs))}))
 
-(defn enrich-component [top-ns interface-names {:keys [name type namespaces-src test-namespaces interface] :as component}]
+(defn enrich-component [top-ns interface-names {:keys [name type namespaces-src namespaces-test interface] :as component}]
   (let [interface-deps (deps/brick-interface-deps top-ns interface-names component)
         lib-imports-src (lib-imports/lib-imports-src top-ns interface-names component)
         lib-imports-test (lib-imports/lib-imports-test top-ns interface-names component)]
     (array-map :name name
                :type type
                :lines-of-code-src (brick-loc namespaces-src)
-               :lines-of-code-test (brick-loc test-namespaces)
+               :lines-of-code-test (brick-loc namespaces-test)
                :interface interface
                :namespaces-src namespaces-src
-               :test-namespaces test-namespaces
+               :namespaces-test namespaces-test
                :lib-imports-src lib-imports-src
                :lib-imports-test lib-imports-test
                :interface-deps interface-deps)))
 
-(defn enrich-base [top-ns interface-names {:keys [name type namespaces-src test-namespaces] :as base}]
+(defn enrich-base [top-ns interface-names {:keys [name type namespaces-src namespaces-test] :as base}]
   (let [interface-deps (deps/brick-interface-deps top-ns interface-names base)
         lib-imports-src (lib-imports/lib-imports-src top-ns interface-names base)
         lib-imports-test (lib-imports/lib-imports-test top-ns interface-names base)]
     (array-map :name name
                :type type
                :lines-of-code-src (brick-loc namespaces-src)
-               :lines-of-code-test (brick-loc test-namespaces)
+               :lines-of-code-test (brick-loc namespaces-test)
                :namespaces-src namespaces-src
-               :test-namespaces test-namespaces
+               :namespaces-test namespaces-test
                :lib-imports-src lib-imports-src
                :lib-imports-test lib-imports-test
                :interface-deps interface-deps)))
