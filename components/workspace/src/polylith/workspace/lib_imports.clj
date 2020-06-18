@@ -13,4 +13,4 @@
 
 (defn lib-imports [top-ns interface-names brick]
   (vec (sort (filter #(library? % top-ns interface-names)
-                     (set (mapcat :imports (:imports brick)))))))
+                     (set (mapcat :imports (:namespaces brick)))))))

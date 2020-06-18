@@ -30,8 +30,6 @@
 
 (def components '[{:name "auth"
                    :type "component"
-                   :imports [{:ns-path "auth/interface.clj", :imports ["auth.core"]}
-                             {:ns-path "auth/core.clj", :imports []}]
                    :interface {:name "auth",
                                :definitions [{:name "add-two", :type "function", :parameters ["x"] :sub-ns ""}]}}
                   {:name "invoice"

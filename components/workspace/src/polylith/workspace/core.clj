@@ -7,22 +7,22 @@
             [polylith.workspace.lib-imports :as lib-imports]
             [polylith.util.interface :as util]))
 
-(defn pimp-component [top-ns interface-names {:keys [name type imports interface] :as component}]
+(defn pimp-component [top-ns interface-names {:keys [name type namespaces interface] :as component}]
   (let [interface-deps (deps/brick-interface-deps top-ns interface-names component)
         lib-imports (lib-imports/lib-imports top-ns interface-names component)]
     (array-map :name name
                :type type
                :interface interface
-               :imports imports
+               :namespaces namespaces
                :lib-imports lib-imports
                :interface-deps interface-deps)))
 
-(defn pimp-base [top-ns interface-names {:keys [name type imports] :as base}]
+(defn pimp-base [top-ns interface-names {:keys [name type namespaces] :as base}]
   (let [interface-deps (deps/brick-interface-deps top-ns interface-names base)
         lib-imports (lib-imports/lib-imports top-ns interface-names base)]
     (array-map :name name
                :type type
-               :imports imports
+               :namespaces namespaces
                :lib-imports lib-imports
                :interface-deps interface-deps)))
 

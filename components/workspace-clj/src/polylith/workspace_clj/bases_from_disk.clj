@@ -4,10 +4,10 @@
 
 (defn read-base [ws-path top-src-dir base-name]
   (let [bases-src-dir (str ws-path "/bases/" base-name "/src/" top-src-dir)
-        imports (imports-from-disk/all-imports bases-src-dir)]
+        namespaces (imports-from-disk/namespaces bases-src-dir)]
     {:name base-name
      :type "base"
-     :imports imports}))
+     :namespaces namespaces}))
 
 (defn read-bases [ws-path top-src-dir]
   "Reads bases from disk"

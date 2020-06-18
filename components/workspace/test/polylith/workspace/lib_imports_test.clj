@@ -4,24 +4,24 @@
 
 (def component {:name "article"
                 :type "component"
-                :imports [{:ns-path "article/spec.clj"
-                           :imports ["clojure.realworld.profile.interface"
-                                     "clojure.realworld.spec.interface"
-                                     "spec-tools.data-spec"]}
-                          {:ns-path "article/interface.clj"
-                           :imports ["clojure.realworld.article.core"
-                                     "clojure.realworld.article.spec"]}
-                          {:ns-path "article/store.clj"
-                           :imports ["clojure.java.jdbc"
-                                     "clojure.realworld.database.interface"
-                                     "clojure.string"
-                                     "honeysql.core"]}
-                          {:ns-path "article/core.clj"
-                           :imports ["clj-time.coerce"
-                                     "clj-time.core"
-                                     "clojure.realworld.article.store"
-                                     "clojure.realworld.profile.interface"
-                                     "slugger.core"]}]})
+                :namespaces [{:ns-path "article/spec.clj"
+                              :imports ["clojure.realworld.profile.interface"
+                                        "clojure.realworld.spec.interface"
+                                        "spec-tools.data-spec"]}
+                             {:ns-path "article/interface.clj"
+                              :imports ["clojure.realworld.article.core"
+                                        "clojure.realworld.article.spec"]}
+                             {:ns-path "article/store.clj"
+                              :imports ["clojure.java.jdbc"
+                                        "clojure.realworld.database.interface"
+                                        "clojure.string"
+                                        "honeysql.core"]}
+                             {:ns-path "article/core.clj"
+                              :imports ["clj-time.coerce"
+                                        "clj-time.core"
+                                        "clojure.realworld.article.store"
+                                        "clojure.realworld.profile.interface"
+                                        "slugger.core"]}]})
 
 (def interface-names #{"article" "comment" "database" "log" "profile" "spec" "tag" "user"})
 

@@ -22,7 +22,7 @@
     {:ns-path (short-path root-dir file-path)
      :imports (filter-imports content)}))
 
-(defn all-imports [root-dir]
+(defn namespaces [root-dir]
   (let [file-paths (filter #(or (str/ends-with? % ".clj")
                                 (str/ends-with? % ".cljc"))
                            (file/paths-recursively root-dir))]
