@@ -59,7 +59,7 @@
   (is (= '[{:name "auth"
             :definitions [{:name "add-two", :type "function", :parameters ["x"]}]
             :implementing-components ["auth"]
-            :implementing-deps []}
+            :implementing-interface-deps []}
            {:name "invoice"
             :definitions [{:name "abc" :type "data"}
                           {:name "func1", :type "function", :parameters ["a"]}
@@ -67,12 +67,12 @@
                           {:name "func1", :type "function", :parameters ["a" "b"]}
                           {:name "func1", :type "function", :parameters ["x" "y"]}]
             :implementing-components ["invoice" "invoice2"]
-            :implementing-deps ["user"]}
+            :implementing-interface-deps ["user"]}
            {:name "payment",
             :definitions [{:name "pay", :type "function", :parameters ["a"]}
                           {:name "pay", :type "function", :parameters ["b"]}]
             :implementing-components ["payment"],
-            :implementing-deps ["invoice"]}
+            :implementing-interface-deps ["invoice"]}
            {:name "user",
             :definitions [{:name "func1", :type "function", :parameters []}
                           {:name "func2", :type "function", :parameters ["a" "b"]}
@@ -80,5 +80,5 @@
                           {:name "func3", :type "function", :parameters ["a" "b" "c"]}
                           {:name "func3", :type "function", :parameters ["x" "y" "z"]}]
             :implementing-components ["user1" "user2"]
-            :implementing-deps ["payment" "auth"]}]
+            :implementing-interface-deps ["payment" "auth"]}]
          (deps/interface-deps interfaces components))))

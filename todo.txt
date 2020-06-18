@@ -1,6 +1,4 @@
 
-- change to :implementing-interface-deps
-
 - don't include sub-ns in type "data" if nil.
 
 - change from "pimp" to "enrich".

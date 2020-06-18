@@ -5,7 +5,7 @@
 (def interfaces '[{:name "auth"
                    :definitions [{:name "add-two", :type "function", :parameters ["x"]}]
                    :implementing-components ["auth"]
-                   :implementing-deps []}
+                   :implementing-interface-deps []}
                   {:name "invoice"
                    :type "interface"
                    :definitions [{:name "abc" :type "data" :sub-ns ""}
@@ -14,12 +14,12 @@
                                  {:name "func1", :type "function", :parameters ["a" "b"] :sub-ns ""}
                                  {:name "func1", :type "function", :parameters ["x" "y"] :sub-ns ""}]
                    :implementing-components ["invoice" "invoice2"]
-                   :implementing-deps ["user"]}
+                   :implementing-interface-deps ["user"]}
                   {:name "payment"
                    :definitions [{:name "pay", :type "function", :parameters ["a"] :sub-ns ""}
                                  {:name "pay", :type "function", :parameters ["b"] :sub-ns ""}]
                    :implementing-components ["payment"]
-                   :implementing-deps ["invoice"]}
+                   :implementing-interface-deps ["invoice"]}
                   {:name "user"
                    :type "interface"
                    :definitions [{:name "func1", :type "function", :parameters [] :sub-ns ""}
@@ -30,7 +30,7 @@
                                  {:name "func4", :type "function", :parameters [] :sub-ns ""}
                                  {:name "func5", :type "function", :parameters ["a" "b" "c" "d"] :sub-ns ""}]
                    :implementing-components ["user1" "user2"]
-                   :implementing-deps ["payment" "auth"]}])
+                   :implementing-interface-deps ["payment" "auth"]}])
 
 (def components '[{:name "auth"
                    :type "component"
@@ -88,7 +88,7 @@
 (def interfaces2 '[{:name "auth",
                     :definitions [{:name "add-two", :type "function", :parameters ["x"]}]
                     :implementing-components ["auth"]
-                    :implementing-deps []}
+                    :implementing-interface-deps []}
                    {:name "invoice",
                     :type "interface"
                     :definitions [{:name "abc" :type "data" :sub-ns ""}
@@ -97,12 +97,12 @@
                                   {:name "func1", :type "function", :parameters ["a" "b"] :sub-ns ""}
                                   {:name "func1", :type "function", :parameters ["x" "y"] :sub-ns ""}]
                     :implementing-components ["invoice" "invoice2"]
-                    :implementing-deps ["user"]}
+                    :implementing-interface-deps ["user"]}
                    {:name "payment"
                     :definitions [{:name "pay", :type "function", :parameters ["a"] :sub-ns ""}
                                   {:name "pay", :type "function", :parameters ["b"] :sub-ns ""}]
                     :implementing-components ["payment"]
-                    :implementing-deps ["invoice"]}
+                    :implementing-interface-deps ["invoice"]}
                    {:name "user"
                     :type "interface"
                     :definitions [{:name "func1", :type "function", :parameters [] :sub-ns ""}
@@ -113,7 +113,7 @@
                                   {:name "func4", :type "function", :parameters [] :sub-ns ""}
                                   {:name "func5", :type "function", :parameters ["a" "b" "c" "d"] :sub-ns ""}]
                     :implementing-components ["user1" "user2"]
-                    :implementing-deps ["payment" "auth"]}])
+                    :implementing-interface-deps ["payment" "auth"]}])
 
 (def components2 '[{:name "auth"
                     :type "component"
