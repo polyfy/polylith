@@ -3,4 +3,4 @@
 
 (defn run [workspace env]
   "Executes the tests in the workspace"
-  (core/run-test workspace env))
+  (core/run-tests workspace env))

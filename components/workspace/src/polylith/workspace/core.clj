@@ -99,7 +99,3 @@
                :environments enriched-environments
                :messages {:warnings warnings
                           :errors   errors})))
-
-(-> "../clojure-polylith-realworld-example-app"
-    ws-clojure/workspace-from-disk
-    enrich-workspace)

@@ -31,24 +31,31 @@
 (defn brick-names [paths brick?]
   (vec (sort (set (map brick-name (filter brick? paths))))))
 
+(defn key-as-string [[lib version]]
+  [(str lib) version])
+
+(defn sort-deps [deps]
+  (apply array-map
+         (mapcat identity
+                 (sort (map key-as-string deps)))))
+
 (defn environment [[key {:keys [extra-paths extra-deps]
                          :or   {extra-paths []
                                 extra-deps {}}}]
                    paths deps]
   (let [key-name (name key)
         all-paths (set (concat paths extra-paths))
-        all-deps (merge deps extra-deps)
         components (brick-names all-paths component?)
         bases (brick-names all-paths base?)
-        extra-paths (vec (sort all-paths))]
+        sorted-deps (sort-deps (merge deps extra-deps))]
     {:name key-name
      :group (group key-name)
      :test? (test? key-name)
      :type "environment"
      :components components
      :bases bases
-     :paths extra-paths
-     :deps all-deps}))
+     :paths (vec (sort all-paths))
+     :deps sorted-deps}))
 
 (defn environments [env-prefix {:keys [paths deps aliases]}]
   (vec (sort-by (juxt :type :name)

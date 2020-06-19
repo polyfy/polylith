@@ -2,11 +2,11 @@
   (:require [clojure.tools.deps.alpha :as tools-deps]
             [polylith.workspace.environment :as env]))
 
-(defn select-deps [{:keys [environments]} env include-tests? additional-deps]
-  (let [envs (env/select environments env include-tests?)]
+(defn select-deps [{:keys [environments]} env-group include-tests? additional-deps]
+  (let [envs (env/select environments env-group include-tests?)]
     (merge additional-deps
            (into (sorted-map) (mapcat :deps envs)))))
 
-(defn resolve-libs [workspace env include-tests? additional-deps]
-  (let [deps (select-deps workspace env include-tests? additional-deps)]
+(defn resolve-libs [workspace env-group include-tests? additional-deps]
+  (let [deps (select-deps workspace env-group include-tests? additional-deps)]
     (tools-deps/resolve-deps workspace {:extra-deps deps})))

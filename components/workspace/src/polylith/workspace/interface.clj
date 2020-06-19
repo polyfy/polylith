@@ -12,28 +12,28 @@
 ;(def workspace (ws-clojure/workspace-from-disk "../ws12" {:polylith {:top-namespace ""}}))
 
 (defn src-paths
-  ([workspace env]
-   (source/paths workspace env false))
-  ([workspace env include-tests?]
-   (source/paths workspace env include-tests?)))
+  ([workspace env-group]
+   (source/paths workspace env-group false))
+  ([workspace env-group include-tests?]
+   (source/paths workspace env-group include-tests?)))
 
 (defn resolve-libs
   "Resolves dependencies which most often are libraries."
   ([workspace]
    (deps/resolve-libs workspace nil false nil))
-  ([workspace env]
-   (deps/resolve-libs workspace env false nil))
-  ([workspace env include-tests?]
-   (deps/resolve-libs workspace env include-tests? nil))
-  ([workspace env include-tests? additional-deps]
-   (deps/resolve-libs workspace env include-tests? additional-deps)))
+  ([workspace env-group]
+   (deps/resolve-libs workspace env-group false nil))
+  ([workspace env-group include-tests?]
+   (deps/resolve-libs workspace env-group include-tests? nil))
+  ([workspace env-group include-tests? additional-deps]
+   (deps/resolve-libs workspace env-group include-tests? additional-deps)))
 
 (defn enrich-workspace [workspace]
   (core/enrich-workspace workspace))
 
 (-> "../clojure-polylith-realworld-example-app"
     ws-clojure/workspace-from-disk
-    enrich-workspace
+    core/enrich-workspace
     change/with-changes)
 
 ;(-> workspace enrich-workspace (change/with-changes "f0a84c47c284d9502ca4cd1a017d2b4b6161bfc5"))
