@@ -1,6 +1,4 @@
 
-- store env-prefix in :settings. If "env/", remove "/".
-
 - error if an environment has more than one component that shares the same interface.
 
 - store each changed environment-group like e.g. this:

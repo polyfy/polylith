@@ -22,7 +22,6 @@
                      (into {} (map key-as-symbol deps))))
 
 (defn ->config [{:keys [settings environments] :as workspace}]
-  (println settings)
   (assoc workspace :mvn/repos (:maven-repos settings)
                    :environments (mapv ->environment environments)))
 

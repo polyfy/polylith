@@ -3,6 +3,7 @@
             [polylith.common.interface :as common]
             [polylith.file.interface :as file]
             [polylith.util.interface :as util]
+            [polylith.util.interface.str :as str-util]
             [polylith.workspace-clj.environment :as env]
             [polylith.workspace-clj.components-from-disk :as components-from-disk]
             [polylith.workspace-clj.bases-from-disk :as bases-from-disk]))
@@ -15,15 +16,17 @@
    (let [{:keys [env-prefix
                  top-namespace
                  compile-path
-                 thread-pool-size]} polylith
+                 thread-pool-size]
+          :or {env-prefix "env"}} polylith
          top-ns (common/top-namespace top-namespace)
          top-src-dir (str/replace top-ns "." "/")
          component-names (file/directory-paths (str ws-path "/components"))
          components (components-from-disk/read-components ws-path top-src-dir component-names)
          bases (bases-from-disk/read-bases ws-path top-src-dir)
-         prefix (or env-prefix "env")
-         environments (env/environments prefix config)
+         environments (env/environments env-prefix config)
+         prefix (str-util/skip-suffix env-prefix "/")
          settings (util/ordered-map :top-namespace top-namespace
+                                    :env-prefix prefix
                                     :compile-path compile-path
                                     :thread-pool-size thread-pool-size
                                     :maven-repos repos)]
