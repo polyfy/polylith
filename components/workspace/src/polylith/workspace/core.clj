@@ -52,20 +52,19 @@
                   brick->lib-imports-test
                   brick->loc]
   (let [brick-names (concat components bases)
-        lib-imports-src (mapcat brick->lib-imports-src brick-names)
-        lib-imports-test (mapcat brick->lib-imports-test brick-names)
-        {:keys [loc-src loc-test]} (env-loc brick-names brick->loc)]
+        brick->lib-imports (if test? brick->lib-imports-test brick->lib-imports-src)
+        lib-imports (-> (mapcat brick->lib-imports brick-names) set sort vec)
+        {:keys [loc-src loc-test]} (env-loc brick-names brick->loc)
+        lines-of-code (if test? loc-test loc-src)]
     (util/ordered-map :name name
                       :group group
                       :test? test?
                       :type type
-                      :lines-of-code-src loc-src
-                      :lines-of-code-test loc-test
+                      :lines-of-code lines-of-code
                       :components components
                       :bases bases
                       :paths paths
-                      :lib-imports-src (vec (sort (set lib-imports-src)))
-                      :lib-imports-test (vec (sort (set lib-imports-test)))
+                      :lib-imports lib-imports
                       :deps deps)))
 
 (defn brick->lib-imports-src [brick]

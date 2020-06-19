@@ -1,4 +1,7 @@
 
+- store :deps as strings (and not symbols) but remember to convert them back to
+  symbols before use.
+
 - store each changed environment-group like e.g. this:
   - also, when calculating changes, only check for paths that are included in :paths,
     so that we only check 'test' directories for test environments and changes under
@@ -9,9 +12,6 @@
    :changed-bricks ["file"]
    :indirectly-changed-bricks ["article"]
   }
-
-- store :deps as strings (and not symbols) but remember to convert them back to
-  symbols before use.
 
 - store each message with its own attributes, e.g.:
   {:type "error"
