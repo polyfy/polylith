@@ -4,15 +4,17 @@
             [polylith.validate.illegal-name-sharing :as illegal-name-sharing]
             [polylith.validate.illegal-parameters :as illegal-parameters]
             [polylith.validate.missing-data-defs :as missing-data]
-            [polylith.validate.missing-function-or-macro-defs :as missing-fn]))
+            [polylith.validate.missing-function-or-macro-defs :as missing-fn]
+            [polylith.validate.multiple-interface-occurrences :as multiple-ifcs]))
 
 (defn warnings [interfaces components]
   (vec (sort (set (illegal-parameters/warnings interfaces components)))))
 
-(defn errors [top-ns interface-names interfaces components bases]
+(defn errors [top-ns interface-names interfaces components bases environments]
   (vec (sort (set (concat (illegal-namespace-deps/errors top-ns interface-names components bases)
                           (circular-deps/errors interfaces)
                           (illegal-name-sharing/errors interface-names components bases)
                           (illegal-parameters/errors components)
                           (missing-data/errors interfaces components)
-                          (missing-fn/errors interfaces components))))))
+                          (missing-fn/errors interfaces components)
+                          (multiple-ifcs/errors components environments))))))

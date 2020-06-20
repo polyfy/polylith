@@ -90,7 +90,7 @@
         enriched-environments (mapv #(enrich-env % brick->lib-imports-src brick->lib-imports-test brick->loc) environments)
         enriched-settings (enrich-settings settings)
         warnings (validate/warnings interfaces components)
-        errors (validate/errors top-ns interface-names enriched-interfaces enriched-components bases)]
+        errors (validate/errors top-ns interface-names enriched-interfaces enriched-components enriched-bases enriched-environments)]
     (array-map :ws-path ws-path
                :settings enriched-settings
                :interfaces enriched-interfaces
