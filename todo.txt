@@ -1,16 +1,16 @@
 
-- error if an environment has more than one component that shares the same interface.
+- have the same start of the error message if missing data and/or functions/marcos
+  "Missing definitions in the interface of x:".
 
-- store each changed environment-group like e.g. this:
-  - also, when calculating changes, only check for paths that are included in :paths,
-    so that we only check 'test' directories for test environments and changes under
-    the 'src' directory for the "main" environment.
-  {:group "core"
-   :src-changed? true
-   :test-changed? false
-   :changed-bricks ["file"]
-   :indirectly-changed-bricks ["article"]
-  }
+- calculate changes:
+  {:changes {:direct {:bricks-src []
+                      :bricks-test
+                      :environments-src []
+                      :environments-test []}
+             :indirect {:bricks-src []
+                        :bricks-test []
+                        :environments-src []}
+                        :environments-test []}}}}}
 
 - store each message with its own attributes, e.g.:
   {:type "error"
@@ -33,6 +33,9 @@
     - show changes + return sha1 and sha2.
   - build
     - build a simple jar
+  - deps
+    - show what components each component and base use (directly and indirectly)
+    - show what components and bases each environment use (directly and indirectly)
 
 - store extra information for each warning/error (e.g.):
   {:interface "payment"
@@ -49,6 +52,11 @@
 
 Questions
 =========
+- error if an environment has more than one component that shares the same interface.
+- should we support references to other workspaces, so that we are allowed to
+  add e.g. "../another-ws/components/some-component/src" to an environment?
+  - then we could add the :ws-name attribute bricks so that they became unique,
+    or something similar.
 - how should we calculate workspace changes?
   - include test environments?
 - figure out a way to show the output while running the tests.
@@ -71,6 +79,7 @@ Leave for now
 
 Doc
 ===
+- have an example of how people can build their own tooling around polylith!
 - example of how to add macros in the interface, e.g. 'unless' in:
   - https://clojuredocs.org/clojure.core/defmacro
 - if using a function in two components that implement the same interface,
@@ -86,6 +95,9 @@ Doc
 
 Differences compared to lein-polylith
 =====================================
+- when people starts to build tooling for polylith, they could include
+  components from this project as git source dependencies into their own
+  projects and use e.g. the workspace-clj, workspace and common components!
 - the way we calculate circular dependencies. In lein-polylith, we check each
   environment separately, but here we only use :implementing-interface-deps
   from each interface, which is the set of all dependencies from the components

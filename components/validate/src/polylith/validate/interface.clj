@@ -4,7 +4,7 @@
             [polylith.validate.illegal-name-sharing :as illegal-name-sharing]
             [polylith.validate.illegal-parameters :as illegal-parameters]
             [polylith.validate.missing-data-defs :as missing-data]
-            [polylith.validate.missing-function-and-macro-defs :as missing-fn]))
+            [polylith.validate.missing-function-or-macro-defs :as missing-fn]))
 
 (defn warnings [interfaces components]
   (vec (sort (set (illegal-parameters/warnings interfaces components)))))

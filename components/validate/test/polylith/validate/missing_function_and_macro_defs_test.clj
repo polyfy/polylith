@@ -1,6 +1,6 @@
 (ns polylith.validate.missing-function-and-macro-defs-test
   (:require [clojure.test :refer :all]
-            [polylith.validate.missing-function-and-macro-defs :as missing-defs]))
+            [polylith.validate.missing-function-or-macro-defs :as missing-defs]))
 
 (def interfaces '[{:name "auth"
                    :definitions [{:name "add-two", :type "function", :parameters ["x"]}]

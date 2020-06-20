@@ -6,9 +6,8 @@
                  :environments [{:name "core"
                                  :group "core"
                                  :test? false
-                                 :components [{:name "change", :type "component"}
-                                              {:name "cmd", :type "component"}]
-                                 :bases [{:name "tool", :type "base"}]
+                                 :component-names ["change" "cmd"]
+                                 :base-names [{:name "tool", :type "base"}]
                                  :paths ["components/change/src"
                                          "components/cmd/src"
                                          "bases/cli/src"]
@@ -18,9 +17,8 @@
                                 {:name "core-test"
                                  :group "core"
                                  :test? true
-                                 :components [{:name "change", :type "component"}
-                                              {:name "cmd", :type "component"}]
-                                 :bases []
+                                 :component-names ["change" "cmd"]
+                                 :base-names []
                                  :paths ["components/change/test"
                                          "components/cmd/test"],
                                  :dependencies #:org.clojure{clojure #:mvn{:version "1.10.1"}

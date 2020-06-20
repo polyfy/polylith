@@ -45,15 +45,15 @@
                    paths deps]
   (let [key-name (name key)
         all-paths (set (concat paths extra-paths))
-        components (brick-names all-paths component?)
-        bases (brick-names all-paths base?)
+        component-names (brick-names all-paths component?)
+        base-names (brick-names all-paths base?)
         sorted-deps (sort-deps (merge deps extra-deps))]
     {:name key-name
      :group (group key-name)
      :test? (test? key-name)
      :type "environment"
-     :components components
-     :bases bases
+     :component-names component-names
+     :base-names base-names
      :paths (vec (sort all-paths))
      :deps sorted-deps}))
 

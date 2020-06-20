@@ -47,11 +47,11 @@
                :lib-imports-test lib-imports-test
                :interface-deps interface-deps)))
 
-(defn enrich-env [{:keys [name group test? type components bases paths deps]}
+(defn enrich-env [{:keys [name group test? type component-names base-names paths deps]}
                   brick->lib-imports-src
                   brick->lib-imports-test
                   brick->loc]
-  (let [brick-names (concat components bases)
+  (let [brick-names (concat component-names base-names)
         brick->lib-imports (if test? brick->lib-imports-test brick->lib-imports-src)
         lib-imports (-> (mapcat brick->lib-imports brick-names) set sort vec)
         {:keys [loc-src loc-test]} (env-loc brick-names brick->loc)
@@ -61,8 +61,8 @@
                       :test? test?
                       :type type
                       :lines-of-code lines-of-code
-                      :components components
-                      :bases bases
+                      :component-names component-names
+                      :base-names base-names
                       :paths paths
                       :lib-imports lib-imports
                       :deps deps)))

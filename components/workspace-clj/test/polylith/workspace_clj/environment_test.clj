@@ -53,8 +53,8 @@
             :group "build-tools",
             :test? false,
             :type "environment",
-            :components [],
-            :bases ["build-tools"],
+            :component-names [],
+            :base-names ["build-tools"],
             :paths ["bases/build-tools/src" "shared/src"],
             :deps {"clj-time" #:mvn{:version "0.14.2"},
                    "org.clojure/clojure" #:mvn{:version "1.10.0"},
@@ -64,8 +64,8 @@
             :group "build-tools",
             :test? true,
             :type "environment",
-            :components [],
-            :bases ["build-tools"],
+            :component-names [],
+            :base-names ["build-tools"],
             :paths ["bases/build-tools/test" "shared/src"],
             :deps {"clj-time" #:mvn{:version "0.14.2"},
                    "org.clojure/clojure" #:mvn{:version "1.10.0"},
@@ -75,8 +75,8 @@
             :group "realworld-backend",
             :test? false,
             :type "environment",
-            :components ["article" "comment" "database"],
-            :bases ["build-tools" "rest-api"],
+            :component-names ["article" "comment" "database"],
+            :base-names ["build-tools" "rest-api"],
             :paths ["bases/build-tools/src"
                     "bases/rest-api/resources"
                     "bases/rest-api/src"
@@ -98,8 +98,8 @@
             :group "realworld-backend",
             :test? true,
             :type "environment",
-            :components ["article" "comment" "database"],
-            :bases ["rest-api"],
+            :component-names ["article" "comment" "database"],
+            :base-names ["rest-api"],
             :paths ["bases/rest-api/test"
                     "components/article/test"
                     "components/comment/test"
