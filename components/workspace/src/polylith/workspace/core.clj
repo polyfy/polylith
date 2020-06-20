@@ -9,7 +9,7 @@
             [polylith.file.interface :as file]))
 
 (defn brick-loc [namespaces]
-  (apply + (mapv #(file/lines-of-code %)
+  (apply + (mapv file/lines-of-code
                  (mapv :file-path namespaces))))
 
 (defn env-loc [brick-names brick->loc test?]
