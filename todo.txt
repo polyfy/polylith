@@ -1,49 +1,29 @@
 
-- calculate changes:
-  {:changes {:direct {:bricks-src []
-                      :bricks-test
-                      :environments-src []
-                      :environments-test []}
-             :indirect {:bricks-src []
-                        :bricks-test []
-                        :environments-src []}
-                        :environments-test []}}}}}
-
 - store each message with its own attributes, e.g.:
   {:type "error"
    :code 101
    :message "Circular dependencies was found: article > profile > article"
-   :bricks ["article" "profile"]}
+   :bricks ["article" "profile"]
 
 - make sure we can compile the code into a command line tool using GraalVM.
 - compile a 'poly' tool with GraalVM.
 
 - add tasks (arguments to the 'poly' command)':
   - verify:
-    - prints the messages
+    - prints the warnings and errors.
   - ws
     - view the workspace map.
     - support returning JSON.
       - configured in deps.edn
       - stored in a config file in ~/.polylith
-  - change
-    - show changes + return sha1 and sha2.
+    - possibility to send in sha1 and sha2 or only sha1.
   - build
     - build a simple jar
-  - deps
-    - show what components each component and base use (directly and indirectly)
-    - show what components and bases each environment use (directly and indirectly)
 
-- store extra information for each warning/error (e.g.):
-  {:interface "payment"
-   :component "payment"
-   :definition {:name "pay", :type "function", :parameters ["a"]}
-  }
+- add error for the case where a namespace can't even be parsed.
 
-- add error for the case that a namespace can't even be parsed.
-
-- handle the case that a component doesn not exist any more in the 'diff'
-  function, which especially can happen when seding in two SHA:s.
+- handle the case where a component doesn't exist any more in the 'diff'
+  function, which especially can happen when sending in two SHA:s.
 
 - check that we follow symbolic links in file/paths-recursively.
 
@@ -52,6 +32,13 @@
 
 Questions
 =========
+- should we only run the tests for affected components? If so, then we should maybe
+  calculate changes something like this instead (+ parse what tests each component has):
+  - calculate changes:
+    {:changes {:bricks []
+               :environments []}
+               :bricks-indirect []
+               :environments-indirect []}}}
 - error if an environment has more than one component that shares the same interface.
 - should we support references to other workspaces, so that we are allowed to
   add e.g. "../another-ws/components/some-component/src" to an environment?
