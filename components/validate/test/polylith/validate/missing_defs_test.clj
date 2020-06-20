@@ -1,6 +1,6 @@
-(ns polylith.validate.missing-function-and-macro-defs-test
+(ns polylith.validate.missing-defs-test
   (:require [clojure.test :refer :all]
-            [polylith.validate.missing-function-or-macro-defs :as missing-defs]))
+            [polylith.validate.missing-defs :as missing-defs]))
 
 (def interfaces '[{:name "auth"
                    :definitions [{:name "add-two", :type "function", :parameters ["x"]}]
@@ -19,7 +19,8 @@
                    :implementing-components ["payment"]}
                   {:name "user"
                    :type "interface"
-                   :definitions [{:name "func1", :type "function", :parameters []}
+                   :definitions [{:name "data1" :type "data"}
+                                 {:name "func1", :type "function", :parameters []}
                                  {:name "func2", :type "function", :parameters ["a" "b"]}
                                  {:name "func2", :type "function", :parameters ["x" "y"]}
                                  {:name "func3", :type "function", :parameters ["a" "b" "c"]}
@@ -51,7 +52,8 @@
                   {:name "user1"
                    :type "component"
                    :interface {:name "user"
-                               :definitions [{:name "func1", :type "function", :parameters []}
+                               :definitions [{:name "data1" :type "data"}
+                                             {:name "func1", :type "function", :parameters []}
                                              {:name "func2", :type "function", :parameters ["a" "b"]}
                                              {:name "func3", :type "function", :parameters ["a" "b" "c"]}
                                              {:name "func4", :type "function", :parameters [] :sub-ns "subns"}
@@ -63,13 +65,7 @@
                                              {:name "func3", :type "function", :parameters ["x" "y" "z"]}
                                              {:name "func5", :type "function", :parameters ["a" "b" "c" "d"]}]}}])
 
-(deftest errors--when-having-a--component-with-missing-functions--return-error-message
-  (is (= ["Missing function definitions in the interface of user2: func1[], subns/func4[]"]
+(deftest errors--when-having-a--component-with-missing-definitionss--return-error-message
+  (is (= ["Missing definitions in the interface of the invoice2 component: abc"
+          "Missing definitions in the interface of the user2 component: data1, func1[], subns/func4[]"]
          (missing-defs/errors interfaces components))))
-
-(deftest errors--when-having-a-component-with-missing-functions-and-macros--return-error-message
-  (let [interfaces-with-func1-in-comp1-as-macro (assoc-in interfaces [3 :definitions 0 :type] "macro")
-        components-with-func1-in-comp1-as-macro (assoc-in components [4 :interface :definitions 0 :type] "macro")]
-    (is (= ["Missing function and macro definitions in the interface of user2: func1[], subns/func4[]"]
-           (missing-defs/errors interfaces-with-func1-in-comp1-as-macro
-                                components-with-func1-in-comp1-as-macro)))))

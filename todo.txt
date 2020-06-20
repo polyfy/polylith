@@ -1,7 +1,4 @@
 
-- have the same start of the error message if missing data and/or functions/marcos
-  "Missing definitions in the interface of x:".
-
 - calculate changes:
   {:changes {:direct {:bricks-src []
                       :bricks-test
@@ -49,6 +46,9 @@
   function, which especially can happen when seding in two SHA:s.
 
 - check that we follow symbolic links in file/paths-recursively.
+
+- store the types for each parameter in :parameters (of other than Object)
+  so that we can support typed languages.
 
 Questions
 =========
