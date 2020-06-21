@@ -1,4 +1,4 @@
-(ns polylith.validate.illegal-parameters
+(ns polylith.validate.mismatching-parameters
   (:require [clojure.string :as str]))
 
 (def types->message {#{"function"} "Function"

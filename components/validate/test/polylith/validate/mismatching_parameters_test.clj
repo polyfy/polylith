@@ -1,6 +1,6 @@
-(ns polylith.validate.illegal-parameters-test
+(ns polylith.validate.mismatching-parameters-test
   (:require [clojure.test :refer :all]
-            [polylith.validate.illegal-parameters :as illegal-parameters]))
+            [polylith.validate.mismatching-parameters :as illegal-parameters]))
 
 (def interfaces '[{:name "auth"
                    :definitions [{:name "add-two", :type "function", :parameters ["x"]}]
