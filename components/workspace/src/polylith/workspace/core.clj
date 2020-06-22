@@ -12,6 +12,7 @@
   (apply + (mapv file/lines-of-code
                  (mapv :file-path namespaces))))
 
+;; TODO: fix NullPointerException
 (defn env-loc [brick-names brick->loc test?]
   (let [locs (map brick->loc brick-names)]
     (if test?

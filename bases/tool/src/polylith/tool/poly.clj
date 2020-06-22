@@ -4,7 +4,8 @@
             [polylith.workspace.interface :as ws]
             [polylith.workspace-clj.interface :as ws-clj]
             [polylith.change.interface :as change]
-            [clojure.java.io :as io]))
+            [clojure.java.io :as io])
+  (:gen-class))
 
 (def help-text
   (str
