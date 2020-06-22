@@ -1,6 +1,17 @@
 
 - check for missing bricks in an environment.
 
+- new names
+  - test-runner
+  -
+
+- change keys in changes to :changed-components...
+- send in git diff to 'change'.
+
+- check for missing bricks in an environment.
+
+- add support for Kotlin.
+
 - make sure we can compile the code into a command line tool using GraalVM.
 - compile a 'poly' tool with GraalVM.
 
@@ -16,6 +27,8 @@
   - build
     - build a simple jar
 
+- support having more than one test environment. Now we can e.g. have one 'core'
+  and one 'core-test' environment. It should be possible to also have e.g. 'core-test-stage'.
 
 - add error for the case where a namespace can't even be parsed.
 
@@ -27,6 +40,9 @@
 - store the types for each parameter in :parameters (of other than Object)
   so that we can support typed languages.
 
+- add support to add an environment as a development environment in the :polylith map.
+  Then it can be marked in orange in the UI.
+
 Questions
 =========
 - should we only run the tests for affected components? If so, then we should maybe
@@ -36,11 +52,6 @@ Questions
                :environments []}
                :bricks-indirect []
                :environments-indirect []}}}
-- error if an environment has more than one component that shares the same interface.
-- should we support references to other workspaces, so that we are allowed to
-  add e.g. "../another-ws/components/some-component/src" to an environment?
-  - then we could add the :ws-name attribute bricks so that they became unique,
-    or something similar.
 - how should we calculate workspace changes?
   - include test environments?
 - figure out a way to show the output while running the tests.
