@@ -4,9 +4,9 @@
 
 (defn error-message [{:keys [namespace depends-on-interface depends-on-ns]} brick-name type]
   (when namespace
-    (let [message (str "Illegal dependency on namespace '" depends-on-interface "." depends-on-ns
-                       "' in namespace '" namespace "' in the '" brick-name "' " type
-                       ". Use '" depends-on-interface ".interface' instead to fix the problem.")]
+    (let [message (str "Illegal dependency on namespace " depends-on-interface "." depends-on-ns
+                       " in namespace " namespace " in the " brick-name " " type
+                       ". Use " depends-on-interface ".interface instead to fix the problem.")]
       [(util/ordered-map :type "error"
                          :code 101
                          :message message

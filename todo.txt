@@ -1,13 +1,5 @@
 
-- remove '' in error messge "Illegal dependency on namespace..."
-
 - check for missing bricks in an environment.
-
-- store each message with its own attributes, e.g.:
-  {:type "error"
-   :code 101
-   :message "Circular dependencies was found: article > profile > article"
-   :bricks ["article" "profile"]
 
 - make sure we can compile the code into a command line tool using GraalVM.
 - compile a 'poly' tool with GraalVM.

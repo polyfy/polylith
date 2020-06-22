@@ -31,11 +31,11 @@
                                                 "polylith.cmd.core"]}]}]
     (is (= [{:type "error"
              :code 101
-             :message "Illegal dependency on namespace 'invoice.core' in namespace 'purchase' in the 'common' component. Use 'invoice.interface' instead to fix the problem."
+             :message "Illegal dependency on namespace invoice.core in namespace purchase in the common component. Use invoice.interface instead to fix the problem."
              :bricks ["common"]}
             {:type "error"
              :code 101
-             :message "Illegal dependency on namespace 'cmd.core' in namespace 'billing' in the 'common' component. Use 'cmd.interface' instead to fix the problem."
+             :message "Illegal dependency on namespace cmd.core in namespace billing in the common component. Use cmd.interface instead to fix the problem."
              :bricks ["common"]}]
            (ideps/brick-errors "polylith." component #{"spec" "cmd" "file" "invoice" "user"} [])))))
 
