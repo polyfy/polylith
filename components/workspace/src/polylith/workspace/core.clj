@@ -12,12 +12,11 @@
   (apply + (mapv file/lines-of-code
                  (mapv :file-path namespaces))))
 
-;; TODO: fix NullPointerException
 (defn env-loc [brick-names brick->loc test?]
   (let [locs (map brick->loc brick-names)]
     (if test?
-      (apply + (map :lines-of-code-test locs))
-      (apply + (map :lines-of-code-src locs)))))
+      (apply + (filter identity (map :lines-of-code-test locs)))
+      (apply + (filter identity (map :lines-of-code-src locs))))))
 
 (defn enrich-component [top-ns interface-names {:keys [name type namespaces-src namespaces-test interface] :as component}]
   (let [interface-deps (deps/brick-interface-deps top-ns interface-names component)
