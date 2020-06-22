@@ -1,6 +1,6 @@
-(ns polylith.validate.missing-defs-test
+(ns polylith.validate.m103-missing-defs-test
   (:require [clojure.test :refer :all]
-            [polylith.validate.missing-defs :as missing-defs]))
+            [polylith.validate.m103-missing-defs :as m103]))
 
 (def interfaces '[{:name "auth"
                    :definitions [{:name "add-two", :type "function", :parameters ["x"]}]
@@ -74,4 +74,4 @@
            :code 103
            :message "Missing definitions in the interface of the user2 component: data1, func1[], subns/func4[]"
            :components ["user2"]}]
-         (missing-defs/errors interfaces components))))
+         (m103/errors interfaces components))))

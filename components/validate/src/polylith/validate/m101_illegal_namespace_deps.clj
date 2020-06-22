@@ -1,4 +1,4 @@
-(ns polylith.validate.illegal-namespace-deps
+(ns polylith.validate.m101-illegal-namespace-deps
   (:require [polylith.deps.interface :as deps]
             [polylith.util.interface :as util]))
 

@@ -1,6 +1,6 @@
-(ns polylith.validate.mismatching-parameters-test
+(ns polylith.validate.m201-mismatching-parameters-test
   (:require [clojure.test :refer :all]
-            [polylith.validate.mismatching-parameters :as illegal-parameters]))
+            [polylith.validate.m201-mismatching-parameters :as m201]))
 
 (def interfaces '[{:name "auth"
                    :definitions [{:name "add-two", :type "function", :parameters ["x"]}]
@@ -169,48 +169,41 @@
                     :interface-deps ["auth"]}])
 
 (deftest warnings--when-having-functions-with-same-arity-but-with-different-parameter-lists--return-warnings
-  (is (= [{:type "warning"
-           :code 201
-           :message "Function in the invoice component is also defined in invoice2 but with a different parameter list: func1[a b], func1[x y]"
-           :components ["invoice" "invoice2"]}
-          {:type "warning"
-           :code 201
-           :message "Function in the invoice component is also defined in invoice2 but with a different parameter list: func1[a], func1[b]"
-           :components ["invoice" "invoice2"]}
-          {:type "warning"
-           :code 201
-           :message "Function in the user1 component is also defined in user2 but with a different parameter list: func2[a b], func2[x y]"
-           :components ["user1" "user2"]}
-          {:type "warning"
-           :code 201
-           :message "Function in the user1 component is also defined in user2 but with a different parameter list: func3[a b c], func3[x y z]"
-           :components ["user1" "user2"]}]
-         (sort-by :message
-                  (illegal-parameters/warnings interfaces components)))))
+         (is (= [{:type "warning"
+                  :code 201
+                  :message "Function in the invoice component is also defined in invoice2 but with a different parameter list: func1[a b], func1[x y]"
+                  :components ["invoice" "invoice2"]}
+                 {:type "warning"
+                  :code 201
+                  :message "Function in the invoice component is also defined in invoice2 but with a different parameter list: func1[a], func1[b]"
+                  :components ["invoice" "invoice2"]}
+                 {:type "warning"
+                  :code 201
+                  :message "Function in the user1 component is also defined in user2 but with a different parameter list: func2[a b], func2[x y]"
+                  :components ["user1" "user2"]}
+                 {:type "warning"
+                  :code 201
+                  :message "Function in the user1 component is also defined in user2 but with a different parameter list: func3[a b c], func3[x y z]"
+                  :components ["user1" "user2"]}]
+                (sort-by :message
+                         (m201/warnings interfaces components)))))
 
 (deftest warnings--when-having-macros-with-same-arity-but-with-different-parameter-lists--return-warnings
-  (is (= [{:type "warning"
-           :code 201
-           :message "Function in the invoice component is also defined in invoice2 but with a different parameter list: func1[a b], func1[x y]"
-           :components ["invoice" "invoice2"]}
-          {:type "warning"
-           :code 201
-           :message "Function in the user1 component is also defined in user2 but with a different parameter list: func2[a b], func2[x y]"
-           :components ["user1" "user2"]}
-          {:type "warning"
-           :code 201
-           :message "Function in the user1 component is also defined in user2 but with a different parameter list: func3[a b c], func3[x y z]"
-           :components ["user1" "user2"]}
-          {:type "warning"
-           :code 201
-           :message "Macro in the invoice component is also defined in invoice2 but with a different parameter list: sub.macro1[a], sub.macro1[b]"
-           :components ["invoice" "invoice2"]}]
-         (sort-by :message
-                  (illegal-parameters/warnings interfaces2 components2)))))
-
-(deftest errors--when-having-duplicated-parameter-lists--return-error
-  (is (= [{:type "error"
-           :code 102
-           :message "Duplicated parameter lists found in the payment component: pay[a], pay[b]"
-           :components ["payment"]}]
-         (illegal-parameters/errors components))))
+         (is (= [{:type "warning"
+                  :code 201
+                  :message "Function in the invoice component is also defined in invoice2 but with a different parameter list: func1[a b], func1[x y]"
+                  :components ["invoice" "invoice2"]}
+                 {:type "warning"
+                  :code 201
+                  :message "Function in the user1 component is also defined in user2 but with a different parameter list: func2[a b], func2[x y]"
+                  :components ["user1" "user2"]}
+                 {:type "warning"
+                  :code 201
+                  :message "Function in the user1 component is also defined in user2 but with a different parameter list: func3[a b c], func3[x y z]"
+                  :components ["user1" "user2"]}
+                 {:type "warning"
+                  :code 201
+                  :message "Macro in the invoice component is also defined in invoice2 but with a different parameter list: sub.macro1[a], sub.macro1[b]"
+                  :components ["invoice" "invoice2"]}]
+                (sort-by :message
+                         (m201/warnings interfaces2 components2)))))

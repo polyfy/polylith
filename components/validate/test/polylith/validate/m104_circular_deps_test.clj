@@ -1,6 +1,6 @@
-(ns polylith.validate.circular-deps-test
+(ns polylith.validate.m104-circular-deps-test
   (:require [clojure.test :refer :all]
-            [polylith.validate.circular-deps :as circular-deps]))
+            [polylith.validate.m104-circular-deps :as m104]))
 
 (def interfaces [{:name "article"}
                  {:name "comment"}
@@ -67,12 +67,12 @@
            :message "Circular dependencies was found in the realworld-backend environment: article > database > article"
            :components ["article" "database"]
            :environment "realworld-backend"}]
-         (circular-deps/errors interfaces components environments))))
+         (m104/errors interfaces components environments))))
 
 (deftest errors--when-having-no-environments--return-no-errors
   (is (= nil
-         (circular-deps/errors interfaces components []))))
+         (m104/errors interfaces components []))))
 
 (deftest errors--when-having-two-compoments-implementing-the-same-interface--do-not-crash
   (is (= nil
-         (circular-deps/errors interfaces components2 environments2))))
+         (m104/errors interfaces components2 environments2))))

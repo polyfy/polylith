@@ -1,40 +1,23 @@
-(ns polylith.validate.mismatching-parameters
+(ns polylith.validate.m201-mismatching-parameters
   (:require [clojure.string :as str]
-            [polylith.util.interface :as util]))
+            [polylith.util.interface :as util]
+            [polylith.validate.shared :as shared]))
 
 (def types->message {#{"function"} "Function"
                      #{"macro"} "Macro"
                      #("function" "macro") "Function and macro"})
 
-(defn function->id [{:keys [name parameters]}]
-  [name (count parameters)])
-
-(defn id->functions-or-macro [{:keys [definitions]}]
-  (group-by function->id
-            (filter #(not= "data" (:type %)) definitions)))
-
-(defn with-ns [sub-ns name]
-  (if (str/blank? sub-ns)
-    name
-    (str sub-ns "." name)))
-
-(defn ->function-or-macro
-  ([{:keys [sub-ns name parameters]}]
-   (->function-or-macro sub-ns name parameters))
-  ([sub-ns name parameters]
-   (str (with-ns sub-ns name) "[" (str/join " " parameters) "]")))
-
 (defn function-warnings [[id [{:keys [sub-ns name type parameters]}]] interface component-name name->component]
   (let [other-component-names (filterv #(not= % component-name)
                                        (:implementing-components interface))
         other-component (-> other-component-names first name->component)
-        other-function (first ((-> other-component :interface id->functions-or-macro) id))]
+        other-function (first ((-> other-component :interface shared/id->functions-or-macro) id))]
 
     (when (and (-> other-function nil? not)
                (not= parameters (:parameters other-function)))
       (let [[comp1 comp2] (sort [component-name (:name other-component)])
-            function-or-macro1 (->function-or-macro sub-ns name parameters)
-            function-or-macro2 (->function-or-macro other-function)
+            function-or-macro1 (shared/->function-or-macro sub-ns name parameters)
+            function-or-macro2 (shared/->function-or-macro other-function)
             functions-and-macros (sort [function-or-macro1 function-or-macro2])
             types (types->message (set [type (:type other-function)]))
             message (str types " in the " comp1 " component "
@@ -46,31 +29,14 @@
                            :message message
                            :components [comp1 comp2])]))))
 
-(defn duplicated-parameter-lists-error [component-name component-duplication]
-  (let  [message (str "Duplicated parameter lists found in the " component-name " component: "
-                      (str/join ", " (map ->function-or-macro component-duplication)))]
-    (util/ordered-map :type "error"
-                      :code 102
-                      :message message
-                      :components [component-name])))
-
-(defn component-errors [component]
-  (let [component-name (:name component)
-        component-id->function (-> component :interface id->functions-or-macro)
-        multi-id-functions (mapv second (filter #(> (-> % second count) 1) component-id->function))]
-    (mapv #(duplicated-parameter-lists-error component-name %) multi-id-functions)))
-
 (defn component-warnings [component interfaces name->component]
   (let [interface-name (-> component :interface :name)
         interface (first (filter #(= interface-name (:name %)) interfaces))
         component-name (:name component)
-        component-id->function (-> component :interface id->functions-or-macro)
+        component-id->function (-> component :interface shared/id->functions-or-macro)
         single-id->functions (filter #(= (-> % second count) 1) component-id->function)]
     (mapcat #(function-warnings % interface component-name name->component) single-id->functions)))
 
 (defn warnings [interfaces components]
   (let [name->component (into {} (map (juxt :name identity) components))]
     (set (mapcat #(component-warnings % interfaces name->component) components))))
-
-(defn errors [components]
-  (vec (mapcat component-errors components)))

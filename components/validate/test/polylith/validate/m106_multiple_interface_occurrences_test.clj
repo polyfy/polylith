@@ -1,6 +1,6 @@
-(ns polylith.validate.multiple-interface-occurrences-test
+(ns polylith.validate.m106-multiple-interface-occurrences-test
   (:require [clojure.test :refer :all]
-            [polylith.validate.multiple-interface-occurrences :as multi]))
+            [polylith.validate.m106-multiple-interface-occurrences :as m106]))
 
 (def components [{:name "change"
                   :type "component"
@@ -43,4 +43,4 @@
            :interface "shell"
            :components ["shell" "shell2"]
            :environment "core"}]
-         (multi/errors components environments))))
+         (m106/errors components environments))))

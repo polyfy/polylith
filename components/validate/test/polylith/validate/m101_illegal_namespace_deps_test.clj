@@ -1,6 +1,6 @@
-(ns polylith.validate.illegal-namespace-deps-test
+(ns polylith.validate.m101-illegal-namespace-deps-test
   (:require [clojure.test :refer :all]
-            [polylith.validate.illegal-namespace-deps :as ideps]))
+            [polylith.validate.m101-illegal-namespace-deps :as m101]))
 
 (deftest brick-errors--without-errors--returns-no-errors
   (let [component '{:name "common"
@@ -15,7 +15,7 @@
                                                 "polylith.cmd.interface.v2.core"
                                                 "polylith.invoice.interface"]}]}]
     (is (= []
-           (ideps/brick-errors "polylith." component #{"spec" "cmd" "file" "invoice" "user"} [])))))
+           (m101/brick-errors "polylith." component #{"spec" "cmd" "file" "invoice" "user"} [])))))
 
 (deftest brick-errors--with-errors--returns-errors
   (let [component {:name "common"
@@ -37,7 +37,7 @@
              :code 101
              :message "Illegal dependency on namespace cmd.core in namespace billing in the common component. Use cmd.interface instead to fix the problem."
              :bricks ["common"]}]
-           (ideps/brick-errors "polylith." component #{"spec" "cmd" "file" "invoice" "user"} [])))))
+           (m101/brick-errors "polylith." component #{"spec" "cmd" "file" "invoice" "user"} [])))))
 
 (deftest errors--component-with-mismatching-interface-name--returns-no-errors
   (let [component '{:type "component",
@@ -48,4 +48,4 @@
                                      {:name "user/core.clj"
                                       :imports []}]}]
     (is (= []
-           (ideps/errors "polylith." component #{"user"} [])))))
+           (m101/errors "polylith." component #{"user"} [])))))

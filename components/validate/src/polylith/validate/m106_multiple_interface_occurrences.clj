@@ -1,4 +1,4 @@
-(ns polylith.validate.multiple-interface-occurrences
+(ns polylith.validate.m106-multiple-interface-occurrences
   (:require [clojure.string :as str]
             [polylith.util.interface :as util]))
 
