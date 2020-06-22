@@ -4,8 +4,7 @@
  :polylith {:top-namespace "polylith"}
 
  :deps     {org.clojure/clojure          {:mvn/version "1.10.1"}
-            org.clojure/core.async       {:mvn/version "0.4.500"}
-            org.clojure/tools.deps.alpha {:mvn/version "0.6.496"}}
+            org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}
 
  :aliases  {:env/core      {:extra-paths [; Base
                                           "bases/tool/src"
@@ -34,4 +33,10 @@
                                           "components/validate/test"
                                           "components/workspace/test"
                                           "components/workspace-clj/test"]
-                            :extra-deps  {}}}}
+                            :extra-deps  {}}
+
+            :aot/core {:extra-paths ["classes"]
+                       :main-opts   ["-e" "(compile,'polylith.tool.poly)"]}
+
+            :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
+                       :main-opts ["-m" "uberdeps.uberjar"]}}}
