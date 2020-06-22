@@ -29,8 +29,14 @@
                                       :imports ["clojure.core"
                                                 "polylith.user.interface"
                                                 "polylith.cmd.core"]}]}]
-    (is (= ["Illegal dependency on namespace 'invoice.core' in namespace 'purchase' in the 'common' component. Use 'invoice.interface' instead to fix the problem."
-            "Illegal dependency on namespace 'cmd.core' in namespace 'billing' in the 'common' component. Use 'cmd.interface' instead to fix the problem."]
+    (is (= [{:type "error"
+             :code 101
+             :message "Illegal dependency on namespace 'invoice.core' in namespace 'purchase' in the 'common' component. Use 'invoice.interface' instead to fix the problem."
+             :bricks ["common"]}
+            {:type "error"
+             :code 101
+             :message "Illegal dependency on namespace 'cmd.core' in namespace 'billing' in the 'common' component. Use 'cmd.interface' instead to fix the problem."
+             :bricks ["common"]}]
            (ideps/brick-errors "polylith." component #{"spec" "cmd" "file" "invoice" "user"} [])))))
 
 (deftest errors--component-with-mismatching-interface-name--returns-no-errors

@@ -1,11 +1,19 @@
 (ns polylith.validate.multiple-interface-occurrences
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [polylith.util.interface :as util]))
 
 (defn env-error [[interface interface-components] env-name]
   (when (> (count interface-components) 1)
-    [(str "More than one component that implements the " interface
-          " interface was found in the " env-name " environment: "
-           (str/join ", " (map second interface-components)))]))
+    (let [component-names (mapv second interface-components)
+          message (str "More than one component that implements the " interface
+                       " interface was found in the " env-name " environment: "
+                        (str/join ", " component-names))]
+      [(util/ordered-map :type "error"
+                         :code 106
+                         :message message
+                         :interface interface
+                         :components component-names
+                         :environment env-name)])))
 
 (defn env-errors [{:keys [name component-names]} components]
   (let [env-components (filter #(contains? (set component-names)

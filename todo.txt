@@ -1,4 +1,8 @@
 
+- remove '' in error messge "Illegal dependency on namespace..."
+
+- check for missing bricks in an environment.
+
 - store each message with its own attributes, e.g.:
   {:type "error"
    :code 101
@@ -19,6 +23,7 @@
     - possibility to send in sha1 and sha2 or only sha1.
   - build
     - build a simple jar
+
 
 - add error for the case where a namespace can't even be parsed.
 
@@ -58,6 +63,7 @@ Leave for now
 - how to handle test dependencies?
 - create a migration tool that migrates lein-polylith projects to polylith projects.
 - html doc that automatically updates itself.
+  - add support for extracting the APIs from a base, e.g. REST.
 - add support for another language, e.g. Java.
 - check if support for .cljs files make sense.
 - how to decorate the errors and warnings so that a tool can easily mark what's
@@ -107,3 +113,40 @@ Design decisions
 - to be able to reload a whole component in the REPL, it's important that all functions
   in the interface are implemented, so that we don't get a mix of functions from
   two different components in the namespace.
+
+------------------------------------------------------
+
+##### polylith #####
+
+                 core
+                 ==============
+<change>         change
+<common>         common
+<deps>           deps
+<file>           file
+<git>            git
+<shell>          shell
+<spec>           spec
+<test>           test
+<util>           util
+<validate>       validate
+<workspace>      workspace
+<workspace-clj>  workspace-clj
+---------------  -------------
+-                tool
+
+##### clojure-polylith-realworld-example-app #####
+
+            build-tools  realworld-backend
+            ===========  =================
+<article>                article
+<comment>                comment
+<database>               database
+<log>                    log
+<profile>                profile
+<spec>                   spec
+<tag>                    tag
+<user>                   user
+----------  -----------  -----------------
+-           build-tools  build-tools
+-			             rest-api

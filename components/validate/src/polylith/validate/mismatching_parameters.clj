@@ -1,5 +1,6 @@
 (ns polylith.validate.mismatching-parameters
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [polylith.util.interface :as util]))
 
 (def types->message {#{"function"} "Function"
                      #{"macro"} "Macro"
@@ -35,15 +36,23 @@
             function-or-macro1 (->function-or-macro sub-ns name parameters)
             function-or-macro2 (->function-or-macro other-function)
             functions-and-macros (sort [function-or-macro1 function-or-macro2])
-            types (types->message (set [type (:type other-function)]))]
-        [(str types " in the " comp1 " component "
-              "is also defined in " comp2
-              " but with a different parameter list: "
-              (str/join ", " functions-and-macros))]))))
+            types (types->message (set [type (:type other-function)]))
+            message (str types " in the " comp1 " component "
+                         "is also defined in " comp2
+                         " but with a different parameter list: "
+                         (str/join ", " functions-and-macros))]
+        [(util/ordered-map :type "warning"
+                           :code 201
+                           :message message
+                           :components [comp1 comp2])]))))
 
 (defn duplicated-parameter-lists-error [component-name component-duplication]
-  (str "Duplicated parameter lists found in the " component-name " component: "
-       (str/join ", " (map ->function-or-macro component-duplication))))
+  (let  [message (str "Duplicated parameter lists found in the " component-name " component: "
+                      (str/join ", " (map ->function-or-macro component-duplication)))]
+    (util/ordered-map :type "error"
+                      :code 102
+                      :message message
+                      :components [component-name])))
 
 (defn component-errors [component]
   (let [component-name (:name component)
@@ -61,7 +70,7 @@
 
 (defn warnings [interfaces components]
   (let [name->component (into {} (map (juxt :name identity) components))]
-    (vec (sort (set (mapcat #(component-warnings % interfaces name->component) components))))))
+    (set (mapcat #(component-warnings % interfaces name->component) components))))
 
 (defn errors [components]
   (vec (mapcat component-errors components)))

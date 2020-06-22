@@ -6,13 +6,12 @@
             [polylith.validate.missing-defs :as missing-defs]
             [polylith.validate.multiple-interface-occurrences :as multiple-ifcs]))
 
-(defn warnings [interfaces components]
-  (vec (sort (set (mismatching-parameters/warnings interfaces components)))))
-
-(defn errors [top-ns interface-names interfaces components bases environments]
-  (vec (sort (set (concat (illegal-namespace-deps/errors top-ns interface-names components bases)
-                          (circular-deps/errors interfaces)
-                          (illegal-name-sharing/errors interface-names components bases)
-                          (mismatching-parameters/errors components)
-                          (missing-defs/errors interfaces components)
-                          (multiple-ifcs/errors components environments))))))
+(defn messages [top-ns interface-names interfaces components bases environments]
+  (vec (sort-by (juxt :type :code :message)
+                (set (concat (mismatching-parameters/warnings interfaces components)
+                             (illegal-namespace-deps/errors top-ns interface-names components bases)
+                             (circular-deps/errors interfaces components environments)
+                             (illegal-name-sharing/errors interface-names components bases)
+                             (mismatching-parameters/errors components)
+                             (missing-defs/errors interfaces components)
+                             (multiple-ifcs/errors components environments))))))

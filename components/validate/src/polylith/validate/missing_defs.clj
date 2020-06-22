@@ -1,7 +1,8 @@
 (ns polylith.validate.missing-defs
   (:require [clojure.string :as str]
             [clojure.set :as set]
-            [polylith.validate.shared :as shared]))
+            [polylith.validate.shared :as shared]
+            [polylith.util.interface :as util]))
 
 (defn ->data-ifc [{:keys [definitions]}]
   (set (filter #(= "data" (:type %)) definitions)))
@@ -35,8 +36,12 @@
   (let [component-defs (concat (component-data-defs interface component)
                                (component-fn-defs component interface-functions))]
     (when (-> component-defs empty? not)
-      [(str "Missing definitions in the interface of the " name " component: "
-         (str/join ", " component-defs))])))
+      (let [message (str "Missing definitions in the interface of the " name " component: "
+                         (str/join ", " component-defs))]
+        [(util/ordered-map :type "error"
+                           :code 103
+                           :message message
+                           :components [name])]))))
 
 (defn interface-errors [{:keys [implementing-components] :as interface}
                         name->component]

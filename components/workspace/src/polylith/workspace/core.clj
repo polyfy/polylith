@@ -100,13 +100,11 @@
         brick->lib-imports (brick->lib-imports enriched-bricks)
         enriched-environments (mapv #(enrich-env % brick->loc brick->lib-imports) environments)
         enriched-settings (enrich-settings settings)
-        warnings (validate/warnings interfaces components)
-        errors (validate/errors top-ns interface-names enriched-interfaces enriched-components enriched-bases enriched-environments)]
+        messages (validate/messages top-ns interface-names enriched-interfaces enriched-components enriched-bases enriched-environments)]
     (array-map :ws-path ws-path
                :settings enriched-settings
                :interfaces enriched-interfaces
                :components enriched-components
                :bases enriched-bases
                :environments enriched-environments
-               :messages {:warnings warnings
-                          :errors   errors})))
+               :messages messages)))
