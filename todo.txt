@@ -29,6 +29,8 @@
 
 Questions
 =========
+- Do we need top-namespace? I think if we can get rid of this, it would make polylith
+  components even more easy to share between projects.
 - should we only run the tests for affected components? If so, then we should maybe
   calculate changes something like this instead (+ parse what tests each component has):
   - calculate changes:

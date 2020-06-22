@@ -1,4 +1,3 @@
-
 {:paths []
 
  :polylith {:top-namespace "polylith"}

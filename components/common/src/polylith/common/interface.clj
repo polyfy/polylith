@@ -1,20 +1,15 @@
 (ns polylith.common.interface
   (:require [polylith.common.core :as core]
-            [clojure.string :as str]))
-
-(defn make-classpath [libraries source-paths]
-  (core/make-classpath libraries source-paths))
-
-(defn run-in-jvm [classpath expression dir ex-msg]
-  (core/run-in-jvm classpath expression dir ex-msg))
-
-(defn throw-polylith-exception [message]
-  (core/throw-polylith-exception message))
+            [polylith.common.class-loader :as class-loader]))
 
 (defn top-namespace [namespace]
   (core/top-namespace namespace))
 
 (defn filter-clojure-paths [paths]
-  (filterv #(or (str/ends-with? % ".clj")
-                (str/ends-with? % ".cljc"))
-           paths))
+  (core/filter-clojure-paths paths))
+
+(defn create-class-loader [paths]
+  (class-loader/create-class-loader paths))
+
+(defn eval-in [class-loader form]
+  (class-loader/eval-in class-loader form))
