@@ -17,15 +17,15 @@
       <sourceFolder url="file://$MODULE_DIR$/components/validate/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/components/workspace-clj/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/components/workspace/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/components/change/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/components/deps/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/components/file/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/components/git/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/components/util/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/components/validate/test" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/components/workspace/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/components/workspace-clj/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/components/workspace/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/.cpcache" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/target" />

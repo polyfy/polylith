@@ -1,0 +1,31 @@
+{:paths   [; Base
+           "../../bases/tool/src"
+
+           ; Components
+           "../../components/change/src"
+           "../../components/common/src"
+           "../../components/deps/src"
+           "../../components/file/src"
+           "../../components/git/src"
+           "../../components/shell/src"
+           "../../components/spec/src"
+           "../../components/test/src"
+           "../../components/util/src"
+           "../../components/validate/src"
+           "../../components/workspace/src"
+           "../../components/workspace-clj/src"]
+
+ :deps    {org.clojure/clojure          {:mvn/version "1.10.1"}
+           org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}
+
+ :aliases {:test {:extra-paths [; Components
+                                "../../components/change/test"
+                                "../../components/deps/test"
+                                "../../components/file/test"
+                                "../../components/git/test"
+                                "../../components/spec/test"
+                                "../../components/util/test"
+                                "../../components/validate/test"
+                                "../../components/workspace/test"
+                                "../../components/workspace-clj/test"]
+                  :extra-deps  {}}}}
