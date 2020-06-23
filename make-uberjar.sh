@@ -7,6 +7,8 @@ if [[ $# -ne 2 ]]
     exit 1
 fi
 
+cd environments/$1
+
 mkdir -p classes
 mkdir -p target
 
@@ -15,7 +17,7 @@ rm -rf target/$1.*
 
 echo "Compiling environment"
 
-clojure -A:aot/$1:env/$1
+clojure -A:aot
 
 if [[ $? -ne 0 ]]
 then
@@ -25,7 +27,7 @@ fi
 
 echo "Environment compiled. Creating an uberjar for the environment"
 
-clojure -A:uberjar --aliases aot/$1:env/$1 --main-class $2 --target target/$1.jar
+clojure -A:uberjar --aliases aot --main-class $2 --target ./target/$1.jar
 
 if [[ $? -ne 0 ]]
 then

@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Uberjar (env/core)" type="BashConfigurationType" factoryName="Bash">
+  <configuration default="false" name="Uberjar (core)" type="BashConfigurationType" factoryName="Bash">
     <module name="polylith" />
     <option name="INTERPRETER_OPTIONS" value="" />
     <option name="INTERPRETER_PATH" value="" />

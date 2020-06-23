@@ -1,12 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module cursive.leiningen.project.DepsProjectsManager.isLeinModule="true" cursive.leiningen.project.LeiningenProjectsManager.displayName="polylith" type="JAVA_MODULE" version="4">
+<module cursive.leiningen.project.DepsProjectsManager.isLeinModule="true" cursive.leiningen.project.LeiningenProjectsManager.displayName="core" type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
+    <content url="file://$MODULE_DIR$/../../bases/tool/src">
+      <sourceFolder url="file://$MODULE_DIR$/../../bases/tool/src" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../bases/tool/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../bases/tool/test" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/change/src">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/change/src" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/change/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/change/test" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/common/src">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/common/src" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/common/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/common/test" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/deps/src">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/deps/src" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/deps/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/deps/test" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/file/src">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/file/src" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/file/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/file/test" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/git/src">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/git/src" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/git/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/git/test" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/shell/src">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/shell/src" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/shell/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/shell/test" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/spec/src">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/spec/src" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/spec/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/spec/test" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/test/src">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/test/src" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/test/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/test/test" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/util/src">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/util/src" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/util/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/util/test" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/validate/src">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/validate/src" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/validate/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/validate/test" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/workspace-clj/src">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/workspace-clj/src" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/workspace-clj/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/workspace-clj/test" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/workspace/src">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/workspace/src" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/workspace/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/workspace/test" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/.cpcache" />
-      <excludeFolder url="file://$MODULE_DIR$/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/classes" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
