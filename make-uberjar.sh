@@ -3,7 +3,7 @@ set -e
 
 if [[ $# -ne 2 ]]
   then
-    echo "Usage: ENV_NAME MAIN_NS, e.g.: core polylith.tool.poly"
+    echo "Usage: ENV_NAME MAIN_NS, e.g.: core polylith.cli.poly"
     exit 1
 fi
 

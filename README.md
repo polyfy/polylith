@@ -25,5 +25,5 @@ Navigate to a Polylith project directory that is configured with `deps.edn` (e.g
 This command allows you to run tests for a given environment, defined in `deps.edn`, e.g.:
 ```sh
 clj -A:dev -m polylith.main test realworld-backend
-clj -A:env/core -m polylith.tool.poly test core
+clj -A:env/core -m polylith.cli.poly test core
 ```

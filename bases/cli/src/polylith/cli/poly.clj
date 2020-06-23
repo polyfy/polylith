@@ -1,4 +1,4 @@
-(ns polylith.tool.poly
+(ns polylith.cli.poly
   (:require [polylith.spec.interface :as spec]
             [polylith.test.interface :as test]
             [polylith.workspace.interface :as ws]
