@@ -2,7 +2,7 @@
   <configuration default="false" name="Test - core" type="JarApplication">
     <option name="JAR_PATH" value="$PROJECT_DIR$/environments/core/target/core.jar" />
     <option name="PROGRAM_PARAMETERS" value="test core" />
-    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/environments/core" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     <option name="ALTERNATIVE_JRE_PATH" />
     <method v="2" />
   </configuration>
