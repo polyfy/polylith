@@ -1,20 +1,14 @@
 (ns polylith.cli.poly
   (:require [polylith.spec.interface :as spec]
             [polylith.test.interface :as test]
+            [polylith.cli.cmd.check :as check]
+            [polylith.cli.cmd.help :as help]
+            [polylith.cli.cmd.print-ws :as print-ws]
             [polylith.workspace.interface :as ws]
             [polylith.workspace-clj.interface :as ws-clj]
             [polylith.change.interface :as change]
             [clojure.java.io :as io])
   (:gen-class))
-
-(def help-text
-  (str
-    "Commands:\n"
-    "  test env      : Runs tests for a given environment.\n"
-    "                  You can define test sources and dependencies\n"
-    "                  under an alias with the same name as the/\n"
-    "                  environment you want to test in 'deps.edn'\n"
-    "                  followed by '-test', e.g. 'backend-test'\n."))
 
 (defn -main [& [cmd env]]
   (let [ws-path (.getAbsolutePath (io/file ""))
@@ -23,11 +17,14 @@
                       ws/enrich-workspace
                       change/with-changes)]
     (if-not (spec/valid-config? (:settings workspace))
-      (println "Expected to find a :polylith key in 'deps.edn'.")
+      (println "Expected to find a :polylith key in 'deps.edn' at the root of the workspace.")
       (try
         (case cmd
+          "check" (check/execute workspace)
+          "help" (help/execute)
           "test" (test/run workspace env)
-          (println help-text))
+          "ws" (print-ws/execute workspace)
+          (help/execute))
         (catch Exception e
           (println (or (-> e ex-data :err) (.getMessage e)))
           (System/exit (or (-> e ex-data :exit-code) 1)))

@@ -1,7 +1,8 @@
 (ns polylith.test.core
   (:require [clojure.string :as str]
             [polylith.common.interface :as common]
-            [polylith.workspace.interface :as ws])
+            [polylith.workspace.interface :as ws]
+            [polylith.common.interface.color :as color])
   (:refer-clojure :exclude [test]))
 
 (defn throw-exception-if-empty [paths env]
@@ -50,5 +51,5 @@
             result-str (str "Test results: " pass " passes, " fail " failures, " error " errors.")]
         (when (or (< 0 error)
                   (< 0 fail))
-          (throw (ex-info (str "\n\u001B[31m" result-str "\u001B[0m") summary)))
-        (println (str "\n\u001B[32m" result-str "\u001B[0m"))))))
+          (throw (ex-info (str "\n" (color/as-red result-str)) summary)))
+        (println (str "\n" (color/as-green result-str)))))))

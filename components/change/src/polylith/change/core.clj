@@ -18,10 +18,10 @@
      (util/ordered-map :sha1 sha-1
                        :sha2 sha-2
                        :git-command (git/diff-command sha-1 sha-2)
-                       :changed-files changed-files
-                       :components components
-                       :bases bases
-                       :environments changed-environments)))
+                       :changed-components components
+                       :changed-bases bases
+                       :changed-environments changed-environments
+                       :changed-files changed-files)))
 
 (defn with-changes [{:keys [environments] :as workspace} hash1 hash2]
   (assoc workspace :changes (changes environments hash1 hash2)))

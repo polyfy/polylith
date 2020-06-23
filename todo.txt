@@ -66,6 +66,7 @@
 
 Questions
 =========
+- if we run "poly test" then we should run all tests.
 
 Leave for now
 =============
@@ -162,3 +163,7 @@ Design decisions
 ----------  -----------  -----------------
 -           build-tools  build-tools
 -			             rest-api
+
+Commands
+========
+sudo cp ./environments/core/target/core.jar /usr/local/polylith/poly.jar
