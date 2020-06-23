@@ -5,6 +5,9 @@
     <content url="file://$MODULE_DIR$/../../bases/tool/src">
       <sourceFolder url="file://$MODULE_DIR$/../../bases/tool/src" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../bases/tool/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../bases/tool/test" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../components/change/src">
       <sourceFolder url="file://$MODULE_DIR$/../../components/change/src" isTestSource="false" />
     </content>
@@ -13,6 +16,9 @@
     </content>
     <content url="file://$MODULE_DIR$/../../components/common/src">
       <sourceFolder url="file://$MODULE_DIR$/../../components/common/src" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/common/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/common/test" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../components/deps/src">
       <sourceFolder url="file://$MODULE_DIR$/../../components/deps/src" isTestSource="false" />
@@ -35,6 +41,9 @@
     <content url="file://$MODULE_DIR$/../../components/shell/src">
       <sourceFolder url="file://$MODULE_DIR$/../../components/shell/src" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../components/shell/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/shell/test" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../components/spec/src">
       <sourceFolder url="file://$MODULE_DIR$/../../components/spec/src" isTestSource="false" />
     </content>
@@ -43,6 +52,9 @@
     </content>
     <content url="file://$MODULE_DIR$/../../components/test/src">
       <sourceFolder url="file://$MODULE_DIR$/../../components/test/src" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../components/test/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../components/test/test" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../components/util/src">
       <sourceFolder url="file://$MODULE_DIR$/../../components/util/src" isTestSource="false" />

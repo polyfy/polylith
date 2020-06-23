@@ -18,12 +18,18 @@
  :deps    {org.clojure/clojure          {:mvn/version "1.10.1"}
            org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}
 
- :aliases {:test    {:extra-paths [; Components
+ :aliases {:test    {:extra-paths [;Base
+                                   "../../bases/tool/test"
+
+                                   ; Components
                                    "../../components/change/test"
+                                   "../../components/common/test"
                                    "../../components/deps/test"
                                    "../../components/file/test"
                                    "../../components/git/test"
+                                   "../../components/shell/test"
                                    "../../components/spec/test"
+                                   "../../components/test/test"
                                    "../../components/util/test"
                                    "../../components/validate/test"
                                    "../../components/workspace/test"
