@@ -5,7 +5,14 @@
 **/.DS_Store
 
 # User-specific stuff
-/.idea/**
+.idea/**/.name
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/shelf
+.idea/**/statistic.xml
+.idea/dictionaries/**
+.idea/libraries/**
 
 # File-based project format
 *.iws

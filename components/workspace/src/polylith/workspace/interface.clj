@@ -5,7 +5,7 @@
             [polylith.workspace.dependencies :as deps]
             [polylith.workspace-clj.interface :as ws-clojure]))
 
-; TODO: delete these
+; TODO: delete these and also unnecessary requires above
 ;(def workspace (ws-clojure/workspace-from-disk "../clojure-polylith-realworld-example-app"))
 ;(def workspace (ws-clojure/workspace-from-disk "."))
 ;(def workspace (ws-clojure/workspace-from-disk "../Nova/project-unicorn" {:polylith {:top-namespace ""}}))
@@ -18,16 +18,29 @@
   ([workspace env-group include-tests?]
    (source/paths workspace env-group include-tests?)))
 
-(defn resolve-libs
-  "Resolves dependencies which most often are libraries."
+(defn lib-paths
   ([workspace]
-   (deps/resolve-libs workspace nil false nil))
+   (deps/paths workspace nil false nil))
   ([workspace env-group]
-   (deps/resolve-libs workspace env-group false nil))
+   (deps/paths workspace env-group false nil))
   ([workspace env-group include-tests?]
-   (deps/resolve-libs workspace env-group include-tests? nil))
+   (deps/paths workspace env-group include-tests? nil))
   ([workspace env-group include-tests? additional-deps]
-   (deps/resolve-libs workspace env-group include-tests? additional-deps)))
+   (deps/paths workspace env-group include-tests? additional-deps)))
+
+(defn test-namespaces [workspace env-group]
+  (source/test-namespaces workspace env-group))
+
+;(defn resolve-libs
+;  "Resolves dependencies which most often are libraries."
+;  ([workspace]
+;   (deps/resolve-libs workspace nil false nil))
+;  ([workspace env-group]
+;   (deps/resolve-libs workspace env-group false nil))
+;  ([workspace env-group include-tests?]
+;   (deps/resolve-libs workspace env-group include-tests? nil))
+;  ([workspace env-group include-tests? additional-deps]
+;   (deps/resolve-libs workspace env-group include-tests? additional-deps)))
 
 (defn enrich-workspace [workspace]
   (core/enrich-workspace workspace))

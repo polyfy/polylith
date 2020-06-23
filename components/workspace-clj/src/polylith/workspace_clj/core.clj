@@ -14,9 +14,7 @@
      (workspace-from-disk ws-path config)))
   ([ws-path {:keys [polylith mvn/repos] :as config}]
    (let [{:keys [env-prefix
-                 top-namespace
-                 compile-path
-                 thread-pool-size]
+                 top-namespace]
           :or {env-prefix "env"}} polylith
          top-ns (common/top-namespace top-namespace)
          top-src-dir (str/replace top-ns "." "/")
@@ -27,8 +25,6 @@
          prefix (str-util/skip-suffix env-prefix "/")
          settings (util/ordered-map :top-namespace top-namespace
                                     :env-prefix prefix
-                                    :compile-path compile-path
-                                    :thread-pool-size thread-pool-size
                                     :maven-repos repos)]
      (util/ordered-map :ws-path ws-path
                        :settings settings

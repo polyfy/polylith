@@ -4,9 +4,6 @@
             [polylith.workspace.interface :as ws])
   (:refer-clojure :exclude [test]))
 
-(def test-runner-dep {'com.cognitect/test-runner {:git/url "https://github.com/cognitect-labs/test-runner.git"
-                                                  :sha     "209b64504cb3bd3b99ecfec7937b358a879f55c1"}})
-
 (defn throw-exception-if-empty [paths env]
   (when (empty? paths)
     (throw (ex-info (str "No source paths found for environment '" env "'.")
@@ -30,22 +27,28 @@
     (subs env 0 (- (count env) 5))
     env))
 
-(defn run-tests [{:keys [ws-path] :as workspace} env-name]
+(defn ns-name->test-statement [ns-name]
+  (let [ns-symbol (symbol ns-name)]
+    `(do (use 'clojure.test)
+         (require '~ns-symbol)
+         (clojure.test/run-tests '~ns-symbol))))
+
+(defn run-tests [workspace env-name]
   (when (str/blank? env-name)
     (throw (ex-info "Environment name is required for the test command." {})))
   (let [env-group (group env-name)
         config (->config workspace)
-        libraries (ws/resolve-libs config env-group true test-runner-dep)
-        paths (ws/src-paths config env-group true)
-        _ (throw-exception-if-empty paths env-group)
-        classpath (common/make-classpath libraries paths)
-        expression (str "(require '[cognitect.test-runner :as test-runner]) (def extra-paths " paths ") (test-runner/test {:dir extra-paths})")
-        out (common/run-in-jvm classpath expression ws-path "Could not run tests.")
-        split-out (str/split-lines out)
-        {:keys [error fail pass] :as summary} (-> split-out last read-string)]
-    (println (str/join "\n" (drop-last 2 split-out)))
-    (when (or (< 0 error)
-              (< 0 fail))
-      (throw (ex-info (str "Test results: " pass " passes, " fail " failures, " error " errors.") summary)))
-    (println "\nTest results:" pass "passes," fail "failures," error "errors.")
-    summary))
+        lib-paths (ws/lib-paths config env-group true)
+        src-paths (ws/src-paths config env-group true)
+        _ (throw-exception-if-empty src-paths env-group)
+        paths (concat src-paths lib-paths)
+        test-namespaces (ws/test-namespaces config env-group)
+        test-statements (map ns-name->test-statement test-namespaces)
+        class-loader (common/create-class-loader paths)]
+    (doseq [statement test-statements]
+      (let [{:keys [error fail pass] :as summary} (common/eval-in class-loader statement)
+            result-str (str "Test results: " pass " passes, " fail " failures, " error " errors.")]
+        (when (or (< 0 error)
+                  (< 0 fail))
+          (throw (ex-info (str "\n\u001B[31m" result-str "\u001B[0m") summary)))
+        (println (str "\n\u001B[32m" result-str "\u001B[0m"))))))

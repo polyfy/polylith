@@ -26,6 +26,7 @@
 (defn ->namespace [root-dir file-path]
   (let [content (file/read-file file-path)]
     {:name (namespace-name root-dir file-path)
+     :namespace (-> content first second str) ; TODO: discuss with Jocke
      :file-path file-path
      :imports (filter-imports content)}))
 

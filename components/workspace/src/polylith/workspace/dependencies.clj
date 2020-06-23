@@ -7,6 +7,7 @@
     (merge additional-deps
            (into (sorted-map) (mapcat :deps envs)))))
 
-(defn resolve-libs [workspace env-group include-tests? additional-deps]
-  (let [deps (select-deps workspace env-group include-tests? additional-deps)]
-    (tools-deps/resolve-deps workspace {:extra-deps deps})))
+(defn paths [workspace env-group include-tests? additional-deps]
+  (let [deps (select-deps workspace env-group include-tests? additional-deps)
+        resolved-deps (tools-deps/resolve-deps workspace {:extra-deps deps})]
+    (into #{} (mapcat #(-> % second :paths) resolved-deps))))
