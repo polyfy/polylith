@@ -1,3 +1,4 @@
+
 {:paths   [; Base
            "../../bases/tool/src"
 
@@ -13,12 +14,14 @@
            "../../components/util/src"
            "../../components/validate/src"
            "../../components/workspace/src"
-           "../../components/workspace-clj/src"]
+           "../../components/workspace-clj/src"
+           "../../components/workspace-kotlin/src"]
 
- :deps    {org.clojure/clojure          {:mvn/version "1.10.1"}
-           org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}
+ :deps    {org.clojure/clojure {:mvn/version "1.10.1"}
+           org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}
+           org.jetbrains.kotlin/kotlin-compiler-embeddable {:mvn/version "1.3.72"}}
 
- :aliases {:test    {:extra-paths [;Base
+ :aliases {:test    {:extra-paths [;Bases
                                    "../../bases/tool/test"
 
                                    ; Components
@@ -33,7 +36,8 @@
                                    "../../components/util/test"
                                    "../../components/validate/test"
                                    "../../components/workspace/test"
-                                   "../../components/workspace-clj/test"]
+                                   "../../components/workspace-clj/test"
+                                   "../../components/workspace-kotlin/test"]
                      :extra-deps  {}}
 
            :aot     {:extra-paths ["classes"]

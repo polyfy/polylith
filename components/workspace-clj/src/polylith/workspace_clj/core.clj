@@ -21,7 +21,7 @@
          component-names (file/directory-paths (str ws-path "/components"))
          components (components-from-disk/read-components ws-path top-src-dir component-names)
          bases (bases-from-disk/read-bases ws-path top-src-dir)
-         environments (env/environments env-prefix config)
+         environments (env/environments ws-path)
          prefix (str-util/skip-suffix env-prefix "/")
          settings (util/ordered-map :top-namespace top-namespace
                                     :env-prefix prefix

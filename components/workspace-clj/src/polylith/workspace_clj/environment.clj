@@ -1,35 +1,7 @@
 (ns polylith.workspace-clj.environment
-  (:require [clojure.string :as str]))
-
-(defn test? [key-name]
-  (str/ends-with? key-name "-test"))
-
-(defn env? [[key] prefix]
-  (= prefix (namespace key)))
-
-(defn group [key-name]
-  (if (test? key-name)
-    (subs key-name 0 (- (count key-name) 5))
-    key-name))
-
-(defn base? [path]
-  (and (string? path)
-       (str/starts-with? path "bases/")))
-
-(defn component? [path]
-  (and (string? path)
-       (str/starts-with? path "components/")))
-
-(defn brick-name [path]
-  (let [index1 (inc (str/index-of path "/"))
-        path1 (subs path index1)
-        index2 (str/index-of path1 "/")]
-    (if (< index2 0)
-      path1
-      (subs path1 0 index2))))
-
-(defn brick-names [paths brick?]
-  (vec (sort (set (map brick-name (filter brick? paths))))))
+  (:require [polylith.file.interface :as file]
+            [clojure.string :as str]
+            [polylith.util.interface :as util]))
 
 (defn key-as-string [[lib version]]
   [(str lib) version])
@@ -39,25 +11,55 @@
          (mapcat identity
                  (sort (map key-as-string deps)))))
 
-(defn environment [[key {:keys [extra-paths extra-deps]
-                         :or   {extra-paths []
-                                extra-deps {}}}]
-                   paths deps]
-  (let [key-name (name key)
-        all-paths (set (concat paths extra-paths))
-        component-names (brick-names all-paths component?)
-        base-names (brick-names all-paths base?)
-        sorted-deps (sort-deps (merge deps extra-deps))]
-    {:name key-name
-     :group (group key-name)
-     :test? (test? key-name)
-     :type "environment"
-     :component-names component-names
-     :base-names base-names
-     :paths (vec (sort all-paths))
-     :deps sorted-deps}))
+(defn brick-name [path start-index]
+  (let [end-index (+ start-index (str/index-of (subs path start-index) "/"))]
+    (if (< end-index 0)
+      path
+      (subs path start-index end-index))))
 
-(defn environments [env-prefix {:keys [paths deps aliases]}]
-  (vec (sort-by (juxt :type :name)
-                (mapv #(environment % paths deps)
-                      (filter #(env? % env-prefix) aliases)))))
+(defn component-name [path]
+  (brick-name path 17))
+
+(defn base-name [path]
+  (brick-name path 12))
+
+(defn component? [path]
+  (and (string? path)
+       (str/starts-with? path "../../components/")))
+
+(defn base? [path]
+  (and (string? path)
+       (str/starts-with? path "../../bases/")))
+
+(defn environment
+  ([ws-path env]
+   (let [path (str ws-path "/environments/" env "/deps.edn")
+         {:keys [paths deps aliases]} (read-string (slurp path))]
+     (environment env paths deps aliases)))
+  ([env paths deps aliases]
+   (let [component-names (vec (sort (set (mapv component-name (filter component? paths)))))
+         base-names (vec (sort (set (mapv base-name (filter base? paths)))))
+         test-paths (vec (sort (set (concat paths (-> aliases :test :extra-paths)))))
+         test-deps (sort-deps (concat deps (-> aliases :test :extra-deps)))
+         component-test-names (vec (sort (set (mapv component-name (filter component? test-paths)))))
+         base-test-names (vec (sort (set (mapv base-name (filter base? test-paths)))))]
+     [(util/ordered-map :name env
+                        :group env
+                        :test? false
+                        :type "environment"
+                        :component-names component-names
+                        :base-names base-names
+                        :paths paths
+                        :deps (sort-deps deps))
+      (util/ordered-map :name (str env "-test")
+                        :group env
+                        :test? true
+                        :type "environment"
+                        :component-names component-test-names
+                        :base-names base-test-names
+                        :paths test-paths
+                        :deps test-deps)])))
+
+(defn environments [ws-path]
+  (let [env-dirs (file/directory-paths (str ws-path "/environments"))]
+    (mapcat #(environment ws-path %) env-dirs)))

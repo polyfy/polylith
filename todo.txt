@@ -1,5 +1,19 @@
 
+- read environments from the 'environments' root folder.
+
+- rename fron workspace-clj to workspace-clojure.
+
+- implement these commands:
+  - check
+  - ws
+
 - check for missing bricks in an environment.
+
+- check that components has a top namespace and an interface.
+
+
+
+- remove :implementing-interface-deps.
 
 - new names
   - test-runner
@@ -43,20 +57,15 @@
 - add support to add an environment as a development environment in the :polylith map.
   Then it can be marked in orange in the UI.
 
+- only run tests that has changed (directly or indirectly).
+  {:changes {:bricks []
+             :environments []}
+             :bricks-indirect []
+             :environments-indirect []}}}
+
+
 Questions
 =========
-- Do we need top-namespace? I think if we can get rid of this, it would make polylith
-  components even more easy to share between projects.
-- should we only run the tests for affected components? If so, then we should maybe
-  calculate changes something like this instead (+ parse what tests each component has):
-  - calculate changes:
-    {:changes {:bricks []
-               :environments []}
-               :bricks-indirect []
-               :environments-indirect []}}}
-- how should we calculate workspace changes?
-  - include test environments?
-- figure out a way to show the output while running the tests.
 
 Leave for now
 =============
@@ -96,8 +105,6 @@ Differences compared to lein-polylith
 - when people starts to build tooling for polylith, they could include
   components from this project as git source dependencies into their own
   projects and use e.g. the workspace-clj, workspace and common components!
-- the way we calculate circular dependencies. In lein-polylith, we check each
-  environment separately, but here we only use :implementing-interface-deps
   from each interface, which is the set of all dependencies from the components
   that implements that interface.
 - if a definition is defined as a 'defn' in one interface, it must be implemented

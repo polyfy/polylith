@@ -2,112 +2,136 @@
   (:require [clojure.test :refer :all]
             [polylith.workspace-clj.environment :as env]))
 
-(def config '{:paths ["shared/src"]
+(def paths [; Bases
+            "../../bases/tool/src"
 
-              :settings {:top-namespace "clojure.realworld"
-                         :env-prefix "env"}
+            ; Components
+            "../../components/change/src"
+            "../../components/common/src"
+            "../../components/deps/src"
+            "../../components/file/src"
+            "../../components/git/src"
+            "../../components/shell/src"
+            "../../components/spec/src"
+            "../../components/test/src"
+            "../../components/util/src"
+            "../../components/validate/src"
+            "../../components/workspace/src"
+            "../../components/workspace-clj/src"
+            "../../components/workspace-kotlin/src"])
 
-              :ring {:init clojure.realworld.rest-api.api/init
-                     :destroy clojure.realworld.rest-api.api/destroy
-                     :handler clojure.realworld.rest-api.api/app
-                     :port 6003}
+(def deps '{org.clojure/clojure {:mvn/version "1.10.1"}
+            org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}
+            org.jetbrains.kotlin/kotlin-compiler-embeddable {:mvn/version "1.3.72"}})
 
-              :deps {clj-time {:mvn/version "0.14.2"}
-                     org.clojure/clojure {:mvn/version "1.10.0"}
-                     metosin/spec-tools {:mvn/version "0.6.1"}}
+(def aliases '{:test {:extra-paths [;Base
+                                    "../../bases/tool/test"
 
-              :aliases {:dev {:extra-deps {tengstrand/polylith {:git/url "https://github.com/rtengstrand/polylith.git"
-                                                                :sha "89a91b1c519b338eb5a15c90cb97559c09484e89"}}}
+                                    ; Components
+                                    "../../components/change/test"
+                                    "../../components/common/test"
+                                    "../../components/deps/test"
+                                    "../../components/file/test"
+                                    "../../components/git/test"
+                                    "../../components/shell/test"
+                                    "../../components/spec/test"
+                                    "../../components/test/test"
+                                    "../../components/util/test"
+                                    "../../components/validate/test"
+                                    "../../components/workspace/test"
+                                    "../../components/workspace-clj/test"
+                                    "../../components/workspace-kotlin/test"]
+                      :extra-deps  {}}
 
-                        :environment/realworld-backend {:extra-paths ["bases/build-tools/src"
-                                                                      "bases/rest-api/resources"
-                                                                      "bases/rest-api/src"
-                                                                      "components/article/src"
-                                                                      "components/article/resources"
-                                                                      "components/comment/src"
-                                                                      "components/comment/resources"
-                                                                      "components/database/src"
-                                                                      "components/database/resources"]
+               :aot     {:extra-paths ["classes"]
+                         :main-opts   ["-e" "(compile,'polylith.tool.poly)"]}
 
-                                                        :extra-deps  {clj-jwt                 {:mvn/version "0.1.1"}
-                                                                      com.taoensso/timbre     {:mvn/version "4.10.0"}
-                                                                      compojure/compojure     {:mvn/version "1.6.0"}
-                                                                      crypto-password         {:mvn/version "0.2.0"}}}
-
-                        :environment/realworld-backend-test {:extra-paths ["bases/rest-api/test"
-                                                                           "include-me/test"
-                                                                           "components/article/test"
-                                                                           "components/comment/test"
-                                                                           "components/database/test"]
-                                                             :extra-deps  {org.clojure/test.check {:mvn/version "0.10.0-alpha3"}}}
-
-                        :environment/build-tools {:extra-paths ["bases/build-tools/src"]
-                                                  :extra-deps  {ring-server {:mvn/version "0.5.0"}}}
-
-
-                        :environment/build-tools-test {:extra-paths ["bases/build-tools/test"]
-                                                       :extra-deps  {org.clojure/test.check {:mvn/version "0.10.0-alpha3"}}}}})
+               :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
+                         :main-opts  ["-m" "uberdeps.uberjar"]}})
 
 (deftest environments--config-map-with-aliases--returns-environments
-  (is (= '[{:name "build-tools",
-            :group "build-tools",
-            :test? false,
-            :type "environment",
-            :component-names [],
-            :base-names ["build-tools"],
-            :paths ["bases/build-tools/src" "shared/src"],
-            :deps {"clj-time" #:mvn{:version "0.14.2"},
-                   "org.clojure/clojure" #:mvn{:version "1.10.0"},
-                   "metosin/spec-tools" #:mvn{:version "0.6.1"},
-                   "ring-server" #:mvn{:version "0.5.0"}}}
-           {:name "build-tools-test",
-            :group "build-tools",
-            :test? true,
-            :type "environment",
-            :component-names [],
-            :base-names ["build-tools"],
-            :paths ["bases/build-tools/test" "shared/src"],
-            :deps {"clj-time" #:mvn{:version "0.14.2"},
-                   "org.clojure/clojure" #:mvn{:version "1.10.0"},
-                   "metosin/spec-tools" #:mvn{:version "0.6.1"},
-                   "org.clojure/test.check" #:mvn{:version "0.10.0-alpha3"}}}
-           {:name "realworld-backend",
-            :group "realworld-backend",
-            :test? false,
-            :type "environment",
-            :component-names ["article" "comment" "database"],
-            :base-names ["build-tools" "rest-api"],
-            :paths ["bases/build-tools/src"
-                    "bases/rest-api/resources"
-                    "bases/rest-api/src"
-                    "components/article/resources"
-                    "components/article/src"
-                    "components/comment/resources"
-                    "components/comment/src"
-                    "components/database/resources"
-                    "components/database/src"
-                    "shared/src"],
-            :deps {"clj-time" #:mvn{:version "0.14.2"},
-                   "org.clojure/clojure" #:mvn{:version "1.10.0"},
-                   "metosin/spec-tools" #:mvn{:version "0.6.1"},
-                   "clj-jwt" #:mvn{:version "0.1.1"},
-                   "com.taoensso/timbre" #:mvn{:version "4.10.0"},
-                   "compojure/compojure" #:mvn{:version "1.6.0"},
-                   "crypto-password" #:mvn{:version "0.2.0"}}}
-           {:name "realworld-backend-test",
-            :group "realworld-backend",
-            :test? true,
-            :type "environment",
-            :component-names ["article" "comment" "database"],
-            :base-names ["rest-api"],
-            :paths ["bases/rest-api/test"
-                    "components/article/test"
-                    "components/comment/test"
-                    "components/database/test"
-                    "include-me/test"
-                    "shared/src"],
-            :deps {"clj-time" #:mvn{:version "0.14.2"},
-                   "org.clojure/clojure" #:mvn{:version "1.10.0"},
-                   "metosin/spec-tools" #:mvn{:version "0.6.1"},
-                   "org.clojure/test.check" #:mvn{:version "0.10.0-alpha3"}}}]
-         (env/environments "environment" config))))
+  (is (= [{:component-names ["change"
+                             "common"
+                             "deps"
+                             "file"
+                             "git"
+                             "shell"
+                             "spec"
+                             "test"
+                             "util"
+                             "validate"
+                             "workspace"
+                             "workspace-clj"
+                             "workspace-kotlin"]
+           :base-names      ["tool"]
+           :deps            {"org.clojure/clojure"                             #:mvn{:version "1.10.1"}
+                             "org.clojure/tools.deps.alpha"                    #:mvn{:version "0.8.695"}
+                             "org.jetbrains.kotlin/kotlin-compiler-embeddable" #:mvn{:version "1.3.72"}}
+           :group           "core"
+           :name            "core"
+           :paths           ["../../bases/tool/src"
+                             "../../components/change/src"
+                             "../../components/common/src"
+                             "../../components/deps/src"
+                             "../../components/file/src"
+                             "../../components/git/src"
+                             "../../components/shell/src"
+                             "../../components/spec/src"
+                             "../../components/test/src"
+                             "../../components/util/src"
+                             "../../components/validate/src"
+                             "../../components/workspace/src"
+                             "../../components/workspace-clj/src"
+                             "../../components/workspace-kotlin/src"]
+           :test?           false
+           :type            "environment"}
+          {:base-names      ["tool"]
+           :component-names ["change"
+                             "common"
+                             "deps"
+                             "file"
+                             "git"
+                             "shell"
+                             "spec"
+                             "test"
+                             "util"
+                             "validate"
+                             "workspace"
+                             "workspace-clj"
+                             "workspace-kotlin"]
+           :deps            {"org.clojure/clojure"                             #:mvn{:version "1.10.1"}
+                             "org.clojure/tools.deps.alpha"                    #:mvn{:version "0.8.695"}
+                             "org.jetbrains.kotlin/kotlin-compiler-embeddable" #:mvn{:version "1.3.72"}}
+           :group           "core"
+           :name            "core-test"
+           :paths           ["../../bases/tool/src"
+                             "../../bases/tool/test"
+                             "../../components/change/src"
+                             "../../components/change/test"
+                             "../../components/common/src"
+                             "../../components/common/test"
+                             "../../components/deps/src"
+                             "../../components/deps/test"
+                             "../../components/file/src"
+                             "../../components/file/test"
+                             "../../components/git/src"
+                             "../../components/git/test"
+                             "../../components/shell/src"
+                             "../../components/shell/test"
+                             "../../components/spec/src"
+                             "../../components/spec/test"
+                             "../../components/test/src"
+                             "../../components/test/test"
+                             "../../components/util/src"
+                             "../../components/util/test"
+                             "../../components/validate/src"
+                             "../../components/validate/test"
+                             "../../components/workspace-clj/src"
+                             "../../components/workspace-clj/test"
+                             "../../components/workspace-kotlin/src"
+                             "../../components/workspace-kotlin/test"
+                             "../../components/workspace/src"
+                             "../../components/workspace/test"]
+           :test?           true
+           :type            "environment"}]
+         (env/environment "core" paths deps aliases))))
