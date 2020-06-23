@@ -8,9 +8,9 @@
                                  :test? false
                                  :component-names ["change" "cmd"]
                                  :base-names [{:name "tool", :type "base"}]
-                                 :paths ["components/change/src"
-                                         "components/cmd/src"
-                                         "bases/cli/src"]
+                                 :paths ["../../components/change/src"
+                                         "../../components/cmd/src"
+                                         "../../bases/cli/src"]
                                  :dependencies #:org.clojure{clojure #:mvn{:version "1.10.1"}
                                                              core.async #:mvn{:version "0.4.500"}
                                                              tools.deps.alpha #:mvn{:version "0.6.496"}}}
@@ -19,8 +19,8 @@
                                  :test? true
                                  :component-names ["change" "cmd"]
                                  :base-names []
-                                 :paths ["components/change/test"
-                                         "components/cmd/test"],
+                                 :paths ["../../components/change/test"
+                                         "../../components/cmd/test"],
                                  :dependencies #:org.clojure{clojure #:mvn{:version "1.10.1"}
                                                              core.async #:mvn{:version "0.4.500"}
                                                              tools.deps.alpha #:mvn{:version "0.6.496"}}}]
