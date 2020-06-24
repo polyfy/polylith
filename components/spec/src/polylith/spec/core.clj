@@ -6,10 +6,7 @@
 
 (s/def ::top-namespace ::not-blank-string)
 
-(s/def ::env-prefix ::not-blank-string)
-
-(s/def ::config (s/keys :req-un [::top-namespace]
-                        :opt-un [::env-prefix]))
+(s/def ::config (s/keys :req-un [::top-namespace]))
 
 (defn valid-config? [config]
   (s/valid? ::config config))

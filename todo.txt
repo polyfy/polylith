@@ -170,4 +170,5 @@ Design decisions
 
 Commands
 ========
+./make-uberjar.sh core polylith.cli.poly
 sudo cp ./environments/core/target/core.jar /usr/local/polylith/poly.jar
