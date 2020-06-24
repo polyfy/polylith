@@ -3,7 +3,7 @@
             [polylith.workspace.core :as core]
             [polylith.workspace.source :as source]
             [polylith.workspace.dependencies :as deps]
-            [polylith.workspace-clj.interface :as ws-clojure]))
+            [polylith.workspace-clojure.interface :as ws-clojure]))
 
 ; TODO: delete these and also unnecessary requires above
 ;(def workspace (ws-clojure/workspace-from-disk "../clojure-polylith-realworld-example-app"))
@@ -46,11 +46,11 @@
   (core/enrich-workspace workspace))
 
 ; TODO: delete these
-;(map (juxt :name :interface-deps) (:components (->
-;                                                   "."
-;                                                   ;"../clojure-polylith-realworld-example-app"
-;                                                   ws-clojure/workspace-from-disk
-;                                                   core/enrich-workspace
-;                                                   change/with-changes)))
+(->
+    "."
+    ;"../clojure-polylith-realworld-example-app"
+    ws-clojure/workspace-from-disk
+    core/enrich-workspace)
+    ;change/with-changes)
 
 ;(-> workspace enrich-workspace (change/with-changes "f0a84c47c284d9502ca4cd1a017d2b4b6161bfc5"))

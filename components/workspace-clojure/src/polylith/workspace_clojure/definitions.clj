@@ -1,4 +1,4 @@
-(ns polylith.workspace-clj.definitions
+(ns polylith.workspace-clojure.definitions
   (:require [polylith.util.interface :as util]))
 
 (def ->generic-type {'def "data"

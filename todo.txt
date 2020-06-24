@@ -1,14 +1,11 @@
 
-- change component name from 'validate' to 'check'.
+- support dark-mode.
 
 - check how the messages looks like with black text on white background
-  - maybe we need to add support for :dark-mode?
 
 - add the LICENSE to the root.
 
 - read environments from the 'environments' root folder.
-
-- rename from workspace-clj to workspace-clojure.
 
 
 - check for missing bricks in an environment.
@@ -73,19 +70,21 @@ Questions
 
 Leave for now
 =============
+- add some code that allows you to switch between environments buy running
+  a 'load' function that takes a number of arguments where the first is
+  the name of the environment and the second (or more) are the name of
+  the components that needs to be reloaded (if their interface exists in more
+  than one environment).
 - extract the doc for each function (metadata).
-- release the new tool + make it the default in the realworld repository +
-  create a branch for the old lein-polylith code.
 - create a githook that verifies the project.
-- should the name of a command line tool be 'poly'?
 - how to handle test dependencies?
 - create a migration tool that migrates lein-polylith projects to polylith projects.
 - html doc that automatically updates itself.
   - add support for extracting the APIs from a base, e.g. REST.
 - add support for another language, e.g. Java.
 - check if support for .cljs files make sense.
-- how to decorate the errors and warnings so that a tool can easily mark what's
-  wrong in a e.g. a UI.
+- release the new tool + make it the default in the realworld repository +
+  create a branch for the old lein-polylith code.
 
 
 Doc
@@ -109,7 +108,7 @@ Differences compared to lein-polylith
 =====================================
 - when people starts to build tooling for polylith, they could include
   components from this project as git source dependencies into their own
-  projects and use e.g. the workspace-clj, workspace and common components!
+  projects and use e.g. the workspace-clojure, workspace and common components!
   from each interface, which is the set of all dependencies from the components
   that implements that interface.
 - if a definition is defined as a 'defn' in one interface, it must be implemented
@@ -148,7 +147,7 @@ Design decisions
 <util>           util
 <validate>       validate
 <workspace>      workspace
-<workspace-clj>  workspace-clj
+<workspace-clojure>  workspace-clojure
 ---------------  -------------
 -                tool
 

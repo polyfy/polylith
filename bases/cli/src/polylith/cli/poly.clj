@@ -5,7 +5,7 @@
             [polylith.cli.cmd.help :as help]
             [polylith.cli.cmd.print-ws :as print-ws]
             [polylith.workspace.interface :as ws]
-            [polylith.workspace-clj.interface :as ws-clj]
+            [polylith.workspace-clojure.interface :as ws-clj]
             [polylith.change.interface :as change]
             [clojure.java.io :as io])
   (:gen-class))

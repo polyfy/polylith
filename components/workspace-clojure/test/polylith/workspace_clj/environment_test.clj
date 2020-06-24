@@ -1,6 +1,6 @@
-(ns polylith.workspace-clj.environment-test
+(ns polylith.workspace-clojure.environment-test
   (:require [clojure.test :refer :all]
-            [polylith.workspace-clj.environment :as env]))
+            [polylith.workspace-clojure.environment :as env]))
 
 (def paths [; Bases
             "../../bases/tool/src"
@@ -17,7 +17,7 @@
             "../../components/util/src"
             "../../components/validate/src"
             "../../components/workspace/src"
-            "../../components/workspace-clj/src"
+            "../../components/workspace-clojure/src"
             "../../components/workspace-kotlin/src"])
 
 (def deps '{org.clojure/clojure {:mvn/version "1.10.1"}
@@ -39,7 +39,7 @@
                                     "../../components/util/test"
                                     "../../components/validate/test"
                                     "../../components/workspace/test"
-                                    "../../components/workspace-clj/test"
+                                    "../../components/workspace-clojure/test"
                                     "../../components/workspace-kotlin/test"]
                       :extra-deps  {}}
 
@@ -68,7 +68,7 @@
                              "util"
                              "validate"
                              "workspace"
-                             "workspace-clj"
+                             "workspace-clojure"
                              "workspace-kotlin"]
            :base-names      ["tool"]
            :deps            {"org.clojure/clojure"                             #:mvn{:version "1.10.1"}
@@ -86,7 +86,7 @@
                              "../../components/util/src"
                              "../../components/validate/src"
                              "../../components/workspace/src"
-                             "../../components/workspace-clj/src"
+                             "../../components/workspace-clojure/src"
                              "../../components/workspace-kotlin/src"]
            :maven-repos     {"central" {:url "https://repo1.maven.org/maven2/"}
                              "clojars" {:url "https://clojars.org/repo"}}}
@@ -106,7 +106,7 @@
                              "util"
                              "validate"
                              "workspace"
-                             "workspace-clj"
+                             "workspace-clojure"
                              "workspace-kotlin"]
            :base-names      ["tool"]
            :deps            {"org.clojure/clojure"                             #:mvn{:version "1.10.1"}
@@ -134,8 +134,8 @@
                              "../../components/util/test"
                              "../../components/validate/src"
                              "../../components/validate/test"
-                             "../../components/workspace-clj/src"
-                             "../../components/workspace-clj/test"
+                             "../../components/workspace-clojure/src"
+                             "../../components/workspace-clojure/test"
                              "../../components/workspace-kotlin/src"
                              "../../components/workspace-kotlin/test"
                              "../../components/workspace/src"

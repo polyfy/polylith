@@ -1,11 +1,11 @@
-(ns polylith.workspace-clj.core
+(ns polylith.workspace-clojure.core
   (:require [clojure.string :as str]
             [polylith.common.interface :as common]
             [polylith.file.interface :as file]
             [polylith.util.interface :as util]
-            [polylith.workspace-clj.environment :as env]
-            [polylith.workspace-clj.components-from-disk :as components-from-disk]
-            [polylith.workspace-clj.bases-from-disk :as bases-from-disk]))
+            [polylith.workspace-clojure.environment :as env]
+            [polylith.workspace-clojure.components-from-disk :as components-from-disk]
+            [polylith.workspace-clojure.bases-from-disk :as bases-from-disk]))
 
 (defn workspace-from-disk
   ([ws-path]

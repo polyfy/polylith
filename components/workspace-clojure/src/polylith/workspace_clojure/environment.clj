@@ -1,4 +1,4 @@
-(ns polylith.workspace-clj.environment
+(ns polylith.workspace-clojure.environment
   (:require [polylith.file.interface :as file]
             [clojure.string :as str]
             [polylith.util.interface :as util]))
