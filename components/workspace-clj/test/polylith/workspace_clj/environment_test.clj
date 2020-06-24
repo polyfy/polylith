@@ -49,8 +49,15 @@
                :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
                          :main-opts  ["-m" "uberdeps.uberjar"]}})
 
+(def maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}
+                  "clojars" {:url "https://clojars.org/repo"}})
+
 (deftest environments--config-map-with-aliases--returns-environments
-  (is (= [{:component-names ["change"
+  (is (= [{:name            "core"
+           :group           "core"
+           :test?           false
+           :type            "environment"
+           :component-names ["change"
                              "common"
                              "deps"
                              "file"
@@ -67,8 +74,6 @@
            :deps            {"org.clojure/clojure"                             #:mvn{:version "1.10.1"}
                              "org.clojure/tools.deps.alpha"                    #:mvn{:version "0.8.695"}
                              "org.jetbrains.kotlin/kotlin-compiler-embeddable" #:mvn{:version "1.3.72"}}
-           :group           "core"
-           :name            "core"
            :paths           ["../../bases/tool/src"
                              "../../components/change/src"
                              "../../components/common/src"
@@ -83,9 +88,13 @@
                              "../../components/workspace/src"
                              "../../components/workspace-clj/src"
                              "../../components/workspace-kotlin/src"]
-           :test?           false
-           :type            "environment"}
-          {:base-names      ["tool"]
+           :maven-repos     {"central" {:url "https://repo1.maven.org/maven2/"}
+                             "clojars" {:url "https://clojars.org/repo"}}}
+          {
+           :name            "core-test"
+           :group           "core"
+           :test?           true
+           :type            "environment"
            :component-names ["change"
                              "common"
                              "deps"
@@ -99,11 +108,10 @@
                              "workspace"
                              "workspace-clj"
                              "workspace-kotlin"]
+           :base-names      ["tool"]
            :deps            {"org.clojure/clojure"                             #:mvn{:version "1.10.1"}
                              "org.clojure/tools.deps.alpha"                    #:mvn{:version "0.8.695"}
                              "org.jetbrains.kotlin/kotlin-compiler-embeddable" #:mvn{:version "1.3.72"}}
-           :group           "core"
-           :name            "core-test"
            :paths           ["../../bases/tool/src"
                              "../../bases/tool/test"
                              "../../components/change/src"
@@ -132,6 +140,6 @@
                              "../../components/workspace-kotlin/test"
                              "../../components/workspace/src"
                              "../../components/workspace/test"]
-           :test?           true
-           :type            "environment"}]
-         (env/environment "core" paths deps aliases))))
+           :maven-repos     {"central" {:url "https://repo1.maven.org/maven2/"}
+                             "clojars" {:url "https://clojars.org/repo"}}}]
+         (env/environment "core" paths deps aliases maven-repos))))
