@@ -1,4 +1,4 @@
-(ns polylith.workspace-clojure.namespaces-from-disk
+(ns polylith.workspace-clj.namespaces-from-disk
   (:require [clojure.string :as str]
             [polylith.file.interface :as file]
             [polylith.util.interface.str :as str-util]

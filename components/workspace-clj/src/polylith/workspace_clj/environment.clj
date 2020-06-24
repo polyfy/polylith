@@ -1,4 +1,4 @@
-(ns polylith.workspace-clojure.environment
+(ns polylith.workspace-clj.environment
   (:require [polylith.file.interface :as file]
             [clojure.string :as str]
             [polylith.util.interface :as util]))
@@ -34,9 +34,9 @@
 (defn environment
   ([ws-path env]
    (let [path (str ws-path "/environments/" env "/deps.edn")
-         {:keys [paths deps aliases mvn/repos]} (read-string (slurp path))]
-     (environment env paths deps aliases repos)))
-  ([env paths deps aliases mvn-repos]
+         {:keys [paths deps aliases]} (read-string (slurp path))]
+     (environment env paths deps aliases)))
+  ([env paths deps aliases]
    (let [component-names (vec (sort (set (mapv component-name (filter component? paths)))))
          base-names (vec (sort (set (mapv base-name (filter base? paths)))))
          test-paths (vec (sort (set (concat paths (-> aliases :test :extra-paths)))))
@@ -50,8 +50,7 @@
                         :component-names component-names
                         :base-names base-names
                         :paths paths
-                        :deps (sort-deps deps)
-                        :maven-repos mvn-repos)
+                        :deps (sort-deps deps))
       (util/ordered-map :name (str env "-test")
                         :group env
                         :test? true
@@ -59,8 +58,7 @@
                         :component-names component-test-names
                         :base-names base-test-names
                         :paths test-paths
-                        :deps test-deps
-                        :maven-repos mvn-repos)])))
+                        :deps test-deps)])))
 
 (defn environments [ws-path]
   (let [env-dirs (file/directory-paths (str ws-path "/environments"))]

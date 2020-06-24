@@ -13,14 +13,15 @@
 (defn key-as-symbol [[library version]]
   [(symbol library) version])
 
-(defn ->environment [{:keys [deps maven-repos] :as environment}]
+(defn ->environment [{:keys [deps] :as environment}]
   "The library names (keys) are stored as strings in the workspace
    and need to be converted to symbols here."
-  (assoc environment :deps (into {} (map key-as-symbol deps))
-                     :mvn/repos maven-repos))
+  (assoc environment :deps
+                     (into {} (map key-as-symbol deps))))
 
-(defn ->config [{:keys [environments] :as workspace}]
-  (assoc workspace :environments (mapv ->environment environments)))
+(defn ->config [{:keys [settings environments] :as workspace}]
+  (assoc workspace :mvn/repos (:maven-repos settings)
+                   :environments (mapv ->environment environments)))
 
 (defn group [env]
   (if (str/ends-with? env "-test")

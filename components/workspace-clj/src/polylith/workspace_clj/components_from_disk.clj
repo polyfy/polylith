@@ -1,8 +1,8 @@
-(ns polylith.workspace-clojure.components-from-disk
+(ns polylith.workspace-clj.components-from-disk
   (:require [clojure.string :as str]
             [polylith.file.interface :as file]
-            [polylith.workspace-clojure.namespaces-from-disk :as ns-from-disk]
-            [polylith.workspace-clojure.interface-defs-from-disk :as interface-defs-from-disk]))
+            [polylith.workspace-clj.namespaces-from-disk :as ns-from-disk]
+            [polylith.workspace-clj.interface-defs-from-disk :as interface-defs-from-disk]))
 
 (defn replace-underscore [string]
   (when string

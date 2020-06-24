@@ -14,7 +14,7 @@
            "../../components/util/src"
            "../../components/validate/src"
            "../../components/workspace/src"
-           "../../components/workspace-clojure/src"
+           "../../components/workspace-clj/src"
            "../../components/workspace-kotlin/src"]
 
  :deps    {org.clojure/clojure {:mvn/version "1.10.1"}
@@ -36,7 +36,7 @@
                                    "../../components/util/test"
                                    "../../components/validate/test"
                                    "../../components/workspace/test"
-                                   "../../components/workspace-clojure/test"
+                                   "../../components/workspace-clj/test"
                                    "../../components/workspace-kotlin/test"]
                      :extra-deps  {}}
 

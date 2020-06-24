@@ -1,6 +1,6 @@
-(ns polylith.workspace-clojure.definitions-test
+(ns polylith.workspace-clj.definitions-test
   (:require [clojure.test :refer :all]
-            [polylith.workspace-clojure.definitions :as defs]))
+            [polylith.workspace-clj.definitions :as defs]))
 
 (deftest filter-statements--returns-def-statements
   (let [code '((ns polylith.spec.interface

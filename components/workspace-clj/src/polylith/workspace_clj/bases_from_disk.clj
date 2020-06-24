@@ -1,5 +1,5 @@
-(ns polylith.workspace-clojure.bases-from-disk
-  (:require [polylith.workspace-clojure.namespaces-from-disk :as ns-from-disk]
+(ns polylith.workspace-clj.bases-from-disk
+  (:require [polylith.workspace-clj.namespaces-from-disk :as ns-from-disk]
             [polylith.file.interface :as file]))
 
 (defn read-base [ws-path top-src-dir base-name]

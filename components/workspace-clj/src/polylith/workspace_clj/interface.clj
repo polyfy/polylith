@@ -1,5 +1,5 @@
-(ns polylith.workspace-clojure.interface
-  (:require [polylith.workspace-clojure.core :as core]))
+(ns polylith.workspace-clj.interface
+  (:require [polylith.workspace-clj.core :as core]))
 
 (defn workspace-from-disk
   ([ws-path]

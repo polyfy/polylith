@@ -42,4 +42,4 @@
 
 (.getImportList kt-file)
 
-org.jetbrains.kotlin.psi.KtFilet
+org.jetbrains.kotlin.psi.KtFile
