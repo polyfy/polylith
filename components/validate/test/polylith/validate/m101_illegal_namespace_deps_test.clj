@@ -31,13 +31,14 @@
                                                 "polylith.cmd.core"]}]}]
     (is (= [{:type "error"
              :code 101
-             :message "Illegal dependency on namespace invoice.core in namespace purchase in the common component. Use invoice.interface instead to fix the problem."
+             :message "Illegal dependency on namespace invoice.core in common.purchase. Use invoice.interface instead to fix the problem."
              :bricks ["common"]}
             {:type "error"
              :code 101
-             :message "Illegal dependency on namespace cmd.core in namespace billing in the common component. Use cmd.interface instead to fix the problem."
+             :message "Illegal dependency on namespace cmd.core in common.billing. Use cmd.interface instead to fix the problem."
              :bricks ["common"]}]
-           (m101/brick-errors "polylith." component #{"spec" "cmd" "file" "invoice" "user"} [])))))
+           (mapv #(select-keys % [:type :code :message :bricks])
+                 (m101/brick-errors "polylith." component #{"spec" "cmd" "file" "invoice" "user"} []))))))
 
 (deftest errors--component-with-mismatching-interface-name--returns-no-errors
   (let [component '{:type "component",

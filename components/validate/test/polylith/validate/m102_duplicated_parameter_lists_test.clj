@@ -86,8 +86,9 @@
                    :interface-deps ["auth"]}])
 
 (deftest errors--when-having-duplicated-parameter-lists--return-error
-  (is (= [{:type "error"
-           :code 102
-           :message "Duplicated parameter lists found in the payment component: pay[a], pay[b]"
+  (is (= [{:type "error",
+           :code 102,
+           :message "Duplicated parameter lists found in payment: pay[a], pay[b]"
            :components ["payment"]}]
-         (m102/errors components))))
+         (mapv #(select-keys % [:type :code :message :components])
+               (m102/errors components)))))

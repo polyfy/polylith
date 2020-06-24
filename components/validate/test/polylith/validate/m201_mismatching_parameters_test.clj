@@ -186,7 +186,8 @@
                   :message "Function in the user1 component is also defined in user2 but with a different parameter list: func3[a b c], func3[x y z]"
                   :components ["user1" "user2"]}]
                 (sort-by :message
-                         (m201/warnings interfaces components)))))
+                         (mapv #(select-keys % [:type :code :message :components])
+                               (m201/warnings interfaces components))))))
 
 (deftest warnings--when-having-macros-with-same-arity-but-with-different-parameter-lists--return-warnings
          (is (= [{:type "warning"
@@ -206,4 +207,5 @@
                   :message "Macro in the invoice component is also defined in invoice2 but with a different parameter list: sub.macro1[a], sub.macro1[b]"
                   :components ["invoice" "invoice2"]}]
                 (sort-by :message
-                         (m201/warnings interfaces2 components2)))))
+                         (mapv #(select-keys % [:type :code :message :components])
+                               (m201/warnings interfaces2 components2))))))

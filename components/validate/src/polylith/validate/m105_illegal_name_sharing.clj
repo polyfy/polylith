@@ -1,7 +1,8 @@
 (ns polylith.validate.m105-illegal-name-sharing
   (:require [clojure.set :as set]
             [clojure.string :as str]
-            [polylith.util.interface :as util]))
+            [polylith.util.interface :as util]
+            [polylith.common.interface.color :as color]))
 
 (defn errors [interface-names components bases]
   "A base are not allowed to share the name of an interface or component."
@@ -13,10 +14,13 @@
     (if (empty? base-names-set)
       []
       (let [message (str "A base can't have the same name as an interface or component: "
-                         (str/join ", " (sort base-names-set)))]
+                         (str/join ", " (sort base-names-set)))
+            colorized-msg (str "A base can't have the same name as an interface or component: "
+                               (color/base (str/join ", " (sort base-names-set))))]
         [(util/ordered-map :type "error"
                            :code 105
                            :message message
+                           :colorized-message colorized-msg
                            :interfaces (vec interface-names-set)
                            :components (vec component-names-set)
                            :bases (vec base-names-set))]))))

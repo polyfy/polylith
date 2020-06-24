@@ -1,10 +1,10 @@
 (ns polylith.cli.cmd.check
   (:require [polylith.common.interface.color :as color]))
 
-(defn print-message [{:keys [type code message]}]
+(defn print-message [{:keys [type code colorized-message]}]
   (if (= type "error")
-    (println (str (color/as-red (str "Error " code ": ")) message))
-    (println (str (color/as-yellow (str "Warning " code ": ")) message))))
+    (println (str (color/as-red "Error " code ": ") colorized-message))
+    (println (str (color/as-yellow "Warning " code ": ") colorized-message))))
 
 (defn execute [{:keys [messages]}]
   (if (empty? messages)

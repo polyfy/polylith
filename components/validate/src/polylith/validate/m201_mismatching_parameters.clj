@@ -1,7 +1,8 @@
 (ns polylith.validate.m201-mismatching-parameters
   (:require [clojure.string :as str]
             [polylith.util.interface :as util]
-            [polylith.validate.shared :as shared]))
+            [polylith.validate.shared :as shared]
+            [polylith.common.interface.color :as color]))
 
 (def types->message {#{"function"} "Function"
                      #{"macro"} "Macro"
@@ -23,10 +24,15 @@
             message (str types " in the " comp1 " component "
                          "is also defined in " comp2
                          " but with a different parameter list: "
-                         (str/join ", " functions-and-macros))]
+                         (str/join ", " functions-and-macros))
+            colorized-msg (str types " in the " (color/component comp1) " component "
+                               "is also defined in " (color/component comp2)
+                               " but with a different parameter list: "
+                               (str/join ", " functions-and-macros))]
         [(util/ordered-map :type "warning"
                            :code 201
                            :message message
+                           :colorized-message colorized-msg
                            :components [comp1 comp2])]))))
 
 (defn component-warnings [component interfaces name->component]

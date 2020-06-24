@@ -43,4 +43,5 @@
            :interface "shell"
            :components ["shell" "shell2"]
            :environment "core"}]
-         (m106/errors components environments))))
+         (mapv #(select-keys % [:type :code :message :interface :components :environment])
+               (m106/errors components environments)))))

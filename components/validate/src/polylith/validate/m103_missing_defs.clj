@@ -2,6 +2,7 @@
   (:require [clojure.string :as str]
             [clojure.set :as set]
             [polylith.validate.shared :as shared]
+            [polylith.common.interface.color :as color]
             [polylith.util.interface :as util]))
 
 (defn ->data-ifc [{:keys [definitions]}]
@@ -36,11 +37,14 @@
   (let [component-defs (concat (component-data-defs interface component)
                                (component-fn-defs component interface-functions))]
     (when (-> component-defs empty? not)
-      (let [message (str "Missing definitions in the interface of the " name " component: "
-                         (str/join ", " component-defs))]
+      (let [message (str "Missing definitions in " name "'s interface: "
+                         (str/join ", " component-defs))
+            colorized-msg (str "Missing definitions in "  (color/component name) "'s interface: "
+                               (str/join ", " component-defs))]
         [(util/ordered-map :type "error"
                            :code 103
                            :message message
+                           :colorized-message colorized-msg
                            :components [name])]))))
 
 (defn interface-errors [{:keys [implementing-components] :as interface}

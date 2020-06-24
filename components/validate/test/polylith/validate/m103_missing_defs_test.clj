@@ -66,12 +66,13 @@
                                              {:name "func5", :type "function", :parameters ["a" "b" "c" "d"]}]}}])
 
 (deftest errors--when-having-a--component-with-missing-definitionss--return-error-message
-  (is (= [{:type "error"
-           :code 103
-           :message "Missing definitions in the interface of the invoice2 component: abc"
+  (is (= [{:type "error",
+           :code 103,
+           :message "Missing definitions in invoice2's interface: abc",
            :components ["invoice2"]}
-          {:type "error"
-           :code 103
-           :message "Missing definitions in the interface of the user2 component: data1, func1[], subns/func4[]"
+          {:type "error",
+           :code 103,
+           :message "Missing definitions in user2's interface: data1, func1[], subns/func4[]",
            :components ["user2"]}]
-         (m103/errors interfaces components))))
+         (mapv #(select-keys % [:type :code :message :components])
+               (m103/errors interfaces components)))))

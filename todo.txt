@@ -1,17 +1,21 @@
 
+- change component name from 'validate' to 'check'.
+
+- check how the messages looks like with black text on white background
+  - maybe we need to add support for :dark-mode?
+
+- add the LICENSE to the root.
+
 - read environments from the 'environments' root folder.
 
-- rename fron workspace-clj to workspace-clojure.
+- rename from workspace-clj to workspace-clojure.
 
-- implement these commands:
-  - check
-  - ws
 
 - check for missing bricks in an environment.
 
 - check that components has a top namespace and an interface.
 
-
+- add the version command.
 
 - remove :implementing-interface-deps.
 
@@ -66,7 +70,6 @@
 
 Questions
 =========
-- if we run "poly test" then we should run all tests.
 
 Leave for now
 =============
@@ -87,6 +90,7 @@ Leave for now
 
 Doc
 ===
+
 - have an example of how people can build their own tooling around polylith!
 - example of how to add macros in the interface, e.g. 'unless' in:
   - https://clojuredocs.org/clojure.core/defmacro

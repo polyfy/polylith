@@ -1,6 +1,7 @@
 (ns polylith.validate.m104-circular-deps
   (:require [clojure.string :as str]
-            [polylith.util.interface :as util]))
+            [polylith.util.interface :as util]
+            [polylith.common.interface.color :as color]))
 
 (defn interface-circular-deps [interface-name completed-deps interface->deps path]
   (if (contains? completed-deps interface-name)
@@ -12,11 +13,13 @@
   (let [deps-chain (map iname->component-name
                         (-> (interface-circular-deps name #{} interface->deps [])
                             first second))
-        message (str "Circular dependencies was found in the " env-name " environment: " (str/join " > " deps-chain))]
+        message (str "A circular dependency was found in the " env-name " environment: " (str/join " > " deps-chain))
+        colorized-msg (str "A circular dependency was found in the " (color/environment env-name) " environment: " (color/interface (str/join " > " deps-chain)))]
     (when (-> deps-chain empty? not)
       [(util/ordered-map :type "error"
                          :code 104
                          :message message
+                         :colorized-message colorized-msg
                          :components (vec (sort (set deps-chain)))
                          :environment env-name)])))
 

@@ -5,7 +5,8 @@
             [polylith.workspace-clj.interface-defs-from-disk :as interface-defs-from-disk]))
 
 (defn replace-underscore [string]
-  (str/replace string "_" "-"))
+  (when string
+    (str/replace string "_" "-")))
 
 (defn read-component [ws-path top-src-dir component-name]
   "Reads component from disk."

@@ -1,14 +1,18 @@
 (ns polylith.validate.m102-duplicated-parameter-lists
   (:require [clojure.string :as str]
             [polylith.util.interface :as util]
+            [polylith.common.interface.color :as color]
             [polylith.validate.shared :as shared]))
 
 (defn duplicated-parameter-lists-error [component-name component-duplication]
-  (let  [message (str "Duplicated parameter lists found in the " component-name " component: "
-                      (str/join ", " (map shared/->function-or-macro component-duplication)))]
+  (let  [message (str "Duplicated parameter lists found in " component-name ": "
+                      (str/join ", " (map shared/->function-or-macro component-duplication)))
+         colorized-msg (str "Duplicated parameter lists found in " (color/component component-name) ": "
+                            (str/join ", " (map shared/->function-or-macro component-duplication)))]
     (util/ordered-map :type "error"
                       :code 102
                       :message message
+                      :colorized-message colorized-msg
                       :components [component-name])))
 
 (defn component-errors [component]
