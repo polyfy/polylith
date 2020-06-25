@@ -1,7 +1,5 @@
 
-- support running tests for all environments.
-
-- check for missing bricks in an environment.
+- remove support for mvn/repos at the root.
 
 - check that components has a top namespace and an interface.
 

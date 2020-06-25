@@ -5,7 +5,8 @@
             [polylith.validate.m104-circular-deps :as m104]
             [polylith.validate.m105-illegal-name-sharing :as m105]
             [polylith.validate.m106-multiple-interface-occurrences :as m106]
-            [polylith.validate.m201-mismatching-parameters :as m201]))
+            [polylith.validate.m201-mismatching-parameters :as m201]
+            [polylith.validate.m107-missing-componens-in-environment :as m107]))
 
 (defn messages [top-ns interface-names interfaces components bases environments dark-mode?]
   (vec (sort-by (juxt :type :code :message)
@@ -15,4 +16,5 @@
                              (m104/errors interfaces components environments)
                              (m105/errors interface-names components bases)
                              (m106/errors components environments)
+                             (m107/errors components bases environments)
                              (m201/warnings interfaces components))))))
