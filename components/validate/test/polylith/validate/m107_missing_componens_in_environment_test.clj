@@ -94,10 +94,6 @@
   (is (= [{:type "error"
            :code 107
            :environment "development"
-           :message "Missing components in the development environment for the interfaces: spec, profile, log, database"}
-          {:type "error"
-           :code 107
-           :environment "development-test"
-           :message "Missing components in the development-test environment for the interfaces: spec, profile, log, database"}]
+           :message "Missing components in the development environment for these interfaces: spec, profile, log, database"}]
          (mapv #(select-keys % [:type :code :message :interface :components :environment])
                (m107/errors components bases environments)))))

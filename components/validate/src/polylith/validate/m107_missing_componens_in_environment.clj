@@ -31,8 +31,8 @@
 
 (defn missing-components-error [env interface-names]
   (let [interfaces (str/join ", " interface-names)
-        message (str "Missing components in the " env " environment for the interfaces: " interfaces)
-        colorized-msg (str "Missing components in the " (color/environment env) " environment "
+        message (str "Missing components in the " env " environment for these interfaces: " interfaces)
+        colorized-msg (str "Missing components in these " (color/environment env) " environment "
                             "for the interfaces: " (color/interface interfaces))]
     [(util/ordered-map :type "error"
                        :code 107
@@ -47,4 +47,5 @@
 
 (defn errors [components bases environments]
   (mapcat env-error
-          (map #(env-status % components bases) environments)))
+          (map #(env-status % components bases)
+               (filter #(-> % :test? not) environments))))
