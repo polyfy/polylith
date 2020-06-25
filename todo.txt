@@ -1,4 +1,6 @@
 
+- support dark-mode.
+
 - change component name from 'validate' to 'check'.
 
 - check how the messages looks like with black text on white background
@@ -90,7 +92,7 @@ Leave for now
 
 Doc
 ===
-
+- tips on how to do destructuring in the interface.
 - have an example of how people can build their own tooling around polylith!
 - example of how to add macros in the interface, e.g. 'unless' in:
   - https://clojuredocs.org/clojure.core/defmacro

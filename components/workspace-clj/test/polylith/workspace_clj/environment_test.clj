@@ -1,6 +1,7 @@
 (ns polylith.workspace-clj.environment-test
   (:require [clojure.test :refer :all]
-            [polylith.workspace-clj.environment :as env]))
+            [polylith.workspace-clj.environment :as env]
+            [clojure.tools.deps.alpha.util.maven :as mvn]))
 
 (def paths [; Bases
             "../../bases/tool/src"
@@ -50,42 +51,10 @@
                          :main-opts  ["-m" "uberdeps.uberjar"]}})
 
 (deftest environments--config-map-with-aliases--returns-environments
-  (is (= [{:component-names ["change"
-                             "common"
-                             "deps"
-                             "file"
-                             "git"
-                             "shell"
-                             "spec"
-                             "test"
-                             "util"
-                             "validate"
-                             "workspace"
-                             "workspace-clj"
-                             "workspace-kotlin"]
-           :base-names      ["tool"]
-           :deps            {"org.clojure/clojure"                             #:mvn{:version "1.10.1"}
-                             "org.clojure/tools.deps.alpha"                    #:mvn{:version "0.8.695"}
-                             "org.jetbrains.kotlin/kotlin-compiler-embeddable" #:mvn{:version "1.3.72"}}
-           :group           "core"
-           :name            "core"
-           :paths           ["../../bases/tool/src"
-                             "../../components/change/src"
-                             "../../components/common/src"
-                             "../../components/deps/src"
-                             "../../components/file/src"
-                             "../../components/git/src"
-                             "../../components/shell/src"
-                             "../../components/spec/src"
-                             "../../components/test/src"
-                             "../../components/util/src"
-                             "../../components/validate/src"
-                             "../../components/workspace/src"
-                             "../../components/workspace-clj/src"
-                             "../../components/workspace-kotlin/src"]
-           :test?           false
-           :type            "environment"}
-          {:base-names      ["tool"]
+  (is (= [{:name "core"
+           :group "core"
+           :test? false
+           :type "environment"
            :component-names ["change"
                              "common"
                              "deps"
@@ -99,39 +68,73 @@
                              "workspace"
                              "workspace-clj"
                              "workspace-kotlin"]
-           :deps            {"org.clojure/clojure"                             #:mvn{:version "1.10.1"}
-                             "org.clojure/tools.deps.alpha"                    #:mvn{:version "0.8.695"}
-                             "org.jetbrains.kotlin/kotlin-compiler-embeddable" #:mvn{:version "1.3.72"}}
-           :group           "core"
-           :name            "core-test"
-           :paths           ["../../bases/tool/src"
-                             "../../bases/tool/test"
-                             "../../components/change/src"
-                             "../../components/change/test"
-                             "../../components/common/src"
-                             "../../components/common/test"
-                             "../../components/deps/src"
-                             "../../components/deps/test"
-                             "../../components/file/src"
-                             "../../components/file/test"
-                             "../../components/git/src"
-                             "../../components/git/test"
-                             "../../components/shell/src"
-                             "../../components/shell/test"
-                             "../../components/spec/src"
-                             "../../components/spec/test"
-                             "../../components/test/src"
-                             "../../components/test/test"
-                             "../../components/util/src"
-                             "../../components/util/test"
-                             "../../components/validate/src"
-                             "../../components/validate/test"
-                             "../../components/workspace-clj/src"
-                             "../../components/workspace-clj/test"
-                             "../../components/workspace-kotlin/src"
-                             "../../components/workspace-kotlin/test"
-                             "../../components/workspace/src"
-                             "../../components/workspace/test"]
-           :test?           true
-           :type            "environment"}]
-         (env/environment "core" paths deps aliases))))
+           :base-names  ["tool"]
+           :deps  {"org.clojure/clojure" #:mvn{:version "1.10.1"}
+                   "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}
+                   "org.jetbrains.kotlin/kotlin-compiler-embeddable" #:mvn{:version "1.3.72"}}
+           :paths ["../../bases/tool/src"
+                   "../../components/change/src"
+                   "../../components/common/src"
+                   "../../components/deps/src"
+                   "../../components/file/src"
+                   "../../components/git/src"
+                   "../../components/shell/src"
+                   "../../components/spec/src"
+                   "../../components/test/src"
+                   "../../components/util/src"
+                   "../../components/validate/src"
+                   "../../components/workspace/src"
+                   "../../components/workspace-clj/src"
+                   "../../components/workspace-kotlin/src"]
+           :maven-repos mvn/standard-repos}
+          {:name "core-test"
+           :group "core"
+           :test? true
+           :type "environment"
+           :base-names ["tool"]
+           :component-names ["change"
+                             "common"
+                             "deps"
+                             "file"
+                             "git"
+                             "shell"
+                             "spec"
+                             "test"
+                             "util"
+                             "validate"
+                             "workspace"
+                             "workspace-clj"
+                             "workspace-kotlin"]
+           :deps {"org.clojure/clojure" #:mvn{:version "1.10.1"}
+                  "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}
+                  "org.jetbrains.kotlin/kotlin-compiler-embeddable" #:mvn{:version "1.3.72"}}
+           :paths ["../../bases/tool/src"
+                   "../../bases/tool/test"
+                   "../../components/change/src"
+                   "../../components/change/test"
+                   "../../components/common/src"
+                   "../../components/common/test"
+                   "../../components/deps/src"
+                   "../../components/deps/test"
+                   "../../components/file/src"
+                   "../../components/file/test"
+                   "../../components/git/src"
+                   "../../components/git/test"
+                   "../../components/shell/src"
+                   "../../components/shell/test"
+                   "../../components/spec/src"
+                   "../../components/spec/test"
+                   "../../components/test/src"
+                   "../../components/test/test"
+                   "../../components/util/src"
+                   "../../components/util/test"
+                   "../../components/validate/src"
+                   "../../components/validate/test"
+                   "../../components/workspace-clj/src"
+                   "../../components/workspace-clj/test"
+                   "../../components/workspace-kotlin/src"
+                   "../../components/workspace-kotlin/test"
+                   "../../components/workspace/src"
+                   "../../components/workspace/test"]
+           :maven-repos mvn/standard-repos}]
+         (env/environment "core" paths deps aliases mvn/standard-repos))))

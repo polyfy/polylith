@@ -1,7 +1,8 @@
 (ns polylith.workspace-clj.environment
   (:require [polylith.file.interface :as file]
             [clojure.string :as str]
-            [polylith.util.interface :as util]))
+            [polylith.util.interface :as util]
+            [clojure.tools.deps.alpha.util.maven :as mvn]))
 
 (defn key-as-string [[lib version]]
   [(str lib) version])
@@ -32,11 +33,12 @@
        (str/starts-with? path "../../bases/")))
 
 (defn environment
-  ([ws-path env]
+  ([ws-path env maven-repos]
    (let [path (str ws-path "/environments/" env "/deps.edn")
-         {:keys [paths deps aliases]} (read-string (slurp path))]
-     (environment env paths deps aliases)))
-  ([env paths deps aliases]
+         {:keys [paths deps aliases mvn/repos]} (read-string (slurp path))
+         mvn-repos (merge mvn/standard-repos maven-repos repos)]
+     (environment env paths deps aliases mvn-repos)))
+  ([env paths deps aliases maven-repos]
    (let [component-names (vec (sort (set (mapv component-name (filter component? paths)))))
          base-names (vec (sort (set (mapv base-name (filter base? paths)))))
          test-paths (vec (sort (set (concat paths (-> aliases :test :extra-paths)))))
@@ -50,7 +52,8 @@
                         :component-names component-names
                         :base-names base-names
                         :paths paths
-                        :deps (sort-deps deps))
+                        :deps (sort-deps deps)
+                        :maven-repos maven-repos)
       (util/ordered-map :name (str env "-test")
                         :group env
                         :test? true
@@ -58,8 +61,9 @@
                         :component-names component-test-names
                         :base-names base-test-names
                         :paths test-paths
-                        :deps test-deps)])))
+                        :deps test-deps
+                        :maven-repos maven-repos)])))
 
-(defn environments [ws-path]
+(defn environments [ws-path maven-repos]
   (let [env-dirs (file/directory-paths (str ws-path "/environments"))]
-    (mapcat #(environment ws-path %) env-dirs)))
+    (mapcat #(environment ws-path % maven-repos) env-dirs)))

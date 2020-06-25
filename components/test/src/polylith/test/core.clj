@@ -2,6 +2,7 @@
   (:require [clojure.string :as str]
             [polylith.common.interface :as common]
             [polylith.workspace.interface :as ws]
+            [polylith.util.interface :as util]
             [polylith.common.interface.color :as color])
   (:refer-clojure :exclude [test]))
 
@@ -13,15 +14,21 @@
 (defn key-as-symbol [[library version]]
   [(symbol library) version])
 
-(defn ->environment [{:keys [deps] :as environment}]
+(defn ->environment [{:keys [deps maven-repos] :as environment}]
   "The library names (keys) are stored as strings in the workspace
    and need to be converted to symbols here."
-  (assoc environment :deps
-                     (into {} (map key-as-symbol deps))))
+  (assoc environment :deps (into {} (map key-as-symbol deps))
+                     :mvn/repos maven-repos))
 
-(defn ->config [{:keys [settings environments] :as workspace}]
-  (assoc workspace :mvn/repos (:maven-repos settings)
-                   :environments (mapv ->environment environments)))
+(defn test-env? [{:keys [group test?]} env-group]
+  (and test?
+       (= group env-group)))
+
+(defn ->config [{:keys [environments] :as workspace} env-group]
+  ;; Get maven repo from the environment.
+  (let [{:keys [maven-repos]} (util/find-first #(test-env? % env-group) environments)]
+    (assoc workspace :mvn/repos maven-repos
+                     :environments (mapv ->environment environments))))
 
 (defn group [env]
   (if (str/ends-with? env "-test")
@@ -34,11 +41,11 @@
          (require '~ns-symbol)
          (clojure.test/run-tests '~ns-symbol))))
 
-(defn run-tests [workspace env-name]
-  (when (str/blank? env-name)
+(defn run-tests [workspace env]
+  (when (str/blank? env)
     (throw (ex-info "Environment name is required for the test command." {})))
-  (let [env-group (group env-name)
-        config (->config workspace)
+  (let [env-group (group env)
+        config (->config workspace env-group)
         lib-paths (ws/lib-paths config env-group true)
         src-paths (ws/src-paths config env-group true)
         _ (throw-exception-if-empty src-paths env-group)

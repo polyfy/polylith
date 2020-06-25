@@ -18,7 +18,7 @@
          component-names (file/directory-paths (str ws-path "/components"))
          components (components-from-disk/read-components ws-path top-src-dir component-names)
          bases (bases-from-disk/read-bases ws-path top-src-dir)
-         environments (env/environments ws-path)
+         environments (env/environments ws-path repos)
          settings (util/ordered-map :top-namespace top-namespace
                                     :maven-repos repos)]
      (util/ordered-map :ws-path ws-path

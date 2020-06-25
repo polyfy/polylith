@@ -57,7 +57,7 @@
   (mapcat #(select-lib-imports % brick->lib-imports test?)
           brick-names))
 
-(defn enrich-env [{:keys [name group test? type component-names base-names paths deps]}
+(defn enrich-env [{:keys [name group test? type component-names base-names paths deps maven-repos]}
                   brick->loc
                   brick->lib-imports]
   (let [brick-names (concat component-names base-names)
@@ -73,7 +73,8 @@
                       :base-names base-names
                       :paths paths
                       :lib-imports lib-imports
-                      :deps deps)))
+                      :deps deps
+                      :maven-repos maven-repos)))
 
 (defn brick->lib-imports [brick]
   (into {} (mapv (juxt :name #(select-keys % [:lib-imports-src
