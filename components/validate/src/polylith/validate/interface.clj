@@ -7,9 +7,9 @@
             [polylith.validate.m106-multiple-interface-occurrences :as m106]
             [polylith.validate.m201-mismatching-parameters :as m201]))
 
-(defn messages [top-ns interface-names interfaces components bases environments]
+(defn messages [top-ns interface-names interfaces components bases environments dark-mode?]
   (vec (sort-by (juxt :type :code :message)
-                (set (concat (m101/errors top-ns interface-names components bases)
+                (set (concat (m101/errors top-ns interface-names components bases dark-mode?)
                              (m102/errors components)
                              (m103/errors interfaces components)
                              (m104/errors interfaces components environments)

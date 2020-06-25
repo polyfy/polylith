@@ -1,1 +1,2 @@
-{:polylith {:top-namespace "polylith"}}
+{:polylith {:top-namespace "polylith"
+            :dark-mode? true}}

@@ -22,11 +22,10 @@
 (defn as-green [& messages]
   (color green messages))
 
-(defn as-grey-dark [& messages]
-  (color grey-dark messages))
-
-(defn as-grey-light [& messages]
-  (color grey-light messages))
+(defn as-grey [dark-mode? & messages]
+  (if dark-mode?
+    (color grey-light messages)
+    (color grey-dark messages)))
 
 (defn as-purple [& messages]
   (color purple messages))
@@ -56,7 +55,7 @@
   (as-purple env))
 
 (defn namespc
-  ([namespace]
-   (as-grey-light namespace))
-  ([interface namespace]
-   (as-grey-light (str interface "." namespace))))
+  ([namespace dark-mode?]
+   (as-grey dark-mode? namespace))
+  ([interface namespace dark-mode?]
+   (as-grey dark-mode? (str interface "." namespace))))

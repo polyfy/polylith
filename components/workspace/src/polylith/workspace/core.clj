@@ -97,7 +97,8 @@
         brick->loc (brick->loc enriched-bricks)
         brick->lib-imports (brick->lib-imports enriched-bricks)
         enriched-environments (mapv #(enrich-env % brick->loc brick->lib-imports) environments)
-        messages (validate/messages top-ns interface-names enriched-interfaces enriched-components enriched-bases enriched-environments)]
+        dark-mode? (:dark-mode? settings false)
+        messages (validate/messages top-ns interface-names enriched-interfaces enriched-components enriched-bases enriched-environments dark-mode?)]
     (array-map :ws-path ws-path
                :settings settings
                :interfaces enriched-interfaces

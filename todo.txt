@@ -1,17 +1,7 @@
 
-- support dark-mode.
+- rename from 'test' to 'test-runner'.
 
-- change component name from 'validate' to 'check'.
-
-- check how the messages looks like with black text on white background
-  - maybe we need to add support for :dark-mode?
-
-- add the LICENSE to the root.
-
-- read environments from the 'environments' root folder.
-
-- rename from workspace-clj to workspace-clojure.
-
+- support running tests for all environments.
 
 - check for missing bricks in an environment.
 
@@ -21,9 +11,6 @@
 
 - remove :implementing-interface-deps.
 
-- new names
-  - test-runner
-  -
 
 - change keys in changes to :changed-components...
 - send in git diff to 'change'.
@@ -47,9 +34,6 @@
   - build
     - build a simple jar
 
-- support having more than one test environment. Now we can e.g. have one 'core'
-  and one 'core-test' environment. It should be possible to also have e.g. 'core-test-stage'.
-
 - add error for the case where a namespace can't even be parsed.
 
 - handle the case where a component doesn't exist any more in the 'diff'
@@ -68,6 +52,10 @@
              :environments []}
              :bricks-indirect []
              :environments-indirect []}}}
+
+- rename from workspace-clj to workspace-clojure.
+
+- add the LICENSE to the root.
 
 
 Questions

@@ -15,16 +15,17 @@
         workspace (-> ws-path
                       ws-clj/workspace-from-disk
                       ws/enrich-workspace
-                      change/with-changes)]
+                      change/with-changes)
+        dark-mode? (-> workspace :settings :dark-mode?)]
     (if-not (spec/valid-config? (:settings workspace))
       (println "Expected to find a :polylith key in 'deps.edn' at the root of the workspace.")
       (try
         (case cmd
           "check" (check/execute workspace)
-          "help" (help/execute)
+          "help" (help/execute dark-mode?)
           "test" (test/run workspace env)
           "ws" (print-ws/execute workspace)
-          (help/execute))
+          (help/execute dark-mode?))
         (catch Exception e
           (println (or (-> e ex-data :err) (.getMessage e)))
           (System/exit (or (-> e ex-data :exit-code) 1)))
