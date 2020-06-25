@@ -86,9 +86,6 @@
                                              :lines-of-code-test]))
                 bricks)))
 
-(defn enrich-settings [{:keys [maven-repos] :as settings}]
-  (assoc settings :maven-repos (merge mvn/standard-repos maven-repos)))
-
 (defn enrich-workspace [{:keys [ws-path settings components bases environments]}]
   (let [top-ns (common/top-namespace (:top-namespace settings))
         interfaces (ifcs/interfaces components)
@@ -100,10 +97,9 @@
         brick->loc (brick->loc enriched-bricks)
         brick->lib-imports (brick->lib-imports enriched-bricks)
         enriched-environments (mapv #(enrich-env % brick->loc brick->lib-imports) environments)
-        enriched-settings (enrich-settings settings)
         messages (validate/messages top-ns interface-names enriched-interfaces enriched-components enriched-bases enriched-environments)]
     (array-map :ws-path ws-path
-               :settings enriched-settings
+               :settings settings
                :interfaces enriched-interfaces
                :components enriched-components
                :bases enriched-bases
