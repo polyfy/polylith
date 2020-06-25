@@ -1,6 +1,6 @@
 (ns polylith.cli.poly
   (:require [polylith.spec.interface :as spec]
-            [polylith.test.interface :as test]
+            [polylith.test-runner.interface :as test-runner]
             [polylith.cli.cmd.check :as check]
             [polylith.cli.cmd.help :as help]
             [polylith.cli.cmd.print-ws :as print-ws]
@@ -23,7 +23,7 @@
         (case cmd
           "check" (check/execute workspace)
           "help" (help/execute dark-mode?)
-          "test" (test/run workspace env)
+          "test" (test-runner/run workspace env)
           "ws" (print-ws/execute workspace)
           (help/execute dark-mode?))
         (catch Exception e

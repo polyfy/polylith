@@ -1,6 +1,4 @@
 
-- rename from 'test' to 'test-runner'.
-
 - support running tests for all environments.
 
 - check for missing bricks in an environment.
@@ -11,6 +9,8 @@
 
 - remove :implementing-interface-deps.
 
+- show warning if depending on an interface namespace but it's not
+  a known interface.
 
 - change keys in changes to :changed-components...
 - send in git diff to 'change'.
