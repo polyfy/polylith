@@ -2,5 +2,7 @@
   (:require [polylith.test-runner.core :as core]))
 
 (defn run [workspace env]
-  "Executes the tests from the given environment."
-  (core/run-tests workspace env))
+  "Executes tests for the given environment or all tests if not given."
+  (if (nil? env)
+    (core/run-tests workspace)
+    (core/run-tests workspace env)))
