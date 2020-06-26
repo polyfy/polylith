@@ -1,7 +1,4 @@
 
-- only include the corresponding test-environment if the :aliases {:test ...}}
-  key is defined in deps.edn.
-
 - figure out what components and interfaces that are used:
   - uses-directly (interface + component per environment)
   - uses-indirectly
@@ -78,24 +75,52 @@
 
 - add the LICENSE to the root.
 
+- only include the corresponding test-environment if the :aliases {:test ...}}
+  key is defined in deps.edn.
+
+- chnge what the 'ws' command prints out:
+  - if running 'poly ws map', print out the whole map as today.
+  - if running 'poly ws loc', print out this:
+      workspace:
+        polylith
+
+      lines of code - src (test):
+        1570 (1174)
+
+      environments:
+        c = core
+
+      interfaces     bricks         loc (t)   c
+      -----------------------------------------
+      change         change          80  25   x
+      common         common         161   0   x
+      deps           deps            67 135   x
+      file           file            74   0   x
+      git            git             31  17   x
+      shell          shell           19   0   x
+      spec           spec            17   0   x
+      test-runner    test-runner     72   0   x
+      util           util            56  43   x
+      validate       validate       370 693   x
+      workspace      workspace      265  77   x
+      workspace-clj  workspace-clj  277 184   x
+      -              cli             82   0   x
+  - if running 'polylith ws', print out the above
+    table but without information about 'loc'.
 
 Questions
 =========
-- remove the build-tools base from the real-world example app.
 - check if we should register for https://github.com/sponsors.
-- move out workspace-clj + test-runner to its own repository, polylith-deps?
-  - it may be harder to work with because we lose some of the benefits
-    we have to work with a polylith workspace.
+- move out workspace-clj + test-runner to its own repository, polylith-clj-deps?
+  - it may be harder to work with the code because we lose some of the benefits
+    we get by having everyting in one place (the polylith workspace).
   - the good thing is that we will be more consistent with the tooling
     around polylith, so that we e.g. could create these repositories:
-    - polylith-clojure-deps
-    - polylith-clojure-lein
-    - polylith-clojure-boot
+    - polylith-clj-deps
+    - polylith-clj-lein
+    - polylith-clj-boot
     - polylith-kotlin-gradle-dsl
-    - (should the repositories start with poly- instead, to show that we mean
-      the cli tooling?
     - store these repositories under the new company name.
-
 
 Leave for now
 =============
@@ -103,15 +128,11 @@ Leave for now
 - release the new tool + make it the default in the realworld repository +
   create a branch for the old lein-polylith code.
 - create a githook that verifies the project.
-- should the name of a command line tool be 'poly'?
-- how to handle test dependencies?
 - create a migration tool that migrates lein-polylith projects to polylith projects.
 - html doc that automatically updates itself.
   - add support for extracting the APIs from a base, e.g. REST.
 - add support for another language, e.g. Java.
 - check if support for .cljs files make sense.
-- how to decorate the errors and warnings so that a tool can easily mark what's
-  wrong in a e.g. a UI.
 - figure out what jar:s are missing based on the imports.
 
 
@@ -161,32 +182,10 @@ Design decisions
 ----------------------------------------
 
 workspace:
-  polylith
-
-environments:
-  c = core
-
-interfaces     bricks         loc (t)   c
------------------------------------------
-change         change          80  25   x
-common         common         161   0   x
-deps           deps            67 135   x
-file           file            74   0   x
-git            git             31  17   x
-shell          shell           19   0   x
-spec           spec            17   0   x
-test-runner    test-runner     72   0   x
-util           util            56  43   x
-validate       validate       370 693   x
-workspace      workspace      265  77   x
-workspace-clj  workspace-clj  277 184   x
--              cli             82   0   x
-
-total loc: 1570 (1174)
-
-
-workspace:
   clojure-polylith-realworld-example-app
+
+lines of code - src (test):
+  3180 (1526)
 
 environments:
   h = helpers
@@ -206,11 +205,12 @@ user         user         189 170   -  x
 -            helpers       16   0   x  -
 -			 rest-api     318 449   -  x
 
-total loc: 3180 (1526)
-
 ----------------------------------------
 
 Commands
 ========
 ./make-uberjar.sh core polylith.cli.poly
 sudo cp ./environments/core/target/core.jar /usr/local/polylith/poly.jar
+
+polylith:  clj -A:dev:test
+realworld: clj -A:polylith:test
