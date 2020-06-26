@@ -2,7 +2,8 @@
   (:require [clojure.set :as set]
             [polylith.util.interface :as util]
             [polylith.common.interface.color :as color]
-            [clojure.string :as str]))
+            [clojure.string :as str])
+  (:refer-clojure :exclude [bases]))
 
 (defn interface-deps [interface processed interface->deps]
   (when (not (contains? @processed interface))
