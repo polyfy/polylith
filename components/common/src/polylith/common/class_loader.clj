@@ -1,6 +1,7 @@
 (ns polylith.common.class-loader
   (:require [clojure.java.io :as io]
-            [clojure.string :as str])
+            [clojure.string :as str]
+            [polylith.common.interface.color :as color])
   (:import (java.net URLClassLoader URL)))
 
 (def base-classloader
@@ -51,9 +52,11 @@
                         (if-not (printable? result)
                           result
                           (let [string (invoke-in class-loader clojure.lang.RT/printString [Object] result)]
-                            (try (read-string string)
-                                 (catch RuntimeException e
-                                   string))))))))
+                            (try
+                              (read-string string)
+                              (catch RuntimeException e
+                                (println (str (color/error "Could not evaluate: ") string " " (color/error e)))
+                                string))))))))
 
 (defn eval-in [class-loader form]
   (eval-in* class-loader `(clojure.main/with-bindings (eval '~form))))
@@ -63,8 +66,12 @@
     (io/as-url (str "file:" path (when-not lib? "/")))))
 
 (defn create-class-loader [paths]
-  (let [url-array (into-array URL (map path->url paths))
-        ^URLClassLoader cl (url-classloader url-array ext-classloader)]
-    (.loadClass cl "clojure.lang.RT")
-    (eval-in* cl '(require 'clojure.main))
-    cl))
+  (try
+    (let [url-array (into-array URL (map path->url paths))
+          ^URLClassLoader cl (url-classloader url-array ext-classloader)]
+      (.loadClass cl "clojure.lang.RT")
+      (eval-in* cl '(require 'clojure.main))
+      cl)
+    (catch Exception e
+      (println (str (color/error "Couldn't create class loader for paths: ") paths " "
+                    (color/error e))))))

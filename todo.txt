@@ -1,5 +1,25 @@
 
-- remove support for mvn/repos at the root.
+- only include the corresponding test-environment if the :aliases {:test ...}}
+  key is defined in deps.edn.
+
+- figure out what components and interfaces that are used:
+  - uses-directly (interface + component per environment)
+  - uses-indirectly
+  - used-by-directly
+  - used-by-indirectly
+
+- in the UI, show the missing interface dependencies as interfaces
+  in the environment column that contains the components.
+
+- change the validation 107 and base it on uses-directly and uses-indirectly.
+
+
+- in the UI, when you click on a component or base, show what components
+  it uses (directly or indirectly) in every environement + what components
+  that uses it (directly or indirectly). If both thing happens at the same time,
+  then we have circular dependencies!
+
+- add error if deps.edn can't be read or parsed.
 
 - check that components has a top namespace and an interface.
 
@@ -7,13 +27,18 @@
 
 - remove :implementing-interface-deps.
 
+- calculate :lines-of-code-src and :lines-of-code-test on the root of the project
+  that is the sum of loc for all components and bases.
+
+- just add more attributes to what e.g. workspace-clj adds, so that
+  a tool creator can decide to add whatever attributes they need
+  to perform the 'test' and 'build' commands.
+
 - show warning if depending on an interface namespace but it's not
   a known interface.
 
 - change keys in changes to :changed-components...
 - send in git diff to 'change'.
-
-- check for missing bricks in an environment.
 
 - add support for Kotlin.
 
@@ -51,13 +76,26 @@
              :bricks-indirect []
              :environments-indirect []}}}
 
-- rename from workspace-clj to workspace-clojure.
-
 - add the LICENSE to the root.
 
 
 Questions
 =========
+- remove the build-tools base from the real-world example app.
+- check if we should register for https://github.com/sponsors.
+- move out workspace-clj + test-runner to its own repository, polylith-deps?
+  - it may be harder to work with because we lose some of the benefits
+    we have to work with a polylith workspace.
+  - the good thing is that we will be more consistent with the tooling
+    around polylith, so that we e.g. could create these repositories:
+    - polylith-clojure-deps
+    - polylith-clojure-lein
+    - polylith-clojure-boot
+    - polylith-kotlin-gradle-dsl
+    - (should the repositories start with poly- instead, to show that we mean
+      the cli tooling?
+    - store these repositories under the new company name.
+
 
 Leave for now
 =============
@@ -74,6 +112,7 @@ Leave for now
 - check if support for .cljs files make sense.
 - how to decorate the errors and warnings so that a tool can easily mark what's
   wrong in a e.g. a UI.
+- figure out what jar:s are missing based on the imports.
 
 
 Doc
@@ -119,42 +158,57 @@ Design decisions
   in the interface are implemented, so that we don't get a mix of functions from
   two different components in the namespace.
 
-------------------------------------------------------
+----------------------------------------
 
-##### polylith #####
+workspace:
+  polylith
 
-                 core
-                 ==============
-<change>         change
-<common>         common
-<deps>           deps
-<file>           file
-<git>            git
-<shell>          shell
-<spec>           spec
-<test>           test
-<util>           util
-<validate>       validate
-<workspace>      workspace
-<workspace-clj>  workspace-clj
----------------  -------------
--                tool
+environments:
+  c = core
 
-##### clojure-polylith-realworld-example-app #####
+interfaces     bricks         loc (t)   c
+-----------------------------------------
+change         change          80  25   x
+common         common         161   0   x
+deps           deps            67 135   x
+file           file            74   0   x
+git            git             31  17   x
+shell          shell           19   0   x
+spec           spec            17   0   x
+test-runner    test-runner     72   0   x
+util           util            56  43   x
+validate       validate       370 693   x
+workspace      workspace      265  77   x
+workspace-clj  workspace-clj  277 184   x
+-              cli             82   0   x
 
-            build-tools  realworld-backend
-            ===========  =================
-<article>                article
-<comment>                comment
-<database>               database
-<log>                    log
-<profile>                profile
-<spec>                   spec
-<tag>                    tag
-<user>                   user
-----------  -----------  -----------------
--           build-tools  build-tools
--			             rest-api
+total loc: 1570 (1174)
+
+
+workspace:
+  clojure-polylith-realworld-example-app
+
+environments:
+  h = helpers
+  rb = realworld-backend
+
+interfaces   bricks       loc (t)   h  rb
+-----------------------------------------
+article      article      332 554   -  x
+build-tools  build-tools   42   0   x  -
+comment      comment      116 159   -  x
+database     database     146   0   -  x
+log          log          106   0   -  x
+profile      profile       79 164   -  x
+spec         spec          68   0   -  x
+tag          tag           16  30   -  x
+user         user         189 170   -  x
+-            helpers       16   0   x  -
+-			 rest-api     318 449   -  x
+
+total loc: 3180 (1526)
+
+----------------------------------------
 
 Commands
 ========

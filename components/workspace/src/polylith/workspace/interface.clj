@@ -45,12 +45,17 @@
 (defn enrich-workspace [workspace]
   (core/enrich-workspace workspace))
 
-; TODO: delete these
-;(->
-;    "."
-;    ;"../clojure-polylith-realworld-example-app"
-;    ws-clojure/workspace-from-disk
-;    core/enrich-workspace
-;    change/with-changes)
-
-;(-> workspace enrich-workspace (change/with-changes "f0a84c47c284d9502ca4cd1a017d2b4b6161bfc5"))
+;(def workspace (->
+;                   ;"."
+;                   "../clojure-polylith-realworld-example-app"
+;                   ws-clojure/workspace-from-disk
+;                   core/enrich-workspace))
+;    ;change/with-changes)
+;
+;(map (juxt :name :lines-of-code-src :lines-of-code-test) (:components workspace))
+;(map (juxt :name :lines-of-code-src :lines-of-code-test) (:bases workspace))
+;
+;
+;(def environments (:environments workspace))
+;
+;(first environments)

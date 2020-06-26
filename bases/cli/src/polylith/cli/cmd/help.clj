@@ -4,18 +4,18 @@
 
 (defn command
   ([cmd dark-mode?]
-   (str "  " (color/as-grey dark-mode? cmd)))
+   (str "  " (color/grey dark-mode? cmd)))
   ([cmd dark-mode? & args]
-   (str "  " (color/as-grey dark-mode? cmd) " " (str/join " " args))))
+   (str "  " (color/grey dark-mode? cmd) " " (str/join " " args))))
 
 (defn environment [cmd env dark-mode?]
-  (str "  " (color/as-grey dark-mode? cmd) " " (color/environment env)))
+  (str "  " (color/grey dark-mode? cmd) " " (color/environment env)))
 
 (defn help-cmd [dark-mode?]
-  (str "  [" (color/as-grey dark-mode? "help") "]"))
+  (str "  [" (color/grey dark-mode? "help") "]"))
 
 (defn test-cmd [dark-mode?]
-  (let [cmd (color/as-grey dark-mode? "test")
+  (let [cmd (color/grey dark-mode? "test")
         env (color/environment "env")]
     (str "  " cmd " [" env "]")))
 

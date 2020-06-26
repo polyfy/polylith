@@ -33,11 +33,11 @@
        (str/starts-with? path "../../bases/")))
 
 (defn environment
-  ([ws-path env maven-repos]
+  ([ws-path env]
    (let [path (str ws-path "/environments/" env "/deps.edn")
          {:keys [paths deps aliases mvn/repos]} (read-string (slurp path))
-         mvn-repos (merge mvn/standard-repos maven-repos repos)]
-     (environment env paths deps aliases mvn-repos)))
+         maven-repos (merge mvn/standard-repos repos)]
+     (environment env paths deps aliases maven-repos)))
   ([env paths deps aliases maven-repos]
    (let [component-names (vec (sort (set (mapv component-name (filter component? paths)))))
          base-names (vec (sort (set (mapv base-name (filter base? paths)))))
@@ -64,6 +64,6 @@
                         :deps test-deps
                         :maven-repos maven-repos)])))
 
-(defn environments [ws-path maven-repos]
+(defn environments [ws-path]
   (let [env-dirs (file/directory-paths (str ws-path "/environments"))]
-    (mapcat #(environment ws-path % maven-repos) env-dirs)))
+    (mapcat #(environment ws-path %) env-dirs)))

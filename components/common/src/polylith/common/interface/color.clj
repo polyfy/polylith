@@ -1,61 +1,69 @@
 (ns polylith.common.interface.color
   (:require [clojure.string :as str]))
 
-(def reset  "\u001B[0m")
-(def black  "\u001B[30m")
-(def cyan   "\u001B[36m")
-(def blue   "\u001B[34m")
-(def green  "\u001B[32m")
-(def grey-light "\u001B[37m")
-(def grey-dark "\u001b[90m")
-(def purple "\u001B[35m")
-(def red    "\u001B[31m")
-(def white  "\u001B[37m")
-(def yellow "\u001B[33m")
+(def ^:private reset            "\u001B[0m")
+(def ^:private color-black      "\u001B[30m")
+(def ^:private color-cyan       "\u001B[36m")
+(def ^:private color-blue       "\u001B[34m")
+(def ^:private color-green      "\u001B[32m")
+(def ^:private color-grey-light "\u001B[37m")
+(def ^:private color-grey-dark  "\u001b[90m")
+(def ^:private color-purple     "\u001B[35m")
+(def ^:private color-red        "\u001B[31m")
+(def ^:private color-white      "\u001B[37m")
+(def ^:private color-yellow     "\u001B[33m")
 
-(defn color [color messages]
+(defn- color [color messages]
   (str color (str/join "" messages) reset))
 
-(defn as-blue [& messages]
-  (color blue messages))
+(defn blue [& messages]
+  (color color-blue messages))
 
-(defn as-green [& messages]
-  (color green messages))
+(defn green [& messages]
+  (color color-green messages))
 
-(defn as-grey [dark-mode? & messages]
+(defn grey [dark-mode? & messages]
   (if dark-mode?
-    (color grey-light messages)
-    (color grey-dark messages)))
+    (color color-grey-light messages)
+    (color color-grey-dark messages)))
 
-(defn as-purple [& messages]
-  (color purple messages))
+(defn purple [& messages]
+  (color color-purple messages))
 
-(defn as-red [& messages]
-  (color red messages))
+(defn red [& messages]
+  (color color-red messages))
 
-(defn as-yellow [& messages]
-  (color yellow messages))
+(defn yellow [& messages]
+  (color color-yellow messages))
 
+(defn ok [& messages]
+  (color color-green messages))
+
+(defn warning [& messages]
+  (color color-yellow messages))
+
+(defn error [& messages]
+  (color color-red messages))
 
 (defn brick [type brick]
   (if (= type "component")
-    (as-green brick)
-    (as-blue brick)))
+    (green brick)
+    (blue brick)))
 
 (defn interface [ifc]
-  (as-yellow ifc))
+  (yellow ifc))
 
 (defn component [component]
-  (as-green component))
+  (green component))
 
 (defn base [base]
-  (as-blue base))
+  (blue base))
 
 (defn environment [env]
-  (as-purple env))
+  (purple env))
 
 (defn namespc
   ([namespace dark-mode?]
-   (as-grey dark-mode? namespace))
+   (grey dark-mode? namespace))
   ([interface namespace dark-mode?]
-   (as-grey dark-mode? (str interface "." namespace))))
+   (grey dark-mode? (str interface "." namespace))))
