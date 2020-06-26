@@ -1,6 +1,7 @@
 (ns polylith.validate.m107-missing-componens-in-environment-test
   (:require [clojure.test :refer :all]
-            [polylith.validate.m107-missing-componens-in-environment :as m107]))
+            [polylith.validate.m107-missing-componens-in-environment :as m107])
+  (:refer-clojure :exclude [bases]))
 
 (def components [{:name "article",
                   :type "component",
