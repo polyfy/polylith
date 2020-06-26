@@ -3,6 +3,4 @@
 
 (defn run [workspace env]
   "Executes tests for the given environment or all tests if not given."
-  (if (nil? env)
-    (core/run-tests workspace)
-    (core/run-tests workspace env)))
+  (core/run workspace env))

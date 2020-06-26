@@ -66,3 +66,34 @@
            (println (str "\n" (color/ok result-str))))
          (catch Exception e
            (println (str (color/error "Couldn't run test statement: ") statement " " (color/error e)))))))))
+
+(defn run-tests-for-environment [workspace env]
+  (let [env-group (group env)
+        _ (println "##### " env-group " #####")
+        config (->config workspace env-group)
+        lib-paths (ws/lib-paths config env-group true)
+        src-paths (ws/src-paths config env-group true)
+        _ (throw-exception-if-empty src-paths env-group)
+        paths (concat src-paths lib-paths)
+        test-namespaces (ws/test-namespaces config env-group)
+        test-statements (map ns-name->test-statement test-namespaces)
+        class-loader (common/create-class-loader paths)]
+    (doseq [statement test-statements]
+      (try
+        (let [{:keys [error fail pass] :as summary} (common/eval-in class-loader statement)
+              result-str (str "Test results: " pass " passes, " fail " failures, " error " errors.")]
+          (when (or (< 0 error)
+                    (< 0 fail))
+            (throw (ex-info (str "\n" (color/ok result-str)) summary)))
+          (println (str "\n" (color/ok result-str))))
+        (catch Exception e
+          (println (str (color/error "Couldn't run test statement: ") statement " " (color/error e))))))))
+
+(defn run-all-tests [{:keys [environments] :as workspace}]
+  (doseq [{:keys [name]} (filter :test? environments)]
+    (run-tests-for-environment workspace name)))
+
+(defn run [workspace env]
+  (if (nil? env)
+    (run-all-tests workspace)
+    (run-tests-for-environment workspace env)))
