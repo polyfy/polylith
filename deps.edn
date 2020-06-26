@@ -1,2 +1,7 @@
 {:polylith {:top-namespace "polylith"
-            :dark-mode? true}}
+            :dark-mode?    true}
+
+ :aliases  {:dev      {:extra-deps {env/core {:local/root "environments/core"}}}
+
+            :test     {:main-opts ["-m" "polylith.cli.poly" "test"]}
+            :check    {:main-opts ["-m" "polylith.cli.poly" "check"]}}}
