@@ -93,15 +93,14 @@
         enriched-components (mapv #(enrich-component top-ns interface-names %) components)
         enriched-bases (mapv #(enrich-base top-ns interface-names %) bases)
         enriched-bricks (concat enriched-components enriched-bases)
-        enriched-interfaces (deps/interface-deps interfaces enriched-components)
         brick->loc (brick->loc enriched-bricks)
         brick->lib-imports (brick->lib-imports enriched-bricks)
         enriched-environments (mapv #(enrich-env % brick->loc brick->lib-imports) environments)
         dark-mode? (:dark-mode? settings false)
-        messages (validate/messages top-ns interface-names enriched-interfaces enriched-components enriched-bases enriched-environments dark-mode?)]
+        messages (validate/messages top-ns interface-names interfaces enriched-components enriched-bases enriched-environments dark-mode?)]
     (array-map :ws-path ws-path
                :settings settings
-               :interfaces enriched-interfaces
+               :interfaces interfaces
                :components enriched-components
                :bases enriched-bases
                :environments enriched-environments

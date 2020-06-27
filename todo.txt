@@ -22,8 +22,6 @@
 
 - add the version command.
 
-- remove :implementing-interface-deps.
-
 - calculate :lines-of-code-src and :lines-of-code-test on the root of the project
   that is the sum of loc for all components and bases.
 
@@ -78,7 +76,10 @@
 - only include the corresponding test-environment if the :aliases {:test ...}}
   key is defined in deps.edn.
 
-- chnge what the 'ws' command prints out:
+- make sure we handle imported namespaces in a generic way, right now we assume
+  that they are separated with a "." in deps.dependencies/brick-namespace.
+
+- change what the 'ws' command prints out:
   - if running 'poly ws map', print out the whole map as today.
   - if running 'poly ws loc', print out this:
       workspace:

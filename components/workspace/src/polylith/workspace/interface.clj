@@ -1,16 +1,8 @@
 (ns polylith.workspace.interface
-  (:require [polylith.change.interface :as change]
-            [polylith.workspace.core :as core]
+  (:require [polylith.workspace.core :as core]
             [polylith.workspace.source :as source]
             [polylith.workspace.dependencies :as deps]
             [polylith.workspace-clj.interface :as ws-clojure]))
-
-; TODO: delete these and also unnecessary requires above
-;(def workspace (ws-clojure/workspace-from-disk "../clojure-polylith-realworld-example-app"))
-;(def workspace (ws-clojure/workspace-from-disk "."))
-;(def workspace (ws-clojure/workspace-from-disk "../Nova/project-unicorn" {:polylith {:top-namespace ""}}))
-;(def workspace (ws-clojure/workspace-from-disk "../ws11" {:polylith {:top-namespace ""}}))
-;(def workspace (ws-clojure/workspace-from-disk "../ws12" {:polylith {:top-namespace ""}}))
 
 (defn src-paths
   ([workspace env-group]
@@ -45,12 +37,26 @@
 (defn enrich-workspace [workspace]
   (core/enrich-workspace workspace))
 
+
+
+;(map (juxt :name :interface-deps)
+;     (:bases (->
+;               ;"."
+;               "../clojure-polylith-realworld-example-app"
+;               ws-clojure/workspace-from-disk
+;               core/enrich-workspace)))
+;   ;change/with-changes)
+
 ;(def workspace (->
-;                   ;"."
-;                   "../clojure-polylith-realworld-example-app"
-;                   ws-clojure/workspace-from-disk
-;                   core/enrich-workspace))
-;    ;change/with-changes)
+;                 ;"."
+;                 "../clojure-polylith-realworld-example-app"
+;                 ws-clojure/workspace-from-disk
+;                 core/enrich-workspace))
+;
+;(def components (:components workspace))
+;
+;(first components)
+
 ;
 ;(map (juxt :name :lines-of-code-src :lines-of-code-test) (:components workspace))
 ;(map (juxt :name :lines-of-code-src :lines-of-code-test) (:bases workspace))
