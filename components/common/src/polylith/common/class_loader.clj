@@ -54,9 +54,8 @@
                           (let [string (invoke-in class-loader clojure.lang.RT/printString [Object] result)]
                             (try
                               (read-string string)
-                              (catch RuntimeException e
-                                (println (str (color/error "Could not evaluate: ") string " " (color/error e)))
-                                string))))))))
+                              (catch RuntimeException _
+                                result))))))))
 
 (defn eval-in [class-loader form]
   (eval-in* class-loader `(clojure.main/with-bindings (eval '~form))))
