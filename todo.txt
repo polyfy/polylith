@@ -1,15 +1,6 @@
 
 - change top namespace from 'polylith' to 'polylith.core' so that we
- can distinguish it from e.g. 'polylith.kotlin'.
-
-- add error if deps.edn can't be read or parsed.
-
-- check that components has a top namespace and an interface.
-
-- add the version command.
-
-- calculate :lines-of-code-src and :lines-of-code-test on the root of the project
-  that is the sum of loc for all components and bases.
+  can distinguish it from e.g. 'polylith.kotlin'.
 
 - just add more attributes to what e.g. workspace-clj adds, so that
   a tool creator can decide to add whatever attributes they need
@@ -64,6 +55,8 @@
 
 - make sure we handle imported namespaces in a generic way, right now we assume
   that they are separated with a "." in deps.dependencies/brick-namespace.
+
+- add the version command.
 
 - change what the 'ws' command prints out:
   - if running 'poly ws map', print out the whole map as today.
