@@ -1,10 +1,11 @@
 (ns polylith.change.interface
   (:require [polylith.change.core :as core]))
 
+(defn changed-files [{:keys [environments]} sha1 sha2]
+  (core/changed-files environments sha1 sha2))
+
 (defn with-changes
   ([workspace]
-   (core/with-changes workspace nil nil))
-  ([workspace hash1]
-   (core/with-changes workspace hash1 nil))
-  ([workspace hash1 hash2]
-   (core/with-changes workspace hash1 hash2)))
+   (with-changes workspace (changed-files workspace nil nil)))
+  ([workspace changed-files]
+   (core/with-changes workspace changed-files)))

@@ -2,18 +2,6 @@
 - change top namespace from 'polylith' to 'polylith.core' so that we
   can distinguish it from e.g. 'polylith.kotlin'.
 
-- just add more attributes to what e.g. workspace-clj adds, so that
-  a tool creator can decide to add whatever attributes they need
-  to perform the 'test' and 'build' commands.
-
-- show warning if depending on an interface namespace but it's not
-  a known interface.
-
-- change keys in changes to :changed-components...
-- send in git diff to 'change'.
-
-- add support for Kotlin.
-
 - make sure we can compile the code into a command line tool using GraalVM.
 - compile a 'poly' tool with GraalVM.
 
@@ -55,6 +43,10 @@
 
 - make sure we handle imported namespaces in a generic way, right now we assume
   that they are separated with a "." in deps.dependencies/brick-namespace.
+
+- just add more attributes to what e.g. workspace-clj adds, so that
+  a tool creator can decide to add whatever attributes they need
+  to perform the 'test' and 'build' commands.
 
 - add the version command.
 
