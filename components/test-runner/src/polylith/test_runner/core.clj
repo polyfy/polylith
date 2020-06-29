@@ -43,7 +43,6 @@
 
 (defn run-tests-for-environment [workspace env]
   (let [env-group (group env)
-        _ (println "##### " env-group " #####")
         config (->config workspace env-group)
         lib-paths (ws/lib-paths config env-group true)
         src-paths (ws/src-paths config env-group true)

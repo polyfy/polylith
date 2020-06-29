@@ -19,11 +19,11 @@
     {:sub-ns namespace
      :path (str root-dir "/" path)}))
 
-(defn interface-namespaces [brick-src-ws-dir]
+(defn interface-namespaces [src-dir]
   (let [paths (filterv interface-ns?
-                       (map #(interface-path brick-src-ws-dir %)
-                            (file/paths-recursively brick-src-ws-dir)))]
-    (mapv #(interface-ns brick-src-ws-dir %) paths)))
+                       (map #(interface-path src-dir %)
+                            (file/paths-recursively src-dir)))]
+    (mapv #(interface-ns src-dir %) paths)))
 
 (defn interface-from-disk [{:keys [sub-ns path]}]
   (let [content (file/read-file path)
@@ -31,6 +31,7 @@
     (mapcat #(defs/definitions sub-ns %) statements)))
 
 (defn defs-from-disk [src-dir]
+  "Example of a src-dir: ./components/common/src/polylith/common"
   (vec (sort-by (juxt :sub-ns :type :name :parameters)
                 (mapcat interface-from-disk
                         (interface-namespaces src-dir)))))

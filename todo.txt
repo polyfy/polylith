@@ -1,20 +1,6 @@
 
-- figure out what components and interfaces that are used:
-  - uses-directly (interface + component per environment)
-  - uses-indirectly
-  - used-by-directly
-  - used-by-indirectly
-
-- in the UI, show the missing interface dependencies as interfaces
-  in the environment column that contains the components.
-
-- change the validation 107 and base it on uses-directly and uses-indirectly.
-
-
-- in the UI, when you click on a component or base, show what components
-  it uses (directly or indirectly) in every environement + what components
-  that uses it (directly or indirectly). If both thing happens at the same time,
-  then we have circular dependencies!
+- change top namespace from 'polylith' to 'polylith.core' so that we
+ can distinguish it from e.g. 'polylith.kotlin'.
 
 - add error if deps.edn can't be read or parsed.
 
@@ -111,6 +97,7 @@
 
 Questions
 =========
+- polylith.workspace-clj.namespaces-from-disk/->namespace
 - check if we should register for https://github.com/sponsors.
 - move out workspace-clj + test-runner to its own repository, polylith-clj-deps?
   - it may be harder to work with the code because we lose some of the benefits
@@ -135,6 +122,18 @@ Leave for now
 - add support for another language, e.g. Java.
 - check if support for .cljs files make sense.
 - figure out what jar:s are missing based on the imports.
+- if building a UI, then we need to calculate this data based on :interface-deps:
+  - uses-directly (interface + component per environment)
+  - uses-indirectly
+  - used-by-directly
+  - used-by-indirectly
+- in the UI, show the missing interface dependencies as interfaces
+  in the environment column that contains the components.
+- in the UI, when you click on a component or base, show what components
+  it uses (directly or indirectly) in every environement + what components
+  that uses it (directly or indirectly). If both thing happens at the same time,
+  then we have circular dependencies!
+
 
 
 Doc

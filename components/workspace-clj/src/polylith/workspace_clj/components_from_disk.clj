@@ -2,7 +2,7 @@
   (:require [clojure.string :as str]
             [polylith.file.interface :as file]
             [polylith.workspace-clj.namespaces-from-disk :as ns-from-disk]
-            [polylith.workspace-clj.interface-defs-from-disk :as interface-defs-from-disk]))
+            [polylith.workspace-clj.interface-defs-from-disk :as defs-from-disk]))
 
 (defn replace-underscore [string]
   (when string
@@ -19,7 +19,7 @@
         src-dir (str component-src-dir interface-name)
         namespaces-src (ns-from-disk/namespaces-from-disk component-src-dir)
         namespaces-test (ns-from-disk/namespaces-from-disk component-test-dir)
-        definitions (interface-defs-from-disk/defs-from-disk src-dir)]
+        definitions (defs-from-disk/defs-from-disk src-dir)]
     {:name component-name
      :type "component"
      :namespaces-src namespaces-src
