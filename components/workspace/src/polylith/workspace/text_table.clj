@@ -20,6 +20,10 @@
     (vec (concat [ifc "" name "" loc-src "" loc-test ""]
                  (interpose "" all-env-contains)))))
 
+(defn total-loc-row [env-spc-cnt lines-of-code-src lines-of-code-test]
+  (vec (concat ["" "" "" "" (str lines-of-code-src) "" (str lines-of-code-test) ""]
+               (repeat env-spc-cnt ""))))
+
 (def basic-headers ["interface" "  " "brick" "  " "loc" " " "(t)" "   "])
 (def basic-alignments [:left :left :left :left :right :left :right :left])
 
@@ -47,17 +51,17 @@
         alias->bricks (into {} (map env-data envs))
         bricks (concat components bases)
         headers (concat basic-headers (interpose "  " aliases))
-        rows (map #(row % aliases alias->bricks) bricks)
+        brick-rows (mapv #(row % aliases alias->bricks) bricks)
+        total-loc-row (total-loc-row env-spc-cnt lines-of-code-src lines-of-code-test)
+        rows (conj brick-rows total-loc-row)
         header-colors (repeat (count headers) :none)
         component-colors (mapv #(component-colors % aliases alias->bricks) components)
         base-colors (mapv #(base-colors % aliases alias->bricks) bases)
-        all-colors (concat component-colors base-colors)
+        total-loc-colors [(vec (repeat (+ 8 env-spc-cnt) :none))]
+        all-colors (concat component-colors base-colors total-loc-colors)
         table (text-table/table headers alignments rows header-colors all-colors)]
     (println "workspace: ")
     (println (str "  " name))
-    (println)
-    (println "lines of code, src (test):")
-    (println (str "  " lines-of-code-src " (" lines-of-code-test ")"))
     (println)
     (println "environments:")
     (doseq [{:keys [alias name]} (filter (complement :test?) environments)]
