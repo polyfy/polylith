@@ -8,6 +8,6 @@
 
 (defn execute [{:keys [messages]}]
   (if (empty? messages)
-    (println (color/ok "Valid!"))
+    (println (color/ok "OK"))
     (doseq [message messages]
       (print-message message))))

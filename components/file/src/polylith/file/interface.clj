@@ -2,6 +2,9 @@
   (:require [polylith.file.core :as core])
   (:import (java.io File)))
 
+(defn absolute-path [path]
+  (core/absolute-path path))
+
 (defn directory? [^File file]
   (core/directory? file))
 

@@ -1,12 +1,12 @@
 (ns polylith.workspace.core
-  (:require [clojure.tools.deps.alpha.util.maven :as mvn]
-            [polylith.common.interface :as common]
+  (:require [polylith.common.interface :as common]
             [polylith.deps.interface :as deps]
             [polylith.validate.interface :as validate]
             [polylith.workspace.calculate-interfaces :as ifcs]
             [polylith.workspace.lib-imports :as lib]
             [polylith.util.interface :as util]
-            [polylith.file.interface :as file]))
+            [polylith.file.interface :as file]
+            [clojure.string :as str]))
 
 (defn brick-loc [namespaces]
   (apply + (mapv file/lines-of-code
@@ -57,9 +57,10 @@
   (mapcat #(select-lib-imports % brick->lib-imports test?)
           brick-names))
 
-(defn enrich-env [{:keys [name group test? type component-names base-names paths deps maven-repos]}
-                  brick->loc
-                  brick->lib-imports]
+(defn enrich-env [index
+                  [{:keys [name group test? type component-names base-names paths deps maven-repos]}
+                   brick->loc
+                   brick->lib-imports]]
   (let [brick-names (concat component-names base-names)
         lib-imports (-> (env-lib-imports brick-names brick->lib-imports test?)
                         set sort vec)
@@ -67,6 +68,7 @@
     (util/ordered-map :name name
                       :group group
                       :test? test?
+                      :alias (-> index inc str)
                       :type type
                       :lines-of-code lines-of-code
                       :component-names component-names
@@ -86,8 +88,17 @@
                                              :lines-of-code-test]))
                 bricks)))
 
+(defn workspace-name [ws-path]
+  (let [cleaned-ws-path (if (= "." ws-path) "" ws-path)
+        path (file/absolute-path cleaned-ws-path)
+        index (str/last-index-of path "/")]
+    (if (>= index 0)
+      (subs path (inc index))
+      path)))
+
 (defn enrich-workspace [{:keys [ws-path settings components bases environments]}]
-  (let [top-ns (common/top-namespace (:top-namespace settings))
+  (let [ws-name (workspace-name ws-path)
+        top-ns (common/top-namespace (:top-namespace settings))
         interfaces (ifcs/interfaces components)
         interface-names (apply sorted-set (mapv :name interfaces))
         enriched-components (mapv #(enrich-component top-ns interface-names %) components)
@@ -97,10 +108,11 @@
         lines-of-code-test (apply + (filter identity (map :lines-of-code-test enriched-bricks)))
         brick->loc (brick->loc enriched-bricks)
         brick->lib-imports (brick->lib-imports enriched-bricks)
-        enriched-environments (mapv #(enrich-env % brick->loc brick->lib-imports) environments)
+        enriched-environments (vec (map-indexed #(enrich-env %1 [%2 brick->loc brick->lib-imports]) environments))
         dark-mode? (:dark-mode? settings false)
         messages (validate/messages top-ns interface-names interfaces enriched-components enriched-bases enriched-environments dark-mode?)]
-    (array-map :ws-path ws-path
+    (array-map :name ws-name
+               :ws-path ws-path
                :settings settings
                :interfaces interfaces
                :components enriched-components

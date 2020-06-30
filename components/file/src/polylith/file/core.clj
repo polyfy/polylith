@@ -3,6 +3,9 @@
             [clojure.java.io :refer [reader]])
   (:import (java.io File FileNotFoundException PushbackReader)))
 
+(defn absolute-path [path]
+  (-> path io/file .getAbsolutePath))
+
 (defn directory? [^File file]
   (.isDirectory file))
 

@@ -8,6 +8,9 @@
   ([cmd dark-mode? & args]
    (str "  " (color/grey dark-mode? cmd) " " (str/join " " args))))
 
+(defn arg [cmd dark-mode?]
+  (color/grey dark-mode? cmd))
+
 (defn environment [cmd env dark-mode?]
   (str "  " (color/grey dark-mode? cmd) " " (color/environment env)))
 
@@ -21,11 +24,11 @@
 
 (defn help-text [dark-mode?]
   (str
-    (command "check" dark-mode?) "       Checks that the workspace is valid.\n"
-    (test-cmd dark-mode?) "  Runs the tests for the given environment\n"
-    "              or all environments if " (color/environment "env") " is not given.\n"
-    (command "ws" dark-mode?) "          Views current workspace.\n"
-    (help-cmd dark-mode?) "      Views this help."))
+    (command "check" dark-mode?) "         Checks that the workspace is valid.\n"
+    (test-cmd dark-mode?) "    Runs the tests for the given environment\n"
+    "                or all environments if " (color/environment "env") " is not given.\n"
+    (command "info" dark-mode?) " [" (arg "-dump" dark-mode?) "]  Views current workspace.\n"
+    (help-cmd dark-mode?) "        Views this help."))
 
 (defn execute [dark-mode?]
   (-> dark-mode? help-text println))

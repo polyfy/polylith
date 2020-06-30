@@ -21,4 +21,4 @@
         multi-components (filter #(> (-> % second count) 1) grouped-components)
         single-interfaces (mapv ->interface single-components)
         multi-interfaces (map ->multi-interface multi-components)]
-    (concat single-interfaces multi-interfaces)))
+    (vec (concat single-interfaces multi-interfaces))))
