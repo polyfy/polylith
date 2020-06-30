@@ -3,3 +3,6 @@
 
 (defn table [headers alignments rows]
   (core/table headers alignments rows))
+
+(defn table-rows [headers alignments rows]
+  (core/table-rows headers alignments rows))

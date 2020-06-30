@@ -124,6 +124,14 @@ Doc
   to only access the 'interface' namespace.
 - when we release the new version:
   - write a note on lein-polylith that it is has been replaced by this tool.
+- some extra benefits of using interfaces:
+  - in the implementing namespace(s) the functions must be defined in the
+    right order, but in the interface they can e.g. be listed in alphabetic order.
+  - in the implementing namespace(s) the arguments can sometimes be destructured
+    directly so that it's not obvious what "type" (map) it is, but in the interface
+    we can keep a good name of each argument.
+  - functions can be overloaded in the interface but have just one function
+    signature in the implementing namespace where arguments can be nil.
 
 Differences compared to lein-polylith
 =====================================

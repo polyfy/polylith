@@ -23,3 +23,9 @@
   (if-let [suffix (core/find-first #(str/ends-with? string %) suffixes)]
     (skip-suffix string suffix)
     string))
+
+(defn spaces [length]
+  (str/join (take length (repeat " "))))
+
+(defn line [length]
+  (str/join (take length (repeat "-"))))

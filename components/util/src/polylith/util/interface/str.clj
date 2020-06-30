@@ -9,3 +9,9 @@
 
 (defn skip-suffixes [string suffixes]
   (str/skip-suffixes string suffixes))
+
+(defn spaces [length]
+  (str/spaces length))
+
+(defn line [length]
+  (str/line length))
