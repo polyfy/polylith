@@ -1,7 +1,6 @@
 (ns polylith.workspace.text-table
-  (:require [clojure.string :as str]
-            [polylith.text-table.interface :as text-table]
-            [polylith.util.interface.str :as str-util]))
+  (:require [polylith.text-table.interface :as text-table]
+            [polylith.common.interface.color :as color]))
 
 (defn env-data [{:keys [alias component-names base-names]}]
   [alias (set (concat component-names base-names))])
@@ -18,25 +17,31 @@
         loc-src (str lines-of-code-src)
         loc-test (str lines-of-code-test)
         all-env-contains (mapv #(env-contains % name alias->bricks) aliases)]
-    (concat [ifc "" name "" loc-src "" loc-test ""]
-            (interpose "" all-env-contains))))
+    (vec (concat [ifc "" name "" loc-src "" loc-test ""]
+                 (interpose "" all-env-contains)))))
 
 (def basic-headers ["interface" "  " "brick" "  " "loc" " " "(t)" "   "])
 (def basic-alignments [:left :left :left :left :right :left :right :left])
 
+(defn brick-colors [color env-spc-cnt]
+  (let [interface-color (if (= :blue color) :none :yellow)]
+    (vec (concat [interface-color :none color :none :none :none :none :none]
+                 (repeat env-spc-cnt :purple)))))
+
 (defn print-table [{:keys [name components bases environments lines-of-code-src lines-of-code-test]}]
   (let [envs (filter (complement :test?) environments)
-        delimiter-rows (+ 2 (count components))
         aliases (mapv :alias envs)
-        extra-alignments (inc (* (dec (count aliases)) 2))
-        alignments (concat basic-alignments (repeat extra-alignments :left))
+        env-spc-cnt (inc (* (-> envs count dec) 2))
+        alignments (concat basic-alignments (repeat env-spc-cnt :left))
         alias->bricks (into {} (map env-data envs))
         bricks (concat components bases)
         headers (concat basic-headers (interpose "  " aliases))
         rows (map #(row % aliases alias->bricks) bricks)
-        table-rows (text-table/table-rows headers alignments rows)
-        first-table (str/join "\n" (take delimiter-rows table-rows))
-        last-table (str/join "\n" (drop delimiter-rows table-rows))]
+        header-colors (repeat (count headers) :none)
+        component-colors (repeatedly (count components) #(brick-colors :green env-spc-cnt))
+        base-colors (repeatedly (count bases) #(brick-colors :blue env-spc-cnt))
+        all-colors (concat component-colors base-colors)
+        table (text-table/table headers alignments rows header-colors all-colors)]
     (println "workspace: ")
     (println (str "  " name))
     (println)
@@ -45,8 +50,6 @@
     (println)
     (println "environments:")
     (doseq [{:keys [alias name]} (filter (complement :test?) environments)]
-      (println (str "  " alias " = " name)))
+      (println (str "  " alias " = " (color/purple name))))
     (println)
-    (println first-table)
-    (println (str-util/line (-> table-rows first count)))
-    (println last-table)))
+    (println table)))

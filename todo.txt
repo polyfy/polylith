@@ -1,43 +1,11 @@
 
-- improve the 'ws' command:
-  - print colors
-  - print extra info
-  - remove c/b
-  - add row between components/bases
-  - support for aliases
-  - number aliases with 1,2,3...
-  - if running 'poly ws -map', print out the whole map as today.
-
-
-
-====================================================================
-
-workspace:
-  polylith
-
-lines of code, src (test):
-  1570 (1174)
-
-environments:
-  c = core
-
-interface      c/b  brick          loc (t)   c
-----------------------------------------------
-change          c   change          80  25   x
-common          c   common         161   0   x
-deps            c   deps            67 135   x
-file            c   file            74   0   x
-git             c   git             31  17   x
-shell           c   shell           19   0   x
-spec            c   spec            17   0   x
-test-runner     c   test-runner     72   0   x
-util            c   util            56  43   x
-validate        c   validate       370 693   x
-workspace       c   workspace      265  77   x
-workspace-clj   c   workspace-clj  277 184   x
--               b   cli             82   0   x
-
-====================================================================
+- improve the 'info' command:
+  - calculate better aliases
+  - add support for custom aliases + print message how to do that
+    if not present in :polylith.
+  - handle the case where more than one component implements
+    the same interface.
+  - move from common.color to util.color
 
 - create a githook that verifies the project.
 
@@ -158,62 +126,6 @@ Design decisions
 - to be able to reload a whole component in the REPL, it's important that all functions
   in the interface are implemented, so that we don't get a mix of functions from
   two different components in the namespace.
-
-----------------------------------------
-
-workspace:
-  clojure-polylith-realworld-example-app
-
-lines of code, src (test):
-  3180 (1526)
-
-environments:
-  h = helpers
-  rb = realworld-backend
-
-interface    c/b  brick        loc (t)   h  rb
-----------------------------------------------
-article       c   article      332 554   -  x
-build-tools   c   build-tools   42   0   x  -
-comment       c   comment      116 159   -  x
-database      c   database     146   0   -  x
-log           c   log          106   0   -  x
-profile       c   profile       79 164   -  x
-spec          c   spec          68   0   -  x
-tag           c   tag           16  30   -  x
-user          c   user         189 170   -  x
--             b   helpers       16   0   x  -
--			  b   rest-api     318 449   -  x
-
-----------------------------------------------
-
-workspace:
-  polylith
-
-lines of code, src (test):
-  1570 (1174)
-
-environments:
-  c = core
-
-interface      c/b  brick          loc (t)   c
-----------------------------------------------
-change          c   change          80  25   x
-common          c   common         161   0   x
-deps            c   deps            67 135   x
-file            c   file            74   0   x
-git             c   git             31  17   x
-shell           c   shell           19   0   x
-spec            c   spec            17   0   x
-test-runner     c   test-runner     72   0   x
-util            c   util            56  43   x
-validate        c   validate       370 693   x
-workspace       c   workspace      265  77   x
-workspace-clj   c   workspace-clj  277 184   x
--               b   cli             82   0   x
-
-
-
 
 Commands
 ========

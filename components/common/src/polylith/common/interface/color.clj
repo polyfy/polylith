@@ -1,7 +1,7 @@
 (ns polylith.common.interface.color
   (:require [clojure.string :as str]))
 
-(def ^:private reset            "\u001B[0m")
+(def ^:private color-reset      "\u001B[0m")
 (def ^:private color-black      "\u001B[30m")
 (def ^:private color-cyan       "\u001B[36m")
 (def ^:private color-blue       "\u001B[34m")
@@ -14,7 +14,7 @@
 (def ^:private color-yellow     "\u001B[33m")
 
 (defn- color [color messages]
-  (str color (str/join "" messages) reset))
+  (str color (str/join "" messages) color-reset))
 
 (defn blue [& messages]
   (color color-blue messages))

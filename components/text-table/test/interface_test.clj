@@ -19,7 +19,10 @@
            ["workspace-clj" "" "c" "" "workspace-clj" "" "277" "" "184" "" "x"]
            ["-" "" "b" "" "cli" "" "82" "" "184" "" "x"]])
 
-(deftest sdfsd
+(def header-colors (repeat 11 :none))
+(def row-colors (repeat 13 header-colors))
+
+(deftest table--table-rows--should-return-a-formatted-table
   (is (= (str "interface      c/b  brick          loc (t)   c"
               "----------------------------------------------"
               "change          c   change          80  25   x"
@@ -35,4 +38,4 @@
               "workspace       c   workspace      265  77   x"
               "workspace-clj   c   workspace-clj  277 184   x"
               "-               b   cli             82 184   x")
-         (str/replace (text-table/table headers alignments rows) "\n" ""))))
+         (str/replace (text-table/table headers alignments rows header-colors row-colors) "\n" ""))))
