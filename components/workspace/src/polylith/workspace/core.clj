@@ -4,6 +4,7 @@
             [polylith.validate.interface :as validate]
             [polylith.workspace.calculate-interfaces :as ifcs]
             [polylith.workspace.lib-imports :as lib]
+            [polylith.workspace.alias :as alias]
             [polylith.util.interface :as util]
             [polylith.file.interface :as file]
             [clojure.string :as str]))
@@ -57,10 +58,10 @@
   (mapcat #(select-lib-imports % brick->lib-imports test?)
           brick-names))
 
-(defn enrich-env [index
-                  [{:keys [name group test? type component-names base-names paths deps maven-repos]}
-                   brick->loc
-                   brick->lib-imports]]
+(defn enrich-env [{:keys [name group test? type component-names base-names paths deps maven-repos]}
+                  brick->loc
+                  brick->lib-imports
+                  env->alias]
   (let [brick-names (concat component-names base-names)
         lib-imports (-> (env-lib-imports brick-names brick->lib-imports test?)
                         set sort vec)
@@ -68,7 +69,7 @@
     (util/ordered-map :name name
                       :group group
                       :test? test?
-                      :alias (-> index inc str)
+                      :alias (env->alias name)
                       :type type
                       :lines-of-code lines-of-code
                       :component-names component-names
@@ -108,7 +109,8 @@
         lines-of-code-test (apply + (filter identity (map :lines-of-code-test enriched-bricks)))
         brick->loc (brick->loc enriched-bricks)
         brick->lib-imports (brick->lib-imports enriched-bricks)
-        enriched-environments (vec (map-indexed #(enrich-env %1 [%2 brick->loc brick->lib-imports]) environments))
+        env->alias (alias/env->alias environments)
+        enriched-environments (mapv #(enrich-env % brick->loc brick->lib-imports env->alias) environments)
         dark-mode? (:dark-mode? settings false)
         messages (validate/messages top-ns interface-names interfaces enriched-components enriched-bases enriched-environments dark-mode?)]
     (array-map :name ws-name

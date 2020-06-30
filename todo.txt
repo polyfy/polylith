@@ -1,8 +1,6 @@
 
 - improve the 'info' command:
-  - calculate better aliases
-  - add support for custom aliases + print message how to do that
-    if not present in :polylith.
+  - add support for custom aliases in :polylith.
   - handle the case where more than one component implements
     the same interface.
   - move from common.color to util.color
