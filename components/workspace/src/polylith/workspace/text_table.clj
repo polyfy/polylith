@@ -23,10 +23,21 @@
 (def basic-headers ["interface" "  " "brick" "  " "loc" " " "(t)" "   "])
 (def basic-alignments [:left :left :left :left :right :left :right :left])
 
-(defn brick-colors [color env-spc-cnt]
-  (let [interface-color (if (= :blue color) :none :yellow)]
-    (vec (concat [interface-color :none color :none :none :none :none :none]
-                 (repeat env-spc-cnt :purple)))))
+(defn env-color [alias brick alias->bricks]
+  (if (contains? (alias->bricks alias) brick)
+    :purple
+    :none))
+
+(defn env-colors [aliases brick alias->bricks]
+  (interpose :none (map #(env-color % brick alias->bricks) aliases)))
+
+(defn component-colors [{:keys [name]} aliases alias->bricks]
+  (vec (concat [:yellow :none :green :none :none :none :none :none]
+               (env-colors aliases name alias->bricks))))
+
+(defn base-colors [{:keys [name]} aliases alias->bricks]
+  (vec (concat [:none :none :blue :none :none :none :none :none]
+               (env-colors aliases name alias->bricks))))
 
 (defn print-table [{:keys [name components bases environments lines-of-code-src lines-of-code-test]}]
   (let [envs (filter (complement :test?) environments)
@@ -38,8 +49,8 @@
         headers (concat basic-headers (interpose "  " aliases))
         rows (map #(row % aliases alias->bricks) bricks)
         header-colors (repeat (count headers) :none)
-        component-colors (repeatedly (count components) #(brick-colors :green env-spc-cnt))
-        base-colors (repeatedly (count bases) #(brick-colors :blue env-spc-cnt))
+        component-colors (mapv #(component-colors % aliases alias->bricks) components)
+        base-colors (mapv #(base-colors % aliases alias->bricks) bases)
         all-colors (concat component-colors base-colors)
         table (text-table/table headers alignments rows header-colors all-colors)]
     (println "workspace: ")
