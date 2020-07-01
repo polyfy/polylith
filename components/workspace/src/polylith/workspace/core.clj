@@ -110,7 +110,7 @@
         brick->loc (brick->loc enriched-bricks)
         brick->lib-imports (brick->lib-imports enriched-bricks)
         env->alias (alias/env->alias environments)
-        enriched-environments (mapv #(enrich-env % brick->loc brick->lib-imports env->alias) environments)
+        enriched-environments (vec (sort-by :name (map #(enrich-env % brick->loc brick->lib-imports env->alias) environments)))
         dark-mode? (:dark-mode? settings false)
         messages (validate/messages top-ns interface-names interfaces enriched-components enriched-bases enriched-environments dark-mode?)]
     (array-map :name ws-name

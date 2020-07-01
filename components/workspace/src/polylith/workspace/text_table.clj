@@ -82,7 +82,7 @@
         all-colors (concat component-colors base-colors total-loc-colors)
         table (text-table/table headers alignments rows header-colors all-colors)]
     (println "environments:")
-    (doseq [{:keys [alias name]} (filter (complement :test?) environments)]
+    (doseq [{:keys [alias name]} envs]
       (println (str "  " alias " = " (color/purple name))))
     (println)
     (println table)))
