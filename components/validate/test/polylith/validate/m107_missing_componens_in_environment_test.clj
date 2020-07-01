@@ -92,9 +92,9 @@
                     :base-names ["helpers"]}])
 
 (deftest errors--environments-with-missing-components--should-return-errors
-  (is (= [{:type "error"
-           :code 107
+  (is (= [{:type "error",
+           :code 107,
            :environment "development"
-           :message "Missing components in the development environment for these interfaces: spec, profile, log, database"}]
+           :message "Missing components in the development environment for these interfaces: database, log, profile, spec",}]
          (mapv #(select-keys % [:type :code :message :interface :components :environment])
                (m107/errors components polylith-bases environments)))))

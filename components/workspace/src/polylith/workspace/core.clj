@@ -109,7 +109,7 @@
         lines-of-code-test (apply + (filter identity (map :lines-of-code-test enriched-bricks)))
         brick->loc (brick->loc enriched-bricks)
         brick->lib-imports (brick->lib-imports enriched-bricks)
-        env->alias (alias/env->alias environments)
+        env->alias (alias/env->alias settings environments)
         enriched-environments (vec (sort-by :name (map #(enrich-env % brick->loc brick->lib-imports env->alias) environments)))
         dark-mode? (:dark-mode? settings false)
         messages (validate/messages top-ns interface-names interfaces enriched-components enriched-bases enriched-environments dark-mode?)]

@@ -21,11 +21,15 @@
                     :group "helpers"
                     :test? true}])
 
-(deftest anv->alias--a-set-of-environments--returns-name-to-alias-map
+(deftest anv->alias--a-set-of-environments-without-env-mapping--returns-name-to-alias-map
   (is (= {"backend-system" "bs1",
           "backend-system-test" "bs1-test",
           "banking-system" "bs2",
           "banking-system-test" "bs2-test",
           "helpers" "h",
           "helpers-test" "h-test"}
-         (alias/env->alias environments))))
+         (alias/env->alias nil environments))))
+
+(deftest env->alias--a-set-of-environments-with-incomplete-env-mapping--returns-mapped-names-and-undefined-mappings
+  (is (= {"helpers" "h", "banking-system" "?1", "backend-system" "?2"}
+         (alias/env->alias {:env-short-names {"helpers" "h"}} environments))))

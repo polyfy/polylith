@@ -26,7 +26,7 @@
   (str
     (command "check" dark-mode?) "         Checks that the workspace is valid.\n"
     (test-cmd dark-mode?) "    Runs the tests for the given environment (or all).\n"
-    (command "info" dark-mode?) " [" (arg "-dump" dark-mode?) "]  Views current workspace.\n"
+    (command "ws" dark-mode?) "   [" (arg "-dump" dark-mode?) "]  Views current workspace.\n"
     (help-cmd dark-mode?) "        Views this help."))
 
 (defn execute [dark-mode?]

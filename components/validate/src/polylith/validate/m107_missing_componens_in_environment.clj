@@ -31,7 +31,7 @@
      :missing-interface-names missing-interface-names}))
 
 (defn missing-components-error [env interface-names]
-  (let [interfaces (str/join ", " interface-names)
+  (let [interfaces (str/join ", " (sort interface-names))
         message (str "Missing components in the " env " environment for these interfaces: " interfaces)
         colorized-msg (str "Missing components in the " (color/environment env) " environment "
                             "for these interfaces: " (color/interface interfaces))]

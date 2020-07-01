@@ -1,4 +1,4 @@
-(ns polylith.cli.cmd.info
+(ns polylith.cli.cmd.ws
   [:require [clojure.pprint :as pp]
             [polylith.workspace.interface :as ws]])
 

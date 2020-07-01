@@ -1,7 +1,7 @@
 (ns polylith.cli.poly
   (:require [polylith.cli.cmd.check :as check]
             [polylith.cli.cmd.help :as help]
-            [polylith.cli.cmd.info :as info]
+            [polylith.cli.cmd.ws :as info]
             [polylith.change.interface :as change]
             [polylith.file.interface :as file]
             [polylith.spec.interface :as spec]
@@ -24,7 +24,7 @@
           "check" (check/execute workspace)
           "help" (help/execute dark-mode?)
           "test" (test-runner/run workspace arg)
-          "info" (info/execute workspace arg)
+          "ws" (info/execute workspace arg)
           (help/execute dark-mode?))
         (catch Exception e
           (println (or (-> e ex-data :err) (.getMessage e)))

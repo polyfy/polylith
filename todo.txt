@@ -1,6 +1,5 @@
 
 - improve the 'info' command:
-  - add support for custom aliases in :polylith.
   - move from common.color to util.color
 
 - create a githook that verifies the project.
