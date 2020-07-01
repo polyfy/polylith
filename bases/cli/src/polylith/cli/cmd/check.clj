@@ -1,5 +1,5 @@
 (ns polylith.cli.cmd.check
-  (:require [polylith.common.interface.color :as color]))
+  (:require [polylith.util.interface.color :as color]))
 
 (defn print-message [{:keys [type code colorized-message]}]
   (if (= type "error")

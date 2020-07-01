@@ -1,7 +1,7 @@
 (ns polylith.validate.m102-duplicated-parameter-lists
   (:require [clojure.string :as str]
             [polylith.util.interface :as util]
-            [polylith.common.interface.color :as color]
+            [polylith.util.interface.color :as color]
             [polylith.validate.shared :as shared]))
 
 (defn duplicated-parameter-lists-error [component-name component-duplication]

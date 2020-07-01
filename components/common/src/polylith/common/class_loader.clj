@@ -1,7 +1,7 @@
 (ns polylith.common.class-loader
   (:require [clojure.java.io :as io]
             [clojure.string :as str]
-            [polylith.common.interface.color :as color])
+            [polylith.util.interface.color :as color])
   (:import (java.net URLClassLoader URL)))
 
 (def base-classloader

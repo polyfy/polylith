@@ -3,7 +3,7 @@
             [polylith.common.interface :as common]
             [polylith.workspace.interface :as ws]
             [polylith.util.interface :as util]
-            [polylith.common.interface.color :as color])
+            [polylith.util.interface.color :as color])
   (:refer-clojure :exclude [test]))
 
 (defn throw-exception-if-empty [paths env]

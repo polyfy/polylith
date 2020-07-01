@@ -2,7 +2,7 @@
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [polylith.util.interface :as util]
-            [polylith.common.interface.color :as color]))
+            [polylith.util.interface.color :as color]))
 
 (defn errors [interface-names components bases]
   "A base are not allowed to share the name of an interface or component."

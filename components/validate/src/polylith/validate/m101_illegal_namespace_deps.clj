@@ -1,7 +1,7 @@
 (ns polylith.validate.m101-illegal-namespace-deps
   (:require [polylith.deps.interface :as deps]
             [polylith.util.interface :as util]
-            [polylith.common.interface.color :as color]))
+            [polylith.util.interface.color :as color]))
 
 (defn error-message [{:keys [namespace depends-on-interface depends-on-ns]} brick-name type dark-mode?]
   (when namespace

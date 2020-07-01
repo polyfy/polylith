@@ -1,4 +1,4 @@
-(ns polylith.common.interface.color
+(ns polylith.util.interface.color
   (:require [clojure.string :as str]))
 
 (def ^:private color-reset      "\u001B[0m")

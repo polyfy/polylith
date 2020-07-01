@@ -1,7 +1,7 @@
 (ns polylith.text-table.core
   (:require [clojure.string :as str]
             [polylith.util.interface.str :as str-util]
-            [polylith.common.interface.color :as c]))
+            [polylith.util.interface.color :as c]))
 
 (defn row-lengths [row]
   (mapv count row))

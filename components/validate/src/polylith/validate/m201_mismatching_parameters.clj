@@ -2,7 +2,7 @@
   (:require [clojure.string :as str]
             [polylith.util.interface :as util]
             [polylith.validate.shared :as shared]
-            [polylith.common.interface.color :as color]))
+            [polylith.util.interface.color :as color]))
 
 (def types->message {#{"function"} "Function"
                      #{"macro"} "Macro"

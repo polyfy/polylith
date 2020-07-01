@@ -2,7 +2,7 @@
   (:require [clojure.string :as str]
             [clojure.set :as set]
             [polylith.validate.shared :as shared]
-            [polylith.common.interface.color :as color]
+            [polylith.util.interface.color :as color]
             [polylith.util.interface :as util]))
 
 (defn ->data-ifc [{:keys [definitions]}]

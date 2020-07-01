@@ -1,7 +1,7 @@
 (ns polylith.validate.m107-missing-componens-in-environment
   (:require [clojure.set :as set]
             [polylith.util.interface :as util]
-            [polylith.common.interface.color :as color]
+            [polylith.util.interface.color :as color]
             [clojure.string :as str])
   (:refer-clojure :exclude [bases]))
 
