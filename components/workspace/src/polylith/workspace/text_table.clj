@@ -60,8 +60,9 @@
         row
         (assoc row 0 "")))))
 
-(defn print-table [{:keys [components bases environments lines-of-code-src lines-of-code-test]}]
+(defn print-table [{:keys [settings components bases environments lines-of-code-src lines-of-code-test]}]
   (let [envs (filter (complement :test?) environments)
+        color-mode (:color-mode settings)
         aliases (mapv :alias envs)
         env-spc-cnt (inc (* (-> envs count dec) 2))
         alignments (concat basic-alignments (repeat env-spc-cnt :left))
@@ -80,9 +81,9 @@
         base-colors (mapv #(base-colors % aliases alias->bricks) sorted-bases)
         total-loc-colors [(vec (repeat (+ 8 env-spc-cnt) :none))]
         all-colors (concat component-colors base-colors total-loc-colors)
-        table (text-table/table headers alignments rows header-colors all-colors)]
+        table (text-table/table headers alignments rows header-colors all-colors color-mode)]
     (println "environments:")
     (doseq [{:keys [alias name]} envs]
-      (println (str "  " alias " = " (color/purple name))))
+      (println (str "  " alias " = " (color/purple color-mode name))))
     (println)
     (println table)))

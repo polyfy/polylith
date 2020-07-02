@@ -171,41 +171,47 @@
 (deftest warnings--when-having-functions-with-same-arity-but-with-different-parameter-lists--return-warnings
          (is (= [{:type "warning"
                   :code 201
-                  :message "Function in the invoice component is also defined in invoice2 but with a different parameter list: func1[a b], func1[x y]"
+                  :colorized-message "Function in the invoice component is also defined in invoice2 but with a different parameter list: func1[a b], func1[x y]"
+                  :message           "Function in the invoice component is also defined in invoice2 but with a different parameter list: func1[a b], func1[x y]"
                   :components ["invoice" "invoice2"]}
                  {:type "warning"
                   :code 201
-                  :message "Function in the invoice component is also defined in invoice2 but with a different parameter list: func1[a], func1[b]"
+                  :colorized-message "Function in the invoice component is also defined in invoice2 but with a different parameter list: func1[a], func1[b]"
+                  :message           "Function in the invoice component is also defined in invoice2 but with a different parameter list: func1[a], func1[b]"
                   :components ["invoice" "invoice2"]}
                  {:type "warning"
                   :code 201
-                  :message "Function in the user1 component is also defined in user2 but with a different parameter list: func2[a b], func2[x y]"
+                  :colorized-message "Function in the user1 component is also defined in user2 but with a different parameter list: func2[a b], func2[x y]"
+                  :message           "Function in the user1 component is also defined in user2 but with a different parameter list: func2[a b], func2[x y]"
                   :components ["user1" "user2"]}
                  {:type "warning"
                   :code 201
-                  :message "Function in the user1 component is also defined in user2 but with a different parameter list: func3[a b c], func3[x y z]"
+                  :colorized-message "Function in the user1 component is also defined in user2 but with a different parameter list: func3[a b c], func3[x y z]"
+                  :message           "Function in the user1 component is also defined in user2 but with a different parameter list: func3[a b c], func3[x y z]"
                   :components ["user1" "user2"]}]
                 (sort-by :message
-                         (mapv #(select-keys % [:type :code :message :components])
-                               (m201/warnings interfaces components))))))
+                         (m201/warnings interfaces components "plain")))))
 
 (deftest warnings--when-having-macros-with-same-arity-but-with-different-parameter-lists--return-warnings
          (is (= [{:type "warning"
                   :code 201
-                  :message "Function in the invoice component is also defined in invoice2 but with a different parameter list: func1[a b], func1[x y]"
+                  :colorized-message "Function in the invoice component is also defined in invoice2 but with a different parameter list: func1[a b], func1[x y]"
+                  :message           "Function in the invoice component is also defined in invoice2 but with a different parameter list: func1[a b], func1[x y]"
                   :components ["invoice" "invoice2"]}
                  {:type "warning"
                   :code 201
-                  :message "Function in the user1 component is also defined in user2 but with a different parameter list: func2[a b], func2[x y]"
+                  :colorized-message "Function in the user1 component is also defined in user2 but with a different parameter list: func2[a b], func2[x y]"
+                  :message           "Function in the user1 component is also defined in user2 but with a different parameter list: func2[a b], func2[x y]"
                   :components ["user1" "user2"]}
                  {:type "warning"
                   :code 201
-                  :message "Function in the user1 component is also defined in user2 but with a different parameter list: func3[a b c], func3[x y z]"
+                  :colorized-message "Function in the user1 component is also defined in user2 but with a different parameter list: func3[a b c], func3[x y z]"
+                  :message           "Function in the user1 component is also defined in user2 but with a different parameter list: func3[a b c], func3[x y z]"
                   :components ["user1" "user2"]}
                  {:type "warning"
                   :code 201
-                  :message "Macro in the invoice component is also defined in invoice2 but with a different parameter list: sub.macro1[a], sub.macro1[b]"
+                  :colorized-message "Macro in the invoice component is also defined in invoice2 but with a different parameter list: sub.macro1[a], sub.macro1[b]"
+                  :message           "Macro in the invoice component is also defined in invoice2 but with a different parameter list: sub.macro1[a], sub.macro1[b]"
                   :components ["invoice" "invoice2"]}]
                 (sort-by :message
-                         (mapv #(select-keys % [:type :code :message :components])
-                               (m201/warnings interfaces2 components2))))))
+                         (m201/warnings interfaces2 components2 "plain")))))

@@ -33,13 +33,13 @@
     (when (-> missing-functions-and-macros empty? not)
       (vec (sort (map ->function missing-functions-and-macros))))))
 
-(defn component-error [interface {:keys [name] :as component} interface-functions]
+(defn component-error [interface {:keys [name] :as component} interface-functions color-mode]
   (let [component-defs (concat (component-data-defs interface component)
                                (component-fn-defs component interface-functions))]
     (when (-> component-defs empty? not)
       (let [message (str "Missing definitions in " name "'s interface: "
                          (str/join ", " component-defs))
-            colorized-msg (str "Missing definitions in "  (color/component name) "'s interface: "
+            colorized-msg (str "Missing definitions in "  (color/component name color-mode) "'s interface: "
                                (str/join ", " component-defs))]
         [(util/ordered-map :type "error"
                            :code 103
@@ -48,16 +48,16 @@
                            :components [name])]))))
 
 (defn interface-errors [{:keys [implementing-components] :as interface}
-                        name->component]
+                        name->component color-mode]
   (let [interface-functions (set (mapcat second
                                          (filter #(= 1 (-> % second count) 1)
                                                  (group-by function->id
                                                            (functions-and-macros interface)))))
         ifc-components (map name->component implementing-components)]
-    (mapcat #(component-error interface % interface-functions)
+    (mapcat #(component-error interface % interface-functions color-mode)
             ifc-components)))
 
-(defn errors [interfaces components]
+(defn errors [interfaces components color-mode]
   (let [name->component (into {} (map (juxt :name identity) components))]
-    (vec (mapcat #(interface-errors % name->component)
+    (vec (mapcat #(interface-errors % name->component color-mode)
                  interfaces))))

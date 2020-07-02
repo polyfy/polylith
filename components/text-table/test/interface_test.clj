@@ -38,4 +38,4 @@
               "workspace       c   workspace      265  77   x"
               "workspace-clj   c   workspace-clj  277 184   x"
               "-               b   cli             82 184   x")
-         (str/replace (text-table/table headers alignments rows header-colors row-colors) "\n" ""))))
+         (str/replace (text-table/table headers alignments rows header-colors row-colors "plain") "\n" ""))))

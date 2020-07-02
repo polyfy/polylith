@@ -4,7 +4,7 @@
             [polylith.util.interface :as util]
             [polylith.util.interface.color :as color]))
 
-(defn errors [interface-names components bases]
+(defn errors [interface-names components bases color-mode]
   "A base are not allowed to share the name of an interface or component."
   (let [component-names (set (map :name components))
         base-names (set (map :name bases))
@@ -16,7 +16,7 @@
       (let [message (str "A base can't have the same name as an interface or component: "
                          (str/join ", " (sort base-names-set)))
             colorized-msg (str "A base can't have the same name as an interface or component: "
-                               (color/base (str/join ", " (sort base-names-set))))]
+                               (color/base (str/join ", " (sort base-names-set)) color-mode))]
         [(util/ordered-map :type "error"
                            :code 105
                            :message message

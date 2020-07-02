@@ -64,7 +64,7 @@
   (let [lib? (str/ends-with? path ".jar")]
     (io/as-url (str "file:" path (when-not lib? "/")))))
 
-(defn create-class-loader [paths]
+(defn create-class-loader [paths color-mode]
   (try
     (let [url-array (into-array URL (map path->url paths))
           ^URLClassLoader cl (url-classloader url-array ext-classloader)]
@@ -72,5 +72,5 @@
       (eval-in* cl '(require 'clojure.main))
       cl)
     (catch Exception e
-      (println (str (color/error "Couldn't create class loader for paths: ") paths " "
-                    (color/error e))))))
+      (println (str (color/error color-mode "Couldn't create class loader for paths: ") paths " "
+                    (color/error color-mode e))))))

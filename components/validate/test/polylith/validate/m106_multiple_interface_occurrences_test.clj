@@ -39,9 +39,9 @@
 (deftest errors--when-more-than-one-component-implements-the-same-interface-in-an-environment--return-error-message
   (is (= [{:type "error"
            :code 106
-           :message "More than one component that implements the shell interface was found in the core environment: shell, shell2"
+           :colorized-message "More than one component that implements the shell interface was found in the core environment: shell, shell2"
+           :message           "More than one component that implements the shell interface was found in the core environment: shell, shell2"
            :interface "shell"
            :components ["shell" "shell2"]
            :environment "core"}]
-         (mapv #(select-keys % [:type :code :message :interface :components :environment])
-               (m106/errors components environments)))))
+         (m106/errors components environments "plain"))))

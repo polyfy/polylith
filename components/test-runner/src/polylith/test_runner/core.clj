@@ -43,6 +43,7 @@
 
 (defn run-tests-for-environment [workspace env]
   (let [env-group (group env)
+        color-mode (-> workspace :settings :color-mode)
         config (->config workspace env-group)
         lib-paths (ws/lib-paths config env-group true)
         src-paths (ws/src-paths config env-group true)
@@ -50,17 +51,17 @@
         paths (concat src-paths lib-paths)
         test-namespaces (ws/test-namespaces config env-group)
         test-statements (map ns-name->test-statement test-namespaces)
-        class-loader (common/create-class-loader paths)]
+        class-loader (common/create-class-loader paths color-mode)]
     (doseq [statement test-statements]
       (let [{:keys [error fail pass] :as summary} (try
                                                     (common/eval-in class-loader statement)
                                                     (catch Exception e
-                                                      (println (str (color/error "Couldn't run test statement: ") statement " " (color/error e)))))
+                                                      (println (str (color/error color-mode "Couldn't run test statement: ") statement " " (color/error color-mode e)))))
             result-str (str "Test results: " pass " passes, " fail " failures, " error " errors.")]
         (when (or (< 0 error)
                   (< 0 fail))
-          (throw (ex-info (str "\n" (color/error result-str)) summary)))
-        (println (str "\n" (color/ok result-str)))))))
+          (throw (ex-info (str "\n" (color/error color-mode result-str)) summary)))
+        (println (str "\n" (color/ok color-mode result-str)))))))
 
 (defn run-all-tests [{:keys [environments] :as workspace}]
   (doseq [{:keys [name]} (filter :test? environments)]

@@ -3,31 +3,31 @@
             [clojure.string :as str]))
 
 (defn command
-  ([cmd dark-mode?]
-   (str "  " (color/grey dark-mode? cmd)))
-  ([cmd dark-mode? & args]
-   (str "  " (color/grey dark-mode? cmd) " " (str/join " " args))))
+  ([cmd color-mode]
+   (str "  " (color/grey color-mode cmd)))
+  ([cmd color-mode & args]
+   (str "  " (color/grey color-mode cmd) " " (str/join " " args))))
 
-(defn arg [cmd dark-mode?]
-  (color/grey dark-mode? cmd))
+(defn arg [cmd color-mode]
+  (color/grey color-mode cmd))
 
-(defn environment [cmd env dark-mode?]
-  (str "  " (color/grey dark-mode? cmd) " " (color/environment env)))
+(defn environment [cmd env color-mode]
+  (str "  " (color/grey color-mode cmd) " " (color/environment env color-mode)))
 
-(defn help-cmd [dark-mode?]
-  (str "  [" (color/grey dark-mode? "help") "]"))
+(defn help-cmd [color-mode]
+  (str "  [" (color/grey color-mode "help") "]"))
 
-(defn test-cmd [dark-mode?]
-  (let [cmd (color/grey dark-mode? "test")
-        env (color/environment "env")]
+(defn test-cmd [color-mode]
+  (let [cmd (color/grey color-mode "test")
+        env (color/environment "env" color-mode)]
     (str "  " cmd " [" env "]")))
 
-(defn help-text [dark-mode?]
+(defn help-text [color-mode]
   (str
-    (command "check" dark-mode?) "         Checks that the workspace is valid.\n"
-    (test-cmd dark-mode?) "    Runs the tests for the given environment (or all).\n"
-    (command "ws" dark-mode?) "   [" (arg "-dump" dark-mode?) "]  Views current workspace.\n"
-    (help-cmd dark-mode?) "        Views this help."))
+    (command "check" color-mode) "         Checks that the workspace is valid.\n"
+    (test-cmd color-mode) "    Runs the tests for the given environment (or all).\n"
+    (command "ws" color-mode) "   [" (arg "-dump" color-mode) "]  Views current workspace.\n"
+    (help-cmd color-mode) "        Views this help."))
 
-(defn execute [dark-mode?]
-  (-> dark-mode? help-text println))
+(defn execute [color-mode]
+  (-> color-mode help-text println))

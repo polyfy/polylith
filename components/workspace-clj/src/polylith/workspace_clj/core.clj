@@ -12,7 +12,7 @@
    (let [config (read-string (slurp (str ws-path "/deps.edn")))]
      (workspace-from-disk ws-path config)))
   ([ws-path {:keys [polylith]}]
-   (let [{:keys [top-namespace dark-mode? env-short-names]} polylith
+   (let [{:keys [top-namespace color-mode env-short-names]} polylith
          top-ns (common/top-namespace top-namespace)
          top-src-dir (str/replace top-ns "." "/")
          component-names (file/directory-paths (str ws-path "/components"))
@@ -20,7 +20,7 @@
          bases (bases-from-disk/read-bases ws-path top-src-dir)
          environments (env/environments ws-path)
          settings (util/ordered-map :top-namespace top-namespace
-                                    :dark-mode? dark-mode?
+                                    :color-mode color-mode
                                     :env-short-names env-short-names)]
      (util/ordered-map :ws-path ws-path
                        :settings settings

@@ -88,7 +88,7 @@
 (deftest errors--when-having-duplicated-parameter-lists--return-error
   (is (= [{:type "error",
            :code 102,
-           :message "Duplicated parameter lists found in payment: pay[a], pay[b]"
+           :message "Duplicated parameter lists found in payment: pay[a], pay[b]",
+           :colorized-message "Duplicated parameter lists found in payment: pay[a], pay[b]",
            :components ["payment"]}]
-         (mapv #(select-keys % [:type :code :message :components])
-               (m102/errors components)))))
+         (m102/errors components "plain"))))

@@ -15,14 +15,14 @@
                       ws-clj/workspace-from-disk
                       ws/enrich-workspace
                       change/with-changes)
-        dark-mode? (-> workspace :settings :dark-mode?)]
+        color-mode (-> workspace :settings :color-mode)]
     (try
       (case cmd
         "check" (check/execute workspace)
-        "help" (help/execute dark-mode?)
+        "help" (help/execute color-mode)
         "test" (test-runner/run workspace arg)
         "ws" (info/execute workspace arg)
-        (help/execute dark-mode?))
+        (help/execute color-mode))
       (catch Exception e
         (println (or (-> e ex-data :err) (.getMessage e)))
         (System/exit (or (-> e ex-data :exit-code) 1)))

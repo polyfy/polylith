@@ -1,5 +1,5 @@
 {:polylith {:top-namespace "polylith"
-            :dark-mode? true}
+            :color-mode "dark"}
 
  :aliases  {:dev      {:extra-deps {env/core {:local/root "environments/core"}}}
 

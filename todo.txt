@@ -1,6 +1,11 @@
 
-- improve the 'info' command:
-  - move from common.color to util.color
+- put back the 'spec' component and make sure we have the :polylith section with
+  an entry for :top-namespace + if color-mode is specifiec that it has valid values.
+
+- make sure we don't throw exception if we type a command from a
+  directory that has no deps.edn.
+
+- have a look at the kotlin embedded library again.
 
 - create a githook that verifies the project.
 
@@ -73,6 +78,8 @@ Leave for now
 
 Doc
 ===
+- people sometimes ask for sub-components, but in polylith you instead divide
+  your component in namespaces and sub namespaces to achieve the same thing.
 - tips on how to do destructuring in the interface.
 - have an example of how people can build their own tooling around polylith!
 - example of how to add macros in the interface, e.g. 'unless' in:

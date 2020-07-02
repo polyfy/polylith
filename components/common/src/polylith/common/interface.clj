@@ -8,8 +8,8 @@
 (defn filter-clojure-paths [paths]
   (core/filter-clojure-paths paths))
 
-(defn create-class-loader [paths]
-  (class-loader/create-class-loader paths))
+(defn create-class-loader [paths color-mode]
+  (class-loader/create-class-loader paths color-mode))
 
 (defn eval-in [class-loader form]
   (class-loader/eval-in class-loader form))

@@ -10,12 +10,12 @@
         interface-names (set (map :name interfaces))]
     (is (= [{:type "error"
              :code 105
-             :message "A base can't have the same name as an interface or component: mybase"
+             :colorized-message "A base can't have the same name as an interface or component: mybase"
+             :message           "A base can't have the same name as an interface or component: mybase"
              :interfaces ["mybase"]
              :components []
              :bases ["mybase"]}]
-           (mapv #(select-keys % [:type :code :message :interfaces :components :bases])
-                 (m105/errors interface-names components bases))))))
+           (m105/errors interface-names components bases "plain")))))
 
 (deftest errors--when-a-base-and-a-component-the-same-name--returns-error
   (let [interfaces '[{:name "mybase"}]
@@ -25,9 +25,9 @@
         interface-names (set (map :name interfaces))]
     (is (= [{:code 105
              :type "error"
-             :message "A base can't have the same name as an interface or component: mybase"
+             :colorized-message "A base can't have the same name as an interface or component: mybase"
+             :message           "A base can't have the same name as an interface or component: mybase"
              :interfaces ["mybase"]
              :components ["mybase"]
              :bases ["mybase"]}]
-           (mapv #(select-keys % [:type :code :message :interfaces :components :bases])
-                 (m105/errors interface-names components bases))))))
+           (m105/errors interface-names components bases "plain")))))

@@ -29,9 +29,9 @@
     {:src namespaces-src
      :tst namespaces-test}))
 
-;(defn read-components [src-path top-src-dir component-names]
-;  "Reads components from disk."
-;  (vec (sort-by :name (map #(read-component src-path top-src-dir %) component-names))))
+(defn read-components [src-path top-src-dir component-names]
+  "Reads components from disk."
+  (vec (sort-by :name (map #(read-component src-path top-src-dir %) component-names))))
 ;
 ;(def src-path "../polylith-kotlin/kotlin")
 ;(def top-src-dir "polylith/kotlin/")

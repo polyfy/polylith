@@ -15,7 +15,7 @@
                                                 "polylith.cmd.interface.v2.core"
                                                 "polylith.invoice.interface"]}]}]
     (is (= []
-           (m101/brick-errors "polylith." component #{"spec" "cmd" "file" "invoice" "user"} false)))))
+           (m101/brick-errors "polylith." component #{"spec" "cmd" "file" "invoice" "user"} "plain")))))
 
 (deftest brick-errors--with-errors--returns-errors
   (let [component {:name "common"
@@ -31,14 +31,17 @@
                                                 "polylith.cmd.core"]}]}]
     (is (= [{:type "error"
              :code 101
-             :message "Illegal dependency on namespace invoice.core in common.purchase. Use invoice.interface instead to fix the problem."
-             :bricks ["common"]}
+             :bricks ["common"]
+             :colorized-message "Illegal dependency on namespace invoice.core in common.purchase. Use invoice.interface instead to fix the problem."
+             :message           "Illegal dependency on namespace invoice.core in common.purchase. Use invoice.interface instead to fix the problem."}
+
             {:type "error"
              :code 101
-             :message "Illegal dependency on namespace cmd.core in common.billing. Use cmd.interface instead to fix the problem."
-             :bricks ["common"]}]
-           (mapv #(select-keys % [:type :code :message :bricks])
-                 (m101/brick-errors "polylith." component #{"spec" "cmd" "file" "invoice" "user"} false))))))
+             :bricks ["common"]
+             :colorized-message "Illegal dependency on namespace cmd.core in common.billing. Use cmd.interface instead to fix the problem."
+             :message           "Illegal dependency on namespace cmd.core in common.billing. Use cmd.interface instead to fix the problem."}]
+
+           (m101/brick-errors "polylith." component #{"spec" "cmd" "file" "invoice" "user"} "plain")))))
 
 (deftest errors--component-with-mismatching-interface-name--returns-no-errors
   (let [component '{:type "component",
@@ -49,4 +52,4 @@
                                      {:name "user/core.clj"
                                       :imports []}]}]
     (is (= []
-           (m101/errors "polylith." #{"user"} [component] [] false)))))
+           (m101/errors "polylith." #{"user"} [component] [] "plain")))))

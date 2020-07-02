@@ -111,8 +111,8 @@
         brick->lib-imports (brick->lib-imports enriched-bricks)
         env->alias (alias/env->alias settings environments)
         enriched-environments (vec (sort-by :name (map #(enrich-env % brick->loc brick->lib-imports env->alias) environments)))
-        dark-mode? (:dark-mode? settings false)
-        messages (validate/messages top-ns interface-names interfaces enriched-components enriched-bases enriched-environments dark-mode?)]
+        color-mode (:color-mode settings "plain")
+        messages (validate/messages top-ns interface-names interfaces enriched-components enriched-bases enriched-environments color-mode)]
     (array-map :name ws-name
                :ws-path ws-path
                :settings settings

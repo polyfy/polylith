@@ -18,11 +18,12 @@
         top-ns (-> property->value :top-namespace common/top-namespace)
         src-root-dir (root-dir (property->value :src-root-dir ""))
         top-src-dir (str/replace top-ns "." "/")
-        dark-mode? (property->value :dark-mode false)
+        color-mode (property->value :color-mode "plain")
         src-path (str ws-path src-root-dir)
         component-names (vec (sort (file/directory-paths (str src-path "/components"))))
         components (cfrom-disk/read-components src-path top-src-dir component-names)]
     components))
+
 
 ;(def ws-path "../polylith-kotlin")
 ;(workspace-from-disk ws-path)

@@ -16,54 +16,64 @@
 (defn- color [color messages]
   (str color (str/join "" messages) color-reset))
 
-(defn blue [& messages]
-  (color color-blue messages))
+(defn colored-text
+  ([color color-mode messages]
+   (colored-text color color color-mode messages))
+  ([color-light color-dark color-mode messages]
+   (condp = color-mode
+     "plain" (str/join "" messages)
+     "light" (color color-light messages)
+     "dark" (color color-dark messages)
+     (throw (Exception. (str "Invalid color mode '" color-mode "' for messages '" messages "', expected: 'plain', 'light' or 'dark'"))))))
 
-(defn green [& messages]
-  (color color-green messages))
+(defn blue [color-mode & messages]
+  (colored-text color-blue color-mode messages))
 
-(defn grey [dark-mode? & messages]
-  (if dark-mode?
-    (color color-grey-light messages)
-    (color color-grey-dark messages)))
+(defn green [color-mode & messages]
+  (colored-text color-green color-mode messages))
 
-(defn purple [& messages]
-  (color color-purple messages))
+(defn grey [color-mode & messages]
+  (colored-text color-grey-light
+                color-grey-dark
+                color-mode messages))
 
-(defn red [& messages]
-  (color color-red messages))
+(defn purple [color-mode & messages]
+  (colored-text color-purple color-mode messages))
 
-(defn yellow [& messages]
-  (color color-yellow messages))
+(defn red [color-mode & messages]
+  (colored-text color-red color-mode messages))
 
-(defn ok [& messages]
-  (color color-green messages))
+(defn yellow [color-mode & messages]
+  (colored-text color-yellow color-mode messages))
 
-(defn warning [& messages]
-  (color color-yellow messages))
+(defn ok [color-mode & messages]
+  (colored-text color-green color-mode messages))
 
-(defn error [& messages]
-  (color color-red messages))
+(defn warning [color-mode & messages]
+  (colored-text color-yellow color-mode messages))
 
-(defn brick [type brick]
+(defn error [color-mode & messages]
+  (colored-text color-red color-mode messages))
+
+(defn brick [type brick color-mode]
   (if (= type "component")
-    (green brick)
-    (blue brick)))
+    (green color-mode brick)
+    (blue color-mode brick)))
 
-(defn interface [ifc]
-  (yellow ifc))
+(defn interface [ifc color-mode]
+  (yellow color-mode ifc))
 
-(defn component [component]
-  (green component))
+(defn component [component color-mode]
+  (green color-mode component))
 
-(defn base [base]
-  (blue base))
+(defn base [base color-mode]
+  (blue color-mode base))
 
-(defn environment [env]
-  (purple env))
+(defn environment [env color-mode]
+  (purple color-mode env))
 
 (defn namespc
-  ([namespace dark-mode?]
-   (grey dark-mode? namespace))
-  ([interface namespace dark-mode?]
-   (grey dark-mode? (str interface "." namespace))))
+  ([namespace color-mode]
+   (grey color-mode namespace))
+  ([interface namespace color-mode]
+   (grey color-mode (str interface "." namespace))))

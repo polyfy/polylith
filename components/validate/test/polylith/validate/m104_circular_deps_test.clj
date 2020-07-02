@@ -64,16 +64,16 @@
 (deftest errors--an-environment-with-circular-dependencies--should-return-an-error
   (is (= [{:type "error"
            :code 104
-           :message "A circular dependency was found in the realworld-backend environment: article > database > article"
+           :colorized-message "A circular dependency was found in the realworld-backend environment: article > database > article"
+           :message           "A circular dependency was found in the realworld-backend environment: article > database > article"
            :components ["article" "database"]
            :environment "realworld-backend"}]
-         (mapv #(select-keys % [:type :code :message :components :environment])
-               (m104/errors interfaces components environments)))))
+         (m104/errors interfaces components environments "plain"))))
 
 (deftest errors--when-having-no-environments--return-no-errors
   (is (= nil
-         (m104/errors interfaces components []))))
+         (m104/errors interfaces components [] "plain"))))
 
 (deftest errors--when-having-two-compoments-implementing-the-same-interface--do-not-crash
   (is (= nil
-         (m104/errors interfaces components2 environments2))))
+         (m104/errors interfaces components2 environments2 "plain"))))
