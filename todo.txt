@@ -1,6 +1,36 @@
 
 - change color-mode from plain to none.
 
+- add support for having more than one top namespace in a workspace:
+  :top-namespaces {"polylith.core" ""}
+                   "polylith.clj" "clj"}
+  then the alias can be printed in the 'ws' command:
+
+top-namespaces:
+  - = polylith.core
+  clj = polylith.clj
+
+environments:
+  cli = cli
+  core = core
+  dev = development
+
+ns   interface      brick           loc  (t)   cli core dev
+-----------------------------------------------------------
+-    change         change           81   25   -   x    x
+-    common         common          106    0   -   x    x
+-    deps           deps             43   51   -   x    x
+-    file           file             80    0   -   x    x
+-    git            git              31   17   -   x    x
+-    shell          shell            19    0   -   x    x
+clj  test-runner    test-runner      79    0   x   -    x
+-    text-table     text-table       64    0   -   x    x
+-    util           util            147   43   -   x    x
+-    validate       validate        371  708   -   x    x
+-    workspace      workspace       451  112   -   x    x
+clj  workspace-clj  workspace-clj   279  184   x   -    x
+clj  -              cli              85    0   x   -    x
+
 - if an environment misses a component, show it correctly in the 'ws' command.
 
 - check how 'ws' handles circular dependencies.
