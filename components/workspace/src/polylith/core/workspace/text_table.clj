@@ -65,7 +65,7 @@
         color-mode (:color-mode settings)
         aliases (mapv :alias envs)
         env-spc-cnt (inc (* (-> envs count dec) 2))
-        alignments (concat basic-alignments (repeat env-spc-cnt :left))
+        alignments (concat basic-alignments (repeat env-spc-cnt :center))
         alias->bricks (into {} (map env-data envs))
         sorted-components (sort-by sort-order components)
         sorted-bases (sort-by sort-order bases)

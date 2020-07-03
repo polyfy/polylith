@@ -1,0 +1,24 @@
+
+{:paths   [; Base
+           "../../bases/cli/src"
+
+           ; Components
+           "../../components/test-runner/src"
+           "../../components/workspace-clj/src"]
+
+ :deps    {org.clojure/clojure {:mvn/version "1.10.1"}
+           org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}
+
+ :aliases {:test    {:extra-paths [;Bases
+                                   "../../bases/cli/test"
+
+                                   ; Components
+                                   "../../components/test-runner/test"
+                                   "../../components/workspace-clj/test"]
+                     :extra-deps  {}}
+
+           :aot     {:extra-paths ["classes"]
+                     :main-opts   ["-e" "(compile,'polylith.core.cli.poly)"]}
+
+           :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
+                     :main-opts  ["-m" "uberdeps.uberjar"]}}}

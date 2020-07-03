@@ -1,6 +1,4 @@
 
-- change color-mode from plain to none.
-
 - add support for having more than one top namespace in a workspace:
   :top-namespaces {"polylith.core" ""}
                    "polylith.clj" "clj"}
