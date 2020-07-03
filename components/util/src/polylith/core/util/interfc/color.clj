@@ -13,6 +13,8 @@
 (def ^:private color-white      "\u001B[37m")
 (def ^:private color-yellow     "\u001B[33m")
 
+(def none "none")
+
 (defn- color [color messages]
   (str color (str/join "" messages) color-reset))
 
@@ -21,10 +23,10 @@
    (colored-text color color color-mode messages))
   ([color-light color-dark color-mode messages]
    (condp = color-mode
-     "plain" (str/join "" messages)
+     none (str/join "" messages)
      "light" (color color-dark messages)
      "dark" (color color-light messages)
-     (throw (Exception. (str "Invalid color mode '" color-mode "' for messages '" messages "', expected: 'plain', 'light' or 'dark'"))))))
+     (throw (Exception. (str "Invalid color mode '" color-mode "' for messages '" messages "', expected: 'none', 'light' or 'dark'"))))))
 
 (defn blue [color-mode & messages]
   (colored-text color-blue color-mode messages))

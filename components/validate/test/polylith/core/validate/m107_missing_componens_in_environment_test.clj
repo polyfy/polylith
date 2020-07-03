@@ -1,5 +1,6 @@
 (ns polylith.core.validate.m107-missing-componens-in-environment-test
   (:require [clojure.test :refer :all]
+            [polylith.core.util.interfc.color :as color]
             [polylith.core.validate.m107-missing-componens-in-environment :as m107])
   (:refer-clojure :exclude [bases]))
 
@@ -101,4 +102,4 @@
                          "spec"}
            :colorized-message "Missing components in the development environment for these interfaces: database, log, profile, spec",
            :message           "Missing components in the development environment for these interfaces: database, log, profile, spec"}]
-         (m107/errors components polylith-bases environments "plain"))))
+         (m107/errors components polylith-bases environments color/none))))

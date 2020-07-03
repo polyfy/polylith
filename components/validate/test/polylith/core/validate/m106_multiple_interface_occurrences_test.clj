@@ -1,5 +1,6 @@
 (ns polylith.core.validate.m106-multiple-interface-occurrences-test
   (:require [clojure.test :refer :all]
+            [polylith.core.util.interfc.color :as color]
             [polylith.core.validate.m106-multiple-interface-occurrences :as m106]))
 
 (def components [{:name "change"
@@ -44,4 +45,4 @@
            :interface "shell"
            :components ["shell" "shell2"]
            :environment "core"}]
-         (m106/errors components environments "plain"))))
+         (m106/errors components environments color/none))))

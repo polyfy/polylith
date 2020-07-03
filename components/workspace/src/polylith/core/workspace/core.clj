@@ -1,6 +1,7 @@
 (ns polylith.core.workspace.core
   (:require [clojure.string :as str]
             [polylith.core.common.interfc :as common]
+            [polylith.core.util.interfc.color :as color]
             [polylith.core.deps.interfc :as deps]
             [polylith.core.validate.interfc :as validate]
             [polylith.core.workspace.calculate-interfaces :as ifcs]
@@ -111,7 +112,7 @@
         brick->lib-imports (brick->lib-imports enriched-bricks)
         env->alias (alias/env->alias settings environments)
         enriched-environments (vec (sort-by :name (map #(enrich-env % brick->loc brick->lib-imports env->alias) environments)))
-        color-mode (:color-mode settings "plain")
+        color-mode (:color-mode settings color/none)
         messages (validate/messages top-ns interface-names interfaces enriched-components enriched-bases enriched-environments color-mode)]
     (array-map :name ws-name
                :ws-path ws-path

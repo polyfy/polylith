@@ -1,6 +1,4 @@
 
-- Accept both 'interface' and 'interfc' as interface namespace name.
-
 - change color-mode from plain to none.
 
 - add support for having more than one top namespace in a workspace:
@@ -81,10 +79,7 @@ clj  -              cli              85    0   x   -    x
 
 Questions
 =========
-- should we support the interface namespace 'ifc'?
-  'interface' is a reserved word and in e.g. Kotlin you need to import
-  the import statement with `ìnterface` but not if using ifc.
-- change top namespace from 'polylith' to 'polylith.core'.
+- :color-mode should be per developer, not per workspace. Put it in .polylith/config.edn?
 - polylith.workspace-clj.namespaces-from-disk/->namespace
 - check if we should register for https://github.com/sponsors.
 

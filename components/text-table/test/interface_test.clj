@@ -1,6 +1,7 @@
 (ns interface-test
   (:require [clojure.test :refer :all]
             [clojure.string :as str]
+            [polylith.core.util.interfc.color :as color]
             [polylith.core.text-table.interfc :as text-table]))
 
 (def headers ["interface" "  " "c/b" "  " "brick" "  " "loc" " " "(t)" "   " "c"])
@@ -38,4 +39,4 @@
               "workspace       c   workspace      265  77   x"
               "workspace-clj   c   workspace-clj  277 184   x"
               "-               b   cli             82 184   x")
-         (str/replace (text-table/table headers alignments rows header-colors row-colors "plain") "\n" ""))))
+         (str/replace (text-table/table headers alignments rows header-colors row-colors color/none) "\n" ""))))
