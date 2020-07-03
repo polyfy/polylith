@@ -1,7 +1,7 @@
 (ns interface-test
   (:require [clojure.test :refer :all]
-            [polylith.text-table.interface :as text-table]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [polylith.core.text-table.interface :as text-table]))
 
 (def headers ["interface" "  " "c/b" "  " "brick" "  " "loc" " " "(t)" "   " "c"])
 (def alignments [:left :left :center :left :left :left :right :left :right :left :left])
