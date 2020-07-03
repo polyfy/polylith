@@ -1,4 +1,10 @@
 
+- change color-mode from plain to none.
+
+- if an environment misses a component, show it correctly in the 'ws' command.
+
+- check how 'ws' handles circular dependencies.
+
 - put back the 'spec' component and make sure we have the :polylith section with
   an entry for :top-namespace + if color-mode is specifiec that it has valid values.
 

@@ -22,8 +22,8 @@
   ([color-light color-dark color-mode messages]
    (condp = color-mode
      "plain" (str/join "" messages)
-     "light" (color color-light messages)
-     "dark" (color color-dark messages)
+     "light" (color color-dark messages)
+     "dark" (color color-light messages)
      (throw (Exception. (str "Invalid color mode '" color-mode "' for messages '" messages "', expected: 'plain', 'light' or 'dark'"))))))
 
 (defn blue [color-mode & messages]
