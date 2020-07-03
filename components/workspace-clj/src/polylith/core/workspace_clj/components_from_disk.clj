@@ -1,6 +1,6 @@
 (ns polylith.core.workspace-clj.components-from-disk
   (:require [clojure.string :as str]
-            [polylith.core.file.interface :as file]
+            [polylith.core.file.interfc :as file]
             [polylith.core.workspace-clj.namespaces-from-disk :as ns-from-disk]
             [polylith.core.workspace-clj.interface-defs-from-disk :as defs-from-disk]))
 

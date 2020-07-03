@@ -1,9 +1,9 @@
 (ns polylith.core.test-runner.core
   (:require [clojure.string :as str]
-            [polylith.core.common.interface :as common]
-            [polylith.core.workspace.interface :as ws]
-            [polylith.core.util.interface :as util]
-            [polylith.core.util.interface.color :as color])
+            [polylith.core.common.interfc :as common]
+            [polylith.core.workspace.interfc :as ws]
+            [polylith.core.util.interfc :as util]
+            [polylith.core.util.interfc.color :as color])
   (:refer-clojure :exclude [test]))
 
 (defn throw-exception-if-empty [paths env]

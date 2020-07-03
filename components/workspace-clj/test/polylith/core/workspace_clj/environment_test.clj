@@ -1,7 +1,7 @@
-(ns polylith.workspace-clj.environment-test
+(ns polylith.core.workspace-clj.environment-test
   (:require [clojure.test :refer :all]
-            [polylith.workspace-clj.environment :as env]
-            [clojure.tools.deps.alpha.util.maven :as mvn]))
+            [clojure.tools.deps.alpha.util.maven :as mvn]
+            [polylith.core.workspace-clj.environment :as env]))
 
 (def paths [; Bases
             "../../bases/tool/src"
@@ -45,7 +45,7 @@
                       :extra-deps  {}}
 
                :aot     {:extra-paths ["classes"]
-                         :main-opts   ["-e" "(compile,'polylith.cli.poly)"]}
+                         :main-opts   ["-e" "(compile,'polylith.core.cli.poly)"]}
 
                :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
                          :main-opts  ["-m" "uberdeps.uberjar"]}})

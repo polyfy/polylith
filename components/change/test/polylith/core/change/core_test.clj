@@ -1,6 +1,6 @@
 (ns polylith.core.change.core-test
   (:require [clojure.test :refer :all]
-            [polylith.change.brick :as brick]))
+            [polylith.core.change.brick :as brick]))
 
 (def filenames ["bases/core/src/polylith/core/main.clj"
                 "bases/core/test/polylith/core/main_test.clj"

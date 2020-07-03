@@ -1,4 +1,6 @@
 
+- Accept both 'interface' and 'interfc' as interface namespace name.
+
 - change color-mode from plain to none.
 
 - add support for having more than one top namespace in a workspace:
@@ -45,9 +47,6 @@ clj  -              cli              85    0   x   -    x
 
 - create a githook that verifies the project.
 
-- change top namespace from 'polylith' to 'polylith.core' so that we
-  can distinguish it from e.g. 'polylith.kotlin'.
-
 - check that we follow symbolic links in file/paths-recursively.
 
 - add the LICENSE to the root.
@@ -82,6 +81,9 @@ clj  -              cli              85    0   x   -    x
 
 Questions
 =========
+- should we support the interface namespace 'ifc'?
+  'interface' is a reserved word and in e.g. Kotlin you need to import
+  the import statement with `ìnterface` but not if using ifc.
 - change top namespace from 'polylith' to 'polylith.core'.
 - polylith.workspace-clj.namespaces-from-disk/->namespace
 - check if we should register for https://github.com/sponsors.
@@ -167,7 +169,7 @@ Design decisions
 
 Commands
 ========
-./make-uberjar.sh core polylith.cli.poly
+./make-uberjar.sh core polylith.core.cli.poly
 sudo cp ./environments/core/target/core.jar /usr/local/polylith/poly.jar
 
 polylith:  clj -A:dev:test

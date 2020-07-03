@@ -1,13 +1,13 @@
 (ns polylith.core.workspace.core
   (:require [clojure.string :as str]
-            [polylith.core.common.interface :as common]
-            [polylith.core.deps.interface :as deps]
-            [polylith.core.validate.interface :as validate]
+            [polylith.core.common.interfc :as common]
+            [polylith.core.deps.interfc :as deps]
+            [polylith.core.validate.interfc :as validate]
             [polylith.core.workspace.calculate-interfaces :as ifcs]
             [polylith.core.workspace.lib-imports :as lib]
             [polylith.core.workspace.alias :as alias]
-            [polylith.core.util.interface :as util]
-            [polylith.core.file.interface :as file]))
+            [polylith.core.util.interfc :as util]
+            [polylith.core.file.interfc :as file]))
 
 (defn brick-loc [namespaces]
   (apply + (mapv file/lines-of-code

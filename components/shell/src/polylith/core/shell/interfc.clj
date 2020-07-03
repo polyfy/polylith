@@ -1,4 +1,4 @@
-(ns polylith.core.shell.interface
+(ns polylith.core.shell.interfc
   (:require [polylith.core.shell.core :as core]))
 
 (defn sh [& args]

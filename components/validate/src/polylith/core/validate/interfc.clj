@@ -1,4 +1,4 @@
-(ns polylith.core.validate.interface
+(ns polylith.core.validate.interfc
   (:require [polylith.core.validate.m101-illegal-namespace-deps :as m101]
             [polylith.core.validate.m102-duplicated-parameter-lists :as m102]
             [polylith.core.validate.m103-missing-defs :as m103]

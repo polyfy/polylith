@@ -1,8 +1,8 @@
 (ns polylith.core.workspace-clj.core
   (:require [clojure.string :as str]
-            [polylith.core.common.interface :as common]
-            [polylith.core.file.interface :as file]
-            [polylith.core.util.interface :as util]
+            [polylith.core.common.interfc :as common]
+            [polylith.core.file.interfc :as file]
+            [polylith.core.util.interfc :as util]
             [polylith.core.workspace-clj.environment :as env]
             [polylith.core.workspace-clj.components-from-disk :as components-from-disk]
             [polylith.core.workspace-clj.bases-from-disk :as bases-from-disk]))

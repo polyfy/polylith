@@ -5,7 +5,7 @@
     <setting name="execution" value="INTELLIJ" />
     <setting name="jvmArgs" value="" />
     <setting name="parameters" value="" />
-    <setting name="workingDir" value="$PROJECT_DIR$/environments/core" />
+    <setting name="workingDir" value="$PROJECT_DIR$" />
     <setting name="profiles" value="" />
     <setting name="aliases" value="" />
     <setting name="fixLineNumbers" value="false" />

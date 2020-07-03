@@ -1,4 +1,4 @@
-(ns polylith.core.test-runner.interface
+(ns polylith.core.test-runner.interfc
   (:require [polylith.core.test-runner.core :as core]))
 
 (defn run [workspace env]

@@ -1,4 +1,4 @@
-(ns polylith.core.util.interface.str
+(ns polylith.core.util.interfc.str
   (:require [polylith.core.util.str :as str]))
 
 (defn skip-until [string separator]

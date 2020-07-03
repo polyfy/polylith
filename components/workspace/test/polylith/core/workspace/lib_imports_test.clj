@@ -1,6 +1,6 @@
-(ns polylith.workspace.lib-imports-test
+(ns polylith.core.workspace.lib-imports-test
   (:require [clojure.test :refer :all]
-            [polylith.workspace.lib-imports :as lib-imports]))
+            [polylith.core.workspace.lib-imports :as lib-imports]))
 
 (def component {:name "article"
                 :type "component"

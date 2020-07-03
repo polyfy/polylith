@@ -1,4 +1,4 @@
-(ns polylith.core.file.interface
+(ns polylith.core.file.interfc
   (:require [polylith.core.file.core :as core])
   (:import (java.io File)))
 

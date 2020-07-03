@@ -1,6 +1,6 @@
-(ns polylith.workspace.source-test
+(ns polylith.core.workspace.source-test
   (:require [clojure.test :refer :all]
-            [polylith.workspace.source :as source]))
+            [polylith.core.workspace.source :as source]))
 
 (def workspace '{:ws-path "."
                  :environments [{:name "core"

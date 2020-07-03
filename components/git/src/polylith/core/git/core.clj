@@ -1,6 +1,6 @@
 (ns polylith.core.git.core
   (:require [clojure.string :as str]
-            [polylith.core.shell.interface :as shell]))
+            [polylith.core.shell.interfc :as shell]))
 
 (defn diff [sha1 sha2]
   (let [ws-path "."

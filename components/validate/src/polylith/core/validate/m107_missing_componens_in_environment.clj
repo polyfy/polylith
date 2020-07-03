@@ -1,8 +1,8 @@
 (ns polylith.core.validate.m107-missing-componens-in-environment
   (:require [clojure.set :as set]
             [clojure.string :as str]
-            [polylith.core.util.interface :as util]
-            [polylith.core.util.interface.color :as color])
+            [polylith.core.util.interfc :as util]
+            [polylith.core.util.interfc.color :as color])
   (:refer-clojure :exclude [bases]))
 
 (defn interface-deps [interface processed interface->deps]

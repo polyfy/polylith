@@ -1,6 +1,6 @@
 (ns polylith.core.util.string-util-test
   (:require [clojure.test :refer :all]
-            [polylith.core.util.interface.str :as str]))
+            [polylith.core.util.interfc.str :as str]))
 
 (deftest skip-until--when-having-a-string-with-a-slash--return-the-string-after-that-slash
   (is (= "user"

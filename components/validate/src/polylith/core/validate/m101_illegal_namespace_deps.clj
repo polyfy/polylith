@@ -1,7 +1,8 @@
 (ns polylith.core.validate.m101-illegal-namespace-deps
-  (:require [polylith.core.deps.interface :as deps]
-            [polylith.core.util.interface :as util]
-            [polylith.core.util.interface.color :as color]))
+  (:require [polylith.core.deps.interfc :as deps]
+            [polylith.core.util.interfc :as util]
+            [polylith.core.util.interfc.color :as color]
+            [polylith.core.common.interfc :as common]))
 
 (defn error-message [{:keys [namespace depends-on-interface depends-on-ns]} brick-name type color-mode]
   (when namespace
@@ -22,7 +23,7 @@
   (let [interface-name (:name interface)
         dependencies (deps/brick-dependencies top-ns interface-name interface-names namespaces-src)]
     (mapcat #(error-message % name type color-mode)
-            (filterv #(not= "interface" (:depends-on-ns %)) dependencies))))
+            (filterv #(-> % :depends-on-ns common/interface? not) dependencies))))
 
 (defn errors [top-ns interface-names components bases color-mode]
   (vec (mapcat #(brick-errors top-ns % interface-names color-mode)

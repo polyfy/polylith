@@ -1,8 +1,8 @@
 (ns polylith.core.workspace-clj.namespaces-from-disk
   (:require [clojure.string :as str]
-            [polylith.core.file.interface :as file]
-            [polylith.core.util.interface.str :as str-util]
-            [polylith.core.common.interface :as common]))
+            [polylith.core.file.interfc :as file]
+            [polylith.core.util.interfc.str :as str-util]
+            [polylith.core.common.interfc :as common]))
 
 (defn require? [val]
   (and (sequential? val)

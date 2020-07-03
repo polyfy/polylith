@@ -1,7 +1,7 @@
 (ns polylith.core.validate.m106-multiple-interface-occurrences
   (:require [clojure.string :as str]
-            [polylith.core.util.interface :as util]
-            [polylith.core.util.interface.color :as color]))
+            [polylith.core.util.interfc :as util]
+            [polylith.core.util.interfc.color :as color]))
 
 (defn env-error [[interface interface-components] env-name test? color-mode]
   (when (and (not test?)

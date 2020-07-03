@@ -1,8 +1,8 @@
 (ns polylith.core.change.core
   (:require [polylith.core.change.brick :as brick]
             [polylith.core.change.environment :as env]
-            [polylith.core.git.interface :as git]
-            [polylith.core.util.interface :as util]))
+            [polylith.core.git.interfc :as git]
+            [polylith.core.util.interfc :as util]))
 
 (defn changed-files [environments sha1 sha2]
   "Returns changed components, bases and environments

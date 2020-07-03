@@ -1,6 +1,6 @@
 (ns polylith.core.util.util-test
   (:require [clojure.test :refer :all]
-            [polylith.core.util.interface :as util]))
+            [polylith.core.util.interfc :as util]))
 
 (deftest find-first--when-having-a-list-with-one-odd-value--return-the-odd-value
   (is (= 5

@@ -1,6 +1,6 @@
 (ns polylith.core.workspace-clj.interface-defs-from-disk
   (:require [clojure.string :as str]
-            [polylith.core.file.interface :as file]
+            [polylith.core.file.interfc :as file]
             [polylith.core.workspace-clj.definitions :as defs]))
 
 (defn interface-path [root-dir path]

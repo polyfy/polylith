@@ -1,6 +1,6 @@
 (ns polylith.core.change.brick
   (:require [clojure.string :as str]
-            [polylith.core.git.interface :as git]))
+            [polylith.core.git.interfc :as git]))
 
 (defn base? [filename]
   (str/starts-with? filename "bases/"))

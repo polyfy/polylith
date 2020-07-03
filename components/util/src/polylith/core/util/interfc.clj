@@ -1,4 +1,4 @@
-(ns polylith.core.util.interface
+(ns polylith.core.util.interfc
   (:require [polylith.core.util.core :as core]))
 
 (defn find-first [predicate sequence]

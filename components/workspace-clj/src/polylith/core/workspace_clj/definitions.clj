@@ -1,5 +1,6 @@
 (ns polylith.core.workspace-clj.definitions
-  (:require [polylith.core.util.interface :as util]))
+  (:require [polylith.core.util.interfc :as util]
+            [polylith.core.common.interfc :as common]))
 
 (def ->generic-type {'def "data"
                      'defn "function"
@@ -19,7 +20,7 @@
            (drop 1 statements)))
 
 (defn sub-namespace [namespace]
-  (when (not (= "interface" namespace))
+  (when (-> namespace common/interface? not)
     (subs namespace 10)))
 
 (defn function [namespace type name code]

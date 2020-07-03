@@ -1,4 +1,4 @@
-(ns polylith.core.change.interface
+(ns polylith.core.change.interfc
   (:require [polylith.core.change.core :as core]))
 
 (defn changed-files [{:keys [environments]} sha1 sha2]

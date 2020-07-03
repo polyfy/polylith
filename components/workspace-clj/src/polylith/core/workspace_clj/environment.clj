@@ -1,8 +1,8 @@
 (ns polylith.core.workspace-clj.environment
   (:require [clojure.string :as str]
             [clojure.tools.deps.alpha.util.maven :as mvn]
-            [polylith.core.file.interface :as file]
-            [polylith.core.util.interface :as util]))
+            [polylith.core.file.interfc :as file]
+            [polylith.core.util.interfc :as util]))
 
 (defn key-as-string [[lib version]]
   [(str lib) version])

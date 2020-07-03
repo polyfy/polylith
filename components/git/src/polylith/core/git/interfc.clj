@@ -1,4 +1,4 @@
-(ns polylith.core.git.interface
+(ns polylith.core.git.interfc
   (:require [polylith.core.git.core :as core]))
 
 (defn diff [sha1 sha2]

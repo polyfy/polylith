@@ -1,4 +1,4 @@
-(ns polylith.core.deps.interface
+(ns polylith.core.deps.interfc
   (:require [polylith.core.deps.dependencies :as deps]))
 
 (defn brick-dependencies [top-ns interface-name interface-names brick-namespaces]

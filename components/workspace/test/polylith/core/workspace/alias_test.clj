@@ -1,6 +1,6 @@
-(ns polylith.workspace.alias-test
+(ns polylith.core.workspace.alias-test
   (:require [clojure.test :refer :all]
-            [polylith.workspace.alias :as alias]))
+            [polylith.core.workspace.alias :as alias]))
 
 (def environments [{:name "backend-system"
                     :group "backend-system"

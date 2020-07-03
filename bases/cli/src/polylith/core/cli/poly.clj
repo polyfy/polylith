@@ -2,11 +2,11 @@
   (:require [polylith.core.cli.cmd.check :as check]
             [polylith.core.cli.cmd.help :as help]
             [polylith.core.cli.cmd.ws :as info]
-            [polylith.core.change.interface :as change]
-            [polylith.core.file.interface :as file]
-            [polylith.core.test-runner.interface :as test-runner]
-            [polylith.core.workspace.interface :as ws]
-            [polylith.core.workspace-clj.interface :as ws-clj])
+            [polylith.core.change.interfc :as change]
+            [polylith.core.file.interfc :as file]
+            [polylith.core.test-runner.interfc :as test-runner]
+            [polylith.core.workspace.interfc :as ws]
+            [polylith.core.workspace-clj.interfc :as ws-clj])
   (:gen-class))
 
 (defn -main [& [cmd arg]]

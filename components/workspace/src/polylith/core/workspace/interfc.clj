@@ -1,4 +1,4 @@
-(ns polylith.core.workspace.interface
+(ns polylith.core.workspace.interfc
   (:require [polylith.core.workspace.core :as core]
             [polylith.core.workspace.source :as source]
             [polylith.core.workspace.dependencies :as deps]

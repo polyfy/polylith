@@ -1,4 +1,4 @@
-(ns polylith.core.common.interface
+(ns polylith.core.common.interfc
   (:require [polylith.core.common.core :as core]
             [polylith.core.common.class-loader :as class-loader]))
 
@@ -13,3 +13,6 @@
 
 (defn eval-in [class-loader form]
   (class-loader/eval-in class-loader form))
+
+(defn interface? [name]
+  (contains? #{"interface" "interfc"} name))

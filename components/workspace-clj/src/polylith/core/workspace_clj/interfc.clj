@@ -1,4 +1,4 @@
-(ns polylith.core.workspace-clj.interface
+(ns polylith.core.workspace-clj.interfc
   (:require [polylith.core.workspace-clj.core :as core]))
 
 (defn workspace-from-disk

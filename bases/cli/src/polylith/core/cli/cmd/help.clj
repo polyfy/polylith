@@ -1,5 +1,5 @@
 (ns polylith.core.cli.cmd.help
-  (:require [polylith.core.util.interface.color :as color]
+  (:require [polylith.core.util.interfc.color :as color]
             [clojure.string :as str]))
 
 (defn command

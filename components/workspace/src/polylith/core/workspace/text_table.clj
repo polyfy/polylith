@@ -1,6 +1,6 @@
 (ns polylith.core.workspace.text-table
-  (:require [polylith.core.text-table.interface :as text-table]
-            [polylith.core.util.interface.color :as color]))
+  (:require [polylith.core.text-table.interfc :as text-table]
+            [polylith.core.util.interfc.color :as color]))
 
 (defn env-data [{:keys [alias component-names base-names]}]
   [alias (set (concat component-names base-names))])

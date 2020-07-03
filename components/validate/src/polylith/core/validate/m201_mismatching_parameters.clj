@@ -1,8 +1,8 @@
 (ns polylith.core.validate.m201-mismatching-parameters
   (:require [clojure.string :as str]
-            [polylith.core.util.interface :as util]
+            [polylith.core.util.interfc :as util]
             [polylith.core.validate.shared :as shared]
-            [polylith.core.util.interface.color :as color]))
+            [polylith.core.util.interfc.color :as color]))
 
 (def types->message {#{"function"} "Function"
                      #{"macro"} "Macro"

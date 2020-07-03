@@ -1,7 +1,7 @@
 (ns polylith.core.validate.m104-circular-deps
   (:require [clojure.string :as str]
-            [polylith.core.util.interface :as util]
-            [polylith.core.util.interface.color :as color]))
+            [polylith.core.util.interfc :as util]
+            [polylith.core.util.interfc.color :as color]))
 
 (defn interface-circular-deps [interface-name completed-deps interface->deps path]
   (if (contains? completed-deps interface-name)
