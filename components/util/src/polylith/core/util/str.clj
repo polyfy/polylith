@@ -9,6 +9,12 @@
         string
         (subs string (inc index))))))
 
+(defn skip-prefix [string prefix]
+  (when string
+    (if (str/starts-with? string prefix)
+      (subs string (count prefix))
+      string)))
+
 (defn skip-suffix [string suffix]
   (when string
     (if (str/ends-with? string suffix)

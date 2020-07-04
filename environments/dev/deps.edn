@@ -1,6 +1,7 @@
 
 {:paths   [; Base
            "../../bases/cli/src"
+           "../../bases/z-jocke/src"
 
            ; Components
            "../../components/change/src"
@@ -15,13 +16,14 @@
            "../../components/validate/src"
            "../../components/workspace/src"
            "../../components/workspace-clj/src"
-           "../../components/workspace-kotlin/src"]
+           "../../components/z-jocke/src"]
 
  :deps    {org.clojure/clojure {:mvn/version "1.10.1"}
            org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}
 
  :aliases {:test    {:extra-paths [;Bases
                                    "../../bases/cli/test"
+                                   "../../bases/z-jocke/test"
 
                                    ; Components
                                    "../../components/change/test"
@@ -35,12 +37,11 @@
                                    "../../components/util/test"
                                    "../../components/validate/test"
                                    "../../components/workspace/test"
-                                   "../../components/workspace-clj/test"
-                                   "../../components/workspace-kotlin/test"]
+                                   "../../components/workspace-clj/test"]
                      :extra-deps  {}}
 
            :aot     {:extra-paths ["classes"]
-                     :main-opts   ["-e" "(compile,'polylith.core.cli.poly)"]}
+                     :main-opts   ["-e" "(compile,'polylith.clj.cli.poly)"]}
 
            :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
                      :main-opts  ["-m" "uberdeps.uberjar"]}}}

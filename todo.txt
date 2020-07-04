@@ -1,35 +1,20 @@
 
-- add support for having more than one top namespace in a workspace:
-  :top-namespaces {"polylith.core" ""}
-                   "polylith.clj" "clj"}
-  then the alias can be printed in the 'ws' command:
+- print out the top namespaces in the 'ws' command, e.g.:
+  top-namespaces:
+    - = polylith.core
+    clj = polylith.clj
 
-top-namespaces:
-  - = polylith.core
-  clj = polylith.clj
+- append each interface and brick with the top namespace alias (if not empty).
 
-environments:
-  cli = cli
-  core = core
-  dev = development
+- add validation that detects if no component was found for an interface.
 
-ns   interface      brick           loc  (t)   cli core dev
------------------------------------------------------------
--    change         change           81   25   -   x    x
--    common         common          106    0   -   x    x
--    deps           deps             43   51   -   x    x
--    file           file             80    0   -   x    x
--    git            git              31   17   -   x    x
--    shell          shell            19    0   -   x    x
-clj  test-runner    test-runner      79    0   x   -    x
--    text-table     text-table       64    0   -   x    x
--    util           util            147   43   -   x    x
--    validate       validate        371  708   -   x    x
--    workspace      workspace       451  112   -   x    x
-clj  workspace-clj  workspace-clj   279  184   x   -    x
-clj  -              cli              85    0   x   -    x
+- prefix interfaces in the 'ws' command with the top namespace alias and in messages.
 
-- if an environment misses a component, show it correctly in the 'ws' command.
+- fix the error that occurres when having an invalid test src folder, e.g.
+  "../../components/z-jocketest".
+
+- if an environment misses a component, show it correctly in the 'ws' command
+  as a yellow "i" in each environment.
 
 - check how 'ws' handles circular dependencies.
 
@@ -57,7 +42,10 @@ clj  -              cli              85    0   x   -    x
   a tool creator can decide to add whatever attributes they need
   to perform the 'test' and 'build' commands.
 
-- add the version command.
+- add the 'version' command.
+
+- add a 'deps' command that could show what components it uses
+  and what bricks uses it in each environment.
 
 - add tasks (arguments to the 'poly' command)':
   - ws

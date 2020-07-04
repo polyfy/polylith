@@ -6,6 +6,7 @@
 (deftest brick-errors--without-errors--returns-no-errors
   (let [component {:name "common"
                    :type "component"
+                   :top-namespace "polylith"
                    :interface {:name "common"}
                    :namespaces-src [{:name "common/readimportsfromdisk.clj"
                                      :imports ["clojure.string"
@@ -16,11 +17,12 @@
                                                "polylith.cmd.interface.v2.core"
                                                "polylith.invoice.interface"]}]}]
     (is (= []
-           (m101/brick-errors "polylith." component #{"spec" "cmd" "file" "invoice" "user"} color/none)))))
+           (m101/brick-errors component #{"spec" "cmd" "file" "invoice" "user"} color/none)))))
 
 (deftest brick-errors--with-errors--returns-errors
   (let [component {:name "common"
                    :type "component"
+                   :top-namespace "polylith"
                    :interface {:name "common"}
                    :namespaces-src '[{:name "purchase"
                                       :imports ["clojure.string"
@@ -42,15 +44,16 @@
              :colorized-message "Illegal dependency on namespace cmd.core in common.billing. Use cmd.interface instead to fix the problem."
              :message           "Illegal dependency on namespace cmd.core in common.billing. Use cmd.interface instead to fix the problem."}]
 
-           (m101/brick-errors "polylith." component #{"spec" "cmd" "file" "invoice" "user"} color/none)))))
+           (m101/brick-errors component #{"spec" "cmd" "file" "invoice" "user"} color/none)))))
 
 (deftest errors--component-with-mismatching-interface-name--returns-no-errors
-  (let [component {:type "component",
-                   :name "user1",
+  (let [component {:type "component"
+                   :name "user1"
+                   :top-namespace "polylith"
                    :interface {:name "user"}
                    :namespaces-src [{:name "user/interface.clj"
                                      :imports ["user.core"]}
                                     {:name "user/core.clj"
                                      :imports []}]}]
     (is (= []
-           (m101/errors "polylith." #{"user"} [component] [] color/none)))))
+           (m101/errors #{"user"} [component] [] color/none)))))

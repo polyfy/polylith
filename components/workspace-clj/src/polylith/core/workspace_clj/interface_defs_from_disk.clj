@@ -1,7 +1,8 @@
 (ns polylith.core.workspace-clj.interface-defs-from-disk
   (:require [clojure.string :as str]
             [polylith.core.file.interfc :as file]
-            [polylith.core.workspace-clj.definitions :as defs]))
+            [polylith.core.workspace-clj.definitions :as defs]
+            [polylith.core.common.interfc :as common]))
 
 (defn interface-path [root-dir path]
   (subs path (-> root-dir count inc)))
@@ -9,13 +10,16 @@
 (defn interface-ns? [path]
   (and (or (str/ends-with? path ".clj")
            (str/ends-with? path ".cljc"))
-       (or (or (= "interface.clj" path)
+       (or (or (= "interfc.clj" path)
+               (= "interfc.cljc" path)
+               (= "interface.clj" path)
                (= "interface.cljc" path))
-           (str/starts-with? path "interface/"))))
+           (or (str/starts-with? path "interfc/")
+               (str/starts-with? path "interface/")))))
 
 (defn interface-ns [root-dir path]
   (let [index (str/index-of path ".")
-        namespace (str/replace (subs path 0 index) "/" ".")]
+        namespace (common/path-to-ns (subs path 0 index))]
     {:sub-ns namespace
      :path (str root-dir "/" path)}))
 
@@ -35,3 +39,11 @@
   (vec (sort-by (juxt :sub-ns :type :name :parameters)
                 (mapcat interface-from-disk
                         (interface-namespaces src-dir)))))
+;
+;(def src-dir "./components/workspace-clj/src/polylith/core/workspace_clj")
+;(def src-dir "./components/git/src/polylith/core/git")
+;(defs-from-disk src-dir)
+;(file/paths-recursively src-dir)
+;
+;(map #(interface-path src-dir %)
+;     (file/paths-recursively src-dir))

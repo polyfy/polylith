@@ -20,34 +20,51 @@
       (apply + (filter identity (map :lines-of-code-test locs)))
       (apply + (filter identity (map :lines-of-code-src locs))))))
 
-(defn enrich-component [top-ns interface-names {:keys [name type namespaces-src namespaces-test interface] :as component}]
-  (let [interface-deps (deps/brick-interface-deps top-ns interface-names component)
-        lib-imports-src (lib/lib-imports-src top-ns interface-names component)
-        lib-imports-test (lib/lib-imports-test top-ns interface-names component)]
-    (array-map :name name
-               :type type
-               :lines-of-code-src (brick-loc namespaces-src)
-               :lines-of-code-test (brick-loc namespaces-test)
-               :interface interface
-               :namespaces-src namespaces-src
-               :namespaces-test namespaces-test
-               :lib-imports-src lib-imports-src
-               :lib-imports-test lib-imports-test
-               :interface-deps interface-deps)))
+(defn enrich-component
+  ([interface-names name type top-namespace namespaces-src namespaces-test interface component]
+   (let [top-ns (common/top-namespace top-namespace)
+         interface-deps (deps/brick-interface-deps top-ns interface-names component)
+         lib-imports-src (lib/lib-imports-src top-ns interface-names component)
+         lib-imports-test (lib/lib-imports-test top-ns interface-names component)]
+     (array-map :name name
+                :type type
+                :top-namespace top-namespace
+                :lines-of-code-src (brick-loc namespaces-src)
+                :lines-of-code-test (brick-loc namespaces-test)
+                :interface interface
+                :namespaces-src namespaces-src
+                :namespaces-test namespaces-test
+                :lib-imports-src lib-imports-src
+                :lib-imports-test lib-imports-test
+                :interface-deps interface-deps)))
+  ([interface-names {:keys [name type top-namespace top-namespaces namespaces-src namespaces-test interface] :as component}]
+   (if top-namespace
+     (enrich-component interface-names name type top-namespace namespaces-src namespaces-test interface component)
+     (array-map :name name
+                :type type
+                :top-namespaces top-namespaces))))
 
-(defn enrich-base [top-ns interface-names {:keys [name type namespaces-src namespaces-test] :as base}]
-  (let [interface-deps (deps/brick-interface-deps top-ns interface-names base)
-        lib-imports-src (lib/lib-imports-src top-ns interface-names base)
-        lib-imports-test (lib/lib-imports-test top-ns interface-names base)]
-    (array-map :name name
-               :type type
-               :lines-of-code-src (brick-loc namespaces-src)
-               :lines-of-code-test (brick-loc namespaces-test)
-               :namespaces-src namespaces-src
-               :namespaces-test namespaces-test
-               :lib-imports-src lib-imports-src
-               :lib-imports-test lib-imports-test
-               :interface-deps interface-deps)))
+(defn enrich-base
+  ([interface-names name type top-namespace namespaces-src namespaces-test base]
+   (let [interface-deps (deps/brick-interface-deps top-namespace interface-names base)
+         lib-imports-src (lib/lib-imports-src top-namespace interface-names base)
+         lib-imports-test (lib/lib-imports-test top-namespace interface-names base)]
+     (array-map :name name
+                :type type
+                :top-namespace top-namespace
+                :lines-of-code-src (brick-loc namespaces-src)
+                :lines-of-code-test (brick-loc namespaces-test)
+                :namespaces-src namespaces-src
+                :namespaces-test namespaces-test
+                :lib-imports-src lib-imports-src
+                :lib-imports-test lib-imports-test
+                :interface-deps interface-deps)))
+  ([interface-names {:keys [name type top-namespace top-namespaces namespaces-src namespaces-test] :as base}]
+   (if top-namespace
+     (enrich-base interface-names name type top-namespace namespaces-src namespaces-test base)
+     (array-map :name name
+                :type type
+                :top-namespaces top-namespaces))))
 
 (defn select-lib-imports [brick-name brick->lib-imports test?]
   (let [{:keys [lib-imports-src lib-imports-test]} (brick->lib-imports brick-name)]
@@ -100,11 +117,10 @@
 
 (defn enrich-workspace [{:keys [ws-path settings components bases environments]}]
   (let [ws-name (workspace-name ws-path)
-        top-ns (common/top-namespace (:top-namespace settings))
         interfaces (ifcs/interfaces components)
         interface-names (apply sorted-set (mapv :name interfaces))
-        enriched-components (mapv #(enrich-component top-ns interface-names %) components)
-        enriched-bases (mapv #(enrich-base top-ns interface-names %) bases)
+        enriched-components (mapv #(enrich-component interface-names %) components)
+        enriched-bases (mapv #(enrich-base interface-names %) bases)
         enriched-bricks (concat enriched-components enriched-bases)
         lines-of-code-src (apply + (filter identity (map :lines-of-code-src enriched-bricks)))
         lines-of-code-test (apply + (filter identity (map :lines-of-code-test enriched-bricks)))
@@ -113,7 +129,8 @@
         env->alias (alias/env->alias settings environments)
         enriched-environments (vec (sort-by :name (map #(enrich-env % brick->loc brick->lib-imports env->alias) environments)))
         color-mode (:color-mode settings color/none)
-        messages (validate/messages top-ns interface-names interfaces enriched-components enriched-bases enriched-environments color-mode)]
+        top-namespaces (map key (:top-namespaces settings))
+        messages (validate/messages interface-names interfaces enriched-components enriched-bases enriched-environments top-namespaces color-mode)]
     (array-map :name ws-name
                :ws-path ws-path
                :settings settings

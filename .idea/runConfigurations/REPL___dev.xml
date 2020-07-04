@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="REPL - core" type="ClojureREPL" factoryName="Local" activateToolWindowBeforeRun="false">
+  <configuration default="false" name="REPL - dev" type="ClojureREPL" factoryName="Local" activateToolWindowBeforeRun="false">
     <module name="dev" />
     <setting name="replType" value="NREPL" />
     <setting name="execution" value="INTELLIJ" />

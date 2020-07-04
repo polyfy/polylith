@@ -28,7 +28,7 @@
                      :extra-deps  {}}
 
            :aot     {:extra-paths ["classes"]
-                     :main-opts   ["-e" "(compile,'polylith.core.cli.poly)"]}
+                     :main-opts   ["-e" "(compile,'polylith.clj.cli.poly)"]}
 
            :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
                      :main-opts  ["-m" "uberdeps.uberjar"]}}}

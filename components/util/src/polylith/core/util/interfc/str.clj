@@ -4,6 +4,9 @@
 (defn skip-until [string separator]
   (str/skip-until string separator))
 
+(defn skip-prefix [string prefix]
+  (str/skip-prefix string prefix))
+
 (defn skip-suffix [string suffix]
   (str/skip-suffix string suffix))
 

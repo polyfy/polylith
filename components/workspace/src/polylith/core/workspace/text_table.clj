@@ -1,5 +1,6 @@
 (ns polylith.core.workspace.text-table
-  (:require [polylith.core.text-table.interfc :as text-table]
+  (:require [polylith.core.common.interfc :as common]
+            [polylith.core.text-table.interfc :as text-table]
             [polylith.core.util.interfc.color :as color]))
 
 (defn env-data [{:keys [alias component-names base-names]}]
@@ -12,10 +13,10 @@
 
 (defn row [{:keys [name type interface lines-of-code-src lines-of-code-test]} aliases alias->bricks]
   (let [ifc (if (= "component" type)
-              (:name interface)
+              (:name interface "-")
               "-")
-        loc-src (str lines-of-code-src)
-        loc-test (str lines-of-code-test)
+        loc-src (if lines-of-code-src (str lines-of-code-src) "-")
+        loc-test (if lines-of-code-test (str lines-of-code-test) "-")
         all-env-contains (mapv #(env-contains % name alias->bricks) aliases)]
     (vec (concat [ifc "" name "" loc-src "" loc-test ""]
                  (interpose "" all-env-contains)))))
@@ -35,8 +36,9 @@
 (defn env-colors [aliases brick alias->bricks]
   (interpose :none (map #(env-color % brick alias->bricks) aliases)))
 
-(defn component-colors [{:keys [name]} aliases alias->bricks]
-  (vec (concat [:yellow :none :green :none :none :none :none :none]
+(defn component-colors [{:keys [name interface]} aliases alias->bricks]
+  (vec (concat [(if interface :yellow :none)]
+               [:none :green :none :none :none :none :none]
                (env-colors aliases name alias->bricks))))
 
 (defn base-colors [{:keys [name]} aliases alias->bricks]
@@ -60,7 +62,7 @@
         row
         (assoc row 0 "")))))
 
-(defn print-table [{:keys [settings components bases environments lines-of-code-src lines-of-code-test]}]
+(defn print-table [{:keys [settings components bases environments messages lines-of-code-src lines-of-code-test]}]
   (let [envs (filter (complement :test?) environments)
         color-mode (:color-mode settings)
         aliases (mapv :alias envs)
@@ -86,4 +88,7 @@
     (doseq [{:keys [alias name]} envs]
       (println (str "  " alias " = " (color/purple color-mode name))))
     (println)
-    (println table)))
+    (println table)
+    (println)
+    (when (-> messages empty? not)
+      (println (common/pretty-messages messages color-mode)))))

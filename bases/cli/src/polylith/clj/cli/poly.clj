@@ -1,7 +1,7 @@
-(ns polylith.core.cli.poly
-  (:require [polylith.core.cli.cmd.check :as check]
-            [polylith.core.cli.cmd.help :as help]
-            [polylith.core.cli.cmd.ws :as info]
+(ns polylith.clj.cli.poly
+  (:require [polylith.clj.cli.cmd.check :as check]
+            [polylith.clj.cli.cmd.help :as help]
+            [polylith.clj.cli.cmd.ws :as info]
             [polylith.core.change.interfc :as change]
             [polylith.core.file.interfc :as file]
             [polylith.core.test-runner.interfc :as test-runner]

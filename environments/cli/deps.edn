@@ -3,7 +3,14 @@
            "../../bases/cli/src"
 
            ; Components
+           "../../components/common/src"
+           "../../components/deps/src"
+           "../../components/file/src"
+           "../../components/text-table/src"
            "../../components/test-runner/src"
+           "../../components/util/src"
+           "../../components/validate/src"
+           "../../components/workspace/src"
            "../../components/workspace-clj/src"]
 
  :deps    {org.clojure/clojure {:mvn/version "1.10.1"}
@@ -13,12 +20,19 @@
                                    "../../bases/cli/test"
 
                                    ; Components
+                                   "../../components/common/test"
+                                   "../../components/deps/test"
+                                   "../../components/file/test"
+                                   "../../components/text-table/test"
+                                   "../../components/util/test"
+                                   "../../components/validate/test"
+                                   "../../components/workspace/test"
                                    "../../components/test-runner/test"
                                    "../../components/workspace-clj/test"]
                      :extra-deps  {}}
 
            :aot     {:extra-paths ["classes"]
-                     :main-opts   ["-e" "(compile,'polylith.core.cli.poly)"]}
+                     :main-opts   ["-e" "(compile,'polylith.clj.cli.poly)"]}
 
            :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
                      :main-opts  ["-m" "uberdeps.uberjar"]}}}
