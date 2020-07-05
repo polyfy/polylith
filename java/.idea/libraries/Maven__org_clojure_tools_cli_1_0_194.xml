@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.clojure:tools.cli:1.0.194">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/clojure/tools.cli/1.0.194/tools.cli-1.0.194.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/clojure/tools.cli/1.0.194/tools.cli-1.0.194-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/clojure/tools.cli/1.0.194/tools.cli-1.0.194-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

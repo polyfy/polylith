@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.clojure:tools.deps.alpha:0.8.695">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/clojure/tools.deps.alpha/0.8.695/tools.deps.alpha-0.8.695.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/clojure/tools.deps.alpha/0.8.695/tools.deps.alpha-0.8.695-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/clojure/tools.deps.alpha/0.8.695/tools.deps.alpha-0.8.695-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

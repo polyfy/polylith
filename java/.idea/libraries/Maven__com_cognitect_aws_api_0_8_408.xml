@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.cognitect.aws:api:0.8.408">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/cognitect/aws/api/0.8.408/api-0.8.408.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/cognitect/aws/api/0.8.408/api-0.8.408-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/cognitect/aws/api/0.8.408/api-0.8.408-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
