@@ -1,9 +1,9 @@
-(ns polylith.core.workspace-clj.components-from-disk
+(ns polylith.clj.workspace-clj.components-from-disk
   (:require [clojure.string :as str]
             [polylith.core.file.interfc :as file]
-            [polylith.core.workspace-clj.namespace :as namespace]
-            [polylith.core.workspace-clj.namespaces-from-disk :as ns-from-disk]
-            [polylith.core.workspace-clj.interface-defs-from-disk :as defs-from-disk]))
+            [polylith.clj.workspace-clj.namespace :as namespace]
+            [polylith.clj.workspace-clj.namespaces-from-disk :as ns-from-disk]
+            [polylith.clj.workspace-clj.interface-defs-from-disk :as defs-from-disk]))
 
 (defn replace-underscore [string]
   (when string

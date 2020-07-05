@@ -1,6 +1,6 @@
-(ns polylith.core.workspace-clj.namespaces-test
+(ns polylith.clj.workspace-clj.namespaces-test
   (:require [clojure.test :refer :all]
-            [polylith.core.workspace-clj.namespace :as namespace]))
+            [polylith.clj.workspace-clj.namespace :as namespace]))
 
 (def ns-paths ["polylith/core/util/str.clj"
                "polylith/core/util/interfc.clj"

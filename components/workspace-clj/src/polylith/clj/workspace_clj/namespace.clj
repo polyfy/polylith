@@ -1,4 +1,4 @@
-(ns polylith.core.workspace-clj.namespace
+(ns polylith.clj.workspace-clj.namespace
   (:require [clojure.string :as str]
             [polylith.core.file.interfc :as file]
             [polylith.core.common.interfc :as common]

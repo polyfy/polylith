@@ -1,4 +1,4 @@
-(ns polylith.core.workspace-clj.definitions
+(ns polylith.clj.workspace-clj.definitions
   (:require [polylith.core.util.interfc :as util]
             [polylith.core.common.interfc :as common]))
 

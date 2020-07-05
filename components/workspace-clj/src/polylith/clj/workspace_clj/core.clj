@@ -1,9 +1,9 @@
-(ns polylith.core.workspace-clj.core
+(ns polylith.clj.workspace-clj.core
   (:require [polylith.core.util.interfc :as util]
-            [polylith.core.workspace-clj.environment :as env]
-            [polylith.core.workspace-clj.namespace :as namespace]
-            [polylith.core.workspace-clj.bases-from-disk :as bases-from-disk]
-            [polylith.core.workspace-clj.components-from-disk :as components-from-disk]))
+            [polylith.clj.workspace-clj.environment :as env]
+            [polylith.clj.workspace-clj.namespace :as namespace]
+            [polylith.clj.workspace-clj.bases-from-disk :as bases-from-disk]
+            [polylith.clj.workspace-clj.components-from-disk :as components-from-disk]))
 
 (defn workspace-from-disk
   ([ws-path]

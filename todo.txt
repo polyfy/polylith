@@ -1,5 +1,14 @@
 
-- print out the top namespaces in the 'ws' command, e.g.:
+- store top-namespace separately for the interface and the component implementation
+  (if they happens to live in different top namespace).
+
+- allow a component to have the interface from another top namespace.
+
+- add validation m108 that checks that namespaces doesn't clash.
+
+- check that the list of top-namespaces and their aliases are unique.
+
+- print out the top namespaces in the 'ws' command (if more than one) e.g.:
   top-namespaces:
     - = polylith.core
     clj = polylith.clj
@@ -9,6 +18,8 @@
 - add validation that detects if no component was found for an interface.
 
 - prefix interfaces in the 'ws' command with the top namespace alias and in messages.
+
+- make sure we only have one interface defined per component.
 
 - fix the error that occurres when having an invalid test src folder, e.g.
   "../../components/z-jocketest".
@@ -65,6 +76,8 @@
 
 Questions
 =========
+- we don't get nice error messages when running tests through tools.deps, e.g when
+  a namespace can't be imported or if a component is missing so it can't compile.
 - :color-mode should be per developer, not per workspace. Put it in .polylith/config.edn?
 - polylith.workspace-clj.namespaces-from-disk/->namespace
 - check if we should register for https://github.com/sponsors.

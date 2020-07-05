@@ -1,5 +1,5 @@
-(ns polylith.core.workspace-clj.interfc
-  (:require [polylith.core.workspace-clj.core :as core]))
+(ns polylith.clj.workspace-clj.interfc
+  (:require [polylith.clj.workspace-clj.core :as core]))
 
 (defn workspace-from-disk
   ([ws-path]
