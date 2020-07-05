@@ -1,10 +1,15 @@
 package polylith.core;
 
+import java.util.Map;
+
 import static polylith.core.Core.callFn;
 
-public class Api {
+public final class Api {
 
-    final static String colorNs = "polylith.clj.core.util.interfc.color";
+    final static String colorNs =     "polylith.clj.core.util.interfc.color";
+    final static String workspaceNs = "polylith.clj.core.workspace.interfc";
+
+    static Colorize colorize = new Colorize();
 
     public static String colorizeNamespace(String namespace, String colorMode) {
         return (String)callFn(colorNs, "namespc", namespace, colorMode);
@@ -24,6 +29,14 @@ public class Api {
 
     public static String colorizeComponent(String component, String colorMode) {
         return (String)callFn(colorNs, "component", component, colorMode);
+    }
+
+    public static Map enrichWorkspace(Map workspace) {
+        return (Map)callFn(workspaceNs, "enrich-workspace-str-keys", workspace);
+    }
+
+    public static void printEnrichedWorkspace(Map workspace) {
+        callFn(workspaceNs, "print-table-str-keys", workspace);
     }
 
     public static void main(final String... args) {

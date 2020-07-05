@@ -1,4 +1,6 @@
 
+- create a spec that checks a workspace + expose it to the core API.
+
 - store top-namespace separately for the interface and the component implementation
   (if they happens to live in different top namespace).
 
@@ -17,7 +19,7 @@
 
 - add validation that detects if no component was found for an interface.
 
-- prefix interfaces in the 'ws' command with the top namespace alias and in messages.
+- add column 'namespace' to the workspace table.
 
 - make sure we only have one interface defined per component.
 
@@ -163,7 +165,7 @@ Design decisions
 
 Commands
 ========
-./make-uberjar.sh core polylith.core.cli.poly
+./make-uberjar.sh dev polylith.clj.cli_tool.cli.poly
 sudo cp ./environments/core/target/core.jar /usr/local/polylith/poly.jar
 
 polylith:  clj -A:dev:test

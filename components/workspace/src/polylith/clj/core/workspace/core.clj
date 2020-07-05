@@ -1,5 +1,6 @@
 (ns polylith.clj.core.workspace.core
   (:require [clojure.string :as str]
+            [clojure.walk :as walk]
             [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.util.interfc.color :as color]
             [polylith.clj.core.deps.interfc :as deps]
@@ -141,3 +142,6 @@
                :lines-of-code-src lines-of-code-src
                :lines-of-code-test lines-of-code-test
                :messages messages)))
+
+(defn enrich-workspace-str-keys [workspace]
+  (-> workspace walk/keywordize-keys enrich-workspace walk/stringify-keys))

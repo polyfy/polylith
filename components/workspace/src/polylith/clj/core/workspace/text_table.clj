@@ -1,5 +1,6 @@
 (ns polylith.clj.core.workspace.text-table
-  (:require [polylith.clj.core.common.interfc :as common]
+  (:require [clojure.walk :as walk]
+            [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.text-table.interfc :as text-table]
             [polylith.clj.core.util.interfc.color :as color]))
 
@@ -92,3 +93,6 @@
     (println)
     (when (-> messages empty? not)
       (println (common/pretty-messages messages color-mode)))))
+
+(defn print-table-str-keys [workspace]
+  (-> workspace walk/keywordize-keys print-table))
