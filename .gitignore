@@ -3,6 +3,7 @@
 **/target
 **/.cpcache
 **/.DS_Store
+**/.gradle
 
 # User-specific stuff
 .idea/**/workspace.xml
