@@ -12,7 +12,7 @@
 (defn data-row [row-def row colors]
   (mapv conj row-def row colors))
 
-(defn none [color-mode & strings]
+(defn none [_ & strings]
   (str/join strings))
 
 (def color->function
@@ -50,9 +50,10 @@
         row-def (map vector alignments lengths)
         header-row (data-row row-def headers header-colors)
         header (align-row header-row color-mode)
+        line-cnt (count (align-row header-row c/none))
         data-rows (mapv #(data-row row-def %1 %2) rows row-colors)]
     (vec (concat [header]
-                 [(str-util/line (count header))]
+                 [(str-util/line line-cnt)]
                  (map #(align-row % color-mode) data-rows)))))
 
 (defn table [headers alignments rows header-colors row-colors color-mode]

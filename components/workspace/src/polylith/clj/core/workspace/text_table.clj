@@ -79,7 +79,8 @@
         plain-rows (conj brick-rows total-loc-row)
         interface->index-components (group-by second (map-indexed index-interface plain-rows))
         rows (map-indexed #(change-interface-name %1 %2 interface->index-components) plain-rows)
-        header-colors (repeat (count headers) :none)
+        header-colors (concat (repeat (count basic-headers) :none)
+                              (repeat env-spc-cnt :purple))
         component-colors (mapv #(component-colors % aliases alias->bricks) sorted-components)
         base-colors (mapv #(base-colors % aliases alias->bricks) sorted-bases)
         total-loc-colors [(vec (repeat (+ 8 env-spc-cnt) :none))]
