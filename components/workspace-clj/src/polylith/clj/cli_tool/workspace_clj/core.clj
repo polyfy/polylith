@@ -5,6 +5,16 @@
             [polylith.clj.cli-tool.workspace-clj.bases-from-disk :as bases-from-disk]
             [polylith.clj.cli-tool.workspace-clj.components-from-disk :as components-from-disk]))
 
+(def ws-reader
+  {:name "polylith-clj"
+   :project-url "https://github.com/tengstrand/polylith/tree/core"
+   :version "1.0"
+   :workspace-version "1.0"
+   :language "Clojure"
+   :type-position "postfix"
+   :slash "/"
+   :file-extensions [".clj" "cljc"]})
+
 (defn workspace-from-disk
   ([ws-path]
    (let [config (read-string (slurp (str ws-path "/deps.edn")))]
@@ -19,6 +29,7 @@
                                     :color-mode color-mode
                                     :env-short-names env-short-names)]
      (util/ordered-map :ws-path ws-path
+                       :ws-reader ws-reader
                        :settings settings
                        :components components
                        :bases bases

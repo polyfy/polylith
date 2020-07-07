@@ -116,7 +116,7 @@
       (subs path (inc index))
       path)))
 
-(defn enrich-workspace [{:keys [ws-path settings components bases environments]}]
+(defn enrich-workspace [{:keys [ws-path ws-reader settings components bases environments]}]
   (let [ws-name (workspace-name ws-path)
         interfaces (ifcs/interfaces components)
         interface-names (apply sorted-set (mapv :name interfaces))
@@ -132,16 +132,17 @@
         color-mode (:color-mode settings color/none)
         top-namespaces (map key (:top-namespaces settings))
         messages (validate/messages interface-names interfaces enriched-components enriched-bases enriched-environments top-namespaces color-mode)]
-    (array-map :name ws-name
-               :ws-path ws-path
-               :settings settings
-               :interfaces interfaces
-               :components enriched-components
-               :bases enriched-bases
-               :environments enriched-environments
-               :lines-of-code-src lines-of-code-src
-               :lines-of-code-test lines-of-code-test
-               :messages messages)))
+    (util/ordered-map :name ws-name
+                      :ws-path ws-path
+                      :ws-reader ws-reader
+                      :settings settings
+                      :interfaces interfaces
+                      :components enriched-components
+                      :bases enriched-bases
+                      :environments enriched-environments
+                      :lines-of-code-src lines-of-code-src
+                      :lines-of-code-test lines-of-code-test
+                      :messages messages)))
 
 (defn enrich-workspace-str-keys [workspace]
   (-> workspace walk/keywordize-keys enrich-workspace walk/stringify-keys))

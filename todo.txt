@@ -1,40 +1,32 @@
 
-- change how we store each parameter in :definitions -> :parameters so that instead
-  of just a list of parameters, store each parameter. Also update the code so that
-  the type is included in the function signature. The :type attribute is optional:
-  {:type "String"
-   :name "user"}
-
-- add the attribute :interface-top-namespace that is optional and set if the interface
-  lives in another top namespace than the component implementation.
-  In the 'info' command, we can't have a sepearate 'namespace' column because of this.
-  Instead, prefix each interface and component with the top namespace short name.
-
-- add attribute :src-reader
-  {:name "Polylith Clojure"
+- add attribute :ws-reader. Valid values for :type-position are:
+  "prefix" (like in Java) or "postfix" (lik in Scala and Kotlin).
+  - use :file-extensions.
+  - use :type-position when viewing functions and macros.
+  - use :slash to separate paths everywhere in the codebase.
+  {:name "polylith-clj"
+   :project-url "https://github.com/tengstrand/polylith-kotlin"
    :version "1.0"
+   :workspace-version 1
    :language "Clojure"
+   :type-position "postfix"
    :slash "/"
    :file-extensions [".clj" "cljc"]}
 
+- revert the support for more than one top namespace.
+
+- in the 'cli' environment, depend on the core jar instead of real components.
+  - maybe we need two variants:
+    - polylith-clj-core
+    - polylith-clj-core-aot
+
 - use :file-extensions from :src-reader.
-- use :slash from src-reader
+- use :slash from :src-reader
 
 - extract workspace-clj/namespace/top-src-dirs to its own 'namespace'
   component and expose it in the core API.
 
 - create a spec that checks a workspace + expose it in the core API.
-
-- allow a component to have the interface from another top namespace.
-
-- add validation m108 that checks that namespaces doesn't clash.
-
-- check that the list of top-namespaces and their aliases are unique.
-
-- print out the top namespaces in the 'info' command (if more than one) e.g.:
-  top-namespaces:
-    - = polylith.core
-    clj = polylith.clj
 
 - when a workspace is enhanced, also set :vcs to "git".
 
@@ -54,11 +46,7 @@
     core         core   1620    0
     dev *        dev    2340 1230
 
-- append each interface and brick with the top namespace alias (if not empty).
-
 - add validation that detects if no component was found for an interface.
-
-- add column 'namespace' to the workspace table.
 
 - make sure we only have one interface defined per component.
 
@@ -134,8 +122,13 @@ Questions
 Leave for now
 =============
 - extract the doc for each function (metadata).
-- release the new tool + make it the default in the realworld repository +
-  create a branch for the old lein-polylith code.
+- when releasing:
+  - make sure we have all the documentation in place.
+  - it would be good if the tool that can migrate old lein-polylith projects were in place.
+  - update realworld repo, make it the default in the realworld repository.
+  - update the documentation in lein-polylith and tell that we have a new brand
+    tool that builds on top of tools.deps.
+  - update the :ws-reader/:project-url to point to master
 - create a migration tool that migrates lein-polylith projects to polylith projects.
 - html doc that automatically updates itself.
   - add support for extracting the APIs from a base, e.g. REST.
@@ -189,6 +182,7 @@ Doc
 
 Differences compared to lein-polylith
 =====================================
+- we support type hints as part of the function signature of functions.
 - when people starts to build tooling for polylith, they could include
   components from this project as git source dependencies into their own
   projects and use e.g. the workspace-clj, workspace and common components!

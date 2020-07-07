@@ -23,9 +23,16 @@
   (when (-> namespace common/interface? not)
     (subs namespace 10)))
 
+(defn parameter [name]
+  (let [type (-> name meta :tag)]
+    (if type
+      {:name (str name)
+       :type (str "^" type)}
+      {:name (str name)})))
+
 (defn function [namespace type name code]
   (let [sub-ns (sub-namespace namespace)
-        parameters (mapv str (first code))
+        parameters (mapv parameter (first code))
         str-name (str name)
         str-type (str type)]
     (util/ordered-map :name str-name
