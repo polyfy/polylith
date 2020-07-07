@@ -3,7 +3,7 @@
   of just a list of parameters, store each parameter. Also update the code so that
   the type is included in the function signature. The :type attribute is optional:
   {:type "String"
-   :param "user"}
+   :name "user"}
 
 - add the attribute :interface-top-namespace that is optional and set if the interface
   lives in another top namespace than the component implementation.
@@ -36,8 +36,23 @@
     - = polylith.core
     clj = polylith.clj
 
-- calculate changes (directly and indirectly) and store it in the :changes key +
-  show an '*' or '(*)' after each brick depending on if it's directly or indirectly changed.
+- when a workspace is enhanced, also set :vcs to "git".
+
+- calculate changes. For each component/base/environment store an attribute
+  :change-status that can be one of three attributes: "unchanged"
+  "directly-changed" and "indirectly-changed".
+  Also change so that we always calculates these changes (if :vcs is set to "git"
+  in :settings). Store the rest under the key :changes at the root.
+  Show a '*' or '(*)' after each brick in the 'info' command and maybe also after
+  each environment.
+
+- show aliases in a separate table in the 'info' command where we also calculate
+  the number of tests we have per environment + if it has changed:
+    environment  alias  loc (t)
+    ---------------------------
+    cli          cli        980
+    core         core         0
+    dev *        dev       1230
 
 - append each interface and brick with the top namespace alias (if not empty).
 
@@ -105,6 +120,9 @@
 
 Questions
 =========
+- can I delete .gradle from the project root?
+- it's really great that integration tests can be put in each environment, but where
+  to put system level end-to-end tests?
 - how can we have a build that first builds polylith.clj.core and then builds
   polylith.core and deploys it to clojars?
 - we don't get nice error messages when running tests through tools.deps, e.g when
