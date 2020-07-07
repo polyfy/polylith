@@ -1,8 +1,29 @@
 
-- create a spec that checks a workspace + expose it to the core API.
+- change how we store each parameter in :definitions -> :parameters so that instead
+  of just a list of parameters, store each parameter. Also update the code so that
+  the type is included in the function signature. The :type attribute is optional:
+  {:type "String"
+   :param "user"}
 
-- store top-namespace separately for the interface and the component implementation
-  (if they happens to live in different top namespace).
+- add the attribute :interface-top-namespace that is optional and set if the interface
+  lives in another top namespace than the component implementation.
+  In the 'info' command, we can't have a sepearate 'namespace' column because of this.
+  Instead, prefix each interface and component with the top namespace short name.
+
+- add attribute :src-reader
+  {:name "Polylith Clojure"
+   :version "1.0"
+   :language "Clojure"
+   :slash "/"
+   :file-extensions [".clj" "cljc"]}
+
+- use :file-extensions from :src-reader.
+- use :slash from src-reader
+
+- extract workspace-clj/namespace/top-src-dirs to its own 'namespace'
+  component and expose it in the core API.
+
+- create a spec that checks a workspace + expose it in the core API.
 
 - allow a component to have the interface from another top namespace.
 
@@ -10,10 +31,13 @@
 
 - check that the list of top-namespaces and their aliases are unique.
 
-- print out the top namespaces in the 'ws' command (if more than one) e.g.:
+- print out the top namespaces in the 'info' command (if more than one) e.g.:
   top-namespaces:
     - = polylith.core
     clj = polylith.clj
+
+- calculate changes (directly and indirectly) and store it in the :changes key +
+  show an '*' or '(*)' after each brick depending on if it's directly or indirectly changed.
 
 - append each interface and brick with the top namespace alias (if not empty).
 
@@ -26,10 +50,10 @@
 - fix the error that occurres when having an invalid test src folder, e.g.
   "../../components/z-jocketest".
 
-- if an environment misses a component, show it correctly in the 'ws' command
+- if an environment misses a component, show it correctly in the 'info' command
   as a yellow "i" in each environment.
 
-- check how 'ws' handles circular dependencies.
+- check how 'info' handles circular dependencies.
 
 - put back the 'spec' component and make sure we have the :polylith section with
   an entry for :top-namespace + if color-mode is specifiec that it has valid values.
@@ -55,6 +79,9 @@
   a tool creator can decide to add whatever attributes they need
   to perform the 'test' and 'build' commands.
 
+- think of a solution where we send in 'none' as color-mode instead of
+  forcing us to calculate both colorized-message and message in the 'validate' component.
+
 - add the 'version' command.
 
 - add a 'deps' command that could show what components it uses
@@ -78,6 +105,8 @@
 
 Questions
 =========
+- how can we have a build that first builds polylith.clj.core and then builds
+  polylith.core and deploys it to clojars?
 - we don't get nice error messages when running tests through tools.deps, e.g when
   a namespace can't be imported or if a component is missing so it can't compile.
 - :color-mode should be per developer, not per workspace. Put it in .polylith/config.edn?
@@ -136,6 +165,9 @@ Doc
     we can keep a good name of each argument.
   - functions can be overloaded in the interface but have just one function
     signature in the implementing namespace where arguments can be nil.
+  - if we use destructuring in the implementation, we can keep the original names
+    in the interface for increased readability (it can be easier to understand if the
+    parameter is e.g. 'user' in the interface instead of a list of destructured values.
 
 Differences compared to lein-polylith
 =====================================

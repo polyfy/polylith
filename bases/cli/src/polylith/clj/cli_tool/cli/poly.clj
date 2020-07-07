@@ -1,7 +1,7 @@
 (ns polylith.clj.cli-tool.cli.poly
   (:require [polylith.clj.cli-tool.cli.cmd.check :as check]
             [polylith.clj.cli-tool.cli.cmd.help :as help]
-            [polylith.clj.cli-tool.cli.cmd.ws :as info]
+            [polylith.clj.cli-tool.cli.cmd.info :as info]
             [polylith.clj.cli-tool.test-runner.interfc :as test-runner]
             [polylith.clj.cli-tool.workspace-clj.interfc :as ws-clj]
             [polylith.clj.core.change.interfc :as change]
@@ -20,8 +20,8 @@
       (case cmd
         "check" (check/execute workspace)
         "help" (help/execute color-mode)
+        "info" (info/execute workspace arg)
         "test" (test-runner/run workspace arg)
-        "ws" (info/execute workspace arg)
         (help/execute color-mode))
       (catch Exception e
         (println (or (-> e ex-data :err) (.getMessage e)))

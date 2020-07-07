@@ -22,6 +22,6 @@ mvn clean package
 
 echo "#### 5. Copy core API"
 
-sudo cp target/polylith-core-jar-with-dependencies.jar /Users/tengstrand/.m2/repository/polylith/polylith-core/0.1.0/polylith-core-0.1.0.jar
+cp target/polylith-core-jar-with-dependencies.jar /Users/tengstrand/.m2/repository/polylith/polylith-core/0.1.0/polylith-core-0.1.0.jar
 
 cd ..
