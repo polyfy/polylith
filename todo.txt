@@ -48,11 +48,11 @@
 
 - show aliases in a separate table in the 'info' command where we also calculate
   the number of tests we have per environment + if it has changed:
-    environment  alias  loc (t)
-    ---------------------------
-    cli          cli        980
-    core         core         0
-    dev *        dev       1230
+    environment  alias  loc  (t)
+    -----------------------------
+    cli          cli    1810  980
+    core         core   1620    0
+    dev *        dev    2340 1230
 
 - append each interface and brick with the top namespace alias (if not empty).
 
