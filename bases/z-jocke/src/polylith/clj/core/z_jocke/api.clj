@@ -1,8 +1,9 @@
 (ns polylith.clj.core.z-jocke.api
   (:require [clojure.string :as str]
+            [clojure.walk :as walk]
             [polylith.clj.core.workspace.interfc :as ws]
             [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.cli-tool.workspace-clj.interfc :as ws-clj]))
+            [polylith.clj.core.workspace-clj.interfc :as ws-clj]))
 
 ;(map (juxt :name :interface-deps)
 ;     (:bases (->
@@ -18,6 +19,13 @@
 ;                 ws-clj/workspace-from-disk
 ;                 ws/enrich-workspace))
 
+
+;(def str-workspace (walk/stringify-keys workspace))
+;
+;
+;(class (ws/enrich-workspace-str-keys str-workspace))
+;
+;
 ;(->
 ;  "."
 ;  ;"../clojure-polylith-realworld-example-app"

@@ -1,4 +1,4 @@
-(ns polylith.clj.cli-tool.cli.cmd.check
+(ns polylith.clj.core.cli.cmd.check
   (:require [polylith.clj.core.util.interfc.color :as color]
             [polylith.clj.core.common.interfc :as common]))
 

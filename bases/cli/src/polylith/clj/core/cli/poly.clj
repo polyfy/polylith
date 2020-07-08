@@ -1,9 +1,9 @@
-(ns polylith.clj.cli-tool.cli.poly
-  (:require [polylith.clj.cli-tool.cli.cmd.check :as check]
-            [polylith.clj.cli-tool.cli.cmd.help :as help]
-            [polylith.clj.cli-tool.cli.cmd.info :as info]
-            [polylith.clj.cli-tool.test-runner.interfc :as test-runner]
-            [polylith.clj.cli-tool.workspace-clj.interfc :as ws-clj]
+(ns polylith.clj.core.cli.poly
+  (:require [polylith.clj.core.cli.cmd.check :as check]
+            [polylith.clj.core.cli.cmd.help :as help]
+            [polylith.clj.core.cli.cmd.info :as info]
+            [polylith.clj.core.test-runner.interfc :as test-runner]
+            [polylith.clj.core.workspace-clj.interfc :as ws-clj]
             [polylith.clj.core.change.interfc :as change]
             [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.workspace.interfc :as ws])

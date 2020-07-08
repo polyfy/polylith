@@ -1,6 +1,6 @@
-(ns polylith.clj.cli-tool.workspace-clj.readimportsfromdisk-test
+(ns polylith.clj.core.workspace-clj.readimportsfromdisk-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.cli-tool.workspace-clj.namespaces-from-disk :as from-disk]))
+            [polylith.clj.core.workspace-clj.namespaces-from-disk :as from-disk]))
 
 (deftest filter-imports--require-is-first-statement--returns-def-statements
   (let [code '((ns polylith.spec.interface

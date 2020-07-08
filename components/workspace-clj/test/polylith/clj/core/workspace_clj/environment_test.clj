@@ -1,7 +1,7 @@
-(ns polylith.clj.cli-tool.workspace-clj.environment-test
+(ns polylith.clj.core.workspace-clj.environment-test
   (:require [clojure.test :refer :all]
             [clojure.tools.deps.alpha.util.maven :as mvn]
-            [polylith.clj.cli-tool.workspace-clj.environment :as env]))
+            [polylith.clj.core.workspace-clj.environment :as env]))
 
 (def paths [; Bases
             "../../bases/tool/src"

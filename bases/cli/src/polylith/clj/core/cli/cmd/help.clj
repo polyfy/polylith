@@ -1,4 +1,4 @@
-(ns polylith.clj.cli-tool.cli.cmd.help
+(ns polylith.clj.core.cli.cmd.help
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interfc.color :as color]))
 

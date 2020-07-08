@@ -1,19 +1,5 @@
 
-- add attribute :ws-reader. Valid values for :type-position are:
-  "prefix" (like in Java) or "postfix" (lik in Scala and Kotlin).
-  - use :file-extensions.
-  - use :type-position when viewing functions and macros.
-  - use :slash to separate paths everywhere in the codebase.
-  {:name "polylith-clj"
-   :project-url "https://github.com/tengstrand/polylith-kotlin"
-   :version "1.0"
-   :workspace-version 1
-   :language "Clojure"
-   :type-position "postfix"
-   :slash "/"
-   :file-extensions [".clj" "cljc"]}
-
-- revert the support for more than one top namespace.
+- add test case where we have two level deps sub-namespaces.
 
 - in the 'cli' environment, depend on the core jar instead of real components.
   - maybe we need two variants:

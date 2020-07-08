@@ -1,4 +1,4 @@
-(ns polylith.clj.cli-tool.test-runner.core
+(ns polylith.clj.core.test-runner.core
   (:require [clojure.string :as str]
             [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.workspace.interfc :as ws]

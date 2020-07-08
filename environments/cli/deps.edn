@@ -3,9 +3,12 @@
            "../../bases/cli/src"
 
            ; Components
+           "../../components/change/src"
            "../../components/common/src"
            "../../components/deps/src"
            "../../components/file/src"
+           "../../components/git/src"
+           "../../components/shell/src"
            "../../components/text-table/src"
            "../../components/test-runner/src"
            "../../components/util/src"
@@ -20,9 +23,13 @@
                                    "../../bases/cli/test"
 
                                    ; Components
+                                   "../../components/change/test"
                                    "../../components/common/test"
                                    "../../components/deps/test"
                                    "../../components/file/test"
+                                   "../../components/git/test"
+                                   "../../components/shell/test"
+                                   "../../components/test-runner/test"
                                    "../../components/text-table/test"
                                    "../../components/util/test"
                                    "../../components/validate/test"
@@ -32,7 +39,7 @@
                      :extra-deps  {}}
 
            :aot     {:extra-paths ["classes"]
-                     :main-opts   ["-e" "(compile,'polylith.clj.cli.poly)"]}
+                     :main-opts   ["-e" "(compile,'polylith.clj.core.cli.poly)"]}
 
            :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
                      :main-opts  ["-m" "uberdeps.uberjar"]}}}

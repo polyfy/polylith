@@ -8,7 +8,7 @@ echo "#### 1. Make core uberjar"
 
 echo "#### 2. Make poly tool uberjar"
 
-./make-uberjar.sh dev polylith.clj.cli_tool.cli.poly
+./make-uberjar.sh dev polylith.clj.core.cli.poly
 
 echo "#### 3. Copy core + poly tool"
 sudo cp ./environments/dev/target/dev.jar /usr/local/polylith/poly.jar
@@ -22,6 +22,6 @@ mvn clean package
 
 echo "#### 5. Copy core API"
 
-cp target/polylith-core-jar-with-dependencies.jar /Users/tengstrand/.m2/repository/polylith/polylith-core/0.1.0/polylith-core-0.1.0.jar
+sudo cp target/polylith-core-jar-with-dependencies.jar /Users/tengstrand/.m2/repository/polylith/polylith-core/0.1.0/polylith-core-0.1.0.jar
 
 cd ..

@@ -1,6 +1,6 @@
-(ns polylith.clj.cli-tool.workspace-clj.import-from-disk-test
+(ns polylith.clj.core.workspace-clj.import-from-disk-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.cli-tool.workspace-clj.namespaces-from-disk :as from-disk]))
+            [polylith.clj.core.workspace-clj.namespaces-from-disk :as from-disk]))
 
 (deftest ->namespace--given-a-namespace-path--return-brick-namespace
   (is (= "sub.my-namespace"

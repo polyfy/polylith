@@ -17,7 +17,7 @@
                                                "polylith.cmd.interface.v2.core"
                                                "polylith.invoice.interface"]}]}]
     (is (= []
-           (m101/brick-errors component #{"spec" "cmd" "file" "invoice" "user"} color/none)))))
+           (m101/brick-errors "polylith." component #{"spec" "cmd" "file" "invoice" "user"} color/none)))))
 
 (deftest brick-errors--with-errors--returns-errors
   (let [component {:name "common"
@@ -44,7 +44,7 @@
              :colorized-message "Illegal dependency on namespace cmd.core in common.billing. Use cmd.interface instead to fix the problem."
              :message           "Illegal dependency on namespace cmd.core in common.billing. Use cmd.interface instead to fix the problem."}]
 
-           (m101/brick-errors component #{"spec" "cmd" "file" "invoice" "user"} color/none)))))
+           (m101/brick-errors "polylith." component #{"spec" "cmd" "file" "invoice" "user"} color/none)))))
 
 (deftest errors--component-with-mismatching-interface-name--returns-no-errors
   (let [component {:type "component"
@@ -56,4 +56,4 @@
                                     {:name "user/core.clj"
                                      :imports []}]}]
     (is (= []
-           (m101/errors #{"user"} [component] [] color/none)))))
+           (m101/errors "polylith."  #{"user"} [component] [] color/none)))))

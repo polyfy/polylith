@@ -1,12 +1,11 @@
 
 {:polylith {:color-mode "dark"
-            :top-namespaces {"polylith.clj.core" ""
-                             "polylith.clj.cli-tool" "tool"}
+            :top-namespace "polylith.clj.core"
             :env-short-names {"dev" "dev"
                               "cli" "cli"
                               "core" "core"}}
 
  :aliases  {:dev      {:extra-deps {env/core {:local/root "environments/dev"}}}
 
-            :test     {:main-opts ["-m" "polylith.clj.cli-tool.cli.poly" "test"]}
-            :check    {:main-opts ["-m" "polylith.clj.cli-tool.cli.poly" "check"]}}}
+            :test     {:main-opts ["-m" "polylith.clj.core.cli.poly" "test"]}
+            :check    {:main-opts ["-m" "polylith.clj.core.cli.poly" "check"]}}}
