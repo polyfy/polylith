@@ -1,8 +1,7 @@
 (ns polylith.clj.core.test-runner.core
-  (:require [clojure.string :as str]
-            [clojure.tools.deps.alpha :as tools-deps]
+  (:require [clojure.tools.deps.alpha :as tools-deps]
             [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.workspace.interfc :as ws]
+            [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.util.interfc :as util]
             [polylith.clj.core.util.interfc.color :as color])
   (:refer-clojure :exclude [test]))
@@ -37,13 +36,21 @@
         component-namespaces (mapv :namespace (mapcat component-name->namespaces test-component-names))]
     (concat base-namespaces component-namespaces)))
 
+(defn ->root-path []
+  (let [root-path (file/absolute-path ".")]
+    (subs root-path 0 (dec (count root-path)))))
+
+(defn full-path [root-path path]
+  (str root-path (subs path 6)))
+
 (defn run-tests-for-environment [{:keys [bases components] :as workspace}
                                  {:keys [test-base-names test-component-names paths test-paths] :as environment}]
   (when (-> test-paths empty? not)
     (let [color-mode (-> workspace :settings :color-mode)
           config (->config workspace environment)
           lib-paths (resolve-deps config)
-          src-paths (set (concat paths test-paths))
+          root-path (->root-path)
+          src-paths (mapv #(full-path root-path %) (set (concat paths test-paths)))
           paths (concat src-paths lib-paths)
           test-namespaces (->test-namespaces bases components test-base-names test-component-names)
           test-statements (map ->test-statement test-namespaces)
@@ -53,6 +60,7 @@
               (try
                 (common/eval-in class-loader statement)
                 (catch Exception e
+                  (.printStackTrace e)
                   (println (str (color/error color-mode "Couldn't run test statement: ") statement " " (color/error color-mode e)))))
               result-str (str "Test results: " pass " passes, " fail " failures, " error " errors.")]
           (when (or (nil? error)

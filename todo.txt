@@ -1,4 +1,6 @@
 
+- calculate the absolute path directly in workspace-clj.
+
 - use :file-extensions from :src-reader.
 - use :slash from :src-reader
 
