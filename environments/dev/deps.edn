@@ -15,8 +15,7 @@
            "../../components/util/src"
            "../../components/validate/src"
            "../../components/workspace/src"
-           "../../components/workspace-clj/src"
-           "../../components/z-jocke/src"]
+           "../../components/workspace-clj/src"]
 
  :deps    {org.clojure/clojure {:mvn/version "1.10.1"}
            org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}

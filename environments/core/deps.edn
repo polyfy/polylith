@@ -14,17 +14,7 @@
  :deps    {org.clojure/clojure {:mvn/version "1.10.1"}
            org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}
 
- :aliases {:test    {:extra-paths [; Components
-                                   "../../components/change/test"
-                                   "../../components/common/test"
-                                   "../../components/deps/test"
-                                   "../../components/file/test"
-                                   "../../components/git/test"
-                                   "../../components/shell/test"
-                                   "../../components/text-table/test"
-                                   "../../components/util/test"
-                                   "../../components/validate/test"
-                                   "../../components/workspace/test"]
+ :aliases {:test    {:extra-paths []
                      :extra-deps  {}}
 
            :aot     {:extra-paths ["classes"]

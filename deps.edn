@@ -5,7 +5,7 @@
                               "cli" "cli"
                               "core" "core"}}
 
- :aliases  {:dev      {:extra-deps {env/core {:local/root "environments/dev"}}}
+ :aliases  {:dev      {:extra-deps {env/dev {:local/root "environments/dev"}}}
 
             :test     {:main-opts ["-m" "polylith.clj.core.cli.poly" "test"]}
             :check    {:main-opts ["-m" "polylith.clj.core.cli.poly" "check"]}}}

@@ -1,6 +1,4 @@
 
-- add test case where we have two level deps sub-namespaces.
-
 - in the 'cli' environment, depend on the core jar instead of real components.
   - maybe we need two variants:
     - polylith-clj-core
@@ -195,7 +193,7 @@ Design decisions
 
 Commands
 ========
-./make-uberjar.sh dev polylith.clj.cli_tool.cli.poly
+./make-uberjar.sh dev polylith.clj.core.cli.poly
 sudo cp ./environments/core/target/core.jar /usr/local/polylith/poly.jar
 
 polylith:  clj -A:dev:test
