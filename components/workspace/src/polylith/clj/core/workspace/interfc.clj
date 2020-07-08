@@ -1,7 +1,6 @@
 (ns polylith.clj.core.workspace.interfc
   (:require [polylith.clj.core.workspace.core :as core]
             [polylith.clj.core.workspace.source :as source]
-            [polylith.clj.core.workspace.dependencies :as deps]
             [polylith.clj.core.workspace.text-table :as text-table])
   (:gen-class))
 

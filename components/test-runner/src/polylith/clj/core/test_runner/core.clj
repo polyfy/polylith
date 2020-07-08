@@ -7,8 +7,6 @@
             [polylith.clj.core.util.interfc.color :as color])
   (:refer-clojure :exclude [test]))
 
-(def environments (:environments workspace))
-
 (defn key-as-symbol [[library version]]
   "The library names (keys) are stored as strings in the workspace
    and need to be converted back to symbols here."
