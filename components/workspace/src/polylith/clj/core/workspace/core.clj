@@ -60,25 +60,32 @@
   (mapcat #(select-lib-imports % brick->lib-imports test?)
           brick-names))
 
-(defn enrich-env [{:keys [name group test? type component-names base-names paths deps maven-repos]}
+(defn enrich-env [{:keys [name type component-names test-component-names base-names test-base-names paths test-paths deps test-deps maven-repos]}
                   brick->loc
                   brick->lib-imports
                   env->alias]
   (let [brick-names (concat component-names base-names)
-        lib-imports (-> (env-lib-imports brick-names brick->lib-imports test?)
-                        set sort vec)
-        lines-of-code (env-loc brick-names brick->loc test?)]
+        lib-imports-src (-> (env-lib-imports brick-names brick->lib-imports false)
+                            set sort vec)
+        lib-imports-test (-> (env-lib-imports brick-names brick->lib-imports true)
+                             set sort vec)
+        lines-of-code-src (env-loc brick-names brick->loc false)
+        lines-of-code-test (env-loc brick-names brick->loc true)]
     (util/ordered-map :name name
-                      :group group
-                      :test? test?
                       :alias (env->alias name)
                       :type type
-                      :lines-of-code lines-of-code
+                      :lines-of-code-src lines-of-code-src
+                      :lines-of-code-test lines-of-code-test
+                      :test-component-names test-component-names
                       :component-names component-names
                       :base-names base-names
+                      :test-base-names test-base-names
                       :paths paths
-                      :lib-imports lib-imports
+                      :test-paths test-paths
+                      :lib-imports lib-imports-src
+                      :lib-imports-test lib-imports-test
                       :deps deps
+                      :test-deps test-deps
                       :maven-repos maven-repos)))
 
 (defn brick->lib-imports [brick]

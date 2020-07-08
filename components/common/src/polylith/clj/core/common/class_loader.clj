@@ -67,10 +67,10 @@
 (defn create-class-loader [paths color-mode]
   (try
     (let [url-array (into-array URL (map path->url paths))
-          ^URLClassLoader cl (url-classloader url-array ext-classloader)]
-      (.loadClass cl "clojure.lang.RT")
-      (eval-in* cl '(require 'clojure.main))
-      cl)
+          ^URLClassLoader class-loader (url-classloader url-array ext-classloader)]
+      (.loadClass class-loader "clojure.lang.RT")
+      (eval-in* class-loader '(require 'clojure.main))
+      class-loader)
     (catch Exception e
       (println (str (color/error color-mode "Couldn't create class loader for paths: ") paths " "
                     (color/error color-mode e))))))

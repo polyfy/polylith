@@ -1,73 +1,75 @@
 (ns polylith.clj.core.test-runner.core
   (:require [clojure.string :as str]
+            [clojure.tools.deps.alpha :as tools-deps]
             [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.workspace.interfc :as ws]
             [polylith.clj.core.util.interfc :as util]
             [polylith.clj.core.util.interfc.color :as color])
   (:refer-clojure :exclude [test]))
 
-(defn throw-exception-if-empty [paths env]
-  (when (empty? paths)
-    (throw (ex-info (str "No source paths found for environment '" env "'.")
-                    {:env env}))))
+(def environments (:environments workspace))
 
 (defn key-as-symbol [[library version]]
+  "The library names (keys) are stored as strings in the workspace
+   and need to be converted back to symbols here."
   [(symbol library) version])
 
-(defn ->environment [{:keys [deps maven-repos] :as environment}]
-  "The library names (keys) are stored as strings in the workspace
-   and need to be converted to symbols here."
-  (assoc environment :deps (into {} (map key-as-symbol deps))
-                     :mvn/repos maven-repos))
+(defn ->config [workspace {:keys [deps test-deps maven-repos]}]
+  (assoc workspace :mvn/repos maven-repos
+                   :deps (into {} (map key-as-symbol (merge deps test-deps)))))
 
-(defn test-env? [{:keys [group test?]} env-group]
-  (and test?
-       (= group env-group)))
-
-(defn ->config [{:keys [environments] :as workspace} env-group]
-  ;; Get maven repo from the environment.
-  (let [{:keys [maven-repos]} (util/find-first #(test-env? % env-group) environments)]
-    (assoc workspace :mvn/repos maven-repos
-                     :environments (mapv ->environment environments))))
-
-(defn group [env]
-  (if (str/ends-with? env "-test")
-    (subs env 0 (- (count env) 5))
-    env))
-
-(defn ns-name->test-statement [ns-name]
+(defn ->test-statement [ns-name]
   (let [ns-symbol (symbol ns-name)]
     `(do (use 'clojure.test)
          (require '~ns-symbol)
          (clojure.test/run-tests '~ns-symbol))))
 
-(defn run-tests-for-environment [workspace env]
-  (let [env-group (group env)
-        color-mode (-> workspace :settings :color-mode)
-        config (->config workspace env-group)
-        lib-paths (ws/lib-paths config env-group true)
-        src-paths (ws/src-paths config env-group true)
-        _ (throw-exception-if-empty src-paths env-group)
-        paths (concat src-paths lib-paths)
-        test-namespaces (ws/test-namespaces config env-group)
-        test-statements (map ns-name->test-statement test-namespaces)
-        class-loader (common/create-class-loader paths color-mode)]
-    (doseq [statement test-statements]
-      (let [{:keys [error fail pass] :as summary} (try
-                                                    (common/eval-in class-loader statement)
-                                                    (catch Exception e
-                                                      (println (str (color/error color-mode "Couldn't run test statement: ") statement " " (color/error color-mode e)))))
-            result-str (str "Test results: " pass " passes, " fail " failures, " error " errors.")]
-        (when (or (< 0 error)
-                  (< 0 fail))
-          (throw (ex-info (str "\n" (color/error color-mode result-str)) summary)))
-        (println (str "\n" (color/ok color-mode result-str)))))))
+(defn resolve-deps [{:keys [deps] :as config}]
+  (try
+    (into #{} (mapcat #(-> % second :paths)
+                      (tools-deps/resolve-deps config {:extra-deps deps})))
+    (catch Exception e
+      (println e)
+      (throw e))))
 
-(defn run-all-tests [{:keys [environments] :as workspace}]
-  (doseq [{:keys [name]} (filter :test? environments)]
-    (run-tests-for-environment workspace name)))
+(defn ->test-namespaces [bases components test-base-names test-component-names]
+  (let [base-name->namespaces (into {} (map (juxt :name :namespaces-test) bases))
+        component-name->namespaces (into {} (map (juxt :name :namespaces-test) components))
+        base-namespaces (mapv :namespace (mapcat base-name->namespaces test-base-names))
+        component-namespaces (mapv :namespace (mapcat component-name->namespaces test-component-names))]
+    (concat base-namespaces component-namespaces)))
 
-(defn run [workspace env]
+(defn run-tests-for-environment [{:keys [bases components] :as workspace}
+                                 {:keys [test-base-names test-component-names paths test-paths] :as environment}]
+  (when (-> test-paths empty? not)
+    (let [color-mode (-> workspace :settings :color-mode)
+          config (->config workspace environment)
+          lib-paths (resolve-deps config)
+          src-paths (set (concat paths test-paths))
+          paths (concat src-paths lib-paths)
+          test-namespaces (->test-namespaces bases components test-base-names test-component-names)
+          test-statements (map ->test-statement test-namespaces)
+          class-loader (common/create-class-loader paths color-mode)]
+      (doseq [statement test-statements]
+        (let [{:keys [error fail pass] :as summary}
+              (try
+                (common/eval-in class-loader statement)
+                (catch Exception e
+                  (println (str (color/error color-mode "Couldn't run test statement: ") statement " " (color/error color-mode e)))))
+              result-str (str "Test results: " pass " passes, " fail " failures, " error " errors.")]
+          (when (or (nil? error)
+                    (< 0 error)
+                    (< 0 fail))
+            (throw (Exception. (str "\n" (color/error color-mode result-str)) summary)))
+          (println (str "\n" (color/ok color-mode result-str))))))))
+
+(defn run-all-tests [workspace environments]
+  (doseq [environment environments]
+    (run-tests-for-environment workspace environment)))
+
+(defn run [{:keys [environments] :as workspace} env]
   (if (nil? env)
-    (run-all-tests workspace)
-    (run-tests-for-environment workspace env)))
+    (run-all-tests workspace environments)
+    (if-let [environment (util/find-first #(= env (:name %)) environments)]
+      (run-tests-for-environment workspace environment)
+      (println (str "Can't find environment '" env "'.")))))

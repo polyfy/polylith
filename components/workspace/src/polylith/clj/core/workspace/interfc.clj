@@ -25,15 +25,5 @@
   ([workspace env-group include-tests?]
    (source/paths workspace env-group include-tests?)))
 
-(defn lib-paths
-  ([workspace]
-   (deps/paths workspace nil false nil))
-  ([workspace env-group]
-   (deps/paths workspace env-group false nil))
-  ([workspace env-group include-tests?]
-   (deps/paths workspace env-group include-tests? nil))
-  ([workspace env-group include-tests? additional-deps]
-   (deps/paths workspace env-group include-tests? additional-deps)))
-
 (defn test-namespaces [workspace env-group]
   (source/test-namespaces workspace env-group))

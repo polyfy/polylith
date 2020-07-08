@@ -1,9 +1,4 @@
 
-- in the 'cli' environment, depend on the core jar instead of real components.
-  - maybe we need two variants:
-    - polylith-clj-core
-    - polylith-clj-core-aot
-
 - use :file-extensions from :src-reader.
 - use :slash from :src-reader
 
@@ -58,6 +53,11 @@
 
 - only include the corresponding test-environment if the :aliases {:test ...}}
   key is defined in deps.edn.
+
+- in the 'cli' environment, depend on the core jar instead of real components.
+  - maybe we need two variants:
+    - polylith-clj-core
+    - polylith-clj-core-aot
 
 - make sure we handle imported namespaces in a generic way, right now we assume
   that they are separated with a "." in deps.dependencies/brick-namespace.
