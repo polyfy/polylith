@@ -6,13 +6,13 @@
 (defn enrich-workspace [workspace]
   (core/enrich-workspace workspace))
 
+(defn print-table [workspace show-loc?]
+  (text-table/print-table workspace show-loc?))
+
 (defn enrich-workspace-str-keys [workspace]
   "Used by the polylith.core API"
   (core/enrich-workspace-str-keys workspace))
 
-(defn print-table [workspace]
-  (text-table/print-table workspace))
-
-(defn print-table-str-keys [workspace]
+(defn print-table-str-keys [workspace show-loc?]
   "Used by the polylith.core API"
-  (text-table/print-table-str-keys workspace))
+  (text-table/print-table-str-keys workspace show-loc?))

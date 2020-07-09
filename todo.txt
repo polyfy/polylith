@@ -1,4 +1,8 @@
 
+- make showing lines of code optional in the 'info' command. Add an attribute
+  :show-lines-of-code to ~/polylith/settings.edn.
+  - make workspace.text-table return a table + add test.
+
 - clean away "../.." in the enhance workspace step.
   If the path starts with "test/", add "environments/${env}/" before it so
   that it can be executed by the tests.
@@ -25,9 +29,6 @@
   tests are included.
 
 - show warnings if the same unit test exists in more than one environment.
-
-- make showing lines of code optional in the 'info' command. Add an attribute
-  :show-lines-of-code to the settings that can be true or false.
 
 - use :file-extensions from :src-reader.
 - use :slash from :src-reader
