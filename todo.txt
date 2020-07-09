@@ -1,6 +1,4 @@
 
-- make sure we show environment short names correctly if :env-short-names is not set.
-
 - clean away "../.." in the enhance workspace step.
   If the path starts with "test/", add "environments/${env}/" before it so
   that it can be executed by the tests.

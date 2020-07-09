@@ -19,11 +19,9 @@
   (into {} (mapcat new-names
                    (group-by suggest-name src-names))))
 
-(defn src-test-name [{:keys [name group test?]} src-name->short-name]
-  (let [alias (src-name->short-name group)]
-    (if test?
-      [name (str alias "-test")]
-      [name alias])))
+(defn src-test-name [{:keys [name]} src-name->short-name]
+  [name
+   (src-name->short-name name)])
 
 (defn undefined-env [index env]
   [env (str "?" (inc index))])
@@ -37,26 +35,8 @@
              (into {} (map-indexed undefined-env undefined-envs))))))
 
 (defn env->alias [{:keys [env-short-names]} environments]
-  (let [src-names (map :name (filter (complement :test?) environments))]
+  (let [src-names (map :name environments)]
     (if (empty? env-short-names)
       (let [src-name->alias (src-name->alias src-names)]
         (into {} (map #(src-test-name % src-name->alias) environments)))
       (abbrivated-envs env-short-names src-names))))
-
-;(def environments [{:name "core", :test? false}
-;                   {:name "core-test" :test? true}
-;                   {:name "crawford" :test? false}])
-;
-;(def src-names (map :name (filter (complement :test?) environments)))
-;
-;(def env-short-names {"core" "co"})
-;                        ;"crawford" "cr"})
-;
-;
-;
-;
-;
-;;(def undefined-envs (set/difference (set src-names)
-;;                                    (set (keys env-short-names))))
-;
-;
