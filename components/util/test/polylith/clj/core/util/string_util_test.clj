@@ -2,6 +2,10 @@
   (:require [clojure.test :refer :all]
             [polylith.clj.core.util.interfc.str :as str]))
 
+(deftest skip-until--when-having-a-string-without-a-slash--return-nil
+  (is (= nil
+         (str/skip-until "user.clj" "/"))))
+
 (deftest skip-until--when-having-a-string-with-a-slash--return-the-string-after-that-slash
   (is (= "user"
          (str/skip-until "my-ns/user" "/"))))

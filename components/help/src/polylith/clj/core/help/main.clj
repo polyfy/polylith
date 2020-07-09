@@ -1,4 +1,4 @@
-(ns polylith.clj.core.cli.cmd.help
+(ns polylith.clj.core.help.main
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interfc.color :as color]))
 
@@ -24,10 +24,10 @@
 
 (defn help-text [color-mode]
   (str
-    (command "check" color-mode) "         Checks that the workspace is valid.\n"
-    (command "info" color-mode) " [" (arg "-dump" color-mode) "]  Views information about current workspace.\n"
-    (test-cmd color-mode) "    Runs the tests for the given environment (or all).\n"
-    (help-cmd color-mode) "        Views this help."))
+    (command "check" color-mode) "        Checks that the workspace is valid.\n"
+    (command "info" color-mode) " [" (arg "ARGS" color-mode) "]  Shows information about the workspace.\n"
+    (test-cmd color-mode) "   Runs the tests for the given environment (or all).\n"
+    (help-cmd color-mode) "       Shows this help."))
 
-(defn execute [color-mode]
+(defn print-help [color-mode]
   (-> color-mode help-text println))

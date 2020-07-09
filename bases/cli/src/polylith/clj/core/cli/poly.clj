@@ -1,6 +1,6 @@
 (ns polylith.clj.core.cli.poly
   (:require [polylith.clj.core.cli.cmd.check :as check]
-            [polylith.clj.core.cli.cmd.help :as help]
+            [polylith.clj.core.help.interfc :as help]
             [polylith.clj.core.cli.cmd.info :as info]
             [polylith.clj.core.test-runner.interfc :as test-runner]
             [polylith.clj.core.workspace-clj.interfc :as ws-clj]
@@ -19,10 +19,10 @@
     (try
       (case cmd
         "check" (check/execute workspace)
-        "help" (help/execute color-mode)
+        "help" (help/print-help color-mode)
         "info" (info/execute workspace arg)
         "test" (test-runner/run workspace arg)
-        (help/execute color-mode))
+        (help/print-help color-mode))
       (catch Exception e
         (println (or (-> e ex-data :err) (.getMessage e)))
         (System/exit (or (-> e ex-data :exit-code) 1)))

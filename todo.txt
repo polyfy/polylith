@@ -14,6 +14,9 @@
   that list of bricks on what bricks that are included in the tests for that
   environment.
 
+- add a warning if not a valid directory (interface) could be found for a brick
+  directly after the top namespace directory path (see str-util/skip-until).
+
 - workspace-clj > changes > workspace.
 
 - calculate changes. For each component/base/environment store an attribute
@@ -32,6 +35,9 @@
 
 - use :file-extensions from :src-reader.
 - use :slash from :src-reader
+
+- check if the 'cli' environment can depende on the core jar instead
+  and remove all bricks except three of them.
 
 - extract workspace-clj/namespace/top-src-dirs to its own 'namespace'
   component and expose it in the core API.

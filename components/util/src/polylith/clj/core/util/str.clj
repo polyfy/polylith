@@ -5,8 +5,7 @@
 (defn skip-until [string separator]
   (when string
     (let [index (str/index-of string separator)]
-      (if (< index 0)
-        string
+      (when index
         (subs string (inc index))))))
 
 (defn skip-prefix [string prefix]
