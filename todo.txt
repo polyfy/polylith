@@ -1,5 +1,33 @@
 
-- calculate the absolute path directly in workspace-clj.
+
+- clean away "../.." in the enhance workspace step.
+  If the path starts with "test/", add "environments/${env}/" before it so
+  that it can be executed by the tests.
+  Show warning if any of the paths don't fulfill these requirements.
+  Test that we can add a test for an environment.
+
+- calculate :run-tests-for attribute to each environment. Right now we only base
+  that list of bricks on what bricks that are included in the tests for that
+  environment.
+
+- workspace-clj > changes > workspace.
+
+- calculate changes. For each component/base/environment store an attribute
+  :change-status that can be one of three values: "unchanged"
+  "directly-changed" and "indirectly-changed".
+  Store the rest of the calculations in the key :changes at the root.
+  Show a '*' or '(*)' after each brick in the 'info' command and after each
+  environment in the environment table.
+  Only include a brick in :run-tests-for if it's changed (directly or indirectly).
+
+- show 'xx' on each environment row in the 'info' command where the first
+  one is whether it's included in the environment and the second if any
+  tests are included.
+
+- make sure we show environment short names correctly if :env-short-names is not set.
+
+- make showing lines of code optional in the 'info' command. Add an attribute
+  :show-lines-of-code to the settings that can be true or false.
 
 - use :file-extensions from :src-reader.
 - use :slash from :src-reader
@@ -11,21 +39,17 @@
 
 - when a workspace is enhanced, also set :vcs to "git".
 
-- calculate changes. For each component/base/environment store an attribute
-  :change-status that can be one of three attributes: "unchanged"
-  "directly-changed" and "indirectly-changed".
-  Also change so that we always calculates these changes (if :vcs is set to "git"
-  in :settings). Store the rest under the key :changes at the root.
-  Show a '*' or '(*)' after each brick in the 'info' command and maybe also after
-  each environment.
-
 - show aliases in a separate table in the 'info' command where we also calculate
-  the number of tests we have per environment + if it has changed:
-    environment  alias  loc  (t)
-    -----------------------------
-    cli          cli    1810  980
-    core         core   1620    0
-    dev *        dev    2340 1230
+  the number of tests we have per environment + if it has changed +
+  if the environment has tests of its own (+ calculate that attribute):
+    environment  alias  test  loc     (t)
+    -------------------------------------
+    cli          cli     -    1,810   980
+    core         core    -    1,620     0
+    dev *        dev     x    2,340 1,230
+
+- make the thousand seperator be configurable, so that we can e.g. print out
+  2340 as any of these (default is ""): 2340 2,340 2.340
 
 - add validation that detects if no component was found for an interface.
 
