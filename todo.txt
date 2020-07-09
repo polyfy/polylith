@@ -24,6 +24,8 @@
   one is whether it's included in the environment and the second if any
   tests are included.
 
+- show warnings if the same unit test exists in more than one environment.
+
 - make showing lines of code optional in the 'info' command. Add an attribute
   :show-lines-of-code to the settings that can be true or false.
 

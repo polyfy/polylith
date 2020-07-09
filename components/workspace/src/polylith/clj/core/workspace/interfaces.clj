@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.calculate-interfaces)
+(ns polylith.clj.core.workspace.interfaces)
 
 (defn ->interface [[_ [{:keys [name interface]}]]]
   {:name (:name interface)
@@ -13,7 +13,7 @@
                               (set (mapcat #(-> % :interface :definitions) components))))
    :implementing-components (vec (sort (map :name components)))})
 
-(defn interfaces [components]
+(defn calculate [components]
   "Calculates all interfaces, which are all definitions (data/function/macro)
    that are defined for all components that implements an interface."
   (let [grouped-components (group-by #(-> % :interface :name) components)

@@ -3,46 +3,13 @@
             [clojure.walk :as walk]
             [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.util.interfc.color :as color]
-            [polylith.clj.core.deps.interfc :as deps]
             [polylith.clj.core.validate.interfc :as validate]
-            [polylith.clj.core.workspace.calculate-interfaces :as ifcs]
+            [polylith.clj.core.workspace.base :as base]
+            [polylith.clj.core.workspace.component :as component]
+            [polylith.clj.core.workspace.interfaces :as interfaces]
             [polylith.clj.core.workspace.environment :as env]
-            [polylith.clj.core.workspace.lib-imports :as lib]
             [polylith.clj.core.workspace.alias :as alias]
             [polylith.clj.core.file.interfc :as file]))
-
-(defn brick-loc [namespaces]
-  (apply + (mapv file/lines-of-code
-                 (mapv :file-path namespaces))))
-
-(defn enrich-component [top-ns interface-names {:keys [name type namespaces-src namespaces-test interface] :as component}]
-  (let [interface-deps (deps/brick-interface-deps top-ns interface-names component)
-        lib-imports-src (lib/lib-imports-src top-ns interface-names component)
-        lib-imports-test (lib/lib-imports-test top-ns interface-names component)]
-    (array-map :name name
-               :type type
-               :lines-of-code-src (brick-loc namespaces-src)
-               :lines-of-code-test (brick-loc namespaces-test)
-               :interface interface
-               :namespaces-src namespaces-src
-               :namespaces-test namespaces-test
-               :lib-imports-src lib-imports-src
-               :lib-imports-test lib-imports-test
-               :interface-deps interface-deps)))
-
-(defn enrich-base [top-ns interface-names {:keys [name type namespaces-src namespaces-test] :as base}]
-  (let [interface-deps (deps/brick-interface-deps top-ns interface-names base)
-        lib-imports-src (lib/lib-imports-src top-ns interface-names base)
-        lib-imports-test (lib/lib-imports-test top-ns interface-names base)]
-    (array-map :name name
-               :type type
-               :lines-of-code-src (brick-loc namespaces-src)
-               :lines-of-code-test (brick-loc namespaces-test)
-               :namespaces-src namespaces-src
-               :namespaces-test namespaces-test
-               :lib-imports-src lib-imports-src
-               :lib-imports-test lib-imports-test
-               :interface-deps interface-deps)))
 
 (defn brick->lib-imports [brick]
   (into {} (mapv (juxt :name #(select-keys % [:lib-imports-src
@@ -65,10 +32,10 @@
 (defn enrich-workspace [{:keys [ws-path ws-reader settings components bases environments]}]
   (let [ws-name (workspace-name ws-path)
         top-ns (common/top-namespace (:top-namespace settings))
-        interfaces (ifcs/interfaces components)
+        interfaces (interfaces/calculate components)
         interface-names (apply sorted-set (mapv :name interfaces))
-        enriched-components (mapv #(enrich-component top-ns interface-names %) components)
-        enriched-bases (mapv #(enrich-base top-ns interface-names %) bases)
+        enriched-components (mapv #(component/enrich top-ns interface-names %) components)
+        enriched-bases (mapv #(base/enrich top-ns interface-names %) bases)
         enriched-bricks (concat enriched-components enriched-bases)
         lines-of-code-src (apply + (filter identity (map :lines-of-code-src enriched-bricks)))
         lines-of-code-test (apply + (filter identity (map :lines-of-code-test enriched-bricks)))
