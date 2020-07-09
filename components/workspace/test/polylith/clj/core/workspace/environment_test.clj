@@ -1,6 +1,6 @@
-(ns polylith.clj.core.workspace.source-test
+(ns polylith.clj.core.workspace.environment-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.workspace.source :as source]))
+            [polylith.clj.core.workspace.environment :as env]))
 
 (def workspace '{:ws-path "."
                  :environments [{:name "core"
@@ -26,16 +26,16 @@
                                                              tools.deps.alpha #:mvn{:version "0.6.496"}}}]
                  :messages {:warnings [], :errors []}})
 
-(deftest paths--when-include-test-path-flag-is-false---include-only-src-paths
-  (is (= ["./bases/cli/src"
-          "./components/change/src"
-          "./components/cmd/src"]
-         (source/paths workspace "core" false))))
-
-(deftest paths--when-include-test-path-flag-is-true---include-both-src-and-test-paths
-  (is (= ["./bases/cli/src"
-          "./components/change/src"
-          "./components/change/test"
-          "./components/cmd/src"
-          "./components/cmd/test"]
-         (source/paths workspace "core" true))))
+;(deftest paths--when-include-test-path-flag-is-false---include-only-src-paths
+;  (is (= ["./bases/cli/src"
+;          "./components/change/src"
+;          "./components/cmd/src"]
+;         (env/paths workspace "core" false))))
+;
+;(deftest paths--when-include-test-path-flag-is-true---include-both-src-and-test-paths
+;  (is (= ["./bases/cli/src"
+;          "./components/change/src"
+;          "./components/change/test"
+;          "./components/cmd/src"
+;          "./components/cmd/test"]
+;         (env/paths workspace "core" true))))

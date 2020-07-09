@@ -1,10 +1,12 @@
 
+- make sure we show environment short names correctly if :env-short-names is not set.
 
 - clean away "../.." in the enhance workspace step.
   If the path starts with "test/", add "environments/${env}/" before it so
   that it can be executed by the tests.
   Show warning if any of the paths don't fulfill these requirements.
   Test that we can add a test for an environment.
+  - update the environment-test.
 
 - calculate :run-tests-for attribute to each environment. Right now we only base
   that list of bricks on what bricks that are included in the tests for that
@@ -23,8 +25,6 @@
 - show 'xx' on each environment row in the 'info' command where the first
   one is whether it's included in the environment and the second if any
   tests are included.
-
-- make sure we show environment short names correctly if :env-short-names is not set.
 
 - make showing lines of code optional in the 'info' command. Add an attribute
   :show-lines-of-code to the settings that can be true or false.

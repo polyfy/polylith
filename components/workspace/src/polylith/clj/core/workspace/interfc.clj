@@ -1,6 +1,5 @@
 (ns polylith.clj.core.workspace.interfc
   (:require [polylith.clj.core.workspace.core :as core]
-            [polylith.clj.core.workspace.source :as source]
             [polylith.clj.core.workspace.text-table :as text-table])
   (:gen-class))
 
@@ -17,12 +16,3 @@
 (defn print-table-str-keys [workspace]
   "Used by the polylith.core API"
   (text-table/print-table-str-keys workspace))
-
-(defn src-paths
-  ([workspace env-group]
-   (source/paths workspace env-group false))
-  ([workspace env-group include-tests?]
-   (source/paths workspace env-group include-tests?)))
-
-(defn test-namespaces [workspace env-group]
-  (source/test-namespaces workspace env-group))

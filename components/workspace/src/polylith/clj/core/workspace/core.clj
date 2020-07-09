@@ -6,20 +6,14 @@
             [polylith.clj.core.deps.interfc :as deps]
             [polylith.clj.core.validate.interfc :as validate]
             [polylith.clj.core.workspace.calculate-interfaces :as ifcs]
+            [polylith.clj.core.workspace.environment :as env]
             [polylith.clj.core.workspace.lib-imports :as lib]
             [polylith.clj.core.workspace.alias :as alias]
-            [polylith.clj.core.util.interfc :as util]
             [polylith.clj.core.file.interfc :as file]))
 
 (defn brick-loc [namespaces]
   (apply + (mapv file/lines-of-code
                  (mapv :file-path namespaces))))
-
-(defn env-loc [brick-names brick->loc test?]
-  (let [locs (map brick->loc brick-names)]
-    (if test?
-      (apply + (filter identity (map :lines-of-code-test locs)))
-      (apply + (filter identity (map :lines-of-code-src locs))))))
 
 (defn enrich-component [top-ns interface-names {:keys [name type namespaces-src namespaces-test interface] :as component}]
   (let [interface-deps (deps/brick-interface-deps top-ns interface-names component)
@@ -49,44 +43,6 @@
                :lib-imports-src lib-imports-src
                :lib-imports-test lib-imports-test
                :interface-deps interface-deps)))
-
-(defn select-lib-imports [brick-name brick->lib-imports test?]
-  (let [{:keys [lib-imports-src lib-imports-test]} (brick->lib-imports brick-name)]
-    (if test?
-      lib-imports-test
-      lib-imports-src)))
-
-(defn env-lib-imports [brick-names brick->lib-imports test?]
-  (mapcat #(select-lib-imports % brick->lib-imports test?)
-          brick-names))
-
-(defn enrich-env [{:keys [name type component-names test-component-names base-names test-base-names paths test-paths deps test-deps maven-repos]}
-                  brick->loc
-                  brick->lib-imports
-                  env->alias]
-  (let [brick-names (concat component-names base-names)
-        lib-imports-src (-> (env-lib-imports brick-names brick->lib-imports false)
-                            set sort vec)
-        lib-imports-test (-> (env-lib-imports brick-names brick->lib-imports true)
-                             set sort vec)
-        lines-of-code-src (env-loc brick-names brick->loc false)
-        lines-of-code-test (env-loc brick-names brick->loc true)]
-    (util/ordered-map :name name
-                      :alias (env->alias name)
-                      :type type
-                      :lines-of-code-src lines-of-code-src
-                      :lines-of-code-test lines-of-code-test
-                      :test-component-names test-component-names
-                      :component-names component-names
-                      :base-names base-names
-                      :test-base-names test-base-names
-                      :paths paths
-                      :test-paths test-paths
-                      :lib-imports lib-imports-src
-                      :lib-imports-test lib-imports-test
-                      :deps deps
-                      :test-deps test-deps
-                      :maven-repos maven-repos)))
 
 (defn brick->lib-imports [brick]
   (into {} (mapv (juxt :name #(select-keys % [:lib-imports-src
@@ -119,7 +75,7 @@
         brick->loc (brick->loc enriched-bricks)
         brick->lib-imports (brick->lib-imports enriched-bricks)
         env->alias (alias/env->alias settings environments)
-        enriched-environments (vec (sort-by :name (map #(enrich-env % brick->loc brick->lib-imports env->alias) environments)))
+        enriched-environments (vec (sort-by :name (map #(env/enrich-env % brick->loc brick->lib-imports env->alias) environments)))
         color-mode (:color-mode settings color/none)
         messages (validate/messages top-ns interface-names interfaces enriched-components enriched-bases enriched-environments color-mode)]
     (array-map :name ws-name
