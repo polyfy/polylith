@@ -4,6 +4,7 @@
 
            ; Components
            "../../components/change/src"
+           "../../components/command/src"
            "../../components/common/src"
            "../../components/deps/src"
            "../../components/file/src"

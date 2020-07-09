@@ -25,8 +25,8 @@
 (defn help-text [color-mode]
   (str
     (command "check" color-mode) "        Checks that the workspace is valid.\n"
-    (command "info" color-mode) " [" (arg "ARGS" color-mode) "]  Shows information about the workspace.\n"
-    (test-cmd color-mode) "   Runs the tests for the given environment (or all).\n"
+    (command "info" color-mode) " [" (arg "ARG" color-mode) "]   Shows information about the workspace.\n"
+    (test-cmd color-mode) "   Runs the tests for the given environment, or all if not given.\n"
     (help-cmd color-mode) "       Shows this help."))
 
 (defn print-help [color-mode]

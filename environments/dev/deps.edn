@@ -5,6 +5,7 @@
 
            ; Components
            "../../components/change/src"
+           "../../components/command/src"
            "../../components/common/src"
            "../../components/deps/src"
            "../../components/file/src"
@@ -27,6 +28,7 @@
 
                                    ; Components
                                    "../../components/change/test"
+                                   "../../components/command/test"
                                    "../../components/common/test"
                                    "../../components/deps/test"
                                    "../../components/file/test"

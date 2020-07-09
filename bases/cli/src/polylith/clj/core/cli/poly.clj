@@ -1,8 +1,5 @@
 (ns polylith.clj.core.cli.poly
-  (:require [polylith.clj.core.cli.cmd.check :as check]
-            [polylith.clj.core.help.interfc :as help]
-            [polylith.clj.core.cli.cmd.info :as info]
-            [polylith.clj.core.test-runner.interfc :as test-runner]
+  (:require [polylith.clj.core.command.interfc :as command]
             [polylith.clj.core.workspace-clj.interfc :as ws-clj]
             [polylith.clj.core.change.interfc :as change]
             [polylith.clj.core.file.interfc :as file]
@@ -14,15 +11,9 @@
         workspace (-> ws-path
                       ws-clj/workspace-from-disk
                       ws/enrich-workspace
-                      change/with-changes)
-        color-mode (-> workspace :settings :color-mode)]
+                      change/with-changes)]
     (try
-      (case cmd
-        "check" (check/execute workspace)
-        "help" (help/print-help color-mode)
-        "info" (info/execute workspace arg)
-        "test" (test-runner/run workspace arg)
-        (help/print-help color-mode))
+      (command/execute-command workspace cmd arg)
       (catch Exception e
         (println (or (-> e ex-data :err) (.getMessage e)))
         (System/exit (or (-> e ex-data :exit-code) 1)))

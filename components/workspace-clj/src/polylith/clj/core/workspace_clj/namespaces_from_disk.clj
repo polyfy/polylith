@@ -18,13 +18,12 @@
 
 (defn namespace-name [root-dir path]
   (when path
-    (let [file-path (-> (subs path (count root-dir))
-                        (str-util/skip-until "/"))]
-      (when file-path
-        (-> file-path
-            (str-util/skip-suffixes [".clj" ".cljc"])
-            (str/replace "/" ".")
-            (str/replace "_" "-"))))))
+    (when-let [file-path (-> (subs path (count root-dir))
+                             (str-util/skip-until "/"))]
+      (-> file-path
+          (str-util/skip-suffixes [".clj" ".cljc"])
+          (str/replace "/" ".")
+          (str/replace "_" "-")))))
 
 (defn ->namespace [root-dir file-path]
   (let [content (file/read-file file-path)]
