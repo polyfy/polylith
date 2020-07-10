@@ -36,16 +36,13 @@
         component-namespaces (mapv :namespace (mapcat component-name->namespaces test-component-names))]
     (concat base-namespaces component-namespaces)))
 
-(defn local-path [path]
-  (subs path 6))
-
 (defn run-tests-for-environment [{:keys [bases components] :as workspace}
                                  {:keys [test-base-names test-component-names paths test-paths] :as environment}]
   (when (-> test-paths empty? not)
     (let [color-mode (-> workspace :settings :color-mode)
           config (->config workspace environment)
           lib-paths (resolve-deps config)
-          src-paths (mapv local-path (set (concat paths test-paths)))
+          src-paths (set (concat paths test-paths))
           paths (concat src-paths lib-paths)
           test-namespaces (->test-namespaces bases components test-base-names test-component-names)
           test-statements (map ->test-statement test-namespaces)

@@ -356,7 +356,7 @@
 
 (def environments (:environments workspace))
 (def components (:components workspace))
-(def bases (:bases workspace))
+(def ws-bases (:bases workspace))
 
 (deftest ws-table--when-loc-flag-is-false--return-table-without-loc-info
   (is (= ["interface      brick          cli  core  dev"
@@ -378,7 +378,7 @@
           "-              cli             x    -     x "
           "-              z-jocke         -    -     x "]
          (str/split-lines
-           (text-table/ws-table color/none components bases environments 2020 1143 false)))))
+           (text-table/ws-table color/none components ws-bases environments 2020 1143 false)))))
 
 (deftest ws-table--when-loc-flag-is-true--return-table-with-loc-info
   (is (= ["interface      brick          cli  core  dev   loc  (t)"
@@ -401,4 +401,4 @@
           "-              z-jocke         -    -     x     53    0"
           "                                              2020 1143"]
          (str/split-lines
-           (text-table/ws-table color/none components bases environments 2020 1143 true)))))
+           (text-table/ws-table color/none components ws-bases environments 2020 1143 true)))))

@@ -22,7 +22,10 @@
  :deps    {org.clojure/clojure {:mvn/version "1.10.1"}
            org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}
 
- :aliases {:test    {:extra-paths [;Bases
+ :aliases {:test    {:extra-paths [; Environment
+                                   "test"
+
+                                   ; Bases
                                    "../../bases/cli/test"
                                    "../../bases/z-jocke/test"
 

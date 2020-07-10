@@ -1,5 +1,6 @@
 (ns polylith.clj.core.workspace.environment
-  (:require [polylith.clj.core.util.interfc :as util]))
+  (:require [polylith.clj.core.util.interfc :as util]
+            [clojure.string :as str]))
 
 (defn env-loc [brick-names brick->loc test?]
   (let [locs (map brick->loc brick-names)]
@@ -16,6 +17,15 @@
 (defn env-lib-imports [brick-names brick->lib-imports test?]
   (mapcat #(select-lib-imports % brick->lib-imports test?)
           brick-names))
+
+(defn ws-root-path [path env]
+  (cond
+    (str/starts-with? path "./") (str "environments/" env "/" (subs path 2))
+    (str/starts-with? path "../../") (subs path 6)
+    :else (str "environments/" env "/" path)))
+
+(defn ws-root-paths [paths env]
+  (mapv #(ws-root-path % env) paths))
 
 (defn enrich-env [{:keys [name type component-names test-component-names base-names test-base-names paths test-paths deps test-deps maven-repos]}
                   brick->loc
@@ -37,8 +47,8 @@
                       :component-names component-names
                       :base-names base-names
                       :test-base-names test-base-names
-                      :paths paths
-                      :test-paths test-paths
+                      :paths (ws-root-paths paths name)
+                      :test-paths (ws-root-paths test-paths name)
                       :lib-imports lib-imports-src
                       :lib-imports-test lib-imports-test
                       :deps deps
