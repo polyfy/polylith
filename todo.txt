@@ -1,7 +1,4 @@
 
-- Add an attribute :show-lines-of-code to ~/polylith/settings.edn.
-  - make workspace.text-table return a table + add test.
-
 - clean away "../.." in the enhance workspace step.
   If the path starts with "test/", add "environments/${env}/" before it so
   that it can be executed by the tests.

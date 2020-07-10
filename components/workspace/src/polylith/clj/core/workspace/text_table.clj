@@ -93,9 +93,8 @@
             [:none :none :none :none :none]
             [])))
 
-(defn print-table [{:keys [settings components bases environments messages lines-of-code-src lines-of-code-test]} show-loc?]
-  (let [color-mode (:color-mode settings)
-        aliases (mapv :alias environments)
+(defn ws-table [color-mode components bases environments lines-of-code-src lines-of-code-test show-loc?]
+  (let [aliases (mapv :alias environments)
         env-spc-cnt (inc (* (-> environments count dec) 2))
         alignments (concat basic-alignments (repeat env-spc-cnt :center) (if show-loc? loc-alignments))
         alias->bricks (into {} (map env-data environments))
@@ -112,8 +111,12 @@
         component-colors (mapv #(->component-colors % show-loc? aliases alias->bricks) sorted-components)
         base-colors (mapv #(->base-colors % show-loc? aliases alias->bricks) sorted-bases)
         total-loc-colors [(vec (repeat (+ 8 env-spc-cnt) :none))]
-        all-colors (concat component-colors base-colors (if show-loc? total-loc-colors []))
-        table (text-table/table headers alignments rows header-colors all-colors color-mode)]
+        all-colors (concat component-colors base-colors (if show-loc? total-loc-colors []))]
+    (text-table/table headers alignments rows header-colors all-colors color-mode)))
+
+(defn print-table [{:keys [settings components bases environments messages lines-of-code-src lines-of-code-test]} show-loc?]
+  (let [color-mode (:color-mode settings)
+        table (ws-table color-mode components bases environments lines-of-code-src lines-of-code-test show-loc?)]
     (println "environments:")
     (doseq [{:keys [alias name]} environments]
       (println (str "  " alias " = " (color/purple color-mode name))))
