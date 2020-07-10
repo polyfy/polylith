@@ -1,14 +1,14 @@
-(ns polylith.clj.core.validate.m102-duplicated-parameter-lists
+(ns polylith.clj.core.validate.m102-function-or-macro-is-defined-twice
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interfc :as util]
             [polylith.clj.core.util.interfc.color :as color]
             [polylith.clj.core.validate.shared :as shared]))
 
 (defn duplicated-parameter-lists-error [component-name component-duplication color-mode]
-  (let  [message (str "Duplicated parameter lists found in " component-name ": "
-                      (str/join ", " (map shared/->function-or-macro component-duplication)))
-         colorized-msg (str "Duplicated parameter lists found in " (color/component component-name color-mode) ": "
-                            (str/join ", " (map shared/->function-or-macro component-duplication)))]
+  (let [message (str "Function or macro is defined twice in " component-name ": "
+                     (str/join ", " (map shared/->function-or-macro component-duplication)))
+        colorized-msg (str "Function or macro is defined twice in " (color/component component-name color-mode) ": "
+                           (str/join ", " (map shared/->function-or-macro component-duplication)))]
     (util/ordered-map :type "error"
                       :code 102
                       :message message

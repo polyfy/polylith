@@ -1,7 +1,7 @@
 (ns polylith.clj.core.validate.m102-duplicated-parameter-lists-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.util.interfc.color :as color]
-            [polylith.clj.core.validate.m102-duplicated-parameter-lists :as m102]))
+            [polylith.clj.core.validate.m102-function-or-macro-is-defined-twice :as m102]))
 
 (def interfaces [{:name "auth"
                   :definitions [{:name "add-two", :type "function", :parameters [{:name "x"}]}]
@@ -89,7 +89,7 @@
 (deftest errors--when-having-duplicated-parameter-lists--return-error
   (is (= [{:type "error",
            :code 102,
-           :message "Duplicated parameter lists found in payment: pay[a], pay[b]",
-           :colorized-message "Duplicated parameter lists found in payment: pay[a], pay[b]",
+           :message "Function or macro is defined twice in payment: pay[a], pay[b]",
+           :colorized-message "Function or macro is defined twice in payment: pay[a], pay[b]",
            :components ["payment"]}]
          (m102/errors components color/none))))

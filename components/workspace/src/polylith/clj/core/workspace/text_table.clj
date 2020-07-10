@@ -119,8 +119,8 @@
       (println (str "  " alias " = " (color/purple color-mode name))))
     (println)
     (println table)
-    (println)
     (when (-> messages empty? not)
+      (println)
       (println (common/pretty-messages messages color-mode)))))
 
 (defn print-table-str-keys [workspace show-loc?]

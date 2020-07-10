@@ -1,5 +1,5 @@
 (ns polylith.clj.core.help.interfc
-  (:require [polylith.clj.core.help.main :as main]))
+  (:require [polylith.clj.core.help.core :as core]))
 
-(defn print-help [color-mode]
-  (main/print-help color-mode))
+(defn print-help [cmd color-mode]
+  (core/print-help cmd color-mode))

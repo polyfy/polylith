@@ -1,6 +1,5 @@
 
-- make showing lines of code optional in the 'info' command. Add an attribute
-  :show-lines-of-code to ~/polylith/settings.edn.
+- Add an attribute :show-lines-of-code to ~/polylith/settings.edn.
   - make workspace.text-table return a table + add test.
 
 - clean away "../.." in the enhance workspace step.
@@ -199,24 +198,26 @@ Doc
 
 Differences compared to lein-polylith
 =====================================
-- we support type hints as part of the function signature of functions.
-- when people starts to build tooling for polylith, they could include
-  components from this project as git source dependencies into their own
-  projects and use e.g. the workspace-clj, workspace and common components!
-  from each interface, which is the set of all dependencies from the components
-  that implements that interface.
+- support for type hints as part of the function signature of functions.
+- easier to build libraries and toolings around polylith by using the polylith-core library.
 - if a definition is defined as a 'defn' in one interface, it must be implemented
   as a function in all components for that interface (not mixing functions and macros)
   and the other way around.
-- it is much faster.
-- the new tool is simpler and you can e.g. add, rename and delete components manually
-  without extra tooling.
-- each service can have its own version of a library, so that service A has version 1.1
-  of a library, but service B has 1.2 and the development environment has 1.3.
-  In lein-polylith, all libraries had to have the same version in all
-  services and develop environments.
-- we base changes on git, not on both git and timestamps. The reason is to make it
-  simpler and that timestamps didn't work well with git.
+- simpler and less "intrusive":
+  - no symbolic links
+  - only environments, not both services and environments as in lein-polylith.
+  - no empty workspace interfaces.
+  - code can easily be added manually and no need for 'create' and 'delete' commands.
+  - changes are handled entirely by git, not by both git and via file timestamps.
+  - no 'sync' command needed.
+- more powerful:
+  - supports multiple environments
+  - supports having tests per environment
+  - faster. No need for a 'prompt' command. The 'check' command runs in about a second.
+  - advanced 'info' command with cupport for colors.
+  - improved error messages.
+  - an environment can have a different version of a library than other environments.
+
 
 Design decisions
 ================

@@ -1,6 +1,6 @@
 (ns polylith.clj.core.validate.interfc
   (:require [polylith.clj.core.validate.m101-illegal-namespace-deps :as m101]
-            [polylith.clj.core.validate.m102-duplicated-parameter-lists :as m102]
+            [polylith.clj.core.validate.m102-function-or-macro-is-defined-twice :as m102]
             [polylith.clj.core.validate.m103-missing-defs :as m103]
             [polylith.clj.core.validate.m104-circular-deps :as m104]
             [polylith.clj.core.validate.m105-illegal-name-sharing :as m105]

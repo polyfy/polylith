@@ -6,10 +6,13 @@
    :definitions (:definitions interface)
    :implementing-components [name]})
 
+(defn params [parameters]
+  (mapv :name parameters))
+
 (defn ->multi-interface [[interface-name components]]
   {:name interface-name
    :type "interface"
-   :definitions (vec (sort-by (juxt :sub-ns :type :name :parameters)
+   :definitions (vec (sort-by (juxt :sub-ns :type :name params)
                               (set (mapcat #(-> % :interface :definitions) components))))
    :implementing-components (vec (sort (map :name components)))})
 

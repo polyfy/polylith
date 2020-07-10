@@ -13,18 +13,19 @@
       (println (common/pretty-messages workspace)))))
 
 (defn info [workspace arg]
-  (if (= "-dump" arg)
-    (pp/pprint workspace)
+  (case arg
+    "-dump" (pp/pprint workspace)
+    "-loc" (ws/print-table workspace true)
     (ws/print-table workspace false)))
 
-(defn print-help [workspace]
+(defn help [workspace cmd]
   (let [color-mode (-> workspace :settings :color-mode)]
-    (help/print-help color-mode)))
+    (help/print-help cmd color-mode)))
 
 (defn execute [workspace cmd arg]
   (case cmd
     "check" (check workspace)
-    "help" (print-help workspace)
+    "help" (help workspace arg)
     "info" (info workspace arg)
     "test" (test-runner/run workspace arg)
-    (print-help workspace)))
+    (help workspace nil)))
