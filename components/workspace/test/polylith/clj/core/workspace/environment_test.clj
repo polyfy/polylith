@@ -52,6 +52,9 @@
                          "common" {:lib-imports-src ["clojure.java.io" "clojure.string"], :lib-imports-test []}
                          "change" {:lib-imports-src ["clojure.set" "clojure.string"], :lib-imports-test []}})
 
+(def env->comp->deps {"development" {"change" {:directly ["git" "util"], :indirectly ["shell"]}
+                                     "util" {:directly [], :indirectly []}}})
+
 (deftest clean-path--given-a-local-path--return-workspace-path
   (is (= "environments/dev/test"
          (env/ws-root-path "test" "dev"))))
@@ -89,6 +92,8 @@
           :lib-imports-test []
           :deps {"org.clojure/clojure" #:mvn{:version "1.10.1"},
                  "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}}
+          :component-deps {"change" {:directly ["git" "util"], :indirectly ["shell"]}
+                           "util"   {:directly [], :indirectly []}}
           :test-deps {}
           :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}}
-         (env/enrich-env environment brick->loc brick->lib-imports env->alias))))
+         (env/enrich-env environment brick->loc brick->lib-imports env->alias env->comp->deps))))

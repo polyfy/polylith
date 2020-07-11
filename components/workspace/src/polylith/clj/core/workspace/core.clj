@@ -6,6 +6,7 @@
             [polylith.clj.core.validate.interfc :as validate]
             [polylith.clj.core.workspace.base :as base]
             [polylith.clj.core.workspace.component :as component]
+            [polylith.clj.core.workspace.brick-deps :as brick-deps]
             [polylith.clj.core.workspace.interfaces :as interfaces]
             [polylith.clj.core.workspace.environment :as env]
             [polylith.clj.core.workspace.alias :as alias]
@@ -42,7 +43,8 @@
         brick->loc (brick->loc enriched-bricks)
         brick->lib-imports (brick->lib-imports enriched-bricks)
         env->alias (alias/env->alias settings environments)
-        enriched-environments (vec (sort-by :name (map #(env/enrich-env % brick->loc brick->lib-imports env->alias) environments)))
+        env->brick-deps (brick-deps/env->brick-deps environments enriched-components enriched-bases)
+        enriched-environments (vec (sort-by :name (map #(env/enrich-env % brick->loc brick->lib-imports env->alias env->brick-deps) environments)))
         color-mode (:color-mode settings color/none)
         messages (validate/messages top-ns interface-names interfaces enriched-components enriched-bases enriched-environments color-mode)]
     (array-map :name ws-name

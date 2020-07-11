@@ -1,4 +1,6 @@
 
+- use the new :brick-deps calculations in each environment to clean up validation 104.
+
 - calculate changes. For each component/base/environment store an attribute
   :change-status that can be one of three values: "unchanged"
   "directly-changed" and "indirectly-changed".
@@ -47,10 +49,11 @@
     core         core   xx     0    0
     dev *        dev    xx     0  243
 
-- implement the 'deps' command. When typing "deps brick env" where env is the environment, then
-  the first column 'used-by' can be calculated and 'uses' will contain all the bricks.
-  If typing only "deps brick" then the first column can't be calculated and the second will
-  be a list of the interfaces it depends on.
+- check why workspace-clj doesn't have any :definitions in its :interface.
+
+- implement the 'deps' command.
+  - When typing "deps env brick", show the dependencies of the brick within the given environment.
+    If a component is not yet added to the environment, show the interface under 'uses':
     used-by > brick > uses
     -------           ----------
     command           common
@@ -59,6 +62,39 @@
                       text-table
                       util
                       validate
+  - when typing "deps env" then show all dependencies for the given environment.
+    If a component is not yet added to the environment, show interface in the column instead:
+                                                        w
+                                                        o
+                                         t              r
+                                         e              k
+                                         s  t        w  s
+                                         t  e     v  o  p
+                    c                    -  x     a  r  a
+                 c  o  c                 r  t     l  k  c
+                 h  m  o              s  u  -     i  s  e
+                 a  m  m  d  f     h  h  n  t  u  d  p  -
+                 n  a  m  e  i  g  l  e  n  b  t  a  a  c
+                 g  n  o  p  l  i  e  l  e  l  i  t  c  l
+ brick           e  d  n  s  e  t  p  l  r  e  l  e  e  j
+ --------------------------------------------------------
+ change          ·  ·  ·  ·  ·  x  ·  ·  ·  ·  x  ·  ·  ·
+ command         ·  ·  x  ·  ·  ·  x  ·  x  ·  x  ·  x  ·
+ common          ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·
+ deps            ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·
+ file            ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·
+ git             ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·  ·  ·  ·
+ help            ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·
+ shell           ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·
+ test-runner     ·  ·  x  ·  x  ·  ·  ·  ·  ·  x  ·  ·  ·
+ text-table      ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·
+ util            ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·
+ validate        ·  ·  x  x  ·  ·  ·  ·  ·  ·  x  ·  ·  ·
+ workspace       ·  ·  x  x  x  ·  ·  ·  ·  x  x  x  ·  ·
+ workspace-clj   ·  ·  x  ·  x  ·  ·  ·  ·  ·  x  ·  ·  ·
+ cli             x  x  ·  ·  x  ·  ·  ·  ·  ·  ·  ·  x  x
+ z-jocke         ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  x  x
+
 
 - show a more user friendly error if deps.edn is missing at the root.
 - show a better error if :color-mode is not set in deps.edn.

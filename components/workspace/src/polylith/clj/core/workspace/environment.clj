@@ -30,7 +30,8 @@
 (defn enrich-env [{:keys [name type component-names test-component-names base-names test-base-names paths test-paths deps test-deps maven-repos]}
                   brick->loc
                   brick->lib-imports
-                  env->alias]
+                  env->alias
+                  env->brick-deps]
   (let [brick-names (concat component-names base-names)
         lib-imports-src (-> (env-lib-imports brick-names brick->lib-imports false)
                             set sort vec)
@@ -52,5 +53,6 @@
                       :lib-imports lib-imports-src
                       :lib-imports-test lib-imports-test
                       :deps deps
+                      :brick-deps (env->brick-deps name)
                       :test-deps test-deps
                       :maven-repos maven-repos)))
