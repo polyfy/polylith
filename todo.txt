@@ -1,6 +1,4 @@
 
-- use the new :brick-deps calculations in each environment to clean up validation 104.
-
 - calculate changes. For each component/base/environment store an attribute
   :change-status that can be one of three values: "unchanged"
   "directly-changed" and "indirectly-changed".
