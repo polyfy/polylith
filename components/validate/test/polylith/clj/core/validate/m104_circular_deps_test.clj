@@ -43,12 +43,6 @@
            :environment "cli"
            :message "A circular dependency was found in the cli environment: command > help > command"
            :colorized-message "A circular dependency was found in the cli environment: command > help > command"
-           :components ["command" "help"]}
-          {:code 104
-           :type "error"
-           :environment "dev"
-           :message "A circular dependency was found in the dev environment: command > help > command"
-           :colorized-message "A circular dependency was found in the dev environment: command > help > command"
            :components ["command" "help"]}]
          (m104/errors environments color/none))))
 

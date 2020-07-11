@@ -15,12 +15,6 @@
     (when (-> missing-defs empty? not)
       [(str/join ", " (map shared/full-name missing-defs))])))
 
-(defn function->id [{:keys [name parameters]}]
-  [name (count parameters)])
-
-(defn ->function [{:keys [sub-ns name parameters]}]
-  (str (shared/full-name sub-ns name) "[" (str/join " " parameters) "]"))
-
 (defn function-or-macro? [{:keys [type]}]
   (not= "data" type))
 
@@ -31,7 +25,7 @@
   (let [component-functions-and-macros (-> component :interface functions-and-macros)
         missing-functions-and-macros (set/difference interface-functions component-functions-and-macros)]
     (when (-> missing-functions-and-macros empty? not)
-      (vec (sort (map ->function missing-functions-and-macros))))))
+      (vec (sort (map shared/->function-or-macro missing-functions-and-macros))))))
 
 (defn component-error [interface {:keys [name] :as component} interface-functions color-mode]
   (let [component-defs (concat (component-data-defs interface component)
@@ -51,7 +45,7 @@
                         name->component color-mode]
   (let [interface-functions (set (mapcat second
                                          (filter #(= 1 (-> % second count) 1)
-                                                 (group-by function->id
+                                                 (group-by shared/function->id
                                                            (functions-and-macros interface)))))
         ifc-components (map name->component implementing-components)]
     (mapcat #(component-error interface % interface-functions color-mode)

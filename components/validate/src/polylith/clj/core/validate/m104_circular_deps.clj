@@ -23,5 +23,5 @@
                          :environment env)])))
 
 (defn errors [environments color-mode]
-  (vec (mapcat #(env-circular-deps % color-mode)
-               (filter identity (map #(circular-dep %) environments)))))
+  (util/first-as-vector (mapcat #(env-circular-deps % color-mode)
+                                (filter identity (map #(circular-dep %) environments)))))

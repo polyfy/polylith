@@ -6,3 +6,8 @@
 
 (defn ordered-map [& keyvals]
   (core/ordered-map keyvals))
+
+(defn first-as-vector [vals]
+  (if (empty? vals)
+    []
+    [(first vals)]))
