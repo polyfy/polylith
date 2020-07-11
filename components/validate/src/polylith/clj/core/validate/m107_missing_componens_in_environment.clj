@@ -48,5 +48,4 @@
 
 (defn errors [components bases environments color-mode]
   (mapcat #(env-error % color-mode)
-          (map #(env-status % components bases)
-               (filter #(-> % :test? not) environments))))
+          (map #(env-status % components bases) environments)))

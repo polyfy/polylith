@@ -6,7 +6,10 @@
   Show a '*' or '(*)' after each brick in the 'info' command and after each
   environment in the environment table.
   Only include a brick in :run-tests-for if it's changed (directly or indirectly).
+  Skip this calculation if any circular dependencies was detected.
   - per brick, we could calculate :needed-components per environment.
+
+- enrich with changes in between workspace-clj and the workspace steps.
 
 - show one more 'x' or '-' on each environment column in the 'info' command where the
   first column tells whether it's included in the environment and the second if any

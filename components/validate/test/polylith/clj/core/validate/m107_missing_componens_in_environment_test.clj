@@ -55,39 +55,17 @@
 
 (def environments [{:name "development"
                     :group "development"
-                    :test? false
-                    :type "environment"
-                    :component-names ["article" "user"]
-                    :base-names []
-                    :deps {}}
-                   {:name "development-test"
-                    :group "development"
-                    :test? true
                     :type "environment"
                     :component-names ["article" "user"]
                     :base-names []
                     :deps {}}
                    {:name "realworld-backend"
                     :group "realworld-backend"
-                    :test? false
-                    :type "environment"
-                    :component-names ["article" "comment" "database" "log" "profile" "spec" "tag" "user"]
-                    :base-names ["rest-api"]}
-                   {:name "realworld-backend-test"
-                    :group "realworld-backend"
-                    :test? true
                     :type "environment"
                     :component-names ["article" "comment" "database" "log" "profile" "spec" "tag" "user"]
                     :base-names ["rest-api"]}
                    {:name "helpers"
                     :group "helpers"
-                    :test? false
-                    :type "environment"
-                    :component-names ["build-tools"]
-                    :base-names ["helpers"]}
-                   {:name "helpers-test"
-                    :group "helpers"
-                    :test? true
                     :type "environment"
                     :component-names ["build-tools"]
                     :base-names ["helpers"]}])

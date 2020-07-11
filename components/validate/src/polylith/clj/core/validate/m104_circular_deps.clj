@@ -42,6 +42,5 @@
   (when-let [errors (first
                       (sort-by #(-> % :bricks count)
                         (mapcat #(environment-circular-deps % interfaces components color-mode)
-                                (filter #(-> % :test? not)
-                                        environments))))]
+                                environments)))]
     [errors]))
