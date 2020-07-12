@@ -1,8 +1,4 @@
 
-- calculate changed environments.
-
-- only run tests for directly or indirectly changed code, including changed environments.
-
 - show one more 'x' or '-' on each environment column in the 'info' command where the
   first column tells whether it's included in the environment and the second if any
   tests are included. Show direct changes with an '*' per brick and a '*' in the
