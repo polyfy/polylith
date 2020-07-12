@@ -226,8 +226,8 @@
                                               "clojure.tools.deps.alpha.util.maven"
                                               "clojure.walk"],
                                 :lib-imports-test ["clojure.string" "clojure.tools.deps.alpha.util.maven"],
-                                :deps {"org.clojure/clojure" #:mvn{:version "1.10.1"},
-                                       "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}},
+                                :lib-deps {"org.clojure/clojure" #:mvn{:version "1.10.1"},
+                                           "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}},
                                 :test-deps {},
                                 :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
                                               "clojars" {:url "https://repo.clojars.org/"}}}
@@ -264,8 +264,8 @@
                                 :test-paths [],
                                 :lib-imports ["clojure.java.io" "clojure.java.shell" "clojure.set" "clojure.string" "clojure.walk"],
                                 :lib-imports-test ["clojure.string"],
-                                :deps {"org.clojure/clojure" #:mvn{:version "1.10.1"},
-                                       "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}},
+                                :lib-deps {"org.clojure/clojure" #:mvn{:version "1.10.1"},
+                                           "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}},
                                 :test-deps {},
                                 :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
                                               "clojars" {:url "https://repo.clojars.org/"}}}

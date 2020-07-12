@@ -27,7 +27,7 @@
 (defn ws-root-paths [paths env]
   (mapv #(ws-root-path % env) paths))
 
-(defn enrich-env [{:keys [name type component-names test-component-names base-names test-base-names paths test-paths deps test-deps maven-repos]}
+(defn enrich-env [{:keys [name type component-names test-component-names base-names test-base-names paths test-paths lib-deps test-deps maven-repos]}
                   brick->loc
                   brick->lib-imports
                   env->alias
@@ -52,7 +52,7 @@
                       :test-paths (ws-root-paths test-paths name)
                       :lib-imports lib-imports-src
                       :lib-imports-test lib-imports-test
-                      :deps deps
+                      :lib-deps lib-deps
                       :brick-deps (env->brick-deps name)
                       :test-deps test-deps
                       :maven-repos maven-repos)))

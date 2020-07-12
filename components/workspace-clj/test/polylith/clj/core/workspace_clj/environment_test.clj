@@ -27,9 +27,9 @@
           :type "environment"
           :base-names ["tool"]
           :component-names ["change" "common" "deps" "file"]
-          :deps {"org.clojure/clojure" #:mvn{:version "1.10.1"}
-                 "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}
-                 "org.jetbrains.kotlin/kotlin-compiler-embeddable" #:mvn{:version "1.3.72"}}
+          :lib-deps {"org.clojure/clojure" #:mvn{:version "1.10.1"}
+                     "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}
+                     "org.jetbrains.kotlin/kotlin-compiler-embeddable" #:mvn{:version "1.3.72"}}
           :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}
                         "clojars" {:url "https://repo.clojars.org/"}}
           :paths ["../../bases/tool/src"

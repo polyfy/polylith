@@ -1,13 +1,10 @@
 
+- cange from :brick-deps to :deps.
+
 - calculate changes. For each component/base/environment store an attribute
   :change-status that can be one of three values: "unchanged"
   "directly-changed" and "indirectly-changed".
   Store the rest of the calculations in the key :changes at the root.
-  Show a '*' or '(*)' after each brick in the 'info' command and after each
-  environment in the environment table.
-  Only include a brick in :run-tests-for if it's changed (directly or indirectly).
-  Skip this calculation if any circular dependencies was detected.
-  - per brick, we could calculate :needed-components per environment.
 
 - enrich with changes in between workspace-clj and the workspace steps.
 
@@ -35,6 +32,13 @@
     workspace-clj  workspace-clj  x-    --   xx
     -              cli            x-    --   xx
     -              z-jocke        --    --   xx
+
+- only run tests for directly or indirectly changed code.
+
+- eperiment with implementing a git hook that if the workspace is valid, saves a workspace.edn
+  at the root of the project and commits it before every push. Then we could "animate" over the
+  changes of the system over time. It's important to store a :schema-version attribute of the
+  workspace, to keep track of schema changes.
 
 - show aliases in a separate table in the 'info' command where under the src
   column we show if it has its own 'src' and 'test' folder. If any brick in
@@ -106,6 +110,9 @@
 
 - workspace-clj > changes > workspace.
 
+- add support for -ns in the 'info' command that lists two extra columns '#ns' and
+  'loc/ns'. '-all' will perform both '-loc' and '#ns'.
+
 - show warnings if the same unit test exists in more than one environment.
 
 - use :file-extensions from :src-reader.
@@ -157,6 +164,8 @@
   - maybe we need two variants:
     - polylith-clj-core
     - polylith-clj-core-aot
+
+- add support for reading files from git and maybe http url:s.
 
 - make sure we handle imported namespaces in a generic way, right now we assume
   that they are separated with a "." in deps.dependencies/brick-namespace.

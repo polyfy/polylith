@@ -11,9 +11,9 @@
    and need to be converted back to symbols here."
   [(symbol library) version])
 
-(defn ->config [workspace {:keys [deps test-deps maven-repos]}]
+(defn ->config [workspace {:keys [lib-deps test-deps maven-repos]}]
   (assoc workspace :mvn/repos maven-repos
-                   :deps (into {} (map key-as-symbol (merge deps test-deps)))))
+                   :deps (into {} (map key-as-symbol (merge lib-deps test-deps)))))
 
 (defn ->test-statement [ns-name]
   (let [ns-symbol (symbol ns-name)]

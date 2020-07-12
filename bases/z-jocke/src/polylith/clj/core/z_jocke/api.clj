@@ -18,15 +18,16 @@
 
 ;(def str-workspace (walk/stringify-keys workspace))
 
-;(require '[polylith.clj.core.z-jocke.api :as z])
-;(def workspace z/workspace)
-;(def environments (:environments workspace))
-;(def components (:components workspace))
-;(def ws-bases (:bases workspace))
-;(def interfaces (:interfaces workspace))
-
 ;(def workspace (->
 ;                 "."
 ;                 ;"../clojure-polylith-realworld-example-app"
 ;                 ws-clj/workspace-from-disk
 ;                 ws/enrich-workspace))
+
+;(require '[polylith.clj.core.z-jocke.api :as z])
+;(def workspace z/workspace)
+
+;(def environments (:environments workspace))
+;(def components (:components workspace))
+;(def ws-bases (:bases workspace))
+;(def interfaces (:interfaces workspace))

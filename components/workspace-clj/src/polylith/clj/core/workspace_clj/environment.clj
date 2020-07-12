@@ -53,7 +53,7 @@
                        :test-base-names test-base-names
                        :paths paths
                        :test-paths test-paths
-                       :deps (sort-deps deps)
+                       :lib-deps (sort-deps deps)
                        :test-deps test-deps
                        :maven-repos maven-repos))))
 
