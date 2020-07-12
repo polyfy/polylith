@@ -72,7 +72,7 @@
           test-statements (map ->test-statement test-namespaces)
           class-loader (common/create-class-loader paths color-mode)]
       (if (-> test-statements empty?)
-        (println (str "\nNo tests need to be executed for the " (color/environment name color-mode) " environment."))
+        (println (str "No tests need to be executed for the " (color/environment name color-mode) " environment."))
         (run-tests-statements class-loader test-statements test-namespaces bricks-to-test-msg color-mode)))))
 
 (defn run-all-tests [workspace environments changes]
