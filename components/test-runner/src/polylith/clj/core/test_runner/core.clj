@@ -34,6 +34,22 @@
   (let [brick-name->namespaces (into {} (map (juxt :name :namespaces-test) bricks))]
     (mapv :namespace (mapcat brick-name->namespaces test-brick-names))))
 
+(defn run-tests-statements [class-loader test-statements test-namespaces bricks-to-test-msg color-mode]
+  (println (str "\nRuning tests for the " (color/environment name color-mode) " environment in " (count test-namespaces) " namespaces: " bricks-to-test-msg))
+  (doseq [statement test-statements]
+    (let [{:keys [error fail pass] :as summary}
+          (try
+            (common/eval-in class-loader statement)
+            (catch Exception e
+              (.printStackTrace e)
+              (println (str (color/error color-mode "Couldn't run test statement: ") statement " " (color/error color-mode e)))))
+          result-str (str "Test results: " pass " passes, " fail " failures, " error " errors.")]
+      (when (or (nil? error)
+                (< 0 error)
+                (< 0 fail))
+        (throw (Exception. (str "\n" (color/error color-mode result-str)) summary)))
+      (println (str "\n" (color/ok color-mode result-str))))))
+
 (defn run-tests-for-environment [{:keys [bases components] :as workspace}
                                  {:keys [name test-base-names test-component-names paths test-paths] :as environment}
                                  {:keys [changed-components changed-bases indirect-changes]}]
@@ -55,21 +71,9 @@
           test-namespaces (->test-namespaces bricks bricks-to-test)
           test-statements (map ->test-statement test-namespaces)
           class-loader (common/create-class-loader paths color-mode)]
-      (when (-> test-statements empty? not)
-        (println (str "\nRuning tests for the " (color/environment name color-mode) " environment in " (count test-namespaces) " namespaces: " bricks-to-test-msg))
-        (doseq [statement test-statements]
-          (let [{:keys [error fail pass] :as summary}
-                (try
-                  (common/eval-in class-loader statement)
-                  (catch Exception e
-                    (.printStackTrace e)
-                    (println (str (color/error color-mode "Couldn't run test statement: ") statement " " (color/error color-mode e)))))
-                result-str (str "Test results: " pass " passes, " fail " failures, " error " errors.")]
-            (when (or (nil? error)
-                      (< 0 error)
-                      (< 0 fail))
-              (throw (Exception. (str "\n" (color/error color-mode result-str)) summary)))
-            (println (str "\n" (color/ok color-mode result-str)))))))))
+      (if (-> test-statements empty?)
+        (println (str "\nNo tests need to be executed for the " (color/environment name color-mode) " environment."))
+        (run-tests-statements class-loader test-statements test-namespaces bricks-to-test-msg color-mode)))))
 
 (defn run-all-tests [workspace environments changes]
   (doseq [environment environments]
