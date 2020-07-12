@@ -1,9 +1,7 @@
 
-- show one more 'x' or '-' on each environment column in the 'info' command where the
-  first column tells whether it's included in the environment and the second if any
-  tests are included. Show direct changes with an '*' per brick and a '*' in the
+- Show direct changes with an '*' per brick and a '*' in the
   "test column" if the brick is indirectly changed in that environment (and has
-  a test folder) and that we therefore needs to execute the tests. Show the asterisks
+  a test folder) and that we therefore need to execute the tests. Show the asterisks
   in white so that they can be spotted more easily:
     interface      brick          cli  core  dev
     --------------------------------------------
@@ -23,6 +21,10 @@
     workspace-clj  workspace-clj  x-    --   xx
     -              cli            x-    --   xx
     -              z-jocke        --    --   xx
+
+- remove the SLF4J error when running the test command:
+  "Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+  See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
 
 - experiment with implementing a git hook that if the workspace is valid, saves a workspace.edn
   at the root of the project and commits it before every push. Then we could "animate" over the

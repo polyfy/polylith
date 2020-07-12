@@ -32,6 +32,6 @@
 
 ;(def environments (:environments workspace))
 ;(def components (:components workspace))
-;(def ws-bases (:bases workspace))
+;(def bases (:bases workspace))
 ;(def interfaces (:interfaces workspace))
 ;(def changes (:changes workspace))

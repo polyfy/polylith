@@ -9,7 +9,9 @@
        "    " (color/component "component" color-mode) "     Components are " (color/component "green" color-mode) " and get their names from directories in the 'components' top directory.\n"
        "    " (color/base "base" color-mode) "          Bases are " (color/base "blue" color-mode) " and get their names from directories in the 'bases' top directory.\n"
        "    " (color/environment "environment" color-mode)  "   Environments are " (color/environment "purple" color-mode) " and get their names from directories in the 'environments' top directory.\n"
-       "                  An 'x' means the brick is included in the environment while '-' means it's not.\n"
+       "                  Each environment column consists of two characters that can either be an 'x' or a '-'.\n"
+       "                  The first 'x' means the brick's 'src' folder is included in the environment while '-' means it's not.\n"
+       "                  The second 'x' means the brick's 'test folder is included in the environment while '-' means it's not.\n"
        "    loc           The number of lines of code the brick has in its namespaces under the 'src' directory.\n"
        "    (t)           The number of lines of code the brick has in its namespaces under the 'test' directory.\n\n"
        "  If the 'check' command produces any errors or warnings, then they are shown after the table.\n\n"
@@ -26,3 +28,5 @@
 
 (defn print-help [color-mode]
   (println (help-text color-mode)))
+
+(print-help "dark")

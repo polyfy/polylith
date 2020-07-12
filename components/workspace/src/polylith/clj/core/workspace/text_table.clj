@@ -7,18 +7,21 @@
 (defn env-data [{:keys [alias component-names base-names]}]
   [alias (set (concat component-names base-names))])
 
-(defn env-contains [alias brick alias->bricks]
-  (if (contains? (alias->bricks alias) brick)
-    "x"
-    "-"))
+(defn env-test-data [{:keys [alias test-component-names test-base-names]}]
+  [alias (set (concat test-component-names test-base-names))])
 
-(defn row [{:keys [name type interface lines-of-code-src lines-of-code-test]} show-loc? aliases alias->bricks]
+(defn env-contains [alias brick alias->bricks alias->test-bricks]
+  (let [src (if (contains? (alias->bricks alias) brick) "x" "-")
+        tst (if (contains? (alias->test-bricks alias) brick) "x" "-")]
+    (str src tst)))
+
+(defn row [{:keys [name type interface lines-of-code-src lines-of-code-test]} show-loc? aliases alias->bricks alias->test-bricks]
   (let [ifc (if (= "component" type)
               (:name interface "-")
               "-")
         loc-src (if lines-of-code-src (str lines-of-code-src) "-")
         loc-test (if lines-of-code-test (str lines-of-code-test) "-")
-        all-env-contains (mapv #(env-contains % name alias->bricks) aliases)]
+        all-env-contains (mapv #(env-contains % name alias->bricks alias->test-bricks) aliases)]
     (vec (concat [ifc "" name ""]
                  (interpose "" all-env-contains)
                  (if show-loc?
@@ -98,11 +101,12 @@
         env-spc-cnt (inc (* (-> environments count dec) 2))
         alignments (concat basic-alignments (repeat env-spc-cnt :center) (if show-loc? loc-alignments))
         alias->bricks (into {} (map env-data environments))
+        alias->test-bricks (into {} (map env-test-data environments))
         sorted-components (sort-by sort-order components)
         sorted-bases (sort-by sort-order bases)
         bricks (concat sorted-components sorted-bases)
         headers (->headers show-loc? aliases)
-        brick-rows (mapv #(row % show-loc? aliases alias->bricks) bricks)
+        brick-rows (mapv #(row % show-loc? aliases alias->bricks alias->test-bricks) bricks)
         total-loc-row (->total-loc-row show-loc? env-spc-cnt lines-of-code-src lines-of-code-test)
         plain-rows (if show-loc? (conj brick-rows total-loc-row) brick-rows)
         interface->index-components (group-by second (map-indexed index-interface plain-rows))
@@ -128,3 +132,41 @@
 
 (defn print-table-str-keys [workspace show-loc?]
   (print-table (walk/keywordize-keys workspace) show-loc?))
+
+;(require '[polylith.clj.core.z-jocke.api :as z])
+;(def workspace z/workspace)
+;
+;(def lines-of-code-src (:lines-of-code-src workspace))
+;(def lines-of-code-test (:lines-of-code-test workspace))
+;(def environments (:environments workspace))
+;(def components (:components workspace))
+;(def bases (:bases workspace))
+;(def interfaces (:interfaces workspace))
+;(def changes (:changes workspace))
+;(def show-loc? false)
+;
+;(def color-mode "dark")
+;(def aliases (mapv :alias environments))
+;(def env-spc-cnt (inc (* (-> environments count dec) 2)))
+;(def alignments (concat basic-alignments (repeat env-spc-cnt :center) (if show-loc? loc-alignments)))
+;(def alias->bricks (into {} (map env-data environments)))
+;(def alias->test-bricks (into {} (map env-test-data environments)))
+;(def sorted-components (sort-by sort-order components))
+;(def sorted-bases (sort-by sort-order bases))
+;(def bricks (concat sorted-components sorted-bases))
+;(def headers (->headers show-loc? aliases))
+;(def brick-rows (mapv #(row % show-loc? aliases alias->bricks alias->test-bricks) bricks))
+;(def total-loc-row (->total-loc-row show-loc? env-spc-cnt lines-of-code-src lines-of-code-test))
+;(def plain-rows (if show-loc? (conj brick-rows total-loc-row) brick-rows))
+;(def interface->index-components (group-by second (map-indexed index-interface plain-rows)))
+;(def rows (map-indexed #(change-interface-name %1 %2 interface->index-components) plain-rows))
+;(def header-colors (->header-colors show-loc? env-spc-cnt))
+;(def component-colors (mapv #(->component-colors % show-loc? aliases alias->bricks) sorted-components))
+;(def base-colors (mapv #(->base-colors % show-loc? aliases alias->bricks) sorted-bases))
+;(def total-loc-colors [(vec (repeat (+ 8 env-spc-cnt) :none))])
+;(def all-colors (concat component-colors base-colors (if show-loc? total-loc-colors [])))
+;(def table (text-table/table headers alignments rows header-colors all-colors color-mode))
+;
+;;(def table (ws-table "dark" components bases environments lines-of-code-src lines-of-code-test show-loc?))
+;
+;(println table)
