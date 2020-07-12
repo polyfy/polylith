@@ -1,11 +1,4 @@
 
-- calculate changes. For each component/base/environment store an attribute
-  :change-status that can be one of three values: "unchanged"
-  "directly-changed" and "indirectly-changed".
-  Store the rest of the calculations in the key :changes at the root.
-
-- enrich with changes in between workspace-clj and the workspace steps.
-
 - show one more 'x' or '-' on each environment column in the 'info' command where the
   first column tells whether it's included in the environment and the second if any
   tests are included. Show direct changes with an '*' per brick and a '*' in the
@@ -291,7 +284,7 @@ Differences compared to lein-polylith
   - advanced 'info' command with cupport for colors.
   - improved error messages.
   - an environment can have a different version of a library than other environments.
-
+- improved visualisation with tables and colors.
 
 Design decisions
 ================
