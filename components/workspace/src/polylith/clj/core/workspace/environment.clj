@@ -53,6 +53,6 @@
                       :lib-imports lib-imports-src
                       :lib-imports-test lib-imports-test
                       :lib-deps lib-deps
-                      :brick-deps (env->brick-deps name)
+                      :deps (env->brick-deps name)
                       :test-deps test-deps
                       :maven-repos maven-repos)))

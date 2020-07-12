@@ -7,8 +7,8 @@
   {:env env
    :circular-deps circular})
 
-(defn circular-dep [{:keys [name brick-deps]}]
-  (util/find-first :circular-deps (map #(dep % name) brick-deps)))
+(defn circular-dep [{:keys [name deps]}]
+  (util/find-first :circular-deps (map #(dep % name) deps)))
 
 (defn env-circular-deps [{:keys [env circular-deps]} color-mode]
   (let [deps (str/join " > " circular-deps)

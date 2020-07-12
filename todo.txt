@@ -1,6 +1,4 @@
 
-- cange from :brick-deps to :deps.
-
 - calculate changes. For each component/base/environment store an attribute
   :change-status that can be one of three values: "unchanged"
   "directly-changed" and "indirectly-changed".
