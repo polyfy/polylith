@@ -12,11 +12,9 @@ echo "#### 2. Build cli uberjar"
 ./make-uberjar.sh dev polylith.clj.core.cli.poly
 sudo cp ./environments/dev/target/dev.jar /usr/local/polylith/poly.jar
 
-echo "#### 3. Build core API"
+#echo "#### 3. Build core API"
 
-cd java
+#cd java
 
-mvn clean package
-sudo cp target/polylith-core-jar-with-dependencies.jar /Users/tengstrand/.m2/repository/polylith/polylith-core/0.1.0/polylith-core-0.1.0.jar
-
-cd ..
+#mvn clean package
+#sudo cp target/polylith-core-jar-with-dependencies.jar /Users/tengstrand/.m2/repository/polylith/polylith-core/0.1.0/polylith-core-0.1.0.jar

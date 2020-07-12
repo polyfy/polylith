@@ -19,8 +19,9 @@
 (defn changes [{:keys [environments]}
                {:keys [sha1 sha2 files]}]
    (let [deps (map (juxt :name :deps) environments)
-         {:keys [components bases]} (brick/bricks files)
-         indirect-changes (indirect/indirect-changes deps components)]
+         {:keys [components bases]} (brick/changed-bricks files)
+         changed-bricks (set (concat components bases))
+         indirect-changes (indirect/indirect-changes deps changed-bricks)]
      (util/ordered-map :sha1 sha1
                        :sha2 sha2
                        :git-command (git/diff-command sha1 sha2)

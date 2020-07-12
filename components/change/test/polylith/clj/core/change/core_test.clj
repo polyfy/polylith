@@ -16,7 +16,7 @@
 (deftest bricks--when-having-a-list-of-workspace-filenames--return-bases-and-components
   (is (= {:bases ["core"]
           :components ["cmd" "workspace"]}
-         (brick/bricks filenames))))
+         (brick/changed-bricks filenames))))
 
 (deftest changes--changes-made-between-two-commits--will-return-changed-components-and-bases
   (is (= {:bases ["core"]

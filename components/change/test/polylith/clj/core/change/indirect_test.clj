@@ -66,4 +66,4 @@
   (is (= {"cli" ["cli" "command" "z-jocke"]
           "core" ["cli" "command" "z-jocke"]
           "dev" ["cli" "command" "z-jocke"]}
-         (indirect/indirect-changes deps ["change" "help"]))))
+         (indirect/indirect-changes deps #{"change" "help"}))))
