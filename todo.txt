@@ -1,4 +1,8 @@
 
+- calculate changed environments.
+
+- only run tests for directly or indirectly changed code, including changed environments.
+
 - show one more 'x' or '-' on each environment column in the 'info' command where the
   first column tells whether it's included in the environment and the second if any
   tests are included. Show direct changes with an '*' per brick and a '*' in the
@@ -23,8 +27,6 @@
     workspace-clj  workspace-clj  x-    --   xx
     -              cli            x-    --   xx
     -              z-jocke        --    --   xx
-
-- only run tests for directly or indirectly changed code.
 
 - eperiment with implementing a git hook that if the workspace is valid, saves a workspace.edn
   at the root of the project and commits it before every push. Then we could "animate" over the
