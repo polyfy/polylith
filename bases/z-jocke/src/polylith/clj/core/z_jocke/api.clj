@@ -24,7 +24,8 @@
 ;                 "."
 ;                 ;"../clojure-polylith-realworld-example-app"
 ;                 ws-clj/workspace-from-disk
-;                 ws/enrich-workspace))
+;                 ws/enrich-workspace
+;                 change/with-changes))
 
 ;(require '[polylith.clj.core.z-jocke.api :as z])
 ;(def workspace z/workspace)
@@ -33,3 +34,4 @@
 ;(def components (:components workspace))
 ;(def ws-bases (:bases workspace))
 ;(def interfaces (:interfaces workspace))
+;(def changes (:changes workspace))

@@ -1,6 +1,7 @@
 (ns polylith.clj.core.change.core
   (:require [polylith.clj.core.change.brick :as brick]
             [polylith.clj.core.change.indirect :as indirect]
+            [polylith.clj.core.change.environment :as env]
             [polylith.clj.core.git.interfc :as git]
             [polylith.clj.core.util.interfc :as util]))
 
@@ -21,12 +22,14 @@
    (let [deps (map (juxt :name :deps) environments)
          {:keys [components bases]} (brick/changed-bricks files)
          changed-bricks (set (concat components bases))
-         indirect-changes (indirect/indirect-changes deps changed-bricks)]
+         indirect-changes (indirect/indirect-changes deps changed-bricks)
+         changed-environments (env/changed-environments environments changed-bricks)]
      (util/ordered-map :sha1 sha1
                        :sha2 sha2
                        :git-command (git/diff-command sha1 sha2)
                        :changed-components components
                        :changed-bases bases
+                       :changed-environments changed-environments
                        :indirect-changes indirect-changes
                        :changed-files files)))
 
