@@ -253,6 +253,7 @@ Doc
     parameter is e.g. 'user' in the interface instead of a list of destructured values.
   - refer to this code where we in a couple of places don't deletage to a core namespace
     and in another (validate) mostly delegate, but keep things in the interface.
+- recommend people to have the same name of the interface as for the component as a good default.
 
 Differences compared to lein-polylith
 =====================================
