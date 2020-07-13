@@ -15,6 +15,14 @@
 
 (def none "none")
 
+(defn- clean-color [message color]
+  (str/replace message color ""))
+
+(defn clean-colors [message]
+  (reduce clean-color message [color-reset color-black, color-cyan, color-blue
+                               color-green color-grey-light color-grey-dark
+                               color-purple color-red color-white color-yellow]))
+
 (defn- color [color messages]
   (str color (str/join "" messages) color-reset))
 

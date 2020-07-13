@@ -20,6 +20,7 @@
 
 ;(def str-workspace (walk/stringify-keys workspace))
 
+
 ;(def workspace (->
 ;                 "."
 ;                 ;"../clojure-polylith-realworld-example-app"
@@ -35,3 +36,5 @@
 ;(def bases (:bases workspace))
 ;(def interfaces (:interfaces workspace))
 ;(def changes (:changes workspace))
+
+;(def environment (last environments))

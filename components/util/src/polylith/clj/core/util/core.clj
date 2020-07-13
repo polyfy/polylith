@@ -10,3 +10,9 @@
                       (partition 2 keyvals))]
     (apply array-map
            (mapcat identity pairs))))
+
+(defn- def-val [amap key]
+  (list 'def key (list (keyword key) amap)))
+
+(defmacro def-map [amap keys]
+  (conj (map #(def-val amap %) keys) 'do))

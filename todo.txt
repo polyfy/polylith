@@ -1,26 +1,5 @@
 
-- Show direct changes with an '*' per brick and a '*' in the
-  "test column" if the brick is indirectly changed in that environment (and has
-  a test folder) and that we therefore need to execute the tests. Show the asterisks
-  in white so that they can be spotted more easily:
-    interface      brick          cli  core  dev
-    --------------------------------------------
-    change         change         x-    x-   xx
-    command        command        x-    --   xx
-    common         common         x-    x-   xx
-    deps           deps           x-    x-   xx
-    file           file           x-    x-   xx
-    git            git            x-    x-   x*
-    help           help           x-    x-   xx
-    shell          shell *        x-    x-   xx
-    test-runner    test-runner    x-    --   xx
-    text-table     text-table     x-    x-   xx
-    util           util           x-    x-   xx
-    validate       validate       x-    x-   xx
-    workspace      workspace      x-    x-   xx
-    workspace-clj  workspace-clj  x-    --   xx
-    -              cli            x-    --   xx
-    -              z-jocke        --    --   xx
+- move the functionallity in 'info -dump' into its own 'dump' command.
 
 - remove the SLF4J error when running the test command:
   "Failed to load class "org.slf4j.impl.StaticLoggerBinder".
@@ -189,6 +168,12 @@
              :changed-bricks-indirectly []
              :changed-environments-indirectly []}}}
 
+- in the deps command, also show library dependencies:
+    library                       version  cli  core  dev
+    -----------------------------------------------------
+    org.clojure/clojure           1.10.1    x    x     x
+    org.clojure/tools.deps.alpha  0.8.695   x    x     x
+
 Questions
 =========
 - can I delete .gradle from the project root?
@@ -231,7 +216,8 @@ Leave for now
   then we have circular dependencies!
 - make sure we can compile the code into a command line tool using GraalVM.
 
-
+- add the feature "hide-succeeding-rows" to the text-table component that will show
+  following lines as blank. Support having more than one column in a "group".
 
 Doc
 ===
@@ -262,6 +248,8 @@ Doc
   - if we use destructuring in the implementation, we can keep the original names
     in the interface for increased readability (it can be easier to understand if the
     parameter is e.g. 'user' in the interface instead of a list of destructured values.
+  - refer to this code where we in a couple of places don't deletage to a core namespace
+    and in another (validate) mostly delegate, but keep things in the interface.
 
 Differences compared to lein-polylith
 =====================================
@@ -271,6 +259,7 @@ Differences compared to lein-polylith
   as a function in all components for that interface (not mixing functions and macros)
   and the other way around.
 - simpler and less "intrusive":
+  - you workk with the project from the root and have access to all environments and bricks.
   - no symbolic links
   - only environments, not both services and environments as in lein-polylith.
   - no empty workspace interfaces.

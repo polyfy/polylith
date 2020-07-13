@@ -358,47 +358,53 @@
 (def components (:components workspace))
 (def ws-bases (:bases workspace))
 
+(def changed-components  ["help" "text-table" "util" "workspace"])
+(def changed-bases ["z-jocke"])
+(def indirectly-changes {"cli" ["file" "cli"]
+                         "core" ["file" "cli"]
+                         "dev" ["file" "cli"]})
+
 (deftest ws-table--when-loc-flag-is-false--return-table-without-loc-info
   (is (= ["interface      brick          cli  core  dev"
           "--------------------------------------------"
-          "change         change         x-    x-   xx "
-          "command        command        x-    --   xx "
-          "common         common         x-    x-   xx "
-          "deps           deps           x-    x-   xx "
-          "file           file           x-    x-   xx "
-          "git            git            x-    x-   xx "
-          "help           help           x-    x-   xx "
-          "shell          shell          x-    x-   xx "
-          "test-runner    test-runner    x-    --   xx "
-          "text-table     text-table     x-    x-   xx "
-          "util           util           x-    x-   xx "
-          "validate       validate       x-    x-   xx "
-          "workspace      workspace      x-    x-   xx "
-          "workspace-clj  workspace-clj  x-    --   xx "
-          "-              cli            x-    --   xx "
-          "-              z-jocke        --    --   xx "]
+          "change         change         x-    x-   x- "
+          "command        command        x-    --   x- "
+          "common         common         x-    x-   x- "
+          "deps           deps           x-    x-   x- "
+          "file           file           x-    x-   x* "
+          "git            git            x-    x-   x- "
+          "help           help *         x-    x-   x- "
+          "shell          shell          x-    x-   x- "
+          "test-runner    test-runner    x-    --   x- "
+          "text-table     text-table *   x-    x-   x- "
+          "util           util *         x-    x-   x- "
+          "validate       validate       x-    x-   x- "
+          "workspace      workspace *    x-    x-   x- "
+          "workspace-clj  workspace-clj  x-    --   x- "
+          "-              cli            x-    --   x* "
+          "-              z-jocke *      --    --   x- "]
          (str/split-lines
-           (text-table/ws-table color/none components ws-bases environments 2020 1143 false)))))
+           (text-table/ws-table color/none components ws-bases environments changed-components changed-bases indirectly-changes 2020 1143 false)))))
 
 (deftest ws-table--when-loc-flag-is-true--return-table-with-loc-info
   (is (= ["interface      brick          cli  core  dev   loc  (t)"
           "-------------------------------------------------------"
-          "change         change         x-    x-   xx     81   25"
-          "command        command        x-    --   xx     36    0"
-          "common         common         x-    x-   xx    158    0"
-          "deps           deps           x-    x-   xx     43   51"
-          "file           file           x-    x-   xx     80    0"
-          "git            git            x-    x-   xx     31   17"
-          "help           help           x-    x-   xx    129    0"
-          "shell          shell          x-    x-   xx     19    0"
-          "test-runner    test-runner    x-    --   xx     82    0"
-          "text-table     text-table     x-    x-   xx     65   42"
-          "util           util           x-    x-   xx    157   47"
-          "validate       validate       x-    x-   xx    377  744"
-          "workspace      workspace      x-    x-   xx    387   95"
-          "workspace-clj  workspace-clj  x-    --   xx    301  122"
-          "-              cli            x-    --   xx     21    0"
-          "-              z-jocke        --    --   xx     53    0"
+          "change         change         x-    x-   x-     81   25"
+          "command        command        x-    --   x-     36    0"
+          "common         common         x-    x-   x-    158    0"
+          "deps           deps           x-    x-   x-     43   51"
+          "file           file           x-    x-   x*     80    0"
+          "git            git            x-    x-   x-     31   17"
+          "help           help *         x-    x-   x-    129    0"
+          "shell          shell          x-    x-   x-     19    0"
+          "test-runner    test-runner    x-    --   x-     82    0"
+          "text-table     text-table *   x-    x-   x-     65   42"
+          "util           util *         x-    x-   x-    157   47"
+          "validate       validate       x-    x-   x-    377  744"
+          "workspace      workspace *    x-    x-   x-    387   95"
+          "workspace-clj  workspace-clj  x-    --   x-    301  122"
+          "-              cli            x-    --   x*     21    0"
+          "-              z-jocke *      --    --   x-     53    0"
           "                                              2020 1143"]
          (str/split-lines
-           (text-table/ws-table color/none components ws-bases environments 2020 1143 true)))))
+           (text-table/ws-table color/none components ws-bases environments changed-components changed-bases indirectly-changes 2020 1143 true)))))
