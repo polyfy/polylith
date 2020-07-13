@@ -14,8 +14,8 @@
   (let [src (if (contains? (alias->bricks alias) brick) "x" "-")
         tst (if (contains? (alias->test-bricks alias) brick)
               (if (contains? (alias->indirect-changes alias) brick)
-                "*"
-                (color/environment "-" color-mode))
+                "+"
+                (color/environment "x" color-mode))
               (color/environment "-" color-mode))]
     (str (color/environment src color-mode)
          tst)))

@@ -1,14 +1,6 @@
 
-- move the functionallity in 'info -dump' into its own 'dump' command.
-
-- remove the SLF4J error when running the test command:
-  "Failed to load class "org.slf4j.impl.StaticLoggerBinder".
-  See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
-
-- experiment with implementing a git hook that if the workspace is valid, saves a workspace.edn
-  at the root of the project and commits it before every push. Then we could "animate" over the
-  changes of the system over time. It's important to store a :schema-version attribute of the
-  workspace, to keep track of schema changes.
+- show the interface after the brick in parenthesis if it has a different name than the brick
+  in the 'info' command'.
 
 - show aliases in a separate table in the 'info' command where under the src
   column we show if it has its own 'src' and 'test' folder. If any brick in
@@ -20,6 +12,17 @@
     cli          cli    --     0    0
     core         core   xx     0    0
     dev *        dev    xx     0  243
+
+- move the functionallity in 'info -dump' into its own 'dump' command.
+
+- remove the SLF4J error when running the test command:
+  "Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+  See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+
+- experiment with implementing a git hook that if the workspace is valid, saves a workspace.edn
+  at the root of the project and commits it before every push. Then we could "animate" over the
+  changes of the system over time. It's important to store a :schema-version attribute of the
+  workspace, to keep track of schema changes.
 
 - check why workspace-clj doesn't have any :definitions in its :interface.
 
