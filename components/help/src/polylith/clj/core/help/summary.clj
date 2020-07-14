@@ -14,6 +14,7 @@
     "    test [" (env "env" color-mode) "]   Runs the tests for the given environment, or all if not given.\n"
     "\n"
     "  Examples:\n"
+    "    poly\n"
     "    poly check\n"
     "    poly help\n"
     "    poly help info\n"

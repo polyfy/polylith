@@ -4,6 +4,8 @@
 - show the interface after the brick in parenthesis if it has a different name than the brick
   in the 'info' command'.
 
+- calculate the list of bricks for which we need to execute tests for.
+
 - show aliases in a separate table in the 'info' command where under the src
   column we show if it has its own 'src' and 'test' folder. If any brick in
   the environment is changed, then show an '*' after the environment name.

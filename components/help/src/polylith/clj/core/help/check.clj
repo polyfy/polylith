@@ -15,9 +15,8 @@
        "   - " (shared/interface-ns "interfc" color-mode) " \n "
        "   - " (shared/interface-ns "interfc.my.subns" color-mode) " \n"
        "  - No circular dependencies exists.\n"
-       "  - All interfaces has a complete set of definitions (def/defn/defmacro).\n"
-       "    A definition that is defined in one component's interface must also be\n"
-       "    defined in all other components that implements that interface.\n"
+       "  - A definition (def/defn/defmacro) that is defined in one component's interface must\n"
+       "    also be defined in all other components that implements that interface.\n"
        "  - Only one component per interface exists in each environment.\n"
        "  - All environments has the components they need, based on referred interfaces.\n"
        "  - No bases share the name of an interface or component.\n"
@@ -25,3 +24,5 @@
 
 (defn print-help [color-mode]
   (-> color-mode help-text println))
+
+(print-help "dark")
