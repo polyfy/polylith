@@ -36,8 +36,8 @@
       :center (color-fn color-mode spc-left string spc-right)
       "error")))
 
-(defn align-row [data-row color-mode]
-  (str/join (mapv #(align-str % color-mode) data-row)))
+(defn align-row [data-row spc color-mode]
+  (str spc (str/join (mapv #(align-str % color-mode) data-row))))
 
 (defn lengths [headers rows]
   (let [all-rows (conj rows headers)
@@ -45,16 +45,16 @@
     (map #(max-length % all-row-lengths)
          (range 0 (count headers)))))
 
-(defn table-rows [headers alignments rows header-colors row-colors color-mode]
+(defn table-rows [spc headers alignments rows header-colors row-colors color-mode]
   (let [lengths (lengths headers rows)
         row-def (map vector alignments lengths)
         header-row (data-row row-def headers header-colors)
-        header (align-row header-row color-mode)
-        line-cnt (count (align-row header-row c/none))
+        header (align-row header-row spc color-mode)
+        line-cnt (- (count (align-row header-row spc c/none)) (count spc))
         data-rows (mapv #(data-row row-def %1 %2) rows row-colors)]
     (vec (concat [header]
-                 [(str-util/line line-cnt)]
-                 (map #(align-row % color-mode) data-rows)))))
+                 [(str spc (str-util/line line-cnt))]
+                 (map #(align-row % spc color-mode) data-rows)))))
 
-(defn table [headers alignments rows header-colors row-colors color-mode]
-  (str/join "\n" (table-rows headers alignments rows header-colors row-colors color-mode)))
+(defn table [initial-spaces headers alignments rows header-colors row-colors color-mode]
+  (str/join "\n" (table-rows initial-spaces headers alignments rows header-colors row-colors color-mode)))

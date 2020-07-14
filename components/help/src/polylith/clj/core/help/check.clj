@@ -24,5 +24,3 @@
 
 (defn print-help [color-mode]
   (-> color-mode help-text println))
-
-(print-help "dark")

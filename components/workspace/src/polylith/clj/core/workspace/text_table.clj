@@ -121,15 +121,15 @@
         base-colors (mapv #(->brick-colors % show-loc? aliases) sorted-bases)
         total-loc-colors [(vec (repeat (+ 8 env-spc-cnt) :none))]
         row-colors (concat component-colors base-colors (if show-loc? total-loc-colors []))]
-    (text-table/table headers alignments rows header-colors row-colors color-mode)))
+    (text-table/table "  " headers alignments rows header-colors row-colors color-mode)))
 
 (defn print-table [{:keys [settings components bases environments changes messages lines-of-code-src lines-of-code-test]} show-loc?]
   (let [color-mode (:color-mode settings)
         {:keys [changed-components changed-bases indirect-changes]} changes
         table (ws-table color-mode components bases environments changed-components changed-bases indirect-changes lines-of-code-src lines-of-code-test show-loc?)]
-    (println "environments:")
+    (println "  environments:")
     (doseq [{:keys [alias name]} environments]
-      (println (str "  " alias " = " (color/purple color-mode name))))
+      (println (str "    " alias " = " (color/purple color-mode name))))
     (println)
     (println table)
     (when (-> messages empty? not)

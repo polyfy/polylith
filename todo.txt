@@ -1,9 +1,4 @@
 
-- start all help texts with two initial spaces as in lein-polylith.
-
-- show the interface after the brick in parenthesis if it has a different name than the brick
-  in the 'info' command'.
-
 - calculate the list of bricks for which we need to execute tests for.
 
 - show aliases in a separate table in the 'info' command where under the src
