@@ -73,7 +73,7 @@
 (defn index-interface [index [interface]]
   [index interface])
 
-(defn change-interface-name [index row interface->index-components]
+(defn clear-repeated-interfaces [index row interface->index-components]
   (let [interface (first row)
         index-components (interface->index-components interface)
         min-index (apply min (map first index-components))]
@@ -82,7 +82,7 @@
       (if (or (= index min-index)
               (= "-" interface))
         row
-        (assoc row 0 "")))))
+        (assoc row 0 "-\"-")))))
 
 (defn ->headers [show-loc? aliases]
   (if show-loc?
@@ -115,7 +115,7 @@
         total-loc-row (->total-loc-row show-loc? env-spc-cnt lines-of-code-src lines-of-code-test)
         plain-rows (if show-loc? (conj brick-rows total-loc-row) brick-rows)
         interface->index-components (group-by second (map-indexed index-interface plain-rows))
-        rows (map-indexed #(change-interface-name %1 %2 interface->index-components) plain-rows)
+        rows (map-indexed #(clear-repeated-interfaces %1 %2 interface->index-components) plain-rows)
         header-colors (->header-colors show-loc? env-spc-cnt)
         component-colors (mapv #(->brick-colors % show-loc? aliases) sorted-components)
         base-colors (mapv #(->brick-colors % show-loc? aliases) sorted-bases)

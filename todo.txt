@@ -1,4 +1,6 @@
 
+- start all help texts with two initial spaces as in lein-polylith.
+
 - show the interface after the brick in parenthesis if it has a different name than the brick
   in the 'info' command'.
 
@@ -25,6 +27,9 @@
   workspace, to keep track of schema changes.
 
 - check why workspace-clj doesn't have any :definitions in its :interface.
+
+- implement the 'diff' command that lists the changed files that is used to calculate changed bricks
+  and systems.
 
 - implement the 'deps' command.
   - When typing "deps env brick", show the dependencies of the brick within the given environment.
@@ -274,7 +279,7 @@ Differences compared to lein-polylith
   - supports multiple environments
   - supports having tests per environment
   - faster. No need for a 'prompt' command. The 'check' command runs in about a second.
-  - advanced 'info' command with cupport for colors.
+  - advanced 'info' command with support for colors.
   - improved error messages.
   - an environment can have a different version of a library than other environments.
 - improved visualisation with tables and colors.

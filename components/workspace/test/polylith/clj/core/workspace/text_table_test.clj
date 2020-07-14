@@ -85,6 +85,14 @@
                               :lib-imports-src ["clojure.string"],
                               :lib-imports-test [],
                               :interface-deps []}
+                             {:name "deps2",
+                              :type "component",
+                              :lines-of-code-src 25,
+                              :lines-of-code-test 0,
+                              :interface {:name "deps",}
+                              :lib-imports-src ["clojure.string"],
+                              :lib-imports-test [],
+                              :interface-deps []}
                              {:name "file",
                               :type "component",
                               :lines-of-code-src 80,
@@ -371,6 +379,7 @@
           "command        command        x-    --   xx "
           "common         common         x-    x-   xx "
           "deps           deps           x-    x-   xx "
+          "-\"-            deps2          --    --   -- "
           "file           file           x-    x-   x+ "
           "git            git            x-    x-   xx "
           "help           help *         x-    x-   xx "
@@ -393,6 +402,7 @@
           "command        command        x-    --   xx     36    0"
           "common         common         x-    x-   xx    158    0"
           "deps           deps           x-    x-   xx     43   51"
+          "-\"-            deps2          --    --   --     25    0"
           "file           file           x-    x-   x+     80    0"
           "git            git            x-    x-   xx     31   17"
           "help           help *         x-    x-   xx    129    0"
