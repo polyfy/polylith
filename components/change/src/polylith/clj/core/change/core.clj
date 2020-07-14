@@ -1,5 +1,6 @@
 (ns polylith.clj.core.change.core
-  (:require [polylith.clj.core.change.brick :as brick]
+  (:require [clojure.set :as set]
+            [polylith.clj.core.change.brick :as brick]
             [polylith.clj.core.change.indirect :as indirect]
             [polylith.clj.core.change.environment :as env]
             [polylith.clj.core.git.interfc :as git]
@@ -17,6 +18,16 @@
      :sha2 sha-2
      :files (git/diff sha-1 sha-2)}))
 
+(defn bricks-to-test-for-env [{:keys [name test-base-names test-component-names]}
+                              changed-components changed-bases indirect-changes]
+  (let [changed-bricks (set (concat changed-components changed-bases (indirect-changes name)))
+        brick-names (set (concat test-base-names test-component-names))]
+    [name (vec (sort (set/intersection brick-names changed-bricks)))]))
+
+(defn bricks-to-test [environments changed-components changed-bases indirect-changes]
+  (into {} (map #(bricks-to-test-for-env % changed-components changed-bases indirect-changes)
+                environments)))
+
 (defn changes [{:keys [environments]}
                {:keys [sha1 sha2 files]}]
    (let [deps (map (juxt :name :deps) environments)
@@ -31,6 +42,7 @@
                        :changed-bases bases
                        :changed-environments changed-environments
                        :indirect-changes indirect-changes
+                       :bricks-to-test (bricks-to-test environments components bases indirect-changes)
                        :changed-files files)))
 
 (defn with-changes

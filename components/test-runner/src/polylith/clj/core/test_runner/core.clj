@@ -50,9 +50,16 @@
         (throw (Exception. (str "\n" (color/error color-mode result-str)) summary)))
       (println (str "\n" (color/ok color-mode result-str))))))
 
+(defn bricks-to-test-message [components bases bricks-to-test-for-env color-mode]
+  (let [component-names (set (map :name components))
+        base-names (set (map :name bases))
+        bases-to-test-msg (color/base (str/join ", " (filter #(contains? base-names %) bricks-to-test-for-env)) color-mode)
+        components-to-test-msg (color/component (str/join ", " (filter #(contains? component-names %) bricks-to-test-for-env)) color-mode)]
+    (str/join ", " [components-to-test-msg bases-to-test-msg])))
+
 (defn run-tests-for-environment [{:keys [bases components] :as workspace}
-                                 {:keys [name test-base-names test-component-names paths test-paths] :as environment}
-                                 {:keys [changed-components changed-bases indirect-changes]}]
+                                 {:keys [name paths test-paths] :as environment}
+                                 {:keys [bricks-to-test]}]
   (when (-> test-paths empty? not)
     (let [color-mode (-> workspace :settings :color-mode)
           config (->config workspace environment)
@@ -60,15 +67,9 @@
           src-paths (set (concat paths test-paths))
           paths (concat src-paths lib-paths)
           bricks (concat components bases)
-          changed-bricks (set (concat changed-components changed-bases (indirect-changes name)))
-          brick-names (set (concat test-base-names test-component-names))
-          bricks-to-test (vec (sort (set/intersection brick-names changed-bricks)))
-          component-names (set (map :name components))
-          base-names (set (map :name bases))
-          bases-to-test-msg (color/base (str/join ", " (filter #(contains? base-names %) bricks-to-test)) color-mode)
-          components-to-test-msg (color/component (str/join ", " (filter #(contains? component-names %) bricks-to-test)) color-mode)
-          bricks-to-test-msg (str/join ", " [components-to-test-msg bases-to-test-msg])
-          test-namespaces (->test-namespaces bricks bricks-to-test)
+          bricks-to-test-for-env (bricks-to-test name)
+          bricks-to-test-msg (bricks-to-test-message components bases bricks-to-test-for-env color-mode)
+          test-namespaces (->test-namespaces bricks bricks-to-test-for-env)
           test-statements (map ->test-statement test-namespaces)
           class-loader (common/create-class-loader paths color-mode)]
       (if (-> test-statements empty?)
