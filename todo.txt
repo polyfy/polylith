@@ -1,6 +1,7 @@
 
-- update code in workspace text-table-ws to use :bricks-to-test.
-- run tests for environments (include test folder).
+- only include the environment tests when sending in -env.
+
+- update help texts.
 
 - If '-loc' is sent in as an argument, also show the number of lines of code
   it has in its 'src' and 'test' folder.

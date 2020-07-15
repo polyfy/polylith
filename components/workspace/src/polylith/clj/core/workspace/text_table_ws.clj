@@ -5,10 +5,10 @@
             [polylith.clj.core.text-table.interfc :as text-table]
             [polylith.clj.core.util.interfc.color :as color]))
 
-(defn env-data [{:keys [alias component-names base-names]}]
+(defn env-brick-names [{:keys [alias component-names base-names]}]
   [alias (set (concat component-names base-names))])
 
-(defn env-test-data [{:keys [alias test-component-names test-base-names]}]
+(defn env-brick-test-names [{:keys [alias test-component-names test-base-names]}]
   [alias (set (concat test-component-names test-base-names))])
 
 (defn env-contains [alias brick alias->bricks alias->test-bricks alias->indirect-changes color-mode]
@@ -106,8 +106,8 @@
         alias->indirect-changes (into {} (map #(alias-changes % env->alias) indirect-changes))
         env-spc-cnt (inc (* (-> environments count dec) 2))
         alignments (concat basic-alignments (repeat env-spc-cnt :center) (if show-loc? loc-alignments))
-        alias->bricks (into {} (map env-data environments))
-        alias->test-bricks (into {} (map env-test-data environments))
+        alias->bricks (into {} (map env-brick-names environments))
+        alias->test-bricks (into {} (map env-brick-test-names environments))
         sorted-components (sort-by sort-order components)
         sorted-bases (sort-by sort-order bases)
         bricks (concat sorted-components sorted-bases)

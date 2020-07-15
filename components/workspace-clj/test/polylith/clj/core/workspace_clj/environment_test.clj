@@ -1,7 +1,7 @@
 (ns polylith.clj.core.workspace-clj.environment-test
   (:require [clojure.test :refer :all]
             [clojure.tools.deps.alpha.util.maven :as mvn]
-            [polylith.clj.core.workspace-clj.environment :as env]))
+            [polylith.clj.core.workspace-clj.environment-from-disk :as env-from-disk]))
 
 (def paths ["../../bases/tool/src"
             "../../components/change/src"
@@ -36,10 +36,12 @@
           :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}
                         "clojars" {:url "https://repo.clojars.org/"}}
           :paths paths
+          :namespaces-src []
+          :namespaces-test []
           :test-base-names ["tool"]
           :test-component-names ["change" "common"]
           :test-deps {}
           :test-paths ["../../bases/tool/test"
                        "../../components/change/test"
                        "../../components/common/test"]}
-         (env/environment "core" paths deps aliases mvn/standard-repos))))
+         (env-from-disk/read-environment "core" "" paths deps aliases mvn/standard-repos))))

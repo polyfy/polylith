@@ -18,3 +18,8 @@
 
 (defn line [length]
   (str/line length))
+
+(defn count-things [thing cnt]
+  (if (<= cnt 1)
+    (str cnt " " thing)
+    (str cnt " " thing "s")))

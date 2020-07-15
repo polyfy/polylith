@@ -3,7 +3,7 @@
             [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.workspace-clj.environment :as env]
+            [polylith.clj.core.workspace-clj.environment-from-disk :as envs-from-disk]
             [polylith.clj.core.workspace-clj.components-from-disk :as components-from-disk]
             [polylith.clj.core.workspace-clj.bases-from-disk :as bases-from-disk]))
 
@@ -28,7 +28,7 @@
          component-names (file/directory-paths (str ws-path "/components"))
          components (components-from-disk/read-components ws-path top-src-dir component-names)
          bases (bases-from-disk/read-bases ws-path top-src-dir)
-         environments (env/environments ws-path)
+         environments (envs-from-disk/read-environments ws-path)
          settings (util/ordered-map :top-namespace top-namespace
                                     :color-mode color-mode
                                     :env-short-names env-short-names)]
