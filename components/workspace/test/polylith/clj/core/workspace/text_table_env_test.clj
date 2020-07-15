@@ -22,8 +22,8 @@
 (deftest table--environments-with-no-direct-change-but-with-indirect-changes--returns-correct-table
   (is (= ["  environment  alias  src"
           "  -----------------------"
-          "  cli          cli    -- "
-          "  core         core   -- "
-          "  development  dev    -x "]
+          "  cli          cli    ---"
+          "  core         core   ---"
+          "  development  dev    -x-"]
          (str/split-lines
            (text-table-env/table environments changes "none")))))

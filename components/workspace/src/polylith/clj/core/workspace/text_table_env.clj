@@ -6,23 +6,20 @@
 (def alignments [:left :left :left :left :left])
 (def headers ["environment" "  " "alias" "  " "src"])
 (def header-colors [:none :none :none :none :none])
-(def row-color-row [:none :none :purple :none :none])
+(def row-color-row [:none :none :purple :none :purple])
 
 (defn row [{:keys [name alias has-src-dir? has-test-dir?]}
            changed-envs
-           indirect-changes
+           environments-to-test
            color-mode]
   (let [changed (if (contains? (set changed-envs) name) " *" "")
-        has-src (if has-src-dir? "x" "-")
-        has-test (if has-test-dir?
-                   (if (contains? indirect-changes name)
-                     "+"
-                     (color/environment "x" color-mode))
-                   (color/environment "-" color-mode))
-        env (str (color/environment name color-mode) changed)
-        src (str (color/environment has-src color-mode)
-                 has-test)]
-    [env "" alias "" src]))
+        src (if has-src-dir? "x" "-")
+        test (if has-test-dir? "x" "-")
+        to-test (if (contains? (set environments-to-test) name) "x" "-")
+        env (str (color/environment name color-mode)
+                 changed)
+        source (str src test to-test)]
+    [env "" alias "" source]))
 
 (defn table [environments {:keys [changed-environments environments-to-test]} color-mode]
   (let [changed-envs (set changed-environments)
