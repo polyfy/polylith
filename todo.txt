@@ -1,7 +1,4 @@
 
-- add a third character that says wheter the tests will be executed or not.
-  - update doc
-
 - update the doc, test command, -all.
 
 - If '-loc' is sent in as an argument, also show the number of lines of code
