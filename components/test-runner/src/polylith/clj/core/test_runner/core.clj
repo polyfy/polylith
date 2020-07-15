@@ -34,8 +34,9 @@
   (let [brick-name->namespaces (into {} (map (juxt :name :namespaces-test) bricks))]
     (mapv :namespace (mapcat brick-name->namespaces test-brick-names))))
 
-(defn environment-test-namespaces [env environments-to-test namespaces-test]
-  (when (contains? (set environments-to-test) env)
+(defn environment-test-namespaces [env environments-to-test namespaces-test run-env-tests?]
+  (when (and run-env-tests?
+             (contains? (set environments-to-test) env))
     (map :namespace namespaces-test)))
 
 (defn run-tests-statements [class-loader test-statements run-message color-mode]
@@ -54,14 +55,18 @@
         (throw (Exception. (str "\n" (color/error color-mode result-str)) summary)))
       (println (str "\n" (color/ok color-mode result-str))))))
 
-(defn run-message [env components bases bricks-to-test-for-env environments-to-test color-mode]
+(defn run-message [env components bases bricks-to-test-for-env environments-to-test run-env-tests? color-mode]
   (let [component-names (set (map :name components))
         base-names (set (map :name bases))
-        bases-to-test-msg (color/base (str/join ", " (filter #(contains? base-names %) bricks-to-test-for-env)) color-mode)
-        components-to-test-msg (color/component (str/join ", " (filter #(contains? component-names %) bricks-to-test-for-env)) color-mode)
-        environments-to-test-msg (color/environment (str/join ", " environments-to-test) color-mode)
-        entities-msg (str/join ", " [components-to-test-msg bases-to-test-msg environments-to-test-msg])
-        env-cnt (count environments-to-test)
+        bases-to-test (filter #(contains? base-names %) bricks-to-test-for-env)
+        bases-to-test-msg (when (-> bases-to-test empty? not) [(color/base (str/join ", " bases-to-test) color-mode)])
+        components-to-test (filter #(contains? component-names %) bricks-to-test-for-env)
+        components-to-test-msg (when (-> components-to-test empty? not) [(color/component (str/join ", " components-to-test) color-mode)])
+        environments-to-test-msg (when run-env-tests? [(color/environment (str/join ", " environments-to-test) color-mode)])
+        entities-msg (str/join ", " (concat components-to-test-msg
+                                            bases-to-test-msg
+                                            environments-to-test-msg))
+        env-cnt (if run-env-tests? (count environments-to-test) 0)
         bricks-cnt (count bricks-to-test-for-env)
         env-msg (if (zero? env-cnt)
                   ""
@@ -71,7 +76,8 @@
 
 (defn run-tests-for-environment [{:keys [bases components] :as workspace}
                                  {:keys [name paths test-paths namespaces-test] :as environment}
-                                 {:keys [bricks-to-test environments-to-test]}]
+                                 {:keys [bricks-to-test environments-to-test]}
+                                 run-env-tests?]
   (when (-> test-paths empty? not)
     (let [color-mode (-> workspace :settings :color-mode)
           config (->config workspace environment)
@@ -80,22 +86,22 @@
           paths (concat src-paths lib-paths)
           bricks (concat components bases)
           bricks-to-test-for-env (bricks-to-test name)
-          run-message (run-message name components bases bricks-to-test-for-env environments-to-test color-mode)
+          run-message (run-message name components bases bricks-to-test-for-env environments-to-test run-env-tests? color-mode)
           test-namespaces (->test-namespaces bricks bricks-to-test-for-env)
-          env-test-namespaces (environment-test-namespaces name environments-to-test namespaces-test)
+          env-test-namespaces (environment-test-namespaces name environments-to-test namespaces-test run-env-tests?)
           test-statements (map ->test-statement (concat test-namespaces env-test-namespaces))
           class-loader (common/create-class-loader paths color-mode)]
       (if (-> test-statements empty?)
-        (println (str "No tests need to be executed for the " (color/environment name color-mode) " environment."))
+        (println (str "No tests to run for the " (color/environment name color-mode) " environment."))
         (run-tests-statements class-loader test-statements run-message color-mode)))))
 
-(defn run-all-tests [workspace environments changes]
+(defn run-all-tests [workspace environments changes run-env-tests?]
   (doseq [environment environments]
-    (run-tests-for-environment workspace environment changes)))
+    (run-tests-for-environment workspace environment changes run-env-tests?)))
 
-(defn run [{:keys [environments changes] :as workspace} env]
+(defn run [{:keys [environments changes] :as workspace} env run-env-tests?]
   (if (nil? env)
-    (run-all-tests workspace environments changes)
+    (run-all-tests workspace environments changes run-env-tests?)
     (if-let [environment (util/find-first #(= env (:name %)) environments)]
-      (run-tests-for-environment workspace environment changes)
+      (run-tests-for-environment workspace environment changes run-env-tests?)
       (println (str "Can't find environment '" env "'.")))))

@@ -41,6 +41,9 @@
 (defn has-test-dir? [test-paths]
   (not (empty? (filter #(= "test" %) test-paths))))
 
+(defn file-exists [env path]
+  (file/exists (str "environments/" env "/" path)))
+
 (defn read-environment
   ([ws-path env]
    (let [env-path (str ws-path "/environments/" env)
@@ -51,7 +54,8 @@
   ([env env-path paths deps aliases maven-repos]
    (let [component-names (vec (sort (set (mapv component-name (filter component? paths)))))
          base-names (vec (sort (set (mapv base-name (filter base? paths)))))
-         test-paths (vec (sort (set (-> aliases :test :extra-paths))))
+         test-paths (vec (sort (set (filter #(file-exists env %)
+                                            (-> aliases :test :extra-paths)))))
          test-deps (sort-deps (-> aliases :test :extra-deps))
          test-component-names (vec (sort (set (mapv component-name (filter component? test-paths)))))
          test-base-names (vec (sort (set (mapv base-name (filter base? test-paths)))))

@@ -22,10 +22,15 @@
   (let [color-mode (-> workspace :settings :color-mode)]
     (help/print-help cmd color-mode)))
 
-(defn execute [workspace cmd arg]
+(defn test-ws [workspace arg1 arg2]
+  (if (= arg1 "-all")
+    (test-runner/run workspace arg2 true)
+    (test-runner/run workspace arg1 (= "-all" arg2))))
+
+(defn execute [workspace cmd arg1 arg2]
   (case cmd
     "check" (check workspace)
-    "help" (help workspace arg)
-    "info" (info workspace arg)
-    "test" (test-runner/run workspace arg)
+    "help" (help workspace arg1)
+    "info" (info workspace arg1)
+    "test" (test-ws workspace arg1 arg2)
     (help workspace nil)))

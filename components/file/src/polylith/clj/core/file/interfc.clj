@@ -8,6 +8,9 @@
 (defn directory? [^File file]
   (core/directory? file))
 
+(defn exists [path]
+  (core/exists path))
+
 (defn file-name [^File file]
   (core/file-name file))
 

@@ -24,24 +24,27 @@
                          :main-opts  ["-m" "uberdeps.uberjar"]}})
 
 (deftest environments--config-map-with-aliases--returns-environments
-  (is (= {:name "core"
-          :type "environment"
-          :base-names ["tool"]
+  (is (= {:base-names ["tool"]
+          :component-names ["change" "common" "deps" "file"]
           :has-src-dir? true
           :has-test-dir? false
-          :component-names ["change" "common" "deps" "file"]
           :lib-deps {"org.clojure/clojure" #:mvn{:version "1.10.1"}
                      "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}
                      "org.jetbrains.kotlin/kotlin-compiler-embeddable" #:mvn{:version "1.3.72"}}
           :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}
                         "clojars" {:url "https://repo.clojars.org/"}}
-          :paths paths
+          :name "core"
           :namespaces-src []
           :namespaces-test []
-          :test-base-names ["tool"]
-          :test-component-names ["change" "common"]
+          :paths ["../../bases/tool/src"
+                  "../../components/change/src"
+                  "../../components/common/src"
+                  "../../components/deps/src"
+                  "../../components/file/src"
+                  "src"]
+          :test-base-names []
+          :test-component-names ["change"]
           :test-deps {}
-          :test-paths ["../../bases/tool/test"
-                       "../../components/change/test"
-                       "../../components/common/test"]}
+          :test-paths ["../../components/change/test"]
+          :type "environment"}
          (env-from-disk/read-environment "core" "" paths deps aliases mvn/standard-repos))))

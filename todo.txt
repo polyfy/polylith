@@ -1,7 +1,8 @@
 
-- only include the environment tests when sending in -env.
+- add a third character that says wheter the tests will be executed or not.
+  - increase the aliases to 2 characters.
 
-- update help texts.
+- update the doc, test command, -all.
 
 - If '-loc' is sent in as an argument, also show the number of lines of code
   it has in its 'src' and 'test' folder.
@@ -9,7 +10,7 @@
     ---------------------------------
     cli          cli    --     0    0
     core         core   xx     0    0
-    dev *        dev    x+     0  243
+    dev *        dev    xx     0  243
 
 - 'help' should not be part of core.
 
