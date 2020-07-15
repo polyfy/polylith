@@ -34,8 +34,8 @@
   (let [brick-name->namespaces (into {} (map (juxt :name :namespaces-test) bricks))]
     (mapv :namespace (mapcat brick-name->namespaces test-brick-names))))
 
-(defn run-tests-statements [env class-loader test-statements bricks-to-test bricks-to-test-msg color-mode]
-  (println (str "\nRuning tests for the " (color/environment env color-mode) " environment, including " (count bricks-to-test) " bricks: " bricks-to-test-msg))
+(defn run-tests-statements [env class-loader test-statements env->bricks-to-test bricks-to-test-msg color-mode]
+  (println (str "\nRuning tests for the " (color/environment env color-mode) " environment, including " (-> env env->bricks-to-test count) " bricks: " bricks-to-test-msg))
   (doseq [statement test-statements]
     (let [{:keys [error fail pass] :as summary}
           (try

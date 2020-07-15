@@ -1,6 +1,6 @@
 (ns polylith.clj.core.workspace.interfc
   (:require [polylith.clj.core.workspace.core :as core]
-            [polylith.clj.core.workspace.text-table :as text-table])
+            [polylith.clj.core.workspace.text-table-ws :as text-table])
   (:gen-class))
 
 (defn enrich-workspace [workspace]

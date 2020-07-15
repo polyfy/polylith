@@ -7,7 +7,8 @@
             "../../components/change/src"
             "../../components/common/src"
             "../../components/deps/src"
-            "../../components/file/src"])
+            "../../components/file/src"
+            "src"])
 
 (def deps '{org.clojure/clojure {:mvn/version "1.10.1"}
             org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}
@@ -26,17 +27,15 @@
   (is (= {:name "core"
           :type "environment"
           :base-names ["tool"]
+          :has-src-dir? true
+          :has-test-dir? false
           :component-names ["change" "common" "deps" "file"]
           :lib-deps {"org.clojure/clojure" #:mvn{:version "1.10.1"}
                      "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}
                      "org.jetbrains.kotlin/kotlin-compiler-embeddable" #:mvn{:version "1.3.72"}}
           :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}
                         "clojars" {:url "https://repo.clojars.org/"}}
-          :paths ["../../bases/tool/src"
-                  "../../components/change/src"
-                  "../../components/common/src"
-                  "../../components/deps/src"
-                  "../../components/file/src"]
+          :paths paths
           :test-base-names ["tool"]
           :test-component-names ["change" "common"]
           :test-deps {}

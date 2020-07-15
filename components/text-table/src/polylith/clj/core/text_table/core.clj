@@ -34,7 +34,7 @@
       :left (color-fn color-mode string spc)
       :right (color-fn color-mode spc string)
       :center (color-fn color-mode spc-left string spc-right)
-      "error")))
+      (str "error-align=" align))))
 
 (defn align-row [data-row spc color-mode]
   (str spc (str/join (mapv #(align-str % color-mode) data-row))))

@@ -1,18 +1,20 @@
 
-- calculate the list of bricks for which we need to execute tests for.
+- update code in workspace text-table-ws to use :bricks-to-test.
+- run tests for environments (include test folder).
 
-- show aliases in a separate table in the 'info' command where under the src
-  column we show if it has its own 'src' and 'test' folder. If any brick in
-  the environment is changed, then show an '*' after the environment name.
-  If '-loc' is sent in as an argument, also show the number of lines of code
+- If '-loc' is sent in as an argument, also show the number of lines of code
   it has in its 'src' and 'test' folder.
     environment  alias  src  loc  (t)
     ---------------------------------
     cli          cli    --     0    0
     core         core   xx     0    0
-    dev *        dev    xx     0  243
+    dev *        dev    x+     0  243
 
-- move the functionallity in 'info -dump' into its own 'dump' command.
+- 'help' should not be part of core.
+
+- make sure the workspace table looks okay even without an environment.
+
+- move the functionality in 'info -dump' into its own 'dump' command.
 
 - remove the SLF4J error when running the test command:
   "Failed to load class "org.slf4j.impl.StaticLoggerBinder".

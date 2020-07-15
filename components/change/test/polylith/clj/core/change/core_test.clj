@@ -150,7 +150,8 @@
   (is (= {:git-command "git diff --name-only",
           :changed-components ["change" "deps"]
           :changed-bases []
-          :changed-environments #{"cli" "dev" "core"}
+          :changed-environments []
+          :environments-to-test []
           :indirect-changes {"cli" ["cli" "command" "validate" "workspace" "z-jocke"]
                              "core" ["cli" "command" "validate" "workspace" "z-jocke"]
                              "dev" ["cli" "command" "validate" "workspace" "z-jocke"]}

@@ -24,13 +24,21 @@
 (defn base-name [path]
   (brick-name path 12))
 
-(defn component? [path]
+(defn starts-with [path start]
   (and (string? path)
-       (str/starts-with? path "../../components/")))
+       (str/starts-with? path start)))
+
+(defn component? [path]
+  (starts-with path "../../components/"))
 
 (defn base? [path]
-  (and (string? path)
-       (str/starts-with? path "../../bases/")))
+  (starts-with path "../../bases/"))
+
+(defn has-src-dir? [paths]
+  (not (empty? (filter #(= "src" %) paths))))
+
+(defn has-test-dir? [test-paths]
+  (not (empty? (filter #(= "test" %) test-paths))))
 
 (defn environment
   ([ws-path env]
@@ -55,7 +63,9 @@
                        :test-paths test-paths
                        :lib-deps (sort-deps deps)
                        :test-deps test-deps
-                       :maven-repos maven-repos))))
+                       :maven-repos maven-repos
+                       :has-src-dir? (has-src-dir? paths)
+                       :has-test-dir? (has-test-dir? test-paths)))))
 
 (defn environments [ws-path]
   (let [env-dirs (file/directory-paths (str ws-path "/environments"))]

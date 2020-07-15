@@ -16,4 +16,4 @@
 
 (deftest changed-environments--when-two-of-three-environments-contain-changed-bricks--return-the-environments-with-then-changed-bricks
   (is (= #{"core" "dev"}
-         (env/changed-environments environments changed-bricks))))
+         (env/indirectly-changed-environments environments changed-bricks))))

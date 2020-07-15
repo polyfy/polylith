@@ -1,6 +1,6 @@
-(ns polylith.clj.core.workspace.text-table-test
+(ns polylith.clj.core.workspace.text-table-ws-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.workspace.text-table :as text-table]
+            [polylith.clj.core.workspace.text-table-ws :as text-table-ws]
             [polylith.clj.core.util.interfc.color :as color]
             [clojure.string :as str]))
 
@@ -393,7 +393,7 @@
           "  -              cli            x-    --   x+ "
           "  -              z-jocke *      --    --   xx "]
          (str/split-lines
-           (text-table/ws-table color/none components ws-bases environments changed-components changed-bases indirectly-changes 2020 1143 false)))))
+           (text-table-ws/ws-table color/none components ws-bases environments changed-components changed-bases indirectly-changes 2020 1143 false)))))
 
 (deftest ws-table--when-loc-flag-is-true--return-table-with-loc-info
   (is (= ["  interface      brick          cli  core  dev   loc  (t)"
@@ -417,4 +417,4 @@
           "  -              z-jocke *      --    --   xx     53    0"
           "                                                2020 1143"]
          (str/split-lines
-           (text-table/ws-table color/none components ws-bases environments changed-components changed-bases indirectly-changes 2020 1143 true)))))
+           (text-table-ws/ws-table color/none components ws-bases environments changed-components changed-bases indirectly-changes 2020 1143 true)))))

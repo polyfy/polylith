@@ -3,9 +3,9 @@
 
 (defn changed-env [{:keys [name component-names base-names]} changed-bricks]
   (let [env-bricks (set (concat component-names base-names))
-        intersection (set/intersection changed-bricks env-bricks)]
-    (when (-> intersection empty? not)
+        changed-bricks-in-env (set/intersection changed-bricks env-bricks)]
+    (when (-> changed-bricks-in-env empty? not)
       name)))
 
-(defn changed-environments [environments changed-bricks]
+(defn indirectly-changed-environments [environments changed-bricks]
   (set (filter identity (map #(changed-env % changed-bricks) environments))))

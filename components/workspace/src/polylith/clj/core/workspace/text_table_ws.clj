@@ -1,5 +1,6 @@
-(ns polylith.clj.core.workspace.text-table
+(ns polylith.clj.core.workspace.text-table-ws
   (:require [clojure.walk :as walk]
+            [polylith.clj.core.workspace.text-table-env :as text-table-env]
             [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.text-table.interfc :as text-table]
             [polylith.clj.core.util.interfc.color :as color]))
@@ -126,10 +127,10 @@
 (defn print-table [{:keys [settings components bases environments changes messages lines-of-code-src lines-of-code-test]} show-loc?]
   (let [color-mode (:color-mode settings)
         {:keys [changed-components changed-bases indirect-changes]} changes
-        table (ws-table color-mode components bases environments changed-components changed-bases indirect-changes lines-of-code-src lines-of-code-test show-loc?)]
-    (println "  environments:")
-    (doseq [{:keys [alias name]} environments]
-      (println (str "    " alias " = " (color/purple color-mode name))))
+        table (ws-table color-mode components bases environments changed-components changed-bases indirect-changes lines-of-code-src lines-of-code-test show-loc?)
+        env-table (text-table-env/table environments changes color-mode)]
+
+    (println env-table)
     (println)
     (println table)
     (when (-> messages empty? not)
