@@ -1,6 +1,6 @@
 
 - add a third character that says wheter the tests will be executed or not.
-  - increase the aliases to 2 characters.
+  - update doc
 
 - update the doc, test command, -all.
 

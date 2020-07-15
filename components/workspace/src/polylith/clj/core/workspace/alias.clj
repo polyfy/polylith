@@ -2,8 +2,15 @@
   (:require [clojure.string :as str]
             [clojure.set :as set]))
 
+(defn first-two [string]
+  (let [chars (min (count string) 2)]
+    (subs string 0 chars)))
+
 (defn suggest-name [name]
-  (str/join (map first (str/split name #"-"))))
+  (let [strings (str/split name #"-")]
+    (if (>= (count strings) 3)
+      (str/join (map first (take 3 strings)))
+      (str (first-two (first strings)) (-> strings rest ffirst)))))
 
 (defn abbreviation [index short-name full-name]
    [full-name
@@ -35,7 +42,7 @@
              (into {} (map-indexed undefined-env undefined-envs))))))
 
 (defn env->alias [{:keys [env-short-names]} environments]
-  (let [src-names (map :name environments)]
+  (let [src-names (mapv :name environments)]
     (if (empty? env-short-names)
       (let [src-name->alias (src-name->alias src-names)]
         (into {} (map #(src-test-name % src-name->alias) environments)))
