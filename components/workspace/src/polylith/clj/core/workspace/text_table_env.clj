@@ -1,6 +1,7 @@
 (ns polylith.clj.core.workspace.text-table-env
   (:require [polylith.clj.core.text-table.interfc :as text-table]
-            [polylith.clj.core.util.interfc.color :as color]))
+            [polylith.clj.core.util.interfc.color :as color]
+            [polylith.clj.core.util.interfc.str :as str-util]))
 
 (def alignments [:left :left :left :left :left :left :right :right :right])
 (def basic-headers ["environment" "  " "alias" "  " "src"])
@@ -11,7 +12,7 @@
 
 (defn row [{:keys [name alias has-src-dir? has-test-dir? lines-of-code-src lines-of-code-test]}
            changed-envs environments-to-test
-           show-loc? color-mode]
+           thousand-sep show-loc? color-mode]
   (let [changed (if (contains? (set changed-envs) name) " *" "")
         src (if has-src-dir? "x" "-")
         test (if has-test-dir? "x" "-")
@@ -21,13 +22,14 @@
         source (str src test to-test)]
     (concat [env "" alias "" source]
             (if show-loc?
-              ["" (str lines-of-code-src) "" (str lines-of-code-test)]
+              ["" (str-util/sep-1000 lines-of-code-src thousand-sep)
+               "" (str-util/sep-1000 lines-of-code-test thousand-sep)]
               []))))
 
-(defn table [environments {:keys [changed-environments environments-to-test]} total-loc-src total-loc-test show-loc? color-mode]
+(defn table [environments {:keys [changed-environments environments-to-test]} total-loc-src total-loc-test thousand-sep show-loc? color-mode]
   (let [changed-envs (set changed-environments)
         row-colors (repeat (-> environments count inc) row-color-row)
-        env-rows (mapv #(row % changed-envs environments-to-test show-loc? color-mode) environments)
+        env-rows (mapv #(row % changed-envs environments-to-test thousand-sep show-loc? color-mode) environments)
         rows (concat env-rows
                      (if show-loc? [["" "" "" "" "" "" (str total-loc-src) "" (str total-loc-test)]]))
         headers (concat basic-headers (if show-loc? loc-headers []))]

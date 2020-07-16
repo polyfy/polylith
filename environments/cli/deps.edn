@@ -13,6 +13,7 @@
            "../../components/shell/src"
            "../../components/text-table/src"
            "../../components/test-runner/src"
+           "../../components/user-config/src"
            "../../components/util/src"
            "../../components/validate/src"
            "../../components/workspace/src"

@@ -4,7 +4,7 @@
             [polylith.clj.core.util.interfc.color :as c]))
 
 (defn row-lengths [row]
-  (mapv #(-> % c/clean-colors count) row))
+  (mapv #(-> % str c/clean-colors count) row))
 
 (defn max-length [index lengths]
   (apply max (map #(nth % index) lengths)))
@@ -22,8 +22,8 @@
    :blue c/blue
    :purple c/purple})
 
-(defn align-str [[align max string color] color-mode]
-  (let [cnt (- max (-> string c/clean-colors count))
+(defn align-str [[align max value color] color-mode]
+  (let [cnt (- max (-> value str c/clean-colors count))
         cnt-left (quot cnt 2)
         cnt-right (- cnt cnt-left)
         color-fn (color->function color)
@@ -31,9 +31,9 @@
         spc-left (str-util/spaces cnt-left)
         spc-right (str-util/spaces cnt-right)]
     (condp = align
-      :left (color-fn color-mode string spc)
-      :right (color-fn color-mode spc string)
-      :center (color-fn color-mode spc-left string spc-right)
+      :left (color-fn color-mode value spc)
+      :right (color-fn color-mode spc value)
+      :center (color-fn color-mode spc-left value spc-right)
       (str "error-align=" align))))
 
 (defn align-row [data-row spc color-mode]

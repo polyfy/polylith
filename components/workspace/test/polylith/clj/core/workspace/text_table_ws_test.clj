@@ -1,8 +1,8 @@
 (ns polylith.clj.core.workspace.text-table-ws-test
   (:require [clojure.test :refer :all]
+            [clojure.string :as str]
             [polylith.clj.core.workspace.text-table-ws :as text-table-ws]
-            [polylith.clj.core.util.interfc.color :as color]
-            [clojure.string :as str]))
+            [polylith.clj.core.util.interfc.color :as color]))
 
 (def workspace {:name "polylith",
                 :ws-path ".",
@@ -151,7 +151,7 @@
                               :interface-deps []}
                              {:name "validate",
                               :type "component",
-                              :lines-of-code-src 377,
+                              :lines-of-code-src 1377,
                               :lines-of-code-test 744,
                               :interface {:name "validate",}
                               :lib-imports-src ["clojure.set" "clojure.string"],
@@ -393,28 +393,28 @@
           "  -              cli            x-x  --x   xxx"
           "  -              z-jocke *      ---  ---   xx-"]
          (str/split-lines
-           (text-table-ws/ws-table color/none components ws-bases environments changed-components changed-bases bricks-to-test 2020 1143 false)))))
+           (text-table-ws/ws-table color/none components ws-bases environments changed-components changed-bases bricks-to-test 2020 1143 "," false)))))
 
 (deftest ws-table--when-loc-flag-is-true--return-table-with-loc-info
-  (is (= ["  interface      brick          cli  core  dev   loc  (t)"
-          "  -------------------------------------------------------"
-          "  change         change         x--  x--   xx-    81   25"
-          "  command        command        x--  ---   xx-    36    0"
-          "  common         common         x--  x--   xx-   158    0"
-          "  deps           deps           x--  x--   xx-    43   51"
-          "  -\"-            deps2          ---  ---   ---    25    0"
-          "  file           file           x-x  x-x   xxx    80    0"
-          "  git            git            x--  x--   xx-    31   17"
-          "  help           help *         x--  x--   xx-   129    0"
-          "  shell          shell          x--  x--   xx-    19    0"
-          "  test-runner    test-runner    x--  ---   xx-    82    0"
-          "  text-table     text-table *   x--  x--   xx-    65   42"
-          "  util           util *         x--  x--   xx-   157   47"
-          "  validate       validate       x--  x--   xx-   377  744"
-          "  workspace      workspace *    x--  x--   xx-   387   95"
-          "  workspace-clj  workspace-clj  x--  ---   xx-   301  122"
-          "  -              cli            x-x  --x   xxx    21    0"
-          "  -              z-jocke *      ---  ---   xx-    53    0"
-          "                                                2020 1143"]
+  (is (= ["  interface      brick          cli  core  dev    loc   (t)"
+          "  ---------------------------------------------------------"
+          "  change         change         x--  x--   xx-     81    25"
+          "  command        command        x--  ---   xx-     36     0"
+          "  common         common         x--  x--   xx-    158     0"
+          "  deps           deps           x--  x--   xx-     43    51"
+          "  -\"-            deps2          ---  ---   ---     25     0"
+          "  file           file           x-x  x-x   xxx     80     0"
+          "  git            git            x--  x--   xx-     31    17"
+          "  help           help *         x--  x--   xx-    129     0"
+          "  shell          shell          x--  x--   xx-     19     0"
+          "  test-runner    test-runner    x--  ---   xx-     82     0"
+          "  text-table     text-table *   x--  x--   xx-     65    42"
+          "  util           util *         x--  x--   xx-    157    47"
+          "  validate       validate       x--  x--   xx-  1,377   744"
+          "  workspace      workspace *    x--  x--   xx-    387    95"
+          "  workspace-clj  workspace-clj  x--  ---   xx-    301   122"
+          "  -              cli            x-x  --x   xxx     21     0"
+          "  -              z-jocke *      ---  ---   xx-     53     0"
+          "                                                3,020 2,143"]
          (str/split-lines
-           (text-table-ws/ws-table color/none components ws-bases environments changed-components changed-bases bricks-to-test 2020 1143 true)))))
+           (text-table-ws/ws-table color/none components ws-bases environments changed-components changed-bases bricks-to-test 3020 2143 "," true)))))

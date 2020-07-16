@@ -1,5 +1,6 @@
 (ns polylith.clj.core.workspace.interfc
   (:require [polylith.clj.core.workspace.core :as core]
+            [polylith.clj.core.user-config.interfc :as user-config]
             [polylith.clj.core.workspace.text-table-ws :as text-table])
   (:gen-class))
 
@@ -7,7 +8,8 @@
   (core/enrich-workspace workspace))
 
 (defn print-table [workspace show-loc?]
-  (text-table/print-table workspace show-loc?))
+  (let [thousand-sep (user-config/thousand-separator)]
+    (text-table/print-table workspace thousand-sep show-loc?)))
 
 (defn enrich-workspace-str-keys [workspace]
   "Used by the polylith.core API"
@@ -15,4 +17,5 @@
 
 (defn print-table-str-keys [workspace show-loc?]
   "Used by the polylith.core API"
-  (text-table/print-table-str-keys workspace show-loc?))
+  (let [thousand-sep (user-config/thousand-separator)]
+    (text-table/print-table-str-keys workspace thousand-sep show-loc?)))

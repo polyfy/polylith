@@ -1,7 +1,7 @@
 
 {:polylith {:color-mode "dark"
             :top-namespace "polylith.clj.core"
-            :env-short-names {"dev" "dev"
+            :env-short-names {"dev" "d"
                               "cli" "cli"
                               "core" "core"}}
 
