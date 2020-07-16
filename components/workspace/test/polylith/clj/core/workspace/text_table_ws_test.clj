@@ -4,195 +4,195 @@
             [polylith.clj.core.workspace.text-table-ws :as text-table-ws]
             [polylith.clj.core.util.interfc.color :as color]))
 
-(def workspace {:name "polylith",
-                :ws-path ".",
-                :ws-reader {:name "polylith-clj",
-                            :project-url "https://github.com/tengstrand/polylith/tree/core",
-                            :reader-version "1.0",
-                            :ws-contract-version "1.0",
-                            :language "Clojure",
-                            :type-position "postfix",
-                            :slash "/",
-                            :file-extensions [".clj" "cljc"]},
-                :settings {:top-namespace "polylith.clj.core",
-                           :color-mode "dark",
-                           :env-short-names {"dev" "dev", "cli" "cli", "core" "core"}},
+(def workspace {:name "polylith"
+                :ws-path "."
+                :ws-reader {:name "polylith-clj"
+                            :project-url "https://github.com/tengstrand/polylith/tree/core"
+                            :reader-version "1.0"
+                            :ws-contract-version "1.0"
+                            :language "Clojure"
+                            :type-position "postfix"
+                            :slash "/"
+                            :file-extensions [".clj" "cljc"]}
+                :settings {:top-namespace "polylith.clj.core"
+                           :color-mode "dark"
+                           :env-short-names {"dev" "dev", "cli" "cli", "core" "core"}}
                 :interfaces [{:name "workspace-clj", :type "interface"}
                              {:name "test-runner", :type "interface"}
-                             {:name "command",
-                              :type "interface",
+                             {:name "command"
+                              :type "interface"
                               :implementing-components ["command"]}
                              {:name "text-table", :type "interface"}
-                             {:name "util",
-                              :type "interface",
+                             {:name "util"
+                              :type "interface"
                               :implementing-components ["util"]}
-                             {:name "validate",
-                              :type "interface",
+                             {:name "validate"
+                              :type "interface"
                               :implementing-components ["validate"]}
-                             {:name "shell",
-                              :type "interface",
+                             {:name "shell"
+                              :type "interface"
                               :implementing-components ["shell"]}
-                             {:name "workspace",
-                              :type "interface",
+                             {:name "workspace"
+                              :type "interface"
                               :implementing-components ["workspace"]}
-                             {:name "git",
-                              :type "interface",
+                             {:name "git"
+                              :type "interface"
                               :implementing-components ["git"]}
-                             {:name "deps",
-                              :type "interface",
+                             {:name "deps"
+                              :type "interface"
                               :implementing-components ["deps"]}
-                             {:name "help",
-                              :type "interface",
+                             {:name "help"
+                              :type "interface"
                               :implementing-components ["help"]}
-                             {:name "file",
-                              :type "interface",
+                             {:name "file"
+                              :type "interface"
                               :implementing-components ["file"]}
-                             {:name "common",
-                              :type "interface",
+                             {:name "common"
+                              :type "interface"
                               :implementing-components ["common"]}
-                             {:name "change",
-                              :type "interface",
-                              :implementing-components ["change"]}],
-                :components [{:name "change",
-                              :type "component",
-                              :lines-of-code-src 81,
-                              :lines-of-code-test 25,
-                              :interface {:name "change",}
-                              :lib-imports-src ["clojure.set" "clojure.string"],
-                              :lib-imports-test [],
+                             {:name "change"
+                              :type "interface"
+                              :implementing-components ["change"]}]
+                :components [{:name "change"
+                              :type "component"
+                              :lines-of-code-src 81
+                              :lines-of-code-test 25
+                              :interface {:name "change"}
+                              :lib-imports-src ["clojure.set" "clojure.string"]
+                              :lib-imports-test []
                               :interface-deps ["git" "util"]}
-                             {:name "command",
-                              :type "component",
-                              :lines-of-code-src 36,
-                              :lines-of-code-test 0,
-                              :interface {:name "command",}
-                              :lib-imports-src ["clojure.pprint"],
-                              :lib-imports-test [],
+                             {:name "command"
+                              :type "component"
+                              :lines-of-code-src 36
+                              :lines-of-code-test 0
+                              :interface {:name "command"}
+                              :lib-imports-src ["clojure.pprint"]
+                              :lib-imports-test []
                               :interface-deps ["common" "help" "test-runner" "util" "workspace"]}
-                             {:name "common",
-                              :type "component",
-                              :lines-of-code-src 158,
-                              :lines-of-code-test 0,
-                              :interface {:name "common",}
-                              :lib-imports-src ["clojure.java.io" "clojure.string"],
-                              :lib-imports-test [],
+                             {:name "common"
+                              :type "component"
+                              :lines-of-code-src 158
+                              :lines-of-code-test 0
+                              :interface {:name "common"}
+                              :lib-imports-src ["clojure.java.io" "clojure.string"]
+                              :lib-imports-test []
                               :interface-deps ["util"]}
-                             {:name "deps",
-                              :type "component",
-                              :lines-of-code-src 43,
-                              :lines-of-code-test 51,
-                              :interface {:name "deps",}
-                              :lib-imports-src ["clojure.string"],
-                              :lib-imports-test [],
+                             {:name "deps"
+                              :type "component"
+                              :lines-of-code-src 43
+                              :lines-of-code-test 51
+                              :interface {:name "deps"}
+                              :lib-imports-src ["clojure.string"]
+                              :lib-imports-test []
                               :interface-deps []}
-                             {:name "deps2",
-                              :type "component",
-                              :lines-of-code-src 25,
+                             {:name "deps2"
+                              :type "component"
+                              :lines-of-code-src 25
                               :lines-of-code-test 0,
-                              :interface {:name "deps",}
-                              :lib-imports-src ["clojure.string"],
-                              :lib-imports-test [],
+                              :interface {:name "deps"}
+                              :lib-imports-src ["clojure.string"]
+                              :lib-imports-test []
                               :interface-deps []}
-                             {:name "file",
-                              :type "component",
-                              :lines-of-code-src 80,
-                              :lines-of-code-test 0,
-                              :interface {:name "file",}
-                              :lib-imports-src ["clojure.java.io"],
-                              :lib-imports-test [],
+                             {:name "file"
+                              :type "component"
+                              :lines-of-code-src 80
+                              :lines-of-code-test 0
+                              :interface {:name "file"}
+                              :lib-imports-src ["clojure.java.io"]
+                              :lib-imports-test []
                               :interface-deps []}
-                             {:name "git",
-                              :type "component",
-                              :lines-of-code-src 31,
-                              :lines-of-code-test 17,
-                              :interface {:name "git",}
-                              :lib-imports-src ["clojure.string"],
-                              :lib-imports-test [],
+                             {:name "git"
+                              :type "component"
+                              :lines-of-code-src 31
+                              :lines-of-code-test 17
+                              :interface {:name "git"}
+                              :lib-imports-src ["clojure.string"]
+                              :lib-imports-test []
                               :interface-deps ["shell"]}
-                             {:name "help",
-                              :type "component",
-                              :lines-of-code-src 129,
-                              :lines-of-code-test 0,
-                              :interface {:name "help",}
-                              :lib-imports-src ["clojure.string"],
-                              :lib-imports-test [],
+                             {:name "help"
+                              :type "component"
+                              :lines-of-code-src 129
+                              :lines-of-code-test 0
+                              :interface {:name "help"}
+                              :lib-imports-src ["clojure.string"]
+                              :lib-imports-test []
                               :interface-deps ["util"]}
-                             {:name "shell",
-                              :type "component",
-                              :lines-of-code-src 19,
-                              :lines-of-code-test 0,
-                              :interface {:name "shell",}
-                              :lib-imports-src ["clojure.java.shell"],
-                              :lib-imports-test [],
+                             {:name "shell"
+                              :type "component"
+                              :lines-of-code-src 19
+                              :lines-of-code-test 0
+                              :interface {:name "shell"}
+                              :lib-imports-src ["clojure.java.shell"]
+                              :lib-imports-test []
                               :interface-deps []}
-                             {:name "test-runner",
-                              :type "component",
-                              :lines-of-code-src 82,
-                              :lines-of-code-test 0,
-                              :interface {:name "test-runner"},
-                              :lib-imports-src ["clojure.tools.deps.alpha"],
-                              :lib-imports-test [],
+                             {:name "test-runner"
+                              :type "component"
+                              :lines-of-code-src 82
+                              :lines-of-code-test 0
+                              :interface {:name "test-runner"}
+                              :lib-imports-src ["clojure.tools.deps.alpha"]
+                              :lib-imports-test []
                               :interface-deps ["common" "file" "util"]}
-                             {:name "text-table",
-                              :type "component",
-                              :lines-of-code-src 65,
-                              :lines-of-code-test 42,
-                              :interface {:name "text-table"},
-                              :lib-imports-src ["clojure.string"],
-                              :lib-imports-test ["clojure.string"],
+                             {:name "text-table"
+                              :type "component"
+                              :lines-of-code-src 65
+                              :lines-of-code-test 42
+                              :interface {:name "text-table"}
+                              :lib-imports-src ["clojure.string"]
+                              :lib-imports-test ["clojure.string"]
                               :interface-deps ["util"]}
-                             {:name "util",
-                              :type "component",
-                              :lines-of-code-src 157,
-                              :lines-of-code-test 47,
-                              :interface {:name "util",}
-                              :lib-imports-src ["clojure.string"],
-                              :lib-imports-test [],
+                             {:name "util"
+                              :type "component"
+                              :lines-of-code-src 157
+                              :lines-of-code-test 47
+                              :interface {:name "util"}
+                              :lib-imports-src ["clojure.string"]
+                              :lib-imports-test []
                               :interface-deps []}
-                             {:name "validate",
-                              :type "component",
-                              :lines-of-code-src 1377,
-                              :lines-of-code-test 744,
-                              :interface {:name "validate",}
-                              :lib-imports-src ["clojure.set" "clojure.string"],
-                              :lib-imports-test [],
+                             {:name "validate"
+                              :type "component"
+                              :lines-of-code-src 1377
+                              :lines-of-code-test 744
+                              :interface {:name "validate"}
+                              :lib-imports-src ["clojure.set" "clojure.string"]
+                              :lib-imports-test []
                               :interface-deps ["common" "deps" "util"]}
-                             {:name "workspace",
-                              :type "component",
-                              :lines-of-code-src 387,
-                              :lines-of-code-test 95,
-                              :interface {:name "workspace",}
-                              :lib-imports-src ["clojure.set" "clojure.string" "clojure.walk"],
-                              :lib-imports-test [],
+                             {:name "workspace"
+                              :type "component"
+                              :lines-of-code-src 387
+                              :lines-of-code-test 95
+                              :interface {:name "workspace"}
+                              :lib-imports-src ["clojure.set" "clojure.string" "clojure.walk"]
+                              :lib-imports-test []
                               :interface-deps ["common" "deps" "file" "text-table" "util" "validate"]}
-                             {:name "workspace-clj",
-                              :type "component",
-                              :lines-of-code-src 301,
-                              :lines-of-code-test 122,
-                              :interface {:name "workspace-clj"},
-                              :lib-imports-src ["clojure.string" "clojure.tools.deps.alpha.util.maven"],
-                              :lib-imports-test ["clojure.tools.deps.alpha.util.maven"],
-                              :interface-deps ["common" "file" "util"]}],
-                :bases [{:name "cli",
-                         :type "base",
-                         :lines-of-code-src 21,
-                         :lines-of-code-test 0,
-                         :lib-imports-src [],
-                         :lib-imports-test [],
+                             {:name "workspace-clj"
+                              :type "component"
+                              :lines-of-code-src 301
+                              :lines-of-code-test 122
+                              :interface {:name "workspace-clj"}
+                              :lib-imports-src ["clojure.string" "clojure.tools.deps.alpha.util.maven"]
+                              :lib-imports-test ["clojure.tools.deps.alpha.util.maven"]
+                              :interface-deps ["common" "file" "util"]}]
+                :bases [{:name "cli"
+                         :type "base"
+                         :lines-of-code-src 21
+                         :lines-of-code-test 0
+                         :lib-imports-src []
+                         :lib-imports-test []
                          :interface-deps ["change" "command" "file" "workspace" "workspace-clj"]}
-                        {:name "z-jocke",
-                         :type "base",
-                         :lines-of-code-src 53,
-                         :lines-of-code-test 0,
-                         :lib-imports-src ["clojure.string" "clojure.walk"],
-                         :lib-imports-test [],
-                         :interface-deps ["util" "workspace" "workspace-clj"]}],
-                :environments [{:name "cli",
-                                :alias "cli",
-                                :type "environment",
-                                :lines-of-code-src 1967,
-                                :lines-of-code-test 1143,
-                                :test-component-names [],
+                        {:name "z-jocke"
+                         :type "base"
+                         :lines-of-code-src 53
+                         :lines-of-code-test 0
+                         :lib-imports-src ["clojure.string" "clojure.walk"]
+                         :lib-imports-test []
+                         :interface-deps ["util" "workspace" "workspace-clj"]}]
+                :environments [{:name "cli"
+                                :alias "cli"
+                                :type "environment"
+                                :lines-of-code-src 1967
+                                :lines-of-code-test 1143
+                                :test-component-names []
                                 :component-names ["change"
                                                   "command"
                                                   "common"
@@ -206,9 +206,9 @@
                                                   "util"
                                                   "validate"
                                                   "workspace"
-                                                  "workspace-clj"],
-                                :base-names ["cli"],
-                                :test-base-names [],
+                                                  "workspace-clj"]
+                                :base-names ["cli"]
+                                :test-base-names []
                                 :paths ["../../bases/cli/src"
                                         "../../components/change/src"
                                         "../../components/command/src"
@@ -223,8 +223,8 @@
                                         "../../components/util/src"
                                         "../../components/validate/src"
                                         "../../components/workspace/src"
-                                        "../../components/workspace-clj/src"],
-                                :test-paths [],
+                                        "../../components/workspace-clj/src"]
+                                :test-paths []
                                 :lib-imports ["clojure.java.io"
                                               "clojure.java.shell"
                                               "clojure.pprint"
@@ -233,18 +233,18 @@
                                               "clojure.tools.deps.alpha"
                                               "clojure.tools.deps.alpha.util.maven"
                                               "clojure.walk"],
-                                :lib-imports-test ["clojure.string" "clojure.tools.deps.alpha.util.maven"],
-                                :lib-deps {"org.clojure/clojure" #:mvn{:version "1.10.1"},
-                                           "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}},
-                                :test-deps {},
-                                :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
+                                :lib-imports-test ["clojure.string" "clojure.tools.deps.alpha.util.maven"]
+                                :lib-deps {"org.clojure/clojure" #:mvn{:version "1.10.1"}
+                                           "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}}
+                                :test-deps {}
+                                :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}
                                               "clojars" {:url "https://repo.clojars.org/"}}}
-                               {:name "core",
-                                :alias "core",
-                                :type "environment",
-                                :lines-of-code-src 1527,
-                                :lines-of-code-test 1021,
-                                :test-component-names [],
+                               {:name "core"
+                                :alias "core"
+                                :type "environment"
+                                :lines-of-code-src 1527
+                                :lines-of-code-test 1021
+                                :test-component-names []
                                 :component-names ["change"
                                                   "common"
                                                   "deps"
@@ -255,9 +255,9 @@
                                                   "text-table"
                                                   "util"
                                                   "validate"
-                                                  "workspace"],
-                                :base-names [],
-                                :test-base-names [],
+                                                  "workspace"]
+                                :base-names []
+                                :test-base-names []
                                 :paths ["../../components/change/src"
                                         "../../components/common/src"
                                         "../../components/deps/src"
@@ -268,20 +268,20 @@
                                         "../../components/text-table/src"
                                         "../../components/util/src"
                                         "../../components/validate/src"
-                                        "../../components/workspace/src"],
-                                :test-paths [],
-                                :lib-imports ["clojure.java.io" "clojure.java.shell" "clojure.set" "clojure.string" "clojure.walk"],
-                                :lib-imports-test ["clojure.string"],
-                                :lib-deps {"org.clojure/clojure" #:mvn{:version "1.10.1"},
-                                           "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}},
-                                :test-deps {},
-                                :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
+                                        "../../components/workspace/src"]
+                                :test-paths []
+                                :lib-imports ["clojure.java.io" "clojure.java.shell" "clojure.set" "clojure.string" "clojure.walk"]
+                                :lib-imports-test ["clojure.string"]
+                                :lib-deps {"org.clojure/clojure" #:mvn{:version "1.10.1"}
+                                           "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}}
+                                :test-deps {}
+                                :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}
                                               "clojars" {:url "https://repo.clojars.org/"}}}
-                               {:name "dev",
-                                :alias "dev",
-                                :type "environment",
-                                :lines-of-code-src 2020,
-                                :lines-of-code-test 1143,
+                               {:name "dev"
+                                :alias "dev"
+                                :type "environment"
+                                :lines-of-code-src 2020
+                                :lines-of-code-test 1143
                                 :test-component-names ["change"
                                                        "command"
                                                        "common"
@@ -295,7 +295,7 @@
                                                        "util"
                                                        "validate"
                                                        "workspace"
-                                                       "workspace-clj"],
+                                                       "workspace-clj"]
                                 :component-names ["change"
                                                   "command"
                                                   "common"
@@ -309,9 +309,9 @@
                                                   "util"
                                                   "validate"
                                                   "workspace"
-                                                  "workspace-clj"],
-                                :base-names ["cli" "z-jocke"],
-                                :test-base-names ["cli" "z-jocke"],
+                                                  "workspace-clj"]
+                                :base-names ["cli" "z-jocke"]
+                                :test-base-names ["cli" "z-jocke"]
                                 :paths ["../../bases/cli/src"
                                         "../../bases/z-jocke/src"
                                         "../../components/change/src"
@@ -327,7 +327,7 @@
                                         "../../components/util/src"
                                         "../../components/validate/src"
                                         "../../components/workspace/src"
-                                        "../../components/workspace-clj/src"],
+                                        "../../components/workspace-clj/src"]
                                 :test-paths ["../../bases/cli/test"
                                              "../../bases/z-jocke/test"
                                              "../../components/change/test"
@@ -343,7 +343,7 @@
                                              "../../components/util/test"
                                              "../../components/validate/test"
                                              "../../components/workspace-clj/test"
-                                             "../../components/workspace/test"],
+                                             "../../components/workspace/test"]
                                 :lib-imports ["clojure.java.io"
                                               "clojure.java.shell"
                                               "clojure.pprint"
@@ -351,15 +351,15 @@
                                               "clojure.string"
                                               "clojure.tools.deps.alpha"
                                               "clojure.tools.deps.alpha.util.maven"
-                                              "clojure.walk"],
-                                :lib-imports-test ["clojure.string" "clojure.tools.deps.alpha.util.maven"],
-                                :deps {"org.clojure/clojure" #:mvn{:version "1.10.1"},
-                                       "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}},
-                                :test-deps {},
-                                :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
-                                              "clojars" {:url "https://repo.clojars.org/"}}}],
-                :lines-of-code-src 2020,
-                :lines-of-code-test 1143,
+                                              "clojure.walk"]
+                                :lib-imports-test ["clojure.string" "clojure.tools.deps.alpha.util.maven"]
+                                :deps {"org.clojure/clojure" #:mvn{:version "1.10.1"}
+                                       "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}}
+                                :test-deps {}
+                                :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}
+                                              "clojars" {:url "https://repo.clojars.org/"}}}]
+                :lines-of-code-src 2020
+                :lines-of-code-test 1143
                 :messages []})
 
 (def environments (:environments workspace))
