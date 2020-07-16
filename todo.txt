@@ -1,14 +1,7 @@
 
-- change to :total-loc-bricks, total-loc-environments.
+- show total lines of code for each environment.
 
-- If '-loc' is sent in as an argument, also show the number of lines of code
-  it has in its 'src' and 'test' folder.
-    environment  alias  src  loc  (t)
-    ---------------------------------
-    cli          cli    --     0    0
-    core         core   xx    50  123
-    dev *        dev    xx     0  243
-                              50  366
+- change to :total-loc-src-bricks, total-loc-src-environments (+ test).
 
 - implement the 'deps' command.
   - when sending in '-lib', also show library dependencies:
@@ -93,8 +86,7 @@
 - if an environment misses a component, show it correctly in the 'info' command
   as a yellow "i" in each environment.
 
-- add support for -ns in the 'info' command that lists two extra columns '#ns' and
-  'loc/ns'. '-all' will perform both '-loc' and '#ns'.
+- also show the columns '#ns' and 'loc/ns' in the 'info' command when sending in -loc as argument.
 
 - verify that the tool works from Windows:
   - use :slash from :src-reader

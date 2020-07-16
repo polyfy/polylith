@@ -368,9 +368,9 @@
 
 (def changed-components  ["help" "text-table" "util" "workspace"])
 (def changed-bases ["z-jocke"])
-(def indirectly-changes {"cli" ["file" "cli"]
-                         "core" ["file" "cli"]
-                         "dev" ["file" "cli"]})
+(def bricks-to-test {"cli"  ["file" "cli"]
+                     "core" ["file" "cli"]
+                     "dev"  ["file" "cli"]})
 
 (deftest ws-table--when-loc-flag-is-false--return-table-without-loc-info
   (is (= ["  interface      brick          cli  core  dev"
@@ -393,7 +393,7 @@
           "  -              cli            x-x  --x   xxx"
           "  -              z-jocke *      ---  ---   xx-"]
          (str/split-lines
-           (text-table-ws/ws-table color/none components ws-bases environments changed-components changed-bases indirectly-changes 2020 1143 false)))))
+           (text-table-ws/ws-table color/none components ws-bases environments changed-components changed-bases bricks-to-test 2020 1143 false)))))
 
 (deftest ws-table--when-loc-flag-is-true--return-table-with-loc-info
   (is (= ["  interface      brick          cli  core  dev   loc  (t)"
@@ -417,4 +417,4 @@
           "  -              z-jocke *      ---  ---   xx-    53    0"
           "                                                2020 1143"]
          (str/split-lines
-           (text-table-ws/ws-table color/none components ws-bases environments changed-components changed-bases indirectly-changes 2020 1143 true)))))
+           (text-table-ws/ws-table color/none components ws-bases environments changed-components changed-bases bricks-to-test 2020 1143 true)))))

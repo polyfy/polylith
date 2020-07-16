@@ -1,5 +1,6 @@
 (ns polylith.clj.core.workspace.environment
   (:require [polylith.clj.core.util.interfc :as util]
+            [polylith.clj.core.workspace.loc :as loc]
             [clojure.string :as str]))
 
 (defn env-total-loc [brick-names brick->loc test?]
@@ -42,6 +43,8 @@
     (util/ordered-map :name name
                       :alias (env->alias name)
                       :type type
+                      :lines-of-code-src (loc/lines-of-code namespaces-src)
+                      :lines-of-code-test (loc/lines-of-code namespaces-test)
                       :total-lines-of-code-src total-lines-of-code-src
                       :total-lines-of-code-test total-lines-of-code-test
                       :test-component-names test-component-names

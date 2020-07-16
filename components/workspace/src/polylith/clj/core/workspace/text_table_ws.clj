@@ -50,16 +50,10 @@
     :purple
     :none))
 
-(defn env-colors [show-loc? aliases]
-  (let [naliases (count aliases)
-        columns (if show-loc? (+ 2 naliases) naliases)
-        ncolumns (inc (* 2 (dec columns)))]
-    (repeat ncolumns :purple)))
-
-(defn ->brick-colors [{:keys [interface]} show-loc? aliases]
+(defn ->brick-colors [{:keys [interface]} env-spc-cnt show-loc?]
   (vec (concat [(if interface :yellow :none)]
                [:none :none :none]
-               (env-colors show-loc? aliases)
+               (repeat env-spc-cnt :purple)
                (if show-loc?
                  [:none :none :none :none]
                  []))))
@@ -95,7 +89,6 @@
 
 (defn alias-changes [[env changes] env->alias]
   [(env->alias env) (set changes)])
-
 (defn ws-table [color-mode components bases environments changed-components changed-bases bricks-to-test lines-of-code-src lines-of-code-test show-loc?]
   (let [aliases (mapv :alias environments)
         env->alias (into {} (map (juxt :name :alias) environments))
@@ -114,17 +107,17 @@
         interface->index-components (group-by second (map-indexed index-interface plain-rows))
         rows (map-indexed #(clear-repeated-interfaces %1 %2 interface->index-components) plain-rows)
         header-colors (->header-colors show-loc? env-spc-cnt)
-        component-colors (mapv #(->brick-colors % show-loc? aliases) sorted-components)
-        base-colors (mapv #(->brick-colors % show-loc? aliases) sorted-bases)
+        component-colors (mapv #(->brick-colors % env-spc-cnt show-loc?) sorted-components)
+        base-colors (mapv #(->brick-colors % env-spc-cnt show-loc?) sorted-bases)
         total-loc-colors [(vec (repeat (+ 8 env-spc-cnt) :none))]
         row-colors (concat component-colors base-colors (if show-loc? total-loc-colors []))]
     (text-table/table "  " headers alignments rows header-colors row-colors color-mode)))
 
-(defn print-table [{:keys [settings components bases environments changes messages lines-of-code-src lines-of-code-test]} show-loc?]
+(defn print-table [{:keys [settings components bases environments changes messages lines-of-code-src lines-of-code-test total-loc-src-environments total-loc-test-environments]} show-loc?]
   (let [color-mode (:color-mode settings)
         {:keys [changed-components changed-bases bricks-to-test]} changes
         table (ws-table color-mode components bases environments changed-components changed-bases bricks-to-test lines-of-code-src lines-of-code-test show-loc?)
-        env-table (text-table-env/table environments changes color-mode)]
+        env-table (text-table-env/table environments changes total-loc-src-environments total-loc-test-environments show-loc? color-mode)]
     (println env-table)
     (println)
     (println table)

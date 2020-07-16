@@ -9,8 +9,8 @@
         lib-imports-test (lib/lib-imports-test top-ns interface-names base)]
     (array-map :name name
                :type type
-               :lines-of-code-src (loc/brick-loc namespaces-src)
-               :lines-of-code-test (loc/brick-loc namespaces-test)
+               :lines-of-code-src (loc/lines-of-code namespaces-src)
+               :lines-of-code-test (loc/lines-of-code namespaces-test)
                :namespaces-src namespaces-src
                :namespaces-test namespaces-test
                :lib-imports-src lib-imports-src

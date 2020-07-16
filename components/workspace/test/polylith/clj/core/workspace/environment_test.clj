@@ -69,6 +69,8 @@
   (is (= {:name "development"
           :alias "dev"
           :type "environment"
+          :lines-of-code-src 0
+          :lines-of-code-test 0
           :total-lines-of-code-src 419
           :total-lines-of-code-test 76
           :test-component-names ["change" "command"]

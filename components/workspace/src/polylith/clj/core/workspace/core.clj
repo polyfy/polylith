@@ -45,6 +45,8 @@
         env->alias (alias/env->alias settings environments)
         env->brick-deps (brick-deps/env->brick-deps environments enriched-components enriched-bases)
         enriched-environments (vec (sort-by :name (map #(env/enrich-env % brick->loc brick->lib-imports env->alias env->brick-deps) environments)))
+        total-loc-src-env (apply + (filter identity (map :lines-of-code-src enriched-environments)))
+        total-loc-test-env (apply + (filter identity (map :lines-of-code-test enriched-environments)))
         color-mode (:color-mode settings color/none)
         messages (validate/messages top-ns interface-names interfaces enriched-components enriched-bases enriched-environments color-mode)]
     (array-map :name ws-name
@@ -57,6 +59,8 @@
                :environments enriched-environments
                :lines-of-code-src lines-of-code-src
                :lines-of-code-test lines-of-code-test
+               :total-loc-src-environments total-loc-src-env
+               :total-loc-test-environments total-loc-test-env
                :messages messages)))
 
 (defn enrich-workspace-str-keys [workspace]
