@@ -2,7 +2,7 @@
   (:require [polylith.clj.core.util.interfc :as util]
             [clojure.string :as str]))
 
-(defn env-loc [brick-names brick->loc test?]
+(defn env-total-loc [brick-names brick->loc test?]
   (let [locs (map brick->loc brick-names)]
     (if test?
       (apply + (filter identity (map :lines-of-code-test locs)))
@@ -37,13 +37,13 @@
                             set sort vec)
         lib-imports-test (-> (env-lib-imports brick-names brick->lib-imports true)
                              set sort vec)
-        lines-of-code-src (env-loc brick-names brick->loc false)
-        lines-of-code-test (env-loc brick-names brick->loc true)]
+        total-lines-of-code-src (env-total-loc brick-names brick->loc false)
+        total-lines-of-code-test (env-total-loc brick-names brick->loc true)]
     (util/ordered-map :name name
                       :alias (env->alias name)
                       :type type
-                      :lines-of-code-src lines-of-code-src
-                      :lines-of-code-test lines-of-code-test
+                      :total-lines-of-code-src total-lines-of-code-src
+                      :total-lines-of-code-test total-lines-of-code-test
                       :test-component-names test-component-names
                       :component-names component-names
                       :base-names base-names

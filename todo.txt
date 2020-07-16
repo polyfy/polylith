@@ -1,36 +1,22 @@
 
-- update the doc, test command, -all.
+- change to :total-loc-bricks, total-loc-environments.
 
 - If '-loc' is sent in as an argument, also show the number of lines of code
   it has in its 'src' and 'test' folder.
     environment  alias  src  loc  (t)
     ---------------------------------
     cli          cli    --     0    0
-    core         core   xx     0    0
+    core         core   xx    50  123
     dev *        dev    xx     0  243
-
-- 'help' should not be part of core.
-
-- make sure the workspace table looks okay even without an environment.
-
-- move the functionality in 'info -dump' into its own 'dump' command.
-
-- remove the SLF4J error when running the test command:
-  "Failed to load class "org.slf4j.impl.StaticLoggerBinder".
-  See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
-
-- experiment with implementing a git hook that if the workspace is valid, saves a workspace.edn
-  at the root of the project and commits it before every push. Then we could "animate" over the
-  changes of the system over time. It's important to store a :schema-version attribute of the
-  workspace, to keep track of schema changes.
-
-- check why workspace-clj doesn't have any :definitions in its :interface.
-
-- implement the 'diff' command that lists the changed files that is used to calculate changed bricks
-  and systems.
+                              50  366
 
 - implement the 'deps' command.
-  - When typing "deps env brick", show the dependencies of the brick within the given environment.
+  - when sending in '-lib', also show library dependencies:
+      library                       version  cli  core  dev
+      -----------------------------------------------------
+      org.clojure/clojure           1.10.1    x    x     x
+      org.clojure/tools.deps.alpha  0.8.695   x    x     x
+  - when typing "deps env brick", show the dependencies of the brick within the given environment.
     If a component is not yet added to the environment, show the interface under 'uses':
     used-by > brick > uses
     -------           ----------
@@ -73,26 +59,47 @@
  cli             x  x  ·  ·  x  ·  ·  ·  ·  ·  ·  ·  x  x
  z-jocke         ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  x  x
 
+- let 'workspace' just assoc new attributes so that extra attributes that we don't know about
+  will not dissappear.
+
+- 'help' should not be part of core.
+
+- make sure the workspace table looks okay even without an environment.
+
+- move the functionality in 'info -dump' into its own 'dump' command
+  - if sending in -json, return JSON instead of EDN.
+  - store the export format in ~/.polylith/config.edn
+
+- remove the SLF4J error when running the test command:
+  "Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+  See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+
+- experiment with implementing a git hook that if the workspace is valid, saves a workspace.edn
+  at the root of the project and commits it before every push. Then we could "animate" over the
+  changes of the system over time. It's important to store a :schema-version attribute of the
+  workspace, to keep track of schema changes.
+
+- check why workspace-clj doesn't have any :definitions in its :interface.
+
+- implement the 'diff' command that lists the changed files that is used to calculate changed bricks
+  and systems.
 
 - show a more user friendly error if deps.edn is missing at the root.
 - show a better error if :color-mode is not set in deps.edn.
 
-- calculate :run-tests-for attribute to each environment. Right now we only base
-  that list of bricks on what bricks that are included in the tests for that
-  environment.
+- fix the error that occurres when having an invalid test src folder, e.g.
+  "../../components/z-jocketest".
 
-- add a warning if not a valid directory (interface) could be found for a brick
-  directly after the top namespace directory path (see str-util/skip-until).
-
-- workspace-clj > changes > workspace.
+- if an environment misses a component, show it correctly in the 'info' command
+  as a yellow "i" in each environment.
 
 - add support for -ns in the 'info' command that lists two extra columns '#ns' and
   'loc/ns'. '-all' will perform both '-loc' and '#ns'.
 
-- show warnings if the same unit test exists in more than one environment.
+- verify that the tool works from Windows:
+  - use :slash from :src-reader
 
 - use :file-extensions from :src-reader.
-- use :slash from :src-reader
 
 - check if the 'cli' environment can depende on the core jar instead
   and remove all bricks except three of them.
@@ -107,78 +114,25 @@
 - make the thousand seperator be configurable, so that we can e.g. print out
   2340 as any of these (default is ""): 2340 2,340 2.340
 
-- add validation that detects if no component was found for an interface.
-
-- make sure we only have one interface defined per component.
-
-- fix the error that occurres when having an invalid test src folder, e.g.
-  "../../components/z-jocketest".
-
-- if an environment misses a component, show it correctly in the 'info' command
-  as a yellow "i" in each environment.
-
-- check how 'info' handles circular dependencies.
-
 - put back the 'spec' component and make sure we have the :polylith section with
   an entry for :top-namespace + if color-mode is specifiec that it has valid values.
 
 - make sure we don't throw exception if we type a command from a
   directory that has no deps.edn.
 
-- have a look at the kotlin embedded library again.
-
-- create a githook that verifies the project.
-
 - check that we follow symbolic links in file/paths-recursively.
-
-- add the LICENSE to the root.
-
-- only include the corresponding test-environment if the :aliases {:test ...}}
-  key is defined in deps.edn.
 
 - in the 'cli' environment, depend on the core jar instead of real components.
   - maybe we need two variants:
     - polylith-clj-core
     - polylith-clj-core-aot
 
-- add support for reading files from git and maybe http url:s.
-
-- make sure we handle imported namespaces in a generic way, right now we assume
-  that they are separated with a "." in deps.dependencies/brick-namespace.
-
-- just add more attributes to what e.g. workspace-clj adds, so that
-  a tool creator can decide to add whatever attributes they need
-  to perform the 'test' and 'build' commands.
-
-- think of a solution where we send in 'none' as color-mode instead of
-  forcing us to calculate both colorized-message and message in the 'validate' component.
+- add support for reading files from git and maybe http url:s. One idea is to create a 'reader'
+  component that can delegate to e.g. 'file-reader' and others.
 
 - add the 'version' command.
 
-- add a 'deps' command that could show what components it uses
-  and what bricks uses it in each environment.
-
-- add tasks (arguments to the 'poly' command)':
-  - ws
-    - view the workspace map.
-    - support returning JSON.
-      - configured in deps.edn
-      - stored in a config file in ~/.polylith
-    - possibility to send in sha1 and sha2 or only sha1.
-  - build
-    - build a simple jar
-
-- only run tests that has changed (directly or indirectly).
-  {:changes {:changed-bricks []
-             :changed-environments []}
-             :changed-bricks-indirectly []
-             :changed-environments-indirectly []}}}
-
-- in the deps command, also show library dependencies:
-    library                       version  cli  core  dev
-    -----------------------------------------------------
-    org.clojure/clojure           1.10.1    x    x     x
-    org.clojure/tools.deps.alpha  0.8.695   x    x     x
+- add the 'build' command that builds a simple jar.
 
 Questions
 =========
@@ -221,9 +175,10 @@ Leave for now
   that uses it (directly or indirectly). If both thing happens at the same time,
   then we have circular dependencies!
 - make sure we can compile the code into a command line tool using GraalVM.
-
 - add the feature "hide-succeeding-rows" to the text-table component that will show
   following lines as blank. Support having more than one column in a "group".
+- make sure we handle imported namespaces in a generic way, right now we assume
+  that they are separated with a "." in deps.dependencies/brick-namespace.
 
 Doc
 ===

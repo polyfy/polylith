@@ -5,8 +5,6 @@
 (def environment {:name "development"
                   :alias "dev"
                   :type "environment"
-                  :lines-of-code-src 3199
-                  :lines-of-code-test 1628
                   :test-component-names ["change" "command"]
                   :component-names ["change" "command" "common" "deps" "file"]
                   :base-names ["cli"]
@@ -71,8 +69,8 @@
   (is (= {:name "development"
           :alias "dev"
           :type "environment"
-          :lines-of-code-src 419
-          :lines-of-code-test 76
+          :total-lines-of-code-src 419
+          :total-lines-of-code-test 76
           :test-component-names ["change" "command"]
           :component-names ["change" "command" "common" "deps" "file"]
           :base-names ["cli"]
