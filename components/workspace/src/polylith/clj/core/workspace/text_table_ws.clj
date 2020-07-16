@@ -33,9 +33,9 @@
                    ["" loc-src "" loc-test ""]
                    [])))))
 
-(defn ->total-loc-row [show-loc? env-spc-cnt lines-of-code-src lines-of-code-test]
+(defn ->total-loc-row [show-loc? lines-of-code-src lines-of-code-test total-locs-src]
   (vec (concat ["" "" "" ""]
-               (repeat env-spc-cnt "")
+               (interpose "" (map str total-locs-src))
                (if show-loc?
                  ["" (str lines-of-code-src) "" (str lines-of-code-test) ""]
                  []))))
@@ -102,7 +102,8 @@
         bricks (concat sorted-components sorted-bases)
         headers (->headers show-loc? aliases)
         brick-rows (mapv #(row % color-mode show-loc? aliases alias->bricks alias->test-bricks changed-components changed-bases alias->bricks-to-test) bricks)
-        total-loc-row (->total-loc-row show-loc? env-spc-cnt lines-of-code-src lines-of-code-test)
+        total-locs-src (map :total-lines-of-code-src environments)
+        total-loc-row (->total-loc-row show-loc? lines-of-code-src lines-of-code-test total-locs-src)
         plain-rows (if show-loc? (conj brick-rows total-loc-row) brick-rows)
         interface->index-components (group-by second (map-indexed index-interface plain-rows))
         rows (map-indexed #(clear-repeated-interfaces %1 %2 interface->index-components) plain-rows)
@@ -110,7 +111,7 @@
         component-colors (mapv #(->brick-colors % env-spc-cnt show-loc?) sorted-components)
         base-colors (mapv #(->brick-colors % env-spc-cnt show-loc?) sorted-bases)
         total-loc-colors [(vec (repeat (+ 8 env-spc-cnt) :none))]
-        row-colors (concat component-colors base-colors (if show-loc? total-loc-colors []))]
+        row-colors (concat component-colors base-colors total-loc-colors)]
     (text-table/table "  " headers alignments rows header-colors row-colors color-mode)))
 
 (defn print-table [{:keys [settings components bases environments changes messages lines-of-code-src lines-of-code-test total-loc-src-environments total-loc-test-environments]} show-loc?]

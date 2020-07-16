@@ -1,6 +1,4 @@
 
-- show total lines of code for each environment.
-
 - change to :total-loc-src-bricks, total-loc-src-environments (+ test).
 
 - implement the 'deps' command.
