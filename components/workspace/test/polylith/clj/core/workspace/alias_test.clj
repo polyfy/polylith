@@ -9,11 +9,11 @@
                    {:name "helpers"}])
 
 (deftest anv->alias--a-set-of-environments-without-env-mapping--returns-name-to-alias-map
-  (is (= {"backend-system" "bas1"
-          "banking-system" "bas2"
-          "car"            "ca"
-          "clojure"        "cl"
-          "helpers"        "he"}
+  (is (= {"backend-system" "bs1"
+          "banking-system" "bs2"
+          "car"            "c1"
+          "clojure"        "c2"
+          "helpers"        "h"}
          (alias/env->alias nil environments))))
 
 (deftest env->alias--a-set-of-environments-with-incomplete-env-mapping--returns-mapped-names-and-undefined-mappings

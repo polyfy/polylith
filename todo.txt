@@ -1,6 +1,4 @@
 
-- revert the alias calculation.
-
 - change to :total-loc-src-bricks, total-loc-src-environments (+ test).
 
 - make the thousand seperator be configurable, so that we can e.g. print out
@@ -179,6 +177,8 @@ Doc
 ===
 - people sometimes ask for sub-components, but in polylith you instead divide
   your component in namespaces and sub namespaces to achieve the same thing.
+- you don't need another abstraction, like UML diagrams, to communicate your high
+  level design, because in polylith the workspace *is* your high level design!
 - tips on how to do destructuring in the interface.
 - have an example of how people can build their own tooling around polylith!
 - example of how to add macros in the interface, e.g. 'unless' in:

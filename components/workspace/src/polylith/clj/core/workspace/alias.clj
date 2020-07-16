@@ -2,19 +2,12 @@
   (:require [clojure.string :as str]
             [clojure.set :as set]))
 
-(defn first-two [string]
-  (let [chars (min (count string) 2)]
-    (subs string 0 chars)))
-
 (defn suggest-name [name]
-  (let [strings (str/split name #"-")]
-    (if (>= (count strings) 3)
-      (str/join (map first (take 3 strings)))
-      (str (first-two (first strings)) (-> strings rest ffirst)))))
+  (str/join (map first (str/split name #"-"))))
 
 (defn abbreviation [index short-name full-name]
-   [full-name
-    (str short-name (inc index))])
+  [full-name
+   (str short-name (inc index))])
 
 (defn new-names [[short-name names]]
   (if (> (count names) 1)
