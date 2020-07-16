@@ -38,8 +38,8 @@
         enriched-components (mapv #(component/enrich top-ns interface-names %) components)
         enriched-bases (mapv #(base/enrich top-ns interface-names %) bases)
         enriched-bricks (concat enriched-components enriched-bases)
-        lines-of-code-src (apply + (filter identity (map :lines-of-code-src enriched-bricks)))
-        lines-of-code-test (apply + (filter identity (map :lines-of-code-test enriched-bricks)))
+        total-loc-src-bricks (apply + (filter identity (map :lines-of-code-src enriched-bricks)))
+        total-loc-test-bricks (apply + (filter identity (map :lines-of-code-test enriched-bricks)))
         brick->loc (brick->loc enriched-bricks)
         brick->lib-imports (brick->lib-imports enriched-bricks)
         env->alias (alias/env->alias settings environments)
@@ -57,8 +57,8 @@
                :components enriched-components
                :bases enriched-bases
                :environments enriched-environments
-               :lines-of-code-src lines-of-code-src
-               :lines-of-code-test lines-of-code-test
+               :total-loc-src-bricks total-loc-src-bricks
+               :total-loc-test-bricks total-loc-test-bricks
                :total-loc-src-environments total-loc-src-env
                :total-loc-test-environments total-loc-test-env
                :messages messages)))

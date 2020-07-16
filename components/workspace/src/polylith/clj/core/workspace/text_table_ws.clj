@@ -33,11 +33,11 @@
                    ["" loc-src "" loc-test ""]
                    [])))))
 
-(defn ->total-loc-row [show-loc? lines-of-code-src lines-of-code-test total-locs-src]
+(defn ->total-loc-row [show-loc? total-loc-src-bricks total-loc-test-bricks total-locs-src]
   (vec (concat ["" "" "" ""]
                (interpose "" (map str total-locs-src))
                (if show-loc?
-                 ["" (str lines-of-code-src) "" (str lines-of-code-test) ""]
+                 ["" (str total-loc-src-bricks) "" (str total-loc-test-bricks) ""]
                  []))))
 
 (def basic-headers ["interface" "  " "brick" "  "])
@@ -89,7 +89,7 @@
 
 (defn alias-changes [[env changes] env->alias]
   [(env->alias env) (set changes)])
-(defn ws-table [color-mode components bases environments changed-components changed-bases bricks-to-test lines-of-code-src lines-of-code-test show-loc?]
+(defn ws-table [color-mode components bases environments changed-components changed-bases bricks-to-test total-loc-src-bricks total-loc-test-bricks show-loc?]
   (let [aliases (mapv :alias environments)
         env->alias (into {} (map (juxt :name :alias) environments))
         alias->bricks-to-test (into {} (map #(alias-changes % env->alias) bricks-to-test))
@@ -103,7 +103,7 @@
         headers (->headers show-loc? aliases)
         brick-rows (mapv #(row % color-mode show-loc? aliases alias->bricks alias->test-bricks changed-components changed-bases alias->bricks-to-test) bricks)
         total-locs-src (map :total-lines-of-code-src environments)
-        total-loc-row (->total-loc-row show-loc? lines-of-code-src lines-of-code-test total-locs-src)
+        total-loc-row (->total-loc-row show-loc? total-loc-src-bricks total-loc-test-bricks total-locs-src)
         plain-rows (if show-loc? (conj brick-rows total-loc-row) brick-rows)
         interface->index-components (group-by second (map-indexed index-interface plain-rows))
         rows (map-indexed #(clear-repeated-interfaces %1 %2 interface->index-components) plain-rows)
@@ -114,10 +114,10 @@
         row-colors (concat component-colors base-colors total-loc-colors)]
     (text-table/table "  " headers alignments rows header-colors row-colors color-mode)))
 
-(defn print-table [{:keys [settings components bases environments changes messages lines-of-code-src lines-of-code-test total-loc-src-environments total-loc-test-environments]} show-loc?]
+(defn print-table [{:keys [settings components bases environments changes messages total-loc-src-bricks total-loc-test-bricks total-loc-src-environments total-loc-test-environments]} show-loc?]
   (let [color-mode (:color-mode settings)
         {:keys [changed-components changed-bases bricks-to-test]} changes
-        table (ws-table color-mode components bases environments changed-components changed-bases bricks-to-test lines-of-code-src lines-of-code-test show-loc?)
+        table (ws-table color-mode components bases environments changed-components changed-bases bricks-to-test total-loc-src-bricks total-loc-test-bricks show-loc?)
         env-table (text-table-env/table environments changes total-loc-src-environments total-loc-test-environments show-loc? color-mode)]
     (println env-table)
     (println)

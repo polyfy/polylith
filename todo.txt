@@ -1,6 +1,4 @@
 
-- change to :total-loc-src-bricks, total-loc-src-environments (+ test).
-
 - make the thousand seperator be configurable, so that we can e.g. print out
   2340 as any of these (default is ""): 2340 2,340 2.340
 
