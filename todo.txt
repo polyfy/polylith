@@ -1,6 +1,9 @@
 
 - change to :total-loc-src-bricks, total-loc-src-environments (+ test).
 
+- make the thousand seperator be configurable, so that we can e.g. print out
+  2340 as any of these (default is ""): 2340 2,340 2.340
+
 - implement the 'deps' command.
   - when sending in '-lib', also show library dependencies:
       library                       version  cli  core  dev
@@ -100,9 +103,6 @@
 - create a spec that checks a workspace + expose it in the core API.
 
 - when a workspace is enhanced, also set :vcs to "git".
-
-- make the thousand seperator be configurable, so that we can e.g. print out
-  2340 as any of these (default is ""): 2340 2,340 2.340
 
 - put back the 'spec' component and make sure we have the :polylith section with
   an entry for :top-namespace + if color-mode is specifiec that it has valid values.

@@ -1,6 +1,5 @@
 (ns polylith.clj.core.workspace.text-table-env
-  (:require [clojure.set :as set]
-            [polylith.clj.core.text-table.interfc :as text-table]
+  (:require [polylith.clj.core.text-table.interfc :as text-table]
             [polylith.clj.core.util.interfc.color :as color]))
 
 (def alignments [:left :left :left :left :left :left :right :right :right])
@@ -27,9 +26,8 @@
 
 (defn table [environments {:keys [changed-environments environments-to-test]} total-loc-src total-loc-test show-loc? color-mode]
   (let [changed-envs (set changed-environments)
-        indirect-changes (set/difference (set environments-to-test) changed-envs)
         row-colors (repeat (-> environments count inc) row-color-row)
-        env-rows (mapv #(row % changed-envs indirect-changes show-loc? color-mode) environments)
+        env-rows (mapv #(row % changed-envs environments-to-test show-loc? color-mode) environments)
         rows (concat env-rows
                      (if show-loc? [["" "" "" "" "" "" (str total-loc-src) "" (str total-loc-test)]]))
         headers (concat basic-headers (if show-loc? loc-headers []))]
