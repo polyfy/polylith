@@ -1,6 +1,7 @@
 (ns polylith.clj.core.command.core
   (:require [clojure.pprint :as pp]
             [polylith.clj.core.common.interfc :as common]
+            [polylith.clj.core.deps.interfc :as deps]
             [polylith.clj.core.help.interfc :as help]
             [polylith.clj.core.test-runner.interfc :as test-runner]
             [polylith.clj.core.util.interfc.color :as color]
@@ -11,6 +12,13 @@
     (if (empty? messages)
       (println (color/ok color-mode "OK"))
       (println (common/pretty-messages workspace)))))
+
+(defn deps [workspace environment-name brick-name]
+  (let [color-mode (-> workspace :settings :color-mode)]
+    (if (and environment-name brick-name)
+      (deps/print-brick-table workspace environment-name brick-name color-mode)
+      (println (str "Both environment and brick name must be given, e.g.: "
+                    (color/environment "myenv" color-mode) " mybrick")))))
 
 (defn info [workspace arg]
   (case arg
@@ -30,6 +38,7 @@
 (defn execute [workspace cmd arg1 arg2]
   (case cmd
     "check" (check workspace)
+    "deps" (deps workspace arg1 arg2)
     "help" (help workspace arg1)
     "info" (info workspace arg1)
     "test" (test-ws workspace arg1 arg2)

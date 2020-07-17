@@ -24,4 +24,4 @@
 
 (defn errors [environments color-mode]
   (util/first-as-vector (mapcat #(env-circular-deps % color-mode)
-                                (filter identity (map #(circular-dep %) environments)))))
+                                (filter identity (map circular-dep environments)))))

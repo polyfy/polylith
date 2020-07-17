@@ -21,7 +21,7 @@
 (defn brick-errors [top-ns {:keys [name interface type namespaces-src]} interface-names color-mode]
   "Checks for dependencies to component interface namespaces other than 'interface'."
   (let [interface-name (:name interface)
-        dependencies (deps/brick-dependencies top-ns interface-name interface-names namespaces-src)]
+        dependencies (deps/interface-ns-deps top-ns interface-name interface-names namespaces-src)]
     (mapcat #(error-message % name type color-mode)
             (filterv #(-> % :depends-on-ns common/interface? not) dependencies))))
 
