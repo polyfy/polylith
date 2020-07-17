@@ -15,10 +15,13 @@
 
 (defn deps [workspace environment-name brick-name]
   (let [color-mode (-> workspace :settings :color-mode)]
-    (if (and environment-name brick-name)
-      (deps/print-brick-table workspace environment-name brick-name color-mode)
-      (println (str "Both environment and brick name must be given, e.g.: "
-                    (color/environment "myenv" color-mode) " mybrick")))))
+    (if brick-name
+      (if (= "-" environment-name)
+        (deps/print-print-ifc-table workspace brick-name color-mode)
+        (deps/print-brick-table workspace environment-name brick-name color-mode))
+      (println (str "Brick name must be given, e.g.: "
+                    (color/environment "myenv" color-mode) " mybrick"
+                    " or: - mybrick")))))
 
 (defn info [workspace arg]
   (case arg

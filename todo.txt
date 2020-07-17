@@ -1,7 +1,7 @@
 
 - support these deps:
-  - deps            = show show all interface dependencies
-    deps - -        = show show all interface dependencies
+  - deps            = show all interface dependencies
+    deps - -        = show all interface dependencies
     deps env -      = show dependencies for environment
     deps env brick  = show dependencies for brick in environment
     deps - brick    = show interface deps for brick, no environment specified
@@ -245,6 +245,8 @@ Differences compared to lein-polylith
 - improved testing experience. In lein-polylith all bricks were compiled and no test output was
   shown during test execution. Now the ouput from the tests are shown and no compilation of the
   bricks are performed.
+- the 'deps' command is improved except that it doesn't support showing dependencies
+  at the function level.
 
 Design decisions
 ================

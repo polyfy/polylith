@@ -32,3 +32,6 @@
 
 (defn interface? [name]
   (contains? #{"interface" "interfc"} name))
+
+(defn find-brick [workspace brick-name]
+  (core/find-brick workspace brick-name))
