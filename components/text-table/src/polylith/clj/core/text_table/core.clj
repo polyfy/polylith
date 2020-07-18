@@ -47,5 +47,15 @@
                         alignments max-counts colors rows)]
     (map #(align-row % spc color-mode) data-rows)))
 
+(defn ->rows [rows]
+  (if (-> rows first sequential?)
+    rows
+    (repeat rows)))
+
 (defn table [initial-spaces alignments colors rows color-mode]
-  (str/join "\n" (table-rows initial-spaces alignments colors rows color-mode)))
+  (str/join "\n" (table-rows initial-spaces
+                             (->rows alignments)
+                             colors
+                             rows
+                             color-mode)))
+

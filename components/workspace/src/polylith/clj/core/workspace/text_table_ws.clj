@@ -100,7 +100,7 @@
         env->alias (into {} (map (juxt :name :alias) environments))
         alias->bricks-to-test (into {} (map #(alias-changes % env->alias) bricks-to-test))
         env-spc-cnt (inc (* (-> environments count dec) 2))
-        alignments (repeat (concat basic-alignments (repeat env-spc-cnt :center) (if show-loc? loc-alignments)))
+        alignments (concat basic-alignments (repeat env-spc-cnt :center) (if show-loc? loc-alignments))
         alias->bricks (into {} (map env-brick-names environments))
         alias->test-bricks (into {} (map env-brick-test-names environments))
         sorted-components (sort-by sort-order components)

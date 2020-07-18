@@ -3,7 +3,7 @@
             [polylith.clj.core.util.interfc.color :as color]
             [polylith.clj.core.util.interfc.str :as str-util]))
 
-(def alignments (repeat [:left :left :left :left :left :left :right :right :right]))
+(def alignments [:left :left :left :left :left :left :right :right :right])
 (def basic-headers ["environment" "  " "alias" "  " "src"])
 (def header-colors [:none :none :none :none :none :none :none :none :none])
 (def row-color-row [:none :none :purple :none :purple :none :none :none :none])

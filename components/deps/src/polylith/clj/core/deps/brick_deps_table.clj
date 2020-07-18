@@ -4,7 +4,7 @@
             [polylith.clj.core.util.interfc :as util]
             [polylith.clj.core.util.interfc.color :as color]))
 
-(def alignments (repeat [:left :center :left :center :left]))
+(def alignments [:left :center :left :center :left])
 
 (defn add-empty-rows [rows max-rows]
   (let [cnt (- max-rows (count rows))]

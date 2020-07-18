@@ -6,7 +6,7 @@
   [interface-name])
 
 (def headers ["uses"])
-(def alignments (repeat [:left]))
+(def alignments [:left])
 
 (defn table [{:keys [interface-deps]} color-mode]
   (let [interface-rows (mapv row interface-deps)
