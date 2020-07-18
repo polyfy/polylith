@@ -23,16 +23,11 @@
         row-colors (map color-row (map vector depender-rows dependee-rows))
         depender-name-rows (map first depender-rows)
         dependee-name-rows (map first dependee-rows)
-        brick-rows (map vector
-                        depender-name-rows
-                        (repeat "") (repeat "") (repeat "")
-                        dependee-name-rows)
-        rows (concat [headers]
-                     [(text-table/full-line (conj brick-rows headers))]
-                     brick-rows)
-        none-colors (repeat :none)
-        colors (conj row-colors none-colors header-colors)]
-    (text-table/table "  " alignments colors rows color-mode)))
+        rows (map vector
+                  depender-name-rows
+                  (repeat "") (repeat "") (repeat "")
+                  dependee-name-rows)]
+    (text-table/table "  " alignments header-colors row-colors headers rows color-mode)))
 
 (def type->color {"component" :green
                   "base" :blue})

@@ -28,12 +28,9 @@
 
 (defn table [environments {:keys [changed-environments environments-to-test]} total-loc-src total-loc-test thousand-sep show-loc? color-mode]
   (let [changed-envs (set changed-environments)
-        none-colors (repeat :none)
-        colors (conj (repeat (-> environments count inc) row-color-row) none-colors header-colors)
+        row-colors (repeat (-> environments count inc) row-color-row)
         env-rows (mapv #(row % changed-envs environments-to-test thousand-sep show-loc? color-mode) environments)
         headers (concat basic-headers (if show-loc? loc-headers []))
-        rows (concat [headers]
-                     [(text-table/full-line (conj env-rows headers))]
-                     env-rows
+        rows (concat env-rows
                      (if show-loc? [["" "" "" "" "" "" (str total-loc-src) "" (str total-loc-test)]]))]
-    (text-table/table "  " alignments colors rows color-mode)))
+    (text-table/table "  " alignments header-colors row-colors headers rows color-mode)))

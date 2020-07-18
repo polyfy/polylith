@@ -9,12 +9,10 @@
 (def alignments [:left])
 
 (defn table [{:keys [interface-deps]} color-mode]
-  (let [interface-rows (mapv row interface-deps)
-        rows (concat [headers]
-                     [(text-table/full-line (conj interface-rows headers))]
-                     interface-rows)
-        colors (conj (repeat (count rows) [:yellow]) [:none] [:none])]
-    (text-table/table "  " alignments colors rows color-mode)))
+  (let [header-colors [:none]
+        row-colors (repeat [:yellow])
+        rows (mapv row interface-deps)]
+    (text-table/table "  " alignments header-colors row-colors headers rows color-mode)))
 
 (defn print-table [workspace brick-name color-mode]
   (let [brick (common/find-brick workspace brick-name)]

@@ -117,11 +117,8 @@
         component-colors (mapv #(->brick-colors % env-spc-cnt show-loc?) sorted-components)
         base-colors (mapv #(->brick-colors % env-spc-cnt show-loc?) sorted-bases)
         total-loc-colors [(vec (repeat (+ 8 env-spc-cnt) :none))]
-        row-colors (concat component-colors base-colors total-loc-colors)
-        none-colors (repeat :none)
-        all-rows (concat [headers] [(text-table/full-line (conj rows headers))] rows)
-        colors (conj row-colors none-colors header-colors)]
-    (text-table/table "  " alignments colors all-rows color-mode)))
+        row-colors (concat component-colors base-colors total-loc-colors)]
+    (text-table/table "  " alignments header-colors row-colors headers rows color-mode)))
 
 (defn print-table [{:keys [settings components bases environments changes messages total-loc-src-bricks total-loc-test-bricks total-loc-src-environments total-loc-test-environments]} thousand-sep show-loc?]
   (let [color-mode (:color-mode settings)

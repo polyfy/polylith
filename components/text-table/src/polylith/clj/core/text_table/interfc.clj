@@ -5,5 +5,8 @@
 (defn full-line [rows]
   (line/full-line rows))
 
-(defn table [initial-spaces alignments colors rows color-mode]
-  (core/table initial-spaces alignments colors rows  color-mode))
+(defn table
+  ([initial-spaces alignments colors rows color-mode]
+   (core/table initial-spaces alignments colors rows color-mode))
+  ([initial-spaces alignments header-colors row-colors headers rows color-mode]
+   (core/table initial-spaces alignments header-colors row-colors headers rows color-mode)))

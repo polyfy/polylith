@@ -1,6 +1,4 @@
 
-- change text-table so that it handles only rows + add alignment per row.
-
 - support these deps:
   - deps            = show all interface dependencies
     deps - -        = show all interface dependencies
