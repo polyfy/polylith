@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.text-table-env
+(ns polylith.clj.core.workspace.text-table.env-table
   (:require [polylith.clj.core.text-table.interfc :as text-table]
             [polylith.clj.core.util.interfc.color :as color]
             [polylith.clj.core.util.interfc.str :as str-util]))

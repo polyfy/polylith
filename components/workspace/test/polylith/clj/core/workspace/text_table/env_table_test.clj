@@ -1,7 +1,7 @@
-(ns polylith.clj.core.workspace.text-table-env-test
+(ns polylith.clj.core.workspace.text-table.env-table-test
   (:require [clojure.test :refer :all]
             [clojure.string :as str]
-            [polylith.clj.core.workspace.text-table-env :as text-table-env]))
+            [polylith.clj.core.workspace.text-table.env-table :as text-table-env]))
 
 (def environments [{:name "cli",
                     :alias "cli"

@@ -1,6 +1,6 @@
-(ns polylith.clj.core.workspace.text-table-ws
+(ns polylith.clj.core.workspace.text-table.ws-table
   (:require [clojure.walk :as walk]
-            [polylith.clj.core.workspace.text-table-env :as text-table-env]
+            [polylith.clj.core.workspace.text-table.env-table :as text-table-env]
             [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.text-table.interfc :as text-table]
             [polylith.clj.core.util.interfc.color :as color]

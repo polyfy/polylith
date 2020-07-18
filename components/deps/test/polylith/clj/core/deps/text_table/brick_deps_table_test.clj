@@ -1,7 +1,7 @@
-(ns polylith.clj.core.deps.brick-deps-table-test
+(ns polylith.clj.core.deps.text-table.brick-deps-table-test
   (:require [clojure.test :refer :all]
             [clojure.string :as str]
-            [polylith.clj.core.deps.brick-deps-table :as brick-deps-table]
+            [polylith.clj.core.deps.text-table.brick-deps-table :as brick-deps-table]
             [polylith.clj.core.util.interfc.color :as color]))
 
 (def deps {:dependers [["command" :green]

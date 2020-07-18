@@ -1,7 +1,7 @@
-(ns polylith.clj.core.deps.brick-ifc-deps-table-test
+(ns polylith.clj.core.deps.text-table.brick-ifc-deps-table-test
   (:require [clojure.test :refer :all]
             [clojure.string :as str]
-            [polylith.clj.core.deps.brick-ifc-deps-table :as deps-table]
+            [polylith.clj.core.deps.text-table.brick-ifc-deps-table :as deps-table]
             [polylith.clj.core.util.interfc.color :as color]))
 
 (def brick {:interface-deps ["change" "file" "util" "workspace" "workspace-clj"]})

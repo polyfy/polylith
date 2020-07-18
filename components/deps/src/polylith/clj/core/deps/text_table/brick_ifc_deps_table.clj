@@ -1,4 +1,4 @@
-(ns polylith.clj.core.deps.brick-ifc-deps-table
+(ns polylith.clj.core.deps.text-table.brick-ifc-deps-table
   (:require [polylith.clj.core.text-table.interfc :as text-table]
             [polylith.clj.core.common.interfc :as common]))
 

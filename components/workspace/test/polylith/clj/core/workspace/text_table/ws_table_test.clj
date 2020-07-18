@@ -1,7 +1,7 @@
-(ns polylith.clj.core.workspace.text-table-ws-test
+(ns polylith.clj.core.workspace.text-table.ws-table-test
   (:require [clojure.test :refer :all]
             [clojure.string :as str]
-            [polylith.clj.core.workspace.text-table-ws :as text-table-ws]
+            [polylith.clj.core.workspace.text-table.ws-table :as text-table-ws]
             [polylith.clj.core.util.interfc.color :as color]))
 
 (def workspace {:name "polylith"

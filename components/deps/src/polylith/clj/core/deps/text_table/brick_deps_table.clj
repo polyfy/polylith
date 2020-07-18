@@ -1,4 +1,4 @@
-(ns polylith.clj.core.deps.brick-deps-table
+(ns polylith.clj.core.deps.text-table.brick-deps-table
   (:require [polylith.clj.core.deps.brick-deps :as brick-deps]
             [polylith.clj.core.text-table.interfc :as text-table]
             [polylith.clj.core.util.interfc :as util]

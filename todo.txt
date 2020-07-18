@@ -221,6 +221,7 @@ Doc
 
 Differences compared to lein-polylith
 =====================================
+- builds on top of tools.deps instead of leiningen.
 - support for type hints as part of the function signature of functions.
 - easier to build libraries and toolings around polylith by using the polylith-core library.
 - if a definition is defined as a 'defn' in one interface, it must be implemented
