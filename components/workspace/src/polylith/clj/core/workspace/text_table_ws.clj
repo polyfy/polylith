@@ -100,7 +100,7 @@
         env->alias (into {} (map (juxt :name :alias) environments))
         alias->bricks-to-test (into {} (map #(alias-changes % env->alias) bricks-to-test))
         env-spc-cnt (inc (* (-> environments count dec) 2))
-        alignments (concat basic-alignments (repeat env-spc-cnt :center) (if show-loc? loc-alignments))
+        alignments (repeat (concat basic-alignments (repeat env-spc-cnt :center) (if show-loc? loc-alignments)))
         alias->bricks (into {} (map env-brick-names environments))
         alias->test-bricks (into {} (map env-brick-test-names environments))
         sorted-components (sort-by sort-order components)
@@ -117,8 +117,11 @@
         component-colors (mapv #(->brick-colors % env-spc-cnt show-loc?) sorted-components)
         base-colors (mapv #(->brick-colors % env-spc-cnt show-loc?) sorted-bases)
         total-loc-colors [(vec (repeat (+ 8 env-spc-cnt) :none))]
-        row-colors (concat component-colors base-colors total-loc-colors)]
-    (text-table/table "  " headers alignments rows header-colors row-colors color-mode)))
+        row-colors (concat component-colors base-colors total-loc-colors)
+        none-colors (repeat :none)
+        all-rows (concat [headers] [(text-table/full-line (conj rows headers))] rows)
+        colors (conj row-colors none-colors header-colors)]
+    (text-table/table "  " alignments colors all-rows color-mode)))
 
 (defn print-table [{:keys [settings components bases environments changes messages total-loc-src-bricks total-loc-test-bricks total-loc-src-environments total-loc-test-environments]} thousand-sep show-loc?]
   (let [color-mode (:color-mode settings)

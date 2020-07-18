@@ -9,9 +9,6 @@
 (defn max-length [index lengths]
   (apply max (map #(nth % index) lengths)))
 
-(defn data-row [row-def row colors]
-  (mapv conj row-def row colors))
-
 (defn none [_ & strings]
   (str/join strings))
 
@@ -22,7 +19,7 @@
    :blue c/blue
    :purple c/purple})
 
-(defn align-str [[align max value color] color-mode]
+(defn align-str [[align max color value] color-mode]
   (let [cnt (- max (-> value str c/clean-colors count))
         cnt-left (quot cnt 2)
         cnt-right (- cnt cnt-left)
@@ -39,22 +36,16 @@
 (defn align-row [data-row spc color-mode]
   (str spc (str/join (mapv #(align-str % color-mode) data-row))))
 
-(defn lengths [headers rows]
-  (let [all-rows (conj rows headers)
-        all-row-lengths (mapv row-lengths all-rows)]
+(defn ->lengths [rows]
+  (let [all-row-lengths (mapv row-lengths rows)]
     (map #(max-length % all-row-lengths)
-         (range 0 (count headers)))))
+         (range 0 (-> rows first count)))))
 
-(defn table-rows [spc headers alignments rows header-colors row-colors color-mode]
-  (let [lengths (lengths headers rows)
-        row-def (map vector alignments lengths)
-        header-row (data-row row-def headers header-colors)
-        header (align-row header-row spc color-mode)
-        line-cnt (- (count (align-row header-row spc c/none)) (count spc))
-        data-rows (mapv #(data-row row-def %1 %2) rows row-colors)]
-    (vec (concat [header]
-                 [(str spc (str-util/line line-cnt))]
-                 (map #(align-row % spc color-mode) data-rows)))))
+(defn table-rows [spc alignments colors rows color-mode]
+  (let [max-counts (repeat (->lengths rows))
+        data-rows (mapv #(mapv vector %1 %2 %3 %4)
+                        alignments max-counts colors rows)]
+    (map #(align-row % spc color-mode) data-rows)))
 
-(defn table [initial-spaces headers alignments rows header-colors row-colors color-mode]
-  (str/join "\n" (table-rows initial-spaces headers alignments rows header-colors row-colors color-mode)))
+(defn table [initial-spaces alignments colors rows color-mode]
+  (str/join "\n" (table-rows initial-spaces alignments colors rows color-mode)))

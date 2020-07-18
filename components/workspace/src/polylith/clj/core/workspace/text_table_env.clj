@@ -3,7 +3,7 @@
             [polylith.clj.core.util.interfc.color :as color]
             [polylith.clj.core.util.interfc.str :as str-util]))
 
-(def alignments [:left :left :left :left :left :left :right :right :right])
+(def alignments (repeat [:left :left :left :left :left :left :right :right :right]))
 (def basic-headers ["environment" "  " "alias" "  " "src"])
 (def header-colors [:none :none :none :none :none :none :none :none :none])
 (def row-color-row [:none :none :purple :none :purple :none :none :none :none])
@@ -28,10 +28,12 @@
 
 (defn table [environments {:keys [changed-environments environments-to-test]} total-loc-src total-loc-test thousand-sep show-loc? color-mode]
   (let [changed-envs (set changed-environments)
-        row-colors (repeat (-> environments count inc) row-color-row)
+        none-colors (repeat :none)
+        colors (conj (repeat (-> environments count inc) row-color-row) none-colors header-colors)
         env-rows (mapv #(row % changed-envs environments-to-test thousand-sep show-loc? color-mode) environments)
-        rows (concat env-rows
-                     (if show-loc? [["" "" "" "" "" "" (str total-loc-src) "" (str total-loc-test)]]))
-        headers (concat basic-headers (if show-loc? loc-headers []))]
-
-    (text-table/table "  " headers alignments rows header-colors row-colors color-mode)))
+        headers (concat basic-headers (if show-loc? loc-headers []))
+        rows (concat [headers]
+                     [(text-table/full-line (conj env-rows headers))]
+                     env-rows
+                     (if show-loc? [["" "" "" "" "" "" (str total-loc-src) "" (str total-loc-test)]]))]
+    (text-table/table "  " alignments colors rows color-mode)))

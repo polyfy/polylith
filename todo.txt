@@ -1,10 +1,12 @@
 
+- change text-table so that it handles only rows + add alignment per row.
+
 - support these deps:
   - deps            = show all interface dependencies
     deps - -        = show all interface dependencies
     deps env -      = show dependencies for environment
-    deps env brick  = show dependencies for brick in environment
-    deps - brick    = show interface deps for brick, no environment specified
+    deps env brick  = show dependencies for brick in environment - OK
+    deps - brick    = show interface deps for brick              - OK
 
 - implement the 'deps' command.
   - when sending in '-lib', also show library dependencies:
@@ -59,8 +61,6 @@
 
 - store :color-mode in ~/.polylith/config.edn.
 
-- change text-table so that it handles only rows + add alignment per row.
-
 - update brick deps so that we have two header lines.
 
 - let util.def-map handle attributes with namespace in it, e.g. [paths deps aliases mvn/repos]
@@ -68,6 +68,8 @@
 
 - let 'workspace' just assoc new attributes so that extra attributes that we don't know about
   will not dissappear.
+
+- read the line-separator and put it as an attribute to the workspace.
 
 - 'help' should not be part of core.
 

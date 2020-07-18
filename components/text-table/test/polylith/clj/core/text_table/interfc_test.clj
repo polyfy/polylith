@@ -4,9 +4,10 @@
             [polylith.clj.core.util.interfc.color :as color]
             [polylith.clj.core.text-table.interfc :as text-table]))
 
-(def headers ["interface" "  " "c/b" "  " "brick" "  " "loc" " " "(t)" "   " "c"])
-(def alignments [:left :left :center :left :left :left :right :left :right :left :left])
-(def rows [["change" "" "c" "" "change" "" "80" "" "25" "" "x"]
+(def alignments (repeat [:left :left :center :left :left :left :right :left :right :left :left]))
+(def rows [["interface" "  " "c/b" "  " "brick" "  " "loc" " " "(t)" "   " "c"]
+           ["-------------" "--" "---" "--" "-------------" "--" "---" "-" "---" "---" "-"]
+           ["change" "" "c" "" "change" "" "80" "" "25" "" "x"]
            ["common" "" "c" "" "common" "" "161" "" "0" "" "x"]
            ["deps" "" "c" "" "deps" "" "67" "" "135" "" "x"]
            ["file" "" "c" "" "file" "" "74" "" "0" "" "x"]
@@ -20,8 +21,7 @@
            ["workspace-clj" "" "c" "" "workspace-clj" "" "277" "" "184" "" "x"]
            ["-" "" "b" "" "cli" "" "82" "" "184" "" "x"]])
 
-(def header-colors (repeat 11 :none))
-(def row-colors (repeat 13 header-colors))
+(def colors (concat (repeat (repeat :none))))
 
 (deftest table--table-rows--should-return-a-formatted-table
   (is (= ["  interface      c/b  brick          loc (t)   c"
@@ -39,4 +39,4 @@
           "  workspace       c   workspace      265  77   x"
           "  workspace-clj   c   workspace-clj  277 184   x"
           "  -               b   cli             82 184   x"]
-         (str/split-lines (text-table/table "  " headers alignments rows header-colors row-colors color/none)))))
+         (str/split-lines (text-table/table "  " alignments colors rows color/none)))))

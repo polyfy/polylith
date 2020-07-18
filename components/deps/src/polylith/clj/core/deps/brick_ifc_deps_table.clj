@@ -6,13 +6,15 @@
   [interface-name])
 
 (def headers ["uses"])
-(def alignments [:left])
-(def header-colors [:none])
+(def alignments (repeat [:left]))
 
 (defn table [{:keys [interface-deps]} color-mode]
-  (let [rows (mapv row interface-deps)
-        row-colors (repeat (count rows) [:yellow])]
-    (text-table/table "  " headers alignments rows header-colors row-colors color-mode)))
+  (let [interface-rows (mapv row interface-deps)
+        rows (concat [headers]
+                     [(text-table/full-line (conj interface-rows headers))]
+                     interface-rows)
+        colors (conj (repeat (count rows) [:yellow]) [:none] [:none])]
+    (text-table/table "  " alignments colors rows color-mode)))
 
 (defn print-table [workspace brick-name color-mode]
   (let [brick (common/find-brick workspace brick-name)]

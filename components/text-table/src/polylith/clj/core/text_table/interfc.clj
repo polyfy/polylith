@@ -1,5 +1,9 @@
 (ns polylith.clj.core.text-table.interfc
-  (:require [polylith.clj.core.text-table.core :as core]))
+  (:require [polylith.clj.core.text-table.core :as core]
+            [polylith.clj.core.text-table.line :as line]))
 
-(defn table [initial-spaces headers alignments rows header-colors row-colors color-mode]
-  (core/table initial-spaces headers alignments rows header-colors row-colors color-mode))
+(defn full-line [rows]
+  (line/full-line rows))
+
+(defn table [initial-spaces alignments colors rows color-mode]
+  (core/table initial-spaces alignments colors rows  color-mode))

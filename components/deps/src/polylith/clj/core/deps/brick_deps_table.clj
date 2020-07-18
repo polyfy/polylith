@@ -4,7 +4,7 @@
             [polylith.clj.core.util.interfc :as util]
             [polylith.clj.core.util.interfc.color :as color]))
 
-(def alignments [:left :center :left :center :left])
+(def alignments (repeat [:left :center :left :center :left]))
 
 (defn add-empty-rows [rows max-rows]
   (let [cnt (- max-rows (count rows))]
@@ -23,11 +23,16 @@
         row-colors (map color-row (map vector depender-rows dependee-rows))
         depender-name-rows (map first depender-rows)
         dependee-name-rows (map first dependee-rows)
-        rows (map vector
-                  depender-name-rows
-                  (repeat "") (repeat "") (repeat "")
-                  dependee-name-rows)]
-    (text-table/table "  " headers alignments rows header-colors row-colors color-mode)))
+        brick-rows (map vector
+                        depender-name-rows
+                        (repeat "") (repeat "") (repeat "")
+                        dependee-name-rows)
+        rows (concat [headers]
+                     [(text-table/full-line (conj brick-rows headers))]
+                     brick-rows)
+        none-colors (repeat :none)
+        colors (conj row-colors none-colors header-colors)]
+    (text-table/table "  " alignments colors rows color-mode)))
 
 (def type->color {"component" :green
                   "base" :blue})
