@@ -1,6 +1,7 @@
 (ns polylith.clj.core.workspace.text-table.ws-table
   (:require [clojure.walk :as walk]
-            [polylith.clj.core.workspace.text-table.env-table :as text-table-env]
+            [polylith.clj.core.workspace.text-table.env-table :as env-table]
+            [polylith.clj.core.workspace.text-table.nof-bricks-table :as nofb-table]
             [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.text-table.interfc :as text-table]
             [polylith.clj.core.util.interfc.color :as color]
@@ -121,11 +122,14 @@
         row-colors (concat component-colors base-colors total-loc-colors)]
     (text-table/table "  " alignments header-colors header-orientations row-colors headers rows color-mode)))
 
-(defn print-table [{:keys [settings components bases environments changes messages total-loc-src-bricks total-loc-test-bricks total-loc-src-environments total-loc-test-environments]} thousand-sep show-loc?]
+(defn print-table [{:keys [settings interfaces components bases environments changes messages total-loc-src-bricks total-loc-test-bricks total-loc-src-environments total-loc-test-environments]} thousand-sep show-loc?]
   (let [color-mode (:color-mode settings)
         {:keys [changed-components changed-bases bricks-to-test]} changes
         table (ws-table color-mode components bases environments changed-components changed-bases bricks-to-test total-loc-src-bricks total-loc-test-bricks thousand-sep show-loc?)
-        env-table (text-table-env/table environments changes total-loc-src-environments total-loc-test-environments thousand-sep show-loc? color-mode)]
+        nof-table (nofb-table/table interfaces components bases environments color-mode)
+        env-table (env-table/table environments changes total-loc-src-environments total-loc-test-environments thousand-sep show-loc? color-mode)]
+    (println)
+    (println nof-table)
     (println)
     (println env-table)
     (println)

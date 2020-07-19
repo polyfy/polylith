@@ -5,18 +5,10 @@
       -----------------------------------------------------
       org.clojure/clojure           1.10.1    x    x     x
       org.clojure/tools.deps.alpha  0.8.695   x    x     x
-  - when typing "deps env" then show all dependencies for the given environment.
-    If a component is not yet added to the environment, show interface in the column instead:
-
-- show #c #b (number of components + bases)
-
-- change headers in brick deps to separate ---- -- lines.
 
 - update help for the 'deps' command.
 
 - store :color-mode in ~/.polylith/config.edn.
-
-- update brick deps so that we have two header lines.
 
 - let util.def-map handle attributes with namespace in it, e.g. [paths deps aliases mvn/repos]
   in environments-from-disk.
