@@ -106,3 +106,12 @@
           "  workspace-clj   c   workspace-clj  277 184   x"
           "  -               b   cli             82 184   x"]
          (str/split-lines (text-table/table "  " alignments header-colors header-vertical-orientations colors headers brick-rows color/none)))))
+
+
+(deftest line--full-line--returns-only-line-fragments
+  (is (= ["-----" "--" "------"]
+         (text-table/line [["hello" "my" "friend"]]))))
+
+(deftest line--broken-line--returns-selected-line-fragments
+  (is (= ["-----" "  " "------"]
+         (text-table/line [["hello" "my" "friend"]] [true false true]))))

@@ -23,7 +23,7 @@
     (if (specified? environment-name)
       (if (specified? brick-name)
         (deps/print-brick-table workspace environment-name brick-name color-mode)
-        (println "Not supported at the moment!"))
+        (deps/print-workspace-brick-table workspace environment-name color-mode))
       (if (specified? brick-name)
         (deps/print-brick-ifc-table workspace brick-name color-mode)
         (deps/print-workspace-ifc-table workspace color-mode)))))

@@ -1,8 +1,10 @@
 
+- make sure we list interfaces in the columns + have two components with the
+  same interface in the test.
 
 - support these deps:
   - deps            = show all interface dependencies            - OK
-    deps env        = show dependencies for environment
+    deps env        = show dependencies for environment          - OK
     deps env brick  = show dependencies for brick in environment - OK
     deps - brick    = show interface deps for brick              - OK
 
@@ -194,6 +196,7 @@ Doc
   - refer to this code where we in a couple of places don't deletage to a core namespace
     and in another (validate) mostly delegate, but keep things in the interface.
 - recommend people to have the same name of the interface as for the component as a good default.
+- adding e.g. 'interface.v2' could be a way to not change what the interface provide.
 
 Differences compared to lein-polylith
 =====================================

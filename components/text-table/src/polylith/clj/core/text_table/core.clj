@@ -61,12 +61,12 @@
                               row-colors
                               rows
                               color-mode)))
-  ([initial-spaces alignments header-colors header-orientations colors headers rows color-mode]
-   (let [line-colors [(repeat 999 :none)]
+  ([initial-spaces alignments header-colors header-orientations colors headers line-visables rows color-mode]
+   (let [line-colors [(repeat :none)]
          header-color-rows (orientation/header-color-rows header-colors header-orientations headers)
          color-rows (concat header-color-rows line-colors colors)
          header-rows (orientation/header-rows header-orientations headers)
          all-rows (concat header-rows
-                          [(line/full-line (concat rows header-rows))]
+                          [(line/line (concat rows header-rows) line-visables)]
                           rows)]
      (table initial-spaces alignments color-rows all-rows color-mode))))

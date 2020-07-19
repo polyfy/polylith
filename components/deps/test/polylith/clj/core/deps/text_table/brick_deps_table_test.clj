@@ -19,7 +19,7 @@
 
 (deftest table--when-having-a-list-of-dependers-and-dependees--return-correct-table
   (is (= ["  used by  <  workspace  >  uses       "
-          "  -------------------------------------"
+          "  -------                   -----------"
           "  command                   common     "
           "  cli                       deps       "
           "  z-jocke                   file       "
