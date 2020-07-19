@@ -60,8 +60,8 @@
           "                g  n  o  p  l  i  l  l  e  l  i  i  t  c  l"
           " brick          e  d  n  s  e  t  p  l  r  e  g  l  e  e  j"
           " ----------------------------------------------------------"
-          " change         ·  ·  ·  ·  ·  x  ·  ·  ·  ·  ·  x  ·  ·  ·"
-          " command        ·  ·  x  x  ·  ·  x  ·  ·  ·  ·  x  ·  x  ·"
+          " change         ·  ·  ·  ·  ·  x  ·  +  ·  ·  ·  x  ·  ·  ·"
+          " command        ·  ·  x  x  +  ·  x  ·  ·  +  +  x  +  x  ·"
           " common         ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·"
           " deps           ·  ·  x  ·  ·  ·  ·  ·  ·  x  ·  x  ·  ·  ·"
           " file           ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·"
@@ -72,10 +72,10 @@
           " text-table     ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·"
           " user-config    ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·"
           " util           ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·"
-          " validate       ·  ·  x  x  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·"
+          " validate       ·  ·  x  x  ·  ·  ·  ·  ·  +  ·  x  ·  ·  ·"
           " workspace      ·  ·  x  x  x  ·  ·  ·  ·  x  x  x  x  ·  ·"
           " workspace-clj  ·  ·  x  ·  x  ·  ·  ·  ·  ·  ·  x  ·  ·  ·"
-          " cli            x  ·  ·  ·  x  ·  ·  ·  ·  ·  ·  ·  ·  x  ·"
-          " z-jocke        x  ·  ·  ·  x  ·  ·  ·  ·  ·  ·  x  ·  x  ·"]
+          " cli            x  ·  +  +  x  +  ·  +  ·  +  +  +  +  x  ·"
+          " z-jocke        x  ·  +  +  x  +  ·  +  ·  +  +  x  +  x  ·"]
          (str/split-lines
            (ws-brick-table/table environment components ws-bases color/none)))))

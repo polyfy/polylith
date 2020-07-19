@@ -3,14 +3,15 @@
             [polylith.clj.core.util.interfc :as util]
             [polylith.clj.core.util.interfc.color :as color]))
 
-(defn dependency [brick-name component-name brick->interface-deps]
-  (if (contains? (brick->interface-deps brick-name) component-name)
-    "x"
-    "·"))
+(defn dependency [brick-name component-name brick->deps brick->indirect-deps]
+  (cond
+    (contains? (brick->deps brick-name) component-name) "x"
+    (contains? (brick->indirect-deps brick-name) component-name) "+"
+    :else "·"))
 
-(defn row [brick-name component-names brick->interface-deps]
+(defn row [brick-name component-names brick->deps brick->indirect-deps]
   (conj (interleave (repeat "")
-                    (map #(dependency brick-name % brick->interface-deps)
+                    (map #(dependency brick-name % brick->deps brick->indirect-deps)
                          component-names))
         brick-name))
 
@@ -24,6 +25,7 @@
         n#columns-with-margin (* 3 (count components))
         brick-names (concat component-names base-names)
         brick->deps (into {} (mapv (juxt identity #(-> % deps :direct set)) brick-names))
+        brick->indirect-deps (into {} (mapv (juxt identity #(-> % deps :indirect set)) brick-names))
         alignments (repeat n#columns-with-margin :left)
         header-colors (conj (repeat n#columns-with-margin :green) :none)
         header-orientations (conj (interleave (repeat (count components) :horizontal)
@@ -32,7 +34,7 @@
                      (concat (repeat (count components) :green)
                              (repeat (count bases) :blue)))
         headers (concat ["brick" "  "] (interpose "  " component-names))
-        brick-rows (map #(row % component-names brick->deps)
+        brick-rows (map #(row % component-names brick->deps brick->indirect-deps)
                         brick-names)]
     (text-table/table " " alignments header-colors header-orientations colors headers brick-rows color-mode)))
 

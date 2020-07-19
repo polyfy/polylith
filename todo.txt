@@ -1,6 +1,4 @@
 
-- show indirect changes changes as '+'.
-
 - implement the 'deps' command.
   - when sending in '-lib', also show library dependencies:
       library                       version  cli  core  dev
