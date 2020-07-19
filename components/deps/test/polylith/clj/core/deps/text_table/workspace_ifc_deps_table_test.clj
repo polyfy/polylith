@@ -4,6 +4,22 @@
             [polylith.clj.core.util.interfc.color :as color]
             [clojure.string :as str]))
 
+(def interfaces [{:name "change"}
+                 {:name "command"}
+                 {:name "common"}
+                 {:name "deps"}
+                 {:name "file"}
+                 {:name "git"}
+                 {:name "help"}
+                 {:name "shell"}
+                 {:name "test-runner"}
+                 {:name "text-table"}
+                 {:name "user-config"}
+                 {:name "util"}
+                 {:name "validate"}
+                 {:name "workspace"}
+                 {:name "workspace-clj"}])
+
 (def components [{:name "change",
                   :interface-deps ["git" "util"]}
                  {:name "command",
@@ -13,6 +29,9 @@
                  {:name "deps",
                   :type "component",
                   :interface-deps ["common" "text-table" "util"]}
+                 {:name "deps2",
+                  :type "component",
+                  :interface-deps []}
                  {:name "file",
                   :interface-deps []}
                  {:name "git",
@@ -60,6 +79,7 @@
           " command        ·  ·  x  x  ·  ·  x  ·  x  ·  ·  x  ·  x  ·"
           " common         ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·"
           " deps           ·  ·  x  ·  ·  ·  ·  ·  ·  x  ·  x  ·  ·  ·"
+          " deps2          ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·"
           " file           ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·"
           " git            ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·  ·  ·  ·  ·"
           " help           ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·"
@@ -74,4 +94,4 @@
           " cli            x  x  ·  ·  x  ·  ·  ·  ·  ·  ·  ·  ·  x  x"
           " z-jocke        x  ·  ·  ·  x  ·  ·  ·  ·  ·  ·  x  ·  x  x"]
          (str/split-lines
-           (ws-ifc-table/table components ws-bases color/none)))))
+           (ws-ifc-table/table interfaces components ws-bases color/none)))))

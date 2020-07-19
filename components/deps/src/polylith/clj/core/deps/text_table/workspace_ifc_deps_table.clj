@@ -6,18 +6,19 @@
     "x"
     "·"))
 
-(defn row [brick-name component-names brick->interface-deps]
+(defn row [brick-name interface-names brick->interface-deps]
   (conj (interleave (repeat "")
                     (map #(dependency brick-name % brick->interface-deps)
-                         component-names))
+                         interface-names))
         brick-name))
 
 (defn row-color [brick-color n#columns-with-margin]
   (conj (repeat n#columns-with-margin :none) brick-color))
 
-(defn table [components bases color-mode]
+(defn table [interfaces components bases color-mode]
   (let [bricks (concat components bases)
         brick->interface-deps (into {} (map (juxt :name #(-> % :interface-deps set)) bricks))
+        interface-names (sort (map :name interfaces))
         component-names (sort (map :name components))
         base-names (sort (map :name bases))
         n#columns-with-margin (* 3 (count components))
@@ -29,10 +30,10 @@
         colors (mapv #(row-color % n#columns-with-margin)
                      (concat (repeat (count components) :green)
                              (repeat (count bases) :blue)))
-        headers (concat ["brick" "  "] (interpose "  " component-names))
-        brick-rows (map #(row % component-names brick->interface-deps)
+        headers (concat ["brick" "  "] (interpose "  " interface-names))
+        brick-rows (map #(row % interface-names brick->interface-deps)
                         brick-names)]
     (text-table/table " " alignments header-colors header-orientations colors headers brick-rows color-mode)))
 
-(defn print-table [{:keys [components bases]} color-mode]
-  (println (table components bases color-mode)))
+(defn print-table [{:keys [interfaces components bases]} color-mode]
+  (println (table interfaces components bases color-mode)))

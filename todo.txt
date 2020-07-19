@@ -1,13 +1,4 @@
 
-- make sure we list interfaces in the columns + have two components with the
-  same interface in the test.
-
-- support these deps:
-  - deps            = show all interface dependencies            - OK
-    deps env        = show dependencies for environment          - OK
-    deps env brick  = show dependencies for brick in environment - OK
-    deps - brick    = show interface deps for brick              - OK
-
 - show indirect changes changes as '+'.
 
 - implement the 'deps' command.
@@ -16,16 +7,6 @@
       -----------------------------------------------------
       org.clojure/clojure           1.10.1    x    x     x
       org.clojure/tools.deps.alpha  0.8.695   x    x     x
-  - when typing "deps env brick", show the dependencies of the brick within the given environment.
-    If a component is not yet added to the environment, show the interface under 'uses':
-    used-by > brick > uses
-    -------           ----------
-    command           common
-    cli               deps
-    z-jocke           file
-                      text-table
-                      util
-                      validate
   - when typing "deps env" then show all dependencies for the given environment.
     If a component is not yet added to the environment, show interface in the column instead:
 
@@ -160,6 +141,7 @@ Leave for now
   following lines as blank. Support having more than one column in a "group".
 - make sure we handle imported namespaces in a generic way, right now we assume
   that they are separated with a "." in deps.dependencies/brick-namespace.
+- show dependencies at the function level?
 
 Doc
 ===
@@ -196,7 +178,7 @@ Doc
   - refer to this code where we in a couple of places don't deletage to a core namespace
     and in another (validate) mostly delegate, but keep things in the interface.
 - recommend people to have the same name of the interface as for the component as a good default.
-- adding e.g. 'interface.v2' could be a way to not change what the interface provide.
+- adding e.g. 'interface.v2' could be a way to not break code (not change what the interface provide).
 
 Differences compared to lein-polylith
 =====================================
@@ -217,12 +199,11 @@ Differences compared to lein-polylith
   - no 'sync' command needed.
 - more powerful:
   - supports multiple environments
-  - supports having tests per environment
-  - faster. No need for a 'prompt' command. The 'check' command runs in about a second.
-  - advanced 'info' command with support for colors.
+  - supports having tests per environment, not just in the development environment.
+  - faster. No need for a 'prompt' command. The 'check' command runs in around a second.
+  - advanced 'info' and 'deps' commands with support for colors.
   - improved error messages.
   - an environment can have a different version of a library than other environments.
-- improved visualisation with tables and colors.
 - improved testing experience. In lein-polylith all bricks were compiled and no test output was
   shown during test execution. Now the ouput from the tests are shown and no compilation of the
   bricks are performed.
