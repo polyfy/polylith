@@ -5,6 +5,7 @@
             [polylith.clj.core.util.interfc.color :as color]))
 
 (def alignments [:left :center :left :center :left])
+(def header-orientations [:horizontal :horizontal :horizontal :horizontal :horizontal])
 
 (defn add-empty-rows [rows max-rows]
   (let [cnt (- max-rows (count rows))]
@@ -27,7 +28,7 @@
                   depender-name-rows
                   (repeat "") (repeat "") (repeat "")
                   dependee-name-rows)]
-    (text-table/table "  " alignments header-colors row-colors headers rows color-mode)))
+    (text-table/table "  " alignments header-colors header-orientations row-colors headers rows color-mode)))
 
 (def type->color {"component" :green
                   "base" :blue})

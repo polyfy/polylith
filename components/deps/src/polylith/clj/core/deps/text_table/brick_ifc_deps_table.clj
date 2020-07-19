@@ -7,12 +7,13 @@
 
 (def headers ["uses"])
 (def alignments [:left])
+(def header-orientations [:horizontal])
 
 (defn table [{:keys [interface-deps]} color-mode]
   (let [header-colors [:none]
         row-colors (repeat [:yellow])
         rows (mapv row interface-deps)]
-    (text-table/table "  " alignments header-colors row-colors headers rows color-mode)))
+    (text-table/table "  " alignments header-colors header-orientations row-colors headers rows color-mode)))
 
 (defn print-table [workspace brick-name color-mode]
   (let [brick (common/find-brick workspace brick-name)]

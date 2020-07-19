@@ -8,5 +8,5 @@
 (defn table
   ([initial-spaces alignments colors rows color-mode]
    (core/table initial-spaces alignments colors rows color-mode))
-  ([initial-spaces alignments header-colors row-colors headers rows color-mode]
-   (core/table initial-spaces alignments header-colors row-colors headers rows color-mode)))
+  ([initial-spaces alignments header-colors header-orientations colors headers rows color-mode]
+   (core/table initial-spaces alignments header-colors header-orientations colors headers rows color-mode)))

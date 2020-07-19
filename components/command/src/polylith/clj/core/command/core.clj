@@ -13,15 +13,19 @@
       (println (color/ok color-mode "OK"))
       (println (common/pretty-messages workspace)))))
 
+(defn has? [name]
+  (and (-> name nil? not)
+       (not= "-" name)))
+
 (defn deps [workspace environment-name brick-name]
   (let [color-mode (-> workspace :settings :color-mode)]
-    (if brick-name
-      (if (= "-" environment-name)
-        (deps/print-print-ifc-table workspace brick-name color-mode)
-        (deps/print-brick-table workspace environment-name brick-name color-mode))
-      (println (str "Brick name must be given, e.g.: "
-                    (color/environment "myenv" color-mode) " mybrick"
-                    " or: - mybrick")))))
+    (if (has? environment-name)
+      (if (has? brick-name)
+        (deps/print-brick-ifc-table workspace brick-name color-mode)
+        (println "Not supported at the moment!"))
+      (if (has? brick-name)
+        (deps/print-brick-table workspace environment-name brick-name color-mode)
+        (deps/print-workspace-ifc-table workspace color-mode)))))
 
 (defn info [workspace arg]
   (case arg

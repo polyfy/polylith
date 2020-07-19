@@ -6,6 +6,7 @@
 (def alignments [:left :left :left :left :left :left :right :right :right])
 (def basic-headers ["environment" "  " "alias" "  " "src"])
 (def header-colors [:none :none :none :none :none :none :none :none :none])
+(def header-orientation [:horizontal :horizontal :horizontal :horizontal :horizontal :horizontal :horizontal :horizontal :horizontal])
 (def row-color-row [:none :none :purple :none :purple :none :none :none :none])
 
 (def loc-headers ["  " "loc" "  " "(t)"])
@@ -33,4 +34,4 @@
         headers (concat basic-headers (if show-loc? loc-headers []))
         rows (concat env-rows
                      (if show-loc? [["" "" "" "" "" "" (str total-loc-src) "" (str total-loc-test)]]))]
-    (text-table/table "  " alignments header-colors row-colors headers rows color-mode)))
+    (text-table/table "  " alignments header-colors header-orientation row-colors headers rows color-mode)))

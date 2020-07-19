@@ -1,6 +1,7 @@
 (ns polylith.clj.core.text-table.core
   (:require [clojure.string :as str]
             [polylith.clj.core.text-table.line :as line]
+            [polylith.clj.core.text-table.orientation :as orientation]
             [polylith.clj.core.util.interfc.str :as str-util]
             [polylith.clj.core.util.interfc.color :as c]))
 
@@ -54,14 +55,18 @@
     (repeat rows)))
 
 (defn table
-  ([initial-spaces alignments colors rows color-mode]
+  ([initial-spaces alignments row-colors rows color-mode]
    (str/join "\n" (table-rows initial-spaces
                               (->rows alignments)
-                              colors
+                              row-colors
                               rows
                               color-mode)))
-  ([initial-spaces alignments header-colors row-colors headers rows color-mode]
-   (let [none-colors (repeat :none)
-         colors (conj row-colors none-colors header-colors)
-         all-rows (concat [headers] [(line/full-line (conj rows headers))] rows)]
-     (table initial-spaces alignments colors all-rows color-mode))))
+  ([initial-spaces alignments header-colors header-orientations colors headers rows color-mode]
+   (let [line-colors [(repeat 999 :none)]
+         header-color-rows (orientation/header-color-rows header-colors header-orientations headers)
+         color-rows (concat header-color-rows line-colors colors)
+         header-rows (orientation/header-rows header-orientations headers)
+         all-rows (concat header-rows
+                          [(line/full-line (concat rows header-rows))]
+                          rows)]
+     (table initial-spaces alignments color-rows all-rows color-mode))))

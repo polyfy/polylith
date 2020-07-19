@@ -50,6 +50,7 @@
 (def loc-headers ["loc" " " "(t)" "   "])
 (def basic-alignments [:left :left :left :left])
 (def loc-alignments [:left :right :left :right])
+(def header-orientations (repeat :horizontal))
 
 (defn env-color [alias brick alias->bricks]
   (if (contains? (alias->bricks alias) brick)
@@ -118,7 +119,7 @@
         base-colors (mapv #(->brick-colors % env-spc-cnt show-loc?) sorted-bases)
         total-loc-colors [(vec (repeat (+ 8 env-spc-cnt) :none))]
         row-colors (concat component-colors base-colors total-loc-colors)]
-    (text-table/table "  " alignments header-colors row-colors headers rows color-mode)))
+    (text-table/table "  " alignments header-colors header-orientations row-colors headers rows color-mode)))
 
 (defn print-table [{:keys [settings components bases environments changes messages total-loc-src-bricks total-loc-test-bricks total-loc-src-environments total-loc-test-environments]} thousand-sep show-loc?]
   (let [color-mode (:color-mode settings)

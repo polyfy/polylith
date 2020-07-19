@@ -26,8 +26,10 @@
                   [["-------------" "--" "---" "--" "-------------" "--" "---" "-" "---" "---" "-"]]
                   brick-rows))
 
-(def header-colors (repeat :none))
-(def colors (repeat (repeat :none)))
+(def header-colors (repeat 20 :none))
+(def header-horizontal-orientations (vec (repeat 20 :horizontal)))
+(def header-vertical-orientations (assoc header-horizontal-orientations 4 :vertical))
+(def colors (repeat 20 (repeat 20 :none)))
 
 (deftest table--raw-table-rows--should-return-a-formatted-table
   (is (= ["  interface      c/b  brick          loc (t)   c"
@@ -47,7 +49,7 @@
           "  -               b   cli             82 184   x"]
          (str/split-lines (text-table/table "  " alignments colors rows color/none)))))
 
-(deftest table--table-rows--should-return-a-formatted-table
+(deftest table--table-rows-with-hirizontal-orientation--should-return-a-formatted-table
   (is (= ["  interface      c/b  brick          loc (t)   c"
           "  ----------------------------------------------"
           "  change          c   change          80  25   x"
@@ -63,4 +65,44 @@
           "  workspace       c   workspace      265  77   x"
           "  workspace-clj   c   workspace-clj  277 184   x"
           "  -               b   cli             82 184   x"]
-         (str/split-lines (text-table/table "  " alignments header-colors colors headers brick-rows color/none)))))
+         (str/split-lines (text-table/table "  " alignments header-colors header-horizontal-orientations colors headers brick-rows color/none)))))
+
+(deftest table--table-rows-with-horizontal-orientation--should-return-a-formatted-table
+  (is (= ["  interface      c/b  brick          loc (t)   c"
+          "  ----------------------------------------------"
+          "  change          c   change          80  25   x"
+          "  common          c   common         161   0   x"
+          "  deps            c   deps            67 135   x"
+          "  file            c   file            74   0   x"
+          "  git             c   git             31  17   x"
+          "  shell           c   shell           19   0   x"
+          "  spec            c   spec            17   0   x"
+          "  test-runner     c   test-runner     72   0   x"
+          "  util            c   util            56  43   x"
+          "  validate        c   validate       370 693   x"
+          "  workspace       c   workspace      265  77   x"
+          "  workspace-clj   c   workspace-clj  277 184   x"
+          "  -               b   cli             82 184   x"]
+         (str/split-lines (text-table/table "  " alignments header-colors header-horizontal-orientations colors headers brick-rows color/none)))))
+
+(deftest table--table-rows-with-vertical-orientation--should-return-a-formatted-table
+  (is (= ["                      b                         "
+          "                      r                         "
+          "                      i                         "
+          "                      c                         "
+          "  interface      c/b  k              loc (t)   c"
+          "  ----------------------------------------------"
+          "  change          c   change          80  25   x"
+          "  common          c   common         161   0   x"
+          "  deps            c   deps            67 135   x"
+          "  file            c   file            74   0   x"
+          "  git             c   git             31  17   x"
+          "  shell           c   shell           19   0   x"
+          "  spec            c   spec            17   0   x"
+          "  test-runner     c   test-runner     72   0   x"
+          "  util            c   util            56  43   x"
+          "  validate        c   validate       370 693   x"
+          "  workspace       c   workspace      265  77   x"
+          "  workspace-clj   c   workspace-clj  277 184   x"
+          "  -               b   cli             82 184   x"]
+         (str/split-lines (text-table/table "  " alignments header-colors header-vertical-orientations colors headers brick-rows color/none)))))

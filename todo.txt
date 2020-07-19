@@ -1,7 +1,6 @@
 
 - support these deps:
-  - deps            = show all interface dependencies
-    deps - -        = show all interface dependencies
+  - deps - -        = show all interface dependencies            - OK
     deps env -      = show dependencies for environment
     deps env brick  = show dependencies for brick in environment - OK
     deps - brick    = show interface deps for brick              - OK
@@ -24,36 +23,10 @@
                       validate
   - when typing "deps env" then show all dependencies for the given environment.
     If a component is not yet added to the environment, show interface in the column instead:
-                                                        w
-                                                        o
-                                         t              r
-                                         e              k
-                                         s  t        w  s
-                                         t  e     v  o  p
-                    c                    -  x     a  r  a
-                 c  o  c                 r  t     l  k  c
-                 h  m  o              s  u  -     i  s  e
-                 a  m  m  d  f     h  h  n  t  u  d  p  -
-                 n  a  m  e  i  g  l  e  n  b  t  a  a  c
-                 g  n  o  p  l  i  e  l  e  l  i  t  c  l
- brick           e  d  n  s  e  t  p  l  r  e  l  e  e  j
- --------------------------------------------------------
- change          ·  ·  ·  ·  ·  x  ·  ·  ·  ·  x  ·  ·  ·
- command         ·  ·  x  ·  ·  ·  x  ·  x  ·  x  ·  x  ·
- common          ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·
- deps            ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·
- file            ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·
- git             ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·  ·  ·  ·
- help            ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·
- shell           ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·
- test-runner     ·  ·  x  ·  x  ·  ·  ·  ·  ·  x  ·  ·  ·
- text-table      ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·
- util            ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·
- validate        ·  ·  x  x  ·  ·  ·  ·  ·  ·  x  ·  ·  ·
- workspace       ·  ·  x  x  x  ·  ·  ·  ·  x  x  x  ·  ·
- workspace-clj   ·  ·  x  ·  x  ·  ·  ·  ·  ·  x  ·  ·  ·
- cli             x  x  ·  ·  x  ·  ·  ·  ·  ·  ·  ·  x  x
- z-jocke         ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  x  x
+
+- show #c #b (number of components + bases)
+
+- change headers in brick deps to separate ---- -- lines.
 
 - update help for the 'deps' command.
 
