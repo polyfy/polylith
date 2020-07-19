@@ -126,6 +126,7 @@
         {:keys [changed-components changed-bases bricks-to-test]} changes
         table (ws-table color-mode components bases environments changed-components changed-bases bricks-to-test total-loc-src-bricks total-loc-test-bricks thousand-sep show-loc?)
         env-table (text-table-env/table environments changes total-loc-src-environments total-loc-test-environments thousand-sep show-loc? color-mode)]
+    (println)
     (println env-table)
     (println)
     (println table)

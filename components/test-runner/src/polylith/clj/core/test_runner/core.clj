@@ -102,6 +102,8 @@
 (defn run [{:keys [environments changes] :as workspace} env run-env-tests?]
   (if (nil? env)
     (run-all-tests workspace environments changes run-env-tests?)
-    (if-let [environment (util/find-first #(= env (:name %)) environments)]
-      (run-tests-for-environment workspace environment changes run-env-tests?)
-      (println (str "Can't find environment '" env "'.")))))
+    (let [color-mode (-> workspace -> :settings :color-mode)
+          environment (util/find-first #(= env (:name %)) environments)]
+      (if environment
+        (run-tests-for-environment workspace environment changes run-env-tests?)
+        (println (str "Couldn't find the " (color/environment "env" color-mode) " envirionment."))))))

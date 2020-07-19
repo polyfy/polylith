@@ -1,5 +1,6 @@
 (ns polylith.clj.core.command.core
   (:require [clojure.pprint :as pp]
+            [clojure.string :as str]
             [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.deps.interfc :as deps]
             [polylith.clj.core.help.interfc :as help]
@@ -13,18 +14,18 @@
       (println (color/ok color-mode "OK"))
       (println (common/pretty-messages workspace)))))
 
-(defn has? [name]
-  (and (-> name nil? not)
-       (not= "-" name)))
+(defn specified? [name]
+  (and (not= "-" name)
+       (-> name str/blank? not)))
 
 (defn deps [workspace environment-name brick-name]
   (let [color-mode (-> workspace :settings :color-mode)]
-    (if (has? environment-name)
-      (if (has? brick-name)
-        (deps/print-brick-ifc-table workspace brick-name color-mode)
-        (println "Not supported at the moment!"))
-      (if (has? brick-name)
+    (if (specified? environment-name)
+      (if (specified? brick-name)
         (deps/print-brick-table workspace environment-name brick-name color-mode)
+        (println "Not supported at the moment!"))
+      (if (specified? brick-name)
+        (deps/print-brick-ifc-table workspace brick-name color-mode)
         (deps/print-workspace-ifc-table workspace color-mode)))))
 
 (defn info [workspace arg]

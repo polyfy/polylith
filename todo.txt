@@ -1,9 +1,12 @@
 
+
 - support these deps:
-  - deps - -        = show all interface dependencies            - OK
-    deps env -      = show dependencies for environment
+  - deps            = show all interface dependencies            - OK
+    deps env        = show dependencies for environment
     deps env brick  = show dependencies for brick in environment - OK
     deps - brick    = show interface deps for brick              - OK
+
+- show indirect changes changes as '+'.
 
 - implement the 'deps' command.
   - when sending in '-lib', also show library dependencies:
@@ -195,13 +198,14 @@ Doc
 Differences compared to lein-polylith
 =====================================
 - builds on top of tools.deps instead of leiningen.
+- the interface can be named both 'interface' and 'inerfc' and have sub namespaces.
 - support for type hints as part of the function signature of functions.
 - easier to build libraries and toolings around polylith by using the polylith-core library.
 - if a definition is defined as a 'defn' in one interface, it must be implemented
   as a function in all components for that interface (not mixing functions and macros)
   and the other way around.
 - simpler and less "intrusive":
-  - you workk with the project from the root and have access to all environments and bricks.
+  - you work with the project from the root and have access to all environments and bricks.
   - no symbolic links
   - only environments, not both services and environments as in lein-polylith.
   - no empty workspace interfaces.
@@ -221,6 +225,7 @@ Differences compared to lein-polylith
   bricks are performed.
 - the 'deps' command is improved except that it doesn't support showing dependencies
   at the function level.
+- you need to take care of what libraries you need per environment manually.
 
 Design decisions
 ================

@@ -42,7 +42,7 @@
         bricks (concat components bases)
         brick->color (into {} (map (juxt :name #(-> % :type type->color)) bricks))]
     (cond
-      (nil? environment) (println (str "Couldn't find environment " (color/environment environment-name color-mode) "."))
+      (nil? environment) (println (str "Couldn't find the " (color/environment environment-name color-mode) " environment."))
       (-> brick-name brick->color nil?) (println (str "Couldn't find brick '" brick-name "'."))
       :else (let [brick->interface-deps (into {} (map (juxt :name :interface-deps) bricks))
                   deps (brick-deps/deps environment brick->color brick->interface-deps brick-name)]
