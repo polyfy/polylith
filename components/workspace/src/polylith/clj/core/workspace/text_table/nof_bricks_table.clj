@@ -2,15 +2,15 @@
   (:require [polylith.clj.core.text-table.interfc :as text-table]))
 
 (def alignments [:left :right])
-(def colors [[:purple :none]
-             [:blue :none]
+(def colors [[:yellow :none]
              [:green :none]
-             [:yellow :none]])
+             [:blue :none]
+             [:purple :none]])
 
 (defn table [interfaces components bases environments color-mode]
-  (let [rows [["environments: " (count environments)]
-              ["bases:        " (count bases)]
+  (let [rows [["interfaces:   " (count interfaces)]
               ["components:   " (count components)]
-              ["interfaces:   " (count interfaces)]]]
+              ["bases:        " (count bases)]
+              ["environments: " (count environments)]]]
 
     (text-table/table "  " alignments colors rows color-mode)))
