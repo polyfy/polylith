@@ -1,5 +1,5 @@
 
-- use & in argument list for command/execute.
+- test to have two columns in the first table in the 'info' command.
 
 - set :vcs to "git".
 

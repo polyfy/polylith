@@ -1,6 +1,6 @@
 (ns polylith.clj.core.create.workspace
   (:require [polylith.clj.core.file.interfc :as file]
-            [polylith.clj.core.shell.interfc :as shell]))
+            [polylith.clj.core.git.interfc :as git]))
 
 (defn create [ws-path ws-name ws-ns]
   (file/create-dir (str ws-path "/" ws-name))
@@ -12,10 +12,4 @@
                      (str "            :color-mode \"dark\"")
                      (str "            :top-namespace \"" ws-ns "\"")
                      (str "            :env-short-names {}}}")])
-  (try
-    (shell/sh "git" "init" :dir ws-path)
-    (shell/sh "git" "add" "." :dir ws-path)
-    (shell/sh "git" "commit" "-m" "Initial commit." :dir ws-path)
-    (catch Exception _
-      (println (str "Cannot create a git repository for the workspace.\n"
-                    "Please try to create it manually instead.")))))
+  (git/init ws-path))

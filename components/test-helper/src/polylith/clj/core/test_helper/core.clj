@@ -10,6 +10,9 @@
 
 (def root-dir (atom nil))
 
+(defn sub-dir [dir]
+  (str @root-dir "/" dir))
+
 (defn test-setup-and-tear-down [function]
   (let [path (file/create-temp-dir "polylith-root")]
     (if path
@@ -25,18 +28,19 @@
                       ws/enrich-workspace
                       change/with-changes))))
 
-(defn execute-command [cmd arg1 arg2 arg3]
-  (let [ws-path (file/current-path)
-        workspace (read-workspace ws-path)
-        {:keys [ok? system-error? exception]} (command/execute-command ws-path workspace cmd arg1 arg2 arg3)]
-    (when (not ok?)
-      (if system-error?
-        (stacktrace/print-stack-trace exception)
-        (ex/print-error-message exception)))))
+(defn execute-command [current-dir cmd arg1 arg2 arg3]
+  (with-redefs [file/current-path (fn [] (str @root-dir "/" current-dir))]
+    (let [ws-path (file/current-path)
+          workspace (read-workspace ws-path)
+          {:keys [ok? system-error? exception]} (command/execute-command ws-path workspace cmd arg1 arg2 arg3)]
+      (when (not ok?)
+        (if system-error?
+          (stacktrace/print-stack-trace exception)
+          (ex/print-error-message exception))))))
 
 (defn paths [dir]
-  (let [paths (file/relative-paths dir)]
+  (let [paths (-> dir sub-dir file/relative-paths)]
     (set (filter #(not (str/starts-with? (str %) ".git/")) paths))))
 
-(defn content [ws-dir directory]
-  (file/read-file (str ws-dir "/" directory)))
+(defn content [dir filename]
+  (file/read-file (str (sub-dir dir) "/" filename)))

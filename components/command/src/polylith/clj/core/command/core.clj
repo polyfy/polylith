@@ -15,9 +15,10 @@
       (println (color/ok color-mode "OK"))
       (println (common/pretty-messages workspace)))))
 
-(defn create [ws-path type ws-name ws-ns]
+(defn create [workspace ws-path type arg1 arg2]
   (condp = type
-    "w" (create/create-workspace ws-path ws-name ws-ns)
+    "w" (create/create-workspace ws-path arg1 arg2)
+    "e" (create/create-environment workspace arg1 arg2)
     (println (str "Unknown type: " type))))
 
 (defn specified? [name]
@@ -61,7 +62,7 @@
     (if (valid-command? workspace cmd arg1)
       (case cmd
         "check" (check workspace)
-        "create" (create ws-path arg1 arg2 arg3)
+        "create" (create workspace ws-path arg1 arg2 arg3)
         "deps" (deps workspace arg1 arg2)
         "help" (help workspace arg1)
         "info" (info workspace arg1)
