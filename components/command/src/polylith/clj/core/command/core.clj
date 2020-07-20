@@ -18,7 +18,7 @@
 (defn create [workspace ws-path type arg1 arg2]
   (condp = type
     "w" (create/create-workspace ws-path arg1 arg2)
-    "e" (create/create-environment workspace arg1 arg2)
+    "e" (create/create-environment workspace arg1)
     (println (str "Unknown type: " type))))
 
 (defn specified? [name]

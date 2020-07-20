@@ -5,5 +5,5 @@
 (defn create-workspace [ws-path ws-name ws-ns]
   (ws/create ws-path ws-name ws-ns))
 
-(defn create-environment [workspace env alias]
-  (env/create workspace env alias))
+(defn create-environment [workspace env]
+  (env/create workspace env))

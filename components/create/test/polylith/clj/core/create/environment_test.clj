@@ -1,14 +1,20 @@
 (ns polylith.clj.core.create.environment-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.test-helper.interfc :as helper]))
+            [polylith.clj.core.test-helper.interfc :as helper]
+            [polylith.clj.core.util.interfc.color :as color]))
 
 (use-fixtures :each helper/test-setup-and-tear-down)
 
-(deftest create-environment--creates-
+(deftest create-environment--performs-expected-actions
   (let [ws-name "ws1"
         dir (str ws-name "/environments/env1")
-        _ (helper/execute-command "" "create" "w" ws-name "se.example")
-        _ (helper/execute-command ws-name "create" "e" "env1" "env")]
+        output (with-out-str
+                 (helper/execute-command "" "create" "w" ws-name "se.example")
+                 (helper/execute-command ws-name "create" "e" "env1" "env"))]
+
+    (is (= "You are recommended to manually add an alias to the :env-short-names key in 'deps.edn', e.g.: {\"env1\" \"e\"}\n"
+           (color/clean-colors output)))
+
     (is (= #{"components"
              "bases"
              "environments"
