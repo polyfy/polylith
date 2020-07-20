@@ -2,6 +2,7 @@
   (:require [clojure.pprint :as pp]
             [clojure.string :as str]
             [polylith.clj.core.common.interfc :as common]
+            [polylith.clj.core.create.interfc :as create]
             [polylith.clj.core.deps.interfc :as deps]
             [polylith.clj.core.help.interfc :as help]
             [polylith.clj.core.test-runner.interfc :as test-runner]
@@ -13,6 +14,11 @@
     (if (empty? messages)
       (println (color/ok color-mode "OK"))
       (println (common/pretty-messages workspace)))))
+
+(defn create [ws-path type ws-name ws-ns]
+  (condp = type
+    "w" (create/create-workspace ws-path ws-name ws-ns)
+    (println (str "Unknown type: " type))))
 
 (defn specified? [name]
   (and (not= "-" name)
@@ -35,7 +41,7 @@
     (ws/print-table workspace false)))
 
 (defn help [workspace cmd]
-  (let [color-mode (-> workspace :settings :color-mode)]
+  (let [color-mode (or (-> workspace :settings :color-mode) color/none)]
     (help/print-help cmd color-mode)))
 
 (defn test-ws [workspace arg1 arg2]
@@ -43,11 +49,26 @@
     (test-runner/run workspace arg2 true)
     (test-runner/run workspace arg1 (= "-all" arg2))))
 
-(defn execute [workspace cmd arg1 arg2]
-  (case cmd
-    "check" (check workspace)
-    "deps" (deps workspace arg1 arg2)
-    "help" (help workspace arg1)
-    "info" (info workspace arg1)
-    "test" (test-ws workspace arg1 arg2)
-    (help workspace nil)))
+(defn valid-command? [workspace cmd arg1]
+  (or (-> workspace nil? not)
+      (nil? cmd)
+      (= "help" cmd)
+      (and (= "create" cmd)
+           (= "w" arg1))))
+
+(defn execute [ws-path workspace cmd arg1 arg2 arg3]
+  (try
+    (if (valid-command? workspace cmd arg1)
+      (case cmd
+        "check" (check workspace)
+        "create" (create ws-path arg1 arg2 arg3)
+        "deps" (deps workspace arg1 arg2)
+        "help" (help workspace arg1)
+        "info" (info workspace arg1)
+        "test" (test-ws workspace arg1 arg2)
+        (help workspace nil))
+      (println "Only the 'help' and 'create w' commands can be executed outside a workspace."))
+    {:ok? true}
+    (catch Exception e
+      {:ok? false
+       :exception e})))

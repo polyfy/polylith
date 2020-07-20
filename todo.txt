@@ -1,12 +1,15 @@
 
-- implement the 'deps' command.
-  - when sending in '-lib', also show library dependencies:
-      library                       version  cli  core  dev
-      -----------------------------------------------------
-      org.clojure/clojure           1.10.1    x    x     x
-      org.clojure/tools.deps.alpha  0.8.695   x    x     x
+- use & in argument list for command/execute.
+
+- set :vcs to "git".
+
+- if :short-names are empty, treat them as non existing (so we don't nme things like ?1, ?2...).
+- read :color-mode from ~/.polylith/config.edn instead of deps.edn.
 
 - update help for the 'deps' command.
+- add help for the 'create w' command.
+
+- set :interface-ns in :polylith to "interfc" and use that namespace when looking for interfaces.
 
 - store :color-mode in ~/.polylith/config.edn.
 
@@ -19,6 +22,8 @@
 - read the line-separator and put it as an attribute to the workspace.
 
 - 'help' should not be part of core.
+
+- make sure the 'deps' command work with the environment aliases.
 
 - make sure the workspace table looks okay even without an environment.
 
@@ -64,8 +69,6 @@
 
 - create a spec that checks a workspace + expose it in the core API.
 
-- when a workspace is enhanced, also set :vcs to "git".
-
 - put back the 'spec' component and make sure we have the :polylith section with
   an entry for :top-namespace + if color-mode is specifiec that it has valid values.
 
@@ -85,6 +88,15 @@
 - add the 'version' command.
 
 - add the 'build' command that builds a simple jar.
+
+- add support for 'create ws', 'create e', 'create c' and 'create b'.
+
+- in the 'deps' command, when sending in '-lib', also show library dependencies, e.g.:
+    library                       version  cli  core  dev
+    -----------------------------------------------------
+    org.clojure/clojure           1.10.1    x    x     x
+    org.clojure/tools.deps.alpha  0.8.695   x    x     x
+
 
 Questions
 =========
@@ -169,9 +181,15 @@ Doc
     and in another (validate) mostly delegate, but keep things in the interface.
 - recommend people to have the same name of the interface as for the component as a good default.
 - adding e.g. 'interface.v2' could be a way to not break code (not change what the interface provide).
+- examples of what environments are used for:
+  - use it as a development environment.
+  - build a library out of it.
+  - build a stand alone command line tool out of it.
+  - build a service (lambda, REST...) out of it.
 
 Differences compared to lein-polylith
 =====================================
+- you need to run git, otherwise it can not determine what has changed since the last commit.
 - builds on top of tools.deps instead of leiningen.
 - the interface can be named both 'interface' and 'inerfc' and have sub namespaces.
 - support for type hints as part of the function signature of functions.
@@ -189,16 +207,16 @@ Differences compared to lein-polylith
   - no 'sync' command needed.
 - more powerful:
   - supports multiple environments
-  - supports having tests per environment, not just in the development environment.
+  - supports having tests per environment.
   - faster. No need for a 'prompt' command. The 'check' command runs in around a second.
   - advanced 'info' and 'deps' commands with support for colors.
   - improved error messages.
   - an environment can have a different version of a library than other environments.
 - improved testing experience. In lein-polylith all bricks were compiled and no test output was
   shown during test execution. Now the ouput from the tests are shown and no compilation of the
-  bricks are performed.
+  bricks are performed + they run faster in separate class loaders.
 - the 'deps' command is improved except that it doesn't support showing dependencies
-  at the function level.
+  at the function level at the moment.
 - you need to take care of what libraries you need per environment manually.
 
 Design decisions

@@ -1,13 +1,49 @@
 (ns polylith.clj.core.file.core
   (:require [clojure.java.io :as io]
             [clojure.java.io :refer [reader]])
-  (:import (java.io File FileNotFoundException PushbackReader)))
+  (:import [java.io File PushbackReader FileNotFoundException]
+           [java.nio.file Files]))
+
+(defn execute-fn [f message path]
+  (try
+    (f)
+    (catch Exception e
+      (println (str "Warning. " message " '" path "': " (.getMessage e))))))
+
+(defn delete-file [path]
+  (execute-fn #(io/delete-file path true)
+              "Could not delete file" path))
+
+(defn delete-dir [path]
+  (doseq [f (reverse (file-seq (clojure.java.io/file path)))]
+    (if (or (Files/isSymbolicLink (.toPath f)) (.exists f))
+      (delete-file f))))
+
+(defn create-file [path rows]
+  (delete-file path)
+  (doseq [row rows]
+    (execute-fn
+      #(spit path (str row "\n") :append true)
+      "Could not create file" path)))
+
+(defn create-temp-dir [dir]
+  (let [temp-file (execute-fn #(File/createTempFile dir "")
+                              "Could not create directory in temp directory" dir)
+        _         (.delete temp-file)
+        _         (.mkdirs temp-file)]
+    (.getPath temp-file)))
+
+(defn create-dir [^String path]
+  (.mkdir (File. path)))
 
 (defn exists [path]
   (.exists (File. path)))
 
 (defn absolute-path [path]
   (-> path io/file .getAbsolutePath))
+
+(defn current-path []
+  (absolute-path ""))
 
 (defn directory? [^File file]
   (.isDirectory file))
@@ -50,3 +86,8 @@
 
 (defn paths-recursively [dir]
   (map str (files-recursively dir)))
+
+(defn relative-paths [path]
+  (let [length (inc (count path))]
+    (map #(str (subs % length))
+         (map str (paths-recursively path)))))

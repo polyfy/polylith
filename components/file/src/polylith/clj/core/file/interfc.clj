@@ -5,6 +5,24 @@
 (defn absolute-path [path]
   (core/absolute-path path))
 
+(defn create-dir [^String path]
+  (core/create-dir path))
+
+(defn create-file [path rows]
+  (core/create-file path rows))
+
+(defn create-temp-dir [dir]
+  (core/create-temp-dir dir))
+
+(defn current-path []
+  (core/current-path))
+
+(defn delete-dir [path]
+  (core/delete-dir path))
+
+(defn delete-file [path]
+  (core/delete-file path))
+
 (defn directory? [^File file]
   (core/directory? file))
 
@@ -32,3 +50,6 @@
 (defn paths-recursively [dir]
   "Returns all directories and files in a directory recursively"
   (core/paths-recursively dir))
+
+(defn relative-paths [path]
+  (core/relative-paths path))
