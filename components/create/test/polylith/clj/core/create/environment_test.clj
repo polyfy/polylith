@@ -12,7 +12,7 @@
                  (helper/execute-command "" "create" "w" ws-name "se.example")
                  (helper/execute-command ws-name "create" "e" "env1" "env"))]
 
-    (is (= "You are recommended to manually add an alias to the :env-short-names key in 'deps.edn', e.g.: {\"env1\" \"e\"}\n"
+    (is (= "Feel free to add a short name for the env1 environment to the :env-short-names key in deps.edn, e.g.: {\"env1\" \"e\"}\n"
            (color/clean-colors output)))
 
     (is (= #{"components"

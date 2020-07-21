@@ -22,8 +22,8 @@
                        ""
                        (str " :aliases {:test {:extra-paths []")
                        (str "                  :extra-deps  {}}}}")])
-    (println (str "You are recommended to manually add an alias to the "
-                  (color/purple color-mode ":env-short-names") " key in 'deps.edn', e.g.: "
+    (println (str "Feel free to add a short name for the " (color/environment env color-mode) " environment "
+                  "to the :env-short-names key in deps.edn, e.g.: "
                   "{" (env-key env alias color-mode) "}"))))
 
 (defn create [{:keys [environments settings]} env]

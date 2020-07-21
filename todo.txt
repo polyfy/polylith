@@ -1,4 +1,6 @@
 
+- add readme.dm to the 'create w' command.
+
 - test to have two columns in the first table in the 'info' command.
 
 - set :vcs to "git".
