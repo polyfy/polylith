@@ -10,9 +10,7 @@
 (def environments (repeat 2 nil))
 
 (deftest table--interfaces-components-bases-and-environments--returns-correct-list
-  (is (= ["  interfaces:   14"
-          "  components:   15"
-          "  bases:         3"
-          "  environments:  2"]
+  (is (= ["  interfaces: 14   environments: 2"
+          "  components: 15   bases:        3"]
          (str/split-lines
            (nof-table/table interfaces components ws-bases environments color/none)))))

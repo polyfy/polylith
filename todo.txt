@@ -1,10 +1,10 @@
 
-- test to have two columns in the first table in the 'info' command.
-
 - set :vcs to "git".
 
 - if :short-names are empty, treat them as non existing (so we don't nme things like ?1, ?2...).
 - read :color-mode from ~/.polylith/config.edn instead of deps.edn.
+
+- implement 'create c'.
 
 - update help for the 'deps' command.
 - add help for the 'create w' command.
