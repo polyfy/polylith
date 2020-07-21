@@ -1,13 +1,18 @@
 
+- show a warning if a resource (together with its 'src' or 'test' folder) is defined in
+  one environment but not in another (that has the source folder).
+
 - if :short-names are empty, treat them as non existing (so we don't nme things like ?1, ?2...).
+
 - read :color-mode from ~/.polylith/config.edn instead of deps.edn.
+
+- set :interface-ns in :polylith to "interfc" and use that namespace when looking for interfaces.
 
 - implement 'create c'.
 
 - update help for the 'deps' command.
 - add help for the 'create w' command.
 
-- set :interface-ns in :polylith to "interfc" and use that namespace when looking for interfaces.
 
 - store :color-mode in ~/.polylith/config.edn.
 

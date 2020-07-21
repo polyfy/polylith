@@ -1,5 +1,5 @@
 
-rm ./environments/dev/target/dev.jar
+rm ./environments/cli/target/dev.jar
 rm ./environments/core/target/core.jar
 
 echo "#### 1. Build core uberjar"
@@ -9,8 +9,8 @@ sudo cp ./environments/core/target/core.jar /Users/tengstrand/.m2/repository/pol
 
 echo "#### 2. Build cli uberjar"
 
-./make-uberjar.sh dev polylith.clj.core.cli.poly
-sudo cp ./environments/dev/target/dev.jar /usr/local/polylith/poly.jar
+./make-uberjar.sh cli polylith.clj.core.cli.poly
+sudo cp ./environments/cli/target/cli.jar /usr/local/polylith/poly.jar
 
 #echo "#### 3. Build core API"
 

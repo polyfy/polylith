@@ -4,6 +4,7 @@
            "../../components/command/src"
            "../../components/common/src"
            "../../components/create/src"
+           "../../components/create/resources"
            "../../components/deps/src"
            "../../components/file/src"
            "../../components/git/src"
