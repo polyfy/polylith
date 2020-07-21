@@ -19,8 +19,11 @@
              "bases"
              "environments"
              "environments/env1"
+             "images"
+             "images/logo.png"
              "environments/env1/deps.edn"
-             "deps.edn"}
+             "deps.edn"
+             "readme.md"}
            (helper/paths ws-name)))
 
     (is (= '({:aliases {:test {:extra-deps  {}

@@ -6,11 +6,18 @@
 
 (deftest create-workspace--creates-empty-directories-and-a-deps-edn-config-file
   (let [ws-name "ws1"
-        _ (helper/execute-command "" "create" "w" ws-name "se.example")]
+        output (with-out-str
+                 (helper/execute-command "" "create" "w" ws-name "se.example"))]
+    (is (= ""
+           output))
+
     (is (= #{"bases"
              "components"
              "environments"
-             "deps.edn"}
+             "images"
+             "images/logo.png"
+             "deps.edn"
+             "readme.md"}
            (helper/paths ws-name)))
 
     (is (= [{:polylith {:vcs "git"

@@ -1,6 +1,4 @@
 
-- add readme.dm to the 'create w' command.
-
 - test to have two columns in the first table in the 'info' command.
 
 - set :vcs to "git".
@@ -149,6 +147,8 @@ Leave for now
 
 Doc
 ===
+- a components increases cohesion so that we can put all the code, tests, resources
+  and documentation for that piece of code into one place, which increases changeability.
 - show the colors I use for best contrasts + mention borealis.
 - people sometimes ask for sub-components, but in polylith you instead divide
   your component in namespaces and sub namespaces to achieve the same thing.

@@ -75,6 +75,13 @@
     (catch FileNotFoundException _
       nil)))
 
+(defn copy-resource-file! [source target-path]
+  (delete-file target-path)
+  (let [resource-file (io/input-stream (io/resource source))
+        target-file (io/file target-path)]
+    (execute-fn #(io/copy resource-file target-file)
+                "Could not copy resource file" target-path)))
+
 (defn delete-folder [file]
   (let [files (reverse (file-seq file))]
     (doseq [^File f files]

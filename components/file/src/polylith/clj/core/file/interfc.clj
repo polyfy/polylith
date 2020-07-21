@@ -14,6 +14,9 @@
 (defn create-temp-dir [dir]
   (core/create-temp-dir dir))
 
+(defn copy-resource-file! [source target-path]
+  (core/copy-resource-file! source target-path))
+
 (defn current-path []
   (core/current-path))
 
