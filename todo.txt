@@ -1,6 +1,4 @@
 
-- set :vcs to "git".
-
 - if :short-names are empty, treat them as non existing (so we don't nme things like ?1, ?2...).
 - read :color-mode from ~/.polylith/config.edn instead of deps.edn.
 
