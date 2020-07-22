@@ -2,10 +2,12 @@
 {:polylith {:color-mode "dark"
             :top-namespace "polylith.clj.core"
             :env-short-names {"dev" "d"
+                              "dev2" "d2"
                               "cli" "cli"
                               "core" "core"}}
 
  :aliases  {:dev      {:extra-deps {env/dev {:local/root "environments/dev"}}}
+            :dev2     {:extra-deps {env/dev2 {:local/root "environments/dev2"}}}
 
             :deps     {:main-opts ["-m" "polylith.clj.core.cli.poly" "deps"]}
             :test     {:main-opts ["-m" "polylith.clj.core.cli.poly" "test"]}

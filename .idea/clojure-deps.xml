@@ -5,6 +5,7 @@
       <set>
         <option value="deps" />
         <option value="dev" />
+        <option value="dev2" />
         <option value="env/core" />
         <option value="env/core-test" />
         <option value="test" />
