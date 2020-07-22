@@ -161,7 +161,9 @@ polylith.clj.core.workspace.text-table.nof-bricks-table-test
 polylith.clj.core.workspace.text-table.ws-table
 polylith.clj.core.workspace.text-table.ws-table-test
 
+- remove "../../components/create/resources" from the test path.
 
+- change place of environments/bases and interfaces/components in the 'info' command.
 
 - have a dev directory with a 'src' directory and namespace where we can import a polylith.clj.core
   namespace that has a function that allows us to reload an environment to the REPL.
