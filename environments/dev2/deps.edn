@@ -21,8 +21,7 @@
            "../../components/workspace-clj/src"
 
            ; Base
-           "../../bases/cli/src"
-           "../../bases/z-jocke/src"]
+           "../../bases/cli/src"]
 
  :deps    {org.clojure/clojure {:mvn/version "1.10.1"}
            org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}
@@ -50,11 +49,7 @@
                                    "../../components/workspace-clj/test"
 
                                    ; Bases
-                                   "../../bases/cli/test"
-                                   "../../bases/z-jocke/test"
-
-                                   ; Environment
-                                   "test"]
+                                   "../../bases/cli/test"]
                      :extra-deps  {}}
 
            :aot     {:extra-paths ["classes"]

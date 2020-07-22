@@ -17,6 +17,7 @@
       <list>
         <option value="file://$PROJECT_DIR$/deps.edn" />
         <option value="file://$PROJECT_DIR$/environments/dev/deps.edn" />
+        <option value="file://$PROJECT_DIR$/environments/dev2/deps.edn" />
       </list>
     </option>
   </component>
