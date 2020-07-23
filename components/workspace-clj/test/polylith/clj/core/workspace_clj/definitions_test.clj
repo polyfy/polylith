@@ -17,7 +17,8 @@
            :parameters [{:name "&"}
                         {:name "keyvals"}]}]
          (defs/definitions "interfc"
-                           '(defn ordered-map [& keyvals] (core/ordered-map keyvals))))))
+                           '(defn ordered-map [& keyvals] (core/ordered-map keyvals))
+                           "interfc"))))
 
 (deftest definitions--a-single-arity-defn-statement-with-a-type-hint--returns-a-definition-including-type-hint
   (is (= [{:name "my-func"
@@ -25,7 +26,8 @@
            :parameters [{:name "arg1"}
                         {:name "arg2", :type "^String"}]}]
          (defs/definitions "interfc"
-                           '(defn my-func [arg1 ^String arg2] (core/my-func arg1 arg2))))))
+                           '(defn my-func [arg1 ^String arg2] (core/my-func arg1 arg2))
+                           "interfc"))))
 
 (deftest definitions--a-multi-arity-defn-statement--returns-a-list-of-definitions
   (is (= [{:name "pretty-messages"
@@ -41,4 +43,5 @@
                               ([workspace]
                                (msg/pretty-messages workspace))
                               ([messages color-mode]
-                               (msg/pretty-messages messages color-mode)))))))
+                               (msg/pretty-messages messages color-mode)))
+                           "interfc"))))

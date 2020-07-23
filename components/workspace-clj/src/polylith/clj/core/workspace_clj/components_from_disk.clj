@@ -8,7 +8,7 @@
   (when string
     (str/replace string "_" "-")))
 
-(defn read-component [ws-path top-src-dir component-name]
+(defn read-component [ws-path top-src-dir component-name interface-ns]
   "Reads component from disk."
   (let [component-src-dir (str ws-path "/components/" component-name "/src/" top-src-dir)
         component-test-dir (str ws-path "/components/" component-name "/test/" top-src-dir)
@@ -19,7 +19,7 @@
         src-dir (str component-src-dir interface-name)
         namespaces-src (ns-from-disk/namespaces-from-disk component-src-dir)
         namespaces-test (ns-from-disk/namespaces-from-disk component-test-dir)
-        definitions (defs-from-disk/defs-from-disk src-dir)]
+        definitions (defs-from-disk/defs-from-disk src-dir interface-ns)]
     {:name component-name
      :type "component"
      :namespaces-src namespaces-src
@@ -27,6 +27,6 @@
      :interface {:name interface-name
                  :definitions definitions}}))
 
-(defn read-components [ws-path top-src-dir component-names]
+(defn read-components [ws-path top-src-dir component-names interface-ns]
   "Reads components from disk."
-  (vec (sort-by :name (map #(read-component ws-path top-src-dir %) component-names))))
+  (vec (sort-by :name (map #(read-component ws-path top-src-dir % interface-ns) component-names))))

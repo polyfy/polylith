@@ -17,7 +17,7 @@
            (or (str/starts-with? path "interfc/")
                (str/starts-with? path "interface/")))))
 
-(defn interface-ns [root-dir path]
+(defn ->interface-ns [root-dir path]
   (let [index (str/index-of path ".")
         namespace (common/path-to-ns (subs path 0 index))]
     {:sub-ns namespace
@@ -27,18 +27,18 @@
   (let [paths (filterv interface-ns?
                        (map #(interface-path src-dir %)
                             (file/paths-recursively src-dir)))]
-    (mapv #(interface-ns src-dir %) paths)))
+    (mapv #(->interface-ns src-dir %) paths)))
 
-(defn interface-from-disk [{:keys [sub-ns path]}]
+(defn interface-from-disk [{:keys [sub-ns path]} interface-ns]
   (let [content (file/read-file path)
         statements (defs/filter-statements content)]
-    (mapcat #(defs/definitions sub-ns %) statements)))
+    (mapcat #(defs/definitions sub-ns % interface-ns) statements)))
 
 (defn params [parameters]
   (mapv :name parameters))
 
-(defn defs-from-disk [src-dir]
+(defn defs-from-disk [src-dir interface-ns]
   "Example of a src-dir: ./components/common/src/polylith/common"
   (vec (sort-by (juxt :sub-ns :type :name params)
-                (mapcat interface-from-disk
+                (mapcat #(interface-from-disk % interface-ns)
                         (interface-namespaces src-dir)))))

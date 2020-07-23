@@ -22,6 +22,6 @@
 
     (is (= [{:polylith {:vcs "git"
                         :top-namespace "se.example"
-                        :color-mode "dark"
+                        :interface-ns "interface"
                         :env-short-names {}}}]
            (helper/content ws-name "deps.edn")))))

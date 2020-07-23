@@ -1,7 +1,14 @@
 
-- set :interface-ns in :polylith to "interfc" and use that namespace when looking for interfaces.
+- check if we can refer to the key of :extra-deps in "sub modules".
+
+- force giving a top namespace in the 'create w' command.
+  - treat '-' as an empty top namespace.
+
+- make sure the 'deps' command works with the environment aliases.
 
 - implement 'create c'.
+
+- ensure Polylith works on Windows.
 
 - update help for the 'deps' command.
 - add help for the 'create w' command.
@@ -15,8 +22,6 @@
 - read the line-separator and put it as an attribute to the workspace.
 
 - 'help' should not be part of core.
-
-- make sure the 'deps' command work with the environment aliases.
 
 - make sure the workspace table looks okay even without an environment.
 

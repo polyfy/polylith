@@ -23,16 +23,17 @@
    (let [config (read-string (slurp (str ws-path "/deps.edn")))]
      (workspace-from-disk ws-path config)))
   ([ws-path {:keys [polylith]}]
-   (let [{:keys [vcs top-namespace env-short-names]} polylith
+   (let [{:keys [vcs top-namespace interface-ns env-short-names]} polylith
          top-ns (common/top-namespace top-namespace)
          top-src-dir (str/replace top-ns "." "/")
          color-mode (user-config/color-mode)
          component-names (file/directory-paths (str ws-path "/components"))
-         components (components-from-disk/read-components ws-path top-src-dir component-names)
+         components (components-from-disk/read-components ws-path top-src-dir component-names interface-ns)
          bases (bases-from-disk/read-bases ws-path top-src-dir)
          environments (envs-from-disk/read-environments ws-path)
          settings (util/ordered-map :vcs (or vcs "git")
                                     :top-namespace top-namespace
+                                    :interface-ns (or interface-ns "interface")
                                     :color-mode color-mode
                                     :env-short-names env-short-names)]
      (util/ordered-map :ws-path ws-path

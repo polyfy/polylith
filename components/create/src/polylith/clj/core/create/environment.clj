@@ -18,7 +18,7 @@
                        (str "{:paths []")
                        ""
                        (str " :deps {org.clojure/clojure {:mvn/version \"1.10.1\"}")
-                       (str "           org.clojure/tools.deps.alpha {:mvn/version \"0.8.695\"}}")
+                       (str "        org.clojure/tools.deps.alpha {:mvn/version \"0.8.695\"}}")
                        ""
                        (str " :aliases {:test {:extra-paths []")
                        (str "                  :extra-deps  {}}}}")])
