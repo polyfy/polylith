@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/environments/dev/dev.iml" filepath="$PROJECT_DIR$/environments/dev/dev.iml" />
-      <module fileurl="file://$PROJECT_DIR$/environments/dev2/dev2.iml" filepath="$PROJECT_DIR$/environments/dev2/dev2.iml" />
       <module fileurl="file://$PROJECT_DIR$/polylith.iml" filepath="$PROJECT_DIR$/polylith.iml" />
     </modules>
   </component>
