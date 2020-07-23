@@ -3,6 +3,7 @@
             [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.util.interfc :as util]
+            [polylith.clj.core.user-config.interfc :as user-config]
             [polylith.clj.core.workspace-clj.environment-from-disk :as envs-from-disk]
             [polylith.clj.core.workspace-clj.components-from-disk :as components-from-disk]
             [polylith.clj.core.workspace-clj.bases-from-disk :as bases-from-disk]))
@@ -22,9 +23,10 @@
    (let [config (read-string (slurp (str ws-path "/deps.edn")))]
      (workspace-from-disk ws-path config)))
   ([ws-path {:keys [polylith]}]
-   (let [{:keys [vcs top-namespace color-mode env-short-names]} polylith
+   (let [{:keys [vcs top-namespace env-short-names]} polylith
          top-ns (common/top-namespace top-namespace)
          top-src-dir (str/replace top-ns "." "/")
+         color-mode (user-config/color-mode)
          component-names (file/directory-paths (str ws-path "/components"))
          components (components-from-disk/read-components ws-path top-src-dir component-names)
          bases (bases-from-disk/read-bases ws-path top-src-dir)

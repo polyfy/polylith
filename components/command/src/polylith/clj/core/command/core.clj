@@ -5,12 +5,13 @@
             [polylith.clj.core.create.interfc :as create]
             [polylith.clj.core.deps.interfc :as deps]
             [polylith.clj.core.help.interfc :as help]
+            [polylith.clj.core.user-config.interfc :as user-config]
             [polylith.clj.core.test-runner.interfc :as test-runner]
             [polylith.clj.core.util.interfc.color :as color]
             [polylith.clj.core.workspace.interfc :as ws]))
 
-(defn check [{:keys [messages settings] :as workspace}]
-  (let [color-mode (:color-mode settings color/none)]
+(defn check [{:keys [messages] :as workspace}]
+  (let [color-mode (user-config/color-mode)]
     (if (empty? messages)
       (println (color/ok color-mode "OK"))
       (println (common/pretty-messages workspace)))))

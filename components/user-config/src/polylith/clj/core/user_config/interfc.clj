@@ -8,3 +8,6 @@
 
 (defn thousand-separator []
   (:thousand-separator (config-content) ","))
+
+(defn color-mode []
+  (:color-mode (config-content) "dark"))

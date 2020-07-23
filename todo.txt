@@ -1,23 +1,10 @@
 
-- have a dev directory with a 'src' directory and namespace where we can import a polylith.clj.core
-  namespace that has a function that allows us to reload an environment to the REPL.
-
-- show a warning if a resource (together with its 'src' or 'test' folder) is defined in
-  one environment but not in another (that has the source folder).
-  - warn if you put files directory on the root of recources.
-
-- if :short-names are empty, treat them as non existing (so we don't nme things like ?1, ?2...).
-
-- read :color-mode from ~/.polylith/config.edn instead of deps.edn.
-
 - set :interface-ns in :polylith to "interfc" and use that namespace when looking for interfaces.
 
 - implement 'create c'.
 
 - update help for the 'deps' command.
 - add help for the 'create w' command.
-
-- store :color-mode in ~/.polylith/config.edn.
 
 - let util.def-map handle attributes with namespace in it, e.g. [paths deps aliases mvn/repos]
   in environments-from-disk.
@@ -84,6 +71,10 @@
     - polylith-clj-core
     - polylith-clj-core-aot
 
+- show a warning if a resource (together with its 'src' or 'test' folder) is defined in
+  one environment but not in another (that has the source folder).
+  - warn if you put files directory on the root of recources.
+
 - add support for reading files from git and maybe http url:s. One idea is to create a 'reader'
   component that can delegate to e.g. 'file-reader' and others.
 
@@ -116,6 +107,10 @@ Questions
 - :color-mode should be per developer, not per workspace. Put it in .polylith/config.edn?
 - polylith.workspace-clj.namespaces-from-disk/->namespace
 - check if we should register for https://github.com/sponsors.
+
+- have a dev directory with a 'src' directory and namespace where we can import a polylith.clj.core
+  namespace that has a function that allows us to reload an environment to the REPL.
+
 
 Leave for now
 =============
