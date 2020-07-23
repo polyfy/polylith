@@ -1,5 +1,7 @@
 
-- change place of environments/bases and interfaces/components in the 'info' command.
+- remove the SLF4J error when running the test command:
+  "Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+  See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
 
 - have a dev directory with a 'src' directory and namespace where we can import a polylith.clj.core
   namespace that has a function that allows us to reload an environment to the REPL.
@@ -40,10 +42,6 @@
 - move the functionality in 'info -dump' into its own 'dump' command
   - if sending in -json, return JSON instead of EDN.
   - store the export format in ~/.polylith/config.edn
-
-- remove the SLF4J error when running the test command:
-  "Failed to load class "org.slf4j.impl.StaticLoggerBinder".
-  See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
 
 - experiment with implementing a git hook that if the workspace is valid, saves a workspace.edn
   at the root of the project and commits it before every push. Then we could "animate" over the
