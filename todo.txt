@@ -1,8 +1,4 @@
 
-- remove the SLF4J error when running the test command:
-  "Failed to load class "org.slf4j.impl.StaticLoggerBinder".
-  See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
-
 - have a dev directory with a 'src' directory and namespace where we can import a polylith.clj.core
   namespace that has a function that allows us to reload an environment to the REPL.
 
@@ -10,13 +6,11 @@
   one environment but not in another (that has the source folder).
   - warn if you put files directory on the root of recources.
 
-
 - if :short-names are empty, treat them as non existing (so we don't nme things like ?1, ?2...).
 
 - read :color-mode from ~/.polylith/config.edn instead of deps.edn.
 
 - set :interface-ns in :polylith to "interfc" and use that namespace when looking for interfaces.
-
 
 - implement 'create c'.
 
