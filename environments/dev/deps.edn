@@ -33,7 +33,6 @@
                                    "../../components/command/test"
                                    "../../components/common/test"
                                    "../../components/create/test"
-                                   "../../components/create/resources"
                                    "../../components/deps/test"
                                    "../../components/env-reloader/test"
                                    "../../components/file/test"

@@ -1,6 +1,4 @@
 
-- remove "../../components/create/resources" from the test path.
-
 - change place of environments/bases and interfaces/components in the 'info' command.
 
 - have a dev directory with a 'src' directory and namespace where we can import a polylith.clj.core
