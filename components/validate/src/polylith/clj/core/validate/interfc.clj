@@ -8,9 +8,9 @@
             [polylith.clj.core.validate.m107-missing-componens-in-environment :as m107]
             [polylith.clj.core.validate.m201-mismatching-parameters :as m201]))
 
-(defn messages [top-ns interface-names interfaces components bases environments color-mode]
+(defn messages [top-ns interface-names interfaces components bases environments interface-ns color-mode]
   (vec (sort-by (juxt :type :code :message)
-                (set (concat (m101/errors top-ns interface-names components bases color-mode)
+                (set (concat (m101/errors top-ns interface-names components bases interface-ns color-mode)
                              (m102/errors components color-mode)
                              (m103/errors interfaces components color-mode)
                              (m104/errors environments color-mode)

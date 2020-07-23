@@ -1,6 +1,8 @@
 
 - check if we can refer to the key of :extra-deps in "sub modules".
 
+- make sure that Polylith can be executed with "clj -A".
+
 - force giving a top namespace in the 'create w' command.
   - treat '-' as an empty top namespace.
 

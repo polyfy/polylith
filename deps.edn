@@ -1,6 +1,6 @@
 
 {:polylith {:top-namespace "polylith.clj.core"
-            :interface-ns "interface"
+            :interface-ns "interfc"
             :env-short-names {"dev" "d"
                               "dev2" "d2"
                               "cli" "cli"

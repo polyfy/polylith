@@ -35,6 +35,7 @@
         top-ns (common/top-namespace (:top-namespace settings))
         interfaces (interfaces/calculate components)
         interface-names (apply sorted-set (mapv :name interfaces))
+        interface-ns (:interface-ns settings)
         enriched-components (mapv #(component/enrich top-ns interface-names %) components)
         enriched-bases (mapv #(base/enrich top-ns interface-names %) bases)
         enriched-bricks (concat enriched-components enriched-bases)
@@ -48,7 +49,7 @@
         total-loc-src-env (apply + (filter identity (map :lines-of-code-src enriched-environments)))
         total-loc-test-env (apply + (filter identity (map :lines-of-code-test enriched-environments)))
         color-mode (:color-mode settings color/none)
-        messages (validate/messages top-ns interface-names interfaces enriched-components enriched-bases enriched-environments color-mode)]
+        messages (validate/messages top-ns interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns color-mode)]
     (array-map :name ws-name
                :ws-path ws-path
                :ws-reader ws-reader
