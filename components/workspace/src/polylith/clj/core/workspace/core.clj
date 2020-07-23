@@ -35,7 +35,7 @@
         top-ns (common/top-namespace (:top-namespace settings))
         interfaces (interfaces/calculate components)
         interface-names (apply sorted-set (mapv :name interfaces))
-        interface-ns (:interface-ns settings)
+        interface-ns (:interface-ns settings "interface")
         enriched-components (mapv #(component/enrich top-ns interface-names %) components)
         enriched-bases (mapv #(base/enrich top-ns interface-names %) bases)
         enriched-bricks (concat enriched-components enriched-bases)
