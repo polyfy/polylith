@@ -29,7 +29,9 @@
                       change/with-changes))))
 
 (defn execute-command [current-dir cmd arg1 arg2 arg3]
-  (with-redefs [file/current-path (fn [] (str @root-dir "/" current-dir))]
+  (with-redefs [file/current-path (fn [] (if (str/blank? current-dir)
+                                           @root-dir
+                                           (str @root-dir "/" current-dir)))]
     (let [ws-path (file/current-path)
           workspace (read-workspace ws-path)
           {:keys [ok? system-error? exception]} (command/execute-command ws-path workspace cmd arg1 arg2 arg3)]

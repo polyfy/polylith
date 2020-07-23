@@ -8,13 +8,13 @@
   (:gen-class))
 
 (defn -main [& [cmd arg1 arg2 arg3]]
-  (let [ws-path (file/absolute-path "")
-        exists? (file/exists (str ws-path "/deps.edn"))
-        workspace (when exists? (-> ws-path
+  (let [ws-root-path (file/current-path)
+        exists? (file/exists (str ws-root-path "/deps.edn"))
+        workspace (when exists? (-> ws-root-path
                                     ws-clj/workspace-from-disk
                                     ws/enrich-workspace
                                     change/with-changes))
-        {:keys [ok? exception]} (command/execute-command ws-path workspace cmd arg1 arg2 arg3)]
+        {:keys [ok? exception]} (command/execute-command ws-root-path workspace cmd arg1 arg2 arg3)]
       (when (not ok?)
         (ex/print-exception exception)
         (System/exit (or (-> exception ex-data :exit-code) 1)))

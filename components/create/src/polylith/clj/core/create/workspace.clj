@@ -1,7 +1,7 @@
 (ns polylith.clj.core.create.workspace
-  (:require [polylith.clj.core.file.interfc :as file]
-            [polylith.clj.core.git.interfc :as git]
-            [clojure.string :as str]))
+  (:require [polylith.clj.core.create.environment :as env]
+            [polylith.clj.core.file.interfc :as file]
+            [polylith.clj.core.git.interfc :as git]))
 
 (defn readme-content [ws-name]
   ["<img src=\"images/logo.png\" width=\"30%\" alt=\"Polylith\" id=\"logo\">"
@@ -18,26 +18,22 @@
    ""
    "<p>Add your workspace documentation here...</p>"])
 
-(defn ->path [ws-path ws-name]
-  (if (str/ends-with? ws-path "/")
-    (str ws-path ws-name)
-    (str ws-path "/" ws-name)))
-
-(defn create [ws-path ws-name ws-namespace]
+(defn create [ws-root-path ws-name ws-namespace]
   (if (nil? ws-namespace)
     (println "A namespace must be given, or - if omitted.")
-    (let [path (->path ws-path ws-name)
+    (let [ws-path (str ws-root-path "/" ws-name)
           ws-ns (if (= "-" ws-namespace) "" ws-namespace)]
-      (file/create-dir path)
-      (file/create-dir (str path "/bases"))
-      (file/create-dir (str path "/components"))
-      (file/create-dir (str path "/environments"))
-      (file/create-dir (str path "/images"))
-      (file/create-file (str path "/deps.edn")
+      (file/create-dir ws-path)
+      (file/create-dir (str ws-path "/bases"))
+      (file/create-dir (str ws-path "/components"))
+      (file/create-dir (str ws-path "/environments"))
+      (file/create-dir (str ws-path "/images"))
+      (file/create-file (str ws-path "/deps.edn")
                         [(str "{:polylith {:vcs \"git\"")
                          (str "            :top-namespace \"" ws-ns "\"")
                          (str "            :interface-ns \"interface\"")
-                         (str "            :env-short-names {}}}")])
-      (file/create-file (str path "/readme.md") (readme-content ws-name))
-      (file/copy-resource-file! "create/logo.png" (str path "/images/logo.png"))
-      (git/init ws-path))))
+                         (str "            :env-short-names {\"development\" \"dev\"}}}")])
+      (file/create-file (str ws-path "/readme.md") (readme-content ws-name))
+      (file/copy-resource-file! "create/logo.png" (str ws-path "/images/logo.png"))
+      (env/create-env ws-path "development")
+      (git/init ws-root-path))))

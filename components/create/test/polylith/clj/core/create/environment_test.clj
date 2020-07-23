@@ -19,9 +19,11 @@
              "bases"
              "environments"
              "environments/env1"
+             "environments/env1/deps.edn"
+             "environments/development"
+             "environments/development/deps.edn"
              "images"
              "images/logo.png"
-             "environments/env1/deps.edn"
              "deps.edn"
              "readme.md"}
            (helper/paths ws-name)))

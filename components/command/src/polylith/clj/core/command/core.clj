@@ -16,10 +16,15 @@
       (println (color/ok color-mode "OK"))
       (println (common/pretty-messages workspace)))))
 
-(defn create [workspace ws-path type arg1 arg2]
+(defn create-environment [ws-root-path workspace env]
+  (let [color-mode (-> workspace :settings :color-mode)]
+    (when (= :ok (create/create-environment ws-root-path workspace env))
+      (create/print-alias-message env color-mode))))
+
+(defn create [workspace ws-root-path type arg1 arg2]
   (condp = type
-    "w" (create/create-workspace ws-path arg1 arg2)
-    "e" (create/create-environment workspace arg1)
+    "w" (create/create-workspace ws-root-path arg1 arg2)
+    "e" (create-environment ws-root-path workspace arg1)
     (println (str "Unknown type: " type))))
 
 (defn specified? [name]
@@ -58,12 +63,12 @@
       (and (= "create" cmd)
            (= "w" arg1))))
 
-(defn execute [ws-path workspace cmd arg1 arg2 arg3]
+(defn execute [ws-root-path workspace cmd arg1 arg2 arg3]
   (try
     (if (valid-command? workspace cmd arg1)
       (case cmd
         "check" (check workspace)
-        "create" (create workspace ws-path arg1 arg2 arg3)
+        "create" (create workspace ws-root-path arg1 arg2 arg3)
         "deps" (deps workspace arg1 arg2)
         "help" (help workspace arg1)
         "info" (info workspace arg1)

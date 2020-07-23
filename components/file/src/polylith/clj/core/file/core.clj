@@ -1,6 +1,7 @@
 (ns polylith.clj.core.file.core
   (:require [clojure.java.io :as io]
-            [clojure.java.io :refer [reader]])
+            [clojure.java.io :refer [reader]]
+            [polylith.clj.core.util.interfc.str :as str-util])
   (:import [java.io File PushbackReader FileNotFoundException]
            [java.nio.file Files]))
 
@@ -30,8 +31,9 @@
   (let [temp-file (execute-fn #(File/createTempFile dir "")
                               "Could not create directory in temp directory" dir)
         _         (.delete temp-file)
-        _         (.mkdirs temp-file)]
-    (.getPath temp-file)))
+        _         (.mkdirs temp-file)
+        path (.getPath temp-file)]
+    (str-util/skip-if-ends-with path "/")))
 
 (defn create-dir [^String path]
   (.mkdir (File. path)))

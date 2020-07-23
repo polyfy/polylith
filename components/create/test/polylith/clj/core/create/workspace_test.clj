@@ -21,6 +21,8 @@
     (is (= #{"bases"
              "components"
              "environments"
+             "environments/development"
+             "environments/development/deps.edn"
              "images"
              "images/logo.png"
              "deps.edn"
@@ -30,7 +32,7 @@
     (is (= [{:polylith {:vcs "git"
                         :top-namespace "se.example"
                         :interface-ns "interface"
-                        :env-short-names {}}}]
+                        :env-short-names {"development" "dev"}}}]
            (helper/content ws-name "deps.edn")))))
 
 (deftest create-workspace--creates-workspace-with-an-empty-top-namespace
@@ -43,6 +45,8 @@
     (is (= #{"bases"
              "components"
              "environments"
+             "environments/development"
+             "environments/development/deps.edn"
              "images"
              "images/logo.png"
              "deps.edn"
@@ -52,5 +56,5 @@
     (is (= [{:polylith {:vcs "git"
                         :top-namespace ""
                         :interface-ns "interface"
-                        :env-short-names {}}}]
+                        :env-short-names {"development" "dev"}}}]
            (helper/content ws-name "deps.edn")))))
