@@ -2,14 +2,19 @@
 {:polylith {:top-namespace "polylith.clj.core"
             :interface-ns "interfc"
             :env-short-names {"dev" "d"
-                              "dev2" "d2"
                               "cli" "cli"
                               "core" "core"}}
 
  :deps {org.clojure/tools.namespace {:mvn/version "1.0.0"}}
 
- :aliases  {:dev      {:extra-deps {env/dev {:local/root "environments/dev"}}}
+ :aliases  {:poly {:extra-deps {tengstrand/polylith
+                                {:git/url   "https://github.com/tengstrand/polylith.git"
+                                 :sha       "54905f60c0fb18e7df729e34d1b8a68f42bad797"
+                                 :deps/root "environments/dev"}}}
 
+            :dev      {:extra-deps {env/dev {:local/root "environments/dev"}}}
+
+            :check    {:main-opts ["-m" "polylith.clj.core.cli.poly" "check"]}
             :deps     {:main-opts ["-m" "polylith.clj.core.cli.poly" "deps"]}
-            :test     {:main-opts ["-m" "polylith.clj.core.cli.poly" "test"]}
-            :check    {:main-opts ["-m" "polylith.clj.core.cli.poly" "check"]}}}
+            :info     {:main-opts ["-m" "polylith.clj.core.cli.poly" "info"]}
+            :test     {:main-opts ["-m" "polylith.clj.core.cli.poly" "test"]}}}
