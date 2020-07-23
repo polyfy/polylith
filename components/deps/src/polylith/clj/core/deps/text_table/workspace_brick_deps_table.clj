@@ -1,7 +1,7 @@
 (ns polylith.clj.core.deps.text-table.workspace-brick-deps-table
   (:require [polylith.clj.core.text-table.interfc :as text-table]
-            [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.util.interfc.color :as color]))
+            [polylith.clj.core.util.interfc.color :as color]
+            [polylith.clj.core.common.interfc :as common]))
 
 (defn dependency [brick-name component-name brick->deps brick->indirect-deps]
   (cond
@@ -39,6 +39,6 @@
     (text-table/table " " alignments header-colors header-orientations colors headers brick-rows color-mode)))
 
 (defn print-table [{:keys [environments components bases]} environment-name color-mode]
-  (if-let [environment (util/find-first #(= environment-name (:name %)) environments)]
+  (if-let [environment (common/find-environment environment-name environments)]
     (println (table environment components bases color-mode))
     (println (str "Couldn't find the " (color/environment environment-name color-mode) " environment."))))

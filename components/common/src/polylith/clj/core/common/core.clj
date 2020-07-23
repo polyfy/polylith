@@ -28,3 +28,10 @@
 (defn find-brick [{:keys [components bases]} brick-name]
   (let [bricks (concat components bases)]
     (util/find-first #(= brick-name (:name %)) bricks)))
+
+(defn- =env [{:keys [name alias]} env]
+  (or (= env name)
+      (= env alias)))
+
+(defn find-environment [environment-name environments]
+  (util/find-first #(=env % environment-name) environments))

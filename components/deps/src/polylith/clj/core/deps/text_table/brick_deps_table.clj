@@ -1,7 +1,7 @@
 (ns polylith.clj.core.deps.text-table.brick-deps-table
   (:require [polylith.clj.core.deps.brick-deps :as brick-deps]
+            [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.text-table.interfc :as text-table]
-            [polylith.clj.core.util.interfc :as util]
             [polylith.clj.core.util.interfc.color :as color]))
 
 (def alignments [:left :center :left :center :left])
@@ -34,12 +34,8 @@
 (def type->color {"component" :green
                   "base" :blue})
 
-(defn =env [{:keys [name alias]} env]
-  (or (= env name)
-      (= env alias)))
-
 (defn print-table [{:keys [environments components bases]} environment-name brick-name color-mode]
-  (let [environment (util/find-first #(=env % environment-name) environments)
+  (let [environment (common/find-environment environment-name environments)
         bricks (concat components bases)
         brick->color (into {} (map (juxt :name #(-> % :type type->color)) bricks))]
     (cond

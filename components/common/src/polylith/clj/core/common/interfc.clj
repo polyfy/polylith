@@ -35,3 +35,6 @@
 
 (defn find-brick [workspace brick-name]
   (core/find-brick workspace brick-name))
+
+(defn find-environment [environment-name environments]
+  (core/find-environment environment-name environments))

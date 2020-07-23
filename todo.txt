@@ -1,6 +1,4 @@
 
-- make sure the 'deps' command works with the environment aliases.
-
 - implement 'create c'.
 
 - ensure Polylith works on Windows.
