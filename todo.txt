@@ -1,9 +1,4 @@
 
-- make sure that Polylith can be executed with "clj -A".
-
-- force giving a top namespace in the 'create w' command.
-  - treat '-' as an empty top namespace.
-
 - make sure the 'deps' command works with the environment aliases.
 
 - implement 'create c'.
