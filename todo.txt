@@ -1,4 +1,6 @@
 
+- rename from :env-short-name to :env-alias.
+
 - implement 'create c'.
 
 - ensure Polylith works on Windows.
