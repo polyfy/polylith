@@ -1,7 +1,12 @@
 
 - rename from :env-short-name to :env-alias.
 
+- make sure to include :aot when creating an environment.
+
 - implement 'create c'.
+- implement 'migrate' that migrates old lein-polylith projects.
+
+
 
 - ensure Polylith works on Windows.
 
@@ -92,6 +97,8 @@
 
 - use clojure.tools.namespace.parse to get the dependencies to other namespaces.
 
+- add a warning if a component is added to an environment but not used.
+
 Questions
 =========
 - about the scrital project:
@@ -117,12 +124,10 @@ Leave for now
 - extract the doc for each function (metadata).
 - when releasing:
   - make sure we have all the documentation in place.
-  - it would be good if the tool that can migrate old lein-polylith projects were in place.
   - update realworld repo, make it the default in the realworld repository.
   - update the documentation in lein-polylith and tell that we have a new brand
     tool that builds on top of tools.deps.
   - update the :ws-reader/:project-url to point to master
-- create a migration tool that migrates lein-polylith projects to polylith projects.
 - html doc that automatically updates itself.
   - add support for extracting the APIs from a base, e.g. REST.
 - add support for another language, e.g. Java.

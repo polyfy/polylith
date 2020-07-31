@@ -7,15 +7,12 @@
 (defn interface-path [root-dir path]
   (subs path (-> root-dir count inc)))
 
-(defn interface-ns? [path]
+(defn interface-ns? [path interface-ns]
   (and (or (str/ends-with? path ".clj")
            (str/ends-with? path ".cljc"))
-       (or (or (= "interfc.clj" path)
-               (= "interfc.cljc" path)
-               (= "interface.clj" path)
-               (= "interface.cljc" path))
-           (or (str/starts-with? path "interfc/")
-               (str/starts-with? path "interface/")))))
+       (or (or (= path (str interface-ns ".clj"))
+               (= path (str interface-ns ".cljc")))
+           (str/starts-with? path (str interface-ns "/")))))
 
 (defn ->interface-ns [root-dir path]
   (let [index (str/index-of path ".")
@@ -23,8 +20,8 @@
     {:sub-ns namespace
      :path (str root-dir "/" path)}))
 
-(defn interface-namespaces [src-dir]
-  (let [paths (filterv interface-ns?
+(defn interface-namespaces [src-dir interface-ns]
+  (let [paths (filterv #(interface-ns? % interface-ns)
                        (map #(interface-path src-dir %)
                             (file/paths-recursively src-dir)))]
     (mapv #(->interface-ns src-dir %) paths)))
@@ -41,4 +38,4 @@
   "Example of a src-dir: ./components/common/src/polylith/common"
   (vec (sort-by (juxt :sub-ns :type :name params)
                 (mapcat #(interface-from-disk % interface-ns)
-                        (interface-namespaces src-dir)))))
+                        (interface-namespaces src-dir interface-ns)))))
