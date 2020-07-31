@@ -1,8 +1,7 @@
 
 {:polylith {:top-namespace "polylith.clj.core"
             :interface-ns "interfc"
-            :env-short-names {"dev" "d"
-                              "cli" "cli"
+            :env-short-names {"cli" "cli"
                               "core" "core"}}
 
  :paths [; Development
@@ -70,5 +69,6 @@
             :poly-check  {:main-opts ["-m" "polylith.clj.core.cli.poly" "check"]}
             :poly-create {:main-opts ["-m" "polylith.clj.core.cli.poly" "create"]}
             :poly-deps   {:main-opts ["-m" "polylith.clj.core.cli.poly" "deps"]}
+            :poly-help   {:main-opts ["-m" "polylith.clj.core.cli.poly" "help"]}
             :poly-info   {:main-opts ["-m" "polylith.clj.core.cli.poly" "info"]}
             :poly-test   {:main-opts ["-m" "polylith.clj.core.cli.poly" "test"]}}}

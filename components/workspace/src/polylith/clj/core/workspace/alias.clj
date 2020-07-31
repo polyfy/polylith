@@ -1,23 +1,5 @@
 (ns polylith.clj.core.workspace.alias
-  (:require [clojure.string :as str]
-            [clojure.set :as set]))
-
-(defn suggest-name [name]
-  (str/join (map first (str/split name #"-"))))
-
-(defn abbreviation [index short-name full-name]
-  [full-name
-   (str short-name (inc index))])
-
-(defn new-names [[short-name names]]
-  (if (> (count names) 1)
-    (map-indexed #(abbreviation %1 short-name %2) (sort names))
-    [[(first names)
-      short-name]]))
-
-(defn src-name->alias [src-names]
-  (into {} (mapcat new-names
-                   (group-by suggest-name src-names))))
+  (:require [clojure.set :as set]))
 
 (defn src-test-name [{:keys [name]} src-name->short-name]
   [name
@@ -35,8 +17,10 @@
              (into {} (map-indexed undefined-env undefined-envs))))))
 
 (defn env->alias [{:keys [env-short-names]} environments]
-  (let [src-names (mapv :name environments)]
-    (if (empty? env-short-names)
-      (let [src-name->alias (src-name->alias src-names)]
-        (into {} (map #(src-test-name % src-name->alias) environments)))
-      (abbrivated-envs env-short-names src-names))))
+  (let [src-names (mapv :name environments)
+        short-names (if env-short-names
+                      (if (contains? env-short-names "development")
+                        env-short-names
+                        (conj env-short-names ["development" "dev"]))
+                      {"development" "dev"})]
+    (abbrivated-envs short-names src-names)))

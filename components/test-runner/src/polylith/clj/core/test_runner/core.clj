@@ -40,7 +40,7 @@
     (map :namespace namespaces-test)))
 
 (defn run-tests-statements [class-loader test-statements run-message color-mode]
-  (println (str "\n" run-message))
+  (println (str run-message))
   (doseq [statement test-statements]
     (let [{:keys [error fail pass] :as summary}
           (try

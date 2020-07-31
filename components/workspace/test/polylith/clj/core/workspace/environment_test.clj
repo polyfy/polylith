@@ -9,16 +9,16 @@
                   :component-names ["change" "command" "common" "deps" "file"]
                   :base-names ["cli"]
                   :test-base-names ["cli"]
-                  :paths ["../../bases/cli/src"
-                          "../../bases/z-jocke/src"
-                          "../../components/change/src"
-                          "../../components/command/src"
-                          "../../components/common/src"
-                          "../../components/deps/src"
-                          "../../components/file/src"]
-                  :test-paths ["../../bases/cli/test"
-                               "../../components/change/test"
-                               "../../components/command/test"
+                  :paths ["bases/cli/src"
+                          "bases/z-jocke/src"
+                          "components/change/src"
+                          "components/command/src"
+                          "components/common/src"
+                          "components/deps/src"
+                          "components/file/src"]
+                  :test-paths ["bases/cli/test"
+                               "components/change/test"
+                               "components/command/test"
                                "test"]
                   :lib-imports ["clojure.java.io"
                                 "clojure.java.shell"
@@ -53,18 +53,6 @@
 (def env->brick->deps {"development" {"change" {:directly ["git" "util"], :indirectly ["shell"]}
                                       "util"    {:directly [], :indirectly []}}})
 
-(deftest clean-path--given-a-local-path--return-workspace-path
-  (is (= "environments/dev/test"
-         (env/ws-root-path "test" "dev"))))
-
-(deftest clean-path--given-a-local-path-with-dot-syntax--return-workspace-path
-  (is (= "environments/dev/test"
-         (env/ws-root-path "./test" "dev"))))
-
-(deftest clean-path--given-a-relative-path--return-root-path
-  (is (= "components/comp"
-         (env/ws-root-path "../../components/comp" "dev"))))
-
 (deftest paths--when-include-test-path-flag-is-false---include-only-src-paths
   (is (= {:name "development"
           :alias "dev"
@@ -87,7 +75,7 @@
           :test-paths ["bases/cli/test"
                        "components/change/test"
                        "components/command/test"
-                       "environments/development/test"]
+                       "test"]
           :lib-imports ["clojure.java.io" "clojure.pprint" "clojure.set" "clojure.string"]
           :lib-imports-test []
           :lib-deps {"org.clojure/clojure" #:mvn{:version "1.10.1"},

@@ -19,16 +19,7 @@
   (mapcat #(select-lib-imports % brick->lib-imports test?)
           brick-names))
 
-(defn ws-root-path [path env]
-  (cond
-    (str/starts-with? path "./") (str "environments/" env "/" (subs path 2))
-    (str/starts-with? path "../../") (subs path 6)
-    :else (str "environments/" env "/" path)))
-
-(defn ws-root-paths [paths env]
-  (mapv #(ws-root-path % env) paths))
-
-(defn enrich-env [{:keys [name type component-names test-component-names base-names test-base-names has-src-dir? has-test-dir? namespaces-src namespaces-test paths test-paths lib-deps test-deps maven-repos]}
+(defn enrich-env [{:keys [name type env-dir config-file component-names test-component-names base-names test-base-names has-src-dir? has-test-dir? namespaces-src namespaces-test paths test-paths lib-deps test-deps maven-repos]}
                   brick->loc
                   brick->lib-imports
                   env->alias
@@ -43,6 +34,8 @@
     (util/ordered-map :name name
                       :alias (env->alias name)
                       :type type
+                      :env-dir env-dir
+                      :config-file config-file
                       :lines-of-code-src (loc/lines-of-code namespaces-src)
                       :lines-of-code-test (loc/lines-of-code namespaces-test)
                       :total-lines-of-code-src total-lines-of-code-src
@@ -55,8 +48,8 @@
                       :has-test-dir? has-test-dir?
                       :namespaces-src namespaces-src
                       :namespaces-test namespaces-test
-                      :paths (ws-root-paths paths name)
-                      :test-paths (ws-root-paths test-paths name)
+                      :paths paths
+                      :test-paths test-paths
                       :lib-imports lib-imports-src
                       :lib-imports-test lib-imports-test
                       :lib-deps lib-deps

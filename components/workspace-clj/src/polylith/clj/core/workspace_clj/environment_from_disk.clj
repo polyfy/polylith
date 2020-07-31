@@ -20,20 +20,20 @@
       (subs path start-index end-index))))
 
 (defn component-name [path]
-  (brick-name path 17))
+  (brick-name path 11))
 
 (defn base-name [path]
-  (brick-name path 12))
+  (brick-name path 6))
 
 (defn starts-with [path start]
   (and (string? path)
        (str/starts-with? path start)))
 
 (defn component? [path]
-  (starts-with path "../../components/"))
+  (starts-with path "components/"))
 
 (defn base? [path]
-  (starts-with path "../../bases/"))
+  (starts-with path "bases/"))
 
 (defn has-src-dir? [paths]
   (not (empty? (filter #(= "src" %) paths))))
@@ -41,30 +41,39 @@
 (defn has-test-dir? [test-paths]
   (not (empty? (filter #(= "test" %) test-paths))))
 
-(defn file-exists [env path]
-  (file/exists (str "environments/" env "/" path)))
+(defn file-exists [env-dir path]
+  (file/exists (str env-dir "/" path)))
 
-(defn existing-paths [env paths]
-  (vec (sort (set (filter #(file-exists env %) paths)))))
+(defn ws-root-path [path env]
+  (cond
+    (str/starts-with? path "./") (str "environments/" env "/" (subs path 2))
+    (str/starts-with? path "../../") (subs path 6)
+    :else (str "environments/" env "/" path)))
+
+(defn cleaned-existing-paths [env env-dir paths dev-env?]
+  (let [existing-paths (sort (set (filter #(file-exists env-dir %) paths)))]
+    (if dev-env?
+      (vec existing-paths)
+      (mapv #(ws-root-path % env) existing-paths))))
 
 (defn read-environment
-  ([ws-path env]
-   (let [env-path (str ws-path "/environments/" env)
-         path (str env-path "/deps.edn")
-         {:keys [paths deps aliases mvn/repos]} (read-string (slurp path))
+  ([{:keys [env env-dir current-dir config-file dev-env?]}]
+   (let [{:keys [paths deps aliases mvn/repos]} (read-string (slurp config-file))
          maven-repos (merge mvn/standard-repos repos)]
-     (read-environment env env-path paths deps aliases maven-repos)))
-  ([env env-path paths deps aliases maven-repos]
-   (let [component-names (vec (sort (set (mapv component-name (filter component? paths)))))
-         base-names (vec (sort (set (mapv base-name (filter base? paths)))))
-         src-paths (existing-paths env paths)
-         test-paths (existing-paths env (-> aliases :test :extra-paths))
-         test-deps (sort-deps (-> aliases :test :extra-deps))
+     (read-environment env env-dir current-dir config-file dev-env? paths deps aliases maven-repos)))
+  ([env env-dir current-dir config-file dev-env? paths deps aliases maven-repos]
+   (let [src-paths (cleaned-existing-paths env current-dir paths dev-env?)
+         component-names (vec (sort (set (mapv component-name (filter component? src-paths)))))
+         base-names (vec (sort (set (mapv base-name (filter base? src-paths)))))
+         test-paths (cleaned-existing-paths env current-dir (-> aliases :test :extra-paths) dev-env?)
          test-component-names (vec (sort (set (mapv component-name (filter component? test-paths)))))
          test-base-names (vec (sort (set (mapv base-name (filter base? test-paths)))))
-         namespaces-src (ns-from-disk/namespaces-from-disk (str env-path "/src"))
-         namespaces-test (ns-from-disk/namespaces-from-disk (str env-path "/test"))]
+         test-deps (sort-deps (-> aliases :test :extra-deps))
+         namespaces-src (ns-from-disk/namespaces-from-disk (str env-dir "/src"))
+         namespaces-test (ns-from-disk/namespaces-from-disk (str env-dir "/test"))]
      (util/ordered-map :name env
+                       :env-dir env-dir
+                       :config-file config-file
                        :type "environment"
                        :component-names component-names
                        :test-component-names test-component-names
@@ -80,6 +89,19 @@
                        :namespaces-src namespaces-src
                        :namespaces-test namespaces-test))))
 
+(defn env-map [ws-path env]
+  {:env env
+   :dev-env? false
+   :env-dir (str ws-path "/environments/" env)
+   :current-dir (str "environments/" env)
+   :config-file (str ws-path "/environments/" env "/deps.edn")})
+
 (defn read-environments [ws-path]
-  (let [env-dirs (file/directory-paths (str ws-path "/environments"))]
-    (mapv #(read-environment ws-path %) env-dirs)))
+  (let [env-configs (conj (map #(env-map ws-path %)
+                               (file/directory-paths (str ws-path "/environments")))
+                          {:env "development"
+                           :dev-env? true
+                           :env-dir (str ws-path "/development")
+                           :current-dir "."
+                           :config-file (str ws-path "/deps.edn")})]
+    (mapv read-environment env-configs)))

@@ -1,7 +1,8 @@
 (ns polylith.clj.core.workspace-clj.environment-test
   (:require [clojure.test :refer :all]
             [clojure.tools.deps.alpha.util.maven :as mvn]
-            [polylith.clj.core.workspace-clj.environment-from-disk :as env-from-disk]))
+            [polylith.clj.core.file.interfc :as file]
+            [polylith.clj.core.workspace-clj.environment-from-disk :as env]))
 
 (def paths ["../../bases/tool/src"
             "../../components/change/src"
@@ -23,26 +24,46 @@
                :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
                          :main-opts  ["-m" "uberdeps.uberjar"]}})
 
+(deftest clean-path--given-a-local-path--return-workspace-path
+  (is (= "environments/dev/test"
+         (env/ws-root-path "test" "dev"))))
+
+(deftest clean-path--given-a-local-path-with-dot-syntax--return-workspace-path
+  (is (= "environments/dev/test"
+         (env/ws-root-path "./test" "dev"))))
+
+(deftest clean-path--given-a-relative-path--return-root-path
+  (is (= "components/comp"
+         (env/ws-root-path "../../components/comp" "dev"))))
+
 (deftest environments--config-map-with-aliases--returns-environments
-  (is (= {:name "core"
-          :type "environment"
-          :base-names ["tool"]
-          :has-src-dir? false
-          :has-test-dir? false
-          :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}
-                        "clojars" {:url "https://repo.clojars.org/"}}
-          :namespaces-src []
-          :namespaces-test []
-          :paths ["../../components/change/src"
-                  "../../components/common/src"
-                  "../../components/deps/src"
-                  "../../components/file/src"]
-          :test-paths ["../../components/change/test"]
-          :component-names ["change" "common" "deps" "file"]
-          :test-component-names ["change"]
-          :lib-deps {"org.clojure/clojure" #:mvn{:version "1.10.1"}
-                     "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}
-                     "org.jetbrains.kotlin/kotlin-compiler-embeddable" #:mvn{:version "1.3.72"}}
-          :test-base-names []
-          :test-deps {}}
-         (env-from-disk/read-environment "core" "" paths deps aliases mvn/standard-repos))))
+  (with-redefs [file/exists (fn [_] true)]
+    (is (= {:name "core"
+            :type "environment"
+            :env-dir ""
+            :config-file "environments/core/deps.edn"
+            :base-names ["tool"]
+            :has-src-dir? false
+            :has-test-dir? false
+            :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}
+                          "clojars" {:url "https://repo.clojars.org/"}}
+            :namespaces-src []
+            :namespaces-test []
+            :paths ["bases/tool/src"
+                    "components/change/src"
+                    "components/common/src"
+                    "components/deps/src"
+                    "components/file/src"
+                    "environments/core/src"]
+            :test-paths ["bases/tool/test"
+                         "components/change/test"
+                         "components/common/test"]
+            :component-names ["change" "common" "deps" "file"]
+            :test-component-names ["change" "common"]
+            :lib-deps {"org.clojure/clojure" #:mvn{:version "1.10.1"}
+                       "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}
+                       "org.jetbrains.kotlin/kotlin-compiler-embeddable" #:mvn{:version "1.3.72"}}
+            :test-base-names ["tool"]
+            :test-deps {}}
+
+           (env/read-environment "core" "" "environments/core" "environments/core/deps.edn" false paths deps aliases mvn/standard-repos)))))
