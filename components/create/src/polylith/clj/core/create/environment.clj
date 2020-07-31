@@ -26,7 +26,7 @@
   (let [alias (subs env 0 1)
         message (str "Feel free to add a short name for the "
                      (color/environment env color-mode) " environment "
-                     "to the :env-short-names key in deps.edn, e.g.: "
+                     "to the :env-aliases key in deps.edn, e.g.: "
                      "{" (env-key env alias color-mode) "}")]
     (println message)))
 

@@ -35,11 +35,11 @@
 (defn base? [path]
   (starts-with path "bases/"))
 
-(defn has-src-dir? [paths]
-  (not (empty? (filter #(= "src" %) paths))))
+(defn has-src-dir? [env paths]
+  (not (empty? (filter #(= (str "environments/" env "/src") %) paths))))
 
-(defn has-test-dir? [test-paths]
-  (not (empty? (filter #(= "test" %) test-paths))))
+(defn has-test-dir? [env test-paths]
+  (not (empty? (filter #(= (str "environments/" env "/test") %) test-paths))))
 
 (defn file-exists [env-dir path]
   (file/exists (str env-dir "/" path)))
@@ -84,8 +84,8 @@
                        :lib-deps (sort-deps deps)
                        :test-deps test-deps
                        :maven-repos maven-repos
-                       :has-src-dir? (has-src-dir? src-paths)
-                       :has-test-dir? (has-test-dir? test-paths)
+                       :has-src-dir? (has-src-dir? env src-paths)
+                       :has-test-dir? (has-test-dir? env test-paths)
                        :namespaces-src namespaces-src
                        :namespaces-test namespaces-test))))
 

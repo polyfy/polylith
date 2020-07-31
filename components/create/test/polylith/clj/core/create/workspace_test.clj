@@ -32,7 +32,7 @@
     (is (= [{:polylith {:vcs "git"
                         :top-namespace "se.example"
                         :interface-ns "interface"
-                        :env-short-names {"development" "dev"}}}]
+                        :env-aliases {"development" "dev"}}}]
            (helper/content ws-name "deps.edn")))))
 
 (deftest create-workspace--creates-workspace-with-an-empty-top-namespace
@@ -56,5 +56,5 @@
     (is (= [{:polylith {:vcs "git"
                         :top-namespace ""
                         :interface-ns "interface"
-                        :env-short-names {"development" "dev"}}}]
+                        :env-aliases {"development" "dev"}}}]
            (helper/content ws-name "deps.edn")))))

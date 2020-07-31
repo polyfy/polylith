@@ -1,5 +1,5 @@
 
-- rename from :env-short-name to :env-alias.
+- update the 'create w' command.
 
 - make sure to include :aot when creating an environment.
 

@@ -1,8 +1,8 @@
 
 {:polylith {:top-namespace "polylith.clj.core"
             :interface-ns "interfc"
-            :env-short-names {"cli" "cli"
-                              "core" "core"}}
+            :env-aliases {"cli" "cli"
+                          "core" "core"}}
 
  :paths [; Development
          "development/src"

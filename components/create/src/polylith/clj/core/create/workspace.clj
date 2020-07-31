@@ -32,7 +32,7 @@
                         [(str "{:polylith {:vcs \"git\"")
                          (str "            :top-namespace \"" ws-ns "\"")
                          (str "            :interface-ns \"interface\"")
-                         (str "            :env-short-names {\"development\" \"dev\"}}}")])
+                         (str "            :env-aliases {\"development\" \"dev\"}}}")])
       (file/create-file (str ws-path "/readme.md") (readme-content ws-name))
       (file/copy-resource-file! "create/logo.png" (str ws-path "/images/logo.png"))
       (env/create-env ws-path "development")
