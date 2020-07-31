@@ -9,10 +9,12 @@
 
 (defn definition? [code]
   (if (list? code)
-    (let [f (first code)]
-      (or (= f 'def)
-          (= f 'defn)
-          (= f 'defmacro)))
+    (let [f (first code)
+          private? (-> code second meta :private)]
+      (and (not private?)
+           (or (= f 'def)
+               (= f 'defn)
+               (= f 'defmacro))))
     false))
 
 (defn filter-statements [statements]
