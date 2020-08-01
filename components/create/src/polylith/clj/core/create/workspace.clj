@@ -20,7 +20,7 @@
 
 (defn create [ws-root-path ws-name ws-namespace]
   (if (nil? ws-namespace)
-    (println "A namespace must be given, or - if omitted.")
+    (println "A namespace must be given.")
     (let [ws-path (str ws-root-path "/" ws-name)
           ws-ns (if (= "-" ws-namespace) "" ws-namespace)]
       (file/create-dir ws-path)

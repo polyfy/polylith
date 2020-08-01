@@ -8,7 +8,7 @@
   (let [ws-name "ws1"
         output (with-out-str
                  (helper/execute-command "" "create" "w" ws-name))]
-    (is (= "A namespace must be given, or - if omitted.\n"
+    (is (= "A namespace must be given.\n"
            output))))
 
 (deftest create-workspace--creates-empty-directories-and-a-deps-edn-config-file
