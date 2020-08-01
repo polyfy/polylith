@@ -19,6 +19,8 @@
 
 - read the line-separator and put it as an attribute to the workspace.
 
+- make the "w" and "e" argument be mandatory for the "help create" command, e.g. "help create w".
+
 - 'help' should not be part of core.
 
 - make sure the workspace table looks okay even without an environment.

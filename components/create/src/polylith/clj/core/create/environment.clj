@@ -3,12 +3,6 @@
             [polylith.clj.core.util.interfc.color :as color]
             [polylith.clj.core.common.interfc :as common]))
 
-(defn str-attr [attr color-mode]
-  (color/yellow color-mode (str "\"" attr "\"")))
-
-(defn env-key [env alias color-mode]
-  (color/purple color-mode (str (str-attr env color-mode) " " (str-attr alias color-mode))))
-
 (defn create-env [current-dir env]
   (let [env-path (str current-dir "/environments/" env)]
     (file/create-dir env-path)
@@ -23,11 +17,8 @@
                        (str "                  :extra-deps  {}}}}")])))
 
 (defn print-alias-message [env color-mode]
-  (let [alias (subs env 0 1)
-        message (str "You are recommended to add an alias for the "
-                     (color/environment env color-mode) " environment "
-                     "to the :env-aliases key in deps.edn, e.g.: "
-                     "{" (env-key env alias color-mode) "}")]
+  (let [message (str "It's recommended to add an alias to :env-aliases in deps.edn for the "
+                     (color/environment env color-mode) " environment.")]
     (println message)))
 
 (defn create [current-dir {:keys [environments settings]} env]

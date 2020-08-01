@@ -53,7 +53,7 @@
 
 (defn test-ws [workspace arg1 arg2]
   (if (= arg1 "-all")
-    (test-runner/run workspace arg2 true)
+    (test-runner/run workspace nil true)
     (test-runner/run workspace arg1 (= "-all" arg2))))
 
 (defn valid-command? [workspace cmd arg1]

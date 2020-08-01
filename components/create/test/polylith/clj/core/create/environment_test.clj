@@ -7,13 +7,12 @@
 
 (deftest create-environment--create-existing-environment--returns-error-message
   (let [ws-name "ws1"
-        dir (str ws-name "/environments/env1")
         output (with-out-str
                  (helper/execute-command "" "create" "w" ws-name "se.example")
                  (helper/execute-command ws-name "create" "e" "env1" "env")
                  (helper/execute-command ws-name "create" "e" "env1" "env"))]
 
-    (is (= (str "You are recommended to add an alias for the env1 environment to the :env-aliases key in deps.edn, e.g.: {\"env1\" \"e\"}\n"
+    (is (= (str "It's recommended to add an alias to :env-aliases in deps.edn for the env1 environment.\n"
                 "Environment env1 (or alias) already exists.\n")
            (color/clean-colors output)))))
 
@@ -24,7 +23,7 @@
                  (helper/execute-command "" "create" "w" ws-name "se.example")
                  (helper/execute-command ws-name "create" "e" "env1" "env"))]
 
-    (is (= "You are recommended to add an alias for the env1 environment to the :env-aliases key in deps.edn, e.g.: {\"env1\" \"e\"}\n"
+    (is (= "It's recommended to add an alias to :env-aliases in deps.edn for the env1 environment.\n"
            (color/clean-colors output)))
 
     (is (= #{"components"
