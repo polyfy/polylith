@@ -9,10 +9,10 @@
 (defn env-key [env alias color-mode]
   (color/purple color-mode (str (str-attr env color-mode) " " (str-attr alias color-mode))))
 
-(defn create-env [ws-root-path env]
-  (let [path (str ws-root-path "/environments/" env)]
-    (file/create-dir path)
-    (file/create-file (str path "/deps.edn")
+(defn create-env [current-dir env]
+  (let [env-path (str current-dir "/environments/" env)]
+    (file/create-dir env-path)
+    (file/create-file (str env-path "/deps.edn")
                       [""
                        (str "{:paths []")
                        ""
@@ -24,16 +24,16 @@
 
 (defn print-alias-message [env color-mode]
   (let [alias (subs env 0 1)
-        message (str "Feel free to add a short name for the "
+        message (str "You are recommended to add an alias for the "
                      (color/environment env color-mode) " environment "
                      "to the :env-aliases key in deps.edn, e.g.: "
                      "{" (env-key env alias color-mode) "}")]
     (println message)))
 
-(defn create [ws-root-path {:keys [environments settings]} env]
+(defn create [current-dir {:keys [environments settings]} env]
   (let [color-mode (:color-mode settings color/none)]
     (if (common/find-environment env environments)
       (println (str "Environment " (color/environment env color-mode) " (or alias) already exists."))
       (do
-        (create-env ws-root-path env)
+        (create-env current-dir env)
         :ok))))

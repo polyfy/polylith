@@ -4,6 +4,9 @@
 (defn init [ws-path]
   (core/init ws-path))
 
+(defn current-sha [ws-path]
+  (core/current-sha ws-path))
+
 (defn diff [sha1 sha2]
   "Lists the changed files that has occurred between two SHAs in git."
   (core/diff sha1 sha2))

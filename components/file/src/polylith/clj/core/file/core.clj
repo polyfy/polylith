@@ -44,7 +44,7 @@
 (defn absolute-path [path]
   (-> path io/file .getAbsolutePath))
 
-(defn current-path []
+(defn current-dir []
   (absolute-path ""))
 
 (defn directory? [^File file]

@@ -11,6 +11,12 @@
       (println (str "Cannot create a git repository for the workspace.\n"
                     "Please try to create it manually instead.")))))
 
+(defn current-sha [ws-path]
+  (try
+    (str/trim (shell/sh "git" "rev-parse" "HEAD" :dir ws-path))
+    (catch Exception _
+      (println (str "Couldn't get current SHA")))))
+
 (defn diff [sha1 sha2]
   (let [ws-path "."
         sha? (or sha1 sha2)

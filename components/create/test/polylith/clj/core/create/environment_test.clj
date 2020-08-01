@@ -5,6 +5,18 @@
 
 (use-fixtures :each helper/test-setup-and-tear-down)
 
+(deftest create-environment--create-existing-environment--returns-error-message
+  (let [ws-name "ws1"
+        dir (str ws-name "/environments/env1")
+        output (with-out-str
+                 (helper/execute-command "" "create" "w" ws-name "se.example")
+                 (helper/execute-command ws-name "create" "e" "env1" "env")
+                 (helper/execute-command ws-name "create" "e" "env1" "env"))]
+
+    (is (= (str "You are recommended to add an alias for the env1 environment to the :env-aliases key in deps.edn, e.g.: {\"env1\" \"e\"}\n"
+                "Environment env1 (or alias) already exists.\n")
+           (color/clean-colors output)))))
+
 (deftest create-environment--performs-expected-actions
   (let [ws-name "ws1"
         dir (str ws-name "/environments/env1")
@@ -12,25 +24,27 @@
                  (helper/execute-command "" "create" "w" ws-name "se.example")
                  (helper/execute-command ws-name "create" "e" "env1" "env"))]
 
-    (is (= "Feel free to add a short name for the env1 environment to the :env-aliases key in deps.edn, e.g.: {\"env1\" \"e\"}\n"
+    (is (= "You are recommended to add an alias for the env1 environment to the :env-aliases key in deps.edn, e.g.: {\"env1\" \"e\"}\n"
            (color/clean-colors output)))
 
     (is (= #{"components"
              "bases"
+             "development"
+             "development/src"
              "environments"
              "environments/env1"
              "environments/env1/deps.edn"
-             "environments/development"
-             "environments/development/deps.edn"
-             "images"
-             "images/logo.png"
+             "logo.png"
              "deps.edn"
              "readme.md"}
            (helper/paths ws-name)))
 
-    (is (= '({:aliases {:test {:extra-deps  {}
-                               :extra-paths []}}
-              :deps {org.clojure/clojure {:mvn/version "1.10.1"}
-                     org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}
-              :paths []})
+    (is (= [""
+            "{:paths []"
+            ""
+            " :deps {org.clojure/clojure {:mvn/version \"1.10.1\"}"
+            "        org.clojure/tools.deps.alpha {:mvn/version \"0.8.695\"}}"
+            ""
+            " :aliases {:test {:extra-paths []"
+            "                  :extra-deps  {}}}}"]
            (helper/content dir "deps.edn")))))

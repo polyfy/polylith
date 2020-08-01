@@ -35,12 +35,7 @@
         org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}
         net.mikera/core.matrix {:mvn/version"0.62.0"}}
 
- :aliases  {:poly {:extra-deps {tengstrand/polylith
-                                {:git/url   "https://github.com/tengstrand/polylith.git"
-                                 :sha       "54905f60c0fb18e7df729e34d1b8a68f42bad797"
-                                 :deps/root "environments/dev"}}}
-
-            :test {:extra-paths [; Components
+ :aliases  {:test {:extra-paths [; Components
                                  "components/change/test"
                                  "components/command/test"
                                  "components/common/test"
@@ -65,6 +60,12 @@
 
                                  ; Environments
                                  "environments/cli/test"]}
+
+            ; Polylith Tool
+            :poly {:extra-deps {tengstrand/polylith
+                                            {:git/url   "https://github.com/tengstrand/polylith.git"
+                                             :sha       "54905f60c0fb18e7df729e34d1b8a68f42bad797"
+                                             :deps/root "environments/dev"}}}
 
             :poly-check  {:main-opts ["-m" "polylith.clj.core.cli.poly" "check"]}
             :poly-create {:main-opts ["-m" "polylith.clj.core.cli.poly" "create"]}

@@ -43,7 +43,7 @@
             :env-dir ""
             :config-file "environments/core/deps.edn"
             :base-names ["tool"]
-            :has-src-dir? false
+            :has-src-dir? true
             :has-test-dir? false
             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}
                           "clojars" {:url "https://repo.clojars.org/"}}
@@ -65,5 +65,4 @@
                        "org.jetbrains.kotlin/kotlin-compiler-embeddable" #:mvn{:version "1.3.72"}}
             :test-base-names ["tool"]
             :test-deps {}}
-
            (env/read-environment "core" "" "environments/core" "environments/core/deps.edn" false paths deps aliases mvn/standard-repos)))))

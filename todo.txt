@@ -1,6 +1,4 @@
 
-- update the 'create w' command.
-
 - make sure to include :aot when creating an environment.
 
 - implement 'create c'.
@@ -24,6 +22,8 @@
 - 'help' should not be part of core.
 
 - make sure the workspace table looks okay even without an environment.
+
+- add the 'diff' command, which performs a git diff.
 
 - move the functionality in 'info -dump' into its own 'dump' command
   - if sending in -json, return JSON instead of EDN.

@@ -128,7 +128,6 @@
         table (ws-table color-mode components bases environments changed-components changed-bases bricks-to-test total-loc-src-bricks total-loc-test-bricks thousand-sep show-loc?)
         nof-table (count-table/table interfaces components bases environments color-mode)
         env-table (env-table/table environments changes total-loc-src-environments total-loc-test-environments thousand-sep show-loc? color-mode)]
-    (println)
     (println nof-table)
     (println)
     (println env-table)

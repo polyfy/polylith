@@ -17,8 +17,8 @@
 (defn copy-resource-file! [source target-path]
   (core/copy-resource-file! source target-path))
 
-(defn current-path []
-  (core/current-path))
+(defn current-dir []
+  (core/current-dir))
 
 (defn delete-dir [path]
   (core/delete-dir path))
