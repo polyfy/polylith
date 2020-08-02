@@ -11,6 +11,9 @@
 (defn create-file [path rows]
   (core/create-file path rows))
 
+(defn create-missing-dirs [filename]
+  (core/create-missing-dirs filename))
+
 (defn create-temp-dir [dir]
   (core/create-temp-dir dir))
 

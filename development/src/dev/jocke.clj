@@ -5,7 +5,8 @@
             [polylith.clj.core.util.interfc :as util]
             [polylith.clj.core.workspace-clj.interfc :as ws-clj]
             [polylith.clj.core.file.interfc :as file]
-            [polylith.clj.core.help.interfc :as help])
+            [polylith.clj.core.help.interfc :as help]
+            [polylith.clj.core.common.interfc :as common])
   (:refer-clojure :exclude [base]))
 
 (def workspace (->
@@ -22,17 +23,17 @@
 (def components (:components workspace))
 (def bases (:bases workspace))
 (def bricks (concat components bases))
+(def settings (:settings workspace))
 
 (def interfaces (:interfaces workspace))F
 (def changes (:changes workspace))
 
-(def environment (util/find-first #(= "dev" (:alias %)) environments))
-(def dev (util/find-first #(= "dev" (:name %)) environments))
-(def cli (util/find-first #(= "cli" (:name %)) environments))
+(def environment (common/find-environment "dev" environments))
+(def environment (common/find-environment "cli" environments))
 
 (map (juxt :name :alias) environments)
 
-(def component (util/find-first #(= "workspace" (:name %)) components))
+(def component (common/find util/find-first #(= "util" (:name %)) components))
 
 
 (map :name components)

@@ -18,8 +18,8 @@
 (defn messages-without-colors [workspace]
   (msg/messages-without-colors workspace))
 
-(defn top-namespace [namespace]
-  (core/top-namespace namespace))
+(defn sufix-ns-with-dot [namespace]
+  (core/sufix-ns-with-dot namespace))
 
 (defn filter-clojure-paths [paths]
   (core/filter-clojure-paths paths))
@@ -30,11 +30,14 @@
 (defn eval-in [class-loader form]
   (class-loader/eval-in class-loader form))
 
-(defn interface? [name]
-  (contains? #{"interface" "interfc"} name))
-
 (defn find-brick [workspace brick-name]
   (core/find-brick workspace brick-name))
+
+(defn find-component [component-name components]
+  (core/find-component component-name components))
+
+(defn find-base [base-name bases]
+  (core/find-base base-name bases))
 
 (defn find-environment [environment-name environments]
   (core/find-environment environment-name environments))

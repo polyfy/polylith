@@ -32,7 +32,7 @@
 
 (defn enrich-workspace [{:keys [ws-path ws-reader settings components bases environments]}]
   (let [ws-name (workspace-name ws-path)
-        top-ns (common/top-namespace (:top-namespace settings))
+        top-ns (common/sufix-ns-with-dot (:top-namespace settings))
         interfaces (interfaces/calculate components)
         interface-names (apply sorted-set (mapv :name interfaces))
         interface-ns (:interface-ns settings "interface")

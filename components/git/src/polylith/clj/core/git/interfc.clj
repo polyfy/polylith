@@ -4,6 +4,9 @@
 (defn init [ws-path]
   (core/init ws-path))
 
+(defn add [ws-path filename]
+  (core/add ws-path filename))
+
 (defn current-sha [ws-path]
   (core/current-sha ws-path))
 

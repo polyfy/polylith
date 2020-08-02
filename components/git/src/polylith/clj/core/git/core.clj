@@ -11,6 +11,9 @@
       (println (str "Cannot create a git repository for the workspace.\n"
                     "Please try to create it manually instead.")))))
 
+(defn add [ws-path filename]
+  (shell/sh "git" "add" filename :dir ws-path))
+
 (defn current-sha [ws-path]
   (try
     (str/trim (shell/sh "git" "rev-parse" "HEAD" :dir ws-path))

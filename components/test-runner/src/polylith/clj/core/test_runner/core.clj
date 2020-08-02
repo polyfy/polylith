@@ -2,7 +2,6 @@
   (:require [clojure.string :as str]
             [clojure.tools.deps.alpha :as tools-deps]
             [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.util.interfc :as util]
             [polylith.clj.core.util.interfc.color :as color]
             [polylith.clj.core.util.interfc.str :as str-util])
   (:refer-clojure :exclude [test]))

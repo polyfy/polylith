@@ -1,6 +1,5 @@
 (ns polylith.clj.core.file.core
   (:require [clojure.java.io :as io]
-            [clojure.java.io :refer [reader]]
             [polylith.clj.core.util.interfc.str :as str-util])
   (:import [java.io File PushbackReader FileNotFoundException]
            [java.nio.file Files]))
@@ -54,7 +53,7 @@
   (.getName file))
 
 (defn lines-of-code [file-path]
-  (with-open [rdr (reader file-path)]
+  (with-open [rdr (io/reader file-path)]
     (count (line-seq rdr))))
 
 (defn directory-paths [dir]
@@ -100,3 +99,6 @@
   (let [length (inc (count path))]
     (map #(str (subs % length))
          (map str (paths-recursively path)))))
+
+(defn create-missing-dirs [filename]
+  (io/make-parents filename))
