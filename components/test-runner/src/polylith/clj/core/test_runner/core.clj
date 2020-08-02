@@ -95,15 +95,15 @@
         (println (str "No tests to run for the " (color/environment name color-mode) " environment."))
         (run-tests-statements class-loader test-statements run-message color-mode)))))
 
-(defn run-all-tests [workspace environments changes run-env-tests? start-time]
-  (doseq [environment environments]
+(defn run-all-tests-except-dev [workspace environments changes run-env-tests? start-time]
+  (doseq [environment (filter #(not= "development" (:name %)) environments)]
     (run-tests-for-environment workspace environment changes run-env-tests?))
   (time-util/print-execution-time start-time))
 
 (defn run [{:keys [environments changes] :as workspace} env run-env-tests?]
   (let [start-time (time-util/current-time)]
     (if (nil? env)
-      (run-all-tests workspace environments changes run-env-tests? start-time)
+      (run-all-tests-except-dev workspace environments changes run-env-tests? start-time)
       (let [color-mode (-> workspace -> :settings :color-mode)
             environment (common/find-environment env environments)]
         (if environment

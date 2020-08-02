@@ -26,6 +26,7 @@
     "w" (create/create-workspace current-dir arg1 arg2)
     "e" (create-environment current-dir workspace arg1)
     "c" (create/create-component current-dir workspace arg1)
+    "b" (create/create-base current-dir workspace arg1)
     (println (str "Unknown type: " type ". Valid values are: c, e and w"))))
 
 (defn specified? [name]

@@ -10,7 +10,7 @@
                  (helper/execute-command "" "create" "w" ws-name "se.example")
                  (helper/execute-command ws-name "create" "c" "my-component")
                  (helper/execute-command ws-name "create" "c" "my-component"))]
-    (is (= "Component 'my-component' already exists.\n"
+    (is (= "The brick 'my-component' already exists.\n"
            output))))
 
 (deftest create-component--performs-expected-actions
