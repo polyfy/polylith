@@ -1,8 +1,6 @@
 
 - move :paths and :deps to the :dev alias.
 
-- move the functionality in 'info -dump' into its own 'ws' command
-
 - add :ns->lib.
 
 - rename env-aliases to env->alias.

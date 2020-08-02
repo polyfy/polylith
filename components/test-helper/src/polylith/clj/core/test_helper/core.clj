@@ -29,14 +29,14 @@
                       ws/enrich-workspace
                       change/with-changes))))
 
-(defn execute-command [current-dir cmd arg1 arg2 arg3]
+(defn execute-command [current-dir cmd arg1 arg2]
   (with-redefs [file/current-dir (fn [] (if (str/blank? current-dir)
                                           @root-dir
                                           (str @root-dir "/" current-dir)))
                 git/current-sha (fn [_] "21f40507a24291ead2409ce33277378bb7e94ac6")]
     (let [ws-path (file/current-dir)
           workspace (read-workspace ws-path)
-          {:keys [ok? system-error? exception]} (command/execute-command ws-path workspace cmd arg1 arg2 arg3)]
+          {:keys [ok? system-error? exception]} (command/execute-command ws-path workspace cmd arg1 arg2)]
       (when (not ok?)
         (if system-error?
           (stacktrace/print-stack-trace exception)

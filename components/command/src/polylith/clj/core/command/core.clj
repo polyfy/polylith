@@ -37,7 +37,6 @@
 
 (defn info [workspace arg]
   (case arg
-    "-dump" (pp/pprint workspace)
     "-loc" (ws/print-table workspace true)
     (ws/print-table workspace false)))
 
@@ -56,7 +55,7 @@
       (= "help" cmd)
       (= "create-ws" cmd)))
 
-(defn execute [current-dir workspace cmd arg1 arg2 arg3]
+(defn execute [current-dir workspace cmd arg1 arg2]
   (try
     (if (valid-command? workspace cmd)
       (case cmd
@@ -69,6 +68,7 @@
         "help" (help workspace arg1)
         "info" (info workspace arg1)
         "test" (test-ws workspace arg1 arg2)
+        "ws" (pp/pprint workspace)
         (help workspace nil))
       (println "The command can only be executed from the workspace root."))
     {:ok? true}
