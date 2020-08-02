@@ -7,9 +7,9 @@
 (deftest create-component--when-component-already-exists--return-error-message
   (let [ws-name "ws1"
         output (with-out-str
-                 (helper/execute-command "" "create" "w" ws-name "se.example")
-                 (helper/execute-command ws-name "create" "c" "my-component")
-                 (helper/execute-command ws-name "create" "c" "my-component"))]
+                 (helper/execute-command "" "create-ws" ws-name "se.example")
+                 (helper/execute-command ws-name "create-comp" "my-component")
+                 (helper/execute-command ws-name "create-comp" "my-component"))]
     (is (= "The brick 'my-component' already exists.\n"
            output))))
 
@@ -18,8 +18,8 @@
         src-ifc-dir (str ws-name "/components/my-component/src/se/example/my_component")
         test-ifc-dir (str ws-name "/components/my-component/test/se/example/my_component")
         output (with-out-str
-                 (helper/execute-command "" "create" "w" ws-name "se.example")
-                 (helper/execute-command ws-name "create" "c" "my-component"))]
+                 (helper/execute-command "" "create-ws" ws-name "se.example")
+                 (helper/execute-command ws-name "create-comp" "my-component"))]
     (is (= ""
            output))
 

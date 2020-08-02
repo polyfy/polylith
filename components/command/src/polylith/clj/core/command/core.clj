@@ -21,14 +21,6 @@
     (when (= :ok (create/create-environment current-dir workspace env))
       (create/print-alias-message env color-mode))))
 
-(defn create [workspace current-dir type arg1 arg2]
-  (condp = type
-    "w" (create/create-workspace current-dir arg1 arg2)
-    "e" (create-environment current-dir workspace arg1)
-    "c" (create/create-component current-dir workspace arg1)
-    "b" (create/create-base current-dir workspace arg1)
-    (println (str "Unknown type: " type ". Valid values are: c, e and w"))))
-
 (defn specified? [name]
   (and (not= "-" name)
        (-> name str/blank? not)))
@@ -58,19 +50,21 @@
     (test-runner/run workspace nil true)
     (test-runner/run workspace arg1 (= "-all" arg2))))
 
-(defn valid-command? [workspace cmd arg1]
+(defn valid-command? [workspace cmd]
   (or (-> workspace nil? not)
       (nil? cmd)
       (= "help" cmd)
-      (and (= "create" cmd)
-           (= "w" arg1))))
+      (= "create-ws" cmd)))
 
 (defn execute [current-dir workspace cmd arg1 arg2 arg3]
   (try
-    (if (valid-command? workspace cmd arg1)
+    (if (valid-command? workspace cmd)
       (case cmd
         "check" (check workspace)
-        "create" (create workspace current-dir arg1 arg2 arg3)
+        "create-ws" (create/create-workspace current-dir arg1 arg2)
+        "create-env" (create-environment current-dir workspace arg1)
+        "create-base" (create/create-base current-dir workspace arg1)
+        "create-comp" (create/create-component current-dir workspace arg1)
         "deps" (deps workspace arg1 arg2)
         "help" (help workspace arg1)
         "info" (info workspace arg1)

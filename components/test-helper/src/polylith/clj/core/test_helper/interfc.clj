@@ -1,9 +1,6 @@
 (ns polylith.clj.core.test-helper.interfc
   (:require [polylith.clj.core.test-helper.core :as core]))
 
-(defn root-dir []
-  @core/root-dir)
-
 (defn test-setup-and-tear-down [function]
   (core/test-setup-and-tear-down function))
 

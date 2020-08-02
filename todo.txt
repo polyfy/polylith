@@ -1,8 +1,6 @@
 
 - move :paths and :deps to the :dev alias.
 
-- split up the 'create' command into four commands: create-ws, create-env, create-comp, create-base.
-
 - move the functionality in 'info -dump' into its own 'ws' command
 
 - add :ns->lib.
@@ -252,6 +250,7 @@ Differences compared to lein-polylith
   - new 'check' command.
   - no need for a 'prompt' command.
   - improved 'info' and 'deps' commands.
+  - the 'create' command is split up into 'create-ws', 'create-env', 'create-comp' and 'create-base'.
 
 Design decisions
 ================

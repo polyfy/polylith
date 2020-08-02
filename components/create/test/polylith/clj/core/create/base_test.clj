@@ -7,9 +7,9 @@
 (deftest create-base--when-component-already-exists--return-error-message
   (let [ws-name "ws1"
         output (with-out-str
-                 (helper/execute-command "" "create" "w" ws-name "se.example")
-                 (helper/execute-command ws-name "create" "b" "my-base")
-                 (helper/execute-command ws-name "create" "b" "my-base"))]
+                 (helper/execute-command "" "create-ws" ws-name "se.example")
+                 (helper/execute-command ws-name "create-base" "my-base")
+                 (helper/execute-command ws-name "create-base" "my-base"))]
     (is (= "The brick 'my-base' already exists.\n"
            output))))
 
@@ -18,8 +18,8 @@
         src-api-dir (str ws-name "/bases/my-base/src/se/example/my_base")
         test-api-dir (str ws-name "/bases/my-base/test/se/example/my_base")
         output (with-out-str
-                 (helper/execute-command "" "create" "w" ws-name "se.example")
-                 (helper/execute-command ws-name "create" "b" "my-base"))]
+                 (helper/execute-command "" "create-ws" ws-name "se.example")
+                 (helper/execute-command ws-name "create-base" "my-base"))]
     (is (= ""
            output))
 

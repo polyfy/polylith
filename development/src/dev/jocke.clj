@@ -11,6 +11,7 @@
 
 (def workspace (->
                  "."
+                 ;"/Users/tengstrand/source/poly-example/ws30"
                  ;"../clojure-polylith-realworld-example-app"
                  ws-clj/workspace-from-disk
                  ws/enrich-workspace
