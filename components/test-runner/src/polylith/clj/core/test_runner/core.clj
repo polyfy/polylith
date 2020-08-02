@@ -3,7 +3,8 @@
             [clojure.tools.deps.alpha :as tools-deps]
             [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.util.interfc.color :as color]
-            [polylith.clj.core.util.interfc.str :as str-util])
+            [polylith.clj.core.util.interfc.str :as str-util]
+            [polylith.clj.core.util.interfc.time :as time-util])
   (:refer-clojure :exclude [test]))
 
 (defn key-as-symbol [[library version]]
@@ -94,15 +95,19 @@
         (println (str "No tests to run for the " (color/environment name color-mode) " environment."))
         (run-tests-statements class-loader test-statements run-message color-mode)))))
 
-(defn run-all-tests [workspace environments changes run-env-tests?]
+(defn run-all-tests [workspace environments changes run-env-tests? start-time]
   (doseq [environment environments]
-    (run-tests-for-environment workspace environment changes run-env-tests?)))
+    (run-tests-for-environment workspace environment changes run-env-tests?))
+  (time-util/print-execution-time start-time))
 
 (defn run [{:keys [environments changes] :as workspace} env run-env-tests?]
-  (if (nil? env)
-    (run-all-tests workspace environments changes run-env-tests?)
-    (let [color-mode (-> workspace -> :settings :color-mode)
-          environment (common/find-environment env environments)]
-      (if environment
-        (run-tests-for-environment workspace environment changes run-env-tests?)
-        (println (str "Couldn't find the " (color/environment env color-mode) " environment."))))))
+  (let [start-time (time-util/current-time)]
+    (if (nil? env)
+      (run-all-tests workspace environments changes run-env-tests? start-time)
+      (let [color-mode (-> workspace -> :settings :color-mode)
+            environment (common/find-environment env environments)]
+        (if environment
+          (do
+            (run-tests-for-environment workspace environment changes run-env-tests?)
+            (time-util/print-execution-time start-time))
+          (println (str "Couldn't find the " (color/environment env color-mode) " environment.")))))))

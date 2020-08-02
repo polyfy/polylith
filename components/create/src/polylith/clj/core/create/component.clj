@@ -3,19 +3,6 @@
             [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.git.interfc :as git]))
 
-;(def top-namespace "polylith.clj.core")
-;(def interface-ns "interfc")
-;(def current-dir ".")
-;(def component "abc")
-;(def component-dir (str current-dir "/components/" component))
-;
-;(def top-dir (-> top-namespace common/sufix-ns-with-dot common/ns-to-path))
-;
-;(def src-interface-filename (str component-dir "/src/" top-dir component "/" interface-ns ".clj"))
-;(file/create-missing-dirs src-interface-filename)
-;(file/create-file src-interface-filename [(str "(ns " top-namespace "." component "." interface-ns ")")])
-;(git/add "." src-interface-filename)
-
 (defn create-resources-dir [current-dir component]
   (let [keep-file (str current-dir "/components/" component "/resources/" component "/.keep")]
     (file/create-missing-dirs keep-file)
