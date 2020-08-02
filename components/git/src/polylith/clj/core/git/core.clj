@@ -20,20 +20,17 @@
     (catch Exception _
       (println (str "Couldn't get current SHA")))))
 
-(defn diff [sha1 sha2]
-  (let [ws-path "."
-        sha? (or sha1 sha2)
-        sha-1 (when sha? (or sha1 "HEAD"))
-        sha-2 (when sha? (or sha2 "HEAD"))
-        files (if sha?
-                (shell/sh "git" "diff" sha-1 sha-2 "--name-only" :dir ws-path)
-                (shell/sh "git" "diff" "--name-only" :dir ws-path))]
-    (str/split files #"\n")))
+(defn diff-command-parts [sha1 sha2]
+  (if sha1
+    (if sha2
+      ["git" "diff" sha1 sha2 "--name-only"]
+      ["git" "diff" sha1 "--name-only"])
+    ["git" "diff" "--name-only"]))
 
 (defn diff-command [sha1 sha2]
-  (let [sha? (or sha1 sha2)
-        sha-1 (when sha? (or sha1 "HEAD"))
-        sha-2 (when sha? (or sha2 "HEAD"))]
-    (if sha?
-      (str "git diff " sha-1 " " sha-2 " --name-only")
-      (str "git diff --name-only"))))
+  (str/join " " (diff-command-parts sha1 sha2)))
+
+(defn diff [ws-path sha1 sha2]
+  (let [files (apply shell/sh (concat (diff-command-parts sha1 sha2)
+                                      [:dir ws-path]))]
+    (str/split files #"\n")))

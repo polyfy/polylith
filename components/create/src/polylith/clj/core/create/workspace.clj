@@ -68,4 +68,4 @@
       (file/create-file (str ws-path "/deps.edn") (deps-content ws-ns))
       (file/create-file (str ws-path "/readme.md") (readme-content ws-name))
       (file/copy-resource-file! "create/logo.png" (str ws-path "/logo.png"))
-      (git/init current-dir))))
+      (git/init ws-path))))

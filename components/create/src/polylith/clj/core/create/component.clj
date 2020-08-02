@@ -20,28 +20,28 @@
   (let [keep-file (str current-dir "/components/" component "/resources/" component "/.keep")]
     (file/create-missing-dirs keep-file)
     (file/create-file keep-file [""])
-    (git/add "." keep-file)))
+    (git/add current-dir keep-file)))
 
-(defn create-src-interface [top-namespace component-dir top-dir interface-ns component-name]
+(defn create-src-interface [current-dir top-namespace component-dir top-dir interface-ns component-name]
   (let [ns-file (str component-dir "/src/" top-dir (common/ns-to-path component-name) "/" interface-ns ".clj")]
     (file/create-missing-dirs ns-file)
     (file/create-file ns-file [(str "(ns " top-namespace "." component-name "." interface-ns ")")])
-    (git/add "." ns-file)))
+    (git/add current-dir ns-file)))
 
-(defn create-test-interface [top-namespace component-dir top-dir interface-ns component-name]
+(defn create-test-interface [current-dir top-namespace component-dir top-dir interface-ns component-name]
   (let [ns-file (str component-dir "/test/" top-dir (common/ns-to-path component-name) "/" interface-ns ".clj")]
     (file/create-missing-dirs ns-file)
     (file/create-file ns-file [(str "(ns " top-namespace "." component-name "." interface-ns)
                                (str "  (:require [clojure.test :refer :all]))")])
-    (git/add "." ns-file)))
+    (git/add current-dir ns-file)))
 
 (defn create-component [current-dir settings component-name]
   (let [{:keys [top-namespace interface-ns]} settings
         top-dir (-> top-namespace common/sufix-ns-with-dot common/ns-to-path)
         components-dir (str current-dir "/components/" component-name)]
     (create-resources-dir current-dir component-name)
-    (create-src-interface top-namespace components-dir top-dir interface-ns component-name)
-    (create-test-interface top-namespace components-dir top-dir interface-ns component-name)))
+    (create-src-interface current-dir top-namespace components-dir top-dir interface-ns component-name)
+    (create-test-interface current-dir top-namespace components-dir top-dir interface-ns component-name)))
 
 (defn create [current-dir {:keys [settings components]} component-name]
   (if (common/find-component component-name components)

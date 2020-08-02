@@ -1,12 +1,18 @@
 
-- implement 'create c'.
+- implement 'create b'.
 - implement 'migrate' that migrates old lein-polylith projects.
 
+- change so that we run tests for a brick instead of an environment.
+
+- support executing commands from subdirectories of the workspace root.
+  - the root will be the first parent directory with a deps.edn that has a :polylith key.
+  - change message if executed outside a workspace.
 
 - ensure Polylith works on Windows.
 
 - update help for the 'deps' command.
 - add help for the 'create w' command.
+- add help for the 'create c' command.
 
 - let util.def-map handle attributes with namespace in it, e.g. [paths deps aliases mvn/repos]
   in environments-from-disk.
@@ -226,10 +232,10 @@ Differences compared to lein-polylith
   - changes are handled entirely by git, not by both git and via file timestamps.
   - no 'sync' command needed.
 - more powerful:
-  - supports multiple environments
+  - support for more than one environment
   - supports having tests per environment.
   - faster. No need for a 'prompt' command. The 'check' command runs in around a second.
-  - advanced 'info' and 'deps' commands with support for colors.
+  - improved 'info' and 'deps' commands.
   - improved error messages.
   - an environment can have a different version of a library than other environments.
 - improved testing experience. In lein-polylith all bricks were compiled and no test output was

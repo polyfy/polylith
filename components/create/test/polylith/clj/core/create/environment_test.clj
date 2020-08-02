@@ -5,7 +5,7 @@
 
 (use-fixtures :each helper/test-setup-and-tear-down)
 
-(deftest create-environment--create-existing-environment--returns-error-message
+(deftest create-environment--when-environment-already-exists--return-error-message
   (let [ws-name "ws1"
         output (with-out-str
                  (helper/execute-command "" "create" "w" ws-name "se.example")
@@ -33,6 +33,7 @@
              "environments"
              "environments/env1"
              "environments/env1/deps.edn"
+             ".git"
              "logo.png"
              "deps.edn"
              "readme.md"}

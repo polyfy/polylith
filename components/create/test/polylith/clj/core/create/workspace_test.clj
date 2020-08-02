@@ -24,6 +24,7 @@
              "development"
              "development/src"
              "environments"
+             ".git"
              "logo.png"
              "deps.edn"
              "readme.md"}
@@ -92,6 +93,7 @@
              "development"
              "development/src"
              "environments"
+             ".git"
              "logo.png"
              "deps.edn"
              "readme.md"}

@@ -8,7 +8,6 @@
          "development/src"
 
          ; Components
-         "components/abc/src"
          "components/change/src"
          "components/command/src"
          "components/common/src"
@@ -39,7 +38,6 @@
         org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}}
 
  :aliases  {:test {:extra-paths [; Components
-                                 "components/abc/test"
                                  "components/change/test"
                                  "components/command/test"
                                  "components/common/test"

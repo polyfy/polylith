@@ -75,7 +75,7 @@
         "info" (info workspace arg1)
         "test" (test-ws workspace arg1 arg2)
         (help workspace nil))
-      (println "Only the 'help' and 'create w' commands can be executed outside a workspace."))
+      (println "The command can only be executed from the workspace root."))
     {:ok? true}
     (catch Exception e
       {:ok? false
