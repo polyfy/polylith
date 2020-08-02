@@ -1,7 +1,10 @@
 
-- move :paths and :deps to the :dev alias.
+- when creating a component or base, print message saying that src and test-folder should be
+  added to 'dev' and other environments.
 
 - add :ns->lib.
+  - add validation that calculates missing libraries based on what imports all components
+    and bases have for each environment.
 
 - rename env-aliases to env->alias.
 

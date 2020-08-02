@@ -62,12 +62,13 @@
          maven-repos (merge mvn/standard-repos repos)]
      (read-environment env env-dir current-dir config-file dev-env? paths deps aliases maven-repos)))
   ([env env-dir current-dir config-file dev-env? paths deps aliases maven-repos]
-   (let [src-paths (cleaned-existing-paths env current-dir paths dev-env?)
-         component-names (vec (sort (set (mapv component-name (filter component? src-paths)))))
-         base-names (vec (sort (set (mapv base-name (filter base? src-paths)))))
-         test-paths (cleaned-existing-paths env current-dir (-> aliases :test :extra-paths) dev-env?)
-         test-component-names (vec (sort (set (mapv component-name (filter component? test-paths)))))
-         test-base-names (vec (sort (set (mapv base-name (filter base? test-paths)))))
+   (let [src-paths (if dev-env? (-> aliases :dev :extra-paths) paths)
+         cleaned-src-paths (cleaned-existing-paths env current-dir src-paths dev-env?)
+         component-names (vec (sort (set (mapv component-name (filter component? cleaned-src-paths)))))
+         base-names (vec (sort (set (mapv base-name (filter base? cleaned-src-paths)))))
+         cleaned-test-paths (cleaned-existing-paths env current-dir (-> aliases :test :extra-paths) dev-env?)
+         test-component-names (vec (sort (set (mapv component-name (filter component? cleaned-test-paths)))))
+         test-base-names (vec (sort (set (mapv base-name (filter base? cleaned-test-paths)))))
          test-deps (sort-deps (-> aliases :test :extra-deps))
          namespaces-src (ns-from-disk/namespaces-from-disk (str env-dir "/src"))
          namespaces-test (ns-from-disk/namespaces-from-disk (str env-dir "/test"))]
@@ -79,13 +80,13 @@
                        :test-component-names test-component-names
                        :base-names base-names
                        :test-base-names test-base-names
-                       :paths src-paths
-                       :test-paths test-paths
+                       :paths cleaned-src-paths
+                       :test-paths cleaned-test-paths
                        :lib-deps (sort-deps deps)
                        :test-deps test-deps
                        :maven-repos maven-repos
-                       :has-src-dir? (has-src-dir? env src-paths)
-                       :has-test-dir? (has-test-dir? env test-paths)
+                       :has-src-dir? (has-src-dir? env cleaned-src-paths)
+                       :has-test-dir? (has-test-dir? env cleaned-test-paths)
                        :namespaces-src namespaces-src
                        :namespaces-test namespaces-test))))
 
