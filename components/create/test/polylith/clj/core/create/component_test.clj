@@ -1,5 +1,6 @@
 (ns polylith.clj.core.create.component-test
   (:require [clojure.test :refer :all]
+            [polylith.clj.core.create.brick :as brick]
             [polylith.clj.core.test-helper.interfc :as helper]))
 
 (use-fixtures :each helper/test-setup-and-tear-down)
@@ -10,7 +11,8 @@
                  (helper/execute-command "" "create-ws" ws-name "se.example")
                  (helper/execute-command ws-name "create-comp" "my-component")
                  (helper/execute-command ws-name "create-comp" "my-component"))]
-    (is (= "The brick 'my-component' already exists.\n"
+    (is (= (str brick/create-brick-message "\n"
+                "The brick 'my-component' already exists.\n")
            output))))
 
 (deftest create-component--performs-expected-actions
@@ -20,7 +22,7 @@
         output (with-out-str
                  (helper/execute-command "" "create-ws" ws-name "se.example")
                  (helper/execute-command ws-name "create-comp" "my-component"))]
-    (is (= ""
+    (is (= (str brick/create-brick-message "\n")
            output))
 
     (is (= #{"bases"

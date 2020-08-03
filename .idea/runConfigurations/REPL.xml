@@ -7,7 +7,7 @@
     <setting name="parameters" value="" />
     <setting name="workingDir" value="$PROJECT_DIR$" />
     <setting name="profiles" value="" />
-    <setting name="aliases" value="test" />
+    <setting name="aliases" value="test,dev" />
     <setting name="fixLineNumbers" value="false" />
     <method v="2" />
   </configuration>

@@ -9,5 +9,6 @@
     (brick/create-test-interface current-dir top-namespace bases-dir "api" base-name)))
 
 (defn create [current-dir {:keys [settings] :as workspace} base-name]
-  (when (brick/not-exists workspace base-name)
-    (create-base current-dir settings base-name)))
+  (brick/create-brick workspace
+                      base-name
+                      (fn [] (create-base current-dir settings base-name))))

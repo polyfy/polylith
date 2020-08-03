@@ -3,10 +3,14 @@
             [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.git.interfc :as git]))
 
-(defn not-exists [workspace brick-name]
+(def create-brick-message "Remember to add the 'src', 'resources' and 'test' (if tests should be executed) directories to 'deps.edn' for desired environments.")
+
+(defn create-brick [workspace brick-name create-fn]
   (if (common/find-brick workspace brick-name)
     (println (str "The brick '" brick-name "' already exists."))
-    :ok))
+    (do
+      (create-fn)
+      (println create-brick-message))))
 
 (defn create-resources-dir [current-dir bricks-dir brick-name]
   (let [keep-file (str current-dir "/" bricks-dir "/" brick-name "/resources/" brick-name "/.keep")]

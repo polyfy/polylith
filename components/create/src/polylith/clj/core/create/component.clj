@@ -9,5 +9,6 @@
     (brick/create-test-interface current-dir top-namespace components-dir interface-ns component-name)))
 
 (defn create [current-dir {:keys [settings] :as workspace} component-name]
-  (when (brick/not-exists workspace component-name)
-    (create-component current-dir settings component-name)))
+  (brick/create-brick workspace
+                      component-name
+                      (fn [] (create-component current-dir settings component-name))))
