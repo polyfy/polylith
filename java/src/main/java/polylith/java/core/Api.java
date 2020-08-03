@@ -1,8 +1,8 @@
-package polylith.core;
+package polylith.java.core;
 
 import java.util.Map;
 
-import static polylith.core.Core.callFn;
+import static polylith.java.core.Core.callFn;
 
 public final class Api {
 

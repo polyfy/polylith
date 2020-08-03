@@ -1,6 +1,6 @@
-package polylith.core;
+package polylith.java.core;
 
-import static polylith.core.Core.callFn;
+import static polylith.java.core.Core.callFn;
 
 public class Colorize {
 

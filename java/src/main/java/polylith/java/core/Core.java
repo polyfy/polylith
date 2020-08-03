@@ -1,4 +1,4 @@
-package polylith.core;
+package polylith.java.core;
 
 import clojure.java.api.Clojure;
 import clojure.lang.IFn;

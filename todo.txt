@@ -13,8 +13,6 @@
 
 - ensure Polylith works on Windows.
 
-- move polylith.core to polylith.java.core.
-
 - also show the columns '#ns' and 'loc/ns' in the 'info' command when sending in -loc as argument.
   - change from '(t)' to 'loc-t' ?
 
@@ -37,6 +35,8 @@
 - make sure the workspace table looks okay even without an environment.
 
 - add the 'diff' command, which performs a git diff.
+
+- show a warning if an alias is not added + where to add it.
 
 - experiment with implementing a git hook that if the workspace is valid, saves a workspace.edn
   at the root of the project and commits it before every push. Then we could "animate" over the
