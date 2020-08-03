@@ -3,9 +3,6 @@
   - add validation that calculates missing libraries based on what imports all components
     and bases have for each environment.
 
-- rename env-aliases to env->alias.
-
-
 - support executing commands from subdirectories of the workspace root.
   - the root will be the first parent directory with a deps.edn that has a :polylith key.
   - change message if executed outside a workspace.

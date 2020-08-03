@@ -8,19 +8,19 @@
 (defn undefined-env [index env]
   [env (str "?" (inc index))])
 
-(defn abbrivated-envs [env-aliases src-names]
+(defn abbrivated-envs [env->alias src-names]
   (let [undefined-envs (set/difference (set src-names)
-                                       (set (keys env-aliases)))]
+                                       (set (keys env->alias)))]
     (if (empty? undefined-envs)
-      env-aliases
-      (merge env-aliases
+      env->alias
+      (merge env->alias
              (into {} (map-indexed undefined-env undefined-envs))))))
 
-(defn env->alias [{:keys [env-aliases]} environments]
+(defn env->alias [{:keys [env->alias]} environments]
   (let [src-names (mapv :name environments)
-        short-names (if env-aliases
-                      (if (contains? env-aliases "development")
-                        env-aliases
-                        (conj env-aliases ["development" "dev"]))
+        short-names (if env->alias
+                      (if (contains? env->alias "development")
+                        env->alias
+                        (conj env->alias ["development" "dev"]))
                       {"development" "dev"})]
     (abbrivated-envs short-names src-names)))

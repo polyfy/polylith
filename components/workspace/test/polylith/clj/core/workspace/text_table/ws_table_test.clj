@@ -16,7 +16,7 @@
                             :file-extensions [".clj" "cljc"]}
                 :settings {:top-namespace "polylith.clj.core"
                            :color-mode "dark"
-                           :env-aliases {"dev" "dev", "cli" "cli", "core" "core"}}
+                           :env->alias {"dev" "dev", "cli" "cli", "core" "core"}}
                 :interfaces [{:name "workspace-clj", :type "interface"}
                              {:name "test-runner", :type "interface"}
                              {:name "command"

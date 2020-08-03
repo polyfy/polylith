@@ -22,7 +22,7 @@
   [(str "{:polylith {:vcs \"git\"")
    (str "            :top-namespace \"" ws-ns "\"")
    (str "            :interface-ns \"interface\"")
-   (str "            :env-aliases {\"development\" \"dev\"}}")
+   (str "            :env->alias {\"development\" \"dev\"}}")
    (str " :paths [; Development")
    (str "         \"development/src\"")
    (str "")

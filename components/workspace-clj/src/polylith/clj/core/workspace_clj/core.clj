@@ -23,7 +23,7 @@
    (let [config (read-string (slurp (str ws-path "/deps.edn")))]
      (workspace-from-disk ws-path config)))
   ([ws-path {:keys [polylith]}]
-   (let [{:keys [vcs top-namespace interface-ns env-aliases]} polylith
+   (let [{:keys [vcs top-namespace interface-ns env->alias]} polylith
          top-ns (common/sufix-ns-with-dot top-namespace)
          top-src-dir (str/replace top-ns "." "/")
          color-mode (user-config/color-mode)
@@ -35,7 +35,7 @@
                                     :top-namespace top-namespace
                                     :interface-ns (or interface-ns "interface")
                                     :color-mode color-mode
-                                    :env-aliases env-aliases)]
+                                    :env->alias env->alias)]
      (util/ordered-map :ws-path ws-path
                        :ws-reader ws-reader
                        :settings settings

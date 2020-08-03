@@ -13,8 +13,8 @@
          "    environment:  The name of the environment which is a directory under 'environments' at the root.\n\n"
 
          "    alias:        The name of the alias. The alias is either calculated based on the environment name\n"
-         "                  or defined in 'deps.edn' at the root in the :env-aliases key, e.g.\n"
-         "                  " (color/grey color-mode "{:polylith {:env-aliases {\"development\" \"dev\"}}}") "\n"
+         "                  or defined in 'deps.edn' at the root in the :env->alias key, e.g.\n"
+         "                  " (color/grey color-mode "{:polylith {:env->alias {\"development\" \"dev\"}}}") "\n"
          "                  The aliases are are used in the second table to save space.\n\n"
 
          "    src:          Contains three characters.\n"

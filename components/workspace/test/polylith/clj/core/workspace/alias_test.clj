@@ -24,4 +24,4 @@
           "clojure"        "?1"
           "development"    "dev"
           "helpers"        "h"}
-         (alias/env->alias {:env-aliases {"helpers" "h"}} environments))))
+         (alias/env->alias {:env->alias {"helpers" "h"}} environments))))
