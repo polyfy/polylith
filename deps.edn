@@ -2,7 +2,8 @@
 {:polylith {:top-namespace "polylith.clj.core"
             :interface-ns "interfc"
             :env->alias {"cli" "cli"
-                         "core" "core"}}
+                         "core" "core"}
+            :ns->lib {}}
 
  :aliases  {:dev {:extra-paths [; Development
                                 "development/src"
@@ -14,7 +15,6 @@
                                 "components/create/src"
                                 "components/create/resources"
                                 "components/deps/src"
-                                "components/env-reloader/src"
                                 "components/file/src"
                                 "components/git/src"
                                 "components/help/src"
@@ -42,7 +42,6 @@
                                  "components/common/test"
                                  "components/create/test"
                                  "components/deps/test"
-                                 "components/env-reloader/test"
                                  "components/file/test"
                                  "components/git/test"
                                  "components/help/test"

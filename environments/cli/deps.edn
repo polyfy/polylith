@@ -34,7 +34,6 @@
                                    "../../components/common/test"
                                    "../../components/create/test"
                                    "../../components/deps/test"
-                                   "../../components/env-reloader/test"
                                    "../../components/file/test"
                                    "../../components/git/test"
                                    "../../components/help/test"
