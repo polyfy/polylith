@@ -12,7 +12,7 @@
   {:name "polylith-clj"
    :project-url "https://github.com/tengstrand/polylith/tree/core"
    :reader-version "1.0"
-   :ws-contract-version "1.0"
+   :ws-contract-version 1
    :language "Clojure"
    :type-position "postfix"
    :slash "/"
