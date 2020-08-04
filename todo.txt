@@ -1,6 +1,4 @@
 
-- change variable name from "current-dir" to "ws-root-dir".
-
 - when creating an environment, component or base, make sure all files are added to git.
 
 - warn if adding paths to an environment that probably will cause problems:

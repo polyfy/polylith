@@ -4,17 +4,17 @@
             [polylith.clj.core.create.component :as c]
             [polylith.clj.core.create.base :as b]))
 
-(defn create-workspace [current-dir ws-name ws-ns]
-  (ws/create current-dir ws-name ws-ns))
+(defn create-workspace [ws-dir ws-name ws-ns]
+  (ws/create ws-dir ws-name ws-ns))
 
-(defn create-environment [current-dir workspace env]
-  (env/create current-dir workspace env))
+(defn create-environment [ws-dir workspace env]
+  (env/create ws-dir workspace env))
 
-(defn create-component [current-dir workspace component-name interface-name]
-  (c/create current-dir workspace component-name interface-name))
+(defn create-component [ws-dir workspace component-name interface-name]
+  (c/create ws-dir workspace component-name interface-name))
 
-(defn create-base [current-dir workspace base-name]
-  (b/create current-dir workspace base-name))
+(defn create-base [ws-dir workspace base-name]
+  (b/create ws-dir workspace base-name))
 
 (defn print-alias-message [env color-mode]
   (env/print-alias-message env color-mode))

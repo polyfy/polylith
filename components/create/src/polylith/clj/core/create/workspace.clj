@@ -44,10 +44,10 @@
       (file/create-missing-dirs user-config-file)
       (file/create-file user-config-file (user-config-content)))))
 
-(defn create [current-dir ws-name ws-namespace]
+(defn create [ws-dir ws-name ws-namespace]
   (if (nil? ws-namespace)
     (println "  A namespace must be given.")
-    (let [ws-path (str current-dir "/" ws-name)]
+    (let [ws-path (str ws-dir "/" ws-name)]
       (file/create-dir ws-path)
       (file/create-dir (str ws-path "/bases"))
       (file/create-dir (str ws-path "/components"))

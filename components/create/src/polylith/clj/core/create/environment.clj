@@ -3,8 +3,8 @@
             [polylith.clj.core.util.interfc.color :as color]
             [polylith.clj.core.common.interfc :as common]))
 
-(defn create-env [current-dir env]
-  (let [env-path (str current-dir "/environments/" env)]
+(defn create-env [ws-dir env]
+  (let [env-path (str ws-dir "/environments/" env)]
     (file/create-dir env-path)
     (file/create-file (str env-path "/deps.edn")
                       [""
@@ -21,10 +21,10 @@
                      (color/environment env color-mode) " environment.")]
     (println message)))
 
-(defn create [current-dir {:keys [environments settings]} env]
+(defn create [ws-dir {:keys [environments settings]} env]
   (let [color-mode (:color-mode settings color/none)]
     (if (common/find-environment env environments)
       (println (str "Environment " (color/environment env color-mode) " (or alias) already exists."))
       (do
-        (create-env current-dir env)
+        (create-env ws-dir env)
         :ok))))
