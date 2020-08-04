@@ -1,11 +1,12 @@
 
-- let the check command return 0 if OK, otherwise with the error code or 1 if more thant 1 error.
+- allow giving an interface in the 'create-comp' command.
 
 - when creating a workspace:
   - make sure all files are added to git.
 
-- warn if people add paths that starts with "components/" or "bases/" without adding "../.." before,
-  something like "...will not take effect".
+- warn if adding paths to an environment that probably will cause problems:
+  - if starts with "components/" or "bases/" without adding "../.." before, message something like: "...will not take effect".
+  - warn if adding "development/src" to environment paths.
 
 - support executing commands from subdirectories of the workspace root.
   - the root will be the first parent directory with a deps.edn that has a :polylith key.
@@ -14,6 +15,8 @@
 - implement 'migrate' that migrates old lein-polylith projects.
 
 - remove :deps/root from :poly
+
+- move polylith-kotlin to private repo.
 
 
 - use -all to run all tests, not just changed. Use -env or similar to include environment tests.
@@ -100,6 +103,17 @@
 - add the 'version' command.
 
 - in the 'deps' command, also show library dependencies, e.g.:
+                 l  l  l
+                 i  i  i
+                 b  b  b
+                 -  -  -
+                 1  2  3
+    --------------------
+    component1   x  x  -
+    component2   -  x  x
+    component3   x  -  -
+    base1        -  x  -
+
     library                       version  cli  core  dev
     -----------------------------------------------------
     org.clojure/clojure           1.10.1    x    x     x
@@ -111,23 +125,9 @@
 
 Questions
 =========
-- about the scrital project:
-  - has all sub projects different top namespace?
-  - before, when "everyting worked" how was your project different from now?
+- how to convert the git repo?
 - can I delete .gradle from the project root?
-- it's really great that integration tests can be put in each environment, but where
-  to put system level end-to-end tests?
-- how can we have a build that first builds polylith.clj.core and then builds
-  polylith.core and deploys it to clojars?
-- we don't get nice error messages when running tests through tools.deps, e.g when
-  a namespace can't be imported or if a component is missing so it can't compile.
-- :color-mode should be per developer, not per workspace. Put it in .polylith/config.edn?
-- polylith.workspace-clj.namespaces-from-disk/->namespace
 - check if we should register for https://github.com/sponsors.
-
-- have a dev directory with a 'src' directory and namespace where we can import a polylith.clj.core
-  namespace that has a function that allows us to reload an environment to the REPL.
-
 
 Leave for now
 =============

@@ -14,8 +14,7 @@
                                     ws-clj/workspace-from-disk
                                     ws/enrich-workspace
                                     change/with-changes))
-        {:keys [ok? exception]} (command/execute-command current-dir workspace cmd arg1 arg2)]
-      (when (not ok?)
-        (ex/print-exception exception)
-        (System/exit (or (-> exception ex-data :exit-code) 1)))
-      (System/exit 0)))
+        {:keys [exit-code exception]} (command/execute-command current-dir workspace cmd arg1 arg2)]
+      (when (-> exception nil? not)
+        (ex/print-exception exception))
+      (System/exit exit-code)))

@@ -55,6 +55,15 @@
       (= "help" cmd)
       (= "create-ws" cmd)))
 
+(defn exit-code [cmd {:keys [messages]}]
+  (if (= "check" cmd)
+    (let [errors (filter #(= "error" (:type %)) messages)]
+      (condp = (count errors)
+        0 0
+        1 (-> errors first :code)
+        1))
+    0))
+
 (defn execute [current-dir workspace cmd arg1 arg2]
   (try
     (if (valid-command? workspace cmd)
@@ -71,7 +80,7 @@
         "ws" (pp/pprint workspace)
         (help workspace nil))
       (println "  The command can only be executed from the workspace root."))
-    {:ok? true}
+    {:exit-code (exit-code cmd workspace)}
     (catch Exception e
-      {:ok? false
+      {:exit-code 1
        :exception e})))
