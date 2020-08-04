@@ -72,7 +72,7 @@
         "create-ws" (create/create-workspace current-dir arg1 arg2)
         "create-env" (create-environment current-dir workspace arg1)
         "create-base" (create/create-base current-dir workspace arg1)
-        "create-comp" (create/create-component current-dir workspace arg1)
+        "create-comp" (create/create-component current-dir workspace arg1 arg2)
         "deps" (deps workspace arg1 arg2)
         "help" (help workspace arg1)
         "info" (info workspace arg1)

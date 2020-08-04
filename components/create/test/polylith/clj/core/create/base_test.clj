@@ -39,7 +39,7 @@
              "bases/my-base/test/se"
              "bases/my-base/test/se/example"
              "bases/my-base/test/se/example/my_base"
-             "bases/my-base/test/se/example/my_base/api.clj"
+             "bases/my-base/test/se/example/my_base/api-test.clj"
              "components"
              "development"
              "development/src"
@@ -55,4 +55,4 @@
 
     (is (= ["(ns se.example.my-base.api"
             "  (:require [clojure.test :refer :all]))"]
-           (helper/content test-api-dir "api.clj")))))
+           (helper/content test-api-dir "api-test.clj")))))

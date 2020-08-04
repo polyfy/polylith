@@ -10,11 +10,11 @@
 (defn create-environment [current-dir workspace env]
   (env/create current-dir workspace env))
 
-(defn create-component [current-dir workspace component]
-  (c/create current-dir workspace component))
+(defn create-component [current-dir workspace component-name interface-name]
+  (c/create current-dir workspace component-name interface-name))
 
-(defn create-base [current-dir workspace base]
-  (b/create current-dir workspace base))
+(defn create-base [current-dir workspace base-name]
+  (b/create current-dir workspace base-name))
 
 (defn print-alias-message [env color-mode]
   (env/print-alias-message env color-mode))

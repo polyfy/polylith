@@ -36,11 +36,9 @@
                 git/current-sha (fn [_] "21f40507a24291ead2409ce33277378bb7e94ac6")]
     (let [ws-path (file/current-dir)
           workspace (read-workspace ws-path)
-          {:keys [ok? system-error? exception]} (command/execute-command ws-path workspace cmd arg1 arg2)]
-      (when (not ok?)
-        (if system-error?
-          (stacktrace/print-stack-trace exception)
-          (ex/print-error-message exception))))))
+          {:keys [exception]} (command/execute-command ws-path workspace cmd arg1 arg2)]
+      (when (-> exception nil? not)
+        (stacktrace/print-stack-trace exception)))))
 
 (defn paths [dir]
   (let [paths (-> dir sub-dir file/relative-paths)]

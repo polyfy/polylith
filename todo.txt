@@ -1,6 +1,4 @@
 
-- allow giving an interface in the 'create-comp' command.
-
 - when creating a workspace:
   - make sure all files are added to git.
 
@@ -237,7 +235,8 @@ Differences compared to lein-polylith
 - an environment can have a different version of a library than other environments.
 - improved testing experience. In lein-polylith all bricks were compiled and no test output was
   shown during test execution. Now the ouput from the tests are shown and no compilation of the
-  bricks are performed + they run faster in separate class loaders.
+  bricks are performed + they run faster in separate class loaders + they stop immediately if
+  a test fails.
 - changes are calculated based on HEAD (latest commit) and not against timestamps.
 - the 'deps' command is improved except that it doesn't support showing dependencies
   at the function level at the moment.
