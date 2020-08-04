@@ -7,7 +7,7 @@
 
 (defn included-in-ns? [lib-ns namespace]
   (or (= namespace lib-ns)
-      (str/starts-with? namespace (str lib-ns "."))))
+      (str/starts-with? namespace (common/suffix-ns-with-dot lib-ns))))
 
 (defn brick-imports [brick-name name->brick]
   (mapcat :imports (-> brick-name name->brick :namespaces-src)))
@@ -15,10 +15,10 @@
 (defn expected-ns [used-ns ns-libs]
   (util/find-first #(included-in-ns? % used-ns) ns-libs))
 
-(defn env-status [{:keys [name component-names base-names lib-deps]} top-namespace name->brick ns->lib]
+(defn env-status [{:keys [name component-names base-names lib-deps]} top-ns name->brick ns->lib]
   (let [brick-names (concat component-names base-names)
         ns-libs (reverse (sort (map #(-> % first str) ns->lib)))
-        used-namespaces (set (filter #(not (included-in-ns? top-namespace %))
+        used-namespaces (set (filter #(not (included-in-ns? top-ns %))
                                      (mapcat #(brick-imports % name->brick) brick-names)))
         expected-libs (set (map ns->lib (set (map #(expected-ns % ns-libs) used-namespaces))))
         used-libs (set (map key lib-deps))
@@ -40,10 +40,7 @@
   (when (-> missing-libraries empty? not)
     (missing-lib-warning env missing-libraries color-mode)))
 
-(defn warnings [environments components bases ns->lib top-namespace color-mode]
-  (if (str/blank? top-namespace)
-    []
-    (let [name->brick (into {} (map (juxt :name identity) (concat bases components)))
-          top-ns (common/sufix-ns-with-dot top-namespace)]
-      (mapcat #(env-warning % color-mode)
-              (map #(env-status % top-ns name->brick ns->lib) environments)))))
+(defn warnings [environments components bases ns->lib top-ns color-mode]
+  (let [name->brick (into {} (map (juxt :name identity) (concat bases components)))]
+    (mapcat #(env-warning % color-mode)
+            (map #(env-status % top-ns name->brick ns->lib) environments))))

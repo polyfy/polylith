@@ -18,7 +18,7 @@
 (defn messages-without-colors [workspace]
   (msg/messages-without-colors workspace))
 
-(defn sufix-ns-with-dot [namespace]
+(defn suffix-ns-with-dot [namespace]
   (core/sufix-ns-with-dot namespace))
 
 (defn filter-clojure-paths [paths]

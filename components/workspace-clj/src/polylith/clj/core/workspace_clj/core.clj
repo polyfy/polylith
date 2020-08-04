@@ -30,8 +30,7 @@
      (workspace-from-disk ws-path config)))
   ([ws-path {:keys [polylith]}]
    (let [{:keys [vcs top-namespace interface-ns env->alias ns->lib]} polylith
-         top-ns (common/sufix-ns-with-dot top-namespace)
-         top-src-dir (str/replace top-ns "." "/")
+         top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
          color-mode (user-config/color-mode)
          component-names (file/directory-paths (str ws-path "/components"))
          components (components-from-disk/read-components ws-path top-src-dir component-names interface-ns)

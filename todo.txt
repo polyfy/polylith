@@ -1,10 +1,4 @@
 
-- remove :deps/root from :poly
-
-- force people to give a top namespace
-  - remove support for '-'
-  - remove util functions
-
 - let the check command return 0 if OK, otherwise with the error code or 1 if more thant 1 error.
 
 - when creating a workspace:
@@ -18,6 +12,9 @@
   - change message if executed outside a workspace.
 
 - implement 'migrate' that migrates old lein-polylith projects.
+
+- remove :deps/root from :poly
+
 
 - use -all to run all tests, not just changed. Use -env or similar to include environment tests.
 
@@ -218,6 +215,7 @@ Doc
 
 Differences compared to lein-polylith
 =====================================
+- no support for empty top namespace.
 - when you create a component, it will not add any example code in the test.
 - git needs to be used, otherwise it can not determine what has changed since the last commit.
 - builds on top of tools.deps instead of leiningen.

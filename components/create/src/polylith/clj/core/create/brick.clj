@@ -19,14 +19,14 @@
     (git/add current-dir keep-file)))
 
 (defn create-src-interface [current-dir top-namespace bricks-dir namespace brick-name]
-  (let [top-dir (-> top-namespace common/sufix-ns-with-dot common/ns-to-path)
+  (let [top-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
         ns-file (str bricks-dir "/src/" top-dir (common/ns-to-path brick-name) "/" namespace ".clj")]
     (file/create-missing-dirs ns-file)
     (file/create-file ns-file [(str "(ns " top-namespace "." brick-name "." namespace ")")])
     (git/add current-dir ns-file)))
 
 (defn create-test-interface [current-dir top-namespace bricks-dir namespace brick-name]
-  (let [top-dir (-> top-namespace common/sufix-ns-with-dot common/ns-to-path)
+  (let [top-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
         ns-file (str bricks-dir "/test/" top-dir (common/ns-to-path brick-name) "/" namespace ".clj")]
     (file/create-missing-dirs ns-file)
     (file/create-file ns-file [(str "(ns " top-namespace "." brick-name "." namespace)

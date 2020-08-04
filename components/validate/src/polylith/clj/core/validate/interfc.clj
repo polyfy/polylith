@@ -8,9 +8,9 @@
             [polylith.clj.core.validate.m201-mismatching-parameters :as m201]
             [polylith.clj.core.validate.m202-missing-ns-to-lib-mapping :as m202]))
 
-(defn messages [top-ns interface-names interfaces components bases environments interface-ns ns->lib color-mode]
+(defn messages [top-ns suffixed-top-ns interface-names interfaces components bases environments interface-ns ns->lib color-mode]
   (vec (sort-by (juxt :type :code :message)
-                (set (concat (m101/errors top-ns interface-names components bases interface-ns color-mode)
+                (set (concat (m101/errors suffixed-top-ns interface-names components bases interface-ns color-mode)
                              (m102/errors components color-mode)
                              (m103/errors interfaces components color-mode)
                              (m104/errors environments color-mode)

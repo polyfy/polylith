@@ -8,8 +8,8 @@
 (defn interface-ns-deps [top-ns interface-name interface-names brick-namespaces]
   (ifc-deps/interface-ns-deps top-ns interface-name interface-names brick-namespaces))
 
-(defn interface-deps [top-ns interface-names brick]
-  (ifc-deps/interface-deps top-ns interface-names brick))
+(defn interface-deps [suffixed-top-ns interface-names brick]
+  (ifc-deps/interface-deps suffixed-top-ns interface-names brick))
 
 (defn print-brick-table [workspace environment-name brick-name color-mode]
   (brick-deps-table/print-table workspace environment-name brick-name color-mode))

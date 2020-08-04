@@ -36,15 +36,14 @@
 (defn create [current-dir ws-name ws-namespace]
   (if (nil? ws-namespace)
     (println "  A namespace must be given.")
-    (let [ws-path (str current-dir "/" ws-name)
-          ws-ns (if (= "-" ws-namespace) "" ws-namespace)]
+    (let [ws-path (str current-dir "/" ws-name)]
       (file/create-dir ws-path)
       (file/create-dir (str ws-path "/bases"))
       (file/create-dir (str ws-path "/components"))
       (file/create-dir (str ws-path "/development"))
       (file/create-dir (str ws-path "/development/src"))
       (file/create-dir (str ws-path "/environments"))
-      (file/create-file (str ws-path "/deps.edn") (deps-content ws-ns))
+      (file/create-file (str ws-path "/deps.edn") (deps-content ws-namespace))
       (file/create-file (str ws-path "/readme.md") (readme-content ws-name))
       (file/copy-resource-file! "create/logo.png" (str ws-path "/logo.png"))
       (git/init ws-path))))
