@@ -10,8 +10,8 @@
   (:refer-clojure :exclude [base]))
 
 (def workspace (->
-                 "."
-                 ;"/Users/tengstrand/source/poly-example/ws30"
+                 ;"."
+                 "/Users/tengstrand/source/poly-example/ws35"
                  ;"../clojure-polylith-realworld-example-app"
                  ws-clj/workspace-from-disk
                  ws/enrich-workspace
@@ -25,11 +25,20 @@
 (def components (:components workspace))
 (def bases (:bases workspace))
 (def bricks (concat components bases))
-(def interfaces (:interfaces workspace))F
+(def interfaces (:interfaces workspace))
 (def changes (:changes workspace))
 
 (def environment (common/find-environment "dev" environments))
 (def environment (common/find-environment "cli" environments))
-(def component (common/find-component "util" components))
+(def component (common/find-component "user" components))
 
-(map (juxt :name :alias) environments)
+(common/find-environment "core" environments)
+
+
+(map (juxt :alias :lib-deps) environments)
+
+(def config (read-string (slurp "/Users/tengstrand/source/poly-example/ws35/environments/core/deps.edn")))
+
+(-> config :paths)
+(-> config :aliases :test :extra-paths)
+(read-string (slurp "/Users/tengstrand/source/poly-example/ws34/components/abc/src/abc/interface.clj"))

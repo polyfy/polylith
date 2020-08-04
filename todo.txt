@@ -1,8 +1,6 @@
 
 - remove :deps/root from :poly
 
-- remove validation error 107.
-
 - force people to give a top namespace
   - remove support for '-'
   - remove util functions
