@@ -8,7 +8,7 @@
   (let [ws-name "ws1"
         output (with-out-str
                  (helper/execute-command "" "create-ws" ws-name))]
-    (is (= "A namespace must be given.\n"
+    (is (= "  A namespace must be given.\n"
            output))))
 
 (deftest create-workspace--creates-empty-directories-and-a-deps-edn-config-file
@@ -44,92 +44,17 @@
             "<p>Add your workspace documentation here...</p>"]
            (helper/content ws-name "readme.md")))
 
-    (is (= ["{:polylith {:vcs \"git\""
+    (is (= [""
+            "{:polylith {:vcs \"git\""
             "            :top-namespace \"se.example\""
             "            :interface-ns \"interface\""
-            "            :env->alias {\"development\" \"dev\"}}"
-            " :paths [; Development"
-            "         \"development/src\""
+            "            :env->alias {\"development\" \"dev\"}"
+            "            :ns->lib {clojure            org.clojure/clojure"
+            "                      clojure.tools.deps org.clojure/tools.deps.alpha}}"
             ""
-            "         ; Components"
+            " :aliases  {:dev {:extra-paths [\"development/src\"]"
+            "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.10.1\"}"
+            "                               org.clojure/tools.deps.alpha {:mvn/version \"0.8.695\"}}}"
             ""
-            "         ; Bases"
-            ""
-            "         ; Environments"
-            "         ]"
-            " :deps {org.clojure/clojure {:mvn/version \"1.10.1\"}"
-            "        org.clojure/tools.deps.alpha {:mvn/version \"0.8.695\"}}"
-            ""
-            " :aliases  {:test {:extra-paths [; Components"
-            ""
-            "                                 ; Bases"
-            ""
-            "                                 ; Environments"
-            "                                ]}"
-            ""
-            "            ; Polylith Tool"
-            "            :poly {:extra-deps {tengstrand/polylith"
-            "                                {:git/url   \"https://github.com/tengstrand/polylith.git\""
-            "                                 :sha       \"21f40507a24291ead2409ce33277378bb7e94ac6\""
-            "                                 :deps/root \"environments/dev\"}}}"
-            ""
-            "            :poly-check  {:main-opts [\"-m\" \"polylith.clj.core.cli.poly\" \"check\"]}"
-            "            :poly-deps   {:main-opts [\"-m\" \"polylith.clj.core.cli.poly\" \"deps\"]}"
-            "            :poly-help   {:main-opts [\"-m\" \"polylith.clj.core.cli.poly\" \"help\"]}"
-            "            :poly-info   {:main-opts [\"-m\" \"polylith.clj.core.cli.poly\" \"info\"]}"
-            "            :poly-test   {:main-opts [\"-m\" \"polylith.clj.core.cli.poly\" \"test\"]}}}"]
-           (helper/content ws-name "deps.edn")))))
-
-(deftest create-workspace--creates-workspace-with-an-empty-top-namespace
-  (let [ws-name "ws1"
-        output (with-out-str
-                 (helper/execute-command "" "create-ws" ws-name "-"))]
-    (is (= ""
-           output))
-
-    (is (= #{"bases"
-             "components"
-             "development"
-             "development/src"
-             "environments"
-             ".git"
-             "logo.png"
-             "deps.edn"
-             "readme.md"}
-           (helper/paths ws-name)))
-
-    (is (= ["{:polylith {:vcs \"git\""
-            "            :top-namespace \"\""
-            "            :interface-ns \"interface\""
-            "            :env->alias {\"development\" \"dev\"}}"
-            " :paths [; Development"
-            "         \"development/src\""
-            ""
-            "         ; Components"
-            ""
-            "         ; Bases"
-            ""
-            "         ; Environments"
-            "         ]"
-            " :deps {org.clojure/clojure {:mvn/version \"1.10.1\"}"
-            "        org.clojure/tools.deps.alpha {:mvn/version \"0.8.695\"}}"
-            ""
-            " :aliases  {:test {:extra-paths [; Components"
-            ""
-            "                                 ; Bases"
-            ""
-            "                                 ; Environments"
-            "                                ]}"
-            ""
-            "            ; Polylith Tool"
-            "            :poly {:extra-deps {tengstrand/polylith"
-            "                                {:git/url   \"https://github.com/tengstrand/polylith.git\""
-            "                                 :sha       \"21f40507a24291ead2409ce33277378bb7e94ac6\""
-            "                                 :deps/root \"environments/dev\"}}}"
-            ""
-            "            :poly-check  {:main-opts [\"-m\" \"polylith.clj.core.cli.poly\" \"check\"]}"
-            "            :poly-deps   {:main-opts [\"-m\" \"polylith.clj.core.cli.poly\" \"deps\"]}"
-            "            :poly-help   {:main-opts [\"-m\" \"polylith.clj.core.cli.poly\" \"help\"]}"
-            "            :poly-info   {:main-opts [\"-m\" \"polylith.clj.core.cli.poly\" \"info\"]}"
-            "            :poly-test   {:main-opts [\"-m\" \"polylith.clj.core.cli.poly\" \"test\"]}}}"]
+            "            :test {:extra-paths []}}}"]
            (helper/content ws-name "deps.edn")))))

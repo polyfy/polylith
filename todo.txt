@@ -1,7 +1,19 @@
 
-- add :ns->lib.
-  - add validation that calculates missing libraries based on what imports all components
-    and bases have for each environment.
+- remove :deps/root from :poly
+
+- remove validation error 107.
+
+- force people to give a top namespace
+  - remove support for '-'
+  - remove util functions
+
+- let the check command return 0 if OK, otherwise with the error code or 1 if more thant 1 error.
+
+- when creating a workspace:
+  - make sure all files are added to git.
+
+- warn if people add paths that starts with "components/" or "bases/" without adding "../.." before,
+  something like "...will not take effect".
 
 - support executing commands from subdirectories of the workspace root.
   - the root will be the first parent directory with a deps.edn that has a :polylith key.
@@ -9,16 +21,16 @@
 
 - implement 'migrate' that migrates old lein-polylith projects.
 
-- user -all to run all tests, not just changed. Use -env or similar to include environment tests.
+- use -all to run all tests, not just changed. Use -env or similar to include environment tests.
 
-- ensure Polylith works on Windows.
+- ensure Polylith works with Windows.
 
 - also show the columns '#ns' and 'loc/ns' in the 'info' command when sending in -loc as argument.
   - change from '(t)' to 'loc-t' ?
 
 - update help for the 'deps' command.
-- add help for the 'create w' command.
-- add help for the 'create c' command.
+- add help for the 'create-ws' command.
+- add help for the 'create-comp' command.
 
 - let util.def-map handle attributes with namespace in it, e.g. [paths deps aliases mvn/repos]
   in environments-from-disk.
@@ -27,8 +39,6 @@
   will not dissappear.
 
 - read the line-separator and put it as an attribute to the workspace.
-
-- make the "w" and "e" argument be mandatory for the "help create" command, e.g. "help create w".
 
 - 'help' should not be part of core.
 
@@ -94,18 +104,15 @@
 
 - add the 'version' command.
 
-- in the 'deps' command, when sending in '-lib', also shows library dependencies, e.g.:
+- in the 'deps' command, also show library dependencies, e.g.:
     library                       version  cli  core  dev
     -----------------------------------------------------
     org.clojure/clojure           1.10.1    x    x     x
     org.clojure/tools.deps.alpha  0.8.695   x    x     x
 
-- add a warning if a component is added to an environment but not used.
-
-- show a warning if a library i missing in an environment. Add an :ns-lib key to :polylith, e.g:
-    :ns-lib {clojure org.clojure/clojure
-             clojure.core.matrix net.mikera/core.matrix
-             clojure.tools.dep org.clojure/tools.deps.alpha}}
+- set up the polylith github project:
+  - so that people can report errors
+  - activate CI
 
 Questions
 =========
@@ -163,6 +170,7 @@ Leave for now
 
 Doc
 ===
+- cursive tip, when deps.edn can't be parsed, you have to fix it and add it manually again.
 - a components increases cohesion so that we can put all the code, tests, resources
   and documentation for that piece of code into one place, which increases changeability.
 - show the colors I use for best contrasts + mention borealis.
@@ -208,6 +216,7 @@ Doc
   - build a library out of it.
   - build a stand alone command line tool out of it.
   - build a service (lambda, REST...) out of it.
+- a section on how to rename and delete things.
 
 Differences compared to lein-polylith
 =====================================

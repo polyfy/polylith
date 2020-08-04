@@ -3,7 +3,9 @@
             :interface-ns "interfc"
             :env->alias {"cli" "cli"
                          "core" "core"}
-            :ns->lib {}}
+            :ns->lib {clojure             org.clojure/clojure
+                      clojure.core.matrix net.mikera/core.matrix
+                      clojure.tools.deps  org.clojure/tools.deps.alpha}}
 
  :aliases  {:dev {:extra-paths [; Development
                                 "development/src"

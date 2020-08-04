@@ -70,7 +70,7 @@
         "test" (test-ws workspace arg1 arg2)
         "ws" (pp/pprint workspace)
         (help workspace nil))
-      (println "The command can only be executed from the workspace root."))
+      (println "  The command can only be executed from the workspace root."))
     {:ok? true}
     (catch Exception e
       {:ok? false
