@@ -1,7 +1,11 @@
 (ns polylith.clj.core.create.workspace
-  (:require [polylith.clj.core.create.environment :as env]
-            [polylith.clj.core.file.interfc :as file]
-            [polylith.clj.core.git.interfc :as git]))
+  (:require [polylith.clj.core.file.interfc :as file]
+            [polylith.clj.core.git.interfc :as git]
+            [polylith.clj.core.user-config.interfc :as user-config]))
+
+(defn user-config-content []
+  ["{:color-mode \"dark\""
+   " :thousand-separator \",\"}"])
 
 (defn readme-content [ws-name]
   ["<img src=\"logo.png\" width=\"30%\" alt=\"Polylith\" id=\"logo\">"
@@ -33,6 +37,13 @@
    (str "")
    (str "            :test {:extra-paths []}}}")])
 
+(defn create-user-config-if-not-exists []
+  (let [home-dir (user-config/home-dir)
+        user-config-file (str home-dir "/.polylith/config.edn")]
+    (when (-> user-config-file file/exists not)
+      (file/create-missing-dirs user-config-file)
+      (file/create-file user-config-file (user-config-content)))))
+
 (defn create [current-dir ws-name ws-namespace]
   (if (nil? ws-namespace)
     (println "  A namespace must be given.")
@@ -46,4 +57,5 @@
       (file/create-file (str ws-path "/deps.edn") (deps-content ws-namespace))
       (file/create-file (str ws-path "/readme.md") (readme-content ws-name))
       (file/copy-resource-file! "create/logo.png" (str ws-path "/logo.png"))
+      (create-user-config-if-not-exists)
       (git/init ws-path))))

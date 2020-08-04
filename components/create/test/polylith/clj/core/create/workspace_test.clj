@@ -57,4 +57,8 @@
             "                               org.clojure/tools.deps.alpha {:mvn/version \"0.8.695\"}}}"
             ""
             "            :test {:extra-paths []}}}"]
-           (helper/content ws-name "deps.edn")))))
+           (helper/content ws-name "deps.edn")))
+
+    (is (= ["{:color-mode \"dark\""
+            " :thousand-separator \",\"}"]
+           (helper/content (helper/user-home) "/.polylith/config.edn")))))

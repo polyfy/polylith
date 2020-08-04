@@ -1,6 +1,7 @@
 
-- when creating a workspace:
-  - make sure all files are added to git.
+- change variable name from "current-dir" to "ws-root-dir".
+
+- when creating an environment, component or base, make sure all files are added to git.
 
 - warn if adding paths to an environment that probably will cause problems:
   - if starts with "components/" or "bases/" without adding "../.." before, message something like: "...will not take effect".

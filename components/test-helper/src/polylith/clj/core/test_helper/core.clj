@@ -5,9 +5,11 @@
             [polylith.clj.core.command.interfc :as command]
             [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.git.interfc :as git]
-            [polylith.clj.core.util.interfc.exception :as ex]
+            [polylith.clj.core.user-config.interfc :as user-config]
             [polylith.clj.core.workspace-clj.interfc :as ws-clj]
             [polylith.clj.core.workspace.interfc :as ws]))
+
+(def user-home "USER-HOME")
 
 (def root-dir (atom nil))
 
@@ -33,7 +35,8 @@
   (with-redefs [file/current-dir (fn [] (if (str/blank? current-dir)
                                           @root-dir
                                           (str @root-dir "/" current-dir)))
-                git/current-sha (fn [_] "21f40507a24291ead2409ce33277378bb7e94ac6")]
+                git/current-sha (fn [_] "21f40507a24291ead2409ce33277378bb7e94ac6")
+                user-config/home-dir (fn [] (str @root-dir "/" user-home))]
     (let [ws-path (file/current-dir)
           workspace (read-workspace ws-path)
           {:keys [exception]} (command/execute-command ws-path workspace cmd arg1 arg2)]
