@@ -1,6 +1,7 @@
 (ns polylith.clj.core.command.core
   (:require [clojure.pprint :as pp]
             [clojure.string :as str]
+            [polylith.clj.core.command.test-args :as test-args]
             [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.create.interfc :as create]
             [polylith.clj.core.deps.interfc :as deps]
@@ -45,9 +46,8 @@
     (help/print-help cmd color-mode)))
 
 (defn test-ws [workspace arg1 arg2]
-  (if (= arg1 "-all")
-    (test-runner/run workspace nil true)
-    (test-runner/run workspace arg1 (= "-all" arg2))))
+  (let [{:keys [env run-all? run-env-tests?]} (test-args/args arg1 arg2)]
+    (test-runner/run workspace env run-all? run-env-tests?)))
 
 (defn valid-command? [workspace cmd]
   (or (-> workspace nil? not)

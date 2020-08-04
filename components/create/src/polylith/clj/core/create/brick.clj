@@ -18,7 +18,7 @@
     (file/create-file keep-file [""])
     (git/add ws-dir keep-file)))
 
-(defn namespace [ws-dir top-namespace bricks-dir namespace interface-name]
+(defn brick-ns [ws-dir top-namespace bricks-dir namespace interface-name]
   (let [top-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
         ns-file (str bricks-dir "/src/" top-dir (common/ns-to-path interface-name) "/" namespace ".clj")]
     (file/create-missing-dirs ns-file)

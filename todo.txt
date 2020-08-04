@@ -3,18 +3,11 @@
   - if starts with "components/" or "bases/" without adding "../.." before, message something like: "...will not take effect".
   - warn if adding "development/src" to environment paths.
 
-- support executing commands from subdirectories of the workspace root.
-  - the root will be the first parent directory with a deps.edn that has a :polylith key.
-  - change message if executed outside a workspace.
-
 - implement 'migrate' that migrates old lein-polylith projects.
 
 - remove :deps/root from :poly
 
 - move polylith-kotlin to private repo.
-
-
-- use -all to run all tests, not just changed. Use -env or similar to include environment tests.
 
 - ensure Polylith works with Windows.
 

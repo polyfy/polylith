@@ -76,7 +76,8 @@
 (defn run-tests-for-environment [{:keys [bases components] :as workspace}
                                  {:keys [name paths test-paths namespaces-test] :as environment}
                                  {:keys [bricks-to-test environments-to-test]}
-                                 run-env-tests?]
+                                 all-bricks-to-test
+                                 run-all? run-env-tests?]
   (when (-> test-paths empty? not)
     (let [color-mode (-> workspace :settings :color-mode)
           config (->config workspace environment)
@@ -84,7 +85,7 @@
           src-paths (set (concat paths test-paths))
           paths (concat src-paths lib-paths)
           bricks (concat components bases)
-          bricks-to-test-for-env (bricks-to-test name)
+          bricks-to-test-for-env (if run-all? all-bricks-to-test (bricks-to-test name))
           envs-to-test (if run-env-tests? (filterv #(= name %) environments-to-test) [])
           run-message (run-message name components bases bricks-to-test-for-env envs-to-test color-mode)
           test-namespaces (->test-namespaces bricks bricks-to-test-for-env)
@@ -95,19 +96,20 @@
         (println (str "No tests to run for the " (color/environment name color-mode) " environment."))
         (run-tests-statements class-loader test-statements run-message color-mode)))))
 
-(defn run-all-tests-except-dev [workspace environments changes run-env-tests? start-time]
+(defn run-all-tests-except-dev [workspace environments changes all-bricks-to-test run-all? run-env-tests? start-time]
   (doseq [environment (filter #(not= "development" (:name %)) environments)]
-    (run-tests-for-environment workspace environment changes run-env-tests?))
+    (run-tests-for-environment workspace environment changes all-bricks-to-test run-all? run-env-tests?))
   (time-util/print-execution-time start-time))
 
-(defn run [{:keys [environments changes] :as workspace} env run-env-tests?]
-  (let [start-time (time-util/current-time)]
+(defn run [{:keys [environments components bases changes] :as workspace} env run-all? run-env-tests?]
+  (let [start-time (time-util/current-time)
+        all-bricks-to-test (map :name (concat components bases))]
     (if (nil? env)
-      (run-all-tests-except-dev workspace environments changes run-env-tests? start-time)
+      (run-all-tests-except-dev workspace environments changes all-bricks-to-test run-all? run-env-tests? start-time)
       (let [color-mode (-> workspace -> :settings :color-mode)
             environment (common/find-environment env environments)]
         (if environment
           (do
-            (run-tests-for-environment workspace environment changes run-env-tests?)
+            (run-tests-for-environment workspace environment changes all-bricks-to-test run-all? run-env-tests?)
             (time-util/print-execution-time start-time))
           (println (str "Couldn't find the " (color/environment env color-mode) " environment.")))))))
