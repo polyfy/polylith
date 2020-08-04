@@ -1,12 +1,14 @@
 (ns polylith.clj.core.create.environment
   (:require [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.util.interfc.color :as color]
-            [polylith.clj.core.common.interfc :as common]))
+            [polylith.clj.core.common.interfc :as common]
+            [polylith.clj.core.git.interfc :as git]))
 
 (defn create-env [ws-dir env]
-  (let [env-path (str ws-dir "/environments/" env)]
+  (let [env-path (str ws-dir "/environments/" env)
+        filename (str env-path "/deps.edn")]
     (file/create-dir env-path)
-    (file/create-file (str env-path "/deps.edn")
+    (file/create-file filename
                       [""
                        (str "{:paths []")
                        ""
@@ -14,7 +16,8 @@
                        (str "        org.clojure/tools.deps.alpha {:mvn/version \"0.8.695\"}}")
                        ""
                        (str " :aliases {:test {:extra-paths []")
-                       (str "                  :extra-deps  {}}}}")])))
+                       (str "                  :extra-deps  {}}}}")])
+    (git/add ws-dir filename)))
 
 (defn print-alias-message [env color-mode]
   (let [message (str "  It's recommended to add an alias to :env->alias in deps.edn for the "
