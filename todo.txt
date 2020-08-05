@@ -1,4 +1,6 @@
 
+- change other names that ends with path to dir.
+
 - warn if adding paths to an environment that probably will cause problems:
   - if starts with "components/" or "bases/" without adding "../.." before, message something like: "...will not take effect".
   - warn if adding "development/src" to environment paths.

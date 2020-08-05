@@ -2,7 +2,7 @@
   (:require [polylith.clj.core.workspace-clj.core :as core]))
 
 (defn workspace-from-disk
-  ([ws-path]
-   (core/workspace-from-disk ws-path))
-  ([ws-path config]
-   (core/workspace-from-disk ws-path config)))
+  ([ws-dir]
+   (core/workspace-from-disk ws-dir))
+  ([ws-dir config]
+   (core/workspace-from-disk ws-dir config)))

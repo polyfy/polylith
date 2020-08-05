@@ -8,10 +8,10 @@
   (when string
     (str/replace string "_" "-")))
 
-(defn read-component [ws-path top-src-dir component-name interface-ns]
+(defn read-component [ws-dir top-src-dir component-name interface-ns]
   "Reads component from disk."
-  (let [component-src-dir (str ws-path "/components/" component-name "/src/" top-src-dir)
-        component-test-dir (str ws-path "/components/" component-name "/test/" top-src-dir)
+  (let [component-src-dir (str ws-dir "/components/" component-name "/src/" top-src-dir)
+        component-test-dir (str ws-dir "/components/" component-name "/test/" top-src-dir)
         ; Only one folder should be in each components base src folder.
         ; The name of the folder will be the name of the interface,
         ; in case the component's name is not same as it's interface.
@@ -27,6 +27,6 @@
      :interface {:name interface-name
                  :definitions definitions}}))
 
-(defn read-components [ws-path top-src-dir component-names interface-ns]
+(defn read-components [ws-dir top-src-dir component-names interface-ns]
   "Reads components from disk."
-  (vec (sort-by :name (map #(read-component ws-path top-src-dir % interface-ns) component-names))))
+  (vec (sort-by :name (map #(read-component ws-dir top-src-dir % interface-ns) component-names))))

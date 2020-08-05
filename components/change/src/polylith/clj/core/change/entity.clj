@@ -32,6 +32,6 @@
    :changed-components (vec (sort (set (filter identity (map component filenames)))))
    :changed-environments (vec (sort (set (filter identity (map environment filenames)))))})
 
-(defn changes [ws-path sha1 sha2]
-  (let [filenames (git/diff ws-path sha1 sha2)]
+(defn changes [ws-dir sha1 sha2]
+  (let [filenames (git/diff ws-dir sha1 sha2)]
     (changed-entities filenames)))

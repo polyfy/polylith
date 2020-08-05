@@ -25,24 +25,24 @@
   (into {} (mapv stringify-key-value ns->lib)))
 
 (defn workspace-from-disk
-  ([ws-path]
-   (let [config (read-string (slurp (str ws-path "/deps.edn")))]
-     (workspace-from-disk ws-path config)))
-  ([ws-path {:keys [polylith]}]
+  ([ws-dir]
+   (let [config (read-string (slurp (str ws-dir "/deps.edn")))]
+     (workspace-from-disk ws-dir config)))
+  ([ws-dir {:keys [polylith]}]
    (let [{:keys [vcs top-namespace interface-ns env->alias ns->lib]} polylith
          top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
          color-mode (user-config/color-mode)
-         component-names (file/directory-paths (str ws-path "/components"))
-         components (components-from-disk/read-components ws-path top-src-dir component-names interface-ns)
-         bases (bases-from-disk/read-bases ws-path top-src-dir)
-         environments (envs-from-disk/read-environments ws-path)
+         component-names (file/directory-paths (str ws-dir "/components"))
+         components (components-from-disk/read-components ws-dir top-src-dir component-names interface-ns)
+         bases (bases-from-disk/read-bases ws-dir top-src-dir)
+         environments (envs-from-disk/read-environments ws-dir)
          settings (util/ordered-map :vcs (or vcs "git")
                                     :top-namespace top-namespace
                                     :interface-ns (or interface-ns "interface")
                                     :color-mode color-mode
                                     :env->alias env->alias
                                     :ns->lib (stringify ns->lib))]
-     (util/ordered-map :ws-path ws-path
+     (util/ordered-map :ws-dir ws-dir
                        :ws-reader ws-reader
                        :settings settings
                        :components components

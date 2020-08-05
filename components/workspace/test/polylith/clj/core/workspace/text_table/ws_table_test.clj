@@ -5,7 +5,7 @@
             [polylith.clj.core.util.interfc.color :as color]))
 
 (def workspace {:name "polylith"
-                :ws-path "."
+                :ws-dir "."
                 :ws-reader {:name "polylith-clj"
                             :project-url "https://github.com/tengstrand/polylith/tree/core"
                             :reader-version "1.0"

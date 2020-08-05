@@ -6,14 +6,14 @@
             [polylith.clj.core.git.interfc :as git]
             [polylith.clj.core.util.interfc :as util]))
 
-(defn changed-files-info [ws-path sha1 sha2]
+(defn changed-files-info [ws-dir sha1 sha2]
   "Returns changed files.
     - if none of 'sha1' or 'sha2' is set: diff against local changes
     - if only one of 'sha1' or 'sha2' is set: diff between the SHA and HEAD
     - if both 'sha1' and 'sha2' is set: diff changes between sha1 and sha2"
     (util/ordered-map :sha1 sha1
                       :sha2 sha2
-                      :files (git/diff ws-path sha1 sha2)))
+                      :files (git/diff ws-dir sha1 sha2)))
 
 (defn changes [{:keys [environments]}
                {:keys [sha1 sha2 files]}]
@@ -37,7 +37,7 @@
                        :changed-files files)))
 
 (defn with-changes
-  ([{:keys [ws-path] :as workspace}]
-   (with-changes workspace (changed-files-info ws-path "HEAD" nil)))
+  ([{:keys [ws-dir] :as workspace}]
+   (with-changes workspace (changed-files-info ws-dir "HEAD" nil)))
   ([workspace changes-info]
    (assoc workspace :changes (changes workspace changes-info))))

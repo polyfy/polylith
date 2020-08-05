@@ -64,15 +64,15 @@
         1))
     0))
 
-(defn execute [ws-dir workspace cmd arg1 arg2]
+(defn execute [current-dir workspace cmd arg1 arg2]
   (try
     (if (valid-command? workspace cmd)
       (case cmd
         "check" (check workspace)
-        "create-ws" (create/create-workspace ws-dir arg1 arg2)
-        "create-env" (create-environment ws-dir workspace arg1)
-        "create-base" (create/create-base ws-dir workspace arg1)
-        "create-comp" (create/create-component ws-dir workspace arg1 arg2)
+        "create-ws" (create/create-workspace current-dir arg1 arg2)
+        "create-env" (create-environment current-dir workspace arg1)
+        "create-base" (create/create-base current-dir workspace arg1)
+        "create-comp" (create/create-component current-dir workspace arg1 arg2)
         "deps" (deps workspace arg1 arg2)
         "help" (help workspace arg1)
         "info" (info workspace arg1)

@@ -22,16 +22,16 @@
                                              :lines-of-code-test]))
                 bricks)))
 
-(defn workspace-name [ws-path]
-  (let [cleaned-ws-path (if (= "." ws-path) "" ws-path)
-        path (file/absolute-path cleaned-ws-path)
+(defn workspace-name [ws-dir]
+  (let [cleaned-ws-dir (if (= "." ws-dir) "" ws-dir)
+        path (file/absolute-path cleaned-ws-dir)
         index (str/last-index-of path "/")]
     (if (>= index 0)
       (subs path (inc index))
       path)))
 
-(defn enrich-workspace [{:keys [ws-path ws-reader settings components bases environments]}]
-  (let [ws-name (workspace-name ws-path)
+(defn enrich-workspace [{:keys [ws-dir ws-reader settings components bases environments]}]
+  (let [ws-name (workspace-name ws-dir)
         {:keys [top-namespace interface-ns color-mode ns->lib]} settings
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         interfaces (interfaces/calculate components)
@@ -50,7 +50,7 @@
         total-loc-test-env (apply + (filter identity (map :lines-of-code-test enriched-environments)))
         messages (validate/messages top-namespace suffixed-top-ns interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns ns->lib color-mode)]
     (array-map :name ws-name
-               :ws-path ws-path
+               :ws-dir ws-dir
                :ws-reader ws-reader
                :settings settings
                :interfaces interfaces

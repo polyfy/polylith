@@ -91,19 +91,19 @@
                        :namespaces-src namespaces-src
                        :namespaces-test namespaces-test))))
 
-(defn env-map [ws-path env]
+(defn env-map [ws-dir env]
   {:env env
    :dev-env? false
-   :env-dir (str ws-path "/environments/" env)
-   :current-dir (str ws-path "/environments/" env)
-   :config-file (str ws-path "/environments/" env "/deps.edn")})
+   :env-dir (str ws-dir "/environments/" env)
+   :current-dir (str ws-dir "/environments/" env)
+   :config-file (str ws-dir "/environments/" env "/deps.edn")})
 
-(defn read-environments [ws-path]
-  (let [env-configs (conj (map #(env-map ws-path %)
-                               (file/directory-paths (str ws-path "/environments")))
+(defn read-environments [ws-dir]
+  (let [env-configs (conj (map #(env-map ws-dir %)
+                               (file/directory-paths (str ws-dir "/environments")))
                           {:env "development"
                            :dev-env? true
-                           :env-dir (str ws-path "/development")
-                           :current-dir ws-path
-                           :config-file (str ws-path "/deps.edn")})]
+                           :env-dir (str ws-dir "/development")
+                           :current-dir ws-dir
+                           :config-file (str ws-dir "/deps.edn")})]
     (mapv read-environment env-configs)))

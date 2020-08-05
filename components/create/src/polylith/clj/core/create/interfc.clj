@@ -4,8 +4,8 @@
             [polylith.clj.core.create.component :as c]
             [polylith.clj.core.create.base :as b]))
 
-(defn create-workspace [ws-dir ws-name ws-ns]
-  (ws/create ws-dir ws-name ws-ns))
+(defn create-workspace [root-dir ws-name ws-ns]
+  (ws/create root-dir ws-name ws-ns))
 
 (defn create-environment [ws-dir workspace env]
   (env/create ws-dir workspace env))
