@@ -1,5 +1,9 @@
 
-- add tests for validation m202 and m203.
+- change key from :lib-deps to :lib->deps.
+
+- in the 'test' command, change to '-all-bricks' + '-all' for all bricks + environments
+
+- add tests for validation m203.
 
 - warn if adding paths to an environment that probably will cause problems:
   - if starts with "components/" or "bases/" without adding "../.." before, message something like: "...will not take effect".
