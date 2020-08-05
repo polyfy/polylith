@@ -48,7 +48,7 @@
         enriched-environments (vec (sort-by :name (map #(env/enrich-env % brick->loc brick->lib-imports env->alias env->brick-deps) environments)))
         total-loc-src-env (apply + (filter identity (map :lines-of-code-src enriched-environments)))
         total-loc-test-env (apply + (filter identity (map :lines-of-code-test enriched-environments)))
-        messages (validate/messages top-namespace suffixed-top-ns interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns ns->lib color-mode)]
+        messages (validate/messages ws-dir top-namespace suffixed-top-ns interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns ns->lib color-mode)]
     (array-map :name ws-name
                :ws-dir ws-dir
                :ws-reader ws-reader

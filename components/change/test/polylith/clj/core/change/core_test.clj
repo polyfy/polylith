@@ -48,17 +48,17 @@
                     :component-names ["change" "common" "deps" "file" "git" "help" "shell" "text-table" "util" "validate" "workspace"]
                     :base-names []
                     :test-base-names []
-                    :paths ["components/change/src"
-                            "components/common/src"
-                            "components/deps/src"
-                            "components/file/src"
-                            "components/git/src"
-                            "components/help/src"
-                            "components/shell/src"
-                            "components/text-table/src"
-                            "components/util/src"
-                            "components/validate/src"
-                            "components/workspace/src"]
+                    :src-paths ["components/change/src"
+                                "components/common/src"
+                                "components/deps/src"
+                                "components/file/src"
+                                "components/git/src"
+                                "components/help/src"
+                                "components/shell/src"
+                                "components/text-table/src"
+                                "components/util/src"
+                                "components/validate/src"
+                                "components/workspace/src"]
                     :deps {"workspace-clj" {:direct ["common" "file" "util"], :indirect []}
                            "test-runner" {:direct ["common" "util"], :indirect []}
                            "command" {:direct ["common" "help" "util" "workspace"], :indirect ["deps" "file" "text-table" "validate"]}
@@ -108,22 +108,22 @@
                                       "workspace-clj"]
                     :base-names ["cli" "z-jocke"]
                     :test-base-names ["cli" "z-jocke"]
-                    :paths ["bases/cli/src"
-                            "bases/z-jocke/src"
-                            "components/change/src"
-                            "components/command/src"
-                            "components/common/src"
-                            "components/deps/src"
-                            "components/file/src"
-                            "components/git/src"
-                            "components/help/src"
-                            "components/shell/src"
-                            "components/test-runner/src"
-                            "components/text-table/src"
-                            "components/util/src"
-                            "components/validate/src"
-                            "components/workspace/src"
-                            "components/workspace-clj/src"]
+                    :src-paths ["bases/cli/src"
+                                "bases/z-jocke/src"
+                                "components/change/src"
+                                "components/command/src"
+                                "components/common/src"
+                                "components/deps/src"
+                                "components/file/src"
+                                "components/git/src"
+                                "components/help/src"
+                                "components/shell/src"
+                                "components/test-runner/src"
+                                "components/text-table/src"
+                                "components/util/src"
+                                "components/validate/src"
+                                "components/workspace/src"
+                                "components/workspace-clj/src"]
                     :deps {"workspace-clj" {:direct ["common" "file" "util"], :indirect []}
                            "test-runner" {:direct ["common" "util"], :indirect []}
                            "command" {:direct ["common" "help" "test-runner" "util" "workspace"]

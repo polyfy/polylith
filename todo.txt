@@ -1,5 +1,5 @@
 
-- change other names that ends with path to dir.
+- add tests for validation m202 and m203.
 
 - warn if adding paths to an environment that probably will cause problems:
   - if starts with "components/" or "bases/" without adding "../.." before, message something like: "...will not take effect".

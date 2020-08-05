@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validate.m202-missing-ns-to-lib-mapping
+(ns polylith.clj.core.validate.m202-missing-library
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [polylith.clj.core.common.interfc :as common]
@@ -27,7 +27,7 @@
      :missing-libraries missing-libs}))
 
 (defn missing-lib-warning [env missing-libraries color-mode]
-  (let [libs (str/join "," missing-libraries)
+  (let [libs (str/join ", " (sort missing-libraries))
         message (str "Missing libraries for the " env " environment: " libs)
         colorized-msg (str "Missing libraries for the " (color/environment env color-mode) " environment: " (color/grey color-mode libs))]
     [(util/ordered-map :type "warning"
