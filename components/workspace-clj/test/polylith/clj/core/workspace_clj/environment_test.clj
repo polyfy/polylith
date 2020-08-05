@@ -49,12 +49,12 @@
                           "clojars" {:url "https://repo.clojars.org/"}}
             :namespaces-src []
             :namespaces-test []
-            :paths ["bases/tool/src"
-                    "components/change/src"
-                    "components/common/src"
-                    "components/deps/src"
-                    "components/file/src"
-                    "environments/core/src"]
+            :src-paths ["bases/tool/src"
+                        "components/change/src"
+                        "components/common/src"
+                        "components/deps/src"
+                        "components/file/src"
+                        "environments/core/src"]
             :test-paths ["bases/tool/test"
                          "components/change/test"
                          "components/common/test"]

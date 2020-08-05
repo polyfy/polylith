@@ -81,7 +81,7 @@
                        :test-component-names test-component-names
                        :base-names base-names
                        :test-base-names test-base-names
-                       :paths cleaned-src-paths
+                       :src-paths cleaned-src-paths
                        :test-paths cleaned-test-paths
                        :lib-deps (sort-deps lib-deps)
                        :test-deps test-deps

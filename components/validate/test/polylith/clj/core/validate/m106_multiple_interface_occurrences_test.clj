@@ -24,10 +24,10 @@
                     :type "environment"
                     :component-names ["change" "shell" "shell2"]
                     :base-names ["tool"]
-                    :paths ["bases/tool/src"
-                            "components/change/src"
-                            "components/shell/src"
-                            "components/shell2/src"]}])
+                    :src-paths ["bases/tool/src"
+                                "components/change/src"
+                                "components/shell/src"
+                                "components/shell2/src"]}])
 
 (deftest errors--when-more-than-one-component-implements-the-same-interface-in-an-environment--return-error-message
   (is (= [{:type "error"

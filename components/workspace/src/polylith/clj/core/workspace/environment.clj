@@ -19,7 +19,7 @@
   (mapcat #(select-lib-imports % brick->lib-imports test?)
           brick-names))
 
-(defn enrich-env [{:keys [name type env-dir config-file component-names test-component-names base-names test-base-names has-src-dir? has-test-dir? namespaces-src namespaces-test paths test-paths lib-deps test-deps maven-repos]}
+(defn enrich-env [{:keys [name type env-dir config-file component-names test-component-names base-names test-base-names has-src-dir? has-test-dir? namespaces-src namespaces-test src-paths test-paths lib-deps test-deps maven-repos]}
                   brick->loc
                   brick->lib-imports
                   env->alias
@@ -48,7 +48,7 @@
                       :has-test-dir? has-test-dir?
                       :namespaces-src namespaces-src
                       :namespaces-test namespaces-test
-                      :paths paths
+                      :src-paths src-paths
                       :test-paths test-paths
                       :lib-imports lib-imports-src
                       :lib-imports-test lib-imports-test

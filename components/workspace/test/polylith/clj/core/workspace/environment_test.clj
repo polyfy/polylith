@@ -9,13 +9,13 @@
                   :component-names ["change" "command" "common" "deps" "file"]
                   :base-names ["cli"]
                   :test-base-names ["cli"]
-                  :paths ["bases/cli/src"
-                          "bases/z-jocke/src"
-                          "components/change/src"
-                          "components/command/src"
-                          "components/common/src"
-                          "components/deps/src"
-                          "components/file/src"]
+                  :src-paths ["bases/cli/src"
+                              "bases/z-jocke/src"
+                              "components/change/src"
+                              "components/command/src"
+                              "components/common/src"
+                              "components/deps/src"
+                              "components/file/src"]
                   :test-paths ["bases/cli/test"
                                "components/change/test"
                                "components/command/test"
@@ -65,13 +65,13 @@
           :component-names ["change" "command" "common" "deps" "file"]
           :base-names ["cli"]
           :test-base-names ["cli"]
-          :paths ["bases/cli/src"
-                  "bases/z-jocke/src"
-                  "components/change/src"
-                  "components/command/src"
-                  "components/common/src"
-                  "components/deps/src"
-                  "components/file/src"]
+          :src-paths ["bases/cli/src"
+                      "bases/z-jocke/src"
+                      "components/change/src"
+                      "components/command/src"
+                      "components/common/src"
+                      "components/deps/src"
+                      "components/file/src"]
           :test-paths ["bases/cli/test"
                        "components/change/test"
                        "components/command/test"

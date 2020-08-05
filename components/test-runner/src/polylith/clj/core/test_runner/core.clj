@@ -74,7 +74,7 @@
          (str-util/count-things "brick" bricks-cnt) env-msg ": " entities-msg)))
 
 (defn run-tests-for-environment [{:keys [bases components] :as workspace}
-                                 {:keys [name paths test-paths namespaces-test] :as environment}
+                                 {:keys [name src-paths test-paths namespaces-test] :as environment}
                                  {:keys [bricks-to-test environments-to-test]}
                                  all-bricks-to-test
                                  run-all? run-env-tests?]
@@ -82,8 +82,8 @@
     (let [color-mode (-> workspace :settings :color-mode)
           config (->config workspace environment)
           lib-paths (resolve-deps config)
-          src-paths (set (concat paths test-paths))
-          paths (concat src-paths lib-paths)
+          all-src-paths (set (concat src-paths test-paths))
+          all-paths (concat all-src-paths lib-paths)
           bricks (concat components bases)
           bricks-to-test-for-env (if run-all? all-bricks-to-test (bricks-to-test name))
           envs-to-test (if run-env-tests? (filterv #(= name %) environments-to-test) [])
@@ -91,7 +91,7 @@
           test-namespaces (->test-namespaces bricks bricks-to-test-for-env)
           env-test-namespaces (environment-test-namespaces name envs-to-test namespaces-test)
           test-statements (map ->test-statement (concat test-namespaces env-test-namespaces))
-          class-loader (common/create-class-loader paths color-mode)]
+          class-loader (common/create-class-loader all-paths color-mode)]
       (if (-> test-statements empty?)
         (println (str "No tests to run for the " (color/environment name color-mode) " environment."))
         (run-tests-statements class-loader test-statements run-message color-mode)))))
