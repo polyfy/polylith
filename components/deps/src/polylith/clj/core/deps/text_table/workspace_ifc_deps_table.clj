@@ -21,7 +21,7 @@
         interface-names (sort (map :name interfaces))
         component-names (sort (map :name components))
         base-names (sort (map :name bases))
-        n#columns-with-margin (* 3 (count components))
+        n#columns-with-margin (* 3 (count interfaces))
         brick-names (concat component-names base-names)
         alignments (repeat n#columns-with-margin :left)
         header-colors (conj (repeat n#columns-with-margin :yellow) :none)
