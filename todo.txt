@@ -1,17 +1,15 @@
 
-- change key from :lib-deps to :lib->deps.
-
-- in the 'test' command, change to '-all-bricks' + '-all' for all bricks + environments
-
 - add tests for validation m203.
 
-- warn if adding paths to an environment that probably will cause problems:
-  - if starts with "components/" or "bases/" without adding "../.." before, message something like: "...will not take effect".
-  - warn if adding "development/src" to environment paths.
+- add tests for test-runner.
+
+- let different :dev settings start with :dev+, e.g. :dev+dev, :dev+prod and show
+  headings for these as "+dev" and "+prod" in cyan after the dev environment in the
+  'info' command and let the dev environment always come last.
+  The :dev+dev could be the alias that is always included in different commands like
+  'deps' and 'test' if not another config like +prod is given.
 
 - implement 'migrate' that migrates old lein-polylith projects.
-
-- remove :deps/root from :poly
 
 - move polylith-kotlin to private repo.
 

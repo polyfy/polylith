@@ -66,8 +66,8 @@
             ; Polylith Tool
             :poly {:extra-deps {tengstrand/polylith
                                             {:git/url   "https://github.com/tengstrand/polylith.git"
-                                             :sha       "54905f60c0fb18e7df729e34d1b8a68f42bad797"
-                                             :deps/root "environments/dev"}}}
+                                             :sha       "e02a0794d26b0b111d84a36f6d48e9b1848e5913"
+                                             :deps/root "environments/cli"}}}
 
             :poly-check       {:main-opts ["-m" "polylith.clj.core.cli.poly" "check"]}
             :poly-create-ws   {:main-opts ["-m" "polylith.clj.core.cli.poly" "create-ws"]}

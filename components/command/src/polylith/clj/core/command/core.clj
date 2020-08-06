@@ -9,7 +9,8 @@
             [polylith.clj.core.user-config.interfc :as user-config]
             [polylith.clj.core.test-runner.interfc :as test-runner]
             [polylith.clj.core.util.interfc.color :as color]
-            [polylith.clj.core.workspace.interfc :as ws]))
+            [polylith.clj.core.workspace.interfc :as ws])
+ (:refer-clojure :exclude [test]))
 
 (defn check [{:keys [messages] :as workspace}]
   (let [color-mode (user-config/color-mode)]
@@ -45,7 +46,7 @@
   (let [color-mode (or (-> workspace :settings :color-mode) color/none)]
     (help/print-help cmd color-mode)))
 
-(defn test-ws [workspace arg1 arg2]
+(defn test [workspace arg1 arg2]
   (let [{:keys [env run-all? run-env-tests?]} (test-args/args arg1 arg2)]
     (test-runner/run workspace env run-all? run-env-tests?)))
 
@@ -76,7 +77,7 @@
         "deps" (deps workspace arg1 arg2)
         "help" (help workspace arg1)
         "info" (info workspace arg1)
-        "test" (test-ws workspace arg1 arg2)
+        "test" (test workspace arg1 arg2)
         "ws" (pp/pprint workspace)
         (help workspace nil))
       (println "  The command can only be executed from the workspace root."))

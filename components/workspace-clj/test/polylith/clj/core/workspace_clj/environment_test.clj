@@ -15,7 +15,10 @@
             org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}
             org.jetbrains.kotlin/kotlin-compiler-embeddable {:mvn/version "1.3.72"}})
 
-(def aliases '{:test {:extra-paths ["../../bases/tool/test"
+(def aliases '{:dev {:extra-paths paths
+                     :extra-deps deps}
+
+               :test {:extra-paths ["../../bases/tool/test"
                                     "../../components/change/test"
                                     "../../components/common/test"]
                       :extra-deps  {}}
@@ -40,7 +43,7 @@
   (with-redefs [file/exists (fn [_] true)]
     (is (= {:name "core"
             :type "environment"
-            :env-dir ""
+            :env-dir "environments/core"
             :config-file "environments/core/deps.edn"
             :base-names ["tool"]
             :has-src-dir? true
@@ -48,7 +51,10 @@
             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}
                           "clojars" {:url "https://repo.clojars.org/"}}
             :namespaces-src []
-            :namespaces-test []
+            :namespaces-test [{:file-path "environments/core/test/polylith/clj/core/dev_test.clj"
+                               :imports   []
+                               :name      "polylith.clj.core.dev-test"
+                               :namespace "polylith.clj.core.dev-test"}]
             :src-paths ["bases/tool/src"
                         "components/change/src"
                         "components/common/src"
