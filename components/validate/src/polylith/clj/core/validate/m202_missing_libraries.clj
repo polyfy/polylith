@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validate.m202-missing-library
+(ns polylith.clj.core.validate.m202-missing-libraries
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [polylith.clj.core.util.interfc :as util]

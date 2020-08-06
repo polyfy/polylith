@@ -6,7 +6,7 @@
             [polylith.clj.core.validate.m105-illegal-name-sharing :as m105]
             [polylith.clj.core.validate.m106-multiple-interface-occurrences :as m106]
             [polylith.clj.core.validate.m201-mismatching-parameters :as m201]
-            [polylith.clj.core.validate.m202-missing-library :as m202]
+            [polylith.clj.core.validate.m202-missing-libraries :as m202]
             [polylith.clj.core.validate.m203-invalid-src-reference :as m203]))
 
 (defn messages [ws-dir suffixed-top-ns interface-names interfaces components bases environments interface-ns ns->lib color-mode]

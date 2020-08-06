@@ -1,6 +1,6 @@
-(ns polylith.clj.core.validate.m202-missing-library-test
+(ns polylith.clj.core.validate.m202-missing-libraries-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.validate.m202-missing-library :as m202])
+            [polylith.clj.core.validate.m202-missing-libraries :as m202])
   (:refer-clojure :exclude [bases]))
 
 (def environments [{:name "development"
