@@ -56,7 +56,13 @@
             "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.10.1\"}"
             "                               org.clojure/tools.deps.alpha {:mvn/version \"0.8.695\"}}}"
             ""
-            "            :test {:extra-paths []}}}"]
+            "            :test {:extra-paths []}"
+            ""
+            "            :poly {:main-opts [\"-m\" \"polylith.clj.core.cli.poly\"]"
+            "                   :extra-deps {tengstrand/polylith"
+            "                                {:git/url   \"https://github.com/tengstrand/polylith.git\""
+            "                                 :sha       \"e02a0794d26b0b111d84a36f6d48e9b1848e5913\""
+            "                                 :deps/root \"environments/cli\"}}}}}"]
            (helper/content ws-name "deps.edn")))
 
     (is (= ["{:color-mode \"dark\""

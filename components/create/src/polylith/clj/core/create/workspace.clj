@@ -35,7 +35,13 @@
    (str "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.10.1\"}")
    (str "                               org.clojure/tools.deps.alpha {:mvn/version \"0.8.695\"}}}")
    (str "")
-   (str "            :test {:extra-paths []}}}")])
+   (str "            :test {:extra-paths []}")
+   (str "")
+   (str "            :poly {:main-opts [\"-m\" \"polylith.clj.core.cli.poly\"]")
+   (str "                   :extra-deps {tengstrand/polylith")
+   (str "                                {:git/url   \"https://github.com/tengstrand/polylith.git\"")
+   (str "                                 :sha       \"e02a0794d26b0b111d84a36f6d48e9b1848e5913\"")
+   (str "                                 :deps/root \"environments/cli\"}}}}}")])
 
 (defn create-user-config-if-not-exists []
   (let [home-dir (user-config/home-dir)
