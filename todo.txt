@@ -1,6 +1,4 @@
 
-- update 'create w' to use only one :poly alias.
-- add deps.edn to the 203 validation message.
 - change back to pp in the 'ws' command.
 - implement 'lib-deps' as a separate table.
 - change the 'deps' command to use e.g.: deps e:env b:user

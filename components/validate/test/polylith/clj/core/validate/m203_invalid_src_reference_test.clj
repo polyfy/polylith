@@ -7,9 +7,9 @@
                     :src-paths ["wrong/path/src"]}])
 
 (deftest warnings--when-one-path-is-non-existing--return-a-warning
-  (is (= [{:type "warning"
-           :code 203
-           :message "Non-existing directories was found for the cli environment and will be ignored: \"wrong/path/src\""
-           :colorized-message "Non-existing directories was found for the cli environment and will be ignored: \"wrong/path/src\""
+  (is (= [{:type "warning",
+           :code 203,
+           :message "Non-existing directories was found in deps.edn for the cli environment and will be ignored: \"wrong/path/src\"",
+           :colorized-message "Non-existing directories was found in deps.edn for the cli environment and will be ignored: \"wrong/path/src\"",
            :environment "cli"}])
       (m203/warnings "." environments color/none)))
