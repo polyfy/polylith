@@ -32,7 +32,8 @@
                                     :namespace "clojure.realworld.article.core"
                                     :file-path "../clojure-polylith-realworld-example-app/components/article/src/clojure/realworld/article/core.clj"
                                     :imports ["clj-time.coerce"
-                                              "slugger.core"]}]}
+                                              "slugger.core"]}]
+                  :lib-deps ["clj-time" "clojure" "clojure.java.jdbc" "honeysql" "spec-tools"]}
                  {:name "comment"
                   :namespaces-src [{:name "spec"
                                     :namespace "clojure.realworld.comment.spec"
@@ -55,7 +56,8 @@
                                     :imports ["clj-time.core"
                                               "clojure.realworld.article.interface"
                                               "clojure.realworld.comment.store"
-                                              "clojure.realworld.profile.interface"]}]}
+                                              "clojure.realworld.profile.interface"]}]
+                  :lib-deps ["clj-time" "clojure.java.jdbc" "honeysql" "spec-tools"]}
                  {:name "database"
                   :namespaces-src [{:name "interface"
                                     :namespace "clojure.realworld.database.interface"
@@ -68,7 +70,8 @@
                                    {:name "schema"
                                     :namespace "clojure.realworld.database.schema"
                                     :file-path "../clojure-polylith-realworld-example-app/components/database/src/clojure/realworld/database/schema.clj"
-                                    :imports ["clojure.java.jdbc" "clojure.realworld.log.interface" "honeysql.core"]}]}])
+                                    :imports ["clojure.java.jdbc" "clojure.realworld.log.interface" "honeysql.core"]}]
+                  :lib-deps ["clojure" "clojure.java.jdbc" "honeysql"]}])
 
 (def bases [{:name "rest-api"
              :namespaces-src [{:name "handler"
@@ -89,7 +92,8 @@
                               {:name "api"
                                :namespace "clojure.realworld.rest-api.api"
                                :file-path "../clojure-polylith-realworld-example-app/bases/rest-api/src/clojure/realworld/rest_api/api.clj"
-                               :imports ["clojure.realworld.database.interface"]}]}])
+                               :imports ["clojure.realworld.database.interface"]}]
+             :lib-bases ["clojure"]}])
 
 (def ns->lib {"clj-jwt" "clj-jwt"
               "clj-time" "clj-time"
@@ -103,4 +107,4 @@
            :message "Missing libraries for the realworld-backend environment: clj-time"
            :colorized-message "Missing libraries for the [35mrealworld-backend[0m environment: [37mclj-time[0m"
            :environment "realworld-backend"}])
-    (m202/warnings environments components bases ns->lib "clojure.realworld" "dark")))
+    (m202/warnings environments components bases ns->lib "dark")))

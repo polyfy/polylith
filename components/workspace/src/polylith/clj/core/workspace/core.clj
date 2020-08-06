@@ -36,8 +36,8 @@
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         interfaces (interfaces/calculate components)
         interface-names (apply sorted-set (mapv :name interfaces))
-        enriched-components (mapv #(component/enrich suffixed-top-ns interface-names %) components)
-        enriched-bases (mapv #(base/enrich suffixed-top-ns interface-names %) bases)
+        enriched-components (mapv #(component/enrich suffixed-top-ns interface-names settings %) components)
+        enriched-bases (mapv #(base/enrich suffixed-top-ns interface-names settings %) bases)
         enriched-bricks (concat enriched-components enriched-bases)
         total-loc-src-bricks (apply + (filter identity (map :lines-of-code-src enriched-bricks)))
         total-loc-test-bricks (apply + (filter identity (map :lines-of-code-test enriched-bricks)))
@@ -48,7 +48,7 @@
         enriched-environments (vec (sort-by :name (map #(env/enrich-env % brick->loc brick->lib-imports env->alias env->brick-deps) environments)))
         total-loc-src-env (apply + (filter identity (map :lines-of-code-src enriched-environments)))
         total-loc-test-env (apply + (filter identity (map :lines-of-code-test enriched-environments)))
-        messages (validate/messages ws-dir top-namespace suffixed-top-ns interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns ns->lib color-mode)]
+        messages (validate/messages ws-dir suffixed-top-ns interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns ns->lib color-mode)]
     (array-map :name ws-name
                :ws-dir ws-dir
                :ws-reader ws-reader
