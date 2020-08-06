@@ -1,6 +1,4 @@
 
-- add tests for validation m203.
-
 - add tests for test-runner.
 
 - let different :dev settings start with :dev+, e.g. :dev+dev, :dev+prod and show
@@ -9,11 +7,17 @@
   The :dev+dev could be the alias that is always included in different commands like
   'deps' and 'test' if not another config like +prod is given.
 
+- take back validation 107, check it agains :dev + :dev+dev for the development environment.
+- add validation that doesn't allow having a components with an interface with more than
+  one component in the development environment.
+
 - implement 'migrate' that migrates old lein-polylith projects.
 
 - move polylith-kotlin to private repo.
 
 - ensure Polylith works with Windows.
+
+- take back validation 107, check it agains :dev + :dev+dev for the development environment.
 
 - also show the columns '#ns' and 'loc/ns' in the 'info' command when sending in -loc as argument.
   - change from '(t)' to 'loc-t' ?
