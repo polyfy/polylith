@@ -1,6 +1,7 @@
 (ns polylith.clj.core.command.core
-  (:require [polylith.clj.core.command.deps-args :as deps-args])
-  (:require [polylith.clj.core.command.exit-code :as exit-code]
+  (:require [clojure.pprint :as pp]
+            [polylith.clj.core.command.deps-args :as deps-args]
+            [polylith.clj.core.command.exit-code :as exit-code]
             [polylith.clj.core.command.test-args :as test-args]
             [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.create.interfc :as create]
@@ -69,7 +70,7 @@
         "help" (help workspace arg1)
         "info" (info workspace arg1)
         "test" (test workspace arg1 arg2)
-        "ws" (pr workspace)
+        "ws" (pp/pprint workspace)
         (help workspace nil))
       (println "  The command can only be executed from the workspace root."))
     {:exit-code (exit-code/code cmd workspace)}
