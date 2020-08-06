@@ -42,9 +42,8 @@
     (help/print-help cmd color-mode)))
 
 (defn info [workspace arg]
-  (case arg
-    "-loc" (ws/print-table workspace true)
-    (ws/print-table workspace false)))
+  (let [show-loc? (= "-loc" arg)]
+    (ws/print-table workspace show-loc?)))
 
 (defn test [workspace arg1 arg2]
   (let [{:keys [env run-all? run-env-tests?]} (test-args/args arg1 arg2)]
