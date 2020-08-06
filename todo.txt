@@ -1,8 +1,4 @@
 
-- add the 'version' command.
-
-- show a more user friendly error if deps.edn is missing at the root.
-
 - in the 'deps' command, also show library dependencies, e.g.:
                  l  l  l
                  i  i  i
@@ -30,7 +26,7 @@
 
 - take back validation 107, check it agains :dev + :dev+dev for the development environment.
 
-- add validation that doesn't allow having a components with an interface with more than
+- add validation that doesn't allow having components with an interface with more than
   one component in the development environment.
 
 - move polylith-kotlin to private repo.
@@ -84,6 +80,8 @@
 
 - let util.def-map handle attributes with namespace in it, e.g. [paths deps aliases mvn/repos]
   in environments-from-disk.
+
+- add the 'version' command.
 
 Questions
 =========

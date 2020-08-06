@@ -1,6 +1,6 @@
 (ns polylith.clj.core.command.core
-  (:require [clojure.pprint :as pp]
-            [polylith.clj.core.command.deps-args :as deps-args]
+  (:require [polylith.clj.core.command.deps-args :as deps-args])
+  (:require [polylith.clj.core.command.exit-code :as exit-code]
             [polylith.clj.core.command.test-args :as test-args]
             [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.create.interfc :as create]
@@ -56,15 +56,6 @@
       (= "help" cmd)
       (= "create-ws" cmd)))
 
-(defn exit-code [cmd {:keys [messages]}]
-  (if (= "check" cmd)
-    (let [errors (filter #(= "error" (:type %)) messages)]
-      (condp = (count errors)
-        0 0
-        1 (-> errors first :code)
-        1))
-    0))
-
 (defn execute [current-dir workspace cmd arg1 arg2]
   (try
     (if (valid-command? workspace cmd)
@@ -79,10 +70,10 @@
         "help" (help workspace arg1)
         "info" (info workspace arg1)
         "test" (test workspace arg1 arg2)
-        "ws" (pp/pprint workspace)
+        "ws" (pr workspace)
         (help workspace nil))
       (println "  The command can only be executed from the workspace root."))
-    {:exit-code (exit-code cmd workspace)}
+    {:exit-code (exit-code/code cmd workspace)}
     (catch Exception e
       {:exit-code 1
        :exception e})))
