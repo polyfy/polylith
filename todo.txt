@@ -1,95 +1,7 @@
 
-- implement 'migrate' that migrates old lein-polylith projects.
-
-- let different :dev settings start with :dev+, e.g. :dev+dev, :dev+prod and show
-  headings for these as "+dev" and "+prod" in cyan after the dev environment in the
-  'info' command and let the dev environment always come last.
-  The :dev+dev could be the alias that is always included in different commands like
-  'deps' and 'test' if not another config like +prod is given.
-
-- take back validation 107, check it agains :dev + :dev+dev for the development environment.
-
-- add validation that doesn't allow having a components with an interface with more than
-  one component in the development environment.
-
-- move polylith-kotlin to private repo.
-
-- make sure Polylith works with Windows:
-  - read the line-separator and put it as an attribute to the workspace.
-
-- take back validation 107, check it agains :dev + :dev+dev for the development environment.
-
-- also show the columns '#ns' and 'loc/ns' in the 'info' command when sending in -loc as argument.
-  - change from '(t)' to 'loc-t' ?
-
-- update help for the 'deps' command.
-- add help for the 'create-ws' command.
-- add help for the 'create-comp' command.
-
-- let 'workspace' just assoc new attributes so that extra attributes that we don't know about
-  will not dissappear.
-
-- 'help' should not be part of core.
-
-- make sure the workspace table looks okay even without an environment.
-
-- add the 'diff' command, which performs a git diff.
-
-- show a warning if an alias is not added + where to add it.
-
-- experiment with implementing a git hook that if the workspace is valid, saves a workspace.edn
-  at the root of the project and commits it before every push. Then we could "animate" over the
-  changes of the system over time. It's important to store a :schema-version attribute of the
-  workspace, to keep track of schema changes.
-
-- implement the 'diff' command that lists the changed files that is used to calculate changed bricks
-  and systems.
+- add the 'version' command.
 
 - show a more user friendly error if deps.edn is missing at the root.
-- show a better error if :color-mode is not set in deps.edn.
-
-- fix the error that occurres when having an invalid test src folder, e.g.
-  "../../components/z-jocketest".
-
-- if an environment misses a component, show it correctly in the 'info' command
-  as a yellow "i" in each environment.
-
-- verify that the tool works from Windows:
-  - use :slash from :src-reader
-
-- use :file-extensions from :src-reader.
-
-- check if the 'cli' environment can depende on the core jar instead
-  and remove all bricks except three of them.
-
-- extract workspace-clj/namespace/top-src-dirs to its own 'namespace'
-  component and expose it in the core API.
-
-- create a spec that checks a workspace + expose it in the core API.
-
-- show warning if dependencies exist in other environments but not in development.
-
-- put back the 'spec' component and make sure we have the :polylith section with
-  an entry for :top-namespace + if color-mode is specifiec that it has valid values.
-
-- make sure we don't throw exception if we type a command from a
-  directory that has no deps.edn.
-
-- check that we follow symbolic links in file/paths-recursively.
-
-- in the 'cli' environment, depend on the core jar instead of real components.
-  - maybe we need two variants:
-    - polylith-clj-core
-    - polylith-clj-core-aot
-
-- show a warning if a resource (together with its 'src' or 'test' folder) is defined in
-  one environment but not in another (that has the source folder).
-  - warn if you put files directory on the root of recources.
-
-- add support for reading files from git and maybe http url:s. One idea is to create a 'reader'
-  component that can delegate to e.g. 'file-reader' and others.
-
-- add the 'version' command.
 
 - in the 'deps' command, also show library dependencies, e.g.:
                  l  l  l
@@ -107,6 +19,64 @@
     -----------------------------------------------------
     org.clojure/clojure           1.10.1    x    x     x
     org.clojure/tools.deps.alpha  0.8.695   x    x     x
+
+- implement 'migrate' that migrates old lein-polylith projects.
+
+- let different :dev settings start with :dev+, e.g. :dev+dev, :dev+prod and show
+  headings for these as "+dev" and "+prod" in cyan after the dev environment in the
+  'info' command and let the dev environment always come last.
+  The :dev+dev could be the alias that is always included in different commands like
+  'deps' and 'test' if not another config like +prod is given.
+
+- take back validation 107, check it agains :dev + :dev+dev for the development environment.
+
+- add validation that doesn't allow having a components with an interface with more than
+  one component in the development environment.
+
+- move polylith-kotlin to private repo.
+
+- make sure Polylith works with Windows:
+  - use configs from ./polylith/config.edn:
+    - slash
+    - line-separator
+
+- also show the columns '#ns' and 'loc/ns' in the 'info' command when sending in -loc as argument.
+  - change from '(t)' to 'loc-t' ?
+
+- update help for the 'deps' command.
+- add help for the 'create-ws' command.
+- add help for the 'create-comp' command.
+
+- let 'workspace' just assoc new attributes so that extra attributes that we don't know about
+  will not dissappear.
+
+- 'help' should not be part of core.
+
+- make sure the workspace table looks okay even without an environment.
+
+- experiment with implementing a git hook that if the workspace is valid, saves a workspace.edn
+  at the root of the project and commits it before every push. Then we could "animate" over the
+  changes of the system over time. It's important to store a :schema-version attribute of the
+  workspace, to keep track of schema changes.
+
+- use :file-extensions from :src-reader.
+
+- check if the 'cli' environment can depend on the core jar instead
+  and remove all bricks except three of them.
+
+- put back the 'spec' component and make sure we have the :polylith section with
+  an entry for :top-namespace + if color-mode is specifiec that it has valid values.
+  - create a spec that checks a workspace + expose it in the core API.
+
+- check that we follow symbolic links in file/paths-recursively.
+
+- in the 'cli' environment, depend on the core jar instead of real components.
+  - maybe we need two variants:
+    - polylith-clj-core
+    - polylith-clj-core-aot
+
+- add support for reading files from git and maybe http url:s. One idea is to create a 'reader'
+  component that can delegate to e.g. 'file-reader' and others.
 
 - set up the polylith github project:
   - so that people can report errors

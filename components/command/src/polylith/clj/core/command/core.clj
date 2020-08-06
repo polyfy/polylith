@@ -1,6 +1,6 @@
 (ns polylith.clj.core.command.core
   (:require [clojure.pprint :as pp]
-            [clojure.string :as str]
+            [polylith.clj.core.command.deps-args :as deps-args]
             [polylith.clj.core.command.test-args :as test-args]
             [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.create.interfc :as create]
@@ -23,28 +23,28 @@
     (when (= :ok (create/create-environment ws-dir workspace env))
       (create/print-alias-message env color-mode))))
 
-(defn specified? [name]
-  (and (not= "-" name)
-       (-> name str/blank? not)))
-
 (defn deps [workspace environment-name brick-name]
   (let [color-mode (-> workspace :settings :color-mode)]
-    (if (specified? environment-name)
-      (if (specified? brick-name)
+    (if (deps-args/specified? environment-name)
+      (if (deps-args/specified? brick-name)
         (deps/print-brick-table workspace environment-name brick-name color-mode)
         (deps/print-workspace-brick-table workspace environment-name color-mode))
-      (if (specified? brick-name)
+      (if (deps-args/specified? brick-name)
         (deps/print-brick-ifc-table workspace brick-name color-mode)
         (deps/print-workspace-ifc-table workspace color-mode)))))
+
+(defn diff [workspace]
+  (doseq [file (-> workspace :changes :changed-files)]
+    (println file)))
+
+(defn help [workspace cmd]
+  (let [color-mode (or (-> workspace :settings :color-mode) color/none)]
+    (help/print-help cmd color-mode)))
 
 (defn info [workspace arg]
   (case arg
     "-loc" (ws/print-table workspace true)
     (ws/print-table workspace false)))
-
-(defn help [workspace cmd]
-  (let [color-mode (or (-> workspace :settings :color-mode) color/none)]
-    (help/print-help cmd color-mode)))
 
 (defn test [workspace arg1 arg2]
   (let [{:keys [env run-all? run-env-tests?]} (test-args/args arg1 arg2)]
@@ -75,6 +75,7 @@
         "create-base" (create/create-base current-dir workspace arg1)
         "create-comp" (create/create-component current-dir workspace arg1 arg2)
         "deps" (deps workspace arg1 arg2)
+        "diff" (diff workspace)
         "help" (help workspace arg1)
         "info" (info workspace arg1)
         "test" (test workspace arg1 arg2)

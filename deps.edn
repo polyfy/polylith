@@ -75,6 +75,7 @@
             :poly-create-base {:main-opts ["-m" "polylith.clj.core.cli.poly" "create-base"]}
             :poly-create-comp {:main-opts ["-m" "polylith.clj.core.cli.poly" "create-comp"]}
             :poly-deps        {:main-opts ["-m" "polylith.clj.core.cli.poly" "deps"]}
+            :poly-diff        {:main-opts ["-m" "polylith.clj.core.cli.poly" "diff"]}
             :poly-help        {:main-opts ["-m" "polylith.clj.core.cli.poly" "help"]}
             :poly-info        {:main-opts ["-m" "polylith.clj.core.cli.poly" "info"]}
             :poly-test        {:main-opts ["-m" "polylith.clj.core.cli.poly" "test"]}
