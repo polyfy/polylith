@@ -7,7 +7,8 @@
   (core/ns-to-path namespace))
 
 (defn path-to-ns [namespace]
-  (core/path-to-ns namespace))
+  (when namespace
+    (core/path-to-ns namespace)))
 
 (defn pretty-messages
   ([workspace]

@@ -1,5 +1,5 @@
 
-- add tests for test-runner.
+- implement 'migrate' that migrates old lein-polylith projects.
 
 - let different :dev settings start with :dev+, e.g. :dev+dev, :dev+prod and show
   headings for these as "+dev" and "+prod" in cyan after the dev environment in the
@@ -8,14 +8,14 @@
   'deps' and 'test' if not another config like +prod is given.
 
 - take back validation 107, check it agains :dev + :dev+dev for the development environment.
+
 - add validation that doesn't allow having a components with an interface with more than
   one component in the development environment.
 
-- implement 'migrate' that migrates old lein-polylith projects.
-
 - move polylith-kotlin to private repo.
 
-- ensure Polylith works with Windows.
+- make sure Polylith works with Windows:
+  - read the line-separator and put it as an attribute to the workspace.
 
 - take back validation 107, check it agains :dev + :dev+dev for the development environment.
 
@@ -26,13 +26,8 @@
 - add help for the 'create-ws' command.
 - add help for the 'create-comp' command.
 
-- let util.def-map handle attributes with namespace in it, e.g. [paths deps aliases mvn/repos]
-  in environments-from-disk.
-
 - let 'workspace' just assoc new attributes so that extra attributes that we don't know about
   will not dissappear.
-
-- read the line-separator and put it as an attribute to the workspace.
 
 - 'help' should not be part of core.
 
@@ -46,8 +41,6 @@
   at the root of the project and commits it before every push. Then we could "animate" over the
   changes of the system over time. It's important to store a :schema-version attribute of the
   workspace, to keep track of schema changes.
-
-- check why workspace-clj doesn't have any :definitions in its :interface.
 
 - implement the 'diff' command that lists the changed files that is used to calculate changed bricks
   and systems.
@@ -118,6 +111,9 @@
 - set up the polylith github project:
   - so that people can report errors
   - activate CI
+
+- let util.def-map handle attributes with namespace in it, e.g. [paths deps aliases mvn/repos]
+  in environments-from-disk.
 
 Questions
 =========
