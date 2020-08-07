@@ -6,22 +6,20 @@
 (use-fixtures :each helper/test-setup-and-tear-down)
 
 (deftest create-environment--when-environment-already-exists--return-error-message
-  (let [ws-name "ws1"
-        output (with-out-str
-                 (helper/execute-command "" "create-ws" ws-name "se.example")
-                 (helper/execute-command ws-name "create-env" "env1" "env")
-                 (helper/execute-command ws-name "create-env" "env1" "env"))]
+  (let [output (with-out-str
+                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
+                 (helper/execute-command "ws1" "create" "environment" "name:env1")
+                 (helper/execute-command "ws1" "create" "environment" "name:env1"))]
 
     (is (= (str "  It's recommended to add an alias to :env->alias in deps.edn for the env1 environment.\n"
                 "Environment env1 (or alias) already exists.\n")
            (color/clean-colors output)))))
 
 (deftest create-environment--performs-expected-actions
-  (let [ws-name "ws1"
-        dir (str ws-name "/environments/env1")
+  (let [dir "ws1/environments/env1"
         output (with-out-str
-                 (helper/execute-command "" "create-ws" ws-name "se.example")
-                 (helper/execute-command ws-name "create-env" "env1" "env"))]
+                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
+                 (helper/execute-command "ws1" "create" "environment" "name:env1"))]
 
     (is (= "  It's recommended to add an alias to :env->alias in deps.edn for the env1 environment.\n"
            (color/clean-colors output)))
@@ -37,7 +35,7 @@
              "logo.png"
              "deps.edn"
              "readme.md"}
-           (helper/paths ws-name)))
+           (helper/paths "ws1")))
 
     (is (= [""
             "{:paths []"

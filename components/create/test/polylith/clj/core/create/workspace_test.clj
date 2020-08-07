@@ -4,17 +4,28 @@
 
 (use-fixtures :each helper/test-setup-and-tear-down)
 
-(deftest create-workspace--missing-namespace--prints-out-error-message
-  (let [ws-name "ws1"
-        output (with-out-str
-                 (helper/execute-command "" "create-ws" ws-name))]
-    (is (= "  A namespace must be given.\n"
+(deftest create-workspace--trying-to-create-a-workspace-within-another-workspace--prints-out-error-messagex
+  (let [output (with-out-str
+                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
+                 (helper/execute-command "ws1" "create" "workspace" "name:ws2" "top-ns:com.example"))]
+    (is (= "  A workspace should not be created within another workspace.\n"
+           output))))
+
+(deftest create-workspace--missing-top-namespace--prints-out-error-messagex
+  (let [output (with-out-str
+                 (helper/execute-command "" "create" "x" "name:ws1"))]
+    (is (= "  Expected the first argument after 'create' to be any of: w, e, b, c, workspace, environment, base, component.\n"
+           output))))
+
+(deftest create-workspace--missing-top-namespace--prints-out-error-message
+  (let [output (with-out-str
+                 (helper/execute-command "" "create" "workspace" "name:ws1"))]
+    (is (= "  A top namespace must be given, e.g.: create w name:my-workspace top-ns:com.my-company\n"
            output))))
 
 (deftest create-workspace--creates-empty-directories-and-a-deps-edn-config-file
-  (let [ws-name "ws1"
-        output (with-out-str
-                 (helper/execute-command "" "create-ws" ws-name "se.example"))]
+  (let [output (with-out-str
+                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example"))]
     (is (= ""
            output))
 
@@ -27,7 +38,7 @@
              "logo.png"
              "deps.edn"
              "readme.md"}
-           (helper/paths ws-name)))
+           (helper/paths "ws1")))
 
     (is (= ["<img src=\"logo.png\" width=\"30%\" alt=\"Polylith\" id=\"logo\">"
             ""
@@ -42,7 +53,7 @@
             "<h1>ws1</h1>"
             ""
             "<p>Add your workspace documentation here...</p>"]
-           (helper/content ws-name "readme.md")))
+           (helper/content "ws1" "readme.md")))
 
     (is (= [""
             "{:polylith {:vcs \"git\""
@@ -63,7 +74,7 @@
             "                                {:git/url   \"https://github.com/tengstrand/polylith.git\""
             "                                 :sha       \"e02a0794d26b0b111d84a36f6d48e9b1848e5913\""
             "                                 :deps/root \"environments/cli\"}}}}}"]
-           (helper/content ws-name "deps.edn")))
+           (helper/content "ws1" "deps.edn")))
 
     (is (= ["{:color-mode \"dark\""
             " :thousand-separator \",\"}"]

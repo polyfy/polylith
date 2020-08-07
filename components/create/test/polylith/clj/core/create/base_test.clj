@@ -6,22 +6,20 @@
 (use-fixtures :each helper/test-setup-and-tear-down)
 
 (deftest create-base--when-component-already-exists--return-error-message
-  (let [ws-name "ws1"
-        output (with-out-str
-                 (helper/execute-command "" "create-ws" ws-name "se.example")
-                 (helper/execute-command ws-name "create-base" "my-base")
-                 (helper/execute-command ws-name "create-base" "my-base"))]
+  (let [output (with-out-str
+                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
+                 (helper/execute-command "ws1" "create" "base" "name:my-base")
+                 (helper/execute-command "ws1" "create" "base" "name:my-base"))]
     (is (= (str brick/create-brick-message "\n"
                 "The brick 'my-base' already exists.\n")
            output))))
 
 (deftest create-base--performs-expected-actions
-  (let [ws-name "ws1"
-        src-api-dir (str ws-name "/bases/my-base/src/se/example/my_base")
-        test-api-dir (str ws-name "/bases/my-base/test/se/example/my_base")
+  (let [src-api-dir "ws1/bases/my-base/src/se/example/my_base"
+        test-api-dir "ws1/bases/my-base/test/se/example/my_base"
         output (with-out-str
-                 (helper/execute-command "" "create-ws" ws-name "se.example")
-                 (helper/execute-command ws-name "create-base" "my-base"))]
+                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
+                 (helper/execute-command "ws1" "create" "base" "name:my-base"))]
     (is (= (str brick/create-brick-message "\n")
            output))
 
@@ -39,7 +37,7 @@
              "bases/my-base/test/se"
              "bases/my-base/test/se/example"
              "bases/my-base/test/se/example/my_base"
-             "bases/my-base/test/se/example/my_base/api-test.clj"
+             "bases/my-base/test/se/example/my_base/api_test.clj"
              "components"
              "development"
              "development/src"
@@ -48,11 +46,11 @@
              "deps.edn"
              "logo.png"
              "readme.md"}
-           (helper/paths ws-name)))
+           (helper/paths "ws1")))
 
     (is (= ["(ns se.example.my-base.api)"]
            (helper/content src-api-dir "api.clj")))
 
-    (is (= ["(ns se.example.my-base.api"
+    (is (= ["(ns se.example.my-base.api-test"
             "  (:require [clojure.test :refer :all]))"]
-           (helper/content test-api-dir "api-test.clj")))))
+           (helper/content test-api-dir "api_test.clj")))))

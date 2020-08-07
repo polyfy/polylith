@@ -1,10 +1,11 @@
 (ns polylith.clj.core.command.core
   (:require [clojure.pprint :as pp]
+            [polylith.clj.core.command.command :as command]
+            [polylith.clj.core.command.create :as create]
             [polylith.clj.core.command.deps-args :as deps-args]
             [polylith.clj.core.command.exit-code :as exit-code]
             [polylith.clj.core.command.test-args :as test-args]
             [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.create.interfc :as create]
             [polylith.clj.core.deps.interfc :as deps]
             [polylith.clj.core.help.interfc :as help]
             [polylith.clj.core.user-config.interfc :as user-config]
@@ -18,11 +19,6 @@
     (if (empty? messages)
       (println (color/ok color-mode "OK"))
       (println (common/pretty-messages workspace)))))
-
-(defn create-environment [ws-dir workspace env]
-  (let [color-mode (-> workspace :settings :color-mode)]
-    (when (= :ok (create/create-environment ws-dir workspace env))
-      (create/print-alias-message env color-mode))))
 
 (defn deps [workspace environment-name brick-name]
   (let [color-mode (-> workspace :settings :color-mode)]
@@ -54,17 +50,14 @@
   (or (-> workspace nil? not)
       (nil? cmd)
       (= "help" cmd)
-      (= "create-ws" cmd)))
+      (= "create" cmd)))
 
-(defn execute [current-dir workspace cmd arg1 arg2]
+(defn execute [current-dir workspace cmd arg1 arg2 arg3]
   (try
     (if (valid-command? workspace cmd)
       (case cmd
         "check" (check workspace)
-        "create-ws" (create/create-workspace current-dir arg1 arg2)
-        "create-env" (create-environment current-dir workspace arg1)
-        "create-base" (create/create-base current-dir workspace arg1)
-        "create-comp" (create/create-component current-dir workspace arg1 arg2)
+        "create" (create/create current-dir workspace arg1 arg2 arg3)
         "deps" (deps workspace arg1 arg2)
         "diff" (diff workspace)
         "help" (help workspace arg1)
@@ -72,7 +65,7 @@
         "test" (test workspace arg1 arg2)
         "ws" (pp/pprint workspace)
         (help workspace nil))
-      (println "  The command can only be executed from the workspace root."))
+      (command/print-outside-ws-message))
     {:exit-code (exit-code/code cmd workspace)}
     (catch Exception e
       {:exit-code 1

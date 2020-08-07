@@ -18,8 +18,7 @@
            "../../components/validate/src"
            "../../components/workspace/src"
            "../../components/workspace-clj/src"
-
-           ; Base
+           ; Bases
            "../../bases/cli/src"]
 
  :deps    {org.clojure/clojure {:mvn/version "1.10.1"}
@@ -46,14 +45,11 @@
                                    "../../components/validate/test"
                                    "../../components/workspace/test"
                                    "../../components/workspace-clj/test"
-
                                    ; Bases
                                    "../../bases/cli/test"
-
                                    ; Environments
                                    "test"]
                      :extra-deps  {}}
-
 
            :aot     {:extra-paths ["classes"]
                      :main-opts   ["-e" "(compile,'polylith.clj.core.cli.poly)"]}

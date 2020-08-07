@@ -22,10 +22,10 @@
    ""
    "<p>Add your workspace documentation here...</p>"])
 
-(defn deps-content [ws-ns]
+(defn deps-content [top-ns]
   [(str "")
    (str "{:polylith {:vcs \"git\"")
-   (str "            :top-namespace \"" ws-ns "\"")
+   (str "            :top-namespace \"" top-ns "\"")
    (str "            :interface-ns \"interface\"")
    (str "            :env->alias {\"development\" \"dev\"}")
    (str "            :ns->lib {clojure             org.clojure/clojure")
@@ -50,18 +50,16 @@
       (file/create-missing-dirs user-config-file)
       (file/create-file user-config-file (user-config-content)))))
 
-(defn create [root-dir ws-name ws-namespace]
-  (if (nil? ws-namespace)
-    (println "  A namespace must be given.")
-    (let [ws-dir (str root-dir "/" ws-name)]
-      (file/create-dir ws-dir)
-      (file/create-dir (str ws-dir "/bases"))
-      (file/create-dir (str ws-dir "/components"))
-      (file/create-dir (str ws-dir "/development"))
-      (file/create-dir (str ws-dir "/development/src"))
-      (file/create-dir (str ws-dir "/environments"))
-      (file/create-file (str ws-dir "/deps.edn") (deps-content ws-namespace))
-      (file/create-file (str ws-dir "/readme.md") (readme-content ws-name))
-      (file/copy-resource-file! "create/logo.png" (str ws-dir "/logo.png"))
-      (create-user-config-if-not-exists)
-      (git/init ws-dir))))
+(defn create [root-dir ws-name top-ns]
+  (let [ws-dir (str root-dir "/" ws-name)]
+    (file/create-dir ws-dir)
+    (file/create-dir (str ws-dir "/bases"))
+    (file/create-dir (str ws-dir "/components"))
+    (file/create-dir (str ws-dir "/development"))
+    (file/create-dir (str ws-dir "/development/src"))
+    (file/create-dir (str ws-dir "/environments"))
+    (file/create-file (str ws-dir "/deps.edn") (deps-content top-ns))
+    (file/create-file (str ws-dir "/readme.md") (readme-content ws-name))
+    (file/copy-resource-file! "create/logo.png" (str ws-dir "/logo.png"))
+    (create-user-config-if-not-exists)
+    (git/init ws-dir)))

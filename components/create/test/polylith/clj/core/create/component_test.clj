@@ -6,22 +6,20 @@
 (use-fixtures :each helper/test-setup-and-tear-down)
 
 (deftest create-component--when-component-already-exists--return-error-message
-  (let [ws-name "ws1"
-        output (with-out-str
-                 (helper/execute-command "" "create-ws" ws-name "se.example")
-                 (helper/execute-command ws-name "create-comp" "my-component")
-                 (helper/execute-command ws-name "create-comp" "my-component"))]
+  (let [output (with-out-str
+                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
+                 (helper/execute-command "ws1" "create" "component" "name:my-component")
+                 (helper/execute-command "ws1" "create" "component" "name:my-component"))]
     (is (= (str brick/create-brick-message "\n"
                 "The brick 'my-component' already exists.\n")
            output))))
 
 (deftest create-component--without-giving-an-interface--performs-expected-actions
-  (let [ws-name "ws1"
-        src-ifc-dir (str ws-name "/components/my-component/src/se/example/my_component")
-        test-ifc-dir (str ws-name "/components/my-component/test/se/example/my_component")
+  (let [src-ifc-dir "ws1/components/my-component/src/se/example/my_component"
+        test-ifc-dir "ws1/components/my-component/test/se/example/my_component"
         output (with-out-str
-                 (helper/execute-command "" "create-ws" ws-name "se.example")
-                 (helper/execute-command ws-name "create-comp" "my-component"))]
+                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
+                 (helper/execute-command "ws1" "create" "component" "name:my-component"))]
     (is (= (str brick/create-brick-message "\n")
            output))
 
@@ -40,7 +38,7 @@
              "components/my-component/test/se"
              "components/my-component/test/se/example"
              "components/my-component/test/se/example/my_component"
-             "components/my-component/test/se/example/my_component/interface-test.clj"
+             "components/my-component/test/se/example/my_component/interface_test.clj"
              "development"
              "development/src"
              "environments"
@@ -48,22 +46,21 @@
              "deps.edn"
              "logo.png"
              "readme.md"}
-           (helper/paths ws-name)))
+           (helper/paths "ws1")))
 
     (is (= ["(ns se.example.my-component.interface)"]
            (helper/content src-ifc-dir "interface.clj")))
 
-    (is (= ["(ns se.example.my-component.interface"
+    (is (= ["(ns se.example.my-component.interface-test"
             "  (:require [clojure.test :refer :all]))"]
-           (helper/content test-ifc-dir "interface-test.clj")))))
+           (helper/content test-ifc-dir "interface_test.clj")))))
 
 (deftest create-component--without-with-a-different-interface--performs-expected-actions
-  (let [ws-name "ws1"
-        src-ifc-dir (str ws-name "/components/my-component/src/se/example/my_interface")
-        test-ifc-dir (str ws-name "/components/my-component/test/se/example/my_interface")
+  (let [src-ifc-dir "ws1/components/my-component/src/se/example/my_interface"
+        test-ifc-dir "ws1/components/my-component/test/se/example/my_interface"
         output (with-out-str
-                 (helper/execute-command "" "create-ws" ws-name "se.example")
-                 (helper/execute-command ws-name "create-comp" "my-component" "my-interface"))]
+                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
+                 (helper/execute-command "ws1" "create" "component" "name:my-component" "interface:my-interface"))]
     (is (= (str brick/create-brick-message "\n")
            output))
 
@@ -82,7 +79,7 @@
              "components/my-component/test/se"
              "components/my-component/test/se/example"
              "components/my-component/test/se/example/my_interface"
-             "components/my-component/test/se/example/my_interface/interface-test.clj"
+             "components/my-component/test/se/example/my_interface/interface_test.clj"
              "development"
              "development/src"
              "environments"
@@ -90,11 +87,11 @@
              "deps.edn"
              "logo.png"
              "readme.md"}
-           (helper/paths ws-name)))
+           (helper/paths "ws1")))
 
     (is (= ["(ns se.example.my-interface.interface)"]
            (helper/content src-ifc-dir "interface.clj")))
 
-    (is (= ["(ns se.example.my-interface.interface"
+    (is (= ["(ns se.example.my-interface.interface-test"
             "  (:require [clojure.test :refer :all]))"]
-           (helper/content test-ifc-dir "interface-test.clj")))))
+           (helper/content test-ifc-dir "interface_test.clj")))))

@@ -1,9 +1,5 @@
 
-- implement 'lib-deps' as a separate table.
-- change the 'deps' command to use e.g.: deps e:env b:user
-
-- change back so that the 'create' command takes one argument
-  - include help for each w/e/b/c in the help overview.
+- add key :environments-not-to-test
 
 - update how to send in arguments to commands:
     create w name:x top-ns:se.example
@@ -27,14 +23,8 @@
   - show the 'dev' environment in the leftmost column in the 'info' command.
   - support sending in another setting, like +my-conf, to some commands like 'test'.
 
-- discuss:
-  - dev+dev and other settings (e.g. dev+prod)
-    - let the +dev setting always be included in different commands like 'test' and 'deps'
-      or eventually support including something else than +dev by sending in e.g. '+prod'
-      as an argument.
-  - also show library dependencies in the 'deps' command.
 
-- in the 'deps' command, also show library dependencies, e.g.:
+- implement 'lib-deps' as a separate table, e.g.:
                  l  l  l
                  i  i  i
                  b  b  b
@@ -72,6 +62,8 @@
   - change from '(t)' to 'loc-t' ?
 
 - update help for the 'deps' command.
+- update the help for the 'create' command
+  - include help for each w/e/b/c in the help overview.
 - add help for the 'create-ws' command.
 - add help for the 'create-comp' command.
 
