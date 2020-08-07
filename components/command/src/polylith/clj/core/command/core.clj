@@ -1,16 +1,16 @@
 (ns polylith.clj.core.command.core
   (:require [clojure.pprint :as pp]
-            [polylith.clj.core.command.command :as command]
             [polylith.clj.core.command.create :as create]
-            [polylith.clj.core.command.deps-args :as deps-args]
+            [polylith.clj.core.command.deps :as deps]
             [polylith.clj.core.command.exit-code :as exit-code]
+            [polylith.clj.core.command.message :as message]
             [polylith.clj.core.command.test-args :as test-args]
             [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.deps.interfc :as deps]
             [polylith.clj.core.help.interfc :as help]
             [polylith.clj.core.user-config.interfc :as user-config]
             [polylith.clj.core.test-runner.interfc :as test-runner]
             [polylith.clj.core.util.interfc.color :as color]
+            [polylith.clj.core.util.interfc.params :as params]
             [polylith.clj.core.workspace.interfc :as ws])
  (:refer-clojure :exclude [test]))
 
@@ -19,16 +19,6 @@
     (if (empty? messages)
       (println (color/ok color-mode "OK"))
       (println (common/pretty-messages workspace)))))
-
-(defn deps [workspace environment-name brick-name]
-  (let [color-mode (-> workspace :settings :color-mode)]
-    (if (deps-args/specified? environment-name)
-      (if (deps-args/specified? brick-name)
-        (deps/print-brick-table workspace environment-name brick-name color-mode)
-        (deps/print-workspace-brick-table workspace environment-name color-mode))
-      (if (deps-args/specified? brick-name)
-        (deps/print-brick-ifc-table workspace brick-name color-mode)
-        (deps/print-workspace-ifc-table workspace color-mode)))))
 
 (defn diff [workspace]
   (doseq [file (-> workspace :changes :changed-files)]
@@ -55,17 +45,20 @@
 (defn execute [current-dir workspace cmd arg1 arg2 arg3]
   (try
     (if (valid-command? workspace cmd)
-      (case cmd
-        "check" (check workspace)
-        "create" (create/create current-dir workspace arg1 arg2 arg3)
-        "deps" (deps workspace arg1 arg2)
-        "diff" (diff workspace)
-        "help" (help workspace arg1)
-        "info" (info workspace arg1)
-        "test" (test workspace arg1 arg2)
-        "ws" (pp/pprint workspace)
-        (help workspace nil))
-      (command/print-outside-ws-message))
+      (let [color-mode (-> workspace :settings :color-mode)
+            {:keys [named-args unnamed-args]} (params/parse arg1 arg2 arg3)
+            {:keys [name top-ns env brick interface]} named-args]
+        (case cmd
+          "check" (check workspace)
+          "create" (create/create current-dir workspace arg1 name top-ns interface color-mode)
+          "deps" (deps/deps workspace env brick unnamed-args color-mode)
+          "diff" (diff workspace)
+          "help" (help workspace arg1)
+          "info" (info workspace arg1)
+          "test" (test workspace arg1 arg2)
+          "ws" (pp/pprint workspace)
+          (help workspace nil)))
+      (message/print-dont-execute-outside-ws))
     {:exit-code (exit-code/code cmd workspace)}
     (catch Exception e
       {:exit-code 1

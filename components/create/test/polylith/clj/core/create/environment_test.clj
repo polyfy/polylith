@@ -8,7 +8,7 @@
 (deftest create-environment--when-environment-already-exists--return-error-message
   (let [output (with-out-str
                  (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
-                 (helper/execute-command "ws1" "create" "environment" "name:env1")
+                 (helper/execute-command "ws1" "create" "e" "name:env1")
                  (helper/execute-command "ws1" "create" "environment" "name:env1"))]
 
     (is (= (str "  It's recommended to add an alias to :env->alias in deps.edn for the env1 environment.\n"
@@ -18,8 +18,8 @@
 (deftest create-environment--performs-expected-actions
   (let [dir "ws1/environments/env1"
         output (with-out-str
-                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
-                 (helper/execute-command "ws1" "create" "environment" "name:env1"))]
+                 (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example")
+                 (helper/execute-command "ws1" "create" "e" "name:env1"))]
 
     (is (= "  It's recommended to add an alias to :env->alias in deps.edn for the env1 environment.\n"
            (color/clean-colors output)))

@@ -1,7 +1,6 @@
 (ns polylith.clj.core.command.create
-  (:require [polylith.clj.core.command.command :as command]
-            [polylith.clj.core.create.interfc :as create]
-            [polylith.clj.core.util.interfc.params :as params]))
+  (:require [polylith.clj.core.command.message :as command]
+            [polylith.clj.core.create.interfc :as create]))
 
 (def ent->name {"w" "my-workspace"
                 "e" "my-entity"
@@ -25,9 +24,9 @@
 
 (defn validate [workspace entity name top-ns]
   (cond
-    (nil? entity) {:message "  Expected the first argument after 'create' to be any of: w, e, b, c, workspace, environment, base, component."}
+    (nil? entity) {:message "  The first argument after 'create' is expected to be any of: w, e, b, c, workspace, environment, base, component."}
     (and (nil? workspace)
-         (env-base-or-comp? entity)) (command/print-outside-ws-message)
+         (env-base-or-comp? entity)) (command/print-dont-execute-outside-ws)
     (nil? name) {:message (str "  A name must be given, e.g.: create " entity " name:" (ent->name entity))}
     (and (workspace? entity)
          (-> workspace nil? not)) {:message (str "  A workspace should not be created within another workspace.")}
@@ -35,11 +34,8 @@
          (nil? top-ns)) {:message (str "  A top namespace must be given, e.g.: create " entity " name:" (ent->name entity) " top-ns:com.my-company")}
     :else {:ok? true}))
 
-(defn create [current-dir workspace entity arg2 arg3]
-  (let [color-mode (-> workspace :settings :color-mode)
-        {:keys [named-args]} (params/parse arg2 arg3)
-        {:keys [name top-ns interface]} named-args
-        ent (entity->short entity)
+(defn create [current-dir workspace entity name top-ns interface color-mode]
+  (let [ent (entity->short entity)
         {:keys [ok? message]} (validate workspace ent name top-ns)]
     (if ok?
       (condp = ent

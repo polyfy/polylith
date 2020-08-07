@@ -6,20 +6,20 @@
 
 (deftest create-workspace--trying-to-create-a-workspace-within-another-workspace--prints-out-error-messagex
   (let [output (with-out-str
-                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
+                 (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example")
                  (helper/execute-command "ws1" "create" "workspace" "name:ws2" "top-ns:com.example"))]
     (is (= "  A workspace should not be created within another workspace.\n"
            output))))
 
-(deftest create-workspace--missing-top-namespace--prints-out-error-messagex
+(deftest create-workspace--incorrect-first-argument--prints-out-error-message
   (let [output (with-out-str
                  (helper/execute-command "" "create" "x" "name:ws1"))]
-    (is (= "  Expected the first argument after 'create' to be any of: w, e, b, c, workspace, environment, base, component.\n"
+    (is (= "  The first argument after 'create' is expected to be any of: w, e, b, c, workspace, environment, base, component.\n"
            output))))
 
 (deftest create-workspace--missing-top-namespace--prints-out-error-message
   (let [output (with-out-str
-                 (helper/execute-command "" "create" "workspace" "name:ws1"))]
+                 (helper/execute-command "" "create" "w" "name:ws1"))]
     (is (= "  A top namespace must be given, e.g.: create w name:my-workspace top-ns:com.my-company\n"
            output))))
 
