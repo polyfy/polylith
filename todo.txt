@@ -1,7 +1,4 @@
 
-- when running :all tests, make sure to only include bricks that are
-  included in respective environment.
-
 - add support for different :dev settings:
   - let dev+default be the default dev setting that is always included to 'dev' if a command
     runs against the 'dev' environment.

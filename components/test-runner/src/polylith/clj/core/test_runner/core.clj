@@ -74,18 +74,18 @@
          (str-util/count-things "brick" bricks-cnt) env-msg ": " entities-msg)))
 
 (defn run-tests-for-environment [{:keys [bases components] :as workspace}
-                                 {:keys [name src-paths test-paths namespaces-test] :as environment}
+                                 {:keys [name src-paths test-paths namespaces-test test-component-names test-base-names] :as environment}
                                  {:keys [env->bricks-to-test environments-to-test]}
                                  run-all? run-env-tests?]
   (when (-> test-paths empty? not)
     (let [color-mode (-> workspace :settings :color-mode)
-          all-brick-names (map :name (concat components bases))
+          env-bricks-names (concat test-component-names test-base-names)
           config (->config workspace environment)
           lib-paths (resolve-deps config)
           all-src-paths (set (concat src-paths test-paths))
           all-paths (concat all-src-paths lib-paths)
           bricks (concat components bases)
-          bricks-to-test-for-env (if run-all? all-brick-names (env->bricks-to-test name))
+          bricks-to-test-for-env (if run-all? env-bricks-names (env->bricks-to-test name))
           envs-to-test (if run-env-tests? (filterv #(= name %) environments-to-test) [])
           run-message (run-message name components bases bricks-to-test-for-env envs-to-test color-mode)
           test-namespaces (->test-namespaces bricks bricks-to-test-for-env)
