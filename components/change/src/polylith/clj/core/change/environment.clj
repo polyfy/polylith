@@ -7,5 +7,5 @@
     (when (-> changed-bricks-in-env empty? not)
       name)))
 
-(defn indirectly-changed-environments [environments changed-bricks]
+(defn indirectly-changed-environment-names [environments changed-bricks]
   (set (filter identity (map #(changed-env % changed-bricks) environments))))

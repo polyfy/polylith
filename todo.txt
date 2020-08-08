@@ -1,15 +1,8 @@
 
-- update how to send in arguments to commands:
-    help cmd
-    ws
-    help cmd:x :type:y
+- rename :indirect-changes to :env->indirect-changes (in :changes).
 
 - when running :all tests, make sure to only include bricks that are
   included in respective environment.
-
-- add key :ignore-tests-for-environments
-  - don't show the last 'x' in the environment for the disabled tests.
-  - only run tests for the 'dev' environment (not 'cli').
 
 - add support for different :dev settings:
   - let dev+default be the default dev setting that is always included to 'dev' if a command
@@ -18,7 +11,7 @@
   - show the 'dev' environment in the leftmost column in the 'info' command.
   - support sending in another setting, like +my-conf, to some commands like 'test'.
 
-- implement 'lib-deps' as a separate table, e.g.:
+- implement 'deps :lib' as a separate table, e.g.:
                  l  l  l
                  i  i  i
                  b  b  b

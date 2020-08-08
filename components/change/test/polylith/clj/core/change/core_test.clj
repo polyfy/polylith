@@ -155,9 +155,9 @@
           :indirect-changes {"cli" ["cli" "command" "validate" "workspace" "z-jocke"]
                              "core" ["cli" "command" "validate" "workspace" "z-jocke"]
                              "dev" ["cli" "command" "validate" "workspace" "z-jocke"]}
-          :bricks-to-test {"cli" []
-                           "core" []
-                           "dev" ["change" "cli" "command" "deps" "validate" "workspace" "z-jocke"]}
+          :env->bricks-to-test {"cli" []
+                                "core" []
+                                "dev" ["change" "cli" "command" "deps" "validate" "workspace" "z-jocke"]}
           :changed-files ["components/change/test/polylith/clj/core/change/brick_test.clj"
                           "components/change/test/polylith/clj/core/change/core_test.clj"
                           "components/deps/src/polylith/clj/core/deps/interfc.clj"]}

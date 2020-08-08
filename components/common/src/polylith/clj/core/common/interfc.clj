@@ -31,11 +31,11 @@
 (defn eval-in [class-loader form]
   (class-loader/eval-in class-loader form))
 
-(defn find-brick [workspace brick-name]
-  (core/find-brick workspace brick-name))
+(defn find-brick [name workspace]
+  (core/find-brick name workspace))
 
-(defn find-component [component-name components]
-  (core/find-component component-name components))
+(defn find-component [name components]
+  (core/find-component name components))
 
 (defn find-base [base-name bases]
   (core/find-base base-name bases))

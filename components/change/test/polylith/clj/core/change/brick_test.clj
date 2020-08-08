@@ -13,7 +13,7 @@
             "deps.edn"
             "todo.txt"])
 
-(deftest bricks--when-having-a-list-of-workspace-filenames--return-bases-and-components
+(deftest bricks--when-having-a-list-of-changed-files--return-bases-and-components
   (is (= {:changed-bases ["core"]
           :changed-components ["cmd" "workspace"]
           :changed-environments []}

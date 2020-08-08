@@ -179,14 +179,7 @@
                          :lines-of-code-test 0
                          :lib-imports-src []
                          :lib-imports-test []
-                         :interface-deps ["change" "command" "file" "workspace" "workspace-clj"]}
-                        {:name "z-jocke"
-                         :type "base"
-                         :lines-of-code-src 53
-                         :lines-of-code-test 0
-                         :lib-imports-src ["clojure.string" "clojure.walk"]
-                         :lib-imports-test []
-                         :interface-deps ["util" "workspace" "workspace-clj"]}]
+                         :interface-deps ["change" "command" "file" "workspace" "workspace-clj"]}]
                 :environments [{:name "cli"
                                 :alias "cli"
                                 :type "environment"
@@ -310,10 +303,9 @@
                                                   "validate"
                                                   "workspace"
                                                   "workspace-clj"]
-                                :base-names ["cli" "z-jocke"]
-                                :test-base-names ["cli" "z-jocke"]
+                                :base-names ["cli"]
+                                :test-base-names ["cli"]
                                 :paths ["../../bases/cli/src"
-                                        "../../bases/z-jocke/src"
                                         "../../components/change/src"
                                         "../../components/command/src"
                                         "../../components/common/src"
@@ -329,7 +321,6 @@
                                         "../../components/workspace/src"
                                         "../../components/workspace-clj/src"]
                                 :test-paths ["../../bases/cli/test"
-                                             "../../bases/z-jocke/test"
                                              "../../components/change/test"
                                              "../../components/command/test"
                                              "../../components/common/test"
@@ -367,10 +358,10 @@
 (def ws-bases (:bases workspace))
 
 (def changed-components  ["help" "text-table" "util" "workspace"])
-(def changed-bases ["z-jocke"])
-(def bricks-to-test {"cli"  ["file" "cli"]
-                     "core" ["file" "cli"]
-                     "dev"  ["file" "cli"]})
+(def changed-bases ["cli"])
+(def env->bricks-to-test {"cli"  ["file" "cli"]
+                          "core" ["file" "cli"]
+                          "dev"  ["file" "cli"]})
 
 (deftest ws-table--when-loc-flag-is-false--return-table-without-loc-info
   (is (= ["  interface      brick          cli  core  dev"
@@ -390,10 +381,9 @@
           "  validate       validate       x--  x--   xx-"
           "  workspace      workspace *    x--  x--   xx-"
           "  workspace-clj  workspace-clj  x--  ---   xx-"
-          "  -              cli            x-x  --x   xxx"
-          "  -              z-jocke *      ---  ---   xx-"]
+          "  -              cli *          x-x  --x   xxx"]
          (str/split-lines
-           (text-table-ws/ws-table color/none components ws-bases environments changed-components changed-bases bricks-to-test 2020 1143 "," false)))))
+           (text-table-ws/ws-table color/none components ws-bases environments changed-components changed-bases env->bricks-to-test 2020 1143 "," false)))))
 
 (deftest ws-table--when-loc-flag-is-true--return-table-with-loc-info
   (is (= ["  interface      brick          cli  core  dev    loc   (t)"
@@ -413,8 +403,7 @@
           "  validate       validate       x--  x--   xx-  1,377   744"
           "  workspace      workspace *    x--  x--   xx-    387    95"
           "  workspace-clj  workspace-clj  x--  ---   xx-    301   122"
-          "  -              cli            x-x  --x   xxx     21     0"
-          "  -              z-jocke *      ---  ---   xx-     53     0"
+          "  -              cli *          x-x  --x   xxx     21     0"
           "                                                3,020 2,143"]
          (str/split-lines
-           (text-table-ws/ws-table color/none components ws-bases environments changed-components changed-bases bricks-to-test 3020 2143 "," true)))))
+           (text-table-ws/ws-table color/none components ws-bases environments changed-components changed-bases env->bricks-to-test 3020 2143 "," true)))))

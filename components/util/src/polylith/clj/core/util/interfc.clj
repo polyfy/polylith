@@ -12,7 +12,7 @@
     []
     [(first vals)]))
 
-(defmacro def-map [amap keys]
+(defmacro def-keys [amap keys]
   "Defines all selected keys in a map, e.g.:
     (def-map mymap [name age length])"
   `(core/def-map ~amap ~keys))

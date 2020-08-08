@@ -6,7 +6,7 @@
 (def create-brick-message "  Remember to add the 'src', 'resources' and 'test' directories to 'deps.edn' for desired environments.")
 
 (defn create-brick [workspace brick-name create-fn]
-  (if (common/find-brick workspace brick-name)
+  (if (common/find-brick brick-name workspace)
     (println (str "The brick '" brick-name "' already exists."))
     (do
       (create-fn)

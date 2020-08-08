@@ -23,19 +23,19 @@
                 (str/ends-with? % ".cljc"))
            paths))
 
-(defn find-brick [{:keys [components bases]} brick-name]
+(defn find-brick [name {:keys [components bases]}]
   (let [bricks (concat components bases)]
-    (util/find-first #(= brick-name (:name %)) bricks)))
+    (util/find-first #(= name (:name %)) bricks)))
 
-(defn find-component [component-name components]
-  (util/find-first #(= component-name (:name %)) components))
+(defn find-component [name components]
+  (util/find-first #(= name (:name %)) components))
 
-(defn find-base [base-name bases]
-  (util/find-first #(= base-name (:name %)) bases))
+(defn find-base [name bases]
+  (util/find-first #(= name (:name %)) bases))
 
 (defn- =env [{:keys [name alias]} env]
   (or (= env name)
       (= env alias)))
 
-(defn find-environment [environment-name environments]
-  (util/find-first #(=env % environment-name) environments))
+(defn find-environment [name environments]
+  (util/find-first #(=env % name) environments))

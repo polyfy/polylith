@@ -16,7 +16,7 @@
     (text-table/table "  " alignments header-colors header-orientations row-colors headers rows color-mode)))
 
 (defn print-table [workspace brick-name color-mode]
-  (let [brick (common/find-brick workspace brick-name)]
+  (let [brick (common/find-brick brick-name workspace)]
     (if brick
       (println (table brick color-mode))
       (println (str "Couldn't find brick '" brick-name "'.")))))

@@ -2,14 +2,13 @@
   (:require [clojure.string :as str]
             [clojure.walk :as walk]
             [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.util.interfc.color :as color]
             [polylith.clj.core.validate.interfc :as validate]
-            [polylith.clj.core.workspace.base :as base]
-            [polylith.clj.core.workspace.component :as component]
-            [polylith.clj.core.workspace.brick-deps :as brick-deps]
-            [polylith.clj.core.workspace.interfaces :as interfaces]
-            [polylith.clj.core.workspace.environment :as env]
             [polylith.clj.core.workspace.alias :as alias]
+            [polylith.clj.core.workspace.base :as base]
+            [polylith.clj.core.workspace.brick-deps :as brick-deps]
+            [polylith.clj.core.workspace.component :as component]
+            [polylith.clj.core.workspace.environment :as env]
+            [polylith.clj.core.workspace.interfaces :as interfaces]
             [polylith.clj.core.file.interfc :as file]))
 
 (defn brick->lib-imports [brick]
@@ -32,7 +31,7 @@
 
 (defn enrich-workspace [{:keys [ws-dir ws-reader settings components bases environments]}]
   (let [ws-name (workspace-name ws-dir)
-        {:keys [top-namespace interface-ns color-mode ns->lib]} settings
+        {:keys [top-namespace interface-ns ns->lib color-mode]} settings
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         interfaces (interfaces/calculate components)
         interface-names (apply sorted-set (mapv :name interfaces))
