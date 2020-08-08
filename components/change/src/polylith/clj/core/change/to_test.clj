@@ -6,15 +6,15 @@
   (not (contains? skip-env-names alias)))
 
 (defn bricks-to-test-for-env [{:keys [name test-base-names test-component-names]}
-                              changed-components changed-bases indirect-changes skip-env-names]
-  (let [changed-bricks (set (concat changed-components changed-bases (indirect-changes name)))
+                              changed-components changed-bases env->indirect-changes skip-env-names]
+  (let [changed-bricks (set (concat changed-components changed-bases (env->indirect-changes name)))
         brick-names (if (keep? name skip-env-names)
                       (set (concat test-base-names test-component-names))
                       [])]
     [name (vec (sort (set/intersection brick-names changed-bricks)))]))
 
-(defn env->bricks-to-test [environments changed-components changed-bases indirect-changes skip-env-names]
-  (into {} (map #(bricks-to-test-for-env % changed-components changed-bases indirect-changes skip-env-names)
+(defn env->bricks-to-test [environments changed-components changed-bases env->indirect-changes skip-env-names]
+  (into {} (map #(bricks-to-test-for-env % changed-components changed-bases env->indirect-changes skip-env-names)
                 environments)))
 
 (defn environments-to-test [environments changed-bricks changed-environments skip-env-names]

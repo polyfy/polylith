@@ -152,9 +152,9 @@
           :changed-bases []
           :changed-environments []
           :environments-to-test []
-          :indirect-changes {"cli" ["cli" "command" "validate" "workspace" "z-jocke"]
-                             "core" ["cli" "command" "validate" "workspace" "z-jocke"]
-                             "dev" ["cli" "command" "validate" "workspace" "z-jocke"]}
+          :env->indirect-changes {"cli" ["cli" "command" "validate" "workspace" "z-jocke"]
+                                  "core" ["cli" "command" "validate" "workspace" "z-jocke"]
+                                  "dev" ["cli" "command" "validate" "workspace" "z-jocke"]}
           :env->bricks-to-test {"cli" []
                                 "core" []
                                 "dev" ["change" "cli" "command" "deps" "validate" "workspace" "z-jocke"]}

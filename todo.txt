@@ -1,6 +1,4 @@
 
-- rename :indirect-changes to :env->indirect-changes (in :changes).
-
 - when running :all tests, make sure to only include bricks that are
   included in respective environment.
 

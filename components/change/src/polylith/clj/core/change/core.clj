@@ -23,8 +23,8 @@
                  changed-bases
                  changed-environments]} (entity/changed-entities files)
          changed-bricks (set (concat changed-components changed-bases))
-         indirect-changes (indirect/indirect-changes deps changed-bricks)
-         env->bricks-to-test (to-test/env->bricks-to-test environments changed-components changed-bases indirect-changes skip-env-names)
+         env->indirect-changes (indirect/env->indirect-changes deps changed-bricks)
+         env->bricks-to-test (to-test/env->bricks-to-test environments changed-components changed-bases env->indirect-changes skip-env-names)
          environments-to-test (to-test/environments-to-test environments changed-bricks changed-environments skip-env-names)]
      (util/ordered-map :sha1 sha1
                        :sha2 sha2
@@ -32,7 +32,7 @@
                        :changed-components changed-components
                        :changed-bases changed-bases
                        :changed-environments changed-environments
-                       :indirect-changes indirect-changes
+                       :env->indirect-changes env->indirect-changes
                        :env->bricks-to-test env->bricks-to-test
                        :environments-to-test environments-to-test
                        :changed-files files)))
