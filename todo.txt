@@ -1,13 +1,15 @@
 
 - update how to send in arguments to commands:
-    diff
-    help cmd:x
-    info loc?:true
+    info :loc
     test env:x
     test env:x type:env
     test env:x type:all
     test env:x type:all-bricks
     ws
+    help cmd:x :type:y
+
+- when running :all tests, make sure to only include bricks that are
+  included in respective environment.
 
 - add key :ignore-tests-for-environments
   - don't show the last 'x' in the environment for the disabled tests.

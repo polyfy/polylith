@@ -26,7 +26,7 @@
   (cond
     (nil? entity) {:message "  The first argument after 'create' is expected to be any of: w, e, b, c, workspace, environment, base, component."}
     (and (nil? workspace)
-         (env-base-or-comp? entity)) (command/print-dont-execute-outside-ws)
+         (env-base-or-comp? entity)) (command/print-cant-be-executed-outside-ws)
     (nil? name) {:message (str "  A name must be given, e.g.: create " entity " name:" (ent->name entity))}
     (and (workspace? entity)
          (-> workspace nil? not)) {:message (str "  A workspace should not be created within another workspace.")}

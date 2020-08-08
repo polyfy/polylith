@@ -4,6 +4,7 @@
 
 (deftest pars--named-and-unamed-parameters--returns-expected-result
   (is (= {:unnamed-args ["w" "abc"]
-          :named-args {:name "x"
+          :named-args {:flag "true"
+                       :name "x"
                        :top-ns "se.example"}}
-         (params/parse "w" "name:x" "top-ns:se.example" "abc" nil))))
+         (params/parse "w" "name:x" "top-ns:se.example" ":flag" "abc" nil))))

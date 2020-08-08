@@ -11,12 +11,15 @@
 
 (defn key-name [arg]
   (let [index (str/index-of arg ":")]
-    [(keyword (subs arg 0 index))
-     (subs arg (inc index))]))
+    (if (zero? index)
+      [(keyword (subs arg 1))
+       "true"]
+      [(keyword (subs arg 0 index))
+       (subs arg (inc index))])))
 
 (defn parse [& params]
   (let [unnamed-args (filterv unnamed? params)
-        named-args (into {} (map key-name)
-                         (filterv named? params))]
+        named-args (into {} (map key-name
+                                 (filterv named? params)))]
     {:named-args named-args
      :unnamed-args unnamed-args}))
