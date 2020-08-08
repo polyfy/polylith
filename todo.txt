@@ -1,10 +1,6 @@
 
 - update how to send in arguments to commands:
-    info :loc
-    test env:x
-    test env:x type:env
-    test env:x type:all
-    test env:x type:all-bricks
+    help cmd
     ws
     help cmd:x :type:y
 
