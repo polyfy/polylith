@@ -1,4 +1,5 @@
 
+- exclude running tests for the dev environment if not explicitly given.
 - be able to run the 'dev' tests + show the third x.
 - don't show the 'default' profile
 - show the dev and profile headers in cyan.

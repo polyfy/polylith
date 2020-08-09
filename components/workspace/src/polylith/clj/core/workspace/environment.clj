@@ -3,7 +3,8 @@
             [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.util.interfc :as util]
             [polylith.clj.core.workspace.profile :as profile]
-            [polylith.clj.core.workspace.loc :as loc]))
+            [polylith.clj.core.workspace.loc :as loc]
+            [polylith.clj.core.workspace.brick-deps :as brick-deps]))
 
 (defn starts-with [path start]
   (and (string? path)
@@ -51,10 +52,11 @@
 
 (defn enrich-env [{:keys [name type env-dir config-file has-src-dir? has-test-dir? namespaces-src namespaces-test src-paths test-paths lib-deps test-deps maven-repos]}
                   ws-dir
+                  components
+                  bases
                   brick->loc
                   brick->lib-imports
                   env->alias
-                  env->brick-deps
                   active-dev-profiles
                   profile->settings]
   (let [all-src-paths (profile/src-paths name src-paths active-dev-profiles profile->settings)
@@ -66,6 +68,7 @@
         existing-test-paths (existing-paths ws-dir all-test-paths)
         test-component-names (vec (sort (set (mapv component-name (filter component? existing-test-paths)))))
         test-base-names (vec (sort (set (mapv base-name (filter base? existing-test-paths)))))
+        deps (brick-deps/environment-deps component-names components bases)
         lib-imports-src (-> (env-lib-imports brick-names brick->lib-imports false)
                             set sort vec)
         lib-imports-test (-> (env-lib-imports brick-names brick->lib-imports true)
@@ -94,6 +97,6 @@
                       :lib-imports lib-imports-src
                       :lib-imports-test lib-imports-test
                       :lib-deps (profile/lib-deps name lib-deps active-dev-profiles profile->settings)
-                      :deps (env->brick-deps name)
+                      :deps deps
                       :test-deps test-deps
                       :maven-repos maven-repos)))

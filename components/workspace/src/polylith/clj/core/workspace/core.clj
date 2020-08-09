@@ -43,8 +43,7 @@
         brick->loc (brick->loc enriched-bricks)
         brick->lib-imports (brick->lib-imports enriched-bricks)
         env->alias (alias/env->alias settings environments)
-        env->brick-deps (brick-deps/env->brick-deps environments enriched-components enriched-bases)
-        enriched-environments (vec (sort-by :name (map #(env/enrich-env % ws-dir brick->loc brick->lib-imports env->alias env->brick-deps active-dev-profiles profile->settings) environments)))
+        enriched-environments (vec (sort-by :name (map #(env/enrich-env % ws-dir enriched-components enriched-bases brick->loc brick->lib-imports env->alias active-dev-profiles profile->settings) environments)))
         total-loc-src-env (apply + (filter identity (map :lines-of-code-src enriched-environments)))
         total-loc-test-env (apply + (filter identity (map :lines-of-code-test enriched-environments)))
         messages (validate/messages ws-dir suffixed-top-ns interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns ns->lib color-mode)]

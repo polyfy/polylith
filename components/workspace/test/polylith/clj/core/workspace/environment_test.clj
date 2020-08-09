@@ -1,7 +1,27 @@
 (ns polylith.clj.core.workspace.environment-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.file.interfc :as file]
-            [polylith.clj.core.workspace.environment :as env]))
+            [polylith.clj.core.workspace.environment :as env])
+  (:refer-clojure :exclude [bases]))
+
+(def components [{:name "change"
+                  :interface {:name "change"}
+                  :interface-deps ["git" "util"]}
+                 {:name "command"
+                  :interface {:name "command"}
+                  :interface-deps ["common" "create" "deps" "help" "test-runner" "user-config" "util" "workspace"]}
+                 {:name "common"
+                  :interface {:name "common"}
+                  :interface-deps ["util"]}
+                 {:name "deps"
+                  :interface {:name "deps"}
+                  :interface-deps ["common" "text-table" "util"]}
+                 {:name "file"
+                  :interface {:name "file"}
+                  :interface-deps ["util"]}])
+
+(def bases [{:name "cli"
+             :interface-deps ["change" "command" "file" "util" "workspace" "workspace-clj"]}])
 
 (def environment {:name "development"
                   :alias "dev"
@@ -76,11 +96,24 @@
             :lib-imports-test []
             :lib-deps {"org.clojure/clojure" {:mvn/version "1.10.1"},
                        "org.clojure/tools.deps.alpha" {:mvn/version "0.8.695"}}
-            :deps {"change" {:directly ["git" "util"], :indirectly ["shell"]}
-                   "util" {:directly [], :indirectly []}}
-            :test-deps {}
+            :deps                     {"change"  {:direct   []
+                                                  :indirect []}
+                                       "cli"     {:direct   ["change"
+                                                             "command"
+                                                             "file"]
+                                                  :indirect ["common"
+                                                             "deps"]}
+                                       "command" {:direct   ["common"
+                                                             "deps"]
+                                                  :indirect []}
+                                       "common"  {:direct   []
+                                                  :indirect []}
+                                       "deps"    {:direct   ["common"]
+                                                  :indirect []}
+                                       "file"    {:direct   []
+                                                  :indirect []}}            :test-deps {}
             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}}
-           (env/enrich-env environment "" brick->loc brick->lib-imports env->alias env->brick->deps
+           (env/enrich-env environment "" components bases brick->loc brick->lib-imports env->alias
                            [] {})))))
 
 
@@ -115,11 +148,24 @@
             :lib-deps {"org.clojure/clojure" {:mvn/version "1.10.1"},
                        "org.clojure/tools.deps.alpha" {:mvn/version "0.8.695"}
                        "clojure.core.matrix"          "net.mikera/core.matrix"}
-            :deps {"change" {:directly ["git" "util"], :indirectly ["shell"]}
-                   "util" {:directly [], :indirectly []}}
-            :test-deps {}
+            :deps                     {"change"  {:direct   []
+                                                  :indirect []}
+                                       "cli"     {:direct   ["change"
+                                                             "command"
+                                                             "file"]
+                                                  :indirect ["common"
+                                                             "deps"]}
+                                       "command" {:direct   ["common"
+                                                             "deps"]
+                                                  :indirect []}
+                                       "common"  {:direct   []
+                                                  :indirect []}
+                                       "deps"    {:direct   ["common"]
+                                                  :indirect []}
+                                       "file"    {:direct   []
+                                                  :indirect []}}            :test-deps {}
             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}}
-           (env/enrich-env environment "" brick->loc brick->lib-imports env->alias env->brick->deps
+           (env/enrich-env environment "" components bases brick->loc brick->lib-imports env->alias
                            [:default] {:default {:paths ["components/user/src"
                                                          "components/user/resources"
                                                          "components/user/test"]

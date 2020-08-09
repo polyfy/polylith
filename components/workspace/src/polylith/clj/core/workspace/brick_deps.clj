@@ -25,16 +25,11 @@
                       :direct (-> direct-deps sort vec)
                       :indirect (-> indirectly-deps sort vec))))
 
-(defn environment-deps [{:keys [name component-names]} components bases]
+(defn environment-deps [component-names components bases]
   (let [ifc->comp (into {} (map (juxt #(-> % :interface :name) :name)
                                 (filter #(contains? (set component-names) (:name %))
                                         components)))
         brick->deps (into {} (map (juxt :name #(filter identity (mapv ifc->comp (:interface-deps %))))
                                   (concat components bases)))
-        brick-names (map :name (concat components bases))
-        brick->deps (into {} (mapv (juxt identity #(brick-deps-info % brick->deps ifc->comp)) brick-names))]
-    [name brick->deps]))
-
-(defn env->brick-deps [environments components bases]
-  (into {} (mapv #(environment-deps % components bases)
-                 environments)))
+        brick-names (map :name (concat components bases))]
+    (into {} (mapv (juxt identity #(brick-deps-info % brick->deps ifc->comp)) brick-names))))
