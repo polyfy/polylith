@@ -7,6 +7,9 @@
 (defn ordered-map [& keyvals]
   (core/ordered-map keyvals))
 
+(defn stringify-and-sort-map [m]
+  (core/stringify-and-sort-map m))
+
 (defn first-as-vector [vals]
   (if (empty? vals)
     []

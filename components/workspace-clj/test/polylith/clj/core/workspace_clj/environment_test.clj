@@ -29,15 +29,15 @@
 
 (deftest clean-path--given-a-local-path--return-workspace-path
   (is (= "environments/dev/test"
-         (env/ws-root-path "test" "dev"))))
+         (env/absolute-path "test" "dev"))))
 
 (deftest clean-path--given-a-local-path-with-dot-syntax--return-workspace-path
   (is (= "environments/dev/test"
-         (env/ws-root-path "./test" "dev"))))
+         (env/absolute-path "./test" "dev"))))
 
 (deftest clean-path--given-a-relative-path--return-root-path
   (is (= "components/comp"
-         (env/ws-root-path "../../components/comp" "dev"))))
+         (env/absolute-path "../../components/comp" "dev"))))
 
 (deftest environments--config-map-with-aliases--returns-environments
   (with-redefs [file/exists (fn [_] true)]
@@ -45,7 +45,6 @@
             :type "environment"
             :env-dir "environments/core"
             :config-file "environments/core/deps.edn"
-            :base-names ["tool"]
             :has-src-dir? true
             :has-test-dir? false
             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}
@@ -64,11 +63,8 @@
             :test-paths ["bases/tool/test"
                          "components/change/test"
                          "components/common/test"]
-            :component-names ["change" "common" "deps" "file"]
-            :test-component-names ["change" "common"]
             :lib-deps {"org.clojure/clojure" #:mvn{:version "1.10.1"}
                        "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}
                        "org.jetbrains.kotlin/kotlin-compiler-embeddable" #:mvn{:version "1.3.72"}}
-            :test-base-names ["tool"]
             :test-deps {}}
-           (env/read-environment "core" "" "environments/core" "environments/core/deps.edn" false paths deps aliases mvn/standard-repos)))))
+           (env/read-environment "core" "environments/core" "environments/core/deps.edn" false paths deps aliases mvn/standard-repos)))))

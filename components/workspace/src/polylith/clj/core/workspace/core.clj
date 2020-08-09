@@ -31,7 +31,7 @@
 
 (defn enrich-workspace [{:keys [ws-dir ws-reader settings components bases environments]}]
   (let [ws-name (workspace-name ws-dir)
-        {:keys [top-namespace interface-ns ns->lib color-mode]} settings
+        {:keys [top-namespace interface-ns ns->lib active-dev-profiles profile->settings color-mode]} settings
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         interfaces (interfaces/calculate components)
         interface-names (apply sorted-set (mapv :name interfaces))
@@ -44,7 +44,7 @@
         brick->lib-imports (brick->lib-imports enriched-bricks)
         env->alias (alias/env->alias settings environments)
         env->brick-deps (brick-deps/env->brick-deps environments enriched-components enriched-bases)
-        enriched-environments (vec (sort-by :name (map #(env/enrich-env % brick->loc brick->lib-imports env->alias env->brick-deps) environments)))
+        enriched-environments (vec (sort-by :name (map #(env/enrich-env % ws-dir brick->loc brick->lib-imports env->alias env->brick-deps active-dev-profiles profile->settings) environments)))
         total-loc-src-env (apply + (filter identity (map :lines-of-code-src enriched-environments)))
         total-loc-test-env (apply + (filter identity (map :lines-of-code-test enriched-environments)))
         messages (validate/messages ws-dir suffixed-top-ns interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns ns->lib color-mode)]

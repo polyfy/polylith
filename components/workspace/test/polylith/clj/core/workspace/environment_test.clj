@@ -1,16 +1,12 @@
 (ns polylith.clj.core.workspace.environment-test
   (:require [clojure.test :refer :all]
+            [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.workspace.environment :as env]))
 
 (def environment {:name "development"
                   :alias "dev"
                   :type "environment"
-                  :test-component-names ["change" "command"]
-                  :component-names ["change" "command" "common" "deps" "file"]
-                  :base-names ["cli"]
-                  :test-base-names ["cli"]
                   :src-paths ["bases/cli/src"
-                              "bases/z-jocke/src"
                               "components/change/src"
                               "components/command/src"
                               "components/common/src"
@@ -53,35 +49,78 @@
 (def env->brick->deps {"development" {"change" {:directly ["git" "util"], :indirectly ["shell"]}
                                       "util"    {:directly [], :indirectly []}}})
 
-(deftest paths--when-include-test-path-flag-is-false---include-only-src-paths
-  (is (= {:name "development"
-          :alias "dev"
-          :type "environment"
-          :lines-of-code-src 0
-          :lines-of-code-test 0
-          :total-lines-of-code-src 419
-          :total-lines-of-code-test 76
-          :test-component-names ["change" "command"]
-          :component-names ["change" "command" "common" "deps" "file"]
-          :base-names ["cli"]
-          :test-base-names ["cli"]
-          :src-paths ["bases/cli/src"
-                      "bases/z-jocke/src"
-                      "components/change/src"
-                      "components/command/src"
-                      "components/common/src"
-                      "components/deps/src"
-                      "components/file/src"]
-          :test-paths ["bases/cli/test"
-                       "components/change/test"
-                       "components/command/test"
-                       "test"]
-          :lib-imports ["clojure.java.io" "clojure.pprint" "clojure.set" "clojure.string"]
-          :lib-imports-test []
-          :lib-deps {"org.clojure/clojure" #:mvn{:version "1.10.1"},
-                     "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}}
-          :deps {"change" {:directly ["git" "util"], :indirectly ["shell"]}
-                 "util" {:directly [], :indirectly []}}
-          :test-deps {}
-          :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}}
-         (env/enrich-env environment brick->loc brick->lib-imports env->alias env->brick->deps))))
+(deftest paths--without-active-profile--returns-excpected-map
+  (with-redefs [file/exists (fn [_] true)]
+    (is (= {:name "development"
+            :alias "dev"
+            :type "environment"
+            :lines-of-code-src 0
+            :lines-of-code-test 0
+            :total-lines-of-code-src 419
+            :total-lines-of-code-test 76
+            :test-component-names ["change" "command"]
+            :component-names ["change" "command" "common" "deps" "file"]
+            :base-names ["cli"]
+            :test-base-names ["cli"]
+            :src-paths ["bases/cli/src"
+                        "components/change/src"
+                        "components/command/src"
+                        "components/common/src"
+                        "components/deps/src"
+                        "components/file/src"]
+            :test-paths ["bases/cli/test"
+                         "components/change/test"
+                         "components/command/test"
+                         "test"]
+            :lib-imports ["clojure.java.io" "clojure.pprint" "clojure.set" "clojure.string"]
+            :lib-imports-test []
+            :lib-deps {"org.clojure/clojure" {:mvn/version "1.10.1"},
+                       "org.clojure/tools.deps.alpha" {:mvn/version "0.8.695"}}
+            :deps {"change" {:directly ["git" "util"], :indirectly ["shell"]}
+                   "util" {:directly [], :indirectly []}}
+            :test-deps {}
+            :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}}
+           (env/enrich-env environment "" brick->loc brick->lib-imports env->alias env->brick->deps
+                           [] {})))))
+
+
+(deftest paths--with-active-profile--includes-brick-in-profile
+  (with-redefs [file/exists (fn [_] true)]
+    (is (= {:name "development"
+            :alias "dev"
+            :type "environment"
+            :lines-of-code-src 0
+            :lines-of-code-test 0
+            :total-lines-of-code-src 419
+            :total-lines-of-code-test 76
+            :test-component-names ["change" "command" "user"]
+            :component-names ["change" "command" "common" "deps" "file" "user"]
+            :base-names ["cli"]
+            :test-base-names ["cli"]
+            :src-paths ["bases/cli/src"
+                        "components/change/src"
+                        "components/command/src"
+                        "components/common/src"
+                        "components/deps/src"
+                        "components/file/src"
+                        "components/user/resources"
+                        "components/user/src"]
+            :test-paths ["bases/cli/test"
+                         "components/change/test"
+                         "components/command/test"
+                         "components/user/test"
+                         "test"]
+            :lib-imports ["clojure.java.io" "clojure.pprint" "clojure.set" "clojure.string"]
+            :lib-imports-test []
+            :lib-deps {"org.clojure/clojure" {:mvn/version "1.10.1"},
+                       "org.clojure/tools.deps.alpha" {:mvn/version "0.8.695"}
+                       "clojure.core.matrix"          "net.mikera/core.matrix"}
+            :deps {"change" {:directly ["git" "util"], :indirectly ["shell"]}
+                   "util" {:directly [], :indirectly []}}
+            :test-deps {}
+            :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}}
+           (env/enrich-env environment "" brick->loc brick->lib-imports env->alias env->brick->deps
+                           [:default] {:default {:paths ["components/user/src"
+                                                         "components/user/resources"
+                                                         "components/user/test"]
+                                                 :deps {"clojure.core.matrix" "net.mikera/core.matrix"}}})))))
