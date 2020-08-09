@@ -5,6 +5,7 @@
             [polylith.clj.core.validate.m104-circular-deps :as m104]
             [polylith.clj.core.validate.m105-illegal-name-sharing :as m105]
             [polylith.clj.core.validate.m106-multiple-interface-occurrences :as m106]
+            [polylith.clj.core.validate.m107-missing-componens-in-environment :as m107]
             [polylith.clj.core.validate.m201-mismatching-parameters :as m201]
             [polylith.clj.core.validate.m202-missing-libraries :as m202]
             [polylith.clj.core.validate.m203-invalid-src-reference :as m203]))
@@ -17,6 +18,7 @@
                              (m104/errors environments color-mode)
                              (m105/errors interface-names components bases color-mode)
                              (m106/errors components environments color-mode)
+                             (m107/errors components bases environments color-mode)
                              (m201/warnings interfaces components color-mode)
                              (m202/warnings environments components bases ns->lib color-mode)
                              (m203/warnings ws-dir environments color-mode))))))

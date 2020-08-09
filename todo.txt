@@ -1,6 +1,4 @@
 
-- take back validation 107, check it agains :dev + :dev+dev for the development environment.
-
 - remove :active-dev-profiles.
 - be able to run the 'dev' tests + show the third x.
 - don't show the 'default' profile
