@@ -29,7 +29,7 @@
    (let [config (read-string (slurp (str ws-dir "/deps.edn")))]
      (workspace-from-disk ws-dir config)))
   ([ws-dir {:keys [polylith aliases]}]
-   (let [{:keys [vcs top-namespace interface-ns ignore-tests-for-environments env->alias ns->lib]} polylith
+   (let [{:keys [vcs top-namespace interface-ns env->alias ns->lib]} polylith
          top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
          color-mode (user-config/color-mode)
          component-names (file/directory-paths (str ws-dir "/components"))
@@ -41,7 +41,6 @@
                                     :top-namespace top-namespace
                                     :interface-ns (or interface-ns "interface")
                                     :color-mode color-mode
-                                    :ignore-tests-for-environments (set ignore-tests-for-environments)
                                     :active-dev-profiles [:default]
                                     :profile->settings profile->settings
                                     :env->alias env->alias

@@ -96,22 +96,16 @@
         (println (str "No tests to run for the " (color/environment name color-mode) " environment."))
         (run-tests-statements class-loader test-statements run-message color-mode)))))
 
-(defn keep? [ignore-tests-for-environments {:keys [name alias]}]
-  (and (not (contains? ignore-tests-for-environments name))
-       (not (contains? ignore-tests-for-environments alias))))
-
-(defn run-all-tests [workspace environments changes ignore-tests-for-environments run-all? run-env-tests? start-time]
-  (let [environments-to-test (filter #(keep? ignore-tests-for-environments %) environments)]
-    (doseq [environment environments-to-test]
-      (run-tests-for-environment workspace environment changes run-all? run-env-tests?)))
+(defn run-all-tests [workspace environments changes run-all? run-env-tests? start-time]
+  (doseq [environment environments]
+    (run-tests-for-environment workspace environment changes run-all? run-env-tests?))
   (time-util/print-execution-time start-time))
 
 (defn run [{:keys [environments changes settings] :as workspace} env run-all? run-env-tests?]
   (let [start-time (time-util/current-time)
-        color-mode (:color-mode settings)
-        ignore-tests-for-environments (-> settings :ignore-tests-for-environments set)]
+        color-mode (:color-mode settings)]
     (if (nil? env)
-      (run-all-tests workspace environments changes ignore-tests-for-environments run-all? run-env-tests? start-time)
+      (run-all-tests workspace environments changes run-all? run-env-tests? start-time)
       (if-let [environment (common/find-environment env environments)]
         (do
           (run-tests-for-environment workspace environment changes run-all? run-env-tests?)

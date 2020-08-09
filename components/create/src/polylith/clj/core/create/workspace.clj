@@ -27,7 +27,6 @@
    (str "{:polylith {:vcs \"git\"")
    (str "            :top-namespace \"" top-ns "\"")
    (str "            :interface-ns \"interface\"")
-   (str "            :ignore-tests-for-environments []")
    (str "            :env->alias {\"development\" \"dev\"}")
    (str "            :ns->lib {clojure             org.clojure/clojure")
    (str "                      clojure.tools.deps  org.clojure/tools.deps.alpha}}")

@@ -59,7 +59,6 @@
             "{:polylith {:vcs \"git\""
             "            :top-namespace \"se.example\""
             "            :interface-ns \"interface\""
-            "            :ignore-tests-for-environments []"
             "            :env->alias {\"development\" \"dev\"}"
             "            :ns->lib {clojure             org.clojure/clojure"
             "                      clojure.tools.deps  org.clojure/tools.deps.alpha}}"

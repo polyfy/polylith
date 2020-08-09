@@ -16,18 +16,9 @@
 (deftest env->bricks-to-test--with-one-changed-brick--return-included-environments
   (is (= {"development" ["article"]
           "realworld-backend" ["article"]}
-         (to-test/env->bricks-to-test environments ["article"] [] {} #{}))))
-
-(deftest env->bricks-to-test--skip-development--return-all-environments-except-dev
-  (is (= {"development"       []
-          "realworld-backend" ["article"]}
-         (to-test/env->bricks-to-test environments ["article"] [] {} #{"development"}))))
+         (to-test/env->bricks-to-test environments ["article"] [] {}))))
 
 (deftest environments-to-test--with-one-changed-brick--return-included-environments
   (is (= ["development"
           "realworld-backend"]
-         (to-test/environments-to-test environments ["article"] [] #{}))))
-
-(deftest environments-to-test--skip-development--return-all-environments-except-dev
-  (is (= ["realworld-backend"]
-         (to-test/environments-to-test environments ["article"] [] #{"development"}))))
+         (to-test/environments-to-test environments ["article"] []))))

@@ -1,7 +1,6 @@
 
 {:polylith {:top-namespace "polylith.clj.core"
             :interface-ns "interfc"
-            :ignore-tests-for-environments []
             :env->alias {"cli" "cli"
                          "core" "core"}
             :ns->lib {clojure              org.clojure/clojure
