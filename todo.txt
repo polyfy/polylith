@@ -1,24 +1,4 @@
 
-- also include :all and :env in the calculation of what tests to run.
-
-- complain if any of the given env:my-env was not found.
-
-
-- add support for sending in more than one environment, e.g.: env:cli:core:dev, :selected-envs.
-  - enable tests to run only for those environments.
-  - don't type "Not tests to run for unselected environments in the 'test-runner'.
-  - send in selected envs to 'workspace' and store them there.
-
-    Byt default, all environments (except dev) is selected if not explicitly given.
-    Use it from 'changes'.
-
-- exclude running tests for the dev environment if not explicitly given.
-  - exclude 'dev' in "run-all" in 'test-runner'.
-  - change so that 'test-runner' run environment tests based on :environments-to-test.
-  - if sending in env:dev then include tests for dev, otherwise, exclude them as default.
-    In this case when running 'info env:dev' then the third 'x' will be shown.
-
-- be able to run the 'dev' tests + show the third x.
 - don't show the 'default' profile
 - show the dev and profile headers in cyan.
 - if people run 'test' or 'check' and they don't have an environment set up yet,
@@ -125,6 +105,9 @@
   in environments-from-disk.
 
 - add the 'version' command.
+
+- complain if any of the given env:my-env was not found.
+
 
 Questions
 =========

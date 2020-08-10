@@ -44,7 +44,7 @@
           "diff" (diff workspace)
           "help" (help arg1 color-mode)
           "info" (info/info workspace loc unnamed-args)
-          "test" (test/run workspace env unnamed-args)
+          "test" (test/run workspace unnamed-args)
           "ws" (pp/pprint workspace)
           (help workspace nil)))
       (message/print-cant-be-executed-outside-ws))

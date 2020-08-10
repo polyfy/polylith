@@ -90,21 +90,14 @@
           test-statements (map ->test-statement (concat test-namespaces env-test-namespaces))
           class-loader (common/create-class-loader all-paths color-mode)]
       (if (-> test-statements empty?)
-        (when active? (println (str "No tests to run for the " (color/environment name color-mode) " environment.")))
+        (println (str "No tests to run for the " (color/environment name color-mode) " environment."))
         (run-tests-statements class-loader test-statements run-message color-mode)))))
 
-(defn run-all-tests [workspace environments changes start-time]
-  (doseq [environment environments]
-    (run-tests-for-environment workspace environment changes))
-  (time-util/print-execution-time start-time))
-
-(defn run [{:keys [environments changes settings] :as workspace} env]
+(defn run [{:keys [environments changes] :as workspace}]
   (let [start-time (time-util/current-time)
-        color-mode (:color-mode settings)]
-    (if (nil? env)
-      (run-all-tests workspace environments changes start-time)
-      (if-let [environment (common/find-environment env environments)]
-        (do
-          (run-tests-for-environment workspace environment changes)
-          (time-util/print-execution-time start-time))
-        (println (str "Couldn't find the " (color/environment env color-mode) " environment."))))))
+        active-environments (filter :active? environments)]
+    (doseq [environment active-environments]
+      (run-tests-for-environment workspace environment changes))
+    (when (empty? active-environments)
+      (println "  No tests to run. To run tests for 'dev', also give: env:dev"))
+    (time-util/print-execution-time start-time)))

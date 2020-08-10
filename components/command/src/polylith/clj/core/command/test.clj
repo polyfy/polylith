@@ -6,14 +6,8 @@
     {:message "  Arguments should be passed by name, e.g.: test env:dev"}
     {:ok? true}))
 
-(defn args [env all all-bricks]
-  {:run-all? (or (= "true" all)
-                 (= "true" all-bricks))
-   :run-env-tests? (or (= "true" all)
-                       (= "true" env))})
-
-(defn run [workspace env unnamed-args]
+(defn run [workspace unnamed-args]
   (let [{:keys [ok? message]} (validate unnamed-args)]
     (if ok?
-      (test-runner/run workspace env)
+      (test-runner/run workspace)
       (println message))))
