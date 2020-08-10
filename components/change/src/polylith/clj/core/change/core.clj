@@ -17,18 +17,19 @@
 
 (defn changes [{:keys [environments]}
                {:keys [sha1 sha2 files]}
-               enable-dev?]
+               {:keys [run-all? run-env-tests?] :as test-settings}]
    (let [deps (map (juxt :name :deps) environments)
          {:keys [changed-components
                  changed-bases
                  changed-environments]} (entity/changed-entities files)
          changed-bricks (set (concat changed-components changed-bases))
          env->indirect-changes (indirect/env->indirect-changes deps changed-bricks)
-         env->bricks-to-test (to-test/env->bricks-to-test environments changed-components changed-bases env->indirect-changes enable-dev?)
-         environments-to-test (to-test/environments-to-test environments changed-bricks changed-environments)]
+         env->bricks-to-test (to-test/env->bricks-to-test environments changed-components changed-bases env->indirect-changes run-all?)
+         environments-to-test (to-test/environments-to-test environments changed-bricks changed-environments run-env-tests?)]
      (util/ordered-map :sha1 sha1
                        :sha2 sha2
                        :git-command (git/diff-command sha1 sha2)
+                       :test-settings test-settings
                        :changed-components changed-components
                        :changed-bases changed-bases
                        :changed-environments changed-environments
@@ -38,7 +39,7 @@
                        :changed-files files)))
 
 (defn with-changes
-  ([{:keys [ws-dir] :as workspace} enable-dev?]
-   (with-changes workspace (changed-files-info ws-dir "HEAD" nil) enable-dev?))
-  ([workspace changes-info enable-dev?]
-   (assoc workspace :changes (changes workspace changes-info enable-dev?))))
+  ([{:keys [ws-dir] :as workspace} test-settings]
+   (with-changes workspace (changed-files-info ws-dir "HEAD" nil) test-settings))
+  ([workspace changes-info test-settings]
+   (assoc workspace :changes (changes workspace changes-info test-settings))))

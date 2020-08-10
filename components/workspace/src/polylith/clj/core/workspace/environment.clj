@@ -50,6 +50,13 @@
   (mapcat #(select-lib-imports % brick->lib-imports test?)
           brick-names))
 
+(defn active? [env alias dev? run-all? selected-environments]
+  (or (and (not dev?)
+           (or run-all?
+               (empty? selected-environments)))
+      (or (contains? selected-environments env)
+          (contains? selected-environments alias))))
+
 (defn enrich-env [{:keys [name type dev? env-dir config-file has-src-dir? has-test-dir? namespaces-src namespaces-test src-paths test-paths lib-deps test-deps maven-repos]}
                   ws-dir
                   components
@@ -58,8 +65,10 @@
                   brick->lib-imports
                   env->alias
                   active-dev-profiles
-                  profile->settings]
-  (let [all-src-paths (profile/src-paths name src-paths active-dev-profiles profile->settings)
+                  profile->settings
+                  {:keys [run-all? selected-environments]}]
+  (let [alias (env->alias name)
+        all-src-paths (profile/src-paths name src-paths active-dev-profiles profile->settings)
         all-test-paths (profile/test-paths name test-paths active-dev-profiles profile->settings)
         existing-src-paths (existing-paths ws-dir all-src-paths)
         component-names (vec (sort (set (mapv component-name (filter component? existing-src-paths)))))
@@ -76,8 +85,9 @@
         total-lines-of-code-src (env-total-loc brick-names brick->loc false)
         total-lines-of-code-test (env-total-loc brick-names brick->loc true)]
     (util/ordered-map :name name
-                      :alias (env->alias name)
+                      :alias alias
                       :type type
+                      :active? (active? name alias dev? run-all? selected-environments)
                       :dev? dev?
                       :env-dir env-dir
                       :config-file config-file

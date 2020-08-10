@@ -10,16 +10,19 @@
        (-> arg named? not)))
 
 (defn key-name [arg]
-  (let [index (str/index-of arg ":")]
-    (if (zero? index)
-      [(keyword (subs arg 1))
+  (let [parts (str/split arg #":")]
+    (if (= "" (first parts))
+      [(keyword (second parts))
        "true"]
-      [(keyword (subs arg 0 index))
-       (subs arg (inc index))])))
+      (if (= 2 (count parts))
+        [(-> parts first keyword)
+         (second parts)]
+        [(-> parts first keyword)
+         (vec (drop 1 parts))]))))
 
-(defn extract [& params]
-  (let [unnamed-args (filterv unnamed? params)
+(defn extract [args]
+  (let [unnamed-args (filterv unnamed? args)
         named-args (into {} (map key-name
-                                 (filterv named? params)))]
+                                 (filterv named? args)))]
     {:named-args named-args
      :unnamed-args unnamed-args}))

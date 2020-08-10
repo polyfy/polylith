@@ -35,8 +35,8 @@
   (try
     (if (can-be-executed-from-here? workspace cmd)
       (let [color-mode (user-config/color-mode)
-            {:keys [named-args unnamed-args]} (params/extract arg1 arg2 arg3)
-            {:keys [name top-ns env brick interface loc all all-bricks]} named-args]
+            {:keys [named-args unnamed-args]} (params/extract [arg1 arg2 arg3])
+            {:keys [name top-ns env brick interface loc]} named-args]
         (case cmd
           "check" (check workspace color-mode)
           "create" (create/create current-dir workspace arg1 name top-ns interface color-mode)
@@ -44,7 +44,7 @@
           "diff" (diff workspace)
           "help" (help arg1 color-mode)
           "info" (info/info workspace loc unnamed-args)
-          "test" (test/run workspace env all all-bricks unnamed-args)
+          "test" (test/run workspace env unnamed-args)
           "ws" (pp/pprint workspace)
           (help workspace nil)))
       (message/print-cant-be-executed-outside-ws))

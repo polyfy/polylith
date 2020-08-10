@@ -29,7 +29,8 @@
       (subs path (inc index))
       path)))
 
-(defn enrich-workspace [{:keys [ws-dir ws-reader settings components bases environments]}]
+(defn enrich-workspace [{:keys [ws-dir ws-reader settings components bases environments]}
+                        test-settings]
   (let [ws-name (workspace-name ws-dir)
         {:keys [top-namespace interface-ns ns->lib active-dev-profiles profile->settings color-mode]} settings
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
@@ -43,7 +44,7 @@
         brick->loc (brick->loc enriched-bricks)
         brick->lib-imports (brick->lib-imports enriched-bricks)
         env->alias (alias/env->alias settings environments)
-        enriched-environments (vec (sort-by :name (map #(env/enrich-env % ws-dir enriched-components enriched-bases brick->loc brick->lib-imports env->alias active-dev-profiles profile->settings) environments)))
+        enriched-environments (vec (sort-by :name (map #(env/enrich-env % ws-dir enriched-components enriched-bases brick->loc brick->lib-imports env->alias active-dev-profiles profile->settings test-settings) environments)))
         total-loc-src-env (apply + (filter identity (map :lines-of-code-src enriched-environments)))
         total-loc-test-env (apply + (filter identity (map :lines-of-code-test enriched-environments)))
         messages (validate/messages ws-dir suffixed-top-ns interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns ns->lib color-mode)]
@@ -61,5 +62,5 @@
                :total-loc-test-environments total-loc-test-env
                :messages messages)))
 
-(defn enrich-workspace-str-keys [workspace]
-  (-> workspace walk/keywordize-keys enrich-workspace walk/stringify-keys))
+(defn enrich-workspace-str-keys [workspace test-settings]
+  (-> workspace walk/keywordize-keys (enrich-workspace test-settings) walk/stringify-keys))

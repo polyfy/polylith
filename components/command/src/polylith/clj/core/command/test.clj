@@ -3,7 +3,7 @@
 
 (defn validate [unnamed-args]
   (if (-> unnamed-args empty? not)
-    {:message "  Arguments should be passed by name, e.g.: test env:my-env"}
+    {:message "  Arguments should be passed by name, e.g.: test env:dev"}
     {:ok? true}))
 
 (defn args [env all all-bricks]
@@ -12,9 +12,8 @@
    :run-env-tests? (or (= "true" all)
                        (= "true" env))})
 
-(defn run [workspace env all all-bricks unnamed-args]
+(defn run [workspace env unnamed-args]
   (let [{:keys [ok? message]} (validate unnamed-args)]
     (if ok?
-      (let [{:keys [run-all? run-env-tests?]} (args env all all-bricks)]
-        (test-runner/run workspace env run-all? run-env-tests?))
+      (test-runner/run workspace env)
       (println message))))

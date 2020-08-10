@@ -1,6 +1,16 @@
 
+- also include :all and :env in the calculation of what tests to run.
+
+- complain if any of the given env:my-env was not found.
+
+
 - add support for sending in more than one environment, e.g.: env:cli:core:dev, :selected-envs.
-- don't type "Not tests to run for the development environment" in 'test-runner'.
+  - enable tests to run only for those environments.
+  - don't type "Not tests to run for unselected environments in the 'test-runner'.
+  - send in selected envs to 'workspace' and store them there.
+
+    Byt default, all environments (except dev) is selected if not explicitly given.
+    Use it from 'changes'.
 
 - exclude running tests for the dev environment if not explicitly given.
   - exclude 'dev' in "run-all" in 'test-runner'.
@@ -15,25 +25,6 @@
   show a message that they need to type 'test env:dev'.
 - show a warning if a path exists in a dev profile and dev.
   - add :redundant-paths and :redundant-deps to :profile->settings.
-- move back tests to cli.
-
-- implement profiles:
-  - populate these attribures to :profile->settings:
-    - :component-names
-    - :base-names
-    - :test-component-names
-    - :test-base-names
-  - include :deps + paths from :active-dev-profiles to the 'dev' environment:
-    - :src-paths
-    - :test-paths
-    - :lib-deps
-    - :test-deps
-    - :component-names
-    - :base-names
-    - :test-component-names
-    - :test-base-names
-
-- move calculation of :component-names and :base-names to 'workspace'.
 
 - show interface name in the 'info' command instead of -"-.
 

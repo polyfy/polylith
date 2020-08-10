@@ -1,7 +1,8 @@
 (ns polylith.clj.core.common.interfc
   (:require [polylith.clj.core.common.core :as core]
             [polylith.clj.core.common.class-loader :as class-loader]
-            [polylith.clj.core.common.message :as msg]))
+            [polylith.clj.core.common.message :as msg]
+            [polylith.clj.core.common.test-settings :as test-settings]))
 
 (defn ns-to-path [namespace]
   (core/ns-to-path namespace))
@@ -42,3 +43,6 @@
 
 (defn find-environment [environment-name environments]
   (core/find-environment environment-name environments))
+
+(defn test-settings [args]
+  (test-settings/settings args))

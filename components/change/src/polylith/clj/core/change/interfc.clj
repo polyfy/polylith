@@ -2,7 +2,7 @@
   (:require [polylith.clj.core.change.core :as core]))
 
 (defn with-changes
-  ([workspace enable-dev?]
-   (core/with-changes workspace enable-dev?))
-  ([workspace changed-files enable-dev?]
-   (core/with-changes workspace changed-files enable-dev?)))
+  ([workspace test-settings]
+   (core/with-changes workspace test-settings))
+  ([workspace changed-files test-settings]
+   (core/with-changes workspace changed-files test-settings)))

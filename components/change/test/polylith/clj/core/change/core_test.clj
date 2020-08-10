@@ -7,6 +7,8 @@
             "components/deps/src/polylith/clj/core/deps/interfc.clj"])
 
 (def environments [{:name "cli"
+                    ;; active? is calculated in the 'workspace' component, namespace 'environment'.
+                    :active? true
                     :dev? false
                     :test-component-names []
                     :component-names ["change"
@@ -43,8 +45,9 @@
                            "common" {:direct ["util"], :indirect []}
                            "change" {:direct ["git" "util"], :indirect ["shell"]}}}
                    {:name "core"
+                    :active? true
                     :dev? false
-                    :test-component-names []
+                    :test-component-names ["change" "common" "deps" "file" "git" "help" "shell"]
                     :component-names ["change" "common" "deps" "file" "git" "help" "shell" "text-table" "util" "validate" "workspace"]
                     :base-names []
                     :test-base-names []
@@ -76,35 +79,12 @@
                            "common" {:direct ["util"], :indirect []}
                            "change" {:direct ["git" "util"], :indirect ["shell"]}}}
                    {:name "dev"
+                    :active? false
                     :dev? true
-                    :test-component-names ["change"
-                                           "command"
-                                           "common"
-                                           "deps"
-                                           "file"
-                                           "git"
-                                           "help"
-                                           "shell"
-                                           "test-runner"
-                                           "text-table"
-                                           "util"
-                                           "validate"
-                                           "workspace"
-                                           "workspace-clj"]
+                    :test-component-names ["change" "common" "shell"]
                     :component-names ["change"
                                       "command"
-                                      "common"
-                                      "deps"
-                                      "file"
-                                      "git"
-                                      "help"
-                                      "shell"
-                                      "test-runner"
-                                      "text-table"
-                                      "util"
-                                      "validate"
-                                      "workspace"
-                                      "workspace-clj"]
+                                      "shell"]
                     :base-names ["cli"]
                     :test-base-names ["cli"]
                     :src-paths ["bases/cli/src"
@@ -142,8 +122,11 @@
 
 (def workspace {:environments environments})
 
-(deftest changes--a-list-of-changed-files-and-environments-exclude-dev--returns-changed-bricks-and-bricks-to-test
-  (is (= {:git-command "git diff --name-only",
+(def workspace-with-active-dev (assoc-in workspace [:environments 2 :active?] true))
+
+(deftest changes--a-list-of-changed-files-and-environments--returns-changed-bricks-and-bricks-to-test
+  (is (= {:git-command "git diff --name-only"
+          :test-settings {}
           :changed-components ["change" "deps"]
           :changed-bases []
           :changed-environments []
@@ -152,15 +135,16 @@
                                   "core" ["cli" "command" "validate" "workspace"]
                                   "dev" ["cli" "command" "validate" "workspace"]}
           :env->bricks-to-test {"cli" []
-                                "core" []
+                                "core" ["change" "deps"]
                                 "dev" []}
           :changed-files ["components/change/test/polylith/clj/core/change/brick_test.clj"
                           "components/change/test/polylith/clj/core/change/core_test.clj"
                           "components/deps/src/polylith/clj/core/deps/interfc.clj"]}
-         (core/changes workspace {:files files} false))))
+         (core/changes workspace {:files files} {}))))
 
-(deftest changes--a-list-of-changed-files-and-environments-include-dev--returns-changed-bricks-and-bricks-to-test
-  (is (= {:git-command "git diff --name-only",
+(deftest changes--a-list-of-changed-files-and-active-dev--returns-changed-bricks-and-bricks-to-test
+  (is (= {:git-command "git diff --name-only"
+          :test-settings {}
           :changed-components ["change" "deps"]
           :changed-bases []
           :changed-environments []
@@ -169,9 +153,29 @@
                                   "core" ["cli" "command" "validate" "workspace"]
                                   "dev" ["cli" "command" "validate" "workspace"]}
           :env->bricks-to-test {"cli" []
-                                "core" []
-                                "dev" ["change" "cli" "command" "deps" "validate" "workspace"]}
+                                "core" ["change" "deps"]
+                                "dev" ["change" "cli"]}
           :changed-files ["components/change/test/polylith/clj/core/change/brick_test.clj"
                           "components/change/test/polylith/clj/core/change/core_test.clj"
                           "components/deps/src/polylith/clj/core/deps/interfc.clj"]}
-         (core/changes workspace {:files files} true))))
+         (core/changes workspace-with-active-dev {:files files} {}))))
+
+(deftest changes--a-list-of-changed-files-and-environments--returns-changed-bricks-and-bricks-to-test2
+  (is (= {:git-command "git diff --name-only"
+          :test-settings {:run-all? true
+                          :run-env-tests? true}
+          :changed-components ["change" "deps"]
+          :changed-bases []
+          :changed-environments []
+          :environments-to-test []
+          :env->indirect-changes {"cli" ["cli" "command" "validate" "workspace"]
+                                  "core" ["cli" "command" "validate" "workspace"]
+                                  "dev" ["cli" "command" "validate" "workspace"]}
+          :env->bricks-to-test {"cli" []
+                                "core" ["change" "common" "deps" "file" "git" "help" "shell"]
+                                "dev" []}
+          :changed-files ["components/change/test/polylith/clj/core/change/brick_test.clj"
+                          "components/change/test/polylith/clj/core/change/core_test.clj"
+                          "components/deps/src/polylith/clj/core/deps/interfc.clj"]}
+         (core/changes workspace {:files files} {:run-all? true
+                                                 :run-env-tests? true}))))

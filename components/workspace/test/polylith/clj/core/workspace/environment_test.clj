@@ -69,9 +69,10 @@
 (def env->brick->deps {"development" {"change" {:directly ["git" "util"], :indirectly ["shell"]}
                                       "util"    {:directly [], :indirectly []}}})
 
-(deftest paths--without-active-profile--returns-excpected-map
+(deftest paths--without-active-profile--returns-expected-map
   (with-redefs [file/exists (fn [_] true)]
     (is (= {:name "development"
+            :active? true
             :alias "dev"
             :type "environment"
             :lines-of-code-src 0
@@ -114,12 +115,12 @@
                                                   :indirect []}}            :test-deps {}
             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}}
            (env/enrich-env environment "" components bases brick->loc brick->lib-imports env->alias
-                           [] {})))))
-
+                           [] {} [])))))
 
 (deftest paths--with-active-profile--includes-brick-in-profile
   (with-redefs [file/exists (fn [_] true)]
     (is (= {:name "development"
+            :active? true
             :alias "dev"
             :type "environment"
             :lines-of-code-src 0
@@ -166,7 +167,41 @@
                                                   :indirect []}}            :test-deps {}
             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}}
            (env/enrich-env environment "" components bases brick->loc brick->lib-imports env->alias
-                           [:default] {:default {:paths ["components/user/src"
-                                                         "components/user/resources"
-                                                         "components/user/test"]
-                                                 :deps {"clojure.core.matrix" "net.mikera/core.matrix"}}})))))
+                           [:default]
+                           {:default {:paths ["components/user/src"
+                                              "components/user/resources"
+                                              "components/user/test"]
+                                      :deps {"clojure.core.matrix" "net.mikera/core.matrix"}}}
+                           [])))))
+
+(deftest active?--non-dev-environment-no-env-selected--returns-true
+  (is (true?
+       (env/active? "cli" "cli" false false #{}))))
+
+(deftest active?--non-dev-environment-no-env-selected-run-all--returns-true
+  (is (true?
+       (env/active? "cli" "cli" false true #{}))))
+
+(deftest active?--non-dev-environment-dev-selected--returns-false
+  (is (false?
+       (env/active? "cli" "cli" false false #{"dev"}))))
+
+(deftest active?--non-dev-environment-dev-selected-run-all--returns-true
+  (is (true?
+       (env/active? "cli" "cli" false true #{"dev"}))))
+
+(deftest active?--dev-environment-no-env-selected--returns-false
+  (is (false?
+       (env/active? "development" "dev" true false #{}))))
+
+(deftest active?--dev-environment-no-env-selected-run-all--returns-false
+  (is (false?
+       (env/active? "development" "dev" true true #{}))))
+
+(deftest active?--dev-environment-dev-selected--returns-true
+  (is (true?
+       (env/active? "development" "dev" true false #{"dev"}))))
+
+(deftest active?--dev-environment-dev-selected-run-all--returns-true
+  (is (true?
+       (env/active? "development" "dev" true true #{"dev"}))))

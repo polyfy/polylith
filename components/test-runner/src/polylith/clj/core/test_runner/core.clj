@@ -74,40 +74,37 @@
          (str-util/count-things "brick" bricks-cnt) env-msg ": " entities-msg)))
 
 (defn run-tests-for-environment [{:keys [bases components] :as workspace}
-                                 {:keys [name src-paths test-paths namespaces-test test-component-names test-base-names] :as environment}
-                                 {:keys [env->bricks-to-test environments-to-test]}
-                                 run-all? run-env-tests?]
+                                 {:keys [name active? src-paths test-paths namespaces-test] :as environment}
+                                 {:keys [env->bricks-to-test environments-to-test]}]
   (when (-> test-paths empty? not)
     (let [color-mode (-> workspace :settings :color-mode)
-          env-bricks-names (concat test-component-names test-base-names)
           config (->config workspace environment)
           lib-paths (resolve-deps config)
           all-src-paths (set (concat src-paths test-paths))
           all-paths (concat all-src-paths lib-paths)
           bricks (concat components bases)
-          bricks-to-test-for-env (if run-all? env-bricks-names (env->bricks-to-test name))
-          envs-to-test (if run-env-tests? (filterv #(= name %) environments-to-test) [])
-          run-message (run-message name components bases bricks-to-test-for-env envs-to-test color-mode)
+          bricks-to-test-for-env (env->bricks-to-test name)
+          run-message (run-message name components bases bricks-to-test-for-env environments-to-test color-mode)
           test-namespaces (->test-namespaces bricks bricks-to-test-for-env)
-          env-test-namespaces (environment-test-namespaces name envs-to-test namespaces-test)
+          env-test-namespaces (environment-test-namespaces name environments-to-test namespaces-test)
           test-statements (map ->test-statement (concat test-namespaces env-test-namespaces))
           class-loader (common/create-class-loader all-paths color-mode)]
       (if (-> test-statements empty?)
-        (println (str "No tests to run for the " (color/environment name color-mode) " environment."))
+        (when active? (println (str "No tests to run for the " (color/environment name color-mode) " environment.")))
         (run-tests-statements class-loader test-statements run-message color-mode)))))
 
-(defn run-all-tests [workspace environments changes run-all? run-env-tests? start-time]
+(defn run-all-tests [workspace environments changes start-time]
   (doseq [environment environments]
-    (run-tests-for-environment workspace environment changes run-all? run-env-tests?))
+    (run-tests-for-environment workspace environment changes))
   (time-util/print-execution-time start-time))
 
-(defn run [{:keys [environments changes settings] :as workspace} env run-all? run-env-tests?]
+(defn run [{:keys [environments changes settings] :as workspace} env]
   (let [start-time (time-util/current-time)
         color-mode (:color-mode settings)]
     (if (nil? env)
-      (run-all-tests workspace environments changes run-all? run-env-tests? start-time)
+      (run-all-tests workspace environments changes start-time)
       (if-let [environment (common/find-environment env environments)]
         (do
-          (run-tests-for-environment workspace environment changes run-all? run-env-tests?)
+          (run-tests-for-environment workspace environment changes)
           (time-util/print-execution-time start-time))
         (println (str "Couldn't find the " (color/environment env color-mode) " environment."))))))
