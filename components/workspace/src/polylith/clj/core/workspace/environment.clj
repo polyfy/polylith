@@ -50,7 +50,7 @@
   (mapcat #(select-lib-imports % brick->lib-imports test?)
           brick-names))
 
-(defn enrich-env [{:keys [name type env-dir config-file has-src-dir? has-test-dir? namespaces-src namespaces-test src-paths test-paths lib-deps test-deps maven-repos]}
+(defn enrich-env [{:keys [name type dev? env-dir config-file has-src-dir? has-test-dir? namespaces-src namespaces-test src-paths test-paths lib-deps test-deps maven-repos]}
                   ws-dir
                   components
                   bases
@@ -78,6 +78,7 @@
     (util/ordered-map :name name
                       :alias (env->alias name)
                       :type type
+                      :dev? dev?
                       :env-dir env-dir
                       :config-file config-file
                       :lines-of-code-src (loc/lines-of-code namespaces-src)

@@ -17,7 +17,7 @@
       [(keyword (subs arg 0 index))
        (subs arg (inc index))])))
 
-(defn parse [& params]
+(defn extract [& params]
   (let [unnamed-args (filterv unnamed? params)
         named-args (into {} (map key-name
                                  (filterv named? params)))]

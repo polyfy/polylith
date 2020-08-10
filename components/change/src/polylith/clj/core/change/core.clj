@@ -16,14 +16,15 @@
                       :files (git/diff ws-dir sha1 sha2)))
 
 (defn changes [{:keys [environments]}
-               {:keys [sha1 sha2 files]}]
+               {:keys [sha1 sha2 files]}
+               enable-dev?]
    (let [deps (map (juxt :name :deps) environments)
          {:keys [changed-components
                  changed-bases
                  changed-environments]} (entity/changed-entities files)
          changed-bricks (set (concat changed-components changed-bases))
          env->indirect-changes (indirect/env->indirect-changes deps changed-bricks)
-         env->bricks-to-test (to-test/env->bricks-to-test environments changed-components changed-bases env->indirect-changes)
+         env->bricks-to-test (to-test/env->bricks-to-test environments changed-components changed-bases env->indirect-changes enable-dev?)
          environments-to-test (to-test/environments-to-test environments changed-bricks changed-environments)]
      (util/ordered-map :sha1 sha1
                        :sha2 sha2
@@ -37,7 +38,7 @@
                        :changed-files files)))
 
 (defn with-changes
-  ([{:keys [ws-dir] :as workspace}]
-   (with-changes workspace (changed-files-info ws-dir "HEAD" nil)))
-  ([workspace changes-info]
-   (assoc workspace :changes (changes workspace changes-info))))
+  ([{:keys [ws-dir] :as workspace} enable-dev?]
+   (with-changes workspace (changed-files-info ws-dir "HEAD" nil) enable-dev?))
+  ([workspace changes-info enable-dev?]
+   (assoc workspace :changes (changes workspace changes-info enable-dev?))))

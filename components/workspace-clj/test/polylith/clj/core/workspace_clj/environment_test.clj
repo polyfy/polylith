@@ -42,6 +42,7 @@
 (deftest environments--config-map-with-aliases--returns-environments
   (with-redefs [file/exists (fn [_] true)]
     (is (= {:name "core"
+            :dev? false
             :type "environment"
             :env-dir "environments/core"
             :config-file "environments/core/deps.edn"

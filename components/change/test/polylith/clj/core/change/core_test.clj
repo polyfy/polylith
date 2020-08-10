@@ -6,8 +6,9 @@
             "components/change/test/polylith/clj/core/change/core_test.clj"
             "components/deps/src/polylith/clj/core/deps/interfc.clj"])
 
-(def environments [{:name "cli",
-                    :test-component-names [],
+(def environments [{:name "cli"
+                    :dev? false
+                    :test-component-names []
                     :component-names ["change"
                                       "command"
                                       "common"
@@ -39,11 +40,10 @@
                            "deps" {:direct [], :indirect []}
                            "help" {:direct ["util"], :indirect []}
                            "file" {:direct [], :indirect []}
-                           "z-jocke" {:direct ["change" "util" "workspace" "workspace-clj"]
-                                      :indirect ["common" "deps" "file" "git" "shell" "text-table" "validate"]}
                            "common" {:direct ["util"], :indirect []}
                            "change" {:direct ["git" "util"], :indirect ["shell"]}}}
                    {:name "core"
+                    :dev? false
                     :test-component-names []
                     :component-names ["change" "common" "deps" "file" "git" "help" "shell" "text-table" "util" "validate" "workspace"]
                     :base-names []
@@ -73,11 +73,10 @@
                            "deps" {:direct [], :indirect []}
                            "help" {:direct ["util"], :indirect []}
                            "file" {:direct [], :indirect []}
-                           "z-jocke" {:direct ["change" "util" "workspace"]
-                                      :indirect ["common" "deps" "file" "git" "shell" "text-table" "validate"]}
                            "common" {:direct ["util"], :indirect []}
                            "change" {:direct ["git" "util"], :indirect ["shell"]}}}
                    {:name "dev"
+                    :dev? true
                     :test-component-names ["change"
                                            "command"
                                            "common"
@@ -106,10 +105,9 @@
                                       "validate"
                                       "workspace"
                                       "workspace-clj"]
-                    :base-names ["cli" "z-jocke"]
-                    :test-base-names ["cli" "z-jocke"]
+                    :base-names ["cli"]
+                    :test-base-names ["cli"]
                     :src-paths ["bases/cli/src"
-                                "bases/z-jocke/src"
                                 "components/change/src"
                                 "components/command/src"
                                 "components/common/src"
@@ -139,26 +137,41 @@
                            "deps" {:direct [], :indirect []}
                            "help" {:direct ["util"], :indirect []}
                            "file" {:direct [], :indirect []}
-                           "z-jocke" {:direct ["change" "util" "workspace" "workspace-clj"]
-                                      :indirect ["common" "deps" "file" "git" "shell" "text-table" "validate"]}
                            "common" {:direct ["util"], :indirect []}
                            "change" {:direct ["git" "util"], :indirect ["shell"]}}}])
 
 (def workspace {:environments environments})
 
-(deftest changes--a-list-of-changed-files-and-environments--should-return-changed-bricks-and-bricks-to-test
+(deftest changes--a-list-of-changed-files-and-environments-exclude-dev--returns-changed-bricks-and-bricks-to-test
   (is (= {:git-command "git diff --name-only",
           :changed-components ["change" "deps"]
           :changed-bases []
           :changed-environments []
           :environments-to-test []
-          :env->indirect-changes {"cli" ["cli" "command" "validate" "workspace" "z-jocke"]
-                                  "core" ["cli" "command" "validate" "workspace" "z-jocke"]
-                                  "dev" ["cli" "command" "validate" "workspace" "z-jocke"]}
+          :env->indirect-changes {"cli" ["cli" "command" "validate" "workspace"]
+                                  "core" ["cli" "command" "validate" "workspace"]
+                                  "dev" ["cli" "command" "validate" "workspace"]}
           :env->bricks-to-test {"cli" []
                                 "core" []
-                                "dev" ["change" "cli" "command" "deps" "validate" "workspace" "z-jocke"]}
+                                "dev" []}
           :changed-files ["components/change/test/polylith/clj/core/change/brick_test.clj"
                           "components/change/test/polylith/clj/core/change/core_test.clj"
                           "components/deps/src/polylith/clj/core/deps/interfc.clj"]}
-         (core/changes workspace {:files files}))))
+         (core/changes workspace {:files files} false))))
+
+(deftest changes--a-list-of-changed-files-and-environments-include-dev--returns-changed-bricks-and-bricks-to-test
+  (is (= {:git-command "git diff --name-only",
+          :changed-components ["change" "deps"]
+          :changed-bases []
+          :changed-environments []
+          :environments-to-test []
+          :env->indirect-changes {"cli" ["cli" "command" "validate" "workspace"]
+                                  "core" ["cli" "command" "validate" "workspace"]
+                                  "dev" ["cli" "command" "validate" "workspace"]}
+          :env->bricks-to-test {"cli" []
+                                "core" []
+                                "dev" ["change" "cli" "command" "deps" "validate" "workspace"]}
+          :changed-files ["components/change/test/polylith/clj/core/change/brick_test.clj"
+                          "components/change/test/polylith/clj/core/change/core_test.clj"
+                          "components/deps/src/polylith/clj/core/deps/interfc.clj"]}
+         (core/changes workspace {:files files} true))))

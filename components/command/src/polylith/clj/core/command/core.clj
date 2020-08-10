@@ -35,7 +35,7 @@
   (try
     (if (can-be-executed-from-here? workspace cmd)
       (let [color-mode (user-config/color-mode)
-            {:keys [named-args unnamed-args]} (params/parse arg1 arg2 arg3)
+            {:keys [named-args unnamed-args]} (params/extract arg1 arg2 arg3)
             {:keys [name top-ns env brick interface loc all all-bricks]} named-args]
         (case cmd
           "check" (check workspace color-mode)

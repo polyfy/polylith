@@ -13,7 +13,7 @@
 (defn env-brick-test-names [{:keys [alias test-component-names test-base-names]}]
   [alias (set (concat test-component-names test-base-names))])
 
-(defn env-status-flags [alias brick alias->bricks alias->test-bricks alias->bricks-to-test color-mode]
+(defn env-status-flags [alias brick alias->bricks alias->test-bricks alias->bricks-to-test]
   (let [has-src (if (contains? (alias->bricks alias) brick) "x" "-")
         has-test-src (if (contains? (alias->test-bricks alias) brick) "x" "-")
         to-test (if (contains? (alias->bricks-to-test alias) brick) "x" "-")]
@@ -31,7 +31,7 @@
         brick (str (color/brick type name color-mode) changed)
         loc-src (if lines-of-code-src lines-of-code-src "-")
         loc-test (if lines-of-code-test lines-of-code-test "-")
-        all-env-contains (mapv #(env-status-flags % name alias->bricks alias->test-bricks alias->bricks-to-test color-mode) aliases)]
+        all-env-contains (mapv #(env-status-flags % name alias->bricks alias->test-bricks alias->bricks-to-test) aliases)]
     (vec (concat [ifc "" brick ""]
                  (interpose "" all-env-contains)
                  (if show-loc?
@@ -97,6 +97,7 @@
 
 (defn alias-changes [[env changes] env->alias]
   [(env->alias env) (set changes)])
+
 (defn ws-table [color-mode components bases environments changed-components changed-bases env->bricks-to-test total-loc-src-bricks total-loc-test-bricks thousand-sep show-loc?]
   (let [aliases (mapv :alias environments)
         env->alias (into {} (map (juxt :name :alias) environments))

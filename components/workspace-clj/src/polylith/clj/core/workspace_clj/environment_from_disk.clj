@@ -24,20 +24,21 @@
       (mapv #(absolute-path % env) sorted-paths))))
 
 (defn read-environment
-  ([{:keys [env env-dir config-file dev-env?]}]
+  ([{:keys [env env-dir config-file dev?]}]
    (let [{:keys [paths deps aliases mvn/repos]} (read-string (slurp config-file))
          maven-repos (merge mvn/standard-repos repos)]
-     (read-environment env env-dir config-file dev-env? paths deps aliases maven-repos)))
-  ([env env-dir config-file dev-env? paths deps aliases maven-repos]
-   (let [src-paths (if dev-env? (-> aliases :dev :extra-paths) paths)
-         lib-deps (if dev-env? (-> aliases :dev :extra-deps) deps)
-         absolute-src-paths (absolute-paths env src-paths dev-env?)
+     (read-environment env env-dir config-file dev? paths deps aliases maven-repos)))
+  ([env env-dir config-file dev? paths deps aliases maven-repos]
+   (let [src-paths (if dev? (-> aliases :dev :extra-paths) paths)
+         lib-deps (if dev? (-> aliases :dev :extra-deps) deps)
+         absolute-src-paths (absolute-paths env src-paths dev?)
          test-paths (-> aliases :test :extra-paths)
-         absolute-test-paths (absolute-paths env test-paths dev-env?)
+         absolute-test-paths (absolute-paths env test-paths dev?)
          test-deps (util/stringify-and-sort-map (-> aliases :test :extra-deps))
          namespaces-src (ns-from-disk/namespaces-from-disk (str env-dir "/src"))
          namespaces-test (ns-from-disk/namespaces-from-disk (str env-dir "/test"))]
      (util/ordered-map :name env
+                       :dev? dev?
                        :env-dir env-dir
                        :config-file config-file
                        :type "environment"
@@ -53,7 +54,7 @@
 
 (defn env-map [ws-dir env]
   {:env env
-   :dev-env? false
+   :dev? false
    :env-dir (str ws-dir "/environments/" env)
    :config-file (str ws-dir "/environments/" env "/deps.edn")})
 
@@ -61,7 +62,7 @@
   (let [env-configs (conj (map #(env-map ws-dir %)
                                (file/directory-paths (str ws-dir "/environments")))
                           {:env "development"
-                           :dev-env? true
+                           :dev? true
                            :env-dir (str ws-dir "/development")
                            :config-file (str ws-dir "/deps.edn")})]
     (mapv read-environment env-configs)))

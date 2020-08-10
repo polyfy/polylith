@@ -7,7 +7,8 @@
             [polylith.clj.core.git.interfc :as git]
             [polylith.clj.core.user-config.interfc :as user-config]
             [polylith.clj.core.workspace-clj.interfc :as ws-clj]
-            [polylith.clj.core.workspace.interfc :as ws]))
+            [polylith.clj.core.workspace.interfc :as ws]
+            [polylith.clj.core.util.interfc.params :as params]))
 
 (def user-home "USER-HOME")
 
@@ -24,12 +25,12 @@
     (function)
     (file/delete-dir path)))
 
-(defn read-workspace [ws-dir]
+(defn read-workspace [ws-dir enable-dev?]
   (let [exists? (file/exists (str ws-dir "/deps.edn"))]
     (when exists? (-> ws-dir
                       ws-clj/workspace-from-disk
                       ws/enrich-workspace
-                      change/with-changes))))
+                      (change/with-changes enable-dev?)))))
 
 (defn execute-command [current-dir cmd arg1 arg2 arg3]
   (with-redefs [file/current-dir (fn [] (if (str/blank? current-dir)
@@ -38,7 +39,9 @@
                 git/current-sha (fn [_] "21f40507a24291ead2409ce33277378bb7e94ac6")
                 user-config/home-dir (fn [] (str @root-dir "/" user-home))]
     (let [ws-dir (file/current-dir)
-          workspace (read-workspace ws-dir)
+          env (-> (params/extract arg1 arg2 arg3) :named-args :env)
+          enable-dev? (contains? #{"dev" "development"} env)
+          workspace (read-workspace ws-dir enable-dev?)
           {:keys [exception]} (command/execute-command ws-dir workspace cmd arg1 arg2 arg3)]
       (when (-> exception nil? not)
         (stacktrace/print-stack-trace exception)))))

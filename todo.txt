@@ -1,5 +1,13 @@
 
+- add support for sending in more than one environment, e.g.: env:cli:core:dev, :selected-envs.
+- don't type "Not tests to run for the development environment" in 'test-runner'.
+
 - exclude running tests for the dev environment if not explicitly given.
+  - exclude 'dev' in "run-all" in 'test-runner'.
+  - change so that 'test-runner' run environment tests based on :environments-to-test.
+  - if sending in env:dev then include tests for dev, otherwise, exclude them as default.
+    In this case when running 'info env:dev' then the third 'x' will be shown.
+
 - be able to run the 'dev' tests + show the third x.
 - don't show the 'default' profile
 - show the dev and profile headers in cyan.
