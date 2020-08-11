@@ -2,7 +2,8 @@
   (:require [polylith.clj.core.common.core :as core]
             [polylith.clj.core.common.class-loader :as class-loader]
             [polylith.clj.core.common.message :as msg]
-            [polylith.clj.core.common.test-settings :as test-settings]))
+            [polylith.clj.core.common.user-input :as user-input]
+            [polylith.clj.core.common.validate-args :as validate-args]))
 
 (defn ns-to-path [namespace]
   (core/ns-to-path namespace))
@@ -44,5 +45,8 @@
 (defn find-environment [environment-name environments]
   (core/find-environment environment-name environments))
 
-(defn test-settings [args]
-  (test-settings/settings args))
+(defn user-input [args]
+  (user-input/parameters args))
+
+(defn validate-args [unnamed-args example]
+  (validate-args/validate unnamed-args example))

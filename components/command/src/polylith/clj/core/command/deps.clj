@@ -1,13 +1,9 @@
 (ns polylith.clj.core.command.deps
-  (:require [polylith.clj.core.deps.interfc :as deps]))
-
-(defn validate [unnamed-args]
-  (if (-> unnamed-args empty? not)
-    {:message "  Arguments should be passed by name, e.g.: deps env:my-env brick:my-brick"}
-    {:ok? true}))
+  (:require [polylith.clj.core.deps.interfc :as deps]
+            [polylith.clj.core.common.interfc :as common]))
 
 (defn deps [workspace environment-name brick-name unnamed-args color-mode]
-  (let [{:keys [ok? message]} (validate unnamed-args)]
+  (let [{:keys [ok? message]} (common/validate-args unnamed-args "deps env:my-env brick:my-brick")]
     (if ok?
       (if environment-name
         (if brick-name

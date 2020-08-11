@@ -1,23 +1,13 @@
 
-- add :profiles to the workspace root.
-
-- don't show the 'default' profile
 - show the dev and profile headers in cyan.
-- if people run 'test' or 'check' and they don't have an environment set up yet,
-  show a message that they need to type 'test env:dev'.
 - show a warning if a path exists in a dev profile and dev.
   - add :redundant-paths and :redundant-deps to :profile->settings.
 
-
 - add support for different :dev profiles:
   - show the 'dev' environment in the rightmost column in the 'info' command.
-  - show these dev+ profiles in cyan in the 'info' command
-    - include :active-dev-profiles into 'dev' in cyan if the "slot" was free
-      or in red if it was occupied already (it had a 'src' or 'test' folder selected.
-  - support sending in another setting, like profile:my-conf, to some commands like 'test'
-    and 'deps' (will only work for the 'dev' environment).
-  - show a single row with selected profiles in the 'info' command.
-  - if :ide is set to "cursive" then read these settings from .idea (when Colin adds support for that!).
+  - show these dev+ profiles in cyan in the 'info' command:
+    - include :active-dev-profiles into 'dev' in cyan.
+    - show a single row with selected profiles.
 
 - store :top-namespace and :interface-ns as symbols in deps.edn, but as strings internally.
 

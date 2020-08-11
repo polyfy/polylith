@@ -11,12 +11,12 @@
 (defn -main [& [cmd arg1 arg2 arg3]]
   (let [current-dir (file/current-dir)
         exists? (file/exists (str current-dir "/deps.edn"))
-        test-settings (common/test-settings [arg1 arg2 arg3])
+        user-input (common/user-input [arg1 arg2 arg3])
         workspace (when exists? (-> current-dir
                                     ws-clj/workspace-from-disk
-                                    (ws/enrich-workspace test-settings)
-                                    (change/with-changes test-settings)))
-        {:keys [exit-code exception]} (command/execute-command current-dir workspace cmd arg1 arg2 arg3)]
+                                    (ws/enrich-workspace user-input)
+                                    (change/with-changes user-input)))
+        {:keys [exit-code exception]} (command/execute-command current-dir workspace cmd user-input)]
       (when (-> exception nil? not)
         (ex/print-exception exception))
       (System/exit exit-code)))

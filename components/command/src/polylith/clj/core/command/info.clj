@@ -1,13 +1,9 @@
 (ns polylith.clj.core.command.info
-  (:require [polylith.clj.core.workspace.interfc :as ws]))
-
-(defn validate [unnamed-args]
-  (if (-> unnamed-args empty? not)
-    {:message "  Arguments should be passed by name, e.g.: info :loc"}
-    {:ok? true}))
+  (:require [polylith.clj.core.common.interfc :as common]
+            [polylith.clj.core.workspace.interfc :as ws]))
 
 (defn info [workspace loc unnamed-args]
-  (let [{:keys [ok? message]} (validate unnamed-args)]
+  (let [{:keys [ok? message]} (common/validate-args unnamed-args "info env:dev")]
     (if ok?
      (ws/print-table workspace (= "true" loc))
      (println message))))

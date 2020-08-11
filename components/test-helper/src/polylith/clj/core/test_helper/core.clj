@@ -25,13 +25,12 @@
     (function)
     (file/delete-dir path)))
 
-(defn read-workspace [ws-dir args]
-  (let [exists? (file/exists (str ws-dir "/deps.edn"))
-        test-settings (common/test-settings args)]
+(defn read-workspace [ws-dir user-input]
+  (let [exists? (file/exists (str ws-dir "/deps.edn"))]
     (when exists? (-> ws-dir
                       ws-clj/workspace-from-disk
-                      (ws/enrich-workspace test-settings)
-                      (change/with-changes test-settings)))))
+                      (ws/enrich-workspace user-input)
+                      (change/with-changes user-input)))))
 
 (defn execute-command [current-dir cmd arg1 arg2 arg3]
   (with-redefs [file/current-dir (fn [] (if (str/blank? current-dir)
@@ -40,8 +39,9 @@
                 git/current-sha (fn [_] "21f40507a24291ead2409ce33277378bb7e94ac6")
                 user-config/home-dir (fn [] (str @root-dir "/" user-home))]
     (let [ws-dir (file/current-dir)
-          workspace (read-workspace ws-dir [arg1 arg2 arg3])
-          {:keys [exception]} (command/execute-command ws-dir workspace cmd arg1 arg2 arg3)]
+          user-input (common/user-input [arg1 arg2 arg3])
+          workspace (read-workspace ws-dir user-input)
+          {:keys [exception]} (command/execute-command ws-dir workspace cmd user-input)]
       (when (-> exception nil? not)
         (stacktrace/print-stack-trace exception)))))
 

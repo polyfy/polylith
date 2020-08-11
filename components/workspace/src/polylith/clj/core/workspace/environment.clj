@@ -64,12 +64,12 @@
                   brick->loc
                   brick->lib-imports
                   env->alias
-                  active-dev-profiles
+                  {:keys [active-dev-profiles]}
                   profile->settings
                   {:keys [run-all? selected-environments]}]
   (let [alias (env->alias name)
-        all-src-paths (profile/src-paths name src-paths active-dev-profiles profile->settings)
-        all-test-paths (profile/test-paths name test-paths active-dev-profiles profile->settings)
+        all-src-paths (profile/src-paths dev? src-paths active-dev-profiles profile->settings)
+        all-test-paths (profile/test-paths dev? test-paths active-dev-profiles profile->settings)
         existing-src-paths (existing-paths ws-dir all-src-paths)
         component-names (vec (sort (set (mapv component-name (filter component? existing-src-paths)))))
         base-names (vec (sort (set (mapv base-name (filter base? existing-src-paths)))))
@@ -107,7 +107,7 @@
                       :test-paths all-test-paths
                       :lib-imports lib-imports-src
                       :lib-imports-test lib-imports-test
-                      :lib-deps (profile/lib-deps name lib-deps active-dev-profiles profile->settings)
+                      :lib-deps (profile/lib-deps dev? lib-deps active-dev-profiles profile->settings)
                       :deps deps
                       :test-lib-deps test-lib-deps
                       :maven-repos maven-repos)))

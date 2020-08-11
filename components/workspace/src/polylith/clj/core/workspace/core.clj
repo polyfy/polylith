@@ -5,10 +5,10 @@
             [polylith.clj.core.validate.interfc :as validate]
             [polylith.clj.core.workspace.alias :as alias]
             [polylith.clj.core.workspace.base :as base]
-            [polylith.clj.core.workspace.brick-deps :as brick-deps]
             [polylith.clj.core.workspace.component :as component]
             [polylith.clj.core.workspace.environment :as env]
             [polylith.clj.core.workspace.interfaces :as interfaces]
+            [polylith.clj.core.workspace.settings-enricher :as settings-enricher]
             [polylith.clj.core.file.interfc :as file]))
 
 (defn brick->lib-imports [brick]
@@ -30,28 +30,29 @@
       path)))
 
 (defn enrich-workspace [{:keys [ws-dir ws-reader settings components bases environments]}
-                        test-settings]
+                        user-input]
   (let [ws-name (workspace-name ws-dir)
-        {:keys [top-namespace interface-ns ns->lib active-dev-profiles profile->settings color-mode]} settings
+        {:keys [top-namespace interface-ns ns->lib profile->settings color-mode]} settings
+        enriched-settings (settings-enricher/enrich settings user-input)
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         interfaces (interfaces/calculate components)
         interface-names (apply sorted-set (mapv :name interfaces))
-        enriched-components (mapv #(component/enrich suffixed-top-ns interface-names settings %) components)
-        enriched-bases (mapv #(base/enrich suffixed-top-ns interface-names settings %) bases)
+        enriched-components (mapv #(component/enrich suffixed-top-ns interface-names enriched-settings %) components)
+        enriched-bases (mapv #(base/enrich suffixed-top-ns interface-names enriched-settings %) bases)
         enriched-bricks (concat enriched-components enriched-bases)
         total-loc-src-bricks (apply + (filter identity (map :lines-of-code-src enriched-bricks)))
         total-loc-test-bricks (apply + (filter identity (map :lines-of-code-test enriched-bricks)))
         brick->loc (brick->loc enriched-bricks)
         brick->lib-imports (brick->lib-imports enriched-bricks)
-        env->alias (alias/env->alias settings environments)
-        enriched-environments (vec (sort-by :name (map #(env/enrich-env % ws-dir enriched-components enriched-bases brick->loc brick->lib-imports env->alias active-dev-profiles profile->settings test-settings) environments)))
+        env->alias (alias/env->alias enriched-settings environments)
+        enriched-environments (vec (sort-by :name (map #(env/enrich-env % ws-dir enriched-components enriched-bases brick->loc brick->lib-imports env->alias enriched-settings profile->settings user-input) environments)))
         total-loc-src-env (apply + (filter identity (map :lines-of-code-src enriched-environments)))
         total-loc-test-env (apply + (filter identity (map :lines-of-code-test enriched-environments)))
         messages (validate/messages ws-dir suffixed-top-ns interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns ns->lib color-mode)]
     (array-map :name ws-name
                :ws-dir ws-dir
                :ws-reader ws-reader
-               :settings settings
+               :settings enriched-settings
                :interfaces interfaces
                :components enriched-components
                :bases enriched-bases
@@ -62,5 +63,5 @@
                :total-loc-test-environments total-loc-test-env
                :messages messages)))
 
-(defn enrich-workspace-str-keys [workspace test-settings]
-  (-> workspace walk/keywordize-keys (enrich-workspace test-settings) walk/stringify-keys))
+(defn enrich-workspace-str-keys [workspace user-input]
+  (-> workspace walk/keywordize-keys (enrich-workspace user-input) walk/stringify-keys))

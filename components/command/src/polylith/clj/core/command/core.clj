@@ -31,12 +31,10 @@
       (= "help" cmd)
       (= "create" cmd)))
 
-(defn execute [current-dir workspace cmd arg1 arg2 arg3]
+(defn execute [current-dir workspace cmd {:keys [arg1 name top-ns env brick interface loc unnamed-args]}]
   (try
     (if (can-be-executed-from-here? workspace cmd)
-      (let [color-mode (user-config/color-mode)
-            {:keys [named-args unnamed-args]} (params/extract [arg1 arg2 arg3])
-            {:keys [name top-ns env brick interface loc]} named-args]
+      (let [color-mode (user-config/color-mode)]
         (case cmd
           "check" (check workspace color-mode)
           "create" (create/create current-dir workspace arg1 name top-ns interface color-mode)

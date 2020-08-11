@@ -41,7 +41,6 @@
                                     :top-namespace top-namespace
                                     :interface-ns (or interface-ns "interface")
                                     :color-mode color-mode
-                                    :active-dev-profiles [:default]
                                     :profile->settings profile->settings
                                     :env->alias env->alias
                                     :ns->lib (stringify ns->lib))]

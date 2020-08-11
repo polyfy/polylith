@@ -126,7 +126,7 @@
 
 (deftest changes--a-list-of-changed-files-and-environments--returns-changed-bricks-and-bricks-to-test
   (is (= {:git-command "git diff --name-only"
-          :test-settings {}
+          :user-input {}
           :changed-components ["change" "deps"]
           :changed-bases []
           :changed-environments []
@@ -144,7 +144,7 @@
 
 (deftest changes--a-list-of-changed-files-and-active-dev--returns-changed-bricks-and-bricks-to-test
   (is (= {:git-command "git diff --name-only"
-          :test-settings {}
+          :user-input {}
           :changed-components ["change" "deps"]
           :changed-bases []
           :changed-environments []
@@ -162,8 +162,8 @@
 
 (deftest changes--a-list-of-changed-files-and-environments--returns-changed-bricks-and-bricks-to-test2
   (is (= {:git-command "git diff --name-only"
-          :test-settings {:run-all? true
-                          :run-env-tests? true}
+          :user-input {:run-all? true
+                       :run-env-tests? true}
           :changed-components ["change" "deps"]
           :changed-bases []
           :changed-environments []

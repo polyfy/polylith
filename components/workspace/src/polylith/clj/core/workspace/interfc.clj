@@ -4,16 +4,16 @@
             [polylith.clj.core.workspace.text-table.ws-table :as ws-table])
   (:gen-class))
 
-(defn enrich-workspace [workspace test-settings]
-  (core/enrich-workspace workspace test-settings))
+(defn enrich-workspace [workspace user-input]
+  (core/enrich-workspace workspace user-input))
 
 (defn print-table [workspace show-loc?]
   (let [thousand-sep (user-config/thousand-separator)]
     (ws-table/print-table workspace thousand-sep show-loc?)))
 
-(defn enrich-workspace-str-keys [workspace test-settings]
+(defn enrich-workspace-str-keys [workspace user-input]
   "Used by the polylith.core API"
-  (core/enrich-workspace-str-keys workspace test-settings))
+  (core/enrich-workspace-str-keys workspace user-input))
 
 (defn print-table-str-keys [workspace show-loc?]
   "Used by the polylith.core API"

@@ -17,7 +17,7 @@
 
 (defn changes [{:keys [environments]}
                {:keys [sha1 sha2 files]}
-               {:keys [run-all? run-env-tests?] :as test-settings}]
+               {:keys [run-all? run-env-tests?] :as user-input}]
    (let [deps (map (juxt :name :deps) environments)
          {:keys [changed-components
                  changed-bases
@@ -29,7 +29,7 @@
      (util/ordered-map :sha1 sha1
                        :sha2 sha2
                        :git-command (git/diff-command sha1 sha2)
-                       :test-settings test-settings
+                       :user-input user-input
                        :changed-components changed-components
                        :changed-bases changed-bases
                        :changed-environments changed-environments
@@ -39,7 +39,7 @@
                        :changed-files files)))
 
 (defn with-changes
-  ([{:keys [ws-dir] :as workspace} test-settings]
-   (with-changes workspace (changed-files-info ws-dir "HEAD" nil) test-settings))
-  ([workspace changes-info test-settings]
-   (assoc workspace :changes (changes workspace changes-info test-settings))))
+  ([{:keys [ws-dir] :as workspace} user-input]
+   (with-changes workspace (changed-files-info ws-dir "HEAD" nil) user-input))
+  ([workspace changes-info user-input]
+   (assoc workspace :changes (changes workspace changes-info user-input))))
