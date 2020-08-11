@@ -72,17 +72,6 @@
 (defn index-interface [index [interface]]
   [index interface])
 
-(defn clear-repeated-interfaces [index row interface->index-components]
-  (let [interface (first row)
-        index-components (interface->index-components interface)
-        min-index (apply min (map first index-components))]
-    (if (= (count index-components) 1)
-      row
-      (if (or (= index min-index)
-              (= "-" interface))
-        row
-        (assoc row 0 "-\"-")))))
-
 (defn ->headers [show-loc? aliases]
   (if show-loc?
     (concat basic-headers (interleave aliases (repeat "  ")) loc-headers)
@@ -113,9 +102,7 @@
         brick-rows (mapv #(row % color-mode show-loc? aliases alias->bricks alias->test-bricks changed-components changed-bases alias->bricks-to-test thousand-sep) bricks)
         total-locs-src (map :total-lines-of-code-src environments)
         total-loc-row (->total-loc-row show-loc? total-loc-src-bricks total-loc-test-bricks total-locs-src thousand-sep)
-        plain-rows (if show-loc? (conj brick-rows total-loc-row) brick-rows)
-        interface->index-components (group-by second (map-indexed index-interface plain-rows))
-        rows (map-indexed #(clear-repeated-interfaces %1 %2 interface->index-components) plain-rows)
+        rows (if show-loc? (conj brick-rows total-loc-row) brick-rows)
         header-colors (->header-colors show-loc? env-spc-cnt)
         component-colors (mapv #(->brick-colors % env-spc-cnt show-loc?) sorted-components)
         base-colors (mapv #(->brick-colors % env-spc-cnt show-loc?) sorted-bases)

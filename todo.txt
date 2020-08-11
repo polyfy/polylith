@@ -1,6 +1,4 @@
 
-- show interface name in the 'info' command instead of -"-.
-
 - add :profiles to the workspace root.
 
 - don't show the 'default' profile
