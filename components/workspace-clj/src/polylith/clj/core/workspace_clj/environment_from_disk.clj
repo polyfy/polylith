@@ -34,7 +34,7 @@
          absolute-src-paths (absolute-paths env src-paths dev?)
          test-paths (-> aliases :test :extra-paths)
          absolute-test-paths (absolute-paths env test-paths dev?)
-         test-deps (util/stringify-and-sort-map (-> aliases :test :extra-deps))
+         test-lib-deps (util/stringify-and-sort-map (-> aliases :test :extra-deps))
          namespaces-src (ns-from-disk/namespaces-from-disk (str env-dir "/src"))
          namespaces-test (ns-from-disk/namespaces-from-disk (str env-dir "/test"))]
      (util/ordered-map :name env
@@ -45,7 +45,7 @@
                        :src-paths absolute-src-paths
                        :test-paths absolute-test-paths
                        :lib-deps (util/stringify-and-sort-map lib-deps)
-                       :test-deps test-deps
+                       :test-lib-deps test-lib-deps
                        :maven-repos maven-repos
                        :has-src-dir? (has-src-dir? env absolute-src-paths)
                        :has-test-dir? (has-test-dir? env absolute-test-paths)

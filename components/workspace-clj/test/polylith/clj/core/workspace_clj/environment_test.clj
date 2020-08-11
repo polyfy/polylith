@@ -67,5 +67,5 @@
             :lib-deps {"org.clojure/clojure" #:mvn{:version "1.10.1"}
                        "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}
                        "org.jetbrains.kotlin/kotlin-compiler-embeddable" #:mvn{:version "1.3.72"}}
-            :test-deps {}}
+            :test-lib-deps {}}
            (env/read-environment "core" "environments/core" "environments/core/deps.edn" false paths deps aliases mvn/standard-repos)))))

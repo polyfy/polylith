@@ -57,7 +57,7 @@
       (or (contains? selected-environments env)
           (contains? selected-environments alias))))
 
-(defn enrich-env [{:keys [name type dev? env-dir config-file has-src-dir? has-test-dir? namespaces-src namespaces-test src-paths test-paths lib-deps test-deps maven-repos]}
+(defn enrich-env [{:keys [name type dev? env-dir config-file has-src-dir? has-test-dir? namespaces-src namespaces-test src-paths test-paths lib-deps test-lib-deps maven-repos]}
                   ws-dir
                   components
                   bases
@@ -109,5 +109,5 @@
                       :lib-imports-test lib-imports-test
                       :lib-deps (profile/lib-deps name lib-deps active-dev-profiles profile->settings)
                       :deps deps
-                      :test-deps test-deps
+                      :test-lib-deps test-lib-deps
                       :maven-repos maven-repos)))

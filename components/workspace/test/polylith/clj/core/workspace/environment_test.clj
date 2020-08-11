@@ -47,7 +47,7 @@
                   :lib-imports-test ["clojure.string" "clojure.tools.deps.alpha.util.maven"]
                   :lib-deps {"org.clojure/clojure" #:mvn{:version "1.10.1"}
                              "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}}
-                  :test-deps {}
+                  :test-lib-deps {}
                   :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}})
 
 (def env->alias {"development" "dev"})
@@ -112,7 +112,8 @@
                                        "deps"    {:direct   ["common"]
                                                   :indirect []}
                                        "file"    {:direct   []
-                                                  :indirect []}}            :test-deps {}
+                                                  :indirect []}}
+            :test-lib-deps {}
             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}}
            (env/enrich-env environment "" components bases brick->loc brick->lib-imports env->alias
                            [] {} [])))))
@@ -164,7 +165,8 @@
                                        "deps"    {:direct   ["common"]
                                                   :indirect []}
                                        "file"    {:direct   []
-                                                  :indirect []}}            :test-deps {}
+                                                  :indirect []}}
+            :test-lib-deps {}
             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}}
            (env/enrich-env environment "" components bases brick->loc brick->lib-imports env->alias
                            [:default]

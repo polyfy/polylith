@@ -229,7 +229,7 @@
                                 :lib-imports-test ["clojure.string" "clojure.tools.deps.alpha.util.maven"]
                                 :lib-deps {"org.clojure/clojure" #:mvn{:version "1.10.1"}
                                            "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}}
-                                :test-deps {}
+                                :test-lib-deps {}
                                 :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}
                                               "clojars" {:url "https://repo.clojars.org/"}}}
                                {:name "core"
@@ -267,7 +267,7 @@
                                 :lib-imports-test ["clojure.string"]
                                 :lib-deps {"org.clojure/clojure" #:mvn{:version "1.10.1"}
                                            "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}}
-                                :test-deps {}
+                                :test-lib-deps {}
                                 :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}
                                               "clojars" {:url "https://repo.clojars.org/"}}}
                                {:name "dev"
@@ -346,7 +346,7 @@
                                 :lib-imports-test ["clojure.string" "clojure.tools.deps.alpha.util.maven"]
                                 :deps {"org.clojure/clojure" #:mvn{:version "1.10.1"}
                                        "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}}
-                                :test-deps {}
+                                :test-lib-deps {}
                                 :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}
                                               "clojars" {:url "https://repo.clojars.org/"}}}]
                 :lines-of-code-src 2020

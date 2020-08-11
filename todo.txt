@@ -1,4 +1,8 @@
 
+- show interface name in the 'info' command instead of -"-.
+
+- add :profiles to the workspace root.
+
 - don't show the 'default' profile
 - show the dev and profile headers in cyan.
 - if people run 'test' or 'check' and they don't have an environment set up yet,
@@ -6,10 +10,6 @@
 - show a warning if a path exists in a dev profile and dev.
   - add :redundant-paths and :redundant-deps to :profile->settings.
 
-- show interface name in the 'info' command instead of -"-.
-
-- rename test-deps to test-lib-deps.
-- calculate test-deps (same as :deps, but for :test).
 
 - add support for different :dev profiles:
   - show the 'dev' environment in the rightmost column in the 'info' command.
