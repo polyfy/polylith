@@ -40,6 +40,9 @@
 (defn blue [color-mode & messages]
   (colored-text color-blue color-mode messages))
 
+(defn cyan [color-mode & messages]
+  (colored-text color-cyan color-mode messages))
+
 (defn green [color-mode & messages]
   (colored-text color-green color-mode messages))
 

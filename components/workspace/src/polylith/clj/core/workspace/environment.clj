@@ -1,32 +1,10 @@
 (ns polylith.clj.core.workspace.environment
-  (:require [clojure.string :as str]
-            [polylith.clj.core.file.interfc :as file]
+  (:require [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.util.interfc :as util]
+            [polylith.clj.core.common.interfc.entity :as entity]
             [polylith.clj.core.workspace.profile :as profile]
             [polylith.clj.core.workspace.loc :as loc]
             [polylith.clj.core.workspace.brick-deps :as brick-deps]))
-
-(defn starts-with [path start]
-  (and (string? path)
-       (str/starts-with? path start)))
-
-(defn component? [path]
-  (starts-with path "components/"))
-
-(defn base? [path]
-  (starts-with path "bases/"))
-
-(defn brick-name [path start-index]
-  (let [end-index (+ start-index (str/index-of (subs path start-index) "/"))]
-    (if (< end-index 0)
-      path
-      (subs path start-index end-index))))
-
-(defn component-name [path]
-  (brick-name path 11))
-
-(defn base-name [path]
-  (brick-name path 6))
 
 (defn file-exists [ws-dir cleaned-path]
   (file/exists (str ws-dir "/" cleaned-path)))
@@ -64,19 +42,18 @@
                   brick->loc
                   brick->lib-imports
                   env->alias
-                  {:keys [active-dev-profiles]}
-                  profile->settings
+                  {:keys [active-dev-profiles profile->settings]}
                   {:keys [run-all? selected-environments]}]
   (let [alias (env->alias name)
         all-src-paths (profile/src-paths dev? src-paths active-dev-profiles profile->settings)
         all-test-paths (profile/test-paths dev? test-paths active-dev-profiles profile->settings)
         existing-src-paths (existing-paths ws-dir all-src-paths)
-        component-names (vec (sort (set (mapv component-name (filter component? existing-src-paths)))))
-        base-names (vec (sort (set (mapv base-name (filter base? existing-src-paths)))))
+        component-names (entity/components-from-paths existing-src-paths)
+        base-names (entity/bases-from-paths existing-src-paths)
         brick-names (concat component-names base-names)
         existing-test-paths (existing-paths ws-dir all-test-paths)
-        test-component-names (vec (sort (set (mapv component-name (filter component? existing-test-paths)))))
-        test-base-names (vec (sort (set (mapv base-name (filter base? existing-test-paths)))))
+        test-component-names (entity/components-from-paths existing-test-paths)
+        test-base-names (entity/bases-from-paths existing-test-paths)
         deps (brick-deps/environment-deps component-names components bases)
         lib-imports-src (-> (env-lib-imports brick-names brick->lib-imports false)
                             set sort vec)
