@@ -1,14 +1,19 @@
 
+- redesign text-table so that we send in cells instead with:
+  - row
+  - column
+  - color
+  - align
+  - orientation
+  - value
+
 - add support for different :dev profiles:
+  - if another profile than :default is selected, also show :default, otherwise hide it.
   - add more tests to ws-table-test in 'workspace'.
-  - don't show column for the active profiles.
   - show the dev and profile headers in cyan.
   - show a warning if a path exists in a dev profile and dev.
-    - add :redundant-paths and :redundant-deps to :profile->settings.
-  - show the 'dev' environment in the rightmost column in the 'info' command.
-  - show these dev+ profiles in cyan in the 'info' command:
-    - include :active-dev-profiles into 'dev' in cyan.
-    - show a single row with selected profiles.
+  - add :redundant-paths and :redundant-deps to :profile->settings.
+  - show a single row with selected profiles.
 
 - type a better message than "Invalid color mode..." if giving an unknown command.
 

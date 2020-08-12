@@ -20,8 +20,8 @@
 (defn skip-suffixes [string suffixes]
   (str-util/skip-suffixes string suffixes))
 
-(defn spaces [length]
-  (str-util/spaces length))
+(defn spaces [n#spaces]
+  (str-util/spaces n#spaces))
 
 (defn line [length]
   (str-util/line length))

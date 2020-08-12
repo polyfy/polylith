@@ -9,21 +9,29 @@
             [polylith.clj.core.common.interfc :as common])
   (:refer-clojure :exclude [base]))
 
-(def test-settings (common/test-settings [":all-bricks" "env:dev"]))
+(def user-input (common/user-input [":all-bricks" "env:dev"]))
 
 (def workspace (->
-                 "."
-                 ;"../poly-example/ws50"
+                 ;"."
+                 "../poly-example/ws50"
                  ;"../clojure-polylith-realworld-example-app"
                  ws-clj/workspace-from-disk
-                 (ws/enrich-workspace test-settings)
-                 (change/with-changes test-settings)))
+                 (ws/enrich-workspace user-input)
+                 (change/with-changes user-input)))
 
 (:messages workspace)
-(:settings workspace)
 (:changes workspace)
 
-(-> workspace :changes :test-settings)
+(:settings workspace)
+;(-> workspace :settings :active-dev-profiles)
+
+
+(def components (:components workspace))
+(def environments (:environments workspace))
+(def environment (common/find-environment "development" environments))
+(:component-names environment)
+
+(-> workspace :changes :user-input)
 
 
 ;(-> workspace :settings :active-dev-profiles)
@@ -32,8 +40,6 @@
 ;(def workspace z/workspace)
 
 (def settings (:settings workspace))
-(def environments (:environments workspace))
-(def components (:components workspace))
 (def bases (:bases workspace))
 (def bricks (concat components bases))
 (def interfaces (:interfaces workspace))
@@ -49,22 +55,11 @@
 
 
 
-(def environment (common/find-environment "development" environments))
 (def environment (common/find-environment "cli" environments))
 (def component (common/find-component "command" components))
 (def base (common/find-base "rest-api" bases))
 
 (:dev? environment)
-
-
-
-
-
-
-
-
-
-
 
 
 
