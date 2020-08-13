@@ -1,11 +1,12 @@
 (ns polylith.clj.core.text-table2.line
-  (:require [polylith.clj.core.util.interfc.str :as str-util]))
+  (:require [polylith.clj.core.util.interfc.str :as str-util]
+            [polylith.clj.core.util.interfc.color :as color]))
 
 (defn select-column [column rows]
   (filterv #(= column (:column %)) rows))
 
 (defn max-column-width [column rows]
-  (apply max (map #(-> % :value count)
+  (apply max (map #(-> % :value color/clean-colors count)
                   (select-column column rows))))
 
 (defn line-cell [column row rows]

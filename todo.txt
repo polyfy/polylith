@@ -1,4 +1,6 @@
 
+- introduced one more "x" for resouces.
+
 - redesign text-table so that we send in cells instead with:
   - row
   - column

@@ -9,7 +9,7 @@
             [polylith.clj.core.common.interfc :as common])
   (:refer-clojure :exclude [base]))
 
-(def user-input (common/user-input [":all-bricks" "env:dev"]))
+(def user-input (common/user-input []))
 
 (def workspace (->
                  ;"."

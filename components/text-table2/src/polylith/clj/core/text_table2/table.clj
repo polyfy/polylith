@@ -33,7 +33,7 @@
   (filter #(= x (ffirst %)) cells))
 
 (defn max-column-width [x cells]
-  (apply max (map #(-> % second :value count)
+  (apply max (map #(-> % second :value c/clean-colors count)
                   (column x cells))))
 
 (defn align-column [x cells color-mode]
@@ -57,4 +57,5 @@
         xs (sort (set (map ffirst aligned-cells)))
         ys (sort (set (map #(-> % first second) aligned-cells)))
         x->spaces (into {} (map (juxt identity #(str-util/spaces (max-column-width % aligned-cells))) xs))]
-    (str/join "\n" (map #(row initial-spaces % xs x->spaces aligned-cells) ys))))
+    (mapv #(row initial-spaces % xs x->spaces aligned-cells) ys)))
+

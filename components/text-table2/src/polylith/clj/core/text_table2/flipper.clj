@@ -1,5 +1,6 @@
 (ns polylith.clj.core.text-table2.flipper
-  (:require [polylith.clj.core.util.interfc.str :as str-util]))
+  (:require [polylith.clj.core.util.interfc.str :as str-util]
+            [polylith.clj.core.util.interfc.color :as color]))
 
 (defn select-row [row rows]
   (filterv #(= row (:row %)) rows))
@@ -7,7 +8,7 @@
 (defn row-height [{:keys [value orientation]}]
   (case orientation
     :horizontal 1
-    :vertical (count value)
+    :vertical (-> value color/clean-colors count)
     (throw (Exception. (str "Illegal orientation: " orientation)))))
 
 (defn max-row-height [row rows]
