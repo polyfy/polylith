@@ -20,8 +20,8 @@
 (defn table [initial-spaces color-mode & cells-list]
   (core/table initial-spaces color-mode cells-list))
 
-(defn print-table [initial-spaces color-mode & cells-list]
-  (core/print-table initial-spaces color-mode cells-list))
+(defn print-table [table]
+  (core/print-table table))
 
 ;(def row-cells [{:row 1, :column 1, :value "interface", :align :left, :color :none, :orientation :horizontal}
 ;                {:row 1, :column 3, :value "brick",     :align :left, :color :none, :orientation :horizontal}

@@ -8,6 +8,5 @@
   (let [cells (flipper/flip-to-map (merger/merge-list-of-cells cells-list))]
     (table/table initial-spaces cells color-mode)))
 
-(defn print-table [initial-spaces color-mode cells-list]
-  (println (str/join "\n" (table initial-spaces color-mode cells-list))))
-
+(defn print-table [table]
+  (println (str/join "\n" table)))

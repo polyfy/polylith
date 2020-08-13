@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.new-ws-table.shared
+(ns polylith.clj.core.workspace.ws-table.shared
   (:require [polylith.clj.core.util.interfc.str :as str-util]
             [polylith.clj.core.text-table2.interfc :as text-table]))
 

@@ -1,5 +1,5 @@
-(ns polylith.clj.core.workspace.new-ws-table.loc-columns
-  (:require [polylith.clj.core.workspace.new-ws-table.shared :as shared]))
+(ns polylith.clj.core.workspace.ws-table.loc-columns
+  (:require [polylith.clj.core.workspace.ws-table.shared :as shared]))
 
 (defn loc-column [header loc-key bricks column total-loc-bricks thousand-sep]
   (concat

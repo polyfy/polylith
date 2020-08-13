@@ -1,11 +1,10 @@
-(ns polylith.clj.core.workspace.new-ws-table.core
-  (:require [clojure.string :as str]
-            [polylith.clj.core.text-table2.interfc :as text-table]
+(ns polylith.clj.core.workspace.ws-table.core
+  (:require [polylith.clj.core.text-table2.interfc :as text-table]
             [polylith.clj.core.user-config.interfc :as user-config]
-            [polylith.clj.core.workspace.new-ws-table.ifc-column :as ifc-column]
-            [polylith.clj.core.workspace.new-ws-table.brick-column :as brick-column]
-            [polylith.clj.core.workspace.new-ws-table.profile-columns :as profile-columns]
-            [polylith.clj.core.workspace.new-ws-table.env-columns :as env-columns]))
+            [polylith.clj.core.workspace.new-table.ifc-column :as ifc-column]
+            [polylith.clj.core.workspace.new-table.brick-column :as brick-column]
+            [polylith.clj.core.workspace.new-table.profile-columns :as profile-columns]
+            [polylith.clj.core.workspace.new-table.env-columns :as env-columns]))
 
 (defn component-sorter [{:keys [interface name]}]
   [(:name interface) name])
@@ -29,4 +28,7 @@
     (text-table/table "  " color-mode cells line)))
 
 (defn print-table [workspace show-loc?]
-  (println (str/join "\n" (table workspace show-loc?))))
+  (text-table/print-table (table workspace show-loc?)))
+
+;
+;(print-table workspace true)
