@@ -13,5 +13,6 @@
 (defn column [bricks {:keys [changed-components changed-bases]} color-mode]
   (let [changed-bricks (set (concat changed-components changed-bases))]
     (concat
+      [(shared/header "brick" 3)]
       (map-indexed #(brick-cell %1 %2 changed-bricks color-mode)
                    bricks))))
