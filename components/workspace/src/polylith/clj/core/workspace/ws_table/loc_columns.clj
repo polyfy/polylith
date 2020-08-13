@@ -8,6 +8,6 @@
                  (map loc-key bricks))
     [(shared/number-cell total-loc-bricks column (+ (count bricks) 3) :right thousand-sep)]))
 
-(defn columns [bricks start-column total-loc-src-bricks total-loc-test-bricks thousand-sep]
-  (concat (loc-column "loc" :lines-of-code-src bricks start-column total-loc-src-bricks thousand-sep)
-          (loc-column "loc-t" :lines-of-code-test bricks (+ 2 start-column) total-loc-test-bricks thousand-sep)))
+(defn columns [show-loc? bricks start-column total-loc-src-bricks total-loc-test-bricks thousand-sep]
+  (when show-loc? (concat (loc-column "loc" :lines-of-code-src bricks start-column total-loc-src-bricks thousand-sep)
+                          (loc-column "loc-t" :lines-of-code-test bricks (+ 2 start-column) total-loc-test-bricks thousand-sep))))
