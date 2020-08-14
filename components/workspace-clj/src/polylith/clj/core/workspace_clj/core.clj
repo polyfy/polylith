@@ -32,6 +32,7 @@
    (let [{:keys [vcs top-namespace interface-ns env->alias ns->lib]} polylith
          top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
          color-mode (user-config/color-mode)
+         thousand-sep (user-config/thousand-separator)
          component-names (file/directory-paths (str ws-dir "/components"))
          components (components-from-disk/read-components ws-dir top-src-dir component-names interface-ns)
          bases (bases-from-disk/read-bases ws-dir top-src-dir)
@@ -41,6 +42,7 @@
                                     :top-namespace top-namespace
                                     :interface-ns (or interface-ns "interface")
                                     :color-mode color-mode
+                                    :thousand-sep thousand-sep
                                     :profile->settings profile->settings
                                     :env->alias env->alias
                                     :ns->lib (stringify ns->lib))]

@@ -5,5 +5,5 @@
 (defn info [workspace loc unnamed-args]
   (let [{:keys [ok? message]} (common/validate-args unnamed-args "info env:dev")]
     (if ok?
-     (ws/print-table workspace (= "true" loc))
+     (ws/print-info workspace (= "true" loc))
      (println message))))

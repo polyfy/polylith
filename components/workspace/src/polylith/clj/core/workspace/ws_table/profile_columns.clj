@@ -16,7 +16,7 @@
 (defn column [index profile start-column bricks profile->bricks]
   (let [column (+ start-column (* 2 index))]
     (concat
-      [(shared/header (name profile) column :cyan)]
+      [(shared/header (name profile) column :cyan :left)]
       (map-indexed #(profile-cell %1 %2 profile column profile->bricks)
                    (map :name bricks)))))
 

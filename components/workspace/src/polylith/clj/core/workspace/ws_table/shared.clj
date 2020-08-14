@@ -4,9 +4,9 @@
 
 (defn header
   ([value column]
-   (header value column :none))
-  ([value column color]
-   (text-table/cell column 1 value color :left :horizontal)))
+   (header value column :none :left))
+  ([value column color align]
+   (text-table/cell column 1 value color align :horizontal)))
 
 (defn standard-cell
   ([value column row]

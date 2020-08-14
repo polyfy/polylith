@@ -1,8 +1,6 @@
 (ns polylith.clj.core.workspace.text-table.ws-table-test
   (:require [clojure.test :refer :all]
-            [clojure.string :as str]
-            [polylith.clj.core.workspace.text-table.ws-table :as text-table-ws]
-            [polylith.clj.core.util.interfc.color :as color]))
+            [polylith.clj.core.workspace.ws-table.core :as ws-table]))
 
 (def workspace {:name "polylith"
                 :ws-dir "."
@@ -15,7 +13,8 @@
                             :slash "/"
                             :file-extensions [".clj" "cljc"]}
                 :settings {:top-namespace "polylith.clj.core"
-                           :color-mode "dark"
+                           :color-mode "none"
+                           :thousand-sep ","
                            :env->alias {"dev" "dev", "cli" "cli", "core" "core"}}
                 :interfaces [{:name "workspace-clj", :type "interface"}
                              {:name "test-runner", :type "interface"}
@@ -349,19 +348,18 @@
                                 :test-lib-deps {}
                                 :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}
                                               "clojars" {:url "https://repo.clojars.org/"}}}]
-                :lines-of-code-src 2020
-                :lines-of-code-test 1143
+                :total-loc-src-bricks 3020
+                :total-loc-test-bricks 2143
+                :changes {:changed-components ["help" "text-table" "util" "workspace"]
+                          :changed-bases ["cli"]
+                          :env->bricks-to-test {"cli"  ["file" "cli"]
+                                                "core" ["file" "cli"]
+                                                "dev"  ["file" "cli"]}}
                 :messages []})
 
 (def environments (:environments workspace))
 (def components (:components workspace))
 (def ws-bases (:bases workspace))
-
-(def changed-components  ["help" "text-table" "util" "workspace"])
-(def changed-bases ["cli"])
-(def env->bricks-to-test {"cli"  ["file" "cli"]
-                          "core" ["file" "cli"]
-                          "dev"  ["file" "cli"]})
 
 (deftest ws-table--when-loc-flag-is-false--return-table-without-loc-info
   (is (= ["  interface      brick          cli  core  dev"
@@ -382,28 +380,26 @@
           "  workspace      workspace *    x--  x--   xx-"
           "  workspace-clj  workspace-clj  x--  ---   xx-"
           "  -              cli *          x-x  --x   xxx"]
-         (str/split-lines
-           (text-table-ws/ws-table color/none components ws-bases environments {} changed-components changed-bases env->bricks-to-test 2020 1143 "," false)))))
+         (ws-table/table workspace false))))
 
 (deftest ws-table--when-loc-flag-is-true--return-table-with-loc-info
-  (is (= ["  interface      brick          cli  core  dev    loc    (t)"
-          "  ----------------------------------------------------------"
-          "  change         change         x--  x--   xx-     81     25"
-          "  command        command        x--  ---   xx-     36      0"
-          "  common         common         x--  x--   xx-    158      0"
-          "  deps           deps           x--  x--   xx-     43     51"
-          "  deps           deps2          ---  ---   ---     25      0"
-          "  file           file           x-x  x-x   xxx     80      0"
-          "  git            git            x--  x--   xx-     31     17"
-          "  help           help *         x--  x--   xx-    129      0"
-          "  shell          shell          x--  x--   xx-     19      0"
-          "  test-runner    test-runner    x--  ---   xx-     82      0"
-          "  text-table     text-table *   x--  x--   xx-     65     42"
-          "  util           util *         x--  x--   xx-    157     47"
-          "  validate       validate       x--  x--   xx-  1,377    744"
-          "  workspace      workspace *    x--  x--   xx-    387     95"
-          "  workspace-clj  workspace-clj  x--  ---   xx-    301    122"
-          "  -              cli *          x-x  --x   xxx     21      0"
-          "                                                3,020  2,143"]
-         (str/split-lines
-           (text-table-ws/ws-table color/none components ws-bases environments {} changed-components changed-bases env->bricks-to-test 3020 2143 "," true)))))
+  (is (= ["  interface      brick          cli  core  dev    loc   (t)"
+          "  ---------------------------------------------------------"
+          "  change         change         x--  x--   xx-     81    25"
+          "  command        command        x--  ---   xx-     36     0"
+          "  common         common         x--  x--   xx-    158     0"
+          "  deps           deps           x--  x--   xx-     43    51"
+          "  deps           deps2          ---  ---   ---     25     0"
+          "  file           file           x-x  x-x   xxx     80     0"
+          "  git            git            x--  x--   xx-     31    17"
+          "  help           help *         x--  x--   xx-    129     0"
+          "  shell          shell          x--  x--   xx-     19     0"
+          "  test-runner    test-runner    x--  ---   xx-     82     0"
+          "  text-table     text-table *   x--  x--   xx-     65    42"
+          "  util           util *         x--  x--   xx-    157    47"
+          "  validate       validate       x--  x--   xx-  1,377   744"
+          "  workspace      workspace *    x--  x--   xx-    387    95"
+          "  workspace-clj  workspace-clj  x--  ---   xx-    301   122"
+          "  -              cli *          x-x  --x   xxx     21     0"
+          "                                                3,020 2,143"]
+         (ws-table/table workspace true))))

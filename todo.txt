@@ -1,5 +1,5 @@
 
-- introduced one more "x" for resouces.
+- use color-mode from workspace.
 
 - redesign text-table so that we send in cells instead with:
   - row
@@ -16,6 +16,9 @@
   - show a warning if a path exists in a dev profile and dev.
   - add :redundant-paths and :redundant-deps to :profile->settings.
   - show a single row with selected profiles.
+
+- introduce one more "x" for resources.
+- move print-table-str-keys + enrich-workspace-str-keys to java.core.
 
 - type a better message than "Invalid color mode..." if giving an unknown command.
 
@@ -198,6 +201,7 @@ Doc
 
 Differences compared to lein-polylith
 =====================================
+- parameters to commands are named.
 - no support for empty top namespace.
 - when you create a component, it will not include any example code in the test.
 - git needs to be used, otherwise it can not determine what has changed since the last commit.
