@@ -182,8 +182,8 @@
                 :environments [{:name "cli"
                                 :alias "cli"
                                 :type "environment"
-                                :lines-of-code-src 1967
-                                :lines-of-code-test 1143
+                                :total-lines-of-code-src 1967
+                                :total-lines-of-code-test 1143
                                 :test-component-names []
                                 :component-names ["change"
                                                   "command"
@@ -234,12 +234,12 @@
                                {:name "core"
                                 :alias "core"
                                 :type "environment"
-                                :lines-of-code-src 1527
-                                :lines-of-code-test 1021
+                                :total-lines-of-code-src 1527
+                                :total-lines-of-code-test 1021
                                 :test-component-names []
                                 :component-names ["change"
                                                   "common"
-                                                  "deps"
+                                                  "deps2"
                                                   "file"
                                                   "git"
                                                   "help"
@@ -252,7 +252,7 @@
                                 :test-base-names []
                                 :paths ["../../components/change/src"
                                         "../../components/common/src"
-                                        "../../components/deps/src"
+                                        "../../components/deps2/src"
                                         "../../components/file/src"
                                         "../../components/git/src"
                                         "../../components/help/src"
@@ -272,8 +272,8 @@
                                {:name "dev"
                                 :alias "dev"
                                 :type "environment"
-                                :lines-of-code-src 2020
-                                :lines-of-code-test 1143
+                                :total-lines-of-code-src 2020
+                                :total-lines-of-code-test 1143
                                 :test-component-names ["change"
                                                        "command"
                                                        "common"
@@ -308,7 +308,6 @@
                                         "../../components/change/src"
                                         "../../components/command/src"
                                         "../../components/common/src"
-                                        "../../components/deps/src"
                                         "../../components/file/src"
                                         "../../components/git/src"
                                         "../../components/help/src"
@@ -323,7 +322,6 @@
                                              "../../components/change/test"
                                              "../../components/command/test"
                                              "../../components/common/test"
-                                             "../../components/deps/test"
                                              "../../components/file/test"
                                              "../../components/git/test"
                                              "../../components/help/test"
@@ -352,24 +350,28 @@
                 :total-loc-test-bricks 2143
                 :changes {:changed-components ["help" "text-table" "util" "workspace"]
                           :changed-bases ["cli"]
-                          :env->bricks-to-test {"cli"  ["file" "cli"]
-                                                "core" ["file" "cli"]
+                          :env->bricks-to-test {"cli"  []
+                                                "core" []
                                                 "dev"  ["file" "cli"]}}
                 :messages []})
 
-(def environments (:environments workspace))
-(def components (:components workspace))
-(def ws-bases (:bases workspace))
+(def workspace-with-profiles (-> workspace
+                                 (assoc-in [:settings :active-dev-profiles] #{:default})
+                                 (assoc-in [:settings :profile->settings] {:default {:src-bricks #{"deps"}
+                                                                                     :test-bricks #{"deps"}}
+                                                                           :adm {:src-bricks #{"deps2"}
+                                                                                 :test-bricks #{"deps2"}}})))
 
-(deftest ws-table--when-loc-flag-is-false--return-table-without-loc-info
+
+(deftest ws-table--without-loc-info--return-table-without-loc-info
   (is (= ["  interface      brick          cli  core  dev"
           "  --------------------------------------------"
           "  change         change         x--  x--   xx-"
           "  command        command        x--  ---   xx-"
           "  common         common         x--  x--   xx-"
-          "  deps           deps           x--  x--   xx-"
-          "  deps           deps2          ---  ---   ---"
-          "  file           file           x-x  x-x   xxx"
+          "  deps           deps           x--  ---   xx-"
+          "  deps           deps2          ---  x--   ---"
+          "  file           file           x--  x--   xxx"
           "  git            git            x--  x--   xx-"
           "  help           help *         x--  x--   xx-"
           "  shell          shell          x--  x--   xx-"
@@ -379,27 +381,70 @@
           "  validate       validate       x--  x--   xx-"
           "  workspace      workspace *    x--  x--   xx-"
           "  workspace-clj  workspace-clj  x--  ---   xx-"
-          "  -              cli *          x-x  --x   xxx"]
+          "  -              cli *          x--  ---   xxx"]
          (ws-table/table workspace false))))
 
-(deftest ws-table--when-loc-flag-is-true--return-table-with-loc-info
-  (is (= ["  interface      brick          cli  core  dev    loc   (t)"
-          "  ---------------------------------------------------------"
-          "  change         change         x--  x--   xx-     81    25"
-          "  command        command        x--  ---   xx-     36     0"
-          "  common         common         x--  x--   xx-    158     0"
-          "  deps           deps           x--  x--   xx-     43    51"
-          "  deps           deps2          ---  ---   ---     25     0"
-          "  file           file           x-x  x-x   xxx     80     0"
-          "  git            git            x--  x--   xx-     31    17"
-          "  help           help *         x--  x--   xx-    129     0"
-          "  shell          shell          x--  x--   xx-     19     0"
-          "  test-runner    test-runner    x--  ---   xx-     82     0"
-          "  text-table     text-table *   x--  x--   xx-     65    42"
-          "  util           util *         x--  x--   xx-    157    47"
-          "  validate       validate       x--  x--   xx-  1,377   744"
-          "  workspace      workspace *    x--  x--   xx-    387    95"
-          "  workspace-clj  workspace-clj  x--  ---   xx-    301   122"
-          "  -              cli *          x-x  --x   xxx     21     0"
-          "                                                3,020 2,143"]
+(deftest ws-table--with-loc-info--return-table-with-loc-info
+  (is (= ["  interface      brick           cli   core    dev     loc   (t)"
+          "  --------------------------------------------------------------"
+          "  change         change          x--    x--    xx-      81    25"
+          "  command        command         x--    ---    xx-      36     0"
+          "  common         common          x--    x--    xx-     158     0"
+          "  deps           deps            x--    ---    xx-      43    51"
+          "  deps           deps2           ---    x--    ---      25     0"
+          "  file           file            x--    x--    xxx      80     0"
+          "  git            git             x--    x--    xx-      31    17"
+          "  help           help *          x--    x--    xx-     129     0"
+          "  shell          shell           x--    x--    xx-      19     0"
+          "  test-runner    test-runner     x--    ---    xx-      82     0"
+          "  text-table     text-table *    x--    x--    xx-      65    42"
+          "  util           util *          x--    x--    xx-     157    47"
+          "  validate       validate        x--    x--    xx-   1,377   744"
+          "  workspace      workspace *     x--    x--    xx-     387    95"
+          "  workspace-clj  workspace-clj   x--    ---    xx-     301   122"
+          "  -              cli *           x--    ---    xxx      21     0"
+          "                                1,967  1,527  2,020  3,020 2,143"]
          (ws-table/table workspace true))))
+
+(deftest ws-table--with-profiles-without-loc-info--return-table-without-loc-info
+  (is (= ["  interface      brick          cli  core  dev  adm"
+          "  -------------------------------------------------"
+          "  change         change         x--  x--   xx-  -- "
+          "  command        command        x--  ---   xx-  -- "
+          "  common         common         x--  x--   xx-  -- "
+          "  deps           deps           x--  ---   xx-  -- "
+          "  deps           deps2          ---  x--   ---  xx "
+          "  file           file           x--  x--   xxx  -- "
+          "  git            git            x--  x--   xx-  -- "
+          "  help           help *         x--  x--   xx-  -- "
+          "  shell          shell          x--  x--   xx-  -- "
+          "  test-runner    test-runner    x--  ---   xx-  -- "
+          "  text-table     text-table *   x--  x--   xx-  -- "
+          "  util           util *         x--  x--   xx-  -- "
+          "  validate       validate       x--  x--   xx-  -- "
+          "  workspace      workspace *    x--  x--   xx-  -- "
+          "  workspace-clj  workspace-clj  x--  ---   xx-  -- "
+          "  -              cli *          x--  ---   xxx  -- "]
+         (ws-table/table workspace-with-profiles false))))
+
+(deftest ws-table--with-profiles-with-loc-info--return-table-without-loc-info
+  (is (= ["  interface      brick           cli   core    dev   adm    loc   (t)"
+          "  -------------------------------------------------------------------"
+          "  change         change          x--    x--    xx-   --      81    25"
+          "  command        command         x--    ---    xx-   --      36     0"
+          "  common         common          x--    x--    xx-   --     158     0"
+          "  deps           deps            x--    ---    xx-   --      43    51"
+          "  deps           deps2           ---    x--    ---   xx      25     0"
+          "  file           file            x--    x--    xxx   --      80     0"
+          "  git            git             x--    x--    xx-   --      31    17"
+          "  help           help *          x--    x--    xx-   --     129     0"
+          "  shell          shell           x--    x--    xx-   --      19     0"
+          "  test-runner    test-runner     x--    ---    xx-   --      82     0"
+          "  text-table     text-table *    x--    x--    xx-   --      65    42"
+          "  util           util *          x--    x--    xx-   --     157    47"
+          "  validate       validate        x--    x--    xx-   --   1,377   744"
+          "  workspace      workspace *     x--    x--    xx-   --     387    95"
+          "  workspace-clj  workspace-clj   x--    ---    xx-   --     301   122"
+          "  -              cli *           x--    ---    xxx   --      21     0"
+          "                                1,967  1,527  2,020       3,020 2,143"]
+         (ws-table/table workspace-with-profiles true))))
