@@ -1,7 +1,8 @@
 (ns polylith.clj.core.workspace.environment
   (:require [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.common.interfc.entity :as entity]
+            [polylith.clj.core.entity.interfc :as entity]
+            [polylith.clj.core.common.interfc.paths :as paths]
             [polylith.clj.core.workspace.profile :as profile]
             [polylith.clj.core.workspace.loc :as loc]
             [polylith.clj.core.workspace.brick-deps :as brick-deps]))
@@ -45,15 +46,18 @@
                   {:keys [active-dev-profiles profile->settings]}
                   {:keys [run-all? selected-environments]}]
   (let [alias (env->alias name)
-        all-src-paths (profile/src-paths dev? src-paths active-dev-profiles profile->settings)
-        all-test-paths (profile/test-paths dev? test-paths active-dev-profiles profile->settings)
+        profile-src-paths (profile/src-paths dev? [] active-dev-profiles profile->settings)
+        profile-test-paths (profile/test-paths dev? [] active-dev-profiles profile->settings)
+        all-src-paths (vec (sort (concat src-paths profile-src-paths)))
+        all-test-paths (vec (sort (concat test-paths profile-test-paths)))
         existing-src-paths (existing-paths ws-dir all-src-paths)
-        component-names (entity/components-from-paths existing-src-paths)
-        base-names (entity/bases-from-paths existing-src-paths)
+        component-names (paths/components-from-paths existing-src-paths)
+        base-names (paths/bases-from-paths existing-src-paths)
         brick-names (concat component-names base-names)
         existing-test-paths (existing-paths ws-dir all-test-paths)
-        test-component-names (entity/components-from-paths existing-test-paths)
-        test-base-names (entity/bases-from-paths existing-test-paths)
+        test-component-names (paths/components-from-paths existing-test-paths)
+        test-base-names (paths/bases-from-paths existing-test-paths)
+        path-infos (entity/path-infos ws-dir src-paths test-paths profile-src-paths profile-test-paths)
         deps (brick-deps/environment-deps component-names components bases)
         lib-imports-src (-> (env-lib-imports brick-names brick->lib-imports false)
                             set sort vec)
@@ -72,6 +76,7 @@
                       :lines-of-code-test (loc/lines-of-code namespaces-test)
                       :total-lines-of-code-src total-lines-of-code-src
                       :total-lines-of-code-test total-lines-of-code-test
+                      :path-infos path-infos
                       :test-component-names test-component-names
                       :component-names component-names
                       :base-names base-names

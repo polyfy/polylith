@@ -115,6 +115,93 @@
                                                   :indirect []}
                                        "file"    {:direct   []
                                                   :indirect []}}
+            :entity-src->path-infos   {[:brick
+                                        "change"
+                                        :src]  [{:exists?    true
+                                                 :name       "change"
+                                                 :path       "components/change/src"
+                                                 :profile?   false
+                                                 :source-dir "src"
+                                                 :test?      false
+                                                 :type       :component}]
+                                       [:brick
+                                        "change"
+                                        :test] [{:exists?    true
+                                                 :name       "change"
+                                                 :path       "components/change/test"
+                                                 :profile?   false
+                                                 :source-dir "test"
+                                                 :test?      true
+                                                 :type       :component}]
+                                       [:brick
+                                        "cli"
+                                        :src]  [{:exists?    true
+                                                 :name       "cli"
+                                                 :path       "bases/cli/src"
+                                                 :profile?   false
+                                                 :source-dir "src"
+                                                 :test?      false
+                                                 :type       :base}]
+                                       [:brick
+                                        "cli"
+                                        :test] [{:exists?    true
+                                                 :name       "cli"
+                                                 :path       "bases/cli/test"
+                                                 :profile?   false
+                                                 :source-dir "test"
+                                                 :test?      true
+                                                 :type       :base}]
+                                       [:brick
+                                        "command"
+                                        :src]  [{:exists?    true
+                                                 :name       "command"
+                                                 :path       "components/command/src"
+                                                 :profile?   false
+                                                 :source-dir "src"
+                                                 :test?      false
+                                                 :type       :component}]
+                                       [:brick
+                                        "command"
+                                        :test] [{:exists?    true
+                                                 :name       "command"
+                                                 :path       "components/command/test"
+                                                 :profile?   false
+                                                 :source-dir "test"
+                                                 :test?      true
+                                                 :type       :component}]
+                                       [:brick
+                                        "common"
+                                        :src]  [{:exists?    true
+                                                 :name       "common"
+                                                 :path       "components/common/src"
+                                                 :profile?   false
+                                                 :source-dir "src"
+                                                 :test?      false
+                                                 :type       :component}]
+                                       [:brick
+                                        "deps"
+                                        :src]  [{:exists?    true
+                                                 :name       "deps"
+                                                 :path       "components/deps/src"
+                                                 :profile?   false
+                                                 :source-dir "src"
+                                                 :test?      false
+                                                 :type       :component}]
+                                       [:brick
+                                        "file"
+                                        :src]  [{:exists?    true
+                                                 :name       "file"
+                                                 :path       "components/file/src"
+                                                 :profile?   false
+                                                 :source-dir "src"
+                                                 :test?      false
+                                                 :type       :component}]
+                                       [:other
+                                        nil
+                                        :test] [{:exists?  true
+                                                 :path     "test"
+                                                 :profile? false
+                                                 :test?    true}]}
             :test-lib-deps {}
             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}}
            (env/enrich-env environment "" components bases brick->loc brick->lib-imports env->alias
@@ -169,6 +256,118 @@
                                                   :indirect []}
                                        "file"    {:direct   []
                                                   :indirect []}}
+            :entity-src->path-infos   {[:brick
+                                        "change"
+                                        :src]  [{:exists?    true
+                                                 :name       "change"
+                                                 :path       "components/change/src"
+                                                 :profile?   false
+                                                 :source-dir "src"
+                                                 :test?      false
+                                                 :type       :component}]
+                                       [:brick
+                                        "change"
+                                        :test] [{:exists?    true
+                                                 :name       "change"
+                                                 :path       "components/change/test"
+                                                 :profile?   false
+                                                 :source-dir "test"
+                                                 :test?      true
+                                                 :type       :component}]
+                                       [:brick
+                                        "cli"
+                                        :src]  [{:exists?    true
+                                                 :name       "cli"
+                                                 :path       "bases/cli/src"
+                                                 :profile?   false
+                                                 :source-dir "src"
+                                                 :test?      false
+                                                 :type       :base}]
+                                       [:brick
+                                        "cli"
+                                        :test] [{:exists?    true
+                                                 :name       "cli"
+                                                 :path       "bases/cli/test"
+                                                 :profile?   false
+                                                 :source-dir "test"
+                                                 :test?      true
+                                                 :type       :base}]
+                                       [:brick
+                                        "command"
+                                        :src]  [{:exists?    true
+                                                 :name       "command"
+                                                 :path       "components/command/src"
+                                                 :profile?   false
+                                                 :source-dir "src"
+                                                 :test?      false
+                                                 :type       :component}]
+                                       [:brick
+                                        "command"
+                                        :test] [{:exists?    true
+                                                 :name       "command"
+                                                 :path       "components/command/test"
+                                                 :profile?   false
+                                                 :source-dir "test"
+                                                 :test?      true
+                                                 :type       :component}]
+                                       [:brick
+                                        "common"
+                                        :src]  [{:exists?    true
+                                                 :name       "common"
+                                                 :path       "components/common/src"
+                                                 :profile?   false
+                                                 :source-dir "src"
+                                                 :test?      false
+                                                 :type       :component}]
+                                       [:brick
+                                        "deps"
+                                        :src]  [{:exists?    true
+                                                 :name       "deps"
+                                                 :path       "components/deps/src"
+                                                 :profile?   false
+                                                 :source-dir "src"
+                                                 :test?      false
+                                                 :type       :component}]
+                                       [:brick
+                                        "file"
+                                        :src]  [{:exists?    true
+                                                 :name       "file"
+                                                 :path       "components/file/src"
+                                                 :profile?   false
+                                                 :source-dir "src"
+                                                 :test?      false
+                                                 :type       :component}]
+                                       [:brick
+                                        "user"
+                                        :src]  [{:exists?    true
+                                                 :name       "user"
+                                                 :path       "components/user/resources"
+                                                 :profile?   true
+                                                 :source-dir "resources"
+                                                 :test?      false
+                                                 :type       :component}
+                                                {:exists?    true
+                                                 :name       "user"
+                                                 :path       "components/user/src"
+                                                 :profile?   true
+                                                 :source-dir "src"
+                                                 :test?      false
+                                                 :type       :component}]
+                                       [:brick
+                                        "user"
+                                        :test] [{:exists?    true
+                                                 :name       "user"
+                                                 :path       "components/user/test"
+                                                 :profile?   true
+                                                 :source-dir "test"
+                                                 :test?      true
+                                                 :type       :component}]
+                                       [:other
+                                        nil
+                                        :test] [{:exists?  true
+                                                 :path     "test"
+                                                 :profile? false
+                                                 :test?    true}]}
             :test-lib-deps {}
             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}}
            (env/enrich-env environment "" components bases brick->loc brick->lib-imports env->alias

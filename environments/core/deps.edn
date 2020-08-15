@@ -3,6 +3,7 @@
            "../../components/change/src"
            "../../components/common/src"
            "../../components/deps/src"
+           "../../components/entity/src"
            "../../components/file/src"
            "../../components/git/src"
            "../../components/help/src"

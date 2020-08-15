@@ -2,6 +2,12 @@
   (:require [clojure.string :as str]
             [polylith.clj.core.util.core :as core]))
 
+(defn take-until [string separator]
+  (when string
+    (let [index (str/index-of string separator)]
+      (when index
+        (subs string 0 index)))))
+
 (defn skip-until [string separator]
   (when string
     (let [index (str/index-of string separator)]

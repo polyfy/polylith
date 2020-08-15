@@ -1,4 +1,4 @@
-(ns polylith.clj.core.common.entity
+(ns polylith.clj.core.common.paths
   (:require [clojure.string :as str]))
 
 (defn- starts-with [path start]
@@ -29,11 +29,27 @@
 (defn- environment-name [path]
   (entity-name path 13))
 
+(defn src-path? [path]
+  (and (not (str/ends-with? path "/test"))
+       (not (str/ends-with? path "/resources"))))
+
+(defn resources-path? [path]
+  (str/ends-with? path "/resources"))
+
+(defn test-path? [path]
+  (str/ends-with? path "/test"))
+
+(defn component-paths [paths]
+  (filterv component? paths))
+
+(defn base-paths [paths]
+  (filterv base? paths))
+
 (defn components-from-paths [paths]
-  (vec (sort (set (map component-name (filter component? paths))))))
+  (vec (sort (set (mapv component-name (component-paths paths))))))
 
 (defn bases-from-paths [paths]
-  (vec (sort (set (map base-name (filter base? paths))))))
+  (vec (sort (set (map base-name (base-paths paths))))))
 
 (defn bricks-from-paths [paths]
   (concat (components-from-paths paths)

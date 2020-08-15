@@ -1,6 +1,6 @@
 (ns polylith.clj.core.change.entity
   (:require [clojure.string :as str]
-            [polylith.clj.core.common.interfc.entity :as entity]
+            [polylith.clj.core.common.interfc.paths :as entity]
             [polylith.clj.core.git.interfc :as git]))
 
 (defn environment? [filename]
