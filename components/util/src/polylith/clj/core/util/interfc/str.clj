@@ -11,6 +11,9 @@
 (defn skip-until [string separator]
   (str-util/skip-until string separator))
 
+(defn take-until [string separator]
+  (str-util/take-until string separator))
+
 (defn skip-prefix [string prefix]
   (str-util/skip-prefix string prefix))
 

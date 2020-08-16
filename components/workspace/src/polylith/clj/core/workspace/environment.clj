@@ -10,9 +10,6 @@
 (defn file-exists [ws-dir cleaned-path]
   (file/exists (str ws-dir "/" cleaned-path)))
 
-(defn existing-paths [ws-dir paths]
-  (filterv #(file-exists ws-dir %) paths))
-
 (defn env-total-loc [brick-names brick->loc test?]
   (let [locs (map brick->loc brick-names)]
     (if test?
@@ -43,21 +40,16 @@
                   brick->loc
                   brick->lib-imports
                   env->alias
-                  {:keys [active-dev-profiles profile->settings]}
+                  settings
                   {:keys [run-all? selected-environments]}]
   (let [alias (env->alias name)
-        profile-src-paths (profile/src-paths dev? [] active-dev-profiles profile->settings)
-        profile-test-paths (profile/test-paths dev? [] active-dev-profiles profile->settings)
-        all-src-paths (vec (sort (concat src-paths profile-src-paths)))
-        all-test-paths (vec (sort (concat test-paths profile-test-paths)))
-        existing-src-paths (existing-paths ws-dir all-src-paths)
-        component-names (paths/components-from-paths existing-src-paths)
-        base-names (paths/bases-from-paths existing-src-paths)
+        dep-entries (entity/deps-entries dev? lib-deps test-lib-deps settings)
+        path-entries (entity/path-entries ws-dir dev? src-paths test-paths settings)
+        component-names (entity/src-component-names path-entries)
+        base-names (entity/src-base-names path-entries)
         brick-names (concat component-names base-names)
-        existing-test-paths (existing-paths ws-dir all-test-paths)
-        test-component-names (paths/components-from-paths existing-test-paths)
-        test-base-names (paths/bases-from-paths existing-test-paths)
-        path-infos (entity/path-infos ws-dir src-paths test-paths profile-src-paths profile-test-paths)
+        test-component-names (entity/test-component-names path-entries)
+        test-base-names (entity/test-base-names path-entries)
         deps (brick-deps/environment-deps component-names components bases)
         lib-imports-src (-> (env-lib-imports brick-names brick->lib-imports false)
                             set sort vec)
@@ -76,20 +68,19 @@
                       :lines-of-code-test (loc/lines-of-code namespaces-test)
                       :total-lines-of-code-src total-lines-of-code-src
                       :total-lines-of-code-test total-lines-of-code-test
-                      :path-infos path-infos
                       :test-component-names test-component-names
-                      :component-names component-names
+                      :component-names (entity/src-component-names path-entries)
                       :base-names base-names
                       :test-base-names test-base-names
                       :has-src-dir? has-src-dir?
                       :has-test-dir? has-test-dir?
                       :namespaces-src namespaces-src
                       :namespaces-test namespaces-test
-                      :src-paths all-src-paths
-                      :test-paths all-test-paths
+                      :src-paths (entity/src-paths path-entries)
+                      :test-paths (entity/test-paths path-entries)
                       :lib-imports lib-imports-src
                       :lib-imports-test lib-imports-test
-                      :lib-deps (profile/lib-deps dev? lib-deps active-dev-profiles profile->settings)
+                      :lib-deps (entity/all-src-deps dep-entries)
                       :deps deps
-                      :test-lib-deps test-lib-deps
+                      :test-lib-deps (entity/all-test-deps dep-entries)
                       :maven-repos maven-repos)))

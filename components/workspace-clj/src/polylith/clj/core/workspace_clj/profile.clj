@@ -5,7 +5,7 @@
 (defn profile [[profile-key {:keys [extra-paths extra-deps]}]]
   [(keyword (subs (name profile-key) 4))
    (util/ordered-map :paths extra-paths
-                     :deps extra-deps)])
+                     :lib-deps (util/stringify-and-sort-map extra-deps))])
 
 (defn profile->settings [aliases]
   (into {} (map profile

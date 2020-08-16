@@ -14,11 +14,12 @@
   (and (brick-path? path)
        (str/ends-with? path "/test")))
 
-(defn with-paths [[profile {:keys [paths deps]}]]
+(defn with-paths [[profile {:keys [paths lib-deps]}]]
   (let [src-paths (vec (sort (filter src-path? paths)))
         test-paths (vec (sort (filter test-path? paths)))]
     [profile
-     {:deps (or deps {})
+     {:lib-deps (or lib-deps {})
+      :paths paths
       :src-bricks (set (paths/bricks-from-paths src-paths))
       :test-bricks (set (paths/bricks-from-paths test-paths))
       :src-paths src-paths

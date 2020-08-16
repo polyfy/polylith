@@ -1,24 +1,37 @@
 (ns polylith.clj.core.entity.interfc
-  (:require [polylith.clj.core.entity.path-extractor :as extractor])
-  (:require [polylith.clj.core.entity.path-selector :as selector]))
+  (:require [polylith.clj.core.entity.core :as core])
+  (:require [polylith.clj.core.entity.dep-selector :as dep-selector])
+  (:require [polylith.clj.core.entity.path-selector :as path-selector]))
 
-(defn path-infos [ws-dir src-paths test-paths profile-src-paths profile-test-paths]
-  (extractor/path-infos ws-dir src-paths test-paths profile-src-paths profile-test-paths))
+(defn path-entries [ws-dir dev? src-paths test-paths settings]
+  (core/path-entries ws-dir dev? src-paths test-paths settings))
 
-(defn src-paths [entity-src->path-infos]
-  (selector/all-src-paths entity-src->path-infos))
+(defn deps-entries [dev? src-deps test-deps settings]
+  (core/deps-entries dev? src-deps test-deps settings))
 
-(defn test-paths [entity-src->path-infos]
-  (selector/all-test-paths entity-src->path-infos))
+(defn all-src-deps [dep-entries]
+  (dep-selector/all-src-deps dep-entries))
 
-(defn brick->src-paths [entity-src->path-infos]
-  (selector/brick->src-paths entity-src->path-infos))
+(defn all-test-deps [dep-entries]
+  (dep-selector/all-test-deps dep-entries))
 
-(defn brick->test-paths [entity-src->path-infos]
-  (selector/brick->test-paths entity-src->path-infos))
+(defn src-paths [path-entries]
+  (path-selector/all-src-paths path-entries))
 
-(defn env->src-paths [entity-src->path-infos]
-  (selector/env->src-paths entity-src->path-infos))
+(defn test-paths [path-entries]
+  (path-selector/all-test-paths path-entries))
 
-(defn env->test-paths [entity-src->path-infos]
-  (selector/env->test-paths entity-src->path-infos))
+(defn src-component-names [path-entries]
+  (path-selector/src-component-names path-entries))
+
+(defn src-base-names [path-entries]
+  (path-selector/src-base-names path-entries))
+
+(defn src-brick-names [path-entries]
+  (path-selector/src-brick-names path-entries))
+
+(defn test-component-names [path-entries]
+  (path-selector/test-component-names path-entries))
+
+(defn test-base-names [path-entries]
+  (path-selector/test-base-names path-entries))

@@ -4,10 +4,10 @@
             [polylith.clj.core.entity.path-extractor :as extractor]
             [polylith.clj.core.file.interfc :as file]))
 
-(deftest path-infos--lists-of-paths--returns-expected-result
+(deftest path-entries--lists-of-paths--returns-extracted-path-entries
   (with-redefs [file/exists (fn [_] true)]
-    (is (= test-data/path-infos
-           (extractor/path-infos
+    (is (= test-data/path-entries
+           (extractor/path-entries
              "."
              ["bases/cli/resources"
               "bases/cli/src"

@@ -1,10 +1,55 @@
 
-- show total loc per env.
+- use 'entity' in workspace.ws-table.env-columns.
 
-- add support for different :dev profiles:
-  - show the dev and profile headers in cyan.
-  - show a warning if a path exists in a dev profile and dev.
-  - add :redundant-paths and :redundant-deps to :profile->settings.
+- remove polylith.clj.core.workspace.settings when not needed.
+
+- rename from :deps to :lib-deps in profile settings.
+
+- have a similar calculation for lib-deps in 'entity'.
+
+
+- remove the enrichment of profiles from settings and move them to the new solution in 'entity'.
+
+- start using the new 'entity' component instead of the different attributes in entity.
+
+- handle path-data as a list of maps, not key->data.
+
+- use + instead of cyan color to show that a source comes in via a profile.
+  - add a + before the name for the aliases and use purple instead of cyan.
+  - add a break in the column between the last real environment and dev, so that
+    dev and its profiles forms its own group. Do the same between brick and first env.
+
+- check why the cli environment test folder didn't turn up in dev when running 'info'.
+
+- change :component-names, :test-component-names, :base-names, :test-base-names in
+  environments to:
+    :included-bricks [{:name "my-comp"
+                       :type "component"
+                       :includes-src? true
+                       :includes-resources? true
+                       :includes-test? true
+                       :src-paths []
+                       :test-paths []}]
+
+  - implement the same way for environments.
+  - continue with settings in 'workspace'.
+
+- use 'entity' from 'changes' instead of 'common.interfc.paths'.
+
+- create a .keep file in development/src when creating a workspace.
+
+- move things that has to do with entity into the new 'entity' components.
+
+- use :non-existing-src-paths and :non-existing-test-paths in validation 203.
+
+- add :resources to :comp
+
+- also do util/stringify-and-sort-map for test-lib-deps in workspace-clj.
+- add :test-lib-deps to bases.
+
+- introduce one more "x" for resources.
+  - also check that the directory exists.
+  - add resources-paths to validation 203.
 
 - change to the new text table:
   - deps, brick-ifc
@@ -13,7 +58,12 @@
   - deps, workspace-brick
   - remove the old text-table + deps and ws text tables.
 
-- introduce one more "x" for resources.
+- add profile related validations:
+  - don't allow having components with an interface with more than one component
+    in the development environment.
+  - show a warning if a path exists in a dev profile and dev.
+    - add :redundant-paths and :redundant-deps to :profile->settings.
+
 - move print-table-str-keys + enrich-workspace-str-keys to java.core.
 
 - type a better message than "Invalid color mode..." if giving an unknown command.
@@ -43,9 +93,6 @@
   'deps' and 'test' if not another config like +prod is given.
 
 - add tests for the 'test' command.
-
-- add validation that doesn't allow having components with an interface with more than
-  one component in the development environment.
 
 - move polylith-kotlin to private repo.
 
@@ -194,6 +241,7 @@ Doc
   - build a stand alone command line tool out of it.
   - build a service (lambda, REST...) out of it.
 - a section on how to rename and delete things.
+-
 
 Differences compared to lein-polylith
 =====================================

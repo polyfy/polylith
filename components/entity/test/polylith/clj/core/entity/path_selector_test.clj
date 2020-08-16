@@ -3,7 +3,7 @@
             [polylith.clj.core.entity.path-selector :as selector]
             [polylith.clj.core.entity.test-data :as test-data]))
 
-(deftest all-src-paths--execute--returns-all-src-paths
+(deftest all-src-paths--when-executed--returns-src-paths-from-all-components-bases-and-entities-including-profile-paths
   (is (= ["bases/cli/resources"
           "bases/cli/src"
           "components/address/resources"
@@ -15,52 +15,56 @@
           "components/purchaser/resources"
           "components/purchaser/src"
           "components/user/resources"
-          "components/user/resources"
-          "components/user/src"
           "components/user/src"
           "development/src"]
-         (selector/all-src-paths test-data/path-infos))))
+         (selector/all-src-paths test-data/path-entries))))
 
-(deftest all-test-paths--execute--returns-all-test-paths
+(deftest all-test-paths--when-executed--returns-test-paths-from-all-components-bases-and-entities-including-profile-paths
   (is (= ["bases/cli/test"
           "components/address/test"
           "components/database/test"
           "components/invoicer/test"
           "components/purchaser/test"
           "components/user/test"
-          "components/user/test"
           "development/test"
           "environments/invoice/test"]
-         (selector/all-test-paths test-data/path-infos))))
+         (selector/all-test-paths test-data/path-entries))))
 
-(deftest brick->src-paths--execute--returns-brick->path-map
-  (is (= {"address"   #{"components/address/src"
-                        "components/address/resources"},
-          "cli"       #{"bases/cli/src"
-                        "bases/cli/resources"},
-          "database"  #{"components/database/src"
-                        "components/database/resources"}
-          "invoicer"  #{"components/invoicer/src"
-                        "components/invoicer/resources"},
-          "purchaser" #{"components/purchaser/resources"
-                        "components/purchaser/src"},
-          "user"      #{"components/user/resources"
-                        "components/user/src"},}
-         (selector/brick->src-paths test-data/path-infos))))
+(deftest brick-src-entries--when-executed--returns-entries-collected-from-component-and-base-src-paths
+  (is (= [{:exists?    true
+           :name       "user"
+           :path       "components/user/resources"
+           :profile?   false
+           :source-dir "resources"
+           :test?      false
+           :type       :component}
+          {:exists?    true
+           :name       "user"
+           :path       "components/user/src"
+           :profile?   false
+           :source-dir "src"
+           :test?      false
+           :type       :component}
+          {:exists?    true
+           :name       "user"
+           :path       "components/user/resources"
+           :profile?   true
+           :source-dir "resources"
+           :test?      false
+           :type       :component}
+          {:exists?    true
+           :name       "user"
+           :path       "components/user/src"
+           :profile?   true
+           :source-dir "src"
+           :test?      false
+           :type       :component}]
+         (selector/brick-src-entries "user" test-data/path-entries))))
 
-(deftest brick->test-paths--execute--returns-brick->path-map
-  (is (= {"address"   #{"components/address/test"}
-          "cli"       #{"bases/cli/test"}
-          "database"  #{"components/database/test"}
-          "invoicer"  #{"components/invoicer/test"}
-          "purchaser" #{"components/purchaser/test"}
-          "user"      #{"components/user/test"}}
-         (selector/brick->test-paths test-data/path-infos))))
-
-(deftest env->src-paths--execute--returns-brick->path-map
-  (is (= {}
-         (selector/env->src-paths test-data/path-infos))))
-
-(deftest env->test-paths--execute--returns-brick->path-map
-  (is (= {"invoice" #{"environments/invoice/test"}}
-         (selector/env->test-paths test-data/path-infos))))
+(deftest src-component-names--when-executed--returns-expected-result
+  (is (= ["address"
+          "database"
+          "invoicer"
+          "purchaser"
+          "user"]
+         (selector/src-component-names test-data/path-entries))))

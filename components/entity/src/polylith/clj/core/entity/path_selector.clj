@@ -1,36 +1,32 @@
-(ns polylith.clj.core.entity.path-selector)
+(ns polylith.clj.core.entity.path-selector
+  (:require [polylith.clj.core.entity.matchers :as m]))
 
-(defn key= [[[category _ src-type]] compare-category compare-src-type]
-  (and (or (= category compare-category)
-           (nil? compare-category))
-       (or (= src-type compare-src-type)
-           (nil? compare-src-type))))
+(defn select-paths [path-entries]
+  (vec (sort (set (map :path path-entries)))))
 
-(defn entity-path [[[_ name] rows]]
-  [name (set (map :path rows))])
+(defn all-src-paths [path-entries]
+  (select-paths (m/filter-entries path-entries [m/=src])))
 
-(defn all-src-paths [entity-src->path-infos]
-  (vec (sort (map :path
-                  (filter #(-> % :test? not)
-                          (mapcat second entity-src->path-infos))))))
+(defn all-test-paths [path-entries]
+  (select-paths (m/filter-entries path-entries [m/=test])))
 
-(defn all-test-paths [entity-src->path-infos]
-  (vec (sort (map :path
-                  (filter :test?
-                          (mapcat second entity-src->path-infos))))))
+(defn brick-src-entries [brick-name path-entries]
+  (m/filter-entries path-entries [m/=brick m/=src (m/=name brick-name)]))
 
-(defn- select-paths [category type entity-src->path-infos]
-  (into {} (map entity-path
-                (filter #(key= % category type) entity-src->path-infos))))
+(defn select-name [path-entries & criterias]
+  (vec (sort (set (map :name (m/filter-entries path-entries criterias))))))
 
-(defn brick->src-paths [entity-src->path-infos]
-  (select-paths :brick :src entity-src->path-infos))
+(defn src-component-names [path-entries]
+  (select-name path-entries m/=component m/=src m/=exists))
 
-(defn brick->test-paths [entity-src->path-infos]
-  (select-paths :brick :test entity-src->path-infos))
+(defn src-base-names [path-entries]
+  (select-name path-entries m/=base m/=src m/=exists))
 
-(defn env->src-paths [entity-src->path-infos]
-  (select-paths :env :src entity-src->path-infos))
+(defn test-component-names [path-entries]
+  (select-name path-entries m/=component m/=test m/=exists))
 
-(defn env->test-paths [entity-src->path-infos]
-  (select-paths :env :test entity-src->path-infos))
+(defn test-base-names [path-entries]
+  (select-name path-entries m/=base m/=test m/=exists))
+
+(defn src-brick-names [path-entries]
+  (select-name path-entries m/=brick m/=src m/=exists))

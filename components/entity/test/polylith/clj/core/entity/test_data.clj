@@ -1,195 +1,172 @@
 (ns polylith.clj.core.entity.test-data
   (:require [clojure.test :refer :all]))
 
-(def path-infos {[:brick
-                  "address"
-                  :src]  [{:exists?    true
-                           :name       "address"
-                           :path       "components/address/resources"
-                           :profile?   false
-                           :source-dir "resources"
-                           :test?      false
-                           :type       :component}
-                          {:exists?    true
-                           :name       "address"
-                           :path       "components/address/src"
-                           :profile?   false
-                           :source-dir "src"
-                           :test?      false
-                           :type       :component}]
-                 [:brick
-                  "address"
-                  :test] [{:exists?    true
-                           :name       "address"
-                           :path       "components/address/test"
-                           :profile?   false
-                           :source-dir "test"
-                           :test?      true
-                           :type       :component}]
-                 [:brick
-                  "cli"
-                  :src]  [{:exists?    true
-                           :name       "cli"
-                           :path       "bases/cli/resources"
-                           :profile?   false
-                           :source-dir "resources"
-                           :test?      false
-                           :type       :base}
-                          {:exists?    true
-                           :name       "cli"
-                           :path       "bases/cli/src"
-                           :profile?   false
-                           :source-dir "src"
-                           :test?      false
-                           :type       :base}]
-                 [:brick
-                  "cli"
-                  :test] [{:exists?    true
-                           :name       "cli"
-                           :path       "bases/cli/test"
-                           :profile?   false
-                           :source-dir "test"
-                           :test?      true
-                           :type       :base}]
-                 [:brick
-                  "database"
-                  :src]  [{:exists?    true
-                           :name       "database"
-                           :path       "components/database/resources"
-                           :profile?   false
-                           :source-dir "resources"
-                           :test?      false
-                           :type       :component}
-                          {:exists?    true
-                           :name       "database"
-                           :path       "components/database/src"
-                           :profile?   false
-                           :source-dir "src"
-                           :test?      false
-                           :type       :component}]
-                 [:brick
-                  "database"
-                  :test] [{:exists?    true
-                           :name       "database"
-                           :path       "components/database/test"
-                           :profile?   false
-                           :source-dir "test"
-                           :test?      true
-                           :type       :component}]
-                 [:brick
-                  "invoicer"
-                  :src]  [{:exists?    true
-                           :name       "invoicer"
-                           :path       "components/invoicer/resources"
-                           :profile?   false
-                           :source-dir "resources"
-                           :test?      false
-                           :type       :component}
-                          {:exists?    true
-                           :name       "invoicer"
-                           :path       "components/invoicer/src"
-                           :profile?   false
-                           :source-dir "src"
-                           :test?      false
-                           :type       :component}]
-                 [:brick
-                  "invoicer"
-                  :test] [{:exists?    true
-                           :name       "invoicer"
-                           :path       "components/invoicer/test"
-                           :profile?   false
-                           :source-dir "test"
-                           :test?      true
-                           :type       :component}]
-                 [:brick
-                  "purchaser"
-                  :src]  [{:exists?    true
-                           :name       "purchaser"
-                           :path       "components/purchaser/resources"
-                           :profile?   false
-                           :source-dir "resources"
-                           :test?      false
-                           :type       :component}
-                          {:exists?    true
-                           :name       "purchaser"
-                           :path       "components/purchaser/src"
-                           :profile?   false
-                           :source-dir "src"
-                           :test?      false
-                           :type       :component}]
-                 [:brick
-                  "purchaser"
-                  :test] [{:exists?    true
-                           :name       "purchaser"
-                           :path       "components/purchaser/test"
-                           :profile?   false
-                           :source-dir "test"
-                           :test?      true
-                           :type       :component}]
-                 [:brick
-                  "user"
-                  :src]  [{:exists?    true
-                           :name       "user"
-                           :path       "components/user/resources"
-                           :profile?   false
-                           :source-dir "resources"
-                           :test?      false
-                           :type       :component}
-                          {:exists?    true
-                           :name       "user"
-                           :path       "components/user/src"
-                           :profile?   false
-                           :source-dir "src"
-                           :test?      false
-                           :type       :component}
-                          {:exists?    true
-                           :name       "user"
-                           :path       "components/user/resources"
-                           :profile?   true
-                           :source-dir "resources"
-                           :test?      false
-                           :type       :component}
-                          {:exists?    true
-                           :name       "user"
-                           :path       "components/user/src"
-                           :profile?   true
-                           :source-dir "src"
-                           :test?      false
-                           :type       :component}]
-                 [:brick
-                  "user"
-                  :test] [{:exists?    true
-                           :name       "user"
-                           :path       "components/user/test"
-                           :profile?   false
-                           :source-dir "test"
-                           :test?      true
-                           :type       :component}
-                          {:exists?    true
-                           :name       "user"
-                           :path       "components/user/test"
-                           :profile?   true
-                           :source-dir "test"
-                           :test?      true
-                           :type       :component}]
-                 [:env
-                  "invoice"
-                  :test] [{:exists?    true
-                           :name       "invoice"
-                           :path       "environments/invoice/test"
-                           :profile?   false
-                           :source-dir "test"
-                           :test?      true
-                           :type       :environment}]
-                 [:other
-                  nil
-                  :src]  [{:exists?  true
-                           :path     "development/src"
-                           :profile? false
-                           :test?    false}]
-                 [:other
-                  nil
-                  :test] [{:exists?  true
-                           :path     "development/test"
-                           :profile? false
-                           :test?    true}]})
+(def dep-entries [{:profile? false, :test? false, :dep ["org.clojure/clojure" {:mvn/version "1.10.1"}]}
+                  {:profile? false, :test? false, :dep ["org.clojure/tools.deps.alpha" {:mvn/version "0.8.695"}]}
+                  {:profile? false, :test? true, :dep ["zprint" #:mvn{:version "0.4.15"}]}
+                  {:profile? true, :test? false, :dep ["net.mikera/core.matrix" {:mvn/version "0.62.0"}]}])
+
+(def path-entries [{:exists? true
+                    :name       "cli"
+                    :path       "bases/cli/resources"
+                    :profile?   false
+                    :source-dir "resources"
+                    :test?      false
+                    :type       :base}
+                   {:exists?    true
+                    :name       "cli"
+                    :path       "bases/cli/src"
+                    :profile?   false
+                    :source-dir "src"
+                    :test?      false
+                    :type       :base}
+                   {:exists?    true
+                    :name       "address"
+                    :path       "components/address/resources"
+                    :profile?   false
+                    :source-dir "resources"
+                    :test?      false
+                    :type       :component}
+                   {:exists?    true
+                    :name       "address"
+                    :path       "components/address/src"
+                    :profile?   false
+                    :source-dir "src"
+                    :test?      false
+                    :type       :component}
+                   {:exists?    true
+                    :name       "database"
+                    :path       "components/database/resources"
+                    :profile?   false
+                    :source-dir "resources"
+                    :test?      false
+                    :type       :component}
+                   {:exists?    true
+                    :name       "database"
+                    :path       "components/database/src"
+                    :profile?   false
+                    :source-dir "src"
+                    :test?      false
+                    :type       :component}
+                   {:exists?    true
+                    :name       "invoicer"
+                    :path       "components/invoicer/resources"
+                    :profile?   false
+                    :source-dir "resources"
+                    :test?      false
+                    :type       :component}
+                   {:exists?    true
+                    :name       "invoicer"
+                    :path       "components/invoicer/src"
+                    :profile?   false
+                    :source-dir "src"
+                    :test?      false
+                    :type       :component}
+                   {:exists?    true
+                    :name       "purchaser"
+                    :path       "components/purchaser/resources"
+                    :profile?   false
+                    :source-dir "resources"
+                    :test?      false
+                    :type       :component}
+                   {:exists?    true
+                    :name       "purchaser"
+                    :path       "components/purchaser/src"
+                    :profile?   false
+                    :source-dir "src"
+                    :test?      false
+                    :type       :component}
+                   {:exists?    true
+                    :name       "user"
+                    :path       "components/user/resources"
+                    :profile?   false
+                    :source-dir "resources"
+                    :test?      false
+                    :type       :component}
+                   {:exists?    true
+                    :name       "user"
+                    :path       "components/user/src"
+                    :profile?   false
+                    :source-dir "src"
+                    :test?      false
+                    :type       :component}
+                   {:exists?  true
+                    :path     "development/src"
+                    :profile? false
+                    :test?    false
+                    :type     :other}
+                   {:exists?    true
+                    :name       "user"
+                    :path       "components/user/resources"
+                    :profile?   true
+                    :source-dir "resources"
+                    :test?      false
+                    :type       :component}
+                   {:exists?    true
+                    :name       "user"
+                    :path       "components/user/src"
+                    :profile?   true
+                    :source-dir "src"
+                    :test?      false
+                    :type       :component}
+                   {:exists?    true
+                    :name       "cli"
+                    :path       "bases/cli/test"
+                    :profile?   false
+                    :source-dir "test"
+                    :test?      true
+                    :type       :base}
+                   {:exists?    true
+                    :name       "address"
+                    :path       "components/address/test"
+                    :profile?   false
+                    :source-dir "test"
+                    :test?      true
+                    :type       :component}
+                   {:exists?    true
+                    :name       "database"
+                    :path       "components/database/test"
+                    :profile?   false
+                    :source-dir "test"
+                    :test?      true
+                    :type       :component}
+                   {:exists?    true
+                    :name       "invoicer"
+                    :path       "components/invoicer/test"
+                    :profile?   false
+                    :source-dir "test"
+                    :test?      true
+                    :type       :component}
+                   {:exists?    true
+                    :name       "purchaser"
+                    :path       "components/purchaser/test"
+                    :profile?   false
+                    :source-dir "test"
+                    :test?      true
+                    :type       :component}
+                   {:exists?    true
+                    :name       "user"
+                    :path       "components/user/test"
+                    :profile?   false
+                    :source-dir "test"
+                    :test?      true
+                    :type       :component}
+                   {:exists?    true
+                    :name       "invoice"
+                    :path       "environments/invoice/test"
+                    :profile?   false
+                    :source-dir "test"
+                    :test?      true
+                    :type       :environment}
+                   {:exists?  true
+                    :path     "development/test"
+                    :profile? false
+                    :test?    true
+                    :type     :other}
+                   {:exists?    true
+                    :name       "user"
+                    :path       "components/user/test"
+                    :profile?   true
+                    :source-dir "test"
+                    :test?      true
+                    :type       :component}])
