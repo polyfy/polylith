@@ -2,8 +2,6 @@
   (:require [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.util.interfc :as util]
             [polylith.clj.core.entity.interfc :as entity]
-            [polylith.clj.core.common.interfc.paths :as paths]
-            [polylith.clj.core.workspace.profile :as profile]
             [polylith.clj.core.workspace.loc :as loc]
             [polylith.clj.core.workspace.brick-deps :as brick-deps]))
 
