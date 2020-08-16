@@ -1,4 +1,5 @@
-(ns polylith.clj.core.entity.matchers)
+(ns polylith.clj.core.entity.matchers
+  (:require [clojure.string :as str]))
 
 (defn =name [entity-name]
   (fn [entry] (= entity-name (:name entry))))
@@ -24,6 +25,22 @@
 
 (defn =exists [{:keys [exists?]}]
   exists?)
+
+(defn =src-path [{:keys [path]}]
+  (str/ends-with? path "/src"))
+
+(defn =resources-path [{:keys [path]}]
+  (str/ends-with? path "/resources"))
+
+(defn =test-path [{:keys [path]}]
+  (str/ends-with? path "/test"))
+
+(defn =profile [{:keys [profile?]}]
+  profile?)
+
+(defn =standard [{:keys [profile?]}]
+  (not profile?))
+
 
 (defn match? [path-entry criterias]
   (every? true? ((apply juxt criterias) path-entry)))

@@ -40,14 +40,10 @@
         enriched-components (mapv #(component/enrich suffixed-top-ns interface-names enriched-settings %) components)
         enriched-bases (mapv #(base/enrich suffixed-top-ns interface-names enriched-settings %) bases)
         enriched-bricks (concat enriched-components enriched-bases)
-        total-loc-src-bricks (apply + (filter identity (map :lines-of-code-src enriched-bricks)))
-        total-loc-test-bricks (apply + (filter identity (map :lines-of-code-test enriched-bricks)))
         brick->loc (brick->loc enriched-bricks)
         brick->lib-imports (brick->lib-imports enriched-bricks)
         env->alias (alias/env->alias enriched-settings environments)
         enriched-environments (vec (sort-by :name (map #(env/enrich-env % ws-dir enriched-components enriched-bases brick->loc brick->lib-imports env->alias enriched-settings user-input) environments)))
-        total-loc-src-env (apply + (filter identity (map :lines-of-code-src enriched-environments)))
-        total-loc-test-env (apply + (filter identity (map :lines-of-code-test enriched-environments)))
         messages (validate/messages ws-dir suffixed-top-ns interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns ns->lib color-mode)]
     (array-map :name ws-name
                :ws-dir ws-dir
@@ -57,10 +53,6 @@
                :components enriched-components
                :bases enriched-bases
                :environments enriched-environments
-               :total-loc-src-bricks total-loc-src-bricks
-               :total-loc-test-bricks total-loc-test-bricks
-               :total-loc-src-environments total-loc-src-env
-               :total-loc-test-environments total-loc-test-env
                :messages messages)))
 
 (defn enrich-workspace-str-keys [workspace user-input]

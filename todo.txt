@@ -1,4 +1,8 @@
 
+- add resources to status to profile in ws-table.
+
+- remove :has-src-dir and :has-test-dir.
+
 - use 'entity' in workspace.ws-table.env-columns.
 
 - remove polylith.clj.core.workspace.settings when not needed.

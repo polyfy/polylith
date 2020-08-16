@@ -1,7 +1,8 @@
 (ns polylith.clj.core.entity.interfc
-  (:require [polylith.clj.core.entity.core :as core])
-  (:require [polylith.clj.core.entity.dep-selector :as dep-selector])
-  (:require [polylith.clj.core.entity.path-selector :as path-selector]))
+  (:require [polylith.clj.core.entity.status :as status]
+            [polylith.clj.core.entity.core :as core]
+            [polylith.clj.core.entity.dep-selector :as dep-selector]
+            [polylith.clj.core.entity.path-selector :as path-selector]))
 
 (defn path-entries [ws-dir dev? src-paths test-paths settings]
   (core/path-entries ws-dir dev? src-paths test-paths settings))
@@ -35,3 +36,9 @@
 
 (defn test-base-names [path-entries]
   (path-selector/test-base-names path-entries))
+
+(defn brick-status-flags [path-entries brick-name]
+  (status/status-flags path-entries :brick brick-name))
+
+(defn env-status-flags [path-entries env-name]
+  (status/status-flags path-entries :env env-name))

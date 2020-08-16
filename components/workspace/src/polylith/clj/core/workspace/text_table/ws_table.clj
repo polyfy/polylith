@@ -129,8 +129,8 @@
         row-colors (concat component-colors base-colors total-loc-colors)]
     (text-table/table "  " alignments header-colors header-orientations row-colors headers rows color-mode)))
 
-(defn print-table [{:keys [settings interfaces components bases environments changes messages total-loc-src-bricks total-loc-test-bricks total-loc-src-environments total-loc-test-environments]} thousand-sep show-loc?]
-  (let [{:keys [color-mode profile->settings]} settings
+(defn print-table [{:keys [settings interfaces components bases environments changes messages total-loc-src-bricks total-loc-test-bricks total-loc-src-environments total-loc-test-environments]} show-loc?]
+  (let [{:keys [color-mode thousand-sep profile->settings]} settings
         {:keys [changed-components changed-bases env->bricks-to-test]} changes
         table (ws-table color-mode components bases environments profile->settings changed-components changed-bases env->bricks-to-test total-loc-src-bricks total-loc-test-bricks thousand-sep show-loc?)
         nof-table (count-table/table interfaces components bases environments color-mode)
@@ -144,5 +144,5 @@
       (println)
       (println (common/pretty-messages messages color-mode)))))
 
-(defn print-table-str-keys [workspace thousand-sep show-loc?]
-  (print-table (walk/keywordize-keys workspace) thousand-sep show-loc?))
+(defn print-table-str-keys [workspace show-loc?]
+  (print-table (walk/keywordize-keys workspace) show-loc?))
