@@ -20,5 +20,5 @@
 (defn print-workspace-ifc-table [workspace]
   (ws-ifc-deps-table/print-table workspace))
 
-(defn print-workspace-brick-table [workspace environment-name color-mode]
-  (ws-brick-deps-table/print-table workspace environment-name color-mode))
+(defn print-workspace-brick-table [workspace environment-name]
+  (ws-brick-deps-table/print-table workspace environment-name))
