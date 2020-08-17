@@ -10,8 +10,8 @@
 (defn test-setup-and-tear-down [function]
   (core/test-setup-and-tear-down function))
 
-(defn execute-command [current-dir cmd & [arg1 arg2 arg3]]
-  (core/execute-command current-dir cmd arg1 arg2 arg3))
+(defn execute-command [current-dir & args]
+  (core/execute-command current-dir args))
 
 (defn paths [dir]
   (core/paths dir))

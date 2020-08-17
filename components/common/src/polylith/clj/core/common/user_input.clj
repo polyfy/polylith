@@ -23,16 +23,19 @@
         {:keys [name
                 top-ns
                 env
+                res
                 brick
                 interface
                 loc
                 all
                 all-bricks
                 test-env]} named-args]
-    {:arg1 (first args)
+    {:cmd (first args)
+     :arg1 (second args)
      :name name
      :top-ns top-ns
      :env env
+     :res res
      :brick brick
      :interface interface
      :loc loc

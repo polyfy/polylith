@@ -32,16 +32,16 @@
                       (ws/enrich-workspace user-input)
                       (change/with-changes user-input)))))
 
-(defn execute-command [current-dir cmd arg1 arg2 arg3]
+(defn execute-command [current-dir args]
   (with-redefs [file/current-dir (fn [] (if (str/blank? current-dir)
                                           @root-dir
                                           (str @root-dir "/" current-dir)))
                 git/current-sha (fn [_] "21f40507a24291ead2409ce33277378bb7e94ac6")
                 user-config/home-dir (fn [] (str @root-dir "/" user-home))]
     (let [ws-dir (file/current-dir)
-          user-input (common/user-input [arg1 arg2 arg3])
+          user-input (common/user-input args)
           workspace (read-workspace ws-dir user-input)
-          {:keys [exception]} (command/execute-command ws-dir workspace cmd user-input)]
+          {:keys [exception]} (command/execute-command ws-dir workspace user-input)]
       (when (-> exception nil? not)
         (stacktrace/print-stack-trace exception)))))
 

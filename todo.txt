@@ -1,8 +1,6 @@
 
 - check that sources from profiles shows as + in the dev column.
 
-- change :profile->settings and :active-dev-profiles to use string instead of keyword.
-
 - show a table with the profiles (if any) + a column 'active' in the 'info' command.
 
 - add resources to status to profile in ws-table.
