@@ -6,7 +6,7 @@
                   {:profile? false, :test? true, :dep ["zprint" #:mvn{:version "0.4.15"}]}
                   {:profile? true, :test? false, :dep ["net.mikera/core.matrix" {:mvn/version "0.62.0"}]}])
 
-(def path-entries [{:exists? true
+(def path-entries [{:exists?    true
                     :name       "cli"
                     :path       "bases/cli/resources"
                     :profile?   false
@@ -91,10 +91,11 @@
                     :test?      false
                     :type       :component}
                    {:exists?  true
+                    :name     "development"
                     :path     "development/src"
                     :profile? false
                     :test?    false
-                    :type     :other}
+                    :type     :environment}
                    {:exists?    true
                     :name       "user"
                     :path       "components/user/resources"
@@ -159,10 +160,11 @@
                     :test?      true
                     :type       :environment}
                    {:exists?  true
+                    :name     "development"
                     :path     "development/test"
                     :profile? false
                     :test?    true
-                    :type     :other}
+                    :type     :environment}
                    {:exists?    true
                     :name       "user"
                     :path       "components/user/test"

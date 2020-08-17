@@ -16,11 +16,12 @@
   (let [statuses (status-flags alias name alias->bricks-to-test path-entries)]
     (shared/standard-cell statuses column (+ index 3) :purple :center)))
 
-(defn column [index {:keys [alias dev? src-paths test-paths total-lines-of-code-src]}
+(defn column [index {:keys [alias dev? src-paths test-paths]}
               ws-dir settings bricks alias->bricks-to-test show-loc? thousand-sep]
   (let [column (+ 5 (* 2 index))
         path-entries (entity/path-entries ws-dir dev? src-paths test-paths settings)
-        total-loc-src (apply + (filter identity (map :lines-of-code-src bricks)))]
+        bricks-in-env (set (entity/src-brick-names path-entries))
+        total-loc-src (apply + (filter identity (map :lines-of-code-src (filter #(contains? bricks-in-env (:name %)) bricks))))]
     (concat
       [(shared/standard-cell alias column 1 :purple :center)]
       (map-indexed #(env-cell %1 column %2 alias alias->bricks-to-test path-entries) bricks)

@@ -3,26 +3,38 @@
             [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.util.interfc :as util]))
 
-(def main-dir->type {"bases" :base
-                     "components" :component
-                     "environments" :environment})
-
-(defn entity-name [path]
-  (-> path
-      (str-util/skip-until "/")
-      (str-util/take-until "/")))
+(def dir->type {"bases" :base
+                "components" :component
+                "environments" :environment})
 
 (defn source-dir [path]
   (-> path
       (str-util/skip-until "/")
       (str-util/skip-until "/")))
 
+(defn entity-type [name dir path]
+  (if-let [type (dir->type dir)]
+    {:name name
+     :type type
+     :source-dir (source-dir path)}
+    (if (= dir "development")
+      {:name dir
+       :type :environment
+       :source-dir name}
+      {:name name
+       :type :other
+       :source-dir (source-dir path)})))
+
+(defn entity-name [path]
+  (-> path
+      (str-util/skip-until "/")
+      (str-util/take-until "/")))
+
 (defn path-entry [ws-dir path profile? test?]
-  (let [name (entity-name path)
+  (let [entity-name (entity-name path)
         main-dir (str-util/take-until path "/")
-        type (main-dir->type main-dir :other)
-        exists? (file/exists (str ws-dir "/" path))
-        source-dir (source-dir path)]
+        {:keys [type name source-dir]} (entity-type entity-name main-dir path)
+        exists? (file/exists (str ws-dir "/" path))]
     (util/ordered-map :name name
                       :type type
                       :profile? profile?

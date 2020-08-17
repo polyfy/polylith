@@ -20,23 +20,6 @@
                                             "environments/core/src"
                                             "environments/core/test"]
                                 :test-paths []}
-                               {:name "development"
-                                :alias "dev"
-                                :type "environment"
-                                :active? false
-                                :dev? true
-                                :lines-of-code-src 4
-                                :lines-of-code-test 0
-                                :src-paths ["bases/cli/resources"
-                                            "bases/cli/src"
-                                            "components/address/resources"
-                                            "components/user/resources"
-                                            "components/user/src"
-                                            "development/src"]
-                                :test-paths ["bases/cli/test"
-                                             "components/address/test"
-                                             "components/purchaser/test"
-                                             "components/user/test"]}
                                {:name "invoice"
                                 :alias "inv"
                                 :type "environment"
@@ -59,7 +42,24 @@
                                              "components/database/test"
                                              "components/invoicer/test"
                                              "components/purchaser/test"
-                                             "environments/invoice/test"]}]
+                                             "environments/invoice/test"]}
+                               {:name "development"
+                                :alias "dev"
+                                :type "environment"
+                                :active? false
+                                :dev? true
+                                :lines-of-code-src 4
+                                :lines-of-code-test 0
+                                :src-paths ["bases/cli/resources"
+                                            "bases/cli/src"
+                                            "components/address/resources"
+                                            "components/user/resources"
+                                            "components/user/src"
+                                            "development/src"]
+                                :test-paths ["bases/cli/test"
+                                             "components/address/test"
+                                             "components/purchaser/test"
+                                             "components/user/test"]}]
                 :changes {:sha1 "HEAD"
                           :git-command "git diff HEAD --name-only"
                           :user-input {:run-all? false
@@ -81,7 +81,8 @@
   (is (= ["  environment  alias  src "
           "  ------------------------"
           "  core *       core   xx--"
-          "  invoice *    inv    --x-"]
+          "  invoice *    inv    --x-"
+          "  development  dev    x---"]
          (env-table/table workspace false))))
 
 (deftest table--environments-with-loc--returns-table-with-lines-of-code
@@ -89,5 +90,6 @@
           "  ----------------------------------"
           "  core *       core   xx--    1    1"
           "  invoice *    inv    --x-    0    1"
-          "                              1    2"]
+          "  development  dev    x---    4    0"
+          "                              5    2"]
          (env-table/table workspace true))))

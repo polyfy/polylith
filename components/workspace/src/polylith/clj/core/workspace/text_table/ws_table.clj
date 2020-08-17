@@ -84,9 +84,6 @@
             [:none :none :none :none :none]
             [])))
 
-(defn env-sorting [{:keys [dev? name]}]
-  [dev? name])
-
 (defn profile-sorting [[profile]]
   [(not= :default profile) profile])
 
@@ -100,13 +97,12 @@
   [(clojure.core/name alias) test-bricks])
 
 (defn ws-table [color-mode components bases environments profile->settings changed-components changed-bases env->bricks-to-test total-loc-src-bricks total-loc-test-bricks thousand-sep show-loc?]
-  (let [envs (sort-by env-sorting environments)
-        aliases (mapv :alias envs)
-        env->alias (into {} (map (juxt :name :alias) envs))
+  (let [aliases (mapv :alias environments)
+        env->alias (into {} (map (juxt :name :alias) environments))
         alias->bricks-to-test (into {} (map #(alias-changes % env->alias) env->bricks-to-test))
-        env-spc-cnt (inc (* (-> envs count dec) 2))
-        alias->bricks (into {} (map env-brick-names envs))
-        alias->test-bricks (into {} (map env-brick-test-names envs))
+        env-spc-cnt (inc (* (-> environments count dec) 2))
+        alias->bricks (into {} (map env-brick-names environments))
+        alias->test-bricks (into {} (map env-brick-test-names environments))
         sorted-components (sort-by sort-order components)
         sorted-bases (sort-by sort-order bases)
         bricks (concat sorted-components sorted-bases)
@@ -119,7 +115,7 @@
         profile->bricks-to-test {}
         headers (->headers show-loc? aliases profiles)
         brick-rows (mapv #(row % color-mode show-loc? aliases profile-names alias->bricks alias->test-bricks alias->bricks-to-test profile->bricks profile->test-bricks profile->bricks-to-test changed-components changed-bases thousand-sep) bricks)
-        total-locs-src (map :total-lines-of-code-src envs)
+        total-locs-src (map :total-lines-of-code-src environments)
         total-loc-row (->total-loc-row show-loc? profiles total-loc-src-bricks total-loc-test-bricks total-locs-src thousand-sep)
         rows (if show-loc? (conj brick-rows total-loc-row) brick-rows)
         header-colors (->header-colors show-loc? env-spc-cnt profile-spc-cnt)

@@ -2329,7 +2329,7 @@
           "  workspace      workspace *    x-xx   x---   x-x-     844 1,008"
           "  workspace-clj  workspace-clj  x-x-   ----   x-x-     324   150"
           "  -              cli            x---   ----   x---      22     0"
-          "                                4,322  4,322  4,322  4,322 3,518"]
+          "                                4,322  3,463  4,322  4,322 3,518"]
          (ws-table/table workspace true))))
 
 (deftest ws-table--with-profiles-without-loc-info--return-table-without-loc-info
@@ -2378,5 +2378,5 @@
           "  workspace      workspace *    x-xx   x---   x-x-   --     844 1,008"
           "  workspace-clj  workspace-clj  x-x-   ----   x-x-   --     324   150"
           "  -              cli            x---   ----   x---   --      22     0"
-          "                                4,322  4,322  4,322       4,322 3,518"]
+          "                                4,322  3,463  4,322       4,322 3,518"]
          (ws-table/table workspace-with-profiles true))))

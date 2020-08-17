@@ -40,13 +40,12 @@
 
 (defn table [{:keys [ws-dir settings environments changes]} show-loc?]
   (let [{:keys [color-mode thousand-sep]} settings
-        envs (filter #(-> % :dev? not) environments)
-        total-loc-src (apply + (filter identity (map :lines-of-code-src envs)))
-        total-loc-test (apply + (filter identity (map :lines-of-code-test envs)))
-        env-col (env-column envs changes "environment" :name 1 color-mode)
-        alias-col (env-column envs {} "alias" :alias 3 color-mode)
-        src-col (src-column ws-dir settings envs changes)
-        loc-col (loc-columns show-loc? envs thousand-sep total-loc-src total-loc-test)
+        total-loc-src (apply + (filter identity (map :lines-of-code-src environments)))
+        total-loc-test (apply + (filter identity (map :lines-of-code-test environments)))
+        env-col (env-column environments changes "environment" :name 1 color-mode)
+        alias-col (env-column environments {} "alias" :alias 3 color-mode)
+        src-col (src-column ws-dir settings environments changes)
+        loc-col (loc-columns show-loc? environments thousand-sep total-loc-src total-loc-test)
         header-spaces (text-table/header-spaces (if show-loc? [2 4 6 8] [2 4]) (repeat "  "))
         cells (text-table/merge-cells env-col alias-col src-col loc-col header-spaces)
         line (text-table/line 2 cells)]
