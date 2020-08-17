@@ -1,5 +1,5 @@
-(ns polylith.clj.core.workspace.ws-table.ifc-column
-  (:require [polylith.clj.core.workspace.ws-table.shared :as shared]))
+(ns polylith.clj.core.workspace.text-table.ws-table.ifc-column
+  (:require [polylith.clj.core.workspace.text-table.shared :as shared]))
 
 (defn ifc-name [component]
   (-> component :interface :name))

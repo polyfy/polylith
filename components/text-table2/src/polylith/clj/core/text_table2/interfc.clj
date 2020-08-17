@@ -22,20 +22,3 @@
 
 (defn print-table [table]
   (core/print-table table))
-
-;(def row-cells [{:row 1, :column 1, :value "interface", :align :left, :color :none, :orientation :horizontal}
-;                {:row 1, :column 3, :value "brick",     :align :left, :color :none, :orientation :horizontal}
-;                {:row 3, :column 1, :value "command",   :align :center, :color :yellow, :orientation :vertical}
-;                {:row 3, :column 3, :value "command",   :align :left, :color :green, :orientation :horizontal}
-;                {:row 4, :column 1, :value "user",      :align :left, :color :yellow, :orientation :horizontal}
-;                {:row 4, :column 3, :value "admin",     :align :left, :color :green, :orientation :horizontal}])
-;
-;(def columns (column/column 2 "  " row-cells))
-;(def lines (line/line 2 (merger/merge-cells row-cells columns)))
-;
-;;(def cells (flipper/flip-to-map (merger/merge-list-of-cells [row-cells columns lines])))
-;
-;(merger/merge-list-of-cells [row-cells columns lines])
-;
-;(print-table "  " "dark" row-cells columns lines)
-;(print-table "  " "dark" row-cells lines columns)

@@ -1,11 +1,11 @@
-(ns polylith.clj.core.workspace.ws-table.core
+(ns polylith.clj.core.workspace.text-table.ws-table.core
   (:require [clojure.walk :as walk]
             [polylith.clj.core.text-table2.interfc :as text-table]
-            [polylith.clj.core.workspace.ws-table.ifc-column :as ifc-column]
-            [polylith.clj.core.workspace.ws-table.brick-column :as brick-column]
-            [polylith.clj.core.workspace.ws-table.loc-columns :as loc-columns]
-            [polylith.clj.core.workspace.ws-table.profile-columns :as profile-columns]
-            [polylith.clj.core.workspace.ws-table.env-columns :as env-columns]))
+            [polylith.clj.core.workspace.text-table.ws-table.ifc-column :as ifc-column]
+            [polylith.clj.core.workspace.text-table.ws-table.brick-column :as brick-column]
+            [polylith.clj.core.workspace.text-table.ws-table.loc-columns :as loc-columns]
+            [polylith.clj.core.workspace.text-table.ws-table.profile-columns :as profile-columns]
+            [polylith.clj.core.workspace.text-table.ws-table.env-columns :as env-columns]))
 
 (defn component-sorter [{:keys [interface name]}]
   [(:name interface) name])

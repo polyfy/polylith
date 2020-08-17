@@ -1,5 +1,5 @@
-(ns polylith.clj.core.workspace.ws-table.loc-columns
-  (:require [polylith.clj.core.workspace.ws-table.shared :as shared]))
+(ns polylith.clj.core.workspace.text-table.ws-table.loc-columns
+  (:require [polylith.clj.core.workspace.text-table.shared :as shared]))
 
 (defn loc-column [header loc-key bricks column thousand-sep]
   (let [total-loc (apply + (filter identity (map loc-key bricks)))]

@@ -1,6 +1,8 @@
 
-- check that the environment table handles "test to run" (the last x) correctly.
+- convert the text tables in 'deps' to use the new text table.
 
+- check that the environment table handles "test to run" (the last x) correctly.
+  - add :all to the tests.
 
 - check that sources from profiles shows as + in the dev column.
 

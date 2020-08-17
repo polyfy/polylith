@@ -1,6 +1,6 @@
-(ns polylith.clj.core.workspace.ws-table.env-columns
+(ns polylith.clj.core.workspace.text-table.ws-table.env-columns
   (:require [polylith.clj.core.entity.interfc :as entity]
-            [polylith.clj.core.workspace.ws-table.shared :as shared]))
+            [polylith.clj.core.workspace.text-table.shared :as shared]))
 
 (defn env-sorting [{:keys [dev? name]}]
   [dev? name])

@@ -55,7 +55,6 @@
                                  "components/test-helper/test"
                                  "components/test-runner/test"
                                  "components/text-table/test"
-                                 "components/text-table2/test"
                                  "components/user-config/test"
                                  "components/user-input/test"
                                  "components/util/test"

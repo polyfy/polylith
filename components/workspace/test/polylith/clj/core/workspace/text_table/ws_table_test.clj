@@ -1,6 +1,6 @@
 (ns polylith.clj.core.workspace.text-table.ws-table-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.workspace.ws-table.core :as ws-table]))
+            [polylith.clj.core.workspace.text-table.ws-table.core :as ws-table]))
 
 (def workspace {:interfaces [{:name "workspace-clj",
                               :type "interface",

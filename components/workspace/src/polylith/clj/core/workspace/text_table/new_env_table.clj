@@ -1,5 +1,5 @@
 (ns polylith.clj.core.workspace.text-table.new-env-table
-  (:require [polylith.clj.core.workspace.ws-table.shared :as shared]
+  (:require [polylith.clj.core.workspace.text-table.shared :as shared]
             [polylith.clj.core.text-table2.interfc :as text-table]
             [polylith.clj.core.util.interfc.color :as color]
             [polylith.clj.core.entity.interfc :as entity]))
