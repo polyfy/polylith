@@ -1,6 +1,6 @@
 (ns polylith.clj.core.workspace.text-table.env-table-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.workspace.text-table.new-env-table :as env-table]))
+            [polylith.clj.core.workspace.text-table.env-table :as env-table]))
 
 (def workspace {:ws-dir "../poly-example/ws50"
                 :name "ws50"

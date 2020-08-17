@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.text-table.new-count-table
+(ns polylith.clj.core.workspace.text-table.count-table
   (:require [polylith.clj.core.workspace.text-table.shared :as shared]
             [polylith.clj.core.text-table2.interfc :as text-table]))
 

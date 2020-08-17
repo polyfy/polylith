@@ -1,39 +1,46 @@
 (ns polylith.clj.core.deps.text-table.workspace-ifc-deps-table
-  (:require [polylith.clj.core.text-table.interfc :as text-table]))
+  (:require [polylith.clj.core.text-table2.interfc :as text-table]
+            [polylith.clj.core.util.interfc.color :as color]))
 
-(defn dependency [brick-name component-name brick->interface-deps]
-  (if (contains? (brick->interface-deps brick-name) component-name)
-    "x"
-    "·"))
+(defn brick-cell [row {:keys [name type]} color-mode]
+  (text-table/cell 1 row (color/brick type name color-mode) :none :left :horizontal))
 
-(defn row [brick-name interface-names brick->interface-deps]
-  (conj (interleave (repeat "")
-                    (map #(dependency brick-name % brick->interface-deps)
-                         interface-names))
-        brick-name))
+(defn brick-column [bricks color-mode]
+  (concat
+    [(text-table/cell 1 1 "brick" :none :left :horizontal)]
+    (map-indexed #(brick-cell (+ %1 3) %2 color-mode)
+                 bricks)))
 
-(defn row-color [brick-color n#columns-with-margin]
-  (conj (repeat n#columns-with-margin :none) brick-color))
+(defn interface-cell [column row interface-name brick-name brick->interface-deps]
+  (let [value (if (contains? (brick->interface-deps brick-name) interface-name)
+                "x"
+                "·")]
+    (text-table/cell column row value :none :center :horizontal)))
 
-(defn table [interfaces components bases color-mode]
-  (let [bricks (concat components bases)
+(defn interface-column [column interface-name brick-names brick->interface-deps]
+  (concat
+    [(text-table/cell column 1 interface-name :yellow :left :vertical)]
+    (map-indexed #(interface-cell column (+ %1 3) interface-name %2 brick->interface-deps)
+                 brick-names)))
+
+(defn interface-columns [interface-names brick-names brick->interface-deps]
+  (apply concat (map-indexed #(interface-column (+ (* %1 2) 3) %2 brick-names brick->interface-deps)
+                             interface-names)))
+
+(defn table [{:keys [settings interfaces components bases]}]
+  (let [color-mode (:color-mode settings)
+        bricks (concat components bases)
         brick->interface-deps (into {} (map (juxt :name #(-> % :interface-deps set)) bricks))
         interface-names (sort (map :name interfaces))
-        component-names (sort (map :name components))
-        base-names (sort (map :name bases))
-        n#columns-with-margin (* 3 (count interfaces))
-        brick-names (concat component-names base-names)
-        alignments (repeat n#columns-with-margin :left)
-        header-colors (conj (repeat n#columns-with-margin :yellow) :none)
-        header-orientations (conj (interleave (repeat (count components) :horizontal)
-                                              (repeat (count components) :vertical)) :horizontal)
-        colors (mapv #(row-color % n#columns-with-margin)
-                     (concat (repeat (count components) :green)
-                             (repeat (count bases) :blue)))
-        headers (concat ["brick" "  "] (interpose "  " interface-names))
-        brick-rows (map #(row % interface-names brick->interface-deps)
-                        brick-names)]
-    (text-table/table " " alignments header-colors header-orientations colors headers brick-rows color-mode)))
+        brick-names (map :name bricks)
+        space-columns (range 2 (* 2 (inc (count interfaces))) 2)
+        spaces (repeat "  ")
+        header-spaces (text-table/header-spaces space-columns spaces)
+        brick-col (brick-column bricks color-mode)
+        interface-cols (interface-columns interface-names brick-names brick->interface-deps)
+        cells (text-table/merge-cells brick-col interface-cols header-spaces)
+        line (text-table/line 2 cells)]
+    (text-table/table "  " color-mode cells line)))
 
-(defn print-table [{:keys [interfaces components bases]} color-mode]
-  (println (table interfaces components bases color-mode)))
+(defn print-table [workspace]
+  (text-table/print-table (table workspace)))

@@ -5,9 +5,13 @@
 (defn select-column [column rows]
   (filterv #(= column (:column %)) rows))
 
+(defn width [{:keys [value orientation]}]
+  (if (= :vertical orientation)
+    1
+    (-> value color/clean-colors count)))
+
 (defn max-column-width [column rows]
-  (apply max (map #(-> % :value color/clean-colors count)
-                  (select-column column rows))))
+  (apply max (map width (select-column column rows))))
 
 (defn line-cell [column row rows]
   (let [max-width (max-column-width column rows)]

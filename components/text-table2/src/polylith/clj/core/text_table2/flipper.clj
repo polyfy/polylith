@@ -33,9 +33,9 @@
     (map-indexed #(vertical-cell %1 %2 row column align color start-y)
                  (vec new-value))))
 
-(defn horizontal [row column value align color row->start-y]
+(defn horizontal [row column value align color row->start-y row->max-row-height]
   (let [x column
-        y (+ row (row->start-y row))]
+        y (+ row (row->start-y row) (row->max-row-height row) -1)]
     [[[x y] {:value value
              :align align
              :color color
@@ -43,7 +43,7 @@
 
 (defn flip-row [{:keys [row column value align color orientation]} row->start-y row->max-row-height]
   (case orientation
-    :horizontal (horizontal row column value align color row->start-y)
+    :horizontal (horizontal row column value align color row->start-y row->max-row-height)
     :vertical (flip-vertical row column value align color row->start-y row->max-row-height)))
 
 (defn flip-to-map [row-cells]

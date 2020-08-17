@@ -1,6 +1,6 @@
 (ns polylith.clj.core.workspace.text-table.count-table-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.workspace.text-table.new-count-table :as count-table]))
+            [polylith.clj.core.workspace.text-table.count-table :as count-table]))
 
 (def workspace {:settings {:color-mode "none"
                            :thousand-sep ","}
