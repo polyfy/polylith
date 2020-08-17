@@ -12,8 +12,10 @@
 (defn src-status-flag [path-entries category name]
   (status path-entries name m/=src m/=src-path category))
 
-(defn resources-status-flag [path-entries category name]
-  (status path-entries name m/=src m/=resources-path category))
+(defn resources-status-flag [path-entries category name show-resources?]
+  (if show-resources?
+    (status path-entries name m/=src m/=resources-path category)
+    ""))
 
 (defn test-status-flag [path-entries category name]
   (status path-entries name m/=test m/=test-path category))
@@ -21,8 +23,8 @@
 (def entity->category {:brick m/=brick
                        :env m/=environment})
 
-(defn status-flags [path-entries entity name]
+(defn status-flags [path-entries entity name show-resources?]
   (let [category (entity->category entity)]
     (str (src-status-flag path-entries category name)
-         (resources-status-flag path-entries category name)
+         (resources-status-flag path-entries category name show-resources?)
          (test-status-flag path-entries category name))))

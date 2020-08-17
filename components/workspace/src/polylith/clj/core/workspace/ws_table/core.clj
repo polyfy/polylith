@@ -10,7 +10,7 @@
 (defn component-sorter [{:keys [interface name]}]
   [(:name interface) name])
 
-(defn table [{:keys [ws-dir settings environments components bases changes]} show-loc?]
+(defn table [{:keys [ws-dir settings environments components bases changes]} show-loc? show-resources?]
   (let [{:keys [color-mode thousand-sep]} settings
         profiles (profile-columns/show-profiles settings)
         sorted-components (sort-by component-sorter components)
@@ -21,7 +21,7 @@
         loc-start-column (+ profile-start-column (* 2 (count profiles)))
         ifc-column (ifc-column/column sorted-components bases)
         brick-column (brick-column/column bricks changes color-mode)
-        env-columns (env-columns/columns ws-dir settings environments bricks changes show-loc? thousand-sep)
+        env-columns (env-columns/columns ws-dir settings environments bricks changes show-loc? show-resources? thousand-sep)
         profile-columns (profile-columns/columns profile-start-column bricks profiles settings)
         loc-columns (loc-columns/columns show-loc? bricks loc-start-column thousand-sep)
         header-spaces (text-table/header-spaces space-columns spaces)
@@ -29,8 +29,8 @@
         line (text-table/line 2 cells)]
     (text-table/table "  " color-mode cells line)))
 
-(defn print-table [workspace show-loc?]
-  (text-table/print-table (table workspace show-loc?)))
+(defn print-table [workspace show-loc? show-resources?]
+  (text-table/print-table (table workspace show-loc? show-resources?)))
 
-(defn print-table-str-keys [workspace show-loc?]
-  (print-table (walk/keywordize-keys workspace) show-loc?))
+(defn print-table-str-keys [workspace show-loc? show-resources?]
+  (print-table (walk/keywordize-keys workspace) show-loc? show-resources?))

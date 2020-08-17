@@ -77,19 +77,27 @@
                                                 "invoice" ["admin" "cli" "database" "invoicer" "purchaser"]}
                           :environments-to-test []}})
 
-(deftest table--environments-with-no-direct-change-but-with-tests-to-run--returns-correct-table
+(deftest table--no-resources-flat--returns-correct-table
+  (is (= ["  environment  alias  src"
+          "  -----------------------"
+          "  core *       core   x--"
+          "  invoice *    inv    -x-"
+          "  development  dev    x--"]
+         (env-table/table workspace false false))))
+
+(deftest table--resources-flag--returns-correct-table
   (is (= ["  environment  alias  src "
           "  ------------------------"
           "  core *       core   xx--"
           "  invoice *    inv    --x-"
           "  development  dev    x---"]
-         (env-table/table workspace false))))
+         (env-table/table workspace false true))))
 
 (deftest table--environments-with-loc--returns-table-with-lines-of-code
-  (is (= ["  environment  alias  src   loc  (t)"
-          "  ----------------------------------"
-          "  core *       core   xx--    1    1"
-          "  invoice *    inv    --x-    0    1"
-          "  development  dev    x---    4    0"
-          "                              5    2"]
-         (env-table/table workspace true))))
+  (is (= ["  environment  alias  src  loc  (t)"
+          "  ---------------------------------"
+          "  core *       core   x--    1    1"
+          "  invoice *    inv    -x-    0    1"
+          "  development  dev    x--    4    0"
+          "                             5    2"]
+         (env-table/table workspace true false))))

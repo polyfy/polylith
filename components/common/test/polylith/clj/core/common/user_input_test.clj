@@ -9,7 +9,7 @@
                 :selected-environments]))
 
 (defn active-dev-profiles-params [& args]
-  (select-keys (user-input/parameters args)
+  (select-keys (user-input/parameters (conj args "cmd"))
                [:active-dev-profiles]))
 
 (deftest parameters--no-arguments

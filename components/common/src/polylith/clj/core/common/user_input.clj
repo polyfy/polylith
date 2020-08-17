@@ -23,19 +23,20 @@
         {:keys [name
                 top-ns
                 env
-                res
+                resources
                 brick
                 interface
                 loc
                 all
                 all-bricks
-                test-env]} named-args]
+                test-env]} named-args
+        unnamed (rest unnamed-args)]
     {:cmd (first args)
      :arg1 (second args)
      :name name
      :top-ns top-ns
      :env env
-     :res res
+     :resources resources
      :brick brick
      :interface interface
      :loc loc
@@ -43,6 +44,6 @@
                    (= "true" all-bricks))
      :run-env-tests? (or (= "true" all)
                          (= "true" test-env))
-     :active-dev-profiles (active-dev-profiles unnamed-args)
+     :active-dev-profiles (active-dev-profiles unnamed)
      :selected-environments (-> env selected-environments set)
-     :unnamed-args unnamed-args}))
+     :unnamed-args unnamed}))

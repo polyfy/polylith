@@ -37,8 +37,8 @@
 (defn test-base-names [path-entries]
   (path-selector/test-base-names path-entries))
 
-(defn brick-status-flags [path-entries brick-name]
-  (status/status-flags path-entries :brick brick-name))
+(defn brick-status-flags [path-entries brick-name show-resources?]
+  (status/status-flags path-entries :brick brick-name show-resources?))
 
-(defn env-status-flags [path-entries env-name]
-  (status/status-flags path-entries :env env-name))
+(defn env-status-flags [path-entries env-name show-resources?]
+  (status/status-flags path-entries :env env-name show-resources?))

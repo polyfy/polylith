@@ -3,9 +3,9 @@
             [polylith.clj.core.workspace.text-table.new-env-table :as env-table]
             [polylith.clj.core.workspace.ws-table.core :as ws-table]))
 
-(defn print-info [workspace show-loc?]
+(defn print-info [workspace show-loc? show-resources?]
   (count-table/print-table workspace)
   (println)
-  (env-table/print-table workspace show-loc?)
+  (env-table/print-table workspace show-loc? show-resources?)
   (println)
-  (ws-table/print-table workspace show-loc?))
+  (ws-table/print-table workspace show-loc? show-resources?))

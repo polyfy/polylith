@@ -6,8 +6,8 @@
 (defn enrich-workspace [workspace user-input]
   (core/enrich-workspace workspace user-input))
 
-(defn print-info [workspace show-loc?]
-  (info-tables/print-info workspace show-loc?))
+(defn print-info [workspace show-loc? show-resources?]
+  (info-tables/print-info workspace show-loc? show-resources?))
 
 (defn enrich-workspace-str-keys [workspace user-input]
   "Used by the polylith.core API"
