@@ -1,4 +1,4 @@
-(ns polylith.clj.core.util.interfc.params
+(ns polylith.clj.core.user-input.params
   (:require [clojure.string :as str]))
 
 (defn named? [arg]

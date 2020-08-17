@@ -1,6 +1,6 @@
-(ns polylith.clj.core.common.user-input
-  (:require [polylith.clj.core.util.interfc.params :as params]
-            [clojure.string :as str]))
+(ns polylith.clj.core.user-input.core
+  (:require [clojure.string :as str]
+            [polylith.clj.core.user-input.params :as params]))
 
 (defn profile? [arg]
   (str/starts-with? arg "+"))
@@ -18,7 +18,7 @@
       []
       [env])))
 
-(defn parameters [args]
+(defn extract-params [args]
   (let [{:keys [named-args unnamed-args]} (params/extract args)
         {:keys [name
                 top-ns

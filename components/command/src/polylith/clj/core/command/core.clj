@@ -9,8 +9,7 @@
             [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.help.interfc :as help]
             [polylith.clj.core.user-config.interfc :as user-config]
-            [polylith.clj.core.util.interfc.color :as color]
-            [polylith.clj.core.util.interfc.params :as params])
+            [polylith.clj.core.util.interfc.color :as color])
   (:refer-clojure :exclude [test]))
 
 (defn check [{:keys [messages] :as workspace} color-mode]

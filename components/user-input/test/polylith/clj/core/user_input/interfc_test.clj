@@ -1,15 +1,15 @@
-(ns polylith.clj.core.common.user-input-test
+(ns polylith.clj.core.user-input.interfc-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.common.user-input :as user-input]))
+            [polylith.clj.core.user-input.interfc :as user-input]))
 
 (defn test-params [& args]
-  (select-keys (user-input/parameters args)
+  (select-keys (user-input/extract-params args)
                [:run-all?
                 :run-env-tests?
                 :selected-environments]))
 
 (defn active-dev-profiles-params [& args]
-  (select-keys (user-input/parameters (conj args "cmd"))
+  (select-keys (user-input/extract-params (conj args "cmd"))
                [:active-dev-profiles]))
 
 (deftest parameters--no-arguments

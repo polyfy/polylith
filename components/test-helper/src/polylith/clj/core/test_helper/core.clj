@@ -3,7 +3,7 @@
             [clojure.stacktrace :as stacktrace]
             [polylith.clj.core.change.interfc :as change]
             [polylith.clj.core.command.interfc :as command]
-            [polylith.clj.core.common.interfc :as common]
+            [polylith.clj.core.user-input.interfc :as user-input]
             [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.git.interfc :as git]
             [polylith.clj.core.user-config.interfc :as user-config]
@@ -39,7 +39,7 @@
                 git/current-sha (fn [_] "21f40507a24291ead2409ce33277378bb7e94ac6")
                 user-config/home-dir (fn [] (str @root-dir "/" user-home))]
     (let [ws-dir (file/current-dir)
-          user-input (common/user-input args)
+          user-input (user-input/extract-params args)
           workspace (read-workspace ws-dir user-input)
           {:keys [exception]} (command/execute-command ws-dir workspace user-input)]
       (when (-> exception nil? not)
