@@ -85,7 +85,7 @@
             [])))
 
 (defn profile-sorting [[profile]]
-  [(not= :default profile) profile])
+  [(not= "default" profile) profile])
 
 (defn alias-changes [[env changes] env->alias]
   [(env->alias env) (set changes)])

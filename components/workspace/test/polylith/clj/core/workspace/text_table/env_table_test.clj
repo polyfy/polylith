@@ -66,7 +66,7 @@
                                        :run-env-tests? false
                                        :interface nil
                                        :unnamed-args []
-                                       :active-dev-profiles #{:default}
+                                       :active-dev-profiles #{"default"}
                                        :selected-environments #{}}
                           :changed-components ["address" "admin" "database" "invoicer" "purchaser" "user"]
                           :changed-bases ["cli"]

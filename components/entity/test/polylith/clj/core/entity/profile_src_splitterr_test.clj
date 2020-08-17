@@ -2,16 +2,16 @@
   (:require [clojure.test :refer :all]
             [polylith.clj.core.entity.profile-src-splitter :as extractor]))
 
-(def settings {:active-dev-profiles #{:default :admin},
-               :profile->settings {:default {:lib-deps {"org.clojure/clojure" {:mvn/version "1.10.1"}}
-                                             :paths ["components/user/src"
-                                                     "components/user/resources"
-                                                     "components/user/test"
-                                                     "environments/invoice/test"]}
-                                   :admin {:lib-deps {"org.clojure/tools.deps.alpha" {:mvn/version "0.8.695"}}
-                                           :paths ["components/admin/src"
-                                                   "components/admin/resources"
-                                                   "components/admin/test"]}}})
+(def settings {:active-dev-profiles #{"default" "admin"},
+               :profile->settings {"default" {:lib-deps {"org.clojure/clojure" {:mvn/version "1.10.1"}}
+                                              :paths ["components/user/src"
+                                                      "components/user/resources"
+                                                      "components/user/test"
+                                                      "environments/invoice/test"]}
+                                   "admin" {:lib-deps {"org.clojure/tools.deps.alpha" {:mvn/version "0.8.695"}}
+                                            :paths ["components/admin/src"
+                                                    "components/admin/resources"
+                                                    "components/admin/test"]}}})
 
 (deftest extract-paths--from-non-dev-environment--returns-no-profile-paths
   (is (= {:profile-src-paths []

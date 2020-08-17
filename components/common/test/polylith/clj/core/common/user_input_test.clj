@@ -49,5 +49,5 @@
          (test-params ":test-env"))))
 
 (deftest parameters--active-dev-profiles
-  (is (= {:active-dev-profiles #{:admin :user}}
+  (is (= {:active-dev-profiles #{"admin" "user"}}
          (active-dev-profiles-params "+admin" "env:a" "+user"))))

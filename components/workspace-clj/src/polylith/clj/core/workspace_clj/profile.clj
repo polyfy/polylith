@@ -3,7 +3,7 @@
             [polylith.clj.core.util.interfc :as util]))
 
 (defn profile [[profile-key {:keys [extra-paths extra-deps]}]]
-  [(keyword (subs (name profile-key) 4))
+  [(subs (name profile-key) 4)
    (util/ordered-map :paths extra-paths
                      :lib-deps (util/stringify-and-sort-map extra-deps))])
 

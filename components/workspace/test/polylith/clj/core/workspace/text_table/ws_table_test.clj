@@ -417,7 +417,7 @@
                               :implementing-components ["change"]}],
                 :ws-dir ".",
                 :name "polylith",
-                :settings {:active-dev-profiles #{:default},
+                :settings {:active-dev-profiles #{"default"},
                            :top-namespace "polylith.clj.core",
                            :profile->settings {},
                            :ns->lib {"clojure" "org.clojure/clojure",
@@ -2223,7 +2223,7 @@
                                        :run-env-tests? false,
                                        :interface nil,
                                        :unnamed-args [],
-                                       :active-dev-profiles #{:default},
+                                       :active-dev-profiles #{"default"},
                                        :brick nil,
                                        :name nil,
                                        :env nil,
@@ -2276,11 +2276,11 @@
 
 
 (def workspace-with-profiles (-> workspace
-                                 (assoc-in [:settings :active-dev-profiles] #{:default})
-                                 (assoc-in [:settings :profile->settings] {:default {:src-bricks #{"deps"}
-                                                                                     :test-bricks #{"deps"}}
-                                                                           :adm {:src-bricks #{"deps2"}
-                                                                                 :test-bricks #{"deps2"}}})))
+                                 (assoc-in [:settings :active-dev-profiles] #{"default"})
+                                 (assoc-in [:settings :profile->settings] {"default" {:src-bricks #{"deps"}
+                                                                                      :test-bricks #{"deps"}}
+                                                                           "adm" {:src-bricks #{"deps2"}
+                                                                                  :test-bricks #{"deps2"}}})))
 
 
 (deftest ws-table--without-loc-info--return-table-without-loc-info

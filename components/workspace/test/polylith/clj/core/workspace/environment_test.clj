@@ -172,15 +172,15 @@
             :test-lib-deps {}
             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}}
            (env/enrich-env environment "" components bases brick->loc brick->lib-imports env->alias
-                           {:active-dev-profiles [:default]
-                            :profile->settings {:default {:paths ["components/user/src"
-                                                                  "components/user/resources"
-                                                                  "components/user/test"]
-                                                          :src-paths ["components/user/src"
-                                                                      "components/user/resources"]
-                                                          :test-paths ["components/user/test"]
-                                                          :lib-deps {"clojure.core.matrix"
-                                                                     "net.mikera/core.matrix"}}}}
+                           {:active-dev-profiles ["default"]
+                            :profile->settings {"default" {:paths ["components/user/src"
+                                                                    "components/user/resources"
+                                                                    "components/user/test"]
+                                                           :src-paths ["components/user/src"
+                                                                       "components/user/resources"]
+                                                           :test-paths ["components/user/test"]
+                                                           :lib-deps {"clojure.core.matrix"
+                                                                      "net.mikera/core.matrix"}}}}
                            {:selected-environments #{"dev"}})))))
 
 (deftest active?--non-dev-environment-no-env-selected--returns-true

@@ -5,15 +5,11 @@
 (defn profile? [arg]
   (str/starts-with? arg "+"))
 
-(defn profile-keyword [arg]
-  (keyword (subs arg 1)))
-
 (defn active-dev-profiles [unnamed-args]
   (let [profiles (filter profile? unnamed-args)]
     (if (empty? profiles)
-      #{:default}
-      (set (map profile-keyword
-                (filter profile? unnamed-args))))))
+      #{"default"}
+      (set (map #(subs % 1) profiles)))))
 
 (defn selected-environments [env]
   (if (coll? env)
