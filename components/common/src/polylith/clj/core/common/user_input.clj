@@ -23,7 +23,7 @@
         {:keys [name
                 top-ns
                 env
-                resources
+                flag
                 brick
                 interface
                 loc
@@ -36,7 +36,7 @@
      :name name
      :top-ns top-ns
      :env env
-     :resources resources
+     :flag flag
      :brick brick
      :interface interface
      :loc loc

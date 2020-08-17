@@ -31,7 +31,7 @@
       (= "help" cmd)
       (= "create" cmd)))
 
-(defn execute [current-dir workspace {:keys [cmd arg1 name top-ns env brick interface loc resources unnamed-args]}]
+(defn execute [current-dir workspace {:keys [cmd arg1 name top-ns env brick interface loc flag unnamed-args]}]
   (try
     (if (can-be-executed-from-here? workspace cmd)
       (let [color-mode (user-config/color-mode)]
@@ -41,7 +41,7 @@
           "deps" (deps/deps workspace env brick unnamed-args color-mode)
           "diff" (diff workspace)
           "help" (help arg1 color-mode)
-          "info" (info/info workspace loc resources unnamed-args)
+          "info" (info/info workspace loc flag unnamed-args)
           "test" (test/run workspace unnamed-args)
           "ws" (pp/pprint workspace)
           (help workspace nil)))
