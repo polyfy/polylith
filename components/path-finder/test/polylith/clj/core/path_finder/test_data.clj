@@ -90,26 +90,13 @@
                     :source-dir "src"
                     :test?      false
                     :type       :component}
-                   {:exists?  true
-                    :name     "development"
-                    :path     "development/src"
-                    :profile? false
-                    :test?    false
-                    :type     :environment}
                    {:exists?    true
-                    :name       "user"
-                    :path       "components/user/resources"
-                    :profile?   true
-                    :source-dir "resources"
-                    :test?      false
-                    :type       :component}
-                   {:exists?    true
-                    :name       "user"
-                    :path       "components/user/src"
-                    :profile?   true
+                    :name       "development"
+                    :path       "development/src"
+                    :profile?   false
                     :source-dir "src"
                     :test?      false
-                    :type       :component}
+                    :type       :environment}
                    {:exists?    true
                     :name       "cli"
                     :path       "bases/cli/test"
@@ -159,12 +146,27 @@
                     :source-dir "test"
                     :test?      true
                     :type       :environment}
-                   {:exists?  true
-                    :name     "development"
-                    :path     "development/test"
-                    :profile? false
-                    :test?    true
-                    :type     :environment}
+                   {:exists?    true
+                    :name       "development"
+                    :path       "development/test"
+                    :profile?   false
+                    :source-dir "test"
+                    :test?      true
+                    :type       :environment}
+                   {:exists?    true
+                    :name       "user"
+                    :path       "components/user/resources"
+                    :profile?   true
+                    :source-dir "resources"
+                    :test?      false
+                    :type       :component}
+                   {:exists?    true
+                    :name       "user"
+                    :path       "components/user/src"
+                    :profile?   true
+                    :source-dir "src"
+                    :test?      false
+                    :type       :component}
                    {:exists?    true
                     :name       "user"
                     :path       "components/user/test"

@@ -1,9 +1,15 @@
 
+- also show the profiles in the environments table.
+
+- remove :paths from profile->settings.
+
+- add resources to status to profile in ws-table.
+
+- remove src-bricks and test-bricks (or calculate them using path-finder) in :profile->settings.
+
 - check that sources from profiles shows as + in the dev column.
 
 - show a table with the profiles (if any) + a column 'active' in the 'info' command.
-
-- add resources to status to profile in ws-table.
 
 - remove :has-src-dir and :has-test-dir.
 

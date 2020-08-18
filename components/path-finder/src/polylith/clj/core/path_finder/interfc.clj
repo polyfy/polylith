@@ -2,13 +2,17 @@
   (:require [polylith.clj.core.path-finder.status :as status]
             [polylith.clj.core.path-finder.core :as core]
             [polylith.clj.core.path-finder.dep-selector :as dep-selector]
-            [polylith.clj.core.path-finder.path-selector :as path-selector]))
+            [polylith.clj.core.path-finder.path-selector :as path-selector]
+            [polylith.clj.core.path-finder.profile-path-extractor :as profile-path-extractor]))
 
 (defn path-entries [ws-dir dev? src-paths test-paths settings]
   (core/path-entries ws-dir dev? src-paths test-paths settings))
 
 (defn deps-entries [dev? src-deps test-deps settings]
   (core/deps-entries dev? src-deps test-deps settings))
+
+(defn profile-entries [ws-dir settings]
+  (profile-path-extractor/profile-entries ws-dir settings))
 
 (defn all-src-deps [dep-entries]
   (dep-selector/all-src-deps dep-entries))
