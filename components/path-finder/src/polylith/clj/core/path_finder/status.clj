@@ -1,30 +1,30 @@
 (ns polylith.clj.core.path-finder.status
   (:require [polylith.clj.core.path-finder.matchers :as m]))
 
-(defn status [path-entries name & criterias]
-  (let [statuses (concat [m/=exists (m/=name name)] criterias)
-        status-x? (m/filter-entries path-entries (conj statuses m/=standard))
-        status-+? (m/filter-entries path-entries (conj statuses m/=profile))]
-    (if (-> status-x? empty? not)
+(defn status-flag [path-entries name & criterias]
+  (let [statuses (concat [m/exists? (m/=name name)] criterias)
+        standard? (m/has-entry? path-entries (conj statuses m/standard?))
+        profile? (m/has-entry? path-entries (conj statuses m/profile?))]
+    (if standard?
       "x"
-      (if (-> status-+? empty? not) "+" "-"))))
+      (if profile? "+" "-"))))
 
-(defn src-status-flag [path-entries category name]
-  (status path-entries name m/=src m/=src-path category))
+(defn src-status-flag [path-entries category-criteria name]
+  (status-flag path-entries name m/src? m/src-path? category-criteria))
 
-(defn resources-status-flag [path-entries category name show-resources?]
+(defn resources-status-flag [path-entries category-criteria name show-resources?]
   (if show-resources?
-    (status path-entries name m/=src m/=resources-path category)
+    (status-flag path-entries name m/src? m/resources-path? category-criteria)
     ""))
 
-(defn test-status-flag [path-entries category name]
-  (status path-entries name m/=test m/=test-path category))
+(defn test-status-flag [path-entries category-criteria name]
+  (status-flag path-entries name m/test? m/test-path? category-criteria))
 
-(def entity->category {:brick m/=brick
-                       :env m/=environment})
+(def category->criteria {:brick m/brick?
+                         :env   m/environment?})
 
-(defn status-flags [path-entries entity name show-resources?]
-  (let [category (entity->category entity)]
-    (str (src-status-flag path-entries category name)
-         (resources-status-flag path-entries category name show-resources?)
-         (test-status-flag path-entries category name))))
+(defn status-flags [path-entries category name show-resources?]
+  (let [category-criteria (category->criteria category)]
+    (str (src-status-flag path-entries category-criteria name)
+         (resources-status-flag path-entries category-criteria name show-resources?)
+         (test-status-flag path-entries category-criteria name))))

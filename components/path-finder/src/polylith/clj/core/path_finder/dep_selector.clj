@@ -5,7 +5,7 @@
   (into {} (map :dep dep-entries)))
 
 (defn all-src-deps [dep-entries]
-  (select-deps (m/filter-entries dep-entries [m/=src])))
+  (select-deps (m/filter-entries dep-entries [m/src?])))
 
 (defn all-test-deps [dep-entries]
-  (select-deps (m/filter-entries dep-entries [m/=test])))
+  (select-deps (m/filter-entries dep-entries [m/test?])))

@@ -13,11 +13,5 @@
                       :exists? exists?
                       :path path)))
 
-(defn select-path-entries [ws-dir paths profile? test?]
+(defn path-entries [ws-dir paths profile? test?]
   (mapv #(path-entry ws-dir % profile? test?) paths))
-
-(defn path-entries [ws-dir src-paths test-paths profile-src-paths profile-test-paths]
-  (vec (concat (select-path-entries ws-dir src-paths false false)
-               (select-path-entries ws-dir test-paths false true)
-               (select-path-entries ws-dir profile-src-paths true false)
-               (select-path-entries ws-dir profile-test-paths true true))))

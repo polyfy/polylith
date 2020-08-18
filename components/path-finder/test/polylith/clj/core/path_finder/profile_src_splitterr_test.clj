@@ -16,7 +16,7 @@
 (deftest extract-paths--from-non-dev-environment--returns-no-profile-paths
   (is (= {:profile-src-paths []
           :profile-test-paths []}
-         (extractor/extract-paths false settings))))
+         (extractor/extract-active-dev-profiles-paths false settings))))
 
 (deftest extract-paths--from-dev-environment--returns-src-and-test-paths-from-active-profiles
   (is (= {:profile-src-paths  ["components/admin/src"
@@ -26,13 +26,4 @@
           :profile-test-paths ["components/admin/test"
                                "components/user/test"
                                "environments/invoice/test"]}
-         (extractor/extract-paths true settings))))
-
-(deftest extract-deps--from-non-dev-environment--returns-no-profile-deps
-  (is (= {}
-         (extractor/extract-deps false settings))))
-
-(deftest extract-deps--from-dev-environment--returns-deps-from-active-profiles
-  (is (= {"org.clojure/tools.deps.alpha" {:mvn/version "0.8.695"},
-          "org.clojure/clojure" {:mvn/version "1.10.1"}}
-         (extractor/extract-deps true settings))))
+         (extractor/extract-active-dev-profiles-paths true settings))))

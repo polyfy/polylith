@@ -165,6 +165,7 @@
 
 - complain if any of the given env:my-env was not found.
 
+- let the output of 'ws' be nicely formatted and come in a logical order.
 
 Questions
 =========
