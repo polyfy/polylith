@@ -1,4 +1,4 @@
-(ns polylith.clj.core.entity.matchers
+(ns polylith.clj.core.path-finder.matchers
   (:require [clojure.string :as str]))
 
 (defn =name [entity-name]

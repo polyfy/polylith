@@ -1,5 +1,5 @@
-(ns polylith.clj.core.entity.status
-  (:require [polylith.clj.core.entity.matchers :as m]))
+(ns polylith.clj.core.path-finder.status
+  (:require [polylith.clj.core.path-finder.matchers :as m]))
 
 (defn status [path-entries name & criterias]
   (let [statuses (concat [m/=exists (m/=name name)] criterias)

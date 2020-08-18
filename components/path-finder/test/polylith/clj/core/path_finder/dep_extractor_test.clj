@@ -1,7 +1,7 @@
-(ns polylith.clj.core.entity.dep-extractor-test
+(ns polylith.clj.core.path-finder.dep-extractor-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.entity.test-data :as test-data]
-            [polylith.clj.core.entity.dep-extractor :as dep-extractor]))
+            [polylith.clj.core.path-finder.test-data :as test-data]
+            [polylith.clj.core.path-finder.dep-extractor :as dep-extractor]))
 
 (def src-deps {"org.clojure/clojure" {:mvn/version "1.10.1"}
                "org.clojure/tools.deps.alpha" {:mvn/version "0.8.695"}})

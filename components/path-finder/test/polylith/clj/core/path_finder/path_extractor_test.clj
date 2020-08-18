@@ -1,7 +1,7 @@
-(ns polylith.clj.core.entity.path-extractor-test
+(ns polylith.clj.core.path-finder.path-extractor-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.entity.test-data :as test-data]
-            [polylith.clj.core.entity.path-extractor :as extractor]
+            [polylith.clj.core.path-finder.test-data :as test-data]
+            [polylith.clj.core.path-finder.path-extractor :as extractor]
             [polylith.clj.core.file.interfc :as file]))
 
 (deftest path-entries--lists-of-paths--returns-extracted-path-entries

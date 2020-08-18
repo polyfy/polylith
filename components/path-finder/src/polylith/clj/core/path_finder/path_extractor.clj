@@ -1,4 +1,4 @@
-(ns polylith.clj.core.entity.path-extractor
+(ns polylith.clj.core.path-finder.path-extractor
   (:require [polylith.clj.core.util.interfc.str :as str-util]
             [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.util.interfc :as util]))

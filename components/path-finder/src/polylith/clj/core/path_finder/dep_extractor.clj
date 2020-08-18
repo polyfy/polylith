@@ -1,4 +1,4 @@
-(ns polylith.clj.core.entity.dep-extractor
+(ns polylith.clj.core.path-finder.dep-extractor
   (:require [polylith.clj.core.util.interfc :as util]))
 
 (defn deps-entry [dep profile? test?]

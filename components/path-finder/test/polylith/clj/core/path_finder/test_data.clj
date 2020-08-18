@@ -1,4 +1,4 @@
-(ns polylith.clj.core.entity.test-data
+(ns polylith.clj.core.path-finder.test-data
   (:require [clojure.test :refer :all]))
 
 (def dep-entries [{:profile? false, :test? false, :dep ["org.clojure/clojure" {:mvn/version "1.10.1"}]}

@@ -319,7 +319,7 @@
                                             {:name "read-file", :type "function", :parameters [{:name "path"}]}
                                             {:name "relative-paths", :type "function", :parameters [{:name "path"}]}],
                               :implementing-components ["file"]}
-                             {:name "entity",
+                             {:name "path-finder",
                               :type "interface",
                               :definitions [{:name "all-src-deps", :type "function", :parameters [{:name "dep-entries"}]}
                                             {:name "all-test-deps", :type "function", :parameters [{:name "dep-entries"}]}
@@ -346,7 +346,7 @@
                                             {:name "test-base-names", :type "function", :parameters [{:name "path-entries"}]}
                                             {:name "test-component-names", :type "function", :parameters [{:name "path-entries"}]}
                                             {:name "test-paths", :type "function", :parameters [{:name "path-entries"}]}],
-                              :implementing-components ["entity"]}
+                              :implementing-components ["path-finder"]}
                              {:name "test-helper",
                               :type "interface",
                               :definitions [{:name "content", :type "function", :parameters [{:name "dir"} {:name "filename"}]}
@@ -452,7 +452,7 @@
                                                        "common"
                                                        "create"
                                                        "deps"
-                                                       "entity"
+                                                       "path-finder"
                                                        "file"
                                                        "git"
                                                        "text-table"
@@ -465,7 +465,7 @@
                                                   "common"
                                                   "create"
                                                   "deps"
-                                                  "entity"
+                                                  "path-finder"
                                                   "file"
                                                   "git"
                                                   "help"
@@ -494,7 +494,7 @@
                                             "components/create/resources"
                                             "components/create/src"
                                             "components/deps/src"
-                                            "components/entity/src"
+                                            "components/path-finder/src"
                                             "components/file/src"
                                             "components/git/src"
                                             "components/help/src"
@@ -513,7 +513,7 @@
                                              "components/common/test"
                                              "components/create/test"
                                              "components/deps/test"
-                                             "components/entity/test"
+                                             "components/path-finder/test"
                                              "components/file/test"
                                              "components/git/test"
                                              "components/help/test"
@@ -553,14 +553,14 @@
                                                            "user-config"
                                                            "util"
                                                            "workspace"],
-                                                  :indirect ["entity" "file" "git" "shell" "text-table" "validate"]},
+                                                  :indirect ["path-finder" "file" "git" "shell" "text-table" "validate"]},
                                        "text-table" {:direct ["util"], :indirect []},
                                        "util" {:direct [], :indirect []},
                                        "validate" {:direct ["common" "deps" "file" "util"], :indirect ["text-table"]},
                                        "shell" {:direct [], :indirect []},
                                        "workspace" {:direct ["common"
                                                              "deps"
-                                                             "entity"
+                                                             "path-finder"
                                                              "file"
                                                              "text-table"
                                                              "util"
@@ -569,7 +569,7 @@
                                        "cli" {:direct ["change" "command" "common" "file" "util" "workspace" "workspace-clj"],
                                               :indirect ["create"
                                                          "deps"
-                                                         "entity"
+                                                         "path-finder"
                                                          "git"
                                                          "help"
                                                          "shell"
@@ -583,7 +583,7 @@
                                        "help" {:direct ["util"], :indirect []},
                                        "create" {:direct ["common" "file" "git" "user-config" "util"], :indirect ["shell"]},
                                        "file" {:direct ["util"], :indirect []},
-                                       "entity" {:direct ["file" "util"], :indirect []},
+                                       "path-finder" {:direct ["file" "util"], :indirect []},
                                        "test-helper" {:direct ["change"
                                                                "command"
                                                                "common"
@@ -594,7 +594,7 @@
                                                                "workspace-clj"],
                                                       :indirect ["create"
                                                                  "deps"
-                                                                 "entity"
+                                                                 "path-finder"
                                                                  "help"
                                                                  "shell"
                                                                  "test-runner"
@@ -621,7 +621,7 @@
                                 :component-names ["change"
                                                   "common"
                                                   "deps"
-                                                  "entity"
+                                                  "path-finder"
                                                   "file"
                                                   "git"
                                                   "help"
@@ -643,7 +643,7 @@
                                 :src-paths ["components/change/src"
                                             "components/common/src"
                                             "components/deps/src"
-                                            "components/entity/src"
+                                            "components/path-finder/src"
                                             "components/file/src"
                                             "components/git/src"
                                             "components/help/src"
@@ -668,7 +668,7 @@
                                 :deps {"workspace-clj" {:direct ["common" "file" "user-config" "util"], :indirect []},
                                        "test-runner" {:direct ["common" "util"], :indirect []},
                                        "command" {:direct ["common" "deps" "help" "user-config" "util" "workspace"],
-                                                  :indirect ["entity" "file" "text-table" "text-table2" "validate"]},
+                                                  :indirect ["path-finder" "file" "text-table" "text-table2" "validate"]},
                                        "text-table" {:direct ["util"], :indirect []},
                                        "util" {:direct [], :indirect []},
                                        "validate" {:direct ["common" "deps" "file" "util"], :indirect ["text-table"]},
@@ -676,23 +676,23 @@
                                        "shell" {:direct [], :indirect []},
                                        "workspace" {:direct ["common"
                                                              "deps"
-                                                             "entity"
+                                                             "path-finder"
                                                              "file"
                                                              "text-table"
                                                              "util"
                                                              "validate"],
                                                     :indirect []},
                                        "cli" {:direct ["change" "common" "file" "util" "workspace"],
-                                              :indirect ["deps" "entity" "git" "shell" "text-table" "text-table2" "validate"]},
+                                              :indirect ["deps" "path-finder" "git" "shell" "text-table" "text-table2" "validate"]},
                                        "user-config" {:direct ["util"], :indirect []},
                                        "git" {:direct ["shell"], :indirect []},
                                        "deps" {:direct ["common" "text-table" "util"], :indirect []},
                                        "help" {:direct ["util"], :indirect []},
                                        "create" {:direct ["common" "file" "git" "user-config" "util"], :indirect ["shell"]},
                                        "file" {:direct ["util"], :indirect []},
-                                       "entity" {:direct ["file" "util"], :indirect []},
+                                       "path-finder" {:direct ["file" "util"], :indirect []},
                                        "test-helper" {:direct ["change" "common" "file" "git" "user-config" "workspace"],
-                                                      :indirect ["deps" "entity" "shell" "text-table" "text-table2" "util" "validate"]},
+                                                      :indirect ["deps" "path-finder" "shell" "text-table" "text-table2" "util" "validate"]},
                                        "common" {:direct ["util"], :indirect []},
                                        "change" {:direct ["common" "git" "util"], :indirect ["shell"]}},
                                 :test-lib-deps {},
@@ -714,7 +714,7 @@
                                                        "common"
                                                        "create"
                                                        "deps"
-                                                       "entity"
+                                                       "path-finder"
                                                        "file"
                                                        "git"
                                                        "text-table"
@@ -727,7 +727,7 @@
                                                   "common"
                                                   "create"
                                                   "deps"
-                                                  "entity"
+                                                  "path-finder"
                                                   "file"
                                                   "git"
                                                   "help"
@@ -750,7 +750,7 @@
                                                   :imports ["clojure.string"
                                                             "polylith.clj.core.change.interfc"
                                                             "polylith.clj.core.common.interfc"
-                                                            "polylith.clj.core.entity.interfc"
+                                                            "polylith.clj.core.path-finder.interfc"
                                                             "polylith.clj.core.file.interfc"
                                                             "polylith.clj.core.help.interfc"
                                                             "polylith.clj.core.util.interfc"
@@ -764,7 +764,7 @@
                                             "components/create/resources"
                                             "components/create/src"
                                             "components/deps/src"
-                                            "components/entity/src"
+                                            "components/path-finder/src"
                                             "components/file/src"
                                             "components/git/src"
                                             "components/help/src"
@@ -784,7 +784,7 @@
                                              "components/common/test"
                                              "components/create/test"
                                              "components/deps/test"
-                                             "components/entity/test"
+                                             "components/path-finder/test"
                                              "components/file/test"
                                              "components/git/test"
                                              "components/help/test"
@@ -824,7 +824,7 @@
                                                            "user-config"
                                                            "util"
                                                            "workspace"],
-                                                  :indirect ["entity" "file" "git" "shell" "text-table" "text-table2" "validate"]},
+                                                  :indirect ["path-finder" "file" "git" "shell" "text-table" "text-table2" "validate"]},
                                        "text-table" {:direct ["util"], :indirect []},
                                        "util" {:direct [], :indirect []},
                                        "validate" {:direct ["common" "deps" "file" "util"], :indirect ["text-table"]},
@@ -832,7 +832,7 @@
                                        "shell" {:direct [], :indirect []},
                                        "workspace" {:direct ["common"
                                                              "deps"
-                                                             "entity"
+                                                             "path-finder"
                                                              "file"
                                                              "text-table"
                                                              "util"
@@ -841,7 +841,7 @@
                                        "cli" {:direct ["change" "command" "common" "file" "util" "workspace" "workspace-clj"],
                                               :indirect ["create"
                                                          "deps"
-                                                         "entity"
+                                                         "path-finder"
                                                          "git"
                                                          "help"
                                                          "shell"
@@ -855,7 +855,7 @@
                                        "help" {:direct ["util"], :indirect []},
                                        "create" {:direct ["common" "file" "git" "user-config" "util"], :indirect ["shell"]},
                                        "file" {:direct ["util"], :indirect []},
-                                       "entity" {:direct ["file" "util"], :indirect []},
+                                       "path-finder" {:direct ["file" "util"], :indirect []},
                                        "test-helper" {:direct ["change"
                                                                "command"
                                                                "common"
@@ -866,7 +866,7 @@
                                                                "workspace-clj"],
                                                       :indirect ["create"
                                                                  "deps"
-                                                                 "entity"
+                                                                 "path-finder"
                                                                  "help"
                                                                  "shell"
                                                                  "test-runner"
@@ -905,15 +905,15 @@
                                                {:name "core",
                                                 :namespace "polylith.clj.core.change.core",
                                                 :file-path "./components/change/src/polylith/clj/core/change/core.clj",
-                                                :imports ["polylith.clj.core.change.entity"
+                                                :imports ["polylith.clj.core.change.path-finder"
                                                           "polylith.clj.core.change.indirect"
                                                           "polylith.clj.core.change.to-test"
                                                           "polylith.clj.core.git.interfc"
                                                           "polylith.clj.core.util.interfc"
                                                           "polylith.clj.core.util.interfc"]}
-                                               {:name "entity",
-                                                :namespace "polylith.clj.core.change.entity",
-                                                :file-path "./components/change/src/polylith/clj/core/change/entity.clj",
+                                               {:name "path-finder",
+                                                :namespace "polylith.clj.core.change.path-finder",
+                                                :file-path "./components/change/src/polylith/clj/core/change/path-finder.clj",
                                                 :imports ["clojure.string"
                                                           "polylith.clj.core.common.interfc.paths"
                                                           "polylith.clj.core.git.interfc"]}
@@ -932,7 +932,7 @@
                                                 {:name "brick-test",
                                                  :namespace "polylith.clj.core.change.brick-test",
                                                  :file-path "./components/change/test/polylith/clj/core/change/brick_test.clj",
-                                                 :imports ["polylith.clj.core.change.entity"]}
+                                                 :imports ["polylith.clj.core.change.path-finder"]}
                                                 {:name "to-test-test",
                                                  :namespace "polylith.clj.core.change.to-test-test",
                                                  :file-path "./components/change/test/polylith/clj/core/change/to_test_test.clj",
@@ -1303,11 +1303,11 @@
                               :lib-imports-test ["clojure.string"],
                               :interface-deps ["common" "text-table" "util"],
                               :lib-deps ["clojure"]}
-                             {:name "entity",
+                             {:name "path-finder",
                               :type "component",
                               :lines-of-code-src 591,
                               :lines-of-code-test 343,
-                              :interface {:name "entity",
+                              :interface {:name "path-finder",
                                           :definitions [{:name "all-src-deps", :type "function", :parameters [{:name "dep-entries"}]}
                                                         {:name "all-test-deps", :type "function", :parameters [{:name "dep-entries"}]}
                                                         {:name "brick-status-flags",
@@ -1347,81 +1347,81 @@
                                                          :parameters [{:name "path-entries"}]}
                                                         {:name "test-paths", :type "function", :parameters [{:name "path-entries"}]}]},
                               :namespaces-src [{:name "profile-extractor",
-                                                :namespace "polylith.clj.core.entity.profile-extractor",
-                                                :file-path "./components/entity/src/polylith/clj/core/entity/profile_extractor.clj",
+                                                :namespace "polylith.clj.core.path-finder.profile-extractor",
+                                                :file-path "./components/path-finder/src/polylith/clj/core/path-finder/profile_extractor.clj",
                                                 :imports ["clojure.string"]}
                                                {:name "path-extractor",
-                                                :namespace "polylith.clj.core.entity.path-extractor",
-                                                :file-path "./components/entity/src/polylith/clj/core/entity/path_extractor.clj",
+                                                :namespace "polylith.clj.core.path-finder.path-extractor",
+                                                :file-path "./components/path-finder/src/polylith/clj/core/path-finder/path_extractor.clj",
                                                 :imports ["polylith.clj.core.file.interfc"
                                                           "polylith.clj.core.util.interfc"
                                                           "polylith.clj.core.util.interfc.str"]}
                                                {:name "dep-selector",
-                                                :namespace "polylith.clj.core.entity.dep-selector",
-                                                :file-path "./components/entity/src/polylith/clj/core/entity/dep_selector.clj",
-                                                :imports ["polylith.clj.core.entity.matchers"]}
+                                                :namespace "polylith.clj.core.path-finder.dep-selector",
+                                                :file-path "./components/path-finder/src/polylith/clj/core/path-finder/dep_selector.clj",
+                                                :imports ["polylith.clj.core.path-finder.matchers"]}
                                                {:name "interfc",
-                                                :namespace "polylith.clj.core.entity.interfc",
-                                                :file-path "./components/entity/src/polylith/clj/core/entity/interfc.clj",
-                                                :imports ["polylith.clj.core.entity.core"
-                                                          "polylith.clj.core.entity.dep-selector"
-                                                          "polylith.clj.core.entity.path-selector"
-                                                          "polylith.clj.core.entity.status"]}
+                                                :namespace "polylith.clj.core.path-finder.interfc",
+                                                :file-path "./components/path-finder/src/polylith/clj/core/path-finder/interfc.clj",
+                                                :imports ["polylith.clj.core.path-finder.core"
+                                                          "polylith.clj.core.path-finder.dep-selector"
+                                                          "polylith.clj.core.path-finder.path-selector"
+                                                          "polylith.clj.core.path-finder.status"]}
                                                {:name "matchers",
-                                                :namespace "polylith.clj.core.entity.matchers",
-                                                :file-path "./components/entity/src/polylith/clj/core/entity/matchers.clj",
+                                                :namespace "polylith.clj.core.path-finder.matchers",
+                                                :file-path "./components/path-finder/src/polylith/clj/core/path-finder/matchers.clj",
                                                 :imports ["clojure.string"]}
                                                {:name "core",
-                                                :namespace "polylith.clj.core.entity.core",
-                                                :file-path "./components/entity/src/polylith/clj/core/entity/core.clj",
-                                                :imports ["polylith.clj.core.entity.dep-extractor"
-                                                          "polylith.clj.core.entity.path-extractor"
-                                                          "polylith.clj.core.entity.profile-extractor"]}
+                                                :namespace "polylith.clj.core.path-finder.core",
+                                                :file-path "./components/path-finder/src/polylith/clj/core/path-finder/core.clj",
+                                                :imports ["polylith.clj.core.path-finder.dep-extractor"
+                                                          "polylith.clj.core.path-finder.path-extractor"
+                                                          "polylith.clj.core.path-finder.profile-extractor"]}
                                                {:name "env-statuses",
-                                                :namespace "polylith.clj.core.entity.env-statuses",
-                                                :file-path "./components/entity/src/polylith/clj/core/entity/env_statuses.clj",
-                                                :imports ["polylith.clj.core.entity.matchers"]}
+                                                :namespace "polylith.clj.core.path-finder.env-statuses",
+                                                :file-path "./components/path-finder/src/polylith/clj/core/path-finder/env_statuses.clj",
+                                                :imports ["polylith.clj.core.path-finder.matchers"]}
                                                {:name "dep-extractor",
-                                                :namespace "polylith.clj.core.entity.dep-extractor",
-                                                :file-path "./components/entity/src/polylith/clj/core/entity/dep_extractor.clj",
+                                                :namespace "polylith.clj.core.path-finder.dep-extractor",
+                                                :file-path "./components/path-finder/src/polylith/clj/core/path-finder/dep_extractor.clj",
                                                 :imports ["polylith.clj.core.util.interfc"]}
                                                {:name "path-selector",
-                                                :namespace "polylith.clj.core.entity.path-selector",
-                                                :file-path "./components/entity/src/polylith/clj/core/entity/path_selector.clj",
-                                                :imports ["polylith.clj.core.entity.matchers"]}
+                                                :namespace "polylith.clj.core.path-finder.path-selector",
+                                                :file-path "./components/path-finder/src/polylith/clj/core/path-finder/path_selector.clj",
+                                                :imports ["polylith.clj.core.path-finder.matchers"]}
                                                {:name "status",
-                                                :namespace "polylith.clj.core.entity.status",
-                                                :file-path "./components/entity/src/polylith/clj/core/entity/status.clj",
-                                                :imports ["polylith.clj.core.entity.matchers"]}],
+                                                :namespace "polylith.clj.core.path-finder.status",
+                                                :file-path "./components/path-finder/src/polylith/clj/core/path-finder/status.clj",
+                                                :imports ["polylith.clj.core.path-finder.matchers"]}],
                               :namespaces-test [{:name "dep-selector-test",
-                                                 :namespace "polylith.clj.core.entity.dep-selector-test",
-                                                 :file-path "./components/entity/test/polylith/clj/core/entity/dep_selector_test.clj",
-                                                 :imports ["polylith.clj.core.entity.dep-selector"
-                                                           "polylith.clj.core.entity.test-data"]}
+                                                 :namespace "polylith.clj.core.path-finder.dep-selector-test",
+                                                 :file-path "./components/path-finder/test/polylith/clj/core/path-finder/dep_selector_test.clj",
+                                                 :imports ["polylith.clj.core.path-finder.dep-selector"
+                                                           "polylith.clj.core.path-finder.test-data"]}
                                                 {:name "path-selector-test",
-                                                 :namespace "polylith.clj.core.entity.path-selector-test",
-                                                 :file-path "./components/entity/test/polylith/clj/core/entity/path_selector_test.clj",
-                                                 :imports ["polylith.clj.core.entity.path-selector"
-                                                           "polylith.clj.core.entity.test-data"]}
+                                                 :namespace "polylith.clj.core.path-finder.path-selector-test",
+                                                 :file-path "./components/path-finder/test/polylith/clj/core/path-finder/path_selector_test.clj",
+                                                 :imports ["polylith.clj.core.path-finder.path-selector"
+                                                           "polylith.clj.core.path-finder.test-data"]}
                                                 {:name "test-data",
-                                                 :namespace "polylith.clj.core.entity.test-data",
-                                                 :file-path "./components/entity/test/polylith/clj/core/entity/test_data.clj",
+                                                 :namespace "polylith.clj.core.path-finder.test-data",
+                                                 :file-path "./components/path-finder/test/polylith/clj/core/path-finder/test_data.clj",
                                                  :imports []}
                                                 {:name "path-extractor-test",
-                                                 :namespace "polylith.clj.core.entity.path-extractor-test",
-                                                 :file-path "./components/entity/test/polylith/clj/core/entity/path_extractor_test.clj",
-                                                 :imports ["polylith.clj.core.entity.path-extractor"
-                                                           "polylith.clj.core.entity.test-data"
+                                                 :namespace "polylith.clj.core.path-finder.path-extractor-test",
+                                                 :file-path "./components/path-finder/test/polylith/clj/core/path-finder/path_extractor_test.clj",
+                                                 :imports ["polylith.clj.core.path-finder.path-extractor"
+                                                           "polylith.clj.core.path-finder.test-data"
                                                            "polylith.clj.core.file.interfc"]}
                                                 {:name "dep-extractor-test",
-                                                 :namespace "polylith.clj.core.entity.dep-extractor-test",
-                                                 :file-path "./components/entity/test/polylith/clj/core/entity/dep_extractor_test.clj",
-                                                 :imports ["polylith.clj.core.entity.dep-extractor"
-                                                           "polylith.clj.core.entity.test-data"]}
+                                                 :namespace "polylith.clj.core.path-finder.dep-extractor-test",
+                                                 :file-path "./components/path-finder/test/polylith/clj/core/path-finder/dep_extractor_test.clj",
+                                                 :imports ["polylith.clj.core.path-finder.dep-extractor"
+                                                           "polylith.clj.core.path-finder.test-data"]}
                                                 {:name "profile-extractor-test",
-                                                 :namespace "polylith.clj.core.entity.profile-extractor-test",
-                                                 :file-path "./components/entity/test/polylith/clj/core/entity/profile_extractor_test.clj",
-                                                 :imports ["polylith.clj.core.entity.profile-extractor"]}],
+                                                 :namespace "polylith.clj.core.path-finder.profile-extractor-test",
+                                                 :file-path "./components/path-finder/test/polylith/clj/core/path-finder/profile_extractor_test.clj",
+                                                 :imports ["polylith.clj.core.path-finder.profile-extractor"]}],
                               :lib-imports-src ["clojure.string"],
                               :lib-imports-test [],
                               :interface-deps ["file" "util"],
@@ -2231,18 +2231,18 @@
                                        :loc nil,
                                        :selected-environments #{},
                                        :arg1 nil},
-                          :changed-components ["entity" "workspace"],
+                          :changed-components ["path-finder" "workspace"],
                           :changed-bases [],
                           :changed-environments [],
                           :env->indirect-changes {"cli" ["cli" "command" "test-helper"],
                                                   "core" ["cli" "command" "test-helper"],
                                                   "development" ["cli" "command" "test-helper"]},
-                          :env->bricks-to-test {"cli" ["command" "entity" "workspace"], "core" [], "development" []},
+                          :env->bricks-to-test {"cli" ["command" "path-finder" "workspace"], "core" [], "development" []},
                           :environments-to-test [],
-                          :changed-files ["components/entity/src/polylith/clj/core/entity/env_statuses.clj"
-                                          "components/entity/src/polylith/clj/core/entity/interfc.clj"
-                                          "components/entity/src/polylith/clj/core/entity/matchers.clj"
-                                          "components/entity/src/polylith/clj/core/entity/status.clj"
+                          :changed-files ["components/path-finder/src/polylith/clj/core/path-finder/env_statuses.clj"
+                                          "components/path-finder/src/polylith/clj/core/path-finder/interfc.clj"
+                                          "components/path-finder/src/polylith/clj/core/path-finder/matchers.clj"
+                                          "components/path-finder/src/polylith/clj/core/path-finder/status.clj"
                                           "components/workspace/src/polylith/clj/core/workspace/core.clj"
                                           "components/workspace/src/polylith/clj/core/workspace/text_table/new_env_table.clj"
                                           "components/workspace/src/polylith/clj/core/workspace/text_table/ws_table.clj"
@@ -2291,10 +2291,10 @@
           "  common         common         xx-  x--   xx-"
           "  create         create         xx-  ---   xx-"
           "  deps           deps           xx-  x--   xx-"
-          "  entity         entity *       xxx  x--   xx-"
           "  file           file           xx-  x--   xx-"
           "  git            git            xx-  x--   xx-"
           "  help           help           x--  x--   x--"
+          "  path-finder    path-finder *  xxx  x--   xx-"
           "  shell          shell          x--  x--   x--"
           "  test-helper    test-helper    x--  ---   x--"
           "  test-runner    test-runner    x--  ---   x--"
@@ -2315,10 +2315,10 @@
           "  common         common         x-x-   x---   x-x-     336    53"
           "  create         create         xxx-   ----   xxx-     181   282"
           "  deps           deps           x-x-   x---   x-x-     242   328"
-          "  entity         entity *       x-xx   x---   x-x-     591   343"
           "  file           file           x-x-   x---   x-x-     165     2"
           "  git            git            x-x-   x---   x-x-      55    18"
           "  help           help           x---   x---   x---     204     0"
+          "  path-finder    path-finder *  x-xx   x---   x-x-     591   343"
           "  shell          shell          x---   x---   x---      19     0"
           "  test-helper    test-helper    x---   ----   x---      73     0"
           "  test-runner    test-runner    x---   ----   x---     108     0"
@@ -2340,10 +2340,10 @@
           "  common         common         xx-  x--   xx-  -- "
           "  create         create         xx-  ---   xx-  -- "
           "  deps           deps           xx-  x--   xx-  -- "
-          "  entity         entity *       xxx  x--   xx-  -- "
           "  file           file           xx-  x--   xx-  -- "
           "  git            git            xx-  x--   xx-  -- "
           "  help           help           x--  x--   x--  -- "
+          "  path-finder    path-finder *  xxx  x--   xx-  -- "
           "  shell          shell          x--  x--   x--  -- "
           "  test-helper    test-helper    x--  ---   x--  -- "
           "  test-runner    test-runner    x--  ---   x--  -- "
@@ -2364,10 +2364,10 @@
           "  common         common          xx-    x--    xx-   --     336    53"
           "  create         create          xx-    ---    xx-   --     181   282"
           "  deps           deps            xx-    x--    xx-   --     242   328"
-          "  entity         entity *        xxx    x--    xx-   --     591   343"
           "  file           file            xx-    x--    xx-   --     165     2"
           "  git            git             xx-    x--    xx-   --      55    18"
           "  help           help            x--    x--    x--   --     204     0"
+          "  path-finder    path-finder *   xxx    x--    xx-   --     591   343"
           "  shell          shell           x--    x--    x--   --      19     0"
           "  test-helper    test-helper     x--    ---    x--   --      73     0"
           "  test-runner    test-runner     x--    ---    x--   --     108     0"

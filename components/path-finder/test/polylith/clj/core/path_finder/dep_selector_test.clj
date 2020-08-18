@@ -1,7 +1,7 @@
-(ns polylith.clj.core.entity.dep-selector-test
+(ns polylith.clj.core.path-finder.dep-selector-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.entity.test-data :as test-data]
-            [polylith.clj.core.entity.dep-selector :as selector]))
+            [polylith.clj.core.path-finder.test-data :as test-data]
+            [polylith.clj.core.path-finder.dep-selector :as selector]))
 
 (deftest all-src-deps--select-src-deps--returns-src-deps
   (is (= {"org.clojure/clojure" #:mvn{:version "1.10.1"},

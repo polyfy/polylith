@@ -15,8 +15,6 @@
 
 - have a similar calculation for lib-deps in 'entity'.
 
-- change name from 'entity' tp 'path-finder'.
-
 - remove the enrichment of profiles from settings and move them to the new solution in 'entity'.
 
 - start using the new 'entity' component instead of the different attributes in entity.

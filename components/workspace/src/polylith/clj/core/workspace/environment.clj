@@ -1,7 +1,7 @@
 (ns polylith.clj.core.workspace.environment
   (:require [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.entity.interfc :as entity]
+            [polylith.clj.core.path-finder.interfc :as path-finder]
             [polylith.clj.core.workspace.loc :as loc]
             [polylith.clj.core.workspace.brick-deps :as brick-deps]))
 
@@ -41,13 +41,13 @@
                   settings
                   {:keys [run-all? selected-environments]}]
   (let [alias (env->alias name)
-        dep-entries (entity/deps-entries dev? lib-deps test-lib-deps settings)
-        path-entries (entity/path-entries ws-dir dev? src-paths test-paths settings)
-        component-names (entity/src-component-names path-entries)
-        base-names (entity/src-base-names path-entries)
+        dep-entries (path-finder/deps-entries dev? lib-deps test-lib-deps settings)
+        path-entries (path-finder/path-entries ws-dir dev? src-paths test-paths settings)
+        component-names (path-finder/src-component-names path-entries)
+        base-names (path-finder/src-base-names path-entries)
         brick-names (concat component-names base-names)
-        test-component-names (entity/test-component-names path-entries)
-        test-base-names (entity/test-base-names path-entries)
+        test-component-names (path-finder/test-component-names path-entries)
+        test-base-names (path-finder/test-base-names path-entries)
         deps (brick-deps/environment-deps component-names components bases)
         lib-imports-src (-> (env-lib-imports brick-names brick->lib-imports false)
                             set sort vec)
@@ -67,18 +67,18 @@
                       :total-lines-of-code-src total-lines-of-code-src
                       :total-lines-of-code-test total-lines-of-code-test
                       :test-component-names test-component-names
-                      :component-names (entity/src-component-names path-entries)
+                      :component-names (path-finder/src-component-names path-entries)
                       :base-names base-names
                       :test-base-names test-base-names
                       :has-src-dir? has-src-dir?
                       :has-test-dir? has-test-dir?
                       :namespaces-src namespaces-src
                       :namespaces-test namespaces-test
-                      :src-paths (entity/src-paths path-entries)
-                      :test-paths (entity/test-paths path-entries)
+                      :src-paths (path-finder/src-paths path-entries)
+                      :test-paths (path-finder/test-paths path-entries)
                       :lib-imports lib-imports-src
                       :lib-imports-test lib-imports-test
-                      :lib-deps (entity/all-src-deps dep-entries)
+                      :lib-deps (path-finder/all-src-deps dep-entries)
                       :deps deps
-                      :test-lib-deps (entity/all-test-deps dep-entries)
+                      :test-lib-deps (path-finder/all-test-deps dep-entries)
                       :maven-repos maven-repos)))

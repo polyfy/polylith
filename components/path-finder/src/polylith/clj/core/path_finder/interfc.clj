@@ -1,8 +1,8 @@
-(ns polylith.clj.core.entity.interfc
-  (:require [polylith.clj.core.entity.status :as status]
-            [polylith.clj.core.entity.core :as core]
-            [polylith.clj.core.entity.dep-selector :as dep-selector]
-            [polylith.clj.core.entity.path-selector :as path-selector]))
+(ns polylith.clj.core.path-finder.interfc
+  (:require [polylith.clj.core.path-finder.status :as status]
+            [polylith.clj.core.path-finder.core :as core]
+            [polylith.clj.core.path-finder.dep-selector :as dep-selector]
+            [polylith.clj.core.path-finder.path-selector :as path-selector]))
 
 (defn path-entries [ws-dir dev? src-paths test-paths settings]
   (core/path-entries ws-dir dev? src-paths test-paths settings))

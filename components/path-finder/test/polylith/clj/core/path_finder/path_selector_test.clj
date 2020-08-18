@@ -1,7 +1,7 @@
-(ns polylith.clj.core.entity.path-selector-test
+(ns polylith.clj.core.path-finder.path-selector-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.entity.path-selector :as selector]
-            [polylith.clj.core.entity.test-data :as test-data]))
+            [polylith.clj.core.path-finder.path-selector :as selector]
+            [polylith.clj.core.path-finder.test-data :as test-data]))
 
 (deftest all-src-paths--when-executed--returns-src-paths-from-all-components-bases-and-entities-including-profile-paths
   (is (= ["bases/cli/resources"

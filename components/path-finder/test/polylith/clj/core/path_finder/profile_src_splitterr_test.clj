@@ -1,6 +1,6 @@
-(ns polylith.clj.core.entity.profile-src-splitterr-test
+(ns polylith.clj.core.path-finder.profile-src-splitterr-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.entity.profile-src-splitter :as extractor]))
+            [polylith.clj.core.path-finder.profile-src-splitter :as extractor]))
 
 (def settings {:active-dev-profiles #{"default" "admin"},
                :profile->settings {"default" {:lib-deps {"org.clojure/clojure" {:mvn/version "1.10.1"}}

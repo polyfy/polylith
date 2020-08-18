@@ -1,5 +1,5 @@
-(ns polylith.clj.core.entity.path-selector
-  (:require [polylith.clj.core.entity.matchers :as m]))
+(ns polylith.clj.core.path-finder.path-selector
+  (:require [polylith.clj.core.path-finder.matchers :as m]))
 
 (defn select-paths [path-entries]
   (vec (sort (set (map :path path-entries)))))

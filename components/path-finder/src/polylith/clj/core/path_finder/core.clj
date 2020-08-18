@@ -1,7 +1,7 @@
-(ns polylith.clj.core.entity.core
-  (:require [polylith.clj.core.entity.dep-extractor :as dep-extractor]
-            [polylith.clj.core.entity.path-extractor :as path-extractor]
-            [polylith.clj.core.entity.profile-src-splitter :as profile-src-splitter]))
+(ns polylith.clj.core.path-finder.core
+  (:require [polylith.clj.core.path-finder.dep-extractor :as dep-extractor]
+            [polylith.clj.core.path-finder.path-extractor :as path-extractor]
+            [polylith.clj.core.path-finder.profile-src-splitter :as profile-src-splitter]))
 
 (defn path-entries [ws-dir dev? src-paths test-paths settings]
   (let [{:keys [profile-src-paths profile-test-paths]} (profile-src-splitter/extract-paths dev? settings)]
