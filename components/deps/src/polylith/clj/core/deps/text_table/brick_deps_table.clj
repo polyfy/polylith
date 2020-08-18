@@ -49,5 +49,5 @@
         brick (common/find-brick brick-name workspace)
         [ok? message] (validate environment-name brick-name environment brick color-mode)]
     (if ok?
-      (println table (table workspace environment brick))
+      (text-table/print-table (table workspace environment brick))
       (println message))))
