@@ -14,5 +14,4 @@
           "  util         "
           "  workspace    "
           "  workspace-clj"]
-         (str/split-lines
-           (deps-table/table brick color/none)))))
+         (deps-table/table brick color/none))))

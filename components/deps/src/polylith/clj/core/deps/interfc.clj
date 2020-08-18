@@ -5,8 +5,8 @@
             [polylith.clj.core.deps.text-table.workspace-ifc-deps-table :as ws-ifc-deps-table]
             [polylith.clj.core.deps.text-table.workspace-brick-deps-table :as ws-brick-deps-table]))
 
-(defn interface-ns-deps [top-ns interface-name interface-names brick-namespaces]
-  (ifc-deps/interface-ns-deps top-ns interface-name interface-names brick-namespaces))
+(defn interface-ns-deps [suffixed-top-ns interface-name interface-names brick-namespaces]
+  (ifc-deps/interface-ns-deps suffixed-top-ns interface-name interface-names brick-namespaces))
 
 (defn interface-deps [suffixed-top-ns interface-names brick]
   (ifc-deps/interface-deps suffixed-top-ns interface-names brick))
@@ -14,8 +14,8 @@
 (defn print-brick-table [workspace environment-name brick-name color-mode]
   (brick-deps-table/print-table workspace environment-name brick-name color-mode))
 
-(defn print-brick-ifc-table [workspace brick-name color-mode]
-  (brick-ifc-deps-table/print-table workspace brick-name color-mode))
+(defn print-brick-ifc-table [workspace brick-name]
+  (brick-ifc-deps-table/print-table workspace brick-name))
 
 (defn print-workspace-ifc-table [workspace]
   (ws-ifc-deps-table/print-table workspace))

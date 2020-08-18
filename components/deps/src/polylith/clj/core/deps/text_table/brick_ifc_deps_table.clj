@@ -1,22 +1,24 @@
 (ns polylith.clj.core.deps.text-table.brick-ifc-deps-table
-  (:require [polylith.clj.core.text-table.interfc :as text-table]
-            [polylith.clj.core.common.interfc :as common]))
+  (:require [polylith.clj.core.common.interfc :as common]
+            [polylith.clj.core.text-table2.interfc :as text-table]))
 
-(defn row [interface-name]
-  [interface-name])
+(defn interface-cell [row interface-name]
+  (text-table/cell 1 row interface-name :yellow :left :horizontal))
 
-(def headers ["uses"])
-(def alignments [:left])
-(def header-orientations [:horizontal])
+(defn interface-column [interface-names]
+  (concat
+    [(text-table/cell 1 1 "uses" :none :left :horizontal)]
+    (map-indexed #(interface-cell (+ %1 3) %2)
+                 interface-names)))
 
 (defn table [{:keys [interface-deps]} color-mode]
-  (let [header-colors [:none]
-        row-colors (repeat [:yellow])
-        rows (mapv row interface-deps)]
-    (text-table/table "  " alignments header-colors header-orientations row-colors headers rows color-mode)))
+  (let [interface-col (interface-column interface-deps)
+        line (text-table/line 2 interface-col)]
+    (text-table/table "  " color-mode interface-col line)))
 
-(defn print-table [workspace brick-name color-mode]
-  (let [brick (common/find-brick brick-name workspace)]
+(defn print-table [workspace brick-name]
+  (let [color-mode (-> workspace :settings :color-mode)
+        brick (common/find-brick brick-name workspace)]
     (if brick
-      (println (table brick color-mode))
+      (text-table/print-table (table brick color-mode))
       (println (str "Couldn't find brick '" brick-name "'.")))))
