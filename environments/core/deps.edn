@@ -8,7 +8,6 @@
            "../../components/git/src"
            "../../components/help/src"
            "../../components/shell/src"
-           "../../components/text-table/src"
            "../../components/text-table2/src"
            "../../components/user-config/src"
            "../../components/util/src"

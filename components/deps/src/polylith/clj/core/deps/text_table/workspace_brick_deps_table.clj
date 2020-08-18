@@ -49,4 +49,4 @@
 (defn print-table [{:keys [environments settings] :as workspace} environment-name]
   (if-let [environment (common/find-environment environment-name environments)]
     (text-table/print-table (table workspace environment))
-    (println (str "Couldn't find the " (color/environment environment-name (:color-mode settings)) " environment."))))
+    (println (str "  Couldn't find the " (color/environment environment-name (:color-mode settings)) " environment."))))

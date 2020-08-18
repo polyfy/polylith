@@ -2298,7 +2298,7 @@
           "  shell          shell          x--  x--   x--"
           "  test-helper    test-helper    x--  ---   x--"
           "  test-runner    test-runner    x--  ---   x--"
-          "  text-table     text-table     xx-  x--   xx-"
+          "  text-table     text-table     ---  ---   ---"
           "  user-config    user-config    x--  x--   x--"
           "  util           util           xx-  x--   xx-"
           "  validate       validate       xx-  x--   xx-"
@@ -2322,14 +2322,14 @@
           "  shell          shell          x---   x---   x---      19     0"
           "  test-helper    test-helper    x---   ----   x---      73     0"
           "  test-runner    test-runner    x---   ----   x---     108     0"
-          "  text-table     text-table     x-x-   x---   x-x-     145   117"
+          "  text-table     text-table     ----   ----   ----     145   117"
           "  user-config    user-config    x---   x---   x---      18     0"
           "  util           util           x-x-   x---   x-x-     290    64"
           "  validate       validate       x-x-   x---   x-x-     420   810"
           "  workspace      workspace *    x-xx   x---   x-x-     844 1,008"
           "  workspace-clj  workspace-clj  x-x-   ----   x-x-     324   150"
           "  -              cli            x---   ----   x---      22     0"
-          "                                4,322  3,463  4,322  4,322 3,518"]
+          "                                4,177  3,318  4,177  4,322 3,518"]
          (ws-table/table workspace true true))))
 
 (deftest ws-table--with-profiles-without-loc-info--return-table-without-loc-info
@@ -2347,7 +2347,7 @@
           "  shell          shell          x--  x--   x--  -- "
           "  test-helper    test-helper    x--  ---   x--  -- "
           "  test-runner    test-runner    x--  ---   x--  -- "
-          "  text-table     text-table     xx-  x--   xx-  -- "
+          "  text-table     text-table     ---  ---   ---  -- "
           "  user-config    user-config    x--  x--   x--  -- "
           "  util           util           xx-  x--   xx-  -- "
           "  validate       validate       xx-  x--   xx-  -- "
@@ -2371,12 +2371,12 @@
           "  shell          shell           x--    x--    x--   --      19     0"
           "  test-helper    test-helper     x--    ---    x--   --      73     0"
           "  test-runner    test-runner     x--    ---    x--   --     108     0"
-          "  text-table     text-table      xx-    x--    xx-   --     145   117"
+          "  text-table     text-table      ---    ---    ---   --     145   117"
           "  user-config    user-config     x--    x--    x--   --      18     0"
           "  util           util            xx-    x--    xx-   --     290    64"
           "  validate       validate        xx-    x--    xx-   --     420   810"
           "  workspace      workspace *     xxx    x--    xx-   --     844 1,008"
           "  workspace-clj  workspace-clj   xx-    ---    xx-   --     324   150"
           "  -              cli             x--    ---    x--   --      22     0"
-          "                                4,322  3,463  4,322       4,322 3,518"]
+          "                                4,177  3,318  4,177       4,322 3,518"]
          (ws-table/table workspace-with-profiles true false))))

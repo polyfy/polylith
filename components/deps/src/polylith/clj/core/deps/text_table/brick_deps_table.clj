@@ -39,8 +39,8 @@
 
 (defn validate [environment-name brick-name environment brick color-mode]
   (cond
-    (nil? environment) [false (str "Couldn't find the " (color/environment environment-name color-mode) " environment.")]
-    (nil? brick) [false (str "Couldn't find brick '" brick-name "'.")]
+    (nil? environment) [false (str "  Couldn't find the " (color/environment environment-name color-mode) " environment.")]
+    (nil? brick) [false (str "  Couldn't find brick '" brick-name "'.")]
     :else [true]))
 
 (defn print-table [{:keys [environments] :as workspace} environment-name brick-name]

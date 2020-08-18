@@ -21,4 +21,4 @@
         brick (common/find-brick brick-name workspace)]
     (if brick
       (text-table/print-table (table brick color-mode))
-      (println (str "Couldn't find brick '" brick-name "'.")))))
+      (println (str "  Couldn't find brick '" brick-name "'.")))))
