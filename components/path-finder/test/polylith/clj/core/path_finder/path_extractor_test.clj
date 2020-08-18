@@ -15,7 +15,8 @@
 (deftest path-entries--lists-of-paths--returns-extracted-path-entries
   (with-redefs [file/exists (fn [_] true)]
     (is (= test-data/path-entries
-           (core/path-entries "." true
+           (core/path-entries-from-settings
+             "." true
              ["bases/cli/resources"
               "bases/cli/src"
               "components/address/resources"

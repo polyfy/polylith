@@ -42,7 +42,7 @@
                   {:keys [run-all? selected-environments]}]
   (let [alias (env->alias name)
         dep-entries (path-finder/deps-entries dev? lib-deps test-lib-deps settings)
-        path-entries (path-finder/path-entries ws-dir dev? src-paths test-paths settings)
+        path-entries (path-finder/path-entries-from-settings ws-dir dev? src-paths test-paths settings)
         component-names (path-finder/src-component-names path-entries)
         base-names (path-finder/src-base-names path-entries)
         brick-names (concat component-names base-names)
@@ -74,8 +74,10 @@
                       :has-test-dir? has-test-dir?
                       :namespaces-src namespaces-src
                       :namespaces-test namespaces-test
-                      :src-paths (path-finder/src-paths path-entries)
-                      :test-paths (path-finder/test-paths path-entries)
+                      :src-paths src-paths
+                      :test-paths test-paths
+                      :profile-src-paths (path-finder/profile-src-paths path-entries)
+                      :profile-test-paths (path-finder/profile-test-paths path-entries)
                       :lib-imports lib-imports-src
                       :lib-imports-test lib-imports-test
                       :lib-deps (path-finder/all-src-deps dep-entries)

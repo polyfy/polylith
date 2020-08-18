@@ -4,6 +4,12 @@
 (defn select-paths [path-entries]
   (vec (sort (set (map :path path-entries)))))
 
+(defn profile-src-paths [path-entries]
+  (select-paths (m/filter-entries path-entries [m/src? m/profile?])))
+
+(defn profile-test-paths [path-entries]
+  (select-paths (m/filter-entries path-entries [m/test? m/profile?])))
+
 (defn all-src-paths [path-entries]
   (select-paths (m/filter-entries path-entries [m/src?])))
 

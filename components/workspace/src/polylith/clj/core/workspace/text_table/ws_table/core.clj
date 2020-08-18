@@ -21,7 +21,7 @@
         loc-start-column (+ profile-start-column (* 2 (count profiles)))
         ifc-column (ifc-column/column sorted-components bases)
         brick-column (brick-column/column bricks changes color-mode)
-        env-columns (env-columns/columns ws-dir settings environments bricks changes show-loc? show-resources? thousand-sep)
+        env-columns (env-columns/columns ws-dir environments bricks changes show-loc? show-resources? thousand-sep)
         profile-columns (profile-columns/columns profile-start-column bricks profiles settings)
         loc-columns (loc-columns/columns show-loc? bricks loc-start-column thousand-sep)
         header-spaces (text-table/header-spaces space-columns spaces)

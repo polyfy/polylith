@@ -17,7 +17,7 @@
                        environments)))
 
 (defn src-cell [index {:keys [dev? name src-paths test-paths]} ws-dir settings environments-to-test show-resources?]
-  (let [path-entries (path-finder/path-entries ws-dir dev? src-paths test-paths settings)
+  (let [path-entries (path-finder/path-entries-from-settings ws-dir dev? src-paths test-paths settings)
         statuses (str (path-finder/env-status-flags path-entries name show-resources?)
                       (if (contains? (set environments-to-test) name) "x" "-"))]
     (shared/standard-cell statuses 5 (+ index 3) :purple)))

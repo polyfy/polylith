@@ -5,8 +5,11 @@
             [polylith.clj.core.path-finder.path-selector :as path-selector]
             [polylith.clj.core.path-finder.dep-extractor :as dep-extractor]))
 
-(defn path-entries [ws-dir dev? src-paths test-paths settings]
-  (core/path-entries ws-dir dev? src-paths test-paths settings))
+(defn path-entries-from-settings [ws-dir dev? src-paths test-paths settings]
+  (core/path-entries-from-settings ws-dir dev? src-paths test-paths settings))
+
+(defn path-entries [ws-dir src-paths test-paths profile-src-paths profile-test-paths]
+  (core/path-entries ws-dir src-paths test-paths profile-src-paths profile-test-paths))
 
 (defn profile-entries [ws-dir settings profile-name]
   (core/profile-path-entries ws-dir settings profile-name))
@@ -20,10 +23,16 @@
 (defn all-test-deps [dep-entries]
   (dep-selector/all-test-deps dep-entries))
 
-(defn src-paths [path-entries]
+(defn profile-src-paths [path-entries]
+  (path-selector/profile-src-paths path-entries))
+
+(defn profile-test-paths [path-entries]
+  (path-selector/profile-test-paths path-entries))
+
+(defn all-src-paths [path-entries]
   (path-selector/all-src-paths path-entries))
 
-(defn test-paths [path-entries]
+(defn all-test-paths [path-entries]
   (path-selector/all-test-paths path-entries))
 
 (defn src-component-names [path-entries]

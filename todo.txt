@@ -1,7 +1,6 @@
 
 - also show the profiles in the environments table.
 
-- remove :paths from profile->settings.
 
 - add resources to status to profile in ws-table.
 
@@ -46,6 +45,8 @@
 
   - implement the same way for environments.
   - continue with settings in 'workspace'.
+
+- go through :settings enricher in 'workspace'.
 
 - use 'entity' from 'changes' instead of 'common.interfc.paths'.
 
