@@ -37,7 +37,7 @@
         (case cmd
           "check" (check workspace color-mode)
           "create" (create/create current-dir workspace arg1 name top-ns interface color-mode)
-          "deps" (deps/deps workspace env brick unnamed-args color-mode)
+          "deps" (deps/deps workspace env brick unnamed-args)
           "diff" (diff workspace)
           "help" (help arg1 color-mode)
           "info" (info/info workspace loc flag unnamed-args)

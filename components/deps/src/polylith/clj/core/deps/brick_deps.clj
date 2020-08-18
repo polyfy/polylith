@@ -11,12 +11,12 @@
 (defn with-color [brick-name brick->color]
   [brick-name (brick->color brick-name)])
 
-(def sorting {:yellow 1
-              :green 2
-              :blue 3})
+(def sorter {:yellow 1
+             :green 2
+             :blue  3})
 
 (defn sort-them [bricks]
-  (vec (sort-by (juxt #(-> % second sorting) first) bricks)))
+  (vec (sort-by (juxt #(-> % second sorter) first) bricks)))
 
 (defn deps [environment brick->color brick->interface-deps brick-name]
   (let [dependers (sort-them (map #(with-color % brick->color)

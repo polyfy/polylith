@@ -11,8 +11,8 @@
 (defn interface-deps [suffixed-top-ns interface-names brick]
   (ifc-deps/interface-deps suffixed-top-ns interface-names brick))
 
-(defn print-brick-table [workspace environment-name brick-name color-mode]
-  (brick-deps-table/print-table workspace environment-name brick-name color-mode))
+(defn print-brick-table [workspace environment-name brick-name]
+  (brick-deps-table/print-table workspace environment-name brick-name))
 
 (defn print-brick-ifc-table [workspace brick-name]
   (brick-ifc-deps-table/print-table workspace brick-name))

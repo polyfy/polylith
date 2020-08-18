@@ -1,4 +1,6 @@
 
+- clean up brick-deps-table-test.
+
 - convert the text tables in 'deps' to use the new text table.
   - delete the old 'text-table' and rename the old.
 

@@ -1,46 +1,53 @@
 (ns polylith.clj.core.deps.text-table.brick-deps-table
-  (:require [polylith.clj.core.deps.brick-deps :as brick-deps]
-            [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.text-table.interfc :as text-table]
+  (:require [polylith.clj.core.common.interfc :as common]
+            [polylith.clj.core.text-table2.interfc :as text-table]
+            [polylith.clj.core.deps.brick-deps :as brick-deps]
             [polylith.clj.core.util.interfc.color :as color]))
-
-(def alignments [:left :center :left :center :left])
-(def header-orientations [:horizontal :horizontal :horizontal :horizontal :horizontal])
-(def line-visables [true false false false true])
-
-(defn add-empty-rows [rows max-rows]
-  (let [cnt (- max-rows (count rows))]
-    (concat rows (repeat cnt ["" :none]))))
-
-(defn color-row [[[_ depender-color] [_ dependee-color]]]
-  [depender-color :none :none :none dependee-color])
-
-(defn table [{:keys [dependers dependees]} brick-name brick->color color-mode]
-  (let [headers ["used by" "  <  " brick-name "  >  " "uses"]
-        brick-color (brick->color brick-name)
-        header-colors [:none :none brick-color :none :none]
-        max-rows (max (count dependers) (count dependees))
-        depender-rows (add-empty-rows dependers max-rows)
-        dependee-rows (add-empty-rows dependees max-rows)
-        row-colors (map color-row (map vector depender-rows dependee-rows))
-        depender-name-rows (map first depender-rows)
-        dependee-name-rows (map first dependee-rows)
-        rows (map vector
-                  depender-name-rows
-                  (repeat "") (repeat "") (repeat "")
-                  dependee-name-rows)]
-    (text-table/table "  " alignments header-colors header-orientations row-colors headers line-visables rows color-mode)))
 
 (def type->color {"component" :green
                   "base" :blue})
 
-(defn print-table [{:keys [environments components bases]} environment-name brick-name color-mode]
-  (let [environment (common/find-environment environment-name environments)
+(defn deps-cell [column row [name color]]
+  (text-table/cell column row name color :left :horizontal))
+
+(defn deps-column [column header rows]
+  (let [cells (concat
+                [(text-table/cell column 1 header :none :left :horizontal)]
+                (map-indexed #(deps-cell column (+ %1 3) %2)
+                             rows))
+        line (text-table/line 2 cells)]
+    (text-table/merge-cells cells line)))
+
+(defn brick-headers [{:keys [name type]} color-mode]
+  [(text-table/cell 3 1 "<" :none :left :horizontal)
+   (text-table/cell 5 1 (color/brick type name color-mode) :none :left :horizontal)
+   (text-table/cell 7 1 ">" :none :left :horizontal)
+   (text-table/cell 9 1 "uses" :none :left :horizontal)])
+
+(defn table [{:keys [components bases settings]} environment brick]
+  (let [color-mode (:color-mode settings)
         bricks (concat components bases)
-        brick->color (into {} (map (juxt :name #(-> % :type type->color)) bricks))]
-    (cond
-      (nil? environment) (println (str "Couldn't find the " (color/environment environment-name color-mode) " environment."))
-      (-> brick-name brick->color nil?) (println (str "Couldn't find brick '" brick-name "'."))
-      :else (let [brick->interface-deps (into {} (map (juxt :name :interface-deps) bricks))
-                  deps (brick-deps/deps environment brick->color brick->interface-deps brick-name)]
-              (println (table deps brick-name brick->color color-mode))))))
+        brick-name (:name brick)
+        brick->color (into {} (map (juxt :name #(-> % :type type->color)) bricks))
+        brick->interface-deps (into {} (map (juxt :name :interface-deps) bricks))
+        {:keys [dependers dependees]} (brick-deps/deps environment brick->color brick->interface-deps brick-name)
+        used-by-column (deps-column 1 "used by" dependers)
+        uses-column (deps-column 9 "uses" dependees)
+        headers (brick-headers brick color-mode)
+        spaces (text-table/header-spaces [2 4 6 8] (repeat "  "))]
+    (text-table/table "  " color-mode used-by-column uses-column headers spaces)))
+
+(defn validate [environment-name brick-name environment brick color-mode]
+  (cond
+    (nil? environment) [false (str "Couldn't find the " (color/environment environment-name color-mode) " environment.")]
+    (nil? brick) [false (str "Couldn't find brick '" brick-name "'.")]
+    :else [true]))
+
+(defn print-table [{:keys [environments] :as workspace} environment-name brick-name]
+  (let [color-mode (-> workspace :settings :color-mode)
+        environment (common/find-environment environment-name environments)
+        brick (common/find-brick brick-name workspace)
+        [ok? message] (validate environment-name brick-name environment brick color-mode)]
+    (if ok?
+      (println table (table workspace environment brick))
+      (println message))))
