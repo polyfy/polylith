@@ -1,4 +1,4 @@
-(ns polylith.clj.core.text-table2.table
+(ns polylith.clj.core.text-table.table
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interfc.str :as str-util]
             [polylith.clj.core.util.interfc.color :as c]))

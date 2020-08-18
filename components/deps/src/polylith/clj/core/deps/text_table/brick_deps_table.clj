@@ -1,6 +1,6 @@
 (ns polylith.clj.core.deps.text-table.brick-deps-table
   (:require [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.text-table2.interfc :as text-table]
+            [polylith.clj.core.text-table.interfc :as text-table]
             [polylith.clj.core.deps.brick-deps :as brick-deps]
             [polylith.clj.core.util.interfc.color :as color]))
 

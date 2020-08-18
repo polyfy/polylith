@@ -1,4 +1,4 @@
-(ns polylith.clj.core.text-table2.merger)
+(ns polylith.clj.core.text-table.merger)
 
 (defn key-row [{:keys [row column value align color orientation]}]
   [[row column] {:row row

@@ -1,6 +1,6 @@
 (ns polylith.clj.core.deps.text-table.brick-ifc-deps-table
   (:require [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.text-table2.interfc :as text-table]))
+            [polylith.clj.core.text-table.interfc :as text-table]))
 
 (defn interface-cell [row interface-name]
   (text-table/cell 1 row interface-name :yellow :left :horizontal))

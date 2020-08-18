@@ -1,6 +1,6 @@
 (ns polylith.clj.core.workspace.text-table.ws-table.core
   (:require [clojure.walk :as walk]
-            [polylith.clj.core.text-table2.interfc :as text-table]
+            [polylith.clj.core.text-table.interfc :as text-table]
             [polylith.clj.core.workspace.text-table.ws-table.ifc-column :as ifc-column]
             [polylith.clj.core.workspace.text-table.ws-table.brick-column :as brick-column]
             [polylith.clj.core.workspace.text-table.ws-table.loc-columns :as loc-columns]

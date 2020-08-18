@@ -1,9 +1,9 @@
-(ns polylith.clj.core.text-table2.interfc
-  (:require [polylith.clj.core.text-table2.core :as core]
-            [polylith.clj.core.text-table2.cell :as cell]
-            [polylith.clj.core.text-table2.spaces :as spaces]
-            [polylith.clj.core.text-table2.line :as line]
-            [polylith.clj.core.text-table2.merger :as merger]))
+(ns polylith.clj.core.text-table.interfc
+  (:require [polylith.clj.core.text-table.core :as core]
+            [polylith.clj.core.text-table.cell :as cell]
+            [polylith.clj.core.text-table.spaces :as spaces]
+            [polylith.clj.core.text-table.line :as line]
+            [polylith.clj.core.text-table.merger :as merger]))
 
 (defn cell [column row value color align orientation]
   (cell/cell column row value color align orientation))

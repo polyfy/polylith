@@ -1,6 +1,6 @@
 (ns polylith.clj.core.workspace.text-table.shared
   (:require [polylith.clj.core.util.interfc.str :as str-util]
-            [polylith.clj.core.text-table2.interfc :as text-table]))
+            [polylith.clj.core.text-table.interfc :as text-table]))
 
 (defn header
   ([value column]

@@ -12,7 +12,7 @@
            "../../components/help/src"
            "../../components/shell/src"
            "../../components/test-helper/src"
-           "../../components/text-table2/src"
+           "../../components/text-table/src"
            "../../components/test-runner/src"
            "../../components/user-config/src"
            "../../components/user-input/src"

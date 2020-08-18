@@ -1,4 +1,4 @@
-(ns polylith.clj.core.text-table2.cell)
+(ns polylith.clj.core.text-table.cell)
 
 (defn cell [column row value color align orientation]
   {:column column
