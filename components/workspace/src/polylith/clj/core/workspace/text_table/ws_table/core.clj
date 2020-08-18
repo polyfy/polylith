@@ -24,10 +24,13 @@
         env-columns (env-columns/columns ws-dir environments bricks changes show-loc? show-resources? thousand-sep)
         profile-columns (profile-columns/columns profile-start-column bricks profiles settings)
         loc-columns (loc-columns/columns show-loc? bricks loc-start-column thousand-sep)
-        header-spaces (text-table/header-spaces space-columns spaces)
+        header-spaces (text-table/spaces 1 space-columns spaces)
         cells (text-table/merge-cells ifc-column brick-column env-columns profile-columns loc-columns header-spaces)
-        line (text-table/line 2 cells)]
-    (text-table/table "  " color-mode cells line)))
+        line (text-table/line 2 cells)
+        spc1 (if (= 1 (count environments)) [] [(* 2 (-> environments count inc))])
+        spc2 (if show-loc? [(- (last space-columns) 2)] [])
+        line-space (text-table/spaces 2 (concat [4] spc1 spc2) (repeat "   "))]
+    (text-table/table "  " color-mode cells line line-space)))
 
 (defn print-table [workspace show-loc? show-resources?]
   (text-table/print-table (table workspace show-loc? show-resources?)))

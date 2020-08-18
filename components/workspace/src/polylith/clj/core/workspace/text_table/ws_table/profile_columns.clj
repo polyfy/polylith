@@ -11,12 +11,12 @@
 
 (defn profile-cell [index brick-name profile column profile->bricks]
   (let [status (status-flags profile brick-name profile->bricks)]
-    (shared/standard-cell status column (+ index 3) :cyan :center)))
+    (shared/standard-cell status column (+ index 3) :purple :center)))
 
 (defn column [index profile start-column bricks profile->bricks]
   (let [column (+ start-column (* 2 index))]
     (concat
-      [(shared/header (name profile) column :cyan :left)]
+      [(shared/header (str "+" (name profile)) column :purple :left)]
       (map-indexed #(profile-cell %1 %2 profile column profile->bricks)
                    (map :name bricks)))))
 

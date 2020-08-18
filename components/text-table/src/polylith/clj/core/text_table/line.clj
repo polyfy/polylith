@@ -25,3 +25,7 @@
 (defn line [row cells]
   (mapv #(line-cell % row cells)
         (sort (set (map :column cells)))))
+
+(defn line-spaces [row cells]
+  (mapv #(line-cell % row cells)
+        (sort (set (map :column cells)))))

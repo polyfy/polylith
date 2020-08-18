@@ -17,7 +17,7 @@
                (shared/standard-cell cnt-ifc 7 1)
                (shared/standard-cell "components:" 5 2 :green)
                (shared/standard-cell cnt-comp 7 2)]
-              (text-table/header-spaces [2 4 6] [" " "   " " "])))))
+              (text-table/spaces 1 [2 4 6] [" " "   " " "])))))
 
 (defn print-table [workspace]
   (text-table/print-table (table workspace)))

@@ -39,7 +39,7 @@
         brick->indirect-deps (into {} (mapv (juxt identity #(-> % deps :indirect set)) brick-names))
         space-columns (range 2 (* 2 (inc (count components))) 2)
         spaces (repeat "  ")
-        header-spaces (text-table/header-spaces space-columns spaces)
+        header-spaces (text-table/spaces 1 space-columns spaces)
         brick-col (brick-column bricks color-mode)
         component-cols (interface-columns component-names brick-names brick->deps brick->indirect-deps)
         cells (text-table/merge-cells brick-col component-cols header-spaces)

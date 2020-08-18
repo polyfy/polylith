@@ -8,7 +8,7 @@
    :color :none
    :orientation :horizontal})
 
-(defn header-spaces [column-nums spaces]
-  (mapv #(row-cell 1 %1 %2)
+(defn spaces [row column-nums spaces]
+  (mapv #(row-cell row %1 %2)
         column-nums
         spaces))

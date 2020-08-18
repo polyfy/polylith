@@ -46,7 +46,7 @@
         alias-col (env-column environments {} "alias" :alias 3 color-mode)
         src-col (src-column ws-dir settings environments changes show-resources?)
         loc-col (loc-columns show-loc? environments thousand-sep total-loc-src total-loc-test)
-        header-spaces (text-table/header-spaces (if show-loc? [2 4 6 8] [2 4]) (repeat "  "))
+        header-spaces (text-table/spaces 1 (if show-loc? [2 4 6 8] [2 4]) (repeat "  "))
         cells (text-table/merge-cells env-col alias-col src-col loc-col header-spaces)
         line (text-table/line 2 cells)]
     (text-table/table "  " color-mode cells line)))

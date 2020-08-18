@@ -35,7 +35,7 @@
         brick-names (map :name bricks)
         space-columns (range 2 (* 2 (inc (count interfaces))) 2)
         spaces (repeat "  ")
-        header-spaces (text-table/header-spaces space-columns spaces)
+        header-spaces (text-table/spaces 1 space-columns spaces)
         brick-col (brick-column bricks color-mode)
         interface-cols (interface-columns interface-names brick-names brick->interface-deps)
         cells (text-table/merge-cells brick-col interface-cols header-spaces)

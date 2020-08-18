@@ -8,8 +8,8 @@
 (defn cell [column row value color align orientation]
   (cell/cell column row value color align orientation))
 
-(defn header-spaces [column-nums spaces]
-  (spaces/header-spaces column-nums spaces))
+(defn spaces [row column-nums spaces]
+  (spaces/spaces row column-nums spaces))
 
 (defn line [row cells]
   (line/line row cells))

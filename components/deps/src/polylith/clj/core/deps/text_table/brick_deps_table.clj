@@ -34,7 +34,7 @@
         used-by-column (deps-column 1 "used by" dependers)
         uses-column (deps-column 9 "uses" dependees)
         headers (brick-headers brick color-mode)
-        spaces (text-table/header-spaces [2 4 6 8] (repeat "  "))]
+        spaces (text-table/spaces 1 [2 4 6 8] (repeat "  "))]
     (text-table/table "  " color-mode used-by-column uses-column headers spaces)))
 
 (defn validate [environment-name brick-name environment brick color-mode]
