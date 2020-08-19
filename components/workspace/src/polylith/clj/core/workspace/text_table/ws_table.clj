@@ -11,7 +11,7 @@
   [(:name interface) name])
 
 (defn profile-sorting [profile]
-  [(not= :default profile) profile])
+  [(not= "default" profile) profile])
 
 (defn profiles-to-show [{:keys [profile->settings active-dev-profiles]}]
   (sort-by profile-sorting
@@ -35,9 +35,9 @@
         header-spaces (text-table/spaces 1 space-columns spaces)
         cells (text-table/merge-cells ifc-column brick-column env-columns profile-columns loc-columns header-spaces)
         line (text-table/line 2 cells)
-        spc1 (if (= 1 (count environments)) [] [(* 2 (-> environments count inc))])
-        spc2 (if show-loc? [(- (last space-columns) 2)] [])
-        line-space (text-table/spaces 2 (concat [4] spc1 spc2) (repeat "   "))]
+        section1 (if (= 1 (count environments)) [] [(* 2 (-> environments count inc))])
+        section2 (if show-loc? [(- (last space-columns) 2)] [])
+        line-space (text-table/spaces 2 (concat [4] section1 section2) (repeat "   "))]
     (text-table/table "  " color-mode cells line line-space)))
 
 (defn print-table [workspace show-loc? show-resources?]
