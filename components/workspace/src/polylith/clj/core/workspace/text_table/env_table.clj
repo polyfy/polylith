@@ -2,7 +2,8 @@
   (:require [polylith.clj.core.workspace.text-table.shared :as shared]
             [polylith.clj.core.text-table.interfc :as text-table]
             [polylith.clj.core.util.interfc.color :as color]
-            [polylith.clj.core.path-finder.interfc :as path-finder]))
+            [polylith.clj.core.path-finder.interfc.path-extract :as path-extract]
+            [polylith.clj.core.path-finder.interfc.path-status :as path-status]))
 
 (defn env-cell [environment env-key column row changed-environments color-mode]
   (let [name (env-key environment)
@@ -17,8 +18,8 @@
                        environments)))
 
 (defn src-cell [index {:keys [dev? name src-paths test-paths]} ws-dir settings environments-to-test show-resources?]
-  (let [path-entries (path-finder/path-entries-including-settings ws-dir dev? src-paths test-paths settings)
-        statuses (str (path-finder/env-status-flags path-entries name show-resources?)
+  (let [path-entries (path-extract/path-entries-including-settings ws-dir dev? src-paths test-paths settings)
+        statuses (str (path-status/env-status-flags path-entries name show-resources?)
                       (if (contains? (set environments-to-test) name) "x" "-"))]
     (shared/standard-cell statuses 5 (+ index 3) :purple)))
 

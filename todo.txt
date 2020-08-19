@@ -1,7 +1,4 @@
 
-- seperate extraction and selection in differtent interfaces in path-finder.
-  - clean polylith.clj.core.path-finder.core.
-
 - add profile related validations:
   - don't allow having components with an interface with more than one component
     in the development environment.
