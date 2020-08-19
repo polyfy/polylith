@@ -1,36 +1,23 @@
 (ns polylith.clj.core.workspace.text-table.ws-table-column.profile-columns
-  (:require [polylith.clj.core.workspace.text-table.shared :as shared]))
+  (:require [polylith.clj.core.workspace.text-table.shared :as shared]
+            [polylith.clj.core.path-finder.interfc :as path-finder]))
 
-(defn profile-sorting [profile]
-  [(not= :default profile) profile])
+(defn status-flags [brick-name show-resources? path-entries]
+  (path-finder/brick-status-flags path-entries brick-name show-resources?))
 
-(defn status-flags [profile brick-name profile->bricks]
-  (let [has-src (if (contains? (-> profile profile->bricks :src) brick-name) "x" "-")
-        has-test-src (if (contains? (-> profile profile->bricks :test) brick-name) "x" "-")]
-    (str has-src has-test-src)))
-
-(defn profile-cell [index brick-name profile column profile->bricks]
-  (let [status (status-flags profile brick-name profile->bricks)]
+(defn profile-cell [index brick-name column show-resources? path-entries]
+  (let [status (status-flags brick-name show-resources? path-entries)]
     (shared/standard-cell status column (+ index 3) :purple :center)))
 
-(defn column [index profile start-column bricks profile->bricks]
-  (let [column (+ start-column (* 2 index))]
+(defn column [ws-dir index profile start-column settings bricks show-resources?]
+  (let [column (+ start-column (* 2 index))
+        path-entries (path-finder/profile-path-entries ws-dir settings profile)]
     (concat
-      [(shared/header (str "+" (name profile)) column :purple :left)]
-      (map-indexed #(profile-cell %1 %2 profile column profile->bricks)
+      [(shared/header (name profile) column :purple :left)]
+      (map-indexed #(profile-cell %1 %2 column show-resources? path-entries)
                    (map :name bricks)))))
 
-(defn profile-bricks [[profile {:keys [src-bricks test-bricks]}]]
-  [profile {:src  src-bricks
-            :test test-bricks}])
-
-(defn profiles-to-show [{:keys [profile->settings active-dev-profiles]}]
-  (sort-by profile-sorting
-    (filter #(not (contains? active-dev-profiles %))
-            (map first profile->settings))))
-
-(defn columns [start-column bricks profiles {:keys [profile->settings]}]
-  (let [profile->bricks (into {} (map profile-bricks profile->settings))]
-    (apply concat
-      (map-indexed #(column %1 %2 start-column bricks profile->bricks)
-                   profiles))))
+(defn columns [ws-dir start-column bricks profiles settings show-resources?]
+  (apply concat
+    (map-indexed #(column ws-dir %1 %2 start-column settings bricks show-resources?)
+                 profiles)))

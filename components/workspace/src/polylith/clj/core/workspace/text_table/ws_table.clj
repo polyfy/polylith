@@ -10,9 +10,17 @@
 (defn component-sorter [{:keys [interface name]}]
   [(:name interface) name])
 
+(defn profile-sorting [profile]
+  [(not= :default profile) profile])
+
+(defn profiles-to-show [{:keys [profile->settings active-dev-profiles]}]
+  (sort-by profile-sorting
+           (filter #(not (contains? active-dev-profiles %))
+                   (map first profile->settings))))
+
 (defn table [{:keys [ws-dir settings environments components bases changes]} show-loc? show-resources?]
   (let [{:keys [color-mode thousand-sep]} settings
-        profiles (profile-columns/profiles-to-show settings)
+        profiles (profiles-to-show settings)
         sorted-components (sort-by component-sorter components)
         bricks (concat sorted-components bases)
         space-columns (range 2 (* 2 (+ 2 (count environments) (count profiles) (if show-loc? 2 0))) 2)
@@ -22,7 +30,7 @@
         ifc-column (ifc-column/column sorted-components bases)
         brick-column (brick-column/column bricks changes color-mode)
         env-columns (env-columns/columns ws-dir environments bricks changes show-loc? show-resources? thousand-sep)
-        profile-columns (profile-columns/columns profile-start-column bricks profiles settings)
+        profile-columns (profile-columns/columns ws-dir profile-start-column bricks profiles settings show-resources?)
         loc-columns (loc-columns/columns show-loc? bricks loc-start-column thousand-sep)
         header-spaces (text-table/spaces 1 space-columns spaces)
         cells (text-table/merge-cells ifc-column brick-column env-columns profile-columns loc-columns header-spaces)

@@ -11,7 +11,7 @@
 (defn path-entries [ws-dir src-paths test-paths profile-src-paths profile-test-paths]
   (core/path-entries ws-dir src-paths test-paths profile-src-paths profile-test-paths))
 
-(defn profile-entries [ws-dir settings profile-name]
+(defn profile-path-entries [ws-dir settings profile-name]
   (core/profile-path-entries ws-dir settings profile-name))
 
 (defn deps-entries [dev? src-deps test-deps settings]

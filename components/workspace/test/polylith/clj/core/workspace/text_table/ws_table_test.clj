@@ -715,7 +715,6 @@
                                                        "create"
                                                        "deps"
                                                        "path-finder"
-                                                       "file"
                                                        "git"
                                                        "text-table"
                                                        "util"
@@ -728,7 +727,6 @@
                                                   "create"
                                                   "deps"
                                                   "path-finder"
-                                                  "file"
                                                   "git"
                                                   "help"
                                                   "shell"
@@ -765,7 +763,6 @@
                                             "components/create/src"
                                             "components/deps/src"
                                             "components/path-finder/src"
-                                            "components/file/src"
                                             "components/git/src"
                                             "components/help/src"
                                             "components/shell/src"
@@ -785,7 +782,6 @@
                                              "components/create/test"
                                              "components/deps/test"
                                              "components/path-finder/test"
-                                             "components/file/test"
                                              "components/git/test"
                                              "components/help/test"
                                              "components/shell/test"
@@ -797,7 +793,9 @@
                                              "components/validate/test"
                                              "components/workspace-clj/test"
                                              "components/workspace/test"
-                                             "environments/cli/test"],
+                                             "environments/cli/test"]
+                                :profile-src-paths []
+                                :profile-test-paths []
                                 :lib-imports ["clojure.core.matrix"
                                               "clojure.java.io"
                                               "clojure.java.shell"
@@ -2276,11 +2274,13 @@
 
 
 (def workspace-with-profiles (-> workspace
-                                 (assoc-in [:settings :active-dev-profiles] #{"default"})
-                                 (assoc-in [:settings :profile->settings] {"default" {:src-bricks #{"deps"}
-                                                                                      :test-bricks #{"deps"}}
-                                                                           "adm" {:src-bricks #{"deps2"}
-                                                                                  :test-bricks #{"deps2"}}})))
+                                 (assoc-in [:settings :profile->settings] {"default" {:paths ["components/file/src"
+                                                                                              "components/file/test"]}})
+                                 (assoc-in [:environments 2 :profile-src-paths] ["components/file/src"])
+                                 (assoc-in [:environments 2 :profile-test-paths] ["components/file/test"])))
+
+(def workspace-with-profiles-no-active (-> workspace-with-profiles
+                                           (assoc-in [:settings :active-dev-profiles] #{})))
 
 (deftest ws-table--without-loc-info--return-table-without-loc-info
   (is (= ["  interface      brick           cli  core   dev"
@@ -2290,7 +2290,7 @@
           "  common         common          xx-  x--    xx-"
           "  create         create          xx-  ---    xx-"
           "  deps           deps            xx-  x--    xx-"
-          "  file           file            xx-  x--    xx-"
+          "  file           file            xx-  x--    ---"
           "  git            git             xx-  x--    xx-"
           "  help           help            x--  x--    x--"
           "  path-finder    path-finder *   xxx  x--    xx-"
@@ -2314,7 +2314,7 @@
           "  common         common          x-x-   x---    x-x-      336    53"
           "  create         create          xxx-   ----    xxx-      181   282"
           "  deps           deps            x-x-   x---    x-x-      242   328"
-          "  file           file            x-x-   x---    x-x-      165     2"
+          "  file           file            x-x-   x---    ----      165     2"
           "  git            git             x-x-   x---    x-x-       55    18"
           "  help           help            x---   x---    x---      204     0"
           "  path-finder    path-finder *   x-xx   x---    x-x-      591   343"
@@ -2328,54 +2328,78 @@
           "  workspace      workspace *     x-xx   x---    x-x-      844 1,008"
           "  workspace-clj  workspace-clj   x-x-   ----    x-x-      324   150"
           "  -              cli             x---   ----    x---       22     0"
-          "                                 4,322  3,463   4,322   4,322 3,518"]
+          "                                 4,322  3,463   4,157   4,322 3,518"]
          (ws-table/table workspace true true))))
 
 (deftest ws-table--with-profiles-without-loc-info--return-table-without-loc-info
-  (is (= ["  interface      brick           cli  core   dev  +adm"
-          "  ----------------------------   ---------   ---------"
-          "  change         change          xx-  x--    xx-   -- "
-          "  command        command         xxx  ---    xx-   -- "
-          "  common         common          xx-  x--    xx-   -- "
-          "  create         create          xx-  ---    xx-   -- "
-          "  deps           deps            xx-  x--    xx-   -- "
-          "  file           file            xx-  x--    xx-   -- "
-          "  git            git             xx-  x--    xx-   -- "
-          "  help           help            x--  x--    x--   -- "
-          "  path-finder    path-finder *   xxx  x--    xx-   -- "
-          "  shell          shell           x--  x--    x--   -- "
-          "  test-helper    test-helper     x--  ---    x--   -- "
-          "  test-runner    test-runner     x--  ---    x--   -- "
-          "  text-table     text-table      x--  x--    x--   -- "
-          "  user-config    user-config     x--  x--    x--   -- "
-          "  util           util            xx-  x--    xx-   -- "
-          "  validate       validate        xx-  x--    xx-   -- "
-          "  workspace      workspace *     xxx  x--    xx-   -- "
-          "  workspace-clj  workspace-clj   xx-  ---    xx-   -- "
-          "  -              cli             x--  ---    x--   -- "]
+  (is (= ["  interface      brick           cli  core   dev"
+          "  ----------------------------   ---------   ---"
+          "  change         change          xx-  x--    xx-"
+          "  command        command         xxx  ---    xx-"
+          "  common         common          xx-  x--    xx-"
+          "  create         create          xx-  ---    xx-"
+          "  deps           deps            xx-  x--    xx-"
+          "  file           file            xx-  x--    xx-"
+          "  git            git             xx-  x--    xx-"
+          "  help           help            x--  x--    x--"
+          "  path-finder    path-finder *   xxx  x--    xx-"
+          "  shell          shell           x--  x--    x--"
+          "  test-helper    test-helper     x--  ---    x--"
+          "  test-runner    test-runner     x--  ---    x--"
+          "  text-table     text-table      x--  x--    x--"
+          "  user-config    user-config     x--  x--    x--"
+          "  util           util            xx-  x--    xx-"
+          "  validate       validate        xx-  x--    xx-"
+          "  workspace      workspace *     xxx  x--    xx-"
+          "  workspace-clj  workspace-clj   xx-  ---    xx-"
+          "  -              cli             x--  ---    x--"]
          (ws-table/table workspace-with-profiles false false))))
 
+(deftest ws-table--with-profiles-without-active-profile--return-table-including-all-profiles
+  (is (= ["  interface      brick           cli  core   dev  default"
+          "  ----------------------------   ---------   ------------"
+          "  change         change          xx-  x--    xx-    --   "
+          "  command        command         xxx  ---    xx-    --   "
+          "  common         common          xx-  x--    xx-    --   "
+          "  create         create          xx-  ---    xx-    --   "
+          "  deps           deps            xx-  x--    xx-    --   "
+          "  file           file            xx-  x--    xx-    xx   "
+          "  git            git             xx-  x--    xx-    --   "
+          "  help           help            x--  x--    x--    --   "
+          "  path-finder    path-finder *   xxx  x--    xx-    --   "
+          "  shell          shell           x--  x--    x--    --   "
+          "  test-helper    test-helper     x--  ---    x--    --   "
+          "  test-runner    test-runner     x--  ---    x--    --   "
+          "  text-table     text-table      x--  x--    x--    --   "
+          "  user-config    user-config     x--  x--    x--    --   "
+          "  util           util            xx-  x--    xx-    --   "
+          "  validate       validate        xx-  x--    xx-    --   "
+          "  workspace      workspace *     xxx  x--    xx-    --   "
+          "  workspace-clj  workspace-clj   xx-  ---    xx-    --   "
+          "  -              cli             x--  ---    x--    --   "]
+         (ws-table/table workspace-with-profiles-no-active false false))))
+
 (deftest ws-table--with-profiles-with-loc-info--return-table-without-loc-info
-  (is (= ["  interface      brick            cli   core     dev   +adm     loc   (t)"
-          "  ----------------------------   ------------   -----------   -----------"
-          "  change         change           xx-    x--     xx-    --      134   343"
-          "  command        command          xxx    ---     xx-    --      151     0"
-          "  common         common           xx-    x--     xx-    --      336    53"
-          "  create         create           xx-    ---     xx-    --      181   282"
-          "  deps           deps             xx-    x--     xx-    --      242   328"
-          "  file           file             xx-    x--     xx-    --      165     2"
-          "  git            git              xx-    x--     xx-    --       55    18"
-          "  help           help             x--    x--     x--    --      204     0"
-          "  path-finder    path-finder *    xxx    x--     xx-    --      591   343"
-          "  shell          shell            x--    x--     x--    --       19     0"
-          "  test-helper    test-helper      x--    ---     x--    --       73     0"
-          "  test-runner    test-runner      x--    ---     x--    --      108     0"
-          "  text-table     text-table       x--    x--     x--    --      145   117"
-          "  user-config    user-config      x--    x--     x--    --       18     0"
-          "  util           util             xx-    x--     xx-    --      290    64"
-          "  validate       validate         xx-    x--     xx-    --      420   810"
-          "  workspace      workspace *      xxx    x--     xx-    --      844 1,008"
-          "  workspace-clj  workspace-clj    xx-    ---     xx-    --      324   150"
-          "  -              cli              x--    ---     x--    --       22     0"
-          "                                 4,322  3,463   4,322         4,322 3,518"]
+  (is (= ["  interface      brick            cli   core     dev      loc   (t)"
+          "  ----------------------------   ------------   -----   -----------"
+          "  change         change           xx-    x--     xx-      134   343"
+          "  command        command          xxx    ---     xx-      151     0"
+          "  common         common           xx-    x--     xx-      336    53"
+          "  create         create           xx-    ---     xx-      181   282"
+          "  deps           deps             xx-    x--     xx-      242   328"
+          "  file           file             xx-    x--     xx-      165     2"
+          "  git            git              xx-    x--     xx-       55    18"
+          "  help           help             x--    x--     x--      204     0"
+          "  path-finder    path-finder *    xxx    x--     xx-      591   343"
+          "  shell          shell            x--    x--     x--       19     0"
+          "  test-helper    test-helper      x--    ---     x--       73     0"
+          "  test-runner    test-runner      x--    ---     x--      108     0"
+          "  text-table     text-table       x--    x--     x--      145   117"
+          "  user-config    user-config      x--    x--     x--       18     0"
+          "  util           util             xx-    x--     xx-      290    64"
+          "  validate       validate         xx-    x--     xx-      420   810"
+          "  workspace      workspace *      xxx    x--     xx-      844 1,008"
+          "  workspace-clj  workspace-clj    xx-    ---     xx-      324   150"
+          "  -              cli              x--    ---     x--       22     0"
+          "                                 4,322  3,463   4,322   4,322 3,518"]
          (ws-table/table workspace-with-profiles true false))))
