@@ -15,13 +15,13 @@
                       :sha2 sha2
                       :files (git/diff ws-dir sha1 sha2)))
 
-(defn changes [{:keys [environments]}
+(defn changes [{:keys [ws-dir environments]}
                {:keys [sha1 sha2 files]}
                {:keys [run-all? run-env-tests?] :as user-input}]
    (let [deps (map (juxt :name :deps) environments)
          {:keys [changed-components
                  changed-bases
-                 changed-environments]} (entity/changed-entities files)
+                 changed-environments]} (entity/changed-entities ws-dir files)
          changed-bricks (set (concat changed-components changed-bases))
          env->indirect-changes (indirect/env->indirect-changes deps changed-bricks)
          env->bricks-to-test (to-test/env->bricks-to-test environments changed-components changed-bases env->indirect-changes run-all?)

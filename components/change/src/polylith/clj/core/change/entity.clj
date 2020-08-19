@@ -1,26 +1,14 @@
 (ns polylith.clj.core.change.entity
-  (:require [clojure.string :as str]
-            [polylith.clj.core.common.interfc.paths :as paths]
-            [polylith.clj.core.git.interfc :as git]))
+  (:require [polylith.clj.core.git.interfc :as git]
+            [polylith.clj.core.path-finder.interfc :as path-finder]))
 
-(defn environment? [filename]
-  (str/starts-with? filename "environments/"))
-
-(defn extract-entity [filename brick? length]
-  (when (brick? filename)
-    (let [path (subs filename length)
-          index (str/index-of path "/")]
-      (subs path 0 index))))
-
-(defn environment [filename]
-  (extract-entity filename environment? 13))
-
-(defn changed-entities [paths]
+(defn changed-entities [ws-dir paths]
   "Returns the bricks and environments that has changed based on a list of files"
-  {:changed-bases (paths/bases-from-paths paths)
-   :changed-components (paths/components-from-paths paths)
-   :changed-environments (paths/environments-from-paths paths)})
+  (let [path-entries (path-finder/path-entries ws-dir paths)]
+    {:changed-bases (path-finder/src-base-names path-entries)
+     :changed-components (path-finder/src-component-names path-entries)
+     :changed-environments (path-finder/src-environment-names path-entries)}))
 
 (defn changes [ws-dir sha1 sha2]
   (let [filenames (git/diff ws-dir sha1 sha2)]
-    (changed-entities filenames)))
+    (changed-entities ws-dir filenames)))

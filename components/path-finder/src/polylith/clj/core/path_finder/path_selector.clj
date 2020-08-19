@@ -28,6 +28,9 @@
 (defn src-base-names [path-entries]
   (select-name path-entries m/base? m/src? m/exists?))
 
+(defn src-environment-names [path-entries]
+  (select-name path-entries m/environment? m/src? m/exists?))
+
 (defn test-component-names [path-entries]
   (select-name path-entries m/component? m/test? m/exists?))
 

@@ -10,22 +10,6 @@
 
 - remove src-bricks and test-bricks (or calculate them using path-finder) in :profile->settings.
 
-
-- change :component-names, :test-component-names, :base-names, :test-base-names in
-  environments to:
-    :included-bricks [{:name "my-comp"
-                       :type "component"
-                       :includes-src? true
-                       :includes-resources? true
-                       :includes-test? true
-                       :src-paths []
-                       :test-paths []}]
-
-  - implement the same way for environments.
-  - continue with settings in 'workspace'.
-
-- use 'path-finder' from 'changes' instead of 'common.interfc.paths'.
-
 - create a .keep file in development/src when creating a workspace.
 
 - move things that has to do with path handling into the new 'path-finder' component.
