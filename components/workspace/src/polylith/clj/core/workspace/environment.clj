@@ -42,7 +42,7 @@
                   {:keys [run-all? selected-environments]}]
   (let [alias (env->alias name)
         dep-entries (path-finder/deps-entries dev? lib-deps test-lib-deps settings)
-        path-entries (path-finder/path-entries-from-settings ws-dir dev? src-paths test-paths settings)
+        path-entries (path-finder/path-entries-including-settings ws-dir dev? src-paths test-paths settings)
         component-names (path-finder/src-component-names path-entries)
         base-names (path-finder/src-base-names path-entries)
         brick-names (concat component-names base-names)

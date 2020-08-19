@@ -8,7 +8,6 @@
             [polylith.clj.core.workspace.component :as component]
             [polylith.clj.core.workspace.environment :as env]
             [polylith.clj.core.workspace.interfaces :as interfaces]
-            [polylith.clj.core.workspace.settings :as settings]
             [polylith.clj.core.file.interfc :as file]))
 
 (defn brick->lib-imports [brick]
@@ -32,11 +31,14 @@
 (defn env-sorter [{:keys [dev? name]}]
   [dev? name])
 
+(defn with-user-input [settings {:keys [active-dev-profiles]}]
+  (assoc settings :active-dev-profiles active-dev-profiles))
+
 (defn enrich-workspace [{:keys [ws-dir ws-reader settings components bases environments]}
                         user-input]
   (let [ws-name (workspace-name ws-dir)
         {:keys [top-namespace interface-ns ns->lib color-mode]} settings
-        enriched-settings (settings/enrich settings user-input)
+        enriched-settings (with-user-input settings user-input)
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         interfaces (interfaces/calculate components)
         interface-names (apply sorted-set (mapv :name interfaces))

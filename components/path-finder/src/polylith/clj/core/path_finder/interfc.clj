@@ -5,7 +5,7 @@
             [polylith.clj.core.path-finder.path-selector :as path-selector]
             [polylith.clj.core.path-finder.dep-extractor :as dep-extractor]))
 
-(defn path-entries-from-settings [ws-dir dev? src-paths test-paths settings]
+(defn path-entries-including-settings [ws-dir dev? src-paths test-paths settings]
   (core/path-entries-from-settings ws-dir dev? src-paths test-paths settings))
 
 (defn path-entries [ws-dir src-paths test-paths profile-src-paths profile-test-paths]

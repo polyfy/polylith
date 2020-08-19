@@ -7,6 +7,9 @@
    (util/ordered-map :paths extra-paths
                      :lib-deps (util/stringify-and-sort-map extra-deps))])
 
+(defn profile? [[alias]]
+  (str/starts-with? (name alias) "dev+"))
+
 (defn profile->settings [aliases]
   (into {} (map profile
-                (filterv #(str/starts-with? (-> % first name) "dev+") aliases))))
+                (filterv profile? aliases))))
