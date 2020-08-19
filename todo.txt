@@ -1,6 +1,4 @@
 
-- ensure the validation messages are shown in the 'info' command.
-
 - remove :src-bricks and :test-bricks.
 
 - complain if trying to include a profile with e.g. +admin, that does not exists,
