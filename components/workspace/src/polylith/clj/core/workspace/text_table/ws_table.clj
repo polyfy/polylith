@@ -12,7 +12,7 @@
 
 (defn table [{:keys [ws-dir settings environments components bases changes]} show-loc? show-resources?]
   (let [{:keys [color-mode thousand-sep]} settings
-        profiles (profile-columns/show-profiles settings)
+        profiles (profile-columns/profiles-to-show settings)
         sorted-components (sort-by component-sorter components)
         bricks (concat sorted-components bases)
         space-columns (range 2 (* 2 (+ 2 (count environments) (count profiles) (if show-loc? 2 0))) 2)

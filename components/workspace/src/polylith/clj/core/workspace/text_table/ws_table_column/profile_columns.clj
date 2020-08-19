@@ -24,10 +24,10 @@
   [profile {:src  src-bricks
             :test test-bricks}])
 
-(defn show-profiles [{:keys [profile->settings active-dev-profiles]}]
-  (if (contains? active-dev-profiles "default")
-      (filter #(not= "default" %) (map first profile->settings))
-      (sort-by profile-sorting (map first profile->settings))))
+(defn profiles-to-show [{:keys [profile->settings active-dev-profiles]}]
+  (sort-by profile-sorting
+    (filter #(not (contains? active-dev-profiles %))
+            (map first profile->settings))))
 
 (defn columns [start-column bricks profiles {:keys [profile->settings]}]
   (let [profile->bricks (into {} (map profile-bricks profile->settings))]
