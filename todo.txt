@@ -1,10 +1,7 @@
 
+- filter away active profiles (so that if +admin is selected, only show +default.
+
 - also show the profiles in the environments table.
-
-
-- add resources to status to profile in ws-table.
-
-- remove src-bricks and test-bricks (or calculate them using path-finder) in :profile->settings.
 
 - check that sources from profiles shows as + in the dev column.
 
@@ -32,6 +29,9 @@
     dev and its profiles forms its own group. Do the same between brick and first env.
 
 - check why the cli environment test folder didn't turn up in dev when running 'info'.
+
+- remove src-bricks and test-bricks (or calculate them using path-finder) in :profile->settings.
+
 
 - change :component-names, :test-component-names, :base-names, :test-base-names in
   environments to:

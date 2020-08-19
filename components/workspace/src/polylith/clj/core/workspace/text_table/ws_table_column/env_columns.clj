@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.text-table.ws-table.env-columns
+(ns polylith.clj.core.workspace.text-table.ws-table-column.env-columns
   (:require [polylith.clj.core.path-finder.interfc :as path-finder]
             [polylith.clj.core.workspace.text-table.shared :as shared]))
 

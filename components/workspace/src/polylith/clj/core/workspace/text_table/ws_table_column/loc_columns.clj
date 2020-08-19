@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.text-table.ws-table.loc-columns
+(ns polylith.clj.core.workspace.text-table.ws-table-column.loc-columns
   (:require [polylith.clj.core.workspace.text-table.shared :as shared]))
 
 (defn loc-column [header loc-key bricks column thousand-sep]

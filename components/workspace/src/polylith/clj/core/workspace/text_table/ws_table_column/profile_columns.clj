@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.text-table.ws-table.profile-columns
+(ns polylith.clj.core.workspace.text-table.ws-table-column.profile-columns
   (:require [polylith.clj.core.workspace.text-table.shared :as shared]))
 
 (defn profile-sorting [profile]
