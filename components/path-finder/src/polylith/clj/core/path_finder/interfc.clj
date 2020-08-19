@@ -8,6 +8,8 @@
 (defn path-entries
   ([ws-dir src-paths]
    (core/path-entries ws-dir src-paths))
+  ([ws-dir src-paths test-paths]
+   (core/path-entries ws-dir src-paths test-paths))
   ([ws-dir src-paths test-paths profile-src-paths profile-test-paths]
    (core/path-entries ws-dir src-paths test-paths profile-src-paths profile-test-paths)))
 
@@ -31,6 +33,9 @@
 
 (defn profile-test-paths [path-entries]
   (path-selector/profile-test-paths path-entries))
+
+(defn missing-paths-except-test-and-resources [path-entries]
+  (path-selector/missing-paths-except-test-and-resources path-entries))
 
 (defn all-src-paths [path-entries]
   (path-selector/all-src-paths path-entries))

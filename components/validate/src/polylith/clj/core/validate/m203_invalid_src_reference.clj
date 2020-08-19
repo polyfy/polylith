@@ -1,15 +1,7 @@
 (ns polylith.clj.core.validate.m203-invalid-src-reference
   (:require [clojure.string :as str]
-            [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.util.interfc.str :as str-util]
             [polylith.clj.core.util.interfc.color :as color]))
-
-(defn not-exists? [ws-dir path]
-  (let [check-path (-> path
-                       (str-util/skip-if-ends-with "/test")
-                       (str-util/skip-if-ends-with "/resources"))]
-    (not (file/exists (str ws-dir "/" check-path)))))
 
 (defn quoted [string]
   (str "\"" string "\""))
@@ -24,12 +16,10 @@
                        :colorized-message colorized-msg
                        :environment env)]))
 
-(defn env-warnings [ws-dir color-mode {:keys [name src-paths test-paths]}]
-  (let [paths (concat src-paths test-paths)
-        non-existing-paths (filter #(not-exists? ws-dir %) paths)]
-    (when (-> non-existing-paths empty? not)
-      (non-existing-paths-warning name non-existing-paths color-mode))))
+(defn env-warnings [{:keys [name missing-paths]} color-mode]
+  (when (-> missing-paths empty? not)
+    (non-existing-paths-warning name missing-paths color-mode)))
 
-(defn warnings [ws-dir environments color-mode]
-  (mapcat #(env-warnings ws-dir color-mode %)
+(defn warnings [environments color-mode]
+  (mapcat #(env-warnings % color-mode)
           environments))

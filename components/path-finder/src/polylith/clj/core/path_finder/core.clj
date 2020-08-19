@@ -5,6 +5,9 @@
 (defn path-entries
   ([ws-dir src-paths]
    (path-extractor/path-entries ws-dir src-paths false false))
+  ([ws-dir src-paths test-paths]
+   (path-extractor/path-entries ws-dir src-paths false false)
+   (path-extractor/path-entries ws-dir test-paths false true))
   ([ws-dir src-paths test-paths profile-src-paths profile-test-paths]
    (vec (concat (path-extractor/path-entries ws-dir src-paths false false)
                 (path-extractor/path-entries ws-dir test-paths false true)

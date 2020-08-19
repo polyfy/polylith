@@ -10,7 +10,7 @@
             [polylith.clj.core.validate.m202-missing-libraries :as m202]
             [polylith.clj.core.validate.m203-invalid-src-reference :as m203]))
 
-(defn messages [ws-dir suffixed-top-ns interface-names interfaces components bases environments interface-ns ns->lib color-mode]
+(defn messages [suffixed-top-ns interface-names interfaces components bases environments interface-ns ns->lib color-mode]
   (vec (sort-by (juxt :type :code :message)
                 (set (concat (m101/errors suffixed-top-ns interface-names components bases interface-ns color-mode)
                              (m102/errors components color-mode)
@@ -21,4 +21,4 @@
                              (m107/errors components bases environments color-mode)
                              (m201/warnings interfaces components color-mode)
                              (m202/warnings environments components bases ns->lib color-mode)
-                             (m203/warnings ws-dir environments color-mode))))))
+                             (m203/warnings environments color-mode))))))

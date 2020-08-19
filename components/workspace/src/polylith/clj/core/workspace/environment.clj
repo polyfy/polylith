@@ -78,6 +78,7 @@
                       :test-paths test-paths
                       :profile-src-paths (path-finder/profile-src-paths path-entries)
                       :profile-test-paths (path-finder/profile-test-paths path-entries)
+                      :missing-paths (path-finder/missing-paths-except-test-and-resources path-entries)
                       :lib-imports lib-imports-src
                       :lib-imports-test lib-imports-test
                       :lib-deps (path-finder/all-src-deps dep-entries)

@@ -10,6 +10,9 @@
 (defn profile-test-paths [path-entries]
   (select-paths (m/filter-entries path-entries [m/test? m/profile?])))
 
+(defn missing-paths-except-test-and-resources [path-entries]
+  (select-paths (m/filter-entries path-entries [m/not-exists? m/not-test-or-resources-path])))
+
 (defn all-src-paths [path-entries]
   (select-paths (m/filter-entries path-entries [m/src?])))
 

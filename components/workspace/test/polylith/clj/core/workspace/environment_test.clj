@@ -97,6 +97,7 @@
                          "test"]
             :profile-src-paths []
             :profile-test-paths []
+            :missing-paths []
             :lib-imports ["clojure.java.io" "clojure.pprint" "clojure.set" "clojure.string"]
             :lib-imports-test []
             :lib-deps {"org.clojure/clojure" {:mvn/version "1.10.1"},
@@ -175,6 +176,7 @@
             :profile-src-paths        ["components/user/resources"
                                        "components/user/src"]
             :profile-test-paths       ["components/user/test"]
+            :missing-paths            []
             :test-base-names          ["cli"]
             :test-component-names     ["change"
                                        "command"

@@ -1,6 +1,6 @@
 
-- move things that has to do with path handling into the new 'path-finder' component.
-  - in validation 203.
+- seperate extraction and selection in differtent interfaces in path-finder.
+  - clean polylith.clj.core.path-finder.core.
 
 - add profile related validations:
   - don't allow having components with an interface with more than one component

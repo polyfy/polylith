@@ -12,4 +12,4 @@
            :message "Non-existing directories was found in deps.edn for the cli environment and will be ignored: \"wrong/path/src\"",
            :colorized-message "Non-existing directories was found in deps.edn for the cli environment and will be ignored: \"wrong/path/src\"",
            :environment "cli"}])
-      (m203/warnings "." environments color/none)))
+      (m203/warnings environments color/none)))
