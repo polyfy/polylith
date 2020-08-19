@@ -1,22 +1,6 @@
 
-- remove :src-bricks and :test-bricks.
-
-- complain if trying to include a profile with e.g. +admin, that does not exists,
-  except an empty one (just +) that will result in showing all profiles.
-
-- remove :has-src-dir and :has-test-dir.
-
-- check why the cli environment test folder didn't turn up in dev when running 'info'.
-
-- remove src-bricks and test-bricks (or calculate them using path-finder) in :profile->settings.
-
-- create a .keep file in development/src when creating a workspace.
-
 - move things that has to do with path handling into the new 'path-finder' component.
   - in validation 203.
-
-- also do util/stringify-and-sort-map for test-lib-deps in workspace-clj.
-- add :test-lib-deps to bases.
 
 - add profile related validations:
   - don't allow having components with an interface with more than one component
@@ -24,11 +8,23 @@
   - show a warning if a path exists in a dev profile and dev.
     - add :redundant-paths and :redundant-deps to :profile->settings.
 
+- complain if trying to include a profile with e.g. +admin, that does not exists,
+  except an empty one (just +) that will result in showing all profiles.
+
 - complain if any of the given env:my-env was not found.
 
-- move print-table-str-keys + enrich-workspace-str-keys to java.core.
+- remove :has-src-dir and :has-test-dir.
 
-- type a better message than "Invalid color mode..." if giving an unknown command.
+- check why the cli environment test folder didn't turn up in dev when running 'info'.
+
+- create a .keep file in development/src when creating a workspace.
+
+- also do util/stringify-and-sort-map for test-lib-deps in workspace-clj.
+- add :test-lib-deps to bases.
+
+
+
+- move print-table-str-keys + enrich-workspace-str-keys to java.core.
 
 - store :top-namespace and :interface-ns as symbols in deps.edn, but as strings internally.
 

@@ -24,6 +24,9 @@
 (defn help [cmd color-mode]
   (help/print-help cmd color-mode))
 
+(defn unknown-command [cmd]
+  (println (str "  Unknown command '" cmd "'. Type 'help' for help.")))
+
 (defn can-be-executed-from-here? [workspace cmd]
   (or (-> workspace nil? not)
       (nil? cmd)
@@ -43,7 +46,7 @@
           "info" (info/info workspace loc flag unnamed-args)
           "test" (test/run workspace unnamed-args)
           "ws" (pp/pprint workspace)
-          (help workspace nil)))
+          (unknown-command cmd)))
       (message/print-cant-be-executed-outside-ws))
     {:exit-code (exit-code/code cmd workspace)}
     (catch Exception e

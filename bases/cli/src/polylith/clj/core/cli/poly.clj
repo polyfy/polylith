@@ -1,6 +1,5 @@
 (ns polylith.clj.core.cli.poly
   (:require [polylith.clj.core.change.interfc :as change]
-            [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.command.interfc :as command]
             [polylith.clj.core.user-input.interfc :as user-input]
             [polylith.clj.core.file.interfc :as file]
