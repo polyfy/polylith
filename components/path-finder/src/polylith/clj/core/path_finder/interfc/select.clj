@@ -5,7 +5,7 @@
   (m/filter-entries path-entries criterias))
 
 (defn lib-deps [dep-entries & criterias]
-  (into {} (map :dep (m/filter-entries dep-entries criterias))))
+  (into {} (map :lib-dep (m/filter-entries dep-entries criterias))))
 
 (defn paths [path-entries & criterias]
   (vec (sort (set (map :path (m/filter-entries path-entries criterias))))))

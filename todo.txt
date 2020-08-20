@@ -1,5 +1,5 @@
 
-- change to :lib-dep
+- show a forth x in the environment table (if tests will be executed of not).
 
 - add profile related validations:
   - don't allow having components with an interface with more than one component

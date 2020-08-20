@@ -1,6 +1,7 @@
 (ns polylith.clj.core.user-input.core
   (:require [clojure.string :as str]
-            [polylith.clj.core.user-input.params :as params]))
+            [polylith.clj.core.user-input.params :as params]
+            [polylith.clj.core.util.interfc :as util]))
 
 (defn profile? [arg]
   (str/starts-with? arg "+"))
@@ -31,19 +32,19 @@
                 all-bricks
                 test-env]} named-args
         unnamed (rest unnamed-args)]
-    {:cmd (first args)
-     :arg1 (second args)
-     :name name
-     :top-ns top-ns
-     :env env
-     :flag flag
-     :brick brick
-     :interface interface
-     :loc loc
-     :run-all? (or (= "true" all)
-                   (= "true" all-bricks))
-     :run-env-tests? (or (= "true" all)
-                         (= "true" test-env))
-     :active-dev-profiles (active-dev-profiles unnamed)
-     :selected-environments (-> env selected-environments set)
-     :unnamed-args unnamed}))
+    (util/ordered-map :cmd (first args)
+                      :arg1 (second args)
+                      :name name
+                      :top-ns top-ns
+                      :env env
+                      :flag flag
+                      :brick brick
+                      :interface interface
+                      :loc loc
+                      :run-all? (or (= "true" all)
+                                    (= "true" all-bricks))
+                      :run-env-tests? (or (= "true" all)
+                                          (= "true" test-env))
+                      :active-dev-profiles (active-dev-profiles unnamed)
+                      :selected-environments (-> env selected-environments set)
+                      :unnamed-args unnamed)))

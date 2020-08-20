@@ -13,14 +13,14 @@
 (defn profile-sorting [profile]
   [(not= "default" profile) profile])
 
-(defn profiles-to-show [{:keys [profile->settings active-dev-profiles]}]
+(defn profiles-to-show [{:keys [profile->settings]} {:keys [active-dev-profiles]}]
   (sort-by profile-sorting
            (filter #(not (contains? active-dev-profiles %))
                    (map first profile->settings))))
 
-(defn table [{:keys [ws-dir settings environments components bases changes]} show-loc? show-resources?]
+(defn table [{:keys [ws-dir settings environments components bases changes user-input]} show-loc? show-resources?]
   (let [{:keys [color-mode thousand-sep]} settings
-        profiles (profiles-to-show settings)
+        profiles (profiles-to-show settings user-input)
         sorted-components (sort-by component-sorter components)
         bricks (concat sorted-components bases)
         space-columns (range 2 (* 2 (+ 2 (count environments) (count profiles) (if show-loc? 2 0))) 2)

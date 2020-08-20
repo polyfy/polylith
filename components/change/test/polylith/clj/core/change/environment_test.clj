@@ -10,7 +10,7 @@
                     :base-names []}
                    {:name "dev"
                     :component-names ["util" "validate" "workspace"]
-                    :base-names ["cli" "z-jocke"],}])
+                    :base-names ["cli"]}])
 
 (def changed-bricks #{"workspace" "cmd" "core"})
 

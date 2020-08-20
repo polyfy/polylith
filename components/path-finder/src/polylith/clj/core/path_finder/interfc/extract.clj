@@ -12,9 +12,9 @@
   ([ws-dir settings profile-name]
    (let [{:keys [src-paths test-paths]} (profile-src-splitter/extract-profile-paths profile-name settings)]
      (path-extractor/path-entries ws-dir src-paths test-paths nil nil)))
-  ([ws-dir dev? src-paths test-paths settings]
-   (let [{:keys [profile-src-paths profile-test-paths]} (profile-src-splitter/extract-active-dev-profiles-paths dev? settings)]
+  ([ws-dir dev? src-paths test-paths settings user-input]
+   (let [{:keys [profile-src-paths profile-test-paths]} (profile-src-splitter/extract-active-dev-profiles-paths dev? settings user-input)]
      (path-extractor/path-entries ws-dir src-paths test-paths profile-src-paths profile-test-paths))))
 
-(defn lib-deps-entries [dev? src-deps test-deps settings]
-  (lib-dep-extractor/lib-dep-entries dev? src-deps test-deps settings))
+(defn lib-deps-entries [dev? src-deps test-deps settings user-input]
+  (lib-dep-extractor/lib-dep-entries dev? src-deps test-deps settings user-input))

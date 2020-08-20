@@ -4,13 +4,14 @@
             [polylith.clj.core.path-finder.interfc.extract :as extract]
             [polylith.clj.core.file.interfc :as file]))
 
-(def settings {:active-dev-profiles #{"default"}
-               :profile->settings {"default" {:paths ["components/user/resources"
+(def settings {:profile->settings {"default" {:paths ["components/user/resources"
                                                       "components/user/src"
                                                       "components/user/test"]}
                                    "admin" {:paths ["components/admin/resources"
                                                     "components/admin/src"
                                                     "components/admin/test"]}}})
+
+(def user-input {:active-dev-profiles #{"default"}})
 
 (deftest path-entries--lists-of-paths--returns-extracted-path-entries
   (with-redefs [file/exists (fn [_] true)]
@@ -38,7 +39,8 @@
               "components/user/test"
               "environments/invoice/test"
               "development/test"]
-             settings)))))
+             settings
+             user-input)))))
 
 (deftest profile-entries--when-two-profiles-are-extracted--return-paths
   (is (= [{:exists?    false

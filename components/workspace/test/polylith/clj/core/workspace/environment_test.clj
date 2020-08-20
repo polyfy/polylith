@@ -186,8 +186,7 @@
             :total-lines-of-code-test 76
             :type                     "environment"}
            (env/enrich-env environment "" components bases brick->loc brick->lib-imports env->alias
-                           {:active-dev-profiles ["default"]
-                            :profile->settings {"default" {:paths ["components/user/src"
+                           {:profile->settings {"default" {:paths ["components/user/src"
                                                                     "components/user/resources"
                                                                     "components/user/test"]
                                                            :src-paths ["components/user/src"
@@ -195,7 +194,8 @@
                                                            :test-paths ["components/user/test"]
                                                            :lib-deps {"clojure.core.matrix"
                                                                       "net.mikera/core.matrix"}}}}
-                           {:selected-environments #{"dev"}})))))
+                           {:selected-environments #{"dev"}
+                            :active-dev-profiles ["default"]})))))
 
 (deftest active?--non-dev-environment-no-env-selected--returns-true
   (is (true?

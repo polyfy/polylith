@@ -2,7 +2,8 @@
   (:require [clojure.test :refer :all]
             [polylith.clj.core.workspace.text-table.ws-table :as ws-table]))
 
-(def workspace {:interfaces [{:name "workspace-clj",
+(def workspace {:user-input {:active-dev-profiles #{"default"}}
+                :interfaces [{:name "workspace-clj",
                               :type "interface",
                               :definitions [{:name "workspace-from-disk", :type "function", :parameters [{:name "ws-dir"}]}
                                             {:name "workspace-from-disk",
@@ -417,8 +418,7 @@
                               :implementing-components ["change"]}],
                 :ws-dir ".",
                 :name "polylith",
-                :settings {:active-dev-profiles #{"default"},
-                           :top-namespace "polylith.clj.core",
+                :settings {:top-namespace "polylith.clj.core",
                            :profile->settings {},
                            :ns->lib {"clojure" "org.clojure/clojure",
                                      "clojure.core.matrix" "net.mikera/core.matrix",
@@ -2217,18 +2217,6 @@
                               :lib-deps ["clojure" "clojure.tools.deps"]}],
                 :changes {:sha1 "HEAD",
                           :git-command "git diff HEAD --name-only",
-                          :user-input {:run-all? false,
-                                       :run-env-tests? false,
-                                       :interface nil,
-                                       :unnamed-args [],
-                                       :active-dev-profiles #{"default"},
-                                       :brick nil,
-                                       :name nil,
-                                       :env nil,
-                                       :top-ns nil,
-                                       :loc nil,
-                                       :selected-environments #{},
-                                       :arg1 nil},
                           :changed-components ["path-finder" "workspace"],
                           :changed-bases [],
                           :changed-environments [],
@@ -2280,7 +2268,7 @@
                                  (assoc-in [:environments 2 :profile-test-paths] ["components/file/test"])))
 
 (def workspace-with-profiles-no-active (-> workspace-with-profiles
-                                           (assoc-in [:settings :active-dev-profiles] #{})))
+                                           (assoc-in [:user-input :active-dev-profiles] #{})))
 
 (deftest ws-table--without-loc-info--return-table-without-loc-info
   (is (= ["  interface      brick           cli  core   dev"

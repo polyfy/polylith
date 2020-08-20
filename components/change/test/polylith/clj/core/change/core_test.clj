@@ -121,14 +121,17 @@
                            "common" {:direct ["util"], :indirect []}
                            "change" {:direct ["git" "util"], :indirect ["shell"]}}}])
 
-(def workspace {:environments environments})
+(def workspace {:environments environments
+                :user-input {}})
 
 (def workspace-with-active-dev (assoc-in workspace [:environments 2 :active?] true))
+
+(def workspace-with-run-all-flags (assoc workspace :user-input {:run-all? true
+                                                                :run-env-tests? true}))
 
 (deftest changes--a-list-of-changed-files-and-environments--returns-changed-bricks-and-bricks-to-test
   (with-redefs [file/exists (fn [_] true)]
     (is (= {:git-command "git diff --name-only"
-            :user-input {}
             :changed-components ["change" "deps"]
             :changed-bases []
             :changed-environments []
@@ -142,12 +145,11 @@
             :changed-files ["components/change/test/polylith/clj/core/change/brick_test.clj"
                             "components/change/test/polylith/clj/core/change/core_test.clj"
                             "components/deps/src/polylith/clj/core/deps/interfc.clj"]}
-           (core/changes workspace {:files files} {})))))
+           (core/changes workspace {:files files})))))
 
 (deftest changes--a-list-of-changed-files-and-active-dev--returns-changed-bricks-and-bricks-to-test
   (with-redefs [file/exists (fn [_] true)]
     (is (= {:git-command "git diff --name-only"
-            :user-input {}
             :changed-components ["change" "deps"]
             :changed-bases []
             :changed-environments []
@@ -161,13 +163,11 @@
             :changed-files ["components/change/test/polylith/clj/core/change/brick_test.clj"
                             "components/change/test/polylith/clj/core/change/core_test.clj"
                             "components/deps/src/polylith/clj/core/deps/interfc.clj"]}
-           (core/changes workspace-with-active-dev {:files files} {})))))
+           (core/changes workspace-with-active-dev {:files files})))))
 
 (deftest changes--a-list-of-changed-files-and-environments--returns-changed-bricks-and-bricks-to-test2
   (with-redefs [file/exists (fn [_] true)]
     (is (= {:git-command "git diff --name-only"
-            :user-input {:run-all? true
-                         :run-env-tests? true}
             :changed-components ["change" "deps"]
             :changed-bases []
             :changed-environments []
@@ -181,5 +181,4 @@
             :changed-files ["components/change/test/polylith/clj/core/change/brick_test.clj"
                             "components/change/test/polylith/clj/core/change/core_test.clj"
                             "components/deps/src/polylith/clj/core/deps/interfc.clj"]}
-           (core/changes workspace {:files files} {:run-all? true
-                                                   :run-env-tests? true})))))
+           (core/changes workspace-with-run-all-flags {:files files})))))

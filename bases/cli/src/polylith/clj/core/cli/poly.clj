@@ -15,7 +15,7 @@
         workspace (when exists? (-> current-dir
                                     ws-clj/workspace-from-disk
                                     (ws/enrich-workspace user-input)
-                                    (change/with-changes user-input)))
+                                    change/with-changes))
         {:keys [exit-code exception]} (command/execute-command current-dir workspace user-input)]
       (when (-> exception nil? not)
         (ex/print-exception exception))

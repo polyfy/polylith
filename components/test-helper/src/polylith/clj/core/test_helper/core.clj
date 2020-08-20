@@ -30,7 +30,7 @@
     (when exists? (-> ws-dir
                       ws-clj/workspace-from-disk
                       (ws/enrich-workspace user-input)
-                      (change/with-changes user-input)))))
+                      change/with-changes))))
 
 (defn execute-command [current-dir args]
   (with-redefs [file/current-dir (fn [] (if (str/blank? current-dir)

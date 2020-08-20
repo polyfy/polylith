@@ -62,12 +62,6 @@
                                              "components/user/test"]}]
                 :changes {:sha1 "HEAD"
                           :git-command "git diff HEAD --name-only"
-                          :user-input {:run-all? false
-                                       :run-env-tests? false
-                                       :interface nil
-                                       :unnamed-args []
-                                       :active-dev-profiles #{"default"}
-                                       :selected-environments #{}}
                           :changed-components ["address" "admin" "database" "invoicer" "purchaser" "user"]
                           :changed-bases ["cli"]
                           :changed-environments ["core" "invoice"]

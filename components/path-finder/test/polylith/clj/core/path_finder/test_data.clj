@@ -1,10 +1,10 @@
 (ns polylith.clj.core.path-finder.test-data
   (:require [clojure.test :refer :all]))
 
-(def dep-entries [{:profile? false, :test? false, :dep ["org.clojure/clojure" {:mvn/version "1.10.1"}]}
-                  {:profile? false, :test? false, :dep ["org.clojure/tools.deps.alpha" {:mvn/version "0.8.695"}]}
-                  {:profile? false, :test? true, :dep ["zprint" #:mvn{:version "0.4.15"}]}
-                  {:profile? true, :test? false, :dep ["net.mikera/core.matrix" {:mvn/version "0.62.0"}]}])
+(def dep-entries [{:profile? false, :test? false, :lib-dep ["org.clojure/clojure" {:mvn/version "1.10.1"}]}
+                  {:profile? false, :test? false, :lib-dep ["org.clojure/tools.deps.alpha" {:mvn/version "0.8.695"}]}
+                  {:profile? false, :test? true, :lib-dep ["zprint" #:mvn{:version "0.4.15"}]}
+                  {:profile? true, :test? false, :lib-dep ["net.mikera/core.matrix" {:mvn/version "0.62.0"}]}])
 
 (def path-entries [{:exists?    true
                     :name       "cli"

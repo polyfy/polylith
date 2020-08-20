@@ -41,10 +41,10 @@
                   brick->lib-imports
                   env->alias
                   settings
-                  {:keys [run-all? selected-environments]}]
+                  {:keys [run-all? selected-environments] :as user-input}]
   (let [alias (env->alias name)
-        dep-entries (extract/lib-deps-entries dev? lib-deps test-lib-deps settings)
-        path-entries (extract/path-entries ws-dir dev? src-paths test-paths settings)
+        dep-entries (extract/lib-deps-entries dev? lib-deps test-lib-deps settings user-input)
+        path-entries (extract/path-entries ws-dir dev? src-paths test-paths settings user-input)
         component-names (select/names path-entries m/component? m/src? m/exists?)
         base-names (select/names path-entries m/base? m/src? m/exists?)
         brick-names (concat component-names base-names)

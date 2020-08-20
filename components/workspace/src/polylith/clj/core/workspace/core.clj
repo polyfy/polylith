@@ -38,22 +38,22 @@
                         user-input]
   (let [ws-name (workspace-name ws-dir)
         {:keys [top-namespace interface-ns ns->lib color-mode]} settings
-        enriched-settings (with-user-input settings user-input)
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         interfaces (interfaces/calculate components)
         interface-names (apply sorted-set (mapv :name interfaces))
-        enriched-components (mapv #(component/enrich suffixed-top-ns interface-names enriched-settings %) components)
-        enriched-bases (mapv #(base/enrich suffixed-top-ns interface-names enriched-settings %) bases)
+        enriched-components (mapv #(component/enrich suffixed-top-ns interface-names settings %) components)
+        enriched-bases (mapv #(base/enrich suffixed-top-ns interface-names settings %) bases)
         enriched-bricks (concat enriched-components enriched-bases)
         brick->loc (brick->loc enriched-bricks)
         brick->lib-imports (brick->lib-imports enriched-bricks)
-        env->alias (alias/env->alias enriched-settings environments)
-        enriched-environments (vec (sort-by env-sorter (map #(env/enrich-env % ws-dir enriched-components enriched-bases brick->loc brick->lib-imports env->alias enriched-settings user-input) environments)))
+        env->alias (alias/env->alias settings environments)
+        enriched-environments (vec (sort-by env-sorter (map #(env/enrich-env % ws-dir enriched-components enriched-bases brick->loc brick->lib-imports env->alias settings user-input) environments)))
         messages (validate/messages suffixed-top-ns interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns ns->lib color-mode)]
     (array-map :name ws-name
                :ws-dir ws-dir
+               :user-input user-input
                :ws-reader ws-reader
-               :settings enriched-settings
+               :settings settings
                :interfaces interfaces
                :components enriched-components
                :bases enriched-bases
