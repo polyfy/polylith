@@ -51,4 +51,4 @@
                       :path path)))
 
 (defn path-entries [ws-dir paths profile? test?]
-  (mapv #(path-entry ws-dir % profile? test?) paths))
+  (when paths (mapv #(path-entry ws-dir % profile? test?) paths)))
