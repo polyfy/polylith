@@ -18,11 +18,7 @@
 (defn test-status-flag [path-entries category-criteria name]
   (status-flag path-entries name m/test? m/test-path? category-criteria))
 
-(def category->criteria {:brick m/brick?
-                         :env   m/environment?})
-
-(defn status-flags [path-entries category name show-resources?]
-  (let [category-criteria (category->criteria category)]
-    (str (src-status-flag path-entries category-criteria name)
-         (resources-status-flag path-entries category-criteria name show-resources?)
-         (test-status-flag path-entries category-criteria name))))
+(defn status-flags [path-entries category-criteria name show-resources?]
+  (str (src-status-flag path-entries category-criteria name)
+       (resources-status-flag path-entries category-criteria name show-resources?)
+       (test-status-flag path-entries category-criteria name)))
