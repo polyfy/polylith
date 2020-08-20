@@ -1,6 +1,4 @@
 
-- change dev profile aliases so they start with only a +, not dev+.
-
 - use delegation in all interfaces.
 
 - add profile related validations:
