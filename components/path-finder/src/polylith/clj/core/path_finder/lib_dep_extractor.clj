@@ -1,4 +1,4 @@
-(ns polylith.clj.core.path-finder.dep-extractor
+(ns polylith.clj.core.path-finder.lib-dep-extractor
   (:require [polylith.clj.core.util.interfc :as util]))
 
 (defn deps-entry [dep profile? test?]
@@ -13,7 +13,7 @@
   (if dev? (apply merge (map :lib-deps (map #(profile->settings %) active-dev-profiles)))
            {}))
 
-(defn dep-entries [dev? src-deps test-deps settings]
+(defn lib-dep-entries [dev? src-deps test-deps settings]
   (let [profile-deps (extract-deps dev? settings)]
     (vec (concat (select-dep-entries src-deps false false)
                  (select-dep-entries test-deps false true)

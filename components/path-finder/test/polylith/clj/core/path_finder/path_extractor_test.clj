@@ -1,7 +1,7 @@
 (ns polylith.clj.core.path-finder.path-extractor-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.path-finder.test-data :as test-data]
-            [polylith.clj.core.path-finder.core :as core]
+            [polylith.clj.core.path-finder.interfc.path-extract :as path-extract]
             [polylith.clj.core.file.interfc :as file]))
 
 (def settings {:active-dev-profiles #{"default"}
@@ -15,7 +15,7 @@
 (deftest path-entries--lists-of-paths--returns-extracted-path-entries
   (with-redefs [file/exists (fn [_] true)]
     (is (= test-data/path-entries
-           (core/path-entries
+           (path-extract/path-entries
              "." true
              ["bases/cli/resources"
               "bases/cli/src"
@@ -62,4 +62,4 @@
            :source-dir "test"
            :test?      true
            :type       :component}]
-         (core/path-entries "." settings "default"))))
+         (path-extract/path-entries "." settings "default"))))

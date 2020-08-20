@@ -1,6 +1,8 @@
 (ns polylith.clj.core.workspace.environment
   (:require [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.util.interfc :as util]
+            [polylith.clj.core.path-finder.interfc.lib-dep-extract :as lib-dep-extract]
+            [polylith.clj.core.path-finder.interfc.lib-dep-select :as lib-dep-select]
             [polylith.clj.core.path-finder.interfc.path-extract :as path-extract]
             [polylith.clj.core.path-finder.interfc.path-select :as path-select]
             [polylith.clj.core.workspace.loc :as loc]
@@ -42,7 +44,7 @@
                   settings
                   {:keys [run-all? selected-environments]}]
   (let [alias (env->alias name)
-        dep-entries (path-extract/deps-entries dev? lib-deps test-lib-deps settings)
+        dep-entries (lib-dep-extract/lib-deps-entries dev? lib-deps test-lib-deps settings)
         path-entries (path-extract/path-entries ws-dir dev? src-paths test-paths settings)
         component-names (path-select/src-component-names path-entries)
         base-names (path-select/src-base-names path-entries)
@@ -82,7 +84,7 @@
                       :missing-paths (path-select/missing-paths-except-test-and-resources path-entries)
                       :lib-imports lib-imports-src
                       :lib-imports-test lib-imports-test
-                      :lib-deps (path-select/all-src-deps dep-entries)
+                      :lib-deps (lib-dep-select/all-src-deps dep-entries)
                       :deps deps
-                      :test-lib-deps (path-select/all-test-deps dep-entries)
+                      :test-lib-deps (lib-dep-select/all-test-deps dep-entries)
                       :maven-repos maven-repos)))

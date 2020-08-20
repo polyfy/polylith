@@ -1,6 +1,6 @@
 (ns polylith.clj.core.path-finder.profile-src-splitterr-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.path-finder.profile-src-splitter :as extractor]))
+            [polylith.clj.core.path-finder.profile-src-splitter :as splitter]))
 
 (def settings {:active-dev-profiles #{"default" "admin"},
                :profile->settings {"default" {:lib-deps {"org.clojure/clojure" {:mvn/version "1.10.1"}}
@@ -16,7 +16,7 @@
 (deftest extract-paths--from-non-dev-environment--returns-no-profile-paths
   (is (= {:profile-src-paths []
           :profile-test-paths []}
-         (extractor/extract-active-dev-profiles-paths false settings))))
+         (splitter/extract-active-dev-profiles-paths false settings))))
 
 (deftest extract-paths--from-dev-environment--returns-src-and-test-paths-from-active-profiles
   (is (= {:profile-src-paths  ["components/admin/src"
@@ -26,4 +26,4 @@
           :profile-test-paths ["components/admin/test"
                                "components/user/test"
                                "environments/invoice/test"]}
-         (extractor/extract-active-dev-profiles-paths true settings))))
+         (splitter/extract-active-dev-profiles-paths true settings))))

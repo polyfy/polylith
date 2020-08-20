@@ -2,12 +2,6 @@
   (:require [polylith.clj.core.path-finder.dep-selector :as dep-selector]
             [polylith.clj.core.path-finder.path-selector :as path-selector]))
 
-(defn all-src-deps [dep-entries]
-  (dep-selector/all-src-deps dep-entries))
-
-(defn all-test-deps [dep-entries]
-  (dep-selector/all-test-deps dep-entries))
-
 (defn profile-src-paths [path-entries]
   (path-selector/profile-src-paths path-entries))
 

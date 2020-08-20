@@ -1,14 +1,16 @@
 (ns polylith.clj.core.path-finder.interfc.path-extract
-  (:require [polylith.clj.core.path-finder.core :as core]
-            [polylith.clj.core.path-finder.dep-extractor :as dep-extractor]))
+  (:require [polylith.clj.core.path-finder.path-extractor :as path-extractor]
+            [polylith.clj.core.path-finder.profile-src-splitter :as profile-src-splitter]))
 
 (defn path-entries
-  ([ws-dir settings]
-   (core/path-entries ws-dir settings))
+  ([ws-dir {:keys [src-paths
+                   test-paths
+                   profile-src-paths
+                   profile-test-paths]}]
+   (path-extractor/path-entries ws-dir src-paths test-paths profile-src-paths profile-test-paths))
   ([ws-dir settings profile-name]
-   (core/path-entries ws-dir settings profile-name))
+   (let [{:keys [src-paths test-paths]} (profile-src-splitter/extract-profile-paths profile-name settings)]
+     (path-extractor/path-entries ws-dir src-paths test-paths nil nil)))
   ([ws-dir dev? src-paths test-paths settings]
-   (core/path-entries ws-dir dev? src-paths test-paths settings)))
-
-(defn deps-entries [dev? src-deps test-deps settings]
-  (dep-extractor/dep-entries dev? src-deps test-deps settings))
+   (let [{:keys [profile-src-paths profile-test-paths]} (profile-src-splitter/extract-active-dev-profiles-paths dev? settings)]
+     (path-extractor/path-entries ws-dir src-paths test-paths profile-src-paths profile-test-paths))))

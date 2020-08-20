@@ -50,5 +50,11 @@
                       :exists? exists?
                       :path path)))
 
-(defn path-entries [ws-dir paths profile? test?]
+(defn single-path-entries [ws-dir paths profile? test?]
   (when paths (mapv #(path-entry ws-dir % profile? test?) paths)))
+
+(defn path-entries [ws-dir src-paths test-paths profile-src-paths profile-test-paths]
+  (vec (concat (single-path-entries ws-dir src-paths false false)
+               (single-path-entries ws-dir test-paths false true)
+               (single-path-entries ws-dir profile-src-paths true false)
+               (single-path-entries ws-dir profile-test-paths true true))))
