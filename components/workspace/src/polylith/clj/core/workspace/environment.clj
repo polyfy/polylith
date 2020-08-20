@@ -5,6 +5,7 @@
             [polylith.clj.core.path-finder.interfc.lib-dep-select :as lib-dep-select]
             [polylith.clj.core.path-finder.interfc.path-extract :as path-extract]
             [polylith.clj.core.path-finder.interfc.path-select :as path-select]
+            [polylith.clj.core.path-finder.matchers :as m]
             [polylith.clj.core.workspace.loc :as loc]
             [polylith.clj.core.workspace.brick-deps :as brick-deps]))
 
@@ -84,7 +85,7 @@
                       :missing-paths (path-select/missing-paths-except-test-and-resources path-entries)
                       :lib-imports lib-imports-src
                       :lib-imports-test lib-imports-test
-                      :lib-deps (lib-dep-select/all-src-deps dep-entries)
+                      :lib-deps (lib-dep-select/deps dep-entries m/src?)
                       :deps deps
-                      :test-lib-deps (lib-dep-select/all-test-deps dep-entries)
+                      :test-lib-deps (lib-dep-select/deps dep-entries m/test?)
                       :maven-repos maven-repos)))
