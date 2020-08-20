@@ -1,7 +1,7 @@
-(ns polylith.clj.core.path-finder.path-status-test
+(ns polylith.clj.core.path-finder.status-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.file.interfc :as file]
-            [polylith.clj.core.path-finder.interfc.path-status :as path-status]
+            [polylith.clj.core.path-finder.interfc.status :as status]
             [polylith.clj.core.path-finder.path-extractor :as path-extractor]))
 
 (def path-entries (with-redefs [file/exists (fn [_] true)]
@@ -13,8 +13,8 @@
 
 (deftest status-flags--without-resources-flag--returns-src-test-resources-dir-exists-flags
   (is (= "x-"
-         (path-status/brick-status-flags path-entries "user" false))))
+         (status/brick-status-flags path-entries "user" false))))
 
 (deftest status-flags--with-resources-flag--returns-src-test-resources-dir-exists-flags
   (is (= "xx-"
-         (path-status/brick-status-flags path-entries "user" true))))
+         (status/brick-status-flags path-entries "user" true))))

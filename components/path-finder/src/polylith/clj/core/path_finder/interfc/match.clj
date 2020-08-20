@@ -1,4 +1,4 @@
-(ns polylith.clj.core.path-finder.matchers
+(ns polylith.clj.core.path-finder.interfc.match
   (:require [clojure.string :as str]))
 
 (defn =name [entity-name]
@@ -52,7 +52,9 @@
   (every? true? ((apply juxt criterias) path-entry)))
 
 (defn filter-entries [path-entries criterias]
-  (vec (filter #(match? % criterias) path-entries)))
+  (if (empty? criterias)
+    (vec path-entries)
+    (vec (filter #(match? % criterias) path-entries))))
 
 (defn has-entry? [path-entries criteria]
   (-> (filter-entries path-entries criteria) empty? not))

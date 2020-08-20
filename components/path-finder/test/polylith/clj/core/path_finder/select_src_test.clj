@@ -1,6 +1,7 @@
-(ns polylith.clj.core.path-finder.path-selector-test
+(ns polylith.clj.core.path-finder.select-src-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.path-finder.path-selector :as path-selector]
+            [polylith.clj.core.path-finder.interfc.match :as m]
+            [polylith.clj.core.path-finder.interfc.select :as select]
             [polylith.clj.core.path-finder.test-data :as test-data]))
 
 (deftest all-src-paths--when-executed--returns-src-paths-from-all-components-bases-and-entities-including-profile-paths
@@ -17,7 +18,7 @@
           "components/user/resources"
           "components/user/src"
           "development/src"]
-         (path-selector/all-src-paths test-data/path-entries))))
+         (select/paths test-data/path-entries m/src?))))
 
 (deftest all-test-paths--when-executed--returns-test-paths-from-all-components-bases-and-entities-including-profile-paths
   (is (= ["bases/cli/test"
@@ -28,7 +29,7 @@
           "components/user/test"
           "development/test"
           "environments/invoice/test"]
-         (path-selector/all-test-paths test-data/path-entries))))
+         (select/paths test-data/path-entries m/test?))))
 
 (deftest brick-src-entries--when-executed--returns-entries-collected-from-component-and-base-src-paths
   (is (= [{:exists?    true
@@ -59,7 +60,7 @@
            :source-dir "src"
            :test?      false
            :type       :component}]
-         (path-selector/brick-src-entries "user" test-data/path-entries))))
+         (select/entries test-data/path-entries m/src? (m/=name "user")))))
 
 (deftest src-component-names--when-executed--returns-expected-result
   (is (= ["address"
@@ -67,4 +68,4 @@
           "invoicer"
           "purchaser"
           "user"]
-         (path-selector/src-component-names test-data/path-entries))))
+         (select/names test-data/path-entries m/component?))))

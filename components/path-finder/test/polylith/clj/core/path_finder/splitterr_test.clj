@@ -1,4 +1,4 @@
-(ns polylith.clj.core.path-finder.profile-src-splitterr-test
+(ns polylith.clj.core.path-finder.splitterr-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.path-finder.profile-src-splitter :as splitter]))
 

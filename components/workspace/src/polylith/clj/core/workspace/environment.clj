@@ -1,11 +1,9 @@
 (ns polylith.clj.core.workspace.environment
   (:require [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.path-finder.interfc.lib-dep-extract :as lib-dep-extract]
-            [polylith.clj.core.path-finder.interfc.lib-dep-select :as lib-dep-select]
-            [polylith.clj.core.path-finder.interfc.path-extract :as path-extract]
-            [polylith.clj.core.path-finder.interfc.path-select :as path-select]
-            [polylith.clj.core.path-finder.matchers :as m]
+            [polylith.clj.core.path-finder.interfc.select :as select]
+            [polylith.clj.core.path-finder.interfc.extract :as extract]
+            [polylith.clj.core.path-finder.interfc.match :as m]
             [polylith.clj.core.workspace.loc :as loc]
             [polylith.clj.core.workspace.brick-deps :as brick-deps]))
 
@@ -45,13 +43,13 @@
                   settings
                   {:keys [run-all? selected-environments]}]
   (let [alias (env->alias name)
-        dep-entries (lib-dep-extract/lib-deps-entries dev? lib-deps test-lib-deps settings)
-        path-entries (path-extract/path-entries ws-dir dev? src-paths test-paths settings)
-        component-names (path-select/src-component-names path-entries)
-        base-names (path-select/src-base-names path-entries)
+        dep-entries (extract/lib-deps-entries dev? lib-deps test-lib-deps settings)
+        path-entries (extract/path-entries ws-dir dev? src-paths test-paths settings)
+        component-names (select/names path-entries m/component? m/src? m/exists?)
+        base-names (select/names path-entries m/base? m/src? m/exists?)
         brick-names (concat component-names base-names)
-        test-component-names (path-select/test-component-names path-entries)
-        test-base-names (path-select/test-base-names path-entries)
+        test-component-names (select/names path-entries m/component? m/test? m/exists?)
+        test-base-names (select/names path-entries m/base? m/test? m/exists?)
         deps (brick-deps/environment-deps component-names components bases)
         lib-imports-src (-> (env-lib-imports brick-names brick->lib-imports false)
                             set sort vec)
@@ -71,7 +69,7 @@
                       :total-lines-of-code-src total-lines-of-code-src
                       :total-lines-of-code-test total-lines-of-code-test
                       :test-component-names test-component-names
-                      :component-names (path-select/src-component-names path-entries)
+                      :component-names (select/names path-entries m/component? m/src? m/exists?)
                       :base-names base-names
                       :test-base-names test-base-names
                       :has-src-dir? has-src-dir?
@@ -80,12 +78,12 @@
                       :namespaces-test namespaces-test
                       :src-paths src-paths
                       :test-paths test-paths
-                      :profile-src-paths (path-select/profile-src-paths path-entries)
-                      :profile-test-paths (path-select/profile-test-paths path-entries)
-                      :missing-paths (path-select/missing-paths-except-test-and-resources path-entries)
+                      :profile-src-paths (select/paths path-entries m/profile? m/src?)
+                      :profile-test-paths (select/paths path-entries m/profile? m/test?)
+                      :missing-paths (select/paths path-entries m/not-exists? m/not-test-or-resources-path)
                       :lib-imports lib-imports-src
                       :lib-imports-test lib-imports-test
-                      :lib-deps (lib-dep-select/deps dep-entries m/src?)
+                      :lib-deps (select/lib-deps dep-entries m/src?)
                       :deps deps
-                      :test-lib-deps (lib-dep-select/deps dep-entries m/test?)
+                      :test-lib-deps (select/lib-deps dep-entries m/test?)
                       :maven-repos maven-repos)))

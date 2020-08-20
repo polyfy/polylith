@@ -1,4 +1,6 @@
 
+- change to :lib-dep
+
 - add profile related validations:
   - don't allow having components with an interface with more than one component
     in the development environment.
