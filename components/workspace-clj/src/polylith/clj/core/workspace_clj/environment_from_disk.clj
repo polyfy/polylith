@@ -1,15 +1,9 @@
 (ns polylith.clj.core.workspace-clj.environment-from-disk
   (:require [clojure.string :as str]
             [clojure.tools.deps.alpha.util.maven :as mvn]
-            [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]
             [polylith.clj.core.file.interfc :as file]
-            [polylith.clj.core.util.interfc :as util]))
-
-(defn has-src-dir? [env paths]
-  (not (empty? (filter #(= (str "environments/" env "/src") %) paths))))
-
-(defn has-test-dir? [env test-paths]
-  (not (empty? (filter #(= (str "environments/" env "/test") %) test-paths))))
+            [polylith.clj.core.util.interfc :as util]
+            [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]))
 
 (defn absolute-path [path env]
   (cond
@@ -47,8 +41,6 @@
                        :lib-deps (util/stringify-and-sort-map lib-deps)
                        :test-lib-deps test-lib-deps
                        :maven-repos maven-repos
-                       :has-src-dir? (has-src-dir? env absolute-src-paths)
-                       :has-test-dir? (has-test-dir? env absolute-test-paths)
                        :namespaces-src namespaces-src
                        :namespaces-test namespaces-test))))
 

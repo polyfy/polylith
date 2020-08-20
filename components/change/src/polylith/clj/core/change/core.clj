@@ -21,7 +21,7 @@
          changed-bricks (set (concat changed-components changed-bases))
          env->indirect-changes (indirect/env->indirect-changes deps changed-bricks)
          env->bricks-to-test (to-test/env->bricks-to-test environments changed-components changed-bases env->indirect-changes run-all?)
-         environments-to-test (to-test/environments-to-test environments changed-bricks changed-environments run-env-tests?)]
+         environments-to-test (to-test/environments-to-test ws-dir environments changed-bricks changed-environments run-env-tests?)]
      (util/ordered-map :sha1 sha1
                        :sha2 sha2
                        :git-command (git/diff-command sha1 sha2)

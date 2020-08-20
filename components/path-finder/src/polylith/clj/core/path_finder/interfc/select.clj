@@ -4,6 +4,9 @@
 (defn entries [path-entries & criterias]
   (m/filter-entries path-entries criterias))
 
+(defn exists? [path-entries & criterias]
+  (-> (m/filter-entries path-entries criterias) empty? not))
+
 (defn lib-deps [dep-entries & criterias]
   (into {} (map :lib-dep (m/filter-entries dep-entries criterias))))
 

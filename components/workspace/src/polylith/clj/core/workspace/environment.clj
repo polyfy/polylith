@@ -33,7 +33,7 @@
       (or (contains? selected-environments env)
           (contains? selected-environments alias))))
 
-(defn enrich-env [{:keys [name type dev? env-dir config-file has-src-dir? has-test-dir? namespaces-src namespaces-test src-paths test-paths lib-deps test-lib-deps maven-repos]}
+(defn enrich-env [{:keys [name type dev? env-dir config-file namespaces-src namespaces-test src-paths test-paths lib-deps test-lib-deps maven-repos]}
                   ws-dir
                   components
                   bases
@@ -72,8 +72,6 @@
                       :component-names (select/names path-entries m/component? m/src? m/exists?)
                       :base-names base-names
                       :test-base-names test-base-names
-                      :has-src-dir? has-src-dir?
-                      :has-test-dir? has-test-dir?
                       :namespaces-src namespaces-src
                       :namespaces-test namespaces-test
                       :src-paths src-paths

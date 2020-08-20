@@ -1,5 +1,6 @@
 (ns polylith.clj.core.change.to-test-test
   (:require [clojure.test :refer :all]
+            [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.change.to-test :as to-test]))
 
 (def environments [{:name "development"
@@ -42,5 +43,6 @@
          (to-test/env->bricks-to-test environments ["article"] [] {} true))))
 
 (deftest environments-to-test--with-no-changed-bricks--returns-no-environments
-  (is (= []
-         (to-test/environments-to-test environments [] [] false))))
+  (with-redefs [file/exists (fn [_] true)]
+    (is (= []
+           (to-test/environments-to-test "." environments [] [] false)))))

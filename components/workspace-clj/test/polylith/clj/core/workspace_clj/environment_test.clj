@@ -46,8 +46,6 @@
             :type "environment"
             :env-dir "environments/core"
             :config-file "environments/core/deps.edn"
-            :has-src-dir? true
-            :has-test-dir? false
             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}
                           "clojars" {:url "https://repo.clojars.org/"}}
             :namespaces-src []
