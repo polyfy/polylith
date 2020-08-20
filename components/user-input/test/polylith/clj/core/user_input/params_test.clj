@@ -4,7 +4,7 @@
 
 (deftest extract--named-and-unamed-arguments--returns-expected-result
   (is (= {:unnamed-args ["w" "abc"]
-          :named-args {:flag "true"
+          :named-args {:flag! "true"
                        :env ["cli" "core"]
                        :name "x"
                        :top-ns "se.example"}}

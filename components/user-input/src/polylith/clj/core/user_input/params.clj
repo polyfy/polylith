@@ -12,7 +12,7 @@
 (defn key-name [arg]
   (let [parts (str/split arg #":")]
     (if (= "" (first parts))
-      [(keyword (second parts))
+      [(keyword (str (second parts) "!"))
        "true"]
       (if (= 2 (count parts))
         [(-> parts first keyword)

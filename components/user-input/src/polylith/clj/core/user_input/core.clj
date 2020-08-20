@@ -28,11 +28,12 @@
                 brick
                 interface
                 loc
-                all
-                all-bricks
-                test-env]} named-args
+                all!
+                all-bricks!
+                env!]} named-args
         unnamed (rest unnamed-args)]
-    (util/ordered-map :cmd (first args)
+    (util/ordered-map :args args
+                      :cmd (first args)
                       :arg1 (second args)
                       :name name
                       :top-ns top-ns
@@ -41,10 +42,10 @@
                       :brick brick
                       :interface interface
                       :loc loc
-                      :run-all? (or (= "true" all)
-                                    (= "true" all-bricks))
-                      :run-env-tests? (or (= "true" all)
-                                          (= "true" test-env))
+                      :run-all? (or (= "true" all!)
+                                    (= "true" all-bricks!))
+                      :run-env-tests? (or (= "true" all!)
+                                          (= "true" env!))
                       :active-dev-profiles (active-dev-profiles unnamed)
                       :selected-environments (-> env selected-environments set)
                       :unnamed-args unnamed)))

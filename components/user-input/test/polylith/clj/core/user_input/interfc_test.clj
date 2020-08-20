@@ -46,7 +46,7 @@
   (is (= {:run-all? false
           :run-env-tests? true
           :selected-environments #{}}
-         (test-params ":test-env"))))
+         (test-params ":env"))))
 
 (deftest parameters--active-dev-profiles
   (is (= {:active-dev-profiles #{"admin" "user"}}
