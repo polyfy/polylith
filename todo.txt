@@ -1,6 +1,4 @@
 
-- use delegation in all interfaces.
-
 - get :loc to work again.
 
 - add profile related validations:

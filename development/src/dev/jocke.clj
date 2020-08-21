@@ -23,12 +23,12 @@
                  ;"../clojure-polylith-realworld-example-app"
                  ws-clj/workspace-from-disk
                  (ws/enrich-workspace user-input)
-                 (change/with-changes user-input)))
+                 change/with-changes))
 
 (:messages workspace)
 (:changes workspace)
 (:settings workspace)
-
+(:user-input workspace)
 
 (slurp "../poly-example/ws50/deps.edn")
 
@@ -50,66 +50,12 @@
 (def changes (:changes workspace))
 (def messages (:messages workspace))
 
-
-
-
-
-(:active-dev-profiles settings)
-
-(-> settings :profile->settings :default :paths)
-
-(map (juxt :name :active?) environments)
-
-
 (map :name environments)
 
 (def environment (common/find-environment "cli" environments))
 (def environment (common/find-environment "development" environments))
 
-(def dev? (:dev? environment))
-(def src-paths (:src-paths environment))
-(def test-paths (:test-paths environment))
-
-(def path-entries (extract/path-entries "." dev? src-paths test-paths settings))
-(def path-entries (extract/profile-path-entries "." settings "default"))
-
-
-
-
 (def component (common/find-component "command" components))
 (def base (common/find-base "rest-api" bases))
 
-(select-keys environment [:dev? :src-paths :test-paths])
-
-(:interface-deps component)
-
-
-(:src-paths environment)
-
-(:dev? environment)
-
-
-
-(:lib-deps component)
-(:lib-deps base)
-
-(map :name bases)
-
-(:lib-deps component)
-(:lib-deps base)
-
-(:lib-deps environment)
-
-(common/find-environment "core" environments)
-
-
-(map (juxt :alias :lib->deps) environments)
-
 (def config (read-string (slurp "/Users/tengstrand/source/poly-example/ws35/environments/core/deps.edn")))
-
-(-> config :paths)
-(-> config :aliases :test :extra-paths)
-(read-string (slurp "/Users/tengstrand/source/poly-example/ws34/components/abc/src/abc/interface.clj"))
-
-
-
