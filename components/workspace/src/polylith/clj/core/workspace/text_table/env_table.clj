@@ -17,15 +17,15 @@
           (map-indexed #(env-cell %2 env-key column (+ %1 3) changed-environments color-mode)
                        environments)))
 
-(defn src-cell [index {:keys [dev? name src-paths test-paths]} ws-dir settings user-input environments-to-test show-resources?]
-  (let [path-entries (extract/path-entries ws-dir dev? src-paths test-paths settings user-input)
-        statuses (str (status/env-status-flags path-entries name show-resources?)
-                      (if (contains? (set environments-to-test) name) "x" "-"))]
-    (shared/standard-cell statuses 5 (+ index 3) :purple)))
+(defn src-cell [index {:keys [name src-paths test-paths profile-src-paths profile-test-paths]} ws-dir environments-to-test show-resources?]
+  (let [path-entries (extract/path-entries ws-dir [src-paths, test-paths profile-src-paths profile-test-paths])
+        satus-flags (str (status/env-status-flags path-entries name show-resources?)
+                         (if (contains? (set environments-to-test) name) "x" "-"))]
+    (shared/standard-cell satus-flags 5 (+ index 3) :purple)))
 
-(defn src-column [ws-dir settings user-input environments {:keys [environments-to-test]} show-resources?]
+(defn src-column [ws-dir environments {:keys [environments-to-test]} show-resources?]
   (concat [(shared/header "src" 5)]
-          (map-indexed #(src-cell %1 %2 ws-dir settings user-input environments-to-test show-resources?)
+          (map-indexed #(src-cell %1 %2 ws-dir environments-to-test show-resources?)
                        environments)))
 
 (defn loc-cell [index lines-of-code column thousand-sep]
@@ -39,13 +39,13 @@
                           (map-indexed #(loc-cell %1 %2 9 thousand-sep) (map :lines-of-code-test environments))
                           [(shared/number-cell total-loc-test 9 (+ (count environments) 3) :right thousand-sep)])))
 
-(defn table [{:keys [ws-dir settings user-input environments changes]} show-loc? show-resources?]
+(defn table [{:keys [ws-dir settings environments changes]} show-loc? show-resources?]
   (let [{:keys [color-mode thousand-sep]} settings
         total-loc-src (apply + (filter identity (map :lines-of-code-src environments)))
         total-loc-test (apply + (filter identity (map :lines-of-code-test environments)))
         env-col (env-column environments changes "environment" :name 1 color-mode)
         alias-col (env-column environments {} "alias" :alias 3 color-mode)
-        src-col (src-column ws-dir settings user-input environments changes show-resources?)
+        src-col (src-column ws-dir environments changes show-resources?)
         loc-col (loc-columns show-loc? environments thousand-sep total-loc-src total-loc-test)
         header-spaces (text-table/spaces 1 (if show-loc? [2 4 6 8] [2 4]) (repeat "  "))
         cells (text-table/merge-cells env-col alias-col src-col loc-col header-spaces)

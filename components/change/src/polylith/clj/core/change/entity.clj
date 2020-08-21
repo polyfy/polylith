@@ -6,7 +6,7 @@
 
 (defn changed-entities [ws-dir paths]
   "Returns the bricks and environments that has changed based on a list of files"
-  (let [path-entries (extract/path-entries ws-dir {:src-paths paths})]
+  (let [path-entries (extract/path-entries ws-dir [paths])]
     {:changed-bases (select/names path-entries m/base? m/src? m/exists?)
      :changed-components (select/names path-entries m/component? m/src? m/exists?)
      :changed-environments (select/names path-entries m/environment? m/src? m/exists?)}))

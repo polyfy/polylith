@@ -1,60 +1,56 @@
 (ns polylith.clj.core.path-finder.interfc.match
-  (:require [clojure.string :as str]))
+  (:require [polylith.clj.core.path-finder.matcher :as match]))
 
 (defn =name [entity-name]
-  (fn [entry] (= entity-name (:name entry))))
+  (match/=name entity-name))
 
-(defn component? [{:keys [type]}]
-  (= :component type))
+(defn component? [path-entry]
+  (match/component? path-entry))
 
-(defn base? [{:keys [type]}]
-  (= :base type))
+(defn base? [path-entry]
+  (match/base? path-entry))
 
-(defn brick? [{:keys [type]}]
-  (or (= :base type)
-      (= :component type)))
+(defn brick? [path-entry]
+  (match/brick? path-entry))
 
-(defn environment? [{:keys [type]}]
-  (= :environment type))
+(defn environment? [path-entry]
+  (match/environment? path-entry))
 
-(defn src? [{:keys [test?]}]
-  (not test?))
-
-(defn test? [{:keys [test?]}]
-  test?)
-
-(defn exists? [{:keys [exists?]}]
-  exists?)
-
-(defn not-exists? [{:keys [exists?]}]
-  (not exists?))
-
-(defn src-path? [{:keys [path]}]
-  (str/ends-with? path "/src"))
-
-(defn test-path? [{:keys [path]}]
-  (str/ends-with? path "/test"))
-
-(defn resources-path? [{:keys [path]}]
-  (str/ends-with? path "/resources"))
-
-(defn not-test-or-resources-path [entry]
-  (and (not (test-path? entry))
-       (not (resources-path? entry))))
-
-(defn profile? [{:keys [profile?]}]
-  profile?)
-
-(defn standard? [{:keys [profile?]}]
-  (not profile?))
-
-(defn match? [path-entry criterias]
-  (every? true? ((apply juxt criterias) path-entry)))
+(defn exists? [path-entry]
+  (match/exists? path-entry))
 
 (defn filter-entries [path-entries criterias]
-  (if (empty? criterias)
-    (vec path-entries)
-    (vec (filter #(match? % criterias) path-entries))))
+  (match/filter-entries path-entries criterias))
 
-(defn has-entry? [path-entries criteria]
-  (-> (filter-entries path-entries criteria) empty? not))
+(defn has-entry? [path-entries criterias]
+  (match/has-entry? path-entries criterias))
+
+(defn match? [path-entry criterias]
+  ((match/match? path-entry criterias)))
+
+(defn not-exists? [path-entry]
+  (match/not-exists? path-entry))
+
+(defn not-test-or-resources-path [path-entry]
+  (match/not-test-or-resources-path path-entry))
+
+(defn profile? [path-entry]
+  (match/profile? path-entry))
+
+(defn resources-path? [path-entry]
+  (match/resources-path? path-entry))
+
+(defn src? [path-entry]
+  (match/src? path-entry))
+
+(defn src-path? [path-entry]
+  (match/src-path? path-entry))
+
+(defn test? [path-entry]
+  (match/test? path-entry))
+
+(defn test-path? [path-entry]
+  (match/test-path? path-entry))
+
+(defn standard? [path-entry]
+  (match/standard? path-entry))

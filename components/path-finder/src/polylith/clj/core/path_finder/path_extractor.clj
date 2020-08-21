@@ -1,7 +1,8 @@
 (ns polylith.clj.core.path-finder.path-extractor
   (:require [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.util.interfc.str :as str-util]))
+            [polylith.clj.core.util.interfc.str :as str-util]
+            [polylith.clj.core.path-finder.profile-src-splitter :as profile-src-splitter]))
 
 (def dir->type {"bases" :base
                 "components" :component
@@ -58,3 +59,11 @@
                (single-path-entries ws-dir test-paths false true)
                (single-path-entries ws-dir profile-src-paths true false)
                (single-path-entries ws-dir profile-test-paths true true))))
+
+(defn from-unenriched-environment [ws-dir dev? src-paths test-paths settings user-input]
+  (let [{:keys [profile-src-paths profile-test-paths]} (profile-src-splitter/extract-active-dev-profiles-paths dev? settings user-input)]
+    (path-entries ws-dir src-paths test-paths profile-src-paths profile-test-paths)))
+
+(defn from-profiles-paths [ws-dir settings profile-name]
+  (let [{:keys [src-paths test-paths]} (profile-src-splitter/extract-profile-paths profile-name settings)]
+    (path-entries ws-dir src-paths test-paths nil nil)))

@@ -12,7 +12,7 @@
 
 (defn column [ws-dir index profile start-column settings bricks show-resources?]
   (let [column (+ start-column (* 2 index))
-        path-entries (extract/path-entries ws-dir settings profile)]
+        path-entries (extract/from-profiles-paths ws-dir settings profile)]
     (concat
       [(shared/header (name profile) column :purple :left)]
       (map-indexed #(profile-cell %1 %2 column show-resources? path-entries)

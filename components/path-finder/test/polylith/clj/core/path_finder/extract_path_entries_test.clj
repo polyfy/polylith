@@ -16,7 +16,7 @@
 (deftest path-entries--lists-of-paths--returns-extracted-path-entries
   (with-redefs [file/exists (fn [_] true)]
     (is (= test-data/path-entries
-           (extract/path-entries
+           (extract/from-unenriched-environment
              "." true
              ["bases/cli/resources"
               "bases/cli/src"
@@ -64,4 +64,4 @@
            :source-dir "test"
            :test?      true
            :type       :component}]
-         (extract/path-entries "." settings "default"))))
+         (extract/from-profiles-paths "." settings "default"))))

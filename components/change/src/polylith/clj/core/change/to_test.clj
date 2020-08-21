@@ -24,7 +24,7 @@
                 environments)))
 
 (defn has-test-dir? [ws-dir {:keys [src-paths test-paths profile-src-paths profile-test-paths]}]
-  (let [path-entries (extract/path-entries ws-dir {:src-paths src-paths, :test-paths test-paths, :profile-src-paths profile-src-paths, :profile-test-paths profile-test-paths})]
+  (let [path-entries (extract/path-entries ws-dir [src-paths test-paths profile-src-paths profile-test-paths])]
      (select/exists? path-entries m/environment? m/test-path? m/exists?)))
 
 (defn environments-to-test [ws-dir environments changed-bricks changed-environments run-env-tests?]

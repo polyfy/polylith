@@ -13,7 +13,7 @@
   (if dev? (apply merge (map :lib-deps (map #(profile->settings %) active-dev-profiles)))
            {}))
 
-(defn lib-dep-entries [dev? src-deps test-deps settings user-input]
+(defn from-library-deps [dev? src-deps test-deps settings user-input]
   (let [profile-deps (extract-deps dev? settings user-input)]
     (vec (concat (select-dep-entries src-deps false false)
                  (select-dep-entries test-deps false true)

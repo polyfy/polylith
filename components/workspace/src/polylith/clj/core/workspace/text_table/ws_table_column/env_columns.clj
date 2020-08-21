@@ -19,7 +19,7 @@
 (defn column [index {:keys [alias src-paths test-paths profile-src-paths profile-test-paths]}
               ws-dir bricks alias->bricks-to-test show-loc? show-resources? thousand-sep]
   (let [column (+ 5 (* 2 index))
-        path-entries (extract/path-entries ws-dir {:src-paths src-paths, :test-paths test-paths, :profile-src-paths profile-src-paths, :profile-test-paths profile-test-paths})
+        path-entries (extract/path-entries ws-dir [src-paths test-paths profile-src-paths profile-test-paths])
         bricks-in-env (set (select/names path-entries m/brick? m/src? m/exists?))
         total-loc-src (apply + (filter identity (map :lines-of-code-src (filter #(contains? bricks-in-env (:name %)) bricks))))]
     (concat

@@ -17,7 +17,7 @@
 
 (deftest dep-entries
   (is (= test-data/dep-entries
-         (lib-dep-extractor/lib-dep-entries true src-deps test-deps settings user-input))))
+         (lib-dep-extractor/from-library-deps true src-deps test-deps settings user-input))))
 
 (deftest extract-deps--from-non-dev-environment--returns-no-dependencies
   (is (= {}
