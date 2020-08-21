@@ -33,7 +33,9 @@
       (= "help" cmd)
       (= "create" cmd)))
 
-(defn execute [current-dir workspace {:keys [cmd arg1 name top-ns env brick interface loc flag unnamed-args]}]
+(defn execute [current-dir workspace {:keys [cmd arg1 name top-ns env brick interface show-loc? show-resources-flag? unnamed-args]}]
+  "We need to pass in user-info separately, because when the 'create w' command is executed
+   we don't have a workspace yet."
   (try
     (if (can-be-executed-from-here? workspace cmd)
       (let [color-mode (user-config/color-mode)]
@@ -43,7 +45,7 @@
           "deps" (deps/deps workspace env brick unnamed-args)
           "diff" (diff workspace)
           "help" (help arg1 color-mode)
-          "info" (info/info workspace loc flag unnamed-args)
+          "info" (info/info workspace show-loc? show-resources-flag? unnamed-args)
           "test" (test/run workspace unnamed-args)
           "ws" (pp/pprint workspace)
           (unknown-command cmd)))

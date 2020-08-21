@@ -27,7 +27,7 @@
                 flag
                 brick
                 interface
-                loc
+                loc!
                 all!
                 all-bricks!
                 env!]} named-args
@@ -38,14 +38,14 @@
                       :name name
                       :top-ns top-ns
                       :env env
-                      :flag flag
                       :brick brick
                       :interface interface
-                      :loc loc
+                      :show-loc? (= "true" loc!)
                       :run-all? (or (= "true" all!)
                                     (= "true" all-bricks!))
                       :run-env-tests? (or (= "true" all!)
                                           (= "true" env!))
+                      :show-resources-flag? (= "res" flag)
                       :active-dev-profiles (active-dev-profiles unnamed)
                       :selected-environments (-> env selected-environments set)
                       :unnamed-args unnamed)))
