@@ -1,7 +1,5 @@
 
 - add profile related validations:
-  - don't allow having components with an interface with more than one component
-    in the development environment.
   - show a warning if a path exists in a dev profile and dev.
     - add :redundant-paths and :redundant-deps to :profile->settings.
 
