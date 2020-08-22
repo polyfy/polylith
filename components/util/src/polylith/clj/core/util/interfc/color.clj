@@ -36,23 +36,35 @@
 (defn error [color-mode & messages]
   (colorizer/error color-mode messages))
 
-(defn brick [type brick color-mode]
-  (colorizer/brick type brick color-mode))
+(defn entity [type name color-mode]
+  (colorizer/entity type name color-mode))
 
-(defn interface [ifc color-mode]
-  (colorizer/interface ifc color-mode))
+(defn brick [type name color-mode]
+  (colorizer/brick type name color-mode))
 
-(defn component [component color-mode]
-  (colorizer/component component color-mode))
+(defn interface [name color-mode]
+  (colorizer/interface name color-mode))
 
-(defn base [base color-mode]
-  (colorizer/base base color-mode))
+(defn component [name color-mode]
+  (colorizer/component name color-mode))
 
-(defn environment [env color-mode]
-  (colorizer/environment env color-mode))
+(defn base [name color-mode]
+  (colorizer/base name color-mode))
+
+(defn environment [name color-mode]
+  (colorizer/environment name color-mode))
+
+(defn path [path color-mode]
+  (colorizer/path path color-mode))
+
+(defn profile [name color-mode]
+  (colorizer/profile name color-mode))
+
+(defn library [name color-mode]
+  (colorizer/library name color-mode))
 
 (defn namespc
-  ([namespace color-mode]
-   (colorizer/namespc namespace color-mode))
+  ([name color-mode]
+   (colorizer/namespc name color-mode))
   ([interface namespace color-mode]
    (colorizer/namespc interface namespace color-mode)))

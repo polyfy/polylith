@@ -67,25 +67,48 @@
 (defn error [color-mode messages]
   (colored-text color-red color-mode messages))
 
+(defn interface [name color-mode]
+  (yellow color-mode name))
+
+(defn component [name color-mode]
+  (green color-mode name))
+
+(defn base [name color-mode]
+  (blue color-mode name))
+
+(defn environment [name color-mode]
+  (purple color-mode name))
+
+(defn entity [type name color-mode]
+  (case type
+    "component" (component name color-mode)
+    "base" (base name color-mode)
+    "environment" (environment name color-mode)
+    name))
+
 (defn brick [type brick color-mode]
-  (if (= type "component")
-    (green color-mode brick)
-    (blue color-mode brick)))
+  (entity type brick color-mode))
 
-(defn interface [ifc color-mode]
-  (yellow color-mode ifc))
+(defn profile [name color-mode]
+  (purple color-mode name))
 
-(defn component [component color-mode]
-  (green color-mode component))
-
-(defn base [base color-mode]
-  (blue color-mode base))
-
-(defn environment [env color-mode]
-  (purple color-mode env))
+(defn library [name color-mode]
+  (grey color-mode name))
 
 (defn namespc
-  ([namespace color-mode]
-   (grey color-mode namespace))
+  ([name color-mode]
+   (grey color-mode name))
   ([interface namespace color-mode]
    (grey color-mode (str interface "." namespace))))
+
+(def entities->type {"environments" "environment"
+                     "bases" "base"
+                     "components" "component"})
+
+(defn path [path color-mode]
+  (let [strings (str/split path #"/")
+        [entities name] strings
+        type (entities->type entities)
+        src (str/join "/" (drop 2 strings))]
+    (str entities "/" (entity type name color-mode) "/" src)))
+

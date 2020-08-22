@@ -10,7 +10,8 @@
             [polylith.clj.core.validate.m201-mismatching-parameters :as m201]
             [polylith.clj.core.validate.m202-missing-libraries :as m202]
             [polylith.clj.core.validate.m203-invalid-src-reference :as m203]
-            [polylith.clj.core.validate.m204-path-exists-in-both-dev-and-profile :as m204]))
+            [polylith.clj.core.validate.m204-path-exists-in-both-dev-and-profile :as m204]
+            [polylith.clj.core.validate.m205-lib-deps-exists-in-both-dev-and-profile :as m205]))
 
 (defn messages [ws-dir suffixed-top-ns settings interface-names interfaces components bases environments interface-ns ns->lib color-mode]
   (vec (sort-by (juxt :type :code :message)
@@ -25,4 +26,5 @@
                              (m201/warnings interfaces components color-mode)
                              (m202/warnings environments components bases ns->lib color-mode)
                              (m203/warnings environments color-mode)
-                             (m204/warnings settings environments))))))
+                             (m204/warnings settings environments color-mode)
+                             (m205/warnings settings environments color-mode))))))
