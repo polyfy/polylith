@@ -21,10 +21,10 @@
   (let [path-entries (extract/path-entries ws-dir [src-paths, test-paths profile-src-paths profile-test-paths])
         satus-flags (str (status/env-status-flags path-entries name show-resources?)
                          (if (contains? (set environments-to-test) name) "x" "-"))]
-    (shared/standard-cell satus-flags 5 (+ index 3) :purple)))
+    (shared/standard-cell satus-flags 5 (+ index 3) :purple :center)))
 
 (defn src-column [ws-dir environments {:keys [environments-to-test]} show-resources?]
-  (concat [(shared/header "src" 5)]
+  (concat [(shared/header "source" 5)]
           (map-indexed #(src-cell %1 %2 ws-dir environments-to-test show-resources?)
                        environments)))
 
