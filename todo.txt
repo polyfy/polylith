@@ -1,7 +1,6 @@
 
 - add profile related validations:
-  - show a warning if a path exists in a dev profile and dev.
-    - add :redundant-paths and :redundant-deps to :profile->settings.
+  - show a warning if a library dependency exists in a dev profile and dev.
 
 - show profile columns in the environments table.
 

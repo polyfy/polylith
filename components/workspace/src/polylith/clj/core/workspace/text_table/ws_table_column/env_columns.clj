@@ -1,5 +1,5 @@
 (ns polylith.clj.core.workspace.text-table.ws-table-column.env-columns
-  (:require [polylith.clj.core.path-finder.interfc.match :as m]
+  (:require [polylith.clj.core.path-finder.interfc.criterias :as c]
             [polylith.clj.core.path-finder.interfc.extract :as extract]
             [polylith.clj.core.path-finder.interfc.select :as select]
             [polylith.clj.core.path-finder.interfc.status :as status]
@@ -20,7 +20,7 @@
               ws-dir bricks alias->bricks-to-test show-loc? show-resources? thousand-sep]
   (let [column (+ 5 (* 2 index))
         path-entries (extract/path-entries ws-dir [src-paths test-paths profile-src-paths profile-test-paths])
-        bricks-in-env (set (select/names path-entries m/brick? m/src? m/exists?))
+        bricks-in-env (set (select/names path-entries c/brick? c/src? c/exists?))
         total-loc-src (apply + (filter identity (map :lines-of-code-src (filter #(contains? bricks-in-env (:name %)) bricks))))]
     (concat
       [(shared/standard-cell alias column 1 :purple :center)]

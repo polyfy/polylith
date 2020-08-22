@@ -1,7 +1,7 @@
 (ns polylith.clj.core.change.to-test
   (:require [clojure.set :as set]
             [polylith.clj.core.change.environment :as env]
-            [polylith.clj.core.path-finder.interfc.match :as m]
+            [polylith.clj.core.path-finder.interfc.criterias :as c]
             [polylith.clj.core.path-finder.interfc.extract :as extract]
             [polylith.clj.core.path-finder.interfc.select :as select]))
 
@@ -25,7 +25,7 @@
 
 (defn has-test-dir? [ws-dir {:keys [src-paths test-paths profile-src-paths profile-test-paths]}]
   (let [path-entries (extract/path-entries ws-dir [src-paths test-paths profile-src-paths profile-test-paths])]
-     (select/exists? path-entries m/environment? m/test-path? m/exists?)))
+    (select/exists? path-entries c/environment? c/test-path? c/exists?)))
 
 (defn environments-to-test [ws-dir environments changed-bricks changed-environments run-env-tests?]
   (let [indirectly-changed (env/indirectly-changed-environment-names environments changed-bricks)

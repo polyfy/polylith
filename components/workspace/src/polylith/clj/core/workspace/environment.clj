@@ -3,7 +3,7 @@
             [polylith.clj.core.util.interfc :as util]
             [polylith.clj.core.path-finder.interfc.select :as select]
             [polylith.clj.core.path-finder.interfc.extract :as extract]
-            [polylith.clj.core.path-finder.interfc.match :as m]
+            [polylith.clj.core.path-finder.interfc.criterias :as c]
             [polylith.clj.core.workspace.loc :as loc]
             [polylith.clj.core.workspace.brick-deps :as brick-deps]))
 
@@ -45,11 +45,11 @@
   (let [alias (env->alias name)
         dep-entries (extract/from-library-deps dev? lib-deps test-lib-deps settings user-input)
         path-entries (extract/from-unenriched-environment ws-dir dev? src-paths test-paths settings user-input)
-        component-names (select/names path-entries m/component? m/src? m/exists?)
-        base-names (select/names path-entries m/base? m/src? m/exists?)
+        component-names (select/names path-entries c/component? c/src? c/exists?)
+        base-names (select/names path-entries c/base? c/src? c/exists?)
         brick-names (concat component-names base-names)
-        test-component-names (select/names path-entries m/component? m/test? m/exists?)
-        test-base-names (select/names path-entries m/base? m/test? m/exists?)
+        test-component-names (select/names path-entries c/component? c/test? c/exists?)
+        test-base-names (select/names path-entries c/base? c/test? c/exists?)
         deps (brick-deps/environment-deps component-names components bases)
         lib-imports-src (-> (env-lib-imports brick-names brick->lib-imports false)
                             set sort vec)
@@ -69,19 +69,19 @@
                       :total-lines-of-code-src total-lines-of-code-src
                       :total-lines-of-code-test total-lines-of-code-test
                       :test-component-names test-component-names
-                      :component-names (select/names path-entries m/component? m/src? m/exists?)
+                      :component-names (select/names path-entries c/component? c/src? c/exists?)
                       :base-names base-names
                       :test-base-names test-base-names
                       :namespaces-src namespaces-src
                       :namespaces-test namespaces-test
                       :src-paths src-paths
                       :test-paths test-paths
-                      :profile-src-paths (select/paths path-entries m/profile? m/src?)
-                      :profile-test-paths (select/paths path-entries m/profile? m/test?)
-                      :missing-paths (select/paths path-entries m/not-exists? m/not-test-or-resources-path)
+                      :profile-src-paths (select/paths path-entries c/profile? c/src?)
+                      :profile-test-paths (select/paths path-entries c/profile? c/test?)
+                      :missing-paths (select/paths path-entries c/not-exists? c/not-test-or-resources-path)
                       :lib-imports lib-imports-src
                       :lib-imports-test lib-imports-test
-                      :lib-deps (select/lib-deps dep-entries m/src?)
+                      :lib-deps (select/lib-deps dep-entries c/src?)
                       :deps deps
-                      :test-lib-deps (select/lib-deps dep-entries m/test?)
+                      :test-lib-deps (select/lib-deps dep-entries c/test?)
                       :maven-repos maven-repos)))

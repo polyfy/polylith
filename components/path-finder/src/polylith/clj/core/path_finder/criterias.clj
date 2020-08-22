@@ -1,4 +1,4 @@
-(ns polylith.clj.core.path-finder.matcher
+(ns polylith.clj.core.path-finder.criterias
   (:require [clojure.string :as str]))
 
 (defn =name [entity-name]
@@ -45,7 +45,7 @@
 (defn profile? [{:keys [profile?]}]
   profile?)
 
-(defn standard? [{:keys [profile?]}]
+(defn not-profile? [{:keys [profile?]}]
   (not profile?))
 
 (defn match? [path-entry criterias]
