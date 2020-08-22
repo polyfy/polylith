@@ -71,6 +71,11 @@
                                                 "invoice" ["admin" "cli" "database" "invoicer" "purchaser"]}
                           :environments-to-test []}})
 
+(def workspace-with-profiles (-> workspace
+                                 (assoc-in [:settings :profile->settings] {"default" {:paths ["components/file/src"
+                                                                                              "components/file/test"
+                                                                                              "environments/core/test"]}})))
+
 (deftest table--no-resources-flat--returns-correct-table
   (is (= ["  environment  alias  source"
           "  --------------------------"
@@ -79,7 +84,7 @@
           "  development  dev     x--  "]
          (env-table/table workspace false false))))
 
-(deftest table--resources-flag--returns-correct-table
+(deftest table--with-resources-flag--returns-correct-table
   (is (= ["  environment  alias  source"
           "  --------------------------"
           "  core *       core    xx-- "
@@ -88,10 +93,27 @@
          (env-table/table workspace false true))))
 
 (deftest table--environments-with-loc--returns-table-with-lines-of-code
-  (is (= ["  environment  alias  source  loc  (t)"
-          "  ------------------------------------"
-          "  core *       core    x--      1    1"
-          "  invoice *    inv     -x-      0    1"
-          "  development  dev     x--      4    0"
-          "                                5    2"]
+  (is (= ["  environment  alias  source   loc  (t)"
+          "  --------------------------   --------"
+          "  core *       core    x--       1    1"
+          "  invoice *    inv     -x-       0    1"
+          "  development  dev     x--       4    0"
+          "                                 5    2"]
          (env-table/table workspace true false))))
+
+(deftest table--with-profile--returns-correct-table
+  (is (= ["  environment  alias  source   default   "
+          "  --------------------------   -------   "
+          "  core *       core    x--       -x      "
+          "  invoice *    inv     -x-       --      "
+          "  development  dev     x--       --      "]
+         (env-table/table workspace-with-profiles false false))))
+
+(deftest table--with-profile-and-loc--returns-correct-table
+  (is (= ["  environment  alias  source   default   loc  (t)"
+          "  --------------------------   -------   --------"
+          "  core *       core    x--       -x        1    1"
+          "  invoice *    inv     -x-       --        0    1"
+          "  development  dev     x--       --        4    0"
+          "                                           5    2"]
+         (env-table/table workspace-with-profiles true false))))

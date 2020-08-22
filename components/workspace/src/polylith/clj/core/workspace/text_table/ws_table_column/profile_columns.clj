@@ -3,12 +3,9 @@
             [polylith.clj.core.path-finder.interfc.extract :as extract]
             [polylith.clj.core.path-finder.interfc.status :as status]))
 
-(defn status-flags [brick-name show-resources? path-entries]
-  (status/brick-status-flags path-entries brick-name show-resources?))
-
 (defn profile-cell [index brick-name column show-resources? path-entries]
-  (let [status (status-flags brick-name show-resources? path-entries)]
-    (shared/standard-cell status column (+ index 3) :purple :center)))
+  (let [flags (status/brick-status-flags path-entries brick-name show-resources?)]
+    (shared/standard-cell flags column (+ index 3) :purple :center)))
 
 (defn column [ws-dir index profile start-column settings bricks show-resources?]
   (let [column (+ start-column (* 2 index))

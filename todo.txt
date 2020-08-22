@@ -1,6 +1,4 @@
 
-- show profile columns in the environments table.
-
 - complain if trying to include a profile with e.g. +admin, that does not exists,
   except an empty one (just +) that will result in showing all profiles.
 
