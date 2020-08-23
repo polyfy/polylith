@@ -42,7 +42,7 @@
                                     (= "true" all-bricks!))
                       :run-env-tests? (or (= "true" all!)
                                           (= "true" env!))
-                      :show-resources-flag? (= "res" flag)
+                      :show-resources-flag? (contains? #{"r" "resources"} flag)
                       :active-dev-profiles (active-dev-profiles unnamed)
                       :selected-environments (-> env selected-environments set)
                       :unnamed-args unnamed)))
