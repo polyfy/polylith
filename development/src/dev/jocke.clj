@@ -17,9 +17,12 @@
 ;(def workspace z/workspace)
 
 (def workspace (->
-                 ;"."
-                 "../poly-example/ws50"
+                 "."
+                 ;"../poly-example/ws50"
                  ;"../poly-example/ws52"
+
+                 ;"../poly-example/ws53"
+                 ;"../poly-example/m205"
                  ;"../clojure-polylith-realworld-example-app"
                  ws-clj/workspace-from-disk
                  (ws/enrich-workspace user-input)
@@ -33,8 +36,10 @@
 (slurp "../poly-example/ws50/deps.edn")
 
 (def environments (:environments workspace))
-(def environment (common/find-environment "development" environments))
+(def environment (common/find-environment "dev" environments))
 (def environment (common/find-environment "invoice" environments))
+
+(select-keys environment [:src-paths :test-paths])
 
 (map :name environments)
 (map :active? environments)
@@ -43,6 +48,7 @@
 (:test-lib-deps environment)
 
 (def settings (:settings workspace))
+(def interfaces (:interfaces workspace))
 (def components (:components workspace))
 (def bases (:bases workspace))
 (def bricks (concat components bases))
@@ -53,7 +59,7 @@
 (map :name environments)
 
 (def environment (common/find-environment "cli" environments))
-(def environment (common/find-environment "development" environments))
+(def environment (common/find-environment "dev" environments))
 
 (def component (common/find-component "command" components))
 (def base (common/find-base "rest-api" bases))
