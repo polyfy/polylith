@@ -20,8 +20,10 @@
 (defn test-setup-and-tear-down [function]
   (let [path (file/create-temp-dir "polylith-root")]
     (if path
-      (reset! root-dir path)
-      (throw (Exception. (str "Could not create directory: " path))))
+      (do
+        (reset! root-dir path)
+        (file/create-dir (sub-dir user-home)))
+      (throw (Exception. "Could not create temp directory")))
     (function)
     (file/delete-dir path)))
 

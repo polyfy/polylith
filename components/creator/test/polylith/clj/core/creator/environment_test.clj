@@ -28,6 +28,7 @@
              "bases"
              "development"
              "development/src"
+             "development/src/.keep"
              "environments"
              "environments/env1"
              "environments/env1/deps.edn"

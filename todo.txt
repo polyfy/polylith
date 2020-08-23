@@ -1,5 +1,5 @@
 
-- create a .keep file in development/src when creating a workspace.
+- complain if giving no top-namespace when creating a workspace.
 
 - also do util/stringify-and-sort-map for test-lib-deps in workspace-clj.
 - add :test-lib-deps to bases.
@@ -81,6 +81,8 @@
 
 - check that we follow symbolic links in file/paths-recursively.
 
+- fix so that we can run the create tests from the REPL. The problem is in
+  polylith.clj.core.creator.workspace/create, when copying logo.png.
 
 Questions
 =========

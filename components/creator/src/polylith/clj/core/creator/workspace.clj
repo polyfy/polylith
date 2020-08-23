@@ -60,6 +60,7 @@
     (file/create-dir (str ws-dir "/environments"))
     (file/create-file (str ws-dir "/deps.edn") (deps-content top-ns))
     (file/create-file (str ws-dir "/readme.md") (readme-content ws-name))
-    (file/copy-resource-file! "create/logo.png" (str ws-dir "/logo.png"))
+    (file/create-file (str ws-dir "/development/src/.keep") [""])
+    (file/copy-resource-file! "creator/logo.png" (str ws-dir "/logo.png"))
     (create-user-config-if-not-exists)
     (git/init ws-dir)))

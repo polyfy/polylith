@@ -41,6 +41,7 @@
              "components"
              "development"
              "development/src"
+             "development/src/.keep"
              "environments"
              ".git"
              "deps.edn"
