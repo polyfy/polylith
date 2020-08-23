@@ -19,13 +19,12 @@
         component-names (set (select/names path-entries c/component?))
         multi-components (set (mapcat multi-impl-components interfaces))
         illegal-components (sort (set/intersection component-names multi-components))
-        components-msg (str/join ", " illegal-components)
-        colored-comp_msg (str/join ", " (map #(color/component % color-mode) illegal-components))
+        components-msg (str/join ", " (map #(color/component % color-mode) illegal-components))
         message (str "Components with an interface that are implemented by more than one component "
-                     "is not allowed for the development environment. "
-                     "They should be added to development profiles instead: ")]
+                     "is not allowed for the " (color/environment "development" color-mode) " environment. "
+                     "They should be added to development profiles instead: " components-msg)]
     (when (-> illegal-components empty? not)
       [(util/ordered-map :type "error"
                          :code 108
-                         :message (str message components-msg)
-                         :colorized-message (str message colored-comp_msg))])))
+                         :message (color/clean-colors message)
+                         :colorized-message message)])))

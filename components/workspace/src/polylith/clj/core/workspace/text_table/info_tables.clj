@@ -7,11 +7,15 @@
             [polylith.clj.core.workspace.text-table.ws-table :as ws-table]))
 
 (defn print-active-dev-profiles [{:keys [active-dev-profiles]} {:keys [color-mode]}]
-  (println (str "  Active dev profiles: " (color/profile (str/join ", " (sort active-dev-profiles)) color-mode))))
+  ;; We need to filter out the empty profile that can come in as "+".
+  (let [profiles (sort (filter #(not= "" %) active-dev-profiles))]
+    (when (-> profiles empty? not)
+      (let [s (if (= 1 (count profiles)) "" "s")]
+        (println)
+        (println (str "  Active dev profile" s ": " (color/profile (str/join ", " profiles) color-mode)))))))
 
 (defn print-info [{:keys [settings messages user-input] :as workspace} show-loc? show-resources?]
   (count-table/print-table workspace)
-  (println)
   (print-active-dev-profiles user-input settings)
   (println)
   (env-table/print-table workspace show-loc? show-resources?)

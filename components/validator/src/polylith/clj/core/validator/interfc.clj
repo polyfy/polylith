@@ -11,9 +11,13 @@
             [polylith.clj.core.validator.m202-missing-libraries :as m202]
             [polylith.clj.core.validator.m203-invalid-src-reference :as m203]
             [polylith.clj.core.validator.m204-path-exists-in-both-dev-and-profile :as m204]
-            [polylith.clj.core.validator.m205-lib-deps-exists-in-both-dev-and-profile :as m205]))
+            [polylith.clj.core.validator.m205-lib-deps-exists-in-both-dev-and-profile :as m205]
+            [polylith.clj.core.validator.user-input.validator :as validator]))
 
-(defn messages [ws-dir suffixed-top-ns settings interface-names interfaces components bases environments interface-ns ns->lib color-mode]
+(defn validate [active-dev-profiles settings color-mode]
+  (validator/validate active-dev-profiles settings color-mode))
+
+(defn validate-ws [ws-dir suffixed-top-ns settings interface-names interfaces components bases environments interface-ns ns->lib color-mode]
   (vec (sort-by (juxt :type :code :message)
                 (set (concat (m101/errors suffixed-top-ns interface-names components bases interface-ns color-mode)
                              (m102/errors components color-mode)

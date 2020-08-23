@@ -24,19 +24,19 @@
 
 (defn validate [workspace entity name top-ns]
   (cond
-    (nil? entity) {:message "  The first argument after 'create' is expected to be any of: w, e, b, c, workspace, environment, base, component."}
+    (nil? entity) [false "  The first argument after 'create' is expected to be any of: w, e, b, c, workspace, environment, base, component."]
     (and (nil? workspace)
-         (env-base-or-comp? entity)) (command/print-cant-be-executed-outside-ws)
-    (nil? name) {:message (str "  A name must be given, e.g.: create " entity " name:" (ent->name entity))}
+         (env-base-or-comp? entity)) [false command/cant-be-executed-outside-ws-message]
+    (nil? name) [false (str "  A name must be given, e.g.: create " entity " name:" (ent->name entity))]
     (and (workspace? entity)
-         (-> workspace nil? not)) {:message (str "  A workspace should not be created within another workspace.")}
+         (-> workspace nil? not)) [false (str "  A workspace should not be created within another workspace.")]
     (and (workspace? entity)
-         (nil? top-ns)) {:message (str "  A top namespace must be given, e.g.: create " entity " name:" (ent->name entity) " top-ns:com.my-company")}
-    :else {:ok? true}))
+         (nil? top-ns)) [false (str "  A top namespace must be given, e.g.: create " entity " name:" (ent->name entity) " top-ns:com.my-company")]
+    :else [true]))
 
 (defn create [current-dir workspace entity name top-ns interface color-mode]
   (let [ent (entity->short entity)
-        {:keys [ok? message]} (validate workspace ent name top-ns)]
+        [ok? message] (validate workspace ent name top-ns)]
     (if ok?
       (condp = ent
         "w" (create/create-workspace current-dir name top-ns)

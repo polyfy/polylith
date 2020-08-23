@@ -7,6 +7,7 @@
             [polylith.clj.core.command.message :as message]
             [polylith.clj.core.command.test :as test]
             [polylith.clj.core.common.interfc :as common]
+            [polylith.clj.core.validator.interfc :as validator]
             [polylith.clj.core.help.interfc :as help]
             [polylith.clj.core.user-config.interfc :as user-config]
             [polylith.clj.core.util.interfc.color :as color])
@@ -33,12 +34,18 @@
       (= "help" cmd)
       (= "create" cmd)))
 
-(defn execute [current-dir workspace {:keys [cmd arg1 name top-ns env brick interface show-loc? show-resources-flag? unnamed-args]}]
+(defn validate [{:keys [settings] :as workspace} cmd active-dev-profiles color-mode]
+  (if (can-be-executed-from-here? workspace cmd)
+    (validator/validate active-dev-profiles settings color-mode)
+    [false message/cant-be-executed-outside-ws-message]))
+
+(defn execute [current-dir workspace {:keys [cmd arg1 name top-ns env brick interface show-loc? show-resources-flag? active-dev-profiles unnamed-args]}]
   "We need to pass in user-info separately, because when the 'create w' command is executed
    we don't have a workspace yet."
   (try
-    (if (can-be-executed-from-here? workspace cmd)
-      (let [color-mode (user-config/color-mode)]
+    (let [color-mode (user-config/color-mode)
+          [ok? message] (validate workspace cmd active-dev-profiles color-mode)]
+      (if ok?
         (case cmd
           "check" (check workspace color-mode)
           "create" (create/create current-dir workspace arg1 name top-ns interface color-mode)
@@ -48,8 +55,8 @@
           "info" (info/info workspace show-loc? show-resources-flag? unnamed-args)
           "test" (test/run workspace unnamed-args)
           "ws" (pp/pprint workspace)
-          (unknown-command cmd)))
-      (message/print-cant-be-executed-outside-ws))
+          (unknown-command cmd))
+        (println message)))
     {:exit-code (exit-code/code cmd workspace)}
     (catch Exception e
       {:exit-code 1

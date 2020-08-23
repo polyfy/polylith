@@ -7,10 +7,8 @@
   (str/starts-with? arg "+"))
 
 (defn active-dev-profiles [unnamed-args]
-  (let [profiles (filter profile? unnamed-args)]
-    (if (empty? profiles)
-      #{"default"}
-      (set (map #(subs % 1) profiles)))))
+  (set (map #(subs % 1)
+            (filter profile? unnamed-args))))
 
 (defn selected-environments [env]
   (if (coll? env)
@@ -37,7 +35,6 @@
                       :arg1 (second args)
                       :name name
                       :top-ns top-ns
-                      :env env
                       :brick brick
                       :interface interface
                       :show-loc? (= "true" loc!)
