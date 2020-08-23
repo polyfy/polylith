@@ -6,7 +6,8 @@ import static polylith.java.core.Core.callFn;
 
 public final class Api {
 
-    final static String colorNs =     "polylith.clj.core.util.interfc.color";
+    final static string walkNs = "clojure.walk";
+    final static String colorNs = "polylith.clj.core.util.interfc.color";
     final static String workspaceNs = "polylith.clj.core.workspace.interfc";
 
     static Colorize colorize = new Colorize();
@@ -31,12 +32,16 @@ public final class Api {
         return (String)callFn(colorNs, "component", component, colorMode);
     }
 
-    public static Map enrichWorkspace(Map workspace) {
-        return (Map)callFn(workspaceNs, "enrich-workspace-str-keys", workspace);
+    private static Map keywordize-keys(Map workspace) {
+        return (Map)callFn(walkNs, "keywordize-keys", workspace)
     }
 
-    public static void printEnrichedWorkspace(Map workspace) {
-        callFn(workspaceNs, "print-table-str-keys", workspace);
+    public static Map enrichWorkspace(Map workspace, Map userInput) {
+        return (Map)callFn(workspaceNs, "enrich-workspace", (keywordize-keys workspace), (keywordize-keys userInput);
+    }
+
+    public static void printEnrichedWorkspace(Map workspace, showLoc, showResources) {
+        callFn(workspaceNs, "print-table", (keywordize-keys workspace), showLoc, showResources;
     }
 
     public static void main(final String... args) {

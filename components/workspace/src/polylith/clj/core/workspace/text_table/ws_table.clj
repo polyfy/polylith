@@ -35,6 +35,3 @@
 
 (defn print-table [workspace show-loc? show-resources?]
   (text-table/print-table (table workspace show-loc? show-resources?)))
-
-(defn print-table-str-keys [workspace show-loc? show-resources?]
-  (print-table (walk/keywordize-keys workspace) show-loc? show-resources?))

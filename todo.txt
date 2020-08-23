@@ -1,11 +1,4 @@
 
-- also do util/stringify-and-sort-map for test-lib-deps in workspace-clj.
-- add :test-lib-deps to bases.
-
-
-
-- move print-table-str-keys + enrich-workspace-str-keys to java.core.
-
 - store :top-namespace and :interface-ns as symbols in deps.edn, but as strings internally.
 
 - implement 'deps :lib' as a separate table, e.g.:

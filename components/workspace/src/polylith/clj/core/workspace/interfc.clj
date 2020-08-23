@@ -8,11 +8,3 @@
 
 (defn print-info [workspace show-loc? show-resources?]
   (info-tables/print-info workspace show-loc? show-resources?))
-
-(defn enrich-workspace-str-keys [workspace user-input]
-  "Used by the polylith.core API"
-  (core/enrich-workspace-str-keys workspace user-input))
-
-(defn print-info-str-keys [workspace show-loc? show-resources?]
-  "Used by the polylith.core API"
-  (info-tables/print-info workspace show-loc? show-resources?))

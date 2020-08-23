@@ -58,6 +58,3 @@
                :bases enriched-bases
                :environments enriched-environments
                :messages messages)))
-
-(defn enrich-workspace-str-keys [workspace user-input]
-  (-> workspace walk/keywordize-keys (enrich-workspace user-input) walk/stringify-keys))
