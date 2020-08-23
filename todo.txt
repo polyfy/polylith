@@ -1,22 +1,16 @@
 
-- store :top-namespace and :interface-ns as symbols in deps.edn, but as strings internally.
-
 - implement 'deps :lib' as a separate table, e.g.:
                  l  l  l
                  i  i  i
                  b  b  b
                  -  -  -
-                 1  2  3
+    brick        1  2  3
     --------------------
     component1   x  x  -
     component2   -  x  x
     component3   x  -  -
     base1        -  x  -
 
-    library                       version  cli  core  dev
-    -----------------------------------------------------
-    org.clojure/clojure           1.10.1    x    x     x
-    org.clojure/tools.deps.alpha  0.8.695   x    x     x
 
 - implement 'migrate' that migrates old lein-polylith projects.
 

@@ -39,7 +39,7 @@
     (validator/validate active-dev-profiles selected-environments settings environments color-mode)
     [false message/cant-be-executed-outside-ws-message]))
 
-(defn execute [current-dir workspace {:keys [cmd arg1 name top-ns env brick interface show-loc? show-resources-flag? active-dev-profiles selected-environments unnamed-args]}]
+(defn execute [current-dir workspace {:keys [cmd arg1 name top-ns env brick interface show-lib? active-dev-profiles selected-environments unnamed-args]}]
   "We need to pass in user-info separately, because when the 'create w' command is executed
    we don't have a workspace yet."
   (try
@@ -49,10 +49,10 @@
         (case cmd
           "check" (check workspace color-mode)
           "create" (create/create current-dir workspace arg1 name top-ns interface color-mode)
-          "deps" (deps/deps workspace env brick unnamed-args)
+          "deps" (deps/deps workspace env brick unnamed-args show-lib?)
           "diff" (diff workspace)
           "help" (help arg1 color-mode)
-          "info" (info/info workspace show-loc? show-resources-flag? unnamed-args)
+          "info" (info/info workspace unnamed-args)
           "test" (test/run workspace unnamed-args)
           "ws" (pp/pprint workspace)
           (unknown-command cmd))

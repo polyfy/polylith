@@ -6,7 +6,7 @@
             [polylith.clj.core.util.interfc.color :as color]))
 
 (defn profile-warning [[profile {:keys [lib-deps]}] dev-lib-deps color-mode]
-  (let [shared-lib-deps (set/intersection dev-lib-deps (sort (set (map first lib-deps))))
+  (let [shared-lib-deps (sort (set/intersection dev-lib-deps (set (map first lib-deps))))
         libraries (str/join "," (map #(color/library % color-mode) shared-lib-deps))
         message (str "The same library dependency exists in both the " (color/environment "development" color-mode) " environment "
                      "and the " (color/profile profile color-mode) " development profile: " libraries)]

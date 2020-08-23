@@ -6,5 +6,5 @@
 (defn enrich-workspace [workspace user-input]
   (core/enrich-workspace workspace user-input))
 
-(defn print-info [workspace show-loc? show-resources?]
-  (info-tables/print-info workspace show-loc? show-resources?))
+(defn print-info [workspace]
+  (info-tables/print-info workspace))
