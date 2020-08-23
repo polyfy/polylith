@@ -14,8 +14,8 @@
             [polylith.clj.core.validator.m205-lib-deps-exists-in-both-dev-and-profile :as m205]
             [polylith.clj.core.validator.user-input.validator :as validator]))
 
-(defn validate [active-dev-profiles settings color-mode]
-  (validator/validate active-dev-profiles settings color-mode))
+(defn validate [active-dev-profiles selected-environments settings environments color-mode]
+  (validator/validate active-dev-profiles selected-environments settings environments color-mode))
 
 (defn validate-ws [ws-dir suffixed-top-ns settings interface-names interfaces components bases environments interface-ns ns->lib color-mode]
   (vec (sort-by (juxt :type :code :message)

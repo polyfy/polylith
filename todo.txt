@@ -1,8 +1,5 @@
 
-- complain if trying to include a profile with e.g. +admin, that does not exists,
-  except an empty one (just +) that will result in showing all profiles.
-
-- complain if any of the given env:my-env was not found.
+- make :dev a shortcut for env:dev.
 
 - create a .keep file in development/src when creating a workspace.
 

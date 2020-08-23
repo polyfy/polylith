@@ -10,23 +10,5 @@
         s (if (= 1 (count missing)) "" "s")
         missing-msg (color/profile (str/join ", " missing) color-mode)]
     (if (empty? missing)
-      [true]
-      [false (str "  Can't find profile" s ": " missing-msg)])))
-
-;(set/difference #{""} #{"default"})
-;
-;
-;(require '[dev.jocke :as z])
-;(def workspace z/workspace)
-;
-;(def settings (:settings workspace))
-;(def active-dev-profiles #{"default"})
-;(def profile->settings (:profile->settings settings))
-;
-;(def existing (set (map first profile->settings)))
-;
-;(def missing (set/difference active-dev-profiles existing #{"default"}))
-;
-;(validate active-dev-profiles settings "none")
-;
-;(set/difference #{1 2} #{2 3})
+      []
+      [(str "  Can't find profile" s ": " missing-msg)])))

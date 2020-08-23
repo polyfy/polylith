@@ -5,10 +5,10 @@
 
 (def settings {:profile->settings {"default" {},
                                    "admin" {}}})
-(deftest validate--when-the-profile-exists--return-ok
-  (is (= [true]
+(deftest validate--when-the-profile-exists--return-empty-list
+  (is (= []
          (validator/validate #{"admin"} settings color/none))))
 
 (deftest validate--when-missing-profile--return-error
-  (is (= [false "  Can't find profile: adminx"]
+  (is (= ["  Can't find profile: adminx"]
          (validator/validate #{"adminx"} settings color/none))))

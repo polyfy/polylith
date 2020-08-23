@@ -34,17 +34,17 @@
       (= "help" cmd)
       (= "create" cmd)))
 
-(defn validate [{:keys [settings] :as workspace} cmd active-dev-profiles color-mode]
+(defn validate [{:keys [settings environments] :as workspace} cmd active-dev-profiles selected-environments color-mode]
   (if (can-be-executed-from-here? workspace cmd)
-    (validator/validate active-dev-profiles settings color-mode)
+    (validator/validate active-dev-profiles selected-environments settings environments color-mode)
     [false message/cant-be-executed-outside-ws-message]))
 
-(defn execute [current-dir workspace {:keys [cmd arg1 name top-ns env brick interface show-loc? show-resources-flag? active-dev-profiles unnamed-args]}]
+(defn execute [current-dir workspace {:keys [cmd arg1 name top-ns env brick interface show-loc? show-resources-flag? active-dev-profiles selected-environments unnamed-args]}]
   "We need to pass in user-info separately, because when the 'create w' command is executed
    we don't have a workspace yet."
   (try
     (let [color-mode (user-config/color-mode)
-          [ok? message] (validate workspace cmd active-dev-profiles color-mode)]
+          [ok? message] (validate workspace cmd active-dev-profiles selected-environments color-mode)]
       (if ok?
         (case cmd
           "check" (check workspace color-mode)
