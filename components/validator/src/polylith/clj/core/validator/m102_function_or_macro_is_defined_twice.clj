@@ -5,14 +5,12 @@
             [polylith.clj.core.validator.shared :as shared]))
 
 (defn duplicated-parameter-lists-error [component-name component-duplication color-mode]
-  (let [message (str "Function or macro is defined twice in " component-name ": "
-                     (str/join ", " (map shared/->function-or-macro component-duplication)))
-        colorized-msg (str "Function or macro is defined twice in " (color/component component-name color-mode) ": "
-                           (str/join ", " (map shared/->function-or-macro component-duplication)))]
+  (let [message (str "Function or macro is defined twice in " (color/component component-name color-mode) ": "
+                     (str/join ", " (map shared/->function-or-macro component-duplication)))]
     (util/ordered-map :type "error"
                       :code 102
-                      :message message
-                      :colorized-message colorized-msg
+                      :message (color/clean-colors message)
+                      :colorized-message message
                       :components [component-name])))
 
 (defn component-errors [component color-mode]

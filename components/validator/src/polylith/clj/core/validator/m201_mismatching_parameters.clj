@@ -21,18 +21,14 @@
             function-or-macro2 (shared/->function-or-macro other-function)
             functions-and-macros (sort [function-or-macro1 function-or-macro2])
             types (types->message (set [type (:type other-function)]))
-            message (str types " in the " comp1 " component "
-                         "is also defined in " comp2
+            message (str types " in the " (color/component comp1 color-mode) " component "
+                         "is also defined in " (color/component comp2 color-mode)
                          " but with a different parameter list: "
-                         (str/join ", " functions-and-macros))
-            colorized-msg (str types " in the " (color/component comp1 color-mode) " component "
-                               "is also defined in " (color/component comp2 color-mode)
-                               " but with a different parameter list: "
-                               (str/join ", " functions-and-macros))]
+                         (str/join ", " functions-and-macros))]
         [(util/ordered-map :type "warning"
                            :code 201
-                           :message message
-                           :colorized-message colorized-msg
+                           :message (color/clean-colors message)
+                           :colorized-message message
                            :components [comp1 comp2])]))))
 
 (defn component-warnings [component interfaces name->component color-mode]

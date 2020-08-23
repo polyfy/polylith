@@ -32,13 +32,12 @@
 
 (defn missing-components-error [env interface-names color-mode]
   (let [interfaces (str/join ", " (sort interface-names))
-        message (str "Missing components in the " env " environment for these interfaces: " interfaces)
-        colorized-msg (str "Missing components in the " (color/environment env color-mode) " environment "
-                           "for these interfaces: " (color/interface interfaces color-mode))]
+        message (str "Missing components in the " (color/environment env color-mode) " environment "
+                     "for these interfaces: " (color/interface interfaces color-mode))]
     [(util/ordered-map :type "error"
                        :code 107
-                       :message message
-                       :colorized-message colorized-msg
+                       :message (color/clean-colors message)
+                       :colorized-message message
                        :interfaces interface-names
                        :environment env)]))
 

@@ -1,6 +1,4 @@
 
-- calculate message only once in 'validator'.
-
 - change to flag:r (or flag:resources)
 
 - complain if trying to include a profile with e.g. +admin, that does not exists,

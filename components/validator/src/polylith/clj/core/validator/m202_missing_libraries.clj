@@ -13,13 +13,12 @@
 
 (defn missing-lib-warning [env missing-libraries color-mode]
   (let [libs (str/join ", " (sort missing-libraries))
-        message (str "Missing libraries for the " env " environment: " libs)
-        colorized-msg (str "Missing libraries for the " (color/environment env color-mode) " environment: " (color/grey color-mode libs))]
+        message (str "Missing libraries for the " (color/environment env color-mode) " environment: " (color/grey color-mode libs))]
     [(util/ordered-map :type "warning"
-                     :code 202
-                     :message message
-                     :colorized-message colorized-msg
-                     :environment env)]))
+                       :code 202
+                       :message (color/clean-colors message)
+                       :colorized-message message
+                       :environment env)]))
 
 (defn env-warning [{:keys [env missing-libraries]} color-mode]
   (when (-> missing-libraries empty? not)

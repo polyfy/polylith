@@ -14,13 +14,11 @@
     (if (empty? base-names-set)
       []
       (let [message (str "A base can't have the same name as an interface or component: "
-                         (str/join ", " (sort base-names-set)))
-            colorized-msg (str "A base can't have the same name as an interface or component: "
-                               (color/base (str/join ", " (sort base-names-set)) color-mode))]
+                         (color/base (str/join ", " (sort base-names-set)) color-mode))]
         [(util/ordered-map :type "error"
                            :code 105
-                           :message message
-                           :colorized-message colorized-msg
+                           :message (color/clean-colors message)
+                           :colorized-message message
                            :interfaces (vec interface-names-set)
                            :components (vec component-names-set)
                            :bases (vec base-names-set))]))))

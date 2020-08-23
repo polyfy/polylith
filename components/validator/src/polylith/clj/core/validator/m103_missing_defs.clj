@@ -31,14 +31,12 @@
   (let [component-defs (concat (component-data-defs interface component)
                                (component-fn-defs component interface-functions))]
     (when (-> component-defs empty? not)
-      (let [message (str "Missing definitions in " name "'s interface: "
-                         (str/join ", " component-defs))
-            colorized-msg (str "Missing definitions in "  (color/component name color-mode) "'s interface: "
-                               (str/join ", " component-defs))]
+      (let [message (str "Missing definitions in "  (color/component name color-mode) "'s interface: "
+                         (str/join ", " component-defs))]
         [(util/ordered-map :type "error"
                            :code 103
-                           :message message
-                           :colorized-message colorized-msg
+                           :message (color/clean-colors message)
+                           :colorized-message message
                            :components [name])]))))
 
 (defn interface-errors [{:keys [implementing-components] :as interface}

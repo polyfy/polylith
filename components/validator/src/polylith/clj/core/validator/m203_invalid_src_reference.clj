@@ -8,12 +8,11 @@
 
 (defn non-existing-paths-warning [env non-existing-paths color-mode]
   (let [paths (str/join ", " (map quoted non-existing-paths))
-        message (str "Non-existing directories was found in deps.edn for the " env " environment and will be ignored: " paths)
-        colorized-msg (str "Non-existing directories was found in deps.edn for the " (color/environment env color-mode) " environment and will be ignored: " (color/grey color-mode paths))]
+        message (str "Non-existing directories was found in deps.edn for the " (color/environment env color-mode) " environment and will be ignored: " (color/grey color-mode paths))]
     [(util/ordered-map :type "warning"
                        :code 203
-                       :message message
-                       :colorized-message colorized-msg
+                       :message (color/clean-colors message)
+                       :colorized-message message
                        :environment env)]))
 
 (defn env-warnings [{:keys [name missing-paths]} color-mode]

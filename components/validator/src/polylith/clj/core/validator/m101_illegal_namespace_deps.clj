@@ -5,16 +5,13 @@
 
 (defn error-message [{:keys [namespace depends-on-interface depends-on-ns]} brick-name type interface-ns color-mode]
   (when namespace
-    (let [message (str "Illegal dependency on namespace " depends-on-interface "." depends-on-ns
-                       " in " brick-name "." namespace
-                       ". Use " depends-on-interface "." interface-ns " instead to fix the problem.")
-          colorized-msg (str "Illegal dependency on namespace " (color/namespc depends-on-interface depends-on-ns color-mode)
-                             " in " (color/brick type brick-name color-mode) "." (color/namespc namespace color-mode)
-                             ". Use " (color/namespc depends-on-interface interface-ns color-mode) " instead to fix the problem.")]
+    (let [message (str "Illegal dependency on namespace " (color/namespc depends-on-interface depends-on-ns color-mode)
+                       " in " (color/brick type brick-name color-mode) "." (color/namespc namespace color-mode)
+                       ". Use " (color/namespc depends-on-interface interface-ns color-mode) " instead to fix the problem.")]
       [(util/ordered-map :type "error"
                          :code 101
-                         :message message
-                         :colorized-message colorized-msg
+                         :message (color/clean-colors message)
+                         :colorized-message message
                          :bricks [brick-name])])))
 
 (defn brick-errors [suffixed-top-ns {:keys [name interface type namespaces-src]} interface-names interface-ns color-mode]

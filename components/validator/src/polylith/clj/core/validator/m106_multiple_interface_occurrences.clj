@@ -7,16 +7,13 @@
   (when (and (not test?)
              (> (count interface-components) 1))
     (let [component-names (mapv second interface-components)
-          message (str "More than one component that implements the " interface
-                       " interface was found in the " env-name " environment: "
-                       (str/join ", " component-names))
-          colorized-msg (str "More than one component that implements the " (color/interface interface color-mode)
-                             " interface was found in the " (color/environment env-name color-mode) " environment: "
-                              (color/component (str/join ", " component-names) color-mode))]
+          message (str "More than one component that implements the " (color/interface interface color-mode)
+                       " interface was found in the " (color/environment env-name color-mode) " environment: "
+                       (color/component (str/join ", " component-names) color-mode))]
       [(util/ordered-map :type "error"
                          :code 106
-                         :message message
-                         :colorized-message colorized-msg
+                         :message (color/clean-colors message)
+                         :colorized-message message
                          :interface interface
                          :components component-names
                          :environment env-name)])))
