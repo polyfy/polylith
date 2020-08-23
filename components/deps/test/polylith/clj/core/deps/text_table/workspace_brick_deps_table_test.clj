@@ -15,7 +15,7 @@
                              {:name "text-table",}
                              {:name "user-config",}
                              {:name "util",}
-                             {:name "validate",}
+                             {:name "validator",}
                              {:name "workspace",}
                              {:name "workspace-clj",}]
                 :bases [{:name "cli",}
@@ -25,21 +25,21 @@
                   :deps {"workspace-clj" {:direct ["common" "file" "util"], :indirect []},
                          "test-runner" {:direct ["common" "util"], :indirect []},
                          "command" {:direct ["common" "deps" "help" "util" "workspace"],
-                                    :indirect ["file" "text-table" "user-config" "validate"]},
+                                    :indirect ["file" "text-table" "user-config" "validator"]},
                          "text-table" {:direct ["util"], :indirect []},
                          "util" {:direct [], :indirect []},
-                         "validate" {:direct ["common" "deps" "util"], :indirect ["text-table"]},
+                         "validator" {:direct ["common" "deps" "util"], :indirect ["text-table"]},
                          "shell" {:direct [], :indirect []},
-                         "workspace" {:direct ["common" "deps" "file" "text-table" "user-config" "util" "validate"], :indirect []},
+                         "workspace" {:direct ["common" "deps" "file" "text-table" "user-config" "util" "validator"], :indirect []},
                          "cli" {:direct ["change" "file" "workspace"],
-                                :indirect ["common" "deps" "git" "shell" "text-table" "user-config" "util" "validate"]},
+                                :indirect ["common" "deps" "git" "shell" "text-table" "user-config" "util" "validator"]},
                          "user-config" {:direct [], :indirect []},
                          "git" {:direct ["shell"], :indirect []},
                          "deps" {:direct ["common" "text-table" "util"], :indirect []},
                          "help" {:direct ["util"], :indirect []},
                          "file" {:direct [], :indirect []},
                          "z-jocke" {:direct ["change" "file" "util" "workspace"],
-                                    :indirect ["common" "deps" "git" "shell" "text-table" "user-config" "validate"]},
+                                    :indirect ["common" "deps" "git" "shell" "text-table" "user-config" "validator"]},
                          "common" {:direct ["util"], :indirect []},
                          "change" {:direct ["git" "util"], :indirect ["shell"]}}})
 
@@ -48,15 +48,15 @@
           "                                                           o"
           "                                         t     u           r"
           "                                         e  t  s           k"
-          "                                         s  e  e        w  s"
-          "                                         t  x  r     v  o  p"
-          "                    c                    -  t  -     a  r  a"
-          "                 c  o  c                 r  -  c     l  k  c"
-          "                 h  m  o              s  u  t  o     i  s  e"
-          "                 a  m  m  d  f     h  h  n  a  n  u  d  p  -"
-          "                 n  a  m  e  i  g  e  e  n  b  f  t  a  a  c"
-          "                 g  n  o  p  l  i  l  l  e  l  i  i  t  c  l"
-          "  brick          e  d  n  s  e  t  p  l  r  e  g  l  e  e  j"
+          "                                         s  e  e     v  w  s"
+          "                                         t  x  r     a  o  p"
+          "                    c                    -  t  -     l  r  a"
+          "                 c  o  c                 r  -  c     i  k  c"
+          "                 h  m  o              s  u  t  o     d  s  e"
+          "                 a  m  m  d  f     h  h  n  a  n  u  a  p  -"
+          "                 n  a  m  e  i  g  e  e  n  b  f  t  t  a  c"
+          "                 g  n  o  p  l  i  l  l  e  l  i  i  o  c  l"
+          "  brick          e  d  n  s  e  t  p  l  r  e  g  l  r  e  j"
           "  ----------------------------------------------------------"
           "  change         ·  ·  ·  ·  ·  x  ·  +  ·  ·  ·  x  ·  ·  ·"
           "  command        ·  ·  x  x  +  ·  x  ·  ·  +  +  x  +  x  ·"
@@ -70,7 +70,7 @@
           "  text-table     ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·"
           "  user-config    ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·"
           "  util           ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·"
-          "  validate       ·  ·  x  x  ·  ·  ·  ·  ·  +  ·  x  ·  ·  ·"
+          "  validator      ·  ·  x  x  ·  ·  ·  ·  ·  +  ·  x  ·  ·  ·"
           "  workspace      ·  ·  x  x  x  ·  ·  ·  ·  x  x  x  x  ·  ·"
           "  workspace-clj  ·  ·  x  ·  x  ·  ·  ·  ·  ·  ·  x  ·  ·  ·"
           "  cli            x  ·  +  +  x  +  ·  +  ·  +  +  +  +  x  ·"

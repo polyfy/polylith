@@ -3,13 +3,13 @@
             [polylith.clj.core.change.environment :as env]))
 
 (def environments [{:name "cli"
-                    :component-names ["util" "validate"]
+                    :component-names ["util" "validator"]
                     :base-names ["cli"]}
                    {:name "core"
-                    :component-names ["change" "util" "validate" "workspace"]
+                    :component-names ["change" "util" "validator" "workspace"]
                     :base-names []}
                    {:name "dev"
-                    :component-names ["util" "validate" "workspace"]
+                    :component-names ["util" "validator" "workspace"]
                     :base-names ["cli"]}])
 
 (def changed-bricks #{"workspace" "cmd" "core"})

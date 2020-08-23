@@ -13,7 +13,7 @@
                               :type "interface",}
                              {:name "util",
                               :type "interface",}
-                             {:name "validate",
+                             {:name "validator",
                               :type "interface",}
                              {:name "user-input",
                               :type "interface",}
@@ -57,13 +57,13 @@
                                                            "user-config"
                                                            "util"
                                                            "workspace"],
-                                                  :indirect ["entity" "file" "git" "shell" "text-table" "validate"]},
+                                                  :indirect ["entity" "file" "git" "shell" "text-table" "validator"]},
                                        "text-table" {:direct ["util"], :indirect []},
                                        "util" {:direct [], :indirect []},
-                                       "validate" {:direct ["common" "deps" "file" "util"], :indirect ["text-table"]},
+                                       "validator" {:direct ["common" "deps" "file" "util"], :indirect ["text-table"]},
                                        "user-input" {:direct [], :indirect []},
                                        "shell" {:direct [], :indirect []},
-                                       "workspace" {:direct ["common" "deps" "entity" "file" "text-table" "util" "validate"],
+                                       "workspace" {:direct ["common" "deps" "entity" "file" "text-table" "util" "validator"],
                                                     :indirect []},
                                        "cli" {:direct ["change"
                                                        "command"
@@ -82,7 +82,7 @@
                                                          "test-runner"
                                                          "text-table"
                                                          "user-config"
-                                                         "validate"]},
+                                                         "validator"]},
                                        "user-config" {:direct ["util"], :indirect []},
                                        "git" {:direct ["shell"], :indirect []},
                                        "deps" {:direct ["common" "text-table" "util"], :indirect []},
@@ -107,7 +107,7 @@
                                                                  "test-runner"
                                                                  "text-table"
                                                                  "util"
-                                                                 "validate"]},
+                                                                 "validator"]},
                                        "common" {:direct ["util"], :indirect []},
                                        "change" {:direct ["common" "git" "util"], :indirect ["shell"]}},}]
                 :components [{:name "change",
@@ -159,12 +159,12 @@
                              {:name "util",
                               :type "component",
                               :interface-deps [],}
-                             {:name "validate",
+                             {:name "validator",
                               :type "component",
                               :interface-deps ["common" "deps" "file" "util"],}
                              {:name "workspace",
                               :type "component",
-                              :interface-deps ["common" "deps" "entity" "file" "text-table" "util" "validate"],}
+                              :interface-deps ["common" "deps" "entity" "file" "text-table" "util" "validator"],}
                              {:name "workspace-clj",
                               :type "component",
                               :interface-deps ["common" "file" "user-config" "util"],}]
@@ -173,10 +173,10 @@
                           :changed-components ["deps" "entity" "text-table" "workspace"],
                           :changed-bases [],
                           :changed-environments ["cli" "core"],
-                          :env->indirect-changes {"cli" ["cli" "command" "test-helper" "validate"],
-                                                  "core" ["cli" "command" "test-helper" "validate"],
-                                                  "development" ["cli" "command" "test-helper" "validate"]},
-                          :env->bricks-to-test {"cli" ["command" "deps" "entity" "validate" "workspace"], "core" [], "development" []},
+                          :env->indirect-changes {"cli" ["cli" "command" "test-helper" "validator"],
+                                                  "core" ["cli" "command" "test-helper" "validator"],
+                                                  "development" ["cli" "command" "test-helper" "validator"]},
+                          :env->bricks-to-test {"cli" ["command" "deps" "entity" "validator" "workspace"], "core" [], "development" []},
                           :environments-to-test [],}
                 :bases [{:name "cli",
                          :type "base",
@@ -196,5 +196,5 @@
           "                                file      "
           "                                text-table"
           "                                util      "
-          "                                validate  "]
+          "                                validator "]
          (brick-deps-table/table workspace environment component))))

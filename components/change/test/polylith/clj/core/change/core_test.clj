@@ -23,7 +23,7 @@
                                       "test-runner"
                                       "text-table"
                                       "util"
-                                      "validate"
+                                      "validator"
                                       "workspace"
                                       "workspace-clj"]
                     :base-names ["cli"]
@@ -31,14 +31,14 @@
                     :deps {"workspace-clj" {:direct ["common" "file" "util"], :indirect []}
                            "test-runner" {:direct ["common" "util"], :indirect []}
                            "command" {:direct ["common" "help" "test-runner" "util" "workspace"]
-                                      :indirect ["deps" "file" "text-table" "validate"]}
+                                      :indirect ["deps" "file" "text-table" "validator"]}
                            "text-table" {:direct ["util"], :indirect []}
                            "util" {:direct [], :indirect []}
-                           "validate" {:direct ["common" "deps" "util"], :indirect []}
+                           "validator" {:direct ["common" "deps" "util"], :indirect []}
                            "shell" {:direct [], :indirect []}
-                           "workspace" {:direct ["common" "deps" "file" "text-table" "util" "validate"], :indirect []}
+                           "workspace" {:direct ["common" "deps" "file" "text-table" "util" "validator"], :indirect []}
                            "cli" {:direct ["change" "command" "file" "workspace" "workspace-clj"]
-                                  :indirect ["common" "deps" "git" "help" "shell" "test-runner" "text-table" "util" "validate"]}
+                                  :indirect ["common" "deps" "git" "help" "shell" "test-runner" "text-table" "util" "validator"]}
                            "git" {:direct ["shell"], :indirect []}
                            "deps" {:direct [], :indirect []}
                            "help" {:direct ["util"], :indirect []}
@@ -49,7 +49,7 @@
                     :active? true
                     :dev? false
                     :test-component-names ["change" "common" "deps" "file" "git" "help" "shell"]
-                    :component-names ["change" "common" "deps" "file" "git" "help" "shell" "text-table" "util" "validate" "workspace"]
+                    :component-names ["change" "common" "deps" "file" "git" "help" "shell" "text-table" "util" "validator" "workspace"]
                     :base-names []
                     :test-base-names []
                     :src-paths ["components/change/src"
@@ -61,18 +61,18 @@
                                 "components/shell/src"
                                 "components/text-table/src"
                                 "components/util/src"
-                                "components/validate/src"
+                                "components/validator/src"
                                 "components/workspace/src"]
                     :deps {"workspace-clj" {:direct ["common" "file" "util"], :indirect []}
                            "test-runner" {:direct ["common" "util"], :indirect []}
-                           "command" {:direct ["common" "help" "util" "workspace"], :indirect ["deps" "file" "text-table" "validate"]}
+                           "command" {:direct ["common" "help" "util" "workspace"], :indirect ["deps" "file" "text-table" "validator"]}
                            "text-table" {:direct ["util"], :indirect []}
                            "util" {:direct [], :indirect []}
-                           "validate" {:direct ["common" "deps" "util"], :indirect []}
+                           "validator" {:direct ["common" "deps" "util"], :indirect []}
                            "shell" {:direct [], :indirect []}
-                           "workspace" {:direct ["common" "deps" "file" "text-table" "util" "validate"], :indirect []}
+                           "workspace" {:direct ["common" "deps" "file" "text-table" "util" "validator"], :indirect []}
                            "cli" {:direct ["change" "file" "workspace"]
-                                  :indirect ["common" "deps" "git" "shell" "text-table" "util" "validate"]}
+                                  :indirect ["common" "deps" "git" "shell" "text-table" "util" "validator"]}
                            "git" {:direct ["shell"], :indirect []}
                            "deps" {:direct [], :indirect []}
                            "help" {:direct ["util"], :indirect []}
@@ -100,20 +100,20 @@
                                 "components/test-runner/src"
                                 "components/text-table/src"
                                 "components/util/src"
-                                "components/validate/src"
+                                "components/validator/src"
                                 "components/workspace/src"
                                 "components/workspace-clj/src"]
                     :deps {"workspace-clj" {:direct ["common" "file" "util"], :indirect []}
                            "test-runner" {:direct ["common" "util"], :indirect []}
                            "command" {:direct ["common" "help" "test-runner" "util" "workspace"]
-                                      :indirect ["deps" "file" "text-table" "validate"]}
+                                      :indirect ["deps" "file" "text-table" "validator"]}
                            "text-table" {:direct ["util"], :indirect []}
                            "util" {:direct [], :indirect []}
-                           "validate" {:direct ["common" "deps" "util"], :indirect []}
+                           "validator" {:direct ["common" "deps" "util"], :indirect []}
                            "shell" {:direct [], :indirect []}
-                           "workspace" {:direct ["common" "deps" "file" "text-table" "util" "validate"], :indirect []}
+                           "workspace" {:direct ["common" "deps" "file" "text-table" "util" "validator"], :indirect []}
                            "cli" {:direct ["change" "command" "file" "workspace" "workspace-clj"]
-                                  :indirect ["common" "deps" "git" "help" "shell" "test-runner" "text-table" "util" "validate"]}
+                                  :indirect ["common" "deps" "git" "help" "shell" "test-runner" "text-table" "util" "validator"]}
                            "git" {:direct ["shell"], :indirect []}
                            "deps" {:direct [], :indirect []}
                            "help" {:direct ["util"], :indirect []}
@@ -136,9 +136,9 @@
             :changed-bases []
             :changed-environments []
             :environments-to-test []
-            :env->indirect-changes {"cli" ["cli" "command" "validate" "workspace"]
-                                    "core" ["cli" "command" "validate" "workspace"]
-                                    "dev" ["cli" "command" "validate" "workspace"]}
+            :env->indirect-changes {"cli" ["cli" "command" "validator" "workspace"]
+                                    "core" ["cli" "command" "validator" "workspace"]
+                                    "dev" ["cli" "command" "validator" "workspace"]}
             :env->bricks-to-test {"cli" []
                                   "core" ["change" "deps"]
                                   "dev" []}
@@ -154,9 +154,9 @@
             :changed-bases []
             :changed-environments []
             :environments-to-test []
-            :env->indirect-changes {"cli" ["cli" "command" "validate" "workspace"]
-                                    "core" ["cli" "command" "validate" "workspace"]
-                                    "dev" ["cli" "command" "validate" "workspace"]}
+            :env->indirect-changes {"cli" ["cli" "command" "validator" "workspace"]
+                                    "core" ["cli" "command" "validator" "workspace"]
+                                    "dev" ["cli" "command" "validator" "workspace"]}
             :env->bricks-to-test {"cli" []
                                   "core" ["change" "deps"]
                                   "dev" ["change" "cli"]}
@@ -172,9 +172,9 @@
             :changed-bases []
             :changed-environments []
             :environments-to-test []
-            :env->indirect-changes {"cli" ["cli" "command" "validate" "workspace"]
-                                    "core" ["cli" "command" "validate" "workspace"]
-                                    "dev" ["cli" "command" "validate" "workspace"]}
+            :env->indirect-changes {"cli" ["cli" "command" "validator" "workspace"]
+                                    "core" ["cli" "command" "validator" "workspace"]
+                                    "dev" ["cli" "command" "validator" "workspace"]}
             :env->bricks-to-test {"cli" []
                                   "core" ["change" "common" "deps" "file" "git" "help" "shell"]
                                   "dev" []}

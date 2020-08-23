@@ -36,12 +36,12 @@
                  {:name "util"
                   :interface {:name "util"}
                   :interface-deps []}
-                 {:name "validate"
-                  :interface {:name "validate"}
+                 {:name "validator"
+                  :interface {:name "validator"}
                   :interface-deps ["common" "deps" "util"]}
                  {:name "workspace"
                   :interface {:name "workspace"}
-                  :interface-deps ["common" "deps" "file" "text-table" "util" "validate"]}
+                  :interface-deps ["common" "deps" "file" "text-table" "util" "validator"]}
                  {:name "workspace-clj"
                   :interface {:name "workspace-clj" :definitions []}
                   :interface-deps ["common" "file" "util"]}])
@@ -51,7 +51,7 @@
             {:name "z-jocke"
              :interface-deps ["util" "workspace" "workspace-clj"]}])
 
-(def component-names ["change" "command" "common" "deps" "file" "git" "help" "shell" "test-runner" "text-table" "util" "validate" "workspace" "workspace-clj"])
+(def component-names ["change" "command" "common" "deps" "file" "git" "help" "shell" "test-runner" "text-table" "util" "validator" "workspace" "workspace-clj"])
 
 (deftest deps--workspace-with-dependencies--return-dependencies-per-environment
   (is (= {"change"        {:direct   ["git"
@@ -70,7 +70,7 @@
                                       "test-runner"
                                       "text-table"
                                       "util"
-                                      "validate"]}
+                                      "validator"]}
           "command"       {:circular ["command"
                                       "help"
                                       "command"]
@@ -83,7 +83,7 @@
                                       "deps"
                                       "file"
                                       "text-table"
-                                      "validate"]}
+                                      "validator"]}
           "common"        {:direct   ["util"]
                            :indirect []}
           "deps"          {:direct   []
@@ -103,7 +103,7 @@
                                       "help"
                                       "test-runner"
                                       "text-table"
-                                      "validate"
+                                      "validator"
                                       "workspace"]}
           "shell"         {:direct   []
                            :indirect []}
@@ -115,16 +115,16 @@
                            :indirect []}
           "util"          {:direct   []
                            :indirect []}
-          "validate"      {:direct   ["common"
-                                      "deps"
-                                      "util"]
-                           :indirect []}
+          "validator"      {:direct   ["common"
+                                       "deps"
+                                       "util"]
+                            :indirect []}
           "workspace"     {:direct   ["common"
                                       "deps"
                                       "file"
                                       "text-table"
                                       "util"
-                                      "validate"]
+                                      "validator"]
                            :indirect []}
           "workspace-clj" {:direct   ["common"
                                       "file"
@@ -137,5 +137,5 @@
                                       "deps"
                                       "file"
                                       "text-table"
-                                      "validate"]}}
+                                      "validator"]}}
          (deps/environment-deps component-names components bases))))

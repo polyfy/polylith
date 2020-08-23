@@ -4,21 +4,21 @@
 
 (def environment {:deps {"workspace-clj" {:direct ["file" "util"], :indirect []},
                          "test-runner" {:direct ["util"], :indirect []}
-                         "command" {:direct ["deps" "help" "util" "workspace"], :indirect ["file" "text-table" "user-config" "validate"]}
+                         "command" {:direct ["deps" "help" "util" "workspace"], :indirect ["file" "text-table" "user-config" "validator"]}
                          "text-table" {:direct ["util"], :indirect []}
                          "util" {:direct [], :indirect []}
-                         "validate" {:direct ["deps" "util"], :indirect ["text-table"]}
+                         "validator" {:direct ["deps" "util"], :indirect ["text-table"]}
                          "shell" {:direct [], :indirect []}
-                         "workspace" {:direct ["deps" "file" "text-table" "user-config" "util" "validate"], :indirect []}
+                         "workspace" {:direct ["deps" "file" "text-table" "user-config" "util" "validator"], :indirect []}
                          "cli" {:direct ["change" "file" "workspace"]
-                                :indirect ["deps" "git" "shell" "text-table" "user-config" "util" "validate"]}
+                                :indirect ["deps" "git" "shell" "text-table" "user-config" "util" "validator"]}
                          "user-config" {:direct [], :indirect []}
                          "git" {:direct ["shell"], :indirect []}
                          "deps" {:direct ["text-table" "util"], :indirect []}
                          "help" {:direct ["util"], :indirect []}
                          "file" {:direct [], :indirect []}
                          "z-jocke" {:direct ["change" "file" "util" "workspace"]
-                                    :indirect ["deps" "git" "shell" "text-table" "user-config" "validate"]}
+                                    :indirect ["deps" "git" "shell" "text-table" "user-config" "validator"]}
                          "common" {:direct ["util"], :indirect []}
                          "change" {:direct ["git" "util"], :indirect ["shell"]}}})
 
@@ -30,11 +30,11 @@
                    "text-table" :green
                    "user-config" :green
                    "util" :green
-                   "validate" :green
+                   "validator" :green
                    "workspace" :green
                    "z-jocke" :blue})
 
-(def brick->interface-deps {"workspace" ["common" "deps" "file" "text-table" "user-config" "util" "validate"]})
+(def brick->interface-deps {"workspace" ["common" "deps" "file" "text-table" "user-config" "util" "validator"]})
 
 (deftest deps
   (is (= {:dependers [["command" :green]
@@ -46,5 +46,5 @@
                       ["text-table" :green]
                       ["user-config" :green]
                       ["util" :green]
-                      ["validate" :green]]}
+                      ["validator" :green]]}
          (brick-deps/deps environment brick->color brick->interface-deps "workspace"))))

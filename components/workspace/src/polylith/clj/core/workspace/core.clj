@@ -2,7 +2,7 @@
   (:require [clojure.string :as str]
             [clojure.walk :as walk]
             [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.validate.interfc :as validate]
+            [polylith.clj.core.validator.interfc :as validator]
             [polylith.clj.core.workspace.alias :as alias]
             [polylith.clj.core.workspace.base :as base]
             [polylith.clj.core.workspace.component :as component]
@@ -48,7 +48,7 @@
         brick->lib-imports (brick->lib-imports enriched-bricks)
         env->alias (alias/env->alias settings environments)
         enriched-environments (vec (sort-by env-sorter (map #(env/enrich-env % ws-dir enriched-components enriched-bases brick->loc brick->lib-imports env->alias settings user-input) environments)))
-        messages (validate/messages ws-dir suffixed-top-ns settings interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns ns->lib color-mode)]
+        messages (validator/messages ws-dir suffixed-top-ns settings interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns ns->lib color-mode)]
     (array-map :name ws-name
                :ws-dir ws-dir
                :user-input user-input

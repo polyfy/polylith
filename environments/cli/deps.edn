@@ -17,7 +17,7 @@
            "../../components/user-config/src"
            "../../components/user-input/src"
            "../../components/util/src"
-           "../../components/validate/src"
+           "../../components/validator/src"
            "../../components/workspace/src"
            "../../components/workspace-clj/src"
            ; Bases
@@ -45,7 +45,7 @@
                                    "../../components/user-config/test"
                                    "../../components/user-input/test"
                                    "../../components/util/test"
-                                   "../../components/validate/test"
+                                   "../../components/validator/test"
                                    "../../components/workspace/test"
                                    "../../components/workspace-clj/test"
 

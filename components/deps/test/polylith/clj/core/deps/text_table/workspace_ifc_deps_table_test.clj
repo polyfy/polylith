@@ -15,7 +15,7 @@
                              {:name "text-table"}
                              {:name "user-config"}
                              {:name "util"}
-                             {:name "validate"}
+                             {:name "validator"}
                              {:name "workspace"}
                              {:name "workspace-clj"}]
                 :components [{:name "change",
@@ -46,10 +46,10 @@
                               :interface-deps []}
                              {:name "util",
                               :interface-deps []}
-                             {:name "validate",
+                             {:name "validator",
                               :interface-deps ["common" "deps" "util"]}
                              {:name "workspace",
-                              :interface-deps ["common" "deps" "file" "text-table" "user-config" "util" "validate"]}
+                              :interface-deps ["common" "deps" "file" "text-table" "user-config" "util" "validator"]}
                              {:name "workspace-clj",
                               :interface-deps ["common" "file" "util"]}]
                 :bases [{:name "cli",
@@ -62,15 +62,15 @@
           "                                                           o"
           "                                         t     u           r"
           "                                         e  t  s           k"
-          "                                         s  e  e        w  s"
-          "                                         t  x  r     v  o  p"
-          "                    c                    -  t  -     a  r  a"
-          "                 c  o  c                 r  -  c     l  k  c"
-          "                 h  m  o              s  u  t  o     i  s  e"
-          "                 a  m  m  d  f     h  h  n  a  n  u  d  p  -"
-          "                 n  a  m  e  i  g  e  e  n  b  f  t  a  a  c"
-          "                 g  n  o  p  l  i  l  l  e  l  i  i  t  c  l"
-          "  brick          e  d  n  s  e  t  p  l  r  e  g  l  e  e  j"
+          "                                         s  e  e     v  w  s"
+          "                                         t  x  r     a  o  p"
+          "                    c                    -  t  -     l  r  a"
+          "                 c  o  c                 r  -  c     i  k  c"
+          "                 h  m  o              s  u  t  o     d  s  e"
+          "                 a  m  m  d  f     h  h  n  a  n  u  a  p  -"
+          "                 n  a  m  e  i  g  e  e  n  b  f  t  t  a  c"
+          "                 g  n  o  p  l  i  l  l  e  l  i  i  o  c  l"
+          "  brick          e  d  n  s  e  t  p  l  r  e  g  l  r  e  j"
           "  ----------------------------------------------------------"
           "  change         ·  ·  ·  ·  ·  x  ·  ·  ·  ·  ·  x  ·  ·  ·"
           "  command        ·  ·  x  x  ·  ·  x  ·  x  ·  ·  x  ·  x  ·"
@@ -85,7 +85,7 @@
           "  text-table     ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·"
           "  user-config    ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·"
           "  util           ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·"
-          "  validate       ·  ·  x  x  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·"
+          "  validator      ·  ·  x  x  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·"
           "  workspace      ·  ·  x  x  x  ·  ·  ·  ·  x  x  x  x  ·  ·"
           "  workspace-clj  ·  ·  x  ·  x  ·  ·  ·  ·  ·  ·  x  ·  ·  ·"
           "  cli            x  x  ·  ·  x  ·  ·  ·  ·  ·  ·  ·  ·  x  x"

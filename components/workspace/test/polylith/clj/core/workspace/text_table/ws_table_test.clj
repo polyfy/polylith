@@ -196,7 +196,7 @@
                                              :parameters [{:name "start-time"}],
                                              :sub-ns "time"}],
                               :implementing-components ["util"]}
-                             {:name "validate",
+                             {:name "validator",
                               :type "interface",
                               :definitions [{:name "messages",
                                              :type "function",
@@ -210,7 +210,7 @@
                                                           {:name "interface-ns"}
                                                           {:name "ns->lib"}
                                                           {:name "color-mode"}]}],
-                              :implementing-components ["validate"]}
+                              :implementing-components ["validator"]}
                              {:name "shell",
                               :type "interface",
                               :definitions [{:name "sh", :type "function", :parameters [{:name "&"} {:name "args"}]}],
@@ -457,7 +457,7 @@
                                                        "git"
                                                        "text-table"
                                                        "util"
-                                                       "validate"
+                                                       "validator"
                                                        "workspace"
                                                        "workspace-clj"],
                                 :component-names ["change"
@@ -475,7 +475,7 @@
                                                   "text-table"
                                                   "user-config"
                                                   "util"
-                                                  "validate"
+                                                  "validator"
                                                   "workspace"
                                                   "workspace-clj"],
                                 :base-names ["cli"],
@@ -502,7 +502,7 @@
                                             "components/text-table/src"
                                             "components/user-config/src"
                                             "components/util/src"
-                                            "components/validate/src"
+                                            "components/validator/src"
                                             "components/workspace-clj/src"
                                             "components/workspace/src"],
                                 :test-paths ["bases/cli/test"
@@ -521,7 +521,7 @@
                                              "components/text-table/test"
                                              "components/user-config/test"
                                              "components/util/test"
-                                             "components/validate/test"
+                                             "components/validator/test"
                                              "components/workspace-clj/test"
                                              "components/workspace/test"
                                              "environments/cli/test"],
@@ -551,10 +551,10 @@
                                                            "user-config"
                                                            "util"
                                                            "workspace"],
-                                                  :indirect ["path-finder" "file" "git" "shell" "text-table" "validate"]},
+                                                  :indirect ["path-finder" "file" "git" "shell" "text-table" "validator"]},
                                        "text-table" {:direct ["util"], :indirect []},
                                        "util" {:direct [], :indirect []},
-                                       "validate" {:direct ["common" "deps" "file" "util"], :indirect ["text-table"]},
+                                       "validator" {:direct ["common" "deps" "file" "util"], :indirect ["text-table"]},
                                        "shell" {:direct [], :indirect []},
                                        "workspace" {:direct ["common"
                                                              "deps"
@@ -562,7 +562,7 @@
                                                              "file"
                                                              "text-table"
                                                              "util"
-                                                             "validate"],
+                                                             "validator"],
                                                     :indirect []},
                                        "cli" {:direct ["change" "command" "common" "file" "util" "workspace" "workspace-clj"],
                                               :indirect ["create"
@@ -574,7 +574,7 @@
                                                          "test-runner"
                                                          "text-table"
                                                          "user-config"
-                                                         "validate"]},
+                                                         "validator"]},
                                        "user-config" {:direct ["util"], :indirect []},
                                        "git" {:direct ["shell"], :indirect []},
                                        "deps" {:direct ["common" "text-table" "util"], :indirect []},
@@ -598,7 +598,7 @@
                                                                  "test-runner"
                                                                  "text-table"
                                                                  "util"
-                                                                 "validate"]},
+                                                                 "validator"]},
                                        "common" {:direct ["util"], :indirect []},
                                        "change" {:direct ["common" "git" "util"], :indirect ["shell"]}},
                                 :test-lib-deps {},
@@ -627,7 +627,7 @@
                                                   "text-table"
                                                   "user-config"
                                                   "util"
-                                                  "validate"
+                                                  "validator"
                                                   "workspace"],
                                 :base-names [],
                                 :test-base-names [],
@@ -647,7 +647,7 @@
                                             "components/text-table/src"
                                             "components/user-config/src"
                                             "components/util/src"
-                                            "components/validate/src"
+                                            "components/validator/src"
                                             "components/workspace/src"],
                                 :test-paths [],
                                 :lib-imports ["clojure.core.matrix"
@@ -664,10 +664,10 @@
                                 :deps {"workspace-clj" {:direct ["common" "file" "user-config" "util"], :indirect []},
                                        "test-runner" {:direct ["common" "util"], :indirect []},
                                        "command" {:direct ["common" "deps" "help" "user-config" "util" "workspace"],
-                                                  :indirect ["path-finder" "file" "text-table" "text-table2" "validate"]},
+                                                  :indirect ["path-finder" "file" "text-table" "text-table2" "validator"]},
                                        "text-table" {:direct ["util"], :indirect []},
                                        "util" {:direct [], :indirect []},
-                                       "validate" {:direct ["common" "deps" "file" "util"], :indirect ["text-table"]},
+                                       "validator" {:direct ["common" "deps" "file" "util"], :indirect ["text-table"]},
                                        "text-table2" {:direct ["util"], :indirect []},
                                        "shell" {:direct [], :indirect []},
                                        "workspace" {:direct ["common"
@@ -676,10 +676,10 @@
                                                              "file"
                                                              "text-table"
                                                              "util"
-                                                             "validate"],
+                                                             "validator"],
                                                     :indirect []},
                                        "cli" {:direct ["change" "common" "file" "util" "workspace"],
-                                              :indirect ["deps" "path-finder" "git" "shell" "text-table" "text-table2" "validate"]},
+                                              :indirect ["deps" "path-finder" "git" "shell" "text-table" "text-table2" "validator"]},
                                        "user-config" {:direct ["util"], :indirect []},
                                        "git" {:direct ["shell"], :indirect []},
                                        "deps" {:direct ["common" "text-table" "util"], :indirect []},
@@ -688,7 +688,7 @@
                                        "file" {:direct ["util"], :indirect []},
                                        "path-finder" {:direct ["file" "util"], :indirect []},
                                        "test-helper" {:direct ["change" "common" "file" "git" "user-config" "workspace"],
-                                                      :indirect ["deps" "path-finder" "shell" "text-table" "text-table2" "util" "validate"]},
+                                                      :indirect ["deps" "path-finder" "shell" "text-table" "text-table2" "util" "validator"]},
                                        "common" {:direct ["util"], :indirect []},
                                        "change" {:direct ["common" "git" "util"], :indirect ["shell"]}},
                                 :test-lib-deps {},
@@ -714,7 +714,7 @@
                                                        "git"
                                                        "text-table"
                                                        "util"
-                                                       "validate"
+                                                       "validator"
                                                        "workspace"
                                                        "workspace-clj"],
                                 :component-names ["change"
@@ -731,7 +731,7 @@
                                                   "text-table"
                                                   "user-config"
                                                   "util"
-                                                  "validate"
+                                                  "validator"
                                                   "workspace"
                                                   "workspace-clj"],
                                 :base-names ["cli"],
@@ -765,7 +765,7 @@
                                             "components/text-table/src"
                                             "components/user-config/src"
                                             "components/util/src"
-                                            "components/validate/src"
+                                            "components/validator/src"
                                             "components/workspace-clj/src"
                                             "components/workspace/src"
                                             "development/src"],
@@ -784,7 +784,7 @@
                                              "components/text-table/test"
                                              "components/user-config/test"
                                              "components/util/test"
-                                             "components/validate/test"
+                                             "components/validator/test"
                                              "components/workspace-clj/test"
                                              "components/workspace/test"
                                              "environments/cli/test"]
@@ -816,10 +816,10 @@
                                                            "user-config"
                                                            "util"
                                                            "workspace"],
-                                                  :indirect ["path-finder" "file" "git" "shell" "text-table" "text-table2" "validate"]},
+                                                  :indirect ["path-finder" "file" "git" "shell" "text-table" "text-table2" "validator"]},
                                        "text-table" {:direct ["util"], :indirect []},
                                        "util" {:direct [], :indirect []},
-                                       "validate" {:direct ["common" "deps" "file" "util"], :indirect ["text-table"]},
+                                       "validator" {:direct ["common" "deps" "file" "util"], :indirect ["text-table"]},
                                        "text-table2" {:direct ["util"], :indirect []},
                                        "shell" {:direct [], :indirect []},
                                        "workspace" {:direct ["common"
@@ -828,7 +828,7 @@
                                                              "file"
                                                              "text-table"
                                                              "util"
-                                                             "validate"],
+                                                             "validator"],
                                                     :indirect []},
                                        "cli" {:direct ["change" "command" "common" "file" "util" "workspace" "workspace-clj"],
                                               :indirect ["create"
@@ -840,7 +840,7 @@
                                                          "test-runner"
                                                          "text-table"
                                                          "user-config"
-                                                         "validate"]},
+                                                         "validator"]},
                                        "user-config" {:direct ["util"], :indirect []},
                                        "git" {:direct ["shell"], :indirect []},
                                        "deps" {:direct ["common" "text-table" "util"], :indirect []},
@@ -864,7 +864,7 @@
                                                                  "test-runner"
                                                                  "text-table"
                                                                  "util"
-                                                                 "validate"]},
+                                                                 "validator"]},
                                        "common" {:direct ["util"], :indirect []},
                                        "change" {:direct ["common" "git" "util"], :indirect ["shell"]}},
                                 :test-lib-deps {},
@@ -1942,11 +1942,11 @@
                               :lib-imports-test [],
                               :interface-deps [],
                               :lib-deps ["clojure"]}
-                             {:name "validate",
+                             {:name "validator",
                               :type "component",
                               :lines-of-code-src 420,
                               :lines-of-code-test 810,
-                              :interface {:name "validate",
+                              :interface {:name "validator",
                                           :definitions [{:name "messages",
                                                          :type "function",
                                                          :parameters [{:name "ws-dir"}
@@ -1961,41 +1961,41 @@
                                                                       {:name "color-mode"}]}]},
                               :namespaces-src [{:name "m104-circular-deps",
                                                 :namespace "polylith.clj.core.validate.m104-circular-deps",
-                                                :file-path "./components/validate/src/polylith/clj/core/validate/m104_circular_deps.clj",
+                                                :file-path "./components/validator/src/polylith/clj/core/validator/m104_circular_deps.clj",
                                                 :imports ["clojure.string"
                                                           "polylith.clj.core.util.interfc"
                                                           "polylith.clj.core.util.interfc.color"]}
                                                {:name "m105-illegal-name-sharing",
                                                 :namespace "polylith.clj.core.validate.m105-illegal-name-sharing",
-                                                :file-path "./components/validate/src/polylith/clj/core/validate/m105_illegal_name_sharing.clj",
+                                                :file-path "./components/validator/src/polylith/clj/core/validator/m105_illegal_name_sharing.clj",
                                                 :imports ["clojure.set"
                                                           "clojure.string"
                                                           "polylith.clj.core.util.interfc"
                                                           "polylith.clj.core.util.interfc.color"]}
                                                {:name "m107-missing-componens-in-environment",
                                                 :namespace "polylith.clj.core.validate.m107-missing-componens-in-environment",
-                                                :file-path "./components/validate/src/polylith/clj/core/validate/m107_missing_componens_in_environment.clj",
+                                                :file-path "./components/validator/src/polylith/clj/core/validator/m107_missing_componens_in_environment.clj",
                                                 :imports ["clojure.set"
                                                           "clojure.string"
                                                           "polylith.clj.core.util.interfc"
                                                           "polylith.clj.core.util.interfc.color"]}
                                                {:name "m102-function-or-macro-is-defined-twice",
                                                 :namespace "polylith.clj.core.validate.m102-function-or-macro-is-defined-twice",
-                                                :file-path "./components/validate/src/polylith/clj/core/validate/m102_function_or_macro_is_defined_twice.clj",
+                                                :file-path "./components/validator/src/polylith/clj/core/validator/m102_function_or_macro_is_defined_twice.clj",
                                                 :imports ["clojure.string"
                                                           "polylith.clj.core.util.interfc"
                                                           "polylith.clj.core.util.interfc.color"
                                                           "polylith.clj.core.validate.shared"]}
                                                {:name "m201-mismatching-parameters",
                                                 :namespace "polylith.clj.core.validate.m201-mismatching-parameters",
-                                                :file-path "./components/validate/src/polylith/clj/core/validate/m201_mismatching_parameters.clj",
+                                                :file-path "./components/validator/src/polylith/clj/core/validator/m201_mismatching_parameters.clj",
                                                 :imports ["clojure.string"
                                                           "polylith.clj.core.util.interfc"
                                                           "polylith.clj.core.util.interfc.color"
                                                           "polylith.clj.core.validate.shared"]}
                                                {:name "interfc",
                                                 :namespace "polylith.clj.core.validate.interfc",
-                                                :file-path "./components/validate/src/polylith/clj/core/validate/interfc.clj",
+                                                :file-path "./components/validator/src/polylith/clj/core/validator/interfc.clj",
                                                 :imports ["polylith.clj.core.validate.m101-illegal-namespace-deps"
                                                           "polylith.clj.core.validate.m102-function-or-macro-is-defined-twice"
                                                           "polylith.clj.core.validate.m103-missing-defs"
@@ -2008,31 +2008,31 @@
                                                           "polylith.clj.core.validate.m203-invalid-src-reference"]}
                                                {:name "m202-missing-libraries",
                                                 :namespace "polylith.clj.core.validate.m202-missing-libraries",
-                                                :file-path "./components/validate/src/polylith/clj/core/validate/m202_missing_libraries.clj",
+                                                :file-path "./components/validator/src/polylith/clj/core/validator/m202_missing_libraries.clj",
                                                 :imports ["clojure.set"
                                                           "clojure.string"
                                                           "polylith.clj.core.util.interfc"
                                                           "polylith.clj.core.util.interfc.color"]}
                                                {:name "m106-multiple-interface-occurrences",
                                                 :namespace "polylith.clj.core.validate.m106-multiple-interface-occurrences",
-                                                :file-path "./components/validate/src/polylith/clj/core/validate/m106_multiple_interface_occurrences.clj",
+                                                :file-path "./components/validator/src/polylith/clj/core/validator/m106_multiple_interface_occurrences.clj",
                                                 :imports ["clojure.string"
                                                           "polylith.clj.core.util.interfc"
                                                           "polylith.clj.core.util.interfc.color"]}
                                                {:name "m101-illegal-namespace-deps",
                                                 :namespace "polylith.clj.core.validate.m101-illegal-namespace-deps",
-                                                :file-path "./components/validate/src/polylith/clj/core/validate/m101_illegal_namespace_deps.clj",
+                                                :file-path "./components/validator/src/polylith/clj/core/validator/m101_illegal_namespace_deps.clj",
                                                 :imports ["polylith.clj.core.common.interfc"
                                                           "polylith.clj.core.deps.interfc"
                                                           "polylith.clj.core.util.interfc"
                                                           "polylith.clj.core.util.interfc.color"]}
                                                {:name "shared",
                                                 :namespace "polylith.clj.core.validate.shared",
-                                                :file-path "./components/validate/src/polylith/clj/core/validate/shared.clj",
+                                                :file-path "./components/validator/src/polylith/clj/core/validator/shared.clj",
                                                 :imports ["clojure.string"]}
                                                {:name "m103-missing-defs",
                                                 :namespace "polylith.clj.core.validate.m103-missing-defs",
-                                                :file-path "./components/validate/src/polylith/clj/core/validate/m103_missing_defs.clj",
+                                                :file-path "./components/validator/src/polylith/clj/core/validator/m103_missing_defs.clj",
                                                 :imports ["clojure.set"
                                                           "clojure.string"
                                                           "polylith.clj.core.util.interfc"
@@ -2040,7 +2040,7 @@
                                                           "polylith.clj.core.validate.shared"]}
                                                {:name "m203-invalid-src-reference",
                                                 :namespace "polylith.clj.core.validate.m203-invalid-src-reference",
-                                                :file-path "./components/validate/src/polylith/clj/core/validate/m203_invalid_src_reference.clj",
+                                                :file-path "./components/validator/src/polylith/clj/core/validator/m203_invalid_src_reference.clj",
                                                 :imports ["clojure.string"
                                                           "polylith.clj.core.file.interfc"
                                                           "polylith.clj.core.util.interfc"
@@ -2048,27 +2048,27 @@
                                                           "polylith.clj.core.util.interfc.str"]}],
                               :namespaces-test [{:name "m102-duplicated-parameter-lists-test",
                                                  :namespace "polylith.clj.core.validate.m102-duplicated-parameter-lists-test",
-                                                 :file-path "./components/validate/test/polylith/clj/core/validate/m102_duplicated_parameter_lists_test.clj",
+                                                 :file-path "./components/validator/test/polylith/clj/core/validator/m102_duplicated_parameter_lists_test.clj",
                                                  :imports ["polylith.clj.core.util.interfc.color"
                                                            "polylith.clj.core.validate.m102-function-or-macro-is-defined-twice"]}
                                                 {:name "m101-illegal-namespace-deps-test",
                                                  :namespace "polylith.clj.core.validate.m101-illegal-namespace-deps-test",
-                                                 :file-path "./components/validate/test/polylith/clj/core/validate/m101_illegal_namespace_deps_test.clj",
+                                                 :file-path "./components/validator/test/polylith/clj/core/validator/m101_illegal_namespace_deps_test.clj",
                                                  :imports ["polylith.clj.core.util.interfc.color"
                                                            "polylith.clj.core.validate.m101-illegal-namespace-deps"]}
                                                 {:name "m203-invalid-src-reference-test",
                                                  :namespace "polylith.clj.core.validate.m203-invalid-src-reference-test",
-                                                 :file-path "./components/validate/test/polylith/clj/core/validate/m203_invalid_src_reference_test.clj",
+                                                 :file-path "./components/validator/test/polylith/clj/core/validator/m203_invalid_src_reference_test.clj",
                                                  :imports ["polylith.clj.core.util.interfc.color"
                                                            "polylith.clj.core.validate.m203-invalid-src-reference"]}
                                                 {:name "m105-illegal-name-sharing-test",
                                                  :namespace "polylith.clj.core.validate.m105-illegal-name-sharing-test",
-                                                 :file-path "./components/validate/test/polylith/clj/core/validate/m105_illegal_name_sharing_test.clj",
+                                                 :file-path "./components/validator/test/polylith/clj/core/validator/m105_illegal_name_sharing_test.clj",
                                                  :imports ["polylith.clj.core.util.interfc.color"
                                                            "polylith.clj.core.validate.m105-illegal-name-sharing"]}
                                                 {:name "m104-circular-deps-test",
                                                  :namespace "polylith.clj.core.validate.m104-circular-deps-test",
-                                                 :file-path "./components/validate/test/polylith/clj/core/validate/m104_circular_deps_test.clj",
+                                                 :file-path "./components/validator/test/polylith/clj/core/validator/m104_circular_deps_test.clj",
                                                  :imports ["polylith.clj.core.util.interfc.color"
                                                            "polylith.clj.core.validate.m104-circular-deps"]}
                                                 {:name "m106-multiple-interface-occurrences-test",
@@ -2282,7 +2282,7 @@
           "  text-table     text-table      x--  x--    x--"
           "  user-config    user-config     x--  x--    x--"
           "  util           util            xx-  x--    xx-"
-          "  validate       validate        xx-  x--    xx-"
+          "  validator      validator       xx-  x--    xx-"
           "  workspace      workspace *     xxx  x--    xx-"
           "  workspace-clj  workspace-clj   xx-  ---    xx-"
           "  -              cli             x--  ---    x--"]
@@ -2306,7 +2306,7 @@
           "  text-table     text-table      x---   x---    x---      145   117"
           "  user-config    user-config     x---   x---    x---       18     0"
           "  util           util            x-x-   x---    x-x-      290    64"
-          "  validate       validate        x-x-   x---    x-x-      420   810"
+          "  validator      validator       x-x-   x---    x-x-      420   810"
           "  workspace      workspace *     x-xx   x---    x-x-      844 1,008"
           "  workspace-clj  workspace-clj   x-x-   ----    x-x-      324   150"
           "  -              cli             x---   ----    x---       22     0"
@@ -2331,7 +2331,7 @@
           "  text-table     text-table      x--  x--    x--"
           "  user-config    user-config     x--  x--    x--"
           "  util           util            xx-  x--    xx-"
-          "  validate       validate        xx-  x--    xx-"
+          "  validator      validator       xx-  x--    xx-"
           "  workspace      workspace *     xxx  x--    xx-"
           "  workspace-clj  workspace-clj   xx-  ---    xx-"
           "  -              cli             x--  ---    x--"]
@@ -2355,7 +2355,7 @@
           "  text-table     text-table      x--  x--    x--    --   "
           "  user-config    user-config     x--  x--    x--    --   "
           "  util           util            xx-  x--    xx-    --   "
-          "  validate       validate        xx-  x--    xx-    --   "
+          "  validator      validator       xx-  x--    xx-    --   "
           "  workspace      workspace *     xxx  x--    xx-    --   "
           "  workspace-clj  workspace-clj   xx-  ---    xx-    --   "
           "  -              cli             x--  ---    x--    --   "]
@@ -2379,7 +2379,7 @@
           "  text-table     text-table       x--    x--     x--      145   117"
           "  user-config    user-config      x--    x--     x--       18     0"
           "  util           util             xx-    x--     xx-      290    64"
-          "  validate       validate         xx-    x--     xx-      420   810"
+          "  validator      validator        xx-    x--     xx-      420   810"
           "  workspace      workspace *      xxx    x--     xx-      844 1,008"
           "  workspace-clj  workspace-clj    xx-    ---     xx-      324   150"
           "  -              cli              x--    ---     x--       22     0"
