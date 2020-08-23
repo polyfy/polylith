@@ -1,4 +1,4 @@
-(ns polylith.clj.core.create.environment-test
+(ns polylith.clj.core.creator.environment-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.test-helper.interfc :as helper]
             [polylith.clj.core.util.interfc.color :as color]))

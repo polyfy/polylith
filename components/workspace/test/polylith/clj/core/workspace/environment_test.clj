@@ -9,7 +9,7 @@
                   :interface-deps ["git" "util"]}
                  {:name "command"
                   :interface {:name "command"}
-                  :interface-deps ["common" "create" "deps" "help" "test-runner" "user-config" "util" "workspace"]}
+                  :interface-deps ["common" "creator" "deps" "help" "test-runner" "user-config" "util" "workspace"]}
                  {:name "common"
                   :interface {:name "common"}
                   :interface-deps ["util"]}

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.create.brick
+(ns polylith.clj.core.creator.brick
   (:require [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.git.interfc :as git]))
@@ -11,7 +11,6 @@
     (do
       (create-fn)
       (println create-brick-message))))
-
 (defn create-resources-dir [ws-dir bricks-dir brick-name]
   (let [keep-file (str ws-dir "/" bricks-dir "/" brick-name "/resources/" brick-name "/.keep")]
     (file/create-missing-dirs keep-file)

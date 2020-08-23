@@ -1,5 +1,5 @@
-(ns polylith.clj.core.create.base
-  (:require [polylith.clj.core.create.brick :as brick]))
+(ns polylith.clj.core.creator.base
+  (:require [polylith.clj.core.creator.brick :as brick]))
 
 (defn create-base [ws-dir settings base-name]
   (let [{:keys [top-namespace]} settings

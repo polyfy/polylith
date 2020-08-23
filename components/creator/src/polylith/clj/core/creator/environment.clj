@@ -1,4 +1,4 @@
-(ns polylith.clj.core.create.environment
+(ns polylith.clj.core.creator.environment
   (:require [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.util.interfc.color :as color]
             [polylith.clj.core.common.interfc :as common]

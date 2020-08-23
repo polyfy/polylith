@@ -1,4 +1,4 @@
-(ns polylith.clj.core.create.workspace
+(ns polylith.clj.core.creator.workspace
   (:require [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.git.interfc :as git]
             [polylith.clj.core.user-config.interfc :as user-config]))

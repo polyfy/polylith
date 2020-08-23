@@ -1,4 +1,4 @@
-(ns polylith.clj.core.create.workspace-test
+(ns polylith.clj.core.creator.workspace-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.test-helper.interfc :as helper]))
 

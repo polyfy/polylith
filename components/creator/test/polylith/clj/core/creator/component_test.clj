@@ -1,6 +1,6 @@
-(ns polylith.clj.core.create.component-test
+(ns polylith.clj.core.creator.component-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.create.brick :as brick]
+            [polylith.clj.core.creator.brick :as brick]
             [polylith.clj.core.test-helper.interfc :as helper]))
 
 (use-fixtures :each helper/test-setup-and-tear-down)

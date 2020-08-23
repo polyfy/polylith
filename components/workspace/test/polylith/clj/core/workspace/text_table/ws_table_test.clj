@@ -278,7 +278,7 @@
                               :type "interface",
                               :definitions [{:name "print-help", :type "function", :parameters [{:name "cmd"} {:name "color-mode"}]}],
                               :implementing-components ["help"]}
-                             {:name "create",
+                             {:name "creator",
                               :type "interface",
                               :definitions [{:name "create-base",
                                              :type "function",
@@ -295,7 +295,7 @@
                                             {:name "print-alias-message",
                                              :type "function",
                                              :parameters [{:name "env"} {:name "color-mode"}]}],
-                              :implementing-components ["create"]}
+                              :implementing-components ["creator"]}
                              {:name "file",
                               :type "interface",
                               :definitions [{:name "absolute-path", :type "function", :parameters [{:name "path"}]}
@@ -450,7 +450,7 @@
                                 :test-component-names ["change"
                                                        "command"
                                                        "common"
-                                                       "create"
+                                                       "creator"
                                                        "deps"
                                                        "path-finder"
                                                        "file"
@@ -463,7 +463,7 @@
                                 :component-names ["change"
                                                   "command"
                                                   "common"
-                                                  "create"
+                                                  "creator"
                                                   "deps"
                                                   "path-finder"
                                                   "file"
@@ -489,8 +489,8 @@
                                             "components/change/src"
                                             "components/command/src"
                                             "components/common/src"
-                                            "components/create/resources"
-                                            "components/create/src"
+                                            "components/creator/resources"
+                                            "components/creator/src"
                                             "components/deps/src"
                                             "components/path-finder/src"
                                             "components/file/src"
@@ -509,7 +509,7 @@
                                              "components/change/test"
                                              "components/command/test"
                                              "components/common/test"
-                                             "components/create/test"
+                                             "components/creator/test"
                                              "components/deps/test"
                                              "components/path-finder/test"
                                              "components/file/test"
@@ -544,7 +544,7 @@
                                 :deps {"workspace-clj" {:direct ["common" "file" "user-config" "util"], :indirect []},
                                        "test-runner" {:direct ["common" "util"], :indirect []},
                                        "command" {:direct ["common"
-                                                           "create"
+                                                           "creator"
                                                            "deps"
                                                            "help"
                                                            "test-runner"
@@ -565,7 +565,7 @@
                                                              "validator"],
                                                     :indirect []},
                                        "cli" {:direct ["change" "command" "common" "file" "util" "workspace" "workspace-clj"],
-                                              :indirect ["create"
+                                              :indirect ["creator"
                                                          "deps"
                                                          "path-finder"
                                                          "git"
@@ -579,7 +579,7 @@
                                        "git" {:direct ["shell"], :indirect []},
                                        "deps" {:direct ["common" "text-table" "util"], :indirect []},
                                        "help" {:direct ["util"], :indirect []},
-                                       "create" {:direct ["common" "file" "git" "user-config" "util"], :indirect ["shell"]},
+                                       "creator" {:direct ["common" "file" "git" "user-config" "util"], :indirect ["shell"]},
                                        "file" {:direct ["util"], :indirect []},
                                        "path-finder" {:direct ["file" "util"], :indirect []},
                                        "test-helper" {:direct ["change"
@@ -590,7 +590,7 @@
                                                                "user-config"
                                                                "workspace"
                                                                "workspace-clj"],
-                                                      :indirect ["create"
+                                                      :indirect ["creator"
                                                                  "deps"
                                                                  "path-finder"
                                                                  "help"
@@ -684,7 +684,7 @@
                                        "git" {:direct ["shell"], :indirect []},
                                        "deps" {:direct ["common" "text-table" "util"], :indirect []},
                                        "help" {:direct ["util"], :indirect []},
-                                       "create" {:direct ["common" "file" "git" "user-config" "util"], :indirect ["shell"]},
+                                       "creator" {:direct ["common" "file" "git" "user-config" "util"], :indirect ["shell"]},
                                        "file" {:direct ["util"], :indirect []},
                                        "path-finder" {:direct ["file" "util"], :indirect []},
                                        "test-helper" {:direct ["change" "common" "file" "git" "user-config" "workspace"],
@@ -708,7 +708,7 @@
                                 :test-component-names ["change"
                                                        "command"
                                                        "common"
-                                                       "create"
+                                                       "creator"
                                                        "deps"
                                                        "path-finder"
                                                        "git"
@@ -720,7 +720,7 @@
                                 :component-names ["change"
                                                   "command"
                                                   "common"
-                                                  "create"
+                                                  "creator"
                                                   "deps"
                                                   "path-finder"
                                                   "git"
@@ -809,7 +809,7 @@
                                 :deps {"workspace-clj" {:direct ["common" "file" "user-config" "util"], :indirect []},
                                        "test-runner" {:direct ["common" "util"], :indirect []},
                                        "command" {:direct ["common"
-                                                           "create"
+                                                           "creator"
                                                            "deps"
                                                            "help"
                                                            "test-runner"
@@ -831,7 +831,7 @@
                                                              "validator"],
                                                     :indirect []},
                                        "cli" {:direct ["change" "command" "common" "file" "util" "workspace" "workspace-clj"],
-                                              :indirect ["create"
+                                              :indirect ["creator"
                                                          "deps"
                                                          "path-finder"
                                                          "git"
@@ -845,7 +845,7 @@
                                        "git" {:direct ["shell"], :indirect []},
                                        "deps" {:direct ["common" "text-table" "util"], :indirect []},
                                        "help" {:direct ["util"], :indirect []},
-                                       "create" {:direct ["common" "file" "git" "user-config" "util"], :indirect ["shell"]},
+                                       "creator" {:direct ["common" "file" "git" "user-config" "util"], :indirect ["shell"]},
                                        "file" {:direct ["util"], :indirect []},
                                        "path-finder" {:direct ["file" "util"], :indirect []},
                                        "test-helper" {:direct ["change"
@@ -856,7 +856,7 @@
                                                                "user-config"
                                                                "workspace"
                                                                "workspace-clj"],
-                                                      :indirect ["create"
+                                                      :indirect ["creator"
                                                                  "deps"
                                                                  "path-finder"
                                                                  "help"
@@ -948,7 +948,7 @@
                                                                       {:name "workspace"}
                                                                       {:name "cmd"}
                                                                       {:name "user-input"}]}]},
-                              :namespaces-src [{:name "create",
+                              :namespaces-src [{:name "creator",
                                                 :namespace "polylith.clj.core.command.create",
                                                 :file-path "./components/command/src/polylith/clj/core/command/create.clj",
                                                 :imports ["polylith.clj.core.command.message" "polylith.clj.core.create.interfc"]}
@@ -994,7 +994,7 @@
                               :namespaces-test [],
                               :lib-imports-src ["clojure.pprint"],
                               :lib-imports-test [],
-                              :interface-deps ["common" "create" "deps" "help" "test-runner" "user-config" "util" "workspace"],
+                              :interface-deps ["common" "creator" "deps" "help" "test-runner" "user-config" "util" "workspace"],
                               :lib-deps ["clojure"]}
                              {:name "common",
                               :type "component",
@@ -1112,11 +1112,11 @@
                               :lib-imports-test [],
                               :interface-deps ["util"],
                               :lib-deps ["clojure"]}
-                             {:name "create",
+                             {:name "creator",
                               :type "component",
                               :lines-of-code-src 181,
                               :lines-of-code-test 282,
-                              :interface {:name "create",
+                              :interface {:name "creator",
                                           :definitions [{:name "create-base",
                                                          :type "function",
                                                          :parameters [{:name "workspace"} {:name "base-name"}]}
@@ -2270,7 +2270,7 @@
           "  change         change          xx-  x--    xx-"
           "  command        command         xxx  ---    xx-"
           "  common         common          xx-  x--    xx-"
-          "  create         create          xx-  ---    xx-"
+          "  creator        creator         xx-  ---    ---"
           "  deps           deps            xx-  x--    xx-"
           "  file           file            xx-  x--    ---"
           "  git            git             xx-  x--    xx-"
@@ -2294,7 +2294,7 @@
           "  change         change          x-x-   x---    x-x-      134   343"
           "  command        command         x-xx   ----    x-x-      151     0"
           "  common         common          x-x-   x---    x-x-      336    53"
-          "  create         create          xxx-   ----    xxx-      181   282"
+          "  creator        creator         xxx-   ----    ----      181   282"
           "  deps           deps            x-x-   x---    x-x-      242   328"
           "  file           file            x-x-   x---    ----      165     2"
           "  git            git             x-x-   x---    x-x-       55    18"
@@ -2310,7 +2310,7 @@
           "  workspace      workspace *     x-xx   x---    x-x-      844 1,008"
           "  workspace-clj  workspace-clj   x-x-   ----    x-x-      324   150"
           "  -              cli             x---   ----    x---       22     0"
-          "                                 4,322  3,463   4,157   4,322 3,518"]
+          "                                 4,322  3,463   3,976   4,322 3,518"]
          (ws-table/table workspace true true))))
 
 (deftest ws-table--with-profiles-without-loc-info--return-table-without-loc-info
@@ -2319,7 +2319,7 @@
           "  change         change          xx-  x--    xx-"
           "  command        command         xxx  ---    xx-"
           "  common         common          xx-  x--    xx-"
-          "  create         create          xx-  ---    xx-"
+          "  creator        creator         xx-  ---    ---"
           "  deps           deps            xx-  x--    xx-"
           "  file           file            xx-  x--    xx-"
           "  git            git             xx-  x--    xx-"
@@ -2343,7 +2343,7 @@
           "  change         change          xx-  x--    xx-    --   "
           "  command        command         xxx  ---    xx-    --   "
           "  common         common          xx-  x--    xx-    --   "
-          "  create         create          xx-  ---    xx-    --   "
+          "  creator        creator         xx-  ---    ---    --   "
           "  deps           deps            xx-  x--    xx-    --   "
           "  file           file            xx-  x--    xx-    xx   "
           "  git            git             xx-  x--    xx-    --   "
@@ -2367,7 +2367,7 @@
           "  change         change           xx-    x--     xx-      134   343"
           "  command        command          xxx    ---     xx-      151     0"
           "  common         common           xx-    x--     xx-      336    53"
-          "  create         create           xx-    ---     xx-      181   282"
+          "  creator        creator          xx-    ---     ---      181   282"
           "  deps           deps             xx-    x--     xx-      242   328"
           "  file           file             xx-    x--     xx-      165     2"
           "  git            git              xx-    x--     xx-       55    18"
@@ -2383,5 +2383,5 @@
           "  workspace      workspace *      xxx    x--     xx-      844 1,008"
           "  workspace-clj  workspace-clj    xx-    ---     xx-      324   150"
           "  -              cli              x--    ---     x--       22     0"
-          "                                 4,322  3,463   4,322   4,322 3,518"]
+          "                                 4,322  3,463   4,141   4,322 3,518"]
          (ws-table/table workspace-with-profiles true false))))

@@ -1,6 +1,6 @@
 (ns polylith.clj.core.command.create
   (:require [polylith.clj.core.command.message :as command]
-            [polylith.clj.core.create.interfc :as create]))
+            [polylith.clj.core.creator.interfc :as creator]))
 
 (def ent->name {"w" "my-workspace"
                 "e" "my-entity"
@@ -39,9 +39,9 @@
         [ok? message] (validate workspace ent name top-ns)]
     (if ok?
       (condp = ent
-        "w" (create/create-workspace current-dir name top-ns)
-        "e" (when (= :ok (create/create-environment workspace name))
-              (create/print-alias-message name color-mode))
-        "b" (create/create-base workspace name)
-        "c" (create/create-component workspace name interface))
+        "w" (creator/create-workspace current-dir name top-ns)
+        "e" (when (= :ok (creator/create-environment workspace name))
+              (creator/print-alias-message name color-mode))
+        "b" (creator/create-base workspace name)
+        "c" (creator/create-component workspace name interface))
       (println message))))

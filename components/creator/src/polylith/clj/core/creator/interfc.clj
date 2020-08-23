@@ -1,8 +1,8 @@
-(ns polylith.clj.core.create.interfc
-  (:require [polylith.clj.core.create.environment :as env]
-            [polylith.clj.core.create.workspace :as ws]
-            [polylith.clj.core.create.component :as c]
-            [polylith.clj.core.create.base :as b]))
+(ns polylith.clj.core.creator.interfc
+  (:require [polylith.clj.core.creator.base :as b]
+            [polylith.clj.core.creator.component :as c]
+            [polylith.clj.core.creator.workspace :as ws]
+            [polylith.clj.core.creator.environment :as env]))
 
 (defn create-workspace [root-dir ws-name top-ns]
   (ws/create root-dir ws-name top-ns))

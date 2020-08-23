@@ -1,5 +1,5 @@
-(ns polylith.clj.core.create.component
-  (:require [polylith.clj.core.create.brick :as brick]))
+(ns polylith.clj.core.creator.component
+  (:require [polylith.clj.core.creator.brick :as brick]))
 
 (defn create-component [ws-dir settings component-name interface-name]
   (let [{:keys [top-namespace interface-ns]} settings

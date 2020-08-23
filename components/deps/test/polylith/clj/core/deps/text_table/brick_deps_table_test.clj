@@ -29,7 +29,7 @@
                               :type "interface",}
                              {:name "help",
                               :type "interface",}
-                             {:name "create",
+                             {:name "creator",
                               :type "interface",}
                              {:name "file",
                               :type "interface",}
@@ -50,7 +50,7 @@
                                 :deps {"workspace-clj" {:direct ["common" "file" "user-config" "util"], :indirect []},
                                        "test-runner" {:direct ["common" "util"], :indirect []},
                                        "command" {:direct ["common"
-                                                           "create"
+                                                           "creator"
                                                            "deps"
                                                            "help"
                                                            "test-runner"
@@ -73,7 +73,7 @@
                                                        "util"
                                                        "workspace"
                                                        "workspace-clj"],
-                                              :indirect ["create"
+                                              :indirect ["creator"
                                                          "deps"
                                                          "entity"
                                                          "git"
@@ -87,7 +87,7 @@
                                        "git" {:direct ["shell"], :indirect []},
                                        "deps" {:direct ["common" "text-table" "util"], :indirect []},
                                        "help" {:direct ["util"], :indirect []},
-                                       "create" {:direct ["common" "file" "git" "user-config" "util"], :indirect ["shell"]},
+                                       "creator" {:direct ["common" "file" "git" "user-config" "util"], :indirect ["shell"]},
                                        "file" {:direct ["util"], :indirect []},
                                        "entity" {:direct ["file" "util"], :indirect []},
                                        "test-helper" {:direct ["change"
@@ -99,7 +99,7 @@
                                                                "workspace"
                                                                "workspace-clj"],
                                                       :indirect ["common"
-                                                                 "create"
+                                                                 "creator"
                                                                  "deps"
                                                                  "entity"
                                                                  "help"
@@ -115,12 +115,12 @@
                               :interface-deps ["common" "git" "util"],}
                              {:name "command",
                               :type "component",
-                              :interface-deps ["common" "create" "deps" "help" "test-runner" "user-config" "util" "workspace"],
+                              :interface-deps ["common" "creator" "deps" "help" "test-runner" "user-config" "util" "workspace"],
                               :lib-deps ["clojure"]}
                              {:name "common",
                               :type "component",
                               :interface-deps ["util"],}
-                             {:name "create",
+                             {:name "creator",
                               :type "component",
                               :interface-deps ["common" "file" "git" "user-config" "util"],}
                              {:name "deps",
