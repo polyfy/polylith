@@ -8,6 +8,5 @@
                                 (set (mapcat (juxt :alias :name) environments)))
         s (if (= 1 (count missing)) "" "s")
         missing-msg (color/environment (str/join ", " missing) color-mode)]
-    (if (empty? missing)
-      []
+    (when (-> missing empty? not)
       [(str "  Can't find environment" s ": " missing-msg)])))

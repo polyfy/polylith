@@ -9,6 +9,5 @@
         missing (set/difference active-dev-profiles existing #{""})
         s (if (= 1 (count missing)) "" "s")
         missing-msg (color/profile (str/join ", " missing) color-mode)]
-    (if (empty? missing)
-      []
+    (when (-> missing empty? not)
       [(str "  Can't find profile" s ": " missing-msg)])))

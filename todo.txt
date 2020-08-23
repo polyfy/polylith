@@ -1,6 +1,4 @@
 
-- complain if giving no top-namespace when creating a workspace.
-
 - also do util/stringify-and-sort-map for test-lib-deps in workspace-clj.
 - add :test-lib-deps to bases.
 

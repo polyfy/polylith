@@ -10,15 +10,14 @@
        (-> arg named? not)))
 
 (defn key-name [arg]
-  (let [parts (str/split arg #":")]
-    (if (= "" (first parts))
-      [(keyword (str (second parts) "!"))
-       "true"]
-      (if (= 2 (count parts))
-        [(-> parts first keyword)
-         (second parts)]
-        [(-> parts first keyword)
-         (vec (drop 1 parts))]))))
+  (let [parts (str/split arg #":")
+        n#parts (count parts)
+        keyname (-> parts first keyword)]
+    (cond
+      (= "" (first parts)) [(keyword (str (second parts) "!")) "true"]
+      (= 1 n#parts) [keyname ""]
+      (= 2 n#parts) [keyname (second parts)]
+      :else [keyname (vec (drop 1 parts))])))
 
 (defn extract [args]
   (let [unnamed-args (filterv unnamed? args)

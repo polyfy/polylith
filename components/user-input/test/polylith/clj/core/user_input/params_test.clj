@@ -7,9 +7,11 @@
           :named-args {:flag! "true"
                        :env ["cli" "core"]
                        :name "x"
+                       :param ""
                        :top-ns "se.example"}}
          (params/extract ["w"
                           "name:x"
+                          "param:"
                           "top-ns:se.example"
                           "env:cli:core"
                           ":flag"

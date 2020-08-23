@@ -6,7 +6,7 @@
 (def settings {:profile->settings {"default" {},
                                    "admin" {}}})
 (deftest validate--when-the-profile-exists--return-empty-list
-  (is (= []
+  (is (= nil
          (validator/validate #{"admin"} settings color/none))))
 
 (deftest validate--when-missing-profile--return-error

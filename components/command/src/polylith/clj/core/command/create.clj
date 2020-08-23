@@ -1,6 +1,7 @@
 (ns polylith.clj.core.command.create
   (:require [polylith.clj.core.command.message :as command]
-            [polylith.clj.core.creator.interfc :as creator]))
+            [polylith.clj.core.creator.interfc :as creator]
+            [clojure.string :as str]))
 
 (def ent->name {"w" "my-workspace"
                 "e" "my-entity"
@@ -31,7 +32,7 @@
     (and (workspace? entity)
          (-> workspace nil? not)) [false (str "  A workspace should not be created within another workspace.")]
     (and (workspace? entity)
-         (nil? top-ns)) [false (str "  A top namespace must be given, e.g.: create " entity " name:" (ent->name entity) " top-ns:com.my-company")]
+         (str/blank? top-ns)) [false (str "  A top namespace must be given, e.g.: create " entity " name:" (ent->name entity) " top-ns:com.my-company")]
     :else [true]))
 
 (defn create [current-dir workspace entity name top-ns interface color-mode]
