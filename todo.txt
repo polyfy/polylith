@@ -1,6 +1,4 @@
 
-- make :dev a shortcut for env:dev.
-
 - create a .keep file in development/src when creating a workspace.
 
 - also do util/stringify-and-sort-map for test-lib-deps in workspace-clj.

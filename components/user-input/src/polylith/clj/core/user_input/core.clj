@@ -10,12 +10,15 @@
   (set (map #(subs % 1)
             (filter profile? unnamed-args))))
 
-(defn selected-environments [env]
-  (if (coll? env)
-    env
-    (if (nil? env)
-      []
-      [env])))
+(defn selected-environments [env dev!]
+  (let [envs (if (coll? env)
+               env
+               (if (nil? env)
+                 []
+                 [env]))]
+    (set (if dev!
+           (conj envs "dev")
+           envs))))
 
 (defn extract-params [args]
   (let [{:keys [named-args unnamed-args]} (params/extract args)
@@ -28,6 +31,7 @@
                 loc!
                 all!
                 all-bricks!
+                dev!
                 env!]} named-args
         unnamed (rest unnamed-args)]
     (util/ordered-map :args args
@@ -44,5 +48,5 @@
                                           (= "true" env!))
                       :show-resources-flag? (contains? #{"r" "resources"} flag)
                       :active-dev-profiles (active-dev-profiles unnamed)
-                      :selected-environments (-> env selected-environments set)
+                      :selected-environments (selected-environments env dev!)
                       :unnamed-args unnamed)))
