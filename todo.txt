@@ -1,22 +1,22 @@
 
 - remove the net.mikera/core.matrix dependency.
 
-- allow filtering on an environment in :lib.
+- let :horizontal :align be pushed up as default (:left) and pushed down only if align is :right.
 
-- implement 'deps :lib' as a separate table, e.g.:
-                 l  l  l
-                 i  i  i
-                 b  b  b
-                 -  -  -
-    brick        1  2  3
+- implement flipped version of 'deps :lib', that will be the default and show the other one if :flip.
+  In the new version, let each row be a library and each column a brick:
+                 u
+              c  s  a
+              a  e  d
+    library   r  r  m
     --------------------
-    component1   x  x  -
-    component2   -  x  x
-    component3   x  -  -
-    base1        -  x  -
+    lib1      x  x  -
+    lib2      -  x  x
+    lib3      x  -  -
+    lib4      -  x  -
 
-
-
+- check if included-in-ns? in polylith.clj.core.workspace.lib-deps covers
+  namespace without sub namespaces.
 
 - implement 'migrate' that migrates old lein-polylith projects.
 

@@ -8,7 +8,7 @@
   (let [interface-deps (deps/interface-deps suffixed-top-ns interface-names base)
         lib-imports-src (lib/lib-imports-src suffixed-top-ns interface-names base)
         lib-imports-test (lib/lib-imports-test suffixed-top-ns interface-names base)
-        lib-deps (libd/deps settings base)]
+        lib-dep-names (libd/dep-names settings base)]
     (array-map :name name
                :type type
                :lines-of-code-src (loc/lines-of-code namespaces-src)
@@ -18,4 +18,4 @@
                :lib-imports-src lib-imports-src
                :lib-imports-test lib-imports-test
                :interface-deps interface-deps
-               :lib-deps lib-deps)))
+               :lib-dep-names lib-dep-names)))

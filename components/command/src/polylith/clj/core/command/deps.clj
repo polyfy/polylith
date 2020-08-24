@@ -7,7 +7,7 @@
   (let [{:keys [ok? message]} (common/validate-args unnamed-args "deps env:my-env brick:my-brick")]
     (if ok?
       (if show-lib?
-        (workspace/print-lib-version-table workspace)
+        (workspace/print-lib-tables workspace)
         (if environment-name
           (if brick-name
             (deps/print-brick-table workspace environment-name brick-name)

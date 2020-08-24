@@ -1,6 +1,7 @@
 (ns polylith.clj.core.workspace.interfc
   (:require [polylith.clj.core.workspace.core :as core]
             [polylith.clj.core.workspace.text-table.info-tables :as info-tables]
+            [polylith.clj.core.workspace.text-table.lib-table-flipped :as lib-table]
             [polylith.clj.core.workspace.text-table.lib-version-table :as lib-version-table])
   (:gen-class))
 
@@ -10,5 +11,7 @@
 (defn print-info [workspace]
   (info-tables/print-info workspace))
 
-(defn print-lib-version-table [workspace]
-  (lib-version-table/print-table workspace))
+(defn print-lib-tables [workspace]
+  (lib-version-table/print-table workspace)
+  (println)
+  (lib-table/print-table workspace))

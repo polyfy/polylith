@@ -4,7 +4,6 @@
             [polylith.clj.core.util.interfc.color :as color]
             [polylith.clj.core.workspace.text-table.count-table :as count-table]
             [polylith.clj.core.workspace.text-table.env-table :as env-table]
-            [polylith.clj.core.workspace.text-table.lib-version-table :as lib-version-table]
             [polylith.clj.core.workspace.text-table.ws-table :as ws-table]))
 
 (defn print-active-dev-profiles [{:keys [active-dev-profiles]} {:keys [color-mode]}]
