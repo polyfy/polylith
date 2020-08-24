@@ -57,7 +57,7 @@
         spaces (text-table/spaces 1 space-columns (repeat "  "))
         cells (text-table/merge-cells lib-col version-col env-cols profile-cols spaces)
         line (text-table/line 2 cells)
-        sections (if (-> profile->settings count zero?) [4] [4 (+ 2 (* 2 (count environments)))])
+        sections [4 (+ 2 (* 2 (count environments)))]
         line-space (text-table/spaces 2 sections (repeat "   "))]
     (text-table/table "  " color-mode cells line line-space)))
 

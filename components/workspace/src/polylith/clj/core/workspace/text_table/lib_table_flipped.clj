@@ -20,7 +20,6 @@
   (mapcat lib-name lib-deps))
 
 (defn library-cell [column row lib-name {:keys [lib-dep-names]}]
-
   (let [flag (if (contains? (set lib-dep-names) lib-name) "x" "-")]
     (text-table/cell column row flag :none :left :vertical)))
 

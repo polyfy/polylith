@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.lib-table-flipped-test
+(ns polylith.clj.core.workspace.text-table.lib-table-flipped-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.workspace.text-table.lib-table-flipped :as lib-table-flipped]))
 
