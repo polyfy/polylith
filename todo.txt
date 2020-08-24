@@ -1,4 +1,8 @@
 
+- remove the net.mikera/core.matrix dependency.
+
+- allow filtering on an environment in :lib.
+
 - implement 'deps :lib' as a separate table, e.g.:
                  l  l  l
                  i  i  i
@@ -10,6 +14,8 @@
     component2   -  x  x
     component3   x  -  -
     base1        -  x  -
+
+
 
 
 - implement 'migrate' that migrates old lein-polylith projects.

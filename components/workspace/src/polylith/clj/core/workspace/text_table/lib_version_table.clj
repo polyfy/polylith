@@ -19,30 +19,35 @@
                        (map :version libraries))))
 
 (defn flag-cell [column row lib-dep lib-deps]
-  (let [flag (if (contains? (set (mapcat lib lib-deps)) lib-dep) "x" "-")]
+  (let [flag (if (contains? lib-deps lib-dep) "x" "-")]
     (text-table/cell column row flag :purple :center :horizontal)))
 
 (defn env-column [column {:keys [alias lib-deps]} libraries]
   (concat [(shared/standard-cell alias column 1 :purple :center)]
-          (map-indexed #(flag-cell column (+ 3 %1) %2 lib-deps)
+          (map-indexed #(flag-cell column (+ 3 %1) %2 (set (mapcat lib lib-deps)))
                        libraries)))
 
 (defn env-columns [libraries environments]
   (apply concat (map-indexed #(env-column (+ 5 (* 2 %1)) %2 libraries)
                              environments)))
 
-(defn profile-column [column libraries [profile lib-deps]]
+(defn profile-column [column libraries [profile {:keys [lib-deps]}]]
   (concat [(shared/standard-cell profile column 1 :purple :center)]
-          (map-indexed #(flag-cell column (+ 3 %1) %2 lib-deps)
+          (map-indexed #(flag-cell column (+ 3 %1) %2 (set (mapcat lib lib-deps)))
                        libraries)))
 
 (defn profile-columns [column libraries profile->settings]
   (apply concat (map-indexed #(profile-column (+ column (* 2 %1)) libraries %2)
                              profile->settings)))
 
+(defn profile-lib [[_ {:keys [lib-deps]}]]
+  (mapcat lib lib-deps))
+
 (defn table [{:keys [settings environments]}]
   (let [{:keys [profile->settings color-mode]} settings
-        libraries (sort-by (juxt :name :version) (set (mapcat lib (mapcat :lib-deps environments))))
+        libraries (sort-by (juxt :name :version)
+                           (set (concat (mapcat lib (mapcat :lib-deps environments))
+                                        (mapcat profile-lib profile->settings))))
         lib-col (lib-column libraries)
         version-col (version-column libraries)
         env-cols (env-columns libraries environments)
@@ -52,7 +57,7 @@
         spaces (text-table/spaces 1 space-columns (repeat "  "))
         cells (text-table/merge-cells lib-col version-col env-cols profile-cols spaces)
         line (text-table/line 2 cells)
-        sections (if (-> profile->settings count zero?) [4] [4 (+ 4 (* 2 (count environments)))])
+        sections (if (-> profile->settings count zero?) [4] [4 (+ 2 (* 2 (count environments)))])
         line-space (text-table/spaces 2 sections (repeat "   "))]
     (text-table/table "  " color-mode cells line line-space)))
 
