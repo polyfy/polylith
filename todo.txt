@@ -1,6 +1,4 @@
 
-- let :horizontal :align be pushed up as default (:left) and pushed down only if align is :right.
-
 - implement flipped version of 'deps :lib', that will be the default and show the other one if :flip.
   In the new version, let each row be a library and each column a brick:
                  u
@@ -17,9 +15,6 @@
   namespace without sub namespaces.
 
 - implement 'migrate' that migrates old lein-polylith projects.
-
-  The :dev+dev could be the alias that is always included in different commands like
-  'deps' and 'test' if not another config like +prod is given.
 
 - add tests for the 'test' command.
 

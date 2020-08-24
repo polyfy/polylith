@@ -19,7 +19,7 @@
 
 (defn interface-column [column interface-name brick-names brick->interface-deps]
   (concat
-    [(text-table/cell column 1 interface-name :yellow :left :vertical)]
+    [(text-table/cell column 1 interface-name :yellow :right :vertical)]
     (map-indexed #(interface-cell column (+ %1 3) interface-name %2 brick->interface-deps)
                  brick-names)))
 

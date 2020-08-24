@@ -28,7 +28,7 @@
 (defn flip-vertical [row column value align color row->start-y row->max-row-height]
   (let [max-row-height (row->max-row-height row)
         spaces (str-util/spaces (- max-row-height (count value)))
-        new-value (str spaces value)
+        new-value (if (= :right align) (str spaces value) value)
         start-y (row->start-y row)]
     (map-indexed #(vertical-cell %1 %2 row column align color start-y)
                  (vec new-value))))

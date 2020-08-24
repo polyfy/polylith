@@ -21,7 +21,7 @@
 
 (defn interface-column [column component-name brick-names brick->deps brick->indirect-deps]
   (concat
-    [(text-table/cell column 1 component-name :green :left :vertical)]
+    [(text-table/cell column 1 component-name :green :right :vertical)]
     (map-indexed #(interface-cell column (+ %1 3) component-name %2 brick->deps brick->indirect-deps)
                  brick-names)))
 
