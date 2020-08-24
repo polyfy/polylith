@@ -1,6 +1,4 @@
 
-- remove the net.mikera/core.matrix dependency.
-
 - let :horizontal :align be pushed up as default (:left) and pushed down only if align is :right.
 
 - implement flipped version of 'deps :lib', that will be the default and show the other one if :flip.

@@ -5,7 +5,6 @@
                          "core" "core"
                          "development" "dev"}
             :ns->lib {clojure              org.clojure/clojure
-                      clojure.core.matrix  net.mikera/core.matrix
                       clojure.tools.deps   org.clojure/tools.deps.alpha}}
 
  :aliases  {:dev {:extra-paths [; Development
