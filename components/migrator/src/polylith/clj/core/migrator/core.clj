@@ -67,7 +67,7 @@
     (mapcat #(test-dev-paths from-dir "bases" %) base-names)
     [(str "                                 ]}")
      (str "")
-     (str "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly_cli.poly\"]")
+     (str "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly-cli.poly\"]")
      (str "                   :extra-deps {tengstrand/polylith")
      (str "                                {:git/url   \"https://github.com/tengstrand/polylith.git\"")
      (str "                                 :sha       \"" common/poly-git-sha "\"")
