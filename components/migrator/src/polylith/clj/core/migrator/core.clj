@@ -53,11 +53,9 @@
      (str "")
      (str " :aliases  {:dev {:extra-paths [; Development")
      (str "                                \"development/src\"")
-     (str "")
      (str "                                ; Components")]
     (mapcat #(src-dev-paths from-dir "components" %) component-names)
-    [(str "")
-     (str "                                ; Bases")]
+    [(str "                                ; Bases")]
     (mapcat #(src-dev-paths from-dir "bases" %) base-names)
     [(str "                               ]")
      (str "                  :extra-deps {")]
@@ -65,12 +63,11 @@
     [(str "                              }}")
      (str "            :test {:extra-paths [; Components")]
     (mapcat #(test-dev-paths from-dir "components" %) component-names)
-    [(str "")
-     (str "                                 ; Bases")]
+    [(str "                                 ; Bases")]
     (mapcat #(test-dev-paths from-dir "bases" %) base-names)
     [(str "                                 ]}")
      (str "")
-     (str "            :poly {:main-opts [\"-m\" \"polylith.clj.core.cli.poly\"]")
+     (str "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly_cli.poly\"]")
      (str "                   :extra-deps {tengstrand/polylith")
      (str "                                {:git/url   \"https://github.com/tengstrand/polylith.git\"")
      (str "                                 :sha       \"" common/poly-git-sha "\"")
@@ -81,8 +78,7 @@
     [(str "")
      (str "{:paths   [; Components")]
     (mapcat #(src-env-paths from-dir "components" %) component-names)
-    [(str "")
-     (str "           ; Bases")]
+    [(str "           ; Bases")]
     (mapcat #(src-env-paths from-dir "bases" %) base-names)
     [(str "                               ]")
      (str " :deps    {")]

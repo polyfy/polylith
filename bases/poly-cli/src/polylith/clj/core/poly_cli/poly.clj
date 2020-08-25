@@ -1,4 +1,4 @@
-(ns polylith.clj.core.cli.poly
+(ns polylith.clj.core.poly-cli.poly
   (:require [polylith.clj.core.change.interfc :as change]
             [polylith.clj.core.command.interfc :as command]
             [polylith.clj.core.user-input.interfc :as user-input]

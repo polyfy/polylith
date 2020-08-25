@@ -423,7 +423,7 @@
                            :ns->lib {"clojure" "org.clojure/clojure",
                                      "clojure.core.matrix" "net.mikera/core.matrix",
                                      "clojure.tools.deps" "org.clojure/tools.deps.alpha"},
-                           :env->alias {"cli" "cli", "core" "core"},
+                           :env->alias {"poly" "poly", "core" "core"},
                            :interface-ns "interfc",
                            :vcs "git",
                            :thousand-sep ",",
@@ -436,13 +436,13 @@
                             :type-position "postfix",
                             :slash "/",
                             :file-extensions [".clj" "cljc"]},
-                :environments [{:name "cli",
-                                :alias "cli",
+                :environments [{:name "poly",
+                                :alias "poly",
                                 :type "environment",
                                 :active? true,
                                 :dev? false,
-                                :env-dir "./environments/cli",
-                                :config-file "./environments/cli/deps.edn",
+                                :env-dir "./environments/poly",
+                                :config-file "./environments/poly/deps.edn",
                                 :lines-of-code-src 0,
                                 :lines-of-code-test 5,
                                 :total-lines-of-code-src 4558,
@@ -478,14 +478,14 @@
                                                   "validator"
                                                   "workspace"
                                                   "workspace-clj"],
-                                :base-names ["cli"],
+                                :base-names ["poly-cli"],
                                 :test-base-names [],
                                 :namespaces-src [],
-                                :namespaces-test [{:name "polylith.clj.core.env.cli",
+                                :namespaces-test [{:name "polylith.clj.core.env.poly-cli",
                                                    :namespace "polylith.clj.core.env.cli",
-                                                   :file-path "./environments/cli/test/polylith/clj/core/env/cli.clj",
+                                                   :file-path "./environments/poly/test/polylith/clj/core/env/poly.clj",
                                                    :imports []}],
-                                :src-paths ["bases/cli/src"
+                                :src-paths ["bases/poly-cli/src"
                                             "components/change/src"
                                             "components/command/src"
                                             "components/common/src"
@@ -505,7 +505,7 @@
                                             "components/validator/src"
                                             "components/workspace-clj/src"
                                             "components/workspace/src"],
-                                :test-paths ["bases/cli/test"
+                                :test-paths ["bases/poly-cli/test"
                                              "components/change/test"
                                              "components/command/test"
                                              "components/common/test"
@@ -524,7 +524,7 @@
                                              "components/validator/test"
                                              "components/workspace-clj/test"
                                              "components/workspace/test"
-                                             "environments/cli/test"],
+                                             "environments/poly/test"],
                                 :lib-imports ["clojure.core.matrix"
                                               "clojure.java.io"
                                               "clojure.java.shell"
@@ -564,17 +564,17 @@
                                                              "util"
                                                              "validator"],
                                                     :indirect []},
-                                       "cli" {:direct ["change" "command" "common" "file" "util" "workspace" "workspace-clj"],
-                                              :indirect ["creator"
-                                                         "deps"
-                                                         "path-finder"
-                                                         "git"
-                                                         "help"
-                                                         "shell"
-                                                         "test-runner"
-                                                         "text-table"
-                                                         "user-config"
-                                                         "validator"]},
+                                       "poly-cli" {:direct ["change" "command" "common" "file" "util" "workspace" "workspace-clj"],
+                                                   :indirect ["creator"
+                                                              "deps"
+                                                              "path-finder"
+                                                              "git"
+                                                              "help"
+                                                              "shell"
+                                                              "test-runner"
+                                                              "text-table"
+                                                              "user-config"
+                                                              "validator"]},
                                        "user-config" {:direct ["util"], :indirect []},
                                        "git" {:direct ["shell"], :indirect []},
                                        "deps" {:direct ["common" "text-table" "util"], :indirect []},
@@ -678,8 +678,8 @@
                                                              "util"
                                                              "validator"],
                                                     :indirect []},
-                                       "cli" {:direct ["change" "common" "file" "util" "workspace"],
-                                              :indirect ["deps" "path-finder" "git" "shell" "text-table" "text-table2" "validator"]},
+                                       "poly-cli" {:direct ["change" "common" "file" "util" "workspace"],
+                                                   :indirect ["deps" "path-finder" "git" "shell" "text-table" "text-table2" "validator"]},
                                        "user-config" {:direct ["util"], :indirect []},
                                        "git" {:direct ["shell"], :indirect []},
                                        "deps" {:direct ["common" "text-table" "util"], :indirect []},
@@ -734,7 +734,7 @@
                                                   "validator"
                                                   "workspace"
                                                   "workspace-clj"],
-                                :base-names ["cli"],
+                                :base-names ["poly-cli"],
                                 :test-base-names [],
                                 :namespaces-src [{:name "dev.jocke",
                                                   :namespace "dev.jocke",
@@ -749,7 +749,7 @@
                                                             "polylith.clj.core.workspace-clj.interfc"
                                                             "polylith.clj.core.workspace.interfc"]}],
                                 :namespaces-test [],
-                                :src-paths ["bases/cli/src"
+                                :src-paths ["bases/poly-cli/src"
                                             "components/change/src"
                                             "components/command/src"
                                             "components/common/src"
@@ -769,7 +769,7 @@
                                             "components/workspace-clj/src"
                                             "components/workspace/src"
                                             "development/src"],
-                                :test-paths ["bases/cli/test"
+                                :test-paths ["bases/poly-cli/test"
                                              "components/change/test"
                                              "components/command/test"
                                              "components/common/test"
@@ -787,7 +787,7 @@
                                              "components/validator/test"
                                              "components/workspace-clj/test"
                                              "components/workspace/test"
-                                             "environments/cli/test"]
+                                             "environments/poly/test"]
                                 :profile-src-paths []
                                 :profile-test-paths []
                                 :lib-imports ["clojure.core.matrix"
@@ -830,17 +830,17 @@
                                                              "util"
                                                              "validator"],
                                                     :indirect []},
-                                       "cli" {:direct ["change" "command" "common" "file" "util" "workspace" "workspace-clj"],
-                                              :indirect ["creator"
-                                                         "deps"
-                                                         "path-finder"
-                                                         "git"
-                                                         "help"
-                                                         "shell"
-                                                         "test-runner"
-                                                         "text-table"
-                                                         "user-config"
-                                                         "validator"]},
+                                       "poly-cli" {:direct ["change" "command" "common" "file" "util" "workspace" "workspace-clj"],
+                                                   :indirect ["creator"
+                                                              "deps"
+                                                              "path-finder"
+                                                              "git"
+                                                              "help"
+                                                              "shell"
+                                                              "test-runner"
+                                                              "text-table"
+                                                              "user-config"
+                                                              "validator"]},
                                        "user-config" {:direct ["util"], :indirect []},
                                        "git" {:direct ["shell"], :indirect []},
                                        "deps" {:direct ["common" "text-table" "util"], :indirect []},
@@ -2214,10 +2214,10 @@
                           :changed-components ["path-finder" "workspace"],
                           :changed-bases [],
                           :changed-environments [],
-                          :env->indirect-changes {"cli" ["cli" "command" "test-helper"],
-                                                  "core" ["cli" "command" "test-helper"],
-                                                  "development" ["cli" "command" "test-helper"]},
-                          :env->bricks-to-test {"cli" ["command" "path-finder" "workspace"], "core" [], "development" []},
+                          :env->indirect-changes {"poly" ["poly-cli" "command" "test-helper"],
+                                                  "core" ["poly-cli" "command" "test-helper"],
+                                                  "development" ["poly-cli" "command" "test-helper"]},
+                          :env->bricks-to-test {"poly" ["command" "path-finder" "workspace"], "core" [], "development" []},
                           :environments-to-test [],
                           :changed-files ["components/path-finder/src/polylith/clj/core/path-finder/env_statuses.clj"
                                           "components/path-finder/src/polylith/clj/core/path-finder/interfc.clj"
@@ -2232,13 +2232,13 @@
                                           "components/workspace/test/polylith/clj/core/workspace/text_table/ws_table_test.clj"
                                           "development/src/dev/jocke.clj"
                                           "todo.txt"]},
-                :bases [{:name "cli",
+                :bases [{:name "poly-cli",
                          :type "base",
                          :lines-of-code-src 22,
                          :lines-of-code-test 0,
                          :namespaces-src [{:name "poly",
-                                           :namespace "polylith.clj.core.cli.poly",
-                                           :file-path "./bases/cli/src/polylith/clj/core/cli/poly.clj",
+                                           :namespace "polylith.clj.core.poly-cli.poly",
+                                           :file-path "./bases/poly-cli/src/polylith/clj/core/poly_cli/poly.clj",
                                            :imports ["polylith.clj.core.change.interfc"
                                                      "polylith.clj.core.command.interfc"
                                                      "polylith.clj.core.common.interfc"
@@ -2265,31 +2265,31 @@
                                            (assoc-in [:user-input :active-dev-profiles] #{})))
 
 (deftest ws-table--without-loc-info--return-table-without-loc-info
-  (is (= ["  interface      brick           cli  core   dev"
-          "  ----------------------------   ---------   ---"
-          "  change         change          xx-  x--    xx-"
-          "  command        command         xxx  ---    xx-"
-          "  common         common          xx-  x--    xx-"
-          "  creator        creator         xx-  ---    ---"
-          "  deps           deps            xx-  x--    xx-"
-          "  file           file            xx-  x--    ---"
-          "  git            git             xx-  x--    xx-"
-          "  help           help            x--  x--    x--"
-          "  path-finder    path-finder *   xxx  x--    xx-"
-          "  shell          shell           x--  x--    x--"
-          "  test-helper    test-helper     x--  ---    x--"
-          "  test-runner    test-runner     x--  ---    x--"
-          "  text-table     text-table      x--  x--    x--"
-          "  user-config    user-config     x--  x--    x--"
-          "  util           util            xx-  x--    xx-"
-          "  validator      validator       xx-  x--    xx-"
-          "  workspace      workspace *     xxx  x--    xx-"
-          "  workspace-clj  workspace-clj   xx-  ---    xx-"
-          "  -              cli             x--  ---    x--"]
+  (is (= ["  interface      brick           poly  core   dev"
+          "  ----------------------------   ----------   ---"
+          "  change         change          xx-   x--    xx-"
+          "  command        command         xxx   ---    xx-"
+          "  common         common          xx-   x--    xx-"
+          "  creator        creator         xx-   ---    ---"
+          "  deps           deps            xx-   x--    xx-"
+          "  file           file            xx-   x--    ---"
+          "  git            git             xx-   x--    xx-"
+          "  help           help            x--   x--    x--"
+          "  path-finder    path-finder *   xxx   x--    xx-"
+          "  shell          shell           x--   x--    x--"
+          "  test-helper    test-helper     x--   ---    x--"
+          "  test-runner    test-runner     x--   ---    x--"
+          "  text-table     text-table      x--   x--    x--"
+          "  user-config    user-config     x--   x--    x--"
+          "  util           util            xx-   x--    xx-"
+          "  validator      validator       xx-   x--    xx-"
+          "  workspace      workspace *     xxx   x--    xx-"
+          "  workspace-clj  workspace-clj   xx-   ---    xx-"
+          "  -              poly-cli        x--   ---    x--"]
          (ws-table/table workspace false false))))
 
 (deftest ws-table--with-loc-info--return-table-with-loc-info
-  (is (= ["  interface      brick            cli   core     dev      loc   (t)"
+  (is (= ["  interface      brick           poly   core     dev      loc   (t)"
           "  ----------------------------   ------------   -----   -----------"
           "  change         change          x-x-   x---    x-x-      134   343"
           "  command        command         x-xx   ----    x-x-      151     0"
@@ -2309,60 +2309,60 @@
           "  validator      validator       x-x-   x---    x-x-      420   810"
           "  workspace      workspace *     x-xx   x---    x-x-      844 1,008"
           "  workspace-clj  workspace-clj   x-x-   ----    x-x-      324   150"
-          "  -              cli             x---   ----    x---       22     0"
+          "  -              poly-cli        x---   ----    x---       22     0"
           "                                 4,322  3,463   3,976   4,322 3,518"]
          (ws-table/table workspace true true))))
 
 (deftest ws-table--with-profiles-without-loc-info--return-table-without-loc-info
-  (is (= ["  interface      brick           cli  core   dev"
-          "  ----------------------------   ---------   ---"
-          "  change         change          xx-  x--    xx-"
-          "  command        command         xxx  ---    xx-"
-          "  common         common          xx-  x--    xx-"
-          "  creator        creator         xx-  ---    ---"
-          "  deps           deps            xx-  x--    xx-"
-          "  file           file            xx-  x--    xx-"
-          "  git            git             xx-  x--    xx-"
-          "  help           help            x--  x--    x--"
-          "  path-finder    path-finder *   xxx  x--    xx-"
-          "  shell          shell           x--  x--    x--"
-          "  test-helper    test-helper     x--  ---    x--"
-          "  test-runner    test-runner     x--  ---    x--"
-          "  text-table     text-table      x--  x--    x--"
-          "  user-config    user-config     x--  x--    x--"
-          "  util           util            xx-  x--    xx-"
-          "  validator      validator       xx-  x--    xx-"
-          "  workspace      workspace *     xxx  x--    xx-"
-          "  workspace-clj  workspace-clj   xx-  ---    xx-"
-          "  -              cli             x--  ---    x--"]
+  (is (= ["  interface      brick           poly  core   dev"
+          "  ----------------------------   ----------   ---"
+          "  change         change          xx-   x--    xx-"
+          "  command        command         xxx   ---    xx-"
+          "  common         common          xx-   x--    xx-"
+          "  creator        creator         xx-   ---    ---"
+          "  deps           deps            xx-   x--    xx-"
+          "  file           file            xx-   x--    xx-"
+          "  git            git             xx-   x--    xx-"
+          "  help           help            x--   x--    x--"
+          "  path-finder    path-finder *   xxx   x--    xx-"
+          "  shell          shell           x--   x--    x--"
+          "  test-helper    test-helper     x--   ---    x--"
+          "  test-runner    test-runner     x--   ---    x--"
+          "  text-table     text-table      x--   x--    x--"
+          "  user-config    user-config     x--   x--    x--"
+          "  util           util            xx-   x--    xx-"
+          "  validator      validator       xx-   x--    xx-"
+          "  workspace      workspace *     xxx   x--    xx-"
+          "  workspace-clj  workspace-clj   xx-   ---    xx-"
+          "  -              poly-cli        x--   ---    x--"]
          (ws-table/table workspace-with-profiles false false))))
 
 (deftest ws-table--with-profiles-without-active-profile--return-table-including-all-profiles
-  (is (= ["  interface      brick           cli  core   dev  default"
-          "  ----------------------------   ---------   ------------"
-          "  change         change          xx-  x--    xx-    --   "
-          "  command        command         xxx  ---    xx-    --   "
-          "  common         common          xx-  x--    xx-    --   "
-          "  creator        creator         xx-  ---    ---    --   "
-          "  deps           deps            xx-  x--    xx-    --   "
-          "  file           file            xx-  x--    xx-    xx   "
-          "  git            git             xx-  x--    xx-    --   "
-          "  help           help            x--  x--    x--    --   "
-          "  path-finder    path-finder *   xxx  x--    xx-    --   "
-          "  shell          shell           x--  x--    x--    --   "
-          "  test-helper    test-helper     x--  ---    x--    --   "
-          "  test-runner    test-runner     x--  ---    x--    --   "
-          "  text-table     text-table      x--  x--    x--    --   "
-          "  user-config    user-config     x--  x--    x--    --   "
-          "  util           util            xx-  x--    xx-    --   "
-          "  validator      validator       xx-  x--    xx-    --   "
-          "  workspace      workspace *     xxx  x--    xx-    --   "
-          "  workspace-clj  workspace-clj   xx-  ---    xx-    --   "
-          "  -              cli             x--  ---    x--    --   "]
+  (is (= ["  interface      brick           poly  core   dev  default"
+          "  ----------------------------   ----------   ------------"
+          "  change         change          xx-   x--    xx-    --   "
+          "  command        command         xxx   ---    xx-    --   "
+          "  common         common          xx-   x--    xx-    --   "
+          "  creator        creator         xx-   ---    ---    --   "
+          "  deps           deps            xx-   x--    xx-    --   "
+          "  file           file            xx-   x--    xx-    xx   "
+          "  git            git             xx-   x--    xx-    --   "
+          "  help           help            x--   x--    x--    --   "
+          "  path-finder    path-finder *   xxx   x--    xx-    --   "
+          "  shell          shell           x--   x--    x--    --   "
+          "  test-helper    test-helper     x--   ---    x--    --   "
+          "  test-runner    test-runner     x--   ---    x--    --   "
+          "  text-table     text-table      x--   x--    x--    --   "
+          "  user-config    user-config     x--   x--    x--    --   "
+          "  util           util            xx-   x--    xx-    --   "
+          "  validator      validator       xx-   x--    xx-    --   "
+          "  workspace      workspace *     xxx   x--    xx-    --   "
+          "  workspace-clj  workspace-clj   xx-   ---    xx-    --   "
+          "  -              poly-cli        x--   ---    x--    --   "]
          (ws-table/table workspace-with-profiles-no-active false false))))
 
 (deftest ws-table--with-profiles-with-loc-info--return-table-without-loc-info
-  (is (= ["  interface      brick            cli   core     dev      loc   (t)"
+  (is (= ["  interface      brick           poly   core     dev      loc   (t)"
           "  ----------------------------   ------------   -----   -----------"
           "  change         change           xx-    x--     xx-      134   343"
           "  command        command          xxx    ---     xx-      151     0"
@@ -2382,6 +2382,6 @@
           "  validator      validator        xx-    x--     xx-      420   810"
           "  workspace      workspace *      xxx    x--     xx-      844 1,008"
           "  workspace-clj  workspace-clj    xx-    ---     xx-      324   150"
-          "  -              cli              x--    ---     x--       22     0"
+          "  -              poly-cli         x--    ---     x--       22     0"
           "                                 4,322  3,463   4,141   4,322 3,518"]
          (ws-table/table workspace-with-profiles true false))))

@@ -8,7 +8,7 @@
 #sudo cp ./environments/migrator/target/migrator.jar /usr/local/polylith/poly-migr.jar
 
 echo "#### Build cli uberjar"
-./make-uberjar.sh cli polylith.clj.core.cli.poly
+./make-uberjar.sh cli polylith.clj.core.poly_cli.poly
 sudo cp ./environments/cli/target/cli.jar /usr/local/polylith/poly.jar
 
 #echo "#### Build core API"

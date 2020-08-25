@@ -197,7 +197,7 @@ Design decisions
 
 Commands
 ========
-./make-uberjar.sh dev polylith.clj.core.cli.poly
+./make-uberjar.sh dev polylith.clj.core.poly_cli.poly
 sudo cp ./environments/core/target/core.jar /usr/local/polylith/poly.jar
 
 polylith:  clj -A:dev:test

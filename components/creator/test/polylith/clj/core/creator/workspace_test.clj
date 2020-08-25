@@ -71,7 +71,7 @@
             (str "")
             (str "            :test {:extra-paths []}")
             (str "")
-            (str "            :poly {:main-opts [\"-m\" \"polylith.clj.core.cli.poly\"]")
+            (str "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly_cli.poly\"]")
             (str "                   :extra-deps {tengstrand/polylith")
             (str "                                {:git/url   \"https://github.com/tengstrand/polylith.git\"")
             (str "                                 :sha       \"" common/poly-git-sha "\"")
