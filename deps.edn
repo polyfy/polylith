@@ -5,7 +5,8 @@
                          "core" "core"
                          "development" "dev"}
             :ns->lib {clojure              org.clojure/clojure
-                      clojure.tools.deps   org.clojure/tools.deps.alpha}}
+                      clojure.tools.deps   org.clojure/tools.deps.alpha
+                      me.raynes            me.raynes/fs}}
 
  :aliases  {:dev {:extra-paths [; Development
                                 "development/src"
@@ -20,6 +21,7 @@
                                 "components/file/src"
                                 "components/git/src"
                                 "components/help/src"
+                                "components/migrator/src"
                                 "components/path-finder/src"
                                 "components/shell/src"
                                 "components/test-helper/src"
@@ -36,6 +38,7 @@
                                 "bases/cli/src"]
                   :extra-deps {org.clojure/clojure {:mvn/version "1.10.1"}
                                org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}
+                               me.raynes/fs {:mvn/version "1.4.6"}
                                org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
                                org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}}}
 
@@ -48,6 +51,7 @@
                                  "components/file/test"
                                  "components/git/test"
                                  "components/help/test"
+                                 "components/migrator/test"
                                  "components/path-finder/test"
                                  "components/shell/test"
                                  "components/test-helper/test"

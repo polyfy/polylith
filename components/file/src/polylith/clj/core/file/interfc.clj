@@ -1,5 +1,6 @@
 (ns polylith.clj.core.file.interfc
-  (:require [polylith.clj.core.file.core :as core])
+  (:require [me.raynes.fs :as fs]
+            [polylith.clj.core.file.core :as core])
   (:import (java.io File)))
 
 (defn absolute-path [path]
@@ -16,6 +17,9 @@
 
 (defn create-temp-dir [dir]
   (core/create-temp-dir dir))
+
+(defn copy-dir [from to]
+  (fs/copy-dir from to))
 
 (defn copy-resource-file! [source target-path]
   (core/copy-resource-file! source target-path))

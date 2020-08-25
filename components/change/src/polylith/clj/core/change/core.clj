@@ -4,12 +4,21 @@
             [polylith.clj.core.change.to-test :as to-test]
             [polylith.clj.core.util.interfc :as util]
             [polylith.clj.core.git.interfc :as git]
-            [polylith.clj.core.util.interfc :as util]))
+            [polylith.clj.core.util.interfc :as util]
+            [polylith.clj.core.util.interfc.color :as color]))
 
-(defn changed-files-info [ws-dir sha1 sha2]
+(defn files [ws-dir sha1 sha2 color-mode]
+  (try
+    (git/diff ws-dir sha1 sha2)
+    (catch Exception _
+      (println (str (color/error color-mode "  Error: ") "Not a valid git repository"))
+      (println)
+      [])))
+
+(defn changed-files-info [ws-dir sha1 sha2 color-mode]
     (util/ordered-map :sha1 sha1
                       :sha2 sha2
-                      :files (git/diff ws-dir sha1 sha2)))
+                      :files (files ws-dir sha1 sha2 color-mode)))
 
 (defn changes [{:keys [ws-dir environments user-input]}
                {:keys [sha1 sha2 files]}]
@@ -35,6 +44,6 @@
 
 (defn with-changes
   ([{:keys [ws-dir] :as workspace}]
-   (with-changes workspace (changed-files-info ws-dir "HEAD" nil)))
+   (with-changes workspace (changed-files-info ws-dir "HEAD" nil (-> workspace :settings :color-mode))))
   ([workspace changes-info]
    (assoc workspace :changes (changes workspace changes-info))))

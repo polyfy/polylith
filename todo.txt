@@ -1,19 +1,4 @@
 
-- implement flipped version of 'deps :lib', that will be the default and show the other one if :flip.
-  In the new version, let each row be a library and each column a brick:
-                 u
-              c  s  a
-              a  e  d
-    library   r  r  m
-    --------------------
-    lib1      x  x  -
-    lib2      -  x  x
-    lib3      x  -  -
-    lib4      -  x  -
-
-- check if included-in-ns? in polylith.clj.core.workspace.lib-deps covers
-  namespace without sub namespaces.
-
 - implement 'migrate' that migrates old lein-polylith projects.
 
 - add tests for the 'test' command.
@@ -164,6 +149,7 @@ Differences compared to lein-polylith
   (split up in major and minor changes)
 - parameters to commands are named.
 - no support for empty top namespace.
+- environments can have tests of their own (and even src).
 - when you create a component, it will not include any example code in the test.
 - git needs to be used, otherwise it can not determine what has changed since the last commit.
 - builds on top of tools.deps instead of leiningen

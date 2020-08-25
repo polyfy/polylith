@@ -4,6 +4,8 @@
             [polylith.clj.core.common.message :as msg]
             [polylith.clj.core.common.validate-args :as validate-args]))
 
+(def poly-git-sha "f312013f061b23346a4883ac084e84534bad25e0")
+
 (defn ns-to-path [namespace]
   (core/ns-to-path namespace))
 

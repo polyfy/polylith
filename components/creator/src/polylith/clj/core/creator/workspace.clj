@@ -1,5 +1,6 @@
 (ns polylith.clj.core.creator.workspace
   (:require [polylith.clj.core.file.interfc :as file]
+            [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.git.interfc :as git]
             [polylith.clj.core.user-config.interfc :as user-config]))
 
@@ -40,7 +41,7 @@
    (str "            :poly {:main-opts [\"-m\" \"polylith.clj.core.cli.poly\"]")
    (str "                   :extra-deps {tengstrand/polylith")
    (str "                                {:git/url   \"https://github.com/tengstrand/polylith.git\"")
-   (str "                                 :sha       \"e02a0794d26b0b111d84a36f6d48e9b1848e5913\"")
+   (str "                                 :sha       \"" common/poly-git-sha "\"")
    (str "                                 :deps/root \"environments/cli\"}}}}}")])
 
 (defn create-user-config-if-not-exists []

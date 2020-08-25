@@ -26,7 +26,8 @@
  :deps    {org.clojure/clojure {:mvn/version "1.10.1"}
            org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}
            org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
-           org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}}
+           org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}
+           me.raynes/fs {:mvn/version "1.4.6"}}
 
  :aliases {:test    {:extra-paths [; Components
                                    "../../components/change/test"
