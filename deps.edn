@@ -66,13 +66,13 @@
                                  ; Environments
                                  "environments/poly/test"]}
 
-            :poly {:main-opts ["-m" "polylith.clj.core.poly_cli.poly"]
+            :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.poly"]
                    :extra-deps {tengstrand/polylith
                                 {:git/url   "https://github.com/tengstrand/polylith.git"
                                  :sha       "37b2617159abefe33520ab0e1d4266eae9c58da5"
                                  :deps/root "environments/poly"}}}
 
-            :poly-migr {:main-opts ["-m" "polylith.clj.core.migrator_cli.migrate"]
+            :poly-migr {:main-opts ["-m" "polylith.clj.core.migrator-cli.migrate"]
                         :extra-deps {tengstrand/polylith
                                      {:git/url   "https://github.com/tengstrand/polylith.git"
                                       :sha       "37b2617159abefe33520ab0e1d4266eae9c58da5"
