@@ -1,5 +1,8 @@
 
+- rename 'cli' to 'poly-cli'.
+
 - implement 'migrate' that migrates old lein-polylith projects.
+  - handle :exclusions
 
 - add tests for the 'test' command.
 

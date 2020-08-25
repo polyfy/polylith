@@ -3,7 +3,8 @@
             :interface-ns "interfc"
             :env->alias {"cli" "cli"
                          "core" "core"
-                         "development" "dev"}
+                         "development" "dev"
+                         "migrator" "migr"}
             :ns->lib {clojure              org.clojure/clojure
                       clojure.tools.deps   org.clojure/tools.deps.alpha
                       me.raynes            me.raynes/fs}}
@@ -35,12 +36,12 @@
                                 "components/workspace-clj/src"
 
                                 ; Bases
-                                "bases/cli/src"]
+                                "bases/cli/src"
+                                "bases/migrator-cli/src"]
+
                   :extra-deps {org.clojure/clojure {:mvn/version "1.10.1"}
                                org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}
-                               me.raynes/fs {:mvn/version "1.4.6"}
-                               org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
-                               org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}}}
+                               me.raynes/fs {:mvn/version "1.4.6"}}}
 
             :test {:extra-paths [; Components
                                  "components/change/test"
