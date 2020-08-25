@@ -48,10 +48,8 @@
                                    "../../components/validator/test"
                                    "../../components/workspace/test"
                                    "../../components/workspace-clj/test"
-
                                    ; Bases
-                                   "../../bases/cli/test"
-
+                                   "../../bases/poly-cli/test"
                                    ; Environments
                                    "test"]
                      :extra-deps  {}}
