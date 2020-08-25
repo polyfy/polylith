@@ -71,7 +71,7 @@
      (str "                   :extra-deps {tengstrand/polylith")
      (str "                                {:git/url   \"https://github.com/tengstrand/polylith.git\"")
      (str "                                 :sha       \"" common/poly-git-sha "\"")
-     (str "                                 :deps/root \"environments/cli\"}}}}}")]))
+     (str "                                 :deps/root \"environments/poly\"}}}}}")]))
 
 (defn env-deps-content [from-dir component-names base-names libraries]
   (concat
