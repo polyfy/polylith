@@ -27,7 +27,7 @@ fi
 
 echo "Environment compiled. Creating an uberjar for the environment"
 
-clojure -A:uberjar --aliases aot --main-class $2 --target ./target/$1.jar
+clojure -A:uberjar --aliases aot --main-class ${2//-/_} --target ./target/$1.jar
 
 if [[ $? -ne 0 ]]
 then

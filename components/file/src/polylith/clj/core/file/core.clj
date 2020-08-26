@@ -1,5 +1,6 @@
 (ns polylith.clj.core.file.core
   (:require [clojure.java.io :as io]
+            [me.raynes.fs :as fs]
             [polylith.clj.core.util.interfc.str :as str-util])
   (:import [java.io File PushbackReader FileNotFoundException]
            [java.nio.file Files]))
@@ -48,6 +49,11 @@
 
 (defn directory? [^File file]
   (.isDirectory file))
+
+(defn copy-file-or-dir+ [from to]
+  (if (-> from io/file directory?)
+    (fs/copy-dir from to)
+    (fs/copy+ from to)))
 
 (defn file-name [^File file]
   (.getName file))

@@ -1,11 +1,10 @@
 
-- implement 'poly-migr' that migrates old lein-polylith projects.
-  - don't copy everything in components and bases.
-
 - use text-table/cell everywhere, not standard-cell in workspace/text-table.
 
 - warn if a namespace in :ns->lib is not used.
 - warn if a library in :ns->lib is not found in the libraries.
+
+- replace file operations with the me.raynes/fs library.
 
 - add tests for the 'test' command.
 

@@ -18,6 +18,12 @@
 (defn create-temp-dir [dir]
   (core/create-temp-dir dir))
 
+(defn copy-file-or-dir+ [from to]
+  (core/copy-file-or-dir+ from to))
+
+(defn copy-file+ [from to]
+  (fs/copy+ from to))
+
 (defn copy-dir [from to]
   (fs/copy-dir from to))
 

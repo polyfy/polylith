@@ -9,9 +9,6 @@
                    (map #(str from-ws-dir (format "-%02d" %))
                         (range 1 100))))
 
-(defn copy-dir [from-dir to-dir dir]
-  (file/copy-dir (str from-dir "/" dir) (str to-dir "/" dir)))
-
 (defn config-key [key path]
   (let [content (read-string (slurp (str path "/project.clj")))
         index (ffirst
@@ -121,6 +118,21 @@
     (file/create-file (str to-dir "/environments/" env-name "/deps.edn")
                       (env-deps-content from-dir env-component-names env-base-names libs))))
 
+(defn copy-brick [from-dir to-dir brick-name bricks-dir]
+  (let [from-path (str from-dir "/" bricks-dir "/" brick-name "/")
+        to-path (str to-dir "/" bricks-dir "/" brick-name "/")
+        from-path-cnt (count from-path)
+        from-files (filter #(file/exists %)
+                           (map #(str from-path %)
+                                ["src" "resources" "test" "readme.md"]))
+        filenames (mapv #(subs % from-path-cnt) from-files)]
+    (doseq [filename filenames]
+      (file/copy-file-or-dir+ (str from-path "/" filename) (str to-path "/" filename)))))
+
+(defn copy-bricks [from-dir to-dir brick-names bricks-dir]
+  (doseq [brick-name brick-names]
+    (copy-brick from-dir to-dir brick-name bricks-dir)))
+
 (defn migrate [from-dir]
   (let [to-dir (next-ws-dir from-dir)
         top-ns (-> :polylith (config-key from-dir) :top-namespace)
@@ -128,8 +140,8 @@
         base-names (sort (file/directory-paths (str from-dir "/bases")))
         system-names (file/directory-paths (str from-dir "/systems"))]
     (file/create-dir to-dir)
-    (copy-dir from-dir to-dir "components")
-    (copy-dir from-dir to-dir "bases")
+    (copy-bricks from-dir to-dir component-names "components")
+    (copy-bricks from-dir to-dir base-names "bases")
     (file/create-dir (str to-dir "/development"))
     (file/create-dir (str to-dir "/environments"))
     (file/create-dir (str to-dir "/development/src"))
