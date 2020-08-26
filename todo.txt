@@ -1,6 +1,11 @@
 
-- implement 'migrate' that migrates old lein-polylith projects.
-  - handle :exclusions
+- move the lib-table and lib-version-table from 'workspace' to 'deps'.
+
+- implement 'poly-migr' that migrates old lein-polylith projects.
+  - don't copy everything in components and bases.
+
+- warn if a namespace in :ns->lib is not used.
+- warn if a library in :ns->lib is not found in the libraries.
 
 - add tests for the 'test' command.
 
@@ -148,6 +153,7 @@ Doc
 Differences compared to lein-polylith
 =====================================
   (split up in major and minor changes)
+- the :import statement is also included to the imports, not just :require.
 - parameters to commands are named.
 - no support for empty top namespace.
 - environments can have tests of their own (and even src).

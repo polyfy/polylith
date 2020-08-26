@@ -38,8 +38,11 @@
   (source-paths from-dir bricks-dir brick-name 32 #{"test"} "../../"))
 
 
-(defn lib-row [[lib version] n#spaces]
-  (str (str-util/spaces n#spaces) lib " {:mvn/version \"" version "\"}"))
+(defn lib-row [[lib version & params] n#spaces]
+  (let [exclusions (if-let [index (first (util/find-first #(= :exclusions (second %)) (map-indexed vector params)))]
+                     (str ", :exclusions " (nth (vec params) (inc index)))
+                     "")]
+    (str (str-util/spaces n#spaces) lib " {:mvn/version \"" version "\"" exclusions "}")))
 
 (defn alias-row [[env alias]]
   (str "                         \"" env "\" \"" alias "\""))
@@ -134,5 +137,3 @@
     (create-dev from-dir to-dir top-ns component-names base-names system-names)
     (doseq [system-name system-names]
       (create-env from-dir to-dir system-name top-ns component-names base-names))))
-
-(migrate "/Users/tengstrand/source/Nova1/project-unicorn")

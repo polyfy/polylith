@@ -6,10 +6,10 @@
 
 (defn ensure-dir-exists [dir]
   (when (str/blank? dir)
-    (println "Please give the workspace directory to migrate.")
+    (println "  Please give the workspace directory to migrate.")
     (System/exit 1))
   (when (-> dir file/exists not)
-    (println "Directory doesn't exist")
+    (println "  Directory doesn't exist")
     (System/exit 1)))
 
 (defn -main [& [from-dir]]
