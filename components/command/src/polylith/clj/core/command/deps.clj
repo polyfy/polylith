@@ -1,13 +1,12 @@
 (ns polylith.clj.core.command.deps
   (:require [polylith.clj.core.deps.interfc :as deps]
-            [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.workspace.interfc :as workspace]))
+            [polylith.clj.core.common.interfc :as common]))
 
 (defn deps [workspace environment-name brick-name unnamed-args show-lib?]
   (let [{:keys [ok? message]} (common/validate-args unnamed-args "deps env:my-env brick:my-brick")]
     (if ok?
       (if show-lib?
-        (workspace/print-lib-tables workspace)
+        (deps/print-lib-tables workspace)
         (if environment-name
           (if brick-name
             (deps/print-brick-table workspace environment-name brick-name)

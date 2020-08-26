@@ -1,6 +1,6 @@
-(ns polylith.clj.core.workspace.text-table.lib-version-table-test
+(ns polylith.clj.core.deps.text-table.lib-version-table-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.workspace.text-table.lib-version-table :as lib-version-table]
+            [polylith.clj.core.deps.text-table.lib-version-table :as lib-version-table]
             [polylith.clj.core.util.interfc.color :as color]))
 
 (def workspace {:settings {:color-mode color/none

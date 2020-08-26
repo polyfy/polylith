@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.text-table.lib-table
+(ns polylith.clj.core.deps.text-table.lib-table
   (:require [polylith.clj.core.text-table.interfc :as text-table]))
 
 (def type->color {"component" :green

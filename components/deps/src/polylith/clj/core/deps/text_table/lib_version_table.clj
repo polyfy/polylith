@@ -1,6 +1,5 @@
-(ns polylith.clj.core.workspace.text-table.lib-version-table
-  (:require [polylith.clj.core.text-table.interfc :as text-table]
-            [polylith.clj.core.workspace.text-table.shared :as shared]))
+(ns polylith.clj.core.deps.text-table.lib-version-table
+  (:require [polylith.clj.core.text-table.interfc :as text-table]))
 
 (defn lib [[name {:keys [mvn/version]}]]
   (when version [{:name name :version version}]))
@@ -9,12 +8,12 @@
   (text-table/cell column row library :none :left :horizontal))
 
 (defn lib-column [libraries]
-  (concat [(shared/standard-cell "library" 1 1)]
+  (concat [(text-table/cell 1 1 "library" :none :left :horizontal)]
           (map-indexed #(lib-cell 1 (+ 3 %1) %2)
                        (map :name libraries))))
 
 (defn version-column [libraries]
-  (concat [(shared/standard-cell "version" 3 1)]
+  (concat [(text-table/cell 3 1 "version" :none :left :horizontal)]
           (map-indexed #(lib-cell 3 (+ 3 %1) %2)
                        (map :version libraries))))
 
@@ -23,7 +22,7 @@
     (text-table/cell column row flag :purple :center :horizontal)))
 
 (defn env-column [column {:keys [alias lib-deps]} libraries]
-  (concat [(shared/standard-cell alias column 1 :purple :center)]
+  (concat [(text-table/cell column 1 alias :purple :center :horizontal)]
           (map-indexed #(flag-cell column (+ 3 %1) %2 (set (mapcat lib lib-deps)))
                        libraries)))
 
@@ -32,7 +31,7 @@
                              environments)))
 
 (defn profile-column [column libraries [profile {:keys [lib-deps]}]]
-  (concat [(shared/standard-cell profile column 1 :purple :center)]
+  (concat [(text-table/cell column 1 profile :purple :center :horizontal)]
           (map-indexed #(flag-cell column (+ 3 %1) %2 (set (mapcat lib lib-deps)))
                        libraries)))
 
