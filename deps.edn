@@ -69,11 +69,11 @@
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.poly"]
                    :extra-deps {tengstrand/polylith
                                 {:git/url   "https://github.com/tengstrand/polylith.git"
-                                 :sha       "16d315e933052ebbfd2d032d826475c4e31065a3"
+                                 :sha       "20300a8db2885f7a0887dd328d9c04a4e8e58702"
                                  :deps/root "environments/poly"}}}
 
             :poly-migr {:main-opts ["-m" "polylith.clj.core.migrator-cli.migrate"]
                         :extra-deps {tengstrand/polylith
                                      {:git/url   "https://github.com/tengstrand/polylith.git"
-                                      :sha       "16d315e933052ebbfd2d032d826475c4e31065a3"
+                                      :sha       "20300a8db2885f7a0887dd328d9c04a4e8e58702"
                                       :deps/root "environments/migrator"}}}}}

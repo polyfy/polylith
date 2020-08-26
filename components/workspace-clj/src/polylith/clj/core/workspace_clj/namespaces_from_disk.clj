@@ -2,19 +2,36 @@
   (:require [clojure.string :as str]
             [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.util.interfc.str :as str-util]
-            [polylith.clj.core.common.interfc :as common]))
+            [polylith.clj.core.common.interfc :as common])
+  (:refer-clojure :exclude [import]))
 
-(defn require? [val]
-  (and (sequential? val)
-       (= :require (first val))))
+(defn import? [statement]
+  (and
+    (sequential? statement)
+    (= :import (first statement))))
 
-(defn imports [imports]
-  (rest (first (filter require? imports))))
+(defn import [statement]
+  (map #(-> % first str) (rest statement)))
 
-(defn filter-imports [content]
+(defn imported-namespaces [ns-statements]
+  (mapcat import (filterv import? ns-statements)))
+
+(defn require? [statement]
+  (and
+    (sequential? statement)
+    (= :require (first statement))))
+
+(defn require-statements [ns-statements]
+  (rest (first (filter require? ns-statements))))
+
+(defn required-namespaces [ns-statements]
   (vec (sort (map #(-> % first str)
                   (filterv #(= :as (second %))
-                           (imports (first content)))))))
+                           (require-statements ns-statements))))))
+
+(defn imports [ns-statement]
+  (concat (imported-namespaces ns-statement)
+          (required-namespaces ns-statement)))
 
 (defn namespace-name [root-dir path]
   (when path
@@ -28,9 +45,9 @@
 (defn ->namespace [root-dir file-path]
   (let [content (file/read-file file-path)]
     {:name (namespace-name root-dir file-path)
-     :namespace (-> content first second str) ; TODO: discuss with Jocke
+     :namespace (-> content first second str)
      :file-path file-path
-     :imports (filter-imports content)}))
+     :imports (-> content first imports)}))
 
 (defn namespaces-from-disk [root-dir]
   (mapv #(->namespace root-dir %)

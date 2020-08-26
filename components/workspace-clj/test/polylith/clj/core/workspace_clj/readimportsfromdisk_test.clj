@@ -2,23 +2,23 @@
   (:require [clojure.test :refer :all]
             [polylith.clj.core.workspace-clj.namespaces-from-disk :as from-disk]))
 
-(deftest filter-imports--require-is-first-statement--returns-def-statements
-  (let [code '((ns polylith.spec.interface
-                 (:require [clojure.test :as test]
-                           [polylith.spec.core :as core]))
-               (defn valid-config? ['config]
-                 (core/valid-config? 'config)))]
-    (is (= ["clojure.test"
-            "polylith.spec.core"]
-           (from-disk/filter-imports code)))))
+(deftest imports--require-is-first-statement--returns-imported-namespaces
+  (let [code '(ns polylith.clj.core.file.core
+                (:require [clojure.java.io :as io]
+                          [polylith.clj.core.util.interfc.str :as str-util])
+                (:import [java.io File PushbackReader FileNotFoundException]
+                         [java.nio.file Files]))]
+    (is (= ["java.io"
+            "java.nio.file"
+            "clojure.java.io"
+            "polylith.clj.core.util.interfc.str"]
+           (from-disk/imports code)))))
 
-(deftest filter-imports--require-is-second-statement--returns-def-statements
-  (let [code '((ns polylith.spec.interface
-                 (:gen-class)
-                 (:require [clojure.test :as test]
-                           [polylith.spec.core :as core]))
-               (defn valid-config? ['config]
-                 (core/valid-config? 'config)))]
+(deftest imports--require-is-second-statement--returns-imported-namespaces
+  (let [code '(ns polylith.spec.interface
+                (:gen-class)
+                (:require [clojure.test :as test]
+                          [polylith.spec.core :as core]))]
     (is (= ["clojure.test"
             "polylith.spec.core"]
-           (from-disk/filter-imports code)))))
+           (from-disk/imports code)))))

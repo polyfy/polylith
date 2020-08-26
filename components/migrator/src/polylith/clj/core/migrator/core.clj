@@ -39,16 +39,26 @@
 
 
 (defn lib-row [[lib version] n#spaces]
-  (str (str-util/spaces n#spaces) lib " {:mvn/version\" " version "\"}"))
+  (str (str-util/spaces n#spaces) lib " {:mvn/version \"" version "\"}"))
 
-(defn dev-deps-content [from-dir top-ns component-names base-names libraries]
+(defn alias-row [[env alias]]
+  (str "                         \"" env "\" \"" alias "\""))
+
+(defn aliases [system-names]
+  (let [aliases (sort-by first (conj (map #(vector % %) system-names) ["development" "dev"]))]
+    (concat
+      [(str "            :env->alias {")]
+      (map alias-row aliases)
+      [(str "                        }")])))
+
+(defn dev-deps-content [from-dir top-ns component-names base-names system-names libraries]
   (concat
     [(str "")
      (str "{:polylith {:vcs \"git\"")
      (str "            :top-namespace \"" top-ns "\"")
-     (str "            :interface-ns \"interface\"")
-     (str "            :env->alias {\"development\" \"dev\"}")
-     (str "            :ns->lib {clojure             org.clojure/clojure")
+     (str "            :interface-ns \"interface\"")]
+    (aliases system-names)
+    [(str "            :ns->lib {clojure             org.clojure/clojure")
      (str "                      clojure.tools.deps  org.clojure/tools.deps.alpha}}")
      (str "")
      (str " :aliases  {:dev {:extra-paths [; Development")
@@ -91,13 +101,13 @@
     (mapcat #(test-env-paths from-dir "bases" %) base-names)
     [(str "                                 ]}}}")]))
 
-(defn create-dev [from-dir to-dir top-ns component-names base-names]
+(defn create-dev [from-dir to-dir top-ns component-names base-names system-names]
   (let [dev-brick-names (map common/path-to-ns (file/directory-paths (str from-dir "/environments/development/src/" (common/ns-to-path top-ns))))
         dev-component-names (sort (filter #(contains? (set component-names) %) dev-brick-names))
         dev-base-names (sort (filter #(contains? (set base-names) %) dev-brick-names))
         libs (sort-by #(-> % first str) (config-key :dependencies (str from-dir "/environments/development")))]
     (file/create-file (str to-dir "/deps.edn")
-                      (dev-deps-content from-dir top-ns dev-component-names dev-base-names libs))))
+                      (dev-deps-content from-dir top-ns dev-component-names dev-base-names system-names libs))))
 
 (defn create-env [from-dir to-dir env-name top-ns component-names base-names]
   (let [env-brick-names (map common/path-to-ns (file/directory-paths (str from-dir "/systems/" env-name "/src/" (common/ns-to-path top-ns))))
@@ -121,6 +131,8 @@
     (file/create-dir (str to-dir "/environments"))
     (file/create-dir (str to-dir "/development/src"))
     (file/create-file (str to-dir "/development/src/.keep") [""])
-    (create-dev from-dir to-dir top-ns component-names base-names)
+    (create-dev from-dir to-dir top-ns component-names base-names system-names)
     (doseq [system-name system-names]
       (create-env from-dir to-dir system-name top-ns component-names base-names))))
+
+(migrate "/Users/tengstrand/source/Nova1/project-unicorn")
