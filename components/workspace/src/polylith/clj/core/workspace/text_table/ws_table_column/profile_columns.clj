@@ -1,17 +1,17 @@
 (ns polylith.clj.core.workspace.text-table.ws-table-column.profile-columns
-  (:require [polylith.clj.core.workspace.text-table.shared :as shared]
+  (:require [polylith.clj.core.text-table.interfc :as text-table]
             [polylith.clj.core.path-finder.interfc.extract :as extract]
             [polylith.clj.core.path-finder.interfc.status :as status]))
 
 (defn profile-cell [index brick-name column show-resources? path-entries]
   (let [flags (status/brick-status-flags path-entries brick-name show-resources?)]
-    (shared/standard-cell flags column (+ index 3) :purple :center)))
+    (text-table/cell column (+ index 3) flags :purple :center)))
 
 (defn column [ws-dir index profile start-column settings bricks show-resources?]
   (let [column (+ start-column (* 2 index))
         path-entries (extract/from-profiles-paths ws-dir settings profile)]
     (concat
-      [(shared/header (name profile) column :purple :left)]
+      [(text-table/cell column 1 (name profile) :purple :left)]
       (map-indexed #(profile-cell %1 %2 column show-resources? path-entries)
                    (map :name bricks)))))
 

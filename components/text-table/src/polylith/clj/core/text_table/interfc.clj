@@ -5,8 +5,20 @@
             [polylith.clj.core.text-table.line :as line]
             [polylith.clj.core.text-table.merger :as merger]))
 
-(defn cell [column row value color align orientation]
-  (cell/cell column row value color align orientation))
+(defn cell
+  ([column value]
+   (cell/cell column 1 value :none :left :horizontal))
+  ([column row value]
+   (cell/cell column row value :none :left :horizontal))
+  ([column row value color]
+   (cell/cell column row value color :left :horizontal))
+  ([column row value color align]
+   (cell/cell column row value color align :horizontal))
+  ([column row value color align orientation]
+   (cell/cell column row value color align orientation)))
+
+(defn number-cell [number column row align thousand-sep]
+  (cell/number-cell number column row align thousand-sep))
 
 (defn spaces [row column-nums spaces]
   (spaces/spaces row column-nums spaces))

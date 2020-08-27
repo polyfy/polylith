@@ -1,13 +1,13 @@
 (ns polylith.clj.core.workspace.text-table.ws-table-column.loc-columns
-  (:require [polylith.clj.core.workspace.text-table.shared :as shared]))
+  (:require [polylith.clj.core.text-table.interfc :as text-table]))
 
 (defn loc-column [header loc-key bricks column thousand-sep]
   (let [total-loc (apply + (filter identity (map loc-key bricks)))]
     (concat
-      [(shared/header header column :none :right)]
-      (map-indexed #(shared/number-cell %2 column (+ 3 %1) :right thousand-sep)
+      [(text-table/cell column 1 header :none :right)]
+      (map-indexed #(text-table/number-cell %2 column (+ 3 %1) :right thousand-sep)
                    (map loc-key bricks))
-      [(shared/number-cell total-loc column (+ (count bricks) 3) :right thousand-sep)])))
+      [(text-table/number-cell total-loc column (+ (count bricks) 3) :right thousand-sep)])))
 
 (defn columns [show-loc? bricks start-column thousand-sep]
   (when show-loc? (concat (loc-column "loc" :lines-of-code-src bricks start-column thousand-sep)

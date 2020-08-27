@@ -1,6 +1,6 @@
 (ns polylith.clj.core.workspace.text-table.ws-table-column.brick-column
   (:require [polylith.clj.core.util.interfc.color :as color]
-            [polylith.clj.core.workspace.text-table.shared :as shared]))
+            [polylith.clj.core.text-table.interfc :as text-table]))
 
 (defn brick-name [name type changed-bricks color-mode]
   (let [changed (if (contains? changed-bricks name) " *" "")]
@@ -8,11 +8,11 @@
 
 (defn brick-cell [index {:keys [name type]} changed-bricks color-mode]
   (let [brick (brick-name name type changed-bricks color-mode)]
-    (shared/standard-cell brick 3 (+ index 3))))
+    (text-table/cell 3 (+ index 3) brick)))
 
 (defn column [bricks {:keys [changed-components changed-bases]} color-mode]
   (let [changed-bricks (set (concat changed-components changed-bases))]
     (concat
-      [(shared/header "brick" 3)]
+      [(text-table/cell 3 "brick")]
       (map-indexed #(brick-cell %1 %2 changed-bricks color-mode)
                    bricks))))
