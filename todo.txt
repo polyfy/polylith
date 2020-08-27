@@ -1,6 +1,5 @@
 
 - warn if a namespace in :ns->lib is not used.
-- warn if a library in :ns->lib is not found in the libraries.
 
 - change how we run tests incrementally. Calculate changes based on the latest git
   tag that starts with e.g. "stable-"

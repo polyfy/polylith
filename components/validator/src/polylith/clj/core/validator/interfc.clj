@@ -12,7 +12,7 @@
             [polylith.clj.core.validator.m203-invalid-src-reference :as m203]
             [polylith.clj.core.validator.m204-path-exists-in-both-dev-and-profile :as m204]
             [polylith.clj.core.validator.m205-lib-deps-exists-in-both-dev-and-profile :as m205]
-            [polylith.clj.core.validator.m206-unused-namespace-in-ns-lib :as m206]
+            [polylith.clj.core.validator.m206-reference-to-missing-namespace-in-ns-lib :as m206]
             [polylith.clj.core.validator.user-input.validator :as validator]))
 
 (defn validate [active-dev-profiles selected-environments settings environments color-mode]
