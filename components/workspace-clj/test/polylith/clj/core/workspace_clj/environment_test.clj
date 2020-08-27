@@ -50,7 +50,7 @@
                           "clojars" {:url "https://repo.clojars.org/"}}
             :namespaces-src []
             :namespaces-test [{:file-path "environments/core/test/polylith/clj/core/dev_test.clj"
-                               :imports   []
+                               :imports   ["clojure.test"]
                                :name      "polylith.clj.core.dev-test"
                                :namespace "polylith.clj.core.dev-test"}]
             :src-paths ["bases/tool/src"

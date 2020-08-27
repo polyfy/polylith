@@ -2,55 +2,48 @@
 - warn if a namespace in :ns->lib is not used.
 - warn if a library in :ns->lib is not found in the libraries.
 
-- replace file operations with the me.raynes/fs library.
+- change how we run tests incrementally. Calculate changes based on the latest git
+  tag that starts with e.g. "stable-"
+  - make it configurable in :polylith.
+  - update the change command to use the last stable git has.
 
-- add tests for the 'test' command.
+- expose a function that takes a sha and returns changed environments.
+  - changed-environments-since (with a sha)
+  - exclude dev.
+  - deploy_123 (ask git to sort it with me)
+  - config in :polylith.
+  - the sha argument is optional.
+
+
+- support having other profile name than "default".
+
 
 - make sure Polylith works with Windows:
+  - use :file-extensions from :src-reader.
   - use configs from ./polylith/config.edn:
     - slash
     - line-separator
+
+- replace file operations with the me.raynes/fs library.
+
+- add tests for the 'test' command.
 
 - update the help.
   - have separate help for the different 'create' variants + show in the overview.
 
 - 'help' should not be part of core.
 
-- let 'workspace' just assoc new attributes so that extra attributes that we don't know about
-  will not dissappear.
-
-- use :file-extensions from :src-reader.
-
-- add support for reading files from git and maybe http url:s. One idea is to create a 'reader'
-  component that can delegate to e.g. 'file-reader' and others.
-
 - add the 'version' command.
-
-- put back the 'spec' component and make sure we have the :polylith section with
-  an entry for :top-namespace + if color-mode is specifiec that it has valid values.
-  - create a spec that checks a workspace + expose it in the core API.
-
-- set up the polylith github project:
-  - so that people can report errors
-  - activate CI
-
-- also show the columns '#ns' and 'loc/ns' in the 'info' command when sending in -loc as argument.
-  - change from '(t)' to 'loc-t' ?
-
-- check if the 'cli' environment can depend on the core jar instead
-  and remove all bricks except three of them.
-  - in the 'cli' environment, depend on the core jar instead of real components.
-    - maybe we need two variants:
-      - polylith-clj-core
-      - polylith-clj-core-aot
 
 - let the output of 'ws' be nicely formatted and come in a logical order.
 
-- let util.def-map handle attributes with namespace in it, e.g. [paths deps aliases mvn/repos]
-  in environments-from-disk.
 
-- check that we follow symbolic links in file/paths-recursively.
-
+Furkan:
+- update the documentation in the realworld-example.
+- create a CircleCI job that can build the realworld-example.
+- set up the polylith github project:
+  - so that people can report errors
+  - activate CI
 - fix so that we can run the create tests from the REPL. The problem is in
   polylith.clj.core.creator.workspace/create, when copying logo.png.
 
@@ -62,6 +55,14 @@ Questions
 
 Leave for now
 =============
+- let util.def-map handle attributes with namespace in it, e.g. [paths deps aliases mvn/repos]
+  in environments-from-disk.
+- also show the columns '#ns' and 'loc/ns' in the 'info' command when sending in -loc as argument.
+- put back the 'spec' component and make sure we have the :polylith section with
+  an entry for :top-namespace + if color-mode is specifiec that it has valid values.
+  - create a spec that checks a workspace + expose it in the core API.
+- add support for reading files from git and maybe http url:s. One idea is to create a 'reader'
+  component that can delegate to e.g. 'file-reader' and others.
 - maybe use clj-exec: https://insideclojure.org/2020/07/28/clj-exec/
 - extract the doc for each function (metadata).
 - when releasing:
@@ -72,27 +73,14 @@ Leave for now
   - update the :ws-reader/:project-url to point to master
 - html doc that automatically updates itself.
   - add support for extracting the APIs from a base, e.g. REST.
-- add support for another language, e.g. Java.
+- add support for another language, e.g. Java and/or Kotlin.
+  - let 'workspace' just assoc new attributes so that extra attributes that we don't know about
+    will not dissappear.
 - check if support for .cljs files make sense.
 - figure out what jar:s are missing based on the imports.
-- if building a UI, then we need to calculate this data based on :interface-deps:
-  - uses-directly (interface + component per environment)
-  - uses-indirectly
-  - used-by-directly
-  - used-by-indirectly
-- in the UI, show the missing interface dependencies as interfaces
-  in the environment column that contains the components.
-- in the UI, when you click on a component or base, show what components
-  it uses (directly or indirectly) in every environement + what components
-  that uses it (directly or indirectly). If both thing happens at the same time,
-  then we have circular dependencies!
-- make sure we can compile the code into a command line tool using GraalVM.
-- add the feature "hide-succeeding-rows" to the text-table component that will show
-  following lines as blank. Support having more than one column in a "group".
 - make sure we handle imported namespaces in a generic way, right now we assume
   that they are separated with a "." in deps.dependencies/brick-namespace.
 - show dependencies at the function level?
-- maybe use clojure.tools.namespace.parse to get the dependencies to other namespaces.
 
 Doc
 ===

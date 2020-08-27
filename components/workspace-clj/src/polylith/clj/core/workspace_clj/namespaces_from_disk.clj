@@ -1,37 +1,20 @@
 (ns polylith.clj.core.workspace-clj.namespaces-from-disk
   (:require [clojure.string :as str]
             [polylith.clj.core.file.interfc :as file]
-            [polylith.clj.core.util.interfc.str :as str-util]
-            [polylith.clj.core.common.interfc :as common])
-  (:refer-clojure :exclude [import]))
+            [polylith.clj.core.common.interfc :as common]
+            [polylith.clj.core.util.interfc.str :as str-util])
+  (:refer-clojure :exclude [import require]))
 
 (defn import? [statement]
   (and
     (sequential? statement)
-    (= :import (first statement))))
+    (contains? #{:import :require} (first statement))))
 
 (defn import [statement]
   (map #(-> % first str) (rest statement)))
 
-(defn imported-namespaces [ns-statements]
-  (mapcat import (filterv import? ns-statements)))
-
-(defn require? [statement]
-  (and
-    (sequential? statement)
-    (= :require (first statement))))
-
-(defn require-statements [ns-statements]
-  (rest (first (filter require? ns-statements))))
-
-(defn required-namespaces [ns-statements]
-  (vec (sort (map #(-> % first str)
-                  (filterv #(= :as (second %))
-                           (require-statements ns-statements))))))
-
-(defn imports [ns-statement]
-  (concat (imported-namespaces ns-statement)
-          (required-namespaces ns-statement)))
+(defn imports [ns-statements]
+  (vec (sort (mapcat import (filterv import? ns-statements)))))
 
 (defn namespace-name [root-dir path]
   (when path

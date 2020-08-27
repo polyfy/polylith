@@ -8,9 +8,9 @@
                           [polylith.clj.core.util.interfc.str :as str-util])
                 (:import [java.io File PushbackReader FileNotFoundException]
                          [java.nio.file Files]))]
-    (is (= ["java.io"
+    (is (= ["clojure.java.io"
+            "java.io"
             "java.nio.file"
-            "clojure.java.io"
             "polylith.clj.core.util.interfc.str"]
            (from-disk/imports code)))))
 
