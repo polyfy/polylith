@@ -44,7 +44,7 @@
                        environments)))
 
 (defn loc-cell [index lines-of-code column thousand-sep]
-  (text-table/number-cell lines-of-code column (+ index 3) :right thousand-sep))
+  (text-table/number-cell column (+ index 3) lines-of-code :right thousand-sep))
 
 (defn loc-columns [show-loc? environments n#profiles thousand-sep total-col-src total-loc-test]
   (when show-loc?
@@ -52,10 +52,10 @@
           column2 (+ 2 column1)]
       (concat [(text-table/cell column1 1 "loc" :none :right)]
               (map-indexed #(loc-cell %1 %2 column1 thousand-sep) (map :lines-of-code-src environments))
-              [(text-table/number-cell total-col-src column1 (+ (count environments) 3) :right thousand-sep)]
+              [(text-table/number-cell column1 (+ (count environments) 3) total-col-src :right thousand-sep)]
               [(text-table/cell column2 1 "(t)" :none :right)]
               (map-indexed #(loc-cell %1 %2 column2 thousand-sep) (map :lines-of-code-test environments))
-              [(text-table/number-cell total-loc-test column2 (+ (count environments) 3) :right thousand-sep)]))))
+              [(text-table/number-cell column2 (+ (count environments) 3) total-loc-test :right thousand-sep)]))))
 
 (defn table [{:keys [ws-dir settings environments changes]} show-loc? show-resources?]
   (let [{:keys [color-mode thousand-sep]} settings

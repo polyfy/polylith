@@ -25,7 +25,7 @@
     (concat
       [(text-table/cell column 1 alias :purple :center)]
       (map-indexed #(env-cell %1 column %2 alias alias->bricks-to-test path-entries show-resources?) bricks)
-      (when show-loc? [(text-table/number-cell total-loc-src column (+ 3 (count bricks)) :center thousand-sep)]))))
+      (when show-loc? [(text-table/number-cell column (+ 3 (count bricks)) total-loc-src :center thousand-sep)]))))
 
 (defn columns [ws-dir environments bricks {:keys [env->bricks-to-test]}
                show-loc? show-resources? thousand-sep]

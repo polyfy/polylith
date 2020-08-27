@@ -17,8 +17,8 @@
   ([column row value color align orientation]
    (cell/cell column row value color align orientation)))
 
-(defn number-cell [number column row align thousand-sep]
-  (cell/number-cell number column row align thousand-sep))
+(defn number-cell [column row number align thousand-sep]
+  (cell/number-cell column row number align thousand-sep))
 
 (defn spaces [row column-nums spaces]
   (spaces/spaces row column-nums spaces))

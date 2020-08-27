@@ -9,6 +9,6 @@
    :align align
    :orientation orientation})
 
-(defn number-cell [number column row align thousand-sep]
+(defn number-cell [column row number align thousand-sep]
   (let [value (str-util/sep-1000 number thousand-sep)]
     (cell column row value :none align :horizontal)))
