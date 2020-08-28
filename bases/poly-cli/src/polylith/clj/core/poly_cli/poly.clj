@@ -1,8 +1,8 @@
 (ns polylith.clj.core.poly-cli.poly
   (:require [polylith.clj.core.change.interfc :as change]
             [polylith.clj.core.command.interfc :as command]
-            [polylith.clj.core.user-input.interfc :as user-input]
             [polylith.clj.core.file.interfc :as file]
+            [polylith.clj.core.user-input.interfc :as user-input]
             [polylith.clj.core.util.interfc.exception :as ex]
             [polylith.clj.core.workspace.interfc :as ws]
             [polylith.clj.core.workspace-clj.interfc :as ws-clj])

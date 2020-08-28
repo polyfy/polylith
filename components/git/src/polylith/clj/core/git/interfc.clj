@@ -1,14 +1,17 @@
 (ns polylith.clj.core.git.interfc
   (:require [polylith.clj.core.git.core :as core]))
 
+(defn is-git-repo? [ws-dir]
+  (core/is-git-repo? ws-dir))
+
 (defn init [ws-dir]
   (core/init ws-dir))
 
 (defn add [ws-dir filename]
   (core/add ws-dir filename))
 
-(defn latest-stable-sha [ws-dir pattern]
-  (core/latest-stable-sha ws-dir pattern))
+(defn latest-stable [ws-dir pattern]
+  (core/latest-stable ws-dir pattern))
 
 (defn diff [ws-dir sha1 sha2]
   "Lists the changed files that has occurred between two SHAs in git."

@@ -2,6 +2,12 @@
   (:require [clojure.string :as str]
             [polylith.clj.core.shell.interfc :as shell]))
 
+(defn is-git-repo? [ws-dir]
+  (try
+    (= "true" (first (str/split-lines (shell/sh "git" "rev-parse" "--is-inside-work-tree" :dir ws-dir))))
+    (catch Exception _
+      false)))
+
 (defn init [ws-dir]
   (try
     (shell/sh "git" "init" :dir ws-dir)
@@ -31,7 +37,8 @@
 
 (defn list-tags [ws-dir pattern]
   (let [sort (str "--sort=committerdate")]
-    (str/split-lines (shell/sh "git" "tag" sort "-l" pattern :dir ws-dir))))
+    (filterv #(-> % str/blank? not)
+             (str/split-lines (shell/sh "git" "tag" sort "-l" pattern :dir ws-dir)))))
 
 (defn sha-of-tag [ws-dir tag-name]
   (first (str/split-lines (shell/sh "git" "rev-list" "-1" tag-name :dir ws-dir))))
@@ -39,7 +46,8 @@
 (defn first-commited-sha [ws-dir]
   (last (str/split-lines (shell/sh "git" "log" "--format=%H" :dir ws-dir))))
 
-(defn latest-stable-sha [ws-dir pattern]
+(defn latest-stable [ws-dir pattern]
   (if-let [tag-name (last (list-tags ws-dir pattern))]
-    (sha-of-tag ws-dir tag-name)
-    (first-commited-sha ws-dir)))
+    {:tag tag-name
+     :sha (sha-of-tag ws-dir tag-name)}
+    {:sha (first-commited-sha ws-dir)}))

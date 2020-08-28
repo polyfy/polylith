@@ -1,10 +1,7 @@
 
-- change how we run tests incrementally. Calculate changes based on the latest git
-  tag that starts with e.g. "stable-"
-  - make it configurable in :polylith.
-  - update the change command to use the last stable git has.
-  - add :stable-since-tag-pattern "stable-" to "create w".
-  - add tag + sha to the :info command?
+- remove the two initial blank lines in the info command when no git repo.
+
+- add validation that makes sure that :stable-since-tag-pattern is set.
 
 - expose a function that takes a sha and returns changed environments.
   - changed-environments-since (with a sha)
@@ -12,7 +9,6 @@
   - deploy_123 (ask git to sort it with me)
   - config in :polylith.
   - the sha argument is optional.
-
 
 - support having other profile name than "default".
 

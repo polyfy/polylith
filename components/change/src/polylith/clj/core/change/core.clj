@@ -4,21 +4,7 @@
             [polylith.clj.core.change.to-test :as to-test]
             [polylith.clj.core.util.interfc :as util]
             [polylith.clj.core.git.interfc :as git]
-            [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.util.interfc.color :as color]))
-
-(defn files [ws-dir sha1 sha2 color-mode]
-  (try
-    (git/diff ws-dir sha1 sha2)
-    (catch Exception _
-      (println (str (color/error color-mode "  Error: ") "Not a valid git repository"))
-      (println)
-      [])))
-
-(defn changed-files-info [ws-dir sha1 sha2 color-mode]
-    (util/ordered-map :sha1 sha1
-                      :sha2 sha2
-                      :files (files ws-dir sha1 sha2 color-mode)))
+            [polylith.clj.core.util.interfc :as util]))
 
 (defn changes [{:keys [ws-dir environments user-input]}
                {:keys [sha1 sha2 files]}]
@@ -42,10 +28,11 @@
                        :environments-to-test environments-to-test
                        :changed-files files)))
 
-(defn with-changes
-  ([{:keys [ws-dir settings] :as workspace}]
-   (let [{:keys [color-mode stable-since-tag-pattern]} settings
-         sha (git/latest-stable-sha ws-dir stable-since-tag-pattern)]
-     (with-changes workspace (changed-files-info ws-dir sha nil color-mode))))
-  ([workspace changes-info]
-   (assoc workspace :changes (changes workspace changes-info))))
+(defn with-changes [{:keys [ws-dir settings] :as workspace}]
+  (if (-> ws-dir git/is-git-repo? not)
+    workspace
+    (let [{:keys [stable-since-tag-pattern]} settings
+          {:keys [sha]} (git/latest-stable ws-dir stable-since-tag-pattern)]
+      (assoc workspace :changes
+                       (changes workspace {:sha1 sha
+                                           :files (git/diff ws-dir sha nil)})))))
