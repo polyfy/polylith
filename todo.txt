@@ -3,6 +3,8 @@
   tag that starts with e.g. "stable-"
   - make it configurable in :polylith.
   - update the change command to use the last stable git has.
+  - add :stable-since-tag-pattern "stable-" to "create w".
+  - add tag + sha to the :info command?
 
 - expose a function that takes a sha and returns changed environments.
   - changed-environments-since (with a sha)

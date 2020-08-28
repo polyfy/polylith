@@ -43,7 +43,9 @@
                        :changed-files files)))
 
 (defn with-changes
-  ([{:keys [ws-dir] :as workspace}]
-   (with-changes workspace (changed-files-info ws-dir "HEAD" nil (-> workspace :settings :color-mode))))
+  ([{:keys [ws-dir settings] :as workspace}]
+   (let [{:keys [color-mode stable-since-tag-pattern]} settings
+         sha (git/latest-stable-sha ws-dir stable-since-tag-pattern)]
+     (with-changes workspace (changed-files-info ws-dir sha nil color-mode))))
   ([workspace changes-info]
    (assoc workspace :changes (changes workspace changes-info))))

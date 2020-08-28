@@ -61,6 +61,7 @@
             (str "{:polylith {:vcs \"git\"")
             (str "            :top-namespace \"se.example\"")
             (str "            :interface-ns \"interface\"")
+            (str "            :stable-since-tag-pattern \"stable-*\"")
             (str "            :env->alias {\"development\" \"dev\"}")
             (str "            :ns->lib {clojure             org.clojure/clojure")
             (str "                      clojure.tools.deps  org.clojure/tools.deps.alpha}}")

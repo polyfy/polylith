@@ -14,12 +14,6 @@
 (defn add [ws-dir filename]
   (shell/sh "git" "add" filename :dir ws-dir))
 
-(defn current-sha [ws-dir]
-  (try
-    (str/trim (shell/sh "git" "rev-parse" "HEAD" :dir ws-dir))
-    (catch Exception _
-      (println (str "Couldn't get current SHA")))))
-
 (defn diff-command-parts [sha1 sha2]
   (if sha1
     (if sha2
@@ -33,4 +27,19 @@
 (defn diff [ws-dir sha1 sha2]
   (let [files (apply shell/sh (concat (diff-command-parts sha1 sha2)
                                       [:dir ws-dir]))]
-    (str/split files #"\n")))
+    (str/split-lines files)))
+
+(defn list-tags [ws-dir pattern]
+  (let [sort (str "--sort=committerdate")]
+    (str/split-lines (shell/sh "git" "tag" sort "-l" pattern :dir ws-dir))))
+
+(defn sha-of-tag [ws-dir tag-name]
+  (first (str/split-lines (shell/sh "git" "rev-list" "-1" tag-name :dir ws-dir))))
+
+(defn first-commited-sha [ws-dir]
+  (last (str/split-lines (shell/sh "git" "log" "--format=%H" :dir ws-dir))))
+
+(defn latest-stable-sha [ws-dir pattern]
+  (if-let [tag-name (last (list-tags ws-dir pattern))]
+    (sha-of-tag ws-dir tag-name)
+    (first-commited-sha ws-dir)))

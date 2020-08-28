@@ -1,11 +1,9 @@
 (ns polylith.clj.core.test-helper.core
   (:require [clojure.string :as str]
             [clojure.stacktrace :as stacktrace]
-            [polylith.clj.core.change.interfc :as change]
+            [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.command.interfc :as command]
             [polylith.clj.core.user-input.interfc :as user-input]
-            [polylith.clj.core.file.interfc :as file]
-            [polylith.clj.core.git.interfc :as git]
             [polylith.clj.core.user-config.interfc :as user-config]
             [polylith.clj.core.workspace-clj.interfc :as ws-clj]
             [polylith.clj.core.workspace.interfc :as ws]))
@@ -31,14 +29,12 @@
   (let [exists? (file/exists (str ws-dir "/deps.edn"))]
     (when exists? (-> ws-dir
                       ws-clj/workspace-from-disk
-                      (ws/enrich-workspace user-input)
-                      change/with-changes))))
+                      (ws/enrich-workspace user-input)))))
 
 (defn execute-command [current-dir args]
   (with-redefs [file/current-dir (fn [] (if (str/blank? current-dir)
                                           @root-dir
                                           (str @root-dir "/" current-dir)))
-                git/current-sha (fn [_] "21f40507a24291ead2409ce33277378bb7e94ac6")
                 user-config/home-dir (fn [] (str @root-dir "/" user-home))]
     (let [ws-dir (file/current-dir)
           user-input (user-input/extract-params args)
