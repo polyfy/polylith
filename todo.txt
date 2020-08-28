@@ -1,5 +1,5 @@
 
-- warn if a namespace in :ns->lib is not used.
+- make one table of the library deps instead of two.
 
 - change how we run tests incrementally. Calculate changes based on the latest git
   tag that starts with e.g. "stable-"

@@ -2,6 +2,8 @@
   (:require [clojure.test :refer :all]
             [polylith.clj.core.workspace.lib-imports :as lib-imports]))
 
+(def interface-names #{"article" "comment" "database" "log" "profile" "spec" "tag" "user"})
+
 (def component {:name "article"
                 :type "component"
                 :namespaces-src [{:name "article/spec.clj"
@@ -22,8 +24,6 @@
                                             "clojure.realworld.article.store"
                                             "clojure.realworld.profile.interface"
                                             "slugger.core"]}]})
-
-(def interface-names #{"article" "comment" "database" "log" "profile" "spec" "tag" "user"})
 
 (deftest lib-imports-src--given-a-component-with-interface-and-library-imports--return-all-imports-except-components
   (is (= ["clj-time.coerce"

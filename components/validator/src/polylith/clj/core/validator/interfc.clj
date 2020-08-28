@@ -12,7 +12,8 @@
             [polylith.clj.core.validator.m203-invalid-src-reference :as m203]
             [polylith.clj.core.validator.m204-path-exists-in-both-dev-and-profile :as m204]
             [polylith.clj.core.validator.m205-lib-deps-exists-in-both-dev-and-profile :as m205]
-            [polylith.clj.core.validator.m206-reference-to-missing-namespace-in-ns-lib :as m206]
+            [polylith.clj.core.validator.m206-reference-to-missing-library-in-ns-lib :as m206]
+            [polylith.clj.core.validator.m207-reference-to-missing-namespace-in-ns-lib :as m207]
             [polylith.clj.core.validator.user-input.validator :as validator]))
 
 (defn validate [active-dev-profiles selected-environments settings environments color-mode]
@@ -33,4 +34,5 @@
                              (m203/warnings environments color-mode)
                              (m204/warnings settings environments color-mode)
                              (m205/warnings settings environments color-mode)
-                             (m206/warnings settings components bases color-mode))))))
+                             (m206/warnings settings environments color-mode)
+                             (m207/warnings settings components bases color-mode))))))
