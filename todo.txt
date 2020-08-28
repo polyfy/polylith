@@ -1,17 +1,5 @@
 
-- remove the two initial blank lines in the info command when no git repo.
-
-- add validation that makes sure that :stable-since-tag-pattern is set.
-
-- expose a function that takes a sha and returns changed environments.
-  - changed-environments-since (with a sha)
-  - exclude dev.
-  - deploy_123 (ask git to sort it with me)
-  - config in :polylith.
-  - the sha argument is optional.
-
 - support having other profile name than "default".
-
 
 - make sure Polylith works with Windows:
   - use :file-extensions from :src-reader.
@@ -31,6 +19,13 @@
 - add the 'version' command.
 
 - let the output of 'ws' be nicely formatted and come in a logical order.
+
+- add validation for settings, like:
+  :stable-since-tag-pattern
+
+
+- remove the two initial blank lines in the info command when no git repo.
+
 
 
 Furkan:
