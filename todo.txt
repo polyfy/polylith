@@ -1,5 +1,9 @@
 
-- support having other profile name than "default".
+- make :ns->lib empty when creating a new workspace.
+
+- turn off validation 107 if selecting the empty profile (+).
+
+- change from flag:r to src:r.
 
 - make sure Polylith works with Windows:
   - use :file-extensions from :src-reader.
@@ -26,7 +30,7 @@
 
 - remove the two initial blank lines in the info command when no git repo.
 
-
+- document the code more.
 
 Furkan:
 - update the documentation in the realworld-example.

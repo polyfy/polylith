@@ -28,6 +28,7 @@
    (str "{:polylith {:vcs \"git\"")
    (str "            :top-namespace \"" top-ns "\"")
    (str "            :interface-ns \"interface\"")
+   (str "            :default-profile-name \"default\"")
    (str "            :stable-since-tag-pattern \"stable-*\"")
    (str "            :env->alias {\"development\" \"dev\"}")
    (str "            :ns->lib {clojure             org.clojure/clojure")
