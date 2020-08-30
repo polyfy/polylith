@@ -1,6 +1,4 @@
 
-- change from flag:r to src:r.
-
 - add :profile-prefix which is "+" as default.
 
 - make sure Polylith works with Windows:

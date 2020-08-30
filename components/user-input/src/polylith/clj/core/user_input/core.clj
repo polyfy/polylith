@@ -25,7 +25,7 @@
         {:keys [name
                 top-ns
                 env
-                flag
+                src
                 brick
                 interface
                 lib!
@@ -48,7 +48,7 @@
                                     (= "true" all-bricks!))
                       :run-env-tests? (or (= "true" all!)
                                           (= "true" env!))
-                      :show-resources? (contains? #{"r" "resources"} flag)
+                      :show-resources? (contains? #{"r" "resources"} src)
                       :active-dev-profiles (active-dev-profiles unnamed)
                       :selected-environments (selected-environments env dev!)
                       :unnamed-args unnamed)))
