@@ -12,25 +12,25 @@
     (map-indexed #(brick-cell (+ %1 3) %2 color-mode)
                  bricks)))
 
-(defn interface-cell [column row component-name brick-name brick->deps brick->indirect-deps]
+(defn interface-cell [column row component-name brick-name brick->deps brick->indirect-deps empty-char]
   (let [value (cond
                 (contains? (brick->deps brick-name) component-name) "x"
                 (contains? (brick->indirect-deps brick-name) component-name) "+"
-                :else "·")]
+                :else empty-char)]
     (text-table/cell column row value :none :center :horizontal)))
 
-(defn interface-column [column component-name brick-names brick->deps brick->indirect-deps]
+(defn interface-column [column component-name brick-names brick->deps brick->indirect-deps empty-char]
   (concat
     [(text-table/cell column 1 component-name :green :right :vertical)]
-    (map-indexed #(interface-cell column (+ %1 3) component-name %2 brick->deps brick->indirect-deps)
+    (map-indexed #(interface-cell column (+ %1 3) component-name %2 brick->deps brick->indirect-deps empty-char)
                  brick-names)))
 
-(defn interface-columns [component-names brick-names brick->deps brick->indirect-deps]
-  (apply concat (map-indexed #(interface-column (+ (* %1 2) 3) %2 brick-names brick->deps brick->indirect-deps)
+(defn interface-columns [component-names brick-names brick->deps brick->indirect-deps empty-char]
+  (apply concat (map-indexed #(interface-column (+ (* %1 2) 3) %2 brick-names brick->deps brick->indirect-deps empty-char)
                              component-names)))
 
 (defn table [{:keys [settings components bases]} environment]
-  (let [color-mode (:color-mode settings)
+  (let [{:keys [color-mode empty-char]} settings
         deps (:deps environment)
         bricks (concat components bases)
         brick-names (map :name bricks)
@@ -41,7 +41,7 @@
         spaces (repeat "  ")
         header-spaces (text-table/spaces 1 space-columns spaces)
         brick-col (brick-column bricks color-mode)
-        component-cols (interface-columns component-names brick-names brick->deps brick->indirect-deps)
+        component-cols (interface-columns component-names brick-names brick->deps brick->indirect-deps empty-char)
         cells (text-table/merge-cells brick-col component-cols header-spaces)
         line (text-table/line 2 cells)]
     (text-table/table "  " color-mode cells line)))

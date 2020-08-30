@@ -2,7 +2,8 @@
   (:require [clojure.test :refer :all]
             [polylith.clj.core.deps.text-table.workspace-brick-deps-table :as ws-brick-table]))
 
-(def workspace {:settings {:color-mode "none"}
+(def workspace {:settings {:color-mode "none"
+                           :empty-char "·"}
                 :components [{:name "change"}
                              {:name "command",}
                              {:name "common",}

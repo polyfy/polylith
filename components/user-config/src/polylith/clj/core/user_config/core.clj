@@ -19,3 +19,6 @@
 
 (defn color-mode []
   (:color-mode (config-content) "dark"))
+
+(defn empty-character []
+  (:empty-character (config-content) "empty-character"))

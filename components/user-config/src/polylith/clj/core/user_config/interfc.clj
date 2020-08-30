@@ -9,3 +9,6 @@
 
 (defn color-mode []
   (core/color-mode))
+
+(defn empty-character []
+  (core/empty-character))

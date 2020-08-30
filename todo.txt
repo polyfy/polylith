@@ -15,6 +15,7 @@
 - 'help' should not be part of core.
 
 - add the 'version' command.
+  - view home directory
 
 - let the output of 'ws' be nicely formatted and come in a logical order.
 

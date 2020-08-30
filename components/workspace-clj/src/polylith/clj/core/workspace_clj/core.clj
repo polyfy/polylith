@@ -40,6 +40,7 @@
    (let [{:keys [vcs top-namespace interface-ns default-profile-name stable-since-tag-pattern env->alias ns->lib]} polylith
          top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
          color-mode (user-config/color-mode)
+         empty-char (user-config/empty-character)
          thousand-sep (user-config/thousand-separator)
          component-names (file/directory-paths (str ws-dir "/components"))
          components (components-from-disk/read-components ws-dir top-src-dir component-names interface-ns)
@@ -51,8 +52,9 @@
                                     :interface-ns (or interface-ns "interface")
                                     :default-profile-name (or default-profile-name "default")
                                     :stable-since-tag-pattern (or stable-since-tag-pattern "stable-*")
-                                    :color-mode color-mode
-                                    :thousand-sep thousand-sep
+                                    :color-mode (or color-mode "none")
+                                    :empty-char (or empty-char ".")
+                                    :thousand-sep (or thousand-sep ",")
                                     :profile->settings profile->settings
                                     :env->alias env->alias
                                     :ns->lib (stringify ns->lib))]

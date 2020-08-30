@@ -2,7 +2,8 @@
   (:require [clojure.test :refer :all]
             [polylith.clj.core.deps.text-table.workspace-ifc-deps-table :as ws-ifc-table]))
 
-(def workspace {:settings {:color-mode "none"}
+(def workspace {:settings {:color-mode "none"
+                           :empty-char "·"}
                 :interfaces [{:name "change"}
                              {:name "command"}
                              {:name "common"}
