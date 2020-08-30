@@ -3,6 +3,7 @@
 
 (defn home-dir []
   (let [dir (System/getProperty "user.home")]
+    (println "###home-dir=" dir)
     (str-util/skip-if-ends-with dir "/")))
 
 (defn- config-content []
