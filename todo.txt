@@ -1,9 +1,9 @@
 
-- make :ns->lib empty when creating a new workspace.
-
 - turn off validation 107 if selecting the empty profile (+).
 
 - change from flag:r to src:r.
+
+- add :profile-prefix which is "+" as default.
 
 - make sure Polylith works with Windows:
   - use :file-extensions from :src-reader.
