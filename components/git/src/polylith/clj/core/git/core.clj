@@ -13,9 +13,9 @@
     (shell/sh "git" "init" :dir ws-dir)
     (shell/sh "git" "add" "." :dir ws-dir)
     (shell/sh "git" "commit" "-m" "Initial commit." :dir ws-dir)
-    (catch Exception _
+    (catch Exception e
       (println (str "Cannot create a git repository for the workspace.\n"
-                    "Please try to create it manually instead.")))))
+                    "Please try to create it manually instead: " (.getMessage e))))))
 
 (defn add [ws-dir filename]
   (shell/sh "git" "add" filename :dir ws-dir))

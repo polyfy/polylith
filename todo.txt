@@ -1,9 +1,6 @@
 
-- make sure Polylith works with Windows:
-  - use :file-extensions from :src-reader.
-  - use configs from ./polylith/config.edn:
-    - slash
-    - line-separator
+- make sure Polylith works with Windows.
+  - try to get the colors to work in windows.
 
 - replace file operations with the me.raynes/fs library.
 
@@ -120,11 +117,20 @@ Doc
   - build a stand alone command line tool out of it.
   - build a service (lambda, REST...) out of it.
 - a section on how to rename and delete things.
--
+- in the Windows section:
+  - put poly.jar and poly.bat in e.g. "C:\Program Files\Polylith" and set poly.bat to:
+      @echo off
+      start /wait /b java -jar "C:\Program Files\Polylith\poly.jar" %*
+  - install java + set JAVA_HOME
+  - install git
+    - git config --global user.email "my-email@gmail.com"
+    - git config --global user.name "My Name"
+
 
 Differences compared to lein-polylith
 =====================================
   (split up in major and minor changes)
+- the new version doesn't update files, only show messages that they are recommended to be updated manually.
 - the :import statement is also included to the imports, not just :require.
 - parameters to commands are named.
 - no support for empty top namespace.
