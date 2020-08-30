@@ -70,7 +70,11 @@
                     :component-names ["build-tools"]
                     :base-names ["helpers"]}])
 
-(deftest errors--environments-with-missing-components--should-return-errors
+(deftest errors--when-no-active-dev-profiles--ignore-error
+  (is (= nil
+         (m107/errors components polylith-bases environments #{} color/none))))
+
+(deftest errors--when-environments-with-missing-components--return-error
   (is (= [{:type "error"
            :code 107
            :environment "development"
@@ -80,4 +84,4 @@
                          "spec"}
            :colorized-message "Missing components in the development environment for these interfaces: database, log, profile, spec",
            :message           "Missing components in the development environment for these interfaces: database, log, profile, spec"}]
-         (m107/errors components polylith-bases environments color/none))))
+         (m107/errors components polylith-bases environments #{"default"} color/none))))

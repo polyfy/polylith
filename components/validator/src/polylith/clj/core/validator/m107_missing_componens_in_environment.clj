@@ -45,6 +45,7 @@
   (when (-> missing-interface-names empty? not)
     (missing-components-error env missing-interface-names color-mode)))
 
-(defn errors [components bases environments color-mode]
-  (mapcat #(env-error % color-mode)
-          (map #(env-status % components bases) environments)))
+(defn errors [components bases environments active-dev-profiles color-mode]
+  (when (-> active-dev-profiles empty? not)
+    (mapcat #(env-error % color-mode)
+            (map #(env-status % components bases) environments))))

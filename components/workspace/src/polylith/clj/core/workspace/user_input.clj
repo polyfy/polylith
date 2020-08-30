@@ -5,4 +5,7 @@
   (if (and (-> profile->settings empty? not)
            (empty? active-dev-profiles))
     (assoc user-input :active-dev-profiles #{default-profile-name})
-    user-input))
+    (if (= #{""} active-dev-profiles)
+      ;; The user has typed e.g. "poly info +"
+      (assoc user-input :active-dev-profiles #{})
+      user-input)))
