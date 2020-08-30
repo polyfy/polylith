@@ -1,24 +1,18 @@
 
-- make sure Polylith works with Windows.
-  - try to get the colors to work in windows.
+- show warning if missing libraries are encountered in any environment.
 
-- replace file operations with the me.raynes/fs library.
-
-- add tests for the 'test' command.
+- implement the git hook so that it stops if 'poly check' doesn't work.
 
 - update the help.
+  - create a good example and store each step with a tag in git.
   - have separate help for the different 'create' variants + show in the overview.
 
 - 'help' should not be part of core.
 
-- add the 'version' command.
-  - view home directory
-
 - let the output of 'ws' be nicely formatted and come in a logical order.
 
-- add validation for settings, like:
-  :stable-since-tag-pattern
-
+- add the 'version' command.
+  - view home directory
 
 - remove the two initial blank lines in the info command when no git repo.
 
@@ -39,8 +33,13 @@ Questions
 - how to convert the git repo?
 - check if we should register for https://github.com/sponsors.
 
+When releasing
+==============
+- update the link in lein-polylith: https://github.com/tengstrand/polylith/tree/core
+
 Leave for now
 =============
+- get colors to work in windows.
 - let util.def-map handle attributes with namespace in it, e.g. [paths deps aliases mvn/repos]
   in environments-from-disk.
 - also show the columns '#ns' and 'loc/ns' in the 'info' command when sending in -loc as argument.

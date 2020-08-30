@@ -6,13 +6,19 @@
             [polylith.clj.core.workspace.text-table.env-table :as env-table]
             [polylith.clj.core.workspace.text-table.ws-table :as ws-table]))
 
+(defn short-name [sha]
+  (if (>= (count sha) 7)
+    (subs sha 0 7)
+    sha))
+
 (defn print-stable-since [{:keys [sha tag]} color-mode]
-  (if tag
-    (println (str "  stable since: " (color/grey color-mode (str sha " (" tag ")"))))
-    (if (str/blank? sha)
-      (println (str "  " (color/warning color-mode "Warning:")
-                         (color/error color-mode " not a git repo!")))
-      (println (str "  stable since: " (color/grey color-mode sha)))))
+  (let [short-sha (short-name sha)]
+    (if tag
+      (println (str "  stable since: " (color/grey color-mode (str short-sha " | " tag))))
+      (if (str/blank? sha)
+        (println (str "  " (color/warning color-mode "Warning:")
+                           (color/error color-mode " not a git repo!")))
+        (println (str "  stable since: " (color/grey color-mode short-sha))))))
   (println))
 
 (defn print-active-dev-profiles [{:keys [active-dev-profiles]} {:keys [color-mode]}]
