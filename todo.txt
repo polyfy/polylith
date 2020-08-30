@@ -1,6 +1,4 @@
 
-- add :profile-prefix which is "+" as default.
-
 - make sure Polylith works with Windows:
   - use :file-extensions from :src-reader.
   - use configs from ./polylith/config.edn:
