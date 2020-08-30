@@ -3,6 +3,8 @@
             [polylith.clj.core.file.core :as core])
   (:import (java.io File)))
 
+(def sep (File/separator))
+
 (defn absolute-path [path]
   (core/absolute-path path))
 
