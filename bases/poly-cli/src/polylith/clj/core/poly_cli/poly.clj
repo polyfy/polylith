@@ -8,15 +8,21 @@
             [polylith.clj.core.workspace-clj.interfc :as ws-clj])
   (:gen-class))
 
+(defn ws-directory [{:keys [cmd ws-dir]}]
+  (if (or (nil? ws-dir)
+          (= cmd "test"))
+    (file/current-dir)
+    ws-dir))
+
 (defn -main [& args]
-  (let [current-dir (file/current-dir)
-        exists? (file/exists (str current-dir "/deps.edn"))
-        user-input (user-input/extract-params args)
-        workspace (when exists? (-> current-dir
+  (let [user-input (user-input/extract-params args)
+        ws-dir (ws-directory user-input)
+        exists? (file/exists (str ws-dir "/deps.edn"))
+        workspace (when exists? (-> ws-dir
                                     ws-clj/workspace-from-disk
                                     (ws/enrich-workspace user-input)
                                     change/with-changes))
-        {:keys [exit-code exception]} (command/execute-command current-dir workspace user-input)]
+        {:keys [exit-code exception]} (command/execute-command ws-dir workspace user-input)]
       (when (-> exception nil? not)
         (ex/print-exception exception))
       (System/exit exit-code)))

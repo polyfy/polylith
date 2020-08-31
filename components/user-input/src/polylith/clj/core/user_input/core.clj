@@ -23,6 +23,7 @@
 (defn extract-params [args]
   (let [{:keys [named-args unnamed-args]} (params/extract args)
         {:keys [name
+                ws-dir
                 top-ns
                 env
                 src
@@ -39,6 +40,7 @@
                       :cmd (first args)
                       :arg1 (second args)
                       :name name
+                      :ws-dir ws-dir
                       :top-ns top-ns
                       :brick brick
                       :interface interface
