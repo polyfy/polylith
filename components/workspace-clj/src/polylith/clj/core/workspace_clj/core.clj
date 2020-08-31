@@ -32,12 +32,19 @@
       (println (str (color/error (user-config/color-mode) "  Couldn't read 'deps.edn': ") (.getMessage e)))
       (System/exit 1))))
 
+(defn polylith-key-not-found []
+  (println (str "  The :polylith key could not be found in deps.edn. "
+                "Commands can only be executed from the workspace root."))
+  (System/exit 1))
+
 (defn workspace-from-disk
   ([ws-dir]
    (let [config (read-config-file ws-dir)]
-     (workspace-from-disk ws-dir config)))
+     (if (:polylith config)
+       (workspace-from-disk ws-dir config)
+       (polylith-key-not-found))))
   ([ws-dir {:keys [polylith aliases]}]
-   (let [{:keys [vcs top-namespace interface-ns default-profile-name stable-since-tag-pattern env->alias ns->lib]} polylith
+   (let [{:keys [vcs top-namespace interface-ns default-profile-name stable-since-tag-pattern env->alias ns->lib] :as config} polylith
          top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
          color-mode (user-config/color-mode)
          empty-char (user-config/empty-character)

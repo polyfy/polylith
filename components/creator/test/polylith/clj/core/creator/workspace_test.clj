@@ -57,28 +57,29 @@
             "<p>Add your workspace documentation here...</p>"]
            (helper/content "ws1" "readme.md")))
 
-    (is (= [""
-            "{:polylith {:vcs \"git\""
-            "            :top-namespace \"se.example\""
-            "            :interface-ns \"interface\""
-            "            :default-profile-name \"default\""
-            "            :stable-since-tag-pattern \"stable-*\""
-            "            :env->alias {\"development\" \"dev\"}"
-            "            :ns->lib {}}"
-            ""
-            " :aliases  {:dev {:extra-paths [\"development/src\"]"
-            "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.10.1\"}"
-            "                               org.clojure/tools.deps.alpha {:mvn/version \"0.8.695\"}}}"
-            ""
-            "            :test {:extra-paths []}"
-            ""
-            "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly_cli.poly\"]"
-            "                   :extra-deps {tengstrand/polylith"
-            "                                {:git/url   \"https://github.com/tengstrand/polylith.git\""
-            "                                 :sha       \"37b2617159abefe33520ab0e1d4266eae9c58da5\""
-            "                                 :deps/root \"environments/cli\"}}}}}"]
+    (is (= [(str "")
+            (str "{:polylith {:vcs \"git\"")
+            (str "            :top-namespace \"se.example\"")
+            (str "            :interface-ns \"interface\"")
+            (str "            :default-profile-name \"default\"")
+            (str "            :stable-since-tag-pattern \"stable-*\"")
+            (str "            :env->alias {\"development\" \"dev\"}")
+            (str "            :ns->lib {}}")
+            (str "")
+            (str " :aliases  {:dev {:extra-paths [\"development/src\"]")
+            (str "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.10.1\"}")
+            (str "                               org.clojure/tools.deps.alpha {:mvn/version \"0.8.695\"}}}")
+            (str "")
+            (str "            :test {:extra-paths []}")
+            (str "")
+            (str "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly_cli.poly\"]")
+            (str "                   :extra-deps {tengstrand/polylith")
+            (str "                                {:git/url   \"https://github.com/tengstrand/polylith.git\"")
+            (str "                                 :sha       \"" common/poly-git-sha "\"")
+            (str "                                 :deps/root \"environments/cli\"}}}}}")]
            (helper/content "ws1" "deps.edn")))
 
     (is (= ["{:color-mode \"dark\""
+            " :empty-character \"·\""
             " :thousand-separator \",\"}"]
            (helper/content (helper/user-home) "/.polylith/config.edn")))))

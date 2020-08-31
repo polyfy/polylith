@@ -2,11 +2,15 @@
   (:require [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.git.interfc :as git]
-            [polylith.clj.core.user-config.interfc :as user-config]))
+            [polylith.clj.core.user-config.interfc :as user-config]
+            [polylith.clj.core.util.interfc.os :as os]))
 
 (defn user-config-content []
-  ["{:color-mode \"dark\""
-   " :thousand-separator \",\"}"])
+  (let [empty-char (if (os/windows?) "." "·")
+        color-mode (if (os/windows?) "none" "dark")]
+    [(str "{:color-mode \"" color-mode "\"")
+     (str " :empty-character \"" empty-char "\"")
+     (str " :thousand-separator \",\"}")]))
 
 (defn readme-content [ws-name]
   ["<img src=\"logo.png\" width=\"30%\" alt=\"Polylith\" id=\"logo\">"

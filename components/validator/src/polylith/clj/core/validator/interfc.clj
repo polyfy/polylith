@@ -30,7 +30,7 @@
                              (m107/errors components bases environments active-dev-profiles color-mode)
                              (m108/errors ws-dir interfaces environments color-mode)
                              (m201/warnings interfaces components color-mode)
-                             (m202/warnings environments components bases ns->lib color-mode)
+                             (m202/warnings environments components bases color-mode)
                              (m203/warnings environments color-mode)
                              (m204/warnings settings environments color-mode)
                              (m205/warnings settings environments color-mode)
