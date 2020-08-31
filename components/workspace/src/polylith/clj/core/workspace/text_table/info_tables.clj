@@ -25,7 +25,7 @@
   (when (-> active-dev-profiles empty? not)
     (let [s (if (= 1 (count active-dev-profiles)) "" "s")]
       (println)
-      (println (str "  active dev profile" s ": " (color/profile (str/join ", " (sort active-dev-profiles)) color-mode))))))
+      (println (str "  active profile" s ": " (color/profile (str/join ", " (sort active-dev-profiles)) color-mode))))))
 
 (defn print-info [{:keys [settings messages user-input] :as workspace}]
   (let [{:keys [show-loc? show-resources?]} user-input

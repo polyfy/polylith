@@ -6,11 +6,14 @@
             [polylith.clj.core.command.info :as info]
             [polylith.clj.core.command.message :as message]
             [polylith.clj.core.command.test :as test]
+            [polylith.clj.core.change.interfc :as change]
             [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.validator.interfc :as validator]
+            [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.help.interfc :as help]
-            [polylith.clj.core.user-config.interfc :as user-config]
-            [polylith.clj.core.util.interfc.color :as color])
+            [polylith.clj.core.validator.interfc :as validator]
+            [polylith.clj.core.util.interfc.color :as color]
+            [polylith.clj.core.workspace-clj.interfc :as ws-clj]
+            [polylith.clj.core.workspace.interfc :as ws])
   (:refer-clojure :exclude [test]))
 
 (defn check [{:keys [messages] :as workspace} color-mode]
@@ -39,17 +42,31 @@
     (validator/validate active-dev-profiles selected-environments settings environments color-mode)
     [false message/cant-be-executed-outside-ws-message]))
 
-(defn execute [current-dir workspace {:keys [cmd arg1 name top-ns brick interface show-lib? active-dev-profiles selected-environments unnamed-args]}]
-  "We need to pass in user-info separately, because when the 'create w' command is executed
-   we don't have a workspace yet."
+(defn valid-config-file? [ws-dir color-mode]
   (try
-    (let [color-mode (user-config/color-mode)
+    (and (file/exists (str ws-dir "/deps.edn"))
+         (:polylith (read-string (slurp (str ws-dir "/deps.edn")))))
+    (catch Exception e
+      (println (str (color/error color-mode "  Error: ") "couldn't read deps.edn: " (.getMessage e))))))
+
+(defn read-workspace [ws-dir user-input color-mode]
+  (when (valid-config-file? ws-dir color-mode)
+    (-> user-input
+        ws-clj/workspace-from-disk
+        ws/enrich-workspace
+        change/with-changes)))
+
+(defn execute [{:keys [cmd arg1 name top-ns brick interface show-lib? active-dev-profiles selected-environments unnamed-args] :as user-input}]
+  (try
+    (let [ws-dir (common/workspace-dir user-input)
+          color-mode (common/color-mode user-input)
           environment-name (first selected-environments)
+          workspace (read-workspace ws-dir user-input color-mode)
           [ok? message] (validate workspace cmd active-dev-profiles selected-environments color-mode)]
       (if ok?
         (case cmd
           "check" (check workspace color-mode)
-          "create" (create/create current-dir workspace arg1 name top-ns interface color-mode)
+          "create" (create/create ws-dir workspace arg1 name top-ns interface color-mode)
           "deps" (deps/deps workspace environment-name brick unnamed-args show-lib?)
           "diff" (diff workspace)
           "help" (help arg1 color-mode)
@@ -57,8 +74,8 @@
           "test" (test/run workspace unnamed-args)
           "ws" (pp/pprint workspace)
           (unknown-command cmd))
-        (println message)))
-    {:exit-code (exit-code/code cmd workspace)}
+        (println message))
+      {:exit-code (exit-code/code cmd workspace)})
     (catch Exception e
       {:exit-code 1
        :exception e})))

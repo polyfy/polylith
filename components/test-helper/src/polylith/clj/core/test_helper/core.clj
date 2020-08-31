@@ -25,21 +25,13 @@
     (function)
     (file/delete-dir path)))
 
-(defn read-workspace [ws-dir user-input]
-  (let [exists? (file/exists (str ws-dir "/deps.edn"))]
-    (when exists? (-> ws-dir
-                      ws-clj/workspace-from-disk
-                      (ws/enrich-workspace user-input)))))
-
 (defn execute-command [current-dir args]
   (with-redefs [file/current-dir (fn [] (if (str/blank? current-dir)
                                           @root-dir
                                           (str @root-dir "/" current-dir)))
                 user-config/home-dir (fn [] (str @root-dir "/" user-home))]
-    (let [ws-dir (file/current-dir)
-          user-input (user-input/extract-params args)
-          workspace (read-workspace ws-dir user-input)
-          {:keys [exception]} (command/execute-command ws-dir workspace user-input)]
+    (let [user-input (user-input/extract-params args)
+          {:keys [exception]} (command/execute-command user-input)]
       (when (-> exception nil? not)
         (stacktrace/print-stack-trace exception)))))
 

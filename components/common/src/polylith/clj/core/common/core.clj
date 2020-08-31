@@ -1,6 +1,8 @@
 (ns polylith.clj.core.common.core
   (:require [clojure.string :as str]
-            [polylith.clj.core.util.interfc :as util]))
+            [polylith.clj.core.file.interfc :as file]
+            [polylith.clj.core.util.interfc :as util]
+            [polylith.clj.core.user-config.interfc :as user-config]))
 
 (defn ns-to-path [namespace]
   (-> namespace
@@ -39,3 +41,12 @@
 
 (defn find-environment [name environments]
   (util/find-first #(=env % name) environments))
+
+(defn color-mode [{:keys [color-mode]}]
+  (or color-mode (user-config/color-mode)))
+
+(defn workspace-dir [{:keys [cmd ws-dir]}]
+  (if (or (nil? ws-dir)
+          (= cmd "test"))
+    (file/current-dir)
+    ws-dir))

@@ -1,7 +1,7 @@
 (ns polylith.clj.core.user-input.core
   (:require [clojure.string :as str]
-            [polylith.clj.core.user-input.params :as params]
-            [polylith.clj.core.util.interfc :as util]))
+            [polylith.clj.core.util.interfc :as util]
+            [polylith.clj.core.user-input.params :as params]))
 
 (defn profile? [arg]
   (str/starts-with? arg "+"))
@@ -34,8 +34,9 @@
                 all!
                 all-bricks!
                 dev!
-                env!]} named-args
-        unnamed (rest unnamed-args)]
+                env!
+                color-mode]} named-args
+        unnamed (vec (rest unnamed-args))]
     (util/ordered-map :args args
                       :cmd (first args)
                       :arg1 (second args)
@@ -50,6 +51,7 @@
                                     (= "true" all-bricks!))
                       :run-env-tests? (or (= "true" all!)
                                           (= "true" env!))
+                      :color-mode color-mode
                       :show-resources? (contains? #{"r" "resources"} src)
                       :active-dev-profiles (active-dev-profiles unnamed)
                       :selected-environments (selected-environments env dev!)

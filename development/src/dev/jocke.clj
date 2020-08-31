@@ -8,60 +8,40 @@
             [polylith.clj.core.common.interfc :as common]
             [polylith.clj.core.file.interfc :as file]
             [polylith.clj.core.help.interfc :as help]
-            [polylith.clj.core.user-input.interfc :as user-input])
+            [polylith.clj.core.user-input.interfc :as user-input]
+            [clojure.set :as set])
   (:refer-clojure :exclude [base]))
-
-(def user-input (user-input/extract-params []))
 
 ;(require '[dev.jocke :as z])
 ;(def workspace z/workspace)
 
-(def workspace (->
-                 "."
-                 ;"../poly-example/ws50"
-                 ;"../poly-example/ws52"
+(defn input [ws-dir]
+  (user-input/extract-params [(str "ws-dir:" ws-dir)]))
 
-                 ;"../poly-example/ws53"
-                 ;"../poly-example/m205"
-                 ;"../clojure-polylith-realworld-example-app"
+(def workspace (->
+                 (input ".")
+                 ;(input "../poly-example/ws50")
+                 ;(input "../clojure-polylith-realworld-example-app")
                  ws-clj/workspace-from-disk
-                 (ws/enrich-workspace user-input)
+                 ws/enrich-workspace
                  change/with-changes))
 
 (:messages workspace)
 (:changes workspace)
 (:settings workspace)
 (:user-input workspace)
-
-(slurp "../poly-example/ws50/deps.edn")
+(-> workspace :settings :profile->settings)
 
 (def environments (:environments workspace))
-(def environment (common/find-environment "dev" environments))
-(def environment (common/find-environment "invoice" environments))
-
-(select-keys environment [:src-paths :test-paths])
-
-(map :name environments)
-(map :active? environments)
-
-(:lib-deps environment)
-(:test-lib-deps environment)
-
 (def settings (:settings workspace))
 (def interfaces (:interfaces workspace))
 (def components (:components workspace))
 (def bases (:bases workspace))
-(def bricks (concat components bases))
+(def bricks (vec (concat components bases)))
 (def interfaces (:interfaces workspace))
 (def changes (:changes workspace))
 (def messages (:messages workspace))
 
-(map :name environments)
-
-(def environment (common/find-environment "cli" environments))
 (def environment (common/find-environment "dev" environments))
-
-(def component (common/find-component "command" components))
+(def component (common/find-component "article" components))
 (def base (common/find-base "rest-api" bases))
-
-(def config (read-string (slurp "/Users/tengstrand/source/poly-example/ws35/environments/core/deps.edn")))

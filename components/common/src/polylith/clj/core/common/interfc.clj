@@ -48,3 +48,9 @@
 
 (defn validate-args [unnamed-args example]
   (validate-args/validate unnamed-args example))
+
+(defn color-mode [user-input]
+  (core/color-mode user-input))
+
+(defn workspace-dir [user-input]
+  (core/workspace-dir user-input))

@@ -33,10 +33,9 @@
 (defn env-sorter [{:keys [dev? name]}]
   [dev? name])
 
-(defn enrich-workspace [{:keys [ws-dir ws-reader settings components bases environments]}
-                        user-input]
+(defn enrich-workspace [{:keys [ws-dir ws-reader settings components bases environments]}]
   (let [ws-name (workspace-name ws-dir)
-        {:keys [top-namespace interface-ns ns->lib color-mode]} settings
+        {:keys [top-namespace interface-ns ns->lib user-input color-mode]} settings
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         interfaces (interfaces/calculate components)
         interface-names (apply sorted-set (mapv :name interfaces))

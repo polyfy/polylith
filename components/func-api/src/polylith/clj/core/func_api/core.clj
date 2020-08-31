@@ -8,9 +8,9 @@
 (defn changed-environments []
   (let [exists? (file/exists (str "./deps.edn"))
         user-input (user-input/extract-params [])
-        workspace (when exists? (-> "."
+        workspace (when exists? (-> user-input
                                     ws-clj/workspace-from-disk
-                                    (ws/enrich-workspace user-input)
+                                    ws/enrich-workspace
                                     change/with-changes))]
     (filterv #(not= "development" %)
              (-> workspace :changes :changed-environments))))

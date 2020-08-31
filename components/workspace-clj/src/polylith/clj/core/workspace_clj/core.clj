@@ -25,28 +25,15 @@
 (defn stringify [ns->lib]
   (into {} (mapv stringify-key-value ns->lib)))
 
-(defn read-config-file [ws-dir]
-  (try
-    (read-string (slurp (str ws-dir "/deps.edn")))
-    (catch Exception e
-      (println (str (color/error (user-config/color-mode) "  Couldn't read 'deps.edn': ") (.getMessage e)))
-      (System/exit 1))))
-
-(defn polylith-key-not-found []
-  (println (str "  The :polylith key could not be found in deps.edn. "
-                "Commands can only be executed from the workspace root."))
-  (System/exit 1))
-
 (defn workspace-from-disk
-  ([ws-dir]
-   (let [config (read-config-file ws-dir)]
-     (if (:polylith config)
-       (workspace-from-disk ws-dir config)
-       (polylith-key-not-found))))
-  ([ws-dir {:keys [polylith aliases]}]
-   (let [{:keys [vcs top-namespace interface-ns default-profile-name stable-since-tag-pattern env->alias ns->lib] :as config} polylith
+  ([user-input]
+   (let [ws-dir (common/workspace-dir user-input)
+         config (read-string (slurp (str ws-dir "/deps.edn")))]
+     (workspace-from-disk ws-dir config user-input)))
+  ([ws-dir {:keys [polylith aliases]} user-input]
+   (let [{:keys [vcs top-namespace interface-ns default-profile-name stable-since-tag-pattern env->alias ns->lib]} polylith
          top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
-         color-mode (user-config/color-mode)
+         color-mode (or (:color-mode user-input) (user-config/color-mode) color/none)
          empty-char (user-config/empty-character)
          thousand-sep (user-config/thousand-separator)
          component-names (file/directory-paths (str ws-dir "/components"))
@@ -59,12 +46,13 @@
                                     :interface-ns (or interface-ns "interface")
                                     :default-profile-name (or default-profile-name "default")
                                     :stable-since-tag-pattern (or stable-since-tag-pattern "stable-*")
-                                    :color-mode (or color-mode "none")
+                                    :color-mode color-mode
                                     :empty-char (or empty-char ".")
                                     :thousand-sep (or thousand-sep ",")
                                     :profile->settings profile->settings
                                     :env->alias env->alias
-                                    :ns->lib (stringify ns->lib))]
+                                    :ns->lib (stringify ns->lib)
+                                    :user-input user-input)]
      (util/ordered-map :ws-dir ws-dir
                        :ws-reader ws-reader
                        :settings settings
