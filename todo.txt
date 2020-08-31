@@ -1,6 +1,4 @@
 
-- show warning if missing libraries are encountered in any environment.
-
 - implement the git hook so that it stops if 'poly check' doesn't work.
 
 - update the help.
@@ -69,6 +67,8 @@ Leave for now
 
 Doc
 ===
+- when explaining the git hook, git commit --no-verify, can be used to skip the hook.
+
 - cursive tip, when deps.edn can't be parsed, you have to fix it and add it manually again.
 - a components increases cohesion so that we can put all the code, tests, resources
   and documentation for that piece of code into one place, which increases changeability.

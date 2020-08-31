@@ -7,8 +7,8 @@
             [polylith.clj.core.validator.m106-multiple-interface-occurrences :as m106]
             [polylith.clj.core.validator.m107-missing-componens-in-environment :as m107]
             [polylith.clj.core.validator.m108-environment-with-multi-implementing-component :as m108]
+            [polylith.clj.core.validator.m109-missing-libraries :as m109]
             [polylith.clj.core.validator.m201-mismatching-parameters :as m201]
-            [polylith.clj.core.validator.m202-missing-libraries :as m202]
             [polylith.clj.core.validator.m203-invalid-src-reference :as m203]
             [polylith.clj.core.validator.m204-path-exists-in-both-dev-and-profile :as m204]
             [polylith.clj.core.validator.m205-lib-deps-exists-in-both-dev-and-profile :as m205]
@@ -30,7 +30,7 @@
                              (m107/errors components bases environments active-dev-profiles color-mode)
                              (m108/errors ws-dir interfaces environments color-mode)
                              (m201/warnings interfaces components color-mode)
-                             (m202/warnings environments components bases color-mode)
+                             (m109/errors environments components bases color-mode)
                              (m203/warnings environments color-mode)
                              (m204/warnings settings environments color-mode)
                              (m205/warnings settings environments color-mode)

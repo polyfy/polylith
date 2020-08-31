@@ -1,7 +1,7 @@
-(ns polylith.clj.core.validator.m202-missing-libraries-test
+(ns polylith.clj.core.validator.m109-missing-libraries-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.util.interfc.color :as color]
-            [polylith.clj.core.validator.m202-missing-libraries :as m202])
+            [polylith.clj.core.validator.m109-missing-libraries :as m109])
   (:refer-clojure :exclude [bases]))
 
 (def environments [{:name "development"
@@ -30,14 +30,14 @@
              :lib-dep-names ["spec-tools"]}])
 
 (deftest warnings--missing-libraries-in-an-environment--returns-a-warning
-  (is (= [{:type "warning"
-           :code 202
+  (is (= [{:type "error"
+           :code 109
            :environment "development"
            :message           "Missing libraries in the development environment: honeysql, spec-tools"
            :colorized-message "Missing libraries in the development environment: honeysql, spec-tools"}
-          {:type "warning"
-           :code 202
+          {:type "error"
+           :code 109
            :environment "realworld-backend"
            :message           "Missing libraries in the realworld-backend environment: clj-time, honeysql"
            :colorized-message "Missing libraries in the realworld-backend environment: clj-time, honeysql"}]
-         (m202/warnings environments components bases color/none))))
+         (m109/errors environments components bases color/none))))
