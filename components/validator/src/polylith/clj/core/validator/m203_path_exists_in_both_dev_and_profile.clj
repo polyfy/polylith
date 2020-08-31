@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.m204-path-exists-in-both-dev-and-profile
+(ns polylith.clj.core.validator.m203-path-exists-in-both-dev-and-profile
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [polylith.clj.core.common.interfc :as common]
@@ -12,7 +12,7 @@
                      (str/join ", " (map #(color/path % color-mode) shared-paths)))]
     (when (-> shared-paths empty? not)
       [(util/ordered-map :type "warning"
-                         :code 204
+                         :code 203
                          :message (color/clean-colors message)
                          :colorized-message message)])))
 (defn warnings [settings environments color-mode]

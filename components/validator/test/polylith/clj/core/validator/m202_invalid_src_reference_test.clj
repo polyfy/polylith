@@ -1,6 +1,6 @@
-(ns polylith.clj.core.validator.m203-invalid-src-reference-test
+(ns polylith.clj.core.validator.m202-invalid-src-reference-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.validator.m203-invalid-src-reference :as m203]
+            [polylith.clj.core.validator.m202-invalid-src-reference :as m202]
             [polylith.clj.core.util.interfc.color :as color]))
 
 (def environments [{:name "cli",
@@ -8,8 +8,8 @@
 
 (deftest warnings--when-one-path-is-non-existing--return-a-warning
   (is (= [{:type "warning",
-           :code 203,
+           :code 202,
            :message "Non-existing directories was found in deps.edn for the cli environment and will be ignored: \"wrong/path/src\"",
            :colorized-message "Non-existing directories was found in deps.edn for the cli environment and will be ignored: \"wrong/path/src\"",
            :environment "cli"}])
-      (m203/warnings environments color/none)))
+      (m202/warnings environments color/none)))

@@ -1,7 +1,7 @@
-(ns polylith.clj.core.validator.m205-lib-deps-exists-in-both-dev-and-profile-test
+(ns polylith.clj.core.validator.m204-lib-deps-exists-in-both-dev-and-profile-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.util.interfc.color :as color]
-            [polylith.clj.core.validator.m205-lib-deps-exists-in-both-dev-and-profile :as m205]))
+            [polylith.clj.core.validator.m204-lib-deps-exists-in-both-dev-and-profile :as m204]))
 
 (def settings {:profile->settings {"default" {:lib-deps {}}
                                    "admin" {:lib-deps {"org.clojure/clojure" {:mvn/version "1.10.1"}}}}})
@@ -13,7 +13,7 @@
 
 (deftest warnings--path-was-found-in-both-dev-and-a-profile--returns-error-message
   (is (= [{:type "warning"
-           :code 205
+           :code 204
            :message "The same library dependency exists in both the development environment and the admin development profile: org.clojure/clojure"
            :colorized-message "The same library dependency exists in both the development environment and the admin development profile: org.clojure/clojure"}]
-         (m205/warnings settings environments color/none))))
+         (m204/warnings settings environments color/none))))

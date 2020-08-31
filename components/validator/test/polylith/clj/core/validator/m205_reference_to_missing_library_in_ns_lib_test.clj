@@ -1,7 +1,7 @@
-(ns polylith.clj.core.validator.m206-reference-to-missing-library-in-ns-lib-test
+(ns polylith.clj.core.validator.m205-reference-to-missing-library-in-ns-lib-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.util.interfc.color :as color]
-            [polylith.clj.core.validator.m206-reference-to-missing-library-in-ns-lib :as m206]))
+            [polylith.clj.core.validator.m205-reference-to-missing-library-in-ns-lib :as m205]))
 
 (def settings {:ns->lib {"clj-time" "clj-time"
                          "honeysql" "honeysql"
@@ -16,7 +16,7 @@
 
 (deftest warnings--when-having-undefined-libraries-in-ns->lib--return-warning
   (is (= [{:type "warning"
-           :code 206
+           :code 205
            :message "Reference to missing library was found in the :ns->lib mapping: honeysql, clj-time"
            :colorized-message "Reference to missing library was found in the :ns->lib mapping: honeysql, clj-time"}]
-         (m206/warnings settings environments color/none))))
+         (m205/warnings settings environments color/none))))

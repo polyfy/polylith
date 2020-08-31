@@ -1,7 +1,7 @@
-(ns polylith.clj.core.validator.m204-path-exists-in-both-dev-and-profile-test
+(ns polylith.clj.core.validator.m203-path-exists-in-both-dev-and-profile-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.util.interfc.color :as color]
-            [polylith.clj.core.validator.m204-path-exists-in-both-dev-and-profile :as m204]))
+            [polylith.clj.core.validator.m203-path-exists-in-both-dev-and-profile :as m203]))
 
 (def settings {:profile->settings {"default" {:paths ["components/user/src"
                                                       "components/user/test"]}
@@ -15,8 +15,8 @@
                     :test-paths []}])
 
 (deftest warnings--path-was-found-in-both-dev-and-a-profile--returns-error-message
-  (is (= [{:code 204
+  (is (= [{:code 203
            :type "warning"
            :message "The same path exists in both the development environment and the admin development profile: components/invoice/src"
            :colorized-message "The same path exists in both the development environment and the admin development profile: components/invoice/src"}]
-         (m204/warnings settings environments color/none))))
+         (m203/warnings settings environments color/none))))

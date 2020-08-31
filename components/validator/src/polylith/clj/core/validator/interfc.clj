@@ -9,11 +9,11 @@
             [polylith.clj.core.validator.m108-environment-with-multi-implementing-component :as m108]
             [polylith.clj.core.validator.m109-missing-libraries :as m109]
             [polylith.clj.core.validator.m201-mismatching-parameters :as m201]
-            [polylith.clj.core.validator.m203-invalid-src-reference :as m203]
-            [polylith.clj.core.validator.m204-path-exists-in-both-dev-and-profile :as m204]
-            [polylith.clj.core.validator.m205-lib-deps-exists-in-both-dev-and-profile :as m205]
-            [polylith.clj.core.validator.m206-reference-to-missing-library-in-ns-lib :as m206]
-            [polylith.clj.core.validator.m207-reference-to-missing-namespace-in-ns-lib :as m207]
+            [polylith.clj.core.validator.m202-invalid-src-reference :as m202]
+            [polylith.clj.core.validator.m203-path-exists-in-both-dev-and-profile :as m203]
+            [polylith.clj.core.validator.m204-lib-deps-exists-in-both-dev-and-profile :as m204]
+            [polylith.clj.core.validator.m205-reference-to-missing-library-in-ns-lib :as m205]
+            [polylith.clj.core.validator.m206-reference-to-missing-namespace-in-ns-lib :as m206]
             [polylith.clj.core.validator.user-input.validator :as validator]))
 
 (defn validate [active-dev-profiles selected-environments settings environments color-mode]
@@ -29,10 +29,10 @@
                              (m106/errors components environments color-mode)
                              (m107/errors components bases environments active-dev-profiles color-mode)
                              (m108/errors ws-dir interfaces environments color-mode)
-                             (m201/warnings interfaces components color-mode)
                              (m109/errors environments components bases color-mode)
-                             (m203/warnings environments color-mode)
+                             (m201/warnings interfaces components color-mode)
+                             (m202/warnings environments color-mode)
+                             (m203/warnings settings environments color-mode)
                              (m204/warnings settings environments color-mode)
                              (m205/warnings settings environments color-mode)
-                             (m206/warnings settings environments color-mode)
-                             (m207/warnings settings components bases color-mode))))))
+                             (m206/warnings settings components bases color-mode))))))

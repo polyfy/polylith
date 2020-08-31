@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.m205-lib-deps-exists-in-both-dev-and-profile
+(ns polylith.clj.core.validator.m204-lib-deps-exists-in-both-dev-and-profile
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [polylith.clj.core.common.interfc :as common]
@@ -12,7 +12,7 @@
                      "and the " (color/profile profile color-mode) " development profile: " libraries)]
     (when (-> shared-lib-deps empty? not)
       [(util/ordered-map :type "warning"
-                         :code 205
+                         :code 204
                          :message (color/clean-colors message)
                          :colorized-message message)])))
 (defn warnings [settings environments color-mode]

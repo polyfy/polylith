@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.m207-reference-to-missing-namespace-in-ns-lib
+(ns polylith.clj.core.validator.m206-reference-to-missing-namespace-in-ns-lib
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [polylith.clj.core.lib-dep.interfc :as lib-dep]
@@ -18,6 +18,6 @@
                      (color/library (str/join ", " missing-namespaces) color-mode))]
     (when (-> missing-namespaces empty? not)
       [(util/ordered-map :type "warning"
-                         :code 207
+                         :code 206
                          :message (color/clean-colors message)
                          :colorized-message message)])))

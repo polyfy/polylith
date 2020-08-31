@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.m203-invalid-src-reference
+(ns polylith.clj.core.validator.m202-invalid-src-reference
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interfc :as util]
             [polylith.clj.core.util.interfc.color :as color]))
@@ -10,7 +10,7 @@
   (let [paths (str/join ", " (map quoted non-existing-paths))
         message (str "Non-existing directories was found in deps.edn for the " (color/environment env color-mode) " environment and will be ignored: " (color/grey color-mode paths))]
     [(util/ordered-map :type "warning"
-                       :code 203
+                       :code 202
                        :message (color/clean-colors message)
                        :colorized-message message
                        :environment env)]))

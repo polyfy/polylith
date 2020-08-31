@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.m206-reference-to-missing-library-in-ns-lib
+(ns polylith.clj.core.validator.m205-reference-to-missing-library-in-ns-lib
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [polylith.clj.core.util.interfc :as util]
@@ -15,6 +15,6 @@
                      (color/library (str/join ", " missing-libs) color-mode))]
     (when (-> missing-libs empty? not)
       [(util/ordered-map :type "warning"
-                         :code 206
+                         :code 205
                          :message (color/clean-colors message)
                          :colorized-message message)])))

@@ -1,7 +1,7 @@
-(ns polylith.clj.core.validator.m207-reference-to-missing-namespace-in-ns-lib-test
+(ns polylith.clj.core.validator.m206-reference-to-missing-namespace-in-ns-lib-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.util.interfc.color :as color]
-            [polylith.clj.core.validator.m207-reference-to-missing-namespace-in-ns-lib :as m207]))
+            [polylith.clj.core.validator.m206-reference-to-missing-namespace-in-ns-lib :as m206]))
 
 (def settings {:top-namespace "clojure.realworld"
                :ns->lib {"clj-time" "clj-time"
@@ -28,8 +28,8 @@
                                 "slugger"]}])
 
 (deftest warnings--when-having-undefined-names-in-ns->lib--return-warning
-  (is (= [{:type "warning",
-           :code 207,
+  (is (= [{:type "warning"
+           :code 206
            :message "Reference to missing namespace was found in the :ns->lib mapping: slugger, compojure"
            :colorized-message "Reference to missing namespace was found in the :ns->lib mapping: slugger, compojure"}]
-         (m207/warnings settings components [] color/none))))
+         (m206/warnings settings components [] color/none))))
