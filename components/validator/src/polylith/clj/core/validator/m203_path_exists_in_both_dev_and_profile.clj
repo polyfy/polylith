@@ -8,7 +8,7 @@
 (defn profile-warning [[profile {:keys [paths]}] dev-paths color-mode]
   (let [shared-paths (set/intersection dev-paths (set paths))
         message (str "The same path exists in both the " (color/environment "development" color-mode) " environment "
-                     "and the " (color/profile profile color-mode) " development profile: "
+                     "and the " (color/profile profile color-mode) " profile: "
                      (str/join ", " (map #(color/path % color-mode) shared-paths)))]
     (when (-> shared-paths empty? not)
       [(util/ordered-map :type "warning"

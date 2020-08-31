@@ -1,2 +1,2 @@
-(ns polylith.clj.core.func-api.interfc-test
+(ns polylith.clj.core.api.interfc-test
   (:require [clojure.test :refer :all]))

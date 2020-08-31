@@ -14,6 +14,6 @@
 (deftest warnings--path-was-found-in-both-dev-and-a-profile--returns-error-message
   (is (= [{:type "warning"
            :code 204
-           :message "The same library dependency exists in both the development environment and the admin development profile: org.clojure/clojure"
-           :colorized-message "The same library dependency exists in both the development environment and the admin development profile: org.clojure/clojure"}]
+           :message "The same library dependency exists in both the development environment and the admin profile: org.clojure/clojure"
+           :colorized-message "The same library dependency exists in both the development environment and the admin profile: org.clojure/clojure"}]
          (m204/warnings settings environments color/none))))

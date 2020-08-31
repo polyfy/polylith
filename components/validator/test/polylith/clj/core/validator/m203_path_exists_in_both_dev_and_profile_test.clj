@@ -17,6 +17,6 @@
 (deftest warnings--path-was-found-in-both-dev-and-a-profile--returns-error-message
   (is (= [{:code 203
            :type "warning"
-           :message "The same path exists in both the development environment and the admin development profile: components/invoice/src"
-           :colorized-message "The same path exists in both the development environment and the admin development profile: components/invoice/src"}]
+           :message "The same path exists in both the development environment and the admin profile: components/invoice/src"
+           :colorized-message "The same path exists in both the development environment and the admin profile: components/invoice/src"}]
          (m203/warnings settings environments color/none))))

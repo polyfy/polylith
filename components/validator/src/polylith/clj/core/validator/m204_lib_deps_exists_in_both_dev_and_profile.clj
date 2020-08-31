@@ -9,7 +9,7 @@
   (let [shared-lib-deps (sort (set/intersection dev-lib-deps (set (map first lib-deps))))
         libraries (str/join "," (map #(color/library % color-mode) shared-lib-deps))
         message (str "The same library dependency exists in both the " (color/environment "development" color-mode) " environment "
-                     "and the " (color/profile profile color-mode) " development profile: " libraries)]
+                     "and the " (color/profile profile color-mode) " profile: " libraries)]
     (when (-> shared-lib-deps empty? not)
       [(util/ordered-map :type "warning"
                          :code 204

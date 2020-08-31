@@ -1,4 +1,7 @@
 
+- check what happens if we add a dependency other than :mvn/version and if we
+  could show those in the library dependency diagram.
+
 - update the help.
   - create a good example and store each step with a tag in git.
   - have separate help for the different 'create' variants + show in the overview.
@@ -16,6 +19,7 @@
 
 - figure out how stable tags can interfere and maybe add support for user custom
   :stable-since-tag-pattern.
+
 
 Furkan:
 - update the documentation in the realworld-example.
