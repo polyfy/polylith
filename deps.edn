@@ -13,6 +13,7 @@
  :aliases  {:dev {:extra-paths [; Development
                                 "development/src"
                                 ; Components
+                                "components/api/src"
                                 "components/change/src"
                                 "components/command/src"
                                 "components/common/src"
@@ -20,7 +21,6 @@
                                 "components/creator/resources"
                                 "components/deps/src"
                                 "components/file/src"
-                                "components/func-api/src"
                                 "components/git/src"
                                 "components/help/src"
                                 "components/help/src"
@@ -46,13 +46,13 @@
                                me.raynes/fs {:mvn/version "1.4.6"}}}
 
             :test {:extra-paths [; Components
+                                 "components/api/test"
                                  "components/change/test"
                                  "components/command/test"
                                  "components/common/test"
                                  "components/creator/test"
                                  "components/deps/test"
                                  "components/file/test"
-                                 "components/func-api/test"
                                  "components/git/test"
                                  "components/help/test"
                                  "components/lib-dep/test"
