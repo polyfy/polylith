@@ -1,7 +1,4 @@
 
-- check what happens if we add a dependency other than :mvn/version and if we
-  could show those in the library dependency diagram.
-
 - update the help.
   - create a good example and store each step with a tag in git.
   - have separate help for the different 'create' variants + show in the overview.
@@ -16,6 +13,9 @@
 - remove the two initial blank lines in the info command when no git repo.
 
 - document the code more.
+
+- check what happens if we add a dependency other than :mvn/version and if we
+  could show those in the library dependency diagram.
 
 - figure out how stable tags can interfere and maybe add support for user custom
   :stable-since-tag-pattern.
@@ -72,6 +72,7 @@ Leave for now
 
 Doc
 ===
+- link to lincense: https://opensource.org/licenses/eclipse-1.0.php
 - when explaining the git hook, git commit --no-verify, can be used to skip the hook.
 - cursive tip, when deps.edn can't be parsed, you have to fix it and add it manually again.
 - a components increases cohesion so that we can put all the code, tests, resources
