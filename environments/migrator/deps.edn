@@ -3,6 +3,7 @@
          "../../components/file/src"
          "../../components/lib-dep/src"
          "../../components/migrator/src"
+         "../../components/user-config/src"
          "../../components/util/src"
          "../../bases/migrator-cli/src"]
 

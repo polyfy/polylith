@@ -1,4 +1,8 @@
 
+- make sure that all indirect dependencies are included in the 'deps' command when
+  calculating indirect dependencies for an environment, for example
+  'user-config' in 'migrator' that is used by 'common'.
+
 - update the help.
   - create a good example and store each step with a tag in git.
   - have separate help for the different 'create' variants + show in the overview.
