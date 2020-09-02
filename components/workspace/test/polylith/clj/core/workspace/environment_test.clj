@@ -102,22 +102,37 @@
             :lib-imports-test []
             :lib-deps {"org.clojure/clojure" {:mvn/version "1.10.1"},
                        "org.clojure/tools.deps.alpha" {:mvn/version "0.8.695"}}
-            :deps                     {"change"  {:direct   []
-                                                  :indirect []}
-                                       "cli"     {:direct   ["change"
-                                                             "command"
-                                                             "file"]
-                                                  :indirect ["common"
-                                                             "deps"]}
-                                       "command" {:direct   ["common"
-                                                             "deps"]
-                                                  :indirect []}
-                                       "common"  {:direct   []
-                                                  :indirect []}
-                                       "deps"    {:direct   ["common"]
-                                                  :indirect []}
-                                       "file"    {:direct   []
-                                                  :indirect []}}
+            :deps  {"change"  {:direct      []
+                               :indirect    []
+                               :direct-ifc ["git"
+                                            "util"]}
+                    "cli"     {:direct      ["change"
+                                             "command"
+                                             "file"]
+                               :indirect    ["common"
+                                             "deps"]
+                               :direct-ifc ["util"
+                                            "workspace"
+                                            "workspace-clj"]}
+                    "command" {:direct      ["common"
+                                             "deps"]
+                               :indirect    []
+                               :direct-ifc ["creator"
+                                            "help"
+                                            "test-runner"
+                                            "user-config"
+                                            "util"
+                                            "workspace"]}
+                    "common"  {:direct      []
+                               :indirect    []
+                               :direct-ifc ["util"]}
+                    "deps"    {:direct      ["common"]
+                               :indirect    []
+                               :direct-ifc ["text-table"
+                                            "util"]}
+                    "file"    {:direct      []
+                               :indirect    []
+                               :direct-ifc ["util"]}}
             :test-lib-deps {}
             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}}
            (env/enrich-env environment "" components bases brick->loc brick->lib-imports env->alias
@@ -134,21 +149,38 @@
                                        "deps"
                                        "file"
                                        "user"]
-            :deps                     {"change"  {:direct   []
-                                                  :indirect []}
-                                       "cli"     {:direct   ["change"
-                                                             "command"
-                                                             "file"]
-                                                  :indirect ["common"
-                                                             "deps"]}
-                                       "command" {:direct   ["common"
-                                                             "deps"]
-                                                  :indirect []}
-                                       "common"  {:direct   []
-                                                  :indirect []}
-                                       "deps"    {:direct   ["common"]
-                                                  :indirect []}
-                                       "file"    {:direct   []
+            :deps                     {"change"  {:direct      []
+                                                  :indirect    []
+                                                  :direct-ifc ["git"
+                                                               "util"]}
+                                       "cli"     {:direct      ["change"
+                                                                "command"
+                                                                "file"]
+                                                  :indirect    ["common"
+                                                                "deps"]
+                                                  :direct-ifc ["util"
+                                                               "workspace"
+                                                               "workspace-clj"]}
+                                       "command" {:direct      ["common"
+                                                                "deps"]
+                                                  :indirect    []
+                                                  :direct-ifc ["creator"
+                                                               "help"
+                                                               "test-runner"
+                                                               "user-config"
+                                                               "util"
+                                                               "workspace"]}
+                                       "common"  {:direct      []
+                                                  :indirect    []
+                                                  :direct-ifc ["util"]}
+                                       "deps"    {:direct      ["common"]
+                                                  :indirect    []
+                                                  :direct-ifc ["text-table"
+                                                               "util"]}
+                                       "file"    {:direct      []
+                                                  :indirect    []
+                                                  :direct-ifc ["util"]}
+                                       "user"    {:direct   []
                                                   :indirect []}}
             :dev?                     true
             :lib-deps                 {"clojure.core.matrix"          "net.mikera/core.matrix"

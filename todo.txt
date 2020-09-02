@@ -1,7 +1,10 @@
 
-- make sure that all indirect dependencies are included in the 'deps' command when
-  calculating indirect dependencies for an environment, for example
-  'user-config' in 'migrator' that is used by 'common'.
+- use :direct-ifc in :deps in each environment to implement:
+  - validation 107.
+  - brick dependency text-table
+
+- only list the used bricks in the 'deps' command when an env is set.
+  List interfaces in the header and include those dependencies with x's too.
 
 - update the help.
   - create a good example and store each step with a tag in git.

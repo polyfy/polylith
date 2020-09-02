@@ -50,7 +50,7 @@
         brick-names (concat component-names base-names)
         test-component-names (select/names path-entries c/component? c/test? c/exists?)
         test-base-names (select/names path-entries c/base? c/test? c/exists?)
-        deps (brick-deps/environment-deps component-names components bases)
+        deps (brick-deps/environment-deps component-names base-names components bases)
         lib-imports-src (-> (env-lib-imports brick-names brick->lib-imports false)
                             set sort vec)
         lib-imports-test (-> (env-lib-imports brick-names brick->lib-imports true)

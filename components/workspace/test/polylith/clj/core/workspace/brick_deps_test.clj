@@ -47,11 +47,10 @@
                   :interface-deps ["common" "file" "util"]}])
 
 (def bases [{:name "cli"
-             :interface-deps ["change" "command" "file" "workspace" "workspace-clj"]}
-            {:name "z-jocke"
-             :interface-deps ["util" "workspace" "workspace-clj"]}])
+             :interface-deps ["change" "command" "file" "workspace" "workspace-clj"]}])
 
 (def component-names ["change" "command" "common" "deps" "file" "git" "help" "shell" "test-runner" "text-table" "util" "validator" "workspace" "workspace-clj"])
+(def base-names ["cli"])
 
 (deftest deps--workspace-with-dependencies--return-dependencies-per-environment
   (is (= {"change"        {:direct   ["git"
@@ -129,13 +128,5 @@
           "workspace-clj" {:direct   ["common"
                                       "file"
                                       "util"]
-                           :indirect []}
-          "z-jocke"       {:direct   ["util"
-                                      "workspace"
-                                      "workspace-clj"]
-                           :indirect ["common"
-                                      "deps"
-                                      "file"
-                                      "text-table"
-                                      "validator"]}}
-         (deps/environment-deps component-names components bases))))
+                           :indirect []}}
+         (deps/environment-deps component-names base-names components bases))))

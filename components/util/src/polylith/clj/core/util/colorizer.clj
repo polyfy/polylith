@@ -81,6 +81,7 @@
 
 (defn entity [type name color-mode]
   (case type
+    "interface" (interface name color-mode)
     "component" (component name color-mode)
     "base" (base name color-mode)
     "environment" (environment name color-mode)
