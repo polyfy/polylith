@@ -48,7 +48,7 @@
         enriched-user-input (user-input/enrich settings user-input)
         enriched-settings (settings/enrich ws-dir settings)
         enriched-environments (vec (sort-by env-sorter (map #(env/enrich-env % ws-dir enriched-components enriched-bases brick->loc brick->lib-imports env->alias settings enriched-user-input) environments)))
-        messages (validator/validate-ws ws-dir suffixed-top-ns settings interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns ns->lib enriched-user-input color-mode)]
+        messages (validator/validate-ws ws-dir suffixed-top-ns settings interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns enriched-user-input color-mode)]
     (array-map :name ws-name
                :ws-dir ws-dir
                :user-input enriched-user-input

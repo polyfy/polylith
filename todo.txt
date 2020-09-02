@@ -1,6 +1,5 @@
 
 - use :direct-ifc in :deps in each environment to implement:
-  - validation 107.
   - brick dependency text-table
 
 - only list the used bricks in the 'deps' command when an env is set.
