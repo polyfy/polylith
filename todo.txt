@@ -1,7 +1,4 @@
 
-- use :direct-ifc in :deps in each environment to implement:
-  - brick dependency text-table
-
 - only list the used bricks in the 'deps' command when an env is set.
   List interfaces in the header and include those dependencies with x's too.
 
@@ -78,6 +75,10 @@ Leave for now
 
 Doc
 ===
+- if giving both a env and a brick in 'deps' then if only the base is used as the "root"
+  (has a main function) then the columns should match the the green rows, otherwise
+  we have an isolated and probably not used component (if not used as configuration or
+  only in tests or via reflection).
 - link to lincense: https://opensource.org/licenses/eclipse-1.0.php
 - when explaining the git hook, git commit --no-verify, can be used to skip the hook.
 - cursive tip, when deps.edn can't be parsed, you have to fix it and add it manually again.
@@ -139,58 +140,16 @@ Doc
 
 Differences compared to lein-polylith
 =====================================
-  (split up in major and minor changes)
-- the new version doesn't update files, only show messages that they are recommended to be updated manually.
-- the :import statement is also included to the imports, not just :require.
 - parameters to commands are named.
-- no support for empty top namespace.
-- environments can have tests of their own (and even src).
-- when you create a component, it will not include any example code in the test.
-- git needs to be used, otherwise it can not determine what has changed since the last commit.
-- builds on top of tools.deps instead of leiningen
-  - provides a powerful ways to run tools an build your system.
-- the interface can configured to have another name thant "interface".
-- support for type hints as part of the function signature of functions.
-- if a definition is defined as a 'defn' in one interface, it must be implemented
-  as a function in all components for that interface (not mixing functions and macros)
-  and the other way around.
-- simpler and less magic:
-  - you work with the project from the root and have access to all environments and bricks.
-  - no symbolic links
-  - only environments, not both services and environments as in lein-polylith.
-  - no support for empty workspace interfaces (which is discouraged anyway).
-  - change management is handled by git and calculated based on HEAD (latest commit),
-    not by both git and via file timestamps.
-- support for more than one environment and to select what src, test and resource
-  directories that should be included in each environment.
-- improved error messages.
-- an environment can have a different version of a library than other environments.
-- improved testing experience:
-  - the ouput from the tests are shown and no compilation of the bricks are performed +
-  - the tests run faster in separate class loaders.
-  - a failing test stops the execution immediately.
-  - tests can be added to the environment level.
-- the 'deps' command is improved except that it doesn't support showing function dependencies at the moment.
 - different commands:
   - no 'add', 'remove' or 'delete' commands, they can easily be done manually.
-  - no 'changes' command. It is included in the 'info' command.
-  - no 'build' command. This is handled through clj or other tools.
   - no settings command. The settings are in the root deps.edn and .polylith/config.edn.
-  - no 'sync' command. Missing components or libraries will be shown as warnings.
-  - new 'check' command.
-  - no need for a 'prompt' command.
-  - improved 'info' and 'deps' commands.
 
 Design decisions
 ================
 - to be able to reload a whole component in the REPL, it's important that all functions
   in the interface are implemented, so that we don't get a mix of functions from
   two different components in the namespace.
-
-Commands
-========
-./make-uberjar.sh dev polylith.clj.core.poly_cli.poly
-sudo cp ./environments/core/target/core.jar /usr/local/polylith/poly.jar
 
 polylith:  clj -A:dev:test
 realworld: clj -A:polylith:test

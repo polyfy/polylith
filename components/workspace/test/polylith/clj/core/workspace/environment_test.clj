@@ -149,39 +149,40 @@
                                        "deps"
                                        "file"
                                        "user"]
-            :deps                     {"change"  {:direct      []
-                                                  :indirect    []
+            :deps                     {"change"  {:direct     []
                                                   :direct-ifc ["git"
-                                                               "util"]}
-                                       "cli"     {:direct      ["change"
-                                                                "command"
-                                                                "file"]
-                                                  :indirect    ["common"
-                                                                "deps"]
+                                                               "util"]
+                                                  :indirect   []}
+                                       "cli"     {:direct     ["change"
+                                                               "command"
+                                                               "file"]
                                                   :direct-ifc ["util"
                                                                "workspace"
-                                                               "workspace-clj"]}
-                                       "command" {:direct      ["common"
-                                                                "deps"]
-                                                  :indirect    []
+                                                               "workspace-clj"]
+                                                  :indirect   ["common"
+                                                               "deps"]}
+                                       "command" {:direct     ["common"
+                                                               "deps"]
                                                   :direct-ifc ["creator"
                                                                "help"
                                                                "test-runner"
                                                                "user-config"
                                                                "util"
-                                                               "workspace"]}
-                                       "common"  {:direct      []
-                                                  :indirect    []
-                                                  :direct-ifc ["util"]}
-                                       "deps"    {:direct      ["common"]
-                                                  :indirect    []
+                                                               "workspace"]
+                                                  :indirect   []}
+                                       "common"  {:direct     []
+                                                  :direct-ifc ["util"]
+                                                  :indirect   []}
+                                       "deps"    {:direct     ["common"]
                                                   :direct-ifc ["text-table"
-                                                               "util"]}
-                                       "file"    {:direct      []
-                                                  :indirect    []
-                                                  :direct-ifc ["util"]}
-                                       "user"    {:direct   []
-                                                  :indirect []}}
+                                                               "util"]
+                                                  :indirect   []}
+                                       "file"    {:direct     []
+                                                  :direct-ifc ["util"]
+                                                  :indirect   []}
+                                       "user"    {:direct     []
+                                                  :direct-ifc []
+                                                  :indirect   []}}
             :dev?                     true
             :lib-deps                 {"clojure.core.matrix"          "net.mikera/core.matrix"
                                        "org.clojure/clojure"          #:mvn{:version "1.10.1"}

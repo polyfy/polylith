@@ -53,80 +53,95 @@
 (def base-names ["cli"])
 
 (deftest deps--workspace-with-dependencies--return-dependencies-per-environment
-  (is (= {"change"        {:direct   ["git"
-                                      "util"]
-                           :indirect ["shell"]}
-          "cli"           {:direct   ["change"
-                                      "command"
-                                      "file"
-                                      "workspace"
-                                      "workspace-clj"]
-                           :indirect ["common"
-                                      "deps"
-                                      "git"
-                                      "help"
-                                      "shell"
-                                      "test-runner"
-                                      "text-table"
-                                      "util"
-                                      "validator"]}
-          "command"       {:circular ["command"
-                                      "help"
-                                      "command"]
-                           :direct   ["common"
-                                      "help"
-                                      "test-runner"
-                                      "util"
-                                      "workspace"]
-                           :indirect ["command"
-                                      "deps"
-                                      "file"
-                                      "text-table"
-                                      "validator"]}
-          "common"        {:direct   ["util"]
-                           :indirect []}
-          "deps"          {:direct   []
-                           :indirect []}
-          "file"          {:direct   []
-                           :indirect []}
-          "git"           {:direct   ["shell"]
-                           :indirect []}
-          "help"          {:circular ["help"
-                                      "command"
-                                      "help"]
-                           :direct   ["command"
-                                      "util"]
-                           :indirect ["common"
-                                      "deps"
-                                      "file"
-                                      "help"
-                                      "test-runner"
-                                      "text-table"
-                                      "validator"
-                                      "workspace"]}
-          "shell"         {:direct   []
-                           :indirect []}
-          "test-runner"   {:direct   ["common"
-                                      "file"
-                                      "util"]
-                           :indirect []}
-          "text-table"    {:direct   ["util"]
-                           :indirect []}
-          "util"          {:direct   []
-                           :indirect []}
-          "validator"      {:direct   ["common"
-                                       "deps"
-                                       "util"]
-                            :indirect []}
-          "workspace"     {:direct   ["common"
-                                      "deps"
-                                      "file"
-                                      "text-table"
-                                      "util"
-                                      "validator"]
-                           :indirect []}
-          "workspace-clj" {:direct   ["common"
-                                      "file"
-                                      "util"]
-                           :indirect []}}
+  (is (= {"change"        {:direct     ["git"
+                                        "util"]
+                           :direct-ifc []
+                           :indirect   ["shell"]}
+          "cli"           {:direct     ["change"
+                                        "command"
+                                        "file"
+                                        "workspace"
+                                        "workspace-clj"]
+                           :direct-ifc []
+                           :indirect   ["common"
+                                        "deps"
+                                        "git"
+                                        "help"
+                                        "shell"
+                                        "test-runner"
+                                        "text-table"
+                                        "util"
+                                        "validator"]}
+          "command"       {:circular   ["command"
+                                        "help"
+                                        "command"]
+                           :direct     ["common"
+                                        "help"
+                                        "test-runner"
+                                        "util"
+                                        "workspace"]
+                           :direct-ifc []
+                           :indirect   ["command"
+                                        "deps"
+                                        "file"
+                                        "text-table"
+                                        "validator"]}
+          "common"        {:direct     ["util"]
+                           :direct-ifc []
+                           :indirect   []}
+          "deps"          {:direct     []
+                           :direct-ifc []
+                           :indirect   []}
+          "file"          {:direct     []
+                           :direct-ifc []
+                           :indirect   []}
+          "git"           {:direct     ["shell"]
+                           :direct-ifc []
+                           :indirect   []}
+          "help"          {:circular   ["help"
+                                        "command"
+                                        "help"]
+                           :direct     ["command"
+                                        "util"]
+                           :direct-ifc []
+                           :indirect   ["common"
+                                        "deps"
+                                        "file"
+                                        "help"
+                                        "test-runner"
+                                        "text-table"
+                                        "validator"
+                                        "workspace"]}
+          "shell"         {:direct     []
+                           :direct-ifc []
+                           :indirect   []}
+          "test-runner"   {:direct     ["common"
+                                        "file"
+                                        "util"]
+                           :direct-ifc []
+                           :indirect   []}
+          "text-table"    {:direct     ["util"]
+                           :direct-ifc []
+                           :indirect   []}
+          "util"          {:direct     []
+                           :direct-ifc []
+                           :indirect   []}
+          "validator"     {:direct     ["common"
+                                        "deps"
+                                        "util"]
+                           :direct-ifc []
+                           :indirect   []}
+          "workspace"     {:direct     ["common"
+                                        "deps"
+                                        "file"
+                                        "text-table"
+                                        "util"
+                                        "validator"]
+                           :direct-ifc []
+                           :indirect   []}
+          "workspace-clj" {:direct     ["common"
+                                        "file"
+                                        "util"]
+                           :direct-ifc []
+                           :indirect   []}}
          (deps/environment-deps component-names base-names components bases))))

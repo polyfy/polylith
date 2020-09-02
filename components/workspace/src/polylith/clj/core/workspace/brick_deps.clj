@@ -23,7 +23,7 @@
         indirect-deps (set/difference (-> @paths flatten set) direct-deps)]
     (util/ordered-map :circular (when circular-deps (vec (cons brick-name circular-deps)))
                       :direct (-> direct-deps sort vec)
-                      :direct-ifc (brick->direct-ifc-deps brick-name)
+                      :direct-ifc (-> brick-name brick->direct-ifc-deps sort vec)
                       :indirect (-> indirect-deps sort vec))))
 
 (defn direct-ifc-deps [{:keys [interface-deps]} ifc->comp]

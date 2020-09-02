@@ -1,7 +1,6 @@
 
 {:paths ["../../components/common/src"
          "../../components/file/src"
-         "../../components/lib-dep/src"
          "../../components/migrator/src"
          "../../components/user-config/src"
          "../../components/util/src"
