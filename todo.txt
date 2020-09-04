@@ -1,6 +1,10 @@
 
-- only list the used bricks in the 'deps' command when an env is set.
-  List interfaces in the header and include those dependencies with x's too.
+- change the interface namespace to "interface".
+
+- add a 'build' command that can create an uberjar:
+  - poly build type:uberjar env:poly main-class:polylith.clj.core.poly-cli.poly
+
+- include a "build uberjar" tool to
 
 - update the help.
   - create a good example and store each step with a tag in git.
@@ -102,7 +106,7 @@ Doc
   the 'test' directory. Only the code under the 'src' directory is checked
   to only access the 'interface' namespace.
 - when we release the new version:
-  - write a note on lein-polylith that it is has been replaced by this tool.
+  - write a note on lein-polylith that it has been replaced by this tool.
 - some extra benefits of using interfaces:
   - it's very clear what functions that can be accessed and setting things to private is
     not needed if delegating to implementing namespaces.
@@ -137,14 +141,6 @@ Doc
     - git config --global user.email "my-email@gmail.com"
     - git config --global user.name "My Name"
 
-
-Differences compared to lein-polylith
-=====================================
-- parameters to commands are named.
-- different commands:
-  - no 'add', 'remove' or 'delete' commands, they can easily be done manually.
-  - no settings command. The settings are in the root deps.edn and .polylith/config.edn.
-
 Design decisions
 ================
 - to be able to reload a whole component in the REPL, it's important that all functions
@@ -166,3 +162,7 @@ Add to .git/hook/commit-msg:
   if [[ $? -ne 0 ]] then
     exit 1
   fi
+
+
+Example/doc:
+- create an empty workspace
