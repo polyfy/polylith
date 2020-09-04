@@ -1,5 +1,4 @@
-(ns polylith.clj.core.deps.brick-deps
-  (:require [clojure.set :as set]))
+(ns polylith.clj.core.deps.brick-deps)
 
 (defn depender [[depending-comp {:keys [direct]}] component]
   (when (contains? (set direct) component)

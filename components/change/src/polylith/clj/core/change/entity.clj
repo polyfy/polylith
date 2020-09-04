@@ -1,8 +1,8 @@
 (ns polylith.clj.core.change.entity
-  (:require [polylith.clj.core.git.interfc :as git]
-            [polylith.clj.core.path-finder.interfc.criterias :as c]
-            [polylith.clj.core.path-finder.interfc.select :as select]
-            [polylith.clj.core.path-finder.interfc.extract :as extract]))
+  (:require [polylith.clj.core.git.interface :as git]
+            [polylith.clj.core.path-finder.interface.criterias :as c]
+            [polylith.clj.core.path-finder.interface.select :as select]
+            [polylith.clj.core.path-finder.interface.extract :as extract]))
 
 (defn changed-entities [ws-dir paths]
   "Returns the bricks and environments that has changed based on a list of files"

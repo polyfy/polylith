@@ -1,8 +1,8 @@
 (ns polylith.clj.core.common.core
   (:require [clojure.string :as str]
-            [polylith.clj.core.file.interfc :as file]
-            [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.user-config.interfc :as user-config]))
+            [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.user-config.interface :as user-config]))
 
 (defn ns-to-path [namespace]
   (-> namespace

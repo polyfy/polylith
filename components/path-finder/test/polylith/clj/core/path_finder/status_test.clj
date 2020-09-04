@@ -1,7 +1,7 @@
 (ns polylith.clj.core.path-finder.status-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.file.interfc :as file]
-            [polylith.clj.core.path-finder.interfc.status :as status]
+            [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.path-finder.interface.status :as status]
             [polylith.clj.core.path-finder.path-extractor :as path-extractor]))
 
 (def path-entries (with-redefs [file/exists (fn [_] true)]

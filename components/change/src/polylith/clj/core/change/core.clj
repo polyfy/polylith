@@ -2,9 +2,9 @@
   (:require [polylith.clj.core.change.entity :as entity]
             [polylith.clj.core.change.indirect :as indirect]
             [polylith.clj.core.change.to-test :as to-test]
-            [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.git.interfc :as git]
-            [polylith.clj.core.util.interfc :as util]))
+            [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.git.interface :as git]
+            [polylith.clj.core.util.interface :as util]))
 
 (defn changes [{:keys [ws-dir environments user-input]}
                {:keys [sha1 sha2 files]}]

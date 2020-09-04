@@ -6,14 +6,14 @@
             [polylith.clj.core.command.info :as info]
             [polylith.clj.core.command.message :as message]
             [polylith.clj.core.command.test :as test]
-            [polylith.clj.core.change.interfc :as change]
-            [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.file.interfc :as file]
-            [polylith.clj.core.help.interfc :as help]
-            [polylith.clj.core.validator.interfc :as validator]
-            [polylith.clj.core.util.interfc.color :as color]
-            [polylith.clj.core.workspace-clj.interfc :as ws-clj]
-            [polylith.clj.core.workspace.interfc :as ws])
+            [polylith.clj.core.change.interface :as change]
+            [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.help.interface :as help]
+            [polylith.clj.core.validator.interface :as validator]
+            [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.workspace-clj.interface :as ws-clj]
+            [polylith.clj.core.workspace.interface :as ws])
   (:refer-clojure :exclude [test]))
 
 (defn check [{:keys [messages] :as workspace} color-mode]

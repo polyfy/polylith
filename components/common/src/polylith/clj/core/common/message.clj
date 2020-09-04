@@ -1,6 +1,6 @@
 (ns polylith.clj.core.common.message
   (:require [clojure.string :as str]
-            [polylith.clj.core.util.interfc.color :as color]))
+            [polylith.clj.core.util.interface.color :as color]))
 
 (defn message-without-colors [{:keys [code type message]}]
   (if (= type "error")

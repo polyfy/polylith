@@ -1,6 +1,6 @@
 (ns polylith.clj.core.validator.m105-illegal-name-sharing-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.util.interfc.color :as color]
+            [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.m105-illegal-name-sharing :as m105]))
 
 (deftest errors--when-a-base-and-an-interface-but-not-a-component-shares-the-same-name--returns-error

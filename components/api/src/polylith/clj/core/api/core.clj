@@ -1,8 +1,8 @@
 (ns polylith.clj.core.api.core
-  (:require [polylith.clj.core.change.interfc :as change]
-            [polylith.clj.core.user-input.interfc :as user-input]
-            [polylith.clj.core.workspace.interfc :as ws]
-            [polylith.clj.core.workspace-clj.interfc :as ws-clj]))
+  (:require [polylith.clj.core.change.interface :as change]
+            [polylith.clj.core.user-input.interface :as user-input]
+            [polylith.clj.core.workspace.interface :as ws]
+            [polylith.clj.core.workspace-clj.interface :as ws-clj]))
 
 (defn changed-environments []
   (let [user-input (user-input/extract-params [])

@@ -1,9 +1,9 @@
 (ns polylith.clj.core.validator.m204-lib-deps-exists-in-both-dev-and-profile
   (:require [clojure.set :as set]
             [clojure.string :as str]
-            [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.util.interfc.color :as color]))
+            [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.util.interface.color :as color]))
 
 (defn profile-warning [[profile {:keys [lib-deps]}] dev-lib-deps color-mode]
   (let [shared-lib-deps (sort (set/intersection dev-lib-deps (set (map first lib-deps))))

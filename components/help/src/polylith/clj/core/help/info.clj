@@ -1,6 +1,6 @@
 (ns polylith.clj.core.help.info
   (:require [polylith.clj.core.help.shared :as shared]
-            [polylith.clj.core.util.interfc.color :as color]))
+            [polylith.clj.core.util.interface.color :as color]))
 
 (defn help-text [color-mode]
   (let [envs (color/namespc "environments/" color-mode)

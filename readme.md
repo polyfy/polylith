@@ -310,7 +310,7 @@ To do that we first create an `interface` package (directory) with the name `int
 and then we put the sub namaspaces in there.
 
 You can find an example where the Polylith tool itself does that, by dividing its 
-[util](https://github.com/tengstrand/polylith/tree/core/components/util/src/polylith/clj/core/util/interfc)
+[util](https://github.com/tengstrand/polylith/tree/core/components/util/src/polylith/clj/core/util/interface)
 interface into several sub namespaces:
 ```sh
 util

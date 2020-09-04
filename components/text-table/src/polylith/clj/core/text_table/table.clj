@@ -1,7 +1,7 @@
 (ns polylith.clj.core.text-table.table
   (:require [clojure.string :as str]
-            [polylith.clj.core.util.interfc.str :as str-util]
-            [polylith.clj.core.util.interfc.color :as c]))
+            [polylith.clj.core.util.interface.color :as c]
+            [polylith.clj.core.util.interface.str :as str-util]))
 
 (defn none [_ & strings]
   (str/join strings))

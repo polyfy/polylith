@@ -1,5 +1,5 @@
 (ns polylith.clj.core.path-finder.status-calculator
-  (:require [polylith.clj.core.path-finder.interfc.criterias :as c]))
+  (:require [polylith.clj.core.path-finder.interface.criterias :as c]))
 
 (defn status-flag [path-entries name & criterias]
   (let [statuses (concat [c/exists? (c/=name name)] criterias)]

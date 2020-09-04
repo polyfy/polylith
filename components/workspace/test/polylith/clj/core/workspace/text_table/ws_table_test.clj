@@ -424,7 +424,7 @@
                                      "clojure.core.matrix" "net.mikera/core.matrix",
                                      "clojure.tools.deps" "org.clojure/tools.deps.alpha"},
                            :env->alias {"poly" "poly", "core" "core"},
-                           :interface-ns "interfc",
+                           :interface-ns "interface",
                            :vcs "git",
                            :thousand-sep ",",
                            :color-mode "none"},
@@ -740,14 +740,14 @@
                                                   :namespace "dev.jocke",
                                                   :file-path "./development/src/dev/jocke.clj",
                                                   :imports ["clojure.string"
-                                                            "polylith.clj.core.change.interfc"
-                                                            "polylith.clj.core.common.interfc"
-                                                            "polylith.clj.core.path-finder.interfc"
-                                                            "polylith.clj.core.file.interfc"
-                                                            "polylith.clj.core.help.interfc"
-                                                            "polylith.clj.core.util.interfc"
-                                                            "polylith.clj.core.workspace-clj.interfc"
-                                                            "polylith.clj.core.workspace.interfc"]}],
+                                                            "polylith.clj.core.change.interface"
+                                                            "polylith.clj.core.common.interface"
+                                                            "polylith.clj.core.path-finder.interface"
+                                                            "polylith.clj.core.file.interface"
+                                                            "polylith.clj.core.help.interface"
+                                                            "polylith.clj.core.util.interface"
+                                                            "polylith.clj.core.workspace-clj.interface"
+                                                            "polylith.clj.core.workspace.interface"]}],
                                 :namespaces-test [],
                                 :src-paths ["bases/poly-cli/src"
                                             "components/change/src"
@@ -886,9 +886,9 @@
                                                 :namespace "polylith.clj.core.change.to-test",
                                                 :file-path "./components/change/src/polylith/clj/core/change/to_test.clj",
                                                 :imports ["clojure.set" "polylith.clj.core.change.environment"]}
-                                               {:name "interfc",
-                                                :namespace "polylith.clj.core.change.interfc",
-                                                :file-path "./components/change/src/polylith/clj/core/change/interfc.clj",
+                                               {:name "interface",
+                                                :namespace "polylith.clj.core.change.interface",
+                                                :file-path "./components/change/src/polylith/clj/core/change/interface.clj",
                                                 :imports ["polylith.clj.core.change.core"]}
                                                {:name "environment",
                                                 :namespace "polylith.clj.core.change.environment",
@@ -900,15 +900,15 @@
                                                 :imports ["polylith.clj.core.change.path-finder"
                                                           "polylith.clj.core.change.indirect"
                                                           "polylith.clj.core.change.to-test"
-                                                          "polylith.clj.core.git.interfc"
-                                                          "polylith.clj.core.util.interfc"
-                                                          "polylith.clj.core.util.interfc"]}
+                                                          "polylith.clj.core.git.interface"
+                                                          "polylith.clj.core.util.interface"
+                                                          "polylith.clj.core.util.interface"]}
                                                {:name "path-finder",
                                                 :namespace "polylith.clj.core.change.path-finder",
                                                 :file-path "./components/change/src/polylith/clj/core/change/path-finder.clj",
                                                 :imports ["clojure.string"
-                                                          "polylith.clj.core.common.interfc.paths"
-                                                          "polylith.clj.core.git.interfc"]}
+                                                          "polylith.clj.core.common.interface.paths"
+                                                          "polylith.clj.core.git.interface"]}
                                                {:name "indirect",
                                                 :namespace "polylith.clj.core.change.indirect",
                                                 :file-path "./components/change/src/polylith/clj/core/change/indirect.clj",
@@ -951,14 +951,14 @@
                               :namespaces-src [{:name "creator",
                                                 :namespace "polylith.clj.core.command.create",
                                                 :file-path "./components/command/src/polylith/clj/core/command/create.clj",
-                                                :imports ["polylith.clj.core.command.message" "polylith.clj.core.create.interfc"]}
+                                                :imports ["polylith.clj.core.command.message" "polylith.clj.core.create.interface"]}
                                                {:name "deps",
                                                 :namespace "polylith.clj.core.command.deps",
                                                 :file-path "./components/command/src/polylith/clj/core/command/deps.clj",
-                                                :imports ["polylith.clj.core.common.interfc" "polylith.clj.core.deps.interfc"]}
-                                               {:name "interfc",
-                                                :namespace "polylith.clj.core.command.interfc",
-                                                :file-path "./components/command/src/polylith/clj/core/command/interfc.clj",
+                                                :imports ["polylith.clj.core.common.interface" "polylith.clj.core.deps.interface"]}
+                                               {:name "interface",
+                                                :namespace "polylith.clj.core.command.interface",
+                                                :file-path "./components/command/src/polylith/clj/core/command/interface.clj",
                                                 :imports ["polylith.clj.core.command.core"]}
                                                {:name "exit-code",
                                                 :namespace "polylith.clj.core.command.exit-code",
@@ -967,7 +967,7 @@
                                                {:name "info",
                                                 :namespace "polylith.clj.core.command.info",
                                                 :file-path "./components/command/src/polylith/clj/core/command/info.clj",
-                                                :imports ["polylith.clj.core.common.interfc" "polylith.clj.core.workspace.interfc"]}
+                                                :imports ["polylith.clj.core.common.interface" "polylith.clj.core.workspace.interface"]}
                                                {:name "core",
                                                 :namespace "polylith.clj.core.command.core",
                                                 :file-path "./components/command/src/polylith/clj/core/command/core.clj",
@@ -978,11 +978,11 @@
                                                           "polylith.clj.core.command.info"
                                                           "polylith.clj.core.command.message"
                                                           "polylith.clj.core.command.test"
-                                                          "polylith.clj.core.common.interfc"
-                                                          "polylith.clj.core.help.interfc"
-                                                          "polylith.clj.core.user-config.interfc"
-                                                          "polylith.clj.core.util.interfc.color"
-                                                          "polylith.clj.core.util.interfc.params"]}
+                                                          "polylith.clj.core.common.interface"
+                                                          "polylith.clj.core.help.interface"
+                                                          "polylith.clj.core.user-config.interface"
+                                                          "polylith.clj.core.util.interface.color"
+                                                          "polylith.clj.core.util.interface.params"]}
                                                {:name "message",
                                                 :namespace "polylith.clj.core.command.message",
                                                 :file-path "./components/command/src/polylith/clj/core/command/message.clj",
@@ -990,7 +990,7 @@
                                                {:name "test",
                                                 :namespace "polylith.clj.core.command.test",
                                                 :file-path "./components/command/src/polylith/clj/core/command/test.clj",
-                                                :imports ["polylith.clj.core.common.interfc" "polylith.clj.core.test-runner.interfc"]}],
+                                                :imports ["polylith.clj.core.common.interface" "polylith.clj.core.test-runner.interface"]}],
                               :namespaces-test [],
                               :lib-imports-src ["clojure.pprint"],
                               :lib-imports-test [],
@@ -1071,10 +1071,10 @@
                               :namespaces-src [{:name "user-input",
                                                 :namespace "polylith.clj.core.common.user-input",
                                                 :file-path "./components/common/src/polylith/clj/core/common/user_input.clj",
-                                                :imports ["clojure.string" "polylith.clj.core.util.interfc.params"]}
-                                               {:name "interfc",
-                                                :namespace "polylith.clj.core.common.interfc",
-                                                :file-path "./components/common/src/polylith/clj/core/common/interfc.clj",
+                                                :imports ["clojure.string" "polylith.clj.core.util.interface.params"]}
+                                               {:name "interface",
+                                                :namespace "polylith.clj.core.common.interface",
+                                                :file-path "./components/common/src/polylith/clj/core/common/interface.clj",
                                                 :imports ["polylith.clj.core.common.class-loader"
                                                           "polylith.clj.core.common.core"
                                                           "polylith.clj.core.common.message"
@@ -1087,18 +1087,18 @@
                                                {:name "core",
                                                 :namespace "polylith.clj.core.common.core",
                                                 :file-path "./components/common/src/polylith/clj/core/common/core.clj",
-                                                :imports ["clojure.string" "polylith.clj.core.util.interfc"]}
+                                                :imports ["clojure.string" "polylith.clj.core.util.interface"]}
                                                {:name "message",
                                                 :namespace "polylith.clj.core.common.message",
                                                 :file-path "./components/common/src/polylith/clj/core/common/message.clj",
-                                                :imports ["clojure.string" "polylith.clj.core.util.interfc.color"]}
+                                                :imports ["clojure.string" "polylith.clj.core.util.interface.color"]}
                                                {:name "class-loader",
                                                 :namespace "polylith.clj.core.common.class-loader",
                                                 :file-path "./components/common/src/polylith/clj/core/common/class_loader.clj",
-                                                :imports ["clojure.java.io" "clojure.string" "polylith.clj.core.util.interfc.color"]}
-                                               {:name "interfc.paths",
-                                                :namespace "polylith.clj.core.common.interfc.paths",
-                                                :file-path "./components/common/src/polylith/clj/core/common/interfc/paths.clj",
+                                                :imports ["clojure.java.io" "clojure.string" "polylith.clj.core.util.interface.color"]}
+                                               {:name "interface.paths",
+                                                :namespace "polylith.clj.core.common.interface.paths",
+                                                :file-path "./components/common/src/polylith/clj/core/common/interface/paths.clj",
                                                 :imports ["polylith.clj.core.common.paths"]}
                                                {:name "validate-args",
                                                 :namespace "polylith.clj.core.common.validate-args",
@@ -1134,9 +1134,9 @@
                                                         {:name "print-alias-message",
                                                          :type "function",
                                                          :parameters [{:name "env"} {:name "color-mode"}]}]},
-                              :namespaces-src [{:name "interfc",
-                                                :namespace "polylith.clj.core.create.interfc",
-                                                :file-path "./components/create/src/polylith/clj/core/create/interfc.clj",
+                              :namespaces-src [{:name "interface",
+                                                :namespace "polylith.clj.core.create.interface",
+                                                :file-path "./components/create/src/polylith/clj/core/create/interface.clj",
                                                 :imports ["polylith.clj.core.create.base"
                                                           "polylith.clj.core.create.component"
                                                           "polylith.clj.core.create.environment"
@@ -1144,16 +1144,16 @@
                                                {:name "brick",
                                                 :namespace "polylith.clj.core.create.brick",
                                                 :file-path "./components/create/src/polylith/clj/core/create/brick.clj",
-                                                :imports ["polylith.clj.core.common.interfc"
-                                                          "polylith.clj.core.file.interfc"
-                                                          "polylith.clj.core.git.interfc"]}
+                                                :imports ["polylith.clj.core.common.interface"
+                                                          "polylith.clj.core.file.interface"
+                                                          "polylith.clj.core.git.interface"]}
                                                {:name "environment",
                                                 :namespace "polylith.clj.core.create.environment",
                                                 :file-path "./components/create/src/polylith/clj/core/create/environment.clj",
-                                                :imports ["polylith.clj.core.common.interfc"
-                                                          "polylith.clj.core.file.interfc"
-                                                          "polylith.clj.core.git.interfc"
-                                                          "polylith.clj.core.util.interfc.color"]}
+                                                :imports ["polylith.clj.core.common.interface"
+                                                          "polylith.clj.core.file.interface"
+                                                          "polylith.clj.core.git.interface"
+                                                          "polylith.clj.core.util.interface.color"]}
                                                {:name "base",
                                                 :namespace "polylith.clj.core.create.base",
                                                 :file-path "./components/create/src/polylith/clj/core/create/base.clj",
@@ -1161,9 +1161,9 @@
                                                {:name "workspace",
                                                 :namespace "polylith.clj.core.create.workspace",
                                                 :file-path "./components/create/src/polylith/clj/core/create/workspace.clj",
-                                                :imports ["polylith.clj.core.file.interfc"
-                                                          "polylith.clj.core.git.interfc"
-                                                          "polylith.clj.core.user-config.interfc"]}
+                                                :imports ["polylith.clj.core.file.interface"
+                                                          "polylith.clj.core.git.interface"
+                                                          "polylith.clj.core.user-config.interface"]}
                                                {:name "component",
                                                 :namespace "polylith.clj.core.create.component",
                                                 :file-path "./components/create/src/polylith/clj/core/create/component.clj",
@@ -1171,20 +1171,20 @@
                               :namespaces-test [{:name "base-test",
                                                  :namespace "polylith.clj.core.create.base-test",
                                                  :file-path "./components/create/test/polylith/clj/core/create/base_test.clj",
-                                                 :imports ["polylith.clj.core.create.brick" "polylith.clj.core.test-helper.interfc"]}
+                                                 :imports ["polylith.clj.core.create.brick" "polylith.clj.core.test-helper.interface"]}
                                                 {:name "workspace-test",
                                                  :namespace "polylith.clj.core.create.workspace-test",
                                                  :file-path "./components/create/test/polylith/clj/core/create/workspace_test.clj",
-                                                 :imports ["polylith.clj.core.test-helper.interfc"]}
+                                                 :imports ["polylith.clj.core.test-helper.interface"]}
                                                 {:name "environment-test",
                                                  :namespace "polylith.clj.core.create.environment-test",
                                                  :file-path "./components/create/test/polylith/clj/core/create/environment_test.clj",
-                                                 :imports ["polylith.clj.core.test-helper.interfc"
-                                                           "polylith.clj.core.util.interfc.color"]}
+                                                 :imports ["polylith.clj.core.test-helper.interface"
+                                                           "polylith.clj.core.util.interface.color"]}
                                                 {:name "component-test",
                                                  :namespace "polylith.clj.core.create.component-test",
                                                  :file-path "./components/create/test/polylith/clj/core/create/component_test.clj",
-                                                 :imports ["polylith.clj.core.create.brick" "polylith.clj.core.test-helper.interfc"]}],
+                                                 :imports ["polylith.clj.core.create.brick" "polylith.clj.core.test-helper.interface"]}],
                               :lib-imports-src [],
                               :lib-imports-test [],
                               :interface-deps ["common" "file" "git" "user-config" "util"],
@@ -1222,9 +1222,9 @@
                                                         {:name "print-workspace-ifc-table",
                                                          :type "function",
                                                          :parameters [{:name "workspace"} {:name "color-mode"}]}]},
-                              :namespaces-src [{:name "interfc",
-                                                :namespace "polylith.clj.core.deps.interfc",
-                                                :file-path "./components/deps/src/polylith/clj/core/deps/interfc.clj",
+                              :namespaces-src [{:name "interface",
+                                                :namespace "polylith.clj.core.deps.interface",
+                                                :file-path "./components/deps/src/polylith/clj/core/deps/interface.clj",
                                                 :imports ["polylith.clj.core.deps.interface-deps"
                                                           "polylith.clj.core.deps.text-table.brick-deps-table"
                                                           "polylith.clj.core.deps.text-table.brick-ifc-deps-table"
@@ -1233,24 +1233,24 @@
                                                {:name "text-table.workspace-ifc-deps-table",
                                                 :namespace "polylith.clj.core.deps.text-table.workspace-ifc-deps-table",
                                                 :file-path "./components/deps/src/polylith/clj/core/deps/text_table/workspace_ifc_deps_table.clj",
-                                                :imports ["polylith.clj.core.text-table.interfc"]}
+                                                :imports ["polylith.clj.core.text-table.interface"]}
                                                {:name "text-table.brick-deps-table",
                                                 :namespace "polylith.clj.core.deps.text-table.brick-deps-table",
                                                 :file-path "./components/deps/src/polylith/clj/core/deps/text_table/brick_deps_table.clj",
-                                                :imports ["polylith.clj.core.common.interfc"
+                                                :imports ["polylith.clj.core.common.interface"
                                                           "polylith.clj.core.deps.brick-deps"
-                                                          "polylith.clj.core.text-table.interfc"
-                                                          "polylith.clj.core.util.interfc.color"]}
+                                                          "polylith.clj.core.text-table.interface"
+                                                          "polylith.clj.core.util.interface.color"]}
                                                {:name "text-table.brick-ifc-deps-table",
                                                 :namespace "polylith.clj.core.deps.text-table.brick-ifc-deps-table",
                                                 :file-path "./components/deps/src/polylith/clj/core/deps/text_table/brick_ifc_deps_table.clj",
-                                                :imports ["polylith.clj.core.common.interfc" "polylith.clj.core.text-table.interfc"]}
+                                                :imports ["polylith.clj.core.common.interface" "polylith.clj.core.text-table.interface"]}
                                                {:name "text-table.workspace-brick-deps-table",
                                                 :namespace "polylith.clj.core.deps.text-table.workspace-brick-deps-table",
                                                 :file-path "./components/deps/src/polylith/clj/core/deps/text_table/workspace_brick_deps_table.clj",
-                                                :imports ["polylith.clj.core.common.interfc"
-                                                          "polylith.clj.core.text-table.interfc"
-                                                          "polylith.clj.core.util.interfc.color"]}
+                                                :imports ["polylith.clj.core.common.interface"
+                                                          "polylith.clj.core.text-table.interface"
+                                                          "polylith.clj.core.util.interface.color"]}
                                                {:name "interface-deps",
                                                 :namespace "polylith.clj.core.deps.interface-deps",
                                                 :file-path "./components/deps/src/polylith/clj/core/deps/interface_deps.clj",
@@ -1272,25 +1272,25 @@
                                                  :file-path "./components/deps/test/polylith/clj/core/deps/text_table/brick_ifc_deps_table_test.clj",
                                                  :imports ["clojure.string"
                                                            "polylith.clj.core.deps.text-table.brick-ifc-deps-table"
-                                                           "polylith.clj.core.util.interfc.color"]}
+                                                           "polylith.clj.core.util.interface.color"]}
                                                 {:name "text-table.workspace-brick-deps-table-test",
                                                  :namespace "polylith.clj.core.deps.text-table.workspace-brick-deps-table-test",
                                                  :file-path "./components/deps/test/polylith/clj/core/deps/text_table/workspace_brick_deps_table_test.clj",
                                                  :imports ["clojure.string"
                                                            "polylith.clj.core.deps.text-table.workspace-brick-deps-table"
-                                                           "polylith.clj.core.util.interfc.color"]}
+                                                           "polylith.clj.core.util.interface.color"]}
                                                 {:name "text-table.workspace-ifc-deps-table-test",
                                                  :namespace "polylith.clj.core.deps.text-table.workspace-ifc-deps-table-test",
                                                  :file-path "./components/deps/test/polylith/clj/core/deps/text_table/workspace_ifc_deps_table_test.clj",
                                                  :imports ["clojure.string"
                                                            "polylith.clj.core.deps.text-table.workspace-ifc-deps-table"
-                                                           "polylith.clj.core.util.interfc.color"]}
+                                                           "polylith.clj.core.util.interface.color"]}
                                                 {:name "text-table.brick-deps-table-test",
                                                  :namespace "polylith.clj.core.deps.text-table.brick-deps-table-test",
                                                  :file-path "./components/deps/test/polylith/clj/core/deps/text_table/brick_deps_table_test.clj",
                                                  :imports ["clojure.string"
                                                            "polylith.clj.core.deps.text-table.brick-deps-table"
-                                                           "polylith.clj.core.util.interfc.color"]}],
+                                                           "polylith.clj.core.util.interface.color"]}],
                               :lib-imports-src ["clojure.set" "clojure.string"],
                               :lib-imports-test ["clojure.string"],
                               :interface-deps ["common" "text-table" "util"],

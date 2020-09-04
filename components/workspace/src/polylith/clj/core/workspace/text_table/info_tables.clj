@@ -1,7 +1,7 @@
 (ns polylith.clj.core.workspace.text-table.info-tables
   (:require [clojure.string :as str]
-            [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.util.interfc.color :as color]
+            [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.workspace.text-table.count-table :as count-table]
             [polylith.clj.core.workspace.text-table.env-table :as env-table]
             [polylith.clj.core.workspace.text-table.ws-table :as ws-table]))

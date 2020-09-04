@@ -1,6 +1,6 @@
 (ns polylith.clj.core.text-table.line
-  (:require [polylith.clj.core.util.interfc.str :as str-util]
-            [polylith.clj.core.util.interfc.color :as color]))
+  (:require [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.util.interface.str :as str-util]))
 
 (defn select-column [column rows]
   (filterv #(= column (:column %)) rows))

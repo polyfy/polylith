@@ -1,5 +1,5 @@
 (ns polylith.clj.core.path-finder.selector
-  (:require [polylith.clj.core.path-finder.interfc.criterias :as criterias]))
+  (:require [polylith.clj.core.path-finder.interface.criterias :as criterias]))
 
 (defn entries [path-entries criterias]
   (criterias/filter-entries path-entries criterias))

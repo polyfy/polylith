@@ -1,6 +1,6 @@
 (ns polylith.clj.core.workspace.settings
-  (:require [polylith.clj.core.git.interfc :as git]
-            [polylith.clj.core.util.interfc :as util]))
+  (:require [polylith.clj.core.git.interface :as git]
+            [polylith.clj.core.util.interface :as util]))
 
 (defn enrich [ws-dir {:keys [stable-since-tag-pattern] :as settings}]
   (let [{:keys [tag sha]}

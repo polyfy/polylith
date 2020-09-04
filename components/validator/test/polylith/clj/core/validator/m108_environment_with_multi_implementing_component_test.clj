@@ -1,6 +1,6 @@
 (ns polylith.clj.core.validator.m108-environment-with-multi-implementing-component-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.util.interfc.color :as color]
+            [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.m108-environment-with-multi-implementing-component :as m108]))
 
 (def interfaces [{:name "user"

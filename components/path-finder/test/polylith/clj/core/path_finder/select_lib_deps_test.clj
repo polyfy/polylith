@@ -1,8 +1,8 @@
 (ns polylith.clj.core.path-finder.select-lib-deps-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.path-finder.test-data :as test-data]
-            [polylith.clj.core.path-finder.interfc.criterias :as c]
-            [polylith.clj.core.path-finder.interfc.select :as select]))
+            [polylith.clj.core.path-finder.interface.criterias :as c]
+            [polylith.clj.core.path-finder.interface.select :as select]))
 
 (deftest all-src-deps--select-src-deps--returns-src-deps
   (is (= {"org.clojure/clojure" #:mvn{:version "1.10.1"},

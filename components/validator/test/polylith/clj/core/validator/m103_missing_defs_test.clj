@@ -1,6 +1,6 @@
 (ns polylith.clj.core.validator.m103-missing-defs-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.util.interfc.color :as color]
+            [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.m103-missing-defs :as m103]))
 
 (def interfaces [{:name "auth"

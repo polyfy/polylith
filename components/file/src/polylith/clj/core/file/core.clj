@@ -1,7 +1,7 @@
 (ns polylith.clj.core.file.core
   (:require [clojure.java.io :as io]
             [me.raynes.fs :as fs]
-            [polylith.clj.core.util.interfc.str :as str-util])
+            [polylith.clj.core.util.interface.str :as str-util])
   (:import [java.io File PushbackReader FileNotFoundException]
            [java.nio.file Files]))
 

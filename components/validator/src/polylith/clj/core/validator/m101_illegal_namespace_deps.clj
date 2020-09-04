@@ -1,7 +1,7 @@
 (ns polylith.clj.core.validator.m101-illegal-namespace-deps
-  (:require [polylith.clj.core.deps.interfc :as deps]
-            [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.util.interfc.color :as color]))
+  (:require [polylith.clj.core.deps.interface :as deps]
+            [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.util.interface.color :as color]))
 
 (defn error-message [{:keys [namespace depends-on-interface depends-on-ns]} brick-name type interface-ns color-mode]
   (when namespace

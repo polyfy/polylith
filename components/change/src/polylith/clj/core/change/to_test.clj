@@ -1,9 +1,9 @@
 (ns polylith.clj.core.change.to-test
   (:require [clojure.set :as set]
             [polylith.clj.core.change.environment :as env]
-            [polylith.clj.core.path-finder.interfc.criterias :as c]
-            [polylith.clj.core.path-finder.interfc.extract :as extract]
-            [polylith.clj.core.path-finder.interfc.select :as select]))
+            [polylith.clj.core.path-finder.interface.criterias :as c]
+            [polylith.clj.core.path-finder.interface.extract :as extract]
+            [polylith.clj.core.path-finder.interface.select :as select]))
 
 (defn bricks-to-test-for-env [{:keys [name active? test-base-names test-component-names]}
                               changed-components

@@ -1,6 +1,6 @@
 (ns polylith.clj.core.validator.user-input.env-validator-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.util.interfc.color :as color]
+            [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.user-input.env-validator :as validator]))
 
 (def environments [{:alias "adm"}

@@ -1,5 +1,5 @@
 (ns polylith.clj.core.text-table.cell
-  (:require [polylith.clj.core.util.interfc.str :as str-util]))
+  (:require [polylith.clj.core.util.interface.str :as str-util]))
 
 (defn cell [column row value color align orientation]
   {:column column

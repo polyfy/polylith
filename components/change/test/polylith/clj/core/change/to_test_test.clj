@@ -1,6 +1,6 @@
 (ns polylith.clj.core.change.to-test-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.file.interfc :as file]
+            [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.change.to-test :as to-test]))
 
 (def environments [{:name "development"

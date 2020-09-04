@@ -1,6 +1,6 @@
 (ns polylith.clj.core.validator.m203-path-exists-in-both-dev-and-profile-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.util.interfc.color :as color]
+            [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.m203-path-exists-in-both-dev-and-profile :as m203]))
 
 (def settings {:profile->settings {"default" {:paths ["components/user/src"

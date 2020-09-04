@@ -1,6 +1,6 @@
 (ns polylith.clj.core.user-config.core
-  (:require [polylith.clj.core.file.interfc :as file]
-            [polylith.clj.core.util.interfc.str :as str-util]))
+  (:require [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.util.interface.str :as str-util]))
 
 (defn home-dir []
   (let [dir (System/getProperty "user.home")]

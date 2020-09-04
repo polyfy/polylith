@@ -1,7 +1,7 @@
 (ns polylith.clj.core.workspace.brick-deps
   (:require [clojure.set :as set]
             [clojure.walk :as w]
-            [polylith.clj.core.util.interfc :as util]))
+            [polylith.clj.core.util.interface :as util]))
 
 (defn brick-deps [brick brick->deps traversed path]
   (let [deps (brick->deps brick)]

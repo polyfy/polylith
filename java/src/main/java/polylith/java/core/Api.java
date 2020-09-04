@@ -7,8 +7,8 @@ import static polylith.java.core.Core.callFn;
 public final class Api {
 
     final static String walkNs = "clojure.walk";
-    final static String colorNs = "polylith.clj.core.util.interfc.color";
-    final static String workspaceNs = "polylith.clj.core.workspace.interfc";
+    final static String colorNs = "polylith.clj.core.util.interface.color";
+    final static String workspaceNs = "polylith.clj.core.workspace.interface";
 
     static Colorize colorize = new Colorize();
 

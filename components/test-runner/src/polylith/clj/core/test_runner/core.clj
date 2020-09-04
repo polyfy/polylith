@@ -1,10 +1,10 @@
 (ns polylith.clj.core.test-runner.core
   (:require [clojure.string :as str]
             [clojure.tools.deps.alpha :as tools-deps]
-            [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.util.interfc.color :as color]
-            [polylith.clj.core.util.interfc.str :as str-util]
-            [polylith.clj.core.util.interfc.time :as time-util])
+            [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.util.interface.str :as str-util]
+            [polylith.clj.core.util.interface.time :as time-util])
   (:refer-clojure :exclude [test]))
 
 (defn key-as-symbol [[library version]]

@@ -1,7 +1,7 @@
 (ns polylith.clj.core.validator.m202-invalid-src-reference
   (:require [clojure.string :as str]
-            [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.util.interfc.color :as color]))
+            [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.util.interface.color :as color]))
 
 (defn quoted [string]
   (str "\"" string "\""))

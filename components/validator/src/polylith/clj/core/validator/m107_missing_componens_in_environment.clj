@@ -1,7 +1,7 @@
 (ns polylith.clj.core.validator.m107-missing-componens-in-environment
   (:require [clojure.string :as str]
-            [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.util.interfc.color :as color])
+            [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.util.interface.color :as color])
   (:refer-clojure :exclude [bases]))
 
 (defn missing-components-error [env interface-names color-mode]

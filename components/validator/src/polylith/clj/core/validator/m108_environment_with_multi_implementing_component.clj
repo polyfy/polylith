@@ -1,12 +1,12 @@
 (ns polylith.clj.core.validator.m108-environment-with-multi-implementing-component
   (:require [clojure.set :as set]
             [clojure.string :as str]
-            [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.util.interfc.color :as color]
-            [polylith.clj.core.path-finder.interfc.extract :as extract]
-            [polylith.clj.core.path-finder.interfc.select :as select]
-            [polylith.clj.core.path-finder.interfc.criterias :as c]))
+            [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.path-finder.interface.extract :as extract]
+            [polylith.clj.core.path-finder.interface.select :as select]
+            [polylith.clj.core.path-finder.interface.criterias :as c]))
 
 (defn multi-impl-components [{:keys [implementing-components]}]
   (when (> (count implementing-components) 1) implementing-components))

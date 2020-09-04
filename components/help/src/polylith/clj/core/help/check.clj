@@ -1,6 +1,6 @@
 (ns polylith.clj.core.help.check
   (:require [polylith.clj.core.help.shared :as shared]
-            [polylith.clj.core.util.interfc.color :as color]))
+            [polylith.clj.core.util.interface.color :as color]))
 
 (defn help-text [color-mode]
   (str "  Performs various checks against the workspace.\n"
@@ -12,8 +12,8 @@
        "    statement, e.g.:\n "
        "   - " (shared/interface-ns "interface" color-mode) " \n "
        "   - " (shared/interface-ns "interface.subns" color-mode) " \n "
-       "   - " (shared/interface-ns "interfc" color-mode) " \n "
-       "   - " (shared/interface-ns "interfc.my.subns" color-mode) " \n"
+       "   - " (shared/interface-ns "interface" color-mode) " \n "
+       "   - " (shared/interface-ns "interface.my.subns" color-mode) " \n"
        "  - No circular dependencies exists.\n"
        "  - A definition (def/defn/defmacro) that is defined in one component's interface must\n"
        "    also be defined in all other components that implements that interface.\n"

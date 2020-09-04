@@ -1,7 +1,7 @@
 (ns polylith.clj.core.validator.m102-function-or-macro-is-defined-twice
   (:require [clojure.string :as str]
-            [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.util.interfc.color :as color]
+            [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.shared :as shared]))
 
 (defn duplicated-parameter-lists-error [component-name component-duplication color-mode]

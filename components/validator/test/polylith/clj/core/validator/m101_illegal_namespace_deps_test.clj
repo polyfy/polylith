@@ -1,6 +1,6 @@
 (ns polylith.clj.core.validator.m101-illegal-namespace-deps-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.util.interfc.color :as color]
+            [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.m101-illegal-namespace-deps :as m101]))
 
 (deftest brick-errors--without-errors--returns-no-errors

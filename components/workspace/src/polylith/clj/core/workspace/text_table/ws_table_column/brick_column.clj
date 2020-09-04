@@ -1,6 +1,6 @@
 (ns polylith.clj.core.workspace.text-table.ws-table-column.brick-column
-  (:require [polylith.clj.core.util.interfc.color :as color]
-            [polylith.clj.core.text-table.interfc :as text-table]))
+  (:require [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.text-table.interface :as text-table]))
 
 (defn brick-name [name type changed-bricks color-mode]
   (let [changed (if (contains? changed-bricks name) " *" "")]

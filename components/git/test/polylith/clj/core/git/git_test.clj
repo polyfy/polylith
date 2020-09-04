@@ -1,6 +1,6 @@
 (ns polylith.clj.core.git.git-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.git.interfc :as git]))
+            [polylith.clj.core.git.interface :as git]))
 
 (deftest diff--when-comparing-two-hashes--return-changes
   (is (= ["bases/core/src/polylith/core/main.clj"

@@ -1,7 +1,7 @@
 (ns polylith.clj.core.validator.m202-invalid-src-reference-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.validator.m202-invalid-src-reference :as m202]
-            [polylith.clj.core.util.interfc.color :as color]))
+            [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.validator.m202-invalid-src-reference :as m202]))
 
 (def environments [{:name "cli",
                     :src-paths ["wrong/path/src"]}])

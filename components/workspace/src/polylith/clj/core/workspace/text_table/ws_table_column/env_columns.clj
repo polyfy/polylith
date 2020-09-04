@@ -1,9 +1,9 @@
 (ns polylith.clj.core.workspace.text-table.ws-table-column.env-columns
-  (:require [polylith.clj.core.path-finder.interfc.criterias :as c]
-            [polylith.clj.core.path-finder.interfc.extract :as extract]
-            [polylith.clj.core.path-finder.interfc.select :as select]
-            [polylith.clj.core.path-finder.interfc.status :as status]
-            [polylith.clj.core.text-table.interfc :as text-table]))
+  (:require [polylith.clj.core.path-finder.interface.criterias :as c]
+            [polylith.clj.core.path-finder.interface.extract :as extract]
+            [polylith.clj.core.path-finder.interface.select :as select]
+            [polylith.clj.core.path-finder.interface.status :as status]
+            [polylith.clj.core.text-table.interface :as text-table]))
 
 (defn alias-changes [[env changes] env->alias]
   [(env->alias env) (set changes)])

@@ -1,6 +1,6 @@
 (ns polylith.clj.core.validator.m106-multiple-interface-occurrences-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.util.interfc.color :as color]
+            [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.m106-multiple-interface-occurrences :as m106]))
 
 (def components [{:name "change"

@@ -1,6 +1,6 @@
 (ns polylith.clj.core.deps.text-table.brick-deps-table-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.common.interfc :as common]
+            [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.deps.text-table.brick-deps-table :as brick-deps-table]))
 
 (def workspace {:interfaces [{:name "workspace-clj",

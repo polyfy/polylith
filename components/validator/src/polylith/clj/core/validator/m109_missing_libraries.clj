@@ -1,8 +1,8 @@
 (ns polylith.clj.core.validator.m109-missing-libraries
   (:require [clojure.set :as set]
             [clojure.string :as str]
-            [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.util.interfc.color :as color]))
+            [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.util.interface.color :as color]))
 
 (defn warning [env missing-libraries color-mode]
   (let [libs (str/join ", " (sort missing-libraries))

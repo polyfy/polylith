@@ -16,18 +16,18 @@
            :type "function"
            :parameters [{:name "&"}
                         {:name "keyvals"}]}]
-         (defs/definitions "interfc"
+         (defs/definitions "interface"
                            '(defn ordered-map [& keyvals] (core/ordered-map keyvals))
-                           "interfc"))))
+                           "interface"))))
 
 (deftest definitions--a-single-arity-defn-statement-with-a-type-hint--returns-a-definition-including-type-hint
   (is (= [{:name "my-func"
            :type "function"
            :parameters [{:name "arg1"}
                         {:name "arg2", :type "^String"}]}]
-         (defs/definitions "interfc"
+         (defs/definitions "interface"
                            '(defn my-func [arg1 ^String arg2] (core/my-func arg1 arg2))
-                           "interfc"))))
+                           "interface"))))
 
 (deftest definitions--a-multi-arity-defn-statement--returns-a-list-of-definitions
   (is (= [{:name "pretty-messages"
@@ -38,10 +38,10 @@
            :parameters [{:name "messages"}
                         {:name "color-mode"}]}]
 
-         (defs/definitions "interfc"
+         (defs/definitions "interface"
                            '(defn pretty-messages
                               ([workspace]
                                (msg/pretty-messages workspace))
                               ([messages color-mode]
                                (msg/pretty-messages messages color-mode)))
-                           "interfc"))))
+                           "interface"))))

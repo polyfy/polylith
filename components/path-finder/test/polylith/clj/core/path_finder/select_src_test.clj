@@ -1,7 +1,7 @@
 (ns polylith.clj.core.path-finder.select-src-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.path-finder.interfc.criterias :as c]
-            [polylith.clj.core.path-finder.interfc.select :as select]
+            [polylith.clj.core.path-finder.interface.criterias :as c]
+            [polylith.clj.core.path-finder.interface.select :as select]
             [polylith.clj.core.path-finder.test-data :as test-data]))
 
 (deftest all-src-paths--when-executed--returns-src-paths-from-all-components-bases-and-entities-including-profile-paths

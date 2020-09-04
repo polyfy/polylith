@@ -1,7 +1,7 @@
 (ns polylith.clj.core.migrator-cli.migrate
   (:require [clojure.string :as str]
-            [polylith.clj.core.file.interfc :as file]
-            [polylith.clj.core.migrator.interfc :as migrator])
+            [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.migrator.interface :as migrator])
   (:gen-class))
 
 (defn ensure-dir-exists [dir]

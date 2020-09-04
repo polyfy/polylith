@@ -1,6 +1,6 @@
 
 {:polylith {:top-namespace "polylith.clj.core"
-            :interface-ns "interfc"
+            :interface-ns "interface"
             :default-profile-name "default"
             :stable-since-tag-pattern "stable-*"
             :env->alias {"core" "core"

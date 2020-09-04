@@ -1,6 +1,6 @@
 (ns polylith.clj.core.validator.m201-mismatching-parameters-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.util.interfc.color :as color]
+            [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.m201-mismatching-parameters :as m201]))
 
 (def interfaces [{:name "auth"

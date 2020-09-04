@@ -1,6 +1,6 @@
 (ns polylith.clj.core.validator.m205-reference-to-missing-library-in-ns-lib-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.util.interfc.color :as color]
+            [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.m205-reference-to-missing-library-in-ns-lib :as m205]))
 
 (def settings {:ns->lib {"clj-time" "clj-time"

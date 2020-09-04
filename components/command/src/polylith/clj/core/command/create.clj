@@ -1,6 +1,6 @@
 (ns polylith.clj.core.command.create
   (:require [polylith.clj.core.command.message :as command]
-            [polylith.clj.core.creator.interfc :as creator]
+            [polylith.clj.core.creator.interface :as creator]
             [clojure.string :as str]))
 
 (def ent->name {"w" "my-workspace"

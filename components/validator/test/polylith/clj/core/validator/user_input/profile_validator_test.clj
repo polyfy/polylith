@@ -1,6 +1,6 @@
 (ns polylith.clj.core.validator.user-input.profile-validator-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.util.interfc.color :as color]
+            [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.user-input.profile-validator :as validator]))
 
 (def settings {:profile->settings {"default" {},

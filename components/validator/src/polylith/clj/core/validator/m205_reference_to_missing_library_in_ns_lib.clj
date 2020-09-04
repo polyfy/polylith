@@ -1,8 +1,8 @@
 (ns polylith.clj.core.validator.m205-reference-to-missing-library-in-ns-lib
   (:require [clojure.set :as set]
             [clojure.string :as str]
-            [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.util.interfc.color :as color]))
+            [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.util.interface.color :as color]))
 
 (defn libs [{:keys [lib-deps]}]
   (map first lib-deps))

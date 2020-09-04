@@ -1,6 +1,4 @@
 
-- change the interface namespace to "interface".
-
 - add a 'build' command that can create an uberjar:
   - poly build type:uberjar env:poly main-class:polylith.clj.core.poly-cli.poly
 

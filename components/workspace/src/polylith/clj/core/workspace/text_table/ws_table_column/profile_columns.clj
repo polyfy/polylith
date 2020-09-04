@@ -1,7 +1,7 @@
 (ns polylith.clj.core.workspace.text-table.ws-table-column.profile-columns
-  (:require [polylith.clj.core.text-table.interfc :as text-table]
-            [polylith.clj.core.path-finder.interfc.extract :as extract]
-            [polylith.clj.core.path-finder.interfc.status :as status]))
+  (:require [polylith.clj.core.text-table.interface :as text-table]
+            [polylith.clj.core.path-finder.interface.extract :as extract]
+            [polylith.clj.core.path-finder.interface.status :as status]))
 
 (defn profile-cell [index brick-name column show-resources? path-entries]
   (let [flags (status/brick-status-flags path-entries brick-name show-resources?)]

@@ -1,7 +1,7 @@
 (ns polylith.clj.core.creator.brick
-  (:require [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.file.interfc :as file]
-            [polylith.clj.core.git.interfc :as git]))
+  (:require [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.git.interface :as git]))
 
 (def create-brick-message "  Remember to add source directories (src/resources/test) to 'deps.edn' so they will be in the environments and development profiles that they belong to.")
 

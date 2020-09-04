@@ -1,7 +1,7 @@
 (ns polylith.clj.core.workspace.base
-  (:require [polylith.clj.core.deps.interfc :as deps]
+  (:require [polylith.clj.core.deps.interface :as deps]
             [polylith.clj.core.workspace.loc :as loc]
-            [polylith.clj.core.lib-dep.interfc :as lib-dep]
+            [polylith.clj.core.lib-dep.interface :as lib-dep]
             [polylith.clj.core.workspace.lib-imports :as lib]))
 
 (defn enrich [suffixed-top-ns interface-names settings {:keys [name type namespaces-src namespaces-test] :as base}]

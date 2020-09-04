@@ -1,5 +1,5 @@
 (ns polylith.clj.core.workspace.text-table.count-table
-  (:require [polylith.clj.core.text-table.interfc :as text-table]))
+  (:require [polylith.clj.core.text-table.interface :as text-table]))
 
 (defn table [{:keys [settings environments bases components interfaces]}]
   (let [color-mode (:color-mode settings)

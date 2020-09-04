@@ -1,6 +1,5 @@
 (ns polylith.clj.core.workspace.text-table.ws-table
-  (:require [clojure.walk :as walk]
-            [polylith.clj.core.text-table.interfc :as text-table]
+  (:require [polylith.clj.core.text-table.interface :as text-table]
             [polylith.clj.core.workspace.text-table.profile :as profile]
             [polylith.clj.core.workspace.text-table.ws-table-column.ifc-column :as ifc-column]
             [polylith.clj.core.workspace.text-table.ws-table-column.brick-column :as brick-column]

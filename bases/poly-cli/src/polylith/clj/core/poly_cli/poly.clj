@@ -1,7 +1,7 @@
 (ns polylith.clj.core.poly-cli.poly
-  (:require [polylith.clj.core.command.interfc :as command]
-            [polylith.clj.core.user-input.interfc :as user-input]
-            [polylith.clj.core.util.interfc.exception :as ex])
+  (:require [polylith.clj.core.command.interface :as command]
+            [polylith.clj.core.util.interface.exception :as ex]
+            [polylith.clj.core.user-input.interface :as user-input])
   (:gen-class))
 
 (defn -main [& args]

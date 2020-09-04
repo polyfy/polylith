@@ -1,6 +1,6 @@
 (ns polylith.clj.core.workspace-clj.profile
   (:require [clojure.string :as str]
-            [polylith.clj.core.util.interfc :as util]))
+            [polylith.clj.core.util.interface :as util]))
 
 (defn profile [[profile-key {:keys [extra-paths extra-deps]}]]
   [(subs (name profile-key) 1)

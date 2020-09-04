@@ -1,9 +1,9 @@
 (ns polylith.clj.core.creator.workspace
-  (:require [polylith.clj.core.file.interfc :as file]
-            [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.git.interfc :as git]
-            [polylith.clj.core.user-config.interfc :as user-config]
-            [polylith.clj.core.util.interfc.os :as os]))
+  (:require [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.git.interface :as git]
+            [polylith.clj.core.user-config.interface :as user-config]
+            [polylith.clj.core.util.interface.os :as os]))
 
 (defn user-config-content []
   (let [empty-char (if (os/windows?) "." "·")

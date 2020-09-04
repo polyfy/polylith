@@ -1,8 +1,7 @@
 (ns polylith.clj.core.workspace.core
   (:require [clojure.string :as str]
-            [clojure.walk :as walk]
-            [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.validator.interfc :as validator]
+            [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.workspace.alias :as alias]
             [polylith.clj.core.workspace.base :as base]
             [polylith.clj.core.workspace.component :as component]
@@ -10,7 +9,7 @@
             [polylith.clj.core.workspace.settings :as settings]
             [polylith.clj.core.workspace.interfaces :as interfaces]
             [polylith.clj.core.workspace.user-input :as user-input]
-            [polylith.clj.core.file.interfc :as file]))
+            [polylith.clj.core.file.interface :as file]))
 
 (defn brick->lib-imports [brick]
   (into {} (mapv (juxt :name #(select-keys % [:lib-imports-src

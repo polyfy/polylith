@@ -1,12 +1,10 @@
 (ns polylith.clj.core.test-helper.core
   (:require [clojure.string :as str]
             [clojure.stacktrace :as stacktrace]
-            [polylith.clj.core.file.interfc :as file]
-            [polylith.clj.core.command.interfc :as command]
-            [polylith.clj.core.user-input.interfc :as user-input]
-            [polylith.clj.core.user-config.interfc :as user-config]
-            [polylith.clj.core.workspace-clj.interfc :as ws-clj]
-            [polylith.clj.core.workspace.interfc :as ws]))
+            [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.command.interface :as command]
+            [polylith.clj.core.user-input.interface :as user-input]
+            [polylith.clj.core.user-config.interface :as user-config]))
 
 (def user-home "USER-HOME")
 

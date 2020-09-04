@@ -1,7 +1,7 @@
 (ns polylith.clj.core.creator.environment-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.test-helper.interfc :as helper]
-            [polylith.clj.core.util.interfc.color :as color]))
+            [polylith.clj.core.test-helper.interface :as helper]
+            [polylith.clj.core.util.interface.color :as color]))
 
 (use-fixtures :each helper/test-setup-and-tear-down)
 

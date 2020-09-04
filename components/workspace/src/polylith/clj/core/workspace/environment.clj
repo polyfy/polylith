@@ -1,11 +1,11 @@
 (ns polylith.clj.core.workspace.environment
-  (:require [polylith.clj.core.file.interfc :as file]
-            [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.path-finder.interfc.select :as select]
-            [polylith.clj.core.path-finder.interfc.extract :as extract]
-            [polylith.clj.core.path-finder.interfc.criterias :as c]
-            [polylith.clj.core.workspace.loc :as loc]
-            [polylith.clj.core.workspace.brick-deps :as brick-deps]))
+  (:require [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.path-finder.interface.select :as select]
+            [polylith.clj.core.path-finder.interface.extract :as extract]
+            [polylith.clj.core.path-finder.interface.criterias :as c]
+            [polylith.clj.core.workspace.brick-deps :as brick-deps]
+            [polylith.clj.core.workspace.loc :as loc]))
 
 (defn file-exists [ws-dir cleaned-path]
   (file/exists (str ws-dir "/" cleaned-path)))

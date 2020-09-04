@@ -1,7 +1,6 @@
 (ns polylith.clj.core.workspace-clj.definitions
   (:require [clojure.string :as str]
-            [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.common.interfc :as common]))
+            [polylith.clj.core.util.interface :as util]))
 
 (def ->generic-type {'def "data"
                      'defn "function"

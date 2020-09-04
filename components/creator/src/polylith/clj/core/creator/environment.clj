@@ -1,8 +1,8 @@
 (ns polylith.clj.core.creator.environment
-  (:require [polylith.clj.core.file.interfc :as file]
-            [polylith.clj.core.util.interfc.color :as color]
-            [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.git.interfc :as git]))
+  (:require [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.git.interface :as git]))
 
 (defn create-env [ws-dir env]
   (let [env-path (str ws-dir "/environments/" env)

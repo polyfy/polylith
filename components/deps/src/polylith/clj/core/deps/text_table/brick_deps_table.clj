@@ -1,8 +1,8 @@
 (ns polylith.clj.core.deps.text-table.brick-deps-table
-  (:require [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.text-table.interfc :as text-table]
+  (:require [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.text-table.interface :as text-table]
             [polylith.clj.core.deps.brick-deps :as brick-deps]
-            [polylith.clj.core.util.interfc.color :as color]))
+            [polylith.clj.core.util.interface.color :as color]))
 
 (def type->color {"component" :green
                   "base" :blue})

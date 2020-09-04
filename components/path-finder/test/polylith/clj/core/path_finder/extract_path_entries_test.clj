@@ -1,8 +1,8 @@
 (ns polylith.clj.core.path-finder.extract-path-entries-test
   (:require [clojure.test :refer :all]
+            [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.path-finder.test-data :as test-data]
-            [polylith.clj.core.path-finder.interfc.extract :as extract]
-            [polylith.clj.core.file.interfc :as file]))
+            [polylith.clj.core.path-finder.interface.extract :as extract]))
 
 (def settings {:profile->settings {"default" {:paths ["components/user/resources"
                                                       "components/user/src"

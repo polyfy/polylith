@@ -1,6 +1,6 @@
 (ns polylith.clj.core.deps.text-table.workspace-ifc-deps-table
-  (:require [polylith.clj.core.text-table.interfc :as text-table]
-            [polylith.clj.core.util.interfc.color :as color]))
+  (:require [polylith.clj.core.text-table.interface :as text-table]
+            [polylith.clj.core.util.interface.color :as color]))
 
 (defn brick-cell [row {:keys [name type]} color-mode]
   (text-table/cell 1 row (color/brick type name color-mode) :none :left :horizontal))

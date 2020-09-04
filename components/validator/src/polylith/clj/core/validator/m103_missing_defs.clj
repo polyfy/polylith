@@ -2,8 +2,8 @@
   (:require [clojure.string :as str]
             [clojure.set :as set]
             [polylith.clj.core.validator.shared :as shared]
-            [polylith.clj.core.util.interfc.color :as color]
-            [polylith.clj.core.util.interfc :as util]))
+            [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.util.interface :as util]))
 
 (defn ->data-ifc [{:keys [definitions]}]
   (set (filter #(= "data" (:type %)) definitions)))

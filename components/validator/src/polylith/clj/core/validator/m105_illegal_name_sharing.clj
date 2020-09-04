@@ -1,8 +1,8 @@
 (ns polylith.clj.core.validator.m105-illegal-name-sharing
   (:require [clojure.set :as set]
             [clojure.string :as str]
-            [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.util.interfc.color :as color]))
+            [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.util.interface.color :as color]))
 
 (defn errors [interface-names components bases color-mode]
   "A base are not allowed to share the name of an interface or component."

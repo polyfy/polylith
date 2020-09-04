@@ -1,6 +1,6 @@
 (ns polylith.clj.core.workspace.environment-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.file.interfc :as file]
+            [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.workspace.environment :as env])
   (:refer-clojure :exclude [bases]))
 

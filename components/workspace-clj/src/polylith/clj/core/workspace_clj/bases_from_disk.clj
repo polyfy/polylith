@@ -1,6 +1,6 @@
 (ns polylith.clj.core.workspace-clj.bases-from-disk
-  (:require [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]
-            [polylith.clj.core.file.interfc :as file]))
+  (:require [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]))
 
 (defn read-base [ws-dir top-src-dir base-name]
   (let [src-dir (str ws-dir "/bases/" base-name "/src/" top-src-dir)

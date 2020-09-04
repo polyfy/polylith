@@ -1,6 +1,6 @@
 (ns polylith.clj.core.validator.m102-function-or-macro-is-defined-twice-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.util.interfc.color :as color]
+            [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.m102-function-or-macro-is-defined-twice :as m102]))
 
 (def interfaces [{:name "auth"

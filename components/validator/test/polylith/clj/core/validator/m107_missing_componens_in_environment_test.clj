@@ -1,6 +1,6 @@
 (ns polylith.clj.core.validator.m107-missing-componens-in-environment-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.util.interfc.color :as color]
+            [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.m107-missing-componens-in-environment :as m107])
   (:refer-clojure :exclude [bases]))
 

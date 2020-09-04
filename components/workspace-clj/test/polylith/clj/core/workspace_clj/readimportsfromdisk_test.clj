@@ -5,13 +5,13 @@
 (deftest imports--require-is-first-statement--returns-imported-namespaces
   (let [code '(ns polylith.clj.core.file.core
                 (:require [clojure.java.io :as io]
-                          [polylith.clj.core.util.interfc.str :as str-util])
+                          [polylith.clj.core.util.interface.str :as str-util])
                 (:import [java.io File PushbackReader FileNotFoundException]
                          [java.nio.file Files]))]
     (is (= ["clojure.java.io"
             "java.io"
             "java.nio.file"
-            "polylith.clj.core.util.interfc.str"]
+            "polylith.clj.core.util.interface.str"]
            (from-disk/imports code)))))
 
 (deftest imports--require-is-second-statement--returns-imported-namespaces

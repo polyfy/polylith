@@ -1,5 +1,5 @@
 (ns polylith.clj.core.help.summary
-  (:require [polylith.clj.core.util.interfc.color :as color]))
+  (:require [polylith.clj.core.util.interface.color :as color]))
 
 
 (defn help-text [color-mode]

@@ -4,7 +4,7 @@ import static polylith.java.core.Core.callFn;
 
 public class Colorize {
 
-    final static String namespace = "polylith.clj.core.util.interfc.color";
+    final static String namespace = "polylith.clj.core.util.interface.color";
     
     public Colorize() {
     }

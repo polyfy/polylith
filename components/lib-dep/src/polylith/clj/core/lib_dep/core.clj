@@ -1,7 +1,7 @@
 (ns polylith.clj.core.lib-dep.core
   (:require [clojure.string :as str]
-            [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.common.interfc :as common]))
+            [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.common.interface :as common]))
 
 (defn included-in-ns? [lib-ns namespace]
   (or (= namespace lib-ns)

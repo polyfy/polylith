@@ -1,8 +1,8 @@
 (ns polylith.clj.core.workspace-clj.environment-from-disk
   (:require [clojure.string :as str]
             [clojure.tools.deps.alpha.util.maven :as mvn]
-            [polylith.clj.core.file.interfc :as file]
-            [polylith.clj.core.util.interfc :as util]
+            [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]))
 
 (defn absolute-path [path env]

@@ -1,6 +1,6 @@
 (ns polylith.clj.core.validator.m109-missing-libraries-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.util.interfc.color :as color]
+            [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.m109-missing-libraries :as m109])
   (:refer-clojure :exclude [bases]))
 

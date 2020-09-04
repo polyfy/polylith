@@ -1,11 +1,11 @@
 (ns polylith.clj.core.change.core-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.file.interfc :as file]
+            [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.change.core :as core]))
 
 (def files ["components/change/test/polylith/clj/core/change/brick_test.clj"
             "components/change/test/polylith/clj/core/change/core_test.clj"
-            "components/deps/src/polylith/clj/core/deps/interfc.clj"])
+            "components/deps/src/polylith/clj/core/deps/interface.clj"])
 
 (def environments [{:name "cli"
                     ;; active? is calculated in the 'workspace' component, namespace 'environment'.
@@ -144,7 +144,7 @@
                                   "dev" []}
             :changed-files ["components/change/test/polylith/clj/core/change/brick_test.clj"
                             "components/change/test/polylith/clj/core/change/core_test.clj"
-                            "components/deps/src/polylith/clj/core/deps/interfc.clj"]}
+                            "components/deps/src/polylith/clj/core/deps/interface.clj"]}
            (core/changes workspace {:files files})))))
 
 (deftest changes--a-list-of-changed-files-and-active-dev--returns-changed-bricks-and-bricks-to-test
@@ -162,7 +162,7 @@
                                   "dev" ["change" "cli"]}
             :changed-files ["components/change/test/polylith/clj/core/change/brick_test.clj"
                             "components/change/test/polylith/clj/core/change/core_test.clj"
-                            "components/deps/src/polylith/clj/core/deps/interfc.clj"]}
+                            "components/deps/src/polylith/clj/core/deps/interface.clj"]}
            (core/changes workspace-with-active-dev {:files files})))))
 
 (deftest changes--a-list-of-changed-files-and-environments--returns-changed-bricks-and-bricks-to-test2
@@ -180,5 +180,5 @@
                                   "dev" []}
             :changed-files ["components/change/test/polylith/clj/core/change/brick_test.clj"
                             "components/change/test/polylith/clj/core/change/core_test.clj"
-                            "components/deps/src/polylith/clj/core/deps/interfc.clj"]}
+                            "components/deps/src/polylith/clj/core/deps/interface.clj"]}
            (core/changes workspace-with-run-all-flags {:files files})))))

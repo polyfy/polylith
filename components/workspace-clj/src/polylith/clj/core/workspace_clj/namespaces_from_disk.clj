@@ -1,8 +1,8 @@
 (ns polylith.clj.core.workspace-clj.namespaces-from-disk
   (:require [clojure.string :as str]
-            [polylith.clj.core.file.interfc :as file]
-            [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.util.interfc.str :as str-util])
+            [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.util.interface.str :as str-util])
   (:refer-clojure :exclude [import require]))
 
 (defn import? [statement]

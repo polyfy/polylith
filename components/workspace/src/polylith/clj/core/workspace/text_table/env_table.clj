@@ -1,9 +1,9 @@
 (ns polylith.clj.core.workspace.text-table.env-table
   (:require [polylith.clj.core.workspace.text-table.profile :as profile]
-            [polylith.clj.core.text-table.interfc :as text-table]
-            [polylith.clj.core.util.interfc.color :as color]
-            [polylith.clj.core.path-finder.interfc.extract :as extract]
-            [polylith.clj.core.path-finder.interfc.status :as status]))
+            [polylith.clj.core.text-table.interface :as text-table]
+            [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.path-finder.interface.extract :as extract]
+            [polylith.clj.core.path-finder.interface.status :as status]))
 
 (defn profile-cell [index env-name column show-resources? path-entries]
   (let [flags (status/env-status-flags path-entries env-name show-resources?)]

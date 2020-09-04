@@ -1,5 +1,5 @@
 (ns polylith.clj.core.help.shared
-  (:require [polylith.clj.core.util.interfc.color :as color]
+  (:require [polylith.clj.core.util.interface.color :as color]
             [clojure.string :as str]))
 
 (defn interface-ns

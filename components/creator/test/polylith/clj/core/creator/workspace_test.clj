@@ -1,7 +1,7 @@
 (ns polylith.clj.core.creator.workspace-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.common.interfc :as common]
-            [polylith.clj.core.test-helper.interfc :as helper]))
+            [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.test-helper.interface :as helper]))
 
 (use-fixtures :each helper/test-setup-and-tear-down)
 

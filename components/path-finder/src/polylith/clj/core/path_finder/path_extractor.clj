@@ -1,7 +1,7 @@
 (ns polylith.clj.core.path-finder.path-extractor
-  (:require [polylith.clj.core.file.interfc :as file]
-            [polylith.clj.core.util.interfc :as util]
-            [polylith.clj.core.util.interfc.str :as str-util]
+  (:require [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.util.interface.str :as str-util]
             [polylith.clj.core.path-finder.profile-src-splitter :as profile-src-splitter]))
 
 (def dir->type {"bases" :base

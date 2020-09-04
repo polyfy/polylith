@@ -1,6 +1,6 @@
 (ns polylith.clj.core.git.core
   (:require [clojure.string :as str]
-            [polylith.clj.core.shell.interfc :as shell]))
+            [polylith.clj.core.shell.interface :as shell]))
 
 (defn is-git-repo? [ws-dir]
   (try

@@ -1,7 +1,7 @@
 (ns polylith.clj.core.validator.user-input.profile-validator
   (:require [clojure.set :as set]
-            [polylith.clj.core.util.interfc.color :as color]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [polylith.clj.core.util.interface.color :as color]))
 
 (defn validate [active-dev-profiles {:keys [profile->settings]} color-mode]
   (let [existing (set (map first profile->settings))

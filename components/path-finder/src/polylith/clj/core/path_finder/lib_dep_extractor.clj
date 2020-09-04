@@ -1,5 +1,5 @@
 (ns polylith.clj.core.path-finder.lib-dep-extractor
-  (:require [polylith.clj.core.util.interfc :as util]))
+  (:require [polylith.clj.core.util.interface :as util]))
 
 (defn deps-entry [lib-dep profile? test?]
   (util/ordered-map :profile? profile?
