@@ -3,7 +3,7 @@
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.git.interface :as git]))
 
-(def create-brick-message "  Remember to add source directories (src/resources/test) to 'deps.edn' so they will be in the environments and development profiles that they belong to.")
+(def create-brick-message "  Remember to add src, resources and test directories to 'deps.edn' files.")
 
 (defn create-brick [workspace brick-name create-fn]
   (if (common/find-brick brick-name workspace)

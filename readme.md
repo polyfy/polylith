@@ -26,8 +26,7 @@ Enjoy the ride!
 ## Migrate
 
 The old lein-polylith tool has reached its end of lifetime. If you have any old Leiningen based projects 
-that need to be migrated, follow the instructions [here](https://github.com/tengstrand/lein-polylith/blob/migrate/migrate/migrate.md)
-and read about the reasons why you should migrate.
+that need to be migrated, follow the instructions [here](https://github.com/tengstrand/lein-polylith/blob/migrate/migrate/migrate.md).
 
 ## Table of Contents
 
@@ -35,7 +34,7 @@ and read about the reasons why you should migrate.
 
 ## Installation
 
-To use the Polylith tool and to get access all the features in tools.deps, follow these steps:
+To use the Polylith tool and to get access to all the features in tools.deps, follow these steps:
 - Make sure [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) is installed.
 - Install the [clj](https://clojure.org/guides/getting_started) command line tool.
 
@@ -57,7 +56,8 @@ If you want to have a look at a full-blown system, go to the [RealWorld](https:/
 
 ## Workspace
 
-The workspace directory is the top-level container for all your code and everything you need to create Polylith systems.
+The workspace directory is the top-level container for all our code and contains everything we need
+work with Polylith systems.
 
 Let’s start by creating the _example_ workspace with the top namespace _se.example_:
 ```sh
@@ -77,15 +77,14 @@ example           # workspace root dir
   readme.md       # documentation
 ```
 
-This directory structure helps us work with, and reason about the code. 
+This directory structure helps us work with, and reason about the code and the higher level structure. 
 Each top directory is responsible for its own part of a Polylith system.
 A `base` exposes a public API. A `component` is responsible for a specific domain 
 or part of the system. 
 An `environment` specifies our deployable artifacts and what components and bases they contain.
-Finally, the `development` environment is where we keep code that is part of our workflow 
-but not part of any environment.
-
-Most of the workspace settings are stored in `deps.edn`:
+Finally, we have the `development` environment that we use when we work with the code.
+ 
+`deps.edn` contains some workspace settings and hosts the `development` environment:
 
 ```clojure
 {:polylith {:vcs "git"
@@ -114,14 +113,14 @@ We will later cover what all the different settings mean and how to use them.
 If you are new to tools.deps then it could be a good idea to 
 [read about](https://github.com/clojure/tools.deps.alpha) the ideas behind the tool and how things 
 like _aliases_ are used. If you are already familiar with tools.deps, then you know that aliases 
-are used to specify what source code and libraries that should be included in an environment.
+are used to specify what source code and libraries an environment, or part of an environment, contains.
 
 ## Development
 
-When working with a Polylith codebase, we are free to choose any editor/IDE we want, for example
+When working with a Polylith codebase, we are free to choose any editor/IDE we like, for example
 Emacs/[Cider](https://github.com/clojure-emacs/cider), 
 VSCode/[Calva](https://marketplace.visualstudio.com/items?itemName=betterthantomorrow.calva) or
-IDEA/[Cursive](https://cursive-ide.com). Here we will use the latter.
+IDEA/[Cursive](https://cursive-ide.com). Here we will use Cursive.
 
 Let's get started by creating a project. From the menu, select `File > New > Project from existing source`.
 Select the `deps.edn` file, the desired version of SDK and finish the wizard.
@@ -151,15 +150,14 @@ Clojure 1.10.1
 ```
 ...we are ready to go!
 
-If we look at the `deps.edn` file again, we can see that _"development/src"_ already was added to the path:
+If we look at the `deps.edn` file again, we can see that _"development/src"_ was already added to the path:
 ```
  :aliases  {:dev {:extra-paths ["development/src"]
 ```
 
-When we talk about the `development` environment, we mean the `src`, `test` and `resources` folders
-that are added to the `:dev` alias.
-Right now only the "development/src" directory is there, but every time we create a new component or base,
-they will most likely be added here so that we can work with them from the `development` environment.
+This gives us access to the `developent/src` directory so that we can work with the code. 
+Right now there is only one directory here, but every time we create a new component or base,
+they will most likely end up here too so that we can work with all the new code.
 
 
 The "development/src" path belongs to the `dev` alias which we activated previously and also added to the REPL
@@ -171,7 +169,7 @@ To do that we first need to create a namespace. We suggest that you use `dev` as
 the workspace top namespace (e.g. `se.example`).
 The reason is that we don't want to mix the code we put here with production code.
 
-One way of structuring the code here is to give every developer their own namespace under the `dev` top namespace.
+One way of structuring the code is to give every developer their own namespace under the `dev` top namespace.
 Let's follow that pattern and create the namespace `dev.lisa`.
 
 Right click on the `development/src` folder and select `New > Clojure Namespace` and type "dev.lisa":<br>
@@ -219,14 +217,14 @@ example
 
 The command also printed out this message:
 ```
-  Remember to add source directories (src/resources/test) to 'deps.edn' so they 
-  will be in the environments and development profiles that they belong to.
+  Remember to add src, resources and test directories to 'deps.edn' files.
 ```
 
-This was a reminder to add resource directories to `deps.edn` so that we can work with the code in the REPL.
-If we don't, then tools.deps and the development environment will not recognise our newly created component.
+This was a reminder to add source directories to `deps.edn`.
+If we don't, then tools.deps and the development environment will not recognise our newly created component,
+which would be a little bit sad!
 
-Let's add the component's `src`, `resources` and `test` folder to `deps.edn`:
+Let's continue by adding the component's `src`, `resources` and `test` folder to `deps.edn`:
 ```clojure
  :aliases  {:dev {:extra-paths ["development/src"
                                 "components/user/src"
@@ -235,7 +233,7 @@ Let's add the component's `src`, `resources` and `test` folder to `deps.edn`:
             :test {:extra-paths ["components/user/test"]}
 ```
 
-We may need to refresh our IDE, by e.g. clicking this link (or the icon we used before):<br>
+After that, we may need to refresh our IDE, by e.g. clicking this link (or the icon we used before):<br>
 <img src="images/refresh-ws.png" width="40%" alt="New local REPL">
 
 Now execute the `info` command:<br>
@@ -244,12 +242,12 @@ poly info
 ```
 <img src="images/info-01.png" width="30%" alt="New local REPL">
 
-This informs us that we now have one environment (`development`), one component (`user`) and
-one interface (`user`) and some other information that we will explain later.
+This tells us that we have one `development` environment, one `user` component and
+one `user`interface. Let's leave the other information for later.
 
 If you need to adjust the colors, then visit the ****color section*****.
 
-Let's add the `core` namespace to `user`:<br>
+Now, let's add the `core` namespace to `user`:<br>
 <img src="images/ide-ws-01.png" width="30%" alt="New local REPL">
 
 And change it to:
@@ -270,7 +268,7 @@ And update the `interface` to:
 ``` 
 Here we delegate the incoming call to the implementing `core` namespace,
 which is the recommended way of structuring the code within a `component` by delegating from the `interface`
-namespace to implementing namespaces. But something is missing. A test!
+namespace to implementing namespaces. But wait. Something is missing. A test!
 
 Let's edit `interface-test`:
 ```clojure
@@ -287,11 +285,10 @@ The test is green and we have created our first component!
 
 ## Interface
 
-When we created the `user` component it also created the `user` interface.
+When we created the `user` component, the `user` interface was also created.
 
 <img src="images/component-interface.png" width="20%" alt="Interface">
 
-The interface is illustrated by the light green part in the picture.
 So what is an interface and what is it good for?
 
 An interface in the Polylith world is a namespace named `interface` that often lives in one but sometimes several
@@ -299,10 +296,7 @@ components. It defines a number of `def`, `defn` and `defmacro` statements which
 it exposes to other components and bases.
 
 If more than one component uses the same interface, then all these components must define the exact same set of 
-`def`, `defn` and `defmacro` definitions, which the tool will help us with (more on that later).
-
-It's true that the default name of an `interface` is "interface", but this can be changed by editing `:interface-ns` 
-in `deps.edn` to something else (if you have really good reasons to do so).
+`def`, `defn` and `defmacro` definitions. This is something the tool will help us with.
 
 To have just a single interface namespace in a component is often what we want, but it is also possible to 
 divide the interface into several namespaces.
@@ -323,9 +317,10 @@ util
 ```
 
 This can be handy if you want to group the functions and not put everyone in one place.
-It can also be a signal that it's time to split up the component into several components!
+If you feel the need to split up the interface, it could also be a signal that it's time to 
+split the component into several components!
 
-Code that uses an interface like this can look something like this:
+Code that uses an interface like this might look something like this:
 ```clojure
 (ns dev.lisa
   (:require [se.example.util.interface.time :as time]))
@@ -346,16 +341,16 @@ A `base` is similar to a `component` except for two things:
 
 <img src="images/base.png" width="30%" alt="Base">
 
-The lack of an `interface` makes bases less composable compared to components. But that is not a big problem,
-because they solve another problem and that is to receive input from the outside world and to delegate 
-that input to different components (or actually interfaces, because components and bases only knows about interfaces).
+The lack of an `interface` makes bases less composable compared to components. That is not a big problem,
+because they solve a different problem and that is to convert input from the outside world and delegate 
+it to different components via their interfaces.
 
-Let's create the `cli` base to see how it works:
+Let's create the `cli` base to see how that works:
 ```sh
 poly create b name:cli
 ```
 
-Our workspace should now look like this:
+Our workspace should now look something like this:
 ```sh
 example
   bases
@@ -383,7 +378,7 @@ example
   readme.md
 ```
 
-We should not forget to update `deps.edn` with our newly created base:
+We also need to update `deps.edn` with our newly created base:
 ```clojure
  :aliases  {:dev {:extra-paths ["development/src"
                                 "components/user/src"
@@ -397,29 +392,33 @@ We should not forget to update `deps.edn` with our newly created base:
                                  "bases/cli/test"]}
 ```
 
-Now, let's add some code to the `api` namespace:
+Now, let's add some code to the our base:
 ```clojure
 (ns se.example.cli.api
   (:require [se.example.user.interface :as user])
   (:gen-class))
 
 (defn -main [& args]
-  (user/hello (first args)))
+  (println (user/hello (first args))))
 ```
 
-Now we want to build an artifact that we can use as a command line tool. To do that, we need to create an environment.
+Here we added the `-main` function that later will be called from the command line.
+The `(:gen-class)` statement tells the compiler that we want a Java class to be generated.
+
+The next natural step is to build an artifact that we can use as a command line tool. 
+To do that, we need to create an environment.
 
 ## Environment
 
 There are two kinds of environments:
-1. The `development` environment is used to work with the code, often by using a REPL. 
-   All paths that are included in the environment are specified in `deps.edn`, like `development/src`
-   and paths to the components and bases we want to work with.
-2. Other environments are used to build deployable artifacts like libraries, lambda functions, REST APIs and command line tools.
-   Each environment has its own directory under `environments` with a `deps.edn` file,
-   that specifies all the paths to the components and bases that we want to include. 
-   If it has any tests of its own, it will also have a `test` directory. 
-   Optionally it could also have a `src` and `resources` directory.
+1. The `development` environment, which is used to work with the code, often via a REPL. 
+   All the included paths are specified in `deps.edn` at the root, like `development/src`,
+   `components/user/src` and `bases/cli/src`.
+2. Other environments are used to build deployable artifacts like libraries, lambda functions, REST API's and command line tools.
+   Each environment has its own directory under `environments` with a `deps.edn` file
+   that specifies all the component and base paths that it includes. 
+   If it has any tests of its own, they will live in the `test` directory. 
+   Optionally it can also have a `src` and `resources` directory.
 
 Let's create an environment:
 ```sh
@@ -456,7 +455,7 @@ example
   readme.md
 ```
  
-The command also printed out this:
+The command also printed out this message:
 ```sh
   It's recommended to add an alias to :env->alias in deps.edn for the command-line environment.
 ```
@@ -486,18 +485,94 @@ Now add `user` and `cli` to `deps.edn` in `environments/command-line`:
 
 Note three things here:
 - We didn't add "development/src. 
-- The src paths (`:paths`) and the test paths (`extra-paths`) are configured at different levels.
+- The src paths and the test paths are configured at different levels, `:paths` and `extra-paths`.
 - All paths begin with "../../".
 
 The reson we didn't add "development/src" is because it contains code that should only be used
 from the development environment.
 
-The reson this environment is configured differently compared to the development environment is that
-it is more static in its nature with less need to switch between different configurations (aliases)
-and all the paths will be included by default without the need to specify an alias.
+The reson this environment is configured in a differnt way compared to the development environment is that
+it is more static in its nature with less need to switch between different configurations (aliases).
+All the paths will be included by default without the need to specify an alias.
 
 And finally, the reason all paths begin with "../../" is that `components` and `bases` live two levels up 
 compared to `environments/command-line` and not at the root as with the `development` environment.
+
+## Build
+
+The tool doesn't contain any build command and the reason is that this can be done quite easily by using scripts
+which hopefully will give us the level of control, flexibility and power we want.
+
+Let's say we want to create an executable jar file out of the `command-line` environment.
+First, we can create a `scripts`directory at the workspace root and copy this [build-uberjar.sh](https://github.com/tengstrand/polylith/blob/core/scripts/build-uberjar.sh)
+to it:
+```sh
+example
+  scripts
+    build-uberjar.sh
+```
+
+Also add `build-cli-uberjar.sh` to the `scripts` directory with this content:
+```sh
+#!/usr/bin/env bash
+./build-uberjar.sh command-line se.example.cli.api
+```
+
+And make sure they are both executable:
+```sh
+chmod +x build-uberjar.sh
+chmod +x build-cli-uberjar.sh
+```
+
+Now add the `aot` and `uberjar` aliases to `eps.edn` in `environments/command-line`:
+```clojure
+
+{:paths ["../../components/user/src"
+         "../../components/user/resources"
+         "../../bases/cli/src"
+         "../../bases/cli/resources"]
+
+ :deps {org.clojure/clojure {:mvn/version "1.10.1"}
+        org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}
+
+ :aliases {:test {:extra-paths ["../../components/user/test"
+                                "../../bases/cli/test"]
+                  :extra-deps  {}}
+
+           :aot     {:extra-paths ["classes"]
+                     :main-opts   ["-e" "(compile,'se.example.cli.api)"]}
+
+           :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
+                     :main-opts  ["-m" "uberdeps.uberjar"]}}}
+```
+
+The `aot` alias points to the `se.example.cli.api` namespace, which is where our `-main` function lives.
+The `uberjar` alias is used to create a callable uberjar.
+
+Let's try to build the `command-line` tool:
+```sh
+cd scripts
+./build-cli-uberjar.sh
+```
+
+The end of the output should say something like:
+```
+[uberdeps] Packaged ./target/command-line.jar in 3052 ms
+Uberjar created.
+```
+
+Now we can try to execute our command line tool:
+```sh
+cd ../environments/command-line/target
+java -jar command-line.jar Lisa  
+```
+
+Output:
+```
+Hello Lisa!
+```
+
+Wow, it worked!
 
 ### Colours
 
@@ -535,3 +610,8 @@ If you want to use the same colours in your terminal, here they are:<br>
 
 If the colours (f8eeb6, bfefc5, 77bcfc, e2aeff, cccccc, 24272b, ee9b9a) looks familiar to you, it's because they are 
 more or less stolen from the [Borealis](https://github.com/Misophistful/borealis-cursive-theme) colour schema!
+
+------------------
+
+It's true that the default name of an `interface` is "interface", but this can be changed by editing `:interface-ns` 
+in `deps.edn` to something else. Only do that if you have really good reasons to do so).
