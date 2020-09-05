@@ -36,7 +36,7 @@
     (str/split-lines files)))
 
 (defn list-tags [ws-dir pattern]
-  (let [sort (str "--sort=committerdate")]
+  (let [sort "--sort=committerdate"]
     (filterv #(-> % str/blank? not)
              (str/split-lines (shell/sh "git" "tag" sort "-l" pattern :dir ws-dir)))))
 

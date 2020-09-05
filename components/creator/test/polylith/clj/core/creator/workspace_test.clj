@@ -37,6 +37,7 @@
              "development/src/.keep"
              "environments"
              ".git"
+             ".gitignore"
              "logo.png"
              "deps.edn"
              "readme.md"}

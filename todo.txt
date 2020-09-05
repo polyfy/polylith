@@ -1,9 +1,4 @@
 
-- add a 'build' command that can create an uberjar:
-  - poly build type:uberjar env:poly main-class:polylith.clj.core.poly-cli.poly
-
-- include a "build uberjar" tool to
-
 - update the help.
   - create a good example and store each step with a tag in git.
   - have separate help for the different 'create' variants + show in the overview.

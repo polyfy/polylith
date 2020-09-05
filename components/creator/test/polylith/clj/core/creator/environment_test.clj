@@ -33,6 +33,7 @@
              "environments/env1"
              "environments/env1/deps.edn"
              ".git"
+             ".gitignore"
              "logo.png"
              "deps.edn"
              "readme.md"}

@@ -5,6 +5,10 @@
             [polylith.clj.core.user-config.interface :as user-config]
             [polylith.clj.core.util.interface.os :as os]))
 
+(def gitignore-content
+  ["**/classes"
+   "**/target"])
+
 (defn user-config-content []
   (let [empty-char (if (os/windows?) "." "·")
         color-mode (if (os/windows?) "none" "dark")]
@@ -64,6 +68,7 @@
     (file/create-dir (str ws-dir "/development"))
     (file/create-dir (str ws-dir "/development/src"))
     (file/create-dir (str ws-dir "/environments"))
+    (file/create-file (str ws-dir "/.gitignore") gitignore-content)
     (file/create-file (str ws-dir "/deps.edn") (deps-content top-ns))
     (file/create-file (str ws-dir "/readme.md") (readme-content ws-name))
     (file/create-file (str ws-dir "/development/src/.keep") [""])
