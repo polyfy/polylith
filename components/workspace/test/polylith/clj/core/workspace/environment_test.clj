@@ -234,7 +234,7 @@
   (is (true?
         (env/run-tests? "cli" "cli" false false #{}))))
 
-(deftest run-tests?--non-dev-environment-no-env-selected-run-all--returns-true
+(deftest run-tests?--non-dev-environment-no-env-selected-run-all-brick-tests--returns-true
   (is (true?
         (env/run-tests? "cli" "cli" false true #{}))))
 
@@ -242,7 +242,7 @@
   (is (false?
         (env/run-tests? "cli" "cli" false false #{"dev"}))))
 
-(deftest run-tests?--non-dev-environment-dev-selected-run-all--returns-true
+(deftest run-tests?--non-dev-environment-dev-selected-run-all-brick-tests--returns-true
   (is (true?
         (env/run-tests? "cli" "cli" false true #{"dev"}))))
 
@@ -250,7 +250,7 @@
   (is (false?
         (env/run-tests? "development" "dev" true false #{}))))
 
-(deftest run-tests?--dev-environment-no-env-selected-run-all--returns-false
+(deftest run-tests?--dev-environment-no-env-selected-run-all-brick-tests--returns-false
   (is (false?
         (env/run-tests? "development" "dev" true true #{}))))
 
@@ -258,6 +258,6 @@
   (is (true?
         (env/run-tests? "development" "dev" true false #{"dev"}))))
 
-(deftest run-tests?--dev-environment-dev-selected-run-all--returns-true
+(deftest run-tests?--dev-environment-dev-selected-run-all-brick-tests--returns-true
   (is (true?
         (env/run-tests? "development" "dev" true true #{"dev"}))))

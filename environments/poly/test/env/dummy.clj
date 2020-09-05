@@ -1,4 +1,4 @@
-(ns polylith.clj.core.env.poly
+(ns env.dummy
   (:require [clojure.test :refer :all]))
 
 (deftest dummy-test

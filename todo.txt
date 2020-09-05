@@ -1,5 +1,9 @@
 
+- 'poly info :env' should not include the development/test test.
+
 - ensure that we only run the slow environment tests once (separately) and not per envrionment.
+
+- include all environment test folders with :env in the test command?
 
 - remove the error at the end when running the `test` command:
 clojure.lang.PersistentArrayMap cannot be cast to java.lang.Throwable

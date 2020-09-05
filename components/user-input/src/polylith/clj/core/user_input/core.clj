@@ -47,8 +47,8 @@
                       :interface interface
                       :show-loc? (= "true" loc!)
                       :show-lib? (= "true" lib!)
-                      :run-all? (or (= "true" all!)
-                                    (= "true" all-bricks!))
+                      :run-all-brick-tests? (or (= "true" all!)
+                                                (= "true" all-bricks!))
                       :run-env-tests? (or (= "true" all!)
                                           (= "true" env!))
                       :color-mode color-mode

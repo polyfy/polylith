@@ -26,9 +26,9 @@
   (mapcat #(select-lib-imports % brick->lib-imports test?)
           brick-names))
 
-(defn run-tests? [env alias dev? run-all? selected-environments]
+(defn run-tests? [env alias dev? run-all-brick-tests? selected-environments]
   (or (and (not dev?)
-           (or run-all?
+           (or run-all-brick-tests?
                (empty? selected-environments)))
       (or (contains? selected-environments env)
           (contains? selected-environments alias))))
@@ -41,7 +41,7 @@
                   brick->lib-imports
                   env->alias
                   settings
-                  {:keys [run-all? selected-environments] :as user-input}]
+                  {:keys [run-all-brick-tests? selected-environments] :as user-input}]
   (let [alias (env->alias name)
         dep-entries (extract/from-library-deps dev? lib-deps test-lib-deps settings user-input)
         path-entries (extract/from-unenriched-environment ws-dir dev? src-paths test-paths settings user-input)
@@ -60,7 +60,7 @@
     (util/ordered-map :name name
                       :alias alias
                       :type type
-                      :run-tests? (run-tests? name alias dev? run-all? selected-environments)
+                      :run-tests? (run-tests? name alias dev? run-all-brick-tests? selected-environments)
                       :dev? dev?
                       :env-dir env-dir
                       :config-file config-file

@@ -9,18 +9,18 @@
                               changed-components
                               changed-bases
                               env->indirect-changes
-                              run-all?]
+                              run-all-brick-tests?]
   (let [brick-names (set (concat test-base-names test-component-names))
         changed-bricks (if run-tests?
-                         (if run-all?
+                         (if run-all-brick-tests?
                            brick-names
                            (set/intersection brick-names
                                              (set (concat changed-components changed-bases (env->indirect-changes name)))))
                          #{})]
     [name (vec (sort changed-bricks))]))
 
-(defn env->bricks-to-test [environments changed-components changed-bases env->indirect-changes run-all?]
-  (into {} (map #(bricks-to-test-for-env % changed-components changed-bases env->indirect-changes run-all?)
+(defn env->bricks-to-test [environments changed-components changed-bases env->indirect-changes run-all-brick-tests?]
+  (into {} (map #(bricks-to-test-for-env % changed-components changed-bases env->indirect-changes run-all-brick-tests?)
                 environments)))
 
 (defn has-test-dir? [ws-dir {:keys [src-paths test-paths profile-src-paths profile-test-paths]}]

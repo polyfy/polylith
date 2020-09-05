@@ -125,8 +125,8 @@
 
 (def workspace-with-active-dev (assoc-in workspace [:environments 2 :run-tests?] true))
 
-(def workspace-with-run-all-flags (assoc workspace :user-input {:run-all? true
-                                                                :run-env-tests? true}))
+(def workspace-with-run-all-brick-tests-flags (assoc workspace :user-input {:run-all-brick-tests? true
+                                                                            :run-env-tests? true}))
 
 (deftest changes--a-list-of-changed-files-and-environments--returns-changed-bricks-and-bricks-to-test
   (with-redefs [file/exists (fn [_] true)]
@@ -180,4 +180,4 @@
             :changed-files ["components/change/test/polylith/clj/core/change/brick_test.clj"
                             "components/change/test/polylith/clj/core/change/core_test.clj"
                             "components/deps/src/polylith/clj/core/deps/interface.clj"]}
-           (core/changes workspace-with-run-all-flags {:files files})))))
+           (core/changes workspace-with-run-all-brick-tests-flags {:files files})))))
