@@ -1,4 +1,9 @@
 
+- ensure that we only run the slow environment tests once (separately) and not per envrionment.
+
+- remove the error at the end when running the `test` command:
+clojure.lang.PersistentArrayMap cannot be cast to java.lang.Throwable
+
 - update the help.
   - create a good example and store each step with a tag in git.
   - have separate help for the different 'create' variants + show in the overview.

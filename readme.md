@@ -62,7 +62,7 @@ work with Polylith systems.
 Let’s start by creating the _example_ workspace with the top namespace _se.example_:
 ```sh
 poly create w name:example top-ns:se.example
-```
+``` 
 
 The workspace directory structure will end up like this:
 ```sh
@@ -172,7 +172,7 @@ The reason is that we don't want to mix the code we put here with production cod
 One way of structuring the code is to give every developer their own namespace under the `dev` top namespace.
 Let's follow that pattern and create the namespace `dev.lisa`.
 
-Right click on the `development/src` folder and select `New > Clojure Namespace` and type "dev.lisa":<br>
+Right click on the `development/src` directory and select `New > Clojure Namespace` and type "dev.lisa":<br>
 <img src="images/new-namespace.png" width="30%" alt="New local REPL">
 
 Now let's write some code:
@@ -224,7 +224,7 @@ This was a reminder to add source directories to `deps.edn`.
 If we don't, then tools.deps and the development environment will not recognise our newly created component,
 which would be a little bit sad!
 
-Let's continue by adding the component's `src`, `resources` and `test` folder to `deps.edn`:
+Let's continue by adding the component's `src`, `resources` and `test` directory to `deps.edn`:
 ```clojure
  :aliases  {:dev {:extra-paths ["development/src"
                                 "components/user/src"
@@ -567,12 +567,256 @@ cd ../environments/command-line/target
 java -jar command-line.jar Lisa  
 ```
 
-Output:
 ```
 Hello Lisa!
 ```
 
 Wow, it worked!
+
+## Git
+
+We have already used the `info` command a couple of times without explaining everything in its output.
+Let's execute it again to see the current state of the workspace:
+
+<img src="images/info-02.png" width="30%" alt="Dev alias">
+
+At the top we have the line `stable since: c91fdad`. 
+To explain what this is, let's take it from the beginning.
+
+When a Polylith workspace is created, these `git` commands are executed:
+```
+git init
+git add .
+git commit -m "Initial commit."
+``` 
+
+If we run `git log` from the workspace root, it returns this:
+```sh
+commit c91fdad4a34927d9aacfe4b04ea2f304f3303282 (HEAD -> master)
+Author: tengstrand <joakimtengstrand@gmail.com>
+Date:   Thu Sep 3 06:11:23 2020 +0200
+
+    Initial commit.
+```
+
+This is the first and so far only commit of this repository.
+This is also the first `stable point in time` which the tool uses when it calculates what changes have
+been made, up till now. Notice that the first letters of the hash corresponds to `stable since: c91fdad`
+and this is because it refers to this SHA-1 hash in git.
+ 
+The `command-line` and `development` environment and the `user` and `cli` brick (components and bases are
+also called `bricks`) are all marked with an asterisk, `*`. The way the tool calculates changes is to ask
+`git` by running this command internally:
+```sh
+git diff c91fdad4a34927d9aacfe4b04ea2f304f3303282 --name-only
+```
+
+Which is also what the `diff` command does for us:
+```clojure
+poly diff
+```
+
+The output is the same:
+```
+bases/cli/resources/cli/.keep
+bases/cli/src/se/example/cli/api.clj
+bases/cli/test/se/example/cli/api_test.clj
+components/user/resources/user/.keep
+components/user/src/se/example/user/core.clj
+components/user/src/se/example/user/interface.clj
+components/user/test/se/example/user/interface_test.clj
+deps.edn
+development/src/dev/lisa.clj
+environments/command-line/deps.edn
+scripts/build-cli-uberjar.sh
+scripts/build-uberjar.sh
+```
+
+Here we have the answer to were the `*` signs come from, that the paths starting  with  `environments/command-line`, 
+`development`, `components/user` and `bases/cli` have changed since the first commit.
+
+When we created the workspace, a [.gitignore](https://git-scm.com/docs/gitignore) file was also created for us.
+Now it's a good time to add more rows here if needed:
+```sh
+**/classes
+**/target
+```
+
+Let's add and commit the files:
+```
+git add --all
+git commit -m "Second commit."
+```
+
+Let's have a look at our workspace repository again:
+```sh
+git log --pretty=oneline
+```
+
+Output:
+```sh
+e7ebe683a775ec28b7c2b5d77e01e79d48149d13 (HEAD -> master) Second commit.
+c91fdad4a34927d9aacfe4b04ea2f304f3303282 Initial commit.
+```
+
+If we run the `info` command again, it would return the same result as before, and the reason is that we
+haven't told git that the `stable point in time` has moved to our second commit.
+
+To do so, we can run this command:
+```sh
+git tag -f stable-lisa
+```
+
+If we now run `git log --pretty=oneline` again:
+```sh
+e7ebe683a775ec28b7c2b5d77e01e79d48149d13 (HEAD -> master, tag: stable-lisa) Second commit.
+c91fdad4a34927d9aacfe4b04ea2f304f3303282 Initial commit.
+```
+
+We can see that the second commit has been tagged with `stable-lisa` and if we run the `info` command again:
+
+<img src="images/info-03.png" width="30%" alt="Stable Lisa">
+
+We can see that the `stable since` hash has changed and is tagged with `stable-lisa`.
+All the `*` signs are gone because no `component`, `base` or `environment` 
+has yet changed since the second commit.
+
+We added the tag `stable-lisa` but we could have named the tag anything that starts with `stable-`.
+We choose `stable-lisa` because Lisa is our name (let's pretend that at least!). The idea is that every developer could use
+their own unique tag name that doesn't conflict with other developers. The CI build should also use its own patten,
+like `stable-` plus the build number to mark successful builds.
+
+The pattern is configured in `deps.edn` and can be changed if you prefer another pattern:
+```clojure
+            :stable-since-tag-pattern "stable-*"
+```
+
+The way the tool finds the latest tag is to run this command:
+```
+git tag --sort=committerdate -l 'stable-*'
+``` 
+
+And take the last one, or if no tag was found, the first commit in the repository.
+
+## Source flags
+
+We have one more thing to cover regarding the `info` command, and that is what the `x` and `-` signs mean:
+<img src="images/environment-flags.png" width="25%" alt="Flags">
+
+The first sign of a group of three, says whether the environment has a `src` directory or not,
+and the second whether it has a `test` directory or not.
+
+The `x--` for the `development` enviroment has an `x` marked in its first position and a `-` in its second,
+which means we have a `development/src` directory but not a `development/test` directory in our workspace.
+
+The `command-line    cl      ---` row says that we have a `environments/command-line` directory
+in our workspace, but that it doesn't contain a `src` or `test` directory.
+
+Let's have a look at the second section:<br>
+<img src="images/brick-flags.png" width="25%" alt="Flags">
+
+The flags here tells whether a brick's `src` or `test` directory is part of an environment or not
+(if the path is added to the enviroment's `deps.edn`).
+
+The `xx-` for the `user` row, column `cl`, tells that both the `src` and the `test` directory for the `user`
+component has been added to the `command-line` environment, file `environments/command-line/deps.edn`:
+```clojure
+{:paths ["../../components/user/src"
+ ...
+ :aliases {:test {:extra-paths ["../../components/user/test"
+```
+
+The `xx-` for the `user` row, column `dev`, tells that both the `src` and the `test` directory for the `user`
+component has been added to the `development` environment, file `deps.edn` (at the root):
+```clojure
+ :aliases  {:dev {:extra-paths [...
+                                "components/user/src"
+  ...
+            :test {:extra-paths ["components/user/test"
+```
+
+The `xx-` in the `cli` row follows the same pattern and says that both the `src` and the `test` directories
+are inluded in both the `command-line` and the `development` environments.
+
+
+If we type `poly info src:resources` or the shorter form `poly info src:r`:<br>
+<img src="images/info-04.png" width="30%" alt="Status resources">
+
+A fourth flag is now inserted into the second position, telling if there is a `resources` directory or not. 
+The first position is still `src` but `test` now lives in the third position.
+
+## Test
+
+We didn't explain what the last flag was. 
+Let's edit the `core.clj` namespace in the `user` component and add one more ! sign:
+```clojure
+(ns se.example.user.core)
+
+(defn hello [name]
+  (str "Hello " name "!!"))
+```
+
+We can check that the tool has recognised the change by running the `diff` command:
+```
+components/user/src/se/example/user/core.clj
+```
+
+If we run the `info` command again:<br>
+<img src="images/info-05.png" width="30%" alt="Status resources">
+
+The `user` component is now marked as changed with the `*` sign. If we look carefully we may notice that the 
+status flags `xxx` under the `cl` column now has an `x` in the last position.
+This means that the component's tests is `market to be executed` together with the `command-line` environment.
+
+The `cli` base under the `cl` column also has its last flag marked with an `x`.
+The reason is that the tool has recognised that it uses the changed `user` component,
+which is the reason it marks it `to be tested` together with the `command-line` environment.
+
+But why isn't the last flag under the `dev` column marked with an `x`?
+The reason is that the tests in the `development` environment are not executed by default when running the `test`
+command:
+```sh
+poly test
+```
+
+Output:
+```
+Runing tests for the command-line environment, including 2 bricks: user, cli
+
+Testing se.example.cli.api-test
+
+Ran 0 tests containing 0 assertions.
+0 failures, 0 errors.
+
+Test results: 0 passes, 0 failures, 0 errors.
+
+Testing se.example.user.interface-test
+
+FAIL in (hello--when-called-with-a-name--then-return-hello-phrase) (interface_test.clj:6)
+expected: (= "Hello Lisa!" (user/hello "Lisa"))
+  actual: (not (= "Hello Lisa!" "Hello Lisa!!"))
+
+Ran 1 tests containing 1 assertions.
+1 failures, 0 errors.
+```
+
+
+OOps, we forgot to update our test! Let's do that:
+```clojure
+(ns se.example.user.interface-test
+  (:require [clojure.test :refer :all]
+            [se.example.user.interface :as user]))
+
+(deftest hello--when-called-with-a-name--then-return-hello-phrase
+  (is (= "Hello Lisa!!"
+         (user/hello "Lisa"))))
+```
+
+
+
+
+There is a way to include the tests for the `developmemnt` environment and that is to 
+
 
 ### Colours
 
