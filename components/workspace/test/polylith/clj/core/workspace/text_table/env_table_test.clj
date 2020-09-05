@@ -12,7 +12,7 @@
                 :environments [{:name "core"
                                 :alias "core"
                                 :type "environment"
-                                :active? true
+                                :run-tests? true
                                 :dev? false
                                 :lines-of-code-src 1
                                 :lines-of-code-test 1
@@ -23,7 +23,7 @@
                                {:name "invoice"
                                 :alias "inv"
                                 :type "environment"
-                                :active? true
+                                :run-tests? true
                                 :dev? false
                                 :lines-of-code-src 0
                                 :lines-of-code-test 1
@@ -46,7 +46,7 @@
                                {:name "development"
                                 :alias "dev"
                                 :type "environment"
-                                :active? false
+                                :run-tests? false
                                 :dev? true
                                 :lines-of-code-src 4
                                 :lines-of-code-test 0

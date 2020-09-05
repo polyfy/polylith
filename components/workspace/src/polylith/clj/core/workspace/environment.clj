@@ -26,7 +26,7 @@
   (mapcat #(select-lib-imports % brick->lib-imports test?)
           brick-names))
 
-(defn active? [env alias dev? run-all? selected-environments]
+(defn run-tests? [env alias dev? run-all? selected-environments]
   (or (and (not dev?)
            (or run-all?
                (empty? selected-environments)))
@@ -60,7 +60,7 @@
     (util/ordered-map :name name
                       :alias alias
                       :type type
-                      :active? (active? name alias dev? run-all? selected-environments)
+                      :run-tests? (run-tests? name alias dev? run-all? selected-environments)
                       :dev? dev?
                       :env-dir env-dir
                       :config-file config-file

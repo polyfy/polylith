@@ -95,9 +95,9 @@
 
 (defn run [{:keys [environments changes] :as workspace}]
   (let [start-time (time-util/current-time)
-        active-environments (filter :active? environments)]
-    (doseq [environment active-environments]
+        environments-to-test (filter :run-tests? environments)]
+    (doseq [environment environments-to-test]
       (run-tests-for-environment workspace environment changes))
-    (when (empty? active-environments)
+    (when (empty? environments-to-test)
       (println "  No tests to run. To run tests for 'dev', also give: env:dev"))
     (time-util/print-execution-time start-time)))

@@ -8,8 +8,7 @@
             "components/deps/src/polylith/clj/core/deps/interface.clj"])
 
 (def environments [{:name "cli"
-                    ;; active? is calculated in the 'workspace' component, namespace 'environment'.
-                    :active? true
+                    :run-tests? true
                     :dev? false
                     :test-component-names []
                     :component-names ["change"
@@ -46,7 +45,7 @@
                            "common" {:direct ["util"], :indirect []}
                            "change" {:direct ["git" "util"], :indirect ["shell"]}}}
                    {:name "core"
-                    :active? true
+                    :run-tests? true
                     :dev? false
                     :test-component-names ["change" "common" "deps" "file" "git" "help" "shell"]
                     :component-names ["change" "common" "deps" "file" "git" "help" "shell" "text-table" "util" "validator" "workspace"]
@@ -80,7 +79,7 @@
                            "common" {:direct ["util"], :indirect []}
                            "change" {:direct ["git" "util"], :indirect ["shell"]}}}
                    {:name "dev"
-                    :active? false
+                    :run-tests? false
                     :dev? true
                     :test-component-names ["change" "common" "shell"]
                     :component-names ["change"
@@ -124,7 +123,7 @@
 (def workspace {:environments environments
                 :user-input {}})
 
-(def workspace-with-active-dev (assoc-in workspace [:environments 2 :active?] true))
+(def workspace-with-active-dev (assoc-in workspace [:environments 2 :run-tests?] true))
 
 (def workspace-with-run-all-flags (assoc workspace :user-input {:run-all? true
                                                                 :run-env-tests? true}))

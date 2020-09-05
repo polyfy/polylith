@@ -5,21 +5,21 @@
 
 (def environments [{:name "development"
                     :dev? true
-                    :active? false
+                    :run-tests? false
                     :has-test-dir? true
                     :component-names ["article"]
                     :test-base-names ["rest-api"]
                     :test-component-names ["article" "comment" "profile" "tag" "user"]}
                    {:name "core"
                     :dev? false
-                    :active? true
+                    :run-tests? true
                     :has-test-dir? true
                     :component-names ["profile"]
                     :test-base-names ["rest-api"]
                     :test-component-names ["article" "comment" "profile" "tag" "user"]}
                    {:name "cli"
                     :dev? false
-                    :active? false
+                    :run-tests? false
                     :has-test-dir? true
                     :component-names ["article"]
                     :test-base-names ["rest-api"]

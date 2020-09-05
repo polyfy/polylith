@@ -5,13 +5,13 @@
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.path-finder.interface.select :as select]))
 
-(defn bricks-to-test-for-env [{:keys [name active? test-base-names test-component-names]}
+(defn bricks-to-test-for-env [{:keys [name run-tests? test-base-names test-component-names]}
                               changed-components
                               changed-bases
                               env->indirect-changes
                               run-all?]
   (let [brick-names (set (concat test-base-names test-component-names))
-        changed-bricks (if active?
+        changed-bricks (if run-tests?
                          (if run-all?
                            brick-names
                            (set/intersection brick-names
