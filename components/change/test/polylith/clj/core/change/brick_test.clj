@@ -23,9 +23,35 @@
 
 (deftest changes--changes-made-between-two-commits--will-return-changed-components-and-bases
   (with-redefs [file/exists (fn [_] true)]
-    (is (= {:changed-bases ["core"]
-            :changed-components ["cmd" "workspace"]
-            :changed-environments []}
+    (is (= {:changed-bases        ["migrator-cli"
+                                   "poly-cli"]
+            :changed-components   ["api"
+                                   "change"
+                                   "command"
+                                   "common"
+                                   "creator"
+                                   "deps"
+                                   "file"
+                                   "git"
+                                   "help"
+                                   "lib-dep"
+                                   "migrator"
+                                   "path-finder"
+                                   "shell"
+                                   "test-helper"
+                                   "test-runner"
+                                   "text-table"
+                                   "user-config"
+                                   "user-input"
+                                   "util"
+                                   "validator"
+                                   "workspace"
+                                   "workspace-clj"
+                                   "ws-explorer"]
+            :changed-environments ["core"
+                                   "development"
+                                   "migrator"
+                                   "poly"]}
            (brick/changes "."
-                          "1cedf53463829d53525db8c018e794c0d6020f7"
-                          "1d5962f09e8809a8bb48c98483f1e6ea94f8011a")))))
+                          "0aaeb588b004d48a6f34f35be52d204d568af9ec"
+                          "9b3cc9e48947b016d546ae70259c3473e790e0e6")))))

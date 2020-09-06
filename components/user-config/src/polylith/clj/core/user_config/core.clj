@@ -11,14 +11,14 @@
     (try
       (read-string (slurp config-dir))
       (catch Exception _
-        (println "Couldn't read config file: " config-dir)
+        (println "Can't read config file: " config-dir)
         {}))))
 
 (defn thousand-separator []
   (:thousand-separator (config-content)))
 
 (defn color-mode []
-  (:color-mode (config-content)))
+  (:color-mode (config-content) "none"))
 
 (defn empty-character []
-  (:empty-character (config-content)))
+  (:empty-character (config-content) ""))
