@@ -1,6 +1,81 @@
-{:paths ["src"]
- :deps  {org.clojure/clojure          {:mvn/version "1.10.0"}
-         org.clojure/tools.deps.alpha {:mvn/version "0.6.496"}}
 
- :aliases {:test {:extra-paths ["test"]
-                  :extra-deps  {}}}}
+{:polylith {:top-namespace "polylith.clj.core"
+            :interface-ns "interface"
+            :default-profile-name "default"
+            :stable-since-tag-pattern "stable-*"
+            :env->alias {"core" "core"
+                         "migrator" "migr"
+                         "poly" "poly"
+                         "development" "dev"}
+            :ns->lib {clojure.tools.deps   org.clojure/tools.deps.alpha
+                      me.raynes            me.raynes/fs}}
+
+ :aliases  {:dev {:extra-paths [; Development
+                                "development/src"
+                                ; Components
+                                "components/api/src"
+                                "components/change/src"
+                                "components/command/src"
+                                "components/common/src"
+                                "components/creator/src"
+                                "components/creator/resources"
+                                "components/deps/src"
+                                "components/file/src"
+                                "components/git/src"
+                                "components/help/src"
+                                "components/help/src"
+                                "components/lib-dep/src"
+                                "components/migrator/src"
+                                "components/path-finder/src"
+                                "components/shell/src"
+                                "components/test-helper/src"
+                                "components/test-runner/src"
+                                "components/text-table/src"
+                                "components/user-config/src"
+                                "components/user-input/src"
+                                "components/util/src"
+                                "components/validator/src"
+                                "components/workspace/src"
+                                "components/workspace-clj/src"
+                                "components/ws-explorer/src"
+                                ; Bases
+                                "bases/poly-cli/src"
+                                "bases/migrator-cli/src"]
+
+                  :extra-deps {org.clojure/clojure {:mvn/version "1.10.1"}
+                               org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}
+                               me.raynes/fs {:mvn/version "1.4.6"}}}
+
+            :test {:extra-paths [; Components
+                                 "components/api/test"
+                                 "components/change/test"
+                                 "components/creator/test"
+                                 "components/deps/test"
+                                 "components/file/test"
+                                 "components/git/test"
+                                 "components/help/test"
+                                 "components/lib-dep/test"
+                                 "components/migrator/test"
+                                 "components/path-finder/test"
+                                 "components/shell/test"
+                                 "components/test-helper/test"
+                                 "components/test-runner/test"
+                                 "components/user-config/test"
+                                 "components/user-input/test"
+                                 "components/util/test"
+                                 "components/validator/test"
+                                 "components/workspace/test"
+                                 "components/workspace-clj/test"
+                                 "components/ws-explorer/test"
+                                 ; Bases
+                                 "bases/poly-cli/test"
+                                 ; Environments
+                                 "environments/poly/test"]}
+
+            :poly {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
+                               :extra-deps {polylith/clj-poly
+                                            {:local/root "environments/poly"}}}
+
+            :poly-migrator {:main-opts  ["-m" "polylith.clj.core.migrator-cli.core"]
+                            :extra-deps {polylith/clj-poly-migrator
+                                         {:local/root "environments/migrator"}}}}}

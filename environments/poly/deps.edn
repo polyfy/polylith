@@ -1,0 +1,65 @@
+
+{:paths   [; Components
+           "../../components/api/src"
+           "../../components/change/src"
+           "../../components/command/src"
+           "../../components/common/src"
+           "../../components/creator/src"
+           "../../components/creator/resources"
+           "../../components/deps/src"
+           "../../components/file/src"
+           "../../components/git/src"
+           "../../components/help/src"
+           "../../components/lib-dep/src"
+           "../../components/path-finder/src"
+           "../../components/shell/src"
+           "../../components/test-helper/src"
+           "../../components/text-table/src"
+           "../../components/test-runner/src"
+           "../../components/user-config/src"
+           "../../components/user-input/src"
+           "../../components/util/src"
+           "../../components/validator/src"
+           "../../components/workspace/src"
+           "../../components/workspace-clj/src"
+           "../../components/ws-explorer/src"
+           ; Bases
+           "../../bases/poly-cli/src"]
+
+ :deps    {org.clojure/clojure {:mvn/version "1.10.1"}
+           org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}
+           org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
+           org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}
+           me.raynes/fs {:mvn/version "1.4.6"}}
+
+ :aliases {:test    {:extra-paths [; Components
+                                   "../../components/api/test"
+                                   "../../components/change/test"
+                                   "../../components/creator/test"
+                                   "../../components/deps/test"
+                                   "../../components/file/test"
+                                   "../../components/git/test"
+                                   "../../components/help/test"
+                                   "../../components/lib-dep/test"
+                                   "../../components/path-finder/test"
+                                   "../../components/shell/test"
+                                   "../../components/test-helper/test"
+                                   "../../components/test-runner/test"
+                                   "../../components/user-config/test"
+                                   "../../components/user-input/test"
+                                   "../../components/util/test"
+                                   "../../components/validator/test"
+                                   "../../components/workspace/test"
+                                   "../../components/workspace-clj/test"
+                                   "../../components/ws-explorer/test"
+                                   ; Bases
+                                   "../../bases/poly-cli/test"
+                                   ; Environments
+                                   "test"]
+                     :extra-deps  {}}
+
+           :aot     {:extra-paths ["classes"]
+                     :main-opts   ["-e" "(compile,'polylith.clj.core.poly-cli.core)"]}
+
+           :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
+                     :main-opts  ["-m" "uberdeps.uberjar"]}}}

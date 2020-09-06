@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.clojure:tools.gitlibs:1.0.91">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/clojure/tools.gitlibs/1.0.91/tools.gitlibs-1.0.91.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/clojure/tools.gitlibs/1.0.91/tools.gitlibs-1.0.91-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/clojure/tools.gitlibs/1.0.91/tools.gitlibs-1.0.91-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
