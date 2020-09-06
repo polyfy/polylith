@@ -6,7 +6,6 @@
             [polylith.clj.core.command.info :as info]
             [polylith.clj.core.command.message :as message]
             [polylith.clj.core.command.test :as test]
-            [polylith.clj.core.command.ws-extractor :as ws-extractor]
             [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.file.interface :as file]
@@ -14,7 +13,8 @@
             [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.workspace-clj.interface :as ws-clj]
-            [polylith.clj.core.workspace.interface :as ws])
+            [polylith.clj.core.workspace.interface :as ws]
+            [polylith.clj.core.ws-explorer.interface :as ws-explorer])
   (:refer-clojure :exclude [test]))
 
 (defn check [{:keys [messages] :as workspace} color-mode]
@@ -73,7 +73,7 @@
           "help" (help arg1 color-mode)
           "info" (info/info workspace unnamed-args)
           "test" (test/run workspace unnamed-args)
-          "ws" (ws-extractor/print-ws workspace get)
+          "ws" (ws-explorer/print-ws workspace get)
           (unknown-command cmd))
         (println message))
       {:exit-code (exit-code/code cmd workspace)})

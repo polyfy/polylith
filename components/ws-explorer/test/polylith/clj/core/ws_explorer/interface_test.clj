@@ -1,6 +1,6 @@
-(ns polylith.clj.core.command.ws-extractor-test
+(ns polylith.clj.core.ws-explorer.interface-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.command.ws-extractor :as ws]))
+            [polylith.clj.core.ws-explorer.interface :as ws]))
 
 (def workspace {:environments [{:name "development"
                                 :alias "dev"

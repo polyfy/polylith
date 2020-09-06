@@ -37,6 +37,7 @@
                                 "components/validator/src"
                                 "components/workspace/src"
                                 "components/workspace-clj/src"
+                                "components/ws-explorer/src"
                                 ; Bases
                                 "bases/poly-cli/src"
                                 "bases/migrator-cli/src"]
@@ -67,6 +68,7 @@
                                  "components/validator/test"
                                  "components/workspace/test"
                                  "components/workspace-clj/test"
+                                 "components/ws-explorer/test"
                                  ; Bases
                                  "bases/poly-cli/test"
                                  ; Environments
