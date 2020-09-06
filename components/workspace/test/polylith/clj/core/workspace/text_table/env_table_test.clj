@@ -1,5 +1,6 @@
 (ns polylith.clj.core.workspace.text-table.env-table-test
   (:require [clojure.test :refer :all]
+            [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.workspace.text-table.env-table :as env-table]))
 
 (def workspace {:ws-dir "../poly-example/ws50"
@@ -78,43 +79,48 @@
 ;; TODO: Fix the tests below this point.
 
 (deftest table--no-resources-flat--returns-correct-table
-  (is (= ["  environment  alias  source"
-          "  --------------------------"
-          "  core *       core    x--  "
-          "  invoice *    inv     -x-  "
-          "  development  dev     x--  "]
-         (env-table/table workspace false false))))
+  (with-redefs [file/exists (fn [_] true)]
+    (is (= ["  environment  alias  source"
+            "  --------------------------"
+            "  core *       core    x--  "
+            "  invoice *    inv     -x-  "
+            "  development  dev     x--  "]
+           (env-table/table workspace false false)))))
 
 (deftest table--with-resources-flag--returns-correct-table
-  (is (= ["  environment  alias  source"
-          "  --------------------------"
-          "  core *       core    xx-- "
-          "  invoice *    inv     --x- "
-          "  development  dev     x--- "]
-         (env-table/table workspace false true))))
+  (with-redefs [file/exists (fn [_] true)]
+    (is (= ["  environment  alias  source"
+            "  --------------------------"
+            "  core *       core    xx-- "
+            "  invoice *    inv     --x- "
+            "  development  dev     x--- "]
+           (env-table/table workspace false true)))))
 
 (deftest table--environments-with-loc--returns-table-with-lines-of-code
-  (is (= ["  environment  alias  source   loc  (t)"
-          "  --------------------------   --------"
-          "  core *       core    x--       1    1"
-          "  invoice *    inv     -x-       0    1"
-          "  development  dev     x--       4    0"
-          "                                 5    2"]
-         (env-table/table workspace true false))))
+  (with-redefs [file/exists (fn [_] true)]
+    (is (= ["  environment  alias  source   loc  (t)"
+            "  --------------------------   --------"
+            "  core *       core    x--       1    1"
+            "  invoice *    inv     -x-       0    1"
+            "  development  dev     x--       4    0"
+            "                                 5    2"]
+           (env-table/table workspace true false)))))
 
 (deftest table--with-profile--returns-correct-table
-  (is (= ["  environment  alias  source   default   "
-          "  --------------------------   -------   "
-          "  core *       core    x--       -x      "
-          "  invoice *    inv     -x-       --      "
-          "  development  dev     x--       --      "]
-         (env-table/table workspace-with-profiles false false))))
+  (with-redefs [file/exists (fn [_] true)]
+    (is (= ["  environment  alias  source   default   "
+            "  --------------------------   -------   "
+            "  core *       core    x--       -x      "
+            "  invoice *    inv     -x-       --      "
+            "  development  dev     x--       --      "]
+           (env-table/table workspace-with-profiles false false)))))
 
 (deftest table--with-profile-and-loc--returns-correct-table
-  (is (= ["  environment  alias  source   default   loc  (t)"
-          "  --------------------------   -------   --------"
-          "  core *       core    x--       -x        1    1"
-          "  invoice *    inv     -x-       --        0    1"
-          "  development  dev     x--       --        4    0"
-          "                                           5    2"]
-         (env-table/table workspace-with-profiles true false))))
+  (with-redefs [file/exists (fn [_] true)]
+    (is (= ["  environment  alias  source   default   loc  (t)"
+            "  --------------------------   -------   --------"
+            "  core *       core    x--       -x        1    1"
+            "  invoice *    inv     -x-       --        0    1"
+            "  development  dev     x--       --        4    0"
+            "                                           5    2"]
+           (env-table/table workspace-with-profiles true false)))))
