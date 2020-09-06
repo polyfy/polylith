@@ -32,6 +32,7 @@
 (defn extract-value [value keys]
   (cond
     (empty? keys) value
+    (and (counted? value) (= "count" (first keys))) (count value)
     (map? value) (recur (value-from-map value (first keys)) (rest keys))
     (vector? value) (recur (value-from-vector value (first keys)) (rest keys))
     :else value))

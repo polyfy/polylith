@@ -1,4 +1,10 @@
 
+Wuestions to Furkan:
+- how to build and deploy jars (poly + poly-migr) to clojars.
+  - use alpha-version in the beginning.
+  - what tool to use when creating a homepage for the new company.
+  - test the functions inside the 'api' component.
+
 - update the help.
   - create a good example and store each step with a tag in git.
   - have separate help for the different 'create' variants + show in the overview.
@@ -7,6 +13,7 @@
 
 - add the 'version' command.
   - view home directory
+
 
 - remove the two initial blank lines in the info command when no git repo.
 

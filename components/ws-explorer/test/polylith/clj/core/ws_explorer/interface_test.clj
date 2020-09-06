@@ -35,3 +35,7 @@
 (deftest ws--extract-keys-in-list-of-maps
   (is (= ["development"]
          (ws/extract workspace ["environments" "keys"]))))
+
+(deftest ws--extract-keys-in-list-of-maps
+  (is (= 2
+         (ws/extract workspace ["count"]))))
