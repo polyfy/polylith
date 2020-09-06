@@ -1,6 +1,4 @@
 
-- add support to select parts of the workspace with the 'ws' command?
-
 - update the help.
   - create a good example and store each step with a tag in git.
   - have separate help for the different 'create' variants + show in the overview.
@@ -34,8 +32,7 @@ Furkan:
 
 Questions
 =========
-- also show the profiles in the environments table.
-- how to convert the git repo?
+- what tool to use when building the homepage.
 - check if we should register for https://github.com/sponsors.
 
 When releasing

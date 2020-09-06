@@ -21,38 +21,39 @@
            envs))))
 
 (defn extract-params [args]
-  (let [{:keys [named-args unnamed-args]} (params/extract args)
-        {:keys [name
-                ws-dir
-                top-ns
+  (let [{:keys [named-args unnamed-args]} (params/extract (rest args))
+        {:keys [brick
+                color-mode
                 env
-                src
-                brick
+                get
                 interface
-                lib!
-                loc!
+                name
+                src
+                top-ns
+                ws-dir
                 all!
                 all-bricks!
                 dev!
                 env!
-                color-mode]} named-args
-        unnamed (vec (rest unnamed-args))]
+                lib!
+                loc!]} named-args]
     (util/ordered-map :args args
                       :cmd (first args)
                       :arg1 (second args)
-                      :name name
-                      :ws-dir ws-dir
-                      :top-ns top-ns
+                      :get get
                       :brick brick
+                      :color-mode color-mode
                       :interface interface
+                      :name name
+                      :top-ns top-ns
+                      :ws-dir ws-dir
                       :show-loc? (= "true" loc!)
                       :show-lib? (= "true" lib!)
                       :run-all-brick-tests? (or (= "true" all!)
                                                 (= "true" all-bricks!))
                       :run-env-tests? (or (= "true" all!)
                                           (= "true" env!))
-                      :color-mode color-mode
                       :show-resources? (contains? #{"r" "resources"} src)
-                      :active-dev-profiles (active-dev-profiles unnamed)
+                      :active-dev-profiles (active-dev-profiles unnamed-args)
                       :selected-environments (selected-environments env dev!)
-                      :unnamed-args unnamed)))
+                      :unnamed-args (vec unnamed-args))))

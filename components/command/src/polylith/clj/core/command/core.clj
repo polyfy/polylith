@@ -6,6 +6,7 @@
             [polylith.clj.core.command.info :as info]
             [polylith.clj.core.command.message :as message]
             [polylith.clj.core.command.test :as test]
+            [polylith.clj.core.command.ws-extractor :as ws-extractor]
             [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.file.interface :as file]
@@ -56,7 +57,7 @@
         ws/enrich-workspace
         change/with-changes)))
 
-(defn execute [{:keys [cmd arg1 name top-ns brick interface show-lib? active-dev-profiles selected-environments unnamed-args] :as user-input}]
+(defn execute [{:keys [cmd arg1 name top-ns brick get interface show-lib? active-dev-profiles selected-environments unnamed-args] :as user-input}]
   (try
     (let [ws-dir (common/workspace-dir user-input)
           color-mode (common/color-mode user-input)
@@ -72,7 +73,7 @@
           "help" (help arg1 color-mode)
           "info" (info/info workspace unnamed-args)
           "test" (test/run workspace unnamed-args)
-          "ws" (pp/pprint workspace)
+          "ws" (ws-extractor/print-ws workspace get)
           (unknown-command cmd))
         (println message))
       {:exit-code (exit-code/code cmd workspace)})
