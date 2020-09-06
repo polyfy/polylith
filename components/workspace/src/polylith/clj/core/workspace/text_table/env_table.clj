@@ -35,13 +35,14 @@
 (defn src-cell [index {:keys [name src-paths test-paths profile-src-paths profile-test-paths]} ws-dir environments-to-test show-resources?]
   (let [path-entries (extract/path-entries ws-dir [src-paths, test-paths profile-src-paths profile-test-paths])
         satus-flags (str (status/env-status-flags path-entries name show-resources?)
-                         (if (contains? (set environments-to-test) name) "x" "-"))]
+                         (if (contains? environments-to-test name) "x" "-"))]
     (text-table/cell 5 (+ index 3) satus-flags :purple :center)))
 
-(defn src-column [ws-dir environments {:keys [environments-to-test]} show-resources?]
-  (concat [(text-table/cell 5 "source")]
-          (map-indexed #(src-cell %1 %2 ws-dir environments-to-test show-resources?)
-                       environments)))
+(defn src-column [ws-dir environments {:keys [env->environments-to-test]} show-resources?]
+  (let [environments-to-test (set (mapcat second env->environments-to-test))]
+    (concat [(text-table/cell 5 "source")]
+            (map-indexed #(src-cell %1 %2 ws-dir environments-to-test show-resources?)
+                         environments))))
 
 (defn loc-cell [index lines-of-code column thousand-sep]
   (text-table/number-cell column (+ index 3) lines-of-code :right thousand-sep))
