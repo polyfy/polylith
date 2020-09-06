@@ -1,0 +1,96 @@
+version: 2.0
+
+jobs:
+  check:
+    docker:
+      - image: circleci/clojure:tools-deps-1.10.1.561
+    working_directory: ~/polylith
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/polylith
+      - restore_cache:
+          key: polylith-{{ checksum "deps.edn" }}
+      - run:
+          name: Check Polylith workspace
+          command: clj -A:poly check
+      - save_cache:
+          key: polylith-{{ checksum "deps.edn" }}
+          paths:
+            - ~/.m2
+            - ~/.lein
+            - ~/polylith/.cpcache
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  test:
+    docker:
+      - image: circleci/clojure:tools-deps-1.10.1.561
+    working_directory: ~/polylith
+    steps:
+      - attach_workspace:
+          at: ~/polylith
+      - restore_cache:
+          key: polylith-{{ checksum "deps.edn" }}
+      - run:
+          name: Run tests for Polylith workspace
+          command: clj -A:poly test :all
+
+  stable-master:
+    docker:
+      - image: circleci/clojure:tools-deps-1.10.1.561
+    working_directory: ~/polylith
+    steps:
+      - attach_workspace:
+          at: ~/polylith
+      - run:
+          name: Add git tag to mark this stable point
+          command: git tag -a "stable-$CIRCLE_BUILD_NUM" -m "Added Stable Polylith tag"
+      - run:
+          name: Push the new tag
+          command: git push origin --tags
+
+  deploy:
+    docker:
+      - image: circleci/clojure:tools-deps-1.10.1.561
+    working_directory: ~/polylith
+    steps:
+      - attach_workspace:
+          at: ~/polylith
+      - restore_cache:
+          key: polylith-{{ checksum "deps.edn" }}
+      - run:
+          name: Deploy changed environments to clojars
+          command: clj -A:deploy
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - check:
+          filters:
+            tags:
+              only: /.*/
+      - test:
+          requires:
+            - check
+          filters:
+            tags:
+              only: /.*/
+      - stable-master:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - master
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
