@@ -26,7 +26,7 @@
           coordinates (:coordinates (deps-deploy/coordinates-from-pom (slurp (str (file/current-dir) "/environments/" env "/pom.xml"))))
           artifact-map {[:extension "pom" :classifier nil] (str env-prefix "/pom.xml")
                         [:extension "jar" :classifier nil] (str env-prefix "/target/" env ".jar")}]
-      (deps-deploy/deploy {:installer    :local
+      (deps-deploy/deploy {:installer    :clojars
                            :coordinates  coordinates
                            :artifact-map artifact-map}))
     (catch Throwable t
