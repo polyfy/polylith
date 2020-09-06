@@ -75,6 +75,7 @@
                                  (assoc-in [:settings :profile->settings] {"default" {:paths ["components/file/src"
                                                                                               "components/file/test"
                                                                                               "environments/core/test"]}})))
+;; TODO: Fix the tests below this point.
 
 (deftest table--no-resources-flat--returns-correct-table
   (is (= ["  environment  alias  source"

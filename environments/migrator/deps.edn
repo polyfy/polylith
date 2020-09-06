@@ -14,7 +14,7 @@
                   :extra-deps  {}}
 
            :aot     {:extra-paths ["classes"]
-                     :main-opts   ["-e" "(compile,'polylith.clj.core.migrator-cli.migrate)"]}
+                     :main-opts   ["-e" "(compile,'polylith.clj.core.migrator-cli.core)"]}
 
            :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
                      :main-opts  ["-m" "uberdeps.uberjar"]}}}

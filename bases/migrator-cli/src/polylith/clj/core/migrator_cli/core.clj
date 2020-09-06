@@ -1,4 +1,4 @@
-(ns polylith.clj.core.migrator-cli.migrate
+(ns polylith.clj.core.migrator-cli.core
   (:require [clojure.string :as str]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.migrator.interface :as migrator])
