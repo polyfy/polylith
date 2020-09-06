@@ -41,7 +41,7 @@
 (defn run-test-statements [class-loader test-statements run-message color-mode]
   (println (str run-message))
   (doseq [statement test-statements]
-    (let [{:keys [error fail pass] :as summary}
+    (let [{:keys [error fail pass]}
           (try
             (common/eval-in class-loader statement)
             (catch Exception e
@@ -51,7 +51,7 @@
       (when (or (nil? error)
                 (< 0 error)
                 (< 0 fail))
-        (throw (Exception. (str "\n" (color/error color-mode result-str)) summary)))
+        (throw (Exception. (str "\n" (color/error color-mode result-str)))))
       (println (str "\n" (color/ok color-mode result-str))))))
 
 (defn run-message [env components bases bricks-to-test environments-to-test color-mode]
