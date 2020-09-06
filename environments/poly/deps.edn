@@ -35,8 +35,6 @@
  :aliases {:test    {:extra-paths [; Components
                                    "../../components/api/test"
                                    "../../components/change/test"
-                                   "../../components/command/test"
-                                   "../../components/common/test"
                                    "../../components/creator/test"
                                    "../../components/deps/test"
                                    "../../components/file/test"
