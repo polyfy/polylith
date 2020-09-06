@@ -3,8 +3,6 @@
   - create a good example and store each step with a tag in git.
   - have separate help for the different 'create' variants + show in the overview.
 
-- 'help' should not be part of core.
-
 - let the output of 'ws' be nicely formatted and come in a logical order.
 
 - add the 'version' command.
