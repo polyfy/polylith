@@ -5,7 +5,7 @@
 (def workspace {:environments [{:name "development"
                                 :alias "dev"
                                 :type  "environment"}]
-                "a-key" 123})
+                :map2 {"a-key" 123}})
 
 (deftest ws--extract-with-no-arguments
   (is (= workspace
@@ -25,11 +25,11 @@
 
 (deftest ws--extract-string-key
   (is (= 123
-         (ws/extract workspace ["a-key"]))))
+         (ws/extract workspace ["map2" "a-key"]))))
 
 (deftest ws--extract-keys
-  (is (= ["a-key"
-          "environments"]
+  (is (= ["environments"
+          "map2"]
          (ws/extract workspace ["keys"]))))
 
 (deftest ws--extract-keys-in-list-of-maps

@@ -37,7 +37,7 @@
                 env!
                 lib!
                 loc!]} named-args]
-    (util/ordered-map :args args
+    (util/ordered-map :args (vec args)
                       :cmd (first args)
                       :arg1 (second args)
                       :get get
