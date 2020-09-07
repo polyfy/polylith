@@ -5,6 +5,7 @@
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.user-config.interface :as user-config]
             [polylith.clj.core.workspace-clj.profile :as profile]
+            [polylith.clj.core.path-finder.interface :as path-finder]
             [polylith.clj.core.workspace-clj.bases-from-disk :as bases-from-disk]
             [polylith.clj.core.workspace-clj.environment-from-disk :as envs-from-disk]
             [polylith.clj.core.workspace-clj.components-from-disk :as components-from-disk]))
@@ -41,6 +42,7 @@
          bases (bases-from-disk/read-bases ws-dir top-src-dir)
          environments (envs-from-disk/read-environments ws-dir)
          profile->settings (profile/profile->settings aliases)
+         paths (path-finder/paths ws-dir environments profile->settings)
          settings (util/ordered-map :vcs (or vcs "git")
                                     :top-namespace top-namespace
                                     :interface-ns (or interface-ns "interface")
@@ -58,4 +60,5 @@
                        :settings settings
                        :components components
                        :bases bases
-                       :environments environments))))
+                       :environments environments
+                       :paths paths))))

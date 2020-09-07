@@ -62,7 +62,6 @@
                                  "components/shell/test"
                                  "components/test-helper/test"
                                  "components/test-runner/test"
-                                 "components/user-config/test"
                                  "components/user-input/test"
                                  "components/util/test"
                                  "components/validator/test"

@@ -13,34 +13,38 @@
 
 (def user-input {:active-dev-profiles #{"default"}})
 
+(def src-paths ["bases/cli/resources"
+                "bases/cli/src"
+                "components/address/resources"
+                "components/address/src"
+                "components/database/resources"
+                "components/database/src"
+                "components/invoicer/resources"
+                "components/invoicer/src"
+                "components/purchaser/resources"
+                "components/purchaser/src"
+                "components/user/resources"
+                "components/user/src"
+                "development/src"])
+
+(def test-paths ["bases/cli/test"
+                 "components/address/test"
+                 "components/database/test"
+                 "components/invoicer/test"
+                 "components/purchaser/test"
+                 "components/user/test"
+                 "environments/invoice/test"
+                 "development/test"])
+
 (deftest path-entries--lists-of-paths--returns-extracted-path-entries
-  (with-redefs [file/exists (fn [_] true)]
-    (is (= test-data/path-entries
-           (extract/from-unenriched-environment
-             "." true
-             ["bases/cli/resources"
-              "bases/cli/src"
-              "components/address/resources"
-              "components/address/src"
-              "components/database/resources"
-              "components/database/src"
-              "components/invoicer/resources"
-              "components/invoicer/src"
-              "components/purchaser/resources"
-              "components/purchaser/src"
-              "components/user/resources"
-              "components/user/src"
-              "development/src"]
-             ["bases/cli/test"
-              "components/address/test"
-              "components/database/test"
-              "components/invoicer/test"
-              "components/purchaser/test"
-              "components/user/test"
-              "environments/invoice/test"
-              "development/test"]
-             settings
-             user-input)))))
+  (is (= test-data/path-entries
+         (extract/from-unenriched-environment
+           true
+           src-paths
+           test-paths
+           {:existing (concat src-paths test-paths)}
+           settings
+           user-input))))
 
 (deftest profile-entries--when-two-profiles-are-extracted--return-paths
   (is (= [{:exists?    false
@@ -64,4 +68,4 @@
            :source-dir "test"
            :test?      true
            :type       :component}]
-         (extract/from-profiles-paths "." settings "default"))))
+         (extract/from-profiles-paths [] settings "default"))))

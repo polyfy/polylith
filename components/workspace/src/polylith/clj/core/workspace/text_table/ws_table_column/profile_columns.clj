@@ -7,15 +7,15 @@
   (let [flags (status/brick-status-flags path-entries brick-name show-resources?)]
     (text-table/cell column (+ index 3) flags :purple :center)))
 
-(defn column [ws-dir index profile start-column settings bricks show-resources?]
+(defn column [index profile start-column disk-paths settings bricks show-resources?]
   (let [column (+ start-column (* 2 index))
-        path-entries (extract/from-profiles-paths ws-dir settings profile)]
+        path-entries (extract/from-profiles-paths disk-paths settings profile)]
     (concat
       [(text-table/cell column 1 (name profile) :purple :left)]
       (map-indexed #(profile-cell %1 %2 column show-resources? path-entries)
                    (map :name bricks)))))
 
-(defn columns [ws-dir start-column bricks profiles settings show-resources?]
+(defn columns [start-column bricks profiles disk-paths settings show-resources?]
   (apply concat
-    (map-indexed #(column ws-dir %1 %2 start-column settings bricks show-resources?)
+    (map-indexed #(column %1 %2 start-column disk-paths settings bricks show-resources?)
                  profiles)))

@@ -71,164 +71,184 @@
                                       "util"    {:directly [], :indirectly []}}})
 
 (deftest paths--without-active-profile--returns-expected-map
-  (with-redefs [file/exists (fn [_] true)]
-    (is (= {:name "development"
-            :run-tests? false
-            :dev? true
-            :alias "dev"
-            :type "environment"
-            :lines-of-code-src 0
-            :lines-of-code-test 0
-            :total-lines-of-code-src 419
-            :total-lines-of-code-test 76
-            :test-component-names ["change" "command"]
-            :component-names ["change" "command" "common" "deps" "file"]
-            :base-names ["cli"]
-            :test-base-names ["cli"]
-            :src-paths ["bases/cli/src"
-                        "components/change/src"
-                        "components/command/src"
-                        "components/common/src"
-                        "components/deps/src"
-                        "components/file/src"]
-            :test-paths ["bases/cli/test"
-                         "components/change/test"
-                         "components/command/test"
-                         "test"]
-            :profile-src-paths []
-            :profile-test-paths []
-            :missing-paths []
-            :lib-imports ["clojure.java.io" "clojure.pprint" "clojure.set" "clojure.string"]
-            :lib-imports-test []
-            :lib-deps {"org.clojure/clojure" {:mvn/version "1.10.1"},
-                       "org.clojure/tools.deps.alpha" {:mvn/version "0.8.695"}}
-            :deps  {"change"  {:direct      []
-                               :indirect    []
-                               :direct-ifc ["git"
-                                            "util"]}
-                    "cli"     {:direct      ["change"
-                                             "command"
-                                             "file"]
-                               :indirect    ["common"
-                                             "deps"]
-                               :direct-ifc ["util"
-                                            "workspace"
-                                            "workspace-clj"]}
-                    "command" {:direct      ["common"
-                                             "deps"]
-                               :indirect    []
-                               :direct-ifc ["creator"
-                                            "help"
-                                            "test-runner"
-                                            "user-config"
-                                            "util"
-                                            "workspace"]}
-                    "common"  {:direct      []
-                               :indirect    []
-                               :direct-ifc ["util"]}
-                    "deps"    {:direct      ["common"]
-                               :indirect    []
-                               :direct-ifc ["text-table"
-                                            "util"]}
-                    "file"    {:direct      []
-                               :indirect    []
-                               :direct-ifc ["util"]}}
-            :test-lib-deps {}
-            :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}}
-           (env/enrich-env environment "" components bases brick->loc brick->lib-imports env->alias
-                           {} {})))))
+  (is (= {:name "development"
+          :run-tests? false
+          :dev? true
+          :alias "dev"
+          :type "environment"
+          :lines-of-code-src 0
+          :lines-of-code-test 0
+          :total-lines-of-code-src 419
+          :total-lines-of-code-test 76
+          :test-component-names ["change" "command"]
+          :component-names ["change" "command" "common" "deps" "file"]
+          :base-names ["cli"]
+          :test-base-names ["cli"]
+          :src-paths ["bases/cli/src"
+                      "components/change/src"
+                      "components/command/src"
+                      "components/common/src"
+                      "components/deps/src"
+                      "components/file/src"]
+          :test-paths ["bases/cli/test"
+                       "components/change/test"
+                       "components/command/test"
+                       "test"]
+          :profile-src-paths []
+          :profile-test-paths []
+          :missing-paths []
+          :lib-imports ["clojure.java.io" "clojure.pprint" "clojure.set" "clojure.string"]
+          :lib-imports-test []
+          :lib-deps {"org.clojure/clojure" {:mvn/version "1.10.1"},
+                     "org.clojure/tools.deps.alpha" {:mvn/version "0.8.695"}}
+          :deps  {"change"  {:direct      []
+                             :indirect    []
+                             :direct-ifc ["git"
+                                          "util"]}
+                  "cli"     {:direct      ["change"
+                                           "command"
+                                           "file"]
+                             :indirect    ["common"
+                                           "deps"]
+                             :direct-ifc ["util"
+                                          "workspace"
+                                          "workspace-clj"]}
+                  "command" {:direct      ["common"
+                                           "deps"]
+                             :indirect    []
+                             :direct-ifc ["creator"
+                                          "help"
+                                          "test-runner"
+                                          "user-config"
+                                          "util"
+                                          "workspace"]}
+                  "common"  {:direct      []
+                             :indirect    []
+                             :direct-ifc ["util"]}
+                  "deps"    {:direct      ["common"]
+                             :indirect    []
+                             :direct-ifc ["text-table"
+                                          "util"]}
+                  "file"    {:direct      []
+                             :indirect    []
+                             :direct-ifc ["util"]}}
+          :test-lib-deps {}
+          :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}}
+         (env/enrich-env environment components bases brick->loc brick->lib-imports env->alias
+                         {:existing ["bases/cli/src"
+                                     "bases/cli/test"
+                                     "components/change/src"
+                                     "components/change/test"
+                                     "components/command/src"
+                                     "components/command/test"
+                                     "components/common/src"
+                                     "components/deps/src"
+                                     "components/file/src"
+                                     "test"]}
+                         {} {}))))
 
 (deftest paths--with-active-profile--includes-brick-in-profile
-  (with-redefs [file/exists (fn [_] true)]
-    (is (= {:run-tests?                  true
-            :alias                    "dev"
-            :base-names               ["cli"]
-            :component-names          ["change"
-                                       "command"
-                                       "common"
-                                       "deps"
-                                       "file"
-                                       "user"]
-            :deps                     {"change"  {:direct     []
-                                                  :direct-ifc ["git"
-                                                               "util"]
-                                                  :indirect   []}
-                                       "cli"     {:direct     ["change"
-                                                               "command"
-                                                               "file"]
-                                                  :direct-ifc ["util"
-                                                               "workspace"
-                                                               "workspace-clj"]
-                                                  :indirect   ["common"
-                                                               "deps"]}
-                                       "command" {:direct     ["common"
-                                                               "deps"]
-                                                  :direct-ifc ["creator"
-                                                               "help"
-                                                               "test-runner"
-                                                               "user-config"
-                                                               "util"
-                                                               "workspace"]
-                                                  :indirect   []}
-                                       "common"  {:direct     []
-                                                  :direct-ifc ["util"]
-                                                  :indirect   []}
-                                       "deps"    {:direct     ["common"]
-                                                  :direct-ifc ["text-table"
-                                                               "util"]
-                                                  :indirect   []}
-                                       "file"    {:direct     []
-                                                  :direct-ifc ["util"]
-                                                  :indirect   []}
-                                       "user"    {:direct     []
-                                                  :direct-ifc []
-                                                  :indirect   []}}
-            :dev?                     true
-            :lib-deps                 {"clojure.core.matrix"          "net.mikera/core.matrix"
-                                       "org.clojure/clojure"          #:mvn{:version "1.10.1"}
-                                       "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}}
-            :lib-imports              ["clojure.java.io"
-                                       "clojure.pprint"
-                                       "clojure.set"
-                                       "clojure.string"]
-            :lib-imports-test         []
-            :lines-of-code-src        0
-            :lines-of-code-test       0
-            :maven-repos              {"central" {:url "https://repo1.maven.org/maven2/"}}
-            :name                     "development"
-            :src-paths                ["bases/cli/src"
-                                       "components/change/src"
-                                       "components/command/src"
-                                       "components/common/src"
-                                       "components/deps/src"
-                                       "components/file/src"]
-            :test-paths               ["bases/cli/test"
-                                       "components/change/test"
-                                       "components/command/test"
-                                       "test"]
-            :profile-src-paths        ["components/user/resources"
-                                       "components/user/src"]
-            :profile-test-paths       ["components/user/test"]
-            :missing-paths            []
-            :test-base-names          ["cli"]
-            :test-component-names     ["change"
-                                       "command"
-                                       "user"]
-            :test-lib-deps            {}
-            :total-lines-of-code-src  419
-            :total-lines-of-code-test 76
-            :type                     "environment"}
-           (env/enrich-env environment "" components bases brick->loc brick->lib-imports env->alias
-                           {:profile->settings {"default" {:paths ["components/user/src"
-                                                                    "components/user/resources"
-                                                                    "components/user/test"]
-                                                           :src-paths ["components/user/src"
-                                                                       "components/user/resources"]
-                                                           :test-paths ["components/user/test"]
-                                                           :lib-deps {"clojure.core.matrix"
-                                                                      "net.mikera/core.matrix"}}}}
-                           {:selected-environments #{"dev"}
-                            :active-dev-profiles ["default"]})))))
+  (is (= {:run-tests?               true
+          :alias                    "dev"
+          :base-names               ["cli"]
+          :component-names          ["change"
+                                     "command"
+                                     "common"
+                                     "deps"
+                                     "file"
+                                     "user"]
+          :deps                     {"change"  {:direct     []
+                                                :direct-ifc ["git"
+                                                             "util"]
+                                                :indirect   []}
+                                     "cli"     {:direct     ["change"
+                                                             "command"
+                                                             "file"]
+                                                :direct-ifc ["util"
+                                                             "workspace"
+                                                             "workspace-clj"]
+                                                :indirect   ["common"
+                                                             "deps"]}
+                                     "command" {:direct     ["common"
+                                                             "deps"]
+                                                :direct-ifc ["creator"
+                                                             "help"
+                                                             "test-runner"
+                                                             "user-config"
+                                                             "util"
+                                                             "workspace"]
+                                                :indirect   []}
+                                     "common"  {:direct     []
+                                                :direct-ifc ["util"]
+                                                :indirect   []}
+                                     "deps"    {:direct     ["common"]
+                                                :direct-ifc ["text-table"
+                                                             "util"]
+                                                :indirect   []}
+                                     "file"    {:direct     []
+                                                :direct-ifc ["util"]
+                                                :indirect   []}
+                                     "user"    {:direct     []
+                                                :direct-ifc []
+                                                :indirect   []}}
+          :dev?                     true
+          :lib-deps                 {"clojure.core.matrix"          "net.mikera/core.matrix"
+                                     "org.clojure/clojure"          #:mvn{:version "1.10.1"}
+                                     "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}}
+          :lib-imports              ["clojure.java.io"
+                                     "clojure.pprint"
+                                     "clojure.set"
+                                     "clojure.string"]
+          :lib-imports-test         []
+          :lines-of-code-src        0
+          :lines-of-code-test       0
+          :maven-repos              {"central" {:url "https://repo1.maven.org/maven2/"}}
+          :name                     "development"
+          :src-paths                ["bases/cli/src"
+                                     "components/change/src"
+                                     "components/command/src"
+                                     "components/common/src"
+                                     "components/deps/src"
+                                     "components/file/src"]
+          :test-paths               ["bases/cli/test"
+                                     "components/change/test"
+                                     "components/command/test"
+                                     "test"]
+          :profile-src-paths        ["components/user/resources"
+                                     "components/user/src"]
+          :profile-test-paths       ["components/user/test"]
+          :missing-paths            []
+          :test-base-names          ["cli"]
+          :test-component-names     ["change"
+                                     "command"
+                                     "user"]
+          :test-lib-deps            {}
+          :total-lines-of-code-src  419
+          :total-lines-of-code-test 76
+          :type                     "environment"}
+         (env/enrich-env environment components bases brick->loc brick->lib-imports env->alias
+                         {:existing ["bases/cli/src"
+                                     "bases/cli/test"
+                                     "components/change/src"
+                                     "components/change/test"
+                                     "components/command/src"
+                                     "components/command/test"
+                                     "components/common/src"
+                                     "components/deps/src"
+                                     "components/file/src"
+                                     "components/user/src"
+                                     "components/user/test"
+                                     "test"]}
+                         {:profile->settings {"default" {:paths ["components/user/src"
+                                                                  "components/user/resources"
+                                                                  "components/user/test"]
+                                                         :src-paths ["components/user/src"
+                                                                     "components/user/resources"]
+                                                         :test-paths ["components/user/test"]
+                                                         :lib-deps {"clojure.core.matrix"
+                                                                    "net.mikera/core.matrix"}}}}
+                         {:selected-environments #{"dev"}
+                          :active-dev-profiles ["default"]}))))
 
 (deftest run-tests?--non-dev-environment-no-env-selected--returns-true
   (is (true?

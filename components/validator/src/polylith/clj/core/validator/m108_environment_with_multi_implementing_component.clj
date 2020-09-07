@@ -11,9 +11,9 @@
 (defn multi-impl-components [{:keys [implementing-components]}]
   (when (> (count implementing-components) 1) implementing-components))
 
-(defn errors [ws-dir interfaces environments color-mode]
+(defn errors [interfaces environments disk-paths color-mode]
   (let [{:keys [src-paths test-paths]} (common/find-environment "dev" environments)
-        path-entries (extract/path-entries ws-dir [src-paths test-paths])
+        path-entries (extract/path-entries [src-paths test-paths] disk-paths)
         ; We can't use src-paths and test-paths from the dev environment
         ; because it has the paths from the active profile baked in.
         component-names (set (select/names path-entries c/component?))

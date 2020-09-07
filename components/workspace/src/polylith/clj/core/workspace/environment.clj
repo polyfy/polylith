@@ -34,17 +34,17 @@
           (contains? selected-environments alias))))
 
 (defn enrich-env [{:keys [name type dev? env-dir config-file namespaces-src namespaces-test src-paths test-paths lib-deps test-lib-deps maven-repos]}
-                  ws-dir
                   components
                   bases
                   brick->loc
                   brick->lib-imports
                   env->alias
+                  disk-paths
                   settings
                   {:keys [run-all-brick-tests? selected-environments] :as user-input}]
   (let [alias (env->alias name)
         dep-entries (extract/from-library-deps dev? lib-deps test-lib-deps settings user-input)
-        path-entries (extract/from-unenriched-environment ws-dir dev? src-paths test-paths settings user-input)
+        path-entries (extract/from-unenriched-environment dev? src-paths test-paths disk-paths settings user-input)
         component-names (select/names path-entries c/component? c/src? c/exists?)
         base-names (select/names path-entries c/base? c/src? c/exists?)
         brick-names (concat component-names base-names)

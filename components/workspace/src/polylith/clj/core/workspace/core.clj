@@ -32,7 +32,7 @@
 (defn env-sorter [{:keys [dev? name]}]
   [dev? name])
 
-(defn enrich-workspace [{:keys [ws-dir ws-reader settings components bases environments]}]
+(defn enrich-workspace [{:keys [ws-dir ws-reader settings components bases environments paths]}]
   (let [ws-name (workspace-name ws-dir)
         {:keys [top-namespace interface-ns user-input color-mode]} settings
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
@@ -46,8 +46,8 @@
         env->alias (alias/env->alias settings environments)
         enriched-user-input (user-input/enrich settings user-input)
         enriched-settings (settings/enrich ws-dir settings)
-        enriched-environments (vec (sort-by env-sorter (map #(env/enrich-env % ws-dir enriched-components enriched-bases brick->loc brick->lib-imports env->alias settings enriched-user-input) environments)))
-        messages (validator/validate-ws ws-dir suffixed-top-ns settings interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns enriched-user-input color-mode)]
+        enriched-environments (vec (sort-by env-sorter (map #(env/enrich-env % enriched-components enriched-bases brick->loc brick->lib-imports env->alias paths settings enriched-user-input) environments)))
+        messages (validator/validate-ws suffixed-top-ns settings paths interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns enriched-user-input color-mode)]
     (array-map :name ws-name
                :ws-dir ws-dir
                :user-input enriched-user-input
@@ -57,4 +57,5 @@
                :components enriched-components
                :bases enriched-bases
                :environments enriched-environments
+               :paths paths
                :messages messages)))

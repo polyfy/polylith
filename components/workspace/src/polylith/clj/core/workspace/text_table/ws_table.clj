@@ -10,7 +10,7 @@
 (defn component-sorter [{:keys [interface name]}]
   [(:name interface) name])
 
-(defn table [{:keys [ws-dir settings environments components bases changes user-input]} show-loc? show-resources?]
+(defn table [{:keys [settings environments components bases paths changes user-input]} show-loc? show-resources?]
   (let [{:keys [color-mode thousand-sep]} settings
         profiles (profile/inactive-profiles settings user-input)
         sorted-components (sort-by component-sorter components)
@@ -21,8 +21,8 @@
         loc-start-column (+ profile-start-column (* 2 (count profiles)))
         ifc-column (ifc-column/column sorted-components bases)
         brick-column (brick-column/column bricks changes color-mode)
-        env-columns (env-columns/columns ws-dir environments bricks changes show-loc? show-resources? thousand-sep)
-        profile-columns (profile-columns/columns ws-dir profile-start-column bricks profiles settings show-resources?)
+        env-columns (env-columns/columns environments bricks paths changes show-loc? show-resources? thousand-sep)
+        profile-columns (profile-columns/columns profile-start-column bricks profiles paths settings show-resources?)
         loc-columns (loc-columns/columns show-loc? bricks loc-start-column thousand-sep)
         header-spaces (text-table/spaces 1 space-columns spaces)
         cells (text-table/merge-cells ifc-column brick-column env-columns profile-columns loc-columns header-spaces)

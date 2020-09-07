@@ -19,7 +19,7 @@
 (defn validate [active-dev-profiles selected-environments settings environments color-mode]
   (validator/validate active-dev-profiles selected-environments settings environments color-mode))
 
-(defn validate-ws [ws-dir suffixed-top-ns settings interface-names interfaces components bases environments interface-ns {:keys [active-dev-profiles]} color-mode]
+(defn validate-ws [suffixed-top-ns settings disk-paths interface-names interfaces components bases environments interface-ns {:keys [active-dev-profiles]} color-mode]
   (vec (sort-by (juxt :type :code :message)
                 (set (concat (m101/errors suffixed-top-ns interface-names components bases interface-ns color-mode)
                              (m102/errors components color-mode)
@@ -28,7 +28,7 @@
                              (m105/errors interface-names components bases color-mode)
                              (m106/errors components environments color-mode)
                              (m107/errors settings environments active-dev-profiles color-mode)
-                             (m108/errors ws-dir interfaces environments color-mode)
+                             (m108/errors interfaces environments disk-paths color-mode)
                              (m109/errors environments components bases color-mode)
                              (m201/warnings interfaces components color-mode)
                              (m202/warnings environments color-mode)

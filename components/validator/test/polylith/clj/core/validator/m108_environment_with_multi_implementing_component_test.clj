@@ -16,4 +16,4 @@
            :code 108
            :message "Components with an interface that are implemented by more than one component is not allowed for the development environment. They should be added to development profiles instead: user",
            :colorized-message "Components with an interface that are implemented by more than one component is not allowed for the development environment. They should be added to development profiles instead: user"}]
-         (m108/errors "." interfaces environments color/none))))
+         (m108/errors interfaces environments [] color/none))))
