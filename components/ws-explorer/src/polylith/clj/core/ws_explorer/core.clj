@@ -25,7 +25,7 @@
       (if (contains? m key)
         (m key)
         (when (= "keys" key)
-          (vec (sort (map #(-> % name str) (keys m)))))))))
+          (vec (sort (keys m))))))))
 
 (defn value-from-vector [v index-or-name]
   (let [i (intify index-or-name)]
