@@ -10,9 +10,7 @@
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.help.interface :as help]
-            [polylith.clj.core.builder.interface :as builder]
-            [polylith.clj.core.user-input.interface :as user-input]
-            [uberdeps.api :as uberdeps])
+            [polylith.clj.core.user-input.interface :as user-input])
   (:refer-clojure :exclude [base]))
 
 ;(require '[dev.jocke :as z])
@@ -25,9 +23,9 @@
                  (dir ".")
                  ;(dir "../poly-example/ws50")
                  ;(dir "../clojure-polylith-realworld-example-app")
-                 ws-clj/workspace-from-disk))
-                 ;ws/enrich-workspace
-                 ;change/with-changes))
+                 ws-clj/workspace-from-disk
+                 ws/enrich-workspace
+                 change/with-changes))
 
 (:messages workspace)
 (:changes workspace)
@@ -54,10 +52,3 @@
 
 (def input (user-input/extract-params ["build" "env:poly" ":aot"]))
 (def input (user-input/extract-params ["build" "env:dev" ":aot"]))
-
-(builder/build workspace input "none")
-
-;(builder-core/find-main-class bases environment)
-;(:base-names environment)
-
-(uberdeps/)
