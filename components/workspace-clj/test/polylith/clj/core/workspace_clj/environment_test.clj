@@ -41,29 +41,29 @@
 
 (deftest environments--config-map-with-aliases--returns-environments
   (with-redefs [file/exists (fn [_] true)]
-    (is (= {:name "core"
-            :dev? false
-            :type "environment"
-            :env-dir "environments/core"
-            :config-file "environments/core/deps.edn"
-            :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}
-                          "clojars" {:url "https://repo.clojars.org/"}}
-            :namespaces-src []
-            :namespaces-test [{:file-path "environments/core/test/polylith/clj/core/dev_test.clj"
+    (is (= {:config-file     "environments/poly/deps.edn"
+            :dev?            false
+            :env-dir         "environments/poly"
+            :lib-deps        {"org.clojure/clojure"                             #:mvn{:version "1.10.1"}
+                              "org.clojure/tools.deps.alpha"                    #:mvn{:version "0.8.695"}
+                              "org.jetbrains.kotlin/kotlin-compiler-embeddable" #:mvn{:version "1.3.72"}}
+            :maven-repos     {"central" {:url "https://repo1.maven.org/maven2/"}
+                              "clojars" {:url "https://repo.clojars.org/"}}
+            :name            "poly"
+            :namespaces-src  []
+            :namespaces-test [{:file-path "environments/poly/test/env/dummy.clj"
                                :imports   ["clojure.test"]
-                               :name      "polylith.clj.core.dev-test"
-                               :namespace "polylith.clj.core.dev-test"}]
-            :src-paths ["bases/tool/src"
-                        "components/change/src"
-                        "components/common/src"
-                        "components/deps/src"
-                        "components/file/src"
-                        "environments/core/src"]
-            :test-paths ["bases/tool/test"
-                         "components/change/test"
-                         "components/common/test"]
-            :lib-deps {"org.clojure/clojure" #:mvn{:version "1.10.1"}
-                       "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}
-                       "org.jetbrains.kotlin/kotlin-compiler-embeddable" #:mvn{:version "1.3.72"}}
-            :test-lib-deps {}}
-           (env/read-environment "core" "environments/core" "environments/core/deps.edn" false paths deps aliases mvn/standard-repos)))))
+                               :name      "env.dummy"
+                               :namespace "env.dummy"}]
+            :src-paths       ["bases/tool/src"
+                              "components/change/src"
+                              "components/common/src"
+                              "components/deps/src"
+                              "components/file/src"
+                              "environments/poly/src"]
+            :test-lib-deps   {}
+            :test-paths      ["bases/tool/test"
+                              "components/change/test"
+                              "components/common/test"]
+            :type            "environment"}
+           (env/read-environment "poly" "environments/poly" "environments/poly/deps.edn" false paths deps aliases mvn/standard-repos)))))

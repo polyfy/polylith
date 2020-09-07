@@ -3,6 +3,7 @@
             [polylith.clj.core.deps.text-table.lib-table :as lib-table]))
 
 (def workspace {:settings {:color-mode "none"
+                           :empty-char "·"
                            :profile->settings {"default" {:lib-deps {}}
                                                "admin" {:lib-deps {"zprint" {:mvn/version "0.4.15"}}}}
                            :ns->lib {"clojure" "org.clojure/clojure"
@@ -96,8 +97,8 @@
           "                                                                            g  n  o  o  p  l  i  l  e  l  e  e  l  i  u  i  o  c  l  l"
           "  library                       version   core  inv   dev  default  admin   e  d  n  r  s  e  t  p  r  l  r  r  e  g  t  l  r  e  j  i"
           "  -------------------------------------   ---------   -------------------   ----------------------------------------------------------"
-          "  org.clojure/clojure           1.10.1     -     x     x      -       -     x  x  x  -  x  x  x  x  x  x  x  x  x  -  x  x  x  x  x  -"
-          "  org.clojure/clojure           1.10.2     x     -     -      -       -     x  x  x  -  x  x  x  x  x  x  x  x  x  -  x  x  x  x  x  -"
-          "  org.clojure/tools.deps.alpha  0.8.695    x     x     x      -       -     -  -  -  -  -  -  -  -  -  -  -  x  -  -  -  -  -  -  x  -"
-          "  zprint                        0.4.15     -     -     -      -       x     -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -"]
+          "  org.clojure/clojure           1.10.1     -     x     x      -       -     x  x  x  ·  x  x  x  x  x  x  x  x  x  ·  x  x  x  x  x  ·"
+          "  org.clojure/clojure           1.10.2     x     -     -      -       -     x  x  x  ·  x  x  x  x  x  x  x  x  x  ·  x  x  x  x  x  ·"
+          "  org.clojure/tools.deps.alpha  0.8.695    x     x     x      -       -     ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·  ·  ·  ·  x  ·"
+          "  zprint                        0.4.15     -     -     -      -       x     ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·"]
          (lib-table/table workspace))))
