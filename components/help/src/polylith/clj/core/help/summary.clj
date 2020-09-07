@@ -5,7 +5,7 @@
 (defn help-text [color-mode]
   (let [E (color/environment "E" color-mode)]
     (str
-      "  Polylith - " (color/blue color-mode "https://github.com/tengstrand/polylith/tree/core") "\n\n"
+      "  Polylith - " (color/blue color-mode "https://github.com/tengstrand/polylith") "\n\n"
       "  poly CMD [ARGS]  - where CMD [ARGS] are:\n\n"
       "    check         Checks that the workspace is valid.\n"
       "    deps [" E "] [B]  Show dependencies.\n"

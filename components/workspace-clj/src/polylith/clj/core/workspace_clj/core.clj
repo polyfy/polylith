@@ -11,7 +11,7 @@
 
 (def ws-reader
   {:name "polylith-clj"
-   :project-url "https://github.com/tengstrand/polylith/tree/core"
+   :project-url "https://github.com/tengstrand/polylith"
    :reader-version "1.0"
    :ws-contract-version 1
    :language "Clojure"
