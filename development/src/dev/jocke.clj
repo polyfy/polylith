@@ -1,7 +1,6 @@
 (ns dev.jocke
   (:require [clojure.set :as set]
             [clojure.string :as str]
-            [polylith.clj.core.builder.core :as builder-core]
             [polylith.clj.core.workspace.interface :as ws]
             [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.util.interface :as util]
