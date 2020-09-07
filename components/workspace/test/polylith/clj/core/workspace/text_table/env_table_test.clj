@@ -71,11 +71,7 @@
                                                 "development" []
                                                 "invoice" ["admin" "cli" "database" "invoicer" "purchaser"]}
                           :environments-to-test []}
-                :paths {:existing ["environments/core/src"
-                                   "environments/core/resources"
-                                   "environments/core/test"
-                                   "environments/invoice/test"
-                                   "development/src"]}})
+                :paths {:missing []}})
 
 (def workspace-with-profiles (-> workspace
                                  (assoc-in [:settings :profile->settings] {"default" {:paths ["components/file/src"

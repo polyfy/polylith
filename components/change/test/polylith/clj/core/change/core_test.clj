@@ -122,7 +122,7 @@
 
 (def workspace {:environments environments
                 :user-input {}
-                :paths {:existing files}})
+                :paths {:missing []}})
 
 (def workspace-with-active-dev (assoc-in workspace [:environments 2 :run-tests?] true))
 

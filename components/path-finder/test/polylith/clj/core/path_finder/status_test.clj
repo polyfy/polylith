@@ -7,7 +7,7 @@
             "components/user/src"
             "components/user/resources"])
 
-(def path-entries (path-extractor/single-path-entries (set paths) paths false false))
+(def path-entries (path-extractor/single-path-entries nil paths false false))
 
 (deftest status-flags--without-resources-flag--returns-src-test-resources-dir-exists-flags
   (is (= "x-"

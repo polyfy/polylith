@@ -18,4 +18,4 @@
   (is (= {:changed-bases ["core"]
           :changed-components ["cmd" "workspace"]
           :changed-environments []}
-         (brick/changed-entities files {:existing files}))))
+         (brick/changed-entities files {:missing []}))))

@@ -1,6 +1,5 @@
 (ns polylith.clj.core.path-finder.extract-path-entries-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.path-finder.test-data :as test-data]
             [polylith.clj.core.path-finder.interface.extract :as extract]))
 
@@ -42,26 +41,26 @@
            true
            src-paths
            test-paths
-           {:existing (concat src-paths test-paths)}
+           {:missing []}
            settings
            user-input))))
 
 (deftest profile-entries--when-two-profiles-are-extracted--return-paths
-  (is (= [{:exists?    false
+  (is (= [{:exists?    true
            :name       "user"
            :path       "components/user/resources"
            :profile?   false
            :source-dir "resources"
            :test?      false
            :type       :component}
-          {:exists?    false
+          {:exists?    true
            :name       "user"
            :path       "components/user/src"
            :profile?   false
            :source-dir "src"
            :test?      false
            :type       :component}
-          {:exists?    false
+          {:exists?    true
            :name       "user"
            :path       "components/user/test"
            :profile?   false

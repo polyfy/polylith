@@ -135,16 +135,7 @@
           :test-lib-deps {}
           :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}}
          (env/enrich-env environment components bases brick->loc brick->lib-imports env->alias
-                         {:existing ["bases/cli/src"
-                                     "bases/cli/test"
-                                     "components/change/src"
-                                     "components/change/test"
-                                     "components/command/src"
-                                     "components/command/test"
-                                     "components/common/src"
-                                     "components/deps/src"
-                                     "components/file/src"
-                                     "test"]}
+                         {:missing []}
                          {} {}))))
 
 (deftest paths--with-active-profile--includes-brick-in-profile
@@ -227,18 +218,7 @@
           :total-lines-of-code-test 76
           :type                     "environment"}
          (env/enrich-env environment components bases brick->loc brick->lib-imports env->alias
-                         {:existing ["bases/cli/src"
-                                     "bases/cli/test"
-                                     "components/change/src"
-                                     "components/change/test"
-                                     "components/command/src"
-                                     "components/command/test"
-                                     "components/common/src"
-                                     "components/deps/src"
-                                     "components/file/src"
-                                     "components/user/src"
-                                     "components/user/test"
-                                     "test"]}
+                         {:missing []}
                          {:profile->settings {"default" {:paths ["components/user/src"
                                                                   "components/user/resources"
                                                                   "components/user/test"]

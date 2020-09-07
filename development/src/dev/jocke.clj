@@ -4,6 +4,7 @@
             [polylith.clj.core.workspace.interface :as ws]
             [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.path-finder.interface :as path-finder]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.workspace-clj.interface :as ws-clj]
             [polylith.clj.core.common.interface :as common]
@@ -16,7 +17,7 @@
 ;(def workspace z/workspace)
 
 (defn dir [ws-dir]
-  (user-input/extract-params [(str "ws-dir:" ws-dir)]))
+  (user-input/extract-params ["info" (str "ws-dir:" ws-dir)]))
 
 (def workspace (->
                  (dir ".")
@@ -30,6 +31,7 @@
 (:changes workspace)
 (:settings workspace)
 (:user-input workspace)
+(:paths workspace)
 (-> workspace :settings :profile->settings)
 
 (def environments (:environments workspace))
@@ -46,7 +48,7 @@
 (def environment (common/find-environment "poly" environments))
 (def environment (common/find-environment "migrator" environments))
 (def component (common/find-component "common" components))
-(def component (common/find-component "article" components))
+(def component (common/find-component "path-finder" components))
 (def base (common/find-base "poly-cli" bases))
 
 (def input (user-input/extract-params ["build" "env:poly" ":aot"]))

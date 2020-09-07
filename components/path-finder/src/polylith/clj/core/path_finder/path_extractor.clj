@@ -37,13 +37,12 @@
        :type :other
        :source-dir (source-dir path)})))
 
-(defn path-entry [existing-paths path profile? test?]
+(defn path-entry [missing-paths path profile? test?]
   (let [dir (main-dir path)
         type (dir->type dir)
         entity-name (entity-name path)
         {:keys [name type source-dir]} (entity-type dir type entity-name path)
-        exists? (or (nil? existing-paths)
-                    (contains? existing-paths path))]
+        exists? (not (contains? missing-paths path))]
     (util/ordered-map :name name
                       :type type
                       :profile? profile?
@@ -52,15 +51,15 @@
                       :exists? exists?
                       :path path)))
 
-(defn single-path-entries [existing-paths paths profile? test?]
-  (when paths (mapv #(path-entry existing-paths % profile? test?) paths)))
+(defn single-path-entries [missing-paths paths profile? test?]
+  (when paths (mapv #(path-entry missing-paths % profile? test?) paths)))
 
 (defn path-entries [src-paths test-paths profile-src-paths profile-test-paths disk-paths]
-  (let [existing-paths (if (nil? disk-paths) nil (-> disk-paths :existing set))]
-    (vec (concat (single-path-entries existing-paths src-paths false false)
-                 (single-path-entries existing-paths test-paths false true)
-                 (single-path-entries existing-paths profile-src-paths true false)
-                 (single-path-entries existing-paths profile-test-paths true true)))))
+  (let [missing-paths (if (nil? disk-paths) nil (-> disk-paths :missing set))]
+    (vec (concat (single-path-entries missing-paths src-paths false false)
+                 (single-path-entries missing-paths test-paths false true)
+                 (single-path-entries missing-paths profile-src-paths true false)
+                 (single-path-entries missing-paths profile-test-paths true true)))))
 
 (defn from-unenriched-environment [dev? src-paths test-paths disk-paths settings user-input]
   (let [{:keys [profile-src-paths profile-test-paths]} (profile-src-splitter/extract-active-dev-profiles-paths dev? settings user-input)]
