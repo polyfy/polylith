@@ -15,10 +15,10 @@
         {}))))
 
 (defn thousand-separator []
-  (:thousand-separator (config-content)))
+  (:thousand-separator (config-content) ","))
 
 (defn color-mode []
   (:color-mode (config-content) "none"))
 
 (defn empty-character []
-  (:empty-character (config-content) ""))
+  (:empty-character (config-content) "."))

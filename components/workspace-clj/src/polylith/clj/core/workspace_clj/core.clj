@@ -47,8 +47,8 @@
                                     :default-profile-name (or default-profile-name "default")
                                     :stable-since-tag-pattern (or stable-since-tag-pattern "stable-*")
                                     :color-mode color-mode
-                                    :empty-char (or empty-char ".")
-                                    :thousand-sep (or thousand-sep ",")
+                                    :empty-char empty-char
+                                    :thousand-sep thousand-sep
                                     :profile->settings profile->settings
                                     :env->alias env->alias
                                     :ns->lib (stringify ns->lib)
