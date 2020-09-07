@@ -5,8 +5,8 @@
   (let [{:keys [top-namespace]} settings
         bases-dir (str ws-dir "/bases/" base-name)]
     (brick/create-resources-dir ws-dir "bases" base-name)
-    (brick/create-src-ns ws-dir top-namespace bases-dir "api" base-name)
-    (brick/create-test-ns ws-dir top-namespace bases-dir "api" base-name)))
+    (brick/create-src-ns ws-dir top-namespace bases-dir "core" base-name)
+    (brick/create-test-ns ws-dir top-namespace bases-dir "core" base-name)))
 
 (defn create [{:keys [ws-dir settings] :as workspace} base-name]
   (brick/create-brick workspace
