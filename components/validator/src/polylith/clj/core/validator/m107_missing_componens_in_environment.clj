@@ -20,13 +20,15 @@
     (when (-> missing empty? not)
       (missing-components-error name missing color-mode))))
 
-(defn show-error? [profile->settings active-dev-profiles]
-  ;; When we have at least one profile and the user has deselected all active
-  ;; profiles by sending in "+" as an argument, then don't show this error.
-  (or (-> profile->settings empty?)
+(defn show-error? [cmd profile->settings active-dev-profiles]
+  ; When we have at least one profile and the user has deselected all active
+  ; profiles by passing in "+" as an argument, then don't show this error
+  ; when running the 'info' command.
+  (or (not= "info" cmd)
+      (-> profile->settings empty?)
       (-> active-dev-profiles empty? not)))
 
-(defn errors [{:keys [profile->settings]} environments active-dev-profiles color-mode]
-  (when (show-error? profile->settings active-dev-profiles)
+(defn errors [cmd {:keys [profile->settings]} environments active-dev-profiles color-mode]
+  (when (show-error? cmd profile->settings active-dev-profiles)
     (mapcat #(env-error % color-mode)
             environments)))
