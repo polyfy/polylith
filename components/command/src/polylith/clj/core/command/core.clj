@@ -58,25 +58,21 @@
         change/with-changes)))
 
 (defn execute [{:keys [cmd arg1 name top-ns brick get interface show-lib? active-dev-profiles selected-environments unnamed-args] :as user-input}]
-  (try
-    (let [ws-dir (common/workspace-dir user-input)
-          color-mode (common/color-mode user-input)
-          environment-name (first selected-environments)
-          workspace (read-workspace ws-dir user-input color-mode)
-          [ok? message] (validate workspace cmd active-dev-profiles selected-environments color-mode)]
-      (if ok?
-        (case cmd
-          "check" (check workspace color-mode)
-          "create" (create/create ws-dir workspace arg1 name top-ns interface color-mode)
-          "deps" (deps/deps workspace environment-name brick unnamed-args show-lib?)
-          "diff" (diff workspace)
-          "help" (help arg1 color-mode)
-          "info" (info/info workspace unnamed-args)
-          "test" (test/run workspace unnamed-args)
-          "ws" (ws-explorer/print-ws workspace get)
-          (unknown-command cmd))
-        (println message))
-      {:exit-code (exit-code/code cmd workspace)})
-    (catch Exception e
-      {:exit-code 1
-       :exception e})))
+  (let [ws-dir (common/workspace-dir user-input)
+        color-mode (common/color-mode user-input)
+        environment-name (first selected-environments)
+        workspace (read-workspace ws-dir user-input color-mode)
+        [ok? message] (validate workspace cmd active-dev-profiles selected-environments color-mode)]
+    (if ok?
+      (case cmd
+        "check" (check workspace color-mode)
+        "create" (create/create ws-dir workspace arg1 name top-ns interface color-mode)
+        "deps" (deps/deps workspace environment-name brick unnamed-args show-lib?)
+        "diff" (diff workspace)
+        "help" (help arg1 color-mode)
+        "info" (info/info workspace unnamed-args)
+        "test" (test/run workspace unnamed-args)
+        "ws" (ws-explorer/print-ws workspace get)
+        (unknown-command cmd))
+      (println message))
+    (exit-code/code cmd workspace)))
