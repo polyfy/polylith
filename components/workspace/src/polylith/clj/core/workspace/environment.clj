@@ -78,7 +78,6 @@
                       :test-paths test-paths
                       :profile-src-paths (select/paths path-entries c/profile? c/src?)
                       :profile-test-paths (select/paths path-entries c/profile? c/test?)
-                      :missing-paths (select/paths path-entries c/not-exists? c/not-test-or-resources-path)
                       :lib-imports lib-imports-src
                       :lib-imports-test lib-imports-test
                       :lib-deps (select/lib-deps dep-entries c/src?)
