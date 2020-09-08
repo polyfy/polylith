@@ -5,8 +5,7 @@
             [polylith.clj.core.change.environments-to-test :as to-test]))
 
 (deftest environments-to-test--with-no-changed-bricks--returns-no-environments
-  (with-redefs [file/exists (fn [_] true)]
-    (is (= {"cli" []
-            "core" []
-            "development" []}
-           (to-test/env->environments-to-test "." data/environments [] false)))))
+  (is (= {"cli" []
+          "core" []
+          "development" []}
+         (to-test/env->environments-to-test data/environments [] [] false))))

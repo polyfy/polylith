@@ -37,12 +37,12 @@
        :type :other
        :source-dir (source-dir path)})))
 
-(defn path-entry [ws-dir path profile? test?]
+(defn path-entry [missing-paths path profile? test?]
   (let [dir (main-dir path)
         type (dir->type dir)
         entity-name (entity-name path)
         {:keys [name type source-dir]} (entity-type dir type entity-name path)
-        exists? (exists? ws-dir path)]
+        exists? (not (contains? missing-paths path))]
     (util/ordered-map :name name
                       :type type
                       :profile? profile?
@@ -51,19 +51,20 @@
                       :exists? exists?
                       :path path)))
 
-(defn single-path-entries [ws-dir paths profile? test?]
-  (when paths (mapv #(path-entry ws-dir % profile? test?) paths)))
+(defn single-path-entries [missing-paths paths profile? test?]
+  (when paths (mapv #(path-entry missing-paths % profile? test?) paths)))
 
-(defn path-entries [ws-dir src-paths test-paths profile-src-paths profile-test-paths]
-  (vec (concat (single-path-entries ws-dir src-paths false false)
-               (single-path-entries ws-dir test-paths false true)
-               (single-path-entries ws-dir profile-src-paths true false)
-               (single-path-entries ws-dir profile-test-paths true true))))
+(defn path-entries [src-paths test-paths profile-src-paths profile-test-paths disk-paths]
+  (let [missing-paths (if (nil? disk-paths) nil (-> disk-paths :missing set))]
+    (vec (concat (single-path-entries missing-paths src-paths false false)
+                 (single-path-entries missing-paths test-paths false true)
+                 (single-path-entries missing-paths profile-src-paths true false)
+                 (single-path-entries missing-paths profile-test-paths true true)))))
 
-(defn from-unenriched-environment [ws-dir dev? src-paths test-paths settings user-input]
+(defn from-unenriched-environment [dev? src-paths test-paths disk-paths settings user-input]
   (let [{:keys [profile-src-paths profile-test-paths]} (profile-src-splitter/extract-active-dev-profiles-paths dev? settings user-input)]
-    (path-entries ws-dir src-paths test-paths profile-src-paths profile-test-paths)))
+    (path-entries src-paths test-paths profile-src-paths profile-test-paths disk-paths)))
 
-(defn from-profiles-paths [ws-dir settings profile-name]
+(defn from-profiles-paths [disk-paths settings profile-name]
   (let [{:keys [src-paths test-paths]} (profile-src-splitter/extract-profile-paths profile-name settings)]
-    (path-entries ws-dir src-paths test-paths nil nil)))
+    (path-entries src-paths test-paths nil nil disk-paths)))

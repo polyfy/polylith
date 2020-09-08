@@ -32,12 +32,12 @@
              "bases/my-base/src/se"
              "bases/my-base/src/se/example"
              "bases/my-base/src/se/example/my_base"
-             "bases/my-base/src/se/example/my_base/api.clj"
+             "bases/my-base/src/se/example/my_base/core.clj"
              "bases/my-base/test"
              "bases/my-base/test/se"
              "bases/my-base/test/se/example"
              "bases/my-base/test/se/example/my_base"
-             "bases/my-base/test/se/example/my_base/api_test.clj"
+             "bases/my-base/test/se/example/my_base/core_test.clj"
              "components"
              "development"
              "development/src"
@@ -50,9 +50,9 @@
              "readme.md"}
            (helper/paths "ws1")))
 
-    (is (= ["(ns se.example.my-base.api)"]
-           (helper/content src-api-dir "api.clj")))
+    (is (= ["(ns se.example.my-base.core)"]
+           (helper/content src-api-dir "core.clj")))
 
-    (is (= ["(ns se.example.my-base.api-test"
+    (is (= ["(ns se.example.my-base.core-test"
             "  (:require [clojure.test :refer :all]))"]
-           (helper/content test-api-dir "api_test.clj")))))
+           (helper/content test-api-dir "core_test.clj")))))

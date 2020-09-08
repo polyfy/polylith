@@ -42,24 +42,24 @@
   (apply concat (map-indexed #(profile-column (+ column (* 2 %1)) libraries %2)
                              profile->settings)))
 
-(defn brick-cell [column row lib-name lib-names]
-  (let [flag (if (contains? (set lib-names) lib-name) "x" "-")]
+(defn brick-cell [column row lib-name lib-names empty-char]
+  (let [flag (if (contains? (set lib-names) lib-name) "x" empty-char)]
     (text-table/cell column row flag :none :left :vertical)))
 
-(defn brick-column [column {:keys [name type lib-dep-names]} lib-names]
+(defn brick-column [column {:keys [name type lib-dep-names]} lib-names empty-char]
   (concat [(text-table/cell column 1 name (type->color type) :right :vertical)]
-          (map-indexed #(brick-cell column (+ 3 %1) %2 lib-dep-names)
+          (map-indexed #(brick-cell column (+ 3 %1) %2 lib-dep-names empty-char)
                        lib-names)))
 
-(defn brick-columns [column bricks lib-names]
-  (apply concat (map-indexed #(brick-column (+ column (* 2 %1)) %2 lib-names)
+(defn brick-columns [column bricks lib-names empty-char]
+  (apply concat (map-indexed #(brick-column (+ column (* 2 %1)) %2 lib-names empty-char)
                              bricks)))
 
 (defn profile-lib [[_ {:keys [lib-deps]}]]
   (mapcat lib lib-deps))
 
 (defn table [{:keys [settings components bases environments]}]
-  (let [{:keys [profile->settings color-mode]} settings
+  (let [{:keys [profile->settings empty-char color-mode]} settings
         bricks (concat components bases)
         libraries (sort-by (juxt :name :version)
                            (set (concat (mapcat lib (mapcat :lib-deps environments))
@@ -74,7 +74,7 @@
         n#envs (count environments)
         n#profiles (count profile->settings)
         n#bricks (count bricks)
-        brick-cols (brick-columns brick-col bricks lib-names)
+        brick-cols (brick-columns brick-col bricks lib-names empty-char)
         space-columns (range 2 (* 2 (+ 2 n#envs n#profiles n#bricks)) 2)
         spaces (text-table/spaces 1 space-columns (repeat "  "))
         cells (text-table/merge-cells lib-col version-col env-cols profile-cols brick-cols spaces)

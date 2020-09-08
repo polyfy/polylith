@@ -25,8 +25,8 @@
   ([sub-ns name parameters]
    (str (with-ns sub-ns name) "[" (str/join " " (map parameter parameters)) "]")))
 
-(defn function->id [{:keys [name parameters]}]
-  [name (count parameters)])
+(defn function->id [{:keys [name sub-ns parameters]}]
+  [name sub-ns (count parameters)])
 
 (defn id->functions-or-macro [{:keys [definitions]}]
   (group-by function->id

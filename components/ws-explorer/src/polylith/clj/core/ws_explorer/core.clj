@@ -1,7 +1,16 @@
 (ns polylith.clj.core.ws-explorer.core
   (:require [clojure.pprint :as pp]
             [clojure.walk :as walk]
-            [polylith.clj.core.util.interface :as util]))
+            [polylith.clj.core.util.interface :as util]
+            [puget.printer :as puget]))
+
+(def color-schema
+  {:color-scheme {:nil       [:magenta]
+                  :number    [:yellow]
+                  :string    [:yellow]
+                  :boolean    [:magenta]
+                  :keyword    [:magenta]
+                  :delimiter  [:white]}})
 
 (defn intify [arg]
   (try
@@ -16,7 +25,7 @@
       (if (contains? m key)
         (m key)
         (when (= "keys" key)
-          (vec (sort (map #(-> % name str) (keys m)))))))))
+          (vec (sort (keys m))))))))
 
 (defn value-from-vector [v index-or-name]
   (let [i (intify index-or-name)]
@@ -65,4 +74,4 @@
       value)))
 
 (defn print-ws [workspace get]
-  (pp/pprint (extract workspace get)))
+  (puget/cprint (extract workspace get) color-schema))

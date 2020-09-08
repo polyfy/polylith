@@ -28,14 +28,14 @@
          (ws/extract workspace ["map2" "a-key"]))))
 
 (deftest ws--extract-keys
-  (is (= ["environments"
-          "map2"]
+  (is (= [:environments
+          :map2]
          (ws/extract workspace ["keys"]))))
 
 (deftest ws--extract-keys-in-list-of-maps
   (is (= ["development"]
          (ws/extract workspace ["environments" "keys"]))))
 
-(deftest ws--extract-keys-in-list-of-maps
+(deftest ws--count
   (is (= 2
          (ws/extract workspace ["count"]))))
