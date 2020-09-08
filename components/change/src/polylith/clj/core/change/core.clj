@@ -15,7 +15,7 @@
                  changed-environments]} (entity/changed-entities files nil)
          changed-bricks (set (concat changed-components changed-bases))
          env->indirect-changes (indirect/env->indirect-changes deps changed-bricks)
-         env->bricks-to-test (bricks-to-test/env->bricks-to-test environments changed-components changed-bases env->indirect-changes run-all-brick-tests?)
+         env->bricks-to-test (bricks-to-test/env->bricks-to-test changed-environments environments changed-components changed-bases env->indirect-changes run-all-brick-tests?)
          env->environments-to-test (envs-to-test/env->environments-to-test environments changed-environments paths run-env-tests?)]
      (util/ordered-map :sha1 sha1
                        :sha2 sha2
