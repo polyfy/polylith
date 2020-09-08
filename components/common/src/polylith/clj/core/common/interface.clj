@@ -1,7 +1,6 @@
 (ns polylith.clj.core.common.interface
   (:require [polylith.clj.core.common.core :as core]
             [polylith.clj.core.common.class-loader :as class-loader]
-            [polylith.clj.core.common.message :as msg]
             [polylith.clj.core.common.validate-args :as validate-args]))
 
 (def poly-git-sha "69e70df8882f4d9a701ab99681a4a6870bdf052b")
@@ -12,12 +11,6 @@
 (defn path-to-ns [namespace]
   (when namespace
     (core/path-to-ns namespace)))
-
-(defn pretty-messages
-  ([workspace]
-   (msg/pretty-messages workspace))
-  ([messages color-mode]
-   (msg/pretty-messages messages color-mode)))
 
 (defn suffix-ns-with-dot [namespace]
   (core/sufix-ns-with-dot namespace))

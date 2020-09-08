@@ -14,7 +14,15 @@
             [polylith.clj.core.validator.m204-lib-deps-exists-in-both-dev-and-profile :as m204]
             [polylith.clj.core.validator.m205-reference-to-missing-library-in-ns-lib :as m205]
             [polylith.clj.core.validator.m206-reference-to-missing-namespace-in-ns-lib :as m206]
+            [polylith.clj.core.validator.core :as core]
+            [polylith.clj.core.validator.message-printer :as message-printer]
             [polylith.clj.core.validator.user-input.validator :as validator]))
+
+(defn has-errors? [messages]
+  (core/has-errors? messages))
+
+(defn print-messages [workspace]
+  (message-printer/print-messages workspace))
 
 (defn validate [active-dev-profiles selected-environments settings environments color-mode]
   (validator/validate active-dev-profiles selected-environments settings environments color-mode))

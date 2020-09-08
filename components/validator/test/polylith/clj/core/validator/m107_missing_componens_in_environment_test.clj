@@ -18,7 +18,7 @@
 
 (deftest errors--when-no-active-dev-profiles--ignore-error
   (is (= nil
-         (m107/errors settings environments #{} color/none))))
+         (m107/errors "info" settings environments #{} color/none))))
 
 (deftest errors--when-environments-with-missing-components--return-error
   (is (= [{:type "error"
@@ -27,4 +27,4 @@
            :interfaces ["user-config"]
            :colorized-message "Missing components in the migrator environment for these interfaces: user-config"
            :message           "Missing components in the migrator environment for these interfaces: user-config"}]
-         (m107/errors settings environments #{"default"} color/none))))
+         (m107/errors "info" settings environments #{"default"} color/none))))

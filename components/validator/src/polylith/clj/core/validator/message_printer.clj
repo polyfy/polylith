@@ -1,4 +1,4 @@
-(ns polylith.clj.core.common.message
+(ns polylith.clj.core.validator.message-printer
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interface.color :as color]))
 
@@ -7,9 +7,9 @@
     (str (color/error color-mode "  Error " code ": ") colorized-message)
     (str (color/warning color-mode "  Warning " code ": ") colorized-message)))
 
-(defn pretty-messages
-  ([messages color-mode]
-   (str/join "\n" (map #(message % color-mode) messages)))
-  ([{:keys [settings messages]}]
+(defn get-messages [settings messages]
    (let [color-mode (:color-mode settings color/none)]
-     (pretty-messages messages color-mode))))
+     (str/join "\n" (map #(message % color-mode) messages))))
+
+(defn print-messages [{:keys [settings messages]}]
+  (println (get-messages settings messages)))

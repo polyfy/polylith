@@ -20,7 +20,7 @@
 (defn check [{:keys [messages] :as workspace} color-mode]
   (if (empty? messages)
     (println (color/ok color-mode "OK"))
-    (println (common/pretty-messages workspace))))
+    (validator/print-messages workspace)))
 
 (defn diff [workspace]
   (doseq [file (-> workspace :changes :changed-files)]
