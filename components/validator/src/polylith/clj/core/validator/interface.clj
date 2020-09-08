@@ -37,7 +37,7 @@
                              (m106/errors components environments color-mode)
                              (m107/errors cmd settings environments active-dev-profiles color-mode)
                              (m108/errors interfaces environments disk-paths color-mode)
-                             (m109/errors environments components bases color-mode)
+                             (m109/errors environments components bases settings color-mode)
                              (m201/warnings interfaces components color-mode)
                              (m202/warnings environments color-mode)
                              (m203/warnings settings environments color-mode)

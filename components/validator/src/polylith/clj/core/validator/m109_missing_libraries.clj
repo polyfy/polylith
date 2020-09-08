@@ -1,6 +1,7 @@
 (ns polylith.clj.core.validator.m109-missing-libraries
   (:require [clojure.set :as set]
             [clojure.string :as str]
+            [polylith.clj.core.validator.shared :as shared]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]))
 
@@ -13,16 +14,17 @@
                        :colorized-message message
                        :environment env)]))
 
-(defn env-warning [{:keys [name component-names base-names lib-deps]} bricks color-mode]
+(defn env-warning [{:keys [name component-names base-names lib-deps]} bricks used-libs color-mode]
   (let [existing-libs (set (map first lib-deps))
         brick-names (concat component-names base-names)
         brick->lib-dep-names (into {} (map (juxt :name :lib-dep-names) bricks))
         expected-libs (set (mapcat brick->lib-dep-names brick-names))
-        missing-libs (set/difference expected-libs existing-libs)]
+        missing-libs (set/intersection used-libs (set/difference expected-libs existing-libs))]
     (if (-> missing-libs empty? not)
       (warning name missing-libs color-mode))))
 
-(defn errors [environments components bases color-mode]
-  (let [bricks (concat components bases)]
-    (mapcat #(env-warning % bricks color-mode)
+(defn errors [environments components bases settings color-mode]
+  (let [bricks (concat components bases)
+        used-libs (shared/used-libs environments settings)]
+    (mapcat #(env-warning % bricks used-libs color-mode)
             environments)))
