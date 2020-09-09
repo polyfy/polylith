@@ -6,6 +6,6 @@
 (defn changed-entities [paths disk-paths]
   "Returns the bricks and environments that has changed based on a list of files"
   (let [path-entries (extract/path-entries [paths] disk-paths)]
-    {:changed-bases (select/names path-entries c/base? c/src? c/exists?)
-     :changed-components (select/names path-entries c/component? c/src? c/exists?)
-     :changed-environments (select/names path-entries c/environment? c/src? c/exists?)}))
+    {:changed-bases (select/names path-entries c/base? c/exists?)
+     :changed-components (select/names path-entries c/component? c/exists?)
+     :changed-environments (select/names path-entries c/environment? c/exists?)}))

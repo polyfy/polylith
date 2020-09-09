@@ -28,10 +28,8 @@
                                           @root-dir
                                           (str @root-dir "/" current-dir)))
                 user-config/home-dir (fn [] (str @root-dir "/" user-home))]
-    (let [user-input (user-input/extract-params args)
-          {:keys [exception]} (command/execute-command user-input)]
-      (when (-> exception nil? not)
-        (stacktrace/print-stack-trace exception)))))
+    (let [input (user-input/extract-params args)]
+      (command/execute-command input))))
 
 (defn paths [dir]
   (let [paths (-> dir sub-dir file/relative-paths)]

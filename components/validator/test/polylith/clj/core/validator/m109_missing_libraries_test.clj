@@ -17,7 +17,8 @@
                     :lib-deps {"clj-jwt" {:mvn/version "0.1.1"}
                                "com.taoensso/timbre" {:mvn/version "4.10.0"}
                                "compojure/compojure" {:mvn/version "1.6.0"}
-                               "spec-tools" {:mvn/version "1.0"}}}])
+                               "spec-tools" {:mvn/version "1.0"}
+                               "honeysql" {:mvn/version "0.7.0"}}}])
 
 (def components [{:name "article"
                   :lib-dep-names ["clj-time" "honeysql"]}
@@ -38,6 +39,6 @@
           {:type "error"
            :code 109
            :environment "realworld-backend"
-           :message           "Missing libraries in the realworld-backend environment: clj-time, honeysql"
-           :colorized-message "Missing libraries in the realworld-backend environment: clj-time, honeysql"}]
-         (m109/errors environments components bases color/none))))
+           :message           "Missing libraries in the realworld-backend environment: clj-time"
+           :colorized-message "Missing libraries in the realworld-backend environment: clj-time"}]
+         (m109/errors environments components bases {}  color/none))))

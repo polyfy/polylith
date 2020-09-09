@@ -1,6 +1,5 @@
 (ns polylith.clj.core.workspace.environment
   (:require [polylith.clj.core.file.interface :as file]
-            [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.path-finder.interface.select :as select]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.path-finder.interface.criterias :as c]
@@ -26,14 +25,14 @@
   (mapcat #(select-lib-imports % brick->lib-imports test?)
           brick-names))
 
-(defn run-tests? [env alias dev? run-all-brick-tests? selected-environments]
+(defn run-the-tests? [env alias dev? run-all-brick-tests? selected-environments]
   (or (and (not dev?)
            (or run-all-brick-tests?
                (empty? selected-environments)))
       (or (contains? selected-environments env)
           (contains? selected-environments alias))))
 
-(defn enrich-env [{:keys [name type dev? env-dir config-file namespaces-src namespaces-test src-paths test-paths lib-deps test-lib-deps maven-repos]}
+(defn enrich-env [{:keys [name dev? namespaces-src namespaces-test src-paths test-paths lib-deps test-lib-deps] :as environment}
                   components
                   bases
                   brick->loc
@@ -55,33 +54,23 @@
                             set sort vec)
         lib-imports-test (-> (env-lib-imports brick-names brick->lib-imports true)
                              set sort vec)
+        run-tests? (run-the-tests? name alias dev? run-all-brick-tests? selected-environments)
         total-lines-of-code-src (env-total-loc brick-names brick->loc false)
         total-lines-of-code-test (env-total-loc brick-names brick->loc true)]
-    (util/ordered-map :name name
-                      :alias alias
-                      :type type
-                      :run-tests? (run-tests? name alias dev? run-all-brick-tests? selected-environments)
-                      :dev? dev?
-                      :env-dir env-dir
-                      :config-file config-file
-                      :lines-of-code-src (loc/lines-of-code namespaces-src)
-                      :lines-of-code-test (loc/lines-of-code namespaces-test)
-                      :total-lines-of-code-src total-lines-of-code-src
-                      :total-lines-of-code-test total-lines-of-code-test
-                      :test-component-names test-component-names
-                      :component-names (select/names path-entries c/component? c/src? c/exists?)
-                      :base-names base-names
-                      :test-base-names test-base-names
-                      :namespaces-src namespaces-src
-                      :namespaces-test namespaces-test
-                      :src-paths src-paths
-                      :test-paths test-paths
-                      :profile-src-paths (select/paths path-entries c/profile? c/src?)
-                      :profile-test-paths (select/paths path-entries c/profile? c/test?)
-                      :missing-paths (select/paths path-entries c/not-exists? c/not-test-or-resources-path)
-                      :lib-imports lib-imports-src
-                      :lib-imports-test lib-imports-test
-                      :lib-deps (select/lib-deps dep-entries c/src?)
-                      :deps deps
-                      :test-lib-deps (select/lib-deps dep-entries c/test?)
-                      :maven-repos maven-repos)))
+    (assoc environment :alias alias
+                       :run-tests? run-tests?
+                       :lines-of-code-src (loc/lines-of-code namespaces-src)
+                       :lines-of-code-test (loc/lines-of-code namespaces-test)
+                       :total-lines-of-code-src total-lines-of-code-src
+                       :total-lines-of-code-test total-lines-of-code-test
+                       :test-component-names test-component-names
+                       :component-names (select/names path-entries c/component? c/src? c/exists?)
+                       :base-names base-names
+                       :test-base-names test-base-names
+                       :profile-src-paths (select/paths path-entries c/profile? c/src?)
+                       :profile-test-paths (select/paths path-entries c/profile? c/test?)
+                       :lib-imports lib-imports-src
+                       :lib-imports-test lib-imports-test
+                       :lib-deps (select/lib-deps dep-entries c/src?)
+                       :deps deps
+                       :test-lib-deps (select/lib-deps dep-entries c/test?))))

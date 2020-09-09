@@ -4,7 +4,8 @@
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.util.interface.str :as str-util]
-            [polylith.clj.core.util.interface.time :as time-util])
+            [polylith.clj.core.util.interface.time :as time-util]
+            [polylith.clj.core.validator.interface :as validator])
   (:refer-clojure :exclude [test]))
 
 (defn key-as-symbol [[library version]]
@@ -102,11 +103,13 @@
   (when (= 1 (count environments))
    (println "  No tests to run. To run tests for 'dev', type: poly test :dev")))
 
-(defn run [{:keys [environments changes] :as workspace}]
-  (let [start-time (time-util/current-time)
-        environments-to-test (filter #(has-tests-to-run? % changes) environments)]
-    (if (empty? environments-to-test)
-      (print-no-tests-to-run-if-only-dev-exists environments)
-      (doseq [environment environments-to-test]
-        (run-tests-for-environment workspace environment changes)))
-    (time-util/print-execution-time start-time)))
+(defn run [{:keys [environments changes messages] :as workspace}]
+  (if (validator/has-errors? messages)
+    (validator/print-messages workspace)
+    (let [start-time (time-util/current-time)
+          environments-to-test (filter #(has-tests-to-run? % changes) environments)]
+      (if (empty? environments-to-test)
+        (print-no-tests-to-run-if-only-dev-exists environments)
+        (doseq [environment environments-to-test]
+          (run-tests-for-environment workspace environment changes)))
+      (time-util/print-execution-time start-time))))

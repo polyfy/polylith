@@ -5,8 +5,9 @@
   (:gen-class))
 
 (defn -main [& args]
-  (let [user-input (user-input/extract-params args)
-        {:keys [exit-code exception]} (command/execute-command user-input)]
-      (when (-> exception nil? not)
-        (ex/print-exception exception))
-      (System/exit exit-code)))
+  (let [input (user-input/extract-params args)]
+    (try
+      (-> input command/execute-command System/exit)
+      (catch Exception e
+        (ex/print-exception e)
+        (System/exit 1)))))

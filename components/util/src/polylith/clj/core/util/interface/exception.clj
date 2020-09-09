@@ -5,8 +5,10 @@
   (when-let [message (.getMessage e)]
     (println message)))
 
-(defn print-exception [e]
-  (println (or (-> e ex-data :err) (.getMessage e))))
-
 (defn print-stacktrace [e]
   (stacktrace/print-stack-trace e))
+
+(defn print-exception [e]
+  (println (or (-> e ex-data :err)
+               (.getMessage e)
+               (str e))))

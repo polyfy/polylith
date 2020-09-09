@@ -58,12 +58,12 @@
      :run-all-brick-tests? :run-all-brick-tests-q
      :run-env-tests? :run-env-tests-q
      :show-resources? :show-resources-q
-     :ns->lib :ns-to-lib
-     :env->alias :env-to-alias
-     :env->indirect-changes :env-to-indirect-changes
-     :env->bricks-to-test :env-to-bricks-to-test
-     :env->environments-to-test :env-to-environments-to-test
-     :profile->settings :profile-to-settings} workspace))
+     :ns->lib :ns--lib
+     :env->alias :env--alias
+     :env->indirect-changes :env--indirect-changes
+     :env->bricks-to-test :env--bricks-to-test
+     :env->environments-to-test :env--environments-to-test
+     :profile->settings :profile--settings} workspace))
 
 (defn extract [workspace get]
   (let [value (extract-value (replace-keys workspace)

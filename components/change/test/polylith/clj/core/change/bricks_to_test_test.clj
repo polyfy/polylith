@@ -7,7 +7,7 @@
   (is (= {"cli" []
           "core" ["article"]
           "development" []}
-         (to-test/env->bricks-to-test data/environments ["article"] [] {} false))))
+         (to-test/env->bricks-to-test {} data/environments ["article"] [] {} false))))
 
 (deftest env->bricks-to-test--with-test-all-selected--returns-all-bricks-for-active-environments
   (is (= {"cli" []
@@ -18,4 +18,15 @@
                   "tag"
                   "user"]
           "development" []}
-         (to-test/env->bricks-to-test data/environments ["article"] [] {} true))))
+         (to-test/env->bricks-to-test {} data/environments ["article"] [] {} true))))
+
+(deftest env->bricks-to-test--when-the-environment-itself-has-changed--return-all-bricks-for-that-environment
+  (is (= {"cli" []
+          "core" ["article"
+                  "comment"
+                  "profile"
+                  "rest-api"
+                  "tag"
+                  "user"]
+          "development" []}
+         (to-test/env->bricks-to-test ["core"] data/environments ["article"] [] {} false))))

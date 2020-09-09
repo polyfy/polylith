@@ -1,5 +1,6 @@
 (ns polylith.clj.core.validator.m202-invalid-src-reference
-  (:require [clojure.string :as str]
+  (:require [clojure.set :as set]
+            [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]))
 
@@ -15,10 +16,20 @@
                        :colorized-message message
                        :environment env)]))
 
-(defn env-warnings [{:keys [name missing-paths]} color-mode]
+(defn env-warnings [[env missing-paths] color-mode]
   (when (-> missing-paths empty? not)
-    (non-existing-paths-warning name missing-paths color-mode)))
+    (non-existing-paths-warning env missing-paths color-mode)))
 
-(defn warnings [environments color-mode]
-  (mapcat #(env-warnings % color-mode)
-          environments))
+(defn missing-env-paths [{:keys [name src-paths]} missing-paths]
+  [name (set/intersection (set src-paths)
+                          (set missing-paths))])
+
+(defn exclude-path [path]
+  (and (not (str/ends-with? path "/test"))
+       (not (str/ends-with? path "/resources"))))
+
+(defn warnings [environments {:keys [missing]} color-mode]
+  (let [missing-paths (filter exclude-path missing)]
+    (mapcat #(env-warnings % color-mode)
+            (map #(missing-env-paths % missing-paths)
+                 environments))))

@@ -31,3 +31,14 @@
 (defn id->functions-or-macro [{:keys [definitions]}]
   (group-by function->id
             (filter #(not= "data" (:type %)) definitions)))
+
+(defn- libs [{:keys [lib-deps]}]
+  (map first lib-deps))
+
+(defn profile-lib [[_ {:keys [lib-deps]}]]
+  (map first lib-deps))
+
+(defn used-libs [environments settings]
+  (set (concat (mapcat libs environments)
+               (mapcat profile-lib
+                       (:profile->settings settings)))))
