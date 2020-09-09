@@ -230,32 +230,32 @@
 
 (deftest run-tests?--non-dev-environment-no-env-selected--returns-true
   (is (true?
-        (env/run-tests? "cli" "cli" false false #{}))))
+        (env/run-the-tests? "cli" "cli" false false #{}))))
 
 (deftest run-tests?--non-dev-environment-no-env-selected-run-all-brick-tests--returns-true
   (is (true?
-        (env/run-tests? "cli" "cli" false true #{}))))
+        (env/run-the-tests? "cli" "cli" false true #{}))))
 
 (deftest run-tests?--non-dev-environment-dev-selected--returns-false
   (is (false?
-        (env/run-tests? "cli" "cli" false false #{"dev"}))))
+        (env/run-the-tests? "cli" "cli" false false #{"dev"}))))
 
 (deftest run-tests?--non-dev-environment-dev-selected-run-all-brick-tests--returns-true
   (is (true?
-        (env/run-tests? "cli" "cli" false true #{"dev"}))))
+        (env/run-the-tests? "cli" "cli" false true #{"dev"}))))
 
 (deftest run-tests?--dev-environment-no-env-selected--returns-false
   (is (false?
-        (env/run-tests? "development" "dev" true false #{}))))
+        (env/run-the-tests? "development" "dev" true false #{}))))
 
 (deftest run-tests?--dev-environment-no-env-selected-run-all-brick-tests--returns-false
   (is (false?
-        (env/run-tests? "development" "dev" true true #{}))))
+        (env/run-the-tests? "development" "dev" true true #{}))))
 
 (deftest run-tests?--dev-environment-dev-selected--returns-true
   (is (true?
-        (env/run-tests? "development" "dev" true false #{"dev"}))))
+        (env/run-the-tests? "development" "dev" true false #{"dev"}))))
 
 (deftest run-tests?--dev-environment-dev-selected-run-all-brick-tests--returns-true
   (is (true?
-        (env/run-tests? "development" "dev" true true #{"dev"}))))
+        (env/run-the-tests? "development" "dev" true true #{"dev"}))))
