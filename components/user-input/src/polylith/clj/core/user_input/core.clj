@@ -20,8 +20,8 @@
            (conj envs "dev")
            envs))))
 
-(defn extract-params [args]
-  (let [{:keys [named-args unnamed-args]} (params/extract (rest args))
+(defn extract-params [args single-arg-commands]
+  (let [{:keys [named-args unnamed-args]} (params/extract (rest args) single-arg-commands)
         {:keys [brick
                 color-mode
                 env
