@@ -840,7 +840,7 @@ Ran 1 tests containing 1 assertions.
 ```
 
 
-OOps, the test failed! Remember that we added an extra `!` so now need to update the test accordingly:
+OOps, the test failed! Remember that we added an extra `!` so now we need to update the test accordingly:
 ```clojure
 (ns se.example.user.interface-test
   (:require [clojure.test :refer :all]
@@ -873,10 +873,12 @@ Execution time: 1 seconds
 
 
 We have already mentioned that the `development` environment is not included when we run
-the `test` command. Instead we should let the environments under the `environments` 
-directory to run our brick tests. 
+the `test` command.
+Instead, we will run the tests from the `development` environment using the IDE, as part of our normal
+workflow, by e.g. sending them to the REPL. Only when we want that extra check, we'll execute 
+the `test` command, e.g. before we commit something.
 
-If we really want to, we can include the `development` tests by passing in `:dev` or `env:dev`.
+If we still want include the development tests, then we can do that byt passing in `:dev` or `env:dev`.
 Let's do that with the `info`:
 ```sh
 poly info :dev
@@ -885,19 +887,23 @@ poly info :dev
 Output:<br>
 <img src="images/info-06.png" width="30%" alt="Test dev">
 
-And yes, the tests for the `development` environments are now marked to be executed, but only
-for the `development` environment. If we want to test both the `command-line` and the `development`
-environment, we can list them in the `env` parameter by separating them with colons:
+And yes, now the tests for the `development` environment are also included. When we give an environment 
+using `env` (`:dev` is a shortcut for `env:dev`) only that environment will be included. 
+One way to test both the `development` environment and the `command-line` environment is to 
+colon separate them after `env`:
 ```
 poly info env:cl:dev
 ```
 <img src="images/info-07.png" width="30%" alt="Test command-line and dev">
 
-Here we used the environment `aliases` that are defined in `:env->alias` in `deps.edn` but
-we could also have passed in the environment names or a mix of the two, e.g. `poly info env:command-line:dev`. 
+Now both the `development` and the `command-line` environment is marked for test execution.
+Here we used the environment aliases `cl` and `dev` but we could also have passed in the environment 
+names or a mix of the two, e.g. `poly info env:command-line:dev`.  
  
 ## Environment tests
 
+Before we execute any tests, let's add an environment test for the `command-line` environment.
+Start by 
 
 ### Colors
 
