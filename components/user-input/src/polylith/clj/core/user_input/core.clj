@@ -20,8 +20,8 @@
            (conj envs "dev")
            envs))))
 
-(defn extract-params [args]
-  (let [{:keys [named-args unnamed-args]} (params/extract (rest args))
+(defn extract-params [args single-arg-commands]
+  (let [{:keys [named-args unnamed-args]} (params/extract (rest args) single-arg-commands)
         {:keys [brick
                 color-mode
                 env
@@ -49,6 +49,7 @@
                       :ws-dir ws-dir
                       :show-loc? (= "true" loc!)
                       :show-lib? (= "true" lib!)
+                      :run-all-tests? (= "true" all!)
                       :run-all-brick-tests? (or (= "true" all!)
                                                 (= "true" all-bricks!))
                       :run-env-tests? (or (= "true" all!)

@@ -12,7 +12,7 @@
   (try
     (shell/sh "git" "init" :dir ws-dir)
     (shell/sh "git" "add" "." :dir ws-dir)
-    (shell/sh "git" "commit" "-m" "Initial commit." :dir ws-dir)
+    (shell/sh "git" "commit" "-m" "Workspace created." :dir ws-dir)
     (catch Exception e
       (println (str "Cannot create a git repository for the workspace.\n"
                     "Please try to create it manually instead: " (.getMessage e))))))
