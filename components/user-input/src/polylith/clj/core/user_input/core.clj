@@ -49,6 +49,7 @@
                       :ws-dir ws-dir
                       :show-loc? (= "true" loc!)
                       :show-lib? (= "true" lib!)
+                      :run-all-tests? (= "true" all!)
                       :run-all-brick-tests? (or (= "true" all!)
                                                 (= "true" all-bricks!))
                       :run-env-tests? (or (= "true" all!)

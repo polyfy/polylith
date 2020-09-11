@@ -1,6 +1,5 @@
 (ns polylith.clj.core.change.environments-to-test-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.change.environments-test-data :as data]
             [polylith.clj.core.change.environments-to-test :as to-test]))
 
@@ -8,4 +7,4 @@
   (is (= {"cli" []
           "core" []
           "development" []}
-         (to-test/env->environments-to-test data/environments [] [] false))))
+         (to-test/env->environments-to-test data/environments [] [] false false))))
