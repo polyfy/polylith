@@ -671,7 +671,6 @@ Let's have a look at our workspace repository again:
 git log --pretty=oneline
 ```
 
-Output:
 ```sh
 e7ebe683a775ec28b7c2b5d77e01e79d48149d13 (HEAD -> master) Created the user and cli bricks.
 c91fdad4a34927d9aacfe4b04ea2f304f3303282 Workspace created.
@@ -695,7 +694,7 @@ c91fdad4a34927d9aacfe4b04ea2f304f3303282 Workspace created.
 
 ...we can see that the second commit has been tagged with `stable-lisa`.
  
-If we run the `info` command again:
+If we execute the `info` command:
 
 <img src="images/info-03.png" width="30%" alt="Stable Lisa">
 
@@ -708,12 +707,18 @@ We choose `stable-lisa` because Lisa is our name (let's pretend that at least!).
 their own unique tag name that doesn't conflict with other developers. The CI build should also use its own patten,
 like `stable-` plus the build number, to mark successful builds.
 
-The pattern is configured in `deps.edn` and can be changed if you prefer another pattern:
+The pattern is configured in `deps.edn` and can be changed if we prefer another pattern:
 ```clojure
             :stable-since-tag-pattern "stable-*"
 ```
 
-The way the tool finds the latest tag is to run this command internally:
+It's possible to move back to an earlier `stable point` in time, by passing in a hash (the first few letters i enough
+as long as it's unique):
+```sh
+git tag -f stable-lisa c91fdad
+```
+
+The way the tool finds the latest tag is to execute this command internally:
 ```
 git tag --sort=committerdate -l 'stable-*'
 ``` 
@@ -728,13 +733,13 @@ We have one more thing to cover regarding the `info` command, and that is what t
 Each flag under _sources_ has a different meaning:<br>
 <img src="images/flags.png" width="30%" alt="Flags">
 
-The `---` for the `command-line` environment means we have a `environments/command-line`
-directory with no `src` or `test` directories in it and that no tests will be executed for this environment.
+The `---` for the `command-line` environment means we have an `environments/command-line`
+directory but no `src` or `test` directories and that no tests will be executed for this environment.
 
 The `x--` for the `development` environment means we have a `development/src` directory
 but no `development/test` directory and that no tests will be executed for this environment.
 
-Let's have a look at the second section:<br>
+We also have this section:<br>
 <img src="images/brick-flags.png" width="25%" alt="Flags">
 
 Here the flags have a slightly different meaning:<br>
@@ -746,7 +751,7 @@ are included in the `command-line` and `development` environments and that no br
 The `xx-` for the `cli` base follows the same pattern as for the `user` component but for the
 `bases/cli` directory.
 
-The `command-line` environment is configured in`environments/command-line/deps.edn`:
+The bricks for the `command-line` environment is configured in`environments/command-line/deps.edn`:
 ```clojure
 {:paths ["../../components/user/src"
          "../../bases/cli/src"
@@ -756,7 +761,7 @@ The `command-line` environment is configured in`environments/command-line/deps.e
  :aliases {:test {:extra-paths ["../../components/user/test"
 ```
 
-The `development` environment is configured in `./deps.edn`:
+The bricks for the `development` environment is configured in `./deps.edn`:
 ```clojure
  :aliases  {:dev {:extra-paths [...
                                 "components/user/src"
@@ -768,7 +773,7 @@ The `development` environment is configured in `./deps.edn`:
 <img src="images/info-04.png" width="30%" alt="Status resources">
 
 
-The `resources` directory is not inserted into the second position:<br>
+The `resources` directory is now at the second position:<br>
 <img src="images/flags-resources.png" width="20%" alt="Status resources">
 
 ## Test
@@ -791,12 +796,12 @@ components/user/src/se/example/user/core.clj
 <img src="images/info-05.png" width="30%" alt="Status resources">
 
 ...the `user` component is now marked with an asterisk, `*`. If we look carefully we will also notice that 
-the status flags `xxx` under the `cl` column now have an `x` in the last position. As we already know, 
+the status flags `xxx` under the `cl` column now have an `x` in its last position. As we already know, 
 this means that the tests for `user` and `cli` will be executed from the `command-line` environment
 if we execute the `test` command.
 
-But why is `cli` marked to be tested? The answer to that question is that even though it itself hasn't
-change, it depends on something that has, which is the `user` component.
+But why is `cli` marked to be tested? The reason is that even though `cli` itself hasn't
+change, it depends on something that has, namely the `user` component.
   
 The columns under the `development` environment are all marked as `xx-`. The reason the `development`
 environment is not marked to be tested is that the `development` environment's tests are excluded by default.
@@ -818,7 +823,6 @@ Now let's run the `test` command:
 poly test
 ```
 
-Output:
 ```
 Runing tests for the command-line environment, including 2 bricks: user, cli
 
@@ -840,7 +844,8 @@ Ran 1 tests containing 1 assertions.
 ```
 
 
-OOps, the test failed! Remember that we added an extra `!` so now we need to update the test accordingly:
+OOps, the test failed! Remember that we added an extra `!` so now we need to update the 
+corresponding test accordingly:
 ```clojure
 (ns se.example.user.interface-test
   (:require [clojure.test :refer :all]
@@ -873,24 +878,23 @@ Execution time: 1 seconds
 
 
 We have already mentioned that the `development` environment is not included when we run
-the `test` command.
-Instead, we will run the tests from the `development` environment using the IDE, as part of our normal
-workflow, by e.g. sending them to the REPL. Only when we want that extra check, we'll execute 
-the `test` command, e.g. before we commit something.
+the `test` command. 
 
-If we still want include the development tests, then we can do that byt passing in `:dev` or `env:dev`.
-Let's do that with the `info`:
+Normally we have one environment per deployable artifact.
+The basic setup is to also add a bricks `test` directory when we add its `src` directory to an environment. 
+This will give us extra confidence that all our environments seem to work properly.
+
+If we still want to include the development tests, then we can do that by passing in `:dev` or `env:dev`.
+Let's do that with the `info` command:
 ```sh
 poly info :dev
 ```
-
-Output:<br>
 <img src="images/info-06.png" width="30%" alt="Test dev">
 
-And yes, now the tests for the `development` environment are also included. When we give an environment 
+And yes, now the tests for the `development` environment are included. When we give an environment 
 using `env` (`:dev` is a shortcut for `env:dev`) only that environment will be included. 
 One way to test both the `development` environment and the `command-line` environment is to 
-colon separate them after `env`:
+list them by separating them with colons:
 ```
 poly info env:cl:dev
 ```
@@ -903,7 +907,157 @@ names or a mix of the two, e.g. `poly info env:command-line:dev`.
 ## Environment tests
 
 Before we execute any tests, let's add an environment test for the `command-line` environment.
-Start by 
+
+Begin by adding a `test` directory for the `command-line` environment:
+```sh
+example
+  environments
+    command-line
+      test
+``` 
+
+Then add that directory to the root `deps.edn` file:
+```clojure
+            :test {:extra-paths ["components/user/test"
+                                 "bases/cli/test"
+                                 "environments/command-line/test"]}
+```
+
+Now add the `env.dummy-test` namespace to the `command-line` environment:
+```sh
+example
+  environments
+    command-line
+      test
+        env/dummy-test.clj
+```
+...with this content:
+```clojure
+(ns env.dummy-test
+  (:require [clojure.test :refer :all]))
+
+(deftest dummy-test
+  (is (= 1 1)))
+```
+
+If we execute the `info` command:<br>
+<img src="images/info-08.png" width="30%" alt="Env dummy test">
+
+...the command line is marked as changed and flagged as `-x-` telling us that it now has a `test` directory.
+The reason it is not tagged as `-xx` is that environment tests are not included in the tests without
+explicitly telling it to, by passing in `:env`. Let's check that:
+```sh
+poly info :env
+```
+<img src="images/info-09.png" width="30%" alt="Test environment">
+
+Now also the `command-line` environment is marked to be tested.
+Let's verify that by running the tests:
+```sh
+poly test :env
+```
+<img src="images/test-run.png" width="80%" alt="Test environment">
+
+They passed!
+
+We have two categories of tests, brick tests and environment tests. 
+
+The environment tests are the place where we should put our slow tests.
+It also gives us the opportunity to have tests that are unique for each environment.
+To keep the feedback loop short, we should only put fast running tests in our bricks,
+which will give us faster feedback every time we execute `poly test`.
+
+Before we continue, let's commit what we have done so far and mark it as stable:
+```sh
+git add --all
+git commit -m "Added tests"  
+git tag -f stable-lisa
+```
+If we execute the `info` command:<br>
+<img src="images/info-10.png" width="30%" alt="Commited workspace">
+
+...the `*` signs are gone and nothing is marked to be tested.
+
+The tool only execute tests if a brick is directly or indirectly changed. A way to force it to
+test all bricks is to pass in `:all-bricks`:
+```sh
+poly info :all-bricks
+```
+<img src="images/info-11.png" width="30%">
+
+Now all the brick tests are marked to be executed, except for the `development` environment.
+To include dev, also add `:dev`:
+```sh
+poly info :all-bricks :dev
+```
+<img src="images/info-12.png" width="30%">
+
+The tests will now be executed from the development environment.
+To include all brick and environment tests, we can type:
+```sh
+poly info :all
+```
+<img src="images/info-13.png" width="30%">
+
+...and to include the development environment, we can type `poly info :all :dev`:<br>
+<img src="images/info-14.png" width="30%">
+
+Now let's see if it actually works:
+```sh
+poly test :all :dev
+```
+```
+Runing tests for the command-line environment, including 2 bricks and 1 environment: user, cli, command-line
+
+Testing se.example.cli.core-test
+
+Ran 0 tests containing 0 assertions.
+0 failures, 0 errors.
+
+Test results: 0 passes, 0 failures, 0 errors.
+
+Testing se.example.user.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing env.dummy-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+Runing tests for the development environment, including 2 bricks and 1 environment: user, cli, command-line
+
+Testing se.example.cli.core-test
+
+Ran 0 tests containing 0 assertions.
+0 failures, 0 errors.
+
+Test results: 0 passes, 0 failures, 0 errors.
+
+Testing se.example.user.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+Execution time: 3 seconds
+```
+
+Let's summarize the different ways the tests can be executed:
+
+| Command                    | Tests to run                                                                                 | Run from the dev environment? |
+|:---------------------------|:---------------------------------------------------------------------------------------------|:-----------------------------:|
+| poly test                  | All brick tests that are marked as changed. No environment tests.                            |              no               |
+| poly test :env             | All brick and environment tests that are marked as changed.                                  |              no               |
+| poly test :all-bricks      | All brick tests.                                                                             |              no               |
+| poly&nbsp;test&nbsp;:all&#8209;bricks&nbsp;:dev | All brick tests.                                                        |              yes              |
+| poly test :all             | All brick and environment tests.                                                             |              no               |
+| poly test :all :dev        | All brick and environment tests.                                                             |              yes              |
+| poly test :dev             | All brick tests that are marked as changed, for selected environments. No environment tests. |              yes              |
 
 ### Colors
 
