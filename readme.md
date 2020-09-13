@@ -1,11 +1,14 @@
 # <img src="images/logo.png" width="50%" alt="Polylith" id="logo">
-A tool used to develop Polylith based architectures.
+A tool used to develop Polylith based architectures in Clojure.
 
 ---------
 
-Welcome to the wonderful world of Polylith!
+> **_UNDER CONSTRUCTION_**<br>
+> This new tools.deps based tool hasn't been released yet.<br>
+> Please use the old lein-polylith based tool in the meantime:<br>
+> https://github.com/tengstrand/lein-polylith
 
-This implementation of Polylith works with [Clojure](https://clojure.org), which is a powerful functional language for the JVM.
+Welcome to the wonderful world of Polylith!
 
 Polylith is a new way of thinking around system architecture, 
 that puts the developer in the driving seat and the code in the center.
@@ -25,8 +28,8 @@ Enjoy the ride!
 
 ## Migrate
 
-The old lein-polylith tool has reached its end of lifetime. If you have any old Leiningen based projects 
-that need to be migrated, follow the instructions [here](https://github.com/tengstrand/lein-polylith/blob/migrate/migrate/migrate.md).
+The old [lein-polylith](https://github.com/tengstrand/lein-polylith) tool has reached its end of lifetime.  
+If you have any old Leiningen based projects to migrated, follow the instructions [here](https://github.com/tengstrand/lein-polylith/blob/migrate/migrate/migrate.md).
 
 ## Table of Contents
 
@@ -42,6 +45,7 @@ that need to be migrated, follow the instructions [here](https://github.com/teng
 - [Tagging](#tagging)
 - [Flags](#flags)
 - [Test](#test)
+- [Profile](#profile)
 - [Colors](#colors)
 
 ## Installation
@@ -88,7 +92,7 @@ example           # workspace dir
   readme.md       # documentation
 ```
 
-This directory structure helps us work with, and reason about the code and the higher level structure. 
+The directory makes it easier to find things and helps us reason about the system at a higher level. 
 Each top directory is responsible for its own part of a Polylith system.
 A `base` exposes a public API. A `component` is responsible for a specific domain 
 or part of the system. 
@@ -166,18 +170,18 @@ If we look at the `deps.edn` file again, we can see that _"development/src"_ was
  :aliases  {:dev {:extra-paths ["development/src"]
 ```
 
-This gives us access to the `developent/src` directory (if we activeate the `dev` profile) so that we can work 
+This gives us access to the `developent/src` directory so that we can work 
 with the code. Right now there is only one directory here, but every time we create a new component or base,
-they will most likely end up here too.
+they often end up here too.
 
 
 The "development/src" path belongs to the `dev` alias which we activated previously and also added to the REPL
-by selecting the aliases "dev,test".
+by selecting the "dev,test" aliases.
 This means that we have configured everything that [tools.deps](https://github.com/clojure/tools.deps.alpha)
 needs and that we are ready to write some Clojure code!
 
 To do that we first need to create a namespace. We suggest that you use `dev` as a top namespace here and not 
-the workspace top namespace (e.g. `se.example`).
+the workspace top namespace `se.example`.
 The reason is that we don't want to mix the code we put here with production code.
 
 One way of structuring the code is to give every developer their own namespace under the `dev` top namespace.
@@ -227,15 +231,15 @@ example
   readme.md
 ```
 
-The `.keep` file is put there to prevent git to remove `components/user/resources/user`
-(empty directories are pruned by git).
+The `.keep` file is put there to prevent git from removing `components/user/resources/user`
+(empty directories are automatically pruned by git).
 
 The command also printed out this message:
 ```
   Remember to add src, resources and test directories to 'deps.edn' files.
 ```
 
-This was a reminder to add source directories to `deps.edn`.
+This was a reminder for us to add source directories to `deps.edn`.
 If we don't, then tools.deps and the development environment will not recognise our newly created component,
 which would be a pity!
 
@@ -248,7 +252,7 @@ Let's continue by adding the component's `src`, `resources` and `test` directory
             :test {:extra-paths ["components/user/test"]}
 ```
 
-After that, we may need to refresh our IDE, by e.g. clicking this link (or the icon we used before):<br>
+Now we may need to refresh our IDE, by clicking this link, or the icon we used before:<br>
 <img src="images/refresh-ws.png" width="40%" alt="New local REPL">
 
 Now execute the `info` command:<br>
@@ -258,9 +262,9 @@ poly info
 <img src="images/info-01.png" width="30%" alt="New local REPL">
 
 This tells us that we have one `development` environment, one `user` component and
-one `user`interface (and more that we will soon explain).
+one `user`interface but no `base`.
 
-If you need to adjust the colors, then visit the ****color section*****.
+If you need to adjust the colors, then visit the [colors](#colors) section.
 
 Now, let's add the `core` namespace to `user`:<br>
 <img src="images/ide-ws-01.png" width="30%" alt="New local REPL">
@@ -282,7 +286,7 @@ Now, let's add the `core` namespace to `user`:<br>
   (core/hello name))
 ``` 
 Here we delegate the incoming call to the implementing `core` namespace,
-which is the recommended way of structuring the code within a `component`. 
+which is the recommended way we structure components in Polylith.
 
 ## Interface
 
@@ -299,12 +303,12 @@ it exposes to other components and bases.
 If more than one component uses the same interface, then all these components must define the exact same set of 
 `def`, `defn` and `defmacro` definitions, which is something the tool will help us with.
 
-To have just a single `interface` namespace in a component is often what we want, but it is also possible to 
+We often choose to have just a single `interface` namespace in a component, but it is also possible to 
 divide the interface into several namespaces.
 To do so we first create an `interface` package (directory) with the name `interface` at the root
 and then we put the sub namaspaces in there.
 
-You can find an example where the Polylith tool itself does that, by dividing its 
+You can find an example where the Polylith tool does that, by dividing its 
 [util](https://github.com/tengstrand/polylith/tree/master/components/util/src/polylith/clj/core/util/interface)
 interface into several sub namespaces:
 ```sh
@@ -318,8 +322,8 @@ util
 ```
 
 This can be handy if you want to group the functions and not put everyone into one place.
-If you feel the need to split up the interface, it could also be a signal that it's time to 
-split the component into several components!
+Every time you think of splitting up the interface, keep in mind that i may indicate that it's instead 
+time to split up the whole component into smaller components!
 
 Code that uses an interface like this might look something like this:
 ```clojure
@@ -335,7 +339,7 @@ We almost forgot to tell _why_ interfaces are so great:
 - _Encapsulation_. All the implementing namespaces can be changed without breaking the contract.
 - _Replacability_. A component can be replaced with another component as long as they use the same interface.
 
-Now let's continue with the next type of building blocks, _bases_.
+Now let's continue with the next type of building block: _bases_.
 
 ## Base
 
@@ -347,14 +351,14 @@ A `base` is similar to a `component` except for two things:
 
 The lack of an `interface` makes bases less composable compared to components. But that is not a problem,
 because they solve a different problem and that is to be a bridge between the real world and our components.
-It solves that by converting input from the outside world that it delegates to different components.
+This is done by taking the incomming call and delegate it to different components.
 
 Let's create the `cli` base to see how it works:
 ```sh
 poly create b name:cli
 ```
 
-Our workspace should now look something like this:
+Our workspace should now look like this:
 ```sh
 example
   bases
@@ -382,7 +386,7 @@ example
   readme.md
 ```
 
-Now we need to update `deps.edn` with our newly created base (don't forget to refresh the environment afterwards):
+Now we need to update `deps.edn` with our newly created base:
 ```clojure
  :aliases  {:dev {:extra-paths ["development/src"
                                 "components/user/src"
@@ -407,7 +411,8 @@ Let's add some code to the base:
 ```
 
 Here we added the `-main` function that later will be called from the command line.
-The `(:gen-class)` statement tells the compiler to generate a callable Java class for us.
+The `(:gen-class)` statement tells the compiler to generate a callable Java class for us
+when the code is compiled.
 
 The next thing we want to do is to build an artifact that will turn the code into something useful, a command line tool.
 To do that, we need to start by creating an environment.
@@ -429,7 +434,7 @@ There are two kind of environments.
    - If it has any tests of its own, they will live in the `test` directory under e.g. `environments/my-env`. 
    - Optionally, each environment can also have a `resources` directory. 
    - It's discouraged to have a `src` directory since all production code should only live in components and bases.
-   - Here are some examples of artefacts that can be built out of an environment: lambda functions, REST API's,
+   - Examples of artefacts that can be built out of an environment: lambda functions, REST API's,
      libraries, and command line tools.
 
 Let's create an environment:
@@ -503,9 +508,9 @@ Note three things here:
 The reson we didn't add "development/src" is because it contains code that should only be used
 from the development environment.
 
-The tool uses the standard way of configuring projects in tools.deps for the "deployable" environments,
-but put things under the `:dev` alias for the `development` environment to get more control of what
-paths that are included.
+All environments under the `environments` directory have their source paths defined in `:paths`
+instead of inside the `:dev` alias, as in the `development` environment. 
+This way we can keep them simpler without the need to activate a `:dev` alias.
 
 The reason all paths begin with "../../" is that `components` and `bases` live two levels up 
 compared to `environments/command-line` and not at the root as with the `development` environment.
@@ -516,9 +521,9 @@ Now we have created our first environment and it's time to see if we can build a
 
 This tool doesn't include any `build` command. To build an artifact out of an environment, we should instead 
 use scripts and maybe a build tool. We think they will do a better job and give us the level of control, 
-flexibility and power we want.
+flexibility and power we need.
 
-Let's say we want to create an executable jar file out of the `command-line` environment.
+Let's say we want to create an executable jar file out of the `command-line` environment.  
 First, we can create a `scripts`directory at the workspace root and copy this [build-uberjar.sh](https://github.com/tengstrand/polylith/blob/master/scripts/build-uberjar.sh)
 to it:
 ```sh
@@ -653,8 +658,8 @@ Here we have the answer to were the `*` signs came from. The paths that starts w
 `development`, `components/user` and `bases/cli` makes the tool understand that `command-line`, `development`,
 `user` and `cli` are changed.
 
-When we created the workspace, a [.gitignore](https://git-scm.com/docs/gitignore) file was also created for us.
-Now it's a good time to add more rows here if needed. Right now it looks like this:
+When we created the workspace, a [.gitignore](https://git-scm.com/docs/gitignore) file was also created for us.  
+Now is a good time to add more rows here if needed:
 ```sh
 **/classes
 **/target
@@ -704,15 +709,15 @@ has yet changed since the second commit (which can be verified by running `poly 
 
 We added the tag `stable-lisa` but we could have named the tag with anything that starts with `stable-`.
 We choose `stable-lisa` because Lisa is our name (let's pretend that at least!). The idea is that every developer could use
-their own unique tag name that doesn't conflict with other developers. The CI build should also use its own patten,
+their own unique tag name that doesn't conflict with other developers. The CI build should also use its own pattern,
 like `stable-` plus the build number, to mark successful builds.
 
-The pattern is configured in `deps.edn` and can be changed if we prefer another pattern:
+The pattern is configured in `deps.edn` and can be changed if we prefer something else:
 ```clojure
             :stable-since-tag-pattern "stable-*"
 ```
 
-It's possible to move back to an earlier `stable point` in time, by passing in a hash (the first few letters i enough
+It's possible to move back to an earlier `stable point` in time by passing in a hash (the first few letters i enough
 as long as it's unique):
 ```sh
 git tag -f stable-lisa c91fdad
@@ -730,7 +735,7 @@ Then it uses the last line of the output, or if no match was found, the first co
 We have one more thing to cover regarding the `info` command, and that is what the `x` and `-` flags mean:
 <img src="images/environment-flags.png" width="25%" alt="Flags">
 
-Each flag under _sources_ has a different meaning:<br>
+Each flag under _source_ has a different meaning:<br>
 <img src="images/flags.png" width="30%" alt="Flags">
 
 The `---` for the `command-line` environment means we have an `environments/command-line`
@@ -773,12 +778,12 @@ The bricks for the `development` environment is configured in `./deps.edn`:
 <img src="images/info-04.png" width="30%" alt="Status resources">
 
 
-The `resources` directory is now at the second position:<br>
+...then the `resources` directory is also shown:<br>
 <img src="images/flags-resources.png" width="20%" alt="Status resources">
 
 ## Test
 
-Nothing is marked to be tested at the moment. But if we change the `core` namespace in the `user` component
+Nothing is marked to be tested at the moment, but if we change the `core` namespace in the `user` component
 by adding an extra `!`, that should do the trick:
 ```clojure
 (ns se.example.user.core)
@@ -804,7 +809,8 @@ But why is `cli` marked to be tested? The reason is that even though `cli` itsel
 change, it depends on something that has, namely the `user` component.
   
 The columns under the `development` environment are all marked as `xx-`. The reason the `development`
-environment is not marked to be tested is that the `development` environment's tests are excluded by default.
+environment is not marked to be tested is that the `development` environment's tests are 
+not included by default.
 
 But before we run the test command, we should first add a test by editing the `interface-test` 
 namespace in the `user` component:
@@ -844,7 +850,8 @@ Ran 1 tests containing 1 assertions.
 ```
 
 
-OOps, the test failed! Remember that we added an extra `!` so now we need to update the 
+OOps, the test failed!  
+Remember that we added an extra `!` so now we need to update the 
 corresponding test accordingly:
 ```clojure
 (ns se.example.user.interface-test
@@ -877,15 +884,11 @@ Execution time: 1 seconds
 ```
 
 
-We have already mentioned that the `development` environment is not included when we run
-the `test` command. 
+We have already mentioned that the tests will not be executed from `development` environment
+when we run the `test` command.
+There is a way to do that, and that is to passing in `:dev` or `env:dev`.  
 
-Normally we have one environment per deployable artifact.
-The basic setup is to also add a bricks `test` directory when we add its `src` directory to an environment. 
-This will give us extra confidence that all our environments seem to work properly.
-
-If we still want to include the development tests, then we can do that by passing in `:dev` or `env:dev`.
-Let's do that with the `info` command:
+Let's try i out with the `info` command first:
 ```sh
 poly info :dev
 ```
@@ -904,7 +907,7 @@ Now both the `development` and the `command-line` environment is marked for test
 Here we used the environment aliases `cl` and `dev` but we could also have passed in the environment 
 names or a mix of the two, e.g. `poly info env:command-line:dev`.  
  
-## Environment tests
+### Environment tests
 
 Before we execute any tests, let's add an environment test for the `command-line` environment.
 
@@ -916,7 +919,7 @@ example
       test
 ``` 
 
-Then add that directory to the root `deps.edn` file:
+Then add that directory to `./deps.edn`:
 ```clojure
             :test {:extra-paths ["components/user/test"
                                  "bases/cli/test"
@@ -931,7 +934,6 @@ example
       test
         env/dummy-test.clj
 ```
-...with this content:
 ```clojure
 (ns env.dummy-test
   (:require [clojure.test :refer :all]))
@@ -945,13 +947,15 @@ If we execute the `info` command:<br>
 
 ...the command line is marked as changed and flagged as `-x-` telling us that it now has a `test` directory.
 The reason it is not tagged as `-xx` is that environment tests are not included in the tests without
-explicitly telling it to, by passing in `:env`. Let's check that:
+explicitly telling it to, by passing in `:env`.
+
+Let's check that:
 ```sh
 poly info :env
 ```
 <img src="images/info-09.png" width="30%" alt="Test environment">
 
-Now also the `command-line` environment is marked to be tested.
+Now the `command-line` environment is also marked to be tested.
 Let's verify that by running the tests:
 ```sh
 poly test :env
@@ -960,14 +964,28 @@ poly test :env
 
 They passed!
 
-We have two categories of tests, brick tests and environment tests. 
+### Test approach
 
-The environment tests are the place where we should put our slow tests.
-It also gives us the opportunity to have tests that are unique for each environment.
-To keep the feedback loop short, we should only put fast running tests in our bricks,
-which will give us faster feedback every time we execute `poly test`.
+We have two kind of tests, the brick tests and the environment tests.
 
-Before we continue, let's commit what we have done so far and mark it as stable:
+The environment tests should be used for our slow tests. They also give us a way to write 
+tailor-made tests that are unique per environment.
+To keep the feedback loop short, we should only put fast running tests in our bricks.
+This will give us a faster feedback loop, because the brick tests are the ones
+that are executed when we run `poly test` while the environment tests are not.
+
+But does that mean we are only allowed to put unit tests in our bricks?  
+No. As long as the tests are fast, they can be put in the bricks they belong.
+
+An extra bonus of using Polylith is that we can avoid most of the mocking,
+because we run the tests from an environment where we have access to real components.
+We should configure our environments so that the tests can run as fast as possible,
+by using in memory databases and by using components that doesn't access the network.
+
+This is at least true for the brick tests, but for the environment tests, 
+you are free to have a setup that is closer to production if that is what is best.
+
+Before we continue, let's commit what we have done so far and mark the workspace as stable:
 ```sh
 git add --all
 git commit -m "Added tests"  
@@ -976,30 +994,32 @@ git tag -f stable-lisa
 If we execute the `info` command:<br>
 <img src="images/info-10.png" width="30%" alt="Commited workspace">
 
-...the `*` signs are gone and nothing is marked to be tested.
+...the `*` signs are now gone and nothing is marked to be tested.
 
-The tool only execute tests if a brick is directly or indirectly changed. A way to force it to
-test all bricks is to pass in `:all-bricks`:
+The tool only execute tests if a brick is directly or indirectly changed.  
+A way to force it to test all bricks is to pass in `:all-bricks`:
 ```sh
 poly info :all-bricks
 ```
 <img src="images/info-11.png" width="30%">
 
-Now all the brick tests are marked to be executed, except for the `development` environment.
+Now all the brick tests are marked to be executed, except for the `development` environment.  
 To include dev, also add `:dev`:
 ```sh
 poly info :all-bricks :dev
 ```
 <img src="images/info-12.png" width="30%">
 
-The tests will now be executed from the development environment.
 To include all brick and environment tests, we can type:
 ```sh
 poly info :all
 ```
 <img src="images/info-13.png" width="30%">
 
-...and to include the development environment, we can type `poly info :all :dev`:<br>
+...and include dev with:
+```
+poly info :all :dev
+```
 <img src="images/info-14.png" width="30%">
 
 Now let's see if it actually works:
@@ -1047,29 +1067,152 @@ Test results: 1 passes, 0 failures, 0 errors.
 Execution time: 3 seconds
 ```
 
-Let's summarize the different ways the tests can be executed:
+Looks like it worked!  
+Let's summarize the different ways to run the tests:
 
 | Command                    | Tests to run                                                                                 | Run from the dev environment? |
 |:---------------------------|:---------------------------------------------------------------------------------------------|:-----------------------------:|
 | poly test                  | All brick tests that are marked as changed. No environment tests.                            |              no               |
 | poly test :env             | All brick and environment tests that are marked as changed.                                  |              no               |
+| poly test :dev             | All brick tests that are marked as changed, for selected environments. No environment tests. |              yes              |
 | poly test :all-bricks      | All brick tests.                                                                             |              no               |
 | poly&nbsp;test&nbsp;:all&#8209;bricks&nbsp;:dev | All brick tests.                                                        |              yes              |
 | poly test :all             | All brick and environment tests.                                                             |              no               |
 | poly test :all :dev        | All brick and environment tests.                                                             |              yes              |
-| poly test :dev             | All brick tests that are marked as changed, for selected environments. No environment tests. |              yes              |
 
-### Colors
+## Profile
 
-To make things more colourful create the `~/.polylith/config.edn` config file under your `USER-HOME` directory
+When working with a Polylith system, we want to keep everything as simple as possible.
+We also want to be productive and easily create new services when we need them.
+The Lego-like way of organising the code into bricks, helps us with both of these challenges.
+
+One problem we normally have when developing software without using Polylith, is that the production environment
+and the development environment has a 1:1 relationship. This happens because we use the production codebase
+for development, so if we create a new service in production, it will automatically
+"turn up" in development.
+ 
+In Polylith we avoid this problem by separating the development environment from production.
+Thanks to components, we can create any environment we want by putting the bricks we need into one place.
+This allow us to optimize the development environment for productivity while in production, we can
+focus on fulfilling non functional requirements like performance or up time.
+
+Let's pretend that we've got performance problems in our `user` component and that we have decided to create a new service 
+to distribute the load.
+```sh
+poly create e name:user-service
+```
+
+Then add an alias to `deps.edn`:
+```clojure
+            :env->alias {"development" "dev"
+                         "command-line" "cl"
+                         "user-service" "user-s"}
+``` 
+
+Now create the `user-remote` component:
+```sh
+poly create c name:user-remote interface:user
+```
+If we execute the `info` command:<br>
+<img src="images/info-15.png" width="55%">
+
+...we suddenly have a couple of errors in our workspace:
+- Error 103. This error tells us that the two components that share the user interface don't have a matching
+  set of functions in their interfaces. We can fix the problem by adding the `hello [name]` function to
+  the interface of `user-remote`.
+- Error 108. This error tells us that we are not allowed to put a component that uses the `user` interface
+  to the `development` environment and that we need to create some `profiles`.
+
+Now let's try to get rid of those errors.   
+We can start by removing the `user` related paths from `deps.edn`
+and add the `default` and `remote` profiles (these aliases always start with a `+`):
+```clojure
+ :aliases  {:dev {:extra-paths ["development/src"
+                                "bases/cli/src"
+                                "bases/cli/resources"]
+  ...
+            :test {:extra-paths ["bases/cli/test"
+                                 "environments/command-line/test"]}
+
+            :+default {:extra-paths ["components/user/src"
+                                     "components/user/resources"
+                                     "components/user/test"]}
+
+            :+remote {:extra-paths ["components/user-remote/src"
+                                    "components/user-remote/resources"
+                                    "components/user-remote/test"]}
+``` 
+Now refresh the environment and select `+default`:<br>
+<img src="images/refresh-ws-2.png" width="20%">
+
+Now add that missing function to the interface of `user-remote` (yes, it has the same interface as `user`):
+```clojure
+(ns se.example.user.interface)
+
+(defn hello [name]
+  (println "To be implemented!"))
+
+```
+...and execute the `info` command again:<br>
+<img src="images/info-16.png" width="43%">
+
+We removed the `user` related paths from our `development` environment but now they have all magically turned up again!
+As you have probably already guessed, it's the `default` profile that has been merged into the `development` environment 
+to make the list of paths complete again. The output from the info command also informs us that the `default`
+profile now is active.
+
+The name of the `default` profile can be changed in `./deps.edn` 
+(and if we do, then we also need to update the `+default` alias name):
+```clojure
+            :default-profile-name "default"
+```
+
+The `user-service` will need a base, so let's create one:
+```
+poly create b name:user-api
+```
+...and add the `user-api` paths to `./deps.edn`:
+```clojure
+ :aliases  {:dev {:extra-paths ["development/src"
+                                "bases/cli/src"
+                                "bases/cli/resources"
+                                "bases/user-api/src"
+                                "bases/user-api/resources"]
+   ....
+            :test {:extra-paths ["bases/cli/test"
+                                 "bases/user-api/test"
+                                 "environments/command-line/test"]}
+```
+
+Continue by adding `user` and `user-api` to `deps.edn` for the `user-service` environment:
+```clojure
+
+{:paths ["../../components/user/src"
+         "../../components/user/resources"
+         "../../bases/user-api/src"
+         "../../bases/user-api/resources"]
+   ...
+ :aliases {:test {:extra-paths ["../../components/user/test"
+                                "../../bases/user-api/test"]
+                  :extra-deps  {}}}}
+```
+
+...and execute the `info` command:<br>
+<img src="images/info-17.png" width="43%">
+
+...to be continued!
+
+## Colors
+
+To make things more colorful create the `~/.polylith/config.edn` config file under your `USER-HOME` directory
 with the following content:
 ```
 {:color-mode "bright"
  :thousand-separator ","
  :empty-character "·"}
 ```
-- The _color-mode_ can be set to either "none", "light" or "dark", depending on the colour schema you use.
-  The only difference between "light" and "dark" is that they use different [codes](https://github.com/tengstrand/polylith/blob/core/components/util/src/polylith/clj/core/util/colorizer.clj) for grey.
+- The _color-mode_ can be set to either "none", "light" or "dark", depending on the color schema you use.
+  The only difference between "light" and "dark" is that they use different [codes](https://github.com/tengstrand/polylith/tree/master/components/util/src/polylith/clj/core/util/colorizer.clj) for grey.
 - The _thousand-spearator_ is used to separate numbers larger then 999 like 12,345.
 - The _empty-character_ can be replaced by a . (period) if your computer has problems showing it (they are used in the `deps` command).
 
@@ -1094,9 +1237,4 @@ If you want to use the same colors in your terminal, here they are:<br>
 <img src="images/polylith-colors.png" width="50%" alt="Polylith colors">
 
 If the colors (f8eeb6, bfefc5, 77bcfc, e2aeff, cccccc, 24272b, ee9b9a) looks familiar to you, it's because they are 
-more or less stolen from the [Borealis](https://github.com/Misophistful/borealis-cursive-theme) colour schema!
-
-------------------
-
-It's true that the default name of an `interface` is "interface", but this can be changed by editing `:interface-ns` 
-in `deps.edn` to something else. Only do that if you have really good reasons to do so).
+more or less stolen from the [Borealis](https://github.com/Misophistful/borealis-cursive-theme) coloor schema!
