@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-if [[ $# -ne 2 ]]
+if [[ $# -ne 1 ]]
 then
-    echo "Usage: ENV_NAME MAIN_NS, e.g.: dev polylith.clj.core.poly_cli.poly"
+    echo "Usage: ENV_NAME, e.g.: dev"
     exit 1
 fi
 
@@ -27,7 +27,7 @@ fi
 
 echo "Environment compiled. Creating an uberjar for the environment"
 
-clojure -A:uberjar --aliases aot --main-class ${2//-/_} --target ./target/$1.jar
+clojure -A:uberjar
 
 if [[ $? -ne 0 ]]
 then

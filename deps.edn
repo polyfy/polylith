@@ -1,4 +1,3 @@
-
 {:polylith {:top-namespace "polylith.clj.core"
             :interface-ns "interface"
             :default-profile-name "default"
@@ -7,9 +6,10 @@
                          "migrator" "migr"
                          "poly" "poly"
                          "development" "dev"}
-            :ns->lib {clojure.tools.deps   org.clojure/tools.deps.alpha
-                      me.raynes            me.raynes/fs
-                      puget                mvxcvi/puget}}
+            :ns->lib {clojure.tools.deps      org.clojure/tools.deps.alpha
+                      me.raynes               me.raynes/fs
+                      puget                   mvxcvi/puget
+                      deps-deploy.deps-deploy slipset/deps-deploy}}
 
  :aliases  {:dev {:extra-paths [; Development
                                 "development/src"
@@ -20,6 +20,7 @@
                                 "components/common/src"
                                 "components/creator/src"
                                 "components/creator/resources"
+                                "components/deployer/src"
                                 "components/deps/src"
                                 "components/file/src"
                                 "components/git/src"
@@ -41,12 +42,14 @@
                                 "components/ws-explorer/src"
                                 ; Bases
                                 "bases/poly-cli/src"
-                                "bases/migrator-cli/src"]
+                                "bases/migrator-cli/src"
+                                "bases/deployer-cli/src"]
 
                   :extra-deps {org.clojure/clojure {:mvn/version "1.10.1"}
                                org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}
                                me.raynes/fs {:mvn/version "1.4.6"}
-                               mvxcvi/puget {:mvn/version "1.3.1"}}}
+                               mvxcvi/puget {:mvn/version "1.3.1"}
+                               slipset/deps-deploy {:mvn/version "0.1.0"}}}
 
             :test {:extra-paths [; Components
                                  "components/api/test"
@@ -74,9 +77,13 @@
                                  "environments/poly/test"]}
 
             :poly {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
-                               :extra-deps {polylith/clj-poly
-                                            {:local/root "environments/poly"}}}
+                   :extra-deps {polylith/clj-poly
+                                {:local/root "environments/poly"}}}
 
-            :poly-migrator {:main-opts  ["-m" "polylith.clj.core.migrator-cli.core"]
-                            :extra-deps {polylith/clj-poly-migrator
-                                         {:local/root "environments/migrator"}}}}}
+            :migrator {:main-opts  ["-m" "polylith.clj.core.migrator-cli.core"]
+                       :extra-deps {polylith/clj-poly-migrator
+                                    {:local/root "environments/migrator"}}}
+
+            :deploy {:extra-deps {polylith/clj-deployer
+                                  {:local/root "environments/deployer"}}
+                     :main-opts ["-m" "polylith.clj.core.deployer-cli.core"]}}}

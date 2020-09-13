@@ -1,0 +1,111 @@
+version: 2.0
+
+jobs:
+  check:
+    docker:
+      - image: circleci/clojure:tools-deps-1.10.1.561
+    working_directory: ~/polylith
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/polylith
+      - restore_cache:
+          key: polylith-{{ checksum "deps.edn" }}
+      - run:
+          name: Create polylith config if it does not exist
+          command: mkdir -p ~/.polylith && echo "{}" > ~/.polylith/config.edn
+      - run:
+          name: Check Polylith workspace
+          command: clojure -A:poly check
+      - save_cache:
+          key: polylith-{{ checksum "deps.edn" }}
+          paths:
+            - ~/.polylith
+            - ~/.m2
+            - ~/.lein
+            - ~/polylith/.cpcache
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  test:
+    docker:
+      - image: circleci/clojure:tools-deps-1.10.1.561
+    working_directory: ~/polylith
+    steps:
+      - attach_workspace:
+          at: ~/polylith
+      - restore_cache:
+          key: polylith-{{ checksum "deps.edn" }}
+      - run:
+          name: Add global git user email
+          command: git config --global user.email "circleci@polyfy.com"
+      - run:
+          name: Add global git user name
+          command: git config --global user.name "CircleCI"
+      - run:
+          name: Run tests for Polylith workspace
+          command: clojure -A:poly test :all
+
+  mark-as-stable:
+    docker:
+      - image: circleci/clojure:tools-deps-1.10.1.561
+    working_directory: ~/polylith
+    steps:
+      - attach_workspace:
+          at: ~/polylith
+      - run:
+          name: Add github.com to known hosts
+          command: mkdir -p ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - run:
+          name: Add global git user email
+          command: git config --global user.email "circleci@polyfy.com"
+      - run:
+          name: Add global git user name
+          command: git config --global user.name "CircleCI"
+      - run:
+          name: Add git tag to mark this stable point
+          command: git tag -f -a "stable-$CIRCLE_BRANCH" -m "[skip ci] Added Stable Polylith tag"
+      - run:
+          name: Push the new tag
+          command: git push origin $CIRCLE_BRANCH --tags --force
+
+  deploy:
+    docker:
+      - image: circleci/clojure:tools-deps-1.10.1.561
+    working_directory: ~/polylith
+    steps:
+      - attach_workspace:
+          at: ~/polylith
+      - restore_cache:
+          key: polylith-{{ checksum "deps.edn" }}
+      - run:
+          name: Deploy changed environments to clojars
+          command: clojure -A:deploy
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - check:
+          filters:
+            tags:
+              only: /^v.*/
+      - test:
+          requires:
+            - check
+          filters:
+            tags:
+              only: /^v.*/
+      - mark-as-stable:
+          requires:
+            - test
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/

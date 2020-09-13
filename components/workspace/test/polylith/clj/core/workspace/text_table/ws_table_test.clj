@@ -429,6 +429,14 @@
                            :vcs "git",
                            :thousand-sep ",",
                            :color-mode "none"},
+                :ws-reader {:name "polylith-clj",
+                            :project-url "https://github.com/tengstrand/polylith",
+                            :reader-version "1.0",
+                            :ws-contract-version 1,
+                            :language "Clojure",
+                            :type-position "postfix",
+                            :slash "/",
+                            :file-extensions [".clj" "cljc"]},
                 :environments [{:name "poly",
                                 :alias "poly",
                                 :type "environment",
@@ -512,6 +520,7 @@
                                              "components/test-helper/test"
                                              "components/test-runner/test"
                                              "components/text-table/test"
+                                             "components/user-config/test"
                                              "components/util/test"
                                              "components/validator/test"
                                              "components/workspace-clj/test"
@@ -774,6 +783,7 @@
                                              "components/test-helper/test"
                                              "components/test-runner/test"
                                              "components/text-table/test"
+                                             "components/user-config/test"
                                              "components/util/test"
                                              "components/validator/test"
                                              "components/workspace-clj/test"
@@ -2241,16 +2251,10 @@
                          :lib-imports-src [],
                          :lib-imports-test [],
                          :interface-deps ["change" "command" "common" "file" "util" "workspace" "workspace-clj"],
-                         :lib-deps []}]
-                :paths {:missing ["bases/poly-cli/test"
-                                  "components/common/test"
-                                  "components/command/test"
-                                  "components/help/test"
-                                  "components/shell/test"
-                                  "components/test-helper/test"
-                                  "components/test-runner/test"
-                                  "components/text-table/test"
-                                  "components/user-config/test"]}})
+                         :lib-deps []}]})
+
+
+
 
 (def workspace-with-profiles (-> workspace
                                  (assoc-in [:settings :profile->settings] {"default" {:paths ["components/file/src"
@@ -2262,123 +2266,128 @@
                                            (assoc-in [:user-input :active-dev-profiles] #{})))
 
 (deftest ws-table--without-loc-info--return-table-without-loc-info
-  (is (= ["  interface      brick           poly  core   dev"
-          "  ----------------------------   ----------   ---"
-          "  change         change          xx-   x--    xx-"
-          "  command        command         x-x   ---    x--"
-          "  common         common          x--   x--    x--"
-          "  creator        creator         xx-   ---    ---"
-          "  deps           deps            xx-   x--    xx-"
-          "  file           file            xx-   x--    ---"
-          "  git            git             xx-   x--    xx-"
-          "  help           help            x--   x--    x--"
-          "  path-finder    path-finder *   xxx   x--    xx-"
-          "  shell          shell           x--   x--    x--"
-          "  test-helper    test-helper     x--   ---    x--"
-          "  test-runner    test-runner     x--   ---    x--"
-          "  text-table     text-table      x--   x--    x--"
-          "  user-config    user-config     x--   x--    x--"
-          "  util           util            xx-   x--    xx-"
-          "  validator      validator       xx-   x--    xx-"
-          "  workspace      workspace *     xxx   x--    xx-"
-          "  workspace-clj  workspace-clj   xx-   ---    xx-"
-          "  -              poly-cli        x--   ---    x--"]
-         (ws-table/table workspace false false))))
+  (with-redefs [file/exists (fn [_] true)]
+    (is (= ["  interface      brick           poly  core   dev"
+            "  ----------------------------   ----------   ---"
+            "  change         change          xx-   x--    xx-"
+            "  command        command         xxx   ---    xx-"
+            "  common         common          xx-   x--    xx-"
+            "  creator        creator         xx-   ---    ---"
+            "  deps           deps            xx-   x--    xx-"
+            "  file           file            xx-   x--    ---"
+            "  git            git             xx-   x--    xx-"
+            "  help           help            xx-   x--    xx-"
+            "  path-finder    path-finder *   xxx   x--    xx-"
+            "  shell          shell           xx-   x--    xx-"
+            "  test-helper    test-helper     xx-   ---    xx-"
+            "  test-runner    test-runner     xx-   ---    xx-"
+            "  text-table     text-table      xx-   x--    xx-"
+            "  user-config    user-config     xx-   x--    xx-"
+            "  util           util            xx-   x--    xx-"
+            "  validator      validator       xx-   x--    xx-"
+            "  workspace      workspace *     xxx   x--    xx-"
+            "  workspace-clj  workspace-clj   xx-   ---    xx-"
+            "  -              poly-cli        xx-   ---    xx-"]
+           (ws-table/table workspace false false)))))
 
 (deftest ws-table--with-loc-info--return-table-with-loc-info
-  (is (= ["  interface      brick           poly   core     dev      loc   (t)"
-          "  ----------------------------   ------------   -----   -----------"
-          "  change         change          x-x-   x---    x-x-      134   343"
-          "  command        command         x--x   ----    x---      151     0"
-          "  common         common          x---   x---    x---      336    53"
-          "  creator        creator         xxx-   ----    ----      181   282"
-          "  deps           deps            x-x-   x---    x-x-      242   328"
-          "  file           file            x-x-   x---    ----      165     2"
-          "  git            git             x-x-   x---    x-x-       55    18"
-          "  help           help            x---   x---    x---      204     0"
-          "  path-finder    path-finder *   x-xx   x---    x-x-      591   343"
-          "  shell          shell           x---   x---    x---       19     0"
-          "  test-helper    test-helper     x---   ----    x---       73     0"
-          "  test-runner    test-runner     x---   ----    x---      108     0"
-          "  text-table     text-table      x---   x---    x---      145   117"
-          "  user-config    user-config     x---   x---    x---       18     0"
-          "  util           util            x-x-   x---    x-x-      290    64"
-          "  validator      validator       x-x-   x---    x-x-      420   810"
-          "  workspace      workspace *     x-xx   x---    x-x-      844 1,008"
-          "  workspace-clj  workspace-clj   x-x-   ----    x-x-      324   150"
-          "  -              poly-cli        x---   ----    x---       22     0"
-          "                                 4,322  3,463   3,976   4,322 3,518"]
-         (ws-table/table workspace true true))))
+  (with-redefs [file/exists (fn [_] true)]
+    (is (= ["  interface      brick           poly   core     dev      loc   (t)"
+            "  ----------------------------   ------------   -----   -----------"
+            "  change         change          x-x-   x---    x-x-      134   343"
+            "  command        command         x-xx   ----    x-x-      151     0"
+            "  common         common          x-x-   x---    x-x-      336    53"
+            "  creator        creator         xxx-   ----    ----      181   282"
+            "  deps           deps            x-x-   x---    x-x-      242   328"
+            "  file           file            x-x-   x---    ----      165     2"
+            "  git            git             x-x-   x---    x-x-       55    18"
+            "  help           help            x-x-   x---    x-x-      204     0"
+            "  path-finder    path-finder *   x-xx   x---    x-x-      591   343"
+            "  shell          shell           x-x-   x---    x-x-       19     0"
+            "  test-helper    test-helper     x-x-   ----    x-x-       73     0"
+            "  test-runner    test-runner     x-x-   ----    x-x-      108     0"
+            "  text-table     text-table      x-x-   x---    x-x-      145   117"
+            "  user-config    user-config     x-x-   x---    x-x-       18     0"
+            "  util           util            x-x-   x---    x-x-      290    64"
+            "  validator      validator       x-x-   x---    x-x-      420   810"
+            "  workspace      workspace *     x-xx   x---    x-x-      844 1,008"
+            "  workspace-clj  workspace-clj   x-x-   ----    x-x-      324   150"
+            "  -              poly-cli        x-x-   ----    x-x-       22     0"
+            "                                 4,322  3,463   3,976   4,322 3,518"]
+           (ws-table/table workspace true true)))))
 
 (deftest ws-table--with-profiles-without-loc-info--return-table-without-loc-info
-  (is (= ["  interface      brick           poly  core   dev"
-          "  ----------------------------   ----------   ---"
-          "  change         change          xx-   x--    xx-"
-          "  command        command         x-x   ---    x--"
-          "  common         common          x--   x--    x--"
-          "  creator        creator         xx-   ---    ---"
-          "  deps           deps            xx-   x--    xx-"
-          "  file           file            xx-   x--    xx-"
-          "  git            git             xx-   x--    xx-"
-          "  help           help            x--   x--    x--"
-          "  path-finder    path-finder *   xxx   x--    xx-"
-          "  shell          shell           x--   x--    x--"
-          "  test-helper    test-helper     x--   ---    x--"
-          "  test-runner    test-runner     x--   ---    x--"
-          "  text-table     text-table      x--   x--    x--"
-          "  user-config    user-config     x--   x--    x--"
-          "  util           util            xx-   x--    xx-"
-          "  validator      validator       xx-   x--    xx-"
-          "  workspace      workspace *     xxx   x--    xx-"
-          "  workspace-clj  workspace-clj   xx-   ---    xx-"
-          "  -              poly-cli        x--   ---    x--"]
-         (ws-table/table workspace-with-profiles false false))))
+  (with-redefs [file/exists (fn [_] true)]
+    (is (= ["  interface      brick           poly  core   dev"
+            "  ----------------------------   ----------   ---"
+            "  change         change          xx-   x--    xx-"
+            "  command        command         xxx   ---    xx-"
+            "  common         common          xx-   x--    xx-"
+            "  creator        creator         xx-   ---    ---"
+            "  deps           deps            xx-   x--    xx-"
+            "  file           file            xx-   x--    xx-"
+            "  git            git             xx-   x--    xx-"
+            "  help           help            xx-   x--    xx-"
+            "  path-finder    path-finder *   xxx   x--    xx-"
+            "  shell          shell           xx-   x--    xx-"
+            "  test-helper    test-helper     xx-   ---    xx-"
+            "  test-runner    test-runner     xx-   ---    xx-"
+            "  text-table     text-table      xx-   x--    xx-"
+            "  user-config    user-config     xx-   x--    xx-"
+            "  util           util            xx-   x--    xx-"
+            "  validator      validator       xx-   x--    xx-"
+            "  workspace      workspace *     xxx   x--    xx-"
+            "  workspace-clj  workspace-clj   xx-   ---    xx-"
+            "  -              poly-cli        xx-   ---    xx-"]
+           (ws-table/table workspace-with-profiles false false)))))
 
 (deftest ws-table--with-profiles-without-active-profile--return-table-including-all-profiles
-  (is (= ["  interface      brick           poly  core   dev  default"
-          "  ----------------------------   ----------   ------------"
-          "  change         change          xx-   x--    xx-    --   "
-          "  command        command         x-x   ---    x--    --   "
-          "  common         common          x--   x--    x--    --   "
-          "  creator        creator         xx-   ---    ---    --   "
-          "  deps           deps            xx-   x--    xx-    --   "
-          "  file           file            xx-   x--    xx-    xx   "
-          "  git            git             xx-   x--    xx-    --   "
-          "  help           help            x--   x--    x--    --   "
-          "  path-finder    path-finder *   xxx   x--    xx-    --   "
-          "  shell          shell           x--   x--    x--    --   "
-          "  test-helper    test-helper     x--   ---    x--    --   "
-          "  test-runner    test-runner     x--   ---    x--    --   "
-          "  text-table     text-table      x--   x--    x--    --   "
-          "  user-config    user-config     x--   x--    x--    --   "
-          "  util           util            xx-   x--    xx-    --   "
-          "  validator      validator       xx-   x--    xx-    --   "
-          "  workspace      workspace *     xxx   x--    xx-    --   "
-          "  workspace-clj  workspace-clj   xx-   ---    xx-    --   "
-          "  -              poly-cli        x--   ---    x--    --   "]
-         (ws-table/table workspace-with-profiles-no-active false false))))
+  (with-redefs [file/exists (fn [_] true)]
+    (is (= ["  interface      brick           poly  core   dev  default"
+            "  ----------------------------   ----------   ------------"
+            "  change         change          xx-   x--    xx-    --   "
+            "  command        command         xxx   ---    xx-    --   "
+            "  common         common          xx-   x--    xx-    --   "
+            "  creator        creator         xx-   ---    ---    --   "
+            "  deps           deps            xx-   x--    xx-    --   "
+            "  file           file            xx-   x--    xx-    xx   "
+            "  git            git             xx-   x--    xx-    --   "
+            "  help           help            xx-   x--    xx-    --   "
+            "  path-finder    path-finder *   xxx   x--    xx-    --   "
+            "  shell          shell           xx-   x--    xx-    --   "
+            "  test-helper    test-helper     xx-   ---    xx-    --   "
+            "  test-runner    test-runner     xx-   ---    xx-    --   "
+            "  text-table     text-table      xx-   x--    xx-    --   "
+            "  user-config    user-config     xx-   x--    xx-    --   "
+            "  util           util            xx-   x--    xx-    --   "
+            "  validator      validator       xx-   x--    xx-    --   "
+            "  workspace      workspace *     xxx   x--    xx-    --   "
+            "  workspace-clj  workspace-clj   xx-   ---    xx-    --   "
+            "  -              poly-cli        xx-   ---    xx-    --   "]
+           (ws-table/table workspace-with-profiles-no-active false false)))))
 
 (deftest ws-table--with-profiles-with-loc-info--return-table-without-loc-info
-  (is (= ["  interface      brick           poly   core     dev      loc   (t)"
-          "  ----------------------------   ------------   -----   -----------"
-          "  change         change           xx-    x--     xx-      134   343"
-          "  command        command          x-x    ---     x--      151     0"
-          "  common         common           x--    x--     x--      336    53"
-          "  creator        creator          xx-    ---     ---      181   282"
-          "  deps           deps             xx-    x--     xx-      242   328"
-          "  file           file             xx-    x--     xx-      165     2"
-          "  git            git              xx-    x--     xx-       55    18"
-          "  help           help             x--    x--     x--      204     0"
-          "  path-finder    path-finder *    xxx    x--     xx-      591   343"
-          "  shell          shell            x--    x--     x--       19     0"
-          "  test-helper    test-helper      x--    ---     x--       73     0"
-          "  test-runner    test-runner      x--    ---     x--      108     0"
-          "  text-table     text-table       x--    x--     x--      145   117"
-          "  user-config    user-config      x--    x--     x--       18     0"
-          "  util           util             xx-    x--     xx-      290    64"
-          "  validator      validator        xx-    x--     xx-      420   810"
-          "  workspace      workspace *      xxx    x--     xx-      844 1,008"
-          "  workspace-clj  workspace-clj    xx-    ---     xx-      324   150"
-          "  -              poly-cli         x--    ---     x--       22     0"
-          "                                 4,322  3,463   4,141   4,322 3,518"]
-         (ws-table/table workspace-with-profiles true false))))
+  (with-redefs [file/exists (fn [_] true)]
+    (is (= ["  interface      brick           poly   core     dev      loc   (t)"
+            "  ----------------------------   ------------   -----   -----------"
+            "  change         change           xx-    x--     xx-      134   343"
+            "  command        command          xxx    ---     xx-      151     0"
+            "  common         common           xx-    x--     xx-      336    53"
+            "  creator        creator          xx-    ---     ---      181   282"
+            "  deps           deps             xx-    x--     xx-      242   328"
+            "  file           file             xx-    x--     xx-      165     2"
+            "  git            git              xx-    x--     xx-       55    18"
+            "  help           help             xx-    x--     xx-      204     0"
+            "  path-finder    path-finder *    xxx    x--     xx-      591   343"
+            "  shell          shell            xx-    x--     xx-       19     0"
+            "  test-helper    test-helper      xx-    ---     xx-       73     0"
+            "  test-runner    test-runner      xx-    ---     xx-      108     0"
+            "  text-table     text-table       xx-    x--     xx-      145   117"
+            "  user-config    user-config      xx-    x--     xx-       18     0"
+            "  util           util             xx-    x--     xx-      290    64"
+            "  validator      validator        xx-    x--     xx-      420   810"
+            "  workspace      workspace *      xxx    x--     xx-      844 1,008"
+            "  workspace-clj  workspace-clj    xx-    ---     xx-      324   150"
+            "  -              poly-cli         xx-    ---     xx-       22     0"
+            "                                 4,322  3,463   4,141   4,322 3,518"]
+           (ws-table/table workspace-with-profiles true false)))))

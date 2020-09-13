@@ -17,4 +17,7 @@
                      :main-opts   ["-e" "(compile,'polylith.clj.core.migrator-cli.core)"]}
 
            :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
-                     :main-opts  ["-m" "uberdeps.uberjar"]}}}
+                     :main-opts  ["-m" "uberdeps.uberjar"
+                                  "--aliases" "aot"
+                                  "--main-class" "polylith.clj.core.migrator_cli.core"
+                                  "--target" "./target/migrator.jar"]}}}
