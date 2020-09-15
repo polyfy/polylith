@@ -95,8 +95,11 @@
       (when (.exists f)
         (io/delete-file f)))))
 
-(defn files-recursively [dir-path]
-  (drop-last (reverse (file-seq (io/file dir-path)))))
+(defn files [dir]
+  (map str (.list (io/file dir))))
+
+(defn files-recursively [dir]
+  (drop-last (reverse (file-seq (io/file dir)))))
 
 (defn paths-recursively [dir]
   (map str (files-recursively dir)))

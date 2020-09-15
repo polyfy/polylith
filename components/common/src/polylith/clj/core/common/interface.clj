@@ -1,5 +1,6 @@
 (ns polylith.clj.core.common.interface
-  (:require [polylith.clj.core.common.core :as core]
+  (:require [polylith.clj.core.common.core :as core])
+  (:require [polylith.clj.core.common.ws-dir :as ws-dir]
             [polylith.clj.core.common.class-loader :as class-loader]
             [polylith.clj.core.common.validate-args :as validate-args]))
 
@@ -42,5 +43,8 @@
 (defn color-mode [user-input]
   (core/color-mode user-input))
 
-(defn workspace-dir [user-input]
-  (core/workspace-dir user-input))
+(defn valid-config-file? [ws-dir color-mode]
+  (core/valid-config-file? ws-dir color-mode))
+
+(defn workspace-dir [user-input color-mode]
+  (ws-dir/workspace-dir user-input color-mode))

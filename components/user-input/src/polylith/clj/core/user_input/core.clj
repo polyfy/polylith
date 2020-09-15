@@ -47,6 +47,7 @@
                       :name name
                       :top-ns top-ns
                       :ws-dir ws-dir
+                      :search-for-ws-dir? (contains? (set args) "::")
                       :show-loc? (= "true" loc!)
                       :show-lib? (= "true" lib!)
                       :run-all-tests? (= "true" all!)

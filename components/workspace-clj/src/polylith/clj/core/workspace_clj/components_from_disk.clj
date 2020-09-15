@@ -7,7 +7,7 @@
 (defn read-component [ws-dir top-src-dir component-name interface-ns]
   (let [component-src-dir (str ws-dir "/components/" component-name "/src/" top-src-dir)
         component-test-dir (str ws-dir "/components/" component-name "/test/" top-src-dir)
-        interface-path-name (-> component-src-dir file/directory-paths first)
+        interface-path-name (-> component-src-dir file/directories first)
         interface-name (common/path-to-ns interface-path-name)
         src-dir (str component-src-dir interface-path-name)
         namespaces-src (ns-from-disk/namespaces-from-disk component-src-dir)

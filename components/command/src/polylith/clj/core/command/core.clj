@@ -43,23 +43,16 @@
     (validator/validate active-dev-profiles selected-environments settings environments color-mode)
     [false message/cant-be-executed-outside-ws-message]))
 
-(defn valid-config-file? [ws-dir color-mode]
-  (try
-    (and (file/exists (str ws-dir "/deps.edn"))
-         (:polylith (read-string (slurp (str ws-dir "/deps.edn")))))
-    (catch Exception e
-      (println (str (color/error color-mode "  Error: ") "couldn't read deps.edn: " (.getMessage e))))))
-
 (defn read-workspace [ws-dir user-input color-mode]
-  (when (valid-config-file? ws-dir color-mode)
+  (when (common/valid-config-file? ws-dir color-mode)
     (-> user-input
         ws-clj/workspace-from-disk
         ws/enrich-workspace
         change/with-changes)))
 
 (defn execute [{:keys [cmd arg1 name top-ns brick get interface show-lib? active-dev-profiles selected-environments unnamed-args] :as user-input}]
-  (let [ws-dir (common/workspace-dir user-input)
-        color-mode (common/color-mode user-input)
+  (let [color-mode (common/color-mode user-input)
+        ws-dir (common/workspace-dir user-input color-mode)
         environment-name (first selected-environments)
         workspace (read-workspace ws-dir user-input color-mode)
         [ok? message] (validate workspace cmd active-dev-profiles selected-environments color-mode)]

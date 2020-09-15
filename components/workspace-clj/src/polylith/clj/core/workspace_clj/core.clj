@@ -27,16 +27,16 @@
 
 (defn workspace-from-disk
   ([user-input]
-   (let [ws-dir (common/workspace-dir user-input)
+   (let [color-mode (or (:color-mode user-input) (user-config/color-mode) color/none)
+         ws-dir (common/workspace-dir user-input color-mode)
          config (read-string (slurp (str ws-dir "/deps.edn")))]
-     (workspace-from-disk ws-dir config user-input)))
-  ([ws-dir {:keys [polylith aliases]} user-input]
+     (workspace-from-disk ws-dir config user-input color-mode)))
+  ([ws-dir {:keys [polylith aliases]} user-input color-mode]
    (let [{:keys [vcs top-namespace interface-ns default-profile-name stable-since-tag-pattern env->alias ns->lib]} polylith
          top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
-         color-mode (or (:color-mode user-input) (user-config/color-mode) color/none)
          empty-char (user-config/empty-character)
          thousand-sep (user-config/thousand-separator)
-         component-names (file/directory-paths (str ws-dir "/components"))
+         component-names (file/directories (str ws-dir "/components"))
          components (components-from-disk/read-components ws-dir top-src-dir component-names interface-ns)
          bases (bases-from-disk/read-bases ws-dir top-src-dir)
          environments (envs-from-disk/read-environments ws-dir)
