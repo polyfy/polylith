@@ -50,7 +50,7 @@
 (defn file-name [^File file]
   (core/file-name file))
 
-(defn directory-paths [dir]
+(defn directories [dir]
   (core/directory-paths dir))
 
 (defn read-file [path]
@@ -59,8 +59,11 @@
 (defn delete-folder [file]
   (core/delete-folder file))
 
-(defn files-recursively [dir-path]
-  (core/files-recursively dir-path))
+(defn files-recursively [dir]
+  (core/files-recursively dir))
+
+(defn files [dir]
+  (core/files dir))
 
 (defn lines-of-code [file-path]
   (core/lines-of-code file-path))

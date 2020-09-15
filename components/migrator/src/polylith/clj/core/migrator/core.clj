@@ -20,7 +20,7 @@
 (defn source-paths [from-dir bricks-dir brick-name n#spaces dirs subdir]
   (mapv #(str (str-util/spaces n#spaces) "\"" subdir bricks-dir "/" brick-name "/" % "\"")
         (filterv #(contains? dirs %)
-                 (file/directory-paths (str from-dir "/" bricks-dir "/" brick-name)))))
+                 (file/directories (str from-dir "/" bricks-dir "/" brick-name)))))
 
 (defn src-dev-paths [from-dir bricks-dir brick-name]
   (source-paths from-dir bricks-dir brick-name 32 #{"src" "resources"} ""))
@@ -102,7 +102,7 @@
     [(str "                                 ]}}}")]))
 
 (defn create-dev [from-dir to-dir top-ns component-names base-names system-names]
-  (let [dev-brick-names (map common/path-to-ns (file/directory-paths (str from-dir "/environments/development/src/" (common/ns-to-path top-ns))))
+  (let [dev-brick-names (map common/path-to-ns (file/directories (str from-dir "/environments/development/src/" (common/ns-to-path top-ns))))
         dev-component-names (sort (filter #(contains? (set component-names) %) dev-brick-names))
         dev-base-names (sort (filter #(contains? (set base-names) %) dev-brick-names))
         libs (sort-by #(-> % first str) (config-key :dependencies (str from-dir "/environments/development")))]
@@ -110,7 +110,7 @@
                       (dev-deps-content from-dir top-ns dev-component-names dev-base-names system-names libs))))
 
 (defn create-env [from-dir to-dir env-name top-ns component-names base-names]
-  (let [env-brick-names (map common/path-to-ns (file/directory-paths (str from-dir "/systems/" env-name "/src/" (common/ns-to-path top-ns))))
+  (let [env-brick-names (map common/path-to-ns (file/directories (str from-dir "/systems/" env-name "/src/" (common/ns-to-path top-ns))))
         env-component-names (sort (filter #(contains? (set component-names) %) env-brick-names))
         env-base-names (sort (filter #(contains? (set base-names) %) env-brick-names))
         libs (sort-by #(-> % first str) (config-key :dependencies (str from-dir "/systems/" env-name)))]
@@ -136,9 +136,9 @@
 (defn migrate [from-dir]
   (let [to-dir (next-ws-dir from-dir)
         top-ns (-> :polylith (config-key from-dir) :top-namespace)
-        component-names (sort (file/directory-paths (str from-dir "/components")))
-        base-names (sort (file/directory-paths (str from-dir "/bases")))
-        system-names (file/directory-paths (str from-dir "/systems"))]
+        component-names (sort (file/directories (str from-dir "/components")))
+        base-names (sort (file/directories (str from-dir "/bases")))
+        system-names (file/directories (str from-dir "/systems"))]
     (file/create-dir to-dir)
     (copy-bricks from-dir to-dir component-names "components")
     (copy-bricks from-dir to-dir base-names "bases")

@@ -14,5 +14,5 @@
 
 (defn read-bases [ws-dir top-src-dir]
   "Reads bases from disk"
-  (let [base-names (file/directory-paths (str ws-dir "/bases"))]
+  (let [base-names (file/directories (str ws-dir "/bases"))]
     (vec (sort-by :name (map #(read-base ws-dir top-src-dir %) base-names)))))

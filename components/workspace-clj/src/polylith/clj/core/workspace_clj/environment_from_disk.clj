@@ -52,7 +52,7 @@
 
 (defn read-environments [ws-dir]
   (let [env-configs (conj (map #(env-map ws-dir %)
-                               (file/directory-paths (str ws-dir "/environments")))
+                               (file/directories (str ws-dir "/environments")))
                           {:env "development"
                            :dev? true
                            :env-dir (str ws-dir "/development")
