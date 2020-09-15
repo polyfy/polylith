@@ -5,6 +5,13 @@
 
 (use-fixtures :each helper/test-setup-and-tear-down)
 
+(deftest create-workspace--when-workspace-already-exists--return-error-message
+  (let [output (with-out-str
+                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
+                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example"))]
+    (is (= "  Workspace 'ws1' already exists.\n"
+           output))))
+
 (deftest create-workspace--trying-to-create-a-workspace-within-another-workspace--prints-out-error-messagex
   (let [output (with-out-str
                  (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example")
