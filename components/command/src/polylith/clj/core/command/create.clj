@@ -4,7 +4,7 @@
             [clojure.string :as str]))
 
 (def ent->name {"w" "my-workspace"
-                "e" "my-entity"
+                "e" "my-environment"
                 "b" "my-base"
                 "c" "my-component"})
 
