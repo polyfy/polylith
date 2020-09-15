@@ -22,9 +22,9 @@
                  (dir ".")
                  ;(dir "../poly-example/ws50")
                  ;(dir "../clojure-polylith-realworld-example-app")
-                 ws-clj/workspace-from-disk))
-                 ;ws/enrich-workspace
-                 ;change/with-changes))
+                 ws-clj/workspace-from-disk
+                 ws/enrich-workspace
+                 change/with-changes))
 
 (:messages workspace)
 (:changes workspace)
