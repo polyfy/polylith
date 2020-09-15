@@ -4,6 +4,7 @@
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.user-config.interface :as user-config]
+            [polylith.clj.core.path-finder.interface :as path-finder]
             [polylith.clj.core.workspace-clj.profile :as profile]
             [polylith.clj.core.workspace-clj.bases-from-disk :as bases-from-disk]
             [polylith.clj.core.workspace-clj.environment-from-disk :as envs-from-disk]
@@ -36,17 +37,20 @@
          top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
          empty-char (user-config/empty-character)
          thousand-sep (user-config/thousand-separator)
+         user-config-file (str (user-config/home-dir) "/.polylith/config.edn")
          component-names (file/directories (str ws-dir "/components"))
          components (components-from-disk/read-components ws-dir top-src-dir component-names interface-ns)
          bases (bases-from-disk/read-bases ws-dir top-src-dir)
          environments (envs-from-disk/read-environments ws-dir)
          profile->settings (profile/profile->settings aliases)
+         paths (path-finder/paths ws-dir environments profile->settings)
          settings (util/ordered-map :vcs (or vcs "git")
                                     :top-namespace top-namespace
                                     :interface-ns (or interface-ns "interface")
                                     :default-profile-name (or default-profile-name "default")
                                     :stable-since-tag-pattern (or stable-since-tag-pattern "stable-*")
                                     :color-mode color-mode
+                                    :user-config-file user-config-file
                                     :empty-char (or empty-char ".")
                                     :thousand-sep (or thousand-sep ",")
                                     :profile->settings profile->settings
@@ -58,4 +62,5 @@
                        :settings settings
                        :components components
                        :bases bases
-                       :environments environments))))
+                       :environments environments
+                       :paths paths))))

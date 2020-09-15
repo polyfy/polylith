@@ -38,14 +38,16 @@ If you have any old Leiningen based projects to migrated, follow the instruction
 - [Workspace](#workspace)
 - [Development](#development)
 - [Component](#component)
+- [Interface](#interface)
 - [Base](#base)
 - [Environment](#environment)
 - [Build](#build)
 - [Git](#git)
 - [Tagging](#tagging)
 - [Flags](#flags)
-- [Test](#test)
+- [Testing](#testing)
 - [Profile](#profile)
+- [Dependencies](#dependencies)
 - [Colors](#colors)
 
 ## Installation
@@ -82,6 +84,7 @@ poly create w name:example top-ns:se.example
 The workspace directory structure will end up like this:
 ```sh
 example           # workspace dir
+  .git            # git directory
   bases           # bases dir (empty)
   components      # components dir (empty)
   development
@@ -96,8 +99,11 @@ The directory makes it easier to find things and helps us reason about the syste
 Each top directory is responsible for its own part of a Polylith system.
 A `base` exposes a public API. A `component` is responsible for a specific domain 
 or part of the system. 
-An `environment` specifies our deployable artifacts and what components and bases they contain.
+An `environment` specifies our deployable artifacts and what libraries, components and bases they contain.
 Finally, we have the `development` environment that we use when we work with the code.
+
+A workspace is also always initialized to use [git](https://git-scm.com/) by default, 
+which is used to handle changes, but more on this later.
  
 _deps.edn_:
 
@@ -781,7 +787,7 @@ The bricks for the `development` environment is configured in `./deps.edn`:
 ...then the `resources` directory is also shown:<br>
 <img src="images/flags-resources.png" width="20%" alt="Status resources">
 
-## Test
+## Testing
 
 Nothing is marked to be tested at the moment, but if we change the `core` namespace in the `user` component
 by adding an extra `!`, that should do the trick:
@@ -1087,7 +1093,7 @@ Let's summarize the different ways to run the tests:
 
 When working with a Polylith system, we want to keep everything as simple as possible.
 We also want to be productive and it would be great if we could create new services without too much work.
-The Lego-like way of organising the code into bricks, helps us with both of these challenges.
+The Lego-like way of organising code into bricks, helps us with both of these challenges.
 
 One problem we normally have when developing software without using Polylith, is that the production environment
 and the development environment has a 1:1 relationship. This happens because we use the production codebase
@@ -1111,20 +1117,23 @@ The problem here is that it contains two components that share the same `user` i
 This will confuse both the classloader (if we start a REPL) and the IDE, because we now have
 two components using the same `se.example.user` namespace in the path, which is not a desirable situation.
 
-The solution is to use development profiles:<br>
+The solution is to use development `profiles`:<br>
 <img src="images/development.png" width="62%" alt="Command-line">
 
 By leaving out any component that implements the `user` interface from the `development` 
-environment and combine it with one of the two possible `profiles` it will result in a complete development
+environment and combine it with one of the two possible `profiles` we get a complete development
 environment. This solution allow us to work from a single `development` environment but still be able to
 mimic the various environments we have.
 The `default` profile (if exists) is automatically merged into the `development` environment, if no other profiles
 are selected.
 
-Now let's try to move from our current design to this:<br>
-<img src="images/production.png" width="37%" alt="Command-line">
+Now let's try to move from this:<br>
+<img src="images/command-line.png" width="35%" alt="Command-line">
 
-We need to decide how the `command-line` tool should communicate with `user-service` over the wire.
+...to this:<br>
+<img src="images/target-architecture.png" width="58%" alt="Command-line">
+
+First we need to decide how the `command-line` tool should communicate with `user-service` over the wire.
 After some searching, we found this [slacker](https://github.com/sunng87/slacker) library that 
 allow us to use [remote procedure calls](https://en.wikipedia.org/wiki/Remote_procedure_call) 
 in a simple way.
@@ -1135,7 +1144,7 @@ Let's create a checklist that will take us there:
     - [ ] Slacker library and libraries it needs.
     - [ ] Paths to the `user` component.
     - [ ] Paths to the `user-api` base.
-    - [ ] The `aot` and `uberjar` aliases.
+    - [ ] The `aot` and `uberjar` aliases (so we can build an uberjar).
 - [ ] Create the `user-api` base:
   - [ ] Implement the server.
 - [ ] Create the `user-remote` component:
@@ -1340,13 +1349,11 @@ Execute this from the workspace root in a separate terminal:
 cd environments/user-service/target
 java -jar user-service.jar
 ```
-
-After a second or two it shold show this:
 ```
 server started: http://127.0.0.1:2104
 ```
 
-Now execute this from the terminal we have already used:
+Now execute this from the other terminal:
 ```
 cd environments/command-line/target
 java -jar command-line.jar Lisa
@@ -1356,15 +1363,17 @@ The output should be:
 Hello Lisa - from the server!!
 ```
 
-Now execute the `info` and deselect all profiles by passing in `+`:
+Now execute the `info` command. The `+` will inactivate all profiles:
 ```
 poly info +
 ```
+
+Let's compare with the target design:
 | | |
 |:-|:-| 
 |<img src="images/info-15.png" width="80%"> | <img src="images/prod-and-dev.png">|
 
-It looks like we got everything right! 
+Looks like we got everything right! 
 
 The profile flags, `xx`, follows the same pattern as for
 bricks and environments except that the last `Run the tests` flag is omitted.
@@ -1374,8 +1383,8 @@ What we should have done was to first deactivate the `default` profile and activ
 profile so that the development environment could treat the component as source code:<br>
 <img src="images/refresh-ws-2.png" width="20%">
 
-These settings are only used by the IDE, but to switch to the `remote` profile when running a tool
-command, we need to pass in `+remote`:
+These settings are only used by the IDE, but to switch to the `remote` profile when running a command,
+we need to pass in `+remote`:
 ```sh
 poly info +remote
 ```
@@ -1393,20 +1402,49 @@ The tool complains and doesn't like that we just included both `user` and `user-
 environment!
 
 The profiles can also contain paths to environments, but right now we have no such paths and
-therefore all profiles are marked witn `--` in the environment section.
+therefore all profiles are marked with `--` in the environment section.
 
+## Depencencies
 
+To explain dependencies, it would be good to use a workspace that contains more bricks than we have right now.
+To save us some work,let's use the [Realwold example app](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/clojure-deps):
 
+Do this from outside the `example` workspace:
+```sh
+git clone git@github.com:furkan3ayraktar/clojure-polylith-realworld-example-app.git
+cd clojure-polylith-realworld-example-app
+git checkout clojure-deps
+```
 
+```
+poly info
+```
+<img src="images/realworld-info-1.png" width="30%">
 
+That's better. Now let's have a look at the dependencies:
 
+```
+poly deps
+```
+<img src="images/realworld-deps-interfaces.png" width="30%">
 
+This is all the dependencies to dependencies we have in the project.
+Notice the yellow color of the headings. This is because components and bases can only
+depend on `interfaces`. 
 
+If we real the diagram horizontally, we can see that the `article` component depends on `database`, 
+`profile` and `spec`. If we read vertically, we can see that `article` is used by 
+`comment` and `rest-api`.
 
+There is a way to view the the components dependencies, and that is to specify an `environment`:
+```
+poly deps env:rb
+```
+<img src="images/realworld-deps-components.png" width="30%">
 
+The `+` signs here are _indirect dependencies_ which are components that are indirectly used.
 
-
-
+user > log
 
 
 ## Colors

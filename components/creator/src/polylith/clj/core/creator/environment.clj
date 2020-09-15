@@ -27,7 +27,7 @@
 (defn create [{:keys [ws-dir environments settings]} env]
   (let [color-mode (:color-mode settings color/none)]
     (if (common/find-environment env environments)
-      (println (str "Environment " (color/environment env color-mode) " (or alias) already exists."))
+      (println (str "  Environment " (color/environment env color-mode) " (or alias) already exists."))
       (do
         (create-env ws-dir env)
         :ok))))

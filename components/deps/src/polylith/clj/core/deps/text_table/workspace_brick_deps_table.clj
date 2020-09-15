@@ -48,9 +48,10 @@
 (defn table [{:keys [settings components bases]} environment]
   (let [{:keys [color-mode empty-char]} settings
         deps (:deps environment)
-        brick-names (map key deps)
-        bricks (filter #(contains? (set brick-names) (:name %))
+        brick-names-set (set (map key deps))
+        bricks (filter #(contains? brick-names-set (:name %))
                        (concat components bases))
+        brick-names (map :name bricks)
         entities (sort-by (juxt #(-> % :type sorter) :name)
                           (set (mapcat brick-entity (map second deps))))
         brick->deps (into {} (mapv (juxt identity #(-> % deps :direct set)) brick-names))
