@@ -12,7 +12,7 @@
                  (helper/execute-command "ws1" "create" "environment" "name:env1"))]
 
     (is (= (str "  It's recommended to add an alias to :env->alias in deps.edn for the env1 environment.\n"
-                "Environment env1 (or alias) already exists.\n")
+                "  Environment env1 (or alias) already exists.\n")
            (color/clean-colors output)))))
 
 (deftest create-environment--performs-expected-actions

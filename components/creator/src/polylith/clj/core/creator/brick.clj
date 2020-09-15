@@ -7,7 +7,7 @@
 
 (defn create-brick [workspace brick-name create-fn]
   (if (common/find-brick brick-name workspace)
-    (println (str "The brick '" brick-name "' already exists."))
+    (println (str "  The brick '" brick-name "' already exists."))
     (do
       (create-fn)
       (println create-brick-message))))

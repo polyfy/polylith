@@ -11,7 +11,7 @@
                  (helper/execute-command "ws1" "create" "b" "name:my-base")
                  (helper/execute-command "ws1" "create" "base" "name:my-base"))]
     (is (= (str brick/create-brick-message "\n"
-                "The brick 'my-base' already exists.\n")
+                "  The brick 'my-base' already exists.\n")
            output))))
 
 (deftest create-base--performs-expected-actions

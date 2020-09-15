@@ -11,7 +11,7 @@
                  (helper/execute-command "ws1" "create" "c" "name:my-component")
                  (helper/execute-command "ws1" "create" "component" "name:my-component"))]
     (is (= (str brick/create-brick-message "\n"
-                "The brick 'my-component' already exists.\n")
+                "  The brick 'my-component' already exists.\n")
            output))))
 
 (deftest create-component--without-giving-an-interface--performs-expected-actions
