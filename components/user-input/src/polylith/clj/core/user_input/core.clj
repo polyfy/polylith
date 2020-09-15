@@ -35,7 +35,6 @@
                 all-bricks!
                 dev!
                 env!
-                lib!
                 loc!]} named-args]
     (util/ordered-map :args (vec args)
                       :cmd (first args)
@@ -49,7 +48,6 @@
                       :ws-dir ws-dir
                       :search-for-ws-dir? (contains? (set args) "::")
                       :show-loc? (= "true" loc!)
-                      :show-lib? (= "true" lib!)
                       :run-all-tests? (= "true" all!)
                       :run-all-brick-tests? (or (= "true" all!)
                                                 (= "true" all-bricks!))

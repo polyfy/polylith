@@ -1,14 +1,13 @@
 (ns polylith.clj.core.command.core
-  (:require [clojure.pprint :as pp]
-            [polylith.clj.core.command.create :as create]
-            [polylith.clj.core.command.deps :as deps]
+  (:require [polylith.clj.core.command.create :as create]
+            [polylith.clj.core.command.dependencies :as dependencies]
             [polylith.clj.core.command.exit-code :as exit-code]
             [polylith.clj.core.command.info :as info]
             [polylith.clj.core.command.message :as message]
             [polylith.clj.core.command.test :as test]
             [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.common.interface :as common]
-            [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.deps.interface :as deps]
             [polylith.clj.core.help.interface :as help]
             [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.util.interface.color :as color]
@@ -50,7 +49,7 @@
         ws/enrich-workspace
         change/with-changes)))
 
-(defn execute [{:keys [cmd arg1 name top-ns brick get interface show-lib? active-dev-profiles selected-environments unnamed-args] :as user-input}]
+(defn execute [{:keys [cmd arg1 name top-ns brick get interface active-dev-profiles selected-environments unnamed-args] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (common/workspace-dir user-input color-mode)
         environment-name (first selected-environments)
@@ -60,10 +59,11 @@
       (case cmd
         "check" (check workspace color-mode)
         "create" (create/create ws-dir workspace arg1 name top-ns interface color-mode)
-        "deps" (deps/deps workspace environment-name brick unnamed-args show-lib?)
+        "deps" (dependencies/deps workspace environment-name brick unnamed-args)
         "diff" (diff workspace)
         "help" (help arg1 color-mode)
         "info" (info/info workspace unnamed-args)
+        "libs" (deps/print-lib-table workspace)
         "test" (test/run workspace unnamed-args)
         "ws" (ws-explorer/print-ws workspace get)
         (unknown-command cmd))
