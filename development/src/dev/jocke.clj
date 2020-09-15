@@ -9,15 +9,14 @@
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.help.interface :as help]
-            [polylith.clj.core.user-input.interface :as user-input]
-            [deps-deploy.deps-deploy :as deps-deploy])
+            [polylith.clj.core.user-input.interface :as user-input])
   (:refer-clojure :exclude [base]))
 
 ;(require '[dev.jocke :as z])
 ;(def workspace z/workspace)
 
 (defn dir [ws-dir]
-  (user-input/extract-params [(str "ws-dir:" ws-dir)]))
+  (user-input/extract-params ["info" (str "ws-dir:" ws-dir)]))
 
 (def workspace (->
                  (dir ".")
@@ -49,17 +48,3 @@
 (def component (common/find-component "common" components))
 (def component (common/find-component "article" components))
 (def base (common/find-base "poly-cli" bases))
-
-(def input (user-input/extract-params ["build" "env:poly" ":aot"]))
-(def input (user-input/extract-params ["build" "env:dev" ":aot"]))
-
-(builder/build workspace input "none")
-
-;(builder-core/find-main-class bases environment)
-;(:base-names environment)
-
-(uberdeps/)
-
-(def coordinates (deps-deploy/coordinates-from-pom (slurp "environments/migrator/pom.xml")))
-(def artifacts (deps-deploy/all-artifacts false (second (:coordinates coordinates)) "environments/migrator/target/migrator.jar"))
-artifacts
