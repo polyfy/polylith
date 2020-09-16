@@ -9,7 +9,7 @@
             [polylith.clj.core.validator.m108-environment-with-multi-implementing-component :as m108]
             [polylith.clj.core.validator.m109-missing-libraries :as m109]
             [polylith.clj.core.validator.m201-mismatching-parameters :as m201]
-            [polylith.clj.core.validator.m202-invalid-src-reference :as m202]
+            [polylith.clj.core.validator.m202-missing-paths :as m202]
             [polylith.clj.core.validator.m203-path-exists-in-both-dev-and-profile :as m203]
             [polylith.clj.core.validator.m204-lib-deps-exists-in-both-dev-and-profile :as m204]
             [polylith.clj.core.validator.m205-reference-to-missing-library-in-ns-lib :as m205]
