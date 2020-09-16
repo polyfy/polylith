@@ -54,7 +54,6 @@
     {:dev? :dev-q
      :run-tests? :run-tests-q
      :show-loc? :show-loc-q
-     :show-lib? :show-lib-q
      :run-all-brick-tests? :run-all-brick-tests-q
      :run-env-tests? :run-env-tests-q
      :show-resources? :show-resources-q
