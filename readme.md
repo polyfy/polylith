@@ -1556,9 +1556,9 @@ If we only give the brick:
 ```
 poly deps brick:article
 ```
-<img src="images/realworld-deps-interface.png" width="9%">
+<img src="images/realworld-deps-interface.png" width="30%">
 
-..it lists all used interfaces for that brick.
+..it lists all interfaces it uses and also for that brick.
 
 ## Libraries
 

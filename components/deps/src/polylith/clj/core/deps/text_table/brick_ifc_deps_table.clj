@@ -12,10 +12,10 @@
     (map-indexed #(interface-cell (+ %1 3) %2)
                  interface-names)))
 
-(defn used-by-interface [{:keys [name interface-deps]} interface-name]
+(defn used-by-interface [{:keys [name type interface-deps]} interface-name]
   (when (-> (filter #(= interface-name %) interface-deps)
             empty? not)
-    [[name :yellow]]))
+    [[name (shared/type->color type)]]))
 
 (defn table [{:keys [components bases settings]} brick]
   (let [color-mode (:color-mode settings)
