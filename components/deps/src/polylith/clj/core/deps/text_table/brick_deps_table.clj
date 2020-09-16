@@ -1,38 +1,18 @@
 (ns polylith.clj.core.deps.text-table.brick-deps-table
-  (:require [polylith.clj.core.common.interface :as common]
+  (:require [polylith.clj.core.deps.text-table.shared :as shared]
+            [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.text-table.interface :as text-table]
             [polylith.clj.core.deps.brick-deps :as brick-deps]
             [polylith.clj.core.util.interface.color :as color]))
 
-(def type->color {"component" :green
-                  "base" :blue})
-
-(defn deps-cell [column row [name color]]
-  (text-table/cell column row name color :left :horizontal))
-
-(defn deps-column [column header rows]
-  (let [cells (concat
-                [(text-table/cell column 1 header :none :left :horizontal)]
-                (map-indexed #(deps-cell column (+ %1 3) %2)
-                             rows))
-        line (text-table/line 2 cells)]
-    (text-table/merge-cells cells line)))
-
-(defn brick-headers [{:keys [name type]} color-mode]
-  [(text-table/cell 3 1 "<" :none :left :horizontal)
-   (text-table/cell 5 1 (color/brick type name color-mode) :none :left :horizontal)
-   (text-table/cell 7 1 ">" :none :left :horizontal)
-   (text-table/cell 9 1 "uses" :none :left :horizontal)])
-
-(defn table [{:keys [components bases settings]} environment brick]
-  (let [color-mode (:color-mode settings)
-        bricks (concat components bases)
+(defn table [workspace environment brick]
+  (let [color-mode (-> workspace :settings :color-mode)
         brick-name (:name brick)
-        brick->color (into {} (map (juxt :name #(-> % :type type->color)) bricks))
+        brick->color (shared/brick->color workspace)
         {:keys [dependers dependees]} (brick-deps/deps environment brick->color brick-name)
-        used-by-column (deps-column 1 "used by" dependers)
-        uses-column (deps-column 9 "uses" dependees)
-        headers (brick-headers brick color-mode)
+        used-by-column (shared/deps-column 1 "used by" dependers)
+        uses-column (shared/deps-column 9 "uses" dependees)
+        headers (shared/brick-headers brick color-mode)
         spaces (text-table/spaces 1 [2 4 6 8] (repeat "  "))]
     (text-table/table "  " color-mode used-by-column uses-column headers spaces)))
 
