@@ -29,13 +29,13 @@
 
          "  The second table shows the following columns (where 'brick' is either a " (color/component "component" color-mode) " or a " (color/base "base" color-mode) "):\n"
          "    " (color/interface "interface" color-mode) "     Interfaces are " (color/interface "yellow" color-mode) " and get their names from the first namespace that follows the top namespace,\n"
-         "                  e.g. " (shared/interface-ns "interface" color-mode) ". An interface can be implemented by more than one component.\n\n"
+         "                  e.g. " (shared/component-ns "interface" color-mode) ". An interface can be implemented by more than one component.\n\n"
 
          "    " (color/component "component" color-mode) "     Components are " (color/component "green" color-mode) " and get their names from directories in the 'components' root directory.\n\n"
 
          "    " (color/base "base" color-mode) "          Bases are " (color/base "blue" color-mode) " and get their names from directories in the 'bases' root directory.\n\n"
 
-         "    " (color/environment "environment" color-mode)  "   Environments are " (color/environment "purple" color-mode) " and get their names from directories in the 'environments' root directory.\n"
+         "    " (color/environment "environment" color-mode) "   Environments are " (color/environment "purple" color-mode) " and get their names from directories in the 'environments' root directory.\n"
          "                  Each environment column has three characters.\n"
          "                    First:\n"
          "                      'x' = The brick's 'src' folder is part of the environment, or '-' if not.\n"

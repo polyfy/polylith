@@ -1558,7 +1558,7 @@ poly deps brick:article
 ```
 <img src="images/realworld-deps-interface.png" width="30%">
 
-..it lists all interfaces it uses and also for that brick.
+..it lists all interfaces it uses and also what bricks that depend on it.
 
 ## Libraries
 
@@ -1639,4 +1639,4 @@ If you want to use the same colors in your terminal, here they are:<br>
 <img src="images/polylith-colors.png" width="50%" alt="Polylith colors">
 
 If the colors (f8eeb6, bfefc5, 77bcfc, e2aeff, cccccc, 24272b, ee9b9a) looks familiar to you, it's because they are 
-more or less stolen from the [Borealis](https://github.com/Misophistful/borealis-cursive-theme) coloor schema!
+more or less stolen from the [Borealis](https://github.com/Misophistful/borealis-cursive-theme) color schema!

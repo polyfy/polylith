@@ -11,4 +11,4 @@
     "deps" (deps/print-help color-mode)
     "info" (info/print-help color-mode)
     "test" (test/print-help color-mode)
-    (summary/print-help color-mode)))
+    (summary/print-help)))
