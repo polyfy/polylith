@@ -946,7 +946,7 @@ Ran 1 tests containing 1 assertions.
 ```
 
 
-OOps, the test failed!  
+Oops, the test failed!
 Remember that we added an extra `!` so now we need to update the 
 corresponding test accordingly:
 ```clojure

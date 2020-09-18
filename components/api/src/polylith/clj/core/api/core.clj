@@ -9,6 +9,6 @@
         workspace (-> user-input
                       ws-clj/workspace-from-disk
                       ws/enrich-workspace
-                      change/with-changes)]
+                      change/with-last-build-changes)]
     (filterv #(not= "development" %)
-             (-> workspace :changes :changed-environments))))
+             (-> workspace :changes :changed-or-affected-environments))))

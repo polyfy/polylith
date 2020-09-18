@@ -1,6 +1,4 @@
-(ns polylith.clj.core.help.summary
-  (:require [polylith.clj.core.util.interface.color :as color]))
-
+(ns polylith.clj.core.help.summary)
 
 (def help-text
   (str
@@ -47,6 +45,8 @@
     "    poly help deps :env :brick\n"
     "    poly info\n"
     "    poly info :loc\n"
+    "    poly info ::\n"
+    "    poly info ws-dir:another-ws\n"
     "    poly libs\n"
     "    poly test\n"
     "    poly test env:myenv\n"

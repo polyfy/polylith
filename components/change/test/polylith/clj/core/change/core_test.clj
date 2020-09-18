@@ -1,6 +1,5 @@
 (ns polylith.clj.core.change.core-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.change.core :as core]))
 
 (def files ["components/change/test/polylith/clj/core/change/brick_test.clj"
@@ -134,6 +133,7 @@
           :changed-components ["change" "deps"]
           :changed-bases []
           :changed-environments []
+          :changed-or-affected-environments ["cli" "core" "dev"]
           :env->indirect-changes {"cli" ["cli" "command" "validator" "workspace"]
                                   "core" ["cli" "command" "validator" "workspace"]
                                   "dev" ["cli" "command" "validator" "workspace"]}
@@ -153,6 +153,7 @@
           :changed-components ["change" "deps"]
           :changed-bases []
           :changed-environments []
+          :changed-or-affected-environments ["cli" "core" "dev"]
           :env->indirect-changes {"cli" ["cli" "command" "validator" "workspace"]
                                   "core" ["cli" "command" "validator" "workspace"]
                                   "dev" ["cli" "command" "validator" "workspace"]}
@@ -172,6 +173,7 @@
           :changed-components ["change" "deps"]
           :changed-bases []
           :changed-environments []
+          :changed-or-affected-environments ["cli" "core" "dev"]
           :env->indirect-changes {"cli" ["cli" "command" "validator" "workspace"]
                                   "core" ["cli" "command" "validator" "workspace"]
                                   "dev" ["cli" "command" "validator" "workspace"]}

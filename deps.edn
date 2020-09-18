@@ -1,8 +1,11 @@
 {:polylith {:top-namespace "polylith.clj.core"
             :interface-ns "interface"
             :default-profile-name "default"
+            :build-tag-pattern "v*"
             :stable-since-tag-pattern "stable-*"
-            :env->alias {"core" "core"
+            :env->alias {"api" "api"
+                         "core" "core"
+                         "deployer" "depl"
                          "migrator" "migr"
                          "poly" "poly"
                          "development" "dev"}

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.git.git-test
+(ns polylith.clj.core.git.interface-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.git.interface :as git]))
 

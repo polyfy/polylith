@@ -70,6 +70,7 @@
             (str "            :top-namespace \"se.example\"")
             (str "            :interface-ns \"interface\"")
             (str "            :default-profile-name \"default\"")
+            (str "            :build-tag-pattern \"v*\"")
             (str "            :stable-since-tag-pattern \"stable-*\"")
             (str "            :env->alias {\"development\" \"dev\"}")
             (str "            :ns->lib {}}")

@@ -1,8 +1,7 @@
 (ns polylith.clj.core.ws-explorer.core
-  (:require [clojure.pprint :as pp]
-            [clojure.walk :as walk]
-            [polylith.clj.core.util.interface :as util]
-            [puget.printer :as puget]))
+  (:require [clojure.walk :as walk]
+            [puget.printer :as puget]
+            [polylith.clj.core.util.interface :as util]))
 
 (def color-schema
   {:color-scheme {:nil       [:magenta]

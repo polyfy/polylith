@@ -33,7 +33,7 @@
          config (read-string (slurp (str ws-dir "/deps.edn")))]
      (workspace-from-disk ws-dir config user-input color-mode)))
   ([ws-dir {:keys [polylith aliases]} user-input color-mode]
-   (let [{:keys [vcs top-namespace interface-ns default-profile-name stable-since-tag-pattern env->alias ns->lib]} polylith
+   (let [{:keys [vcs top-namespace interface-ns default-profile-name build-tag-pattern stable-since-tag-pattern env->alias ns->lib]} polylith
          top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
          empty-char (user-config/empty-character)
          thousand-sep (user-config/thousand-separator)
@@ -48,6 +48,7 @@
                                     :top-namespace top-namespace
                                     :interface-ns (or interface-ns "interface")
                                     :default-profile-name (or default-profile-name "default")
+                                    :build-tag-pattern (or build-tag-pattern "v*")
                                     :stable-since-tag-pattern (or stable-since-tag-pattern "stable-*")
                                     :color-mode color-mode
                                     :user-config-file user-config-file
