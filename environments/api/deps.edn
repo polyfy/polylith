@@ -23,4 +23,10 @@
         mvxcvi/puget {:mvn/version "1.3.1"}}
 
  :aliases {:test {:extra-paths []
-                  :extra-deps  {}}}}
+                  :extra-deps  {}}
+
+           :aot     {:extra-paths ["classes"]
+                     :main-opts   ["-e" "(compile,'polylith.clj.core.api.interface)"]}
+
+           :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
+                     :main-opts  ["-m" "uberdeps.uberjar"]}}}
