@@ -38,7 +38,7 @@
 (defn create-dir [^String path]
   (.mkdir (File. path)))
 
-(defn exists [path]
+(defn exists [^String path]
   (.exists (File. path)))
 
 (defn absolute-path [path]

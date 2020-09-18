@@ -1,28 +1,26 @@
+
 {:paths ["../../components/api/src"
          "../../components/change/src"
          "../../components/common/src"
-         "../../components/deployer/src"
          "../../components/deps/src"
          "../../components/file/src"
          "../../components/git/src"
          "../../components/lib-dep/src"
          "../../components/path-finder/src"
          "../../components/shell/src"
+         "../../components/text-table/src"
          "../../components/user-config/src"
          "../../components/user-input/src"
-         "../../components/text-table/src"
          "../../components/util/src"
          "../../components/validator/src"
          "../../components/workspace/src"
          "../../components/workspace-clj/src"
-         "../../components/ws-explorer/src"
-         "../../bases/deployer-cli/src"]
+         "../../components/ws-explorer/src"]
 
  :deps {org.clojure/clojure {:mvn/version "1.10.1"}
         org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}
         me.raynes/fs {:mvn/version "1.4.6"}
-        mvxcvi/puget {:mvn/version "1.3.1"}
-        slipset/deps-deploy {:mvn/version "0.1.0"}}
+        mvxcvi/puget {:mvn/version "1.3.1"}}
 
  :aliases {:test {:extra-paths []
                   :extra-deps  {}}}}

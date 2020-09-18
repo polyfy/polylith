@@ -25,8 +25,8 @@
   (doseq [file (-> workspace :changes :changed-files)]
     (println file)))
 
-(defn help [cmd color-mode]
-  (help/print-help cmd color-mode))
+(defn help [cmd ent color-mode]
+  (help/print-help cmd ent color-mode))
 
 (defn unknown-command [cmd]
   (println (str "  Unknown command '" cmd "'. Type 'help' for help.")))
@@ -47,13 +47,15 @@
     (-> user-input
         ws-clj/workspace-from-disk
         ws/enrich-workspace
-        change/with-changes)))
+        change/with-last-stable-changes)))
 
-(defn execute [{:keys [cmd arg1 name top-ns brick get interface active-dev-profiles selected-environments unnamed-args] :as user-input}]
+(defn execute [{:keys [cmd args name top-ns brick get interface active-dev-profiles selected-environments unnamed-args] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (common/workspace-dir user-input color-mode)
         environment-name (first selected-environments)
         workspace (read-workspace ws-dir user-input color-mode)
+        arg1 (second args)
+        arg2 (-> args rest second)
         [ok? message] (validate workspace cmd active-dev-profiles selected-environments color-mode)]
     (if ok?
       (case cmd
@@ -61,7 +63,7 @@
         "create" (create/create ws-dir workspace arg1 name top-ns interface color-mode)
         "deps" (dependencies/deps workspace environment-name brick unnamed-args)
         "diff" (diff workspace)
-        "help" (help arg1 color-mode)
+        "help" (help arg1 arg2 color-mode)
         "info" (info/info workspace unnamed-args)
         "libs" (deps/print-lib-table workspace)
         "test" (test/run workspace unnamed-args)

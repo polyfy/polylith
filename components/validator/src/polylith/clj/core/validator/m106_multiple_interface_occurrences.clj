@@ -26,5 +26,5 @@
                                  env-components)))))
 
 (defn errors [components environments color-mode]
-  "Checks if more than one component implements the same interface in an environment."
-  (mapcat #(env-errors % components color-mode) environments))
+  (mapcat #(env-errors % components color-mode)
+          (filter #(-> % :dev? not) environments)))

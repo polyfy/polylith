@@ -1,8 +1,10 @@
 (ns dev.jocke
   (:require [clojure.set :as set]
             [clojure.string :as str]
+            [polylith.clj.core.api.interface :as api]
             [polylith.clj.core.workspace.interface :as ws]
             [polylith.clj.core.change.interface :as change]
+            [polylith.clj.core.git.interface :as git]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.workspace-clj.interface :as ws-clj]
@@ -24,7 +26,8 @@
                  ;(dir "../clojure-polylith-realworld-example-app")
                  ws-clj/workspace-from-disk
                  ws/enrich-workspace
-                 change/with-changes))
+                 change/with-last-stable-changes))
+                 ;change/with-last-build-changes))
 
 (:messages workspace)
 (:changes workspace)
@@ -48,3 +51,43 @@
 (def component (common/find-component "common" components))
 (def component (common/find-component "article" components))
 (def base (common/find-base "poly-cli" bases))
+
+(map :name environments)
+
+(def env-bricks (set (concat component-names base-names)))
+(def changed-components (-> workspace :changes :changed-components))
+(def changed-bases (-> workspace :changes :changed-bases))
+(def changed-bricks (set (concat changed-components changed-bases)))
+(def brick-changed? (-> (set/intersection bricks changed-bricks)
+                        empty? not))
+
+(defn env-changed? [{:keys [name component-names base-names]}
+                    {:keys [changed-components changed-bases changed-environments]}]
+  (let [bricks (set (concat component-names base-names))
+        changed-bricks (set (concat changed-components changed-bases))
+        brick-changed? (-> (set/intersection bricks changed-bricks)
+                           empty? not)
+        environment-changed? (contains? (set changed-environments) name)]
+    (or brick-changed? environment-changed?)))
+
+(env-changed? environment changes)
+
+(def name (:name environment))
+(def component-names (:component-names environment))
+(def base-names (:base-names environment))
+
+
+
+
+
+; last-stable 035cc0989598a5bb86f556f8e542adc2dad2eee6
+(-> workspace :changes :sha1)
+; last-release 80f3c3a06b276e0fe5abab449a89593a113b45d6
+(-> workspace :changes)
+
+(git/diff "." "035cc0989598a5bb86f556f8e542adc2dad2eee6" nil)
+(git/diff "." "80f3c3a06b276e0fe5abab449a89593a113b45d6" nil)
+
+
+
+(api/changed-environments)

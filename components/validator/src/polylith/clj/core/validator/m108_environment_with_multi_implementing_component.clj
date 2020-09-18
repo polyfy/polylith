@@ -20,7 +20,7 @@
         multi-components (set (mapcat multi-impl-components interfaces))
         illegal-components (sort (set/intersection component-names multi-components))
         components-msg (str/join ", " (map #(color/component % color-mode) illegal-components))
-        message (str "Components with an interface that are implemented by more than one component "
+        message (str "Components with an interface that is implemented by more than one component "
                      "is not allowed for the " (color/environment "development" color-mode) " environment. "
                      "They should be added to development profiles instead: " components-msg)]
     (when (-> illegal-components empty? not)

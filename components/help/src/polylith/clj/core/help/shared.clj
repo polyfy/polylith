@@ -2,12 +2,12 @@
   (:require [polylith.clj.core.util.interface.color :as color]
             [clojure.string :as str]))
 
-(defn interface-ns
+(defn component-ns
   ([color-mode]
-   (interface-ns "" color-mode))
+   (component-ns "" color-mode))
   ([ifc-ns color-mode]
    (str (color/namespc "com.my.company" color-mode) "."
-        (color/interface "myinterface" color-mode)
+        (color/component "mycomponent" color-mode)
         (if (str/blank? ifc-ns)
           ""
-          (str "." (color/namespc ifc-ns color-mode))))))
+          (str "." (color/interface ifc-ns color-mode))))))

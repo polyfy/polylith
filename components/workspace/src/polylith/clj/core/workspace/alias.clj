@@ -8,7 +8,7 @@
 (defn undefined-env [index env]
   [env (str "?" (inc index))])
 
-(defn abbrivated-envs [env->alias src-names]
+(defn abbreviated-envs [env->alias src-names]
   (let [undefined-envs (set/difference (set src-names)
                                        (set (keys env->alias)))]
     (if (empty? undefined-envs)
@@ -23,4 +23,4 @@
                         env->alias
                         (conj env->alias ["development" "dev"]))
                       {"development" "dev"})]
-    (abbrivated-envs short-names src-names)))
+    (abbreviated-envs short-names src-names)))

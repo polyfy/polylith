@@ -1,5 +1,6 @@
 (ns polylith.clj.core.git.core
   (:require [clojure.string :as str]
+            [polylith.clj.core.git.version :as version]
             [polylith.clj.core.shell.interface :as shell]))
 
 (defn is-git-repo? [ws-dir]
@@ -45,6 +46,13 @@
 
 (defn first-commited-sha [ws-dir]
   (last (str/split-lines (shell/sh "git" "log" "--format=%H" :dir ws-dir))))
+
+(defn latest-build [ws-dir pattern]
+  (if-let [tag-name (last (filter #(version/version? pattern %)
+                                  (list-tags ws-dir pattern)))]
+    {:tag tag-name
+     :sha (sha-of-tag ws-dir tag-name)}
+    {:sha (first-commited-sha ws-dir)}))
 
 (defn latest-stable [ws-dir pattern]
   (if-let [tag-name (last (list-tags ws-dir pattern))]

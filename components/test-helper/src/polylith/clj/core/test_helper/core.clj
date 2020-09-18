@@ -1,6 +1,5 @@
 (ns polylith.clj.core.test-helper.core
   (:require [clojure.string :as str]
-            [clojure.stacktrace :as stacktrace]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.command.interface :as command]
             [polylith.clj.core.user-input.interface :as user-input]
