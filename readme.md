@@ -521,7 +521,7 @@ example
  
 The tool also reminded us of this:
 ```sh
-  It's recommended to add an alias to :env->alias in deps.edn for the command-line environment.
+  It's recommended to add an alias to :env->alias in ./deps.edn for the command-line environment.
 ```
 
 If we don't add the alias, it will be shown up as a `?` when we execute the `info` command:

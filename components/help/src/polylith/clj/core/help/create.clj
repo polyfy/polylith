@@ -16,7 +16,7 @@
        "  The values 'component', 'base', 'environment' and 'workspace'\n"
        "  can be used for TYPE as well as 'c', 'b', 'e' and 'w'.\n"
        "\n"
-       "  To get help for a specific TYPE, write:\n"
+       "  To get help for a specific TYPE, type:\n"
        "    poly help create TYPE\n"
        "\n"
        "  example:\n"

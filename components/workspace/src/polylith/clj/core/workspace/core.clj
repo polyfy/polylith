@@ -25,9 +25,9 @@
   (let [cleaned-ws-dir (if (= "." ws-dir) "" ws-dir)
         path (file/absolute-path cleaned-ws-dir)
         index (str/last-index-of path file/sep)]
-    (if (>= index 0)
-      (subs path (inc index))
-      path)))
+    (if (nil? index)
+      path
+      (subs path (inc index)))))
 
 (defn env-sorter [{:keys [dev? name]}]
   [dev? name])

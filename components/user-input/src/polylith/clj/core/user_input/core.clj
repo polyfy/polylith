@@ -33,6 +33,8 @@
                 ws-dir
                 all!
                 all-bricks!
+                brick!
+                bricks!
                 dev!
                 env!
                 loc!]} named-args]
@@ -46,6 +48,9 @@
                       :top-ns top-ns
                       :ws-dir ws-dir
                       :search-for-ws-dir? (contains? (set args) "::")
+                      :show-brick? brick!
+                      :show-bricks? bricks!
+                      :show-env? (= "true" env!)
                       :show-loc? (= "true" loc!)
                       :run-all-tests? (= "true" all!)
                       :run-all-brick-tests? (or (= "true" all!)

@@ -6,11 +6,11 @@
             [polylith.clj.core.help.test :as test]
             [polylith.clj.core.help.summary :as summary]))
 
-(defn print-help [cmd ent color-mode]
+(defn print-help [cmd ent show-env? show-brick? show-bricks? color-mode]
   (case cmd
     "check" (check/print-help color-mode)
     "create" (create/print-help ent)
-    "deps" (println "  Not implemented yet!")
+    "deps" (deps/print-help show-env? show-brick? show-bricks? color-mode)
     "diff" (println "  Not implemented yet!")
     "info" (println "  Not implemented yet!")
     "libs" (println "  Not implemented yet!")
