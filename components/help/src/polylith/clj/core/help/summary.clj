@@ -2,8 +2,10 @@
 
 (def help-text
   (str
-    "  Polylith - https://github.com/polyfy/polylith\n\n"
-    "  poly CMD [ARGS] - where CMD [ARGS] are:\n\n"
+    "  Polylith - https://github.com/polyfy/polylith\n"
+    "\n"
+    "  poly CMD [ARGS] - where CMD [ARGS] are:\n"
+    "\n"
     "    check                   Checks if the workspace is valid.\n"
     "    create E name:N [ARG]   Creates a component, base, environment or workspace.\n"
     "    deps [env:E] [brick:B]  Shows dependencies.\n"
@@ -16,9 +18,11 @@
     "\n"
     "  If ws-dir:PATH is passed in as an argument, where PATH is a relative or absolute\n"
     "  path, then the command is executed from that directory. If :: is passed in, then\n"
-    "  ws-dir is set to the first parent directory (or current) that contain a 'deps.edn'\n"
+    "  ws-dir is set to the first parent directory (or current) that contains a 'deps.edn'\n"
     "  workspace config file. The exception is the 'test' command that has to be executed\n"
     "  from the root.\n"
+    "\n"
+    "  'c', 'b', 'e' and 'w' can be replaced with 'component', 'base', 'environment' and 'workspace'.\n"
     "\n"
     "  Examples:\n"
     "    poly\n"
@@ -27,7 +31,7 @@
     "    poly create c name:admin interface:user\n"
     "    poly create b name:mybase\n"
     "    poly create e name:myenv\n"
-    "    poly create w name:myws top-ns:se.example\n"
+    "    poly create w name:myws top-ns:com.my.company\n"
     "    poly deps\n"
     "    poly deps env:myenv\n"
     "    poly deps brick:mybrick\n"
@@ -45,6 +49,13 @@
     "    poly help deps :env :brick\n"
     "    poly info\n"
     "    poly info :loc\n"
+    "    poly info env:myenv\n"
+    "    poly info env:myenv:another-env\n"
+    "    poly info :env\n"
+    "    poly info :dev\n"
+    "    poly info :env :dev\n"
+    "    poly info :all\n"
+    "    poly info :all-bricks\n"
     "    poly info ::\n"
     "    poly info ws-dir:another-ws\n"
     "    poly libs\n"
@@ -59,11 +70,13 @@
     "    poly ws\n"
     "    poly ws get:keys\n"
     "    poly ws get:count\n"
-    "    poly ws get:key1\n"
-    "    poly ws get:key1:0\n"
-    "    poly ws get:key1:key2\n"
-    "    poly ws get:key1:key2:keys\n"
-    "    poly ws get:key1:key2:keys:count\n"))
+    "    poly ws get:settings\n"
+    "    poly ws get:settings:user-input:args\n"
+    "    poly ws get:settings:user-input:args:0\n"
+    "    poly ws get:settings:keys\n"
+    "    poly ws get:components:keys"
+    "    poly ws get:components:count"
+    "    poly ws get:components:user:lines-of-code-src"))
 
 (defn print-help []
   (println help-text))

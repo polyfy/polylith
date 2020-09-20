@@ -40,7 +40,7 @@
 (defn validate [{:keys [settings environments] :as workspace} cmd active-dev-profiles selected-environments color-mode]
   (if (can-be-executed-from-here? workspace cmd)
     (validator/validate active-dev-profiles selected-environments settings environments color-mode)
-    [false message/cant-be-executed-outside-ws-message]))
+    [false (message/cant-be-executed-outside-ws-message cmd)]))
 
 (defn read-workspace [ws-dir user-input color-mode]
   (when (common/valid-config-file? ws-dir color-mode)

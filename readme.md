@@ -1558,7 +1558,7 @@ poly deps brick:article
 ```
 <img src="images/realworld-deps-interface.png" width="30%">
 
-..it lists all interfaces it uses and also what bricks that depend on it.
+..it lists all interfaces it uses and what bricks depend on it (including all environments).
 
 ## Libraries
 
@@ -1591,7 +1591,24 @@ The way the tool figures out what library each brick uses is to look in `:ns->li
 ```
  
 This map needs to be manually populated and specifies which namespace maps to which library.
- 
+The way the algorithm works is that it takes all the namespaces and sort them in reverse order.
+Then it tries to match each namespace against that list from top to down and takes the first match.
+
+Let's say we this mapping:
+```clojure
+:ns->lib {com.a      library-a
+          com.a.b    library-b
+          com.a.b.c  library-c}
+```
+
+...then the matching will be based on this list:
+```
+com.a.b.c
+com.a.b
+com.a
+```  
+If we compare with the `com.a.x.y` namespace, it will match against `com.a` and return `library-a`.  
+If we compare with the `com.a.b.x` namespace, it will match against `com.a.b` and return `library-b`.
 
 
 

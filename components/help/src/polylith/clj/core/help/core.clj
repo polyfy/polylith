@@ -9,7 +9,7 @@
 (defn print-help [cmd ent color-mode]
   (case cmd
     "check" (check/print-help color-mode)
-    "create" (println "  Not implemented yet!")
+    "create" (create/print-help ent)
     "deps" (println "  Not implemented yet!")
     "diff" (println "  Not implemented yet!")
     "info" (println "  Not implemented yet!")
