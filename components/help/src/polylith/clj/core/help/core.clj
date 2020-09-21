@@ -13,7 +13,7 @@
     "create" (create/print-help ent)
     "deps" (deps/print-help show-env? show-brick? show-bricks? color-mode)
     "diff" (diff/print-help color-mode)
-    "info" (println "  Not implemented yet!")
+    "info" (info/print-help color-mode)
     "libs" (println "  Not implemented yet!")
     "test" (println "  Not implemented yet!")
     "ws" (println "  Not implemented yet!")

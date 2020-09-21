@@ -864,7 +864,7 @@ The bricks for the `development` environment is configured in `./deps.edn`:
             :test {:extra-paths ["components/user/test"
 ```
 
- If we execute `poly info src:r` (or the longer `poly info src:resources`):<br>
+If we execute `poly info :r` (or the longer `poly info :resources`):<br>
 <img src="images/info-04.png" width="30%" alt="Status resources">
 
 
@@ -1173,18 +1173,21 @@ Test results: 1 passes, 0 failures, 0 errors.
 Execution time: 3 seconds
 ```
 
-Looks like it worked!  
+Looks like it worked!
+
 Let's summarize the different ways to run the tests:
 
-| Command                    | Tests to run                                                                                 | Run from the dev environment? |
+| Command                    | Bricks or environments to run tests for                                                                                 | Run from the dev environment? |
 |:---------------------------|:---------------------------------------------------------------------------------------------|:-----------------------------:|
-| poly test                  | All brick tests that are marked as changed. No environment tests.                            |              no               |
-| poly test :env             | All brick and environment tests that are marked as changed.                                  |              no               |
-| poly test :dev             | All brick tests that are marked as changed, for selected environments. No environment tests. |              yes              |
-| poly test :all-bricks      | All brick tests.                                                                             |              no               |
-| poly&nbsp;test&nbsp;:all&#8209;bricks&nbsp;:dev | All brick tests.                                                        |              yes              |
-| poly test :all             | All brick and environment tests.                                                             |              no               |
-| poly test :all :dev        | All brick and environment tests.                                                             |              yes              |
+| poly test                  | All bricks that are directly or indirectly changed. No environments.                            |              no               |
+| poly test :env             | All bricks and environments that are directly or indirectly changed.                                  |              no               |
+| poly test :dev             | All bricks that are directly or indirectly changed, for selected environments. No environments. |              yes              |
+| poly test :all-bricks      | All bricks.                                                                             |              no               |
+| poly&nbsp;test&nbsp;:all&#8209;bricks&nbsp;:dev | All bricks.                                                        |              yes              |
+| poly test :all             | All bricks and environments.                                                             |              no               |
+| poly test :all :dev        | All bricks and environments.                                                             |              yes              |
+
+Remember that these flags also can be passed in to the `info` command, to get a view of what tests will be executed.
 
 ## Profile
 
@@ -1460,12 +1463,12 @@ The output should be:
 Hello Lisa - from the server!!
 ```
 
-Now execute the `info` command. The `+` will inactivate all profiles:
+Now execute the `info` command (the `+` will inactivate all profiles):
 ```
 poly info +
 ```
 
-Let's compare with the target design:
+...and compare it with the target design:
 | | |
 |:-|:-| 
 |<img src="images/info-15.png" width="80%"> | <img src="images/prod-and-dev.png">|
@@ -1594,32 +1597,26 @@ This map needs to be manually populated and specifies which namespace maps to wh
 The way the algorithm works is that it takes all the namespaces and sort them in reverse order.
 Then it tries to match each namespace against that list from top to down and takes the first match.
 
-Let's say we this mapping:
+Let's say we have this mapping:
 ```clojure
 :ns->lib {com.a      library-a
           com.a.b    library-b
           com.a.b.c  library-c}
 ```
 
-...then the matching will be based on this list:
+...then it will return the first matching namespace going from top to down:
 ```
-com.a.b.c
-com.a.b
-com.a
+namespace   library
+---------   ---------
+com.a.b.c   library-c
+com.a.b     library-b
+com.a       library-a
 ```  
-If we compare with the `com.a.x.y` namespace, it will match against `com.a` and return `library-a`.  
-If we compare with the `com.a.b.x` namespace, it will match against `com.a.b` and return `library-b`.
+For example:
+- If we compare with the `com.a.x.y` namespace, it will match against `com.a` and return `library-a`.  
+- If we compare with the `com.a.b.x` namespace, it will match against `com.a.b` and return `library-b`.
 
-
-
-
-
-
-
-
-
-
-
+The same library can occur more than once, as long as the namespaces are unique.
 
 ## Colors
 

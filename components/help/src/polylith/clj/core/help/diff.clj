@@ -13,7 +13,7 @@
        "  Stable points are normally set by the CI server or by individual developers,\n"
        "  e.g. Lisa, with 'git tag -f stable-lisa'.\n"
        "\n"
-       "  The stable pattern can be changed in " (color/purple color-mode ":stable-since-tag-pattern") " in ./deps.edn.\n"
+       "  The pattern can be changed in " (color/purple color-mode ":stable-since-tag-pattern") " in ./deps.edn.\n"
        "\n"
        "  The way the latest tag is found is by taking the last line of the output from:\n"
        "    git tag --sort=committerdate -l 'stable-*'\n"
