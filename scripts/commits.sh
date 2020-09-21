@@ -1,1 +1,0 @@
-git log --pretty=oneline

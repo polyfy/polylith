@@ -4,6 +4,7 @@
             [polylith.clj.core.help.deps :as deps]
             [polylith.clj.core.help.diff :as diff]
             [polylith.clj.core.help.info :as info]
+            [polylith.clj.core.help.libs :as libs]
             [polylith.clj.core.help.test :as test]
             [polylith.clj.core.help.summary :as summary]))
 
@@ -14,7 +15,7 @@
     "deps" (deps/print-help show-env? show-brick? show-bricks? color-mode)
     "diff" (diff/print-help color-mode)
     "info" (info/print-help color-mode)
-    "libs" (println "  Not implemented yet!")
+    "libs" (libs/print-help color-mode)
     "test" (println "  Not implemented yet!")
     "ws" (println "  Not implemented yet!")
     (summary/print-help)))
