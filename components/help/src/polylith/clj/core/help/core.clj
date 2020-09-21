@@ -2,6 +2,7 @@
   (:require [polylith.clj.core.help.check :as check]
             [polylith.clj.core.help.create :as create]
             [polylith.clj.core.help.deps :as deps]
+            [polylith.clj.core.help.diff :as diff]
             [polylith.clj.core.help.info :as info]
             [polylith.clj.core.help.test :as test]
             [polylith.clj.core.help.summary :as summary]))
@@ -11,7 +12,7 @@
     "check" (check/print-help color-mode)
     "create" (create/print-help ent)
     "deps" (deps/print-help show-env? show-brick? show-bricks? color-mode)
-    "diff" (println "  Not implemented yet!")
+    "diff" (diff/print-help color-mode)
     "info" (println "  Not implemented yet!")
     "libs" (println "  Not implemented yet!")
     "test" (println "  Not implemented yet!")
