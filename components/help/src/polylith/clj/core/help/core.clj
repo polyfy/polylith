@@ -11,11 +11,11 @@
 (defn print-help [cmd ent show-env? show-brick? show-bricks? color-mode]
   (case cmd
     "check" (check/print-help color-mode)
-    "create" (create/print-help ent)
+    "create" (create/print-help ent color-mode)
     "deps" (deps/print-help show-env? show-brick? show-bricks? color-mode)
     "diff" (diff/print-help color-mode)
     "info" (info/print-help color-mode)
     "libs" (libs/print-help color-mode)
-    "test" (println "  Not implemented yet!")
+    "test" (test/print-help color-mode)
     "ws" (println "  Not implemented yet!")
-    (summary/print-help)))
+    (summary/print-help color-mode)))

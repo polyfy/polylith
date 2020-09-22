@@ -1,6 +1,10 @@
 (ns polylith.clj.core.help.shared
   (:require [polylith.clj.core.util.interface.color :as color]
-            [clojure.string :as str]))
+            [clojure.string :as str])
+  (:refer-clojure :exclude [key]))
+
+(defn key [name color-mode]
+  (color/purple color-mode name))
 
 (defn component-ns
   ([color-mode]

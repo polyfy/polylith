@@ -1,14 +1,14 @@
-(ns polylith.clj.core.help.create-base)
+(ns polylith.clj.core.help.create-base
+  (:require [polylith.clj.core.help.shared :as s]))
 
-(defn help-text []
+(defn help-text [cm]
   (str "  Creates a base.\n"
        "\n"
-       "  poly create b name:NAME\n"
-       "    NAME = The name of the base.\n"
+       "  poly create b name:" (s/key "NAME" cm) "\n"
+       "    " (s/key "NAME" cm) " = The name of the base to create.\n"
        "\n"
-       "  example:\n"
-       "    poly create b name:mybase\n"
-       "    poly create base name:mybase"))
+       "  Example:\n"
+       "    poly create b name:mybase"))
 
-(defn print-help []
-  (println (help-text)))
+(defn print-help [color-mode]
+  (println (help-text color-mode)))

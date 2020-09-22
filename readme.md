@@ -1175,19 +1175,30 @@ Execution time: 3 seconds
 
 Looks like it worked!
 
-Let's summarize the different ways to run the tests:
+Let's summarize the different ways to run the tests. 
+The brick tests are executed from all environments they belong to except for the development environment
+(if not `:dev` is passed in):
 
-| Command                    | Bricks or environments to run tests for                                                                                 | Run from the dev environment? |
-|:---------------------------|:---------------------------------------------------------------------------------------------|:-----------------------------:|
-| poly test                  | All bricks that are directly or indirectly changed. No environments.                            |              no               |
-| poly test :env             | All bricks and environments that are directly or indirectly changed.                                  |              no               |
-| poly test :dev             | All bricks that are directly or indirectly changed, for selected environments. No environments. |              yes              |
-| poly test :all-bricks      | All bricks.                                                                             |              no               |
-| poly&nbsp;test&nbsp;:all&#8209;bricks&nbsp;:dev | All bricks.                                                        |              yes              |
-| poly test :all             | All bricks and environments.                                                             |              no               |
-| poly test :all :dev        | All bricks and environments.                                                             |              yes              |
+| Command                    | Tests to execute                                                                             |
+|:---------------------------|:---------------------------------------------------------------------------------------------|
+| poly test                  | All brick tests that are directly or indirectly changed. |
+| poly test :env             | All brick tests that are directly or indirectly changed + tests for changed environments. |
+| poly&nbsp;test&nbsp;:all&#8209;bricks | All brick tests. |
+| poly test :all             | All brick tests + all environment tests (except development). |
 
-Remember that these flags also can be passed in to the `info` command, to get a view of what tests will be executed.
+To execute the brick tests from the development environment, also pass in `:dev`:
+
+| Command                    | Tests to execute                                                                             |
+|:---------------------------|:---------------------------------------------------------------------------------------------|
+| poly test :dev              | All brick tests that are directly or indirectly changed, only executed from the development environment. |
+| poly test :env :dev         | All brick tests that are directly or indirectly changed, executed from all environments (development included) + tests for changed environments (development included). |
+| poly&nbsp;test&nbsp;:all&#8209;bricks&nbsp;:dev | All brick tests, executed from all environments (development included). |
+| poly test :all :dev         | All brick tests, executed from all environments (development included) + all environment tests (development included). |
+
+Environments can also be explicitly selected with e.g. `env:env1` or `env:env1:env2`. `:dev` is a shortcut for `env:dev`. 
+
+These arguments can also be passed in to the `info` command, as we have done in the examples above, 
+to get a view of which tests will be executed.
 
 ## Profile
 
@@ -1463,7 +1474,7 @@ The output should be:
 Hello Lisa - from the server!!
 ```
 
-Now execute the `info` command (the `+` will inactivate all profiles):
+Now execute the `info` command (`+` inactivates all profiles, and makes the `default` profile visible):
 ```
 poly info +
 ```

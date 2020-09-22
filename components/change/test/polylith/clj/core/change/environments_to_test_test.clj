@@ -7,4 +7,4 @@
   (is (= {"cli" []
           "core" []
           "development" []}
-         (to-test/env->environments-to-test data/environments [] [] false false))))
+         (to-test/env->environments-to-test data/environments [] [] false false false))))

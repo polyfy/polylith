@@ -1,41 +1,59 @@
 (ns polylith.clj.core.help.test
-  (:require [polylith.clj.core.util.interface.color :as color]))
+  (:require [polylith.clj.core.help.shared :as s]))
 
 (defn help-text [color-mode]
-  (let [env (color/environment "env" color-mode)
-        mycomponent (color/component "mycomponent" color-mode)
-        mybase (color/component "mybase" color-mode)]
-    (str "  Executes tests for the given environment or all environments if not given.\n\n"
+  (str "  Executes brick and/or environment tests.\n"
+       "\n"
+       "  poly test [" (s/key "ARGS" color-mode) "]\n"
+       "\n"
+       "  The brick tests are executed from all environments they belong to except for the development\n"
+       "  environment (if not " (s/key ":dev" color-mode) " is passed in):\n"
+       "\n"
 
-         "  The tests for a brick are executed one environment at a time when these criterias are met:\n"
-         "  - The brick's 'test' folder is added to the environment.\n"
-         "  - The brick is either directly or indirectly changed (*).\n\n"
-
-         "  The tests for an environment are executed when these criterias are met:\n"
-         "  - '-all' is sent in as an argument.\n"
-         "  - The environment's 'test' folder is added to the environment.\n"
-         "  - At least one file in the 'environments/" env "' directory structure has changed\n"
-         "    since the last git commit.\n\n"
-
-         "  The src and test folders are added to 'environments/" env "/deps.edn' for each environment\n"
-         "  in the keys ':paths' and ':aliases > :test > :extra-paths'.\n\n"
-
-         "  The paths are relative to each deps.edn file, e.g:\n"
-         "  - \"test\"\n"
-         "  - \"../../bases/" mybase "/test\"\n"
-         "  - \"../../components/" mycomponent "/test\"\n\n"
-
-         "  (*) This is explained in the 'info' command.\n\n"
-
-         "  poly test [" env "]\n"
-         "    " env " = (omitted) -> Run tests for all environments.\n"
-         "          else      -> Run test for the given environment.\n\n"
-
-         "  Examples:\n"
-         "    poly test\n"
-         "    poly test -all\n"
-         "    poly test dev"
-         "    poly test dev -all")))
+       "  ARGS              Tests to execute\n"
+       "  ----------------  -------------------------------------------------------------\n"
+       "  (empty)           All brick tests that are directly or indirectly changed.\n"
+       "\n"
+       "  " (s/key ":env" color-mode) "              All brick tests that are directly or indirectly changed +\n"
+       "                    tests for changed environments.\n"
+       "\n"
+       "  " (s/key ":all-bricks" color-mode) "       All brick tests.\n"
+       "\n"
+       "  " (s/key ":all" color-mode) "              All brick tests + all environment tests (except development).\n"
+       "\n"
+       "\n"
+       "  To execute the brick tests from the development environment, also pass in :dev:\n"
+       "\n"
+       "  ARGS              Tests to execute\n"
+       "  ----------------  -------------------------------------------------------------\n"
+       "  " (s/key ":dev" color-mode) "              All brick tests that are directly or indirectly changed,\n"
+       "                    only executed from the development environment.\n"
+       "\n"
+       "  " (s/key ":env :dev" color-mode) "         All brick tests that are directly or indirectly changed,\n"
+       "                    executed from all environments (development included) +\n"
+       "                    tests for changed environments (development included).\n"
+       "\n"
+       "  " (s/key ":all-bricks :dev" color-mode) "  All brick tests, executed from all environments\n"
+       "                    (development included).\n"
+       "\n"
+       "  " (s/key ":all :dev" color-mode) "         All brick tests, executed from all environments\n"
+       "                    (development included) + all environment tests\n"
+       "                    (development included).\n"
+       "\n"
+       "  Environments can also be explicitly selected with e.g. " (s/key "env:env1" color-mode) " or " (s/key "env:env1:env2" color-mode) ".\n"
+       "  " (s/key ":dev" color-mode) " is a shortcut for " (s/key "env:dev" color-mode) ".\n"
+       "\n"
+       "  Example:\n"
+       "    poly test\n"
+       "    poly test :env\n"
+       "    poly test :all-bricks\n"
+       "    poly test :all\n"
+       "    poly test env:env1\n"
+       "    poly test env:env1:env2 :env\n"
+       "    poly test :dev\n"
+       "    poly test :env :dev\n"
+       "    poly test :all-bricks :dev\n"
+       "    poly test :all :dev"))
 
 (defn print-help [color-mode]
   (println (help-text color-mode)))

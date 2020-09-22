@@ -1,14 +1,21 @@
 (ns polylith.clj.core.help.deps-brick
-  (:require [polylith.clj.core.util.interface.color :as color]))
+  (:require [polylith.clj.core.help.shared :as s]
+            [polylith.clj.core.util.interface.color :as color]))
 
-(defn help [color-mode]
-  (str "  Shows dependencies for selected brick, e.g.:\n"
+(defn help [cm]
+  (str "  Shows dependencies for selected brick.\n"
        "\n"
-       "  used by  <  " (color/green color-mode "user") "  >  uses\n"
+       "  poly deps brick:" (s/key "BRICK" cm) "\n"
+       "    " (s/key "BRICK" cm) " = The name of the brick to show dependencies for.\n"
+       "\n"
+       "  used by  <  " (color/green cm "user") "  >  uses\n"
        "  -------              ----\n"
-       "  " (color/green color-mode "payer") "                " (color/yellow color-mode "util") "\n"
+       "  " (color/green cm "payer") "                " (color/yellow cm "util") "\n"
        "\n"
-       "  In this example, " (color/green color-mode "user") " is used by " (color/green color-mode "payer") " and it uses " (color/yellow color-mode "util") " itself."))
+       "  In this example, " (color/green cm "user") " is used by " (color/green cm "payer") " and it uses " (color/yellow cm "util") " itself.\n"
+       "\n"
+       "  Example:\n"
+       "    poly deps brick:mybrick"))
 
 (defn print-help [color-mode]
   (println (help color-mode)))

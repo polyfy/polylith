@@ -1,23 +1,31 @@
 (ns polylith.clj.core.help.deps-env
-  (:require [polylith.clj.core.util.interface.color :as color]))
+     (:require [polylith.clj.core.help.shared :as s]
+               [polylith.clj.core.util.interface.color :as color]))
 
-(defn help [color-mode]
-  (str "Shows dependencies for selected environment, e.g:\n"
-       "         " (color/green color-mode "p      \n")
-       "         " (color/green color-mode "a  u  u\n")
-       "         " (color/green color-mode "y  s  t\n")
-       "         " (color/green color-mode "e  e  i\n")
-       "  brick  " (color/green color-mode "r  r  l\n")
-       "  --------------\n"
-       "  " (color/green color-mode "payer") "  ·  x  x\n"
-       "  " (color/green color-mode "user") "   ·  ·  x\n"
-       "  " (color/green color-mode "util") "   ·  ·  ·\n"
-       "  " (color/blue color-mode "cli")  "    x  +  +\n"
+(defn help [cm]
+  (str "  Shows dependencies for selected environment.\n"
        "\n"
-       "  In this example, " (color/green color-mode "payer") " uses " (color/green color-mode "user") " and " (color/green color-mode "util") ", " (color/green color-mode "user") " uses " (color/green color-mode "util") ",\n"
-       "  and " (color/blue color-mode "cli") " uses " (color/green color-mode "payer") ". Each usage comes from at least one " (color/purple color-mode ":require") "\n"
+       "  poly deps env:" (s/key "ENV" cm) "\n"
+       "    " (s/key "ENV" cm) " = The environment name or alias to show depenencies for.\n"
+       "\n"
+       "         " (color/green cm "p      \n")
+       "         " (color/green cm "a  u  u\n")
+       "         " (color/green cm "y  s  t\n")
+       "         " (color/green cm "e  e  i\n")
+       "  brick  " (color/green cm "r  r  l\n")
+       "  --------------\n"
+       "  " (color/green cm "payer") "  ·  x  x\n"
+       "  " (color/green cm "user") "   ·  ·  x\n"
+       "  " (color/green cm "util") "   ·  ·  ·\n"
+       "  " (color/blue cm "cli") "    x  +  +\n"
+       "\n"
+       "  In this example, " (color/green cm "payer") " uses " (color/green cm "user") " and " (color/green cm "util") ", " (color/green cm "user") " uses " (color/green cm "util") ",\n"
+       "  and " (color/blue cm "cli") " uses " (color/green cm "payer") ". Each usage comes from at least one " (color/purple cm ":require") "\n"
        "  statement in the brick. \n"
-       "  When the environment is known, we also know which components are used.\n"))
+       "  When the environment is known, we also know which components are used.\n"
+       "\n"
+       "  Example:\n"
+       "    poly deps env:myenv"))
 
 (defn print-help [color-mode]
   (println (help color-mode)))

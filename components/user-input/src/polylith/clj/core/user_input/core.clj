@@ -49,6 +49,7 @@
                       :top-ns top-ns
                       :ws-dir ws-dir
                       :search-for-ws-dir? (contains? (set args) "::")
+                      :dev? (= "true" dev!)
                       :show-brick? brick!
                       :show-bricks? bricks!
                       :show-env? (= "true" env!)
