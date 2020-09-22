@@ -29,7 +29,7 @@
   (help/print-help cmd ent show-env? show-brick? show-bricks? color-mode))
 
 (defn unknown-command [cmd]
-  (println (str "  Unknown command '" cmd "'. Type 'help' for help.")))
+  (println (str "  Unknown command '" cmd "'. Type 'poly help' for help.")))
 
 (defn can-be-executed-from-here? [workspace cmd]
   (or (-> workspace nil? not)
