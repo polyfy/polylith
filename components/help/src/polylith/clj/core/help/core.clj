@@ -6,6 +6,7 @@
             [polylith.clj.core.help.info :as info]
             [polylith.clj.core.help.libs :as libs]
             [polylith.clj.core.help.test :as test]
+            [polylith.clj.core.help.ws :as ws]
             [polylith.clj.core.help.summary :as summary]))
 
 (defn print-help [cmd ent show-env? show-brick? show-bricks? color-mode]
@@ -17,5 +18,5 @@
     "info" (info/print-help color-mode)
     "libs" (libs/print-help color-mode)
     "test" (test/print-help color-mode)
-    "ws" (println "  Not implemented yet!")
+    "ws" (ws/print-help color-mode)
     (summary/print-help color-mode)))

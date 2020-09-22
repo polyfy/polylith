@@ -75,8 +75,8 @@
     "    poly ws get:settings:user-input:args\n"
     "    poly ws get:settings:user-input:args:0\n"
     "    poly ws get:settings:keys\n"
-    "    poly ws get:components:keys"
-    "    poly ws get:components:count"
+    "    poly ws get:components:keys\n"
+    "    poly ws get:components:count\n"
     "    poly ws get:components:user:lines-of-code-src"))
 
 (defn print-help [color-mode]

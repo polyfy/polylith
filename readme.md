@@ -6,7 +6,7 @@ A tool used to develop Polylith based architectures in Clojure.
 > **_UNDER CONSTRUCTION_**<br>
 > This new tools.deps based tool hasn't been released yet.<br>
 > Please use the old lein-polylith based tool in the meantime:<br>
-> https://github.com/tengstrand/lein-polylith
+> https://github.com/polyfy/lein-polylith
 
 Welcome to the wonderful world of Polylith!
 
@@ -124,8 +124,8 @@ A workspace is also always initialized to use [git](https://git-scm.com/), but m
             :test {:extra-paths []}
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly_cli.poly"]
-                   :extra-deps {tengstrand/polylith
-                                {:git/url   "https://github.com/tengstrand/polylith.git"
+                   :extra-deps {polyfy/polylith
+                                {:git/url   "https://github.com/polyfy/polylith.git"
                                  :sha       "69e70df8882f4d9a701ab99681a4a6870bdf052b"
                                  :deps/root "environments/cli"}}}}}
 ```
