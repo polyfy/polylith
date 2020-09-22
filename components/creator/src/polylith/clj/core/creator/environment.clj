@@ -20,7 +20,7 @@
     (git/add ws-dir filename)))
 
 (defn print-alias-message [env color-mode]
-  (let [message (str "  It's recommended to add an alias to :env->alias in deps.edn for the "
+  (let [message (str "  It's recommended to add an alias to :env->alias in ./deps.edn for the "
                      (color/environment env color-mode) " environment.")]
     (println message)))
 

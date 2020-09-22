@@ -28,14 +28,17 @@
                 get
                 interface
                 name
-                src
                 top-ns
                 ws-dir
                 all!
                 all-bricks!
+                brick!
+                bricks!
                 dev!
                 env!
-                loc!]} named-args]
+                loc!
+                r!
+                resources!]} named-args]
     (util/ordered-map :args (vec args)
                       :cmd (first args)
                       :get get
@@ -46,13 +49,18 @@
                       :top-ns top-ns
                       :ws-dir ws-dir
                       :search-for-ws-dir? (contains? (set args) "::")
+                      :dev? (= "true" dev!)
+                      :show-brick? brick!
+                      :show-bricks? bricks!
+                      :show-env? (= "true" env!)
                       :show-loc? (= "true" loc!)
                       :run-all-tests? (= "true" all!)
                       :run-all-brick-tests? (or (= "true" all!)
                                                 (= "true" all-bricks!))
                       :run-env-tests? (or (= "true" all!)
                                           (= "true" env!))
-                      :show-resources? (contains? #{"r" "resources"} src)
+                      :show-resources? (or (= "true" r!)
+                                           (= "true" resources!))
                       :active-dev-profiles (active-dev-profiles unnamed-args)
                       :selected-environments (selected-environments env dev!)
                       :unnamed-args (vec unnamed-args))))

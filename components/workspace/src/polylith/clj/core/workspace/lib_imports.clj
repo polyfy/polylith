@@ -5,7 +5,7 @@
   (if (str/starts-with? import suffixed-top-ns)
     (let [interface-ns (subs import (count suffixed-top-ns))
           index (str/index-of interface-ns ".")
-          interface (if (< index 0)
+          interface (if (nil? index)
                       interface-ns
                       (subs interface-ns 0 index))]
       (not (contains? interface-names interface)))

@@ -1,33 +1,37 @@
-(ns polylith.clj.core.help.summary)
+(ns polylith.clj.core.help.summary
+  (:require [polylith.clj.core.help.shared :as s]
+            [polylith.clj.core.util.interface.color :as color]))
 
-(def help-text
+(defn help-text [cm]
   (str
-    "  Polylith - https://github.com/polyfy/polylith\n\n"
-    "  poly CMD [ARGS] - where CMD [ARGS] are:\n\n"
+    "  Polylith - " (color/blue cm "https://github.com/polyfy/polylith\n")
+    "\n"
+    "  poly " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] - where " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] are:\n"
+    "\n"
     "    check                   Checks if the workspace is valid.\n"
-    "    create E name:N [ARG]   Creates a component, base, environment or workspace.\n"
-    "    deps [env:E] [brick:B]  Shows dependencies.\n"
+    "    create " (s/key "E" cm) " name:" (s/key "N" cm) " [" (s/key "ARG" cm) "]   Creates a component, base, environment or workspace.\n"
+    "    deps [env:" (s/key "E" cm) "] [brick:" (s/key "B" cm) "]  Shows dependencies.\n"
     "    diff                    Shows changed files since last stable point in time.\n"
-    "    help [C]                Shows this help or help for a specified command.\n"
-    "    info [:loc]             Shows a workspace overview and checks if it's valid.\n"
+    "    help [" (s/key "C" cm) "]                Shows this help or help for a specified command.\n"
+    "    info [" (s/key "ARGS" cm) "]             Shows a workspace overview and checks if it's valid.\n"
     "    libs                    Shows all libraries in the workspace.\n"
-    "    test [ARGS]             Runs tests.\n"
-    "    ws [get:X]              Shows the workspace as data.\n"
+    "    test [" (s/key "ARGS" cm) "]             Runs tests.\n"
+    "    ws [get:" (s/key "X" cm) "]              Shows the workspace as data.\n"
     "\n"
-    "  If ws-dir:PATH is passed in as an argument, where PATH is a relative or absolute\n"
-    "  path, then the command is executed from that directory. If :: is passed in, then\n"
-    "  ws-dir is set to the first parent directory (or current) that contain a 'deps.edn'\n"
+    "  If ws-dir:" (s/key "PATH" cm) " is passed in as an argument, where " (s/key "PATH" cm) " is a relative or absolute\n"
+    "  path, then the command is executed from that directory. If " (s/key "::" cm) " is passed in, then\n"
+    "  ws-dir is set to the first parent directory (or current) that contains a 'deps.edn'\n"
     "  workspace config file. The exception is the 'test' command that has to be executed\n"
-    "  from the root.\n"
+    "  from the workspace root.\n"
     "\n"
-    "  Examples:\n"
+    "  Example:\n"
     "    poly\n"
     "    poly check\n"
     "    poly create c name:user\n"
     "    poly create c name:admin interface:user\n"
     "    poly create b name:mybase\n"
     "    poly create e name:myenv\n"
-    "    poly create w name:myws top-ns:se.example\n"
+    "    poly create w name:myws top-ns:com.my.company\n"
     "    poly deps\n"
     "    poly deps env:myenv\n"
     "    poly deps brick:mybrick\n"
@@ -35,6 +39,7 @@
     "    poly diff\n"
     "    poly help\n"
     "    poly help info\n"
+    "    poly help create\n"
     "    poly help create c\n"
     "    poly help create b\n"
     "    poly help create e\n"
@@ -45,6 +50,13 @@
     "    poly help deps :env :brick\n"
     "    poly info\n"
     "    poly info :loc\n"
+    "    poly info env:myenv\n"
+    "    poly info env:myenv:another-env\n"
+    "    poly info :env\n"
+    "    poly info :dev\n"
+    "    poly info :env :dev\n"
+    "    poly info :all\n"
+    "    poly info :all-bricks\n"
     "    poly info ::\n"
     "    poly info ws-dir:another-ws\n"
     "    poly libs\n"
@@ -59,11 +71,13 @@
     "    poly ws\n"
     "    poly ws get:keys\n"
     "    poly ws get:count\n"
-    "    poly ws get:key1\n"
-    "    poly ws get:key1:0\n"
-    "    poly ws get:key1:key2\n"
-    "    poly ws get:key1:key2:keys\n"
-    "    poly ws get:key1:key2:keys:count\n"))
+    "    poly ws get:settings\n"
+    "    poly ws get:settings:user-input:args\n"
+    "    poly ws get:settings:user-input:args:0\n"
+    "    poly ws get:settings:keys\n"
+    "    poly ws get:components:keys\n"
+    "    poly ws get:components:count\n"
+    "    poly ws get:components:user:lines-of-code-src"))
 
-(defn print-help []
-  (println help-text))
+(defn print-help [color-mode]
+  (println (help-text color-mode)))

@@ -27,4 +27,4 @@
 
 (defn errors [components environments color-mode]
   (mapcat #(env-errors % components color-mode)
-          (filter #(-> % :dev? not) environments)))
+          environments))

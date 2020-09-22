@@ -25,11 +25,11 @@
   (doseq [file (-> workspace :changes :changed-files)]
     (println file)))
 
-(defn help [cmd ent color-mode]
-  (help/print-help cmd ent color-mode))
+(defn help [cmd ent show-env? show-brick? show-bricks? color-mode]
+  (help/print-help cmd ent show-env? show-brick? show-bricks? color-mode))
 
 (defn unknown-command [cmd]
-  (println (str "  Unknown command '" cmd "'. Type 'help' for help.")))
+  (println (str "  Unknown command '" cmd "'. Type 'poly help' for help.")))
 
 (defn can-be-executed-from-here? [workspace cmd]
   (or (-> workspace nil? not)
@@ -40,7 +40,7 @@
 (defn validate [{:keys [settings environments] :as workspace} cmd active-dev-profiles selected-environments color-mode]
   (if (can-be-executed-from-here? workspace cmd)
     (validator/validate active-dev-profiles selected-environments settings environments color-mode)
-    [false message/cant-be-executed-outside-ws-message]))
+    [false (message/cant-be-executed-outside-ws-message cmd)]))
 
 (defn read-workspace [ws-dir user-input color-mode]
   (when (common/valid-config-file? ws-dir color-mode)
@@ -49,7 +49,7 @@
         ws/enrich-workspace
         change/with-last-stable-changes)))
 
-(defn execute [{:keys [cmd args name top-ns brick get interface active-dev-profiles selected-environments unnamed-args] :as user-input}]
+(defn execute [{:keys [cmd args name top-ns show-brick? show-bricks? show-env? brick get interface active-dev-profiles selected-environments unnamed-args] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (common/workspace-dir user-input color-mode)
         environment-name (first selected-environments)
@@ -63,7 +63,7 @@
         "create" (create/create ws-dir workspace arg1 name top-ns interface color-mode)
         "deps" (dependencies/deps workspace environment-name brick unnamed-args)
         "diff" (diff workspace)
-        "help" (help arg1 arg2 color-mode)
+        "help" (help arg1 arg2 show-env? show-brick? show-bricks? color-mode)
         "info" (info/info workspace unnamed-args)
         "libs" (deps/print-lib-table workspace)
         "test" (test/run workspace unnamed-args)

@@ -55,7 +55,7 @@
             "The Polylith documentation can be found here:"
             ""
             "- The [high-level documentation](https://polylith.gitbook.io/polylith)"
-            "- The [Polylith Tool documentation](https://github.com/tengstrand/polylith)"
+            "- The [Polylith Tool documentation](https://github.com/polyfy/polylith)"
             "- The [RealWorld example app documentation](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app)"
             ""
             "You can also get in touch with the Polylith Team via our [forum](https://polylith.freeflarum.com) or on [Slack](https://clojurians.slack.com/archives/C013B7MQHJQ)."
@@ -82,8 +82,8 @@
             (str "            :test {:extra-paths []}")
             (str "")
             (str "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly_cli.poly\"]")
-            (str "                   :extra-deps {tengstrand/polylith")
-            (str "                                {:git/url   \"https://github.com/tengstrand/polylith.git\"")
+            (str "                   :extra-deps {polyfy/polylith")
+            (str "                                {:git/url   \"https://github.com/polyfy/polylith\"")
             (str "                                 :sha       \"" common/poly-git-sha "\"")
             (str "                                 :deps/root \"environments/cli\"}}}}}")]
            (helper/content "ws1" "deps.edn")))

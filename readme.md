@@ -6,7 +6,7 @@ A tool used to develop Polylith based architectures in Clojure.
 > **_UNDER CONSTRUCTION_**<br>
 > This new tools.deps based tool hasn't been released yet.<br>
 > Please use the old lein-polylith based tool in the meantime:<br>
-> https://github.com/tengstrand/lein-polylith
+> https://github.com/polyfy/lein-polylith
 
 Welcome to the wonderful world of Polylith!
 
@@ -50,7 +50,10 @@ If you have any old Leiningen based projects to migrated, follow the instruction
 - [Profile](#profile)
 - [Dependencies](#dependencies)
 - [Libraries](#dependencies)
+- [Commands](#commands)
 - [Colors](#colors)
+- [Contact](#contact)
+- [License](#license)
 
 ## Installation
 
@@ -124,8 +127,8 @@ A workspace is also always initialized to use [git](https://git-scm.com/), but m
             :test {:extra-paths []}
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly_cli.poly"]
-                   :extra-deps {tengstrand/polylith
-                                {:git/url   "https://github.com/tengstrand/polylith.git"
+                   :extra-deps {polyfy/polylith
+                                {:git/url   "https://github.com/polyfy/polylith.git"
                                  :sha       "69e70df8882f4d9a701ab99681a4a6870bdf052b"
                                  :deps/root "environments/cli"}}}}}
 ```
@@ -521,7 +524,7 @@ example
  
 The tool also reminded us of this:
 ```sh
-  It's recommended to add an alias to :env->alias in deps.edn for the command-line environment.
+  It's recommended to add an alias to :env->alias in ./deps.edn for the command-line environment.
 ```
 
 If we don't add the alias, it will be shown up as a `?` when we execute the `info` command:
@@ -864,7 +867,7 @@ The bricks for the `development` environment is configured in `./deps.edn`:
             :test {:extra-paths ["components/user/test"
 ```
 
- If we execute `poly info src:r` (or the longer `poly info src:resources`):<br>
+If we execute `poly info :r` (or the longer `poly info :resources`):<br>
 <img src="images/info-04.png" width="30%" alt="Status resources">
 
 
@@ -1173,18 +1176,32 @@ Test results: 1 passes, 0 failures, 0 errors.
 Execution time: 3 seconds
 ```
 
-Looks like it worked!  
-Let's summarize the different ways to run the tests:
+Looks like it worked!
 
-| Command                    | Tests to run                                                                                 | Run from the dev environment? |
-|:---------------------------|:---------------------------------------------------------------------------------------------|:-----------------------------:|
-| poly test                  | All brick tests that are marked as changed. No environment tests.                            |              no               |
-| poly test :env             | All brick and environment tests that are marked as changed.                                  |              no               |
-| poly test :dev             | All brick tests that are marked as changed, for selected environments. No environment tests. |              yes              |
-| poly test :all-bricks      | All brick tests.                                                                             |              no               |
-| poly&nbsp;test&nbsp;:all&#8209;bricks&nbsp;:dev | All brick tests.                                                        |              yes              |
-| poly test :all             | All brick and environment tests.                                                             |              no               |
-| poly test :all :dev        | All brick and environment tests.                                                             |              yes              |
+Let's summarize the different ways to run the tests. 
+The brick tests are executed from all environments they belong to except for the development environment
+(if not `:dev` is passed in):
+
+| Command                    | Tests to execute                                                                             |
+|:---------------------------|:---------------------------------------------------------------------------------------------|
+| poly test                  | All brick tests that are directly or indirectly changed. |
+| poly test :env             | All brick tests that are directly or indirectly changed + tests for changed environments. |
+| poly&nbsp;test&nbsp;:all&#8209;bricks | All brick tests. |
+| poly test :all             | All brick tests + all environment tests (except development). |
+
+To execute the brick tests from the development environment, also pass in `:dev`:
+
+| Command                    | Tests to execute                                                                             |
+|:---------------------------|:---------------------------------------------------------------------------------------------|
+| poly test :dev              | All brick tests that are directly or indirectly changed, only executed from the development environment. |
+| poly test :env :dev         | All brick tests that are directly or indirectly changed, executed from all environments (development included) + tests for changed environments (development included). |
+| poly&nbsp;test&nbsp;:all&#8209;bricks&nbsp;:dev | All brick tests, executed from all environments (development included). |
+| poly test :all :dev         | All brick tests, executed from all environments (development included) + all environment tests (development included). |
+
+Environments can also be explicitly selected with e.g. `env:env1` or `env:env1:env2`. `:dev` is a shortcut for `env:dev`. 
+
+These arguments can also be passed in to the `info` command, as we have done in the examples above, 
+to get a view of which tests will be executed.
 
 ## Profile
 
@@ -1460,12 +1477,12 @@ The output should be:
 Hello Lisa - from the server!!
 ```
 
-Now execute the `info` command. The `+` will inactivate all profiles:
+Now execute the `info` command (`+` inactivates all profiles, and makes the `default` profile visible):
 ```
 poly info +
 ```
 
-Let's compare with the target design:
+...and compare it with the target design:
 | | |
 |:-|:-| 
 |<img src="images/info-15.png" width="80%"> | <img src="images/prod-and-dev.png">|
@@ -1558,7 +1575,7 @@ poly deps brick:article
 ```
 <img src="images/realworld-deps-interface.png" width="30%">
 
-..it lists all interfaces it uses and also what bricks that depend on it.
+..it lists all interfaces it uses and what bricks depend on it (including all environments).
 
 ## Libraries
 
@@ -1591,18 +1608,621 @@ The way the tool figures out what library each brick uses is to look in `:ns->li
 ```
  
 This map needs to be manually populated and specifies which namespace maps to which library.
- 
+The way the algorithm works is that it takes all the namespaces and sort them in reverse order.
+Then it tries to match each namespace against that list from top to down and takes the first match.
 
+Let's say we have this mapping:
+```clojure
+:ns->lib {com.a      library-a
+          com.a.b    library-b
+          com.a.b.c  library-c}
+```
 
+...then it will return the first matching namespace going from top to down:
+```
+namespace   library
+---------   ---------
+com.a.b.c   library-c
+com.a.b     library-b
+com.a       library-a
+```  
+For example:
+- If we compare with the `com.a.x.y` namespace, it will match against `com.a` and return `library-a`.  
+- If we compare with the `com.a.b.x` namespace, it will match against `com.a.b` and return `library-b`.
 
+The same library can occur more than once, as long as the namespaces are unique.
 
+## Commands
 
+The goal for this documentation has so far been to give an overall understanding of what problems
+this tool tries to solve and how to use it. This section zooms in and explains each command separately.
+The individual help texts listed here are taken from the built-in help command described here.
 
+**Commands**
+- [check](#check)
+- [create](#create)
+  - [create c](#create-c)
+  - [create b](#create-b)
+  - [create e](#create-e)
+  - [create w](#create-w)
+- [deps](#deps)
+  - [deps :bricks](#deps-bricks)
+  - [deps :brick](#deps-brick)
+  - [deps :env](#deps-env)
+  - [deps :env :brick](#deps-env-brick)
+- [diff](#diff)
+- [info](#info)
+- [libs](#libs)
+- [ws](#ws)
 
+To list all available commands, type:
+```
+poly help
+```
 
+```
+  Polylith - https://github.com/polyfy/polylith
 
+  poly CMD [ARGS] - where CMD [ARGS] are:
 
+    check                   Checks if the workspace is valid.
+    create E name:N [ARG]   Creates a component, base, environment or workspace.
+    deps [env:E] [brick:B]  Shows dependencies.
+    diff                    Shows changed files since last stable point in time.
+    help [C]                Shows this help or help for a specified command.
+    info [ARGS]             Shows a workspace overview and checks if it's valid.
+    libs                    Shows all libraries in the workspace.
+    test [ARGS]             Runs tests.
+    ws [get:X]              Shows the workspace as data.
 
+  If ws-dir:PATH is passed in as an argument, where PATH is a relative or absolute
+  path, then the command is executed from that directory. If :: is passed in, then
+  ws-dir is set to the first parent directory (or current) that contains a 'deps.edn'
+  workspace config file. The exception is the 'test' command that has to be executed
+  from the workspace root.
+
+  Example:
+    poly
+    poly check
+    poly create c name:user
+    poly create c name:admin interface:user
+    poly create b name:mybase
+    poly create e name:myenv
+    poly create w name:myws top-ns:com.my.company
+    poly deps
+    poly deps env:myenv
+    poly deps brick:mybrick
+    poly deps env:myenv brick:mybrick
+    poly diff
+    poly help
+    poly help info
+    poly help create
+    poly help create c
+    poly help create b
+    poly help create e
+    poly help create w
+    poly help deps
+    poly help deps :env
+    poly help deps :brick
+    poly help deps :env :brick
+    poly info
+    poly info :loc
+    poly info env:myenv
+    poly info env:myenv:another-env
+    poly info :env
+    poly info :dev
+    poly info :env :dev
+    poly info :all
+    poly info :all-bricks
+    poly info ::
+    poly info ws-dir:another-ws
+    poly libs
+    poly test
+    poly test env:myenv
+    poly test env:myenv:another-env
+    poly test :env
+    poly test :dev
+    poly test :env :dev
+    poly test :all
+    poly test :all-bricks
+    poly ws
+    poly ws get:keys
+    poly ws get:count
+    poly ws get:settings
+    poly ws get:settings:user-input:args
+    poly ws get:settings:user-input:args:0
+    poly ws get:settings:keys
+    poly ws get:components:keys
+    poly ws get:components:count
+    poly ws get:components:user:lines-of-code-src
+```
+
+### check
+```
+  Validates the workspace.
+
+  poly check
+
+  Prints 'OK' and returns 0 if no errors was found.
+  If errors or warnings was found, show messages and return the error code, or 0 if only warnings.
+  If internal errors, 1 is returned.
+
+  Error 101 - Illegal dependency on namespace.
+    Triggered if a :require statement refers to a component namespace other than interface.
+    Examples of valid namespaces:
+     - com.my.company.mycomponent.interface
+     - com.my.company.mycomponent.interface.subns
+     - com.my.company.mycomponent.interface.my.subns
+
+  Error 102 - Function or macro is defined twice.
+    Triggered if a function or macro is defined twice in the same namespace.
+
+  Error 103 - Missing definitions.
+    Triggered if a def, defn or defmacro definition exists in one component's interface
+    but is missing in another component that uses the same interface.
+
+  Error 104 - Circular dependencies.
+    Triggered if circular dependencies were detected, e.g.:
+    Component A depends on B that depends on A (A > B > A), or A > B > C > A.
+
+  Error 105 - Illegal name sharing.
+    Triggered if a base has the same name as a component or interface.
+    Environments and profiles can be given any name.
+
+  Error 106 - Multiple components that share the same interfaces in an environment.
+    Triggered if an environment contains more than one component that shares the same interface.
+
+  Error 107 - Missing components in environment.
+    Triggered if a component depends on an interface that is not included in the environment.
+    The solution is to add a component to the environment that implements the interface.
+
+  Error 108 - Components with an interface that is implemented by more than one component
+              is not allowed for the development environment.
+    The solution is to remove the component from the development environment and define the paths 
+    for each component in separate profiles (including test paths).
+
+  Error 109 - Missing libraries in environment.
+    Triggered if an environment doesn't contain a library that is used by one of its bricks.
+    Library usage for a brick is calculated using :ns->lib in './deps.edn' for all its namespaces.
+
+  Warning 201 - Mismatching parameter lists in function or macro.
+    Triggered if a function or macro is defined in the interface for a component but also defined
+    in the same interface for another component but with a different parameter list.
+
+  Warning 202 - Missing paths in environment.
+    Triggered if a path in an environment doesn't exist on disk.
+    The solution is to add the file or directory, or to remove the path.
+
+  Warning 203 - Path exists in both dev and profile.
+    It's discouraged to have the same path in both the development environment and a profile.
+    The solution is to remove the path from dev or the profile. 
+
+  Warning 204 - Library exists in both dev and a profile.
+    It's discouraged to have the same library in both development and a profile.
+    The solution is to remove the library from dev or the profile.
+
+  Warning 205 - Reference to missing library in :ns->lib in ./deps.edn.
+    Libraries defined in :ns->lib should also be defined by the environment.
+
+  Warning 206 - Reference to missing namespace in :ns->lib in ./deps.edn.
+    Namespaces defined in :ns->lib should also exist in the environment.
+```
+
+### create
+```
+  Creates a component, base, environment or workspace.
+
+  poly create TYPE [ARGS]
+    TYPE = c -> Creates a component.
+           b -> Creates a base.
+           e -> Creates an environment.
+           w -> Creates a workspace.
+
+    ARGS = Varies depending on TYPE. To get help for a specific TYPE, type:
+             poly help create TYPE
+
+  Not only c, b, e and w can be used for TYPE but also component, base
+  environment and workspace.
+
+  Example:
+    poly create c name:user
+    poly create c name:admin interface:user
+    poly create b name:mybase
+    poly create e name:myenv
+    poly create w name:myws top-ns:com.my.company
+```
+
+#### create c
+```
+  Creates a component.
+
+  poly create c name:NAME [interface:INTERFACE]
+    NAME = The name of the component to create.
+
+    INTERFACE = The name of the interface (namespace) or NAME if not given.
+
+  Example:
+    poly create c name:user
+    poly create c name:admin interface:user
+```
+
+#### create b
+```
+  Creates a base.
+
+  poly create b name:NAME
+    NAME = The name of the base to create.
+
+  Example:
+    poly create b name:mybase
+```
+
+#### create e
+```
+  Creates an environment.
+
+  poly create e name:NAME
+    NAME = The name of the environment to create.
+
+  Example:
+    poly create e name:myenv
+```
+
+#### create w
+```
+  Creates a workspace.
+
+  poly create w name:NAME top-ns:TOP-NAMESPACE
+    NAME = The name of the workspace to create.
+
+    TOP-NAMESPACE = The name of the top namespace.
+
+  Example:
+    poly create w name:myws top-ns:com.my.company
+```
+
+### deps
+```
+  Shows dependencies.
+
+  poly deps [env:ENV] [brick:BRICK]
+    (omitted) = Show dependencies for all bricks.
+    ENV       = Show dependencies for specified environment.
+    BRICK     = Show dependencies for specified brick.
+
+  To get help for a specific diagram, type: 
+    poly help deps ARGS:
+      ARGS = :env         Help for the environment diagram.
+             :brick       Help for the brick diagram.
+             :bricks      Help for all bricks diagram.
+             :env :brick  Help for the environment/brick diagram.
+  Example:
+    poly deps
+    poly deps env:myenv
+    poly deps brick:mybrick
+    poly deps env:myenv brick:mybrick
+```
+
+#### deps :bricks
+```
+  Shows all brick dependencies.
+
+  poly deps
+
+         p      
+         a  u  u
+         y  s  t
+         e  e  i
+  brick  r  r  l
+  --------------
+  payer  ·  x  x
+  user   ·  ·  x
+  util   ·  ·  ·
+  cli    x  ·  ·
+
+  In this example, payer uses user and util, user uses util,
+  and cli uses payer. Each usage comes from at least one :require
+  statement in the brick.
+```
+
+#### deps :brick
+```
+  Shows dependencies for selected brick.
+
+  poly deps brick:BRICK
+    BRICK = The name of the brick to show dependencies for.
+
+  used by  <  user  >  uses
+  -------              ----
+  payer                util
+
+  In this example, user is used by payer and it uses util itself.
+
+  Example:
+    poly deps brick:mybrick
+```
+
+#### deps :env
+```
+  Shows dependencies for selected environment.
+
+  poly deps env:ENV
+    ENV = The environment name or alias to show depenencies for.
+
+         p      
+         a  u  u
+         y  s  t
+         e  e  i
+  brick  r  r  l
+  --------------
+  payer  ·  x  x
+  user   ·  ·  x
+  util   ·  ·  ·
+  cli    x  +  +
+
+  In this example, payer uses user and util, user uses util,
+  and cli uses payer. Each usage comes from at least one :require
+  statement in the brick. 
+  When the environment is known, we also know which components are used.
+
+  Example:
+    poly deps env:myenv
+```
+
+#### deps :env :brick
+```
+  Shows dependencies for selected brick and environment.
+
+  poly deps env:ENV brick:BRICK
+    ENV   = The environment (name or alias) to show dependencies for.
+    BRICK = The brick to show dependencies for.
+
+  used by  <  user  >  uses
+  -------              ----
+  payer                util
+
+  In this example, user is used by payer and it uses util itself.
+
+  Example:
+    poly deps env:myenv brick:mybrick
+```
+
+### diff
+```
+  Shows changed files since the most recent stable point in time.
+
+  poly diff
+
+  Internally, it executes 'git diff SHA --name-only' where SHA is the SHA-1
+  of the first commit in the repository, or the SHA-1 of the most recent tag
+  that matches the default pattern 'stable-*'.
+
+  Stable points are normally set by the CI server or by individual developers,
+  e.g. Lisa, with 'git tag -f stable-lisa'.
+
+  The pattern can be changed in :stable-since-tag-pattern in ./deps.edn.
+
+  The way the latest tag is found is by taking the last line of the output from:
+    git tag --sort=committerdate -l 'stable-*'
+
+  Here is a compact way of listing all the commits including tags:
+    git log --pretty=oneline
+```
+
+### info
+```
+  Shows workspace information.
+
+  poly info [ARGS]
+    ARGS = :loc -> Shows the number of lines of code.
+
+  In addition to :loc, all the arguments used by the 'test' command
+  can also be used as a way to see what tests will be executed.
+
+    stable since: dec73ec | stable-lisa
+
+    environments: 2   interfaces: 3
+    bases:        1   components: 4
+
+    active profiles: default
+
+    environment   alias  source   default  admin
+    ---------------------------   --------------
+    command-line  cl      ---       --      --
+    development   dev     x--       --      --
+
+    interface  brick    cl    dev  admin
+    -----------------   ---   ----------
+    payer      payer    x--   xx-   --
+    user       admin    x--   ---   xx
+    user       user *   ---   xx-   --
+    util       util     x--   xx-   --
+    -          cli      x--   xx-   --
+
+  This example shows a sample project. Let's go through each section:
+
+  1. stable since: dec73ec | stable-lisa
+
+     This shows the first commit or the most recent commit marked as stable,
+     including the tag name. More information can be found in the 'diff' command help.
+
+  2. environments: 2   interfaces: 3
+     bases:        1   components: 4
+
+     Shows how many environments, bases, components and interfaces there are in the workspace.
+
+  3. active profiles: default
+
+     Shows the names of active profiles. The profile paths are merged into the development
+     environment. A profiles is an aliase in ./deps.edn that starts with a +. If no profile
+     is selected, the default profile is automatically selected.
+
+     Profiles are activated by passing them in by name (prefixed with '+'), e.g.:
+       poly info +admin
+
+  4. environment   alias  source   default  admin
+     ---------------------------   --------------
+     command-line  cl      ---       --      --
+     development   dev     x--       --      --
+
+    This table lists all environments. The 'environment' column shows the name of the
+    environments, which are the directory names under the 'environments' directory,
+    except for 'development' that stores its code under the 'development' directory.
+
+    The 'deps.edn' config files are stored under each environment, except for the development
+    enviroment that stores it at the workspace root.
+
+    Aliases are configured in :env->alias in ./deps.edn.
+
+    The 'source' column has three x/- flags with different meaning:
+      x--  The environment has a 'src' directory, e.g. 'environments/command-line/src'.
+      -x-  The environment has a 'test' directory, e.g. 'environments/command-line/test'.
+      --x  The environment tests (its own) are marked for execution.
+
+    To show the 'resources' directory, also pass in :r or :resources, e.g. 'poly info :r':
+      x---  The environment has a 'src' directory, e.g. 'environments/command-line/src'.
+      -x--  The environment has a 'resources' directory, e.g. 'environments/command-line/resources'.
+      --x-  The environment has a 'test' directory, e.g. 'environments/command-line/test'.
+      ---x  The environment tests (its own) are marked for execution.
+
+    The last two columns, default admin, are the profiles:
+      x-  The profile contains a path to the 'src' directory, e.g. 'environments/command-line/src'.
+      -x  The profile contains a path to the 'test' directory, e.g. 'environments/command-line/test'.
+
+    If also passing in :r or :resources, e.g. 'poly info +r':
+      x--  The profile contains a path to the 'src' directory, e.g. 'environments/command-line/src'.
+      -x-  The profile contains a path to the 'resources' directory, e.g. 'environments/command-line/resources'.
+      --x  The profile contains a path to the 'test' directory, e.g. 'environments/command-line/test'.
+
+  5. interface  brick    cl    dev  admin
+     -----------------   ---   ----------
+     payer      payer    x--   xx-   --
+     user       admin    x--   ---   xx
+     user       user *   ---   xx-   --
+     util       util     x--   xx-   --
+     -          cli      x--   xx-   --
+
+    This table lists all bricks and in which environments and profiles they are added to.
+
+    The 'interface' column shows what interface the component has. The name is the first
+    namespace after the component name, e.g.: com.my.company.user.interface.
+
+    The 'brick' column shows the name of the brick. In green if a component or blue if a base.
+    Each component lives in a directory under the 'components' directory and each base lives
+    under the 'bases' directory. If any file for a brick has changed since the last stable
+    point in time, it will be marked with an asterisk, * (user in this example).
+
+    The changed files can be listed by executing 'poly diff'.
+
+    The next cl column is the command-line environment that lives under the 'environments' directory.
+    Each line in this column says whether a brick is included in the environment or not.
+
+    The flags mean:
+      x--  The environment contains a path to the 'src' directory, e.g. 'components/user/src'.
+      -x-  The environment contains a path to the 'test' directory, e.g. 'components/user/test'.
+      --x  The brick is marked to be executed from this environment.
+
+    If :r or :resources is also passed in:
+      x---  The environment contains a path to the 'src' directory, e.g. 'components/user/src'.
+      -x--  The environment contains a path to the 'resources' directory, e.g. 'components/user/resources'.
+      --x-  The environment contains a path to the 'test' directory, e.g. 'components/user/test'.
+      ---x  The brick is marked to be executed from this environment.
+
+    The next group of columns, dev admin, is the development environment with its profiles.
+    If passing in a plus with 'poly info +' then it will also show the default profile.
+    The flags for the dev environment works the same as for cl.
+
+    The flags for the admin profile means:
+      x-  The profile contains a path to the 'src' directory, e.g. 'components/user/src'.
+      -x  The profile contains a path to the 'test' directory, e.g. 'components/user/test'.
+
+    If :r or :resources is also passed in:
+      x--  The profile contains a path to the 'src' directory, e.g. 'components/user/src'.
+      -x-  The profile contains a path to the 'resources' directory, e.g. 'components/user/resources'.
+      --x  The profile contains a path to the 'test' directory, e.g. 'components/user/test'.
+
+  It's not enough that a path has been added to an environment to show an 'x', the file or directory
+  must also exist.
+
+  If any warnings or errors was found in the workspace, they will be listed at the end,
+  see the 'check' command help, for a complete list of validations.
+
+  Example:
+    poly info
+    poly info :loc
+    poly info env:myenv
+    poly info env:myenv:another-env
+    poly info :env
+    poly info :dev
+    poly info :env :dev
+    poly info :all
+    poly info :all-bricks
+    poly info ws-dir:another-ws
+```
+
+### libs
+```
+  Shows all libraries that are used in the workspace.
+
+  poly libs
+                                                                       a  p
+                                                                       d  a  u  u
+                                                                       m  y  s  t  c
+                                                                       i  e  e  i  l
+    library                       version   cl   dev  default  admin   n  r  r  l  i
+    -------------------------------------   --   -------------------   -------------
+    clj-time                      0.15.2    x     x      -       -     ·  ·  x  ·  ·
+    org.clojure/clojure           1.10.1    x     x      -       -     ·  ·  ·  ·  ·
+    org.clojure/tools.deps.alpha  0.8.695   x     x      -       -     ·  ·  ·  ·  ·
+
+  In this example we have three libraries used by the cl and dev environments.
+  If any of the libraries are added to the default or admin profiles, they will appear
+  as 'x' in these columns.
+
+  The 'x' in the user column, tells that 'clj-time' is used by that component
+  by having at least one :require statement that includes the 'clj-time' namespace.
+
+  Libraries are only specified per environment, and the way it finds out which libraries
+  are used for a specific brick, is by looking in :ns->lib in ./deps.edn
+  which in this case has the value {clj-time clj-time} - typed in as symbols.
+
+  Libraries are selected per envronment and it's therefore possible to have different
+  versions of the same library in different environments (if needed).
+```
+
+### ws
+```
+  Prints out the workspace as data.
+
+  poly ws [get:ARG]
+    ARG = keys  -> Lists the keys for the data structure:
+                   - If it's a hash map - it returns all its keys.
+                   - If it's a list and its elements are hash maps, it returns
+                     a list with all the :name keys.
+
+          count -> Counts the number of elements.
+
+          KEY   -> If applied to a hash map, it returns the value of the KEY.
+                   If applied to a list of hash maps, it returns the hash map with
+                   a matching :name. Environments are also matched against :alias.
+
+          INDEX -> A list element can be looked up by INDEX.
+
+          Several ARG keys can be given, separated by colon.
+          Every new key goes one level deeper into the workspace hash map.
+
+  Example:
+    poly ws
+    poly ws get:keys
+    poly ws get:count
+    poly ws get:settings
+    poly ws get:settings:user-input:args
+    poly ws get:settings:user-input:args:0
+    poly ws get:settings:keys
+    poly ws get:components:keys
+    poly ws get:components:count
+    poly ws get:components:user:lines-of-code-src
+```
 
 ## Colors
 
@@ -1640,3 +2260,16 @@ If you want to use the same colors in your terminal, here they are:<br>
 
 If the colors (f8eeb6, bfefc5, 77bcfc, e2aeff, cccccc, 24272b, ee9b9a) looks familiar to you, it's because they are 
 more or less stolen from the [Borealis](https://github.com/Misophistful/borealis-cursive-theme) color schema!
+
+## Contact
+
+Feel free to contact me:<br>
+&nbsp;&nbsp;Twitter: @jtengstrand<br>
+&nbsp;&nbsp;Email: info[at]polyfy[dot]com
+
+You can also get in touch with us in the [Polylith forum](https://polylith.freeflarum.com) 
+or on [Slack](https://clojurians.slack.com/archives/C013B7MQHJQ).
+
+## License
+
+Distributed under the Eclipse Public License, the same as Clojure.
