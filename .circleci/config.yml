@@ -133,14 +133,20 @@ workflows:
   build-and-deploy:
     jobs:
       - check:
+          requires:
+            - check
           filters:
             tags:
               only: /^v.*/
       - info:
+          requires:
+            - check
           filters:
             tags:
               only: /^v.*/
       - ws:
+          requires:
+            - check
           filters:
             tags:
               only: /^v.*/
