@@ -19,7 +19,7 @@
        "          " (s/key "INDEX" cm) " -> A list element can be looked up by " (s/key "INDEX" cm) ".\n"
        "\n"
        "          Several " (s/key "ARG" cm) " keys can be given, separated by colon.\n"
-       "          Every new key goes one level deeper into the workspace hash map.\n"
+       "          Every new key goes one level deeper into the workspace data structure.\n"
        "\n"
        "  Example:\n"
        "    poly ws\n"
