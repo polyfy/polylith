@@ -29,6 +29,50 @@ jobs:
           paths:
             - .
 
+  info:
+    docker:
+      - image: circleci/clojure:tools-deps-1.10.1.561
+    working_directory: ~/polylith
+    steps:
+      - attach_workspace:
+          at: ~/polylith
+      - restore_cache:
+          key: polylith-{{ checksum "deps.edn" }}
+      - run:
+          name: Add global git user email
+          command: git config --global user.email "circleci@polyfy.com"
+      - run:
+          name: Add global git user name
+          command: git config --global user.name "CircleCI"
+      - run:
+          name: Run info command for Polylith workspace
+          command: clojure -A:poly info
+      - run:
+          name: Run deps command for Polylith workspace
+          command: clojure -A:poly deps
+      - run:
+          name: Run libs command for Polylith workspace
+          command: clojure -A:poly libs
+
+  ws:
+    docker:
+      - image: circleci/clojure:tools-deps-1.10.1.561
+    working_directory: ~/polylith
+    steps:
+      - attach_workspace:
+          at: ~/polylith
+      - restore_cache:
+          key: polylith-{{ checksum "deps.edn" }}
+      - run:
+          name: Add global git user email
+          command: git config --global user.email "circleci@polyfy.com"
+      - run:
+          name: Add global git user name
+          command: git config --global user.name "CircleCI"
+      - run:
+          name: Run ws command for Polylith workspace
+          command: clojure -A:poly ws
+
   test:
     docker:
       - image: circleci/clojure:tools-deps-1.10.1.561
@@ -89,6 +133,18 @@ workflows:
   build-and-deploy:
     jobs:
       - check:
+          filters:
+            tags:
+              only: /^v.*/
+      - info:
+          requires:
+            - check
+          filters:
+            tags:
+              only: /^v.*/
+      - ws:
+          requires:
+            - check
           filters:
             tags:
               only: /^v.*/

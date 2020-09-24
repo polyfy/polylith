@@ -18,16 +18,29 @@
     (filterv #(not= "development" %)
              (-> workspace :changes :changed-or-affected-environments))))
 
-(defn workspace [keys]
-  "Returns the workspace or part of the workspace by sending in a comma-separated
-   list of keys, with the same format as the 'ws' command. If keys is nil or blank,
-   return the whole workspace"
-  (let [args (when keys ["ws" (str "get:" keys)] ["ws"])
+(defn key->str [key]
+  (cond
+    (number? key) (str key)
+    (keyword? key) (name key)
+    :else key))
+
+(defn workspace [stable-point keys]
+  "Returns the workspace or part of the workspace by sending in a stable-point
+   that specifies the which git tag to calculate changes and a list of keywords,
+   strings, or numbers. :keys and :count are also valid keys to send in. If keys
+   are empty, returns the whole workspace."
+  (let [keys-str (map key->str keys)
+        args (if-not (empty keys-str)
+               ["ws" (str "get:" (str/join ":" keys-str))]
+               ["ws"])
         user-input (user-input/extract-params args)
+        stable-fn (if (= :build stable-point)
+                    change/with-last-build-changes
+                    change/with-last-stable-changes)
         workspace (-> user-input
                       ws-clj/workspace-from-disk
                       ws/enrich-workspace
-                      change/with-last-build-changes)]
-    (if (str/blank? keys)
+                      stable-fn)]
+    (if (empty? keys-str)
       workspace
-      (ws-explorer/extract workspace (str/split keys #":")))))
+      (ws-explorer/extract workspace keys-str))))
