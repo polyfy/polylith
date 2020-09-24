@@ -54,7 +54,7 @@
 
 (defn with-last-build-changes [{:keys [ws-dir settings] :as workspace}]
   (let [{:keys [build-tag-pattern]} settings
-        {:keys [sha]} (git/latest-build ws-dir build-tag-pattern)]
+        {:keys [sha]} (git/previous-build ws-dir build-tag-pattern)]
     (with-changes workspace sha)))
 
 (defn with-last-stable-changes [{:keys [ws-dir settings] :as workspace}]

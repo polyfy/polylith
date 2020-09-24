@@ -44,18 +44,20 @@
 (defn sha-of-tag [ws-dir tag-name]
   (first (str/split-lines (shell/sh "git" "rev-list" "-1" tag-name :dir ws-dir))))
 
-(defn first-commited-sha [ws-dir]
+(defn first-committed-sha [ws-dir]
   (last (str/split-lines (shell/sh "git" "log" "--format=%H" :dir ws-dir))))
 
-(defn latest-build [ws-dir pattern]
-  (if-let [tag-name (last (filter #(version/version? pattern %)
-                                  (list-tags ws-dir pattern)))]
+(defn previous-build [ws-dir pattern]
+  (if-let [tag-name (-> (filter #(version/version? pattern %)
+                                (list-tags ws-dir pattern))
+                        drop-last
+                        last)]
     {:tag tag-name
      :sha (sha-of-tag ws-dir tag-name)}
-    {:sha (first-commited-sha ws-dir)}))
+    {:sha (first-committed-sha ws-dir)}))
 
 (defn latest-stable [ws-dir pattern]
   (if-let [tag-name (last (list-tags ws-dir pattern))]
     {:tag tag-name
      :sha (sha-of-tag ws-dir tag-name)}
-    {:sha (first-commited-sha ws-dir)}))
+    {:sha (first-committed-sha ws-dir)}))

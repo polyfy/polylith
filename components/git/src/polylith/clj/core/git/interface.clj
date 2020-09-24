@@ -10,8 +10,8 @@
 (defn add [ws-dir filename]
   (core/add ws-dir filename))
 
-(defn latest-build [ws-dir pattern]
-  (core/latest-build ws-dir pattern))
+(defn previous-build [ws-dir pattern]
+  (core/previous-build ws-dir pattern))
 
 (defn latest-stable [ws-dir pattern]
   (core/latest-stable ws-dir pattern))
