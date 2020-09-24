@@ -4,5 +4,5 @@
 (defn with-last-stable-changes [workspace]
   (core/with-last-stable-changes workspace))
 
-(defn with-last-build-changes [workspace]
-  (core/with-last-build-changes workspace))
+(defn with-previous-build-changes [workspace]
+  (core/with-previous-build-changes workspace))
