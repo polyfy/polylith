@@ -53,8 +53,11 @@
     {:dev? :dev-q
      :run-tests? :run-tests-q
      :show-loc? :show-loc-q
+     :show-env? :show-env-q
+     :run-all-tests? :run-all-tests-q
      :run-all-brick-tests? :run-all-brick-tests-q
      :run-env-tests? :run-env-tests-q
+     :search-for-ws-dir? :search-for-ws-dir-q
      :show-resources? :show-resources-q
      :ns->lib :ns--lib
      :env->alias :env--alias
