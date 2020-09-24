@@ -5,5 +5,5 @@
 (defn environments-to-deploy []
   (core/environments-to-deploy))
 
-(defn workspace [keys]
-  (core/workspace keys))
+(defn workspace [stable-point & keys]
+  (core/workspace stable-point keys))
