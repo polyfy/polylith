@@ -35,12 +35,12 @@
                        :env env}
                       t)))))
 
-(def deployable-environments #{"poly" "migrator"})
+(def deployable-environments #{"poly" "migrator" "api"})
 
 (defn deploy []
   (let [current-dir (file/current-dir)
         changed-environments (filter #(contains? deployable-environments %)
-                                     (api/changed-environments))]
+                                     (api/environments-to-deploy))]
     (when (empty? changed-environments)
       (throw (Exception. "Cannot deploy environments. None of the environments in this workspace changed.")))
     (doseq [env changed-environments]
