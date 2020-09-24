@@ -14,7 +14,7 @@
         workspace (-> user-input
                       ws-clj/workspace-from-disk
                       ws/enrich-workspace
-                      change/with-last-build-changes)]
+                      change/with-previous-build-changes)]
     (filterv #(not= "development" %)
              (-> workspace :changes :changed-or-affected-environments))))
 
@@ -35,7 +35,7 @@
                ["ws"])
         user-input (user-input/extract-params args)
         stable-fn (if (= :build stable-point)
-                    change/with-last-build-changes
+                    change/with-previous-build-changes
                     change/with-last-stable-changes)
         workspace (-> user-input
                       ws-clj/workspace-from-disk
