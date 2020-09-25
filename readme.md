@@ -6,7 +6,7 @@ A tool used to develop Polylith based architectures in Clojure.
 > **_UNDER CONSTRUCTION_**<br>
 > This new tools.deps based tool hasn't been released yet.<br>
 > Please use the old lein-polylith based tool in the meantime:<br>
-> https://github.com/polyfy/lein-polylith
+> https://github.com/tengstrand/lein-polylith
 
 Welcome to the wonderful world of Polylith!
 
@@ -1651,7 +1651,7 @@ The workspace configuration is stored under the `:polylith` key in `./deps.edn` 
 | :top-namespace             | The workspace top namespace. If changed, the source code has to be changed accordingly. |
 | :interface-ns              | The default value is `interface`. If changed, the source code has to be changed accordingly. |
 | :default-profile-name      | The default value is `default`. If changed, the `+default` alias in `./deps.edn` has to be renamed accordingly. |
-| :build-tag-pattern         | The default value is `v*`. If changed, old tags may not be recognised. |
+| :build-tag-pattern         | The default value is `v[0-9]*`. If changed, old tags may not be recognised. |
 | :stable-since-tag-pattern  | The default value is `stable-*`. If changed, old tags may not be recognised. |
 | :env->alias                | If the `development` key is missing, `{"development" "dev"}` will be added. |
 | :ns->lib                   | Can be left empty, but will give a more detailed output from the [libs](#libs) command if populated. |
@@ -1671,7 +1671,7 @@ There is a way to view all configuration that is used by the tool, and that is t
 poly ws get:settings
 ```
 ```clojure
-{:build-tag-pattern "v*",
+{:build-tag-pattern "v[0-9]*",
  :color-mode "dark",
  :default-profile-name "default",
  :empty-char "·",

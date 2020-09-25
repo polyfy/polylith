@@ -48,7 +48,7 @@
                                     :top-namespace top-namespace
                                     :interface-ns (or interface-ns "interface")
                                     :default-profile-name (or default-profile-name "default")
-                                    :build-tag-pattern (or build-tag-pattern "v*")
+                                    :build-tag-pattern (or build-tag-pattern "v[0-9]*")
                                     :stable-since-tag-pattern (or stable-since-tag-pattern "stable-*")
                                     :color-mode color-mode
                                     :user-config-file user-config-file

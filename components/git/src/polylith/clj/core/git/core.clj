@@ -1,6 +1,5 @@
 (ns polylith.clj.core.git.core
   (:require [clojure.string :as str]
-            [polylith.clj.core.git.version :as version]
             [polylith.clj.core.shell.interface :as shell]))
 
 (defn is-git-repo? [ws-dir]
@@ -48,8 +47,7 @@
   (last (str/split-lines (shell/sh "git" "log" "--format=%H" :dir ws-dir))))
 
 (defn previous-build [ws-dir pattern]
-  (if-let [tag-name (-> (filter #(version/version? pattern %)
-                                (list-tags ws-dir pattern))
+  (if-let [tag-name (-> (list-tags ws-dir pattern)
                         drop-last
                         last)]
     {:tag tag-name

@@ -9,7 +9,7 @@
 (defn environments-to-deploy []
   "Returns the environments that have been affected since last deploy,
    tagged in git following the pattern defined by :build-tag-pattern in
-   deps.edn, or v* if not defined."
+   deps.edn, or v[0-9]* if not defined."
   (let [user-input (user-input/extract-params [])
         workspace (-> user-input
                       ws-clj/workspace-from-disk
