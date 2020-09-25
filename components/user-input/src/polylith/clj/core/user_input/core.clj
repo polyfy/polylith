@@ -28,6 +28,7 @@
                 get
                 interface
                 name
+                since
                 top-ns
                 ws-dir
                 all!
@@ -46,6 +47,7 @@
                       :color-mode color-mode
                       :interface interface
                       :name name
+                      :since since
                       :top-ns top-ns
                       :ws-dir ws-dir
                       :search-for-ws-dir? (contains? (set args) "::")

@@ -21,7 +21,7 @@
                                 environments)))))
 
 (defn changes [{:keys [environments paths user-input]}
-               {:keys [sha1 sha2 files]}]
+               {:keys [since-sha tag files]}]
    (let [deps (map (juxt :name :deps) environments)
          {:keys [dev? run-all-tests? run-all-brick-tests? run-env-tests?]} user-input
          {:keys [changed-components
@@ -32,9 +32,9 @@
          env->indirect-changes (indirect/env->indirect-changes deps changed-bricks)
          env->bricks-to-test (bricks-to-test/env->bricks-to-test changed-environments environments changed-components changed-bases env->indirect-changes run-all-brick-tests?)
          env->environments-to-test (envs-to-test/env->environments-to-test environments changed-environments paths dev? run-env-tests? run-all-tests?)]
-     (util/ordered-map :sha1 sha1
-                       :sha2 sha2
-                       :git-command (git/diff-command sha1 sha2)
+     (util/ordered-map :since-sha since-sha
+                       :tag tag
+                       :git-command (git/diff-command since-sha nil)
                        :changed-components changed-components
                        :changed-bases changed-bases
                        :changed-environments changed-environments
@@ -44,20 +44,17 @@
                        :env->environments-to-test env->environments-to-test
                        :changed-files files)))
 
+(defn find-sha [ws-dir {:keys [changes-since build-tag-pattern stable-since-tag-pattern]}]
+  (if (= "previous-build" changes-since)
+    (git/previous-build ws-dir build-tag-pattern)
+    (git/latest-stable ws-dir stable-since-tag-pattern)))
+
 (defn with-changes
-  ([{:keys [ws-dir] :as workspace} sha]
+  ([{:keys [ws-dir settings] :as workspace}]
    (if (-> ws-dir git/is-git-repo? not)
      workspace
-     (assoc workspace :changes
-                      (changes workspace {:sha1 sha
-                                          :files (git/diff ws-dir sha nil)})))))
-
-(defn with-previous-build-changes [{:keys [ws-dir settings] :as workspace}]
-  (let [{:keys [build-tag-pattern]} settings
-        {:keys [sha]} (git/previous-build ws-dir build-tag-pattern)]
-    (with-changes workspace sha)))
-
-(defn with-last-stable-changes [{:keys [ws-dir settings] :as workspace}]
-  (let [{:keys [stable-since-tag-pattern]} settings
-        {:keys [sha]} (git/latest-stable ws-dir stable-since-tag-pattern)]
-    (with-changes workspace sha)))
+     (let [{:keys [tag sha]} (find-sha ws-dir settings)]
+       (assoc workspace :changes
+                        (changes workspace {:tag tag
+                                            :since-sha sha
+                                            :files (git/diff ws-dir sha nil)}))))))

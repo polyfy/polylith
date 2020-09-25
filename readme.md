@@ -1672,6 +1672,7 @@ poly ws get:settings
 ```
 ```clojure
 {:build-tag-pattern "v[0-9]*",
+ :changes-since "last-stable",
  :color-mode "dark",
  :default-profile-name "default",
  :empty-char "·",
@@ -1686,8 +1687,6 @@ poly ws get:settings
                                :paths ["components/user-remote/src"
                                        "components/user-remote/resources"
                                        "components/user-remote/test"]}},
- :stable-since {:sha "475f005c96f079db378861dc98903b5c2e4b6236",
-                :tag "stable-lisa"},
  :stable-since-tag-pattern "stable-*",
  :thousand-sep ",",
  :top-namespace "se.example",
@@ -1722,13 +1721,13 @@ poly get:settings:profile--settings:default
 ```
 
 If we execute `poly ws` without any arguments, it will view the whole workspace as plain data.
-This data structure is produces by the tool itself and uses by all the commands.
+This data structure is produces by the tool itself and is used by all the commands.
 The commands only operate on this hash map and is not performing any side effecting operations,
 like touching the disk or executing git commands. Instead, everything is prepared so that all commands can
 be executed in memory. 
 
 This will not only speed up and simplify the code of the tool itself, but also gives you as a user
-of the tool a way to explore the state of the workspace.
+of the tool a way to explore the complete state of the workspace.
 
 A good way to start digging into this data structure is to list all its keys:
 ```

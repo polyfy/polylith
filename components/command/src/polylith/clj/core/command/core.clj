@@ -47,7 +47,7 @@
     (-> user-input
         ws-clj/workspace-from-disk
         ws/enrich-workspace
-        change/with-last-stable-changes)))
+        change/with-changes)))
 
 (defn execute [{:keys [cmd args name top-ns show-brick? show-bricks? show-env? brick get interface active-dev-profiles selected-environments unnamed-args] :as user-input}]
   (let [color-mode (common/color-mode user-input)

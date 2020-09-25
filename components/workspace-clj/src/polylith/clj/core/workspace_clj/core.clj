@@ -57,6 +57,7 @@
                                     :profile->settings profile->settings
                                     :env->alias env->alias
                                     :ns->lib (stringify ns->lib)
+                                    :changes-since (:since user-input "last-stable")
                                     :user-input user-input)]
      (util/ordered-map :ws-dir ws-dir
                        :ws-reader ws-reader

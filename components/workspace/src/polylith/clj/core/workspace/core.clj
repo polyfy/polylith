@@ -7,7 +7,6 @@
             [polylith.clj.core.workspace.base :as base]
             [polylith.clj.core.workspace.component :as component]
             [polylith.clj.core.workspace.environment :as env]
-            [polylith.clj.core.workspace.settings :as settings]
             [polylith.clj.core.workspace.interfaces :as interfaces]
             [polylith.clj.core.workspace.user-input :as user-input]))
 
@@ -45,12 +44,11 @@
         brick->lib-imports (brick->lib-imports enriched-bricks)
         env->alias (alias/env->alias settings environments)
         enriched-user-input (user-input/enrich settings user-input)
-        enriched-settings (settings/enrich ws-dir settings)
         enriched-environments (vec (sort-by env-sorter (map #(env/enrich-env % enriched-components enriched-bases brick->loc brick->lib-imports env->alias paths settings enriched-user-input) environments)))
         messages (validator/validate-ws suffixed-top-ns settings paths interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns enriched-user-input color-mode)]
     (assoc workspace :name ws-name
                      :user-input enriched-user-input
-                     :settings enriched-settings
+                     :settings settings
                      :interfaces interfaces
                      :components enriched-components
                      :bases enriched-bases
