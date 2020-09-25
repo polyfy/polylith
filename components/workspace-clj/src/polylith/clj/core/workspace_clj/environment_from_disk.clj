@@ -3,6 +3,7 @@
             [clojure.tools.deps.alpha.util.maven :as mvn]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.workspace-clj.library :as library]
             [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]))
 
 (defn absolute-path [path env]
@@ -24,11 +25,11 @@
      (read-environment env env-dir config-file dev? paths deps aliases maven-repos)))
   ([env env-dir config-file dev? paths deps aliases maven-repos]
    (let [src-paths (if dev? (-> aliases :dev :extra-paths) paths)
-         lib-deps (if dev? (-> aliases :dev :extra-deps) deps)
+         lib-deps (library/with-sizes (if dev? (-> aliases :dev :extra-deps) deps))
+         test-lib-deps (library/with-sizes (-> aliases :test :extra-deps))
          absolute-src-paths (absolute-paths env src-paths dev?)
          test-paths (-> aliases :test :extra-paths)
          absolute-test-paths (absolute-paths env test-paths dev?)
-         test-lib-deps (util/stringify-and-sort-map (-> aliases :test :extra-deps))
          namespaces-src (ns-from-disk/namespaces-from-disk (str env-dir "/src"))
          namespaces-test (ns-from-disk/namespaces-from-disk (str env-dir "/test"))]
      (util/ordered-map :name env

@@ -56,8 +56,8 @@
 (defn read-file [path]
   (core/read-file path))
 
-(defn delete-folder [file]
-  (core/delete-folder file))
+(defn size [path]
+  (fs/size path))
 
 (defn files-recursively [dir]
   (core/files-recursively dir))

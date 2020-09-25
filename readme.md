@@ -1595,7 +1595,7 @@ poly libs
 ```
 <img src="images/realworld-lib-deps.png" width="60%">
 
-Library dependencies are specified per environment. If needed, different versions
+Library dependencies are specified per environment. The KB column shows the size of each library in kilobytes. If needed, different versions
 of the same library can be used in different environments. Only libraries that are
 defined with `{mvn/version ...}` are listed here.
 

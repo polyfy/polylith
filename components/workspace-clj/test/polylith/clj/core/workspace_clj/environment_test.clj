@@ -42,9 +42,12 @@
   (is (= {:config-file     "environments/poly/deps.edn"
           :dev?            false
           :env-dir         "environments/poly"
-          :lib-deps        {"org.clojure/clojure"                             #:mvn{:version "1.10.1"}
-                            "org.clojure/tools.deps.alpha"                    #:mvn{:version "0.8.695"}
-                            "org.jetbrains.kotlin/kotlin-compiler-embeddable" #:mvn{:version "1.3.72"}}
+          :lib-deps        {"org.clojure/clojure"                             {:mvn/version "1.10.1"
+                                                                               :size        3908431}
+                            "org.clojure/tools.deps.alpha"                    {:mvn/version "0.8.695"
+                                                                               :size        47566}
+                            "org.jetbrains.kotlin/kotlin-compiler-embeddable" {:mvn/version "1.3.72"
+                                                                               :size        40201239}}
           :maven-repos     {"central" {:url "https://repo1.maven.org/maven2/"}
                             "clojars" {:url "https://repo.clojars.org/"}}
           :name            "poly"

@@ -9,6 +9,7 @@
            "../../components/shell/src"
            "../../components/text-table/src"
            "../../components/user-config/src"
+           "../../components/user-input/src"
            "../../components/util/src"
            "../../components/validator/src"
            "../../components/workspace/src"]
