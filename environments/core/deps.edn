@@ -1,6 +1,5 @@
 
-{:paths   [; Components
-           "../../components/change/src"
+{:paths   ["../../components/change/src"
            "../../components/common/src"
            "../../components/deps/src"
            "../../components/path-finder/src"

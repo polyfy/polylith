@@ -9,12 +9,12 @@
 (defn environments-to-deploy []
   "Returns the environments that have been affected since last deploy,
    tagged in git following the pattern defined by :build-tag-pattern in
-   deps.edn, or v* if not defined."
-  (let [user-input (user-input/extract-params [])
+   deps.edn, or v[0-9]* if not defined."
+  (let [user-input (user-input/extract-params ["ws" "since:previous-build"])
         workspace (-> user-input
                       ws-clj/workspace-from-disk
                       ws/enrich-workspace
-                      change/with-previous-build-changes)]
+                      change/with-changes)]
     (filterv #(not= "development" %)
              (-> workspace :changes :changed-or-affected-environments))))
 
@@ -30,17 +30,16 @@
    strings, or numbers. :keys and :count are also valid keys to send in. If keys
    are empty, returns the whole workspace."
   (let [keys-str (map key->str keys)
+        since (if (= :previous-build stable-point)
+                "since:previous-build" "since:last-stable")
         args (if-not (empty keys-str)
-               ["ws" (str "get:" (str/join ":" keys-str))]
-               ["ws"])
+               ["ws" since (str "get:" (str/join ":" keys-str))]
+               ["ws" since])
         user-input (user-input/extract-params args)
-        stable-fn (if (= :build stable-point)
-                    change/with-previous-build-changes
-                    change/with-last-stable-changes)
         workspace (-> user-input
                       ws-clj/workspace-from-disk
                       ws/enrich-workspace
-                      stable-fn)]
+                      change/with-changes)]
     (if (empty? keys-str)
       workspace
       (ws-explorer/extract workspace keys-str))))

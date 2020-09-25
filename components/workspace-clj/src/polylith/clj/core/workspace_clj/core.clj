@@ -48,7 +48,7 @@
                                     :top-namespace top-namespace
                                     :interface-ns (or interface-ns "interface")
                                     :default-profile-name (or default-profile-name "default")
-                                    :build-tag-pattern (or build-tag-pattern "v*")
+                                    :build-tag-pattern (or build-tag-pattern "v[0-9]*")
                                     :stable-since-tag-pattern (or stable-since-tag-pattern "stable-*")
                                     :color-mode color-mode
                                     :user-config-file user-config-file
@@ -57,6 +57,7 @@
                                     :profile->settings profile->settings
                                     :env->alias env->alias
                                     :ns->lib (stringify ns->lib)
+                                    :changes-since (:since user-input "last-stable")
                                     :user-input user-input)]
      (util/ordered-map :ws-dir ws-dir
                        :ws-reader ws-reader

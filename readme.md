@@ -6,7 +6,7 @@ A tool used to develop Polylith based architectures in Clojure.
 > **_UNDER CONSTRUCTION_**<br>
 > This new tools.deps based tool hasn't been released yet.<br>
 > Please use the old lein-polylith based tool in the meantime:<br>
-> https://github.com/polyfy/lein-polylith
+> https://github.com/tengstrand/lein-polylith
 
 Welcome to the wonderful world of Polylith!
 
@@ -1651,7 +1651,7 @@ The workspace configuration is stored under the `:polylith` key in `./deps.edn` 
 | :top-namespace             | The workspace top namespace. If changed, the source code has to be changed accordingly. |
 | :interface-ns              | The default value is `interface`. If changed, the source code has to be changed accordingly. |
 | :default-profile-name      | The default value is `default`. If changed, the `+default` alias in `./deps.edn` has to be renamed accordingly. |
-| :build-tag-pattern         | The default value is `v*`. If changed, old tags may not be recognised. |
+| :build-tag-pattern         | The default value is `v[0-9]*`. If changed, old tags may not be recognised. |
 | :stable-since-tag-pattern  | The default value is `stable-*`. If changed, old tags may not be recognised. |
 | :env->alias                | If the `development` key is missing, `{"development" "dev"}` will be added. |
 | :ns->lib                   | Can be left empty, but will give a more detailed output from the [libs](#libs) command if populated. |
@@ -1671,7 +1671,8 @@ There is a way to view all configuration that is used by the tool, and that is t
 poly ws get:settings
 ```
 ```clojure
-{:build-tag-pattern "v*",
+{:build-tag-pattern "v[0-9]*",
+ :changes-since "last-stable",
  :color-mode "dark",
  :default-profile-name "default",
  :empty-char "·",
@@ -1686,8 +1687,6 @@ poly ws get:settings
                                :paths ["components/user-remote/src"
                                        "components/user-remote/resources"
                                        "components/user-remote/test"]}},
- :stable-since {:sha "475f005c96f079db378861dc98903b5c2e4b6236",
-                :tag "stable-lisa"},
  :stable-since-tag-pattern "stable-*",
  :thousand-sep ",",
  :top-namespace "se.example",
@@ -1722,13 +1721,13 @@ poly get:settings:profile--settings:default
 ```
 
 If we execute `poly ws` without any arguments, it will view the whole workspace as plain data.
-This data structure is produces by the tool itself and uses by all the commands.
+This data structure is produces by the tool itself and is used by all the commands.
 The commands only operate on this hash map and is not performing any side effecting operations,
 like touching the disk or executing git commands. Instead, everything is prepared so that all commands can
 be executed in memory. 
 
 This will not only speed up and simplify the code of the tool itself, but also gives you as a user
-of the tool a way to explore the state of the workspace.
+of the tool a way to explore the complete state of the workspace.
 
 A good way to start digging into this data structure is to list all its keys:
 ```
