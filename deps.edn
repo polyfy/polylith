@@ -56,29 +56,21 @@
                                mvxcvi/puget {:mvn/version "1.3.1"}
                                slipset/deps-deploy {:mvn/version "0.1.0"}}}
 
-            :test {:extra-paths [; Components
-                                 "components/api/test"
+            :test {:extra-paths ["components/api/test"
                                  "components/change/test"
                                  "components/creator/test"
                                  "components/deps/test"
                                  "components/file/test"
                                  "components/git/test"
-                                 "components/help/test"
                                  "components/lib-dep/test"
                                  "components/migrator/test"
                                  "components/path-finder/test"
-                                 "components/shell/test"
-                                 "components/test-helper/test"
-                                 "components/test-runner/test"
                                  "components/user-input/test"
                                  "components/util/test"
                                  "components/validator/test"
                                  "components/workspace/test"
                                  "components/workspace-clj/test"
                                  "components/ws-explorer/test"
-                                 ; Bases
-                                 "bases/poly-cli/test"
-                                 ; Environments
                                  "environments/poly/test"]}
 
             :poly {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
