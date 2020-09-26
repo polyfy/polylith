@@ -50,6 +50,7 @@ If you have any old Leiningen based projects to migrated, follow the instruction
 - [Profile](#profile)
 - [Dependencies](#dependencies)
 - [Libraries](#dependencies)
+- [Context](#context)
 - [Configuration](#configuration)
 - [Commands](#commands)
 - [Colors](#colors)
@@ -1246,7 +1247,8 @@ environment. This solution allow us to work from a single `development` environm
 able to mimic the various environments we have.
 
 The `default` profile (if exists) is automatically merged into the `development` environment, if no other profiles
-are selected.
+are selected. The name `default` is set by `:default-profile-name` in `./deps.edn` and can be changed,
+but in this example we leave it as it is.
 
 Now let's try to move from this design:<br>
 <img src="images/command-line.png" width="35%" alt="Command-line">
@@ -1438,6 +1440,9 @@ components
 
 ``` 
 
+Notice here that the profiles contain both `src` and `test` directories.
+The profiles are only used from the development environment, and that's why this works.
+
 - [x] Switch from `user` to `user-remote` in `deps.edn` for the `command-line` environment.
 
 ```clojure
@@ -1463,7 +1468,7 @@ chmod +x scripts/build-user-service-uberjar.sh
 ```
 
 
-Puhh, should be it! Now let's test if if works.
+Puhh, that should be it! Now let's test if if works.
 
 Execute this from the workspace root in a separate terminal:
 ```
@@ -1528,7 +1533,7 @@ and therefore all profiles are marked with `--` in the environment section.
 ## Dependencies
 
 To explain dependencies, we will use the
-[RealWold example app](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/clojure-deps).
+[RealWorld example app](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/clojure-deps).
 
 Execute these commands from outside the `example` workspace (e.g. the parent folder of our `example` workspace):
 ```sh
@@ -1537,12 +1542,21 @@ cd clojure-polylith-realworld-example-app
 git checkout clojure-deps
 ```
 
+Before we continue, it may be worth mentioning that we can still can execute most of the command
+(all except [test](#test)) for the old workspace, by setting the `ws-dir` argument, e.g.:
+```
+poly check ws-dir:../example
+``` 
+
+Let's go back to the RealWorld example:
+
 ```
 poly info
 ```
 <img src="images/realworld-info-1.png" width="30%">
 
-Now we have some bricks to play with! Let's execute the [deps](#deps-bricks) command:
+
+Now we have some bricks to play with! 
 
 ```
 poly deps
@@ -1567,7 +1581,7 @@ within the selected environment.
 The `+` signs shows indirect dependencies. An example is the `article` component
 that uses `log` indirectly:  article > database > log.
 
-Tip: If the headers and the "green rows" doesn't match, it may indicate that we have
+> Tip: If the headers and the "green rows" doesn't match, it may indicate that we have
 unused components that can be removed from the environment.
 
 If we give both an environment and a brick as parameters to the [deps](#deps-env-brick) command:
@@ -1585,7 +1599,7 @@ poly deps brick:article
 ```
 <img src="images/realworld-deps-interface.png" width="30%">
 
-...all bricks that use it and all interfaces it uses, are listed.
+...all bricks that use it (from any environment) and all interfaces it uses, are listed.
 
 ## Libraries
 
@@ -1595,9 +1609,10 @@ poly libs
 ```
 <img src="images/realworld-lib-deps.png" width="60%">
 
-Library dependencies are specified per environment. The KB column shows the size of each library in kilobytes. If needed, different versions
-of the same library can be used in different environments. Only libraries that are
-defined with `{mvn/version ...}` are listed here.
+Here we get a list of all libraries, defined as `{mvn/version ...}`, that are used in the workspace.
+The KB column shows the size of each library in kilobytes, by looking in `~/.m2/repositories`.
+Library dependencies are specified per environment and the same library can exist with different 
+versions.
 
 The way the tool figures out what library each brick uses is to look in `:ns->lib` in `./deps.edn`:
 
@@ -1642,6 +1657,41 @@ For example:
 
 The same library can occur more than once in the `ns->lib` mapping, as long as the namespaces are unique.
 
+## Context
+
+After a while we think you will find Polylith very pleasant to work with. One reason is that we can start the 
+[REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop) once without 
+the need to restart it. Another reason is that we have direct access to everything from one place,
+the `development` environment.
+ 
+Another slightly subtle detail is that the components, via their interfaces, give us `context`. 
+This might sound like a small thing, but it is very helpful. 
+It not just helps with the design of the system but it also improves the way we work with the code. 
+
+Object oriented languages give us context by using objects. Let’s say we work in an 
+object oriented language and that we want to save the object `userToBeSaved`. 
+If we type `userToBeSaved` followed by a `.`, the intellisense in the IDE will show us a 
+list of available methods for that object, for example `persist`:
+```
+userToBeSaved.persist(db)
+```
+
+...or if implemented as a service:
+```
+userService.persist(db, userToBeSaved)
+```
+
+With Polylith we actually get the same level of support from the IDE. 
+Here we would instead import the `user` interface and then type:
+```clojure
+(user/
+```
+
+Here the IDE will list all available functions in the `user` interface and one of them would be `persist!`:
+```clojure
+(user/persist! db user-to-be-saved)
+```
+
 ## Configuration
 
 The workspace configuration is stored under the `:polylith` key in `./deps.edn` and defines the following keys:
@@ -1664,7 +1714,12 @@ Settings that are specific per developer/user are stored in `~/.polylith/config.
 | :color-mode          | Set to "none" on Windows, "dark" on other operating systems (when first created). Valid values are "none", "light" and "dark", see the [color](#color) section. Can be overridden, e.g.: `poly info color-mode:none`. |
 | :empty-character     | Set to "." on Windows, "·" on other operating systems (when first created). Used by the [deps](#deps) and [libs](#libs) commands. |
 
-If `~/.polylith/config.edn` does not exists, it will be created the first time the [create w](#create-w) command is executed.
+If `~/.polylith/config.edn` does not exists, it will be created the first time the [create w](#create-w) command is executed, e.g.:
+```
+{:color-mode "dark"
+ :thousand-separator ","
+ :empty-character "·"}
+```
 
 There is a way to view all configuration that is used by the tool, and that is to execute the [ws](#ws) command:
 ```
@@ -1708,7 +1763,7 @@ poly ws get:settings
  :vcs "git"}
 ```
 
-If we are only interested in a specific element in this structure, we can dig deeper into it, e.g.:
+If we are only interested in a specific element in this structure, we can dig deeper into it like this:
 ```
 poly get:settings:profile--settings:default
 ```
@@ -1720,13 +1775,13 @@ poly get:settings:profile--settings:default
          "components/user/test"]}
 ```
 
-If we execute `poly ws` without any arguments, it will view the whole workspace as plain data.
+If we execute `poly ws` without any arguments, it will view the whole workspace as plain data (a hash map).
 This data structure is produces by the tool itself and is used by all the commands.
 The commands only operate on this hash map and is not performing any side effecting operations,
 like touching the disk or executing git commands. Instead, everything is prepared so that all commands can
 be executed in memory. 
 
-This will not only speed up and simplify the code of the tool itself, but also gives you as a user
+This will not only speed up and simplify the code of the tool itself, but it also gives us as a user
 of the tool a way to explore the complete state of the workspace.
 
 A good way to start digging into this data structure is to list all its keys:
