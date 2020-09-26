@@ -51,6 +51,8 @@ If you have any old Leiningen based projects to migrated, follow the instruction
 - [Dependencies](#dependencies)
 - [Libraries](#dependencies)
 - [Context](#context)
+- [Naming](#naming)
+- [Mix languages](#mix-languages)
 - [Configuration](#configuration)
 - [Commands](#commands)
 - [Colors](#colors)
@@ -1691,6 +1693,63 @@ Here the IDE will list all available functions in the `user` interface and one o
 ```clojure
 (user/persist! db user-to-be-saved)
 ```
+
+## Naming
+
+Every time we create a an `interface`, `component`, `base`, `environment` or `workspace`,
+we need to come up with a good name.
+Finding good names is one of the hardest and most important thing in software.
+If we don't succeed in finding good names, it will make it harder to understand and reason about our system.
+
+We will do our best to provide some guidance in the matter.
+
+The components are the core of Polylith, so let's start with them.
+If a component does **one thing** then we can name it based on that, e.g.
+`validator`, `invoicer` or `purchaser`. Sometime a component operates around a concept,
+that we can name it after, e.g.: `invoice`, `account` or `car`. This can be an option
+if it does more than one thing aganst that concept.
+
+If the component's main responsibility is to simplify access to a third party API, 
+then suffixing it with `-api` is a good pattern, like `aws-api`.
+
+If we have two components that share the same interface, e.g. `invoicer`, 
+where the `invoicer` component contains the business logic, while the other component only delegates
+to a service that includes the `invoicer` component, then we can name the second component `invoicer-remote`.
+
+If we have found a good name for the component, then it's generally a good idea to keep the same name for
+the interface, which is also the default behaviour when a component is created with e.g. `create c invoicer`.
+
+Bases are responsible for exposing a public API and to delegate the incoming calls to components.
+A good way to name them is to start with what does, followed by the type of the API.
+If it's a REST API that takes care of invoicing, then we can name it `invoicer-rest-api`.
+If it's a lambda function that generates different reports, then `report-generator-lambda` can be a 
+good name.
+
+Envionments (development excluded) represents the deployable artifacts, like services. Those artifacts
+should, if possible, be named after what they do, like `invoicer` or `report-generator`.
+
+## Mix languages
+
+Polylith allows us to run multiple languages side by side where each language lives in their own workspace.
+This will work especially well if we run different languages on top of the same platform, e.g. the JVM
+(see list of [JVM languages](https://en.wikipedia.org/wiki/List_of_JVM_languages)).
+
+Let's say we have the languages A, B and C. The first thing to remember is to have different
+names of the top namespace for each language, so that we don't run into name conflicts.
+We would end up with top namespaces like: `com.mycompany.a`, `com.mycompany.b` and `com.mycompany.c`.
+Each language will have their own workspace and they will compile each component to its own library,
+alternatively compile all components into one big jar like `a.jar`, `b.jar` or `c.jar`.
+
+So if component `com.mycompany.a.authentication` is used by `com.mycompany.b.user`,
+then `com.mycompany.b.user` will include either `a-authentication.jar` or `a.jar`
+in its library list, to be able to access `authentication`.
+
+This setup allow us to share components between languages by first compiling them into libraries.
+We could also use the [Java Native Interface](https://en.wikipedia.org/wiki/Java_Native_Interface) to share code between languages
+that don't run on top of the JVM, or use something like [Neanderthal](https://neanderthal.uncomplicate.org)
+if we want to integrate with the [GPU](https://en.wikipedia.org/wiki/Graphics_processing_unit).
+
+An alternative approach would be to use the [GraalVM](https://www.graalvm.org) or similar.
 
 ## Configuration
 
