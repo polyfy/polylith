@@ -5,6 +5,8 @@
   <artifactId>clj-poly-migrator</artifactId>
   <version>0.1.0-alpha1</version>
   <name>clj-poly-migrator</name>
+  <description>You can use poly-migrator to migrate from lein-polyith to deps.</description>
+  <url>https://github.com/polyfy/polylith</url>
   <dependencies>
     <dependency>
       <groupId>org.clojure</groupId>

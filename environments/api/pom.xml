@@ -5,6 +5,8 @@
   <artifactId>clj-api</artifactId>
   <version>0.1.0-alpha1</version>
   <name>clj-api</name>
+  <description>You can use this Clojure api to extend Polylith in your projects.</description>
+  <url>https://github.com/polyfy/polylith</url>
   <dependencies>
     <dependency>
       <groupId>org.clojure</groupId>
