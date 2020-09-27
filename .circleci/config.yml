@@ -201,6 +201,9 @@ workflows:
       - mark-as-stable:
           requires:
             - test
+          branches:
+            only:
+              - master
   deploy:
     jobs:
       - check-build:

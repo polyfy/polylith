@@ -3,9 +3,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>polylith</groupId>
   <artifactId>clj-api</artifactId>
-  <version>0.1.0-alpha1</version>
+  <version>0.1.0-alpha2</version>
   <name>clj-api</name>
-  <description>You can use this Clojure api to extend Polylith in your projects.</description>
+  <description>Used to access Polylith as a library.</description>
   <url>https://github.com/polyfy/polylith</url>
   <dependencies>
     <dependency>
