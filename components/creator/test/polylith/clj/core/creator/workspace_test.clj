@@ -85,7 +85,7 @@
             (str "                   :extra-deps {polyfy/polylith")
             (str "                                {:git/url   \"https://github.com/polyfy/polylith\"")
             (str "                                 :sha       \"" common/poly-git-sha "\"")
-            (str "                                 :deps/root \"environments/cli\"}}}}}")]
+            (str "                                 :deps/root \"environments/poly\"}}}}}")]
            (helper/content "ws1" "deps.edn")))
 
     (is (= ["{:color-mode \"dark\""
