@@ -71,7 +71,7 @@
         env-msg (if (zero? env-cnt)
                   ""
                   (str " and " (str-util/count-things "environment" env-cnt)))]
-    (str "Runing tests for the " (color/environment env color-mode) " environment, including "
+    (str "Runing tests from the " (color/environment env color-mode) " environment, including "
          (str-util/count-things "brick" bricks-cnt) env-msg ": " entities-msg)))
 
 (defn run-tests-for-environment [{:keys [bases components] :as workspace}

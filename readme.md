@@ -10,19 +10,21 @@ A tool used to develop Polylith based architectures in Clojure.
 
 Welcome to the wonderful world of Polylith!
 
-Polylith is a new way of thinking around system architecture, 
-that puts the developer in the driving seat and the code in the center.
+This tool is made by developers for developers with the goal to maximise productivity and 
+increase the quality of the systems we write. Polylith can support any programming language, but here
+we target [Clojure](https://clojure.org) which is a powerful and simple functional language.
 
-Polylith is a way of organising code into reusable building blocks that are used to create systems. 
-To better understand the principles and ideas behind it, we recommend you first read the Polylith 
+A Polylith system is made up by simple building blocks that can be combined like Lego bricks.
+The main building blocks are the components. You can think of them as libraries that can be used everywhere.
+If libraries are frozen code, then components are non-frozen libraries.
+
+Those Lego-like bricks are easy to reason about and can can be combined into a single development 
+environment, which allow us to work with all the code from one place.
+They can also be put together into deployable artifacts, like services, in almost no time.
+
+To better understand the principles and ideas behind this 
+[open source](https://www.eclipse.org/legal/epl-v10.html) tool, we recommend you first read the Polylith 
 [documentation](https://polylith.gitbook.io).
-
-Organising code as a Polylith can be done manually, which was actually how it all began. With that said, 
-there is no magic behind this way of organising the code. It's not a framework nor a library, 
-just a simple yet powerful way to work with code at the system level.
-
-The reason we built this tool is to make life easier for you as a developer by making the work more 
-efficient and fun. 
 
 Enjoy the ride!
 
@@ -31,9 +33,20 @@ Enjoy the ride!
 The old [lein-polylith](https://github.com/tengstrand/lein-polylith) tool has reached its end of lifetime.  
 If you have any old Leiningen based projects to migrated, follow the instructions [here](https://github.com/tengstrand/lein-polylith/blob/migrate/migrate/migrate.md).
 
+Some of the Polylith [documentation](https://polylith.gitbook.io) is still mentioning how things worked
+in the old Leiningen version of the tool, for example the empty `workspace interfaces` and the use of
+`symbolic links`. 
+In some of the videos, we still use `system` instead of `service` which are now seen as different kinds 
+of deployable `environments`.
+Except from that, pretty much everything is the same, except that it's now based on 
+[tools.deps](https://github.com/clojure/tools.deps.alpha) instead of [Leiningen](https://leiningen.org/)
+which gives us a more pleasant development experience.
+
 ## Table of Contents
 
 - [Installation](#installation)
+- [Windows](#windows)
+- [Content](#content)
 - [Realworld Example](#realworld-example)
 - [Workspace](#workspace)
 - [Development](#development)
@@ -61,21 +74,42 @@ If you have any old Leiningen based projects to migrated, follow the instruction
 
 ## Installation
 
-To use the Polylith tool and to get access to all the features in tools.deps, follow these steps:
-- Make sure [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) is installed.
-- Install the [clj](https://clojure.org/guides/getting_started) command line tool.
+All examples are written for Linux/Unix users, including how to install the tool.  
+How to install on Windows is described in the [Windows](#windows) section below.
 
-Make sure that `user.email` and `user.name` is configured correctly in git, by e.g. executing:
-```sh
-git config --list | grep user
-```
-If not, check it [here](https://docs.github.com/en/github/using-git/setting-your-username-in-git).
-
-*** verify the installation ***
+To use the Polylith tool and to get access to all the features in tools.deps, make sure you have
+the [CLI tools](https://clojure.org/guides/getting_started) and
+[git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed, and don't forget
+to set the [user](https://docs.github.com/en/github/using-git/setting-your-username-in-git)
+name and email in git.
 
 The next thing we want to do is to download and install the `poly` command line tool.
 
-*** instructions on how to install 'poly' in unix/linux and windows + verify ***
+> Work in progress...
+
+## Windows
+
+The old Leiningen based tool used [symbolic links](https://en.wikipedia.org/wiki/Symbolic_link) 
+which made life harder for Windows users. In this version the symbolic links are gone and 
+Windows is fully supported.
+
+> Work in progress...
+
+## Content
+
+This documentation aims to be a practical guide to this tool with lots of code examples. 
+We encourage you to follow the code examples and try it out yourself. 
+We will guide you through the steps of creating a workspace with environments composed of 
+components, bases and libraries and how to work with them from the development environment.
+
+We will give a short introduction to tools.deps and how to use build scripts to create
+depolyable artifacts. We will show how git is used to tag code and releases
+and how it enables us to test and release the code incrementally.
+
+We will explain the value of components and how they bring context to our development experience, 
+which will help us build decoupled and scalable systems from day one.
+
+Finally, we hope this will bring more happiness to the world!
 
 ## Realworld Example
 
@@ -83,9 +117,9 @@ If you want to have a look at a full-blown system, go to the [RealWorld](https:/
 
 ## Workspace
 
-The workspace directory is the place where all our code (Lego-like bricks) and configuration lives.
+The workspace directory is the place where all our code and configuration lives.
 
-Let’s start by creating the _example_ workspace with the top namespace _se.example_ by using the [create w](#create-w) command:
+Let’s start by creating the `example` workspace with the top namespace `se.example` by using the [create w](#create-w) command:
 ```sh
 poly create w name:example top-ns:se.example
 ``` 
@@ -99,27 +133,29 @@ example           # workspace dir
   development
     src           # development specific code
   environments    # environments dir (empty)
-  deps.edn        # development environment config file (and some workspace config)
+  deps.edn        # development + workspace config file
   logo.png        # polylith logo
   readme.md       # documentation
 ```
 
-The directory makes it easier to find things and helps us reason about the system at a higher level. 
+The directory structure makes it easier to find things and helps us reason about the system at a higher level. 
 Each top directory is responsible for its own part of a Polylith system.
 A `base` exposes a public API. A `component` is responsible for a specific domain 
 or part of the system. 
-An `environment` specifies our deployable artifacts and what libraries, components and bases they contain.
-Finally, we have the `development` environment that we use when we work with the code.
+An `environment` specifies our deployable artifacts and what components, bases and libraries they contain.
+Finally, we have the `development` environment (`development` + `deps.edn`)
+that are used to work with the code.
 
-A workspace is also always initialized to use [git](https://git-scm.com/), but more on this later.
+A workspace is also always initialized to use [git](https://git-scm.com/), but more on that later.
  
-`deps.edn`:
+The `deps.edn` file looks like this:
 
 ```clojure
 {:polylith {:vcs "git"
             :top-namespace "se.example"
             :interface-ns "interface"
             :default-profile-name "default"
+            :build-tag-pattern "v[0-9]*"
             :stable-since-tag-pattern "stable-*"
             :env->alias {"development" "dev"}
             :ns->lib {}}
@@ -134,10 +170,10 @@ A workspace is also always initialized to use [git](https://git-scm.com/), but m
                    :extra-deps {polyfy/polylith
                                 {:git/url   "https://github.com/polyfy/polylith.git"
                                  :sha       "69e70df8882f4d9a701ab99681a4a6870bdf052b"
-                                 :deps/root "environments/cli"}}}}}
+                                 :deps/root "environments/poly"}}}}}
 ```
 
-We will soon cover what all the different settings mean and how to use them.
+We will cover what all the different settings mean and how to use them.
 
 ## Development
 
@@ -181,7 +217,7 @@ If we look at the `deps.edn` file again, we can see that _"development/src"_ was
 
 This gives us access to the `developent/src` directory so that we can work 
 with the code. Right now there is only one directory here, but every time we create a new component or base,
-they often end up here too.
+they normally end up here too.
 
 
 The "development/src" path belongs to the `dev` alias which we activated previously and also added to the REPL
@@ -272,7 +308,7 @@ poly info
 <img src="images/info-01.png" width="30%" alt="New local REPL">
 
 This tells us that we have one `development` environment, one `user` component and
-one `user`interface but no `base`.
+one `user`interface but no `base` (yet).
 
 If you want to adjust the colors or your system, then visit the [colors](#colors) section.
 
@@ -298,16 +334,16 @@ Now, let's add the `core` namespace to `user`:<br>
 Here we delegate the incoming call to the implementing `core` namespace,
 which is the recommended way to structure the code in Polylith.
 Here we put all our implementing code in one single namespace, but as the codebase grows, 
-more namespaces will be added to the component.
+more namespaces can be added to the component.
 
 
 ## Interface
 
 Interfaces are great in many ways:
 - _Single point of access_. Components can only be accessed through their interface, which makes them
-   easier to find, use and reason about.
+   easy to find, use and reason about.
 - _Encapsulation_. All the implementing namespaces for a component can be changed without breaking the interface contract.
-- _Composability_. Components are decopled building blocks and can be replaced with another components that share the same interface.
+- _Composability_. Components are decopled building blocks and can be replaced with other components that share the same interface.
 
 
 When we created the `user` component, the `user` interface was also created.
@@ -345,7 +381,7 @@ This can be handy if we want to group the functions and not put everyone into on
 Every time we think of splitting up the interface, keep in mind that it can be an indicator
 that it's time to split it up into smaller components!
 
-Here is an example uses such an interface:
+Here is an example of some code that uses such an interface:
 ```clojure
 (ns dev.lisa
   (:require [se.example.util.interface.time :as time-util]))
@@ -381,7 +417,7 @@ A `defmacro` definition can look like this:
 ``` 
 
 Here are some additional tips on how to work with interfaces:
-- Functions can be sorted in alphabetical order in the interface, while we can freely arrange them in the implementation.
+- Functions can be sorted in alphabetical order in the interface, while we can freely arrange them in the implementation namespace(s).
 - The interface can expose the name of the entity, e.g. `sell [car]`, while the implementing function can do the
   destructuring, e.g. `sell [{:keys [model type color]}]` which sometimes can improve the readability.
 - If we have a [multi-arity function](http://clojure-doc.org/articles/language/functions.html#multi-arity-functions)
@@ -391,10 +427,11 @@ Here are some additional tips on how to work with interfaces:
   in the interface, a simplification is to pass in what comes after `&` as a `list` to the implementing function.
 - Testing is simplified by allowing access to implementing namespaces from the `test` directory.
   Only the code under the `src` directory is restricted to only access the `interface` namespace.
-  The check is performed when running the `check` or `info` command or performed by the `githook`.
+  The check is performed when running the `check` or `info` command or via the `githook`
+  if that is enabled.
 - All functions can be declared public. This improves testability and the debugging experience.
   When stopping at a breakpoint to evaluate a function, we don't need to use any special syntax to access it, 
-  because it's not private, resulting in one less problem to care about.
+  because it's not private.
 - If using a `function` in two components that implement the same interface,
   all definitions must be `function`. The same goes for `macros`. The reason for this restriction is that 
   functions are composable, but macros are not, which could otherwise cause problems.
@@ -411,7 +448,7 @@ A `base` is similar to a `component` except for two things:
 
 The lack of an `interface` makes bases less composable compared to components. This is not a problem,
 because they solve a different problem and that is to be a bridge between the real world and the components.
-This is done by taking the incomming call and delegate it to different components.
+This is done by taking the incomming call and delegate them to various components.
 
 Let's create the `cli` base to see how it works, by executing the [create b](#create-b) command:
 ```sh
@@ -460,7 +497,7 @@ Now we need to update `deps.edn` with our newly created base:
                                  "bases/cli/test"]}
 ```
 
-Let's add some code to the base:
+...and add some code to it:
 ```clojure
 (ns se.example.cli.core
   (:require [se.example.user.interface :as user])
@@ -471,7 +508,7 @@ Let's add some code to the base:
 ```
 
 Here we added the `-main` function that later will be called from the command line.
-The `(:gen-class)` statement tells the compiler to generate a callable Java class for us
+The `(:gen-class)` statement tells the compiler to generate a Java class for us
 when the code is compiled.
 
 The next thing we want to do is to build an artifact that will turn the code into something useful, a command line tool.
@@ -487,13 +524,13 @@ There are two kind of environments.
    - This is where we work with the code, often via a REPL. 
    - It contains all libraries, components and bases in the workspace, which is specified in `./deps.edn`.
    - Any extra code, that is not part of a component or base, lives under the `development` folder.
-2. Any `other` environment:
+2. Any `deployable` environment:
    - Used to build deployable artifacts, e.g.: lambda functions, REST API's, libraries, command line tools, ...and more.
-   - Live under the `environments` directory where each environment has its own directory.
+   - Lives under the `environments` directory where each environment has its own directory.
    - Has a `deps.edn` config file that specifies which libraries, component and bases that are included.
-   - It can optionally have a `resources` directory. 
-   - If it has any tests of its own, they will live in the `test` directory under e.g. `environments/my-env`. 
-   - It's discouraged to have a `src` directory since all production code should only live in components and bases.
+   - Can optionally have a `resources` directory. 
+   - If it has any tests of its own, they will live in the `test` directory, e.g. `environments/my-env/test`. 
+   - It's discouraged to have a `src` directory since all production code should normally only live in components and bases.
 
 Let's create an environment, by executing the [create e](#create-e) command:
 ```sh
@@ -537,8 +574,7 @@ The tool also reminded us of this:
 
 If we don't add the alias, it will be shown up as a `?` when we execute the `info` command:
 ```clojure
-{:polylith {:vcs "git"
-            ...
+{:polylith {...
             :env->alias {"development" "dev"
                          "command-line" "cl"}
 ```
@@ -549,13 +585,11 @@ Now add `user` and `cli` to `deps.edn` in `environments/command-line`:
          "../../components/user/resources"
          "../../bases/cli/src"
          "../../bases/cli/resources"]
-
- :deps {org.clojure/clojure {:mvn/version "1.10.1"}
-        org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}
+ ...
 
  :aliases {:test {:extra-paths ["../../components/user/test"
                                 "../../bases/cli/test"]
-                  :extra-deps  {}}}}
+                  ... }}}
 ```
 
 Note:
@@ -583,16 +617,16 @@ This Polylith tool is built on top of _tools.deps_. To get the most out of it, w
 you to read the [documentation](https://github.com/clojure/tools.deps.alpha).
 
 To make it easier to follow the examples in the next `build` section, we will show some examples
-on how to use the `clj` command.
+on how to use the `clj` command (the `clojure` command will also work in these examples).
 
 Let's start by compiling the `command-line` environment:
 ```
 cd environments/command-line
 mkdir -p classes
-clojure -e "(compile,'se.example.cli.core)"
+clj -e "(compile,'se.example.cli.core)"
 ```
 This will AOT compile the `command-line` environment.
-The command needs the `classes` directory, so we had to create first.
+The command needs the `classes` directory, so we had to create it first.
 
 If we add this `alias` to `command-line/deps.edn` (which we will do in the next section):
 ```clojure
@@ -603,7 +637,7 @@ If we add this `alias` to `command-line/deps.edn` (which we will do in the next 
 
 ...we can compile the environment by giving the `aot` alias:
 ```sh
-cloure -A:aot
+clj -A:aot
 ```
 
 To build an uberjar, out of the compiled classes, we need to add this alias:
@@ -615,13 +649,26 @@ To build an uberjar, out of the compiled classes, we need to add this alias:
 
 ...and execute:
 ```
-clojure -A:uberjar
+clj -A:uberjar
 ```
 
-In these examples we used the `clojure` command, but `clj` also works.
+When we created the workspace with the [create w](#create-w) command, the `poly` alias was also added to `./deps.edn`:
+```clojure
+            :poly {:main-opts ["-m" "polylith.clj.core.poly_cli.poly"]
+                   :extra-deps {polyfy/polylith
+                                {:git/url   "https://github.com/polyfy/polylith.git"
+                                 :sha       "69e70df8882f4d9a701ab99681a4a6870bdf052b"
+                                 :deps/root "environments/poly"}}}
+```
 
-Here we did everything manually, but in the next section we will aoutomate it using scripts.
-Now let's see if we can build an artifact out of the `command-line` environment!
+This alias can be used to execute the `poly` tool from the workspace root, e.g.:
+```
+clj -A:poly info
+```
+
+It takes longer to execute the `poly` command this way, because it needs to compile the Clojure code 
+first, but it also allow us to execute older or newer versions of the tool by
+selecting another `sha` from an existing [commit](https://github.com/polyfy/polylith/commits).
 
 ## Build
 
@@ -630,7 +677,7 @@ use scripts and maybe a build tool, or create our own build functions that we ac
 We think they will do a better job and give us the level of control, flexibility and power we need.
 
 Let's say we want to create an executable jar file out of the `command-line` environment.  
-First, we can create a `scripts`directory at the workspace root and copy this [build-uberjar.sh](https://github.com/tengstrand/polylith/blob/master/scripts/build-uberjar.sh)
+First, we create a `scripts`directory at the workspace root and copy this [build-uberjar.sh](https://github.com/tengstrand/polylith/blob/master/scripts/build-uberjar.sh)
 to it:
 ```sh
 example
@@ -716,7 +763,7 @@ git add .
 git commit -m "Workspace created."
 ``` 
 
-If we run `git log` from the workspace root, it returns something similar to this:
+If we run `git log` from the workspace root, it returns something like this:
 ```sh
 commit c91fdad4a34927d9aacfe4b04ea2f304f3303282 (HEAD -> master)
 Author: lisa <lisa@gmail.com>
@@ -727,7 +774,7 @@ Date:   Thu Sep 3 06:11:23 2020 +0200
 
 This is the first and so far only commit of this repository.
 This is also the first `stable point in time` of this workspace which the tool uses when it calculates what changes have
-been made (up till now). Notice that the first letters of the hash corresponds to `stable since: c91fdad`
+been made (up till now). Notice that the first letters of the hash correspond to `stable since: c91fdad`
 and this is because it refers to this SHA-1 hash in git.
  
 The `command-line` and `development` environments and the `user` and `cli` bricks (components and bases are
@@ -815,8 +862,8 @@ We added the tag `stable-lisa` but we could have named the tag with anything tha
 We choose `stable-lisa` because Lisa is our name (let's pretend that at least!). The idea is that every developer could use
 their own unique tag name that doesn't conflict with other developers. 
 
-The CI build should also use its own pattern, like `stable-` plus the build number, to mark successful builds.
-It may be enough to onluy use the stable points that the CI server creates. That is at least a good way to start
+The CI build should also use its own pattern, like `stable-` plus branch name or build number, to mark successful builds.
+It may be enough to only use the stable points that the CI server creates. That is at least a good way to start
 and only add custom tags per developer when needed.
 
 The pattern is configured in `deps.edn` and can be changed if we prefer something else:
@@ -892,7 +939,7 @@ If we execute `poly info :r` (or the longer `poly info :resources`):<br>
 ## Testing
 
 Polylith encourages a test-centric approach when working with code. New brick tests are easy to 
-write, and mocking can be avoided by the fact that each brick has access to all components in the 
+write, and mocking can be avoided in most cases as we have access to all components from the 
 environments they live in.
 
 Let's go back to our example.
@@ -944,7 +991,7 @@ poly test
 ```
 
 ```
-Runing tests for the command-line environment, including 2 bricks: user, cli
+Runing tests from the command-line environment, including 2 bricks: user, cli
 
 Testing se.example.cli.core-test
 
@@ -979,7 +1026,7 @@ corresponding test accordingly:
 
 If we run the `test` command again, it will now pass:
 ```
-Runing tests for the command-line environment, including 2 bricks: user, cli
+Runing tests from the command-line environment, including 2 bricks: user, cli
 
 Testing se.example.cli.core-test
 
@@ -1011,7 +1058,7 @@ poly info :dev
 And yes, now the tests for the `development` environment are included. When we give an environment 
 using `env` (`:dev` is a shortcut for `env:dev`) only that environment will be included. 
 One way to test both the `development` environment and the `command-line` environment is to 
-separate them with colons:
+select both:
 ```
 poly info env:cl:dev
 ```
@@ -1033,7 +1080,7 @@ example
       test
 ``` 
 
-Then add that directory to `./deps.edn` (which configures `development):
+Then add the directory to `./deps.edn`:
 ```clojure
             :test {:extra-paths ["components/user/test"
                                  "bases/cli/test"
@@ -1059,7 +1106,7 @@ example
 We could have choosen another top namespace, e.g., `se.example.env.command-line`, as long as 
 we don't have any brick with the name `env`. But because we don't want to get into any name
 conflicts with bricks and also because each environment is executed in isolation, the choice of 
-namespace is less important and here we choose the `evn` top namespace to keep it simple. 
+namespace is less important and here we choose the `env` top namespace to keep it simple. 
 
 If we execute the `info` command:<br>
 <img src="images/info-08.png" width="30%" alt="Env dummy test">
@@ -1145,7 +1192,7 @@ Now let's see if it actually works:
 poly test :all :dev
 ```
 ```
-Runing tests for the command-line environment, including 2 bricks and 1 environment: user, cli, command-line
+Runing tests from the command-line environment, including 2 bricks and 1 environment: user, cli, command-line
 
 Testing se.example.cli.core-test
 
@@ -1167,7 +1214,7 @@ Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
 Test results: 1 passes, 0 failures, 0 errors.
-Runing tests for the development environment, including 2 bricks and 1 environment: user, cli, command-line
+Runing tests from the development environment, including 2 bricks and 1 environment: user, cli, command-line
 
 Testing se.example.cli.core-test
 
@@ -1214,8 +1261,8 @@ to get a view of which tests will be executed.
 
 ## Profile
 
-When working with a Polylith system, we want to keep everything as simple as possible.
-We also want to be productive and new services should be easy to create.
+When working with a Polylith system, we want to keep everything as simple as possible
+and maximize our productivity.
 The Lego-like way of organising code into bricks, helps us with both of these challenges.
 
 One problem we normally have when developing software without using Polylith, is that the production environment
@@ -1232,7 +1279,7 @@ Right now, our `development` environment mirrors the `command-line` environment:
 <img src="images/command-line.png" width="35%" alt="Command-line">
 
 Let's pretend we get performance problems in the `user` component and that we think
-distributing the load by delegating to a new service could solve the problem:<br>
+distributing the load, by delegating to a new service, could solve the problem:<br>
 <img src="images/dev-and-prod.png" width="57%" alt="Command-line">
 
 The production environment now looks good, but how about the `development` environment?
@@ -1240,17 +1287,17 @@ The problem here is that it contains two components that share the same `user` i
 This will confuse both the classloader (if we start a REPL) and the IDE, because we now have
 two components using the same `se.example.user` namespace in the path, which is not a desirable situation.
 
-The solution is to use development `profiles`:<br>
+The solution is to use `profiles`:<br>
 <img src="images/development.png" width="62%" alt="Command-line">
 
 By leaving out any component that implements the `user` interface from the `development` 
 environment and combine it with one of the two possible `profiles` we get a complete development
-environment. This solution allow us to work from a single `development` environment codebase but still be 
+environment. This allows us to work with the code from a single place, but still be 
 able to mimic the various environments we have.
 
 The `default` profile (if exists) is automatically merged into the `development` environment, if no other profiles
 are selected. The name `default` is set by `:default-profile-name` in `./deps.edn` and can be changed,
-but in this example we leave it as it is.
+but here we will leave it as it is.
 
 Now let's try to move from this design:<br>
 <img src="images/command-line.png" width="35%" alt="Command-line">
@@ -1402,6 +1449,7 @@ components
             :top-namespace "se.example"
             :interface-ns "interface"
             :default-profile-name "default"
+            :build-tag-pattern "v[0-9]*"
             :stable-since-tag-pattern "stable-*"
             :env->alias {"development" "dev"
                          "command-line" "cl"
@@ -1438,12 +1486,11 @@ components
                    :extra-deps {tengstrand/polylith
                                 {:git/url   "https://github.com/tengstrand/polylith.git"
                                  :sha       "69e70df8882f4d9a701ab99681a4a6870bdf052b"
-                                 :deps/root "environments/cli"}}}}}
-
+                                 :deps/root "environments/poly"}}}}}
 ``` 
 
 Notice here that the profiles contain both `src` and `test` directories.
-The profiles are only used from the development environment, and that's why this works.
+This works as profiles are only used from the development environment.
 
 - [x] Switch from `user` to `user-remote` in `deps.edn` for the `command-line` environment.
 
@@ -1512,7 +1559,7 @@ profile so that the development environment could treat the component as source 
 <img src="images/refresh-ws-2.png" width="20%">
 
 These settings are only used by the IDE, but to switch to the `remote` profile when running a command,
-we need to pass in `+remote`:
+we need to pass in `+remote` (the `default` profile is only selected if no profiles are explicitly given):
 ```sh
 poly info +remote
 ```
@@ -1544,13 +1591,13 @@ cd clojure-polylith-realworld-example-app
 git checkout clojure-deps
 ```
 
-Before we continue, it may be worth mentioning that we can still can execute most of the command
-(all except [test](#test)) for the old workspace, by setting the `ws-dir` argument, e.g.:
+Before we continue, it may be worth mentioning that most commands, except for the [test](#test) command,
+can be executed for other workspaces by setting `ws-dir`, e.g.:
 ```
 poly check ws-dir:../example
 ``` 
 
-Let's go back to the RealWorld example:
+Let's continue with the RealWorld example:
 
 ```
 poly info
@@ -1572,6 +1619,12 @@ If we read the diagram horizontally, we can see that the `article` component use
 `profile` and `spec` interfaces.
 If we read it vertically, we can see that `article` is used by the `comment` and `rest-api` bricks.
 
+This is also what is shown if we specify article as brick:
+```
+poly deps brick:article
+```
+<img src="images/realworld-deps-interface.png" width="30%">
+
 There is a way to view the the component dependencies, and that is to specify an `environment` in the [deps](#deps-env) command:
 ```
 poly deps env:rb
@@ -1586,24 +1639,16 @@ that uses `log` indirectly:  article > database > log.
 > Tip: If the headers and the "green rows" doesn't match, it may indicate that we have
 unused components that can be removed from the environment.
 
-If we give both an environment and a brick as parameters to the [deps](#deps-env-brick) command:
+We can also show dependencies for a specific brick within an environment:
 ```
 poly deps env:rb brick:article
 ```
 <img src="images/realworld-deps-component.png" width="30%">
 
-...it shows the usage of a component within an environment.
-
-
-If we only give the brick as parameter to the [deps](#deps-brick) command:
-```
-poly deps brick:article
-```
-<img src="images/realworld-deps-interface.png" width="30%">
-
-...all bricks that use it (from any environment) and all interfaces it uses, are listed.
-
 ## Libraries
+
+Libraries are specified in `:deps` for the development environment and in `:extra-deps` under each
+alias for all other environments in the respective `deps.edn` file.
 
 To list all libraries used in the workspace, execute the [libs](#libs) command:
 ```
@@ -1611,7 +1656,7 @@ poly libs
 ```
 <img src="images/realworld-lib-deps.png" width="60%">
 
-Here we get a list of all libraries, defined as `{mvn/version ...}`, that are used in the workspace.
+Only libraries defined as `{mvn/version ...}` are included.
 The KB column shows the size of each library in kilobytes, by looking in `~/.m2/repositories`.
 Library dependencies are specified per environment and the same library can exist with different 
 versions.
@@ -1661,35 +1706,28 @@ The same library can occur more than once in the `ns->lib` mapping, as long as t
 
 ## Context
 
-After a while we think you will find Polylith very pleasant to work with. One reason is that we can start the 
-[REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop) once without 
-the need to restart it. Another reason is that we have direct access to everything from one place,
-the `development` environment.
- 
-Another slightly subtle detail is that the components, via their interfaces, give us `context`. 
-This might sound like a small thing, but it is very helpful. 
-It not just helps with the design of the system but it also improves the way we work with the code. 
+The component interfaces bring context to the development experience.
 
 Object oriented languages give us context by using objects. Let’s say we work in an 
 object oriented language and that we want to save the object `userToBeSaved`. 
 If we type `userToBeSaved` followed by a `.`, the intellisense in the IDE will show us a 
 list of available methods for that object, for example `persist`:
-```
+```ruby
 userToBeSaved.persist(db)
 ```
 
 ...or if implemented as a service:
-```
+```ruby
 userService.persist(db, userToBeSaved)
 ```
 
-With Polylith we actually get the same level of support from the IDE. 
-Here we would instead import the `user` interface and then type:
+With Polylith we get the same level of support from the IDE.
+By first import the `user` interface and then type:
 ```clojure
 (user/
 ```
 
-Here the IDE will list all available functions in the `user` interface and one of them would be `persist!`:
+...the IDE will list all available functions in the `user` interface and one of them would be `persist!`:
 ```clojure
 (user/persist! db user-to-be-saved)
 ```
@@ -1699,15 +1737,13 @@ Here the IDE will list all available functions in the `user` interface and one o
 Every time we create a an `interface`, `component`, `base`, `environment` or `workspace`,
 we need to come up with a good name.
 Finding good names is one of the hardest and most important thing in software.
-If we don't succeed in finding good names, it will make it harder to understand and reason about our system.
-
-We will do our best to provide some guidance in the matter.
+Every time we fail in finding a good name, it will make the system harder to understand and change.
 
 The components are the core of Polylith, so let's start with them.
 If a component does **one thing** then we can name it based on that, e.g.
 `validator`, `invoicer` or `purchaser`. Sometime a component operates around a concept,
-that we can name it after, e.g.: `invoice`, `account` or `car`. This can be an option
-if it does more than one thing aganst that concept.
+that we can name it after, e.g.: `account` or `car`. This can be an alternative if the component
+does more than one thing, but always around that single concept.
 
 If the component's main responsibility is to simplify access to a third party API, 
 then suffixing it with `-api` is a good pattern, like `aws-api`.
@@ -1720,13 +1756,13 @@ If we have found a good name for the component, then it's generally a good idea 
 the interface, which is also the default behaviour when a component is created with e.g. `create c invoicer`.
 
 Bases are responsible for exposing a public API and to delegate the incoming calls to components.
-A good way to name them is to start with what does, followed by the type of the API.
+A good way to name them is to start with what they do, followed by the type of the API.
 If it's a REST API that takes care of invoicing, then we can name it `invoicer-rest-api`.
 If it's a lambda function that generates different reports, then `report-generator-lambda` can be a 
 good name.
 
-Envionments (development excluded) represents the deployable artifacts, like services. Those artifacts
-should, if possible, be named after what they do, like `invoicer` or `report-generator`.
+Environments (development excluded) represents the deployable artifacts, like services. Those artifacts
+should, if possible, be named after what they are, like `invoicer` or `report-generator`.
 
 ## Mix languages
 
@@ -1749,7 +1785,7 @@ We could also use the [Java Native Interface](https://en.wikipedia.org/wiki/Java
 that don't run on top of the JVM, or use something like [Neanderthal](https://neanderthal.uncomplicate.org)
 if we want to integrate with the [GPU](https://en.wikipedia.org/wiki/Graphics_processing_unit).
 
-An alternative approach would be to use the [GraalVM](https://www.graalvm.org) or similar.
+An alternative approach could be to use the [GraalVM](https://www.graalvm.org) or similar.
 
 ## Configuration
 
@@ -1822,7 +1858,7 @@ poly ws get:settings
  :vcs "git"}
 ```
 
-If we are only interested in a specific element in this structure, we can dig deeper into it like this:
+If we are only interested in a specific element in this structure, we can dig deeper into it:
 ```
 poly get:settings:profile--settings:default
 ```
@@ -1835,7 +1871,7 @@ poly get:settings:profile--settings:default
 ```
 
 If we execute `poly ws` without any arguments, it will view the whole workspace as plain data (a hash map).
-This data structure is produces by the tool itself and is used by all the commands.
+This data structure is produces by the tool itself and is used by all the commands internally.
 The commands only operate on this hash map and is not performing any side effecting operations,
 like touching the disk or executing git commands. Instead, everything is prepared so that all commands can
 be executed in memory. 
@@ -2148,7 +2184,7 @@ poly help
   poly create w name:NAME top-ns:TOP-NAMESPACE
     NAME = The name of the workspace to create.
 
-    TOP-NAMESPACE = The name of the top namespace.
+    TOP-NAMESPACE = The top namespace, e.g. com.my.company.
 
   Example:
     poly create w name:myws top-ns:com.my.company
