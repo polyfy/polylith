@@ -52,7 +52,7 @@
    (str "                   :extra-deps {polyfy/polylith")
    (str "                                {:git/url   \"https://github.com/polyfy/polylith\"")
    (str "                                 :sha       \"" common/poly-git-sha "\"")
-   (str "                                 :deps/root \"environments/cli\"}}}}}")])
+   (str "                                 :deps/root \"environments/poly\"}}}}}")])
 
 (defn create-user-config-if-not-exists []
   (let [home-dir (user-config/home-dir)
