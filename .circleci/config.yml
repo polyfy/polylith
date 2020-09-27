@@ -202,12 +202,6 @@ workflows:
           requires:
             - test
   deploy:
-    triggers:
-      filters:
-        tags:
-          only: /^v.*/
-        branches:
-          ignore: /.*/
     jobs:
       - check-build:
           filters:
