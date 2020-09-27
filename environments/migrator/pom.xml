@@ -3,9 +3,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>polylith</groupId>
   <artifactId>clj-poly-migrator</artifactId>
-  <version>0.1.0-alpha1</version>
+  <version>0.1.0-alpha2</version>
   <name>clj-poly-migrator</name>
-  <description>You can use poly-migrator to migrate from lein-polyith to deps.</description>
+  <description>Used to migrate from lein-polyith to the new Polylith tool.</description>
   <url>https://github.com/polyfy/polylith</url>
   <dependencies>
     <dependency>
