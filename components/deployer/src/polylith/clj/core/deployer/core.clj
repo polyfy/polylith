@@ -9,15 +9,15 @@
     (throw (Exception. (str env " environment does not have a pom.xml. Use clojure -Spom to generate one before deploying.")))))
 
 (defn build-jar [current-dir env]
-  (println "Building uberjar...")
+  (println "Building skinny jar...")
   (try
-    (shell/sh "./build-uberjar.sh" env :dir (str current-dir "/scripts"))
+    (shell/sh "./build-skinny-jar.sh" env :dir (str current-dir "/scripts"))
     (catch Throwable t
-      (throw (ex-info (str "Unable to build a uberjar for " env " environment.")
+      (throw (ex-info (str "Unable to build a skinny jar for " env " environment.")
                       {:current-dir current-dir
                        :env         env}
                       t))))
-  (println "Uberjar is built."))
+  (println "Skinny jar is built."))
 
 (defn deploy-env [current-dir env]
   (check-pom-xml current-dir env)
@@ -25,7 +25,7 @@
     (let [env-prefix (str (file/current-dir) "/environments/" env)
           coordinates (:coordinates (deps-deploy/coordinates-from-pom (slurp (str (file/current-dir) "/environments/" env "/pom.xml"))))
           artifact-map {[:extension "pom" :classifier nil] (str env-prefix "/pom.xml")
-                        [:extension "jar" :classifier nil] (str env-prefix "/target/" env ".jar")}]
+                        [:extension "jar" :classifier nil] (str env-prefix "/target/" env "-skinny.jar")}]
       (deps-deploy/deploy {:installer    :clojars
                            :coordinates  coordinates
                            :artifact-map artifact-map}))

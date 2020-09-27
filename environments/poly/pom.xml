@@ -5,6 +5,8 @@
   <artifactId>clj-poly</artifactId>
   <version>0.1.0-alpha1</version>
   <name>clj-poly</name>
+  <description>Poly is Polylith's command line interface for Clojure</description>
+  <url>https://github.com/polyfy/polylith</url>
   <dependencies>
     <dependency>
       <groupId>org.clojure</groupId>

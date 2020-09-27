@@ -29,32 +29,35 @@ jobs:
           paths:
             - .
 
-  info:
+  check-build:
     docker:
       - image: circleci/clojure:tools-deps-1.10.1.561
     working_directory: ~/polylith
     steps:
+      - checkout
       - attach_workspace:
           at: ~/polylith
       - restore_cache:
           key: polylith-{{ checksum "deps.edn" }}
       - run:
-          name: Add global git user email
-          command: git config --global user.email "circleci@polyfy.com"
+          name: Create polylith config if it does not exist
+          command: mkdir -p ~/.polylith && echo "{}" > ~/.polylith/config.edn
       - run:
-          name: Add global git user name
-          command: git config --global user.name "CircleCI"
-      - run:
-          name: Run info command for Polylith workspace
-          command: clojure -A:poly info
-      - run:
-          name: Run deps command for Polylith workspace
-          command: clojure -A:poly deps
-      - run:
-          name: Run libs command for Polylith workspace
-          command: clojure -A:poly libs
+          name: Check Polylith workspace
+          command: clojure -A:poly check since:previous-build
+      - save_cache:
+          key: polylith-{{ checksum "deps.edn" }}
+          paths:
+            - ~/.polylith
+            - ~/.m2
+            - ~/.lein
+            - ~/polylith/.cpcache
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 
-  ws:
+  info:
     docker:
       - image: circleci/clojure:tools-deps-1.10.1.561
     working_directory: ~/polylith
@@ -72,6 +75,43 @@ jobs:
       - run:
           name: Run ws command for Polylith workspace
           command: clojure -A:poly ws
+      - run:
+          name: Run info command for Polylith workspace
+          command: clojure -A:poly info
+      - run:
+          name: Run deps command for Polylith workspace
+          command: clojure -A:poly deps
+      - run:
+          name: Run libs command for Polylith workspace
+          command: clojure -A:poly libs
+
+  info-build:
+    docker:
+      - image: circleci/clojure:tools-deps-1.10.1.561
+    working_directory: ~/polylith
+    steps:
+      - attach_workspace:
+          at: ~/polylith
+      - restore_cache:
+          key: polylith-{{ checksum "deps.edn" }}
+      - run:
+          name: Add global git user email
+          command: git config --global user.email "circleci@polyfy.com"
+      - run:
+          name: Add global git user name
+          command: git config --global user.name "CircleCI"
+      - run:
+          name: Run ws command for Polylith workspace
+          command: clojure -A:poly ws since:previous-build
+      - run:
+          name: Run info command for Polylith workspace
+          command: clojure -A:poly info since:previous-build
+      - run:
+          name: Run deps command for Polylith workspace
+          command: clojure -A:poly deps since:previous-build
+      - run:
+          name: Run libs command for Polylith workspace
+          command: clojure -A:poly libs since:previous-build
 
   test:
     docker:
@@ -91,6 +131,25 @@ jobs:
       - run:
           name: Run tests for Polylith workspace
           command: clojure -A:poly test :all
+
+  test-build:
+    docker:
+      - image: circleci/clojure:tools-deps-1.10.1.561
+    working_directory: ~/polylith
+    steps:
+      - attach_workspace:
+          at: ~/polylith
+      - restore_cache:
+          key: polylith-{{ checksum "deps.edn" }}
+      - run:
+          name: Add global git user email
+          command: git config --global user.email "circleci@polyfy.com"
+      - run:
+          name: Add global git user name
+          command: git config --global user.name "CircleCI"
+      - run:
+          name: Run tests for Polylith workspace
+          command: clojure -A:poly test :all since:previous-build
 
   mark-as-stable:
     docker:
@@ -130,38 +189,47 @@ jobs:
 
 workflows:
   version: 2
-  build-and-deploy:
+  validate:
     jobs:
-      - check:
-          filters:
-            tags:
-              only: /^v.*/
+      - check
       - info:
           requires:
             - check
-          filters:
-            tags:
-              only: /^v.*/
-      - ws:
-          requires:
-            - check
-          filters:
-            tags:
-              only: /^v.*/
       - test:
           requires:
             - check
-          filters:
-            tags:
-              only: /^v.*/
       - mark-as-stable:
           requires:
             - test
-      - deploy:
-          requires:
-            - test
+  deploy:
+    jobs:
+      - check-build:
           filters:
-            branches:
-              ignore: /.*/
             tags:
               only: /^v.*/
+            branches:
+              ignore: /.*/
+      - info-build:
+          requires:
+            - check-build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - test-build:
+          requires:
+            - check-build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - deploy:
+          requires:
+            - test-build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
