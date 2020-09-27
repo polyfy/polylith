@@ -190,10 +190,6 @@ jobs:
 workflows:
   version: 2
   validate:
-    triggers:
-      filters:
-        tags:
-          only: /^v.*/
     jobs:
       - check
       - info:
@@ -214,12 +210,32 @@ workflows:
           ignore: /.*/
     jobs:
       - check-build:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
       - info-build:
           requires:
             - check-build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
       - test-build:
           requires:
             - check-build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
       - deploy:
           requires:
             - test-build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
