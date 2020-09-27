@@ -5,8 +5,6 @@
     <setting name="execution" value="DEPS" />
     <setting name="jvmArgs" value="" />
     <setting name="parameters" value="" />
-    <environment name="CLOJARS_PASSWORD" value="CLOJARS_036029d911e94a30e7c00ceb4a8c582912daaf59b1bc95fba172065e169e" />
-    <environment name="CLOJARS_USERNAME" value="furkan3ayraktar" />
     <setting name="workingDir" value="$PROJECT_DIR$" />
     <setting name="profiles" value="" />
     <setting name="aliases" value="test,dev" />
