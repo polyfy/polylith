@@ -126,7 +126,7 @@
 (def workspace-with-active-dev (assoc-in workspace [:environments 2 :is-run-tests] true))
 
 (def workspace-with-run-all-brick-tests-flags (assoc workspace :user-input {:is-run-all-brick-tests true
-                                                                            :run-env-tests? true}))
+                                                                            :is-run-env-tests true}))
 
 (deftest changes--a-list-of-changed-files-and-environments--returns-changed-bricks-and-bricks-to-test
   (is (= {:git-command "git diff --name-only"

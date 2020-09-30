@@ -23,7 +23,7 @@
 (defn changes [{:keys [environments paths user-input]}
                {:keys [since-sha tag files]}]
    (let [deps (map (juxt :name :deps) environments)
-         {:keys [is-dev is-run-all-tests is-run-all-brick-tests run-env-tests?]} user-input
+         {:keys [is-dev is-run-all-tests is-run-all-brick-tests is-run-env-tests]} user-input
          {:keys [changed-components
                  changed-bases
                  changed-environments]} (entity/changed-entities files nil)
@@ -31,7 +31,7 @@
          affected-envs (affected-environments environments changed-components changed-bases changed-environments)
          env->indirect-changes (indirect/env->indirect-changes deps changed-bricks)
          env->bricks-to-test (bricks-to-test/env->bricks-to-test changed-environments environments changed-components changed-bases env->indirect-changes is-run-all-brick-tests)
-         env->environments-to-test (envs-to-test/env->environments-to-test environments changed-environments paths is-dev run-env-tests? is-run-all-tests)]
+         env->environments-to-test (envs-to-test/env->environments-to-test environments changed-environments paths is-dev is-run-env-tests is-run-all-tests)]
      (util/ordered-map :since-sha since-sha
                        :tag tag
                        :git-command (git/diff-command since-sha nil)
