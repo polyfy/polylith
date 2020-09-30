@@ -2060,6 +2060,7 @@ poly help
     poly ws get:components:keys
     poly ws get:components:count
     poly ws get:components:mycomp:lines-of-code-src
+    poly ws out:ws.edn
 ```
 
 ### check
@@ -2625,9 +2626,9 @@ poly help
 
 ### ws
 ```
-  Prints out the workspace as data.
+  Prints or writes the workspace as data.
 
-  poly ws [get:ARG]
+  poly ws [get:ARG] [out:FILE]
     ARG = keys  -> Lists the keys for the data structure:
                    - If it's a hash map - it returns all its keys.
                    - If it's a list and its elements are hash maps, it returns
@@ -2644,8 +2645,11 @@ poly help
           Several ARG keys can be given, separated by colon.
           Every new key goes one level deeper into the workspace data structure.
 
+    FILE = Writes the output to the specified FILE. Will have the same effect
+           as setting color-mode:none and piping the ouput to a file.
   Example:
     poly ws
+    poly ws get:keys
     poly ws get:keys
     poly ws get:count
     poly ws get:settings
@@ -2655,6 +2659,8 @@ poly help
     poly ws get:components:keys
     poly ws get:components:count
     poly ws get:components:mycomp:lines-of-code-src
+    poly ws out:ws.edn
+    poly ws color-mode:none > ws.edn
 ```
 
 ## Colors

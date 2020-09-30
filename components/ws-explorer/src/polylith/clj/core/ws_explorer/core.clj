@@ -1,7 +1,8 @@
 (ns polylith.clj.core.ws-explorer.core
-  (:require [clojure.walk :as walk]
+  (:require [clojure.pprint :as pp]
             [puget.printer :as puget]
-            [polylith.clj.core.util.interface :as util]))
+            [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.util.interface.color :as color]))
 
 (def color-schema
   {:color-scheme {:nil       [:magenta]
@@ -53,5 +54,9 @@
       (into (sorted-map) value)
       value)))
 
-(defn print-ws [workspace get]
-  (puget/cprint (extract workspace get) color-schema))
+(defn ws [workspace get out color-mode]
+  (if (nil? out)
+    (if (= color/none color-mode)
+      (pp/pprint (extract workspace get))
+      (puget/cprint (extract workspace get) color-schema))
+    (pp/pprint (extract workspace get) (clojure.java.io/writer out))))

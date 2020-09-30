@@ -2,9 +2,9 @@
   (:require [polylith.clj.core.help.shared :as s]))
 
 (defn help [cm]
-  (str "  Prints out the workspace as data.\n"
+  (str "  Prints or writes the workspace as data.\n"
        "\n"
-       "  poly ws [get:" (s/key "ARG" cm) "]\n"
+       "  poly ws [get:" (s/key "ARG" cm) "] [out:" (s/key "FILE" cm) "] \n"
        "    " (s/key "ARG" cm) " = keys  -> Lists the keys for the data structure:\n"
        "                   - If it's a hash map - it returns all its keys.\n"
        "                   - If it's a list and its elements are hash maps, it returns\n"
@@ -21,8 +21,12 @@
        "          Several " (s/key "ARG" cm) " keys can be given, separated by colon.\n"
        "          Every new key goes one level deeper into the workspace data structure.\n"
        "\n"
+       "    " (s/key "FILE" cm) " = Writes the output to the specified " (s/key "FILE" cm) ". Will have the same effect\n"
+       "           as setting " (s/key "color-mode:none" cm) " and piping the ouput to a file.\n"
+       "\n"
        "  Example:\n"
        "    poly ws\n"
+       "    poly ws get:keys\n"
        "    poly ws get:keys\n"
        "    poly ws get:count\n"
        "    poly ws get:settings\n"
@@ -31,7 +35,9 @@
        "    poly ws get:settings:keys\n"
        "    poly ws get:components:keys\n"
        "    poly ws get:components:count\n"
-       "    poly ws get:components:mycomp:lines-of-code-src"))
+       "    poly ws get:components:mycomp:lines-of-code-src\n"
+       "    poly ws out:ws.edn\n"
+       "    poly ws color-mode:none > ws.edn"))
 
 (defn print-help [color-mode]
   (println (help color-mode)))
