@@ -25,9 +25,9 @@
   (mapcat #(select-lib-imports % brick->lib-imports test?)
           brick-names))
 
-(defn run-the-tests? [env alias is-dev run-all-brick-tests? selected-environments]
+(defn run-the-tests? [env alias is-dev is-run-all-brick-tests selected-environments]
   (or (and (not is-dev)
-           (or run-all-brick-tests?
+           (or is-run-all-brick-tests
                (empty? selected-environments)))
       (or (contains? selected-environments env)
           (contains? selected-environments alias))))
@@ -40,7 +40,7 @@
                   env->alias
                   disk-paths
                   settings
-                  {:keys [run-all-brick-tests? selected-environments] :as user-input}]
+                  {:keys [is-run-all-brick-tests selected-environments] :as user-input}]
   (let [alias (env->alias name)
         dep-entries (extract/from-library-deps is-dev lib-deps test-lib-deps settings user-input)
         path-entries (extract/from-unenriched-environment is-dev src-paths test-paths disk-paths settings user-input)
@@ -54,7 +54,7 @@
                             set sort vec)
         lib-imports-test (-> (env-lib-imports brick-names brick->lib-imports true)
                              set sort vec)
-        is-run-tests (run-the-tests? name alias is-dev run-all-brick-tests? selected-environments)
+        is-run-tests (run-the-tests? name alias is-dev is-run-all-brick-tests selected-environments)
         total-lines-of-code-src (env-total-loc brick-names brick->loc false)
         total-lines-of-code-test (env-total-loc brick-names brick->loc true)]
     (assoc environment :alias alias

@@ -50,8 +50,7 @@
   ;; the > characters will pipe the result to a file and the ? character will not
   ;; work either, so therefore we replace keys containing those characters.
   (walk/postwalk-replace
-    {:run-all-brick-tests? :run-all-brick-tests-q
-     :run-env-tests? :run-env-tests-q
+    {:run-env-tests? :run-env-tests-q
      :search-for-ws-dir? :search-for-ws-dir-q
      :show-resources? :show-resources-q
      :ns->lib :ns--lib
