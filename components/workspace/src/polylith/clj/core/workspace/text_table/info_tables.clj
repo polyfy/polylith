@@ -27,16 +27,16 @@
     (println (str "  active profiles: " (color/profile (str/join ", " (sort active-dev-profiles)) color-mode)))))
 
 (defn print-info [{:keys [settings changes messages user-input] :as workspace}]
-  (let [{:keys [show-loc? show-resources?]} user-input
+  (let [{:keys [is-show-loc show-resources?]} user-input
         {:keys [color-mode]} settings
         {:keys [since-sha tag]} changes]
     (print-stable-since since-sha tag color-mode)
     (count-table/print-table workspace)
     (print-active-dev-profiles user-input settings)
     (println)
-    (env-table/print-table workspace show-loc? show-resources?)
+    (env-table/print-table workspace is-show-loc show-resources?)
     (println)
-    (ws-table/print-table workspace show-loc? show-resources?)
+    (ws-table/print-table workspace is-show-loc show-resources?)
     (when (-> messages empty? not)
       (println)
       (validator/print-messages workspace))))

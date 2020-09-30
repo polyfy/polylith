@@ -17,7 +17,7 @@
     (text-table/cell column (+ index 3) statuses :purple :center)))
 
 (defn column [index {:keys [alias src-paths test-paths profile-src-paths profile-test-paths]}
-              bricks disk-paths alias->bricks-to-test show-loc? show-resources? thousand-sep]
+              bricks disk-paths alias->bricks-to-test is-show-loc show-resources? thousand-sep]
   (let [column (+ 5 (* 2 index))
         path-entries (extract/path-entries [src-paths test-paths profile-src-paths profile-test-paths] disk-paths)
         bricks-in-env (set (select/names path-entries c/brick? c/src? c/exists?))
@@ -25,12 +25,12 @@
     (concat
       [(text-table/cell column 1 alias :purple :center)]
       (map-indexed #(env-cell %1 column %2 alias alias->bricks-to-test path-entries show-resources?) bricks)
-      (when show-loc? [(text-table/number-cell column (+ 3 (count bricks)) total-loc-src :center thousand-sep)]))))
+      (when is-show-loc [(text-table/number-cell column (+ 3 (count bricks)) total-loc-src :center thousand-sep)]))))
 
 (defn columns [environments bricks disk-paths {:keys [env->bricks-to-test]}
-               show-loc? show-resources? thousand-sep]
+               is-show-loc show-resources? thousand-sep]
   (let [env->alias (into {} (map (juxt :name :alias) environments))
         alias->bricks-to-test (into {} (map #(alias-changes % env->alias) env->bricks-to-test))]
     (apply concat
-           (map-indexed #(column %1 %2 bricks disk-paths alias->bricks-to-test show-loc? show-resources? thousand-sep)
+           (map-indexed #(column %1 %2 bricks disk-paths alias->bricks-to-test is-show-loc show-resources? thousand-sep)
                         environments))))

@@ -9,6 +9,6 @@
                    (map loc-key bricks))
       [(text-table/number-cell column (+ (count bricks) 3) total-loc :right thousand-sep)])))
 
-(defn columns [show-loc? bricks start-column thousand-sep]
-  (when show-loc? (concat (loc-column "loc" :lines-of-code-src bricks start-column thousand-sep)
-                          (loc-column "(t)" :lines-of-code-test bricks (+ 2 start-column) thousand-sep))))
+(defn columns [is-show-loc bricks start-column thousand-sep]
+  (when is-show-loc (concat (loc-column "loc" :lines-of-code-src bricks start-column thousand-sep)
+                            (loc-column "(t)" :lines-of-code-test bricks (+ 2 start-column) thousand-sep))))

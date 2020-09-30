@@ -47,8 +47,8 @@
 (defn loc-cell [index lines-of-code column thousand-sep]
   (text-table/number-cell column (+ index 3) lines-of-code :right thousand-sep))
 
-(defn loc-columns [show-loc? environments n#profiles thousand-sep total-col-src total-loc-test]
-  (when show-loc?
+(defn loc-columns [is-show-loc environments n#profiles thousand-sep total-col-src total-loc-test]
+  (when is-show-loc
     (let [column1 (+ 7 (* 2 n#profiles))
           column2 (+ 2 column1)]
       (concat [(text-table/cell column1 1 "loc" :none :right)]
@@ -58,7 +58,7 @@
               (map-indexed #(loc-cell %1 %2 column2 thousand-sep) (map :lines-of-code-test environments))
               [(text-table/number-cell column2 (+ (count environments) 3) total-loc-test :right thousand-sep)]))))
 
-(defn table [{:keys [settings environments changes paths]} show-loc? show-resources?]
+(defn table [{:keys [settings environments changes paths]} is-show-loc show-resources?]
   (let [{:keys [color-mode thousand-sep]} settings
         profiles (profile/all-profiles settings)
         n#profiles (count profiles)
@@ -68,14 +68,14 @@
         alias-col (env-column environments {} "alias" :alias 3 color-mode)
         src-col (src-column environments paths changes show-resources?)
         profile-cols (profile-columns paths 7 environments profiles settings show-resources?)
-        loc-col (loc-columns show-loc? environments n#profiles thousand-sep total-loc-src total-loc-test)
-        space-columns (range 2 (* 2 (+ 3 (count profiles) (if show-loc? 2 0))) 2)
+        loc-col (loc-columns is-show-loc environments n#profiles thousand-sep total-loc-src total-loc-test)
+        space-columns (range 2 (* 2 (+ 3 (count profiles) (if is-show-loc 2 0))) 2)
         header-spaces (text-table/spaces 1 space-columns (repeat "  "))
         cells (text-table/merge-cells env-col alias-col src-col loc-col profile-cols header-spaces)
-        section-cols (if (or show-loc? (-> n#profiles zero? not)) [6 (+ 6 (* 2 n#profiles))] [])
+        section-cols (if (or is-show-loc (-> n#profiles zero? not)) [6 (+ 6 (* 2 n#profiles))] [])
         line-spaces (text-table/spaces 2 section-cols (repeat "   "))
         line (text-table/line 2 cells)]
     (text-table/table "  " color-mode cells line line-spaces)))
 
-(defn print-table [workspace show-loc? show-resources?]
-  (text-table/print-table (table workspace show-loc? show-resources?)))
+(defn print-table [workspace is-show-loc show-resources?]
+  (text-table/print-table (table workspace is-show-loc show-resources?)))

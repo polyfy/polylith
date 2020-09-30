@@ -55,7 +55,7 @@
                       :show-brick? brick!
                       :show-bricks? bricks!
                       :show-env? (= "true" env!)
-                      :show-loc? (= "true" loc!)
+                      :is-show-loc (= "true" loc!)
                       :run-all-tests? (= "true" all!)
                       :run-all-brick-tests? (or (= "true" all!)
                                                 (= "true" all-bricks!))

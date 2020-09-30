@@ -226,10 +226,10 @@
                                              :parameters [{:name "workspace"} {:name "user-input"}]}
                                             {:name "print-info",
                                              :type "function",
-                                             :parameters [{:name "workspace"} {:name "show-loc?"}]}
+                                             :parameters [{:name "workspace"} {:name "is-show-loc"}]}
                                             {:name "print-table-str-keys",
                                              :type "function",
-                                             :parameters [{:name "workspace"} {:name "show-loc?"}]}],
+                                             :parameters [{:name "workspace"} {:name "is-show-loc"}]}],
                               :implementing-components ["workspace"]}
                              {:name "user-config",
                               :type "interface",
@@ -2113,10 +2113,10 @@
                                                          :parameters [{:name "workspace"} {:name "user-input"}]}
                                                         {:name "print-info",
                                                          :type "function",
-                                                         :parameters [{:name "workspace"} {:name "show-loc?"}]}
+                                                         :parameters [{:name "workspace"} {:name "is-show-loc"}]}
                                                         {:name "print-table-str-keys",
                                                          :type "function",
-                                                         :parameters [{:name "workspace"} {:name "show-loc?"}]}]},
+                                                         :parameters [{:name "workspace"} {:name "is-show-loc"}]}]},
                               :lib-imports-src ["clojure.set" "clojure.string" "clojure.walk"],
                               :lib-imports-test [],
                               :lib-deps ["clojure"]}
