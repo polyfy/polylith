@@ -16,11 +16,11 @@
             (println "  Couldn't find a 'deps.edn' workspace file.")
             (recur new-path color-mode)))))))
 
-(defn workspace-dir [{:keys [cmd ws-dir search-for-ws-dir?]} color-mode]
+(defn workspace-dir [{:keys [cmd ws-dir is-search-for-ws-dir]} color-mode]
   (if (or (and (nil? ws-dir)
-               (not search-for-ws-dir?))
+               (not is-search-for-ws-dir))
           (= cmd "test"))
     (file/current-dir)
-    (if search-for-ws-dir?
+    (if is-search-for-ws-dir
       (find-ws-root-dir (file/absolute-path "") color-mode)
       ws-dir)))

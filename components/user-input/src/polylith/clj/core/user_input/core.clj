@@ -50,7 +50,7 @@
                       :since since
                       :top-ns top-ns
                       :ws-dir ws-dir
-                      :search-for-ws-dir? (contains? (set args) "::")
+                      :is-search-for-ws-dir (contains? (set args) "::")
                       :is-dev (= "true" dev!)
                       :show-brick? brick!
                       :show-bricks? bricks!
