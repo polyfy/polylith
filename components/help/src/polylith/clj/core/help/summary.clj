@@ -82,7 +82,8 @@
     "    poly ws get:settings:keys\n"
     "    poly ws get:components:keys\n"
     "    poly ws get:components:count\n"
-    "    poly ws get:components:mycomp:lines-of-code-src"))
+    "    poly ws get:components:mycomp:lines-of-code-src\n"
+    "    poly ws out:ws.edn"))
 
 (defn print-help [color-mode]
   (println (help-text color-mode)))

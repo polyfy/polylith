@@ -49,7 +49,7 @@
         ws/enrich-workspace
         change/with-changes)))
 
-(defn execute [{:keys [cmd args name top-ns is-show-brick is-show-bricks is-show-env brick get interface active-dev-profiles selected-environments unnamed-args] :as user-input}]
+(defn execute [{:keys [cmd args name top-ns is-show-brick is-show-bricks is-show-env brick get out interface active-dev-profiles selected-environments unnamed-args] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (common/workspace-dir user-input color-mode)
         environment-name (first selected-environments)
@@ -67,7 +67,7 @@
         "info" (info/info workspace unnamed-args)
         "libs" (deps/print-lib-table workspace)
         "test" (test/run workspace unnamed-args)
-        "ws" (ws-explorer/print-ws workspace get)
+        "ws" (ws-explorer/ws workspace get out color-mode)
         (unknown-command cmd))
       (println message))
     (exit-code/code cmd workspace)))

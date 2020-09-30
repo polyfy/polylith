@@ -28,6 +28,7 @@
                 get
                 interface
                 name
+                out
                 since
                 top-ns
                 ws-dir
@@ -46,10 +47,6 @@
                       :brick brick
                       :color-mode color-mode
                       :interface interface
-                      :name name
-                      :since since
-                      :top-ns top-ns
-                      :ws-dir ws-dir
                       :is-search-for-ws-dir (contains? (set args) "::")
                       :is-dev (= "true" dev!)
                       :is-show-brick brick!
@@ -63,6 +60,11 @@
                                             (= "true" env!))
                       :is-show-resources (or (= "true" r!)
                                              (= "true" resources!))
+                      :name name
+                      :out out
+                      :since since
+                      :top-ns top-ns
+                      :ws-dir ws-dir
                       :active-dev-profiles (active-dev-profiles unnamed-args)
                       :selected-environments (selected-environments env dev!)
                       :unnamed-args (vec unnamed-args))))

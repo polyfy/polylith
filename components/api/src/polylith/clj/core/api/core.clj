@@ -26,7 +26,7 @@
 
 (defn workspace [stable-point keys]
   "Returns the workspace or part of the workspace by sending in a stable-point
-   that specifies the which git tag to calculate changes and a list of keywords,
+   that specifies which git tag to calculate changes and a list of keywords,
    strings, or numbers. :keys and :count are also valid keys to send in. If keys
    are empty, returns the whole workspace."
   (let [keys-str (map key->str keys)
