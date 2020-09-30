@@ -53,7 +53,7 @@
                       :is-search-for-ws-dir (contains? (set args) "::")
                       :is-dev (= "true" dev!)
                       :is-show-brick brick!
-                      :show-bricks? bricks!
+                      :is-show-bricks bricks!
                       :is-show-env (= "true" env!)
                       :is-show-loc (= "true" loc!)
                       :is-run-all-tests (= "true" all!)

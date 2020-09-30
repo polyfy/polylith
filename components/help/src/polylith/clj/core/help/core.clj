@@ -9,11 +9,11 @@
             [polylith.clj.core.help.ws :as ws]
             [polylith.clj.core.help.summary :as summary]))
 
-(defn print-help [cmd ent is-show-env is-show-brick show-bricks? color-mode]
+(defn print-help [cmd ent is-show-env is-show-brick is-show-bricks color-mode]
   (case cmd
     "check" (check/print-help color-mode)
     "create" (create/print-help ent color-mode)
-    "deps" (deps/print-help is-show-env is-show-brick show-bricks? color-mode)
+    "deps" (deps/print-help is-show-env is-show-brick is-show-bricks color-mode)
     "diff" (diff/print-help color-mode)
     "info" (info/print-help color-mode)
     "libs" (libs/print-help color-mode)
