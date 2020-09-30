@@ -4,10 +4,10 @@
             [polylith.clj.core.validator.m107-missing-componens-in-environment :as m107])
   (:refer-clojure :exclude [bases]))
 
-(def settings {:profile->settings {"default" {:paths []
-                                              :lib-deps {}}
-                                   "admin" {:paths []
-                                            :lib-deps {"zprint" #:mvn{:version "0.4.15"}}}}})
+(def settings {:profile-to-settings {"default" {:paths []
+                                                :lib-deps {}}
+                                     "admin" {:paths []
+                                              :lib-deps {"zprint" #:mvn{:version "0.4.15"}}}}})
 
 (def environments [{:name "migrator"
                     :deps {"common" {:direct ["file" "util"]

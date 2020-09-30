@@ -11,6 +11,6 @@
 (defn profile? [[alias]]
   (str/starts-with? (name alias) "+"))
 
-(defn profile->settings [aliases]
+(defn profile-to-settings [aliases]
   (into {} (map profile
                 (filterv profile? aliases))))

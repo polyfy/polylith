@@ -3,11 +3,11 @@
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.m203-path-exists-in-both-dev-and-profile :as m203]))
 
-(def settings {:profile->settings {"default" {:paths ["components/user/src"
-                                                      "components/user/test"]}
-                                   "admin" {:paths ["components/admin/src"
-                                                    "components/admin/test"
-                                                    "components/invoice/src"]}}})
+(def settings {:profile-to-settings {"default" {:paths ["components/user/src"
+                                                        "components/user/test"]}
+                                     "admin" {:paths ["components/admin/src"
+                                                      "components/admin/test"
+                                                      "components/invoice/src"]}}})
 
 (def environments [{:alias "dev"
                     :src-paths ["components/invoice/src"

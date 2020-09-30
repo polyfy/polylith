@@ -16,7 +16,7 @@
                          :message (color/clean-colors message)
                          :colorized-message message)])))
 (defn warnings [settings environments color-mode]
-  (let [profile->settings (:profile->settings settings)
+  (let [profile-to-settings (:profile-to-settings settings)
         {:keys [lib-deps test-lib-deps]} (common/find-environment "dev" environments)
         dev-lib-deps (set (map first (concat lib-deps test-lib-deps)))]
-    (mapcat #(profile-warning % dev-lib-deps color-mode) profile->settings)))
+    (mapcat #(profile-warning % dev-lib-deps color-mode) profile-to-settings)))

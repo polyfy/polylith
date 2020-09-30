@@ -3,8 +3,8 @@
             [clojure.string :as str]
             [polylith.clj.core.util.interface.color :as color]))
 
-(defn validate [active-dev-profiles {:keys [profile->settings]} color-mode]
-  (let [existing (set (map first profile->settings))
+(defn validate [active-dev-profiles {:keys [profile-to-settings]} color-mode]
+  (let [existing (set (map first profile-to-settings))
         ;; Accept typing "+", which will give an empty active profile
         missing (set/difference active-dev-profiles existing #{""})
         s (if (= 1 (count missing)) "" "s")

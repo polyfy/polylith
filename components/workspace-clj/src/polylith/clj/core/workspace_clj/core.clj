@@ -42,8 +42,8 @@
          components (components-from-disk/read-components ws-dir top-src-dir component-names interface-ns)
          bases (bases-from-disk/read-bases ws-dir top-src-dir)
          environments (envs-from-disk/read-environments ws-dir)
-         profile->settings (profile/profile->settings aliases)
-         paths (path-finder/paths ws-dir environments profile->settings)
+         profile-to-settings (profile/profile-to-settings aliases)
+         paths (path-finder/paths ws-dir environments profile-to-settings)
          settings (util/ordered-map :vcs (or vcs "git")
                                     :top-namespace top-namespace
                                     :interface-ns (or interface-ns "interface")
@@ -54,7 +54,7 @@
                                     :user-config-file user-config-file
                                     :empty-char (or empty-char ".")
                                     :thousand-sep (or thousand-sep ",")
-                                    :profile->settings profile->settings
+                                    :profile-to-settings profile-to-settings
                                     :env-to-alias env-to-alias
                                     :ns-to-lib (stringify ns-to-lib)
                                     :changes-since (:since user-input "last-stable")

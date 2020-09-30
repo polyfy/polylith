@@ -3,8 +3,8 @@
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.user-input.profile-validator :as validator]))
 
-(def settings {:profile->settings {"default" {},
-                                   "admin" {}}})
+(def settings {:profile-to-settings {"default" {},
+                                     "admin" {}}})
 (deftest validate--when-the-profile-exists--return-empty-list
   (is (= nil
          (validator/validate #{"admin"} settings color/none))))

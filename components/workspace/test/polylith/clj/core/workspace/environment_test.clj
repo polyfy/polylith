@@ -216,14 +216,14 @@
           :type                     "environment"}
          (env/enrich-env environment components bases brick->loc brick->lib-imports env-to-alias
                          {:missing []}
-                         {:profile->settings {"default" {:paths ["components/user/src"
-                                                                  "components/user/resources"
-                                                                  "components/user/test"]
-                                                         :src-paths ["components/user/src"
-                                                                     "components/user/resources"]
-                                                         :test-paths ["components/user/test"]
-                                                         :lib-deps {"clojure.core.matrix"
-                                                                    "net.mikera/core.matrix"}}}}
+                         {:profile-to-settings {"default" {:paths ["components/user/src"
+                                                                    "components/user/resources"
+                                                                    "components/user/test"]
+                                                           :src-paths ["components/user/src"
+                                                                       "components/user/resources"]
+                                                           :test-paths ["components/user/test"]
+                                                           :lib-deps {"clojure.core.matrix"
+                                                                      "net.mikera/core.matrix"}}}}
                          {:selected-environments #{"dev"}
                           :active-dev-profiles ["default"]}))))
 

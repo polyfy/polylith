@@ -420,7 +420,7 @@
                 :ws-dir ".",
                 :name "polylith",
                 :settings {:top-namespace "polylith.clj.core",
-                           :profile->settings {},
+                           :profile-to-settings {},
                            :ns-to-lib {"clojure" "org.clojure/clojure",
                                        "clojure.core.matrix" "net.mikera/core.matrix",
                                        "clojure.tools.deps" "org.clojure/tools.deps.alpha"},
@@ -2257,8 +2257,8 @@
 
 
 (def workspace-with-profiles (-> workspace
-                                 (assoc-in [:settings :profile->settings] {"default" {:paths ["components/file/src"
-                                                                                              "components/file/test"]}})
+                                 (assoc-in [:settings :profile-to-settings] {"default" {:paths ["components/file/src"
+                                                                                                "components/file/test"]}})
                                  (assoc-in [:environments 2 :profile-src-paths] ["components/file/src"])
                                  (assoc-in [:environments 2 :profile-test-paths] ["components/file/test"])))
 

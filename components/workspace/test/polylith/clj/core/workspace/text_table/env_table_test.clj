@@ -5,7 +5,7 @@
 (def workspace {:ws-dir "../poly-example/ws50"
                 :name "ws50"
                 :settings {:top-namespace "se.example"
-                           :profile->settings {}
+                           :profile-to-settings {}
                            :interface-ns "interface"
                            :thousand-sep ","
                            :color-mode "none"}
@@ -73,9 +73,9 @@
                 :paths {:missing []}})
 
 (def workspace-with-profiles (-> workspace
-                                 (assoc-in [:settings :profile->settings] {"default" {:paths ["components/file/src"
-                                                                                              "components/file/test"
-                                                                                              "environments/core/test"]}})))
+                                 (assoc-in [:settings :profile-to-settings] {"default" {:paths ["components/file/src"
+                                                                                                "components/file/test"
+                                                                                                "environments/core/test"]}})))
 
 (deftest table--no-resources-flat--returns-correct-table
   (is (= ["  environment  alias  source"
