@@ -71,7 +71,7 @@
 
 (deftest paths--without-active-profile--returns-expected-map
   (is (= {:name "development"
-          :run-tests? false
+          :is-run-tests false
           :is-dev true
           :alias "dev"
           :type "environment"
@@ -137,7 +137,7 @@
                          {} {}))))
 
 (deftest paths--with-active-profile--includes-brick-in-profile
-  (is (= {:run-tests?               true
+  (is (= {:is-run-tests               true
           :alias                    "dev"
           :base-names               ["cli"]
           :component-names          ["change"
@@ -227,34 +227,34 @@
                          {:selected-environments #{"dev"}
                           :active-dev-profiles ["default"]}))))
 
-(deftest run-tests?--non-dev-environment-no-env-selected--returns-true
+(deftest is-run-tests--non-dev-environment-no-env-selected--returns-true
   (is (true?
         (env/run-the-tests? "cli" "cli" false false #{}))))
 
-(deftest run-tests?--non-dev-environment-no-env-selected-run-all-brick-tests--returns-true
+(deftest is-run-tests--non-dev-environment-no-env-selected-run-all-brick-tests--returns-true
   (is (true?
         (env/run-the-tests? "cli" "cli" false true #{}))))
 
-(deftest run-tests?--non-dev-environment-dev-selected--returns-false
+(deftest is-run-tests--non-dev-environment-dev-selected--returns-false
   (is (false?
         (env/run-the-tests? "cli" "cli" false false #{"dev"}))))
 
-(deftest run-tests?--non-dev-environment-dev-selected-run-all-brick-tests--returns-true
+(deftest is-run-tests--non-dev-environment-dev-selected-run-all-brick-tests--returns-true
   (is (true?
         (env/run-the-tests? "cli" "cli" false true #{"dev"}))))
 
-(deftest run-tests?--dev-environment-no-env-selected--returns-false
+(deftest is-run-tests--dev-environment-no-env-selected--returns-false
   (is (false?
         (env/run-the-tests? "development" "dev" true false #{}))))
 
-(deftest run-tests?--dev-environment-no-env-selected-run-all-brick-tests--returns-false
+(deftest is-run-tests--dev-environment-no-env-selected-run-all-brick-tests--returns-false
   (is (false?
         (env/run-the-tests? "development" "dev" true true #{}))))
 
-(deftest run-tests?--dev-environment-dev-selected--returns-true
+(deftest is-run-tests--dev-environment-dev-selected--returns-true
   (is (true?
         (env/run-the-tests? "development" "dev" true false #{"dev"}))))
 
-(deftest run-tests?--dev-environment-dev-selected-run-all-brick-tests--returns-true
+(deftest is-run-tests--dev-environment-dev-selected-run-all-brick-tests--returns-true
   (is (true?
         (env/run-the-tests? "development" "dev" true true #{"dev"}))))

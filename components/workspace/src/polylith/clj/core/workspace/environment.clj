@@ -54,11 +54,11 @@
                             set sort vec)
         lib-imports-test (-> (env-lib-imports brick-names brick->lib-imports true)
                              set sort vec)
-        run-tests? (run-the-tests? name alias is-dev run-all-brick-tests? selected-environments)
+        is-run-tests (run-the-tests? name alias is-dev run-all-brick-tests? selected-environments)
         total-lines-of-code-src (env-total-loc brick-names brick->loc false)
         total-lines-of-code-test (env-total-loc brick-names brick->loc true)]
     (assoc environment :alias alias
-                       :run-tests? run-tests?
+                       :is-run-tests is-run-tests
                        :lines-of-code-src (loc/lines-of-code namespaces-src)
                        :lines-of-code-test (loc/lines-of-code namespaces-test)
                        :total-lines-of-code-src total-lines-of-code-src

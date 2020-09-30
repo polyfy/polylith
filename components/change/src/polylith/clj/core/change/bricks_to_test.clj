@@ -1,7 +1,7 @@
 (ns polylith.clj.core.change.bricks-to-test
   (:require [clojure.set :as set]))
 
-(defn bricks-to-test-for-env [{:keys [name run-tests? test-base-names test-component-names]}
+(defn bricks-to-test-for-env [{:keys [name is-run-tests test-base-names test-component-names]}
                               changed-environments
                               changed-components
                               changed-bases
@@ -9,7 +9,7 @@
                               run-all-brick-tests?]
   (let [test-environment? (contains? (set changed-environments) name)
         brick-names (set (concat test-base-names test-component-names))
-        changed-bricks (if run-tests?
+        changed-bricks (if is-run-tests
                          (if (or run-all-brick-tests? test-environment?)
                            brick-names
                            (set/intersection brick-names

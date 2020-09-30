@@ -7,7 +7,7 @@
             "components/deps/src/polylith/clj/core/deps/interface.clj"])
 
 (def environments [{:name "cli"
-                    :run-tests? true
+                    :is-run-tests true
                     :is-dev false
                     :test-component-names []
                     :component-names ["change"
@@ -44,7 +44,7 @@
                            "common" {:direct ["util"], :indirect []}
                            "change" {:direct ["git" "util"], :indirect ["shell"]}}}
                    {:name "core"
-                    :run-tests? true
+                    :is-run-tests true
                     :is-dev false
                     :test-component-names ["change" "common" "deps" "file" "git" "help" "shell"]
                     :component-names ["change" "common" "deps" "file" "git" "help" "shell" "text-table" "util" "validator" "workspace"]
@@ -78,7 +78,7 @@
                            "common" {:direct ["util"], :indirect []}
                            "change" {:direct ["git" "util"], :indirect ["shell"]}}}
                    {:name "dev"
-                    :run-tests? false
+                    :is-run-tests false
                     :is-dev true
                     :test-component-names ["change" "common" "shell"]
                     :component-names ["change"
@@ -123,7 +123,7 @@
                 :user-input {}
                 :paths {:missing []}})
 
-(def workspace-with-active-dev (assoc-in workspace [:environments 2 :run-tests?] true))
+(def workspace-with-active-dev (assoc-in workspace [:environments 2 :is-run-tests] true))
 
 (def workspace-with-run-all-brick-tests-flags (assoc workspace :user-input {:run-all-brick-tests? true
                                                                             :run-env-tests? true}))
