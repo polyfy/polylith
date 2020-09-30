@@ -19,6 +19,6 @@
                          #{})]
     [name (vec (sort changed-bricks))]))
 
-(defn env->bricks-to-test [changed-environments environments changed-components changed-bases env-to-indirect-changes is-run-all-brick-tests]
+(defn env-to-bricks-to-test [changed-environments environments changed-components changed-bases env-to-indirect-changes is-run-all-brick-tests]
   (into {} (map #(bricks-to-test-for-env % changed-environments changed-components changed-bases env-to-indirect-changes is-run-all-brick-tests)
                 environments)))

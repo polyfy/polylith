@@ -66,9 +66,9 @@
                           :changed-bases ["cli"]
                           :changed-environments ["core" "invoice"]
                           :env-to-indirect-changes {"core" [], "development" [], "invoice" []}
-                          :env->bricks-to-test {"core" []
-                                                "development" []
-                                                "invoice" ["admin" "cli" "database" "invoicer" "purchaser"]}
+                          :env-to-bricks-to-test {"core" []
+                                                  "development" []
+                                                  "invoice" ["admin" "cli" "database" "invoicer" "purchaser"]}
                           :environments-to-test []}
                 :paths {:missing []}})
 

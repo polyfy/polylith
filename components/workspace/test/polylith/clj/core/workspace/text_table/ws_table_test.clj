@@ -2218,7 +2218,7 @@
                           :env-to-indirect-changes {"poly" ["poly-cli" "command" "test-helper"],
                                                     "core" ["poly-cli" "command" "test-helper"],
                                                     "development" ["poly-cli" "command" "test-helper"]},
-                          :env->bricks-to-test {"poly" ["command" "path-finder" "workspace"], "core" [], "development" []},
+                          :env-to-bricks-to-test {"poly" ["command" "path-finder" "workspace"], "core" [], "development" []},
                           :environments-to-test [],
                           :changed-files ["components/path-finder/src/polylith/clj/core/path-finder/env_statuses.clj"
                                           "components/path-finder/src/polylith/clj/core/path-finder/interfc.clj"

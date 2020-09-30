@@ -3,13 +3,13 @@
             [polylith.clj.core.change.bricks-to-test :as to-test]
             [polylith.clj.core.change.environments-test-data :as data]))
 
-(deftest env->bricks-to-test--with-one-changed-brick--returns-bricks-to-test-for-changed-and-active-environments
+(deftest env-to-bricks-to-test--with-one-changed-brick--returns-bricks-to-test-for-changed-and-active-environments
   (is (= {"cli" []
           "core" ["article"]
           "development" []}
-         (to-test/env->bricks-to-test {} data/environments ["article"] [] {} false))))
+         (to-test/env-to-bricks-to-test {} data/environments ["article"] [] {} false))))
 
-(deftest env->bricks-to-test--with-test-all-selected--returns-all-bricks-for-active-environments
+(deftest env-to-bricks-to-test--with-test-all-selected--returns-all-bricks-for-active-environments
   (is (= {"cli" []
           "core" ["article"
                   "comment"
@@ -18,9 +18,9 @@
                   "tag"
                   "user"]
           "development" []}
-         (to-test/env->bricks-to-test {} data/environments ["article"] [] {} true))))
+         (to-test/env-to-bricks-to-test {} data/environments ["article"] [] {} true))))
 
-(deftest env->bricks-to-test--when-the-environment-itself-has-changed--return-all-bricks-for-that-environment
+(deftest env-to-bricks-to-test--when-the-environment-itself-has-changed--return-all-bricks-for-that-environment
   (is (= {"cli" []
           "core" ["article"
                   "comment"
@@ -29,4 +29,4 @@
                   "tag"
                   "user"]
           "development" []}
-         (to-test/env->bricks-to-test ["core"] data/environments ["article"] [] {} false))))
+         (to-test/env-to-bricks-to-test ["core"] data/environments ["article"] [] {} false))))

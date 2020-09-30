@@ -176,7 +176,7 @@
                           :env-to-indirect-changes {"cli" ["cli" "command" "test-helper" "validator"],
                                                     "core" ["cli" "command" "test-helper" "validator"],
                                                     "development" ["cli" "command" "test-helper" "validator"]},
-                          :env->bricks-to-test {"cli" ["command" "deps" "entity" "validator" "workspace"], "core" [], "development" []},
+                          :env-to-bricks-to-test {"cli" ["command" "deps" "entity" "validator" "workspace"], "core" [], "development" []},
                           :environments-to-test [],}
                 :bases [{:name "cli",
                          :type "base",
