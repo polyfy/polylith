@@ -73,7 +73,7 @@
             (str "            :build-tag-pattern \"v[0-9]*\"")
             (str "            :stable-since-tag-pattern \"stable-*\"")
             (str "            :env->alias {\"development\" \"dev\"}")
-            (str "            :ns->lib {}}")
+            (str "            :ns-to-lib {}}")
             (str "")
             (str " :aliases  {:dev {:extra-paths [\"development/src\"]")
             (str "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.10.1\"}")

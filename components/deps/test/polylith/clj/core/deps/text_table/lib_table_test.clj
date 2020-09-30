@@ -6,9 +6,9 @@
                            :empty-char "·"
                            :profile->settings {"default" {:lib-deps {}}
                                                "admin" {:lib-deps {"zprint" {:mvn/version "0.4.15"}}}}
-                           :ns->lib {"clojure" "org.clojure/clojure"
-                                     "clojure.core.matrix" "net.mikera/core.matrix"
-                                     "clojure.tools.deps" "org.clojure/tools.deps.alpha"}}
+                           :ns-to-lib {"clojure" "org.clojure/clojure"
+                                       "clojure.core.matrix" "net.mikera/core.matrix"
+                                       "clojure.tools.deps" "org.clojure/tools.deps.alpha"}}
                 :components [{:name "change"
                               :type "component"
                               :lib-dep-names ["org.clojure/clojure"]}

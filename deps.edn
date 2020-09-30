@@ -9,10 +9,10 @@
                          "migrator" "migr"
                          "poly" "poly"
                          "development" "dev"}
-            :ns->lib {clojure.tools.deps      org.clojure/tools.deps.alpha
-                      me.raynes               me.raynes/fs
-                      puget                   mvxcvi/puget
-                      deps-deploy.deps-deploy slipset/deps-deploy}}
+            :ns-to-lib {clojure.tools.deps      org.clojure/tools.deps.alpha
+                        me.raynes               me.raynes/fs
+                        puget                   mvxcvi/puget
+                        deps-deploy.deps-deploy slipset/deps-deploy}}
 
  :aliases  {:dev {:extra-paths [; Development
                                 "development/src"

@@ -23,8 +23,8 @@
 (defn stringify-key-value [[k v]]
   [(str k) (str v)])
 
-(defn stringify [ns->lib]
-  (into {} (mapv stringify-key-value ns->lib)))
+(defn stringify [ns-to-lib]
+  (into {} (mapv stringify-key-value ns-to-lib)))
 
 (defn workspace-from-disk
   ([user-input]
@@ -33,7 +33,7 @@
          config (read-string (slurp (str ws-dir "/deps.edn")))]
      (workspace-from-disk ws-dir config user-input color-mode)))
   ([ws-dir {:keys [polylith aliases]} user-input color-mode]
-   (let [{:keys [vcs top-namespace interface-ns default-profile-name build-tag-pattern stable-since-tag-pattern env->alias ns->lib]} polylith
+   (let [{:keys [vcs top-namespace interface-ns default-profile-name build-tag-pattern stable-since-tag-pattern env->alias ns-to-lib]} polylith
          top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
          empty-char (user-config/empty-character)
          thousand-sep (user-config/thousand-separator)
@@ -56,7 +56,7 @@
                                     :thousand-sep (or thousand-sep ",")
                                     :profile->settings profile->settings
                                     :env->alias env->alias
-                                    :ns->lib (stringify ns->lib)
+                                    :ns-to-lib (stringify ns-to-lib)
                                     :changes-since (:since user-input "last-stable")
                                     :user-input user-input)]
      (util/ordered-map :ws-dir ws-dir

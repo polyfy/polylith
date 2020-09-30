@@ -209,7 +209,7 @@
                                                           {:name "bases"}
                                                           {:name "environments"}
                                                           {:name "interface-ns"}
-                                                          {:name "ns->lib"}
+                                                          {:name "ns-to-lib"}
                                                           {:name "color-mode"}]}],
                               :implementing-components ["validator"]}
                              {:name "shell",
@@ -421,9 +421,9 @@
                 :name "polylith",
                 :settings {:top-namespace "polylith.clj.core",
                            :profile->settings {},
-                           :ns->lib {"clojure" "org.clojure/clojure",
-                                     "clojure.core.matrix" "net.mikera/core.matrix",
-                                     "clojure.tools.deps" "org.clojure/tools.deps.alpha"},
+                           :ns-to-lib {"clojure" "org.clojure/clojure",
+                                       "clojure.core.matrix" "net.mikera/core.matrix",
+                                       "clojure.tools.deps" "org.clojure/tools.deps.alpha"},
                            :env->alias {"poly" "poly", "core" "core"},
                            :interface-ns "interface",
                            :vcs "git",
@@ -1958,7 +1958,7 @@
                                                                       {:name "bases"}
                                                                       {:name "environments"}
                                                                       {:name "interface-ns"}
-                                                                      {:name "ns->lib"}
+                                                                      {:name "ns-to-lib"}
                                                                       {:name "color-mode"}]}]},
                               :namespaces-src [{:name "m104-circular-deps",
                                                 :namespace "polylith.clj.core.validate.m104-circular-deps",
