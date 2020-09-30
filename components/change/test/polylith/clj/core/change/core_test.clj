@@ -140,9 +140,9 @@
           :env-to-bricks-to-test {"cli" []
                                   "core" ["change" "deps"]
                                   "dev" []}
-          :env->environments-to-test {"cli"  []
-                                      "core" []
-                                      "dev"  []}
+          :env-to-environments-to-test {"cli"  []
+                                        "core" []
+                                        "dev"  []}
           :changed-files ["components/change/test/polylith/clj/core/change/brick_test.clj"
                           "components/change/test/polylith/clj/core/change/core_test.clj"
                           "components/deps/src/polylith/clj/core/deps/interface.clj"]}
@@ -160,9 +160,9 @@
           :env-to-bricks-to-test {"cli" []
                                   "core" ["change" "deps"]
                                   "dev" ["change" "cli"]}
-          :env->environments-to-test {"cli"  []
-                                      "core" []
-                                      "dev"  []}
+          :env-to-environments-to-test {"cli"  []
+                                        "core" []
+                                        "dev"  []}
           :changed-files ["components/change/test/polylith/clj/core/change/brick_test.clj"
                           "components/change/test/polylith/clj/core/change/core_test.clj"
                           "components/deps/src/polylith/clj/core/deps/interface.clj"]}
@@ -180,9 +180,9 @@
           :env-to-bricks-to-test {"cli" []
                                   "core" ["change" "common" "deps" "file" "git" "help" "shell"]
                                   "dev" []}
-          :env->environments-to-test {"cli"  []
-                                      "core" []
-                                      "dev"  []}
+          :env-to-environments-to-test {"cli"  []
+                                        "core" []
+                                        "dev"  []}
           :changed-files ["components/change/test/polylith/clj/core/change/brick_test.clj"
                           "components/change/test/polylith/clj/core/change/core_test.clj"
                           "components/deps/src/polylith/clj/core/deps/interface.clj"]}

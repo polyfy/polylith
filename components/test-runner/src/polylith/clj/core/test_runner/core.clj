@@ -76,7 +76,7 @@
 
 (defn run-tests-for-environment [{:keys [bases components] :as workspace}
                                  {:keys [name src-paths test-paths profile-src-paths profile-test-paths namespaces-test] :as environment}
-                                 {:keys [env-to-bricks-to-test env->environments-to-test]}]
+                                 {:keys [env-to-bricks-to-test env-to-environments-to-test]}]
   (when (-> test-paths empty? not)
     (let [color-mode (-> workspace :settings :color-mode)
           config (->config workspace environment)
@@ -85,7 +85,7 @@
           all-paths (concat all-src-paths lib-paths)
           bricks (concat components bases)
           bricks-to-test (env-to-bricks-to-test name)
-          environments-to-test (env->environments-to-test name)
+          environments-to-test (env-to-environments-to-test name)
           run-message (run-message name components bases bricks-to-test environments-to-test color-mode)
           test-namespaces (brick-test-namespaces bricks bricks-to-test)
           env-test-namespaces (environment-test-namespaces name environments-to-test namespaces-test)
@@ -95,9 +95,9 @@
         (println (str "No tests to run for the " (color/environment name color-mode) " environment."))
         (run-test-statements class-loader test-statements run-message color-mode)))))
 
-(defn has-tests-to-run? [{:keys [name]} {:keys [env-to-bricks-to-test env->environments-to-test]}]
+(defn has-tests-to-run? [{:keys [name]} {:keys [env-to-bricks-to-test env-to-environments-to-test]}]
   (not (empty? (concat (env-to-bricks-to-test name)
-                       (env->environments-to-test name)))))
+                       (env-to-environments-to-test name)))))
 
 (defn print-no-tests-to-run-if-only-dev-exists [environments]
   (when (= 1 (count environments))

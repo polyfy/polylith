@@ -38,8 +38,8 @@
                          (if (contains? environments-to-test name) "x" "-"))]
     (text-table/cell 5 (+ index 3) satus-flags :purple :center)))
 
-(defn src-column [environments disk-paths {:keys [env->environments-to-test]} is-show-resources]
-  (let [environments-to-test (set (mapcat second env->environments-to-test))]
+(defn src-column [environments disk-paths {:keys [env-to-environments-to-test]} is-show-resources]
+  (let [environments-to-test (set (mapcat second env-to-environments-to-test))]
     (concat [(text-table/cell 5 "source")]
             (map-indexed #(src-cell %1 %2 disk-paths environments-to-test is-show-resources)
                          environments))))

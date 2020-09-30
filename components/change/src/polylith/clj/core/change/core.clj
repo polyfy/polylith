@@ -31,7 +31,7 @@
          affected-envs (affected-environments environments changed-components changed-bases changed-environments)
          env-to-indirect-changes (indirect/env-to-indirect-changes deps changed-bricks)
          env-to-bricks-to-test (bricks-to-test/env-to-bricks-to-test changed-environments environments changed-components changed-bases env-to-indirect-changes is-run-all-brick-tests)
-         env->environments-to-test (envs-to-test/env->environments-to-test environments changed-environments paths is-dev is-run-env-tests is-run-all-tests)]
+         env-to-environments-to-test (envs-to-test/env-to-environments-to-test environments changed-environments paths is-dev is-run-env-tests is-run-all-tests)]
      (util/ordered-map :since-sha since-sha
                        :tag tag
                        :git-command (git/diff-command since-sha nil)
@@ -41,7 +41,7 @@
                        :changed-or-affected-environments affected-envs
                        :env-to-indirect-changes env-to-indirect-changes
                        :env-to-bricks-to-test env-to-bricks-to-test
-                       :env->environments-to-test env->environments-to-test
+                       :env-to-environments-to-test env-to-environments-to-test
                        :changed-files files)))
 
 (defn find-sha [ws-dir {:keys [changes-since build-tag-pattern stable-since-tag-pattern]}]

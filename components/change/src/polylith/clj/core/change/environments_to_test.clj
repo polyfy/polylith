@@ -27,6 +27,6 @@
       (and is-run-tests is-run-env-tests) [name (vec (sort (env-tests name changed-environments included-envs is-dev)))]
       :else [name []])))
 
-(defn env->environments-to-test [environments changed-environments disk-paths is-dev is-run-env-tests is-run-all-tests]
+(defn env-to-environments-to-test [environments changed-environments disk-paths is-dev is-run-env-tests is-run-all-tests]
   (into {} (map #(environments-to-test % disk-paths changed-environments is-dev is-run-env-tests is-run-all-tests)
                 environments)))
