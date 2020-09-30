@@ -5,8 +5,8 @@
             [polylith.clj.core.path-finder.interface.status :as status]
             [polylith.clj.core.text-table.interface :as text-table]))
 
-(defn alias-changes [[env changes] env->alias]
-  [(env->alias env) (set changes)])
+(defn alias-changes [[env changes] env-to-alias]
+  [(env-to-alias env) (set changes)])
 
 (defn status-flags [alias brick alias->bricks-to-test path-entries is-show-resources]
   (str (status/brick-status-flags path-entries brick is-show-resources)
@@ -29,8 +29,8 @@
 
 (defn columns [environments bricks disk-paths {:keys [env->bricks-to-test]}
                is-show-loc is-show-resources thousand-sep]
-  (let [env->alias (into {} (map (juxt :name :alias) environments))
-        alias->bricks-to-test (into {} (map #(alias-changes % env->alias) env->bricks-to-test))]
+  (let [env-to-alias (into {} (map (juxt :name :alias) environments))
+        alias->bricks-to-test (into {} (map #(alias-changes % env-to-alias) env->bricks-to-test))]
     (apply concat
            (map-indexed #(column %1 %2 bricks disk-paths alias->bricks-to-test is-show-loc is-show-resources thousand-sep)
                         environments))))

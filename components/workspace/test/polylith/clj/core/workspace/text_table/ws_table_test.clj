@@ -424,7 +424,7 @@
                            :ns-to-lib {"clojure" "org.clojure/clojure",
                                        "clojure.core.matrix" "net.mikera/core.matrix",
                                        "clojure.tools.deps" "org.clojure/tools.deps.alpha"},
-                           :env->alias {"poly" "poly", "core" "core"},
+                           :env-to-alias {"poly" "poly", "core" "core"},
                            :interface-ns "interface",
                            :vcs "git",
                            :thousand-sep ",",

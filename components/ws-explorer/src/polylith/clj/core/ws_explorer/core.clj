@@ -50,8 +50,7 @@
   ;; the > characters will pipe the result to a file and the ? character will not
   ;; work either, so therefore we replace keys containing those characters.
   (walk/postwalk-replace
-    {:env->alias :env--alias
-     :env->indirect-changes :env--indirect-changes
+    {:env->indirect-changes :env--indirect-changes
      :env->bricks-to-test :env--bricks-to-test
      :env->environments-to-test :env--environments-to-test
      :profile->settings :profile--settings} workspace))

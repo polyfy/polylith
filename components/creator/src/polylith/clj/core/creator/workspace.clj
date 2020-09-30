@@ -39,7 +39,7 @@
    (str "            :default-profile-name \"default\"")
    (str "            :build-tag-pattern \"v[0-9]*\"")
    (str "            :stable-since-tag-pattern \"stable-*\"")
-   (str "            :env->alias {\"development\" \"dev\"}")
+   (str "            :env-to-alias {\"development\" \"dev\"}")
    (str "            :ns-to-lib {}}")
    (str "")
    (str " :aliases  {:dev {:extra-paths [\"development/src\"]")

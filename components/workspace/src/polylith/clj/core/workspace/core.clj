@@ -42,9 +42,9 @@
         enriched-bricks (concat enriched-components enriched-bases)
         brick->loc (brick->loc enriched-bricks)
         brick->lib-imports (brick->lib-imports enriched-bricks)
-        env->alias (alias/env->alias settings environments)
+        env-to-alias (alias/env-to-alias settings environments)
         enriched-user-input (user-input/enrich settings user-input)
-        enriched-environments (vec (sort-by env-sorter (map #(env/enrich-env % enriched-components enriched-bases brick->loc brick->lib-imports env->alias paths settings enriched-user-input) environments)))
+        enriched-environments (vec (sort-by env-sorter (map #(env/enrich-env % enriched-components enriched-bases brick->loc brick->lib-imports env-to-alias paths settings enriched-user-input) environments)))
         messages (validator/validate-ws suffixed-top-ns settings paths interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns enriched-user-input color-mode)]
     (assoc workspace :name ws-name
                      :user-input enriched-user-input

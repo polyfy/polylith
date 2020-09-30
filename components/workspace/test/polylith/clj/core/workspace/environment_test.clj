@@ -50,7 +50,7 @@
                   :test-lib-deps {}
                   :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}})
 
-(def env->alias {"development" "dev"})
+(def env-to-alias {"development" "dev"})
 
 (def brick->loc {"command" {:lines-of-code-src 36, :lines-of-code-test 0}
                  "cli" {:lines-of-code-src 21, :lines-of-code-test 0}
@@ -132,7 +132,7 @@
                              :direct-ifc ["util"]}}
           :test-lib-deps {}
           :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}}
-         (env/enrich-env environment components bases brick->loc brick->lib-imports env->alias
+         (env/enrich-env environment components bases brick->loc brick->lib-imports env-to-alias
                          {:missing []}
                          {} {}))))
 
@@ -214,7 +214,7 @@
           :total-lines-of-code-src  419
           :total-lines-of-code-test 76
           :type                     "environment"}
-         (env/enrich-env environment components bases brick->loc brick->lib-imports env->alias
+         (env/enrich-env environment components bases brick->loc brick->lib-imports env-to-alias
                          {:missing []}
                          {:profile->settings {"default" {:paths ["components/user/src"
                                                                   "components/user/resources"

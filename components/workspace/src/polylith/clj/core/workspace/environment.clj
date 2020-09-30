@@ -37,11 +37,11 @@
                   bases
                   brick->loc
                   brick->lib-imports
-                  env->alias
+                  env-to-alias
                   disk-paths
                   settings
                   {:keys [is-run-all-brick-tests selected-environments] :as user-input}]
-  (let [alias (env->alias name)
+  (let [alias (env-to-alias name)
         dep-entries (extract/from-library-deps is-dev lib-deps test-lib-deps settings user-input)
         path-entries (extract/from-unenriched-environment is-dev src-paths test-paths disk-paths settings user-input)
         component-names (select/names path-entries c/component? c/src? c/exists?)

@@ -157,7 +157,7 @@ The `deps.edn` file looks like this:
             :default-profile-name "default"
             :build-tag-pattern "v[0-9]*"
             :stable-since-tag-pattern "stable-*"
-            :env->alias {"development" "dev"}
+            :env-to-alias {"development" "dev"}
             :ns-to-lib {}}
 
  :aliases  {:dev {:extra-paths ["development/src"]
@@ -569,13 +569,13 @@ example
  
 The tool also reminded us of this:
 ```sh
-  It's recommended to add an alias to :env->alias in ./deps.edn for the command-line environment.
+  It's recommended to add an alias to :env-to-alias in ./deps.edn for the command-line environment.
 ```
 
 If we don't add the alias, it will be shown up as a `?` when we execute the `info` command:
 ```clojure
 {:polylith {...
-            :env->alias {"development" "dev"
+            :env-to-alias {"development" "dev"
                          "command-line" "cl"}
 ```
 
@@ -1324,7 +1324,7 @@ Let's create a checklist that will take us there:
   - [ ] Delegate from the `interface` to the `core` namespace.
 - [ ] Update the `development` environment:
   - [ ] Update `./deps.edn`:
-    - [ ] Add an alias for the `user-service` (:env->alias).
+    - [ ] Add an alias for the `user-service` (:env-to-alias).
     - [ ] Add namespace to the library mapping (:ns-to-lib).
     - [ ] Remove the `user` paths.
     - [ ] Add the Slacker library and libraries it needs.
@@ -1436,7 +1436,7 @@ components
 
 - [x] Update the `development` environment:
   - [x] Update `./deps.edn`:
-    - [x] Add an alias for the `user-service` (:env->alias).
+    - [x] Add an alias for the `user-service` (:env-to-alias).
     - [x] Add namespace to the library mapping (:ns-to-lib).
     - [x] Remove the `user` paths.
     - [x] Add the Slacker library and libraries it needs.
@@ -1451,7 +1451,7 @@ components
             :default-profile-name "default"
             :build-tag-pattern "v[0-9]*"
             :stable-since-tag-pattern "stable-*"
-            :env->alias {"development" "dev"
+            :env-to-alias {"development" "dev"
                          "command-line" "cl"
                          "user-service" "user-s"}
             :ns-to-lib {slacker  slacker}}
@@ -1809,7 +1809,7 @@ The workspace configuration is stored under the `:polylith` key in `./deps.edn` 
 | :default-profile-name      | The default value is `default`. If changed, the `+default` alias in `./deps.edn` has to be renamed accordingly. |
 | :build-tag-pattern         | The default value is `v[0-9]*`. If changed, old tags may not be recognised. |
 | :stable-since-tag-pattern  | The default value is `stable-*`. If changed, old tags may not be recognised. |
-| :env->alias                | If the `development` key is missing, `{"development" "dev"}` will be added. |
+| :env-to-alias                | If the `development` key is missing, `{"development" "dev"}` will be added. |
 | :ns-to-lib                   | Can be left empty, but will give a more detailed output from the [libs](#libs) command if populated. |
 
 Settings that are specific per developer/user are stored in `~/.polylith/config.edn`:
@@ -2423,7 +2423,7 @@ poly help
     The 'deps.edn' config files are stored under each environment, except for
     the development enviroment that stores it at the workspace root.
 
-    Aliases are configured in :env->alias in ./deps.edn.
+    Aliases are configured in :env-to-alias in ./deps.edn.
 
     The 'source' column has three x/- flags with different meaning:
       x--  The environment has a 'src' directory, e.g.

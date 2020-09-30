@@ -47,7 +47,7 @@
 (defn aliases [system-names]
   (let [aliases (sort-by first (conj (map #(vector % %) system-names) ["development" "dev"]))]
     (concat
-      [(str "            :env->alias {")]
+      [(str "            :env-to-alias {")]
       (map alias-row aliases)
       [(str "                        }")])))
 
