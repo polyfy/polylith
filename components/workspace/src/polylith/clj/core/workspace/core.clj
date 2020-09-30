@@ -28,8 +28,8 @@
       path
       (subs path (inc index)))))
 
-(defn env-sorter [{:keys [dev? name]}]
-  [dev? name])
+(defn env-sorter [{:keys [is-dev name]}]
+  [is-dev name])
 
 (defn enrich-workspace [{:keys [ws-dir settings components bases environments paths] :as workspace}]
   (let [ws-name (workspace-name ws-dir)

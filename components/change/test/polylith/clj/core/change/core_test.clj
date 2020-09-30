@@ -8,7 +8,7 @@
 
 (def environments [{:name "cli"
                     :run-tests? true
-                    :dev? false
+                    :is-dev false
                     :test-component-names []
                     :component-names ["change"
                                       "command"
@@ -45,7 +45,7 @@
                            "change" {:direct ["git" "util"], :indirect ["shell"]}}}
                    {:name "core"
                     :run-tests? true
-                    :dev? false
+                    :is-dev false
                     :test-component-names ["change" "common" "deps" "file" "git" "help" "shell"]
                     :component-names ["change" "common" "deps" "file" "git" "help" "shell" "text-table" "util" "validator" "workspace"]
                     :base-names []
@@ -79,7 +79,7 @@
                            "change" {:direct ["git" "util"], :indirect ["shell"]}}}
                    {:name "dev"
                     :run-tests? false
-                    :dev? true
+                    :is-dev true
                     :test-component-names ["change" "common" "shell"]
                     :component-names ["change"
                                       "command"

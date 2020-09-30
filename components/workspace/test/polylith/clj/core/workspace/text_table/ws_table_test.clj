@@ -330,14 +330,14 @@
                                              :parameters [{:name "path-entries"} {:name "brick-name"}]}
                                             {:name "deps-entries",
                                              :type "function",
-                                             :parameters [{:name "dev?"} {:name "src-deps"} {:name "test-deps"} {:name "settings"}]}
+                                             :parameters [{:name "is-dev"} {:name "src-deps"} {:name "test-deps"} {:name "settings"}]}
                                             {:name "env-status-flags",
                                              :type "function",
                                              :parameters [{:name "path-entries"} {:name "env-name"}]}
                                             {:name "path-entries",
                                              :type "function",
                                              :parameters [{:name "ws-dir"}
-                                                          {:name "dev?"}
+                                                          {:name "is-dev"}
                                                           {:name "src-paths"}
                                                           {:name "test-paths"}
                                                           {:name "settings"}]}
@@ -441,7 +441,7 @@
                                 :alias "poly",
                                 :type "environment",
                                 :run-tests? true,
-                                :dev? false,
+                                :is-dev false,
                                 :env-dir "./environments/poly",
                                 :config-file "./environments/poly/deps.edn",
                                 :lines-of-code-src 0,
@@ -609,7 +609,7 @@
                                 :alias "core",
                                 :type "environment",
                                 :run-tests? true,
-                                :dev? false,
+                                :is-dev false,
                                 :env-dir "./environments/core",
                                 :config-file "./environments/core/deps.edn",
                                 :lines-of-code-src 0,
@@ -699,7 +699,7 @@
                                 :alias "dev",
                                 :type "environment",
                                 :run-tests? false,
-                                :dev? true,
+                                :is-dev true,
                                 :env-dir "./development",
                                 :config-file "./deps.edn",
                                 :lines-of-code-src 100,
@@ -1308,7 +1308,7 @@
                                                          :parameters [{:name "path-entries"} {:name "brick-name"}]}
                                                         {:name "deps-entries",
                                                          :type "function",
-                                                         :parameters [{:name "dev?"}
+                                                         :parameters [{:name "is-dev"}
                                                                       {:name "src-deps"}
                                                                       {:name "test-deps"}
                                                                       {:name "settings"}]}
@@ -1318,7 +1318,7 @@
                                                         {:name "path-entries",
                                                          :type "function",
                                                          :parameters [{:name "ws-dir"}
-                                                                      {:name "dev?"}
+                                                                      {:name "is-dev"}
                                                                       {:name "src-paths"}
                                                                       {:name "test-paths"}
                                                                       {:name "settings"}]}

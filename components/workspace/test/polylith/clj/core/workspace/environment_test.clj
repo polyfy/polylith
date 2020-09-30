@@ -24,7 +24,7 @@
 
 (def environment {:name "development"
                   :alias "dev"
-                  :dev? true
+                  :is-dev true
                   :type "environment"
                   :src-paths ["bases/cli/src"
                               "components/change/src"
@@ -72,7 +72,7 @@
 (deftest paths--without-active-profile--returns-expected-map
   (is (= {:name "development"
           :run-tests? false
-          :dev? true
+          :is-dev true
           :alias "dev"
           :type "environment"
           :lines-of-code-src 0
@@ -180,7 +180,7 @@
                                      "user"    {:direct     []
                                                 :direct-ifc []
                                                 :indirect   []}}
-          :dev?                     true
+          :is-dev                     true
           :lib-deps                 {"clojure.core.matrix"          "net.mikera/core.matrix"
                                      "org.clojure/clojure"          #:mvn{:version "1.10.1"}
                                      "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}}

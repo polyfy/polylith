@@ -25,14 +25,14 @@
   (mapcat #(select-lib-imports % brick->lib-imports test?)
           brick-names))
 
-(defn run-the-tests? [env alias dev? run-all-brick-tests? selected-environments]
-  (or (and (not dev?)
+(defn run-the-tests? [env alias is-dev run-all-brick-tests? selected-environments]
+  (or (and (not is-dev)
            (or run-all-brick-tests?
                (empty? selected-environments)))
       (or (contains? selected-environments env)
           (contains? selected-environments alias))))
 
-(defn enrich-env [{:keys [name dev? namespaces-src namespaces-test src-paths test-paths lib-deps test-lib-deps] :as environment}
+(defn enrich-env [{:keys [name is-dev namespaces-src namespaces-test src-paths test-paths lib-deps test-lib-deps] :as environment}
                   components
                   bases
                   brick->loc
@@ -42,8 +42,8 @@
                   settings
                   {:keys [run-all-brick-tests? selected-environments] :as user-input}]
   (let [alias (env->alias name)
-        dep-entries (extract/from-library-deps dev? lib-deps test-lib-deps settings user-input)
-        path-entries (extract/from-unenriched-environment dev? src-paths test-paths disk-paths settings user-input)
+        dep-entries (extract/from-library-deps is-dev lib-deps test-lib-deps settings user-input)
+        path-entries (extract/from-unenriched-environment is-dev src-paths test-paths disk-paths settings user-input)
         component-names (select/names path-entries c/component? c/src? c/exists?)
         base-names (select/names path-entries c/base? c/src? c/exists?)
         brick-names (concat component-names base-names)
@@ -54,7 +54,7 @@
                             set sort vec)
         lib-imports-test (-> (env-lib-imports brick-names brick->lib-imports true)
                              set sort vec)
-        run-tests? (run-the-tests? name alias dev? run-all-brick-tests? selected-environments)
+        run-tests? (run-the-tests? name alias is-dev run-all-brick-tests? selected-environments)
         total-lines-of-code-src (env-total-loc brick-names brick->loc false)
         total-lines-of-code-test (env-total-loc brick-names brick->loc true)]
     (assoc environment :alias alias

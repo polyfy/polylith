@@ -13,7 +13,7 @@
                                 :alias "core"
                                 :type "environment"
                                 :run-tests? true
-                                :dev? false
+                                :is-dev false
                                 :lines-of-code-src 1
                                 :lines-of-code-test 1
                                 :src-paths ["environments/core/resources"
@@ -24,7 +24,7 @@
                                 :alias "inv"
                                 :type "environment"
                                 :run-tests? true
-                                :dev? false
+                                :is-dev false
                                 :lines-of-code-src 0
                                 :lines-of-code-test 1
                                 :src-paths ["bases/cli/resources"
@@ -47,7 +47,7 @@
                                 :alias "dev"
                                 :type "environment"
                                 :run-tests? false
-                                :dev? true
+                                :is-dev true
                                 :lines-of-code-src 4
                                 :lines-of-code-test 0
                                 :src-paths ["bases/cli/resources"

@@ -50,8 +50,7 @@
   ;; the > characters will pipe the result to a file and the ? character will not
   ;; work either, so therefore we replace keys containing those characters.
   (walk/postwalk-replace
-    {:dev? :dev-q
-     :run-tests? :run-tests-q
+    {:run-tests? :run-tests-q
      :show-loc? :show-loc-q
      :show-env? :show-env-q
      :run-all-tests? :run-all-tests-q
