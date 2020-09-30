@@ -134,9 +134,9 @@
           :changed-bases []
           :changed-environments []
           :changed-or-affected-environments ["cli" "core" "dev"]
-          :env->indirect-changes {"cli" ["cli" "command" "validator" "workspace"]
-                                  "core" ["cli" "command" "validator" "workspace"]
-                                  "dev" ["cli" "command" "validator" "workspace"]}
+          :env-to-indirect-changes {"cli" ["cli" "command" "validator" "workspace"]
+                                    "core" ["cli" "command" "validator" "workspace"]
+                                    "dev" ["cli" "command" "validator" "workspace"]}
           :env->bricks-to-test {"cli" []
                                 "core" ["change" "deps"]
                                 "dev" []}
@@ -154,9 +154,9 @@
           :changed-bases []
           :changed-environments []
           :changed-or-affected-environments ["cli" "core" "dev"]
-          :env->indirect-changes {"cli" ["cli" "command" "validator" "workspace"]
-                                  "core" ["cli" "command" "validator" "workspace"]
-                                  "dev" ["cli" "command" "validator" "workspace"]}
+          :env-to-indirect-changes {"cli" ["cli" "command" "validator" "workspace"]
+                                    "core" ["cli" "command" "validator" "workspace"]
+                                    "dev" ["cli" "command" "validator" "workspace"]}
           :env->bricks-to-test {"cli" []
                                 "core" ["change" "deps"]
                                 "dev" ["change" "cli"]}
@@ -174,9 +174,9 @@
           :changed-bases []
           :changed-environments []
           :changed-or-affected-environments ["cli" "core" "dev"]
-          :env->indirect-changes {"cli" ["cli" "command" "validator" "workspace"]
-                                  "core" ["cli" "command" "validator" "workspace"]
-                                  "dev" ["cli" "command" "validator" "workspace"]}
+          :env-to-indirect-changes {"cli" ["cli" "command" "validator" "workspace"]
+                                    "core" ["cli" "command" "validator" "workspace"]
+                                    "dev" ["cli" "command" "validator" "workspace"]}
           :env->bricks-to-test {"cli" []
                                 "core" ["change" "common" "deps" "file" "git" "help" "shell"]
                                 "dev" []}

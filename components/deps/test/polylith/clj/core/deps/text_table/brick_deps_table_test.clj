@@ -173,9 +173,9 @@
                           :changed-components ["deps" "entity" "text-table" "workspace"],
                           :changed-bases [],
                           :changed-environments ["cli" "core"],
-                          :env->indirect-changes {"cli" ["cli" "command" "test-helper" "validator"],
-                                                  "core" ["cli" "command" "test-helper" "validator"],
-                                                  "development" ["cli" "command" "test-helper" "validator"]},
+                          :env-to-indirect-changes {"cli" ["cli" "command" "test-helper" "validator"],
+                                                    "core" ["cli" "command" "test-helper" "validator"],
+                                                    "development" ["cli" "command" "test-helper" "validator"]},
                           :env->bricks-to-test {"cli" ["command" "deps" "entity" "validator" "workspace"], "core" [], "development" []},
                           :environments-to-test [],}
                 :bases [{:name "cli",

@@ -5,7 +5,7 @@
                               changed-environments
                               changed-components
                               changed-bases
-                              env->indirect-changes
+                              env-to-indirect-changes
                               is-run-all-brick-tests]
   (let [test-environment? (contains? (set changed-environments) name)
         brick-names (set (concat test-base-names test-component-names))
@@ -15,10 +15,10 @@
                            (set/intersection brick-names
                                              (set (concat changed-components
                                                           changed-bases
-                                                          (env->indirect-changes name)))))
+                                                          (env-to-indirect-changes name)))))
                          #{})]
     [name (vec (sort changed-bricks))]))
 
-(defn env->bricks-to-test [changed-environments environments changed-components changed-bases env->indirect-changes is-run-all-brick-tests]
-  (into {} (map #(bricks-to-test-for-env % changed-environments changed-components changed-bases env->indirect-changes is-run-all-brick-tests)
+(defn env->bricks-to-test [changed-environments environments changed-components changed-bases env-to-indirect-changes is-run-all-brick-tests]
+  (into {} (map #(bricks-to-test-for-env % changed-environments changed-components changed-bases env-to-indirect-changes is-run-all-brick-tests)
                 environments)))

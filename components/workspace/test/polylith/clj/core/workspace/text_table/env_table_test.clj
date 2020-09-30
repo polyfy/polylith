@@ -65,7 +65,7 @@
                           :changed-components ["address" "admin" "database" "invoicer" "purchaser" "user"]
                           :changed-bases ["cli"]
                           :changed-environments ["core" "invoice"]
-                          :env->indirect-changes {"core" [], "development" [], "invoice" []}
+                          :env-to-indirect-changes {"core" [], "development" [], "invoice" []}
                           :env->bricks-to-test {"core" []
                                                 "development" []
                                                 "invoice" ["admin" "cli" "database" "invoicer" "purchaser"]}

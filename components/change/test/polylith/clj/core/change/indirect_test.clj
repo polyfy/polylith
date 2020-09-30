@@ -62,8 +62,8 @@
              "common" {:direct ["util"], :indirect []}
              "change" {:direct ["git" "util"], :indirect ["shell"]}}]])
 
-(deftest env->indirect-changes--based-on-dependencies-and-changed-components--return-indirectly-changed-bricks-per-environment
+(deftest env-to-indirect-changes--based-on-dependencies-and-changed-components--return-indirectly-changed-bricks-per-environment
   (is (= {"cli" ["cli" "command" "z-jocke"]
           "core" ["cli" "command" "z-jocke"]
           "dev" ["cli" "command" "z-jocke"]}
-         (indirect/env->indirect-changes deps #{"change" "help"}))))
+         (indirect/env-to-indirect-changes deps #{"change" "help"}))))
