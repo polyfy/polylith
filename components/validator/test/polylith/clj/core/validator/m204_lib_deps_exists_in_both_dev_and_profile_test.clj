@@ -3,8 +3,8 @@
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.m204-lib-deps-exists-in-both-dev-and-profile :as m204]))
 
-(def settings {:profile->settings {"default" {:lib-deps {}}
-                                   "admin" {:lib-deps {"org.clojure/clojure" {:mvn/version "1.10.1"}}}}})
+(def settings {:profile-to-settings {"default" {:lib-deps {}}
+                                     "admin" {:lib-deps {"org.clojure/clojure" {:mvn/version "1.10.1"}}}}})
 
 (def environments [{:alias "dev"
                     :lib-deps {"org.clojure/clojure" {:mvn/version "1.10.2"}

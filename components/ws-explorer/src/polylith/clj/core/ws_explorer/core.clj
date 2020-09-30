@@ -45,29 +45,8 @@
     (vector? value) (recur (value-from-vector value (first keys)) (rest keys))
     :else value))
 
-(defn replace-keys [workspace]
-  ;; When getting values within the workspace data structure from the command line,
-  ;; the > characters will pipe the result to a file and the ? character will not
-  ;; work either, so therefore we replace keys containing those characters.
-  (walk/postwalk-replace
-    {:dev? :dev-q
-     :run-tests? :run-tests-q
-     :show-loc? :show-loc-q
-     :show-env? :show-env-q
-     :run-all-tests? :run-all-tests-q
-     :run-all-brick-tests? :run-all-brick-tests-q
-     :run-env-tests? :run-env-tests-q
-     :search-for-ws-dir? :search-for-ws-dir-q
-     :show-resources? :show-resources-q
-     :ns->lib :ns--lib
-     :env->alias :env--alias
-     :env->indirect-changes :env--indirect-changes
-     :env->bricks-to-test :env--bricks-to-test
-     :env->environments-to-test :env--environments-to-test
-     :profile->settings :profile--settings} workspace))
-
 (defn extract [workspace get]
-  (let [value (extract-value (replace-keys workspace)
+  (let [value (extract-value workspace
                              (if (or (nil? get)
                                      (sequential? get)) get [get]))]
     (if (map? value)

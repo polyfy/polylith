@@ -11,7 +11,7 @@
                  (helper/execute-command "ws1" "create" "e" "name:env1")
                  (helper/execute-command "ws1" "create" "environment" "name:env1"))]
 
-    (is (= (str "  It's recommended to add an alias to :env->alias in ./deps.edn for the env1 environment.\n"
+    (is (= (str "  It's recommended to add an alias to :env-to-alias in ./deps.edn for the env1 environment.\n"
                 "  Environment env1 (or alias) already exists.\n")
            (color/clean-colors output)))))
 
@@ -21,7 +21,7 @@
                  (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example")
                  (helper/execute-command "ws1" "create" "e" "name:env1"))]
 
-    (is (= "  It's recommended to add an alias to :env->alias in ./deps.edn for the env1 environment.\n"
+    (is (= "  It's recommended to add an alias to :env-to-alias in ./deps.edn for the env1 environment.\n"
            (color/clean-colors output)))
 
     (is (= #{"components"

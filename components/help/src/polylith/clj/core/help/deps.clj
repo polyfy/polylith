@@ -26,10 +26,10 @@
        "    poly deps brick:mybrick\n"
        "    poly deps env:myenv brick:mybrick"))
 
-(defn print-help [show-env? show-brick? show-bricks? color-mode]
+(defn print-help [is-show-env is-show-brick is-show-bricks color-mode]
   (cond
-    (and show-env? show-brick?) (deps-brick-env/print-help color-mode)
-    show-env? (deps-env/print-help color-mode)
-    show-brick? (deps-brick/print-help color-mode)
-    show-bricks? (deps-bricks/print-help color-mode)
+    (and is-show-env is-show-brick) (deps-brick-env/print-help color-mode)
+    is-show-env (deps-env/print-help color-mode)
+    is-show-brick (deps-brick/print-help color-mode)
+    is-show-bricks (deps-bricks/print-help color-mode)
     :else (println (help color-mode))))

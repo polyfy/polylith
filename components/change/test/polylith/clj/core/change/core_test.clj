@@ -7,8 +7,8 @@
             "components/deps/src/polylith/clj/core/deps/interface.clj"])
 
 (def environments [{:name "cli"
-                    :run-tests? true
-                    :dev? false
+                    :is-run-tests true
+                    :is-dev false
                     :test-component-names []
                     :component-names ["change"
                                       "command"
@@ -44,8 +44,8 @@
                            "common" {:direct ["util"], :indirect []}
                            "change" {:direct ["git" "util"], :indirect ["shell"]}}}
                    {:name "core"
-                    :run-tests? true
-                    :dev? false
+                    :is-run-tests true
+                    :is-dev false
                     :test-component-names ["change" "common" "deps" "file" "git" "help" "shell"]
                     :component-names ["change" "common" "deps" "file" "git" "help" "shell" "text-table" "util" "validator" "workspace"]
                     :base-names []
@@ -78,8 +78,8 @@
                            "common" {:direct ["util"], :indirect []}
                            "change" {:direct ["git" "util"], :indirect ["shell"]}}}
                    {:name "dev"
-                    :run-tests? false
-                    :dev? true
+                    :is-run-tests false
+                    :is-dev true
                     :test-component-names ["change" "common" "shell"]
                     :component-names ["change"
                                       "command"
@@ -123,10 +123,10 @@
                 :user-input {}
                 :paths {:missing []}})
 
-(def workspace-with-active-dev (assoc-in workspace [:environments 2 :run-tests?] true))
+(def workspace-with-active-dev (assoc-in workspace [:environments 2 :is-run-tests] true))
 
-(def workspace-with-run-all-brick-tests-flags (assoc workspace :user-input {:run-all-brick-tests? true
-                                                                            :run-env-tests? true}))
+(def workspace-with-run-all-brick-tests-flags (assoc workspace :user-input {:is-run-all-brick-tests true
+                                                                            :is-run-env-tests true}))
 
 (deftest changes--a-list-of-changed-files-and-environments--returns-changed-bricks-and-bricks-to-test
   (is (= {:git-command "git diff --name-only"
@@ -134,15 +134,15 @@
           :changed-bases []
           :changed-environments []
           :changed-or-affected-environments ["cli" "core" "dev"]
-          :env->indirect-changes {"cli" ["cli" "command" "validator" "workspace"]
-                                  "core" ["cli" "command" "validator" "workspace"]
-                                  "dev" ["cli" "command" "validator" "workspace"]}
-          :env->bricks-to-test {"cli" []
-                                "core" ["change" "deps"]
-                                "dev" []}
-          :env->environments-to-test {"cli"  []
-                                      "core" []
-                                      "dev"  []}
+          :env-to-indirect-changes {"cli" ["cli" "command" "validator" "workspace"]
+                                    "core" ["cli" "command" "validator" "workspace"]
+                                    "dev" ["cli" "command" "validator" "workspace"]}
+          :env-to-bricks-to-test {"cli" []
+                                  "core" ["change" "deps"]
+                                  "dev" []}
+          :env-to-environments-to-test {"cli"  []
+                                        "core" []
+                                        "dev"  []}
           :changed-files ["components/change/test/polylith/clj/core/change/brick_test.clj"
                           "components/change/test/polylith/clj/core/change/core_test.clj"
                           "components/deps/src/polylith/clj/core/deps/interface.clj"]}
@@ -154,15 +154,15 @@
           :changed-bases []
           :changed-environments []
           :changed-or-affected-environments ["cli" "core" "dev"]
-          :env->indirect-changes {"cli" ["cli" "command" "validator" "workspace"]
-                                  "core" ["cli" "command" "validator" "workspace"]
-                                  "dev" ["cli" "command" "validator" "workspace"]}
-          :env->bricks-to-test {"cli" []
-                                "core" ["change" "deps"]
-                                "dev" ["change" "cli"]}
-          :env->environments-to-test {"cli"  []
-                                      "core" []
-                                      "dev"  []}
+          :env-to-indirect-changes {"cli" ["cli" "command" "validator" "workspace"]
+                                    "core" ["cli" "command" "validator" "workspace"]
+                                    "dev" ["cli" "command" "validator" "workspace"]}
+          :env-to-bricks-to-test {"cli" []
+                                  "core" ["change" "deps"]
+                                  "dev" ["change" "cli"]}
+          :env-to-environments-to-test {"cli"  []
+                                        "core" []
+                                        "dev"  []}
           :changed-files ["components/change/test/polylith/clj/core/change/brick_test.clj"
                           "components/change/test/polylith/clj/core/change/core_test.clj"
                           "components/deps/src/polylith/clj/core/deps/interface.clj"]}
@@ -174,15 +174,15 @@
           :changed-bases []
           :changed-environments []
           :changed-or-affected-environments ["cli" "core" "dev"]
-          :env->indirect-changes {"cli" ["cli" "command" "validator" "workspace"]
-                                  "core" ["cli" "command" "validator" "workspace"]
-                                  "dev" ["cli" "command" "validator" "workspace"]}
-          :env->bricks-to-test {"cli" []
-                                "core" ["change" "common" "deps" "file" "git" "help" "shell"]
-                                "dev" []}
-          :env->environments-to-test {"cli"  []
-                                      "core" []
-                                      "dev"  []}
+          :env-to-indirect-changes {"cli" ["cli" "command" "validator" "workspace"]
+                                    "core" ["cli" "command" "validator" "workspace"]
+                                    "dev" ["cli" "command" "validator" "workspace"]}
+          :env-to-bricks-to-test {"cli" []
+                                  "core" ["change" "common" "deps" "file" "git" "help" "shell"]
+                                  "dev" []}
+          :env-to-environments-to-test {"cli"  []
+                                        "core" []
+                                        "dev"  []}
           :changed-files ["components/change/test/polylith/clj/core/change/brick_test.clj"
                           "components/change/test/polylith/clj/core/change/core_test.clj"
                           "components/deps/src/polylith/clj/core/deps/interface.clj"]}

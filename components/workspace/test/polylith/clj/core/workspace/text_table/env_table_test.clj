@@ -5,15 +5,15 @@
 (def workspace {:ws-dir "../poly-example/ws50"
                 :name "ws50"
                 :settings {:top-namespace "se.example"
-                           :profile->settings {}
+                           :profile-to-settings {}
                            :interface-ns "interface"
                            :thousand-sep ","
                            :color-mode "none"}
                 :environments [{:name "core"
                                 :alias "core"
                                 :type "environment"
-                                :run-tests? true
-                                :dev? false
+                                :is-run-tests true
+                                :is-dev false
                                 :lines-of-code-src 1
                                 :lines-of-code-test 1
                                 :src-paths ["environments/core/resources"
@@ -23,8 +23,8 @@
                                {:name "invoice"
                                 :alias "inv"
                                 :type "environment"
-                                :run-tests? true
-                                :dev? false
+                                :is-run-tests true
+                                :is-dev false
                                 :lines-of-code-src 0
                                 :lines-of-code-test 1
                                 :src-paths ["bases/cli/resources"
@@ -46,8 +46,8 @@
                                {:name "development"
                                 :alias "dev"
                                 :type "environment"
-                                :run-tests? false
-                                :dev? true
+                                :is-run-tests false
+                                :is-dev true
                                 :lines-of-code-src 4
                                 :lines-of-code-test 0
                                 :src-paths ["bases/cli/resources"
@@ -65,17 +65,17 @@
                           :changed-components ["address" "admin" "database" "invoicer" "purchaser" "user"]
                           :changed-bases ["cli"]
                           :changed-environments ["core" "invoice"]
-                          :env->indirect-changes {"core" [], "development" [], "invoice" []}
-                          :env->bricks-to-test {"core" []
-                                                "development" []
-                                                "invoice" ["admin" "cli" "database" "invoicer" "purchaser"]}
+                          :env-to-indirect-changes {"core" [], "development" [], "invoice" []}
+                          :env-to-bricks-to-test {"core" []
+                                                  "development" []
+                                                  "invoice" ["admin" "cli" "database" "invoicer" "purchaser"]}
                           :environments-to-test []}
                 :paths {:missing []}})
 
 (def workspace-with-profiles (-> workspace
-                                 (assoc-in [:settings :profile->settings] {"default" {:paths ["components/file/src"
-                                                                                              "components/file/test"
-                                                                                              "environments/core/test"]}})))
+                                 (assoc-in [:settings :profile-to-settings] {"default" {:paths ["components/file/src"
+                                                                                                "components/file/test"
+                                                                                                "environments/core/test"]}})))
 
 (deftest table--no-resources-flat--returns-correct-table
   (is (= ["  environment  alias  source"

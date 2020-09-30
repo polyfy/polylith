@@ -11,5 +11,5 @@
 (defn env-indirect-changes [[env brick-changes] changed-bricks]
   [env (vec (sort (filter identity (map #(brick-indirect-change % changed-bricks) brick-changes))))])
 
-(defn env->indirect-changes [deps changed-bricks]
+(defn env-to-indirect-changes [deps changed-bricks]
   (into {} (map #(env-indirect-changes % changed-bricks) deps)))

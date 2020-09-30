@@ -8,25 +8,25 @@
   (let [path-entries (extract/path-entries [src-paths test-paths profile-src-paths profile-test-paths] disk-paths)]
     (select/names path-entries c/environment? c/test-path? c/exists?)))
 
-(defn select-envs [env environments dev?]
-  (if dev?
+(defn select-envs [env environments is-dev]
+  (if is-dev
     environments
     (if (= "development" env)
       []
       (set/difference (set environments) #{"development"}))))
 
-(defn env-tests [env changed-environments included-envs dev?]
+(defn env-tests [env changed-environments included-envs is-dev]
   (let [environments (set/intersection (set changed-environments)
                                        (set included-envs))]
-    (select-envs env environments dev?)))
+    (select-envs env environments is-dev)))
 
-(defn environments-to-test [{:keys [name run-tests?] :as environment} disk-paths changed-environments dev? run-env-tests? run-all-tests?]
+(defn environments-to-test [{:keys [name is-run-tests] :as environment} disk-paths changed-environments is-dev is-run-env-tests is-run-all-tests]
   (let [included-envs (included-environments environment disk-paths)]
     (cond
-      run-all-tests? [name (vec (sort (select-envs name included-envs dev?)))]
-      (and run-tests? run-env-tests?) [name (vec (sort (env-tests name changed-environments included-envs dev?)))]
+      is-run-all-tests [name (vec (sort (select-envs name included-envs is-dev)))]
+      (and is-run-tests is-run-env-tests) [name (vec (sort (env-tests name changed-environments included-envs is-dev)))]
       :else [name []])))
 
-(defn env->environments-to-test [environments changed-environments disk-paths dev? run-env-tests? run-all-tests?]
-  (into {} (map #(environments-to-test % disk-paths changed-environments dev? run-env-tests? run-all-tests?)
+(defn env-to-environments-to-test [environments changed-environments disk-paths is-dev is-run-env-tests is-run-all-tests]
+  (into {} (map #(environments-to-test % disk-paths changed-environments is-dev is-run-env-tests is-run-all-tests)
                 environments)))

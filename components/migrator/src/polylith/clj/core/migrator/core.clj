@@ -47,7 +47,7 @@
 (defn aliases [system-names]
   (let [aliases (sort-by first (conj (map #(vector % %) system-names) ["development" "dev"]))]
     (concat
-      [(str "            :env->alias {")]
+      [(str "            :env-to-alias {")]
       (map alias-row aliases)
       [(str "                        }")])))
 
@@ -58,7 +58,7 @@
      (str "            :top-namespace \"" top-ns "\"")
      (str "            :interface-ns \"interface\"")]
     (aliases system-names)
-    [(str "            :ns->lib {clojure             org.clojure/clojure")
+    [(str "            :ns-to-lib {clojure             org.clojure/clojure")
      (str "                      clojure.tools.deps  org.clojure/tools.deps.alpha}}")
      (str "")
      (str " :aliases  {:dev {:extra-paths [; Development")

@@ -85,7 +85,7 @@
        "    The 'deps.edn' config files are stored under each environment, except for\n"
        "    the development enviroment that stores it at the workspace root.\n"
        "\n"
-       "    Aliases are configured in " (color/purple cm ":env->alias") " in ./deps.edn.\n"
+       "    Aliases are configured in " (color/purple cm ":env-to-alias") " in ./deps.edn.\n"
        "\n"
        "    The 'source' column has three x/- flags with different meaning:\n"
        "      x--  The environment has a 'src' directory, e.g.\n"

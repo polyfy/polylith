@@ -50,19 +50,19 @@
                       :since since
                       :top-ns top-ns
                       :ws-dir ws-dir
-                      :search-for-ws-dir? (contains? (set args) "::")
-                      :dev? (= "true" dev!)
-                      :show-brick? brick!
-                      :show-bricks? bricks!
-                      :show-env? (= "true" env!)
-                      :show-loc? (= "true" loc!)
-                      :run-all-tests? (= "true" all!)
-                      :run-all-brick-tests? (or (= "true" all!)
-                                                (= "true" all-bricks!))
-                      :run-env-tests? (or (= "true" all!)
-                                          (= "true" env!))
-                      :show-resources? (or (= "true" r!)
-                                           (= "true" resources!))
+                      :is-search-for-ws-dir (contains? (set args) "::")
+                      :is-dev (= "true" dev!)
+                      :is-show-brick brick!
+                      :is-show-bricks bricks!
+                      :is-show-env (= "true" env!)
+                      :is-show-loc (= "true" loc!)
+                      :is-run-all-tests (= "true" all!)
+                      :is-run-all-brick-tests (or (= "true" all!)
+                                                  (= "true" all-bricks!))
+                      :is-run-env-tests (or (= "true" all!)
+                                            (= "true" env!))
+                      :is-show-resources (or (= "true" r!)
+                                             (= "true" resources!))
                       :active-dev-profiles (active-dev-profiles unnamed-args)
                       :selected-environments (selected-environments env dev!)
                       :unnamed-args (vec unnamed-args))))

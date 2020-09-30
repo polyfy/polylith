@@ -157,8 +157,8 @@ The `deps.edn` file looks like this:
             :default-profile-name "default"
             :build-tag-pattern "v[0-9]*"
             :stable-since-tag-pattern "stable-*"
-            :env->alias {"development" "dev"}
-            :ns->lib {}}
+            :env-to-alias {"development" "dev"}
+            :ns-to-lib {}}
 
  :aliases  {:dev {:extra-paths ["development/src"]
                   :extra-deps {org.clojure/clojure {:mvn/version "1.10.1"}
@@ -569,14 +569,14 @@ example
  
 The tool also reminded us of this:
 ```sh
-  It's recommended to add an alias to :env->alias in ./deps.edn for the command-line environment.
+  It's recommended to add an alias to :env-to-alias in ./deps.edn for the command-line environment.
 ```
 
 If we don't add the alias, it will be shown up as a `?` when we execute the `info` command:
 ```clojure
 {:polylith {...
-            :env->alias {"development" "dev"
-                         "command-line" "cl"}
+            :env-to-alias {"development" "dev"
+                           "command-line" "cl"}
 ```
 
 Now add `user` and `cli` to `deps.edn` in `environments/command-line`:
@@ -1324,8 +1324,8 @@ Let's create a checklist that will take us there:
   - [ ] Delegate from the `interface` to the `core` namespace.
 - [ ] Update the `development` environment:
   - [ ] Update `./deps.edn`:
-    - [ ] Add an alias for the `user-service` (:env->alias).
-    - [ ] Add namespace to the library mapping (:ns->lib).
+    - [ ] Add an alias for the `user-service` (:env-to-alias).
+    - [ ] Add namespace to the library mapping (:ns-to-lib).
     - [ ] Remove the `user` paths.
     - [ ] Add the Slacker library and libraries it needs.
   - [ ] Create the `default` and `remote` profiles.
@@ -1436,8 +1436,8 @@ components
 
 - [x] Update the `development` environment:
   - [x] Update `./deps.edn`:
-    - [x] Add an alias for the `user-service` (:env->alias).
-    - [x] Add namespace to the library mapping (:ns->lib).
+    - [x] Add an alias for the `user-service` (:env-to-alias).
+    - [x] Add namespace to the library mapping (:ns-to-lib).
     - [x] Remove the `user` paths.
     - [x] Add the Slacker library and libraries it needs.
   - [x] Create the `default` and `remote` profiles.
@@ -1451,10 +1451,10 @@ components
             :default-profile-name "default"
             :build-tag-pattern "v[0-9]*"
             :stable-since-tag-pattern "stable-*"
-            :env->alias {"development" "dev"
-                         "command-line" "cl"
-                         "user-service" "user-s"}
-            :ns->lib {slacker  slacker}}
+            :env-to-alias {"development" "dev"
+                           "command-line" "cl"
+                           "user-service" "user-s"}
+            :ns-to-lib {slacker  slacker}}
 
  :aliases  {:dev {:extra-paths ["development/src"
                                 "bases/cli/src"
@@ -1672,22 +1672,22 @@ The KB column shows the size of each library in kilobytes, by looking in `~/.m2/
 Library dependencies are specified per environment and the same library can exist with different 
 versions.
 
-The way the tool figures out what library each brick uses is to look in `:ns->lib` in `./deps.edn`:
+The way the tool figures out what library each brick uses is to look in `:ns-to-lib` in `./deps.edn`:
 
 ```clojure
-            :ns->lib {clj-time              clj-time
-                      clj-jwt               clj-jwt
-                      clojure               org.clojure/clojure
-                      clojure.java.jdbc     org.clojure/java.jdbc
-                      compojure             compojure/compojure
-                      crypto.password       crypto-password
-                      environ               environ
-                      honeysql              honeysql
-                      slugger               slugger
-                      ring.logger           ring-logger-timbre
-                      ring.middleware.json  ring/ring-json
-                      spec-tools            metosin/spec-tools
-                      taoensso.timbre       com.taoensso/timbre}}
+            :ns-to-lib {clj-time              clj-time
+                        clj-jwt               clj-jwt
+                        clojure               org.clojure/clojure
+                        clojure.java.jdbc     org.clojure/java.jdbc
+                        compojure             compojure/compojure
+                        crypto.password       crypto-password
+                        environ               environ
+                        honeysql              honeysql
+                        slugger               slugger
+                        ring.logger           ring-logger-timbre
+                        ring.middleware.json  ring/ring-json
+                        spec-tools            metosin/spec-tools
+                        taoensso.timbre       com.taoensso/timbre}}
 ```
  
 This map needs to be manually populated and specifies which namespace maps to which library.
@@ -1696,7 +1696,7 @@ Then it tries to match each namespace against that list from top to down and tak
 
 Let's say we have this mapping:
 ```clojure
-:ns->lib {com.a      library-a
+:ns-to-lib {com.a      library-a
           com.a.b    library-b
           com.a.b.c  library-c}
 ```
@@ -1713,7 +1713,7 @@ For example:
 - If we compare with the `com.a.x.y` namespace, it will match against `com.a` and return `library-a`.  
 - If we compare with the `com.a.b.x` namespace, it will match against `com.a.b` and return `library-b`.
 
-The same library can occur more than once in the `ns->lib` mapping, as long as the namespaces are unique.
+The same library can occur more than once in the `ns-to-lib` mapping, as long as the namespaces are unique.
 
 ## Context
 
@@ -1809,8 +1809,8 @@ The workspace configuration is stored under the `:polylith` key in `./deps.edn` 
 | :default-profile-name      | The default value is `default`. If changed, the `+default` alias in `./deps.edn` has to be renamed accordingly. |
 | :build-tag-pattern         | The default value is `v[0-9]*`. If changed, old tags may not be recognised. |
 | :stable-since-tag-pattern  | The default value is `stable-*`. If changed, old tags may not be recognised. |
-| :env->alias                | If the `development` key is missing, `{"development" "dev"}` will be added. |
-| :ns->lib                   | Can be left empty, but will give a more detailed output from the [libs](#libs) command if populated. |
+| :env-to-alias              | If the `development` key is missing, `{"development" "dev"}` will be added. |
+| :ns-to-lib                 | Can be left empty, but will give a more detailed output from the [libs](#libs) command if populated. |
 
 Settings that are specific per developer/user are stored in `~/.polylith/config.edn`:
 
@@ -1947,7 +1947,7 @@ ws get:components:user
  :type "component"}
 ```
 
-Keys that internally contains a `>` character, e.g. `ns->lib`, are translated to `ns--lib`.
+Keys that internally contains a `>` character, e.g. `ns-to-lib`, are translated to `ns--lib`.
 The reason is that the shell would otherwise pipe what comes after `>` to a file!
 The `?` character is replaced with `_q` because it will otherwise be treated as a wild cards by the shell.
 
@@ -2059,7 +2059,7 @@ poly help
     poly ws get:settings:keys
     poly ws get:components:keys
     poly ws get:components:count
-    poly ws get:components:user:lines-of-code-src
+    poly ws get:components:mycomp:lines-of-code-src
 ```
 
 ### check
@@ -2111,7 +2111,7 @@ poly help
 
   Error 109 - Missing libraries in environment.
     Triggered if an environment doesn't contain a library that is used by one
-    of its bricks. Library usage for a brick is calculated using :ns->lib in
+    of its bricks. Library usage for a brick is calculated using :ns-to-lib in
     './deps.edn' for all its namespaces.
 
   Warning 201 - Mismatching parameter lists in function or macro.
@@ -2131,11 +2131,11 @@ poly help
     It's discouraged to have the same library in both development and a profile.
     The solution is to remove the library from dev or the profile.
 
-  Warning 205 - Reference to missing library in :ns->lib in ./deps.edn.
-    Libraries defined in :ns->lib should also be defined by the environment.
+  Warning 205 - Reference to missing library in :ns-to-lib in ./deps.edn.
+    Libraries defined in :ns-to-lib should also be defined by the environment.
 
-  Warning 206 - Reference to missing namespace in :ns->lib in ./deps.edn.
-    Namespaces defined in :ns->lib should also exist in the environment.
+  Warning 206 - Reference to missing namespace in :ns-to-lib in ./deps.edn.
+    Namespaces defined in :ns-to-lib should also exist in the environment.
 ```
 
 ### create
@@ -2423,7 +2423,7 @@ poly help
     The 'deps.edn' config files are stored under each environment, except for
     the development enviroment that stores it at the workspace root.
 
-    Aliases are configured in :env->alias in ./deps.edn.
+    Aliases are configured in :env-to-alias in ./deps.edn.
 
     The 'source' column has three x/- flags with different meaning:
       x--  The environment has a 'src' directory, e.g.
@@ -2561,7 +2561,7 @@ poly help
   by having at least one :require statement that includes the 'clj-time' namespace.
 
   Libraries are only specified per environment, and the way it finds out which libraries
-  are used for a specific brick, is by looking in :ns->lib in ./deps.edn
+  are used for a specific brick, is by looking in :ns-to-lib in ./deps.edn
   which in this case has the value {clj-time clj-time} - typed in as symbols.
 
   Libraries are selected per envronment and it's therefore possible to have different
@@ -2654,7 +2654,7 @@ poly help
     poly ws get:settings:keys
     poly ws get:components:keys
     poly ws get:components:count
-    poly ws get:components:user:lines-of-code-src
+    poly ws get:components:mycomp:lines-of-code-src
 ```
 
 ## Colors

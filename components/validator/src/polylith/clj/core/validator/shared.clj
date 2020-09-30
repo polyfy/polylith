@@ -41,4 +41,4 @@
 (defn used-libs [environments settings]
   (set (concat (mapcat libs environments)
                (mapcat profile-lib
-                       (:profile->settings settings)))))
+                       (:profile-to-settings settings)))))

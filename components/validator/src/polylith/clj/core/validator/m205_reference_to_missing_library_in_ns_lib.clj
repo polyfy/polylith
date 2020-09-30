@@ -6,10 +6,10 @@
             [polylith.clj.core.util.interface.color :as color]))
 
 (defn warnings [settings environments color-mode]
-  (let [mapped-libs (set (map second (:ns->lib settings)))
+  (let [mapped-libs (set (map second (:ns-to-lib settings)))
         used-libs (shared/used-libs environments settings)
         missing-libs (set/difference mapped-libs used-libs)
-        message (str "Reference to missing library was found in the :ns->lib mapping: "
+        message (str "Reference to missing library was found in the :ns-to-lib mapping: "
                      (color/library (str/join ", " missing-libs) color-mode))]
     (when (-> missing-libs empty? not)
       [(util/ordered-map :type "warning"

@@ -23,8 +23,8 @@
 (defn stringify-key-value [[k v]]
   [(str k) (str v)])
 
-(defn stringify [ns->lib]
-  (into {} (mapv stringify-key-value ns->lib)))
+(defn stringify [ns-to-lib]
+  (into {} (mapv stringify-key-value ns-to-lib)))
 
 (defn workspace-from-disk
   ([user-input]
@@ -33,7 +33,7 @@
          config (read-string (slurp (str ws-dir "/deps.edn")))]
      (workspace-from-disk ws-dir config user-input color-mode)))
   ([ws-dir {:keys [polylith aliases]} user-input color-mode]
-   (let [{:keys [vcs top-namespace interface-ns default-profile-name build-tag-pattern stable-since-tag-pattern env->alias ns->lib]} polylith
+   (let [{:keys [vcs top-namespace interface-ns default-profile-name build-tag-pattern stable-since-tag-pattern env-to-alias ns-to-lib]} polylith
          top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
          empty-char (user-config/empty-character)
          thousand-sep (user-config/thousand-separator)
@@ -42,8 +42,8 @@
          components (components-from-disk/read-components ws-dir top-src-dir component-names interface-ns)
          bases (bases-from-disk/read-bases ws-dir top-src-dir)
          environments (envs-from-disk/read-environments ws-dir)
-         profile->settings (profile/profile->settings aliases)
-         paths (path-finder/paths ws-dir environments profile->settings)
+         profile-to-settings (profile/profile-to-settings aliases)
+         paths (path-finder/paths ws-dir environments profile-to-settings)
          settings (util/ordered-map :vcs (or vcs "git")
                                     :top-namespace top-namespace
                                     :interface-ns (or interface-ns "interface")
@@ -54,9 +54,9 @@
                                     :user-config-file user-config-file
                                     :empty-char (or empty-char ".")
                                     :thousand-sep (or thousand-sep ",")
-                                    :profile->settings profile->settings
-                                    :env->alias env->alias
-                                    :ns->lib (stringify ns->lib)
+                                    :profile-to-settings profile-to-settings
+                                    :env-to-alias env-to-alias
+                                    :ns-to-lib (stringify ns-to-lib)
                                     :changes-since (:since user-input "last-stable")
                                     :user-input user-input)]
      (util/ordered-map :ws-dir ws-dir

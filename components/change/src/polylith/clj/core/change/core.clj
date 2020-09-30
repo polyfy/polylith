@@ -23,15 +23,15 @@
 (defn changes [{:keys [environments paths user-input]}
                {:keys [since-sha tag files]}]
    (let [deps (map (juxt :name :deps) environments)
-         {:keys [dev? run-all-tests? run-all-brick-tests? run-env-tests?]} user-input
+         {:keys [is-dev is-run-all-tests is-run-all-brick-tests is-run-env-tests]} user-input
          {:keys [changed-components
                  changed-bases
                  changed-environments]} (entity/changed-entities files nil)
          changed-bricks (set (concat changed-components changed-bases))
          affected-envs (affected-environments environments changed-components changed-bases changed-environments)
-         env->indirect-changes (indirect/env->indirect-changes deps changed-bricks)
-         env->bricks-to-test (bricks-to-test/env->bricks-to-test changed-environments environments changed-components changed-bases env->indirect-changes run-all-brick-tests?)
-         env->environments-to-test (envs-to-test/env->environments-to-test environments changed-environments paths dev? run-env-tests? run-all-tests?)]
+         env-to-indirect-changes (indirect/env-to-indirect-changes deps changed-bricks)
+         env-to-bricks-to-test (bricks-to-test/env-to-bricks-to-test changed-environments environments changed-components changed-bases env-to-indirect-changes is-run-all-brick-tests)
+         env-to-environments-to-test (envs-to-test/env-to-environments-to-test environments changed-environments paths is-dev is-run-env-tests is-run-all-tests)]
      (util/ordered-map :since-sha since-sha
                        :tag tag
                        :git-command (git/diff-command since-sha nil)
@@ -39,9 +39,9 @@
                        :changed-bases changed-bases
                        :changed-environments changed-environments
                        :changed-or-affected-environments affected-envs
-                       :env->indirect-changes env->indirect-changes
-                       :env->bricks-to-test env->bricks-to-test
-                       :env->environments-to-test env->environments-to-test
+                       :env-to-indirect-changes env-to-indirect-changes
+                       :env-to-bricks-to-test env-to-bricks-to-test
+                       :env-to-environments-to-test env-to-environments-to-test
                        :changed-files files)))
 
 (defn find-sha [ws-dir {:keys [changes-since build-tag-pattern stable-since-tag-pattern]}]

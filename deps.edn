@@ -3,16 +3,16 @@
             :default-profile-name "default"
             :build-tag-pattern "v[0-9]*"
             :stable-since-tag-pattern "stable-*"
-            :env->alias {"api" "api"
-                         "core" "core"
-                         "deployer" "depl"
-                         "migrator" "migr"
-                         "poly" "poly"
-                         "development" "dev"}
-            :ns->lib {clojure.tools.deps      org.clojure/tools.deps.alpha
-                      me.raynes               me.raynes/fs
-                      puget                   mvxcvi/puget
-                      deps-deploy.deps-deploy slipset/deps-deploy}}
+            :env-to-alias {"api" "api"
+                           "core" "core"
+                           "deployer" "depl"
+                           "migrator" "migr"
+                           "poly" "poly"
+                           "development" "dev"}
+            :ns-to-lib {clojure.tools.deps      org.clojure/tools.deps.alpha
+                        me.raynes               me.raynes/fs
+                        puget                   mvxcvi/puget
+                        deps-deploy.deps-deploy slipset/deps-deploy}}
 
  :aliases  {:dev {:extra-paths [; Development
                                 "development/src"

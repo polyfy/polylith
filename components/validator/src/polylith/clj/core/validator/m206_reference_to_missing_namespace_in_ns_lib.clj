@@ -10,11 +10,11 @@
 
 (defn warnings [settings components bases color-mode]
   (let [bricks (concat components bases)
-        ns->lib (:ns->lib settings)
-        mapped-namespaces (set (map first ns->lib))
+        ns-to-lib (:ns-to-lib settings)
+        mapped-namespaces (set (map first ns-to-lib))
         used-namespaces (set (mapcat #(included-namespaces settings %) bricks))
         missing-namespaces (set/difference mapped-namespaces used-namespaces)
-        message (str "Reference to missing namespace was found in the :ns->lib mapping: "
+        message (str "Reference to missing namespace was found in the :ns-to-lib mapping: "
                      (color/library (str/join ", " missing-namespaces) color-mode))]
     (when (-> missing-namespaces empty? not)
       [(util/ordered-map :type "warning"

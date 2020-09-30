@@ -24,7 +24,7 @@
 
 (def environment {:name "development"
                   :alias "dev"
-                  :dev? true
+                  :is-dev true
                   :type "environment"
                   :src-paths ["bases/cli/src"
                               "components/change/src"
@@ -50,7 +50,7 @@
                   :test-lib-deps {}
                   :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}})
 
-(def env->alias {"development" "dev"})
+(def env-to-alias {"development" "dev"})
 
 (def brick->loc {"command" {:lines-of-code-src 36, :lines-of-code-test 0}
                  "cli" {:lines-of-code-src 21, :lines-of-code-test 0}
@@ -71,8 +71,8 @@
 
 (deftest paths--without-active-profile--returns-expected-map
   (is (= {:name "development"
-          :run-tests? false
-          :dev? true
+          :is-run-tests false
+          :is-dev true
           :alias "dev"
           :type "environment"
           :lines-of-code-src 0
@@ -132,12 +132,12 @@
                              :direct-ifc ["util"]}}
           :test-lib-deps {}
           :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}}
-         (env/enrich-env environment components bases brick->loc brick->lib-imports env->alias
+         (env/enrich-env environment components bases brick->loc brick->lib-imports env-to-alias
                          {:missing []}
                          {} {}))))
 
 (deftest paths--with-active-profile--includes-brick-in-profile
-  (is (= {:run-tests?               true
+  (is (= {:is-run-tests               true
           :alias                    "dev"
           :base-names               ["cli"]
           :component-names          ["change"
@@ -180,7 +180,7 @@
                                      "user"    {:direct     []
                                                 :direct-ifc []
                                                 :indirect   []}}
-          :dev?                     true
+          :is-dev                     true
           :lib-deps                 {"clojure.core.matrix"          "net.mikera/core.matrix"
                                      "org.clojure/clojure"          #:mvn{:version "1.10.1"}
                                      "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}}
@@ -214,47 +214,47 @@
           :total-lines-of-code-src  419
           :total-lines-of-code-test 76
           :type                     "environment"}
-         (env/enrich-env environment components bases brick->loc brick->lib-imports env->alias
+         (env/enrich-env environment components bases brick->loc brick->lib-imports env-to-alias
                          {:missing []}
-                         {:profile->settings {"default" {:paths ["components/user/src"
-                                                                  "components/user/resources"
-                                                                  "components/user/test"]
-                                                         :src-paths ["components/user/src"
-                                                                     "components/user/resources"]
-                                                         :test-paths ["components/user/test"]
-                                                         :lib-deps {"clojure.core.matrix"
-                                                                    "net.mikera/core.matrix"}}}}
+                         {:profile-to-settings {"default" {:paths ["components/user/src"
+                                                                    "components/user/resources"
+                                                                    "components/user/test"]
+                                                           :src-paths ["components/user/src"
+                                                                       "components/user/resources"]
+                                                           :test-paths ["components/user/test"]
+                                                           :lib-deps {"clojure.core.matrix"
+                                                                      "net.mikera/core.matrix"}}}}
                          {:selected-environments #{"dev"}
                           :active-dev-profiles ["default"]}))))
 
-(deftest run-tests?--non-dev-environment-no-env-selected--returns-true
+(deftest is-run-tests--non-dev-environment-no-env-selected--returns-true
   (is (true?
         (env/run-the-tests? "cli" "cli" false false #{}))))
 
-(deftest run-tests?--non-dev-environment-no-env-selected-run-all-brick-tests--returns-true
+(deftest is-run-tests--non-dev-environment-no-env-selected-run-all-brick-tests--returns-true
   (is (true?
         (env/run-the-tests? "cli" "cli" false true #{}))))
 
-(deftest run-tests?--non-dev-environment-dev-selected--returns-false
+(deftest is-run-tests--non-dev-environment-dev-selected--returns-false
   (is (false?
         (env/run-the-tests? "cli" "cli" false false #{"dev"}))))
 
-(deftest run-tests?--non-dev-environment-dev-selected-run-all-brick-tests--returns-true
+(deftest is-run-tests--non-dev-environment-dev-selected-run-all-brick-tests--returns-true
   (is (true?
         (env/run-the-tests? "cli" "cli" false true #{"dev"}))))
 
-(deftest run-tests?--dev-environment-no-env-selected--returns-false
+(deftest is-run-tests--dev-environment-no-env-selected--returns-false
   (is (false?
         (env/run-the-tests? "development" "dev" true false #{}))))
 
-(deftest run-tests?--dev-environment-no-env-selected-run-all-brick-tests--returns-false
+(deftest is-run-tests--dev-environment-no-env-selected-run-all-brick-tests--returns-false
   (is (false?
         (env/run-the-tests? "development" "dev" true true #{}))))
 
-(deftest run-tests?--dev-environment-dev-selected--returns-true
+(deftest is-run-tests--dev-environment-dev-selected--returns-true
   (is (true?
         (env/run-the-tests? "development" "dev" true false #{"dev"}))))
 
-(deftest run-tests?--dev-environment-dev-selected-run-all-brick-tests--returns-true
+(deftest is-run-tests--dev-environment-dev-selected-run-all-brick-tests--returns-true
   (is (true?
         (env/run-the-tests? "development" "dev" true true #{"dev"}))))

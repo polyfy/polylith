@@ -209,7 +209,7 @@
                                                           {:name "bases"}
                                                           {:name "environments"}
                                                           {:name "interface-ns"}
-                                                          {:name "ns->lib"}
+                                                          {:name "ns-to-lib"}
                                                           {:name "color-mode"}]}],
                               :implementing-components ["validator"]}
                              {:name "shell",
@@ -226,10 +226,10 @@
                                              :parameters [{:name "workspace"} {:name "user-input"}]}
                                             {:name "print-info",
                                              :type "function",
-                                             :parameters [{:name "workspace"} {:name "show-loc?"}]}
+                                             :parameters [{:name "workspace"} {:name "is-show-loc"}]}
                                             {:name "print-table-str-keys",
                                              :type "function",
-                                             :parameters [{:name "workspace"} {:name "show-loc?"}]}],
+                                             :parameters [{:name "workspace"} {:name "is-show-loc"}]}],
                               :implementing-components ["workspace"]}
                              {:name "user-config",
                               :type "interface",
@@ -330,14 +330,14 @@
                                              :parameters [{:name "path-entries"} {:name "brick-name"}]}
                                             {:name "deps-entries",
                                              :type "function",
-                                             :parameters [{:name "dev?"} {:name "src-deps"} {:name "test-deps"} {:name "settings"}]}
+                                             :parameters [{:name "is-dev"} {:name "src-deps"} {:name "test-deps"} {:name "settings"}]}
                                             {:name "env-status-flags",
                                              :type "function",
                                              :parameters [{:name "path-entries"} {:name "env-name"}]}
                                             {:name "path-entries",
                                              :type "function",
                                              :parameters [{:name "ws-dir"}
-                                                          {:name "dev?"}
+                                                          {:name "is-dev"}
                                                           {:name "src-paths"}
                                                           {:name "test-paths"}
                                                           {:name "settings"}]}
@@ -420,11 +420,11 @@
                 :ws-dir ".",
                 :name "polylith",
                 :settings {:top-namespace "polylith.clj.core",
-                           :profile->settings {},
-                           :ns->lib {"clojure" "org.clojure/clojure",
-                                     "clojure.core.matrix" "net.mikera/core.matrix",
-                                     "clojure.tools.deps" "org.clojure/tools.deps.alpha"},
-                           :env->alias {"poly" "poly", "core" "core"},
+                           :profile-to-settings {},
+                           :ns-to-lib {"clojure" "org.clojure/clojure",
+                                       "clojure.core.matrix" "net.mikera/core.matrix",
+                                       "clojure.tools.deps" "org.clojure/tools.deps.alpha"},
+                           :env-to-alias {"poly" "poly", "core" "core"},
                            :interface-ns "interface",
                            :vcs "git",
                            :thousand-sep ",",
@@ -440,8 +440,8 @@
                 :environments [{:name "poly",
                                 :alias "poly",
                                 :type "environment",
-                                :run-tests? true,
-                                :dev? false,
+                                :is-run-tests true,
+                                :is-dev false,
                                 :env-dir "./environments/poly",
                                 :config-file "./environments/poly/deps.edn",
                                 :lines-of-code-src 0,
@@ -608,8 +608,8 @@
                                {:name "core",
                                 :alias "core",
                                 :type "environment",
-                                :run-tests? true,
-                                :dev? false,
+                                :is-run-tests true,
+                                :is-dev false,
                                 :env-dir "./environments/core",
                                 :config-file "./environments/core/deps.edn",
                                 :lines-of-code-src 0,
@@ -698,8 +698,8 @@
                                {:name "development",
                                 :alias "dev",
                                 :type "environment",
-                                :run-tests? false,
-                                :dev? true,
+                                :is-run-tests false,
+                                :is-dev true,
                                 :env-dir "./development",
                                 :config-file "./deps.edn",
                                 :lines-of-code-src 100,
@@ -1308,7 +1308,7 @@
                                                          :parameters [{:name "path-entries"} {:name "brick-name"}]}
                                                         {:name "deps-entries",
                                                          :type "function",
-                                                         :parameters [{:name "dev?"}
+                                                         :parameters [{:name "is-dev"}
                                                                       {:name "src-deps"}
                                                                       {:name "test-deps"}
                                                                       {:name "settings"}]}
@@ -1318,7 +1318,7 @@
                                                         {:name "path-entries",
                                                          :type "function",
                                                          :parameters [{:name "ws-dir"}
-                                                                      {:name "dev?"}
+                                                                      {:name "is-dev"}
                                                                       {:name "src-paths"}
                                                                       {:name "test-paths"}
                                                                       {:name "settings"}]}
@@ -1958,7 +1958,7 @@
                                                                       {:name "bases"}
                                                                       {:name "environments"}
                                                                       {:name "interface-ns"}
-                                                                      {:name "ns->lib"}
+                                                                      {:name "ns-to-lib"}
                                                                       {:name "color-mode"}]}]},
                               :namespaces-src [{:name "m104-circular-deps",
                                                 :namespace "polylith.clj.core.validate.m104-circular-deps",
@@ -2113,10 +2113,10 @@
                                                          :parameters [{:name "workspace"} {:name "user-input"}]}
                                                         {:name "print-info",
                                                          :type "function",
-                                                         :parameters [{:name "workspace"} {:name "show-loc?"}]}
+                                                         :parameters [{:name "workspace"} {:name "is-show-loc"}]}
                                                         {:name "print-table-str-keys",
                                                          :type "function",
-                                                         :parameters [{:name "workspace"} {:name "show-loc?"}]}]},
+                                                         :parameters [{:name "workspace"} {:name "is-show-loc"}]}]},
                               :lib-imports-src ["clojure.set" "clojure.string" "clojure.walk"],
                               :lib-imports-test [],
                               :lib-deps ["clojure"]}
@@ -2215,10 +2215,10 @@
                           :changed-components ["path-finder" "workspace"],
                           :changed-bases [],
                           :changed-environments [],
-                          :env->indirect-changes {"poly" ["poly-cli" "command" "test-helper"],
-                                                  "core" ["poly-cli" "command" "test-helper"],
-                                                  "development" ["poly-cli" "command" "test-helper"]},
-                          :env->bricks-to-test {"poly" ["command" "path-finder" "workspace"], "core" [], "development" []},
+                          :env-to-indirect-changes {"poly" ["poly-cli" "command" "test-helper"],
+                                                    "core" ["poly-cli" "command" "test-helper"],
+                                                    "development" ["poly-cli" "command" "test-helper"]},
+                          :env-to-bricks-to-test {"poly" ["command" "path-finder" "workspace"], "core" [], "development" []},
                           :environments-to-test [],
                           :changed-files ["components/path-finder/src/polylith/clj/core/path-finder/env_statuses.clj"
                                           "components/path-finder/src/polylith/clj/core/path-finder/interfc.clj"
@@ -2257,8 +2257,8 @@
 
 
 (def workspace-with-profiles (-> workspace
-                                 (assoc-in [:settings :profile->settings] {"default" {:paths ["components/file/src"
-                                                                                              "components/file/test"]}})
+                                 (assoc-in [:settings :profile-to-settings] {"default" {:paths ["components/file/src"
+                                                                                                "components/file/test"]}})
                                  (assoc-in [:environments 2 :profile-src-paths] ["components/file/src"])
                                  (assoc-in [:environments 2 :profile-test-paths] ["components/file/test"])))
 

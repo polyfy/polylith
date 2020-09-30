@@ -44,7 +44,7 @@
 (deftest environments--config-map-with-aliases--returns-environments
   (let [result (env/read-environment "poly" "environments/poly" "environments/poly/deps.edn" false paths deps aliases mvn/standard-repos)]
     (is (= {:config-file     "environments/poly/deps.edn"
-            :dev?            false
+            :is-dev            false
             :env-dir         "environments/poly"
             :maven-repos     {"central" {:url "https://repo1.maven.org/maven2/"}
                               "clojars" {:url "https://repo.clojars.org/"}}

@@ -9,12 +9,12 @@
 (defn select-dep-entries [deps profile? test?]
   (mapv #(deps-entry % profile? test?) deps))
 
-(defn extract-deps [dev? {:keys [profile->settings]} {:keys [active-dev-profiles]}]
-  (if dev? (apply merge (map :lib-deps (map #(profile->settings %) active-dev-profiles)))
+(defn extract-deps [is-dev {:keys [profile-to-settings]} {:keys [active-dev-profiles]}]
+  (if is-dev (apply merge (map :lib-deps (map #(profile-to-settings %) active-dev-profiles)))
            {}))
 
-(defn from-library-deps [dev? src-deps test-deps settings user-input]
-  (let [profile-deps (extract-deps dev? settings user-input)]
+(defn from-library-deps [is-dev src-deps test-deps settings user-input]
+  (let [profile-deps (extract-deps is-dev settings user-input)]
     (vec (concat (select-dep-entries src-deps false false)
                  (select-dep-entries test-deps false true)
                  (select-dep-entries profile-deps true false)))))

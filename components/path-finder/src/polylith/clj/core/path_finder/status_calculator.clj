@@ -10,15 +10,15 @@
 (defn src-status-flag [path-entries category-criteria name]
   (status-flag path-entries name c/src? c/src-path? category-criteria))
 
-(defn resources-status-flag [path-entries category-criteria name show-resources?]
-  (if show-resources?
+(defn resources-status-flag [path-entries category-criteria name is-show-resources]
+  (if is-show-resources
     (status-flag path-entries name c/src? c/resources-path? category-criteria)
     ""))
 
 (defn test-status-flag [path-entries category-criteria name]
   (status-flag path-entries name c/test? c/test-path? category-criteria))
 
-(defn status-flags [path-entries category-criteria name show-resources?]
+(defn status-flags [path-entries category-criteria name is-show-resources]
   (str (src-status-flag path-entries category-criteria name)
-       (resources-status-flag path-entries category-criteria name show-resources?)
+       (resources-status-flag path-entries category-criteria name is-show-resources)
        (test-status-flag path-entries category-criteria name)))

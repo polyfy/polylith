@@ -55,9 +55,9 @@
           (map-indexed #(flag-cell column (+ 3 %1) %2 (set (mapcat lib lib-deps)))
                        libraries)))
 
-(defn profile-columns [column libraries profile->settings]
+(defn profile-columns [column libraries profile-to-settings]
   (apply concat (map-indexed #(profile-column (+ column (* 2 %1)) libraries %2)
-                             profile->settings)))
+                             profile-to-settings)))
 
 (defn brick-cell [column row lib-name lib-names empty-char]
   (let [flag (if (contains? (set lib-names) lib-name) "x" empty-char)]
@@ -76,21 +76,21 @@
   (mapcat lib lib-deps))
 
 (defn table [{:keys [settings components bases environments]}]
-  (let [{:keys [profile->settings empty-char thousand-sep color-mode]} settings
+  (let [{:keys [profile-to-settings empty-char thousand-sep color-mode]} settings
         bricks (concat components bases)
         libraries (sort-by (juxt :name :version)
                            (set (concat (mapcat lib (mapcat :lib-deps environments))
-                                        (mapcat profile-lib profile->settings))))
+                                        (mapcat profile-lib profile-to-settings))))
         lib-col (lib-column libraries)
         version-col (version-column libraries)
         size-col (size-column libraries thousand-sep)
         env-cols (env-columns libraries environments)
         profile-col (+ 7 (* 2 (count environments)))
-        profile-cols (profile-columns profile-col libraries profile->settings)
-        brick-col (+ profile-col (* 2 (count profile->settings)))
+        profile-cols (profile-columns profile-col libraries profile-to-settings)
+        brick-col (+ profile-col (* 2 (count profile-to-settings)))
         lib-names (map :name libraries)
         n#envs (count environments)
-        n#profiles (count profile->settings)
+        n#profiles (count profile-to-settings)
         n#bricks (count bricks)
         brick-cols (brick-columns brick-col bricks lib-names empty-char)
         space-columns (range 2 (* 2 (+ 3 n#envs n#profiles n#bricks)) 2)

@@ -24,7 +24,7 @@
        "  by having at least one " (s/key ":require" cm) " statement that includes the 'clj-time' namespace.\n"
        "\n"
        "  Libraries are only specified per environment, and the way it finds out which libraries\n"
-       "  are used for a specific brick, is by looking in " (s/key ":ns->lib" cm) " in ./deps.edn\n"
+       "  are used for a specific brick, is by looking in " (s/key ":ns-to-lib" cm) " in ./deps.edn\n"
        "  which in this case has the value {clj-time clj-time} - typed in as symbols.\n"
        "\n"
        "  Libraries are selected per envronment and it's therefore possible to have different\n"

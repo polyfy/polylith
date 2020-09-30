@@ -3,12 +3,12 @@
             [polylith.clj.core.path-finder.test-data :as test-data]
             [polylith.clj.core.path-finder.interface.extract :as extract]))
 
-(def settings {:profile->settings {"default" {:paths ["components/user/resources"
-                                                      "components/user/src"
-                                                      "components/user/test"]}
-                                   "admin" {:paths ["components/admin/resources"
-                                                    "components/admin/src"
-                                                    "components/admin/test"]}}})
+(def settings {:profile-to-settings {"default" {:paths ["components/user/resources"
+                                                        "components/user/src"
+                                                        "components/user/test"]}
+                                     "admin" {:paths ["components/admin/resources"
+                                                      "components/admin/src"
+                                                      "components/admin/test"]}}})
 
 (def user-input {:active-dev-profiles #{"default"}})
 

@@ -15,13 +15,13 @@
           "clojure"        "?1"
           "development"    "dev"
           "helpers"        "?5"}
-         (alias/env->alias nil environments))))
+         (alias/env-to-alias nil environments))))
 
-(deftest env->alias--a-set-of-environments-with-incomplete-env-mapping--returns-dev-and-undefined-mappings
+(deftest env-to-alias--a-set-of-environments-with-incomplete-env-mapping--returns-dev-and-undefined-mappings
   (is (= {"backend-system" "?4"
           "banking-system" "?2"
           "car"            "?3"
           "clojure"        "?1"
           "development"    "dev"
           "helpers"        "h"}
-         (alias/env->alias {:env->alias {"helpers" "h"}} environments))))
+         (alias/env-to-alias {:env-to-alias {"helpers" "h"}} environments))))

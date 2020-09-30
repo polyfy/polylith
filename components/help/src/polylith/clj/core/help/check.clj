@@ -51,7 +51,7 @@
        "\n"
        "  " (color/error cm "Error 109") " - Missing libraries in environment.\n"
        "    Triggered if an environment doesn't contain a library that is used by one\n"
-       "    of its bricks. Library usage for a brick is calculated using " (color/purple cm ":ns->lib") " in\n"
+       "    of its bricks. Library usage for a brick is calculated using " (color/purple cm ":ns-to-lib") " in\n"
        "    './deps.edn' for all its namespaces."
        "\n"
        "  " (color/warning cm "Warning 201") " - Mismatching parameter lists in function or macro.\n"
@@ -71,11 +71,11 @@
        "    It's discouraged to have the same library in both development and a profile.\n"
        "    The solution is to remove the library from dev or the profile.\n"
        "\n"
-       "  " (color/warning cm "Warning 205") " - Reference to missing library in " (color/purple cm ":ns->lib") " in ./deps.edn.\n"
-       "    Libraries defined in " (color/purple cm ":ns->lib") " should also be defined by the environment.\n"
+       "  " (color/warning cm "Warning 205") " - Reference to missing library in " (color/purple cm ":ns-to-lib") " in ./deps.edn.\n"
+       "    Libraries defined in " (color/purple cm ":ns-to-lib") " should also be defined by the environment.\n"
        "\n"
-       "  " (color/warning cm "Warning 206") " - Reference to missing namespace in " (color/purple cm ":ns->lib") " in ./deps.edn.\n"
-       "    Namespaces defined in " (color/purple cm ":ns->lib") " should also exist in the environment."))
+       "  " (color/warning cm "Warning 206") " - Reference to missing namespace in " (color/purple cm ":ns-to-lib") " in ./deps.edn.\n"
+       "    Namespaces defined in " (color/purple cm ":ns-to-lib") " should also exist in the environment."))
 
 (defn print-help [cm]
   (-> cm help-text println))

@@ -33,7 +33,7 @@
 (:changes workspace)
 (:settings workspace)
 (:user-input workspace)
-(-> workspace :settings :profile->settings)
+(-> workspace :settings :profile-to-settings)
 
 (def environments (:environments workspace))
 (def settings (:settings workspace))

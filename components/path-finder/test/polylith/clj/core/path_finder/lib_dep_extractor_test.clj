@@ -10,8 +10,8 @@
 
 (def profile-deps {"net.mikera/core.matrix" {:mvn/version "0.62.0"}})
 
-(def settings {:profile->settings {"default" {:lib-deps {"net.mikera/core.matrix" {:mvn/version "0.62.0"}}}
-                                   "admin" {:lib-deps {"org.freemarker/freemarker" {:mvn/version "2.3.28"}}}}})
+(def settings {:profile-to-settings {"default" {:lib-deps {"net.mikera/core.matrix" {:mvn/version "0.62.0"}}}
+                                     "admin" {:lib-deps {"org.freemarker/freemarker" {:mvn/version "2.3.28"}}}}})
 
 (def user-input {:active-dev-profiles #{"default"}})
 
