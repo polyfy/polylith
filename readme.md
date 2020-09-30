@@ -576,7 +576,7 @@ If we don't add the alias, it will be shown up as a `?` when we execute the `inf
 ```clojure
 {:polylith {...
             :env-to-alias {"development" "dev"
-                         "command-line" "cl"}
+                           "command-line" "cl"}
 ```
 
 Now add `user` and `cli` to `deps.edn` in `environments/command-line`:
@@ -1452,8 +1452,8 @@ components
             :build-tag-pattern "v[0-9]*"
             :stable-since-tag-pattern "stable-*"
             :env-to-alias {"development" "dev"
-                         "command-line" "cl"
-                         "user-service" "user-s"}
+                           "command-line" "cl"
+                           "user-service" "user-s"}
             :ns-to-lib {slacker  slacker}}
 
  :aliases  {:dev {:extra-paths ["development/src"
@@ -1676,18 +1676,18 @@ The way the tool figures out what library each brick uses is to look in `:ns-to-
 
 ```clojure
             :ns-to-lib {clj-time              clj-time
-                      clj-jwt               clj-jwt
-                      clojure               org.clojure/clojure
-                      clojure.java.jdbc     org.clojure/java.jdbc
-                      compojure             compojure/compojure
-                      crypto.password       crypto-password
-                      environ               environ
-                      honeysql              honeysql
-                      slugger               slugger
-                      ring.logger           ring-logger-timbre
-                      ring.middleware.json  ring/ring-json
-                      spec-tools            metosin/spec-tools
-                      taoensso.timbre       com.taoensso/timbre}}
+                        clj-jwt               clj-jwt
+                        clojure               org.clojure/clojure
+                        clojure.java.jdbc     org.clojure/java.jdbc
+                        compojure             compojure/compojure
+                        crypto.password       crypto-password
+                        environ               environ
+                        honeysql              honeysql
+                        slugger               slugger
+                        ring.logger           ring-logger-timbre
+                        ring.middleware.json  ring/ring-json
+                        spec-tools            metosin/spec-tools
+                        taoensso.timbre       com.taoensso/timbre}}
 ```
  
 This map needs to be manually populated and specifies which namespace maps to which library.
@@ -1809,8 +1809,8 @@ The workspace configuration is stored under the `:polylith` key in `./deps.edn` 
 | :default-profile-name      | The default value is `default`. If changed, the `+default` alias in `./deps.edn` has to be renamed accordingly. |
 | :build-tag-pattern         | The default value is `v[0-9]*`. If changed, old tags may not be recognised. |
 | :stable-since-tag-pattern  | The default value is `stable-*`. If changed, old tags may not be recognised. |
-| :env-to-alias                | If the `development` key is missing, `{"development" "dev"}` will be added. |
-| :ns-to-lib                   | Can be left empty, but will give a more detailed output from the [libs](#libs) command if populated. |
+| :env-to-alias              | If the `development` key is missing, `{"development" "dev"}` will be added. |
+| :ns-to-lib                 | Can be left empty, but will give a more detailed output from the [libs](#libs) command if populated. |
 
 Settings that are specific per developer/user are stored in `~/.polylith/config.edn`:
 
@@ -2059,7 +2059,7 @@ poly help
     poly ws get:settings:keys
     poly ws get:components:keys
     poly ws get:components:count
-    poly ws get:components:user:lines-of-code-src
+    poly ws get:components:mycomp:lines-of-code-src
 ```
 
 ### check
@@ -2654,7 +2654,7 @@ poly help
     poly ws get:settings:keys
     poly ws get:components:keys
     poly ws get:components:count
-    poly ws get:components:user:lines-of-code-src
+    poly ws get:components:mycomp:lines-of-code-src
 ```
 
 ## Colors
