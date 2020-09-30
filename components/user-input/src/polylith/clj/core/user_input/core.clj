@@ -52,7 +52,7 @@
                       :ws-dir ws-dir
                       :is-search-for-ws-dir (contains? (set args) "::")
                       :is-dev (= "true" dev!)
-                      :show-brick? brick!
+                      :is-show-brick brick!
                       :show-bricks? bricks!
                       :is-show-env (= "true" env!)
                       :is-show-loc (= "true" loc!)
