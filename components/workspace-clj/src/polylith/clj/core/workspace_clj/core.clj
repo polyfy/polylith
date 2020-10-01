@@ -36,6 +36,8 @@
    (let [{:keys [vcs top-namespace interface-ns default-profile-name build-tag-pattern stable-since-tag-pattern env-to-alias ns-to-lib use-compact-output]} polylith
          top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
          empty-char (user-config/empty-character)
+         m2-dir (user-config/m2-dir)
+         user-home (user-config/home-dir)
          thousand-sep (user-config/thousand-separator)
          user-config-file (str (user-config/home-dir) "/.polylith/config.edn")
          component-names (file/directories (str ws-dir "/components"))
@@ -58,6 +60,8 @@
                                     :profile-to-settings profile-to-settings
                                     :env-to-alias env-to-alias
                                     :ns-to-lib (stringify ns-to-lib)
+                                    :user-home user-home
+                                    :m2-dir m2-dir
                                     :changes-since (:since user-input "last-stable"))]
      (util/ordered-map :ws-dir ws-dir
                        :ws-reader ws-reader

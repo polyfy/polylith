@@ -9,8 +9,8 @@
     (let [lib-info (str/split (str name) #"/")
           lib-ns (first lib-info)
           lib-name (or (second lib-info) lib-ns)
-          path (str (user-config/home-dir)
-                    "/.m2/repository/"
+          path (str (user-config/m2-dir)
+                    "/repository/"
                     (str/replace lib-ns "." "/")
                     "/" lib-name
                     "/" version

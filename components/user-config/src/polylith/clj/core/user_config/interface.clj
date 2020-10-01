@@ -10,5 +10,8 @@
 (defn empty-character []
   (core/empty-character))
 
+(defn m2-dir []
+  (core/m2-dir))
+
 (defn thousand-separator []
   (core/thousand-separator))
