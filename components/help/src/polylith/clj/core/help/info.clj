@@ -197,7 +197,8 @@
        "    poly info :env :dev\n"
        "    poly info :all\n"
        "    poly info :all-bricks\n"
-       "    poly info ws-dir:another-ws\n"))
+       "    poly info ws-dir:another-ws\n"
+       "    poly info ws-file:ws.edn\n"))
 
 (defn print-help [color-mode]
   (println (help-text color-mode)))

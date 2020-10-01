@@ -8,6 +8,7 @@
             [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.deps.interface :as deps]
+            [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.help.interface :as help]
             [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.util.interface.color :as color]
@@ -42,18 +43,22 @@
     (validator/validate active-dev-profiles selected-environments settings environments color-mode)
     [false (message/cant-be-executed-outside-ws-message cmd)]))
 
-(defn read-workspace [ws-dir user-input color-mode]
-  (when (common/valid-config-file? ws-dir color-mode)
-    (-> user-input
-        ws-clj/workspace-from-disk
-        ws/enrich-workspace
-        change/with-changes)))
+(defn read-workspace [cmd ws-file ws-dir user-input color-mode]
+  (if (or (nil? ws-file))
+    (when (common/valid-config-file? ws-dir color-mode)
+      (-> user-input
+          ws-clj/workspace-from-disk
+          ws/enrich-workspace
+          change/with-changes))
+    (if (contains? #{"create" "test"} cmd)
+      (println (str "  The '" cmd "' command can't be executed when the workspace is read from file via 'ws-file'."))
+      (first (file/read-file ws-file)))))
 
-(defn execute [{:keys [cmd args name top-ns is-show-brick is-show-bricks is-show-env brick get out interface active-dev-profiles selected-environments unnamed-args] :as user-input}]
+(defn execute [{:keys [cmd args name top-ns ws-file is-show-brick is-show-bricks is-show-env brick get out interface active-dev-profiles selected-environments unnamed-args] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (common/workspace-dir user-input color-mode)
         environment-name (first selected-environments)
-        workspace (read-workspace ws-dir user-input color-mode)
+        workspace (read-workspace cmd ws-file ws-dir user-input color-mode)
         arg1 (second args)
         arg2 (-> args rest second)
         [ok? message] (validate workspace cmd active-dev-profiles selected-environments color-mode)]
