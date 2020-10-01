@@ -991,7 +991,9 @@ poly test
 ```
 
 ```
-Runing tests from the command-line environment, including 2 bricks: user, cli
+Environments to run tests from: command-line
+
+Running tests from the command-line environment, including 2 bricks: user, cli
 
 Testing se.example.cli.core-test
 
@@ -1026,7 +1028,9 @@ corresponding test accordingly:
 
 If we run the `test` command again, it will now pass:
 ```
-Runing tests from the command-line environment, including 2 bricks: user, cli
+Environments to run tests from: command-line
+
+Running tests from the command-line environment, including 2 bricks: user, cli
 
 Testing se.example.cli.core-test
 
@@ -1126,7 +1130,34 @@ Let's verify that by running the tests:
 ```sh
 poly test :env
 ```
-<img src="images/test-run.png" width="80%" alt="Test environment">
+
+```
+Environments to run tests from: command-line
+
+Runing tests from the command-line environment, including 2 bricks and 1 environment: user-remote, cli, command-line
+
+Testing se.example.cli.core-test
+
+Ran 0 tests containing 0 assertions.
+0 failures, 0 errors.
+
+Test results: 0 passes, 0 failures, 0 errors.
+
+Testing se.example.user.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing env.dummy-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+Execution time: 2 seconds
+```
 
 They passed!
 
@@ -1192,7 +1223,9 @@ Now let's see if it actually works:
 poly test :all :dev
 ```
 ```
-Runing tests from the command-line environment, including 2 bricks and 1 environment: user, cli, command-line
+Environments to run tests from: development, command-line
+
+Running tests from the command-line environment, including 2 bricks and 1 environment: user, cli, command-line
 
 Testing se.example.cli.core-test
 
@@ -1214,7 +1247,7 @@ Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
 Test results: 1 passes, 0 failures, 0 errors.
-Runing tests from the development environment, including 2 bricks and 1 environment: user, cli, command-line
+Running tests from the development environment, including 2 bricks and 1 environment: user, cli, command-line
 
 Testing se.example.cli.core-test
 
@@ -1589,6 +1622,14 @@ poly info :loc
 Each environment sumarises the number of lines of code for each brick it contains.
 The `loc` column count number of lines of codes under the `src` directory,
 while `(t)` counts for the `test` directory.
+
+Let's run all the tests also to see if everything works:
+```
+poly test :env
+```
+<img src="images/test-run.png" width="85%" alt="Test environment">
+
+It worked!
 
 ## Dependencies
 

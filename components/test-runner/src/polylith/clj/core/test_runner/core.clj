@@ -71,7 +71,7 @@
         env-msg (if (zero? env-cnt)
                   ""
                   (str " and " (str-util/count-things "environment" env-cnt)))]
-    (str "Runing tests from the " (color/environment env color-mode) " environment, including "
+    (str "Running tests from the " (color/environment env color-mode) " environment, including "
          (str-util/count-things "brick" bricks-cnt) env-msg ": " entities-msg)))
 
 (defn run-tests-for-environment [{:keys [bases components] :as workspace}
@@ -103,13 +103,20 @@
   (when (= 1 (count environments))
    (println "  No tests to run. To run tests for 'dev', type: poly test :dev")))
 
-(defn run [{:keys [environments changes messages] :as workspace}]
+(defn print-environments-to-test [environments-to-test color-mode]
+  (let [environments (str/join ", " (map #(color/environment (:name %) color-mode)
+                                         environments-to-test))]
+    (println (str "Environments to run tests from: " environments "\n"))))
+
+(defn run [{:keys [environments changes messages] :as workspace} color-mode]
   (if (validator/has-errors? messages)
     (validator/print-messages workspace)
     (let [start-time (time-util/current-time)
-          environments-to-test (filter #(has-tests-to-run? % changes) environments)]
+          environments-to-test (sort-by :name (filter #(has-tests-to-run? % changes) environments))]
       (if (empty? environments-to-test)
         (print-no-tests-to-run-if-only-dev-exists environments)
-        (doseq [environment environments-to-test]
-          (run-tests-for-environment workspace environment changes)))
+        (do
+          (print-environments-to-test environments-to-test color-mode)
+          (doseq [environment environments-to-test]
+            (run-tests-for-environment workspace environment changes))))
       (time-util/print-execution-time start-time))))

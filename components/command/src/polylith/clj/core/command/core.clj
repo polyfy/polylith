@@ -82,7 +82,7 @@
         "help" (help arg1 arg2 is-show-env is-show-brick is-show-bricks color-mode)
         "info" (info/info workspace unnamed-args)
         "libs" (deps/print-lib-table workspace)
-        "test" (test/run workspace unnamed-args)
+        "test" (test/run workspace unnamed-args color-mode)
         "ws" (ws-explorer/ws workspace get out color-mode)
         (unknown-command cmd))
       (println message))
