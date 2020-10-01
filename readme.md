@@ -1837,17 +1837,17 @@ poly ws get:settings
  :color-mode "dark",
  :default-profile-name "default",
  :empty-char "·",
- :env--alias {"command-line" "cl", "development" "dev", "user-service" "user-s"},
+ :env-to-alias {"command-line" "cl", "development" "dev", "user-service" "user-s"},
  :interface-ns "interface",
- :ns--lib {"slacker" "slacker"},
- :profile--settings {"default" {:lib-deps {},
-                                :paths ["components/user/src"
-                                        "components/user/resources"
-                                        "components/user/test"]},
-                     "remote" {:lib-deps {},
-                               :paths ["components/user-remote/src"
-                                       "components/user-remote/resources"
-                                       "components/user-remote/test"]}},
+ :ns-to-lib {"slacker" "slacker"},
+ :profile-to-settings {"default" {:lib-deps {},
+                                  :paths ["components/user/src"
+                                          "components/user/resources"
+                                          "components/user/test"]},
+                       "remote" {:lib-deps {},
+                                 :paths ["components/user-remote/src"
+                                         "components/user-remote/resources"
+                                         "components/user-remote/test"]}},
  :stable-since-tag-pattern "stable-*",
  :thousand-sep ",",
  :top-namespace "se.example",
@@ -1871,7 +1871,7 @@ poly ws get:settings
 
 If we are only interested in a specific element in this structure, we can dig deeper into it:
 ```
-poly get:settings:profile--settings:default
+poly get:settings:profile-to-settings:default
 ```
 
 ```clojure
@@ -1965,6 +1965,17 @@ poly info ws-file:ws.edn
 
 This will give the exact same output as if we execute `poly info` on the machine that created `ws.edn`.
 All commands except `test` and `create` can be executed when `ws-file` is given.
+
+Here is an example where we inspect what command was used to produce the file:
+```
+poly ws get:user-input:args ws-file:ws.edn
+``` 
+
+...which returns:
+```clojure
+["ws" "out:ws.edn"]
+```
+
 
 ## Commands
 
@@ -2075,8 +2086,8 @@ poly help
     poly ws get:keys
     poly ws get:count
     poly ws get:settings
-    poly ws get:settings:user-input:args
-    poly ws get:settings:user-input:args:0
+    poly ws get:user-input:args
+    poly ws get:user-input:args:0
     poly ws get:settings:keys
     poly ws get:components:keys
     poly ws get:components:count
@@ -2565,15 +2576,15 @@ poly help
   Shows all libraries that are used in the workspace.
 
   poly libs
-                                                                       a  p
-                                                                       d  a  u  u
-                                                                       m  y  s  t  c
-                                                                       i  e  e  i  l
-    library                       version   cl   dev  default  admin   n  r  r  l  i
-    -------------------------------------   --   -------------------   -------------
-    clj-time                      0.15.2    x     x      -       -     ·  ·  x  ·  ·
-    org.clojure/clojure           1.10.1    x     x      -       -     ·  ·  ·  ·  ·
-    org.clojure/tools.deps.alpha  0.8.695   x     x      -       -     ·  ·  ·  ·  ·
+                                                                           a  p         
+                                                                           d  a  u  u   
+                                                                           m  y  s  t  c
+                                                                           i  e  e  i  l
+  library                       version     KB   cl  dev  default   admin  n  r  r  l  i
+  --------------------------------------------   ----------------   --------------------
+  clj-time                      0.15.2      23   x    x      -        x    ·  ·  x  ·  ·
+  org.clojure/clojure           1.10.1   3,816   x    x      -        -    ·  ·  ·  ·  ·
+  org.clojure/tools.deps.alpha  0.8.695     46   x    x      -        -    ·  ·  ·  ·  ·
 
   In this example we have three libraries used by the cl and dev environments.
   If any of the libraries are added to the default or admin profiles, they will appear
@@ -2674,8 +2685,8 @@ poly help
     poly ws get:keys
     poly ws get:count
     poly ws get:settings
-    poly ws get:settings:user-input:args
-    poly ws get:settings:user-input:args:0
+    poly ws get:user-input:args
+    poly ws get:user-input:args:0
     poly ws get:settings:keys
     poly ws get:components:keys
     poly ws get:components:count

@@ -57,10 +57,10 @@
                                     :profile-to-settings profile-to-settings
                                     :env-to-alias env-to-alias
                                     :ns-to-lib (stringify ns-to-lib)
-                                    :changes-since (:since user-input "last-stable")
-                                    :user-input user-input)]
+                                    :changes-since (:since user-input "last-stable"))]
      (util/ordered-map :ws-dir ws-dir
                        :ws-reader ws-reader
+                       :user-input user-input
                        :settings settings
                        :components components
                        :bases bases

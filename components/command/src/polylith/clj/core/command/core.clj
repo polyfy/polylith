@@ -43,16 +43,27 @@
     (validator/validate active-dev-profiles selected-environments settings environments color-mode)
     [false (message/cant-be-executed-outside-ws-message cmd)]))
 
-(defn read-workspace [cmd ws-file ws-dir user-input color-mode]
-  (if (or (nil? ws-file))
-    (when (common/valid-config-file? ws-dir color-mode)
-      (-> user-input
-          ws-clj/workspace-from-disk
-          ws/enrich-workspace
-          change/with-changes))
-    (if (contains? #{"create" "test"} cmd)
-      (println (str "  The '" cmd "' command can't be executed when the workspace is read from file via 'ws-file'."))
-      (first (file/read-file ws-file)))))
+(defn read-ws-from-file [cmd ws-file user-input]
+  (if (contains? #{"create" "test"} cmd)
+    (println (str "  The '" cmd "' command can't be executed when the workspace is read from file via 'ws-file'."))
+    (if (not (file/exists ws-file))
+      (println (str "The file '" ws-file "' doesn't exist."))
+      (let [ws (first (file/read-file ws-file))
+            old-user-input (-> ws :settings :user-input)]
+        (-> (assoc ws :user-input-old old-user-input)
+            (assoc :user-input user-input))))))
+
+(defn read-workspace
+  ([ws-dir {:keys [cmd ws-file] :as user-input}]
+   (read-workspace cmd ws-file ws-dir user-input (common/color-mode user-input)))
+  ([cmd ws-file ws-dir user-input color-mode]
+   (if (nil? ws-file)
+     (when (common/valid-config-file? ws-dir color-mode)
+       (-> user-input
+           ws-clj/workspace-from-disk
+           ws/enrich-workspace
+           change/with-changes))
+     (read-ws-from-file cmd ws-file user-input))))
 
 (defn execute [{:keys [cmd args name top-ns ws-file is-show-brick is-show-bricks is-show-env brick get out interface active-dev-profiles selected-environments unnamed-args] :as user-input}]
   (let [color-mode (common/color-mode user-input)

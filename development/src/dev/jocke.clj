@@ -18,6 +18,10 @@
 ;(require '[dev.jocke :as z])
 ;(def workspace z/workspace)
 
+(defn ws-from-file [filename]
+  (let [input (user-input/extract-params ["ws" (str "ws-file:" filename)])]
+    (command/read-workspace "." input)))
+
 (defn dir [ws-dir]
   (user-input/extract-params ["info" (str "ws-dir:" ws-dir)]))
 
