@@ -32,6 +32,7 @@
                 since
                 top-ns
                 ws-dir
+                ws-file
                 all!
                 all-bricks!
                 brick!
@@ -65,6 +66,7 @@
                       :since since
                       :top-ns top-ns
                       :ws-dir ws-dir
+                      :ws-file ws-file
                       :active-dev-profiles (active-dev-profiles unnamed-args)
                       :selected-environments (selected-environments env dev!)
                       :unnamed-args (vec unnamed-args))))

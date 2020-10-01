@@ -1946,10 +1946,25 @@ ws get:components:user
                     :namespace "se.example.user.interface-test"}],
  :type "component"}
 ```
+There is a way to store the workspace state to a file, and that is to give the `out` parameter, e.g.:
+```
+poly ws out:ws.edn
+```
 
-Keys that internally contains a `>` character, e.g. `ns-to-lib`, are translated to `ns--lib`.
-The reason is that the shell would otherwise pipe what comes after `>` to a file!
-The `?` character is replaced with `_q` because it will otherwise be treated as a wild cards by the shell.
+An alternative way to reach the same result is to turn off the coloring and pipe to `ws.edn`:
+```
+poly ws color-mode:none > ws.edn
+```
+
+This can be used to share the workspace state with others without sending them the whole workspace.
+To load this workspace, they have to give the `ws-file` parameter, e.g.:
+
+```
+poly info ws-file:ws.edn
+``` 
+
+This will give the exact same output as if we execute `poly info` on the machine that created `ws.edn`.
+All commands except `test` and `create` can be executed when `ws-file` is given.
 
 ## Commands
 
@@ -1996,10 +2011,16 @@ poly help
     ws [get:X]              Shows the workspace as data.
 
   If ws-dir:PATH is passed in as an argument, where PATH is a relative
-  or absolute path, then the command is executed from that directory. If :: is
-  passed in, then ws-dir is set to the first parent directory (or current) that
-  contains a 'deps.edn' workspace config file. The exception is the
-  'test' command that has to be executed from the workspace root.
+  or absolute path, then the command is executed from that directory. 
+
+  If :: is passed in, then ws-dir is set to the first parent directory 
+  (or current) that contains a 'deps.edn' workspace config file. The exception 
+  is the 'test' command that has to be executed from the workspace root.
+
+  If ws-file:FILE is passed in, then the workspace will be populated with the
+  content from that file. All commands except 'create' and 'test' can be
+  executed with this parameter set. The FILE is created by executing the
+  'ws' command, e.g.: 'poly ws out:ws.edn'.
 
   The color mode can be overridden by passing in e.g. color-mode:none
   (valid values are: none, light, dark) which is otherwise configured in
