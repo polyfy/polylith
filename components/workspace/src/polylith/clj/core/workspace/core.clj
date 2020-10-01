@@ -7,8 +7,7 @@
             [polylith.clj.core.workspace.base :as base]
             [polylith.clj.core.workspace.component :as component]
             [polylith.clj.core.workspace.environment :as env]
-            [polylith.clj.core.workspace.interfaces :as interfaces]
-            [polylith.clj.core.workspace.user-input :as user-input]))
+            [polylith.clj.core.workspace.interfaces :as interfaces]))
 
 (defn brick->lib-imports [brick]
   (into {} (mapv (juxt :name #(select-keys % [:lib-imports-src
@@ -43,9 +42,8 @@
         brick->loc (brick->loc enriched-bricks)
         brick->lib-imports (brick->lib-imports enriched-bricks)
         env-to-alias (alias/env-to-alias settings environments)
-        enriched-user-input (user-input/enrich settings user-input)
-        enriched-environments (vec (sort-by env-sorter (map #(env/enrich-env % enriched-components enriched-bases brick->loc brick->lib-imports env-to-alias paths settings enriched-user-input) environments)))
-        messages (validator/validate-ws suffixed-top-ns settings paths interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns enriched-user-input color-mode)]
+        enriched-environments (vec (sort-by env-sorter (map #(env/enrich-env % enriched-components enriched-bases brick->loc brick->lib-imports env-to-alias paths settings user-input) environments)))
+        messages (validator/validate-ws suffixed-top-ns settings paths interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns user-input color-mode)]
     (assoc workspace :name ws-name
                      :settings settings
                      :interfaces interfaces

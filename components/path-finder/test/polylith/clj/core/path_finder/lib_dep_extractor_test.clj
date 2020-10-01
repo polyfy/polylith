@@ -10,19 +10,17 @@
 
 (def profile-deps {"net.mikera/core.matrix" {:mvn/version "0.62.0"}})
 
-(def settings {:profile-to-settings {"default" {:lib-deps {"net.mikera/core.matrix" {:mvn/version "0.62.0"}}}
-                                     "admin" {:lib-deps {"org.freemarker/freemarker" {:mvn/version "2.3.28"}}}}})
-
-(def user-input {:active-dev-profiles #{"default"}})
+(def settings {:active-profiles #{"default"}
+               :profile-to-settings {"default" {:lib-deps {"net.mikera/core.matrix" {:mvn/version "0.62.0"}}}}})
 
 (deftest dep-entries
   (is (= test-data/dep-entries
-         (lib-dep-extractor/from-library-deps true src-deps test-deps settings user-input))))
+         (lib-dep-extractor/from-library-deps true src-deps test-deps settings))))
 
 (deftest extract-deps--from-non-dev-environment--returns-no-dependencies
   (is (= {}
-         (lib-dep-extractor/extract-deps false settings user-input))))
+         (lib-dep-extractor/extract-deps false settings))))
 
-(deftest extract-deps--from-dev-environment--returns-active-profiles-dependencies
+(deftest extract-deps--from-dev-environment--returns-selected-profiles-dependencies
   (is (= {"net.mikera/core.matrix" #:mvn{:version "0.62.0"}}
-         (lib-dep-extractor/extract-deps true settings user-input))))
+         (lib-dep-extractor/extract-deps true settings))))

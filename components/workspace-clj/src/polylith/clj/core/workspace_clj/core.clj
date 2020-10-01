@@ -46,10 +46,13 @@
          environments (envs-from-disk/read-environments ws-dir)
          profile-to-settings (profile/profile-to-settings aliases)
          paths (path-finder/paths ws-dir environments profile-to-settings)
+         default-profile (or default-profile-name "default")
+         active-profiles (profile/active-profiles user-input default-profile profile-to-settings)
          settings (util/ordered-map :vcs (or vcs "git")
                                     :top-namespace top-namespace
                                     :interface-ns (or interface-ns "interface")
-                                    :default-profile-name (or default-profile-name "default")
+                                    :default-profile-name default-profile
+                                    :active-profiles active-profiles
                                     :build-tag-pattern (or build-tag-pattern "v[0-9]*")
                                     :stable-since-tag-pattern (or stable-since-tag-pattern "stable-*")
                                     :color-mode color-mode

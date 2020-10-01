@@ -216,7 +216,8 @@
           :type                     "environment"}
          (env/enrich-env environment components bases brick->loc brick->lib-imports env-to-alias
                          {:missing []}
-                         {:profile-to-settings {"default" {:paths ["components/user/src"
+                         {:active-profiles ["default"]
+                          :profile-to-settings {"default" {:paths ["components/user/src"
                                                                     "components/user/resources"
                                                                     "components/user/test"]
                                                            :src-paths ["components/user/src"
@@ -224,8 +225,7 @@
                                                            :test-paths ["components/user/test"]
                                                            :lib-deps {"clojure.core.matrix"
                                                                       "net.mikera/core.matrix"}}}}
-                         {:selected-environments #{"dev"}
-                          :active-dev-profiles ["default"]}))))
+                         {:selected-environments #{"dev"}}))))
 
 (deftest is-run-tests--non-dev-environment-no-env-selected--returns-true
   (is (true?

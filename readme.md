@@ -1664,7 +1664,7 @@ Now we have some bricks to play with!
 ```
 poly deps
 ```
-<img src="images/realworld-deps-interfaces.png" width="30%">
+<img src="images/realworld-deps-interfaces.png" width="27%">
 
 This lists all dependencies in the workspace.
 Notice the yellow color in the headers. They are yellow because components and bases only depend on `interfaces`. 
@@ -1868,8 +1868,8 @@ Settings that are specific per developer/user are stored in `~/.polylith/config.
 | :empty-character     | Set to "." on Windows, "·" on other operating systems (when first created). Used by the [deps](#deps) and [libs](#libs) commands. |
 | :m2-dir              | If left empty, the `.m2` directory will be set to USER-HOME/.m2. Used by the [libs](#libs) command. |
 
-
 If `~/.polylith/config.edn` does not exists, it will be created the first time the [create w](#create-w) command is executed, e.g.:
+
 ```
 {:color-mode "dark"
  :thousand-separator ","
@@ -1901,19 +1901,19 @@ poly ws get:settings
  :thousand-sep ",",
  :top-namespace "se.example",
  :user-config-file "/Users/tengstrand/.polylith/config.edn",
- :user-input {:active-dev-profiles #{},
+ :user-input {:selected-profiles #{},
               :args ["ws" "get:settings"],
               :cmd "ws",
-              :dev-q false,
+              :is-dev false,
               :get "settings",
-              :run-all-brick-tests-q false,
-              :run-all-tests-q false,
-              :run-env-tests-q false,
-              :search-for-ws-dir-q false,
+              :is-run-all-brick-tests false,
+              :is-run-all-tests false,
+              :is-run-env-tests false,
+              :is-search-for-ws-dir false,
               :selected-environments #{},
-              :show-env-q false,
-              :show-loc-q false,
-              :show-resources-q false,
+              :is-show-env false,
+              :is-show-loc false,
+              :is-show-resources false,
               :unnamed-args []},
  :vcs "git"}
 ```

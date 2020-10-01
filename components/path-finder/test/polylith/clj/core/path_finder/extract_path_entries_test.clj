@@ -3,14 +3,13 @@
             [polylith.clj.core.path-finder.test-data :as test-data]
             [polylith.clj.core.path-finder.interface.extract :as extract]))
 
-(def settings {:profile-to-settings {"default" {:paths ["components/user/resources"
+(def settings {:active-profiles #{"default"}
+               :profile-to-settings {"default" {:paths ["components/user/resources"
                                                         "components/user/src"
                                                         "components/user/test"]}
                                      "admin" {:paths ["components/admin/resources"
                                                       "components/admin/src"
                                                       "components/admin/test"]}}})
-
-(def user-input {:active-dev-profiles #{"default"}})
 
 (def src-paths ["bases/cli/resources"
                 "bases/cli/src"
@@ -42,8 +41,7 @@
            src-paths
            test-paths
            {:missing []}
-           settings
-           user-input))))
+           settings))))
 
 (deftest profile-entries--when-two-profiles-are-extracted--return-paths
   (is (= [{:exists?    true

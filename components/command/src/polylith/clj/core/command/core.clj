@@ -38,20 +38,23 @@
       (= "help" cmd)
       (= "create" cmd)))
 
-(defn validate [{:keys [settings environments] :as workspace} cmd active-dev-profiles selected-environments color-mode]
+(defn validate [{:keys [settings environments] :as workspace} cmd selected-environments color-mode]
   (if (can-be-executed-from-here? workspace cmd)
-    (validator/validate active-dev-profiles selected-environments settings environments color-mode)
+    (validator/validate selected-environments settings environments color-mode)
     [false (message/cant-be-executed-outside-ws-message cmd)]))
 
-(defn read-ws-from-file [cmd ws-file user-input]
+(defn read-ws-from-file [cmd ws-file {:keys [selected-profiles] :as user-input}]
   (if (contains? #{"create" "test"} cmd)
     (println (str "  The '" cmd "' command can't be executed when the workspace is read from file via 'ws-file'."))
     (if (not (file/exists ws-file))
       (println (str "The file '" ws-file "' doesn't exist."))
       (let [ws (first (file/read-file ws-file))
-            old-user-input (-> ws :settings :user-input)]
-        (-> (assoc ws :user-input-old old-user-input)
-            (assoc :user-input user-input))))))
+            old-user-input (-> ws :user-input)
+            new-ws (-> (assoc ws :old-user-input old-user-input)
+                       (assoc :user-input user-input))]
+        (if (empty? selected-profiles)
+          new-ws
+          (assoc-in new-ws [:settings :active-profiles] selected-profiles))))))
 
 (defn read-workspace
   ([ws-dir {:keys [cmd ws-file] :as user-input}]
@@ -65,14 +68,14 @@
            change/with-changes))
      (read-ws-from-file cmd ws-file user-input))))
 
-(defn execute [{:keys [cmd args name top-ns ws-file is-show-brick is-show-bricks is-show-env brick get out interface active-dev-profiles selected-environments unnamed-args] :as user-input}]
+(defn execute [{:keys [cmd args name top-ns ws-file is-show-brick is-show-bricks is-show-env brick get out interface selected-environments unnamed-args] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (common/workspace-dir user-input color-mode)
         environment-name (first selected-environments)
         workspace (read-workspace cmd ws-file ws-dir user-input color-mode)
         arg1 (second args)
         arg2 (-> args rest second)
-        [ok? message] (validate workspace cmd active-dev-profiles selected-environments color-mode)]
+        [ok? message] (validate workspace cmd selected-environments color-mode)]
     (if ok?
       (case cmd
         "check" (check workspace color-mode)
