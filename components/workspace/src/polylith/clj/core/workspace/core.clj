@@ -31,9 +31,9 @@
 (defn env-sorter [{:keys [is-dev name]}]
   [is-dev name])
 
-(defn enrich-workspace [{:keys [ws-dir settings components bases environments paths] :as workspace}]
+(defn enrich-workspace [{:keys [ws-dir user-input settings components bases environments paths] :as workspace}]
   (let [ws-name (workspace-name ws-dir)
-        {:keys [top-namespace interface-ns user-input color-mode]} settings
+        {:keys [top-namespace interface-ns color-mode]} settings
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         interfaces (interfaces/calculate components)
         interface-names (apply sorted-set (mapv :name interfaces))
@@ -47,7 +47,6 @@
         enriched-environments (vec (sort-by env-sorter (map #(env/enrich-env % enriched-components enriched-bases brick->loc brick->lib-imports env-to-alias paths settings enriched-user-input) environments)))
         messages (validator/validate-ws suffixed-top-ns settings paths interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns enriched-user-input color-mode)]
     (assoc workspace :name ws-name
-                     :user-input enriched-user-input
                      :settings settings
                      :interfaces interfaces
                      :components enriched-components

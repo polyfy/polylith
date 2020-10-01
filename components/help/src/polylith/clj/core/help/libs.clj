@@ -6,15 +6,15 @@
   (str "  Shows all libraries that are used in the workspace.\n"
        "\n"
        "  poly libs\n"
-       "                                                                       " (color/component "a  p\n" cm)
-       "                                                                       " (color/component "d  a  u  u\n" cm)
-       "                                                                       " (color/component "m  y  s  t" cm) (color/base "  c\n" cm)
-       "                                                                       " (color/component "i  e  e  i" cm) (color/base "  l\n" cm)
-       "    library                       version   " (s/key "cl   dev  default  admin" cm) (color/component "   n  r  r  l" cm) (color/base "  i\n" cm)
-       "    -------------------------------------   --   -------------------   -------------\n"
-       "    clj-time                      0.15.2    " (s/key "x     x      -       -" cm) "     ·  ·  x  ·  ·\n"
-       "    org.clojure/clojure           1.10.1    " (s/key "x     x      -       -" cm) "     ·  ·  ·  ·  ·\n"
-       "    org.clojure/tools.deps.alpha  0.8.695   " (s/key "x     x      -       -" cm) "     ·  ·  ·  ·  ·\n"
+       "                                                                              " (color/component "a  p\n" cm)
+       "                                                                              " (color/component "d  a  u  u\n" cm)
+       "                                                                              " (color/component "m  y  s  t" cm) (color/base "  c\n" cm)
+       "                                                                              " (color/component "i  e  e  i" cm) (color/base "  l\n" cm)
+       "    library                       version     KB   " (s/key "cl   dev  default  admin" cm) (color/component "   n  r  r  l" cm) (color/base "  i\n" cm)
+       "    --------------------------------------------   --   -------------------   -------------\n"
+       "    clj-time                      0.15.2      23   " (s/key "x     x      -       -" cm) "     ·  ·  x  ·  ·\n"
+       "    org.clojure/clojure           1.10.1   3,816   " (s/key "x     x      -       -" cm) "     ·  ·  ·  ·  ·\n"
+       "    org.clojure/tools.deps.alpha  0.8.695     46   " (s/key "x     x      -       -" cm) "     ·  ·  ·  ·  ·\n"
        "\n"
        "  In this example we have three libraries used by the " (color/environment "cl" cm) " and " (color/environment "dev" cm) " environments.\n"
        "  If any of the libraries are added to the " (color/profile "default" cm) " or " (color/profile "admin" cm) " profiles, they will appear\n"
