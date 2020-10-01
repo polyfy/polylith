@@ -13,8 +13,8 @@
 (defn test-paths [is-dev paths]
   (if is-dev (filterv test-path? paths) []))
 
-(defn extract-active-dev-profiles-paths [is-dev {:keys [profile-to-settings]} {:keys [active-dev-profiles]}]
-  (let [paths (mapcat :paths (map #(profile-to-settings %) active-dev-profiles))]
+(defn extract-active-profiles-paths [is-dev {:keys [profile-to-settings active-profiles]}]
+  (let [paths (mapcat :paths (map #(profile-to-settings %) active-profiles))]
     {:profile-src-paths (src-paths is-dev paths)
      :profile-test-paths (test-paths is-dev paths)}))
 

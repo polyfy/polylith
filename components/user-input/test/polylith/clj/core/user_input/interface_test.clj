@@ -9,9 +9,9 @@
                 :is-run-env-tests
                 :selected-environments]))
 
-(defn active-dev-profiles-params [& args]
+(defn active-profiles-params [& args]
   (select-keys (user-input/extract-params args)
-               [:active-dev-profiles]))
+               [:selected-profiles]))
 
 (deftest parameters--no-arguments
   (is (= {:is-run-all-tests false
@@ -55,6 +55,6 @@
           :selected-environments #{}}
          (test-params "cmd" ":env"))))
 
-(deftest parameters--active-dev-profiles
-  (is (= {:active-dev-profiles #{"admin" "user"}}
-         (active-dev-profiles-params "cmd" "+admin" "env:a" "+user"))))
+(deftest parameters--selected-profiles
+  (is (= {:selected-profiles #{"admin" "user"}}
+         (active-profiles-params "cmd" "+admin" "env:a" "+user"))))

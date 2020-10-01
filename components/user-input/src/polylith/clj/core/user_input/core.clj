@@ -6,7 +6,7 @@
 (defn profile? [arg]
   (str/starts-with? arg "+"))
 
-(defn active-dev-profiles [unnamed-args]
+(defn selected-profiles [unnamed-args]
   (set (map #(subs % 1)
             (filter profile? unnamed-args))))
 
@@ -67,6 +67,6 @@
                       :top-ns top-ns
                       :ws-dir ws-dir
                       :ws-file ws-file
-                      :active-dev-profiles (active-dev-profiles unnamed-args)
+                      :selected-profiles (selected-profiles unnamed-args)
                       :selected-environments (selected-environments env dev!)
                       :unnamed-args (vec unnamed-args))))

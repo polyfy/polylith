@@ -155,6 +155,7 @@ The `deps.edn` file looks like this:
             :top-namespace "se.example"
             :interface-ns "interface"
             :default-profile-name "default"
+            :use-compact-output false
             :build-tag-pattern "v[0-9]*"
             :stable-since-tag-pattern "stable-*"
             :env-to-alias {"development" "dev"}
@@ -991,7 +992,9 @@ poly test
 ```
 
 ```
-Runing tests from the command-line environment, including 2 bricks: user, cli
+Environments to run tests from: command-line
+
+Running tests from the command-line environment, including 2 bricks: user, cli
 
 Testing se.example.cli.core-test
 
@@ -1026,7 +1029,9 @@ corresponding test accordingly:
 
 If we run the `test` command again, it will now pass:
 ```
-Runing tests from the command-line environment, including 2 bricks: user, cli
+Environments to run tests from: command-line
+
+Running tests from the command-line environment, including 2 bricks: user, cli
 
 Testing se.example.cli.core-test
 
@@ -1126,7 +1131,34 @@ Let's verify that by running the tests:
 ```sh
 poly test :env
 ```
-<img src="images/test-run.png" width="80%" alt="Test environment">
+
+```
+Environments to run tests from: command-line
+
+Runing tests from the command-line environment, including 2 bricks and 1 environment: user-remote, cli, command-line
+
+Testing se.example.cli.core-test
+
+Ran 0 tests containing 0 assertions.
+0 failures, 0 errors.
+
+Test results: 0 passes, 0 failures, 0 errors.
+
+Testing se.example.user.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing env.dummy-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+Execution time: 2 seconds
+```
 
 They passed!
 
@@ -1192,7 +1224,9 @@ Now let's see if it actually works:
 poly test :all :dev
 ```
 ```
-Runing tests from the command-line environment, including 2 bricks and 1 environment: user, cli, command-line
+Environments to run tests from: development, command-line
+
+Running tests from the command-line environment, including 2 bricks and 1 environment: user, cli, command-line
 
 Testing se.example.cli.core-test
 
@@ -1214,7 +1248,7 @@ Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
 Test results: 1 passes, 0 failures, 0 errors.
-Runing tests from the development environment, including 2 bricks and 1 environment: user, cli, command-line
+Running tests from the development environment, including 2 bricks and 1 environment: user, cli, command-line
 
 Testing se.example.cli.core-test
 
@@ -1449,6 +1483,7 @@ components
             :top-namespace "se.example"
             :interface-ns "interface"
             :default-profile-name "default"
+            :use-compact-output false
             :build-tag-pattern "v[0-9]*"
             :stable-since-tag-pattern "stable-*"
             :env-to-alias {"development" "dev"
@@ -1590,6 +1625,14 @@ Each environment sumarises the number of lines of code for each brick it contain
 The `loc` column count number of lines of codes under the `src` directory,
 while `(t)` counts for the `test` directory.
 
+Let's run all the tests also to see if everything works:
+```
+poly test :env
+```
+<img src="images/test-run.png" width="85%" alt="Test environment">
+
+It worked!
+
 ## Dependencies
 
 To explain dependencies, we will use the
@@ -1621,7 +1664,7 @@ Now we have some bricks to play with!
 ```
 poly deps
 ```
-<img src="images/realworld-deps-interfaces.png" width="30%">
+<img src="images/realworld-deps-interfaces.png" width="27%">
 
 This lists all dependencies in the workspace.
 Notice the yellow color in the headers. They are yellow because components and bases only depend on `interfaces`. 
@@ -1672,6 +1715,10 @@ The KB column shows the size of each library in kilobytes, by looking in `~/.m2/
 Library dependencies are specified per environment and the same library can exist with different 
 versions.
 
+If we have a lot of libraries, we can set `:use-compact-output` to `true` in `./deps.edn`:
+
+<img src="images/realworld-lib-deps-compact.png" width="52%">
+
 The way the tool figures out what library each brick uses is to look in `:ns-to-lib` in `./deps.edn`:
 
 ```clojure
@@ -1690,15 +1737,15 @@ The way the tool figures out what library each brick uses is to look in `:ns-to-
                         taoensso.timbre       com.taoensso/timbre}}
 ```
  
-This map needs to be manually populated and specifies which namespace maps to which library.
+This map specifies which namespace maps to which library, and needs to be manually populated.
 The way the algorithm works is that it takes all the namespaces and sort them in reverse order.
 Then it tries to match each namespace against that list from top to down and takes the first match.
 
 Let's say we have this mapping:
 ```clojure
 :ns-to-lib {com.a      library-a
-          com.a.b    library-b
-          com.a.b.c  library-c}
+            com.a.b    library-b
+            com.a.b.c  library-c}
 ```
 
 ...then it will return the first matching namespace going from top to down:
@@ -1819,8 +1866,10 @@ Settings that are specific per developer/user are stored in `~/.polylith/config.
 | :thousand-separator  | Set to "," by default (when first created). |
 | :color-mode          | Set to "none" on Windows, "dark" on other operating systems (when first created). Valid values are "none", "light" and "dark", see the [color](#color) section. Can be overridden, e.g.: `poly info color-mode:none`. |
 | :empty-character     | Set to "." on Windows, "·" on other operating systems (when first created). Used by the [deps](#deps) and [libs](#libs) commands. |
+| :m2-dir              | If left empty, the `.m2` directory will be set to USER-HOME/.m2. Used by the [libs](#libs) command. |
 
 If `~/.polylith/config.edn` does not exists, it will be created the first time the [create w](#create-w) command is executed, e.g.:
+
 ```
 {:color-mode "dark"
  :thousand-separator ","
@@ -1852,19 +1901,19 @@ poly ws get:settings
  :thousand-sep ",",
  :top-namespace "se.example",
  :user-config-file "/Users/tengstrand/.polylith/config.edn",
- :user-input {:active-dev-profiles #{},
+ :user-input {:selected-profiles #{},
               :args ["ws" "get:settings"],
               :cmd "ws",
-              :dev-q false,
+              :is-dev false,
               :get "settings",
-              :run-all-brick-tests-q false,
-              :run-all-tests-q false,
-              :run-env-tests-q false,
-              :search-for-ws-dir-q false,
+              :is-run-all-brick-tests false,
+              :is-run-all-tests false,
+              :is-run-env-tests false,
+              :is-search-for-ws-dir false,
               :selected-environments #{},
-              :show-env-q false,
-              :show-loc-q false,
-              :show-resources-q false,
+              :is-show-env false,
+              :is-show-loc false,
+              :is-show-resources false,
               :unnamed-args []},
  :vcs "git"}
 ```

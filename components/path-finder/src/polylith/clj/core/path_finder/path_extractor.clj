@@ -61,8 +61,8 @@
                  (single-path-entries missing-paths profile-src-paths true false)
                  (single-path-entries missing-paths profile-test-paths true true)))))
 
-(defn from-unenriched-environment [is-dev src-paths test-paths disk-paths settings user-input]
-  (let [{:keys [profile-src-paths profile-test-paths]} (profile-src-splitter/extract-active-dev-profiles-paths is-dev settings user-input)]
+(defn from-unenriched-environment [is-dev src-paths test-paths disk-paths settings]
+  (let [{:keys [profile-src-paths profile-test-paths]} (profile-src-splitter/extract-active-profiles-paths is-dev settings)]
     (path-entries src-paths test-paths profile-src-paths profile-test-paths disk-paths)))
 
 (defn from-profiles-paths [disk-paths settings profile-name]

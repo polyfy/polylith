@@ -33,9 +33,11 @@
          config (read-string (slurp (str ws-dir "/deps.edn")))]
      (workspace-from-disk ws-dir config user-input color-mode)))
   ([ws-dir {:keys [polylith aliases]} user-input color-mode]
-   (let [{:keys [vcs top-namespace interface-ns default-profile-name build-tag-pattern stable-since-tag-pattern env-to-alias ns-to-lib]} polylith
+   (let [{:keys [vcs top-namespace interface-ns default-profile-name build-tag-pattern stable-since-tag-pattern env-to-alias ns-to-lib use-compact-output]} polylith
          top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
          empty-char (user-config/empty-character)
+         m2-dir (user-config/m2-dir)
+         user-home (user-config/home-dir)
          thousand-sep (user-config/thousand-separator)
          user-config-file (str (user-config/home-dir) "/.polylith/config.edn")
          component-names (file/directories (str ws-dir "/components"))
@@ -44,19 +46,25 @@
          environments (envs-from-disk/read-environments ws-dir)
          profile-to-settings (profile/profile-to-settings aliases)
          paths (path-finder/paths ws-dir environments profile-to-settings)
+         default-profile (or default-profile-name "default")
+         active-profiles (profile/active-profiles user-input default-profile profile-to-settings)
          settings (util/ordered-map :vcs (or vcs "git")
                                     :top-namespace top-namespace
                                     :interface-ns (or interface-ns "interface")
-                                    :default-profile-name (or default-profile-name "default")
+                                    :default-profile-name default-profile
+                                    :active-profiles active-profiles
                                     :build-tag-pattern (or build-tag-pattern "v[0-9]*")
                                     :stable-since-tag-pattern (or stable-since-tag-pattern "stable-*")
                                     :color-mode color-mode
+                                    :use-compact-output use-compact-output
                                     :user-config-file user-config-file
                                     :empty-char (or empty-char ".")
                                     :thousand-sep (or thousand-sep ",")
                                     :profile-to-settings profile-to-settings
                                     :env-to-alias env-to-alias
                                     :ns-to-lib (stringify ns-to-lib)
+                                    :user-home user-home
+                                    :m2-dir m2-dir
                                     :changes-since (:since user-input "last-stable"))]
      (util/ordered-map :ws-dir ws-dir
                        :ws-reader ws-reader

@@ -3,7 +3,7 @@
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.workspace.text-table.ws-table :as ws-table]))
 
-(def workspace {:user-input {:active-dev-profiles #{"default"}}
+(def workspace {:user-input {:selected-profiles #{"default"}}
                 :interfaces [{:name "workspace-clj",
                               :type "interface",
                               :definitions [{:name "workspace-from-disk", :type "function", :parameters [{:name "ws-dir"}]}
@@ -420,6 +420,7 @@
                 :ws-dir ".",
                 :name "polylith",
                 :settings {:top-namespace "polylith.clj.core",
+                           :active-profiles #{"default"}
                            :profile-to-settings {},
                            :ns-to-lib {"clojure" "org.clojure/clojure",
                                        "clojure.core.matrix" "net.mikera/core.matrix",
@@ -2263,7 +2264,7 @@
                                  (assoc-in [:environments 2 :profile-test-paths] ["components/file/test"])))
 
 (def workspace-with-profiles-no-active (-> workspace-with-profiles
-                                           (assoc-in [:user-input :active-dev-profiles] #{})))
+                                           (assoc-in [:settings :active-profiles] #{})))
 
 (deftest ws-table--without-loc-info--return-table-without-loc-info
   (with-redefs [file/exists (fn [_] true)]

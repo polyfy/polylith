@@ -40,10 +40,10 @@
                   env-to-alias
                   disk-paths
                   settings
-                  {:keys [is-run-all-brick-tests selected-environments] :as user-input}]
+                  {:keys [is-run-all-brick-tests selected-environments]}]
   (let [alias (env-to-alias name)
-        dep-entries (extract/from-library-deps is-dev lib-deps test-lib-deps settings user-input)
-        path-entries (extract/from-unenriched-environment is-dev src-paths test-paths disk-paths settings user-input)
+        dep-entries (extract/from-library-deps is-dev lib-deps test-lib-deps settings)
+        path-entries (extract/from-unenriched-environment is-dev src-paths test-paths disk-paths settings)
         component-names (select/names path-entries c/component? c/src? c/exists?)
         base-names (select/names path-entries c/base? c/src? c/exists?)
         brick-names (concat component-names base-names)

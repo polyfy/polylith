@@ -21,10 +21,10 @@
         (println (str "  stable since: " (color/grey color-mode short-sha))))))
   (println))
 
-(defn print-active-dev-profiles [{:keys [active-dev-profiles]} {:keys [color-mode]}]
-  (when (-> active-dev-profiles empty? not)
+(defn print-active-profiles [{:keys [active-profiles color-mode]}]
+  (when (-> active-profiles empty? not)
     (println)
-    (println (str "  active profiles: " (color/profile (str/join ", " (sort active-dev-profiles)) color-mode)))))
+    (println (str "  active profiles: " (color/profile (str/join ", " (sort active-profiles)) color-mode)))))
 
 (defn print-info [{:keys [settings changes messages user-input] :as workspace}]
   (let [{:keys [is-show-loc is-show-resources]} user-input
@@ -32,7 +32,7 @@
         {:keys [since-sha tag]} changes]
     (print-stable-since since-sha tag color-mode)
     (count-table/print-table workspace)
-    (print-active-dev-profiles user-input settings)
+    (print-active-profiles settings)
     (println)
     (env-table/print-table workspace is-show-loc is-show-resources)
     (println)

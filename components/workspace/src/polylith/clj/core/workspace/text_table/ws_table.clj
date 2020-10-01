@@ -12,7 +12,7 @@
 
 (defn table [{:keys [settings environments components bases paths changes user-input]} is-show-loc is-show-resources]
   (let [{:keys [color-mode thousand-sep]} settings
-        profiles (profile/inactive-profiles settings user-input)
+        profiles (profile/inactive-profiles settings)
         sorted-components (sort-by component-sorter components)
         bricks (concat sorted-components bases)
         space-columns (range 2 (* 2 (+ 2 (count environments) (count profiles) (if is-show-loc 2 0))) 2)
