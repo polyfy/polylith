@@ -155,6 +155,7 @@ The `deps.edn` file looks like this:
             :top-namespace "se.example"
             :interface-ns "interface"
             :default-profile-name "default"
+            :use-compact-output false
             :build-tag-pattern "v[0-9]*"
             :stable-since-tag-pattern "stable-*"
             :env-to-alias {"development" "dev"}
@@ -1482,6 +1483,7 @@ components
             :top-namespace "se.example"
             :interface-ns "interface"
             :default-profile-name "default"
+            :use-compact-output false
             :build-tag-pattern "v[0-9]*"
             :stable-since-tag-pattern "stable-*"
             :env-to-alias {"development" "dev"
@@ -1713,6 +1715,10 @@ The KB column shows the size of each library in kilobytes, by looking in `~/.m2/
 Library dependencies are specified per environment and the same library can exist with different 
 versions.
 
+If we have a lot of libraries, we can set `:use-compact-output` to `true` in `./deps.edn`:
+
+<img src="images/realworld-lib-deps-compact.png" width="52%">
+
 The way the tool figures out what library each brick uses is to look in `:ns-to-lib` in `./deps.edn`:
 
 ```clojure
@@ -1731,15 +1737,15 @@ The way the tool figures out what library each brick uses is to look in `:ns-to-
                         taoensso.timbre       com.taoensso/timbre}}
 ```
  
-This map needs to be manually populated and specifies which namespace maps to which library.
+This map specifies which namespace maps to which library, and needs to be manually populated.
 The way the algorithm works is that it takes all the namespaces and sort them in reverse order.
 Then it tries to match each namespace against that list from top to down and takes the first match.
 
 Let's say we have this mapping:
 ```clojure
 :ns-to-lib {com.a      library-a
-          com.a.b    library-b
-          com.a.b.c  library-c}
+            com.a.b    library-b
+            com.a.b.c  library-c}
 ```
 
 ...then it will return the first matching namespace going from top to down:

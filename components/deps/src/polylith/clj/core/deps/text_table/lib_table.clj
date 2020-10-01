@@ -76,7 +76,7 @@
   (mapcat lib lib-deps))
 
 (defn table [{:keys [settings components bases environments]}]
-  (let [{:keys [profile-to-settings empty-char thousand-sep color-mode]} settings
+  (let [{:keys [profile-to-settings empty-char thousand-sep color-mode use-compact-output]} settings
         bricks (concat components bases)
         libraries (sort-by (juxt :name :version)
                            (set (concat (mapcat lib (mapcat :lib-deps environments))
@@ -94,11 +94,12 @@
         n#bricks (count bricks)
         brick-cols (brick-columns brick-col bricks lib-names empty-char)
         space-columns (range 2 (* 2 (+ 3 n#envs n#profiles n#bricks)) 2)
-        spaces (text-table/spaces 1 space-columns (repeat "  "))
+        space (if use-compact-output " " "  ")
+        spaces (text-table/spaces 1 space-columns (repeat space))
         cells (text-table/merge-cells lib-col version-col size-col env-cols profile-cols brick-cols spaces)
         line (text-table/line 2 cells)
-        section2 (+ 2 (* 2 n#envs))
-        section3 (+ 4 (* 2 (+ n#envs n#profiles)))
+        section2 (+ 4 (* 2 n#envs))
+        section3 (+ 6 (* 2 (+ n#envs n#profiles)))
         sections (text-table/spaces 2 [6 section2 section3] (repeat "   "))]
     (text-table/table "  " color-mode cells line sections)))
 

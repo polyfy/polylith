@@ -37,6 +37,7 @@
    (str "            :top-namespace \"" top-ns "\"")
    (str "            :interface-ns \"interface\"")
    (str "            :default-profile-name \"default\"")
+   (str "            :use-compact-output false")
    (str "            :build-tag-pattern \"v[0-9]*\"")
    (str "            :stable-since-tag-pattern \"stable-*\"")
    (str "            :env-to-alias {\"development\" \"dev\"}")

@@ -14,11 +14,11 @@
         (println "Can't read config file: " config-dir)
         {}))))
 
-(defn thousand-separator []
-  (:thousand-separator (config-content) ","))
-
 (defn color-mode []
   (:color-mode (config-content) "none"))
 
 (defn empty-character []
   (:empty-character (config-content) "."))
+
+(defn thousand-separator []
+  (:thousand-separator (config-content) ","))
