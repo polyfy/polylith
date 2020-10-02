@@ -2217,7 +2217,11 @@ poly help
     Libraries defined in :ns-to-lib should also be defined by the environment.
 
   Warning 206 - Reference to missing namespace in :ns-to-lib in ./deps.edn.
-    Namespaces defined in :ns-to-lib should also exist in the environment.
+    Namespaces defined in :ns-to-lib should also be defined by the environment.
+
+  Warning 207 - Non top namespace was found in brick.
+    Triggered if a namespace in a brick doesn't start with the top namespaces
+    defined in :top-namespace in ./deps.edn.
 ```
 
 ### create
