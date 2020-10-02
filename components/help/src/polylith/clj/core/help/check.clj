@@ -1,6 +1,6 @@
 (ns polylith.clj.core.help.check
-  (:require [polylith.clj.core.help.shared :as shared]
-            [polylith.clj.core.util.interface.color :as color]))
+     (:require [polylith.clj.core.help.shared :as s]
+               [polylith.clj.core.util.interface.color :as color]))
 
 (defn help-text [cm]
   (str "  Validates the workspace.\n"
@@ -12,11 +12,11 @@
        "  or 0 if only warnings. If internal errors, 1 is returned.\n"
        "\n"
        "  " (color/error cm "Error 101") " - Illegal dependency on namespace.\n"
-       "    Triggered if a " (color/purple cm ":require") " statement refers to a component namespace\n"
+       "    Triggered if a " (s/key ":require" cm) " statement refers to a component namespace\n"
        "    other than " (color/interface "interface" cm) ". Examples of valid namespaces:\n"
-       "     - " (shared/component-ns "interface" cm) "\n"
-       "     - " (shared/component-ns "interface.subns" cm) "\n"
-       "     - " (shared/component-ns "interface.my.subns" cm) "\n"
+       "     - " (s/component-ns "interface" cm) "\n"
+       "     - " (s/component-ns "interface.subns" cm) "\n"
+       "     - " (s/component-ns "interface.my.subns" cm) "\n"
        "\n"
        "  " (color/error cm "Error 102") " - Function or macro is defined twice.\n"
        "    Triggered if a function or macro is defined twice in the same namespace.\n"
@@ -51,7 +51,7 @@
        "\n"
        "  " (color/error cm "Error 109") " - Missing libraries in environment.\n"
        "    Triggered if an environment doesn't contain a library that is used by one\n"
-       "    of its bricks. Library usage for a brick is calculated using " (color/purple cm ":ns-to-lib") " in\n"
+       "    of its bricks. Library usage for a brick is calculated using " (s/key ":ns-to-lib" cm) " in\n"
        "    './deps.edn' for all its namespaces."
        "\n"
        "  " (color/warning cm "Warning 201") " - Mismatching parameter lists in function or macro.\n"
@@ -71,11 +71,15 @@
        "    It's discouraged to have the same library in both development and a profile.\n"
        "    The solution is to remove the library from dev or the profile.\n"
        "\n"
-       "  " (color/warning cm "Warning 205") " - Reference to missing library in " (color/purple cm ":ns-to-lib") " in ./deps.edn.\n"
+       "  " (color/warning cm "Warning 205") " - Reference to missing library in " (s/key ":ns-to-lib" cm) " in ./deps.edn.\n"
        "    Libraries defined in " (color/purple cm ":ns-to-lib") " should also be defined by the environment.\n"
        "\n"
-       "  " (color/warning cm "Warning 206") " - Reference to missing namespace in " (color/purple cm ":ns-to-lib") " in ./deps.edn.\n"
-       "    Namespaces defined in " (color/purple cm ":ns-to-lib") " should also exist in the environment."))
+       "  " (color/warning cm "Warning 206") " - Reference to missing namespace in " (s/key ":ns-to-lib" cm) " in ./deps.edn.\n"
+       "    Namespaces defined in " (color/purple cm ":ns-to-lib") " should also be defined by the environment.\n"
+       "\n"
+       "  " (color/warning cm "Warning 207") " - Non top namespace was found in brick.\n"
+       "    Triggered if a namespace in a brick doesn't start with the top namespaces\n"
+       "    defined in " (s/key ":top-namespace" cm) " in ./deps.edn."))
 
 (defn print-help [cm]
   (-> cm help-text println))

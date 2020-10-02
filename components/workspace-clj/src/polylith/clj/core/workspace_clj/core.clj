@@ -6,6 +6,7 @@
             [polylith.clj.core.user-config.interface :as user-config]
             [polylith.clj.core.path-finder.interface :as path-finder]
             [polylith.clj.core.workspace-clj.profile :as profile]
+            [polylith.clj.core.workspace-clj.non-top-namespace :as non-top-ns]
             [polylith.clj.core.workspace-clj.bases-from-disk :as bases-from-disk]
             [polylith.clj.core.workspace-clj.environment-from-disk :as envs-from-disk]
             [polylith.clj.core.workspace-clj.components-from-disk :as components-from-disk]))
@@ -48,6 +49,7 @@
          paths (path-finder/paths ws-dir environments profile-to-settings)
          default-profile (or default-profile-name "default")
          active-profiles (profile/active-profiles user-input default-profile profile-to-settings)
+         non-top-namespaces (non-top-ns/non-top-namespaces ws-dir top-namespace)
          settings (util/ordered-map :vcs (or vcs "git")
                                     :top-namespace top-namespace
                                     :interface-ns (or interface-ns "interface")
@@ -73,4 +75,5 @@
                        :components components
                        :bases bases
                        :environments environments
+                       :non-top-namespaces non-top-namespaces
                        :paths paths))))

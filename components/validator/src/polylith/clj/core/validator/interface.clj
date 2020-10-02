@@ -14,6 +14,7 @@
             [polylith.clj.core.validator.m204-lib-deps-exists-in-both-dev-and-profile :as m204]
             [polylith.clj.core.validator.m205-reference-to-missing-library-in-ns-lib :as m205]
             [polylith.clj.core.validator.m206-reference-to-missing-namespace-in-ns-lib :as m206]
+            [polylith.clj.core.validator.m207-non-top-namespace :as m207]
             [polylith.clj.core.validator.core :as core]
             [polylith.clj.core.validator.message-printer :as message-printer]
             [polylith.clj.core.validator.user-input.validator :as validator]))
@@ -27,7 +28,7 @@
 (defn validate [selected-environments settings environments color-mode]
   (validator/validate selected-environments settings environments color-mode))
 
-(defn validate-ws [suffixed-top-ns settings paths interface-names interfaces components bases environments interface-ns {:keys [cmd]} color-mode]
+(defn validate-ws [suffixed-top-ns settings paths interface-names interfaces components bases environments interface-ns non-top-namespaces {:keys [cmd]} color-mode]
   (vec (sort-by (juxt :type :code :message)
                 (set (concat (m101/errors suffixed-top-ns interface-names components bases interface-ns color-mode)
                              (m102/errors components color-mode)
@@ -43,4 +44,5 @@
                              (m203/warnings settings environments color-mode)
                              (m204/warnings settings environments color-mode)
                              (m205/warnings settings environments color-mode)
-                             (m206/warnings settings components bases color-mode))))))
+                             (m206/warnings settings components bases color-mode)
+                             (m207/warnings non-top-namespaces color-mode))))))
