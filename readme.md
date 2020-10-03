@@ -1695,7 +1695,7 @@ poly info +remote
 ```
 <img src="images/info-16.png" width="45%">
 
-Now the `remote` profile is included in the `development` environment.
+Now the `remote` profile is included in the `development` environment and listed after `active profiles`.
 
 It's possible to give more than one profile:
 ```
@@ -1709,7 +1709,7 @@ environment!
 The profiles can also contain libraries and paths to environments, but right now we have no such paths
 and therefore all profiles are marked with `--` in the environment section.
 
-Now when we are finished with out example system, it could be interesting to see how many lines of code
+Now when we are finished with our example system, it could be interesting to see how many lines of code
 each brick and environment consists of. This can be done by passing in `:loc`:
 ```
 poly info :loc
@@ -1720,7 +1720,7 @@ Each environment sumarises the number of lines of code for each brick it contain
 The `loc` column count number of lines of codes under the `src` directory,
 while `(t)` counts for the `test` directory.
 
-Let's run all the tests also to see if everything works:
+Let's run all the tests to see if everything works:
 ```
 poly test :env
 ```
@@ -1746,16 +1746,19 @@ can be executed for other workspaces by setting `ws-dir`, e.g.:
 poly check ws-dir:../example
 ``` 
 
-Let's continue with the RealWorld example:
+Let's continue with the RealWorld example and tag it as stable (this will only affect our local clone):
+```
+git tag -f stable-lisa
+```
 
 ```
 poly info
 ```
-<img src="images/realworld-info-1.png" width="30%">
-
+<img src="images/realworld-info.png" width="30%">
 
 Now we have some bricks to play with! 
 
+Let's list all dependencies by executing the [deps](#deps-env) command:
 ```
 poly deps
 ```
@@ -1768,13 +1771,13 @@ If we read the diagram horizontally, we can see that the `article` component use
 `profile` and `spec` interfaces.
 If we read it vertically, we can see that `article` is used by the `comment` and `rest-api` bricks.
 
-This is also what is shown if we specify article as brick:
+This is also what is shown if we specify `article` as brick:
 ```
 poly deps brick:article
 ```
 <img src="images/realworld-deps-interface.png" width="30%">
 
-There is a way to view the the component dependencies, and that is to specify an `environment` in the [deps](#deps-env) command:
+To list the component dependencies, we need to specify an `environment`:
 ```
 poly deps env:rb
 ```
@@ -1971,18 +1974,23 @@ If `~/.polylith/config.edn` does not exists, it will be created the first time t
  :empty-character "·"}
 ```
 
-There is a way to view all configuration that is used by the tool, and that is to execute the [ws](#ws) command:
+There is a way to view all configuration that is used by the tool, and that is to execute the [ws](#ws) command
+(against the `example` workspace):
 ```
 poly ws get:settings
 ```
 ```clojure
-{:build-tag-pattern "v[0-9]*",
+{:active-profiles #{"default"},
+ :build-tag-pattern "v[0-9]*",
  :changes-since "last-stable",
  :color-mode "dark",
  :default-profile-name "default",
  :empty-char "·",
- :env-to-alias {"command-line" "cl", "development" "dev", "user-service" "user-s"},
+ :env-to-alias {"command-line" "cl",
+                "development" "dev",
+                "user-service" "user-s"},
  :interface-ns "interface",
+ :m2-dir "/Users/tengstrand/.m2",
  :ns-to-lib {"slacker" "slacker"},
  :profile-to-settings {"default" {:lib-deps {},
                                   :paths ["components/user/src"
@@ -1995,27 +2003,15 @@ poly ws get:settings
  :stable-since-tag-pattern "stable-*",
  :thousand-sep ",",
  :top-namespace "se.example",
+ :use-compact-output false,
  :user-config-file "/Users/tengstrand/.polylith/config.edn",
- :user-input {:selected-profiles #{},
-              :args ["ws" "get:settings"],
-              :cmd "ws",
-              :is-dev false,
-              :get "settings",
-              :is-run-all-brick-tests false,
-              :is-run-all-tests false,
-              :is-run-env-tests false,
-              :is-search-for-ws-dir false,
-              :selected-environments #{},
-              :is-show-env false,
-              :is-show-loc false,
-              :is-show-resources false,
-              :unnamed-args []},
+ :user-home "/Users/tengstrand",
  :vcs "git"}
 ```
 
 If we are only interested in a specific element in this structure, we can dig deeper into it:
 ```
-poly get:settings:profile-to-settings:default
+poly ws get:settings:profile-to-settings:default
 ```
 
 ```clojure
@@ -2046,11 +2042,13 @@ poly ws get:keys
  :interfaces
  :messages
  :name
+ :non-top-namespaces
  :paths
  :settings
  :user-input
  :ws-dir
  :ws-reader]
+
 ```
 To list the components, type:
 ```
@@ -2062,7 +2060,7 @@ poly ws get:components:keys
 
 To show the `user` component:
 ```
-ws get:components:user
+poly ws get:components:user
 ```
 ```clojure
 {:interface {:definitions [{:name "hello",
@@ -2076,15 +2074,15 @@ ws get:components:user
  :lines-of-code-src 9,
  :lines-of-code-test 7,
  :name "user",
- :namespaces-src [{:file-path "/Users/tengstrand/source/poly-example/example1/components/user/src/se/example/user/interface.clj",
+ :namespaces-src [{:file-path "/Users/tengstrand/source/polylith/example/example/components/user/src/se/example/user/interface.clj",
                    :imports ["se.example.user.core"],
                    :name "interface",
                    :namespace "se.example.user.interface"}
-                  {:file-path "/Users/tengstrand/source/poly-example/example1/components/user/src/se/example/user/core.clj",
+                  {:file-path "/Users/tengstrand/source/polylith/example/example/components/user/src/se/example/user/core.clj",
                    :imports [],
                    :name "core",
                    :namespace "se.example.user.core"}],
- :namespaces-test [{:file-path "/Users/tengstrand/source/poly-example/example1/components/user/test/se/example/user/interface_test.clj",
+ :namespaces-test [{:file-path "/Users/tengstrand/source/polylith/example/example/components/user/test/se/example/user/interface_test.clj",
                     :imports ["clojure.test" "se.example.user.interface"],
                     :name "interface-test",
                     :namespace "se.example.user.interface-test"}],

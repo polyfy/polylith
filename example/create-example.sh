@@ -107,8 +107,8 @@ git tag -f stable-lisa
 poly info > ../sections/testing/info-commited.txt
 poly info :all-bricks > ../sections/testing/info-all-bricks.txt
 poly info :all-bricks :dev > ../sections/testing/info-all-bricks-dev.txt
-poly info :all > ../sections/testing/info-all-bricks-all.txt
-poly info :all :dev > ../sections/testing/info-all-bricks-all-dev.txt
+poly info :all > ../sections/testing/info-all.txt
+poly info :all :dev > ../sections/testing/info-all-dev.txt
 
 echo "### Profile ###"
 poly create e name:user-service
@@ -129,9 +129,25 @@ cp ../sections/profile/build-user-service-uberjar.sh scripts
 cd scripts
 chmod +x build-user-service-uberjar.sh
 ./build-user-service-uberjar.sh
-cd ../scripts
-nohup 'java -jar service.jar' &
-cd ../environments/command-line/target
+#cd ../environments/user-service/target
+#nohup 'java -jar service.jar' &
+#cd ../../command-line/target
 #java -jar command-line.jar Lisa
+cd ..
+poly info + > ../sections/profile/info-no-profiles.txt
+set +e
+poly info +default +remote > ../sections/profile/info-two-profiles.txt
+set -e
+poly info :loc > ../sections/profile/info-loc.txt
+poly test :env > ../sections/profile/info-env.txt
+
+echo "### Configuration ###"
+poly ws get:settings
+poly ws get:settings:profile-to-settings:default
+poly ws get:keys
+poly ws get:components:keys
+poly ws out:ws.edn
+poly info ws-file:ws.edn > ../sections/configuration/info.txt
+poly ws get:user-input:args ws-file:ws.edn
 
 echo "Elapsed: $((($SECONDS / 60) % 60)) min $(($SECONDS % 60)) sec"
