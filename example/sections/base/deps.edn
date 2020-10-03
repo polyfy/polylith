@@ -1,0 +1,26 @@
+{:polylith {:vcs "git"
+            :top-namespace "se.example"
+            :interface-ns "interface"
+            :default-profile-name "default"
+            :use-compact-output false
+            :build-tag-pattern "v[0-9]*"
+            :stable-since-tag-pattern "stable-*"
+            :env-to-alias {"development" "dev"}
+            :ns-to-lib {}}
+
+ :aliases  {:dev {:extra-paths ["development/src"
+                                "components/user/src"
+                                "components/user/resources"
+                                "bases/cli/src"
+                                "bases/cli/resources"]
+                  :extra-deps {org.clojure/clojure {:mvn/version "1.10.1"}
+                               org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}}
+
+            :test {:extra-paths ["components/user/test"
+                                 "bases/cli/test"]}
+
+            :poly {:main-opts ["-m" "polylith.clj.core.poly_cli.poly"]
+                   :extra-deps {polyfy/polylith
+                                {:git/url   "https://github.com/polyfy/polylith"
+                                 :sha       "69e70df8882f4d9a701ab99681a4a6870bdf052b"
+                                 :deps/root "environments/poly"}}}}}

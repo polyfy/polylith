@@ -1,0 +1,14 @@
+  stable since: [37m0c5622f | stable-lisa[0m
+
+  [35menvironments:[0m 2   [33minterfaces:[0m 1
+  [34mbases:       [0m 1   [32mcomponents:[0m 1
+
+  environment   alias  source
+  ---------------------------
+  [35mcommand-line[0m  [35mcl[0m     [35m ---  [0m
+  [35mdevelopment[0m   [35mdev[0m    [35m x--  [0m
+
+  interface  brick    [35mcl [0m   [35mdev[0m
+  -----------------   ---   ---
+  [33muser     [0m  [32muser[0m *   [35mxx-[0m   [35mxxx[0m
+  -          [34mcli[0m      [35mxx-[0m   [35mxxx[0m

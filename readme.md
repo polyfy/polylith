@@ -126,16 +126,16 @@ poly create w name:example top-ns:se.example
 
 The workspace directory structure will end up like this:
 ```sh
-example           # workspace dir
-  .git            # git repository dir
-  bases           # bases dir (empty)
-  components      # components dir (empty)
-  development
-    src           # development specific code
-  environments    # environments dir (empty)
-  deps.edn        # development + workspace config file
-  logo.png        # polylith logo
-  readme.md       # documentation
+example            # workspace dir
+├── .git           # git repository dir
+├── bases          # bases dir (empty)
+├── components     # components dir (empty)
+├── deps.edn       # development + workspace config file
+├── development
+│   └── src        # development specific code
+├── environments   # environments dir (empty)
+├── logo.png       # polylith logo
+└── readme.md      # documentation
 ```
 
 The directory structure makes it easier to find things and helps us reason about the system at a higher level. 
@@ -169,7 +169,7 @@ The `deps.edn` file looks like this:
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly_cli.poly"]
                    :extra-deps {polyfy/polylith
-                                {:git/url   "https://github.com/polyfy/polylith.git"
+                                {:git/url   "https://github.com/polyfy/polylith"
                                  :sha       "69e70df8882f4d9a701ab99681a4a6870bdf052b"
                                  :deps/root "environments/poly"}}}}}
 ```
@@ -259,23 +259,30 @@ poly create c name:user
 Our workspace will now look like this:
 ```sh
 example
-  bases
-  components
-    user
-      resources
-        user
-          .keep
-      src
-        se/example/user/interface.clj
-      test
-        se/example/user/interface_test.clj
-  development
-    src
-      dev/lisa.clj
-  environments
-  deps.edn
-  logo.png
-  readme.md
+├── bases
+├── components
+│   └── user
+│       ├── resources
+│       │   └── user
+│       │       └── .keep
+│       ├── src
+│       │   └── se
+│       │       └── example
+│       │           └── user
+│       │               └── interface.clj
+│       └── test
+│           └── se
+│               └── example
+│                   └── user
+│                       └── interface_test.clj
+├── deps.edn
+├── development
+│   └── src
+│       └── dev
+│           └── lisa.clj
+├── environments
+├── logo.png
+└── readme.md
 ```
 
 The `.keep` file is put there to prevent git from removing `components/user/resources/user`
@@ -370,12 +377,12 @@ We can find an example where the Polylith tool does that, by dividing its
 interface into several sub namespaces:
 ```sh
 util
-  interface
-    color.clj
-    exception.clj
-    os.clj
-    str.clj
-    time.clj
+└── interface
+    ├── color.clj
+    ├── exception.clj
+    ├── os.clj
+    ├── str.clj
+    └── time.clj
 ```
 
 This can be handy if we want to group the functions and not put everyone into one place.
@@ -459,29 +466,43 @@ poly create b name:cli
 Our workspace should now look like this:
 ```sh
 example
-  bases
-    cli
-      resources
-        cli
-      src
-        se/example/cli/core.clj
-      test
-        se/example/cli/core-test.clj
-  components
-    user
-      resources
-        user
-      src
-        se/example/user/interface.clj
-      test
-        se/example/user/interface_test.clj
-  development
-    src
-      dev/lisa.clj
-  environments
-  deps.edn
-  logo.png
-  readme.md
+├── bases
+│   └── cli
+│       ├── resources
+│       │   └── cli
+│       ├── src
+│       │   └── se
+│       │       └── example
+│       │           └── cli
+│       │               └── core.clj
+│       └── test
+│           └── se
+│               └── example
+│                   └── cli
+│                       └── core_test.clj
+├── components
+│   └── user
+│       ├── resources
+│       │   └── user
+│       ├── src
+│       │   └── se
+│       │       └── example
+│       │           └── user
+│       │               ├── core.clj
+│       │               └── interface.clj
+│       └── test
+│           └── se
+│               └── example
+│                   └── user
+│                       └── interface_test.clj
+├── deps.edn
+├── development
+│   └── src
+│       └── dev
+│           └── lisa.clj
+├── environments
+├── logo.png
+└── readme.md
 ```
 
 Now we need to update `deps.edn` with our newly created base:
@@ -505,7 +526,8 @@ Now we need to update `deps.edn` with our newly created base:
   (:gen-class))
 
 (defn -main [& args]
-  (println (user/hello (first args))))
+  (println (user/hello (first args)))
+  (System/exit 0))
 ```
 
 Here we added the `-main` function that later will be called from the command line.
@@ -541,31 +563,45 @@ poly create e name:command-line
 Our workspace should now look like this:
 ```sh
 example
-  bases
-    cli
-      resources
-        cli
-      src
-        se/example/cli/core.clj
-      test
-        se/example/cli/core-test.clj
-  components
-    user
-      resources
-        user
-      src
-        se/example/user/interface.clj
-      test
-        se/example/user/interface_test.clj
-  development
-    src
-      dev/lisa.clj
-  environments
-    command-line
-      deps.edn
-  deps.edn
-  logo.png
-  readme.md
+├── bases
+│   └── cli
+│       ├── resources
+│       │   └── cli
+│       ├── src
+│       │   └── se
+│       │       └── example
+│       │           └── cli
+│       │               └── core.clj
+│       └── test
+│           └── se
+│               └── example
+│                   └── cli
+│                       └── core_test.clj
+├── components
+│   └── user
+│       ├── resources
+│       │   └── user
+│       ├── src
+│       │   └── se
+│       │       └── example
+│       │           └── user
+│       │               ├── core.clj
+│       │               └── interface.clj
+│       └── test
+│           └── se
+│               └── example
+│                   └── user
+│                       └── interface_test.clj
+├── deps.edn
+├── development
+│   └── src
+│       └── dev
+│           └── lisa.clj
+├── environments
+│   └── command-line
+│       └── deps.edn
+├── logo.png
+└── readme.md
 ```
  
 The tool also reminded us of this:
@@ -573,7 +609,7 @@ The tool also reminded us of this:
   It's recommended to add an alias to :env-to-alias in ./deps.edn for the command-line environment.
 ```
 
-If we don't add the alias, it will be shown up as a `?` when we execute the `info` command:
+If we don't add the alias to ./deps.edn, it will be shown up as a `?` when we execute the `info` command:
 ```clojure
 {:polylith {...
             :env-to-alias {"development" "dev"
@@ -609,7 +645,7 @@ configuring environments by puting things in `:paths`.
 The reason all paths begin with "../../" is that `components` and `bases` live two levels up 
 compared to `environments/command-line` and not at the root as with the `development` environment.
 
-If we add a missing path here, then we will get a warning when we execute the [check](#check) or [info](#info) command.
+If we add a missing path here, then we will get a warning when we execute the [check](#check) or [info](#info) command, e.g.:
 <img src="images/warning.png" width="90%" alt="Warning">
 
 ## Tools.deps
@@ -682,14 +718,22 @@ First, we create a `scripts`directory at the workspace root and copy this [build
 to it:
 ```sh
 example
-  scripts
-    build-uberjar.sh
+├── scipts
+│   └── build-uberjar.sh
 ```
 
-Also add `build-cli-uberjar.sh` to the `scripts` directory with this content:
+Create `build-cli-uberjar.sh`:
+```sh
+example
+├── scipts
+│   ├── build-uberjar.sh
+│   └── build-cli-uberjar.sh
+```
+
+...with this content:
 ```sh
 #!/usr/bin/env bash
-./build-uberjar.sh command-line se.example.cli.core
+./build-uberjar.sh command-line
 ```
 
 ...and make sure both are executable:
@@ -700,7 +744,6 @@ chmod +x scripts/build-cli-uberjar.sh
 
 Now add the `aot` and `uberjar` aliases to `deps.edn` in `environments/command-line`:
 ```clojure
-
 {:paths ["../../components/user/src"
          "../../components/user/resources"
          "../../bases/cli/src"
@@ -717,7 +760,10 @@ Now add the `aot` and `uberjar` aliases to `deps.edn` in `environments/command-l
                      :main-opts   ["-e" "(compile,'se.example.cli.core)"]}
 
            :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
-                     :main-opts  ["-m" "uberdeps.uberjar"]}}}
+                     :main-opts  ["-m" "uberdeps.uberjar"
+                                  "--aliases" "aot"
+                                  "--main-class" "se.example.cli.core"]}}}
+
 ```
 
 The `aot` alias points to the `se.example.cli.core` namespace, which is where our `-main` function lives.
@@ -1080,12 +1126,19 @@ Before we execute any tests, let's add an environment test for the `command-line
 Begin by adding a `test` directory for the `command-line` environment:
 ```sh
 example
-  environments
-    command-line
-      test
+├── environments
+│   └── command-line
+│       └── test
 ``` 
 
-Then add the directory to `./deps.edn`:
+Then add the path to `environments/command-line/deps.edn`:
+```clojure
+            :test {:extra-paths ["../../components/user/test"
+                                 "../../bases/cli/test"
+                                 "test"]}
+```
+
+...and to `./deps.edn`:
 ```clojure
             :test {:extra-paths ["components/user/test"
                                  "bases/cli/test"
@@ -1095,10 +1148,12 @@ Then add the directory to `./deps.edn`:
 Now add the `env.dummy-test` namespace to the `command-line` environment:
 ```sh
 example
-  environments
-    command-line
-      test
-        env.dummy-test.clj
+├── environments
+│   └── command-line
+│       └── test
+│           └── env
+│               └──dummy-test.clj
+
 ```
 ```clojure
 (ns env.dummy-test
@@ -1365,9 +1420,15 @@ Let's create a checklist that will take us there:
   - [ ] Create the `default` and `remote` profiles.
     - [ ] Add the `user` paths to the `default` profile.
     - [ ] Add the `user-remote` paths to the `remote` profile.
-- [ ] Switch from `user` to `user-remote` in `deps.edn` for the `command-line` environment.
+- [x] Switch from `user` to `user-remote` in `deps.edn` for the `command-line` environment.
+  - [ ] Remove `user` related paths from `environments/command-line/deps.edn`.
+  - [ ] Add `user-remote` related paths to `environments/command-line/deps.edn`.
+  - [ ] Add the Slacker library to `deps.edn` for `command-line` (used by `user-remote`).
+  - [ ] Add the log4j library to `deps.edn` for `command-line` (to get rid of warnings).
+  - [ ] Rebuild `command-line`.
 - [ ] Create a build script for `user-service`.
     - [ ] Make it executable.
+    - [ ] Execute it.
 
 Let's go through the list.
 - [x] Create the `user-service`
@@ -1381,7 +1442,12 @@ Let's go through the list.
 poly create e name:user-service
 ```
 ```
-{:paths ["../../components/user/src"
+{...
+
+ :deps {...
+        slacker {:mvn/version "0.17.0"}}
+
+ :paths ["../../components/user/src"
          "../../components/user/resources"
          "../../bases/user-api/src"
          "../../bases/user-api/resources"]
@@ -1403,7 +1469,10 @@ poly create e name:user-service
                      :main-opts   ["-e" "(compile,'se.example.user-api.core)"]}
 
            :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
-                     :main-opts  ["-m" "uberdeps.uberjar"]}}}
+                     :main-opts  ["-m" "uberdeps.uberjar"
+                                  "--aliases" "aot"
+                                  "--main-class" "se.example.user_api.core"]}}}
+  ...
 ```
 
 - [x] Create the `user-api` base:
@@ -1412,11 +1481,12 @@ poly create b name:user-api
 ```
 - [x] Implement the server for `user-api`:
 ```
-bases
-  user-api
-    src
-      se.example.user_api.api.clj
-      se.example.user_api.core.clj
+example
+├── bases
+│   └── user-api
+│       └── src
+│           ├── se.example.user_api.api.clj
+│           └── se.example.user_api.core.clj
 ```
 ```clojure
 (ns se.example.user-api.core
@@ -1443,11 +1513,12 @@ bases
 poly create c name:user-remote interface:user
 ```
 ```
-components
-  user-remote
-    src
-      se.example.user_remote.core.clj
-      se.example.user_remote.interface.clj
+example
+├── components
+│   └── user-remote
+│       └── src
+│           ├── se.example.user_remote.core.clj
+│           └── se.example.user_remote.interface.clj
 ```
 ```clojure
 (ns se.example.user.core
@@ -1528,35 +1599,59 @@ Notice here that the profiles contain both `src` and `test` directories.
 This works as profiles are only used from the development environment.
 
 - [x] Switch from `user` to `user-remote` in `deps.edn` for the `command-line` environment.
+  - [x] Remove `user` related paths from `environments/command-line/deps.edn`.
+  - [x] Add `user-remote` related paths to `environments/command-line/deps.edn`.
+  - [x] Add the Slacker library to `deps.edn` for `command-line` (used by `user-remote`).
+  - [x] Add the log4j library to `deps.edn` for `command-line` (to get rid of warnings).
+  - [x] Rebuild `command-line`.
 
+```
+example
+├── environments
+│   └── command-line
+│       └── deps.edn
+```
 ```clojure
 {:paths ["../../components/user-remote/src"
          "../../components/user-remote/resources"
          ...
+
+ :deps {...
+        slacker {:mvn/version "0.17.0"}
+        org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
+        org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}}
+
  :aliases {:test {:extra-paths ["../../components/user-remote/test"
                                 ...
 ```
 
+```
+./build-cli-uberjar.sh  
+```
+
 - [x] Create a build script for `user-service`.
     - [x] Make it executable.
+    - [x] Execute it.
 ```sh
-scripts
-  build-user-service-uberjar.sh
+example
+├── scripts
+│   └── build-user-service-uberjar.sh
 ```
 ```sh
 #!/usr/bin/env bash
-./build-uberjar.sh user-service se.example.user-api.core
+./build-uberjar.sh user-service
 ```
 ```
-chmod +x scripts/build-user-service-uberjar.sh
+cd scripts
+chmod +x build-user-service-uberjar.sh
+./build-user-service-uberjar.sh
 ```
 
-
-Puhh, that should be it! Now let's test if if works.
+Puhh, that should be it! Now let's test if it works.
 
 Execute this from the workspace root in a separate terminal:
 ```
-cd environments/user-service/target
+cd example/environments/user-service/target
 java -jar user-service.jar
 ```
 ```
@@ -1565,7 +1660,7 @@ server started: http://127.0.0.1:2104
 
 Now execute this from the other terminal:
 ```
-cd environments/command-line/target
+cd ../environments/command-line/target
 java -jar command-line.jar Lisa
 ```
 The output should be:

@@ -51,8 +51,7 @@
            :uberjar   {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
                        :main-opts  ["-m" "uberdeps.uberjar"
                                     "--aliases" "aot"
-                                    "--main-class" "polylith.clj.core.poly_cli.core"
-                                    "--target" "./target/poly.jar"]}
+                                    "--main-class" "polylith.clj.core.poly_cli.core"]}
 
            :skinny-jar {:extra-deps {pack/pack.alpha {:git/url "https://github.com/juxt/pack.alpha.git"
                                                       :sha     "0e8731e0f24db05b74769e219051b0e92b50624a"}}

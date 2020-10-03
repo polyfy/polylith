@@ -24,3 +24,6 @@
 .nrepl-port
 
 *.iml
+
+example/example
+example/example/**

@@ -9,8 +9,7 @@
         filename (str env-path "/deps.edn")]
     (file/create-dir env-path)
     (file/create-file filename
-                      [""
-                       (str "{:paths []")
+                      [(str "{:paths []")
                        ""
                        (str " :deps {org.clojure/clojure {:mvn/version \"1.10.1\"}")
                        (str "        org.clojure/tools.deps.alpha {:mvn/version \"0.8.695\"}}")
