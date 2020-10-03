@@ -23,7 +23,10 @@
     (is (= (str brick/create-brick-message "\n")
            output))
 
-    (is (= #{"bases"
+    (is (= #{".git"
+             ".gitignore"
+             "bases"
+             "bases/.keep"
              "bases/my-base"
              "bases/my-base/resources"
              "bases/my-base/resources/my-base"
@@ -39,13 +42,13 @@
              "bases/my-base/test/se/example/my_base"
              "bases/my-base/test/se/example/my_base/core_test.clj"
              "components"
+             "components/.keep"
+             "deps.edn"
              "development"
              "development/src"
              "development/src/.keep"
              "environments"
-             ".git"
-             ".gitignore"
-             "deps.edn"
+             "environments/.keep"
              "logo.png"
              "readme.md"}
            (helper/paths "ws1")))

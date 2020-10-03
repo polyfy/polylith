@@ -24,18 +24,21 @@
     (is (= "  It's recommended to add an alias to :env-to-alias in ./deps.edn for the env1 environment.\n"
            (color/clean-colors output)))
 
-    (is (= #{"components"
+    (is (= #{".git"
+             ".gitignore"
              "bases"
+             "bases/.keep"
+             "components"
+             "components/.keep"
+             "deps.edn"
              "development"
              "development/src"
              "development/src/.keep"
              "environments"
+             "environments/.keep"
              "environments/env1"
              "environments/env1/deps.edn"
-             ".git"
-             ".gitignore"
              "logo.png"
-             "deps.edn"
              "readme.md"}
            (helper/paths "ws1")))
 

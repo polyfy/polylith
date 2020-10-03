@@ -37,16 +37,19 @@
     (is (= ""
            output))
 
-    (is (= #{"bases"
+    (is (= #{".git"
+             ".gitignore"
+             "bases"
+             "bases/.keep"
              "components"
+             "components/.keep"
+             "deps.edn"
              "development"
              "development/src"
              "development/src/.keep"
              "environments"
-             ".git"
-             ".gitignore"
+             "environments/.keep"
              "logo.png"
-             "deps.edn"
              "readme.md"}
            (helper/paths "ws1")))
 

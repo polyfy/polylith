@@ -129,11 +129,14 @@ The workspace directory structure will end up like this:
 example            # workspace dir
 ├── .git           # git repository dir
 ├── bases          # bases dir (empty)
+│   └── .keep
 ├── components     # components dir (empty)
+│   └── .keep
 ├── deps.edn       # development + workspace config file
 ├── development
 │   └── src        # development specific code
 ├── environments   # environments dir (empty)
+│   └── .keep
 ├── logo.png       # polylith logo
 └── readme.md      # documentation
 ```
@@ -145,6 +148,9 @@ or part of the system.
 An `environment` specifies our deployable artifacts and what components, bases and libraries they contain.
 Finally, we have the `development` environment (`development` + `deps.edn`)
 that are used to work with the code.
+
+The `.keep` files is put there to prevent git from removing the empty directories, if push
+without adding any files to them.
 
 A workspace is also always initialized to use [git](https://git-scm.com/), but more on that later.
  
@@ -284,9 +290,6 @@ example
 ├── logo.png
 └── readme.md
 ```
-
-The `.keep` file is put there to prevent git from removing `components/user/resources/user`
-(empty directories are automatically pruned by git).
 
 The command also printed out this message:
 ```
