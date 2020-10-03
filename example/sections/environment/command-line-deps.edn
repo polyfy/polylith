@@ -1,0 +1,11 @@
+{:paths ["../../components/user/src"
+         "../../components/user/resources"
+         "../../bases/cli/src"
+         "../../bases/cli/resources"]
+
+ :deps {org.clojure/clojure {:mvn/version "1.10.1"}
+        org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}
+
+ :aliases {:test {:extra-paths ["../../components/user/test"
+                                "../../bases/cli/test"]
+                  :extra-deps  {}}}}

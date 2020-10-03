@@ -32,8 +32,7 @@
    "<p>Add your workspace documentation here...</p>"])
 
 (defn deps-content [top-ns]
-  [(str "")
-   (str "{:polylith {:vcs \"git\"")
+  [(str "{:polylith {:vcs \"git\"")
    (str "            :top-namespace \"" top-ns "\"")
    (str "            :interface-ns \"interface\"")
    (str "            :default-profile-name \"default\"")

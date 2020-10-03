@@ -1,0 +1,42 @@
+example
+├── bases
+│   └── cli
+│       ├── resources
+│       │   └── cli
+│       ├── src
+│       │   └── se
+│       │       └── example
+│       │           └── cli
+│       │               └── core.clj
+│       └── test
+│           └── se
+│               └── example
+│                   └── cli
+│                       └── core_test.clj
+├── components
+│   └── user
+│       ├── resources
+│       │   └── user
+│       ├── src
+│       │   └── se
+│       │       └── example
+│       │           └── user
+│       │               ├── core.clj
+│       │               └── interface.clj
+│       └── test
+│           └── se
+│               └── example
+│                   └── user
+│                       └── interface_test.clj
+├── deps.edn
+├── development
+│   └── src
+│       └── dev
+│           └── lisa.clj
+├── environments
+│   └── command-line
+│       └── deps.edn
+├── logo.png
+└── readme.md
+
+29 directories, 10 files

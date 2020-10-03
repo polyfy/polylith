@@ -65,8 +65,7 @@
             "<p>Add your workspace documentation here...</p>"]
            (helper/content "ws1" "readme.md")))
 
-    (is (= [(str "")
-            (str "{:polylith {:vcs \"git\"")
+    (is (= [(str "{:polylith {:vcs \"git\"")
             (str "            :top-namespace \"se.example\"")
             (str "            :interface-ns \"interface\"")
             (str "            :default-profile-name \"default\"")
