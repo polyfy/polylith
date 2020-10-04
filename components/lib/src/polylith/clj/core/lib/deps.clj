@@ -1,4 +1,4 @@
-(ns polylith.clj.core.lib-dep.core
+(ns polylith.clj.core.lib.deps
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.common.interface :as common]))

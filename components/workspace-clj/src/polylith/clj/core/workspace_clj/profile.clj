@@ -1,12 +1,12 @@
 (ns polylith.clj.core.workspace-clj.profile
   (:require [clojure.string :as str]
-            [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.workspace-clj.library :as library]))
+            [polylith.clj.core.lib.interface :as lib]
+            [polylith.clj.core.util.interface :as util]))
 
 (defn profile [[profile-key {:keys [extra-paths extra-deps]}]]
   [(subs (name profile-key) 1)
    (util/ordered-map :paths extra-paths
-                     :lib-deps (library/with-sizes extra-deps))])
+                     :lib-deps (lib/with-sizes extra-deps))])
 
 (defn profile? [[alias]]
   (str/starts-with? (name alias) "+"))

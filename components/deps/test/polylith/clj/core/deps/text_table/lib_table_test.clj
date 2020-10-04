@@ -5,7 +5,7 @@
 (def workspace {:settings {:color-mode "none"
                            :empty-char "·"
                            :profile-to-settings {"default" {:lib-deps {}}
-                                                 "admin" {:lib-deps {"zprint" {:mvn/version "0.4.15"}}}}
+                                                 "admin" {:lib-deps {"zprint" {:version "0.4.15"}}}}
                            :ns-to-lib {"clojure" "org.clojure/clojure"
                                        "clojure.core.matrix" "net.mikera/core.matrix"
                                        "clojure.tools.deps" "org.clojure/tools.deps.alpha"}}
@@ -73,14 +73,14 @@
                          :lib-dep-names []}]
 
                 :environments [{:alias "core"
-                                :lib-deps {"org.clojure/clojure" {:mvn/version "1.10.2"}
-                                           "org.clojure/tools.deps.alpha" {:mvn/version "0.8.695" :size 55500}}}
+                                :lib-deps {"org.clojure/clojure" {:version "1.10.2"}
+                                           "org.clojure/tools.deps.alpha" {:version "0.8.695" :size 55500}}}
                                {:alias "inv"
-                                :lib-deps {"org.clojure/clojure" {:mvn/version "1.10.1"}
-                                           "org.clojure/tools.deps.alpha" {:mvn/version "0.8.695" :size 23400}}}
+                                :lib-deps {"org.clojure/clojure" {:version "1.10.1"}
+                                           "org.clojure/tools.deps.alpha" {:version "0.8.695" :size 23400}}}
                                {:alias "dev"
-                                :lib-deps {"org.clojure/clojure" {:mvn/version "1.10.1" :size 112200}
-                                           "org.clojure/tools.deps.alpha" {:mvn/version "0.8.695"}}}]})
+                                :lib-deps {"org.clojure/clojure" {:version "1.10.1" :size 112200}
+                                           "org.clojure/tools.deps.alpha" {:version "0.8.695"}}}]})
 
 (deftest table--components-with-library-dependencies--returns-correct-table
   (is (= ["                                                                                                                                       w   "

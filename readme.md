@@ -62,7 +62,7 @@ which gives us a more pleasant development experience.
 - [Testing](#testing)
 - [Profile](#profile)
 - [Dependencies](#dependencies)
-- [Libraries](#dependencies)
+- [Libraries](#libraries)
 - [Context](#context)
 - [Naming](#naming)
 - [Mix languages](#mix-languages)
@@ -149,10 +149,10 @@ An `environment` specifies our deployable artifacts and what components, bases a
 Finally, we have the `development` environment (`development` + `deps.edn`)
 that are used to work with the code.
 
-The `.keep` files is put there to prevent git from removing the empty directories, if push
-without adding any files to them.
+A workspace is always initialized to use [git](https://git-scm.com/), but more on that later.
 
-A workspace is also always initialized to use [git](https://git-scm.com/), but more on that later.
+The `.keep` files is put there to prevent git from removing the empty directories which could otherwise happen
+if the workspace is clones before any files are added.
  
 The `deps.edn` file looks like this:
 
@@ -683,7 +683,9 @@ clj -A:aot
 To build an uberjar, out of the compiled classes, we need to add this alias:
 ```clojure
            :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
-                     :main-opts  ["-m" "uberdeps.uberjar"]}}}
+                     :main-opts  ["-m" "uberdeps.uberjar"
+                                  "--aliases" "aot"
+                                  "--main-class" "se.example.cli.core"]}
            ...
 ```
 

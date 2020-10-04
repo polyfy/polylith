@@ -5,7 +5,7 @@
          "../../components/deps/src"
          "../../components/file/src"
          "../../components/git/src"
-         "../../components/lib-dep/src"
+         "../../components/lib/src"
          "../../components/path-finder/src"
          "../../components/shell/src"
          "../../components/user-config/src"

@@ -5,7 +5,7 @@
 (def type->color {"component" :green
                   "base" :blue})
 
-(defn lib [[name {:keys [mvn/version size]}]]
+(defn lib [[name {:keys [version size]}]]
   (when version [{:name name
                   :version version
                   :size size}]))

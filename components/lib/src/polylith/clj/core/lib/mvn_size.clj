@@ -1,10 +1,10 @@
-(ns polylith.clj.core.workspace-clj.library
+(ns polylith.clj.core.lib.mvn-size
   (:require [clojure.string :as str]
+            [clojure.walk :as walk]
             [polylith.clj.core.file.interface :as file]
-            [polylith.clj.core.user-config.interface :as user-config]
-            [polylith.clj.core.util.interface :as util]))
+            [polylith.clj.core.user-config.interface :as user-config]))
 
-(defn lib-size-kb [name version]
+(defn lib-size-bytes [name version]
   (try
     (let [lib-info (str/split (str name) #"/")
           lib-ns (first lib-info)
@@ -18,12 +18,10 @@
       (file/size path))
     (catch Exception _)))
 
-(defn with-size [[name {:keys [mvn/version] :as value}]]
-  (if version
-    (if-let [size (lib-size-kb name version)]
-      [name (assoc value :size size)]
-      [name value])
-    [name value]))
+(defn with-maven [value]
+  (assoc (walk/postwalk-replace {:mvn/version :version} value) :type "maven"))
 
-(defn with-sizes [library-map]
-  (util/stringify-and-sort-map (into {} (map with-size library-map))))
+(defn with-size [lib-name version value]
+  (if-let [size (lib-size-bytes lib-name version)]
+    [lib-name (assoc (with-maven value) :size size)]
+    [lib-name (with-maven value)]))

@@ -2,8 +2,8 @@
   (:require [clojure.string :as str]
             [clojure.tools.deps.alpha.util.maven :as mvn]
             [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.workspace-clj.library :as library]
             [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]))
 
 (defn absolute-path [path env]
@@ -25,8 +25,8 @@
      (read-environment env env-dir config-file is-dev paths deps aliases maven-repos)))
   ([env env-dir config-file is-dev paths deps aliases maven-repos]
    (let [src-paths (if is-dev (-> aliases :dev :extra-paths) paths)
-         lib-deps (library/with-sizes (if is-dev (-> aliases :dev :extra-deps) deps))
-         test-lib-deps (library/with-sizes (-> aliases :test :extra-deps))
+         lib-deps (lib/with-sizes (if is-dev (-> aliases :dev :extra-deps) deps))
+         test-lib-deps (lib/with-sizes (-> aliases :test :extra-deps))
          absolute-src-paths (absolute-paths env src-paths is-dev)
          test-paths (-> aliases :test :extra-paths)
          absolute-test-paths (absolute-paths env test-paths is-dev)
