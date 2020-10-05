@@ -129,14 +129,11 @@ The workspace directory structure will end up like this:
 example            # workspace dir
 ├── .git           # git repository dir
 ├── bases          # bases dir (empty)
-│   └── .keep
 ├── components     # components dir (empty)
-│   └── .keep
 ├── deps.edn       # development + workspace config file
 ├── development
 │   └── src        # development specific code
 ├── environments   # environments dir (empty)
-│   └── .keep
 ├── logo.png       # polylith logo
 └── readme.md      # documentation
 ```
@@ -151,8 +148,8 @@ that are used to work with the code.
 
 A workspace is always initialized to use [git](https://git-scm.com/), but more on that later.
 
-The `.keep` files is put there to prevent git from removing the empty directories which could otherwise happen
-if the workspace is clones before any files are added.
+The `bases`, `components` and `environments` directories also contain a .keep file, and they are put there to prevent git from
+removing the empty directories which could otherwise happen if the workspace is clones before any files are added.
  
 The `deps.edn` file looks like this:
 
@@ -176,7 +173,7 @@ The `deps.edn` file looks like this:
             :poly {:main-opts ["-m" "polylith.clj.core.poly_cli.poly"]
                    :extra-deps {polyfy/polylith
                                 {:git/url   "https://github.com/polyfy/polylith"
-                                 :sha       "69e70df8882f4d9a701ab99681a4a6870bdf052b"
+                                 :sha       "78b2c77c56d1b41109d68b451069affac935200e"
                                  :deps/root "environments/poly"}}}}}
 ```
 
@@ -376,7 +373,7 @@ To do so we first create an `interface` package (directory) with the name `inter
 and then we put the sub namaspaces in there.
 
 We can find an example where the Polylith tool does that, by dividing its 
-[util](https://github.com/tengstrand/polylith/tree/master/components/util/src/polylith/clj/core/util/interface)
+[util](https://github.com/polyfy/polylith/tree/master/components/util/src/polylith/clj/core/util/interface)
 interface into several sub namespaces:
 ```sh
 util
@@ -699,7 +696,7 @@ When we created the workspace with the [create w](#create-w) command, the `poly`
             :poly {:main-opts ["-m" "polylith.clj.core.poly_cli.poly"]
                    :extra-deps {polyfy/polylith
                                 {:git/url   "https://github.com/polyfy/polylith.git"
-                                 :sha       "69e70df8882f4d9a701ab99681a4a6870bdf052b"
+                                 :sha       "78b2c77c56d1b41109d68b451069affac935200e"
                                  :deps/root "environments/poly"}}}
 ```
 
@@ -719,7 +716,7 @@ use scripts and maybe a build tool, or create our own build functions that we ac
 We think they will do a better job and give us the level of control, flexibility and power we need.
 
 Let's say we want to create an executable jar file out of the `command-line` environment.  
-First, we create a `scripts`directory at the workspace root and copy this [build-uberjar.sh](https://github.com/tengstrand/polylith/blob/master/scripts/build-uberjar.sh)
+First, we create a `scripts`directory at the workspace root and copy this [build-uberjar.sh](https://github.com/polyfy/polylith/blob/master/scripts/build-uberjar.sh)
 to it:
 ```sh
 example
@@ -1594,9 +1591,9 @@ example
                                     "components/user-remote/test"]}
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly_cli.poly"]
-                   :extra-deps {tengstrand/polylith
-                                {:git/url   "https://github.com/tengstrand/polylith.git"
-                                 :sha       "69e70df8882f4d9a701ab99681a4a6870bdf052b"
+                   :extra-deps {polyfy/polylith
+                                {:git/url   "https://github.com/polyfy/polylith.git"
+                                 :sha       "78b2c77c56d1b41109d68b451069affac935200e"
                                  :deps/root "environments/poly"}}}}}
 ``` 
 
@@ -1813,16 +1810,19 @@ poly libs
 ```
 <img src="images/realworld-lib-deps.png" width="60%">
 
-Only libraries defined as `{mvn/version ...}` are included.
-The KB column shows the size of each library in kilobytes, by looking in `~/.m2/repositories`.
-Library dependencies are specified per environment and the same library can exist with different 
-versions.
+Libraries can be specified in three different ways:
 
-If we have a lot of libraries, we can set `:use-compact-output` to `true` in `./deps.edn`:
-
-<img src="images/realworld-lib-deps-compact.png" width="52%">
-
-The way the tool figures out what library each brick uses is to look in `:ns-to-lib` in `./deps.edn`:
+| Type  | Description |
+|:------|:------------------------------------------------------|
+| Maven | As a [Maven](https://maven.apache.org/) dependency. Example: `clj-time/clj-time {:mvn/version "0.15.2"}` where the key is the Maven `groupId/artifactId`. Those dependencies are stored locally in the `~/.m2/repositories` directory. |
+| Local | As a local dependency. Example: `clj-time {:local/root "/local-libs/clj-time-0.15.2.jar"}` where the key is an arbitrary identifier. A local dependency is a path to a locally stored file. |
+| Git   | As a [Git](https://git-scm.com/) dependency. Example: `clj-time/clj-time {:git/url "https://github.com/clj-time/clj-time.git", :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}` where the key must match the path for the library in `~/.gitlibs/libs` (to be able to calculate the `KB` column). |
+ 
+The KB column shows the size of each library in kilobytes. If you get the key path wrong or if the library
+hasn't been downloaded yet, then it will be shown as blank.
+   
+Library dependencies are specified per environment and the way the tool figures out what library each 
+brick uses is to look in `:ns-to-lib` in `./deps.edn`, e.g:
 
 ```clojure
             :ns-to-lib {clj-time              clj-time
@@ -1841,6 +1841,8 @@ The way the tool figures out what library each brick uses is to look in `:ns-to-
 ```
  
 This map specifies which namespace maps to which library, and needs to be manually populated.
+The same library can occur more than once as long as the namespaces are unique.
+
 The way the algorithm works is that it takes all the namespaces and sort them in reverse order.
 Then it tries to match each namespace against that list from top to down and takes the first match.
 
@@ -1863,7 +1865,9 @@ For example:
 - If we compare with the `com.a.x.y` namespace, it will match against `com.a` and return `library-a`.  
 - If we compare with the `com.a.b.x` namespace, it will match against `com.a.b` and return `library-b`.
 
-The same library can occur more than once in the `ns-to-lib` mapping, as long as the namespaces are unique.
+If we have a lot of libraries, we can choose a more compact format by setting `:use-compact-output` to `true` in `./deps.edn`:
+
+<img src="images/realworld-lib-deps-compact.png" width="52%">
 
 ## Context
 
@@ -1888,17 +1892,17 @@ By first import the `user` interface and then type:
 (user/
 ```
 
-...the IDE will list all available functions in the `user` interface and one of them would be `persist!`:
+...now the IDE will list all available functions in the `user` interface and one of them would be `persist!`:
 ```clojure
 (user/persist! db user-to-be-saved)
 ```
 
 ## Naming
 
-Every time we create a an `interface`, `component`, `base`, `environment` or `workspace`,
+Every time we create an `interface`, `component`, `base`, `environment` or `workspace`,
 we need to come up with a good name.
 Finding good names is one of the hardest and most important thing in software.
-Every time we fail in finding a good name, it will make the system harder to understand and change.
+Every time we fail in finding a good name, it will make the system harder to reason about and change.
 
 The components are the core of Polylith, so let's start with them.
 If a component does **one thing** then we can name it based on that, e.g.
@@ -1911,7 +1915,8 @@ then suffixing it with `-api` is a good pattern, like `aws-api`.
 
 If we have two components that share the same interface, e.g. `invoicer`, 
 where the `invoicer` component contains the business logic, while the other component only delegates
-to a service that includes the `invoicer` component, then we can name the second component `invoicer-remote`.
+to a service that includes the `invoicer` component, then we can name the component
+that does the remote call, `invoicer-remote`.
 
 If we have found a good name for the component, then it's generally a good idea to keep the same name for
 the interface, which is also the default behaviour when a component is created with e.g. `create c invoicer`.
@@ -1957,6 +1962,7 @@ The workspace configuration is stored under the `:polylith` key in `./deps.edn` 
 | :top-namespace             | The workspace top namespace. If changed, the source code has to be changed accordingly. |
 | :interface-ns              | The default value is `interface`. If changed, the source code has to be changed accordingly. |
 | :default-profile-name      | The default value is `default`. If changed, the `+default` alias in `./deps.edn` has to be renamed accordingly. |
+| :use-compact-output        | The default value is `false`. If set to `true`, then the `libs` diagram will be shown in a more compact format. |
 | :build-tag-pattern         | The default value is `v[0-9]*`. If changed, old tags may not be recognised. |
 | :stable-since-tag-pattern  | The default value is `stable-*`. If changed, old tags may not be recognised. |
 | :env-to-alias              | If the `development` key is missing, `{"development" "dev"}` will be added. |
@@ -1979,8 +1985,10 @@ If `~/.polylith/config.edn` does not exists, it will be created the first time t
  :empty-character "·"}
 ```
 
+### The workspace state
+
 There is a way to view all configuration that is used by the tool, and that is to execute the [ws](#ws) command
-(against the `example` workspace):
+(here, against the `example` workspace):
 ```
 poly ws get:settings
 ```
@@ -2032,8 +2040,8 @@ The commands only operate on this hash map and is not performing any side effect
 like touching the disk or executing git commands. Instead, everything is prepared so that all commands can
 be executed in memory. 
 
-This will not only speed up and simplify the code of the tool itself, but it also gives us as a user
-of the tool a way to explore the complete state of the workspace.
+This will not only simplify the code of the tool itself but it also gives us, as a user of the tool,
+a way to explore the complete state of the workspace.
 
 A good way to start digging into this data structure is to list all its keys:
 ```
@@ -2726,30 +2734,42 @@ poly help
 ```
   Shows all libraries that are used in the workspace.
 
-  poly libs
-                                                                           a  p         
-                                                                           d  a  u  u   
-                                                                           m  y  s  t  c
-                                                                           i  e  e  i  l
-  library                       version     KB   cl  dev  default   admin  n  r  r  l  i
-  --------------------------------------------   ----------------   --------------------
-  clj-time                      0.15.2      23   x    x      -        x    ·  ·  x  ·  ·
-  org.clojure/clojure           1.10.1   3,816   x    x      -        -    ·  ·  ·  ·  ·
-  org.clojure/tools.deps.alpha  0.8.695     46   x    x      -        -    ·  ·  ·  ·  ·
+  poly libs [:all]
+    :all = Also include bricks that have no library dependencies.
+                                                                              u  u
+                                                                              s  t
+                                                                              e  i
+    library                       version     KB   cl   dev  default  admin   r  l
+    --------------------------------------------   --   -------------------   ----
+    antlr/antlr                   2.7.7      434   x     x      -       -     ·  x
+    clj-time                      0.15.2      23   x     x      -       -     x  ·
+    org.clojure/clojure           1.10.1   3,816   x     x      -       -     ·  ·
+    org.clojure/tools.deps.alpha  0.8.695     46   x     x      -       -     ·  ·
 
-  In this example we have three libraries used by the cl and dev environments.
+  In this example we have four libraries used by the cl and dev environments.
   If any of the libraries are added to the default or admin profiles, they will appear
   as 'x' in these columns.
 
-  The 'x' in the user column, tells that 'clj-time' is used by that component
-  by having at least one :require statement that includes the 'clj-time' namespace.
+  The 'x' in the user column, tells that clj-time is used by that component
+  by having at least one :require statement that includes a clj-time namespace.
 
   Libraries are only specified per environment, and the way it finds out which libraries
   are used for a specific brick, is by looking in :ns-to-lib in ./deps.edn
-  which in this case has the value {clj-time clj-time} - typed in as symbols.
+  which in this case has the value {clj-time clj-time, antlr antlr/antlr} -
+  typed in as symbols.
 
-  Libraries are selected per envronment and it's therefore possible to have different
+  Libraries are selected per environment and it's therefore possible to have different
   versions of the same library in different environments (if needed).
+
+  This table supports all three different ways of including a dependency:
+   - Maven, e.g.: clj-time/clj-time {:mvn/version "0.15.2"}
+   - Local, e.g.: clj-time {:local/root "/local-libs/clj-time-0.15.2.jar"}
+   - Git, e.g.: {:git/url "https://github.com/clj-time/clj-time.git"
+                 :sha     "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}
+
+  The KB column shows the size in kilobytes, which is the size of the jar
+  file for Maven and Local dependencies, and the size of all files in the
+  ~/.gitlibs/libs/YOUR-LIBRARY directory for Git dependencies.
 ```
 
 ### test
@@ -2856,7 +2876,7 @@ with the following content:
  :empty-character "·"}
 ```
 - The _color-mode_ can be set to either "none", "light" or "dark", depending on the color schema you use.
-  The only difference between "light" and "dark" is that they use different [codes](https://github.com/tengstrand/polylith/tree/master/components/util/src/polylith/clj/core/util/colorizer.clj) for grey.
+  The only difference between "light" and "dark" is that they use different [codes](https://github.com/polyfy/polylith/tree/master/components/util/src/polylith/clj/core/util/colorizer.clj) for grey.
 - The _thousand-spearator_ is used to separate numbers larger then 999 like 12,345.
 - The _empty-character_ can be replaced by a . (period) if your computer has problems showing it (they are used in the `deps` command).
 

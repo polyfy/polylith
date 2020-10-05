@@ -20,13 +20,13 @@
                                        (set included-envs))]
     (select-envs env environments is-dev)))
 
-(defn environments-to-test [{:keys [name is-run-tests] :as environment} disk-paths changed-environments is-dev is-run-env-tests is-run-all-tests]
+(defn environments-to-test [{:keys [name is-run-tests] :as environment} disk-paths changed-environments is-dev is-run-env-tests is-all]
   (let [included-envs (included-environments environment disk-paths)]
     (cond
-      is-run-all-tests [name (vec (sort (select-envs name included-envs is-dev)))]
+      is-all [name (vec (sort (select-envs name included-envs is-dev)))]
       (and is-run-tests is-run-env-tests) [name (vec (sort (env-tests name changed-environments included-envs is-dev)))]
       :else [name []])))
 
-(defn env-to-environments-to-test [environments changed-environments disk-paths is-dev is-run-env-tests is-run-all-tests]
-  (into {} (map #(environments-to-test % disk-paths changed-environments is-dev is-run-env-tests is-run-all-tests)
+(defn env-to-environments-to-test [environments changed-environments disk-paths is-dev is-run-env-tests is-all]
+  (into {} (map #(environments-to-test % disk-paths changed-environments is-dev is-run-env-tests is-all)
                 environments)))

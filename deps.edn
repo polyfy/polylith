@@ -15,9 +15,7 @@
                         puget                   mvxcvi/puget
                         deps-deploy.deps-deploy slipset/deps-deploy}}
 
- :aliases  {:dev {:extra-paths [; Development
-                                "development/src"
-                                ; Components
+ :aliases  {:dev {:extra-paths ["development/src"
                                 "components/api/src"
                                 "components/change/src"
                                 "components/command/src"
@@ -44,7 +42,6 @@
                                 "components/workspace/src"
                                 "components/workspace-clj/src"
                                 "components/ws-explorer/src"
-                                ; Bases
                                 "bases/poly-cli/src"
                                 "bases/migrator-cli/src"
                                 "bases/deployer-cli/src"]

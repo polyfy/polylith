@@ -1,5 +1,6 @@
 (ns polylith.clj.core.deps.text-table.lib-table
-  (:require [polylith.clj.core.util.interface.str :as str-util]
+  (:require [clojure.set :as set]
+            [polylith.clj.core.util.interface.str :as str-util]
             [polylith.clj.core.text-table.interface :as text-table]))
 
 (def type->color {"component" :green
@@ -75,12 +76,21 @@
 (defn profile-lib [[_ {:keys [lib-deps]}]]
   (mapcat lib lib-deps))
 
-(defn table [{:keys [settings components bases environments]}]
+(defn has-library? [{:keys [lib-dep-names]} lib-names]
+  (-> (set/intersection (set lib-names)
+                        (set lib-dep-names))
+      empty? not))
+
+(defn table [{:keys [settings components bases environments]} is-all]
   (let [{:keys [profile-to-settings empty-char thousand-sep color-mode use-compact-output]} settings
-        bricks (concat components bases)
         libraries (sort-by (juxt :name :version)
                            (set (concat (mapcat lib (mapcat :lib-deps environments))
                                         (mapcat profile-lib profile-to-settings))))
+        lib-names (map :name libraries)
+        all-bricks (concat components bases)
+        bricks (if is-all
+                 all-bricks
+                 (filter #(has-library? % lib-names) all-bricks))
         lib-col (lib-column libraries)
         version-col (version-column libraries)
         size-col (size-column libraries thousand-sep)
@@ -88,7 +98,6 @@
         profile-col (+ 7 (* 2 (count environments)))
         profile-cols (profile-columns profile-col libraries profile-to-settings)
         brick-col (+ profile-col (* 2 (count profile-to-settings)))
-        lib-names (map :name libraries)
         n#envs (count environments)
         n#profiles (count profile-to-settings)
         n#bricks (count bricks)
@@ -103,5 +112,5 @@
         sections (text-table/spaces 2 [6 section2 section3] (repeat "   "))]
     (text-table/table "  " color-mode cells line sections)))
 
-(defn print-table [workspace]
-  (text-table/print-table (table workspace)))
+(defn print-table [workspace is-all]
+  (text-table/print-table (table workspace is-all)))

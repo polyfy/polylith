@@ -41,7 +41,7 @@
   [library {:version version}])
 
 (deftest environments--config-map-with-aliases--returns-environments
-  (let [result (env/read-environment "poly" "environments/poly" "environments/poly/deps.edn" false paths deps aliases mvn/standard-repos)]
+  (let [result (env/read-environment "poly" "environments/poly" "environments/poly/deps.edn" false paths deps aliases mvn/standard-repos "/USER")]
     (is (= {:config-file     "environments/poly/deps.edn"
             :is-dev            false
             :env-dir         "environments/poly"
@@ -72,6 +72,3 @@
                                                                :version "0.8.695"
                                                                :size    47566}}
            (:lib-deps result)))))
-
-(map filter-version
-  (:lib-deps (env/read-environment "poly" "environments/poly" "environments/poly/deps.edn" false paths deps aliases mvn/standard-repos)))

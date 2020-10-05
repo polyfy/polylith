@@ -82,7 +82,31 @@
                                 :lib-deps {"org.clojure/clojure" {:version "1.10.1" :size 112200}
                                            "org.clojure/tools.deps.alpha" {:version "0.8.695"}}}]})
 
-(deftest table--components-with-library-dependencies--returns-correct-table
+(deftest table--show-brick-with-deps--returns-correct-table
+  (is (= ["                                                                                                                                 w"
+          "                                                                                                                                 o"
+          "                                                                                                      p     t  t                 r"
+          "                                                                                                      a     e  e  t  u           k"
+          "                                                                                                      t     s  s  e  s     v  w  s"
+          "                                                                                                      h     t  t  x  e     a  o  p"
+          "                                                                                    c                 -     -  -  t  r     l  r  a"
+          "                                                                                 c  o  c              f     h  r  -  -     i  k  c"
+          "                                                                                 h  m  o              i  s  e  u  t  i     d  s  e"
+          "                                                                                 a  m  m  d  f     h  n  h  l  n  a  n  u  a  p  -"
+          "                                                                                 n  a  m  e  i  g  e  d  e  p  n  b  p  t  t  a  c"
+          "                                                                                 g  n  o  p  l  i  l  e  l  e  e  l  u  i  o  c  l"
+          "  library                       version   KB   core  inv   dev  default  admin   e  d  n  s  e  t  p  r  l  r  r  e  t  l  r  e  j"
+          "  ------------------------------------------   ---------   -------------------   -------------------------------------------------"
+          "  org.clojure/clojure           1.10.1   109    -     -     x      -       -     x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x"
+          "  org.clojure/clojure           1.10.1          -     x     -      -       -     x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x"
+          "  org.clojure/clojure           1.10.2          x     -     -      -       -     x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x"
+          "  org.clojure/tools.deps.alpha  0.8.695         -     -     x      -       -     ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·  ·  ·  x"
+          "  org.clojure/tools.deps.alpha  0.8.695   54    x     -     -      -       -     ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·  ·  ·  x"
+          "  org.clojure/tools.deps.alpha  0.8.695   22    -     x     -      -       -     ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·  ·  ·  x"
+          "  zprint                        0.4.15          -     -     -      -       x     ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·"]
+         (lib-table/table workspace false))))
+
+(deftest table--show-all-brick-deps--returns-correct-table
   (is (= ["                                                                                                                                       w   "
           "                                                                                                                                       o   "
           "                                                                                                         p     t  t     u              r   "
@@ -104,4 +128,4 @@
           "  org.clojure/tools.deps.alpha  0.8.695   54    x     -     -      -       -     ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·  ·  ·  ·  x  ·"
           "  org.clojure/tools.deps.alpha  0.8.695   22    -     x     -      -       -     ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·  ·  ·  ·  x  ·"
           "  zprint                        0.4.15          -     -     -      -       x     ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·"]
-         (lib-table/table workspace))))
+         (lib-table/table workspace true))))

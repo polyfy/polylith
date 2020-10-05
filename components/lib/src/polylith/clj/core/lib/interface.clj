@@ -5,5 +5,5 @@
 (defn dependencies [settings brick]
   (deps/dependencies settings brick))
 
-(defn with-sizes [library-map]
-  (core/with-sizes library-map))
+(defn with-sizes [library-map user-home]
+  (core/with-sizes library-map user-home))
