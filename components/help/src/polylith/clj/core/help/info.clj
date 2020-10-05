@@ -14,10 +14,13 @@
        "                         the last stable point in time is calculated based on\n"
        "                         the latest git tag that follows the pattern 'stable-*',\n"
        "                         specified by " (s/key ":stable-since-tag-pattern" cm) " in ./deps.edn." "\n"
-       "                         If set to " (s/key "previous-build" cm) " then it takes the\n"
-       "                         second latest git tag that matches " (s/key ":build-tag-pattern" cm) " in\n"
-       "                         ./deps.edn. If no tag matched, it takes the first\n"
-       "                         commit in the repository."
+       "\n"
+       "                         If set to " (s/key "previous-build" cm) " then it takes the second\n"
+       "                         latest git tag that follows the pattern 'v[0-9]*',\n"
+       "                         specified by " (s/key ":build-tag-pattern" cm) " in ./deps.edn.\n"
+       "\n"
+       "                         If no tag matched, it takes the first commit in the\n"
+       "                         repository.\n"
        "\n"
        "  In addition to " (s/key ":loc" cm) ", all the arguments used by the 'test' command\n"
        "  can also be used as a way to see what tests will be executed.\n"
@@ -78,8 +81,8 @@
        "     " (color/environment "development   dev     x--       --      --" cm) "\n"
        "\n"
        "    This table lists all environments. The 'environment' column shows the name\n"
-       "    of the environments, which are the directory names under the 'environments' directory,\n"
-       "    except for 'development' that stores its code under the\n"
+       "    of the environments, which are the directory names under the 'environments',\n"
+       "    directory except for 'development' that stores its code under the\n"
        "    'development' directory.\n"
        "\n"
        "    The 'deps.edn' config files are stored under each environment, except for\n"
@@ -202,3 +205,5 @@
 
 (defn print-help [color-mode]
   (println (help-text color-mode)))
+
+(print-help "none")

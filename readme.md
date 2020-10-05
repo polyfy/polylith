@@ -2161,7 +2161,7 @@ poly help
 ```
 
 ```
-  Polylith - https://github.com/polyfy/polylith
+  Poly 0.1 (2020-10-05) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -2169,22 +2169,23 @@ poly help
     create E name:N [ARG]   Creates a component, base, environment or workspace.
     deps [env:E] [brick:B]  Shows dependencies.
     diff                    Shows changed files since last stable point in time.
-    help [C] [ARG]          Shows this help or help for a specified command.
+    help [C] [ARG]          Shows this help or help for specified command.
     info [ARGS]             Shows a workspace overview and checks if it's valid.
     libs                    Shows all libraries in the workspace.
     test [ARGS]             Runs tests.
     ws [get:X]              Shows the workspace as data.
 
   If ws-dir:PATH is passed in as an argument, where PATH is a relative
-  or absolute path, then the command is executed from that directory. 
+  or absolute path, then the command is executed from that directory.
+  This works for all commands except 'create' and 'test'.
 
-  If :: is passed in, then ws-dir is set to the first parent directory 
-  (or current) that contains a 'deps.edn' workspace config file. The exception 
+  If :: is passed in, then ws-dir is set to the first parent directory
+  (or current) that contains a 'deps.edn' workspace config file. The exception
   is the 'test' command that has to be executed from the workspace root.
 
   If ws-file:FILE is passed in, then the workspace will be populated with the
-  content from that file. All commands except 'create' and 'test' can be
-  executed with this parameter set. The FILE is created by executing the
+  content from that file. All commands except 'create' and 'test'
+  can be executed with this parameter set. The FILE is created by executing the
   'ws' command, e.g.: 'poly ws out:ws.edn'.
 
   The color mode can be overridden by passing in e.g. color-mode:none
@@ -2227,6 +2228,7 @@ poly help
     poly info ::
     poly info color-mode:none
     poly info ws-dir:another-ws
+    poly info ws-file:ws.edn
     poly libs
     poly test
     poly test env:myenv
@@ -2540,14 +2542,17 @@ poly help
     ARGS = :loc       -> Shows the number of lines of code for each brick and
                          environment.
 
-           since:WHEN -> If set to last-stable or if 'since' is not given, then 
-                         the last stable point in time is calculated based on 
-                         the latest git tag that follows the pattern 'stable-*', 
+           since:WHEN -> If set to last-stable or if 'since' is not given, then
+                         the last stable point in time is calculated based on
+                         the latest git tag that follows the pattern 'stable-*',
                          specified by :stable-since-tag-pattern in ./deps.edn.
-                         If set to previous-build then it takes the second 
-                         latest git tag that matches :build-tag-pattern in
-                         ./deps.edn. If no tag matched, it takes the first 
-                         commit in the repository.
+
+                         If set to previous-build then it takes the second
+                         latest git tag that follows the pattern 'v[0-9]*',
+                         specified by :build-tag-pattern in ./deps.edn.
+
+                         If no tag matched, it takes the first commit in the
+                         repository.
 
   In addition to :loc, all the arguments used by the 'test' command
   can also be used as a way to see what tests will be executed.
@@ -2584,14 +2589,14 @@ poly help
   2. environments: 2   interfaces: 3
      bases:        1   components: 4
 
-     Shows how many environments, bases, components and interfaces there are in
-     the workspace.
+     Shows how many environments, bases, components and interfaces there are
+     in the workspace.
 
   3. active profiles: default
 
      Shows the names of active profiles. The profile paths are merged into the
      development environment. A profiles is an aliase in ./deps.edn that starts
-     with a +. If no profile is selected, the default profile is automatically 
+     with a +. If no profile is selected, the default profile is automatically
      selected.
 
      Profiles are activated by passing them in by name (prefixed with '+'), e.g.:
@@ -2607,8 +2612,8 @@ poly help
      development   dev     x--       --      --
 
     This table lists all environments. The 'environment' column shows the name
-    of the environments, which are the directory names under the 'environments'
-    directory, except for 'development' that stores its code under the
+    of the environments, which are the directory names under the 'environments',
+    directory except for 'development' that stores its code under the
     'development' directory.
 
     The 'deps.edn' config files are stored under each environment, except for
@@ -2620,31 +2625,30 @@ poly help
       x--  The environment has a 'src' directory, e.g.
            'environments/command-line/src'.
       -x-  The environment has a 'test' directory, e.g.
-           'environments/command-line/test'.
-      --x  The environment tests (its own) are marked for execution.
+           'environments/command-line/test'
+.      --x  The environment tests (its own) are marked for execution.
 
     To show the 'resources' directory, also pass in :r or :resources, e.g.
-    'poly info :r':
-      x---  The environment has a 'src' directory, e.g.
+    'poly info :r':      x---  The environment has a 'src' directory, e.g.
             'environments/command-line/src'.
-      -x--  The environment has a 'resources' directory, e.g. 
+      -x--  The environment has a 'resources' directory, e.g.
             'environments/command-line/resources'.
-      --x-  The environment has a 'test' directory, e.g. 
-            'environments/command-line/test'.
+      --x-  The environment has a 'test' directory, e.g.
+            'environments/command-line/test'
       ---x  The environment tests (its own) are marked for execution.
 
     The last two columns, default admin, are the profiles:
-      x-  The profile contains a path to the 'src' directory, e.g. 
+      x-  The profile contains a path to the 'src' directory, e.g.
           'environments/command-line/src'.
-      -x  The profile contains a path to the 'test' directory, e.g. 
-          'environments/command-line/test'.
-
+      -x  The profile contains a path to the 'test' directory, e.g.
+          'environments/command-line/test'
+.
     If also passing in :r or :resources, e.g. 'poly info +r':
-      x--  The profile contains a path to the 'src' directory, e.g. 
+      x--  The profile contains a path to the 'src' directory, e.g.
            'environments/command-line/src'.
       -x-  The profile contains a path to the 'resources' directory, e.g.
            'environments/command-line/resources'.
-      --x  The profile contains a path to the 'test' directory, e.g. 
+      --x  The profile contains a path to the 'test' directory, e.g.
            'environments/command-line/test'.
 
   5. interface  brick    cl    dev  admin
@@ -2658,55 +2662,54 @@ poly help
     This table lists all bricks and in which environments and profiles they are
     added to.
 
-    The 'interface' column shows what interface the component has. The name is
-    the first namespace after the component name, e.g.:
-    com.my.company.user.interface.
+    The 'interface' column shows what interface the component has. The name
+    is the first namespace after the component name, e.g.:
+    com.my.company.user.interface
 
     The 'brick' column shows the name of the brick. In green if a component or
-    blue if a base. Each component lives in a directory under the 'components' 
-    directory and each base lives under the 'bases' directory. If any file for 
-    a brick has changed since the last stable point in time, it will be marked 
+    blue if a base. Each component lives in a directory under the 'components'
+    directory and each base lives under the 'bases' directory. If any file for
+    a brick has changed since the last stable point in time, it will be marked
     with an asterisk, * (user in this example).
 
     The changed files can be listed by executing 'poly diff'.
 
-    The next cl column is the command-line environment that lives under the 
+    The next cl column is the command-line environment that lives under the
     'environments' directory. Each line in this column says whether a brick is
     included in the environment or not.
-
     The flags mean:
-      x--  The environment contains a path to the 'src' directory,
-           e.g. 'components/user/src'.
-      -x-  The environment contains a path to the 'test' directory,
-           e.g. 'components/user/test'.
+      x--  The environment contains a path to the 'src' directory, e.g.
+           'components/user/src'.
+      -x-  The environment contains a path to the 'test' directory, e.g.
+           'components/user/test'.
       --x  The brick is marked to be executed from this environment.
 
     If :r or :resources is also passed in:
-      x---  The environment contains a path to the 'src' directory,
-            e.g. 'components/user/src'.
-      -x--  The environment contains a path to the 'resources' directory, e.g. 
+      x---  The environment contains a path to the 'src' directory, e.g. 
+            'components/user/src'.
+      -x--  The environment contains a path to the 'resources' directory, e.g.
             'components/user/resources'.
-      --x-  The environment contains a path to the 'test' directory, e.g. 
-            'components/user/test'.
-      ---x  The brick is marked to be executed from this environment.
+      --x-  The environment contains a path to the 'test' directory, e.g.
+            'components/user/test'
+.      ---x  The brick is marked to be executed from this environment.
 
     The next group of columns, dev admin, is the development environment with
-    its profiles. If passing in a plus with 'poly info +' then it will also 
-    show the default profile. The flags for the dev environment works the same
+    its profiles. If passing in a plus with 'poly info +' then it will also show
+    the default profile. The flags for the dev environment works the same
     as for cl.
 
     The flags for the admin profile means:
-      x-  The profile contains a path to the 'src' directory, e.g. 
+      x-  The profile contains a path to the 'src' directory, e.g.
           'components/user/src'.
-      -x  The profile contains a path to the 'test' directory, e.g. 
-          'components/user/test'.
+      -x  The profile contains a path to the 'test' directory, e.g.
+          'components/user/test'
 
     If :r or :resources is also passed in:
-      x--  The profile contains a path to the 'src' directory, e.g. 
+      x--  The profile contains a path to the 'src' directory, e.g.
            'components/user/src'.
-      -x-  The profile contains a path to the 'resources' directory, e.g. 
+      -x-  The profile contains a path to the 'resources' directory, e.g.
            'components/user/resources'.
-      --x  The profile contains a path to the 'test' directory, e.g. 
+      --x  The profile contains a path to the 'test' directory, e.g.
            'components/user/test'.
 
   It's not enough that a path has been added to an environment to show an 'x',
@@ -2727,6 +2730,7 @@ poly help
     poly info :all
     poly info :all-bricks
     poly info ws-dir:another-ws
+    poly info ws-file:ws.edn
 ```
 
 ### libs
@@ -2734,7 +2738,7 @@ poly help
   Shows all libraries that are used in the workspace.
 
   poly libs [:all]
-    :all = Also include bricks that have no library dependencies.
+    :all = View all bricks, including those without library dependencies.
                                                                               u  u
                                                                               s  t
                                                                               e  i

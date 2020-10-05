@@ -17,6 +17,7 @@
            "../../components/user-input/src"
            "../../components/util/src"
            "../../components/validator/src"
+           "../../components/version/src"
            "../../components/workspace/src"
            "../../components/workspace-clj/src"
            "../../components/ws-explorer/src"

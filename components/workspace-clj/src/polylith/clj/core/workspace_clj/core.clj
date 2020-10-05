@@ -4,6 +4,7 @@
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.user-config.interface :as user-config]
+            [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.path-finder.interface :as path-finder]
             [polylith.clj.core.workspace-clj.profile :as profile]
             [polylith.clj.core.workspace-clj.non-top-namespace :as non-top-ns]
@@ -14,8 +15,6 @@
 (def ws-reader
   {:name "polylith-clj"
    :project-url "https://github.com/polyfy/polylith"
-   :reader-version "1.0"
-   :ws-contract-version 1
    :language "Clojure"
    :type-position "postfix"
    :slash "/"
@@ -50,7 +49,9 @@
          paths (path-finder/paths ws-dir environments profile-to-settings)
          default-profile (or default-profile-name "default")
          active-profiles (profile/active-profiles user-input default-profile profile-to-settings)
-         settings (util/ordered-map :vcs (or vcs "git")
+         settings (util/ordered-map :version version/version
+                                    :contract-version version/contract-version
+                                    :vcs (or vcs "git")
                                     :top-namespace top-namespace
                                     :interface-ns (or interface-ns "interface")
                                     :default-profile-name default-profile

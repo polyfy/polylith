@@ -8,7 +8,7 @@
   (str "  Shows all libraries that are used in the workspace.\n"
        "\n"
        "  poly libs [:all]\n"
-       "    :all = Also include bricks that have no library dependencies.\n"
+       "    :all = View all bricks, including those without library dependencies.\n"
        "                                                                              " (color/component "u  u\n" cm)
        "                                                                              " (color/component "s  t\n" cm)
        "                                                                              " (color/component "e  i\n" cm)

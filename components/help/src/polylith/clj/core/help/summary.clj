@@ -1,10 +1,11 @@
 (ns polylith.clj.core.help.summary
   (:require [polylith.clj.core.help.shared :as s]
+            [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.util.interface.color :as color]))
 
 (defn help-text [cm]
   (str
-    "  Polylith - " (color/blue cm "https://github.com/polyfy/polylith\n")
+    "  Poly " version/full-version " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
     "\n"
     "  poly " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] - where " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] are:\n"
     "\n"
@@ -12,7 +13,7 @@
     "    create " (s/key "E" cm) " name:" (s/key "N" cm) " [" (s/key "ARG" cm) "]   Creates a component, base, environment or workspace.\n"
     "    deps [env:" (s/key "E" cm) "] [brick:" (s/key "B" cm) "]  Shows dependencies.\n"
     "    diff                    Shows changed files since last stable point in time.\n"
-    "    help [" (s/key "C" cm) "] [" (s/key "ARG" cm) "]          Shows this help or help for a specified command.\n"
+    "    help [" (s/key "C" cm) "] [" (s/key "ARG" cm) "]          Shows this help or help for specified command.\n"
     "    info [" (s/key "ARGS" cm) "]             Shows a workspace overview and checks if it's valid.\n"
     "    libs                    Shows all libraries in the workspace.\n"
     "    test [" (s/key "ARGS" cm) "]             Runs tests.\n"
@@ -20,6 +21,7 @@
     "\n"
     "  If " (s/key "ws-dir:PATH" cm) " is passed in as an argument, where " (s/key "PATH" cm) " is a relative\n"
     "  or absolute path, then the command is executed from that directory.\n"
+    "  This works for all commands except 'create' and 'test'.\n"
     "\n"
     "  If " (s/key "::" cm) " is passed in, then ws-dir is set to the first parent directory\n"
     "  (or current) that contains a 'deps.edn' workspace config file. The exception\n"
