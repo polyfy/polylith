@@ -72,7 +72,7 @@
             (str "            :top-namespace \"se.example\"")
             (str "            :interface-ns \"interface\"")
             (str "            :default-profile-name \"default\"")
-            (str "            :use-compact-output false")
+            (str "            :compact-views #{}")
             (str "            :build-tag-pattern \"v[0-9]*\"")
             (str "            :stable-since-tag-pattern \"stable-*\"")
             (str "            :env-to-alias {\"development\" \"dev\"}")

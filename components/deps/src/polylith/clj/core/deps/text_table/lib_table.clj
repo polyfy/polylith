@@ -82,7 +82,7 @@
       empty? not))
 
 (defn table [{:keys [settings components bases environments]} is-all]
-  (let [{:keys [profile-to-settings empty-char thousand-sep color-mode use-compact-output]} settings
+  (let [{:keys [profile-to-settings empty-char thousand-sep color-mode compact-views]} settings
         libraries (sort-by (juxt :name :version)
                            (set (concat (mapcat lib (mapcat :lib-deps environments))
                                         (mapcat profile-lib profile-to-settings))))
@@ -103,7 +103,7 @@
         n#bricks (count bricks)
         brick-cols (brick-columns brick-col bricks lib-names empty-char)
         space-columns (range 2 (* 2 (+ 3 n#envs n#profiles n#bricks)) 2)
-        space (if use-compact-output " " "  ")
+        space (if (contains? compact-views "libs") " " "  ")
         spaces (text-table/spaces 1 space-columns (repeat space))
         cells (text-table/merge-cells lib-col version-col size-col env-cols profile-cols brick-cols spaces)
         line (text-table/line 2 cells)

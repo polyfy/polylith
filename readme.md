@@ -158,7 +158,7 @@ The `deps.edn` file looks like this:
             :top-namespace "se.example"
             :interface-ns "interface"
             :default-profile-name "default"
-            :use-compact-output false
+            :compact-views #{}
             :build-tag-pattern "v[0-9]*"
             :stable-since-tag-pattern "stable-*"
             :env-to-alias {"development" "dev"}
@@ -1556,7 +1556,7 @@ example
             :top-namespace "se.example"
             :interface-ns "interface"
             :default-profile-name "default"
-            :use-compact-output false
+            :compact-views #{}
             :build-tag-pattern "v[0-9]*"
             :stable-since-tag-pattern "stable-*"
             :env-to-alias {"development" "dev"
@@ -1865,7 +1865,7 @@ For example:
 - If we compare with the `com.a.x.y` namespace, it will match against `com.a` and return `library-a`.  
 - If we compare with the `com.a.b.x` namespace, it will match against `com.a.b` and return `library-b`.
 
-If we have a lot of libraries, we can choose a more compact format by setting `:use-compact-output` to `true` in `./deps.edn`:
+If we have a lot of libraries, we can choose a more compact format by setting `:compact-views` to `#{"libs"}` in `./deps.edn`:
 
 <img src="images/realworld-lib-deps-compact.png" width="52%">
 
@@ -1962,9 +1962,9 @@ The workspace configuration is stored under the `:polylith` key in `./deps.edn` 
 | :top-namespace             | The workspace top namespace. If changed, the source code has to be changed accordingly. |
 | :interface-ns              | The default value is `interface`. If changed, the source code has to be changed accordingly. |
 | :default-profile-name      | The default value is `default`. If changed, the `+default` alias in `./deps.edn` has to be renamed accordingly. |
-| :use-compact-output        | The default value is `false`. If set to `true`, then the `libs` diagram will be shown in a more compact format. |
 | :build-tag-pattern         | The default value is `v[0-9]*`. If changed, old tags may not be recognised. |
 | :stable-since-tag-pattern  | The default value is `stable-*`. If changed, old tags may not be recognised. |
+| :compact-views             | The default value is #{}. If set to #{"libs"}, then the `libs` diagram will be shown in a more compact format. Only "libs" is supported at the moment. |
 | :env-to-alias              | If the `development` key is missing, `{"development" "dev"}` will be added. |
 | :ns-to-lib                 | Can be left empty, but will give a more detailed output from the [libs](#libs) command if populated. |
 
@@ -1997,6 +1997,7 @@ poly ws get:settings
  :build-tag-pattern "v[0-9]*",
  :changes-since "last-stable",
  :color-mode "dark",
+ :compact-views #{},
  :default-profile-name "default",
  :empty-char "·",
  :env-to-alias {"command-line" "cl",
@@ -2016,7 +2017,6 @@ poly ws get:settings
  :stable-since-tag-pattern "stable-*",
  :thousand-sep ",",
  :top-namespace "se.example",
- :use-compact-output false,
  :user-config-file "/Users/tengstrand/.polylith/config.edn",
  :user-home "/Users/tengstrand",
  :vcs "git"}
