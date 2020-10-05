@@ -9,8 +9,12 @@
                       :message (color/clean-colors message)
                       :colorized-message message)))
 
-(defn warnings [non-top-namespaces color-mode]
+(defn non-top-nss [{:keys [name type non-top-namespaces]}]
+  (mapv #(assoc (select-keys % [:non-top-ns]) :name name :type type)
+        non-top-namespaces))
+
+(defn warnings [components bases color-mode]
   (map #(warning % color-mode)
        (sort-by (juxt :type :name)
-                (set (map #(select-keys % [:type :name :non-top-ns])
-                          non-top-namespaces)))))
+                (set (mapcat non-top-nss
+                             (concat components bases))))))

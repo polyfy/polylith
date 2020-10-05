@@ -41,15 +41,15 @@
          user-home (user-config/home-dir)
          thousand-sep (user-config/thousand-separator)
          user-config-file (str (user-config/home-dir) "/.polylith/config.edn")
+         brick->non-top-namespaces (non-top-ns/brick->non-top-namespaces ws-dir top-namespace)
          component-names (file/directories (str ws-dir "/components"))
-         components (components-from-disk/read-components ws-dir top-src-dir component-names interface-ns)
-         bases (bases-from-disk/read-bases ws-dir top-src-dir)
+         components (components-from-disk/read-components ws-dir top-src-dir component-names interface-ns brick->non-top-namespaces)
+         bases (bases-from-disk/read-bases ws-dir top-src-dir brick->non-top-namespaces)
          environments (envs-from-disk/read-environments ws-dir user-home)
          profile-to-settings (profile/profile-to-settings aliases user-home)
          paths (path-finder/paths ws-dir environments profile-to-settings)
          default-profile (or default-profile-name "default")
          active-profiles (profile/active-profiles user-input default-profile profile-to-settings)
-         non-top-namespaces (non-top-ns/non-top-namespaces ws-dir top-namespace)
          settings (util/ordered-map :vcs (or vcs "git")
                                     :top-namespace top-namespace
                                     :interface-ns (or interface-ns "interface")
@@ -75,5 +75,4 @@
                        :components components
                        :bases bases
                        :environments environments
-                       :non-top-namespaces non-top-namespaces
                        :paths paths))))

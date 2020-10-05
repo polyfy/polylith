@@ -2055,7 +2055,6 @@ poly ws get:keys
  :interfaces
  :messages
  :name
- :non-top-namespaces
  :paths
  :settings
  :user-input
