@@ -3,5 +3,5 @@
   (:gen-class))
 
 (defn -main [& args]
-  (println (user-core/hello (first args)))
+  (println (user/hello (first args)))
   (System/exit 0))

@@ -23,7 +23,7 @@ in the same way we played with Lego when we were kids!
 
 Not surprisingly, it's just as simple and fun!
 
-This project uses Polylith itself to structure the code and the `poly` tool to visualize it, e.g.:
+This repository uses Polylith itself to structure the code and the `poly` tool for visualization of the workspace, e.g.:
 
 <img src="images/polylith-info-deps-libs.png" width="100%" alt="Polylith examples">
 
@@ -532,7 +532,7 @@ Now we need to update `deps.edn` with our newly created base:
   (:gen-class))
 
 (defn -main [& args]
-  (println (user-core/hello (first args)))
+  (println (user/hello (first args)))
   (System/exit 0))
 ```
 
@@ -1039,7 +1039,7 @@ namespace in the `user` component:
 
 (deftest hello--when-called-with-a-name--then-return-hello-phrase
   (is (= "Hello Lisa!"
-         (user-core/hello "Lisa"))))
+         (user/hello "Lisa"))))
 ```
 
 Now let's run the [test](#test) command:
@@ -1080,7 +1080,7 @@ corresponding test accordingly:
 
 (deftest hello--when-called-with-a-name--then-return-hello-phrase
   (is (= "Hello Lisa!!"
-         (user-core/hello "Lisa"))))
+         (user/hello "Lisa"))))
 ```
 
 If we run the `test` command again, it will now pass:
@@ -1510,7 +1510,7 @@ example
   (:require [se.example.user.interface :as user]))
 
 (defn hello-remote [name]
-  (user-core/hello (str name " - from the server")))
+  (core/hello (str name " - from the server")))
 ```
 
 - [x] Create the `user-remote` component:
@@ -1894,12 +1894,12 @@ userService.persist(db, userToBeSaved)
 With Polylith we get the same level of support from the IDE.
 By first import the `user` interface and then type:
 ```clojure
-(user-core/
+(user/
 ```
 
 ...now the IDE will list all available functions in the `user` interface and one of them would be `persist!`:
 ```clojure
-(user-core/persist! db user-to-be-saved)
+(user/persist! db user-to-be-saved)
 ```
 
 ## Naming
