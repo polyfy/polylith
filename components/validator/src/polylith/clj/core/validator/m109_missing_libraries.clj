@@ -14,8 +14,8 @@
                        :colorized-message message
                        :environment env)]))
 
-(defn env-warning [{:keys [name component-names base-names lib-deps]} bricks used-libs color-mode]
-  (let [existing-libs (set (map first lib-deps))
+(defn env-warning [{:keys [name component-names base-names lib-deps profile]} bricks used-libs color-mode]
+  (let [existing-libs (set (map first (concat lib-deps (:lib-deps profile))))
         brick-names (concat component-names base-names)
         brick->lib-dep-names (into {} (map (juxt :name :lib-dep-names) bricks))
         expected-libs (set (mapcat brick->lib-dep-names brick-names))

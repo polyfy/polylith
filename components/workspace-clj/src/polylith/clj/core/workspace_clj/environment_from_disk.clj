@@ -39,7 +39,7 @@
                        :type "environment"
                        :src-paths absolute-src-paths
                        :test-paths absolute-test-paths
-                       :lib-deps (util/stringify-and-sort-map lib-deps)
+                       :lib-deps lib-deps
                        :test-lib-deps test-lib-deps
                        :maven-repos maven-repos
                        :namespaces-src namespaces-src

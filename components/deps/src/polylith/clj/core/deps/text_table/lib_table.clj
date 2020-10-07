@@ -85,6 +85,7 @@
   (let [{:keys [profile-to-settings empty-char thousand-sep color-mode compact-views]} settings
         libraries (sort-by (juxt :name :version)
                            (set (concat (mapcat lib (mapcat :lib-deps environments))
+                                        (mapcat lib (mapcat #(-> % :profile :lib-deps) environments))
                                         (mapcat profile-lib profile-to-settings))))
         lib-names (map :name libraries)
         all-bricks (concat components bases)

@@ -67,10 +67,12 @@
                        :component-names (select/names path-entries c/component? c/src? c/exists?)
                        :base-names base-names
                        :test-base-names test-base-names
-                       :profile-src-paths (select/paths path-entries c/profile? c/src?)
-                       :profile-test-paths (select/paths path-entries c/profile? c/test?)
+                       :profile {:src-paths (select/paths path-entries c/profile? c/src?)
+                                 :test-paths (select/paths path-entries c/profile? c/test?)
+                                 :lib-deps (select/lib-deps dep-entries c/profile? c/src?)
+                                 :test-lib-deps (select/lib-deps dep-entries c/profile? c/test?)}
                        :lib-imports lib-imports-src
                        :lib-imports-test lib-imports-test
-                       :lib-deps (select/lib-deps dep-entries c/src?)
+                       :lib-deps (select/lib-deps dep-entries c/src? c/not-profile?)
                        :deps deps
-                       :test-lib-deps (select/lib-deps dep-entries c/test?))))
+                       :test-lib-deps (select/lib-deps dep-entries c/test? c/not-profile?))))
