@@ -5,7 +5,7 @@
 
 (defn help-text [cm]
   (str
-    "  Poly " version/full-version " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
+    "  Poly " version/version " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
     "\n"
     "  poly " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] - where " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] are:\n"
     "\n"
