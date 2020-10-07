@@ -8,10 +8,18 @@
             [polylith.clj.core.validator.interface :as validator])
   (:refer-clojure :exclude [test]))
 
+(defn adjust-key [{:keys [type path version]}]
+  (case type
+    "maven" {:mvn/version version}
+    "local" {:local/root path}
+    (throw (Exception. (str "Unknown library type: " type)))))
+
 (defn key-as-symbol [[library version]]
   "The library names (keys) are stored as strings in the workspace
-   and need to be converted back to symbols here."
-  [(symbol library) version])
+   and need to be converted back to symbols here.
+   Library dependencies are stored as :type and :version and needs
+   to be translated back to :mvn/version and :local/root."
+  [(symbol library) (adjust-key version)])
 
 (defn ->config [workspace {:keys [lib-deps test-lib-deps maven-repos]}]
   (assoc workspace :mvn/repos maven-repos
@@ -23,12 +31,12 @@
          (require '~ns-symbol)
          (clojure.test/run-tests '~ns-symbol))))
 
-(defn resolve-deps [{:keys [deps] :as config}]
+(defn resolve-deps [env {:keys [deps] :as config} color-mode]
   (try
     (into #{} (mapcat #(-> % second :paths)
                       (tools-deps/resolve-deps config {:extra-deps deps})))
     (catch Exception e
-      (println e)
+      (println (str "Couldn't resolve libraries for the " (color/environment env color-mode) " environment: " e))
       (throw e))))
 
 (defn brick-test-namespaces [bricks test-brick-names]
@@ -39,7 +47,7 @@
   (when (contains? (set environments-to-test) env)
     (map :namespace namespaces-test)))
 
-(defn run-test-statements [class-loader test-statements run-message color-mode]
+(defn run-test-statements [env class-loader test-statements run-message color-mode]
   (println (str run-message))
   (doseq [statement test-statements]
     (let [{:keys [error fail pass]}
@@ -47,7 +55,7 @@
             (common/eval-in class-loader statement)
             (catch Exception e
               (.printStackTrace e)
-              (println (str (color/error color-mode "Couldn't run test statement: ") statement " " (color/error color-mode e)))))
+              (println (str (color/error color-mode "Couldn't run test statement") " for the " (color/environment env color-mode)  " environment: " statement " " (color/error color-mode e)))))
           result-str (str "Test results: " pass " passes, " fail " failures, " error " errors.")]
       (when (or (nil? error)
                 (< 0 error)
@@ -80,7 +88,7 @@
   (when (-> test-paths empty? not)
     (let [color-mode (-> workspace :settings :color-mode)
           config (->config workspace environment)
-          lib-paths (resolve-deps config)
+          lib-paths (resolve-deps name config color-mode)
           all-src-paths (set (concat src-paths test-paths profile-src-paths profile-test-paths))
           all-paths (concat all-src-paths lib-paths)
           bricks (concat components bases)
@@ -93,7 +101,7 @@
           class-loader (common/create-class-loader all-paths color-mode)]
       (if (-> test-statements empty?)
         (println (str "No tests to run for the " (color/environment name color-mode) " environment."))
-        (run-test-statements class-loader test-statements run-message color-mode)))))
+        (run-test-statements name class-loader test-statements run-message color-mode)))))
 
 (defn has-tests-to-run? [{:keys [name]} {:keys [env-to-bricks-to-test env-to-environments-to-test]}]
   (not (empty? (concat (env-to-bricks-to-test name)

@@ -1,7 +1,7 @@
 {:polylith {:top-namespace "polylith.clj.core"
             :interface-ns "interface"
             :default-profile-name "default"
-            :use-compact-output false
+            :compact-views #{}
             :build-tag-pattern "v[0-9]*"
             :stable-since-tag-pattern "stable-*"
             :env-to-alias {"api" "api"
@@ -15,9 +15,7 @@
                         puget                   mvxcvi/puget
                         deps-deploy.deps-deploy slipset/deps-deploy}}
 
- :aliases  {:dev {:extra-paths [; Development
-                                "development/src"
-                                ; Components
+ :aliases  {:dev {:extra-paths ["development/src"
                                 "components/api/src"
                                 "components/change/src"
                                 "components/command/src"
@@ -30,7 +28,7 @@
                                 "components/git/src"
                                 "components/help/src"
                                 "components/help/src"
-                                "components/lib-dep/src"
+                                "components/lib/src"
                                 "components/migrator/src"
                                 "components/path-finder/src"
                                 "components/shell/src"
@@ -41,10 +39,10 @@
                                 "components/user-input/src"
                                 "components/util/src"
                                 "components/validator/src"
+                                "components/version/src"
                                 "components/workspace/src"
                                 "components/workspace-clj/src"
                                 "components/ws-explorer/src"
-                                ; Bases
                                 "bases/poly-cli/src"
                                 "bases/migrator-cli/src"
                                 "bases/deployer-cli/src"]
@@ -63,7 +61,7 @@
                                  "components/deps/test"
                                  "components/file/test"
                                  "components/git/test"
-                                 "components/lib-dep/test"
+                                 "components/lib/test"
                                  "components/migrator/test"
                                  "components/path-finder/test"
                                  "components/user-input/test"

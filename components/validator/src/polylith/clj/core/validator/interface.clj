@@ -28,7 +28,7 @@
 (defn validate [selected-environments settings environments color-mode]
   (validator/validate selected-environments settings environments color-mode))
 
-(defn validate-ws [suffixed-top-ns settings paths interface-names interfaces components bases environments interface-ns non-top-namespaces {:keys [cmd]} color-mode]
+(defn validate-ws [suffixed-top-ns settings paths interface-names interfaces components bases environments interface-ns {:keys [cmd]} color-mode]
   (vec (sort-by (juxt :type :code :message)
                 (set (concat (m101/errors suffixed-top-ns interface-names components bases interface-ns color-mode)
                              (m102/errors components color-mode)
@@ -45,4 +45,4 @@
                              (m204/warnings settings environments color-mode)
                              (m205/warnings settings environments color-mode)
                              (m206/warnings settings components bases color-mode)
-                             (m207/warnings non-top-namespaces color-mode))))))
+                             (m207/warnings components bases color-mode))))))

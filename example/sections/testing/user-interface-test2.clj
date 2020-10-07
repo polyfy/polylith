@@ -4,4 +4,4 @@
 
 (deftest hello--when-called-with-a-name--then-return-hello-phrase
          (is (= "Hello Lisa!!"
-                (user/hello "Lisa"))))
+                (user-core/hello "Lisa"))))

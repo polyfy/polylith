@@ -1,12 +1,12 @@
 (ns polylith.clj.core.validator.m206-reference-to-missing-namespace-in-ns-lib
   (:require [clojure.set :as set]
             [clojure.string :as str]
-            [polylith.clj.core.lib-dep.interface :as lib-dep]
+            [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]))
 
 (defn included-namespaces [settings brick]
-  (:included-namespaces (lib-dep/dependencies settings brick)))
+  (:included-namespaces (lib/dependencies settings brick)))
 
 (defn warnings [settings components bases color-mode]
   (let [bricks (concat components bases)

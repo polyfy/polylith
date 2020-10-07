@@ -2,7 +2,7 @@
             :top-namespace "se.example"
             :interface-ns "interface"
             :default-profile-name "default"
-            :use-compact-output false
+            :compact-views #{}
             :build-tag-pattern "v[0-9]*"
             :stable-since-tag-pattern "stable-*"
             :env-to-alias {"development" "dev"}

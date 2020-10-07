@@ -4,11 +4,11 @@
 (defn root-dir []
   @core/root-dir)
 
-(defn user-home []
-  core/user-home)
+(defn content [dir filename]
+  (core/content dir filename))
 
-(defn test-setup-and-tear-down [function]
-  (core/test-setup-and-tear-down function))
+(defn update-dev-paths! [deps-file src path]
+  (core/update-dev-paths! deps-file src path))
 
 (defn execute-command [current-dir & args]
   (core/execute-command current-dir args))
@@ -16,5 +16,8 @@
 (defn paths [dir]
   (core/paths dir))
 
-(defn content [dir filename]
-  (core/content dir filename))
+(defn test-setup-and-tear-down [function]
+  (core/test-setup-and-tear-down function))
+
+(defn user-home []
+  core/user-home)

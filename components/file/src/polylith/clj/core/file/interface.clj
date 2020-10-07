@@ -23,6 +23,9 @@
 (defn copy-file-or-dir+ [from to]
   (core/copy-file-or-dir+ from to))
 
+(defn copy-file [from to]
+  (fs/copy from to))
+
 (defn copy-file+ [from to]
   (fs/copy+ from to))
 

@@ -4,7 +4,7 @@
 
 (defn test-params [& args]
   (select-keys (user-input/extract-params args)
-               [:is-run-all-tests
+               [:is-all
                 :is-run-all-brick-tests
                 :is-run-env-tests
                 :selected-environments]))
@@ -14,42 +14,42 @@
                [:selected-profiles]))
 
 (deftest parameters--no-arguments
-  (is (= {:is-run-all-tests false
+  (is (= {:is-all false
           :is-run-all-brick-tests false
           :is-run-env-tests false
           :selected-environments #{}}
          (test-params))))
 
 (deftest parameters--a-single-env
-  (is (= {:is-run-all-tests false
+  (is (= {:is-all false
           :is-run-all-brick-tests false
           :is-run-env-tests false
           :selected-environments #{"core"}}
          (test-params "cmd" "env:core"))))
 
 (deftest parameters--a-list-of-envs
-  (is (= {:is-run-all-tests false
+  (is (= {:is-all false
           :is-run-all-brick-tests false
           :is-run-env-tests false
           :selected-environments #{"cli" "core"}}
          (test-params "cmd" "env:core:cli"))))
 
 (deftest parameters--single-env+all
-  (is (= {:is-run-all-tests true
+  (is (= {:is-all true
           :is-run-all-brick-tests true
           :is-run-env-tests true
           :selected-environments #{"core"}}
          (test-params "cmd" "env:core" ":all"))))
 
 (deftest parameters--single-env+all-bricks
-  (is (= {:is-run-all-tests false
+  (is (= {:is-all false
           :is-run-all-brick-tests true
           :is-run-env-tests false
           :selected-environments #{"core"}}
          (test-params "cmd" "env:core" ":all-bricks"))))
 
 (deftest parameters--test-env
-  (is (= {:is-run-all-tests false
+  (is (= {:is-all false
           :is-run-all-brick-tests false
           :is-run-env-tests true
           :selected-environments #{}}

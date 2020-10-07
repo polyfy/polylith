@@ -37,16 +37,19 @@
     (is (= ""
            output))
 
-    (is (= #{"bases"
+    (is (= #{".git"
+             ".gitignore"
+             "bases"
+             "bases/.keep"
              "components"
+             "components/.keep"
+             "deps.edn"
              "development"
              "development/src"
              "development/src/.keep"
              "environments"
-             ".git"
-             ".gitignore"
+             "environments/.keep"
              "logo.png"
-             "deps.edn"
              "readme.md"}
            (helper/paths "ws1")))
 
@@ -69,7 +72,7 @@
             (str "            :top-namespace \"se.example\"")
             (str "            :interface-ns \"interface\"")
             (str "            :default-profile-name \"default\"")
-            (str "            :use-compact-output false")
+            (str "            :compact-views #{}")
             (str "            :build-tag-pattern \"v[0-9]*\"")
             (str "            :stable-since-tag-pattern \"stable-*\"")
             (str "            :env-to-alias {\"development\" \"dev\"}")

@@ -11,8 +11,7 @@
             "src"])
 
 (def deps '{org.clojure/clojure {:mvn/version "1.10.1"}
-            org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}
-            org.jetbrains.kotlin/kotlin-compiler-embeddable {:mvn/version "1.3.72"}})
+            org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}})
 
 (def aliases '{:dev {:extra-paths paths
                      :extra-deps deps}
@@ -38,11 +37,11 @@
   (is (= "components/comp"
          (env/absolute-path "../../components/comp" "dev"))))
 
-(defn filter-version [[library {:keys [mvn/version]}]]
-  [library {:mvn/version version}])
+(defn filter-version [[library {:keys [version]}]]
+  [library {:version version}])
 
 (deftest environments--config-map-with-aliases--returns-environments
-  (let [result (env/read-environment "poly" "environments/poly" "environments/poly/deps.edn" false paths deps aliases mvn/standard-repos)]
+  (let [result (env/read-environment "poly" "environments/poly" "environments/poly/deps.edn" false paths deps aliases mvn/standard-repos "/USER")]
     (is (= {:config-file     "environments/poly/deps.edn"
             :is-dev            false
             :env-dir         "environments/poly"
@@ -66,7 +65,10 @@
                               "components/common/test"]
             :type            "environment"}
            (dissoc result :lib-deps)))
-    (is (= {"org.clojure/clojure"                             {:mvn/version "1.10.1"}
-            "org.clojure/tools.deps.alpha"                    {:mvn/version "0.8.695"}
-            "org.jetbrains.kotlin/kotlin-compiler-embeddable" {:mvn/version "1.3.72"}}
-           (into {} (map filter-version (:lib-deps result)))))))
+    (is (= {"org.clojure/clojure"                             {:type    "maven"
+                                                               :version "1.10.1"
+                                                               :size    3908431}
+            "org.clojure/tools.deps.alpha"                    {:type    "maven"
+                                                               :version "0.8.695"
+                                                               :size    47566}}
+           (:lib-deps result)))))

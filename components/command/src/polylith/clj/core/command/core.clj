@@ -68,7 +68,7 @@
            change/with-changes))
      (read-ws-from-file cmd ws-file user-input))))
 
-(defn execute [{:keys [cmd args name top-ns ws-file is-show-brick is-show-bricks is-show-env brick get out interface selected-environments unnamed-args] :as user-input}]
+(defn execute [{:keys [cmd args name top-ns ws-file is-all is-show-brick is-show-bricks is-show-env brick get out interface selected-environments unnamed-args] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (common/workspace-dir user-input color-mode)
         environment-name (first selected-environments)
@@ -84,7 +84,7 @@
         "diff" (diff workspace)
         "help" (help arg1 arg2 is-show-env is-show-brick is-show-bricks color-mode)
         "info" (info/info workspace unnamed-args)
-        "libs" (deps/print-lib-table workspace)
+        "libs" (deps/print-lib-table workspace is-all)
         "test" (test/run workspace unnamed-args color-mode)
         "ws" (ws-explorer/ws workspace get out color-mode)
         (unknown-command cmd))

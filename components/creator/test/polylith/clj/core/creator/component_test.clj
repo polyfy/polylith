@@ -23,8 +23,12 @@
     (is (= (str brick/create-brick-message "\n")
            output))
 
-    (is (= #{"bases"
+    (is (= #{".git"
+             ".gitignore"
+             "bases"
+             "bases/.keep"
              "components"
+             "components/.keep"
              "components/my-component"
              "components/my-component/resources"
              "components/my-component/resources/my-component"
@@ -39,13 +43,12 @@
              "components/my-component/test/se/example"
              "components/my-component/test/se/example/my_component"
              "components/my-component/test/se/example/my_component/interface_test.clj"
+             "deps.edn"
              "development"
              "development/src"
              "development/src/.keep"
              "environments"
-             ".git"
-             ".gitignore"
-             "deps.edn"
+             "environments/.keep"
              "logo.png"
              "readme.md"}
            (helper/paths "ws1")))
@@ -66,8 +69,12 @@
     (is (= (str brick/create-brick-message "\n")
            output))
 
-    (is (= #{"bases"
+    (is (= #{".git"
+             ".gitignore"
+             "bases"
+             "bases/.keep"
              "components"
+             "components/.keep"
              "components/my-component"
              "components/my-component/resources"
              "components/my-component/resources/my-component"
@@ -82,13 +89,12 @@
              "components/my-component/test/se/example"
              "components/my-component/test/se/example/my_interface"
              "components/my-component/test/se/example/my_interface/interface_test.clj"
+             "deps.edn"
              "development"
              "development/src"
              "development/src/.keep"
              "environments"
-             ".git"
-             ".gitignore"
-             "deps.edn"
+             "environments/.keep"
              "logo.png"
              "readme.md"}
            (helper/paths "ws1")))

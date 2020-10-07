@@ -4,7 +4,7 @@
          "../../components/deps/src"
          "../../components/file/src"
          "../../components/git/src"
-         "../../components/lib-dep/src"
+         "../../components/lib/src"
          "../../components/path-finder/src"
          "../../components/shell/src"
          "../../components/text-table/src"
@@ -12,6 +12,7 @@
          "../../components/user-input/src"
          "../../components/util/src"
          "../../components/validator/src"
+         "../../components/version/src"
          "../../components/workspace/src"
          "../../components/workspace-clj/src"
          "../../components/ws-explorer/src"]

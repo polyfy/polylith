@@ -1,5 +1,6 @@
 (ns polylith.clj.core.test-helper.core
-  (:require [clojure.string :as str]
+  (:require [clojure.pprint :as pp]
+            [clojure.string :as str]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.command.interface :as command]
             [polylith.clj.core.user-input.interface :as user-input]
@@ -36,3 +37,10 @@
 
 (defn content [dir filename]
   (str/split-lines (slurp (str (sub-dir dir) "/" filename))))
+
+(defn update-dev-paths! [deps-file env-key path]
+  (let [content (-> deps-file file/read-file first)
+        paths (-> content :aliases env-key :extra-paths)
+        new-content (assoc-in content [:aliases env-key :extra-paths]
+                              (conj paths path))]
+    (pp/pprint new-content (clojure.java.io/writer deps-file))))
