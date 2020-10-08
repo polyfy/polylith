@@ -1,7 +1,7 @@
 (ns polylith.clj.core.lib.text-table.lib-table
-  (:require [clojure.set :as set]
-            [polylith.clj.core.util.interface.str :as str-util]
-            [polylith.clj.core.text-table.interface :as text-table]))
+  (:require [polylith.clj.core.util.interface.str :as str-util]
+            [polylith.clj.core.text-table.interface :as text-table]
+            [polylith.clj.core.lib.text-table.brick-libs :as brick-libs]))
 
 (def type->color {"component" :green
                   "base" :blue})
@@ -60,38 +60,33 @@
   (apply concat (map-indexed #(profile-column (+ column (* 2 %1)) libraries %2)
                              profile-to-settings)))
 
-(defn brick-cell [column row lib-name lib-names empty-char]
-  (let [flag (if (contains? (set lib-names) lib-name) "x" empty-char)]
+(defn brick-cell [column row library brick-libs empty-char]
+  (let [flag (if (contains? (set brick-libs) library) "x" empty-char)]
     (text-table/cell column row flag :none :left :vertical)))
 
-(defn brick-column [column {:keys [name type lib-dep-names]} lib-names empty-char]
+(defn brick-column [column {:keys [name type]} libraries brick->libs empty-char]
   (concat [(text-table/cell column 1 name (type->color type) :right :vertical)]
-          (map-indexed #(brick-cell column (+ 3 %1) %2 lib-dep-names empty-char)
-                       lib-names)))
+          (map-indexed #(brick-cell column (+ 3 %1) %2 (brick->libs name) empty-char)
+                       libraries)))
 
-(defn brick-columns [column bricks lib-names empty-char]
-  (apply concat (map-indexed #(brick-column (+ column (* 2 %1)) %2 lib-names empty-char)
+(defn brick-columns [column bricks libraries brick->libs empty-char]
+  (apply concat (map-indexed #(brick-column (+ column (* 2 %1)) %2 libraries brick->libs empty-char)
                              bricks)))
 
 (defn profile-lib [[_ {:keys [lib-deps]}]]
   (mapcat lib lib-deps))
 
-(defn has-library? [{:keys [lib-dep-names]} lib-names]
-  (-> (set/intersection (set lib-names)
-                        (set lib-dep-names))
-      empty? not))
-
 (defn table [{:keys [settings components bases environments]} is-all]
   (let [{:keys [profile-to-settings empty-char thousand-sep color-mode compact-views]} settings
         libraries (sort-by (juxt :name :version)
                            (set (concat (mapcat lib (mapcat :lib-deps environments))
-                                        (mapcat lib (mapcat #(-> % :profile :lib-deps) environments))
+                                        ;(mapcat lib (mapcat #(-> % :profile :lib-deps) environments))
                                         (mapcat profile-lib profile-to-settings))))
-        lib-names (map :name libraries)
         all-bricks (concat components bases)
+        brick->libs (brick-libs/brick->libs environments all-bricks profile-to-settings)
         bricks (if is-all
                  all-bricks
-                 (filter #(has-library? % lib-names) all-bricks))
+                 (filter #(-> % :name brick->libs empty? not) all-bricks))
         lib-col (lib-column libraries)
         version-col (version-column libraries)
         size-col (size-column libraries thousand-sep)
@@ -102,7 +97,7 @@
         n#envs (count environments)
         n#profiles (count profile-to-settings)
         n#bricks (count bricks)
-        brick-cols (brick-columns brick-col bricks lib-names empty-char)
+        brick-cols (brick-columns brick-col bricks libraries brick->libs empty-char)
         space-columns (range 2 (* 2 (+ 3 n#envs n#profiles n#bricks)) 2)
         space (if (contains? compact-views "libs") " " "  ")
         spaces (text-table/spaces 1 space-columns (repeat space))

@@ -34,8 +34,8 @@
   (filter #(= x (ffirst %)) cells))
 
 (defn max-column-width [x cells]
-  (apply max (map #(-> % second :value c/clean-colors count)
-                  (column x cells))))
+  (apply max (mapv #(-> % second :value c/clean-colors count)
+                   (column x cells))))
 
 (defn align-column [x cells color-mode]
   (let [max-width (max-column-width x cells)]
