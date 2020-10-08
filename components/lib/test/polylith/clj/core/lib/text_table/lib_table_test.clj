@@ -1,6 +1,6 @@
-(ns polylith.clj.core.deps.text-table.lib-table-test
+(ns polylith.clj.core.lib.text-table.lib-table-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.deps.text-table.lib-table :as lib-table]))
+            [polylith.clj.core.lib.text-table.lib-table :as lib-table]))
 
 (def workspace {:settings {:color-mode "none"
                            :empty-char "·"

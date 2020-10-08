@@ -1,4 +1,4 @@
-(ns polylith.clj.core.deps.text-table.lib-table
+(ns polylith.clj.core.lib.text-table.lib-table
   (:require [clojure.set :as set]
             [polylith.clj.core.util.interface.str :as str-util]
             [polylith.clj.core.text-table.interface :as text-table]))

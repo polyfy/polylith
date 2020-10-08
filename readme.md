@@ -23,7 +23,7 @@ in the same way we played with Lego when we were kids!
 
 Not surprisingly, it's just as simple and fun!
 
-This repository uses Polylith itself to structure the code and the `poly` tool for visualization of the workspace, e.g.:
+This repository uses Polylith itself to structure the code and the `poly` tool to visualize the workspace, e.g.:
 
 <img src="images/polylith-info-deps-libs.png" width="100%" alt="Polylith examples">
 
