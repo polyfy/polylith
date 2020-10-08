@@ -26,13 +26,22 @@
   (user-input/extract-params ["info" (str "ws-dir:" ws-dir)]))
 
 (def workspace (->
-                 (dir ".")
-                 ;(dir "../poly-example/ws50")
+                 ;(dir ".")
+                 (dir "../poly-example/ws50")
                  ;(dir "../clojure-polylith-realworld-example-app")
                  ws-clj/workspace-from-disk
                  ws/enrich-workspace
                  change/with-changes))
 
+(keys workspace)
+
+(command/execute-command (user-input/extract-params ["info" (str "ws-dir:../poly-example/ws50")]))
+
+(keys (:lib-deps (common/find-environment "dev" (:environments workspace))))
+
+(-> workspace :environments first :name)
+
+(:environments workspace)
 (:messages workspace)
 (:changes workspace)
 (:settings workspace)
