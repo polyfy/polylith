@@ -33,7 +33,7 @@
          config (read-string (slurp (str ws-dir "/deps.edn")))]
      (workspace-from-disk ws-dir config user-input color-mode)))
   ([ws-dir {:keys [polylith aliases]} user-input color-mode]
-   (let [{:keys [vcs top-namespace interface-ns default-profile-name build-tag-pattern stable-since-tag-pattern env-to-alias ns-to-lib compact-views]} polylith
+   (let [{:keys [vcs top-namespace interface-ns default-profile-name release-tag-pattern stable-tag-pattern env-to-alias ns-to-lib compact-views]} polylith
          top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
          empty-char (user-config/empty-character)
          m2-dir (user-config/m2-dir)
@@ -50,14 +50,14 @@
          default-profile (or default-profile-name "default")
          active-profiles (profile/active-profiles user-input default-profile profile-to-settings)
          settings (util/ordered-map :version version/version
-                                    :contract-version version/contract-version
+                                    :ws-schema-version version/ws-schema-version
                                     :vcs (or vcs "git")
                                     :top-namespace top-namespace
                                     :interface-ns (or interface-ns "interface")
                                     :default-profile-name default-profile
                                     :active-profiles active-profiles
-                                    :build-tag-pattern (or build-tag-pattern "v[0-9]*")
-                                    :stable-since-tag-pattern (or stable-since-tag-pattern "stable-*")
+                                    :release-tag-pattern (or release-tag-pattern "v[0-9]*")
+                                    :stable-tag-pattern (or stable-tag-pattern "stable-*")
                                     :color-mode color-mode
                                     :compact-views (or compact-views #{})
                                     :user-config-file user-config-file
@@ -67,8 +67,7 @@
                                     :env-to-alias env-to-alias
                                     :ns-to-lib (stringify ns-to-lib)
                                     :user-home user-home
-                                    :m2-dir m2-dir
-                                    :changes-since (:since user-input "last-stable"))]
+                                    :m2-dir m2-dir)]
      (util/ordered-map :ws-dir ws-dir
                        :ws-reader ws-reader
                        :user-input user-input

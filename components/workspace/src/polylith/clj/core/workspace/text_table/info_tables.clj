@@ -27,10 +27,10 @@
     (println (str "  active profiles: " (color/profile (str/join ", " (sort active-profiles)) color-mode)))))
 
 (defn print-info [{:keys [settings changes messages user-input] :as workspace}]
-  (let [{:keys [is-show-loc is-show-resources]} user-input
+  (let [{:keys [is-show-loc is-show-resources fake-sha]} user-input
         {:keys [color-mode]} settings
         {:keys [since-sha tag]} changes]
-    (print-stable-since since-sha tag color-mode)
+    (print-stable-since (or fake-sha since-sha) tag color-mode)
     (count-table/print-table workspace)
     (print-active-profiles settings)
     (println)

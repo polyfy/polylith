@@ -1,0 +1,2 @@
+70f9d8073e2fa352968f9573ff312a1b31b940a1 Created the user and cli bricks.
+4d3283f83c02624ad6526f5b4553dafc6736f5a9 Workspace created.

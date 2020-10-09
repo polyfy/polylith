@@ -8,9 +8,9 @@
 
 (defn environments-to-deploy []
   "Returns the environments that have been affected since last deploy,
-   tagged in git following the pattern defined by :build-tag-pattern in
+   tagged in git following the pattern defined by :release-tag-pattern in
    deps.edn, or v[0-9]* if not defined."
-  (let [user-input (user-input/extract-params ["ws" "since:previous-build"])
+  (let [user-input (user-input/extract-params ["ws" "since:previous-release"])
         workspace (-> user-input
                       ws-clj/workspace-from-disk
                       ws/enrich-workspace
@@ -30,8 +30,8 @@
    strings, or numbers. :keys and :count are also valid keys to send in. If keys
    are empty, returns the whole workspace."
   (let [keys-str (map key->str keys)
-        since (if (= :previous-build stable-point)
-                "since:previous-build" "since:last-stable")
+        since (if (= :previous-release stable-point)
+                "since:previous-release" "since:last-stable")
         args (if-not (empty keys-str)
                ["ws" since (str "get:" (str/join ":" keys-str))]
                ["ws" since])

@@ -8,52 +8,50 @@ set -e
 rm -rf example
 rm -rf scripts
 
-echo "### Workspace ###"
+echo "### 1/13 Workspace ###"
 poly create w name:example top-ns:se.example
-tree example > sections/workspace/tree.txt
+tree example > output/workspace-tree.txt
 cp example/deps.edn sections/workspace
 cd example
-poly info > ../sections/workspace/info.txt
 
-echo "### Development ###"
+echo "### 2/13 Development ###"
 mkdir development/src/dev
 cp ../sections/development/lisa.clj development/src/dev
 git add development/src/dev/lisa.clj
 
-echo "### Component ###"
+echo "### 3/13 Component ###"
 poly create c name:user
 cp ../sections/component/user-core.clj components/user/src/se/example/user/core.clj
 git add components/user/src/se/example/user/core.clj
 cp ../sections/component/user-interface.clj components/user/src/se/example/user/interface.clj
 cp ../sections/component/deps.edn .
-
-poly info > ../sections/component/info.txt
+poly info fake-sha:c91fdad > ../output/component-info.txt
 cd ..
-tree example > sections/component/tree.txt
+tree example > output/component-tree.txt
 cd example
 
-echo "### Base ###"
+echo "### 4/13 Base ###"
 poly create b name:cli
 cd ..
-tree example > sections/base/tree.txt
+tree example > output/base-tree.txt
 cd example
 cp ../sections/base/deps.edn .
 cp ../sections/base/cli-core.clj bases/cli/src/se/example/cli/core.clj
 
-echo "### Environment ###"
+echo "### 5/13 Environment ###"
 poly create e name:command-line
 cd ..
-tree example > sections/environment/tree.txt
+tree example > output/environment-tree.txt
 cd example
 cp ../sections/environment/deps.edn .
 cp ../sections/environment/command-line-deps.edn environments/command-line/deps.edn
 
-echo "### Tools.deps ###"
+echo "### 6/13 Tools.deps ###"
 cd environments/command-line
 mkdir -p classes
 clj -e "(compile,'se.example.cli.core)"
 
-echo "### Build ###"
+echo "### 7/13 Build ###"
 cd ../..
 mkdir scripts
 cp ../../scripts/build-uberjar.sh scripts
@@ -68,49 +66,62 @@ cd scripts
 cd ../environments/command-line/target
 java -jar command-line.jar Lisa
 
-echo "### Git ###"
+echo "### 8/13 Git ###"
 cd ../../..
-poly info > ../sections/git/info.txt
-git log > ../sections/git/log.txt
-poly diff > ../sections/git/diff.txt
+poly info fake-sha:c91fdad > ../output/git-info.txt
+git log > ../output/git-log.txt
+poly diff > ../output/git-diff.txt
 git add --all
 git commit -m "Created the user and cli bricks."
-git log --pretty=oneline > ../sections/git/log-pretty.txt
+git log --pretty=oneline > ../output/git-log-pretty.txt
 
-echo "### Tagging ###"
+echo "### 9/13 Tagging ###"
 git tag -f stable-lisa
-git log --pretty=oneline > ../sections/tagging/log.txt
-poly info > ../sections/tagging/info.txt
+git log --pretty=oneline > ../output/tagging-log.txt
+poly info fake-sha:c91fdad > ../output/tagging-info.txt
 
-echo "### Testing ###"
+firstsha=`git log --pretty=oneline | tail -1 | cut -d " " -f1`
+git tag v1.1.0 $firstsha
+git tag v1.2.0
+
+poly info since:release fake-sha:e7ebe68 > ../output/tagging-info-info-2.txt
+poly info since:previous-release fake-sha:c91fdad > ../output/tagging-info-2.txt
+
+git log --pretty=oneline > ../output/tagging-log-release.txt
+
+echo "### 10/13 Flags ###"
+poly info :r fake-sha:e7ebe68 > ../output/flags-info.txt
+
+echo "### 11/13 Testing ###"
 cp ../sections/testing/user-core.clj components/user/src/se/example/user/core.clj
-poly diff > ../sections/testing/diff.txt
-poly info > ../sections/testing/info.txt
+poly diff > ../output/testing-diff.txt
+poly info fake-sha:e7ebe68 > ../output/testing-info-1.txt
 cp ../sections/testing/user-interface-test.clj components/user/test/se/example/user/interface_test.clj
 set +e
-poly test > ../sections/testing/test-failing.txt
+poly test > ../output/testing-test-failing.txt
 set -e
 cp ../sections/testing/user-interface-test2.clj components/user/test/se/example/user/interface_test.clj
-poly test > ../sections/testing/test-ok.txt
-poly info :dev > ../sections/testing/info-dev.txt
-poly info env:cl:dev > ../sections/testing/info-cl-dev.txt
+poly test > ../output/testing-test-ok.txt
+poly info :dev fake-sha:e7ebe68 > ../output/testing-info-2.txt
+poly info env:cl:dev fake-sha:e7ebe68 > ../output/testing-info-3.txt
 mkdir environments/command-line/test
 cp ../sections/testing/deps.edn .
 cp ../sections/testing/command-line-deps.edn environments/command-line/deps.edn
 mkdir environments/command-line/test/env
 cp ../sections/testing/dummy_test.clj environments/command-line/test/env
 git add environments/command-line/test/env/dummy_test.clj
-poly info :env > ../sections/testing/info-env.txt
+poly info fake-sha:e7ebe68 > ../output/testing-info-4.txt
+poly info :env fake-sha:e7ebe68 > ../output/testing-info-5.txt
 git add --all
 git commit -m "Added tests"
 git tag -f stable-lisa
-poly info > ../sections/testing/info-commited.txt
-poly info :all-bricks > ../sections/testing/info-all-bricks.txt
-poly info :all-bricks :dev > ../sections/testing/info-all-bricks-dev.txt
-poly info :all > ../sections/testing/info-all.txt
-poly info :all :dev > ../sections/testing/info-all-dev.txt
+poly info fake-sha:e7ebe68 > ../output/testing-info-6.txt
+poly info :all-bricks fake-sha:e7ebe68 > ../output/testing-info-7.txt
+poly info :all-bricks :dev fake-sha:e7ebe68 > ../output/testing-info-8.txt
+poly info :all fake-sha:e7ebe68 > ../output/testing-info-9.txt
+poly info :all :dev fake-sha:e7ebe68 > ../output/testing-info-10.txt
 
-echo "### Profile ###"
+echo "### 12/13 Profile ###"
 poly create e name:user-service
 cp ../sections/profile/user-service-deps.edn environments/user-service/deps.edn
 poly create b name:user-api
@@ -134,20 +145,22 @@ chmod +x build-user-service-uberjar.sh
 #cd ../../command-line/target
 #java -jar command-line.jar Lisa
 cd ..
-poly info + > ../sections/profile/info-no-profiles.txt
-set +e
-poly info +default +remote > ../sections/profile/info-two-profiles.txt
-set -e
-poly info :loc > ../sections/profile/info-loc.txt
-poly test :env > ../sections/profile/info-env.txt
+poly info + fake-sha:e7ebe68 > ../output/profile-info-1.txt
+poly info +remote fake-sha:e7ebe68 > ../output/profile-info-2.txt
 
-echo "### Configuration ###"
+set +e
+poly info +default +remote fake-sha:e7ebe68 > ../output/poly-info-3.txt
+set -e
+poly info :loc fake-sha:e7ebe68 > ../output/profile-info-4.txt
+poly test :env fake-sha:e7ebe68 > ../output/profile-info-env.txt
+
+echo "### 13/13 Configuration ###"
 poly ws get:settings
 poly ws get:settings:profile-to-settings:default
 poly ws get:keys
 poly ws get:components:keys
 poly ws out:ws.edn
-poly info ws-file:ws.edn > ../sections/configuration/info.txt
+poly info ws-file:ws.edn fake-sha:e7ebe68
 poly ws get:user-input:args ws-file:ws.edn
 
 echo "Elapsed: $((($SECONDS / 60) % 60)) min $(($SECONDS % 60)) sec"

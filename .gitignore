@@ -26,26 +26,3 @@
 *.iml
 
 /example/example/**
-/example/sections/component/into.txt
-/example/sections/configuration/into.txt
-/example/sections/git/into.txt
-/example/sections/git/log.txt
-/example/sections/git/log-pretty.txt
-/example/sections/profile/info-env.txt
-/example/sections/profile/info-loc.txt
-/example/sections/profile/info-no-profiles.txt
-/example/sections/profile/info-two-profiles.txt
-/example/sections/tagging/info.txt
-/example/sections/tagging/log.txt
-/example/sections/testing/info.txt
-/example/sections/testing/info-all.txt
-/example/sections/testing/info-all-bricks.txt
-/example/sections/testing/info-all-bricks-dev.txt
-/example/sections/testing/info-all-bricks-all-dev.txt
-/example/sections/testing/info-all-dev.txt
-/example/sections/testing/info-cl-dev.txt
-/example/sections/testing/info-commited.txt
-/example/sections/testing/info-dev.txt
-/example/sections/testing/info-env.txt
-/example/sections/testing/test-ok.txt
-/example/sections/workspace/info.txt

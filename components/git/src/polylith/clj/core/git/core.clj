@@ -46,9 +46,12 @@
 (defn first-committed-sha [ws-dir]
   (last (str/split-lines (shell/sh "git" "log" "--format=%H" :dir ws-dir))))
 
-(defn previous-build [ws-dir pattern]
+(defn drop-or-keep [lst drop?]
+  (if drop? (drop-last lst) lst))
+
+(defn release [ws-dir pattern previous?]
   (if-let [tag-name (-> (list-tags ws-dir pattern)
-                        drop-last
+                        (drop-or-keep previous?)
                         last)]
     {:tag tag-name
      :sha (sha-of-tag ws-dir tag-name)}
