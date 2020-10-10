@@ -1,0 +1,40 @@
+Environments to run tests from: [35mcommand-line[0m, [35mdevelopment[0m
+
+Running tests from the [35mcommand-line[0m environment, including 2 bricks and 1 environment: [32muser[0m, [34mcli[0m, [35mcommand-line[0m
+
+Testing se.example.cli.core-test
+
+Ran 0 tests containing 0 assertions.
+0 failures, 0 errors.
+
+[32mTest results: 0 passes, 0 failures, 0 errors.[0m
+
+Testing se.example.user.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+[32mTest results: 1 passes, 0 failures, 0 errors.[0m
+
+Testing env.dummy_test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+[32mTest results: 1 passes, 0 failures, 0 errors.[0m
+Running tests from the [35mdevelopment[0m environment, including 2 bricks and 1 environment: [32muser[0m, [34mcli[0m, [35mcommand-line[0m
+
+Testing se.example.cli.core-test
+
+Ran 0 tests containing 0 assertions.
+0 failures, 0 errors.
+
+[32mTest results: 0 passes, 0 failures, 0 errors.[0m
+
+Testing se.example.user.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+[32mTest results: 1 passes, 0 failures, 0 errors.[0m
+Execution time: 6 seconds

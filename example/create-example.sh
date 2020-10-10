@@ -120,6 +120,7 @@ poly info :all-bricks fake-sha:e7ebe68 > ../output/testing-info-7.txt
 poly info :all-bricks :dev fake-sha:e7ebe68 > ../output/testing-info-8.txt
 poly info :all fake-sha:e7ebe68 > ../output/testing-info-9.txt
 poly info :all :dev fake-sha:e7ebe68 > ../output/testing-info-10.txt
+poly test :all :dev > ../output/testing-test-all.txt
 
 echo "### 12/13 Profile ###"
 poly create e name:user-service
@@ -162,6 +163,6 @@ poly ws get:keys
 poly ws get:components:keys
 poly ws out:ws.edn
 poly info ws-file:ws.edn fake-sha:e7ebe68
-poly ws get:user-input:args ws-file:ws.edn
+poly ws get:old-user-input:args ws-file:ws.edn > ../output/profile-ws.txt
 
 echo "Elapsed: $((($SECONDS / 60) % 60)) min $(($SECONDS % 60)) sec"
