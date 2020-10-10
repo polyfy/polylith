@@ -4,4 +4,4 @@
                         :non-breaking 0})
 
 (def version "0.1.0-alpha")
-(def date "2020-10-07")
+(def date "2020-10-10")

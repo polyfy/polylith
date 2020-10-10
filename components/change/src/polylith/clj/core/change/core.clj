@@ -55,7 +55,7 @@
   ([{:keys [ws-dir settings user-input] :as workspace}]
    (if (-> ws-dir git/is-git-repo? not)
      workspace
-     (let [since (:since user-input "last-stable")
+     (let [since (:since user-input "stable")
            {:keys [tag sha]} (find-sha ws-dir since settings)]
        (assoc workspace :changes
                         (changes workspace {:tag tag

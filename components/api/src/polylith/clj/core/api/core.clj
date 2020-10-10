@@ -31,7 +31,7 @@
    are empty, returns the whole workspace."
   (let [keys-str (map key->str keys)
         since (if (= :previous-release stable-point)
-                "since:previous-release" "since:last-stable")
+                "since:previous-release" "since:stable")
         args (if-not (empty keys-str)
                ["ws" since (str "get:" (str/join ":" keys-str))]
                ["ws" since])

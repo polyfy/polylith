@@ -12,15 +12,14 @@ Welcome to the wonderful world of Polylith!
 
 This tool is made by developers for developers with the goal to maximise productivity and 
 increase the quality of the systems we write. Polylith can support any programming language, but here
-we target [Clojure](https://clojure.org) which is a powerful and simple functional language.
+we target [Clojure](https://clojure.org) which is a powerful and simple functional language for the [JVM](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiB88eLxansAhUyi8MKHd6jDPEQFjAAegQIBRAC&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FJava_virtual_machine&usg=AOvVaw0YtnMyoG7GQIhUPeLulbfr).
 
 A Polylith system is made up by simple building blocks that can be combined like Lego bricks.
 Those Lego-like bricks are easy to reason about and can be combined into a single development 
 environment that allows us to work with all the code from one place (a single [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop)) for maximum productivity.
 
 They are also used to form different kind of deployable artifacts, like services, tools and libraries,
-in the same way we played with Lego when we were kids!
-
+in the same way we played with Lego when we were kids! 
 Not surprisingly, it's just as simple and fun!
 
 This repository uses Polylith itself to structure the code and the `poly` tool to visualize the workspace, e.g.:
@@ -28,8 +27,8 @@ This repository uses Polylith itself to structure the code and the `poly` tool t
 <img src="images/polylith-info-deps-libs.png" width="100%">
 
 To better understand the principles and ideas behind this 
-[open source](https://www.eclipse.org/legal/epl-v10.html) tool, we recommend you first read the Polylith 
-[documentation](https://polylith.gitbook.io).
+[open source](https://www.eclipse.org/legal/epl-v10.html) tool, we recommend you first read the
+high-level [documentation](https://polylith.gitbook.io).
 
 Enjoy the ride!
 
@@ -40,12 +39,14 @@ If you have any old Leiningen based projects to migrate, follow the instructions
 
 Some of the Polylith [documentation](https://polylith.gitbook.io) is still mentioning how things worked
 in the old Leiningen version of the tool, for example the empty `workspace interfaces` and the use of
-`symbolic links`. 
-In some of the videos, we still use `system` instead of `service` which are now handled as deployable `environments`.
+`symbolic links` that have both been removed!
+In some of the videos, we still call things `system` instead of `service`. 
+Now both the development environment and the services are called `environments`.
 
-Except from that, pretty much everything is the same, except that it's now based on 
+The biggest difference is that the new tool is based on
 [tools.deps](https://github.com/clojure/tools.deps.alpha) instead of [Leiningen](https://leiningen.org/)
-which gives a more pleasant development experience.
+which has a number of benefits, like a more powerful development environment, faster tests, Windows support,
+and more.
 
 ## Table of Contents
 
@@ -956,7 +957,7 @@ poly info since:release
 ```
 <img src="images/tagging-info-2.png" width="27%">
 
-...it will pick the latest release tag that follows the pattern defined in `./deps.edn`:
+...it picks the latest release tag that follows the pattern defined in `./deps.edn`:
 ```
             :release-tag-pattern "v[0-9]*"
 ```
@@ -967,21 +968,22 @@ poly info since:previous-release
 ```
 <img src="images/tagging-info-3.png" width="27%">
 
-...it will pick the second latest release tag. 
+...it picks the second latest release tag.
 
-By executing `git log --pretty=oneline` we can see that the commits are now tagged:
+By executing `git log --pretty=oneline` we can verify that the tags are correctly set:
 
 ```
 e7ebe683a775ec28b7c2b5d77e01e79d48149d13 (HEAD -> master, tag: v1.2.0, tag: stable-lisa) Created the user and cli bricks.
 c91fdad4a34927d9aacfe4b04ea2f304f3303282 (tag: v1.1.0) Workspace created.
 ```
 
-This is used by the CI server to run all tests since previous release, e.g.:
+The `since` parameter is used by the CI server to run all tests since the previous release, e.g.:
 ```
 poly test since:previous-release
 ```
 
-Valid values for `since` are: `last-stable` (default), `release` and `previous-release`.
+Depending on whether we tag before or after the build, we will choose `release` or `previous-release`.
+If `since` is not given, `last-stable` will be used as default.
 
 ## Flags
 
@@ -1795,6 +1797,17 @@ can be executed from other workspaces by giving `ws-dir`, e.g.:
 poly check ws-dir:../example
 ``` 
 
+If we are in a workspace subdirectory, we can use `::` to execute commands from the workspace root, e.g.:
+```
+cd environments
+poly info ::
+``` 
+
+...which is the same as:
+```
+poly info ws-dir:..
+```
+
 Let's continue with the RealWorld example and tag it as stable (this will only affect our local clone):
 ```
 git tag -f stable-lisa
@@ -2216,7 +2229,7 @@ poly help
 ```
 
 ```
-  Poly 0.1 (2020-10-05) - https://github.com/polyfy/polylith
+  Poly 0.1.0-alpha (2020-10-10) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -2242,6 +2255,16 @@ poly help
   content from that file. All commands except 'create' and 'test'
   can be executed with this parameter set. The FILE is created by executing the
   'ws' command, e.g.: 'poly ws out:ws.edn'.
+
+  If since:SINCE is passed in as an argument, the last stable point in time
+  will be set depending on the value of SINCE (or the first commit if no match
+  was found):
+    stable          -> the latest tag that matches stable-*, defined by
+                       :stable-tag-pattern in ./deps.edn.
+    build           -> the latest tag that matches v[0-9]*, defined by
+                       :release-tag-pattern in ./deps.edn.
+    previous-build  -> the latest tag that matches v[0-9]*,
+                       defined by :release-tag-pattern in ./deps.edn.
 
   The color mode can be overridden by passing in e.g. color-mode:none
   (valid values are: none, light, dark) which is otherwise configured in
@@ -2272,6 +2295,7 @@ poly help
     poly help deps :env :brick
     poly info
     poly info :loc
+    poly info since:release
     poly info since:previous-release
     poly info env:myenv
     poly info env:myenv:another-env
@@ -2597,18 +2621,6 @@ poly help
     ARGS = :loc       -> Shows the number of lines of code for each brick and
                          environment.
 
-           since:WHEN -> If set to last-stable or if 'since' is not given, then
-                         the last stable point in time is calculated based on
-                         the latest git tag that follows the pattern 'stable-*',
-                         specified by :stable-tag-pattern in ./deps.edn.
-
-                         If set to previous-release then it takes the second
-                         latest git tag that follows the pattern 'v[0-9]*',
-                         specified by :release-tag-pattern in ./deps.edn.
-
-                         If no tag matched, it takes the first commit in the
-                         repository.
-
   In addition to :loc, all the arguments used by the 'test' command
   can also be used as a way to see what tests will be executed.
 
@@ -2776,6 +2788,7 @@ poly help
   Example:
     poly info
     poly info :loc
+    poly info since:release
     poly info since:previous-release
     poly info env:myenv
     poly info env:myenv:another-env
