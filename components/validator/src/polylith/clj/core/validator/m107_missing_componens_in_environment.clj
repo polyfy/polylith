@@ -1,5 +1,6 @@
 (ns polylith.clj.core.validator.m107-missing-componens-in-environment
   (:require [clojure.string :as str]
+            [polylith.clj.core.validator.shared :as shared]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color])
   (:refer-clojure :exclude [bases]))
@@ -20,15 +21,7 @@
     (when (-> missing empty? not)
       (missing-components-error name missing color-mode))))
 
-(defn show-error? [cmd profile-to-settings active-profiles]
-  ; When we have at least one profile and the user has deselected all active
-  ; profiles by passing in "+" as an argument, then don't show this error
-  ; when running the 'info' command.
-  (or (not= "info" cmd)
-      (-> profile-to-settings empty?)
-      (-> active-profiles empty? not)))
-
 (defn errors [cmd {:keys [profile-to-settings active-profiles]} environments color-mode]
-  (when (show-error? cmd profile-to-settings active-profiles)
+  (when (shared/show-error? cmd profile-to-settings active-profiles)
     (mapcat #(env-error % color-mode)
             environments)))

@@ -7,9 +7,9 @@
                                      "admin" {:lib-deps {"org.clojure/clojure" {:mvn/version "1.10.1"}}}}})
 
 (def environments [{:alias "dev"
-                    :lib-deps {"org.clojure/clojure" {:mvn/version "1.10.2"}
-                               "org.clojure/tools.deps.alpha" {:mvn/version "0.8.695"}}
-                    :test-lib-deps []}])
+                    :unmerged {:lib-deps {"org.clojure/clojure" {:mvn/version "1.10.2"}
+                                          "org.clojure/tools.deps.alpha" {:mvn/version "0.8.695"}}
+                               :test-lib-deps []}}])
 
 (deftest warnings--path-was-found-in-both-dev-and-a-profile--returns-error-message
   (is (= [{:type "warning"

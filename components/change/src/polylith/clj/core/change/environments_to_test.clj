@@ -4,8 +4,8 @@
             [polylith.clj.core.path-finder.interface.select :as select]
             [polylith.clj.core.path-finder.interface.extract :as extract]))
 
-(defn included-environments [{:keys [src-paths test-paths profile-src-paths profile-test-paths]} disk-paths]
-  (let [path-entries (extract/path-entries [src-paths test-paths profile-src-paths profile-test-paths] disk-paths)]
+(defn included-environments [{:keys [src-paths test-paths profile]} disk-paths]
+  (let [path-entries (extract/path-entries [src-paths test-paths (:src-paths profile) (:test-paths profile)] disk-paths)]
     (select/names path-entries c/environment? c/test-path? c/exists?)))
 
 (defn select-envs [env environments is-dev]

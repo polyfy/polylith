@@ -14,8 +14,8 @@
                        :colorized-message message
                        :environment env)]))
 
-(defn env-warning [{:keys [name component-names base-names lib-deps]} bricks used-libs color-mode]
-  (let [existing-libs (set (map first lib-deps))
+(defn env-warning [{:keys [name component-names base-names lib-deps profile]} bricks used-libs color-mode]
+  (let [existing-libs (set (map first (concat lib-deps (:lib-deps profile))))
         brick-names (concat component-names base-names)
         brick->lib-dep-names (into {} (map (juxt :name :lib-dep-names) bricks))
         expected-libs (set (mapcat brick->lib-dep-names brick-names))
@@ -23,8 +23,9 @@
     (if (-> missing-libs empty? not)
       (warning name missing-libs color-mode))))
 
-(defn errors [environments components bases settings color-mode]
-  (let [bricks (concat components bases)
-        used-libs (shared/used-libs environments settings)]
-    (mapcat #(env-warning % bricks used-libs color-mode)
-            environments)))
+(defn errors [cmd {:keys [profile-to-settings active-profiles] :as settings} environments components bases color-mode]
+  (when (shared/show-error? cmd profile-to-settings active-profiles)
+    (let [bricks (concat components bases)
+          used-libs (shared/used-libs environments settings)]
+      (mapcat #(env-warning % bricks used-libs color-mode)
+              environments))))

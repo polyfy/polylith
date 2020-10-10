@@ -22,6 +22,7 @@
   [(symbol library) (adjust-key version)])
 
 (defn ->config [workspace {:keys [lib-deps test-lib-deps maven-repos]}]
+  "Convert back to tools.deps format."
   (assoc workspace :mvn/repos maven-repos
                    :deps (into {} (map key-as-symbol (merge lib-deps test-lib-deps)))))
 
@@ -83,13 +84,13 @@
          (str-util/count-things "brick" bricks-cnt) env-msg ": " entities-msg)))
 
 (defn run-tests-for-environment [{:keys [bases components] :as workspace}
-                                 {:keys [name src-paths test-paths profile-src-paths profile-test-paths namespaces-test] :as environment}
+                                 {:keys [name src-paths test-paths namespaces-test] :as environment}
                                  {:keys [env-to-bricks-to-test env-to-environments-to-test]}]
   (when (-> test-paths empty? not)
     (let [color-mode (-> workspace :settings :color-mode)
           config (->config workspace environment)
           lib-paths (resolve-deps name config color-mode)
-          all-src-paths (set (concat src-paths test-paths profile-src-paths profile-test-paths))
+          all-src-paths (set (concat src-paths test-paths))
           all-paths (concat all-src-paths lib-paths)
           bricks (concat components bases)
           bricks-to-test (env-to-bricks-to-test name)

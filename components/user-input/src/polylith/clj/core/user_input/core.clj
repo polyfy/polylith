@@ -25,6 +25,7 @@
         {:keys [brick
                 color-mode
                 env
+                fake-sha
                 get
                 interface
                 name
@@ -47,6 +48,7 @@
                       :get get
                       :brick brick
                       :color-mode color-mode
+                      :fake-sha fake-sha
                       :interface interface
                       :is-search-for-ws-dir (contains? (set args) "::")
                       :is-all (= "true" all!)

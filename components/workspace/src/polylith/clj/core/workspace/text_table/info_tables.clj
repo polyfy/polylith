@@ -11,10 +11,10 @@
     (subs sha 0 7)
     sha))
 
-(defn print-stable-since [since-sha tag color-mode]
+(defn print-stable-since [since-sha since-tag color-mode]
   (let [short-sha (short-name since-sha)]
-    (if tag
-      (println (str "  stable since: " (color/grey color-mode (str short-sha " | " tag))))
+    (if since-tag
+      (println (str "  stable since: " (color/grey color-mode (str short-sha " | " since-tag))))
       (if (str/blank? since-sha)
         (println (str "  " (color/warning color-mode "Warning:")
                            (color/error color-mode " not a git repo!")))
@@ -27,10 +27,10 @@
     (println (str "  active profiles: " (color/profile (str/join ", " (sort active-profiles)) color-mode)))))
 
 (defn print-info [{:keys [settings changes messages user-input] :as workspace}]
-  (let [{:keys [is-show-loc is-show-resources]} user-input
+  (let [{:keys [is-show-loc is-show-resources fake-sha]} user-input
         {:keys [color-mode]} settings
-        {:keys [since-sha tag]} changes]
-    (print-stable-since since-sha tag color-mode)
+        {:keys [since-sha since-tag]} changes]
+    (print-stable-since (or fake-sha since-sha) since-tag color-mode)
     (count-table/print-table workspace)
     (print-active-profiles settings)
     (println)

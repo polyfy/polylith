@@ -12,40 +12,41 @@ Welcome to the wonderful world of Polylith!
 
 This tool is made by developers for developers with the goal to maximise productivity and 
 increase the quality of the systems we write. Polylith can support any programming language, but here
-we target [Clojure](https://clojure.org) which is a powerful and simple functional language.
+we target [Clojure](https://clojure.org) which is a powerful and simple functional language for the [JVM](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiB88eLxansAhUyi8MKHd6jDPEQFjAAegQIBRAC&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FJava_virtual_machine&usg=AOvVaw0YtnMyoG7GQIhUPeLulbfr).
 
 A Polylith system is made up by simple building blocks that can be combined like Lego bricks.
 Those Lego-like bricks are easy to reason about and can be combined into a single development 
 environment that allows us to work with all the code from one place (a single [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop)) for maximum productivity.
 
 They are also used to form different kind of deployable artifacts, like services, tools and libraries,
-in the same way we played with Lego when we were kids!
-
+in the same way we played with Lego when we were kids! 
 Not surprisingly, it's just as simple and fun!
 
-This project uses Polylith itself to structure the code and the `poly` tool to visualize it, e.g.:
+This repository uses Polylith itself to structure the code and the `poly` tool to visualize the workspace, e.g.:
 
-<img src="images/polylith-info-deps-libs.png" width="100%" alt="Polylith examples">
+<img src="images/polylith-info-deps-libs.png" width="100%">
 
 To better understand the principles and ideas behind this 
-[open source](https://www.eclipse.org/legal/epl-v10.html) tool, we recommend you first read the Polylith 
-[documentation](https://polylith.gitbook.io).
+[open source](https://www.eclipse.org/legal/epl-v10.html) tool, we recommend you first read the
+high-level [documentation](https://polylith.gitbook.io).
 
 Enjoy the ride!
 
 ## Leiningen version
 
 The old [lein-polylith](https://github.com/tengstrand/lein-polylith) tool has reached its end of lifetime.  
-If you have any old Leiningen based projects to migrated, follow the instructions [here](https://github.com/tengstrand/lein-polylith/blob/migrate/migrate/migrate.md).
+If you have any old Leiningen based projects to migrate, follow the instructions [here](https://github.com/tengstrand/lein-polylith/blob/migrate/migrate/migrate.md).
 
 Some of the Polylith [documentation](https://polylith.gitbook.io) is still mentioning how things worked
 in the old Leiningen version of the tool, for example the empty `workspace interfaces` and the use of
-`symbolic links`. 
-In some of the videos, we still use `system` instead of `service` which are now handled as deployable `environments`.
+`symbolic links` that have both been removed!
+In some of the videos, we still call things `system` instead of `service`. 
+Now both the development environment and the services are called `environments`.
 
-Except from that, pretty much everything is the same, except that it's now based on 
+The biggest difference is that the new tool is based on
 [tools.deps](https://github.com/clojure/tools.deps.alpha) instead of [Leiningen](https://leiningen.org/)
-which gives a more pleasant development experience.
+which has a number of benefits, like a more powerful development environment, faster tests, Windows support,
+and more.
 
 ## Table of Contents
 
@@ -114,7 +115,7 @@ and how it enables us to test and release the code incrementally.
 We will explain the value of components and how they bring context to our development experience, 
 which will help us build decoupled and scalable systems from day one.
 
-Finally, we think this will make you a happier developer!
+Finally, we hope this will make you a happier developer!
 
 ## Realworld Example
 
@@ -165,8 +166,8 @@ The `deps.edn` file looks like this:
             :interface-ns "interface"
             :default-profile-name "default"
             :compact-views #{}
-            :build-tag-pattern "v[0-9]*"
-            :stable-since-tag-pattern "stable-*"
+            :release-tag-pattern "v[0-9]*"
+            :stable-tag-pattern "stable-*"
             :env-to-alias {"development" "dev"}
             :ns-to-lib {}}
 
@@ -196,13 +197,13 @@ Let's get started by creating a project. From the menu, select `File > New > Pro
 Select the `deps.edn` file, the desired version of SDK and finish the wizard.
 
 Make sure to activate the `:dev` alias (and press the "two arrows" icon to refresh):<br>
-<img src="images/dev-alias.png" width="30%" alt="Dev alias">
+<img src="images/dev-alias.png" width="30%">
 
 Let's create a REPL by clicking `Add Configuration`:<br>
-<img src="images/add-configuration.png" width="20%" alt="Add configuration">
+<img src="images/add-configuration.png" width="20%">
 
 Click the `+` sign and select `Clojure REPL > Local`:<br>
-<img src="images/new-local-repl.png" width="30%" alt="New local REPL">
+<img src="images/new-local-repl.png" width="30%">
 
 Fill in:
 - Name: REPL
@@ -211,7 +212,7 @@ Fill in:
 - Aliases: test,dev
 
 Now start the REPL in debug mode, by clicking the bug icon:<br>
-<img src="images/repl-start.png" width="20%" alt="New local REPL">
+<img src="images/repl-start.png" width="20%">
 
 When this turns up:
 ```
@@ -243,7 +244,7 @@ One way of structuring the code is to give all developers their own namespace un
 Let's follow that pattern and create the namespace `dev.lisa`.
 
 Right click on the `development/src` directory and select `New > Clojure Namespace` and type "dev.lisa":<br>
-<img src="images/new-namespace.png" width="30%" alt="New local REPL">
+<img src="images/new-namespace.png" width="30%">
 
 Now let's write some code:
 ```clojure
@@ -263,7 +264,7 @@ cd example
 poly create c name:user
 ```
 
-<img src="images/component.png" width="20%" alt="Component">
+<img src="images/component.png" width="20%">
 
 Our workspace will now look like this:
 ```sh
@@ -313,13 +314,13 @@ Let's continue by adding the component's `src`, `resources` and `test` directory
 ```
 
 Now we may need to refresh our IDE, by clicking this link, or the icon we used before:<br>
-<img src="images/refresh-ws.png" width="40%" alt="New local REPL">
+<img src="images/refresh-ws.png" width="40%">
 
 Now execute the [info](#info) command:<br>
 ```sh
 poly info
 ```
-<img src="images/info-01.png" width="30%" alt="New local REPL">
+<img src="images/component-info.png" width="30%">
 
 This tells us that we have one `development` environment, one `user` component and
 one `user`interface but no `base` (yet).
@@ -327,7 +328,7 @@ one `user`interface but no `base` (yet).
 If you want to adjust the colors or your system, then visit the [colors](#colors) section.
 
 Now, let's add the `core` namespace to `user`:<br>
-<img src="images/ide-ws-01.png" width="30%" alt="New local REPL">
+<img src="images/ide-ws.png" width="30%">
 
 ...and change it to:
 ```clojure
@@ -362,7 +363,7 @@ Interfaces are great in many ways:
 
 When we created the `user` component, the `user` interface was also created.
 
-<img src="images/component-interface.png" width="20%" alt="Interface">
+<img src="images/component-interface.png" width="20%">
 
 So what is an `interface` and what is it good for?
 
@@ -458,7 +459,7 @@ A `base` is similar to a `component` except for two things:
 - It doesn't have an `interface`.
 - It exposes a public API to the outside world.
 
-<img src="images/base.png" width="30%" alt="Base">
+<img src="images/base.png" width="30%">
 
 The lack of an `interface` makes bases less composable compared to components. This is in order,
 because they solve a different problem and that is to be a bridge between the real world and the components.
@@ -532,7 +533,7 @@ Now we need to update `deps.edn` with our newly created base:
   (:gen-class))
 
 (defn -main [& args]
-  (println (user-core/hello (first args)))
+  (println (user/hello (first args)))
   (System/exit 0))
 ```
 
@@ -547,7 +548,7 @@ To do that, we need to start by creating an environment.
 
 There are two kind of environments.
 
-<img src="images/environment.png" width="30%" alt="Environment">
+<img src="images/environment.png" width="30%">
 
 1. The `development` environment:
    - This is where we work with the code, often from a REPL. 
@@ -654,7 +655,7 @@ The reason all paths begin with "../../" is that `components` and `bases` live t
 compared to `environments/command-line` and not at the root as with the `development` environment.
 
 If we add a missing path here, then we will get a warning when we execute the [check](#check) or [info](#info) command, e.g.:
-<img src="images/warning.png" width="90%" alt="Warning">
+<img src="images/warning.png" width="90%">
 
 ## Tools.deps
 
@@ -724,7 +725,7 @@ use scripts and maybe a build tool, or create our own build functions that we ac
 We think they will do a better job and give us the level of control, flexibility and power we need.
 
 Let's say we want to create an executable jar file out of the `command-line` environment.  
-First, we create a `scripts`directory at the workspace root and copy this [build-uberjar.sh](https://github.com/polyfy/polylith/blob/master/scripts/build-uberjar.sh)
+First, we create a `scripts` directory at the workspace root and copy this [build-uberjar.sh](https://github.com/polyfy/polylith/blob/master/scripts/build-uberjar.sh)
 to it:
 ```sh
 example
@@ -808,7 +809,7 @@ Nice, it worked!
 We have already used the [info](#info) command a couple of times without explaining everything in its output.
 
 Let's execute the `info` command again to see the current state of the workspace:<br>
-<img src="images/info-02.png" width="30%" alt="Dev alias">
+<img src="images/git-info.png" width="30%">
 
 At the top we have the line `stable since: c91fdad`. 
 To explain what this is, let's take it from the beginning.
@@ -909,7 +910,7 @@ c91fdad4a34927d9aacfe4b04ea2f304f3303282 Workspace created.
  
 If we execute the `info` command:
 
-<img src="images/info-03.png" width="30%" alt="Stable Lisa">
+<img src="images/tagging-info-1.png" width="30%">
 
 ...the `stable since` hash has been updated and is now tagged with `stable-lisa`.
 All the `*` signs are gone because no `component`, `base` or `environment` 
@@ -925,11 +926,11 @@ and only add custom tags per developer when needed.
 
 The pattern is configured in `deps.edn` and can be changed if we prefer something else:
 ```clojure
-            :stable-since-tag-pattern "stable-*"
+            :stable-tag-pattern "stable-*"
 ```
 
 It's possible to move back to an earlier `stable point` in time by passing in a hash (the first few letters i enough
-as long as it's unique):
+as long as it's unique) - but let's not do that now:
 ```sh
 git tag -f stable-lisa c91fdad
 ```
@@ -941,13 +942,56 @@ git tag --sort=committerdate -l 'stable-*'
 
 Then it uses the last line of the output, or if no match was found, the first commit in the repository.
 
+### Release
+
+When we release, we probably want the CI server to tag the release. Here we tag the first commit as `v1.1.0`
+and the second as `v1.2.0`:
+```
+git tag v1.1.0 c91fdad
+git tag v1.2.0
+```
+
+If we execute:
+```
+poly info since:release
+```
+<img src="images/tagging-info-2.png" width="27%">
+
+...it picks the latest release tag that follows the pattern defined in `./deps.edn`:
+```
+            :release-tag-pattern "v[0-9]*"
+```
+
+If we execute:
+```
+poly info since:previous-release
+```
+<img src="images/tagging-info-3.png" width="27%">
+
+...it picks the second latest release tag.
+
+By executing `git log --pretty=oneline` we can verify that the tags are correctly set:
+
+```
+e7ebe683a775ec28b7c2b5d77e01e79d48149d13 (HEAD -> master, tag: v1.2.0, tag: stable-lisa) Created the user and cli bricks.
+c91fdad4a34927d9aacfe4b04ea2f304f3303282 (tag: v1.1.0) Workspace created.
+```
+
+The `since` parameter is used by the CI server to run all tests since the previous release, e.g.:
+```
+poly test since:previous-release
+```
+
+Depending on whether we tag before or after the build, we will choose `release` or `previous-release`.
+If `since` is not given, `last-stable` will be used as default.
+
 ## Flags
 
 We have one more thing to cover regarding the `info` command, and that is what the `x` and `-` flags mean:
-<img src="images/environment-flags.png" width="25%" alt="Flags">
+<img src="images/environment-flags.png" width="25%">
 
 Each flag under _source_ has a different meaning:<br>
-<img src="images/flags.png" width="30%" alt="Flags">
+<img src="images/flags.png" width="30%">
 
 The `---` for the `command-line` environment means we have an `environments/command-line`
 directory but no `src` or `test` directories in it and that no tests will be executed for this environment.
@@ -956,10 +1000,10 @@ The `x--` for the `development` environment means we have a `development/src` di
 but no `development/test` directory and that no tests will be executed for this environment.
 
 We also have this section:<br>
-<img src="images/brick-flags.png" width="25%" alt="Flags">
+<img src="images/brick-flags.png" width="25%">
 
 Here the flags have a slightly different meaning:<br>
-<img src="images/flags-included.png" width="38%" alt="Flags">
+<img src="images/flags-included.png" width="38%">
 
 The `xx-` for the `user` component tells that both `components/user/src` and `components/user/test` 
 are included in the `command-line` and `development` environments and that no brick tests will be executed.
@@ -987,11 +1031,11 @@ The bricks for the `development` environment is configured in `./deps.edn`:
 ```
 
 If we execute `poly info :r` (or the longer `poly info :resources`):<br>
-<img src="images/info-04.png" width="30%" alt="Status resources">
+<img src="images/flags-info.png" width="30%">
 
 
 ...then the `resources` directory is also shown:<br>
-<img src="images/flags-resources.png" width="20%" alt="Status resources">
+<img src="images/flags-resources.png" width="20%">
 
 ## Testing
 
@@ -1016,7 +1060,7 @@ components/user/src/se/example/user/core.clj
 ```
 
 ...and if we run the `info` command again:<br>
-<img src="images/info-05.png" width="30%" alt="Status resources">
+<img src="images/testing-info-1.png" width="30%">
 
 ...the `user` component is now marked with an asterisk, `*`. If we look carefully we will also notice that 
 the status flags `xxx` under the `cl` column now have an `x` in its last position. As we already know, 
@@ -1039,7 +1083,7 @@ namespace in the `user` component:
 
 (deftest hello--when-called-with-a-name--then-return-hello-phrase
   (is (= "Hello Lisa!"
-         (user-core/hello "Lisa"))))
+         (user/hello "Lisa"))))
 ```
 
 Now let's run the [test](#test) command:
@@ -1080,7 +1124,7 @@ corresponding test accordingly:
 
 (deftest hello--when-called-with-a-name--then-return-hello-phrase
   (is (= "Hello Lisa!!"
-         (user-core/hello "Lisa"))))
+         (user/hello "Lisa"))))
 ```
 
 If we run the `test` command again, it will now pass:
@@ -1114,7 +1158,7 @@ Let's try it out with the `info` command first:
 ```sh
 poly info :dev
 ```
-<img src="images/info-06.png" width="30%" alt="Test dev">
+<img src="images/testing-info-2.png" width="30%">
 
 And yes, now the tests for the `development` environment are included. When we give an environment 
 using `env` (`:dev` is a shortcut for `env:dev`) only that environment will be included. 
@@ -1123,7 +1167,7 @@ select both:
 ```
 poly info env:cl:dev
 ```
-<img src="images/info-07.png" width="30%" alt="Test command-line and dev">
+<img src="images/testing-info-3.png" width="30%">
 
 Now both the `development` and the `command-line` environment is marked for test execution.
 Here we used the environment aliases `cl` and `dev` but we could also have passed in the environment 
@@ -1179,7 +1223,7 @@ conflicts with bricks and also because each environment is executed in isolation
 namespace is less important and here we choose the `env` top namespace to keep it simple. 
 
 If we execute the `info` command:<br>
-<img src="images/info-08.png" width="30%" alt="Env dummy test">
+<img src="images/testing-info-4.png" width="30%">
 
 ...the `command-line` is marked as changed and flagged as `-x-` telling us that 
 it now has a `test` directory.  
@@ -1189,7 +1233,7 @@ are not included in the tests without explicitly telling it to, by passing in `:
 ```sh
 poly info :env
 ```
-<img src="images/info-09.png" width="30%" alt="Test environment">
+<img src="images/testing-info-5.png" width="30%">
 
 Now the `command-line` environment is also marked to be tested.
 Let's verify that by running the tests:
@@ -1248,7 +1292,7 @@ git commit -m "Added tests"
 git tag -f stable-lisa
 ```
 If we execute the `info` command again:<br>
-<img src="images/info-10.png" width="30%" alt="Commited workspace">
+<img src="images/testing-info-6.png" width="30%">
 
 ...the `*` signs are now gone and nothing is marked to be tested.
 
@@ -1257,26 +1301,26 @@ A way to force it to test all bricks is to pass in `:all-bricks`:
 ```sh
 poly info :all-bricks
 ```
-<img src="images/info-11.png" width="30%">
+<img src="images/testing-info-7.png" width="30%">
 
 Now all the brick tests are marked to be executed, except for the `development` environment.  
 To include dev, also add `:dev`:
 ```sh
 poly info :all-bricks :dev
 ```
-<img src="images/info-12.png" width="30%">
+<img src="images/testing-info-8.png" width="30%">
 
 To include all brick and environment tests (except `dev`) we can type:
 ```sh
 poly info :all
 ```
-<img src="images/info-13.png" width="30%">
+<img src="images/testing-info-9.png" width="30%">
 
 ...to also include dev, type:
 ```
 poly info :all :dev
 ```
-<img src="images/info-14.png" width="30%">
+<img src="images/testing-info-10.png" width="30%">
 
 To run the brick tests from the `development` environments is something we normally don't need to do,
 but it's good to know that the possibility exists.
@@ -1372,11 +1416,11 @@ This allow us to optimize the development environment for productivity while in 
 focus on fulfilling non functional requirements like performance or up time. 
 
 Right now, our `development` environment mirrors the `command-line` environment:<br>
-<img src="images/command-line.png" width="35%" alt="Command-line">
+<img src="images/command-line.png" width="35%">
 
 Let's pretend we get performance problems in the `user` component and that we think
 distributing the load, by delegating to a new service, could solve the problem:<br>
-<img src="images/dev-and-prod.png" width="57%" alt="Command-line">
+<img src="images/dev-and-prod.png" width="57%">
 
 The production environment now looks good, but how about the `development` environment?
 The problem here is that it contains two components that share the same `user` interface.
@@ -1384,7 +1428,7 @@ This will confuse both the classloader (if we start a REPL) and the IDE, because
 two components using the same `se.example.user` namespace in the path, which is not a desirable situation.
 
 The solution is to use `profiles`:<br>
-<img src="images/development.png" width="62%" alt="Command-line">
+<img src="images/development.png" width="62%">
 
 By leaving out any component that implements the `user` interface from the `development` 
 environment and combine it with one of the two possible `profiles` we get a complete development
@@ -1396,10 +1440,10 @@ are selected. The name `default` is set by `:default-profile-name` in `./deps.ed
 but here we will leave it as it is.
 
 Now let's try to move from this design:<br>
-<img src="images/command-line.png" width="35%" alt="Command-line">
+<img src="images/command-line.png" width="35%">
 
 ...to this:<br>
-<img src="images/target-architecture.png" width="58%" alt="Command-line">
+<img src="images/target-architecture.png" width="58%">
 
 First we need to decide how the `command-line` tool should communicate with `user-service` over the wire.
 After some searching, we found this [slacker](https://github.com/sunng87/slacker) library that 
@@ -1510,7 +1554,7 @@ example
   (:require [se.example.user.interface :as user]))
 
 (defn hello-remote [name]
-  (user-core/hello (str name " - from the server")))
+  (core/hello (str name " - from the server")))
 ```
 
 - [x] Create the `user-remote` component:
@@ -1562,8 +1606,8 @@ example
             :interface-ns "interface"
             :default-profile-name "default"
             :compact-views #{}
-            :build-tag-pattern "v[0-9]*"
-            :stable-since-tag-pattern "stable-*"
+            :release-tag-pattern "v[0-9]*"
+            :stable-tag-pattern "stable-*"
             :env-to-alias {"development" "dev"
                            "command-line" "cl"
                            "user-service" "user-s"}
@@ -1683,7 +1727,7 @@ poly info +
 ...and compare it with the target design:
 | | |
 |:-|:-| 
-|<img src="images/info-15.png" width="80%"> | <img src="images/prod-and-dev.png">|
+|<img src="images/profile-info-1.png" width="80%"> | <img src="images/prod-and-dev.png"> |
 
 Looks like we got everything right! 
 
@@ -1700,7 +1744,7 @@ we need to pass in `+remote` (the `default` profile is only selected if no profi
 ```sh
 poly info +remote
 ```
-<img src="images/info-16.png" width="45%">
+<img src="images/profile-info-2.png" width="43%">
 
 Now the `remote` profile is included in the `development` environment and listed after `active profiles`.
 
@@ -1708,7 +1752,7 @@ It's possible to give more than one profile:
 ```
 poly info +default +remote
 ```
-<img src="images/info-17.png" width="55%">
+<img src="images/profile-info-3.png" width="55%">
 
 The tool complains and doesn't like that we just included both `user` and `user-remote` in the `development` 
 environment!
@@ -1721,7 +1765,7 @@ each brick and environment consists of. This can be done by passing in `:loc`:
 ```
 poly info :loc
 ```
-<img src="images/info-18.png" width="51%">
+<img src="images/profile-info-4.png" width="51%">
 
 Each environment sumarises the number of lines of code for each brick it contains.
 The `loc` column count number of lines of codes under the `src` directory,
@@ -1731,7 +1775,7 @@ Let's run all the tests to see if everything works:
 ```
 poly test :env
 ```
-<img src="images/test-run.png" width="85%" alt="Test environment">
+<img src="images/test-run.png" width="85%">
 
 It worked!
 
@@ -1752,6 +1796,17 @@ can be executed from other workspaces by giving `ws-dir`, e.g.:
 ```
 poly check ws-dir:../example
 ``` 
+
+If we are in a workspace subdirectory, we can use `::` to execute commands from the workspace root, e.g.:
+```
+cd environments
+poly info ::
+``` 
+
+...which is the same as:
+```
+poly info ws-dir:..
+```
 
 Let's continue with the RealWorld example and tag it as stable (this will only affect our local clone):
 ```
@@ -1894,12 +1949,12 @@ userService.persist(db, userToBeSaved)
 With Polylith we get the same level of support from the IDE.
 By first import the `user` interface and then type:
 ```clojure
-(user-core/
+(user/
 ```
 
 ...now the IDE will list all available functions in the `user` interface and one of them would be `persist!`:
 ```clojure
-(user-core/persist! db user-to-be-saved)
+(user/persist! db user-to-be-saved)
 ```
 
 ## Naming
@@ -1971,27 +2026,27 @@ An alternative approach could be to use the [GraalVM](https://www.graalvm.org) o
 
 The workspace configuration is stored under the `:polylith` key in `./deps.edn` and defines the following keys:
 
-| Key                        | Description
-|:---------------------------|:---------------------------------------------------------------------------------------------|
-| :top-namespace             | The workspace top namespace. If changed, the source code has to be changed accordingly. |
-| :interface-ns              | The default value is `interface`. If changed, the source code has to be changed accordingly. |
-| :default-profile-name      | The default value is `default`. If changed, the `+default` alias in `./deps.edn` has to be renamed accordingly. |
-| :build-tag-pattern         | The default value is `v[0-9]*`. If changed, old tags may not be recognised. |
-| :stable-since-tag-pattern  | The default value is `stable-*`. If changed, old tags may not be recognised. |
-| :compact-views             | The default value is #{}. If set to #{"libs"}, then the `libs` diagram will be shown in a more compact format. Only "libs" is supported at the moment. |
-| :env-to-alias              | If the `development` key is missing, `{"development" "dev"}` will be added. |
-| :ns-to-lib                 | Can be left empty, but will give a more detailed output from the [libs](#libs) command if populated. |
+| Key                    | Description
+|:-----------------------|:---------------------------------------------------------------------------------------------|
+| :top-namespace         | The workspace top namespace. If changed, the source code has to be changed accordingly. |
+| :interface-ns          | The default value is `interface`. If changed, the source code has to be changed accordingly. |
+| :default-profile-name  | The default value is `default`. If changed, the `+default` alias in `./deps.edn` has to be renamed accordingly. |
+| :release-tag-pattern   | The default value is `v[0-9]*`. If changed, old tags may not be recognised. |
+| :stable-tag-pattern    | The default value is `stable-*`. If changed, old tags may not be recognised. |
+| :compact-views         | The default value is #{}. If set to #{"libs"}, then the `libs` diagram will be shown in a more compact format. Only "libs" is supported at the moment. |
+| :env-to-alias          | If the `development` key is missing, `{"development" "dev"}` will be added. |
+| :ns-to-lib             | Can be left empty, but will give a more detailed output from the [libs](#libs) command if populated. |
 
 Settings that are specific per developer/user are stored in `~/.polylith/config.edn`:
 
-| Key                        | Description
-|:---------------------------|:---------------------------------------------------------------------------------------------|
+| Key                  | Description
+|:---------------------|:---------------------------------------------------------------------------------------------|
 | :thousand-separator  | Set to "," by default (when first created). |
 | :color-mode          | Set to "none" on Windows, "dark" on other operating systems (when first created). Valid values are "none", "light" and "dark", see the [color](#color) section. Can be overridden, e.g.: `poly info color-mode:none`. |
 | :empty-character     | Set to "." on Windows, "·" on other operating systems (when first created). Used by the [deps](#deps) and [libs](#libs) commands. |
 | :m2-dir              | If omitted, the `.m2` directory will be set to USER-HOME/.m2. Used by the [libs](#libs) command. |
 
-If `~/.polylith/config.edn` does not exists, it will be created the first time the [create w](#create-w) command is executed, e.g.:
+If `~/.polylith/config.edn` doesn't exists, it will be created the first time the [create w](#create-w) command is executed, e.g.:
 
 ```
 {:color-mode "dark"
@@ -2008,8 +2063,7 @@ poly ws get:settings
 ```
 ```clojure
 {:active-profiles #{"default"},
- :build-tag-pattern "v[0-9]*",
- :changes-since "last-stable",
+ :release-tag-pattern "v[0-9]*",
  :color-mode "dark",
  :compact-views #{},
  :default-profile-name "default",
@@ -2028,7 +2082,7 @@ poly ws get:settings
                                  :paths ["components/user-remote/src"
                                          "components/user-remote/resources"
                                          "components/user-remote/test"]}},
- :stable-since-tag-pattern "stable-*",
+ :stable-tag-pattern "stable-*",
  :thousand-sep ",",
  :top-namespace "se.example",
  :user-config-file "/Users/tengstrand/.polylith/config.edn",
@@ -2175,7 +2229,7 @@ poly help
 ```
 
 ```
-  Poly 0.1 (2020-10-05) - https://github.com/polyfy/polylith
+  Poly 0.1.0-alpha (2020-10-10) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -2201,6 +2255,16 @@ poly help
   content from that file. All commands except 'create' and 'test'
   can be executed with this parameter set. The FILE is created by executing the
   'ws' command, e.g.: 'poly ws out:ws.edn'.
+
+  If since:SINCE is passed in as an argument, the last stable point in time
+  will be set depending on the value of SINCE (or the first commit if no match
+  was found):
+    stable          -> the latest tag that matches stable-*, defined by
+                       :stable-tag-pattern in ./deps.edn.
+    build           -> the latest tag that matches v[0-9]*, defined by
+                       :release-tag-pattern in ./deps.edn.
+    previous-build  -> the latest tag that matches v[0-9]*,
+                       defined by :release-tag-pattern in ./deps.edn.
 
   The color mode can be overridden by passing in e.g. color-mode:none
   (valid values are: none, light, dark) which is otherwise configured in
@@ -2231,7 +2295,8 @@ poly help
     poly help deps :env :brick
     poly info
     poly info :loc
-    poly info since:previous-build
+    poly info since:release
+    poly info since:previous-release
     poly info env:myenv
     poly info env:myenv:another-env
     poly info :env
@@ -2539,7 +2604,7 @@ poly help
   Stable points are normally set by the CI server or by individual developers,
   e.g. Lisa, with 'git tag -f stable-lisa'.
 
-  The pattern can be changed in :stable-since-tag-pattern in ./deps.edn.
+  The pattern can be changed in :stable-tag-pattern in ./deps.edn.
 
   The way the latest tag is found is by taking the last line of the output from:
     git tag --sort=committerdate -l 'stable-*'
@@ -2555,18 +2620,6 @@ poly help
   poly info [ARGS]
     ARGS = :loc       -> Shows the number of lines of code for each brick and
                          environment.
-
-           since:WHEN -> If set to last-stable or if 'since' is not given, then
-                         the last stable point in time is calculated based on
-                         the latest git tag that follows the pattern 'stable-*',
-                         specified by :stable-since-tag-pattern in ./deps.edn.
-
-                         If set to previous-build then it takes the second
-                         latest git tag that follows the pattern 'v[0-9]*',
-                         specified by :build-tag-pattern in ./deps.edn.
-
-                         If no tag matched, it takes the first commit in the
-                         repository.
 
   In addition to :loc, all the arguments used by the 'test' command
   can also be used as a way to see what tests will be executed.
@@ -2596,7 +2649,7 @@ poly help
   1. stable since: dec73ec | stable-lisa
 
      Shows the most recent commit marked as stable, or the previous build if 
-     since:previous-build was given, or the first commit in the repository
+     since:previous-release was given, or the first commit in the repository
      if no tag was found, followed by the tag (if found). More information
      can be found in the 'diff' command help.
 
@@ -2735,7 +2788,8 @@ poly help
   Example:
     poly info
     poly info :loc
-    poly info since:previous-build
+    poly info since:release
+    poly info since:previous-release
     poly info env:myenv
     poly info env:myenv:another-env
     poly info :env
@@ -2901,7 +2955,7 @@ If we run the `info` command again:
 ```sh
 clj -A:poly info
 ```
-<img src="images/polylith-info-bright.png" width="40%" alt="Polylith workspace">
+<img src="images/polylith-info-bright.png" width="40%">
 
 The diagram is now shown with colors! Let's improve the readability by switching to dark mode:
 
@@ -2910,12 +2964,12 @@ The diagram is now shown with colors! Let's improve the readability by switching
  :thousand-separator ","
  :empty-character "·"}
 ```
-<img src="images/polylith-info.png" width="40%" alt="Polylith workspace">
+<img src="images/polylith-info.png" width="40%">
 
 That's better! 
 
 If you want to use the same colors in your terminal, here they are:<br>
-<img src="images/polylith-colors.png" width="50%" alt="Polylith colors">
+<img src="images/polylith-colors.png" width="50%">
 
 If the colors (f8eeb6, bfefc5, 77bcfc, e2aeff, cccccc, 24272b, ee9b9a) looks familiar to you, it's because they are 
 more or less stolen from the [Borealis](https://github.com/Misophistful/borealis-cursive-theme) color schema!
@@ -2931,4 +2985,4 @@ or on [Slack](https://clojurians.slack.com/archives/C013B7MQHJQ).
 
 ## License
 
-Distributed under the Eclipse Public License, the same as Clojure.
+Distributed under the [Eclipse Public License 1.0](http://opensource.org/licenses/eclipse-1.0.php), the same as Clojure.

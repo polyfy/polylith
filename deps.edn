@@ -2,8 +2,8 @@
             :interface-ns "interface"
             :default-profile-name "default"
             :compact-views #{}
-            :build-tag-pattern "v[0-9]*"
-            :stable-since-tag-pattern "stable-*"
+            :release-tag-pattern "v[0-9]*"
+            :stable-tag-pattern "stable-*"
             :env-to-alias {"api" "api"
                            "core" "core"
                            "deployer" "depl"

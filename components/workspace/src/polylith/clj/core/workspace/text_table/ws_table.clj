@@ -10,7 +10,7 @@
 (defn component-sorter [{:keys [interface name]}]
   [(:name interface) name])
 
-(defn table [{:keys [settings environments components bases paths changes user-input]} is-show-loc is-show-resources]
+(defn table [{:keys [settings environments components bases paths changes]} is-show-loc is-show-resources]
   (let [{:keys [color-mode thousand-sep]} settings
         profiles (profile/inactive-profiles settings)
         sorted-components (sort-by component-sorter components)

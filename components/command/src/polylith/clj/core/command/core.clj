@@ -7,7 +7,7 @@
             [polylith.clj.core.command.test :as test]
             [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.common.interface :as common]
-            [polylith.clj.core.deps.interface :as deps]
+            [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.help.interface :as help]
             [polylith.clj.core.validator.interface :as validator]
@@ -84,7 +84,7 @@
         "diff" (diff workspace)
         "help" (help arg1 arg2 is-show-env is-show-brick is-show-bricks color-mode)
         "info" (info/info workspace unnamed-args)
-        "libs" (deps/print-lib-table workspace is-all)
+        "libs" (lib/print-lib-table workspace is-all)
         "test" (test/run workspace unnamed-args color-mode)
         "ws" (ws-explorer/ws workspace get out color-mode)
         (unknown-command cmd))

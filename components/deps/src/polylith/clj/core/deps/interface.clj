@@ -1,13 +1,9 @@
 (ns polylith.clj.core.deps.interface
   (:require [polylith.clj.core.deps.interface-deps :as ifc-deps]
-            [polylith.clj.core.deps.text-table.lib-table :as lib-table]
             [polylith.clj.core.deps.text-table.brick-ifc-deps-table :as brick-ifc-deps-table]
             [polylith.clj.core.deps.text-table.brick-deps-table :as brick-deps-table]
             [polylith.clj.core.deps.text-table.workspace-ifc-deps-table :as ws-ifc-deps-table]
             [polylith.clj.core.deps.text-table.workspace-brick-deps-table :as ws-brick-deps-table]))
-
-(defn print-lib-table [workspace is-all]
-  (lib-table/print-table workspace is-all))
 
 (defn interface-ns-deps [suffixed-top-ns interface-name interface-names brick-namespaces]
   (ifc-deps/interface-ns-deps suffixed-top-ns interface-name interface-names brick-namespaces))
