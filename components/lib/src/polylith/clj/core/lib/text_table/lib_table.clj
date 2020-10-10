@@ -42,10 +42,11 @@
   (let [flag (if (contains? lib-deps lib-dep) "x" "-")]
     (text-table/cell column row flag :purple :center :horizontal)))
 
-(defn env-column [column {:keys [alias lib-deps]} libraries]
-  (concat [(text-table/cell column 1 alias :purple :center :horizontal)]
-          (map-indexed #(flag-cell column (+ 3 %1) %2 (set (mapcat lib lib-deps)))
-                       libraries)))
+(defn env-column [column {:keys [alias lib-deps unmerged]} libraries]
+  (let [deps (set (mapcat lib (:lib-deps unmerged lib-deps)))]
+    (concat [(text-table/cell column 1 alias :purple :center :horizontal)]
+            (map-indexed #(flag-cell column (+ 3 %1) %2 deps)
+                         libraries))))
 
 (defn env-columns [libraries environments]
   (apply concat (map-indexed #(env-column (+ 7 (* 2 %1)) %2 libraries)
@@ -80,7 +81,6 @@
   (let [{:keys [profile-to-settings empty-char thousand-sep color-mode compact-views]} settings
         libraries (sort-by (juxt :name :version)
                            (set (concat (mapcat lib (mapcat :lib-deps environments))
-                                        ;(mapcat lib (mapcat #(-> % :profile :lib-deps) environments))
                                         (mapcat profile-lib profile-to-settings))))
         all-bricks (concat components bases)
         brick->libs (brick-libs/brick->libs environments all-bricks profile-to-settings)

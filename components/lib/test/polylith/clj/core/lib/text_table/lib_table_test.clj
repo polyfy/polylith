@@ -2,6 +2,30 @@
   (:require [clojure.test :refer :all]
             [polylith.clj.core.lib.text-table.lib-table :as lib-table]))
 
+(def dev-lib-deps {"antlr" {:local/root "/Users/tengstrand/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar"
+                            :type "local"
+                            :size 445288
+                            :version "2.7.7"}
+                   "clj-time/clj-time" {:git/url "https://github.com/clj-time/clj-time.git"
+                                        :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"
+                                        :type "git"
+                                        :size 137611
+                                        :version "d9ed4e4"}
+                   "furkan3ayraktar/polylith-clj-deps-ring" {:git/url "https://github.com/furkan3ayraktar/polylith-clj-deps-ring.git"
+                                                             :sha "d74f49da6547fa160f74873d2d0ae3414631750b"
+                                                             :deps/root "environments/core"
+                                                             :type "git"
+                                                             :size 31717
+                                                             :version "d74f49d"}
+                   "local-clojure" {:local/root "/Users/tengstrand/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar"
+                                    :type "local"
+                                    :size 445288
+                                    :version "2.7.7"}
+                   "org.clojure/clojure" {:version "1.10.1", :type "maven", :size 3908431}
+                   "org.clojure/tools.deps.alpha" {:version "0.8.695", :type "maven", :size 47566}})
+
+(def dev-profile-lib-deps {"zprint" {:version "0.4.15", :type "maven", :size 128182}})
+
 (def workspace {:settings {:color-mode "none"
                            :empty-char "·"
                            :profile-to-settings {"default" {:paths ["components/user/src"
@@ -42,31 +66,11 @@
                                 :is-dev true
                                 :name "development"
                                 :alias "dev"
-                                :lib-deps {"antlr" {:local/root "/Users/tengstrand/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar"
-                                                    :type "local"
-                                                    :size 445288
-                                                    :version "2.7.7"}
-                                           "clj-time/clj-time" {:git/url "https://github.com/clj-time/clj-time.git"
-                                                                :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"
-                                                                :type "git"
-                                                                :size 137611
-                                                                :version "d9ed4e4"}
-                                           "furkan3ayraktar/polylith-clj-deps-ring" {:git/url "https://github.com/furkan3ayraktar/polylith-clj-deps-ring.git"
-                                                                                     :sha "d74f49da6547fa160f74873d2d0ae3414631750b"
-                                                                                     :deps/root "environments/core"
-                                                                                     :type "git"
-                                                                                     :size 31717
-                                                                                     :version "d74f49d"}
-                                           "local-clojure" {:local/root "/Users/tengstrand/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar"
-                                                            :type "local"
-                                                            :size 445288
-                                                            :version "2.7.7"}
-                                           "org.clojure/clojure" {:version "1.10.1", :type "maven", :size 3908431}
-                                           "org.clojure/tools.deps.alpha" {:version "0.8.695", :type "maven", :size 47566}}
+                                :lib-deps (merge dev-lib-deps dev-profile-lib-deps)
+                                :unmerged {:lib-deps dev-lib-deps
+                                           :test-lib-deps {}}
                                 :component-names ["address" "database" "invoicer" "purchaser" "user"]
-                                :profile {:src-paths ["components/user/resources" "components/user/src"]
-                                          :test-paths ["components/user/test" "environments/core/test" "environments/invoice/test"]
-                                          :lib-deps {"zprint" {:version "0.4.15", :type "maven", :size 128182}}
+                                :profile {:lib-deps dev-profile-lib-deps
                                           :test-lib-deps {}}}]
                 :messages []
                 :components [{:lib-dep-names ["antlr"]

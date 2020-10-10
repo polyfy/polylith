@@ -29,7 +29,8 @@
 (def bases [{:name "rest-api"
              :lib-dep-names ["spec-tools"]}])
 
-(def settings {:profile-to-settings {"default" {:lib-deps {"clj-time" {:size 0, :type "maven", :version "0.14.2"}}}}})
+(def settings {:profile-to-settings {"default" {:lib-deps {"clj-time" {:size 0, :type "maven", :version "0.14.2"}}}}
+               :active-profiles ["default"]})
 
 (deftest warnings--missing-libraries-in-an-environment--returns-a-warning
   (is (= [{:type "error"
@@ -42,4 +43,4 @@
            :environment "realworld-backend"
            :message           "Missing libraries in the realworld-backend environment: clj-time"
            :colorized-message "Missing libraries in the realworld-backend environment: clj-time"}]
-         (m109/errors environments components bases settings color/none))))
+         (m109/errors "info" settings environments components bases color/none))))

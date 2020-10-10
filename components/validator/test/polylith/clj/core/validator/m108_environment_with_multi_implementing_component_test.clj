@@ -7,8 +7,8 @@
                   :implementing-components ["admin" "user"]}])
 
 (def environments [{:alias "dev"
-                    :src-paths ["development/src"
-                                "components/user/src"]
+                    :unmerged {:src-paths ["development/src"
+                                           "components/user/src"]}
                     :test-paths ["components/user/test"]}])
 
 (deftest errors--when-then-workspace-contains-a-multi-implementing-component--returns-an-error-message

@@ -42,3 +42,11 @@
   (set (concat (mapcat libs environments)
                (mapcat profile-lib
                        (:profile-to-settings settings)))))
+
+(defn show-error? [cmd profile-to-settings active-profiles]
+  ; When we have at least one profile and the user has deselected all active
+  ; profiles by passing in "+" as an argument, then don't show the error
+  ; when running the 'info' command.
+  (or (not= "info" cmd)
+      (-> profile-to-settings empty?)
+      (-> active-profiles empty? not)))

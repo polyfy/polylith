@@ -10,9 +10,9 @@
                                                       "components/invoice/src"]}}})
 
 (def environments [{:alias "dev"
-                    :src-paths ["components/invoice/src"
-                                "development/src"]
-                    :test-paths []}])
+                    :unmerged {:src-paths ["components/invoice/src"
+                                           "development/src"]
+                               :test-paths []}}])
 
 (deftest warnings--path-was-found-in-both-dev-and-a-profile--returns-error-message
   (is (= [{:code 203

@@ -17,6 +17,7 @@
                          :colorized-message message)])))
 (defn warnings [settings environments color-mode]
   (let [profile-to-settings (:profile-to-settings settings)
-        {:keys [src-paths test-paths]} (common/find-environment "dev" environments)
+        {:keys [unmerged]} (common/find-environment "dev" environments)
+        {:keys [src-paths test-paths]} unmerged
         dev-paths (set (concat src-paths test-paths))]
     (mapcat #(profile-warning % dev-paths color-mode) profile-to-settings)))

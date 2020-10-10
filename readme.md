@@ -954,7 +954,7 @@ If we execute:
 ```
 poly info since:release
 ```
-<img src="images/tagging-info-1.png" width="27%">
+<img src="images/tagging-info-2.png" width="27%">
 
 ...it will pick the latest release tag that follows the pattern defined in `./deps.edn`:
 ```
@@ -965,7 +965,7 @@ If we execute:
 ```
 poly info since:previous-release
 ```
-<img src="images/tagging-info-2.png" width="27%">
+<img src="images/tagging-info-3.png" width="27%">
 
 ...it will pick the second latest release tag. 
 
@@ -1742,7 +1742,7 @@ we need to pass in `+remote` (the `default` profile is only selected if no profi
 ```sh
 poly info +remote
 ```
-<img src="images/profile-info-2.png" width="45%">
+<img src="images/profile-info-2.png" width="43%">
 
 Now the `remote` profile is included in the `development` environment and listed after `active profiles`.
 

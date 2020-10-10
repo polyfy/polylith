@@ -35,7 +35,11 @@
 
 (keys workspace)
 
-(command/execute-command (user-input/extract-params ["info" (str "ws-dir:../poly-example/ws50")]))
+(command/execute-command (user-input/extract-params ["info" "ws-dir:../poly-example/ws50" "+"]))
+
+(command/execute-command (user-input/extract-params ["info" "ws-dir:example/example"]))
+
+;(command/execute-command (user-input/extract-params ["info"]))
 
 (keys (:lib-deps (common/find-environment "dev" (:environments workspace))))
 
@@ -58,8 +62,10 @@
 (def changes (:changes workspace))
 (def messages (:messages workspace))
 
+(map :name environments)
+
 (def environment (common/find-environment "dev" environments))
-(def environment (common/find-environment "poly" environments))
+(def environment (common/find-environment "invoice" environments))
 (def environment (common/find-environment "migrator" environments))
 (def component (common/find-component "common" components))
 (def component (common/find-component "article" components))

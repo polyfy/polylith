@@ -23,8 +23,9 @@
     (if (-> missing-libs empty? not)
       (warning name missing-libs color-mode))))
 
-(defn errors [environments components bases settings color-mode]
-  (let [bricks (concat components bases)
-        used-libs (shared/used-libs environments settings)]
-    (mapcat #(env-warning % bricks used-libs color-mode)
-            environments)))
+(defn errors [cmd {:keys [profile-to-settings active-profiles] :as settings} environments components bases color-mode]
+  (when (shared/show-error? cmd profile-to-settings active-profiles)
+    (let [bricks (concat components bases)
+          used-libs (shared/used-libs environments settings)]
+      (mapcat #(env-warning % bricks used-libs color-mode)
+              environments))))

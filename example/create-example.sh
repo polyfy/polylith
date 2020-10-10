@@ -78,14 +78,14 @@ git log --pretty=oneline > ../output/git-log-pretty.txt
 echo "### 9/13 Tagging ###"
 git tag -f stable-lisa
 git log --pretty=oneline > ../output/tagging-log.txt
-poly info fake-sha:c91fdad > ../output/tagging-info.txt
+poly info fake-sha:e7ebe68 > ../output/tagging-info-1.txt
 
 firstsha=`git log --pretty=oneline | tail -1 | cut -d " " -f1`
 git tag v1.1.0 $firstsha
 git tag v1.2.0
 
-poly info since:release fake-sha:e7ebe68 > ../output/tagging-info-info-2.txt
-poly info since:previous-release fake-sha:c91fdad > ../output/tagging-info-2.txt
+poly info since:release fake-sha:e7ebe68 > ../output/tagging-info-2.txt
+poly info since:previous-release fake-sha:c91fdad > ../output/tagging-info-3.txt
 
 git log --pretty=oneline > ../output/tagging-log-release.txt
 
@@ -146,10 +146,11 @@ chmod +x build-user-service-uberjar.sh
 #java -jar command-line.jar Lisa
 cd ..
 poly info + fake-sha:e7ebe68 > ../output/profile-info-1.txt
+
 poly info +remote fake-sha:e7ebe68 > ../output/profile-info-2.txt
 
 set +e
-poly info +default +remote fake-sha:e7ebe68 > ../output/poly-info-3.txt
+poly info +default +remote fake-sha:e7ebe68 > ../output/profile-info-3.txt
 set -e
 poly info :loc fake-sha:e7ebe68 > ../output/profile-info-4.txt
 poly test :env fake-sha:e7ebe68 > ../output/profile-info-env.txt
