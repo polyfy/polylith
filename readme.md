@@ -357,7 +357,6 @@ which is the recommended way to structure the code in Polylith.
 Here we put all our implementing code in one single namespace, but as the codebase grows, 
 more namespaces can be added to the component.
 
-
 ## Interface
 
 Interfaces are great in many ways:
