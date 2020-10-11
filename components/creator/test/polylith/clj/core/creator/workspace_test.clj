@@ -1,6 +1,6 @@
 (ns polylith.clj.core.creator.workspace-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.test-helper.interface :as helper]))
 
 (use-fixtures :each helper/test-setup-and-tear-down)
@@ -87,7 +87,7 @@
             (str "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly_cli.poly\"]")
             (str "                   :extra-deps {polyfy/polylith")
             (str "                                {:git/url   \"https://github.com/polyfy/polylith\"")
-            (str "                                 :sha       \"" common/poly-git-sha "\"")
+            (str "                                 :sha       \"" version/poly-git-sha "\"")
             (str "                                 :deps/root \"environments/poly\"}}}}}")]
            (helper/content "ws1" "deps.edn")))
 

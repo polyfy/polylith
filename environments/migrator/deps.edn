@@ -3,6 +3,7 @@
          "../../components/migrator/src"
          "../../components/user-config/src"
          "../../components/util/src"
+         "../../components/version/src"
          "../../bases/migrator-cli/src"]
 
  :deps {org.clojure/clojure {:mvn/version "1.10.1"}

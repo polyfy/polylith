@@ -4,8 +4,6 @@
             [polylith.clj.core.common.class-loader :as class-loader]
             [polylith.clj.core.common.validate-args :as validate-args]))
 
-(def poly-git-sha "69e70df8882f4d9a701ab99681a4a6870bdf052b")
-
 (defn ns-to-path [namespace]
   (core/ns-to-path namespace))
 

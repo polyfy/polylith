@@ -190,7 +190,7 @@ The `deps.edn` file looks like this:
                                  :deps/root "environments/poly"}}}}}
 ```
 
-If you wounder what all the settings are used for, be patient, we will soon cover what everything mean and how to use them.
+If you wounder what all the settings are good for, be patient, everything will be covered in detail.
 
 ## Development
 
@@ -2256,7 +2256,7 @@ If you want to use the same colors in your terminal, here they are:<br>
 
 If the colors (f8eeb6, bfefc5, 77bcfc, e2aeff, cccccc, 24272b, ee9b9a) looks familiar to you, it's because they are 
 more or less stolen from the [Borealis](https://github.com/Misophistful/borealis-cursive-theme) color schema!
-This color schema gives a really pleasant user experience when used from the IDE.
+This color schema gives a really pleasant user experience when used from the text editor / IDE.
 
 ## Commands
 
