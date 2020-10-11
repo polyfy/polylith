@@ -275,7 +275,7 @@ workflows:
 #              ignore: /.*/
       - create-artifacts:
           requires:
-            - check
+            - check-build
 #            - test-build
           filters:
             tags:
