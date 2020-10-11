@@ -214,8 +214,12 @@ jobs:
       - run:
           name: Publish release on GitHub
           command: |
+            echo ${CIRCLE_PROJECT_USERNAME}
+            echo ${CIRCLE_PROJECT_REPONAME}
+            echo ${CIRCLE_SHA1}
+            echo ${CIRCLE_TAG}
             VERSION=${CIRCLE_TAG#?}
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -t "Version ${VERSION}" -replace ${CIRCLE_TAG} ./artifacts
+            ghr -t ${GITHUB_TOKEN} -t "Version ${VERSION}" ${CIRCLE_TAG} ./artifacts
 
 workflows:
   version: 2
@@ -237,28 +241,28 @@ workflows:
                 - master
   deploy:
     jobs:
-      - check-build:
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
-      - info-build:
-          requires:
-            - check-build
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
-      - test-build:
-          requires:
-            - check-build
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
+#      - check-build:
+#          filters:
+#            tags:
+#              only: /^v.*/
+#            branches:
+#              ignore: /.*/
+#      - info-build:
+#          requires:
+#            - check-build
+#          filters:
+#            tags:
+#              only: /^v.*/
+#            branches:
+#              ignore: /.*/
+#      - test-build:
+#          requires:
+#            - check-build
+#          filters:
+#            tags:
+#              only: /^v.*/
+#            branches:
+#              ignore: /.*/
 #      - deploy:
 #          requires:
 #            - test-build
@@ -268,8 +272,8 @@ workflows:
 #            branches:
 #              ignore: /.*/
       - create-artifacts:
-          requires:
-            - test-build
+#          requires:
+#            - test-build
           filters:
             tags:
               only: /^v.*/
