@@ -216,10 +216,6 @@ jobs:
       - run:
           name: Publish release on GitHub
           command: |
-            echo ${CIRCLE_PROJECT_USERNAME}
-            echo ${CIRCLE_PROJECT_REPONAME}
-            echo ${CIRCLE_SHA1}
-            echo ${CIRCLE_TAG}
             VERSION=${CIRCLE_TAG#?}
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -n "Version ${VERSION}" ${CIRCLE_TAG} ./artifacts
 
@@ -249,34 +245,33 @@ workflows:
               only: /^v.*/
             branches:
               ignore: /.*/
-#      - info-build:
-#          requires:
-#            - check-build
-#          filters:
-#            tags:
-#              only: /^v.*/
-#            branches:
-#              ignore: /.*/
-#      - test-build:
-#          requires:
-#            - check-build
-#          filters:
-#            tags:
-#              only: /^v.*/
-#            branches:
-#              ignore: /.*/
-#      - deploy:
-#          requires:
-#            - test-build
-#          filters:
-#            tags:
-#              only: /^v.*/
-#            branches:
-#              ignore: /.*/
-      - create-artifacts:
+      - info-build:
           requires:
             - check-build
-#            - test-build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - test-build:
+          requires:
+            - check-build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - deploy:
+          requires:
+            - test-build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - create-artifacts:
+          requires:
+            - test-build
           filters:
             tags:
               only: /^v.*/
