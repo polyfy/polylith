@@ -221,7 +221,7 @@ jobs:
             echo ${CIRCLE_SHA1}
             echo ${CIRCLE_TAG}
             VERSION=${CIRCLE_TAG#?}
-            ghr -t ${GITHUB_TOKEN} -t -u polyfy "Version ${VERSION}" ${CIRCLE_TAG} ./artifacts
+            ghr -t ${GITHUB_TOKEN} -u polyfy "Version ${VERSION}" ${CIRCLE_TAG} ./artifacts
 
 workflows:
   version: 2
@@ -243,12 +243,12 @@ workflows:
                 - master
   deploy:
     jobs:
-#      - check-build:
-#          filters:
-#            tags:
-#              only: /^v.*/
-#            branches:
-#              ignore: /.*/
+      - check-build:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
 #      - info-build:
 #          requires:
 #            - check-build
@@ -274,7 +274,8 @@ workflows:
 #            branches:
 #              ignore: /.*/
       - create-artifacts:
-#          requires:
+          requires:
+            - check
 #            - test-build
           filters:
             tags:
