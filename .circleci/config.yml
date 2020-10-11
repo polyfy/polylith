@@ -199,6 +199,8 @@ jobs:
       - run:
           name: Create artifacts
           command: clojure -A:create-artifacts
+      - store_artifacts:
+          path: ./artifacts
       - persist_to_workspace:
           root: .
           paths:
@@ -219,7 +221,7 @@ jobs:
             echo ${CIRCLE_SHA1}
             echo ${CIRCLE_TAG}
             VERSION=${CIRCLE_TAG#?}
-            ghr -t ${GITHUB_TOKEN} -t "Version ${VERSION}" ${CIRCLE_TAG} ./artifacts
+            ghr -t ${GITHUB_TOKEN} -t -u polyfy "Version ${VERSION}" ${CIRCLE_TAG} ./artifacts
 
 workflows:
   version: 2
