@@ -259,14 +259,14 @@ workflows:
               only: /^v.*/
             branches:
               ignore: /.*/
-      - deploy:
-          requires:
-            - test-build
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
+#      - deploy:
+#          requires:
+#            - test-build
+#          filters:
+#            tags:
+#              only: /^v.*/
+#            branches:
+#              ignore: /.*/
       - create-artifacts:
           requires:
             - test-build
