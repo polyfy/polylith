@@ -82,4 +82,8 @@
 
             :deploy {:extra-deps {polylith/clj-deployer
                                   {:local/root "environments/deployer"}}
-                     :main-opts ["-m" "polylith.clj.core.deployer-cli.core"]}}}
+                     :main-opts ["-m" "polylith.clj.core.deployer-cli.core" "deploy"]}
+
+            :create-artifacts {:extra-deps {polylith/clj-deployer
+                                            {:local/root "environments/deployer"}}
+                               :main-opts ["-m" "polylith.clj.core.deployer-cli.core" "create-artifacts"]}}}

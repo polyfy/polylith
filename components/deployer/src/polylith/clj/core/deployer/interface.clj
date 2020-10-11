@@ -3,3 +3,6 @@
 
 (defn deploy []
   (core/deploy))
+
+(defn create-artifacts []
+  (core/create-artifacts))
