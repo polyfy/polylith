@@ -26,3 +26,4 @@
 *.iml
 
 /example/example/**
+artifacts

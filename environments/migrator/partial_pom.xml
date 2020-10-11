@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>polylith</groupId>
   <artifactId>clj-poly-migrator</artifactId>
-  <version>0.1.0-alpha2</version>
+  <version>VERSION</version>
   <name>clj-poly-migrator</name>
   <description>Used to migrate from lein-polyith to the new Polylith tool.</description>
   <url>https://github.com/polyfy/polylith</url>
