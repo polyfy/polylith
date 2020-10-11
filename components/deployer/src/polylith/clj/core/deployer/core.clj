@@ -46,11 +46,11 @@
                        :env env}
                       t)))))
 
-(def deployable-environments #{"poly" "migrator" "api"})
+(def environments-to-deploy-clojars #{"poly" "migrator" "api"})
 
 (defn deploy []
   (let [current-dir (file/current-dir)
-        changed-environments (filter #(contains? deployable-environments %)
+        changed-environments (filter #(contains? environments-to-deploy-clojars %)
                                      (api/environments-to-deploy))]
     (when (empty? changed-environments)
       (throw (Exception. "Cannot deploy environments. None of the environments in this workspace changed.")))
@@ -83,19 +83,23 @@
     (shell/sh "tar" "-pcvzf" (str/replace artifact-name #".jar" ".tar.gz") env :dir artifacts-dir)
     (file/delete-dir package-path)))
 
-(def environments-to-deploy-brew #{"poly" "migrator"})
+(def environments-to-deploy-as-artifacts #{"poly" "migrator"})
 
 (defn create-artifacts []
   (let [current-dir (file/current-dir)
-        artifacts-dir (str current-dir "/artifacts")]
-    (when (file/exists artifacts-dir)
-      (file/delete-dir artifacts-dir))
-    (.mkdirs (File. artifacts-dir))
-    (doseq [env environments-to-deploy-brew]
-      (println (str "Creating artifacts for: " env))
-      (let [jar-path (str current-dir "/environments/" env "/target/" env ".jar")
-            artifact-name (str env "-" version/version ".jar")
-            artifact-path (str artifacts-dir "/" artifact-name)]
-        (build-jar current-dir env :uberjar)
-        (file/copy-file jar-path artifact-path)
-        (create-brew-package artifacts-dir env artifact-name)))))
+        changed-environments (filter #(contains? environments-to-deploy-as-artifacts %)
+                                     (api/environments-to-deploy))]
+    (when (empty? changed-environments)
+      (throw (Exception. "Cannot create artifacts for environments. None of the environments in this workspace changed.")))
+    (let [artifacts-dir (str current-dir "/artifacts")]
+      (when (file/exists artifacts-dir)
+        (file/delete-dir artifacts-dir))
+      (.mkdirs (File. artifacts-dir))
+      (doseq [env environments-to-deploy-as-artifacts]
+        (println (str "Creating artifacts for: " env))
+        (let [jar-path (str current-dir "/environments/" env "/target/" env ".jar")
+              artifact-name (str env "-" version/version ".jar")
+              artifact-path (str artifacts-dir "/" artifact-name)]
+          (build-jar current-dir env :uberjar)
+          (file/copy-file jar-path artifact-path)
+          (create-brew-package artifacts-dir env artifact-name))))))
