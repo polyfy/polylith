@@ -1,7 +1,7 @@
 (ns polylith.clj.core.creator.workspace
   (:require [polylith.clj.core.file.interface :as file]
-            [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.git.interface :as git]
+            [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.user-config.interface :as user-config]
             [polylith.clj.core.util.interface.os :as os]))
 
@@ -51,7 +51,7 @@
    (str "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly_cli.poly\"]")
    (str "                   :extra-deps {polyfy/polylith")
    (str "                                {:git/url   \"https://github.com/polyfy/polylith\"")
-   (str "                                 :sha       \"" common/poly-git-sha "\"")
+   (str "                                 :sha       \"" version/poly-git-sha "\"")
    (str "                                 :deps/root \"environments/poly\"}}}}}")])
 
 (defn create-user-config-if-not-exists []

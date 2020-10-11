@@ -16,7 +16,8 @@ we target [Clojure](https://clojure.org) which is a powerful and simple function
 
 A Polylith system is made up by simple building blocks that can be combined like Lego bricks.
 Those Lego-like bricks are easy to reason about and can be combined into a single development 
-environment that allows us to work with all the code from one place (a single [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop)) for maximum productivity.
+environment that allows us to work with all the code from one place for maximum productivity,
+by using a single [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop).
 
 They are also used to form different kind of deployable artifacts, like services, tools and libraries,
 in the same way we played with Lego when we were kids! 
@@ -39,13 +40,13 @@ If you have any old Leiningen based projects to migrate, follow the instructions
 
 Some of the Polylith [documentation](https://polylith.gitbook.io) is still mentioning how things worked
 in the old Leiningen version of the tool, for example the empty `workspace interfaces` and the use of
-`symbolic links` that have both been removed!
+`symbolic links` (that have both been removed).
 In some of the videos, we still call things `system` instead of `service`. 
-Now both the development environment and the services are called `environments`.
+Now both the development environment and services are called `environments`.
 
 The biggest difference is that the new tool is based on
 [tools.deps](https://github.com/clojure/tools.deps.alpha) instead of [Leiningen](https://leiningen.org/)
-which has a number of benefits, like a more powerful development environment, faster tests, Windows support,
+which has a number of benefits, like an improved development experience, faster tests, Windows support,
 and more.
 
 ## Table of Contents
@@ -73,8 +74,8 @@ and more.
 - [Naming](#naming)
 - [Mix languages](#mix-languages)
 - [Configuration](#configuration)
-- [Commands](#commands)
 - [Colors](#colors)
+- [Commands](#commands)
 - [Contact](#contact)
 - [License](#license)
 
@@ -109,13 +110,16 @@ We will guide you through the steps of creating a workspace with environments co
 components, bases and libraries and how to work with them from the development environment.
 
 We will give a short introduction to `tools.deps` and how to use build scripts to create
-depolyable artifacts. We will show how `git` is used to tag code and releases
+depolyable artifacts. We will show how `git` is used to tag the code
 and how it enables us to test and release the code incrementally.
+
+We will show how `profiles` will help us work from a single development environment
+for maximum efficiency and how dependencies and library usage can be displayed.
 
 We will explain the value of components and how they bring context to our development experience, 
 which will help us build decoupled and scalable systems from day one.
 
-Finally, we hope this will make you a happier developer!
+Happy coding!
 
 ## Realworld Example
 
@@ -134,17 +138,18 @@ The workspace directory structure will end up like this:
 ```sh
 example            # workspace dir
 ├── .git           # git repository dir
-├── bases          # bases dir (empty)
-├── components     # components dir (empty)
+├── bases          # bases dir
+├── components     # components dir
 ├── deps.edn       # development + workspace config file
 ├── development
 │   └── src        # development specific code
-├── environments   # environments dir (empty)
+├── environments   # environments dir
 ├── logo.png       # polylith logo
 └── readme.md      # documentation
 ```
 
-The directory structure makes it easier to find things and helps us reason about the system at a higher level. 
+This directory structure is here to improve our day to day life.
+It helps us finding things and to reason about the system at a higher level.
 Each top directory is responsible for its own part of a Polylith system.
 A `base` exposes a public API. A `component` is responsible for a specific domain 
 or part of the system. 
@@ -152,11 +157,12 @@ An `environment` specifies our deployable artifacts and what components, bases a
 Finally, we have the `development` environment (`development` + `deps.edn`)
 that are used to work with the code.
 
-A workspace is always initialized to use [git](https://git-scm.com/), but more on that later.
+The structure will give new developers a quick idea of what the system does at a higher level.
+If you are a bit like us, you will soon begin to love this way of structuring the code!
 
-The `bases`, `components` and `environments` directories also contain a `.keep` file. They are put there to prevent git from
-removing the empty directories which could otherwise happen if the workspace is clones before any files are added
-to these directories.
+The `bases`, `components` and `environments` directories also contain a `.keep` file, which can be removed
+as soon as we add something to these directories. 
+A workspace is always initialized to use [git](https://git-scm.com/), but more on that later.
  
 The `deps.edn` file looks like this:
 
@@ -184,7 +190,7 @@ The `deps.edn` file looks like this:
                                  :deps/root "environments/poly"}}}}}
 ```
 
-If you wounder what all the settings are used for, be patient, we will soon cover what everything mean and how to use them.
+If you wounder what all the settings are good for, be patient, everything will be covered in detail.
 
 ## Development
 
@@ -323,9 +329,9 @@ poly info
 <img src="images/component-info.png" width="30%">
 
 This tells us that we have one `development` environment, one `user` component and
-one `user`interface but no `base` (yet).
+one `user`interface but no base (yet). A common name for components and bases are bricks.
 
-If you want to adjust the colors or your system, then visit the [colors](#colors) section.
+If your colors doesn't look as nice as this, then visit the [colors](#colors) section.
 
 Now, let's add the `core` namespace to `user`:<br>
 <img src="images/ide-ws.png" width="30%">
@@ -351,15 +357,13 @@ which is the recommended way to structure the code in Polylith.
 Here we put all our implementing code in one single namespace, but as the codebase grows, 
 more namespaces can be added to the component.
 
-
 ## Interface
 
 Interfaces are great in many ways:
 - _Single point of access_. Components can only be accessed through their interface, which makes them
    easy to find, use and reason about.
 - _Encapsulation_. All the implementing namespaces for a component can be changed without breaking the interface contract.
-- _Composability_. All components have access to all other components via interfaces, and can be replaced as long as the interface is the same.
-
+- _Composability_. All components have access to all other components via interfaces, and can be replaced as long as they use the same interface.
 
 When we created the `user` component, the `user` interface was also created.
 
@@ -394,7 +398,7 @@ util
 
 This can be handy if we want to group the functions and not put everyone into one place.
 Every time we think of splitting up the interface, keep in mind that it can be an indicator
-that it's time to split it up into smaller components!
+that it's time to split up the component into smaller components!
 
 Here is an example of some code that uses such an interface:
 ```clojure
@@ -409,7 +413,7 @@ So far, we have only used functions in the interface. Polylith also supports hav
 and `defmacro` statements in the interface.
 There are no magic here, just include the definitions you want, like this:
 ```clojure
-(def a-value 123)
+(def one-two-three 123)
 ```
 Now it can be used as a normal definition from any other component or base.
 
@@ -431,7 +435,7 @@ A `defmacro` definition can look like this:
   `(timbre/log! :info :p ~args))
 ``` 
 
-Here are some additional tips on how to work with interfaces:
+This list of tips makes more sense when you have used Polylith for a while, but here it comes anyway:
 - Functions can be sorted in alphabetical order in the interface, while we can freely arrange them in the implementation namespace(s).
 - The interface can expose the name of the entity, e.g. `sell [car]`, while the implementing function can do the
   destructuring, e.g. `sell [{:keys [model type color]}]` which sometimes can improve the readability.
@@ -463,7 +467,7 @@ A `base` is similar to a `component` except for two things:
 
 The lack of an `interface` makes bases less composable compared to components. This is in order,
 because they solve a different problem and that is to be a bridge between the real world and the components.
-It does this by taking incoming calls which it delegates to various components.
+It fulfills this by delegating incoming calls to various components (or actually interfaces).
 
 Let's create the `cli` base to see how it works, by executing the [create b](#create-b) command:
 ```sh
@@ -556,7 +560,7 @@ There are two kind of environments.
    - If we have any `profiles` then they are defined in `./deps.edn`.
    - Any extra code, that is not part of a component or base, lives under the `development` folder.
 2. Any `deployable` environment:
-   - Used to build deployable artifacts, e.g.: lambda functions, REST API's, libraries, command line tools, ...and more.
+   - Used to build deployable artifacts, e.g.: lambda functions, REST API's, libraries, tools, ...and more.
    - Lives under the `environments` directory where each environment has its own directory.
    - Has a `deps.edn` config file that specifies which libraries, component and bases that are included.
    - Can optionally have a `resources` directory. 
@@ -617,7 +621,7 @@ The tool also reminds us of this:
   It's recommended to add an alias to :env-to-alias in ./deps.edn for the command-line environment.
 ```
 
-If we don't add the alias to `./deps.edn`, the environment heading will show up as a `?` when we execute the `info` command,
+If we don't add the alias to `./deps.edn`, the environment heading will show up as `?` when we execute the `info` command,
 so let's add it:
 ```clojure
 {:polylith {...
@@ -656,6 +660,10 @@ compared to `environments/command-line` and not at the root as with the `develop
 
 If we add a missing path here, then we will get a warning when we execute the [check](#check) or [info](#info) command, e.g.:
 <img src="images/warning.png" width="90%">
+
+Let's summarise where the paths are located:
+- The dev environment: `./deps.edn` > `:aliases` > `:dev` > `:extra-paths`.
+- Other environments: `environments/ENV-DIR` > `deps.edn` > `:paths`.
 
 ## Tools.deps
 
@@ -835,8 +843,8 @@ This is also the first `stable point in time` of this workspace which the tool u
 been made (up till now). Notice that the first letters of the hash correspond to `stable since: c91fdad`
 and this is because it refers to this SHA-1 hash in git.
  
-The `command-line` and `development` environments, and the `user` and `cli` bricks (components and bases are
-also called `bricks`) are all marked with an asterisk, `*`. The way the tool calculates changes is to ask
+The `command-line` and `development` environments, and the `user` and `cli` bricks 
+are all marked with an asterisk, `*`. The way the tool calculates changes is to ask
 `git` by running this command internally:
 ```sh
 git diff c91fdad4a34927d9aacfe4b04ea2f304f3303282 --name-only
@@ -983,7 +991,7 @@ poly test since:previous-release
 ```
 
 Depending on whether we tag before or after the build, we will choose `release` or `previous-release`.
-If `since` is not given, `last-stable` will be used as default.
+If `since` is not given, `last-stable` will be used by default.
 
 ## Flags
 
@@ -1228,7 +1236,7 @@ If we execute the `info` command:<br>
 ...the `command-line` is marked as changed and flagged as `-x-` telling us that 
 it now has a `test` directory.  
 The reason it is not tagged as `-xx` is that environment tests 
-are not included in the tests without explicitly telling it to, by passing in `:env`.
+are not marked to be executed without explicitly telling it to, by passing in `:env`.
 
 ```sh
 poly info :env
@@ -1323,14 +1331,14 @@ poly info :all :dev
 <img src="images/testing-info-10.png" width="30%">
 
 To run the brick tests from the `development` environments is something we normally don't need to do,
-but it's good to know that the possibility exists.
+but it's good to know that it's supported.
 
 Now let's see if it actually works:
 ```sh
 poly test :all :dev
 ```
 ```
-Environments to run tests from: development, command-line
+Environments to run tests from: command-line, development
 
 Running tests from the command-line environment, including 2 bricks and 1 environment: user, cli, command-line
 
@@ -1403,12 +1411,12 @@ to get a view of which tests will be executed.
 
 When working with a Polylith system, we want to keep everything as simple as possible
 and maximize our productivity.
-The Lego-like way of organising code into bricks, helps us with both of these challenges.
+The Lego-like way of organising code into bricks, helps us with both of these goals.
 
 One problem we normally have when developing software without using Polylith, is that the production environment
 and the development environment has a 1:1 relationship. This happens because we use the production codebase
 for development, so if we create a new service in production, it will automatically
-"turn up" in development.
+"turn up" in the development environment.
  
 In Polylith we avoid this problem by separating the development environment from production.
 Thanks to components, we can create any environment we want by putting the bricks we need into one place.
@@ -1676,6 +1684,7 @@ example
                                 ...
 ```
 
+Execute:
 ```
 ./build-cli-uberjar.sh  
 ```
@@ -1692,6 +1701,7 @@ example
 #!/usr/bin/env bash
 ./build-uberjar.sh user-service
 ```
+Execute:
 ```
 cd scripts
 chmod +x build-user-service-uberjar.sh
@@ -1771,6 +1781,10 @@ Each environment sumarises the number of lines of code for each brick it contain
 The `loc` column count number of lines of codes under the `src` directory,
 while `(t)` counts for the `test` directory.
 
+Our environments are still quite small, but it will eventually reach 1000 lines of code,
+and when that happens you may want to change the thousand delimiter in `~/.polylith/config.edn`
+which is set to `,` by default.
+
 Let's run all the tests to see if everything works:
 ```
 poly test :env
@@ -1797,18 +1811,19 @@ can be executed from other workspaces by giving `ws-dir`, e.g.:
 poly check ws-dir:../example
 ``` 
 
-If we are in a workspace subdirectory, we can use `::` to execute commands from the workspace root, e.g.:
+If we are in a workspace subdirectory, we can use `::` to execute commands from the first parent
+directory that contains a `deps.edn` workspace file, e.g.:
 ```
-cd environments
+cd environments/realworld-backend
 poly info ::
 ``` 
 
-...which is the same as:
+...which in this case is the same as:
 ```
-poly info ws-dir:..
+poly info ws-dir:../..
 ```
 
-Let's continue with the RealWorld example and tag it as stable (this will only affect our local clone):
+Let's continue with the RealWorld example and tag it as stable (which will only affect our local clone):
 ```
 git tag -f stable-lisa
 ```
@@ -1861,8 +1876,9 @@ poly deps env:rb brick:article
 
 ## Libraries
 
-Libraries are specified in `deps.edn` for each environment, in `:deps` in  for the development environment and in `:extra-deps` under each
-alias for all other environments.
+Libraries are specified in `deps.edn` under each environment:
+- The dev environment: `./deps.edn` > `:aliases` > `:dev` > `:extra-deps`.
+- Other environments: `environments/ENV-DIR` > `deps.edn` > `:deps`.
 
 To list all libraries used in the workspace, execute the [libs](#libs) command:
 ```
@@ -1966,7 +1982,7 @@ Every time we fail in finding a good name, it will make the system harder to rea
 
 The components are the core of Polylith, so let's start with them.
 If a component does **one thing** then we can name it based on that, e.g.
-`validator`, `invoicer` or `purchaser`. Sometime a component operates around a concept,
+`validator`, `invoicer` or `purchaser`. Sometime a component operates around a concept
 that we can name it after, e.g.: `account` or `car`. This can be an alternative if the component
 does more than one thing, but always around that single concept.
 
@@ -2037,14 +2053,14 @@ The workspace configuration is stored under the `:polylith` key in `./deps.edn` 
 | :env-to-alias          | If the `development` key is missing, `{"development" "dev"}` will be added. |
 | :ns-to-lib             | Can be left empty, but will give a more detailed output from the [libs](#libs) command if populated. |
 
-Settings that are specific per developer/user are stored in `~/.polylith/config.edn`:
+Settings that are unique per developer/user are stored in `~/.polylith/config.edn`:
 
 | Key                  | Description
 |:---------------------|:---------------------------------------------------------------------------------------------|
 | :thousand-separator  | Set to "," by default (when first created). |
 | :color-mode          | Set to "none" on Windows, "dark" on other operating systems (when first created). Valid values are "none", "light" and "dark", see the [color](#color) section. Can be overridden, e.g.: `poly info color-mode:none`. |
 | :empty-character     | Set to "." on Windows, "·" on other operating systems (when first created). Used by the [deps](#deps) and [libs](#libs) commands. |
-| :m2-dir              | If omitted, the `.m2` directory will be set to USER-HOME/.m2. Used by the [libs](#libs) command. |
+| :m2-dir              | If omitted, the `.m2` directory will be set to USER-HOME/.m2. Used by the [libs](#libs) command to calculate file sizes (KB). |
 
 If `~/.polylith/config.edn` doesn't exists, it will be created the first time the [create w](#create-w) command is executed, e.g.:
 
@@ -2188,9 +2204,9 @@ poly info ws-file:ws.edn
 This will give the exact same output as if we execute `poly info` on the machine that created `ws.edn`.
 All commands except `test` and `create` can be executed when `ws-file` is given.
 
-Here is an example where we inspect what command was used to produce the file:
+Here is an example where we inspect the arguments used to produce the file:
 ```
-poly ws get:user-input:args ws-file:ws.edn
+poly ws get:old-user-input:args ws-file:ws.edn
 ``` 
 
 ...which returns:
@@ -2198,6 +2214,49 @@ poly ws get:user-input:args ws-file:ws.edn
 ["ws" "out:ws.edn"]
 ```
 
+The `old-user-input` key is added when `ws-file` is given.
+
+## Colors
+
+When we created the `example` workspace, the file `~/.polylith/config.edn` was also created:
+```
+{:color-mode "dark"
+ :thousand-separator ","
+ :empty-character "·"}
+```
+
+For Windows systems the `color-mode` is set to `none` and for all other systems, `dark` will be used as default.
+Valid values are: `none`, `light` or `dark`.
+
+In this documentation we have used the `dark` color schema, but we can switch to `light`
+by giving the `color-mode` parameter (or by updating `~/.polylith/config.edn`):
+```
+poly info color-mode:light
+```
+<img src="images/color-info.png" width="40%">
+
+...everything suddenly looks much brighter!
+The only difference between "light" and "dark" is that they use different [codes](https://github.com/polyfy/polylith/tree/master/components/util/src/polylith/clj/core/util/colorizer.clj) for grey.
+
+If we switch back to dark background and select `none`:
+```
+poly info color-mode:none
+```
+<img src="images/color-none.png" width="40%">
+
+...things are now displayed without colors. 
+
+To refresh our memory, this is how it looked like using the `dark` color schema:
+
+<img src="images/profile-info-2.png" width="40%">
+
+
+If you want to use the same colors in your terminal, here they are:<br>
+<img src="images/polylith-colors.png" width="50%">
+
+If the colors (f8eeb6, bfefc5, 77bcfc, e2aeff, cccccc, 24272b, ee9b9a) looks familiar to you, it's because they are 
+more or less stolen from the [Borealis](https://github.com/Misophistful/borealis-cursive-theme) color schema!
+This color schema gives a really pleasant user experience when used from the text editor / IDE.
 
 ## Commands
 
@@ -2936,43 +2995,6 @@ poly help
     poly ws out:ws.edn
     poly ws color-mode:none > ws.edn
 ```
-
-## Colors
-
-To make things more colorful create the `~/.polylith/config.edn` config file under your `USER-HOME` directory
-with the following content:
-```
-{:color-mode "light"
- :thousand-separator ","
- :empty-character "·"}
-```
-- The _color-mode_ can be set to either "none", "light" or "dark", depending on the color schema you use.
-  The only difference between "light" and "dark" is that they use different [codes](https://github.com/polyfy/polylith/tree/master/components/util/src/polylith/clj/core/util/colorizer.clj) for grey.
-- The _thousand-spearator_ is used to separate numbers larger then 999 like 12,345.
-- The _empty-character_ can be replaced by a . (period) if your computer has problems showing it (they are used in the `deps` command).
-
-If we run the `info` command again:
-```sh
-clj -A:poly info
-```
-<img src="images/polylith-info-bright.png" width="40%">
-
-The diagram is now shown with colors! Let's improve the readability by switching to dark mode:
-
-```
-{:color-mode "dark"
- :thousand-separator ","
- :empty-character "·"}
-```
-<img src="images/polylith-info.png" width="40%">
-
-That's better! 
-
-If you want to use the same colors in your terminal, here they are:<br>
-<img src="images/polylith-colors.png" width="50%">
-
-If the colors (f8eeb6, bfefc5, 77bcfc, e2aeff, cccccc, 24272b, ee9b9a) looks familiar to you, it's because they are 
-more or less stolen from the [Borealis](https://github.com/Misophistful/borealis-cursive-theme) color schema!
 
 ## Contact
 

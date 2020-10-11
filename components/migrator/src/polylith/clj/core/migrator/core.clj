@@ -2,7 +2,8 @@
   (:require [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.util.interface.str :as str-util]))
+            [polylith.clj.core.util.interface.str :as str-util]
+            [polylith.clj.core.version.interface :as version]))
 
 (defn next-ws-dir [from-ws-dir]
   (util/find-first #(-> % file/exists not)
@@ -80,7 +81,7 @@
      (str "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly-cli.core\"]")
      (str "                   :extra-deps {polyfy/polylith")
      (str "                                {:git/url   \"https://github.com/polyfy/polylith.git\"")
-     (str "                                 :sha       \"" common/poly-git-sha "\"")
+     (str "                                 :sha       \"" version/poly-git-sha "\"")
      (str "                                 :deps/root \"environments/poly\"}}}}}")]))
 
 (defn env-deps-content [from-dir component-names base-names libraries]
