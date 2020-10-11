@@ -66,6 +66,10 @@
 (defn make-executable-script [env artifact-name]
   (str "#!/usr/bin/env bash\n\nset -e\n\n# Set dir containing the installed files\ninstall_dir=PREFIX\n" env "_jar=\"$install_dir/libexec/" artifact-name "\"\n\n# Find java executable\nset +e\nJAVA_CMD=$(type -p java)\nset -e\nif [[ -z \"$JAVA_CMD\" ]]; then\n  if [[ -n \"$JAVA_HOME\" ]] && [[ -x \"$JAVA_HOME/bin/java\" ]]; then\n    JAVA_CMD=\"$JAVA_HOME/bin/java\"\n  else\n    >&2 echo \"Couldn't find 'java'. Please set JAVA_HOME.\"\n    exit 1\n  fi\nfi\n\nexec \"$JAVA_CMD\" -jar \"$" env "_jar\" \"$@\"\n"))
 
+(defn get-sha-sum [file-path]
+  (let [output (shell/sh "shasum" "-a" "256" file-path)]
+    (first (str/split output #" "))))
+
 (defn create-brew-package [^String artifacts-dir ^String env ^String artifact-name]
   (let [package-path (str artifacts-dir "/" env)
         package-dir (File. package-path)
@@ -73,14 +77,19 @@
         install-sh (File. package-dir "install.sh")
         executable (File. package-dir env)
         install-script (make-install-script env)
-        executable-script (make-executable-script env artifact-name)]
+        executable-script (make-executable-script env artifact-name)
+        tar-gz-name (str/replace artifact-name #".jar" ".tar.gz")
+        shasum (File. artifacts-dir (str tar-gz-name ".sha1"))]
     (spit install-sh install-script)
     (spit executable executable-script)
     (shell/sh "chmod" "+x" (.getAbsolutePath install-sh))
     (shell/sh "chmod" "+x" (.getAbsolutePath executable))
     (file/copy-file (str artifacts-dir "/" artifact-name)
                     (str artifacts-dir "/" env "/" artifact-name))
-    (shell/sh "tar" "-pcvzf" (str/replace artifact-name #".jar" ".tar.gz") env :dir artifacts-dir)
+    (shell/sh "tar" "-pcvzf" tar-gz-name env :dir artifacts-dir)
+    (let [shasum-content (get-sha-sum (str artifacts-dir "/" tar-gz-name))]
+      (println (str "Shasum for " env ": " shasum-content))
+      (spit shasum shasum-content))
     (file/delete-dir package-path)))
 
 (def environments-to-deploy-as-artifacts #{"poly" "migrator"})
