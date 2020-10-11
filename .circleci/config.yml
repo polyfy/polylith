@@ -221,7 +221,7 @@ jobs:
             echo ${CIRCLE_SHA1}
             echo ${CIRCLE_TAG}
             VERSION=${CIRCLE_TAG#?}
-            ghr -t ${GITHUB_TOKEN} -u polyfy "Version ${VERSION}" ${CIRCLE_TAG} ./artifacts
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -n "Version ${VERSION}" ${CIRCLE_TAG} ./artifacts
 
 workflows:
   version: 2
