@@ -215,7 +215,7 @@ jobs:
           name: Publish release on GitHub
           command: |
             VERSION=${CIRCLE_TAG#?}
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -t "Version ${VERSION}" -replace ${VERSION} ./artifacts
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -t "Version ${VERSION}" -replace ${CIRCLE_TAG} ./artifacts
 
 workflows:
   version: 2
