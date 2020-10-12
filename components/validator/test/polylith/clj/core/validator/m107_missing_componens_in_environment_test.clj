@@ -9,7 +9,7 @@
                                      "admin" {:paths []
                                               :lib-deps {"zprint" #:mvn{:version "0.4.15"}}}}})
 
-(def environments [{:name "migrator"
+(def environments [{:name "poly-migrator"
                     :deps {"common" {:direct ["file" "util"]
                                      :direct-ifc ["user-config"]
                                      :indirect []}
@@ -23,8 +23,8 @@
 (deftest errors--when-environments-with-missing-components--return-error
   (is (= [{:type "error"
            :code 107
-           :environment "migrator"
+           :environment "poly-migrator"
            :interfaces ["user-config"]
-           :colorized-message "Missing components in the migrator environment for these interfaces: user-config"
-           :message           "Missing components in the migrator environment for these interfaces: user-config"}]
+           :colorized-message "Missing components in the poly-migrator environment for these interfaces: user-config"
+           :message           "Missing components in the poly-migrator environment for these interfaces: user-config"}]
          (m107/errors "info" (assoc settings :active-profiles #{"default"}) environments color/none))))

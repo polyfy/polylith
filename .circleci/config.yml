@@ -187,6 +187,38 @@ jobs:
           name: Deploy changed environments to clojars
           command: clojure -A:deploy
 
+  create-artifacts:
+    docker:
+      - image: circleci/clojure:tools-deps-1.10.1.561
+    working_directory: ~/polylith
+    steps:
+      - attach_workspace:
+          at: ~/polylith
+      - restore_cache:
+          key: polylith-{{ checksum "deps.edn" }}
+      - run:
+          name: Create artifacts
+          command: clojure -A:create-artifacts
+      - store_artifacts:
+          path: ./artifacts
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  publish-github-release:
+    docker:
+      - image: cibuilds/github:0.13
+    working_directory: ~/polylith
+    steps:
+      - attach_workspace:
+          at: ~/polylith
+      - run:
+          name: Publish release on GitHub
+          command: |
+            VERSION=${CIRCLE_TAG#?}
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -n "Version ${VERSION}" ${CIRCLE_TAG} ./artifacts
+
 workflows:
   version: 2
   validate:
@@ -232,6 +264,22 @@ workflows:
       - deploy:
           requires:
             - test-build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - create-artifacts:
+          requires:
+            - test-build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - publish-github-release:
+          requires:
+            - create-artifacts
           filters:
             tags:
               only: /^v.*/

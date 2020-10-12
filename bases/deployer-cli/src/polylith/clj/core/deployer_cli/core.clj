@@ -4,7 +4,11 @@
 
 (defn -main [& args]
   (try
-    (deployer/deploy)
+    (let [cmd (first args)]
+      (case cmd
+        "deploy" (deployer/deploy)
+        "create-artifacts" (deployer/create-artifacts)
+        (throw (Exception. "Invalid command. Please provide either one of: deploy, create-artifacts"))))
     (System/exit 0)
     (catch Throwable t
       (let [message (.getMessage t)

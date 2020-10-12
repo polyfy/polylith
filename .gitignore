@@ -26,3 +26,5 @@
 *.iml
 
 /example/example/**
+artifacts
+environments/**/pom.xml

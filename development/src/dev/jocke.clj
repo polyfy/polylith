@@ -66,7 +66,7 @@
 
 (def environment (common/find-environment "dev" environments))
 (def environment (common/find-environment "invoice" environments))
-(def environment (common/find-environment "migrator" environments))
+(def environment (common/find-environment "poly-migrator" environments))
 (def component (common/find-component "common" components))
 (def component (common/find-component "article" components))
 (def base (common/find-base "poly-cli" bases))
