@@ -1,9 +1,9 @@
 (ns polylith.clj.core.command.core
-  (:require [polylith.clj.core.command.create :as create]
+  (:require [polylith.clj.core.command.cmd-validator.core :as cmd-validator]
+            [polylith.clj.core.command.create :as create]
             [polylith.clj.core.command.dependencies :as dependencies]
             [polylith.clj.core.command.exit-code :as exit-code]
             [polylith.clj.core.command.info :as info]
-            [polylith.clj.core.command.message :as message]
             [polylith.clj.core.command.test :as test]
             [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.common.interface :as common]
@@ -32,50 +32,37 @@
 (defn unknown-command [cmd]
   (println (str "  Unknown command '" cmd "'. Type 'poly help' for help.")))
 
-(defn can-be-executed-from-here? [workspace cmd]
-  (or (-> workspace nil? not)
-      (nil? cmd)
-      (= "help" cmd)
-      (= "create" cmd)))
-
-(defn validate [{:keys [settings environments] :as workspace} cmd selected-environments color-mode]
-  (if (can-be-executed-from-here? workspace cmd)
-    (validator/validate selected-environments settings environments color-mode)
-    [false (message/cant-be-executed-outside-ws-message cmd)]))
-
-(defn read-ws-from-file [cmd ws-file {:keys [selected-profiles] :as user-input}]
-  (if (contains? #{"create" "test"} cmd)
-    (println (str "  The '" cmd "' command can't be executed when the workspace is read from file via 'ws-file'."))
-    (if (not (file/exists ws-file))
-      (println (str "The file '" ws-file "' doesn't exist."))
-      (let [ws (first (file/read-file ws-file))
-            old-user-input (-> ws :user-input)
-            new-ws (-> (assoc ws :old-user-input old-user-input)
-                       (assoc :user-input user-input))]
-        (if (empty? selected-profiles)
-          new-ws
-          (assoc-in new-ws [:settings :active-profiles] selected-profiles))))))
+(defn read-ws-from-file [ws-file {:keys [ selected-profiles] :as user-input}]
+  (if (not (file/exists ws-file))
+    (println (str "The file '" ws-file "' doesn't exist."))
+    (let [ws (first (file/read-file ws-file))
+          old-user-input (-> ws :user-input)
+          new-ws (-> (assoc ws :old-user-input old-user-input)
+                     (assoc :user-input user-input))]
+      (if (empty? selected-profiles)
+        new-ws
+        (assoc-in new-ws [:settings :active-profiles] selected-profiles)))))
 
 (defn read-workspace
-  ([ws-dir {:keys [cmd ws-file] :as user-input}]
-   (read-workspace cmd ws-file ws-dir user-input (common/color-mode user-input)))
-  ([cmd ws-file ws-dir user-input color-mode]
+  ([ws-dir {:keys [ws-file] :as user-input}]
+   (read-workspace ws-file ws-dir user-input (common/color-mode user-input)))
+  ([ws-file ws-dir user-input color-mode]
    (if (nil? ws-file)
      (when (common/valid-config-file? ws-dir color-mode)
        (-> user-input
            ws-clj/workspace-from-disk
            ws/enrich-workspace
            change/with-changes))
-     (read-ws-from-file cmd ws-file user-input))))
+     (read-ws-from-file ws-file user-input))))
 
 (defn execute [{:keys [cmd args name top-ns ws-file is-all is-show-brick is-show-bricks is-show-env brick get out interface selected-environments unnamed-args] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (common/workspace-dir user-input color-mode)
         environment-name (first selected-environments)
-        workspace (read-workspace cmd ws-file ws-dir user-input color-mode)
+        workspace (read-workspace ws-file ws-dir user-input color-mode)
         arg1 (second args)
         arg2 (-> args rest second)
-        [ok? message] (validate workspace cmd selected-environments color-mode)]
+        [ok? message] (cmd-validator/validate workspace user-input color-mode)]
     (if ok?
       (case cmd
         "check" (check workspace color-mode)

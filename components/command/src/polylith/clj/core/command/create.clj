@@ -1,21 +1,13 @@
 (ns polylith.clj.core.command.create
-  (:require [polylith.clj.core.command.message :as command]
-            [polylith.clj.core.creator.interface :as creator]
-            [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [polylith.clj.core.command.message :as command]
+            [polylith.clj.core.command.shared :as shared]
+            [polylith.clj.core.creator.interface :as creator]))
 
 (def ent->name {"w" "my-workspace"
                 "e" "my-environment"
                 "b" "my-base"
                 "c" "my-component"})
-
-(def entity->short {"w" "w"
-                    "e" "e"
-                    "b" "b"
-                    "c" "c"
-                    "workspace" "w"
-                    "environment" "e"
-                    "base" "b"
-                    "component" "c"})
 
 (defn workspace? [entity]
   (= "w" entity))
@@ -36,7 +28,7 @@
     :else [true]))
 
 (defn create [current-dir workspace entity name top-ns interface color-mode]
-  (let [ent (entity->short entity)
+  (let [ent (shared/entity->short entity)
         [ok? message] (validate workspace ent name top-ns)]
     (if ok?
       (condp = ent

@@ -1479,6 +1479,7 @@ Let's create a checklist that will take us there:
   - [ ] Create the `default` and `remote` profiles.
     - [ ] Add the `user` paths to the `default` profile.
     - [ ] Add the `user-remote` paths to the `remote` profile.
+    - [ ] Activate the `default` profile in the dev environment.
 - [ ] Switch from `user` to `user-remote` in `deps.edn` for the `command-line` environment.
   - [ ] Remove `user` related paths from `environments/command-line/deps.edn`.
   - [ ] Add `user-remote` related paths to `environments/command-line/deps.edn`.
@@ -1607,6 +1608,7 @@ example
   - [x] Create the `default` and `remote` profiles.
     - [x] Add the `user` paths to the `default` profile.
     - [x] Add the `user-remote` paths to the `remote` profile.
+    - [x] Activate the `default` profile in the dev environment.
 
 ```clojure
 {:polylith {:vcs "git"
@@ -1656,6 +1658,10 @@ example
 
 Notice here that the profiles contain both `src` and `test` directories.
 This works as profiles are only used from the development environment.
+
+Now we should activate the `default` profiles so that the IDE will recognise the `user` component:
+
+<img src="images/profile-activate-default.png" width="20%">
 
 - [x] Switch from `user` to `user-remote` in `deps.edn` for the `command-line` environment.
   - [x] Remove `user` related paths from `environments/command-line/deps.edn`.
@@ -1744,13 +1750,48 @@ Looks like we got everything right!
 The profile flags, `xx`, follows the same pattern as for
 bricks and environments except that the last `Run the tests` flag is omitted.
 
-When we went through this example, we added `user-remote` when the `default` profile was active.
-What we should have done was to first deactivate the `default` profile and activate the `remote`
-profile so that the development environment could treat the component as source code:<br>
-<img src="images/refresh-ws-2.png" width="20%">
+In this example we took quite big steps so that we only had to show the changes for each file once. 
+Normally we work in smaller steps by creating one brick or profile at a time.
 
-These settings are only used by the IDE, but to switch to the `remote` profile when running a command,
-we need to pass in `+remote` (the `default` profile is only selected if no profiles are explicitly given):
+Earlier, we activated the `default` profile in our IDE, and if we now execute the `hello` function:
+```clojure
+(ns dev.lisa
+  (:require [se.example.user.interface :as user]))
+
+(user/hello "Lisa")
+```
+
+...it will return `Hello Lisa!!`.
+
+To emulate the production environment, we can switch to the `remote` profile:
+
+<img src="images/profile-activate-remote.png" width="20%">
+
+We also need to replace the old `user` implementation with the `user-remote` one, by sending
+its `core` namespace to the REPL:
+```clojure
+(ns se.example.user.core
+  (:require [slacker.client :as client]))
+
+(declare hello-remote)
+
+(defn hello [name]
+  (let [connection (client/slackerc "localhost:2104")
+        _ (client/defn-remote connection se.example.user-api.api/hello-remote)]
+    (hello-remote name)))
+
+```
+
+If we execute the `hello` function again, it will now return `Hello Lisa - from the server!!`.
+As we can see, this is a way to switch between implementations without restarting the REPL.
+
+Switching between profiles without the need to restart the REPL can be more complicated than this.
+A state management tool like [Mount](https://github.com/tolitius/mount) can be very helpful here.
+A convenient way of switching to a specific profile is to call a function that performs the switch.
+We can implement one function per profile and let [tools.namespace](https://github.com/clojure/tools.namespace)
+do the job of refreshing the namespaces. A good place to put these functions is in the `development` environment.
+
+To switch to the `remote` profile when running a command, we need to pass in `+remote`:
 ```sh
 poly info +remote
 ```
