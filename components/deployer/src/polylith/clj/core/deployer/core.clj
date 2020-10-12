@@ -61,10 +61,42 @@
       (println (str "Deployment completed for " env " environment.")))))
 
 (defn make-install-script [env]
-  (str "#!/usr/bin/env bash\n\nprefix=\"$1\"\n\n# jar needed by scripts\nmkdir -p \"$prefix/libexec\"\ncp ./*.jar \"$prefix/libexec\"\n\n# scripts\n${HOMEBREW_RUBY_PATH} -pi.bak -e \"gsub(/PREFIX/, '$prefix')\" " env "\nmkdir -p \"$prefix/bin\"\ncp " env " \"$prefix/bin\"\n"))
+  (str "#!/usr/bin/env bash\n\n"
+
+       "prefix=\"$1\"\n\n"
+
+       "# jar needed by scripts\n"
+       "mkdir -p \"$prefix/libexec\"\n"
+       "cp ./*.jar \"$prefix/libexec\"\n\n"
+
+       "# scripts\n"
+       "${HOMEBREW_RUBY_PATH} -pi.bak -e \"gsub(/PREFIX/, '$prefix')\" " env "\n"
+       "mkdir -p \"$prefix/bin\"\n"
+       "cp " env " \"$prefix/bin\"\n"))
 
 (defn make-executable-script [env artifact-name]
-  (str "#!/usr/bin/env bash\n\nset -e\n\n# Set dir containing the installed files\ninstall_dir=PREFIX\n" env "_jar=\"$install_dir/libexec/" artifact-name "\"\n\n# Find java executable\nset +e\nJAVA_CMD=$(type -p java)\nset -e\nif [[ -z \"$JAVA_CMD\" ]]; then\n  if [[ -n \"$JAVA_HOME\" ]] && [[ -x \"$JAVA_HOME/bin/java\" ]]; then\n    JAVA_CMD=\"$JAVA_HOME/bin/java\"\n  else\n    >&2 echo \"Couldn't find 'java'. Please set JAVA_HOME.\"\n    exit 1\n  fi\nfi\n\nexec \"$JAVA_CMD\" -jar \"$" env "_jar\" \"$@\"\n"))
+  (str "#!/usr/bin/env bash\n\n"
+
+       "set -e\n\n"
+
+       "# Set dir containing the installed files\n"
+       "install_dir=PREFIX\n"
+       env "_jar=\"$install_dir/libexec/" artifact-name "\"\n\n"
+
+       "# Find java executable\n"
+       "set +e\n"
+       "JAVA_CMD=$(type -p java)\n"
+       "set -e\n"
+       "if [[ -z \"$JAVA_CMD\" ]]; then\n"
+       "  if [[ -n \"$JAVA_HOME\" ]] && [[ -x \"$JAVA_HOME/bin/java\" ]]; then\n"
+       "    JAVA_CMD=\"$JAVA_HOME/bin/java\"\n"
+       "  else\n"
+       "    >&2 echo \"Couldn't find 'java'. Please set JAVA_HOME.\"\n"
+       "    exit 1\n"
+       "  fi\n"
+       "fi\n\n"
+
+       "exec \"$JAVA_CMD\" -jar \"$" env "_jar\" \"$@\"\n"))
 
 (defn get-sha-sum [file-path]
   (let [output (shell/sh "shasum" "-a" "256" file-path)]
