@@ -20,8 +20,8 @@
                      :main-opts  ["-m" "uberdeps.uberjar"
                                   "--aliases" "aot"
                                   "--main-class" "polylith.clj.core.migrator_cli.core"
-                                  "--target" "./target/migrator.jar"]}
+                                  "--target" "./target/poly-migrator.jar"]}
 
            :skinny-jar {:extra-deps {pack/pack.alpha {:git/url "https://github.com/juxt/pack.alpha.git"
                                                       :sha "0e8731e0f24db05b74769e219051b0e92b50624a"}}
-                        :main-opts ["-m" "mach.pack.alpha.skinny" "--no-libs" "--project-path" "target/migrator-skinny.jar"]}}}
+                        :main-opts ["-m" "mach.pack.alpha.skinny" "--no-libs" "--project-path" "target/poly-migrator-skinny.jar"]}}}

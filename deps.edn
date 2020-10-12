@@ -7,7 +7,7 @@
             :env-to-alias {"api" "api"
                            "core" "core"
                            "deployer" "depl"
-                           "migrator" "migr"
+                           "poly-migrator" "migr"
                            "poly" "poly"
                            "development" "dev"}
             :ns-to-lib {clojure.tools.deps      org.clojure/tools.deps.alpha
@@ -78,7 +78,7 @@
 
             :migrator {:main-opts  ["-m" "polylith.clj.core.migrator-cli.core"]
                        :extra-deps {polylith/clj-poly-migrator
-                                    {:local/root "environments/migrator"}}}
+                                    {:local/root "environments/poly-migrator"}}}
 
             :deploy {:extra-deps {polylith/clj-deployer
                                   {:local/root "environments/deployer"}}

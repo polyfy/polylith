@@ -46,7 +46,7 @@
                        :env env}
                       t)))))
 
-(def environments-to-deploy-clojars #{"poly" "migrator" "api"})
+(def environments-to-deploy-clojars #{"poly" "poly-migrator" "api"})
 
 (defn deploy []
   (let [current-dir (file/current-dir)
@@ -75,28 +75,29 @@
        "cp " env " \"$prefix/bin\"\n"))
 
 (defn make-executable-script [env artifact-name]
-  (str "#!/usr/bin/env bash\n\n"
+  (let [env (str/replace env #"-" "_")]
+    (str "#!/usr/bin/env bash\n\n"
 
-       "set -e\n\n"
+         "set -e\n\n"
 
-       "# Set dir containing the installed files\n"
-       "install_dir=PREFIX\n"
-       env "_jar=\"$install_dir/libexec/" artifact-name "\"\n\n"
+         "# Set dir containing the installed files\n"
+         "install_dir=PREFIX\n"
+         env "_jar=\"$install_dir/libexec/" artifact-name "\"\n\n"
 
-       "# Find java executable\n"
-       "set +e\n"
-       "JAVA_CMD=$(type -p java)\n"
-       "set -e\n"
-       "if [[ -z \"$JAVA_CMD\" ]]; then\n"
-       "  if [[ -n \"$JAVA_HOME\" ]] && [[ -x \"$JAVA_HOME/bin/java\" ]]; then\n"
-       "    JAVA_CMD=\"$JAVA_HOME/bin/java\"\n"
-       "  else\n"
-       "    >&2 echo \"Couldn't find 'java'. Please set JAVA_HOME.\"\n"
-       "    exit 1\n"
-       "  fi\n"
-       "fi\n\n"
+         "# Find java executable\n"
+         "set +e\n"
+         "JAVA_CMD=$(type -p java)\n"
+         "set -e\n"
+         "if [[ -z \"$JAVA_CMD\" ]]; then\n"
+         "  if [[ -n \"$JAVA_HOME\" ]] && [[ -x \"$JAVA_HOME/bin/java\" ]]; then\n"
+         "    JAVA_CMD=\"$JAVA_HOME/bin/java\"\n"
+         "  else\n"
+         "    >&2 echo \"Couldn't find 'java'. Please set JAVA_HOME.\"\n"
+         "    exit 1\n"
+         "  fi\n"
+         "fi\n\n"
 
-       "exec \"$JAVA_CMD\" -jar \"$" env "_jar\" \"$@\"\n"))
+         "exec \"$JAVA_CMD\" -jar \"$" env "_jar\" \"$@\"\n")))
 
 (defn get-sha-sum [file-path]
   (let [output (shell/sh "shasum" "-a" "256" file-path)]
@@ -124,7 +125,7 @@
       (spit shasum shasum-content))
     (file/delete-dir package-path)))
 
-(def environments-to-deploy-as-artifacts #{"poly" "migrator"})
+(def environments-to-deploy-as-artifacts #{"poly" "poly-migrator"})
 
 (defn create-artifacts []
   (let [current-dir (file/current-dir)
