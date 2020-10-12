@@ -1,19 +1,19 @@
-(ns polylith.clj.core.validator.user-input.env-validator-test
+(ns polylith.clj.core.command.cmd-validator.environment-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.util.interface.color :as color]
-            [polylith.clj.core.validator.user-input.env-validator :as validator]))
+            [polylith.clj.core.command.cmd-validator.environment :as environment]))
 
 (def environments [{:alias "adm"}
                    {:name "default"}])
 
 (deftest validate--find-by-alias--returns-with-no-error
   (is (= nil
-         (validator/validate #{"adm"} environments color/none))))
+         (environment/validate #{"adm"} environments color/none))))
 
 (deftest validate--find-by-name--returns-with-no-error
   (is (= nil
-         (validator/validate #{"default"} environments color/none))))
+         (environment/validate #{"default"} environments color/none))))
 
 (deftest validate--cant-find--returns-with-error
   (is (= ["  Can't find environment: core"]
-         (validator/validate #{"core"} environments color/none))))
+         (environment/validate #{"core"} environments color/none))))

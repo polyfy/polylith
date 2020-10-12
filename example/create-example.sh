@@ -79,14 +79,11 @@ echo "### 9/13 Tagging ###"
 git tag -f stable-lisa
 git log --pretty=oneline > ../output/tagging-log.txt
 poly info fake-sha:e7ebe68 > ../output/tagging-info-1.txt
-
 firstsha=`git log --pretty=oneline | tail -1 | cut -d " " -f1`
 git tag v1.1.0 $firstsha
 git tag v1.2.0
-
 poly info since:release fake-sha:e7ebe68 > ../output/tagging-info-2.txt
 poly info since:previous-release fake-sha:c91fdad > ../output/tagging-info-3.txt
-
 git log --pretty=oneline > ../output/tagging-log-release.txt
 
 echo "### 10/13 Flags ###"
@@ -129,7 +126,6 @@ poly create b name:user-api
 cp ../sections/profile/user-api-core.clj bases/user-api/src/se/example/user_api/core.clj
 cp ../sections/profile/user-api-api.clj bases/user-api/src/se/example/user_api/api.clj
 poly create c name:user-remote interface:user
-
 cp ../sections/profile/user-remote-core.clj components/user-remote/src/se/example/user/core.clj
 cp ../sections/profile/user-remote-interface.clj components/user-remote/src/se/example/user/interface.clj
 cp ../sections/profile/deps.edn .
@@ -147,14 +143,12 @@ chmod +x build-user-service-uberjar.sh
 #java -jar command-line.jar Lisa
 cd ..
 poly info + fake-sha:e7ebe68 > ../output/profile-info-1.txt
-
 poly info +remote fake-sha:e7ebe68 > ../output/profile-info-2.txt
-
 set +e
 poly info +default +remote fake-sha:e7ebe68 > ../output/profile-info-3.txt
 set -e
 poly info :loc fake-sha:e7ebe68 > ../output/profile-info-4.txt
-poly test :env fake-sha:e7ebe68 > ../output/profile-info-env.txt
+poly test :env fake-sha:e7ebe68 > ../output/profile-info-5.txt
 
 echo "### 13/13 Configuration ###"
 poly ws get:settings

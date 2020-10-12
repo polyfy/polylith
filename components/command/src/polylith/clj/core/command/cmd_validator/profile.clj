@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.user-input.profile-validator
+(ns polylith.clj.core.command.cmd-validator.profile
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [polylith.clj.core.util.interface.color :as color]))

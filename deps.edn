@@ -57,6 +57,7 @@
 
             :test {:extra-paths ["components/api/test"
                                  "components/change/test"
+                                 "components/command/test"
                                  "components/creator/test"
                                  "components/deps/test"
                                  "components/file/test"

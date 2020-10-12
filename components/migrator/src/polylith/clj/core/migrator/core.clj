@@ -59,22 +59,17 @@
      (str "            :top-namespace \"" top-ns "\"")
      (str "            :interface-ns \"interface\"")]
     (aliases system-names)
-    [(str "            :ns-to-lib {clojure             org.clojure/clojure")
-     (str "                      clojure.tools.deps  org.clojure/tools.deps.alpha}}")
+    [(str "            :ns-to-lib {}}")
      (str "")
-     (str " :aliases  {:dev {:extra-paths [; Development")
-     (str "                                \"development/src\"")
-     (str "                                ; Components")]
+     (str " :aliases  {:dev {:extra-paths [\"development/src\"")]
     (mapcat #(src-dev-paths from-dir "components" %) component-names)
-    [(str "                                ; Bases")]
     (mapcat #(src-dev-paths from-dir "bases" %) base-names)
     [(str "                               ]")
      (str "                  :extra-deps {")]
     (mapv #(lib-row % 31) libraries)
     [(str "                              }}")
-     (str "            :test {:extra-paths [; Components")]
+     (str "            :test {:extra-paths [")]
     (mapcat #(test-dev-paths from-dir "components" %) component-names)
-    [(str "                                 ; Bases")]
     (mapcat #(test-dev-paths from-dir "bases" %) base-names)
     [(str "                                 ]}")
      (str "")
@@ -87,18 +82,15 @@
 (defn env-deps-content [from-dir component-names base-names libraries]
   (concat
     [(str "")
-     (str "{:paths   [; Components")]
+     (str "{:paths   [")]
     (mapcat #(src-env-paths from-dir "components" %) component-names)
-    [(str "           ; Bases")]
     (mapcat #(src-env-paths from-dir "bases" %) base-names)
     [(str "                               ]")
      (str " :deps    {")]
     (mapv #(lib-row % 11) libraries)
     [(str "          }")
-     (str " :aliases {:test {:extra-paths [; Components")]
+     (str " :aliases {:test {:extra-paths [")]
     (mapcat #(test-env-paths from-dir "components" %) component-names)
-    [(str "")
-     (str "                                 ; Bases")]
     (mapcat #(test-env-paths from-dir "bases" %) base-names)
     [(str "                                 ]}}}")]))
 
@@ -149,4 +141,5 @@
     (file/create-file (str to-dir "/development/src/.keep") [""])
     (create-dev from-dir to-dir top-ns component-names base-names system-names)
     (doseq [system-name system-names]
-      (create-env from-dir to-dir system-name top-ns component-names base-names))))
+      (create-env from-dir to-dir system-name top-ns component-names base-names))
+    (println (str "  Successfully migrated to: " to-dir))))

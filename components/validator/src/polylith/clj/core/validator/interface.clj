@@ -1,5 +1,6 @@
 (ns polylith.clj.core.validator.interface
-  (:require [polylith.clj.core.validator.m101-illegal-namespace-deps :as m101]
+  (:require [polylith.clj.core.validator.core :as core]
+            [polylith.clj.core.validator.m101-illegal-namespace-deps :as m101]
             [polylith.clj.core.validator.m102-function-or-macro-is-defined-twice :as m102]
             [polylith.clj.core.validator.m103-missing-defs :as m103]
             [polylith.clj.core.validator.m104-circular-deps :as m104]
@@ -15,18 +16,13 @@
             [polylith.clj.core.validator.m205-reference-to-missing-library-in-ns-lib :as m205]
             [polylith.clj.core.validator.m206-reference-to-missing-namespace-in-ns-lib :as m206]
             [polylith.clj.core.validator.m207-non-top-namespace :as m207]
-            [polylith.clj.core.validator.core :as core]
-            [polylith.clj.core.validator.message-printer :as message-printer]
-            [polylith.clj.core.validator.user-input.validator :as validator]))
+            [polylith.clj.core.validator.message-printer :as message-printer]))
 
 (defn has-errors? [messages]
   (core/has-errors? messages))
 
 (defn print-messages [workspace]
   (message-printer/print-messages workspace))
-
-(defn validate [selected-environments settings environments color-mode]
-  (validator/validate selected-environments settings environments color-mode))
 
 (defn validate-ws [suffixed-top-ns settings paths interface-names interfaces components bases environments interface-ns {:keys [cmd]} color-mode]
   (vec (sort-by (juxt :type :code :message)
