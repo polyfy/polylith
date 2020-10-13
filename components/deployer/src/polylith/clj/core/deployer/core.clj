@@ -22,12 +22,12 @@
   (println (str "Building " (name type) "..."))
   (try
     (shell/sh (if (= :uberjar type) "./build-uberjar.sh" "./build-skinny-jar.sh") env :dir (str current-dir "/scripts"))
-    (catch Throwable t
+    (catch Exception e
       (throw (ex-info (str "Unable to build a " (name type) " for " env " environment.")
                       {:current-dir current-dir
                        :env         env
                        :type        type}
-                      t))))
+                      e))))
   (println (str (name type) " is built.")))
 
 (defn deploy-env [current-dir env]
