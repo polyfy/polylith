@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.data-test
+(ns polylith.clj.core.validator.dev-config-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.validator.data :as data]))
 
@@ -28,22 +28,22 @@
                                              :sha       "78b2c77c56d1b41109d68b451069affac935200e"
                                              :deps/root "environments/poly"}}}}})
 
-(deftest validate-deps-edn--when-passing-in-a-valid-config--return-nil
+(deftest valid-config--returns-nil
   (is (= nil
-         (data/validate-deps-edn config))))
+         (data/validate-dev-config config))))
 
-(deftest validate-deps-edn--invalid-nop-namespace--return-error-message
+(deftest invalid-nop-namespace--returns-error-message
   (is (= {:polylith {:top-namespace ["should be a string"]}}
-         (data/validate-deps-edn (assoc-in config [:polylith :top-namespace] 1)))))
+         (data/validate-dev-config (assoc-in config [:polylith :top-namespace] 1)))))
 
-(deftest validate-deps-edn--invalid-compact-views--return-error-message
+(deftest invalid-compact-views--returns-error-message
   (is (= {:polylith {:compact-views ["should be a set"]}}
-         (data/validate-deps-edn (assoc-in config [:polylith :compact-views] 'hello)))))
+         (data/validate-dev-config (assoc-in config [:polylith :compact-views] 'hello)))))
 
-(deftest validate-deps-edn--ns-to-lib--return-error-message
+(deftest ns-to-lib--return-errors-message
   (is (= {:polylith {:ns-to-lib ["invalid type"]}}
-         (data/validate-deps-edn (assoc-in config [:polylith :ns-to-lib] 'hello)))))
+         (data/validate-dev-config (assoc-in config [:polylith :ns-to-lib] 'hello)))))
 
-(deftest validate-deps-edn--aliases-dev--return-error-message
+(deftest aliases-dev--return-errors-message
   (is (= {:aliases {:dev ["invalid type"]}}
-         (data/validate-deps-edn (assoc-in config [:aliases :dev] [1 2 3])))))
+         (data/validate-dev-config (assoc-in config [:aliases :dev] [1 2 3])))))

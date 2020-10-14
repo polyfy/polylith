@@ -32,7 +32,7 @@
    (let [color-mode (or (:color-mode user-input) (user-config/color-mode) color/none)
          ws-dir (common/workspace-dir user-input color-mode)
          config (read-string (slurp (str ws-dir "/deps.edn")))
-         message (validator/validate-deps-edn config)]
+         message (validator/validate-dev-config config)]
      (if message
        (throw (ex-info (str "  " (color/error color-mode "Error in ./deps.edn: ") message) message))
        (workspace-from-disk ws-dir config user-input color-mode))))
@@ -48,7 +48,7 @@
          component-names (file/directories (str ws-dir "/components"))
          components (components-from-disk/read-components ws-dir top-src-dir component-names interface-ns brick->non-top-namespaces)
          bases (bases-from-disk/read-bases ws-dir top-src-dir brick->non-top-namespaces)
-         environments (envs-from-disk/read-environments ws-dir user-home)
+         environments (envs-from-disk/read-environments ws-dir user-home color-mode)
          profile-to-settings (profile/profile-to-settings aliases user-home)
          paths (path-finder/paths ws-dir environments profile-to-settings)
          default-profile (or default-profile-name "default")
