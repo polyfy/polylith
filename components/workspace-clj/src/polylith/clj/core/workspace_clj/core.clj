@@ -4,6 +4,7 @@
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.user-config.interface :as user-config]
+            [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.path-finder.interface :as path-finder]
             [polylith.clj.core.workspace-clj.profile :as profile]
@@ -30,8 +31,11 @@
   ([user-input]
    (let [color-mode (or (:color-mode user-input) (user-config/color-mode) color/none)
          ws-dir (common/workspace-dir user-input color-mode)
-         config (read-string (slurp (str ws-dir "/deps.edn")))]
-     (workspace-from-disk ws-dir config user-input color-mode)))
+         config (read-string (slurp (str ws-dir "/deps.edn")))
+         message (validator/validate-dev-config config)]
+     (if message
+       (throw (ex-info (str "  " (color/error color-mode "Error in ./deps.edn: ") message) message))
+       (workspace-from-disk ws-dir config user-input color-mode))))
   ([ws-dir {:keys [polylith aliases]} user-input color-mode]
    (let [{:keys [vcs top-namespace interface-ns default-profile-name release-tag-pattern stable-tag-pattern env-to-alias ns-to-lib compact-views]} polylith
          top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
@@ -44,7 +48,7 @@
          component-names (file/directories (str ws-dir "/components"))
          components (components-from-disk/read-components ws-dir top-src-dir component-names interface-ns brick->non-top-namespaces)
          bases (bases-from-disk/read-bases ws-dir top-src-dir brick->non-top-namespaces)
-         environments (envs-from-disk/read-environments ws-dir user-home)
+         environments (envs-from-disk/read-environments ws-dir user-home color-mode)
          profile-to-settings (profile/profile-to-settings aliases user-home)
          paths (path-finder/paths ws-dir environments profile-to-settings)
          default-profile (or default-profile-name "default")

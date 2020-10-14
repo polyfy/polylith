@@ -11,6 +11,7 @@
                            "poly" "poly"
                            "development" "dev"}
             :ns-to-lib {clojure.tools.deps      org.clojure/tools.deps.alpha
+                        malli                   metosin/malli
                         me.raynes               me.raynes/fs
                         puget                   mvxcvi/puget
                         deps-deploy.deps-deploy slipset/deps-deploy}}
@@ -52,6 +53,7 @@
                                org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
                                org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}
                                me.raynes/fs {:mvn/version "1.4.6"}
+                               metosin/malli {:mvn/version "0.1.0"}
                                mvxcvi/puget {:mvn/version "1.3.1"}
                                slipset/deps-deploy {:mvn/version "0.1.0"}}}
 

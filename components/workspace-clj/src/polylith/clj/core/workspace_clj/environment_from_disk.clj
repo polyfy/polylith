@@ -1,10 +1,12 @@
 (ns polylith.clj.core.workspace-clj.environment-from-disk
   (:require [clojure.string :as str]
             [clojure.tools.deps.alpha.util.maven :as mvn]
+            [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]))
+            [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]
+            [polylith.clj.core.validator.interface :as validator]))
 
 (defn absolute-path [path env]
   (cond
@@ -19,10 +21,13 @@
       (mapv #(absolute-path % env) sorted-paths))))
 
 (defn read-environment
-  ([{:keys [env env-dir config-file is-dev]} user-home]
-   (let [{:keys [paths deps aliases mvn/repos]} (read-string (slurp config-file))
-         maven-repos (merge mvn/standard-repos repos)]
-     (read-environment env env-dir config-file is-dev paths deps aliases maven-repos user-home)))
+  ([{:keys [env env-dir config-file is-dev]} user-home color-mode]
+   (let [{:keys [paths deps aliases mvn/repos] :as config} (read-string (slurp config-file))
+         maven-repos (merge mvn/standard-repos repos)
+         message (when (not is-dev) (validator/validate-deployable-config config))]
+     (if message
+       (throw (ex-info (str "  " (color/error color-mode (str "Error in " config-file ": ") message)) message))
+       (read-environment env env-dir config-file is-dev paths deps aliases maven-repos user-home))))
   ([env env-dir config-file is-dev paths deps aliases maven-repos user-home]
    (let [src-paths (if is-dev (-> aliases :dev :extra-paths) paths)
          lib-deps (lib/with-sizes (if is-dev (-> aliases :dev :extra-deps) deps) user-home)
@@ -51,11 +56,11 @@
    :env-dir (str ws-dir "/environments/" env)
    :config-file (str ws-dir "/environments/" env "/deps.edn")})
 
-(defn read-environments [ws-dir user-home]
+(defn read-environments [ws-dir user-home color-mode]
   (let [env-configs (conj (map #(env-map ws-dir %)
                                (file/directories (str ws-dir "/environments")))
                           {:env "development"
                            :is-dev true
                            :env-dir (str ws-dir "/development")
                            :config-file (str ws-dir "/deps.edn")})]
-    (mapv #(read-environment % user-home) env-configs)))
+    (mapv #(read-environment % user-home color-mode) env-configs)))

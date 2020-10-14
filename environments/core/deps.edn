@@ -15,6 +15,7 @@
 
  :deps    {org.clojure/clojure {:mvn/version "1.10.1"}
            org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}
+           metosin/malli {:mvn/version "0.1.0"}
            me.raynes/fs {:mvn/version "1.4.6"}}
 
  :aliases {:test    {:extra-paths []
