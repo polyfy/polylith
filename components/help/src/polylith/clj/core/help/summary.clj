@@ -109,5 +109,3 @@
 
 (defn print-help [color-mode]
   (println (help-text color-mode)))
-
-(print-help "none")

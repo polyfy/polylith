@@ -7,7 +7,7 @@
        "\n"
        "  poly deps project:" (s/key "PROJECT" cm) " brick:" (s/key "BRICK" cm) "\n"
        "    " (s/key "PROJECT" cm) " = The project (name or alias) to show dependencies for.\n"
-       "    " (s/key "BRICK" cm) "  = The brick to show dependencies for.\n"
+       "    " (s/key "BRICK" cm) "   = The brick to show dependencies for.\n"
        "\n"
        "  used by  <  " (color/green cm "user") "  >  uses\n"
        "  -------              ----\n"
