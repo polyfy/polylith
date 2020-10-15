@@ -1,5 +1,5 @@
 # <img src="images/logo.png" width="50%" alt="Polylith" id="logo">
-A tool used to develop Polylith based architectures in Clojure.
+An open source tool used to develop Polylith based architectures in Clojure.
 
 ---------
 
@@ -23,12 +23,11 @@ The bricks are also used to form different kind of deployable artifacts, like se
 in the same way we played with Lego when we were kids! 
 Not surprisingly, it's just as simple and fun!
 
-This repository uses Polylith itself to structure the code:
+To give you an idea, this repository uses Polylith itself to structure the code:
 
 <img src="images/polylith-info-deps-libs.png" width="100%">
 
-To better understand the principles and ideas behind this 
-[open source](https://www.eclipse.org/legal/epl-v10.html) tool, we recommend you first read the
+To better understand the principles and ideas behind this tool, we recommend you first read the
 high-level [documentation](https://polylith.gitbook.io).
 
 Enjoy the ride!
@@ -109,11 +108,11 @@ We encourage you to follow the code examples and try it out yourself.
 We will guide you through the steps of creating a workspace with projects composed of 
 components, bases and libraries and how to work with them from the development environment.
 
-We will give a short introduction to `tools.deps` and how to use build scripts to create
-depolyable artifacts. We will show how `git` is used to tag the code
+We will give a short introduction to tools.deps and how to use build scripts to create
+depolyable artifacts. We will show how git is used to tag the code
 and how it enables us to test and release the code incrementally.
 
-We will show how `profiles` will help us work from a single development project
+We will show how profiles will help us work from a single development project
 for maximum efficiency and how dependencies and library usage can be displayed.
 
 We will explain the value of components and how they bring context to our development experience, 
@@ -1742,7 +1741,7 @@ poly info +
 ...and compare it with the target design:
 | | |
 |:-|:-| 
-|<img src="images/profile-info-1.png" width="80%"> | <img src="images/prod-and-dev.png"> |
+|<img src="images/profile-info-1.png" width="80%"> | <img src="images/target-architecture.png"> |
 
 Looks like we got everything right! 
 
