@@ -13,7 +13,7 @@
                                         :version "d9ed4e4"}
                    "furkan3ayraktar/polylith-clj-deps-ring" {:git/url "https://github.com/furkan3ayraktar/polylith-clj-deps-ring.git"
                                                              :sha "d74f49da6547fa160f74873d2d0ae3414631750b"
-                                                             :deps/root "environments/core"
+                                                             :deps/root "projects/core"
                                                              :type "git"
                                                              :size 31717
                                                              :version "d74f49d"}
@@ -31,47 +31,47 @@
                            :profile-to-settings {"default" {:paths ["components/user/src"
                                                                     "components/user/resources"
                                                                     "components/user/test"
-                                                                    "environments/invoice/test"
-                                                                    "environments/core/test"]
+                                                                    "projects/invoice/test"
+                                                                    "projects/core/test"]
                                                             :lib-deps {"zprint" {:version "0.4.15" :type "maven" :size 128182}}
                                                             :component-names ["user"]
                                                             :base-names []
-                                                            :environment-names ["core" "invoice"]}
+                                                            :project-names ["core" "invoice"]}
                                                  "admin" {:paths ["components/admin/src"
                                                                   "components/admin/resources"
                                                                   "components/admin/test"]
                                                           :lib-deps {"zprint" {:version "0.5.4" :type "maven" :size 0}}
                                                           :component-names ["admin"]
                                                           :base-names []
-                                                          :environment-names []}}
+                                                          :project-names []}}
                            :ns-to-lib {"zprint" "zprint" "antlr" "antlr"}}
-                :environments [{:base-names []
-                                :is-dev false
-                                :name "core"
-                                :alias "core"
-                                :lib-deps {"org.clojure/clojure" {:version "1.10.2-alpha1", :type "maven", :size 3908624}
-                                           "org.clojure/tools.deps.alpha" {:version "0.8.695", :type "maven", :size 47566}},
-                                :component-names [],
-                                :profile {:src-paths [], :test-paths [], :lib-deps {}, :test-lib-deps {}}}
-                               {:base-names ["cli"]
-                                :is-dev false
-                                :name "invoice"
-                                :alias "inv"
-                                :lib-deps {"org.clojure/clojure" {:version "1.10.1", :type "maven", :size 3908431}
-                                           "org.clojure/tools.deps.alpha" {:version "0.8.695", :type "maven", :size 47566}
-                                           "zprint" {:version "0.4.15", :type "maven", :size 128182}}
-                                :component-names ["admin" "database" "invoicer" "purchaser"]
-                                :profile {:src-paths [], :test-paths [], :lib-deps {}, :test-lib-deps {}}}
-                               {:base-names ["cli"]
-                                :is-dev true
-                                :name "development"
-                                :alias "dev"
-                                :lib-deps (merge dev-lib-deps dev-profile-lib-deps)
-                                :unmerged {:lib-deps dev-lib-deps
-                                           :test-lib-deps {}}
-                                :component-names ["address" "database" "invoicer" "purchaser" "user"]
-                                :profile {:lib-deps dev-profile-lib-deps
-                                          :test-lib-deps {}}}]
+                :projects [{:base-names []
+                            :is-dev false
+                            :name "core"
+                            :alias "core"
+                            :lib-deps {"org.clojure/clojure" {:version "1.10.2-alpha1", :type "maven", :size 3908624}
+                                       "org.clojure/tools.deps.alpha" {:version "0.8.695", :type "maven", :size 47566}},
+                            :component-names [],
+                            :profile {:src-paths [], :test-paths [], :lib-deps {}, :test-lib-deps {}}}
+                           {:base-names ["cli"]
+                            :is-dev false
+                            :name "invoice"
+                            :alias "inv"
+                            :lib-deps {"org.clojure/clojure" {:version "1.10.1", :type "maven", :size 3908431}
+                                       "org.clojure/tools.deps.alpha" {:version "0.8.695", :type "maven", :size 47566}
+                                       "zprint" {:version "0.4.15", :type "maven", :size 128182}}
+                            :component-names ["admin" "database" "invoicer" "purchaser"]
+                            :profile {:src-paths [], :test-paths [], :lib-deps {}, :test-lib-deps {}}}
+                           {:base-names ["cli"]
+                            :is-dev true
+                            :name "development"
+                            :alias "dev"
+                            :lib-deps (merge dev-lib-deps dev-profile-lib-deps)
+                            :unmerged {:lib-deps dev-lib-deps
+                                       :test-lib-deps {}}
+                            :component-names ["address" "database" "invoicer" "purchaser" "user"]
+                            :profile {:lib-deps dev-profile-lib-deps
+                                      :test-lib-deps {}}}]
                 :messages []
                 :components [{:lib-dep-names ["antlr"]
                               :name "address"

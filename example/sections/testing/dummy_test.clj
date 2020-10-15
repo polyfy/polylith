@@ -1,4 +1,4 @@
-(ns env.dummy_test
+(ns project.dummy_test
   (:require [clojure.test :refer :all]))
 
 (deftest dummy-test

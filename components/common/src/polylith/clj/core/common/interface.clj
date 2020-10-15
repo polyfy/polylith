@@ -32,8 +32,8 @@
 (defn find-base [base-name bases]
   (core/find-base base-name bases))
 
-(defn find-environment [environment-name environments]
-  (core/find-environment environment-name environments))
+(defn find-project [project-name projects]
+  (core/find-project project-name projects))
 
 (defn validate-args [unnamed-args example]
   (validate-args/validate unnamed-args example))

@@ -10,7 +10,7 @@
             [polylith.clj.core.workspace-clj.profile :as profile]
             [polylith.clj.core.workspace-clj.non-top-namespace :as non-top-ns]
             [polylith.clj.core.workspace-clj.bases-from-disk :as bases-from-disk]
-            [polylith.clj.core.workspace-clj.environment-from-disk :as envs-from-disk]
+            [polylith.clj.core.workspace-clj.projects-from-disk :as projects-from-disk]
             [polylith.clj.core.workspace-clj.components-from-disk :as components-from-disk]))
 
 (def ws-reader
@@ -37,7 +37,7 @@
        (throw (ex-info (str "  " (color/error color-mode "Error in ./deps.edn: ") message) message))
        (workspace-from-disk ws-dir config user-input color-mode))))
   ([ws-dir {:keys [polylith aliases]} user-input color-mode]
-   (let [{:keys [vcs top-namespace interface-ns default-profile-name release-tag-pattern stable-tag-pattern env-to-alias ns-to-lib compact-views]} polylith
+   (let [{:keys [vcs top-namespace interface-ns default-profile-name release-tag-pattern stable-tag-pattern project-to-alias ns-to-lib compact-views]} polylith
          top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
          empty-char (user-config/empty-character)
          m2-dir (user-config/m2-dir)
@@ -48,9 +48,9 @@
          component-names (file/directories (str ws-dir "/components"))
          components (components-from-disk/read-components ws-dir top-src-dir component-names interface-ns brick->non-top-namespaces)
          bases (bases-from-disk/read-bases ws-dir top-src-dir brick->non-top-namespaces)
-         environments (envs-from-disk/read-environments ws-dir user-home color-mode)
+         projects (projects-from-disk/read-projects ws-dir user-home color-mode)
          profile-to-settings (profile/profile-to-settings aliases user-home)
-         paths (path-finder/paths ws-dir environments profile-to-settings)
+         paths (path-finder/paths ws-dir projects profile-to-settings)
          default-profile (or default-profile-name "default")
          active-profiles (profile/active-profiles user-input default-profile profile-to-settings)
          settings (util/ordered-map :version version/version
@@ -68,7 +68,7 @@
                                     :empty-char (or empty-char ".")
                                     :thousand-sep (or thousand-sep ",")
                                     :profile-to-settings profile-to-settings
-                                    :env-to-alias env-to-alias
+                                    :project-to-alias project-to-alias
                                     :ns-to-lib (stringify ns-to-lib)
                                     :user-home user-home
                                     :m2-dir m2-dir)]
@@ -78,5 +78,5 @@
                        :settings settings
                        :components components
                        :bases bases
-                       :environments environments
+                       :projects projects
                        :paths paths))))

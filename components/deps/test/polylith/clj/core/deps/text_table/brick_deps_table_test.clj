@@ -44,72 +44,72 @@
                 :ws-dir ".",
                 :name "polylith",
                 :settings {:color-mode "none"},
-                :environments [{:name "development",
-                                :alias "dev",
-                                :type "environment",
-                                :deps {"workspace-clj" {:direct ["common" "file" "user-config" "util"], :indirect []},
-                                       "test-runner" {:direct ["common" "util"], :indirect []},
-                                       "command" {:direct ["common"
-                                                           "creator"
-                                                           "deps"
-                                                           "help"
-                                                           "test-runner"
-                                                           "user-config"
-                                                           "util"
-                                                           "workspace"],
-                                                  :indirect ["entity" "file" "git" "shell" "text-table" "validator"]},
-                                       "text-table" {:direct ["util"], :indirect []},
-                                       "util" {:direct [], :indirect []},
-                                       "validator" {:direct ["common" "deps" "file" "util"], :indirect ["text-table"]},
-                                       "user-input" {:direct [], :indirect []},
-                                       "shell" {:direct [], :indirect []},
-                                       "workspace" {:direct ["common" "deps" "entity" "file" "text-table" "util" "validator"],
-                                                    :indirect []},
-                                       "cli" {:direct ["change"
-                                                       "command"
-                                                       "common"
-                                                       "file"
-                                                       "user-input"
+                :projects [{:name "development",
+                            :alias "dev",
+                            :type "project",
+                            :deps {"workspace-clj" {:direct ["common" "file" "user-config" "util"], :indirect []},
+                                   "test-runner" {:direct ["common" "util"], :indirect []},
+                                   "command" {:direct ["common"
+                                                       "creator"
+                                                       "deps"
+                                                       "help"
+                                                       "test-runner"
+                                                       "user-config"
                                                        "util"
-                                                       "workspace"
-                                                       "workspace-clj"],
-                                              :indirect ["creator"
-                                                         "deps"
-                                                         "entity"
-                                                         "git"
-                                                         "help"
-                                                         "shell"
-                                                         "test-runner"
-                                                         "text-table"
-                                                         "user-config"
-                                                         "validator"]},
-                                       "user-config" {:direct ["util"], :indirect []},
-                                       "git" {:direct ["shell"], :indirect []},
-                                       "deps" {:direct ["common" "text-table" "util"], :indirect []},
-                                       "help" {:direct ["util"], :indirect []},
-                                       "creator" {:direct ["common" "file" "git" "user-config" "util"], :indirect ["shell"]},
-                                       "file" {:direct ["util"], :indirect []},
-                                       "entity" {:direct ["file" "util"], :indirect []},
-                                       "test-helper" {:direct ["change"
-                                                               "command"
-                                                               "file"
-                                                               "git"
-                                                               "user-config"
-                                                               "user-input"
-                                                               "workspace"
-                                                               "workspace-clj"],
-                                                      :indirect ["common"
-                                                                 "creator"
-                                                                 "deps"
-                                                                 "entity"
-                                                                 "help"
-                                                                 "shell"
-                                                                 "test-runner"
-                                                                 "text-table"
-                                                                 "util"
-                                                                 "validator"]},
-                                       "common" {:direct ["util"], :indirect []},
-                                       "change" {:direct ["common" "git" "util"], :indirect ["shell"]}},}]
+                                                       "workspace"],
+                                              :indirect ["entity" "file" "git" "shell" "text-table" "validator"]},
+                                   "text-table" {:direct ["util"], :indirect []},
+                                   "util" {:direct [], :indirect []},
+                                   "validator" {:direct ["common" "deps" "file" "util"], :indirect ["text-table"]},
+                                   "user-input" {:direct [], :indirect []},
+                                   "shell" {:direct [], :indirect []},
+                                   "workspace" {:direct ["common" "deps" "entity" "file" "text-table" "util" "validator"],
+                                                :indirect []},
+                                   "cli" {:direct ["change"
+                                                   "command"
+                                                   "common"
+                                                   "file"
+                                                   "user-input"
+                                                   "util"
+                                                   "workspace"
+                                                   "workspace-clj"],
+                                          :indirect ["creator"
+                                                     "deps"
+                                                     "entity"
+                                                     "git"
+                                                     "help"
+                                                     "shell"
+                                                     "test-runner"
+                                                     "text-table"
+                                                     "user-config"
+                                                     "validator"]},
+                                   "user-config" {:direct ["util"], :indirect []},
+                                   "git" {:direct ["shell"], :indirect []},
+                                   "deps" {:direct ["common" "text-table" "util"], :indirect []},
+                                   "help" {:direct ["util"], :indirect []},
+                                   "creator" {:direct ["common" "file" "git" "user-config" "util"], :indirect ["shell"]},
+                                   "file" {:direct ["util"], :indirect []},
+                                   "entity" {:direct ["file" "util"], :indirect []},
+                                   "test-helper" {:direct ["change"
+                                                           "command"
+                                                           "file"
+                                                           "git"
+                                                           "user-config"
+                                                           "user-input"
+                                                           "workspace"
+                                                           "workspace-clj"],
+                                                  :indirect ["common"
+                                                             "creator"
+                                                             "deps"
+                                                             "entity"
+                                                             "help"
+                                                             "shell"
+                                                             "test-runner"
+                                                             "text-table"
+                                                             "util"
+                                                             "validator"]},
+                                   "common" {:direct ["util"], :indirect []},
+                                   "change" {:direct ["common" "git" "util"], :indirect ["shell"]}},}]
                 :components [{:name "change",
                               :type "component",
                               :interface-deps ["common" "git" "util"],}
@@ -172,19 +172,19 @@
                           :git-command "git diff HEAD --name-only",
                           :changed-components ["deps" "entity" "text-table" "workspace"],
                           :changed-bases [],
-                          :changed-environments ["cli" "core"],
-                          :env-to-indirect-changes {"cli" ["cli" "command" "test-helper" "validator"],
-                                                    "core" ["cli" "command" "test-helper" "validator"],
-                                                    "development" ["cli" "command" "test-helper" "validator"]},
-                          :env-to-bricks-to-test {"cli" ["command" "deps" "entity" "validator" "workspace"], "core" [], "development" []},
-                          :environments-to-test [],}
+                          :changed-projects ["cli" "core"],
+                          :project-to-indirect-changes {"cli" ["cli" "command" "test-helper" "validator"],
+                                                        "core" ["cli" "command" "test-helper" "validator"],
+                                                        "development" ["cli" "command" "test-helper" "validator"]},
+                          :project-to-bricks-to-test {"cli" ["command" "deps" "entity" "validator" "workspace"], "core" [], "development" []},
+                          :projects-to-test [],}
                 :bases [{:name "cli",
                          :type "base",
                          :interface-deps ["change" "command" "common" "file" "user-input" "util" "workspace" "workspace-clj"],}]})
 
-(def environments (:environments workspace))
+(def projects (:projects workspace))
 (def components (:components workspace))
-(def environment (common/find-environment "dev" environments))
+(def project (common/find-project "dev" projects))
 (def component (common/find-component "workspace" components))
 
 (deftest table--when-having-a-list-of-dependers-and-dependees--return-correct-table
@@ -197,4 +197,4 @@
           "                                text-table"
           "                                util      "
           "                                validator "]
-         (brick-deps-table/table workspace environment component))))
+         (brick-deps-table/table workspace project component))))

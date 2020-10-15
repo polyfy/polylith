@@ -16,8 +16,8 @@ public final class Api {
         return (String)callFn(colorNs, "namespc", namespace, colorMode);
     }
 
-    public static String colorizeEnvironment(String environment, String colorMode) {
-        return (String)callFn(colorNs, "environment", environment, colorMode);
+    public static String colorizeProjects(String project, String colorMode) {
+        return (String)callFn(colorNs, "project", project, colorMode);
     }
 
     public static String colorizeInterface(String interfc, String colorMode) {
@@ -46,7 +46,7 @@ public final class Api {
 
     public static void main(final String... args) {
         System.out.println(colorizeNamespace("my-namespace", "dark"));
-        System.out.println(colorizeEnvironment("my-environment", "dark"));
+        System.out.println(colorizeProjects("my-project", "dark"));
         System.out.println(colorizeInterface("my-interface", "dark"));
         System.out.println(colorizeComponent("my-component", "dark"));
         System.out.println(colorizeBase("my-base", "dark"));

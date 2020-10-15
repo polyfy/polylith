@@ -2,7 +2,7 @@
 
 echo "#### Build Clojure core uberjar"
 ./build-uberjar.sh core
-sudo cp ../environments/core/target/core.jar ~/.m2/repository/polylith/polylith-clj-core/1.0/polylith-clj-core-1.0.jar
+sudo cp ../projects/core/target/core.jar ~/.m2/repository/polylith/polylith-clj-core/1.0/polylith-clj-core-1.0.jar
 
 echo "#### Build Java core API"
 cd ../java

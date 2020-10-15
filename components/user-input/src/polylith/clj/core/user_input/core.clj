@@ -10,21 +10,21 @@
   (set (map #(subs % 1)
             (filter profile? unnamed-args))))
 
-(defn selected-environments [env dev!]
-  (let [envs (if (coll? env)
-               env
-               (if (nil? env)
-                 []
-                 [env]))]
+(defn selected-projects [project-name dev!]
+  (let [projectx-names (if (coll? project-name)
+                         project-name
+                         (if (nil? project-name)
+                           []
+                           [project-name]))]
     (set (if dev!
-           (conj envs "dev")
-           envs))))
+           (conj projectx-names "dev")
+           projectx-names))))
 
 (defn extract-params [args single-arg-commands]
   (let [{:keys [named-args unnamed-args]} (params/extract (rest args) single-arg-commands)
         {:keys [brick
                 color-mode
-                env
+                project
                 fake-sha
                 get
                 interface
@@ -39,7 +39,7 @@
                 brick!
                 bricks!
                 dev!
-                env!
+                project!
                 loc!
                 r!
                 resources!]} named-args]
@@ -55,12 +55,12 @@
                       :is-dev (= "true" dev!)
                       :is-show-brick brick!
                       :is-show-bricks bricks!
-                      :is-show-env (= "true" env!)
+                      :is-show-project (= "true" project!)
                       :is-show-loc (= "true" loc!)
                       :is-run-all-brick-tests (or (= "true" all!)
                                                   (= "true" all-bricks!))
-                      :is-run-env-tests (or (= "true" all!)
-                                            (= "true" env!))
+                      :is-run-project-tests (or (= "true" all!)
+                                                (= "true" project!))
                       :is-show-resources (or (= "true" r!)
                                              (= "true" resources!))
                       :name name
@@ -70,5 +70,5 @@
                       :ws-dir ws-dir
                       :ws-file ws-file
                       :selected-profiles (selected-profiles unnamed-args)
-                      :selected-environments (selected-environments env dev!)
+                      :selected-projects (selected-projects project dev!)
                       :unnamed-args (vec unnamed-args))))

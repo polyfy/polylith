@@ -42,15 +42,15 @@
   (let [flag (if (contains? lib-deps lib-dep) "x" "-")]
     (text-table/cell column row flag :purple :center :horizontal)))
 
-(defn env-column [column {:keys [alias lib-deps unmerged]} libraries]
+(defn project-column [column {:keys [alias lib-deps unmerged]} libraries]
   (let [deps (set (mapcat lib (:lib-deps unmerged lib-deps)))]
     (concat [(text-table/cell column 1 alias :purple :center :horizontal)]
             (map-indexed #(flag-cell column (+ 3 %1) %2 deps)
                          libraries))))
 
-(defn env-columns [libraries environments]
-  (apply concat (map-indexed #(env-column (+ 7 (* 2 %1)) %2 libraries)
-                             environments)))
+(defn project-columns [libraries projects]
+  (apply concat (map-indexed #(project-column (+ 7 (* 2 %1)) %2 libraries)
+                             projects)))
 
 (defn profile-column [column libraries [profile {:keys [lib-deps]}]]
   (concat [(text-table/cell column 1 profile :purple :center :horizontal)]
@@ -77,34 +77,34 @@
 (defn profile-lib [[_ {:keys [lib-deps]}]]
   (mapcat lib lib-deps))
 
-(defn table [{:keys [settings components bases environments]} is-all]
+(defn table [{:keys [settings components bases projects]} is-all]
   (let [{:keys [profile-to-settings empty-char thousand-sep color-mode compact-views]} settings
         libraries (sort-by (juxt :name :version)
-                           (set (concat (mapcat lib (mapcat :lib-deps environments))
+                           (set (concat (mapcat lib (mapcat :lib-deps projects))
                                         (mapcat profile-lib profile-to-settings))))
         all-bricks (concat components bases)
-        brick->libs (brick-libs/brick->libs environments all-bricks profile-to-settings)
+        brick->libs (brick-libs/brick->libs projects all-bricks profile-to-settings)
         bricks (if is-all
                  all-bricks
                  (filter #(-> % :name brick->libs empty? not) all-bricks))
         lib-col (lib-column libraries)
         version-col (version-column libraries)
         size-col (size-column libraries thousand-sep)
-        env-cols (env-columns libraries environments)
-        profile-col (+ 7 (* 2 (count environments)))
+        project-cols (project-columns libraries projects)
+        profile-col (+ 7 (* 2 (count projects)))
         profile-cols (profile-columns profile-col libraries profile-to-settings)
         brick-col (+ profile-col (* 2 (count profile-to-settings)))
-        n#envs (count environments)
+        n#projects (count projects)
         n#profiles (count profile-to-settings)
         n#bricks (count bricks)
         brick-cols (brick-columns brick-col bricks libraries brick->libs empty-char)
-        space-columns (range 2 (* 2 (+ 3 n#envs n#profiles n#bricks)) 2)
+        space-columns (range 2 (* 2 (+ 3 n#projects n#profiles n#bricks)) 2)
         space (if (contains? compact-views "libs") " " "  ")
         spaces (text-table/spaces 1 space-columns (repeat space))
-        cells (text-table/merge-cells lib-col version-col size-col env-cols profile-cols brick-cols spaces)
+        cells (text-table/merge-cells lib-col version-col size-col project-cols profile-cols brick-cols spaces)
         line (text-table/line 2 cells)
-        section2 (+ 4 (* 2 n#envs))
-        section3 (+ 6 (* 2 (+ n#envs n#profiles)))
+        section2 (+ 4 (* 2 n#projects))
+        section3 (+ 6 (* 2 (+ n#projects n#profiles)))
         sections (text-table/spaces 2 [6 section2 section3] (repeat "   "))]
     (text-table/table "  " color-mode cells line sections)))
 

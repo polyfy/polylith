@@ -27,4 +27,4 @@
 
 /example/example/**
 artifacts
-environments/**/pom.xml
+projects/**/pom.xml

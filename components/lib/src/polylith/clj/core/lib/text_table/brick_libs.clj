@@ -19,9 +19,9 @@
 (defn libs-keys [[brick libs]]
   [brick (map #(select-keys % [:name :version :size]) libs)])
 
-(defn brick->libs [environments bricks profile-to-settings]
+(defn brick->libs [projects bricks profile-to-settings]
   (let [brick->lib-names (into {} (map (juxt :name :lib-dep-names) bricks))]
     (into {} (map libs-keys
                   (group-by :brick
                             (set (mapcat #(brick-libs % brick->lib-names)
-                                         (concat environments (vals profile-to-settings)))))))))
+                                         (concat projects (vals profile-to-settings)))))))))

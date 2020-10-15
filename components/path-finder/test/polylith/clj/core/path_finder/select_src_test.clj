@@ -28,7 +28,7 @@
           "components/purchaser/test"
           "components/user/test"
           "development/test"
-          "environments/invoice/test"]
+          "projects/invoice/test"]
          (select/paths test-data/path-entries c/test?))))
 
 (deftest brick-src-entries--when-executed--returns-entries-collected-from-component-and-base-src-paths

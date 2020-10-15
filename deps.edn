@@ -4,17 +4,17 @@
             :compact-views #{}
             :release-tag-pattern "v[0-9]*"
             :stable-tag-pattern "stable-*"
-            :env-to-alias {"api" "api"
-                           "core" "core"
-                           "deployer" "depl"
-                           "poly-migrator" "migr"
-                           "poly" "poly"
-                           "development" "dev"}
-            :ns-to-lib {clojure.tools.deps      org.clojure/tools.deps.alpha
-                        malli                   metosin/malli
-                        me.raynes               me.raynes/fs
-                        puget                   mvxcvi/puget
-                        deps-deploy.deps-deploy slipset/deps-deploy}}
+            :project-to-alias {"api" "api"
+                               "core" "core"
+                               "deployer" "depl"
+                               "poly-migrator" "migr"
+                               "poly" "poly"
+                               "development" "dev"}
+            :ns-to-lib {clojure.tools.deps       org.clojure/tools.deps.alpha
+                        malli                    metosin/malli
+                        me.raynes                me.raynes/fs
+                        puget                    mvxcvi/puget
+                        deps-deploy.deps-deploy  slipset/deps-deploy}}
 
  :aliases  {:dev {:extra-paths ["development/src"
                                 "components/api/src"
@@ -73,20 +73,20 @@
                                  "components/workspace/test"
                                  "components/workspace-clj/test"
                                  "components/ws-explorer/test"
-                                 "environments/poly/test"]}
+                                 "projects/poly/test"]}
 
             :poly {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
                    :extra-deps {polylith/clj-poly
-                                {:local/root "environments/poly"}}}
+                                {:local/root "projects/poly"}}}
 
             :migrator {:main-opts  ["-m" "polylith.clj.core.migrator-cli.core"]
                        :extra-deps {polylith/clj-poly-migrator
-                                    {:local/root "environments/poly-migrator"}}}
+                                    {:local/root "projects/poly-migrator"}}}
 
             :deploy {:extra-deps {polylith/clj-deployer
-                                  {:local/root "environments/deployer"}}
+                                  {:local/root "projects/deployer"}}
                      :main-opts ["-m" "polylith.clj.core.deployer-cli.core" "deploy"]}
 
             :create-artifacts {:extra-deps {polylith/clj-deployer
-                                            {:local/root "environments/deployer"}}
+                                            {:local/root "projects/deployer"}}
                                :main-opts ["-m" "polylith.clj.core.deployer-cli.core" "create-artifacts"]}}}

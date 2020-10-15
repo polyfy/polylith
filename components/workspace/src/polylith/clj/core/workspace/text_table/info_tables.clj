@@ -3,7 +3,7 @@
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.workspace.text-table.count-table :as count-table]
-            [polylith.clj.core.workspace.text-table.env-table :as env-table]
+            [polylith.clj.core.workspace.text-table.project-table :as project-table]
             [polylith.clj.core.workspace.text-table.ws-table :as ws-table]))
 
 (defn short-name [sha]
@@ -34,7 +34,7 @@
     (count-table/print-table workspace)
     (print-active-profiles settings)
     (println)
-    (env-table/print-table workspace is-show-loc is-show-resources)
+    (project-table/print-table workspace is-show-loc is-show-resources)
     (println)
     (ws-table/print-table workspace is-show-loc is-show-resources)
     (when (-> messages empty? not)

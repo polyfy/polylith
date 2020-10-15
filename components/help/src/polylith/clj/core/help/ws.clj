@@ -14,7 +14,7 @@
        "\n"
        "          " (s/key "KEY" cm) "   -> If applied to a hash map, it returns the value of the " (s/key "KEY" cm) ".\n"
        "                   If applied to a list of hash maps, it returns the hash map with\n"
-       "                   a matching " (s/key ":name" cm) ". Environments are also matched against " (s/key ":alias" cm) ".\n"
+       "                   a matching " (s/key ":name" cm) ". Projects are also matched against " (s/key ":alias" cm) ".\n"
        "\n"
        "          " (s/key "INDEX" cm) " -> A list element can be looked up by " (s/key "INDEX" cm) ".\n"
        "\n"

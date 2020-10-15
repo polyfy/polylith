@@ -11,7 +11,7 @@
                            "slugger" "slugger"}})
 
 (def components [{:namespaces-src [{:imports ["clojure.set"
-                                              "polylith.clj.core.change.environment"]}
+                                              "polylith.clj.core.change.project"]}
                                    {:imports ["clojure.java.io" "environ.core"]}
                                    {:imports ["clojure.set" "clj-time.coerce"]}
                                    {:imports ["polylith.clj.core.change.entity" "honeysql.core"]}

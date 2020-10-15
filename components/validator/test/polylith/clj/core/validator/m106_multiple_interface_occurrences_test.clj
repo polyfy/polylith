@@ -19,22 +19,22 @@
                   :type "component"
                   :interface {:name "git"}}])
 
-(def environments [{:name "core"
-                    :group "core"
-                    :type "environment"
-                    :component-names ["change" "shell" "shell2"]
-                    :base-names ["tool"]
-                    :src-paths ["bases/tool/src"
-                                "components/change/src"
-                                "components/shell/src"
-                                "components/shell2/src"]}])
+(def projects [{:name "core"
+                :group "core"
+                :type "project"
+                :component-names ["change" "shell" "shell2"]
+                :base-names ["tool"]
+                :src-paths ["bases/tool/src"
+                            "components/change/src"
+                            "components/shell/src"
+                            "components/shell2/src"]}])
 
-(deftest errors--when-more-than-one-component-implements-the-same-interface-in-an-environment--return-error-message
+(deftest errors--when-more-than-one-component-implements-the-same-interface-in-an-project--return-error-message
   (is (= [{:type "error"
            :code 106
-           :colorized-message "More than one component that implements the shell interface was found in the core environment: shell, shell2"
-           :message           "More than one component that implements the shell interface was found in the core environment: shell, shell2"
+           :colorized-message "More than one component that implements the shell interface was found in the core project: shell, shell2"
+           :message           "More than one component that implements the shell interface was found in the core project: shell, shell2"
            :interface "shell"
            :components ["shell" "shell2"]
-           :environment "core"}]
-         (m106/errors components environments color/none))))
+           :project "core"}]
+         (m106/errors components projects color/none))))

@@ -22,7 +22,7 @@
 (deftest create-workspace--incorrect-first-argument--prints-out-error-message
   (let [output (with-out-str
                  (helper/execute-command "" "create" "x" "name:ws1"))]
-    (is (= "  The first argument after 'create' is expected to be any of: w, e, b, c, workspace, environment, base, component.\n"
+    (is (= "  The first argument after 'create' is expected to be any of: w, p, b, c, workspace, project, base, component.\n"
            output))))
 
 (deftest create-workspace--missing-top-namespace--prints-out-error-message
@@ -47,8 +47,8 @@
              "development"
              "development/src"
              "development/src/.keep"
-             "environments"
-             "environments/.keep"
+             "projects"
+             "projects/.keep"
              "logo.png"
              "readme.md"}
            (helper/paths "ws1")))
@@ -75,7 +75,7 @@
             (str "            :compact-views #{}")
             (str "            :release-tag-pattern \"v[0-9]*\"")
             (str "            :stable-tag-pattern \"stable-*\"")
-            (str "            :env-to-alias {\"development\" \"dev\"}")
+            (str "            :project-to-alias {\"development\" \"dev\"}")
             (str "            :ns-to-lib {}}")
             (str "")
             (str " :aliases  {:dev {:extra-paths [\"development/src\"]")
@@ -88,7 +88,7 @@
             (str "                   :extra-deps {polyfy/polylith")
             (str "                                {:git/url   \"https://github.com/polyfy/polylith\"")
             (str "                                 :sha       \"" version/poly-git-sha "\"")
-            (str "                                 :deps/root \"environments/poly\"}}}}}")]
+            (str "                                 :deps/root \"projects/poly\"}}}}}")]
            (helper/content "ws1" "deps.edn")))
 
     (is (= ["{:color-mode \"dark\""

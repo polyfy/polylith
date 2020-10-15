@@ -5,5 +5,5 @@
 (defn brick-status-flags [path-entries brick-name is-show-resources]
   (status-calculator/status-flags path-entries c/brick? brick-name is-show-resources))
 
-(defn env-status-flags [path-entries env-name is-show-resources]
-  (status-calculator/status-flags path-entries c/environment? env-name is-show-resources))
+(defn project-status-flags [path-entries project-name is-show-resources]
+  (status-calculator/status-flags path-entries c/project? project-name is-show-resources))

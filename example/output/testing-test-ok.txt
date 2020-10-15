@@ -1,6 +1,6 @@
-Environments to run tests from: [35mcommand-line[0m
+Projects to run tests from: [35mcommand-line[0m
 
-Running tests from the [35mcommand-line[0m environment, including 2 bricks: [32muser[0m, [34mcli[0m
+Running tests from the [35mcommand-line[0m project, including 2 bricks: [32muser[0m, [34mcli[0m
 
 Testing se.example.cli.core-test
 

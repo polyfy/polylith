@@ -16,7 +16,7 @@
                 [:compact-views set?]
                 [:release-tag-pattern string?]
                 [:stable-tag-pattern string?]
-                [:env-to-alias {:optional true}
+                [:project-to-alias {:optional true}
                  [:map-of :string :string]]
                 [:ns-to-lib
                  [:map-of symbol? symbol?]]]])

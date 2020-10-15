@@ -17,10 +17,10 @@
 (defn sort-them [bricks]
   (vec (sort-by (juxt #(-> % second sorter) first) bricks)))
 
-(defn deps [environment brick->color brick-name]
+(defn deps [project brick->color brick-name]
   (let [dependers (sort-them (map #(with-color % brick->color)
-                                  (->dependers environment brick-name)))
-        {:keys [direct direct-ifc]} ((:deps environment) brick-name)
+                                  (->dependers project brick-name)))
+        {:keys [direct direct-ifc]} ((:deps project) brick-name)
         interfaces (sort-them (map vector direct-ifc (repeat :yellow)))
         components (sort-them (map #(with-color % brick->color) direct))
         dependees (vec (concat interfaces components))]

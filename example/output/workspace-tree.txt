@@ -4,8 +4,8 @@ example
 ├── deps.edn
 ├── development
 │   └── src
-├── environments
 ├── logo.png
+├── projects
 └── readme.md
 
 5 directories, 3 files

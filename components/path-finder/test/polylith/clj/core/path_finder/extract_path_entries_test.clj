@@ -31,12 +31,12 @@
                  "components/invoicer/test"
                  "components/purchaser/test"
                  "components/user/test"
-                 "environments/invoice/test"
+                 "projects/invoice/test"
                  "development/test"])
 
 (deftest path-entries--lists-of-paths--returns-extracted-path-entries
   (is (= test-data/path-entries
-         (extract/from-unenriched-environment
+         (extract/from-unenriched-project
            true
            src-paths
            test-paths

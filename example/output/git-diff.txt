@@ -7,6 +7,6 @@ components/user/src/se/example/user/interface.clj
 components/user/test/se/example/user/interface_test.clj
 deps.edn
 development/src/dev/lisa.clj
-environments/command-line/deps.edn
+projects/command-line/deps.edn
 scripts/build-cli-uberjar.sh
 scripts/build-uberjar.sh

@@ -184,7 +184,7 @@ jobs:
       - restore_cache:
           key: polylith-{{ checksum "deps.edn" }}
       - run:
-          name: Deploy changed environments to clojars
+          name: Deploy changed projects to clojars
           command: clojure -A:deploy
 
   create-artifacts:

@@ -76,7 +76,7 @@
 (defn base [name color-mode]
   (blue color-mode name))
 
-(defn environment [name color-mode]
+(defn project [name color-mode]
   (purple color-mode name))
 
 (defn entity [type name color-mode]
@@ -84,7 +84,7 @@
     "interface" (interface name color-mode)
     "component" (component name color-mode)
     "base" (base name color-mode)
-    "environment" (environment name color-mode)
+    "project" (project name color-mode)
     name))
 
 (defn brick [type brick color-mode]
@@ -102,7 +102,7 @@
   ([interface namespace color-mode]
    (grey color-mode (str interface "." namespace))))
 
-(def entities->type {"environments" "environment"
+(def entities->type {"projects" "project"
                      "bases" "base"
                      "components" "component"})
 

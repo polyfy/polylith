@@ -2,21 +2,21 @@
   (:require [clojure.test :refer :all]
             [polylith.clj.core.deps.brick-deps :as brick-deps]))
 
-(def environment {:deps {"common" {:direct ["file" "util"]
-                                   :direct-ifc ["user-config"]
-                                   :indirect []}
-                         "file" {:direct ["util"]
+(def project {:deps {"common" {:direct ["file" "util"]
+                               :direct-ifc ["user-config"]
+                               :indirect []}
+                     "file" {:direct ["util"]
+                             :direct-ifc []
+                             :indirect []}
+                     "migrator" {:direct ["common" "file" "util"]
                                  :direct-ifc []
                                  :indirect []}
-                         "migrator" {:direct ["common" "file" "util"]
+                     "util" {:direct []
+                             :direct-ifc []
+                             :indirect []}
+                     "migrator-cli" {:direct ["file" "migrator"]
                                      :direct-ifc []
-                                     :indirect []}
-                         "util" {:direct []
-                                 :direct-ifc []
-                                 :indirect []}
-                         "migrator-cli" {:direct ["file" "migrator"]
-                                         :direct-ifc []
-                                         :indirect ["common" "util"]}}})
+                                     :indirect ["common" "util"]}}})
 
 (def brick->color {"util" :green
                    "migrator" :green
@@ -28,4 +28,4 @@
                       ["file" :green]
                       ["util" :green]]
           :dependers [["migrator" :green]]}
-         (brick-deps/deps environment brick->color "common"))))
+         (brick-deps/deps project brick->color "common"))))

@@ -15,19 +15,19 @@
                 :bases [{:name "migrator-cli"}
                         {:name "poly-cli"}]})
 
-(def environment {:deps {"common" {:direct ["file" "util"]
-                                   :direct-ifc ["user-config"]
-                                   :indirect []}
-                         "file" {:direct ["util"]
+(def project {:deps {"common" {:direct ["file" "util"]
+                               :direct-ifc ["user-config"]
+                               :indirect []}
+                     "file" {:direct ["util"]
+                             :indirect []}
+                     "lib-dep" {:direct ["common" "util"]
+                                :indirect ["file"]}
+                     "migrator" {:direct ["common" "file" "util"]
                                  :indirect []}
-                         "lib-dep" {:direct ["common" "util"]
-                                    :indirect ["file"]}
-                         "migrator" {:direct ["common" "file" "util"]
-                                     :indirect []}
-                         "util" {:direct []
-                                 :indirect []}
-                         "migrator-cli" {:direct ["file" "migrator"]
-                                         :indirect ["common" "util"]}}})
+                     "util" {:direct []
+                             :indirect []}
+                     "migrator-cli" {:direct ["file" "migrator"]
+                                     :indirect ["common" "util"]}}})
 
 (deftest table--bricks-with-dependencies--returns-a-correct-matrix
   (is (= ["                u            "
@@ -48,4 +48,4 @@
           "  migrator      ·  x  x  ·  x"
           "  util          ·  ·  ·  ·  ·"
           "  migrator-cli  ·  +  x  x  +"]
-         (ws-brick-table/table workspace environment))))
+         (ws-brick-table/table workspace project))))

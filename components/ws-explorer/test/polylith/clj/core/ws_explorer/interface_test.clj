@@ -2,9 +2,9 @@
   (:require [clojure.test :refer :all]
             [polylith.clj.core.ws-explorer.interface :as ws]))
 
-(def workspace {:environments [{:name "development"
-                                :alias "dev"
-                                :type  "environment"}]
+(def workspace {:projects [{:name "development"
+                            :alias "dev"
+                            :type  "project"}]
                 :map2 {"a-key" 123}})
 
 (deftest ws--extract-with-no-arguments
@@ -12,29 +12,29 @@
          (ws/extract workspace []))))
 
 (deftest ws--extract-element-by-index
-  (is (= "environment"
-         (ws/extract workspace ["environments" "0" "type"]))))
+  (is (= "project"
+         (ws/extract workspace ["projects" "0" "type"]))))
 
 (deftest ws--extract-element-by-name
   (is (= "development"
-         (ws/extract workspace ["environments" "development" "name"]))))
+         (ws/extract workspace ["projects" "development" "name"]))))
 
 (deftest ws--extract-element-by-name
   (is (= "dev"
-         (ws/extract workspace ["environments" "dev" "alias"]))))
+         (ws/extract workspace ["projects" "dev" "alias"]))))
 
 (deftest ws--extract-string-key
   (is (= 123
          (ws/extract workspace ["map2" "a-key"]))))
 
 (deftest ws--extract-keys
-  (is (= [:environments
-          :map2]
+  (is (= [:map2
+          :projects]
          (ws/extract workspace ["keys"]))))
 
 (deftest ws--extract-keys-in-list-of-maps
   (is (= ["development"]
-         (ws/extract workspace ["environments" "keys"]))))
+         (ws/extract workspace ["projects" "keys"]))))
 
 (deftest ws--count
   (is (= 2
