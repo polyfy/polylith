@@ -8,8 +8,8 @@
                         :compact-views #{}
                         :release-tag-pattern "v[0-9]*"
                         :stable-tag-pattern "stable-*"
-                        :env-to-alias {"api" "api"
-                                       "core" "core"}
+                        :profile-to-alias {"api" "api"
+                                           "core" "core"}
                         :ns-to-lib '{me.raynes  me.raynes/fs
                                      puget      mvxcvi/puget}}
              :aliases  {:dev {:extra-paths ["development/src"
@@ -17,7 +17,7 @@
                               :extra-deps '{ring {:mvn/version "1.8.1"}
                                             compojure {:mvn/version "1.6.2"}}}
                         :test {:extra-paths ["bases/cli/test"
-                                             "environments/command-line/test"]}
+                                             "projects/command-line/test"]}
                         :+default {:extra-paths ["components/user/src"
                                                  "components/user/test"]}
                         :+remote {:extra-paths ["components/user-remote/src"
@@ -26,7 +26,7 @@
                                :extra-deps {'polyfy/polylith
                                             {:git/url   "https://github.com/polyfy/polylith.git"
                                              :sha       "78b2c77c56d1b41109d68b451069affac935200e"
-                                             :deps/root "environments/poly"}}}}})
+                                             :deps/root "projects/poly"}}}}})
 
 (deftest valid-config--returns-nil
   (is (= nil

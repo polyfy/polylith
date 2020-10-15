@@ -6,7 +6,7 @@
             [polylith.clj.core.workspace.alias :as alias]
             [polylith.clj.core.workspace.base :as base]
             [polylith.clj.core.workspace.component :as component]
-            [polylith.clj.core.workspace.environment :as env]
+            [polylith.clj.core.workspace.project :as project]
             [polylith.clj.core.workspace.interfaces :as interfaces]))
 
 (defn brick->lib-imports [brick]
@@ -27,10 +27,10 @@
       path
       (subs path (inc index)))))
 
-(defn env-sorter [{:keys [is-dev name]}]
+(defn project-sorter [{:keys [is-dev name]}]
   [is-dev name])
 
-(defn enrich-workspace [{:keys [ws-dir user-input settings components bases environments paths] :as workspace}]
+(defn enrich-workspace [{:keys [ws-dir user-input settings components bases projects paths] :as workspace}]
   (let [ws-name (workspace-name ws-dir)
         {:keys [top-namespace interface-ns color-mode]} settings
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
@@ -41,13 +41,13 @@
         enriched-bricks (concat enriched-components enriched-bases)
         brick->loc (brick->loc enriched-bricks)
         brick->lib-imports (brick->lib-imports enriched-bricks)
-        env-to-alias (alias/env-to-alias settings environments)
-        enriched-environments (vec (sort-by env-sorter (map #(env/enrich-env % enriched-components enriched-bases brick->loc brick->lib-imports env-to-alias paths settings user-input) environments)))
-        messages (validator/validate-ws suffixed-top-ns settings paths interface-names interfaces enriched-components enriched-bases enriched-environments interface-ns user-input color-mode)]
+        project-to-alias (alias/project-to-alias settings projects)
+        enriched-projects (vec (sort-by project-sorter (map #(project/enrich-project % enriched-components enriched-bases brick->loc brick->lib-imports project-to-alias paths settings user-input) projects)))
+        messages (validator/validate-ws suffixed-top-ns settings paths interface-names interfaces enriched-components enriched-bases enriched-projects interface-ns user-input color-mode)]
     (assoc workspace :name ws-name
                      :settings settings
                      :interfaces interfaces
                      :components enriched-components
                      :bases enriched-bases
-                     :environments enriched-environments
+                     :projects enriched-projects
                      :messages messages)))

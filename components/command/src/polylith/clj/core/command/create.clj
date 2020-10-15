@@ -5,21 +5,21 @@
             [polylith.clj.core.creator.interface :as creator]))
 
 (def ent->name {"w" "my-workspace"
-                "e" "my-environment"
+                "p" "my-project"
                 "b" "my-base"
                 "c" "my-component"})
 
 (defn workspace? [entity]
   (= "w" entity))
 
-(defn env-base-or-comp? [entity]
-  (contains? #{"e" "b" "c"} entity))
+(defn project-base-or-comp? [entity]
+  (contains? #{"p" "b" "c"} entity))
 
 (defn validate [workspace entity name top-ns]
   (cond
-    (nil? entity) [false "  The first argument after 'create' is expected to be any of: w, e, b, c, workspace, environment, base, component."]
+    (nil? entity) [false "  The first argument after 'create' is expected to be any of: w, p, b, c, workspace, project, base, component."]
     (and (nil? workspace)
-         (env-base-or-comp? entity)) [false (command/cant-be-executed-outside-ws-message "create")]
+         (project-base-or-comp? entity)) [false (command/cant-be-executed-outside-ws-message "create")]
     (nil? name) [false (str "  A name must be given, e.g.: create " entity " name:" (ent->name entity))]
     (and (workspace? entity)
          (-> workspace nil? not)) [false (str "  A workspace should not be created within another workspace.")]
@@ -33,7 +33,7 @@
     (if ok?
       (condp = ent
         "w" (creator/create-workspace current-dir name top-ns)
-        "e" (when (= :ok (creator/create-environment workspace name))
+        "p" (when (= :ok (creator/create-project workspace name))
               (creator/print-alias-message name color-mode))
         "b" (creator/create-base workspace name)
         "c" (creator/create-component workspace name interface))

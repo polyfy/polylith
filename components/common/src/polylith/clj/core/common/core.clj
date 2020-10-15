@@ -36,12 +36,12 @@
 (defn find-base [name bases]
   (util/find-first #(= name (:name %)) bases))
 
-(defn- =env [{:keys [name alias]} env]
-  (or (= env name)
-      (= env alias)))
+(defn- =project [{:keys [name alias]} project]
+  (or (= project name)
+      (= project alias)))
 
-(defn find-environment [name environments]
-  (util/find-first #(=env % name) environments))
+(defn find-project [name projects]
+  (util/find-first #(=project % name) projects))
 
 (defn color-mode [{:keys [color-mode]}]
   (or color-mode (user-config/color-mode)))

@@ -6,8 +6,8 @@
             [polylith.clj.core.workspace-clj.interface :as ws-clj]
             [polylith.clj.core.ws-explorer.interface :as ws-explorer]))
 
-(defn environments-to-deploy []
-  "Returns the environments that have been affected since last deploy,
+(defn projets-to-deploy []
+  "Returns the projects that have been affected since last deploy,
    tagged in git following the pattern defined by :release-tag-pattern in
    deps.edn, or v[0-9]* if not defined."
   (let [user-input (user-input/extract-params ["ws" "since:previous-release"])
@@ -16,7 +16,7 @@
                       ws/enrich-workspace
                       change/with-changes)]
     (filterv #(not= "development" %)
-             (-> workspace :changes :changed-or-affected-environments))))
+             (-> workspace :changes :changed-or-affected-projects))))
 
 (defn key->str [key]
   (cond

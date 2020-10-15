@@ -96,9 +96,9 @@
                                              :type "function",
                                              :parameters [{:name "color-mode"} {:name "&"} {:name "messages"}],
                                              :sub-ns "color"}
-                                            {:name "environment",
+                                            {:name "project",
                                              :type "function",
-                                             :parameters [{:name "env"} {:name "color-mode"}],
+                                             :parameters [{:name "project"} {:name "color-mode"}],
                                              :sub-ns "color"}
                                             {:name "error",
                                              :type "function",
@@ -207,7 +207,7 @@
                                                           {:name "interfaces"}
                                                           {:name "components"}
                                                           {:name "bases"}
-                                                          {:name "environments"}
+                                                          {:name "projects"}
                                                           {:name "interface-ns"}
                                                           {:name "ns-to-lib"}
                                                           {:name "color-mode"}]}],
@@ -265,12 +265,12 @@
                                             {:name "print-brick-table",
                                              :type "function",
                                              :parameters [{:name "workspace"}
-                                                          {:name "environment-name"}
+                                                          {:name "project-name"}
                                                           {:name "brick-name"}
                                                           {:name "color-mode"}]}
                                             {:name "print-workspace-brick-table",
                                              :type "function",
-                                             :parameters [{:name "workspace"} {:name "environment-name"} {:name "color-mode"}]}
+                                             :parameters [{:name "workspace"} {:name "project-name"} {:name "color-mode"}]}
                                             {:name "print-workspace-ifc-table",
                                              :type "function",
                                              :parameters [{:name "workspace"} {:name "color-mode"}]}],
@@ -287,15 +287,15 @@
                                             {:name "create-component",
                                              :type "function",
                                              :parameters [{:name "workspace"} {:name "component-name"} {:name "interface-name"}]}
-                                            {:name "create-environment",
+                                            {:name "create-project",
                                              :type "function",
-                                             :parameters [{:name "workspace"} {:name "env"}]}
+                                             :parameters [{:name "workspace"} {:name "project"}]}
                                             {:name "create-workspace",
                                              :type "function",
                                              :parameters [{:name "root-dir"} {:name "ws-name"} {:name "top-ns"}]}
                                             {:name "print-alias-message",
                                              :type "function",
-                                             :parameters [{:name "env"} {:name "color-mode"}]}],
+                                             :parameters [{:name "project"} {:name "color-mode"}]}],
                               :implementing-components ["creator"]}
                              {:name "file",
                               :type "interface",
@@ -331,9 +331,9 @@
                                             {:name "deps-entries",
                                              :type "function",
                                              :parameters [{:name "is-dev"} {:name "src-deps"} {:name "test-deps"} {:name "settings"}]}
-                                            {:name "env-status-flags",
+                                            {:name "project-status-flags",
                                              :type "function",
-                                             :parameters [{:name "path-entries"} {:name "env-name"}]}
+                                             :parameters [{:name "path-entries"} {:name "project-name"}]}
                                             {:name "path-entries",
                                              :type "function",
                                              :parameters [{:name "ws-dir"}
@@ -372,9 +372,9 @@
                                             {:name "find-component",
                                              :type "function",
                                              :parameters [{:name "name"} {:name "components"}]}
-                                            {:name "find-environment",
+                                            {:name "find-project",
                                              :type "function",
-                                             :parameters [{:name "environment-name"} {:name "environments"}]}
+                                             :parameters [{:name "project-name"} {:name "projects"}]}
                                             {:name "messages-without-colors", :type "function", :parameters [{:name "workspace"}]}
                                             {:name "ns-to-path", :type "function", :parameters [{:name "namespace"}]}
                                             {:name "path-to-ns", :type "function", :parameters [{:name "namespace"}]}
@@ -401,7 +401,7 @@
                                              :type "function",
                                              :parameters [{:name "paths"}],
                                              :sub-ns "paths"}
-                                            {:name "environments-from-paths",
+                                            {:name "projects-from-paths",
                                              :type "function",
                                              :parameters [{:name "paths"}],
                                              :sub-ns "paths"}
@@ -425,7 +425,7 @@
                            :ns-to-lib {"clojure" "org.clojure/clojure",
                                        "clojure.core.matrix" "net.mikera/core.matrix",
                                        "clojure.tools.deps" "org.clojure/tools.deps.alpha"},
-                           :env-to-alias {"poly" "poly", "core" "core"},
+                           :project-to-alias {"poly" "poly", "core" "core"},
                            :interface-ns "interface",
                            :vcs "git",
                            :thousand-sep ",",
@@ -438,440 +438,440 @@
                             :type-position "postfix",
                             :slash "/",
                             :file-extensions [".clj" "cljc"]},
-                :environments [{:name "poly",
-                                :alias "poly",
-                                :type "environment",
-                                :is-run-tests true,
-                                :is-dev false,
-                                :env-dir "./environments/poly",
-                                :config-file "./environments/poly/deps.edn",
-                                :lines-of-code-src 0,
-                                :lines-of-code-test 5,
-                                :total-lines-of-code-src 4558,
-                                :total-lines-of-code-test 3520,
-                                :test-component-names ["change"
-                                                       "command"
-                                                       "common"
+                :projects [{:name "poly",
+                            :alias "poly",
+                            :type "project",
+                            :is-run-tests true,
+                            :is-dev false,
+                            :project-dir "./projects/poly",
+                            :config-file "./projects/poly/deps.edn",
+                            :lines-of-code-src 0,
+                            :lines-of-code-test 5,
+                            :total-lines-of-code-src 4558,
+                            :total-lines-of-code-test 3520,
+                            :test-component-names ["change"
+                                                   "command"
+                                                   "common"
+                                                   "creator"
+                                                   "deps"
+                                                   "path-finder"
+                                                   "file"
+                                                   "git"
+                                                   "text-table"
+                                                   "util"
+                                                   "validator"
+                                                   "workspace"
+                                                   "workspace-clj"],
+                            :component-names ["change"
+                                              "command"
+                                              "common"
+                                              "creator"
+                                              "deps"
+                                              "path-finder"
+                                              "file"
+                                              "git"
+                                              "help"
+                                              "shell"
+                                              "test-helper"
+                                              "test-runner"
+                                              "text-table"
+                                              "user-config"
+                                              "util"
+                                              "validator"
+                                              "workspace"
+                                              "workspace-clj"],
+                            :base-names ["poly-cli"],
+                            :test-base-names [],
+                            :namespaces-src [],
+                            :namespaces-test [{:name "polylith.clj.core.project.poly-cli",
+                                               :namespace "polylith.clj.core.project.cli",
+                                               :file-path "./projects/poly/test/polylith/clj/core/project/poly.clj",
+                                               :imports []}],
+                            :src-paths ["bases/poly-cli/src"
+                                        "components/change/src"
+                                        "components/command/src"
+                                        "components/common/src"
+                                        "components/creator/resources"
+                                        "components/creator/src"
+                                        "components/deps/src"
+                                        "components/path-finder/src"
+                                        "components/file/src"
+                                        "components/git/src"
+                                        "components/help/src"
+                                        "components/shell/src"
+                                        "components/test-helper/src"
+                                        "components/test-runner/src"
+                                        "components/text-table/src"
+                                        "components/user-config/src"
+                                        "components/util/src"
+                                        "components/validator/src"
+                                        "components/workspace-clj/src"
+                                        "components/workspace/src"],
+                            :test-paths ["bases/poly-cli/test"
+                                         "components/change/test"
+                                         "components/command/test"
+                                         "components/common/test"
+                                         "components/creator/test"
+                                         "components/deps/test"
+                                         "components/path-finder/test"
+                                         "components/file/test"
+                                         "components/git/test"
+                                         "components/help/test"
+                                         "components/shell/test"
+                                         "components/test-helper/test"
+                                         "components/test-runner/test"
+                                         "components/text-table/test"
+                                         "components/user-config/test"
+                                         "components/util/test"
+                                         "components/validator/test"
+                                         "components/workspace-clj/test"
+                                         "components/workspace/test"
+                                         "projects/poly/test"],
+                            :lib-imports ["clojure.core.matrix"
+                                          "clojure.java.io"
+                                          "clojure.java.shell"
+                                          "clojure.pprint"
+                                          "clojure.set"
+                                          "clojure.stacktrace"
+                                          "clojure.string"
+                                          "clojure.tools.deps.alpha"
+                                          "clojure.tools.deps.alpha.util.maven"
+                                          "clojure.walk"],
+                            :lib-imports-test ["clojure.string" "clojure.tools.deps.alpha.util.maven"],
+                            :lib-deps {"net.mikera/core.matrix" #:mvn{:version "0.62.0"},
+                                       "org.apache.logging.log4j/log4j-core" #:mvn{:version "2.13.3"},
+                                       "org.apache.logging.log4j/log4j-slf4j-impl" #:mvn{:version "2.13.3"},
+                                       "org.clojure/clojure" #:mvn{:version "1.10.1"},
+                                       "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}},
+                            :deps {"workspace-clj" {:direct ["common" "file" "user-config" "util"], :indirect []},
+                                   "test-runner" {:direct ["common" "util"], :indirect []},
+                                   "command" {:direct ["common"
                                                        "creator"
                                                        "deps"
-                                                       "path-finder"
-                                                       "file"
-                                                       "git"
-                                                       "text-table"
+                                                       "help"
+                                                       "test-runner"
+                                                       "user-config"
                                                        "util"
-                                                       "validator"
-                                                       "workspace"
-                                                       "workspace-clj"],
-                                :component-names ["change"
-                                                  "command"
-                                                  "common"
-                                                  "creator"
-                                                  "deps"
-                                                  "path-finder"
-                                                  "file"
-                                                  "git"
-                                                  "help"
-                                                  "shell"
-                                                  "test-helper"
-                                                  "test-runner"
-                                                  "text-table"
-                                                  "user-config"
-                                                  "util"
-                                                  "validator"
-                                                  "workspace"
-                                                  "workspace-clj"],
-                                :base-names ["poly-cli"],
-                                :test-base-names [],
-                                :namespaces-src [],
-                                :namespaces-test [{:name "polylith.clj.core.env.poly-cli",
-                                                   :namespace "polylith.clj.core.env.cli",
-                                                   :file-path "./environments/poly/test/polylith/clj/core/env/poly.clj",
-                                                   :imports []}],
-                                :src-paths ["bases/poly-cli/src"
-                                            "components/change/src"
-                                            "components/command/src"
-                                            "components/common/src"
-                                            "components/creator/resources"
-                                            "components/creator/src"
-                                            "components/deps/src"
-                                            "components/path-finder/src"
-                                            "components/file/src"
-                                            "components/git/src"
-                                            "components/help/src"
-                                            "components/shell/src"
-                                            "components/test-helper/src"
-                                            "components/test-runner/src"
-                                            "components/text-table/src"
-                                            "components/user-config/src"
-                                            "components/util/src"
-                                            "components/validator/src"
-                                            "components/workspace-clj/src"
-                                            "components/workspace/src"],
-                                :test-paths ["bases/poly-cli/test"
-                                             "components/change/test"
-                                             "components/command/test"
-                                             "components/common/test"
-                                             "components/creator/test"
-                                             "components/deps/test"
-                                             "components/path-finder/test"
-                                             "components/file/test"
-                                             "components/git/test"
-                                             "components/help/test"
-                                             "components/shell/test"
-                                             "components/test-helper/test"
-                                             "components/test-runner/test"
-                                             "components/text-table/test"
-                                             "components/user-config/test"
-                                             "components/util/test"
-                                             "components/validator/test"
-                                             "components/workspace-clj/test"
-                                             "components/workspace/test"
-                                             "environments/poly/test"],
-                                :lib-imports ["clojure.core.matrix"
-                                              "clojure.java.io"
-                                              "clojure.java.shell"
-                                              "clojure.pprint"
-                                              "clojure.set"
-                                              "clojure.stacktrace"
-                                              "clojure.string"
-                                              "clojure.tools.deps.alpha"
-                                              "clojure.tools.deps.alpha.util.maven"
-                                              "clojure.walk"],
-                                :lib-imports-test ["clojure.string" "clojure.tools.deps.alpha.util.maven"],
-                                :lib-deps {"net.mikera/core.matrix" #:mvn{:version "0.62.0"},
-                                           "org.apache.logging.log4j/log4j-core" #:mvn{:version "2.13.3"},
-                                           "org.apache.logging.log4j/log4j-slf4j-impl" #:mvn{:version "2.13.3"},
-                                           "org.clojure/clojure" #:mvn{:version "1.10.1"},
-                                           "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}},
-                                :deps {"workspace-clj" {:direct ["common" "file" "user-config" "util"], :indirect []},
-                                       "test-runner" {:direct ["common" "util"], :indirect []},
-                                       "command" {:direct ["common"
-                                                           "creator"
-                                                           "deps"
-                                                           "help"
-                                                           "test-runner"
+                                                       "workspace"],
+                                              :indirect ["path-finder" "file" "git" "shell" "text-table" "validator"]},
+                                   "text-table" {:direct ["util"], :indirect []},
+                                   "util" {:direct [], :indirect []},
+                                   "validator" {:direct ["common" "deps" "file" "util"], :indirect ["text-table"]},
+                                   "shell" {:direct [], :indirect []},
+                                   "workspace" {:direct ["common"
+                                                         "deps"
+                                                         "path-finder"
+                                                         "file"
+                                                         "text-table"
+                                                         "util"
+                                                         "validator"],
+                                                :indirect []},
+                                   "poly-cli" {:direct ["change" "command" "common" "file" "util" "workspace" "workspace-clj"],
+                                               :indirect ["creator"
+                                                          "deps"
+                                                          "path-finder"
+                                                          "git"
+                                                          "help"
+                                                          "shell"
+                                                          "test-runner"
+                                                          "text-table"
+                                                          "user-config"
+                                                          "validator"]},
+                                   "user-config" {:direct ["util"], :indirect []},
+                                   "git" {:direct ["shell"], :indirect []},
+                                   "deps" {:direct ["common" "text-table" "util"], :indirect []},
+                                   "help" {:direct ["util"], :indirect []},
+                                   "creator" {:direct ["common" "file" "git" "user-config" "util"], :indirect ["shell"]},
+                                   "file" {:direct ["util"], :indirect []},
+                                   "path-finder" {:direct ["file" "util"], :indirect []},
+                                   "test-helper" {:direct ["change"
+                                                           "command"
+                                                           "common"
+                                                           "file"
+                                                           "git"
                                                            "user-config"
-                                                           "util"
-                                                           "workspace"],
-                                                  :indirect ["path-finder" "file" "git" "shell" "text-table" "validator"]},
-                                       "text-table" {:direct ["util"], :indirect []},
-                                       "util" {:direct [], :indirect []},
-                                       "validator" {:direct ["common" "deps" "file" "util"], :indirect ["text-table"]},
-                                       "shell" {:direct [], :indirect []},
-                                       "workspace" {:direct ["common"
+                                                           "workspace"
+                                                           "workspace-clj"],
+                                                  :indirect ["creator"
                                                              "deps"
                                                              "path-finder"
-                                                             "file"
+                                                             "help"
+                                                             "shell"
+                                                             "test-runner"
                                                              "text-table"
                                                              "util"
-                                                             "validator"],
-                                                    :indirect []},
-                                       "poly-cli" {:direct ["change" "command" "common" "file" "util" "workspace" "workspace-clj"],
-                                                   :indirect ["creator"
-                                                              "deps"
-                                                              "path-finder"
-                                                              "git"
-                                                              "help"
-                                                              "shell"
-                                                              "test-runner"
-                                                              "text-table"
-                                                              "user-config"
-                                                              "validator"]},
-                                       "user-config" {:direct ["util"], :indirect []},
-                                       "git" {:direct ["shell"], :indirect []},
-                                       "deps" {:direct ["common" "text-table" "util"], :indirect []},
-                                       "help" {:direct ["util"], :indirect []},
-                                       "creator" {:direct ["common" "file" "git" "user-config" "util"], :indirect ["shell"]},
-                                       "file" {:direct ["util"], :indirect []},
-                                       "path-finder" {:direct ["file" "util"], :indirect []},
-                                       "test-helper" {:direct ["change"
-                                                               "command"
-                                                               "common"
-                                                               "file"
-                                                               "git"
-                                                               "user-config"
-                                                               "workspace"
-                                                               "workspace-clj"],
-                                                      :indirect ["creator"
-                                                                 "deps"
-                                                                 "path-finder"
-                                                                 "help"
-                                                                 "shell"
-                                                                 "test-runner"
-                                                                 "text-table"
-                                                                 "util"
-                                                                 "validator"]},
-                                       "common" {:direct ["util"], :indirect []},
-                                       "change" {:direct ["common" "git" "util"], :indirect ["shell"]}},
-                                :test-lib-deps {},
-                                :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
-                                              "clojars" {:url "https://repo.clojars.org/"}}}
-                               {:name "core",
-                                :alias "core",
-                                :type "environment",
-                                :is-run-tests true,
-                                :is-dev false,
-                                :env-dir "./environments/core",
-                                :config-file "./environments/core/deps.edn",
-                                :lines-of-code-src 0,
-                                :lines-of-code-test 6,
-                                :total-lines-of-code-src 3699,
-                                :total-lines-of-code-test 3088,
-                                :test-component-names [],
-                                :component-names ["change"
-                                                  "common"
-                                                  "deps"
-                                                  "path-finder"
-                                                  "file"
-                                                  "git"
-                                                  "help"
-                                                  "shell"
-                                                  "text-table"
-                                                  "user-config"
-                                                  "util"
-                                                  "validator"
-                                                  "workspace"],
-                                :base-names [],
-                                :test-base-names [],
-                                :namespaces-src [],
-                                :namespaces-test [{:name "polylith.clj.core.dev-test",
-                                                   :namespace "polylith.clj.core.dev-test",
-                                                   :file-path "./environments/core/test/polylith/clj/core/dev_test.clj",
-                                                   :imports []}],
-                                :src-paths ["components/change/src"
-                                            "components/common/src"
-                                            "components/deps/src"
-                                            "components/path-finder/src"
-                                            "components/file/src"
-                                            "components/git/src"
-                                            "components/help/src"
-                                            "components/shell/src"
-                                            "components/text-table/src"
-                                            "components/user-config/src"
-                                            "components/util/src"
-                                            "components/validator/src"
-                                            "components/workspace/src"],
-                                :test-paths [],
-                                :lib-imports ["clojure.core.matrix"
-                                              "clojure.java.io"
-                                              "clojure.java.shell"
-                                              "clojure.set"
-                                              "clojure.stacktrace"
-                                              "clojure.string"
-                                              "clojure.walk"],
-                                :lib-imports-test ["clojure.string"],
-                                :lib-deps {"net.mikera/core.matrix" #:mvn{:version "0.62.0"},
-                                           "org.clojure/clojure" #:mvn{:version "1.10.1"},
-                                           "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}},
-                                :deps {"workspace-clj" {:direct ["common" "file" "user-config" "util"], :indirect []},
-                                       "test-runner" {:direct ["common" "util"], :indirect []},
-                                       "command" {:direct ["common" "deps" "help" "user-config" "util" "workspace"],
-                                                  :indirect ["path-finder" "file" "text-table" "text-table2" "validator"]},
-                                       "text-table" {:direct ["util"], :indirect []},
-                                       "util" {:direct [], :indirect []},
-                                       "validator" {:direct ["common" "deps" "file" "util"], :indirect ["text-table"]},
-                                       "text-table2" {:direct ["util"], :indirect []},
-                                       "shell" {:direct [], :indirect []},
-                                       "workspace" {:direct ["common"
-                                                             "deps"
-                                                             "path-finder"
-                                                             "file"
-                                                             "text-table"
-                                                             "util"
-                                                             "validator"],
-                                                    :indirect []},
-                                       "poly-cli" {:direct ["change" "common" "file" "util" "workspace"],
-                                                   :indirect ["deps" "path-finder" "git" "shell" "text-table" "text-table2" "validator"]},
-                                       "user-config" {:direct ["util"], :indirect []},
-                                       "git" {:direct ["shell"], :indirect []},
-                                       "deps" {:direct ["common" "text-table" "util"], :indirect []},
-                                       "help" {:direct ["util"], :indirect []},
-                                       "creator" {:direct ["common" "file" "git" "user-config" "util"], :indirect ["shell"]},
-                                       "file" {:direct ["util"], :indirect []},
-                                       "path-finder" {:direct ["file" "util"], :indirect []},
-                                       "test-helper" {:direct ["change" "common" "file" "git" "user-config" "workspace"],
-                                                      :indirect ["deps" "path-finder" "shell" "text-table" "text-table2" "util" "validator"]},
-                                       "common" {:direct ["util"], :indirect []},
-                                       "change" {:direct ["common" "git" "util"], :indirect ["shell"]}},
-                                :test-lib-deps {},
-                                :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
-                                              "clojars" {:url "https://repo.clojars.org/"}}}
-                               {:name "development",
-                                :alias "dev",
-                                :type "environment",
-                                :is-run-tests false,
-                                :is-dev true,
-                                :env-dir "./development",
-                                :config-file "./deps.edn",
-                                :lines-of-code-src 100,
-                                :lines-of-code-test 0,
-                                :total-lines-of-code-src 4558,
-                                :total-lines-of-code-test 3520,
-                                :test-component-names ["change"
-                                                       "command"
-                                                       "common"
+                                                             "validator"]},
+                                   "common" {:direct ["util"], :indirect []},
+                                   "change" {:direct ["common" "git" "util"], :indirect ["shell"]}},
+                            :test-lib-deps {},
+                            :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
+                                          "clojars" {:url "https://repo.clojars.org/"}}}
+                           {:name "core",
+                            :alias "core",
+                            :type "project",
+                            :is-run-tests true,
+                            :is-dev false,
+                            :project-dir "./projects/core",
+                            :config-file "./projects/core/deps.edn",
+                            :lines-of-code-src 0,
+                            :lines-of-code-test 6,
+                            :total-lines-of-code-src 3699,
+                            :total-lines-of-code-test 3088,
+                            :test-component-names [],
+                            :component-names ["change"
+                                              "common"
+                                              "deps"
+                                              "path-finder"
+                                              "file"
+                                              "git"
+                                              "help"
+                                              "shell"
+                                              "text-table"
+                                              "user-config"
+                                              "util"
+                                              "validator"
+                                              "workspace"],
+                            :base-names [],
+                            :test-base-names [],
+                            :namespaces-src [],
+                            :namespaces-test [{:name "polylith.clj.core.dev-test",
+                                               :namespace "polylith.clj.core.dev-test",
+                                               :file-path "./projects/core/test/polylith/clj/core/dev_test.clj",
+                                               :imports []}],
+                            :src-paths ["components/change/src"
+                                        "components/common/src"
+                                        "components/deps/src"
+                                        "components/path-finder/src"
+                                        "components/file/src"
+                                        "components/git/src"
+                                        "components/help/src"
+                                        "components/shell/src"
+                                        "components/text-table/src"
+                                        "components/user-config/src"
+                                        "components/util/src"
+                                        "components/validator/src"
+                                        "components/workspace/src"],
+                            :test-paths [],
+                            :lib-imports ["clojure.core.matrix"
+                                          "clojure.java.io"
+                                          "clojure.java.shell"
+                                          "clojure.set"
+                                          "clojure.stacktrace"
+                                          "clojure.string"
+                                          "clojure.walk"],
+                            :lib-imports-test ["clojure.string"],
+                            :lib-deps {"net.mikera/core.matrix" #:mvn{:version "0.62.0"},
+                                       "org.clojure/clojure" #:mvn{:version "1.10.1"},
+                                       "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}},
+                            :deps {"workspace-clj" {:direct ["common" "file" "user-config" "util"], :indirect []},
+                                   "test-runner" {:direct ["common" "util"], :indirect []},
+                                   "command" {:direct ["common" "deps" "help" "user-config" "util" "workspace"],
+                                              :indirect ["path-finder" "file" "text-table" "text-table2" "validator"]},
+                                   "text-table" {:direct ["util"], :indirect []},
+                                   "util" {:direct [], :indirect []},
+                                   "validator" {:direct ["common" "deps" "file" "util"], :indirect ["text-table"]},
+                                   "text-table2" {:direct ["util"], :indirect []},
+                                   "shell" {:direct [], :indirect []},
+                                   "workspace" {:direct ["common"
+                                                         "deps"
+                                                         "path-finder"
+                                                         "file"
+                                                         "text-table"
+                                                         "util"
+                                                         "validator"],
+                                                :indirect []},
+                                   "poly-cli" {:direct ["change" "common" "file" "util" "workspace"],
+                                               :indirect ["deps" "path-finder" "git" "shell" "text-table" "text-table2" "validator"]},
+                                   "user-config" {:direct ["util"], :indirect []},
+                                   "git" {:direct ["shell"], :indirect []},
+                                   "deps" {:direct ["common" "text-table" "util"], :indirect []},
+                                   "help" {:direct ["util"], :indirect []},
+                                   "creator" {:direct ["common" "file" "git" "user-config" "util"], :indirect ["shell"]},
+                                   "file" {:direct ["util"], :indirect []},
+                                   "path-finder" {:direct ["file" "util"], :indirect []},
+                                   "test-helper" {:direct ["change" "common" "file" "git" "user-config" "workspace"],
+                                                  :indirect ["deps" "path-finder" "shell" "text-table" "text-table2" "util" "validator"]},
+                                   "common" {:direct ["util"], :indirect []},
+                                   "change" {:direct ["common" "git" "util"], :indirect ["shell"]}},
+                            :test-lib-deps {},
+                            :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
+                                          "clojars" {:url "https://repo.clojars.org/"}}}
+                           {:name "development",
+                            :alias "dev",
+                            :type "project",
+                            :is-run-tests false,
+                            :is-dev true,
+                            :project-dir "./development",
+                            :config-file "./deps.edn",
+                            :lines-of-code-src 100,
+                            :lines-of-code-test 0,
+                            :total-lines-of-code-src 4558,
+                            :total-lines-of-code-test 3520,
+                            :test-component-names ["change"
+                                                   "command"
+                                                   "common"
+                                                   "creator"
+                                                   "deps"
+                                                   "path-finder"
+                                                   "git"
+                                                   "text-table"
+                                                   "util"
+                                                   "validator"
+                                                   "workspace"
+                                                   "workspace-clj"],
+                            :component-names ["change"
+                                              "command"
+                                              "common"
+                                              "creator"
+                                              "deps"
+                                              "path-finder"
+                                              "git"
+                                              "help"
+                                              "shell"
+                                              "test-helper"
+                                              "test-runner"
+                                              "text-table"
+                                              "user-config"
+                                              "util"
+                                              "validator"
+                                              "workspace"
+                                              "workspace-clj"],
+                            :base-names ["poly-cli"],
+                            :test-base-names [],
+                            :namespaces-src [{:name "dev.jocke",
+                                              :namespace "dev.jocke",
+                                              :file-path "./development/src/dev/jocke.clj",
+                                              :imports ["clojure.string"
+                                                        "polylith.clj.core.change.interface"
+                                                        "polylith.clj.core.common.interface"
+                                                        "polylith.clj.core.path-finder.interface"
+                                                        "polylith.clj.core.file.interface"
+                                                        "polylith.clj.core.help.interface"
+                                                        "polylith.clj.core.util.interface"
+                                                        "polylith.clj.core.workspace-clj.interface"
+                                                        "polylith.clj.core.workspace.interface"]}],
+                            :namespaces-test [],
+                            :src-paths ["bases/poly-cli/src"
+                                        "components/change/src"
+                                        "components/command/src"
+                                        "components/common/src"
+                                        "components/create/resources"
+                                        "components/create/src"
+                                        "components/deps/src"
+                                        "components/path-finder/src"
+                                        "components/git/src"
+                                        "components/help/src"
+                                        "components/shell/src"
+                                        "components/test-helper/src"
+                                        "components/test-runner/src"
+                                        "components/text-table/src"
+                                        "components/user-config/src"
+                                        "components/util/src"
+                                        "components/validator/src"
+                                        "components/workspace-clj/src"
+                                        "components/workspace/src"
+                                        "development/src"],
+                            :test-paths ["bases/poly-cli/test"
+                                         "components/change/test"
+                                         "components/command/test"
+                                         "components/common/test"
+                                         "components/create/test"
+                                         "components/deps/test"
+                                         "components/path-finder/test"
+                                         "components/git/test"
+                                         "components/help/test"
+                                         "components/shell/test"
+                                         "components/test-helper/test"
+                                         "components/test-runner/test"
+                                         "components/text-table/test"
+                                         "components/user-config/test"
+                                         "components/util/test"
+                                         "components/validator/test"
+                                         "components/workspace-clj/test"
+                                         "components/workspace/test"
+                                         "projects/poly/test"]
+                            :profile-src-paths []
+                            :profile-test-paths []
+                            :lib-imports ["clojure.core.matrix"
+                                          "clojure.java.io"
+                                          "clojure.java.shell"
+                                          "clojure.pprint"
+                                          "clojure.set"
+                                          "clojure.stacktrace"
+                                          "clojure.string"
+                                          "clojure.tools.deps.alpha"
+                                          "clojure.tools.deps.alpha.util.maven"
+                                          "clojure.walk"],
+                            :lib-imports-test ["clojure.string" "clojure.tools.deps.alpha.util.maven"],
+                            :lib-deps {"net.mikera/core.matrix" #:mvn{:version "0.62.0"},
+                                       "org.apache.logging.log4j/log4j-core" #:mvn{:version "2.13.3"},
+                                       "org.apache.logging.log4j/log4j-slf4j-impl" #:mvn{:version "2.13.3"},
+                                       "org.clojure/clojure" #:mvn{:version "1.10.1"},
+                                       "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}},
+                            :deps {"workspace-clj" {:direct ["common" "file" "user-config" "util"], :indirect []},
+                                   "test-runner" {:direct ["common" "util"], :indirect []},
+                                   "command" {:direct ["common"
                                                        "creator"
                                                        "deps"
-                                                       "path-finder"
-                                                       "git"
-                                                       "text-table"
+                                                       "help"
+                                                       "test-runner"
+                                                       "user-config"
                                                        "util"
-                                                       "validator"
-                                                       "workspace"
-                                                       "workspace-clj"],
-                                :component-names ["change"
-                                                  "command"
-                                                  "common"
-                                                  "creator"
-                                                  "deps"
-                                                  "path-finder"
-                                                  "git"
-                                                  "help"
-                                                  "shell"
-                                                  "test-helper"
-                                                  "test-runner"
-                                                  "text-table"
-                                                  "user-config"
-                                                  "util"
-                                                  "validator"
-                                                  "workspace"
-                                                  "workspace-clj"],
-                                :base-names ["poly-cli"],
-                                :test-base-names [],
-                                :namespaces-src [{:name "dev.jocke",
-                                                  :namespace "dev.jocke",
-                                                  :file-path "./development/src/dev/jocke.clj",
-                                                  :imports ["clojure.string"
-                                                            "polylith.clj.core.change.interface"
-                                                            "polylith.clj.core.common.interface"
-                                                            "polylith.clj.core.path-finder.interface"
-                                                            "polylith.clj.core.file.interface"
-                                                            "polylith.clj.core.help.interface"
-                                                            "polylith.clj.core.util.interface"
-                                                            "polylith.clj.core.workspace-clj.interface"
-                                                            "polylith.clj.core.workspace.interface"]}],
-                                :namespaces-test [],
-                                :src-paths ["bases/poly-cli/src"
-                                            "components/change/src"
-                                            "components/command/src"
-                                            "components/common/src"
-                                            "components/create/resources"
-                                            "components/create/src"
-                                            "components/deps/src"
-                                            "components/path-finder/src"
-                                            "components/git/src"
-                                            "components/help/src"
-                                            "components/shell/src"
-                                            "components/test-helper/src"
-                                            "components/test-runner/src"
-                                            "components/text-table/src"
-                                            "components/user-config/src"
-                                            "components/util/src"
-                                            "components/validator/src"
-                                            "components/workspace-clj/src"
-                                            "components/workspace/src"
-                                            "development/src"],
-                                :test-paths ["bases/poly-cli/test"
-                                             "components/change/test"
-                                             "components/command/test"
-                                             "components/common/test"
-                                             "components/create/test"
-                                             "components/deps/test"
-                                             "components/path-finder/test"
-                                             "components/git/test"
-                                             "components/help/test"
-                                             "components/shell/test"
-                                             "components/test-helper/test"
-                                             "components/test-runner/test"
-                                             "components/text-table/test"
-                                             "components/user-config/test"
-                                             "components/util/test"
-                                             "components/validator/test"
-                                             "components/workspace-clj/test"
-                                             "components/workspace/test"
-                                             "environments/poly/test"]
-                                :profile-src-paths []
-                                :profile-test-paths []
-                                :lib-imports ["clojure.core.matrix"
-                                              "clojure.java.io"
-                                              "clojure.java.shell"
-                                              "clojure.pprint"
-                                              "clojure.set"
-                                              "clojure.stacktrace"
-                                              "clojure.string"
-                                              "clojure.tools.deps.alpha"
-                                              "clojure.tools.deps.alpha.util.maven"
-                                              "clojure.walk"],
-                                :lib-imports-test ["clojure.string" "clojure.tools.deps.alpha.util.maven"],
-                                :lib-deps {"net.mikera/core.matrix" #:mvn{:version "0.62.0"},
-                                           "org.apache.logging.log4j/log4j-core" #:mvn{:version "2.13.3"},
-                                           "org.apache.logging.log4j/log4j-slf4j-impl" #:mvn{:version "2.13.3"},
-                                           "org.clojure/clojure" #:mvn{:version "1.10.1"},
-                                           "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}},
-                                :deps {"workspace-clj" {:direct ["common" "file" "user-config" "util"], :indirect []},
-                                       "test-runner" {:direct ["common" "util"], :indirect []},
-                                       "command" {:direct ["common"
-                                                           "creator"
-                                                           "deps"
-                                                           "help"
-                                                           "test-runner"
+                                                       "workspace"],
+                                              :indirect ["path-finder" "file" "git" "shell" "text-table" "text-table2" "validator"]},
+                                   "text-table" {:direct ["util"], :indirect []},
+                                   "util" {:direct [], :indirect []},
+                                   "validator" {:direct ["common" "deps" "file" "util"], :indirect ["text-table"]},
+                                   "text-table2" {:direct ["util"], :indirect []},
+                                   "shell" {:direct [], :indirect []},
+                                   "workspace" {:direct ["common"
+                                                         "deps"
+                                                         "path-finder"
+                                                         "file"
+                                                         "text-table"
+                                                         "util"
+                                                         "validator"],
+                                                :indirect []},
+                                   "poly-cli" {:direct ["change" "command" "common" "file" "util" "workspace" "workspace-clj"],
+                                               :indirect ["creator"
+                                                          "deps"
+                                                          "path-finder"
+                                                          "git"
+                                                          "help"
+                                                          "shell"
+                                                          "test-runner"
+                                                          "text-table"
+                                                          "user-config"
+                                                          "validator"]},
+                                   "user-config" {:direct ["util"], :indirect []},
+                                   "git" {:direct ["shell"], :indirect []},
+                                   "deps" {:direct ["common" "text-table" "util"], :indirect []},
+                                   "help" {:direct ["util"], :indirect []},
+                                   "creator" {:direct ["common" "file" "git" "user-config" "util"], :indirect ["shell"]},
+                                   "file" {:direct ["util"], :indirect []},
+                                   "path-finder" {:direct ["file" "util"], :indirect []},
+                                   "test-helper" {:direct ["change"
+                                                           "command"
+                                                           "common"
+                                                           "file"
+                                                           "git"
                                                            "user-config"
-                                                           "util"
-                                                           "workspace"],
-                                                  :indirect ["path-finder" "file" "git" "shell" "text-table" "text-table2" "validator"]},
-                                       "text-table" {:direct ["util"], :indirect []},
-                                       "util" {:direct [], :indirect []},
-                                       "validator" {:direct ["common" "deps" "file" "util"], :indirect ["text-table"]},
-                                       "text-table2" {:direct ["util"], :indirect []},
-                                       "shell" {:direct [], :indirect []},
-                                       "workspace" {:direct ["common"
+                                                           "workspace"
+                                                           "workspace-clj"],
+                                                  :indirect ["creator"
                                                              "deps"
                                                              "path-finder"
-                                                             "file"
+                                                             "help"
+                                                             "shell"
+                                                             "test-runner"
                                                              "text-table"
                                                              "util"
-                                                             "validator"],
-                                                    :indirect []},
-                                       "poly-cli" {:direct ["change" "command" "common" "file" "util" "workspace" "workspace-clj"],
-                                                   :indirect ["creator"
-                                                              "deps"
-                                                              "path-finder"
-                                                              "git"
-                                                              "help"
-                                                              "shell"
-                                                              "test-runner"
-                                                              "text-table"
-                                                              "user-config"
-                                                              "validator"]},
-                                       "user-config" {:direct ["util"], :indirect []},
-                                       "git" {:direct ["shell"], :indirect []},
-                                       "deps" {:direct ["common" "text-table" "util"], :indirect []},
-                                       "help" {:direct ["util"], :indirect []},
-                                       "creator" {:direct ["common" "file" "git" "user-config" "util"], :indirect ["shell"]},
-                                       "file" {:direct ["util"], :indirect []},
-                                       "path-finder" {:direct ["file" "util"], :indirect []},
-                                       "test-helper" {:direct ["change"
-                                                               "command"
-                                                               "common"
-                                                               "file"
-                                                               "git"
-                                                               "user-config"
-                                                               "workspace"
-                                                               "workspace-clj"],
-                                                      :indirect ["creator"
-                                                                 "deps"
-                                                                 "path-finder"
-                                                                 "help"
-                                                                 "shell"
-                                                                 "test-runner"
-                                                                 "text-table"
-                                                                 "util"
-                                                                 "validator"]},
-                                       "common" {:direct ["util"], :indirect []},
-                                       "change" {:direct ["common" "git" "util"], :indirect ["shell"]}},
-                                :test-lib-deps {},
-                                :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
-                                              "clojars" {:url "https://repo.clojars.org/"}}}],
+                                                             "validator"]},
+                                   "common" {:direct ["util"], :indirect []},
+                                   "change" {:direct ["common" "git" "util"], :indirect ["shell"]}},
+                            :test-lib-deps {},
+                            :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
+                                          "clojars" {:url "https://repo.clojars.org/"}}}],
                 :messages [],
                 :components [{:name "change",
                               :type "component",
@@ -887,14 +887,14 @@
                               :namespaces-src [{:name "to-test",
                                                 :namespace "polylith.clj.core.change.to-test",
                                                 :file-path "./components/change/src/polylith/clj/core/change/to_test.clj",
-                                                :imports ["clojure.set" "polylith.clj.core.change.environment"]}
+                                                :imports ["clojure.set" "polylith.clj.core.change.project"]}
                                                {:name "interface",
                                                 :namespace "polylith.clj.core.change.interface",
                                                 :file-path "./components/change/src/polylith/clj/core/change/interface.clj",
                                                 :imports ["polylith.clj.core.change.core"]}
-                                               {:name "environment",
-                                                :namespace "polylith.clj.core.change.environment",
-                                                :file-path "./components/change/src/polylith/clj/core/change/environment.clj",
+                                               {:name "project",
+                                                :namespace "polylith.clj.core.change.project",
+                                                :file-path "./components/change/src/polylith/clj/core/change/project.clj",
                                                 :imports ["clojure.set"]}
                                                {:name "core",
                                                 :namespace "polylith.clj.core.change.core",
@@ -931,10 +931,10 @@
                                                  :namespace "polylith.clj.core.change.to-test-test",
                                                  :file-path "./components/change/test/polylith/clj/core/change/to_test_test.clj",
                                                  :imports ["polylith.clj.core.change.to-test"]}
-                                                {:name "environment-test",
-                                                 :namespace "polylith.clj.core.change.environment-test",
-                                                 :file-path "./components/change/test/polylith/clj/core/change/environment_test.clj",
-                                                 :imports ["polylith.clj.core.change.environment"]}],
+                                                {:name "project-test",
+                                                 :namespace "polylith.clj.core.change.project-test",
+                                                 :file-path "./components/change/test/polylith/clj/core/change/project_test.clj",
+                                                 :imports ["polylith.clj.core.change.project"]}],
                               :lib-imports-src ["clojure.set" "clojure.string"],
                               :lib-imports-test [],
                               :interface-deps ["common" "git" "util"],
@@ -1019,9 +1019,9 @@
                                                         {:name "find-component",
                                                          :type "function",
                                                          :parameters [{:name "name"} {:name "components"}]}
-                                                        {:name "find-environment",
+                                                        {:name "find-project",
                                                          :type "function",
-                                                         :parameters [{:name "environment-name"} {:name "environments"}]}
+                                                         :parameters [{:name "project-name"} {:name "projects"}]}
                                                         {:name "messages-without-colors",
                                                          :type "function",
                                                          :parameters [{:name "workspace"}]}
@@ -1058,7 +1058,7 @@
                                                          :type "function",
                                                          :parameters [{:name "paths"}],
                                                          :sub-ns "paths"}
-                                                        {:name "environments-from-paths",
+                                                        {:name "projects-from-paths",
                                                          :type "function",
                                                          :parameters [{:name "paths"}],
                                                          :sub-ns "paths"}
@@ -1127,21 +1127,21 @@
                                                          :parameters [{:name "workspace"}
                                                                       {:name "component-name"}
                                                                       {:name "interface-name"}]}
-                                                        {:name "create-environment",
+                                                        {:name "create-project",
                                                          :type "function",
-                                                         :parameters [{:name "workspace"} {:name "env"}]}
+                                                         :parameters [{:name "workspace"} {:name "project"}]}
                                                         {:name "create-workspace",
                                                          :type "function",
                                                          :parameters [{:name "root-dir"} {:name "ws-name"} {:name "top-ns"}]}
                                                         {:name "print-alias-message",
                                                          :type "function",
-                                                         :parameters [{:name "env"} {:name "color-mode"}]}]},
+                                                         :parameters [{:name "project"} {:name "color-mode"}]}]},
                               :namespaces-src [{:name "interface",
                                                 :namespace "polylith.clj.core.create.interface",
                                                 :file-path "./components/create/src/polylith/clj/core/create/interface.clj",
                                                 :imports ["polylith.clj.core.create.base"
                                                           "polylith.clj.core.create.component"
-                                                          "polylith.clj.core.create.environment"
+                                                          "polylith.clj.core.create.project"
                                                           "polylith.clj.core.create.workspace"]}
                                                {:name "brick",
                                                 :namespace "polylith.clj.core.create.brick",
@@ -1149,9 +1149,9 @@
                                                 :imports ["polylith.clj.core.common.interface"
                                                           "polylith.clj.core.file.interface"
                                                           "polylith.clj.core.git.interface"]}
-                                               {:name "environment",
-                                                :namespace "polylith.clj.core.create.environment",
-                                                :file-path "./components/create/src/polylith/clj/core/create/environment.clj",
+                                               {:name "project",
+                                                :namespace "polylith.clj.core.create.project",
+                                                :file-path "./components/create/src/polylith/clj/core/create/project.clj",
                                                 :imports ["polylith.clj.core.common.interface"
                                                           "polylith.clj.core.file.interface"
                                                           "polylith.clj.core.git.interface"
@@ -1178,9 +1178,9 @@
                                                  :namespace "polylith.clj.core.create.workspace-test",
                                                  :file-path "./components/create/test/polylith/clj/core/create/workspace_test.clj",
                                                  :imports ["polylith.clj.core.test-helper.interface"]}
-                                                {:name "environment-test",
-                                                 :namespace "polylith.clj.core.create.environment-test",
-                                                 :file-path "./components/create/test/polylith/clj/core/create/environment_test.clj",
+                                                {:name "project-test",
+                                                 :namespace "polylith.clj.core.create.project-test",
+                                                 :file-path "./components/create/test/polylith/clj/core/create/project_test.clj",
                                                  :imports ["polylith.clj.core.test-helper.interface"
                                                            "polylith.clj.core.util.interface.color"]}
                                                 {:name "component-test",
@@ -1213,13 +1213,13 @@
                                                         {:name "print-brick-table",
                                                          :type "function",
                                                          :parameters [{:name "workspace"}
-                                                                      {:name "environment-name"}
+                                                                      {:name "project-name"}
                                                                       {:name "brick-name"}
                                                                       {:name "color-mode"}]}
                                                         {:name "print-workspace-brick-table",
                                                          :type "function",
                                                          :parameters [{:name "workspace"}
-                                                                      {:name "environment-name"}
+                                                                      {:name "project-name"}
                                                                       {:name "color-mode"}]}
                                                         {:name "print-workspace-ifc-table",
                                                          :type "function",
@@ -1313,9 +1313,9 @@
                                                                       {:name "src-deps"}
                                                                       {:name "test-deps"}
                                                                       {:name "settings"}]}
-                                                        {:name "env-status-flags",
+                                                        {:name "project-status-flags",
                                                          :type "function",
-                                                         :parameters [{:name "path-entries"} {:name "env-name"}]}
+                                                         :parameters [{:name "path-entries"} {:name "project-name"}]}
                                                         {:name "path-entries",
                                                          :type "function",
                                                          :parameters [{:name "ws-dir"}
@@ -1371,9 +1371,9 @@
                                                 :imports ["polylith.clj.core.path-finder.dep-extractor"
                                                           "polylith.clj.core.path-finder.path-extractor"
                                                           "polylith.clj.core.path-finder.profile-extractor"]}
-                                               {:name "env-statuses",
-                                                :namespace "polylith.clj.core.path-finder.env-statuses",
-                                                :file-path "./components/path-finder/src/polylith/clj/core/path-finder/env_statuses.clj",
+                                               {:name "project-statuses",
+                                                :namespace "polylith.clj.core.path-finder.project-statuses",
+                                                :file-path "./components/path-finder/src/polylith/clj/core/path-finder/project_statuses.clj",
                                                 :imports ["polylith.clj.core.path-finder.matchers"]}
                                                {:name "dep-extractor",
                                                 :namespace "polylith.clj.core.path-finder.dep-extractor",
@@ -1774,9 +1774,9 @@
                                                          :type "function",
                                                          :parameters [{:name "color-mode"} {:name "&"} {:name "messages"}],
                                                          :sub-ns "color"}
-                                                        {:name "environment",
+                                                        {:name "project",
                                                          :type "function",
-                                                         :parameters [{:name "env"} {:name "color-mode"}],
+                                                         :parameters [{:name "project"} {:name "color-mode"}],
                                                          :sub-ns "color"}
                                                         {:name "error",
                                                          :type "function",
@@ -1957,7 +1957,7 @@
                                                                       {:name "interfaces"}
                                                                       {:name "components"}
                                                                       {:name "bases"}
-                                                                      {:name "environments"}
+                                                                      {:name "projects"}
                                                                       {:name "interface-ns"}
                                                                       {:name "ns-to-lib"}
                                                                       {:name "color-mode"}]}]},
@@ -1974,9 +1974,9 @@
                                                           "clojure.string"
                                                           "polylith.clj.core.util.interfc"
                                                           "polylith.clj.core.util.interfc.color"]}
-                                               {:name "m107-missing-componens-in-environment",
-                                                :namespace "polylith.clj.core.validate.m107-missing-componens-in-environment",
-                                                :file-path "./components/validator/src/polylith/clj/core/validator/m107_missing_componens_in_environment.clj",
+                                               {:name "m107-missing-componens-in-project",
+                                                :namespace "polylith.clj.core.validate.m107-missing-componens-in-project",
+                                                :file-path "./components/validator/src/polylith/clj/core/validator/m107_missing_componens_in_project.clj",
                                                 :imports ["clojure.set"
                                                           "clojure.string"
                                                           "polylith.clj.core.util.interfc"
@@ -2004,7 +2004,7 @@
                                                           "polylith.clj.core.validate.m104-circular-deps"
                                                           "polylith.clj.core.validate.m105-illegal-name-sharing"
                                                           "polylith.clj.core.validate.m106-multiple-interface-occurrences"
-                                                          "polylith.clj.core.validate.m107-missing-componens-in-environment"
+                                                          "polylith.clj.core.validate.m107-missing-componens-in-project"
                                                           "polylith.clj.core.validate.m201-mismatching-parameters"
                                                           "polylith.clj.core.validate.m202-missing-libraries"
                                                           "polylith.clj.core.validate.m203-invalid-src-reference"]}
@@ -2088,11 +2088,11 @@
                                                  :file-path "./components/validate/test/polylith/clj/core/validate/m103_missing_defs_test.clj",
                                                  :imports ["polylith.clj.core.util.interfc.color"
                                                            "polylith.clj.core.validate.m103-missing-defs"]}
-                                                {:name "m107-missing-componens-in-environment-test",
-                                                 :namespace "polylith.clj.core.validate.m107-missing-componens-in-environment-test",
-                                                 :file-path "./components/validate/test/polylith/clj/core/validate/m107_missing_componens_in_environment_test.clj",
+                                                {:name "m107-missing-componens-in-project-test",
+                                                 :namespace "polylith.clj.core.validate.m107-missing-componens-in-project-test",
+                                                 :file-path "./components/validate/test/polylith/clj/core/validate/m107_missing_componens_in_project_test.clj",
                                                  :imports ["polylith.clj.core.util.interfc.color"
-                                                           "polylith.clj.core.validate.m107-missing-componens-in-environment"]}
+                                                           "polylith.clj.core.validate.m107-missing-componens-in-project"]}
                                                 {:name "m202-missing-libraries-test",
                                                  :namespace "polylith.clj.core.validate.m202-missing-libraries-test",
                                                  :file-path "./components/validate/test/polylith/clj/core/validate/m202_missing_libraries_test.clj",
@@ -2141,9 +2141,9 @@
                                                 :namespace "polylith.clj.core.workspace-clj.interfc",
                                                 :file-path "./components/workspace-clj/src/polylith/clj/core/workspace_clj/interfc.clj",
                                                 :imports ["polylith.clj.core.workspace-clj.core"]}
-                                               {:name "environment-from-disk",
-                                                :namespace "polylith.clj.core.workspace-clj.environment-from-disk",
-                                                :file-path "./components/workspace-clj/src/polylith/clj/core/workspace_clj/environment_from_disk.clj",
+                                               {:name "project-from-disk",
+                                                :namespace "polylith.clj.core.workspace-clj.project-from-disk",
+                                                :file-path "./components/workspace-clj/src/polylith/clj/core/workspace_clj/project_from_disk.clj",
                                                 :imports ["clojure.string"
                                                           "clojure.tools.deps.alpha.util.maven"
                                                           "polylith.clj.core.file.interfc"
@@ -2158,7 +2158,7 @@
                                                           "polylith.clj.core.util.interfc"
                                                           "polylith.clj.core.workspace-clj.bases-from-disk"
                                                           "polylith.clj.core.workspace-clj.components-from-disk"
-                                                          "polylith.clj.core.workspace-clj.environment-from-disk"
+                                                          "polylith.clj.core.workspace-clj.project-from-disk"
                                                           "polylith.clj.core.workspace-clj.profile"]}
                                                {:name "definitions",
                                                 :namespace "polylith.clj.core.workspace-clj.definitions",
@@ -2197,12 +2197,12 @@
                                                  :namespace "polylith.clj.core.workspace-clj.readimportsfromdisk-test",
                                                  :file-path "./components/workspace-clj/test/polylith/clj/core/workspace_clj/readimportsfromdisk_test.clj",
                                                  :imports ["polylith.clj.core.workspace-clj.namespaces-from-disk"]}
-                                                {:name "environment-test",
-                                                 :namespace "polylith.clj.core.workspace-clj.environment-test",
-                                                 :file-path "./components/workspace-clj/test/polylith/clj/core/workspace_clj/environment_test.clj",
+                                                {:name "project-test",
+                                                 :namespace "polylith.clj.core.workspace-clj.project-test",
+                                                 :file-path "./components/workspace-clj/test/polylith/clj/core/workspace_clj/project_test.clj",
                                                  :imports ["clojure.tools.deps.alpha.util.maven"
                                                            "polylith.clj.core.file.interfc"
-                                                           "polylith.clj.core.workspace-clj.environment-from-disk"]}
+                                                           "polylith.clj.core.workspace-clj.project-from-disk"]}
                                                 {:name "definitions-test",
                                                  :namespace "polylith.clj.core.workspace-clj.definitions-test",
                                                  :file-path "./components/workspace-clj/test/polylith/clj/core/workspace_clj/definitions_test.clj",
@@ -2215,22 +2215,22 @@
                           :git-command "git diff HEAD --name-only",
                           :changed-components ["path-finder" "workspace"],
                           :changed-bases [],
-                          :changed-environments [],
-                          :env-to-indirect-changes {"poly" ["poly-cli" "command" "test-helper"],
-                                                    "core" ["poly-cli" "command" "test-helper"],
-                                                    "development" ["poly-cli" "command" "test-helper"]},
-                          :env-to-bricks-to-test {"poly" ["command" "path-finder" "workspace"], "core" [], "development" []},
-                          :environments-to-test [],
-                          :changed-files ["components/path-finder/src/polylith/clj/core/path-finder/env_statuses.clj"
+                          :changed-projects [],
+                          :project-to-indirect-changes {"poly" ["poly-cli" "command" "test-helper"],
+                                                        "core" ["poly-cli" "command" "test-helper"],
+                                                        "development" ["poly-cli" "command" "test-helper"]},
+                          :project-to-bricks-to-test {"poly" ["command" "path-finder" "workspace"], "core" [], "development" []},
+                          :projects-to-test [],
+                          :changed-files ["components/path-finder/src/polylith/clj/core/path-finder/project_statuses.clj"
                                           "components/path-finder/src/polylith/clj/core/path-finder/interfc.clj"
                                           "components/path-finder/src/polylith/clj/core/path-finder/matchers.clj"
                                           "components/path-finder/src/polylith/clj/core/path-finder/status.clj"
                                           "components/workspace/src/polylith/clj/core/workspace/core.clj"
-                                          "components/workspace/src/polylith/clj/core/workspace/text_table/new_env_table.clj"
+                                          "components/workspace/src/polylith/clj/core/workspace/text_table/new_project_table.clj"
                                           "components/workspace/src/polylith/clj/core/workspace/text_table/ws_table.clj"
                                           "components/workspace/src/polylith/clj/core/workspace/ws_table/core.clj"
-                                          "components/workspace/src/polylith/clj/core/workspace/ws_table/env_columns.clj"
-                                          "components/workspace/test/polylith/clj/core/workspace/text_table/env_table_test.clj"
+                                          "components/workspace/src/polylith/clj/core/workspace/ws_table/project_columns.clj"
+                                          "components/workspace/test/polylith/clj/core/workspace/text_table/project_table_test.clj"
                                           "components/workspace/test/polylith/clj/core/workspace/text_table/ws_table_test.clj"
                                           "development/src/dev/jocke.clj"
                                           "todo.txt"]},
@@ -2260,8 +2260,8 @@
 (def workspace-with-profiles (-> workspace
                                  (assoc-in [:settings :profile-to-settings] {"default" {:paths ["components/file/src"
                                                                                                 "components/file/test"]}})
-                                 (assoc-in [:environments 2 :profile-src-paths] ["components/file/src"])
-                                 (assoc-in [:environments 2 :profile-test-paths] ["components/file/test"])))
+                                 (assoc-in [:projects 2 :profile-src-paths] ["components/file/src"])
+                                 (assoc-in [:projects 2 :profile-test-paths] ["components/file/test"])))
 
 (def workspace-with-profiles-no-active (-> workspace-with-profiles
                                            (assoc-in [:settings :active-profiles] #{})))

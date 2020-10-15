@@ -27,32 +27,33 @@
 
 (def workspace (->
                  ;(dir ".")
-                 (dir "../poly-example/ws50")
-                 ;(dir "../clojure-polylith-realworld-example-app")
+                 ;(dir "../poly-example/ws50")
+                 (dir "../clojure-polylith-realworld-example-app")
                  ws-clj/workspace-from-disk
-                 ws/enrich-workspace
-                 change/with-changes))
+                 ws/enrich-workspace))
+                 ;change/with-changes))
 
 (keys workspace)
 
-(command/execute-command (user-input/extract-params ["info" "ws-dir:../poly-example/ws50" "+"]))
-
-(command/execute-command (user-input/extract-params ["info" "ws-dir:example/example"]))
+;(command/execute-command (user-input/extract-params ["info"]))
+(command/execute-command (user-input/extract-params ["test"]))
 
 ;(command/execute-command (user-input/extract-params ["info"]))
 
-(keys (:lib-deps (common/find-environment "dev" (:environments workspace))))
+(keys (:lib-deps (common/find-project "dev" (:projects workspace))))
 
-(-> workspace :environments first :name)
+(-> workspace :projects first :name)
 
-(:environments workspace)
+(map :alias (:projects workspace))
+
+(:projects workspace)
 (:messages workspace)
 (:changes workspace)
 (:settings workspace)
 (:user-input workspace)
 (-> workspace :settings :profile-to-settings)
 
-(def environments (:environments workspace))
+(def projects (:projects workspace))
 (def settings (:settings workspace))
 (def interfaces (:interfaces workspace))
 (def components (:components workspace))
@@ -62,11 +63,11 @@
 (def changes (:changes workspace))
 (def messages (:messages workspace))
 
-(map :name environments)
+(map :name projects)
 
-(def environment (common/find-environment "dev" environments))
-(def environment (common/find-environment "invoice" environments))
-(def environment (common/find-environment "poly-migrator" environments))
+(def project (common/find-project "dev" projects))
+(def project (common/find-project "invoice" projects))
+(def project (common/find-project "poly-migrator" projects))
 (def component (common/find-component "common" components))
 (def component (common/find-component "article" components))
 (def base (common/find-base "poly-cli" bases))

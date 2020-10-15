@@ -17,10 +17,10 @@
   (is (= test-data/dep-entries
          (lib-dep-extractor/from-library-deps true src-deps test-deps settings))))
 
-(deftest extract-deps--from-non-dev-environment--returns-no-dependencies
+(deftest extract-deps--from-non-dev-project--returns-no-dependencies
   (is (= {}
          (lib-dep-extractor/extract-deps false settings))))
 
-(deftest extract-deps--from-dev-environment--returns-selected-profiles-dependencies
+(deftest extract-deps--from-dev-project--returns-selected-profiles-dependencies
   (is (= {"net.mikera/core.matrix" #:mvn{:version "0.62.0"}}
          (lib-dep-extractor/extract-deps true settings))))

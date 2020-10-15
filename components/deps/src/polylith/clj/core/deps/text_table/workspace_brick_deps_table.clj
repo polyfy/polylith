@@ -45,9 +45,9 @@
           (map #(entity % "component") direct)
           (map #(entity % "component") indirect)))
 
-(defn table [{:keys [settings components bases]} environment]
+(defn table [{:keys [settings components bases]} project]
   (let [{:keys [color-mode empty-char]} settings
-        deps (:deps environment)
+        deps (:deps project)
         brick-names-set (set (map key deps))
         bricks (filter #(contains? brick-names-set (:name %))
                        (concat components bases))
@@ -66,7 +66,7 @@
         line (text-table/line 2 cells)]
     (text-table/table "  " color-mode cells line)))
 
-(defn print-table [{:keys [environments settings] :as workspace} environment-name]
-  (if-let [environment (common/find-environment environment-name environments)]
-    (text-table/print-table (table workspace environment))
-    (println (str "  Couldn't find the " (color/environment environment-name (:color-mode settings)) " environment."))))
+(defn print-table [{:keys [projects settings] :as workspace} project-name]
+  (if-let [project (common/find-project project-name projects)]
+    (text-table/print-table (table workspace project))
+    (println (str "  Couldn't find the " (color/project project-name (:color-mode settings)) " project."))))

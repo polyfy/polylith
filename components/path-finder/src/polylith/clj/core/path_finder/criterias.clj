@@ -14,8 +14,8 @@
   (or (= :base type)
       (= :component type)))
 
-(defn environment? [{:keys [type]}]
-  (= :environment type))
+(defn project? [{:keys [type]}]
+  (= :project type))
 
 (defn src? [{:keys [test?]}]
   (not test?))

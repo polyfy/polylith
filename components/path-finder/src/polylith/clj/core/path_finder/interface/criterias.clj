@@ -13,8 +13,8 @@
 (defn brick? [path-entry]
   (criterias/brick? path-entry))
 
-(defn environment? [path-entry]
-  (criterias/environment? path-entry))
+(defn project? [path-entry]
+  (criterias/project? path-entry))
 
 (defn exists? [path-entry]
   (criterias/exists? path-entry))

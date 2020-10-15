@@ -7,7 +7,7 @@
 
 (defn profile-warning [[profile {:keys [paths]}] dev-paths color-mode]
   (let [shared-paths (set/intersection dev-paths (set paths))
-        message (str "The same path exists in both the " (color/environment "development" color-mode) " environment "
+        message (str "The same path exists in both the " (color/project "development" color-mode) " project "
                      "and the " (color/profile profile color-mode) " profile: "
                      (str/join ", " (map #(color/path % color-mode) shared-paths)))]
     (when (-> shared-paths empty? not)
@@ -15,9 +15,9 @@
                          :code 203
                          :message (color/clean-colors message)
                          :colorized-message message)])))
-(defn warnings [settings environments color-mode]
+(defn warnings [settings projects color-mode]
   (let [profile-to-settings (:profile-to-settings settings)
-        {:keys [unmerged]} (common/find-environment "dev" environments)
+        {:keys [unmerged]} (common/find-project "dev" projects)
         {:keys [src-paths test-paths]} unmerged
         dev-paths (set (concat src-paths test-paths))]
     (mapcat #(profile-warning % dev-paths color-mode) profile-to-settings)))

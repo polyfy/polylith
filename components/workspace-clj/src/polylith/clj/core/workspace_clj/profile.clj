@@ -10,14 +10,14 @@
   (let [path-entries (extract/path-entries [extra-paths] nil)
         component-names (vec (sort (select/names path-entries c/component?)))
         base-names (vec (sort (select/names path-entries c/base?)))
-        environment-names (vec (sort (select/names path-entries c/environment?)))]
+        project-names (vec (sort (select/names path-entries c/project?)))]
 
     [(subs (name profile-key) 1)
      (util/ordered-map :paths extra-paths
                        :lib-deps (lib/with-sizes extra-deps user-home)
                        :component-names component-names
                        :base-names base-names
-                       :environment-names environment-names)]))
+                       :project-names project-names)]))
 
 (defn profile? [[alias]]
   (str/starts-with? (name alias) "+"))

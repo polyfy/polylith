@@ -7,60 +7,60 @@
             [clojure.string :as str])
   (:import (java.io File)))
 
-(defn create-pom-xml [current-dir env]
-  (let [partial-pom-path (str current-dir "/environments/" env "/partial_pom.xml")
-        pom-path (str current-dir "/environments/" env "/pom.xml")]
+(defn create-pom-xml [current-dir project-name]
+  (let [partial-pom-path (str current-dir "/projects/" project-name "/partial_pom.xml")
+        pom-path (str current-dir "/projects/" project-name "/pom.xml")]
     (when-not (file/exists partial-pom-path)
-      (throw (Exception. (str env " environment does not have a pom.xml. Use clojure -Spom to generate one before deploying."))))
+      (throw (Exception. (str project-name " project does not have a pom.xml. Use clojure -Spom to generate one before deploying."))))
     (when (file/exists pom-path)
       (file/delete-file pom-path))
     (let [content (slurp partial-pom-path)
           updated-content (str/replace content #"VERSION" version/version)]
       (spit pom-path updated-content))))
 
-(defn build-jar [current-dir env type]
+(defn build-jar [current-dir project-name type]
   (println (str "Building " (name type) "..."))
   (try
-    (shell/sh (if (= :uberjar type) "./build-uberjar.sh" "./build-skinny-jar.sh") env :dir (str current-dir "/scripts"))
+    (shell/sh (if (= :uberjar type) "./build-uberjar.sh" "./build-skinny-jar.sh") project-name :dir (str current-dir "/scripts"))
     (catch Exception e
-      (throw (ex-info (str "Unable to build a " (name type) " for " env " environment.")
-                      {:current-dir current-dir
-                       :env         env
-                       :type        type}
+      (throw (ex-info (str "Unable to build a " (name type) " for " project-name " project.")
+                      {:current-dir  current-dir
+                       :project-name project-name
+                       :type         type}
                       e))))
   (println (str (name type) " is built.")))
 
-(defn deploy-env [current-dir env]
-  (create-pom-xml current-dir env)
+(defn deploy-project [current-dir project-name]
+  (create-pom-xml current-dir project-name)
   (try
-    (let [env-prefix (str (file/current-dir) "/environments/" env)
-          coordinates (:coordinates (deps-deploy/coordinates-from-pom (slurp (str (file/current-dir) "/environments/" env "/pom.xml"))))
-          artifact-map {[:extension "pom" :classifier nil] (str env-prefix "/pom.xml")
-                        [:extension "jar" :classifier nil] (str env-prefix "/target/" env "-skinny.jar")}]
+    (let [project-prefix (str (file/current-dir) "/projects/" project-name)
+          coordinates (:coordinates (deps-deploy/coordinates-from-pom (slurp (str (file/current-dir) "/projects/" project-name "/pom.xml"))))
+          artifact-map {[:extension "pom" :classifier nil] (str project-prefix "/pom.xml")
+                        [:extension "jar" :classifier nil] (str project-prefix "/target/" project-name "-skinny.jar")}]
       (deps-deploy/deploy {:installer    :clojars
                            :coordinates  coordinates
                            :artifact-map artifact-map}))
     (catch Throwable t
-      (throw (ex-info (str "Could not deploy " env " environment to clojars.")
+      (throw (ex-info (str "Could not deploy " project-name " project to clojars.")
                       {:current-dir current-dir
-                       :env env}
+                       :project-name project-name}
                       t)))))
 
-(def environments-to-deploy-clojars #{"poly" "poly-migrator" "api"})
+(def projects-to-deploy-clojars #{"poly" "poly-migrator" "api"})
 
 (defn deploy []
   (let [current-dir (file/current-dir)
-        changed-environments (filter #(contains? environments-to-deploy-clojars %)
-                                     (api/environments-to-deploy))]
-    (when (empty? changed-environments)
-      (throw (Exception. "Cannot deploy environments. None of the environments in this workspace changed.")))
-    (doseq [env changed-environments]
-      (println (str "Starting deployment for " env " environment."))
-      (build-jar current-dir env :skinny-jar)
-      (deploy-env current-dir env)
-      (println (str "Deployment completed for " env " environment.")))))
+        changed-projects (filter #(contains? projects-to-deploy-clojars %)
+                                 (api/projects-to-deploy))]
+    (when (empty? changed-projects)
+      (throw (Exception. "Cannot deploy projects. None of the projects in this workspace changed.")))
+    (doseq [project-name changed-projects]
+      (println (str "Starting deployment for " project-name " project."))
+      (build-jar current-dir project-name :skinny-jar)
+      (deploy-project current-dir project-name)
+      (println (str "Deployment completed for " project-name " project.")))))
 
-(defn make-install-script [env]
+(defn make-install-script [project-name]
   (str "#!/usr/bin/env bash\n\n"
 
        "prefix=\"$1\"\n\n"
@@ -70,19 +70,19 @@
        "cp ./*.jar \"$prefix/libexec\"\n\n"
 
        "# scripts\n"
-       "${HOMEBREW_RUBY_PATH} -pi.bak -e \"gsub(/PREFIX/, '$prefix')\" " env "\n"
+       "${HOMEBREW_RUBY_PATH} -pi.bak -e \"gsub(/PREFIX/, '$prefix')\" " project-name "\n"
        "mkdir -p \"$prefix/bin\"\n"
-       "cp " env " \"$prefix/bin\"\n"))
+       "cp " project-name " \"$prefix/bin\"\n"))
 
-(defn make-executable-script [env artifact-name]
-  (let [env (str/replace env #"-" "_")]
+(defn make-executable-script [project-name artifact-name]
+  (let [project (str/replace project-name #"-" "_")]
     (str "#!/usr/bin/env bash\n\n"
 
          "set -e\n\n"
 
          "# Set dir containing the installed files\n"
          "install_dir=PREFIX\n"
-         env "_jar=\"$install_dir/libexec/" artifact-name "\"\n\n"
+         project "_jar=\"$install_dir/libexec/" artifact-name "\"\n\n"
 
          "# Find java executable\n"
          "set +e\n"
@@ -97,20 +97,20 @@
          "  fi\n"
          "fi\n\n"
 
-         "exec \"$JAVA_CMD\" -jar \"$" env "_jar\" \"$@\"\n")))
+         "exec \"$JAVA_CMD\" -jar \"$" project "_jar\" \"$@\"\n")))
 
 (defn get-sha-sum [file-path]
   (let [output (shell/sh "shasum" "-a" "256" file-path)]
     (first (str/split output #" "))))
 
-(defn create-brew-package [^String artifacts-dir ^String env ^String artifact-name]
-  (let [package-path (str artifacts-dir "/" env)
+(defn create-brew-package [^String artifacts-dir ^String project-name ^String artifact-name]
+  (let [package-path (str artifacts-dir "/" project-name)
         package-dir (File. package-path)
         _ (.mkdirs package-dir)
         install-sh (File. package-dir "install.sh")
-        executable (File. package-dir env)
-        install-script (make-install-script env)
-        executable-script (make-executable-script env artifact-name)
+        executable (File. package-dir project-name)
+        install-script (make-install-script project-name)
+        executable-script (make-executable-script project-name artifact-name)
         tar-gz-name (str/replace artifact-name #".jar" ".tar.gz")
         shasum (File. artifacts-dir (str tar-gz-name ".sha1"))]
     (spit install-sh install-script)
@@ -118,30 +118,30 @@
     (shell/sh "chmod" "+x" (.getAbsolutePath install-sh))
     (shell/sh "chmod" "+x" (.getAbsolutePath executable))
     (file/copy-file (str artifacts-dir "/" artifact-name)
-                    (str artifacts-dir "/" env "/" artifact-name))
-    (shell/sh "tar" "-pcvzf" tar-gz-name env :dir artifacts-dir)
+                    (str artifacts-dir "/" project-name "/" artifact-name))
+    (shell/sh "tar" "-pcvzf" tar-gz-name project-name :dir artifacts-dir)
     (let [shasum-content (get-sha-sum (str artifacts-dir "/" tar-gz-name))]
-      (println (str "Shasum for " env ": " shasum-content))
+      (println (str "Shasum for " project-name ": " shasum-content))
       (spit shasum shasum-content))
     (file/delete-dir package-path)))
 
-(def environments-to-deploy-as-artifacts #{"poly" "poly-migrator"})
+(def projects-to-deploy-as-artifacts #{"poly" "poly-migrator"})
 
 (defn create-artifacts []
   (let [current-dir (file/current-dir)
-        changed-environments (filter #(contains? environments-to-deploy-as-artifacts %)
-                                     (api/environments-to-deploy))]
-    (when (empty? changed-environments)
-      (throw (Exception. "Cannot create artifacts for environments. None of the environments in this workspace changed.")))
+        changed-projects (filter #(contains? projects-to-deploy-as-artifacts %)
+                                 (api/projects-to-deploy))]
+    (when (empty? changed-projects)
+      (throw (Exception. "Cannot create artifacts for project. None of the projects in this workspace changed.")))
     (let [artifacts-dir (str current-dir "/artifacts")]
       (when (file/exists artifacts-dir)
         (file/delete-dir artifacts-dir))
       (.mkdirs (File. artifacts-dir))
-      (doseq [env environments-to-deploy-as-artifacts]
-        (println (str "Creating artifacts for: " env))
-        (let [jar-path (str current-dir "/environments/" env "/target/" env ".jar")
-              artifact-name (str env "-" version/version ".jar")
+      (doseq [project-name projects-to-deploy-as-artifacts]
+        (println (str "Creating artifacts for: " project-name))
+        (let [jar-path (str current-dir "/projects/" project-name "/target/" project-name ".jar")
+              artifact-name (str project-name "-" version/version ".jar")
               artifact-path (str artifacts-dir "/" artifact-name)]
-          (build-jar current-dir env :uberjar)
+          (build-jar current-dir project-name :uberjar)
           (file/copy-file jar-path artifact-path)
-          (create-brew-package artifacts-dir env artifact-name))))))
+          (create-brew-package artifacts-dir project-name artifact-name))))))

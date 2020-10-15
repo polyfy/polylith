@@ -20,8 +20,8 @@ example
 │   └── src
 │       └── dev
 │           └── lisa.clj
-├── environments
 ├── logo.png
+├── projects
 └── readme.md
 
 17 directories, 7 files

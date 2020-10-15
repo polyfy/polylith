@@ -5,7 +5,7 @@
 
 (deftest execute-test-command-from-the-workspace-root
   (is (= [true]
-         (core/validate {:settings {} :environments {}}
+         (core/validate {:settings {} :projects {}}
                         {:cmd "test"}
                         color/none))))
 

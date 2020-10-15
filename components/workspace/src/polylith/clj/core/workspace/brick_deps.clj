@@ -31,7 +31,7 @@
     (when (-> ifc-deps empty? not)
       (-> ifc-deps sort vec))))
 
-(defn environment-deps [component-names base-names components bases]
+(defn project-deps [component-names base-names components bases]
   (let [bricks (concat components bases)
         ifc->comp (into {} (map (juxt #(-> % :interface :name) :name)
                                 (filter #(contains? (set component-names) (:name %))

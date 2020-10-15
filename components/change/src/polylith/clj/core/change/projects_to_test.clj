@@ -1,0 +1,32 @@
+(ns polylith.clj.core.change.projects-to-test
+  (:require [clojure.set :as set]
+            [polylith.clj.core.path-finder.interface.criterias :as c]
+            [polylith.clj.core.path-finder.interface.select :as select]
+            [polylith.clj.core.path-finder.interface.extract :as extract]))
+
+(defn included-projects [{:keys [src-paths test-paths profile]} disk-paths]
+  (let [path-entries (extract/path-entries [src-paths test-paths (:src-paths profile) (:test-paths profile)] disk-paths)]
+    (select/names path-entries c/project? c/test-path? c/exists?)))
+
+(defn select-projects [project-name projects is-dev]
+  (if is-dev
+    projects
+    (if (= "development" project-name)
+      []
+      (set/difference (set projects) #{"development"}))))
+
+(defn project-tests [project-name changed-projects included-projects is-dev]
+  (let [projects (set/intersection (set changed-projects)
+                                   (set included-projects))]
+    (select-projects project-name projects is-dev)))
+
+(defn projects-to-test [{:keys [name is-run-tests] :as project} disk-paths changed-projects is-dev is-run-project-tests is-all]
+  (let [included-projs (included-projects project disk-paths)]
+    (cond
+      is-all [name (vec (sort (select-projects name included-projs is-dev)))]
+      (and is-run-tests is-run-project-tests) [name (vec (sort (project-tests name changed-projects included-projs is-dev)))]
+      :else [name []])))
+
+(defn project-to-projects-to-test [projects changed-projects disk-paths is-dev is-run-project-tests is-all]
+  (into {} (map #(projects-to-test % disk-paths changed-projects is-dev is-run-project-tests is-all)
+                projects)))

@@ -38,8 +38,8 @@
 (defn profile-lib [[_ {:keys [lib-deps]}]]
   (map first lib-deps))
 
-(defn used-libs [environments settings]
-  (set (concat (mapcat libs environments)
+(defn used-libs [projects settings]
+  (set (concat (mapcat libs projects)
                (mapcat profile-lib
                        (:profile-to-settings settings)))))
 

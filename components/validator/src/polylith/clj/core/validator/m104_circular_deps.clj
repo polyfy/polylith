@@ -3,24 +3,24 @@
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]))
 
-(defn dep [[_ {:keys [circular]}] env]
-  {:env env
+(defn dep [[_ {:keys [circular]}] project-name]
+  {:project-name  project-name
    :circular-deps circular})
 
 (defn circular-dep [{:keys [name deps]}]
   (util/find-first :circular-deps (map #(dep % name) deps)))
 
-(defn env-circular-deps [{:keys [env circular-deps]} color-mode]
+(defn projects-circular-deps [{:keys [project-name circular-deps]} color-mode]
   (let [deps (str/join " > " circular-deps)
-        message (str "A circular dependency was found in the " (color/environment env color-mode) " environment: " (color/component deps color-mode))]
+        message (str "A circular dependency was found in the " (color/project project-name color-mode) " project: " (color/component deps color-mode))]
     (when (-> circular-deps empty? not)
       [(util/ordered-map :type "error"
                          :code 104
                          :message (color/clean-colors message)
                          :colorized-message message
                          :components (vec (sort (set circular-deps)))
-                         :environment env)])))
+                         :project project-name)])))
 
-(defn errors [environments color-mode]
-  (util/first-as-vector (mapcat #(env-circular-deps % color-mode)
-                                (filter identity (map circular-dep environments)))))
+(defn errors [projects color-mode]
+  (util/first-as-vector (mapcat #(projects-circular-deps % color-mode)
+                                (filter identity (map circular-dep projects)))))

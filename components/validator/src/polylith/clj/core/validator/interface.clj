@@ -15,5 +15,5 @@
 (defn validate-deployable-config [config]
   (data/validate-deployable-config config))
 
-(defn validate-ws [suffixed-top-ns settings paths interface-names interfaces components bases environments interface-ns user-input color-mode]
-  (core/validate-ws suffixed-top-ns settings paths interface-names interfaces components bases environments interface-ns user-input color-mode))
+(defn validate-ws [suffixed-top-ns settings paths interface-names interfaces components bases projects interface-ns user-input color-mode]
+  (core/validate-ws suffixed-top-ns settings paths interface-names interfaces components bases projects interface-ns user-input color-mode))

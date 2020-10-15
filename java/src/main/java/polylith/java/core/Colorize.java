@@ -13,8 +13,8 @@ public class Colorize {
         return (String)callFn(namespace, "namespc", namespace, colorMode);
     }
 
-    public static String environment(String environment, String colorMode) {
-        return (String)callFn(namespace, "environment", environment, colorMode);
+    public static String project(String project, String colorMode) {
+        return (String)callFn(namespace, "project", project, colorMode);
     }
 
     public static String interfc(String interfc, String colorMode) {

@@ -5,7 +5,7 @@
             :compact-views #{}
             :release-tag-pattern "v[0-9]*"
             :stable-tag-pattern "stable-*"
-            :env-to-alias {"development" "dev"}
+            :project-to-alias {"development" "dev"}
             :ns-to-lib {}}
 
  :aliases  {:dev {:extra-paths ["development/src"
@@ -20,4 +20,4 @@
                    :extra-deps {polyfy/polylith
                                 {:git/url   "https://github.com/polyfy/polylith"
                                  :sha       "78b2c77c56d1b41109d68b451069affac935200e"
-                                 :deps/root "environments/poly"}}}}}
+                                 :deps/root "projects/poly"}}}}}

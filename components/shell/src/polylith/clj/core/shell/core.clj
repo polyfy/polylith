@@ -2,8 +2,8 @@
   (:require [clojure.java.shell :as shell]))
 
 (defn sh [args]
-  (let [current-env (into {} (System/getenv))
-        new-env (dissoc current-env "CLASSPATH")
+  (let [current-project (into {} (System/getenv))
+        new-env (dissoc current-project "CLASSPATH")
         {:keys [exit out err]} (shell/with-sh-env new-env (apply shell/sh args))]
     (if (= 0 exit)
       out

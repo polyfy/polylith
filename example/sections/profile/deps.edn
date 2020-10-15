@@ -5,9 +5,9 @@
             :compact-views #{}
             :release-tag-pattern "v[0-9]*"
             :stable-tag-pattern "stable-*"
-            :env-to-alias {"development" "dev"
-                           "command-line" "cl"
-                           "user-service" "user-s"}
+            :project-to-alias {"development" "dev"
+                               "command-line" "cl"
+                               "user-service" "user-s"}
             :ns-to-lib {slacker  slacker}}
 
  :aliases  {:dev {:extra-paths ["development/src"
@@ -26,7 +26,7 @@
 
             :test {:extra-paths ["bases/cli/test"
                                  "bases/user-api/test"
-                                 "environments/command-line/test"]}
+                                 "projects/command-line/test"]}
 
             :+default {:extra-paths ["components/user/src"
                                      "components/user/resources"
@@ -40,4 +40,4 @@
                    :extra-deps {polyfy/polylith
                                 {:git/url   "https://github.com/polyfy/polylith.git"
                                  :sha       "78b2c77c56d1b41109d68b451069affac935200e"
-                                 :deps/root "environments/poly"}}}}}
+                                 :deps/root "projects/poly"}}}}}

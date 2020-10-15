@@ -96,7 +96,7 @@
                     :profile?   false
                     :source-dir "src"
                     :test?      false
-                    :type       :environment}
+                    :type       :project}
                    {:exists?    true
                     :name       "cli"
                     :path       "bases/cli/test"
@@ -141,18 +141,18 @@
                     :type       :component}
                    {:exists?    true
                     :name       "invoice"
-                    :path       "environments/invoice/test"
+                    :path       "projects/invoice/test"
                     :profile?   false
                     :source-dir "test"
                     :test?      true
-                    :type       :environment}
+                    :type       :project}
                    {:exists?    true
                     :name       "development"
                     :path       "development/test"
                     :profile?   false
                     :source-dir "test"
                     :test?      true
-                    :type       :environment}
+                    :type       :project}
                    {:exists?    true
                     :name       "user"
                     :path       "components/user/resources"

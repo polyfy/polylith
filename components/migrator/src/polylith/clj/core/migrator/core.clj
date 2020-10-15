@@ -29,10 +29,10 @@
 (defn test-dev-paths [from-dir bricks-dir brick-name]
   (source-paths from-dir bricks-dir brick-name 33 #{"test"} ""))
 
-(defn src-env-paths [from-dir bricks-dir brick-name]
+(defn src-project-paths [from-dir bricks-dir brick-name]
   (source-paths from-dir bricks-dir brick-name 11 #{"src" "resources"} "../../"))
 
-(defn test-env-paths [from-dir bricks-dir brick-name]
+(defn test-project-paths [from-dir bricks-dir brick-name]
   (source-paths from-dir bricks-dir brick-name 32 #{"test"} "../../"))
 
 
@@ -42,13 +42,13 @@
                      "")]
     (str (str-util/spaces n#spaces) lib " {:mvn/version \"" version "\"" exclusions "}")))
 
-(defn alias-row [[env alias]]
-  (str "                         \"" env "\" \"" alias "\""))
+(defn alias-row [[project-name alias]]
+  (str "                         \"" project-name "\" \"" alias "\""))
 
 (defn aliases [system-names]
   (let [aliases (sort-by first (conj (map #(vector % %) system-names) ["development" "dev"]))]
     (concat
-      [(str "            :env-to-alias {")]
+      [(str "            :project-to-alias {")]
       (map alias-row aliases)
       [(str "                        }")])))
 
@@ -77,39 +77,39 @@
      (str "                   :extra-deps {polyfy/polylith")
      (str "                                {:git/url   \"https://github.com/polyfy/polylith.git\"")
      (str "                                 :sha       \"" version/poly-git-sha "\"")
-     (str "                                 :deps/root \"environments/poly\"}}}}}")]))
+     (str "                                 :deps/root \"projects/poly\"}}}}}")]))
 
-(defn env-deps-content [from-dir component-names base-names libraries]
+(defn project-deps-content [from-dir component-names base-names libraries]
   (concat
     [(str "")
      (str "{:paths   [")]
-    (mapcat #(src-env-paths from-dir "components" %) component-names)
-    (mapcat #(src-env-paths from-dir "bases" %) base-names)
+    (mapcat #(src-project-paths from-dir "components" %) component-names)
+    (mapcat #(src-project-paths from-dir "bases" %) base-names)
     [(str "                               ]")
      (str " :deps    {")]
     (mapv #(lib-row % 11) libraries)
     [(str "          }")
      (str " :aliases {:test {:extra-paths [")]
-    (mapcat #(test-env-paths from-dir "components" %) component-names)
-    (mapcat #(test-env-paths from-dir "bases" %) base-names)
+    (mapcat #(test-project-paths from-dir "components" %) component-names)
+    (mapcat #(test-project-paths from-dir "bases" %) base-names)
     [(str "                                 ]}}}")]))
 
 (defn create-dev [from-dir to-dir top-ns component-names base-names system-names]
-  (let [dev-brick-names (map common/path-to-ns (file/directories (str from-dir "/environments/development/src/" (common/ns-to-path top-ns))))
+  (let [dev-brick-names (map common/path-to-ns (file/directories (str from-dir "/projects/development/src/" (common/ns-to-path top-ns))))
         dev-component-names (sort (filter #(contains? (set component-names) %) dev-brick-names))
         dev-base-names (sort (filter #(contains? (set base-names) %) dev-brick-names))
-        libs (sort-by #(-> % first str) (config-key :dependencies (str from-dir "/environments/development")))]
+        libs (sort-by #(-> % first str) (config-key :dependencies (str from-dir "/projects/development")))]
     (file/create-file (str to-dir "/deps.edn")
                       (dev-deps-content from-dir top-ns dev-component-names dev-base-names system-names libs))))
 
-(defn create-env [from-dir to-dir env-name top-ns component-names base-names]
-  (let [env-brick-names (map common/path-to-ns (file/directories (str from-dir "/systems/" env-name "/src/" (common/ns-to-path top-ns))))
-        env-component-names (sort (filter #(contains? (set component-names) %) env-brick-names))
-        env-base-names (sort (filter #(contains? (set base-names) %) env-brick-names))
-        libs (sort-by #(-> % first str) (config-key :dependencies (str from-dir "/systems/" env-name)))]
-    (file/create-dir (str to-dir "/environments/" env-name))
-    (file/create-file (str to-dir "/environments/" env-name "/deps.edn")
-                      (env-deps-content from-dir env-component-names env-base-names libs))))
+(defn create-project [from-dir to-dir project-name top-ns component-names base-names]
+  (let [project-brick-names (map common/path-to-ns (file/directories (str from-dir "/systems/" project-name "/src/" (common/ns-to-path top-ns))))
+        project-component-names (sort (filter #(contains? (set component-names) %) project-brick-names))
+        project-base-names (sort (filter #(contains? (set base-names) %) project-brick-names))
+        libs (sort-by #(-> % first str) (config-key :dependencies (str from-dir "/systems/" project-name)))]
+    (file/create-dir (str to-dir "/projects/" project-name))
+    (file/create-file (str to-dir "/projects/" project-name "/deps.edn")
+                      (project-deps-content from-dir project-component-names project-base-names libs))))
 
 (defn copy-brick [from-dir to-dir brick-name bricks-dir]
   (let [from-path (str from-dir "/" bricks-dir "/" brick-name "/")
@@ -136,10 +136,10 @@
     (copy-bricks from-dir to-dir component-names "components")
     (copy-bricks from-dir to-dir base-names "bases")
     (file/create-dir (str to-dir "/development"))
-    (file/create-dir (str to-dir "/environments"))
+    (file/create-dir (str to-dir "/projects"))
     (file/create-dir (str to-dir "/development/src"))
     (file/create-file (str to-dir "/development/src/.keep") [""])
     (create-dev from-dir to-dir top-ns component-names base-names system-names)
     (doseq [system-name system-names]
-      (create-env from-dir to-dir system-name top-ns component-names base-names))
+      (create-project from-dir to-dir system-name top-ns component-names base-names))
     (println (str "  Successfully migrated to: " to-dir))))

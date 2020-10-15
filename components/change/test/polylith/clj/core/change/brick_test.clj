@@ -16,5 +16,5 @@
 (deftest bricks--when-having-a-list-of-changed-files--return-bases-and-components
   (is (= {:changed-bases ["core"]
           :changed-components ["cmd" "workspace"]
-          :changed-environments []}
+          :changed-projects []}
          (brick/changed-entities files {:missing []}))))

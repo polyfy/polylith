@@ -8,8 +8,8 @@
                (not (contains? changed-bricks brick)))
       brick)))
 
-(defn env-indirect-changes [[env brick-changes] changed-bricks]
-  [env (vec (sort (filter identity (map #(brick-indirect-change % changed-bricks) brick-changes))))])
+(defn project-indirect-changes [[project-name brick-changes] changed-bricks]
+  [project-name (vec (sort (filter identity (map #(brick-indirect-change % changed-bricks) brick-changes))))])
 
-(defn env-to-indirect-changes [deps changed-bricks]
-  (into {} (map #(env-indirect-changes % changed-bricks) deps)))
+(defn project-to-indirect-changes [deps changed-bricks]
+  (into {} (map #(project-indirect-changes % changed-bricks) deps)))

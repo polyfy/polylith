@@ -3,11 +3,11 @@ set -e
 
 if [[ $# -ne 1 ]]
 then
-    echo "Usage: ENV_NAME, e.g.: dev"
+    echo "Usage: PROJECT_NAME, e.g.: dev"
     exit 1
 fi
 
-cd ../environments/$1
+cd ../projects/$1
 
 mkdir -p target
 
@@ -17,7 +17,7 @@ clojure -A:skinny-jar
 
 if [[ $? -ne 0 ]]
 then
-  echo "Could not create skinny jar for the environment."
+  echo "Could not create skinny jar for the project."
   exit 1
 fi
 

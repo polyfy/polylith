@@ -51,8 +51,8 @@
 (defn base [name color-mode]
   (colorizer/base name color-mode))
 
-(defn environment [name color-mode]
-  (colorizer/environment name color-mode))
+(defn project [name color-mode]
+  (colorizer/project name color-mode))
 
 (defn path [path color-mode]
   (colorizer/path path color-mode))

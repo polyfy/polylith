@@ -38,16 +38,16 @@ cd example
 cp ../sections/base/deps.edn .
 cp ../sections/base/cli-core.clj bases/cli/src/se/example/cli/core.clj
 
-echo "### 5/13 Environment ###"
-poly create e name:command-line
+echo "### 5/13 Project ###"
+poly create p name:command-line
 cd ..
-tree example > output/environment-tree.txt
+tree example > output/project-tree.txt
 cd example
-cp ../sections/environment/deps.edn .
-cp ../sections/environment/command-line-deps.edn environments/command-line/deps.edn
+cp ../sections/project/deps.edn .
+cp ../sections/project/command-line-deps.edn projects/command-line/deps.edn
 
 echo "### 6/13 Tools.deps ###"
-cd environments/command-line
+cd projects/command-line
 mkdir -p classes
 clj -e "(compile,'se.example.cli.core)"
 
@@ -60,10 +60,10 @@ chmod +x scripts/build-uberjar.sh
 chmod +x scripts/build-cli-uberjar.sh
 git add scripts/build-uberjar.sh
 git add scripts/build-cli-uberjar.sh
-cp ../sections/build/command-line-deps.edn environments/command-line/deps.edn
+cp ../sections/build/command-line-deps.edn projects/command-line/deps.edn
 cd scripts
 ./build-cli-uberjar.sh
-cd ../environments/command-line/target
+cd ../projects/command-line/target
 java -jar command-line.jar Lisa
 
 echo "### 8/13 Git ###"
@@ -100,15 +100,15 @@ set -e
 cp ../sections/testing/user-interface-test2.clj components/user/test/se/example/user/interface_test.clj
 poly test > ../output/testing-test-ok.txt
 poly info :dev fake-sha:e7ebe68 > ../output/testing-info-2.txt
-poly info env:cl:dev fake-sha:e7ebe68 > ../output/testing-info-3.txt
-mkdir environments/command-line/test
+poly info project:cl:dev fake-sha:e7ebe68 > ../output/testing-info-3.txt
+mkdir projects/command-line/test
 cp ../sections/testing/deps.edn .
-cp ../sections/testing/command-line-deps.edn environments/command-line/deps.edn
-mkdir environments/command-line/test/env
-cp ../sections/testing/dummy_test.clj environments/command-line/test/env
-git add environments/command-line/test/env/dummy_test.clj
+cp ../sections/testing/command-line-deps.edn projects/command-line/deps.edn
+mkdir projects/command-line/test/project
+cp ../sections/testing/dummy_test.clj projects/command-line/test/project
+git add projects/command-line/test/project/dummy_test.clj
 poly info fake-sha:e7ebe68 > ../output/testing-info-4.txt
-poly info :env fake-sha:e7ebe68 > ../output/testing-info-5.txt
+poly info :project fake-sha:e7ebe68 > ../output/testing-info-5.txt
 git add --all
 git commit -m "Added tests"
 git tag -f stable-lisa
@@ -120,8 +120,8 @@ poly info :all :dev fake-sha:e7ebe68 > ../output/testing-info-10.txt
 poly test :all :dev > ../output/testing-test-all.txt
 
 echo "### 12/13 Profile ###"
-poly create e name:user-service
-cp ../sections/profile/user-service-deps.edn environments/user-service/deps.edn
+poly create p name:user-service
+cp ../sections/profile/user-service-deps.edn projects/user-service/deps.edn
 poly create b name:user-api
 cp ../sections/profile/user-api-core.clj bases/user-api/src/se/example/user_api/core.clj
 cp ../sections/profile/user-api-api.clj bases/user-api/src/se/example/user_api/api.clj
@@ -129,7 +129,7 @@ poly create c name:user-remote interface:user
 cp ../sections/profile/user-remote-core.clj components/user-remote/src/se/example/user/core.clj
 cp ../sections/profile/user-remote-interface.clj components/user-remote/src/se/example/user/interface.clj
 cp ../sections/profile/deps.edn .
-cp ../sections/profile/command-line-deps.edn environments/command-line/deps.edn
+cp ../sections/profile/command-line-deps.edn projects/command-line/deps.edn
 cd scripts
 ./build-cli-uberjar.sh
 cd ..
@@ -137,7 +137,7 @@ cp ../sections/profile/build-user-service-uberjar.sh scripts
 cd scripts
 chmod +x build-user-service-uberjar.sh
 ./build-user-service-uberjar.sh
-#cd ../environments/user-service/target
+#cd ../projects/user-service/target
 #nohup 'java -jar service.jar' &
 #cd ../../command-line/target
 #java -jar command-line.jar Lisa
@@ -148,7 +148,7 @@ set +e
 poly info +default +remote fake-sha:e7ebe68 > ../output/profile-info-3.txt
 set -e
 poly info :loc fake-sha:e7ebe68 > ../output/profile-info-4.txt
-poly test :env fake-sha:e7ebe68 > ../output/profile-info-5.txt
+poly test :project fake-sha:e7ebe68 > ../output/profile-test.txt
 
 echo "### 13/13 Configuration ###"
 poly ws get:settings

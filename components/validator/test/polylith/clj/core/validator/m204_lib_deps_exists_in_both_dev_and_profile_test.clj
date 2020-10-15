@@ -6,14 +6,14 @@
 (def settings {:profile-to-settings {"default" {:lib-deps {}}
                                      "admin" {:lib-deps {"org.clojure/clojure" {:mvn/version "1.10.1"}}}}})
 
-(def environments [{:alias "dev"
-                    :unmerged {:lib-deps {"org.clojure/clojure" {:mvn/version "1.10.2"}
-                                          "org.clojure/tools.deps.alpha" {:mvn/version "0.8.695"}}
-                               :test-lib-deps []}}])
+(def projects [{:alias        "dev"
+                :unmerged {:lib-deps {"org.clojure/clojure" {:mvn/version "1.10.2"}
+                                      "org.clojure/tools.deps.alpha" {:mvn/version "0.8.695"}}
+                           :test-lib-deps []}}])
 
 (deftest warnings--path-was-found-in-both-dev-and-a-profile--returns-error-message
   (is (= [{:type "warning"
            :code 204
-           :message "The same library dependency exists in both the development environment and the admin profile: org.clojure/clojure"
-           :colorized-message "The same library dependency exists in both the development environment and the admin profile: org.clojure/clojure"}]
-         (m204/warnings settings environments color/none))))
+           :message "The same library dependency exists in both the development project and the admin profile: org.clojure/clojure"
+           :colorized-message "The same library dependency exists in both the development project and the admin profile: org.clojure/clojure"}]
+         (m204/warnings settings projects color/none))))

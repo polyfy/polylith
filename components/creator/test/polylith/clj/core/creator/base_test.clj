@@ -47,8 +47,8 @@
              "development"
              "development/src"
              "development/src/.keep"
-             "environments"
-             "environments/.keep"
+             "projects"
+             "projects/.keep"
              "logo.png"
              "readme.md"}
            (helper/paths "ws1")))

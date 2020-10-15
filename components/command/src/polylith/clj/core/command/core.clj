@@ -26,8 +26,8 @@
   (doseq [file (-> workspace :changes :changed-files)]
     (println file)))
 
-(defn help [cmd ent is-show-env is-show-brick is-show-bricks color-mode]
-  (help/print-help cmd ent is-show-env is-show-brick is-show-bricks color-mode))
+(defn help [cmd ent is-show-project is-show-brick is-show-bricks color-mode]
+  (help/print-help cmd ent is-show-project is-show-brick is-show-bricks color-mode))
 
 (defn unknown-command [cmd]
   (println (str "  Unknown command '" cmd "'. Type 'poly help' for help.")))
@@ -55,10 +55,10 @@
            change/with-changes))
      (read-ws-from-file ws-file user-input))))
 
-(defn execute [{:keys [cmd args name top-ns ws-file is-all is-show-brick is-show-bricks is-show-env brick get out interface selected-environments unnamed-args] :as user-input}]
+(defn execute [{:keys [cmd args name top-ns ws-file is-all is-show-brick is-show-bricks is-show-project brick get out interface selected-projects unnamed-args] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (common/workspace-dir user-input color-mode)
-        environment-name (first selected-environments)
+        project-name (first selected-projects)
         workspace (read-workspace ws-file ws-dir user-input color-mode)
         arg1 (second args)
         arg2 (-> args rest second)
@@ -67,9 +67,9 @@
       (case cmd
         "check" (check workspace color-mode)
         "create" (create/create ws-dir workspace arg1 name top-ns interface color-mode)
-        "deps" (dependencies/deps workspace environment-name brick unnamed-args)
+        "deps" (dependencies/deps workspace project-name brick unnamed-args)
         "diff" (diff workspace)
-        "help" (help arg1 arg2 is-show-env is-show-brick is-show-bricks color-mode)
+        "help" (help arg1 arg2 is-show-project is-show-brick is-show-bricks color-mode)
         "info" (info/info workspace unnamed-args)
         "libs" (lib/print-lib-table workspace is-all)
         "test" (test/run workspace unnamed-args color-mode)

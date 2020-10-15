@@ -60,3 +60,5 @@ echo ""; cat profile-info-3.txt ; echo ""
 echo "######### profile-info-4.png #########"
 echo ""; cat profile-info-4.txt ; echo ""
 
+echo "######### profile-test.png #########"
+echo ""; cat profile-test.txt ; echo ""

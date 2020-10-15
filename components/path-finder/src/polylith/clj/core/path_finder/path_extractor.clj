@@ -6,7 +6,7 @@
 
 (def dir->type {"bases" :base
                 "components" :component
-                "environments" :environment})
+                "projects" :project})
 
 (defn source-dir [path]
   (-> path
@@ -31,7 +31,7 @@
      :source-dir (source-dir path)}
     (if (= dir "development")
       {:name dir
-       :type :environment
+       :type :project
        :source-dir (str-util/skip-until path "/")}
       {:name name
        :type :other
@@ -61,7 +61,7 @@
                  (single-path-entries missing-paths profile-src-paths true false)
                  (single-path-entries missing-paths profile-test-paths true true)))))
 
-(defn from-unenriched-environment [is-dev src-paths test-paths disk-paths settings]
+(defn from-unenriched-project [is-dev src-paths test-paths disk-paths settings]
   (let [{:keys [profile-src-paths profile-test-paths]} (profile-src-splitter/extract-active-profiles-paths is-dev settings)]
     (path-entries src-paths test-paths profile-src-paths profile-test-paths disk-paths)))
 

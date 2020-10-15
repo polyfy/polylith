@@ -52,7 +52,7 @@
 (def component-names ["change" "command" "common" "deps" "file" "git" "help" "shell" "test-runner" "text-table" "util" "validator" "workspace" "workspace-clj"])
 (def base-names ["cli"])
 
-(deftest deps--workspace-with-dependencies--return-dependencies-per-environment
+(deftest deps--workspace-with-dependencies--return-dependencies-per-project
   (is (= {"change"        {:direct     ["git"
                                         "util"]
                            :direct-ifc []
@@ -144,4 +144,4 @@
                                         "util"]
                            :direct-ifc []
                            :indirect   []}}
-         (deps/environment-deps component-names base-names components bases))))
+         (deps/project-deps component-names base-names components bases))))

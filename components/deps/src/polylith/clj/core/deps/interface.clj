@@ -11,8 +11,8 @@
 (defn interface-deps [suffixed-top-ns interface-names brick]
   (ifc-deps/interface-deps suffixed-top-ns interface-names brick))
 
-(defn print-brick-table [workspace environment-name brick-name]
-  (brick-deps-table/print-table workspace environment-name brick-name))
+(defn print-brick-table [workspace project-name brick-name]
+  (brick-deps-table/print-table workspace project-name brick-name))
 
 (defn print-brick-ifc-table [workspace brick-name]
   (brick-ifc-deps-table/print-table workspace brick-name))
@@ -20,5 +20,5 @@
 (defn print-workspace-ifc-table [workspace]
   (ws-ifc-deps-table/print-table workspace))
 
-(defn print-workspace-brick-table [workspace environment-name]
-  (ws-brick-deps-table/print-table workspace environment-name))
+(defn print-workspace-brick-table [workspace project-name]
+  (ws-brick-deps-table/print-table workspace project-name))

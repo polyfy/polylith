@@ -1,15 +1,15 @@
 (ns polylith.clj.core.workspace.text-table.count-table
   (:require [polylith.clj.core.text-table.interface :as text-table]))
 
-(defn table [{:keys [settings environments bases components interfaces]}]
+(defn table [{:keys [settings projects bases components interfaces]}]
   (let [color-mode (:color-mode settings)
-        cnt-env (count environments)
+        cnt-project (count projects)
         cnt-base (count bases)
         cnt-comp (count components)
         cnt-ifc (count interfaces)]
     (text-table/table "  " color-mode
-      (concat [(text-table/cell 1 1 "environments:" :purple)
-               (text-table/cell 3 1 cnt-env)
+      (concat [(text-table/cell 1 1 "projects:" :purple)
+               (text-table/cell 3 1 cnt-project)
                (text-table/cell 1 2 "bases:" :blue)
                (text-table/cell 3 2 cnt-base)
                (text-table/cell 5 1 "interfaces:" :yellow)

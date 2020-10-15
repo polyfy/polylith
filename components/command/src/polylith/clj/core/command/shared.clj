@@ -1,10 +1,10 @@
 (ns polylith.clj.core.command.shared)
 
 (def entity->short {"w" "w"
-                    "e" "e"
+                    "p" "p"
                     "b" "b"
                     "c" "c"
                     "workspace" "w"
-                    "environment" "e"
+                    "project" "p"
                     "base" "b"
                     "component" "c"})
