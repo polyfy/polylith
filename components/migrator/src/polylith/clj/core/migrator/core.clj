@@ -76,7 +76,7 @@
      (str "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly-cli.core\"]")
      (str "                   :extra-deps {polyfy/polylith")
      (str "                                {:git/url   \"https://github.com/polyfy/polylith.git\"")
-     (str "                                 :sha       \"" version/poly-git-sha "\"")
+     (str "                                 :sha       \"LATEST\"")
      (str "                                 :deps/root \"projects/poly\"}}}}}")]))
 
 (defn project-deps-content [from-dir component-names base-names libraries]
