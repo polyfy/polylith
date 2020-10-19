@@ -32,7 +32,7 @@
            mvxcvi/puget {:mvn/version "1.3.1"}}
 
  :aliases {:test      {:extra-paths ["../../components/change/test"
-                                     "../../components/creator/test"
+                                     "../../components/command/test"
                                      "../../components/creator/test"
                                      "../../components/deps/test"
                                      "../../components/file/test"

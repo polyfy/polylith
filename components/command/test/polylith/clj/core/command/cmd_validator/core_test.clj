@@ -17,9 +17,11 @@
 
 (deftest execute-create-command-when-ws-file-is-set
   (is (= [false "  The 'create' command can't be executed when the workspace is read from file via 'ws-file'."]
-         (core/validate nil
+         (core/validate {}
                         {:ws-file "ws.edn"
-                         :cmd "create"}
+                         :cmd "create"
+                         :args ["create" "c"]
+                         :name "myname"}
                         color/none))))
 
 (deftest execute-help-command-from-outside-the-workspace
