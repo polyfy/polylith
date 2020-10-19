@@ -38,6 +38,7 @@
        (workspace-from-disk ws-dir config user-input color-mode))))
   ([ws-dir {:keys [polylith aliases]} user-input color-mode]
    (let [{:keys [vcs top-namespace interface-ns default-profile-name release-tag-pattern stable-tag-pattern project-to-alias ns-to-lib compact-views]} polylith
+         interface-namespace (or interface-ns "interface")
          top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
          empty-char (user-config/empty-character)
          m2-dir (user-config/m2-dir)
@@ -46,7 +47,7 @@
          user-config-file (str (user-config/home-dir) "/.polylith/config.edn")
          brick->non-top-namespaces (non-top-ns/brick->non-top-namespaces ws-dir top-namespace)
          component-names (file/directories (str ws-dir "/components"))
-         components (components-from-disk/read-components ws-dir top-src-dir component-names interface-ns brick->non-top-namespaces)
+         components (components-from-disk/read-components ws-dir top-src-dir component-names interface-namespace brick->non-top-namespaces)
          bases (bases-from-disk/read-bases ws-dir top-src-dir brick->non-top-namespaces)
          projects (projects-from-disk/read-projects ws-dir user-home color-mode)
          profile-to-settings (profile/profile-to-settings aliases user-home)
@@ -57,7 +58,7 @@
                                     :ws-schema-version version/ws-schema-version
                                     :vcs (or vcs "git")
                                     :top-namespace top-namespace
-                                    :interface-ns (or interface-ns "interface")
+                                    :interface-ns interface-namespace
                                     :default-profile-name default-profile
                                     :active-profiles active-profiles
                                     :release-tag-pattern (or release-tag-pattern "v[0-9]*")
@@ -68,8 +69,8 @@
                                     :empty-char (or empty-char ".")
                                     :thousand-sep (or thousand-sep ",")
                                     :profile-to-settings profile-to-settings
-                                    :project-to-alias project-to-alias
-                                    :ns-to-lib (stringify ns-to-lib)
+                                    :project-to-alias (or project-to-alias {})
+                                    :ns-to-lib (stringify (or ns-to-lib {}))
                                     :user-home user-home
                                     :m2-dir m2-dir)]
      (util/ordered-map :ws-dir ws-dir

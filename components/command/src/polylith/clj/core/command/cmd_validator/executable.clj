@@ -6,6 +6,7 @@
   (not (or (-> workspace nil? not)
            (nil? cmd)
            (= "help" cmd)
+           (= "version" cmd)
            (and (= "create" cmd)
                 (= "w" (shared/entity->short entity))))))
 

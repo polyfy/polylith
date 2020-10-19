@@ -10,15 +10,16 @@
 
 (def polylith [:polylith
                [:map
+                [:vcs {:optional true} string?]
                 [:top-namespace string?]
-                [:interface-ns string?]
-                [:default-profile-name string?]
-                [:compact-views set?]
-                [:release-tag-pattern string?]
-                [:stable-tag-pattern string?]
+                [:interface-ns {:optional true} string?]
+                [:default-profile-name {:optional true} string?]
+                [:compact-views {:optional true} set?]
+                [:release-tag-pattern {:optional true} string?]
+                [:stable-tag-pattern {:optional true} string?]
                 [:project-to-alias {:optional true}
                  [:map-of :string :string]]
-                [:ns-to-lib
+                [:ns-to-lib {:optional true}
                  [:map-of symbol? symbol?]]]])
 
 (defn validate-dev-config [config]
