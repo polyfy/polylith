@@ -1,13 +1,17 @@
 (ns polylith.clj.core.command.cmd-validator.core
-  (:require [polylith.clj.core.command.cmd-validator.profile :as profile]
+  (:require [polylith.clj.core.command.cmd-validator.create :as create]
+            [polylith.clj.core.command.cmd-validator.profile :as profile]
             [polylith.clj.core.command.cmd-validator.project :as project]
             [polylith.clj.core.command.cmd-validator.executable :as executable]))
 
 (defn validate [{:keys [settings projects] :as workspace}
-                {:keys [ws-dir ws-file cmd arg1 is-search-for-ws-dir selected-projects]}
+                {:keys [ws-dir ws-file cmd args name top-ns is-search-for-ws-dir selected-projects]}
                 color-mode]
   (let [messages (concat (profile/validate settings color-mode)
-                         (project/validate selected-projects projects color-mode))]
+                         (project/validate selected-projects projects color-mode))
+        [ok? create-message] (create/validate workspace args name top-ns)]
     (if (empty? messages)
-      (executable/validate workspace cmd arg1 ws-dir ws-file is-search-for-ws-dir)
+      (if ok?
+        (executable/validate workspace cmd args ws-dir ws-file is-search-for-ws-dir)
+        [false create-message])
       [false (first messages)])))
