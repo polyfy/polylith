@@ -10,7 +10,8 @@
        "    " (s/key "TOP-NAMESPACE" cm) " = The top namespace, e.g. com.my.company.\n"
        "\n"
        "  Example:\n"
-       "    poly create w name:myws top-ns:com.my.company"))
+       "    poly create w name:myws top-ns:com.my.company"
+       "    poly create workspace name:myws top-ns:com.my.company"))
 
 (defn print-help [color-mode]
   (println (help-text color-mode)))

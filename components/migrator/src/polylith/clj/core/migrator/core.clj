@@ -2,8 +2,7 @@
   (:require [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.util.interface.str :as str-util]
-            [polylith.clj.core.version.interface :as version]))
+            [polylith.clj.core.util.interface.str :as str-util]))
 
 (defn next-ws-dir [from-ws-dir]
   (util/find-first #(-> % file/exists not)
@@ -43,21 +42,26 @@
     (str (str-util/spaces n#spaces) lib " {:mvn/version \"" version "\"" exclusions "}")))
 
 (defn alias-row [[project-name alias]]
-  (str "                         \"" project-name "\" \"" alias "\""))
+  (str "                               \"" project-name "\" \"" alias "\""))
 
 (defn aliases [system-names]
   (let [aliases (sort-by first (conj (map #(vector % %) system-names) ["development" "dev"]))]
     (concat
       [(str "            :project-to-alias {")]
       (map alias-row aliases)
-      [(str "                        }")])))
+      [(str "                              }")])))
 
 (defn dev-deps-content [from-dir top-ns component-names base-names system-names libraries]
   (concat
     [(str "")
      (str "{:polylith {:vcs \"git\"")
      (str "            :top-namespace \"" top-ns "\"")
-     (str "            :interface-ns \"interface\"")]
+     (str "            :interface-ns \"interface\"")
+     (str "            :default-profile-name \"default\"")
+     (str "            :compact-views #{}")
+     (str "            :release-tag-pattern \"v[0-9]*\"")
+     (str "            :stable-tag-pattern \"stable-*\"")]
+
     (aliases system-names)
     [(str "            :ns-to-lib {}}")
      (str "")
@@ -95,10 +99,10 @@
     [(str "                                 ]}}}")]))
 
 (defn create-dev [from-dir to-dir top-ns component-names base-names system-names]
-  (let [dev-brick-names (map common/path-to-ns (file/directories (str from-dir "/projects/development/src/" (common/ns-to-path top-ns))))
+  (let [dev-brick-names (map common/path-to-ns (file/directories (str from-dir "/environments/development/src/" (common/ns-to-path top-ns))))
         dev-component-names (sort (filter #(contains? (set component-names) %) dev-brick-names))
         dev-base-names (sort (filter #(contains? (set base-names) %) dev-brick-names))
-        libs (sort-by #(-> % first str) (config-key :dependencies (str from-dir "/projects/development")))]
+        libs (sort-by #(-> % first str) (config-key :dependencies (str from-dir "/environments/development")))]
     (file/create-file (str to-dir "/deps.edn")
                       (dev-deps-content from-dir top-ns dev-component-names dev-base-names system-names libs))))
 

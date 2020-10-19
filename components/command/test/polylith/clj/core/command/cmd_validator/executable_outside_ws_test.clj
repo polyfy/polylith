@@ -18,6 +18,10 @@
   (is (= false
          (executable/cant-be-executed-outside-ws? nil "help" nil))))
 
+(deftest when-no-workspace-but-help-command-is-given
+  (is (= false
+         (executable/cant-be-executed-outside-ws? nil "version" nil))))
+
 (deftest when-no-workspace-but-create-c-command-is-given
   (is (= true
          (executable/cant-be-executed-outside-ws? nil "create" [nil "c"]))))

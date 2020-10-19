@@ -8,7 +8,8 @@
        "    " (s/key "NAME" cm) " = The name of the base to create.\n"
        "\n"
        "  Example:\n"
-       "    poly create b name:mybase"))
+       "    poly create b name:mybase"
+       "    poly create base name:mybase"))
 
 (defn print-help [color-mode]
   (println (help-text color-mode)))

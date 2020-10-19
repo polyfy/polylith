@@ -12,6 +12,7 @@
             [polylith.clj.core.help.interface :as help]
             [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.version.interface :as ver]
             [polylith.clj.core.workspace-clj.interface :as ws-clj]
             [polylith.clj.core.workspace.interface :as ws]
             [polylith.clj.core.ws-explorer.interface :as ws-explorer])
@@ -28,6 +29,9 @@
 
 (defn help [[cmd ent] is-show-project is-show-brick is-show-bricks color-mode]
   (help/print-help cmd ent is-show-project is-show-brick is-show-bricks color-mode))
+
+(defn version []
+  (println (str "  " ver/version " (" ver/date ")")))
 
 (defn unknown-command [cmd]
   (println (str "  Unknown command '" cmd "'. Type 'poly help' for help.")))
@@ -71,6 +75,7 @@
         "info" (info/info workspace unnamed-args)
         "libs" (lib/print-lib-table workspace is-all)
         "test" (test/run workspace unnamed-args color-mode)
+        "version" (version)
         "ws" (ws-explorer/ws workspace get out color-mode)
         (unknown-command cmd))
       (println message))

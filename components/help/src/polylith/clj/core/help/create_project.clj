@@ -8,7 +8,8 @@
        "    " (s/key "NAME" cm) " = The name of the project to create.\n"
        "\n"
        "  Example:\n"
-       "    poly create p name:myproject"))
+       "    poly create p name:myproject"
+       "    poly create project name:myproject"))
 
 (defn print-help [color-mode]
   (println (help-text color-mode)))

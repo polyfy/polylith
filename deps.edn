@@ -1,4 +1,5 @@
-{:polylith {:top-namespace "polylith.clj.core"
+{:polylith {:vcs "git"
+            :top-namespace "polylith.clj.core"
             :interface-ns "interface"
             :default-profile-name "default"
             :compact-views #{}

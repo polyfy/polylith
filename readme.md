@@ -41,7 +41,7 @@ Some of the Polylith [documentation](https://polylith.gitbook.io) is still menti
 in the old Leiningen version of the tool, for example the empty `workspace interfaces` and the use of
 `symbolic links` (that have both been removed).
 In some of the videos, we still call things `system` instead of `service`. 
-Now both the development project and services are called `projects`.
+Now both the development project and systems/services are called `projects`.
 
 The biggest difference is that the new tool is based on
 [tools.deps](https://github.com/clojure/tools.deps.alpha) instead of [Leiningen](https://leiningen.org/)
@@ -50,9 +50,8 @@ and more.
 
 ## Table of Contents
 
-- [Installation](#installation)
-- [Windows](#windows)
 - [Content](#content)
+- [Installation](#installation)
 - [Realworld Example](#realworld-example)
 - [Workspace](#workspace)
 - [Development](#development)
@@ -78,29 +77,6 @@ and more.
 - [Contact](#contact)
 - [License](#license)
 
-## Installation
-
-All examples are written for Linux/Unix users, including how to install the tool.  
-How to install on Windows is described in the [Windows](#windows) section below.
-
-To use the Polylith tool and to get access to all the features in tools.deps, make sure you have
-the [CLI tools](https://clojure.org/guides/getting_started) and
-[git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed, and don't forget
-to set the [user](https://docs.github.com/en/github/using-git/setting-your-username-in-git)
-name and email in git.
-
-The next thing we want to do is to download and install the `poly` command line tool.
-
-> Work in progress...
-
-## Windows
-
-The old Leiningen based tool used [symbolic links](https://en.wikipedia.org/wiki/Symbolic_link) 
-which made life harder for Windows users. In this version the symbolic links are gone and 
-Windows is fully supported.
-
-> Work in progress...
-
 ## Content
 
 This documentation aims to be a practical guide to this tool with lots of code examples. 
@@ -120,13 +96,86 @@ which will help us build decoupled and scalable systems from day one.
 
 Happy coding!
 
+## Installation
+
+To use the Polylith tool and to get access to all the features in tools.deps, make sure you have
+the [CLI tools](https://clojure.org/guides/getting_started)
+and [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed.
+If you install git for the first time, don't forget to set the 
+[user](https://docs.github.com/en/github/using-git/setting-your-username-in-git)
+name and email.
+
+Depending on what operating system you use, _Mac_, _Linux_ or _Windows_, continue the installation from here.
+
+### Install on Mac
+
+To install the `poly` command on Mac, type:
+```
+brew tap polyfy/polylith
+brew install poly
+``` 
+
+If you get the error "openjdk-13.0.2.jdk could not be opened...", do this:
+- Open MacOS "System Preferences > Security & Privacy > General".
+- Click Allow at the bottom for "openjdk-13.0.2.jdk".
+- Run `brew install poly` again.
+
+Verify the installation by executing `poly help`.
+
+
+### Install on Linux
+
+To install the `poly` command on Linux:
+
+- Download the [latest release](https://github.com/polyfy/polylith/releases/latest) of the `poly` jar,
+  e.g. `poly-0.1.0-alpha4.jar`.
+- Create a directory, e.g. `/usr/local/polylith` and copy the jar file to that directory.
+- Create a file with the name `poly` and put it in e.g. `/usr/local/bin` with this content:
+ ```
+#!/bin/sh
+
+ARGS=""
+while [ "$1" != "" ] ; do
+  ARGS="$ARGS $1"
+  shift
+done
+
+exec "/usr/bin/java" "-jar" "/usr/local/polylith/poly-0.1.0-alpha4.jar" $ARGS
+```
+- Make sure that:
+  - you point to the correct jar file.
+  - the path to `java` is correct (can be verified with `which java`).
+- If you choose `/usr/local/bin`, it was probably already on your path, otherwise you have to add it.
+- Make it executable by executing `chmod +x poly`.
+
+Verify the installation by executing `poly help`.
+
+### Install on Windows
+
+To install the `poly` command on Windows:
+
+- Download the [latest release](https://github.com/polyfy/polylith/releases/latest) of the `poly` jar,
+  e.g. `poly-0.1.0-alpha4.jar`.
+- Create the `Polylith` directory somewhere on your machine, e.g. 
+  `C:\Program Files\Polylith` and copy the jar file to that directory.
+- Create the file `poly.bat` with this content (make sure you point to the jar):
+```sh
+@echo off
+start /wait /b java -jar "C:\Program Files\Polylith\poly-0.1.0-alpha4.jar" %*
+```
+- Add `C:\Program Files\Polylith` to the Windows `PATH` variable.
+
+Test the installation by typing `poly help` from the command line.
+
+> Note: The coloring of text are not supported on Windows.
+
 ## Realworld Example
 
 If you want to have a look at a full-blown system, go to the [RealWorld](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app) project where you can compare it with [implementations made in other languages](https://github.com/gothinkster/realworld).
 
 ## Workspace
 
-The workspace directory is the place where all our code and configuration lives.
+The workspace directory is the place where all our code and most of the configuration lives.
 
 Let’s start by creating the `example` workspace with the top namespace `se.example` by using the [create workspace](#create-workspace) command:
 ```sh
@@ -2099,6 +2148,8 @@ The workspace configuration is stored under the `:polylith` key in `./deps.edn` 
 | :project-to-alias      | If the `development` key is missing, `{"development" "dev"}` will be added. |
 | :ns-to-lib             | Can be left empty, but will give a more detailed output from the [libs](#libs) command if populated. |
 
+Only the `:top-namespace` attribute is mandatory, all other attributes will use their default values.
+
 Settings that are unique per developer/user are stored in `~/.polylith/config.edn`:
 
 | Key                  | Description
@@ -2354,6 +2405,7 @@ poly help
     info [ARGS]                 Shows a workspace overview and checks if it's valid.
     libs                        Shows all libraries in the workspace.
     test [ARGS]                 Runs tests.
+    version                     Shows current version of the tool.
     ws [get:X]                  Shows the workspace as data.
 
   If ws-dir:PATH is passed in as an argument, where PATH is a relative
@@ -2431,7 +2483,9 @@ poly help
     poly test :dev
     poly test :project :dev
     poly test :all-bricks :dev
-    poly test :all :dev    poly ws
+    poly test :all :dev
+    poly version
+    poly ws
     poly ws get:keys
     poly ws get:count
     poly ws get:settings
@@ -2560,6 +2614,7 @@ poly help
   Example:
     poly create c name:user
     poly create c name:admin interface:user
+    poly create component name:user
 ```
 
 #### create base
@@ -2571,6 +2626,7 @@ poly help
 
   Example:
     poly create b name:mybase
+    poly create base name:mybase
 ```
 
 #### create project
@@ -2582,6 +2638,7 @@ poly help
 
   Example:
     poly create p name:myproject
+    poly create project name:myproject
 ```
 
 #### create workspace
@@ -2595,6 +2652,7 @@ poly help
 
   Example:
     poly create w name:myws top-ns:com.my.company
+    poly create workspace name:myws top-ns:com.my.company
 ```
 
 ### deps
