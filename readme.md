@@ -2207,7 +2207,7 @@ poly ws get:settings
  :user-config-file "/Users/tengstrand/.polylith/config.edn",
  :user-home "/Users/tengstrand",
  :vcs "git",
- :version "0.1.0-alpha3",
+ :version "0.1.0-alpha4",
  :ws-schema-version {:breaking 0, :non-breaking 0}}
 ```
 
@@ -2393,7 +2393,7 @@ poly help
 ```
 
 ```
-  Poly 0.1.0-alpha3 (2020-10-15) - https://github.com/polyfy/polylith
+  Poly 0.1.0-alpha4 (2020-10-22) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
