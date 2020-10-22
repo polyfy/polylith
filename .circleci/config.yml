@@ -130,7 +130,7 @@ jobs:
           command: git config --global user.name "CircleCI"
       - run:
           name: Run tests for Polylith workspace
-          command: clojure -A:poly test :all
+          command: clojure -A:poly test :project
 
   test-build:
     docker:
@@ -149,7 +149,7 @@ jobs:
           command: git config --global user.name "CircleCI"
       - run:
           name: Run tests for Polylith workspace
-          command: clojure -A:poly test :all since:previous-release
+          command: clojure -A:poly test :project since:previous-release
 
   mark-as-stable:
     docker:
