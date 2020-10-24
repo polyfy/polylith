@@ -27,7 +27,7 @@
   (doseq [file (-> workspace :changes :changed-files)]
     (println file)))
 
-(defn help [[cmd ent] is-show-project is-show-brick is-show-bricks color-mode]
+(defn help [[_ cmd ent] is-show-project is-show-brick is-show-bricks color-mode]
   (help/print-help cmd ent is-show-project is-show-brick is-show-bricks color-mode))
 
 (defn version []

@@ -11,19 +11,24 @@ An open source tool used to develop Polylith based architectures in Clojure.
 Welcome to the wonderful world of Polylith!
 
 This tool is made by developers for developers with the goal to maximise productivity and 
-increase the quality of the systems we write. Polylith can support any programming language, but here
-we target [Clojure](https://clojure.org) which is a powerful and simple functional language for the [JVM](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiB88eLxansAhUyi8MKHd6jDPEQFjAAegQIBRAC&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FJava_virtual_machine&usg=AOvVaw0YtnMyoG7GQIhUPeLulbfr).
+increase the quality of the systems we write. 
 
-A Polylith system is made up by simple building blocks that can be combined like Lego bricks.
-Those Lego-like bricks are easy to reason about and can be combined into a single development 
-environment that allows us to work with all the code from one place for maximum productivity,
-using a single [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop).
+The Polylith concept can be implemented in any programming language, 
+but this version of the Polylith tool targets [Clojure](https://clojure.org)
+which is a powerful and simple functional language for the [JVM](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiB88eLxansAhUyi8MKHd6jDPEQFjAAegQIBRAC&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FJava_virtual_machine&usg=AOvVaw0YtnMyoG7GQIhUPeLulbfr).
 
-The bricks are also used to form different kind of deployable artifacts, like services, tools and libraries,
-in the same way we played with Lego when we were kids! 
+Polylith introduces the architectural concept of “service level building blocks”, 
+which can be combined like LEGO bricks to build our services and systems. 
+Polylith’s LEGO-like bricks are easy to reason about, test, refactor, and reuse. 
+They allow us to work with all our code in one place for maximum productivity, using a single
+[REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop)
+
+The bricks can easily be put together to form different kinds of deployable artifacts, 
+like services, tools and libraries, in the same way we put together LEGO when we were kids! 
 Not surprisingly, it's just as simple and fun!
 
-To give you an idea, this repository uses Polylith itself to structure the code:
+To give you an idea of what that can look like, take a quick look at the bricks and libraries
+that we use to build the Polylith tool (which is itself a Polylith project):
 
 <img src="images/polylith-info-deps-libs.png" width="100%">
 
@@ -74,7 +79,7 @@ and more.
 - [Configuration](#configuration)
 - [Colors](#colors)
 - [CI and Deployment (Wiki)](https://github.com/polyfy/polylith/wiki/Continuous-Integration-and-Deployment)
-- [Commands (Wiki)](https://github.com/polyfy/polylith/wiki/Commands)
+- [Commands (Wiki)](doc/commands.md)
 - [Contact](#contact)
 - [License](#license)
 
@@ -106,7 +111,8 @@ If you install git for the first time, don't forget to set the
 [user](https://docs.github.com/en/github/using-git/setting-your-username-in-git)
 name and email.
 
-Depending on what operating system you use, _Mac_, _Linux_ or _Windows_, continue the installation from here.
+The Polylith tool can be installed on Mac, Linux or Windows, so please follow the 
+installation instructions for your operating system of choice:
 
 ### Install on Mac
 
@@ -171,13 +177,21 @@ Test the installation by typing `poly help` from the command line.
 
 ## Realworld Example
 
-If you want to have a look at a full-blown system, go to the [RealWorld](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app) project where you can compare it with [implementations made in other languages](https://github.com/gothinkster/realworld).
+If you want to start by seeing how a full-blown system looks like in Polylith, then head over to the 
+[RealWorld](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app) project,
+where you can also compare it with [implementations made in other languages](https://github.com/gothinkster/realworld).
+Otherwise, let’s jump in and start making our own very basic Polylith project!
 
 ## Workspace
 
-The workspace directory is the place where all our code and most of the configuration lives.
+The workspace directory is the place where all our code and most of the [configuration](#configuration) lives.
 
 Let’s start by creating the `example` workspace with the top namespace `se.example` by using the [create workspace](#create-workspace) command:
+```sh
+poly create workspace name:example top-ns:se.example
+``` 
+
+The shorter form will also work:
 ```sh
 poly create w name:example top-ns:se.example
 ``` 
@@ -196,17 +210,20 @@ example            # workspace dir
 └── readme.md      # documentation
 ```
 
-This directory structure is here to improve our day to day life.
-It helps us finding things and to reason about the system at a higher level.
-Each top directory is responsible for its own part of a Polylith system.
-A `base` exposes a public API. A `component` is responsible for a specific domain 
-or part of the system. 
-A `project` specifies our deployable artifacts and what components, bases and libraries they contain.
-Finally, we have the `development` project (`development` + `deps.edn`)
-that are used to work with the code.
+A workspace’s directory structure is designed to make a Polylith project as easy to navigate 
+and work with as possible. It helps us to understand and find all our service-level building blocks,
+which lets us reason about the system at a higher level.
 
-The structure will give new developers a quick idea of what the system does at a higher level.
-We think you will soon begin to love it!
+Each top-level directory contains a specific type of Polylith concept. 
+A `base` is a building block that exposes a public API to external systems. 
+A `component` is a building block for encapsulating a specific domain or part of the system/service. 
+A `project` specifies our deployable artifacts and what components, bases, and libraries they contain. 
+Finally, we have the `development` project (`development` + `deps.edn`) 
+that we use to work with the code in one place.
+
+This structure gives a consistent shape to all Polylith projects, and ensures that both new developers 
+and veterans can quickly understand and start working with systems that are new to them. 
+We think you will soon fall in love with the power and simplicity the Polylith structure gives to your projects!
 
 The `bases`, `components` and `projects` directories also contain a `.keep` file, which can be removed
 as soon as we add something to these directories. 
@@ -311,10 +328,10 @@ it means that we now have a working development environment!
 # Component
 
 Now when we have a working development environment, let's continue by creating our first component,
-by executing the [create component](#create-component) command:
+by executing the [create component](doc/commands.md#create-component) command:
 ```sh
 cd example
-poly create c name:user
+poly create component name:user
 ```
 
 <img src="images/component.png" width="20%">
@@ -356,6 +373,8 @@ The command also printed out this message:
 This was a reminder for us to add source directories to `deps.edn`.
 If we don't, then tools.deps and the development environment will not recognise our newly created component,
 which would be a pity!
+The tool leaves this task to you as a developer, with the idea to give you as much control as possible
+(files are only edited by you, not by the tool).
 
 Let's continue by adding the component's `src`, `resources` and `test` directory to `deps.edn`:
 ```clojure
@@ -369,15 +388,15 @@ Let's continue by adding the component's `src`, `resources` and `test` directory
 Now we may need to refresh our IDE, by clicking this link, or the icon we used before:<br>
 <img src="images/refresh-ws.png" width="40%">
 
-Now execute the [info](#info) command:<br>
+Now execute the [info](doc/commands.md#info) command:<br>
 ```sh
 poly info
 ```
 <img src="images/component-info.png" width="30%">
 
-This tells us that we have one `development` project, one `user` component and
-one `user`interface but no base (yet). A common name for components and bases are `bricks`
-(we will soon explain what a `brick` is).
+This tells us that we have one `development` project, one `user` component and 
+one `user` interface but no base (yet). Components and bases are referred to as `bricks`
+(we will soon explain what a base is).
 
 If your colors doesn't look as nice as this, then visit the [colors](#colors) section.
 
@@ -407,7 +426,7 @@ more namespaces can be added to the component when needed.
 
 ## Interface
 
-Interfaces are great in many ways:
+Component interfaces give a number of benefits:
 - _Single point of access_. Components can only be accessed through their interface, which makes them
    easy to find, use and reason about.
 - _Encapsulation_. All the implementing namespaces for a component can be changed without breaking the interface contract.
@@ -512,13 +531,15 @@ A `base` is similar to a `component` except for two things:
 
 <img src="images/base.png" width="30%">
 
-The lack of an `interface` makes bases less composable compared to components. This is in order,
-because they solve a different problem and that is to be a bridge between the real world and the components it uses.
+The lack of an `interface` makes bases less composable compared to components. 
+This is in order, because they solve a different problem and that is to be a bridge between the 
+real world and the components it uses.
 It fulfills this by delegating incoming calls to these components via their interfaces.
 
-Let's create the `cli` base to see how it works, by executing the [create base](#create-base) command:
+
+Let's create the `cli` base to see how it works, by executing the [create base](doc/commands.md#create-base) command:
 ```sh
-poly create b name:cli
+poly create base name:cli
 ```
 
 Our workspace should now look like this:
@@ -596,8 +617,7 @@ The next thing we want to do is to build an artifact that will turn the code int
 To do that, we need to start by creating a project.
 
 ## Project
-
-There are two kind of projects.
+There are two kinds of projects in Polylith: development and deployable.
 
 <img src="images/project.png" width="30%">
 
@@ -614,9 +634,9 @@ There are two kind of projects.
    - If it has any tests of its own, they will live in the `test` directory, e.g. `projects/my-project/test`. 
    - It's discouraged to have a `src` directory since all production code should normally only live in components and bases.
 
-Let's create a project, by executing the [create project](#create-project) command:
+Let's create a project, by executing the [create project](doc/commands.md#create-project) command:
 ```sh
-poly create p name:command-line
+poly create project name:command-line
 ```
  
 Our workspace should now look like this:
@@ -755,7 +775,7 @@ To build an uberjar, out of the compiled classes, we need to add this alias:
 clj -A:uberjar
 ```
 
-When we created the workspace with the [create workspace](#create-workspace) command, the `poly` alias was also added to `./deps.edn`:
+When we created the workspace with the [create workspace](doc/commands.md#create-workspace) command, the `poly` alias was also added to `./deps.edn`:
 ```clojure
             :poly {:main-opts ["-m" "polylith.clj.core.poly_cli.poly"]
                    :extra-deps {polyfy/polylith
@@ -775,9 +795,10 @@ selecting another `sha` from an existing [commit](https://github.com/polyfy/poly
 
 ## Build
 
-This tool doesn't include any `build` command. To build an artifact out of a project, we should instead 
-use scripts and maybe a build tool, or create our own build functions that we access via tools.deps.
-We think they will do a better job and give us the level of control, flexibility and power we need.
+The Polylith tool doesn’t include a `build` command.
+That’s because we don’t want the tool to restrict our build pipeline in any way. 
+Instead, the tool lets us choose our own way to build our Polylith artefacts for our particular pipeline; 
+which could be with simple build scripts, all the way to cloud-based build tools.
 
 Let's say we want to create an executable jar file out of the `command-line` project.  
 First, we create a `scripts` directory at the workspace root and copy this [build-uberjar.sh](https://github.com/polyfy/polylith/blob/master/scripts/build-uberjar.sh)
@@ -1121,9 +1142,9 @@ components/user/src/se/example/user/core.clj
 the status flags `xxx` under the `cl` column now have an `x` in its last position. As we already know, 
 this means that the tests for `user` and `cli` will be executed from the `command-line` project
 if we execute the `test` command.
-
-But why is `cli` marked to be tested? The reason is that even though `cli` itself hasn't
-change, it depends on something that has, namely the `user` component.
+  
+But why is `cli` marked to be tested? The reason is that even though `cli` itself hasn't changed, 
+it depends on something that has, namely the `user` component.  
   
 The columns under the `development` project are all marked as `xx-`. The reason the `development`
 project is not marked to be tested is that the `development` project's tests are 
@@ -1328,7 +1349,7 @@ They passed!
 
 ### Test approaches
 
-We have tests at two different levels, brick and project tests.
+As you have just seen, with Polylith we can add tests at two different levels: brick and project.
 
 The project tests should be used for our slow tests. They also give us a way to write 
 tailor-made tests that are unique per project.
@@ -2058,7 +2079,7 @@ userService.persist(db, userToBeSaved)
 ```
 
 With Polylith we get the same level of support from the IDE.
-By first import the `user` interface and then type:
+By first importing the `user` interface and then typing:
 ```clojure
 (user/
 ```
@@ -2141,7 +2162,7 @@ The workspace configuration is stored under the `:polylith` key in `./deps.edn` 
 |:-----------------------|:---------------------------------------------------------------------------------------------|
 | :top-namespace         | The workspace top namespace. If changed, the source code has to be changed accordingly. |
 | :interface-ns          | The default value is `interface`. If changed, the source code has to be changed accordingly. |
-| :default-profile-name  | The default value is `default`. If changed, the `+default` alias in `./deps.edn` has to be renamed accordingly. |
+| :default&#8209;profile&#8209;name  | The default value is `default`. If changed, the `+default` alias in `./deps.edn` has to be renamed accordingly. |
 | :release-tag-pattern   | The default value is `v[0-9]*`. If changed, old tags may not be recognised. |
 | :stable-tag-pattern    | The default value is `stable-*`. If changed, old tags may not be recognised. |
 | :compact-views         | The default value is `#{}`. If set to `#{"libs"}`, then the `libs` diagram will be shown in a more compact format. Only "libs" is supported at the moment. |
@@ -2154,12 +2175,12 @@ Settings that are unique per developer/user are stored in `~/.polylith/config.ed
 
 | Key                  | Description
 |:---------------------|:---------------------------------------------------------------------------------------------|
-| :thousand-separator  | Set to "," by default (when first created). |
+| :thousand&#8209;separator  | Set to "," by default (when first created). |
 | :color-mode          | Set to "none" on Windows, "dark" on other operating systems (when first created). Valid values are "none", "light" and "dark", see the [color](#color) section. Can be overridden, e.g.: `poly info color-mode:none`. |
 | :empty-character     | Set to "." on Windows, "·" on other operating systems (when first created). Used by the [deps](#deps) and [libs](#libs) commands. |
 | :m2-dir              | If omitted, the `.m2` directory will be set to USER-HOME/.m2. Used by the [libs](#libs) command to calculate file sizes (KB). |
 
-If `~/.polylith/config.edn` doesn't exists, it will be created the first time the [create workspace](#create-workspace) command is executed, e.g.:
+If `~/.polylith/config.edn` doesn't exists, it will be created the first time the [create workspace](doc/commands.md#create-workspace) command is executed, e.g.:
 
 ```
 {:color-mode "dark"
@@ -2354,7 +2375,6 @@ poly info color-mode:none
 To refresh our memory, this is how it looked like using the `dark` color schema:
 
 <img src="images/profile-info-2.png" width="40%">
-
 
 If you want to use the same colors in your terminal, here they are:<br>
 <img src="images/polylith-colors.png" width="50%">
