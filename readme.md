@@ -39,7 +39,8 @@ Enjoy the ride!
 
 ## Leiningen version
 
-The old [lein-polylith](https://github.com/tengstrand/lein-polylith) tool has reached its end of lifetime.  
+The old [lein-polylith](https://github.com/tengstrand/lein-polylith) tool has reached the 
+end of its life and has been replaced by the tools.deps version.
 If you have any old Leiningen based projects to migrate, follow the instructions [here](https://github.com/tengstrand/lein-polylith/blob/migrate/migrate/migrate.md).
 
 Some of the Polylith [documentation](https://polylith.gitbook.io) is still mentioning how things worked
@@ -79,7 +80,7 @@ and more.
 - [Configuration](#configuration)
 - [Colors](#colors)
 - [CI and Deployment (Wiki)](https://github.com/polyfy/polylith/wiki/Continuous-Integration-and-Deployment)
-- [Commands (Wiki)](doc/commands.md)
+- [Commands](doc/commands.md)
 - [Contact](#contact)
 - [License](#license)
 
@@ -531,11 +532,11 @@ A `base` is similar to a `component` except for two things:
 
 <img src="images/base.png" width="30%">
 
-The lack of an `interface` makes bases less composable compared to components. 
-This is in order, because they solve a different problem and that is to be a bridge between the 
-real world and the components it uses.
-It fulfills this by delegating incoming calls to these components via their interfaces.
-
+The lack of an `interface` makes bases less composable compared to components.
+This is okay, because they serve a different purpose which is to be a bridge between 
+the real world and the components the base delegates to.
+This gives us the modularity and structure we need to build simple and understandable 
+services, tools, and libraries.
 
 Let's create the `cli` base to see how it works, by executing the [create base](doc/commands.md#create-base) command:
 ```sh
