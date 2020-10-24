@@ -73,8 +73,8 @@ and more.
 - [Mix languages](#mix-languages)
 - [Configuration](#configuration)
 - [Colors](#colors)
-- [CI and Deployment (Wiki)](wiki/Continuous-Integration-and-Deployment.md)
-- [Commands (Wiki)](wiki/Commands.md)
+- [CI and Deployment (Wiki)](https://github.com/polyfy/polylith/wiki/Continuous-Integration-and-Deployment)
+- [Commands (Wiki)](https://github.com/polyfy/polylith/wiki/Commands)
 - [Contact](#contact)
 - [License](#license)
 
