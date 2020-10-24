@@ -34,7 +34,7 @@
     "  'ws' command, e.g.: 'poly ws out:ws.edn'.\n"
     "\n"
     "  If " (s/key "since:SINCE" cm) " is passed in as an argument, the last stable point in time\n"
-    "  will be set depending on the value of " (s/key "SINCE" cm) " (or the first commit if no match\n"
+    "  will be used depending on the value of " (s/key "SINCE" cm) " (or the first commit if no match\n"
     "  was found):\n"
     "    stable          -> the latest tag that matches stable-*, defined by\n"
     "                       " (s/key ":stable-tag-pattern" cm) " in ./deps.edn.\n"
