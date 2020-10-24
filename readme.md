@@ -73,7 +73,8 @@ and more.
 - [Mix languages](#mix-languages)
 - [Configuration](#configuration)
 - [Colors](#colors)
-- [Commands](wiki/Commands.md)
+- [CI and Deployment (Wiki)](wiki/Continuous-Integration-and-Deployment.md)
+- [Commands (Wiki)](wiki/Commands.md)
 - [Contact](#contact)
 - [License](#license)
 
