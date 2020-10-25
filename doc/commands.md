@@ -138,8 +138,8 @@ poly help
 
   poly check
 
-  Prints 'OK' and returns 0 if no errors was found.
-  If errors or warnings was found, show messages and return the error code, 
+  Prints 'OK' and returns 0 if no errors were found.
+  If errors or warnings were found, show messages and return the error code, 
   or 0 if only warnings. If internal errors, 1 is returned.
 
   Error 101 - Illegal dependency on namespace.
@@ -174,7 +174,7 @@ poly help
     implements the interface.
 
   Error 108 - Components with an interface that is implemented by more than one 
-              component is not allowed for the development project.
+              component are not allowed for the development project.
     The solution is to remove the component from the development project 
     and define the paths for each component in separate profiles
     (including test paths).
@@ -231,7 +231,7 @@ poly help
     poly create component name:admin interface:user
     poly create base name:mybase
     poly create project name:myproject
-    poly create workepace name:myws top-ns:com.my.company
+    poly create workspace name:myws top-ns:com.my.company
 ```
 
 #### create component
@@ -300,7 +300,7 @@ poly help
     poly help deps ARGS:
       ARGS = :project         Help for the project diagram.
              :brick           Help for the brick diagram.
-             :bricks          Help for all bricks diagram.
+             :bricks          Help for the bricks diagram.
              :project :brick  Help for the project/brick diagram.
   Example:
     poly deps
@@ -353,7 +353,7 @@ poly help
   Shows dependencies for selected project.
 
   poly deps project:PROJECT
-    PROJECT = The project name or alias to show depenencies for.
+    PROJECT = The project name or alias to show dependencies for.
 
          p      
          a  u  u
@@ -369,7 +369,7 @@ poly help
   When the project is known, we also know which components are used.
 
   In this example, payer uses user and util, user uses util, and cli uses payer.
-  The + signs mark indirect depencencies. Here the cli base depends on user and
+  The + signs mark indirect dependencies. Here the cli base depends on user and
   util, via 'cli > payer > user' and 'cli > payer > util'. Each usage comes from
   at least one :require statement in the brick. 
 
@@ -466,7 +466,7 @@ poly help
   3. active profiles: default
 
      Shows the names of active profiles. The profile paths are merged into the
-     development project. A profiles is an aliase in ./deps.edn that starts
+     development project. A profiles is an alias in ./deps.edn that starts
      with a +. If no profile is selected, the default profile is automatically
      selected.
 
@@ -537,7 +537,7 @@ poly help
     is the first namespace after the component name, e.g.:
     com.my.company.user.interface
 
-    The 'brick' column shows the name of the brick. In green if a component or
+    The 'brick' column shows the name of the brick, in green if a component or
     blue if a base. Each component lives in a directory under the 'components'
     directory and each base lives under the 'bases' directory. If any file for
     a brick has changed since the last stable point in time, it will be marked
@@ -586,7 +586,7 @@ poly help
   It's not enough that a path has been added to a project to show an 'x',
   the file or directory must also exist.
 
-  If any warnings or errors was found in the workspace, they will be listed at
+  If any warnings or errors were found in the workspace, they will be listed at
   the end, see the 'check' command help, for a complete list of validations.
 
   Example:
@@ -723,7 +723,7 @@ poly help
           Every new key goes one level deeper into the workspace data structure.
 
     FILE = Writes the output to the specified FILE. Will have the same effect
-           as setting color-mode:none and piping the ouput to a file.
+           as setting color-mode:none and piping the output to a file.
   Example:
     poly ws
     poly ws get:keys

@@ -22,7 +22,7 @@
         illegal-components (sort (set/intersection component-names multi-components))
         components-msg (str/join ", " (map #(color/component % color-mode) illegal-components))
         message (str "Components with an interface that is implemented by more than one component "
-                     "is not allowed for the " (color/project "development" color-mode) " project. "
+                     "are not allowed for the " (color/project "development" color-mode) " project. "
                      "They should be added to development profiles instead: " components-msg)]
     (when (-> illegal-components empty? not)
       [(util/ordered-map :type "error"
