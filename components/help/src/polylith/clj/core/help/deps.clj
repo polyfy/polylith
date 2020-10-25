@@ -17,7 +17,7 @@
        "    poly help deps " (s/key "ARGS" cm) ":\n"
        "      " (s/key "ARGS" cm) " = " (s/key ":project" cm) "         Help for the project diagram.\n"
        "             " (s/key ":brick" cm) "           Help for the brick diagram.\n"
-       "             " (s/key ":bricks" cm) "          Help for all bricks diagram.\n"
+       "             " (s/key ":bricks" cm) "          Help for the bricks diagram.\n"
        "             " (s/key ":project :brick" cm) "  Help for the project/brick diagram."
        "\n"
        "  Example:\n"

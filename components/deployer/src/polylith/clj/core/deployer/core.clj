@@ -40,11 +40,11 @@
       (deps-deploy/deploy {:installer    :clojars
                            :coordinates  coordinates
                            :artifact-map artifact-map}))
-    (catch Throwable t
+    (catch Exception e
       (throw (ex-info (str "Could not deploy " project-name " project to clojars.")
                       {:current-dir current-dir
                        :project-name project-name}
-                      t)))))
+                      e)))))
 
 (def projects-to-deploy-clojars #{"poly" "poly-migrator" "api"})
 

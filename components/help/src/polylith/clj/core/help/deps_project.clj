@@ -6,7 +6,7 @@
   (str "  Shows dependencies for selected project.\n"
        "\n"
        "  poly deps project:" (s/key "PROJEXT" cm) "\n"
-       "    " (s/key "PROJECT" cm) " = The project name or alias to show depenencies for.\n"
+       "    " (s/key "PROJECT" cm) " = The project name or alias to show dependencies for.\n"
        "\n"
        "         " (color/green cm "p      \n")
        "         " (color/green cm "a  u  u\n")
@@ -22,7 +22,7 @@
        "  When the project is known, we also know which components are used.\n"
        "\n"
        "  In this example, " (color/green cm "payer") " uses " (color/green cm "user") " and " (color/green cm "util") ", " (color/green cm "user") " uses " (color/green cm "util") "," " and " (color/blue cm "cli") " uses " (color/green cm "payer") ".\n"
-       "  The + signs mark indirect depencencies. Here the " (color/blue cm "cli") " base depends on " (color/green cm "user") " and\n"
+       "  The + signs mark indirect dependencies. Here the " (color/blue cm "cli") " base depends on " (color/green cm "user") " and\n"
        "  " (color/green cm "util") ", via 'cli > payer > user' and 'cli > payer > util'. Each usage comes from\n"
        "  at least one " (color/purple cm ":require") " statement in the brick. \n"
        "\n"

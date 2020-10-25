@@ -22,7 +22,7 @@
        "          Every new key goes one level deeper into the workspace data structure.\n"
        "\n"
        "    " (s/key "FILE" cm) " = Writes the output to the specified " (s/key "FILE" cm) ". Will have the same effect\n"
-       "           as setting " (s/key "color-mode:none" cm) " and piping the ouput to a file.\n"
+       "           as setting " (s/key "color-mode:none" cm) " and piping the output to a file.\n"
        "\n"
        "  Example:\n"
        "    poly ws\n"
