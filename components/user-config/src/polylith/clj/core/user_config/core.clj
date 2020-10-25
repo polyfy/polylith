@@ -11,7 +11,6 @@
     (try
       (read-string (slurp config-dir))
       (catch Exception _
-        (println "Can't read config file: " config-dir)
         {}))))
 
 (defn color-mode []
