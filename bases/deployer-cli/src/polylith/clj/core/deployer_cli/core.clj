@@ -10,9 +10,9 @@
         "create-artifacts" (deployer/create-artifacts)
         (throw (Exception. "Invalid command. Please provide either one of: deploy, create-artifacts"))))
     (System/exit 0)
-    (catch Throwable t
-      (let [message (.getMessage t)
-            data (ex-data t)]
+    (catch Exception e
+      (let [message (.getMessage e)
+            data (ex-data e)]
         (when message
           (println message))
         (when data
