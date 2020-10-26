@@ -27,8 +27,8 @@
 
 (def workspace (->
                  ;(dir ".")
-                 ;(dir "../poly-example/ws50")
-                 (dir "../clojure-polylith-realworld-example-app")
+                 (dir "../poly-example/ws02")
+                 ;(dir "../clojure-polylith-realworld-example-app")
                  ws-clj/workspace-from-disk
                  ws/enrich-workspace))
                  ;change/with-changes))
@@ -36,7 +36,7 @@
 (keys workspace)
 
 ;(command/execute-command (user-input/extract-params ["info"]))
-(command/execute-command (user-input/extract-params ["test"]))
+;(command/execute-command (user-input/extract-params ["test"]))
 
 ;(command/execute-command (user-input/extract-params ["info"]))
 
@@ -68,7 +68,7 @@
 (def project (common/find-project "dev" projects))
 (def project (common/find-project "invoice" projects))
 (def project (common/find-project "poly-migrator" projects))
-(def component (common/find-component "common" components))
+(def component (common/find-component "user" components))
 (def component (common/find-component "article" components))
 (def base (common/find-base "poly-cli" bases))
 

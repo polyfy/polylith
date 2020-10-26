@@ -8,11 +8,14 @@
   (or (str/starts-with? path "components")
       (str/starts-with? path "bases")))
 
+(defn as-namespaces [brick-nss]
+  (map #(str/replace % "_" "-") brick-nss))
+
 (defn non-top-namespace [path top-nss]
   (let [parts (str/split path #"/")
         brick (first (drop 1 parts))
         n#nss (count top-nss)
-        brick-nss (take n#nss (drop 3 parts))]
+        brick-nss (as-namespaces (take n#nss (drop 3 parts)))]
     (when (not= brick-nss top-nss)
       [{:brick brick
         :file path
