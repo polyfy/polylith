@@ -28,7 +28,7 @@ like services, tools and libraries, in the same way we put together LEGO when we
 Not surprisingly, it's just as simple and fun!
 
 To give you an idea of what that can look like, take a quick look at the bricks and libraries
-that we use to build the Polylith tool (which is itself a Polylith project):
+that we use to build the Polylith tool (which is itself a Polylith workspace):
 
 <img src="images/polylith-info-deps-libs.png" width="100%">
 
@@ -105,6 +105,11 @@ Happy coding!
 
 ## Installation
 
+The Polylith tool can be installed on Mac, Linux or Windows, so please follow the 
+installation instructions for your operating system of choice.
+
+### Install on Mac
+
 To use the Polylith tool and to get access to all the features in tools.deps, make sure you have
 [CLI tools](https://clojure.org/guides/getting_started)
 and [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed.
@@ -112,12 +117,7 @@ If you install git for the first time, don't forget to set the
 [user](https://docs.github.com/en/github/using-git/setting-your-username-in-git)
 name and email.
 
-The Polylith tool can be installed on Mac, Linux or Windows, so please follow the 
-installation instructions for your operating system of choice.
-
-### Install on Mac
-
-To install the `poly` command on Mac, type:
+To install the `poly` command on Mac, execute:
 ```
 brew install polyfy/polylith/poly
 ``` 
@@ -129,8 +129,14 @@ If you get the error "openjdk-13.0.2.jdk could not be opened...", do this:
 
 Verify the installation by executing `poly help`.
 
-
 ### Install on Linux
+
+To use the Polylith tool and to get access to all the features in tools.deps, make sure you have
+[CLI tools](https://clojure.org/guides/getting_started)
+and [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed.
+If you install git for the first time, don't forget to set the 
+[user](https://docs.github.com/en/github/using-git/setting-your-username-in-git)
+name and email.
 
 To install the `poly` command on Linux:
 
@@ -158,6 +164,35 @@ exec "/usr/bin/java" "-jar" "/usr/local/polylith/poly-0.1.0-alpha4.jar" $ARGS
 Verify the installation by executing `poly help`.
 
 ### Install on Windows
+
+To use the Polylith tool and to get access to all the features in tools.deps, make sure you have
+[CLI tools](https://clojure.org/guides/getting_started)
+and [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed.
+If you install git for the first time, don't forget to set the 
+[user](https://docs.github.com/en/github/using-git/setting-your-username-in-git)
+name and email.
+
+If you got this error when installing `clj`:
+```
+clj : The 'clj' command was found in the module 'ClojureTools', but the module could not be loaded.
+For more information, run 'Import-Module ClojureTools'.
+```
+
+...and if you followed the instruction and executed this:
+````
+Import-Module ClojureTools
+````
+...and got this error:
+```
+Import-Module : File C:\Users\Admin\Documents\WindowsPowerShell\Modules\ClojureTools\ClojureTools.psm1 
+cannot be loaded because running scripts is disabled on this system. For more information, 
+see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.
+```
+
+...then try this:
+```
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
 
 To install the `poly` command on Windows:
 
@@ -187,14 +222,10 @@ Otherwise, let’s jump in and start making our own very basic Polylith project!
 
 The workspace directory is the place where all our code and most of the [configuration](#configuration) lives.
 
-Let’s start by creating the `example` workspace with the top namespace `se.example` by using the [create workspace](#create-workspace) command:
+Let’s start by creating the `example` workspace with the top namespace `se.example` by using the [create workspace](#create-workspace) command
+(`create w` works as well as `create workspace`):
 ```sh
 poly create workspace name:example top-ns:se.example
-``` 
-
-The shorter form will also work:
-```sh
-poly create w name:example top-ns:se.example
 ``` 
 
 The workspace directory structure will end up like this:
@@ -263,7 +294,8 @@ If you wonder what all the settings are for, be patient, everything will soon be
 When working with a Polylith codebase, we are free to choose any editor/IDE we like, for example
 [Emacs](https://www.gnu.org/software/emacs/)/[Cider](https://github.com/clojure-emacs/cider), 
 [VSCode](https://code.visualstudio.com/)/[Calva](https://marketplace.visualstudio.com/items?itemName=betterthantomorrow.calva) or
-[IDEA](https://www.jetbrains.com/idea/)/[Cursive](https://cursive-ide.com). Here we will use Cursive.
+[IDEA](https://www.jetbrains.com/idea/)/[Cursive](https://cursive-ide.com). 
+Here we will use Cursive, and if you do, make sure you have [tools.deps](https://cursive-ide.com/userguide/deps.html) configured correctly.
 
 Let's get started by creating a project. From the menu, select `File > New > Project from existing source`.
 Select the `deps.edn` file, the desired version of SDK and finish the wizard.
@@ -465,6 +497,8 @@ util
 ```
 
 This can be handy if we want to group the functions and not put everyone into one place.
+A common usage is to place [clojure specs](https://clojure.org/about/spec) in its own `spec` sub namespace.
+
 Every time you think of splitting up the interface, keep in mind that it may be an indicator
 that it's instead time to split up the component into smaller components!
 
@@ -2036,6 +2070,10 @@ brick uses is to look in `:ns-to-lib` in `./deps.edn`, e.g:
  
 This map specifies which namespace maps to which library, and needs to be manually populated.
 The same library can occur more than once as long as the namespaces are unique.
+By populating `:ns-to-lib`, the [libs](#libs) command will be able to show library usage per brick.
+Another advantage is that we will receive a validation error from the [check](#check) and [info](#info) commands,
+if we forget to add a library to an environment, which is much nicer than trying to understand 
+the stack traces that we would otherwise get when we run the tests!
 
 The way the algorithm works is that it takes all the namespaces and sort them in reverse order.
 Then it tries to match each namespace against that list from top to down and takes the first match.

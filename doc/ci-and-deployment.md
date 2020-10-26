@@ -1,6 +1,6 @@
 Polylith repository has a continuous integration and deployment setup via [CircleCI](https://circleci.com). The setup has two workflows, one for regular validation and testing and another one for deployments. Both workflows have several jobs to validate, test, and deploy the artifacts to [Clojars](https://clojars.org) and GitHub as [releases](https://github.com/polyfy/polylith/releases).
 
-You can find the CircleCI configuration file [here](https://github.com/polyfy/polylith/blob/master/.circleci/config.yml).
+You can find the CircleCI configuration file [here](../.circleci/config.yml).
 
 # 1. Validate Workflow
 The main responsibility of this workflow is to validate the workspace and run the tests incrementally for all commits to all branches. Specifically for master branch, it also marks the commit as stable via a git tag.
@@ -11,7 +11,7 @@ The main responsibility of this workflow is to validate the workspace and run th
 This job runs the check command from Polylith as follows: ```clojure -A:poly check```. If there are any errors in the Polylith workspace, it returns with a non-zero exit code and the CircleCI workflow stops at this stage. If there are any warnings printed by Polylith, it will be visible in the job's output.
 
 ### Info
-This job runs the following commands one after each other:
+This job runs the following commands one after another:
 - ```clojure -A:poly ws```
   - Prints the current workspace as data in [edn format](https://github.com/edn-format/edn).
 - ```clojure -A:poly info```
@@ -21,13 +21,13 @@ This job runs the following commands one after each other:
 - ```clojure -A:poly libs```
   - Prints all libraries that are used in the workspace.
 
-After this job is done, all this information will be available in the job's output for debugging purposes if needed. You can read more in detail about the commands used in the [Polylith readme](https://github.com/polyfy/polylith).
+After this job is done, all this information will be available in the jobs output for debugging purposes if needed. You can read more about available commands [here](../readme.md/#commands).
 
 ### Test
 This job runs all the tests for all the bricks and projects that are directly or indirectly changed since the last stable point. Polylith supports incremental testing out of the box by using stable point marks in the git history. It runs the following command: ```clojure -A:poly test :project```. If any of the tests fail, it will exit with a non-zero exit code and the CircleCI workflow stops at this stage. Information about the passed/failed tests will be printed in the job's output.
 
 ### Mark as stable
-This job only runs for the commits made to master branch. It adds (or moves if there is already one) the `stable-master` tag to the repository. At this point in the workflow, it is proven that the Polylith workspace is valid and all of the tests are passed. It is safe to mark this commit as stable. It does that by running following commands one after each other:
+This job only runs for the commits made to master branch. It adds (or moves if there is already one) the `stable-master` tag to the repository. At this point in the workflow, it is proven that the Polylith workspace is valid and all of the tests are passed. It is safe to mark this commit as stable. It does that by running following commands one after another:
 - ```git tag -f -a "stable-$CIRCLE_BRANCH" -m "[skip ci] Added Stable Polylith tag"```
   - Creates or moves the tag
 - ```git push origin $CIRCLE_BRANCH --tags --force```
@@ -39,10 +39,10 @@ The main responsibility of this workflow is to validate the workspace, run the t
 ## Jobs
 
 ### Check Build
-This job runs the check command from Polylith as follows: ```clojure -A:poly check since:previous-release```. Please note the last part of the command where we specifically say Polylith to check the workspace since the last release instead of the last stable point. If there are any errors in the Polylith workspace, it returns with a non-zero exit code and the CircleCI workflow stops at this stage. If there are any warnings printed by Polylith, it will be visible in the job's output.
+This job runs the check command from Polylith as follows: ```clojure -A:poly check since:previous-release```. Please note the last part of the command where we specifically tell Polylith to check the workspace since the last release instead of the last stable point. If there are any errors in the Polylith workspace, it returns with a non-zero exit code and the CircleCI workflow stops at this stage. If there are any warnings printed by Polylith, it will be visible in the job's output.
 
 ### Info
-This job runs the following commands one after each other. Please note the last part of the command where we specifically say Polylith to check the workspace since the last release instead of the last stable point:
+This job runs the following commands one after another. Please note the last part of the command where we specifically say Polylith to check the workspace since the last release instead of the last stable point:
 - ```clojure -A:poly ws since:previous-release```
   - Prints the current workspace as data in [edn format](https://github.com/edn-format/edn).
 - ```clojure -A:poly info since:previous-release```
@@ -52,13 +52,13 @@ This job runs the following commands one after each other. Please note the last 
 - ```clojure -A:poly libs since:previous-release```
   - Prints all libraries that are used in the workspace.
 
-After this job is done, all this information will be available in the jobs output for debugging purposes if needed. You can read more in detail about the commands used in the [Polylith readme](https://github.com/polyfy/polylith).
+After this job is done, all this information will be available in the jobs output for debugging purposes if needed. You can read more about available commands [here](../readme.md/#commands).
 
 ### Test
 This job runs all the tests for all the bricks that are directly or indirectly changed since the last release. It runs the following command: ```clojure -A:poly test :project since:previous-release```. If any of the tests fail, it will exit with a non-zero exit code and the CircleCI workflow stops at this stage. Information about the passed/failed tests will be printed in the job's output.
 
 ### Deploy
-This job deploys the changed projects to Clojars. It is easy to achieve incremental deployments with Polylith. Changed projects are calculated since the latest release. There is a special component in the Polylith repository that extends the Polylith to make it easier to create artifacts and deploy them to Clojars. It is a good example of how you can use Polylith in your own code to extend its functionality. The source code for that component can be found [here](https://github.com/polyfy/polylith/tree/master/components/deployer/src/polylith/clj/core/deployer). 
+This job deploys the changed projects to Clojars. It is easy to achieve incremental deployments with Polylith. Changed projects are calculated since the latest release. There is a special component in the Polylith repository that extends the Polylith to make it easier to create artifacts and deploy them to Clojars. It is a good example of how you can use Polylith in your own code to extend its functionality. The source code for that component can be found [here](../components/deployer/src/polylith/clj/core/deployer). 
 
 ### Create Artifacts
 This job creates two types of artifacts per changed project, an aot compiled uberjar and a package that can be used to deploy [Homebrew](https://brew.sh). Created artifacts can be found in the artifacts section of this job's output.
