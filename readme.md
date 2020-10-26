@@ -174,6 +174,30 @@ start /wait /b java -jar "C:\Program Files\Polylith\poly-0.1.0-alpha4.jar" %*
 
 Test the installation by typing `poly help` from the command line.
 
+If you get an error like:
+```
+clj : The 'clj' command was found in the module 'ClojureTools', but the module could not be loaded.
+For more information, run 'Import-Module ClojureTools'.
+```
+
+...and if you do as they say and execute this:
+````
+Import-Module ClojureTools
+````
+...and get an error like this:
+```
+Import-Module : File C:\Users\Admin\Documents\WindowsPowerShell\Modules\ClojureTools\ClojureTools.psm1 
+cannot be loaded because running scripts is disabled on this system. For more information, 
+see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.
+```
+
+...then you can try this:
+```
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
+
+Now `poly help` should hopefully work!
+
 > Note: The coloring of text are not supported on Windows.
 
 ## RealWorld Example
