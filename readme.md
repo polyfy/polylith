@@ -2072,7 +2072,8 @@ This map specifies which namespace maps to which library, and needs to be manual
 The same library can occur more than once as long as the namespaces are unique.
 By populating `:ns-to-lib`, the [libs](#libs) command will be able to show library usage per brick.
 Another advantage is that we will receive a validation error from the [check](#check) and [info](#info) commands,
-if we forget to add a library to an environment.
+if we forget to add a library to an environment, which is much nicer than trying to understand 
+the stack traces that we would otherwise get when we run the tests!
 
 The way the algorithm works is that it takes all the namespaces and sort them in reverse order.
 Then it tries to match each namespace against that list from top to down and takes the first match.
