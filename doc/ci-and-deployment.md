@@ -21,7 +21,7 @@ This job runs the following commands one after another:
 - ```clojure -A:poly libs```
   - Prints all libraries that are used in the workspace.
 
-After this job is done, all this information will be available in the jobs output for debugging purposes if needed. You can read more about available commands [here](../readme.md/#commands).
+After this job is done, all this information will be available in the jobs output for debugging purposes if needed. You can read more about available commands [here](../readme.md#commands).
 
 ### Test
 This job runs all the tests for all the bricks and projects that are directly or indirectly changed since the last stable point. Polylith supports incremental testing out of the box by using stable point marks in the git history. It runs the following command: ```clojure -A:poly test :project```. If any of the tests fail, it will exit with a non-zero exit code and the CircleCI workflow stops at this stage. Information about the passed/failed tests will be printed in the job's output.
@@ -52,7 +52,7 @@ This job runs the following commands one after another. Please note the last par
 - ```clojure -A:poly libs since:previous-release```
   - Prints all libraries that are used in the workspace.
 
-After this job is done, all this information will be available in the jobs output for debugging purposes if needed. You can read more about available commands [here](../readme.md/#commands).
+After this job is done, all this information will be available in the jobs output for debugging purposes if needed. You can read more about available commands [here](../readme.md#commands).
 
 ### Test
 This job runs all the tests for all the bricks that are directly or indirectly changed since the last release. It runs the following command: ```clojure -A:poly test :project since:previous-release```. If any of the tests fail, it will exit with a non-zero exit code and the CircleCI workflow stops at this stage. Information about the passed/failed tests will be printed in the job's output.
