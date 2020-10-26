@@ -497,6 +497,8 @@ util
 ```
 
 This can be handy if we want to group the functions and not put everyone into one place.
+A common usage is to place [clojure specs](https://clojure.org/about/spec) in its own `spec` sub namespace.
+
 Every time you think of splitting up the interface, keep in mind that it may be an indicator
 that it's instead time to split up the component into smaller components!
 
