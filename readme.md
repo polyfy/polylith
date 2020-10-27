@@ -47,7 +47,7 @@ Some of the Polylith [documentation](https://polylith.gitbook.io) still mentions
 in the old Leiningen version of the tool, for example the empty `workspace interfaces` and the use of
 `symbolic links` (that have both been removed).
 In some of the videos, we still call things `systems` instead of `services`. 
-Now both the development project and systems/services are handled as `projects`.
+Now both the development environment and systems/services are handled as `projects`.
 
 The biggest difference is that the new tool is based on
 [tools.deps](https://github.com/clojure/tools.deps.alpha) instead of [Leiningen](https://leiningen.org/)
@@ -78,10 +78,11 @@ and more.
 - [Naming](#naming)
 - [Mix languages](#mix-languages)
 - [Configuration](#configuration)
+- [Workspace state](#workspace-state)
 - [Git hook](#git-hook)
-- [Colors](#colors)
 - [CI and Deployment](doc/ci-and-deployment.md)
 - [Commands](doc/commands.md)
+- [Colors](#colors)
 - [Contact](#contact)
 - [License](#license)
 
@@ -2229,7 +2230,7 @@ If `~/.polylith/config.edn` doesn't exists, it will be created the first time th
  :empty-character "·"}
 ```
 
-### The workspace state
+## Workspace state
 
 There is a way to view all configuration that is used by the tool, and that is to execute the [ws](#ws) command
 (here, against the `example` workspace):
@@ -2412,7 +2413,7 @@ When we created the `example` workspace, the file `~/.polylith/config.edn` was a
 ```
 
 For Windows systems the `color-mode` is set to `none` and for all other systems, `dark` will be used as default.
-Valid values are: `none`, `light` or `dark`.
+Valid values are: `none`, `light` and `dark`.
 
 In this documentation we have used the `dark` color schema, but we can switch to `light`
 by giving the `color-mode` parameter (or by updating `~/.polylith/config.edn`):
