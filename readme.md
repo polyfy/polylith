@@ -2287,9 +2287,9 @@ poly ws get:settings:profile-to-settings:default
 
 If we execute `poly ws` without any arguments, it will view the whole workspace as plain data (a hash map).
 This data structure is produceed by the tool itself and is used by all the commands internally.
-The commands only operate on this hash map and are not performing any side effecting operations,
-like touching the disk or executing git commands. Instead, everything is prepared so that all commands can
-be executed in memory. 
+The commands only operate on this hash map and are not performing any io operations,
+such as touching the disk or executing git commands. Instead, everything is prepared so that all commands can
+be executed in memory.
 
 This will not only simplify the code of the tool itself but it also gives us, as a user of the tool,
 a way to explore the complete state of the workspace.
