@@ -2209,7 +2209,7 @@ The workspace configuration is stored under the `:polylith` key in `./deps.edn` 
 | :stable-tag-pattern    | The default value is `stable-*`. If changed, old tags may not be recognised. |
 | :compact-views         | The default value is `#{}`. If set to `#{"libs"}`, then the `libs` diagram will be shown in a more compact format. Only "libs" is supported at the moment. |
 | :project-to-alias      | If the `development` key is missing, `{"development" "dev"}` will be added. |
-| :ns-to-lib             | Can be left empty, but will give a more detailed output from the [libs](#libs) command if populated. |
+| :ns-to-lib             | Can be left empty, but will give a more detailed output from the [libs](#libs) command if populated + missing libraries will be detected in environments when running the [check](#check) or [info](#info) command. |
 
 Only the `:top-namespace` attribute is mandatory, all other attributes will use their default values.
 
