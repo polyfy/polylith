@@ -78,6 +78,7 @@ and more.
 - [Naming](#naming)
 - [Mix languages](#mix-languages)
 - [Configuration](#configuration)
+- [Git hook](#git-hook)
 - [Colors](#colors)
 - [CI and Deployment](doc/ci-and-deployment.md)
 - [Commands](doc/commands.md)
@@ -2381,6 +2382,25 @@ poly ws get:old-user-input:args ws-file:ws.edn
 ```
 
 The `old-user-input` key is added when `ws-file` is given.
+
+## Git hook
+
+We can ensure that we don't push code that puts the workspace in an invalid state,
+by adding a [git hook](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) to our workspace
+that runs the [check](doc/commands.md#check) command.
+
+To make this work, all developers should add `.git/hooks/commit-msg` to the root of the workspace
+on their local disk with the following content, e.g.:
+
+```
+#!/usr/bin/env bash
+
+exec /usr/bin/java -jar /usr/local/polylith/poly.jar check color-mode:none ws-dir:PATH-TO-WORKSPACE-DIRECTORY
+
+if [[ $? -ne 0 ]] then
+  exit 1
+fi
+```
 
 ## Colors
 
