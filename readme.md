@@ -47,7 +47,7 @@ Some of the Polylith [documentation](https://polylith.gitbook.io) still mentions
 in the old Leiningen version of the tool, for example the empty `workspace interfaces` and the use of
 `symbolic links` (that have both been removed).
 In some of the videos, we still call things `systems` instead of `services`. 
-Now both the development project and systems/services are handled as `projects`.
+Now both the development environment and systems/services are handled as `projects`.
 
 The biggest difference is that the new tool is based on
 [tools.deps](https://github.com/clojure/tools.deps.alpha) instead of [Leiningen](https://leiningen.org/)
@@ -78,9 +78,11 @@ and more.
 - [Naming](#naming)
 - [Mix languages](#mix-languages)
 - [Configuration](#configuration)
-- [Colors](#colors)
+- [Workspace state](#workspace-state)
+- [Git hook](#git-hook)
 - [CI and Deployment](doc/ci-and-deployment.md)
 - [Commands](doc/commands.md)
+- [Colors](#colors)
 - [Contact](#contact)
 - [License](#license)
 
@@ -234,7 +236,7 @@ example            # workspace dir
 ├── .git           # git repository dir
 ├── bases          # bases dir
 ├── components     # components dir
-├── deps.edn       # development + workspace config file
+├── deps.edn       # workspace config file
 ├── development
 │   └── src        # development specific code
 ├── logo.png       # polylith logo
@@ -248,7 +250,7 @@ which lets us reason about the system at a higher level.
 
 Each top-level directory contains a specific type of Polylith concept. 
 A `base` is a building block that exposes a public API to external systems. 
-A `component` is a building block for encapsulating a specific domain or part of the system/service. 
+A `component` is a building block for encapsulating a specific domain or part of the system.
 A `project` specifies our deployable artifacts and what components, bases, and libraries they contain. 
 Finally, we have the `development` project (`development` + `deps.edn`) 
 that we use to work with the code in one place.
@@ -505,7 +507,7 @@ that it's instead time to split up the component into smaller components!
 Here is an example of some code that uses such an interface:
 ```clojure
 (ns dev.lisa
-  (:require [se.example.util.interface.spec :as time-util]))
+  (:require [se.example.util.interface.time :as time-util]))
 
 (time-util/current-time)
 ```
@@ -660,7 +662,7 @@ There are two kinds of projects in Polylith: development and deployable.
 1. The `development` project:
    - This is where we work with the code, often from a REPL. 
    - It contains all libraries, components and bases in the workspace, which is specified in `./deps.edn`.
-   - If we have any `profiles` then they are defined in `./deps.edn`.
+   - If we have any [profiles](#profile) then they are defined in `./deps.edn`.
    - Any extra code, that is not part of a component or base, lives under the `development` folder.
 2. Any `deployable` project:
    - Used to build deployable artifacts, e.g.: lambda functions, REST API's, libraries, tools, ...and more.
@@ -2207,7 +2209,7 @@ The workspace configuration is stored under the `:polylith` key in `./deps.edn` 
 | :stable-tag-pattern    | The default value is `stable-*`. If changed, old tags may not be recognised. |
 | :compact-views         | The default value is `#{}`. If set to `#{"libs"}`, then the `libs` diagram will be shown in a more compact format. Only "libs" is supported at the moment. |
 | :project-to-alias      | If the `development` key is missing, `{"development" "dev"}` will be added. |
-| :ns-to-lib             | Can be left empty, but will give a more detailed output from the [libs](#libs) command if populated. |
+| :ns-to-lib             | Can be left empty, but will give a more detailed output from the [libs](#libs) command if populated + missing libraries will be detected in environments when running the [check](#check) or [info](#info) command. |
 
 Only the `:top-namespace` attribute is mandatory, all other attributes will use their default values.
 
@@ -2228,7 +2230,7 @@ If `~/.polylith/config.edn` doesn't exists, it will be created the first time th
  :empty-character "·"}
 ```
 
-### The workspace state
+## Workspace state
 
 There is a way to view all configuration that is used by the tool, and that is to execute the [ws](#ws) command
 (here, against the `example` workspace):
@@ -2286,9 +2288,9 @@ poly ws get:settings:profile-to-settings:default
 
 If we execute `poly ws` without any arguments, it will view the whole workspace as plain data (a hash map).
 This data structure is produceed by the tool itself and is used by all the commands internally.
-The commands only operate on this hash map and are not performing any side effecting operations,
-like touching the disk or executing git commands. Instead, everything is prepared so that all commands can
-be executed in memory. 
+The commands only operate on this hash map and are not performing any io operations,
+such as touching the disk or executing git commands. Instead, everything is prepared so that all commands can
+be executed in memory.
 
 This will not only simplify the code of the tool itself but it also gives us, as a user of the tool,
 a way to explore the complete state of the workspace.
@@ -2382,6 +2384,25 @@ poly ws get:old-user-input:args ws-file:ws.edn
 
 The `old-user-input` key is added when `ws-file` is given.
 
+## Git hook
+
+We can ensure that we don't push code that puts the workspace in an invalid state,
+by adding a [git hook](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) to our workspace
+that runs the [check](doc/commands.md#check) command.
+
+To make this work, all developers should add `.git/hooks/commit-msg` to the root of the workspace
+on their local disk with the following content, e.g.:
+
+```
+#!/usr/bin/env bash
+
+exec /usr/bin/java -jar /usr/local/polylith/poly.jar check color-mode:none ws-dir:PATH-TO-WORKSPACE-DIRECTORY
+
+if [[ $? -ne 0 ]] then
+  exit 1
+fi
+```
+
 ## Colors
 
 When we created the `example` workspace, the file `~/.polylith/config.edn` was also created:
@@ -2392,7 +2413,7 @@ When we created the `example` workspace, the file `~/.polylith/config.edn` was a
 ```
 
 For Windows systems the `color-mode` is set to `none` and for all other systems, `dark` will be used as default.
-Valid values are: `none`, `light` or `dark`.
+Valid values are: `none`, `light` and `dark`.
 
 In this documentation we have used the `dark` color schema, but we can switch to `light`
 by giving the `color-mode` parameter (or by updating `~/.polylith/config.edn`):
