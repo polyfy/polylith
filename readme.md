@@ -236,7 +236,7 @@ example            # workspace dir
 ├── .git           # git repository dir
 ├── bases          # bases dir
 ├── components     # components dir
-├── deps.edn       # development + workspace config file
+├── deps.edn       # workspace config file
 ├── development
 │   └── src        # development specific code
 ├── logo.png       # polylith logo
@@ -250,7 +250,7 @@ which lets us reason about the system at a higher level.
 
 Each top-level directory contains a specific type of Polylith concept. 
 A `base` is a building block that exposes a public API to external systems. 
-A `component` is a building block for encapsulating a specific domain or part of the system/service. 
+A `component` is a building block for encapsulating a specific domain or part of the system.
 A `project` specifies our deployable artifacts and what components, bases, and libraries they contain. 
 Finally, we have the `development` project (`development` + `deps.edn`) 
 that we use to work with the code in one place.
@@ -507,7 +507,7 @@ that it's instead time to split up the component into smaller components!
 Here is an example of some code that uses such an interface:
 ```clojure
 (ns dev.lisa
-  (:require [se.example.util.interface.spec :as time-util]))
+  (:require [se.example.util.interface.time :as time-util]))
 
 (time-util/current-time)
 ```
@@ -662,7 +662,7 @@ There are two kinds of projects in Polylith: development and deployable.
 1. The `development` project:
    - This is where we work with the code, often from a REPL. 
    - It contains all libraries, components and bases in the workspace, which is specified in `./deps.edn`.
-   - If we have any `profiles` then they are defined in `./deps.edn`.
+   - If we have any [profiles](#profile) then they are defined in `./deps.edn`.
    - Any extra code, that is not part of a component or base, lives under the `development` folder.
 2. Any `deployable` project:
    - Used to build deployable artifacts, e.g.: lambda functions, REST API's, libraries, tools, ...and more.
