@@ -43,13 +43,7 @@ The old [lein-polylith](https://github.com/tengstrand/lein-polylith) tool has re
 end of its life and has been replaced by the tools.deps version.
 If you have any old Leiningen based projects to migrate, follow the instructions [here](https://github.com/tengstrand/lein-polylith/blob/migrate/migrate/migrate.md).
 
-Some of the Polylith [documentation](https://polylith.gitbook.io) still mentions how things worked
-in the old Leiningen version of the tool, for example the empty `workspace interfaces` and the use of
-`symbolic links` (that have both been removed).
-In some of the videos, we still call things `systems` instead of `services`. 
-Now both the development environment and systems/services are handled as `projects`.
-
-The biggest difference is that the new tool is based on
+The biggest difference compared to the old tools is that the new tool is based on
 [tools.deps](https://github.com/clojure/tools.deps.alpha) instead of [Leiningen](https://leiningen.org/)
 which has a number of benefits, like an improved development experience, faster tests, Windows support,
 and more.
@@ -76,10 +70,10 @@ and more.
 - [Libraries](#libraries)
 - [Context](#context)
 - [Naming](#naming)
-- [Mix languages](#mix-languages)
 - [Configuration](#configuration)
 - [Workspace state](#workspace-state)
 - [Git hook](#git-hook)
+- [Mix languages](#mix-languages)
 - [CI and Deployment](doc/ci-and-deployment.md)
 - [Commands](doc/commands.md)
 - [Colors](#colors)
@@ -362,6 +356,8 @@ it means that we now have a working development environment!
 
 # Component
 
+<img src="images/component.png">
+
 Now when we have a working development environment, let's continue and create our first component,
 by executing the [create component](doc/commands.md#create-component) command:
 ```sh
@@ -369,7 +365,6 @@ cd example
 poly create component name:user
 ```
 
-<img src="images/component.png" width="20%">
 
 Our workspace will now look like this:
 ```sh
@@ -461,6 +456,8 @@ more namespaces can be added to the component when needed.
 
 ## Interface
 
+<img src="images/component-interface.png">
+
 Component interfaces give a number of benefits:
 - _Single point of access_. Components can only be accessed through their interface, which makes them
    easy to find, use and reason about.
@@ -468,8 +465,6 @@ Component interfaces give a number of benefits:
 - _Composability_. All components have access to all other components via interfaces, and can be replaced as long as they use the same interface.
 
 When we created the `user` component, the `user` interface was also created.
-
-<img src="images/component-interface.png" width="20%">
 
 So what is an `interface` and what is it good for?
 
@@ -563,11 +558,11 @@ Finally, if we have really good reasons to, the `interface` namespace name can b
 
 ## Base
 
+<img src="images/base.png">
+
 A `base` is similar to a `component` except for two things:
 - It doesn't have an `interface`.
 - It exposes a public API to the outside world.
-
-<img src="images/base.png" width="30%">
 
 The lack of an `interface` makes bases less composable compared to components.
 This is okay, because they serve a different purpose which is to be a bridge between 
@@ -655,9 +650,9 @@ The next thing we want to do is to build an artifact that will turn the code int
 To do that, we need to start by creating a project.
 
 ## Project
-There are two kinds of projects in Polylith: development and deployable.
+<img src="images/project.png">
 
-<img src="images/project.png" width="30%">
+There are two kinds of projects in Polylith: development and deployable.
 
 1. The `development` project:
    - This is where we work with the code, often from a REPL. 
@@ -835,7 +830,7 @@ selecting another `sha` from an existing [commit](https://github.com/polyfy/poly
 
 The Polylith tool doesn’t include a `build` command.
 That’s because we don’t want the tool to restrict our build pipeline in any way. 
-Instead, the tool lets us choose our own way to build our Polylith artefacts for our particular pipeline; 
+Instead, the tool lets us choose our own way to build our Polylith artifacts for our particular pipeline; 
 which could be with simple build scripts, all the way to cloud-based build tools.
 
 Let's say we want to create an executable jar file out of the `command-line` project.  
@@ -1565,47 +1560,24 @@ allows us to use [remote procedure calls](https://en.wikipedia.org/wiki/Remote_p
 in a simple way.
 
 Let's create a checklist that will take us there:
-- [ ] Create the `user-service`:
-  - [ ] Update its `deps.edn`:
-    - [ ] Add the Slacker library and libraries it needs.
-    - [ ] Add paths for the `user` component.
-    - [ ] Add paths for the `user-api` base.
-    - [ ] Add the `aot` and `uberjar` aliases (so we can build an uberjar).
-- [ ] Create the `user-api` base:
-  - [ ] Implement the server.
-- [ ] Create the `user-remote` component:
-  - [ ] Create the `core` namespace and call `user-service` from there.
-  - [ ] Delegate from the `interface` to the `core` namespace.
-- [ ] Update the `development` project:
-  - [ ] Update `./deps.edn`:
-    - [ ] Add an alias for the `user-service` (:project-to-alias).
-    - [ ] Add namespace to the library mapping (:ns-to-lib).
-    - [ ] Remove the `user` paths.
-    - [ ] Add the Slacker library and libraries it needs.
-  - [ ] Create the `default` and `remote` profiles.
-    - [ ] Add the `user` paths to the `default` profile.
-    - [ ] Add the `user-remote` paths to the `remote` profile.
-    - [ ] Activate the `default` profile in the dev project.
-- [ ] Switch from `user` to `user-remote` in `deps.edn` for the `command-line` project.
-  - [ ] Remove `user` related paths from `projects/command-line/deps.edn`.
-  - [ ] Add `user-remote` related paths to `projects/command-line/deps.edn`.
-  - [ ] Add the Slacker library to `deps.edn` for `command-line` (used by `user-remote`).
-  - [ ] Add the log4j library to `deps.edn` for `command-line` (to get rid of warnings).
-  - [ ] Rebuild `command-line`.
-- [ ] Create a build script for `user-service`.
-    - [ ] Make it executable.
-    - [ ] Execute it.
+1. Create the `user-service`.
+2. Create the `user-api` base.
+3. Create the `user-remote` component.
+4. Update the `development` project.
+5. Switch from `user` to `user-remote` in `deps.edn` for the `command-line` project.
+6. Create a build script for `user-service`.
 
 Let's go through the list.
-- [x] Create the `user-service`
-  - [x] Update its `deps.edn`:
-    - [x] Add the Slacker library and libraries it needs.
-    - [x] Add paths for the `user` component.
-    - [x] Add paths for the `user-api` base.
-    - [x] Add the `aot` and `uberjar` aliases.
 
+#### 1. Create the `user-service`:
+- [x] Update its `deps.edn`:
+  - [x] Add the Slacker library and libraries it needs.
+  - [x] Add paths for the `user` component.
+  - [x] Add paths for the `user-api` base.
+  - [x] Add the `aot` and `uberjar` aliases.
+  
 ```sh
-poly create p name:user-service
+poly create project name:user-service
 ```
 ```
 {...
@@ -1641,9 +1613,9 @@ poly create p name:user-service
   ...
 ```
 
-- [x] Create the `user-api` base:
+#### 2. Create the `user-api` base:
 ```
-poly create b name:user-api
+poly create base name:user-api
 ```
 - [x] Implement the server for `user-api`:
 ```
@@ -1672,11 +1644,11 @@ example
   (core/hello (str name " - from the server")))
 ```
 
-- [x] Create the `user-remote` component:
-  - [x] Create the `core` namespace and call `user-service` from there.
-  - [x] Delegate from the `interface` to the `core` namespace.
+#### 3. Create the `user-remote` component:
+- [x] Create the `core` namespace and call `user-service` from there.
+- [x] Delegate from the `interface` to the `core` namespace.
 ```sh
-poly create c name:user-remote interface:user
+poly create component name:user-remote interface:user
 ```
 ```
 example
@@ -1705,16 +1677,16 @@ example
   (core/hello name))
 ```
 
-- [x] Update the `development` project:
-  - [x] Update `./deps.edn`:
-    - [x] Add an alias for the `user-service` (:project-to-alias).
-    - [x] Add namespace to the library mapping (:ns-to-lib).
-    - [x] Remove the `user` paths.
-    - [x] Add the Slacker library and libraries it needs.
-  - [x] Create the `default` and `remote` profiles.
-    - [x] Add the `user` paths to the `default` profile.
-    - [x] Add the `user-remote` paths to the `remote` profile.
-    - [x] Activate the `default` profile in the dev project.
+#### 4. Update the `development` project:
+- [x] Update `./deps.edn`:
+  - [x] Add an alias for the `user-service` (:project-to-alias).
+  - [x] Add namespace to the library mapping (:ns-to-lib).
+  - [x] Remove the `user` paths.
+  - [x] Add the Slacker library and libraries it needs.
+- [x] Create the `default` and `remote` profiles.
+  - [x] Add the `user` paths to the `default` profile.
+  - [x] Add the `user-remote` paths to the `remote` profile.
+  - [x] Activate the `default` profile in the dev project.
 
 ```clojure
 {:polylith {:vcs "git"
@@ -1769,12 +1741,12 @@ Now we should activate the `default` profiles so that the IDE will recognise the
 
 <img src="images/profile-activate-default.png" width="20%">
 
-- [x] Switch from `user` to `user-remote` in `deps.edn` for the `command-line` project.
-  - [x] Remove `user` related paths from `projects/command-line/deps.edn`.
-  - [x] Add `user-remote` related paths to `projects/command-line/deps.edn`.
-  - [x] Add the Slacker library to `deps.edn` for `command-line` (used by `user-remote`).
-  - [x] Add the log4j library to `deps.edn` for `command-line` (to get rid of warnings).
-  - [x] Rebuild `command-line`.
+#### 5. Switch from `user` to `user-remote` in `deps.edn` for the `command-line` project.
+- [x] Remove `user` related paths from `projects/command-line/deps.edn`.
+- [x] Add `user-remote` related paths to `projects/command-line/deps.edn`.
+- [x] Add the Slacker library to `deps.edn` for `command-line` (used by `user-remote`).
+- [x] Add the log4j library to `deps.edn` for `command-line` (to get rid of warnings).
+- [x] Rebuild `command-line`.
 
 ```
 example
@@ -1801,9 +1773,9 @@ Execute:
 ./build-cli-uberjar.sh  
 ```
 
-- [x] Create a build script for `user-service`.
-    - [x] Make it executable.
-    - [x] Execute it.
+#### 6. Create a build script for `user-service`.
+- [x] Make it executable.
+- [x] Execute it.
 ```sh
 example
 ├── scripts
@@ -1950,7 +1922,15 @@ It worked!
 To explain dependencies, we will use the
 [RealWorld example app](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/clojure-deps).
 
-Start by cloning the project by executing these commands from outside the `example` workspace (e.g. the parent folder of our `example` workspace):
+Start by cloning the project by executing these commands from outside the `example` workspace, 
+e.g. the parent folder of our `example` workspace:
+
+```
+clone-from-here
+├── example
+└── clojure-polylith-realworld-example-app
+```
+
 ```sh
 git clone git@github.com:furkan3ayraktar/clojure-polylith-realworld-example-app.git
 cd clojure-polylith-realworld-example-app
@@ -2037,8 +2017,6 @@ To list all libraries used in the workspace, execute the [libs](#libs) command:
 poly libs
 ```
 <img src="images/realworld-lib-deps.png" width="60%">
-
-----------------
 
 Libraries can be specified in three different ways:
 
@@ -2156,13 +2134,12 @@ If we have found a good name for the component, then it's generally a good idea 
 the interface, which is also the default behaviour when a component is created, e.g.:
 
 ```
-poly create c name:invoicer
+poly create component name:invoicer
 ```
 ...which is the same as:
 ```
-poly create c name:invoicer interface:invoicer
+poly create component name:invoicer interface:invoicer
 ``` 
-
 
 Bases are responsible for exposing a public API and delegating the incoming calls to components.
 A good way to name them is to start with what they do, followed by the type of the API.
@@ -2172,29 +2149,6 @@ good name.
 
 Projects (development excluded) represent the deployable artifacts, like services. Those artifacts
 should, if possible, be named after what they are, like `invoicer` or `report-generator`.
-
-## Mix languages
-
-Polylith allows us to run multiple languages side by side where each language lives in its own workspace.
-This will work especially well if we run different languages on top of the same platform, e.g. the JVM
-as for this tool (see list of [JVM languages](https://en.wikipedia.org/wiki/List_of_JVM_languages)).
-
-Let's say we have the languages A, B and C. The first thing to remember is to have different
-names of the top namespace for each language, so that we don't run into name conflicts.
-We would end up with top namespaces like: `com.mycompany.a`, `com.mycompany.b` and `com.mycompany.c`.
-Each language will have its own workspace and will compile each component to its own library,
-or alternatively compile all components into one big jar like `a.jar`, `b.jar` or `c.jar`.
-
-So if component `com.mycompany.a.authentication` is used by `com.mycompany.b.user`,
-then `com.mycompany.b.user` will include either `a-authentication.jar` or `a.jar`
-in its library list, to be able to access `authentication`.
-
-This setup allows us to share components between languages by first compiling them into libraries.
-We could also use the [Java Native Interface](https://en.wikipedia.org/wiki/Java_Native_Interface) to share code between languages
-that don't run on top of the JVM, or use something like [Neanderthal](https://neanderthal.uncomplicate.org)
-if we want to integrate with the [GPU](https://en.wikipedia.org/wiki/Graphics_processing_unit).
-
-An alternative approach could be to use the [GraalVM](https://www.graalvm.org) or similar.
 
 ## Configuration
 
@@ -2402,6 +2356,28 @@ if [[ $? -ne 0 ]] then
   exit 1
 fi
 ```
+
+## Mix languages
+
+Polylith allows us to run multiple languages side by side where each language lives in its own workspace.
+This will work especially well if we run different languages on top of the same platform, e.g. the JVM
+as for this tool (see list of [JVM languages](https://en.wikipedia.org/wiki/List_of_JVM_languages)).
+
+Let's say we have the languages A, B and C. The first thing to remember is to have different
+names of the top namespace for each language, so that we don't run into name conflicts.
+We would end up with top namespaces like: `com.mycompany.a`, `com.mycompany.b` and `com.mycompany.c`.
+Each language will have its own workspace and will compile all components and bases 
+into one big jar like `a.jar`, `b.jar` or `c.jar`.
+
+So if component `com.mycompany.a.authentication` is used by `com.mycompany.b.user`,
+then `com.mycompany.b.user` will include `a.jar` in its library list, to be able to access `authentication`.
+
+This setup allows us to share components between languages by first compiling them into libraries.
+We could also use the [Java Native Interface](https://en.wikipedia.org/wiki/Java_Native_Interface) to share code between languages
+that don't run on top of the JVM, or use something like [Neanderthal](https://neanderthal.uncomplicate.org)
+if we want to integrate with the [GPU](https://en.wikipedia.org/wiki/Graphics_processing_unit).
+
+An alternative approach could be to use the [GraalVM](https://www.graalvm.org) or similar.
 
 ## Colors
 
