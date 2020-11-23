@@ -229,14 +229,14 @@ You can use Polylith Tool as a dependency via Clojars or via GitHub using a comm
 ...
  :aliases   {:poly  {:extra-deps {polylith/clj-poly
                                   {:git/url   "https://github.com/polyfy/polylith.git"
-                                   :sha       "LATEST"
+                                   :sha       "INSERT_LATEST_SHA_HERE"
                                    :deps/root "projects/poly"}}
                      :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}}
 ...
 }
 ```
 
-You can replace LATEST with a commit SHA if you want to use a specific version.
+You should replace `INSERT_LATEST_SHA_HERE` with a commit SHA from this repository.
 
 Once you add one of the aliases above, you can use poly tool with using the following command on your terminal:
 
@@ -253,7 +253,7 @@ polylith/clj-api {:mvn/version "0.1.0-alpha5"}
 or
 ```clojure
 polylith/clj-api {:git/url   "https://github.com/polyfy/polylith.git"
-                  :sha       "LATEST"
+                  :sha       "INSERT_LATEST_SHA_HERE"
                   :deps/root "projects/api"}
 ```
 
