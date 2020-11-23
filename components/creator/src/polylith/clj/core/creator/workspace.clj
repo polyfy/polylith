@@ -51,7 +51,7 @@
    (str "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly_cli.poly\"]")
    (str "                   :extra-deps {polyfy/polylith")
    (str "                                {:git/url   \"https://github.com/polyfy/polylith\"")
-   (str "                                 :sha       \"LATEST\"")
+   (str "                                 :sha       \"INSERT_LATEST_SHA_HERE\"")
    (str "                                 :deps/root \"projects/poly\"}}}}}")])
 
 (defn create-user-config-if-not-exists []

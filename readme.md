@@ -207,6 +207,56 @@ Test the installation by typing `poly help` from the command line.
 
 > Note: The coloring of text are not supported on Windows.
 
+### Use Polylith Tool as a dependency
+You can use Polylith Tool as a dependency via Clojars or via GitHub using a commit SHA. In order to use it as a dependency, add one of the following aliases to the `:aliases` section in your `deps.edn`.
+
+#### Via Clojars
+
+```clojure
+{
+...
+ :aliases   {:poly  {:extra-deps {polylith/clj-poly
+                                  {:mvn/version "0.1.0-alpha5"}}
+                     :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}}
+...
+}
+```
+
+#### Via GitHub
+
+```clojure
+{
+...
+ :aliases   {:poly  {:extra-deps {polylith/clj-poly
+                                  {:git/url   "https://github.com/polyfy/polylith.git"
+                                   :sha       "INSERT_LATEST_SHA_HERE"
+                                   :deps/root "projects/poly"}}
+                     :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}}
+...
+}
+```
+
+You should replace `INSERT_LATEST_SHA_HERE` with a commit SHA from this repository.
+
+Once you add one of the aliases above, you can use poly tool with using the following command on your terminal:
+
+```sh
+clj -M:poly info
+```
+
+### Add other Polylith artifacts as a dependency
+Similarly, you can use other artifacts from this repository, `clj-api` or `clj-poly-migrator` as dependencies. For example, in order to add `clj-api` as a dependency, add one of the following to your `:deps` section in your `deps.edn` file:
+
+```clojure
+polylith/clj-api {:mvn/version "0.1.0-alpha5"}
+```
+or
+```clojure
+polylith/clj-api {:git/url   "https://github.com/polyfy/polylith.git"
+                  :sha       "INSERT_LATEST_SHA_HERE"
+                  :deps/root "projects/api"}
+```
+
 ## RealWorld Example
 
 If you want to start by seeing how a full-blown system looks like in Polylith, then head over to the 
