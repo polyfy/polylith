@@ -3,15 +3,11 @@ An open source tool used to develop Polylith based architectures in Clojure.
 
 ---------
 
-> **_UNDER CONSTRUCTION_**<br>
-> This new tools.deps based tool hasn't been released yet.<br>
-> Please use the old lein-polylith based tool in the meantime:<br>
-> https://github.com/tengstrand/lein-polylith
-
 Welcome to the wonderful world of Polylith!
 
 This tool is made by developers for developers with the goal to maximise productivity and 
 increase the quality of the systems we write. 
+It supports your build pipeline, but is not a build tool itself.
 
 The Polylith concept can be implemented in any programming language, 
 but this version of the Polylith tool targets [Clojure](https://clojure.org)
@@ -32,10 +28,14 @@ that we use to build the Polylith tool (which is itself a Polylith workspace):
 
 <img src="images/polylith-info-deps-libs.png" width="100%">
 
-To better understand the principles and ideas behind this tool, we recommend you first read the
-high-level [documentation](https://polylith.gitbook.io).
+To better understand the principles and ideas behind this tool, we recommend you first read the...
 
-Enjoy the ride!
+<a href="https://polylith.gitbook.io">
+<img src="images/doc.png" width="10%" href="https://polylith.gitbook.io">
+<br>...high-level documentation!
+</a>
+
+<br>Enjoy the ride!
 
 ## Leiningen version
 
@@ -207,8 +207,10 @@ Test the installation by typing `poly help` from the command line.
 
 > Note: The coloring of text are not supported on Windows.
 
-### Use Polylith Tool as a dependency
-You can use Polylith Tool as a dependency via Clojars or via GitHub using a commit SHA. In order to use it as a dependency, add one of the following aliases to the `:aliases` section in your `deps.edn`.
+### Use the Polylith Tool as a dependency
+
+An alternative way of executing the `poly` tool is to specify it as a dependency, by giving a commit SHA.
+To use it this way, add one of the following aliases to the `:aliases` section in your `deps.edn`.
 
 #### Via Clojars
 
@@ -236,9 +238,9 @@ You can use Polylith Tool as a dependency via Clojars or via GitHub using a comm
 }
 ```
 
-You should replace `INSERT_LATEST_SHA_HERE` with a commit SHA from this repository.
+You should replace `INSERT_LATEST_SHA_HERE` with a [commit SHA](https://github.com/polyfy/polylith/commits/master) from this repository.
 
-Once you add one of the aliases above, you can use poly tool with using the following command on your terminal:
+Once you have added one of the aliases above, you can now use the poly tool from the terminal:
 
 ```sh
 clj -M:poly info
@@ -288,8 +290,8 @@ example            # workspace dir
 └── readme.md      # documentation
 ```
 
-A workspace’s directory structure is designed to make a Polylith project as easy to navigate 
-and work with as possible. It helps us to understand and find all our service-level building blocks,
+The directory structure is designed for quick navigation and ease of use.
+It helps us to understand and find all our service-level building blocks,
 which lets us reason about the system at a higher level.
 
 Each top-level directory contains a specific type of Polylith concept. 
@@ -301,10 +303,10 @@ that we use to work with the code in one place.
 
 This structure gives a consistent shape to all Polylith projects, and ensures that both new developers 
 and veterans can quickly understand and start working with systems that are new to them. 
-We think you will soon fall in love with the power and simplicity the Polylith structure gives to your projects!
+We think you will soon be addicted to the power and simplicity the Polylith structure gives to your projects!
 
-The `bases`, `components` and `projects` directories also contain a `.keep` file, which can be removed
-as soon as we add something to these directories. 
+The `bases`, `components` and `projects` directories also contain a `.keep` file,  which are added to prevent git 
+from deleting these directories, and can be removed as soon as we add something to them.
 A workspace is always initialized to use [git](https://git-scm.com/), but more on that later.
  
 The `deps.edn` file looks like this:
@@ -326,7 +328,7 @@ The `deps.edn` file looks like this:
 
             :test {:extra-paths []}
 
-            :poly {:main-opts ["-m" "polylith.clj.core.poly_cli.poly"]
+            :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :extra-deps {polyfy/polylith
                                 {:git/url   "https://github.com/polyfy/polylith"
                                  :sha       "78b2c77c56d1b41109d68b451069affac935200e"
@@ -343,7 +345,7 @@ When working with a Polylith codebase, we are free to choose any editor/IDE we l
 [IDEA](https://www.jetbrains.com/idea/)/[Cursive](https://cursive-ide.com). 
 Here we will use Cursive, and if you do, make sure you have [tools.deps](https://cursive-ide.com/userguide/deps.html) configured correctly.
 
-Let's get started by creating a project. From the menu, select `File > New > Project from existing source`.
+Let's get started by creating a project. From the menu, select `File > New > Project from existing sources`.
 Select the `deps.edn` file, the desired version of SDK and finish the wizard.
 
 Make sure to activate the `:dev` alias (and press the "two arrows" icon to refresh):<br>
@@ -361,7 +363,7 @@ Fill in:
 - Run with Deps: (select)
 - Aliases: test,dev
 
-Now start the REPL in debug mode, by clicking the bug icon:<br>
+Press OK and start the REPL in debug mode, by clicking the bug icon:<br>
 <img src="images/repl-start.png" width="20%">
 
 When this turns up:
@@ -378,7 +380,8 @@ If we look at the `deps.edn` file again, we can see that _"development/src"_ was
 
 This gives us access to the `development/src` directory so that we can work 
 with the code. Right now there is only one directory here, but every time we create a new component or base,
-they normally end up in the list of paths too.
+we normally add them to the path too (the exception is if you have several components sharing the
+same interface, but more on that later).
 
 The "development/src" path belongs to the `dev` alias which we activated previously and also added to the REPL
 by selecting the "dev,test" aliases.
@@ -395,13 +398,18 @@ Let's follow that pattern and create the namespace `dev.lisa`.
 Right click on the `development/src` directory and select `New > Clojure Namespace` and type "dev.lisa":<br>
 <img src="images/new-namespace.png" width="30%">
 
+When this dialog turns up, select "Remember, don't ask again" and click the `Add` button.
+
+<img src="images/add-files-to-git-dialog.png" width="40%">
+
 Now let's write some code:
 ```clojure
 (ns dev.lisa)
 
 (+ 1 2 3)
 ```
-If we send `(+ 1 2 3)` to the REPL we should get `6` back, and if we do,
+Make sure the namespace is loaded, by sending `(ns dev.lisa)` to the REPL.
+If we then send `(+ 1 2 3)` to the REPL we should get `6` back, and if we do,
 it means that we now have a working development environment!
 
 # Component
@@ -476,7 +484,8 @@ poly info
 
 This tells us that we have one `development` project, one `user` component and 
 one `user` interface but no base (yet). Components and bases are referred to as `bricks`
-(we will soon explain what a base is).
+(we will soon explain what a base is). 
+The cryptic `x--` and `xx-` will be described in the [flags](#flags) section.
 
 If your colors don't look as nice as this, then visit the [colors](#colors) section.
 
@@ -524,6 +533,38 @@ statements which forms the contract that it exposes to other components and base
 
 If more than one component uses the same interface, then all these components must define the exact same set of 
 `def`, `defn` and `defmacro` definitions, which is something the tool helps us with.
+
+To give an example, let's pretend we have the interface `user` containing the functions
+`fun1` and `fun2` and that two components "implement" this interface, e.g:
+```
+▾ myworkspace
+  ...
+  ▾ components
+    ▾ user
+      ▾ src
+        ▾ com
+          ▾ another-example
+            ▾ user
+                interface.clj
+                  fun1
+                  fun2
+                ...
+    ▾ admin
+      ▾ src
+        ▾ com
+          ▾ another-example
+            ▾ user
+                interface.clj
+                  fun1
+                  fun2
+                ...
+  ...
+```
+
+Now we are free to edit the `interface.clj` file for both `user` and `admin`, which means they can 
+get out of sync if we are not careful enough. Luckily, the Polylith tool will help us
+keep them consistent, and complain if they differ when we run the [check](#check), 
+[info](#info) or [test](#test) commands!
 
 We often choose to have just a single `interface` namespace in a component, but it's also possible to 
 divide the interface into several namespaces.
@@ -596,7 +637,7 @@ so take note of this section for later:
   in the interface, a simplification is to pass in what comes after `&` as a `list` to the implementing function.
 - Testing is simplified by allowing access to implementing namespaces from the `test` directory.
   Only the code under the `src` directory is restricted to only access the `interface` namespace.
-  The check is performed when running the `check` or `info` command.
+  The check is performed when running the `check`, `info` or `test`command.
 - All functions can be declared public while still being protected. This improves testability and the debugging experience.
   When stopping at a breakpoint to evaluate a function, we don't need to use any special syntax to access it, 
   that we otherwise would have to if it was private.
@@ -714,6 +755,8 @@ There are two kinds of projects in Polylith: development and deployable.
    - Lives under the `projects` directory where each project has its own directory.
    - Has a `deps.edn` config file that specifies which libraries, component and bases that are included.
    - Can optionally have a `resources` directory. 
+   - If the base (we normally have only one per project) and the complonents that belong to it,
+     contain any tests, then they will be run when we execute the [test](#test) command.
    - If it has any tests of its own, they will live in the `test` directory, e.g. `projects/my-project/test`. 
    - It's discouraged to have a `src` directory since all production code should normally only live in components and bases.
 
@@ -779,7 +822,7 @@ so let's add it:
                                "command-line" "cl"}
 ```
 
-Now add `user` and `cli` to `deps.edn` in `projects/command-line`:
+Now add `user` and `cli` to `projects/command-line/deps.edn`:
 ```clojure
 {:paths ["../../components/user/src"
          "../../components/user/resources"
@@ -797,7 +840,7 @@ Note:
 - The src paths and the test paths are configured at different levels, `:paths` and `extra-paths`.
 - All paths begin with "../../".
 
-The reeson we didn't add "development/src" is because it contains code that should only be used
+The reason we didn't add "development/src" is because it contains code that should only be used
 from the development environment.
 
 All projects under the `projects` directory have their source paths defined in `:paths`
@@ -823,6 +866,9 @@ you to read its [documentation](https://github.com/clojure/tools.deps.alpha).
 To make it easier to follow the examples in the next `build` section, we will show some examples
 on how to use the `clj` command (the `clojure` command will also work in these examples).
 
+If you are already comfortable with tools.deps, then you can skip directly to the [build](#build) section.
+For the rest of you, we'll go through the step-by-step process of compiling our new project to an uberjar.
+
 Let's start by compiling the `command-line` project:
 ```
 cd projects/command-line
@@ -834,8 +880,8 @@ The command needs the `classes` directory, so we have to create it first.
 
 If we add this `alias` to `command-line/deps.edn` (which we will do in the next section):
 ```clojure
- :aliases {:aot     {:extra-paths ["classes"]
-                     :main-opts   ["-e" "(compile,'se.example.cli.core)"]}
+ :aliases {:aot   {:extra-paths ["classes"]
+                   :main-opts   ["-e" "(compile,'se.example.cli.core)"]}
            ...
 ```
 
@@ -860,21 +906,23 @@ clj -A:uberjar
 
 When we created the workspace with the [create workspace](doc/commands.md#create-workspace) command, the `poly` alias was also added to `./deps.edn`:
 ```clojure
-            :poly {:main-opts ["-m" "polylith.clj.core.poly_cli.poly"]
+            :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :extra-deps {polyfy/polylith
                                 {:git/url   "https://github.com/polyfy/polylith.git"
-                                 :sha       "78b2c77c56d1b41109d68b451069affac935200e"
+                                 :sha       "INSERT_LATEST_SHA_HERE"
                                  :deps/root "projects/poly"}}}
 ```
 
-This alias can be used to execute the `poly` tool from the workspace root, e.g.:
+Make sure you have updated the `sha` from `INSERT_LATEST_SHA_HERE` to the sha of the [latest commit](https://github.com/polyfy/polylith/commits/master). 
+
+This alias can now be used to execute the `poly` tool from the workspace root, e.g.:
 ```
 clj -A:poly info
 ```
 
 It takes longer to execute the `poly` command this way, because it needs to compile the Clojure code 
 first, but it also allows us to execute older or newer versions of the tool by
-selecting another `sha` from an existing [commit](https://github.com/polyfy/polylith/commits).
+selecting another `sha` from an [existing commit](https://github.com/polyfy/polylith/commits).
 
 ## Build
 
@@ -912,7 +960,8 @@ chmod +x scripts/build-uberjar.sh
 chmod +x scripts/build-cli-uberjar.sh
 ```
 
-Now add the `aot` and `uberjar` aliases to `deps.edn` in `projects/command-line`:
+Now add the `aot` and `uberjar` aliases to `deps.edn` in `projects/command-line`
+(if you followed the instructions in the tools.deps section, you have already done this):
 ```clojure
 {:paths ["../../components/user/src"
          "../../components/user/resources"
@@ -954,7 +1003,7 @@ Uberjar created.
 Let's execute it:
 ```sh
 cd ../projects/command-line/target
-java -jar command-line.jar Lisa  
+java -jar command-line.jar Lisa
 ```
 
 ```
@@ -1006,7 +1055,7 @@ We can also run the [diff](#diff) command, which will execute the same git state
 poly diff
 ```
 
-The output is the same:
+The output is the same (this assumes that you have [added](https://git-scm.com/docs/git-add) the files to your git repository):
 ```
 bases/cli/resources/cli/.keep
 bases/cli/src/se/example/cli/core.clj
@@ -1054,6 +1103,12 @@ haven't told git to move the `stable point in time` to our second commit.
 
 # Tagging
 
+Tags are used in Polylith to mark points in time where we concider the whole codebase (workspace)
+to be in a valid state, for example that everything compiles and that all the tests and the `check` command executes 
+without errors. 
+This is then used by the [test](#test) command to run the tests incrementally, by only executing
+the affected tests, which substantially speeds up the tests.
+
 The way we mark a `stable point in time` is to tag it with git (-f tells git to reuse the tag if already exists):
 ```sh
 git tag -f stable-lisa
@@ -1066,6 +1121,8 @@ c91fdad4a34927d9aacfe4b04ea2f304f3303282 Workspace created.
 ```
 
 ...we can see that the second commit has been tagged with `stable-lisa`.
+Note that your hash tags will be different and when we refer to e.g. `c91fdad`
+in the following examples, you should instead give your own corresponding hash code.
  
 If we execute the `info` command:
 
@@ -1104,7 +1161,7 @@ Then it uses the last line of the output, or if no match was found, the first co
 ### Release
 
 When we release, we probably want the CI server to tag the release. Here we tag the first commit as `v1.1.0`
-and the second as `v1.2.0`:
+and the second as `v1.2.0` (make sure you replace `c91fdad` with your corresponding sha):
 ```
 git tag v1.1.0 c91fdad
 git tag v1.2.0
@@ -1245,10 +1302,22 @@ namespace in the `user` component:
          (user/hello "Lisa"))))
 ```
 
-Now let's run the [test](#test) command:
+Now we can run the test from the IDE:
+- Make sure the namespace is loaded, e.g. via the menu (or keyboard shortcuts) `Tools > REPL > Load File in REPL`
+- Run the test, e.g:
+  - Run all tests in the current namespace: `Tools > REPL > Run Tests in Current NS in REPL`
+  - Or, place the cursor under the test and run: `Tools > REPL > Run Test under carret in REPL`
+
+Oops, the test failed!
+
+<img src="images/test-in-repl-failing.png" width="50%">
+
+And if we run the [test](#test) command:
 ```sh
 poly test
 ```
+
+...it fails here too:
 
 ```
 projects to run tests from: command-line
@@ -1272,8 +1341,6 @@ Ran 1 tests containing 1 assertions.
 1 failures, 0 errors.
 ```
 
-
-Oops, the test failed!
 Remember that we added an extra `!` so now we need to update the 
 corresponding test accordingly:
 ```clojure
@@ -1286,7 +1353,11 @@ corresponding test accordingly:
          (user/hello "Lisa"))))
 ```
 
-If we run the `test` command again, it will now pass:
+If we run the test again from the REPL, it will now turn to green:
+
+<img src="images/test-in-repl-success.png" width="50%">
+
+...and the `test` command will pass too:
 ```
 projects to run tests from: command-line
 
@@ -1344,7 +1415,7 @@ example
 │       └── test
 ``` 
 
-Then add the path to `projects/command-line/deps.edn`:
+Then add the "test" path to `projects/command-line/deps.edn`:
 ```clojure
             :test {:extra-paths ["../../components/user/test"
                                  "../../bases/cli/test"
@@ -1380,6 +1451,10 @@ We could have chosen another top namespace, e.g., `se.example.project.command-li
 we don't have any brick with the name `project`. But because we don't want to get into any name
 conflicts with bricks and also because each project is executed in isolation, the choice of 
 namespace is less important and here we choose the `project` top namespace to keep it simple. 
+
+Normally, we are forced to put our tests in the same namespace as the code we want to test,
+to get proper access, but in Polylith the encapsulation is guaranteed by the Polylith Tool and
+all code can therefore be declared public, which allows us to put the test code wherever we want.
 
 If we execute the `info` command:<br>
 <img src="images/testing-info-4.png" width="30%">
@@ -1434,20 +1509,24 @@ They passed!
 
 As you have just seen, with Polylith we can add tests at two different levels: brick and project.
 
-The project tests should be used for our slow tests. They also give us a way to write 
-tailor-made tests that are unique per project.
+The _project_ tests should be used for our slow tests, e.g. tests that takes more than 100 miliseconds
+to execute, or whatever we draw the line, to keep our fast _brick_ tests fast enough to give us
+a really fast feedback loop.
+The project tests also give us a way to write tailor-made tests that are unique per project.
+
+The second category is the _brick_ tests.
 To keep the feedback loop short, we should only put fast running tests in our bricks.
 This will give us a faster feedback loop, because the brick tests are the ones
 that are executed when we run `poly test` while the project tests are not.
 
 But does that mean we are only allowed to put unit tests in our bricks?  
 No. As long as the tests are fast (by e.g. using in-memory databases)
-they should be put in the bricks they belong to
+they should be put in the bricks they belong to.
 
 Before we continue, let's commit what we have done so far and mark the workspace as stable:
 ```sh
 git add --all
-git commit -m "Added tests"  
+git commit -m "Added tests"
 git tag -f stable-lisa
 ```
 If we execute the `info` command again:<br>
@@ -1610,32 +1689,253 @@ allows us to use [remote procedure calls](https://en.wikipedia.org/wiki/Remote_p
 in a simple way.
 
 Let's create a checklist that will take us there:
-1. Create the `user-service`.
-2. Create the `user-api` base.
-3. Create the `user-remote` component.
-4. Update the `development` project.
-5. Switch from `user` to `user-remote` in `deps.edn` for the `command-line` project.
-6. Create a build script for `user-service`.
+1. Create the `user-api` base.
+2. Create the `user-remote` component.
+3. Switch from `user` to `user-remote` in `deps.edn` for the `command-line` project.
+4. Create the `user-service`.
+5. Create a build script for `user-service`.
 
 Let's go through the list.
 
-#### 1. Create the `user-service`:
+#### 1. Create the `user-api` base:
+
+- [x] Create the base.
+- [x] Add paths to `./deps.edn`.
+- [x] Add `slacker` related libraries to `./deps.edn`.
+- [x] Add library mapping for the `slacker` library to `./deps.edn`.
+- [x] Implement the server for `user-api`:
+
+Execute this statement:
+```
+poly create base name:user-api
+```
+
+Add `user-api` paths to `./deps.edn`:
+```
+ :aliases  {:dev {:extra-paths [...
+                                "bases/user-api/src"
+                                "bases/user-api/resources"]
+
+            :test {:extra-paths [...
+                                 "bases/user-api/test"
+```
+
+Add `slacker` related libraries to `./deps.edn` (libraries are added per project, which is described in the [libraries](#libraries) section):
+```
+ :aliases  {:dev
+            ...
+
+            :test {:extra-paths [...
+
+                  :extra-deps {...
+                               slacker {:mvn/version "0.17.0"}
+                               http-kit {:mvn/version "2.4.0"}
+                               ring {:mvn/version "1.8.1"}
+                               compojure {:mvn/version "1.6.2"}
+                               org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
+                               org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}}}
+```
+
+Add library mapping for the `slacker` library to `./deps.edn`:
+```
+{:polylith {...
+            :ns-to-lib {slacker  slacker}}
+```
+
+This maps the `slacker` namespace to the `slacker` library, so that the tool can figure out
+which projects need the `slacker` library, when running the [check](#check) or [info](#info) command.
+It also allows the [libs](#libs) command to show which bricks use the `slack` library,
+which is explained in detail in the [libraries](#libraries) section.
+
+Create the _api_ namespace:
+
+```
+example
+├── bases
+│   └── user-api
+│       └── src
+│           ├── se.example.user_api.api.clj
+│           └── se.example.user_api.core.clj
+```
+
+...with this content:
+```clojure
+(ns se.example.user-api.api
+  (:require [se.example.user.interface :as user]))
+
+(defn hello-remote [name]
+  (user/hello (str name " - from the server")))
+```
+...and update the `core` namespace:
+
+```clojure
+(ns se.example.user-api.core
+  (:require [se.example.user-api.api]
+            [slacker.server :as server])
+  (:gen-class))
+
+(defn -main [& args]
+  (server/start-slacker-server [(the-ns 'se.example.user-api.api)] 2104)
+  (println "server started: http://127.0.0.1:2104"))
+```
+
+#### 2. Create the `user-remote` component:
+
+- [x] Create the component.
+- [x] Remove the `user` paths from `./deps.edn`.
+- [x] Create the `default` and `remote` profiles.
+- [x] Activate the `remote` profile in the IDE.
+- [x] Activate the `default` profile in the REPL configuration.
+- [x] Implement the component:
+  - [x] Create the `core` namespace and call `user-service` from there.
+  - [x] Delegate from the `interface` to the `core` namespace.
+
+Create the component:
+```sh
+poly create component name:user-remote interface:user
+```
+
+Remove the `user` related paths from `./deps.edn`:
+```
+:aliases  {:dev {:extra-paths ["...
+                               "components/user/src"
+                               "components/user/resources"]
+ 
+           ...
+
+           :test {:extra-paths ["components/user/test"
+                                ...]}
+```
+
+Add the `default` and `remote` profiles to `./deps.edn`:
+```
+:aliases  {:dev 
+           ...
+
+           :test
+           ...
+
+           :+default {:extra-paths ["components/user/src"
+                                    "components/user/resources"
+                                    "components/user/test"]}
+
+           :+remote {:extra-paths ["components/user-remote/src"
+                                   "components/user-remote/resources"
+                                   "components/user-remote/test"]}
+```
+
+Notice here that the profiles contain both `src` and `test` directories.
+This works as profiles are only used from the development project.
+
+The next step is to activate the `remote` profile in our IDE:
+
+<img src="images/profile-activate-remote.png" width="18%">
+
+Create the `core` namespace:
+
+```
+example
+├── components
+│   └── user-remote
+│       └── src
+│           ├── se.example.user_remote.core.clj
+│           └── se.example.user_remote.interface.clj
+```
+
+...with this content:
+```clojure
+(ns se.example.user.core
+  (:require [slacker.client :as client]))
+
+(declare hello-remote)
+
+(defn hello [name]
+  (let [connection (client/slackerc "localhost:2104")
+        _ (client/defn-remote connection se.example.user-api.api/hello-remote)]
+    (hello-remote name)))
+```
+
+...and update the `interface` namespace:
+```clojure
+(ns se.example.user.interface
+  (:require [se.example.user.core :as core]))
+
+(defn hello [name]
+  (core/hello name))
+```
+
+Edit the REPL configuration:
+
+<img src="images/repl-edit-configuration.png" width="25%">
+
+...and add the `default` profile to `Aiases`: "test,dev,+default"
+
+The reason we have to do this, is because we removed the `user` component from the "main"
+paths in `./deps.edn` and now we have to add it via a profile instead.
+We need the source code for the `se.example.user.interface` namespace, and we have two
+alternatives, the `user` or the `user-remote` component that both use this interface.
+The `user` component is a better default because it's simpler and only communicates via
+direct function calls without hitting the wire.
+
+For the changes to take affect we now need to restart the REPL. Normally we don't have to do that,
+but when adding profiles it's necessary.
+ 
+#### 3. Switch from `user` to `user-remote` in `deps.edn` for the `command-line` project.
+- [x] Replace `user` related paths with `user-remote` in `projects/command-line/deps.edn`.
+- [x] Add the Slacker library to `deps.edn` for `command-line`.
+- [x] Add the log4j library to `deps.edn` for `command-line`.
+- [x] Create a `command-line` uberjar.
+
+Update the configuration file for the `command-line` project:
+
+```
+example
+├── projects
+│   └── command-line
+│       └── deps.edn
+```
+
+Replace `user` with `user-remote`, add the `slacker` library (used by `user-remote`),
+and `log4j` (to get rid of warnings):
+```clojure
+{:paths ["../../components/user-remote/src"
+         "../../components/user-remote/resources"
+         ...
+
+ :deps {...
+        slacker {:mvn/version "0.17.0"}
+        org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
+        org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}}
+
+ :aliases {:test {:extra-paths ["../../components/user-remote/test"
+                                ...
+```
+
+Create an uberjar by executing:
+```
+cd scripts
+./build-cli-uberjar.sh
+cd ..
+```
+
+#### 4. Create the `user-service`:
+
+- [x] Create the project.
 - [x] Update its `deps.edn`:
-  - [x] Add the Slacker library and libraries it needs.
+  - [x] Add the `slacker` library and libraries it needs.
   - [x] Add paths for the `user` component.
   - [x] Add paths for the `user-api` base.
   - [x] Add the `aot` and `uberjar` aliases.
-  
+- [x] Add the `cl` alias for the `user-service` to `./deps.edn`.
+
+Create the project:
 ```sh
 poly create project name:user-service
 ```
+
+Set the content of `projects/user-service/deps.edn` to this:
 ```
-{...
-
- :deps {...
-        slacker {:mvn/version "0.17.0"}}
-
- :paths ["../../components/user/src"
+{:paths ["../../components/user/src"
          "../../components/user/resources"
          "../../bases/user-api/src"
          "../../bases/user-api/resources"]
@@ -1660,182 +1960,33 @@ poly create project name:user-service
                      :main-opts  ["-m" "uberdeps.uberjar"
                                   "--aliases" "aot"
                                   "--main-class" "se.example.user_api.core"]}}}
-  ...
 ```
 
-#### 2. Create the `user-api` base:
+Add the `user-s` alias for the `user-service` in `./deps.edn`:
 ```
-poly create base name:user-api
-```
-- [x] Implement the server for `user-api`:
-```
-example
-├── bases
-│   └── user-api
-│       └── src
-│           ├── se.example.user_api.api.clj
-│           └── se.example.user_api.core.clj
-```
-```clojure
-(ns se.example.user-api.core
-  (:require [se.example.user-api.api]
-            [slacker.server :as server])
-  (:gen-class))
-
-(defn -main [& args]
-  (server/start-slacker-server [(the-ns 'se.example.user-api.api)] 2104)
-  (println "server started: http://127.0.0.1:2104"))
-```
-```clojure
-(ns se.example.user-api.api
-  (:require [se.example.user.interface :as user]))
-
-(defn hello-remote [name]
-  (core/hello (str name " - from the server")))
-```
-
-#### 3. Create the `user-remote` component:
-- [x] Create the `core` namespace and call `user-service` from there.
-- [x] Delegate from the `interface` to the `core` namespace.
-```sh
-poly create component name:user-remote interface:user
-```
-```
-example
-├── components
-│   └── user-remote
-│       └── src
-│           ├── se.example.user_remote.core.clj
-│           └── se.example.user_remote.interface.clj
-```
-```clojure
-(ns se.example.user.core
-  (:require [slacker.client :as client]))
-
-(declare hello-remote)
-
-(defn hello [name]
-  (let [connection (client/slackerc "localhost:2104")
-        _ (client/defn-remote connection se.example.user-api.api/hello-remote)]
-    (hello-remote name)))
-```
-```clojure
-(ns se.example.user.interface
-  (:require [se.example.user.core :as core]))
-
-(defn hello [name]
-  (core/hello name))
-```
-
-#### 4. Update the `development` project:
-- [x] Update `./deps.edn`:
-  - [x] Add an alias for the `user-service` (:project-to-alias).
-  - [x] Add namespace to the library mapping (:ns-to-lib).
-  - [x] Remove the `user` paths.
-  - [x] Add the Slacker library and libraries it needs.
-- [x] Create the `default` and `remote` profiles.
-  - [x] Add the `user` paths to the `default` profile.
-  - [x] Add the `user-remote` paths to the `remote` profile.
-  - [x] Activate the `default` profile in the dev project.
-
-```clojure
-{:polylith {:vcs "git"
-            :top-namespace "se.example"
-            :interface-ns "interface"
-            :default-profile-name "default"
-            :compact-views #{}
-            :release-tag-pattern "v[0-9]*"
-            :stable-tag-pattern "stable-*"
-            :project-to-alias {"development" "dev"
-                               "command-line" "cl"
+{:polylith {...
+            :project-to-alias {...
                                "user-service" "user-s"}
-            :ns-to-lib {slacker  slacker}}
-
- :aliases  {:dev {:extra-paths ["development/src"
-                                "bases/cli/src"
-                                "bases/cli/resources"
-                                "bases/user-api/src"
-                                "bases/user-api/resources"]
-                  :extra-deps {org.clojure/clojure {:mvn/version "1.10.1"}
-                               org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}
-                               slacker {:mvn/version "0.17.0"}
-                               http-kit {:mvn/version "2.4.0"}
-                               ring {:mvn/version "1.8.1"}
-                               compojure {:mvn/version "1.6.2"}
-                               org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
-                               org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}}}
-
-            :test {:extra-paths ["bases/cli/test"
-                                 "bases/user-api/test"
-                                 "projects/command-line/test"]}
-
-            :+default {:extra-paths ["components/user/src"
-                                     "components/user/resources"
-                                     "components/user/test"]}
-
-            :+remote {:extra-paths ["components/user-remote/src"
-                                    "components/user-remote/resources"
-                                    "components/user-remote/test"]}
-
-            :poly {:main-opts ["-m" "polylith.clj.core.poly_cli.poly"]
-                   :extra-deps {polyfy/polylith
-                                {:git/url   "https://github.com/polyfy/polylith.git"
-                                 :sha       "78b2c77c56d1b41109d68b451069affac935200e"
-                                 :deps/root "projects/poly"}}}}}
-``` 
-
-Notice here that the profiles contain both `src` and `test` directories.
-This works as profiles are only used from the development project.
-
-Now we should activate the `default` profiles so that the IDE will recognise the `user` component:
-
-<img src="images/profile-activate-default.png" width="20%">
-
-#### 5. Switch from `user` to `user-remote` in `deps.edn` for the `command-line` project.
-- [x] Remove `user` related paths from `projects/command-line/deps.edn`.
-- [x] Add `user-remote` related paths to `projects/command-line/deps.edn`.
-- [x] Add the Slacker library to `deps.edn` for `command-line` (used by `user-remote`).
-- [x] Add the log4j library to `deps.edn` for `command-line` (to get rid of warnings).
-- [x] Rebuild `command-line`.
-
-```
-example
-├── projects
-│   └── command-line
-│       └── deps.edn
-```
-```clojure
-{:paths ["../../components/user-remote/src"
-         "../../components/user-remote/resources"
-         ...
-
- :deps {...
-        slacker {:mvn/version "0.17.0"}
-        org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
-        org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}}
-
- :aliases {:test {:extra-paths ["../../components/user-remote/test"
-                                ...
 ```
 
-Execute:
-```
-./build-cli-uberjar.sh  
-```
-
-#### 6. Create a build script for `user-service`.
+#### 5. Create a build script for `user-service`.
 - [x] Make it executable.
 - [x] Execute it.
+
+Create this file:
 ```sh
 example
 ├── scripts
 │   └── build-user-service-uberjar.sh
 ```
+
+...with this content:
 ```sh
 #!/usr/bin/env bash
 ./build-uberjar.sh user-service
 ```
-Execute:
+
+Create an uberjar for the `user-service`:
 ```
 cd scripts
 chmod +x build-user-service-uberjar.sh
@@ -1846,25 +1997,59 @@ Puhh, that should be it! Now let's test if it works.
 
 Execute this from the workspace root in a separate terminal:
 ```
-cd example/projects/user-service/target
+cd projects/user-service/target
 java -jar user-service.jar
 ```
+
+It should output:
 ```
 server started: http://127.0.0.1:2104
 ```
 
-Now execute this from the other terminal:
+Now when we have a running service, we could test if we can call it from the REPL.
+We activated the `remote` profile in our IDE earlier, which made the `user-remote` component active:
+
+<img src="images/component-dirs.png" width="17%">
+
+It would be nice if we could try it out from the REPL first.
+We can do that by adding this code to `development/src/dev/lisa.clj`:
 ```
-cd ../projects/command-line/target
-java -jar command-line.jar Lisa
+(ns dev.lisa
+  (:require [se.example.user.interface :as user]))
+
+(user/hello "Lisa")
+``` 
+...and if we execute the `hello` function, we get:
 ```
-The output should be:
+"Hello Lisa!!"
+```
+
+Ok, it still runs the old code, and the reason is that we haven't sent the `user-remote` code to the REPL.
+The simplest way of doing that is to restart the REPL.
+
+If we don't want to restart the REPL (or start a separate REPL) we can instead open the `interface` namespace 
+of the `user-remote` component and select `Tools > REPL > Load file in REPL`.
+
+If we execute the `hello` function agan, we should get:
 ```
 Hello Lisa - from the server!!
 ```
 
+Now, let's continue with our example. Execute this from the other terminal
+(the one that we didn't start the server from):
+```
+cd ../../../projects/command-line/target
+java -jar command-line.jar Lisa
+```
+```
+Hello Lisa - from the server!!
+```
+
+Wow, that worked too!
+
 Now execute the `info` command (`+` inactivates all profiles, and makes the `default` profile visible):
 ```
+cd ../../..
 poly info +
 ```
 
@@ -1878,53 +2063,12 @@ Looks like we got everything right!
 The profile flags, `xx`, follows the same pattern as for
 bricks and projects except that the last `Run the tests` flag is omitted.
 
-In this example we took quite big steps so that we only had to show the changes for each file once. 
-Normally we work in smaller steps by creating one brick or profile at a time.
+This example was quite simple, but if our project is more complicated, we may want to manage state during 
+development with a tool like [Mount](https://github.com/tolitius/mount) or we could create our own 
+helper functions that we put in the `dev.lisa` namespace, which can help us switch profiles
+by using a library like [tools.namespace](https://github.com/clojure/tools.namespace).
 
-Earlier, we activated the `default` profile in our IDE, and if we now execute the `hello` function:
-```clojure
-(ns dev.lisa
-  (:require [se.example.user.interface :as user]))
-
-(user/hello "Lisa")
-```
-
-...it will return `Hello Lisa!!`.
-
-To emulate the production project, we can switch to the `remote` profile:
-
-<img src="images/profile-activate-remote.png" width="20%">
-
-We also need to replace the old `user` implementation with the `user-remote` one, by sending
-its `core` namespace content to the REPL:
-```clojure
-(ns se.example.user.core
-  (:require [slacker.client :as client]))
-
-(declare hello-remote)
-
-(defn hello [name]
-  (let [connection (client/slackerc "localhost:2104")
-        _ (client/defn-remote connection se.example.user-api.api/hello-remote)]
-    (hello-remote name)))
-
-```
-
-If we execute the `hello` function again, it will now return `Hello Lisa - from the server!!`.
-As we can see, this is a way to switch between implementations without restarting the REPL.
-
-In this project we only had to replace one namespace, which was easy to do manually.
-If our project is more complicated, we can solve it by creating one function per project 
-where we put the code that performs the switch. Those functions can live under the `development` project,
-and once created, they can easily be used to switch between projects.
-A good candidate is to use the [tools.namespace](https://github.com/clojure/tools.namespace)
-library that has support for refreshing namespaces.
-
-If we want to handle application state transitions without restarting the REPL, 
-then a tool like [Mount](https://github.com/tolitius/mount) can be helpful.
-
-Those functions is used to update the REPL, but if we want to switch profile when running
-a command, we need to pass them in, e.g.:
+If we want to switch profile when running a command, we need to pass them in, e.g.:
 ```sh
 poly info +remote
 ```
@@ -1984,7 +2128,6 @@ clone-from-here
 ```sh
 git clone git@github.com:furkan3ayraktar/clojure-polylith-realworld-example-app.git
 cd clojure-polylith-realworld-example-app
-git checkout clojure-deps
 ```
 
 Before we continue, it may be worth mentioning that most commands, except the [test](#test) command,
@@ -1993,8 +2136,8 @@ can be executed from other workspaces by giving `ws-dir`, e.g.:
 poly check ws-dir:../example
 ``` 
 
-If we are in a workspace subdirectory, we can use `::` to execute commands from the first parent
-directory that contains a `deps.edn` workspace file, e.g.:
+Another way of giving the `ws-dir` is to pass in `::` which will set it to the first parent directory that contains
+a `deps.edn` workspace file, e.g.:
 ```
 cd projects/realworld-backend
 poly info ::
@@ -2005,8 +2148,9 @@ poly info ::
 poly info ws-dir:../..
 ```
 
-Let's continue with the RealWorld example and tag it as stable (which will only affect our local clone):
+Now, let's tag the RealWorld application as stable (which will only affect our local clone):
 ```
+cd ../..
 git tag -f stable-lisa
 ```
 
@@ -2059,7 +2203,7 @@ poly deps project:rb brick:article
 ## Libraries
 
 Libraries are specified in `deps.edn` under each project:
-- The dev project: `./deps.edn` > `:aliases` > `:dev` > `:extra-deps`.
+- The development project: `./deps.edn` > `:aliases` > `:dev` > `:extra-deps`.
 - Other projects: `projects/PROJECT-DIR` > `deps.edn` > `:deps`.
 
 To list all libraries used in the workspace, execute the [libs](#libs) command:
@@ -2068,7 +2212,7 @@ poly libs
 ```
 <img src="images/realworld-lib-deps.png" width="60%">
 
-Libraries can be specified in three different ways:
+Libraries can be specified in three different ways in `tools.deps`:
 
 | Type  | Description |
 |:------|:------------------------------------------------------|
@@ -2283,6 +2427,7 @@ If we are only interested in a specific element in this structure, we can dig de
 poly ws get:settings:profile-to-settings:default
 ```
 
+...which outputs:
 ```clojure
 {:lib-deps {},
  :paths ["components/user/src"
@@ -2391,8 +2536,8 @@ The `old-user-input` key is added when `ws-file` is given.
 ## Git hook
 
 We can ensure that we don't push code that puts the workspace in an invalid state,
-by adding a [git hook](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) to our workspace
-that runs the [check](doc/commands.md#check) command.
+by adding a [git hook](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) to our workspace,
+that executes the [check](doc/commands.md#check) command.
 
 To make this work, all developers should add `.git/hooks/commit-msg` to the root of the workspace
 on their local disk with the following content, e.g.:
@@ -2407,6 +2552,8 @@ if [[ $? -ne 0 ]] then
 fi
 ```
 
+Replace `PATH-TO-WORKSPACE-DIRECTORY` with the path to the workspace root.
+
 ## Mix languages
 
 Polylith allows us to run multiple languages side by side where each language lives in its own workspace.
@@ -2416,18 +2563,9 @@ as for this tool (see list of [JVM languages](https://en.wikipedia.org/wiki/List
 Let's say we have the languages A, B and C. The first thing to remember is to have different
 names of the top namespace for each language, so that we don't run into name conflicts.
 We would end up with top namespaces like: `com.mycompany.a`, `com.mycompany.b` and `com.mycompany.c`.
+
 Each language will have its own workspace and will compile all components and bases 
-into one big jar like `a.jar`, `b.jar` or `c.jar`.
-
-So if component `com.mycompany.a.authentication` is used by `com.mycompany.b.user`,
-then `com.mycompany.b.user` will include `a.jar` in its library list, to be able to access `authentication`.
-
-This setup allows us to share components between languages by first compiling them into libraries.
-We could also use the [Java Native Interface](https://en.wikipedia.org/wiki/Java_Native_Interface) to share code between languages
-that don't run on top of the JVM, or use something like [Neanderthal](https://neanderthal.uncomplicate.org)
-if we want to integrate with the [GPU](https://en.wikipedia.org/wiki/Graphics_processing_unit).
-
-An alternative approach could be to use the [GraalVM](https://www.graalvm.org) or similar.
+into one big jar like `a.jar`, `b.jar` or `c.jar`, that can then be used by other languages.
 
 ## Colors
 
@@ -2469,6 +2607,8 @@ If you want to use the same colors in your terminal, here they are:<br>
 If the colors (f8eeb6, bfefc5, 77bcfc, e2aeff, cccccc, 24272b, ee9b9a) looks familiar to you, it's because they are 
 more or less stolen from the [Borealis](https://github.com/Misophistful/borealis-cursive-theme) color schema!
 This color schema gives a really pleasant user experience when used from the text editor / IDE.
+
+Happy coding!
 
 ## Contact
 
