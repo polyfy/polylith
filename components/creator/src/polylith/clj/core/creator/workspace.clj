@@ -48,7 +48,7 @@
    (str "")
    (str "            :test {:extra-paths []}")
    (str "")
-   (str "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly_cli.poly\"]")
+   (str "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly-cli.core\"]")
    (str "                   :extra-deps {polyfy/polylith")
    (str "                                {:git/url   \"https://github.com/polyfy/polylith\"")
    (str "                                 :sha       \"INSERT_LATEST_SHA_HERE\"")

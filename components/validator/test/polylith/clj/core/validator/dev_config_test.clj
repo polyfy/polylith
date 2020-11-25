@@ -22,7 +22,7 @@
                                                  "components/user/test"]}
                         :+remote {:extra-paths ["components/user-remote/src"
                                                 "components/user-remote/test"]}
-                        :poly {:main-opts ["-m" "polylith.clj.core.poly_cli.poly"]
+                        :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                                :extra-deps {'polyfy/polylith
                                             {:git/url   "https://github.com/polyfy/polylith.git"
                                              :sha       "78b2c77c56d1b41109d68b451069affac935200e"

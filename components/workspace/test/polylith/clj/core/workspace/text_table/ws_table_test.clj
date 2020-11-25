@@ -2239,7 +2239,7 @@
                          :lines-of-code-src 22,
                          :lines-of-code-test 0,
                          :namespaces-src [{:name "poly",
-                                           :namespace "polylith.clj.core.poly-cli.poly",
+                                           :namespace "polylith.clj.core.poly-cli.core",
                                            :file-path "./bases/poly-cli/src/polylith/clj/core/poly_cli/poly.clj",
                                            :imports ["polylith.clj.core.change.interfc"
                                                      "polylith.clj.core.command.interfc"
