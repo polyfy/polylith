@@ -137,7 +137,7 @@ name and email.
 To install the `poly` command on Linux:
 
 - Download the [latest release](https://github.com/polyfy/polylith/releases/latest) of the `poly` jar,
-  e.g. `poly-0.1.0-alpha5.jar`.
+  e.g. `poly-0.1.0-alpha6.jar`.
 - Create a directory, e.g. `/usr/local/polylith` and copy the jar file to that directory.
 - Create a file with the name `poly` and put it in e.g. `/usr/local/bin` with this content:
  ```
@@ -149,7 +149,7 @@ while [ "$1" != "" ] ; do
   shift
 done
 
-exec "/usr/bin/java" "-jar" "/usr/local/polylith/poly-0.1.0-alpha5.jar" $ARGS
+exec "/usr/bin/java" "-jar" "/usr/local/polylith/poly-0.1.0-alpha6.jar" $ARGS
 ```
 - Make sure that:
   - you point to the correct jar file.
@@ -193,13 +193,13 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 To install the `poly` command on Windows:
 
 - Download the [latest release](https://github.com/polyfy/polylith/releases/latest) of the `poly` jar,
-  e.g. `poly-0.1.0-alpha5.jar`.
+  e.g. `poly-0.1.0-alpha6.jar`.
 - Create the `Polylith` directory somewhere on your machine, e.g. 
   `C:\Program Files\Polylith` and copy the jar file to that directory.
 - Create the file `poly.bat` with this content (make sure you point to the jar):
 ```sh
 @echo off
-start /wait /b java -jar "C:\Program Files\Polylith\poly-0.1.0-alpha5.jar" %*
+start /wait /b java -jar "C:\Program Files\Polylith\poly-0.1.0-alpha6.jar" %*
 ```
 - Add `C:\Program Files\Polylith` to the Windows `PATH` variable.
 
@@ -218,7 +218,7 @@ To use it this way, add one of the following aliases to the `:aliases` section i
 {
 ...
  :aliases   {:poly  {:extra-deps {polylith/clj-poly
-                                  {:mvn/version "0.1.0-alpha5"}}
+                                  {:mvn/version "0.1.0-alpha6"}}
                      :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}}
 ...
 }
@@ -250,7 +250,7 @@ clj -M:poly info
 Similarly, you can use other artifacts from this repository, `clj-api` or `clj-poly-migrator` as dependencies. For example, in order to add `clj-api` as a dependency, add one of the following to your `:deps` section in your `deps.edn` file:
 
 ```clojure
-polylith/clj-api {:mvn/version "0.1.0-alpha5"}
+polylith/clj-api {:mvn/version "0.1.0-alpha6"}
 ```
 or
 ```clojure
@@ -2418,7 +2418,7 @@ poly ws get:settings
  :user-config-file "/Users/tengstrand/.polylith/config.edn",
  :user-home "/Users/tengstrand",
  :vcs "git",
- :version "0.1.0-alpha5",
+ :version "0.1.0-alpha6",
  :ws-schema-version {:breaking 0, :non-breaking 0}}
 ```
 

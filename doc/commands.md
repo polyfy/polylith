@@ -25,7 +25,7 @@ poly help
 ```
 
 ```
-  Poly 0.1.0-alpha5 (2020-11-16) - https://github.com/polyfy/polylith
+  Poly 0.1.0-alpha6 (2020-11-26) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
