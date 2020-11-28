@@ -2007,28 +2007,38 @@ server started: http://127.0.0.1:2104
 ```
 
 Now when we have a running service, we could test if we can call it from the REPL.
-We activated the `remote` profile in our IDE earlier, which made the `user-remote` component active:
+We activated the `remote` profile in our IDE earlier, which made the `user-remote` component active.
+Note that this only instructs the IDE to treat `user-remote` as source code:
 
 <img src="images/component-dirs.png" width="17%">
 
-It would be nice if we could try it out from the REPL first.
-We can do that by adding this code to `development/src/dev/lisa.clj`:
+...but it **doesn't load** its source code into the REPL!
+
+We can verify this by adding this code to `development/src/dev/lisa.clj`:
 ```
 (ns dev.lisa
   (:require [se.example.user.interface :as user]))
 
 (user/hello "Lisa")
 ``` 
-...and if we execute the `hello` function, we get:
+...and if we execute the `hello` function, we still get:
 ```
 "Hello Lisa!!"
 ```
 
-Ok, it still runs the old code, and the reason is that we haven't sent the `user-remote` code to the REPL.
-The simplest way of doing that is to restart the REPL.
+Remember that we set the REPL configuration to "dev,test,+default"
+which loads the `user` component into the REPL every time we start or restart the REPL. 
+This is the recommended way of configuring the default REPL, by selecting the "simple" components that
+communicate with each other using direct function calls.
+Because of this, we should keep the "dev,test,+default" configuration as it is.
 
-If we don't want to restart the REPL (or start a separate REPL) we can instead open the `interface` namespace 
-of the `user-remote` component and select `Tools > REPL > Load file in REPL`.
+What we can do is to create another REPL configuration, e.g. "REPL prod", and set `Aliases` to "dev,test,+remote".
+This REPL will use the `user-remote` component and can be used to "emulate" a production like environment.
+
+But let's continue with the REPL we already have and let's see if we can switch to `user-remote` without restarting the REPL. 
+Open the `interface` namespace of the `user-remote` component and select `Tools > REPL > Load file in REPL`.
+This will replace the `user` implementaton with the `user-remote` component, which works because both
+live in the same `se.example.user` namespace, which is also their interface (`user`).
 
 If we execute the `hello` function agan, we should get:
 ```
