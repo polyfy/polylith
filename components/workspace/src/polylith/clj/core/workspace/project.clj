@@ -26,11 +26,11 @@
               brick-names)
       set sort vec))
 
-(defn run-the-tests? [projt-name alias is-dev is-run-all-brick-tests selected-projects]
+(defn run-the-tests? [project-name alias is-dev is-run-all-brick-tests selected-projects]
   (or (and (not is-dev)
            (or is-run-all-brick-tests
                (empty? selected-projects)))
-      (or (contains? selected-projects projt-name)
+      (or (contains? selected-projects project-name)
           (contains? selected-projects alias))))
 
 (defn enrich-project [{:keys [name is-dev namespaces-src namespaces-test src-paths test-paths lib-deps test-lib-deps] :as project}

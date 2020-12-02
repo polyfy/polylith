@@ -15,18 +15,18 @@
       []
       (set/difference (set projects) #{"development"}))))
 
-(defn project-tests [project-name changed-projects included-projects is-dev]
-  (let [projects (set/intersection (set changed-projects)
+(defn project-tests [project-name affected-projects included-projects is-dev]
+  (let [projects (set/intersection (set affected-projects)
                                    (set included-projects))]
     (select-projects project-name projects is-dev)))
 
-(defn projects-to-test [{:keys [name is-run-tests] :as project} disk-paths changed-projects is-dev is-run-project-tests is-all]
-  (let [included-projs (included-projects project disk-paths)]
+(defn projects-to-test [{:keys [name is-run-tests] :as project} disk-paths affected-projects is-dev is-run-project-tests is-all]
+  (let [included-projects (included-projects project disk-paths)]
     (cond
-      is-all [name (vec (sort (select-projects name included-projs is-dev)))]
-      (and is-run-tests is-run-project-tests) [name (vec (sort (project-tests name changed-projects included-projs is-dev)))]
+      is-all [name (vec (sort (select-projects name included-projects is-dev)))]
+      (and is-run-tests is-run-project-tests) [name (vec (sort (project-tests name affected-projects included-projects is-dev)))]
       :else [name []])))
 
-(defn project-to-projects-to-test [projects changed-projects disk-paths is-dev is-run-project-tests is-all]
-  (into {} (map #(projects-to-test % disk-paths changed-projects is-dev is-run-project-tests is-all)
+(defn project-to-projects-to-test [projects affected-projects disk-paths is-dev is-run-project-tests is-all]
+  (into {} (map #(projects-to-test % disk-paths affected-projects is-dev is-run-project-tests is-all)
                 projects)))
