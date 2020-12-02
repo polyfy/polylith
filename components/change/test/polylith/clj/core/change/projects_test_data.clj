@@ -14,7 +14,8 @@
                 :has-test-dir? true
                 :component-names ["profile"]
                 :test-base-names ["rest-api"]
-                :test-component-names ["article" "comment" "profile" "tag" "user"]}
+                :test-component-names ["article" "comment" "profile" "tag" "user"]
+                :test-paths ["projects/core/test"]}
                {:name "cli"
                 :is-dev false
                 :is-run-tests false

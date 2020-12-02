@@ -8,3 +8,12 @@
           "core" []
           "development" []}
          (to-test/project-to-projects-to-test data/projects [] [] false false false))))
+
+(deftest projects-to-test--where-project-is-affected-and-contains-project-test-path--returns-affected-project
+  (is (= {"cli" []
+          "core" ["core"]
+          "development" []}
+         (to-test/project-to-projects-to-test data/projects
+                                              ["core"]
+                                              {:existing ["projects/core/test"]}
+                                              false true false))))
