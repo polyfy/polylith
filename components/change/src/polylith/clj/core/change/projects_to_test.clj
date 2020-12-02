@@ -21,10 +21,10 @@
     (select-projects project-name projects is-dev)))
 
 (defn projects-to-test [{:keys [name is-run-tests] :as project} disk-paths affected-projects is-dev is-run-project-tests is-all]
-  (let [included-projs (included-projects project disk-paths)]
+  (let [included-projects (included-projects project disk-paths)]
     (cond
-      is-all [name (vec (sort (select-projects name included-projs is-dev)))]
-      (and is-run-tests is-run-project-tests) [name (vec (sort (project-tests name affected-projects included-projs is-dev)))]
+      is-all [name (vec (sort (select-projects name included-projects is-dev)))]
+      (and is-run-tests is-run-project-tests) [name (vec (sort (project-tests name affected-projects included-projects is-dev)))]
       :else [name []])))
 
 (defn project-to-projects-to-test [projects affected-projects disk-paths is-dev is-run-project-tests is-all]
