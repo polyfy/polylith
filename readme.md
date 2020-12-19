@@ -1153,10 +1153,11 @@ git tag -f stable-lisa c91fdad
 
 The way the tool finds the latest tag is to execute this command internally:
 ```
-git tag --sort=committerdate -l 'stable-*'
-``` 
+git log --pretty=format:'%H %d'
+```
 
-Then it uses the last line of the output, or if no match was found, the first commit in the repository.
+Then it uses the first line of the output that matches the `stable-*` regular expression,
+or if no match was found, the first commit in the repository.
 
 ### Release
 
