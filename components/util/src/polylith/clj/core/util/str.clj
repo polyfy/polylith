@@ -12,7 +12,7 @@
   (when string
     (let [index (str/index-of string separator)]
       (when index
-        (subs string (inc index))))))
+        (subs string (+ (count separator) index))))))
 
 (defn skip-prefix [string prefix]
   (when string

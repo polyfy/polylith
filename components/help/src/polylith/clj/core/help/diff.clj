@@ -15,8 +15,9 @@
        "\n"
        "  The pattern can be changed in " (color/purple color-mode ":stable-tag-pattern") " in ./deps.edn.\n"
        "\n"
-       "  The way the latest tag is found is by taking the last line of the output from:\n"
-       "    git tag --sort=committerdate -l 'stable-*'\n"
+       "  The way the latest tag is found is by taking the first line that matches the 'stable-*'\n"
+       "  regular expression, or if no match was found, the first commit in the repository.\n"
+       "    git log --pretty=format:'%H %d'\n"
        "\n"
        "  Here is a compact way of listing all the commits including tags:\n"
        "    git log --pretty=oneline"))

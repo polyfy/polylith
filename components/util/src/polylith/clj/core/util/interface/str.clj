@@ -3,10 +3,11 @@
             [polylith.clj.core.util.str :as str-util]))
 
 (defn skip-if-ends-with [string ends-with]
-  (if (str/ends-with? string ends-with)
-    (let [chars (- (count string) (count ends-with))]
-      (subs string 0 chars))
-    string))
+  (when string
+    (if (str/ends-with? string ends-with)
+      (let [chars (- (count string) (count ends-with))]
+        (subs string 0 chars))
+      string)))
 
 (defn skip-until [string separator]
   (str-util/skip-until string separator))
