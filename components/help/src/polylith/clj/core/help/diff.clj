@@ -15,7 +15,7 @@
        "\n"
        "  The pattern can be changed in " (color/purple color-mode ":stable-tag-pattern") " in ./deps.edn.\n"
        "\n"
-       "  The way the latest tag is found is by taking the first line that matches the 'table-*'\n"
+       "  The way the latest tag is found is by taking the first line that matches the 'stable-*'\n"
        "  regular expression, or if no match was found, the first commit in the repository.\n"
        "    git log --pretty=format:'%H %d'\n"
        "\n"
