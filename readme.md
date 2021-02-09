@@ -755,7 +755,7 @@ There are two kinds of projects in Polylith: development and deployable.
    - Lives under the `projects` directory where each project has its own directory.
    - Has a `deps.edn` config file that specifies which libraries, component and bases that are included.
    - Can optionally have a `resources` directory. 
-   - If the base (we normally have only one per project) and the complonents that belong to it,
+   - If the base (we normally have only one per project) and the components that belong to it,
      contain any tests, then they will be run when we execute the [test](#test) command.
    - If it has any tests of its own, they will live in the `test` directory, e.g. `projects/my-project/test`. 
    - It's discouraged to have a `src` directory since all production code should normally only live in components and bases.
