@@ -57,5 +57,8 @@
            (helper/content src-api-dir "core.clj")))
 
     (is (= ["(ns se.example.my-base.core-test"
-            "  (:require [clojure.test :refer :all]))"]
+            "  (:require [clojure.test :refer :all]))"
+            ""
+            "(defn dummy-test"
+            "  (is (= 1 1)))"]
            (helper/content test-api-dir "core_test.clj")))))
