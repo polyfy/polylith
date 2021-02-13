@@ -1,6 +1,6 @@
-(ns polylith.clj.core.validator.deployable-config-test
+(ns polylith.clj.core.validator.datashape.deployable-config-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.validator.data :as data]))
+            [polylith.clj.core.validator.datashape.shared :as shared]))
 
 (def config {:paths   ["../../components/change/src"
                        "../../components/command/src"
@@ -24,12 +24,12 @@
 
 (deftest valid-config--returns-nil
   (is (= nil
-         (data/validate-deployable-config config))))
+         (shared/validate-deployable-config config))))
 
 (deftest valid-config-withoug-deps--returns-nil
   (is (= nil
-         (data/validate-deployable-config (dissoc config :deps)))))
+         (shared/validate-deployable-config (dissoc config :deps)))))
 
 (deftest invalid-nop-namespace--returns-error-message
   (is (= {:aliases {:test ["invalid type"]}}
-         (data/validate-deployable-config (assoc-in config [:aliases :test] 1)))))
+         (shared/validate-deployable-config (assoc-in config [:aliases :test] 1)))))

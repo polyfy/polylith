@@ -27,18 +27,38 @@
 (defn stringify [ns-to-lib]
   (into {} (mapv stringify-key-value ns-to-lib)))
 
+(defn dev-config-from-disk [ws-dir input-type color-mode]
+  (let [config (read-string (slurp (str ws-dir "/deps.edn")))
+        message (validator/validate-dev-config input-type config)]
+    (if message
+      (throw (ex-info (str "  " (color/error color-mode "Error in ./deps.edn: ") message) message))
+      config)))
+
+(defn ws-config-from-disk [ws-path color-mode]
+  (let [config (read-string (slurp ws-path))
+        message (validator/validate-workspace-config config)]
+    (if message
+      (throw (ex-info (str "  " (color/error color-mode "Error in ./worspace.edn: ") message) message))
+      config)))
+
 (defn workspace-from-disk
   ([user-input]
    (let [color-mode (or (:color-mode user-input) (user-config/color-mode) color/none)
          ws-dir (common/workspace-dir user-input color-mode)
-         config (read-string (slurp (str ws-dir "/deps.edn")))
-         message (validator/validate-dev-config config)]
-     (if message
-       (throw (ex-info (str "  " (color/error color-mode "Error in ./deps.edn: ") message) message))
-       (workspace-from-disk ws-dir config user-input color-mode))))
-  ([ws-dir {:keys [polylith aliases]} user-input color-mode]
-   (let [{:keys [vcs top-namespace interface-ns default-profile-name release-tag-pattern stable-tag-pattern project-to-alias ns-to-lib compact-views]} polylith
-         interface-namespace (or interface-ns "interface")
+         ws-path (str ws-dir "/workspace.edn")
+         input-type (if (file/exists ws-path) :toolsdeps2 :toolsdeps1)
+         dev-config (dev-config-from-disk ws-dir input-type color-mode)
+         ws-config (if (= :toolsdeps2 input-type)
+                     (ws-config-from-disk ws-path color-mode)
+                     (assoc (:polylith dev-config) :input {:tool "tools-deps"
+                                                           :version 1}))]
+     (workspace-from-disk ws-dir ws-config dev-config user-input color-mode)))
+  ([ws-dir
+    {:keys [vcs top-namespace input interface-ns default-profile-name release-tag-pattern stable-tag-pattern project-to-alias ns-to-lib compact-views]}
+    {:keys [aliases]}
+    user-input
+    color-mode]
+   (let [interface-namespace (or interface-ns "interface")
          top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
          empty-char (user-config/empty-character)
          m2-dir (user-config/m2-dir)
@@ -55,6 +75,7 @@
          default-profile (or default-profile-name "default")
          active-profiles (profile/active-profiles user-input default-profile profile-to-settings)
          settings (util/ordered-map :version version/version
+                                    :input input
                                     :ws-schema-version version/ws-schema-version
                                     :vcs (or vcs "git")
                                     :top-namespace top-namespace

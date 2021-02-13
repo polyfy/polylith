@@ -1,6 +1,6 @@
 (ns polylith.clj.core.validator.dev-config-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.validator.data :as data]))
+            [polylith.clj.core.validator.interface :as validator]))
 
 (def config {:polylith {:top-namespace "polylith.clj.core"
                         :interface-ns "interface"
@@ -28,22 +28,25 @@
                                              :sha       "78b2c77c56d1b41109d68b451069affac935200e"
                                              :deps/root "projects/poly"}}}}})
 
+;; todo: Make sure we test the new format also
+(def input-type :toolsdeps1)
+
 (deftest valid-config--returns-nil
   (is (= nil
-         (data/validate-dev-config config))))
+         (validator/validate-dev-config input-type config))))
 
 (deftest invalid-nop-namespace--returns-error-message
   (is (= {:polylith {:top-namespace ["should be a string"]}}
-         (data/validate-dev-config (assoc-in config [:polylith :top-namespace] 1)))))
+         (validator/validate-dev-config input-type (assoc-in config [:polylith :top-namespace] 1)))))
 
 (deftest invalid-compact-views--returns-error-message
   (is (= {:polylith {:compact-views ["should be a set"]}}
-         (data/validate-dev-config (assoc-in config [:polylith :compact-views] 'hello)))))
+         (validator/validate-dev-config input-type (assoc-in config [:polylith :compact-views] 'hello)))))
 
 (deftest ns-to-lib--return-errors-message
   (is (= {:polylith {:ns-to-lib ["invalid type"]}}
-         (data/validate-dev-config (assoc-in config [:polylith :ns-to-lib] 'hello)))))
+         (validator/validate-dev-config input-type (assoc-in config [:polylith :ns-to-lib] 'hello)))))
 
 (deftest aliases-dev--return-errors-message
   (is (= {:aliases {:dev ["invalid type"]}}
-         (data/validate-dev-config (assoc-in config [:aliases :dev] [1 2 3])))))
+         (validator/validate-dev-config input-type (assoc-in config [:aliases :dev] [1 2 3])))))
