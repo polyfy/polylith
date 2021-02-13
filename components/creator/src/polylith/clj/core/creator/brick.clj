@@ -29,5 +29,8 @@
         ns-file (str bricks-dir "/test/" top-dir (common/ns-to-path interface-name) "/" namespace "_test.clj")]
     (file/create-missing-dirs ns-file)
     (file/create-file ns-file [(str "(ns " top-namespace "." interface-name "." namespace "-test")
-                               (str "  (:require [clojure.test :refer :all]))")])
+                               (str "  (:require [clojure.test :refer :all]))")
+                               ""
+                               (str "(deftest dummy-test")
+                               (str "  (is (= 1 1)))")])
     (git/add ws-dir ns-file)))
