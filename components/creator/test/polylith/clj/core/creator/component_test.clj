@@ -59,7 +59,7 @@
     (is (= ["(ns se.example.my-component.interface-test"
             "  (:require [clojure.test :refer :all]))"
             ""
-            "(defn dummy-test"
+            "(deftest dummy-test"
             "  (is (= 1 1)))"]
            (helper/content test-ifc-dir "interface_test.clj")))))
 
@@ -108,6 +108,6 @@
     (is (= ["(ns se.example.my-interface.interface-test"
             "  (:require [clojure.test :refer :all]))"
             ""
-            "(defn dummy-test"
+            "(deftest dummy-test"
             "  (is (= 1 1)))"]
            (helper/content test-ifc-dir "interface_test.clj")))))

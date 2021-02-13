@@ -31,6 +31,6 @@
     (file/create-file ns-file [(str "(ns " top-namespace "." interface-name "." namespace "-test")
                                (str "  (:require [clojure.test :refer :all]))")
                                ""
-                               (str "(defn dummy-test")
+                               (str "(deftest dummy-test")
                                (str "  (is (= 1 1)))")])
     (git/add ws-dir ns-file)))
