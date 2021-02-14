@@ -1,15 +1,18 @@
 (ns polylith.clj.core.lib.text-table.lib-table
   (:require [polylith.clj.core.util.interface.str :as str-util]
-            [polylith.clj.core.text-table.interface :as text-table]
-            [polylith.clj.core.lib.text-table.brick-libs :as brick-libs]))
+            [polylith.clj.core.text-table.interface :as text-table]))
 
 (def type->color {"component" :green
                   "base" :blue})
 
-(defn lib [[name {:keys [version size]}]]
+(defn lib [[name {:keys [version size type]}]]
   (when version [{:name name
                   :version version
-                  :size size}]))
+                  :size size
+                  :type type}]))
+
+(defn brick-libs [{:keys [name lib-deps]}]
+  [name (set (mapcat lib lib-deps))])
 
 (defn lib-cell [column row library]
   (text-table/cell column row library :none :left :horizontal))
@@ -62,7 +65,7 @@
                              profile-to-settings)))
 
 (defn brick-cell [column row library brick-libs empty-char]
-  (let [flag (if (contains? (set brick-libs) library) "x" empty-char)]
+  (let [flag (if (contains? brick-libs library) "x" empty-char)]
     (text-table/cell column row flag :none :left :vertical)))
 
 (defn brick-column [column {:keys [name type]} libraries brick->libs empty-char]
@@ -83,7 +86,7 @@
                            (set (concat (mapcat lib (mapcat :lib-deps projects))
                                         (mapcat profile-lib profile-to-settings))))
         all-bricks (concat components bases)
-        brick->libs (brick-libs/brick->libs projects all-bricks profile-to-settings)
+        brick->libs (into {} (map brick-libs all-bricks))
         bricks (if is-all
                  all-bricks
                  (filter #(-> % :name brick->libs empty? not) all-bricks))

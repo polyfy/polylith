@@ -1,5 +1,6 @@
 {:vcs "git"
  :top-namespace "polylith.clj.core"
+ :input-type :toolsdeps2
  :interface-ns "interface"
  :default-profile-name "default"
  :compact-views #{}
@@ -10,6 +11,4 @@
                     "deployer"      "depl"
                     "poly-migrator" "migr"
                     "poly"          "poly"
-                    "development"   "dev"}
- :input {:tool "tools-deps"
-         :version 2}}
+                    "development"   "dev"}}

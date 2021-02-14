@@ -3,6 +3,14 @@
             [malli.error :as me]
             [polylith.clj.core.validator.datashape.shared :as shared]))
 
+(defn validate-brick-config [config]
+  (-> [:map
+       [:paths [:vector string?]]
+       [:deps [:map-of symbol? map?]]
+       [:aliases {:optional true} [:map]]]
+      (m/explain config)
+      (me/humanize)))
+
 (defn validate-dev-config [config]
   (-> [:map
        [:aliases
@@ -23,7 +31,6 @@
        [:stable-tag-pattern {:optional true} string?]
        [:project-to-alias {:optional true}
         [:map-of :string :string]]
-       [:input
-        [:map [:tool string?] [:version number?]]]]
+       [:input-type keyword?]]
       (m/explain config)
       (me/humanize)))

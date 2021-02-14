@@ -20,19 +20,24 @@
                 :profile {:lib-deps {}}}])
 
 (def components [{:name "article"
-                  :lib-dep-names ["clj-time" "honeysql"]}
+                  :lib-deps {"clj-time" {:mvn/version "0.14.2"}
+                             "honeysql" {:mvn/version "0.7.0"}}}
                  {:name "comment"
-                  :lib-dep-names ["clj-time" "honeysql"]}
+                  :lib-deps {"clj-time" {:mvn/version "0.14.2"}
+                             "honeysql" {:mvn/version "0.7.0"}}}
                  {:name "database"
-                  :lib-dep-names ["honeysql"]}])
+                  :lib-deps {"honeysql" {:mvn/version "0.7.0"}}}])
 
 (def bases [{:name "rest-api"
-             :lib-dep-names ["spec-tools"]}])
+             :lib-deps {"spec-tools" {:mvn/version "1.0"}}}])
 
-(def settings {:profile-to-settings {"default" {:lib-deps {"clj-time" {:size 0, :type "maven", :version "0.14.2"}}}}
+(def settings {:input-type :toolsdeps1
+               :profile-to-settings {"default" {:lib-deps {"clj-time" {:size 0, :type "maven", :version "0.14.2"}}}}
                :active-profiles ["default"]})
 
-(deftest warnings--missing-libraries-in-an-project--returns-a-warning
+(def settings-toolsdeps2 (assoc settings :input-type :toolsdeps2))
+
+(deftest warnings--missing-libraries-in-a-project--returns-a-warning
   (is (= [{:type "error"
            :code 109
            :project "development"
@@ -44,3 +49,7 @@
            :message           "Missing libraries in the realworld-backend project: clj-time"
            :colorized-message "Missing libraries in the realworld-backend project: clj-time"}]
          (m109/errors "info" settings projects components bases color/none))))
+
+(deftest warnings--when-other-input-type-than-toolsdeps1--return-no-warnings
+  (is (= nil
+         (m109/errors "info" settings-toolsdeps2 projects components bases color/none))))

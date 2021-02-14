@@ -17,6 +17,9 @@
     :toolsdeps2 (toolsdeps2/validate-dev-config config)
     (throw (Exception. (str "Unknown input-type: " input-type)))))
 
+(defn validate-brick-config [config]
+  (toolsdeps2/validate-brick-config config))
+
 (defn validate-workspace-config [config]
   (toolsdeps2/validate-workspace-config config))
 

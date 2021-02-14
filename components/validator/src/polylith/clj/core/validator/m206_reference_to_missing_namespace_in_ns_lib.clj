@@ -5,18 +5,18 @@
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]))
 
-(defn included-namespaces [settings brick]
-  (:included-namespaces (lib/dependencies settings brick)))
+(defn included-namespaces [{:keys [top-namespace ns-to-lib]} {:keys [namespaces-src]}]
+  (lib/included-namespaces top-namespace ns-to-lib namespaces-src))
 
-(defn warnings [settings components bases color-mode]
+(defn warnings [{:keys [input-type ns-to-lib] :as settings} components bases color-mode]
   (let [bricks (concat components bases)
-        ns-to-lib (:ns-to-lib settings)
         mapped-namespaces (set (map first ns-to-lib))
         used-namespaces (set (mapcat #(included-namespaces settings %) bricks))
         missing-namespaces (set/difference mapped-namespaces used-namespaces)
         message (str "Reference to missing namespace was found in the :ns-to-lib mapping: "
                      (color/library (str/join ", " missing-namespaces) color-mode))]
-    (when (-> missing-namespaces empty? not)
+    (when (and (= :toolsdeps1 input-type)
+               (-> missing-namespaces empty? not))
       [(util/ordered-map :type "warning"
                          :code 206
                          :message (color/clean-colors message)

@@ -10,11 +10,18 @@
 (defn included-nss [used-ns ns-libs]
   (util/find-first #(included-in-ns? % used-ns) ns-libs))
 
-(defn dependencies [{:keys [top-namespace ns-to-lib]} {:keys [namespaces-src]}]
+(defn included-namespaces [top-namespace ns-to-lib namespaces-src]
   (let [ns-libs (reverse (sort (map #(-> % first str) ns-to-lib)))
         used-namespaces (set (filter #(not (included-in-ns? top-namespace %))
-                                     (mapcat :imports namespaces-src)))
-        included-namespaces (vec (sort (set (filter identity (map #(included-nss % ns-libs) used-namespaces)))))
-        included-libs (vec (sort (set (map ns-to-lib included-namespaces))))]
-    {:included-namespaces included-namespaces
-     :included-libs included-libs}))
+                                     (mapcat :imports namespaces-src)))]
+    (vec (sort (set (filter identity (map #(included-nss % ns-libs) used-namespaces)))))))
+
+(defn with-size [lib-name dev-lib-deps]
+  (if (contains? dev-lib-deps lib-name)
+    [lib-name (dev-lib-deps lib-name)]
+    [lib-name {}]))
+
+(defn lib-deps [top-namespace ns-to-lib namespaces dev-lib-deps]
+  (let [included-nss (included-namespaces top-namespace ns-to-lib namespaces)]
+    (into {} (map #(with-size % dev-lib-deps)
+                  (set (map ns-to-lib included-nss))))))

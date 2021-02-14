@@ -21,7 +21,7 @@
      is that all io operations are done in the first step while this step only operates on the
      hash map that was returned from the first step.
    - The last step change/with-changes, operates on the enhanced hash map, which again is an
-     in-memory representation of the workspace. It calculates what components, bases and project
+     in-memory representation of the workspace. It calculates what components, bases and projects
      that are changed, and what bricks and projects to test, and adds the result to the :changes key.
    - The final workspace representation is then used by the given command that is stored in
      the 'user-input' representation."

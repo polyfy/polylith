@@ -73,25 +73,28 @@
                             :profile {:lib-deps dev-profile-lib-deps
                                       :test-lib-deps {}}}]
                 :messages []
-                :components [{:lib-dep-names ["antlr"]
+                :components [{:lib-deps {"antlr" {:local/root "/Users/tengstrand/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar"
+                                                  :type "local"
+                                                  :size 445288
+                                                  :version "2.7.7"}}
                               :name "address"
                               :type "component"}
-                             {:lib-dep-names ["zprint"]
+                             {:lib-deps dev-profile-lib-deps
                               :name "admin"
                               :type "component"}
-                             {:lib-dep-names ["zprint"]
+                             {:lib-deps dev-profile-lib-deps
                               :name "database"
                               :type "component"}
-                             {:lib-dep-names []
+                             {:lib-des {}
                               :name "invoicer"
                               :type "component"}
-                             {:lib-dep-names []
+                             {:lib-deps {}
                               :name "purchaser"
                               :type "component"}
-                             {:lib-dep-names ["zprint"]
+                             {:lib-deps dev-profile-lib-deps
                               :name "user"
                               :type "component"}]
-                :bases [{:lib-dep-names []
+                :bases [{:lib-deps {}
                          :name "cli"
                          :type "base"}]})
 
@@ -113,7 +116,7 @@
           "  org.clojure/clojure                     1.10.2-alpha1  3,817    x     -     -      -       -     ·  ·  ·  ·"
           "  org.clojure/tools.deps.alpha            0.8.695           46    x     x     x      -       -     ·  ·  ·  ·"
           "  zprint                                  0.4.15           125    -     x     -      x       -     ·  x  x  x"
-          "  zprint                                  0.5.4              0    -     -     -      -       x     ·  x  ·  ·"]
+          "  zprint                                  0.5.4              0    -     -     -      -       x     ·  ·  ·  ·"]
          (lib-table/table workspace false))))
 
 (deftest table--show-all-brick-deps--returns-correct-table
@@ -135,5 +138,5 @@
           "  org.clojure/clojure                     1.10.2-alpha1  3,817    x     -     -      -       -     ·  ·  ·  ·  ·  ·  ·"
           "  org.clojure/tools.deps.alpha            0.8.695           46    x     x     x      -       -     ·  ·  ·  ·  ·  ·  ·"
           "  zprint                                  0.4.15           125    -     x     -      x       -     ·  x  x  ·  ·  x  ·"
-          "  zprint                                  0.5.4              0    -     -     -      -       x     ·  x  ·  ·  ·  ·  ·"]
+          "  zprint                                  0.5.4              0    -     -     -      -       x     ·  ·  ·  ·  ·  ·  ·"]
          (lib-table/table workspace true))))

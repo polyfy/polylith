@@ -3,12 +3,15 @@
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.m206-reference-to-missing-namespace-in-ns-lib :as m206]))
 
-(def settings {:top-namespace "clojure.realworld"
+(def settings {:input-type :toolsdeps1
+               :top-namespace "clojure.realworld"
                :ns-to-lib {"clj-time" "clj-time"
                            "compojure" "compojure/compojure"
                            "honeysql" "honeysql"
                            "environ" "environ"
                            "slugger" "slugger"}})
+
+(def settings-toolsdeps2 (assoc settings :input-type :toolsdeps2))
 
 (def components [{:namespaces-src [{:imports ["clojure.set"
                                               "polylith.clj.core.change.project"]}
@@ -24,12 +27,13 @@
                                    {:imports ["clojure.pprint"]}
                                    {:imports ["polylith.clj.core.common.interface" "polylith.clj.core.test-runner.interface"]}]}])
 
-(def ws-bases [{:lib-dep-names ["environ"
-                                "slugger"]}])
-
 (deftest warnings--when-having-undefined-names-in-ns-to-lib--return-warning
   (is (= [{:type "warning"
            :code 206
            :message "Reference to missing namespace was found in the :ns-to-lib mapping: slugger, compojure"
            :colorized-message "Reference to missing namespace was found in the :ns-to-lib mapping: slugger, compojure"}]
          (m206/warnings settings components [] color/none))))
+
+(deftest warnings--when-other-input-type-than-toolsdeps1--return-no-warnings
+  (is (= nil
+         (m206/warnings settings-toolsdeps2 components [] color/none))))
