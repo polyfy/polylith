@@ -8,9 +8,9 @@
             [polylith.clj.core.validator.interface :as validator])
   (:refer-clojure :exclude [test]))
 
-(defn adjust-key [{:keys [type path version]}]
+(defn adjust-key [{:keys [type path version exclusions]}]
   (case type
-    "maven" {:mvn/version version}
+    "maven" {:mvn/version version :exclusions (vec exclusions)}
     "local" {:local/root path}
     (throw (Exception. (str "Unknown library type: " type)))))
 
