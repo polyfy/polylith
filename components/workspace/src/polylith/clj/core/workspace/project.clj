@@ -33,7 +33,7 @@
       (or (contains? selected-projects project-name)
           (contains? selected-projects alias))))
 
-(defn enrich-project [{:keys [name is-dev namespaces-src namespaces-test src-paths test-paths lib-deps test-lib-deps] :as project}
+(defn enrich-project [{:keys [name is-dev namespaces-src namespaces-test src-paths test-paths lib-deps lib-deps-test] :as project}
                       components
                       bases
                       brick->loc
@@ -43,7 +43,7 @@
                       settings
                       {:keys [is-run-all-brick-tests selected-projects]}]
   (let [alias (project-to-alias name)
-        lib-entries (extract/from-library-deps is-dev lib-deps test-lib-deps settings)
+        lib-entries (extract/from-library-deps is-dev lib-deps lib-deps-test settings)
         path-entries (extract/from-unenriched-project is-dev src-paths test-paths disk-paths settings)
         component-names (select/names path-entries c/component? c/src? c/exists?)
         base-names (select/names path-entries c/base? c/src? c/exists?)
@@ -70,15 +70,15 @@
                 :src-paths                (select/paths path-entries c/src?)
                 :test-paths               (select/paths path-entries c/test?)
                 :lib-deps                 (select/lib-deps lib-entries c/src?)
-                :test-lib-deps            (select/lib-deps lib-entries c/test?)
+                :lib-deps-test            (select/lib-deps lib-entries c/test?)
                 :unmerged                 (when is-dev {:src-paths     src-paths
                                                         :test-paths    test-paths
                                                         :lib-deps      lib-deps
-                                                        :test-lib-deps test-lib-deps})
+                                                        :lib-deps-test lib-deps-test})
                 :lib-imports              lib-imports-src
                 :lib-imports-test         lib-imports-test
                 :deps                     deps})
         (cond-> is-dev (assoc :unmerged {:src-paths     src-paths
                                          :test-paths    test-paths
                                          :lib-deps      lib-deps
-                                         :test-lib-deps test-lib-deps})))))
+                                         :lib-deps-test lib-deps-test})))))

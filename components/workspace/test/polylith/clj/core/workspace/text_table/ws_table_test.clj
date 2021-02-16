@@ -603,7 +603,7 @@
                                                              "validator"]},
                                    "common" {:direct ["util"], :indirect []},
                                    "change" {:direct ["common" "git" "util"], :indirect ["shell"]}},
-                            :test-lib-deps {},
+                            :lib-deps-test {},
                             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
                                           "clojars" {:url "https://repo.clojars.org/"}}}
                            {:name "core",
@@ -693,7 +693,7 @@
                                                   :indirect ["deps" "path-finder" "shell" "text-table" "text-table2" "util" "validator"]},
                                    "common" {:direct ["util"], :indirect []},
                                    "change" {:direct ["common" "git" "util"], :indirect ["shell"]}},
-                            :test-lib-deps {},
+                            :lib-deps-test {},
                             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
                                           "clojars" {:url "https://repo.clojars.org/"}}}
                            {:name "development",
@@ -869,7 +869,7 @@
                                                              "validator"]},
                                    "common" {:direct ["util"], :indirect []},
                                    "change" {:direct ["common" "git" "util"], :indirect ["shell"]}},
-                            :test-lib-deps {},
+                            :lib-deps-test {},
                             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
                                           "clojars" {:url "https://repo.clojars.org/"}}}],
                 :messages [],

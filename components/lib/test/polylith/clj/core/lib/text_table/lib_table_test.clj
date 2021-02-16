@@ -52,7 +52,7 @@
                             :lib-deps {"org.clojure/clojure" {:version "1.10.2-alpha1", :type "maven", :size 3908624}
                                        "org.clojure/tools.deps.alpha" {:version "0.8.695", :type "maven", :size 47566}},
                             :component-names [],
-                            :profile {:src-paths [], :test-paths [], :lib-deps {}, :test-lib-deps {}}}
+                            :profile {:src-paths [], :test-paths [], :lib-deps {}, :lib-deps-test {}}}
                            {:base-names ["cli"]
                             :is-dev false
                             :name "invoice"
@@ -61,17 +61,17 @@
                                        "org.clojure/tools.deps.alpha" {:version "0.8.695", :type "maven", :size 47566}
                                        "zprint" {:version "0.4.15", :type "maven", :size 128182}}
                             :component-names ["admin" "database" "invoicer" "purchaser"]
-                            :profile {:src-paths [], :test-paths [], :lib-deps {}, :test-lib-deps {}}}
+                            :profile {:src-paths [], :test-paths [], :lib-deps {}, :lib-deps-test {}}}
                            {:base-names ["cli"]
                             :is-dev true
                             :name "development"
                             :alias "dev"
                             :lib-deps (merge dev-lib-deps dev-profile-lib-deps)
                             :unmerged {:lib-deps dev-lib-deps
-                                       :test-lib-deps {}}
+                                       :lib-deps-test {}}
                             :component-names ["address" "database" "invoicer" "purchaser" "user"]
                             :profile {:lib-deps dev-profile-lib-deps
-                                      :test-lib-deps {}}}]
+                                      :lib-deps-test {}}}]
                 :messages []
                 :components [{:lib-deps {"antlr" {:local/root "/Users/tengstrand/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar"
                                                   :type "local"

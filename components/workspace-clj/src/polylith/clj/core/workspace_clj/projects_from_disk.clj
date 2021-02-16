@@ -31,7 +31,7 @@
   ([project-name project-dir config-file is-dev paths deps aliases maven-repos user-home]
    (let [src-paths (if is-dev (-> aliases :dev :extra-paths) paths)
          lib-deps (lib/with-sizes (if is-dev (-> aliases :dev :extra-deps) deps) user-home)
-         test-lib-deps (lib/with-sizes (-> aliases :test :extra-deps) user-home)
+         lib-deps-test (lib/with-sizes (-> aliases :test :extra-deps) user-home)
          absolute-src-paths (absolute-paths project-name src-paths is-dev)
          test-paths (-> aliases :test :extra-paths)
          absolute-test-paths (absolute-paths project-name test-paths is-dev)
@@ -45,7 +45,7 @@
                        :src-paths absolute-src-paths
                        :test-paths absolute-test-paths
                        :lib-deps lib-deps
-                       :test-lib-deps test-lib-deps
+                       :lib-deps-test lib-deps-test
                        :maven-repos maven-repos
                        :namespaces-src namespaces-src
                        :namespaces-test namespaces-test))))

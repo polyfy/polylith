@@ -59,7 +59,7 @@
                               "components/deps/src"
                               "components/file/src"
                               "projects/poly/src"]
-            :test-lib-deps   {}
+            :lib-deps-test   {}
             :test-paths      ["bases/tool/test"
                               "components/change/test"
                               "components/common/test"]

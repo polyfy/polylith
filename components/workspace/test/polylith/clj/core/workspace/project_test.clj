@@ -47,7 +47,7 @@
               :lib-imports-test ["clojure.string" "clojure.tools.deps.alpha.util.maven"]
               :lib-deps {"org.clojure/clojure" #:mvn{:version "1.10.1"}
                          "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}}
-              :test-lib-deps {}
+              :lib-deps-test {}
               :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}})
 
 (def project-to-alias {"development" "dev"})
@@ -127,7 +127,7 @@
           :test-base-names          ["cli"]
           :test-component-names     ["change"
                                      "command"]
-          :test-lib-deps            {}
+          :lib-deps-test            {}
           :test-paths               ["bases/cli/test"
                                      "components/change/test"
                                      "components/command/test"
@@ -143,7 +143,7 @@
                                                      "components/common/src"
                                                      "components/deps/src"
                                                      "components/file/src"]
-                                     :test-lib-deps {}
+                                     :lib-deps-test {}
                                      :test-paths    ["bases/cli/test"
                                                      "components/change/test"
                                                      "components/command/test"
@@ -221,7 +221,7 @@
           :test-component-names     ["change"
                                      "command"
                                      "user"]
-          :test-lib-deps            {}
+          :lib-deps-test            {}
           :test-paths               ["bases/cli/test"
                                      "components/change/test"
                                      "components/command/test"
@@ -238,7 +238,7 @@
                                                      "components/common/src"
                                                      "components/deps/src"
                                                      "components/file/src"]
-                                     :test-lib-deps {}
+                                     :lib-deps-test {}
                                      :test-paths    ["bases/cli/test"
                                                      "components/change/test"
                                                      "components/command/test"

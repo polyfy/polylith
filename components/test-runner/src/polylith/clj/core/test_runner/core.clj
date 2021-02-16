@@ -21,10 +21,10 @@
    to be translated back to :mvn/version and :local/root."
   [(symbol library) (adjust-key version)])
 
-(defn ->config [workspace {:keys [lib-deps test-lib-deps maven-repos]}]
+(defn ->config [workspace {:keys [lib-deps lib-deps-test maven-repos]}]
   "Convert back to tools.deps format."
   (assoc workspace :mvn/repos maven-repos
-                   :deps (into {} (map key-as-symbol (merge lib-deps test-lib-deps)))))
+                   :deps (into {} (map key-as-symbol (merge lib-deps lib-deps-test)))))
 
 (defn ->test-statement [ns-name]
   (let [ns-symbol (symbol ns-name)]

@@ -9,7 +9,7 @@
 (def projects [{:alias        "dev"
                 :unmerged {:lib-deps {"org.clojure/clojure" {:mvn/version "1.10.2"}
                                       "org.clojure/tools.deps.alpha" {:mvn/version "0.8.695"}}
-                           :test-lib-deps []}}])
+                           :lib-deps-test []}}])
 
 (deftest warnings--path-was-found-in-both-dev-and-a-profile--returns-error-message
   (is (= [{:type "warning"
