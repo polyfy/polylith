@@ -2385,7 +2385,7 @@ If `~/.polylith/config.edn` doesn't exists, it will be created the first time th
 
 ```
 {:color-mode "dark"
- :thousand-separator ","
+ :thousand-sep ","
  :empty-character "·"}
 ```
 
@@ -2584,7 +2584,7 @@ into one big jar like `a.jar`, `b.jar` or `c.jar`, that can then be used by othe
 When we created the `example` workspace, the file `~/.polylith/config.edn` was also created:
 ```
 {:color-mode "dark"
- :thousand-separator ","
+ :thousand-sep ","
  :empty-character "·"}
 ```
 

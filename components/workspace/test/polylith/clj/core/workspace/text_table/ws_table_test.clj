@@ -236,7 +236,7 @@
                               :definitions [{:name "color-mode", :type "function", :parameters []}
                                             {:name "config-content", :type "function", :parameters []}
                                             {:name "home-dir", :type "function", :parameters []}
-                                            {:name "thousand-separator", :type "function", :parameters []}],
+                                            {:name "thousand-sep", :type "function", :parameters []}],
                               :implementing-components ["user-config"]}
                              {:name "git",
                               :type "interface",
@@ -1714,7 +1714,7 @@
                                           :definitions [{:name "color-mode", :type "function", :parameters []}
                                                         {:name "config-content", :type "function", :parameters []}
                                                         {:name "home-dir", :type "function", :parameters []}
-                                                        {:name "thousand-separator", :type "function", :parameters []}]},
+                                                        {:name "thousand-sep", :type "function", :parameters []}]},
                               :namespaces-src [{:name "interfc",
                                                 :namespace "polylith.clj.core.user-config.interfc",
                                                 :file-path "./components/user-config/src/polylith/clj/core/user_config/interfc.clj",

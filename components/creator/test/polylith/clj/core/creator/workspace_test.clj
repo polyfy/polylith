@@ -93,5 +93,5 @@
 
     (is (= ["{:color-mode \"dark\""
             " :empty-character \"·\""
-            " :thousand-separator \",\"}"]
+            " :thousand-sep \",\"}"]
            (helper/content (helper/user-home) "/.polylith/config.edn")))))

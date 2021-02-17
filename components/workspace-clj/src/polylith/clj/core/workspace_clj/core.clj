@@ -63,7 +63,7 @@
          empty-char (user-config/empty-character)
          m2-dir (user-config/m2-dir)
          user-home (user-config/home-dir)
-         thousand-sep (user-config/thousand-separator)
+         thousand-sep (user-config/thousand-sep)
          user-config-file (str (user-config/home-dir) "/.polylith/config.edn")
          brick->non-top-namespaces (non-top-ns/brick->non-top-namespaces ws-dir top-namespace)
          component-names (file/directories (str ws-dir "/components"))

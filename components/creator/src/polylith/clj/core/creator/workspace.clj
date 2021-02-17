@@ -14,7 +14,7 @@
         color-mode (if (os/windows?) "none" "dark")]
     [(str "{:color-mode \"" color-mode "\"")
      (str " :empty-character \"" empty-char "\"")
-     (str " :thousand-separator \",\"}")]))
+     (str " :thousand-sep \",\"}")]))
 
 (defn readme-content [ws-name]
   ["<img src=\"logo.png\" width=\"30%\" alt=\"Polylith\" id=\"logo\">"

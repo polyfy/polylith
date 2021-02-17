@@ -27,7 +27,6 @@
        "  Example:\n"
        "    poly ws\n"
        "    poly ws get:keys\n"
-       "    poly ws get:keys\n"
        "    poly ws get:count\n"
        "    poly ws get:settings\n"
        "    poly ws get:user-input:args\n"

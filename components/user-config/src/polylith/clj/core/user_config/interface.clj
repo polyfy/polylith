@@ -13,5 +13,5 @@
 (defn m2-dir []
   (core/m2-dir))
 
-(defn thousand-separator []
-  (core/thousand-separator))
+(defn thousand-sep []
+  (core/thousand-sep))
