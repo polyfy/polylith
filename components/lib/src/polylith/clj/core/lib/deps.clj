@@ -14,14 +14,11 @@
   (let [ns-libs (reverse (sort (map #(-> % first str) ns-to-lib)))
         used-namespaces (set (filter #(not (included-in-ns? top-namespace %))
                                      (mapcat :imports namespaces-src)))]
-    (vec (sort (set (filter identity (map #(included-nss % ns-libs) used-namespaces)))))))
+    (set (filter identity (map #(included-nss % ns-libs) used-namespaces)))))
 
-(defn with-size [lib-name dev-lib-deps]
-  (if (contains? dev-lib-deps lib-name)
-    [lib-name (dev-lib-deps lib-name)]
-    [lib-name {}]))
+(defn with-name [lib-name]
+  [lib-name {}])
 
-(defn lib-deps [top-namespace ns-to-lib namespaces dev-lib-deps]
+(defn lib-deps [top-namespace ns-to-lib namespaces]
   (let [included-nss (included-namespaces top-namespace ns-to-lib namespaces)]
-    (into {} (map #(with-size % dev-lib-deps)
-                  (set (map ns-to-lib included-nss))))))
+    (into {} (map with-name (set (map ns-to-lib included-nss))))))

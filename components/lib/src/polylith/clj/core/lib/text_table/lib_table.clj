@@ -6,10 +6,10 @@
                   "base" :blue})
 
 (defn lib [[name {:keys [version size type]}]]
-  (when version [{:name name
-                  :version version
-                  :size size
-                  :type type}]))
+  [(cond-> {:name name}
+           version (assoc :version version)
+           size (assoc :size size)
+           type (assoc :type type))])
 
 (defn brick-libs [{:keys [name lib-deps]}]
   [name (set (mapcat lib lib-deps))])
@@ -64,8 +64,12 @@
   (apply concat (map-indexed #(profile-column (+ column (* 2 %1)) libraries %2)
                              profile-to-settings)))
 
+(defn contains-lib? [library libraries]
+  (or (contains? libraries library)
+      (contains? libraries {:name (:name library)})))
+
 (defn brick-cell [column row library brick-libs empty-char]
-  (let [flag (if (contains? brick-libs library) "x" empty-char)]
+  (let [flag (if (contains-lib? library brick-libs) "x" empty-char)]
     (text-table/cell column row flag :none :left :vertical)))
 
 (defn brick-column [column {:keys [name type]} libraries brick->libs empty-char]
