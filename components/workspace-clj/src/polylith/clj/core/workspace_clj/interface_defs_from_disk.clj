@@ -20,10 +20,15 @@
     {:sub-ns namespace
      :path (str root-dir "/" path)}))
 
-(defn interface-namespaces [src-dir interface-ns]
+(defn interface-paths [src-dir interface-ns & {:keys [include-root?]}]
   (let [paths (filterv #(interface-ns? % interface-ns)
                        (map #(interface-path src-dir %)
                             (file/paths-recursively src-dir)))]
+    (cond->> paths
+      include-root? (map #(str src-dir "/" %)))))
+
+(defn interface-namespaces [src-dir interface-ns]
+  (let [paths (interface-paths src-dir interface-ns)]
     (mapv #(->interface-ns src-dir %) paths)))
 
 (defn interface-from-disk [{:keys [sub-ns path]} interface-ns]

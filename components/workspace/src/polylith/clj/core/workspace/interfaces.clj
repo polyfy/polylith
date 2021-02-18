@@ -4,7 +4,8 @@
   {:name (:name interface)
    :type "interface"
    :definitions (:definitions interface)
-   :implementing-components [name]})
+   :implementing-components [name]
+   :paths (:paths interface)})
 
 (defn params [parameters]
   (mapv :name parameters))
@@ -14,7 +15,8 @@
    :type "interface"
    :definitions (vec (sort-by (juxt :sub-ns :type :name params)
                               (set (mapcat #(-> % :interface :definitions) components))))
-   :implementing-components (vec (sort (map :name components)))})
+   :implementing-components (vec (sort (map :name components)))
+   :paths (mapcat #(-> % :interface :paths) components)})
 
 (defn calculate [components]
   "Calculates all interfaces, which are all definitions (data/function/macro)

@@ -13,14 +13,16 @@
         src-dir (str component-src-dir interface-path-name)
         namespaces-src (ns-from-disk/namespaces-from-disk component-src-dir)
         namespaces-test (ns-from-disk/namespaces-from-disk component-test-dir)
-        definitions (defs-from-disk/defs-from-disk src-dir interface-ns)]
+        definitions (defs-from-disk/defs-from-disk src-dir interface-ns)
+        interface-paths (defs-from-disk/interface-paths src-dir interface-ns :include-root? true)]
     (util/ordered-map :name component-name
                       :type "component"
                       :namespaces-src namespaces-src
                       :namespaces-test namespaces-test
                       :non-top-namespaces (brick->non-top-namespaces component-name)
                       :interface {:name interface-name
-                                  :definitions definitions})))
+                                  :definitions definitions
+                                  :paths (vec interface-paths)})))
 
 (defn read-components [ws-dir top-src-dir component-names interface-ns brick->non-top-namespaces]
   (vec (sort-by :name (map #(read-component ws-dir top-src-dir % interface-ns brick->non-top-namespaces) component-names))))
