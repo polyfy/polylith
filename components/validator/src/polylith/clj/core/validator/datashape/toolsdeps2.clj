@@ -11,11 +11,22 @@
       (m/explain config)
       (me/humanize)))
 
-(defn validate-dev-config [config]
+(defn validate-project-dev-config [config]
   (-> [:map
        [:aliases
         [:map
          [:dev shared/alias]
+         [:test shared/alias]]]]
+      (m/explain config)
+      (me/humanize)))
+
+(defn validate-project-deployable-config [config]
+  (-> [:map
+       [:paths {:optional true}
+        [:vector string?]]
+       [:deps {:optional true} [:map-of symbol? :map]]
+       [:aliases {:optional true}
+        [:map
          [:test shared/alias]]]]
       (m/explain config)
       (me/humanize)))

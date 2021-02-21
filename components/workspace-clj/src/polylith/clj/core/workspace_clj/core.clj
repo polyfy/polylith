@@ -29,7 +29,7 @@
 
 (defn dev-config-from-disk [ws-dir input-type color-mode]
   (let [config (read-string (slurp (str ws-dir "/deps.edn")))
-        message (validator/validate-dev-config input-type config)]
+        message (validator/validate-project-dev-config input-type config)]
     (if message
       (throw (ex-info (str "  " (color/error color-mode "Error in ./deps.edn: ") message) message))
       config)))
@@ -67,7 +67,7 @@
          user-config-file (str (user-config/home-dir) "/.polylith/config.edn")
          brick->non-top-namespaces (non-top-ns/brick->non-top-namespaces ws-dir top-namespace)
          component-names (file/directories (str ws-dir "/components"))
-         projects (projects-from-disk/read-projects ws-dir user-home color-mode)
+         projects (projects-from-disk/read-projects ws-dir input-type user-home color-mode)
          ns-to-lib-str (stringify (or ns-to-lib {}))
          components (components-from-disk/read-components ws-dir input-type user-home top-namespace ns-to-lib-str top-src-dir component-names interface-namespace brick->non-top-namespaces)
          bases (bases-from-disk/read-bases ws-dir input-type user-home top-namespace ns-to-lib-str top-src-dir brick->non-top-namespaces)

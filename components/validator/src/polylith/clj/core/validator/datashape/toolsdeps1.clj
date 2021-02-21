@@ -24,3 +24,14 @@
          [:test shared/alias]]]]
       (m/explain config)
       (me/humanize)))
+
+(defn validate-project-deployable-config [config]
+  (-> [:map
+       [:paths
+        [:vector string?]]
+       [:deps {:optional true} [:map-of symbol? :map]]
+       [:aliases
+        [:map
+         [:test shared/alias]]]]
+      (m/explain config)
+      (me/humanize)))

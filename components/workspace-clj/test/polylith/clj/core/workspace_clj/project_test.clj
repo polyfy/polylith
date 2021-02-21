@@ -41,7 +41,7 @@
   [library {:version version}])
 
 (deftest projects--config-map-with-aliases--returns-projects
-  (let [result (projs/read-project "poly" "projects/poly" "projects/poly/deps.edn" false paths deps aliases mvn/standard-repos "/USER")]
+  (let [result (projs/read-project "poly" "projects/poly" "projects/poly/deps.edn" :toolsdeps1 false paths deps aliases mvn/standard-repos "/USER")]
     (is (= {:config-file     "projects/poly/deps.edn"
             :is-dev          false
             :project-dir     "projects/poly"

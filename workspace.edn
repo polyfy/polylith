@@ -6,6 +6,12 @@
  :compact-views #{}
  :release-tag-pattern "v[0-9]*"
  :stable-tag-pattern "stable-*"
+ :project-to-bricks-to-test {"api" :none
+                             "core" :none
+                             "deployer" :none
+                             "poly-migrator" :none
+                             "poly" :all
+                             "development" :all}
  :project-to-alias {"api"           "api"
                     "core"          "core"
                     "deployer"      "depl"

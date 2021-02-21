@@ -14,27 +14,49 @@
     (str/starts-with? path "../../") (subs path 6)
     :else (str "projects/" project-name "/" path)))
 
-(defn absolute-paths [project-name paths dev-project?]
-  (let [sorted-paths (-> paths sort vec)]
-    (if dev-project?
-      sorted-paths
-      (mapv #(absolute-path % project-name) sorted-paths))))
+(defn brick? [[_ {:keys [local/root]}]]
+  (and (-> root nil? not)
+       (or (str/starts-with? root "../../bases/")
+           (str/starts-with? root "../../components/"))))
+
+(defn ->deps-and-paths [entry project-name]
+  (let [path (-> entry second :local/root)
+        brick-path (absolute-path path project-name)
+        config (read-string (slurp (str brick-path "/deps.edn")))
+        src-paths (:paths config)
+        test-paths (-> config :aliases :test :extra-paths)
+        src-deps (:deps config)
+        test-deps (-> config :aliases :test :extra-deps)]
+    {:src-paths (mapv #(str brick-path "/" %) src-paths)
+     :test-paths (mapv #(str brick-path "/" %) test-paths)
+     :src-deps src-deps
+     :test-deps test-deps}))
 
 (defn read-project
-  ([{:keys [project-name project-dir config-file is-dev]} user-home color-mode]
+  ([{:keys [project-name project-dir config-file is-dev]} input-type user-home color-mode]
    (let [{:keys [paths deps aliases mvn/repos] :as config} (read-string (slurp config-file))
          maven-repos (merge mvn/standard-repos repos)
-         message (when (not is-dev) (validator/validate-deployable-config config))]
+         message (when (not is-dev) (validator/validate-project-deployable-config input-type config))]
      (if message
        (throw (ex-info (str "  " (color/error color-mode (str "Error in " config-file ": ") message)) message))
-       (read-project project-name project-dir config-file is-dev paths deps aliases maven-repos user-home))))
-  ([project-name project-dir config-file is-dev paths deps aliases maven-repos user-home]
-   (let [src-paths (if is-dev (-> aliases :dev :extra-paths) paths)
-         lib-deps (lib/with-sizes (if is-dev (-> aliases :dev :extra-deps) deps) user-home)
-         lib-deps-test (lib/with-sizes (-> aliases :test :extra-deps) user-home)
-         absolute-src-paths (absolute-paths project-name src-paths is-dev)
+       (read-project project-name project-dir config-file input-type is-dev paths deps aliases maven-repos user-home))))
+  ([project-name project-dir config-file input-type is-dev paths deps aliases maven-repos user-home]
+   (let [toolsdeps1? (= :toolsdeps1 input-type)
+         deps-and-paths (map #(->deps-and-paths % project-name) (filter brick? deps))
+         src-paths (vec (sort (set (if is-dev (-> aliases :dev :extra-paths)
+                                              (if toolsdeps1? (map #(absolute-path % project-name) paths)
+                                                              (mapcat :src-paths deps-and-paths))))))
+         lib-deps (lib/with-sizes (if is-dev (-> aliases :dev :extra-deps)
+                                             (concat (filter (complement brick?) deps)
+                                                     (mapcat :src-deps deps-and-paths))) user-home)
+         lib-deps-test (lib/with-sizes (concat (-> aliases :test :extra-deps)
+                                               (mapcat :test-deps deps-and-paths)) user-home)
          test-paths (-> aliases :test :extra-paths)
-         absolute-test-paths (absolute-paths project-name test-paths is-dev)
+         absolute-test-paths (vec (sort (set (if is-dev test-paths
+                                                        (if toolsdeps1? (mapv #(absolute-path % project-name) test-paths)
+                                                                        (concat (mapcat :test-paths deps-and-paths)
+                                                                                (filter #(str/starts-with? % "projects/")
+                                                                                        (map #(absolute-path % project-name) test-paths))))))))
          namespaces-src (ns-from-disk/namespaces-from-disk (str project-dir "/src"))
          namespaces-test (ns-from-disk/namespaces-from-disk (str project-dir "/test"))]
      (util/ordered-map :name project-name
@@ -42,7 +64,7 @@
                        :project-dir project-dir
                        :config-file config-file
                        :type "project"
-                       :src-paths absolute-src-paths
+                       :src-paths src-paths
                        :test-paths absolute-test-paths
                        :lib-deps lib-deps
                        :lib-deps-test lib-deps-test
@@ -56,11 +78,11 @@
    :project-dir (str ws-dir "/projects/" project-name)
    :config-file (str ws-dir "/projects/" project-name "/deps.edn")})
 
-(defn read-projects [ws-dir user-home color-mode]
+(defn read-projects [ws-dir input-type user-home color-mode]
   (let [project-configs (conj (map #(project-map ws-dir %)
                                    (file/directories (str ws-dir "/projects")))
                               {:project-name "development"
                                :is-dev true
                                :project-dir (str ws-dir "/development")
                                :config-file (str ws-dir "/deps.edn")})]
-    (mapv #(read-project % user-home color-mode) project-configs)))
+    (mapv #(read-project % input-type user-home color-mode) project-configs)))

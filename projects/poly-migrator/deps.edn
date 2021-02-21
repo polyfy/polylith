@@ -1,14 +1,12 @@
-{:paths ["../../components/common/src"
-         "../../components/file/src"
-         "../../components/migrator/src"
-         "../../components/user-config/src"
-         "../../components/util/src"
-         "../../components/version/src"
-         "../../bases/migrator-cli/src"]
+{:deps {common        {:local/root "../../components/common"}
+        file          {:local/root "../../components/file"}
+        migrator      {:local/root "../../components/migrator"}
+        user-config   {:local/root "../../components/user-config"}
+        util          {:local/root "../../components/util"}
+        version       {:local/root "../../components/version"}
+        migrator-cli  {:local/root "../../bases/migrator-cli"}
 
- :deps {org.clojure/clojure {:mvn/version "1.10.1"}
-        org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}
-        me.raynes/fs {:mvn/version "1.4.6"}}
+        org.clojure/clojure {:mvn/version "1.10.1"}}
 
  :aliases {:test {:extra-paths []
                   :extra-deps  {}}

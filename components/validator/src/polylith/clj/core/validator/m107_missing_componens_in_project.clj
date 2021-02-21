@@ -6,7 +6,7 @@
   (:refer-clojure :exclude [bases]))
 
 (defn missing-components-error [project-name interface-names color-mode]
-  (let [interfaces (str/join ", " (sort (set interface-names)))
+  (let [interfaces (str/join ", " interface-names)
         message (str "Missing components in the " (color/project project-name color-mode) " project "
                      "for these interfaces: " (color/interface interfaces color-mode))]
     [(util/ordered-map :type "error"
@@ -17,7 +17,7 @@
                        :project project-name)]))
 
 (defn project-error [{:keys [name deps]} color-mode]
-  (let [missing (mapcat :direct-ifc (map second deps))]
+  (let [missing (vec (sort (set (mapcat :direct-ifc (map second deps)))))]
     (when (-> missing empty? not)
       (missing-components-error name missing color-mode))))
 

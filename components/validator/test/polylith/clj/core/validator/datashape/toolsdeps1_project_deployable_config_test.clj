@@ -1,6 +1,6 @@
-(ns polylith.clj.core.validator.datashape.deployable-config-test
+(ns polylith.clj.core.validator.datashape.toolsdeps1-project-deployable-config-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.validator.datashape.shared :as shared]))
+            [polylith.clj.core.validator.datashape.toolsdeps1 :as toolsdeps1]))
 
 (def config {:paths   ["../../components/change/src"
                        "../../components/command/src"
@@ -22,14 +22,14 @@
                        :uberjar   {:extra-deps {'uberdeps {:mvn/version "0.1.10"}}
                                    :main-opts  ["-m" "uberdeps.uberjar"]}}})
 
-(deftest valid-config--returns-nil
+(deftest validate-project-deployable-config--valid-config--returns-nil
   (is (= nil
-         (shared/validate-deployable-config config))))
+         (toolsdeps1/validate-project-deployable-config config))))
 
-(deftest valid-config-withoug-deps--returns-nil
+(deftest validate-project-deployable-config--valid-config-withoug-deps--returns-nil
   (is (= nil
-         (shared/validate-deployable-config (dissoc config :deps)))))
+         (toolsdeps1/validate-project-deployable-config (dissoc config :deps)))))
 
-(deftest invalid-nop-namespace--returns-error-message
+(deftest validate-project-deployable-config--invalid-nop-namespace--returns-error-message
   (is (= {:aliases {:test ["invalid type"]}}
-         (shared/validate-deployable-config (assoc-in config [:aliases :test] 1)))))
+         (toolsdeps1/validate-project-deployable-config (assoc-in config [:aliases :test] 1)))))
