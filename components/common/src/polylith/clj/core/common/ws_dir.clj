@@ -1,13 +1,13 @@
 (ns polylith.clj.core.common.ws-dir
   (:require [clojure.string :as str]
-            [polylith.clj.core.common.core :as core]
+            [polylith.clj.core.common.config :as config]
             [polylith.clj.core.file.interface :as file])
   (:import (java.io File)))
 
 (defn find-ws-root-dir [path color-mode]
   (if (and (contains? (set (file/files path))
                       "deps.edn")
-           (core/valid-config-file? path color-mode))
+           (config/valid-config-file? path color-mode))
     path
     (let [parts (str/split path (re-pattern File/separator))]
       (when (or (-> parts empty? not))

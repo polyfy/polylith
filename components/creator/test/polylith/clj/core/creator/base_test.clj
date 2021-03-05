@@ -28,6 +28,7 @@
              "bases"
              "bases/.keep"
              "bases/my-base"
+             "bases/my-base/deps.edn"
              "bases/my-base/resources"
              "bases/my-base/resources/my-base"
              "bases/my-base/resources/my-base/.keep"
@@ -50,7 +51,8 @@
              "projects"
              "projects/.keep"
              "logo.png"
-             "readme.md"}
+             "readme.md"
+             "workspace.edn"}
            (helper/paths "ws1")))
 
     (is (= ["(ns se.example.my-base.core)"]

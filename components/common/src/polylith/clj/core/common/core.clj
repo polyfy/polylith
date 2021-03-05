@@ -1,8 +1,6 @@
 (ns polylith.clj.core.common.core
   (:require [clojure.string :as str]
-            [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.user-config.interface :as user-config]))
 
 (defn ns-to-path [namespace]
@@ -45,10 +43,3 @@
 
 (defn color-mode [{:keys [color-mode]}]
   (or color-mode (user-config/color-mode)))
-
-(defn valid-config-file? [ws-dir color-mode]
-  (try
-    (and (file/exists (str ws-dir "/deps.edn"))
-         (:polylith (read-string (slurp (str ws-dir "/deps.edn")))))
-    (catch Exception e
-      (println (str (color/error color-mode "  Error: ") "couldn't read deps.edn: " (.getMessage e))))))

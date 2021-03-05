@@ -31,18 +31,18 @@
    ""
    "<p>Add your workspace documentation here...</p>"])
 
-(defn deps-content [top-ns]
-  [(str "{:polylith {:vcs \"git\"")
-   (str "            :top-namespace \"" top-ns "\"")
-   (str "            :interface-ns \"interface\"")
-   (str "            :default-profile-name \"default\"")
-   (str "            :compact-views #{}")
-   (str "            :release-tag-pattern \"v[0-9]*\"")
-   (str "            :stable-tag-pattern \"stable-*\"")
-   (str "            :project-to-alias {\"development\" \"dev\"}")
-   (str "            :ns-to-lib {}}")
-   (str "")
-   (str " :aliases  {:dev {:extra-paths [\"development/src\"]")
+(defn workspace-content [top-ns]
+  [(str "{:vcs \"git\"")
+   (str " :top-namespace \"" top-ns "\"")
+   (str " :interface-ns \"interface\"")
+   (str " :default-profile-name \"default\"")
+   (str " :compact-views #{}")
+   (str " :release-tag-pattern \"v[0-9]*\"")
+   (str " :stable-tag-pattern \"stable-*\"")
+   (str " :projects {\"development\" {:alias \"dev\", :test []}}}")])
+
+(def deps-content
+  [(str "{:aliases  {:dev {:extra-paths [\"development/src\"]")
    (str "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.10.1\"}")
    (str "                               org.clojure/tools.deps.alpha {:mvn/version \"0.8.695\"}}}")
    (str "")
@@ -69,7 +69,8 @@
   (file/create-dir (str ws-dir "/development/src"))
   (file/create-dir (str ws-dir "/projects"))
   (file/create-file (str ws-dir "/.gitignore") gitignore-content)
-  (file/create-file (str ws-dir "/deps.edn") (deps-content top-ns))
+  (file/create-file (str ws-dir "/workspace.edn") (workspace-content top-ns))
+  (file/create-file (str ws-dir "/deps.edn") deps-content)
   (file/create-file (str ws-dir "/readme.md") (readme-content ws-name))
   (file/create-file (str ws-dir "/development/src/.keep") [""])
   (file/create-file (str ws-dir "/components/.keep") [""])

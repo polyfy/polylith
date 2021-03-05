@@ -5,6 +5,7 @@
   (let [{:keys [top-namespace interface-ns]} settings
         components-dir (str ws-dir "/components/" component-name)]
     (brick/create-resources-dir ws-dir "components" component-name)
+    (brick/create-config-file ws-dir "components" component-name)
     (brick/create-src-ns ws-dir top-namespace components-dir interface-ns interface-name)
     (brick/create-test-ns ws-dir top-namespace components-dir interface-ns interface-name)))
 

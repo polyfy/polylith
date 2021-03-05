@@ -14,8 +14,8 @@
          [:compact-views {:optional true} set?]
          [:release-tag-pattern {:optional true} string?]
          [:stable-tag-pattern {:optional true} string?]
-         [:project-to-alias {:optional true}
-          [:map-of :string :string]]
+         [:projects {:optional true}
+          [:map-of :string :map]]
          [:ns-to-lib {:optional true}
           [:map-of symbol? symbol?]]]]
        [:aliases

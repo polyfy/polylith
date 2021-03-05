@@ -5,12 +5,20 @@
 
 (def create-brick-message "  Remember to add src, resources and test directories to 'deps.edn' files.")
 
+(defn create-config-file [ws-dir bricks-dir brick-name]
+  (let [config-file (str ws-dir "/" bricks-dir "/" brick-name "/deps.edn")]
+    (file/create-file config-file [(str "{:paths [\"src\"]")
+                                   (str " :deps {}")
+                                   (str " :aliases {:test {:extra-paths [\"test\"]")
+                                   (str "                  :extra-deps []}}}")])))
+
 (defn create-brick [workspace brick-name create-fn]
   (if (common/find-brick brick-name workspace)
     (println (str "  The brick '" brick-name "' already exists."))
     (do
       (create-fn)
       (println create-brick-message))))
+
 (defn create-resources-dir [ws-dir bricks-dir brick-name]
   (let [keep-file (str ws-dir "/" bricks-dir "/" brick-name "/resources/" brick-name "/.keep")]
     (file/create-missing-dirs keep-file)

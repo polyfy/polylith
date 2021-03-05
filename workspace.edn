@@ -1,20 +1,13 @@
 {:vcs "git"
  :top-namespace "polylith.clj.core"
- :input-type :toolsdeps2
  :interface-ns "interface"
  :default-profile-name "default"
  :compact-views #{}
  :release-tag-pattern "v[0-9]*"
  :stable-tag-pattern "stable-*"
- :project-to-bricks-to-test {"api" :none
-                             "core" :none
-                             "deployer" :none
-                             "poly-migrator" :none
-                             "poly" :all
-                             "development" :all}
- :project-to-alias {"api"           "api"
-                    "core"          "core"
-                    "deployer"      "depl"
-                    "poly-migrator" "migr"
-                    "poly"          "poly"
-                    "development"   "dev"}}
+ :projects {"api"           {:alias "api", :test []}
+            "core"          {:alias "core", :test []}
+            "deployer"      {:alias "depl", :test []}
+            "poly-migrator" {:alias "migr", :test []}
+            "poly"          {:alias "poly"}
+            "development"   {:alias "dev", :test []}}}

@@ -3,7 +3,7 @@
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.validator.interface :as validator]
-            [polylith.clj.core.workspace.alias :as alias]
+            [polylith.clj.core.workspace.settings :as s]
             [polylith.clj.core.workspace.base :as base]
             [polylith.clj.core.workspace.component :as component]
             [polylith.clj.core.workspace.project :as project]
@@ -41,11 +41,11 @@
         enriched-bricks (concat enriched-components enriched-bases)
         brick->loc (brick->loc enriched-bricks)
         brick->lib-imports (brick->lib-imports enriched-bricks)
-        project-to-alias (alias/project-to-alias settings projects)
-        enriched-projects (vec (sort-by project-sorter (map #(project/enrich-project % enriched-components enriched-bases brick->loc brick->lib-imports project-to-alias paths settings user-input) projects)))
+        enriched-settings (s/enrich-settings settings projects)
+        enriched-projects (vec (sort-by project-sorter (map #(project/enrich-project % enriched-components enriched-bases brick->loc brick->lib-imports paths enriched-settings user-input) projects)))
         messages (validator/validate-ws suffixed-top-ns settings paths interface-names interfaces enriched-components enriched-bases enriched-projects interface-ns user-input color-mode)]
     (assoc workspace :name ws-name
-                     :settings settings
+                     :settings enriched-settings
                      :interfaces interfaces
                      :components enriched-components
                      :bases enriched-bases

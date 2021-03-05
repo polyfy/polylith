@@ -282,12 +282,13 @@ example            # workspace dir
 ├── .git           # git repository dir
 ├── bases          # bases dir
 ├── components     # components dir
-├── deps.edn       # workspace config file
+├── deps.edn       # development config file
 ├── development
-│   └── src        # development specific code
+│   └── src        # development specific code
 ├── logo.png       # polylith logo
 ├── projects       # projects dir
-└── readme.md      # documentation
+├── readme.md      # documentation
+└── workspace.edn  # workspace config file
 ```
 
 The directory structure is designed for quick navigation and ease of use.
@@ -308,21 +309,23 @@ We think you will soon be addicted to the power and simplicity the Polylith stru
 The `bases`, `components` and `projects` directories also contain a `.keep` file,  which are added to prevent git 
 from deleting these directories, and can be removed as soon as we add something to them.
 A workspace is always initialized to use [git](https://git-scm.com/), but more on that later.
- 
-The `deps.edn` file looks like this:
+
+The `workspace.edn` file looks like this:
+```clojure
+{:vcs "git"
+ :top-namespace "se.example"
+ :interface-ns "interface"
+ :default-profile-name "default"
+ :compact-views #{}
+ :release-tag-pattern "v[0-9]*"
+ :stable-tag-pattern "stable-*"
+ :projects {"development" {:alias "dev", :test []}}}
+```
+
+...and `deps.edn` like this:
 
 ```clojure
-{:polylith {:vcs "git"
-            :top-namespace "se.example"
-            :interface-ns "interface"
-            :default-profile-name "default"
-            :compact-views #{}
-            :release-tag-pattern "v[0-9]*"
-            :stable-tag-pattern "stable-*"
-            :project-to-alias {"development" "dev"}
-            :ns-to-lib {}}
-
- :aliases  {:dev {:extra-paths ["development/src"]
+{:aliases  {:dev {:extra-paths ["development/src"]
                   :extra-deps {org.clojure/clojure {:mvn/version "1.10.1"}
                                org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}}
 
@@ -429,28 +432,29 @@ Our workspace will now look like this:
 example
 ├── bases
 ├── components
-│   └── user
-│       ├── resources
-│       │   └── user
-│       │       └── .keep
-│       ├── src
-│       │   └── se
-│       │       └── example
-│       │           └── user
-│       │               └── interface.clj
-│       └── test
-│           └── se
-│               └── example
-│                   └── user
-│                       └── interface_test.clj
+│   └── user
+│       ├── resources
+│       │   └── user
+│       │       └── .keep
+│       ├── src
+│       │   └── se
+│       │       └── example
+│       │           └── user
+│       │               └── interface.clj
+│       └── test
+│           └── se
+│               └── example
+│                   └── user
+│                       └── interface_test.clj
 ├── deps.edn
 ├── development
-│   └── src
-│       └── dev
-│           └── lisa.clj
+│   └── src
+│       └── dev
+│           └── lisa.clj
 ├── logo.png
 ├── projects
-└── readme.md
+├── readme.md
+└── workspace.edn
 ```
 
 The command also printed out this message:
@@ -670,42 +674,43 @@ Our workspace should now look like this:
 ```sh
 example
 ├── bases
-│   └── cli
-│       ├── resources
-│       │   └── cli
-│       ├── src
-│       │   └── se
-│       │       └── example
-│       │           └── cli
-│       │               └── core.clj
-│       └── test
-│           └── se
-│               └── example
-│                   └── cli
-│                       └── core_test.clj
+│   └── cli
+│       ├── resources
+│       │   └── cli
+│       ├── src
+│       │   └── se
+│       │       └── example
+│       │           └── cli
+│       │               └── core.clj
+│       └── test
+│           └── se
+│               └── example
+│                   └── cli
+│                       └── core_test.clj
 ├── components
-│   └── user
-│       ├── resources
-│       │   └── user
-│       ├── src
-│       │   └── se
-│       │       └── example
-│       │           └── user
-│       │               ├── core.clj
-│       │               └── interface.clj
-│       └── test
-│           └── se
-│               └── example
-│                   └── user
-│                       └── interface_test.clj
+│   └── user
+│       ├── resources
+│       │   └── user
+│       ├── src
+│       │   └── se
+│       │       └── example
+│       │           └── user
+│       │               ├── core.clj
+│       │               └── interface.clj
+│       └── test
+│           └── se
+│               └── example
+│                   └── user
+│                       └── interface_test.clj
 ├── deps.edn
 ├── development
-│   └── src
-│       └── dev
-│           └── lisa.clj
+│   └── src
+│       └── dev
+│           └── lisa.clj
 ├── logo.png
 ├── projects
-└── readme.md
+├── readme.md
+└── workspace.edn
 ```
 
 Now we need to update `deps.edn` with our newly created base:
@@ -769,57 +774,58 @@ Our workspace should now look like this:
 ```sh
 example
 ├── bases
-│   └── cli
-│       ├── resources
-│       │   └── cli
-│       ├── src
-│       │   └── se
-│       │       └── example
-│       │           └── cli
-│       │               └── core.clj
-│       └── test
-│           └── se
-│               └── example
-│                   └── cli
-│                       └── core_test.clj
+│   └── cli
+│       ├── resources
+│       │   └── cli
+│       ├── src
+│       │   └── se
+│       │       └── example
+│       │           └── cli
+│       │               └── core.clj
+│       └── test
+│           └── se
+│               └── example
+│                   └── cli
+│                       └── core_test.clj
 ├── components
-│   └── user
-│       ├── resources
-│       │   └── user
-│       ├── src
-│       │   └── se
-│       │       └── example
-│       │           └── user
-│       │               ├── core.clj
-│       │               └── interface.clj
-│       └── test
-│           └── se
-│               └── example
-│                   └── user
-│                       └── interface_test.clj
+│   └── user
+│       ├── resources
+│       │   └── user
+│       ├── src
+│       │   └── se
+│       │       └── example
+│       │           └── user
+│       │               ├── core.clj
+│       │               └── interface.clj
+│       └── test
+│           └── se
+│               └── example
+│                   └── user
+│                       └── interface_test.clj
 ├── deps.edn
 ├── development
-│   └── src
-│       └── dev
-│           └── lisa.clj
+│   └── src
+│       └── dev
+│           └── lisa.clj
 ├── logo.png
 ├── projects
-│   └── command-line
-│       └── deps.edn
-└── readme.md
+│   └── command-line
+│       └── deps.edn
+├── readme.md
+└── workspace.edn
 ```
  
 The tool also reminds us of this:
 ```sh
-  It's recommended to add an alias to :project-to-alias in ./deps.edn for the command-line project.
+  It's recommended to add an alias to :projects in ./workspace.edn for the command-line project.
 ```
 
 If we don't add the alias to `./deps.edn`, the project heading will show up as `?` when we execute the `info` command,
 so let's add it:
 ```clojure
 {:polylith {...
-            :project-to-alias {"development" "dev"
-                               "command-line" "cl"}
+            :projects {"development" {:alias "dev", :test []}
+                                "command-line" {:alias "cl"}
 ```
 
 Now add `user` and `cli` to `projects/command-line/deps.edn`:
@@ -2357,7 +2363,7 @@ should, if possible, be named after what they are, like `invoicer` or `report-ge
 
 ## Configuration
 
-The workspace configuration is stored under the `:polylith` key in `./deps.edn` and defines the following keys:
+The workspace configuration is stored in `./workspace.edn` and defines the following keys:
 
 | Key                    | Description
 |:-----------------------|:---------------------------------------------------------------------------------------------|
@@ -2367,8 +2373,7 @@ The workspace configuration is stored under the `:polylith` key in `./deps.edn` 
 | :release-tag-pattern   | The default value is `v[0-9]*`. If changed, old tags may not be recognised. |
 | :stable-tag-pattern    | The default value is `stable-*`. If changed, old tags may not be recognised. |
 | :compact-views         | The default value is `#{}`. If set to `#{"libs"}`, then the `libs` diagram will be shown in a more compact format. Only "libs" is supported at the moment. |
-| :project-to-alias      | If the `development` key is missing, `{"development" "dev"}` will be added. |
-| :ns-to-lib             | Can be left empty, but will give a more detailed output from the [libs](#libs) command if populated + missing libraries will be detected in environments when running the [check](#check) or [info](#info) command. |
+| :projects              | If the `development` key is missing, `{"development" {:alias "dev", :test []}` will be added. |
 
 Only the `:top-namespace` attribute is mandatory, all other attributes will use their default values.
 
@@ -2385,7 +2390,7 @@ If `~/.polylith/config.edn` doesn't exists, it will be created the first time th
 
 ```
 {:color-mode "dark"
- :thousand-sep ","
+ :thousand-separatpr ","
  :empty-character "·"}
 ```
 

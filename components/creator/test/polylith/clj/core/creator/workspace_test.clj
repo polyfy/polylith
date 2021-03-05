@@ -47,10 +47,11 @@
              "development"
              "development/src"
              "development/src/.keep"
+             "logo.png"
              "projects"
              "projects/.keep"
-             "logo.png"
-             "readme.md"}
+             "readme.md"
+             "workspace.edn"}
            (helper/paths "ws1")))
 
     (is (= ["<img src=\"logo.png\" width=\"30%\" alt=\"Polylith\" id=\"logo\">"
@@ -68,17 +69,7 @@
             "<p>Add your workspace documentation here...</p>"]
            (helper/content "ws1" "readme.md")))
 
-    (is (= [(str "{:polylith {:vcs \"git\"")
-            (str "            :top-namespace \"se.example\"")
-            (str "            :interface-ns \"interface\"")
-            (str "            :default-profile-name \"default\"")
-            (str "            :compact-views #{}")
-            (str "            :release-tag-pattern \"v[0-9]*\"")
-            (str "            :stable-tag-pattern \"stable-*\"")
-            (str "            :project-to-alias {\"development\" \"dev\"}")
-            (str "            :ns-to-lib {}}")
-            (str "")
-            (str " :aliases  {:dev {:extra-paths [\"development/src\"]")
+    (is (= [(str "{:aliases  {:dev {:extra-paths [\"development/src\"]")
             (str "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.10.1\"}")
             (str "                               org.clojure/tools.deps.alpha {:mvn/version \"0.8.695\"}}}")
             (str "")
@@ -90,6 +81,16 @@
             (str "                                 :sha       \"INSERT_LATEST_SHA_HERE\"")
             (str "                                 :deps/root \"projects/poly\"}}}}}")]
            (helper/content "ws1" "deps.edn")))
+
+    (is (= [(str "{:vcs \"git\"")
+            (str " :top-namespace \"se.example\"")
+            (str " :interface-ns \"interface\"")
+            (str " :default-profile-name \"default\"")
+            (str " :compact-views #{}")
+            (str " :release-tag-pattern \"v[0-9]*\"")
+            (str " :stable-tag-pattern \"stable-*\"")
+            (str " :projects {\"development\" {:alias \"dev\", :test []}}}")]
+           (helper/content "ws1" "workspace.edn")))
 
     (is (= ["{:color-mode \"dark\""
             " :empty-character \"·\""

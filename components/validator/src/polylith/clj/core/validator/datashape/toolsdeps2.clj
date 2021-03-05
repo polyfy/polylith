@@ -40,8 +40,7 @@
        [:compact-views {:optional true} set?]
        [:release-tag-pattern {:optional true} string?]
        [:stable-tag-pattern {:optional true} string?]
-       [:project-to-alias {:optional true}
-        [:map-of :string :string]]
-       [:input-type keyword?]]
+       [:projects {:optional true}
+        [:map-of :string :map]]]
       (m/explain config)
       (me/humanize)))

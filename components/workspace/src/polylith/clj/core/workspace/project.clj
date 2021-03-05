@@ -38,11 +38,10 @@
                       bases
                       brick->loc
                       brick->lib-imports
-                      project-to-alias
                       disk-paths
                       settings
                       {:keys [is-run-all-brick-tests selected-projects]}]
-  (let [alias (project-to-alias name)
+  (let [alias (get-in settings [:projects name :alias])
         lib-entries (extract/from-library-deps is-dev lib-deps lib-deps-test settings)
         path-entries (extract/from-unenriched-project is-dev src-paths test-paths disk-paths settings)
         component-names (select/names path-entries c/component? c/src? c/exists?)

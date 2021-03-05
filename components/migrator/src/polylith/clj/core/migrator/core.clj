@@ -42,16 +42,18 @@
     (str (str-util/spaces n#spaces) lib " {:mvn/version \"" version "\"" exclusions "}")))
 
 (defn alias-row [[project-name alias]]
-  (str "                               \"" project-name "\" \"" alias "\""))
+  (if (= "development" project-name)
+    (str "                               \"" project-name "\" {:alias \"" alias "\", :test []}")
+    (str "                               \"" project-name "\" {:alias \"" alias "\"")))
 
-(defn aliases [system-names]
+(defn project-configs [system-names]
   (let [aliases (sort-by first (conj (map #(vector % %) system-names) ["development" "dev"]))]
     (concat
-      [(str "            :project-to-alias {")]
+      [(str "            :projects {")]
       (map alias-row aliases)
       [(str "                              }")])))
 
-(defn dev-deps-content [from-dir top-ns component-names base-names system-names libraries]
+(defn workspace-content [top-ns system-names]
   (concat
     [(str "")
      (str "{:polylith {:vcs \"git\"")
@@ -61,11 +63,12 @@
      (str "            :compact-views #{}")
      (str "            :release-tag-pattern \"v[0-9]*\"")
      (str "            :stable-tag-pattern \"stable-*\"")]
+    (project-configs system-names)
+    [(str "}")]))
 
-    (aliases system-names)
-    [(str "            :ns-to-lib {}}")
-     (str "")
-     (str " :aliases  {:dev {:extra-paths [\"development/src\"")]
+(defn dev-deps-content [from-dir component-names base-names libraries]
+  (concat
+    [(str " :aliases  {:dev {:extra-paths [\"development/src\"")]
     (mapcat #(src-dev-paths from-dir "components" %) component-names)
     (mapcat #(src-dev-paths from-dir "bases" %) base-names)
     [(str "                               ]")
@@ -98,13 +101,17 @@
     (mapcat #(test-project-paths from-dir "bases" %) base-names)
     [(str "                                 ]}}}")]))
 
-(defn create-dev [from-dir to-dir top-ns component-names base-names system-names]
+(defn create-workspace [to-dir top-ns system-names]
+  (file/create-file (str to-dir "/workspace.edn")
+                    (workspace-content top-ns system-names)))
+
+(defn create-dev [from-dir to-dir top-ns component-names base-names]
   (let [dev-brick-names (map common/path-to-ns (file/directories (str from-dir "/environments/development/src/" (common/ns-to-path top-ns))))
         dev-component-names (sort (filter #(contains? (set component-names) %) dev-brick-names))
         dev-base-names (sort (filter #(contains? (set base-names) %) dev-brick-names))
         libs (sort-by #(-> % first str) (config-key :dependencies (str from-dir "/environments/development")))]
     (file/create-file (str to-dir "/deps.edn")
-                      (dev-deps-content from-dir top-ns dev-component-names dev-base-names system-names libs))))
+                      (dev-deps-content from-dir dev-component-names dev-base-names libs))))
 
 (defn create-project [from-dir to-dir project-name top-ns component-names base-names]
   (let [project-brick-names (map common/path-to-ns (file/directories (str from-dir "/systems/" project-name "/src/" (common/ns-to-path top-ns))))
@@ -143,7 +150,8 @@
     (file/create-dir (str to-dir "/projects"))
     (file/create-dir (str to-dir "/development/src"))
     (file/create-file (str to-dir "/development/src/.keep") [""])
-    (create-dev from-dir to-dir top-ns component-names base-names system-names)
+    (create-workspace to-dir top-ns system-names)
+    (create-dev from-dir to-dir top-ns component-names base-names)
     (doseq [system-name system-names]
       (create-project from-dir to-dir system-name top-ns component-names base-names))
     (println (str "  Successfully migrated to: " to-dir))))

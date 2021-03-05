@@ -2,6 +2,7 @@ example
 ├── bases
 ├── components
 │   └── user
+│       ├── deps.edn
 │       ├── resources
 │       │   └── user
 │       ├── src
@@ -22,6 +23,7 @@ example
 │           └── lisa.clj
 ├── logo.png
 ├── projects
-└── readme.md
+├── readme.md
+└── workspace.edn
 
-17 directories, 7 files
+17 directories, 9 files

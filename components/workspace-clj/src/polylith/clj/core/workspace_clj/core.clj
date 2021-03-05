@@ -39,7 +39,20 @@
         message (validator/validate-workspace-config config)]
     (if message
       (throw (ex-info (str "  " (color/error color-mode "Error in ./worspace.edn: ") message) message))
-      config)))
+      (assoc config :input-type :toolsdeps2))))
+
+(defn with-alias [[project alias]]
+  (if (= project "development")
+    [project {:alias alias
+              :test []}]
+    [project {:alias alias}]))
+
+(defn ws-config-from-dev [{:keys [project-to-alias] :as config}]
+  (let [projects (into {} (map with-alias project-to-alias))]
+    (-> config
+        (dissoc :project-to-alias)
+        (assoc :input-type :toolsdeps1
+               :projects projects))))
 
 (defn workspace-from-disk
   ([user-input]
@@ -50,11 +63,11 @@
          dev-config (dev-config-from-disk ws-dir input-type color-mode)
          ws-config (if (= :toolsdeps2 input-type)
                      (ws-config-from-disk ws-path color-mode)
-                     (assoc (:polylith dev-config) :input-type :toolsdeps1))]
+                     (ws-config-from-dev (:polylith dev-config)))]
      (workspace-from-disk ws-dir input-type ws-config dev-config user-input color-mode)))
   ([ws-dir
     input-type
-    {:keys [vcs top-namespace input-type interface-ns default-profile-name release-tag-pattern stable-tag-pattern project-to-alias ns-to-lib compact-views]}
+    {:keys [vcs top-namespace input-type interface-ns default-profile-name release-tag-pattern stable-tag-pattern ns-to-lib compact-views project-to-alias] :as config}
     {:keys [aliases]}
     user-input
     color-mode]
@@ -91,10 +104,11 @@
                                     :empty-char (or empty-char ".")
                                     :thousand-sep (or thousand-sep ",")
                                     :profile-to-settings profile-to-settings
-                                    :project-to-alias (or project-to-alias {})
+                                    :projects (:projects config {})
                                     :ns-to-lib ns-to-lib-str
                                     :user-home user-home
                                     :m2-dir m2-dir)]
+
      (util/ordered-map :ws-dir ws-dir
                        :ws-reader ws-reader
                        :user-input user-input

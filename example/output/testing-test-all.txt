@@ -1,20 +1,7 @@
 Projects to run tests from: [35mcommand-line[0m, [35mdevelopment[0m
 
-Running tests from the [35mcommand-line[0m project, including 2 bricks and 1 project: [32muser[0m, [34mcli[0m, [35mcommand-line[0m
-
-Testing se.example.cli.core-test
-
-Ran 0 tests containing 0 assertions.
-0 failures, 0 errors.
-
-[32mTest results: 0 passes, 0 failures, 0 errors.[0m
-
-Testing se.example.user.interface-test
-
-Ran 1 tests containing 1 assertions.
-0 failures, 0 errors.
-
-[32mTest results: 1 passes, 0 failures, 0 errors.[0m
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+Running tests from the [35mcommand-line[0m project, including 0 brick and 1 project: [35mcommand-line[0m
 
 Testing project.dummy_test
 
@@ -26,10 +13,10 @@ Running tests from the [35mdevelopment[0m project, including 2 bricks and 1 pr
 
 Testing se.example.cli.core-test
 
-Ran 0 tests containing 0 assertions.
+Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
-[32mTest results: 0 passes, 0 failures, 0 errors.[0m
+[32mTest results: 1 passes, 0 failures, 0 errors.[0m
 
 Testing se.example.user.interface-test
 
@@ -37,4 +24,4 @@ Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
 [32mTest results: 1 passes, 0 failures, 0 errors.[0m
-Execution time: 3 seconds
+Execution time: 2 seconds

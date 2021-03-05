@@ -50,8 +50,6 @@
               :lib-deps-test {}
               :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}})
 
-(def project-to-alias {"development" "dev"})
-
 (def brick->loc {"command" {:lines-of-code-src 36, :lines-of-code-test 0}
                  "cli" {:lines-of-code-src 21, :lines-of-code-test 0}
                  "deps" {:lines-of-code-src 43, :lines-of-code-test 51}
@@ -148,9 +146,10 @@
                                                      "components/change/test"
                                                      "components/command/test"
                                                      "test"]}}
-         (proj/enrich-project project components bases brick->loc brick->lib-imports project-to-alias
+         (proj/enrich-project project components bases brick->loc brick->lib-imports
                               {:missing []}
-                              {} {}))))
+                              {:projects {"development" {:alias "dev"}}}
+                              {}))))
 
 (deftest paths--with-active-profile--includes-brick-in-profile
   (is (= {:alias                    "dev"
@@ -243,17 +242,18 @@
                                                      "components/change/test"
                                                      "components/command/test"
                                                      "test"]}}
-         (proj/enrich-project project components bases brick->loc brick->lib-imports project-to-alias
+         (proj/enrich-project project components bases brick->loc brick->lib-imports
                               {:missing []}
                               {:active-profiles ["default"]
                                :profile-to-settings {"default" {:paths ["components/user/src"
-                                                                         "components/user/resources"
-                                                                         "components/user/test"]
+                                                                        "components/user/resources"
+                                                                        "components/user/test"]
                                                                 :src-paths ["components/user/src"
                                                                             "components/user/resources"]
                                                                 :test-paths ["components/user/test"]
                                                                 :lib-deps {"clojure.core.matrix"
-                                                                           "net.mikera/core.matrix"}}}}
+                                                                           "net.mikera/core.matrix"}}}
+                               :projects {"development" {:alias "dev", :test []}}}
                               {:selected-projects #{"dev"}}))))
 
 (deftest is-run-tests--non-dev-project-no-project-selected--returns-true

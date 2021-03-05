@@ -1,6 +1,7 @@
 example
 ├── bases
 │   └── cli
+│       ├── deps.edn
 │       ├── resources
 │       │   └── cli
 │       ├── src
@@ -15,6 +16,7 @@ example
 │                       └── core_test.clj
 ├── components
 │   └── user
+│       ├── deps.edn
 │       ├── resources
 │       │   └── user
 │       ├── src
@@ -35,6 +37,7 @@ example
 │           └── lisa.clj
 ├── logo.png
 ├── projects
-└── readme.md
+├── readme.md
+└── workspace.edn
 
-28 directories, 9 files
+28 directories, 12 files
