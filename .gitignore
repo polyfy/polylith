@@ -28,3 +28,4 @@
 /example/example/**
 artifacts
 projects/**/pom.xml
+/example/output/example/**
