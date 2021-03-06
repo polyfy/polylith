@@ -5,10 +5,10 @@
 
   project         alias  source
   -----------------------------
-  [35mcommand-line[0m *  [35m?1[0m     [35m -x-  [0m
+  [35mcommand-line[0m *  [35mcl[0m     [35m -x-  [0m
   [35mdevelopment[0m     [35mdev[0m    [35m x--  [0m
 
-  interface  brick    [35m?1 [0m   [35mdev[0m
+  interface  brick    [35mcl [0m   [35mdev[0m
   -----------------   ---   ---
   [33muser     [0m  [32muser[0m *   [35m---[0m   [35mxx-[0m
   -          [34mcli[0m      [35m---[0m   [35mxx-[0m

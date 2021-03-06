@@ -52,14 +52,14 @@
    (read-workspace ws-file ws-dir user-input (common/color-mode user-input)))
   ([ws-file ws-dir user-input color-mode]
    (if (nil? ws-file)
-     (when (common/valid-config-file? ws-dir color-mode)
+     (when (common/valid-ws-root-config-file-found? ws-dir color-mode)
        (-> user-input
            ws-clj/workspace-from-disk
            ws/enrich-workspace
            change/with-changes))
      (read-ws-from-file ws-file user-input))))
 
-(defn execute [{:keys [cmd args name top-ns ws-file is-all is-show-brick is-show-bricks is-show-project brick get out interface selected-projects unnamed-args] :as user-input}]
+(defn execute [{:keys [cmd args name top-ns ws-file is-tap is-all is-show-brick is-show-bricks is-show-project brick get out interface selected-projects unnamed-args] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (common/workspace-dir user-input color-mode)
         project-name (first selected-projects)

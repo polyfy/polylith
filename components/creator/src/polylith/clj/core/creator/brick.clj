@@ -10,7 +10,7 @@
     (file/create-file config-file [(str "{:paths [\"src\"]")
                                    (str " :deps {}")
                                    (str " :aliases {:test {:extra-paths [\"test\"]")
-                                   (str "                  :extra-deps []}}}")])))
+                                   (str "                  :extra-deps {}}}}")])))
 
 (defn create-brick [workspace brick-name create-fn]
   (if (common/find-brick brick-name workspace)

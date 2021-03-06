@@ -1,20 +1,18 @@
 {:deps {user {:local/root "../../components/user"}
-        cli {:local/root "../../bases/cli"}
 
         org.clojure/clojure {:mvn/version "1.10.1"}
         org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}
         org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
         org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}}
 
- :aliases {:test {:extra-paths ["../../components/user-remote/test"
-                                "../../bases/cli/test"
-                                "test"]
+ :aliases {:test {:extra-paths ["../../components/user/test"
+                                "../../bases/user-api/test"]
                   :extra-deps  {}}
 
            :aot     {:extra-paths ["classes"]
-                     :main-opts   ["-e" "(compile,'se.example.cli.core)"]}
+                     :main-opts   ["-e" "(compile,'se.example.user-api.core)"]}
 
            :uberjar {:extra-deps {uberdeps/uberdeps {:mvn/version "0.1.10"}}
                      :main-opts  ["-m" "uberdeps.uberjar"
                                   "--aliases" "aot"
-                                  "--main-class" "se.example.cli.core"]}}}
+                                  "--main-class" "se.example.user_api.core"]}}}

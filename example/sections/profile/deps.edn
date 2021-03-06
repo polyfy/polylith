@@ -1,26 +1,10 @@
-{:polylith {:vcs "git"
-            :top-namespace "se.example"
-            :interface-ns "interface"
-            :default-profile-name "default"
-            :compact-views #{}
-            :release-tag-pattern "v[0-9]*"
-            :stable-tag-pattern "stable-*"
-            :project-to-alias {"development" "dev"
-                               "command-line" "cl"
-                               "user-service" "user-s"}
-            :ns-to-lib {slacker  slacker}}
-
- :aliases  {:dev {:extra-paths ["development/src"
+{:aliases  {:dev {:extra-paths ["development/src"
                                 "bases/cli/src"
                                 "bases/cli/resources"
                                 "bases/user-api/src"
                                 "bases/user-api/resources"]
                   :extra-deps {org.clojure/clojure {:mvn/version "1.10.1"}
                                org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}
-                               slacker {:mvn/version "0.17.0"}
-                               http-kit {:mvn/version "2.4.0"}
-                               ring {:mvn/version "1.8.1"}
-                               compojure {:mvn/version "1.6.2"}
                                org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
                                org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}}}
 

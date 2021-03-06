@@ -42,8 +42,8 @@
 (defn color-mode [user-input]
   (core/color-mode user-input))
 
-(defn valid-config-file? [ws-dir color-mode]
-  (config/valid-config-file? ws-dir color-mode))
+(defn valid-ws-root-config-file-found? [ws-dir color-mode]
+  (config/valid-ws-root-config-file-found? ws-dir color-mode))
 
 (defn workspace-dir [user-input color-mode]
   (ws-dir/workspace-dir user-input color-mode))

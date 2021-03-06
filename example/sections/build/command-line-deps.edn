@@ -1,9 +1,7 @@
-{:paths ["../../components/user/src"
-         "../../components/user/resources"
-         "../../bases/cli/src"
-         "../../bases/cli/resources"]
+{:deps {user {:local/root "../../components/user"}
+        cli {:local/root "../../bases/cli"}
 
- :deps {org.clojure/clojure {:mvn/version "1.10.1"}
+        org.clojure/clojure {:mvn/version "1.10.1"}
         org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}
 
  :aliases {:test {:extra-paths ["../../components/user/test"
@@ -13,7 +11,7 @@
            :aot     {:extra-paths ["classes"]
                      :main-opts   ["-e" "(compile,'se.example.cli.core)"]}
 
-           :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
+           :uberjar {:extra-deps {uberdeps/uberdeps {:mvn/version "0.1.10"}}
                      :main-opts  ["-m" "uberdeps.uberjar"
                                   "--aliases" "aot"
                                   "--main-class" "se.example.cli.core"]}}}

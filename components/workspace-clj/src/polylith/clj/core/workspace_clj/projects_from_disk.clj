@@ -19,10 +19,10 @@
        (or (str/starts-with? root "../../bases/")
            (str/starts-with? root "../../components/"))))
 
-(defn ->deps-and-paths [entry project-name]
+(defn ->deps-and-paths [entry project-name project-dir]
   (let [path (-> entry second :local/root)
         brick-path (absolute-path path project-name)
-        config (read-string (slurp (str brick-path "/deps.edn")))
+        config (read-string (slurp (str project-dir "/" path "/deps.edn")))
         src-paths (:paths config)
         test-paths (-> config :aliases :test :extra-paths)
         src-deps (:deps config)
@@ -31,6 +31,15 @@
      :test-paths (mapv #(str brick-path "/" %) test-paths)
      :src-deps src-deps
      :test-deps test-deps}))
+
+;(def project-dir "example/output/example/projects/command-line")
+;(def entry ['user {:local/root "../../components/user"}])
+;(def project-name "command-line")
+;(def path (-> entry second :local/root))
+;(def brick-path (absolute-path path project-name))
+;(def config (read-string (slurp (str project-dir "/" path "/deps.edn"))))
+
+;(absolute-path path project-name)
 
 (defn read-project
   ([{:keys [project-name project-dir config-file is-dev]} input-type user-home color-mode]
@@ -42,7 +51,7 @@
        (read-project project-name project-dir config-file input-type is-dev paths deps aliases maven-repos user-home))))
   ([project-name project-dir config-file input-type is-dev paths deps aliases maven-repos user-home]
    (let [toolsdeps1? (= :toolsdeps1 input-type)
-         deps-and-paths (map #(->deps-and-paths % project-name) (filter brick? deps))
+         deps-and-paths (map #(->deps-and-paths % project-name project-dir) (filter brick? deps))
          src-paths (vec (sort (set (if is-dev (-> aliases :dev :extra-paths)
                                               (if toolsdeps1? (map #(absolute-path % project-name) paths)
                                                               (mapcat :src-paths deps-and-paths))))))

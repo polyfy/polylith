@@ -1,4 +1,4 @@
 {:paths ["src"]
- :deps {mvxcvi/puget {:mvn/version "1.3.1"}}
+ :deps {slacker/slacker {:mvn/version "0.17.0"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {}}}}

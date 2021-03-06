@@ -45,6 +45,7 @@ cd ..
 tree example > ../output/project-tree.txt
 cd example
 cp ../../sections/project/deps.edn .
+cp ../../sections/project/workspace.edn .
 cp ../../sections/project/command-line-deps.edn projects/command-line/deps.edn
 
 echo "### 6/13 Tools.deps ###"
@@ -121,12 +122,16 @@ poly info :all :dev fake-sha:e7ebe68 > ../../output/testing-info-10.txt
 poly test :all :dev > ../../output/testing-test-all.txt
 
 echo "### 12/13 Profile ###"
+cp ../../sections/profile/workspace.edn .
 poly create p name:user-service
-cp ../../sections/profile/user-service-deps.edn projects/user-service/deps.edn
+cp ../../sections/profile/user-service-deps1.edn projects/user-service/deps.edn
 poly create b name:user-api
+cp ../../sections/profile/user-api-deps.edn bases/user-api/deps.edn
 cp ../../sections/profile/user-api-core.clj bases/user-api/src/se/example/user_api/core.clj
 cp ../../sections/profile/user-api-api.clj bases/user-api/src/se/example/user_api/api.clj
+cp ../../sections/profile/user-service-deps2.edn projects/user-service/deps.edn
 poly create c name:user-remote interface:user
+cp ../../sections/profile/user-remote-deps.edn components/user-remote/deps.edn
 cp ../../sections/profile/user-remote-core.clj components/user-remote/src/se/example/user/core.clj
 cp ../../sections/profile/user-remote-interface.clj components/user-remote/src/se/example/user/interface.clj
 cp ../../sections/profile/deps.edn .
