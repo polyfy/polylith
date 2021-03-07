@@ -7,7 +7,7 @@
 
 (defn create-config-file [ws-dir bricks-dir brick-name]
   (let [config-file (str ws-dir "/" bricks-dir "/" brick-name "/deps.edn")]
-    (file/create-file config-file [(str "{:paths [\"src\"]")
+    (file/create-file config-file [(str "{:paths [\"src\" \"resources\"]")
                                    (str " :deps {}")
                                    (str " :aliases {:test {:extra-paths [\"test\"]")
                                    (str "                  :extra-deps {}}}}")])))

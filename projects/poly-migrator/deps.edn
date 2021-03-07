@@ -1,10 +1,10 @@
-{:deps {common        {:local/root "../../components/common"}
-        file          {:local/root "../../components/file"}
-        migrator      {:local/root "../../components/migrator"}
-        user-config   {:local/root "../../components/user-config"}
-        util          {:local/root "../../components/util"}
-        version       {:local/root "../../components/version"}
-        migrator-cli  {:local/root "../../bases/migrator-cli"}
+{:deps {poly/common        {:local/root "../../components/common"}
+        poly/file          {:local/root "../../components/file"}
+        poly/migrator      {:local/root "../../components/migrator"}
+        poly/user-config   {:local/root "../../components/user-config"}
+        poly/util          {:local/root "../../components/util"}
+        poly/version       {:local/root "../../components/version"}
+        poly/migrator-cli  {:local/root "../../bases/migrator-cli"}
 
         org.clojure/clojure {:mvn/version "1.10.1"}}
 
@@ -17,6 +17,7 @@
            :uberjar {:extra-deps {uberdeps/uberdeps {:mvn/version "0.1.10"}}
                      :main-opts  ["-m" "uberdeps.uberjar"
                                   "--aliases" "aot"
+                                  "--multi-release"
                                   "--main-class" "polylith.clj.core.migrator_cli.core"
                                   "--target" "./target/poly-migrator.jar"]}
 

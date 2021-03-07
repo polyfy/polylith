@@ -1,6 +1,5 @@
 Projects to run tests from: [35mcommand-line[0m
 
-WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
 Running tests from the [35mcommand-line[0m project, including 2 bricks: [32muser[0m, [34mcli[0m
 
 Testing se.example.cli.core-test

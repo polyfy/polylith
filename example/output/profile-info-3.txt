@@ -13,8 +13,8 @@
 
   interface  brick           [35mcl [0m  [35muser-s[0m   [35mdev[0m
   ------------------------   -----------   ---
-  [33muser     [0m  [32muser[0m            [35mxxx[0m  [35m xxx  [0m   [35mxx-[0m
-  [33muser     [0m  [32muser-remote[0m *   [35m---[0m  [35m ---  [0m   [35mxx-[0m
+  [33muser     [0m  [32muser[0m            [35m---[0m  [35m xxx  [0m   [35mxx-[0m
+  [33muser     [0m  [32muser-remote[0m *   [35mxxx[0m  [35m ---  [0m   [35mxx-[0m
   -          [34mcli[0m             [35mxxx[0m  [35m ---  [0m   [35mxx-[0m
   -          [34muser-api[0m *      [35m---[0m  [35m xxx  [0m   [35mxx-[0m
 

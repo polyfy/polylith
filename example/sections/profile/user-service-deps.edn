@@ -1,5 +1,5 @@
-{:deps {user {:local/root "../../components/user"}
-        user-api {:local/root "../../bases/user-api"}
+{:deps {poly/user {:local/root "../../components/user"}
+        poly/user-api {:local/root "../../bases/user-api"}
 
         org.clojure/clojure {:mvn/version "1.10.1"}
         org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}

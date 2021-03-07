@@ -1,7 +1,6 @@
 Projects to run tests from: [35mcommand-line[0m, [35muser-service[0m
 
-WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
-Running tests from the [35mcommand-line[0m project, including 2 bricks and 1 project: [32muser[0m, [34mcli[0m, [35mcommand-line[0m
+Running tests from the [35mcommand-line[0m project, including 2 bricks and 1 project: [32muser-remote[0m, [34mcli[0m, [35mcommand-line[0m
 
 Testing se.example.cli.core-test
 
@@ -38,4 +37,4 @@ Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
 [32mTest results: 1 passes, 0 failures, 0 errors.[0m
-Execution time: 2 seconds
+Execution time: 3 seconds

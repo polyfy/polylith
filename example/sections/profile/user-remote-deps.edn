@@ -1,7 +1,7 @@
-{:paths ["src"]
- :deps {}
+{:paths ["src" "resources"]
+ :deps {compojure/compojure {:mvn/version "1.6.2"}
+        http-kit/http-kit {:mvn/version "2.4.0"}
+        ring/ring {:mvn/version "1.8.1"}
+        slacker/slacker {:mvn/version "0.17.0"}}
  :aliases {:test {:extra-paths ["test"]
-                  :extra-deps {compojure/compojure {:mvn/version "1.6.2"}
-                               http-kit/http-kit {:mvn/version "2.4.0"}
-                               ring/ring {:mvn/version "1.8.1"}
-                               slacker/slacker {:mvn/version "0.17.0"}}}}}
+                  :extra-deps {}}}}
