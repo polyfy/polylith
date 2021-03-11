@@ -11,7 +11,7 @@
     (contains? #{:import :require} (first statement))))
 
 (defn import [statement]
-  (map #(if (seq? %)
+  (map #(if (seqable? %)
           (-> % first str)
           %)
        (rest statement)))
