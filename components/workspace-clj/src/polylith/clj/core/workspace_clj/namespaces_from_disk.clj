@@ -11,7 +11,10 @@
     (contains? #{:import :require} (first statement))))
 
 (defn import [statement]
-  (map #(-> % first str) (rest statement)))
+  (map #(if (seq? %)
+          (-> % first str)
+          %)
+       (rest statement)))
 
 (defn imports [ns-statements]
   (vec (sort (mapcat import (filterv import? ns-statements)))))
