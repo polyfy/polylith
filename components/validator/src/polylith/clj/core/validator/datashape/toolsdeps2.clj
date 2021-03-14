@@ -24,10 +24,7 @@
   (-> [:map
        [:paths {:optional true}
         [:vector string?]]
-       [:deps {:optional true} [:map-of symbol? :map]]
-       [:aliases {:optional true}
-        [:map
-         [:test shared/alias]]]]
+       [:deps {:optional true} [:map-of symbol? :map]]]
       (m/explain config)
       (me/humanize)))
 

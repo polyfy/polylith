@@ -433,6 +433,7 @@ example
 ├── bases
 ├── components
 │   └── user
+│       ├── deps.edn
 │       ├── resources
 │       │   └── user
 │       │       └── .keep
@@ -459,7 +460,7 @@ example
 
 The command also printed out this message:
 ```
-  Remember to add src, resources and test directories to 'deps.edn' files.
+  Remember to add src, resources and test paths to './deps.edn' and the brick as a local/root dependency to project 'deps.edn' files.
 ```
 
 This was a reminder for us to add source directories to `deps.edn`.
@@ -467,6 +468,9 @@ If we don't, then tools.deps and the development environment will not recognise 
 which would be a pity!
 The tool leaves this task to you as a developer, with the idea to give you as much control as possible
 (files are only edited by you, not by the tool).
+
+Right now we can ignore the last part of the message, to add dependencies to project `deps.edn`
+files, because no projects have been created yet.
 
 Let's continue by adding the component's `src`, `resources` and `test` directory to `deps.edn`:
 ```clojure
@@ -479,6 +483,17 @@ Let's continue by adding the component's `src`, `resources` and `test` directory
 
 Now we may need to refresh our IDE, by clicking this link, or the icon we used before:<br>
 <img src="images/refresh-ws.png" width="40%">
+
+The component also has its own `deps.edn` file that looks like this:
+```
+{:paths ["src" "resources"]
+ :deps {}
+ :aliases {:test {:extra-paths ["test"]
+                  :extra-deps {}}}}
+```
+
+It specifies that it has a `src`, `resources` and `test` directory and will 
+later be needed by the projects that include this component.
 
 Now execute the [info](doc/commands.md#info) command:<br>
 ```sh
@@ -675,6 +690,7 @@ Our workspace should now look like this:
 example
 ├── bases
 │   └── cli
+│       ├── deps.edn
 │       ├── resources
 │       │   └── cli
 │       ├── src
@@ -689,6 +705,7 @@ example
 │                       └── core_test.clj
 ├── components
 │   └── user
+│       ├── deps.edn
 │       ├── resources
 │       │   └── user
 │       ├── src
@@ -713,7 +730,7 @@ example
 └── workspace.edn
 ```
 
-Now we need to update `deps.edn` with our newly created base:
+Now we need to update `./deps.edn` with our newly created base:
 ```clojure
  :aliases  {:dev {:extra-paths ["development/src"
                                 "components/user/src"
@@ -742,6 +759,17 @@ Here we added the `-main` function that will later be called from the command li
 The `(:gen-class)` statement tells the compiler to generate a Java class for us
 when the code is compiled.
 
+A `deps.edn` file was also created:
+```
+{:paths ["src" "resources"]
+ :deps {}
+ :aliases {:test {:extra-paths ["test"]
+                  :extra-deps {}}}}
+```
+
+This config file follows the same structure as the component equivalent, 
+and will soon be needed when we create a project that includes it.
+
 The next thing we want to do is to build an artifact that will turn the code into something useful, a command line tool.
 To do that, we need to start by creating a project.
 
@@ -764,6 +792,8 @@ There are two kinds of projects in Polylith: development and deployable.
      contain any tests, then they will be run when we execute the [test](#test) command.
    - If it has any tests of its own, they will live in the `test` directory, e.g. `projects/my-project/test`. 
    - It's discouraged to have a `src` directory since all production code should normally only live in components and bases.
+   - The :project key in `./workspace.edn` configures what alias each project has and what tests should be executed
+     for each project (all if not specified).
 
 Let's create a project, by executing the [create project](doc/commands.md#create-project) command:
 ```sh
@@ -775,6 +805,7 @@ Our workspace should now look like this:
 example
 ├── bases
 │   └── cli
+│       ├── deps.edn
 │       ├── resources
 │       │   └── cli
 │       ├── src
@@ -789,6 +820,7 @@ example
 │                       └── core_test.clj
 ├── components
 │   └── user
+│       ├── deps.edn
 │       ├── resources
 │       │   └── user
 │       ├── src
@@ -820,49 +852,45 @@ The tool also reminds us of this:
   It's recommended to add an alias to :projects in ./workspace.edn for the command-line project.
 ```
 
-If we don't add the alias to `./deps.edn`, the project heading will show up as `?` when we execute the `info` command,
+If we don't add the alias to `workspace.edn`, the project heading will show up as `?` when we execute the `info` command,
 so let's add it:
 ```clojure
-{:polylith {...
-            :projects {"development" {:alias "dev", :test []}
-                                "command-line" {:alias "cl"}
+{...
+ :projects {"development" {:alias "dev", :test []}
+            "command-line" {:alias "cl"}}}
 ```
+
+Notice here that we didn't specify what bricks that should be tested for this project
+(by also adding the `:test` key).
+When left out, all bricks that are included in the project will be executed when we run the `test` command
+and if we add e.g. `["user"]` then only the user component will be executed for this project.
+An empty vector means that no brick tests will be executed.
+
+To ignore tests for a project can be useful if we only want to execute the tests for e.g. one project,
+but skip them for all other.
 
 Now add `user` and `cli` to `projects/command-line/deps.edn`:
 ```clojure
-{:paths ["../../components/user/src"
-         "../../components/user/resources"
-         "../../bases/cli/src"
-         "../../bases/cli/resources"]
+{:deps {poly/user {:local/root "../../components/user-remote"}
+        poly/cli  {:local/root "../../bases/cli"}
  ...
-
- :aliases {:test {:extra-paths ["../../components/user/test"
-                                "../../bases/cli/test"]
-                  ... }}}
 ```
 
-Note:
-- We didn't add the path "development/src".
-- The src paths and the test paths are configured at different levels, `:paths` and `extra-paths`.
-- All paths begin with "../../".
-
-The reason we didn't add "development/src" is because it contains code that should only be used
-from the development environment.
-
-All projects under the `projects` directory have their source paths defined in `:paths`
-instead of inside the `:dev` alias, as for the `development` project.
-The deployable projects are simpler than `development` and use the "standard way" of 
-configuring projects by putting things in `:paths`.
-
-The reason all paths begin with "../../" is that `components` and `bases` live two levels up 
+The reason all paths begin with "../../" is that `components` and `bases` live two levels up
 compared to `projects/command-line` and not at the root as with the `development` project.
 
-If we add a missing path here, then we will get a warning when we execute the [check](#check) or [info](#info) command, e.g.:
-<img src="images/warning.png" width="90%">
+The `test` command will figure out what tests that need to be executed.
+If you have resons to run the tests for each project separately using tools.deps,
+then you also have to specify test paths.
 
-Let's summarise where the paths are located:
-- The dev project: `./deps.edn` > `:aliases` > `:dev` > `:extra-paths`.
-- Other projects: `projects/PROJECT-DIR` > `deps.edn` > `:paths`.
+> Note: All projects under the `projects` directory specifies what bricks to include by giving
+the `:local/root` key. This way of including components as dependencies instead of paths
+is currently not supported in the `development` project, and the reason we choose to wait
+is that some development environments don't support it at very well at the moment.
+
+Let's summarise where the paths/dependencies are located:
+- The dev project: `./deps.edn` > `:aliases` > `:dev` > `:extra-paths`
+- Other projects: `projects/PROJECT-DIR` > `deps.edn` > `:deps`
 
 ## Tools.deps
 
@@ -943,14 +971,14 @@ to it:
 ```sh
 example
 ├── scripts
-│   └── build-uberjar.sh
+│   └── build-uberjar.sh
 ```
 
 Create `build-cli-uberjar.sh`:
 ```sh
 example
 ├── scripts
-│   ├── build-uberjar.sh
+│   ├── build-uberjar.sh
 │   └── build-cli-uberjar.sh
 ```
 
@@ -984,7 +1012,7 @@ Now add the `aot` and `uberjar` aliases to `deps.edn` in `projects/command-line`
            :aot     {:extra-paths ["classes"]
                      :main-opts   ["-e" "(compile,'se.example.cli.core)"]}
 
-           :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
+           :uberjar {:extra-deps {uberdeps/uberdeps {:mvn/version "0.1.10"}}
                      :main-opts  ["-m" "uberdeps.uberjar"
                                   "--aliases" "aot"
                                   "--main-class" "se.example.cli.core"]}}}
@@ -1075,6 +1103,7 @@ development/src/dev/lisa.clj
 projects/command-line/deps.edn
 scripts/build-cli-uberjar.sh
 scripts/build-uberjar.sh
+workspace.edn
 ```
 
 Here we have the answer to were the `*` signs come from. The paths that start with `projects/command-line/`, 
@@ -1234,14 +1263,19 @@ are included in the `command-line` and `development` projects and that no brick 
 The `xx-` for the `cli` base follows the same pattern as for the `user` component but for the
 `bases/cli` directory.
 
-The bricks for the `command-line` project is configured in `projects/command-line/deps.edn`:
+The bricks for the `command-line` project are configured in `projects/command-line/deps.edn`:
 ```clojure
-{:paths ["../../components/user/src"
-         "../../bases/cli/src"
-         "../../bases/cli/resources"]
+{:deps {poly/user-remote {:local/root "../../components/user"}
+        poly/cli {:local/root "../../bases/cli"}
+```
 
- ...
- :aliases {:test {:extra-paths ["../../components/user/test"
+...where the `src`, `resources` and `test` folders for the bricks are specified in `components/user/deps.edn` and `bases/cli/deps.edn`
+where both have this content:
+```
+{:paths ["src" "resources"]
+ :deps {}
+ :aliases {:test {:extra-paths ["test"]
+                  :extra-deps {}}}}
 ```
 
 The bricks for the `development` project is configured in `./deps.edn`:

@@ -8,10 +8,7 @@
 
         org.clojure/clojure {:mvn/version "1.10.1"}}
 
- :aliases {:test {:extra-paths []
-                  :extra-deps  {}}
-
-           :aot     {:extra-paths ["classes"]
+ :aliases {:aot     {:extra-paths ["classes"]
                      :main-opts   ["-e" "(compile,'polylith.clj.core.migrator-cli.core)"]}
 
            :uberjar {:extra-deps {uberdeps/uberdeps {:mvn/version "0.1.10"}}

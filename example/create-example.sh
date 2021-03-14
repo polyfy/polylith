@@ -22,13 +22,13 @@ git add development/src/dev/lisa.clj
 
 echo "### 3/13 Component ###"
 poly create c name:user
+tree example > ../output/component-tree.txt
 cp ../../sections/component/user-core.clj components/user/src/se/example/user/core.clj
 git add components/user/src/se/example/user/core.clj
 cp ../../sections/component/user-interface.clj components/user/src/se/example/user/interface.clj
 cp ../../sections/component/deps.edn .
 poly info fake-sha:c91fdad > ../../output/component-info.txt
 cd ..
-tree example > ../output/component-tree.txt
 cd example
 
 echo "### 4/13 Base ###"

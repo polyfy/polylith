@@ -11,8 +11,8 @@
         [false message]
         [true config]))))
 
-(defn read-config-file [input-type brick-dir]
-  (when (= :toolsdeps2 input-type)
+(defn read-config-file [ws-type brick-dir]
+  (when (= :toolsdeps2 ws-type)
     (let [config-file-name (str brick-dir "/deps.edn")
           [ok? data] (read-and-validate-config-file config-file-name)]
       (if ok?

@@ -27,9 +27,9 @@
 (defn stringify [ns-to-lib]
   (into {} (mapv stringify-key-value ns-to-lib)))
 
-(defn dev-config-from-disk [ws-dir input-type color-mode]
+(defn dev-config-from-disk [ws-dir ws-type color-mode]
   (let [config (read-string (slurp (str ws-dir "/deps.edn")))
-        message (validator/validate-project-dev-config input-type config)]
+        message (validator/validate-project-dev-config ws-type config)]
     (if message
       (throw (ex-info (str "  " (color/error color-mode "Error in ./deps.edn: ") message) message))
       config)))
@@ -39,7 +39,7 @@
         message (validator/validate-workspace-config config)]
     (if message
       (throw (ex-info (str "  " (color/error color-mode "Error in ./worspace.edn: ") message) message))
-      (assoc config :input-type :toolsdeps2))))
+      (assoc config :ws-type :toolsdeps2))))
 
 (defn with-alias [[project alias]]
   (if (= project "development")
@@ -51,7 +51,7 @@
   (let [projects (into {} (map with-alias project-to-alias))]
     (-> config
         (dissoc :project-to-alias)
-        (assoc :input-type :toolsdeps1
+        (assoc :ws-type :toolsdeps1
                :projects projects))))
 
 (defn workspace-from-disk
@@ -59,15 +59,15 @@
    (let [color-mode (or (:color-mode user-input) (user-config/color-mode) color/none)
          ws-dir (common/workspace-dir user-input color-mode)
          ws-path (str ws-dir "/workspace.edn")
-         input-type (if (file/exists ws-path) :toolsdeps2 :toolsdeps1)
-         dev-config (dev-config-from-disk ws-dir input-type color-mode)
-         ws-config (if (= :toolsdeps2 input-type)
+         ws-type (if (file/exists ws-path) :toolsdeps2 :toolsdeps1)
+         dev-config (dev-config-from-disk ws-dir ws-type color-mode)
+         ws-config (if (= :toolsdeps2 ws-type)
                      (ws-config-from-disk ws-path color-mode)
                      (ws-config-from-dev (:polylith dev-config)))]
-     (workspace-from-disk ws-dir input-type ws-config dev-config user-input color-mode)))
+     (workspace-from-disk ws-dir ws-type ws-config dev-config user-input color-mode)))
   ([ws-dir
-    input-type
-    {:keys [vcs top-namespace input-type interface-ns default-profile-name release-tag-pattern stable-tag-pattern ns-to-lib compact-views project-to-alias] :as config}
+    ws-type
+    {:keys [vcs top-namespace ws-type interface-ns default-profile-name release-tag-pattern stable-tag-pattern ns-to-lib compact-views project-to-alias] :as config}
     {:keys [aliases]}
     user-input
     color-mode]
@@ -80,16 +80,16 @@
          user-config-file (str (user-config/home-dir) "/.polylith/config.edn")
          brick->non-top-namespaces (non-top-ns/brick->non-top-namespaces ws-dir top-namespace)
          component-names (file/directories (str ws-dir "/components"))
-         projects (projects-from-disk/read-projects ws-dir input-type user-home color-mode)
+         projects (projects-from-disk/read-projects ws-dir ws-type user-home color-mode)
          ns-to-lib-str (stringify (or ns-to-lib {}))
-         components (components-from-disk/read-components ws-dir input-type user-home top-namespace ns-to-lib-str top-src-dir component-names interface-namespace brick->non-top-namespaces)
-         bases (bases-from-disk/read-bases ws-dir input-type user-home top-namespace ns-to-lib-str top-src-dir brick->non-top-namespaces)
+         components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir component-names interface-namespace brick->non-top-namespaces)
+         bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir brick->non-top-namespaces)
          profile-to-settings (profile/profile-to-settings aliases user-home)
          paths (path-finder/paths ws-dir projects profile-to-settings)
          default-profile (or default-profile-name "default")
          active-profiles (profile/active-profiles user-input default-profile profile-to-settings)
          settings (util/ordered-map :version version/version
-                                    :input-type input-type
+                                    :ws-type ws-type
                                     :ws-schema-version version/ws-schema-version
                                     :vcs (or vcs "git")
                                     :top-namespace top-namespace

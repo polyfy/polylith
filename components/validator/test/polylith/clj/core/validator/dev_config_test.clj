@@ -29,24 +29,24 @@
                                              :deps/root "projects/poly"}}}}})
 
 ;; todo: Make sure we test the new format also
-(def input-type :toolsdeps1)
+(def ws-type :toolsdeps1)
 
 (deftest valid-config--returns-nil
   (is (= nil
-         (validator/validate-project-dev-config input-type config))))
+         (validator/validate-project-dev-config ws-type config))))
 
 (deftest invalid-nop-namespace--returns-error-message
   (is (= {:polylith {:top-namespace ["should be a string"]}}
-         (validator/validate-project-dev-config input-type (assoc-in config [:polylith :top-namespace] 1)))))
+         (validator/validate-project-dev-config ws-type (assoc-in config [:polylith :top-namespace] 1)))))
 
 (deftest invalid-compact-views--returns-error-message
   (is (= {:polylith {:compact-views ["should be a set"]}}
-         (validator/validate-project-dev-config input-type (assoc-in config [:polylith :compact-views] 'hello)))))
+         (validator/validate-project-dev-config ws-type (assoc-in config [:polylith :compact-views] 'hello)))))
 
 (deftest ns-to-lib--return-errors-message
   (is (= {:polylith {:ns-to-lib ["invalid type"]}}
-         (validator/validate-project-dev-config input-type (assoc-in config [:polylith :ns-to-lib] 'hello)))))
+         (validator/validate-project-dev-config ws-type (assoc-in config [:polylith :ns-to-lib] 'hello)))))
 
 (deftest aliases-dev--return-errors-message
   (is (= {:aliases {:dev ["invalid type"]}}
-         (validator/validate-project-dev-config input-type (assoc-in config [:aliases :dev] [1 2 3])))))
+         (validator/validate-project-dev-config ws-type (assoc-in config [:aliases :dev] [1 2 3])))))

@@ -3,7 +3,7 @@
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.m205-reference-to-missing-library-in-ns-lib :as m205]))
 
-(def settings {:input-type :toolsdeps1
+(def settings {:ws-type :toolsdeps1
                :ns-to-lib {"clj-time" "clj-time"
                            "honeysql" "honeysql"
                            "environ" "environ"

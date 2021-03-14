@@ -42,15 +42,15 @@
 ;(absolute-path path project-name)
 
 (defn read-project
-  ([{:keys [project-name project-dir config-file is-dev]} input-type user-home color-mode]
+  ([{:keys [project-name project-dir config-file is-dev]} ws-type user-home color-mode]
    (let [{:keys [paths deps aliases mvn/repos] :as config} (read-string (slurp config-file))
          maven-repos (merge mvn/standard-repos repos)
-         message (when (not is-dev) (validator/validate-project-deployable-config input-type config))]
+         message (when (not is-dev) (validator/validate-project-deployable-config ws-type config))]
      (if message
        (throw (ex-info (str "  " (color/error color-mode (str "Error in " config-file ": ") message)) message))
-       (read-project project-name project-dir config-file input-type is-dev paths deps aliases maven-repos user-home))))
-  ([project-name project-dir config-file input-type is-dev paths deps aliases maven-repos user-home]
-   (let [toolsdeps1? (= :toolsdeps1 input-type)
+       (read-project project-name project-dir config-file ws-type is-dev paths deps aliases maven-repos user-home))))
+  ([project-name project-dir config-file ws-type is-dev paths deps aliases maven-repos user-home]
+   (let [toolsdeps1? (= :toolsdeps1 ws-type)
          deps-and-paths (map #(->deps-and-paths % project-name project-dir) (filter brick? deps))
          src-paths (vec (sort (set (if is-dev (-> aliases :dev :extra-paths)
                                               (if toolsdeps1? (map #(absolute-path % project-name) paths)
@@ -87,11 +87,11 @@
    :project-dir (str ws-dir "/projects/" project-name)
    :config-file (str ws-dir "/projects/" project-name "/deps.edn")})
 
-(defn read-projects [ws-dir input-type user-home color-mode]
+(defn read-projects [ws-dir ws-type user-home color-mode]
   (let [project-configs (conj (map #(project-map ws-dir %)
                                    (file/directories (str ws-dir "/projects")))
                               {:project-name "development"
                                :is-dev true
                                :project-dir (str ws-dir "/development")
                                :config-file (str ws-dir "/deps.edn")})]
-    (mapv #(read-project % input-type user-home color-mode) project-configs)))
+    (mapv #(read-project % ws-type user-home color-mode) project-configs)))
