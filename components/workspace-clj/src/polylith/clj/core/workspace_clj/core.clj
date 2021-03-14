@@ -24,8 +24,9 @@
 (defn stringify-key-value [[k v]]
   [(str k) (str v)])
 
-(defn stringify [ns-to-lib]
-  (into {} (mapv stringify-key-value ns-to-lib)))
+(defn stringify [ws-type ns-to-lib]
+  (when (not= ws-type :toolsdeps2)
+    (into {} (mapv stringify-key-value ns-to-lib))))
 
 (defn dev-config-from-disk [ws-dir ws-type color-mode]
   (let [config (read-string (slurp (str ws-dir "/deps.edn")))
@@ -64,9 +65,8 @@
          ws-config (if (= :toolsdeps2 ws-type)
                      (ws-config-from-disk ws-path color-mode)
                      (ws-config-from-dev (:polylith dev-config)))]
-     (workspace-from-disk ws-dir ws-type ws-config dev-config user-input color-mode)))
+     (workspace-from-disk ws-dir ws-config dev-config user-input color-mode)))
   ([ws-dir
-    ws-type
     {:keys [vcs top-namespace ws-type interface-ns default-profile-name release-tag-pattern stable-tag-pattern ns-to-lib compact-views project-to-alias] :as config}
     {:keys [aliases]}
     user-input
@@ -81,7 +81,7 @@
          brick->non-top-namespaces (non-top-ns/brick->non-top-namespaces ws-dir top-namespace)
          component-names (file/directories (str ws-dir "/components"))
          projects (projects-from-disk/read-projects ws-dir ws-type user-home color-mode)
-         ns-to-lib-str (stringify (or ns-to-lib {}))
+         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
          components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir component-names interface-namespace brick->non-top-namespaces)
          bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir brick->non-top-namespaces)
          profile-to-settings (profile/profile-to-settings aliases user-home)
