@@ -7,7 +7,16 @@
   (is (= {"cli" []
           "core" ["article"]
           "development" []}
-         (to-test/project-to-bricks-to-test {} data/projects ["article"] [] {} false))))
+         (to-test/project-to-bricks-to-test {} data/projects {} ["article"] [] {} false))))
+
+(deftest project-to-bricks-to-test--with-one-changed-brick-that-is-excluded---returns-bricks-to-test-for-changed-and-active-projects
+  (is (= {"cli" []
+          "core" []
+          "development" []}
+         (to-test/project-to-bricks-to-test {}
+                                            data/projects
+                                            {:projects {"core" {:test []}}}
+                                            ["article"] [] {} false))))
 
 (deftest project-to-bricks-to-test--with-test-all-selected--returns-all-bricks-for-active-projects
   (is (= {"cli" []
@@ -18,7 +27,16 @@
                   "tag"
                   "user"]
           "development" []}
-         (to-test/project-to-bricks-to-test {} data/projects ["article"] [] {} true))))
+         (to-test/project-to-bricks-to-test {} data/projects {} ["article"] [] {} true))))
+
+(deftest project-to-bricks-to-test--with-test-all-selected-only-test-two-bricks--returns-the-two-bricks-for-active-projects
+  (is (= {"cli" []
+          "core" ["tag"
+                  "user"]
+          "development" []}
+         (to-test/project-to-bricks-to-test {} data/projects
+                                            {:projects {"core" {:test ["tag" "user"]}}}
+                                            ["article"] [] {} true))))
 
 (deftest project-to-bricks-to-test--when-the-project-itself-has-changed--return-all-bricks-for-that-project
   (is (= {"cli" []
@@ -29,4 +47,4 @@
                   "tag"
                   "user"]
           "development" []}
-         (to-test/project-to-bricks-to-test ["core"] data/projects ["article"] [] {} false))))
+         (to-test/project-to-bricks-to-test ["core"] data/projects {} ["article"] [] {} false))))

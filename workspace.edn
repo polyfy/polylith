@@ -10,4 +10,4 @@
             "deployer"      {:alias "depl", :test []}
             "poly-migrator" {:alias "migr", :test []}
             "poly"          {:alias "poly"}
-            "development"   {:alias "dev", :test []}}}
+            "development"   {:alias "dev"}}}

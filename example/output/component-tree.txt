@@ -1,4 +1,4 @@
-example
+.
 ├── bases
 ├── components
 │   └── user
@@ -9,7 +9,6 @@ example
 │       │   └── se
 │       │       └── example
 │       │           └── user
-│       │               ├── core.clj
 │       │               └── interface.clj
 │       └── test
 │           └── se
@@ -26,4 +25,4 @@ example
 ├── readme.md
 └── workspace.edn
 
-17 directories, 9 files
+17 directories, 8 files

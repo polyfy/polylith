@@ -22,14 +22,13 @@ git add development/src/dev/lisa.clj
 
 echo "### 3/13 Component ###"
 poly create c name:user
-tree example > ../output/component-tree.txt
+tree . > ../component-tree.txt
+
 cp ../../sections/component/user-core.clj components/user/src/se/example/user/core.clj
 git add components/user/src/se/example/user/core.clj
 cp ../../sections/component/user-interface.clj components/user/src/se/example/user/interface.clj
 cp ../../sections/component/deps.edn .
 poly info fake-sha:c91fdad > ../../output/component-info.txt
-cd ..
-cd example
 
 echo "### 4/13 Base ###"
 poly create b name:cli
@@ -119,6 +118,8 @@ poly info :all-bricks fake-sha:e7ebe68 > ../../output/testing-info-7.txt
 poly info :all-bricks :dev fake-sha:e7ebe68 > ../../output/testing-info-8.txt
 poly info :all fake-sha:e7ebe68 > ../../output/testing-info-9.txt
 poly info :all :dev fake-sha:e7ebe68 > ../../output/testing-info-10.txt
+cp ../../sections/testing/workspace.edn .
+poly info :all :dev fake-sha:e7ebe68 > ../../output/testing-info-11.txt
 poly test :all :dev > ../../output/testing-test-all.txt
 
 echo "### 12/13 Profile ###"
@@ -157,7 +158,7 @@ poly test :project fake-sha:e7ebe68 > ../../output/profile-test.txt
 
 echo "### 13/13 Configuration ###"
 poly ws get:settings
-poly ws get:settings:profile-to-settings:default
+poly ws get:settings:profile-to-settings:default:paths
 poly ws get:keys
 poly ws get:components:keys
 poly ws out:ws.edn

@@ -5,7 +5,7 @@
 (def workspace {:ws-dir "."
                 :name "polylith"
                 :settings {:color-mode "none"
-                           :empty-char "·"}
+                           :empty-character "·"}
                 :components [{:name "common"}
                              {:name "file"}
                              {:name "lib-dep"}

@@ -68,24 +68,24 @@
   (or (contains? libraries library)
       (contains? libraries {:name (:name library)})))
 
-(defn brick-cell [column row library brick-libs empty-char]
-  (let [flag (if (contains-lib? library brick-libs) "x" empty-char)]
+(defn brick-cell [column row library brick-libs empty-character]
+  (let [flag (if (contains-lib? library brick-libs) "x" empty-character)]
     (text-table/cell column row flag :none :left :vertical)))
 
-(defn brick-column [column {:keys [name type]} libraries brick->libs empty-char]
+(defn brick-column [column {:keys [name type]} libraries brick->libs empty-character]
   (concat [(text-table/cell column 1 name (type->color type) :right :vertical)]
-          (map-indexed #(brick-cell column (+ 3 %1) %2 (brick->libs name) empty-char)
+          (map-indexed #(brick-cell column (+ 3 %1) %2 (brick->libs name) empty-character)
                        libraries)))
 
-(defn brick-columns [column bricks libraries brick->libs empty-char]
-  (apply concat (map-indexed #(brick-column (+ column (* 2 %1)) %2 libraries brick->libs empty-char)
+(defn brick-columns [column bricks libraries brick->libs empty-character]
+  (apply concat (map-indexed #(brick-column (+ column (* 2 %1)) %2 libraries brick->libs empty-character)
                              bricks)))
 
 (defn profile-lib [[_ {:keys [lib-deps]}]]
   (mapcat lib lib-deps))
 
 (defn table [{:keys [settings components bases projects]} is-all]
-  (let [{:keys [profile-to-settings empty-char thousand-sep color-mode compact-views]} settings
+  (let [{:keys [profile-to-settings empty-character thousand-sep color-mode compact-views]} settings
         libraries (sort-by (juxt :name :version)
                            (set (concat (mapcat lib (mapcat :lib-deps projects))
                                         (mapcat profile-lib profile-to-settings))))
@@ -104,7 +104,7 @@
         n#projects (count projects)
         n#profiles (count profile-to-settings)
         n#bricks (count bricks)
-        brick-cols (brick-columns brick-col bricks libraries brick->libs empty-char)
+        brick-cols (brick-columns brick-col bricks libraries brick->libs empty-character)
         space-columns (range 2 (* 2 (+ 3 n#projects n#profiles n#bricks)) 2)
         space (if (contains? compact-views "libs") " " "  ")
         spaces (text-table/spaces 1 space-columns (repeat space))

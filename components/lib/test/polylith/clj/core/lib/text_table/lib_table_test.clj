@@ -27,7 +27,7 @@
 (def dev-profile-lib-deps {"zprint" {:version "0.4.15", :type "maven", :size 128182}})
 
 (def workspace {:settings {:color-mode "none"
-                           :empty-char "·"
+                           :empty-character "·"
                            :profile-to-settings {"default" {:paths ["components/user/src"
                                                                     "components/user/resources"
                                                                     "components/user/test"

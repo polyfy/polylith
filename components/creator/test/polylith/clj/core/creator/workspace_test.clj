@@ -89,7 +89,7 @@
             (str " :compact-views #{}")
             (str " :release-tag-pattern \"v[0-9]*\"")
             (str " :stable-tag-pattern \"stable-*\"")
-            (str " :projects {\"development\" {:alias \"dev\", :test []}}}")]
+            (str " :projects {\"development\" {:alias \"dev\"}}}")]
            (helper/content "ws1" "workspace.edn")))
 
     (is (= ["{:color-mode \"dark\""

@@ -3,7 +3,7 @@
             [polylith.clj.core.deps.text-table.workspace-ifc-deps-table :as ws-ifc-table]))
 
 (def workspace {:settings {:color-mode "none"
-                           :empty-char "·"}
+                           :empty-character "·"}
                 :interfaces [{:name "change"}
                              {:name "command"}
                              {:name "common"}

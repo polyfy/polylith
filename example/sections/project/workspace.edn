@@ -5,5 +5,5 @@
  :compact-views #{}
  :release-tag-pattern "v[0-9]*"
  :stable-tag-pattern "stable-*"
- :projects {"development" {:alias "dev", :test []}
+ :projects {"development" {:alias "dev"}
             "command-line" {:alias "cl"}}}

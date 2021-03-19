@@ -48,6 +48,9 @@ echo ""; cat testing-info-9.txt ; echo ""
 echo "######### testing-info-10.png #########"
 echo ""; cat testing-info-10.txt ; echo ""
 
+echo "######### testing-info-11.png #########"
+echo ""; cat testing-info-11.txt ; echo ""
+
 echo "######### profile-info-1.png #########"
 echo ""; cat profile-info-1.txt ; echo ""
 

@@ -10,10 +10,10 @@
    "**/target"])
 
 (defn user-config-content []
-  (let [empty-char (if (os/windows?) "." "·")
+  (let [empty-character (if (os/windows?) "." "·")
         color-mode (if (os/windows?) "none" "dark")]
     [(str "{:color-mode \"" color-mode "\"")
-     (str " :empty-character \"" empty-char "\"")
+     (str " :empty-character \"" empty-character "\"")
      (str " :thousand-sep \",\"}")]))
 
 (defn readme-content [ws-name]
@@ -39,7 +39,7 @@
    (str " :compact-views #{}")
    (str " :release-tag-pattern \"v[0-9]*\"")
    (str " :stable-tag-pattern \"stable-*\"")
-   (str " :projects {\"development\" {:alias \"dev\", :test []}}}")])
+   (str " :projects {\"development\" {:alias \"dev\"}}}")])
 
 (def deps-content
   [(str "{:aliases  {:dev {:extra-paths [\"development/src\"]")

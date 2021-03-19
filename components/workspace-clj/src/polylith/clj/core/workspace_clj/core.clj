@@ -73,7 +73,7 @@
     color-mode]
    (let [interface-namespace (or interface-ns "interface")
          top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
-         empty-char (user-config/empty-character)
+         empty-character (user-config/empty-character)
          m2-dir (user-config/m2-dir)
          user-home (user-config/home-dir)
          thousand-sep (user-config/thousand-sep)
@@ -101,7 +101,7 @@
                                     :color-mode color-mode
                                     :compact-views (or compact-views #{})
                                     :user-config-file user-config-file
-                                    :empty-char (or empty-char ".")
+                                    :empty-character (or empty-character ".")
                                     :thousand-sep (or thousand-sep ",")
                                     :profile-to-settings profile-to-settings
                                     :projects (:projects config {})
