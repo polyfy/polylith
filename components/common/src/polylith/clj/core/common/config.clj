@@ -2,6 +2,13 @@
   (:require [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.util.interface.color :as color]))
 
+(defn valid-ws-lein-file-found? [path color-mode]
+  (try
+    (and (file/exists (str path "/project.clj"))
+         (:polylith (read-string (slurp (str path "/project.clj")))))
+    (catch Exception e
+      (println (str (color/error color-mode "  Error: ") "couldn't read project.clj: " (.getMessage e))))))
+
 (defn valid-ws-deps1-file-found? [path color-mode]
   (try
     (and (file/exists (str path "/deps.edn"))
@@ -18,4 +25,5 @@
 
 (defn valid-ws-root-config-file-found? [path color-mode]
   (or (valid-ws-file-found? path color-mode)
-      (valid-ws-deps1-file-found? path color-mode)))
+      (valid-ws-deps1-file-found? path color-mode)
+      (valid-ws-lein-file-found? path color-mode)))

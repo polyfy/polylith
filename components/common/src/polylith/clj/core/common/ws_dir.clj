@@ -17,9 +17,9 @@
 
 (defn find-ws-root-dir
   "Start searching for a directory that has a workspace.edn file
-   and then continue with an old deps.edn file
-   (containing the :polylith key), start by looking in the 'path'
-   and then step one parent directory at a time."
+   and then continue with an old deps.edn file (containing the :polylith key)
+   and finally a leiningen project.clj file (containing the :polylith key),
+   start by looking in the 'path' and then step one parent directory at a time."
   [path color-mode]
   (or
     (find-root-dir path "workspace.edn" config/valid-ws-file-found? color-mode)
