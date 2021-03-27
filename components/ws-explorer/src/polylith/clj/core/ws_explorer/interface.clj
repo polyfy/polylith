@@ -4,6 +4,7 @@
 (defn extract [workspace get]
   (core/extract workspace get))
 
-(defn ws [workspace get out color-mode]
+(defn ws
   "Prints or writes the workspace to standard output or disk."
+  [workspace get out color-mode]
   (core/ws workspace get out color-mode))

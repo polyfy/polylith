@@ -14,7 +14,8 @@
                       :namespaces-test namespaces-test
                       :non-top-namespaces (brick->non-top-namespaces base-name))))
 
-(defn read-bases [ws-dir top-src-dir brick->non-top-namespaces]
+(defn read-bases
   "Reads bases from disk"
+  [ws-dir top-src-dir brick->non-top-namespaces]
   (let [base-names (file/directories (str ws-dir "/bases"))]
     (vec (sort-by :name (map #(read-base ws-dir top-src-dir brick->non-top-namespaces %) base-names)))))

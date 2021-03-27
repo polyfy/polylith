@@ -14,8 +14,9 @@
                          :colorized-message message
                          :bricks [brick-name])])))
 
-(defn brick-errors [suffixed-top-ns {:keys [name interface type namespaces-src]} interface-names interface-ns color-mode]
+(defn brick-errors
   "Checks for dependencies to component interface namespaces other than 'interface'."
+  [suffixed-top-ns {:keys [name interface type namespaces-src]} interface-names interface-ns color-mode]
   (let [interface-name (:name interface)
         dependencies (deps/interface-ns-deps suffixed-top-ns interface-name interface-names namespaces-src)]
     (mapcat #(error-message % name type interface-ns color-mode)
