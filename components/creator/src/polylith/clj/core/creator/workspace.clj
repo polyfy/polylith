@@ -54,6 +54,20 @@
    (str "                                 :sha       \"INSERT_LATEST_SHA_HERE\"")
    (str "                                 :deps/root \"projects/poly\"}}}}}")])
 
+(defn calva-settings-content [ws-name]
+  [(str "{")
+   (str "    \"calva.replConnectSequences\": [")
+   (str "        {")
+   (str "            \"projectType\": \"deps.edn\",")
+   (str "            \"name\": \"" ws-name "\",")
+   (str "            \"cljsType\": \"none\",")
+   (str "            \"menuSelections\": {")
+   (str "                \"cljAliases\": [\"dev\", \"test\"]")
+   (str "            }")
+   (str "        }")
+   (str "    ]")
+   (str "}")])
+
 (defn create-user-config-if-not-exists []
   (let [home-dir (user-config/home-dir)
         user-config-file (str home-dir "/.polylith/config.edn")]
@@ -71,6 +85,7 @@
   (file/create-file (str ws-dir "/.gitignore") gitignore-content)
   (file/create-file (str ws-dir "/deps.edn") (deps-content top-ns))
   (file/create-file (str ws-dir "/readme.md") (readme-content ws-name))
+  (file/create-file (str ws-dir ".vscode/settings.json") (calva-settings-content ws-name))
   (file/create-file (str ws-dir "/development/src/.keep") [""])
   (file/create-file (str ws-dir "/components/.keep") [""])
   (file/create-file (str ws-dir "/bases/.keep") [""])
