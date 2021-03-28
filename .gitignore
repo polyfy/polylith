@@ -28,3 +28,9 @@
 /example/example/**
 artifacts
 projects/**/pom.xml
+
+# clojure-lsp
+.lsp/sqlite*.db
+
+# Calva
+.calva/output-window/output.calva-repl
