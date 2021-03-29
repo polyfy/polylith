@@ -6,7 +6,7 @@
 
 (def types->message {#{"function"} "Function"
                      #{"macro"} "Macro"
-                     #("function" "macro") "Function and macro"})
+                     #{"function" "macro"} "Function and macro"})
 
 (defn function-warnings [[id [{:keys [sub-ns name type parameters]}]] interface component-name name->component color-mode]
   (let [other-component-names (filterv #(not= % component-name)
