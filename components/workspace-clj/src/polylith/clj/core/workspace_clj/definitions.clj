@@ -42,9 +42,10 @@
                       :parameters parameters
                       :sub-ns sub-ns)))
 
-(defn definitions [namespace statement interface-ns]
+(defn definitions
   "Takes a statement (def, defn or defmacro) from source code
    and returns a vector of definitions."
+  [namespace statement interface-ns]
   (let [type (-> statement first ->generic-type)
         name (second statement)
         code (drop-while #(not (or (list? %)

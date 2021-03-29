@@ -28,8 +28,9 @@
 (defn interface-ns-deps [suffixed-top-ns interface-name interface-names brick-namespaces]
   (vec (mapcat #(interface-ns-import-deps suffixed-top-ns interface-name interface-names %) brick-namespaces)))
 
-(defn interface-deps [suffixed-top-ns interface-names {:keys [interface namespaces-src]}]
+(defn interface-deps
   "Returns the interface dependencies for a brick (component or base)."
+  [suffixed-top-ns interface-names {:keys [interface namespaces-src]}]
   (let [interface-name (:name interface)
         deps (interface-ns-deps suffixed-top-ns interface-name interface-names namespaces-src)]
     (vec (sort (set (map :depends-on-interface deps))))))

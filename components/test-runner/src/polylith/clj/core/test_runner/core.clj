@@ -14,15 +14,17 @@
     "local" {:local/root path}
     (throw (Exception. (str "Unknown library type: " type)))))
 
-(defn key-as-symbol [[library version]]
+(defn key-as-symbol
   "The library names (keys) are stored as strings in the workspace
    and need to be converted back to symbols here.
    Library dependencies are stored as :type and :version and needs
    to be translated back to :mvn/version and :local/root."
+  [[library version]]
   [(symbol library) (adjust-key version)])
 
-(defn ->config [workspace {:keys [lib-deps test-lib-deps maven-repos]}]
+(defn ->config
   "Convert back to tools.deps format."
+  [workspace {:keys [lib-deps test-lib-deps maven-repos]}]
   (assoc workspace :mvn/repos maven-repos
                    :deps (into {} (map key-as-symbol (merge lib-deps test-lib-deps)))))
 

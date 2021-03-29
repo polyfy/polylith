@@ -4,8 +4,9 @@
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]))
 
-(defn errors [interface-names components bases color-mode]
+(defn errors
   "A base are not allowed to share the name of an interface or component."
+  [interface-names components bases color-mode]
   (let [component-names (set (map :name components))
         base-names (set (map :name bases))
         interface-names-set (set/intersection (set interface-names) base-names)

@@ -16,10 +16,12 @@
 (defn latest-stable [ws-dir pattern]
   (core/latest-stable ws-dir pattern))
 
-(defn diff [ws-dir sha1 sha2]
+(defn diff
   "Lists the changed files that has occurred between two SHAs in git."
+  [ws-dir sha1 sha2]
   (core/diff ws-dir sha1 sha2))
 
-(defn diff-command [sha1 sha2]
+(defn diff-command
   "Returns the git diff command used to perform the diff."
+  [sha1 sha2]
   (core/diff-command sha1 sha2))
