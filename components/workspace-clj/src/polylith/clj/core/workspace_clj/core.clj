@@ -63,7 +63,7 @@
                                    :empty-character (or empty-character ".")
                                    :thousand-sep (or thousand-sep ",")
                                    :profile-to-settings profile-to-settings
-                                   :projects (:projects ws-config {})
+                                   :projects (:projects config {})
                                    :ns-to-lib ns-to-lib-str
                                    :user-home user-home
                                    :m2-dir m2-dir)]
