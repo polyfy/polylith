@@ -1,13 +1,12 @@
-(ns polylith.clj.core.workspace-clj.components-from-disk
-  (:require [polylith.clj.core.common.interface :as common]
-            [polylith.clj.core.file.interface :as file]
-            [polylith.clj.core.lib.interface :as lib]
+(ns polylith.clj.core.workspace-clj.leiningen.components-from-disk
+  (:require [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.workspace-clj.config-from-disk :as config-from-disk]
             [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]
             [polylith.clj.core.workspace-clj.interface-defs-from-disk :as defs-from-disk]))
 
-(defn read-component [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir component-name interface-ns brick->non-top-namespaces]
+(defn read-component [ws-dir ws-type top-src-dir interface-ns brick->non-top-namespaces component-name]
   (let [component-dir (str ws-dir "/components/" component-name)
         component-src-dir (str component-dir "/src/" top-src-dir)
         component-test-dir (str component-dir "/test/" top-src-dir)
@@ -17,19 +16,18 @@
         namespaces-src (ns-from-disk/namespaces-from-disk component-src-dir)
         namespaces-test (ns-from-disk/namespaces-from-disk component-test-dir)
         definitions (defs-from-disk/defs-from-disk src-dir interface-ns)
-        config (config-from-disk/read-config-file ws-type component-dir)
-        lib-deps (lib/brick-lib-deps-src ws-type config top-namespace ns-to-lib namespaces-src user-home)
-        lib-deps-test (lib/brick-lib-deps-test ws-type config top-namespace ns-to-lib namespaces-test user-home)]
+        config (config-from-disk/read-config-file ws-type component-dir)]
     (util/ordered-map :name component-name
                       :type "component"
                       :namespaces-src namespaces-src
                       :namespaces-test namespaces-test
                       :non-top-namespaces (brick->non-top-namespaces component-name)
-                      :lib-deps lib-deps
-                      :lib-deps-test lib-deps-test
+                      ;; todo: implement!
+                      ;:lib-deps lib-deps
+                      ;:lib-deps-test lib-deps-test
                       :interface {:name interface-name
                                   :definitions definitions})))
 
-(defn read-components [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns brick->non-top-namespaces]
-  (vec (sort-by :name (map #(read-component ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir % interface-ns brick->non-top-namespaces)
-                           (file/directories (str ws-dir "/components"))))))
+(defn read-components [ws-dir ws-type top-src-dir interface-ns brick->non-top-namespaces]
+  (map #(read-component ws-dir ws-type top-src-dir interface-ns brick->non-top-namespaces %)
+       (file/directories (str ws-dir "/components"))))

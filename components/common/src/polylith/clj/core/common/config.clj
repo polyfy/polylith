@@ -1,11 +1,12 @@
 (ns polylith.clj.core.common.config
   (:require [polylith.clj.core.file.interface :as file]
-            [polylith.clj.core.util.interface.color :as color]))
+            [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.common.leiningen :as leiningen]))
 
 (defn valid-ws-lein-file-found? [path color-mode]
   (try
     (and (file/exists (str path "/project.clj"))
-         (:polylith (read-string (slurp (str path "/project.clj")))))
+         (leiningen/config-key path :polylith))
     (catch Exception e
       (println (str (color/error color-mode "  Error: ") "couldn't read project.clj: " (.getMessage e))))))
 

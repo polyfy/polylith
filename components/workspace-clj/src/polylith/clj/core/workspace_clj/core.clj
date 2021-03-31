@@ -8,19 +8,12 @@
             [polylith.clj.core.path-finder.interface :as path-finder]
             [polylith.clj.core.workspace-clj.config :as config]
             [polylith.clj.core.workspace-clj.profile :as profile]
+            [polylith.clj.core.workspace-clj.ws-reader :as ws-reader]
             [polylith.clj.core.workspace-clj.leiningen.core :as leiningen]
             [polylith.clj.core.workspace-clj.non-top-namespace :as non-top-ns]
             [polylith.clj.core.workspace-clj.bases-from-disk :as bases-from-disk]
             [polylith.clj.core.workspace-clj.projects-from-disk :as projects-from-disk]
             [polylith.clj.core.workspace-clj.components-from-disk :as components-from-disk]))
-
-(def ws-reader
-  {:name "polylith-clj"
-   :project-url "https://github.com/polyfy/polylith"
-   :language "Clojure"
-   :type-position "postfix"
-   :slash "/"
-   :file-extensions [".clj" "cljc"]})
 
 (defn stringify-key-value [[k v]]
   [(str k) (str v)])
@@ -46,10 +39,9 @@
         thousand-sep (user-config/thousand-sep)
         user-config-file (str (user-config/home-dir) "/.polylith/config.edn")
         brick->non-top-namespaces (non-top-ns/brick->non-top-namespaces ws-dir top-namespace)
-        component-names (file/directories (str ws-dir "/components"))
         projects (projects-from-disk/read-projects ws-dir ws-type user-home color-mode)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
-        components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir component-names interface-namespace brick->non-top-namespaces)
+        components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-namespace brick->non-top-namespaces)
         bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir brick->non-top-namespaces)
         profile-to-settings (profile/profile-to-settings aliases user-home)
         paths (path-finder/paths ws-dir projects profile-to-settings)
@@ -77,7 +69,7 @@
                                    :m2-dir m2-dir)]
 
     (util/ordered-map :ws-dir ws-dir
-                      :ws-reader ws-reader
+                      :ws-reader ws-reader/reader
                       :user-input user-input
                       :settings settings
                       :components components
@@ -85,16 +77,15 @@
                       :projects projects
                       :paths paths)))
 
-(defn workspace-from-disk
-  ([user-input]
-   (let [color-mode (or (:color-mode user-input) (user-config/color-mode) color/none)
-         ws-dir (common/workspace-dir user-input color-mode)
-         lein-config (str ws-dir "/project.clj")
-         ws-type (cond
-                   (file/exists (str ws-dir "/workspace.edn")) :toolsdeps2
-                   (file/exists (str ws-dir "/deps.edn")) :toolsdeps1
-                   (file/exists lein-config) :leiningen)]
-     (case ws-type
-       nil nil
-       :leiningen (leiningen/workspace-from-disk ws-dir)
-       (toolsdeps-ws-from-disk ws-dir ws-type user-input color-mode)))))
+(defn workspace-from-disk [user-input]
+  (let [color-mode (or (:color-mode user-input) (user-config/color-mode) color/none)
+        ws-dir (common/workspace-dir user-input color-mode)
+        lein-config (str ws-dir "/project.clj")
+        ws-type (cond
+                  (file/exists (str ws-dir "/workspace.edn")) :toolsdeps2
+                  (file/exists (str ws-dir "/deps.edn")) :toolsdeps1
+                  (file/exists lein-config) :leiningen1)]
+    (case ws-type
+      nil nil
+      :leiningen1 (leiningen/workspace-from-disk ws-dir user-input)
+      (toolsdeps-ws-from-disk ws-dir ws-type user-input color-mode))))

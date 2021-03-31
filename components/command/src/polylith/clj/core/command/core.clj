@@ -36,7 +36,7 @@
 (defn unknown-command [cmd]
   (println (str "  Unknown command '" cmd "'. Type 'poly help' for help.")))
 
-(defn read-ws-from-file [ws-file {:keys [ selected-profiles] :as user-input}]
+(defn read-ws-from-file [ws-file {:keys [selected-profiles] :as user-input}]
   (if (not (file/exists ws-file))
     (println (str "The file '" ws-file "' doesn't exist."))
     (let [ws (first (file/read-file ws-file))

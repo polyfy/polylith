@@ -1,12 +1,13 @@
-(ns polylith.clj.core.workspace-clj.projects-from-disk
+(ns polylith.clj.core.workspace-clj.leiningen.projects-from-disk
   (:require [clojure.string :as str]
             [clojure.tools.deps.alpha.util.maven :as mvn]
-            [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.lib.interface :as lib]
+            [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]
-            [polylith.clj.core.validator.interface :as validator]))
+            [polylith.clj.core.workspace-clj.leiningen.config-from-disk :as lein-config-from-disk]))
 
 (defn absolute-path [path project-name]
   (cond
@@ -32,15 +33,20 @@
      :src-deps src-deps
      :test-deps test-deps}))
 
+(def config {:deps {'clj-time #:mvn{:version "0.14.4"}, 'org.clojure/clojure #:mvn{:version "1.9.0"}}})
+
+
+
 (defn read-project
-  ([{:keys [project-name project-dir config-file is-dev]} ws-type user-home color-mode]
-   (let [{:keys [paths deps aliases mvn/repos] :as config} (read-string (slurp config-file))
-         maven-repos (merge mvn/standard-repos repos)
-         message (when (not is-dev) (validator/validate-project-deployable-config ws-type config))]
-     (if message
-       (throw (ex-info (str "  " (color/error color-mode (str "Error in " config-file ": ") message)) message))
-       (read-project project-name project-dir config-file ws-type is-dev paths deps aliases maven-repos user-home))))
-  ([project-name project-dir config-file ws-type is-dev paths deps aliases maven-repos user-home]
+  ([{:keys [project-name project-dir is-dev]} ws-type user-home color-mode]
+   (let [[ok? config] (common/leiningen-config-key project-dir :dependencies)]
+
+         ;{:keys [paths deps aliases mvn/repos] :as config} (read-string (slurp config-file))
+         ; todo: fix message (when (not is-dev) (validator/validate-project-deployable-config ws-type config))]
+     ;(if message
+     ;  (throw (ex-info (str "  " (color/error color-mode (str "Error in " project-dir "/project.clj: ") message)) message))
+       (read-project project-name project-dir ws-type is-dev paths deps aliases user-home)))
+  ([project-name project-dir ws-type is-dev paths deps aliases user-home]
    (let [toolsdeps1? (= :toolsdeps1 ws-type)
          deps-and-paths (map #(->deps-and-paths % project-name project-dir) (filter brick? deps))
          src-paths (vec (sort (set (if is-dev (-> aliases :dev :extra-paths)
@@ -68,21 +74,35 @@
                        :test-paths absolute-test-paths
                        :lib-deps lib-deps
                        :lib-deps-test lib-deps-test
-                       :maven-repos maven-repos
+                       :maven-repos mvn/standard-repos
                        :namespaces-src namespaces-src
                        :namespaces-test namespaces-test))))
 
 (defn project-map [ws-dir project-name]
   {:project-name project-name
    :is-dev false
-   :project-dir (str ws-dir "/projects/" project-name)
-   :config-file (str ws-dir "/projects/" project-name "/deps.edn")})
+   :project-dir (str ws-dir "/systems/" project-name)})
 
 (defn read-projects [ws-dir ws-type user-home color-mode]
   (let [project-configs (conj (map #(project-map ws-dir %)
                                    (file/directories (str ws-dir "/projects")))
                               {:project-name "development"
                                :is-dev true
-                               :project-dir (str ws-dir "/development")
-                               :config-file (str ws-dir "/deps.edn")})]
+                               :project-dir (str ws-dir "/environments/development")})]
     (mapv #(read-project % ws-type user-home color-mode) project-configs)))
+
+(comment
+  (def ws-dir "/Users/joakimtengstrand/source/lein-example")
+  (def project-config {:project-name "development"
+                       :is-dev true
+                       :project-dir (str ws-dir "/environments/development")})
+
+  (def dir (str ws-dir "/environments/development"))
+  (common/leiningen-config-key dir :dependencies)
+
+  (def result (lein-config-from-disk/read-config-file dir))
+  (def ok? (first result))
+  (def config (second result)))
+
+  ;; todo: add the top level key :paths to the ws structure.
+

@@ -23,6 +23,5 @@
                       :lib-deps-test lib-deps-test)))
 
 (defn read-bases [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir brick->non-top-namespaces]
-  "Reads bases from disk"
-  (let [base-names (file/directories (str ws-dir "/bases"))]
-    (vec (sort-by :name (map #(read-base ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir brick->non-top-namespaces %) base-names)))))
+  (vec (sort-by :name (map #(read-base ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir brick->non-top-namespaces %)
+                           (file/directories (str ws-dir "/bases"))))))

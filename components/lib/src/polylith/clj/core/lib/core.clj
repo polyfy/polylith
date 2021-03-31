@@ -16,12 +16,13 @@
   (util/stringify-and-sort-map (into {} (map #(with-size % user-home) library-map))))
 
 (defn lib-deps [ws-type config top-namespace ns-to-lib namespaces user-home dep-keys]
-  (if (= :toolsdeps2 ws-type)
-    (with-sizes (get-in config dep-keys) user-home)
-    (deps/lib-deps top-namespace ns-to-lib namespaces)))
+  (if (= :toolsdeps1 ws-type)
+    (deps/lib-deps top-namespace ns-to-lib namespaces)
+    (with-sizes (get-in config dep-keys) user-home)))
 
 (defn lib-deps-src [ws-type config top-namespace ns-to-lib namespaces-src user-home]
   (lib-deps ws-type config top-namespace ns-to-lib namespaces-src user-home [:deps]))
 
 (defn lib-deps-test [ws-type config top-namespace ns-to-lib namespaces-test user-home]
+  ;; todo: handle leiningen1 correctly.
   (lib-deps ws-type config top-namespace ns-to-lib namespaces-test user-home [:aliases :test :extra-deps]))
