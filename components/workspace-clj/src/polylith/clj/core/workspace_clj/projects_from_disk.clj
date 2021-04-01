@@ -1,12 +1,12 @@
 (ns polylith.clj.core.workspace-clj.projects-from-disk
   (:require [clojure.string :as str]
             [clojure.tools.deps.alpha.util.maven :as mvn]
-            [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]
-            [polylith.clj.core.validator.interface :as validator]))
+            [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.validator.interface :as validator]
+            [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]))
 
 (defn absolute-path [path project-name]
   (cond
@@ -14,10 +14,14 @@
     (str/starts-with? path "../../") (subs path 6)
     :else (str "projects/" project-name "/" path)))
 
+(defn brick-path? [path]
+  (or
+    (str/starts-with? path "../../bases/")
+    (str/starts-with? path "../../components/")))
+
 (defn brick? [[_ {:keys [local/root]}]]
   (and (-> root nil? not)
-       (or (str/starts-with? root "../../bases/")
-           (str/starts-with? root "../../components/"))))
+       (brick-path? root)))
 
 (defn ->deps-and-paths [entry project-name project-dir]
   (let [path (-> entry second :local/root)

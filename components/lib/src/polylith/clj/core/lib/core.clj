@@ -9,8 +9,7 @@
   (cond
     version (mvn-size/with-size name version value)
     root (local-size/with-size-and-version name root value)
-    url (git-size/with-size-and-version name sha value user-home)
-    :else nil))
+    url (git-size/with-size-and-version name sha value user-home)))
 
 (defn with-sizes [library-map user-home]
   (util/stringify-and-sort-map (into {} (map #(with-size % user-home) library-map))))
