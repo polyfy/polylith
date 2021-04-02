@@ -86,9 +86,10 @@
 
 (defn table [{:keys [settings components bases projects]} is-all]
   (let [{:keys [profile-to-settings empty-character thousand-sep color-mode compact-views]} settings
+        entities (concat components bases projects)
         libraries (sort-by (juxt :name :version)
-                           (set (concat (mapcat lib (mapcat :lib-deps
-                                                            (concat components bases projects)))
+                           (set (concat (mapcat lib (mapcat :lib-deps entities))
+                                        (mapcat lib (mapcat :lib-deps-test entities))
                                         (mapcat profile-lib profile-to-settings))))
         all-bricks (concat components bases)
         brick->libs (into {} (map brick-libs all-bricks))
