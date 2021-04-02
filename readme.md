@@ -2282,32 +2282,46 @@ poly deps project:rb brick:article
 
 ## Libraries
 
-Libraries are specified in `deps.edn` in each brick and project:
-- Bases: `bases/BASE-DIR` > `deps.edn` > `:deps`
-- Components: `components/COMPONENT-DIR` > `deps.edn` > `:deps`
-- The development project: `./deps.edn` > `:aliases` > `:dev` > `:extra-deps`
-- Other projects: `projects/PROJECT-DIR` > `deps.edn` > `:deps`
+Libraries are specified in `deps.edn` in each component, base, and project:
+| Entity         | Type | Location |
+|:---------------|:-----|:------------------------------------------------|
+| Components     | src  | `components/COMPONENT-DIR` > `deps.edn` > `:deps`
+|                | test | `components/COMPONENT-DIR` > `deps.edn` > `:aliases` > `:test` > `:extra-deps`
+| Bases          | src  | `bases/BASE-DIR` > `deps.edn` > `:deps`
+|                | test | `bases/BASE-DIR` > `deps.edn` > `:aliases` > `:test` > `:extra-deps`
+| Dev project    | src  | `./deps.edn` > `:aliases` > `:dev` > `:extra-deps`
+|                | test | `./deps.edn` > `:aliases` > `:test` > `:extra-deps`
+| Other projects | src  | `projects/PROJECT-DIR` > `deps.edn` > `:deps`
+|                | test | `projects/PROJECT-DIR` > `deps.edn` > `:aliases` > `:test` > `:extra-deps`
 
-To list all libraries used in the workspace, execute the [libs](#libs) command:
+The tool parses each `deps.edn` file and looks for library dependencies, which are then used by the [libs](doc/commands.md#libs) 
+and [test](doc/commands.md#test) commands. 
+
+To list all libraries used in the workspace, execute the [libs](doc/commands.md#libs) command:
 ```
 poly libs
 ```
-<img src="images/realworld-lib-deps.png" width="60%">
+<img src="images/realworld-lib-deps.png" width="80%">
 
 Libraries can be specified in three different ways in `tools.deps`:
 
 | Type  | Description |
 |:------|:------------------------------------------------------|
-| Maven | As a [Maven](https://maven.apache.org/) dependency. Example: `clj-time/clj-time {:mvn/version "0.15.2"}` where the key is the Maven `groupId/artifactId`. Those dependencies are stored locally in the `~/.m2/repositories` directory. |
+| Maven | As a [Maven](https://maven.apache.org/) dependency. Example: `clj-time/clj-time {:mvn/version "0.15.2"}` where the key is the Maven `groupId/artifactId`. Those dependencies are stored locally in the `~/.m2/repositories` directory (but can be changed in `~/.polylith/config.edn`, property `m2-dir`). |
 | Local | As a local dependency. Example: `clj-time {:local/root "/local-libs/clj-time-0.15.2.jar"}` where the key is an arbitrary identifier. A local dependency is a path to a locally stored file. |
 | Git   | As a [Git](https://git-scm.com/) dependency. Example: `clj-time/clj-time {:git/url "https://github.com/clj-time/clj-time.git", :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}` where the key must match the path for the library in `~/.gitlibs/libs` (to be able to calculate the `KB` column). |
  
 The KB column shows the size of each library in kilobytes. If you get the key path wrong or if the library
 hasn't been downloaded yet, then it will be shown as blank.
 
+The project columns consists of two characters, e.g. `xx`, where the first says whether it is a dependency used by the `src` code.
+The second tells if it's used by the `test` code.
+
+The brick columns is marked with an `x` if the library is used by the `src` code.
+
 If we have a lot of libraries, we can choose a more compact format by setting `:compact-views` to `#{"libs"}` in `./deps.edn`:
 
-<img src="images/realworld-lib-deps-compact.png" width="52%">
+<img src="images/realworld-lib-deps-compact.png" width="70%">
 
 ## Context
 
@@ -2539,6 +2553,20 @@ poly ws get:components:user
                     :namespace "se.example.user.interface-test"}],
  :type "component"}
 ```
+
+Earlier, we used the [libs](doc/commands.md#libs) to show library usage.
+The same information is also stored in the workspace structure:, e.g.:
+```
+poly ws get:components:article:lib-deps
+```
+```clojure
+{"clj-time/clj-time" {:size 22783, :type "maven", :version "0.14.2"},
+ "honeysql/honeysql" {:size 17747, :type "maven", :version "0.9.2"},
+ "metosin/spec-tools" {:size 33615, :type "maven", :version "0.6.1"},
+ "org.clojure/java.jdbc" {:size 24249, :type "maven", :version "0.7.5"},
+ "slugger/slugger" {:size 792835, :type "maven", :version "1.0.1"}}
+```
+
 There is a way to store the workspace state to a file, and that is to give the `out` parameter, e.g.:
 ```
 poly ws out:ws.edn

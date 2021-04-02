@@ -59,17 +59,13 @@
                                  "projects/poly/test"]}
 
             :poly {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
-                   :extra-deps {polylith/clj-poly
-                                {:local/root "projects/poly"}}}
+                   :extra-deps {polylith/clj-poly {:local/root "projects/poly"}}}
 
             :migrator {:main-opts  ["-m" "polylith.clj.core.migrator-cli.core"]
-                       :extra-deps {polylith/clj-poly-migrator
-                                    {:local/root "projects/poly-migrator"}}}
+                       :extra-deps {polylith/clj-poly-migrator {:local/root "projects/poly-migrator"}}}
 
-            :deploy {:extra-deps {polylith/clj-deployer
-                                  {:local/root "projects/deployer"}}
+            :deploy {:extra-deps {polylith/clj-deployer {:local/root "projects/deployer"}}
                      :main-opts ["-m" "polylith.clj.core.deployer-cli.core" "deploy"]}
 
-            :create-artifacts {:extra-deps {polylith/clj-deployer
-                                            {:local/root "projects/deployer"}}
+            :create-artifacts {:extra-deps {polylith/clj-deployer {:local/root "projects/deployer"}}
                                :main-opts ["-m" "polylith.clj.core.deployer-cli.core" "create-artifacts"]}}}

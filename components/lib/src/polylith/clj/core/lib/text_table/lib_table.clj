@@ -41,24 +41,29 @@
           (map-indexed #(kb-cell (+ 3 %1) %2 thousand-sep)
                        libraries)))
 
-(defn flag-cell [column row lib-dep lib-deps]
-  (let [flag (if (contains? lib-deps lib-dep) "x" "-")]
+(defn flag-cell [column row lib-dep lib-deps lib-deps-test]
+  (let [flag-src (if (contains? lib-deps lib-dep) "x" "-")
+        flag-tst (if (contains? lib-deps-test lib-dep) "x" "-")
+        flag (str flag-src flag-tst)]
     (text-table/cell column row flag :purple :center :horizontal)))
 
-(defn project-column [column {:keys [alias lib-deps unmerged]} libraries]
-  (let [deps (set (mapcat lib (:lib-deps unmerged lib-deps)))]
+(defn project-column [column {:keys [alias lib-deps lib-deps-test unmerged]} libraries]
+  (let [deps (set (mapcat lib (:lib-deps unmerged lib-deps)))
+        deps-test (set (mapcat lib (:lib-deps-test unmerged lib-deps-test)))]
     (concat [(text-table/cell column 1 alias :purple :center :horizontal)]
-            (map-indexed #(flag-cell column (+ 3 %1) %2 deps)
+            (map-indexed #(flag-cell column (+ 3 %1) %2 deps deps-test)
                          libraries))))
 
 (defn project-columns [libraries projects]
   (apply concat (map-indexed #(project-column (+ 7 (* 2 %1)) %2 libraries)
                              projects)))
 
-(defn profile-column [column libraries [profile {:keys [lib-deps]}]]
-  (concat [(text-table/cell column 1 profile :purple :center :horizontal)]
-          (map-indexed #(flag-cell column (+ 3 %1) %2 (set (mapcat lib lib-deps)))
-                       libraries)))
+(defn profile-column [column libraries [profile {:keys [lib-deps lib-deps-test]}]]
+  (let [deps (set (mapcat lib lib-deps))
+        deps-test (set (mapcat lib lib-deps-test))]
+    (concat [(text-table/cell column 1 profile :purple :center :horizontal)]
+            (map-indexed #(flag-cell column (+ 3 %1) %2 deps deps-test)
+                         libraries))))
 
 (defn profile-columns [column libraries profile-to-settings]
   (apply concat (map-indexed #(profile-column (+ column (* 2 %1)) libraries %2)
