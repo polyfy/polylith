@@ -24,7 +24,7 @@ like services, tools and libraries, in the same way we put together LEGO when we
 Not surprisingly, it's just as simple and fun!
 
 To give you an idea of what that can look like, take a quick look at the bricks and libraries
-that we use to build the Polylith tool (which is itself a Polylith workspace):
+that we use to build the Polylith tool (which is itself a Polylith workspace, represented by the `poly` column in the first diagram):
 
 <img src="images/polylith-info-deps-libs.png" width="100%">
 

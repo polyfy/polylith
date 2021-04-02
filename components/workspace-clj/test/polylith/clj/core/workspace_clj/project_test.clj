@@ -41,34 +41,34 @@
   [library {:version version}])
 
 (deftest projects--config-map-with-aliases--returns-projects
-  (let [result (projs/read-project "poly" "projects/poly" "projects/poly/deps.edn" :toolsdeps1 false paths deps aliases mvn/standard-repos "/USER")]
-    (is (= {:config-file     "projects/poly/deps.edn"
-            :is-dev          false
-            :project-dir     "projects/poly"
-            :maven-repos     {"central" {:url "https://repo1.maven.org/maven2/"}
-                              "clojars" {:url "https://repo.clojars.org/"}}
-            :name            "poly"
-            :namespaces-src  []
-            :namespaces-test [{:file-path "projects/poly/test/project/dummy.clj"
-                               :imports   ["clojure.test"]
-                               :name      "project.dummy"
-                               :namespace "project.dummy"}]
-            :src-paths       ["bases/tool/src"
-                              "components/change/src"
-                              "components/common/src"
-                              "components/deps/src"
-                              "components/file/src"
-                              "projects/poly/src"]
-            :lib-deps-test   {}
-            :test-paths      ["bases/tool/test"
-                              "components/change/test"
-                              "components/common/test"]
-            :type            "project"}
-           (dissoc result :lib-deps)))
-    (is (= {"org.clojure/clojure"                             {:type    "maven"
-                                                               :version "1.10.1"
-                                                               :size    3908431}
-            "org.clojure/tools.deps.alpha"                    {:type    "maven"
-                                                               :version "0.8.695"
-                                                               :size    47566}}
-           (:lib-deps result)))))
+  (is (= {:name "poly",
+          :is-dev false,
+          :project-dir "projects/poly",
+          :config-file "projects/poly/deps.edn",
+          :type "project",
+          :src-paths ["bases/tool/src"
+                      "components/change/src"
+                      "components/common/src"
+                      "components/deps/src"
+                      "components/file/src"
+                      "projects/poly/src"],
+          :test-paths ["bases/tool/src"
+                       "components/change/src"
+                       "components/common/src"
+                       "components/deps/src"
+                       "components/file/src"
+                       "projects/poly/src"
+                       "bases/tool/test"
+                       "components/change/test"
+                       "components/common/test"],
+          :lib-deps {"org.clojure/clojure" {:version "1.10.1", :type "maven", :size 3908431},
+                     "org.clojure/tools.deps.alpha" {:version "0.8.695", :type "maven", :size 47566}},
+          :lib-deps-test {"org.clojure/clojure" {:version "1.10.1", :type "maven", :size 3908431},
+                          "org.clojure/tools.deps.alpha" {:version "0.8.695", :type "maven", :size 47566}},
+          :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}, "clojars" {:url "https://repo.clojars.org/"}},
+          :namespaces-src [],
+          :namespaces-test [{:name "project.dummy",
+                             :namespace "project.dummy",
+                             :file-path "projects/poly/test/project/dummy.clj",
+                             :imports ["clojure.test"]}]}
+         (projs/read-project "poly" "projects/poly" "projects/poly/deps.edn" false paths deps aliases mvn/standard-repos "/USER"))))
