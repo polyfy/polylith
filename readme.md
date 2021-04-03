@@ -2680,7 +2680,7 @@ Happy coding!
 
 Feel free to contact me:<br>
 &nbsp;&nbsp;Twitter: @jtengstrand<br>
-&nbsp;&nbsp;Email: info[at]polyfy[dot]com
+&nbsp;&nbsp;Email: info[at]polyfy[dot]se
 
 You can also get in touch with us in the [Polylith forum](https://polylith.freeflarum.com) 
 or on [Slack](https://clojurians.slack.com/archives/C013B7MQHJQ).
