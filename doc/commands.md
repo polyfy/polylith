@@ -616,23 +616,24 @@ poly help
                                                                               e  i
     library                       version     KB   cl   dev  default  admin   r  l
     --------------------------------------------   --   -------------------   ----
-    antlr/antlr                   2.7.7      434   x     x      -       -     ·  x
-    clj-time                      0.15.2      23   x     x      -       -     x  ·
-    org.clojure/clojure           1.10.1   3,816   x     x      -       -     ·  ·
-    org.clojure/tools.deps.alpha  0.8.695     46   x     x      -       -     ·  ·
+    antlr/antlr                   2.7.7      434   x-   x-     --      --     ·  x
+    clj-time                      0.15.2      23   x-   x-     --      --     x  ·
+    org.clojure/clojure           1.10.1   3,816   x-   x-     --      --     ·  ·
+    org.clojure/tools.deps.alpha  0.8.695     46   x-   x-     --      --     ·  ·
 
   In this example we have four libraries used by the cl and dev projects.
   If any of the libraries are added to the default or admin profiles, they will appear
-  as 'x' in these columns.
+  as 'x-', '-x' or'xx' in these columns.
+
+  The 'x-' for the cl and dev columns says that the library is added to the src code
+  ('x') but not as a test library ('-').
+  A library can either be specified directly by the project itself, or indirectly via
+  components and bases.
 
   The 'x' in the user column, tells that clj-time is used by that component
-  by having at least one :require statement that includes a clj-time namespace.
+  by having it specified in its 'deps.edn' file as a src dependency.
 
-  Libraries are only specified per project, and the way it finds out which libraries
-  are used for a specific brick, is by looking in :ns-to-lib in ./deps.edn
-  which in this case has the value {clj-time clj-time, antlr antlr/antlr}.
-
-  Libraries are selected per project and it's therefore possible to have different
+  Libraries can also be selected per project and it's therefore possible to have different
   versions of the same library in different projects (if needed).
 
   This table supports all three different ways of including a dependency:

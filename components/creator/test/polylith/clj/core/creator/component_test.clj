@@ -59,7 +59,8 @@
            (helper/content src-ifc-dir "interface.clj")))
 
     (is (= ["(ns se.example.my-component.interface-test"
-            "  (:require [clojure.test :refer :all]))"
+            "  (:require [clojure.test :as test :refer :all])"
+            "            [se.example.my-component.interface.interface :as interface]))"
             ""
             "(deftest dummy-test"
             "  (is (= 1 1)))"]
@@ -110,7 +111,8 @@
            (helper/content src-ifc-dir "interface.clj")))
 
     (is (= ["(ns se.example.my-interface.interface-test"
-            "  (:require [clojure.test :refer :all]))"
+            "  (:require [clojure.test :as test :refer :all])"
+            "            [se.example.my-interface.interface.interface :as interface]))"
             ""
             "(deftest dummy-test"
             "  (is (= 1 1)))"]

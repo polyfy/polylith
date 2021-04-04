@@ -889,10 +889,15 @@ The `test` command will figure out what tests that need to be executed.
 If you have resons to run the tests for each project separately using tools.deps,
 then you also have to specify test paths.
 
-> Note: All projects under the `projects` directory specifies what bricks to include by giving
-the `:local/root` key. This way of including components as dependencies instead of paths
-is currently not supported in the `development` project, and the reason we choose to wait
-is that some development environments don't support it at very well at the moment.
+> Note: All the project `deps.edn` config files under the `projects` directory specifies what bricks to include by giving
+> a list of `:local/root` mappings. The poly `test` command uses this information to figure out what bricks and 
+> library dependencies that should be included when executing the tests, by looking into each brick's `deps.edn` file. 
+> tools.deps does not "inherit" test dependencies from `:local/root` mappings, which is the reason we have to add our
+> dependencis as separate paths in `/deps.edn` to allow IDE's and other tooling to work properly.
+ 
+This way of including components as dependencies instead of paths
+is not supported in the `development` project. The reason is that , and the reason we choose to wait
+is that some development environments don't support it very well at the moment.
 
 Let's summarise where the paths/dependencies to bricks are located:
 - The dev project: `./deps.edn` > `:aliases` > `:dev` > `:extra-paths`
