@@ -60,7 +60,7 @@
 
     (is (= ["(ns se.example.my-component.interface-test"
             "  (:require [clojure.test :as test :refer :all]"
-            "            [se.example.my-component.interface.interface :as interface]))"
+            "            [se.example.my-component.interface :as my-component]))"
             ""
             "(deftest dummy-test"
             "  (is (= 1 1)))"]
