@@ -58,11 +58,14 @@
   (apply concat (map-indexed #(project-column (+ 7 (* 2 %1)) %2 libraries)
                              projects)))
 
-(defn profile-column [column libraries [profile {:keys [lib-deps lib-deps-test]}]]
-  (let [deps (set (mapcat lib lib-deps))
-        deps-test (set (mapcat lib lib-deps-test))]
+(defn profile-flag-cell [column row lib-dep lib-deps]
+  (let [flag (if (contains? lib-deps lib-dep) "x" "-")]
+    (text-table/cell column row flag :purple :center :horizontal)))
+
+(defn profile-column [column libraries [profile {:keys [lib-deps]}]]
+  (let [deps (set (mapcat lib lib-deps))]
     (concat [(text-table/cell column 1 profile :purple :center :horizontal)]
-            (map-indexed #(flag-cell column (+ 3 %1) %2 deps deps-test)
+            (map-indexed #(profile-flag-cell column (+ 3 %1) %2 deps)
                          libraries))))
 
 (defn profile-columns [column libraries profile-to-settings]

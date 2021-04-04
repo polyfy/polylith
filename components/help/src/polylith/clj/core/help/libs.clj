@@ -44,3 +44,6 @@
 
 (defn print-help [color-mode]
   (println (help color-mode)))
+
+(comment
+  (print-help "dark"))
