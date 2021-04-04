@@ -7,7 +7,7 @@
     (brick/create-resources-dir ws-dir "bases" base-name)
     (brick/create-config-file ws-dir "bases" base-name)
     (brick/create-src-ns ws-dir top-namespace bases-dir "core" base-name)
-    (brick/create-test-ns ws-dir top-namespace bases-dir "core" base-name)))
+    (brick/create-test-ns ws-dir top-namespace bases-dir "core" base-name "core")))
 
 (defn create [{:keys [ws-dir settings] :as workspace} base-name]
   (brick/create-brick workspace

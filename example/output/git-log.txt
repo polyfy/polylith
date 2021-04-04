@@ -1,5 +1,5 @@
-commit 035353fc95600f2efd754b0fece2687052d56871
-Author: Joakim Tengstrand <joakim@funnel.io>
-Date:   Fri Mar 5 11:30:58 2021 +0100
+commit e19a59b74bc7815d82c9ecc735322fd3a216e689
+Author: Joakim Tengstrand <joakimtengstrand@gmail.com>
+Date:   Sun Apr 4 19:16:13 2021 +0200
 
     Workspace created.

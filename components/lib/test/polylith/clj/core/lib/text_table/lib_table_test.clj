@@ -111,15 +111,15 @@
           "                                                                                                   s  i  s  e"
           "  library                                 version           KB   core  inv   dev  default  admin   s  n  e  r"
           "  ------------------------------------------------------------   ---------   -------------------   ----------"
-          "  antlr                                   2.7.7            434    --   --    x-     --      --     x  ·  ·  ·"
-          "  clj-time/clj-time                       d9ed4e4          134    --   --    x-     --      --     ·  ·  ·  ·"
-          "  furkan3ayraktar/polylith-clj-deps-ring  d74f49d           30    --   --    x-     --      --     ·  ·  ·  ·"
-          "  local-clojure                           2.7.7            434    --   --    x-     --      --     ·  ·  ·  ·"
-          "  org.clojure/clojure                     1.10.1         3,816    --   x-    x-     --      --     ·  ·  ·  ·"
-          "  org.clojure/clojure                     1.10.2-alpha1  3,817    x-   --    --     --      --     ·  ·  ·  ·"
-          "  org.clojure/tools.deps.alpha            0.8.695           46    x-   x-    x-     --      --     ·  ·  ·  ·"
-          "  zprint                                  0.4.15           125    --   xx    --     x-      --     ·  x  x  x"
-          "  zprint                                  0.5.4              0    --   --    --     --      x-     ·  ·  ·  ·"]
+          "  antlr                                   2.7.7            434    --   --    x-      -       -     x  ·  ·  ·"
+          "  clj-time/clj-time                       d9ed4e4          134    --   --    x-      -       -     ·  ·  ·  ·"
+          "  furkan3ayraktar/polylith-clj-deps-ring  d74f49d           30    --   --    x-      -       -     ·  ·  ·  ·"
+          "  local-clojure                           2.7.7            434    --   --    x-      -       -     ·  ·  ·  ·"
+          "  org.clojure/clojure                     1.10.1         3,816    --   x-    x-      -       -     ·  ·  ·  ·"
+          "  org.clojure/clojure                     1.10.2-alpha1  3,817    x-   --    --      -       -     ·  ·  ·  ·"
+          "  org.clojure/tools.deps.alpha            0.8.695           46    x-   x-    x-      -       -     ·  ·  ·  ·"
+          "  zprint                                  0.4.15           125    --   xx    --      x       -     ·  x  x  x"
+          "  zprint                                  0.5.4              0    --   --    --      -       x     ·  ·  ·  ·"]
          (lib-table/table workspace false))))
 
 (deftest table--show-all-brick-deps--returns-correct-table
@@ -133,13 +133,13 @@
           "                                                                                                   s  i  s  e  e  e  l"
           "  library                                 version           KB   core  inv   dev  default  admin   s  n  e  r  r  r  i"
           "  ------------------------------------------------------------   ---------   -------------------   -------------------"
-          "  antlr                                   2.7.7            434    --   --    x-     --      --     x  ·  ·  ·  ·  ·  ·"
-          "  clj-time/clj-time                       d9ed4e4          134    --   --    x-     --      --     ·  ·  ·  ·  ·  ·  ·"
-          "  furkan3ayraktar/polylith-clj-deps-ring  d74f49d           30    --   --    x-     --      --     ·  ·  ·  ·  ·  ·  ·"
-          "  local-clojure                           2.7.7            434    --   --    x-     --      --     ·  ·  ·  ·  ·  ·  ·"
-          "  org.clojure/clojure                     1.10.1         3,816    --   x-    x-     --      --     ·  ·  ·  ·  ·  ·  ·"
-          "  org.clojure/clojure                     1.10.2-alpha1  3,817    x-   --    --     --      --     ·  ·  ·  ·  ·  ·  ·"
-          "  org.clojure/tools.deps.alpha            0.8.695           46    x-   x-    x-     --      --     ·  ·  ·  ·  ·  ·  ·"
-          "  zprint                                  0.4.15           125    --   xx    --     x-      --     ·  x  x  ·  ·  x  ·"
-          "  zprint                                  0.5.4              0    --   --    --     --      x-     ·  ·  ·  ·  ·  ·  ·"]
+          "  antlr                                   2.7.7            434    --   --    x-      -       -     x  ·  ·  ·  ·  ·  ·"
+          "  clj-time/clj-time                       d9ed4e4          134    --   --    x-      -       -     ·  ·  ·  ·  ·  ·  ·"
+          "  furkan3ayraktar/polylith-clj-deps-ring  d74f49d           30    --   --    x-      -       -     ·  ·  ·  ·  ·  ·  ·"
+          "  local-clojure                           2.7.7            434    --   --    x-      -       -     ·  ·  ·  ·  ·  ·  ·"
+          "  org.clojure/clojure                     1.10.1         3,816    --   x-    x-      -       -     ·  ·  ·  ·  ·  ·  ·"
+          "  org.clojure/clojure                     1.10.2-alpha1  3,817    x-   --    --      -       -     ·  ·  ·  ·  ·  ·  ·"
+          "  org.clojure/tools.deps.alpha            0.8.695           46    x-   x-    x-      -       -     ·  ·  ·  ·  ·  ·  ·"
+          "  zprint                                  0.4.15           125    --   xx    --      x       -     ·  x  x  ·  ·  x  ·"
+          "  zprint                                  0.5.4              0    --   --    --      -       x     ·  ·  ·  ·  ·  ·  ·"]
          (lib-table/table workspace true))))
