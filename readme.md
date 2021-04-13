@@ -892,7 +892,7 @@ clj -A:aot
 
 To build an uberjar, out of the compiled classes, we need to add this alias:
 ```clojure
-           :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
+           :uberjar {:extra-deps {uberdeps/uberdeps {:mvn/version "0.1.10"}}
                      :main-opts  ["-m" "uberdeps.uberjar"
                                   "--aliases" "aot"
                                   "--main-class" "se.example.cli.core"]}
@@ -978,7 +978,7 @@ Now add the `aot` and `uberjar` aliases to `deps.edn` in `projects/command-line`
            :aot     {:extra-paths ["classes"]
                      :main-opts   ["-e" "(compile,'se.example.cli.core)"]}
 
-           :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
+           :uberjar {:extra-deps {uberdeps/uberdeps {:mvn/version "0.1.10"}}
                      :main-opts  ["-m" "uberdeps.uberjar"
                                   "--aliases" "aot"
                                   "--main-class" "se.example.cli.core"]}}}
@@ -1957,7 +1957,7 @@ Set the content of `projects/user-service/deps.edn` to this:
            :aot     {:extra-paths ["classes"]
                      :main-opts   ["-e" "(compile,'se.example.user-api.core)"]}
 
-           :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
+           :uberjar {:extra-deps {uberdeps/uberdeps {:mvn/version "0.1.10"}}
                      :main-opts  ["-m" "uberdeps.uberjar"
                                   "--aliases" "aot"
                                   "--main-class" "se.example.user_api.core"]}}}
@@ -2378,7 +2378,7 @@ Settings that are unique per developer/user are stored in `~/.polylith/config.ed
 |:---------------------|:---------------------------------------------------------------------------------------------|
 | :thousand&#8209;separator  | Set to "," by default (when first created). |
 | :color-mode          | Set to "none" on Windows, "dark" on other operating systems (when first created). Valid values are "none", "light" and "dark", see the [color](#color) section. Can be overridden, e.g.: `poly info color-mode:none`. |
-| :empty-character     | Set to "." on Windows, "·" on other operating systems (when first created). Used by the [deps](#deps) and [libs](#libs) commands. |
+| :empty-character     | Set to "." on Windows, "·" on other operating systems (when first created). Used by the [deps](#deps) and [libs](#libs) commands. |
 | :m2-dir              | If omitted, the `.m2` directory will be set to USER-HOME/.m2. Used by the [libs](#libs) command to calculate file sizes (KB). |
 
 If `~/.polylith/config.edn` doesn't exists, it will be created the first time the [create workspace](doc/commands.md#create-workspace) command is executed, e.g.:
@@ -2386,7 +2386,7 @@ If `~/.polylith/config.edn` doesn't exists, it will be created the first time th
 ```
 {:color-mode "dark"
  :thousand-separator ","
- :empty-character "·"}
+ :empty-character "·"}
 ```
 
 ## Workspace state
@@ -2401,7 +2401,7 @@ poly ws get:settings
  :color-mode "dark",
  :compact-views #{},
  :default-profile-name "default",
- :empty-char "·",
+ :empty-char "·",
  :interface-ns "interface",
  :m2-dir "/Users/tengstrand/.m2",
  :ns-to-lib {"slacker" "slacker"},
@@ -2584,7 +2584,7 @@ When we created the `example` workspace, the file `~/.polylith/config.edn` was a
 ```
 {:color-mode "dark"
  :thousand-separator ","
- :empty-character "·"}
+ :empty-character "·"}
 ```
 
 For Windows systems the `color-mode` is set to `none` and for all other systems, `dark` will be used as default.
