@@ -1103,7 +1103,7 @@ haven't told git to move the `stable point in time` to our second commit.
 
 # Tagging
 
-Tags are used in Polylith to mark points in time where we concider the whole codebase (workspace)
+Tags are used in Polylith to mark points in time where we consider the whole codebase (workspace)
 to be in a valid state, for example that everything compiles and that all the tests and the `check` command executes 
 without errors. 
 This is then used by the [test](#test) command to run the tests incrementally, by only executing
@@ -2378,7 +2378,7 @@ Settings that are unique per developer/user are stored in `~/.polylith/config.ed
 |:---------------------|:---------------------------------------------------------------------------------------------|
 | :thousand&#8209;separator  | Set to "," by default (when first created). |
 | :color-mode          | Set to "none" on Windows, "dark" on other operating systems (when first created). Valid values are "none", "light" and "dark", see the [color](#color) section. Can be overridden, e.g.: `poly info color-mode:none`. |
-| :empty-character     | Set to "." on Windows, "·" on other operating systems (when first created). Used by the [deps](#deps) and [libs](#libs) commands. |
+| :empty-character     | Set to "." on Windows, "·" on other operating systems (when first created). Used by the [deps](#deps) and [libs](#libs) commands. |
 | :m2-dir              | If omitted, the `.m2` directory will be set to USER-HOME/.m2. Used by the [libs](#libs) command to calculate file sizes (KB). |
 
 If `~/.polylith/config.edn` doesn't exists, it will be created the first time the [create workspace](doc/commands.md#create-workspace) command is executed, e.g.:
@@ -2386,7 +2386,7 @@ If `~/.polylith/config.edn` doesn't exists, it will be created the first time th
 ```
 {:color-mode "dark"
  :thousand-separator ","
- :empty-character "·"}
+ :empty-character "·"}
 ```
 
 ## Workspace state
@@ -2401,7 +2401,7 @@ poly ws get:settings
  :color-mode "dark",
  :compact-views #{},
  :default-profile-name "default",
- :empty-char "·",
+ :empty-char "·",
  :interface-ns "interface",
  :m2-dir "/Users/tengstrand/.m2",
  :ns-to-lib {"slacker" "slacker"},
@@ -2584,7 +2584,7 @@ When we created the `example` workspace, the file `~/.polylith/config.edn` was a
 ```
 {:color-mode "dark"
  :thousand-separator ","
- :empty-character "·"}
+ :empty-character "·"}
 ```
 
 For Windows systems the `color-mode` is set to `none` and for all other systems, `dark` will be used as default.
