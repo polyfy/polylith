@@ -298,7 +298,7 @@ Each top-level directory contains a specific type of Polylith concept.
 A `base` is a building block that exposes a public API to external systems. 
 A `component` is a building block for encapsulating a specific domain or part of the system.
 A `project` specifies our deployable artifacts and what components, bases, and libraries they contain. 
-Finally, we have the `development` project (`development` + `deps.edn`) 
+Finally, we have the `development` directory (+ `deps.edn`) 
 that we use to work with the code in one place.
 
 This structure gives a consistent shape to all Polylith projects, and ensures that both new developers 
