@@ -892,7 +892,7 @@ clj -A:aot
 
 To build an uberjar, out of the compiled classes, we need to add this alias:
 ```clojure
-           :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
+           :uberjar {:extra-deps {uberdeps/uberdeps {:mvn/version "0.1.10"}}
                      :main-opts  ["-m" "uberdeps.uberjar"
                                   "--aliases" "aot"
                                   "--main-class" "se.example.cli.core"]}
@@ -978,7 +978,7 @@ Now add the `aot` and `uberjar` aliases to `deps.edn` in `projects/command-line`
            :aot     {:extra-paths ["classes"]
                      :main-opts   ["-e" "(compile,'se.example.cli.core)"]}
 
-           :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
+           :uberjar {:extra-deps {uberdeps/uberdeps {:mvn/version "0.1.10"}}
                      :main-opts  ["-m" "uberdeps.uberjar"
                                   "--aliases" "aot"
                                   "--main-class" "se.example.cli.core"]}}}
@@ -1957,7 +1957,7 @@ Set the content of `projects/user-service/deps.edn` to this:
            :aot     {:extra-paths ["classes"]
                      :main-opts   ["-e" "(compile,'se.example.user-api.core)"]}
 
-           :uberjar {:extra-deps {uberdeps {:mvn/version "0.1.10"}}
+           :uberjar {:extra-deps {uberdeps/uberdeps {:mvn/version "0.1.10"}}
                      :main-opts  ["-m" "uberdeps.uberjar"
                                   "--aliases" "aot"
                                   "--main-class" "se.example.user_api.core"]}}}
