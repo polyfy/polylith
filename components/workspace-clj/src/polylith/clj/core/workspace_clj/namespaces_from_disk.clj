@@ -33,6 +33,21 @@
              (libspec->lib %))
        libspecs))
 
+;; (:import ,,,) handling
+
+(defn import-list->package-str
+  "Given an import-list, as handled by `clojure.core/import`, return the
+  package name as a string."
+  [import-list]
+  (if (symbol? import-list)
+    (->> import-list
+         str
+         (re-find #"(.*)\.\w+$")
+         last)
+    (-> import-list
+        first
+        str)))
+
 (defn import [[statement-type & statement-body]]
   (cond
     (= :require statement-type)
@@ -43,10 +58,7 @@
                   (remove libspec? statement-body))))
 
     (= :import statement-type)
-    (map #(->> %
-               str
-               (re-find #"(.*)\.\w+$")
-               last)
+    (map import-list->package-str
          statement-body)))
 
 (defn imports [ns-statements]
