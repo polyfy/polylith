@@ -7,6 +7,7 @@
 
 ;; (:require ,,,) handling
 
+;; Borrowed from `clojure.core`, where it's a private fn.
 (defn libspec?
   "Returns true if x is a libspec."
   [x]
@@ -17,12 +18,14 @@
             (keyword? (second x))))))
 
 (defn libspec->lib
+  "Given a valid libspec, return the lib it's specifying."
   [libspec]
   (if (symbol? libspec)
     libspec
     (first libspec)))
 
-(defn prefix-list->libs
+(defn prefix-list->lib-strs
+  "Given a valid prefix list, return the libs they specify as strings."
   [[prefix & libspecs]]
   (map #(str prefix \.
              (libspec->lib %))
@@ -56,7 +59,7 @@
     (flatten
      (concat (map (comp str libspec->lib)
                   (filter libspec? statement-body))
-             (map prefix-list->libs
+             (map prefix-list->lib-strs
                   (remove libspec? statement-body))))
 
     (= :import statement-type)
