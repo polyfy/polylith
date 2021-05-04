@@ -28,3 +28,13 @@
                 (:import java.io.File))]
     (is (= ["java.io"]
            (from-disk/imports code)))))
+
+(deftest imports--all-require-forms--return-imported-namespaces
+  (let [code '(ns polylith.clj.core.file.core
+                (:require lib.a
+                          [lib.b]
+                          [lib.c :as c]
+                          [foo bar [baz :as baz]]))
+        result (from-disk/imports code)]
+    (is (= ["foo.bar" "foo.baz" "lib.a" "lib.b" "lib.c"]
+           result))))

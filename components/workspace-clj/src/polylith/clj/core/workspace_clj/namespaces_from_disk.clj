@@ -10,21 +10,44 @@
     (sequential? statement)
     (contains? #{:import :require} (first statement))))
 
+;; (:require ,,,) handling
+
+(defn libspec?
+  "Returns true if x is a libspec."
+  [x]
+  (or (symbol? x)
+      (and (vector? x)
+           (or
+            (nil? (second x))
+            (keyword? (second x))))))
+
+(defn libspec->lib
+  [libspec]
+  (if (symbol? libspec)
+    libspec
+    (first libspec)))
+
+(defn prefix-list->libs
+  [[prefix & libspecs]]
+  (map #(str prefix \.
+             (libspec->lib %))
+       libspecs))
+
 (defn import [[statement-type & statement-body]]
-  (map #(cond
-          ;; TODO make `sequential?`
-          (seqable? %)
-          (-> % first str)
+  (cond
+    (= :require statement-type)
+    (flatten
+     (concat (map (comp str libspec->lib)
+                  (filter libspec? statement-body))
+             (map prefix-list->libs
+                  (remove libspec? statement-body))))
 
-          (= :require statement-type)
-          (str %)
-
-          (= :import statement-type)
-          (->> %
+    (= :import statement-type)
+    (map #(->> %
                str
                (re-find #"(.*)\.\w+$")
-               last))
-       statement-body))
+               last)
+         statement-body)))
 
 (defn imports [ns-statements]
   (vec (sort (mapcat import (filterv import? ns-statements)))))
