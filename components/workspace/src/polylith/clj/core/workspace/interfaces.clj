@@ -16,9 +16,10 @@
                               (set (mapcat #(-> % :interface :definitions) components))))
    :implementing-components (vec (sort (map :name components)))})
 
-(defn calculate [components]
+(defn calculate
   "Calculates all interfaces, which are all definitions (data/function/macro)
    that are defined for all components that implements an interface."
+  [components]
   (let [grouped-components (group-by #(-> % :interface :name) components)
         single-components (filter #(= (-> % second count) 1) grouped-components)
         multi-components (filter #(> (-> % second count) 1) grouped-components)

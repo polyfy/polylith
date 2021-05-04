@@ -3,9 +3,10 @@
 (defn find-first [predicate sequence]
   (first (filter predicate sequence)))
 
-(defn ordered-map [keyvals]
+(defn ordered-map
   "Takes a vector of key/value pairs and returns
    an ordered map, except entries that has nil as a value"
+  [keyvals]
   (let [pairs (filter #(-> % second nil? not)
                       (partition 2 keyvals))]
     (apply array-map
