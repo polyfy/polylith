@@ -5,11 +5,6 @@
             [polylith.clj.core.util.interface.str :as str-util])
   (:refer-clojure :exclude [import require]))
 
-(defn import? [statement]
-  (and
-    (sequential? statement)
-    (contains? #{:import :require} (first statement))))
-
 ;; (:require ,,,) handling
 
 (defn libspec?
@@ -47,6 +42,13 @@
     (-> import-list
         first
         str)))
+
+;; import/require handling
+
+(defn import? [statement]
+  (and
+    (sequential? statement)
+    (contains? #{:import :require} (first statement))))
 
 (defn import [[statement-type & statement-body]]
   (cond
