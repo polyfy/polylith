@@ -22,3 +22,9 @@
     (is (= ["clojure.test"
             "polylith.spec.core"]
            (from-disk/imports code)))))
+
+(deftest imports--bare-import--returns-imported-namespaces
+  (let [code '(ns polylith.clj.core.file.core
+                (:import java.io.File))]
+    (is (= ["java.io"]
+           (from-disk/imports code)))))

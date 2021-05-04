@@ -10,11 +10,21 @@
     (sequential? statement)
     (contains? #{:import :require} (first statement))))
 
-(defn import [statement]
-  (map #(if (seqable? %)
+(defn import [[statement-type & statement-body]]
+  (map #(cond
+          ;; TODO make `sequential?`
+          (seqable? %)
           (-> % first str)
-          %)
-       (rest statement)))
+
+          (= :require statement-type)
+          (str %)
+
+          (= :import statement-type)
+          (->> %
+               str
+               (re-find #"(.*)\.\w+$")
+               last))
+       statement-body))
 
 (defn imports [ns-statements]
   (vec (sort (mapcat import (filterv import? ns-statements)))))
