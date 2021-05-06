@@ -1103,7 +1103,7 @@ haven't told git to move the `stable point in time` to our second commit.
 
 # Tagging
 
-Tags are used in Polylith to mark points in time where we concider the whole codebase (workspace)
+Tags are used in Polylith to mark points in time where we consider the whole codebase (workspace)
 to be in a valid state, for example that everything compiles and that all the tests and the `check` command executes 
 without errors. 
 This is then used by the [test](#test) command to run the tests incrementally, by only executing
