@@ -2037,7 +2037,7 @@ What we can do is to create another REPL configuration, e.g. "REPL prod", and se
 This REPL will use the `user-remote` component and can be used to "emulate" a production like environment.
 
 But let's continue with the REPL we already have and let's see if we can switch to `user-remote` without restarting the REPL. 
-Open the `interface` namespace of the `user-remote` component and select `Tools > REPL > Load file in REPL`.
+Open the `core` namespace of the `user-remote` component and select `Tools > REPL > Load file in REPL`.
 This will replace the `user` implementaton with the `user-remote` component, which works because both
 live in the same `se.example.user` namespace, which is also their interface (`user`).
 
