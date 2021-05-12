@@ -1071,7 +1071,7 @@ scripts/build-cli-uberjar.sh
 scripts/build-uberjar.sh
 ```
 
-Here we have the answer to were the `*` signs come from. The paths that start with `projects/command-line/`, 
+Here we have the answer to where the `*` signs come from. The paths that start with `projects/command-line/`, 
 `development/`, `components/user/` and `bases/cli/` makes the tool understand that `command-line`, `development`,
 `user` and `cli` are changed.
 
@@ -1437,7 +1437,7 @@ example
 │   └── command-line
 │       └── test
 │           └── project
-│               └──dummy-test.clj
+│               └──dummy_test.clj
 
 ```
 ```clojure
@@ -1615,7 +1615,7 @@ Looks like it worked!
 
 Let's summarize the different ways to run the tests. 
 The brick tests are executed from all projects they belong to except for the development project
-(if not `:dev` is passed in):
+(if `:dev` is not passed in):
 
 | Command                    | Tests to execute                                                                             |
 |:---------------------------|:---------------------------------------------------------------------------------------------|
@@ -1693,7 +1693,7 @@ Let's create a checklist that will take us there:
 1. Create the `user-api` base.
 2. Create the `user-remote` component.
 3. Switch from `user` to `user-remote` in `deps.edn` for the `command-line` project.
-4. Create the `user-service`.
+4. Create the `user-service` project.
 5. Create a build script for `user-service`.
 
 Let's go through the list.
@@ -1745,7 +1745,7 @@ Add library mapping for the `slacker` library to `./deps.edn`:
 
 This maps the `slacker` namespace to the `slacker` library, so that the tool can figure out
 which projects need the `slacker` library, when running the [check](#check) or [info](#info) command.
-It also allows the [libs](#libs) command to show which bricks use the `slack` library,
+It also allows the [libs](#libs) command to show which bricks use the `slacker` library,
 which is explained in detail in the [libraries](#libraries) section.
 
 Create the _api_ namespace:
@@ -1919,7 +1919,7 @@ cd scripts
 cd ..
 ```
 
-#### 4. Create the `user-service`:
+#### 4. Create the `user-service` project:
 
 - [x] Create the project.
 - [x] Update its `deps.edn`:
@@ -2125,7 +2125,7 @@ It worked!
 ## Dependencies
 
 To explain dependencies, we will use the
-[RealWorld example app](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/clojure-deps).
+[RealWorld example app](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app).
 
 Start by cloning the project by executing these commands from outside the `example` workspace, 
 e.g. the parent folder of our `example` workspace:
@@ -2260,7 +2260,7 @@ Another advantage is that we will receive a validation error from the [check](#c
 if we forget to add a library to an environment, which is much nicer than trying to understand 
 the stack traces that we would otherwise get when we run the tests!
 
-The way the algorithm works is that it takes all the namespaces and sort them in reverse order.
+The way the algorithm works is that it takes all the namespaces and sorts them in reverse order.
 Then it tries to match each namespace against that list from top to down and takes the first match.
 
 Let's say we have this mapping:
