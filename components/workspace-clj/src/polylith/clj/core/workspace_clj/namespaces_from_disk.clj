@@ -5,13 +5,66 @@
             [polylith.clj.core.util.interface.str :as str-util])
   (:refer-clojure :exclude [import require]))
 
+;; (:require ,,,) handling
+
+;; Borrowed from `clojure.core`, where it's a private fn.
+(defn libspec?
+  "Returns true if x is a libspec."
+  [x]
+  (or (symbol? x)
+      (and (vector? x)
+           (or
+            (nil? (second x))
+            (keyword? (second x))))))
+
+(defn libspec->lib
+  "Given a valid libspec, return the lib it's specifying."
+  [libspec]
+  (if (symbol? libspec)
+    libspec
+    (first libspec)))
+
+(defn prefix-list->lib-strs
+  "Given a valid prefix list, return the libs they specify as strings."
+  [[prefix & libspecs]]
+  (map #(str prefix \.
+             (libspec->lib %))
+       libspecs))
+
+;; (:import ,,,) handling
+
+(defn import-list->package-str
+  "Given an import-list, as handled by `clojure.core/import`, return the
+  package name as a string."
+  [import-list]
+  (if (symbol? import-list)
+    (->> import-list
+         str
+         (re-find #"(.*)\.\w+$")
+         last)
+    (-> import-list
+        first
+        str)))
+
+;; import/require handling
+
 (defn import? [statement]
   (and
     (sequential? statement)
     (contains? #{:import :require} (first statement))))
 
-(defn import [statement]
-  (map #(-> % first str) (rest statement)))
+(defn import [[statement-type & statement-body]]
+  (cond
+    (= :require statement-type)
+    (flatten
+     (concat (map (comp str libspec->lib)
+                  (filter libspec? statement-body))
+             (map prefix-list->lib-strs
+                  (remove libspec? statement-body))))
+
+    (= :import statement-type)
+    (map import-list->package-str
+         statement-body)))
 
 (defn imports [ns-statements]
   (vec (sort (mapcat import (filterv import? ns-statements)))))
