@@ -1682,7 +1682,7 @@ Now let's try to move from this design:<br>
 <img src="images/command-line.png" width="35%">
 
 ...to this:<br>
-<img src="images/target-architecture.png" width="58%">
+<img src="images/target-architecture.png" width="35%">
 
 First we need to decide how the `command-line` tool should communicate with `user-service` over the wire.
 After some searching, we found this [slacker](https://github.com/sunng87/slacker) library that 
