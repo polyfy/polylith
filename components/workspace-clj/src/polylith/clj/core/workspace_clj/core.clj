@@ -1,5 +1,6 @@
 (ns polylith.clj.core.workspace-clj.core
-  (:require [polylith.clj.core.common.interface :as common]
+  (:require [clojure.string :as str]
+            [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.git.interface :as git]
             [polylith.clj.core.util.interface :as util]
@@ -23,13 +24,30 @@
   (when (not= ws-type :toolsdeps2)
     (into {} (mapv stringify-key-value ns-to-lib))))
 
+(defn git-root []
+  (let [[ok? root-path] (git/root-dir)]
+    (if ok?
+      root-path
+      :no-git-root)))
+
 (defn git-info [ws-dir vcs stable-tag-pattern branch]
   (let [current-branch (or branch (git/current-branch))]
-    {:name (or vcs "git")
-     :polylith-repo  git/repo
-     :branch         current-branch
-     :latest-sha     (git/latest-polylith-sha current-branch)
-     :stable-since   (git/latest-stable ws-dir stable-tag-pattern)}))
+    {:name                vcs
+     :polylith-repo       git/repo
+     :branch              current-branch
+     :git-root            (git-root)
+     :latest-polylith-sha (git/latest-polylith-sha current-branch)
+     :stable-since        (git/latest-stable ws-dir stable-tag-pattern)}))
+
+(defn ws-local-dir
+  "Returns the directory/path to the workspace if it lives
+   inside a git repository, or nil if the workspace and the
+   git repository lives in the same directory."
+  [ws-dir]
+  (let [root-dir (git-root)]
+    (when (and (not= ws-dir root-dir)
+               (str/starts-with? ws-dir root-dir))
+      (subs ws-dir (-> root-dir count inc)))))
 
 (defn toolsdeps-ws-from-disk [ws-dir
                               ws-type
@@ -40,7 +58,8 @@
                     (config/ws-config-from-disk ws-dir color-mode)
                     (config/ws-config-from-dev polylith))
         {:keys [vcs top-namespace ws-type interface-ns default-profile-name release-tag-pattern stable-tag-pattern ns-to-lib compact-views]
-         :or {release-tag-pattern "v[0-9]*"
+         :or {vcs "git"
+              release-tag-pattern "v[0-9]*"
               stable-tag-pattern "stable-*"
               compact-views {}}} ws-config
         interface-namespace (or interface-ns "interface")
@@ -83,6 +102,7 @@
                                    :m2-dir m2-dir)]
 
     (util/ordered-map :ws-dir ws-dir
+                      :ws-local-dir (ws-local-dir ws-dir)
                       :ws-reader ws-reader/reader
                       :user-input user-input
                       :settings settings

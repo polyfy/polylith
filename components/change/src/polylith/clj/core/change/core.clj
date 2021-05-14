@@ -53,15 +53,14 @@
     "stable" (git/latest-stable ws-dir stable-tag-pattern)
     {:sha since}))
 
-(defn with-changes
-  ([{:keys [ws-dir settings user-input paths] :as workspace}]
-   (if (-> ws-dir git/is-git-repo? not)
-     workspace
-     (let [since (:since user-input "stable")
-           {:keys [tag sha]} (find-sha ws-dir since settings)]
-       (assoc workspace :changes
-                        (changes workspace {:tag tag
-                                            :since since
-                                            :since-sha sha
-                                            :files (git/diff ws-dir sha nil)}
-                                 paths))))))
+(defn with-changes [{:keys [ws-dir ws-local-dir settings user-input paths] :as workspace}]
+  (if (-> ws-dir git/is-git-repo? not)
+    workspace
+    (let [since (:since user-input "stable")
+          {:keys [tag sha]} (find-sha ws-dir since settings)]
+      (assoc workspace :changes
+                       (changes workspace {:tag tag
+                                           :since since
+                                           :since-sha sha
+                                           :files (git/diff ws-dir ws-local-dir sha nil)}
+                                paths)))))

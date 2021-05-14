@@ -45,13 +45,33 @@
 (defn diff-command [sha1 sha2]
   (str/join " " (diff-command-parts sha1 sha2)))
 
-(defn diff [ws-dir sha1 sha2]
-  (let [files (apply shell/sh (concat (diff-command-parts sha1 sha2)
-                                      [:dir ws-dir]))]
-    (str/split-lines files)))
+(defn remove-prefix
+  "If the workspace lives inside a git repository (not at its root)
+   then we need to remove the workspace name/path from the path."
+  [path prefix]
+  (if (str/starts-with? path prefix)
+    (subs path (count prefix))
+    path))
+
+(defn diff
+  "ws-local-dir is the name of the workspace if it lives within a git repo,
+   otherwise nil."
+  [ws-dir ws-local-dir sha1 sha2]
+  (let [files (apply shell/sh (concat (diff-command-parts sha1 sha2) [:dir ws-dir]))
+        prefix (if ws-local-dir
+                 (str ws-local-dir "/")
+                 "")]
+    (mapv #(remove-prefix % prefix)
+          (str/split-lines files))))
 
 (defn first-committed-sha [ws-dir]
   (last (str/split-lines (shell/sh "git" "log" "--format=%H" :dir ws-dir))))
+
+(defn root-dir []
+  (try
+    [true (str/trim-newline (shell/sh "git" "rev-parse" "--show-toplevel"))]
+    (catch Exception e
+      [false (.getMessage e)])))
 
 (defn drop-or-keep [elements drop?]
   (when elements (if drop? (rest elements) elements)))

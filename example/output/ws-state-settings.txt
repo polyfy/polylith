@@ -38,10 +38,12 @@
  {:name "git",
   :polylith-repo "https://github.com/polyfy/polylith.git",
   :branch "master",
-  :latest-sha "720ca49844a5b556e89775c6a7b079b2afb94e2b",
+  :git-root
+  "/Users/joakimtengstrand/source/polylith/example/output/example",
+  :latest-polylith-sha "002a6e1d8233711b7e08a1ee23d003a2c5cd18f9",
   :stable-since
   {:tag "stable-lisa",
-   :sha "f06553c06d2116edb66426e4d3a868e9d06f4afe"}},
- :version "0.2.0-alpha10.issue66.03",
+   :sha "d3f1bd89e2729241b08c86777c8d2d226ff2b9a5"}},
+ :version "0.2.0-alpha10.issue66.04",
  :ws-schema-version {:breaking 0, :non-breaking 0},
  :ws-type :toolsdeps2}

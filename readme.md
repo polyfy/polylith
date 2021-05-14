@@ -54,6 +54,7 @@ and more.
 - [Installation](#installation)
 - [Realworld Example](#realworld-example)
 - [Workspace](#workspace)
+- [Local workspace](#local-workspace)
 - [Development](#development)
 - [Component](#component)
 - [Interface](#interface)
@@ -257,7 +258,7 @@ polylith/clj-api {:mvn/version "0.1.0-alpha9"}
 or
 ```clojure
 polylith/clj-api {:git/url   "https://github.com/polyfy/polylith.git"
-                  :sha       "720ca49844a5b556e89775c6a7b079b2afb94e2b"
+                  :sha       "da3bccf3a13ac30be8e31fedeab4de53c1efd951"
                   :deps/root "projects/api"}
 ```
 
@@ -336,18 +337,44 @@ The `workspace.edn` file looks like this:
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :extra-deps {polyfy/polylith
                                 {:git/url   "https://github.com/polyfy/polylith"
-                                 :sha       "720ca49844a5b556e89775c6a7b079b2afb94e2b"
+                                 :sha       "da3bccf3a13ac30be8e31fedeab4de53c1efd951"
                                  :deps/root "projects/poly"}}}}}
 ```
 
 If all went well, the `poly` tool managed set the latest sha for the `:poly` alias by taking it from the `main` branch
-(the sha `720ca49844a5b556e89775c6a7b079b2afb94e2b` is just an example).
+(the sha `da3bccf3a13ac30be8e31fedeab4de53c1efd951` is just an example).
 If not, you can find it [here](https://github.com/polyfy/polylith/commits/master)
 or you can get it by executing this command:
 ```
-poly ws get:settings:vcs:latest-sha branch:master
+poly ws get:settings:vcs:latest-polylith-sha branch:master
 ```
 If you wonder how the `ws` command works or what all the settings are for, be patient, everything will soon be covered in detail.
+
+## Local workspace
+
+The `poly` tool supports that a workspace lives inside an existing git repository, e.g.:
+```
+my-git-repo-dir
+└── my-workspace
+    ├── bases
+    ├── components
+    ├── deps.edn
+    ├── development
+    ├── projects
+    └── workspace.edn
+```
+
+To execute a command, you need to be inside the `my-workspace` directory, e.g.:
+```
+cd my-workspace
+poly info
+```
+
+You can even have more than one workspace per git repo, which could be an idea if the
+codebase consists of more than one programming language, or if you are migrating an 
+existing codebase to Polyith.
+
+In the example that follows, the workspace directory will also be its git root.
 
 ## Development
 
@@ -939,7 +966,7 @@ When we created the workspace with the [create workspace](doc/commands.md#create
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :extra-deps {polyfy/polylith
                                 {:git/url   "https://github.com/polyfy/polylith.git"
-                                 :sha       "720ca49844a5b556e89775c6a7b079b2afb94e2b"
+                                 :sha       "da3bccf3a13ac30be8e31fedeab4de53c1efd951"
                                  :deps/root "projects/poly"}}}
 ```
 
@@ -989,7 +1016,7 @@ chmod +x scripts/build-uberjar.sh
 chmod +x scripts/build-cli-uberjar.sh
 ```
 
-Now add the `uberjar` aliase to `deps.edn` in `projects/command-line`
+Now add the `uberjar` alias to `deps.edn` in `projects/command-line`
 (if you followed the instructions in the tools.deps section, you have already done this):
 ```clojure
 {:deps {poly/user {:local/root "../../components/user"}
@@ -1127,6 +1154,12 @@ c91fdad4a34927d9aacfe4b04ea2f304f3303282 Workspace created.
 
 If we run the `info` command again, it will return the same result as before, and the reason is that we
 haven't told git to move the `stable point in time` to our second commit.
+
+We said that the `diff` command returns the same result as `git diff SHA --name-only`.
+This i normally true, except for the case when the workspace lives inside a git repo.
+In that case, the `git diff` command will also return the workspace directory in the path
+(which is stripped away by the `poly` tool).
+This directory can be shown by running the `poly ws get:ws-local-dir`command.
 
 # Tagging
 

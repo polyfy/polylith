@@ -177,11 +177,12 @@
             :stable-tag-pattern   "stable-*"
             :thousand-separator   ","
             :top-namespace        "se.example"
-            :vcs                  {:branch        "create-deps-files"
-                                   :latest-sha    "3bfa6b0db34e0b5b1dc0a68bdd485afe6f8604a1"
-                                   :name          "git"
-                                   :polylith-repo "https://github.com/polyfy/polylith.git"}
-            :version              "0.2.0-alpha10.issue66.03"
+            :vcs                  {:branch              "create-deps-files"
+                                   :git-root            "/Users/joakimtengstrand/source/polylith"
+                                   :latest-polylith-sha "3bfa6b0db34e0b5b1dc0a68bdd485afe6f8604a1"
+                                   :name                "git"
+                                   :polylith-repo       "https://github.com/polyfy/polylith.git"}
+            :version              "0.2.0-alpha10.issue66.05"
             :ws-schema-version    {:breaking     0
                                    :non-breaking 0}
             :ws-type              :toolsdeps2}

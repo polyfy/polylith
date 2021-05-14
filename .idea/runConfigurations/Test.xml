@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Test" type="BashConfigurationType" factoryName="Bash">
     <option name="INTERPRETER_OPTIONS" value="" />
@@ -11,3 +12,4 @@
     <method v="2" />
   </configuration>
 </component>
+

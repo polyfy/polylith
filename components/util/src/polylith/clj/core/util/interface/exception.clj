@@ -10,5 +10,4 @@
 
 (defn print-exception [e]
   (println (or (-> e ex-data :err)
-               (.getMessage e)
                (str e))))

@@ -17,5 +17,5 @@ expected: (= "Hello Lisa!" (user/hello "Lisa"))
 
 Ran 1 tests containing 1 assertions.
 1 failures, 0 errors.
-
+java.lang.Exception: 
 [31mTest results: 0 passes, 1 failures, 0 errors.[0m
