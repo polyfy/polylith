@@ -10,8 +10,8 @@
   (not (str/ends-with? (str lib) "/interfaces")))
 
 (defn read-config-file [brick-dir]
-  (let [config-file (str brick-dir "/project.clj")]
-    (if (-> config-file file/exists not)
-      [false (str "Could not find config file: " config-file)]
+  (let [config-filename (str brick-dir "/project.clj")]
+    (if (-> config-filename file/exists not)
+      [false (str "Could not find config file: " config-filename)]
       [true {:deps (into {} (map maven (filter not-interfaces?
                                                (common/leiningen-config-key brick-dir :dependencies))))}])))

@@ -19,6 +19,7 @@
                 color-mode]
   (let [profile-to-settings (:profile-to-settings settings)
         {:keys [unmerged]} (common/find-project "dev" projects)
-        {:keys [lib-deps lib-deps-test]} unmerged
-        dev-lib-deps (set (map first (concat lib-deps lib-deps-test)))]
+        {:keys [lib-deps]} unmerged
+        dev-lib-deps (set (map first (concat (:src lib-deps)
+                                             (:test lib-deps))))]
     (mapcat #(profile-warning % dev-lib-deps color-mode) profile-to-settings)))

@@ -9,7 +9,6 @@
         poly/lib           {:local/root "../../components/lib"}
         poly/path-finder   {:local/root "../../components/path-finder"}
         poly/shell         {:local/root "../../components/shell"}
-        poly/test-helper   {:local/root "../../components/test-helper"}
         poly/test-runner   {:local/root "../../components/test-runner"}
         poly/text-table    {:local/root "../../components/text-table"}
         poly/user-config   {:local/root "../../components/user-config"}
@@ -27,16 +26,11 @@
         org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}}
 
  :aliases {:test      {:extra-paths ["test"]
-                       :extra-deps  {}}
+                       :extra-deps  {poly/test-helper {:local/root "../../components/test-helper"}}}
 
-           :aot       {:extra-paths ["classes"]
-                       :main-opts   ["-e" "(compile,'polylith.clj.core.poly-cli.core)"]}
-
-           :uberjar   {:extra-deps {uberdeps/uberdeps {:mvn/version "0.1.10"}}
-                       :main-opts  ["-m" "uberdeps.uberjar"
-                                    "--multi-release"
-                                    "--aliases" "aot"
-                                    "--main-class" "polylith.clj.core.poly_cli.core"]}
+           :uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
+                     :exec-fn hf.depstar/uberjar
+                     :exec-args {:aot true, :main-class polylith.clj.core.poly-cli.core}}
 
            :skinny-jar {:extra-deps {pack/pack.alpha {:git/url "https://github.com/juxt/pack.alpha.git"
                                                       :sha     "0e8731e0f24db05b74769e219051b0e92b50624a"}}

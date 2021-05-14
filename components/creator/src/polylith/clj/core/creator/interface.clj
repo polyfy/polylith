@@ -4,8 +4,8 @@
             [polylith.clj.core.creator.workspace :as ws]
             [polylith.clj.core.creator.project :as project]))
 
-(defn create-workspace [root-dir ws-name top-ns]
-  (ws/create root-dir ws-name top-ns))
+(defn create-workspace [root-dir ws-name top-ns branch]
+  (ws/create root-dir ws-name top-ns branch))
 
 (defn create-project [workspace project-name]
   (project/create workspace project-name))

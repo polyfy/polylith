@@ -18,6 +18,6 @@
 (defn warnings [settings projects color-mode]
   (let [profile-to-settings (:profile-to-settings settings)
         {:keys [unmerged]} (common/find-project "dev" projects)
-        {:keys [src-paths test-paths]} unmerged
-        dev-paths (set (concat src-paths test-paths))]
+        {:keys [paths]} unmerged
+        dev-paths (set (concat (:src paths) (:test paths)))]
     (mapcat #(profile-warning % dev-paths color-mode) profile-to-settings)))

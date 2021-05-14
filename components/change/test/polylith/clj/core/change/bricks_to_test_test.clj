@@ -1,7 +1,7 @@
 (ns polylith.clj.core.change.bricks-to-test-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.change.bricks-to-test :as to-test]
-            [polylith.clj.core.change.projects-test-data :as data]))
+            [polylith.clj.core.change.test-data :as data]))
 
 (deftest project-to-bricks-to-test--with-one-changed-brick--returns-bricks-to-test-for-changed-and-active-projects
   (is (= {"cli" []

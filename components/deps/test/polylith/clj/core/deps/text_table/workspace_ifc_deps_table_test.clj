@@ -1,94 +1,30 @@
 (ns polylith.clj.core.deps.text-table.workspace-ifc-deps-table-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.deps.text-table.workspace-ifc-deps-table :as ws-ifc-table]))
-
-(def workspace {:settings {:color-mode "none"
-                           :empty-character "·"}
-                :interfaces [{:name "change"}
-                             {:name "command"}
-                             {:name "common"}
-                             {:name "deps"}
-                             {:name "file"}
-                             {:name "git"}
-                             {:name "help"}
-                             {:name "shell"}
-                             {:name "test-runner"}
-                             {:name "text-table"}
-                             {:name "user-config"}
-                             {:name "util"}
-                             {:name "validator"}
-                             {:name "workspace"}
-                             {:name "workspace-clj"}]
-                :components [{:name "change",
-                              :interface-deps ["git" "util"]}
-                             {:name "command",
-                              :interface-deps ["common" "deps" "help" "test-runner" "util" "workspace"]}
-                             {:name "common",
-                              :interface-deps ["util"]}
-                             {:name "deps",
-                              :type "component",
-                              :interface-deps ["common" "text-table" "util"]}
-                             {:name "deps2",
-                              :type "component",
-                              :interface-deps []}
-                             {:name "file",
-                              :interface-deps []}
-                             {:name "git",
-                              :interface-deps ["shell"]}
-                             {:name "help",
-                              :interface-deps ["util"]}
-                             {:name "shell",
-                              :interface-deps []}
-                             {:name "test-runner",
-                              :interface-deps ["common" "util"]}
-                             {:name "text-table",
-                              :interface-deps ["util"]}
-                             {:name "user-config",
-                              :interface-deps []}
-                             {:name "util",
-                              :interface-deps []}
-                             {:name "validator",
-                              :interface-deps ["common" "deps" "util"]}
-                             {:name "workspace",
-                              :interface-deps ["common" "deps" "file" "text-table" "user-config" "util" "validator"]}
-                             {:name "workspace-clj",
-                              :interface-deps ["common" "file" "util"]}]
-                :bases [{:name "cli",
-                         :interface-deps ["change" "command" "file" "workspace" "workspace-clj"]}
-                        {:name "z-jocke",
-                         :interface-deps ["change" "file" "util" "workspace" "workspace-clj"]}]})
+            [polylith.clj.core.deps.text-table.data.usermanager :as ws]
+            [polylith.clj.core.deps.text-table.workspace-deps-table :as table]))
 
 (deftest table--brick-dependencies--should-return-a-correct-table
-  (is (= ["                                                           w"
-          "                                                           o"
-          "                                         t     u           r"
-          "                                         e  t  s           k"
-          "                                         s  e  e     v  w  s"
-          "                                         t  x  r     a  o  p"
-          "                    c                    -  t  -     l  r  a"
-          "                 c  o  c                 r  -  c     i  k  c"
-          "                 h  m  o              s  u  t  o     d  s  e"
-          "                 a  m  m  d  f     h  h  n  a  n  u  a  p  -"
-          "                 n  a  m  e  i  g  e  e  n  b  f  t  t  a  c"
-          "                 g  n  o  p  l  i  l  l  e  l  i  i  o  c  l"
-          "  brick          e  d  n  s  e  t  p  l  r  e  g  l  r  e  j"
-          "  ----------------------------------------------------------"
-          "  change         ·  ·  ·  ·  ·  x  ·  ·  ·  ·  ·  x  ·  ·  ·"
-          "  command        ·  ·  x  x  ·  ·  x  ·  x  ·  ·  x  ·  x  ·"
-          "  common         ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·"
-          "  deps           ·  ·  x  ·  ·  ·  ·  ·  ·  x  ·  x  ·  ·  ·"
-          "  deps2          ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·"
-          "  file           ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·"
-          "  git            ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·  ·  ·  ·  ·"
-          "  help           ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·"
-          "  shell          ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·"
-          "  test-runner    ·  ·  x  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·"
-          "  text-table     ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·"
-          "  user-config    ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·"
-          "  util           ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·"
-          "  validator      ·  ·  x  x  ·  ·  ·  ·  ·  ·  ·  x  ·  ·  ·"
-          "  workspace      ·  ·  x  x  x  ·  ·  ·  ·  x  x  x  x  ·  ·"
-          "  workspace-clj  ·  ·  x  ·  x  ·  ·  ·  ·  ·  ·  x  ·  ·  ·"
-          "  cli            x  x  ·  ·  x  ·  ·  ·  ·  ·  ·  ·  ·  x  x"
-          "  z-jocke        x  ·  ·  ·  x  ·  ·  ·  ·  ·  ·  x  ·  x  x"]
-         (ws-ifc-table/table workspace))))
+  (is (= ["                              s      "
+          "                              c      "
+          "                              h      "
+          "                              e      "
+          "                        d     m     w"
+          "                  a     e     a     e"
+          "                  p  d  p     -     b"
+          "                  p  a  a     f     -"
+          "                  -  t  r  s  i     s"
+          "                  s  a  t  c  x     e"
+          "                  t  b  m  h  t  u  r"
+          "                  a  a  e  e  u  s  v"
+          "                  t  s  n  m  r  e  e"
+          "  brick           e  e  t  a  e  r  r"
+          "  -----------------------------------"
+          "  app-state       .  .  .  .  .  .  ."
+          "  database        .  .  .  .  .  .  ."
+          "  department      .  .  .  .  t  .  ."
+          "  schema          .  x  .  .  .  .  ."
+          "  schema-fixture  .  .  .  x  .  .  ."
+          "  user            .  .  .  x  t  .  ."
+          "  web-server      .  .  .  .  .  .  ."
+          "  web             x  .  x  x  .  x  x"]
+         (table/table ws/workspace2))))

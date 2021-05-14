@@ -7,9 +7,9 @@
                   :implementing-components ["admin" "user"]}])
 
 (def projects [{:alias      "dev"
-                :unmerged   {:src-paths ["development/src"
-                                         "components/user/src"]}
-                :test-paths ["components/user/test"]}])
+                :unmerged   {:paths {:src ["development/src"
+                                           "components/user/src"]
+                                     :test ["components/user/test"]}}}])
 
 (deftest errors--when-the-development-project-contains-multi-implementing-component--return-an-error-message
   (is (= [{:type "error"

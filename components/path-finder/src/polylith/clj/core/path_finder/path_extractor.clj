@@ -55,15 +55,18 @@
   (when paths (mapv #(path-entry missing-paths % profile? test?) paths)))
 
 (defn path-entries [src-paths test-paths profile-src-paths profile-test-paths disk-paths]
-  (let [missing-paths (if (nil? disk-paths) nil (-> disk-paths :missing set))]
+  (let [missing-paths (some-> disk-paths :missing set)]
     (vec (concat (single-path-entries missing-paths src-paths false false)
                  (single-path-entries missing-paths test-paths false true)
                  (single-path-entries missing-paths profile-src-paths true false)
                  (single-path-entries missing-paths profile-test-paths true true)))))
 
-(defn from-unenriched-project [is-dev src-paths test-paths disk-paths settings]
+(defn from-paths [paths disk-paths]
+  (path-entries (:src paths) (:test paths) nil nil disk-paths))
+
+(defn from-unenriched-project [is-dev paths disk-paths settings]
   (let [{:keys [profile-src-paths profile-test-paths]} (profile-src-splitter/extract-active-profiles-paths is-dev settings)]
-    (path-entries src-paths test-paths profile-src-paths profile-test-paths disk-paths)))
+    (path-entries (:src paths) (:test paths) profile-src-paths profile-test-paths disk-paths)))
 
 (defn from-profiles-paths [disk-paths settings profile-name]
   (let [{:keys [src-paths test-paths]} (profile-src-splitter/extract-profile-paths profile-name settings)]

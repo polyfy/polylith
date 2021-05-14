@@ -55,7 +55,7 @@
     (fs/copy-dir from to)
     (fs/copy+ from to)))
 
-(defn file-name [^File file]
+(defn filename [^File file]
   (.getName file))
 
 (defn lines-of-code [file-path]
@@ -67,7 +67,7 @@
        (io/file)
        (.listFiles)
        (filter directory?)
-       (mapv file-name)
+       (mapv filename)
        (into #{})))
 
 (defn read-file [path]

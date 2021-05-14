@@ -27,8 +27,8 @@
   (doseq [file (-> workspace :changes :changed-files)]
     (println file)))
 
-(defn help [[_ cmd ent] is-show-project is-show-brick is-show-bricks color-mode]
-  (help/print-help cmd ent is-show-project is-show-brick is-show-bricks color-mode))
+(defn help [[_ cmd ent] is-show-project is-show-brick is-show-workspace color-mode]
+  (help/print-help cmd ent is-show-project is-show-brick is-show-workspace color-mode))
 
 (defn version []
   (println (str "  " ver/version " (" ver/date ")")))
@@ -59,7 +59,7 @@
            change/with-changes))
      (read-ws-from-file ws-file user-input))))
 
-(defn execute [{:keys [cmd args name top-ns ws-file is-all is-show-brick is-show-bricks is-show-project brick get out interface selected-projects unnamed-args] :as user-input}]
+(defn execute [{:keys [cmd args name top-ns branch ws-file is-all is-show-brick is-show-workspace is-show-project brick get out interface selected-projects unnamed-args] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (common/workspace-dir user-input color-mode)
         project-name (first selected-projects)
@@ -68,10 +68,10 @@
     (if ok?
       (case cmd
         "check" (check workspace color-mode)
-        "create" (create/create ws-dir workspace args name top-ns interface color-mode)
-        "deps" (dependencies/deps workspace project-name brick unnamed-args)
+        "create" (create/create ws-dir workspace args name top-ns interface branch color-mode)
+        "deps" (dependencies/deps workspace project-name brick unnamed-args is-all)
         "diff" (diff workspace)
-        "help" (help args is-show-project is-show-brick is-show-bricks color-mode)
+        "help" (help args is-show-project is-show-brick is-show-workspace color-mode)
         "info" (info/info workspace unnamed-args)
         "libs" (lib/print-lib-table workspace is-all)
         "test" (test/run workspace unnamed-args color-mode)

@@ -1,5 +1,6 @@
 (ns polylith.clj.core.validator.m101-illegal-namespace-deps
-  (:require [polylith.clj.core.deps.interface :as deps]
+  (:require [clojure.string :as str]
+            [polylith.clj.core.deps.interface :as deps]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]))
 
@@ -14,12 +15,19 @@
                          :colorized-message message
                          :bricks [brick-name])])))
 
-(defn brick-errors [suffixed-top-ns {:keys [name interface type namespaces-src]} interface-names interface-ns color-mode]
-  "Checks for dependencies to component interface namespaces other than 'interface'."
+(defn get-namespace [{:keys [depends-on-ns]}]
+  (if-let [idx (str/index-of depends-on-ns ".")]
+    (subs depends-on-ns 0 idx)
+    depends-on-ns))
+
+(defn brick-errors
+  "Checks for dependencies to component interface namespaces other than 'interface'
+   for the 'src' context."
+  [suffixed-top-ns {:keys [name interface type namespaces]} interface-names interface-ns color-mode]
   (let [interface-name (:name interface)
-        dependencies (deps/interface-ns-deps suffixed-top-ns interface-name interface-names namespaces-src)]
+        dependencies (deps/interface-ns-deps suffixed-top-ns interface-name interface-names (:src namespaces))]
     (mapcat #(error-message % name type interface-ns color-mode)
-            (filterv #(not= interface-ns (:depends-on-ns %)) dependencies))))
+            (filterv #(not= interface-ns (get-namespace %)) dependencies))))
 
 (defn errors [suffixed-top-ns interface-names components bases interface-ns color-mode]
   (vec (mapcat #(brick-errors suffixed-top-ns % interface-names interface-ns color-mode)

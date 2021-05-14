@@ -3,7 +3,7 @@
   (:gen-class))
 
 (defn projects-to-deploy []
-  (core/projets-to-deploy))
+  (core/projects-to-deploy))
 
 (defn workspace [stable-point & keys]
   (core/workspace stable-point keys))

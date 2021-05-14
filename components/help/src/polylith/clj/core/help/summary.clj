@@ -36,6 +36,7 @@
     "  If " (s/key "since:SINCE" cm) " is passed in as an argument, the last stable point in time\n"
     "  will be used depending on the value of " (s/key "SINCE" cm) " (or the first commit if no match\n"
     "  was found):\n"
+    "    SHA             -> a git SHA-1 hash.\n"
     "    stable          -> the latest tag that matches stable-*, defined by\n"
     "                       " (s/key ":stable-tag-pattern" cm) " in ./deps.edn.\n"
     "    build           -> the latest tag that matches v[0-9]*, defined by\n"
@@ -73,6 +74,10 @@
     "    poly help deps :project :brick\n"
     "    poly info\n"
     "    poly info :loc\n"
+    "    poly info since:65a7918\n"
+    "    poly info since:head\n"
+    "    poly info since:head~1\n"
+    "    poly info since:stable\n"
     "    poly info since:release\n"
     "    poly info since:previous-release\n"
     "    poly info project:myproject\n"
@@ -92,7 +97,7 @@
     "    poly test :all-bricks\n"
     "    poly test :all\n"
     "    poly test project:proj1\n"
-    "    poly test project:proj1:proj2 :project\n"
+    "    poly test project:proj1:proj2\n"
     "    poly test :dev\n"
     "    poly test :project :dev\n"
     "    poly test :all-bricks :dev\n"
@@ -107,7 +112,7 @@
     "    poly ws get:settings:keys\n"
     "    poly ws get:components:keys\n"
     "    poly ws get:components:count\n"
-    "    poly ws get:components:mycomp:lines-of-code-src\n"
+    "    poly ws get:components:mycomp:lines-of-code\n"
     "    poly ws out:ws.edn"))
 
 (defn print-help [color-mode]

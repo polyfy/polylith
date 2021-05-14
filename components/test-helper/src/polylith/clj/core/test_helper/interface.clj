@@ -1,14 +1,12 @@
 (ns polylith.clj.core.test-helper.interface
-  (:require [polylith.clj.core.test-helper.core :as core]))
+  (:require [polylith.clj.core.test-helper.core :as core]
+            [polylith.clj.core.user-input.interface :as user-input]))
 
 (defn root-dir []
   @core/root-dir)
 
 (defn content [dir filename]
   (core/content dir filename))
-
-(defn update-dev-paths! [deps-file src path]
-  (core/update-dev-paths! deps-file src path))
 
 (defn execute-command [current-dir & args]
   (core/execute-command current-dir args))

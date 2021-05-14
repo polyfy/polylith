@@ -9,30 +9,6 @@ fi
 
 cd ../projects/$1
 
-mkdir -p classes
-mkdir -p target
+echo "Creating an AOT compiled uberjar for the project"
 
-rm -rf classes/*
-rm -rf target/$1.*
-
-echo "Compiling project"
-
-clojure -M:aot
-
-if [[ $? -ne 0 ]]
-then
-  echo "Could not compile project."
-  exit 1
-fi
-
-echo "Project compiled. Creating an uberjar for the project"
-
-clojure -M:uberjar
-
-if [[ $? -ne 0 ]]
-then
-  echo "Could not create uberjar for the project."
-  exit 1
-fi
-
-echo "Uberjar created."
+clojure -X:uberjar :aot true :jar target/$1.jar

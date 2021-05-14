@@ -37,10 +37,3 @@
 
 (defn content [dir filename]
   (str/split-lines (slurp (str (sub-dir dir) "/" filename))))
-
-(defn update-dev-paths! [deps-file project-key path]
-  (let [content (-> deps-file file/read-file first)
-        paths (-> content :aliases project-key :extra-paths)
-        new-content (assoc-in content [:aliases project-key :extra-paths]
-                              (conj paths path))]
-    (pp/pprint new-content (clojure.java.io/writer deps-file))))

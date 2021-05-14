@@ -3,5 +3,5 @@
 (def ws-schema-version {:breaking 0
                         :non-breaking 0})
 
-(def version "0.2.0-alpha10.issue66.03")
-(def date "2021-04-04")
+(def version "0.2.0-alpha10.issue66.04")
+(def date "2021-05-14")

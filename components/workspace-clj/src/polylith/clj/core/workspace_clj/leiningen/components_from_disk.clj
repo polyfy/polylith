@@ -13,18 +13,15 @@
         interface-path-name (-> component-src-dir file/directories first)
         interface-name (common/path-to-ns interface-path-name)
         src-dir (str component-src-dir interface-path-name)
-        namespaces-src (ns-from-disk/namespaces-from-disk component-src-dir)
-        namespaces-test (ns-from-disk/namespaces-from-disk component-test-dir)
+        namespaces (ns-from-disk/namespaces-from-disk component-src-dir component-test-dir)
         definitions (defs-from-disk/defs-from-disk src-dir interface-ns)
         config (config-from-disk/read-config-file ws-type component-dir)]
     (util/ordered-map :name component-name
                       :type "component"
-                      :namespaces-src namespaces-src
-                      :namespaces-test namespaces-test
+                      :namespaces namespaces
                       :non-top-namespaces (brick->non-top-namespaces component-name)
                       ;; todo: implement!
                       ;:lib-deps lib-deps
-                      ;:lib-deps-test lib-deps-test
                       :interface {:name interface-name
                                   :definitions definitions})))
 

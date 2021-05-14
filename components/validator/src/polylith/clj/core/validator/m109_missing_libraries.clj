@@ -6,7 +6,8 @@
             [polylith.clj.core.util.interface.color :as color]))
 
 (defn brick-lib-deps [{:keys [lib-deps]}]
-  (vec (keys lib-deps)))
+  (vec (keys (concat (:src lib-deps)
+                     (:test lib-deps)))))
 
 (defn warning [project-name missing-libraries color-mode]
   (let [libs (str/join ", " (sort missing-libraries))
@@ -18,8 +19,10 @@
                        :project project-name)]))
 
 (defn project-warning [{:keys [name component-names base-names lib-deps profile]} bricks used-libs color-mode]
-  (let [existing-libs (set (map first (concat lib-deps (:lib-deps profile))))
-        brick-names (concat component-names base-names)
+  (let [existing-libs (set (map first (concat (:src lib-deps)
+                                              (:test lib-deps)
+                                              (:lib-deps profile))))
+        brick-names (concat (:src component-names) (:src base-names))
         brick->lib-dep-names (into {} (map (juxt :name brick-lib-deps) bricks))
         expected-libs (set (mapcat brick->lib-dep-names brick-names))
         missing-libs (set/intersection used-libs (set/difference expected-libs existing-libs))]

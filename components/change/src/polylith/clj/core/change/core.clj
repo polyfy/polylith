@@ -9,7 +9,7 @@
 
 (defn project-affected? [{:keys [name component-names base-names]}
                          changed-components changed-bases changed-projects]
-  (let [bricks (set (concat component-names base-names))
+  (let [bricks (set (concat (:src component-names) (:src base-names)))
         changed-bricks (set (concat changed-components changed-bases))
         brick-changed? (-> (set/intersection bricks changed-bricks)
                            empty? not)
@@ -21,15 +21,16 @@
                                 projects)))))
 
 (defn changes [{:keys [projects settings paths user-input]}
-               {:keys [since since-sha tag files]}]
-   (let [deps (map (juxt :name :deps) projects)
+               {:keys [since since-sha tag files]}
+               disk-paths]
+   (let [projects-deps (mapv (juxt :name :deps) projects)
          {:keys [is-dev is-all is-run-all-brick-tests is-run-project-tests]} user-input
          {:keys [changed-components
                  changed-bases
-                 changed-projects]} (entity/changed-entities files nil)
+                 changed-projects]} (entity/changed-entities files disk-paths)
          changed-bricks (set (concat changed-components changed-bases))
          affected-projects (affected-projects projects changed-components changed-bases changed-projects)
-         project-to-indirect-changes (indirect/project-to-indirect-changes deps changed-bricks)
+         project-to-indirect-changes (indirect/project-to-indirect-changes projects-deps changed-bricks)
          project-to-bricks-to-test (bricks-to-test/project-to-bricks-to-test changed-projects projects settings changed-components changed-bases project-to-indirect-changes is-run-all-brick-tests)
          project-to-projects-to-test (projects-to-test/project-to-projects-to-test projects affected-projects paths is-dev is-run-project-tests is-all)]
      (util/ordered-map :since since
@@ -49,10 +50,11 @@
   (case since
     "release" (git/release ws-dir release-tag-pattern false)
     "previous-release" (git/release ws-dir release-tag-pattern true)
-    (git/latest-stable ws-dir stable-tag-pattern)))
+    "stable" (git/latest-stable ws-dir stable-tag-pattern)
+    {:sha since}))
 
 (defn with-changes
-  ([{:keys [ws-dir settings user-input] :as workspace}]
+  ([{:keys [ws-dir settings user-input paths] :as workspace}]
    (if (-> ws-dir git/is-git-repo? not)
      workspace
      (let [since (:since user-input "stable")
@@ -61,4 +63,5 @@
                         (changes workspace {:tag tag
                                             :since since
                                             :since-sha sha
-                                            :files (git/diff ws-dir sha nil)}))))))
+                                            :files (git/diff ws-dir sha nil)}
+                                 paths))))))

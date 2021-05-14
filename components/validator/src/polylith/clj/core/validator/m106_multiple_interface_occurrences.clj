@@ -19,7 +19,7 @@
                          :project project-name)])))
 
 (defn project-errors [{:keys [name test? component-names]} components color-mode]
-  (let [project-components (filter #(contains? (set component-names)
+  (let [project-components (filter #(contains? (set (:src component-names))
                                                (:name %)) components)]
     (mapcat #(project-error % name test? color-mode)
             (group-by first (map (juxt #(-> % :interface :name) :name)

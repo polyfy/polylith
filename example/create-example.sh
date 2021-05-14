@@ -9,18 +9,18 @@ cd output
 rm -rf example
 rm -rf scripts
 
-echo "### 1/13 Workspace ###"
+echo "### 1/21 Workspace ###"
 poly create w name:example top-ns:se.example
 tree example > ../output/workspace-tree.txt
 cp example/deps.edn ../sections/workspace
 cd example
 
-echo "### 2/13 Development ###"
+echo "### 2/21 Development ###"
 mkdir development/src/dev
 cp ../../sections/development/lisa.clj development/src/dev
 git add development/src/dev/lisa.clj
 
-echo "### 3/13 Component ###"
+echo "### 3/21 Component ###"
 poly create c name:user
 tree . > ../component-tree.txt
 
@@ -30,7 +30,7 @@ cp ../../sections/component/user-interface.clj components/user/src/se/example/us
 cp ../../sections/component/deps.edn .
 poly info fake-sha:c91fdad > ../../output/component-info.txt
 
-echo "### 4/13 Base ###"
+echo "### 4/21 Base ###"
 poly create b name:cli
 cd ..
 tree example > ../output/base-tree.txt
@@ -38,7 +38,7 @@ cd example
 cp ../../sections/base/deps.edn .
 cp ../../sections/base/cli-core.clj bases/cli/src/se/example/cli/core.clj
 
-echo "### 5/13 Project ###"
+echo "### 5/21 Project ###"
 poly create p name:command-line
 cd ..
 tree example > ../output/project-tree.txt
@@ -47,12 +47,12 @@ cp ../../sections/project/deps.edn .
 cp ../../sections/project/workspace.edn .
 cp ../../sections/project/command-line-deps.edn projects/command-line/deps.edn
 
-echo "### 6/13 Tools.deps ###"
+echo "### 6/21 Tools.deps ###"
 cd projects/command-line
 mkdir -p classes
 clj -e "(compile,'se.example.cli.core)"
 
-echo "### 7/13 Build ###"
+echo "### 7/21 Build ###"
 cd ../..
 mkdir scripts
 cp ../../../scripts/build-uberjar.sh scripts
@@ -67,30 +67,30 @@ cd scripts
 cd ../projects/command-line/target
 java -jar command-line.jar Lisa
 
-echo "### 8/13 Git ###"
+echo "### 8/21 Git ###"
 cd ../../..
 poly info fake-sha:c91fdad > ../../output/git-info.txt
-git log > ../../output/git-log.txt
+git log
 poly diff > ../../output/git-diff.txt
 git add --all
 git commit -m "Created the user and cli bricks."
-git log --pretty=oneline > ../../output/git-log-pretty.txt
+git log --pretty=oneline
 
-echo "### 9/13 Tagging ###"
+echo "### 9/21 Tagging ###"
 git tag -f stable-lisa
-git log --pretty=oneline > ../../output/tagging-log.txt
+git log --pretty=oneline
 poly info fake-sha:e7ebe68 > ../../output/tagging-info-1.txt
 firstsha=`git log --pretty=oneline | tail -1 | cut -d " " -f1`
 git tag v1.1.0 $firstsha
 git tag v1.2.0
 poly info since:release fake-sha:e7ebe68 > ../../output/tagging-info-2.txt
 poly info since:previous-release fake-sha:c91fdad > ../../output/tagging-info-3.txt
-git log --pretty=oneline > ../../output/tagging-log-release.txt
+git log --pretty=oneline
 
-echo "### 10/13 Flags ###"
+echo "### 10/21 Flags ###"
 poly info :r fake-sha:e7ebe68 > ../../output/flags-info.txt
 
-echo "### 11/13 Testing ###"
+echo "### 11/21 Testing ###"
 cp ../../sections/testing/user-core.clj components/user/src/se/example/user/core.clj
 poly diff > ../../output/testing-diff.txt
 poly info fake-sha:e7ebe68 > ../../output/testing-info-1.txt
@@ -122,7 +122,7 @@ cp ../../sections/testing/workspace.edn .
 poly info :all :dev fake-sha:e7ebe68 > ../../output/testing-info-11.txt
 poly test :all :dev > ../../output/testing-test-all.txt
 
-echo "### 12/13 Profile ###"
+echo "### 12/21 Profile ###"
 cp ../../sections/profile/workspace.edn .
 poly create p name:user-service
 poly create b name:user-api
@@ -156,13 +156,44 @@ set -e
 poly info :loc fake-sha:e7ebe68 > ../../output/profile-info-4.txt
 poly test :project fake-sha:e7ebe68 > ../../output/profile-test.txt
 
-echo "### 13/13 Configuration ###"
+echo "### 13/21 Configuration ###"
 poly ws get:settings
 poly ws get:settings:profile-to-settings:default:paths
 poly ws get:keys
 poly ws get:components:keys
 poly ws out:ws.edn
 poly info ws-file:ws.edn fake-sha:e7ebe68
-poly ws get:old-user-input:args ws-file:ws.edn > ../../output/profile-ws.txt
+poly ws get:old-user-input:args ws-file:ws.edn > ../../output/config-ws.txt
+
+echo "### 14/21 Workspace state ###"
+poly ws get:settings color-mode:none > ../../output/ws-state-settings.txt
+poly ws get:settings:profile-to-settings:default:paths color-mode:none > ../../output/ws-state-paths.txt
+poly ws get:keys color-mode:none > ../../output/ws-state-keys.txt
+poly ws get:components:keys color-mode:none > ../../output/ws-state-components-keys.txt
+poly ws get:components:user color-mode:none > ../../output/ws-state-components-user.txt
+poly ws get:components:user-remote:lib-deps color-mode:none > ../../output/ws-state-components-user-remote-lib-deps.txt
+poly ws get:old-user-input:args ws-file:ws.edn color-mode:none > ../../output/ws-state-ws-file.txt
+
+cd ..
+./output.sh > ./output.txt
+
+cd ../../../clojure-polylith-realworld-example-app
+
+echo "### 15 / 21  Realworld example app ###"
+poly info > ../polylith/example/output/realworld/realworld-info.txt
+echo "### 16 / 21  Realworld example app ###"
+poly deps > ../polylith/example/output/realworld/realworld-deps-interfaces.txt
+echo "### 17 / 21  Realworld example app ###"
+poly deps brick:article > ../polylith/example/output/realworld/realworld-deps-interface.txt
+echo "### 18 / 21  Realworld example app ###"
+poly deps project:rb > ../polylith/example/output/realworld/realworld-deps-components.txt
+echo "### 19 / 21  Realworld example app ###"
+poly deps project:rb brick:article > ../polylith/example/output/realworld/realworld-deps-component.txt
+echo "### 20 / 21  Realworld example app ###"
+poly libs > ../polylith/example/output/realworld/realworld-lib-deps.txt
+echo "### 21 / 21  Realworld example app ###"
+cp ../polylith/example/realworld/workspace-compact.edn ./workspace.edn
+poly libs > ../polylith/example/output/realworld/realworld-lib-deps-compact.txt
+cp ../polylith/example/realworld/workspace.edn .
 
 echo "Elapsed: $((($SECONDS / 60) % 60)) min $(($SECONDS % 60)) sec"

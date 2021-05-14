@@ -4,8 +4,8 @@
             [polylith.clj.core.validator.m202-missing-paths :as m202]))
 
 (def projects [{:name           "cli",
-                :src-paths  ["wrong/path/src"]
-                :test-paths ["illegal/path/test"]}])
+                :paths {:src ["wrong/path/src"]
+                        :test ["illegal/path/test"]}}])
 
 (def paths {:missing ["wrong/path/src"
                       "illegal/path/test"

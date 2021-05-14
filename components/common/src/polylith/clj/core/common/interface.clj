@@ -1,10 +1,11 @@
 (ns polylith.clj.core.common.interface
-  (:require [polylith.clj.core.common.core :as core]
+  (:require [polylith.clj.core.common.class-loader :as class-loader]
+            [polylith.clj.core.common.core :as core]
             [polylith.clj.core.common.config :as config]
             [polylith.clj.core.common.leiningen :as leiningen]
-            [polylith.clj.core.common.ws-dir :as ws-dir]
-            [polylith.clj.core.common.class-loader :as class-loader]
-            [polylith.clj.core.common.validate-args :as validate-args]))
+            [polylith.clj.core.common.ns-extractor :as ns-extractor]
+            [polylith.clj.core.common.validate-args :as validate-args]
+            [polylith.clj.core.common.ws-dir :as ws-dir]))
 
 (defn color-mode [user-input]
   (core/color-mode user-input))
@@ -14,6 +15,9 @@
 
 (defn eval-in [class-loader form]
   (class-loader/eval-in class-loader form))
+
+(defn extract-namespace [suffixed-top-ns ns-to-extract]
+  (ns-extractor/extract suffixed-top-ns ns-to-extract))
 
 (defn filter-clojure-paths [paths]
   (core/filter-clojure-paths paths))
@@ -51,4 +55,3 @@
 
 (defn workspace-dir [user-input color-mode]
   (ws-dir/workspace-dir user-input color-mode))
-

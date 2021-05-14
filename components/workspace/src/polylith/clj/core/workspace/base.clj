@@ -3,13 +3,10 @@
             [polylith.clj.core.workspace.loc :as loc]
             [polylith.clj.core.workspace.lib-imports :as lib-imp]))
 
-(defn enrich [suffixed-top-ns interface-names {:keys [namespaces-src namespaces-test] :as base}]
+(defn enrich [suffixed-top-ns interface-names {:keys [namespaces] :as base}]
   (let [interface-deps (deps/interface-deps suffixed-top-ns interface-names base)
-        lib-imports-src (lib-imp/lib-imports-src suffixed-top-ns interface-names base)
-        lib-imports-test (lib-imp/lib-imports-test suffixed-top-ns interface-names base)]
-    (assoc base :lines-of-code-src (loc/lines-of-code namespaces-src)
-                :lines-of-code-test (loc/lines-of-code namespaces-test)
-                :namespaces-test namespaces-test
-                :lib-imports-src lib-imports-src
-                :lib-imports-test lib-imports-test
+        lib-imports (lib-imp/lib-imports suffixed-top-ns interface-names base)]
+    (assoc base :lines-of-code (loc/lines-of-code namespaces)
+                :namespaces namespaces
+                :lib-imports lib-imports
                 :interface-deps interface-deps)))

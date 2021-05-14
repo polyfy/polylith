@@ -1,0 +1,47 @@
+{:active-profiles #{"default"},
+ :color-mode "none",
+ :compact-views #{},
+ :default-profile-name "default",
+ :empty-character ".",
+ :interface-ns "interface",
+ :m2-dir "/Users/joakimtengstrand/.m2",
+ :profile-to-settings
+ {"default"
+  {:paths
+   ["components/user/src"
+    "components/user/resources"
+    "components/user/test"],
+   :lib-deps {},
+   :component-names ["user"],
+   :base-names [],
+   :project-names []},
+  "remote"
+  {:paths
+   ["components/user-remote/src"
+    "components/user-remote/resources"
+    "components/user-remote/test"],
+   :lib-deps {},
+   :component-names ["user-remote"],
+   :base-names [],
+   :project-names []}},
+ :projects
+ {"development" {:alias "dev"},
+  "command-line" {:alias "cl"},
+  "user-service" {:alias "user-s"}},
+ :release-tag-pattern "v[0-9]*",
+ :stable-tag-pattern "stable-*",
+ :thousand-separator ",",
+ :top-namespace "se.example",
+ :user-config-filename "/Users/joakimtengstrand/.polylith/config.edn",
+ :user-home "/Users/joakimtengstrand",
+ :vcs
+ {:name "git",
+  :polylith-repo "https://github.com/polyfy/polylith.git",
+  :branch "master",
+  :latest-sha "720ca49844a5b556e89775c6a7b079b2afb94e2b",
+  :stable-since
+  {:tag "stable-lisa",
+   :sha "f06553c06d2116edb66426e4d3a868e9d06f4afe"}},
+ :version "0.2.0-alpha10.issue66.03",
+ :ws-schema-version {:breaking 0, :non-breaking 0},
+ :ws-type :toolsdeps2}

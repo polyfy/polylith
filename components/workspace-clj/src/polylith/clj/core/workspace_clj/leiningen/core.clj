@@ -11,7 +11,7 @@
 (defn workspace-from-disk [ws-dir user-input]
   (let [top-namespace (:top-namespace (common/leiningen-config-key ws-dir :polylith))
         top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
-        user-config-file (str (user-config/home-dir) "/.polylith/config.edn")
+        user-config-filename (str (user-config/home-dir) "/.polylith/config.edn")
         user-home (user-config/home-dir)
         m2-dir (user-config/m2-dir)
         interface-ns "interface"
@@ -27,9 +27,9 @@
                                    :stable-tag-pattern "stable-*"
                                    :color-mode "dark"
                                    :compact-views #{}
-                                   :user-config-file user-config-file
+                                   :user-config-filename user-config-filename
                                    :empty-character "."
-                                   :thousand-sep ","
+                                   :thousand-separator ","
                                    :profile-to-settings {}
                                    :user-home user-home
                                    :m2-dir m2-dir)

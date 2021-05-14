@@ -13,8 +13,9 @@
       (str/replace "/" ".")
       (str/replace "_" "-")))
 
-(defn sufix-ns-with-dot [top-namespace]
+(defn sufix-ns-with-dot
   "Makes sure the namespace ends with a dot (.)"
+  [top-namespace]
   (if (str/ends-with? top-namespace ".")
     top-namespace
     (str top-namespace ".")))

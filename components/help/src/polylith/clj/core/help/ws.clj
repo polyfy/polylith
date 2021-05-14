@@ -34,7 +34,7 @@
        "    poly ws get:settings:keys\n"
        "    poly ws get:components:keys\n"
        "    poly ws get:components:count\n"
-       "    poly ws get:components:mycomp:lines-of-code-src\n"
+       "    poly ws get:components:mycomp:lines-of-code\n"
        "    poly ws out:ws.edn\n"
        "    poly ws color-mode:none > ws.edn"))
 

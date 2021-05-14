@@ -3,10 +3,10 @@
             [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.workspace-clj.leiningen.config-from-disk :as lein-config-from-disk]))
 
-(defn read-and-validate-config-file [config-file-name]
-  (if (-> config-file-name file/exists not)
-    [false (str "Could not find config file: " config-file-name)]
-    (let [config (read-string (slurp config-file-name))
+(defn read-and-validate-config-file [config-filename]
+  (if (-> config-filename file/exists not)
+    [false (str "Could not find config file: " config-filename)]
+    (let [config (read-string (slurp config-filename))
           message (validator/validate-brick-config config)]
       (if message
         [false message]
@@ -19,8 +19,8 @@
                     :toolsdeps1
                       [true {}]
                     :toolsdeps2
-                      (let [config-file-name (str brick-dir "/deps.edn")]
-                        (read-and-validate-config-file config-file-name)))]
+                      (let [config-filename (str brick-dir "/deps.edn")]
+                        (read-and-validate-config-file config-filename)))]
     (if ok?
       data
       (throw (Exception. (str data))))))

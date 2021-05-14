@@ -9,15 +9,11 @@
             [polylith.clj.core.workspace.project :as project]
             [polylith.clj.core.workspace.interfaces :as interfaces]))
 
-(defn brick->lib-imports [brick]
-  (into {} (mapv (juxt :name #(select-keys % [:lib-imports-src
-                                              :lib-imports-test]))
-                 brick)))
+(defn brick->lib-imports [bricks]
+  (into {} (mapv (juxt :name :lib-imports) bricks)))
 
 (defn brick->loc [bricks]
-  (into {} (map (juxt :name #(select-keys % [:lines-of-code-src
-                                             :lines-of-code-test]))
-                bricks)))
+  (into {} (map (juxt :name :lines-of-code) bricks)))
 
 (defn workspace-name [ws-dir]
   (let [cleaned-ws-dir (if (= "." ws-dir) "" ws-dir)
@@ -42,7 +38,7 @@
         brick->loc (brick->loc enriched-bricks)
         brick->lib-imports (brick->lib-imports enriched-bricks)
         enriched-settings (s/enrich-settings settings projects)
-        enriched-projects (vec (sort-by project-sorter (map #(project/enrich-project % enriched-components enriched-bases brick->loc brick->lib-imports paths enriched-settings user-input) projects)))
+        enriched-projects (vec (sort-by project-sorter (map #(project/enrich-project % enriched-components enriched-bases suffixed-top-ns brick->loc brick->lib-imports paths enriched-settings user-input) projects)))
         messages (validator/validate-ws suffixed-top-ns settings paths interface-names interfaces enriched-components enriched-bases enriched-projects interface-ns user-input color-mode)]
     (assoc workspace :name ws-name
                      :settings enriched-settings

@@ -1,5 +1,6 @@
 (ns polylith.clj.core.lib.text-table.lib-table-test
   (:require [clojure.test :refer :all]
+            [polylith.clj.core.test-helper.interfaces.data :as data]
             [polylith.clj.core.lib.text-table.lib-table :as lib-table]))
 
 (def dev-lib-deps {"antlr" {:local/root "/Users/tengstrand/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar"
@@ -45,56 +46,53 @@
                                                           :base-names []
                                                           :project-names []}}
                            :ns-to-lib {"zprint" "zprint" "antlr" "antlr"}}
-                :projects [{:base-names []
+                :projects [{:base-names {}
                             :is-dev false
                             :name "core"
                             :alias "core"
-                            :lib-deps {"org.clojure/clojure" {:version "1.10.2-alpha1", :type "maven", :size 3908624}
-                                       "org.clojure/tools.deps.alpha" {:version "0.8.695", :type "maven", :size 47566}},
-                            :component-names [],
-                            :profile {:src-paths [], :test-paths [], :lib-deps {}, :lib-deps-test {}}}
-                           {:base-names ["cli"]
+                            :lib-deps {:src {"org.clojure/clojure" {:version "1.10.2-alpha1", :type "maven", :size 3908624}
+                                             "org.clojure/tools.deps.alpha" {:version "0.8.695", :type "maven", :size 47566}},}
+                            :component-names {}}
+                           {:base-names {:src ["cli"]}
                             :is-dev false
                             :name "invoice"
                             :alias "inv"
-                            :lib-deps {"org.clojure/clojure" {:version "1.10.1", :type "maven", :size 3908431}
-                                       "org.clojure/tools.deps.alpha" {:version "0.8.695", :type "maven", :size 47566}
-                                       "zprint" {:version "0.4.15", :type "maven", :size 128182}}
-                            :lib-deps-test {"zprint" {:version "0.4.15", :type "maven", :size 128182}}
-                            :component-names ["admin" "database" "invoicer" "purchaser"]
-                            :profile {:src-paths [], :test-paths [], :lib-deps {}, :lib-deps-test {}}}
-                           {:base-names ["cli"]
+                            :lib-deps {:src {"org.clojure/clojure" {:version "1.10.1", :type "maven", :size 3908431}
+                                             "org.clojure/tools.deps.alpha" {:version "0.8.695", :type "maven", :size 47566}
+                                             "zprint" {:version "0.4.15", :type "maven", :size 128182}}
+                                       :test {"zprint" {:version "0.4.15", :type "maven", :size 128182}}}
+                            :component-names {:src ["admin" "database" "invoicer" "purchaser"]}}
+                           {:base-names {:src ["cli"]}
                             :is-dev true
                             :name "development"
                             :alias "dev"
-                            :lib-deps (merge dev-lib-deps dev-profile-lib-deps)
-                            :lib-deps-test (merge dev-lib-deps dev-profile-lib-deps)
-                            :unmerged {:lib-deps dev-lib-deps
-                                       :lib-deps-test {}}
-                            :component-names ["address" "database" "invoicer" "purchaser" "user"]
-                            :profile {:lib-deps dev-profile-lib-deps
-                                      :lib-deps-test {}}}]
+                            :lib-deps {:src (merge dev-lib-deps dev-profile-lib-deps)
+                                       :test (merge dev-lib-deps dev-profile-lib-deps)}
+                            :unmerged {:lib-deps {:src dev-lib-deps
+                                                  :test {}}}
+                            :component-names {:src ["address" "database" "invoicer" "purchaser" "user"]}
+                            :profile {:lib-deps dev-profile-lib-deps}}]
                 :messages []
-                :components [{:lib-deps {"antlr" {:local/root "/Users/tengstrand/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar"
-                                                  :type "local"
-                                                  :size 445288
-                                                  :version "2.7.7"}}
+                :components [{:lib-deps {:src {"antlr" {:local/root "/Users/tengstrand/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar"
+                                                        :type "local"
+                                                        :size 445288
+                                                        :version "2.7.7"}}}
                               :name "address"
                               :type "component"}
-                             {:lib-deps dev-profile-lib-deps
-                              :lib-deps-test dev-profile-lib-deps
+                             {:lib-deps {:src dev-profile-lib-deps
+                                         :test dev-profile-lib-deps}
                               :name "admin"
                               :type "component"}
-                             {:lib-deps dev-profile-lib-deps
+                             {:lib-deps {:src dev-profile-lib-deps}
                               :name "database"
                               :type "component"}
-                             {:lib-des {}
+                             {:lib-des {:src {}}
                               :name "invoicer"
                               :type "component"}
-                             {:lib-deps {}
+                             {:lib-deps {:src {}}
                               :name "purchaser"
                               :type "component"}
-                             {:lib-deps dev-profile-lib-deps
+                             {:lib-deps {:src dev-profile-lib-deps}
                               :name "user"
                               :type "component"}]
                 :bases [{:lib-deps {}
@@ -102,44 +100,81 @@
                          :type "base"}]})
 
 (deftest table--show-brick-with-deps--returns-correct-table
-  (is (= ["                                                                                                         d   "
-          "                                                                                                   a     a   "
-          "                                                                                                   d     t   "
-          "                                                                                                   d  a  a   "
-          "                                                                                                   r  d  b  u"
-          "                                                                                                   e  m  a  s"
-          "                                                                                                   s  i  s  e"
-          "  library                                 version           KB   core  inv   dev  default  admin   s  n  e  r"
-          "  ------------------------------------------------------------   ---------   -------------------   ----------"
-          "  antlr                                   2.7.7            434    --   --    x-      -       -     x  ·  ·  ·"
-          "  clj-time/clj-time                       d9ed4e4          134    --   --    x-      -       -     ·  ·  ·  ·"
-          "  furkan3ayraktar/polylith-clj-deps-ring  d74f49d           30    --   --    x-      -       -     ·  ·  ·  ·"
-          "  local-clojure                           2.7.7            434    --   --    x-      -       -     ·  ·  ·  ·"
-          "  org.clojure/clojure                     1.10.1         3,816    --   x-    x-      -       -     ·  ·  ·  ·"
-          "  org.clojure/clojure                     1.10.2-alpha1  3,817    x-   --    --      -       -     ·  ·  ·  ·"
-          "  org.clojure/tools.deps.alpha            0.8.695           46    x-   x-    x-      -       -     ·  ·  ·  ·"
-          "  zprint                                  0.4.15           125    --   xx    --      x       -     ·  x  x  x"
-          "  zprint                                  0.5.4              0    --   --    --      -       x     ·  ·  ·  ·"]
+  (is (= ["                                                                                                                d   "
+          "                                                                                                          a     a   "
+          "                                                                                                          d     t   "
+          "                                                                                                          d  a  a   "
+          "                                                                                                          r  d  b  u"
+          "                                                                                                          e  m  a  s"
+          "                                                                                                          s  i  s  e"
+          "  library                                 version        type      KB   core  inv   dev  default  admin   s  n  e  r"
+          "  -------------------------------------------------------------------   ---------   -------------------   ----------"
+          "  antlr                                   2.7.7          local    434    --   --    x-      -       -     x  ·  ·  ·"
+          "  clj-time/clj-time                       d9ed4e4        git      134    --   --    x-      -       -     ·  ·  ·  ·"
+          "  furkan3ayraktar/polylith-clj-deps-ring  d74f49d        git       30    --   --    x-      -       -     ·  ·  ·  ·"
+          "  local-clojure                           2.7.7          local    434    --   --    x-      -       -     ·  ·  ·  ·"
+          "  org.clojure/clojure                     1.10.1         maven  3,816    --   x-    x-      -       -     ·  ·  ·  ·"
+          "  org.clojure/clojure                     1.10.2-alpha1  maven  3,817    x-   --    --      -       -     ·  ·  ·  ·"
+          "  org.clojure/tools.deps.alpha            0.8.695        maven     46    x-   x-    x-      -       -     ·  ·  ·  ·"
+          "  zprint                                  0.4.15         maven    125    --   xx    --      x       -     ·  x  x  x"
+          "  zprint                                  0.5.4          maven      0    --   --    --      -       x     ·  ·  ·  ·"]
          (lib-table/table workspace false))))
 
 (deftest table--show-all-brick-deps--returns-correct-table
-  (is (= ["                                                                                                               p      "
-          "                                                                                                         d  i  u      "
-          "                                                                                                   a     a  n  r      "
-          "                                                                                                   d     t  v  c      "
-          "                                                                                                   d  a  a  o  h      "
-          "                                                                                                   r  d  b  i  a  u   "
-          "                                                                                                   e  m  a  c  s  s  c"
-          "                                                                                                   s  i  s  e  e  e  l"
-          "  library                                 version           KB   core  inv   dev  default  admin   s  n  e  r  r  r  i"
-          "  ------------------------------------------------------------   ---------   -------------------   -------------------"
-          "  antlr                                   2.7.7            434    --   --    x-      -       -     x  ·  ·  ·  ·  ·  ·"
-          "  clj-time/clj-time                       d9ed4e4          134    --   --    x-      -       -     ·  ·  ·  ·  ·  ·  ·"
-          "  furkan3ayraktar/polylith-clj-deps-ring  d74f49d           30    --   --    x-      -       -     ·  ·  ·  ·  ·  ·  ·"
-          "  local-clojure                           2.7.7            434    --   --    x-      -       -     ·  ·  ·  ·  ·  ·  ·"
-          "  org.clojure/clojure                     1.10.1         3,816    --   x-    x-      -       -     ·  ·  ·  ·  ·  ·  ·"
-          "  org.clojure/clojure                     1.10.2-alpha1  3,817    x-   --    --      -       -     ·  ·  ·  ·  ·  ·  ·"
-          "  org.clojure/tools.deps.alpha            0.8.695           46    x-   x-    x-      -       -     ·  ·  ·  ·  ·  ·  ·"
-          "  zprint                                  0.4.15           125    --   xx    --      x       -     ·  x  x  ·  ·  x  ·"
-          "  zprint                                  0.5.4              0    --   --    --      -       x     ·  ·  ·  ·  ·  ·  ·"]
-         (lib-table/table workspace true))))
+  (is (= ["                                                                                                                d   "
+          "                                                                                                          a     a   "
+          "                                                                                                          d     t   "
+          "                                                                                                          d  a  a   "
+          "                                                                                                          r  d  b  u"
+          "                                                                                                          e  m  a  s"
+          "                                                                                                          s  i  s  e"
+          "  library                                 version        type      KB   core  inv   dev  default  admin   s  n  e  r"
+          "  -------------------------------------------------------------------   ---------   -------------------   ----------"
+          "  antlr                                   2.7.7          local    434    --   --    x-      -       -     x  ·  ·  ·"
+          "  clj-time/clj-time                       d9ed4e4        git      134    --   --    x-      -       -     ·  ·  ·  ·"
+          "  furkan3ayraktar/polylith-clj-deps-ring  d74f49d        git       30    --   --    x-      -       -     ·  ·  ·  ·"
+          "  local-clojure                           2.7.7          local    434    --   --    x-      -       -     ·  ·  ·  ·"
+          "  org.clojure/clojure                     1.10.1         maven  3,816    --   x-    x-      -       -     ·  ·  ·  ·"
+          "  org.clojure/clojure                     1.10.2-alpha1  maven  3,817    x-   --    --      -       -     ·  ·  ·  ·"
+          "  org.clojure/tools.deps.alpha            0.8.695        maven     46    x-   x-    x-      -       -     ·  ·  ·  ·"
+          "  zprint                                  0.4.15         maven    125    --   xx    --      x       -     ·  x  x  x"
+          "  zprint                                  0.5.4          maven      0    --   --    --      -       x     ·  ·  ·  ·"]
+         (lib-table/table workspace false))))
+
+(deftest table--show-source-dependencies
+  (is (= ["                                                                                   t"
+          "                                                                                   e"
+          "                                                                                   s"
+          "                                                                                   t"
+          "                                                                                   -"
+          "                                                                                   h"
+          "                                                                                   e"
+          "                                                                                   l"
+          "                                                                                   p"
+          "                                                                                   e"
+          "  library                       version  type      KB   s    dev  default  extra   r"
+          "  ---------------------------------------------------   --   -------------------   -"
+          "  clj-time                      0.15.2   maven      0   -x   --      -       -     t"
+          "  me.raynes/fs                  1.4.6    maven     10   --   --      x       -     ."
+          "  org.clojure/clojure           1.10.1   maven  3,816   xx   xx      -       -     ."
+          "  org.clojure/tools.deps.alpha  0.8.695  maven     46   xx   xx      -       -     ."]
+         (lib-table/table data/workspace-01 false))))
+
+(deftest table--show-test-dependencies-for-all-bricks
+  (is (= ["                                                                                      t   "
+          "                                                                                      e   "
+          "                                                                                      s   "
+          "                                                                                   d  t   "
+          "                                                                                   a  -   "
+          "                                                                                   t  h   "
+          "                                                                                   a  e   "
+          "                                                                                   b  l  u"
+          "                                                                                   a  p  s"
+          "                                                                                   s  e  e"
+          "  library                       version  type      KB   s    dev  default  extra   e  r  r"
+          "  ---------------------------------------------------   --   -------------------   -------"
+          "  clj-time                      0.15.2   maven      0   -x   --      -       -     .  t  ."
+          "  me.raynes/fs                  1.4.6    maven     10   --   --      x       -     .  .  ."
+          "  org.clojure/clojure           1.10.1   maven  3,816   xx   xx      -       -     .  .  ."
+          "  org.clojure/tools.deps.alpha  0.8.695  maven     46   xx   xx      -       -     .  .  ."]
+         (lib-table/table data/workspace-01 true))))

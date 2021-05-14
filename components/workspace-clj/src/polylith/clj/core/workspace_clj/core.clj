@@ -1,6 +1,7 @@
 (ns polylith.clj.core.workspace-clj.core
   (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.git.interface :as git]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.user-config.interface :as user-config]
@@ -22,24 +23,36 @@
   (when (not= ws-type :toolsdeps2)
     (into {} (mapv stringify-key-value ns-to-lib))))
 
+(defn git-info [ws-dir vcs stable-tag-pattern branch]
+  (let [current-branch (or branch (git/current-branch))]
+    {:name (or vcs "git")
+     :polylith-repo  git/repo
+     :branch         current-branch
+     :latest-sha     (git/latest-polylith-sha current-branch)
+     :stable-since   (git/latest-stable ws-dir stable-tag-pattern)}))
+
 (defn toolsdeps-ws-from-disk [ws-dir
                               ws-type
                               user-input
                               color-mode]
-  (let [{:keys [aliases polylith] :as ws-config} (config/dev-config-from-disk ws-dir ws-type color-mode)
-        config (if (= :toolsdeps2 ws-type)
-                 (config/ws-config-from-disk ws-dir color-mode)
-                 (config/ws-config-from-dev polylith))
-        {:keys [vcs top-namespace ws-type interface-ns default-profile-name release-tag-pattern stable-tag-pattern ns-to-lib compact-views]} config
+  (let [{:keys [aliases polylith]} (config/dev-config-from-disk ws-dir ws-type color-mode)
+        ws-config (if (= :toolsdeps2 ws-type)
+                    (config/ws-config-from-disk ws-dir color-mode)
+                    (config/ws-config-from-dev polylith))
+        {:keys [vcs top-namespace ws-type interface-ns default-profile-name release-tag-pattern stable-tag-pattern ns-to-lib compact-views]
+         :or {release-tag-pattern "v[0-9]*"
+              stable-tag-pattern "stable-*"
+              compact-views {}}} ws-config
         interface-namespace (or interface-ns "interface")
         top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
         empty-character (user-config/empty-character)
         m2-dir (user-config/m2-dir)
         user-home (user-config/home-dir)
-        thousand-sep (user-config/thousand-sep)
-        user-config-file (str (user-config/home-dir) "/.polylith/config.edn")
+        thousand-separator (user-config/thousand-separator)
+        user-config-filename (str (user-config/home-dir) "/.polylith/config.edn")
         brick->non-top-namespaces (non-top-ns/brick->non-top-namespaces ws-dir top-namespace)
-        projects (projects-from-disk/read-projects ws-dir ws-type user-home color-mode)
+        project->settings (:projects ws-config {})
+        projects (projects-from-disk/read-projects ws-dir ws-type project->settings user-home color-mode)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
         components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-namespace brick->non-top-namespaces)
         bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir brick->non-top-namespaces)
@@ -47,23 +60,24 @@
         paths (path-finder/paths ws-dir projects profile-to-settings)
         default-profile (or default-profile-name "default")
         active-profiles (profile/active-profiles user-input default-profile profile-to-settings)
+
         settings (util/ordered-map :version version/version
                                    :ws-type ws-type
                                    :ws-schema-version version/ws-schema-version
-                                   :vcs (or vcs "git")
+                                   :vcs (git-info ws-dir vcs stable-tag-pattern (:branch user-input))
                                    :top-namespace top-namespace
                                    :interface-ns interface-namespace
                                    :default-profile-name default-profile
                                    :active-profiles active-profiles
-                                   :release-tag-pattern (or release-tag-pattern "v[0-9]*")
-                                   :stable-tag-pattern (or stable-tag-pattern "stable-*")
+                                   :release-tag-pattern release-tag-pattern
+                                   :stable-tag-pattern stable-tag-pattern
                                    :color-mode color-mode
-                                   :compact-views (or compact-views #{})
-                                   :user-config-file user-config-file
-                                   :empty-character (or empty-character ".")
-                                   :thousand-sep (or thousand-sep ",")
+                                   :compact-views compact-views
+                                   :user-config-filename user-config-filename
+                                   :empty-character empty-character
+                                   :thousand-separator thousand-separator
                                    :profile-to-settings profile-to-settings
-                                   :projects (:projects config {})
+                                   :projects project->settings
                                    :ns-to-lib ns-to-lib-str
                                    :user-home user-home
                                    :m2-dir m2-dir)]

@@ -9,101 +9,161 @@
             [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]))
 
-(defn absolute-path [path project-name]
-  (cond
-    (str/starts-with? path "./") (str "projects/" project-name "/" (subs path 2))
-    (str/starts-with? path "../../") (subs path 6)
-    :else (str "projects/" project-name "/" path)))
+(defn absolute-path [path project-name is-dev]
+  (if is-dev
+    path
+    (cond
+      (str/starts-with? path "./") (str "projects/" project-name "/" (subs path 2))
+      (str/starts-with? path "../../") (subs path 6)
+      :else (str "projects/" project-name "/" path))))
 
-(defn brick-path? [path]
-  (and path
-       (or
-         (str/starts-with? path "../../bases/")
-         (str/starts-with? path "../../components/"))))
+(defn brick-path? [path is-dev]
+  (let [prefix (if is-dev "" "../../")]
+    (and path
+         (or
+           (str/starts-with? path (str prefix "bases/"))
+           (str/starts-with? path (str prefix "components/"))))))
 
-(defn brick? [[_ {:keys [local/root]}]]
+(defn brick? [[_ {:keys [local/root]}] is-dev]
   (and (-> root nil? not)
-       (brick-path? root)))
+       (brick-path? root is-dev)))
 
-(defn deps-and-paths-from-brick [path project-name project-dir include-src?]
-  (let [brick-path (absolute-path path project-name)
-        config (read-string (slurp (str project-dir "/" path "/deps.edn")))
+(defn brick-paths-and-deps
+  "Given a path, e.g. '../../components/invoicer', parse its deps.edn file
+   and return the paths and dependencies that are defined in it."
+  [path project-name project-config-dir is-dev]
+  (let [brick-path (absolute-path path project-name is-dev)
+        brick-config-path (str project-config-dir "/" path "/deps.edn")
+        brick-config (-> brick-config-path slurp read-string)
         src-paths (mapv #(str brick-path "/" %)
-                        (:paths config))
-        test-paths (cond-> (mapv #(str brick-path "/" %)
-                                 (-> config :aliases :test :extra-paths))
-                           include-src? (concat src-paths))
-        src-deps (:deps config)
-        test-deps (cond-> (-> config :aliases :test :extra-deps)
-                          include-src? (merge src-deps))]
+                        (:paths brick-config))
+        test-paths (mapv #(str brick-path "/" %)
+                         (-> brick-config :aliases :test :extra-paths))
+        src-deps (:deps brick-config)
+        test-deps (or (-> brick-config :aliases :test :extra-deps) {})]
     {:src-paths src-paths
      :test-paths test-paths
      :src-deps src-deps
      :test-deps test-deps}))
 
-(defn all-paths [is-dev dev-type src-type deps-type aliases project-name project-dir user-home brick-paths deps paths include-src?]
-  (let [deps-and-paths (map #(deps-and-paths-from-brick % project-name project-dir include-src?) brick-paths)
-        paths (vec (sort (set (if is-dev (-> aliases dev-type :extra-paths)
-                                         (concat (map #(absolute-path % project-name) paths)
-                                                 (mapcat src-type deps-and-paths))))))
-        lib-deps (lib/with-sizes (if is-dev (-> aliases dev-type :extra-deps)
-                                            (concat (filter (complement brick?) deps)
-                                                    (mapcat deps-type deps-and-paths))) user-home)]
-    [paths lib-deps]))
-
-(defn brick-path [[_ entry]]
+(defn extract-brick-path
+  "Returns the path from a dependency if it's a valid path to a brick."
+  [[_ entry] is-dev]
   (let [path (:local/root entry)]
-    (when (brick-path? path)
+    (when (brick-path? path is-dev)
       [path])))
 
+(defn src-paths-and-libs-from-bricks
+  "Returns all src paths and src dependencies that are included from the src context
+   for a given project deps.edn file, including:
+   - project paths that are specified as :paths or :aliases > :dev > :extra-paths (development)
+     in the project's deps.edn file.
+   - brick :src paths that are specified in :deps or :aliases > :dev > :extra-deps (development)
+     as :local/root in the project's deps.edn file and extracted from the corresponding
+     brick deps.edn files.
+   - brick :src libraries that are specified in :deps or :aliases > :dev > :extra-deps (development)
+     in the project's deps.edn file.
+   - brick :src libraries that are specified in :deps or :aliases > :dev > :extra-deps (development)
+     as :local/root in the project's deps.edn file and extracted from the corresponding
+     brick deps.edn files."
+  [is-dev project-name project-config-dir user-home project-src-deps project-src-paths]
+  (let [brick-src-paths (set (mapcat #(extract-brick-path % is-dev) project-src-deps))
+        src-deps-and-paths (map #(brick-paths-and-deps % project-name project-config-dir is-dev) brick-src-paths)
+        paths (vec (sort (set (concat (map #(absolute-path % project-name is-dev) project-src-paths)
+                                      (mapcat :src-paths src-deps-and-paths)))))
+        lib-deps (lib/with-sizes (concat (filter #(not (brick? % is-dev)) project-src-deps)
+                                         (mapcat :src-deps src-deps-and-paths)) user-home)]
+    [paths lib-deps]))
+
+(defn skip-all-tests? [bricks-to-test]
+  (and (-> bricks-to-test nil? not)
+       (empty? bricks-to-test)))
+
+(defn test-paths-and-libs-from-bricks
+  "Returns all test paths and test dependencies that are included from the test context
+   for a given project deps.edn file, including:
+   - project paths that are specified as :aliases > :test > :extra-paths in the project's deps.edn file.
+   - brick :test paths that are specified in :aliases > :src > :extra-deps as :local/root in the
+     project's deps.edn file and extracted from the corresponding brick deps.edn files.
+   - brick :test paths that are specified in :aliases > :test > :extra-deps as :local/root in the
+     project's deps.edn file and extracted from the corresponding brick deps.edn files.
+   - brick :src paths that are specified in :aliases > :test > :extra-deps as :local/root but not in
+     :aliases > :src > :extra-deps, are extracted from the corresponding brick deps.edn files.
+     This is needed when a brick is only added to the test context but not to the source context,
+     so that we have access to the brick under test.
+   - brick :test libraries that are specified in :aliases > :test > :extra-deps in the project's deps.edn file.
+   - brick :test libraries that are specified in :aliases > :dev > :extra-deps as :local/root
+     in the project's deps.edn file and extracted from the corresponding brick deps.edn files.
+   - brick :src libraries that are specified in :aliases > :test > :extra-deps as :local/root but not in
+     :aliases > :src > :extra-deps, are extracted from the corresponding brick deps.edn files."
+
+  [is-dev project-name project-config-dir bricks-to-test user-home project-src-deps project-test-deps project-test-paths]
+  ;; todo: support filtering on individual bricks.
+  (if (skip-all-tests? bricks-to-test)
+    [[] []]
+    (let [brick-src-paths (set (mapcat #(extract-brick-path % is-dev) project-src-deps))
+          brick-test-paths (set (mapcat #(extract-brick-path % is-dev) project-test-deps))
+          src-deps-and-paths (map #(brick-paths-and-deps % project-name project-config-dir is-dev) brick-src-paths)
+          only-test-brick-paths (set/difference brick-test-paths brick-src-paths)
+          test-deps-and-paths (map #(brick-paths-and-deps % project-name project-config-dir is-dev) brick-test-paths)
+          only-test-paths (map #(brick-paths-and-deps % project-name project-config-dir is-dev) only-test-brick-paths)
+          paths (concat (map #(absolute-path % project-name is-dev) project-test-paths)
+                        (mapcat :test-paths src-deps-and-paths)
+                        (mapcat :test-paths test-deps-and-paths)
+                        (mapcat :src-paths only-test-paths))
+          lib-deps (lib/with-sizes (concat (filter #(not (brick? % is-dev)) project-test-deps)
+                                           (concat (mapcat :test-deps src-deps-and-paths)
+                                                   (mapcat :test-deps test-deps-and-paths)
+                                                   (mapcat :src-deps only-test-paths))) user-home)]
+      [(vec (sort (set paths)))
+       (vec (sort (set lib-deps)))])))
+
 (defn read-project
-  ([{:keys [project-name project-dir config-file is-dev]} ws-type user-home color-mode]
-   (let [{:keys [paths deps aliases mvn/repos] :as config} (read-string (slurp config-file))
+  ([{:keys [project-name project-dir project-config-dir is-dev]} ws-type project->settings user-home color-mode]
+   (let [config-filename (str project-config-dir "/deps.edn")
+         {:keys [paths deps aliases mvn/repos] :as config} (read-string (slurp config-filename))
+         project-src-paths (if is-dev (-> aliases :dev :extra-paths) paths)
+         project-src-deps (if is-dev (-> aliases :dev :extra-deps) deps)
+         project-test-paths (-> aliases :test :extra-paths)
+         project-test-deps (-> aliases :test :extra-deps)
          maven-repos (merge mvn/standard-repos repos)
          message (when (not is-dev) (validator/validate-project-deployable-config ws-type config))]
      (if message
-       (throw (ex-info (str "  " (color/error color-mode (str "Error in " config-file ": ") message)) message))
-       (read-project project-name project-dir config-file is-dev paths deps aliases maven-repos user-home))))
-  ([project-name project-dir config-file is-dev paths deps aliases maven-repos user-home]
-   (let [brick-paths (set (mapcat brick-path deps))
-         [src-paths lib-deps] (all-paths is-dev :dev :src-paths :src-deps aliases project-name project-dir user-home brick-paths deps paths false)
-         test-brick-paths (set (mapcat brick-path (-> aliases :test :extra-deps)))
-         ;; If the brick only exists as a test dependency, then also include the brick's src paths and library dependencies.
-         include-src? (empty? (set/intersection brick-paths test-brick-paths))
-         [test-paths1 lib-deps-test1] (all-paths is-dev :dev :test-paths :test-deps aliases project-name project-dir user-home brick-paths deps paths false)
-         [test-paths2 lib-deps-test2] (all-paths is-dev :test :test-paths :test-deps aliases project-name project-dir user-home
-                                                 test-brick-paths
-                                                 (-> aliases :test :extra-deps)
-                                                 (-> aliases :test :extra-paths)
-                                                 include-src?)
-         test-paths (vec (concat test-paths1 test-paths2))
-         lib-deps-test (merge lib-deps-test1 lib-deps-test2)
-         namespaces-src (ns-from-disk/namespaces-from-disk (str project-dir "/src"))
-         namespaces-test (ns-from-disk/namespaces-from-disk (str project-dir "/test"))]
+       (throw (ex-info (str "  " (color/error color-mode (str "Error in " config-filename ": ") message)) message))
+       (read-project project-name project-dir project-config-dir config-filename is-dev maven-repos project->settings
+                     user-home project-src-paths project-src-deps project-test-paths project-test-deps))))
+  ([project-name project-dir project-config-dir config-filename is-dev maven-repos project->settings user-home project-src-paths project-src-deps project-test-paths project-test-deps]
+   (let [[src-paths src-lib-deps] (src-paths-and-libs-from-bricks is-dev project-name project-config-dir user-home project-src-deps project-src-paths)
+         bricks-to-test (-> project-name project->settings :test)
+         [test-paths test-lib-deps] (test-paths-and-libs-from-bricks is-dev project-name project-config-dir bricks-to-test user-home project-src-deps project-test-deps project-test-paths)
+         paths (cond-> {}
+                       (seq src-paths) (assoc :src src-paths)
+                       (seq test-paths) (assoc :test test-paths))
+         lib-deps (cond-> {}
+                          (seq src-lib-deps) (assoc :src src-lib-deps)
+                          (seq test-lib-deps) (assoc :test test-lib-deps))
+         namespaces (ns-from-disk/namespaces-from-disk (str project-dir "/src") (str project-dir "/test"))]
      (util/ordered-map :name project-name
                        :is-dev is-dev
                        :project-dir project-dir
-                       :config-file config-file
+                       :config-filename config-filename
                        :type "project"
-                       :src-paths src-paths
-                       :test-paths test-paths
+                       :paths paths
                        :lib-deps lib-deps
-                       :lib-deps-test lib-deps-test
                        :maven-repos maven-repos
-                       :namespaces-src namespaces-src
-                       :namespaces-test namespaces-test))))
+                       :namespaces namespaces))))
 
 (defn project-map [ws-dir project-name]
   {:project-name project-name
    :is-dev false
    :project-dir (str ws-dir "/projects/" project-name)
-   :config-file (str ws-dir "/projects/" project-name "/deps.edn")})
+   :project-config-dir (str ws-dir "/projects/" project-name)})
 
-(defn read-projects [ws-dir ws-type user-home color-mode]
+(defn read-projects [ws-dir ws-type project->settings user-home color-mode]
   (let [project-configs (conj (map #(project-map ws-dir %)
                                    (file/directories (str ws-dir "/projects")))
                               {:project-name "development"
                                :is-dev true
                                :project-dir (str ws-dir "/development")
-                               :config-file (str ws-dir "/deps.edn")})]
-    (mapv #(read-project % ws-type user-home color-mode) project-configs)))
+                               :project-config-dir ws-dir})]
+    (mapv #(read-project % ws-type project->settings user-home color-mode) project-configs)))

@@ -4,16 +4,16 @@
             [polylith.clj.core.file.interface :as file])
   (:import (java.io File)))
 
-(defn find-root-dir [path config-file-name valid-fn color-mode]
+(defn find-root-dir [path config-filename valid-fn color-mode]
   (if (and (contains? (set (file/files path))
-                      config-file-name)
+                      config-filename)
            (valid-fn path color-mode))
     path
     (let [parts (str/split path (re-pattern File/separator))]
       (when (or (-> parts empty? not))
         (let [new-path (str/join "/" (drop-last parts))]
           (when (not= path new-path)
-            (recur new-path config-file-name valid-fn color-mode)))))))
+            (recur new-path config-filename valid-fn color-mode)))))))
 
 (defn find-ws-root-dir
   "Start searching for a directory that has a workspace.edn file

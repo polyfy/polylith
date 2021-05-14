@@ -23,6 +23,7 @@
 (defn extract-params [args single-arg-commands]
   (let [{:keys [named-args unnamed-args]} (params/extract (rest args) single-arg-commands)
         {:keys [brick
+                branch
                 color-mode
                 project
                 fake-sha
@@ -37,24 +38,27 @@
                 all!
                 all-bricks!
                 brick!
-                bricks!
+                workspace!
                 dev!
                 project!
                 loc!
+                no-exit!
                 r!
                 resources!]} named-args]
     (util/ordered-map :args (vec args)
                       :cmd (first args)
                       :get get
                       :brick brick
+                      :branch branch
                       :color-mode color-mode
                       :fake-sha fake-sha
                       :interface interface
                       :is-search-for-ws-dir (contains? (set args) "::")
                       :is-all (= "true" all!)
                       :is-dev (= "true" dev!)
+                      :is-no-exit (= "true" no-exit!)
                       :is-show-brick brick!
-                      :is-show-bricks bricks!
+                      :is-show-workspace workspace!
                       :is-show-project (= "true" project!)
                       :is-show-loc (= "true" loc!)
                       :is-run-all-brick-tests (or (= "true" all!)

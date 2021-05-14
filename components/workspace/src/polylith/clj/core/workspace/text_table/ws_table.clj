@@ -11,7 +11,7 @@
   [(:name interface) name])
 
 (defn table [{:keys [settings projects components bases paths changes]} is-show-loc is-show-resources]
-  (let [{:keys [color-mode thousand-sep]} settings
+  (let [{:keys [color-mode thousand-separator]} settings
         profiles (profile/inactive-profiles settings)
         sorted-components (sort-by component-sorter components)
         bricks (concat sorted-components bases)
@@ -21,9 +21,9 @@
         loc-start-column (+ profile-start-column (* 2 (count profiles)))
         ifc-column (ifc-column/column sorted-components bases)
         brick-column (brick-column/column bricks changes color-mode)
-        project-columns (proj-columns/columns projects bricks paths changes is-show-loc is-show-resources thousand-sep)
+        project-columns (proj-columns/columns projects bricks paths changes is-show-loc is-show-resources thousand-separator)
         profile-columns (profile-columns/columns profile-start-column bricks profiles paths settings is-show-resources)
-        loc-columns (loc-columns/columns is-show-loc bricks loc-start-column thousand-sep)
+        loc-columns (loc-columns/columns is-show-loc bricks loc-start-column thousand-separator)
         header-spaces (text-table/spaces 1 space-columns spaces)
         cells (text-table/merge-cells ifc-column brick-column project-columns profile-columns loc-columns header-spaces)
         line (text-table/line 2 cells)
@@ -34,3 +34,8 @@
 
 (defn print-table [workspace is-show-loc is-show-resources]
   (text-table/print-table (table workspace is-show-loc is-show-resources)))
+
+(comment
+  (require '[dev.development :as dev])
+  (print-table dev/workspace false false)
+  #__)

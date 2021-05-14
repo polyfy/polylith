@@ -1,6 +1,6 @@
 (ns polylith.clj.core.lib.core
   (:require [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.lib.deps :as deps]
+            [polylith.clj.core.lib.ns-to-lib :as ns-to-lib]
             [polylith.clj.core.lib.git-size :as git-size]
             [polylith.clj.core.lib.mvn-size :as mvn-size]
             [polylith.clj.core.lib.local-size :as local-size]))
@@ -16,12 +16,13 @@
 
 (defn lib-deps [ws-type config top-namespace ns-to-lib namespaces user-home dep-keys]
   (if (= :toolsdeps1 ws-type)
-    (deps/lib-deps top-namespace ns-to-lib namespaces)
+    (ns-to-lib/lib-deps top-namespace ns-to-lib namespaces)
     (with-sizes (get-in config dep-keys) user-home)))
 
-(defn lib-deps-src [ws-type config top-namespace ns-to-lib namespaces-src user-home]
-  (lib-deps ws-type config top-namespace ns-to-lib namespaces-src user-home [:deps]))
-
-(defn lib-deps-test [ws-type config top-namespace ns-to-lib namespaces-test user-home]
-  ;; todo: handle leiningen1 correctly.
-  (lib-deps ws-type config top-namespace ns-to-lib namespaces-test user-home [:aliases :test :extra-deps]))
+(defn brick-lib-deps [ws-type config top-namespace ns-to-lib namespaces user-home]
+  (let [src (lib-deps ws-type config top-namespace ns-to-lib (:src namespaces) user-home [:deps])
+        ;; todo: handle leiningen1 correctly.
+        test (lib-deps ws-type config top-namespace ns-to-lib (:test namespaces) user-home [:aliases :test :extra-deps])]
+    (cond-> {}
+            (seq src) (assoc :src src)
+            (seq test) (assoc :test test))))

@@ -7,7 +7,7 @@
             [polylith.clj.core.path-finder.interface.select :as select]))
 
 (defn profile [[profile-key {:keys [extra-paths extra-deps]}] user-home]
-  (let [path-entries (extract/path-entries [extra-paths] nil)
+  (let [path-entries (extract/from-paths {:src extra-paths} nil)
         component-names (vec (sort (select/names path-entries c/component?)))
         base-names (vec (sort (select/names path-entries c/base?)))
         project-names (vec (sort (select/names path-entries c/project?)))]

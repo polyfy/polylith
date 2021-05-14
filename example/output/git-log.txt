@@ -1,5 +1,0 @@
-commit e19a59b74bc7815d82c9ecc735322fd3a216e689
-Author: Joakim Tengstrand <joakimtengstrand@gmail.com>
-Date:   Sun Apr 4 19:16:13 2021 +0200
-
-    Workspace created.

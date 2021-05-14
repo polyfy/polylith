@@ -1,6 +1,5 @@
 (ns polylith.clj.core.creator.workspace-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.test-helper.interface :as helper]))
 
 (use-fixtures :each helper/test-setup-and-tear-down)
@@ -33,7 +32,7 @@
 
 (deftest create-workspace--creates-empty-directories-and-a-deps-edn-config-file
   (let [output (with-out-str
-                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example"))]
+                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example" "branch:create-deps-files"))]
     (is (= ""
            output))
 
@@ -78,7 +77,7 @@
             (str "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly-cli.core\"]")
             (str "                   :extra-deps {polyfy/polylith")
             (str "                                {:git/url   \"https://github.com/polyfy/polylith\"")
-            (str "                                 :sha       \"INSERT_LATEST_SHA_HERE\"")
+            (str "                                 :sha       \"3bfa6b0db34e0b5b1dc0a68bdd485afe6f8604a1\"")
             (str "                                 :deps/root \"projects/poly\"}}}}}")]
            (helper/content "ws1" "deps.edn")))
 
@@ -93,6 +92,6 @@
            (helper/content "ws1" "workspace.edn")))
 
     (is (= ["{:color-mode \"dark\""
-            " :empty-character \"·\""
-            " :thousand-sep \",\"}"]
+            " :empty-character \".\""
+            " :thousand-separator \",\"}"]
            (helper/content (helper/user-home) "/.polylith/config.edn")))))

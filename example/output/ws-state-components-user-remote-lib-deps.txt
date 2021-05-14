@@ -1,0 +1,5 @@
+{:src
+ {"compojure/compojure" {:version "1.6.2", :type "maven", :size 15172},
+  "http-kit/http-kit" {:version "2.4.0", :type "maven", :size 191467},
+  "ring/ring" {:version "1.8.1", :type "maven", :size 4621},
+  "slacker/slacker" {:version "0.17.0", :type "maven", :size 28408}}}

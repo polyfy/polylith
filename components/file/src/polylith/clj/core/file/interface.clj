@@ -51,7 +51,7 @@
   (core/exists path))
 
 (defn file-name [^File file]
-  (core/file-name file))
+  (core/filename file))
 
 (defn directories [dir]
   (core/directory-paths dir))
@@ -71,8 +71,9 @@
 (defn lines-of-code [file-path]
   (core/lines-of-code file-path))
 
-(defn paths-recursively [dir]
+(defn paths-recursively
   "Returns all directories and files in a directory recursively"
+  [dir]
   (core/paths-recursively dir))
 
 (defn relative-paths [path]

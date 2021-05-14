@@ -9,10 +9,6 @@
  :aliases {:test {:extra-paths []
                   :extra-deps  {}}
 
-           :aot     {:extra-paths ["classes"]
-                     :main-opts   ["-e" "(compile,'se.example.user-api.core)"]}
-
-           :uberjar {:extra-deps {uberdeps/uberdeps {:mvn/version "0.1.10"}}
-                     :main-opts  ["-m" "uberdeps.uberjar"
-                                  "--aliases" "aot"
-                                  "--main-class" "se.example.user_api.core"]}}}
+           :uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
+                     :exec-fn hf.depstar/uberjar
+                     :exec-args {:aot true, :main-class se.example.user-api.core}}}}

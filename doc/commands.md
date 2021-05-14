@@ -56,6 +56,7 @@ poly help
   If since:SINCE is passed in as an argument, the last stable point in time
   will be used depending on the value of SINCE (or the first commit if no match
   was found):
+    SHA             -> a git SHA-1 hash.
     stable          -> the latest tag that matches stable-*, defined by
                        :stable-tag-pattern in ./deps.edn.
     build           -> the latest tag that matches v[0-9]*, defined by
@@ -94,6 +95,10 @@ poly help
     poly help deps :project :brick
     poly info
     poly info :loc
+    poly info since:65a7918
+    poly info since:head
+    poly info since:head~1
+    poly info since:stable
     poly info since:release
     poly info since:previous-release
     poly info project:myproject
@@ -616,25 +621,25 @@ poly help
                                                                               e  i
     library                       version     KB   cl   dev  default  admin   r  l
     --------------------------------------------   --   -------------------   ----
-    antlr/antlr                   2.7.7      434   x-   x-     --      --     ·  x
-    clj-time                      0.15.2      23   x-   x-     --      --     x  ·
-    org.clojure/clojure           1.10.1   3,816   x-   x-     --      --     ·  ·
-    org.clojure/tools.deps.alpha  0.8.695     46   x-   x-     --      --     ·  ·
+    antlr/antlr                   2.7.7      434   x-   x-      -       -     ·  x
+    clj-time                      0.15.2      23   x-   x-      -       -     x  ·
+    org.clojure/clojure           1.10.1   3,816   x-   x-      -       -     ·  ·
+    org.clojure/tools.deps.alpha  0.8.695     46   x-   x-      -       -     ·  ·
 
   In this example we have four libraries used by the cl and dev projects.
   If any of the libraries are added to the default or admin profiles, they will appear
-  as 'x-', '-x' or'xx' in these columns.
+  as an x in these columns.
 
-  The 'x-' for the cl and dev columns says that the library is added to the src code
-  ('x') but not as a test library ('-').
-  A library can either be specified directly by the project itself, or indirectly via
-  components and bases.
+  The x in x- for the cl and dev columns says that the library is part of the src scope.
+  The - in x- says that the library isn't included for the test scope. A library can either
+  be specified directly by the project itself via ':aliases > :test > :extra-deps' or
+  indirectly via included bricks in ':deps > :local/root'.
 
-  The 'x' in the user column, tells that clj-time is used by that component
+  The x in the user column, tells that clj-time is used by that component
   by having it specified in its 'deps.edn' file as a src dependency.
 
-  Libraries can also be selected per project and it's therefore possible to have different
-  versions of the same library in different projects (if needed).
+  Libraries can also be selected per project and it's therefore possible to have
+  different versions of the same library in different projects (if needed).
 
   This table supports all three different ways of including a dependency:
    - Maven, e.g.: clj-time/clj-time {:mvn/version "0.15.2"}
@@ -695,7 +700,7 @@ poly help
     poly test :all-bricks
     poly test :all
     poly test project:proj1
-    poly test project:proj1:proj2 :project
+    poly test project:proj1:proj2
     poly test :dev
     poly test :project :dev
     poly test :all-bricks :dev

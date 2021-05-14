@@ -1,0 +1,12 @@
+[:bases
+ :changes
+ :components
+ :interfaces
+ :messages
+ :name
+ :paths
+ :projects
+ :settings
+ :user-input
+ :ws-dir
+ :ws-reader]

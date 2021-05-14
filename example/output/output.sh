@@ -65,3 +65,26 @@ echo ""; cat profile-info-4.txt ; echo ""
 
 echo "######### profile-test.png #########"
 echo ""; cat profile-test.txt ; echo ""
+
+cd realworld
+
+echo "######### realworld-info.png #########"
+echo ""; cat realworld-info.txt ; echo ""
+
+echo "######### realworld-deps-interfaces.png #########"
+echo ""; cat realworld-deps-interfaces.txt ; echo ""
+
+echo "######### realworld-deps-interface.png #########"
+echo ""; cat realworld-deps-interface.txt ; echo ""
+
+echo "######### realworld-deps-components.png #########"
+echo ""; cat realworld-deps-components.txt ; echo ""
+
+echo "######### realworld-deps-component.png #########"
+echo ""; cat realworld-deps-component.txt ; echo ""
+
+echo "######### realworld-lib-deps.png #########"
+echo ""; cat realworld-lib-deps.txt ; echo ""
+
+echo "######### realworld-lib-deps-compact.png #########"
+echo ""; cat realworld-lib-deps-compact.txt ; echo ""

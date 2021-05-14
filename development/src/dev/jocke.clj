@@ -1,5 +1,6 @@
 (ns dev.jocke
-  (:require [clojure.set :as set]
+  (:require [dev.dev-common :as dev-common]
+            [clojure.set :as set]
             [clojure.string :as str]
             [polylith.clj.core.api.interface :as api]
             [polylith.clj.core.workspace.interface :as ws]
@@ -18,22 +19,28 @@
 ;(require '[dev.jocke :as z])
 ;(def workspace z/workspace)
 
-(defn ws-from-file [filename]
-  (let [input (user-input/extract-params ["ws" (str "ws-file:" filename)])]
-    (command/read-workspace "." input)))
-
-(defn dir [ws-dir]
-  (user-input/extract-params ["info" (str "ws-dir:" ws-dir)]))
-
 (def workspace (->
-                 ;(dir ".")
-                 (dir "../poly-example/ws02")
-                 ;(dir "../clojure-polylith-realworld-example-app")
+                 (dev-common/dir ".")
+                 ;(dev-common/dir "example/output/example")
+                 ;(dev-common/dir "../poly-example/ws02")
+                 ;(dev-common/dir "../clojure-polylith-realworld-example-app")
+                 ;(dev-common/dir "../sandbox/ws02")
+                 ;(dev-common/dir "../sandbox/ws03")
+                 ;(dev-common/dir "../usermanager-example")
                  ws-clj/workspace-from-disk
-                 ws/enrich-workspace))
-                 ;change/with-changes))
+                 ws/enrich-workspace
+                 change/with-changes))
+
+(map (juxt :name :lib-imports) projects)
+
+(into {} [[(:name component) (-> component :lib-imports :src)]])
+
+(into {} (mapv (juxt :name :lib-imports) components))
+
 
 (keys workspace)
+
+(file/directories "projects/poly")
 
 ;(command/execute-command (user-input/extract-params ["info"]))
 ;(command/execute-command (user-input/extract-params ["test"]))
@@ -48,7 +55,9 @@
 
 (:projects workspace)
 (:messages workspace)
+
 (:changes workspace)
+
 (:settings workspace)
 (:user-input workspace)
 (-> workspace :settings :profile-to-settings)
@@ -68,8 +77,10 @@
 (def project (common/find-project "dev" projects))
 (def project (common/find-project "invoice" projects))
 (def project (common/find-project "poly-migrator" projects))
+(def project (common/find-project "um" projects))
 (def component (common/find-component "user" components))
 (def component (common/find-component "article" components))
+(def component (common/find-component "schema" components))
 (def base (common/find-base "poly-cli" bases))
 
 (def changed-components (-> workspace :changes :changed-components))

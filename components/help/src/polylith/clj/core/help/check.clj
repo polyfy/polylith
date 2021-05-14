@@ -71,13 +71,7 @@
        "    It's discouraged to have the same library in both development and a profile.\n"
        "    The solution is to remove the library from dev or the profile.\n"
        "\n"
-       "  " (color/warning cm "Warning 205") " - Reference to missing library in " (s/key ":ns-to-lib" cm) " in ./deps.edn.\n"
-       "    Libraries defined in " (color/purple cm ":ns-to-lib") " should also be defined by the project.\n"
-       "\n"
-       "  " (color/warning cm "Warning 206") " - Reference to missing namespace in " (s/key ":ns-to-lib" cm) " in ./deps.edn.\n"
-       "    Namespaces defined in " (color/purple cm ":ns-to-lib") " should also be defined by the project.\n"
-       "\n"
-       "  " (color/warning cm "Warning 207") " - Non top namespace was found in brick.\n"
+       "  " (color/warning cm "Warning 205") " - Non top namespace was found in brick.\n"
        "    Triggered if a namespace in a brick doesn't start with the top namespaces\n"
        "    defined in " (s/key ":top-namespace" cm) " in ./deps.edn."))
 

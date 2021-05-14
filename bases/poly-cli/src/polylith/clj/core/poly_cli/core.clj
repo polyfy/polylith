@@ -4,7 +4,7 @@
             [polylith.clj.core.user-input.interface :as user-input])
   (:gen-class))
 
-(defn -main [& args]
+(defn -main
   "This is the entry point of the 'poly' command.
 
    It reads the input from the incoming arguments and delegates to the 'command' component,
@@ -25,9 +25,17 @@
      that are changed, and what bricks and projects to test, and adds the result to the :changes key.
    - The final workspace representation is then used by the given command that is stored in
      the 'user-input' representation."
+  [& args]
   (let [input (user-input/extract-params args)]
     (try
-      (-> input command/execute-command System/exit)
+      (if (-> input :is-no-exit)
+        (-> input command/execute-command)
+        (-> input command/execute-command System/exit))
       (catch Exception e
         (ex/print-exception e)
-        (System/exit 1)))))
+        (when (-> input :is-no-exit not)
+          (System/exit 1))))))
+
+(comment
+  (-main "test" ":all" ":no-exit")
+  #__)

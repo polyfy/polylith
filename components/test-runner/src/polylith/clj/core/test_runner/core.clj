@@ -14,17 +14,20 @@
     "local" {:local/root path}
     (throw (Exception. (str "Unknown library type: " type)))))
 
-(defn key-as-symbol [[library version]]
+(defn key-as-symbol
   "The library names (keys) are stored as strings in the workspace
    and need to be converted back to symbols here.
-   Library dependencies are stored as :type and :version and needs
+   Library dependencies are stored as :type and :version and need
    to be translated back to :mvn/version and :local/root."
+  [[library version]]
   [(symbol library) (adjust-key version)])
 
-(defn ->config [workspace {:keys [lib-deps lib-deps-test maven-repos]}]
+(defn ->config
   "Convert back to tools.deps format."
+  [workspace {:keys [lib-deps maven-repos]}]
   (assoc workspace :mvn/repos maven-repos
-                   :deps (into {} (map key-as-symbol (merge lib-deps lib-deps-test)))))
+                   :deps (into {} (map key-as-symbol (merge (:src lib-deps)
+                                                            (:test lib-deps))))))
 
 (defn ->test-statement [ns-name]
   (let [ns-symbol (symbol ns-name)]
@@ -41,12 +44,12 @@
       (throw e))))
 
 (defn brick-test-namespaces [bricks test-brick-names]
-  (let [brick-name->namespaces (into {} (map (juxt :name :namespaces-test) bricks))]
+  (let [brick-name->namespaces (into {} (map (juxt :name #(-> % :namespaces :test)) bricks))]
     (mapv :namespace (mapcat brick-name->namespaces test-brick-names))))
 
-(defn project-test-namespaces [project-name projects-to-test namespaces-test]
+(defn project-test-namespaces [project-name projects-to-test namespaces]
   (when (contains? (set projects-to-test) project-name)
-    (map :namespace namespaces-test)))
+    (map :namespace (:test namespaces))))
 
 (defn run-test-statements [project-name class-loader test-statements run-message color-mode]
   (println (str run-message))
@@ -84,19 +87,19 @@
          (str-util/count-things "brick" bricks-cnt) project-msg ": " entities-msg)))
 
 (defn run-tests-for-project [{:keys [bases components] :as workspace}
-                             {:keys [name src-paths test-paths namespaces-test] :as project}
+                             {:keys [name paths namespaces] :as project}
                              {:keys [project-to-bricks-to-test project-to-projects-to-test]}]
-  (when (-> test-paths empty? not)
+  (when (-> (:test paths) empty? not)
     (let [color-mode (-> workspace :settings :color-mode)
           config (->config workspace project)
           lib-paths (resolve-deps name config color-mode)
-          all-paths (set (concat src-paths test-paths lib-paths))
+          all-paths (set (concat (:src paths) (:test paths) lib-paths))
           bricks (concat components bases)
           bricks-to-test (project-to-bricks-to-test name)
           projects-to-test (project-to-projects-to-test name)
           run-message (run-message name components bases bricks-to-test projects-to-test color-mode)
           test-namespaces (brick-test-namespaces bricks bricks-to-test)
-          project-test-namespaces (project-test-namespaces name projects-to-test namespaces-test)
+          project-test-namespaces (project-test-namespaces name projects-to-test namespaces)
           test-statements (map ->test-statement (concat test-namespaces project-test-namespaces))
           class-loader (common/create-class-loader all-paths color-mode)]
       (if (-> test-statements empty?)

@@ -3,6 +3,8 @@
             [polylith.clj.core.git.tag :as tag]
             [polylith.clj.core.shell.interface :as shell]))
 
+(def repo "https://github.com/polyfy/polylith.git")
+
 (defn is-git-repo? [ws-dir]
   (try
     (= "true" (first (str/split-lines (shell/sh "git" "rev-parse" "--is-inside-work-tree" :dir ws-dir))))
@@ -20,6 +22,18 @@
 
 (defn add [ws-dir filename]
   (shell/sh "git" "add" filename :dir ws-dir))
+
+(defn current-branch []
+  (try
+    (str/trim-newline (shell/sh "git" "rev-parse" "--abbrev-ref" "HEAD"))
+    (catch Exception _
+      "master")))
+
+(defn latest-polylith-sha [branch]
+  (-> (shell/sh "git" "ls-remote" repo
+                (str "refs/heads/" branch))
+      (str/split #"\t")
+      first))
 
 (defn diff-command-parts [sha1 sha2]
   (if sha1

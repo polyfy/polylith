@@ -9,19 +9,16 @@
   (let [base-dir (str ws-dir "/bases/" base-name)
         src-dir (str base-dir "/src/" top-src-dir)
         test-dir (str base-dir "/test/" top-src-dir)
-        namespaces-src (ns-from-disk/namespaces-from-disk src-dir)
-        namespaces-test (ns-from-disk/namespaces-from-disk test-dir)
+        namespaces (ns-from-disk/namespaces-from-disk src-dir test-dir)
         config (config-from-disk/read-config-file ws-type base-dir)
-        lib-deps (lib/brick-lib-deps-src ws-type config top-namespace ns-to-lib namespaces-src user-home)
-        lib-deps-test (lib/brick-lib-deps-test ws-type config top-namespace ns-to-lib namespaces-test user-home)]
+        lib-deps (lib/brick-lib-deps ws-type config top-namespace ns-to-lib namespaces user-home)]
     (util/ordered-map :name base-name
                       :type "base"
-                      :namespaces-src namespaces-src
-                      :namespaces-test namespaces-test
+                      :namespaces namespaces
                       :non-top-namespaces (brick->non-top-namespaces base-name)
-                      :lib-deps lib-deps
-                      :lib-deps-test lib-deps-test)))
+                      :lib-deps lib-deps)))
 
-(defn read-bases [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir brick->non-top-namespaces]
+(defn read-bases
+  [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir brick->non-top-namespaces]
   (vec (sort-by :name (map #(read-base ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir brick->non-top-namespaces %)
                            (file/directories (str ws-dir "/bases"))))))
