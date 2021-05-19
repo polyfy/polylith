@@ -67,26 +67,26 @@
 (deftest libs
   (is (= ["                                                                                                                     w   "
           "                                                                                                                     o   "
-          "                                                                                                               t     r  w"
-          "                                                                                                               e     k  s"
-          "                                                                                                               s  v  s  -"
-          "                                                                                                         d     t  a  p  e"
-          "                                                                                                         e     -  l  a  x"
-          "                                                                                                         p     r  i  c  p"
-          "                                                                                                         l     u  d  e  l"
-          "                                                                                                         o  f  n  a  -  o"
-          "                                                                                                         y  i  n  t  c  r"
-          "                                                                                                         e  l  e  o  l  e"
-          "  library                                    version  type      KB   api  core  depl  poly  migr   dev   r  e  r  r  j  r"
+          "                                                                                                                     r  w"
+          "                                                                                                                     k  s"
+          "                                                                                                                  v  s  -"
+          "                                                                                                         d        a  p  e"
+          "                                                                                                         e        l  a  x"
+          "                                                                                                         p        i  c  p"
+          "                                                                                                         l        d  e  l"
+          "                                                                                                         o  d  f  a  -  o"
+          "                                                                                                         y  e  i  t  c  r"
+          "                                                                                                         e  p  l  o  l  e"
+          "  library                                    version  type      KB   api  core  depl  poly  migr   dev   r  s  e  r  j  r"
           "  ----------------------------------------------------------------   ---------------------------   ---   ----------------"
-          "  me.raynes/fs                               1.4.6    maven     10   x-    x-    x-    x-    x-    x-    .  x  .  .  .  ."
+          "  me.raynes/fs                               1.4.6    maven     10   x-    x-    x-    x-    x-    x-    .  .  x  .  .  ."
           "  metosin/malli                              0.1.0    maven     27   x-    x-    x-    x-    --    x-    .  .  .  x  .  ."
           "  mount/mount                                0.1.16   maven      8   --    --    --    --    --    x-    .  .  .  .  .  ."
           "  mvxcvi/puget                               1.3.1    maven     15   x-    --    x-    x-    --    x-    .  .  .  .  .  x"
           "  org.apache.logging.log4j/log4j-core        2.13.3   maven  1,673   --    --    x-    x-    --    x-    .  .  .  .  .  ."
           "  org.apache.logging.log4j/log4j-slf4j-impl  2.13.3   maven     23   --    --    x-    x-    --    x-    .  .  .  .  .  ."
           "  org.clojure/clojure                        1.10.1   maven  3,816   x-    x-    x-    x-    x-    x-    .  .  .  .  .  ."
-          "  org.clojure/tools.deps.alpha               0.8.695  maven     46   x-    --    x-    x-    --    x-    .  .  x  .  x  ."
+          "  org.clojure/tools.deps.alpha               0.8.695  maven     46   x-    x-    x-    x-    --    x-    .  x  .  .  x  ."
           "  slipset/deps-deploy                        0.1.0    maven      2   --    --    x-    --    --    x-    x  .  .  .  .  ."]
          (libs/table (workspace) false))))
 
@@ -115,12 +115,12 @@
           "  file           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
           "  git            .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  ."
           "  help           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  ."
-          "  lib            .  .  .  x  .  .  .  x  .  .  .  .  .  .  t  .  x  x  .  x  .  .  .  .  ."
+          "  lib            .  .  .  x  .  .  x  x  .  .  .  .  .  .  t  .  x  x  .  x  .  .  .  .  ."
           "  migrator       .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
           "  path-finder    .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
           "  shell          .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  test-helper    .  .  x  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  ."
-          "  test-runner    .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  ."
+          "  test-runner    .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  ."
           "  text-table     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
           "  user-config    .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
           "  user-input     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
@@ -161,11 +161,11 @@
             "  file           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  git            .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  ."
             "  help           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  ."
-            "  lib            -  -  x  -  -  x  -  -  -  -  -  t  -  x  x  -  x  -  -  -  -  -"
+            "  lib            -  -  x  -  x  x  -  -  -  -  -  t  -  x  x  -  x  -  -  -  -  -"
             "  path-finder    .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  shell          .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  test-helper    +  x  +  +  +  x  +  +  +  +  +  .  +  +  x  x  +  +  +  +  +  +"
-            "  test-runner    .  .  x  .  +  +  .  .  .  +  .  .  .  +  +  .  x  x  .  .  .  ."
+            "  test-runner    .  .  x  .  x  +  .  .  .  +  .  .  .  +  +  .  x  x  .  .  .  ."
             "  text-table     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  user-config    .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  user-input     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
@@ -310,11 +310,13 @@
                                            "version"]}
                            :test {}}
           "lib"           {:src  {:direct ["common"
+                                           "deps"
                                            "file"
                                            "text-table"
                                            "user-config"
                                            "util"]}
                            :test {:direct   ["common"
+                                             "deps"
                                              "file"
                                              "test-helper"
                                              "text-table"
@@ -323,7 +325,6 @@
                                   :indirect ["change"
                                              "command"
                                              "creator"
-                                             "deps"
                                              "git"
                                              "help"
                                              "lib"
@@ -387,10 +388,10 @@
                                              "ws-explorer"]}
                            :test {}}
           "test-runner"   {:src  {:direct   ["common"
+                                             "deps"
                                              "util"
                                              "validator"]
-                                  :indirect ["deps"
-                                             "file"
+                                  :indirect ["file"
                                              "path-finder"
                                              "text-table"
                                              "user-config"]}
@@ -541,7 +542,8 @@
                  "malli.core"
                  "malli.error"
                  "me.raynes.fs"
+                 "org.eclipse.aether.util.version"
                  "puget.printer"]
           :test ["clojure.test"
-                 "clojure.tools.deps.alpha.util.maven"]}
+                          "clojure.tools.deps.alpha.util.maven"]}
          (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"]))))

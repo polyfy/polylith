@@ -12,10 +12,10 @@
        "         " (color/yellow cm "e  e  i\n")
        "  brick  " (color/yellow cm "r  r  l\n")
        "  --------------\n"
-       "  " (color/green cm "payer") "  ·  x  t\n"
-       "  " (color/green cm "user") "   ·  ·  x\n"
-       "  " (color/green cm "util") "   ·  ·  ·\n"
-       "  " (color/blue cm "cli") "    x  ·  ·\n"
+       "  " (color/green cm "payer") "  .  x  t\n"
+       "  " (color/green cm "user") "   .  .  x\n"
+       "  " (color/green cm "util") "   .  .  .\n"
+       "  " (color/blue cm "cli") "    x  .  .\n"
        "\n"
        "  In this example, " (color/green cm "payer") " uses " (color/yellow cm "user") " from the src context, and " (color/yellow cm "util") " from\n"
        "  the test context (indicated by 't'). " (color/green cm "user") " uses " (color/yellow cm "util") " and " (color/blue cm "cli") " uses " (color/yellow cm "payer") ".\n"

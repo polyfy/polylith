@@ -1,4 +1,4 @@
 {:paths ["src"]
  :deps {me.raynes/fs {:mvn/version "1.4.6"}}
  :aliases {:test {:extra-paths ["test"]
-                  :extra-deps []}}}
+                  :extra-deps {}}}}

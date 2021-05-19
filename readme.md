@@ -262,6 +262,8 @@ polylith/clj-api {:git/url   "https://github.com/polyfy/polylith.git"
                   :deps/root "projects/api"}
 ```
 
+...and remember to set the `:sha` to an existing [SHA](https://github.com/polyfy/polylith/commits/master).
+
 ## RealWorld Example
 
 If you want to start by seeing how a full-blown system looks like in Polylith, then head over to the 
@@ -496,16 +498,16 @@ example
 
 The command also printed out this message:
 ```
-  Remember to add src, resources and test paths to './deps.edn' and the brick as a local/root dependency to project 'deps.edn' files.
+  Remember to add paths and/or local/root dependency to dev and project 'deps.edn' files.
 ```
 
-This was a reminder for us to add source directories to `deps.edn`.
+This was a reminder for us to add the component to `deps.edn`.
 If we don't, then tools.deps and the development environment will not recognise our newly created component,
 which would be a pity!
 The tool leaves this task to you as a developer, with the idea to give you as much control as possible
 (files are only edited by you, not by the tool).
 
-Right now we can ignore the last part of the message, to add dependencies to project `deps.edn`
+Right now we can ignore the last part of the message, to add the component to project `deps.edn`
 files, because no projects have been created yet.
 
 Let's continue by adding the component's `src`, `resources` and `test` directory to `deps.edn`:
@@ -516,6 +518,29 @@ Let's continue by adding the component's `src`, `resources` and `test` directory
   ...
             :test {:extra-paths ["components/user/test"]}
 ```
+
+An alternative way of adding the component is by specifying it as an `:extra-deps` (the `development/src` directory
+still has to be specified as a path):
+```clojure
+ :aliases  {:dev {:extra-paths ["development/src"]
+                  :extra-deps {poly/user {:local/root "components/user"}}
+  ...
+            :test {:extra-paths ["components/user/test"]}
+```
+If you use Cursive as an IDE, this will not work correctly, and
+the problem is that Cursive doesn't treat `components/user/src` as a source directory in the IDE
+(it will not be marked as green). This is also why we use the first form in this example.
+
+However, in many other IDE's like [VSCode](https://code.visualstudio.com/)/[Calva](https://marketplace.visualstudio.com/items?itemName=betterthantomorrow.calva)
+and [Emacs](https://www.gnu.org/software/emacs/)/[Cider](https://github.com/clojure-emacs/cider)
+this works fine, which also gives us some benefits:
+- Less code, one line instead of two.
+- It's consistent with how [projects](#project) are specified.
+- You can add or remove the `resources` directory from a brick, without updating `./deps.edn`.
+
+With that said, we will still specify `user` by using `:extra-paths` because we use Cursive in this example.
+
+Notice that we still need to add the `test` directory to `./deps.edn` to be able to run the tests.
 
 Now we may need to refresh our IDE, by clicking this link, or the icon we used before:<br>
 <img src="images/refresh-ws.png" width="40%">
@@ -949,10 +974,9 @@ For the rest of you, we'll go through the step-by-step process of compiling our 
 
 To build an uberjar we need to add this alias to `projects/command-line/deps.edn` (which we will do in the next section)::
 ```clojure
-           :uberjar {:extra-deps {uberdeps/uberdeps {:mvn/version "0.1.10"}}
-                     :main-opts  ["-m" "uberdeps.uberjar"
-                                  "--aliases" "aot"
-                                  "--main-class" "se.example.cli.core"]}
+ :uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
+           :exec-fn hf.depstar/uberjar
+           :exec-args {:aot true, :main-class se.example.cli.core}}
            ...
 ```
 
@@ -2219,6 +2243,8 @@ It worked!
 
 ## Dependencies
 
+If you are looking for library dependencies, then visit the [Libraries](#libraries) section.
+
 To explain dependencies, we will use the
 [RealWorld example app](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app).
 
@@ -2341,14 +2367,53 @@ Libraries can be specified in three different ways in `tools.deps`:
 The KB column shows the size of each library in kilobytes. If you get the key path wrong or if the library
 hasn't been downloaded yet, then it will be shown as blank.
 
-The project columns consists of two characters, e.g. `xx`, where the first says whether it is a dependency used by the `src` code.
-The second tells if it's used by the `test` code.
+In the tools.deps CLI tool, when a dependency is included using `:local/root`, only `:src` dependencies will be inherited
+while the `:test` dependencies will be ignored. The `poly` tool builds upon tools.deps but has its own
+test runner that is accessed via the `test` command. A difference between tools.deps CLI and the `poly` 
+tool is that it also inherits dependencies from the test context. If you want to run the tests directly
+from a project using the tools.deps CLI tool, then you also have to add the test dependencies again in 
+the project's `deps.edn` file under `:aliases > :test > :extra-paths`. As long as you run the tests with the 
+built-in test command you don't have to worry about this.
 
-The brick columns is marked with an `x` if the library is used by the `src` code.
+#### Brick libraries
+
+The brick columns is marked with an `x` if the library is used by the `src` code and with a `t` if it's only used
+by the `test` code.
+
+#### Project libraries
+
+The project columns consists of two characters, e.g. `x-`, where the first character says whether it's a dependency used from the `src` code
+and the second whether it's used from the test code.
+
+The dependencies for a project is the sum of all dependencies that are indirectly included via its bricks,
+together with dependencies declared by the project itself. If different versions of the same dependency exists, 
+then the latest version will be used for the project. An exception is if a dependency is specified
+within `override-deps` in a project's `deps.edn` file, e.g.:
+
+```clojure
+{...
+ :deps {poly/article  {:local/root "../../components/article"}
+        poly/comment  {:local/root "../../components/comment"}
+        poly/database {:local/root "../../components/database"}
+        ...
+
+ :override-deps {clj-time/clj-time {:mvn/version "0.15.1"}}
+ ...
+}
+```
+
+If we run the `libs` command:
+
+<img src="images/realworld-lib-deps-override-deps.png" width="80%">
+
+...we now have two versions of `clj-time` where the `rb` project uses "0.15.1" 
+and the `user` component uses "0.15.2".
+
+#### Compact view
 
 If we have a lot of libraries, we can choose a more compact format by setting `:compact-views` to `#{"libs"}` in `./deps.edn`:
 
-<img src="images/realworld-lib-deps-compact.png" width="70%">
+<img src="images/realworld-lib-deps-compact.png" width="75%">
 
 ## Context
 
@@ -2452,10 +2517,6 @@ If `~/.polylith/config.edn` doesn't exists, it will be created the first time th
  :thousand-separator ","
  :empty-character "."}
 ```
-
-If you encounter problems with the `·` character
-(e.g. if the `libs` command returns empty characters as `?`)
-then you can use an period `.` instead.
 
 ## Workspace state
 

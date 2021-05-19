@@ -1,10 +1,12 @@
 (ns polylith.clj.core.deps.interface
   (:require [polylith.clj.core.deps.interface-deps :as ifc-deps]
+            [polylith.clj.core.deps.lib-deps :as lib-deps]
             [polylith.clj.core.deps.project-brick-deps :as project-brick-deps]
             [polylith.clj.core.deps.text-table.brick-deps-table :as brick-deps-table]
             [polylith.clj.core.deps.text-table.project-brick-deps-table :as project-brick-deps-table]
             [polylith.clj.core.deps.text-table.workspace-deps-table :as workspace-deps-table]
-            [polylith.clj.core.deps.text-table.project-deps-table :as project-deps-table]))
+            [polylith.clj.core.deps.text-table.project-deps-table :as project-deps-table]
+            [polylith.clj.core.deps.version :as version]))
 
 (defn interface-ns-deps [suffixed-top-ns interface-name interface-names brick-namespaces]
   (ifc-deps/interface-ns-deps suffixed-top-ns interface-name interface-names brick-namespaces))
@@ -26,3 +28,9 @@
 
 (defn print-project-table [workspace project-name is-all]
   (project-deps-table/print-table workspace project-name is-all))
+
+(defn resolve-deps [workspace project]
+  (lib-deps/resolve-deps workspace project))
+
+(defn latest-maven-lib-version [version1 version2]
+  (version/latest version1 version2))

@@ -32,7 +32,7 @@
         (-> input command/execute-command)
         (-> input command/execute-command System/exit))
       (catch Exception e
-        (ex/print-exception e)
+        (ex/print-exception (:cmd input) e)
         (when (-> input :is-no-exit not)
           (System/exit 1))))))
 

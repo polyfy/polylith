@@ -43,7 +43,7 @@
   :latest-polylith-sha "002a6e1d8233711b7e08a1ee23d003a2c5cd18f9",
   :stable-since
   {:tag "stable-lisa",
-   :sha "d3f1bd89e2729241b08c86777c8d2d226ff2b9a5"}},
- :version "0.2.0-alpha10.issue66.04",
+   :sha "7840ca5a3ddaf3cc7e4385c71584a3da5ddd9ee9"}},
+ :version "0.2.0-alpha10.issue66.06",
  :ws-schema-version {:breaking 0, :non-breaking 0},
  :ws-type :toolsdeps2}

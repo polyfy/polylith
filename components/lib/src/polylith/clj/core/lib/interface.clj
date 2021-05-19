@@ -2,8 +2,8 @@
   (:require [polylith.clj.core.lib.core :as core])
   (:require [polylith.clj.core.lib.text-table.lib-table :as lib-table]))
 
-(defn with-sizes [library-map user-home]
-  (core/with-sizes library-map user-home))
+(defn with-sizes [libraries user-home]
+  (core/with-sizes libraries user-home))
 
 (defn brick-lib-deps [ws-type config top-namespace ns-to-lib namespaces user-home]
   (core/brick-lib-deps ws-type config top-namespace ns-to-lib namespaces user-home))

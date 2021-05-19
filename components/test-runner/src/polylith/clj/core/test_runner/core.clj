@@ -1,6 +1,6 @@
 (ns polylith.clj.core.test-runner.core
   (:require [clojure.string :as str]
-            [clojure.tools.deps.alpha :as tools-deps]
+            [polylith.clj.core.deps.interface :as deps]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.util.interface.str :as str-util]
@@ -8,39 +8,18 @@
             [polylith.clj.core.validator.interface :as validator])
   (:refer-clojure :exclude [test]))
 
-(defn adjust-key [{:keys [type path version exclusions]}]
-  (case type
-    "maven" {:mvn/version version :exclusions (vec exclusions)}
-    "local" {:local/root path}
-    (throw (Exception. (str "Unknown library type: " type)))))
-
-(defn key-as-symbol
-  "The library names (keys) are stored as strings in the workspace
-   and need to be converted back to symbols here.
-   Library dependencies are stored as :type and :version and need
-   to be translated back to :mvn/version and :local/root."
-  [[library version]]
-  [(symbol library) (adjust-key version)])
-
-(defn ->config
-  "Convert back to tools.deps format."
-  [workspace {:keys [lib-deps maven-repos]}]
-  (assoc workspace :mvn/repos maven-repos
-                   :deps (into {} (map key-as-symbol (merge (:src lib-deps)
-                                                            (:test lib-deps))))))
-
 (defn ->test-statement [ns-name]
   (let [ns-symbol (symbol ns-name)]
     `(do (use 'clojure.test)
          (require '~ns-symbol)
          (clojure.test/run-tests '~ns-symbol))))
 
-(defn resolve-deps [project-name {:keys [deps] :as config} color-mode]
+(defn resolve-deps [workspace {:keys [name] :as project} color-mode]
   (try
     (into #{} (mapcat #(-> % second :paths)
-                      (tools-deps/resolve-deps config {:extra-deps deps})))
+                      (deps/resolve-deps workspace project)))
     (catch Exception e
-      (println (str "Couldn't resolve libraries for the " (color/project project-name color-mode) " project: " e))
+      (println (str "Couldn't resolve libraries for the " (color/project name color-mode) " project: " e))
       (throw e))))
 
 (defn brick-test-namespaces [bricks test-brick-names]
@@ -89,10 +68,9 @@
 (defn run-tests-for-project [{:keys [bases components] :as workspace}
                              {:keys [name paths namespaces] :as project}
                              {:keys [project-to-bricks-to-test project-to-projects-to-test]}]
-  (when (-> (:test paths) empty? not)
+  (when (-> paths :test empty? not)
     (let [color-mode (-> workspace :settings :color-mode)
-          config (->config workspace project)
-          lib-paths (resolve-deps name config color-mode)
+          lib-paths (resolve-deps workspace project color-mode)
           all-paths (set (concat (:src paths) (:test paths) lib-paths))
           bricks (concat components bases)
           bricks-to-test (project-to-bricks-to-test name)

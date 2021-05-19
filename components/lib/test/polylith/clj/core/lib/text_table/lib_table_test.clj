@@ -28,7 +28,7 @@
 (def dev-profile-lib-deps {"zprint" {:version "0.4.15", :type "maven", :size 128182}})
 
 (def workspace {:settings {:color-mode "none"
-                           :empty-character "·"
+                           :empty-character "."
                            :profile-to-settings {"default" {:paths ["components/user/src"
                                                                     "components/user/resources"
                                                                     "components/user/test"
@@ -109,15 +109,15 @@
           "                                                                                                          s  i  s  e"
           "  library                                 version        type      KB   core  inv   dev  default  admin   s  n  e  r"
           "  -------------------------------------------------------------------   ---------   -------------------   ----------"
-          "  antlr                                   2.7.7          local    434    --   --    x-      -       -     x  ·  ·  ·"
-          "  clj-time/clj-time                       d9ed4e4        git      134    --   --    x-      -       -     ·  ·  ·  ·"
-          "  furkan3ayraktar/polylith-clj-deps-ring  d74f49d        git       30    --   --    x-      -       -     ·  ·  ·  ·"
-          "  local-clojure                           2.7.7          local    434    --   --    x-      -       -     ·  ·  ·  ·"
-          "  org.clojure/clojure                     1.10.1         maven  3,816    --   x-    x-      -       -     ·  ·  ·  ·"
-          "  org.clojure/clojure                     1.10.2-alpha1  maven  3,817    x-   --    --      -       -     ·  ·  ·  ·"
-          "  org.clojure/tools.deps.alpha            0.8.695        maven     46    x-   x-    x-      -       -     ·  ·  ·  ·"
-          "  zprint                                  0.4.15         maven    125    --   xx    --      x       -     ·  x  x  x"
-          "  zprint                                  0.5.4          maven      0    --   --    --      -       x     ·  ·  ·  ·"]
+          "  antlr                                   2.7.7          local    434    --   --    x-      -       -     x  .  .  ."
+          "  clj-time/clj-time                       d9ed4e4        git      134    --   --    x-      -       -     .  .  .  ."
+          "  furkan3ayraktar/polylith-clj-deps-ring  d74f49d        git       30    --   --    x-      -       -     .  .  .  ."
+          "  local-clojure                           2.7.7          local    434    --   --    x-      -       -     .  .  .  ."
+          "  org.clojure/clojure                     1.10.1         maven  3,816    --   x-    x-      -       -     .  .  .  ."
+          "  org.clojure/clojure                     1.10.2-alpha1  maven  3,817    x-   --    --      -       -     .  .  .  ."
+          "  org.clojure/tools.deps.alpha            0.8.695        maven     46    x-   x-    x-      -       -     .  .  .  ."
+          "  zprint                                  0.4.15         maven    125    --   xx    --      x       -     .  x  x  x"
+          "  zprint                                  0.5.4          maven      0    --   --    --      -       x     .  .  .  ."]
          (lib-table/table workspace false))))
 
 (deftest table--show-all-brick-deps--returns-correct-table
@@ -130,15 +130,15 @@
           "                                                                                                          s  i  s  e"
           "  library                                 version        type      KB   core  inv   dev  default  admin   s  n  e  r"
           "  -------------------------------------------------------------------   ---------   -------------------   ----------"
-          "  antlr                                   2.7.7          local    434    --   --    x-      -       -     x  ·  ·  ·"
-          "  clj-time/clj-time                       d9ed4e4        git      134    --   --    x-      -       -     ·  ·  ·  ·"
-          "  furkan3ayraktar/polylith-clj-deps-ring  d74f49d        git       30    --   --    x-      -       -     ·  ·  ·  ·"
-          "  local-clojure                           2.7.7          local    434    --   --    x-      -       -     ·  ·  ·  ·"
-          "  org.clojure/clojure                     1.10.1         maven  3,816    --   x-    x-      -       -     ·  ·  ·  ·"
-          "  org.clojure/clojure                     1.10.2-alpha1  maven  3,817    x-   --    --      -       -     ·  ·  ·  ·"
-          "  org.clojure/tools.deps.alpha            0.8.695        maven     46    x-   x-    x-      -       -     ·  ·  ·  ·"
-          "  zprint                                  0.4.15         maven    125    --   xx    --      x       -     ·  x  x  x"
-          "  zprint                                  0.5.4          maven      0    --   --    --      -       x     ·  ·  ·  ·"]
+          "  antlr                                   2.7.7          local    434    --   --    x-      -       -     x  .  .  ."
+          "  clj-time/clj-time                       d9ed4e4        git      134    --   --    x-      -       -     .  .  .  ."
+          "  furkan3ayraktar/polylith-clj-deps-ring  d74f49d        git       30    --   --    x-      -       -     .  .  .  ."
+          "  local-clojure                           2.7.7          local    434    --   --    x-      -       -     .  .  .  ."
+          "  org.clojure/clojure                     1.10.1         maven  3,816    --   x-    x-      -       -     .  .  .  ."
+          "  org.clojure/clojure                     1.10.2-alpha1  maven  3,817    x-   --    --      -       -     .  .  .  ."
+          "  org.clojure/tools.deps.alpha            0.8.695        maven     46    x-   x-    x-      -       -     .  .  .  ."
+          "  zprint                                  0.4.15         maven    125    --   xx    --      x       -     .  x  x  x"
+          "  zprint                                  0.5.4          maven      0    --   --    --      -       x     .  .  .  ."]
          (lib-table/table workspace false))))
 
 (deftest table--show-source-dependencies

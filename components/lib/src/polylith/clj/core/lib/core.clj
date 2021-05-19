@@ -1,9 +1,10 @@
 (ns polylith.clj.core.lib.core
-  (:require [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.lib.ns-to-lib :as ns-to-lib]
+  (:require [polylith.clj.core.deps.interface :as deps]
             [polylith.clj.core.lib.git-size :as git-size]
             [polylith.clj.core.lib.mvn-size :as mvn-size]
-            [polylith.clj.core.lib.local-size :as local-size]))
+            [polylith.clj.core.lib.ns-to-lib :as ns-to-lib]
+            [polylith.clj.core.lib.local-size :as local-size]
+            [polylith.clj.core.util.interface :as util]))
 
 (defn with-size [[name {:keys [mvn/version local/root git/url sha] :as value}] user-home]
   (cond
@@ -11,8 +12,17 @@
     root (local-size/with-size-and-version name root value)
     url (git-size/with-size-and-version name sha value user-home)))
 
-(defn with-sizes [library-map user-home]
-  (util/stringify-and-sort-map (into {} (map #(with-size % user-home) library-map))))
+(defn latest-lib-version [result [k v2]]
+  (if (:mvn/version v2)
+    (let [v1 (result k v2)
+          v (deps/latest-maven-lib-version v1 v2)]
+      (assoc result k v))
+    (assoc result k v2)))
+
+(defn with-sizes [libraries user-home]
+  (util/stringify-and-sort-map
+    (into {} (mapv #(with-size % user-home)
+                   (reduce latest-lib-version {} libraries)))))
 
 (defn lib-deps [ws-type config top-namespace ns-to-lib namespaces user-home dep-keys]
   (if (= :toolsdeps1 ws-type)

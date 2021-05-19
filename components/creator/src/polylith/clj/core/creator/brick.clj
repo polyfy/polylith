@@ -4,8 +4,7 @@
             [polylith.clj.core.git.interface :as git]))
 
 (def create-brick-message
-  (str "  Remember to add src, resources and test paths to './deps.edn' "
-       "and the brick as a local/root dependency to project 'deps.edn' files."))
+  (str "  Remember to add paths and/or local/root dependency to dev and project 'deps.edn' files."))
 
 (defn create-config-file [ws-dir bricks-dir brick-name]
   (let [config-filename (str ws-dir "/" bricks-dir "/" brick-name "/deps.edn")]

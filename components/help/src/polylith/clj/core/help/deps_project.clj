@@ -14,9 +14,9 @@
        "         " (color/green cm "e  e  i\n")
        "  brick  " (color/green cm "r  r  l\n")
        "  --------------\n"
-       "  " (color/green cm "payer") "  ·  x  t\n"
-       "  " (color/green cm "user") "   ·  ·  x\n"
-       "  " (color/green cm "util") "   ·  ·  ·\n"
+       "  " (color/green cm "payer") "  .  x  t\n"
+       "  " (color/green cm "user") "   .  .  x\n"
+       "  " (color/green cm "util") "   .  .  .\n"
        "  " (color/blue cm "cli") "    x  +  +\n"
        "\n"
        "  When the project is known, we also know which components are used.\n"

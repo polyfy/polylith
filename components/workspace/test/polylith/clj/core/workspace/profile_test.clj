@@ -182,7 +182,7 @@
                                    :latest-polylith-sha "3bfa6b0db34e0b5b1dc0a68bdd485afe6f8604a1"
                                    :name                "git"
                                    :polylith-repo       "https://github.com/polyfy/polylith.git"}
-            :version              "0.2.0-alpha10.issue66.05"
+            :version              "0.2.0-alpha10.issue66.06"
             :ws-schema-version    {:breaking     0
                                    :non-breaking 0}
             :ws-type              :toolsdeps2}
