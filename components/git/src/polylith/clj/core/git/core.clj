@@ -76,12 +76,17 @@
 (defn drop-or-keep [elements drop?]
   (when elements (if drop? (rest elements) elements)))
 
-(defn release [ws-dir pattern previous?]
-  (or (-> (tag/matching-tags ws-dir pattern)
-          (drop-or-keep previous?)
-          first)
-    {:sha (first-committed-sha ws-dir)}))
+(defn extract-since [since]
+  (if (str/starts-with? since "previous-")
+    [(subs since 9) true]
+    [since false]))
 
-(defn latest-stable [ws-dir pattern]
-  (or (first (tag/matching-tags ws-dir pattern))
-      {:sha (first-committed-sha ws-dir)}))
+(defn sha [ws-dir since tag-patterns]
+  (let [[since-tag previous?] (extract-since (or since "stable"))
+        tag-pattern (get-in tag-patterns [(keyword since-tag)])]
+    (if tag-pattern
+      (or (-> (tag/matching-tags ws-dir tag-pattern)
+              (drop-or-keep previous?)
+              first)
+          {:sha (first-committed-sha ws-dir)})
+      {:sha since})))

@@ -6,8 +6,8 @@
                         :interface-ns "interface"
                         :default-profile-name "default"
                         :compact-views #{}
-                        :release-tag-pattern "v[0-9]*"
-                        :stable-tag-pattern "stable-*"
+                        :tag-patterns {:stable "stable-*"
+                                       :release "v[0-9]*"}
                         :profile-to-alias {"api" "api"
                                            "core" "core"}
                         :ns-to-lib '{me.raynes  me.raynes/fs

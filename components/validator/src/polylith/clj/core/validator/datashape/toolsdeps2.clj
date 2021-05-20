@@ -37,6 +37,7 @@
        [:compact-views {:optional true} set?]
        [:release-tag-pattern {:optional true} string?]
        [:stable-tag-pattern {:optional true} string?]
+       [:tag-patterns {:optional true} map?]
        [:projects {:optional true}
         [:map-of :string :map]]]
       (m/explain config)

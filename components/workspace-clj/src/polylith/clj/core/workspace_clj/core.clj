@@ -11,6 +11,7 @@
             [polylith.clj.core.workspace-clj.config :as config]
             [polylith.clj.core.workspace-clj.profile :as profile]
             [polylith.clj.core.workspace-clj.ws-reader :as ws-reader]
+            [polylith.clj.core.workspace-clj.tag-pattern :as tag-pattern]
             [polylith.clj.core.workspace-clj.leiningen.core :as leiningen]
             [polylith.clj.core.workspace-clj.non-top-namespace :as non-top-ns]
             [polylith.clj.core.workspace-clj.bases-from-disk :as bases-from-disk]
@@ -30,14 +31,14 @@
       root-path
       :no-git-root)))
 
-(defn git-info [ws-dir vcs stable-tag-pattern branch]
+(defn git-info [ws-dir vcs tag-patterns branch]
   (let [current-branch (or branch (git/current-branch))]
     {:name                vcs
      :polylith-repo       git/repo
      :branch              current-branch
      :git-root            (git-root)
      :latest-polylith-sha (git/latest-polylith-sha current-branch)
-     :stable-since        (git/latest-stable ws-dir stable-tag-pattern)}))
+     :stable-since        (git/sha ws-dir "stable" tag-patterns)}))
 
 (defn ws-local-dir
   "Returns the directory/path to the workspace if it lives
@@ -57,11 +58,10 @@
         ws-config (if (= :toolsdeps2 ws-type)
                     (config/ws-config-from-disk ws-dir color-mode)
                     (config/ws-config-from-dev polylith))
-        {:keys [vcs top-namespace ws-type interface-ns default-profile-name release-tag-pattern stable-tag-pattern ns-to-lib compact-views]
+        {:keys [vcs top-namespace ws-type interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views]
          :or {vcs "git"
-              release-tag-pattern "v[0-9]*"
-              stable-tag-pattern "stable-*"
               compact-views {}}} ws-config
+        patterns (tag-pattern/patterns tag-patterns stable-tag-pattern release-tag-pattern)
         interface-namespace (or interface-ns "interface")
         top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
         empty-character (user-config/empty-character)
@@ -83,13 +83,12 @@
         settings (util/ordered-map :version version/version
                                    :ws-type ws-type
                                    :ws-schema-version version/ws-schema-version
-                                   :vcs (git-info ws-dir vcs stable-tag-pattern (:branch user-input))
+                                   :vcs (git-info ws-dir vcs patterns (:branch user-input))
                                    :top-namespace top-namespace
                                    :interface-ns interface-namespace
                                    :default-profile-name default-profile
                                    :active-profiles active-profiles
-                                   :release-tag-pattern release-tag-pattern
-                                   :stable-tag-pattern stable-tag-pattern
+                                   :tag-patterns patterns
                                    :color-mode color-mode
                                    :compact-views compact-views
                                    :user-config-filename user-config-filename

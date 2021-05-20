@@ -127,7 +127,7 @@
           "  util           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  validator      .  .  .  x  .  .  x  .  .  .  .  .  x  .  .  .  .  .  .  x  .  .  .  .  ."
           "  version        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  workspace      .  .  .  x  .  .  x  x  .  .  .  .  x  .  t  .  x  .  .  x  x  .  .  .  ."
+          "  workspace      .  .  .  x  .  .  x  x  .  .  .  .  x  .  t  .  x  .  .  x  x  t  .  .  ."
           "  workspace-clj  .  .  .  x  .  .  .  x  x  .  x  .  x  .  .  .  .  x  .  x  x  x  .  .  ."
           "  ws-explorer    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
           "  deployer-cli   .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
@@ -172,7 +172,7 @@
             "  util           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  validator      .  .  x  .  x  +  .  .  .  x  .  .  .  +  +  .  x  .  .  .  .  ."
             "  version        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  workspace      -  -  x  -  x  x  -  -  -  x  -  t  -  x  +  -  x  x  -  -  -  -"
+            "  workspace      -  -  x  -  x  x  -  -  -  x  -  t  -  x  +  -  x  x  t  -  -  -"
             "  workspace-clj  .  .  x  .  +  x  x  .  x  x  +  .  .  +  x  .  x  x  x  .  .  ."
             "  ws-explorer    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  poly-cli       +  x  +  +  +  +  +  +  +  +  +  .  +  +  +  x  x  +  +  +  +  +"]
@@ -191,7 +191,8 @@
             "                            test-helper (t)"
             "                            text-table     "
             "                            util           "
-            "                            validator      "]
+            "                            validator      "
+            "                            version (t)    "]
            (brick-deps-table/table ws project brick "none")))))
 
 (deftest project-brick-deps
@@ -206,7 +207,8 @@
             "                            test-helper (t)"
             "                            text-table     "
             "                            util           "
-            "                            validator      "]
+            "                            validator      "
+            "                            version (t)    "]
            (brick-ifc-deps/table ws brick)))))
 
 (deftest poly-project-deps
@@ -436,7 +438,8 @@
                                              "test-helper"
                                              "text-table"
                                              "util"
-                                             "validator"]
+                                             "validator"
+                                             "version"]
                                   :indirect ["change"
                                              "command"
                                              "creator"
@@ -447,7 +450,6 @@
                                              "test-runner"
                                              "user-config"
                                              "user-input"
-                                             "version"
                                              "workspace"
                                              "workspace-clj"
                                              "ws-explorer"]}}

@@ -24,11 +24,8 @@
   ([branch]
    (core/latest-polylith-sha branch)))
 
-(defn release [ws-dir pattern previous?]
-  (core/release ws-dir pattern previous?))
-
-(defn latest-stable [ws-dir pattern]
-  (core/latest-stable ws-dir pattern))
+(defn sha [ws-dir since tag-patterns]
+  (core/sha ws-dir since tag-patterns))
 
 (defn diff
   "Lists the changed files that has occurred between two SHAs in git.

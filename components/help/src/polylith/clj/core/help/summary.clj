@@ -33,16 +33,16 @@
     "  can be executed with this parameter set. The " (s/key "FILE" cm) " is created by executing the\n"
     "  'ws' command, e.g.: 'poly ws out:ws.edn'.\n"
     "\n"
-    "  If " (s/key "since:SINCE" cm) " is passed in as an argument, the last stable point in time\n"
-    "  will be used depending on the value of " (s/key "SINCE" cm) " (or the first commit if no match\n"
-    "  was found):\n"
-    "    SHA             -> a git SHA-1 hash.\n"
-    "    stable          -> the latest tag that matches stable-*, defined by\n"
-    "                       " (s/key ":stable-tag-pattern" cm) " in ./deps.edn.\n"
-    "    build           -> the latest tag that matches v[0-9]*, defined by\n"
-    "                       " (s/key ":release-tag-pattern" cm) " in ./deps.edn.\n"
-    "    previous-build  -> the latest tag that matches v[0-9]*,\n"
-    "                       defined by " (s/key ":release-tag-pattern" cm) " in ./deps.edn.\n"
+    "  If " (s/key "since:SINCE" cm) " is passed in as an argument, the last stable point in time will be\n"
+    "  used depending on the value of " (s/key "SINCE" cm) " (or the first commit if no match was found).\n"
+    "  If prefixed with 'previous-', e.g. 'previous-release', then the SHA directly before\n"
+    "  the most recent matching tag of the 'release' pattern will be used:\n"
+    "    stable -> the latest tag that matches stable-*, defined by\n"
+    "              " (s/key ":tag-patterns > :stable" cm) " in workspace.edn.\n"
+    "    build  -> the latest tag that matches v[0-9]*, defined by\n"
+    "              " (s/key ":tag-patterns > :release" cm) " in workspace.edn.\n"
+    "    KEY    -> any key in " (s/key ":tag-patterns" cm) ".\n"
+    "    SHA    -> a git SHA-1 hash (if no key was found in " (s/key ":tag-patterns" cm) ").\n"
     "\n"
     "  The color mode can be overridden by passing in e.g. " (s/key "color-mode:none" cm) "\n"
     "  (valid values are: " (s/key "none" cm) ", " (s/key "light" cm) ", " (s/key "dark" cm) ") which is otherwise configured in\n"
@@ -117,3 +117,7 @@
 
 (defn print-help [color-mode]
   (println (help-text color-mode)))
+
+(comment
+  (print-help "dark")
+  #__)

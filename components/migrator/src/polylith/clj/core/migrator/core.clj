@@ -61,8 +61,8 @@
      (str "            :interface-ns \"interface\"")
      (str "            :default-profile-name \"default\"")
      (str "            :compact-views #{}")
-     (str "            :release-tag-pattern \"v[0-9]*\"")
-     (str "            :stable-tag-pattern \"stable-*\"")]
+     (str "            :tag-patterns {:stable \"stable-*\"")
+     (str "                           :release \"v[0-9]*\"}")]
     (project-configs system-names)
     [(str "}")]))
 

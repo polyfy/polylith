@@ -86,8 +86,8 @@
             (str " :interface-ns \"interface\"")
             (str " :default-profile-name \"default\"")
             (str " :compact-views #{}")
-            (str " :release-tag-pattern \"v[0-9]*\"")
-            (str " :stable-tag-pattern \"stable-*\"")
+            (str " :tag-patterns {:stable \"stable-*\"")
+            (str "                :release \"v[0-9]*\"}")
             (str " :projects {\"development\" {:alias \"dev\"}}}")]
            (helper/content "ws1" "workspace.edn")))
 

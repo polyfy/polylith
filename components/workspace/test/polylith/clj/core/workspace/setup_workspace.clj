@@ -1,9 +1,19 @@
-(ns polylith.clj.core.workspace.profile-ws
+(ns polylith.clj.core.workspace.setup-workspace
   (:require [clojure.test :refer :all]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.test-helper.interface :as helper]))
 
-(defn execute-command [cmd & args]
+(defn execute-command [{:keys [cmd args clean-result-fn] :as command}]
+  (println (str "Execute test: " cmd " " args))
+  (let [result (with-out-str
+                 (apply helper/execute-command
+                        (concat ["ws03" cmd "color-mode:none" "fake-sha:1234567"] args)))]
+    (assoc command
+           :actual (if clean-result-fn
+                     (clean-result-fn result)
+                     result))))
+
+(defn execute-commands [commands]
   (helper/execute-command "" "create" "w" "name:ws03" "top-ns:se.example")
   (helper/execute-command "ws03" "create" "c" "name:database1" "interface:database")
   (helper/execute-command "ws03" "create" "c" "name:test-helper1" "interface:test-helper")
@@ -82,13 +92,11 @@
                              " :interface-ns \"interface\""
                              " :default-profile-name \"default\""
                              " :compact-views #{}"
-                             " :release-tag-pattern \"v[0-9]*\""
-                             " :stable-tag-pattern \"stable-*\""
+                             " :tag-patterns {:stable \"stable-*\""
+                             "                :release \"v[0-9]*\"}"
                              " :projects {\"development\" {:alias \"dev\"}"
-                             "            \"service\" {:alias \"s\"}}}"])
-        result (with-out-str
-                 (apply helper/execute-command (concat ["ws03" cmd "color-mode:none" "fake-sha:1234567"] args)))]
-        ;_ (println "x")
-        ;_ (println "x")]
-    result))
+                             "            \"service\" {:alias \"s\"}}}"])]
+
+    (mapv execute-command commands)))
+
 

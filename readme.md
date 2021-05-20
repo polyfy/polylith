@@ -239,7 +239,7 @@ To use it this way, add one of the following aliases to the `:aliases` section i
 }
 ```
 
-Replace `INSERT_LATEST_SHA_HERE` with a [commit SHA](https://github.com/polyfy/polylith/commits/master) from this repository.
+Replace `INSERT_LATEST_SHA_HERE` with a [commit SHA](https://github.com/polyfy/polylith/commits/issue-66) from this repository.
 
 Once you have added one of the aliases above, you can now use the poly tool from the terminal:
 
@@ -262,7 +262,7 @@ polylith/clj-api {:git/url   "https://github.com/polyfy/polylith.git"
                   :deps/root "projects/api"}
 ```
 
-...and remember to set the `:sha` to an existing [SHA](https://github.com/polyfy/polylith/commits/master).
+...and remember to set the `:sha` to an existing [SHA](https://github.com/polyfy/polylith/commits/issue-66).
 
 ## RealWorld Example
 
@@ -278,8 +278,13 @@ The workspace directory is the place where all our code and most of the [configu
 Let’s start by creating the `example` workspace with the top namespace `se.example` by using the [create workspace](#create-workspace) command
 (`create w` works as well as `create workspace`):
 ```sh
-poly create workspace name:example top-ns:se.example
+poly create workspace name:example top-ns:se.example branch:issue-66
 ``` 
+
+> Note: The branch is only given if you work in a branch other than master 
+> (like "issue 66"). The branch is used by the tool to retrieve a correct SHA 
+> from the polylith repository in ./deps.edn for the key 
+> :aliases > :poly > :extra-deps > :sha.
 
 The workspace directory structure will end up like this:
 ```sh
@@ -322,8 +327,8 @@ The `workspace.edn` file looks like this:
  :interface-ns "interface"
  :default-profile-name "default"
  :compact-views #{}
- :release-tag-pattern "v[0-9]*"
- :stable-tag-pattern "stable-*"
+ :tag-patterns {:stable "stable-*"
+                :release "v[0-9]*"}
  :projects {"development" {:alias "dev"}}}
 ```
 
@@ -345,10 +350,10 @@ The `workspace.edn` file looks like this:
 
 If all went well, the `poly` tool managed set the latest sha for the `:poly` alias by taking it from the `main` branch
 (the sha `da3bccf3a13ac30be8e31fedeab4de53c1efd951` is just an example).
-If not, you can find it [here](https://github.com/polyfy/polylith/commits/master)
+If not, you can find it [here](https://github.com/polyfy/polylith/commits/issue-66)
 or you can get it by executing this command:
 ```
-poly ws get:settings:vcs:latest-polylith-sha branch:master
+poly ws get:settings:vcs:latest-polylith-sha branch:issue-66
 ```
 If you wonder how the `ws` command works or what all the settings are for, be patient, everything will soon be covered in detail.
 
@@ -653,7 +658,7 @@ To do so we first create an `interface` package (directory) with the name `inter
 and then we put the sub namespaces in there.
 
 We can find an example where the `util` component in the Polylith repository does that, by dividing its 
-[util](https://github.com/polyfy/polylith/tree/master/components/util/src/polylith/clj/core/util/interface)
+[util](https://github.com/polyfy/polylith/tree/issue-66/components/util/src/polylith/clj/core/util/interface)
 interface into several sub namespaces:
 ```sh
 util
@@ -668,10 +673,10 @@ util
 This can be handy if we want to group the functions and not put everyone into one place.
 A common usage is to place [clojure specs](https://clojure.org/about/spec) in its own `spec` sub namespace,
 which we have an example of in the RealWorld example app, where the `article` component also has an
-[interface.spec](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/master/components/article/src/clojure/realworld/article/interface/spec.clj) 
+[interface.spec](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/issue-66/components/article/src/clojure/realworld/article/interface/spec.clj) 
 sub interface.
 
-It can then be used from e.g. the [handler](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/master/bases/rest-api/src/clojure/realworld/rest_api/handler.clj)
+It can then be used from e.g. the [handler](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/issue-66/bases/rest-api/src/clojure/realworld/rest_api/handler.clj)
 namespace in `rest-api`:
 ```clojure
 (ns clojure.realworld.rest-api.handler
@@ -855,7 +860,7 @@ There are two kinds of projects in Polylith: development and deployable.
    - This is where we work with the code, often from a REPL. 
    - It contains all libraries, components and bases in the workspace, which is specified in `./deps.edn`.
    - If we have any [profiles](#profile) then they are defined in `./deps.edn`.
-   - Any extra code, that is not part of a component or base, lives under the `development` folder.
+   - Any extra code, that is not part of a component or base, lives under the `development` directory.
 2. Any `deployable` project:
    - Used to build deployable artifacts, e.g.: lambda functions, REST API's, libraries, tools, ...and more.
    - Lives under the `projects` directory where each project has its own directory.
@@ -945,17 +950,13 @@ compared to `projects/command-line` and not at the root as with the `development
 
 The `test` command will figure out what tests that need to be executed.
 If you have resons to run the tests for each project separately using tools.deps,
-then you also have to specify test paths.
+then you also have to specify the test paths.
 
 > Note: All the project `deps.edn` config files under the `projects` directory specifies what bricks to include by giving
 > a list of `:local/root` mappings. The poly `test` command uses this information to figure out what bricks and 
 > library dependencies that should be included when executing the tests, by looking into each brick's `deps.edn` file. 
 > tools.deps does not "inherit" test dependencies from `:local/root` mappings, which is the reason we have to add our
 > dependencis as separate paths in `/deps.edn` to allow IDE's and other tooling to work properly.
- 
-This way of including components as dependencies instead of paths
-is not supported in the `development` project. The reason is that , and the reason we choose to wait
-is that some development environments don't support it very well at the moment.
 
 Let's summarise where the paths/dependencies to bricks are located:
 - The dev project: `./deps.edn` > `:aliases` > `:dev` > `:extra-paths`
@@ -972,7 +973,7 @@ on how to use the `clj` command (the `clojure` command will also work in these e
 If you are already comfortable with tools.deps, then you can skip directly to the [build](#build) section.
 For the rest of you, we'll go through the step-by-step process of compiling our new project to an uberjar.
 
-To build an uberjar we need to add this alias to `projects/command-line/deps.edn` (which we will do in the next section)::
+To build an uberjar we need to add this alias to `projects/command-line/deps.edn` (which we will do in the next section):
 ```clojure
  :uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
            :exec-fn hf.depstar/uberjar
@@ -1002,7 +1003,7 @@ clj -M:poly info
 
 It takes longer to execute the `poly` command this way, because it needs to compile the Clojure code 
 first, but it also allows us to execute older or newer versions of the tool by
-selecting another `sha` from an [existing commit](https://github.com/polyfy/polylith/commits).
+selecting another `sha` from an [existing commit](https://github.com/polyfy/polylith/commits/issue-66).
 
 ## Build
 
@@ -1012,7 +1013,7 @@ Instead, the tool lets us choose our own way to build our Polylith artifacts for
 which could be with simple build scripts, all the way to cloud-based build tools.
 
 Let's say we want to create an executable jar file out of the `command-line` project.  
-First, we create a `scripts` directory at the workspace root and copy this [build-uberjar.sh](https://github.com/polyfy/polylith/blob/master/scripts/build-uberjar.sh)
+First, we create a `scripts` directory at the workspace root and copy this [build-uberjar.sh](https://github.com/polyfy/polylith/blob/issue-66/scripts/build-uberjar.sh)
 to it:
 ```sh
 example
@@ -1224,13 +1225,23 @@ The CI build should also use its own pattern, like `stable-` plus branch name or
 It may be enough to only use the stable points that the CI server creates. That is at least a good way to start out
 and only add custom tags per developer when needed.
 
-The pattern is configured in `deps.edn` and can be changed if we prefer something else:
+The pattern is configured in `workspace.edn` and can be changed if we prefer something else:
 ```clojure
-            :stable-tag-pattern "stable-*"
+ :tag-patterns {:stable "stable-*"
+                :release "v[0-9]*"}
 ```
 
-It's possible to move back to an earlier `stable point` in time by passing in a hash (the first few letters is enough
-as long as it's unique) - but let's not do that now:
+It's also possible to add your own tag patterns, e.g.:
+```clojure
+ :tag-patterns {:stable "stable-*"
+                :release "v[0-9]*"
+                :myproject "myproject-*"}
+```
+
+This can be useful if we need to tag projects separately in out build pipeline.
+
+An alternative to tag patterns is to give a git SHA,
+where the first few letters is enough as long as they are unique (but let's not do that now):
 ```sh
 git tag -f stable-lisa c91fdad
 ```
@@ -1240,8 +1251,8 @@ The way the tool finds the latest tag is to execute this command internally:
 git log --pretty=format:'%H %d'
 ```
 
-Then it uses the first line of the output that matches the `stable-*` regular expression,
-or if no match was found, the first commit in the repository.
+Then it uses the first line of the output that matches the regular expression
+(e.g. `stable-*`) or if no match was found, the first commit in the repository.
 
 ### Release
 
@@ -1260,7 +1271,8 @@ poly info since:release
 
 ...it picks the latest release tag that follows the pattern defined in `workspace.edn`:
 ```
-            :release-tag-pattern "v[0-9]*"
+ :tag-patterns {...
+                :release "v[0-9]*"}
 ```
 
 If we execute:
@@ -1284,7 +1296,7 @@ poly test since:previous-release
 ```
 
 Depending on whether we tag before or after the build, we will choose `release` or `previous-release`.
-If `since` is not given, `last-stable` will be used by default.
+If `since` is not given, `stable` will be used by default.
 
 Some other variants, like `since:e7ebe68`, `since:head`, or `since:head~1` are also valid.
 
@@ -2734,7 +2746,7 @@ poly info color-mode:light
 <img src="images/color-info.png" width="40%">
 
 ...everything suddenly looks much brighter!
-The only difference between "light" and "dark" is that they use different [codes](https://github.com/polyfy/polylith/tree/master/components/util/src/polylith/clj/core/util/colorizer.clj) for grey.
+The only difference between "light" and "dark" is that they use different [codes](https://github.com/polyfy/polylith/tree/issue-66/components/util/src/polylith/clj/core/util/colorizer.clj) for grey.
 
 If we switch back to dark background and select `none`:
 ```

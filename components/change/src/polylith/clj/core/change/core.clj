@@ -46,18 +46,12 @@
                        :project-to-projects-to-test project-to-projects-to-test
                        :changed-files files)))
 
-(defn find-sha [ws-dir since {:keys [release-tag-pattern stable-tag-pattern]}]
-  (case since
-    "release" (git/release ws-dir release-tag-pattern false)
-    "previous-release" (git/release ws-dir release-tag-pattern true)
-    "stable" (git/latest-stable ws-dir stable-tag-pattern)
-    {:sha since}))
-
 (defn with-changes [{:keys [ws-dir ws-local-dir settings user-input paths] :as workspace}]
   (if (-> ws-dir git/is-git-repo? not)
     workspace
     (let [since (:since user-input "stable")
-          {:keys [tag sha]} (find-sha ws-dir since settings)]
+          tag-patterns (:tag-patterns settings)
+          {:keys [tag sha]} (git/sha ws-dir since tag-patterns)]
       (assoc workspace :changes
                        (changes workspace {:tag tag
                                            :since since

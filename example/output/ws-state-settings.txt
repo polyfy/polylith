@@ -28,8 +28,7 @@
  {"development" {:alias "dev"},
   "command-line" {:alias "cl"},
   "user-service" {:alias "user-s"}},
- :release-tag-pattern "v[0-9]*",
- :stable-tag-pattern "stable-*",
+ :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
  :thousand-separator ",",
  :top-namespace "se.example",
  :user-config-filename "/Users/joakimtengstrand/.polylith/config.edn",
@@ -43,7 +42,7 @@
   :latest-polylith-sha "002a6e1d8233711b7e08a1ee23d003a2c5cd18f9",
   :stable-since
   {:tag "stable-lisa",
-   :sha "7840ca5a3ddaf3cc7e4385c71584a3da5ddd9ee9"}},
+   :sha "2cc5aaae5252b4a8e47cb9be47ca534169c30d1b"}},
  :version "0.2.0-alpha10.issue66.06",
  :ws-schema-version {:breaking 0, :non-breaking 0},
  :ws-type :toolsdeps2}
