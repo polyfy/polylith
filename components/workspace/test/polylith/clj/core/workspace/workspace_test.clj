@@ -77,6 +77,22 @@
                                "  user         admin *          ---   ---    --      xx  \n"
                                "  user         user1 *          xxx   ---    xx      --  \n"
                                "  util         util1 *          xxx   xx-    --      --  \n")}
+               {:cmd "info"
+                :args ["skip:dev"]
+                :expected (str "  stable since: 1234567\n\n"
+                               "  projects: 1   interfaces: 4\n"
+                               "  bases:    0   components: 5\n\n"
+                               "  active profiles: default\n\n"
+                               "  project    alias  status\n"
+                               "  ------------------------\n"
+                               "  service *  s       ---  \n\n"
+                               "  interface    brick             s \n"
+                               "  ---------------------------   ---\n"
+                               "  database     database1 *      xxx\n"
+                               "  test-helper  test-helper1 *   -xx\n"
+                               "  user         admin *          ---\n"
+                               "  user         user1 *          xxx\n"
+                               "  util         util1 *          xxx\n")}
                {:cmd "deps"
                 :args []
                 :expected (str "                   t      \n"
@@ -144,6 +160,25 @@
                                "  me.raynes/fs                  1.4.6    maven     10   --   --      x       -     .\n"
                                "  org.clojure/clojure           1.10.1   maven  3,816   x-   x-      -       -     .\n"
                                "  org.clojure/tools.deps.alpha  0.8.695  maven     46   x-   x-      -       -     .\n")}
+               {:cmd "libs"
+                :args ["skip:dev"]
+                :expected (str "                                                             t\n"
+                               "                                                             e\n"
+                               "                                                             s\n"
+                               "                                                             t\n"
+                               "                                                             -\n"
+                               "                                                             h\n"
+                               "                                                             e\n"
+                               "                                                             l\n"
+                               "                                                             p\n"
+                               "                                                             e\n"
+                               "                                                             r\n"
+                               "  library                       version  type      KB   s    1\n"
+                               "  ---------------------------------------------------   --   -\n"
+                               "  clj-time                      0.15.2   maven     23   -x   x\n"
+                               "  me.raynes/fs                  1.4.6    maven     10   --   .\n"
+                               "  org.clojure/clojure           1.10.1   maven  3,816   x-   .\n"
+                               "  org.clojure/tools.deps.alpha  0.8.695  maven     46   x-   .\n")}
                {:cmd "ws"
                 :args ["get:settings" "branch:create-deps-files"]
                 :clean-result-fn clean-get-settings-result

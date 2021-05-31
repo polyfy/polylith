@@ -6,8 +6,8 @@
 (defn is-git-repo? [ws-dir]
   (core/is-git-repo? ws-dir))
 
-(defn init [ws-dir]
-  (core/init ws-dir))
+(defn init [ws-dir git-repo?]
+  (core/init ws-dir git-repo?))
 
 (defn add [ws-dir filename]
   (core/add ws-dir filename))

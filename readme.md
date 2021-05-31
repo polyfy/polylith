@@ -37,6 +37,33 @@ To better understand the principles and ideas behind this tool, we recommend you
 
 <br>Enjoy the ride!
 
+> Note: This is the issue-66 branch, where work is still in progress.
+> We try our best to only push stable commits to this branch, but we recommend
+> you to use the `master` branch instead for a number of reasons:
+> - We only release versions of the `poly` command from the `master` branch, which means
+>   that you need to use the tools.deps CLI tooling to run the poly command in this branch,
+>   e.g. `clj -M:poly help`.
+>   An alternative could be to build your own `poly` tool from the source in this branch
+>   (which is done by the `./build.sh` script but is not intended for public use at the moment).
+> - This branch contains breaking changes compared to the `master` branch, e.g. introduction of a new 
+>   `workspace.edn` file at the root and changes to the internal workspace structure that is returned 
+>   by the `poly ws` command. These changes are not introduced in one big commit, which means that if 
+>   you start to use the code from this branch, you should pay attention to this:
+>   - saved files from e.g. `poly ws out:myws.edn` can break when used by a newer commit, e.g. `poly ws ws-file:myws.edn`.
+
+> If none of the above bothers you, here are the benefits of using the `issue-66` branch also:
+> - Each component and base (brick) will contain their own `deps.edn` file where library dependencies
+>   can be specified. Projects specify brick dependencies as `:deps > :local/root` instead of 
+>   `:paths` which will automatically retrieve library dependencies specified by the bricks, 
+>   with the advantage that they don't need to be specified again by each project and that we don't have to
+>   manually maintain the `:ns-to-lib` mapping to get a working `poly libs` command.
+> - You get rid of the warning you otherwise get when using some of the latest versions of 
+>   the tool.deps CLI tooling (see [issue-66](https://github.com/polyfy/polylith/issues/66)).
+> - You get some new features, like calculation of test dependencies, better support for tagging,
+>   and a few more. In general, the goal for the `issue-66` branch is not to add a lot of new
+>   functionality compared to the `master` branch, but to merge it back as soon as all breaking
+>   changes has been implemented and a migration tool is in place (to help you migrate to the new version).
+
 ## Leiningen version
 
 The old [lein-polylith](https://github.com/tengstrand/lein-polylith) tool has reached the 
@@ -54,7 +81,6 @@ and more.
 - [Installation](#installation)
 - [Realworld Example](#realworld-example)
 - [Workspace](#workspace)
-- [Local workspace](#local-workspace)
 - [Development](#development)
 - [Component](#component)
 - [Interface](#interface)
@@ -64,6 +90,7 @@ and more.
 - [Build](#build)
 - [Git](#git)
 - [Tagging](#tagging)
+- [Continuous integration](#continuous-integration)
 - [Flags](#flags)
 - [Testing](#testing)
 - [Profile](#profile)
@@ -75,7 +102,6 @@ and more.
 - [Workspace state](#workspace-state)
 - [Git hook](#git-hook)
 - [Mix languages](#mix-languages)
-- [CI and Deployment](doc/ci-and-deployment.md)
 - [Commands](doc/commands.md)
 - [Colors](#colors)
 - [Contact](#contact)
@@ -276,7 +302,7 @@ Otherwise, let’s jump in and start making our own very basic Polylith project!
 The workspace directory is the place where all our code and most of the [configuration](#configuration) lives.
 
 Let’s start by creating the `example` workspace with the top namespace `se.example` by using the [create workspace](#create-workspace) command
-(`create w` works as well as `create workspace`):
+(`create w` works as well as `create workspace`). Make sure you execute the command outside a git repository:
 ```sh
 poly create workspace name:example top-ns:se.example branch:issue-66
 ``` 
@@ -348,8 +374,8 @@ The `workspace.edn` file looks like this:
                                  :deps/root "projects/poly"}}}}}
 ```
 
-If all went well, the `poly` tool managed set the latest sha for the `:poly` alias by taking it from the `main` branch
-(the sha `da3bccf3a13ac30be8e31fedeab4de53c1efd951` is just an example).
+If all went well, the `poly` tool managed set the latest sha for the `:poly` alias by taking it from the `issue-66` branch,
+or the `master` branch if not given (the sha `da3bccf3a13ac30be8e31fedeab4de53c1efd951` is just an example).
 If not, you can find it [here](https://github.com/polyfy/polylith/commits/issue-66)
 or you can get it by executing this command:
 ```
@@ -357,9 +383,30 @@ poly ws get:settings:vcs:latest-polylith-sha branch:issue-66
 ```
 If you wonder how the `ws` command works or what all the settings are for, be patient, everything will soon be covered in detail.
 
-## Local workspace
+### Existing git repository
 
-The `poly` tool supports that a workspace lives inside an existing git repository, e.g.:
+A polylith workspace can also be created inside an existing git repo.
+When we do that, we have two alternatives. 
+Either we create the workspace directly at the root of the git repository by executing e.g.:
+```
+cd my-git-repo-dir
+poly create workspace top-ns:com.mycompany
+```
+```  
+my-git-repo-dir
+├── bases
+├── components
+├── deps.edn
+├── development
+├── projects
+└── workspace.edn
+```
+
+...or we put the workspace in a directory under the git repository by executing e.g.:
+```
+cd my-git-repo-dir
+poly create workspace name:my-workspace top-ns:com.mycompany
+```
 ```
 my-git-repo-dir
 └── my-workspace
@@ -371,17 +418,15 @@ my-git-repo-dir
     └── workspace.edn
 ```
 
-To execute a command, you need to be inside the `my-workspace` directory, e.g.:
+To execute a command, we need to be at the root of the workspace, e.g.:
 ```
 cd my-workspace
 poly info
 ```
 
-You can even have more than one workspace per git repo, which could be an idea if the
-codebase consists of more than one programming language, or if you are migrating an 
+We can even have more than one workspace per git repo, which could be an idea if the
+codebase consists of more than one programming language, or if we are migrating an 
 existing codebase to Polyith.
-
-In the example that follows, the workspace directory will also be its git root.
 
 ## Development
 
@@ -1231,15 +1276,6 @@ The pattern is configured in `workspace.edn` and can be changed if we prefer som
                 :release "v[0-9]*"}
 ```
 
-It's also possible to add your own tag patterns, e.g.:
-```clojure
- :tag-patterns {:stable "stable-*"
-                :release "v[0-9]*"
-                :myproject "myproject-*"}
-```
-
-This can be useful if we need to tag projects separately in out build pipeline.
-
 An alternative to tag patterns is to give a git SHA,
 where the first few letters is enough as long as they are unique (but let's not do that now):
 ```sh
@@ -1299,6 +1335,53 @@ Depending on whether we tag before or after the build, we will choose `release` 
 If `since` is not given, `stable` will be used by default.
 
 Some other variants, like `since:e7ebe68`, `since:head`, or `since:head~1` are also valid.
+
+## Continuous integration
+
+How this repository sets up its own continuous integration and deployment is described [here](doc/ci-and-deployment.md),
+but let's instead talk a bit about how it can be set up in general.
+
+When setting up continuous integration, we sometimes want to keep track of changes per project.
+To support this we need to add tag patterns for the projects we want to build, e.g.:
+```clojure
+ :tag-patterns {:stable "stable-*"
+                :release "v[0-9]*"
+                :myproject "myproject-*"}
+```
+
+When our build is triggered, e.g. via a web hook, we can ask the `poly` tool what projects have changed since last successful build:
+```
+poly ws get:changes:changed-or-affected-projects since:myproject
+```
+output, e.g.:
+```
+["invoicer" "myproject"]
+```
+
+If `myproject` is returned, which is the case here, then we know that this project
+needs to be built and deployed, if all tests also pass. 
+After a successful build, we want to tag the repository, e.g.:
+```
+git tag myproject-1
+```
+We want to keep the release tags, which is the reason ech tag gets its own unique tag,
+e.g. `myproject-1`, `myproject-2`, and so on. It's not important that the id's are 
+sequential. The tool will always sort them by the order they exist in git anyway.
+
+If the CI build is set up so that it builds all projects in "one go", then we could first start by asking 
+what projects we have:
+```
+poly ws get:projects:keys skip:dev
+```
+The `skip:dev` parameter tells the tool to ignore the development environment (we are not interested in deploying `dev`).
+More than one project can be ignored, e.g. `skip:dev:invoicer`, where both project names and aliases can be used.
+
+Then we can ask for changed or affected projects:
+```
+poly ws get:changes:changed-or-affected-projects since:release skip:dev
+```
+
+Here we rely on `release-*` tags that mark the whole repo as released.
 
 ## Flags
 

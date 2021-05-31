@@ -31,7 +31,7 @@
        "\n"
        "  The " (color/project "x" cm) " in the " (color/component "user" cm) " column, tells that " (color/library "clj-time" cm) " is used by that component\n"
        "  by having it specified in its 'deps.edn' file as a src dependency.\n"
-       "  if a dependency is only used from the test scope, then it will turn up as a " (color/project "t" cm) ".\n"
+       "  If a dependency is only used from the test scope, then it will turn up as a " (color/project "t" cm) ".\n"
        "\n"
        "  Libraries can also be selected per project and it's therefore possible to have\n"
        "  different versions of the same library in different projects (if needed).\n"

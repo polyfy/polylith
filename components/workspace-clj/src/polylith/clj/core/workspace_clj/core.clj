@@ -71,7 +71,7 @@
         user-config-filename (str (user-config/home-dir) "/.polylith/config.edn")
         brick->non-top-namespaces (non-top-ns/brick->non-top-namespaces ws-dir top-namespace)
         project->settings (:projects ws-config {})
-        projects (projects-from-disk/read-projects ws-dir ws-type project->settings user-home color-mode)
+        projects (projects-from-disk/read-projects ws-dir ws-type project->settings user-input user-home color-mode)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
         components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-namespace brick->non-top-namespaces)
         bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir brick->non-top-namespaces)

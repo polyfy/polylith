@@ -76,20 +76,21 @@
 
 (defn table [{:keys [settings projects changes paths]} is-show-loc is-show-resources]
   (let [{:keys [color-mode thousand-separator]} settings
-        profiles (profile/inactive-profiles settings)
+        n#dev (count (filter :is-dev projects))
+        profiles (if (zero? n#dev) [] (profile/inactive-profiles settings))
         n#profiles (count profiles)
         total-loc-src (apply + (filter identity (map #(-> % :lines-of-code :src) projects)))
         total-loc-test (apply + (filter identity (map #(-> % :lines-of-code :test) projects)))
         project-col (project-column projects changes "project" :name 1 color-mode)
         alias-col (project-column projects {} "alias" :alias 3 color-mode)
         status-col (status-column projects paths changes is-show-resources)
-        dev-col (dev-column projects changes is-show-resources)
-        profile-cols (profile-columns paths 9 projects profiles settings is-show-resources)
+        dev-col (if (zero? n#dev) [] (dev-column projects changes is-show-resources))
+        profile-cols (if (zero? n#dev) [] (profile-columns paths 9 projects profiles settings is-show-resources))
         loc-col (loc-columns is-show-loc projects n#profiles thousand-separator total-loc-src total-loc-test)
-        space-columns (range 2 (* 2 (+ 4 (count profiles) (if is-show-loc 2 0))) 2)
+        space-columns (range 2 (* 2 (+ 3 n#dev n#profiles (if is-show-loc 2 0))) 2)
         header-spaces (text-table/spaces 1 space-columns (repeat "  "))
         cells (text-table/merge-cells project-col alias-col status-col dev-col loc-col profile-cols header-spaces)
-        section-cols (if (or is-show-loc (-> n#profiles zero? not)) [6 (+ 8 (* 2 n#profiles))] [6])
+        section-cols (if (or is-show-loc (-> n#profiles zero? not)) [6 (+ 8 (* 2 n#profiles))] (if (zero? n#dev) [] [6]))
         line-spaces (text-table/spaces 2 section-cols (repeat "   "))
         line (text-table/line 2 cells)]
     (text-table/table "  " color-mode cells line line-spaces)))

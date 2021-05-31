@@ -7,13 +7,14 @@
 
 (defn is-git-repo? [ws-dir]
   (try
-    (= "true" (first (str/split-lines (shell/sh "git" "rev-parse" "--is-inside-work-tree" :dir ws-dir))))
+    (= "true" (first (str/split-lines (shell/sh-ignore-exception "git" "rev-parse" "--is-inside-work-tree" :dir ws-dir))))
     (catch Exception _
       false)))
 
-(defn init [ws-dir]
+(defn init [ws-dir git-repo?]
   (try
-    (shell/sh "git" "init" :dir ws-dir)
+    (when (not git-repo?)
+      (shell/sh "git" "init" :dir ws-dir))
     (shell/sh "git" "add" "." :dir ws-dir)
     (shell/sh "git" "commit" "-m" "Workspace created." :dir ws-dir)
     (catch Exception e

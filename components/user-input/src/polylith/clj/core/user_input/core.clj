@@ -32,6 +32,7 @@
                 name
                 out
                 since
+                skip
                 top-ns
                 ws-dir
                 ws-file
@@ -70,6 +71,7 @@
                       :name name
                       :out out
                       :since since
+                      :skip (when skip (if (vector? skip) skip [skip]))
                       :top-ns top-ns
                       :ws-dir ws-dir
                       :ws-file ws-file

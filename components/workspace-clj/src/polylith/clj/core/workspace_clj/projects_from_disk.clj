@@ -75,14 +75,15 @@
      in the project's deps.edn file.
    - brick :src libraries that are specified in :deps or :aliases > :dev > :extra-deps (development)
      as :local/root in the project's deps.edn file and extracted from the corresponding
-     brick deps.edn files."
+     brick deps.edn files.
+   If :override-deps is given, then library versions will be overridden."
   [is-dev project-name project-config-dir user-home project-src-deps project-src-paths override-deps]
   (let [brick-src-paths (set (mapcat #(extract-brick-path % is-dev) project-src-deps))
         src-deps-and-paths (map #(brick-paths-and-deps % project-name project-config-dir is-dev) brick-src-paths)
         paths (vec (sort (set (concat (map #(absolute-path % project-name is-dev) project-src-paths)
                                       (mapcat :src-paths src-deps-and-paths)))))
-        all-src-deps (mapcat :src-deps src-deps-and-paths)
-        src-deps (override-src-deps override-deps all-src-deps)
+        src-deps (override-src-deps override-deps
+                                    (mapcat :src-deps src-deps-and-paths))
         lib-deps (lib/with-sizes (concat (filter #(not (brick? % is-dev)) project-src-deps)
                                          src-deps) user-home)]
     [paths lib-deps]))
@@ -107,7 +108,8 @@
    - brick :test libraries that are specified in :aliases > :dev > :extra-deps as :local/root
      in the project's deps.edn file and extracted from the corresponding brick deps.edn files.
    - brick :src libraries that are specified in :aliases > :test > :extra-deps as :local/root but not in
-     :aliases > :src > :extra-deps, are extracted from the corresponding brick deps.edn files."
+     :aliases > :src > :extra-deps, are extracted from the corresponding brick deps.edn files.
+   If :override-deps is given, then library versions will be overridden."
   [is-dev project-name project-config-dir bricks-to-test user-home project-src-deps project-test-deps project-test-paths override-deps]
   ;; todo: support filtering on individual bricks.
   (if (skip-all-tests? bricks-to-test)
@@ -122,10 +124,12 @@
                         (mapcat :test-paths src-deps-and-paths)
                         (mapcat :test-paths test-deps-and-paths)
                         (mapcat :src-paths only-test-paths))
+          test-deps (override-src-deps override-deps
+                                       (concat (mapcat :test-deps src-deps-and-paths)
+                                               (mapcat :test-deps test-deps-and-paths)
+                                               (mapcat :src-deps only-test-paths)))
           lib-deps (lib/with-sizes (concat (filter #(not (brick? % is-dev)) project-test-deps)
-                                           (concat (mapcat :test-deps src-deps-and-paths)
-                                                   (mapcat :test-deps test-deps-and-paths)
-                                                   (mapcat :src-deps only-test-paths))) user-home)]
+                                           test-deps) user-home)]
       [(vec (sort (set paths)))
        (vec (sort (set lib-deps)))])))
 
@@ -170,11 +174,19 @@
    :project-dir (str ws-dir "/projects/" project-name)
    :project-config-dir (str ws-dir "/projects/" project-name)})
 
-(defn read-projects [ws-dir ws-type project->settings user-home color-mode]
-  (let [project-configs (conj (map #(project-map ws-dir %)
-                                   (file/directories (str ws-dir "/projects")))
-                              {:project-name "development"
-                               :is-dev true
-                               :project-dir (str ws-dir "/development")
-                               :project-config-dir ws-dir})]
+(defn keep?
+  "Skip projects that are passed in as e.g. skip:P1:P2."
+  [{:keys [project-name]} project->settings skip]
+  (not (or (contains? skip project-name)
+           (contains? skip (-> project-name project->settings :alias)))))
+
+(defn read-projects [ws-dir ws-type project->settings user-input user-home color-mode]
+  (let [skip (if user-input (-> user-input :skip set) #{})
+        project-configs (filter #(keep? % project->settings skip)
+                                (conj (map #(project-map ws-dir %)
+                                           (file/directories (str ws-dir "/projects")))
+                                      {:project-name "development"
+                                       :is-dev true
+                                       :project-dir (str ws-dir "/development")
+                                       :project-config-dir ws-dir}))]
     (mapv #(read-project % ws-type project->settings user-home color-mode) project-configs)))

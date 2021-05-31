@@ -14,8 +14,8 @@
             [polylith.clj.core.workspace-clj.interface :as ws-clj]
             [polylith.clj.core.ws-explorer.core :as ws-explorer]))
 
-(defn workspace []
-  (-> (user-input/extract-params ["info" (str "ws-dir:.") "color-mode:none" "since:0aaeb58"])
+(defn workspace [& args]
+  (-> (user-input/extract-params (concat ["info" (str "ws-dir:.") "color-mode:none" "since:0aaeb58"] args))
       ws-clj/workspace-from-disk
       ws/enrich-workspace
       change/with-changes))
@@ -107,7 +107,7 @@
           "  ----------------------------------------------------------------------------------------"
           "  api            .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  x  x  x"
           "  change         .  .  .  .  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  x  .  .  .  .  ."
-          "  command        .  x  .  x  x  .  x  x  .  x  x  .  .  .  .  x  .  .  .  x  x  x  x  x  x"
+          "  command        .  x  .  x  x  .  x  x  x  x  x  .  .  .  .  x  .  .  .  x  x  x  x  x  x"
           "  common         .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  ."
           "  creator        .  .  .  x  .  .  .  x  x  .  .  .  .  .  t  .  .  x  .  x  .  .  .  .  ."
           "  deployer       x  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  .  .  .  x  .  .  ."
@@ -154,7 +154,7 @@
             "  brick          e  d  n  r  s  e  t  p  b  r  l  r  r  e  g  t  l  r  n  e  j  r"
             "  -------------------------------------------------------------------------------"
             "  change         .  .  .  .  .  +  x  .  .  x  +  .  .  .  .  .  x  .  .  .  .  ."
-            "  command        x  .  x  x  x  x  +  x  x  +  +  .  x  +  +  .  x  x  x  x  x  x"
+            "  command        x  .  x  x  x  x  x  x  x  +  +  .  x  +  +  .  x  x  x  x  x  x"
             "  common         .  .  .  .  .  x  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  ."
             "  creator        -  -  x  -  -  x  x  -  -  -  +  t  -  -  x  -  x  -  -  -  -  -"
             "  deps           .  .  x  .  .  +  .  .  .  .  .  .  .  x  +  .  x  .  .  .  .  ."
@@ -227,6 +227,7 @@
                                              "creator"
                                              "deps"
                                              "file"
+                                             "git"
                                              "help"
                                              "lib"
                                              "test-runner"
@@ -236,8 +237,7 @@
                                              "workspace"
                                              "workspace-clj"
                                              "ws-explorer"]
-                                  :indirect ["git"
-                                             "path-finder"
+                                  :indirect ["path-finder"
                                              "shell"
                                              "text-table"
                                              "user-config"]}
@@ -246,6 +246,7 @@
                                              "creator"
                                              "deps"
                                              "file"
+                                             "git"
                                              "help"
                                              "lib"
                                              "test-runner"
@@ -255,8 +256,7 @@
                                              "workspace"
                                              "workspace-clj"
                                              "ws-explorer"]
-                                  :indirect ["git"
-                                             "path-finder"
+                                  :indirect ["path-finder"
                                              "shell"
                                              "text-table"
                                              "user-config"]}}

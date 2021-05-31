@@ -135,10 +135,11 @@
         size-col (size-column libraries thousand-separator)
         project-cols (project-columns libraries projects)
         profile-col (+ 9 (* 2 (count projects)))
-        profile-cols (profile-columns profile-col libraries profile-to-settings)
+        n#dev (count (filter :is-dev projects))
+        profile-cols (if (zero? n#dev) [] (profile-columns profile-col libraries profile-to-settings))
         brick-col (+ profile-col (* 2 (count profile-to-settings)))
         n#projects (count projects)
-        n#profiles (count profile-to-settings)
+        n#profiles (if (zero? n#dev) 0 (count profile-to-settings))
         n#bricks (count bricks)
         brick-cols (brick-columns brick-col bricks libraries src-libs brick->libs empty-character)
         space-columns (range 2 (* 2 (+ 4 n#projects n#profiles n#bricks)) 2)
@@ -148,8 +149,14 @@
         line (text-table/line 2 cells)
         section2 (+ 6 (* 2 n#projects))
         section3 (+ 8 (* 2 (+ n#projects n#profiles)))
-        sections (text-table/spaces 2 [8 section2 section3] (repeat "   "))]
-    (text-table/table "  " color-mode cells line sections)))
+        sections (if (zero? n#dev) [8 section3] [8 section2 section3])
+        spaces (text-table/spaces 2 sections (repeat "   "))]
+    (text-table/table "  " color-mode cells line spaces)))
 
 (defn print-table [workspace is-all]
   (text-table/print-table (table workspace is-all)))
+
+(comment
+  (require '[dev.development :as dev])
+  (print-table dev/workspace false)
+  #__)
