@@ -3,18 +3,18 @@
             [polylith.clj.core.git.tag :as tag]
             [polylith.clj.core.shell.interface :as shell]))
 
+(def branch "master")
 (def repo "https://github.com/polyfy/polylith.git")
 
 (defn is-git-repo? [ws-dir]
-  (try
-    (= "true" (first (str/split-lines (shell/sh-ignore-exception "git" "rev-parse" "--is-inside-work-tree" :dir ws-dir))))
-    (catch Exception _
-      false)))
+  (let [{:keys [exit]} (shell/sh-with-return "git" "rev-parse" "--is-inside-work-tree" :dir ws-dir)]
+    (and (zero? exit)
+         (= "true" (first (str/split-lines (shell/sh-ignore-exception "git" "rev-parse" "--is-inside-work-tree" :dir ws-dir)))))))
 
-(defn init [ws-dir git-repo?]
+(defn init [ws-dir git-repo? branch]
   (try
     (when (not git-repo?)
-      (shell/sh "git" "init" :dir ws-dir))
+      (shell/sh "git" "init" "-b" (or branch "main") :dir ws-dir))
     (shell/sh "git" "add" "." :dir ws-dir)
     (shell/sh "git" "commit" "-m" "Workspace created." :dir ws-dir)
     (catch Exception e
@@ -58,12 +58,16 @@
   "ws-local-dir is the name of the workspace if it lives within a git repo,
    otherwise nil."
   [ws-dir ws-local-dir sha1 sha2]
-  (let [files (apply shell/sh (concat (diff-command-parts sha1 sha2) [:dir ws-dir]))
+  (let [{:keys [exit out err]} (apply shell/sh-with-return (concat (diff-command-parts sha1 sha2) [:dir ws-dir]))
         prefix (if ws-local-dir
                  (str ws-local-dir "/")
                  "")]
-    (mapv #(remove-prefix % prefix)
-          (str/split-lines files))))
+    (if (zero? exit)
+      (mapv #(remove-prefix % prefix)
+            (str/split-lines out))
+      (do
+        (println err)
+        []))))
 
 (defn first-committed-sha [ws-dir]
   (last (str/split-lines (shell/sh "git" "log" "--format=%H" :dir ws-dir))))

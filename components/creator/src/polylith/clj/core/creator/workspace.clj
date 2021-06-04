@@ -42,7 +42,7 @@
 
 (defn latest-sha [branch]
   (try
-    [false (git/latest-polylith-sha (or branch "master"))]
+    [false (git/latest-polylith-sha (or branch git/branch))]
     (catch Exception _
       [true "INSERT_LATEST_SHA_HERE"])))
 
@@ -66,7 +66,7 @@
       (file/create-missing-dirs user-config-filename)
       (file/create-file user-config-filename (user-config-content)))))
 
-(defn create-ws [ws-dir ws-name top-ns create-ws-dir? git-repo? insert-sha? sha]
+(defn create-ws [ws-dir ws-name top-ns create-ws-dir? git-repo? insert-sha? sha branch]
   (when create-ws-dir?
     (file/create-dir ws-dir))
   (file/create-dir (str ws-dir "/bases"))
@@ -84,7 +84,7 @@
   (file/create-file (str ws-dir "/projects/.keep") [""])
   (file/copy-resource-file! "creator/logo.png" (str ws-dir "/logo.png"))
   (create-user-config-if-not-exists)
-  (git/init ws-dir git-repo?)
+  (git/init ws-dir git-repo? branch)
   (when git-repo?
     (println "  Workspace created in existing git repo."))
   (when insert-sha?
@@ -101,4 +101,4 @@
            (file/exists ws-dir)) (println (str "  Workspace '" ws-name "' already exists."))
       (and (not create-ws-dir?)
            (not git-repo?)) (println "  Current directory must be a git repo.")
-      :else (create-ws ws-dir ws-name top-ns create-ws-dir? git-repo? insert-sha? sha))))
+      :else (create-ws ws-dir ws-name top-ns create-ws-dir? git-repo? insert-sha? sha branch))))

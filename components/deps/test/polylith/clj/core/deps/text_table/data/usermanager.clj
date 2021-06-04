@@ -606,7 +606,7 @@
 (def changes {:since "stable",
               :since-sha "1e06c52c982e4619f91e74de08dd48251b61b545",
               :since-tag "stable-sean",
-              :git-command "git diff 1e06c52c982e4619f91e74de08dd48251b61b545 --name-only",
+              :git-diff-command "git diff 1e06c52c982e4619f91e74de08dd48251b61b545 --name-only",
               :changed-components ["schema" "user"],
               :changed-bases ["web"],
               :changed-projects [],

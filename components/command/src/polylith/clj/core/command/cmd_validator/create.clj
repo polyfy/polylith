@@ -12,8 +12,15 @@
 (defn workspace? [entity]
   (= "w" entity))
 
+(defn base-or-comp? [entity]
+  (contains? #{"b" "c"} entity))
+
 (defn project-base-or-comp? [entity]
   (contains? #{"p" "b" "c"} entity))
+
+(defn invalid-name? [name]
+  (and name
+       (str/includes? name ".")))
 
 (defn git-repo? [{:keys [ws-dir]}]
   (git/is-git-repo? ws-dir))
@@ -23,6 +30,8 @@
     (if (= "create" cmd)
       (cond
         (nil? ent) [false "  The first argument after 'create' is expected to be any of: w, p, b, c, workspace, project, base, component."]
+        (and (base-or-comp? ent)
+             (invalid-name? name)) [false "  The . character is not allowed in brick names."]
         (and (nil? workspace)
              (project-base-or-comp? ent)) [false (command/cant-be-executed-outside-ws-message "create")]
         (and (nil? name)
@@ -30,7 +39,7 @@
                  (and (workspace? ent)
                       (-> workspace git-repo? not)))) [false (str "  A name must be given, e.g.: create " ent " name:" (ent->name ent))]
         (and (workspace? ent)
-             (-> workspace nil? not)) [false (str "  A workspace should not be created within another workspace.")]
+             (-> workspace nil? not)) [false "  A workspace should not be created within another workspace."]
         (and (workspace? ent)
              (str/blank? top-ns)) [false (str "  A top namespace must be given, e.g.: create " ent " name:" (ent->name ent) " top-ns:com.my-company")]
         :else [true])

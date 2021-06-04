@@ -59,7 +59,7 @@
                                            "components/user/test"
                                            "projects/invoice/test"]}}]
                 :changes {:sha1 "HEAD"
-                          :git-command "git diff HEAD --name-only"
+                          :git-diff-command "git diff HEAD --name-only"
                           :changed-components ["address" "admin" "database" "invoicer" "purchaser" "user"]
                           :changed-bases ["cli"]
                           :changed-projects ["core" "invoice"]

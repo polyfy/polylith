@@ -44,13 +44,12 @@
           :type            "project"
           :is-dev          false
           :config-filename     "./projects/poly/deps.edn"
-          :lib-deps        {:src {"me.raynes/fs"                              {:size 11209, :type "maven", :version "1.4.6"}
-                                  "metosin/malli"                             {:size 28211, :type "maven", :version "0.1.0"}
-                                  "mvxcvi/puget"                              {:size 15930, :type "maven", :version "1.3.1"}
-                                  "org.apache.logging.log4j/log4j-core"       {:size 1714164, :type "maven", :version "2.13.3"}
-                                  "org.apache.logging.log4j/log4j-slf4j-impl" {:size 23590, :type "maven", :version "2.13.3"}
-                                  "org.clojure/clojure"                       {:size 3908431, :type "maven", :version "1.10.1"}
-                                  "org.clojure/tools.deps.alpha"              {:size 47566, :type "maven", :version "0.8.695"}}}
+          :lib-deps        {:src {"me.raynes/fs"                 {:size 11209, :type "maven", :version "1.4.6"}
+                                  "metosin/malli"                {:size 28211, :type "maven", :version "0.1.0"}
+                                  "mvxcvi/puget"                 {:size 15930, :type "maven", :version "1.3.1"}
+                                  "org.clojure/clojure"          {:size 3908431, :type "maven", :version "1.10.1"}
+                                  "org.clojure/tools.deps.alpha" {:size 47566, :type "maven", :version "0.8.695"}
+                                  "org.slf4j/slf4j-nop"          {:size 4007, :type "maven", :version "1.7.25"}}}
           :maven-repos     {"central" {:url "https://repo1.maven.org/maven2/"}
                             "clojars" {:url "https://repo.clojars.org/"}}
           :namespaces {}

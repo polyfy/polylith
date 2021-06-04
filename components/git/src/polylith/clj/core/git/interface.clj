@@ -2,12 +2,13 @@
   (:require [polylith.clj.core.git.core :as core]))
 
 (def repo core/repo)
+(def branch core/branch)
 
 (defn is-git-repo? [ws-dir]
   (core/is-git-repo? ws-dir))
 
-(defn init [ws-dir git-repo?]
-  (core/init ws-dir git-repo?))
+(defn init [ws-dir git-repo? branch]
+  (core/init ws-dir git-repo? branch))
 
 (defn add [ws-dir filename]
   (core/add ws-dir filename))
@@ -18,11 +19,8 @@
 (defn root-dir []
   (core/root-dir))
 
-(defn latest-polylith-sha
-  ([]
-   (latest-polylith-sha (core/current-branch)))
-  ([branch]
-   (core/latest-polylith-sha branch)))
+(defn latest-polylith-sha [branch]
+  (core/latest-polylith-sha branch))
 
 (defn sha [ws-dir since tag-patterns]
   (core/sha ws-dir since tag-patterns))

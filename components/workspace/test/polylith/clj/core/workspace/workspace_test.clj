@@ -8,7 +8,7 @@
 
 (defn clean-get-settings-result [ws-string]
   (let [ws (read-string ws-string)
-        vcs (dissoc (:vcs ws) :stable-since)]
+        vcs (dissoc (:vcs ws) :branch :stable-since)]
     (dissoc (assoc ws :vcs vcs)
             :user-config-filename
             :user-home)))
@@ -205,15 +205,15 @@
                                                              :project-names   []}}
                            :projects             {"development" {:alias "dev"}
                                                   "service"     {:alias "s"}}
-                           :tag-patterns {:stable "stable-*"
-                                          :release "v[0-9]*"}
+                           :tag-patterns         {:release "v[0-9]*"
+                                                  :stable  "stable-*"}
                            :thousand-separator   ","
                            :top-namespace        "se.example"
-                           :vcs                  {:branch              "create-deps-files"
-                                                  :git-root            "/Users/joakimtengstrand/source/polylith"
-                                                  :latest-polylith-sha "3bfa6b0db34e0b5b1dc0a68bdd485afe6f8604a1"
-                                                  :name                "git"
-                                                  :polylith-repo       "https://github.com/polyfy/polylith.git"}
+                           :vcs                  {:git-root "/Users/joakimtengstrand/source/polylith"
+                                                  :name     "git"
+                                                  :polylith {:branch     "create-deps-files"
+                                                             :latest-sha "3bfa6b0db34e0b5b1dc0a68bdd485afe6f8604a1"
+                                                             :repo       "https://github.com/polyfy/polylith.git"}}
                            :version              version/version
                            :ws-schema-version    {:breaking     0
                                                   :non-breaking 0}

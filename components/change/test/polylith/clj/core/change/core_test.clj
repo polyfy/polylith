@@ -152,7 +152,7 @@
                                          "core"
                                          "dev"]
           :changed-projects             []
-          :git-command                  "git diff --name-only"
+          :git-diff-command             "git diff --name-only"
           :project-to-bricks-to-test    {"cli"  []
                                          "core" ["change"
                                                  "deps"]
@@ -185,7 +185,7 @@
                                          "core"
                                          "dev"]
           :changed-projects             []
-          :git-command                  "git diff --name-only"
+          :git-diff-command             "git diff --name-only"
           :project-to-bricks-to-test    {"cli"  []
                                          "core" ["change"
                                                  "deps"]
@@ -218,7 +218,7 @@
                                          "core"
                                          "dev"]
           :changed-projects             []
-          :git-command                  "git diff --name-only"
+          :git-diff-command             "git diff --name-only"
           :project-to-bricks-to-test    {"cli"  []
                                          "core" ["change"
                                                  "common"

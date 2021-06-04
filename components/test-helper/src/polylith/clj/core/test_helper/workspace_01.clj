@@ -190,7 +190,7 @@
                 :changes {:since "stable",
                           :since-sha "cdf1483635077acab8bb93b300ceec68f624abce",
                           :since-tag "stable-jote",
-                          :git-command "git diff cdf1483635077acab8bb93b300ceec68f624abce --name-only",
+                          :git-diff-command "git diff cdf1483635077acab8bb93b300ceec68f624abce --name-only",
                           :changed-components ["database" "test-helper"],
                           :changed-bases [],
                           :changed-projects [],

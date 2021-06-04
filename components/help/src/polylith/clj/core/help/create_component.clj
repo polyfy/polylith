@@ -4,7 +4,7 @@
 (defn help-text [cm]
   (str "  Creates a component.\n"
        "\n"
-       "  poly create c name:" (s/key "NAME" cm) " [interface:" (s/key "INTERFACE" cm) "]\n"
+       "  poly create component name:" (s/key "NAME" cm) " [interface:" (s/key "INTERFACE" cm) "]\n"
        "    " (s/key "NAME" cm) " = The name of the component to create.\n"
        "\n"
        "    " (s/key "INTERFACE" cm) " = The name of the interface (namespace) or " (s/key "NAME" cm) " if not given.\n"

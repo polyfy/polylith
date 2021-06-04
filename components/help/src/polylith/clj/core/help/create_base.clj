@@ -4,7 +4,7 @@
 (defn help-text [cm]
   (str "  Creates a base.\n"
        "\n"
-       "  poly create b name:" (s/key "NAME" cm) "\n"
+       "  poly create base name:" (s/key "NAME" cm) "\n"
        "    " (s/key "NAME" cm) " = The name of the base to create.\n"
        "\n"
        "  Example:\n"

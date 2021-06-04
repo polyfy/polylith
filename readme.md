@@ -265,7 +265,7 @@ To use it this way, add one of the following aliases to the `:aliases` section i
 }
 ```
 
-Replace `INSERT_LATEST_SHA_HERE` with a [commit SHA](https://github.com/polyfy/polylith/commits/issue-66) from this repository.
+Replace `INSERT_LATEST_SHA_HERE` with a [commit SHA](https://github.com/polyfy/polylith/commits/issue-66) from this repository (e.g. the latest).
 
 Once you have added one of the aliases above, you can now use the poly tool from the terminal:
 
@@ -290,6 +290,15 @@ polylith/clj-api {:git/url   "https://github.com/polyfy/polylith.git"
 
 ...and remember to set the `:sha` to an existing [SHA](https://github.com/polyfy/polylith/commits/issue-66).
 
+## Upgrade 
+
+To upgrade the `poly` tool on Mac, execute:
+```
+brew upgrade polyfy/polylith/poly
+```
+
+To upgrade on Windows and Linux: download the [latest release](https://github.com/polyfy/polylith/releases/latest) and replace the poly jar (e.g. `poly-0.1.0-alpha9.jar`).
+
 ## RealWorld Example
 
 If you want to start by seeing how a full-blown system looks like in Polylith, then head over to the 
@@ -304,10 +313,16 @@ The workspace directory is the place where all our code and most of the [configu
 Let’s start by creating the `example` workspace with the top namespace `se.example` by using the [create workspace](#create-workspace) command
 (`create w` works as well as `create workspace`). Make sure you execute the command outside a git repository:
 ```sh
-poly create workspace name:example top-ns:se.example branch:issue-66
+poly create workspace name:example top-ns:se.example
 ``` 
 
-> Note: The branch is only given if you work in a branch other than master 
+This will create a workspace in the `main` branch. 
+By giving `branch:BRANCH-NAME` the workspace can be created in a different branch, e.g.:
+```sh
+poly create workspace name:example top-ns:se.example branch:master
+``` 
+
+> Note: This will create a repository in the `main`The branch is only given if you work in a branch other than master 
 > (like "issue 66"). The branch is used by the tool to retrieve a correct SHA 
 > from the polylith repository in ./deps.edn for the key 
 > :aliases > :poly > :extra-deps > :sha.
@@ -374,12 +389,12 @@ The `workspace.edn` file looks like this:
                                  :deps/root "projects/poly"}}}}}
 ```
 
-If all went well, the `poly` tool managed set the latest sha for the `:poly` alias by taking it from the `issue-66` branch,
-or the `master` branch if not given (the sha `da3bccf3a13ac30be8e31fedeab4de53c1efd951` is just an example).
-If not, you can find it [here](https://github.com/polyfy/polylith/commits/issue-66)
-or you can get it by executing this command:
+If all went well, the `poly` tool managed to set the latest sha for the `:poly` alias by taking it from the `master` branch
+in this repository. If it failed or if we want another sha, e.g. an earlier version or from another branch,
+we can find one [here](https://github.com/polyfy/polylith/commits/issue-66) or by executing this statement, e.g.:
+
 ```
-poly ws get:settings:vcs:latest-polylith-sha branch:issue-66
+poly ws get:settings:vcs:polylith branch:issue-66
 ```
 If you wonder how the `ws` command works or what all the settings are for, be patient, everything will soon be covered in detail.
 
@@ -1154,7 +1169,7 @@ git commit -m "Workspace created."
 
 If we run `git log` from the workspace root, it returns something like this:
 ```sh
-commit c91fdad4a34927d9aacfe4b04ea2f304f3303282 (HEAD -> master)
+commit c91fdad4a34927d9aacfe4b04ea2f304f3303282 (HEAD -> main)
 Author: lisa <lisa@gmail.com>
 Date:   Thu Sep 3 06:11:23 2020 +0200
 
@@ -1218,7 +1233,7 @@ git log --pretty=oneline
 ```
 
 ```sh
-e7ebe683a775ec28b7c2b5d77e01e79d48149d13 (HEAD -> master) Created the user and cli bricks.
+e7ebe683a775ec28b7c2b5d77e01e79d48149d13 (HEAD -> main) Created the user and cli bricks.
 c91fdad4a34927d9aacfe4b04ea2f304f3303282 Workspace created.
 ```
 
@@ -1246,7 +1261,7 @@ git tag -f stable-lisa
 
 If we now run `git log --pretty=oneline` again:
 ```sh
-e7ebe683a775ec28b7c2b5d77e01e79d48149d13 (HEAD -> master, tag: stable-lisa) Created the user and cli bricks.
+e7ebe683a775ec28b7c2b5d77e01e79d48149d13 (HEAD -> main, tag: stable-lisa) Created the user and cli bricks.
 c91fdad4a34927d9aacfe4b04ea2f304f3303282 Workspace created.
 ```
 
@@ -1322,7 +1337,7 @@ poly info since:previous-release
 By executing `git log --pretty=oneline` we can verify that the tags are correctly set:
 
 ```
-e7ebe683a775ec28b7c2b5d77e01e79d48149d13 (HEAD -> master, tag: v1.2.0, tag: stable-lisa) Created the user and cli bricks.
+e7ebe683a775ec28b7c2b5d77e01e79d48149d13 (HEAD -> main, tag: v1.2.0, tag: stable-lisa) Created the user and cli bricks.
 c91fdad4a34927d9aacfe4b04ea2f304f3303282 (tag: v1.1.0) Workspace created.
 ```
 
@@ -1338,8 +1353,7 @@ Some other variants, like `since:e7ebe68`, `since:head`, or `since:head~1` are a
 
 ## Continuous integration
 
-How this repository sets up its own continuous integration and deployment is described [here](doc/ci-and-deployment.md),
-but let's instead talk a bit about how it can be set up in general.
+How this repository sets up its own continuous integration and deployment is described [here](doc/ci-and-deployment.md).
 
 When setting up continuous integration, we sometimes want to keep track of changes per project.
 To support this we need to add tag patterns for the projects we want to build, e.g.:
@@ -1349,7 +1363,7 @@ To support this we need to add tag patterns for the projects we want to build, e
                 :myproject "myproject-*"}
 ```
 
-When our build is triggered, e.g. via a web hook, we can ask the `poly` tool what projects have changed since last successful build:
+When our build is triggered, e.g. via a web hook, we can ask the `poly` tool what projects have changed since the last successful build:
 ```
 poly ws get:changes:changed-or-affected-projects since:myproject
 ```
@@ -1359,16 +1373,16 @@ output, e.g.:
 ```
 
 If `myproject` is returned, which is the case here, then we know that this project
-needs to be built and deployed, if all tests also pass. 
-After a successful build, we want to tag the repository, e.g.:
+needs to be built and deployed, as long as all tests also pass. 
+After a successful build, we tag the repository, e.g.:
 ```
 git tag myproject-1
 ```
-We want to keep the release tags, which is the reason ech tag gets its own unique tag,
-e.g. `myproject-1`, `myproject-2`, and so on. It's not important that the id's are 
+We want to keep the release tags, which is the reason each tag gets its own unique tag,
+e.g. `myproject-1`, `myproject-2`, and so on. It's not important that the ID's are 
 sequential. The tool will always sort them by the order they exist in git anyway.
 
-If the CI build is set up so that it builds all projects in "one go", then we could first start by asking 
+If the CI build is set up so that it builds all projects in one go, then we could first start by asking 
 what projects we have:
 ```
 poly ws get:projects:keys skip:dev
@@ -2460,7 +2474,7 @@ Libraries can be specified in three different ways in `tools.deps`:
 | Git   | As a [Git](https://git-scm.com/) dependency. Example: `clj-time/clj-time {:git/url "https://github.com/clj-time/clj-time.git", :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}` where the key must match the path for the library in `~/.gitlibs/libs` (to be able to calculate the `KB` column). |
  
 The KB column shows the size of each library in kilobytes. If you get the key path wrong or if the library
-hasn't been downloaded yet, then it will be shown as blank.
+hasn't been downloaded yet, then it will set to zero.
 
 In the tools.deps CLI tool, when a dependency is included using `:local/root`, only `:src` dependencies will be inherited
 while the `:test` dependencies will be ignored. The `poly` tool builds upon tools.deps but has its own
@@ -2472,18 +2486,18 @@ built-in test command you don't have to worry about this.
 
 #### Brick libraries
 
-The brick columns is marked with an `x` if the library is used by the `src` code and with a `t` if it's only used
+The brick columns are marked with an `x` if the library is used by the `src` code and with a `t` if it's only used
 by the `test` code.
 
 #### Project libraries
 
-The project columns consists of two characters, e.g. `x-`, where the first character says whether it's a dependency used from the `src` code
-and the second whether it's used from the test code.
+The project columns consist of two characters, e.g. `x-`, where the first character says whether it's a dependency used from the `src` code
+and the second whether it's used from the `test` code.
 
 The dependencies for a project is the sum of all dependencies that are indirectly included via its bricks,
 together with dependencies declared by the project itself. If different versions of the same dependency exists, 
-then the latest version will be used for the project. An exception is if a dependency is specified
-within `override-deps` in a project's `deps.edn` file, e.g.:
+then the latest version will be used for the project. An exception is if a dependency is overridden
+with `override-deps` in a project's `deps.edn` file, e.g.:
 
 ```clojure
 {...
@@ -2497,11 +2511,11 @@ within `override-deps` in a project's `deps.edn` file, e.g.:
 }
 ```
 
-If we run the `libs` command:
+If we now run the `libs` command:
 
 <img src="images/realworld-lib-deps-override-deps.png" width="80%">
 
-...we now have two versions of `clj-time` where the `rb` project uses "0.15.1" 
+...we will have two versions of `clj-time` where the `rb` project uses "0.15.1" 
 and the `user` component uses "0.15.2".
 
 #### Compact view

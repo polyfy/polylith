@@ -9,7 +9,7 @@
 (defn print-stacktrace [e]
   (stacktrace/print-stack-trace e))
 
-(defn print-exception [cmd  e]
+(defn print-exception [cmd e]
   (println (or (-> e ex-data :err)
                (if (= "test" cmd)
                  (.getMessage e)

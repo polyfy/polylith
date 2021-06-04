@@ -536,8 +536,7 @@
                                                 "clojure.walk"]
                                           :test ["clojure.string" "clojure.tools.deps.alpha.util.maven"]}
                             :lib-deps {"net.mikera/core.matrix" #:mvn{:version "0.62.0"},
-                                       "org.apache.logging.log4j/log4j-core" #:mvn{:version "2.13.3"},
-                                       "org.apache.logging.log4j/log4j-slf4j-impl" #:mvn{:version "2.13.3"},
+                                       "org.slf4j/slf4j-nop" #:mvn{:version "1.7.25"},
                                        "org.clojure/clojure" #:mvn{:version "1.10.1"},
                                        "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}},
                             :deps {"workspace-clj" {:direct ["common" "file" "user-config" "util"], :indirect []},
@@ -788,8 +787,7 @@
                                                 "clojure.walk"]
                                           :test ["clojure.string" "clojure.tools.deps.alpha.util.maven"]}
                             :lib-deps {"net.mikera/core.matrix" #:mvn{:version "0.62.0"},
-                                       "org.apache.logging.log4j/log4j-core" #:mvn{:version "2.13.3"},
-                                       "org.apache.logging.log4j/log4j-slf4j-impl" #:mvn{:version "2.13.3"},
+                                       "org.slf4j/slf4j-nop" #:mvn{:version "1.7.25"},
                                        "org.clojure/clojure" #:mvn{:version "1.10.1"},
                                        "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}},
                             :deps {"workspace-clj" {:direct ["common" "file" "user-config" "util"], :indirect []},
@@ -2155,7 +2153,7 @@
                               :interface-deps {:src ["common" "file" "user-config" "util"],}
                               :lib-deps ["clojure" "clojure.tools.deps"]}],
                 :changes {:sha1 "HEAD",
-                          :git-command "git diff HEAD --name-only",
+                          :git-diff-command "git diff HEAD --name-only",
                           :changed-components ["path-finder" "workspace"],
                           :changed-bases [],
                           :changed-projects [],

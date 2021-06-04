@@ -32,13 +32,14 @@
       :no-git-root)))
 
 (defn git-info [ws-dir vcs tag-patterns branch]
-  (let [current-branch (or branch (git/current-branch))]
-    {:name                vcs
-     :polylith-repo       git/repo
-     :branch              current-branch
-     :git-root            (git-root)
-     :latest-polylith-sha (git/latest-polylith-sha current-branch)
-     :stable-since        (git/sha ws-dir "stable" tag-patterns)}))
+  (let [from-branch (or branch git/branch)]
+    {:name          vcs
+     :branch        (git/current-branch)
+     :git-root      (git-root)
+     :stable-since  (git/sha ws-dir "stable" tag-patterns)
+     :polylith      {:repo git/repo
+                     :branch from-branch
+                     :latest-sha (git/latest-polylith-sha from-branch)}}))
 
 (defn ws-local-dir
   "Returns the directory/path to the workspace if it lives

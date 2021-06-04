@@ -36,7 +36,7 @@
      (util/ordered-map :since since
                        :since-sha since-sha
                        :since-tag tag
-                       :git-command (git/diff-command since-sha nil)
+                       :git-diff-command (git/diff-command since-sha nil)
                        :changed-components changed-components
                        :changed-bases changed-bases
                        :changed-projects changed-projects
