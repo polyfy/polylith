@@ -10,8 +10,11 @@
 (defn init [ws-dir git-repo? branch]
   (core/init ws-dir git-repo? branch))
 
-(defn add [ws-dir filename]
-  (core/add ws-dir filename))
+(defn add
+  ([ws-dir filename]
+   (core/add ws-dir filename true))
+  ([ws-dir filename is-git-add]
+   (core/add ws-dir filename is-git-add)))
 
 (defn current-branch []
   (core/current-branch))

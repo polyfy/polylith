@@ -428,7 +428,8 @@
                            :projects {:projects {"poly" {:alias "poly"}
                                                  "core" {:alias "core"}}}
                            :interface-ns "interface",
-                           :vcs "git",
+                           :vcs {:name "git"
+                                 :auto-add false}
                            :thousand-separator ",",
                            :color-mode "none"},
                 :ws-reader {:name "polylith-clj",

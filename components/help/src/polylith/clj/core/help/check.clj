@@ -52,7 +52,7 @@
        "  " (color/error cm "Error 109") " - Missing libraries in project.\n"
        "    Triggered if a project doesn't contain a library that is used by one\n"
        "    of its bricks. Library usage for a brick is calculated using " (s/key ":ns-to-lib" cm) " in\n"
-       "    './deps.edn' for all its namespaces."
+       "    './deps.edn' for all its namespaces.\n"
        "\n"
        "  " (color/warning cm "Warning 201") " - Mismatching parameter lists in function or macro.\n"
        "    Triggered if a function or macro is defined in the interface for a component\n"

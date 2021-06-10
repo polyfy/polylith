@@ -35,14 +35,15 @@
  :user-home "/Users/joakimtengstrand",
  :vcs
  {:name "git",
-  :polylith-repo "https://github.com/polyfy/polylith.git",
-  :branch "master",
+  :branch "main",
   :git-root
-  "/Users/joakimtengstrand/source/polylith/example/output/example",
-  :latest-polylith-sha "002a6e1d8233711b7e08a1ee23d003a2c5cd18f9",
+  "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2021-06-10-070322.qEL68VxT/example",
+  :auto-add true,
   :stable-since
   {:tag "stable-lisa",
-   :sha "2cc5aaae5252b4a8e47cb9be47ca534169c30d1b"}},
- :version "0.2.0-alpha10.issue66.06",
+   :sha "dab330170abefe40e3a925eb1f31c8be7fd09bc4"},
+  :polylith
+  {:repo "https://github.com/polyfy/polylith.git", :branch "master"}},
+ :version "0.2.0-alpha10.issue66.10",
  :ws-schema-version {:breaking 0, :non-breaking 0},
  :ws-type :toolsdeps2}

@@ -97,7 +97,7 @@
          "  fi\n"
          "fi\n\n"
 
-         "exec \"$JAVA_CMD\" -jar \"$" project "_jar\" \"$@\"\n")))
+         "exec \"$JAVA_CMD\" $JVM_OPTS -jar \"$" project "_jar\" \"$@\"\n")))
 
 (defn get-sha-sum [file-path]
   (let [output (shell/sh "shasum" "-a" "256" file-path)]

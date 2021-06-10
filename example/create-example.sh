@@ -16,7 +16,7 @@ echo $ws
 cd $ws
 
 echo "### 1/21 Workspace ###"
-poly create w name:example top-ns:se.example
+poly create w name:example top-ns:se.example :git-add
 tree example > $output/workspace-tree.txt
 cd example
 
@@ -179,27 +179,27 @@ poly ws get:components:user color-mode:none > $output/ws-state-components-user.t
 poly ws get:components:user-remote:lib-deps color-mode:none > $output/ws-state-components-user-remote-lib-deps.txt
 poly ws get:old-user-input:args ws-file:ws.edn color-mode:none > $output/ws-state-ws-file.txt
 
-cd $output
-./output.sh > ./output.txt
+cd $example/../../clojure-polylith-realworld-example-app
 
-cd ../../../clojure-polylith-realworld-example-app
-
-echo "### 15/21  Realworld example app ###"
+echo "### 15/21 Realworld example app ###"
 poly info > $output/realworld/realworld-info.txt
-echo "### 16/21  Realworld example app ###"
+echo "### 16/21 Realworld example app ###"
 poly deps > $output/realworld/realworld-deps-interfaces.txt
-echo "### 17/21  Realworld example app ###"
+echo "### 17/21 Realworld example app ###"
 poly deps brick:article > $output/realworld/realworld-deps-interface.txt
-echo "### 18/21  Realworld example app ###"
+echo "### 18/21 Realworld example app ###"
 poly deps project:rb > $output/realworld/realworld-deps-components.txt
-echo "### 19/21  Realworld example app ###"
+echo "### 19/21 Realworld example app ###"
 poly deps project:rb brick:article > $output/realworld/realworld-deps-component.txt
-echo "### 20/21  Realworld example app ###"
+echo "### 20/21 Realworld example app ###"
 poly libs > $output/realworld/realworld-lib-deps.txt
-echo "### 21/21  Realworld example app ###"
+echo "### 21/21 Realworld example app ###"
 cp $example/realworld/workspace-compact.edn ./workspace.edn
 poly libs > $output/realworld/realworld-lib-deps-compact.txt
 cp $example/realworld/workspace.edn .
+
+cd $output
+./output.sh > ./output.txt
 
 echo $example
 echo $ws

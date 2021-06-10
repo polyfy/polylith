@@ -176,7 +176,7 @@ while [ "$1" != "" ] ; do
   shift
 done
 
-exec "/usr/bin/java" "-jar" "/usr/local/polylith/poly-0.1.0-alpha9.jar" $ARGS
+exec "/usr/bin/java" $JVM_OPTS "-jar" "/usr/local/polylith/poly-0.1.0-alpha9.jar" $ARGS
 ```
 - Make sure that:
   - you point to the correct jar file.
@@ -226,7 +226,7 @@ To install the `poly` command on Windows:
 - Create the file `poly.bat` with this content (make sure you point to the jar):
 ```sh
 @echo off
-start /wait /b java -jar "C:\Program Files\Polylith\poly-0.1.0-alpha9.jar" %*
+start /wait /b java %JAVA_OPTS% -jar "C:\Program Files\Polylith\poly-0.1.0-alpha9.jar" %*
 ```
 - Add `C:\Program Files\Polylith` to the Windows `PATH` variable.
 
@@ -275,6 +275,22 @@ clj -M:poly version
 
 We will soon create our first `workspace` but before that is done, only the `version` and `help` commands will work.
 
+### JVM options
+
+If we want to add extra memory to the `poly` command or maybe specify where the configuration file for the logging is stored,
+then we can set the `JVM_OPTS` environment variable to do that, because `JVM_OPTS` is also passed in when executing the
+`poly` command.
+
+If we use the tools.deps CLI to execute the `poly` command, e.g. `clojure -M:poly test`, we can configure the logging in the 
+`:poly` alias in `./deps.edn` for the project, e.g.:
+```
+{:aliases  {...
+            :poly {...
+                   :extra-deps {...
+                                org.apache.logging.log4j/log4j-api {:mvn/version "2.13.3"}
+                                org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}}}}
+```
+
 ### Add other Polylith artifacts as a dependency
 Similarly, you can use other artifacts from this repository, `clj-api` or `clj-poly-migrator` as dependencies. For example, in order to add `clj-api` as a dependency, add one of the following to your `:deps` section in your `deps.edn` file:
 
@@ -322,11 +338,6 @@ By giving `branch:BRANCH-NAME` the workspace can be created in a different branc
 poly create workspace name:example top-ns:se.example branch:master
 ``` 
 
-> Note: This will create a repository in the `main`The branch is only given if you work in a branch other than master 
-> (like "issue 66"). The branch is used by the tool to retrieve a correct SHA 
-> from the polylith repository in ./deps.edn for the key 
-> :aliases > :poly > :extra-deps > :sha.
-
 The workspace directory structure will end up like this:
 ```sh
 example            # workspace dir
@@ -363,11 +374,12 @@ A workspace is always initialized to use [git](https://git-scm.com/), but more o
 
 The `workspace.edn` file looks like this:
 ```clojure
-{:vcs "git"
- :top-namespace "se.example"
+{:top-namespace "se.example"
  :interface-ns "interface"
  :default-profile-name "default"
  :compact-views #{}
+ :vcs {:name "git"
+       :auto-add false}
  :tag-patterns {:stable "stable-*"
                 :release "v[0-9]*"}
  :projects {"development" {:alias "dev"}}}
@@ -390,12 +402,23 @@ The `workspace.edn` file looks like this:
 ```
 
 If all went well, the `poly` tool managed to set the latest sha for the `:poly` alias by taking it from the `master` branch
-in this repository. If it failed or if we want another sha, e.g. an earlier version or from another branch,
-we can find one [here](https://github.com/polyfy/polylith/commits/issue-66) or by executing this statement, e.g.:
+in this repository.
+Because this is the `issue-66` branch, we need to change that `sha` by either taking it from 
+[here](https://github.com/polyfy/polylith/commits/issue-66) or by executing this statement:
 
 ```
-poly ws get:settings:vcs:polylith branch:issue-66
+poly ws get:settings:vcs:polylith :latest-sha branch:issue-66
 ```
+The output will look something like this:
+```
+{:branch "issue-66",
+ :latest-sha "887e4237cec8f42eaa15be3501f134732602bb41",
+ :repo "https://github.com/polyfy/polylith.git"}
+```
+
+The `:latest-sha` argument will tell the tool to go out and find the latest SHA from the Polylith repo
+and populate the `:latest-sha` attribute, which would otherwise not be set.
+
 If you wonder how the `ws` command works or what all the settings are for, be patient, everything will soon be covered in detail.
 
 ### Existing git repository
@@ -438,10 +461,6 @@ To execute a command, we need to be at the root of the workspace, e.g.:
 cd my-workspace
 poly info
 ```
-
-We can even have more than one workspace per git repo, which could be an idea if the
-codebase consists of more than one programming language, or if we are migrating an 
-existing codebase to Polyith.
 
 ## Development
 
@@ -522,8 +541,17 @@ it means that we now have a working development environment!
 
 <img src="images/component.png">
 
-Now when we have a working development environment, let's continue and create our first component,
-by executing the [create component](doc/commands.md#create-component) command:
+Now when we have a working development environment, let's continue and create our first component.
+But before we do that, open `workspace.edn` in a text editor and set `:auto-add` to `true`:
+```
+...
+ :vcs {:name "git"
+       :auto-add true}
+...
+```
+This will ensure that the created files and directories from the `create` command are also added to git,
+which will come in handy in this example.
+Continue by executing the [create component](doc/commands.md#create-component) command:
 ```sh
 cd example
 poly create component name:user
@@ -1005,6 +1033,8 @@ Now add `user` and `cli` to `projects/command-line/deps.edn`:
  ...
 ```
 
+All keys must be unique, and a good pattern is to prefix them with `poly/` followed by 
+the brick name, e.g. `poly/user` or `poly/cli` as in this case.
 The reason all paths begin with "../../" is that `components` and `bases` live two levels up
 compared to `projects/command-line` and not at the root as with the `development` project.
 
@@ -1883,6 +1913,39 @@ and only `cli` is included for the `command-line` project.
 This can be useful when we don't want to run the same brick tests for all our projects,
 as a way to get a faster test suit.
 
+### How tests are executed
+
+Let's start with the development project. The main purpose of this project is to allow us to work with our
+code from an IDE using a single REPL. When doing that, the project must be set up in a way that
+it's 100% compatible with tool.deps and the IDE integration. This is also the reason we have to
+add the test paths explicitly in `./deps.edn` and often also the `src` and `resources` paths
+so that the IDE integration will work in all environments.
+
+The `./deps.edn` config file sets up all our paths and dependencies, 
+and when we include the `dev` and `test` aliases (and sometimes `profile` aliases, described in the next section) 
+we instruct tools.deps what source code and libraries should be accessible from our IDE and REPL.
+When this is set up correctly, we are also able to run our tests from the REPL,
+which will have access to all `test` and `src` code. Libraries that are defined in the `src` 
+context will therefore automatically be accessible when running the tests. Additional libraries that are
+only used from the tests should be defined in the `test` context.
+
+But we can also run tests using `poly test`, `clj -M:poly test`, or `clojure -M:poly test`.
+When we run the `test` command, the tool will detect what component, bases and projects that have been
+affected since the last stable point in time. Based on this information, it will go through all
+the affected projects, one at a time, and run the component, base and project tests that are included in each project.
+That set of tests will be executed in isolation from its own class loader
+which will speed up the test execution but also make it more reliable. Libraries from both the `src` and `test` context 
+(and libraries that they depend on) will be used when the tests are executed.
+The development project can also be used to run tests, but that's not its main purpose.
+
+The libraries to use in each project when running the `poly test` command is the sum of all library dependencies that are defined in all the 
+components and bases (either indirectly via `local/root` or directly by using `:deps`/`extra-deps`).
+If a library is defined more than once in the set of bricks and projects, then the latest version of 
+that library will be used, if not overridden by `:override-deps`.
+
+At the project level (except for the development project) we only need to define the libraries that are not defined in the included bricks,
+which can be libraries like clojure itself, `org.clojure/clojure`, that we don't want to repeat in all our bricks.
+
 ## Profile
 
 When working with a Polylith system, we want to keep everything as simple as possible
@@ -2456,8 +2519,8 @@ Libraries are specified in `deps.edn` in each component, base, and project:
 | Other projects | src   | `projects/PROJECT-DIR` > `deps.edn` > `:deps`
 |                | test  | `projects/PROJECT-DIR` > `deps.edn` > `:aliases` > `:test` > `:extra-deps`
 
-The tool parses each `deps.edn` file and looks for library dependencies, which are then used by the [libs](doc/commands.md#libs) 
-and [test](doc/commands.md#test) commands. 
+The `poly` tool parses each `deps.edn` file and looks for library dependencies, which are then used by the [libs](doc/commands.md#libs) 
+and [test](doc/commands.md#test) commands.
 
 To list all libraries used in the workspace, execute the [libs](doc/commands.md#libs) command:
 ```
@@ -2517,6 +2580,17 @@ If we now run the `libs` command:
 
 ...we will have two versions of `clj-time` where the `rb` project uses "0.15.1" 
 and the `user` component uses "0.15.2".
+
+Here are all the places where libraries can be overridden:
+| Entity         | Scope | Location |
+|:---------------|:------|:------------------------------------------------|
+| Dev project    | src   | `./deps.edn` > `:aliases` > `:dev` > `:override-deps`
+|                | test  | `./deps.edn` > `:aliases` > `:test` > `:override-deps`
+| Other projects | src   | `projects/PROJECT-DIR` > `deps.edn` > `:override-deps`
+|                | test  | `projects/PROJECT-DIR` > `deps.edn` > `:aliases` > `:test` > `:override-deps`
+
+If a library is overridden in the `src` scope it will also affect the `test` scope.
+If a library is overridden in the `test` scope it will only affect the `test` scope.
 
 #### Compact view
 
@@ -2636,37 +2710,43 @@ poly ws get:settings
 ```
 ```clojure
 {:active-profiles #{"default"},
- :color-mode "dark",
+ :color-mode "none",
  :compact-views #{},
  :default-profile-name "default",
- :empty-character "·",
+ :empty-character ".",
  :interface-ns "interface",
  :m2-dir "/Users/joakimtengstrand/.m2",
- :profile-to-settings {"default" {:base-names [],
-                                  :component-names ["user"],
-                                  :lib-deps {},
-                                  :paths ["components/user/src"
+ :profile-to-settings {"default" {:paths ["components/user/src"
                                           "components/user/resources"
                                           "components/user/test"],
+                                  :lib-deps {},
+                                  :component-names ["user"],
+                                  :base-names [],
                                   :project-names []},
-                       "remote" {:base-names [],
-                                 :component-names ["user-remote"],
-                                 :lib-deps {},
-                                 :paths ["components/user-remote/src"
+                       "remote" {:paths ["components/user-remote/src"
                                          "components/user-remote/resources"
                                          "components/user-remote/test"],
+                                 :lib-deps {},
+                                 :component-names ["user-remote"],
+                                 :base-names [],
                                  :project-names []}},
- :projects {"command-line" {:alias "cl"},
-            "development" {:alias "dev"},
+ :projects {"development" {:alias "dev"},
+            "command-line" {:alias "cl"},
             "user-service" {:alias "user-s"}},
- :release-tag-pattern "v[0-9]*",
- :stable-tag-pattern "stable-*",
- :thousand-sep ",",
+ :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
+ :thousand-separator ",",
  :top-namespace "se.example",
- :user-config-file "/Users/joakimtengstrand/.polylith/config.edn",
+ :user-config-filename "/Users/joakimtengstrand/.polylith/config.edn",
  :user-home "/Users/joakimtengstrand",
- :vcs "git",
- :version "0.2.0-alpha10",
+ :vcs {:name "git",
+       :branch "main",
+       :git-root "/private/...",
+       :auto-add true,
+       :stable-since {:tag "stable-lisa",
+                      :sha "5091f18cfb182545be87e079e872205c3fb049d2"},
+       :polylith {:repo "https://github.com/polyfy/polylith.git", 
+                  :branch "master"}},
+ :version "0.2.0-alpha10.issue66.09",
  :ws-schema-version {:breaking 0, :non-breaking 0},
  :ws-type :toolsdeps2}
 ```

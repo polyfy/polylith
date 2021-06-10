@@ -5,8 +5,8 @@
 
 (defn ns-deps-recursively
   "This is the core calculation of the dependencies for a specific namespace
-   living in a brick for a specific project. The ns->namespaces is a bit missleading
-   because it not contains namespaces pointing to other namespaces, but also
+   living in a brick for a specific project. The ns->namespaces is a bit misleading
+   because it not only contains namespaces pointing to other namespaces, but also
    component interfaces and base (IB) names, pointing to both namespaces and other
    IB names."
   [current-ns ns->namespaces brick-paths visited path]

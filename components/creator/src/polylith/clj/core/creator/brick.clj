@@ -6,12 +6,13 @@
 (def create-brick-message
   (str "  Remember to add paths and/or local/root dependency to dev and project 'deps.edn' files."))
 
-(defn create-config-file [ws-dir bricks-dir brick-name]
+(defn create-config-file [ws-dir bricks-dir brick-name is-git-add]
   (let [config-filename (str ws-dir "/" bricks-dir "/" brick-name "/deps.edn")]
     (file/create-file config-filename [(str "{:paths [\"src\" \"resources\"]")
                                        (str " :deps {}")
                                        (str " :aliases {:test {:extra-paths [\"test\"]")
-                                       (str "                  :extra-deps {}}}}")])))
+                                       (str "                  :extra-deps {}}}}")])
+    (git/add ws-dir config-filename is-git-add)))
 
 (defn create-brick [workspace brick-name create-fn]
   (if (common/find-brick brick-name workspace)
@@ -20,20 +21,20 @@
       (create-fn)
       (println create-brick-message))))
 
-(defn create-resources-dir [ws-dir bricks-dir brick-name]
+(defn create-resources-dir [ws-dir bricks-dir brick-name is-git-add]
   (let [keep-file (str ws-dir "/" bricks-dir "/" brick-name "/resources/" brick-name "/.keep")]
     (file/create-missing-dirs keep-file)
     (file/create-file keep-file [""])
-    (git/add ws-dir keep-file)))
+    (git/add ws-dir keep-file is-git-add)))
 
-(defn create-src-ns [ws-dir top-namespace bricks-dir namespace interface-name]
+(defn create-src-ns [ws-dir top-namespace bricks-dir namespace interface-name is-git-add]
   (let [top-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
         ns-file (str bricks-dir "/src/" top-dir (common/ns-to-path interface-name) "/" namespace ".clj")]
     (file/create-missing-dirs ns-file)
     (file/create-file ns-file [(str "(ns " top-namespace "." interface-name "." namespace ")")])
-    (git/add ws-dir ns-file)))
+    (git/add ws-dir ns-file is-git-add)))
 
-(defn create-test-ns [ws-dir top-namespace bricks-dir namespace entity-name alias]
+(defn create-test-ns [ws-dir top-namespace bricks-dir namespace entity-name alias is-git-add]
   (let [top-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
         ns-file (str bricks-dir "/test/" top-dir (common/ns-to-path entity-name) "/" namespace "_test.clj")]
     (file/create-missing-dirs ns-file)
@@ -43,4 +44,4 @@
                                ""
                                (str "(deftest dummy-test")
                                (str "  (is (= 1 1)))")])
-    (git/add ws-dir ns-file)))
+    (git/add ws-dir ns-file is-git-add)))

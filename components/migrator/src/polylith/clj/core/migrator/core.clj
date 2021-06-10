@@ -56,11 +56,12 @@
 (defn workspace-content [top-ns system-names]
   (concat
     [(str "")
-     (str "{:polylith {:vcs \"git\"")
-     (str "            :top-namespace \"" top-ns "\"")
+     (str "{:polylith {:top-namespace \"" top-ns "\"")
      (str "            :interface-ns \"interface\"")
      (str "            :default-profile-name \"default\"")
      (str "            :compact-views #{}")
+     (str "            :vcs {:name \"git\"")
+     (str "                  :auto-add false}")
      (str "            :tag-patterns {:stable \"stable-*\"")
      (str "                           :release \"v[0-9]*\"}")]
     (project-configs system-names)

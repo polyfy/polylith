@@ -1,5 +1,5 @@
 (ns polylith.clj.core.lib.core
-  (:require [polylith.clj.core.deps.interface :as deps]
+  (:require [polylith.clj.core.lib.maven-dep :as maven-dep]
             [polylith.clj.core.lib.git-size :as git-size]
             [polylith.clj.core.lib.mvn-size :as mvn-size]
             [polylith.clj.core.lib.ns-to-lib :as ns-to-lib]
@@ -15,7 +15,7 @@
 (defn latest-lib-version [result [k v2]]
   (if (:mvn/version v2)
     (let [v1 (result k v2)
-          v (deps/latest-maven-lib-version v1 v2)]
+          v (maven-dep/latest v1 v2)]
       (assoc result k v))
     (assoc result k v2)))
 
@@ -31,7 +31,6 @@
 
 (defn brick-lib-deps [ws-type config top-namespace ns-to-lib namespaces user-home]
   (let [src (lib-deps ws-type config top-namespace ns-to-lib (:src namespaces) user-home [:deps])
-        ;; todo: handle leiningen1 correctly.
         test (lib-deps ws-type config top-namespace ns-to-lib (:test namespaces) user-home [:aliases :test :extra-deps])]
     (cond-> {}
             (seq src) (assoc :src src)

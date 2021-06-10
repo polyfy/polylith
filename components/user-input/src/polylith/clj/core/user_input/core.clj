@@ -39,6 +39,8 @@
                 all!
                 all-bricks!
                 brick!
+                git-add!
+                latest-sha!
                 workspace!
                 dev!
                 project!
@@ -57,9 +59,11 @@
                       :is-search-for-ws-dir (contains? (set args) "::")
                       :is-all (= "true" all!)
                       :is-dev (= "true" dev!)
+                      :is-git-add (when git-add! (= "true" git-add!))
                       :is-no-exit (= "true" no-exit!)
-                      :is-show-brick brick!
-                      :is-show-workspace workspace!
+                      :is-latest-sha (= "true" latest-sha!)
+                      :is-show-brick (= "true" brick!)
+                      :is-show-workspace (= "true" workspace!)
                       :is-show-project (= "true" project!)
                       :is-show-loc (= "true" loc!)
                       :is-run-all-brick-tests (or (= "true" all!)

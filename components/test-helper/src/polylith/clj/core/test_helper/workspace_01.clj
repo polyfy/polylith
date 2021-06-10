@@ -99,7 +99,8 @@
                 :settings {:version "0.2.0-alpha10.issue66.03",
                            :ws-type :toolsdeps2,
                            :ws-schema-version {:breaking 0, :non-breaking 0},
-                           :vcs "git",
+                           :vcs {:name "git"
+                                 :auto-add true},
                            :top-namespace "se.example",
                            :interface-ns "interface",
                            :default-profile-name "default",

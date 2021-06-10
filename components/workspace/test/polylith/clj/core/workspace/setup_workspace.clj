@@ -14,7 +14,7 @@
                      result))))
 
 (defn execute-commands [commands]
-  (helper/execute-command "" "create" "w" "name:ws03" "top-ns:se.example")
+  (helper/execute-command "" "create" "w" "name:ws03" "top-ns:se.example" ":git-add")
   (helper/execute-command "ws03" "create" "c" "name:database1" "interface:database")
   (helper/execute-command "ws03" "create" "c" "name:test-helper1" "interface:test-helper")
   (helper/execute-command "ws03" "create" "c" "name:admin" "interface:user")
@@ -87,16 +87,15 @@
                              "                                 \"components/util1/test\"]}}}"])
         ;; workspace.edn
         _ (file/create-file (str ws-dir "/workspace.edn")
-                            ["{:vcs \"git\""
-                             " :top-namespace \"se.example\""
+                            ["{:top-namespace \"se.example\""
                              " :interface-ns \"interface\""
                              " :default-profile-name \"default\""
                              " :compact-views #{}"
+                             " :vcs {:name \"git\""
+                             "       :auto-add true}"
                              " :tag-patterns {:stable \"stable-*\""
                              "                :release \"v[0-9]*\"}"
                              " :projects {\"development\" {:alias \"dev\"}"
                              "            \"service\" {:alias \"s\"}}}"])]
 
     (mapv execute-command commands)))
-
-

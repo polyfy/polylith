@@ -1,6 +1,5 @@
 (ns polylith.clj.core.deps.lib-deps
-  (:require [clojure.tools.deps.alpha :as tools-deps]
-            [polylith.clj.core.common.interface :as common]))
+  (:require [clojure.tools.deps.alpha :as tools-deps]))
 
 (defn adjust-key [{:keys [type path version git/url sha exclusions]}]
   (case type
@@ -21,8 +20,8 @@
   "Convert back to tools.deps format."
   [workspace {:keys [lib-deps maven-repos]}]
   (assoc workspace :mvn/repos maven-repos
-                   :deps (into {} (map key-as-symbol (merge (:test lib-deps)
-                                                            (:src lib-deps))))))
+                   :deps (into {} (map key-as-symbol (merge (:src lib-deps)
+                                                            (:test lib-deps))))))
 
 (defn resolve-deps [workspace project]
   "Resolves what library versions that are used by the given project."

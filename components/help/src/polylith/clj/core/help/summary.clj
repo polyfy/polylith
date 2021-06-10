@@ -120,6 +120,8 @@
     "    poly ws get:components:keys\n"
     "    poly ws get:components:count\n"
     "    poly ws get:components:mycomp:lines-of-code\n"
+    "    poly ws get:settings:vcs:polylith :latest-sha\n"
+    "    poly ws get:settings:vcs:polylith :latest-sha branch:master\n"
     "    poly ws get:changes:changed-or-affected-projects skip:dev\n"
     "    poly ws out:ws.edn"))
 

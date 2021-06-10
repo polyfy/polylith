@@ -106,15 +106,15 @@
           "  ----------------------------------------------------------------------------------------"
           "  api            .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  x  x  x"
           "  change         .  .  .  .  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  x  .  .  .  .  ."
-          "  command        .  x  .  x  x  .  x  x  x  x  x  .  .  .  .  x  .  .  .  x  x  x  x  x  x"
+          "  command        .  x  .  x  x  .  x  x  x  x  x  .  .  .  .  x  .  x  .  x  x  x  x  x  x"
           "  common         .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  ."
-          "  creator        .  .  .  x  .  .  .  x  x  .  .  .  .  .  t  .  .  x  .  x  .  .  .  .  ."
+          "  creator        .  .  .  x  .  .  .  x  x  .  .  .  .  .  t  .  .  .  .  x  .  .  .  .  ."
           "  deployer       x  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  .  .  .  x  .  .  ."
           "  deps           .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  x  .  .  .  .  ."
           "  file           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
           "  git            .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  ."
           "  help           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  ."
-          "  lib            .  .  .  x  .  .  x  x  .  .  .  .  .  .  t  .  x  x  .  x  .  .  .  .  ."
+          "  lib            .  .  .  x  .  .  .  x  .  .  .  .  .  .  t  .  x  x  .  x  .  .  .  .  ."
           "  migrator       .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
           "  path-finder    .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
           "  shell          .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
@@ -153,14 +153,14 @@
             "  brick          e  d  n  r  s  e  t  p  b  r  l  r  r  e  g  t  l  r  n  e  j  r"
             "  -------------------------------------------------------------------------------"
             "  change         .  .  .  .  .  +  x  .  .  x  +  .  .  .  .  .  x  .  .  .  .  ."
-            "  command        x  .  x  x  x  x  x  x  x  +  +  .  x  +  +  .  x  x  x  x  x  x"
+            "  command        x  .  x  x  x  x  x  x  x  +  +  .  x  +  x  .  x  x  x  x  x  x"
             "  common         .  .  .  .  .  x  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  ."
-            "  creator        -  -  x  -  -  x  x  -  -  -  +  t  -  -  x  -  x  -  -  -  -  -"
+            "  creator        -  -  x  -  -  x  x  -  -  -  +  t  -  -  +  -  x  -  -  -  -  -"
             "  deps           .  .  x  .  .  +  .  .  .  .  .  .  .  x  +  .  x  .  .  .  .  ."
             "  file           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  git            .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  ."
             "  help           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  ."
-            "  lib            -  -  x  -  x  x  -  -  -  -  -  t  -  x  x  -  x  -  -  -  -  -"
+            "  lib            -  -  x  -  -  x  -  -  -  -  -  t  -  x  x  -  x  -  -  -  -  -"
             "  path-finder    .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
             "  shell          .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  test-helper    +  x  +  +  +  x  +  +  +  +  +  .  +  +  x  x  +  +  +  +  +  +"
@@ -230,6 +230,7 @@
                                              "help"
                                              "lib"
                                              "test-runner"
+                                             "user-config"
                                              "util"
                                              "validator"
                                              "version"
@@ -238,8 +239,7 @@
                                              "ws-explorer"]
                                   :indirect ["path-finder"
                                              "shell"
-                                             "text-table"
-                                             "user-config"]}
+                                             "text-table"]}
                            :test {:direct   ["change"
                                              "common"
                                              "creator"
@@ -249,6 +249,7 @@
                                              "help"
                                              "lib"
                                              "test-runner"
+                                             "user-config"
                                              "util"
                                              "validator"
                                              "version"
@@ -257,8 +258,7 @@
                                              "ws-explorer"]
                                   :indirect ["path-finder"
                                              "shell"
-                                             "text-table"
-                                             "user-config"]}}
+                                             "text-table"]}}
           "common"        {:src  {:direct ["file"
                                            "user-config"
                                            "util"]}
@@ -266,14 +266,13 @@
           "creator"       {:src  {:direct   ["common"
                                              "file"
                                              "git"
-                                             "user-config"
                                              "util"]
-                                  :indirect ["shell"]}
+                                  :indirect ["shell"
+                                             "user-config"]}
                            :test {:direct   ["common"
                                              "file"
                                              "git"
                                              "test-helper"
-                                             "user-config"
                                              "util"]
                                   :indirect ["change"
                                              "command"
@@ -285,6 +284,7 @@
                                              "shell"
                                              "test-runner"
                                              "text-table"
+                                             "user-config"
                                              "user-input"
                                              "validator"
                                              "version"
@@ -311,13 +311,11 @@
                                            "version"]}
                            :test {}}
           "lib"           {:src  {:direct ["common"
-                                           "deps"
                                            "file"
                                            "text-table"
                                            "user-config"
                                            "util"]}
                            :test {:direct   ["common"
-                                             "deps"
                                              "file"
                                              "test-helper"
                                              "text-table"
@@ -326,6 +324,7 @@
                                   :indirect ["change"
                                              "command"
                                              "creator"
+                                             "deps"
                                              "git"
                                              "help"
                                              "lib"

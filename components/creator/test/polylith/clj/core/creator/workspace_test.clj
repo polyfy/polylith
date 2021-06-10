@@ -81,14 +81,15 @@
             (str "                                 :deps/root \"projects/poly\"}}}}}")]
            (helper/content "ws1" "deps.edn")))
 
-    (is (= [(str "{:vcs \"git\"")
-            (str " :top-namespace \"se.example\"")
-            (str " :interface-ns \"interface\"")
-            (str " :default-profile-name \"default\"")
-            (str " :compact-views #{}")
-            (str " :tag-patterns {:stable \"stable-*\"")
-            (str "                :release \"v[0-9]*\"}")
-            (str " :projects {\"development\" {:alias \"dev\"}}}")]
+    (is (= ["{:top-namespace \"se.example\""
+            " :interface-ns \"interface\""
+            " :default-profile-name \"default\""
+            " :compact-views #{}"
+            " :vcs {:name \"git\""
+            "       :auto-add false}"
+            " :tag-patterns {:stable \"stable-*\""
+            "                :release \"v[0-9]*\"}"
+            " :projects {\"development\" {:alias \"dev\"}}}"]
            (helper/content "ws1" "workspace.edn")))
 
     (is (= ["{:color-mode \"dark\""

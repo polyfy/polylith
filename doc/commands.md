@@ -53,20 +53,22 @@ poly help
   can be executed with this parameter set. The FILE is created by executing the
   'ws' command, e.g.: 'poly ws out:ws.edn'.
 
-  If since:SINCE is passed in as an argument, the last stable point in time
-  will be used depending on the value of SINCE (or the first commit if no match
-  was found):
-    SHA             -> a git SHA-1 hash.
-    stable          -> the latest tag that matches stable-*, defined by
-                       :stable-tag-pattern in ./deps.edn.
-    build           -> the latest tag that matches v[0-9]*, defined by
-                       :release-tag-pattern in ./deps.edn.
-    previous-build  -> the latest tag that matches v[0-9]*,
-                       defined by :release-tag-pattern in ./deps.edn.
+  If skip:PROJECTS is passed in, then the given project(s) will not be read from disk.
+  Both project names and aliases can be used.
 
-  The color mode can be overridden by passing in e.g. color-mode:none
-  (valid values are: none, light, dark) which is otherwise configured in
-  ~/.polylith/config.edn.
+  If since:SINCE is passed in as an argument, the last stable point in time will be
+  used depending on the value of SINCE (or the first commit if no match was found).
+  If prefixed with 'previous-', e.g. 'previous-release', then the SHA directly before
+  the most recent matching tag of the 'release' pattern will be used:
+    stable  -> the latest tag that matches stable-*, defined by
+               :tag-patterns > :stable in workspace.edn.
+    release -> the latest tag that matches v[0-9]*, defined by
+               :tag-patterns > :release in workspace.edn.
+    KEY     -> any key in :tag-patterns.
+    SHA     -> a git SHA-1 hash (if no key was found in :tag-patterns).
+
+  The color mode is taken from ~/.polylith/config.edn but can be overridden by passing
+  in color-mode:COLOR where valid colors are none, light, and dark.
 
   Example:
     poly check
@@ -75,7 +77,9 @@ poly help
     poly create component name:admin interface:user
     poly create base name:mybase
     poly create project name:myproject
+    poly create w top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company
+    poly create workspace name:myws top-ns:com.my.company branch:master
     poly deps
     poly deps project:myproject
     poly deps brick:mybrick
@@ -84,7 +88,6 @@ poly help
     poly help
     poly help info
     poly help create
-    poly help create c
     poly help create component
     poly help create base
     poly help create project
@@ -101,6 +104,8 @@ poly help
     poly info since:stable
     poly info since:release
     poly info since:previous-release
+    poly info skip:dev
+    poly info skip:dev:myproject
     poly info project:myproject
     poly info project:myproject:another-project
     poly info :project
@@ -118,7 +123,7 @@ poly help
     poly test :all-bricks
     poly test :all
     poly test project:proj1
-    poly test project:proj1:proj2 :project
+    poly test project:proj1:proj2
     poly test :dev
     poly test :project :dev
     poly test :all-bricks :dev
@@ -133,7 +138,10 @@ poly help
     poly ws get:settings:keys
     poly ws get:components:keys
     poly ws get:components:count
-    poly ws get:components:mycomp:lines-of-code-src
+    poly ws get:components:mycomp:lines-of-code
+    poly ws get:settings:vcs:polylith :latest-sha
+    poly ws get:settings:vcs:polylith :latest-sha branch:master
+    poly ws get:changes:changed-or-affected-projects skip:dev
     poly ws out:ws.edn
 ```
 
@@ -144,12 +152,12 @@ poly help
   poly check
 
   Prints 'OK' and returns 0 if no errors were found.
-  If errors or warnings were found, show messages and return the error code, 
+  If errors or warnings were found, show messages and return the error code,
   or 0 if only warnings. If internal errors, 1 is returned.
 
   Error 101 - Illegal dependency on namespace.
-    Triggered if a :require statement refers to a component namespace other
-    than interface. Examples of valid namespaces:
+    Triggered if a :require statement refers to a component namespace
+    other than interface. Examples of valid namespaces:
      - com.my.company.mycomponent.interface
      - com.my.company.mycomponent.interface.subns
      - com.my.company.mycomponent.interface.my.subns
@@ -170,7 +178,7 @@ poly help
     Projects and profiles can be given any name.
 
   Error 106 - Multiple components that share the same interfaces in a project.
-    Triggered if a project contains more than one component that shares the 
+    Triggered if a project contains more than one component that shares the
     same interface.
 
   Error 107 - Missing components in project.
@@ -178,9 +186,9 @@ poly help
     project. The solution is to add a component to the project that
     implements the interface.
 
-  Error 108 - Components with an interface that is implemented by more than one 
+  Error 108 - Components with an interface that is implemented by more than one
               component are not allowed for the development project.
-    The solution is to remove the component from the development project 
+    The solution is to remove the component from the development project
     and define the paths for each component in separate profiles
     (including test paths).
 
@@ -200,19 +208,13 @@ poly help
 
   Warning 203 - Path exists in both dev and profile.
     It's discouraged to have the same path in both the development project
-    and a profile. The solution is to remove the path from dev or the profile. 
+    and a profile. The solution is to remove the path from dev or the profile.
 
   Warning 204 - Library exists in both dev and a profile.
     It's discouraged to have the same library in both development and a profile.
     The solution is to remove the library from dev or the profile.
 
-  Warning 205 - Reference to missing library in :ns-to-lib in ./deps.edn.
-    Libraries defined in :ns-to-lib should also be defined by the project.
-
-  Warning 206 - Reference to missing namespace in :ns-to-lib in ./deps.edn.
-    Namespaces defined in :ns-to-lib should also be defined by the project.
-
-  Warning 207 - Non top namespace was found in brick.
+  Warning 205 - Non top namespace was found in brick.
     Triggered if a namespace in a brick doesn't start with the top namespaces
     defined in :top-namespace in ./deps.edn.
 ```
@@ -237,6 +239,8 @@ poly help
     poly create base name:mybase
     poly create project name:myproject
     poly create workspace name:myws top-ns:com.my.company
+    poly create workspace name:myws top-ns:com.my.company branch:master
+
 ```
 
 #### create component
@@ -290,6 +294,7 @@ poly help
   Example:
     poly create w name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company
+    poly create workspace name:myws top-ns:com.my.company branch:master
 ```
 
 ### deps
@@ -297,43 +302,21 @@ poly help
   Shows dependencies.
 
   poly deps [project:PROJECT] [brick:BRICK]
-    (omitted) = Show dependencies for all bricks.
+    (omitted) = Show workspace dependencies.
     PROJECT   = Show dependencies for specified project.
     BRICK     = Show dependencies for specified brick.
 
-  To get help for a specific diagram, type: 
+  To get help for a specific diagram, type:
     poly help deps ARGS:
-      ARGS = :project         Help for the project diagram.
-             :brick           Help for the brick diagram.
-             :bricks          Help for the bricks diagram.
+      ARGS = :brick           Help for the brick diagram.
+             :project         Help for the project diagram.
+             :workspace       Help for the workspace diagram.
              :project :brick  Help for the project/brick diagram.
   Example:
     poly deps
     poly deps project:myproject
     poly deps brick:mybrick
     poly deps project:myproject brick:mybrick
-```
-
-#### deps :bricks
-```
-  Shows all brick dependencies.
-
-  poly deps
-
-         p      
-         a  u  u
-         y  s  t
-         e  e  i
-  brick  r  r  l
-  --------------
-  payer  ·  x  x
-  user   ·  ·  x
-  util   ·  ·  ·
-  cli    x  ·  ·
-
-  In this example, payer uses user and util, user uses util,
-  and cli uses payer. Each usage comes from at least one :require
-  statement in the brick.
 ```
 
 #### deps :brick
@@ -357,29 +340,55 @@ poly help
 ```
   Shows dependencies for selected project.
 
-  poly deps project:PROJECT
+  poly deps project:PROJEXT
     PROJECT = The project name or alias to show dependencies for.
 
-         p      
+         p
          a  u  u
          y  s  t
          e  e  i
   brick  r  r  l
   --------------
-  payer  ·  x  x
-  user   ·  ·  x
-  util   ·  ·  ·
+  payer  .  x  t
+  user   .  .  x
+  util   .  .  .
   cli    x  +  +
 
   When the project is known, we also know which components are used.
 
-  In this example, payer uses user and util, user uses util, and cli uses payer.
-  The + signs mark indirect dependencies. Here the cli base depends on user and
-  util, via 'cli > payer > user' and 'cli > payer > util'. Each usage comes from
-  at least one :require statement in the brick. 
+  In this example, payer uses user in the src context, and util only
+  in the test context. user uses util, and cli uses payer. The 't'
+  means that payer is only used in the test context by user. The +
+  signs mark indirect dependencies, while - signs (not present here)
+  mark indirect dependencies in the test context. Here the cli base
+  depends on user and util, via 'cli > payer > user' and
+  'cli > payer > util'. Each usage comes from at least one :require
+  statement in the brick.
 
   Example:
     poly deps project:myproject
+```
+
+#### deps :workspace
+```
+  Shows dependencies for the workspace.
+
+  poly deps
+
+         p
+         a  u  u
+         y  s  t
+         e  e  i
+  brick  r  r  l
+  --------------
+  payer  .  x  t
+  user   .  .  x
+  util   .  .  .
+  cli    x  .  .
+
+  In this example, payer uses user from the src context, and util from
+  the test context (indicated by 't'). user uses util and cli uses payer.
+  Each usage comes from at least one :require statement in the brick.
 ```
 
 #### deps :project :brick
@@ -395,6 +404,8 @@ poly help
   payer                util
 
   In this example, user is used by payer and it uses util itself.
+  If a brick ends with '(t)' then it indicatest that it's only used
+  from the test context.
 
   Example:
     poly deps project:myproject brick:mybrick
@@ -413,10 +424,11 @@ poly help
   Stable points are normally set by the CI server or by individual developers,
   e.g. Lisa, with 'git tag -f stable-lisa'.
 
-  The pattern can be changed in :stable-tag-pattern in ./deps.edn.
+  The pattern can be changed in :tag-patterns in workspace.edn.
 
-  The way the latest tag is found is by taking the last line of the output from:
-    git tag --sort=committerdate -l 'stable-*'
+  The way the latest tag is found is by taking the first line that matches the 'stable-*'
+  regular expression, or if no match was found, the first commit in the repository.
+    git log --pretty=format:'%H %d'
 
   Here is a compact way of listing all the commits including tags:
     git log --pretty=oneline
@@ -440,10 +452,10 @@ poly help
 
     active profiles: default
 
-    project       alias  source   default  admin
-    ---------------------------   --------------
-    command-line  cl      ---       --      --
-    development   dev     x--       --      --
+    project       alias  status   dev  admin
+    ---------------------------   ----------
+    command-line  cl      ---     ---   --
+    development   dev     x--     x--   --
 
     interface  brick    cl    dev  admin
     -----------------   ---   ----------
@@ -457,7 +469,7 @@ poly help
 
   1. stable since: dec73ec | stable-lisa
 
-     Shows the most recent commit marked as stable, or the last release if 
+     Shows the most recent commit marked as stable, or the last release if
      since:release or since:previous-release was given, or the first commit
      in the repository if no tag was found, followed by the tag (if found).
      More information can be found in the 'diff' command help.
@@ -482,10 +494,10 @@ poly help
      the development project, type:
        poly info +
 
-  4. project       alias  source   default  admin
-     ---------------------------   --------------
-     command-line  cl      ---       --      --
-     development   dev     x--       --      --
+  4. project       alias  status   dev  admin
+     ---------------------------   ----------
+     command-line  cl      ---     ---   --
+     development   dev     x--     x--   --
 
     This table lists all projects. The 'project' column shows the name
     of the projects, which are the directory names under the 'projects',
@@ -495,9 +507,9 @@ poly help
     The 'deps.edn' config files are stored under each project, except for
     the development project that stores it at the workspace root.
 
-    Aliases are configured in :project-to-alias in ./deps.edn.
+    Aliases are configured in :projects in ./workspace.edn.
 
-    The 'source' column has three x/- flags with different meaning:
+    The 'status' column has three x/- flags with different meaning:
       x--  The project has a 'src' directory, e.g.
            'projects/command-line/src'.
       -x-  The project has a 'test' directory, e.g.
@@ -505,7 +517,8 @@ poly help
       --x  The project tests (its own) are marked for execution.
 
     To show the 'resources' directory, also pass in :r or :resources, e.g.
-    'poly info :r':      x---  The project has a 'src' directory, e.g.
+    'poly info :r':
+      x---  The project has a 'src' directory, e.g.
             'projects/command-line/src'.
       -x--  The project has a 'resources' directory, e.g.
             'projects/command-line/resources'.
@@ -513,7 +526,16 @@ poly help
             'projects/command-line/test'
       ---x  The project tests (its own) are marked for execution.
 
-    The last two columns, default admin, are the profiles:
+    The dev column has three x/- flags with different meaning:
+      x--  The project's 'src' directory, e.g.
+           'projects/command-line/src' is added to './deps.edn'
+           (or indirectly added as :local/root).
+      -x-  The project's 'test' directory, e.g.
+           'projects/command-line/test' is added to './deps.edn'
+           (or indirectly added as :local/root).
+      --x  The project tests are marked for execution from development.
+
+    The last admin column, is a profile:
       x-  The profile contains a path to the 'src' directory, e.g.
           'projects/command-line/src'.
       -x  The profile contains a path to the 'test' directory, e.g.
@@ -539,7 +561,7 @@ poly help
     added to.
 
     The 'interface' column shows what interface the component has. The name
-    is the first namespace after the component name, e.g.:
+    is the first namespace after the top namespace, e.g.:
     com.my.company.user.interface
 
     The 'brick' column shows the name of the brick, in green if a component or
@@ -555,18 +577,18 @@ poly help
     included in the project or not.
     The flags mean:
       x--  The project contains a path to the 'src' directory, e.g.
-           'components/user/src'.
+           'components/user/src' (or is indirectly added by a :local/root).
       -x-  The project contains a path to the 'test' directory, e.g.
-           'components/user/test'.
+           'components/user/test' (or is indirectly added by a :local/root).
       --x  The brick is marked to be executed from this project.
 
     If :r or :resources is also passed in:
-      x---  The project contains a path to the 'src' directory, e.g. 
-            'components/user/src'.
+      x---  The project contains a path to the 'src' directory, e.g.
+            'components/user/src' (or is indirectly added by a :local/root).
       -x--  The project contains a path to the 'resources' directory, e.g.
-            'components/user/resources'.
+            'components/user/resources' (or is indirectly added by a :local/root).
       --x-  The project contains a path to the 'test' directory, e.g.
-            'components/user/test'.
+            'components/user/test' (or is indirectly added by a :local/root).
       ---x  The brick is marked to be executed from this project.
 
     The next group of columns, dev admin, is the development project with
@@ -579,14 +601,6 @@ poly help
           'components/user/src'.
       -x  The profile contains a path to the 'test' directory, e.g.
           'components/user/test'
-
-    If :r or :resources is also passed in:
-      x--  The profile contains a path to the 'src' directory, e.g.
-           'components/user/src'.
-      -x-  The profile contains a path to the 'resources' directory, e.g.
-           'components/user/resources'.
-      --x  The profile contains a path to the 'test' directory, e.g.
-           'components/user/test'.
 
   It's not enough that a path has been added to a project to show an 'x',
   the file or directory must also exist.
@@ -616,36 +630,42 @@ poly help
 
   poly libs [:all]
     :all = View all bricks, including those without library dependencies.
-                                                                              u  u
-                                                                              s  t
-                                                                              e  i
-    library                       version     KB   cl   dev  default  admin   r  l
-    --------------------------------------------   --   -------------------   ----
-    antlr/antlr                   2.7.7      434   x-   x-      -       -     ·  x
-    clj-time                      0.15.2      23   x-   x-      -       -     x  ·
-    org.clojure/clojure           1.10.1   3,816   x-   x-      -       -     ·  ·
-    org.clojure/tools.deps.alpha  0.8.695     46   x-   x-      -       -     ·  ·
+                                                                                     u  u
+                                                                                     s  t
+                                                                                     e  i
+    library                       version  type      KB   cl   dev  default  admin   r  l
+    ---------------------------------------------------   --   -------------------   ----
+    antlr/antlr                   2.7.7    maven    434   x-   x-      -       -     .  x
+    clj-time                      0.15.2   maven     23   x-   x-      -       -     x  .
+    org.clojure/clojure           1.10.1   maven  3,816   x-   x-      -       -     .  .
+    org.clojure/tools.deps.alpha  0.8.695  maven     46   x-   x-      -       -     .  .
 
   In this example we have four libraries used by the cl and dev projects.
   If any of the libraries are added to the default or admin profiles, they will appear
-  as an x in these columns.
+  as an x in these columns. Remember that src and test sources live together in a profile,
+  which is fine because they are only used from the development project, which is the
+  reason they have only one -/x.
 
   The x in x- for the cl and dev columns says that the library is part of the src scope.
-  The - in x- says that the library isn't included for the test scope. A library can either
-  be specified directly by the project itself via ':aliases > :test > :extra-deps' or
-  indirectly via included bricks in ':deps > :local/root'.
+  The - in x- says that the library isn't included for the test scope. A library used in the
+  test scope, can either be specified directly by the project itself via
+  :aliases > :test > :extra-deps or indirectly via included bricks in :deps > :local/root
+  which will be picked up and used by the 'test' command.
 
   The x in the user column, tells that clj-time is used by that component
   by having it specified in its 'deps.edn' file as a src dependency.
+  If a dependency is only used from the test scope, then it will turn up as a t.
 
   Libraries can also be selected per project and it's therefore possible to have
   different versions of the same library in different projects (if needed).
+  Use the :override-deps key in the project's 'deps.edn' file to explicitly set
+  a version for one or several libraries in a project.
 
-  This table supports all three different ways of including a dependency:
-   - Maven, e.g.: clj-time/clj-time {:mvn/version "0.15.2"}
-   - Local, e.g.: clj-time {:local/root "/local-libs/clj-time-0.15.2.jar"}
-   - Git, e.g.: {:git/url "https://github.com/clj-time/clj-time.git"
-                 :sha     "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}
+  The 'type' column says in what way the dependency is included:
+   - maven, e.g.: clj-time/clj-time {:mvn/version "0.15.2"}
+   - local, e.g.: clj-time {:local/root "/local-libs/clj-time-0.15.2.jar"}
+   - git,   e.g.: clj-time/clj-time {:git/url "https://github.com/clj-time/clj-time.git"
+                                     :sha     "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}
 
   The KB column shows the size in kilobytes, which is the size of the jar
   file for Maven and Local dependencies, and the size of all files in the
@@ -691,7 +711,7 @@ poly help
                     (development included) + all project tests
                     (development included).
 
-  projects can also be explicitly selected with e.g. project:proj1 or project:proj1:proj2.
+  Projects can also be explicitly selected with e.g. project:proj1 or project:proj1:proj2.
   :dev is a shortcut for project:dev.
 
   Example:
@@ -711,10 +731,10 @@ poly help
 ```
   Prints or writes the workspace as data.
 
-  poly ws [get:ARG] [out:FILE]
+  poly ws [get:ARG] [out:FILE] [:latest-sha] [branch:BRANCH]
     ARG = keys  -> Lists the keys for the data structure:
                    - If it's a hash map, it returns all its keys.
-                   - If it's a list and its elements are hash maps, 
+                   - If it's a list and its elements are hash maps,
                      it returns a list with all the :name keys.
 
           count -> Counts the number of elements.
@@ -730,9 +750,13 @@ poly help
 
     FILE = Writes the output to the specified FILE. Will have the same effect
            as setting color-mode:none and piping the output to a file.
+
+    :latest-sha = if passed in, then settings:vcs:polylith:latest-sha will be set.
+                  If A branch is given, e.g., branch:master, then the latest sha will be
+                  retrieved from that branch.
+
   Example:
     poly ws
-    poly ws get:keys
     poly ws get:keys
     poly ws get:count
     poly ws get:settings
@@ -741,7 +765,9 @@ poly help
     poly ws get:settings:keys
     poly ws get:components:keys
     poly ws get:components:count
-    poly ws get:components:mycomp:lines-of-code-src
+    poly ws get:components:mycomp:lines-of-code
+    poly ws get:settings:vcs:polylith :latest-sha
+    poly ws get:settings:vcs:polylith :latest-sha branch:master
     poly ws out:ws.edn
     poly ws color-mode:none > ws.edn
 ```

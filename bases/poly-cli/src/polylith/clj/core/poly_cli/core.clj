@@ -28,7 +28,7 @@
   [& args]
   (let [input (user-input/extract-params args)]
     (try
-      (if (-> input :is-no-exit)
+      (if (:is-no-exit input)
         (-> input command/execute-command)
         (-> input command/execute-command System/exit))
       (catch Exception e

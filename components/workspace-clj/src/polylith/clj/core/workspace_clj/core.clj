@@ -12,7 +12,6 @@
             [polylith.clj.core.workspace-clj.profile :as profile]
             [polylith.clj.core.workspace-clj.ws-reader :as ws-reader]
             [polylith.clj.core.workspace-clj.tag-pattern :as tag-pattern]
-            [polylith.clj.core.workspace-clj.leiningen.core :as leiningen]
             [polylith.clj.core.workspace-clj.non-top-namespace :as non-top-ns]
             [polylith.clj.core.workspace-clj.bases-from-disk :as bases-from-disk]
             [polylith.clj.core.workspace-clj.projects-from-disk :as projects-from-disk]
@@ -31,15 +30,17 @@
       root-path
       :no-git-root)))
 
-(defn git-info [ws-dir vcs tag-patterns branch]
+(defn git-info [ws-dir {:keys [name auto-add]} tag-patterns {:keys [branch is-latest-sha]}]
   (let [from-branch (or branch git/branch)]
-    {:name          vcs
+    {:name          name
      :branch        (git/current-branch)
      :git-root      (git-root)
+     :auto-add      auto-add
      :stable-since  (git/sha ws-dir "stable" tag-patterns)
-     :polylith      {:repo git/repo
-                     :branch from-branch
-                     :latest-sha (git/latest-polylith-sha from-branch)}}))
+     :polylith      (cond-> {:repo git/repo
+                             :branch from-branch}
+                            is-latest-sha (assoc :latest-sha (or (git/latest-polylith-sha from-branch)
+                                                                 "GIT-REPO-NOT-ACCESSIBLE")))}))
 
 (defn ws-local-dir
   "Returns the directory/path to the workspace if it lives
@@ -60,7 +61,7 @@
                     (config/ws-config-from-disk ws-dir color-mode)
                     (config/ws-config-from-dev polylith))
         {:keys [vcs top-namespace ws-type interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views]
-         :or {vcs "git"
+         :or {vcs {:name "git", :auto-add false}
               compact-views {}}} ws-config
         patterns (tag-pattern/patterns tag-patterns stable-tag-pattern release-tag-pattern)
         interface-namespace (or interface-ns "interface")
@@ -80,11 +81,10 @@
         paths (path-finder/paths ws-dir projects profile-to-settings)
         default-profile (or default-profile-name "default")
         active-profiles (profile/active-profiles user-input default-profile profile-to-settings)
-
         settings (util/ordered-map :version version/version
                                    :ws-type ws-type
                                    :ws-schema-version version/ws-schema-version
-                                   :vcs (git-info ws-dir vcs patterns (:branch user-input))
+                                   :vcs (git-info ws-dir vcs patterns user-input)
                                    :top-namespace top-namespace
                                    :interface-ns interface-namespace
                                    :default-profile-name default-profile
@@ -114,12 +114,9 @@
 (defn workspace-from-disk [user-input]
   (let [color-mode (or (:color-mode user-input) (user-config/color-mode) color/none)
         ws-dir (common/workspace-dir user-input color-mode)
-        lein-config (str ws-dir "/project.clj")
         ws-type (cond
                   (file/exists (str ws-dir "/workspace.edn")) :toolsdeps2
-                  (file/exists (str ws-dir "/deps.edn")) :toolsdeps1
-                  (file/exists lein-config) :leiningen1)]
+                  (file/exists (str ws-dir "/deps.edn")) :toolsdeps1)]
     (case ws-type
       nil nil
-      :leiningen1 (leiningen/workspace-from-disk ws-dir user-input)
       (toolsdeps-ws-from-disk ws-dir ws-type user-input color-mode))))

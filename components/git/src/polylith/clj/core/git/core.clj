@@ -21,8 +21,9 @@
       (println (str "Cannot create a git repository for the workspace.\n"
                     "Please try to create it manually instead: " (.getMessage e))))))
 
-(defn add [ws-dir filename]
-  (shell/sh "git" "add" filename :dir ws-dir))
+(defn add [ws-dir filename is-git-add]
+  (when is-git-add
+    (shell/sh "git" "add" filename :dir ws-dir)))
 
 (defn current-branch []
   (try
@@ -31,10 +32,9 @@
       "master")))
 
 (defn latest-polylith-sha [branch]
-  (-> (shell/sh "git" "ls-remote" repo
-                (str "refs/heads/" branch))
-      (str/split #"\t")
-      first))
+  (some-> (shell/sh-ignore-exception "git" "ls-remote" repo (str "refs/heads/" branch))
+          (str/split #"\t")
+          first))
 
 (defn diff-command-parts [sha1 sha2]
   (if sha1

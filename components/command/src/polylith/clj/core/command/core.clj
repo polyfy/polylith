@@ -5,6 +5,7 @@
             [polylith.clj.core.command.exit-code :as exit-code]
             [polylith.clj.core.command.info :as info]
             [polylith.clj.core.command.test :as test]
+            [polylith.clj.core.command.user-config :as user-config]
             [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.lib.interface :as lib]
@@ -59,7 +60,8 @@
            change/with-changes))
      (read-ws-from-file ws-file user-input))))
 
-(defn execute [{:keys [cmd args name top-ns branch ws-file is-all is-show-brick is-show-workspace is-show-project brick get out interface selected-projects unnamed-args] :as user-input}]
+(defn execute [{:keys [cmd args name top-ns branch is-git-add ws-file is-all is-show-brick is-show-workspace is-show-project brick get out interface selected-projects unnamed-args] :as user-input}]
+  (user-config/create-user-config-if-not-exists)
   (let [color-mode (common/color-mode user-input)
         ws-dir (common/workspace-dir user-input color-mode)
         project-name (first selected-projects)
@@ -68,7 +70,7 @@
     (if ok?
       (case cmd
         "check" (check workspace color-mode)
-        "create" (create/create ws-dir workspace args name top-ns interface branch color-mode)
+        "create" (create/create ws-dir workspace args name top-ns interface branch is-git-add color-mode)
         "deps" (dependencies/deps workspace project-name brick unnamed-args is-all)
         "diff" (diff workspace)
         "help" (help args is-show-project is-show-brick is-show-workspace color-mode)

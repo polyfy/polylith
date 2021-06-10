@@ -1,19 +1,11 @@
 (ns polylith.clj.core.creator.workspace
   (:require [clojure.string :as str]
             [polylith.clj.core.file.interface :as file]
-            [polylith.clj.core.git.interface :as git]
-            [polylith.clj.core.user-config.interface :as user-config]
-            [polylith.clj.core.util.interface.os :as os]))
+            [polylith.clj.core.git.interface :as git]))
 
 (def gitignore-content
   ["**/classes"
    "**/target"])
-
-(defn user-config-content []
-  (let [color-mode (if (os/windows?) "none" "dark")]
-    [(str "{:color-mode \"" color-mode "\"")
-     (str " :empty-character \".\"")
-     (str " :thousand-separator \",\"}")]))
 
 (defn readme-content [ws-name]
   ["<img src=\"logo.png\" width=\"30%\" alt=\"Polylith\" id=\"logo\">"
@@ -30,21 +22,21 @@
    ""
    "<p>Add your workspace documentation here...</p>"])
 
-(defn workspace-content [top-ns]
-  [(str "{:vcs \"git\"")
-   (str " :top-namespace \"" top-ns "\"")
+(defn workspace-content [top-ns is-git-add]
+  [(str "{:top-namespace \"" top-ns "\"")
    (str " :interface-ns \"interface\"")
    (str " :default-profile-name \"default\"")
    (str " :compact-views #{}")
+   (str " :vcs {:name \"git\"")
+   (str "       :auto-add " (or is-git-add false) "}")
    (str " :tag-patterns {:stable \"stable-*\"")
    (str "                :release \"v[0-9]*\"}")
    (str " :projects {\"development\" {:alias \"dev\"}}}")])
 
 (defn latest-sha [branch]
-  (try
-    [false (git/latest-polylith-sha (or branch git/branch))]
-    (catch Exception _
-      [true "INSERT_LATEST_SHA_HERE"])))
+  (if-let [sha (git/latest-polylith-sha (or branch git/branch))]
+    [false sha]
+    [true "INSERT_LATEST_SHA_HERE"]))
 
 (defn deps-content [sha]
   [(str "{:aliases  {:dev {:extra-paths [\"development/src\"]")
@@ -59,14 +51,7 @@
    (str "                                 :sha       \"" sha "\"")
    (str "                                 :deps/root \"projects/poly\"}}}}}")])
 
-(defn create-user-config-if-not-exists []
-  (let [home-dir (user-config/home-dir)
-        user-config-filename (str home-dir "/.polylith/config.edn")]
-    (when (-> user-config-filename file/exists not)
-      (file/create-missing-dirs user-config-filename)
-      (file/create-file user-config-filename (user-config-content)))))
-
-(defn create-ws [ws-dir ws-name top-ns create-ws-dir? git-repo? insert-sha? sha branch]
+(defn create-ws [ws-dir ws-name top-ns create-ws-dir? git-repo? insert-sha? sha branch is-git-add]
   (when create-ws-dir?
     (file/create-dir ws-dir))
   (file/create-dir (str ws-dir "/bases"))
@@ -75,7 +60,7 @@
   (file/create-dir (str ws-dir "/development/src"))
   (file/create-dir (str ws-dir "/projects"))
   (file/create-file (str ws-dir "/.gitignore") gitignore-content)
-  (file/create-file (str ws-dir "/workspace.edn") (workspace-content top-ns))
+  (file/create-file (str ws-dir "/workspace.edn") (workspace-content top-ns is-git-add))
   (file/create-file (str ws-dir "/deps.edn") (deps-content sha))
   (file/create-file (str ws-dir "/readme.md") (readme-content ws-name))
   (file/create-file (str ws-dir "/development/src/.keep") [""])
@@ -83,7 +68,6 @@
   (file/create-file (str ws-dir "/bases/.keep") [""])
   (file/create-file (str ws-dir "/projects/.keep") [""])
   (file/copy-resource-file! "creator/logo.png" (str ws-dir "/logo.png"))
-  (create-user-config-if-not-exists)
   (git/init ws-dir git-repo? branch)
   (when git-repo?
     (println "  Workspace created in existing git repo."))
@@ -91,7 +75,7 @@
     (println (str "  Make sure to replace INSERT_LATEST_SHA_HERE in './deps.edn' with the latest SHA "
                   "from https://github.com/polyfy/polylith/commits/" (git/current-branch) "."))))
 
-(defn create [root-dir ws-name top-ns branch]
+(defn create [root-dir ws-name top-ns branch is-git-add]
   (let [create-ws-dir? (not (str/blank? ws-name))
         ws-dir (if create-ws-dir? (str root-dir "/" ws-name) root-dir)
         [insert-sha? sha] (latest-sha branch)
@@ -101,4 +85,4 @@
            (file/exists ws-dir)) (println (str "  Workspace '" ws-name "' already exists."))
       (and (not create-ws-dir?)
            (not git-repo?)) (println "  Current directory must be a git repo.")
-      :else (create-ws ws-dir ws-name top-ns create-ws-dir? git-repo? insert-sha? sha branch))))
+      :else (create-ws ws-dir ws-name top-ns create-ws-dir? git-repo? insert-sha? sha branch is-git-add))))

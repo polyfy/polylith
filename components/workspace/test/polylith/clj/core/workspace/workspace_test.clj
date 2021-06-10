@@ -211,8 +211,8 @@
                            :top-namespace        "se.example"
                            :vcs                  {:git-root "/Users/joakimtengstrand/source/polylith"
                                                   :name     "git"
+                                                  :auto-add true
                                                   :polylith {:branch     "create-deps-files"
-                                                             :latest-sha "3bfa6b0db34e0b5b1dc0a68bdd485afe6f8604a1"
                                                              :repo       "https://github.com/polyfy/polylith.git"}}
                            :version              version/version
                            :ws-schema-version    {:breaking     0

@@ -1,6 +1,7 @@
 (ns polylith.clj.core.lib.interface
-  (:require [polylith.clj.core.lib.core :as core])
-  (:require [polylith.clj.core.lib.text-table.lib-table :as lib-table]))
+  (:require [polylith.clj.core.lib.core :as core]
+            [polylith.clj.core.lib.resolve-libs :as resolve-libs]
+            [polylith.clj.core.lib.text-table.lib-table :as lib-table]))
 
 (defn with-sizes [libraries user-home]
   (core/with-sizes libraries user-home))
@@ -10,3 +11,6 @@
 
 (defn print-lib-table [workspace is-all]
   (lib-table/print-table workspace is-all))
+
+(defn resolve-libs [src-deps override-deps]
+  (resolve-libs/resolve-libs src-deps override-deps))

@@ -20,13 +20,13 @@
 ;(def workspace z/workspace)
 
 (def workspace (->
-                 (dev-common/dir ".")
+                 ;(dev-common/dir ".")
                  ;(dev-common/dir "example/output/example")
                  ;(dev-common/dir "../poly-example/ws02")
                  ;(dev-common/dir "../clojure-polylith-realworld-example-app")
                  ;(dev-common/dir "../sandbox/ws02")
                  ;(dev-common/dir "../sandbox/ws03")
-                 ;(dev-common/dir "../usermanager-example")
+                 (dev-common/dir "../usermanager-example")
                  ws-clj/workspace-from-disk
                  ws/enrich-workspace
                  change/with-changes))

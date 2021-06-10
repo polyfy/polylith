@@ -12,17 +12,17 @@
   [{:name "interface",
     :namespace "se.example.user.interface",
     :file-path
-    "/Users/joakimtengstrand/source/polylith/example/output/example/components/user/src/se/example/user/interface.clj",
+    "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2021-06-10-070322.qEL68VxT/example/components/user/src/se/example/user/interface.clj",
     :imports ["se.example.user.core"]}
    {:name "core",
     :namespace "se.example.user.core",
     :file-path
-    "/Users/joakimtengstrand/source/polylith/example/output/example/components/user/src/se/example/user/core.clj",
+    "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2021-06-10-070322.qEL68VxT/example/components/user/src/se/example/user/core.clj",
     :imports []}],
   :test
   [{:name "interface-test",
     :namespace "se.example.user.interface-test",
     :file-path
-    "/Users/joakimtengstrand/source/polylith/example/output/example/components/user/test/se/example/user/interface_test.clj",
+    "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2021-06-10-070322.qEL68VxT/example/components/user/test/se/example/user/interface_test.clj",
     :imports ["clojure.test" "se.example.user.interface"]}]},
  :type "component"}

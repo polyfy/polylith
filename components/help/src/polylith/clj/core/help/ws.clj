@@ -4,7 +4,7 @@
 (defn help [cm]
   (str "  Prints or writes the workspace as data.\n"
        "\n"
-       "  poly ws [get:" (s/key "ARG" cm) "] [out:" (s/key "FILE" cm) "] \n"
+       "  poly ws [get:" (s/key "ARG" cm) "] [out:" (s/key "FILE" cm) "] [:latest-sha] [branch:BRANCH]\n"
        "    " (s/key "ARG" cm) " = keys  -> Lists the keys for the data structure:\n"
        "                   - If it's a hash map, it returns all its keys.\n"
        "                   - If it's a list and its elements are hash maps,\n"
@@ -24,6 +24,10 @@
        "    " (s/key "FILE" cm) " = Writes the output to the specified " (s/key "FILE" cm) ". Will have the same effect\n"
        "           as setting " (s/key "color-mode:none" cm) " and piping the output to a file.\n"
        "\n"
+       "    :latest-sha = if passed in, then " (s/key "settings:vcs:polylith:latest-sha" cm) " will be set.\n"
+       "                  If A branch is given, e.g., branch:master, then the latest sha will be \n"
+       "                  retrieved from that branch.\n"
+       "\n"
        "  Example:\n"
        "    poly ws\n"
        "    poly ws get:keys\n"
@@ -35,8 +39,14 @@
        "    poly ws get:components:keys\n"
        "    poly ws get:components:count\n"
        "    poly ws get:components:mycomp:lines-of-code\n"
+       "    poly ws get:settings:vcs:polylith :latest-sha\n"
+       "    poly ws get:settings:vcs:polylith :latest-sha branch:master\n"
        "    poly ws out:ws.edn\n"
        "    poly ws color-mode:none > ws.edn"))
 
 (defn print-help [color-mode]
   (println (help color-mode)))
+
+(comment
+  (print-help "dark")
+  #__)

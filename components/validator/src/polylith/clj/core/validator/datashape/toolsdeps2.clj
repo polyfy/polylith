@@ -30,7 +30,7 @@
 
 (defn validate-workspace-config [config]
   (-> [:map
-       [:vcs {:optional true} string?]
+       [:vcs {:optional true} [:or string? map?]]
        [:top-namespace string?]
        [:interface-ns {:optional true} string?]
        [:default-profile-name {:optional true} string?]
