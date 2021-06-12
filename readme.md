@@ -159,6 +159,16 @@ exec "/usr/bin/java" "-jar" "/usr/local/polylith/poly-0.1.0-alpha9.jar" $ARGS
 
 Verify the installation by executing `poly help`.
 
+#### Install via nix
+
+`poly` tool is available in the [nixpkgs](https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/tools/misc/polylith/default.nix) as well:
+
+```bash
+nix-shell -p polylith
+# or
+nix-env -iA 'nixos.polylith'
+```
+
 ### Install on Windows
 
 To use the Polylith tool and to get access to all the features in tools.deps, make sure you have
