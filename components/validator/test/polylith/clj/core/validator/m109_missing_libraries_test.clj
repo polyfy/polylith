@@ -35,7 +35,8 @@
                :profile-to-settings {"default" {:lib-deps {"clj-time" {:size 0, :type "maven", :version "0.14.2"}}}}
                :active-profiles ["default"]})
 
-(def settings-toolsdeps2 (assoc settings :ws-type :toolsdeps2))
+(def version1 {:ws {:type :toolsdeps1}})
+(def version2 {:ws {:type :toolsdeps2}})
 
 (deftest warnings--missing-libraries-in-a-project--returns-a-warning
   (is (= [{:type "error"
@@ -48,8 +49,8 @@
            :project "realworld-backend"
            :message           "Missing libraries in the realworld-backend project: clj-time"
            :colorized-message "Missing libraries in the realworld-backend project: clj-time"}]
-         (m109/errors "info" settings projects components bases color/none))))
+         (m109/errors "info" settings version1 projects components bases color/none))))
 
 (deftest warnings--when-other-ws-type-than-toolsdeps1--return-no-warnings
   (is (= nil
-         (m109/errors "info" settings-toolsdeps2 projects components bases color/none))))
+         (m109/errors "info" settings version2 projects components bases color/none))))

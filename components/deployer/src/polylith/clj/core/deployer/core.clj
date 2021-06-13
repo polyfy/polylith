@@ -15,7 +15,7 @@
     (when (file/exists pom-path)
       (file/delete-file pom-path))
     (let [content (slurp partial-pom-path)
-          updated-content (str/replace content #"VERSION" version/version)]
+          updated-content (str/replace content #"VERSION" version/name)]
       (spit pom-path updated-content))))
 
 (defn build-jar [current-dir project-name type]
@@ -140,7 +140,7 @@
       (doseq [project-name projects-to-deploy-as-artifacts]
         (println (str "Creating artifacts for: " project-name))
         (let [jar-path (str current-dir "/projects/" project-name "/target/" project-name ".jar")
-              artifact-name (str project-name "-" version/version ".jar")
+              artifact-name (str project-name "-" version/name ".jar")
               artifact-path (str artifacts-dir "/" artifact-name)]
           (build-jar current-dir project-name :uberjar)
           (file/copy-file jar-path artifact-path)

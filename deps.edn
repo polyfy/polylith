@@ -25,6 +25,7 @@
                                 "components/workspace/src"
                                 "components/workspace-clj/src"
                                 "components/ws-explorer/src"
+                                "components/ws-file/src"
                                 "bases/poly-cli/src"
                                 "bases/migrator-cli/src"
                                 "bases/deployer-cli/src"]
@@ -85,6 +86,7 @@
                                  "components/workspace/test"
                                  "components/workspace-clj/test"
                                  "components/ws-explorer/test"
+                                 "components/ws-file/test"
                                  "projects/poly/test"]}
 
             :poly {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]

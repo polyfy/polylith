@@ -8,5 +8,6 @@
  :projects
  :settings
  :user-input
+ :version
  :ws-dir
  :ws-reader]

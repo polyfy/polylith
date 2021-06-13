@@ -168,7 +168,7 @@ poly ws get:keys
 poly ws get:components:keys
 poly ws out:ws.edn
 poly info ws-file:ws.edn fake-sha:e7ebe68
-poly ws get:old-user-input:args ws-file:ws.edn > $output/config-ws.txt
+poly ws get:old:user-input:args ws-file:ws.edn > $output/config-ws.txt
 
 echo "### 14/21 Workspace state ###"
 poly ws get:settings color-mode:none > $output/ws-state-settings.txt
@@ -177,7 +177,7 @@ poly ws get:keys color-mode:none > $output/ws-state-keys.txt
 poly ws get:components:keys color-mode:none > $output/ws-state-components-keys.txt
 poly ws get:components:user color-mode:none > $output/ws-state-components-user.txt
 poly ws get:components:user-remote:lib-deps color-mode:none > $output/ws-state-components-user-remote-lib-deps.txt
-poly ws get:old-user-input:args ws-file:ws.edn color-mode:none > $output/ws-state-ws-file.txt
+poly ws get:old:user-input:args ws-file:ws.edn color-mode:none > $output/ws-state-ws-file.txt
 
 cd $example/../../clojure-polylith-realworld-example-app
 

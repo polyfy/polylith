@@ -9,13 +9,13 @@
             [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.lib.interface :as lib]
-            [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.help.interface :as help]
             [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.version.interface :as ver]
             [polylith.clj.core.workspace-clj.interface :as ws-clj]
             [polylith.clj.core.workspace.interface :as ws]
+            [polylith.clj.core.ws-file.interface :as ws-file]
             [polylith.clj.core.ws-explorer.interface :as ws-explorer])
   (:refer-clojure :exclude [test]))
 
@@ -32,21 +32,10 @@
   (help/print-help cmd ent is-show-project is-show-brick is-show-workspace color-mode))
 
 (defn version []
-  (println (str "  " ver/version " (" ver/date ")")))
+  (println (str "  " ver/name " (" ver/date ")")))
 
 (defn unknown-command [cmd]
   (println (str "  Unknown command '" cmd "'. Type 'poly help' for help.")))
-
-(defn read-ws-from-file [ws-file {:keys [selected-profiles] :as user-input}]
-  (if (not (file/exists ws-file))
-    (println (str "The file '" ws-file "' doesn't exist."))
-    (let [ws (first (file/read-file ws-file))
-          old-user-input (-> ws :user-input)
-          new-ws (-> (assoc ws :old-user-input old-user-input)
-                     (assoc :user-input user-input))]
-      (if (empty? selected-profiles)
-        new-ws
-        (assoc-in new-ws [:settings :active-profiles] selected-profiles)))))
 
 (defn read-workspace
   ([ws-dir {:keys [ws-file] :as user-input}]
@@ -58,7 +47,7 @@
            ws-clj/workspace-from-disk
            ws/enrich-workspace
            change/with-changes))
-     (read-ws-from-file ws-file user-input))))
+     (ws-file/read-ws-from-file ws-file user-input))))
 
 (defn execute [{:keys [cmd args name top-ns branch is-git-add ws-file is-all is-show-brick is-show-workspace is-show-project brick get out interface selected-projects unnamed-args] :as user-input}]
   (user-config/create-user-config-if-not-exists)

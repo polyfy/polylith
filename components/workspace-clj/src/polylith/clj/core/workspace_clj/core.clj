@@ -81,10 +81,7 @@
         paths (path-finder/paths ws-dir projects profile-to-settings)
         default-profile (or default-profile-name "default")
         active-profiles (profile/active-profiles user-input default-profile profile-to-settings)
-        settings (util/ordered-map :version version/version
-                                   :ws-type ws-type
-                                   :ws-schema-version version/ws-schema-version
-                                   :vcs (git-info ws-dir vcs patterns user-input)
+        settings (util/ordered-map :vcs (git-info ws-dir vcs patterns user-input)
                                    :top-namespace top-namespace
                                    :interface-ns interface-namespace
                                    :default-profile-name default-profile
@@ -109,7 +106,8 @@
                       :components components
                       :bases bases
                       :projects projects
-                      :paths paths)))
+                      :paths paths
+                      :version (version/version ws-type))))
 
 (defn workspace-from-disk [user-input]
   (let [color-mode (or (:color-mode user-input) (user-config/color-mode) color/none)

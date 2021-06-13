@@ -51,7 +51,7 @@ To better understand the principles and ideas behind this tool, we recommend you
 >   you start to use the code from this branch, you should pay attention to this:
 >   - saved files from e.g. `poly ws out:myws.edn` can break when used by a newer commit, e.g. `poly ws ws-file:myws.edn`.
 
-> If none of the above bothers you, here are the benefits of using the `issue-66` branch also:
+> If none of the above bothers you, here are the benefits of using the `issue-66` branch:
 > - Each component and base (brick) will contain their own `deps.edn` file where library dependencies
 >   can be specified. Projects specify brick dependencies as `:deps > :local/root` instead of 
 >   `:paths` which will automatically retrieve library dependencies specified by the bricks, 
@@ -2745,10 +2745,7 @@ poly ws get:settings
        :stable-since {:tag "stable-lisa",
                       :sha "5091f18cfb182545be87e079e872205c3fb049d2"},
        :polylith {:repo "https://github.com/polyfy/polylith.git", 
-                  :branch "master"}},
- :version "0.2.0-alpha10.issue66.09",
- :ws-schema-version {:breaking 0, :non-breaking 0},
- :ws-type :toolsdeps2}
+                  :branch "master"}}}
 ```
 
 If we are only interested in a specific element in this structure, we can dig deeper into it:
@@ -2787,6 +2784,7 @@ poly ws get:keys
  :projects
  :settings
  :user-input
+ :version
  :ws-dir
  :ws-reader]
 ```
@@ -2859,7 +2857,7 @@ All commands except `test` and `create` can be executed when `ws-file` is given.
 
 Here is an example where we inspect the arguments used to produce the file:
 ```
-poly ws get:old-user-input:args ws-file:ws.edn
+poly ws get:old:user-input:args ws-file:ws.edn
 ``` 
 
 ...which returns:

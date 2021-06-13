@@ -17,14 +17,14 @@
         namespaces (ns-from-disk/namespaces-from-disk component-src-dir component-test-dir)
         definitions (defs-from-disk/defs-from-disk src-dir interface-ns)
         config (config-from-disk/read-config-file ws-type component-dir)
-        lib-deps (lib/brick-lib-deps ws-type config top-namespace namespaces ns-to-lib user-home)]
-    (util/ordered-map :name component-name
-                      :type "component"
-                      :namespaces namespaces
-                      :non-top-namespaces (brick->non-top-namespaces component-name)
-                      :lib-deps lib-deps
-                      :interface {:name interface-name
-                                  :definitions definitions})))
+        lib-deps (lib/brick-lib-deps ws-type config top-namespace ns-to-lib namespaces user-home)]
+       (util/ordered-map :name component-name
+                         :type "component"
+                         :namespaces namespaces
+                         :non-top-namespaces (brick->non-top-namespaces component-name)
+                         :lib-deps lib-deps
+                         :interface {:name interface-name
+                                     :definitions definitions})))
 
 (defn read-components [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns brick->non-top-namespaces]
   (vec (sort-by :name (map #(read-component ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir % interface-ns brick->non-top-namespaces)

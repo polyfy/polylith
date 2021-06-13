@@ -29,8 +29,8 @@
     (if (-> missing-libs empty? not)
       (warning name missing-libs color-mode))))
 
-(defn errors [cmd {:keys [ws-type profile-to-settings active-profiles] :as settings} projects components bases color-mode]
-  (when (and (= :toolsdeps1 ws-type)
+(defn errors [cmd {:keys [profile-to-settings active-profiles] :as settings} version projects components bases color-mode]
+  (when (and (= :toolsdeps1 (-> version :ws :type))
              (shared/show-error? cmd profile-to-settings active-profiles))
     (let [bricks (concat components bases)
           used-libs (shared/used-libs projects settings)]

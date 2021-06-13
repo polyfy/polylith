@@ -123,7 +123,7 @@
                               (mapcat profile-lib profile-to-settings)))
         test-libs (set (mapcat lib (mapcat #(-> % :lib-deps :test) entities)))
         libraries (sort-by (juxt :name :version)
-                           (set (concat src-libs test-libs)))
+                           (set (filter :version (concat src-libs test-libs))))
         all-bricks (concat components bases)
         brick->libs (into {} (map brick-libs all-bricks))
         bricks (if is-all

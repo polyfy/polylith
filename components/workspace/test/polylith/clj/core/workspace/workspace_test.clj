@@ -179,45 +179,41 @@
                                "  me.raynes/fs                  1.4.6    maven     10   --   .\n"
                                "  org.clojure/clojure           1.10.1   maven  3,816   x-   .\n"
                                "  org.clojure/tools.deps.alpha  0.8.695  maven     46   x-   .\n")}
-               {:cmd "ws"
-                :args ["get:settings" "branch:create-deps-files"]
+               {:cmd             "ws"
+                :args            ["get:settings" "branch:create-deps-files"]
                 :clean-result-fn clean-get-settings-result
-                :expected {:active-profiles      #{"default"}
-                           :color-mode           "none"
-                           :compact-views        #{}
-                           :default-profile-name "default"
-                           :empty-character      "."
-                           :interface-ns         "interface"
-                           :m2-dir               "/Users/joakimtengstrand/.m2"
-                           :profile-to-settings  {"default" {:base-names      []
-                                                             :component-names ["user1"]
-                                                             :lib-deps        {"me.raynes/fs" {:size    11209
-                                                                                               :type    "maven"
-                                                                                               :version "1.4.6"}}
-                                                             :paths           ["components/user1/src"
-                                                                               "components/user1/test"]
-                                                             :project-names   []}
-                                                  "extra"   {:base-names      []
-                                                             :component-names ["admin"]
-                                                             :lib-deps        {}
-                                                             :paths           ["components/admin/src"
-                                                                               "components/admin/test"]
-                                                             :project-names   []}}
-                           :projects             {"development" {:alias "dev"}
-                                                  "service"     {:alias "s"}}
-                           :tag-patterns         {:release "v[0-9]*"
-                                                  :stable  "stable-*"}
-                           :thousand-separator   ","
-                           :top-namespace        "se.example"
-                           :vcs                  {:git-root "/Users/joakimtengstrand/source/polylith"
-                                                  :name     "git"
-                                                  :auto-add true
-                                                  :polylith {:branch     "create-deps-files"
-                                                             :repo       "https://github.com/polyfy/polylith.git"}}
-                           :version              version/version
-                           :ws-schema-version    {:breaking     0
-                                                  :non-breaking 0}
-                           :ws-type              :toolsdeps2}}])
+                :expected        {:active-profiles      #{"default"}
+                                  :color-mode           "none"
+                                  :compact-views        #{}
+                                  :default-profile-name "default"
+                                  :empty-character      "."
+                                  :interface-ns         "interface"
+                                  :m2-dir               "/Users/joakimtengstrand/.m2"
+                                  :profile-to-settings  {"default" {:base-names      []
+                                                                    :component-names ["user1"]
+                                                                    :lib-deps        {"me.raynes/fs" {:size    11209
+                                                                                                      :type    "maven"
+                                                                                                      :version "1.4.6"}}
+                                                                    :paths           ["components/user1/src"
+                                                                                      "components/user1/test"]
+                                                                    :project-names   []}
+                                                         "extra"   {:base-names      []
+                                                                    :component-names ["admin"]
+                                                                    :lib-deps        {}
+                                                                    :paths           ["components/admin/src"
+                                                                                      "components/admin/test"]
+                                                                    :project-names   []}}
+                                  :projects             {"development" {:alias "dev"}
+                                                         "service"     {:alias "s"}}
+                                  :tag-patterns         {:release "v[0-9]*"
+                                                         :stable  "stable-*"}
+                                  :thousand-separator   ","
+                                  :top-namespace        "se.example"
+                                  :vcs                  {:git-root "/Users/joakimtengstrand/source/polylith"
+                                                         :name     "git"
+                                                         :auto-add true
+                                                         :polylith {:branch "create-deps-files"
+                                                                    :repo   "https://github.com/polyfy/polylith.git"}}}}])
 
 (deftest run-profile-tests
   (doseq [{:keys [expected actual]} (profile-ws/execute-commands commands)]

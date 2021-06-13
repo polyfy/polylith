@@ -5,7 +5,7 @@
 
 (defn help-text [cm]
   (str
-    "  Poly " version/version " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
+    "  Poly " version/name " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
     "\n"
     "  poly " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] - where " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] are:\n"
     "\n"
@@ -48,7 +48,7 @@
     "    SHA     -> a git SHA-1 hash (if no key was found in " (s/key ":tag-patterns" cm) ").\n"
     "\n"
     "  The color mode is taken from ~/.polylith/config.edn but can be overridden by passing\n"
-    "  in "(s/key "color-mode:COLOR" cm) " where valid colors are " (s/key "none" cm) ", " (s/key "light" cm) ", and " (s/key "dark" cm) ".\n"
+    "  in " (s/key "color-mode:COLOR" cm) " where valid colors are " (s/key "none" cm) ", " (s/key "light" cm) ", and " (s/key "dark" cm) ".\n"
     "\n"
     "  Example:\n"
     "    poly check\n"

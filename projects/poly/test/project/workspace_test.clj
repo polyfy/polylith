@@ -59,6 +59,7 @@
           "  workspace      workspace *       x--  x--   x--   xxx   ---    xx-"
           "  workspace-clj  workspace-clj *   x--  ---   x--   xxx   ---    xx-"
           "  ws-explorer    ws-explorer *     x--  ---   x--   xxx   ---    xx-"
+          "  ws-file        ws-file *         ---  ---   ---   xxx   ---    xx-"
           "  -              deployer-cli *    ---  ---   x--   ---   ---    x--"
           "  -              migrator-cli *    ---  ---   ---   ---   x--    x--"
           "  -              poly-cli *        ---  ---   ---   x--   ---    x--"]
@@ -90,91 +91,93 @@
          (libs/table (workspace) false))))
 
 (deftest ifc-deps-table
-  (is (= ["                                                                                      w   "
-          "                                                                                      o   "
-          "                                                     p     t  t     u                 r  w"
-          "                                                     a     e  e  t  s  u              k  s"
-          "                                                     t     s  s  e  e  s     v     w  s  -"
-          "                                d                 m  h     t  t  x  r  e     a     o  p  e"
-          "                       c     c  e                 i  -     -  -  t  -  r     l  v  r  a  x"
-          "                    c  o  c  r  p                 g  f     h  r  -  c  -     i  e  k  c  p"
-          "                    h  m  o  e  l                 r  i  s  e  u  t  o  i     d  r  s  e  l"
-          "                    a  m  m  a  o  d  f     h     a  n  h  l  n  a  n  n  u  a  s  p  -  o"
-          "                 a  n  a  m  t  y  e  i  g  e  l  t  d  e  p  n  b  f  p  t  t  i  a  c  r"
-          "                 p  g  n  o  o  e  p  l  i  l  i  o  e  l  e  e  l  i  u  i  o  o  c  l  e"
-          "  brick          i  e  d  n  r  r  s  e  t  p  b  r  r  l  r  r  e  g  t  l  r  n  e  j  r"
-          "  ----------------------------------------------------------------------------------------"
-          "  api            .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  x  x  x"
-          "  change         .  .  .  .  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  x  .  .  .  .  ."
-          "  command        .  x  .  x  x  .  x  x  x  x  x  .  .  .  .  x  .  x  .  x  x  x  x  x  x"
-          "  common         .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  ."
-          "  creator        .  .  .  x  .  .  .  x  x  .  .  .  .  .  t  .  .  .  .  x  .  .  .  .  ."
-          "  deployer       x  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  .  .  .  x  .  .  ."
-          "  deps           .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  x  .  .  .  .  ."
-          "  file           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-          "  git            .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  ."
-          "  help           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  ."
-          "  lib            .  .  .  x  .  .  .  x  .  .  .  .  .  .  t  .  x  x  .  x  .  .  .  .  ."
-          "  migrator       .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-          "  path-finder    .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-          "  shell          .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  test-helper    .  .  x  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  ."
-          "  test-runner    .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  ."
-          "  text-table     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-          "  user-config    .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-          "  user-input     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-          "  util           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  validator      .  .  .  x  .  .  x  .  .  .  .  .  x  .  .  .  .  .  .  x  .  .  .  .  ."
-          "  version        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  workspace      .  .  .  x  .  .  x  x  .  .  .  .  x  .  t  .  x  .  .  x  x  t  .  .  ."
-          "  workspace-clj  .  .  .  x  .  .  .  x  x  .  x  .  x  .  .  .  .  x  .  x  x  x  .  .  ."
-          "  ws-explorer    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-          "  deployer-cli   .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  migrator-cli   .  .  .  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  poly-cli       .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  ."]
+  (is (= ["                                                                                      w      "
+          "                                                                                      o      "
+          "                                                     p     t  t     u                 r  w   "
+          "                                                     a     e  e  t  s  u              k  s   "
+          "                                                     t     s  s  e  e  s     v     w  s  -   "
+          "                                d                 m  h     t  t  x  r  e     a     o  p  e   "
+          "                       c     c  e                 i  -     -  -  t  -  r     l  v  r  a  x  w"
+          "                    c  o  c  r  p                 g  f     h  r  -  c  -     i  e  k  c  p  s"
+          "                    h  m  o  e  l                 r  i  s  e  u  t  o  i     d  r  s  e  l  -"
+          "                    a  m  m  a  o  d  f     h     a  n  h  l  n  a  n  n  u  a  s  p  -  o  f"
+          "                 a  n  a  m  t  y  e  i  g  e  l  t  d  e  p  n  b  f  p  t  t  i  a  c  r  i"
+          "                 p  g  n  o  o  e  p  l  i  l  i  o  e  l  e  e  l  i  u  i  o  o  c  l  e  l"
+          "  brick          i  e  d  n  r  r  s  e  t  p  b  r  r  l  r  r  e  g  t  l  r  n  e  j  r  e"
+          "  -------------------------------------------------------------------------------------------"
+          "  api            .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  x  x  x  ."
+          "  change         .  .  .  .  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  command        .  x  .  x  x  .  x  x  x  x  x  .  .  .  .  x  .  x  .  x  x  x  x  x  x  x"
+          "  common         .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
+          "  creator        .  .  .  x  .  .  .  x  x  .  .  .  .  .  t  .  .  .  .  x  .  .  .  .  .  ."
+          "  deployer       x  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  .  .  .  x  .  .  .  ."
+          "  deps           .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  x  .  .  .  .  .  ."
+          "  file           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  git            .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  help           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
+          "  lib            .  .  .  x  .  .  .  x  .  .  .  .  .  .  t  .  x  x  .  x  .  .  .  .  .  ."
+          "  migrator       .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  path-finder    .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  shell          .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+          "  test-helper    .  .  x  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  .  ."
+          "  test-runner    .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  ."
+          "  text-table     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  user-config    .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  user-input     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  util           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+          "  validator      .  .  .  x  .  .  x  .  .  .  .  .  x  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  version        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+          "  workspace      .  .  .  x  .  .  x  x  .  .  .  .  x  .  t  .  x  .  .  x  x  t  .  .  .  ."
+          "  workspace-clj  .  .  .  x  .  .  .  x  x  .  x  .  x  .  .  .  .  x  .  x  x  x  .  .  .  ."
+          "  ws-explorer    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  ws-file        .  .  .  .  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  ."
+          "  deployer-cli   .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+          "  migrator-cli   .  .  .  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+          "  poly-cli       .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  ."]
          (ws-ifc-deps-table/table (workspace)))))
 
 (deftest project-deps-table
   (let [ws (workspace)
         projects (:projects ws)
         project (common/find-project "poly" projects)]
-    (is (= ["                                                                             w   "
-            "                                                                             o   "
-            "                                            p     t  t     u                 r  w"
-            "                                            a     e  e  t  s  u              k  s"
-            "                                            t     s  s  e  e  s     v     w  s  -"
-            "                                            h     t  t  x  r  e     a     o  p  e"
-            "                    c     c                 -     -  -  t  -  r     l  v  r  a  x"
-            "                 c  o  c  r                 f     h  r  -  c  -     i  e  k  c  p"
-            "                 h  m  o  e                 i  s  e  u  t  o  i     d  r  s  e  l"
-            "                 a  m  m  a  d  f     h     n  h  l  n  a  n  n  u  a  s  p  -  o"
-            "                 n  a  m  t  e  i  g  e  l  d  e  p  n  b  f  p  t  t  i  a  c  r"
-            "                 g  n  o  o  p  l  i  l  i  e  l  e  e  l  i  u  i  o  o  c  l  e"
-            "  brick          e  d  n  r  s  e  t  p  b  r  l  r  r  e  g  t  l  r  n  e  j  r"
-            "  -------------------------------------------------------------------------------"
-            "  change         .  .  .  .  .  +  x  .  .  x  +  .  .  .  .  .  x  .  .  .  .  ."
-            "  command        x  .  x  x  x  x  x  x  x  +  +  .  x  +  x  .  x  x  x  x  x  x"
-            "  common         .  .  .  .  .  x  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  ."
-            "  creator        -  -  x  -  -  x  x  -  -  -  +  t  -  -  +  -  x  -  -  -  -  -"
-            "  deps           .  .  x  .  .  +  .  .  .  .  .  .  .  x  +  .  x  .  .  .  .  ."
-            "  file           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-            "  git            .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  ."
-            "  help           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  ."
-            "  lib            -  -  x  -  -  x  -  -  -  -  -  t  -  x  x  -  x  -  -  -  -  -"
-            "  path-finder    .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-            "  shell          .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  test-helper    +  x  +  +  +  x  +  +  +  +  +  .  +  +  x  x  +  +  +  +  +  +"
-            "  test-runner    .  .  x  .  x  +  .  .  .  +  .  .  .  +  +  .  x  x  .  .  .  ."
-            "  text-table     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-            "  user-config    .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-            "  user-input     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-            "  util           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  validator      .  .  x  .  x  +  .  .  .  x  .  .  .  +  +  .  x  .  .  .  .  ."
-            "  version        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  workspace      -  -  x  -  x  x  -  -  -  x  -  t  -  x  +  -  x  x  t  -  -  -"
-            "  workspace-clj  .  .  x  .  +  x  x  .  x  x  +  .  .  +  x  .  x  x  x  .  .  ."
-            "  ws-explorer    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
-            "  poly-cli       +  x  +  +  +  +  +  +  +  +  +  .  +  +  +  x  x  +  +  +  +  +"]
+    (is (= ["                                                                             w      "
+            "                                                                             o      "
+            "                                            p     t  t     u                 r  w   "
+            "                                            a     e  e  t  s  u              k  s   "
+            "                                            t     s  s  e  e  s     v     w  s  -   "
+            "                                            h     t  t  x  r  e     a     o  p  e   "
+            "                    c     c                 -     -  -  t  -  r     l  v  r  a  x  w"
+            "                 c  o  c  r                 f     h  r  -  c  -     i  e  k  c  p  s"
+            "                 h  m  o  e                 i  s  e  u  t  o  i     d  r  s  e  l  -"
+            "                 a  m  m  a  d  f     h     n  h  l  n  a  n  n  u  a  s  p  -  o  f"
+            "                 n  a  m  t  e  i  g  e  l  d  e  p  n  b  f  p  t  t  i  a  c  r  i"
+            "                 g  n  o  o  p  l  i  l  i  e  l  e  e  l  i  u  i  o  o  c  l  e  l"
+            "  brick          e  d  n  r  s  e  t  p  b  r  l  r  r  e  g  t  l  r  n  e  j  r  e"
+            "  ----------------------------------------------------------------------------------"
+            "  change         .  .  .  .  .  +  x  .  .  x  +  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  command        x  .  x  x  x  x  x  x  x  +  +  .  x  +  x  .  x  x  x  x  x  x  x"
+            "  common         .  .  .  .  .  x  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
+            "  creator        -  -  x  -  -  x  x  -  -  -  +  t  -  -  +  -  x  -  -  -  -  -  -"
+            "  deps           .  .  x  .  .  +  .  .  .  .  .  .  .  x  +  .  x  .  .  .  .  .  ."
+            "  file           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  git            .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  help           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
+            "  lib            -  -  x  -  -  x  -  -  -  -  -  t  -  x  x  -  x  -  -  -  -  -  -"
+            "  path-finder    .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  shell          .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  test-helper    +  x  +  +  +  x  +  +  +  +  +  .  +  +  x  x  +  +  +  +  +  +  +"
+            "  test-runner    .  .  x  .  x  +  .  .  .  +  .  .  .  +  +  .  x  x  .  .  .  .  ."
+            "  text-table     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  user-config    .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  user-input     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  util           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  validator      .  .  x  .  x  +  .  .  .  x  .  .  .  +  +  .  x  .  .  .  .  .  ."
+            "  version        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  workspace      -  -  x  -  x  x  -  -  -  x  -  t  -  x  +  -  x  x  t  -  -  -  -"
+            "  workspace-clj  .  .  x  .  +  x  x  .  x  x  +  .  .  +  x  .  x  x  x  .  .  .  ."
+            "  ws-explorer    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  ws-file        .  .  .  .  .  x  x  .  .  .  +  .  .  .  .  .  +  .  x  .  .  .  ."
+            "  poly-cli       +  x  +  +  +  +  +  +  +  +  +  .  +  +  +  x  x  +  +  +  +  +  +"]
            (ws-project-deps-table/table (workspace) project false)))))
 
 (deftest project-and-brick-deps
@@ -236,7 +239,8 @@
                                              "version"
                                              "workspace"
                                              "workspace-clj"
-                                             "ws-explorer"]
+                                             "ws-explorer"
+                                             "ws-file"]
                                   :indirect ["path-finder"
                                              "shell"
                                              "text-table"]}
@@ -255,7 +259,8 @@
                                              "version"
                                              "workspace"
                                              "workspace-clj"
-                                             "ws-explorer"]
+                                             "ws-explorer"
+                                             "ws-file"]
                                   :indirect ["path-finder"
                                              "shell"
                                              "text-table"]}}
@@ -290,7 +295,8 @@
                                              "version"
                                              "workspace"
                                              "workspace-clj"
-                                             "ws-explorer"]}}
+                                             "ws-explorer"
+                                             "ws-file"]}}
           "deps"          {:src  {:direct   ["common"
                                              "text-table"
                                              "util"]
@@ -336,7 +342,8 @@
                                              "version"
                                              "workspace"
                                              "workspace-clj"
-                                             "ws-explorer"]}}
+                                             "ws-explorer"
+                                             "ws-file"]}}
           "path-finder"   {:src  {:direct ["file"
                                            "util"]}
                            :test {:direct ["file"
@@ -361,7 +368,8 @@
                                              "version"
                                              "workspace"
                                              "workspace-clj"
-                                             "ws-explorer"]}
+                                             "ws-explorer"
+                                             "ws-file"]}
                            :test {}}
           "shell"         {:src  {}
                            :test {}}
@@ -385,7 +393,8 @@
                                              "version"
                                              "workspace"
                                              "workspace-clj"
-                                             "ws-explorer"]}
+                                             "ws-explorer"
+                                             "ws-file"]}
                            :test {}}
           "test-runner"   {:src  {:direct   ["common"
                                              "deps"
@@ -450,7 +459,8 @@
                                              "user-input"
                                              "workspace"
                                              "workspace-clj"
-                                             "ws-explorer"]}}
+                                             "ws-explorer"
+                                             "ws-file"]}}
           "workspace-clj" {:src  {:direct   ["common"
                                              "file"
                                              "git"
@@ -476,7 +486,17 @@
                                              "shell"
                                              "text-table"]}}
           "ws-explorer"   {:src  {:direct ["util"]}
-                           :test {:direct ["util"]}}}
+                           :test {:direct ["util"]}}
+          "ws-file"       {:src  {:direct   ["file"
+                                             "git"
+                                             "version"]
+                                  :indirect ["shell"
+                                             "util"]}
+                           :test {:direct   ["file"
+                                             "git"
+                                             "version"]
+                                  :indirect ["shell"
+                                             "util"]}}}
          (ws-explorer/extract (workspace) ["projects" "poly" "deps"]))))
 
 (deftest poly-project-src-paths
@@ -502,7 +522,8 @@
           "components/version/src"
           "components/workspace-clj/src"
           "components/workspace/src"
-          "components/ws-explorer/src"]
+          "components/ws-explorer/src"
+          "components/ws-file/src"]
          (ws-explorer/extract (workspace) ["projects" "poly" "paths" "src"]))))
 
 (deftest poly-project-test-paths
@@ -522,6 +543,7 @@
           "components/workspace-clj/test"
           "components/workspace/test"
           "components/ws-explorer/test"
+          "components/ws-file/test"
           "projects/poly/test"]
          (ws-explorer/extract (workspace) ["projects" "poly" "paths" "test"]))))
 

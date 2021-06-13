@@ -61,7 +61,6 @@
         is-run-tests (run-the-tests? name alias is-dev is-run-all-brick-tests selected-projects)
         lines-of-code-total (project-total-loc all-brick-names brick->loc)
         lines-of-code (assoc (loc/lines-of-code namespaces) :total lines-of-code-total)
-        ;; todo: return both :src and :test
         src-lib-deps (select/lib-deps lib-entries c/src?)
         test-lib-deps (select/lib-deps lib-entries c/test?)
         src-paths (select/paths path-entries c/src?)
