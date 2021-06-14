@@ -492,11 +492,7 @@
                                              "version"]
                                   :indirect ["shell"
                                              "util"]}
-                           :test {:direct   ["file"
-                                             "git"
-                                             "version"]
-                                  :indirect ["shell"
-                                             "util"]}}}
+                           :test {}}}
          (ws-explorer/extract (workspace) ["projects" "poly" "deps"]))))
 
 (deftest poly-project-src-paths

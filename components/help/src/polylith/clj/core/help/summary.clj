@@ -34,7 +34,7 @@
     "  'ws' command, e.g.: 'poly ws out:ws.edn'.\n"
     "\n"
     "  If " (s/key "skip:PROJECTS" cm) " is passed in, then the given project(s) will not be read from disk.\n"
-    "  Both project names and aliases can be used.\n"
+    "  Both project names and aliases can be used and should be separated by : if more than one.\n"
     "\n"
     "  If " (s/key "since:SINCE" cm) " is passed in as an argument, the last stable point in time will be\n"
     "  used depending on the value of " (s/key "SINCE" cm) " (or the first commit if no match was found).\n"

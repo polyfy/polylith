@@ -54,7 +54,7 @@ poly help
   'ws' command, e.g.: 'poly ws out:ws.edn'.
 
   If skip:PROJECTS is passed in, then the given project(s) will not be read from disk.
-  Both project names and aliases can be used.
+  Both project names and aliases can be used and should be separated by : if more than one.
 
   If since:SINCE is passed in as an argument, the last stable point in time will be
   used depending on the value of SINCE (or the first commit if no match was found).

@@ -10,11 +10,12 @@
                                               :lib-deps {"zprint" #:mvn{:version "0.4.15"}}}}})
 
 (def projects [{:name "poly-migrator"
-                :deps {"common" {:direct ["file" "util"]
-                                 :direct-ifc ["user-config"]
-                                 :indirect []}
-                       "lib-dep" {:direct ["common" "util"]
-                                  :indirect ["file"]}}}])
+                :deps {"common" {:src {:direct ["file"]
+                                       :missing-ifc {:direct ["user-config"]
+                                                     :indirect ["util"]}
+                                       :indirect []}}
+                       "lib-dep" {:src {:direct ["common" "util"]
+                                        :indirect ["file"]}}}}])
 
 (def components [{:name "file"
                   :interface {:name "file"}}
@@ -28,10 +29,10 @@
          (m107/errors "info" settings projects components color/none))))
 
 (deftest errors--when-projects-with-missing-components--return-error
-  (is (= [{:type "error"
-           :code 107
-           :project "poly-migrator"
-           :interfaces ["user-config"]
-           :colorized-message "Missing components in the poly-migrator project for these interfaces: user-config"
-           :message           "Missing components in the poly-migrator project for these interfaces: user-config"}]
+  (is (= [{:code              107
+           :colorized-message "Missing components in the poly-migrator project for these interfaces: user-config, util"
+           :interfaces        ["user-config" "util"]
+           :message           "Missing components in the poly-migrator project for these interfaces: user-config, util"
+           :project           "poly-migrator"
+           :type              "error"}]
          (m107/errors "info" (assoc settings :active-profiles #{"default"}) projects components color/none))))

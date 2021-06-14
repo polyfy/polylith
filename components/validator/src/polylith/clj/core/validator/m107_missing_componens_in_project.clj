@@ -18,9 +18,13 @@
                        :interfaces interface-names
                        :project project-name)]))
 
-(defn project-error [{:keys [name deps deps-test]} projects brick-name->ifc color-mode]
-  (let [missing (vec (sort (set (mapcat :direct-ifc (map second deps)))))
-        all-missing-test (set (mapcat #(-> % second :direct-ifc) deps-test))
+(defn missing-components [deps src-type]
+  (let [missing-ifc (mapcat #(-> % second src-type :missing-ifc) deps)]
+    (set (mapcat val missing-ifc))))
+
+(defn project-error [{:keys [name deps]} projects brick-name->ifc color-mode]
+  (let [missing (vec (sort (missing-components deps :src)))
+        all-missing-test (missing-components deps :test)
         bricks-to-test (get-in projects [name :test])
         missing-test (if bricks-to-test
                        (vec (sort (set/intersection all-missing-test
