@@ -66,7 +66,10 @@
                               (:test namespaces)))))
 
 (defn brick-test-namespaces [{:keys [namespaces]} suffixed-top-ns test-namespaces]
-  (map #(short-ns (:namespace %) suffixed-top-ns test-namespaces) (:test namespaces)))
+  (map #(short-ns % suffixed-top-ns test-namespaces)
+       ;; Skip namespaces that are commented out.
+       (filterv #(-> % str/blank? not)
+                (map :namespace (:test namespaces)))))
 
 (defn all-brick-namespaces [brick suffixed-top-ns test-namespaces]
   (set (conj (brick-test-namespaces brick suffixed-top-ns test-namespaces)
@@ -143,7 +146,7 @@
             (seq circular) (assoc :circular (vec (component-deps circular ifc->comp))))))
 
 (defn include-test?
-  "Checks if the brick is included in workspace.edn > :projects > PROJECT-KEY > :test.
+  "Checks if the brick is included in workspace.edn > :projects > PROJECT-KEY > :test > :include.
    If the :test key is not present, then it is treated as included."
   [{:keys [name]} bricks-to-test]
   (or (nil? bricks-to-test)

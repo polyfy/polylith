@@ -142,7 +142,7 @@
                      override-src-deps override-test-deps))))
   ([project-name project-dir project-config-dir config-filename is-dev maven-repos project->settings user-home project-src-paths project-src-deps project-test-paths project-test-deps override-src-deps override-test-deps]
    (let [[src-paths src-lib-deps] (src-paths-and-libs-from-bricks is-dev project-name project-config-dir user-home project-src-deps project-src-paths override-src-deps)
-         bricks-to-test (-> project-name project->settings :test)
+         bricks-to-test (-> project-name project->settings :test :include)
          [test-paths test-lib-deps] (test-paths-and-libs-from-bricks is-dev project-name project-config-dir bricks-to-test user-home project-src-deps project-test-deps project-test-paths override-src-deps override-test-deps)
          paths (cond-> {}
                        (seq src-paths) (assoc :src src-paths)

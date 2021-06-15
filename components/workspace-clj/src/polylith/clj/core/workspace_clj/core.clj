@@ -14,6 +14,7 @@
             [polylith.clj.core.workspace-clj.tag-pattern :as tag-pattern]
             [polylith.clj.core.workspace-clj.non-top-namespace :as non-top-ns]
             [polylith.clj.core.workspace-clj.bases-from-disk :as bases-from-disk]
+            [polylith.clj.core.workspace-clj.project-settings :as project-settings]
             [polylith.clj.core.workspace-clj.projects-from-disk :as projects-from-disk]
             [polylith.clj.core.workspace-clj.components-from-disk :as components-from-disk]))
 
@@ -72,7 +73,7 @@
         thousand-separator (user-config/thousand-separator)
         user-config-filename (str (user-config/home-dir) "/.polylith/config.edn")
         brick->non-top-namespaces (non-top-ns/brick->non-top-namespaces ws-dir top-namespace)
-        project->settings (:projects ws-config {})
+        project->settings (project-settings/convert ws-config)
         projects (projects-from-disk/read-projects ws-dir ws-type project->settings user-input user-home color-mode)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
         components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-namespace brick->non-top-namespaces)
