@@ -129,6 +129,9 @@ jobs:
           name: Add global git user name
           command: git config --global user.name "CircleCI"
       - run:
+          name: Force clojure to resolve dependencies
+          command: clojure -A:dev:test -P
+      - run:
           name: Run tests for Polylith workspace
           command: clojure -A:poly test :project
 
@@ -147,6 +150,9 @@ jobs:
       - run:
           name: Add global git user name
           command: git config --global user.name "CircleCI"
+      - run:
+          name: Force clojure to resolve dependencies
+          command: clojure -A:dev:test -P
       - run:
           name: Run tests for Polylith workspace
           command: clojure -A:poly test :project since:previous-release
