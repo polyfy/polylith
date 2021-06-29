@@ -1,4 +1,5 @@
 (ns polylith.clj.core.deps.text-table.data.usermanager
+  (:refer-clojure :exclude [bases])
   (:require [clojure.test :refer :all]
             [polylith.clj.core.common.interface :as common]))
 

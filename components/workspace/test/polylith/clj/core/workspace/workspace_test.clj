@@ -107,11 +107,11 @@
                                "                s  e  e  i\n"
                                "  brick         e  r  r  l\n"
                                "  ------------------------\n"
-                               "  admin         .  .  .  .\n"
-                               "  database1     .  .  .  x\n"
-                               "  test-helper1  .  .  .  .\n"
-                               "  user1         t  t  .  .\n"
-                               "  util1         .  .  .  .\n")}
+                               "  admin         ·  ·  ·  ·\n"
+                               "  database1     ·  ·  ·  x\n"
+                               "  test-helper1  ·  ·  ·  ·\n"
+                               "  user1         t  t  ·  ·\n"
+                               "  util1         ·  ·  ·  ·\n")}
                {:cmd "deps"
                 :args ["project:s"]
                 :expected (str "                   t   \n"
@@ -127,10 +127,10 @@
                                "                e  r  l\n"
                                "  brick         1  1  1\n"
                                "  ---------------------\n"
-                               "  database1     .  .  x\n"
-                               "  test-helper1  .  .  .\n"
+                               "  database1     ·  ·  x\n"
+                               "  test-helper1  ·  ·  ·\n"
                                "  user1         t  t  -\n"
-                               "  util1         .  .  .\n")}
+                               "  util1         ·  ·  ·\n")}
                {:cmd "deps"
                 :args ["brick:database1"]
                 :expected (str "  used by    <  database1  >  uses\n"
@@ -157,9 +157,9 @@
                                "  library                       version  type      KB   s    dev  default  extra   1\n"
                                "  ---------------------------------------------------   --   -------------------   -\n"
                                "  clj-time                      0.15.2   maven     23   -x   --      -       -     x\n"
-                               "  me.raynes/fs                  1.4.6    maven     10   --   --      x       -     .\n"
-                               "  org.clojure/clojure           1.10.1   maven  3,816   x-   x-      -       -     .\n"
-                               "  org.clojure/tools.deps.alpha  0.8.695  maven     46   x-   x-      -       -     .\n")}
+                               "  me.raynes/fs                  1.4.6    maven     10   --   --      x       -     ·\n"
+                               "  org.clojure/clojure           1.10.1   maven  3,816   x-   x-      -       -     ·\n"
+                               "  org.clojure/tools.deps.alpha  0.8.695  maven     46   x-   x-      -       -     ·\n")}
                {:cmd "libs"
                 :args ["skip:dev"]
                 :expected (str "                                                             t\n"
@@ -176,9 +176,9 @@
                                "  library                       version  type      KB   s    1\n"
                                "  ---------------------------------------------------   --   -\n"
                                "  clj-time                      0.15.2   maven     23   -x   x\n"
-                               "  me.raynes/fs                  1.4.6    maven     10   --   .\n"
-                               "  org.clojure/clojure           1.10.1   maven  3,816   x-   .\n"
-                               "  org.clojure/tools.deps.alpha  0.8.695  maven     46   x-   .\n")}
+                               "  me.raynes/fs                  1.4.6    maven     10   --   ·\n"
+                               "  org.clojure/clojure           1.10.1   maven  3,816   x-   ·\n"
+                               "  org.clojure/tools.deps.alpha  0.8.695  maven     46   x-   ·\n")}
                {:cmd             "ws"
                 :args            ["get:settings" "branch:create-deps-files"]
                 :clean-result-fn clean-get-settings-result
@@ -186,9 +186,9 @@
                                   :color-mode           "none"
                                   :compact-views        #{}
                                   :default-profile-name "default"
-                                  :empty-character      "."
+                                  :empty-character      "·"
                                   :interface-ns         "interface"
-                                  :m2-dir               "/Users/joakimtengstrand/.m2"
+                                  :m2-dir               (str "/Users/" (System/getProperty "user.name") "/.m2")
                                   :profile-to-settings  {"default" {:base-names      []
                                                                     :component-names ["user1"]
                                                                     :lib-deps        {"me.raynes/fs" {:size    11209
@@ -209,7 +209,7 @@
                                                          :stable  "stable-*"}
                                   :thousand-separator   ","
                                   :top-namespace        "se.example"
-                                  :vcs                  {:git-root "/Users/joakimtengstrand/source/polylith"
+                                  :vcs                  {:git-root (System/getProperty "user.dir")
                                                          :name     "git"
                                                          :auto-add true
                                                          :polylith {:branch "create-deps-files"
