@@ -43,7 +43,7 @@
                              "            [se.example.test-helper.interface :as test-helper]))"])
         _ (file/create-file (str ws-dir "/components/test-helper1/deps.edn")
                             ["{:paths [\"src\" \"resources\"]"
-                             " :deps {clj-time {:mvn/version \"0.15.2\"}}"
+                             " :deps {metosin/malli {:mvn/version \"0.1.0\"}}"
                              " :aliases {:test {:extra-paths [\"test\"]"
                              "                  :extra-deps {}}}}"])
         ;; components/user1

@@ -156,8 +156,8 @@
                                "                                                                                   r\n"
                                "  library                       version  type      KB   s    dev  default  extra   1\n"
                                "  ---------------------------------------------------   --   -------------------   -\n"
-                               "  clj-time                      0.15.2   maven     23   -x   --      -       -     x\n"
                                "  me.raynes/fs                  1.4.6    maven     10   --   --      x       -     .\n"
+                               "  metosin/malli                 0.1.0    maven     27   -x   --      -       -     x\n"
                                "  org.clojure/clojure           1.10.1   maven  3,816   x-   x-      -       -     .\n"
                                "  org.clojure/tools.deps.alpha  0.8.695  maven     46   x-   x-      -       -     .\n")}
                {:cmd "libs"
@@ -175,8 +175,8 @@
                                "                                                             r\n"
                                "  library                       version  type      KB   s    1\n"
                                "  ---------------------------------------------------   --   -\n"
-                               "  clj-time                      0.15.2   maven     23   -x   x\n"
                                "  me.raynes/fs                  1.4.6    maven     10   --   .\n"
+                               "  metosin/malli                 0.1.0    maven     27   -x   x\n"
                                "  org.clojure/clojure           1.10.1   maven  3,816   x-   .\n"
                                "  org.clojure/tools.deps.alpha  0.8.695  maven     46   x-   .\n")}
                {:cmd             "ws"
