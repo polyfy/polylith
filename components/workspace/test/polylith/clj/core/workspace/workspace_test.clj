@@ -186,9 +186,9 @@
                                   :color-mode           "none"
                                   :compact-views        #{}
                                   :default-profile-name "default"
-                                  :empty-character      "·"
+                                  :empty-character      "."
                                   :interface-ns         "interface"
-                                  :m2-dir               (str "/Users/" (System/getProperty "user.name") "/.m2")
+                                  :m2-dir               (str (System/getProperty "user.home") "/.m2")
                                   :profile-to-settings  {"default" {:base-names      []
                                                                     :component-names ["user1"]
                                                                     :lib-deps        {"me.raynes/fs" {:size    11209
