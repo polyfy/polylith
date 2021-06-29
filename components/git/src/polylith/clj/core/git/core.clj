@@ -14,7 +14,8 @@
 (defn init [ws-dir git-repo? branch]
   (try
     (when (not git-repo?)
-      (shell/sh "git" "init" "-b" (or branch "main") :dir ws-dir))
+      (shell/sh "git" "init" :dir ws-dir)
+      (shell/sh "git" "checkout" "-b" (or branch "main") :dir ws-dir))
     (shell/sh "git" "add" "." :dir ws-dir)
     (shell/sh "git" "commit" "-m" "Workspace created." :dir ws-dir)
     (catch Exception e
