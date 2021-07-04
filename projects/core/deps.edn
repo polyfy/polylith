@@ -13,4 +13,4 @@
            poly/validator     {:local/root "../../components/validator"}
            poly/workspace     {:local/root "../../components/workspace"}
 
-           org.clojure/clojure {:mvn/version "1.10.1"}}}
+           org.clojure/clojure {:mvn/version "1.10.3"}}}

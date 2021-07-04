@@ -31,7 +31,10 @@
       root-path
       :no-git-root)))
 
-(defn git-info [ws-dir {:keys [name auto-add]} tag-patterns {:keys [branch is-latest-sha]}]
+(defn git-info [ws-dir {:keys [name auto-add]
+                        :or {name "git"
+                             auto-add false}}
+                tag-patterns {:keys [branch is-latest-sha]}]
   (let [from-branch (or branch git/branch)]
     {:name          name
      :branch        (git/current-branch)
@@ -74,10 +77,12 @@
         user-config-filename (str (user-config/home-dir) "/.polylith/config.edn")
         brick->non-top-namespaces (non-top-ns/brick->non-top-namespaces ws-dir top-namespace)
         project->settings (project-settings/convert ws-config)
-        projects (projects-from-disk/read-projects ws-dir ws-type project->settings user-input user-home color-mode)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
         components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-namespace brick->non-top-namespaces)
         bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir brick->non-top-namespaces)
+        name->brick (into {} (map (juxt :name identity)
+                                  (concat components bases)))
+        projects (projects-from-disk/read-projects ws-dir ws-type name->brick project->settings user-input user-home)
         profile-to-settings (profile/profile-to-settings aliases user-home)
         paths (path-finder/paths ws-dir projects profile-to-settings)
         default-profile (or default-profile-name "default")
@@ -116,6 +121,5 @@
         ws-type (cond
                   (file/exists (str ws-dir "/workspace.edn")) :toolsdeps2
                   (file/exists (str ws-dir "/deps.edn")) :toolsdeps1)]
-    (case ws-type
-      nil nil
+    (when ws-type
       (toolsdeps-ws-from-disk ws-dir ws-type user-input color-mode))))

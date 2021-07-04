@@ -8,6 +8,7 @@
             [polylith.clj.core.command.user-config :as user-config]
             [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.common.interface :as common]
+            ;[polylith.clj.core.migrator.interface :as migrator]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.help.interface :as help]
             [polylith.clj.core.validator.interface :as validator]
@@ -65,6 +66,7 @@
         "help" (help args is-show-project is-show-brick is-show-workspace color-mode)
         "info" (info/info workspace unnamed-args)
         "libs" (lib/print-lib-table workspace is-all)
+        ;"migrate" (migrator/migrate ws-dir workspace)
         "test" (test/run workspace unnamed-args color-mode)
         "version" (version)
         "ws" (ws-explorer/ws workspace get out color-mode)

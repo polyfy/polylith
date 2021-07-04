@@ -55,3 +55,6 @@
 
 (defn workspace-dir [user-input color-mode]
   (ws-dir/workspace-dir user-input color-mode))
+
+(defn toolsdeps1? [workspace]
+  (= :toolsdeps1 (-> workspace :version :from :ws :type)))

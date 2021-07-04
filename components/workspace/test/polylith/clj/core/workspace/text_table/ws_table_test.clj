@@ -539,7 +539,7 @@
                             :lib-deps {"net.mikera/core.matrix" #:mvn{:version "0.62.0"},
                                        "org.slf4j/slf4j-nop" #:mvn{:version "1.7.25"},
                                        "org.clojure/clojure" #:mvn{:version "1.10.1"},
-                                       "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}},
+                                       "org.clojure/tools.deps.alpha" #:mvn{:version "0.11.931"}},
                             :deps {"workspace-clj" {:direct ["common" "file" "user-config" "util"], :indirect []},
                                    "test-runner" {:direct ["common" "util"], :indirect []},
                                    "command" {:direct ["common"
@@ -653,7 +653,7 @@
                                           :test ["clojure.string"]}
                             :lib-deps {"net.mikera/core.matrix" #:mvn{:version "0.62.0"},
                                        "org.clojure/clojure" #:mvn{:version "1.10.1"},
-                                       "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}},
+                                       "org.clojure/tools.deps.alpha" #:mvn{:version "0.11.931"}},
                             :deps {"workspace-clj" {:direct ["common" "file" "user-config" "util"], :indirect []},
                                    "test-runner" {:direct ["common" "util"], :indirect []},
                                    "command" {:direct ["common" "deps" "help" "user-config" "util" "workspace"],
@@ -790,7 +790,7 @@
                             :lib-deps {"net.mikera/core.matrix" #:mvn{:version "0.62.0"},
                                        "org.slf4j/slf4j-nop" #:mvn{:version "1.7.25"},
                                        "org.clojure/clojure" #:mvn{:version "1.10.1"},
-                                       "org.clojure/tools.deps.alpha" #:mvn{:version "0.8.695"}},
+                                       "org.clojure/tools.deps.alpha" #:mvn{:version "0.11.931"}},
                             :deps {"workspace-clj" {:direct ["common" "file" "user-config" "util"], :indirect []},
                                    "test-runner" {:direct ["common" "util"], :indirect []},
                                    "command" {:direct ["common"

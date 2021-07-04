@@ -3,8 +3,8 @@
                                 "bases/cli/resources"
                                 "bases/user-api/src"
                                 "bases/user-api/resources"]
-                  :extra-deps {org.clojure/clojure {:mvn/version "1.10.1"}
-                               org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}
+                  :extra-deps {org.clojure/clojure {:mvn/version "1.10.3"}
+                               org.clojure/tools.deps.alpha {:mvn/version "0.11.931"}
                                org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
                                org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}}}
 

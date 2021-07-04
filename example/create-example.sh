@@ -11,21 +11,23 @@ sections=$(pwd)/sections
 scripts=$(pwd)/../scripts
 realworld=$(pwd)/../../clojure-polylith-realworld-example-app
 ws=$(mktemp -d -t polylith-ws-$(date +%Y-%m-%d-%H%M%S))
+ws1=$(mktemp -d -t polylith-ws1-$(date +%Y-%m-%d-%H%M%S))
 echo $(pwd)
 echo $ws
+echo $ws1
 cd $ws
 
-echo "### 1/21 Workspace ###"
+echo "### 1/25 Workspace ###"
 poly create w name:example top-ns:se.example :git-add
 tree example > $output/workspace-tree.txt
 cd example
 
-echo "### 2/21 Development ###"
+echo "### 2/25 Development ###"
 mkdir development/src/dev
 cp $sections/development/lisa.clj development/src/dev
 git add development/src/dev/lisa.clj
 
-echo "### 3/21 Component ###"
+echo "### 3/25 Component ###"
 poly create c name:user
 tree . > ../component-tree.txt
 
@@ -35,7 +37,7 @@ cp $sections/component/user-interface.clj components/user/src/se/example/user/in
 cp $sections/component/deps.edn .
 poly info fake-sha:c91fdad > $output/component-info.txt
 
-echo "### 4/21 Base ###"
+echo "### 4/25 Base ###"
 poly create b name:cli
 cd ..
 tree example > $output/base-tree.txt
@@ -43,7 +45,7 @@ cd example
 cp $sections/base/deps.edn .
 cp $sections/base/cli-core.clj bases/cli/src/se/example/cli/core.clj
 
-echo "### 5/21 Project ###"
+echo "### 5/25 Project ###"
 poly create p name:command-line
 cd ..
 tree example > $output/project-tree.txt
@@ -52,12 +54,12 @@ cp $sections/project/deps.edn .
 cp $sections/project/workspace.edn .
 cp $sections/project/command-line-deps.edn projects/command-line/deps.edn
 
-echo "### 6/21 Tools.deps ###"
+echo "### 6/25 Tools.deps ###"
 cd projects/command-line
 mkdir -p classes
 clj -e "(compile,'se.example.cli.core)"
 
-echo "### 7/21 Build ###"
+echo "### 7/25 Build ###"
 cd ../..
 mkdir scripts
 cp $scripts/build-uberjar.sh scripts
@@ -72,7 +74,7 @@ cd scripts
   cd ../projects/command-line/target
 java -jar command-line.jar Lisa
 
-echo "### 8/21 Git ###"
+echo "### 8/25 Git ###"
 cd ../../..
 poly info fake-sha:c91fdad > $output/git-info.txt
 git log
@@ -81,7 +83,7 @@ git add --all
 git commit -m "Created the user and cli bricks."
 git log --pretty=oneline
 
-echo "### 9/21 Tagging ###"
+echo "### 9/25 Tagging ###"
 git tag -f stable-lisa
 git log --pretty=oneline
 poly info fake-sha:e7ebe68 > $output/tagging-info-1.txt
@@ -92,10 +94,10 @@ poly info since:release fake-sha:e7ebe68 > $output/tagging-info-2.txt
 poly info since:previous-release fake-sha:c91fdad > $output/tagging-info-3.txt
 git log --pretty=oneline
 
-echo "### 10/21 Flags ###"
+echo "### 10/25 Flags ###"
 poly info :r fake-sha:e7ebe68 > $output/flags-info.txt
 
-echo "### 11/21 Testing ###"
+echo "### 11/25 Testing ###"
 cp $sections/testing/user-core.clj components/user/src/se/example/user/core.clj
 poly diff > $output/testing-diff.txt
 poly info fake-sha:e7ebe68 > $output/testing-info-1.txt
@@ -127,7 +129,7 @@ cp $sections/testing/workspace.edn .
 poly info :all :dev fake-sha:e7ebe68 > $output/testing-info-11.txt
 poly test :all :dev > $output/testing-test-all.txt
 
-echo "### 12/21 Profile ###"
+echo "### 12/25 Profile ###"
 cp $sections/profile/workspace.edn .
 poly create p name:user-service
 poly create b name:user-api
@@ -161,7 +163,7 @@ set -e
 poly info :loc fake-sha:e7ebe68 > $output/profile-info-4.txt
 poly test :project fake-sha:e7ebe68 > $output/profile-test.txt
 
-echo "### 13/21 Configuration ###"
+echo "### 13/25 Configuration ###"
 poly ws get:settings
 poly ws get:settings:profile-to-settings:default:paths
 poly ws get:keys
@@ -170,7 +172,7 @@ poly ws out:ws.edn
 poly info ws-file:ws.edn fake-sha:e7ebe68
 poly ws get:old:user-input:args ws-file:ws.edn > $output/config-ws.txt
 
-echo "### 14/21 Workspace state ###"
+echo "### 14/25 Workspace state ###"
 poly ws get:settings color-mode:none > $output/ws-state-settings.txt
 poly ws get:settings:profile-to-settings:default:paths color-mode:none > $output/ws-state-paths.txt
 poly ws get:keys color-mode:none > $output/ws-state-keys.txt
@@ -181,22 +183,33 @@ poly ws get:old:user-input:args ws-file:ws.edn color-mode:none > $output/ws-stat
 
 cd $example/../../clojure-polylith-realworld-example-app
 
-echo "### 15/21 Realworld example app ###"
+echo "### 15/25 Realworld example app ###"
 poly info > $output/realworld/realworld-info.txt
-echo "### 16/21 Realworld example app ###"
+echo "### 16/25 Realworld example app ###"
 poly deps > $output/realworld/realworld-deps-interfaces.txt
-echo "### 17/21 Realworld example app ###"
+echo "### 17/25 Realworld example app ###"
 poly deps brick:article > $output/realworld/realworld-deps-interface.txt
-echo "### 18/21 Realworld example app ###"
+echo "### 18/25 Realworld example app ###"
 poly deps project:rb > $output/realworld/realworld-deps-components.txt
-echo "### 19/21 Realworld example app ###"
+echo "### 19/25 Realworld example app ###"
 poly deps project:rb brick:article > $output/realworld/realworld-deps-component.txt
-echo "### 20/21 Realworld example app ###"
+echo "### 20/25 Realworld example app ###"
 poly libs > $output/realworld/realworld-lib-deps.txt
-echo "### 21/21 Realworld example app ###"
+echo "### 21/25 Realworld example app ###"
 cp $example/realworld/workspace-compact.edn ./workspace.edn
 poly libs > $output/realworld/realworld-lib-deps-compact.txt
 cp $example/realworld/workspace.edn .
+
+echo "### 22/25 Polylith toolsdeps1 ###"
+cd $ws1
+git clone git@github.com:polyfy/polylith.git
+cd polylith
+echo "### 23/25 Polylith toolsdeps1 ###"
+poly info > $output/polylith1/info.txt
+echo "### 24/25 Polylith toolsdeps1 ###"
+poly libs > $output/polylith1/libs.txt
+echo "### 25/25 Polylith toolsdeps1 ###"
+poly deps > $output/polylith1/deps.txt
 
 cd $output
 ./output.sh > ./output.txt

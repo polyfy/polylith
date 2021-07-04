@@ -4,8 +4,6 @@
  :interface-ns "interface"
  :default-profile-name "default"
  :compact-views #{}
- :release-tag-pattern "v[0-9]*"
- :stable-tag-pattern "stable-*"
  :tag-patterns {:stable "stable-*"
                 :release "v[0-9]*"}
  :projects {"api"           {:alias "api", :test []}

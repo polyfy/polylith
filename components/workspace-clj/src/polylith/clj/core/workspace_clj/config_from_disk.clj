@@ -14,7 +14,8 @@
 (defn read-config-file [ws-type brick-dir]
   (let [[ok? data] (case ws-type
                      :toolsdeps1
-                     [true {}]
+                     [true {:paths ["src" "resources"]
+                            :aliases {:test {:extra-paths "test"}}}]
                      :toolsdeps2
                      (let [config-filename (str brick-dir "/deps.edn")]
                        (read-and-validate-config-file config-filename)))]

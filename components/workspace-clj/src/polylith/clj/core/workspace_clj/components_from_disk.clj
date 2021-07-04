@@ -3,6 +3,7 @@
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.workspace-clj.brick-paths :as brick-paths]
             [polylith.clj.core.workspace-clj.config-from-disk :as config-from-disk]
             [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]
             [polylith.clj.core.workspace-clj.interface-defs-from-disk :as defs-from-disk]))
@@ -20,6 +21,7 @@
         lib-deps (lib/brick-lib-deps ws-type config top-namespace ns-to-lib namespaces user-home)]
        (util/ordered-map :name component-name
                          :type "component"
+                         :paths (brick-paths/source-paths component-dir config)
                          :namespaces namespaces
                          :non-top-namespaces (brick->non-top-namespaces component-name)
                          :lib-deps lib-deps

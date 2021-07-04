@@ -1,6 +1,5 @@
 (ns polylith.clj.core.test-helper.interface
-  (:require [polylith.clj.core.test-helper.core :as core]
-            [polylith.clj.core.user-input.interface :as user-input]))
+  (:require [polylith.clj.core.test-helper.core :as core]))
 
 (defn root-dir []
   @core/root-dir)

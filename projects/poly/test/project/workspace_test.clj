@@ -21,48 +21,47 @@
       change/with-changes))
 
 (deftest project-table
-  (is (= ["  project          alias  status   dev"
-          "  ------------------------------   ---"
-          "  api *            api     ---     ---"
-          "  core *           core    ---     ---"
-          "  deployer *       depl    ---     ---"
-          "  poly *           poly    -x-     -x-"
-          "  poly-migrator *  migr    ---     ---"
-          "  development *    dev     x--     x--"]
+  (is (= ["  project        alias  status   dev"
+          "  ----------------------------   ---"
+          "  api *          api     ---     ---"
+          "  core *         core    ---     ---"
+          "  deployer *     depl    ---     ---"
+          "  poly *         poly    -x-     -x-"
+          "  development *  dev     x--     x--"]
          (project-table/table (workspace) false false))))
 
 (deftest info
-  (is (= ["  interface      brick             api  core  depl  poly  migr   dev"
-          "  ------------------------------   ---------------------------   ---"
-          "  api            api *             x--  ---   x--   ---   ---    xx-"
-          "  change         change *          x--  x--   x--   xxx   ---    xx-"
-          "  command        command *         ---  ---   ---   xxx   ---    xx-"
-          "  common         common *          x--  x--   x--   x--   x--    x--"
-          "  creator        creator *         ---  ---   ---   xxx   ---    xx-"
-          "  deployer       deployer *        ---  ---   x--   ---   ---    x--"
-          "  deps           deps *            x--  x--   x--   xxx   ---    xx-"
-          "  file           file *            x--  x--   x--   xxx   x--    xx-"
-          "  git            git *             x--  x--   x--   xxx   ---    xx-"
-          "  help           help *            ---  ---   ---   x--   ---    x--"
-          "  lib            lib *             x--  x--   x--   xxx   ---    xx-"
-          "  migrator       migrator *        ---  ---   ---   ---   x--    xx-"
-          "  path-finder    path-finder *     x--  x--   x--   xxx   ---    xx-"
-          "  shell          shell *           x--  x--   x--   x--   ---    x--"
-          "  test-helper    test-helper *     ---  ---   ---   -xx   ---    x--"
-          "  test-runner    test-runner *     ---  ---   ---   xxx   ---    xx-"
-          "  text-table     text-table *      x--  x--   x--   x--   ---    x--"
-          "  user-config    user-config *     x--  x--   x--   x--   x--    x--"
-          "  user-input     user-input *      x--  x--   x--   xxx   ---    xx-"
-          "  util           util *            x--  x--   x--   xxx   x--    xx-"
-          "  validator      validator *       x--  x--   x--   xxx   ---    xx-"
-          "  version        version *         x--  ---   x--   x--   x--    x--"
-          "  workspace      workspace *       x--  x--   x--   xxx   ---    xx-"
-          "  workspace-clj  workspace-clj *   x--  ---   x--   xxx   ---    xx-"
-          "  ws-explorer    ws-explorer *     x--  ---   x--   xxx   ---    xx-"
-          "  ws-file        ws-file *         ---  ---   ---   x--   ---    x--"
-          "  -              deployer-cli *    ---  ---   x--   ---   ---    x--"
-          "  -              migrator-cli *    ---  ---   ---   ---   x--    x--"
-          "  -              poly-cli *        ---  ---   ---   x--   ---    x--"]
+  (is (= ["  interface      brick             api  core  depl  poly   dev"
+          "  ------------------------------   ---------------------   ---"
+          "  api            api *             x--  ---   x--   ---    xx-"
+          "  change         change *          x--  x--   x--   xxx    xx-"
+          "  command        command *         ---  ---   ---   xxx    xx-"
+          "  common         common *          x--  x--   x--   x--    x--"
+          "  creator        creator *         ---  ---   ---   xxx    xx-"
+          "  deployer       deployer *        ---  ---   x--   ---    x--"
+          "  deps           deps *            x--  x--   x--   xxx    xx-"
+          "  file           file *            x--  x--   x--   xxx    xx-"
+          "  git            git *             x--  x--   x--   xxx    xx-"
+          "  help           help *            ---  ---   ---   x--    x--"
+          "  lib            lib *             x--  x--   x--   xxx    xx-"
+          "  migrator       migrator *        ---  ---   ---   xxx    xx-"
+          "  path-finder    path-finder *     x--  x--   x--   xxx    xx-"
+          "  shell          shell *           x--  x--   x--   x--    x--"
+          "  test-helper    test-helper *     ---  ---   ---   -xx    x--"
+          "  test-runner    test-runner *     ---  ---   ---   xxx    xx-"
+          "  text-table     text-table *      x--  x--   x--   x--    x--"
+          "  user-config    user-config *     x--  x--   x--   x--    x--"
+          "  user-input     user-input *      x--  x--   x--   xxx    xx-"
+          "  util           util *            x--  x--   x--   xxx    xx-"
+          "  validator      validator *       x--  x--   x--   xxx    xx-"
+          "  version        version *         x--  ---   x--   x--    x--"
+          "  workspace      workspace *       x--  x--   x--   xxx    xx-"
+          "  workspace-clj  workspace-clj *   x--  ---   x--   xxx    xx-"
+          "  ws-explorer    ws-explorer *     x--  ---   x--   xxx    xx-"
+          "  ws-file        ws-file *         ---  ---   ---   xxx    xx-"
+          "  -              deployer-cli *    ---  ---   x--   ---    x--"
+          "  -              migrator-cli *    ---  ---   ---   ---    x--"
+          "  -              poly-cli *        ---  ---   ---   x--    x--"]
          (ws-table/table (workspace) false false))))
 
 (deftest libs
@@ -78,16 +77,18 @@
           "                                                                                            o  d  f  a  -  o"
           "                                                                                            y  e  i  t  c  r"
           "                                                                                            e  p  l  o  l  e"
-          "  library                       version  type      KB   api  core  depl  poly  migr   dev   r  s  e  r  j  r"
-          "  ---------------------------------------------------   ---------------------------   ---   ----------------"
-          "  me.raynes/fs                  1.4.6    maven     10   x-    x-    x-    x-    x-    x-    .  .  x  .  .  ."
-          "  metosin/malli                 0.1.0    maven     27   x-    x-    x-    x-    --    x-    .  .  .  x  .  ."
-          "  mount/mount                   0.1.16   maven      8   --    --    --    --    --    x-    .  .  .  .  .  ."
-          "  mvxcvi/puget                  1.3.1    maven     15   x-    --    x-    x-    --    x-    .  .  .  .  .  x"
-          "  org.clojure/clojure           1.10.1   maven  3,816   x-    x-    x-    x-    x-    x-    .  .  .  .  .  ."
-          "  org.clojure/tools.deps.alpha  0.8.695  maven     46   x-    x-    x-    x-    --    x-    .  x  .  .  x  ."
-          "  org.slf4j/slf4j-nop           1.7.25   maven      3   --    --    x-    x-    --    x-    .  .  .  .  .  ."
-          "  slipset/deps-deploy           0.1.0    maven      2   --    --    x-    --    --    x-    x  .  .  .  .  ."]
+          "  library                       version        type      KB   api  core  depl  poly   dev   r  s  e  r  j  r"
+          "  ---------------------------------------------------------   ---------------------   ---   ----------------"
+          "  me.raynes/fs                  1.4.6          maven     10   x-    x-    x-    x-    x-    .  .  x  .  .  ."
+          "  metosin/malli                 0.1.0          maven     27   x-    x-    x-    x-    --    .  .  .  x  .  ."
+          "  metosin/malli                 0.5.0          maven     42   --    --    --    --    x-    .  .  .  .  .  ."
+          "  mount/mount                   0.1.16         maven      8   --    --    --    --    x-    .  .  .  .  .  ."
+          "  mvxcvi/puget                  1.3.1          maven     15   x-    --    x-    x-    x-    .  .  .  .  .  x"
+          "  org.clojure/clojure           1.10.3         maven  3,822   x-    x-    x-    x-    x-    .  .  .  .  .  ."
+          "  org.clojure/tools.deps.alpha  0.11.931       maven     51   x-    x-    x-    x-    x-    .  x  .  .  x  ."
+          "  org.slf4j/slf4j-nop           1.7.25         maven      3   --    --    x-    x-    x-    .  .  .  .  .  ."
+          "  rewrite-clj/rewrite-clj       1.0.644-alpha  maven     71   --    --    --    --    x-    .  .  .  .  .  ."
+          "  slipset/deps-deploy           0.1.0          maven      2   --    --    x-    --    x-    x  .  .  .  .  ."]
          (libs/table (workspace) false))))
 
 (deftest ifc-deps-table
@@ -107,7 +108,7 @@
           "  -------------------------------------------------------------------------------------------"
           "  api            .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  x  x  x  ."
           "  change         .  .  .  .  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  command        .  x  .  x  x  .  x  x  x  x  x  .  .  .  .  x  .  x  .  x  x  x  x  x  x  x"
+          "  command        .  x  .  x  x  .  x  x  x  x  x  x  .  .  .  x  .  x  .  x  x  x  x  x  x  x"
           "  common         .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
           "  creator        .  .  .  x  .  .  .  x  x  .  .  .  .  .  t  .  .  .  .  x  .  .  .  .  .  ."
           "  deployer       x  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  .  .  .  x  .  .  .  ."
@@ -116,7 +117,7 @@
           "  git            .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  .  ."
           "  help           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
           "  lib            .  .  .  x  .  .  .  x  .  .  .  .  .  .  t  .  x  x  .  x  .  .  .  .  .  ."
-          "  migrator       .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  migrator       .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  path-finder    .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  shell          .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  test-helper    .  .  x  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  .  ."
@@ -127,7 +128,7 @@
           "  util           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  validator      .  .  .  x  .  .  x  .  .  .  .  .  x  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  version        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  workspace      .  .  .  x  .  .  x  x  .  .  .  .  x  .  t  .  x  .  .  x  x  t  .  .  .  ."
+          "  workspace      .  .  .  x  .  .  x  x  .  .  .  .  x  .  t  .  x  .  .  x  x  .  .  .  .  ."
           "  workspace-clj  .  .  .  x  .  .  .  x  x  .  x  .  x  .  .  .  .  x  .  x  x  x  .  .  .  ."
           "  ws-explorer    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  ws-file        .  .  .  .  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  ."
@@ -140,44 +141,45 @@
   (let [ws (workspace)
         projects (:projects ws)
         project (common/find-project "poly" projects)]
-    (is (= ["                                                                             w      "
-            "                                                                             o      "
-            "                                            p     t  t     u                 r  w   "
-            "                                            a     e  e  t  s  u              k  s   "
-            "                                            t     s  s  e  e  s     v     w  s  -   "
-            "                                            h     t  t  x  r  e     a     o  p  e   "
-            "                    c     c                 -     -  -  t  -  r     l  v  r  a  x  w"
-            "                 c  o  c  r                 f     h  r  -  c  -     i  e  k  c  p  s"
-            "                 h  m  o  e                 i  s  e  u  t  o  i     d  r  s  e  l  -"
-            "                 a  m  m  a  d  f     h     n  h  l  n  a  n  n  u  a  s  p  -  o  f"
-            "                 n  a  m  t  e  i  g  e  l  d  e  p  n  b  f  p  t  t  i  a  c  r  i"
-            "                 g  n  o  o  p  l  i  l  i  e  l  e  e  l  i  u  i  o  o  c  l  e  l"
-            "  brick          e  d  n  r  s  e  t  p  b  r  l  r  r  e  g  t  l  r  n  e  j  r  e"
-            "  ----------------------------------------------------------------------------------"
-            "  change         .  .  .  .  .  +  x  .  .  x  +  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  command        x  .  x  x  x  x  x  x  x  +  +  .  x  +  x  .  x  x  x  x  x  x  x"
-            "  common         .  .  .  .  .  x  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
-            "  creator        -  -  x  -  -  x  x  -  -  -  +  t  -  -  +  -  x  -  -  -  -  -  -"
-            "  deps           .  .  x  .  .  +  .  .  .  .  .  .  .  x  +  .  x  .  .  .  .  .  ."
-            "  file           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  git            .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  help           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
-            "  lib            -  -  x  -  -  x  -  -  -  -  -  t  -  x  x  -  x  -  -  -  -  -  -"
-            "  path-finder    .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  shell          .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  test-helper    +  x  +  +  +  x  +  +  +  +  +  .  +  +  x  x  +  +  +  +  +  +  +"
-            "  test-runner    .  .  x  .  x  +  .  .  .  +  .  .  .  +  +  .  x  x  .  .  .  .  ."
-            "  text-table     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  user-config    .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  user-input     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  util           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  validator      .  .  x  .  x  +  .  .  .  x  .  .  .  +  +  .  x  .  .  .  .  .  ."
-            "  version        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  workspace      -  -  x  -  x  x  -  -  -  x  -  t  -  x  +  -  x  x  t  -  -  -  -"
-            "  workspace-clj  .  .  x  .  +  x  x  .  x  x  +  .  .  +  x  .  x  x  x  .  .  .  ."
-            "  ws-explorer    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  ws-file        .  .  .  .  .  x  x  .  .  .  +  .  .  .  .  .  +  .  x  .  .  .  ."
-            "  poly-cli       +  x  +  +  +  +  +  +  +  +  +  .  +  +  +  x  x  +  +  +  +  +  +"]
+    (is (= ["                                                                                w      "
+            "                                                                                o      "
+            "                                               p     t  t     u                 r  w   "
+            "                                               a     e  e  t  s  u              k  s   "
+            "                                               t     s  s  e  e  s     v     w  s  -   "
+            "                                            m  h     t  t  x  r  e     a     o  p  e   "
+            "                    c     c                 i  -     -  -  t  -  r     l  v  r  a  x  w"
+            "                 c  o  c  r                 g  f     h  r  -  c  -     i  e  k  c  p  s"
+            "                 h  m  o  e                 r  i  s  e  u  t  o  i     d  r  s  e  l  -"
+            "                 a  m  m  a  d  f     h     a  n  h  l  n  a  n  n  u  a  s  p  -  o  f"
+            "                 n  a  m  t  e  i  g  e  l  t  d  e  p  n  b  f  p  t  t  i  a  c  r  i"
+            "                 g  n  o  o  p  l  i  l  i  o  e  l  e  e  l  i  u  i  o  o  c  l  e  l"
+            "  brick          e  d  n  r  s  e  t  p  b  r  r  l  r  r  e  g  t  l  r  n  e  j  r  e"
+            "  -------------------------------------------------------------------------------------"
+            "  change         .  .  .  .  .  +  x  .  .  .  x  +  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  command        x  .  x  x  x  x  x  x  x  x  +  +  .  x  +  x  .  x  x  x  x  x  x  x"
+            "  common         .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
+            "  creator        -  -  x  -  -  x  x  -  -  -  -  +  t  -  -  +  -  x  -  -  -  -  -  -"
+            "  deps           .  .  x  .  .  +  .  .  .  .  .  .  .  .  x  +  .  x  .  .  .  .  .  ."
+            "  file           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  git            .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  help           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
+            "  lib            -  -  x  -  -  x  -  -  -  -  -  -  t  -  x  x  -  x  -  -  -  -  -  -"
+            "  migrator       .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  +  .  .  .  .  .  ."
+            "  path-finder    .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  shell          .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  test-helper    +  x  +  +  +  x  +  +  +  +  +  +  .  +  +  x  x  +  +  +  +  +  +  +"
+            "  test-runner    .  .  x  .  x  +  .  .  .  .  +  .  .  .  +  +  .  x  x  .  .  .  .  ."
+            "  text-table     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  user-config    .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  user-input     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  util           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  validator      .  .  x  .  x  +  .  .  .  .  x  .  .  .  +  +  .  x  .  .  .  .  .  ."
+            "  version        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  workspace      -  -  x  -  x  x  -  -  -  -  x  -  t  -  x  +  -  x  x  -  -  -  -  -"
+            "  workspace-clj  .  .  x  .  +  x  x  .  x  .  x  +  .  .  +  x  .  x  x  x  .  .  .  ."
+            "  ws-explorer    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  ws-file        .  .  .  .  .  x  x  .  .  .  .  +  .  .  .  .  .  +  .  x  .  .  .  ."
+            "  poly-cli       +  x  +  +  +  +  +  +  +  +  +  +  .  +  +  +  x  x  +  +  +  +  +  +"]
            (ws-project-deps-table/table (workspace) project false)))))
 
 (deftest project-and-brick-deps
@@ -193,8 +195,7 @@
             "                            test-helper (t)"
             "                            text-table     "
             "                            util           "
-            "                            validator      "
-            "                            version (t)    "]
+            "                            validator      "]
            (brick-deps-table/table ws project brick "none")))))
 
 (deftest project-brick-deps
@@ -209,8 +210,7 @@
             "                            test-helper (t)"
             "                            text-table     "
             "                            util           "
-            "                            validator      "
-            "                            version (t)    "]
+            "                            validator      "]
            (brick-ifc-deps/table ws brick)))))
 
 (deftest poly-project-deps
@@ -232,6 +232,7 @@
                                              "git"
                                              "help"
                                              "lib"
+                                             "migrator"
                                              "test-runner"
                                              "user-config"
                                              "util"
@@ -252,6 +253,7 @@
                                              "git"
                                              "help"
                                              "lib"
+                                             "migrator"
                                              "test-runner"
                                              "user-config"
                                              "util"
@@ -285,6 +287,7 @@
                                              "deps"
                                              "help"
                                              "lib"
+                                             "migrator"
                                              "path-finder"
                                              "shell"
                                              "test-runner"
@@ -334,6 +337,7 @@
                                              "git"
                                              "help"
                                              "lib"
+                                             "migrator"
                                              "path-finder"
                                              "shell"
                                              "test-runner"
@@ -344,6 +348,9 @@
                                              "workspace-clj"
                                              "ws-explorer"
                                              "ws-file"]}}
+          "migrator"      {:src  {:direct   ["file"]
+                                  :indirect ["util"]}
+                           :test {}}
           "path-finder"   {:src  {:direct ["file"
                                            "util"]}
                            :test {:direct ["file"
@@ -359,6 +366,7 @@
                                              "git"
                                              "help"
                                              "lib"
+                                             "migrator"
                                              "path-finder"
                                              "shell"
                                              "test-runner"
@@ -384,6 +392,7 @@
                                              "git"
                                              "help"
                                              "lib"
+                                             "migrator"
                                              "path-finder"
                                              "shell"
                                              "test-runner"
@@ -445,18 +454,19 @@
                                              "test-helper"
                                              "text-table"
                                              "util"
-                                             "validator"
-                                             "version"]
+                                             "validator"]
                                   :indirect ["change"
                                              "command"
                                              "creator"
                                              "git"
                                              "help"
                                              "lib"
+                                             "migrator"
                                              "shell"
                                              "test-runner"
                                              "user-config"
                                              "user-input"
+                                             "version"
                                              "workspace"
                                              "workspace-clj"
                                              "ws-explorer"
@@ -507,6 +517,7 @@
           "components/git/src"
           "components/help/src"
           "components/lib/src"
+          "components/migrator/src"
           "components/path-finder/src"
           "components/shell/src"
           "components/test-runner/src"
@@ -530,6 +541,7 @@
           "components/file/test"
           "components/git/test"
           "components/lib/test"
+          "components/migrator/test"
           "components/path-finder/test"
           "components/test-helper/src"
           "components/test-runner/test"
@@ -562,6 +574,11 @@
                  "me.raynes.fs"
                  "org.eclipse.aether.util.version"
                  "puget.printer"]
-          :test ["clojure.test"
-                          "clojure.tools.deps.alpha.util.maven"]}
+          :test ["clojure.test"]}
          (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"]))))
+
+(deftest poly-project-lib-imports
+  (is (= {:src {"slipset/deps-deploy" {:size    2467
+                                       :type    "maven"
+                                       :version "0.1.0"}}}
+         (ws-explorer/extract (workspace) ["components" "deployer" "lib-deps"]))))

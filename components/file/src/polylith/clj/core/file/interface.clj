@@ -78,3 +78,6 @@
 
 (defn relative-paths [path]
   (core/relative-paths path))
+
+(defn pretty-spit [filename collection]
+  (core/pretty-spit filename collection))

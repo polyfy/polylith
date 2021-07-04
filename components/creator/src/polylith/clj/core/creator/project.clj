@@ -10,7 +10,7 @@
     (file/create-dir project-path)
     (file/create-file filename
                       [(str "{:deps {org.clojure/clojure {:mvn/version \"1.10.1\"}")
-                       (str "        org.clojure/tools.deps.alpha {:mvn/version \"0.8.695\"}}")
+                       (str "        org.clojure/tools.deps.alpha {:mvn/version \"0.11.931\"}}")
                        ""
                        (str " :aliases {:test {:extra-paths []")
                        (str "                  :extra-deps  {}}}}")])

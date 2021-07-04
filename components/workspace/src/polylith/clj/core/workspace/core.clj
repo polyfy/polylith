@@ -31,7 +31,7 @@
         {:keys [top-namespace interface-ns color-mode]} settings
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         interfaces (interfaces/calculate components)
-        interface-names (apply sorted-set (mapv :name interfaces))
+        interface-names (apply sorted-set (filter identity (mapv :name interfaces)))
         enriched-components (mapv #(component/enrich suffixed-top-ns interface-names %) components)
         enriched-bases (mapv #(base/enrich suffixed-top-ns interface-names %) bases)
         enriched-bricks (concat enriched-components enriched-bases)

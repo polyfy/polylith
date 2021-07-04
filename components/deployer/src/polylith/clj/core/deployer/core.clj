@@ -46,12 +46,12 @@
                        :project-name project-name}
                       e)))))
 
-(def projects-to-deploy-clojars #{"poly" "poly-migrator" "api"})
+(def projects-to-deploy-clojars #{"poly" "api"})
 
 (defn deploy []
   (let [current-dir (file/current-dir)
         changed-projects (filter #(contains? projects-to-deploy-clojars %)
-                                 (api/projects-to-deploy))]
+                                 (api/projects-to-deploy "previous-release"))]
     (when (empty? changed-projects)
       (throw (Exception. "Cannot deploy projects. None of the projects in this workspace changed.")))
     (doseq [project-name changed-projects]
@@ -130,7 +130,7 @@
 (defn create-artifacts []
   (let [current-dir (file/current-dir)
         changed-projects (filter #(contains? projects-to-deploy-as-artifacts %)
-                                 (api/projects-to-deploy))]
+                                 (api/projects-to-deploy "previous-release"))]
     (when (empty? changed-projects)
       (throw (Exception. "Cannot create artifacts for project. None of the projects in this workspace changed.")))
     (let [artifacts-dir (str current-dir "/artifacts")]

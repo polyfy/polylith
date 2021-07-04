@@ -17,10 +17,7 @@
       (assoc config :ws-type :toolsdeps2))))
 
 (defn with-alias [[project alias]]
-  (if (= project "development")
-    [project {:alias alias
-              :test []}]
-    [project {:alias alias}]))
+  [project {:alias alias}])
 
 (defn ws-config-from-dev [{:keys [project-to-alias] :as config}]
   (let [projects (into {} (map with-alias project-to-alias))]

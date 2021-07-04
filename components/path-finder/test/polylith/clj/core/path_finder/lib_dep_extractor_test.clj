@@ -4,7 +4,7 @@
             [polylith.clj.core.path-finder.lib-dep-extractor :as lib-dep-extractor]))
 
 (def deps {:src {"org.clojure/clojure" {:mvn/version "1.10.1"}
-                 "org.clojure/tools.deps.alpha" {:mvn/version "0.8.695"}}
+                 "org.clojure/tools.deps.alpha" {:mvn/version "0.11.931"}}
            :test {"zprint" {:mvn/version "0.4.15"}}})
 
 (def profile-deps {"net.mikera/core.matrix" {:mvn/version "0.62.0"}})

@@ -7,15 +7,15 @@
        "\n"
        "  poly libs [:all]\n"
        "    :all = View all bricks, including those without library dependencies.\n"
-       "                                                                                     " (color/component "u  u\n" cm)
-       "                                                                                     " (color/component "s  t\n" cm)
-       "                                                                                     " (color/component "e  i\n" cm)
-       "    library                       version  type      KB   " (s/key "cl   dev  default  admin" cm) (color/component "   r  l\n" cm)
-       "    ---------------------------------------------------   --   -------------------   ----\n"
-       "    antlr/antlr                   2.7.7    maven    434   " (s/key "x-   x-      -       -" cm) "     .  x\n"
-       "    clj-time                      0.15.2   maven     23   " (s/key "x-   x-      -       -" cm) "     x  .\n"
-       "    org.clojure/clojure           1.10.1   maven  3,816   " (s/key "x-   x-      -       -" cm) "     .  .\n"
-       "    org.clojure/tools.deps.alpha  0.8.695  maven     46   " (s/key "x-   x-      -       -" cm) "     .  .\n"
+       "                                                                                      " (color/component "u  u\n" cm)
+       "                                                                                      " (color/component "s  t\n" cm)
+       "                                                                                      " (color/component "e  i\n" cm)
+       "    library                       version   type      KB   " (s/key "cl   dev  default  admin" cm) (color/component "   r  l\n" cm)
+       "    ----------------------------------------------------   --   -------------------   ----\n"
+       "    antlr/antlr                   2.7.7     maven    434   " (s/key "x-   x-      -       -" cm) "     .  x\n"
+       "    clj-time                      0.15.2    maven     23   " (s/key "x-   x-      -       -" cm) "     x  .\n"
+       "    org.clojure/clojure           1.10.1    maven  3,816   " (s/key "x-   x-      -       -" cm) "     .  .\n"
+       "    org.clojure/tools.deps.alpha  0.11.931  maven     46   " (s/key "x-   x-      -       -" cm) "     .  .\n"
        "\n"
        "  In this example we have four libraries used by the " (color/project "cl" cm) " and " (color/project "dev" cm) " projects.\n"
        "  If any of the libraries are added to the " (color/profile "default" cm) " or " (color/profile "admin" cm) " profiles, they will appear\n"

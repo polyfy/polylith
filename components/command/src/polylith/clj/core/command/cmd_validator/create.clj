@@ -2,6 +2,7 @@
   (:require [clojure.string :as str]
             [polylith.clj.core.command.message :as command]
             [polylith.clj.core.command.shared :as shared]
+            [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.git.interface :as git]))
 
 (def ent->name {"w" "my-workspace"
@@ -32,6 +33,8 @@
         (nil? ent) [false "  The first argument after 'create' is expected to be any of: w, p, b, c, workspace, project, base, component."]
         (and (base-or-comp? ent)
              (invalid-name? name)) [false "  The . character is not allowed in brick names."]
+        (and (common/toolsdeps1? workspace)
+             (project-base-or-comp? ent)) [false "  Can't create bricks or projects in old workspaces. You need to upgrade the workspace using the poly-migrator tool."]
         (and (nil? workspace)
              (project-base-or-comp? ent)) [false (command/cant-be-executed-outside-ws-message "create")]
         (and (nil? name)

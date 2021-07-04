@@ -31,7 +31,7 @@
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>tools.deps.alpha</artifactId>
-      <version>0.8.695</version>
+      <version>0.11.931</version>
     </dependency>
     <dependency>
       <groupId>metosin</groupId>

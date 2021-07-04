@@ -22,9 +22,9 @@
                             :project-dir "../sandbox/ws02/projects/service",
                             :namespaces {}
                             :lib-deps {:src {"org.clojure/clojure" {:version "1.10.1", :type "maven", :size 3908431},
-                                             "org.clojure/tools.deps.alpha" {:version "0.8.695", :type "maven", :size 47566}}
+                                             "org.clojure/tools.deps.alpha" {:version "0.11.931", :type "maven", :size 47566}}
                                        :test {"org.clojure/clojure" {:version "1.10.1", :type "maven", :size 3908431},
-                                              "org.clojure/tools.deps.alpha" {:version "0.8.695", :type "maven", :size 47566},
+                                              "org.clojure/tools.deps.alpha" {:version "0.11.931", :type "maven", :size 47566},
                                               "clj-time" {:version "0.15.2", :type "maven", :size 0}}}
                             :config-filename "../sandbox/ws02/projects/service/deps.edn",
                             :deps-test {"user" {:direct [], :direct-ifc [], :indirect []}},
@@ -54,15 +54,15 @@
                                                       "components/database/test"
                                                       "components/user/test"]}
                                        :lib-deps {:src {"org.clojure/clojure" {:version "1.10.1", :type "maven", :size 3908431},
-                                                        "org.clojure/tools.deps.alpha" {:version "0.8.695", :type "maven", :size 47566}}
+                                                        "org.clojure/tools.deps.alpha" {:version "0.11.931", :type "maven", :size 47566}}
                                                   :test {"org.clojure/clojure" {:version "1.10.1", :type "maven", :size 3908431},
-                                                         "org.clojure/tools.deps.alpha" {:version "0.8.695", :type "maven", :size 47566}}}}
+                                                         "org.clojure/tools.deps.alpha" {:version "0.11.931", :type "maven", :size 47566}}}}
                             :namespaces {}
                             :lib-deps {:src {"org.clojure/clojure" {:version "1.10.1", :type "maven", :size 3908431},
-                                             "org.clojure/tools.deps.alpha" {:version "0.8.695", :type "maven", :size 47566},
+                                             "org.clojure/tools.deps.alpha" {:version "0.11.931", :type "maven", :size 47566},
                                              "me.raynes/fs" {:version "1.4.6", :type "maven", :size 11209}}
                                        :test {"org.clojure/clojure" {:version "1.10.1", :type "maven", :size 3908431},
-                                              "org.clojure/tools.deps.alpha" {:version "0.8.695", :type "maven", :size 47566}}}
+                                              "org.clojure/tools.deps.alpha" {:version "0.11.931", :type "maven", :size 47566}}}
                             :config-filename "../sandbox/ws02/deps.edn",
                             :deps-test {"database" {:direct [], :direct-ifc [], :indirect []},
                                         "test-helper" {:direct [], :direct-ifc [], :indirect []},

@@ -390,7 +390,7 @@ The `workspace.edn` file looks like this:
 ```clojure
 {:aliases  {:dev {:extra-paths ["development/src"]
                   :extra-deps {org.clojure/clojure {:mvn/version "1.10.1"}
-                               org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}}
+                               org.clojure/tools.deps.alpha {:mvn/version "0.11.931"}}}
 
             :test {:extra-paths []}
 
@@ -905,7 +905,7 @@ Now we need to update `./deps.edn` with our newly created base:
                                 "bases/cli/src"
                                 "bases/cli/resources"]
                   :extra-deps {org.clojure/clojure {:mvn/version "1.10.1"}
-                               org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}}
+                               org.clojure/tools.deps.alpha {:mvn/version "0.11.931"}}}
 
             :test {:extra-paths ["components/user/test"
                                  "bases/cli/test"]}
@@ -1138,7 +1138,7 @@ Now add the `uberjar` alias to `deps.edn` in `projects/command-line`
         poly/cli {:local/root "../../bases/cli"}
 
         org.clojure/clojure {:mvn/version "1.10.1"}
-        org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}
+        org.clojure/tools.deps.alpha {:mvn/version "0.11.931"}}
 
  :aliases {:test {:extra-paths []
           :extra-deps  {}}
@@ -1384,6 +1384,7 @@ Some other variants, like `since:e7ebe68`, `since:head`, or `since:head~1` are a
 ## Continuous integration
 
 How this repository sets up its own continuous integration and deployment is described [here](doc/ci-and-deployment.md).
+In this document we will look at the general setup of CI.
 
 When setting up continuous integration, we sometimes want to keep track of changes per project.
 To support this we need to add tag patterns for the projects we want to build, e.g.:
@@ -1408,8 +1409,8 @@ After a successful build, we tag the repository, e.g.:
 ```
 git tag myproject-1
 ```
-We want to keep the release tags, which is the reason each tag gets its own unique tag,
-e.g. `myproject-1`, `myproject-2`, and so on. It's not important that the ID's are 
+We want to keep the release tags, which is the reason each tag gets its own unique tag name,
+e.g. `myproject-1`, `myproject-2`, and so on. It's not important that the IDs are 
 sequential. The tool will always sort them by the order they exist in git anyway.
 
 If the CI build is set up so that it builds all projects in one go, then we could first start by asking 
@@ -2242,7 +2243,7 @@ Set the content of `projects/user-service/deps.edn` to this:
         poly/user-api {:local/root "../../bases/user-api"}
 
         org.clojure/clojure {:mvn/version "1.10.1"}
-        org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}
+        org.clojure/tools.deps.alpha {:mvn/version "0.11.931"}
         org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
         org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}}
 

@@ -9,7 +9,7 @@
                                   project-to-indirect-changes
                                   is-run-all-brick-tests]
   (let [project-has-changed? (contains? (set changed-projects) name)
-        selected-bricks-to-test (get-in settings [:projects name :test])
+        selected-bricks-to-test (get-in settings [:projects name :test :include])
         all-brick-names (set (concat (:test base-names) (:test component-names)))
         ;; if the :test key is given for a project in workspace.edn, then only test the specified bricks,
         ;; otherwise, run tests for all bricks that has tests.

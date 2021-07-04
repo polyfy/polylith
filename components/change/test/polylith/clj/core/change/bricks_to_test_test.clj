@@ -15,7 +15,7 @@
           "development" []}
          (to-test/project-to-bricks-to-test {}
                                             data/projects
-                                            {:projects {"core" {:test []}}}
+                                            {:projects {"core" {:test {:include []}}}}
                                             ["article"] [] {} false))))
 
 (deftest project-to-bricks-to-test--with-test-all-selected--returns-all-bricks-for-active-projects
@@ -35,7 +35,7 @@
                   "user"]
           "development" []}
          (to-test/project-to-bricks-to-test {} data/projects
-                                            {:projects {"core" {:test ["tag" "user"]}}}
+                                            {:projects {"core" {:test {:include ["tag" "user"]}}}}
                                             ["article"] [] {} true))))
 
 (deftest project-to-bricks-to-test--when-the-project-itself-has-changed--return-all-bricks-for-that-project

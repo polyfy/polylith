@@ -44,7 +44,7 @@
            (helper/paths "ws1")))
 
     (is (= ["{:deps {org.clojure/clojure {:mvn/version \"1.10.1\"}"
-            "        org.clojure/tools.deps.alpha {:mvn/version \"0.8.695\"}}"
+            "        org.clojure/tools.deps.alpha {:mvn/version \"0.11.931\"}}"
             ""
             " :aliases {:test {:extra-paths []"
             "                  :extra-deps  {}}}}"]

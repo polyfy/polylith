@@ -8,7 +8,7 @@
                                                         "components/user/resources"
                                                         "components/user/test"
                                                         "projects/invoice/test"]}
-                                     "admin" {:lib-deps {"org.clojure/tools.deps.alpha" {:mvn/version "0.8.695"}}
+                                     "admin" {:lib-deps {"org.clojure/tools.deps.alpha" {:mvn/version "0.11.931"}}
                                               :paths ["components/admin/src"
                                                       "components/admin/resources"
                                                       "components/admin/test"]}}})

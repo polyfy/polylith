@@ -3,8 +3,8 @@
                                 "components/user/resources"
                                 "bases/cli/src"
                                 "bases/cli/resources"]
-                  :extra-deps {org.clojure/clojure {:mvn/version "1.10.1"}
-                               org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}}
+                  :extra-deps {org.clojure/clojure {:mvn/version "1.10.3"}
+                               org.clojure/tools.deps.alpha {:mvn/version "0.11.931"}}}
 
             :test {:extra-paths ["components/user/test"
                                  "bases/cli/test"

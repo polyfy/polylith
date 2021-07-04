@@ -113,7 +113,7 @@
   (map #(ifc->comp % %) deps))
 
 (defn component-deps [deps ifc->comp]
-  (map #(ifc->comp % %) deps))
+  (filter identity (map #(ifc->comp %) deps)))
 
 (defn ifc-names [component-names bricks]
   (set (map #(-> % :interface :name)
@@ -126,16 +126,16 @@
    are on interfaces, but are then translated to corresponding components, using the
    ifc->comp map that is based on the components in the project for which this
    calculation operates on."
-  [ns-paths ifc->comp interface-names src-test-brick-ns]
+  [ns-paths ifc->comp interface-names interface-names-in-project src-test-brick-ns]
   (let [circular (first (sort-by count (filter circular? ns-paths)))
         paths (map #(drop-brick-ns % src-test-brick-ns)
                    (set (map clean-nss ns-paths)))
         direct-and-indirect (set (flatten paths))
-        all-direct (set (filter identity (map first paths)))
-        direct (set/intersection all-direct interface-names)
-        missing-ifc (set/difference all-direct interface-names)
+        all-direct (set/intersection interface-names (set (filter identity (map first paths))))
+        direct (set/intersection all-direct interface-names-in-project)
+        missing-ifc (set/difference all-direct interface-names-in-project)
         all-indirect (set/difference direct-and-indirect all-direct)
-        indirect (set/intersection all-indirect interface-names)
+        indirect (set/intersection all-indirect interface-names-in-project)
         indirect-missing-ifc (set/difference indirect all-indirect)
         has-missing-ifc? (or (seq missing-ifc) (seq indirect-missing-ifc))]
     (cond-> {}
@@ -178,7 +178,7 @@
 
    The 'src' dependencies are then calculated, and also the 'test' dependencies if the
    brick is not excluded in workspace.edn > :projects > PROJECT-KEY > :test."
-  [brick components bases suffixed-top-ns ifc->comp interface-names interface-names-test bricks-to-test]
+  [brick components bases suffixed-top-ns ifc->comp interface-names interface-names-in-project interface-names-in-project-test bricks-to-test]
   (let [brick-ns (brick-namespace brick)
         src-test-brick-ns #{brick-ns (str brick-ns " (t)")}
         bricks (concat components bases)
@@ -190,12 +190,13 @@
         brick-paths (atom [])
         _ (doseq [namespace namespaces]
             (ns-deps-recursively namespace all-ns->namespaces brick-paths #{} []))
-        src-paths (filter (complement test?) @brick-paths)
-        test-paths (filter test? @brick-paths)
-        src-deps (source-deps src-paths ifc->comp interface-names src-test-brick-ns)]
+        all-paths (filter identity @brick-paths)
+        src-paths (filter (complement test?) all-paths)
+        test-paths (filter test? all-paths)
+        src-deps (source-deps src-paths ifc->comp interface-names interface-names-in-project src-test-brick-ns)]
     {:src src-deps
      :test (if (include-test? brick bricks-to-test)
-             (source-deps test-paths ifc->comp interface-names-test src-test-brick-ns)
+             (source-deps test-paths ifc->comp interface-names interface-names-in-project-test src-test-brick-ns)
              {})}))
 
 (defn project-deps
@@ -208,7 +209,8 @@
         bricks (filter #(contains? brick-names (:name %))
                        (concat bases components))
         ifc->comp (into {} (map (juxt #(-> % :interface :name) :name) components))
-        interface-names (ifc-names component-names-src bricks)
-        interface-names-test (ifc-names (concat component-names-src component-names-test) bricks)]
-    (into {} (map (juxt :name #(brick-deps % components bases suffixed-top-ns ifc->comp interface-names interface-names-test bricks-to-test))
+        interface-names (set (map #(-> % :interface :name) components))
+        interface-names-in-project (ifc-names component-names-src bricks)
+        interface-names-in-project-test (ifc-names (concat component-names-src component-names-test) bricks)]
+    (into {} (map (juxt :name #(brick-deps % components bases suffixed-top-ns ifc->comp interface-names interface-names-in-project interface-names-in-project-test bricks-to-test))
                   bricks))))

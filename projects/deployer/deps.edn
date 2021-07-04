@@ -19,5 +19,5 @@
         poly/ws-explorer    {:local/root "../../components/ws-explorer"}
         poly/deployer-cli   {:local/root "../../bases/deployer-cli"}
 
-        org.clojure/clojure {:mvn/version "1.10.1"}
+        org.clojure/clojure {:mvn/version "1.10.3"}
         org.slf4j/slf4j-nop {:mvn/version "1.7.25"}}}

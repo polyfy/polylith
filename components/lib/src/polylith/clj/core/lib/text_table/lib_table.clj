@@ -54,17 +54,6 @@
         flag (str flag-src flag-tst)]
     (text-table/cell column row flag :purple :center :horizontal)))
 
-(comment
-  (def column 9)
-  (def alias)
-  (let [{:keys [alias lib-deps unmerged]} project]
-    (def alias alias)
-    (def lib-deps lib-deps)
-    (def unmerged unmerged))
-  (def deps (:lib-deps unmerged lib-deps))
-  (def src-deps (set (mapcat lib (:src deps))))
-  #__)
-
 (defn project-column [column {:keys [alias lib-deps unmerged]} libraries]
   (let [deps (:lib-deps unmerged lib-deps)
         src-deps (set (mapcat lib (:src deps)))

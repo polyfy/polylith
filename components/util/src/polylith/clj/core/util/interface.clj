@@ -10,6 +10,9 @@
 (defn stringify-and-sort-map [m]
   (core/stringify-and-sort-map m))
 
+(defn sort-map [m]
+  (core/sort-map m))
+
 (defn first-as-vector [vals]
   (if (empty? vals)
     []

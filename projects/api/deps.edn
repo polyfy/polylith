@@ -17,7 +17,7 @@
         poly/workspace-clj {:local/root "../../components/workspace-clj"}
         poly/ws-explorer   {:local/root "../../components/ws-explorer"}
 
-        org.clojure/clojure {:mvn/version "1.10.1"}}
+        org.clojure/clojure {:mvn/version "1.10.3"}}
 
  :aliases {:skinny-jar {:extra-deps {pack/pack.alpha {:git/url "https://github.com/juxt/pack.alpha.git"
                                                       :sha "0e8731e0f24db05b74769e219051b0e92b50624a"}}

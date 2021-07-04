@@ -7,6 +7,7 @@
         poly/git           {:local/root "../../components/git"}
         poly/help          {:local/root "../../components/help"}
         poly/lib           {:local/root "../../components/lib"}
+        poly/migrator      {:local/root "../../components/migrator"}
         poly/path-finder   {:local/root "../../components/path-finder"}
         poly/shell         {:local/root "../../components/shell"}
         poly/test-runner   {:local/root "../../components/test-runner"}
@@ -22,7 +23,7 @@
         poly/ws-file       {:local/root "../../components/ws-file"}
         poly/poly-cli      {:local/root "../../bases/poly-cli"}
 
-        org.clojure/clojure {:mvn/version "1.10.1"}
+        org.clojure/clojure {:mvn/version "1.10.3"}
         org.slf4j/slf4j-nop {:mvn/version "1.7.25"}}
 
  :aliases {:test      {:extra-paths ["test"]

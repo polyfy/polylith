@@ -14,7 +14,7 @@
 
     [(subs (name profile-key) 1)
      (util/ordered-map :paths extra-paths
-                       :lib-deps (lib/with-sizes extra-deps user-home)
+                       :lib-deps (lib/latest-with-sizes extra-deps user-home)
                        :component-names component-names
                        :base-names base-names
                        :project-names project-names)]))

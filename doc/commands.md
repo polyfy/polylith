@@ -630,15 +630,15 @@ poly help
 
   poly libs [:all]
     :all = View all bricks, including those without library dependencies.
-                                                                                     u  u
-                                                                                     s  t
-                                                                                     e  i
-    library                       version  type      KB   cl   dev  default  admin   r  l
-    ---------------------------------------------------   --   -------------------   ----
-    antlr/antlr                   2.7.7    maven    434   x-   x-      -       -     .  x
-    clj-time                      0.15.2   maven     23   x-   x-      -       -     x  .
-    org.clojure/clojure           1.10.1   maven  3,816   x-   x-      -       -     .  .
-    org.clojure/tools.deps.alpha  0.8.695  maven     46   x-   x-      -       -     .  .
+                                                                                      u  u
+                                                                                      s  t
+                                                                                      e  i
+    library                       version   type      KB   cl   dev  default  admin   r  l
+    ----------------------------------------------------   --   -------------------   ----
+    antlr/antlr                   2.7.7     maven    434   x-   x-      -       -     .  x
+    clj-time                      0.15.2    maven     23   x-   x-      -       -     x  .
+    org.clojure/clojure           1.10.1    maven  3,816   x-   x-      -       -     .  .
+    org.clojure/tools.deps.alpha  0.11.931  maven     46   x-   x-      -       -     .  .
 
   In this example we have four libraries used by the cl and dev projects.
   If any of the libraries are added to the default or admin profiles, they will appear

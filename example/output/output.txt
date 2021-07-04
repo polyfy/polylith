@@ -416,7 +416,7 @@ Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
 [32mTest results: 1 passes, 0 failures, 0 errors.[0m
-Execution time: 7 seconds
+Execution time: 6 seconds
 
 ######### realworld-info.png #########
 
@@ -560,4 +560,121 @@ Execution time: 7 seconds
   ring/ring-jetty-adapter               1.6.3         maven     5   [35mx-[0m   [35mx- [0m   . . . . . . . . x
   ring/ring-json                        0.5.0-beta1   maven     5   [35mx-[0m   [35mx- [0m   . . . . . . . . x
   slugger/slugger                       1.0.1         maven   774   [35mx-[0m   [35mx- [0m   x . . . . . . . .
+
+######### polylith/info.png #########
+
+  stable since: [37mbb59439 | stable-master[0m
+
+  [35mprojects:[0m 6   [33minterfaces:[0m 25
+  [34mbases:   [0m 3   [32mcomponents:[0m 25
+
+  project        alias  status   [35mdev[0m
+  ----------------------------   ---
+  [35mapi[0m            [35mapi[0m    [35m ---  [0m   [35m---[0m
+  [35mcore[0m           [35mcore[0m   [35m ---  [0m   [35m---[0m
+  [35mdeployer[0m       [35mdepl[0m   [35m ---  [0m   [35m---[0m
+  [35mpoly[0m           [35mpoly[0m   [35m -x-  [0m   [35m-x-[0m
+  [35mpoly-migrator[0m  [35mmigr[0m   [35m ---  [0m   [35m---[0m
+  [35mdevelopment[0m    [35mdev[0m    [35m x--  [0m   [35mx--[0m
+
+  interface      brick           [35mapi[0m  [35mcore[0m  [35mdepl[0m  [35mpoly[0m  [35mmigr[0m   [35mdev[0m
+  ----------------------------   ---------------------------   ---
+  [33mapi          [0m  [32mapi[0m             [35mx--[0m  [35m--- [0m  [35mx-- [0m  [35m--- [0m  [35m--- [0m   [35mxx-[0m
+  [33mchange       [0m  [32mchange[0m          [35mx--[0m  [35mx-- [0m  [35mx-- [0m  [35mxx- [0m  [35m--- [0m   [35mxx-[0m
+  [33mcommand      [0m  [32mcommand[0m         [35m---[0m  [35m--- [0m  [35m--- [0m  [35mxx- [0m  [35m--- [0m   [35mxx-[0m
+  [33mcommon       [0m  [32mcommon[0m          [35mx--[0m  [35mx-- [0m  [35mx-- [0m  [35mx-- [0m  [35mx-- [0m   [35mx--[0m
+  [33mcreator      [0m  [32mcreator[0m         [35m---[0m  [35m--- [0m  [35m--- [0m  [35mxx- [0m  [35m--- [0m   [35mxx-[0m
+  [33mdeployer     [0m  [32mdeployer[0m        [35m---[0m  [35m--- [0m  [35mx-- [0m  [35m--- [0m  [35m--- [0m   [35mx--[0m
+  [33mdeps         [0m  [32mdeps[0m            [35mx--[0m  [35mx-- [0m  [35mx-- [0m  [35mxx- [0m  [35m--- [0m   [35mxx-[0m
+  [33mfile         [0m  [32mfile[0m            [35mx--[0m  [35mx-- [0m  [35mx-- [0m  [35mxx- [0m  [35mx-- [0m   [35mxx-[0m
+  [33mgit          [0m  [32mgit[0m             [35mx--[0m  [35mx-- [0m  [35mx-- [0m  [35mxx- [0m  [35m--- [0m   [35mxx-[0m
+  [33mhelp         [0m  [32mhelp[0m            [35m---[0m  [35m--- [0m  [35m--- [0m  [35mx-- [0m  [35m--- [0m   [35mx--[0m
+  [33mlib          [0m  [32mlib[0m             [35mx--[0m  [35mx-- [0m  [35mx-- [0m  [35mxx- [0m  [35m--- [0m   [35mxx-[0m
+  [33mmigrator     [0m  [32mmigrator[0m        [35m---[0m  [35m--- [0m  [35m--- [0m  [35m--- [0m  [35mx-- [0m   [35mxx-[0m
+  [33mpath-finder  [0m  [32mpath-finder[0m     [35mx--[0m  [35mx-- [0m  [35mx-- [0m  [35mxx- [0m  [35m--- [0m   [35mxx-[0m
+  [33mshell        [0m  [32mshell[0m           [35mx--[0m  [35mx-- [0m  [35mx-- [0m  [35mx-- [0m  [35m--- [0m   [35mx--[0m
+  [33mtest-helper  [0m  [32mtest-helper[0m     [35m---[0m  [35m--- [0m  [35m--- [0m  [35mx-- [0m  [35m--- [0m   [35mx--[0m
+  [33mtest-runner  [0m  [32mtest-runner[0m     [35m---[0m  [35m--- [0m  [35m--- [0m  [35mx-- [0m  [35m--- [0m   [35mx--[0m
+  [33mtext-table   [0m  [32mtext-table[0m      [35mx--[0m  [35mx-- [0m  [35mx-- [0m  [35mx-- [0m  [35m--- [0m   [35mx--[0m
+  [33muser-config  [0m  [32muser-config[0m     [35mx--[0m  [35mx-- [0m  [35mx-- [0m  [35mx-- [0m  [35mx-- [0m   [35mx--[0m
+  [33muser-input   [0m  [32muser-input[0m      [35mx--[0m  [35mx-- [0m  [35mx-- [0m  [35mxx- [0m  [35m--- [0m   [35mxx-[0m
+  [33mutil         [0m  [32mutil[0m            [35mx--[0m  [35mx-- [0m  [35mx-- [0m  [35mxx- [0m  [35mx-- [0m   [35mxx-[0m
+  [33mvalidator    [0m  [32mvalidator[0m       [35mx--[0m  [35mx-- [0m  [35mx-- [0m  [35mxx- [0m  [35m--- [0m   [35mxx-[0m
+  [33mversion      [0m  [32mversion[0m         [35mx--[0m  [35m--- [0m  [35mx-- [0m  [35mx-- [0m  [35mx-- [0m   [35mx--[0m
+  [33mworkspace    [0m  [32mworkspace[0m       [35mx--[0m  [35mx-- [0m  [35mx-- [0m  [35mxx- [0m  [35m--- [0m   [35mxx-[0m
+  [33mworkspace-clj[0m  [32mworkspace-clj[0m   [35mx--[0m  [35m--- [0m  [35mx-- [0m  [35mxx- [0m  [35m--- [0m   [35mxx-[0m
+  [33mws-explorer  [0m  [32mws-explorer[0m     [35mx--[0m  [35m--- [0m  [35mx-- [0m  [35mxx- [0m  [35m--- [0m   [35mxx-[0m
+  -              [34mdeployer-cli[0m    [35m---[0m  [35m--- [0m  [35mx-- [0m  [35m--- [0m  [35m--- [0m   [35mx--[0m
+  -              [34mmigrator-cli[0m    [35m---[0m  [35m--- [0m  [35m--- [0m  [35m--- [0m  [35mx-- [0m   [35mx--[0m
+  -              [34mpoly-cli[0m        [35m---[0m  [35m--- [0m  [35m--- [0m  [35mx-- [0m  [35m--- [0m   [35mx--[0m
+
+######### polylith/libs.png #########
+
+                                                                                                         [32m [0m  [32m [0m  [32m [0m  [32m [0m  [32mw[0m  [32m [0m
+                                                                                                         [32m [0m  [32m [0m  [32m [0m  [32m [0m  [32mo[0m  [32m [0m
+                                                                                                         [32m [0m  [32m [0m  [32mt[0m  [32m [0m  [32mr[0m  [32mw[0m
+                                                                                                         [32m [0m  [32m [0m  [32me[0m  [32m [0m  [32mk[0m  [32ms[0m
+                                                                                                         [32m [0m  [32m [0m  [32ms[0m  [32mv[0m  [32ms[0m  [32m-[0m
+                                                                                                         [32md[0m  [32m [0m  [32mt[0m  [32ma[0m  [32mp[0m  [32me[0m
+                                                                                                         [32me[0m  [32m [0m  [32m-[0m  [32ml[0m  [32ma[0m  [32mx[0m
+                                                                                                         [32mp[0m  [32m [0m  [32mr[0m  [32mi[0m  [32mc[0m  [32mp[0m
+                                                                                                         [32ml[0m  [32m [0m  [32mu[0m  [32md[0m  [32me[0m  [32ml[0m
+                                                                                                         [32mo[0m  [32mf[0m  [32mn[0m  [32ma[0m  [32m-[0m  [32mo[0m
+                                                                                                         [32my[0m  [32mi[0m  [32mn[0m  [32mt[0m  [32mc[0m  [32mr[0m
+                                                                                                         [32me[0m  [32ml[0m  [32me[0m  [32mo[0m  [32ml[0m  [32me[0m
+  library                                    version  type      KB   [35mapi[0m  [35mcore[0m  [35mdepl[0m  [35mpoly[0m  [35mmigr[0m   [35mdev[0m   [32mr[0m  [32me[0m  [32mr[0m  [32mr[0m  [32mj[0m  [32mr[0m
+  ----------------------------------------------------------------   ---------------------------   ---   ----------------
+  me.raynes/fs                               1.4.6    maven     10   [35mx- [0m  [35m x- [0m  [35m x- [0m  [35m x- [0m  [35m x- [0m   [35mx- [0m   .  x  .  .  .  .
+  metosin/malli                              0.1.0    maven     27   [35mx- [0m  [35m x- [0m  [35m x- [0m  [35m x- [0m  [35m -- [0m   [35mx- [0m   .  .  .  x  .  .
+  mvxcvi/puget                               1.3.1    maven     15   [35mx- [0m  [35m -- [0m  [35m x- [0m  [35m x- [0m  [35m -- [0m   [35mx- [0m   .  .  .  .  .  x
+  org.apache.logging.log4j/log4j-core        2.13.3   maven  1,673   [35m-- [0m  [35m -- [0m  [35m x- [0m  [35m x- [0m  [35m -- [0m   [35mx- [0m   .  .  .  .  .  .
+  org.apache.logging.log4j/log4j-slf4j-impl  2.13.3   maven     23   [35m-- [0m  [35m -- [0m  [35m x- [0m  [35m x- [0m  [35m -- [0m   [35mx- [0m   .  .  .  .  .  .
+  org.clojure/clojure                        1.10.1   maven  3,816   [35mx- [0m  [35m x- [0m  [35m x- [0m  [35m x- [0m  [35m x- [0m   [35mx- [0m   .  .  .  .  .  .
+  org.clojure/tools.deps.alpha               0.8.695  maven     46   [35mx- [0m  [35m x- [0m  [35m x- [0m  [35m x- [0m  [35m x- [0m   [35mx- [0m   .  .  x  .  x  .
+  slipset/deps-deploy                        0.1.0    maven      2   [35m-- [0m  [35m -- [0m  [35m x- [0m  [35m -- [0m  [35m -- [0m   [35mx- [0m   x  .  .  .  .  .
+
+######### polylith/deps.png #########
+
+                 [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33mw[0m  [33m [0m
+                 [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33mo[0m  [33m [0m
+                 [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33mp[0m  [33m [0m  [33mt[0m  [33mt[0m  [33m [0m  [33mu[0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33mr[0m  [33mw[0m
+                 [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33ma[0m  [33m [0m  [33me[0m  [33me[0m  [33mt[0m  [33ms[0m  [33mu[0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33mk[0m  [33ms[0m
+                 [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33mt[0m  [33m [0m  [33ms[0m  [33ms[0m  [33me[0m  [33me[0m  [33ms[0m  [33m [0m  [33mv[0m  [33m [0m  [33mw[0m  [33ms[0m  [33m-[0m
+                 [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33md[0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33mm[0m  [33mh[0m  [33m [0m  [33mt[0m  [33mt[0m  [33mx[0m  [33mr[0m  [33me[0m  [33m [0m  [33ma[0m  [33m [0m  [33mo[0m  [33mp[0m  [33me[0m
+                 [33m [0m  [33m [0m  [33mc[0m  [33m [0m  [33mc[0m  [33me[0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33mi[0m  [33m-[0m  [33m [0m  [33m-[0m  [33m-[0m  [33mt[0m  [33m-[0m  [33mr[0m  [33m [0m  [33ml[0m  [33mv[0m  [33mr[0m  [33ma[0m  [33mx[0m
+                 [33m [0m  [33mc[0m  [33mo[0m  [33mc[0m  [33mr[0m  [33mp[0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33mg[0m  [33mf[0m  [33m [0m  [33mh[0m  [33mr[0m  [33m-[0m  [33mc[0m  [33m-[0m  [33m [0m  [33mi[0m  [33me[0m  [33mk[0m  [33mc[0m  [33mp[0m
+                 [33m [0m  [33mh[0m  [33mm[0m  [33mo[0m  [33me[0m  [33ml[0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33m [0m  [33mr[0m  [33mi[0m  [33ms[0m  [33me[0m  [33mu[0m  [33mt[0m  [33mo[0m  [33mi[0m  [33m [0m  [33md[0m  [33mr[0m  [33ms[0m  [33me[0m  [33ml[0m
+                 [33m [0m  [33ma[0m  [33mm[0m  [33mm[0m  [33ma[0m  [33mo[0m  [33md[0m  [33mf[0m  [33m [0m  [33mh[0m  [33m [0m  [33ma[0m  [33mn[0m  [33mh[0m  [33ml[0m  [33mn[0m  [33ma[0m  [33mn[0m  [33mn[0m  [33mu[0m  [33ma[0m  [33ms[0m  [33mp[0m  [33m-[0m  [33mo[0m
+                 [33ma[0m  [33mn[0m  [33ma[0m  [33mm[0m  [33mt[0m  [33my[0m  [33me[0m  [33mi[0m  [33mg[0m  [33me[0m  [33ml[0m  [33mt[0m  [33md[0m  [33me[0m  [33mp[0m  [33mn[0m  [33mb[0m  [33mf[0m  [33mp[0m  [33mt[0m  [33mt[0m  [33mi[0m  [33ma[0m  [33mc[0m  [33mr[0m
+                 [33mp[0m  [33mg[0m  [33mn[0m  [33mo[0m  [33mo[0m  [33me[0m  [33mp[0m  [33ml[0m  [33mi[0m  [33ml[0m  [33mi[0m  [33mo[0m  [33me[0m  [33ml[0m  [33me[0m  [33me[0m  [33ml[0m  [33mi[0m  [33mu[0m  [33mi[0m  [33mo[0m  [33mo[0m  [33mc[0m  [33ml[0m  [33me[0m
+  brick          [33mi[0m  [33me[0m  [33md[0m  [33mn[0m  [33mr[0m  [33mr[0m  [33ms[0m  [33me[0m  [33mt[0m  [33mp[0m  [33mb[0m  [33mr[0m  [33mr[0m  [33ml[0m  [33mr[0m  [33mr[0m  [33me[0m  [33mg[0m  [33mt[0m  [33ml[0m  [33mr[0m  [33mn[0m  [33me[0m  [33mj[0m  [33mr[0m
+  ----------------------------------------------------------------------------------------
+  [32mapi[0m            .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  x  x  x
+  [32mchange[0m         .  .  .  .  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  x  .  .  .  .  .
+  [32mcommand[0m        .  x  .  x  x  .  x  x  .  x  x  .  .  .  .  x  .  .  .  x  x  x  x  x  x
+  [32mcommon[0m         .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .
+  [32mcreator[0m        .  .  .  x  .  .  .  x  x  .  .  .  .  .  t  .  .  x  .  x  .  x  .  .  .
+  [32mdeployer[0m       x  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  .  .  .  x  .  .  .
+  [32mdeps[0m           .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  x  .  .  .  .  .
+  [32mfile[0m           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .
+  [32mgit[0m            .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  .
+  [32mhelp[0m           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .
+  [32mlib[0m            .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .
+  [32mmigrator[0m       .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .
+  [32mpath-finder[0m    .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .
+  [32mshell[0m          .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+  [32mtest-helper[0m    .  .  x  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  .
+  [32mtest-runner[0m    .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .
+  [32mtext-table[0m     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .
+  [32muser-config[0m    .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .
+  [32muser-input[0m     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .
+  [32mutil[0m           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+  [32mvalidator[0m      .  .  .  x  .  .  x  .  .  .  x  .  x  .  .  .  .  .  .  x  .  .  .  .  .
+  [32mversion[0m        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+  [32mworkspace[0m      .  .  .  x  .  .  x  x  .  .  x  .  x  .  .  .  x  .  .  x  x  .  .  .  .
+  [32mworkspace-clj[0m  .  .  .  x  .  .  .  x  .  .  x  .  x  .  .  .  .  x  .  x  x  x  .  .  .
+  [32mws-explorer[0m    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .
+  [34mdeployer-cli[0m   .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+  [34mmigrator-cli[0m   .  .  .  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .
+  [34mpoly-cli[0m       .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .
 

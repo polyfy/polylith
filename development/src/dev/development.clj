@@ -29,6 +29,8 @@
 (brick-deps-table/print-table workspace "poly" "workspace")
 
 (def settings (:settings workspace))
+(def changes (:changes workspace))
+(def version (:version version))
 (def components (:components workspace))
 (def bases (:bases workspace))
 (def component (common/find-component "workspace" components))

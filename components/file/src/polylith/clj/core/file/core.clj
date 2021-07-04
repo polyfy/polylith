@@ -1,5 +1,6 @@
 (ns polylith.clj.core.file.core
   (:require [clojure.java.io :as io]
+            [clojure.pprint :as pp]
             [me.raynes.fs :as fs]
             [polylith.clj.core.util.interface.str :as str-util])
   (:import [java.io File PushbackReader FileNotFoundException]
@@ -16,7 +17,7 @@
               "Could not delete file" path))
 
 (defn delete-dir [path]
-  (doseq [f (reverse (file-seq (clojure.java.io/file path)))]
+  (doseq [f (reverse (file-seq (io/file path)))]
     (if (or (Files/isSymbolicLink (.toPath f)) (.exists f))
       (delete-file f))))
 
@@ -39,7 +40,9 @@
   (.mkdir (File. path)))
 
 (defn exists [^String path]
-  (.exists (File. path)))
+  (if path
+    (.exists (File. path))
+    false))
 
 (defn absolute-path [path]
   (-> path io/file .getAbsolutePath))
@@ -111,3 +114,7 @@
 
 (defn create-missing-dirs [filename]
   (io/make-parents filename))
+
+(defn pretty-spit [filename collection]
+  (spit (io/file filename)
+        (with-out-str (pp/write collection :dispatch pp/code-dispatch))))

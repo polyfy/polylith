@@ -88,3 +88,13 @@ echo ""; cat realworld-lib-deps.txt ; echo ""
 
 echo "######### realworld-lib-deps-compact.png #########"
 echo ""; cat realworld-lib-deps-compact.txt ; echo ""
+
+cd ../polylith1
+echo "######### polylith/info.png #########"
+echo ""; cat info.txt ; echo ""
+
+echo "######### polylith/libs.png #########"
+echo ""; cat libs.txt ; echo ""
+
+echo "######### polylith/deps.png #########"
+echo ""; cat deps.txt ; echo ""
