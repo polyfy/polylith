@@ -7,15 +7,15 @@
 
   project         alias   status   [35mdev[0m  [35mremote[0m   loc  (t)
   ------------------------------   -----------   --------
-  [35mcommand-line[0m *  [35mcl[0m      [35m -x-  [0m   [35m-x-[0m  [35m  --  [0m     0    5
+  [35mcommand-line[0m *  [35mcl[0m      [35m -t-  [0m   [35m-t-[0m  [35m  --  [0m     0    5
   [35muser-service[0m *  [35muser-s[0m  [35m ---  [0m   [35m---[0m  [35m  --  [0m     0    0
-  [35mdevelopment[0m     [35mdev[0m     [35m x--  [0m   [35mx--[0m  [35m  --  [0m     4    0
+  [35mdevelopment[0m     [35mdev[0m     [35m s--  [0m   [35ms--[0m  [35m  --  [0m     4    0
                                                    4    5
 
   interface  brick           [35mcl [0m  [35muser-s[0m   [35mdev[0m  [35mremote[0m   loc (t)
   ------------------------   -----------   -----------   -------
-  [33muser     [0m  [32muser[0m            [35m---[0m  [35m xxx  [0m   [35mxx-[0m  [35m  --  [0m     9   7
-  [33muser     [0m  [32muser-remote[0m *   [35mxxx[0m  [35m ---  [0m   [35m---[0m  [35m  xx  [0m    14   6
-  -          [34mcli[0m             [35mxxx[0m  [35m ---  [0m   [35mxx-[0m  [35m  --  [0m     7   6
-  -          [34muser-api[0m *      [35m---[0m  [35m xxx  [0m   [35mxx-[0m  [35m  --  [0m    13   6
+  [33muser     [0m  [32muser[0m            [35m---[0m  [35m stx  [0m   [35mst-[0m  [35m  --  [0m     9   7
+  [33muser     [0m  [32muser-remote[0m *   [35mstx[0m  [35m ---  [0m   [35m---[0m  [35m  st  [0m    14   6
+  -          [34mcli[0m             [35mstx[0m  [35m ---  [0m   [35mst-[0m  [35m  --  [0m     7   6
+  -          [34muser-api[0m *      [35m---[0m  [35m stx  [0m   [35mst-[0m  [35m  --  [0m    13   6
                              21     22     29             43  25

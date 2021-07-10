@@ -5,6 +5,8 @@
 
 (def sep (File/separator))
 
+(defn file [^String f] (File. f))
+
 (defn absolute-path [path]
   (core/absolute-path path))
 

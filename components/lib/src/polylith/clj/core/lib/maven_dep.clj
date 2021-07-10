@@ -9,9 +9,9 @@
 
 (defn latest
   "Return the latest Maven library version."
-  [coord1 coord2]
-  (let [v1 (version (:mvn/version coord1))
-        v2 (version (:mvn/version coord2))]
+  [coord1 coord2 mvn-key]
+  (let [v1 (version (mvn-key coord1))
+        v2 (version (mvn-key coord2))]
     (if (and v1 v2)
       (if (< (compare v1 v2) 0)
         coord2 coord1)

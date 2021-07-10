@@ -2529,6 +2529,8 @@ poly libs
 ```
 <img src="images/realworld-lib-deps.png" width="80%">
 
+An 'x' means that the library is added to the 'src' context, while 't' means that it's only used from the test context.
+
 Libraries can be specified in three different ways in `tools.deps`:
 
 | Type  | Description |
@@ -2675,12 +2677,12 @@ The workspace configuration is stored in `./workspace.edn` and defines the follo
 
 | Key                    | Description
 |:-----------------------|:---------------------------------------------------------------------------------------------|
+| :vcs                   | Set to "git" which is the only supported [version control](https://en.wikipedia.org/wiki/Version_control) system at the moment. |
 | :top-namespace         | The workspace top namespace. If changed, the source code has to be changed accordingly. |
 | :interface-ns          | The default value is `interface`. If changed, the source code has to be changed accordingly. |
 | :default&#8209;profile&#8209;name  | The default value is `default`. If changed, the `+default` alias in `./deps.edn` has to be renamed accordingly. |
-| :release-tag-pattern   | The default value is `v[0-9]*`. If changed, old tags may not be recognised. |
-| :stable-tag-pattern    | The default value is `stable-*`. If changed, old tags may not be recognised. |
 | :compact-views         | The default value is `#{}`. If set to `#{"libs"}`, then the `libs` diagram will be shown in a more compact format. Only "libs" is supported at the moment. |
+| :tag-patterns          | The default value for the 'release' key is `v[0-9]*`, and for the 'stable' key it's `stable-*`. If changed, old tags may not be recognised. |
 | :projects              | If the `development` key is missing, `{"development" {:alias "dev"}` will be added. |
 
 Only the `:top-namespace` attribute is mandatory, all other attributes will use their default values.

@@ -5,10 +5,10 @@
 
   project       alias  status   [35mdev[0m
   ---------------------------   ---
-  [35mcommand-line[0m  [35mcl[0m     [35m -xx  [0m   [35m-x-[0m
-  [35mdevelopment[0m   [35mdev[0m    [35m x--  [0m   [35mx--[0m
+  [35mcommand-line[0m  [35mcl[0m     [35m -tx  [0m   [35m-t-[0m
+  [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
 
   interface  brick   [35mcl [0m   [35mdev[0m
   ----------------   ---   ---
-  [33muser     [0m  [32muser[0m    [35mxxx[0m   [35mxx-[0m
-  -          [34mcli[0m     [35mxxx[0m   [35mxx-[0m
+  [33muser     [0m  [32muser[0m    [35mstx[0m   [35mst-[0m
+  -          [34mcli[0m     [35mstx[0m   [35mst-[0m

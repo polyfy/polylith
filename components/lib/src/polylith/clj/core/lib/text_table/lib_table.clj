@@ -49,9 +49,9 @@
                        libraries)))
 
 (defn flag-cell [column row lib-dep src-deps test-deps]
-  (let [flag-src (if (contains? src-deps lib-dep) "x" "-")
-        flag-tst (if (contains? test-deps lib-dep) "x" "-")
-        flag (str flag-src flag-tst)]
+  (let [src (if (contains? src-deps lib-dep) 1 0)
+        test (if (contains? test-deps lib-dep) 2 0)
+        flag (get ["-" "x" "t" "x"] (+ src test))]
     (text-table/cell column row flag :purple :center :horizontal)))
 
 (defn project-column [column {:keys [alias lib-deps unmerged]} libraries]
@@ -148,4 +148,7 @@
 (comment
   (require '[dev.development :as dev])
   (print-table dev/workspace false)
+
+  (require '[dev.jocke :as jocke])
+  (print-table jocke/workspace false)
   #__)

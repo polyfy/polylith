@@ -74,9 +74,9 @@
   (let [brick-names (set (mapcat #(extract-brick-name % is-dev) project-src-deps))
         paths (vec (sort (set (concat (map #(absolute-path % project-name is-dev) project-src-paths)
                                       (mapcat #(-> % name->brick ->brick-src-paths) brick-names)))))
-        lib-deps (lib/resolve-libs (concat (lib/with-sizes (filterv #(not (brick? % is-dev))
-                                                                    project-src-deps)
-                                                           user-home)
+        lib-deps (lib/resolve-libs (concat (lib/with-sizes-vec (filterv #(not (brick? % is-dev))
+                                                                        project-src-deps)
+                                                               user-home)
                                            (mapcat #(brick-libs name->brick % :src) brick-names))
                                    override-deps)]
     [paths lib-deps]))
@@ -116,15 +116,22 @@
             paths (concat (map #(absolute-path % project-name is-dev) project-test-paths)
                           (mapcat #(-> % name->brick ->brick-test-paths) brick-names)
                           (mapcat #(-> % name->brick ->brick-src-paths) only-brick-names))
-            lib-deps (lib/resolve-libs (concat (lib/with-sizes (filterv #(not (brick? % is-dev))
-                                                                        project-test-deps)
-                                                               user-home)
+            lib-deps (lib/resolve-libs (concat (lib/with-sizes-vec (filterv #(not (brick? % is-dev))
+                                                                            project-test-deps)
+                                                                   user-home)
                                                (mapcat #(brick-libs name->brick % :test) brick-names)
                                                (mapcat #(brick-libs name->brick % :src) only-brick-names))
                                        (merge override-src-deps override-test-deps))]
 
         [(vec (sort (set paths)))
          (vec (sort (set lib-deps)))]))))
+
+(comment
+  (def src-deps [["clj-time/clj-time" {:version "0.15.2", :type "maven", :size 23664}]
+                 ["clj-time/clj-time" {:version "0.15.0", :type "maven", :size 23664}]])
+
+  (lib/with-sizes-vec src-deps "/Users/joakimtengstrand")
+  #__)
 
 (defn read-project
   ([{:keys [project-name project-dir project-config-dir is-dev]} ws-type ws-dir name->brick project->settings user-home]
@@ -134,8 +141,8 @@
          project-src-deps (if is-dev (-> aliases :dev :extra-deps) deps)
          project-test-paths (-> aliases :test :extra-paths)
          project-test-deps (-> aliases :test :extra-deps)
-         override-src-deps (if is-dev (-> aliases :dev :override-deps) override-deps)
-         override-test-deps (-> aliases :test :override-deps)
+         override-src-deps (lib/latest-with-sizes (if is-dev (-> aliases :dev :override-deps) override-deps) user-home)
+         override-test-deps (lib/latest-with-sizes (-> aliases :test :override-deps) user-home)
          maven-repos (merge mvn/standard-repos repos)
          message (when (not is-dev) (validator/validate-project-deployable-config ws-type config))]
      (if message

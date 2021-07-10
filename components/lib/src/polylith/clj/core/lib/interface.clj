@@ -1,14 +1,14 @@
 (ns polylith.clj.core.lib.interface
-  (:require [polylith.clj.core.lib.core :as core])
-  (:require [polylith.clj.core.lib.size :as size]
+  (:require [polylith.clj.core.lib.core :as core]
+            [polylith.clj.core.lib.size :as size]
             [polylith.clj.core.lib.resolve-libs :as resolve-libs]
             [polylith.clj.core.lib.text-table.lib-table :as lib-table]))
 
 (defn latest-with-sizes [libraries user-home]
   (core/latest-with-sizes libraries user-home))
 
-(defn with-sizes [libraries user-home]
-  (size/with-sizes libraries user-home))
+(defn with-sizes-vec [libraries user-home]
+  (size/with-sizes-vec libraries user-home))
 
 (defn brick-lib-deps [ws-type config top-namespace ns-to-lib namespaces user-home]
   (core/brick-lib-deps ws-type config top-namespace ns-to-lib namespaces user-home))

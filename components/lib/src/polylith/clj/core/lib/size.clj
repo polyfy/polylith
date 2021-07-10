@@ -10,6 +10,6 @@
                          url (git-size/with-size-and-version name sha value user-home))]
     [(str lib-name) lib]))
 
-(defn with-sizes [libraries user-home]
-  (map #(with-size % user-home)
+(defn with-sizes-vec [libraries user-home]
+  (mapv #(with-size % user-home)
        libraries))
