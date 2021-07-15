@@ -74,7 +74,8 @@
   (let [brick-names (set (mapcat #(extract-brick-name % is-dev) project-src-deps))
         paths (vec (sort (set (concat (map #(absolute-path % project-name is-dev) project-src-paths)
                                       (mapcat #(-> % name->brick ->brick-src-paths) brick-names)))))
-        lib-deps (lib/resolve-libs (concat (lib/with-sizes-vec (filterv #(not (brick? % is-dev))
+        lib-deps (lib/resolve-libs (concat (lib/with-sizes-vec (str "projects/" project-name)
+                                                               (filterv #(not (brick? % is-dev))
                                                                         project-src-deps)
                                                                user-home)
                                            (mapcat #(brick-libs name->brick % :src) brick-names))
@@ -116,7 +117,9 @@
             paths (concat (map #(absolute-path % project-name is-dev) project-test-paths)
                           (mapcat #(-> % name->brick ->brick-test-paths) brick-names)
                           (mapcat #(-> % name->brick ->brick-src-paths) only-brick-names))
-            lib-deps (lib/resolve-libs (concat (lib/with-sizes-vec (filterv #(not (brick? % is-dev))
+            entity-root-path (str "projects/" project-name)
+            lib-deps (lib/resolve-libs (concat (lib/with-sizes-vec entity-root-path
+                                                                   (filterv #(not (brick? % is-dev))
                                                                             project-test-deps)
                                                                    user-home)
                                                (mapcat #(brick-libs name->brick % :test) brick-names)
@@ -141,8 +144,9 @@
          project-src-deps (if is-dev (-> aliases :dev :extra-deps) deps)
          project-test-paths (-> aliases :test :extra-paths)
          project-test-deps (-> aliases :test :extra-deps)
-         override-src-deps (lib/latest-with-sizes (if is-dev (-> aliases :dev :override-deps) override-deps) user-home)
-         override-test-deps (lib/latest-with-sizes (-> aliases :test :override-deps) user-home)
+         entity-root-path (str "projects/" project-name)
+         override-src-deps (lib/latest-with-sizes entity-root-path (if is-dev (-> aliases :dev :override-deps) override-deps) user-home)
+         override-test-deps (lib/latest-with-sizes entity-root-path (-> aliases :test :override-deps) user-home)
          maven-repos (merge mvn/standard-repos repos)
          message (when (not is-dev) (validator/validate-project-deployable-config ws-type config))]
      (if message

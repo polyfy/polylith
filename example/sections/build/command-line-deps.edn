@@ -7,6 +7,6 @@
  :aliases {:test {:extra-paths []
                   :extra-deps  {}}
 
-           :uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
+           :uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.250"}}
                      :exec-fn hf.depstar/uberjar
                      :exec-args {:aot true, :main-class se.example.cli.core}}}}

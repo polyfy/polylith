@@ -1,45 +1,22 @@
 (ns polylith.clj.core.migrator.core
-  (:require [polylith.clj.core.file.interface :as file]))
-
-; Work in progress
-
-(defn create-brick-config [{:keys []}])
-
-;{:paths ["src"]
-; :deps '{me.raynes/fs {:mvn/version "1.4.6"}}
-; :aliases {:test {:extra-paths ["test"]
-;                  :extra-deps {}}}}
-
-
-(defn create-brick-configs [{:keys [components bases]}]
-  (doseq [brick (concat components bases)]
-    (create-brick-config brick)))
-
-(defn create-workspace-config [ws-dir
-                               {:keys []
-                                {:keys [top-namespace
-                                        interface-ns
-                                        default-profile-name
-                                        compact-views
-                                        tag-patterns
-                                        projects]} :settings}]
-  (file/pretty-spit
-    (str ws-dir "/workspace.edn")
-    {:top-namespace top-namespace
-     :interface-ns interface-ns
-     :default-profile-name default-profile-name
-     :compact-views compact-views
-     :tag-patterns tag-patterns
-     :vcs {:name "git", :auto-add false}
-     :projects projects}))
-
-;(require '[dev.jocke :as dev])
-;(def workspace dev/workspace)
+  (:require [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.migrator.brick-deps :as brick-deps]
+            [polylith.clj.core.migrator.dev-deps :as dev-deps]
+            [polylith.clj.core.migrator.project-deps :as project-deps]
+            [polylith.clj.core.migrator.workspace-deps :as workspace-deps]))
 
 (defn migrate
-  "Migrates from the old :toolsdeps1 format, where everything is specified as paths,
-   to the new :toolsdeps2 format where bricks have their own 'deps.edn' config file
-   and where workspace settings is stored in workspace.edn instead of ./deps.edn.
-   0.1.0-alpha9 is the last version that supports the old :toolsdeps1 format."
+  "Migrates from the old :toolsdeps1 format to the new :toolsdeps2 format,
+   where bricks have their own 'deps.edn' config file and where workspace
+   settings is stored in workspace.edn instead of :polylith key in ./deps.edn.
+   0.1.0-alpha9 is the last version that supports the old :toolsdeps1 format.
+   0.2.0-alpha10 is the first version that supports the :toolsdeps2 format."
   [ws-dir workspace]
-  (create-workspace-config ws-dir workspace))
+  (if (common/toolsdeps1? workspace)
+    (do
+      (workspace-deps/create-config-file ws-dir workspace)
+      (brick-deps/create-config-files ws-dir workspace)
+      (dev-deps/recreate-config-file ws-dir)
+      (project-deps/recreate-config-files ws-dir workspace)
+      (println "  Finished migration."))
+    (println "  Workspace already migrated.")))

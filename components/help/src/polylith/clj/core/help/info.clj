@@ -77,7 +77,7 @@
        "\n"
        "    Aliases are configured in " (color/purple cm ":projects") " in ./workspace.edn.\n"
        "\n"
-       "    The 'status' column has three " (color/project "x" cm) "/" (color/project "-" cm) " flags with different meaning:\n"
+       "    The 'status' column has three flags with different meaning:\n"
        "      " (color/project "s--" cm) "  The project has a 'src' directory, e.g.\n"
        "           'projects/command-line/src'.\n"
        "      " (color/project "-t-" cm) "  The project has a 'test' directory, e.g.\n"

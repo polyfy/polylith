@@ -8,7 +8,7 @@
             [polylith.clj.core.command.user-config :as user-config]
             [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.common.interface :as common]
-            ;[polylith.clj.core.migrator.interface :as migrator]
+            [polylith.clj.core.migrator.interface :as migrator]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.help.interface :as help]
             [polylith.clj.core.validator.interface :as validator]
