@@ -40,18 +40,18 @@ poly help
     version                     Shows current version of the tool.
     ws [get:X]                  Shows the workspace as data.
 
-  If ws-dir:PATH is passed in as an argument, where PATH is a relative
+  If ws-dir:PATH is passed in as an argument, where PATHPATH[0m is a relative
   or absolute path, then the command is executed from that directory.
   This works for all commands except 'test'.
 
-  If :: is passed in, then ws-dir is set to the first parent directory
-  (or current) that contains a 'deps.edn' workspace config file. The exception
-  is the 'test' command that has to be executed from the workspace root.
+  If :: is passed in, then ws-dir is set to the first parent directory (or current)
+  that contains a 'workspace.edn' config file. The exception is the 'test command'
+  that has to be executed from the workspace root.
 
-  If ws-file:FILE is passed in, then the workspace will be populated with the
-  content from that file. All commands except 'create' and 'test'
-  can be executed with this parameter set. The FILE is created by executing the
-  'ws' command, e.g.: 'poly ws out:ws.edn'.
+  If ws-file:FILE is passed in, then the workspace will be populated with the content
+  from that file. All commands except 'create' and 'test' can be executed with this
+  parameter set. The FILE is created by executing the 'ws' command, e.g.:
+  'poly ws out:ws.edn'.
 
   If skip:PROJECTS is passed in, then the given project(s) will not be read from disk.
   Both project names and aliases can be used and should be separated by : if more than one.

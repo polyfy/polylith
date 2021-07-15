@@ -18,7 +18,7 @@
     "diff" (diff/print-help color-mode)
     "info" (info/print-help color-mode)
     "libs" (libs/print-help color-mode)
-    ;"migrate" (migrate/print-help)
+    "migrate" (migrate/print-help)
     "test" (test/print-help color-mode)
     "ws" (ws/print-help color-mode)
     (summary/print-help toolsdeps1? color-mode)))

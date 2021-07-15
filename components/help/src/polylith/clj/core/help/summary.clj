@@ -4,16 +4,14 @@
             [polylith.clj.core.util.interface.color :as color]))
 
 (defn migrate [toolsdeps1?]
-  ""
-  #_(if toolsdeps1?
-      "    migrate                     Migrates the workspace to the latest format.\n"
-      ""))
+  (if toolsdeps1?
+    "    migrate                     Migrates the workspace to the latest format.\n"
+    ""))
 
 (defn migrate-command [toolsdeps1?]
-  ""
-  #_(if toolsdeps1?
-      "    poly migrate\n"
-      ""))
+  (if toolsdeps1?
+    "    poly migrate\n"
+    ""))
 
 (defn help-text [toolsdeps1? cm]
   (str
@@ -28,7 +26,7 @@
     "    help [" (s/key "C" cm) "] [" (s/key "ARG" cm) "]              Shows this help or help for specified command.\n"
     "    info [" (s/key "ARGS" cm) "]                 Shows a workspace overview and checks if it's valid.\n"
     "    libs                        Shows all libraries in the workspace.\n"
-    (migrate toolsdeps1?)
+    ;(migrate toolsdeps1?)
     "    test [" (s/key "ARGS" cm) "]                 Runs tests.\n"
     "    version                     Shows current version of the tool.\n"
     "    ws [get:" (s/key "X" cm) "]                  Shows the workspace as data.\n"
@@ -37,14 +35,14 @@
     "  or absolute path, then the command is executed from that directory.\n"
     "  This works for all commands except 'test'.\n"
     "\n"
-    "  If " (s/key "::" cm) " is passed in, then ws-dir is set to the first parent directory\n"
-    "  (or current) that contains a 'deps.edn' workspace config file. The exception\n"
-    "  is the 'test' command that has to be executed from the workspace root.\n"
+    "  If " (s/key "::" cm) " is passed in, then ws-dir is set to the first parent directory (or current)\n"
+    "  that contains a 'workspace.edn' config file. The exception is the 'test command'\n"
+    "  that has to be executed from the workspace root.\n"
     "\n"
-    "  If " (s/key "ws-file:FILE" cm) " is passed in, then the workspace will be populated with the\n"
-    "  content from that file. All commands except 'create' and 'test'\n"
-    "  can be executed with this parameter set. The " (s/key "FILE" cm) " is created by executing the\n"
-    "  'ws' command, e.g.: 'poly ws out:ws.edn'.\n"
+    "  If " (s/key "ws-file:FILE" cm) " is passed in, then the workspace will be populated with the content\n"
+    "  from that file. All commands except 'create' and 'test' can be executed with this\n"
+    "  parameter set. The " (s/key "FILE" cm) " is created by executing the 'ws' command, e.g.:\n"
+    "  'poly ws out:ws.edn'.\n"
     "\n"
     "  If " (s/key "skip:PROJECTS" cm) " is passed in, then the given project(s) will not be read from disk.\n"
     "  Both project names and aliases can be used and should be separated by : if more than one.\n"
@@ -112,7 +110,7 @@
     "    poly info ws-dir:another-ws\n"
     "    poly info ws-file:ws.edn\n"
     "    poly libs\n"
-    (migrate-command toolsdeps1?)
+    ;(migrate-command toolsdeps1?)
     "    poly test\n"
     "    poly test :project\n"
     "    poly test :all-bricks\n"

@@ -1,6 +1,11 @@
 (ns polylith.clj.core.command.cmd-validator.executable
   (:require [polylith.clj.core.command.shared :as shared]
-            [polylith.clj.core.command.message :as message]))
+            [polylith.clj.core.command.message :as message]
+            [polylith.clj.core.file.interface :as file]))
+
+(defn non-existing-ws-dir [ws-dir]
+  (and ws-dir
+       (not (file/exists ws-dir))))
 
 (defn cant-be-executed-outside-ws? [workspace cmd [_ entity]]
   (not (or (-> workspace nil? not)
@@ -23,8 +28,12 @@
 (defn ws-file-error-message [cmd]
   (str "  The '" cmd "' command can't be executed when the workspace is read from file via 'ws-file'."))
 
+(defn missing-ws-dir [ws-dir]
+  (str "  The specified 'ws-dir' does not exist: " ws-dir))
+
 (defn validate [workspace cmd args ws-dir ws-file is-search-for-ws-dir]
   (cond
+    (non-existing-ws-dir ws-dir) [false (missing-ws-dir ws-dir)]
     (cant-be-executed-outside-ws? workspace cmd args) [false (message/cant-be-executed-outside-ws-message cmd)]
     (cant-execute-when-ws-file-is-set? cmd ws-file) [false (ws-file-error-message cmd)]
     (cant-execute-test? workspace cmd ws-dir is-search-for-ws-dir) [false (message/cant-be-executed-outside-ws-message cmd)]

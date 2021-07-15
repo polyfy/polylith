@@ -119,7 +119,7 @@
             paths (concat (map #(absolute-path % project-name is-dev) project-test-paths)
                           (mapcat #(-> % name->brick ->brick-test-paths) brick-names)
                           (mapcat #(-> % name->brick ->brick-src-paths) only-brick-names))
-            entity-root-path (str "projects/" project-name)
+            entity-root-path (when (not is-dev) (str "projects/" project-name))
             lib-deps (lib/resolve-libs (concat (lib/with-sizes-vec ws-dir
                                                                    entity-root-path
                                                                    (filterv #(not (brick? % is-dev))
@@ -131,13 +131,6 @@
 
         [(vec (sort (set paths)))
          (vec (sort (set lib-deps)))]))))
-
-(comment
-  (def src-deps [["clj-time/clj-time" {:version "0.15.2", :type "maven", :size 23664}]
-                 ["clj-time/clj-time" {:version "0.15.0", :type "maven", :size 23664}]])
-
-  (lib/with-sizes-vec nil src-deps "/Users/joakimtengstrand")
-  #__)
 
 (defn read-project
   ([{:keys [project-name project-dir project-config-dir is-dev]} ws-dir ws-type name->brick project->settings user-home]
