@@ -83,7 +83,7 @@
         name->brick (into {} (map (juxt :name identity)
                                   (concat components bases)))
         projects (projects-from-disk/read-projects ws-dir ws-type name->brick project->settings user-input user-home)
-        profile-to-settings (profile/profile-to-settings aliases user-home)
+        profile-to-settings (profile/profile-to-settings ws-dir aliases user-home)
         paths (path-finder/paths ws-dir projects profile-to-settings)
         default-profile (or default-profile-name "default")
         active-profiles (profile/active-profiles user-input default-profile profile-to-settings)

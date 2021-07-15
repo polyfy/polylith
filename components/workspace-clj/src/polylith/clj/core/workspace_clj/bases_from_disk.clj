@@ -13,7 +13,7 @@
         namespaces (ns-from-disk/namespaces-from-disk src-dir test-dir)
         config (config-from-disk/read-config-file ws-type base-dir)
         entity-root-path (str "bases/" base-name)
-        lib-deps (lib/brick-lib-deps ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home)]
+        lib-deps (lib/brick-lib-deps ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home)]
     (util/ordered-map :name base-name
                       :type "base"
                       :paths (brick-paths/source-paths base-dir config)

@@ -70,11 +70,13 @@
      as :local/root in the project's deps.edn file and extracted from the corresponding
      brick deps.edn files.
    If :override-deps is given, then library versions will be overridden."
-  [name->brick is-dev project-name user-home project-src-deps project-src-paths override-deps]
+  [ws-dir name->brick is-dev project-name user-home project-src-deps project-src-paths override-deps]
   (let [brick-names (set (mapcat #(extract-brick-name % is-dev) project-src-deps))
         paths (vec (sort (set (concat (map #(absolute-path % project-name is-dev) project-src-paths)
                                       (mapcat #(-> % name->brick ->brick-src-paths) brick-names)))))
-        lib-deps (lib/resolve-libs (concat (lib/with-sizes-vec (str "projects/" project-name)
+        entity-root-path (when (not is-dev) (str "projects/" project-name))
+        lib-deps (lib/resolve-libs (concat (lib/with-sizes-vec ws-dir
+                                                               entity-root-path
                                                                (filterv #(not (brick? % is-dev))
                                                                         project-src-deps)
                                                                user-home)
@@ -104,7 +106,7 @@
    - brick :src libraries that are specified in :aliases > :test > :extra-deps as :local/root but not in
      :aliases > :src > :extra-deps, are extracted from the corresponding brick deps.edn files.
    If :override-deps is given, then library versions will be overridden."
-  [name->brick is-dev project-name bricks-to-test user-home project-src-deps project-test-deps project-test-paths override-src-deps override-test-deps]
+  [ws-dir name->brick is-dev project-name bricks-to-test user-home project-src-deps project-test-deps project-test-paths override-src-deps override-test-deps]
   ;; todo: support filtering on individual bricks.
   (if (skip-all-tests? bricks-to-test)
     [[] []]
@@ -118,7 +120,8 @@
                           (mapcat #(-> % name->brick ->brick-test-paths) brick-names)
                           (mapcat #(-> % name->brick ->brick-src-paths) only-brick-names))
             entity-root-path (str "projects/" project-name)
-            lib-deps (lib/resolve-libs (concat (lib/with-sizes-vec entity-root-path
+            lib-deps (lib/resolve-libs (concat (lib/with-sizes-vec ws-dir
+                                                                   entity-root-path
                                                                    (filterv #(not (brick? % is-dev))
                                                                             project-test-deps)
                                                                    user-home)
@@ -133,33 +136,33 @@
   (def src-deps [["clj-time/clj-time" {:version "0.15.2", :type "maven", :size 23664}]
                  ["clj-time/clj-time" {:version "0.15.0", :type "maven", :size 23664}]])
 
-  (lib/with-sizes-vec src-deps "/Users/joakimtengstrand")
+  (lib/with-sizes-vec nil src-deps "/Users/joakimtengstrand")
   #__)
 
 (defn read-project
-  ([{:keys [project-name project-dir project-config-dir is-dev]} ws-type ws-dir name->brick project->settings user-home]
+  ([{:keys [project-name project-dir project-config-dir is-dev]} ws-dir ws-type name->brick project->settings user-home]
    (let [config-filename (str project-config-dir "/deps.edn")
          {:keys [paths deps override-deps aliases mvn/repos] :as config} (read-string (slurp config-filename))
          project-src-paths (if is-dev (-> aliases :dev :extra-paths) paths)
          project-src-deps (if is-dev (-> aliases :dev :extra-deps) deps)
          project-test-paths (-> aliases :test :extra-paths)
          project-test-deps (-> aliases :test :extra-deps)
-         entity-root-path (str "projects/" project-name)
-         override-src-deps (lib/latest-with-sizes entity-root-path (if is-dev (-> aliases :dev :override-deps) override-deps) user-home)
-         override-test-deps (lib/latest-with-sizes entity-root-path (-> aliases :test :override-deps) user-home)
+         entity-root-path (when (not is-dev) (str "projects/" project-name))
+         override-src-deps (lib/latest-with-sizes ws-dir entity-root-path (if is-dev (-> aliases :dev :override-deps) override-deps) user-home)
+         override-test-deps (lib/latest-with-sizes ws-dir entity-root-path (-> aliases :test :override-deps) user-home)
          maven-repos (merge mvn/standard-repos repos)
          message (when (not is-dev) (validator/validate-project-deployable-config ws-type config))]
      (if message
        (println (str "Couldn't read the 'deps.edn' file from project '" project-name "': " message))
-       (read-project name->brick project-name project-dir config-filename is-dev maven-repos
+       (read-project ws-dir name->brick project-name project-dir config-filename is-dev maven-repos
                      project->settings user-home project-src-paths project-src-deps project-test-paths
                      project-test-deps override-src-deps override-test-deps))))
-  ([name->brick project-name project-dir config-filename is-dev maven-repos
+  ([ws-dir name->brick project-name project-dir config-filename is-dev maven-repos
     project->settings user-home project-src-paths project-src-deps project-test-paths
     project-test-deps override-src-deps override-test-deps]
-   (let [[src-paths src-lib-deps] (src-paths-and-libs-from-bricks name->brick is-dev project-name user-home project-src-deps project-src-paths override-src-deps)
+   (let [[src-paths src-lib-deps] (src-paths-and-libs-from-bricks ws-dir name->brick is-dev project-name user-home project-src-deps project-src-paths override-src-deps)
          bricks-to-test (-> project-name project->settings :test :include)
-         [test-paths test-lib-deps] (test-paths-and-libs-from-bricks name->brick is-dev project-name bricks-to-test user-home project-src-deps project-test-deps project-test-paths override-src-deps override-test-deps)
+         [test-paths test-lib-deps] (test-paths-and-libs-from-bricks ws-dir name->brick is-dev project-name bricks-to-test user-home project-src-deps project-test-deps project-test-paths override-src-deps override-test-deps)
          paths (cond-> {}
                        (seq src-paths) (assoc :src src-paths)
                        (seq test-paths) (assoc :test test-paths))
@@ -199,4 +202,4 @@
                                        :project-dir (str ws-dir "/development")
                                        :project-config-dir ws-dir}))]
     (filterv identity
-             (map #(read-project % ws-type ws-dir name->brick project->settings user-home) project-configs))))
+             (map #(read-project % ws-dir ws-type name->brick project->settings user-home) project-configs))))

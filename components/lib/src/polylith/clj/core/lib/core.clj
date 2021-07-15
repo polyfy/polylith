@@ -11,20 +11,21 @@
       (assoc result k v))
     (assoc result k v2)))
 
-(defn latest-with-sizes [entity-root-path libraries user-home]
+(defn latest-with-sizes [ws-dir entity-root-path libraries user-home]
   (util/stringify-and-sort-map
-    (into {} (size/with-sizes-vec entity-root-path
+    (into {} (size/with-sizes-vec ws-dir
+                                  entity-root-path
                                   (reduce latest-lib-version {} libraries)
                                   user-home))))
 
-(defn lib-deps [ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home dep-keys]
+(defn lib-deps [ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home dep-keys]
   (if (= :toolsdeps1 ws-type)
     (ns-to-lib/lib-deps top-namespace ns-to-lib namespaces)
-    (latest-with-sizes entity-root-path (get-in config dep-keys) user-home)))
+    (latest-with-sizes ws-dir entity-root-path (get-in config dep-keys) user-home)))
 
-(defn brick-lib-deps [ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home]
-  (let [src (lib-deps ws-type config top-namespace ns-to-lib (:src namespaces) entity-root-path user-home [:deps])
-        test (lib-deps ws-type config top-namespace ns-to-lib (:test namespaces) entity-root-path user-home [:aliases :test :extra-deps])]
+(defn brick-lib-deps [ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home]
+  (let [src (lib-deps ws-dir ws-type config top-namespace ns-to-lib (:src namespaces) entity-root-path user-home [:deps])
+        test (lib-deps ws-dir ws-type config top-namespace ns-to-lib (:test namespaces) entity-root-path user-home [:aliases :test :extra-deps])]
     (cond-> {}
             (seq src) (assoc :src src)
             (seq test) (assoc :test test))))

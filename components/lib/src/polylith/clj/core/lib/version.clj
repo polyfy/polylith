@@ -9,6 +9,7 @@
 (defn version [path]
   (try
     (let [filename (last (str/split path #"/"))]
-      (first (re-find (re-matcher #"(\d)(?:\S+)" (clean-suffix filename)))))
+      (or (first (re-find (re-matcher #"(\d)(?:\S+)" (clean-suffix filename))))
+          "-"))
     (catch Exception _
-      "")))
+      "-")))

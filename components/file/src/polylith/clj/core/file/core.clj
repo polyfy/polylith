@@ -12,6 +12,11 @@
     (catch Exception e
       (println (str "Warning. " message " '" path "': " (.getMessage e))))))
 
+(defn size [path]
+  (if (fs/directory? path)
+    (apply + (pmap size (.listFiles (io/file path))))
+    (fs/size path)))
+
 (defn delete-file [path]
   (execute-fn #(io/delete-file path true)
               "Could not delete file" path))

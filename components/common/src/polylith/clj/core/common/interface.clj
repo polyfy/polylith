@@ -7,6 +7,9 @@
             [polylith.clj.core.common.validate-args :as validate-args]
             [polylith.clj.core.common.ws-dir :as ws-dir]))
 
+(defn absolute-path [path entity-root-path]
+  (core/absolute-path path entity-root-path))
+
 (defn color-mode [user-input]
   (core/color-mode user-input))
 

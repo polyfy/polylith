@@ -6,7 +6,7 @@
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.path-finder.interface.select :as select]))
 
-(defn profile [[profile-key {:keys [extra-paths extra-deps]}] user-home]
+(defn profile [ws-dir [profile-key {:keys [extra-paths extra-deps]}] user-home]
   (let [path-entries (extract/from-paths {:src extra-paths} nil)
         component-names (vec (sort (select/names path-entries c/component?)))
         base-names (vec (sort (select/names path-entries c/base?)))
@@ -14,7 +14,7 @@
 
     [(subs (name profile-key) 1)
      (util/ordered-map :paths extra-paths
-                       :lib-deps (lib/latest-with-sizes nil extra-deps user-home)
+                       :lib-deps (lib/latest-with-sizes ws-dir nil extra-deps user-home)
                        :component-names component-names
                        :base-names base-names
                        :project-names project-names)]))
@@ -22,8 +22,8 @@
 (defn profile? [[alias]]
   (str/starts-with? (name alias) "+"))
 
-(defn profile-to-settings [aliases user-home]
-  (into {} (map #(profile % user-home)
+(defn profile-to-settings [ws-dir aliases user-home]
+  (into {} (map #(profile ws-dir % user-home)
                 (filterv profile? aliases))))
 
 (defn active-profiles [{:keys [selected-profiles]}

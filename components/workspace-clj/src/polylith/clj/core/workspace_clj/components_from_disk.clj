@@ -19,7 +19,7 @@
         definitions (defs-from-disk/defs-from-disk src-dir interface-ns)
         config (config-from-disk/read-config-file ws-type component-dir)
         entity-root-path (str "components/" component-name)
-        lib-deps (lib/brick-lib-deps ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home)]
+        lib-deps (lib/brick-lib-deps ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home)]
        (util/ordered-map :name component-name
                          :type "component"
                          :paths (brick-paths/source-paths component-dir config)

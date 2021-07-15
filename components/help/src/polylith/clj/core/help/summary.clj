@@ -3,7 +3,19 @@
             [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.util.interface.color :as color]))
 
-(defn help-text [cm]
+(defn migrate [toolsdeps1?]
+  ""
+  #_(if toolsdeps1?
+      "    migrate                     Migrates the workspace to the latest format.\n"
+      ""))
+
+(defn migrate-command [toolsdeps1?]
+  ""
+  #_(if toolsdeps1?
+      "    poly migrate\n"
+      ""))
+
+(defn help-text [toolsdeps1? cm]
   (str
     "  Poly " version/name " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
     "\n"
@@ -16,6 +28,7 @@
     "    help [" (s/key "C" cm) "] [" (s/key "ARG" cm) "]              Shows this help or help for specified command.\n"
     "    info [" (s/key "ARGS" cm) "]                 Shows a workspace overview and checks if it's valid.\n"
     "    libs                        Shows all libraries in the workspace.\n"
+    (migrate toolsdeps1?)
     "    test [" (s/key "ARGS" cm) "]                 Runs tests.\n"
     "    version                     Shows current version of the tool.\n"
     "    ws [get:" (s/key "X" cm) "]                  Shows the workspace as data.\n"
@@ -99,6 +112,7 @@
     "    poly info ws-dir:another-ws\n"
     "    poly info ws-file:ws.edn\n"
     "    poly libs\n"
+    (migrate-command toolsdeps1?)
     "    poly test\n"
     "    poly test :project\n"
     "    poly test :all-bricks\n"
@@ -125,9 +139,9 @@
     "    poly ws get:changes:changed-or-affected-projects skip:dev\n"
     "    poly ws out:ws.edn"))
 
-(defn print-help [color-mode]
-  (println (help-text color-mode)))
+(defn print-help [toolsdeps1? color-mode]
+  (println (help-text toolsdeps1? color-mode)))
 
 (comment
-  (print-help "dark")
+  (print-help false "dark")
   #__)

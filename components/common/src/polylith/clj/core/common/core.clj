@@ -13,6 +13,18 @@
       (str/replace "/" ".")
       (str/replace "_" "-")))
 
+(defn absolute-path [path entity-root-path]
+  "entity-root-path will be passed in as e.g. 'components/invoicer' if a brick,
+   or 'projects/invocing' if a project, and nil if the development project
+   (dev lives at the root, so keep that path as it is)."
+  (when path
+    (if (or (nil? entity-root-path)
+            (str/starts-with? path "/"))
+      path
+      (if (str/starts-with? path "../../")
+        (subs path 6)
+        (str entity-root-path "/" path)))))
+
 (defn sufix-ns-with-dot
   "Makes sure the namespace ends with a dot (.)"
   [top-namespace]

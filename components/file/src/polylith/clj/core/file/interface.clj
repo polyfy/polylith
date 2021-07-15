@@ -62,7 +62,7 @@
   (core/read-file path))
 
 (defn size [path]
-  (fs/size path))
+  (core/size path))
 
 (defn files-recursively [dir]
   (core/files-recursively dir))

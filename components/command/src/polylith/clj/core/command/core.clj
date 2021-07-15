@@ -29,8 +29,8 @@
   (doseq [file (-> workspace :changes :changed-files)]
     (println file)))
 
-(defn help [[_ cmd ent] is-show-project is-show-brick is-show-workspace color-mode]
-  (help/print-help cmd ent is-show-project is-show-brick is-show-workspace color-mode))
+(defn help [[_ cmd ent] is-show-project is-show-brick is-show-workspace toolsdeps1? color-mode]
+  (help/print-help cmd ent is-show-project is-show-brick is-show-workspace toolsdeps1? color-mode))
 
 (defn version []
   (println (str "  " ver/name " (" ver/date ")")))
@@ -56,6 +56,7 @@
         ws-dir (common/workspace-dir user-input color-mode)
         project-name (first selected-projects)
         workspace (read-workspace ws-file ws-dir user-input color-mode)
+        toolsdeps1? (common/toolsdeps1? workspace)
         [ok? message] (cmd-validator/validate workspace user-input color-mode)]
     (if ok?
       (case cmd
@@ -63,7 +64,7 @@
         "create" (create/create ws-dir workspace args name top-ns interface branch is-git-add color-mode)
         "deps" (dependencies/deps workspace project-name brick unnamed-args is-all)
         "diff" (diff workspace)
-        "help" (help args is-show-project is-show-brick is-show-workspace color-mode)
+        "help" (help args is-show-project is-show-brick is-show-workspace toolsdeps1? color-mode)
         "info" (info/info workspace unnamed-args)
         "libs" (lib/print-lib-table workspace is-all)
         ;"migrate" (migrator/migrate ws-dir workspace)
