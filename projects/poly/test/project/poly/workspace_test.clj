@@ -58,7 +58,7 @@
           "  workspace      workspace *       s--  s--   s--   stx    st-"
           "  workspace-clj  workspace-clj *   s--  ---   s--   stx    st-"
           "  ws-explorer    ws-explorer *     s--  ---   s--   stx    st-"
-          "  ws-file        ws-file *         ---  ---   ---   stx    st-"
+          "  ws-file        ws-file *         ---  ---   ---   s--    s--"
           "  -              deployer-cli *    ---  ---   s--   ---    s--"
           "  -              migrator-cli *    ---  ---   ---   ---    s--"
           "  -              poly-cli *        ---  ---   ---   s--    s--"]
@@ -553,7 +553,6 @@
           "components/workspace-clj/test"
           "components/workspace/test"
           "components/ws-explorer/test"
-          "components/ws-file/test"
           "projects/poly/test"]
          (ws-explorer/extract (workspace) ["projects" "poly" "paths" "test"]))))
 
