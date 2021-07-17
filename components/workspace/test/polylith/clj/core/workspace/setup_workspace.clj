@@ -1,5 +1,6 @@
 (ns polylith.clj.core.workspace.setup-workspace
-  (:require [clojure.test :refer :all]
+  (:require [clojure.java.shell :as shell]
+            [clojure.test :refer :all]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.test-helper.interface :as helper]))
 
@@ -12,6 +13,9 @@
            :actual (if clean-result-fn
                      (clean-result-fn result)
                      result))))
+
+(defn resolve-deps [ws-dir]
+  (shell/sh "clojure" "-A:dev:test" "-P" :dir ws-dir))
 
 (defn execute-commands [commands]
   (helper/execute-command "" "create" "w" "name:ws03" "top-ns:se.example" ":git-add")
@@ -43,7 +47,7 @@
                              "            [se.example.test-helper.interface :as test-helper]))"])
         _ (file/create-file (str ws-dir "/components/test-helper1/deps.edn")
                             ["{:paths [\"src\" \"resources\"]"
-                             " :deps {metosin/malli {:mvn/version \"0.1.0\"}}"
+                             " :deps {metosin/malli {:mvn/version \"0.5.0\"}}"
                              " :aliases {:test {:extra-paths [\"test\"]"
                              "                  :extra-deps {}}}}"])
         ;; components/user1
@@ -72,6 +76,7 @@
                              "                                \"components/database1/src\""
                              "                                \"components/util1/src\"]"
                              "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.10.1\"}"
+                             "                               metosin/malli {:mvn/version \"0.5.0\"}"
                              "                               org.clojure/tools.deps.alpha {:mvn/version \"0.12.985\"}}}"
                              ""
                              "            :+default {:extra-paths [\"components/user1/src\""
@@ -97,5 +102,6 @@
                              "                :release \"v[0-9]*\"}"
                              " :projects {\"development\" {:alias \"dev\"}"
                              "            \"service\" {:alias \"s\"}}}"])]
+    (resolve-deps ws-dir)
 
     (mapv execute-command commands)))

@@ -1,7 +1,6 @@
 (ns polylith.clj.core.workspace.workspace-test
   (:require [clojure.test :refer :all]
             [clojure.string :as str]
-            [clojure.tools.deps.alpha :as tools-deps]
             [polylith.clj.core.test-helper.interface :as helper]
             [polylith.clj.core.workspace.setup-workspace :as profile-ws]))
 
@@ -161,7 +160,7 @@
                            "  library                       version   type      KB   s   dev  default  extra   1"
                            "  ----------------------------------------------------   -   -------------------   -"
                            "  me.raynes/fs                  1.4.6     maven     10   -    -      x       -     ."
-                           "  metosin/malli                 0.1.0     maven     27   t    -      -       -     x"
+                           "  metosin/malli                 0.5.0     maven     42   t    x      -       -     x"
                            "  org.clojure/clojure           1.10.1    maven  3,816   x    x      -       -     ."
                            "  org.clojure/tools.deps.alpha  0.12.985  maven     59   x    x      -       -     ."]}
                {:cmd "libs"
@@ -180,7 +179,7 @@
                            "  library                       version   type      KB   s   1"
                            "  ----------------------------------------------------   -   -"
                            "  me.raynes/fs                  1.4.6     maven     10   -   ."
-                           "  metosin/malli                 0.1.0     maven     27   t   x"
+                           "  metosin/malli                 0.5.0     maven     42   t   x"
                            "  org.clojure/clojure           1.10.1    maven  3,816   x   ."
                            "  org.clojure/tools.deps.alpha  0.12.985  maven     59   x   ."]}
                {:cmd             "ws"
@@ -219,12 +218,7 @@
                                                          :polylith {:branch "create-deps-files"
                                                                     :repo   "https://github.com/polyfy/polylith.git"}}}}])
 
-(defn dowload-libs-to-disk []
-  (let [deps (read-string (slurp "deps.edn"))]
-    (tools-deps/resolve-deps deps {})))
-
 (deftest run-profile-tests
-  (dowload-libs-to-disk)
   (doseq [{:keys [expected actual]} (profile-ws/execute-commands commands)]
     (is (= expected (if (string? actual)
                       (str/split-lines actual)
