@@ -63,7 +63,7 @@
                              "        poly/util1 {:local/root \"../../components/util1\"}"
                              "        poly/database1 {:local/root \"../../components/database1\"}"
                              "        org.clojure/clojure {:mvn/version \"1.10.1\"}"
-                             "        org.clojure/tools.deps.alpha {:mvn/version \"0.11.931\"}}"
+                             "        org.clojure/tools.deps.alpha {:mvn/version \"0.12.985\"}}"
                              " :aliases {:test {:extra-paths []"
                              "                  :extra-deps  {poly/test-helper1 {:local/root \"../../components/test-helper1\"}}}}}"])
         ;; deps.edn
@@ -72,7 +72,7 @@
                              "                                \"components/database1/src\""
                              "                                \"components/util1/src\"]"
                              "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.10.1\"}"
-                             "                               org.clojure/tools.deps.alpha {:mvn/version \"0.11.931\"}}}"
+                             "                               org.clojure/tools.deps.alpha {:mvn/version \"0.12.985\"}}}"
                              ""
                              "            :+default {:extra-paths [\"components/user1/src\""
                              "                                     \"components/user1/test\"]"

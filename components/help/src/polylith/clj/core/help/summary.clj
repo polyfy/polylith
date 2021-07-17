@@ -70,7 +70,6 @@
     "    poly create project name:myproject\n"
     "    poly create w top-ns:com.my.company\n"
     "    poly create workspace name:myws top-ns:com.my.company\n"
-    "    poly create workspace name:myws top-ns:com.my.company\n"
     "    poly create workspace name:myws top-ns:com.my.company branch:master\n"
     "    poly deps\n"
     "    poly deps project:myproject\n"

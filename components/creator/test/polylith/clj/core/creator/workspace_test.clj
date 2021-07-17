@@ -70,7 +70,7 @@
 
     (is (= [(str "{:aliases  {:dev {:extra-paths [\"development/src\"]")
             (str "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.10.1\"}")
-            (str "                               org.clojure/tools.deps.alpha {:mvn/version \"0.11.931\"}}}")
+            (str "                               org.clojure/tools.deps.alpha {:mvn/version \"0.12.985\"}}}")
             (str "")
             (str "            :test {:extra-paths []}")
             (str "")

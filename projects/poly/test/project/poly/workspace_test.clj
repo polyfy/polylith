@@ -1,4 +1,4 @@
-(ns project.workspace-test
+(ns project.poly.workspace-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.common.interface :as common]

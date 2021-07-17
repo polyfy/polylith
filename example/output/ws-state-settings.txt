@@ -37,10 +37,10 @@
  {:name "git",
   :branch "main",
   :git-root
-  "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2021-06-13-145232.EZne8QJO/example",
+  "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2021-07-16-053243.izoGUZtr/example",
   :auto-add true,
   :stable-since
   {:tag "stable-lisa",
-   :sha "8f38b134096c998668c5687a544c91d3fc828f57"},
+   :sha "3e140d4d0ca0373eb8d15fbd213975c567556f1d"},
   :polylith
   {:repo "https://github.com/polyfy/polylith.git", :branch "master"}}}

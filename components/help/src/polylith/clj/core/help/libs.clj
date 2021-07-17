@@ -15,7 +15,7 @@
        "    antlr/antlr                   2.7.7     maven    434   " (s/key "x     x      -       -" cm) "     .  x\n"
        "    clj-time                      0.15.2    maven     23   " (s/key "x     x      -       -" cm) "     x  .\n"
        "    org.clojure/clojure           1.10.1    maven  3,816   " (s/key "x     x      -       -" cm) "     .  .\n"
-       "    org.clojure/tools.deps.alpha  0.11.931  maven     46   " (s/key "x     x      -       -" cm) "     .  .\n"
+       "    org.clojure/tools.deps.alpha  0.12.985  maven     46   " (s/key "x     x      -       -" cm) "     .  .\n"
        "\n"
        "  In this example we have four libraries used by the " (color/project "cl" cm) " and " (color/project "dev" cm) " projects.\n"
        "  If any of the libraries are added to the " (color/profile "default" cm) " or " (color/profile "admin" cm) " profiles, they will appear\n"

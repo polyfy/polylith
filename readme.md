@@ -658,7 +658,7 @@ poly info
 This tells us that we have one `development` project, one `user` component and 
 one `user` interface but no base (yet). Components and bases are referred to as `bricks`
 (we will soon explain what a base is). 
-The cryptic `x--` and `xx-` will be described in the [flags](#flags) section.
+The cryptic `s--` and `st-` will be described in the [flags](#flags) section.
 
 If your colors don't look as nice as this, then visit the [colors](#colors) section.
 
@@ -1431,10 +1431,15 @@ Here we rely on `release-*` tags that mark the whole repo as released.
 ## Flags
 
 We have one more thing to cover regarding the `info` command, and that is what the `x` and `-` flags mean:
-<img src="images/project-flags.png" width="30%">
+<img src="images/project-flags.png" width="34%">
 
-Each flag under `status` has a different meaning:<br>
-<img src="images/flags.png" width="30%">
+Each flag under has a different meaning:<br>
+
+| status | Explanation                        |
+|:------:|:-----------------------------------|
+| s--    | The project has a 'src' directory  |
+| -t-    | The project has a 'test' directory |
+| --x    | Run the tests for this project     |
 
 If the "to be tested" flag `--x` is marked for a project under the status column, 
 it means that the tests for that project will be executed from at least one project, 
@@ -1443,25 +1448,35 @@ which often is the project itself and/or the `development` project.
 Under the `status` column, the `---` means we have a `projects/command-line`
 directory but no `src` or `test` directories in it and that no tests will be executed for this project.
 
-Under the `status` column, the `x--` means we have a `development/src` directory
+Under the `status` column, the `s--` means we have a `development/src` directory
 but no `development/test` directory and that no tests will be executed for this project.
 
 Each flag under `dev` has a slightly different meaning, where project refers to `development`:<br>
-<img src="images/flags-included.png" width="38%">
+
+| status | Explanation                                      |
+|:------:|:-------------------------------------------------|
+| s--    | The 'src' directory is included in this project  |
+| -t-    | The 'test' directory is included in this project |
+| --x    | Run the tests for this brick from this project   |
 
 Under the `dev` column, the `---` means that neither `projects/command-line/src` or `projects/command-line/test` 
 is added to `./deps.edn` and that no tests in `projects/command-line/test` will be executed from the `development` project.
 
-Under the `dev` column, the `x--` means that `development/src` is added to `./deps.edn` but not `development/test` 
+Under the `dev` column, the `s--` means that `development/src` is added to `./deps.edn` but not `development/test` 
 and that no tests in `development/test` will be executed from the `development` project.
 
 We also have this section:<br>
-<img src="images/brick-flags.png" width="25%">
+<img src="images/brick-flags.png" width="28%">
 
 Here the flags have a slightly different meaning:<br>
-<img src="images/flags-included.png" width="38%">
 
-The `xx-` for the `user` component under the `dev` column tells that both `components/user/src` 
+| status | Explanation                                              |
+|:------:|:---------------------------------------------------------|
+| s--    | The brick's `src` directory is included in this project  |
+| -t-    | The brick's `test` directory is included in this project |
+| --x    | Run the tests for this brick from this project           |
+
+The `st-` for the `user` component under the `dev` column tells that both `components/user/src` 
 and `components/user/test` are included in the `development` projects,
 and that no brick tests will be executed.
 
@@ -1474,8 +1489,9 @@ and that no brick tests will be executed.
             :test {:extra-paths ["components/user/test"
 ```
 
-The `xx-` for the `user` component under the `cl` column tells that `user` is included in the
-`command-line` project and that `user` has both a `src` and `test` directory specified in its `deps.edn`, 
+The `st-` for the `user` component under the `cl` column tells that `user` is included in the
+`command-line` project and that `user` has both a `src` and `test` directory specified in its `deps.edn`
+(probably indirectly included via a `:local/root` statement)
 and that no brick tests will be executed.
 
 The bricks for the `command-line` project are configured in `projects/command-line/deps.edn`:
@@ -1493,7 +1509,7 @@ where both have this content:
                   :extra-deps {}}}}
 ```
 
-The `xx-` for the `cli` base follows the same pattern as for the `user` component but for the
+The `st-` for the `cli` base follows the same pattern as for the `user` component but for the
 `bases/cli` directory.
 
 
@@ -1501,8 +1517,7 @@ If we execute `poly info :r` (or the longer `poly info :resources`):<br>
 <img src="images/flags-info.png" width="35%">
 
 
-...then the `resources` directory is also shown:<br>
-<img src="images/flags-resources.png" width="20%">
+...then the `resources` directory is also shown, where `r` stands for `resources`.
 
 ## Testing
 
@@ -1530,14 +1545,14 @@ components/user/src/se/example/user/core.clj
 <img src="images/testing-info-1.png" width="35%">
 
 ...the `user` component is now marked with an asterisk, `*`. If we look carefully we will also notice that 
-the status flags `xxx` under the `cl` column now has an `x` in its last position. As we already know, 
+the status flags `stx` under the `cl` column now has an `x` in its last position. As we already know, 
 this means that the tests for `user` and `cli` will be executed from the `command-line` project
 if we execute the `test` command.
   
 But why is `cli` marked to be tested? The reason is that even though `cli` itself hasn't changed, 
 it depends on something that has, namely the `user` component.  
   
-The columns under the `development` project are all marked as `xx-`. The reason the `development`
+The columns under the `development` project are all marked as `st-`. The reason the `development`
 project is not marked to be tested is that the `development` project's tests are 
 not included by default.
 
@@ -1718,10 +1733,10 @@ all code can therefore be declared public, which allows us to put the test code 
 If we execute the `info` command:<br>
 <img src="images/testing-info-4.png" width="35%">
 
-...the `command-line` is marked as changed and flagged as `-x-` telling us that 
+...the `command-line` is marked as changed and flagged as `-t-` telling us that 
 it now has a `test` directory.  
-The reason it is not tagged as `-xx` is that project tests 
-are not marked to be executed without explicitly telling them to, by passing in `:project`.
+The reason it is not tagged as `-tx` is that project tests are not marked to be executed 
+without explicitly telling them to, by passing in `:project`.
 
 ```sh
 poly info :project
@@ -2363,7 +2378,7 @@ poly info +
 
 Looks like we got everything right! 
 
-The profile flags, `xx`, follows the same pattern as for
+The profile flags, `st`, follows the same pattern as for
 bricks and projects except that the last `Run the tests` flag is omitted.
 
 This example was quite simple, but if our project is more complicated, we may want to manage state during 
@@ -2462,7 +2477,7 @@ git tag -f stable-lisa
 ```
 poly info
 ```
-<img src="images/realworld-info.png" width="30%">
+<img src="images/realworld-info.png" width="35%">
 
 Now we have some bricks to play with! 
 
@@ -2470,7 +2485,7 @@ Let's list all dependencies by executing the [deps](#deps-project) command:
 ```
 poly deps
 ```
-<img src="images/realworld-deps-interfaces.png" width="27%">
+<img src="images/realworld-deps-interfaces.png" width="32%">
 
 This lists all dependencies in the workspace.
 Notice the yellow color in the headers. They are yellow because components and bases only depend on `interfaces`. 
@@ -2484,13 +2499,13 @@ This is also what is shown if we specify `article` as brick:
 ```
 poly deps brick:article
 ```
-<img src="images/realworld-deps-interface.png" width="30%">
+<img src="images/realworld-deps-interface.png" width="34%">
 
 To list the component dependencies, we need to specify a `project`:
 ```
 poly deps project:rb
 ```
-<img src="images/realworld-deps-components.png" width="30%">
+<img src="images/realworld-deps-components.png" width="34%">
 
 Now, all the headers are green, and that is because all the implementing components are known
 within the selected project.
@@ -2504,7 +2519,7 @@ We can also show dependencies for a specific brick within a project:
 ```
 poly deps project:rb brick:article
 ```
-<img src="images/realworld-deps-component.png" width="30%">
+<img src="images/realworld-deps-component.png" width="34%">
 
 ## Libraries
 
@@ -2527,7 +2542,7 @@ To list all libraries used in the workspace, execute the [libs](doc/commands.md#
 ```
 poly libs
 ```
-<img src="images/realworld-lib-deps.png" width="80%">
+<img src="images/realworld-lib-deps.png" width="90%">
 
 An 'x' means that the library is added to the 'src' context, while 't' means that it's only used from the test context.
 
@@ -2557,8 +2572,8 @@ by the `test` code.
 
 #### Project libraries
 
-The project columns consist of two characters, e.g. `x-`, where the first character says whether it's a dependency used from the `src` code
-and the second whether it's used from the `test` code.
+The project columns are marked with an `x` if the library is used by the `src` code and with a `t` if it's only used
+by the `test` code.
 
 The dependencies for a project is the sum of all dependencies that are indirectly included via its bricks,
 together with dependencies declared by the project itself. If different versions of the same dependency exists, 
@@ -2579,7 +2594,7 @@ with `override-deps` in a project's `deps.edn` file, e.g.:
 
 If we now run the `libs` command:
 
-<img src="images/realworld-lib-deps-override-deps.png" width="80%">
+<img src="images/realworld-lib-deps-override-deps.png" width="90%">
 
 ...we will have two versions of `clj-time` where the `rb` project uses "0.15.1" 
 and the `user` component uses "0.15.2".
@@ -2599,7 +2614,7 @@ If a library is overridden in the `test` scope it will only affect the `test` sc
 
 If we have a lot of libraries, we can choose a more compact format by setting `:compact-views` to `#{"libs"}` in `./deps.edn`:
 
-<img src="images/realworld-lib-deps-compact.png" width="75%">
+<img src="images/realworld-lib-deps-compact.png" width="85%">
 
 ## Context
 
@@ -2677,7 +2692,7 @@ The workspace configuration is stored in `./workspace.edn` and defines the follo
 
 | Key                    | Description
 |:-----------------------|:---------------------------------------------------------------------------------------------|
-| :vcs                   | Set to "git" which is the only supported [version control](https://en.wikipedia.org/wiki/Version_control) system at the moment. |
+| :vcs                   | A map with two keys, where `name` is set to "git" which is the only supported [version control](https://en.wikipedia.org/wiki/Version_control) system at the moment. The key `auto-add` is a boolean flag that tells whether directories and files added by the create command should automatically be added to git or not. |
 | :top-namespace         | The workspace top namespace. If changed, the source code has to be changed accordingly. |
 | :interface-ns          | The default value is `interface`. If changed, the source code has to be changed accordingly. |
 | :default&#8209;profile&#8209;name  | The default value is `default`. If changed, the `+default` alias in `./deps.edn` has to be renamed accordingly. |
@@ -2930,13 +2945,13 @@ If we switch back to dark background and select `none`:
 ```
 poly info color-mode:none
 ```
-<img src="images/color-none.png" width="40%">
+<img src="images/color-none.png" width="44%">
 
 ...things are now displayed without colors. 
 
 To refresh our memory, this is what it looked like using the `dark` color schema:
 
-<img src="images/profile-info-2.png" width="45%">
+<img src="images/profile-info-2.png" width="47%">
 
 If you want to use the same colors in your terminal, here they are:<br>
 <img src="images/polylith-colors.png" width="50%">

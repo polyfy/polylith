@@ -23,7 +23,7 @@
                                     :size 445288
                                     :version "2.7.7"}
                    "org.clojure/clojure" {:version "1.10.1", :type "maven", :size 3908431}
-                   "org.clojure/tools.deps.alpha" {:version "0.11.931", :type "maven", :size 47566}})
+                   "org.clojure/tools.deps.alpha" {:version "0.12.985", :type "maven", :size 47566}})
 
 (def dev-profile-lib-deps {"zprint" {:version "0.4.15", :type "maven", :size 128182}})
 
@@ -51,14 +51,14 @@
                             :name "core"
                             :alias "core"
                             :lib-deps {:src {"org.clojure/clojure" {:version "1.10.2-alpha1", :type "maven", :size 3908624}
-                                             "org.clojure/tools.deps.alpha" {:version "0.11.931", :type "maven", :size 47566}},}
+                                             "org.clojure/tools.deps.alpha" {:version "0.12.985", :type "maven", :size 47566}},}
                             :component-names {}}
                            {:base-names {:src ["cli"]}
                             :is-dev false
                             :name "invoice"
                             :alias "inv"
                             :lib-deps {:src {"org.clojure/clojure" {:version "1.10.1", :type "maven", :size 3908431}
-                                             "org.clojure/tools.deps.alpha" {:version "0.11.931", :type "maven", :size 47566}
+                                             "org.clojure/tools.deps.alpha" {:version "0.12.985", :type "maven", :size 47566}
                                              "zprint" {:version "0.4.15", :type "maven", :size 128182}}
                                        :test {"zprint" {:version "0.4.15", :type "maven", :size 128182}}}
                             :component-names {:src ["admin" "database" "invoicer" "purchaser"]}}
@@ -115,7 +115,7 @@
           "  local-clojure                           2.7.7          local    434    -     -     x      -       -     .  .  .  ."
           "  org.clojure/clojure                     1.10.1         maven  3,816    -     x     x      -       -     .  .  .  ."
           "  org.clojure/clojure                     1.10.2-alpha1  maven  3,817    x     -     -      -       -     .  .  .  ."
-          "  org.clojure/tools.deps.alpha            0.11.931       maven     46    x     x     x      -       -     .  .  .  ."
+          "  org.clojure/tools.deps.alpha            0.12.985       maven     46    x     x     x      -       -     .  .  .  ."
           "  zprint                                  0.4.15         maven    125    -     x     -      x       -     .  x  x  x"
           "  zprint                                  0.5.4          maven      0    -     -     -      -       x     .  .  .  ."]
          (lib-table/table workspace false))))
@@ -136,7 +136,7 @@
           "  local-clojure                           2.7.7          local    434    -     -     x      -       -     .  .  .  ."
           "  org.clojure/clojure                     1.10.1         maven  3,816    -     x     x      -       -     .  .  .  ."
           "  org.clojure/clojure                     1.10.2-alpha1  maven  3,817    x     -     -      -       -     .  .  .  ."
-          "  org.clojure/tools.deps.alpha            0.11.931       maven     46    x     x     x      -       -     .  .  .  ."
+          "  org.clojure/tools.deps.alpha            0.12.985       maven     46    x     x     x      -       -     .  .  .  ."
           "  zprint                                  0.4.15         maven    125    -     x     -      x       -     .  x  x  x"
           "  zprint                                  0.5.4          maven      0    -     -     -      -       x     .  .  .  ."]
          (lib-table/table workspace false))))
@@ -157,7 +157,7 @@
           "  clj-time                      0.15.2    maven      0   t    -      -       -     t"
           "  me.raynes/fs                  1.4.6     maven     10   -    -      x       -     ."
           "  org.clojure/clojure           1.10.1    maven  3,816   x    x      -       -     ."
-          "  org.clojure/tools.deps.alpha  0.11.931  maven     46   x    x      -       -     ."]
+          "  org.clojure/tools.deps.alpha  0.12.985  maven     46   x    x      -       -     ."]
          (lib-table/table data/workspace-01 false))))
 
 (deftest table--show-test-dependencies-for-all-bricks
@@ -176,5 +176,5 @@
           "  clj-time                      0.15.2    maven      0   t    -      -       -     .  t  ."
           "  me.raynes/fs                  1.4.6     maven     10   -    -      x       -     .  .  ."
           "  org.clojure/clojure           1.10.1    maven  3,816   x    x      -       -     .  .  ."
-          "  org.clojure/tools.deps.alpha  0.11.931  maven     46   x    x      -       -     .  .  ."]
+          "  org.clojure/tools.deps.alpha  0.12.985  maven     46   x    x      -       -     .  .  ."]
          (lib-table/table data/workspace-01 true))))
