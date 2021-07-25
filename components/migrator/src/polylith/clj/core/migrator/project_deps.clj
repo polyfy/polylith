@@ -53,7 +53,7 @@
                            [:paths :deps :aliases]
                            (if (empty? new-paths)
                              (dissoc new-content :paths)
-                             (assoc-in new-content :paths new-paths)))))
+                             (assoc new-content :paths new-paths)))))
 
 (defn recreate-config-file [ws-dir {:keys [name] :as project} workspace]
   (let [project-path (str "projects/" name "/deps.edn")
