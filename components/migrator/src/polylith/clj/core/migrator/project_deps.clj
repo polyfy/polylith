@@ -23,12 +23,11 @@
 
 (defn deps [components bases component-names base-names src-key deps-key-path content]
   (let [src-libs (brick-libs src-key bases components)]
-    (shared/hmap
-      (apply array-map
-             (concat (local-roots component-names src-key "components")
-                     (local-roots base-names src-key "bases")
-                     (mapcat identity (filter #(keep-key? % src-libs)
-                                              (get-in content deps-key-path))))))))
+    (apply array-map
+           (concat (local-roots component-names src-key "components")
+                   (local-roots base-names src-key "bases")
+                   (mapcat identity (filter #(keep-key? % src-libs)
+                                            (get-in content deps-key-path)))))))
 
 (defn not-brick? [path]
   (and (not (str/starts-with? path "../../bases/"))
@@ -48,12 +47,14 @@
         new-content (-> content
                         (assoc-in [:aliases :test :extra-paths] new-test-paths)
                         (assoc :deps src-deps)
-                        (assoc-in [:aliases :test :extra-deps] test-deps))]
+                        (assoc-in [:aliases :test :extra-deps] test-deps))
+        final-content (if (empty? new-paths)
+                        (dissoc new-content :paths)
+                        (assoc new-content :paths new-paths))]
     (shared/format-content filename
                            [:paths :deps :aliases]
-                           (if (empty? new-paths)
-                             (dissoc new-content :paths)
-                             (assoc new-content :paths new-paths)))))
+                           final-content)))
+
 
 (defn recreate-config-file [ws-dir {:keys [name] :as project} workspace]
   (let [project-path (str "projects/" name "/deps.edn")

@@ -1,16 +1,23 @@
 (ns polylith.clj.core.migrator.shared
-  (:require [zprint.core :as zp]))
+  (:require [clojure.walk :as walk]
+            [zprint.core :as zp])
+  (:import (clojure.lang PersistentArrayMap)
+           (java.util HashMap)))
 
-(defn hmap [m]
-  (java.util.HashMap. m))
+(defn convert-to-hmap [^PersistentArrayMap m]
+  (if (map? m)
+    (HashMap. m)
+    m))
 
 (defn format-content [name key-order content]
-  (str (zp/zprint-file-str (str content)
-                           (str name "/deps.edn")
-                           {:width  120
-                            :map    {:comma? false
-                                     :force-nl? true
-                                     :key-order key-order}
-                            :vector {:respect-nl? true
-                                     :wrap-coll? false}})
-       "\n"))
+  (let [safe-content (walk/postwalk convert-to-hmap content)
+        content-str (with-out-str (prn safe-content))]
+    (str (zp/zprint-file-str content-str
+                             (str name "/deps.edn")
+                             {:width  120
+                              :map    {:comma? false
+                                       :force-nl? true
+                                       :key-order key-order}
+                              :vector {:respect-nl? true
+                                       :wrap-coll? false}})
+         "\n")))
