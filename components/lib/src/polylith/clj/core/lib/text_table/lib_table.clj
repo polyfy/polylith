@@ -6,8 +6,8 @@
                   "base" :blue})
 
 (defn lib [[name {:keys [version size type]}]]
-  [(cond-> {:name name}
-           version (assoc :version version)
+  [(cond-> {:name name
+            :version (or version "-")}
            size (assoc :size size)
            type (assoc :type type))])
 
@@ -112,7 +112,7 @@
                               (mapcat profile-lib profile-to-settings)))
         test-libs (set (mapcat lib (mapcat #(-> % :lib-deps :test) entities)))
         libraries (sort-by (juxt :name :version)
-                           (set (filter :version (concat src-libs test-libs))))
+                           (set (concat src-libs test-libs)))
         all-bricks (concat components bases)
         brick->libs (into {} (map brick-libs all-bricks))
         bricks (if is-all

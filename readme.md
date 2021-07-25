@@ -83,6 +83,7 @@ and more.
 - [Workspace](#workspace)
 - [Development](#development)
 - [Component](#component)
+- [Prompt](#prompt)
 - [Interface](#interface)
 - [Base](#base)
 - [Project](#project)
@@ -322,11 +323,16 @@ If you want to start by seeing how a full-blown system looks like in Polylith, t
 where you can also compare it with [implementations made in other languages](https://github.com/gothinkster/realworld).
 Otherwise, let’s jump in and start making our own very basic Polylith project!
 
+## Migrate workspace
+
+If the workspace has been created with [v0.1.0-alpha9](https://github.com/polyfy/polylith/releases/tag/v0.1.0-alpha9)
+or earlier, then it has to be [migrated](doc/migrate.md).
+
 ## Workspace
 
 The workspace directory is the place where all our code and most of the [configuration](#configuration) lives.
 
-Let’s start by creating the `example` workspace with the top namespace `se.example` by using the [create workspace](#create-workspace) command
+Let’s start by creating the `example` workspace with the top namespace `se.example` by using the [create workspace](doc/commands.md#create-workspace) command
 (`create w` works as well as `create workspace`). Make sure you execute the command outside a git repository:
 ```sh
 poly create workspace name:example top-ns:se.example
@@ -390,7 +396,7 @@ The `workspace.edn` file looks like this:
 ```clojure
 {:aliases  {:dev {:extra-paths ["development/src"]
                   :extra-deps {org.clojure/clojure {:mvn/version "1.10.1"}
-                               org.clojure/tools.deps.alpha {:mvn/version "0.11.931"}}}
+                               org.clojure/tools.deps.alpha {:mvn/version "0.12.1003"}}}
 
             :test {:extra-paths []}
 
@@ -662,6 +668,34 @@ The cryptic `s--` and `st-` will be described in the [flags](#flags) section.
 
 If your colors don't look as nice as this, then visit the [colors](#colors) section.
 
+# Prompt
+
+The `poly` tool is a Java program (Clojure code compiled into Java bytecode)
+and it takes a couple of seconds or more (depending on how fast computer you have) to execute a command.
+There is a way to execute commands instantly and that is to start an interactive prompt:
+```
+poly prompt
+```
+
+This will start the `poly` command in an interactive mode:
+```
+example$>
+```
+
+The prompt gets the same name as the workspace. From here we can execute any `poly` command, e.g.:
+```
+example$> info
+```
+
+Feel free to execute any `poly` command in this documentation interactively from now!
+
+Type `exit` or `quit` to exit:
+```
+example$> exit
+```
+
+### Add implementation
+
 Now, let's add the `core` namespace to `user`:<br>
 <img src="images/ide-ws.png" width="30%">
 
@@ -905,7 +939,7 @@ Now we need to update `./deps.edn` with our newly created base:
                                 "bases/cli/src"
                                 "bases/cli/resources"]
                   :extra-deps {org.clojure/clojure {:mvn/version "1.10.1"}
-                               org.clojure/tools.deps.alpha {:mvn/version "0.11.931"}}}
+                               org.clojure/tools.deps.alpha {:mvn/version "0.12.1003"}}}
 
             :test {:extra-paths ["components/user/test"
                                  "bases/cli/test"]}
@@ -1138,7 +1172,7 @@ Now add the `uberjar` alias to `deps.edn` in `projects/command-line`
         poly/cli {:local/root "../../bases/cli"}
 
         org.clojure/clojure {:mvn/version "1.10.1"}
-        org.clojure/tools.deps.alpha {:mvn/version "0.11.931"}}
+        org.clojure/tools.deps.alpha {:mvn/version "0.12.1003"}}
 
  :aliases {:test {:extra-paths []
           :extra-deps  {}}
@@ -1703,18 +1737,19 @@ Then add the "test" path to `projects/command-line/deps.edn`:
                                  "projects/command-line/test"]}
 ```
 
-Now add the `project.dummy-test` namespace to the `command-line` project:
+Now add the `project.command-line.dummy-test` namespace to the `command-line` project:
 ```sh
 example
 ├── projects
 │   └── command-line
 │       └── test
 │           └── project
-│               └──dummy_test.clj
+│               └──command_line
+│                  └──dummy_test.clj
 
 ```
 ```clojure
-(ns project.dummy-test
+(ns project.command-line.dummy-test
   (:require [clojure.test :refer :all]))
 
 (deftest dummy-test
@@ -1724,7 +1759,7 @@ example
 We could have chosen another top namespace, e.g., `se.example.project.command-line`, as long as 
 we don't have any brick with the name `project`. But because we don't want to get into any name
 conflicts with bricks and also because each project is executed in isolation, the choice of 
-namespace is less important and here we choose the `project` top namespace to keep it simple. 
+namespace is less important and here we choose the `project.command-line` top namespace to keep it simple. 
 
 Normally, we are forced to put our tests in the same namespace as the code we want to test,
 to get proper access, but in Polylith the encapsulation is guaranteed by the `poly` tool and
@@ -1768,7 +1803,7 @@ Ran 1 tests containing 1 assertions.
 
 Test results: 1 passes, 0 failures, 0 errors.
 
-Testing project.dummy-test
+Testing project.command-line.dummy-test
 
 Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
@@ -2258,7 +2293,7 @@ Set the content of `projects/user-service/deps.edn` to this:
         poly/user-api {:local/root "../../bases/user-api"}
 
         org.clojure/clojure {:mvn/version "1.10.1"}
-        org.clojure/tools.deps.alpha {:mvn/version "0.11.931"}
+        org.clojure/tools.deps.alpha {:mvn/version "0.12.1003"}
         org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
         org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}}
 
@@ -2356,14 +2391,14 @@ Hello Lisa - from the server!!
 Now, let's continue with our example. Execute this from the other terminal
 (the one that we didn't start the server from):
 ```
-cd ../../../projects/command-line/target
+cd ../../command-line/target
 java -jar command-line.jar Lisa
 ```
 ```
 Hello Lisa - from the server!!
 ```
 
-Wow, that worked too!
+Wow, that worked too! The complete code can also be found in [here](examples/doc-example).
 
 Now execute the `info` command (`+` inactivates all profiles, and makes the `default` profile visible):
 ```
@@ -2555,7 +2590,11 @@ Libraries can be specified in three different ways in `tools.deps`:
 | Git   | As a [Git](https://git-scm.com/) dependency. Example: `clj-time/clj-time {:git/url "https://github.com/clj-time/clj-time.git", :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}` where the key must match the path for the library in `~/.gitlibs/libs` (to be able to calculate the `KB` column). |
  
 The KB column shows the size of each library in kilobytes. If you get the key path wrong or if the library
-hasn't been downloaded yet, then it will set to zero.
+hasn't been downloaded yet, then it will be set to zero. One way to solve this is to force dependencies
+to be downloaded by executing something like this from the workspace root:
+```
+clojure -A:dev:test -P
+```
 
 In the tools.deps CLI tool, when a dependency is included using `:local/root`, only `:src` dependencies will be inherited
 while the `:test` dependencies will be ignored. The `poly` tool builds upon tools.deps but has its own

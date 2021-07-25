@@ -46,15 +46,16 @@
                             is-latest-sha (assoc :latest-sha (or (git/latest-polylith-sha from-branch)
                                                                  "GIT-REPO-NOT-ACCESSIBLE")))}))
 
-(defn ws-local-dir
+(defn ->ws-local-dir
   "Returns the directory/path to the workspace if it lives
    inside a git repository, or nil if the workspace and the
    git repository lives in the same directory."
   [ws-dir]
-  (let [root-dir (git-root)]
-    (when (and (not= ws-dir root-dir)
-               (str/starts-with? ws-dir root-dir))
-      (subs ws-dir (-> root-dir count inc)))))
+  (let [git-root-dir (git-root)
+        absolute-ws-dir (file/absolute-path ws-dir)]
+    (when (and (not= absolute-ws-dir git-root-dir)
+               (str/starts-with? absolute-ws-dir git-root-dir))
+      (subs absolute-ws-dir (-> git-root-dir count inc)))))
 
 (defn toolsdeps-ws-from-disk [ws-dir
                               ws-type
@@ -84,6 +85,7 @@
                                   (concat components bases)))
         projects (projects-from-disk/read-projects ws-dir ws-type name->brick project->settings user-input user-home)
         profile-to-settings (profile/profile-to-settings ws-dir aliases user-home)
+        ws-local-dir (->ws-local-dir ws-dir)
         paths (path-finder/paths ws-dir projects profile-to-settings)
         default-profile (or default-profile-name "default")
         active-profiles (profile/active-profiles user-input default-profile profile-to-settings)
@@ -105,7 +107,7 @@
                                    :m2-dir m2-dir)]
 
     (util/ordered-map :ws-dir ws-dir
-                      :ws-local-dir (ws-local-dir ws-dir)
+                      :ws-local-dir ws-local-dir
                       :ws-reader ws-reader/reader
                       :user-input user-input
                       :settings settings

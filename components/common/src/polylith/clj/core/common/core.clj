@@ -13,6 +13,13 @@
       (str/replace "/" ".")
       (str/replace "_" "-")))
 
+(defn user-path [path]
+  (when path
+    (if (str/starts-with? path "~/")
+      (str (user-config/home-dir)
+           (subs path 1))
+      path)))
+
 (defn absolute-path [path entity-root-path]
   "entity-root-path will be passed in as e.g. 'components/invoicer' if a brick,
    or 'projects/invocing' if a project, and nil if the development project

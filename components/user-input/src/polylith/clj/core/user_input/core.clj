@@ -47,7 +47,9 @@
                 loc!
                 no-exit!
                 r!
-                resources!]} named-args]
+                resources!
+                user-home!
+                verbose!]} named-args]
     (util/ordered-map :args (vec args)
                       :cmd (first args)
                       :get get
@@ -55,6 +57,7 @@
                       :branch branch
                       :color-mode color-mode
                       :fake-sha fake-sha
+                      :user-home (when (= "true" user-home!) "USER-HOME")
                       :interface interface
                       :is-search-for-ws-dir (contains? (set args) "::")
                       :is-all (= "true" all!)
@@ -72,6 +75,7 @@
                                                 (= "true" project!))
                       :is-show-resources (or (= "true" r!)
                                              (= "true" resources!))
+                      :is-verbose (= "true" verbose!)
                       :name name
                       :out out
                       :since since

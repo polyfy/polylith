@@ -15,7 +15,7 @@
   (let [[ok? data] (case ws-type
                      :toolsdeps1
                      [true {:paths ["src" "resources"]
-                            :aliases {:test {:extra-paths "test"}}}]
+                            :aliases {:test {:extra-paths ["test"]}}}]
                      :toolsdeps2
                      (let [config-filename (str brick-dir "/deps.edn")]
                        (read-and-validate-config-file config-filename)))]

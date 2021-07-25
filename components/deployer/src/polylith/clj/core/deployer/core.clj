@@ -103,7 +103,9 @@
   (let [output (shell/sh "shasum" "-a" "256" file-path)]
     (first (str/split output #" "))))
 
-(defn create-brew-package [^String artifacts-dir ^String project-name ^String artifact-name]
+(defn create-brew-package [^String artifacts-dir
+                           ^String project-name
+                           ^String artifact-name]
   (let [package-path (str artifacts-dir "/" project-name)
         package-dir (File. package-path)
         _ (.mkdirs package-dir)
@@ -125,7 +127,7 @@
       (spit shasum shasum-content))
     (file/delete-dir package-path)))
 
-(def projects-to-deploy-as-artifacts #{"poly" "poly-migrator"})
+(def projects-to-deploy-as-artifacts #{"poly"})
 
 (defn create-artifacts []
   (let [current-dir (file/current-dir)

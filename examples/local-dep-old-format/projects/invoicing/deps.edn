@@ -1,0 +1,13 @@
+{:paths ["../../components/invoicer/src"
+         "../../components/invoicer/resources"
+         "../../components/util/src"
+         "../../bases/invoicer-cli/src"]
+
+ :deps {org.clojure/clojure {:mvn/version "1.10.1"}
+        org.clojure/tools.deps.alpha {:mvn/version "0.12.985"}
+        clj-time/clj-time {:mvn/version "0.15.2"}}
+
+ :aliases {:test {:extra-paths ["../../components/invoicer/test"
+                                "../../components/util/test"
+                                "../../bases/invoicer-cli/test"]
+                  :extra-deps  {migrate-me/migrate-me {:local/root "../../migrate-me"}}}}}

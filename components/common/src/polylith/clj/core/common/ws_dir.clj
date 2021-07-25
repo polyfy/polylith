@@ -1,5 +1,6 @@
 (ns polylith.clj.core.common.ws-dir
   (:require [clojure.string :as str]
+            [polylith.clj.core.common.core :as core]
             [polylith.clj.core.common.config :as config]
             [polylith.clj.core.file.interface :as file])
   (:import (java.io File)))
@@ -27,9 +28,10 @@
     (println "  Couldn't find a valid workspace root config file.")))
 
 (defn workspace-dir [{:keys [ws-dir is-search-for-ws-dir]} color-mode]
-  (if (and (nil? ws-dir)
+  (if (and (or (nil? ws-dir)
+               (= "." ws-dir))
            (not is-search-for-ws-dir))
     (file/current-dir)
     (if is-search-for-ws-dir
       (find-ws-root-dir (file/absolute-path "") color-mode)
-      ws-dir)))
+      (core/user-path ws-dir))))

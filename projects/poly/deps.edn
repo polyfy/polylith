@@ -24,7 +24,7 @@
         poly/poly-cli      {:local/root "../../bases/poly-cli"}
 
         org.clojure/clojure {:mvn/version "1.10.3"}
-        org.slf4j/slf4j-nop {:mvn/version "1.7.25"}}
+        org.slf4j/slf4j-nop {:mvn/version "1.7.32"}}
 
  :aliases {:test      {:extra-paths ["test"]
                        :extra-deps  {poly/test-helper {:local/root "../../components/test-helper"}}}

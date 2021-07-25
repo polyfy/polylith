@@ -12,18 +12,19 @@
             projects]} :settings}]
   (spit (str ws-dir "/workspace.edn")
     (shared/format-content "workspace"
-                           [:vcs
-                            :top-namespace
+                           [:top-namespace
                             :interface-ns
                             :default-profile-name
                             :compact-views
+                            :vcs
                             :tag-patterns
                             :projects]
-                           {:vcs {:name "git"
-                                  :auto-add false}
-                            :top-namespace top-namespace
+                           {:top-namespace top-namespace
                             :interface-ns interface-ns
                             :default-profile-name default-profile-name
                             :compact-views compact-views
+                            :vcs {:name "git"
+                                  :auto-add false}
                             :tag-patterns tag-patterns
-                            :projects projects})))
+                            :projects projects}))
+  (println " - workspace.edn created"))

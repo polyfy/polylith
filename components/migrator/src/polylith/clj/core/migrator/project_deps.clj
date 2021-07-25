@@ -56,8 +56,10 @@
                              (assoc-in new-content :paths new-paths)))))
 
 (defn recreate-config-file [ws-dir {:keys [name] :as project} workspace]
-  (let [filename (str ws-dir "/projects/" name "/deps.edn")]
-    (spit filename (new-config filename project workspace))))
+  (let [project-path (str "projects/" name "/deps.edn")
+        filename (str ws-dir "/" project-path)]
+    (spit filename (new-config filename project workspace))
+    (println (str " - " project-path " created"))))
 
 (defn recreate-config-files [ws-dir {:keys [projects] :as workspace}]
   (doseq [project (filter #(-> % :is-dev not) projects)]

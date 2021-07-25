@@ -1,0 +1,14 @@
+                                                                     [32mi[0m  [32m [0m
+                                                                     [32mn[0m  [32m [0m
+                                                                     [32mv[0m  [32m [0m
+                                                                     [32mo[0m  [32m [0m
+                                                                     [32mi[0m  [32mu[0m
+                                                                     [32mc[0m  [32mt[0m
+                                                                     [32me[0m  [32mi[0m
+  library                       version   type      KB   [35minv[0m   [35mdev[0m   [32mr[0m  [32ml[0m
+  ----------------------------------------------------   ---   ---   ----
+  clj-time/clj-time             0.15.2    maven     23   [35m x [0m   [35m x [0m   .  x
+  migrate-me/migrate-me         -         local      0   [35m t [0m   [35m t [0m   t  .
+  org.clojure/clojure           1.10.1    maven  3,816   [35m x [0m   [35m x [0m   .  .
+  org.clojure/tools.deps.alpha  0.12.985  maven     59   [35m x [0m   [35m x [0m   .  .
+  uncomplicate/neanderthal      0.41.0    maven    219   [35m - [0m   [35m x [0m   .  .

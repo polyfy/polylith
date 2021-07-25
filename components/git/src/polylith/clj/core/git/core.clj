@@ -47,6 +47,11 @@
 (defn diff-command [sha1 sha2]
   (str/join " " (diff-command-parts sha1 sha2)))
 
+(defn keep-path? [path prefix]
+  (if (= "" prefix)
+    true
+    (str/starts-with? path prefix)))
+
 (defn remove-prefix
   "If the workspace lives inside a git repository (not at its root)
    then we need to remove the workspace name/path from the path."
@@ -65,7 +70,8 @@
                  "")]
     (if (zero? exit)
       (mapv #(remove-prefix % prefix)
-            (str/split-lines out))
+            (filter #(keep-path? % prefix)
+                    (str/split-lines out)))
       (do
         (println err)
         []))))

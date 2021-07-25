@@ -80,14 +80,14 @@
           "  library                       version        type      KB   api  core  depl  poly   dev   r  s  e  r  r  j  r"
           "  ---------------------------------------------------------   ---------------------   ---   -------------------"
           "  me.raynes/fs                  1.4.6          maven     10    x    x     x     x      x    .  .  x  .  .  .  ."
-          "  metosin/malli                 0.5.0          maven     42    x    x     x     x      x    .  .  .  .  x  .  ."
+          "  metosin/malli                 0.5.1          maven     42    x    x     x     x      x    .  .  .  .  x  .  ."
           "  mount/mount                   0.1.16         maven      8    -    -     -     -      x    .  .  .  .  .  .  ."
           "  mvxcvi/puget                  1.3.1          maven     15    x    -     x     x      x    .  .  .  .  .  .  x"
           "  org.clojure/clojure           1.10.3         maven  3,822    x    x     x     x      x    .  .  .  .  .  .  ."
-          "  org.clojure/tools.deps.alpha  0.11.931       maven     51    x    x     x     x      x    .  x  .  .  .  x  ."
-          "  org.slf4j/slf4j-nop           1.7.25         maven      3    -    -     x     x      x    .  .  .  .  .  .  ."
+          "  org.clojure/tools.deps.alpha  0.12.1003      maven     59    x    x     x     x      x    .  x  .  .  .  x  ."
+          "  org.slf4j/slf4j-nop           1.7.32         maven      3    -    -     x     x      x    .  .  .  .  .  .  ."
           "  rewrite-clj/rewrite-clj       1.0.644-alpha  maven     71    -    -     -     -      x    .  .  .  .  .  .  ."
-          "  slipset/deps-deploy           0.1.0          maven      2    -    -     x     -      x    x  .  .  .  .  .  ."
+          "  slipset/deps-deploy           0.1.5          maven      6    -    -     x     -      x    x  .  .  .  .  .  ."
           "  zprint/zprint                 1.1.2          maven    164    -    -     -     x      x    .  .  .  x  .  .  ."]
          (libs/table (workspace) false))))
 
@@ -108,7 +108,7 @@
           "  -------------------------------------------------------------------------------------------"
           "  api            .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  x  x  x  ."
           "  change         .  .  .  .  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  command        .  x  .  x  x  .  x  x  x  x  x  x  .  .  .  x  .  x  .  x  x  x  x  x  x  x"
+          "  command        .  x  .  x  x  .  x  x  x  x  x  x  .  .  .  x  .  x  x  x  x  x  x  x  x  x"
           "  common         .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
           "  creator        .  .  .  x  .  .  .  x  x  .  .  .  .  .  t  .  .  .  .  x  .  .  .  .  .  ."
           "  deployer       x  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  .  .  .  x  .  .  .  ."
@@ -130,8 +130,8 @@
           "  version        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  workspace      .  .  .  x  .  .  x  x  .  .  .  .  x  .  t  .  x  .  .  x  x  .  .  .  .  ."
           "  workspace-clj  .  .  .  x  .  .  .  x  x  .  x  .  x  .  .  .  .  x  .  x  x  x  .  .  .  ."
-          "  ws-explorer    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  ws-file        .  .  .  .  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  ."
+          "  ws-explorer    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
+          "  ws-file        .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  ."
           "  deployer-cli   .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  migrator-cli   .  .  .  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  poly-cli       .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  ."]
@@ -156,7 +156,7 @@
             "  brick          e  d  n  r  s  e  t  p  b  r  r  l  r  r  e  g  t  l  r  n  e  j  r  e"
             "  -------------------------------------------------------------------------------------"
             "  change         .  .  .  .  .  +  x  .  .  .  x  +  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  command        x  .  x  x  x  x  x  x  x  x  +  +  .  x  +  x  .  x  x  x  x  x  x  x"
+            "  command        x  .  x  x  x  x  x  x  x  x  +  +  .  x  +  x  x  x  x  x  x  x  x  x"
             "  common         .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
             "  creator        -  -  x  -  -  x  x  -  -  -  -  +  t  -  -  +  -  x  -  -  -  -  -  -"
             "  deps           .  .  x  .  .  +  .  .  .  .  .  .  .  .  x  +  .  x  .  .  .  .  .  ."
@@ -177,8 +177,8 @@
             "  version        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  workspace      -  -  x  -  x  x  -  -  -  -  x  -  t  -  x  +  -  x  x  -  -  -  -  -"
             "  workspace-clj  .  .  x  .  +  x  x  .  x  .  x  +  .  .  +  x  .  x  x  x  .  .  .  ."
-            "  ws-explorer    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  ws-file        .  .  .  .  .  x  x  .  .  .  .  +  .  .  .  .  .  +  .  x  .  .  .  ."
+            "  ws-explorer    .  .  .  .  .  +  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
+            "  ws-file        .  .  x  .  .  x  x  .  .  .  .  +  .  .  .  +  .  +  .  x  .  .  .  ."
             "  poly-cli       +  x  +  +  +  +  +  +  +  +  +  +  .  +  +  +  x  x  +  +  +  +  +  +"]
            (ws-project-deps-table/table (workspace) project false)))))
 
@@ -235,6 +235,7 @@
                                              "migrator"
                                              "test-runner"
                                              "user-config"
+                                             "user-input"
                                              "util"
                                              "validator"
                                              "version"
@@ -256,6 +257,7 @@
                                              "migrator"
                                              "test-runner"
                                              "user-config"
+                                             "user-input"
                                              "util"
                                              "validator"
                                              "version"
@@ -497,12 +499,18 @@
                                   :indirect ["deps"
                                              "shell"
                                              "text-table"]}}
-          "ws-explorer"   {:src  {:direct ["util"]}
-                           :test {:direct ["util"]}}
-          "ws-file"       {:src  {:direct   ["file"
+          "ws-explorer"   {:src  {:direct   ["user-config"
+                                             "util"]
+                                  :indirect ["file"]}
+                           :test {:direct   ["user-config"
+                                             "util"]
+                                  :indirect ["file"]}}
+          "ws-file"       {:src  {:direct   ["common"
+                                             "file"
                                              "git"
                                              "version"]
                                   :indirect ["shell"
+                                             "user-config"
                                              "util"]}
                            :test {}}}
          (ws-explorer/extract (workspace) ["projects" "poly" "deps"]))))
@@ -579,7 +587,7 @@
          (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"]))))
 
 (deftest poly-project-lib-imports
-  (is (= {:src {"slipset/deps-deploy" {:size    2467
+  (is (= {:src {"slipset/deps-deploy" {:size    6205
                                        :type    "maven"
-                                       :version "0.1.0"}}}
+                                       :version "0.1.5"}}}
          (ws-explorer/extract (workspace) ["components" "deployer" "lib-deps"]))))

@@ -1,0 +1,9 @@
+{:deps {poly/invoicer     {:local/root "../../components/invoicer"}
+        poly/util         {:local/root "../../components/util"}
+        poly/invoicer-cli {:local/root "../../bases/invoicer-cli"}
+
+        org.clojure/clojure {:mvn/version "1.10.1"}
+        org.clojure/tools.deps.alpha {:mvn/version "0.12.985"}}
+
+ :aliases {:test {:extra-paths []
+                  :extra-deps  {}}}}

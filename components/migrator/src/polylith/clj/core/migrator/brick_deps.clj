@@ -28,9 +28,11 @@
                                              :extra-deps {}}}})))
 
 (defn create-config-file [ws-dir {:keys [name type] :as brick} lib->dep]
-  (let [path (str ws-dir "/" type "s/" name "/deps.edn")
+  (let [brick-path (str type "s/" name "/deps.edn")
+        path (str ws-dir "/" brick-path)
         content (deps-content brick lib->dep)]
-    (spit path content)))
+    (spit path content)
+    (println (str " - " brick-path " created"))))
 
 (defn create-config-files [ws-dir {:keys [bases components projects]}]
   (let [lib->dep (-> (common/find-project "development" projects) :lib-deps :src)]

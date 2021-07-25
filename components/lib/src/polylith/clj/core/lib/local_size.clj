@@ -5,16 +5,15 @@
 
 (defn file-size [ws-dir path entity-root-path]
   (let [absolute-path (str ws-dir "/" (common/absolute-path path entity-root-path))]
-    (when (file/exists absolute-path)
-      (file/size absolute-path))))
+    (if (file/exists absolute-path)
+      (file/size absolute-path)
+      0)))
 
 (defn with-size-and-version [ws-dir lib-name path value entity-root-path]
-  (if-let [size (file-size ws-dir path entity-root-path)]
-     [lib-name (assoc value :type "local"
-                            :path (common/absolute-path path entity-root-path)
-                            :size size
-                            :version (version/version path))]
-     [lib-name (assoc value :type "local"
-                            :path (common/absolute-path path entity-root-path)
-                            :size 0
-                            :version "-")]))
+  (let [size (file-size ws-dir path entity-root-path)
+        version (version/version path)
+        absolute-path (common/absolute-path path entity-root-path)]
+    [lib-name (cond-> (assoc value :type "local")
+                      absolute-path (assoc :path absolute-path)
+                      size (assoc :size size)
+                      version (assoc :version version))]))

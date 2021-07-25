@@ -16,6 +16,8 @@ The individual help texts listed here are taken from the built-in `help` command
 - [diff](#diff)
 - [info](#info)
 - [libs](#libs)
+- [migrate](#migrate)
+- [prompt](#prompt)
 - [test](#test)
 - [ws](#ws)
 
@@ -638,7 +640,7 @@ poly help
     antlr/antlr                   2.7.7     maven    434   x-   x-      -       -     .  x
     clj-time                      0.15.2    maven     23   x-   x-      -       -     x  .
     org.clojure/clojure           1.10.1    maven  3,816   x-   x-      -       -     .  .
-    org.clojure/tools.deps.alpha  0.11.931  maven     46   x-   x-      -       -     .  .
+    org.clojure/tools.deps.alpha  0.12.994  maven     46   x-   x-      -       -     .  .
 
   In this example we have four libraries used by the cl and dev projects.
   If any of the libraries are added to the default or admin profiles, they will appear
@@ -670,6 +672,48 @@ poly help
   The KB column shows the size in kilobytes, which is the size of the jar
   file for Maven and Local dependencies, and the size of all files in the
   ~/.gitlibs/libs/YOUR-LIBRARY directory for Git dependencies.
+```
+
+### migrate
+```
+  Migrates a workspace to the latest version.
+
+  poly migrate
+
+  If the workspace hasn't been migrated already, then this command will create a new
+  ./workspace.edn file + a deps.edn file per brick. All project deps.edn files will be
+   updated. The libraries in each project's deps.edn file will be sorted, so it can be
+   an idea to manually change that order and put bricks first followed by the libraries.
+
+  The migration tool will use the :ns-to-lib key to figure out what libraries are
+  used in each brick. After the migration, it's recommended to go through all the
+  bricks and make sure that all libraries it uses are also specified in each brick's
+  deps.edn file.
+
+  Continue by updating each project's deps.edn file and remove libraries that are
+  already indirectly included by bricks (via :local/root).
+  The paths in ./deps.edn is left untouched and the reason is that the :local/root
+  syntax is not supported by all IDE's.
+
+  Starting from version 0.2.0-alpha10, the tool supports specifying dependencies per
+  brick in its own deps.edn files. Workspace specific config is stored in ./workspace.edn
+  instead of the :polylith key in ./deps which was the case prior to this version.
+```
+
+### prompt
+```
+poly prompt
+
+Starts a prompt with the name of the current workspace, e.g.:
+myworkspace$>
+
+From here we are free to execute any command we want, e.g.:
+myworkspace$> info
+
+The idea is to get get rid of the startup time of the command
+and get instant feedback.
+
+Exit the interactive mode by typing 'exit' or 'quit'.
 ```
 
 ### test

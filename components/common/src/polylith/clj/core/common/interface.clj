@@ -61,3 +61,6 @@
 
 (defn toolsdeps1? [workspace]
   (= :toolsdeps1 (-> workspace :version :from :ws :type)))
+
+(defn user-path [path]
+  (core/user-path path))

@@ -1,0 +1,44 @@
+  stable since: [37mbb59439 | stable-master[0m
+
+  [35mprojects:[0m 6   [33minterfaces:[0m 25
+  [34mbases:   [0m 3   [32mcomponents:[0m 25
+
+  project        alias  status   [35mdev[0m
+  ----------------------------   ---
+  [35mapi[0m            [35mapi[0m    [35m ---  [0m   [35m---[0m
+  [35mcore[0m           [35mcore[0m   [35m ---  [0m   [35m---[0m
+  [35mdeployer[0m       [35mdepl[0m   [35m ---  [0m   [35m---[0m
+  [35mpoly[0m           [35mpoly[0m   [35m -t-  [0m   [35m-t-[0m
+  [35mpoly-migrator[0m  [35mmigr[0m   [35m ---  [0m   [35m---[0m
+  [35mdevelopment[0m    [35mdev[0m    [35m s--  [0m   [35ms--[0m
+
+  interface      brick           [35mapi[0m  [35mcore[0m  [35mdepl[0m  [35mpoly[0m  [35mmigr[0m   [35mdev[0m
+  ----------------------------   ---------------------------   ---
+  [33mapi          [0m  [32mapi[0m             [35ms--[0m  [35m--- [0m  [35ms-- [0m  [35m--- [0m  [35m--- [0m   [35mst-[0m
+  [33mchange       [0m  [32mchange[0m          [35ms--[0m  [35ms-- [0m  [35ms-- [0m  [35mst- [0m  [35m--- [0m   [35mst-[0m
+  [33mcommand      [0m  [32mcommand[0m         [35m---[0m  [35m--- [0m  [35m--- [0m  [35mst- [0m  [35m--- [0m   [35mst-[0m
+  [33mcommon       [0m  [32mcommon[0m          [35ms--[0m  [35ms-- [0m  [35ms-- [0m  [35ms-- [0m  [35ms-- [0m   [35ms--[0m
+  [33mcreator      [0m  [32mcreator[0m         [35m---[0m  [35m--- [0m  [35m--- [0m  [35mst- [0m  [35m--- [0m   [35mst-[0m
+  [33mdeployer     [0m  [32mdeployer[0m        [35m---[0m  [35m--- [0m  [35ms-- [0m  [35m--- [0m  [35m--- [0m   [35ms--[0m
+  [33mdeps         [0m  [32mdeps[0m            [35ms--[0m  [35ms-- [0m  [35ms-- [0m  [35mst- [0m  [35m--- [0m   [35mst-[0m
+  [33mfile         [0m  [32mfile[0m            [35ms--[0m  [35ms-- [0m  [35ms-- [0m  [35mst- [0m  [35ms-- [0m   [35mst-[0m
+  [33mgit          [0m  [32mgit[0m             [35ms--[0m  [35ms-- [0m  [35ms-- [0m  [35mst- [0m  [35m--- [0m   [35mst-[0m
+  [33mhelp         [0m  [32mhelp[0m            [35m---[0m  [35m--- [0m  [35m--- [0m  [35ms-- [0m  [35m--- [0m   [35ms--[0m
+  [33mlib          [0m  [32mlib[0m             [35ms--[0m  [35ms-- [0m  [35ms-- [0m  [35mst- [0m  [35m--- [0m   [35mst-[0m
+  [33mmigrator     [0m  [32mmigrator[0m        [35m---[0m  [35m--- [0m  [35m--- [0m  [35m--- [0m  [35ms-- [0m   [35mst-[0m
+  [33mpath-finder  [0m  [32mpath-finder[0m     [35ms--[0m  [35ms-- [0m  [35ms-- [0m  [35mst- [0m  [35m--- [0m   [35mst-[0m
+  [33mshell        [0m  [32mshell[0m           [35ms--[0m  [35ms-- [0m  [35ms-- [0m  [35ms-- [0m  [35m--- [0m   [35ms--[0m
+  [33mtest-helper  [0m  [32mtest-helper[0m     [35m---[0m  [35m--- [0m  [35m--- [0m  [35ms-- [0m  [35m--- [0m   [35ms--[0m
+  [33mtest-runner  [0m  [32mtest-runner[0m     [35m---[0m  [35m--- [0m  [35m--- [0m  [35ms-- [0m  [35m--- [0m   [35ms--[0m
+  [33mtext-table   [0m  [32mtext-table[0m      [35ms--[0m  [35ms-- [0m  [35ms-- [0m  [35ms-- [0m  [35m--- [0m   [35ms--[0m
+  [33muser-config  [0m  [32muser-config[0m     [35ms--[0m  [35ms-- [0m  [35ms-- [0m  [35ms-- [0m  [35ms-- [0m   [35ms--[0m
+  [33muser-input   [0m  [32muser-input[0m      [35ms--[0m  [35ms-- [0m  [35ms-- [0m  [35mst- [0m  [35m--- [0m   [35mst-[0m
+  [33mutil         [0m  [32mutil[0m            [35ms--[0m  [35ms-- [0m  [35ms-- [0m  [35mst- [0m  [35ms-- [0m   [35mst-[0m
+  [33mvalidator    [0m  [32mvalidator[0m       [35ms--[0m  [35ms-- [0m  [35ms-- [0m  [35mst- [0m  [35m--- [0m   [35mst-[0m
+  [33mversion      [0m  [32mversion[0m         [35ms--[0m  [35m--- [0m  [35ms-- [0m  [35ms-- [0m  [35ms-- [0m   [35ms--[0m
+  [33mworkspace    [0m  [32mworkspace[0m       [35ms--[0m  [35ms-- [0m  [35ms-- [0m  [35mst- [0m  [35m--- [0m   [35mst-[0m
+  [33mworkspace-clj[0m  [32mworkspace-clj[0m   [35ms--[0m  [35m--- [0m  [35ms-- [0m  [35mst- [0m  [35m--- [0m   [35mst-[0m
+  [33mws-explorer  [0m  [32mws-explorer[0m     [35ms--[0m  [35m--- [0m  [35ms-- [0m  [35mst- [0m  [35m--- [0m   [35mst-[0m
+  -              [34mdeployer-cli[0m    [35m---[0m  [35m--- [0m  [35ms-- [0m  [35m--- [0m  [35m--- [0m   [35ms--[0m
+  -              [34mmigrator-cli[0m    [35m---[0m  [35m--- [0m  [35m--- [0m  [35m--- [0m  [35ms-- [0m   [35ms--[0m
+  -              [34mpoly-cli[0m        [35m---[0m  [35m--- [0m  [35m--- [0m  [35ms-- [0m  [35m--- [0m   [35ms--[0m

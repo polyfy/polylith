@@ -52,7 +52,10 @@
                       :path path)))
 
 (defn single-path-entries [missing-paths paths profile? test?]
-  (when paths (mapv #(path-entry missing-paths % profile? test?) paths)))
+  (when paths
+    (filterv :name
+             (map #(path-entry missing-paths % profile? test?)
+                  paths))))
 
 (defn path-entries [src-paths test-paths profile-src-paths profile-test-paths disk-paths]
   (let [missing-paths (some-> disk-paths :missing set)]

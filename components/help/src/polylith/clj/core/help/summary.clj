@@ -13,7 +13,12 @@
     "    poly migrate\n"
     ""))
 
-(defn help-text [toolsdeps1? cm]
+(defn interactive-prompt [prompt?]
+  (if prompt?
+    "  Exit the prompt by executing 'exit' or 'quit'.\n\n"
+    ""))
+
+(defn help-text [prompt? toolsdeps1? cm]
   (str
     "  Poly " version/name " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
     "\n"
@@ -26,11 +31,13 @@
     "    help [" (s/key "C" cm) "] [" (s/key "ARG" cm) "]              Shows this help or help for specified command.\n"
     "    info [" (s/key "ARGS" cm) "]                 Shows a workspace overview and checks if it's valid.\n"
     "    libs                        Shows all libraries in the workspace.\n"
-    ;(migrate toolsdeps1?)
+    (migrate toolsdeps1?)
+    "    prompt                      Starts an interactive prompt.\n"
     "    test [" (s/key "ARGS" cm) "]                 Runs tests.\n"
     "    version                     Shows current version of the tool.\n"
     "    ws [get:" (s/key "X" cm) "]                  Shows the workspace as data.\n"
     "\n"
+    (interactive-prompt prompt?)
     "  If " (s/key "ws-dir:PATH" cm) " is passed in as an argument, where " (s/key "PATH" cm) " is a relative\n"
     "  or absolute path, then the command is executed from that directory.\n"
     "  This works for all commands except 'test'.\n"
@@ -109,7 +116,8 @@
     "    poly info ws-dir:another-ws\n"
     "    poly info ws-file:ws.edn\n"
     "    poly libs\n"
-    ;(migrate-command toolsdeps1?)
+    (migrate-command toolsdeps1?)
+    "    poly prompt\n"
     "    poly test\n"
     "    poly test :project\n"
     "    poly test :all-bricks\n"
@@ -136,9 +144,9 @@
     "    poly ws get:changes:changed-or-affected-projects skip:dev\n"
     "    poly ws out:ws.edn"))
 
-(defn print-help [toolsdeps1? color-mode]
-  (println (help-text toolsdeps1? color-mode)))
+(defn print-help [prompt? toolsdeps1? color-mode]
+  (println (help-text prompt? toolsdeps1? color-mode)))
 
 (comment
-  (print-help false "dark")
+  (print-help false false "dark")
   #__)

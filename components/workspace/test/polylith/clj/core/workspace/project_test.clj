@@ -127,8 +127,7 @@
                          "components/file/src"]
                    :test ["bases/cli/test"
                           "components/change/test"
-                          "components/command/test"
-                          "test"]}
+                          "components/command/test"]}
           :type                     "project"
           :unmerged                 {:lib-deps      {:src {"org.clojure/clojure"          #:mvn{:version "1.10.1"}
                                                            "org.clojure/tools.deps.alpha" #:mvn{:version "0.12.985"}}}
@@ -184,8 +183,7 @@
                              :test ["bases/cli/test"
                                     "components/change/test"
                                     "components/command/test"
-                                    "components/user/test"
-                                    "test"]}
+                                    "components/user/test"]}
           :type                 "project"
           :unmerged             {:lib-deps   {:src {"org.clojure/clojure"          #:mvn{:version "1.10.1"}
                                                     "org.clojure/tools.deps.alpha" #:mvn{:version "0.12.985"}}}

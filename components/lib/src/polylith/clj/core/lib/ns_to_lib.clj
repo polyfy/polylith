@@ -1,5 +1,6 @@
 (ns polylith.clj.core.lib.ns-to-lib
   (:require [clojure.string :as str]
+            [polylith.clj.core.lib.size :as size]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.common.interface :as common]))
 
@@ -19,6 +20,16 @@
 (defn with-name [lib-name]
   [lib-name {}])
 
-(defn lib-deps [top-namespace ns-to-lib namespaces]
+(defn with-version [ws-dir included-ns ns-to-lib lib->deps user-home]
+  (let [lib-name (ns-to-lib included-ns)
+        version (lib->deps lib-name)]
+    (when lib-name
+      (if version
+        (or (size/with-size ws-dir [lib-name version] nil user-home)
+            [lib-name {}])
+        [lib-name {}]))))
+
+(defn lib-deps [ws-dir top-namespace ns-to-lib lib->deps namespaces user-home]
   (let [included-nss (included-namespaces top-namespace ns-to-lib namespaces)]
-    (into {} (map with-name (set (map ns-to-lib included-nss))))))
+    (into {} (set (map #(with-version ws-dir % ns-to-lib lib->deps user-home)
+                       included-nss)))))

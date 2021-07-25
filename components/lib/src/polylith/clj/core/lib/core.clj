@@ -18,14 +18,20 @@
                                   (reduce latest-lib-version {} libraries)
                                   user-home))))
 
-(defn lib-deps [ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home dep-keys]
+(defn lib-deps [ws-dir ws-type config top-namespace ns-to-lib lib->deps namespaces entity-root-path user-home dep-keys]
   (if (= :toolsdeps1 ws-type)
-    (ns-to-lib/lib-deps top-namespace ns-to-lib namespaces)
+    (ns-to-lib/lib-deps ws-dir top-namespace ns-to-lib lib->deps namespaces user-home)
     (latest-with-sizes ws-dir entity-root-path (get-in config dep-keys) user-home)))
 
+(defn lib->deps [ws-dir]
+  (let [config (read-string (slurp (str ws-dir "/deps.edn")))]
+    (util/stringify-and-sort-map (merge (-> config :aliases :test :extra-deps)
+                                        (-> config :aliases :dev :extra-deps)))))
+
 (defn brick-lib-deps [ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home]
-  (let [src (lib-deps ws-dir ws-type config top-namespace ns-to-lib (:src namespaces) entity-root-path user-home [:deps])
-        test (lib-deps ws-dir ws-type config top-namespace ns-to-lib (:test namespaces) entity-root-path user-home [:aliases :test :extra-deps])]
+  (let [lib->deps (lib->deps ws-dir)
+        src (lib-deps ws-dir ws-type config top-namespace ns-to-lib lib->deps (:src namespaces) entity-root-path user-home [:deps])
+        test (lib-deps ws-dir ws-type config top-namespace ns-to-lib lib->deps (:test namespaces) entity-root-path user-home [:aliases :test :extra-deps])]
     (cond-> {}
             (seq src) (assoc :src src)
             (seq test) (assoc :test test))))

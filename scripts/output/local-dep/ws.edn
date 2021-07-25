@@ -1,0 +1,358 @@
+{:bases
+ [{:name "invoicer-cli",
+   :type "base",
+   :paths {:src ["src"], :test ["test"]},
+   :namespaces
+   {:src
+    [{:name "core",
+      :namespace "com.localdep.invoicer-cli.core",
+      :file-path
+      "USER-HOME/source/polylith/examples/local-dep/bases/invoicer-cli/src/com/localdep/invoicer_cli/core.clj",
+      :imports ["com.localdep.invoicer.interface"]}],
+    :test
+    [{:name "core-test",
+      :namespace "com.localdep.invoicer-cli.core-test",
+      :file-path
+      "USER-HOME/source/polylith/examples/local-dep/bases/invoicer-cli/test/com/localdep/invoicer_cli/core_test.clj",
+      :imports ["clojure.test" "com.localdep.invoicer-cli.core"]}]},
+   :lib-deps {},
+   :lines-of-code {:src 5, :test 6},
+   :lib-imports
+   {:test ["clojure.test" "com.localdep.invoicer-cli.core"]},
+   :interface-deps {:src ["invoicer"], :test []}}],
+ :changes
+ {:since "stable",
+  :changed-projects [],
+  :changed-bases [],
+  :project-to-indirect-changes
+  {"invoicing" {:src [], :test []}, "development" {:src [], :test []}},
+  :project-to-bricks-to-test {"invoicing" [], "development" []},
+  :project-to-projects-to-test {"invoicing" [], "development" []},
+  :since-sha "76a9c7fc4cf1bee39ad31a236f44c4844e1c203a",
+  :changed-files [],
+  :git-diff-command
+  "git diff 76a9c7fc4cf1bee39ad31a236f44c4844e1c203a --name-only",
+  :changed-components [],
+  :since-tag "stable-jote",
+  :changed-or-affected-projects []},
+ :components
+ [{:lines-of-code {:src 10, :test 6},
+   :interface
+   {:name "invoicer",
+    :definitions
+    [{:name "do-invoicing", :type "function", :parameters []}]},
+   :namespaces
+   {:src
+    [{:name "interface",
+      :namespace "com.localdep.invoicer.interface",
+      :file-path
+      "USER-HOME/source/polylith/examples/local-dep/components/invoicer/src/com/localdep/invoicer/interface.clj",
+      :imports ["com.localdep.invoicer.core"]}
+     {:name "core",
+      :namespace "com.localdep.invoicer.core",
+      :file-path
+      "USER-HOME/source/polylith/examples/local-dep/components/invoicer/src/com/localdep/invoicer/core.clj",
+      :imports ["com.localdep.util.interface"]}],
+    :test
+    [{:name "interface-test",
+      :namespace "com.localdep.invoicer.interface-test",
+      :file-path
+      "USER-HOME/source/polylith/examples/local-dep/components/invoicer/test/com/localdep/invoicer/interface_test.clj",
+      :imports ["clojure.test" "com.localdep.migrate-me.core"]}]},
+   :lib-imports
+   {:test ["clojure.test" "com.localdep.migrate-me.core"]},
+   :name "invoicer",
+   :paths {:src ["src" "resources"], :test ["test"]},
+   :type "component",
+   :interface-deps {:src ["util"], :test []},
+   :lib-deps
+   {:test
+    {"migrate-me/migrate-me"
+     {:local/root "../../migrate-me",
+      :type "local",
+      :path "migrate-me",
+      :size 310}}}}
+  {:lines-of-code {:src 8, :test 7},
+   :interface
+   {:name "util",
+    :definitions
+    [{:name "date-midnight-2021", :type "function", :parameters []}
+     {:name "do-stuff",
+      :type "function",
+      :parameters [{:name "string1"} {:name "string2"}]}]},
+   :namespaces
+   {:src
+    [{:name "interface",
+      :namespace "com.localdep.util.interface",
+      :file-path
+      "USER-HOME/source/polylith/examples/local-dep/components/util/src/com/localdep/util/interface.clj",
+      :imports ["clj-time.core"]}],
+    :test
+    [{:name "interface-test",
+      :namespace "com.localdep.util.interface-test",
+      :file-path
+      "USER-HOME/source/polylith/examples/local-dep/components/util/test/com/localdep/util/interface_test.clj",
+      :imports ["clojure.test" "com.localdep.util.interface"]}]},
+   :lib-imports {:src ["clj-time.core"], :test ["clojure.test"]},
+   :name "util",
+   :paths {:src ["src"], :test ["test"]},
+   :type "component",
+   :interface-deps {:src [], :test []},
+   :lib-deps
+   {:src
+    {"clj-time/clj-time"
+     {:version "0.15.2", :type "maven", :size 23664}}}}],
+ :interfaces
+ [{:name "invoicer",
+   :type "interface",
+   :definitions
+   [{:name "do-invoicing", :type "function", :parameters []}],
+   :implementing-components ["invoicer"]}
+  {:name "util",
+   :type "interface",
+   :definitions
+   [{:name "date-midnight-2021", :type "function", :parameters []}
+    {:name "do-stuff",
+     :type "function",
+     :parameters [{:name "string1"} {:name "string2"}]}],
+   :implementing-components ["util"]}],
+ :messages [],
+ :name "local-dep",
+ :paths
+ {:existing
+  ["bases/invoicer-cli/src"
+   "bases/invoicer-cli/test"
+   "components/invoicer/resources"
+   "components/invoicer/src"
+   "components/invoicer/test"
+   "components/util/src"
+   "components/util/test"
+   "development/src"
+   "migrate-me/src"],
+  :missing [],
+  :on-disk
+  ["bases/invoicer-cli/src"
+   "bases/invoicer-cli/test"
+   "components/invoicer/resources"
+   "components/invoicer/src"
+   "components/invoicer/test"
+   "components/util/src"
+   "components/util/test"]},
+ :projects
+ [{:lines-of-code {:src 0, :test 0, :total {:src 46, :test 38}},
+   :namespaces {},
+   :base-names {:src ["invoicer-cli"], :test ["invoicer-cli"]},
+   :lib-imports
+   {:src ["clj-time.core"],
+    :test
+    ["clojure.test"
+     "com.localdep.invoicer-cli.core"
+     "com.localdep.migrate-me.core"]},
+   :is-dev false,
+   :name "invoicing",
+   :is-run-tests true,
+   :paths
+   {:src
+    ["bases/invoicer-cli/src"
+     "components/invoicer/resources"
+     "components/invoicer/src"
+     "components/util/src"],
+    :test
+    ["bases/invoicer-cli/test"
+     "components/invoicer/test"
+     "components/util/test"]},
+   :type "project",
+   :maven-repos
+   {"central" {:url "https://repo1.maven.org/maven2/"},
+    "clojars" {:url "https://repo.clojars.org/"}},
+   :alias "inv",
+   :project-dir
+   "USER-HOME/source/polylith/examples/local-dep/projects/invoicing",
+   :lib-deps
+   {:src
+    {"org.clojure/clojure"
+     {:version "1.10.1", :type "maven", :size 3908431},
+     "org.clojure/tools.deps.alpha"
+     {:version "0.12.985", :type "maven", :size 60822},
+     "clj-time/clj-time"
+     {:version "0.15.2", :type "maven", :size 23664}},
+    :test
+    {"migrate-me/migrate-me"
+     {:local/root "../../migrate-me",
+      :type "local",
+      :path "migrate-me",
+      :size 310}}},
+   :config-filename
+   "USER-HOME/source/polylith/examples/local-dep/projects/invoicing/deps.edn",
+   :component-names
+   {:src ["invoicer" "util"], :test ["invoicer" "util"]},
+   :deps
+   {"invoicer-cli"
+    {:src {:direct ["invoicer"], :indirect ["util"]},
+     :test {:direct ["invoicer"], :indirect ["util"]}},
+    "invoicer" {:src {:direct ["util"]}, :test {}},
+    "util" {:src {}, :test {}}}}
+  {:lines-of-code {:src 1, :test 0, :total {:src 46, :test 38}},
+   :namespaces
+   {:src
+    [{:name "dev.me",
+      :namespace "dev.me",
+      :file-path
+      "USER-HOME/source/polylith/examples/local-dep/development/src/dev/me.clj",
+      :imports []}]},
+   :base-names {:src ["invoicer-cli"], :test ["invoicer-cli"]},
+   :lib-imports
+   {:src ["clj-time.core"],
+    :test
+    ["clojure.test"
+     "com.localdep.invoicer-cli.core"
+     "com.localdep.migrate-me.core"]},
+   :is-dev true,
+   :name "development",
+   :is-run-tests false,
+   :paths
+   {:src
+    ["bases/invoicer-cli/src"
+     "components/invoicer/resources"
+     "components/invoicer/src"
+     "components/util/src"
+     "development/src"],
+    :test
+    ["bases/invoicer-cli/test"
+     "components/invoicer/test"
+     "components/util/test"]},
+   :type "project",
+   :maven-repos
+   {"central" {:url "https://repo1.maven.org/maven2/"},
+    "clojars" {:url "https://repo.clojars.org/"}},
+   :alias "dev",
+   :project-dir
+   "USER-HOME/source/polylith/examples/local-dep/development",
+   :unmerged
+   {:paths
+    {:src
+     ["bases/invoicer-cli/src"
+      "components/invoicer/resources"
+      "components/invoicer/src"
+      "components/util/src"
+      "development/src"
+      "migrate-me/src"],
+     :test
+     ["bases/invoicer-cli/test"
+      "components/invoicer/test"
+      "components/util/test"]},
+    :lib-deps
+    {:src
+     {"org.clojure/clojure"
+      {:version "1.10.1", :type "maven", :size 3908431},
+      "org.clojure/tools.deps.alpha"
+      {:version "0.12.985", :type "maven", :size 60822},
+      "clj-time/clj-time"
+      {:version "0.15.2", :type "maven", :size 23664},
+      "uncomplicate/neanderthal"
+      {:version "0.41.0",
+       :exclusions [org.jcuda/jcuda-natives org.jcuda/jcublas-natives],
+       :type "maven",
+       :size 224783}},
+     :test
+     [["migrate-me/migrate-me"
+       {:local/root "migrate-me",
+        :type "local",
+        :path "migrate-me",
+        :size 310}]]}},
+   :lib-deps
+   {:src
+    {"org.clojure/clojure"
+     {:version "1.10.1", :type "maven", :size 3908431},
+     "org.clojure/tools.deps.alpha"
+     {:version "0.12.985", :type "maven", :size 60822},
+     "clj-time/clj-time"
+     {:version "0.15.2", :type "maven", :size 23664},
+     "uncomplicate/neanderthal"
+     {:version "0.41.0",
+      :exclusions [org.jcuda/jcuda-natives org.jcuda/jcublas-natives],
+      :type "maven",
+      :size 224783}},
+    :test
+    {"migrate-me/migrate-me"
+     {:local/root "migrate-me",
+      :type "local",
+      :path "migrate-me",
+      :size 310}}},
+   :config-filename
+   "USER-HOME/source/polylith/examples/local-dep/deps.edn",
+   :component-names
+   {:src ["invoicer" "util"], :test ["invoicer" "util"]},
+   :deps
+   {"invoicer-cli"
+    {:src {:direct ["invoicer"], :indirect ["util"]},
+     :test {:direct ["invoicer"], :indirect ["util"]}},
+    "invoicer" {:src {:direct ["util"]}, :test {}},
+    "util" {:src {}, :test {}}}}],
+ :settings
+ {:projects {"development" {:alias "dev"}, "invoicing" {:alias "inv"}},
+  :user-config-filename "USER-HOME/.polylith/config.edn",
+  :top-namespace "com.localdep",
+  :default-profile-name "default",
+  :thousand-separator ",",
+  :user-home "USER-HOME",
+  :compact-views #{},
+  :active-profiles #{},
+  :profile-to-settings {},
+  :interface-ns "interface",
+  :vcs
+  {:name "git",
+   :branch "issue-66-20",
+   :git-root "USER-HOME/source/polylith",
+   :auto-add false,
+   :stable-since
+   {:tag "stable-jote",
+    :sha "76a9c7fc4cf1bee39ad31a236f44c4844e1c203a"},
+   :polylith
+   {:repo "https://github.com/polyfy/polylith.git", :branch "master"}},
+  :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
+  :m2-dir "USER-HOME/.m2",
+  :color-mode "dark",
+  :empty-character "."},
+ :user-input
+ {:args
+  ["ws"
+   "out:/Users/joakimtengstrand/source/polylith/scripts/output/local-dep/ws.edn"
+   ":user-home"],
+  :unnamed-args [],
+  :is-dev false,
+  :is-run-project-tests false,
+  :is-run-all-brick-tests false,
+  :is-verbose false,
+  :is-latest-sha false,
+  :user-home "USER-HOME",
+  :selected-projects #{},
+  :is-search-for-ws-dir false,
+  :out "USER-HOME/source/polylith/scripts/output/local-dep/ws.edn",
+  :is-show-brick false,
+  :is-show-resources false,
+  :selected-profiles #{},
+  :cmd "ws",
+  :is-show-project false,
+  :is-all false,
+  :is-show-workspace false,
+  :is-show-loc false,
+  :is-no-exit false},
+ :version
+ {:release
+  {:name "0.2.0.alpha10.issue66.20",
+   :major 0,
+   :minor 2,
+   :patch 0,
+   :revision "alpha10.issue66.20",
+   :date "2021-07-24"},
+  :ws {:type :toolsdeps2, :breaking 1, :non-breaking 0}},
+ :ws-dir "USER-HOME/source/polylith/examples/local-dep",
+ :ws-local-dir "examples/local-dep",
+ :ws-reader
+ {:name "polylith-clj",
+  :project-url "https://github.com/polyfy/polylith",
+  :language "Clojure",
+  :type-position "postfix",
+  :slash "/",
+  :file-extensions [".clj" "cljc"]}}

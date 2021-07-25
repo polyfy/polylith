@@ -1,11 +1,12 @@
 (ns polylith.clj.core.command.cmd-validator.executable
   (:require [polylith.clj.core.command.shared :as shared]
             [polylith.clj.core.command.message :as message]
+            [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.file.interface :as file]))
 
 (defn non-existing-ws-dir [ws-dir]
   (and ws-dir
-       (not (file/exists ws-dir))))
+       (not (file/exists (common/user-path ws-dir)))))
 
 (defn cant-be-executed-outside-ws? [workspace cmd [_ entity]]
   (not (or (-> workspace nil? not)

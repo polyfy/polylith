@@ -1,7 +1,6 @@
 (ns polylith.clj.core.migrator.core
   (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.migrator.brick-deps :as brick-deps]
-            [polylith.clj.core.migrator.dev-deps :as dev-deps]
             [polylith.clj.core.migrator.project-deps :as project-deps]
             [polylith.clj.core.migrator.workspace-deps :as workspace-deps]))
 
@@ -16,7 +15,6 @@
     (do
       (workspace-deps/create-config-file ws-dir workspace)
       (brick-deps/create-config-files ws-dir workspace)
-      (dev-deps/recreate-config-file ws-dir)
       (project-deps/recreate-config-files ws-dir workspace)
-      (println "  Finished migration."))
-    (println "  Workspace already migrated.")))
+      (println " Finish the migration by manually deleting the :polylith key from ./deps.edn."))
+    (println " Workspace already migrated.")))

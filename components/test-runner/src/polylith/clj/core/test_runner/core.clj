@@ -14,10 +14,10 @@
          (require '~ns-symbol)
          (clojure.test/run-tests '~ns-symbol))))
 
-(defn resolve-deps [workspace {:keys [name] :as project} color-mode]
+(defn resolve-deps [{:keys [name] :as project} is-verbose color-mode]
   (try
     (into #{} (mapcat #(-> % second :paths)
-                      (deps/resolve-deps workspace project)))
+                      (deps/resolve-deps project is-verbose)))
     (catch Exception e
       (println (str "Couldn't resolve libraries for the " (color/project name color-mode) " project: " e))
       (throw e))))
@@ -67,10 +67,11 @@
 
 (defn run-tests-for-project [{:keys [bases components] :as workspace}
                              {:keys [name paths namespaces] :as project}
-                             {:keys [project-to-bricks-to-test project-to-projects-to-test]}]
+                             {:keys [project-to-bricks-to-test project-to-projects-to-test]}
+                             is-verbose]
   (when (-> paths :test empty? not)
     (let [color-mode (-> workspace :settings :color-mode)
-          lib-paths (resolve-deps workspace project color-mode)
+          lib-paths (resolve-deps project is-verbose color-mode)
           all-paths (set (concat (:src paths) (:test paths) lib-paths))
           bricks (concat components bases)
           bricks-to-test (project-to-bricks-to-test name)
@@ -97,7 +98,7 @@
                                      projects-to-test))]
     (println (str "Projects to run tests from: " projects "\n"))))
 
-(defn run [{:keys [projects changes messages] :as workspace} color-mode]
+(defn run [{:keys [projects changes messages] :as workspace} is-verbose color-mode]
   (if (validator/has-errors? messages)
     (validator/print-messages workspace)
     (let [start-time (time-util/current-time)
@@ -107,5 +108,5 @@
         (do
           (print-projects-to-test projects-to-test color-mode)
           (doseq [project projects-to-test]
-            (run-tests-for-project workspace project changes))))
+            (run-tests-for-project workspace project changes is-verbose))))
       (time-util/print-execution-time start-time))))

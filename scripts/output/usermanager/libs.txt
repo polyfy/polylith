@@ -1,0 +1,25 @@
+                                                                        [32m [0m  [32m [0m  [32m [0m  [32m [0m  [32ms[0m  [32m [0m  [32m [0m  [34m [0m
+                                                                        [32m [0m  [32m [0m  [32m [0m  [32m [0m  [32mc[0m  [32m [0m  [32m [0m  [34m [0m
+                                                                        [32m [0m  [32m [0m  [32m [0m  [32m [0m  [32mh[0m  [32m [0m  [32m [0m  [34m [0m
+                                                                        [32m [0m  [32m [0m  [32m [0m  [32m [0m  [32me[0m  [32m [0m  [32m [0m  [34m [0m
+                                                                        [32m [0m  [32m [0m  [32md[0m  [32m [0m  [32mm[0m  [32m [0m  [32mw[0m  [34m [0m
+                                                                        [32ma[0m  [32m [0m  [32me[0m  [32m [0m  [32ma[0m  [32m [0m  [32me[0m  [34m [0m
+                                                                        [32mp[0m  [32md[0m  [32mp[0m  [32m [0m  [32m-[0m  [32m [0m  [32mb[0m  [34m [0m
+                                                                        [32mp[0m  [32ma[0m  [32ma[0m  [32m [0m  [32mf[0m  [32m [0m  [32m-[0m  [34m [0m
+                                                                        [32m-[0m  [32mt[0m  [32mr[0m  [32ms[0m  [32mi[0m  [32m [0m  [32ms[0m  [34m [0m
+                                                                        [32ms[0m  [32ma[0m  [32mt[0m  [32mc[0m  [32mx[0m  [32m [0m  [32me[0m  [34m [0m
+                                                                        [32mt[0m  [32mb[0m  [32mm[0m  [32mh[0m  [32mt[0m  [32mu[0m  [32mr[0m  [34m [0m
+                                                                        [32ma[0m  [32ma[0m  [32me[0m  [32me[0m  [32mu[0m  [32ms[0m  [32mv[0m  [34mw[0m
+                                                                        [32mt[0m  [32ms[0m  [32mn[0m  [32mm[0m  [32mr[0m  [32me[0m  [32me[0m  [34me[0m
+  library                            version  type      KB   [35mum[0m   [35mdev[0m   [32me[0m  [32me[0m  [32mt[0m  [32ma[0m  [32me[0m  [32mr[0m  [32mr[0m  [34mb[0m
+  --------------------------------------------------------   --   ---   ----------------------
+  com.github.seancorfield/next.jdbc  1.1.646  maven     43   [35mx [0m   [35m x [0m   .  x  x  x  x  x  .  .
+  com.h2database/h2                  1.4.200  maven  2,249   [35mt [0m   [35m t [0m   .  .  .  .  t  .  .  .
+  com.stuartsierra/component         1.0.0    maven     18   [35mx [0m   [35m x [0m   x  x  .  .  x  .  x  x
+  compojure/compojure                1.6.2    maven     14   [35mx [0m   [35m x [0m   .  .  .  .  .  .  .  x
+  org.clojure/clojure                1.10.3   maven  3,822   [35mx [0m   [35m x [0m   .  .  .  .  .  .  .  .
+  org.clojure/test.check             1.1.0    maven     38   [35mt [0m   [35m t [0m   .  .  .  .  .  .  .  .
+  org.xerial/sqlite-jdbc             3.34.0   maven  7,125   [35mx [0m   [35m x [0m   .  .  .  .  .  .  .  .
+  ring/ring                          1.9.2    maven      4   [35mx [0m   [35m x [0m   .  .  .  .  .  .  x  x
+  ring/ring-defaults                 0.3.2    maven      7   [35mx [0m   [35m x [0m   .  .  .  .  .  .  .  x
+  selmer/selmer                      1.12.33  maven     60   [35mx [0m   [35m x [0m   .  .  .  .  .  .  .  x
