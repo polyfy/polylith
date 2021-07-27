@@ -40,5 +40,6 @@
 
 (comment
   (require '[dev.development :as dev])
+  (require '[dev.jocke :as dev])
   (print-table dev/workspace false false)
   #__)

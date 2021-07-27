@@ -2,6 +2,7 @@
   (:require [dev.dev-common :as dev-common]
             [clojure.set :as set]
             [clojure.string :as str]
+            [clojure.tools.deps.alpha :as tools-deps]
             [polylith.clj.core.api.interface :as api]
             [polylith.clj.core.workspace.interface :as ws]
             [polylith.clj.core.change.interface :as change]
@@ -13,54 +14,36 @@
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.help.interface :as help]
+            [clojure.tools.deps.alpha.util.maven :as mvn]
             [polylith.clj.core.user-input.interface :as user-input])
   (:refer-clojure :exclude [base]))
 
 ;(require '[dev.jocke :as z])
 ;(def workspace z/workspace)
 
+
+
 (def workspace (->
                  ;(dev-common/dir ".")
-                 ;(dev-common/dir "example/output/example")
+                 (dev-common/dir "examples/local-dep")
+                 ;(dev-common/dir "examples/local-dep-old-format")
                  ;(dev-common/dir "../poly-example/ws02")
                  ;(dev-common/dir "../clojure-polylith-realworld-example-app")
                  ;(dev-common/dir "../sandbox/ws02")
                  ;(dev-common/dir "../sandbox/ws03")
-                 (dev-common/dir "../usermanager-example")
+                 ;(dev-common/dir "../usermanager-example")
                  ws-clj/workspace-from-disk
                  ws/enrich-workspace
                  change/with-changes))
 
-(map (juxt :name :lib-imports) projects)
-
-(into {} [[(:name component) (-> component :lib-imports :src)]])
-
-(into {} (mapv (juxt :name :lib-imports) components))
-
-
-(keys workspace)
-
-(file/directories "projects/poly")
-
 ;(command/execute-command (user-input/extract-params ["info"]))
 ;(command/execute-command (user-input/extract-params ["test"]))
 
-;(command/execute-command (user-input/extract-params ["info"]))
-
-(keys (:lib-deps (common/find-project "dev" (:projects workspace))))
-
-(-> workspace :projects first :name)
-
-(map :alias (:projects workspace))
-
 (:projects workspace)
 (:messages workspace)
-
 (:changes workspace)
-
 (:settings workspace)
 (:user-input workspace)
-(-> workspace :settings :profile-to-settings)
 
 (def projects (:projects workspace))
 (def settings (:settings workspace))
@@ -76,11 +59,14 @@
 
 (def project (common/find-project "dev" projects))
 (def project (common/find-project "invoice" projects))
+(def project (common/find-project "invoicing" projects))
 (def project (common/find-project "poly-migrator" projects))
 (def project (common/find-project "um" projects))
 (def component (common/find-component "user" components))
+(def component (common/find-component "util" components))
 (def component (common/find-component "article" components))
 (def component (common/find-component "schema" components))
+(def component (common/find-component "without-src" components))
 (def base (common/find-base "poly-cli" bases))
 
 (def changed-components (-> workspace :changes :changed-components))

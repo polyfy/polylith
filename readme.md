@@ -671,18 +671,18 @@ If your colors don't look as nice as this, then visit the [colors](#colors) sect
 # Prompt
 
 The `poly` tool is a Java program (Clojure code compiled into Java bytecode)
-and it takes a couple of seconds or more (depending on how fast computer you have) to execute a command.
+and it takes a couple of seconds or more to execute a command (depending on how fast computer you have).
 There is a way to execute commands instantly and that is to start an interactive prompt:
 ```
 poly prompt
 ```
 
-This will start the `poly` command in an interactive mode:
+This will start the `poly` command in an interactive mode with the same name as the workspace:
 ```
 example$>
 ```
 
-The prompt gets the same name as the workspace. From here we can execute any `poly` command, e.g.:
+From here we can execute any `poly` command, e.g.:
 ```
 example$> info
 ```
@@ -1996,6 +1996,20 @@ that library will be used, if not overridden by `:override-deps`.
 
 At the project level (except for the development project) we only need to define the libraries that are not defined in the included bricks,
 which can be libraries like clojure itself, `org.clojure/clojure`, that we don't want to repeat in all our bricks.
+
+Finally, if we have a brick like `datomic-ions`, we can specify a repository it needs, like [this](examples/local-dep/deps.edn).
+We can verify that the repo is picked up by the brick by executing `poly ws get:components:datomic-ions:maven-reops`:
+```
+{"datomic-cloud" {:url "s3://datomic-releases-1fc2183a/maven/releases"}}
+```
+...and used by the `invoicing` project by executing `poly ws get:projects:invoicing:maven-repos`:
+```
+{"central" {:url "https://repo1.maven.org/maven2/"},
+ "clojars" {:url "https://repo.clojars.org/"},
+ "datomic-cloud" {:url "s3://datomic-releases-1fc2183a/maven/releases"}}
+```
+
+Every project that uses the `datomic-ions` brick will now also include the `datomic-cloud` repository.
 
 ## Profile
 

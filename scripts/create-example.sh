@@ -14,23 +14,27 @@ ws=$(mktemp -d -t polylith-ws-$(date +%Y-%m-%d-%H%M%S))
 ws1=$(mktemp -d -t polylith-ws1-$(date +%Y-%m-%d-%H%M%S))
 ws2=$(mktemp -d -t polylith-ws2-$(date +%Y-%m-%d-%H%M%S))
 ws3=$(mktemp -d -t usermanager-ws-$(date +%Y-%m-%d-%H%M%S))
+ws4=$(mktemp -d -t local_dep-$(date +%Y-%m-%d-%H%M%S))
 
-echo $(pwd)
-echo $ws
-echo $ws1
+echo "root=" $root
+echo "ws=" $ws
+echo "ws1=" $ws1
+echo "ws2=" $ws2
+echo "ws3=" $ws3
+echo "ws4=" $ws4
 cd $ws
 
-echo "### 1/44 Workspace ###"
+echo "### 1/46 Workspace ###"
 poly create w name:example top-ns:se.example :git-add
 tree example > $output/workspace-tree.txt
 cd example
 
-echo "### 2/44 Development ###"
+echo "### 2/46 Development ###"
 mkdir development/src/dev
 cp $sections/development/lisa.clj development/src/dev
 git add development/src/dev/lisa.clj
 
-echo "### 3/44 Component ###"
+echo "### 3/46 Component ###"
 poly create c name:user
 tree . > ../component-tree.txt
 
@@ -40,7 +44,7 @@ cp $sections/component/user-interface.clj components/user/src/se/example/user/in
 cp $sections/component/deps.edn .
 poly info fake-sha:c91fdad > $output/component-info.txt
 
-echo "### 4/44 Base ###"
+echo "### 4/46 Base ###"
 poly create b name:cli
 cd ..
 tree example > $output/base-tree.txt
@@ -48,7 +52,7 @@ cd example
 cp $sections/base/deps.edn .
 cp $sections/base/cli-core.clj bases/cli/src/se/example/cli/core.clj
 
-echo "### 5/44 Project ###"
+echo "### 5/46 Project ###"
 poly create p name:command-line
 cd ..
 tree example > $output/project-tree.txt
@@ -57,12 +61,12 @@ cp $sections/project/deps.edn .
 cp $sections/project/workspace.edn .
 cp $sections/project/command-line-deps.edn projects/command-line/deps.edn
 
-echo "### 6/44 Tools.deps ###"
+echo "### 6/46 Toolsdeps ###"
 cd projects/command-line
 mkdir -p classes
 clj -e "(compile,'se.example.cli.core)"
 
-echo "### 7/44 Build ###"
+echo "### 7/46 Build ###"
 cd ../..
 mkdir scripts
 cp $scripts/build-uberjar.sh scripts
@@ -77,7 +81,7 @@ cd scripts
 cd ../projects/command-line/target
 java -jar command-line.jar Lisa
 
-echo "### 8/44 Git ###"
+echo "### 8/46 Git ###"
 cd ../../..
 poly info fake-sha:c91fdad > $output/git-info.txt
 git log
@@ -86,7 +90,7 @@ git add --all
 git commit -m "Created the user and cli bricks."
 git log --pretty=oneline
 
-echo "### 9/44 Tagging ###"
+echo "### 9/46 Tagging ###"
 git tag -f stable-lisa
 git log --pretty=oneline
 poly info fake-sha:e7ebe68 > $output/tagging-info-1.txt
@@ -97,10 +101,10 @@ poly info since:release fake-sha:e7ebe68 > $output/tagging-info-2.txt
 poly info since:previous-release fake-sha:c91fdad > $output/tagging-info-3.txt
 git log --pretty=oneline
 
-echo "### 10/44 Flags ###"
+echo "### 10/46 Flags ###"
 poly info :r fake-sha:e7ebe68 > $output/flags-info.txt
 
-echo "### 11/44 Testing ###"
+echo "### 11/46 Testing ###"
 cp $sections/testing/user-core.clj components/user/src/se/example/user/core.clj
 poly diff > $output/testing-diff.txt
 poly info fake-sha:e7ebe68 > $output/testing-info-1.txt
@@ -132,7 +136,7 @@ cp $sections/testing/workspace.edn .
 poly info :all :dev fake-sha:e7ebe68 > $output/testing-info-11.txt
 poly test :all :dev > $output/testing-test-all.txt
 
-echo "### 12/44 Profile ###"
+echo "### 12/46 Profile ###"
 cp $sections/profile/workspace.edn .
 poly create p name:user-service
 poly create b name:user-api
@@ -166,7 +170,7 @@ set -e
 poly info :loc fake-sha:e7ebe68 > $output/profile-info-4.txt
 poly test :project fake-sha:e7ebe68 > $output/profile-test.txt
 
-echo "### 13/44 Configuration ###"
+echo "### 13/46 Configuration ###"
 poly ws get:settings
 poly ws get:settings:profile-to-settings:default:paths
 poly ws get:keys
@@ -175,7 +179,7 @@ poly ws out:ws.edn
 poly info ws-file:ws.edn fake-sha:e7ebe68
 poly ws get:old:user-input:args ws-file:ws.edn > $output/config-ws.txt
 
-echo "### 14/44 Workspace state ###"
+echo "### 14/46 Workspace state ###"
 poly ws get:settings color-mode:none > $output/ws-state-settings.txt
 poly ws get:settings:profile-to-settings:default:paths color-mode:none > $output/ws-state-paths.txt
 poly ws get:keys color-mode:none > $output/ws-state-keys.txt
@@ -184,7 +188,8 @@ poly ws get:components:user color-mode:none > $output/ws-state-components-user.t
 poly ws get:components:user-remote:lib-deps color-mode:none > $output/ws-state-components-user-remote-lib-deps.txt
 poly ws get:old:user-input:args ws-file:ws.edn color-mode:none > $output/ws-state-ws-file.txt
 
-echo "### 15/44 Copy doc-example ###"
+echo "### 15/46 Copy doc-example ###"
+cp $examples/doc-example/readme.txt $ws
 rm -rf $examples/doc-example
 cp -R $ws/example $examples/doc-example
 rm -rf $examples/doc-example/.git
@@ -196,8 +201,9 @@ rm $examples/doc-example/bases/.keep
 rm $examples/doc-example/components/.keep
 rm $examples/doc-example/projects/.keep
 rm $examples/doc-example/development/src/.keep
+cp $ws/readme.txt $examples/doc-example/readme.txt
 
-echo "### 16/44 Realworld example app ###"
+echo "### 16/46 Realworld example app ###"
 cd $ws2
 git clone git@github.com:furkan3ayraktar/clojure-polylith-realworld-example-app.git
 cd clojure-polylith-realworld-example-app
@@ -205,78 +211,92 @@ git checkout polylith-issue-66
 git tag stable-lisa
 
 poly info fake-sha:f7082da > $output/realworld/realworld-info.txt
-echo "### 17/44 Realworld example app ###"
+echo "### 17/46 Realworld example app ###"
 poly deps > $output/realworld/realworld-deps-interfaces.txt
-echo "### 18/44 Realworld example app ###"
+echo "### 18/46 Realworld example app ###"
 poly deps brick:article > $output/realworld/realworld-deps-interface.txt
-echo "### 19/44 Realworld example app ###"
+echo "### 19/46 Realworld example app ###"
 poly deps project:rb > $output/realworld/realworld-deps-components.txt
-echo "### 20/44 Realworld example app ###"
+echo "### 20/46 Realworld example app ###"
 poly deps project:rb brick:article > $output/realworld/realworld-deps-component.txt
-echo "### 21/44 Realworld example app ###"
+echo "### 21/46 Realworld example app ###"
 poly libs > $output/realworld/realworld-lib-deps.txt
-echo "### 22/44 Realworld example app ###"
+echo "### 22/46 Realworld example app ###"
 cp $scripts/realworld/workspace-compact.edn ./workspace.edn
 poly libs > $output/realworld/realworld-lib-deps-compact.txt
 cp $scripts/realworld/workspace.edn .
 
-echo "### 23/44 Polylith toolsdeps1 ###"
+echo "### 23/46 Polylith toolsdeps1 ###"
 cd $ws1
 git clone git@github.com:polyfy/polylith.git
 cd polylith
-echo "### 24/44 Polylith toolsdeps1 ###"
-poly info > $output/polylith1/info.txt
-echo "### 25/44 Polylith toolsdeps1 ###"
-poly libs > $output/polylith1/libs.txt
-echo "### 26/44 Polylith toolsdeps1 ###"
-poly deps > $output/polylith1/deps.txt
+echo "### 24/46 Polylith toolsdeps1 ###"
+poly info color-mode:none > $output/polylith1/info.txt
+echo "### 25/46 Polylith toolsdeps1 ###"
+poly libs color-mode:none > $output/polylith1/libs.txt
+echo "### 26/46 Polylith toolsdeps1 ###"
+poly deps color-mode:none > $output/polylith1/deps.txt
 
 poly migrate
-echo "### 27/44 Polylith toolsdeps1 (migrated) ###"
-poly info > $output/polylith1/info-migrated.txt
-echo "### 28/44 Polylith toolsdeps1 (migrated) ###"
-poly libs > $output/polylith1/libs-migrated.txt
-echo "### 29/44 Polylith toolsdeps1 (migrated) ###"
-poly deps > $output/polylith1/deps-migrated.txt
+echo "### 27/46 Polylith toolsdeps1 (migrated) ###"
+poly info color-mode:none > $output/polylith1/info-migrated.txt
+echo "### 28/46 Polylith toolsdeps1 (migrated) ###"
+poly libs color-mode:none > $output/polylith1/libs-migrated.txt
+echo "### 29/46 Polylith toolsdeps1 (migrated) ###"
+poly deps color-mode:none > $output/polylith1/deps-migrated.txt
 
 cd $ws3
 git clone https://github.com/seancorfield/usermanager-example.git
 cd usermanager-example
 git checkout polylith
-echo "### 30/44 Usermanager ###"
-poly info > $output/usermanager/info.txt
-echo "### 31/44 Usermanager ###"
-poly libs > $output/usermanager/libs.txt
-echo "### 32/44 Usermanager ###"
-poly deps > $output/usermanager/deps.txt
+echo "### 30/46 Usermanager ###"
+poly info color-mode:none > $output/usermanager/info.txt
+echo "### 31/46 Usermanager ###"
+poly libs color-mode:none > $output/usermanager/libs.txt
+echo "### 32/46 Usermanager ###"
+poly deps color-mode:none > $output/usermanager/deps.txt
 
 cd $examples/local-dep
-echo "### 33/44 examples/local-dep ###"
-poly info fake-sha:aaaaa > $output/local-dep/info.txt
-echo "### 34/44 examples/local-dep ###"
-poly libs > $output/local-dep/libs.txt
-echo "### 35/44 examples/local-dep ###"
-poly deps > $output/local-dep/deps.txt
-echo "### 36/44 examples/local-dep ###"
-poly diff since:0aaeb58 > $output/local-dep/diff.txt
-echo "### 37/44 examples/local-dep ###"
-poly ws out:$output/local-dep/ws.edn :user-home
-echo "### 38/44 examples/local-dep ###"
-poly test :dev > $output/local-dep/test.txt
+echo "### 33/46 examples/local-dep ###"
+poly info color-mode:none fake-sha:aaaaa > $output/local-dep/info.txt
+echo "### 34/46 examples/local-dep ###"
+poly libs color-mode:none > $output/local-dep/libs.txt
+echo "### 35/46 examples/local-dep ###"
+poly deps color-mode:none > $output/local-dep/deps.txt
+echo "### 36/46 examples/local-dep ###"
+poly diff since:0aaeb58 color-mode:none > $output/local-dep/diff.txt
+echo "### 37/46 examples/local-dep ###"
+poly ws out:$output/local-dep/ws.edn :user-home color-mode:none
+echo "### 38/46 examples/local-dep ###"
+poly test :dev color-mode:none > $output/local-dep/test.txt
 
-cd $examples/local-dep-old-format
-echo "### 39/44 examples/local-dep-old-format ###"
-poly info fake-sha:aaaaa > $output/local-dep-old-format/info.txt
-echo "### 40/44 examples/local-dep-old-format ###"
-poly libs > $output/local-dep-old-format/libs.txt
-echo "### 41/44 examples/local-dep-old-format ###"
-poly deps > $output/local-dep-old-format/deps.txt
-echo "### 42/44 examples/local-dep-old-format ###"
-poly diff since:0aaeb58 > $output/local-dep-old-format/diff.txt
-echo "### 43/44 examples/local-dep-old-format ###"
-poly ws out:$output/local-dep-old-format/ws.edn :user-home
-echo "### 44/44 examples/local-dep-old-format ###"
-poly test :dev > $output/local-dep-old-format/test.txt
+echo "### 39/46 examples/local-dep-old-format ###"
+cp -R $examples/local-dep-old-format $ws4
+cd $ws4/local-dep-old-format
+git init
+git add .
+git commit -m "Workspace created."
+git tag stable-jote
+
+poly info fake-sha:aaaaa color-mode:none > $output/local-dep-old-format/info.txt
+echo "### 40/46 examples/local-dep-old-format ###"
+poly libs color-mode:none > $output/local-dep-old-format/libs.txt
+echo "### 41/46 examples/local-dep-old-format ###"
+poly deps color-mode:none > $output/local-dep-old-format/deps.txt
+echo "### 42/46 examples/local-dep-old-format ###"
+poly ws out:$output/local-dep-old-format/ws.edn :user-home color-mode:none
+echo "### 43/46 examples/local-dep-old-format ###"
+poly test :dev color-mode:none > $output/local-dep-old-format/test.txt
+
+poly migrate
+git add --all
+poly info fake-sha:aaaaa color-mode:none > $output/local-dep-old-format/info-migrated.txt
+echo "### 44/46 examples/local-dep-old-format (migrated) ###"
+poly libs color-mode:none > $output/local-dep-old-format/libs-migrated.txt
+echo "### 45/46 examples/local-dep-old-format (migrated) ###"
+poly deps color-mode:none > $output/local-dep-old-format/deps-migrated.txt
+echo "### 46/46 examples/local-dep-old-format (migrated) ###"
+poly test :de color-mode:none > $output/local-dep-old-format/test-migrated.txt
 
 cd $output
 ./output.sh > ./output.txt

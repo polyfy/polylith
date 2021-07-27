@@ -11,8 +11,13 @@
 
  :aliases  {:dev {:extra-paths ["development/src"
                                 "migrate-me/src"
+                                "components/database/src"
+                                "components/database/resources"
+                                "components/datomic-ions/src"
                                 "components/invoicer/src"
                                 "components/invoicer/resources"
+                                "components/test-helper/src"
+                                "components/test-helper-db/src"
                                 "components/util/src"
                                 "bases/invoicer-cli/src"]
                   :extra-deps {org.clojure/clojure {:mvn/version "1.10.1"}
@@ -22,8 +27,11 @@
                                                          :exclusions [org.jcuda/jcuda-natives
                                                                       org.jcuda/jcublas-natives]}}}
 
-            :test {:extra-paths ["components/invoicer/test"
+            :test {:extra-paths ["components/database/test"
+                                 "components/invoicer/test"
+                                 "components/test-helper/test"
                                  "components/util/test"
+                                 "components/without-src/test"
                                  "bases/invoicer-cli/test"]
                    :extra-deps {migrate-me/migrate-me {:local/root "migrate-me"}}}
 

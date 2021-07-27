@@ -1,0 +1,5 @@
+{:mvn/repos {"datomic-cloud" {:url "s3://datomic-releases-1fc2183a/maven/releases"}}
+ :paths ["src"]
+ :deps {}
+ :aliases {:test {:extra-paths []
+                  :extra-deps {}}}}

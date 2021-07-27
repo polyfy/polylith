@@ -1,4 +1,9 @@
-{:paths ["../../components/invoicer/src"
+{:mvn/repos {"datomic-cloud" {:url "s3://datomic-releases-1fc2183a/maven/releases"}}
+
+ :paths ["../../components/database/src"
+         "../../components/database/resources"
+         "../../components/datomic-ions/src"
+         "../../components/invoicer/src"
          "../../components/invoicer/resources"
          "../../components/util/src"
          "../../bases/invoicer-cli/src"]
@@ -7,7 +12,12 @@
         org.clojure/tools.deps.alpha {:mvn/version "0.12.985"}
         clj-time/clj-time {:mvn/version "0.15.2"}}
 
- :aliases {:test {:extra-paths ["../../components/invoicer/test"
+ :aliases {:test {:extra-paths ["../../components/database/test"
+                                "../../components/invoicer/test"
+                                "../../components/test-helper/src"
+                                "../../components/test-helper/test"
+                                "../../components/test-helper-db/src"
                                 "../../components/util/test"
+                                "../../components/without-src/test"
                                 "../../bases/invoicer-cli/test"]
                   :extra-deps  {migrate-me/migrate-me {:local/root "../../migrate-me"}}}}}

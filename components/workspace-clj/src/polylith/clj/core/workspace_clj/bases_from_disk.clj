@@ -16,6 +16,7 @@
         lib-deps (lib/brick-lib-deps ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home)]
     (util/ordered-map :name base-name
                       :type "base"
+                      :maven-repos (:mvn/repos config)
                       :paths (brick-paths/source-paths base-dir config)
                       :namespaces namespaces
                       :non-top-namespaces (brick->non-top-namespaces base-name)

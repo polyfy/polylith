@@ -167,7 +167,7 @@
             "  migrator       .  .  x  .  .  +  .  .  .  .  .  .  .  .  .  +  .  +  .  .  .  .  .  ."
             "  path-finder    .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  shell          .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  test-helper    +  x  +  +  +  x  +  +  +  +  +  +  .  +  +  x  x  +  +  +  +  +  +  +"
+            "  test-helper    -  t  -  -  -  t  -  -  -  -  -  -  .  -  -  t  t  -  -  -  -  -  -  -"
             "  test-runner    .  .  x  .  x  +  .  .  .  .  +  .  .  .  +  +  .  x  x  .  .  .  .  ."
             "  text-table     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  user-config    .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
@@ -385,7 +385,8 @@
                            :test {}}
           "shell"         {:src  {}
                            :test {}}
-          "test-helper"   {:src  {:direct   ["command"
+          "test-helper"   {:src  {}
+                           :test {:direct   ["command"
                                              "file"
                                              "user-config"
                                              "user-input"]
@@ -407,8 +408,7 @@
                                              "workspace"
                                              "workspace-clj"
                                              "ws-explorer"
-                                             "ws-file"]}
-                           :test {}}
+                                             "ws-file"]}}
           "test-runner"   {:src  {:direct   ["common"
                                              "deps"
                                              "util"

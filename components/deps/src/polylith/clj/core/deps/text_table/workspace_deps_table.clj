@@ -32,7 +32,7 @@
   (let [{:keys [color-mode empty-character]} settings
         bricks (concat components bases)
         brick->ifc-deps (into {} (map (juxt :name :interface-deps) bricks))
-        interface-names (sort (map :name interfaces))
+        interface-names (sort (filter identity (map :name interfaces)))
         brick-names (map :name bricks)
         space-columns (range 2 (* 2 (inc (count interfaces))) 2)
         spaces (repeat "  ")
@@ -45,3 +45,9 @@
 
 (defn print-table [workspace]
   (text-table/print-table (table workspace)))
+
+(comment
+  (require '[dev.jocke :as dev])
+  (def workspace dev/workspace)
+  (print-table workspace)
+  #__)

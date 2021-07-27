@@ -22,12 +22,13 @@
         lib-deps (lib/brick-lib-deps ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home)]
        (util/ordered-map :name component-name
                          :type "component"
+                         :maven-repos (:mvn/repos config)
                          :paths (brick-paths/source-paths component-dir config)
                          :namespaces namespaces
                          :non-top-namespaces (brick->non-top-namespaces component-name)
                          :lib-deps lib-deps
-                         :interface {:name interface-name
-                                     :definitions definitions})))
+                         :interface (util/ordered-map :name interface-name
+                                                      :definitions definitions))))
 
 (defn read-components [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns brick->non-top-namespaces]
   (vec (sort-by :name (map #(read-component ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir % interface-ns brick->non-top-namespaces)

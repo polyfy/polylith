@@ -7,13 +7,13 @@
     [{:name "core",
       :namespace "com.localdep.invoicer-cli.core",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep-old-format/bases/invoicer-cli/src/com/localdep/invoicer_cli/core.clj",
+      "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format/bases/invoicer-cli/src/com/localdep/invoicer_cli/core.clj",
       :imports ["com.localdep.invoicer.interface"]}],
     :test
     [{:name "core-test",
       :namespace "com.localdep.invoicer-cli.core-test",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep-old-format/bases/invoicer-cli/test/com/localdep/invoicer_cli/core_test.clj",
+      "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format/bases/invoicer-cli/test/com/localdep/invoicer_cli/core_test.clj",
       :imports ["clojure.test" "com.localdep.invoicer-cli.core"]}]},
    :lib-deps {},
    :lines-of-code {:src 5, :test 6},
@@ -28,15 +28,56 @@
   {"invoicing" {:src [], :test []}, "development" {:src [], :test []}},
   :project-to-bricks-to-test {"invoicing" [], "development" []},
   :project-to-projects-to-test {"invoicing" [], "development" []},
-  :since-sha "76a9c7fc4cf1bee39ad31a236f44c4844e1c203a",
-  :changed-files [],
+  :since-sha "c2e2f99d76beee5106fba4672f7d457452e268b7",
+  :changed-files [""],
   :git-diff-command
-  "git diff 76a9c7fc4cf1bee39ad31a236f44c4844e1c203a --name-only",
+  "git diff c2e2f99d76beee5106fba4672f7d457452e268b7 --name-only",
   :changed-components [],
   :since-tag "stable-jote",
   :changed-or-affected-projects []},
  :components
- [{:lines-of-code {:src 10, :test 6},
+ [{:lines-of-code {:src 4, :test 6},
+   :interface {:name "database", :definitions []},
+   :namespaces
+   {:src
+    [{:name "interface",
+      :namespace "com.localdep.database.interface",
+      :file-path
+      "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format/components/database/src/com/localdep/database/interface.clj",
+      :imports ["com.localdep.database.core"]}
+     {:name "core",
+      :namespace "com.localdep.database.core",
+      :file-path
+      "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format/components/database/src/com/localdep/database/core.clj",
+      :imports ["com.localdep.util.interface"]}],
+    :test
+    [{:name "interface-test",
+      :namespace "com.localdep.database.interface-test",
+      :file-path
+      "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format/components/database/test/com/localdep/database/interface_test.clj",
+      :imports ["clojure.test" "com.localdep.database.interface"]}]},
+   :lib-imports {:test ["clojure.test"]},
+   :name "database",
+   :paths {:src ["src" "resources"], :test ["test"]},
+   :type "component",
+   :interface-deps {:src ["util"], :test []},
+   :lib-deps {}}
+  {:lines-of-code {:src 1, :test 0},
+   :interface {:name "datomic-ions", :definitions []},
+   :namespaces
+   {:src
+    [{:name "interface",
+      :namespace "com.localdep.datomic-ions.interface",
+      :file-path
+      "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format/components/datomic-ions/src/com/localdep/datomic_ions/interface.clj",
+      :imports []}]},
+   :lib-imports {},
+   :name "datomic-ions",
+   :paths {:src ["src"], :test []},
+   :type "component",
+   :interface-deps {:src [], :test []},
+   :lib-deps {}}
+  {:lines-of-code {:src 10, :test 7},
    :interface
    {:name "invoicer",
     :definitions
@@ -46,25 +87,75 @@
     [{:name "interface",
       :namespace "com.localdep.invoicer.interface",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep-old-format/components/invoicer/src/com/localdep/invoicer/interface.clj",
+      "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format/components/invoicer/src/com/localdep/invoicer/interface.clj",
       :imports ["com.localdep.invoicer.core"]}
      {:name "core",
       :namespace "com.localdep.invoicer.core",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep-old-format/components/invoicer/src/com/localdep/invoicer/core.clj",
+      "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format/components/invoicer/src/com/localdep/invoicer/core.clj",
       :imports ["com.localdep.util.interface"]}],
     :test
     [{:name "interface-test",
       :namespace "com.localdep.invoicer.interface-test",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep-old-format/components/invoicer/test/com/localdep/invoicer/interface_test.clj",
-      :imports ["clojure.test" "com.localdep.migrate-me.core"]}]},
+      "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format/components/invoicer/test/com/localdep/invoicer/interface_test.clj",
+      :imports
+      ["clojure.test"
+       "com.localdep.migrate-me.core"
+       "com.localdep.test-helper.interface"]}]},
    :lib-imports
    {:test ["clojure.test" "com.localdep.migrate-me.core"]},
    :name "invoicer",
    :paths {:src ["src" "resources"], :test ["test"]},
    :type "component",
-   :interface-deps {:src ["util"], :test []},
+   :interface-deps {:src ["util"], :test ["test-helper"]},
+   :lib-deps {}}
+  {:lines-of-code {:src 4, :test 6},
+   :interface {:name "test-helper", :definitions []},
+   :namespaces
+   {:src
+    [{:name "interface",
+      :namespace "com.localdep.test-helper.interface",
+      :file-path
+      "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format/components/test-helper/src/com/localdep/test_helper/interface.clj",
+      :imports ["com.localdep.test-helper.core"]}
+     {:name "core",
+      :namespace "com.localdep.test-helper.core",
+      :file-path
+      "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format/components/test-helper/src/com/localdep/test_helper/core.clj",
+      :imports ["com.localdep.test-helper-db.interface"]}],
+    :test
+    [{:name "interface-test",
+      :namespace "com.localdep.test-helper.interface-test",
+      :file-path
+      "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format/components/test-helper/test/com/localdep/test_helper/interface_test.clj",
+      :imports
+      ["clojure.test" "com.localdep.test-helper.interface"]}]},
+   :lib-imports {:test ["clojure.test"]},
+   :name "test-helper",
+   :paths {:src ["src"], :test ["test"]},
+   :type "component",
+   :interface-deps {:src ["test-helper-db"], :test []},
+   :lib-deps {}}
+  {:lines-of-code {:src 4, :test 0},
+   :interface {:name "test-helper-db", :definitions []},
+   :namespaces
+   {:src
+    [{:name "interface",
+      :namespace "com.localdep.test-helper-db.interface",
+      :file-path
+      "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format/components/test-helper-db/src/com/localdep/test_helper_db/interface.clj",
+      :imports ["com.localdep.database.interface"]}
+     {:name "core",
+      :namespace "com.localdep.test-helper-db.core",
+      :file-path
+      "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format/components/test-helper-db/src/com/localdep/test_helper_db/core.clj",
+      :imports ["com.localdep.database.interface"]}]},
+   :lib-imports {},
+   :name "test-helper-db",
+   :paths {:src ["src"], :test []},
+   :type "component",
+   :interface-deps {:src ["database"], :test []},
    :lib-deps {}}
   {:lines-of-code {:src 8, :test 7},
    :interface
@@ -79,13 +170,13 @@
     [{:name "interface",
       :namespace "com.localdep.util.interface",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep-old-format/components/util/src/com/localdep/util/interface.clj",
+      "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format/components/util/src/com/localdep/util/interface.clj",
       :imports ["clj-time.core"]}],
     :test
     [{:name "interface-test",
       :namespace "com.localdep.util.interface-test",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep-old-format/components/util/test/com/localdep/util/interface_test.clj",
+      "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format/components/util/test/com/localdep/util/interface_test.clj",
       :imports ["clojure.test" "com.localdep.util.interface"]}]},
    :lib-imports {:src ["clj-time.core"], :test ["clojure.test"]},
    :name "util",
@@ -95,13 +186,44 @@
    :lib-deps
    {:src
     {"clj-time/clj-time"
-     {:version "0.15.2", :type "maven", :size 23664}}}}],
+     {:version "0.15.2", :type "maven", :size 23664}}}}
+  {:lines-of-code {:src 0, :test 5},
+   :interface {:definitions []},
+   :namespaces
+   {:test
+    [{:name "dummy-test",
+      :namespace "com.localdep.without-src.dummy-test",
+      :file-path
+      "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format/components/without-src/test/com/localdep/without_src/dummy_test.clj",
+      :imports ["clojure.test"]}]},
+   :lib-imports {:test ["clojure.test"]},
+   :name "without-src",
+   :paths {:src [], :test ["test"]},
+   :type "component",
+   :interface-deps {:src [], :test []},
+   :lib-deps {}}],
  :interfaces
- [{:name "invoicer",
+ [{:name "database",
+   :type "interface",
+   :definitions [],
+   :implementing-components ["database"]}
+  {:name "datomic-ions",
+   :type "interface",
+   :definitions [],
+   :implementing-components ["datomic-ions"]}
+  {:name "invoicer",
    :type "interface",
    :definitions
    [{:name "do-invoicing", :type "function", :parameters []}],
    :implementing-components ["invoicer"]}
+  {:name "test-helper",
+   :type "interface",
+   :definitions [],
+   :implementing-components ["test-helper"]}
+  {:name "test-helper-db",
+   :type "interface",
+   :definitions [],
+   :implementing-components ["test-helper-db"]}
   {:name "util",
    :type "interface",
    :definitions
@@ -109,31 +231,51 @@
     {:name "do-stuff",
      :type "function",
      :parameters [{:name "string1"} {:name "string2"}]}],
-   :implementing-components ["util"]}],
+   :implementing-components ["util"]}
+  {:name nil,
+   :type "interface",
+   :definitions [],
+   :implementing-components ["without-src"]}],
  :messages [],
  :name "local-dep-old-format",
  :paths
  {:existing
   ["bases/invoicer-cli/src"
    "bases/invoicer-cli/test"
+   "components/database/resources"
+   "components/database/src"
+   "components/database/test"
+   "components/datomic-ions/src"
    "components/invoicer/resources"
    "components/invoicer/src"
    "components/invoicer/test"
+   "components/test-helper-db/src"
+   "components/test-helper/src"
+   "components/test-helper/test"
    "components/util/src"
    "components/util/test"
+   "components/without-src/test"
    "development/src"
    "migrate-me/src"],
   :missing [],
   :on-disk
   ["bases/invoicer-cli/src"
    "bases/invoicer-cli/test"
+   "components/database/resources"
+   "components/database/src"
+   "components/database/test"
+   "components/datomic-ions/src"
    "components/invoicer/resources"
    "components/invoicer/src"
    "components/invoicer/test"
+   "components/test-helper-db/src"
+   "components/test-helper/src"
+   "components/test-helper/test"
    "components/util/src"
-   "components/util/test"]},
+   "components/util/test"
+   "components/without-src/test"]},
  :projects
- [{:lines-of-code {:src 0, :test 0, :total {:src 46, :test 38}},
+ [{:lines-of-code {:src 0, :test 0, :total {:src 63, :test 63}},
    :namespaces {},
    :base-names {:src ["invoicer-cli"], :test ["invoicer-cli"]},
    :lib-imports
@@ -148,20 +290,30 @@
    :paths
    {:src
     ["bases/invoicer-cli/src"
+     "components/database/resources"
+     "components/database/src"
+     "components/datomic-ions/src"
      "components/invoicer/resources"
      "components/invoicer/src"
      "components/util/src"],
     :test
     ["bases/invoicer-cli/test"
+     "components/database/test"
      "components/invoicer/test"
-     "components/util/test"]},
+     "components/test-helper-db/src"
+     "components/test-helper/src"
+     "components/test-helper/test"
+     "components/util/test"
+     "components/without-src/test"]},
    :type "project",
    :maven-repos
    {"central" {:url "https://repo1.maven.org/maven2/"},
-    "clojars" {:url "https://repo.clojars.org/"}},
+    "clojars" {:url "https://repo.clojars.org/"},
+    "datomic-cloud"
+    {:url "s3://datomic-releases-1fc2183a/maven/releases"}},
    :alias "inv",
    :project-dir
-   "USER-HOME/source/polylith/examples/local-dep-old-format/projects/invoicing",
+   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format/projects/invoicing",
    :lib-deps
    {:src
     {"org.clojure/clojure"
@@ -177,22 +329,42 @@
       :path "migrate-me",
       :size 1315}}},
    :config-filename
-   "USER-HOME/source/polylith/examples/local-dep-old-format/projects/invoicing/deps.edn",
+   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format/projects/invoicing/deps.edn",
    :component-names
-   {:src ["invoicer" "util"], :test ["invoicer" "util"]},
+   {:src ["database" "datomic-ions" "invoicer" "util"],
+    :test
+    ["database"
+     "invoicer"
+     "test-helper"
+     "test-helper-db"
+     "util"
+     "without-src"]},
    :deps
    {"invoicer-cli"
     {:src {:direct ["invoicer"], :indirect ["util"]},
      :test {:direct ["invoicer"], :indirect ["util"]}},
-    "invoicer" {:src {:direct ["util"]}, :test {}},
-    "util" {:src {}, :test {}}}}
-  {:lines-of-code {:src 1, :test 0, :total {:src 46, :test 38}},
+    "database" {:src {:direct ["util"]}, :test {:direct ["util"]}},
+    "datomic-ions" {:src {}, :test {}},
+    "invoicer"
+    {:src {:direct ["util"]},
+     :test
+     {:direct ["test-helper"],
+      :indirect ["database" "test-helper-db" "util"]}},
+    "test-helper"
+    {:src {},
+     :test
+     {:direct ["test-helper-db"], :indirect ["database" "util"]}},
+    "test-helper-db"
+    {:src {}, :test {:direct ["database"], :indirect ["util"]}},
+    "util" {:src {}, :test {}},
+    "without-src" {:src {}, :test {}}}}
+  {:lines-of-code {:src 1, :test 0, :total {:src 67, :test 69}},
    :namespaces
    {:src
     [{:name "dev.me",
       :namespace "dev.me",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep-old-format/development/src/dev/me.clj",
+      "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format/development/src/dev/me.clj",
       :imports []}]},
    :base-names {:src ["invoicer-cli"], :test ["invoicer-cli"]},
    :lib-imports
@@ -207,34 +379,50 @@
    :paths
    {:src
     ["bases/invoicer-cli/src"
+     "components/database/resources"
+     "components/database/src"
+     "components/datomic-ions/src"
      "components/invoicer/resources"
      "components/invoicer/src"
+     "components/test-helper-db/src"
+     "components/test-helper/src"
      "components/util/src"
      "development/src"],
     :test
     ["bases/invoicer-cli/test"
+     "components/database/test"
      "components/invoicer/test"
-     "components/util/test"]},
+     "components/test-helper/test"
+     "components/util/test"
+     "components/without-src/test"]},
    :type "project",
    :maven-repos
    {"central" {:url "https://repo1.maven.org/maven2/"},
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "dev",
    :project-dir
-   "USER-HOME/source/polylith/examples/local-dep-old-format/development",
+   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format/development",
    :unmerged
    {:paths
     {:src
      ["bases/invoicer-cli/src"
+      "components/database/resources"
+      "components/database/src"
+      "components/datomic-ions/src"
       "components/invoicer/resources"
       "components/invoicer/src"
+      "components/test-helper-db/src"
+      "components/test-helper/src"
       "components/util/src"
       "development/src"
       "migrate-me/src"],
      :test
      ["bases/invoicer-cli/test"
+      "components/database/test"
       "components/invoicer/test"
-      "components/util/test"]},
+      "components/test-helper/test"
+      "components/util/test"
+      "components/without-src/test"]},
     :lib-deps
     {:src
      {"org.clojure/clojure"
@@ -274,15 +462,35 @@
       :path "migrate-me",
       :size 1315}}},
    :config-filename
-   "USER-HOME/source/polylith/examples/local-dep-old-format/deps.edn",
+   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format/deps.edn",
    :component-names
-   {:src ["invoicer" "util"], :test ["invoicer" "util"]},
+   {:src
+    ["database"
+     "datomic-ions"
+     "invoicer"
+     "test-helper"
+     "test-helper-db"
+     "util"],
+    :test ["database" "invoicer" "test-helper" "util" "without-src"]},
    :deps
    {"invoicer-cli"
     {:src {:direct ["invoicer"], :indirect ["util"]},
      :test {:direct ["invoicer"], :indirect ["util"]}},
-    "invoicer" {:src {:direct ["util"]}, :test {}},
-    "util" {:src {}, :test {}}}}],
+    "database" {:src {:direct ["util"]}, :test {:direct ["util"]}},
+    "datomic-ions" {:src {}, :test {}},
+    "invoicer"
+    {:src {:direct ["util"]},
+     :test
+     {:direct ["test-helper"],
+      :indirect ["database" "test-helper-db" "util"]}},
+    "test-helper"
+    {:src {:direct ["test-helper-db"], :indirect ["database" "util"]},
+     :test
+     {:direct ["test-helper-db"], :indirect ["database" "util"]}},
+    "test-helper-db"
+    {:src {:direct ["database"], :indirect ["util"]}, :test {}},
+    "util" {:src {}, :test {}},
+    "without-src" {:src {}, :test {}}}}],
  :settings
  {:projects {"development" {:alias "dev"}, "invoicing" {:alias "inv"}},
   :user-config-filename "USER-HOME/.polylith/config.edn",
@@ -297,23 +505,25 @@
   :ns-to-lib {"clj-time" "clj-time/clj-time"},
   :vcs
   {:name "git",
-   :branch "issue-66-20",
-   :git-root "USER-HOME/source/polylith",
+   :branch "master",
+   :git-root
+   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format",
    :auto-add false,
    :stable-since
    {:tag "stable-jote",
-    :sha "76a9c7fc4cf1bee39ad31a236f44c4844e1c203a"},
+    :sha "c2e2f99d76beee5106fba4672f7d457452e268b7"},
    :polylith
    {:repo "https://github.com/polyfy/polylith.git", :branch "master"}},
   :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
   :m2-dir "USER-HOME/.m2",
-  :color-mode "dark",
+  :color-mode "none",
   :empty-character "."},
  :user-input
  {:args
   ["ws"
    "out:/Users/joakimtengstrand/source/polylith/scripts/output/local-dep-old-format/ws.edn"
-   ":user-home"],
+   ":user-home"
+   "color-mode:none"],
   :unnamed-args [],
   :is-dev false,
   :is-run-project-tests false,
@@ -332,20 +542,21 @@
   :is-show-project false,
   :is-all false,
   :is-show-workspace false,
+  :color-mode "none",
   :is-show-loc false,
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.0.alpha10.issue66.20",
+  {:name "0.2.0.alpha10.issue66.21",
    :major 0,
    :minor 2,
    :patch 0,
-   :revision "alpha10.issue66.20",
-   :date "2021-07-24"},
+   :revision "alpha10.issue66.21",
+   :date "2021-07-26"},
   :ws {:type :toolsdeps2, :breaking 1, :non-breaking 0},
   :from {:ws {:type :toolsdeps1}}},
- :ws-dir "USER-HOME/source/polylith/examples/local-dep-old-format",
- :ws-local-dir "examples/local-dep-old-format",
+ :ws-dir
+ "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-27-044125.SR9LV64b/local-dep-old-format",
  :ws-reader
  {:name "polylith-clj",
   :project-url "https://github.com/polyfy/polylith",

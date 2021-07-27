@@ -25,7 +25,7 @@ A migration will perform these steps:
     keys `stable` and `release`.
   - `:ns-to-lib` is removed.
   - `:project-to-alias` is replaced by `:projects` where each project stores a map
-    with the name as its key and a map as value with the key `:name` and optionally `:test`
+    with the name as its key and a map as value with the key `:alias` and optionally `:test`
     that can be set to `[]` if no tests should be executed from that project.
 - Each brick will get its own `deps.edn` file that specifies the `src`, `test` and `resources`
   directories + dependencies to libraries if any. The old `:ns-to-lib` mapping is used to figure
@@ -53,7 +53,8 @@ Before you start the migration, here are some tips:
   versions in `./deps.edn`. This will make your life easier because both are used 
   when the `deps.edn` files are created for the bricks.
 - Run all the tests to make sure that everything works correctly, e.g. `poly test :all`.
-- Run the `info` and `libs` commands and store the result to files, e.g.: `poly info > info.txt` and `poly libs > libs.txt`. 
+- Run the `info` and `libs` commands and store the result to files, e.g.: `poly info color-mode:none > info.txt` 
+  and `poly libs color-mode:none > libs.txt`.
   
 After the migration:
 - Run the `info` and `libs` commands again and make sure they have the same output as before the migration.

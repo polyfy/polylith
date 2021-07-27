@@ -31,7 +31,7 @@
       (or (contains? selected-projects project-name)
           (contains? selected-projects alias))))
 
-(defn enrich-project [{:keys [name is-dev namespaces paths lib-deps] :as project}
+(defn enrich-project [{:keys [name is-dev maven-repos namespaces paths lib-deps] :as project}
                       components
                       bases
                       suffixed-top-ns
@@ -41,6 +41,7 @@
                       settings
                       {:keys [is-run-all-brick-tests selected-projects]}]
   (let [alias (get-in settings [:projects name :alias])
+        enriched-maven-repos (apply merge maven-repos (mapcat :maven-repos (concat components bases)))
         lib-entries (extract/from-library-deps is-dev lib-deps settings)
         path-entries (extract/from-unenriched-project is-dev paths disk-paths settings)
         component-names-src (select/names path-entries c/component? c/src? c/exists?)
@@ -81,5 +82,6 @@
                 :paths            merged-paths
                 :lib-deps         merged-lib-deps
                 :lib-imports      lib-imports})
-        (cond-> is-dev (assoc :unmerged {:paths     paths
+        (cond-> enriched-maven-repos (assoc :maven-repos  enriched-maven-repos)
+                is-dev (assoc :unmerged {:paths     paths
                                          :lib-deps      lib-deps})))))

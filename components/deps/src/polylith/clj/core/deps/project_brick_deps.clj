@@ -9,14 +9,15 @@
    because it not only contains namespaces pointing to other namespaces, but also
    component interfaces and base (IB) names, pointing to both namespaces and other
    IB names."
-  [current-ns ns->namespaces brick-paths visited path]
+  [test-context? current-ns ns->namespaces brick-paths visited path]
   (let [namespaces (ns->namespaces current-ns)]
     (if (or (empty? namespaces)
             (contains? visited current-ns))
       (swap! brick-paths conj
-             (conj path current-ns))
+             {:test? test-context?
+              :path (conj path current-ns)})
       (doseq [namespace namespaces]
-        (ns-deps-recursively namespace ns->namespaces brick-paths
+        (ns-deps-recursively test-context? namespace ns->namespaces brick-paths
                              (conj visited current-ns)
                              (conj path current-ns))))))
 
@@ -79,20 +80,33 @@
   (not= (count namespaces)
         (-> namespaces set count)))
 
-(defn test? [[namespace _]]
-  (str/ends-with? namespace " (t)"))
+(defn test-context?
+  "If a component is only used in the test context from a project,
+   then test-only-interfaces will contain its interface."
+  [namespace
+   test-only-interfaces
+   {:keys [type interface]}]
+  (or (and (= type "component")
+           (contains? test-only-interfaces (:name interface)))
+      (and namespace
+           (str/ends-with? namespace " (t)"))))
+
+(defn test-path? [{:keys [test?]}]
+  test?)
 
 (defn test-ns-suffix [brick-ns]
-  (if (str/ends-with? brick-ns " (t)")
+  (if (and brick-ns
+           (str/ends-with? brick-ns " (t)"))
     " (t)"
     ""))
 
 (defn clean-ns [ns-name]
-  (let [test-suffix (test-ns-suffix ns-name)
-        idx (str/index-of ns-name ".")]
-    (if idx
-      (str (subs ns-name 0 idx) test-suffix)
-      ns-name)))
+  (when ns-name
+    (let [test-suffix (test-ns-suffix ns-name)
+          idx (str/index-of ns-name ".")]
+      (if idx
+        (str (subs ns-name 0 idx) test-suffix)
+        ns-name))))
 
 (defn extract-name [path]
   (if-let [idx (str/index-of path ".")]
@@ -187,12 +201,14 @@
         all-test-ns->namespaces (into {} (apply merge (map #(test-ns->namespaces % suffixed-top-ns test-namespaces) bricks)))
         all-ns->namespaces (merge-with into all-src-ns->namespaces all-test-ns->namespaces)
         namespaces (all-brick-namespaces brick suffixed-top-ns test-namespaces)
+        test-only-interfaces (set/difference interface-names-in-project-test interface-names-in-project)
         brick-paths (atom [])
         _ (doseq [namespace namespaces]
-            (ns-deps-recursively namespace all-ns->namespaces brick-paths #{} []))
+            (let [test? (test-context? namespace test-only-interfaces brick)]
+              (ns-deps-recursively test? namespace all-ns->namespaces brick-paths #{} [])))
         all-paths (filter identity @brick-paths)
-        src-paths (filter (complement test?) all-paths)
-        test-paths (filter test? all-paths)
+        src-paths (map :path (filter (complement test-path?) all-paths))
+        test-paths (map :path (filter test-path? all-paths))
         src-deps (source-deps src-paths ifc->comp interface-names interface-names-in-project src-test-brick-ns)]
     {:src src-deps
      :test (if (include-test? brick bricks-to-test)
