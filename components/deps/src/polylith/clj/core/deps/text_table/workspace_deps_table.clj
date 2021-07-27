@@ -34,7 +34,7 @@
         brick->ifc-deps (into {} (map (juxt :name :interface-deps) bricks))
         interface-names (sort (filter identity (map :name interfaces)))
         brick-names (map :name bricks)
-        space-columns (range 2 (* 2 (inc (count interfaces))) 2)
+        space-columns (range 2 (* 2 (inc (count interface-names))) 2)
         spaces (repeat "  ")
         header-spaces (text-table/spaces 1 space-columns spaces)
         brick-col (brick-column bricks color-mode)

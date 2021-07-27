@@ -58,7 +58,8 @@
    "components/without-src/deps.edn"
    "components/without-src/test/com/localdep/without_src/dummy_test.clj"
    "deps.edn"
-   "projects/invoicing/deps.edn"],
+   "projects/invoicing/deps.edn"
+   "readme.txt"],
   :git-diff-command
   "git diff f7e8cd7fe83f6d2fdfdedda35fed5806ac418964 --name-only",
   :changed-components
@@ -550,7 +551,7 @@
   :interface-ns "interface",
   :vcs
   {:name "git",
-   :branch "issue-66-21",
+   :branch "issue-66-22",
    :git-root "USER-HOME/source/polylith",
    :auto-add false,
    :stable-since
@@ -595,7 +596,7 @@
    :minor 2,
    :patch 0,
    :revision "alpha10.issue66.21",
-   :date "2021-07-26"},
+   :date "2021-07-27"},
   :ws {:type :toolsdeps2, :breaking 1, :non-breaking 0}},
  :ws-dir "USER-HOME/source/polylith/examples/local-dep",
  :ws-local-dir "examples/local-dep",

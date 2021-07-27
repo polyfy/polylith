@@ -6,10 +6,10 @@
   (loop []
     (print (str name "$> "))
     (flush)
-    (let [str-input (str/trim (read-line))
-          {:keys [cmd] :as input} (user-input/extract-params (str/split str-input #"\s"))]
-      (when-not (contains? #{"exit" "quit" "prompt"} cmd)
-        (when (not (= "" str-input))
-          (command-executor (assoc input :is-prompt true)))
-        (flush)
-        (recur)))))
+    (when-let [line (read-line)]
+      (let [{:keys [cmd] :as input} (user-input/extract-params (str/split line #"\s"))]
+        (when-not (contains? #{"exit" "quit" "prompt"} cmd)
+          (when (not (= "" line))
+            (command-executor (assoc input :is-prompt true)))
+          (flush)
+          (recur))))))
