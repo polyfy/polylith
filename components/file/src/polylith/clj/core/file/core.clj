@@ -128,4 +128,5 @@
   (File. f))
 
 (defn read-deps-file [path]
-  (tda/slurp-deps (file path)))
+  (-> path slurp read-string))
+  ;(tda/slurp-deps (file path)))
