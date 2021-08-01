@@ -560,12 +560,12 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.0.alpha10.issue66.22",
+  {:name "0.2.0.alpha10.issue66.25",
    :major 0,
    :minor 2,
    :patch 0,
-   :revision "alpha10.issue66.22",
-   :date "2021-07-27"},
+   :revision "alpha10.issue66.25",
+   :date "2021-08-01"},
   :ws {:type :toolsdeps2, :breaking 1, :non-breaking 0},
   :from {:ws {:type :toolsdeps1}}},
  :ws-dir "/privateWS-HOME/local-dep-old-format",

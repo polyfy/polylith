@@ -22,6 +22,11 @@ echo "ws1=" $ws1
 echo "ws2=" $ws2
 echo "ws3=" $ws3
 echo "ws4=" $ws4
+
+cd $root
+brew upgrade clojure
+clojure -A:dev:test -P
+
 cd $ws
 
 echo "### 1/46 Workspace ###"
