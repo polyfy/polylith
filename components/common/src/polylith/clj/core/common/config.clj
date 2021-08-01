@@ -13,7 +13,7 @@
 (defn valid-ws-deps1-file-found? [path color-mode]
   (try
     (and (file/exists (str path "/deps.edn"))
-         (:polylith (read-string (slurp (str path "/deps.edn")))))
+         (:polylith (file/read-deps-file (str path "/deps.edn"))))
     (catch Exception e
       (println (str (color/error color-mode "  Error: ") "couldn't read deps.edn: " (.getMessage e))))))
 

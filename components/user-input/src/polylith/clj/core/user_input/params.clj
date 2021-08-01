@@ -9,8 +9,26 @@
   (and (-> arg nil? not)
        (-> arg named? not)))
 
+(defn join-quotes [all-vals]
+  (let [val (first all-vals)
+        vals (rest all-vals)]
+    (when val
+      (if (str/starts-with? val "\"")
+        (let [i (ffirst (filterv #(-> % second (str/ends-with? "\""))
+                                 (map-indexed vector all-vals)))]
+          (cond
+            (nil? i) []
+            (zero? i) (cons (subs val 1 (dec (count val)))
+                            (join-quotes vals))
+            :else (cons (str/join ":" (concat [(subs val 1)]
+                                              (take (dec i) vals)
+                                              [(str/join (drop-last (first (drop (dec i) vals))))]))
+
+                        (join-quotes (drop i vals)))))
+        (cons val (join-quotes vals))))))
+
 (defn key-name [arg single-arg-commands]
-  (let [parts (str/split arg #":")
+  (let [parts (join-quotes (str/split arg #":"))
         n#parts (count parts)
         keyname (-> parts first keyword)]
     (cond

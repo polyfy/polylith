@@ -8,6 +8,7 @@
     (if (not (file/exists ws-path))
       (println (str "The file '" ws-path "' doesn't exist."))
       (let [ws (first (file/read-file ws-path))
+            interface-ns (-> ws :settings :interface-ns)
             project-to-alias (-> ws :settings :project-to-alias)
             old-user-input (-> ws :user-input)
             old-active-profiles (-> ws :settings :active-profiles)
@@ -16,4 +17,5 @@
         (cond-> (assoc ws :old old
                           :user-input user-input)
                 (seq selected-profiles) (assoc-in [:settings :active-profiles] selected-profiles)
-                project-to-alias (from1to2/convert))))))
+                project-to-alias (from1to2/convert)
+                (string? interface-ns) (assoc-in [:settings :interface-ns] (common/interface-ns interface-ns)))))))

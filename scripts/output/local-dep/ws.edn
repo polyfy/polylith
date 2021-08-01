@@ -38,7 +38,7 @@
     "without-src"],
    "development" []},
   :project-to-projects-to-test {"invoicing" [], "development" []},
-  :since-sha "f7e8cd7fe83f6d2fdfdedda35fed5806ac418964",
+  :since-sha "SHA",
   :changed-files
   ["components/database/deps.edn"
    "components/database/resources/database/.keep"
@@ -55,19 +55,20 @@
    "components/test-helper/src/com/localdep/test_helper/core.clj"
    "components/test-helper/src/com/localdep/test_helper/interface.clj"
    "components/test-helper/test/com/localdep/test_helper/interface_test.clj"
+   "components/util/deps.edn"
    "components/without-src/deps.edn"
    "components/without-src/test/com/localdep/without_src/dummy_test.clj"
    "deps.edn"
    "projects/invoicing/deps.edn"
    "readme.txt"],
-  :git-diff-command
-  "git diff f7e8cd7fe83f6d2fdfdedda35fed5806ac418964 --name-only",
+  :git-diff-command "git diff SHA --name-only",
   :changed-components
   ["database"
    "datomic-ions"
    "invoicer"
    "test-helper"
    "test-helper-db"
+   "util"
    "without-src"],
   :since-tag "stable-jote",
   :changed-or-affected-projects ["development" "invoicing"]},
@@ -231,7 +232,11 @@
    :lib-deps
    {:src
     {"clj-time/clj-time"
-     {:version "0.15.2", :type "maven", :size 23664}}}}
+     {:git/url "https://github.com/clj-time/clj-time.git",
+      :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
+      :type "git",
+      :size 362768,
+      :version "d9ed4e4"}}}}
   {:lines-of-code {:src 0, :test 5},
    :interface {:definitions []},
    :namespaces
@@ -366,7 +371,11 @@
      "org.clojure/tools.deps.alpha"
      {:version "0.12.985", :type "maven", :size 60822},
      "clj-time/clj-time"
-     {:version "0.15.2", :type "maven", :size 23664}},
+     {:git/url "https://github.com/clj-time/clj-time.git",
+      :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
+      :type "git",
+      :size 362768,
+      :version "d9ed4e4"}},
     :test
     {"migrate-me/migrate-me"
      {:local/root "../../migrate-me",
@@ -477,7 +486,11 @@
       "org.clojure/tools.deps.alpha"
       {:version "0.12.985", :type "maven", :size 60822},
       "clj-time/clj-time"
-      {:version "0.15.2", :type "maven", :size 23664},
+      {:git/url "https://github.com/clj-time/clj-time.git",
+       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
+       :type "git",
+       :size 362768,
+       :version "d9ed4e4"},
       "uncomplicate/neanderthal"
       {:version "0.41.0",
        :exclusions [org.jcuda/jcuda-natives org.jcuda/jcublas-natives],
@@ -496,7 +509,11 @@
      "org.clojure/tools.deps.alpha"
      {:version "0.12.985", :type "maven", :size 60822},
      "clj-time/clj-time"
-     {:version "0.15.2", :type "maven", :size 23664},
+     {:git/url "https://github.com/clj-time/clj-time.git",
+      :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
+      :type "git",
+      :size 362768,
+      :version "d9ed4e4"},
      "uncomplicate/neanderthal"
      {:version "0.41.0",
       :exclusions [org.jcuda/jcuda-natives org.jcuda/jcublas-natives],
@@ -548,15 +565,13 @@
   :compact-views #{},
   :active-profiles #{},
   :profile-to-settings {},
-  :interface-ns "interface",
+  :interface-ns {:name "interface", :root-ns? false},
   :vcs
   {:name "git",
-   :branch "issue-66-22",
+   :branch "issue-66-23",
    :git-root "USER-HOME/source/polylith",
    :auto-add false,
-   :stable-since
-   {:tag "stable-jote",
-    :sha "f7e8cd7fe83f6d2fdfdedda35fed5806ac418964"},
+   :stable-since {:tag "stable-jote", :sha "SHA"},
    :polylith
    {:repo "https://github.com/polyfy/polylith.git", :branch "master"}},
   :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
@@ -566,16 +581,19 @@
  :user-input
  {:args
   ["ws"
-   "out:/Users/joakimtengstrand/source/polylith/scripts/output/local-dep/ws.edn"
-   ":user-home"
+   "out:USER-HOME/source/polylith/scripts/output/local-dep/ws.edn"
+   "replace:WS-HOME:WS-HOME:USER-HOME:USER-HOME:SHA:SHA"
    "color-mode:none"],
   :unnamed-args [],
   :is-dev false,
   :is-run-project-tests false,
+  :replace
+  [{:from "WS-HOME", :to "WS-HOME"}
+   {:from "USER-HOME", :to "USER-HOME"}
+   {:from "SHA", :to "SHA"}],
   :is-run-all-brick-tests false,
   :is-verbose false,
   :is-latest-sha false,
-  :user-home "USER-HOME",
   :selected-projects #{},
   :is-search-for-ws-dir false,
   :out "USER-HOME/source/polylith/scripts/output/local-dep/ws.edn",
@@ -591,11 +609,11 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.0.alpha10.issue66.21",
+  {:name "0.2.0.alpha10.issue66.22",
    :major 0,
    :minor 2,
    :patch 0,
-   :revision "alpha10.issue66.21",
+   :revision "alpha10.issue66.22",
    :date "2021-07-27"},
   :ws {:type :toolsdeps2, :breaking 1, :non-breaking 0}},
  :ws-dir "USER-HOME/source/polylith/examples/local-dep",
@@ -605,5 +623,4 @@
   :project-url "https://github.com/polyfy/polylith",
   :language "Clojure",
   :type-position "postfix",
-  :slash "/",
-  :file-extensions [".clj" "cljc"]}}
+  :file-extensions ["clj" "cljc"]}}

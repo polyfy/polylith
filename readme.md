@@ -771,8 +771,8 @@ To give an example, let's pretend we have the interface `user` containing the fu
 
 Now we are free to edit the `interface.clj` file for both `user` and `admin`, which means they can 
 get out of sync if we are not careful enough. Luckily, the Polylith tool will help us
-keep them consistent, and complain if they differ when we run the [check](#check), 
-[info](#info) or [test](#test) commands!
+keep them consistent, and complain if they differ when we run the [check](doc/commands.md#check), 
+[info](doc/commands.md#info) or [test](doc/commands.md#test) commands!
 
 We often choose to have just a single `interface` namespace in a component, but it's also possible to 
 divide the interface into several sub namespaces.
@@ -989,7 +989,7 @@ There are two kinds of projects in Polylith: development and deployable.
    - Has a `deps.edn` config file that specifies which libraries, component and bases that are included.
    - Can optionally have a `resources` directory. 
    - If the base (we normally have only one per project) and the components that belong to it,
-     contain any tests, then they will be run when we execute the [test](#test) command.
+     contain any tests, then they will be run when we execute the [test](doc/commands.md#test) command.
    - If it has any tests of its own, they will live in the `test` directory, e.g. `projects/my-project/test`. 
    - It's discouraged to have a `src` directory since all production code should normally only live in components and bases.
 
@@ -1212,7 +1212,7 @@ Nice, it worked!
 
 ## Git
 
-We have already used the [info](#info) command a couple of times without explaining everything in its output.
+We have already used the [info](doc/commands.md#info) command a couple of times without explaining everything in its output.
 
 Let's execute the `info` command again to see the current state of the workspace:<br>
 ```
@@ -1252,7 +1252,7 @@ are all marked with an asterisk, `*`. The way the tool calculates changes is to 
 git diff c91fdad4a34927d9aacfe4b04ea2f304f3303282 --name-only
 ```
 
-We can also run the [diff](#diff) command, which will execute the same git statement internally:
+We can also run the [diff](doc/commands.md#diff) command, which will execute the same git statement internally:
 ```clojure
 poly diff
 ```
@@ -1315,7 +1315,7 @@ This directory can be shown by running the `poly ws get:ws-local-dir`command.
 Tags are used in Polylith to mark points in time where we concider the whole codebase (workspace)
 to be in a valid state, for example that everything compiles and that all the tests and the `check` command executes 
 without errors. 
-This is then used by the [test](#test) command to run the tests incrementally, by only executing
+This is then used by the [test](doc/commands.md#test) command to run the tests incrementally, by only executing
 the affected tests, which substantially speeds up the tests.
 
 The way we mark a `stable point in time` is to tag it with git (-f tells git to reuse the tag if already exists):
@@ -1612,7 +1612,7 @@ Oops, the test failed!
 
 <img src="images/test-in-repl-failing.png" width="50%">
 
-And if we run the [test](#test) command:
+And if we run the [test](doc/commands.md#test) command:
 ```sh
 poly test
 ```
@@ -2499,7 +2499,7 @@ git clone git@github.com:furkan3ayraktar/clojure-polylith-realworld-example-app.
 cd clojure-polylith-realworld-example-app
 ```
 
-Before we continue, it may be worth mentioning that most commands, except the [test](#test) command,
+Before we continue, it may be worth mentioning that most commands, except the [test](doc/commands.md#test) command,
 can be executed from other workspaces by giving `ws-dir`, e.g.:
 ```
 poly check ws-dir:../example
@@ -2530,7 +2530,7 @@ poly info
 
 Now we have some bricks to play with! 
 
-Let's list all dependencies by executing the [deps](#deps-project) command:
+Let's list all dependencies by executing the [deps](doc/commands.md#deps) command:
 ```
 poly deps
 ```
@@ -2604,7 +2604,7 @@ Libraries can be specified in three different ways in `tools.deps`:
 | Git   | As a [Git](https://git-scm.com/) dependency. Example: `clj-time/clj-time {:git/url "https://github.com/clj-time/clj-time.git", :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}` where the key must match the path for the library in `~/.gitlibs/libs` (to be able to calculate the `KB` column). |
  
 The KB column shows the size of each library in kilobytes. If you get the key path wrong or if the library
-hasn't been downloaded yet, then it will be set to zero. One way to solve this is to force dependencies
+hasn't been downloaded yet, then it will appear as `-`. One way to solve this is to force dependencies
 to be downloaded by executing something like this from the workspace root:
 ```
 clojure -A:dev:test -P
@@ -2761,8 +2761,8 @@ Settings that are unique per developer/user are stored in `~/.polylith/config.ed
 |:---------------------|:---------------------------------------------------------------------------------------------|
 | :thousand&#8209;sep  | Set to "," by default (when first created). |
 | :color-mode          | Set to "none" on Windows, "dark" on other operating systems (when first created). Valid values are "none", "light" and "dark", see the [color](#color) section. Can be overridden, e.g.: `poly info color-mode:none`. |
-| :empty-character     | Set to "." by default (when first created). Used by the [deps](#deps) and [libs](#libs) commands. |
-| :m2-dir              | If omitted, the `.m2` directory will be set to USER-HOME/.m2. Used by the [libs](#libs) command to calculate file sizes (KB). |
+| :empty-character     | Set to "." by default (when first created). Used by the [deps](doc/commands.md#deps) and [libs](doc/commands.md#libs) commands. |
+| :m2-dir              | If omitted, the `.m2` directory will be set to USER-HOME/.m2. Used by the [libs](doc/commands.md#libs) command to calculate file sizes (KB). |
 
 If `~/.polylith/config.edn` doesn't exists, it will be created the first time the [create workspace](doc/commands.md#create-workspace) command is executed, e.g.:
 
@@ -2774,8 +2774,23 @@ If `~/.polylith/config.edn` doesn't exists, it will be created the first time th
 
 ## Workspace state
 
-There is a way to view all configuration that is used by the tool, and that is to execute the [ws](#ws) command
-(here, against the `example` workspace):
+There is a way to view the workspace state, and that is to execute the [ws](doc/commands.md#ws) command:
+
+```
+poly ws
+```
+
+This will view the whole workspace as plain data (a hash map) and is fully explained [here](doc/ws.md).
+This data structure is produced by the tool itself and is used by all the commands internally.
+The commands only operate on this hash map and are not performing any io operations,
+such as touching the disk or executing git commands. Instead, everything is prepared so that all commands can
+be executed in memory.
+
+This will not only simplify the code of the tool itself but it also gives us, as a user of the tool,
+a way to explore the complete state of the workspace.
+
+We can limit the "query" by passing in `get`, here against the [example](examples/doc-example), e.g.:
+
 ```
 poly ws get:settings
 ```
@@ -2809,14 +2824,14 @@ poly ws get:settings
  :top-namespace "se.example",
  :user-config-filename "/Users/joakimtengstrand/.polylith/config.edn",
  :user-home "/Users/joakimtengstrand",
- :vcs {:name "git",
+ :vcs {:auto-add true,
        :branch "main",
-       :git-root "/private/...",
-       :auto-add true,
+       :git-root "/me/source/...",
+       :name "git",
+       :polylith {:branch "master",
+                  :repo "https://github.com/polyfy/polylith.git"}
        :stable-since {:tag "stable-lisa",
-                      :sha "5091f18cfb182545be87e079e872205c3fb049d2"},
-       :polylith {:repo "https://github.com/polyfy/polylith.git", 
-                  :branch "master"}}}
+                      :sha "5091f18cfb182545be87e079e872205c3fb049d2"}}}
 ```
 
 If we are only interested in a specific element in this structure, we can dig deeper into it:
@@ -2826,19 +2841,8 @@ poly ws get:settings:profile-to-settings:default:paths
 
 ...which outputs:
 ```clojure
-{:paths ["components/user/src"
-         "components/user/resources"
-         "components/user/test"]}
+["components/user/src" "components/user/resources" "components/user/test"]
 ```
-
-If we execute `poly ws` without any arguments, it will view the whole workspace as plain data (a hash map).
-This data structure is produced by the tool itself and is used by all the commands internally.
-The commands only operate on this hash map and are not performing any io operations,
-such as touching the disk or executing git commands. Instead, everything is prepared so that all commands can
-be executed in memory.
-
-This will not only simplify the code of the tool itself but it also gives us, as a user of the tool,
-a way to explore the complete state of the workspace.
 
 A good way to start digging into this data structure is to list all its keys:
 ```
@@ -2935,8 +2939,6 @@ poly ws get:old:user-input:args ws-file:ws.edn
 ```clojure
 ["ws" "out:ws.edn"]
 ```
-
-The `old-user-input` key is added when `ws-file` is given.
 
 ## Git hook
 

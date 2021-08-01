@@ -1,6 +1,6 @@
 Projects to run tests from: development
 
-Running tests from the development project, including 5 bricks: database, invoicer, test-helper, without-src, invoicer-cli
+Running tests from the development project, including 6 bricks: database, invoicer, test-helper, util, without-src, invoicer-cli
 
 Testing com.localdep.database.interface-test
 
@@ -30,10 +30,17 @@ Ran 1 tests containing 1 assertions.
 
 Test results: 1 passes, 0 failures, 0 errors.
 
+Testing com.localdep.util.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
 Testing com.localdep.without-src.dummy-test
 
 Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
 Test results: 1 passes, 0 failures, 0 errors.
-Execution time: 2 seconds
+Execution time: x seconds

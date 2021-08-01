@@ -5,7 +5,7 @@
 (defn read-and-validate-config-file [config-filename]
   (if (-> config-filename file/exists not)
     [false (str "Could not find config file: " config-filename)]
-    (let [config (read-string (slurp config-filename))
+    (let [config (file/read-deps-file config-filename)
           message (validator/validate-brick-config config)]
       (if message
         [false message]

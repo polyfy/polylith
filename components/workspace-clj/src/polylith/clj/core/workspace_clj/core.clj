@@ -67,9 +67,10 @@
                     (config/ws-config-from-dev polylith))
         {:keys [vcs top-namespace ws-type interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views]
          :or {vcs {:name "git", :auto-add false}
-              compact-views {}}} ws-config
+              compact-views {}
+              interface-ns {:name "interface"
+                            :root-ns? false}}} ws-config
         patterns (tag-pattern/patterns tag-patterns stable-tag-pattern release-tag-pattern)
-        interface-namespace (or interface-ns "interface")
         top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
         empty-character (user-config/empty-character)
         m2-dir (user-config/m2-dir)
@@ -79,7 +80,9 @@
         brick->non-top-namespaces (non-top-ns/brick->non-top-namespaces ws-dir top-namespace)
         project->settings (project-settings/convert ws-config)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
-        components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-namespace brick->non-top-namespaces)
+        interface-ns-map (common/interface-ns interface-ns)
+        interface-ns-name (:name interface-ns-map)
+        components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns-name brick->non-top-namespaces)
         bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir brick->non-top-namespaces)
         name->brick (into {} (map (juxt :name identity)
                                   (concat components bases)))
@@ -91,7 +94,7 @@
         active-profiles (profile/active-profiles user-input default-profile profile-to-settings)
         settings (util/ordered-map :vcs (git-info ws-dir vcs patterns user-input)
                                    :top-namespace top-namespace
-                                   :interface-ns interface-namespace
+                                   :interface-ns interface-ns-map
                                    :default-profile-name default-profile
                                    :active-profiles active-profiles
                                    :tag-patterns patterns

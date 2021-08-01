@@ -20,7 +20,7 @@
                             :tag-patterns
                             :projects]
                            {:top-namespace top-namespace
-                            :interface-ns interface-ns
+                            :interface-ns (:name interface-ns)
                             :default-profile-name default-profile-name
                             :compact-views compact-views
                             :vcs {:name "git"

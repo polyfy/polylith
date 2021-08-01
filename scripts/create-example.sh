@@ -5,9 +5,9 @@
 SECONDS=0
 
 set -e
-root=$(pwd)/..
+root=$(cd ../ && pwd)
 scripts=$(pwd)
-examples=$(pwd)/../examples
+examples=$root/examples
 output=$(pwd)/output
 sections=$(pwd)/sections
 ws=$(mktemp -d -t polylith-ws-$(date +%Y-%m-%d-%H%M%S))
@@ -111,9 +111,11 @@ poly info fake-sha:e7ebe68 > $output/testing-info-1.txt
 cp $sections/testing/user-interface-test.clj components/user/test/se/example/user/interface_test.clj
 set +e
 poly test > $output/testing-test-failing.txt
+sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test-failing.txt
 set -e
 cp $sections/testing/user-interface-test2.clj components/user/test/se/example/user/interface_test.clj
 poly test > $output/testing-test-ok.txt
+sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test-ok.txt
 poly info :dev fake-sha:e7ebe68 > $output/testing-info-2.txt
 poly info project:cl:dev fake-sha:e7ebe68 > $output/testing-info-3.txt
 mkdir projects/command-line/test
@@ -135,6 +137,7 @@ poly info :all :dev fake-sha:e7ebe68 > $output/testing-info-10.txt
 cp $sections/testing/workspace.edn .
 poly info :all :dev fake-sha:e7ebe68 > $output/testing-info-11.txt
 poly test :all :dev > $output/testing-test-all.txt
+sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test-all.txt
 
 echo "### 12/46 Profile ###"
 cp $sections/profile/workspace.edn .
@@ -169,6 +172,7 @@ poly info +default +remote fake-sha:e7ebe68 > $output/profile-info-3.txt
 set -e
 poly info :loc fake-sha:e7ebe68 > $output/profile-info-4.txt
 poly test :project fake-sha:e7ebe68 > $output/profile-test.txt
+sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/profile-test.txt
 
 echo "### 13/46 Configuration ###"
 poly ws get:settings
@@ -180,11 +184,12 @@ poly info ws-file:ws.edn fake-sha:e7ebe68
 poly ws get:old:user-input:args ws-file:ws.edn > $output/config-ws.txt
 
 echo "### 14/46 Workspace state ###"
-poly ws get:settings color-mode:none > $output/ws-state-settings.txt
+sha=`git rev-list -n 1 stable-lisa`
+poly ws get:settings replace:$ws:WS-HOME:$sha:SHA color-mode:none > $output/ws-state-settings.txt
 poly ws get:settings:profile-to-settings:default:paths color-mode:none > $output/ws-state-paths.txt
 poly ws get:keys color-mode:none > $output/ws-state-keys.txt
-poly ws get:components:keys color-mode:none > $output/ws-state-components-keys.txt
-poly ws get:components:user color-mode:none > $output/ws-state-components-user.txt
+poly ws get:components:keys replace:$ws:WS-HOME color-mode:none > $output/ws-state-components-keys.txt
+poly ws get:components:user replace:$ws:WS-HOME color-mode:none > $output/ws-state-components-user.txt
 poly ws get:components:user-remote:lib-deps color-mode:none > $output/ws-state-components-user-remote-lib-deps.txt
 poly ws get:old:user-input:args ws-file:ws.edn color-mode:none > $output/ws-state-ws-file.txt
 
@@ -257,6 +262,7 @@ echo "### 32/46 Usermanager ###"
 poly deps color-mode:none > $output/usermanager/deps.txt
 
 cd $examples/local-dep
+sha=`git rev-list -n 1 stable-jote`
 echo "### 33/46 examples/local-dep ###"
 poly info color-mode:none fake-sha:aaaaa > $output/local-dep/info.txt
 echo "### 34/46 examples/local-dep ###"
@@ -266,9 +272,11 @@ poly deps color-mode:none > $output/local-dep/deps.txt
 echo "### 36/46 examples/local-dep ###"
 poly diff since:0aaeb58 color-mode:none > $output/local-dep/diff.txt
 echo "### 37/46 examples/local-dep ###"
-poly ws out:$output/local-dep/ws.edn :user-home color-mode:none
+poly ws out:$output/local-dep/ws.edn replace:$ws4:WS-HOME:$HOME:USER-HOME:$sha:SHA color-mode:none
+
 echo "### 38/46 examples/local-dep ###"
 poly test :dev color-mode:none > $output/local-dep/test.txt
+sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/local-dep/test.txt
 
 echo "### 39/46 examples/local-dep-old-format ###"
 cp -R $examples/local-dep-old-format $ws4
@@ -277,6 +285,7 @@ git init
 git add .
 git commit -m "Workspace created."
 git tag stable-jote
+sha=`git rev-list -n 1 stable-jote`
 
 poly info fake-sha:aaaaa color-mode:none > $output/local-dep-old-format/info.txt
 echo "### 40/46 examples/local-dep-old-format ###"
@@ -284,9 +293,10 @@ poly libs color-mode:none > $output/local-dep-old-format/libs.txt
 echo "### 41/46 examples/local-dep-old-format ###"
 poly deps color-mode:none > $output/local-dep-old-format/deps.txt
 echo "### 42/46 examples/local-dep-old-format ###"
-poly ws out:$output/local-dep-old-format/ws.edn :user-home color-mode:none
+poly ws out:$output/local-dep-old-format/ws.edn replace:$ws4:WS-HOME:$HOME:USER-HOME:$sha:SHA color-mode:none
 echo "### 43/46 examples/local-dep-old-format ###"
 poly test :dev color-mode:none > $output/local-dep-old-format/test.txt
+sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/local-dep-old-format/test.txt
 
 poly migrate
 git add --all
@@ -297,6 +307,7 @@ echo "### 45/46 examples/local-dep-old-format (migrated) ###"
 poly deps color-mode:none > $output/local-dep-old-format/deps-migrated.txt
 echo "### 46/46 examples/local-dep-old-format (migrated) ###"
 poly test :de color-mode:none > $output/local-dep-old-format/test-migrated.txt
+sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/local-dep-old-format/test-migrated.txt
 
 cd $output
 ./output.sh > ./output.txt

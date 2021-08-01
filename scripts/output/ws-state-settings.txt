@@ -3,7 +3,7 @@
  :compact-views #{},
  :default-profile-name "default",
  :empty-character ".",
- :interface-ns "interface",
+ :interface-ns {:name "interface", :root-ns? false},
  :m2-dir "/Users/joakimtengstrand/.m2",
  :profile-to-settings
  {"default"
@@ -36,11 +36,8 @@
  :vcs
  {:name "git",
   :branch "main",
-  :git-root
-  "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2021-07-18-132341.YBNsEYZx/example",
+  :git-root "/privateWS-HOME/example",
   :auto-add true,
-  :stable-since
-  {:tag "stable-lisa",
-   :sha "6e892906b97f85b1f060cdfb3e2d03281192a393"},
+  :stable-since {:tag "stable-lisa", :sha "SHA"},
   :polylith
   {:repo "https://github.com/polyfy/polylith.git", :branch "master"}}}

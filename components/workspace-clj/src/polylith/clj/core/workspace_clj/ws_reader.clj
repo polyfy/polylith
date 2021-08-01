@@ -5,5 +5,4 @@
    :project-url "https://github.com/polyfy/polylith"
    :language "Clojure"
    :type-position "postfix"
-   :slash "/"
-   :file-extensions [".clj" "cljc"]})
+   :file-extensions ["clj" "cljc"]})

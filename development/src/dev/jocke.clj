@@ -21,8 +21,6 @@
 ;(require '[dev.jocke :as z])
 ;(def workspace z/workspace)
 
-
-
 (def workspace (->
                  ;(dev-common/dir ".")
                  (dev-common/dir "examples/local-dep")

@@ -39,7 +39,8 @@
         brick->lib-imports (brick->lib-imports enriched-bricks)
         enriched-settings (s/enrich-settings settings projects)
         enriched-projects (vec (sort-by project-sorter (map #(project/enrich-project % enriched-components enriched-bases suffixed-top-ns brick->loc brick->lib-imports paths enriched-settings user-input) projects)))
-        messages (validator/validate-ws suffixed-top-ns settings version paths interface-names interfaces enriched-components enriched-bases enriched-projects interface-ns user-input color-mode)]
+        interface-ns-name (:name interface-ns)
+        messages (validator/validate-ws suffixed-top-ns settings version paths interface-names interfaces enriched-components enriched-bases enriched-projects interface-ns-name user-input color-mode)]
     (assoc workspace :name ws-name
                      :settings enriched-settings
                      :interfaces interfaces

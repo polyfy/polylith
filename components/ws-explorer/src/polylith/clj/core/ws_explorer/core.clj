@@ -3,7 +3,6 @@
             [clojure.string :as str]
             [puget.printer :as puget]
             [clojure.walk :as walk]
-            [polylith.clj.core.user-config.interface :as user-config]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]))
 
@@ -49,27 +48,25 @@
     (vector? value) (recur (value-from-vector value (first keys)) (rest keys))
     :else value))
 
-(defn replace-home-fn [system-user-home user-home]
-  (fn [value] (if (and (string? value)
-                       (str/starts-with? value system-user-home))
-                (str/replace value system-user-home user-home)
-                value)))
+(defn do-replace [value {:keys [from to]}]
+  (if (string? value)
+    (str/replace value (re-pattern from) to)
+    value))
 
-(defn replace-user-home [value user-home]
-  "If :user-home is passed in to the poly command, replace strings that
-   starts with the USER_HOME environment variable with USER-HOME."
-  (let [system-user-home (user-config/home-dir)
-        replace-home (replace-home-fn system-user-home user-home)]
-    (if user-home
-      (walk/postwalk replace-home value)
-      value)))
+(defn replace-fn [replace]
+  (fn [value] (reduce do-replace value replace)))
+
+(defn replace-values [value replace]
+  (if replace
+    (walk/postwalk (replace-fn replace) value)
+    value))
 
 (defn extract [workspace get]
-  (let [user-home (-> workspace :user-input :user-home)
+  (let [replace (-> workspace :user-input :replace)
         value (-> (extract-value workspace
                                  (if (or (nil? get)
                                          (sequential? get)) get [get]))
-                  (replace-user-home user-home))]
+                  (replace-values replace))]
     (if (map? value)
       (into (sorted-map) value)
       value)))

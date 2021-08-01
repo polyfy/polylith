@@ -5,9 +5,8 @@
 
 (defn file-size [ws-dir path entity-root-path]
   (let [absolute-path (str ws-dir "/" (common/absolute-path path entity-root-path))]
-    (if (file/exists absolute-path)
-      (file/size absolute-path)
-      0)))
+    (when (file/exists absolute-path)
+      (file/size absolute-path))))
 
 (defn with-size-and-version [ws-dir lib-name path value entity-root-path]
   (let [size (file-size ws-dir path entity-root-path)

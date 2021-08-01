@@ -135,7 +135,7 @@
 (defn read-project
   ([{:keys [project-name project-dir project-config-dir is-dev]} ws-dir ws-type name->brick project->settings user-home]
    (let [config-filename (str project-config-dir "/deps.edn")
-         {:keys [paths deps override-deps aliases mvn/repos] :as config} (read-string (slurp config-filename))
+         {:keys [paths deps override-deps aliases mvn/repos] :as config} (file/read-deps-file config-filename)
          project-src-paths (if is-dev (-> aliases :dev :extra-paths) paths)
          project-src-deps (if is-dev (-> aliases :dev :extra-deps) deps)
          project-test-paths (-> aliases :test :extra-paths)

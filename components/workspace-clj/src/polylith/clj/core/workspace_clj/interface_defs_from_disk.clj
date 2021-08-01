@@ -7,12 +7,12 @@
 (defn interface-path [root-dir path]
   (subs path (-> root-dir count inc)))
 
-(defn interface-ns? [path interface-ns]
+(defn interface-ns? [path interface-ns-name]
   (and (or (str/ends-with? path ".clj")
            (str/ends-with? path ".cljc"))
-       (or (or (= path (str interface-ns ".clj"))
-               (= path (str interface-ns ".cljc")))
-           (str/starts-with? path (str interface-ns "/")))))
+       (or (or (= path (str interface-ns-name ".clj"))
+               (= path (str interface-ns-name ".cljc")))
+           (str/starts-with? path (str interface-ns-name "/")))))
 
 (defn ->interface-ns [root-dir path]
   (let [index (str/index-of path ".")
@@ -20,23 +20,23 @@
     {:sub-ns namespace
      :path (str root-dir "/" path)}))
 
-(defn interface-namespaces [src-dir interface-ns]
-  (let [paths (filterv #(interface-ns? % interface-ns)
+(defn interface-namespaces [src-dir interface-ns-name]
+  (let [paths (filterv #(interface-ns? % interface-ns-name)
                        (map #(interface-path src-dir %)
                             (file/paths-recursively src-dir)))]
     (mapv #(->interface-ns src-dir %) paths)))
 
-(defn interface-from-disk [{:keys [sub-ns path]} interface-ns]
+(defn interface-from-disk [{:keys [sub-ns path]} interface-ns-name]
   (let [content (file/read-file path)
         statements (defs/filter-statements content)]
-    (mapcat #(defs/definitions sub-ns % interface-ns) statements)))
+    (mapcat #(defs/definitions sub-ns % interface-ns-name) statements)))
 
 (defn params [parameters]
   (mapv :name parameters))
 
 (defn defs-from-disk
   "Example of a src-dir: ./components/workspace-clj/src/polylith/clj/core/workspace_clj"
-  [src-dir interface-ns]
+  [src-dir interface-ns-name]
   (vec (sort-by (juxt :sub-ns :type :name params)
-                (mapcat #(interface-from-disk % interface-ns)
-                        (interface-namespaces src-dir interface-ns)))))
+                (mapcat #(interface-from-disk % interface-ns-name)
+                        (interface-namespaces src-dir interface-ns-name)))))

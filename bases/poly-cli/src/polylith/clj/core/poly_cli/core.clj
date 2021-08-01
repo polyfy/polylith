@@ -38,4 +38,6 @@
 
 (comment
   (-main "test" ":all" ":no-exit")
+  (-main "ws" "ws-dir:/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-31-205208.WGAtrHHE/local-dep-old-format" ":no-exit" "replace:/Users/joakimtengstrand:USER-HOME:/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-31-205208.WGAtrHHE/local-dep-old-format:WS-DIR")
+  (-main "ws" "ws-dir:/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-31-205208.WGAtrHHE/local-dep-old-format" ":no-exit" "replace:/Users/joakimtengstrand:USER-HOME:/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-31-205208.WGAtrHHE/local-dep-old-format:WS-DIR" "get:user-input")
   #__)

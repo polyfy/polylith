@@ -3,7 +3,7 @@
                                                                      i
   library                       version   type      KB   inv   dev   l
   ----------------------------------------------------   ---   ---   -
-  clj-time/clj-time             0.15.2    maven     23    x     x    x
+  clj-time/clj-time             d9ed4e4   git      354    x     x    x
   migrate-me/migrate-me         -         local      1    t     t    .
   org.clojure/clojure           1.10.1    maven  3,816    x     x    .
   org.clojure/tools.deps.alpha  0.12.985  maven     59    x     x    .

@@ -5,7 +5,8 @@
 
 (def sep (File/separator))
 
-(defn file [^String f] (File. f))
+(defn file [^String f]
+  (core/file f))
 
 (defn absolute-path [path]
   (core/absolute-path path))
@@ -57,6 +58,9 @@
 
 (defn directories [dir]
   (core/directory-paths dir))
+
+(defn read-deps-file [path]
+  (core/read-deps-file path))
 
 (defn read-file [path]
   (core/read-file path))

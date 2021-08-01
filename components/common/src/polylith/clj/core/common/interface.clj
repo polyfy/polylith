@@ -37,6 +37,9 @@
 (defn find-project [project-name projects]
   (core/find-project project-name projects))
 
+(defn interface-ns [interface-ns]
+  (core/interface-ns interface-ns))
+
 (defn leiningen-config-key [config-path key]
   (leiningen/config-key config-path key))
 

@@ -1,4 +1,5 @@
 {:paths ["src"]
- :deps {clj-time/clj-time {:mvn/version "0.15.2"}}
+ :deps {clj-time/clj-time {:git/url "https://github.com/clj-time/clj-time.git"
+                           :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {}}}}

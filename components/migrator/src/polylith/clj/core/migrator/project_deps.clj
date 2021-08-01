@@ -1,7 +1,8 @@
 (ns polylith.clj.core.migrator.project-deps
   (:require [clojure.set :as set]
             [clojure.string :as str]
-            [polylith.clj.core.migrator.shared :as shared]))
+            [polylith.clj.core.migrator.shared :as shared]
+            [polylith.clj.core.file.interface :as file]))
 
 (defn local-root [brick-name brick-dir]
   [(symbol "poly" brick-name)
@@ -37,7 +38,7 @@
                   {:keys [base-names component-names]}
                   {:keys [components bases]}]
 
-  (let [content (read-string (slurp filename))
+  (let [content (file/read-deps-file filename)
         paths (:paths content)
         test-paths (-> :aliases content :test :extra-paths)
         new-paths (filterv not-brick? paths)

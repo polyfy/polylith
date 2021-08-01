@@ -37,7 +37,7 @@
 (defn size-kb [{:keys [size]} thousand-separator]
   (if size
     (str-util/sep-1000 (quot size 1024) thousand-separator)
-    ""))
+    "-"))
 
 (defn kb-cell [row library thousand-separator]
   (let [size (size-kb library thousand-separator)]

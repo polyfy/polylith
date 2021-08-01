@@ -7,4 +7,4 @@
     (command/read-workspace "." input)))
 
 (defn dir [ws-dir]
-  (user-input/extract-params ["info" (str "ws-dir:" ws-dir) ":project" ":user-home"]))
+  (user-input/extract-params ["info" (str "ws-dir:" ws-dir) ":project" ":user-home" "replace:/Users/joakimtengstrand:USER-HOME"]))

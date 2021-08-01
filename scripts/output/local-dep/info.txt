@@ -16,5 +16,5 @@
   invoicer        invoicer *         stx   st-
   test-helper     test-helper *      -tx   st-
   test-helper-db  test-helper-db *   -tx   s--
-  util            util               stx   st-
+  util            util *             stx   st-
   -               invoicer-cli       stx   st-

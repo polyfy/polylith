@@ -3,20 +3,26 @@
             [polylith.clj.core.user-input.params :as params]))
 
 (deftest extract--named-and-unamed-arguments--returns-expected-result
-  (is (= {:named-args   {:project ["cli" "core"]
-                         :flag! "true"
+  (is (= {:named-args   {:flag! "true"
                          :name "x"
                          :param ""
                          :top-ns "se.example"
-                         :ws-dir "http://"}
+                         :ws-dir "http://"
+                         :project ["cli" "core"]
+                         :quoted1 ["value1" "value2"]
+                         :quoted2 ["value:1" "value2"]
+                         :quoted3 ["value1" "value:2" "value3"]}
           :unnamed-args ["w"
                          "abc"]}
          (params/extract ["w"
                           "name:x"
                           "param:"
                           "top-ns:se.example"
-                          "project:cli:core"
                           ":flag"
                           "abc"
                           "ws-dir:http://"
+                          "project:cli:core"
+                          "quoted1:\"value1\":value2"
+                          "quoted2:\"value:1\":value2"
+                          "quoted3:value1:\"value:2\":value3"
                           nil] #{"ws-dir"}))))

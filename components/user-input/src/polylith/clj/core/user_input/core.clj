@@ -11,14 +11,23 @@
             (filter profile? unnamed-args))))
 
 (defn selected-projects [project-name dev!]
-  (let [projectx-names (if (coll? project-name)
-                         project-name
-                         (if (nil? project-name)
-                           []
-                           [project-name]))]
+  (let [project-names (if (coll? project-name)
+                        project-name
+                        (if (nil? project-name)
+                          []
+                          [project-name]))]
     (set (if dev!
-           (conj projectx-names "dev")
-           projectx-names))))
+           (conj project-names "dev")
+           project-names))))
+
+
+(defn from-to [[from to]]
+  {:from from
+   :to to})
+
+(defn replace-from-to [replace]
+  (when (and (vector? replace))
+    (mapv from-to (partition 2 replace))))
 
 (defn extract-params [args single-arg-commands]
   (let [{:keys [named-args unnamed-args]} (params/extract (rest args) single-arg-commands)
@@ -31,6 +40,7 @@
                 interface
                 name
                 out
+                replace
                 since
                 skip
                 top-ns
@@ -48,7 +58,6 @@
                 no-exit!
                 r!
                 resources!
-                user-home!
                 verbose!]} named-args]
     (util/ordered-map :args (vec args)
                       :cmd (first args)
@@ -57,7 +66,6 @@
                       :branch branch
                       :color-mode color-mode
                       :fake-sha fake-sha
-                      :user-home (when (= "true" user-home!) "USER-HOME")
                       :interface interface
                       :is-search-for-ws-dir (contains? (set args) "::")
                       :is-all (= "true" all!)
@@ -78,6 +86,7 @@
                       :is-verbose (= "true" verbose!)
                       :name name
                       :out out
+                      :replace (replace-from-to replace)
                       :since since
                       :skip (when skip (if (vector? skip) skip [skip]))
                       :top-ns top-ns

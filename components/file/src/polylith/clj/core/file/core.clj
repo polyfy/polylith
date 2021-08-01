@@ -1,6 +1,7 @@
 (ns polylith.clj.core.file.core
   (:require [clojure.java.io :as io]
             [clojure.pprint :as pp]
+            [clojure.tools.deps.alpha :as tda]
             [me.raynes.fs :as fs]
             [polylith.clj.core.util.interface.str :as str-util])
   (:import [java.io File PushbackReader FileNotFoundException]
@@ -13,9 +14,8 @@
       (println (str "Warning. " message " '" path "': " (.getMessage e))))))
 
 (defn size [path]
-  (if (fs/directory? path)
-    (apply + (pmap size (.listFiles (io/file path))))
-    (fs/size path)))
+  (cond (fs/directory? path) (apply + (pmap size (.listFiles (io/file path))))
+        (fs/file? path) (fs/size path)))
 
 (defn delete-file [path]
   (execute-fn #(io/delete-file path true)
@@ -123,3 +123,9 @@
 (defn pretty-spit [filename collection]
   (spit (io/file filename)
         (with-out-str (pp/write collection :dispatch pp/code-dispatch))))
+
+(defn file [^String f]
+  (File. f))
+
+(defn read-deps-file [path]
+  (tda/slurp-deps (file path)))

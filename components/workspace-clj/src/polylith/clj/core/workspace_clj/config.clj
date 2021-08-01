@@ -1,9 +1,10 @@
 (ns polylith.clj.core.workspace-clj.config
   (:require [polylith.clj.core.util.interface.color :as color]
-            [polylith.clj.core.validator.interface :as validator]))
+            [polylith.clj.core.validator.interface :as validator]
+            [polylith.clj.core.file.interface :as file]))
 
 (defn dev-config-from-disk [ws-dir ws-type color-mode]
-  (let [config (read-string (slurp (str ws-dir "/deps.edn")))
+  (let [config (file/read-deps-file (str ws-dir "/deps.edn"))
         message (validator/validate-project-dev-config ws-type config)]
     (if message
       (throw (ex-info (str "  " (color/error color-mode "Error in ./deps.edn: ") message) message))

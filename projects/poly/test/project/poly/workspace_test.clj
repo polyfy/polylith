@@ -60,7 +60,6 @@
           "  ws-explorer    ws-explorer *     s--  ---   s--   stx    st-"
           "  ws-file        ws-file *         ---  ---   ---   s--    s--"
           "  -              deployer-cli *    ---  ---   s--   ---    s--"
-          "  -              migrator-cli *    ---  ---   ---   ---    s--"
           "  -              poly-cli *        ---  ---   ---   s--    s--"]
          (ws-table/table (workspace) false false))))
 
@@ -84,7 +83,7 @@
           "  mount/mount                   0.1.16         maven      8    -    -     -     -      x    .  .  .  .  .  .  ."
           "  mvxcvi/puget                  1.3.1          maven     15    x    -     x     x      x    .  .  .  .  .  .  x"
           "  org.clojure/clojure           1.10.3         maven  3,822    x    x     x     x      x    .  .  .  .  .  .  ."
-          "  org.clojure/tools.deps.alpha  0.12.1003      maven     59    x    x     x     x      x    .  x  .  .  .  x  ."
+          "  org.clojure/tools.deps.alpha  0.12.1003      maven     59    x    x     x     x      x    .  x  x  .  .  x  ."
           "  org.slf4j/slf4j-nop           1.7.32         maven      3    -    -     x     x      x    .  .  .  .  .  .  ."
           "  rewrite-clj/rewrite-clj       1.0.644-alpha  maven     71    -    -     -     -      x    .  .  .  .  .  .  ."
           "  slipset/deps-deploy           0.1.5          maven      6    -    -     x     -      x    x  .  .  .  .  .  ."
@@ -117,7 +116,7 @@
           "  git            .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  .  ."
           "  help           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
           "  lib            .  .  .  x  .  .  .  x  .  .  .  .  .  .  t  .  x  x  .  x  .  .  .  .  .  ."
-          "  migrator       .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+          "  migrator       .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  path-finder    .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  shell          .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  test-helper    .  .  x  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  .  ."
@@ -130,10 +129,9 @@
           "  version        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  workspace      .  .  .  x  .  .  x  x  .  .  .  .  x  .  t  .  x  .  .  x  x  .  .  .  .  ."
           "  workspace-clj  .  .  .  x  .  .  .  x  x  .  x  .  x  .  .  .  .  x  .  x  x  x  .  .  .  ."
-          "  ws-explorer    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
+          "  ws-explorer    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  ws-file        .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  ."
           "  deployer-cli   .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  migrator-cli   .  .  .  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  poly-cli       .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  ."]
          (ws-ifc-deps-table/table (workspace)))))
 
@@ -164,7 +162,7 @@
             "  git            .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  .  ."
             "  help           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
             "  lib            -  -  x  -  -  x  -  -  -  -  -  -  t  -  x  x  -  x  -  -  -  -  -  -"
-            "  migrator       .  .  x  .  .  +  .  .  .  .  .  .  .  .  .  +  .  +  .  .  .  .  .  ."
+            "  migrator       .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  +  .  +  .  .  .  .  .  ."
             "  path-finder    .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  shell          .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  test-helper    -  t  -  -  -  t  -  -  -  -  -  -  .  -  -  t  t  -  -  -  -  -  -  -"
@@ -177,7 +175,7 @@
             "  version        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  workspace      -  -  x  -  x  x  -  -  -  -  x  -  t  -  x  +  -  x  x  -  -  -  -  -"
             "  workspace-clj  .  .  x  .  +  x  x  .  x  .  x  +  .  .  +  x  .  x  x  x  .  .  .  ."
-            "  ws-explorer    .  .  .  .  .  +  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
+            "  ws-explorer    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  ws-file        .  .  x  .  .  x  x  .  .  .  .  +  .  .  .  +  .  +  .  x  .  .  .  ."
             "  poly-cli       +  x  +  +  +  +  +  +  +  +  +  +  .  +  +  +  x  x  +  +  +  +  +  +"]
            (ws-project-deps-table/table (workspace) project false)))))
@@ -350,9 +348,9 @@
                                              "workspace-clj"
                                              "ws-explorer"
                                              "ws-file"]}}
-          "migrator"      {:src  {:direct   ["common"]
-                                  :indirect ["file"
-                                             "user-config"
+          "migrator"      {:src  {:direct   ["common"
+                                             "file"]
+                                  :indirect ["user-config"
                                              "util"]}
                            :test {}}
           "path-finder"   {:src  {:direct ["file"
@@ -499,12 +497,8 @@
                                   :indirect ["deps"
                                              "shell"
                                              "text-table"]}}
-          "ws-explorer"   {:src  {:direct   ["user-config"
-                                             "util"]
-                                  :indirect ["file"]}
-                           :test {:direct   ["user-config"
-                                             "util"]
-                                  :indirect ["file"]}}
+          "ws-explorer"   {:src  {:direct ["util"]}
+                           :test {:direct ["util"]}}
           "ws-file"       {:src  {:direct   ["common"
                                              "file"
                                              "git"

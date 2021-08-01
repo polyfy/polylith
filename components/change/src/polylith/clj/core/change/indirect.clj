@@ -19,4 +19,6 @@
                  :test (vec (sort (mapcat #(brick-indirect-test-change % changed-bricks) deps)))}])
 
 (defn project-to-indirect-changes [projects-deps changed-bricks]
+  "Calculates the bricks that are indirectly changed within the given project,
+   directly changes excluded."
   (into {} (map #(project-indirect-changes % changed-bricks) projects-deps)))
