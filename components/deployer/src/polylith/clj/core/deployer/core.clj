@@ -28,18 +28,15 @@
                        :project-name project-name
                        :type         type}
                       e))))
-  (println (str (name type) " is built.")))
+  (println (str (str/capitalize (name type)) " is built.")))
 
 (defn deploy-project [current-dir project-name]
   (create-pom-xml current-dir project-name)
   (try
-    (let [project-prefix (str (file/current-dir) "/projects/" project-name)
-          coordinates (:coordinates (deps-deploy/coordinates-from-pom (slurp (str (file/current-dir) "/projects/" project-name "/pom.xml"))))
-          artifact-map {[:extension "pom" :classifier nil] (str project-prefix "/pom.xml")
-                        [:extension "jar" :classifier nil] (str project-prefix "/target/" project-name "-thin.jar")}]
-      (deps-deploy/deploy {:installer    :clojars
-                           :coordinates  coordinates
-                           :artifact-map artifact-map}))
+    (let [project-prefix (str (file/current-dir) "/projects/" project-name)]
+      (deps-deploy/deploy {:artifact (str project-prefix "/target/" project-name "-thin.jar")
+                           :pom-file (str project-prefix "/pom.xml")
+                           :installer    :remote}))
     (catch Exception e
       (throw (ex-info (str "Could not deploy " project-name " project to clojars.")
                       {:current-dir current-dir
