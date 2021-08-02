@@ -30,6 +30,7 @@
              "components"
              "components/.keep"
              "components/my-component"
+             "components/my-component/deps.edn"
              "components/my-component/resources"
              "components/my-component/resources/my-component"
              "components/my-component/resources/my-component/.keep"
@@ -47,17 +48,19 @@
              "development"
              "development/src"
              "development/src/.keep"
+             "logo.png"
              "projects"
              "projects/.keep"
-             "logo.png"
-             "readme.md"}
+             "readme.md"
+             "workspace.edn"}
            (helper/paths "ws1")))
 
     (is (= ["(ns se.example.my-component.interface)"]
            (helper/content src-ifc-dir "interface.clj")))
 
     (is (= ["(ns se.example.my-component.interface-test"
-            "  (:require [clojure.test :refer :all]))"
+            "  (:require [clojure.test :as test :refer :all]"
+            "            [se.example.my-component.interface :as my-component]))"
             ""
             "(deftest dummy-test"
             "  (is (= 1 1)))"]
@@ -79,6 +82,7 @@
              "components"
              "components/.keep"
              "components/my-component"
+             "components/my-component/deps.edn"
              "components/my-component/resources"
              "components/my-component/resources/my-component"
              "components/my-component/resources/my-component/.keep"
@@ -96,17 +100,19 @@
              "development"
              "development/src"
              "development/src/.keep"
+             "logo.png"
              "projects"
              "projects/.keep"
-             "logo.png"
-             "readme.md"}
+             "readme.md"
+             "workspace.edn"}
            (helper/paths "ws1")))
 
     (is (= ["(ns se.example.my-interface.interface)"]
            (helper/content src-ifc-dir "interface.clj")))
 
     (is (= ["(ns se.example.my-interface.interface-test"
-            "  (:require [clojure.test :refer :all]))"
+            "  (:require [clojure.test :as test :refer :all]"
+            "            [se.example.my-interface.interface :as my-interface]))"
             ""
             "(deftest dummy-test"
             "  (is (= 1 1)))"]

@@ -33,7 +33,8 @@
             (filter #(not= "data" (:type %)) definitions)))
 
 (defn- libs [{:keys [lib-deps]}]
-  (map first lib-deps))
+  (map first (concat (:src lib-deps)
+                     (:test lib-deps))))
 
 (defn profile-lib [[_ {:keys [lib-deps]}]]
   (map first lib-deps))

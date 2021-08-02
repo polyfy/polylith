@@ -10,9 +10,9 @@
 (def path-entries (path-extractor/single-path-entries nil paths false false))
 
 (deftest status-flags--without-resources-flag--returns-src-test-resources-dir-exists-flags
-  (is (= "x-"
+  (is (= "s-"
          (status/brick-status-flags path-entries "user" false))))
 
 (deftest status-flags--with-resources-flag--returns-src-test-resources-dir-exists-flags
-  (is (= "xx-"
+  (is (= "sr-"
          (status/brick-status-flags path-entries "user" true))))

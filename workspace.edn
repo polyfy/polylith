@@ -1,0 +1,14 @@
+{:vcs {:name "git"
+       :auto-add false}
+ :top-namespace "polylith.clj.core"
+ :interface-ns "interface"
+ :default-profile-name "default"
+ :compact-views #{}
+ :tag-patterns {:stable "stable-*"
+                :release "v[0-9]*"}
+ :projects {"api"           {:alias "api", :test []}
+            "core"          {:alias "core", :test []}
+            "deployer"      {:alias "depl", :test []}
+            "poly-migrator" {:alias "migr", :test []}
+            "poly"          {:alias "poly"}
+            "development"   {:alias "dev"}}}

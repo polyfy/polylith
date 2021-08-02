@@ -3,7 +3,7 @@ version: 2.0
 jobs:
   check:
     docker:
-      - image: circleci/clojure:tools-deps-1.10.1.561
+      - image: circleci/clojure:tools-deps-1.10.2.796
     working_directory: ~/polylith
     steps:
       - checkout
@@ -31,7 +31,7 @@ jobs:
 
   check-build:
     docker:
-      - image: circleci/clojure:tools-deps-1.10.1.561
+      - image: circleci/clojure:tools-deps-1.10.2.796
     working_directory: ~/polylith
     steps:
       - checkout
@@ -59,7 +59,7 @@ jobs:
 
   info:
     docker:
-      - image: circleci/clojure:tools-deps-1.10.1.561
+      - image: circleci/clojure:tools-deps-1.10.2.796
     working_directory: ~/polylith
     steps:
       - attach_workspace:
@@ -87,7 +87,7 @@ jobs:
 
   info-build:
     docker:
-      - image: circleci/clojure:tools-deps-1.10.1.561
+      - image: circleci/clojure:tools-deps-1.10.2.796
     working_directory: ~/polylith
     steps:
       - attach_workspace:
@@ -115,7 +115,7 @@ jobs:
 
   test:
     docker:
-      - image: circleci/clojure:tools-deps-1.10.1.561
+      - image: circleci/clojure:tools-deps-1.10.2.796
     working_directory: ~/polylith
     steps:
       - attach_workspace:
@@ -128,13 +128,16 @@ jobs:
       - run:
           name: Add global git user name
           command: git config --global user.name "CircleCI"
+      - run:
+          name: Force clojure to resolve dependencies
+          command: clojure -A:dev:test -P
       - run:
           name: Run tests for Polylith workspace
           command: clojure -A:poly test :project
 
   test-build:
     docker:
-      - image: circleci/clojure:tools-deps-1.10.1.561
+      - image: circleci/clojure:tools-deps-1.10.2.796
     working_directory: ~/polylith
     steps:
       - attach_workspace:
@@ -148,12 +151,15 @@ jobs:
           name: Add global git user name
           command: git config --global user.name "CircleCI"
       - run:
+          name: Force clojure to resolve dependencies
+          command: clojure -A:dev:test -P
+      - run:
           name: Run tests for Polylith workspace
           command: clojure -A:poly test :project since:previous-release
 
   mark-as-stable:
     docker:
-      - image: circleci/clojure:tools-deps-1.10.1.561
+      - image: circleci/clojure:tools-deps-1.10.2.796
     working_directory: ~/polylith
     steps:
       - attach_workspace:
@@ -176,7 +182,7 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/clojure:tools-deps-1.10.1.561
+      - image: circleci/clojure:tools-deps-1.10.2.796
     working_directory: ~/polylith
     steps:
       - attach_workspace:
@@ -189,7 +195,7 @@ jobs:
 
   create-artifacts:
     docker:
-      - image: circleci/clojure:tools-deps-1.10.1.561
+      - image: circleci/clojure:tools-deps-1.10.2.796
     working_directory: ~/polylith
     steps:
       - attach_workspace:

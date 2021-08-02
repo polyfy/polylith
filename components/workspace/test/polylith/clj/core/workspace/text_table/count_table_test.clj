@@ -3,7 +3,7 @@
             [polylith.clj.core.workspace.text-table.count-table :as count-table]))
 
 (def workspace {:settings {:color-mode "none"
-                           :thousand-sep ","}
+                           :thousand-separator ","}
                 :projects (repeat 2 nil)
                 :bases (repeat 3 nil)
                 :components (repeat 15 nil)

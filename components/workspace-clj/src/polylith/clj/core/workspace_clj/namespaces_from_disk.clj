@@ -85,8 +85,15 @@
      :file-path file-path
      :imports (-> content first imports)}))
 
-(defn namespaces-from-disk [root-dir]
+(defn source-namespaces-from-disk [root-dir]
   (mapv #(->namespace root-dir %)
         (-> root-dir
             file/paths-recursively
             common/filter-clojure-paths)))
+
+(defn namespaces-from-disk [src-dir test-dir]
+  (let [src (source-namespaces-from-disk src-dir)
+        test (source-namespaces-from-disk test-dir)]
+    (cond-> {}
+            (seq src) (assoc :src src)
+            (seq test) (assoc :test test))))

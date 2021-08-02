@@ -22,12 +22,12 @@
 (def projects [{:name "core"
                 :group "core"
                 :type "project"
-                :component-names ["change" "shell" "shell2"]
-                :base-names ["tool"]
-                :src-paths ["bases/tool/src"
-                            "components/change/src"
-                            "components/shell/src"
-                            "components/shell2/src"]}])
+                :component-names {:src ["change" "shell" "shell2"]}
+                :base-names {:src ["tool"]}
+                :paths {:src ["bases/tool/src"
+                              "components/change/src"
+                              "components/shell/src"
+                              "components/shell2/src"]}}])
 
 (deftest errors--when-more-than-one-component-implements-the-same-interface-in-an-project--return-error-message
   (is (= [{:type "error"

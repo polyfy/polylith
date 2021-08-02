@@ -1,0 +1,20 @@
+  stable since: 82d0641 | stable-sean
+
+  projects: 2   interfaces: 7
+  bases:    1   components: 7
+
+  project      alias  status   dev
+  --------------------------   ---
+  usermanager  um      st-     -t-
+  development  dev     st-     st-
+
+  interface       brick            um    dev
+  ------------------------------   ---   ---
+  app-state       app-state        st-   st-
+  database        database         st-   st-
+  department      department       st-   st-
+  schema          schema           st-   st-
+  schema-fixture  schema-fixture   -t-   st-
+  user            user             st-   st-
+  web-server      web-server       st-   st-
+  -               web *            stx   st-

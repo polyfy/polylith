@@ -13,8 +13,8 @@
 
 (defn errors [interfaces projects disk-paths color-mode]
   (let [{:keys [unmerged]} (common/find-project "dev" projects)
-        {:keys [src-paths test-paths]} unmerged
-        path-entries (extract/path-entries [src-paths test-paths] disk-paths)
+        {:keys [paths]} unmerged
+        path-entries (extract/from-paths paths disk-paths)
         ; We can't use src-paths and test-paths from the dev project
         ; because it has the paths from the active profile baked in.
         component-names (set (select/names path-entries c/component?))
@@ -24,7 +24,7 @@
         message (str "Components with an interface that is implemented by more than one component "
                      "are not allowed for the " (color/project "development" color-mode) " project. "
                      "They should be added to development profiles instead: " components-msg)]
-    (when (-> illegal-components empty? not)
+    (when (seq illegal-components)
       [(util/ordered-map :type "error"
                          :code 108
                          :message (color/clean-colors message)

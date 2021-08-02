@@ -11,10 +11,13 @@
       (not (contains? interface-names interface)))
     true))
 
-(defn lib-imports-src [suffixed-top-ns interface-names brick]
+(defn lib-imports-source [suffixed-top-ns interface-names brick source-key]
   (vec (sort (filter #(library? % suffixed-top-ns interface-names)
-                     (set (mapcat :imports (:namespaces-src brick)))))))
+                     (set (mapcat :imports (-> brick :namespaces source-key)))))))
 
-(defn lib-imports-test [top-ns interface-names brick]
-  (vec (sort (filter #(library? % top-ns interface-names)
-                     (set (mapcat :imports (:namespaces-test brick)))))))
+(defn lib-imports [suffixed-top-ns interface-names brick]
+  (let [src (lib-imports-source suffixed-top-ns interface-names brick :src)
+        test (lib-imports-source suffixed-top-ns interface-names brick :test)]
+    (cond-> {}
+            (seq src) (assoc :src src)
+            (seq test) (assoc :test test))))

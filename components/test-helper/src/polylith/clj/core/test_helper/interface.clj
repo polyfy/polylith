@@ -7,9 +7,6 @@
 (defn content [dir filename]
   (core/content dir filename))
 
-(defn update-dev-paths! [deps-file src path]
-  (core/update-dev-paths! deps-file src path))
-
 (defn execute-command [current-dir & args]
   (core/execute-command current-dir args))
 

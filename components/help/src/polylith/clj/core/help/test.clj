@@ -49,7 +49,7 @@
        "    poly test :all-bricks\n"
        "    poly test :all\n"
        "    poly test project:proj1\n"
-       "    poly test project:proj1:proj2 :project\n"
+       "    poly test project:proj1:proj2\n"
        "    poly test :dev\n"
        "    poly test :project :dev\n"
        "    poly test :all-bricks :dev\n"

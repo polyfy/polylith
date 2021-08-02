@@ -1,0 +1,15 @@
+bases/cli/deps.edn
+bases/cli/resources/cli/.keep
+bases/cli/src/se/example/cli/core.clj
+bases/cli/test/se/example/cli/core_test.clj
+components/user/deps.edn
+components/user/resources/user/.keep
+components/user/src/se/example/user/core.clj
+components/user/src/se/example/user/interface.clj
+components/user/test/se/example/user/interface_test.clj
+deps.edn
+development/src/dev/lisa.clj
+projects/command-line/deps.edn
+scripts/build-cli-uberjar.sh
+scripts/build-uberjar.sh
+workspace.edn

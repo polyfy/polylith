@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Uberjar - core" type="BashConfigurationType" factoryName="Bash">
     <module name="polylith" />
@@ -11,3 +12,4 @@
     <method v="2" />
   </configuration>
 </component>
+

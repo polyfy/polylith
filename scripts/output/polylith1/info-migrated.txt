@@ -1,0 +1,44 @@
+  stable since: bb59439 | stable-master
+
+  projects: 6   interfaces: 25
+  bases:    3   components: 25
+
+  project          alias  status   dev
+  ------------------------------   ---
+  api *            api     ---     ---
+  core *           core    ---     ---
+  deployer *       depl    ---     ---
+  poly *           poly    -t-     -t-
+  poly-migrator *  migr    ---     ---
+  development      dev     s--     s--
+
+  interface      brick           api  core  depl  poly  migr   dev
+  ----------------------------   ---------------------------   ---
+  api            api             stx  ---   stx   ---   ---    st-
+  change         change          stx  stx   stx   stx   ---    st-
+  command        command         ---  ---   ---   stx   ---    st-
+  common         common          s--  s--   s--   s--   s--    s--
+  creator        creator         ---  ---   ---   stx   ---    st-
+  deployer       deployer        ---  ---   s--   ---   ---    s--
+  deps           deps            stx  stx   stx   stx   ---    st-
+  file           file            stx  stx   stx   stx   stx    st-
+  git            git             stx  stx   stx   stx   ---    st-
+  help           help            ---  ---   ---   s--   ---    s--
+  lib            lib             stx  stx   stx   stx   ---    st-
+  migrator       migrator        ---  ---   ---   ---   stx    st-
+  path-finder    path-finder     stx  stx   stx   stx   ---    st-
+  shell          shell           s--  s--   s--   s--   ---    s--
+  test-helper    test-helper     ---  ---   ---   s--   ---    s--
+  test-runner    test-runner     ---  ---   ---   s--   ---    s--
+  text-table     text-table      s--  s--   s--   s--   ---    s--
+  user-config    user-config     s--  s--   s--   s--   s--    s--
+  user-input     user-input      stx  stx   stx   stx   ---    st-
+  util           util            stx  stx   stx   stx   stx    st-
+  validator      validator       stx  stx   stx   stx   ---    st-
+  version        version         s--  ---   s--   s--   s--    s--
+  workspace      workspace       stx  stx   stx   stx   ---    st-
+  workspace-clj  workspace-clj   stx  ---   stx   stx   ---    st-
+  ws-explorer    ws-explorer     stx  ---   stx   stx   ---    st-
+  -              deployer-cli    ---  ---   s--   ---   ---    s--
+  -              migrator-cli    ---  ---   ---   ---   s--    s--
+  -              poly-cli        ---  ---   ---   s--   ---    s--

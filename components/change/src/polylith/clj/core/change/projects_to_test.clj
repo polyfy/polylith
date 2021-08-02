@@ -4,8 +4,8 @@
             [polylith.clj.core.path-finder.interface.select :as select]
             [polylith.clj.core.path-finder.interface.extract :as extract]))
 
-(defn included-projects [{:keys [src-paths test-paths profile]} disk-paths]
-  (let [path-entries (extract/path-entries [src-paths test-paths (:src-paths profile) (:test-paths profile)] disk-paths)]
+(defn included-projects [{:keys [paths]} disk-paths]
+  (let [path-entries (extract/from-paths paths disk-paths)]
     (select/names path-entries c/project? c/test-path? c/exists?)))
 
 (defn select-projects [project-name projects is-dev]

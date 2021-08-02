@@ -1,13 +1,13 @@
 (ns polylith.clj.core.validator.dev-config-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.validator.data :as data]))
+            [polylith.clj.core.validator.interface :as validator]))
 
 (def config {:polylith {:top-namespace "polylith.clj.core"
                         :interface-ns "interface"
                         :default-profile-name "default"
                         :compact-views #{}
-                        :release-tag-pattern "v[0-9]*"
-                        :stable-tag-pattern "stable-*"
+                        :tag-patterns {:stable "stable-*"
+                                       :release "v[0-9]*"}
                         :profile-to-alias {"api" "api"
                                            "core" "core"}
                         :ns-to-lib '{me.raynes  me.raynes/fs
@@ -28,22 +28,25 @@
                                              :sha       "78b2c77c56d1b41109d68b451069affac935200e"
                                              :deps/root "projects/poly"}}}}})
 
+;; todo: Make sure we test the new format also
+(def ws-type :toolsdeps1)
+
 (deftest valid-config--returns-nil
   (is (= nil
-         (data/validate-dev-config config))))
+         (validator/validate-project-dev-config ws-type config))))
 
 (deftest invalid-nop-namespace--returns-error-message
   (is (= {:polylith {:top-namespace ["should be a string"]}}
-         (data/validate-dev-config (assoc-in config [:polylith :top-namespace] 1)))))
+         (validator/validate-project-dev-config ws-type (assoc-in config [:polylith :top-namespace] 1)))))
 
 (deftest invalid-compact-views--returns-error-message
   (is (= {:polylith {:compact-views ["should be a set"]}}
-         (data/validate-dev-config (assoc-in config [:polylith :compact-views] 'hello)))))
+         (validator/validate-project-dev-config ws-type (assoc-in config [:polylith :compact-views] 'hello)))))
 
 (deftest ns-to-lib--return-errors-message
   (is (= {:polylith {:ns-to-lib ["invalid type"]}}
-         (data/validate-dev-config (assoc-in config [:polylith :ns-to-lib] 'hello)))))
+         (validator/validate-project-dev-config ws-type (assoc-in config [:polylith :ns-to-lib] 'hello)))))
 
 (deftest aliases-dev--return-errors-message
   (is (= {:aliases {:dev ["invalid type"]}}
-         (data/validate-dev-config (assoc-in config [:aliases :dev] [1 2 3])))))
+         (validator/validate-project-dev-config ws-type (assoc-in config [:aliases :dev] [1 2 3])))))

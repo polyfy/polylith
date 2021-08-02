@@ -21,14 +21,23 @@
      is that all io operations are done in the first step while this step only operates on the
      hash map that was returned from the first step.
    - The last step change/with-changes, operates on the enhanced hash map, which again is an
-     in-memory representation of the workspace. It calculates what components, bases and project
+     in-memory representation of the workspace. It calculates what components, bases and projects
      that are changed, and what bricks and projects to test, and adds the result to the :changes key.
    - The final workspace representation is then used by the given command that is stored in
      the 'user-input' representation."
   [& args]
   (let [input (user-input/extract-params args)]
     (try
-      (-> input command/execute-command System/exit)
+      (if (:is-no-exit input)
+        (-> input command/execute-command)
+        (-> input command/execute-command System/exit))
       (catch Exception e
-        (ex/print-exception e)
-        (System/exit 1)))))
+        (ex/print-exception (:cmd input) e)
+        (when (-> input :is-no-exit not)
+          (System/exit 1))))))
+
+(comment
+  (-main "test" ":all" ":no-exit")
+  (-main "ws" "ws-dir:/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-31-205208.WGAtrHHE/local-dep-old-format" ":no-exit" "replace:/Users/joakimtengstrand:USER-HOME:/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-31-205208.WGAtrHHE/local-dep-old-format:WS-DIR")
+  (-main "ws" "ws-dir:/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-31-205208.WGAtrHHE/local-dep-old-format" ":no-exit" "replace:/Users/joakimtengstrand:USER-HOME:/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/local_dep-2021-07-31-205208.WGAtrHHE/local-dep-old-format:WS-DIR" "get:user-input")
+  #__)

@@ -16,7 +16,8 @@
         brick (first (drop 1 parts))
         n#nss (count top-nss)
         brick-nss (as-namespaces (take n#nss (drop 3 parts)))]
-    (when (not= brick-nss top-nss)
+    (when (and (not= brick-nss top-nss)
+               (not= "project.clj" (last parts)))
       [{:brick brick
         :file path
         :non-top-ns (str/join "." brick-nss)}])))
@@ -33,5 +34,4 @@
                                       (common/filter-clojure-paths
                                         (map #(str-util/skip-prefix % (str ws-dir "/"))
                                              (file/paths-recursively ws-dir))))))]
-
     (reduce add-non-top-ns {} non-nss)))

@@ -25,6 +25,9 @@
 
 *.iml
 
-/example/example/**
 artifacts
 projects/**/pom.xml
+/scripts/output/example/**
+/examples/doc-example/.idea/**
+/examples/local-dep/.idea/**
+/examples/local-dep-old-format/.idea/**

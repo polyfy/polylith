@@ -3,14 +3,14 @@
             [polylith.clj.core.change.project :as project]))
 
 (def projects [{:name "cli"
-                :component-names ["util" "validator"]
-                :base-names ["cli"]}
+                :component-names {:src ["util" "validator"]}
+                :base-names {:src ["cli"]}}
                {:name "core"
-                :component-names ["change" "util" "validator" "workspace"]
-                :base-names []}
+                :component-names {:src ["change" "util" "validator" "workspace"]}
+                :base-names {}}
                {:name "dev"
-                :component-names ["util" "validator" "workspace"]
-                :base-names ["cli"]}])
+                :component-names {:src ["util" "validator" "workspace"]}
+                :base-names {:src ["cli"]}}])
 
 (def changed-bricks #{"workspace" "cmd" "core"})
 

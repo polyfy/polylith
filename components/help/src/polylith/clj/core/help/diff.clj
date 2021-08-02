@@ -13,7 +13,7 @@
        "  Stable points are normally set by the CI server or by individual developers,\n"
        "  e.g. Lisa, with 'git tag -f stable-lisa'.\n"
        "\n"
-       "  The pattern can be changed in " (color/purple color-mode ":stable-tag-pattern") " in ./deps.edn.\n"
+       "  The pattern can be changed in " (color/purple color-mode ":tag-patterns") " in workspace.edn.\n"
        "\n"
        "  The way the latest tag is found is by taking the first line that matches the 'stable-*'\n"
        "  regular expression, or if no match was found, the first commit in the repository.\n"
@@ -24,3 +24,7 @@
 
 (defn print-help [color-mode]
   (println (help color-mode)))
+
+(comment
+  (print-help "dark")
+  #__)

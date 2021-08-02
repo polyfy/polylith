@@ -1,0 +1,4 @@
+{:paths ["src" "resources"]
+ :deps {}
+ :aliases {:test {:extra-paths ["test"]
+                  :extra-deps {migrate-me/migrate-me {:local/root "../../migrate-me"}}}}}

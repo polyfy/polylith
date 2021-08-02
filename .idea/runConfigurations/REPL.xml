@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="REPL" type="ClojureREPL" factoryName="Local" activateToolWindowBeforeRun="false">
     <module name="polylith" />
@@ -10,5 +11,7 @@
     <setting name="aliases" value="test,dev" />
     <setting name="fixLineNumbers" value="false" />
     <method v="2" />
+    <setting name="displayName" value="REPL" />
   </configuration>
 </component>
+

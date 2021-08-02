@@ -1,0 +1,4 @@
+{:paths ["src" "resources"]
+ :deps {slacker/slacker {:mvn/version "0.17.0"}}
+ :aliases {:test {:extra-paths ["test"]
+                  :extra-deps {}}}}

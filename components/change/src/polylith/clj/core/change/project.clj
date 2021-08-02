@@ -2,7 +2,7 @@
   (:require [clojure.set :as set]))
 
 (defn changed-project [{:keys [name component-names base-names]} changed-bricks]
-  (let [project-bricks (set (concat component-names base-names))
+  (let [project-bricks (set (concat (:src component-names) (:src base-names)))
         changed-bricks-in-project (set/intersection changed-bricks project-bricks)]
     (when (-> changed-bricks-in-project empty? not)
       name)))

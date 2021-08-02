@@ -1,6 +1,8 @@
 (ns polylith.clj.core.ws-explorer.core
   (:require [clojure.pprint :as pp]
+            [clojure.string :as str]
             [puget.printer :as puget]
+            [clojure.walk :as walk]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]))
 
@@ -46,10 +48,25 @@
     (vector? value) (recur (value-from-vector value (first keys)) (rest keys))
     :else value))
 
+(defn do-replace [value {:keys [from to]}]
+  (if (string? value)
+    (str/replace value (re-pattern from) to)
+    value))
+
+(defn replace-fn [replace]
+  (fn [value] (reduce do-replace value replace)))
+
+(defn replace-values [value replace]
+  (if replace
+    (walk/postwalk (replace-fn replace) value)
+    value))
+
 (defn extract [workspace get]
-  (let [value (extract-value workspace
-                             (if (or (nil? get)
-                                     (sequential? get)) get [get]))]
+  (let [replace (-> workspace :user-input :replace)
+        value (-> (extract-value workspace
+                                 (if (or (nil? get)
+                                         (sequential? get)) get [get]))
+                  (replace-values replace))]
     (if (map? value)
       (into (sorted-map) value)
       value)))

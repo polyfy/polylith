@@ -15,7 +15,7 @@
     (when (file/exists pom-path)
       (file/delete-file pom-path))
     (let [content (slurp partial-pom-path)
-          updated-content (str/replace content #"VERSION" version/version)]
+          updated-content (str/replace content #"VERSION" version/name)]
       (spit pom-path updated-content))))
 
 (defn build-jar [current-dir project-name type]
@@ -46,12 +46,12 @@
                        :project-name project-name}
                       e)))))
 
-(def projects-to-deploy-clojars #{"poly" "poly-migrator" "api"})
+(def projects-to-deploy-clojars #{"poly" "api"})
 
 (defn deploy []
   (let [current-dir (file/current-dir)
         changed-projects (filter #(contains? projects-to-deploy-clojars %)
-                                 (api/projects-to-deploy))]
+                                 (api/projects-to-deploy "previous-release"))]
     (when (empty? changed-projects)
       (throw (Exception. "Cannot deploy projects. None of the projects in this workspace changed.")))
     (doseq [project-name changed-projects]
@@ -97,13 +97,15 @@
          "  fi\n"
          "fi\n\n"
 
-         "exec \"$JAVA_CMD\" -jar \"$" project "_jar\" \"$@\"\n")))
+         "exec \"$JAVA_CMD\" $JVM_OPTS -jar \"$" project "_jar\" \"$@\"\n")))
 
 (defn get-sha-sum [file-path]
   (let [output (shell/sh "shasum" "-a" "256" file-path)]
     (first (str/split output #" "))))
 
-(defn create-brew-package [^String artifacts-dir ^String project-name ^String artifact-name]
+(defn create-brew-package [^String artifacts-dir
+                           ^String project-name
+                           ^String artifact-name]
   (let [package-path (str artifacts-dir "/" project-name)
         package-dir (File. package-path)
         _ (.mkdirs package-dir)
@@ -125,12 +127,12 @@
       (spit shasum shasum-content))
     (file/delete-dir package-path)))
 
-(def projects-to-deploy-as-artifacts #{"poly" "poly-migrator"})
+(def projects-to-deploy-as-artifacts #{"poly"})
 
 (defn create-artifacts []
   (let [current-dir (file/current-dir)
         changed-projects (filter #(contains? projects-to-deploy-as-artifacts %)
-                                 (api/projects-to-deploy))]
+                                 (api/projects-to-deploy "previous-release"))]
     (when (empty? changed-projects)
       (throw (Exception. "Cannot create artifacts for project. None of the projects in this workspace changed.")))
     (let [artifacts-dir (str current-dir "/artifacts")]
@@ -140,7 +142,7 @@
       (doseq [project-name projects-to-deploy-as-artifacts]
         (println (str "Creating artifacts for: " project-name))
         (let [jar-path (str current-dir "/projects/" project-name "/target/" project-name ".jar")
-              artifact-name (str project-name "-" version/version ".jar")
+              artifact-name (str project-name "-" version/name ".jar")
               artifact-path (str artifacts-dir "/" artifact-name)]
           (build-jar current-dir project-name :uberjar)
           (file/copy-file jar-path artifact-path)

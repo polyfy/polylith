@@ -20,6 +20,12 @@
          (mapcat identity
                  (sort (map key-as-string m)))))
 
+(defn sort-map [m]
+  (when m
+    (apply array-map
+           (mapcat identity
+                   (sort (map identity m))))))
+
 (defn- def-val [amap key]
   (list 'def key (list (keyword key) amap)))
 
