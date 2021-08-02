@@ -187,6 +187,16 @@ exec "/usr/bin/java" $JVM_OPTS "-jar" "/usr/local/polylith/poly-0.2.0-alpha10.ja
 
 Verify the installation by executing `poly help`.
 
+#### Install via nix
+
+`poly` tool is available in the [nixpkgs](https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/tools/misc/polylith/default.nix) as well:
+
+```bash
+nix-shell -p polylith
+# or
+nix-env -iA 'nixos.polylith'
+```
+
 ### Install on Windows
 
 To use the Polylith tool and to get access to all the features in tools.deps, make sure you have
@@ -1312,7 +1322,7 @@ This directory can be shown by running the `poly ws get:ws-local-dir`command.
 
 # Tagging
 
-Tags are used in Polylith to mark points in time where we concider the whole codebase (workspace)
+Tags are used in Polylith to mark points in time where we consider the whole codebase (workspace)
 to be in a valid state, for example that everything compiles and that all the tests and the `check` command executes 
 without errors. 
 This is then used by the [test](doc/commands.md#test) command to run the tests incrementally, by only executing
