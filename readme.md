@@ -37,33 +37,6 @@ To better understand the principles and ideas behind this tool, we recommend you
 
 <br>Enjoy the ride!
 
-> Note: This is the issue-66 branch, where work is still in progress.
-> We try our best to only push stable commits to this branch, but we recommend
-> you to use the `master` branch instead for a number of reasons:
-> - We only release versions of the `poly` command from the `master` branch, which means
->   that you need to use the tools.deps CLI tooling to run the poly command in this branch,
->   e.g. `clj -M:poly help`.
->   An alternative could be to build your own `poly` tool from the source in this branch
->   (which is done by the `./build.sh` script but is not intended for public use at the moment).
-> - This branch contains breaking changes compared to the `master` branch, e.g. introduction of a new 
->   `workspace.edn` file at the root and changes to the internal workspace structure that is returned 
->   by the `poly ws` command. These changes are not introduced in one big commit, which means that if 
->   you start to use the code from this branch, you should pay attention to this:
->   - saved files from e.g. `poly ws out:myws.edn` can break when used by a newer commit, e.g. `poly ws ws-file:myws.edn`.
-
-> If none of the above bothers you, here are the benefits of using the `issue-66` branch:
-> - Each component and base (brick) will contain their own `deps.edn` file where library dependencies
->   can be specified. Projects specify brick dependencies as `:deps > :local/root` instead of 
->   `:paths` which will automatically retrieve library dependencies specified by the bricks, 
->   with the advantage that they don't need to be specified again by each project and that we don't have to
->   manually maintain the `:ns-to-lib` mapping to get a working `poly libs` command.
-> - You get rid of the warning you otherwise get when using some of the latest versions of 
->   the tool.deps CLI tooling (see [issue-66](https://github.com/polyfy/polylith/issues/66)).
-> - You get some new features, like calculation of test dependencies, better support for tagging,
->   and a few more. In general, the goal for the `issue-66` branch is not to add a lot of new
->   functionality compared to the `master` branch, but to merge it back as soon as all breaking
->   changes has been implemented and a migration tool is in place (to help you migrate to the new version).
-
 ## Leiningen version
 
 The old [lein-polylith](https://github.com/tengstrand/lein-polylith) tool has reached the 
@@ -276,7 +249,7 @@ To use it this way, add one of the following aliases to the `:aliases` section i
 }
 ```
 
-Replace `INSERT_LATEST_SHA_HERE` with a [commit SHA](https://github.com/polyfy/polylith/commits/issue-66) from this repository (e.g. the latest).
+Replace `INSERT_LATEST_SHA_HERE` with a [commit SHA](https://github.com/polyfy/polylith/commits/master) from this repository (e.g. the latest).
 
 Once you have added one of the aliases above, you can now use the poly tool from the terminal:
 
@@ -315,7 +288,7 @@ polylith/clj-api {:git/url   "https://github.com/polyfy/polylith.git"
                   :deps/root "projects/api"}
 ```
 
-...and remember to set the `:sha` to an existing [SHA](https://github.com/polyfy/polylith/commits/issue-66).
+...and remember to set the `:sha` to an existing [SHA](https://github.com/polyfy/polylith/commits/master).
 
 ## Upgrade 
 
@@ -419,15 +392,13 @@ The `workspace.edn` file looks like this:
 
 If all went well, the `poly` tool managed to set the latest sha for the `:poly` alias by taking it from the `master` branch
 in this repository.
-Because this is the `issue-66` branch, we need to change that `sha` by either taking it from 
-[here](https://github.com/polyfy/polylith/commits/issue-66) or by executing this statement:
 
 ```
-poly ws get:settings:vcs:polylith :latest-sha branch:issue-66
+poly ws get:settings:vcs:polylith :latest-sha
 ```
 The output will look something like this:
 ```
-{:branch "issue-66",
+{:branch "master",
  :latest-sha "887e4237cec8f42eaa15be3501f134732602bb41",
  :repo "https://github.com/polyfy/polylith.git"}
 ```
@@ -790,7 +761,7 @@ To do so we first create an `interface` package (directory) with the name `inter
 and then we put the sub namespaces in there.
 
 We can find an example where the `util` component in the Polylith repository does that, by dividing its 
-[util](https://github.com/polyfy/polylith/tree/issue-66/components/util/src/polylith/clj/core/util/interface)
+[util](https://github.com/polyfy/polylith/tree/master/components/util/src/polylith/clj/core/util/interface)
 interface into several sub namespaces:
 ```sh
 util
@@ -805,10 +776,10 @@ util
 This can be handy if we want to group the functions and not put everyone into one place.
 A common usage is to place [clojure specs](https://clojure.org/about/spec) in its own `spec` sub namespace,
 which we have an example of in the RealWorld example app, where the `article` component also has an
-[interface.spec](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/issue-66/components/article/src/clojure/realworld/article/interface/spec.clj) 
+[interface.spec](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/master/components/article/src/clojure/realworld/article/interface/spec.clj) 
 sub interface.
 
-It can then be used from e.g. the [handler](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/issue-66/bases/rest-api/src/clojure/realworld/rest_api/handler.clj)
+It can then be used from e.g. the [handler](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/master/bases/rest-api/src/clojure/realworld/rest_api/handler.clj)
 namespace in `rest-api`:
 ```clojure
 (ns clojure.realworld.rest-api.handler
@@ -1137,7 +1108,7 @@ clj -M:poly info
 
 It takes longer to execute the `poly` command this way, because it needs to compile the Clojure code 
 first, but it also allows us to execute older or newer versions of the tool by
-selecting another `sha` from an [existing commit](https://github.com/polyfy/polylith/commits/issue-66).
+selecting another `sha` from an [existing commit](https://github.com/polyfy/polylith/commits/master).
 
 ## Build
 
@@ -1147,7 +1118,7 @@ Instead, the tool lets us choose our own way to build our Polylith artifacts for
 which could be with simple build scripts, all the way to cloud-based build tools.
 
 Let's say we want to create an executable jar file out of the `command-line` project.  
-First, we create a `scripts` directory at the workspace root and copy this [build-uberjar.sh](https://github.com/polyfy/polylith/blob/issue-66/scripts/build-uberjar.sh)
+First, we create a `scripts` directory at the workspace root and copy this [build-uberjar.sh](https://github.com/polyfy/polylith/blob/master/scripts/build-uberjar.sh)
 to it:
 ```sh
 example
@@ -3004,7 +2975,7 @@ poly info color-mode:light
 <img src="images/color-info.png" width="40%">
 
 ...everything suddenly looks much brighter!
-The only difference between "light" and "dark" is that they use different [codes](https://github.com/polyfy/polylith/tree/issue-66/components/util/src/polylith/clj/core/util/colorizer.clj) for grey.
+The only difference between "light" and "dark" is that they use different [codes](https://github.com/polyfy/polylith/tree/master/components/util/src/polylith/clj/core/util/colorizer.clj) for grey.
 
 If we switch back to dark background and select `none`:
 ```

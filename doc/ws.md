@@ -447,7 +447,7 @@ If the workspace is loaded using `ws-file:WS-FILE` then the `:old` key is popula
  :user-config-filename "/Users/joakimtengstrand/.polylith/config.edn",
  :user-home "/Users/joakimtengstrand",
  :vcs {:auto-add true,
-       :branch "issue-66-23",
+       :branch "master",
        :git-root "/Users/joakimtengstrand/source/polylith",
        :name "git",
        :polylith {:branch "master",
