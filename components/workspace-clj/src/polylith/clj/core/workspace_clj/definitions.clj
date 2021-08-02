@@ -21,8 +21,8 @@
            ; Drops the namespace declaration on top of the file
            (drop 1 statements)))
 
-(defn sub-namespace [namespace interface-ns-name]
-  (when (not= namespace interface-ns-name)
+(defn sub-namespace [namespace interface-ns]
+  (when (not= namespace interface-ns)
     (str/join "." (drop 1 (str/split namespace #"\.")))))
 
 (defn parameter [name]
@@ -32,8 +32,8 @@
        :type (str "^" type)}
       {:name (str name)})))
 
-(defn function [namespace type name code interface-ns-name]
-  (let [sub-ns (sub-namespace namespace interface-ns-name)
+(defn function [namespace type name code interface-ns]
+  (let [sub-ns (sub-namespace namespace interface-ns)
         parameters (mapv parameter (first code))
         str-name (str name)
         str-type (str type)]
@@ -45,7 +45,7 @@
 (defn definitions
   "Takes a statement (def, defn or defmacro) from source code
    and returns a vector of definitions."
-  [namespace statement interface-ns-name]
+  [namespace statement interface-ns]
   (let [type (-> statement first ->generic-type)
         name (second statement)
         code (drop-while #(not (or (list? %)
@@ -54,7 +54,7 @@
     (if (= "data" type)
       [(util/ordered-map :name (str name)
                          :type (str type)
-                         :sub-ns (sub-namespace namespace interface-ns-name))]
+                         :sub-ns (sub-namespace namespace interface-ns))]
       (if (-> code first vector?)
-        [(function namespace type name code interface-ns-name)]
-        (mapv #(function namespace type name % interface-ns-name) code)))))
+        [(function namespace type name code interface-ns)]
+        (mapv #(function namespace type name % interface-ns) code)))))

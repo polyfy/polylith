@@ -68,8 +68,7 @@
         {:keys [vcs top-namespace ws-type interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views]
          :or {vcs {:name "git", :auto-add false}
               compact-views {}
-              interface-ns {:name "interface"
-                            :root-ns? false}}} ws-config
+              interface-ns "interface"}} ws-config
         patterns (tag-pattern/patterns tag-patterns stable-tag-pattern release-tag-pattern)
         top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
         empty-character (user-config/empty-character)
@@ -80,9 +79,7 @@
         brick->non-top-namespaces (non-top-ns/brick->non-top-namespaces ws-dir top-namespace)
         project->settings (project-settings/convert ws-config)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
-        interface-ns-map (common/interface-ns interface-ns)
-        interface-ns-name (:name interface-ns-map)
-        components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns-name brick->non-top-namespaces)
+        components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns brick->non-top-namespaces)
         bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir brick->non-top-namespaces)
         name->brick (into {} (map (juxt :name identity)
                                   (concat components bases)))
@@ -94,7 +91,7 @@
         active-profiles (profile/active-profiles user-input default-profile profile-to-settings)
         settings (util/ordered-map :vcs (git-info ws-dir vcs patterns user-input)
                                    :top-namespace top-namespace
-                                   :interface-ns interface-ns-map
+                                   :interface-ns interface-ns
                                    :default-profile-name default-profile
                                    :active-profiles active-profiles
                                    :tag-patterns patterns

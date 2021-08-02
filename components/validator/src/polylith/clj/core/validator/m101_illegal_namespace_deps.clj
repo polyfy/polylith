@@ -4,11 +4,11 @@
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]))
 
-(defn error-message [{:keys [namespace depends-on-interface depends-on-ns]} brick-name type interface-ns-name color-mode]
+(defn error-message [{:keys [namespace depends-on-interface depends-on-ns]} brick-name type interface-ns color-mode]
   (when namespace
     (let [message (str "Illegal dependency on namespace " (color/namespc depends-on-interface depends-on-ns color-mode)
                        " in " (color/brick type brick-name color-mode) "." (color/namespc namespace color-mode)
-                       ". Use " (color/namespc depends-on-interface interface-ns-name color-mode) " instead to fix the problem.")]
+                       ". Use " (color/namespc depends-on-interface interface-ns color-mode) " instead to fix the problem.")]
       [(util/ordered-map :type "error"
                          :code 101
                          :message (color/clean-colors message)
@@ -23,12 +23,12 @@
 (defn brick-errors
   "Checks for dependencies to component interface namespaces other than 'interface'
    for the 'src' context."
-  [suffixed-top-ns {:keys [name interface type namespaces]} interface-names interface-ns-name color-mode]
+  [suffixed-top-ns {:keys [name interface type namespaces]} interface-names interface-ns color-mode]
   (let [interface-name (:name interface)
         dependencies (deps/interface-ns-deps suffixed-top-ns interface-name interface-names (:src namespaces))]
-    (mapcat #(error-message % name type interface-ns-name color-mode)
-            (filterv #(not= interface-ns-name (get-namespace %)) dependencies))))
+    (mapcat #(error-message % name type interface-ns color-mode)
+            (filterv #(not= interface-ns (get-namespace %)) dependencies))))
 
-(defn errors [suffixed-top-ns interface-names components bases interface-ns-name color-mode]
-  (vec (mapcat #(brick-errors suffixed-top-ns % interface-names interface-ns-name color-mode)
+(defn errors [suffixed-top-ns interface-names components bases interface-ns color-mode]
+  (vec (mapcat #(brick-errors suffixed-top-ns % interface-names interface-ns color-mode)
                (concat components bases))))

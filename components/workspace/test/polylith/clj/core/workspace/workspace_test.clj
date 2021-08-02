@@ -190,8 +190,8 @@
                                   :compact-views        #{}
                                   :default-profile-name "default"
                                   :empty-character      "."
-                                  :interface-ns         {:name     "interface"
-                                                         :root-ns? false}                                  :m2-dir               (str (System/getProperty "user.home") "/.m2")
+                                  :interface-ns         "interface"
+                                  :m2-dir               (str (System/getProperty "user.home") "/.m2")
                                   :profile-to-settings  {"default" {:base-names      []
                                                                     :component-names ["user1"]
                                                                     :lib-deps        {"me.raynes/fs" {:size    11209

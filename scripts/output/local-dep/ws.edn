@@ -565,10 +565,10 @@
   :compact-views #{},
   :active-profiles #{},
   :profile-to-settings {},
-  :interface-ns {:name "interface", :root-ns? false},
+  :interface-ns "interface",
   :vcs
   {:name "git",
-   :branch "issue-66",
+   :branch "issue-66-25",
    :git-root "USER-HOME/source/polylith",
    :auto-add false,
    :stable-since {:tag "stable-jote", :sha "SHA"},

@@ -63,9 +63,3 @@
 
 (defn color-mode [{:keys [color-mode]}]
   (or color-mode (user-config/color-mode)))
-
-(defn interface-ns [interface-ns]
-  (if (string? interface-ns)
-    {:name interface-ns
-     :root-ns? false}
-    interface-ns))
