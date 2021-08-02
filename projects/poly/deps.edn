@@ -33,6 +33,7 @@
                      :exec-fn hf.depstar/uberjar
                      :exec-args {:aot true, :main-class polylith.clj.core.poly-cli.core}}
 
-           :skinny-jar {:extra-deps {pack/pack.alpha {:git/url "https://github.com/juxt/pack.alpha.git"
-                                                      :sha     "0e8731e0f24db05b74769e219051b0e92b50624a"}}
-                        :main-opts  ["-m" "mach.pack.alpha.skinny" "--no-libs" "--project-path" "target/poly-skinny.jar"]}}}
+           :jar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.278"}}
+                 :exec-fn hf.depstar/jar
+                 :exec-args {:jar "poly-thin.jar"
+                             :target-dir "target"}}}}
