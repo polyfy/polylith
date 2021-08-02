@@ -13,12 +13,12 @@ mkdir -p target
 
 rm -rf target/$1.*
 
-clojure -A:skinny-jar
+clojure -X:jar
 
 if [[ $? -ne 0 ]]
 then
-  echo "Could not create skinny jar for the project."
+  echo "Could not create thin jar for the project."
   exit 1
 fi
 
-echo "Skinny jar created."
+echo "Thin jar created."
