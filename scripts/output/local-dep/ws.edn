@@ -22,56 +22,19 @@
    :interface-deps {:src ["invoicer"], :test []}}],
  :changes
  {:since "stable",
-  :changed-projects ["invoicing"],
+  :changed-projects [],
   :changed-bases [],
   :project-to-indirect-changes
-  {"invoicing" {:src ["invoicer-cli"], :test ["invoicer-cli"]},
-   "development" {:src ["invoicer-cli"], :test ["invoicer-cli"]}},
-  :project-to-bricks-to-test
-  {"invoicing"
-   ["database"
-    "invoicer"
-    "invoicer-cli"
-    "test-helper"
-    "test-helper-db"
-    "util"
-    "without-src"],
-   "development" []},
+  {"invoicing" {:src [], :test []}, "development" {:src [], :test []}},
+  :project-to-bricks-to-test {"invoicing" [], "development" []},
   :project-to-projects-to-test {"invoicing" [], "development" []},
-  :since-sha "SHA",
-  :changed-files
-  ["components/database/deps.edn"
-   "components/database/resources/database/.keep"
-   "components/database/src/com/localdep/database/core.clj"
-   "components/database/src/com/localdep/database/interface.clj"
-   "components/database/test/com/localdep/database/interface_test.clj"
-   "components/datomic-ions/deps.edn"
-   "components/datomic-ions/src/com/localdep/datomic_ions/interface.clj"
-   "components/invoicer/test/com/localdep/invoicer/interface_test.clj"
-   "components/test-helper-db/deps.edn"
-   "components/test-helper-db/src/com/localdep/test_helper_db/core.clj"
-   "components/test-helper-db/src/com/localdep/test_helper_db/interface.clj"
-   "components/test-helper/deps.edn"
-   "components/test-helper/src/com/localdep/test_helper/core.clj"
-   "components/test-helper/src/com/localdep/test_helper/interface.clj"
-   "components/test-helper/test/com/localdep/test_helper/interface_test.clj"
-   "components/util/deps.edn"
-   "components/without-src/deps.edn"
-   "components/without-src/test/com/localdep/without_src/dummy_test.clj"
-   "deps.edn"
-   "projects/invoicing/deps.edn"
-   "readme.txt"],
-  :git-diff-command "git diff SHA --name-only",
-  :changed-components
-  ["database"
-   "datomic-ions"
-   "invoicer"
-   "test-helper"
-   "test-helper-db"
-   "util"
-   "without-src"],
-  :since-tag "stable-jote",
-  :changed-or-affected-projects ["development" "invoicing"]},
+  :since-sha "40d2f621963cb62ef4557f38d560e9f6dcf4c5be",
+  :changed-files [],
+  :git-diff-command
+  "git diff 40d2f621963cb62ef4557f38d560e9f6dcf4c5be --name-only",
+  :changed-components [],
+  :since-tag "stable-master",
+  :changed-or-affected-projects []},
  :components
  [{:lines-of-code {:src 4, :test 6},
    :interface {:name "database", :definitions []},
@@ -568,10 +531,12 @@
   :interface-ns "interface",
   :vcs
   {:name "git",
-   :branch "issue-66-25",
+   :branch "ws-in-ws-validation",
    :git-root "USER-HOME/source/polylith",
    :auto-add false,
-   :stable-since {:tag "stable-jote", :sha "SHA"},
+   :stable-since
+   {:tag "stable-master",
+    :sha "40d2f621963cb62ef4557f38d560e9f6dcf4c5be"},
    :polylith
    {:repo "https://github.com/polyfy/polylith.git", :branch "master"}},
   :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
@@ -609,12 +574,12 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.0.alpha10.issue66.25",
+  {:name "0.2.0-alpha10",
    :major 0,
    :minor 2,
    :patch 0,
-   :revision "alpha10.issue66.25",
-   :date "2021-08-01"},
+   :revision "alpha10",
+   :date "2021-08-02"},
   :ws {:type :toolsdeps2, :breaking 1, :non-breaking 0}},
  :ws-dir "USER-HOME/source/polylith/examples/local-dep",
  :ws-local-dir "examples/local-dep",

@@ -334,7 +334,7 @@
      {:local/root "../../migrate-me",
       :type "local",
       :path "migrate-me",
-      :size 1315}}},
+      :size 310}}},
    :config-filename
    "/privateWS-HOME/local-dep-old-format/projects/invoicing/deps.edn",
    :component-names
@@ -451,7 +451,7 @@
        {:local/root "migrate-me",
         :type "local",
         :path "migrate-me",
-        :size 1315}]]}},
+        :size 310}]]}},
    :lib-deps
    {:src
     {"org.clojure/clojure"
@@ -474,7 +474,7 @@
      {:local/root "migrate-me",
       :type "local",
       :path "migrate-me",
-      :size 1315}}},
+      :size 310}}},
    :config-filename "/privateWS-HOME/local-dep-old-format/deps.edn",
    :component-names
    {:src
@@ -560,12 +560,12 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.0.alpha10.issue66.25",
+  {:name "0.2.0-alpha10",
    :major 0,
    :minor 2,
    :patch 0,
-   :revision "alpha10.issue66.25",
-   :date "2021-08-01"},
+   :revision "alpha10",
+   :date "2021-08-02"},
   :ws {:type :toolsdeps2, :breaking 1, :non-breaking 0},
   :from {:ws {:type :toolsdeps1}}},
  :ws-dir "/privateWS-HOME/local-dep-old-format",

@@ -280,7 +280,7 @@ echo "### 37/46 examples/local-dep ###"
 poly ws out:$output/local-dep/ws.edn replace:$ws4:WS-HOME:$HOME:USER-HOME:$sha:SHA color-mode:none
 
 echo "### 38/46 examples/local-dep ###"
-poly test :dev color-mode:none > $output/local-dep/test.txt
+poly test :dev since:0aaeb58 color-mode:none > $output/local-dep/test.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/local-dep/test.txt
 
 echo "### 39/46 examples/local-dep-old-format ###"

@@ -42,8 +42,6 @@
                  (and (workspace? ent)
                       (-> workspace git-repo? not)))) [false (str "  A name must be given, e.g.: create " ent " name:" (ent->name ent))]
         (and (workspace? ent)
-             (-> workspace nil? not)) [false "  A workspace should not be created within another workspace."]
-        (and (workspace? ent)
              (str/blank? top-ns)) [false (str "  A top namespace must be given, e.g.: create " ent " name:" (ent->name ent) " top-ns:com.my-company")]
         :else [true])
       [true])))
