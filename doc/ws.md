@@ -4,7 +4,7 @@
 The `poly` tool gives us access to the data structure that represents the workspace,
 which is the same structure that all the `poly` commands operate on.
 
-Here we will use the output from the [example in the documentation](examples/doc-example).
+Here we will use the output from the [example in the documentation](../examples/doc-example).
 
 To list all the keys at the root, execute `poly ws get:keys` from the `examples/doc-example` directory:
 ```
