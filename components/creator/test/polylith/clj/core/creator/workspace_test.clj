@@ -11,13 +11,44 @@
     (is (= "  Workspace 'ws1' already exists.\n"
            output))))
 
-; todo: fixme
-;(deftest create-workspace--trying-to-create-a-workspace-within-another-workspace--prints-out-error-messagex
-;  (let [output (with-out-str
-;                 (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example")
-;                 (helper/execute-command "ws1" "create" "workspace" "name:ws2" "top-ns:com.example"))]
-;    (is (= "  A workspace should not be created within another workspace.\n"
-;           output))))
+(deftest create-workspace--trying-to-create-a-workspace-within-another-workspace--prints-out-error-messagex
+  (let [output (with-out-str
+                 (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example")
+                 (helper/execute-command "ws1" "create" "workspace" "name:ws2" "top-ns:com.example"))]
+    (is (= "  Workspace created in existing git repo.\n"
+           output))
+
+    (is (= #{".git"
+             ".gitignore"
+             "bases"
+             "bases/.keep"
+             "components"
+             "components/.keep"
+             "deps.edn"
+             "development"
+             "development/src"
+             "development/src/.keep"
+             "logo.png"
+             "projects"
+             "projects/.keep"
+             "readme.md"
+             "workspace.edn"
+             "ws2"
+             "ws2/.gitignore"
+             "ws2/bases"
+             "ws2/bases/.keep"
+             "ws2/components"
+             "ws2/components/.keep"
+             "ws2/deps.edn"
+             "ws2/development"
+             "ws2/development/src"
+             "ws2/development/src/.keep"
+             "ws2/logo.png"
+             "ws2/projects"
+             "ws2/projects/.keep"
+             "ws2/readme.md"
+             "ws2/workspace.edn"}
+           (helper/paths "ws1")))))
 
 (deftest create-workspace--incorrect-first-argument--prints-out-error-message
   (let [output (with-out-str
