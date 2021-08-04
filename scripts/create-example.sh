@@ -241,7 +241,7 @@ cd $ws1
 git clone git@github.com:polyfy/polylith.git
 cd polylith
 echo "### 24/46 Polylith toolsdeps1 ###"
-poly info color-mode:none > $output/polylith1/info.txt
+poly info fake-sha:40d2f62 :no-changes color-mode:none > $output/polylith1/info.txt
 echo "### 25/46 Polylith toolsdeps1 ###"
 poly libs color-mode:none > $output/polylith1/libs.txt
 echo "### 26/46 Polylith toolsdeps1 ###"
@@ -249,7 +249,7 @@ poly deps color-mode:none > $output/polylith1/deps.txt
 
 poly migrate
 echo "### 27/46 Polylith toolsdeps1 (migrated) ###"
-poly info color-mode:none > $output/polylith1/info-migrated.txt
+poly info fake-sha:40d2f62 :no-changes color-mode:none > $output/polylith1/info-migrated.txt
 echo "### 28/46 Polylith toolsdeps1 (migrated) ###"
 poly libs color-mode:none > $output/polylith1/libs-migrated.txt
 echo "### 29/46 Polylith toolsdeps1 (migrated) ###"
@@ -259,8 +259,9 @@ cd $ws3
 git clone https://github.com/seancorfield/usermanager-example.git
 cd usermanager-example
 git checkout polylith
+clojure -A:dev:test -P
 echo "### 30/46 Usermanager ###"
-poly info color-mode:none > $output/usermanager/info.txt
+poly info :no-changes color-mode:none > $output/usermanager/info.txt
 echo "### 31/46 Usermanager ###"
 poly libs color-mode:none > $output/usermanager/libs.txt
 echo "### 32/46 Usermanager ###"
@@ -305,7 +306,7 @@ sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/local-dep-ol
 
 poly migrate
 git add --all
-poly info fake-sha:aaaaa color-mode:none > $output/local-dep-old-format/info-migrated.txt
+poly info fake-sha:aaaaa :no-changes color-mode:none > $output/local-dep-old-format/info-migrated.txt
 echo "### 44/46 examples/local-dep-old-format (migrated) ###"
 poly libs color-mode:none > $output/local-dep-old-format/libs-migrated.txt
 echo "### 45/46 examples/local-dep-old-format (migrated) ###"

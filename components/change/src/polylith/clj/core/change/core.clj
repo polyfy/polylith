@@ -36,6 +36,7 @@
      (util/ordered-map :since since
                        :since-sha since-sha
                        :since-tag tag
+                       :changed-files files
                        :git-diff-command (git/diff-command since-sha nil)
                        :changed-components changed-components
                        :changed-bases changed-bases
@@ -43,18 +44,18 @@
                        :changed-or-affected-projects affected-projects
                        :project-to-indirect-changes project-to-indirect-changes
                        :project-to-bricks-to-test project-to-bricks-to-test
-                       :project-to-projects-to-test project-to-projects-to-test
-                       :changed-files files)))
+                       :project-to-projects-to-test project-to-projects-to-test)))
 
 (defn with-changes [{:keys [ws-dir ws-local-dir settings user-input paths] :as workspace}]
   (if (-> ws-dir git/is-git-repo? not)
     workspace
     (let [since (:since user-input "stable")
+          is-no-changes (:is-no-changes user-input)
           tag-patterns (:tag-patterns settings)
           {:keys [tag sha]} (git/sha ws-dir since tag-patterns)]
       (assoc workspace :changes
                        (changes workspace {:tag tag
                                            :since since
                                            :since-sha sha
-                                           :files (git/diff ws-dir ws-local-dir sha nil)}
+                                           :files (git/diff ws-dir ws-local-dir is-no-changes sha nil)}
                                 paths)))))

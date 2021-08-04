@@ -545,6 +545,7 @@
   :is-verbose false,
   :is-latest-sha false,
   :selected-projects #{},
+  :is-no-changes false,
   :is-search-for-ws-dir false,
   :out
   "USER-HOME/source/polylith/scripts/output/local-dep-old-format/ws.edn",

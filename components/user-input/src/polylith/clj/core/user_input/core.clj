@@ -51,6 +51,7 @@
                 brick!
                 git-add!
                 latest-sha!
+                no-changes!
                 workspace!
                 dev!
                 project!
@@ -73,6 +74,7 @@
                       :is-git-add (when git-add! (= "true" git-add!))
                       :is-no-exit (= "true" no-exit!)
                       :is-latest-sha (= "true" latest-sha!)
+                      :is-no-changes (= "true" no-changes!)
                       :is-show-brick (= "true" brick!)
                       :is-show-workspace (= "true" workspace!)
                       :is-show-project (= "true" project!)
