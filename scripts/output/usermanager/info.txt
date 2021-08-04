@@ -17,4 +17,4 @@
   schema-fixture  schema-fixture   -t-   st-
   user            user             st-   st-
   web-server      web-server       st-   st-
-  -               web *            stx   st-
+  -               web              st-   st-

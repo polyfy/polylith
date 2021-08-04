@@ -531,7 +531,7 @@
   :interface-ns "interface",
   :vcs
   {:name "git",
-   :branch "ws-in-ws-validation",
+   :branch "BRANCH",
    :git-root "USER-HOME/source/polylith",
    :auto-add false,
    :stable-since
@@ -547,7 +547,7 @@
  {:args
   ["ws"
    "out:USER-HOME/source/polylith/scripts/output/local-dep/ws.edn"
-   "replace:WS-HOME:WS-HOME:USER-HOME:USER-HOME:SHA:SHA"
+   "replace:WS-HOME:WS-HOME:USER-HOME:USER-HOME:SHA:SHA:BRANCH:BRANCH"
    "color-mode:none"],
   :unnamed-args [],
   :is-dev false,
@@ -555,11 +555,13 @@
   :replace
   [{:from "WS-HOME", :to "WS-HOME"}
    {:from "USER-HOME", :to "USER-HOME"}
-   {:from "SHA", :to "SHA"}],
+   {:from "SHA", :to "SHA"}
+   {:from "BRANCH", :to "BRANCH"}],
   :is-run-all-brick-tests false,
   :is-verbose false,
   :is-latest-sha false,
   :selected-projects #{},
+  :is-no-changes false,
   :is-search-for-ws-dir false,
   :out "USER-HOME/source/polylith/scripts/output/local-dep/ws.edn",
   :is-show-brick false,

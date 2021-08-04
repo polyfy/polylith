@@ -89,7 +89,7 @@
                                        :namespace "usermanager.database.interface-test",
                                        :file-path "../usermanager-example/components/database/test/usermanager/database/interface_test.clj",
                                        :imports ["clojure.test" "usermanager.database.interface"]}]}
-                  :lib-deps {:src {"com.github.seancorfield/next.jdbc" {:version "1.1.646", :type "maven", :size 44942},
+                  :lib-deps {:src {"com.github.seancorfield/next.jdbc" {:version "1.2.689", :type "maven", :size 44942},
                                    "com.stuartsierra/component" {:version "1.0.0", :type "maven", :size 19006}}}
                   :lib-imports {:src ["com.stuartsierra.component" "next.jdbc"]
                                 :test ["clojure.test"]}}
@@ -114,7 +114,7 @@
                                        :imports ["clojure.test"
                                                  "usermanager.department.interface"
                                                  "usermanager.schema-fixture.interface"]}]}
-                  :lib-deps {:src {"com.github.seancorfield/next.jdbc" {:version "1.1.646", :type "maven", :size 44942}}}
+                  :lib-deps {:src {"com.github.seancorfield/next.jdbc" {:version "1.2.689", :type "maven", :size 44942}}}
                   :lib-imports {:src ["next.jdbc.sql"]
                                 :test ["clojure.test"]}}
                  {:interface {:name "schema",
@@ -163,7 +163,7 @@
                                        :namespace "usermanager.schema.interface-test",
                                        :file-path "../usermanager-example/components/schema/test/usermanager/schema/interface_test.clj",
                                        :imports ["clojure.test" "usermanager.schema.interface"]}]}
-                  :lib-deps {:src {"com.github.seancorfield/next.jdbc" {:version "1.1.646", :type "maven", :size 44942}}}
+                  :lib-deps {:src {"com.github.seancorfield/next.jdbc" {:version "1.2.689", :type "maven", :size 44942}}}
                   :lib-imports {:src ["next.jdbc" "next.jdbc.sql"]
                                 :test ["clojure.test"]}}
                  {:interface {:name "schema-fixture",
@@ -185,7 +185,7 @@
                                        :namespace "usermanager.schema-fixture.interface-test",
                                        :file-path "../usermanager-example/components/schema-fixture/test/usermanager/schema_fixture/interface_test.clj",
                                        :imports ["clojure.test" "usermanager.schema-fixture.interface"]}]}
-                  :lib-deps {:src {"com.github.seancorfield/next.jdbc" {:version "1.1.646", :type "maven", :size 44942},
+                  :lib-deps {:src {"com.github.seancorfield/next.jdbc" {:version "1.2.689", :type "maven", :size 44942},
                                    "com.stuartsierra/component" {:version "1.0.0", :type "maven", :size 19006}}
                              :test {"com.h2database/h2" {:version "1.4.200", :type "maven", :size 2303679}}}
                   :lib-imports {:src ["com.stuartsierra.component" "next.jdbc"]
@@ -216,7 +216,7 @@
                                        :imports ["clojure.test"
                                                  "usermanager.schema-fixture.interface"
                                                  "usermanager.user.interface"]}]}
-                  :lib-deps {:src {"com.github.seancorfield/next.jdbc" {:version "1.1.646", :type "maven", :size 44942}}}
+                  :lib-deps {:src {"com.github.seancorfield/next.jdbc" {:version "1.2.689", :type "maven", :size 44942}}}
                   :lib-imports {:src ["next.jdbc.sql"]
                                 :test ["clojure.test"]}}
                  {:interface {:name "web-server",
@@ -316,7 +316,7 @@
                 :alias "um",
                 :project-dir "../usermanager-example/projects/usermanager",
                 :namespaces {}
-                :lib-deps {:src {"com.github.seancorfield/next.jdbc" {:version "1.1.646", :type "maven", :size 44942},
+                :lib-deps {:src {"com.github.seancorfield/next.jdbc" {:version "1.2.689", :type "maven", :size 44942},
                                  "com.stuartsierra/component" {:version "1.0.0", :type "maven", :size 19006},
                                  "compojure/compojure" {:version "1.6.2", :type "maven", :size 15172},
                                  "org.clojure/clojure" {:version "1.10.3", :type "maven", :size 3914649},
@@ -326,7 +326,7 @@
                                  "selmer/selmer" {:version "1.12.33", :type "maven", :size 61829}}
                            :test {"org.clojure/clojure" {:version "1.10.3", :type "maven", :size 3914649},
                                   "org.xerial/sqlite-jdbc" {:version "3.34.0", :type "maven", :size 7296329},
-                                  "com.github.seancorfield/next.jdbc" {:version "1.1.646", :type "maven", :size 44942},
+                                  "com.github.seancorfield/next.jdbc" {:version "1.2.689", :type "maven", :size 44942},
                                   "com.h2database/h2" {:version "1.4.200", :type "maven", :size 2303679},
                                   "com.stuartsierra/component" {:version "1.0.0", :type "maven", :size 19006},
                                   "org.clojure/test.check" {:version "1.1.0", :type "maven", :size 39487}}}
@@ -432,7 +432,7 @@
                                           "development/src"
                                           "development/test"
                                           "projects/usermanager/test"]}
-                           :lib-deps {:src {"com.github.seancorfield/next.jdbc" {:version "1.1.646", :type "maven", :size 44942},
+                           :lib-deps {:src {"com.github.seancorfield/next.jdbc" {:version "1.2.689", :type "maven", :size 44942},
                                             "com.stuartsierra/component" {:version "1.0.0", :type "maven", :size 19006},
                                             "compojure/compojure" {:version "1.6.2", :type "maven", :size 15172},
                                             "org.clojure/clojure" {:version "1.10.3", :type "maven", :size 3914649},
@@ -445,7 +445,7 @@
                                              "ring/ring-defaults" {:version "0.3.2", :type "maven", :size 7944},
                                              "com.h2database/h2" {:version "1.4.200", :type "maven", :size 2303679},
                                              "com.stuartsierra/component" {:version "1.0.0", :type "maven", :size 19006},
-                                             "com.github.seancorfield/next.jdbc" {:version "1.1.646", :type "maven", :size 44942},
+                                             "com.github.seancorfield/next.jdbc" {:version "1.2.689", :type "maven", :size 44942},
                                              "selmer/selmer" {:version "1.12.33", :type "maven", :size 61829},
                                              "compojure/compojure" {:version "1.6.2", :type "maven", :size 15172},
                                              "org.xerial/sqlite-jdbc" {:version "3.34.0", :type "maven", :size 7296329},
@@ -454,7 +454,7 @@
                                     :namespace "dev",
                                     :file-path "../usermanager-example/development/src/dev.clj",
                                     :imports []}],}
-                :lib-deps {:src {"com.github.seancorfield/next.jdbc" {:version "1.1.646", :type "maven", :size 44942},
+                :lib-deps {:src {"com.github.seancorfield/next.jdbc" {:version "1.2.689", :type "maven", :size 44942},
                                  "com.stuartsierra/component" {:version "1.0.0", :type "maven", :size 19006},
                                  "compojure/compojure" {:version "1.6.2", :type "maven", :size 15172},
                                  "org.clojure/clojure" {:version "1.10.3", :type "maven", :size 3914649},
@@ -467,7 +467,7 @@
                                   "ring/ring-defaults" {:version "0.3.2", :type "maven", :size 7944},
                                   "com.h2database/h2" {:version "1.4.200", :type "maven", :size 2303679},
                                   "com.stuartsierra/component" {:version "1.0.0", :type "maven", :size 19006},
-                                  "com.github.seancorfield/next.jdbc" {:version "1.1.646", :type "maven", :size 44942},
+                                  "com.github.seancorfield/next.jdbc" {:version "1.2.689", :type "maven", :size 44942},
                                   "selmer/selmer" {:version "1.12.33", :type "maven", :size 61829},
                                   "compojure/compojure" {:version "1.6.2", :type "maven", :size 15172},
                                   "org.xerial/sqlite-jdbc" {:version "3.34.0", :type "maven", :size 7296329},

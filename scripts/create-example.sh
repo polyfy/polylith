@@ -241,7 +241,7 @@ cd $ws1
 git clone git@github.com:polyfy/polylith.git
 cd polylith
 echo "### 24/46 Polylith toolsdeps1 ###"
-poly info color-mode:none > $output/polylith1/info.txt
+poly info fake-sha:40d2f62 :no-changes color-mode:none > $output/polylith1/info.txt
 echo "### 25/46 Polylith toolsdeps1 ###"
 poly libs color-mode:none > $output/polylith1/libs.txt
 echo "### 26/46 Polylith toolsdeps1 ###"
@@ -249,7 +249,7 @@ poly deps color-mode:none > $output/polylith1/deps.txt
 
 poly migrate
 echo "### 27/46 Polylith toolsdeps1 (migrated) ###"
-poly info color-mode:none > $output/polylith1/info-migrated.txt
+poly info fake-sha:40d2f62 :no-changes color-mode:none > $output/polylith1/info-migrated.txt
 echo "### 28/46 Polylith toolsdeps1 (migrated) ###"
 poly libs color-mode:none > $output/polylith1/libs-migrated.txt
 echo "### 29/46 Polylith toolsdeps1 (migrated) ###"
@@ -259,8 +259,9 @@ cd $ws3
 git clone https://github.com/seancorfield/usermanager-example.git
 cd usermanager-example
 git checkout polylith
+clojure -A:dev:test -P
 echo "### 30/46 Usermanager ###"
-poly info color-mode:none > $output/usermanager/info.txt
+poly info :no-changes color-mode:none > $output/usermanager/info.txt
 echo "### 31/46 Usermanager ###"
 poly libs color-mode:none > $output/usermanager/libs.txt
 echo "### 32/46 Usermanager ###"
@@ -268,6 +269,7 @@ poly deps color-mode:none > $output/usermanager/deps.txt
 
 cd $examples/local-dep
 sha=`git rev-list -n 1 stable-jote`
+branch=`git rev-parse --abbrev-ref HEAD`
 echo "### 33/46 examples/local-dep ###"
 poly info color-mode:none fake-sha:aaaaa > $output/local-dep/info.txt
 echo "### 34/46 examples/local-dep ###"
@@ -277,7 +279,7 @@ poly deps color-mode:none > $output/local-dep/deps.txt
 echo "### 36/46 examples/local-dep ###"
 poly diff since:0aaeb58 color-mode:none > $output/local-dep/diff.txt
 echo "### 37/46 examples/local-dep ###"
-poly ws out:$output/local-dep/ws.edn replace:$ws4:WS-HOME:$HOME:USER-HOME:$sha:SHA color-mode:none
+poly ws out:$output/local-dep/ws.edn replace:$ws4:WS-HOME:$HOME:USER-HOME:$sha:SHA:$branch:BRANCH color-mode:none
 
 echo "### 38/46 examples/local-dep ###"
 poly test :dev since:0aaeb58 color-mode:none > $output/local-dep/test.txt
@@ -305,7 +307,7 @@ sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/local-dep-ol
 
 poly migrate
 git add --all
-poly info fake-sha:aaaaa color-mode:none > $output/local-dep-old-format/info-migrated.txt
+poly info fake-sha:aaaaa :no-changes color-mode:none > $output/local-dep-old-format/info-migrated.txt
 echo "### 44/46 examples/local-dep-old-format (migrated) ###"
 poly libs color-mode:none > $output/local-dep-old-format/libs-migrated.txt
 echo "### 45/46 examples/local-dep-old-format (migrated) ###"

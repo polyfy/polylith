@@ -71,6 +71,7 @@ and more.
 - [Dependencies](#dependencies)
 - [Libraries](#libraries)
 - [Context](#context)
+- [Parameters](#Parameters)
 - [Naming](#naming)
 - [Configuration](#configuration)
 - [Workspace state](#workspace-state)
@@ -2677,6 +2678,47 @@ by first importing the `user` interface and then typing:
 ```clojure
 (user/persist! db user-to-be-saved)
 ```
+
+## Parameters 
+
+There are a few parameters that are added to simplify the work with the Polylith codebase itself
+and is therefore not documented by the `help` command. What they have in common is that 
+they are all used to control the output of the different `poly` commands.
+
+### fake-sha
+
+This parameter can be passed in to fake a `sha` when executing the `info` command, which is used when
+taking the screenshots used by this documentation.
+
+`poly info fake-sha:c91fdad`
+
+### no-changes
+
+This parameter can be used to fake that no changes have been made since the last stable point in time,
+and can be used when we want to take a screenshot of the `info` command without getting the `*` characters.
+
+- `poly diff :no-changes` Returns no rows.
+- `poly info :no-changes` Gets rid of the `*` characters.
+
+### no-exit
+
+When the `poly` command is executed, it exits with `System/exit` internally, see the [poly-cli](bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj) base.
+If executing the poly tool from a REPL, this will also exit the REPL. To avoid that, we can pass in `:no-exit`.
+
+If we execute `poly info :no-exit` we have to press <ctrl>+C to exit, which is not so useful!
+
+### replace
+
+This parameter is used to manipulate the output of the `ws` command. When we execute
+`poly ws get:settings:user-home` it will return something like `"/Users/joakimtengstrand"`.
+We can tell the `ws` command to search for strings (using regular expressions) and replace the occurrences
+with another string, e.g.:
+
+- `poly ws get:settings:user-home replace:$HOME:MY-HOME` Outputs "MY-HOME".
+- `poly ws get:settings:user-config-filename replace:$HOME:MY-HOME` Outputs "MY-HOME/.polylith/config.edn".
+- `poly ws get:settings:user-config-filename replace:$HOME:MY-HOME:config.edn:USER-CONFIG` Outputs "MY-HOME/.polylith/USER-CONFIG".
+- `poly ws get:settings:vcs:stable-since:sha replace:"[0-9]+":"*"` Outputs "*d*f*cb*ef*f*d*e*f*dcf*c*be".
+  Here we need to surround the regular expressions with "" for the terminal to ignore the special characters.
 
 ## Naming
 
