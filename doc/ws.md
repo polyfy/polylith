@@ -548,6 +548,16 @@ If the workspace is loaded using `ws-file:WS-FILE` then the `:old` key is popula
 - `:selected-projects` The list of projects given by `project:PROJECT` and/or `:dev` (handled as "dev" if given).
 - `:unnamed-args` All given arguments that don't contain a `:`.
 
+There are a few more user input parameters that are mainly useful if you are a maintainer of the Polylith codebase itself:
+
+- `:is-compact` Set to `true` if `:compact` is given. Used in combination with the `libs` and `deps` commands.
+- `:fake-sha` Set to `c91fdad` if `fake-sha:c91fdad` is given. Used to set the "stable since" sha for the output from the `libs` command.
+- `:is-no-changes` Set to `true` if `:no-changes` is given. Used to fake that no changes have been made since the last stable point in time.
+- `:is-no-exit` Set to `true` if `:no-exit` is given. Tells the `poly` command to not exit with `System/exit`.
+- `:replace` Set to e.g. `[{:from "/Users/joakimtengstrand", :to "my-home"}]` if `replace:$HOME:my-home` is given. 
+  It will replace this text too, so the output will actually be `[{:from "my-home", :to "my-home"}]` which is the behaviour we want
+  (the whole idea with the `replace` parameter is to get the same output every time).
+
 ## version
 
 `poly ws get:version`

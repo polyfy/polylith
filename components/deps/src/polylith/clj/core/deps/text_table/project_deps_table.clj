@@ -59,7 +59,7 @@
   {:name name
    :type type})
 
-(defn table [{:keys [settings components bases]}
+(defn table [{:keys [settings components bases] :as workspace}
              {:keys [deps component-names base-names]} is-all]
   (let [{:keys [color-mode empty-character]} settings
         entity-names (if is-all
@@ -74,8 +74,9 @@
         entities (sort-by (juxt #(-> % :type sorter) :name)
                           (set (cond-> (mapcat brick-entity-from-deps deps)
                                        is-all (concat (map brick-entity components)))))
+        compact? (common/compact? workspace "deps")
         space-columns (range 2 (* 2 (inc (count entities))) 2)
-        spaces (repeat "  ")
+        spaces (conj (repeat (if compact? " " "  ")) "  ")
         header-spaces (text-table/spaces 1 space-columns spaces)
         brick-col (brick-column bricks color-mode)
         entity-cols (entity-columns entities brick-names deps empty-character)
@@ -87,3 +88,9 @@
   (if-let [project (common/find-project project-name projects)]
     (text-table/print-table (table workspace project is-all))
     (println (str "  Couldn't find the " (color/project project-name (:color-mode settings)) " project."))))
+
+(comment
+  (require '[dev.jocke :as dev])
+  (def workspace dev/workspace)
+  (print-table workspace "inv" false)
+  #__)

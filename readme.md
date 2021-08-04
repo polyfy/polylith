@@ -71,7 +71,7 @@ and more.
 - [Dependencies](#dependencies)
 - [Libraries](#libraries)
 - [Context](#context)
-- [Parameters](#Parameters)
+- [Parameters](#parameters)
 - [Naming](#naming)
 - [Configuration](#configuration)
 - [Workspace state](#workspace-state)
@@ -255,7 +255,7 @@ Replace `INSERT_LATEST_SHA_HERE` with a [commit SHA](https://github.com/polyfy/p
 Once you have added one of the aliases above, you can now use the poly tool from the terminal:
 
 ```sh
-clj -M:poly version
+clojure -M:poly version
 ```
 
 We will soon create our first `workspace` but before that is done, only the `version` and `help` commands will work.
@@ -1074,7 +1074,7 @@ This Polylith tool is built on top of _tools.deps_. To get the most out of it, w
 you to read its [documentation](https://github.com/clojure/tools.deps.alpha).
 
 To make it easier to follow the examples in the next `build` section, we will show some examples
-on how to use the `clj` command (the `clojure` command will also work in these examples).
+on how to use the `clojure` command.
 
 If you are already comfortable with tools.deps, then you can skip directly to the [build](#build) section.
 For the rest of you, we'll go through the step-by-step process of compiling our new project to an uberjar.
@@ -1089,7 +1089,7 @@ To build an uberjar we need to add this alias to `projects/command-line/deps.edn
 
 ...and execute:
 ```
-clj -M:uberjar
+clojure -M:uberjar
 ```
 
 When we created the workspace with the [create workspace](doc/commands.md#create-workspace) command, the `poly` alias was also added to `./deps.edn`:
@@ -1104,12 +1104,13 @@ When we created the workspace with the [create workspace](doc/commands.md#create
 This alias can now be used to execute the `poly` tool from the workspace root, e.g.:
 ```
 cd ../..
-clj -M:poly info
+clojure -M:poly info
 ```
 
 It takes longer to execute the `poly` command this way, because it needs to compile the Clojure code 
 first, but it also allows us to execute older or newer versions of the tool by
 selecting another `sha` from an [existing commit](https://github.com/polyfy/polylith/commits/master).
+To speed things up we can always start a [prompt](doc/commands.md#prompt).
 
 ## Build
 
@@ -1157,11 +1158,11 @@ Now add the `uberjar` alias to `deps.edn` in `projects/command-line`
         org.clojure/tools.deps.alpha {:mvn/version "0.12.1003"}}
 
  :aliases {:test {:extra-paths []
-          :extra-deps  {}}
+           :extra-deps  {}}
  
  :uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
-          :exec-fn hf.depstar/uberjar
-          :exec-args {:aot true, :main-class se.example.cli.core}}}}
+           :exec-fn hf.depstar/uberjar
+           :exec-args {:aot true, :main-class se.example.cli.core}}}}
 
 
 ```
@@ -1962,7 +1963,7 @@ which will have access to all `test` and `src` code. Libraries that are defined 
 context will therefore automatically be accessible when running the tests. Additional libraries that are
 only used from the tests should be defined in the `test` context.
 
-But we can also run tests using `poly test`, `clj -M:poly test`, or `clojure -M:poly test`.
+But we can also run tests using `poly test`, `clojure -M:poly test`, or `clojure -M:poly test`.
 When we run the `test` command, the tool will detect what component, bases and projects that have been
 affected since the last stable point in time. Based on this information, it will go through all
 the affected projects, one at a time, and run the component, base and project tests that are included in each project.
@@ -2546,6 +2547,15 @@ An example is the `article` component that uses `log` indirectly:  article > dat
 > Tip: If the headers and the "green rows" don't match, it may indicate that we have
 unused components that can be removed from the project.
 
+If we have many libraries, they can be viewed in a more compact format:
+```
+poly deps project:rb :compact
+```
+<img src="images/realworld-deps-components-compact.png" width="27%">
+
+This can be set permanently by setting `:compact-views #{"deps"}` in `workspace.edn`.
+
+
 We can also show dependencies for a specific brick within a project:
 ```
 poly deps project:rb brick:article
@@ -2647,7 +2657,8 @@ If a library is overridden in the `test` scope it will only affect the `test` sc
 
 #### Compact view
 
-If we have a lot of libraries, we can choose a more compact format by setting `:compact-views` to `#{"libs"}` in `./deps.edn`:
+If we have a lot of libraries, we can choose a more compact format by setting `:compact-views` to `#{"libs"}` in `./deps.edn`
+or by passing in `:compact`:
 
 <img src="images/realworld-lib-deps-compact.png" width="85%">
 
@@ -2681,9 +2692,17 @@ by first importing the `user` interface and then typing:
 
 ## Parameters 
 
-There are a few parameters that are added to simplify the work with the Polylith codebase itself
-and is therefore not documented by the `help` command. What they have in common is that 
-they are all used to control the output of the different `poly` commands.
+There are a few parameters that are added to simplify the work with the Polylith codebase itself,
+which is the reason they are not included when executing the `help` command. 
+What they have in common is that they are all used to control the output of the different `poly` commands.
+
+### compact
+
+The output from the `libs` and `deps` commands can output a more compact format if we set `"libs"`
+and/or `"deps"` for the key `:compact-views` in `workspace.edn`. Another way is to pass in `:compact`:
+
+- `poly libs :compact`
+- `poly deps :compact`
 
 ### fake-sha
 
@@ -2772,7 +2791,7 @@ The workspace configuration is stored in `./workspace.edn` and defines the follo
 | :top-namespace         | The workspace top namespace. If changed, the source code has to be changed accordingly. |
 | :interface-ns          | The default value is `interface`. If changed, the source code has to be changed accordingly. |
 | :default&#8209;profile&#8209;name  | The default value is `default`. If changed, the `+default` alias in `./deps.edn` has to be renamed accordingly. |
-| :compact-views         | The default value is `#{}`. If set to `#{"libs"}`, then the `libs` diagram will be shown in a more compact format. Only "libs" is supported at the moment. |
+| :compact-views         | The default value is `#{}`. If set to `#{"libs"}`, then the `libs` diagram will be shown in a more compact format. The `deps` view is also supported, e.g. `#{"libs" "deps"}`. |
 | :tag-patterns          | The default value for the 'release' key is `v[0-9]*`, and for the 'stable' key it's `stable-*`. If changed, old tags may not be recognised. |
 | :projects              | If the `development` key is missing, `{"development" {:alias "dev"}` will be added. |
 

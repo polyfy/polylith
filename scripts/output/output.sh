@@ -80,6 +80,9 @@ echo ""; cat realworld-deps-interface.txt ; echo ""
 echo "######### realworld-deps-components.png #########"
 echo ""; cat realworld-deps-components.txt ; echo ""
 
+echo "######### realworld-deps-components-compact.png #########"
+echo ""; cat realworld-deps-components-compact.txt ; echo ""
+
 echo "######### realworld-deps-component.png #########"
 echo ""; cat realworld-deps-component.txt ; echo ""
 

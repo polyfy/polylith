@@ -37,6 +37,9 @@
 (defn find-project [project-name projects]
   (core/find-project project-name projects))
 
+(defn compact? [workspace view]
+  (core/compact? workspace view))
+
 (defn leiningen-config-key [config-path key]
   (leiningen/config-key config-path key))
 

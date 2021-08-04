@@ -1,6 +1,7 @@
 (ns polylith.clj.core.lib.text-table.lib-table
   (:require [polylith.clj.core.util.interface.str :as str-util]
-            [polylith.clj.core.text-table.interface :as text-table]))
+            [polylith.clj.core.text-table.interface :as text-table]
+            [polylith.clj.core.common.interface :as common]))
 
 (def type->color {"component" :green
                   "base" :blue})
@@ -105,8 +106,8 @@
 (defn profile-lib [[_ {:keys [lib-deps]}]]
   (mapcat lib lib-deps))
 
-(defn table [{:keys [settings components bases projects]} is-all]
-  (let [{:keys [profile-to-settings empty-character thousand-separator color-mode compact-views]} settings
+(defn table [{:keys [settings components bases projects] :as workspace} is-all]
+  (let [{:keys [profile-to-settings empty-character thousand-separator color-mode]} settings
         entities (concat components bases projects)
         src-libs (set (concat (mapcat lib (mapcat #(-> % :lib-deps :src) entities))
                               (mapcat profile-lib profile-to-settings)))
@@ -134,7 +135,8 @@
         end-space-column (* 2 (+ 4 n#projects n#profiles))
         space-columns (range 2 end-space-column 2)
         space-brick-columns (range (+ 2 end-space-column) (+ end-space-column (* 2 n#bricks)) 2)
-        space (if (contains? compact-views "libs") " " "  ")
+        compact? (common/compact? workspace "libs")
+        space (if compact? " " "  ")
         spaces (concat (text-table/spaces 1 space-columns (repeat "  "))
                        (text-table/spaces 1 space-brick-columns (repeat space)))
         cells (text-table/merge-cells lib-col version-col type-col size-col project-cols profile-cols brick-cols spaces)
