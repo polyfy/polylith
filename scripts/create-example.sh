@@ -269,6 +269,7 @@ poly deps color-mode:none > $output/usermanager/deps.txt
 
 cd $examples/local-dep
 sha=`git rev-list -n 1 stable-jote`
+branch=`git rev-parse --abbrev-ref HEAD`
 echo "### 33/46 examples/local-dep ###"
 poly info color-mode:none fake-sha:aaaaa > $output/local-dep/info.txt
 echo "### 34/46 examples/local-dep ###"
@@ -278,7 +279,7 @@ poly deps color-mode:none > $output/local-dep/deps.txt
 echo "### 36/46 examples/local-dep ###"
 poly diff since:0aaeb58 color-mode:none > $output/local-dep/diff.txt
 echo "### 37/46 examples/local-dep ###"
-poly ws out:$output/local-dep/ws.edn replace:$ws4:WS-HOME:$HOME:USER-HOME:$sha:SHA color-mode:none
+poly ws out:$output/local-dep/ws.edn replace:$ws4:WS-HOME:$HOME:USER-HOME:$sha:SHA:$branch:BRANCH color-mode:none
 
 echo "### 38/46 examples/local-dep ###"
 poly test :dev since:0aaeb58 color-mode:none > $output/local-dep/test.txt
