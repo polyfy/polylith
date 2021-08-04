@@ -61,5 +61,9 @@
 (defn find-project [name projects]
   (util/find-first #(=project % name) projects))
 
+(defn compact? [{:keys [user-input settings]} view]
+  (or (:is-compact user-input)
+      (contains? (:compact-views settings) view)))
+
 (defn color-mode [{:keys [color-mode]}]
   (or color-mode (user-config/color-mode)))

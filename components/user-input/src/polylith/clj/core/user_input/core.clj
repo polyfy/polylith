@@ -49,6 +49,7 @@
                 all!
                 all-bricks!
                 brick!
+                compact!
                 git-add!
                 latest-sha!
                 no-changes!
@@ -70,11 +71,12 @@
                       :interface interface
                       :is-search-for-ws-dir (contains? (set args) "::")
                       :is-all (= "true" all!)
+                      :is-compact (= "true" compact!)
                       :is-dev (= "true" dev!)
                       :is-git-add (when git-add! (= "true" git-add!))
-                      :is-no-exit (= "true" no-exit!)
                       :is-latest-sha (= "true" latest-sha!)
                       :is-no-changes (= "true" no-changes!)
+                      :is-no-exit (= "true" no-exit!)
                       :is-show-brick (= "true" brick!)
                       :is-show-workspace (= "true" workspace!)
                       :is-show-project (= "true" project!)

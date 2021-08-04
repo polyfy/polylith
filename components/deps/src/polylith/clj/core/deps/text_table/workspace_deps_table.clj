@@ -1,5 +1,6 @@
 (ns polylith.clj.core.deps.text-table.workspace-deps-table
-  (:require [polylith.clj.core.text-table.interface :as text-table]
+  (:require [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.text-table.interface :as text-table]
             [polylith.clj.core.util.interface.color :as color]))
 
 (defn brick-cell [row {:keys [name type]} color-mode]
@@ -28,14 +29,15 @@
   (apply concat (map-indexed #(interface-column (+ (* %1 2) 3) %2 brick-names brick->ifc-deps empty-character)
                              interface-names)))
 
-(defn table [{:keys [settings interfaces components bases]}]
+(defn table [{:keys [settings interfaces components bases] :as workspace}]
   (let [{:keys [color-mode empty-character]} settings
         bricks (concat components bases)
         brick->ifc-deps (into {} (map (juxt :name :interface-deps) bricks))
         interface-names (sort (filter identity (map :name interfaces)))
         brick-names (map :name bricks)
         space-columns (range 2 (* 2 (inc (count interface-names))) 2)
-        spaces (repeat "  ")
+        compact? (common/compact? workspace "deps")
+        spaces (conj (repeat (if compact? " " "  ")) "  ")
         header-spaces (text-table/spaces 1 space-columns spaces)
         brick-col (brick-column bricks color-mode)
         interface-cols (interface-columns interface-names brick-names brick->ifc-deps empty-character)

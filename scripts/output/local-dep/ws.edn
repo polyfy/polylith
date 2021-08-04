@@ -552,6 +552,7 @@
   :unnamed-args [],
   :is-dev false,
   :is-run-project-tests false,
+  :is-compact false,
   :replace
   [{:from "WS-HOME", :to "WS-HOME"}
    {:from "USER-HOME", :to "USER-HOME"}
