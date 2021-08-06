@@ -5,7 +5,41 @@
 
 (def gitignore-content
   ["**/classes"
-   "**/target"])
+   "**/target"
+   "**/.artifacts"
+   "**/.cpcache"
+   "**/.DS_Store"
+   "**/.gradle"
+   ""
+   "# User-specific stuff"
+   ".idea/**/workspace.xml"
+   ".idea/**/tasks.xml"
+   ".idea/**/usage.statistics.xml"
+   ".idea/**/shelf"
+   ".idea/**/statistic.xml"
+   ".idea/dictionaries/**"
+   ".idea/libraries/**"
+   ""
+   "# File-based project format"
+   "*.iws"
+   "*.ipr"
+   ""
+   "# Cursive Clojure plugin"
+   ".idea/replstate.xml"
+   "*.iml"
+   ""
+   "/example/example/**"
+   "artifacts"
+   "projects/**/pom.xml"
+   ""
+   "# nrepl"
+   ".nrepl-port"
+   ""
+   "# clojure-lsp"
+   ".lsp/sqlite*.db"
+   ""
+   "# Calva VS Code Extension"
+   ".calva/output-window/output.calva-repl"])
 
 (defn readme-content [ws-name]
   ["<img src=\"logo.png\" width=\"30%\" alt=\"Polylith\" id=\"logo\">"
@@ -51,6 +85,20 @@
    (str "                                 :sha       \"" sha "\"")
    (str "                                 :deps/root \"projects/poly\"}}}}}")])
 
+(defn calva-settings-content [ws-name]
+  [(str "{")
+   (str "    \"calva.replConnectSequences\": [")
+   (str "        {")
+   (str "            \"projectType\": \"deps.edn\",")
+   (str "            \"name\": \"" ws-name "\",")
+   (str "            \"cljsType\": \"none\",")
+   (str "            \"menuSelections\": {")
+   (str "                \"cljAliases\": [\"dev\", \"test\"]")
+   (str "            }")
+   (str "        }")
+   (str "    ]")
+   (str "}")])
+
 (defn create-ws [ws-dir ws-name top-ns create-ws-dir? git-repo? insert-sha? sha branch is-git-add]
   (when create-ws-dir?
     (file/create-dir ws-dir))
@@ -63,6 +111,7 @@
   (file/create-file (str ws-dir "/workspace.edn") (workspace-content top-ns is-git-add))
   (file/create-file (str ws-dir "/deps.edn") (deps-content sha))
   (file/create-file (str ws-dir "/readme.md") (readme-content ws-name))
+  (file/create-file (str ws-dir ".vscode/settings.json") (calva-settings-content ws-name))
   (file/create-file (str ws-dir "/development/src/.keep") [""])
   (file/create-file (str ws-dir "/components/.keep") [""])
   (file/create-file (str ws-dir "/bases/.keep") [""])
