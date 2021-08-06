@@ -1,6 +1,6 @@
 (ns polylith.clj.core.creator.workspace-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.version.interface :as version]
+            [polylith.clj.core.git.interface :as git]
             [polylith.clj.core.test-helper.interface :as helper]))
 
 (use-fixtures :each helper/test-setup-and-tear-down)
@@ -16,8 +16,40 @@
   (let [output (with-out-str
                  (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example")
                  (helper/execute-command "ws1" "create" "workspace" "name:ws2" "top-ns:com.example"))]
-    (is (= "  A workspace should not be created within another workspace.\n"
-           output))))
+    (is (= "  Workspace created in existing git repo.\n"
+           output))
+
+    (is (= #{".git"
+             ".gitignore"
+             "bases"
+             "bases/.keep"
+             "components"
+             "components/.keep"
+             "deps.edn"
+             "development"
+             "development/src"
+             "development/src/.keep"
+             "logo.png"
+             "projects"
+             "projects/.keep"
+             "readme.md"
+             "workspace.edn"
+             "ws2"
+             "ws2/.gitignore"
+             "ws2/bases"
+             "ws2/bases/.keep"
+             "ws2/components"
+             "ws2/components/.keep"
+             "ws2/deps.edn"
+             "ws2/development"
+             "ws2/development/src"
+             "ws2/development/src/.keep"
+             "ws2/logo.png"
+             "ws2/projects"
+             "ws2/projects/.keep"
+             "ws2/readme.md"
+             "ws2/workspace.edn"}
+           (helper/paths "ws1")))))
 
 (deftest create-workspace--incorrect-first-argument--prints-out-error-message
   (let [output (with-out-str
@@ -32,8 +64,9 @@
            output))))
 
 (deftest create-workspace--creates-empty-directories-and-a-deps-edn-config-file
-  (let [output (with-out-str
-                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example"))]
+  (let [output (with-redefs [git/latest-polylith-sha (fn [_] "SHA")]
+                 (with-out-str
+                   (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example" "branch:create-deps-files")))]
     (is (= ""
            output))
 
@@ -47,10 +80,11 @@
              "development"
              "development/src"
              "development/src/.keep"
+             "logo.png"
              "projects"
              "projects/.keep"
-             "logo.png"
-             "readme.md"}
+             "readme.md"
+             "workspace.edn"}
            (helper/paths "ws1")))
 
     (is (= ["<img src=\"logo.png\" width=\"30%\" alt=\"Polylith\" id=\"logo\">"
@@ -68,30 +102,31 @@
             "<p>Add your workspace documentation here...</p>"]
            (helper/content "ws1" "readme.md")))
 
-    (is (= [(str "{:polylith {:vcs \"git\"")
-            (str "            :top-namespace \"se.example\"")
-            (str "            :interface-ns \"interface\"")
-            (str "            :default-profile-name \"default\"")
-            (str "            :compact-views #{}")
-            (str "            :release-tag-pattern \"v[0-9]*\"")
-            (str "            :stable-tag-pattern \"stable-*\"")
-            (str "            :project-to-alias {\"development\" \"dev\"}")
-            (str "            :ns-to-lib {}}")
-            (str "")
-            (str " :aliases  {:dev {:extra-paths [\"development/src\"]")
-            (str "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.10.1\"}")
-            (str "                               org.clojure/tools.deps.alpha {:mvn/version \"0.8.695\"}}}")
+    (is (= [(str "{:aliases  {:dev {:extra-paths [\"development/src\"]")
+            (str "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.10.3\"}")
+            (str "                               org.clojure/tools.deps.alpha {:mvn/version \"0.12.1003\"}}}")
             (str "")
             (str "            :test {:extra-paths []}")
             (str "")
             (str "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly-cli.core\"]")
             (str "                   :extra-deps {polyfy/polylith")
             (str "                                {:git/url   \"https://github.com/polyfy/polylith\"")
-            (str "                                 :sha       \"INSERT_LATEST_SHA_HERE\"")
+            (str "                                 :sha       \"SHA\"")
             (str "                                 :deps/root \"projects/poly\"}}}}}")]
            (helper/content "ws1" "deps.edn")))
 
+    (is (= ["{:top-namespace \"se.example\""
+            " :interface-ns \"interface\""
+            " :default-profile-name \"default\""
+            " :compact-views #{}"
+            " :vcs {:name \"git\""
+            "       :auto-add false}"
+            " :tag-patterns {:stable \"stable-*\""
+            "                :release \"v[0-9]*\"}"
+            " :projects {\"development\" {:alias \"dev\"}}}"]
+           (helper/content "ws1" "workspace.edn")))
+
     (is (= ["{:color-mode \"dark\""
-            " :empty-character \"·\""
+            " :empty-character \".\""
             " :thousand-separator \",\"}"]
            (helper/content (helper/user-home) "/.polylith/config.edn")))))

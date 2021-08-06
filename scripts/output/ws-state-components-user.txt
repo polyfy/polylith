@@ -1,0 +1,29 @@
+{:interface
+ {:name "user",
+  :definitions
+  [{:name "hello", :type "function", :parameters [{:name "name"}]}]},
+ :interface-deps {:src [], :test []},
+ :lib-deps {},
+ :lib-imports {:test ["clojure.test"]},
+ :lines-of-code {:src 9, :test 7},
+ :name "user",
+ :namespaces
+ {:src
+  [{:name "interface",
+    :namespace "se.example.user.interface",
+    :file-path
+    "/privateWS-HOME/example/components/user/src/se/example/user/interface.clj",
+    :imports ["se.example.user.core"]}
+   {:name "core",
+    :namespace "se.example.user.core",
+    :file-path
+    "/privateWS-HOME/example/components/user/src/se/example/user/core.clj",
+    :imports []}],
+  :test
+  [{:name "interface-test",
+    :namespace "se.example.user.interface-test",
+    :file-path
+    "/privateWS-HOME/example/components/user/test/se/example/user/interface_test.clj",
+    :imports ["clojure.test" "se.example.user.interface"]}]},
+ :paths {:src ["src" "resources"], :test ["test"]},
+ :type "component"}

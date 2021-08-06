@@ -1,30 +1,28 @@
 (ns polylith.clj.core.workspace.project
-  (:require [polylith.clj.core.file.interface :as file]
+  (:require [polylith.clj.core.deps.interface :as proj-deps]
+            [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.path-finder.interface.select :as select]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.path-finder.interface.criterias :as c]
-            [polylith.clj.core.workspace.brick-deps :as brick-deps]
             [polylith.clj.core.workspace.loc :as loc]))
 
 (defn file-exists [ws-dir cleaned-path]
   (file/exists (str ws-dir "/" cleaned-path)))
 
-(defn project-total-loc [brick-names brick->loc test?]
-  (let [locs (map brick->loc brick-names)]
-    (if test?
-      (apply + (filter identity (map :lines-of-code-test locs)))
-      (apply + (filter identity (map :lines-of-code-src locs))))))
+(defn project-total-loc [brick-names brick->loc]
+  {:src (apply + (filter identity (map #(-> % brick->loc :src) brick-names)))
+   :test (apply + (filter identity (map #(-> % brick->loc :test) brick-names)))})
 
-(defn select-lib-imports [brick-name brick->lib-imports test?]
-  (let [{:keys [lib-imports-src lib-imports-test]} (brick->lib-imports brick-name)]
-    (if test?
-      lib-imports-test
-      lib-imports-src)))
+(defn source-imports [brick-names brick->lib-imports source-key]
+  (-> (mapcat #(-> % brick->lib-imports source-key) brick-names)
+    set sort vec))
 
-(defn project-lib-imports [brick-names brick->lib-imports test?]
-  (-> (mapcat #(select-lib-imports % brick->lib-imports test?)
-              brick-names)
-      set sort vec))
+(defn project-lib-imports [brick-names brick->lib-imports]
+  (let [src (source-imports brick-names brick->lib-imports :src)
+        test (source-imports brick-names brick->lib-imports :test)]
+    (cond-> {}
+            (seq src) (assoc :src src)
+            (seq test) (assoc :test test))))
 
 (defn run-the-tests? [project-name alias is-dev is-run-all-brick-tests selected-projects]
   (or (and (not is-dev)
@@ -33,52 +31,57 @@
       (or (contains? selected-projects project-name)
           (contains? selected-projects alias))))
 
-(defn enrich-project [{:keys [name is-dev namespaces-src namespaces-test src-paths test-paths lib-deps test-lib-deps] :as project}
+(defn enrich-project [{:keys [name is-dev maven-repos namespaces paths lib-deps] :as project}
                       components
                       bases
+                      suffixed-top-ns
                       brick->loc
                       brick->lib-imports
-                      project-to-alias
                       disk-paths
                       settings
                       {:keys [is-run-all-brick-tests selected-projects]}]
-  (let [alias (project-to-alias name)
-        lib-entries (extract/from-library-deps is-dev lib-deps test-lib-deps settings)
-        path-entries (extract/from-unenriched-project is-dev src-paths test-paths disk-paths settings)
-        component-names (select/names path-entries c/component? c/src? c/exists?)
-        base-names (select/names path-entries c/base? c/src? c/exists?)
-        brick-names (concat component-names base-names)
-        test-component-names (select/names path-entries c/component? c/test? c/exists?)
-        test-base-names (select/names path-entries c/base? c/test? c/exists?)
-        deps (brick-deps/project-deps component-names base-names components bases)
-        lib-imports-src (project-lib-imports brick-names brick->lib-imports false)
-        lib-imports-test (project-lib-imports brick-names brick->lib-imports true)
+  (let [alias (get-in settings [:projects name :alias])
+        enriched-maven-repos (apply merge maven-repos (mapcat :maven-repos (concat components bases)))
+        lib-entries (extract/from-library-deps is-dev lib-deps settings)
+        path-entries (extract/from-unenriched-project is-dev paths disk-paths settings)
+        component-names-src (select/names path-entries c/component? c/src? c/exists?)
+        component-names-test (select/names path-entries c/component? c/test? c/exists?)
+        component-names (cond-> {}
+                                (seq component-names-src) (assoc :src component-names-src)
+                                (seq component-names-test) (assoc :test component-names-test))
+        base-names-src (select/names path-entries c/base? c/src? c/exists?)
+        base-names-test (select/names path-entries c/base? c/test? c/exists?)
+        base-names (cond-> {}
+                           (seq base-names-src) (assoc :src base-names-src)
+                           (seq base-names-test) (assoc :test base-names-test))
+        all-brick-names (concat component-names-src base-names-src component-names-test base-names-test)
+        ;; todo: maybe we can remove the 'bricks-to-test' check from here, because the tests are eliminated in 'workspace-clj' already.
+        bricks-to-test (when-let [bricks (get-in settings [:projects name :test :include])] (set bricks))
+        deps (proj-deps/project-deps components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns bricks-to-test)
+        lib-imports (project-lib-imports all-brick-names brick->lib-imports)
         is-run-tests (run-the-tests? name alias is-dev is-run-all-brick-tests selected-projects)
-        total-lines-of-code-src (project-total-loc brick-names brick->loc false)
-        total-lines-of-code-test (project-total-loc brick-names brick->loc true)]
+        lines-of-code-total (project-total-loc all-brick-names brick->loc)
+        lines-of-code (assoc (loc/lines-of-code namespaces) :total lines-of-code-total)
+        src-lib-deps (select/lib-deps lib-entries c/src?)
+        test-lib-deps (select/lib-deps lib-entries c/test?)
+        src-paths (select/paths path-entries c/src?)
+        test-paths (select/paths path-entries c/test?)
+        merged-paths (cond-> {}
+                             (seq src-paths) (assoc :src src-paths)
+                             (seq test-paths) (assoc :test test-paths))
+        merged-lib-deps (cond-> {}
+                                (seq src-lib-deps) (assoc :src src-lib-deps)
+                                (seq test-lib-deps) (assoc :test test-lib-deps))]
     (-> project
-        (merge {:alias                    alias
-                :is-run-tests             is-run-tests
-                :lines-of-code-src        (loc/lines-of-code namespaces-src)
-                :lines-of-code-test       (loc/lines-of-code namespaces-test)
-                :total-lines-of-code-src  total-lines-of-code-src
-                :total-lines-of-code-test total-lines-of-code-test
-                :test-component-names     test-component-names
-                :component-names          (select/names path-entries c/component? c/src? c/exists?)
-                :base-names               base-names
-                :test-base-names          test-base-names
-                :src-paths                (select/paths path-entries c/src?)
-                :test-paths               (select/paths path-entries c/test?)
-                :lib-deps                 (select/lib-deps lib-entries c/src?)
-                :test-lib-deps            (select/lib-deps lib-entries c/test?)
-                :unmerged                 (when is-dev {:src-paths     src-paths
-                                                        :test-paths    test-paths
-                                                        :lib-deps      lib-deps
-                                                        :test-lib-deps test-lib-deps})
-                :lib-imports              lib-imports-src
-                :lib-imports-test         lib-imports-test
-                :deps                     deps})
-        (cond-> is-dev (assoc :unmerged {:src-paths     src-paths
-                                         :test-paths    test-paths
-                                         :lib-deps      lib-deps
-                                         :test-lib-deps test-lib-deps})))))
+        (merge {:alias            alias
+                :is-run-tests     is-run-tests
+                :lines-of-code    lines-of-code
+                :component-names  component-names
+                :base-names       base-names
+                :deps             deps
+                :paths            merged-paths
+                :lib-deps         merged-lib-deps
+                :lib-imports      lib-imports})
+        (cond-> enriched-maven-repos (assoc :maven-repos  enriched-maven-repos)
+                is-dev (assoc :unmerged {:paths     paths
+                                         :lib-deps      lib-deps})))))

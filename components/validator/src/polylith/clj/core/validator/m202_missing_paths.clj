@@ -20,8 +20,8 @@
   (when (-> missing-paths empty? not)
     (non-existing-paths-warning project-name missing-paths color-mode)))
 
-(defn missing-project-paths [{:keys [name src-paths test-paths]} missing-paths]
-  [name (set/intersection (set (concat src-paths test-paths))
+(defn missing-project-paths [{:keys [name paths]} missing-paths]
+  [name (set/intersection (set (concat (:src paths) (:test paths)))
                           (set missing-paths))])
 
 (defn warnings [projects {:keys [missing]} color-mode]

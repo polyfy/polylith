@@ -1,0 +1,24 @@
+                                                                                                           w   
+                                                                                                           o   
+                                                                                                           r  w
+                                                                                                           k  s
+                                                                                                        v  s  -
+                                                                                            d        m  a  p  e
+                                                                                            e        i  l  a  x
+                                                                                            p        g  i  c  p
+                                                                                            l        r  d  e  l
+                                                                                            o  d  f  a  a  -  o
+                                                                                            y  e  i  t  t  c  r
+                                                                                            e  p  l  o  o  l  e
+  library                       version        type      KB   api  core  depl  poly   dev   r  s  e  r  r  j  r
+  ---------------------------------------------------------   ---------------------   ---   -------------------
+  me.raynes/fs                  1.4.6          maven     10    x    x     x     x      x    .  .  x  .  .  .  .
+  metosin/malli                 0.5.1          maven     42    x    x     x     x      x    .  .  .  .  x  .  .
+  mount/mount                   0.1.16         maven      8    -    -     -     -      x    .  .  .  .  .  .  .
+  mvxcvi/puget                  1.3.1          maven     15    x    -     x     x      x    .  .  .  .  .  .  x
+  org.clojure/clojure           1.10.3         maven  3,822    x    x     x     x      x    .  .  .  .  .  .  .
+  org.clojure/tools.deps.alpha  0.12.1003      maven     59    x    x     x     x      x    .  x  x  .  .  x  .
+  org.slf4j/slf4j-nop           1.7.32         maven      3    -    -     x     x      x    .  .  .  .  .  .  .
+  rewrite-clj/rewrite-clj       1.0.644-alpha  maven     71    -    -     -     -      x    .  .  .  .  .  .  .
+  slipset/deps-deploy           0.1.5          maven      6    -    -     x     -      x    x  .  .  .  .  .  .
+  zprint/zprint                 1.1.2          maven    164    -    -     -     x      x    .  .  .  x  .  .  .

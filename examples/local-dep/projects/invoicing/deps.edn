@@ -1,0 +1,13 @@
+{:deps {poly/database     {:local/root "../../components/database"}
+        poly/datomic-ions {:local/root "../../components/datomic-ions"}
+        poly/invoicer     {:local/root "../../components/invoicer"}
+        poly/util         {:local/root "../../components/util"}
+        poly/without-src  {:local/root "../../components/without-src"}
+        poly/invoicer-cli {:local/root "../../bases/invoicer-cli"}
+
+        org.clojure/clojure {:mvn/version "1.10.1"}
+        org.clojure/tools.deps.alpha {:mvn/version "0.12.985"}}
+
+ :aliases {:test {:extra-paths []
+                  :extra-deps  {poly/test-helper  {:local/root "../../components/test-helper"}
+                                poly/test-helper-db  {:local/root "../../components/test-helper-db"}}}}}

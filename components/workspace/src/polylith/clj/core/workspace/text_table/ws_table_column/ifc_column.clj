@@ -5,7 +5,7 @@
   (-> component :interface :name))
 
 (defn ifc-cell [index component]
-  (let [name (-> component :interface :name)
+  (let [name (or (-> component :interface :name) "-")
         row (+ index 3)]
     (text-table/cell 1 row name :yellow)))
 

@@ -1,0 +1,12 @@
+{:deps {poly/user {:local/root "../../components/user"}
+        poly/cli {:local/root "../../bases/cli"}
+
+        org.clojure/clojure {:mvn/version "1.10.3"}
+        org.clojure/tools.deps.alpha {:mvn/version "0.12.1003"}}
+
+ :aliases {:test {:extra-paths ["test"]
+                  :extra-deps  {}}
+
+           :uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
+                     :exec-fn hf.depstar/uberjar
+                     :exec-args {:aot true, :main-class se.example.cli.core}}}}

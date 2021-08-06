@@ -5,6 +5,9 @@
 
 (def sep (File/separator))
 
+(defn file [^String f]
+  (core/file f))
+
 (defn absolute-path [path]
   (core/absolute-path path))
 
@@ -51,16 +54,19 @@
   (core/exists path))
 
 (defn file-name [^File file]
-  (core/file-name file))
+  (core/filename file))
 
 (defn directories [dir]
   (core/directory-paths dir))
+
+(defn read-deps-file [path]
+  (core/read-deps-file path))
 
 (defn read-file [path]
   (core/read-file path))
 
 (defn size [path]
-  (fs/size path))
+  (core/size path))
 
 (defn files-recursively [dir]
   (core/files-recursively dir))
@@ -71,9 +77,13 @@
 (defn lines-of-code [file-path]
   (core/lines-of-code file-path))
 
-(defn paths-recursively [dir]
+(defn paths-recursively
   "Returns all directories and files in a directory recursively"
+  [dir]
   (core/paths-recursively dir))
 
 (defn relative-paths [path]
   (core/relative-paths path))
+
+(defn pretty-spit [filename collection]
+  (core/pretty-spit filename collection))

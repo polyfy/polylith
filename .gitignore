@@ -25,9 +25,12 @@
 
 *.iml
 
-/example/example/**
 artifacts
 projects/**/pom.xml
+/scripts/output/example/**
+/examples/doc-example/.idea/**
+/examples/local-dep/.idea/**ZZ
+/examples/local-dep-old-format/.idea/**
 
 # clojure-lsp
 .lsp/sqlite*.db

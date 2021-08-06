@@ -1,56 +1,63 @@
 (ns polylith.clj.core.path-finder.interface.criterias
-  (:require [polylith.clj.core.path-finder.criterias :as criterias]))
+  (:require [clojure.string :as str]))
+
+(defn truthy [_]
+  true)
 
 (defn =name [entity-name]
-  (criterias/=name entity-name))
+  (fn [entry] (= entity-name (:name entry))))
 
-(defn component? [path-entry]
-  (criterias/component? path-entry))
+(defn component? [{:keys [type]}]
+  (= :component type))
 
-(defn base? [path-entry]
-  (criterias/base? path-entry))
+(defn base? [{:keys [type]}]
+  (= :base type))
 
-(defn brick? [path-entry]
-  (criterias/brick? path-entry))
+(defn brick? [{:keys [type]}]
+  (or (= :base type)
+      (= :component type)))
 
-(defn project? [path-entry]
-  (criterias/project? path-entry))
+(defn project? [{:keys [type]}]
+  (= :project type))
 
-(defn exists? [path-entry]
-  (criterias/exists? path-entry))
+(defn src? [{:keys [test?]}]
+  (not test?))
 
-(defn filter-entries [path-entries criterias]
-  (criterias/filter-entries path-entries criterias))
+(defn test? [{:keys [test?]}]
+  test?)
 
-(defn has-entry? [path-entries criterias]
-  (criterias/has-entry? path-entries criterias))
+(defn exists? [{:keys [exists?]}]
+  exists?)
+
+(defn not-exists? [{:keys [exists?]}]
+  (not exists?))
+
+(defn src-path? [{:keys [path]}]
+  (str/ends-with? path "/src"))
+
+(defn test-path? [{:keys [path]}]
+  (str/ends-with? path "/test"))
+
+(defn resources-path? [{:keys [path]}]
+  (str/ends-with? path "/resources"))
+
+(defn not-test-or-resources-path [entry]
+  (and (not (test-path? entry))
+       (not (resources-path? entry))))
+
+(defn profile? [{:keys [profile?]}]
+  profile?)
+
+(defn not-profile? [{:keys [profile?]}]
+  (not profile?))
 
 (defn match? [path-entry criterias]
-  ((criterias/match? path-entry criterias)))
+  (every? true? ((apply juxt criterias) path-entry)))
 
-(defn not-exists? [path-entry]
-  (criterias/not-exists? path-entry))
+(defn filter-entries [path-entries criterias]
+  (if (empty? criterias)
+    (vec path-entries)
+    (vec (filter #(match? % criterias) path-entries))))
 
-(defn not-test-or-resources-path [path-entry]
-  (criterias/not-test-or-resources-path path-entry))
-
-(defn profile? [path-entry]
-  (criterias/profile? path-entry))
-
-(defn not-profile? [path-entry]
-  (criterias/not-profile? path-entry))
-
-(defn resources-path? [path-entry]
-  (criterias/resources-path? path-entry))
-
-(defn src? [path-entry]
-  (criterias/src? path-entry))
-
-(defn src-path? [path-entry]
-  (criterias/src-path? path-entry))
-
-(defn test? [path-entry]
-  (criterias/test? path-entry))
-
-(defn test-path? [path-entry]
-  (criterias/test-path? path-entry))
+(defn has-entry? [path-entries criterias]
+  (-> (filter-entries path-entries criterias) empty? not))

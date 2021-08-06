@@ -1,0 +1,11 @@
+{:top-namespace "se.example"
+ :interface-ns "interface"
+ :default-profile-name "default"
+ :add-to-git-when-create true
+ :compact-views #{}
+ :vcs {:name "git"
+       :auto-add true}
+ :release-tag-pattern "v[0-9]*"
+ :stable-tag-pattern "stable-*"
+ :projects {"development" {:alias "dev" :test []}
+            "command-line" {:alias "cl" :test ["cli"]}}}

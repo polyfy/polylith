@@ -15,48 +15,45 @@
     (when (file/exists pom-path)
       (file/delete-file pom-path))
     (let [content (slurp partial-pom-path)
-          updated-content (str/replace content #"VERSION" version/version)]
+          updated-content (str/replace content #"VERSION" version/name)]
       (spit pom-path updated-content))))
 
 (defn build-jar [current-dir project-name type]
   (println (str "Building " (name type) "..."))
   (try
-    (shell/sh (if (= :uberjar type) "./build-uberjar.sh" "./build-skinny-jar.sh") project-name :dir (str current-dir "/scripts"))
+    (shell/sh (if (= :uberjar type) "./build-uberjar.sh" "./build-thin-jar.sh") project-name :dir (str current-dir "/scripts"))
     (catch Exception e
       (throw (ex-info (str "Unable to build a " (name type) " for " project-name " project.")
                       {:current-dir  current-dir
                        :project-name project-name
                        :type         type}
                       e))))
-  (println (str (name type) " is built.")))
+  (println (str (str/capitalize (name type)) " is built.")))
 
 (defn deploy-project [current-dir project-name]
   (create-pom-xml current-dir project-name)
   (try
-    (let [project-prefix (str (file/current-dir) "/projects/" project-name)
-          coordinates (:coordinates (deps-deploy/coordinates-from-pom (slurp (str (file/current-dir) "/projects/" project-name "/pom.xml"))))
-          artifact-map {[:extension "pom" :classifier nil] (str project-prefix "/pom.xml")
-                        [:extension "jar" :classifier nil] (str project-prefix "/target/" project-name "-skinny.jar")}]
-      (deps-deploy/deploy {:installer    :clojars
-                           :coordinates  coordinates
-                           :artifact-map artifact-map}))
+    (let [project-prefix (str (file/current-dir) "/projects/" project-name)]
+      (deps-deploy/deploy {:artifact (str project-prefix "/target/" project-name "-thin.jar")
+                           :pom-file (str project-prefix "/pom.xml")
+                           :installer    :remote}))
     (catch Exception e
       (throw (ex-info (str "Could not deploy " project-name " project to clojars.")
                       {:current-dir current-dir
                        :project-name project-name}
                       e)))))
 
-(def projects-to-deploy-clojars #{"poly" "poly-migrator" "api"})
+(def projects-to-deploy-clojars #{"poly" "api"})
 
 (defn deploy []
   (let [current-dir (file/current-dir)
         changed-projects (filter #(contains? projects-to-deploy-clojars %)
-                                 (api/projects-to-deploy))]
+                                 (api/projects-to-deploy "previous-release"))]
     (when (empty? changed-projects)
       (throw (Exception. "Cannot deploy projects. None of the projects in this workspace changed.")))
     (doseq [project-name changed-projects]
       (println (str "Starting deployment for " project-name " project."))
-      (build-jar current-dir project-name :skinny-jar)
+      (build-jar current-dir project-name :jar)
       (deploy-project current-dir project-name)
       (println (str "Deployment completed for " project-name " project.")))))
 
@@ -97,13 +94,15 @@
          "  fi\n"
          "fi\n\n"
 
-         "exec \"$JAVA_CMD\" -jar \"$" project "_jar\" \"$@\"\n")))
+         "exec \"$JAVA_CMD\" $JVM_OPTS -jar \"$" project "_jar\" \"$@\"\n")))
 
 (defn get-sha-sum [file-path]
   (let [output (shell/sh "shasum" "-a" "256" file-path)]
     (first (str/split output #" "))))
 
-(defn create-brew-package [^String artifacts-dir ^String project-name ^String artifact-name]
+(defn create-brew-package [^String artifacts-dir
+                           ^String project-name
+                           ^String artifact-name]
   (let [package-path (str artifacts-dir "/" project-name)
         package-dir (File. package-path)
         _ (.mkdirs package-dir)
@@ -125,12 +124,12 @@
       (spit shasum shasum-content))
     (file/delete-dir package-path)))
 
-(def projects-to-deploy-as-artifacts #{"poly" "poly-migrator"})
+(def projects-to-deploy-as-artifacts #{"poly"})
 
 (defn create-artifacts []
   (let [current-dir (file/current-dir)
         changed-projects (filter #(contains? projects-to-deploy-as-artifacts %)
-                                 (api/projects-to-deploy))]
+                                 (api/projects-to-deploy "previous-release"))]
     (when (empty? changed-projects)
       (throw (Exception. "Cannot create artifacts for project. None of the projects in this workspace changed.")))
     (let [artifacts-dir (str current-dir "/artifacts")]
@@ -140,7 +139,7 @@
       (doseq [project-name projects-to-deploy-as-artifacts]
         (println (str "Creating artifacts for: " project-name))
         (let [jar-path (str current-dir "/projects/" project-name "/target/" project-name ".jar")
-              artifact-name (str project-name "-" version/version ".jar")
+              artifact-name (str project-name "-" version/name ".jar")
               artifact-path (str artifacts-dir "/" artifact-name)]
           (build-jar current-dir project-name :uberjar)
           (file/copy-file jar-path artifact-path)

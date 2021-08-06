@@ -13,8 +13,8 @@
   (if is-dev (apply merge (map :lib-deps (map #(profile-to-settings %) active-profiles)))
            {}))
 
-(defn from-library-deps [is-dev src-deps test-deps settings]
+(defn from-library-deps [is-dev {:keys [src test]} settings]
   (let [profile-deps (extract-deps is-dev settings)]
-    (vec (concat (select-dep-entries src-deps false false)
-                 (select-dep-entries test-deps false true)
+    (vec (concat (select-dep-entries src false false)
+                 (select-dep-entries test false true)
                  (select-dep-entries profile-deps true false)))))

@@ -1,8 +1,6 @@
 (ns polylith.clj.core.common.core
   (:require [clojure.string :as str]
-            [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.user-config.interface :as user-config]))
 
 (defn ns-to-path [namespace]
@@ -15,8 +13,28 @@
       (str/replace "/" ".")
       (str/replace "_" "-")))
 
-(defn sufix-ns-with-dot [top-namespace]
+(defn user-path [path]
+  (when path
+    (if (str/starts-with? path "~/")
+      (str (user-config/home-dir)
+           (subs path 1))
+      path)))
+
+(defn absolute-path [path entity-root-path]
+  "entity-root-path will be passed in as e.g. 'components/invoicer' if a brick,
+   or 'projects/invocing' if a project, and nil if the development project
+   (dev lives at the root, so keep that path as it is)."
+  (when path
+    (if (or (nil? entity-root-path)
+            (str/starts-with? path "/"))
+      path
+      (if (str/starts-with? path "../../")
+        (subs path 6)
+        (str entity-root-path "/" path)))))
+
+(defn sufix-ns-with-dot
   "Makes sure the namespace ends with a dot (.)"
+  [top-namespace]
   (if (str/ends-with? top-namespace ".")
     top-namespace
     (str top-namespace ".")))
@@ -43,12 +61,9 @@
 (defn find-project [name projects]
   (util/find-first #(=project % name) projects))
 
+(defn compact? [{:keys [user-input settings]} view]
+  (or (:is-compact user-input)
+      (contains? (:compact-views settings) view)))
+
 (defn color-mode [{:keys [color-mode]}]
   (or color-mode (user-config/color-mode)))
-
-(defn valid-config-file? [ws-dir color-mode]
-  (try
-    (and (file/exists (str ws-dir "/deps.edn"))
-         (:polylith (read-string (slurp (str ws-dir "/deps.edn")))))
-    (catch Exception e
-      (println (str (color/error color-mode "  Error: ") "couldn't read deps.edn: " (.getMessage e))))))

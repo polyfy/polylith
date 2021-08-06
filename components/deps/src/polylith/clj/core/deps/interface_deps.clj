@@ -1,5 +1,6 @@
 (ns polylith.clj.core.deps.interface-deps
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [polylith.clj.core.common.interface :as common]))
 
 (defn brick-namespace [namespace]
   (let [idx (str/index-of namespace ".")]
@@ -7,20 +8,16 @@
       namespace
       (subs namespace 0 idx))))
 
-(defn dependency [suffixed-top-ns interface-name path interface-names imported-ns]
-  (let [import (if (str/starts-with? imported-ns suffixed-top-ns)
-                 (subs imported-ns (count suffixed-top-ns))
-                 imported-ns)
-        idx (when import (str/index-of import "."))]
-    (when (not (or (nil? idx)
-                   (neg? idx)))
-      (let [root-ns (subs import 0 idx)
-            brick-ns (brick-namespace (subs import (inc idx)))]
-        (when (and (contains? interface-names root-ns)
-                   (not= root-ns interface-name))
-          {:namespace path
-           :depends-on-interface root-ns
-           :depends-on-ns brick-ns})))))
+(defn existing-interface? [interface-name root-ns interface-names]
+  (and (contains? interface-names root-ns)
+       (not= root-ns interface-name)))
+
+(defn dependency [suffixed-top-ns interface-name brick-ns-name interface-names imported-ns]
+  (let [{:keys [root-ns depends-on-ns]} (common/extract-namespace suffixed-top-ns imported-ns)]
+    (when (existing-interface? interface-name root-ns interface-names)
+      {:namespace            brick-ns-name
+       :depends-on-interface root-ns
+       :depends-on-ns        depends-on-ns})))
 
 (defn interface-ns-import-deps [suffixed-top-ns interface-name interface-names {:keys [name imports]}]
   (filterv identity (map #(dependency suffixed-top-ns interface-name name interface-names (str %)) imports)))
@@ -28,8 +25,11 @@
 (defn interface-ns-deps [suffixed-top-ns interface-name interface-names brick-namespaces]
   (vec (mapcat #(interface-ns-import-deps suffixed-top-ns interface-name interface-names %) brick-namespaces)))
 
-(defn interface-deps [suffixed-top-ns interface-names {:keys [interface namespaces-src]}]
+(defn interface-deps
   "Returns the interface dependencies for a brick (component or base)."
+  [suffixed-top-ns interface-names {:keys [interface namespaces]}]
   (let [interface-name (:name interface)
-        deps (interface-ns-deps suffixed-top-ns interface-name interface-names namespaces-src)]
-    (vec (sort (set (map :depends-on-interface deps))))))
+        src-deps (interface-ns-deps suffixed-top-ns interface-name interface-names (:src namespaces))
+        test-deps (interface-ns-deps suffixed-top-ns interface-name interface-names (:test namespaces))]
+    {:src (vec (sort (set (map :depends-on-interface src-deps))))
+     :test (vec (sort (set (map :depends-on-interface test-deps))))}))

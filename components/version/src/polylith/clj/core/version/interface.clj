@@ -1,7 +1,28 @@
-(ns polylith.clj.core.version.interface)
+(ns polylith.clj.core.version.interface
+  (:refer-clojure :exclude [name]))
 
-(def ws-schema-version {:breaking 0
-                        :non-breaking 0})
+(def major 0)
+(def minor 2)
+(def patch 0)
+(def revision "alpha10")
+(def name (str major "." minor "." patch "-" revision))
 
-(def version "0.1.0-alpha9")
-(def date "2020-12-23")
+(def date "2021-08-02")
+
+(defn version
+  ([ws-type]
+   (version {:type ws-type} nil))
+  ([{:keys [type] :as from-ws} from-release-name]
+   (let [from (when (not= :toolsdeps2 type)
+                (cond-> {:ws from-ws}
+                        from-release-name (assoc :release-name from-release-name)))]
+     (cond-> {:release {:name name
+                        :major major
+                        :minor minor
+                        :patch patch
+                        :revision revision
+                        :date date}
+              :ws {:type :toolsdeps2
+                   :breaking 1
+                   :non-breaking 0}}
+             from (assoc :from from)))))

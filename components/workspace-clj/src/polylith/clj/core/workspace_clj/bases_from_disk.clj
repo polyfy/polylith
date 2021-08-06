@@ -1,20 +1,28 @@
 (ns polylith.clj.core.workspace-clj.bases-from-disk
   (:require [polylith.clj.core.file.interface :as file]
-            [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]
-            [polylith.clj.core.util.interface :as util]))
+            [polylith.clj.core.lib.interface :as lib]
+            [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.workspace-clj.brick-paths :as brick-paths]
+            [polylith.clj.core.workspace-clj.config-from-disk :as config-from-disk]
+            [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]))
 
-(defn read-base [ws-dir top-src-dir brick->non-top-namespaces base-name]
-  (let [src-dir (str ws-dir "/bases/" base-name "/src/" top-src-dir)
-        test-dir (str ws-dir "/bases/" base-name "/test/" top-src-dir)
-        namespaces-src (ns-from-disk/namespaces-from-disk src-dir)
-        namespaces-test (ns-from-disk/namespaces-from-disk test-dir)]
+(defn read-base [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir brick->non-top-namespaces base-name]
+  (let [base-dir (str ws-dir "/bases/" base-name)
+        src-dir (str base-dir "/src/" top-src-dir)
+        test-dir (str base-dir "/test/" top-src-dir)
+        namespaces (ns-from-disk/namespaces-from-disk src-dir test-dir)
+        config (config-from-disk/read-config-file ws-type base-dir)
+        entity-root-path (str "bases/" base-name)
+        lib-deps (lib/brick-lib-deps ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home)]
     (util/ordered-map :name base-name
                       :type "base"
-                      :namespaces-src namespaces-src
-                      :namespaces-test namespaces-test
-                      :non-top-namespaces (brick->non-top-namespaces base-name))))
+                      :maven-repos (:mvn/repos config)
+                      :paths (brick-paths/source-paths base-dir config)
+                      :namespaces namespaces
+                      :non-top-namespaces (brick->non-top-namespaces base-name)
+                      :lib-deps lib-deps)))
 
-(defn read-bases [ws-dir top-src-dir brick->non-top-namespaces]
-  "Reads bases from disk"
-  (let [base-names (file/directories (str ws-dir "/bases"))]
-    (vec (sort-by :name (map #(read-base ws-dir top-src-dir brick->non-top-namespaces %) base-names)))))
+(defn read-bases
+  [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir brick->non-top-namespaces]
+  (vec (sort-by :name (map #(read-base ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir brick->non-top-namespaces %)
+                           (file/directories (str ws-dir "/bases"))))))

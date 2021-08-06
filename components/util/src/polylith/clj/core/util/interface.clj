@@ -10,12 +10,16 @@
 (defn stringify-and-sort-map [m]
   (core/stringify-and-sort-map m))
 
+(defn sort-map [m]
+  (core/sort-map m))
+
 (defn first-as-vector [vals]
   (if (empty? vals)
     []
     [(first vals)]))
 
-(defmacro def-keys [amap keys]
+(defmacro def-keys
   "Defines all selected keys in a map, e.g.:
     (def-map mymap [name age length])"
+  [amap keys]
   `(core/def-map ~amap ~keys))

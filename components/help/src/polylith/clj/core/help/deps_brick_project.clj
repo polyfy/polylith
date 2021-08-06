@@ -14,9 +14,15 @@
        "  " (color/green cm "payer") "                " (color/green cm "util") "\n"
        "\n"
        "  In this example, " (color/green cm "user") " is used by " (color/green cm "payer") " and it uses " (color/green cm "util") " itself.\n"
+       "  If a brick ends with '(t)' then it indicatest that it's only used\n"
+       "  from the test context.\n"
        "\n"
        "  Example:\n"
        "    poly deps project:myproject brick:mybrick"))
 
 (defn print-help [color-mode]
   (println (help color-mode)))
+
+(comment
+  (print-help "dark")
+  #__)

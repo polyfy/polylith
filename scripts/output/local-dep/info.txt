@@ -1,0 +1,20 @@
+  stable since: aaaaa | stable-master
+
+  projects: 2   interfaces: 7
+  bases:    1   components: 7
+
+  project      alias  status   dev
+  --------------------------   ---
+  invoicing    inv     ---     ---
+  development  dev     s--     s--
+
+  interface       brick            inv   dev
+  ------------------------------   ---   ---
+  -               without-src      -t-   -t-
+  database        database         st-   st-
+  datomic-ions    datomic-ions     s--   s--
+  invoicer        invoicer         st-   st-
+  test-helper     test-helper      -t-   st-
+  test-helper-db  test-helper-db   -t-   s--
+  util            util             st-   st-
+  -               invoicer-cli     st-   st-

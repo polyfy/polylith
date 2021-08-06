@@ -1,6 +1,6 @@
 (ns polylith.clj.core.test-runner.core
   (:require [clojure.string :as str]
-            [clojure.tools.deps.alpha :as tools-deps]
+            [polylith.clj.core.deps.interface :as deps]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.util.interface.str :as str-util]
@@ -8,45 +8,27 @@
             [polylith.clj.core.validator.interface :as validator])
   (:refer-clojure :exclude [test]))
 
-(defn adjust-key [{:keys [type path version exclusions]}]
-  (case type
-    "maven" {:mvn/version version :exclusions (vec exclusions)}
-    "local" {:local/root path}
-    (throw (Exception. (str "Unknown library type: " type)))))
-
-(defn key-as-symbol [[library version]]
-  "The library names (keys) are stored as strings in the workspace
-   and need to be converted back to symbols here.
-   Library dependencies are stored as :type and :version and needs
-   to be translated back to :mvn/version and :local/root."
-  [(symbol library) (adjust-key version)])
-
-(defn ->config [workspace {:keys [lib-deps test-lib-deps maven-repos]}]
-  "Convert back to tools.deps format."
-  (assoc workspace :mvn/repos maven-repos
-                   :deps (into {} (map key-as-symbol (merge lib-deps test-lib-deps)))))
-
 (defn ->test-statement [ns-name]
   (let [ns-symbol (symbol ns-name)]
     `(do (use 'clojure.test)
          (require '~ns-symbol)
          (clojure.test/run-tests '~ns-symbol))))
 
-(defn resolve-deps [project-name {:keys [deps] :as config} color-mode]
+(defn resolve-deps [{:keys [name] :as project} is-verbose color-mode]
   (try
     (into #{} (mapcat #(-> % second :paths)
-                      (tools-deps/resolve-deps config {:extra-deps deps})))
+                      (deps/resolve-deps project is-verbose)))
     (catch Exception e
-      (println (str "Couldn't resolve libraries for the " (color/project project-name color-mode) " project: " e))
+      (println (str "Couldn't resolve libraries for the " (color/project name color-mode) " project: " e))
       (throw e))))
 
 (defn brick-test-namespaces [bricks test-brick-names]
-  (let [brick-name->namespaces (into {} (map (juxt :name :namespaces-test) bricks))]
+  (let [brick-name->namespaces (into {} (map (juxt :name #(-> % :namespaces :test)) bricks))]
     (mapv :namespace (mapcat brick-name->namespaces test-brick-names))))
 
-(defn project-test-namespaces [project-name projects-to-test namespaces-test]
+(defn project-test-namespaces [project-name projects-to-test namespaces]
   (when (contains? (set projects-to-test) project-name)
-    (map :namespace namespaces-test)))
+    (map :namespace (:test namespaces))))
 
 (defn run-test-statements [project-name class-loader test-statements run-message color-mode]
   (println (str run-message))
@@ -84,20 +66,19 @@
          (str-util/count-things "brick" bricks-cnt) project-msg ": " entities-msg)))
 
 (defn run-tests-for-project [{:keys [bases components] :as workspace}
-                             {:keys [name src-paths test-paths namespaces-test] :as project}
-                             {:keys [project-to-bricks-to-test project-to-projects-to-test]}]
-  (when (-> test-paths empty? not)
+                             {:keys [name paths namespaces] :as project}
+                             {:keys [project-to-bricks-to-test project-to-projects-to-test]}
+                             is-verbose]
+  (when (-> paths :test empty? not)
     (let [color-mode (-> workspace :settings :color-mode)
-          config (->config workspace project)
-          lib-paths (resolve-deps name config color-mode)
-          all-src-paths (set (concat src-paths test-paths))
-          all-paths (concat all-src-paths lib-paths)
+          lib-paths (resolve-deps project is-verbose color-mode)
+          all-paths (set (concat (:src paths) (:test paths) lib-paths))
           bricks (concat components bases)
           bricks-to-test (project-to-bricks-to-test name)
           projects-to-test (project-to-projects-to-test name)
           run-message (run-message name components bases bricks-to-test projects-to-test color-mode)
           test-namespaces (brick-test-namespaces bricks bricks-to-test)
-          project-test-namespaces (project-test-namespaces name projects-to-test namespaces-test)
+          project-test-namespaces (project-test-namespaces name projects-to-test namespaces)
           test-statements (map ->test-statement (concat test-namespaces project-test-namespaces))
           class-loader (common/create-class-loader all-paths color-mode)]
       (if (-> test-statements empty?)
@@ -117,7 +98,7 @@
                                      projects-to-test))]
     (println (str "Projects to run tests from: " projects "\n"))))
 
-(defn run [{:keys [projects changes messages] :as workspace} color-mode]
+(defn run [{:keys [projects changes messages] :as workspace} is-verbose color-mode]
   (if (validator/has-errors? messages)
     (validator/print-messages workspace)
     (let [start-time (time-util/current-time)
@@ -127,5 +108,5 @@
         (do
           (print-projects-to-test projects-to-test color-mode)
           (doseq [project projects-to-test]
-            (run-tests-for-project workspace project changes))))
+            (run-tests-for-project workspace project changes is-verbose))))
       (time-util/print-execution-time start-time))))

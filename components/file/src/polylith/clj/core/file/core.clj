@@ -1,5 +1,7 @@
 (ns polylith.clj.core.file.core
   (:require [clojure.java.io :as io]
+            [clojure.pprint :as pp]
+            [clojure.tools.deps.alpha :as tda]
             [me.raynes.fs :as fs]
             [polylith.clj.core.util.interface.str :as str-util])
   (:import [java.io File PushbackReader FileNotFoundException]
@@ -11,12 +13,16 @@
     (catch Exception e
       (println (str "Warning. " message " '" path "': " (.getMessage e))))))
 
+(defn size [path]
+  (cond (fs/directory? path) (apply + (pmap size (.listFiles (io/file path))))
+        (fs/file? path) (fs/size path)))
+
 (defn delete-file [path]
   (execute-fn #(io/delete-file path true)
               "Could not delete file" path))
 
 (defn delete-dir [path]
-  (doseq [f (reverse (file-seq (clojure.java.io/file path)))]
+  (doseq [f (reverse (file-seq (io/file path)))]
     (if (or (Files/isSymbolicLink (.toPath f)) (.exists f))
       (delete-file f))))
 
@@ -39,7 +45,9 @@
   (.mkdir (File. path)))
 
 (defn exists [^String path]
-  (.exists (File. path)))
+  (if path
+    (.exists (File. path))
+    false))
 
 (defn absolute-path [path]
   (-> path io/file .getAbsolutePath))
@@ -55,7 +63,7 @@
     (fs/copy-dir from to)
     (fs/copy+ from to)))
 
-(defn file-name [^File file]
+(defn filename [^File file]
   (.getName file))
 
 (defn lines-of-code [file-path]
@@ -67,7 +75,7 @@
        (io/file)
        (.listFiles)
        (filter directory?)
-       (mapv file-name)
+       (mapv filename)
        (into #{})))
 
 (defn read-file [path]
@@ -111,3 +119,13 @@
 
 (defn create-missing-dirs [filename]
   (io/make-parents filename))
+
+(defn pretty-spit [filename collection]
+  (spit (io/file filename)
+        (with-out-str (pp/write collection :dispatch pp/code-dispatch))))
+
+(defn file [^String f]
+  (File. f))
+
+(defn read-deps-file [path]
+  (tda/slurp-deps (file path)))

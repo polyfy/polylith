@@ -6,17 +6,18 @@
             [polylith.clj.core.workspace-clj.interface :as ws-clj]
             [polylith.clj.core.ws-explorer.interface :as ws-explorer]))
 
-(defn projets-to-deploy []
+(defn projects-to-deploy
   "Returns the projects that have been affected since last deploy,
    tagged in git following the pattern defined by :release-tag-pattern in
    deps.edn, or v[0-9]* if not defined."
-  (let [user-input (user-input/extract-params ["ws" "since:previous-release"])
+  [since]
+  (let [since-then (str "since:" since)
+        user-input (user-input/extract-params ["ws" since-then "skip:development"])
         workspace (-> user-input
                       ws-clj/workspace-from-disk
                       ws/enrich-workspace
                       change/with-changes)]
-    (filterv #(not= "development" %)
-             (-> workspace :changes :changed-or-affected-projects))))
+    (-> workspace :changes :changed-or-affected-projects)))
 
 (defn key->str [key]
   (cond
@@ -24,22 +25,26 @@
     (keyword? key) (name key)
     :else key))
 
-(defn workspace [stable-point keys]
-  "Returns the workspace or part of the workspace by sending in a stable-point
-   that specifies which git tag to calculate changes and a list of keywords,
-   strings, or numbers. :keys and :count are also valid keys to send in. If keys
-   are empty, returns the whole workspace."
-  (let [keys-str (map key->str keys)
-        since (if (= :previous-release stable-point)
-                "since:previous-release" "since:stable")
-        args (if-not (empty keys-str)
-               ["ws" since (str "get:" (str/join ":" keys-str))]
-               ["ws" since])
-        user-input (user-input/extract-params args)
-        workspace (-> user-input
-                      ws-clj/workspace-from-disk
-                      ws/enrich-workspace
-                      change/with-changes)]
-    (if (empty? keys-str)
-      workspace
-      (ws-explorer/extract workspace keys-str))))
+(defn workspace
+  "Returns the workspace or part of the workspace by sending in either
+   a key that can be found in the :tag-patterns keys in workspace.edn,
+   optionally prefixed with 'previous-', or a git SHA, as the first argument,
+   and a list of keywords, strings, or numbers as the second argument.
+   :keys and :count are also valid keys to send in. If keys are empty,
+   returns the whole workspace."
+  ([keys]
+   (workspace :stable keys))
+  ([since keys]
+   (let [keys-str (map key->str keys)
+         since-str (str "since:" (key->str since))
+         args (if-not (empty keys-str)
+                ["ws" since-str (str "get:" (str/join ":" keys-str))]
+                ["ws" since-str])
+         user-input (user-input/extract-params args)
+         workspace (-> user-input
+                       ws-clj/workspace-from-disk
+                       ws/enrich-workspace
+                       change/with-changes)]
+     (if (empty? keys-str)
+       workspace
+       (ws-explorer/extract workspace keys-str)))))

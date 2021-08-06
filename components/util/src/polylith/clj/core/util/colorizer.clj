@@ -20,7 +20,7 @@
   ([color color-mode messages]
    (colored-text color color color-mode messages))
   ([color-light color-dark color-mode messages]
-   (condp = color-mode
+   (case color-mode
      "none" (str/join "" messages)
      "light" (color color-dark messages)
      "dark" (color color-light messages)

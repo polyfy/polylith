@@ -52,7 +52,7 @@
        "  " (color/error cm "Error 109") " - Missing libraries in project.\n"
        "    Triggered if a project doesn't contain a library that is used by one\n"
        "    of its bricks. Library usage for a brick is calculated using " (s/key ":ns-to-lib" cm) " in\n"
-       "    './deps.edn' for all its namespaces."
+       "    './deps.edn' for all its namespaces.\n"
        "\n"
        "  " (color/warning cm "Warning 201") " - Mismatching parameter lists in function or macro.\n"
        "    Triggered if a function or macro is defined in the interface for a component\n"
@@ -71,13 +71,7 @@
        "    It's discouraged to have the same library in both development and a profile.\n"
        "    The solution is to remove the library from dev or the profile.\n"
        "\n"
-       "  " (color/warning cm "Warning 205") " - Reference to missing library in " (s/key ":ns-to-lib" cm) " in ./deps.edn.\n"
-       "    Libraries defined in " (color/purple cm ":ns-to-lib") " should also be defined by the project.\n"
-       "\n"
-       "  " (color/warning cm "Warning 206") " - Reference to missing namespace in " (s/key ":ns-to-lib" cm) " in ./deps.edn.\n"
-       "    Namespaces defined in " (color/purple cm ":ns-to-lib") " should also be defined by the project.\n"
-       "\n"
-       "  " (color/warning cm "Warning 207") " - Non top namespace was found in brick.\n"
+       "  " (color/warning cm "Warning 205") " - Non top namespace was found in brick.\n"
        "    Triggered if a namespace in a brick doesn't start with the top namespaces\n"
        "    defined in " (s/key ":top-namespace" cm) " in ./deps.edn."))
 

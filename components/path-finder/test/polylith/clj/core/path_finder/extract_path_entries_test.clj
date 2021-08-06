@@ -11,35 +11,33 @@
                                                       "components/admin/src"
                                                       "components/admin/test"]}}})
 
-(def src-paths ["bases/cli/resources"
-                "bases/cli/src"
-                "components/address/resources"
-                "components/address/src"
-                "components/database/resources"
-                "components/database/src"
-                "components/invoicer/resources"
-                "components/invoicer/src"
-                "components/purchaser/resources"
-                "components/purchaser/src"
-                "components/user/resources"
-                "components/user/src"
-                "development/src"])
-
-(def test-paths ["bases/cli/test"
-                 "components/address/test"
-                 "components/database/test"
-                 "components/invoicer/test"
-                 "components/purchaser/test"
-                 "components/user/test"
-                 "projects/invoice/test"
-                 "development/test"])
+(def paths {:src ["bases/cli/resources"
+                  "bases/cli/src"
+                  "components/address/resources"
+                  "components/address/src"
+                  "components/database/resources"
+                  "components/database/src"
+                  "components/invoicer/resources"
+                  "components/invoicer/src"
+                  "components/purchaser/resources"
+                  "components/purchaser/src"
+                  "components/user/resources"
+                  "components/user/src"
+                  "development/src"]
+            :test ["bases/cli/test"
+                   "components/address/test"
+                   "components/database/test"
+                   "components/invoicer/test"
+                   "components/purchaser/test"
+                   "components/user/test"
+                   "projects/invoice/test"
+                   "development/test"]})
 
 (deftest path-entries--lists-of-paths--returns-extracted-path-entries
   (is (= test-data/path-entries
          (extract/from-unenriched-project
            true
-           src-paths
-           test-paths
+           paths
            {:missing []}
            settings))))
 
