@@ -25,6 +25,8 @@
 
     (is (= #{".git"
              ".gitignore"
+             ".vscode"
+             ".vscode/settings.json"
              "bases"
              "bases/.keep"
              "bases/my-base"
@@ -48,9 +50,9 @@
              "development"
              "development/src"
              "development/src/.keep"
+             "logo.png"
              "projects"
              "projects/.keep"
-             "logo.png"
              "readme.md"
              "workspace.edn"}
            (helper/paths "ws1")))

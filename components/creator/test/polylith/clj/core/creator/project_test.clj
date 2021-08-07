@@ -26,6 +26,8 @@
 
     (is (= #{".git"
              ".gitignore"
+             ".vscode"
+             ".vscode/settings.json"
              "bases"
              "bases/.keep"
              "components"

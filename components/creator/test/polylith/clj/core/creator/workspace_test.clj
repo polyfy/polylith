@@ -21,6 +21,8 @@
 
     (is (= #{".git"
              ".gitignore"
+             ".vscode"
+             ".vscode/settings.json"
              "bases"
              "bases/.keep"
              "components"
@@ -36,6 +38,8 @@
              "workspace.edn"
              "ws2"
              "ws2/.gitignore"
+             "ws2/.vscode"
+             "ws2/.vscode/settings.json"
              "ws2/bases"
              "ws2/bases/.keep"
              "ws2/components"
@@ -72,6 +76,8 @@
 
     (is (= #{".git"
              ".gitignore"
+             ".vscode"
+             ".vscode/settings.json"
              "bases"
              "bases/.keep"
              "components"
@@ -114,6 +120,20 @@
             (str "                                 :sha       \"SHA\"")
             (str "                                 :deps/root \"projects/poly\"}}}}}")]
            (helper/content "ws1" "deps.edn")))
+
+    (is (= ["{"
+            "    \"calva.replConnectSequences\": ["
+            "        {"
+            "            \"projectType\": \"deps.edn\","
+            "            \"name\": \"ws1\","
+            "            \"cljsType\": \"none\","
+            "            \"menuSelections\": {"
+            "                \"cljAliases\": [\"dev\", \"test\", \"test\"]"
+            "            }"
+            "        }"
+            "    ]"
+            "}"]
+           (helper/content "ws1" ".vscode/settings.json")))
 
     (is (= ["{:top-namespace \"se.example\""
             " :interface-ns \"interface\""
