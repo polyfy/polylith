@@ -93,7 +93,7 @@
    (str "            \"name\": \"" ws-name "\",")
    (str "            \"cljsType\": \"none\",")
    (str "            \"menuSelections\": {")
-   (str "                \"cljAliases\": [\"dev\", \"test\", \"test\"]")
+   (str "                \"cljAliases\": [\"dev\", \"test\", \"+default\"]")
    (str "            }")
    (str "        }")
    (str "    ]")

@@ -128,7 +128,7 @@
             "            \"name\": \"ws1\","
             "            \"cljsType\": \"none\","
             "            \"menuSelections\": {"
-            "                \"cljAliases\": [\"dev\", \"test\", \"test\"]"
+            "                \"cljAliases\": [\"dev\", \"test\", \"+default\"]"
             "            }"
             "        }"
             "    ]"
