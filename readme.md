@@ -139,7 +139,7 @@ name and email.
 To install the `poly` command on Linux:
 
 - Download the [latest release](https://github.com/polyfy/polylith/releases/latest) of the `poly` jar,
-  e.g. `poly-0.2.0-alpha10.jar`.
+  e.g. `poly-0.2.0-alpha11.jar`.
 - Create a directory, e.g. `/usr/local/polylith` and copy the jar file to that directory.
 - Create a file with the name `poly` and put it in e.g. `/usr/local/bin` with this content:
  ```
@@ -151,7 +151,7 @@ while [ "$1" != "" ] ; do
   shift
 done
 
-exec "/usr/bin/java" $JVM_OPTS "-jar" "/usr/local/polylith/poly-0.2.0-alpha10.jar" $ARGS
+exec "/usr/bin/java" $JVM_OPTS "-jar" "/usr/local/polylith/poly-0.2.0-alpha11.jar" $ARGS
 ```
 - Make sure that:
   - you point to the correct jar file.
@@ -211,7 +211,7 @@ To install the `poly` command on Windows:
 - Create the file `poly.bat` with this content (make sure you point to the jar):
 ```sh
 @echo off
-start /wait /b java %JAVA_OPTS% -jar "C:\Program Files\Polylith\poly-0.2.0-alpha10.jar" %*
+start /wait /b java %JAVA_OPTS% -jar "C:\Program Files\Polylith\poly-0.2.0-alpha11.jar" %*
 ```
 - Add `C:\Program Files\Polylith` to the Windows `PATH` variable.
 
@@ -230,7 +230,7 @@ To use it this way, add one of the following aliases to the `:aliases` section i
 {
 ...
  :aliases   {:poly  {:extra-deps {polylith/clj-poly
-                                  {:mvn/version "0.2.0-alpha10"}}
+                                  {:mvn/version "0.2.0-alpha11"}}
                      :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}}
 ...
 }
@@ -280,12 +280,12 @@ If we use the tools.deps CLI to execute the `poly` command, e.g. `clojure -M:pol
 Similarly, you can use other artifacts from this repository, `clj-api` or `clj-poly-migrator` as dependencies. For example, in order to add `clj-api` as a dependency, add one of the following to your `:deps` section in your `deps.edn` file:
 
 ```clojure
-polylith/clj-api {:mvn/version "0.2.0-alpha10"}
+polylith/clj-api {:mvn/version "0.2.0-alpha11"}
 ```
 or
 ```clojure
 polylith/clj-api {:git/url   "https://github.com/polyfy/polylith.git"
-                  :sha       "da3bccf3a13ac30be8e31fedeab4de53c1efd951"
+                  :sha       "ecd2cf2ede81ecd4fbf82f21a075b103b6f2d2af"
                   :deps/root "projects/api"}
 ```
 
@@ -298,7 +298,7 @@ To upgrade the `poly` tool on Mac, execute:
 brew upgrade polyfy/polylith/poly
 ```
 
-To upgrade on Windows and Linux: download the [latest release](https://github.com/polyfy/polylith/releases/latest) and replace the poly jar (e.g. `poly-0.2.0-alpha10.jar`).
+To upgrade on Windows and Linux: download the [latest release](https://github.com/polyfy/polylith/releases/latest) and replace the poly jar (e.g. `poly-0.2.0-alpha11.jar`).
 
 ## RealWorld Example
 
@@ -387,7 +387,7 @@ The `workspace.edn` file looks like this:
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :extra-deps {polyfy/polylith
                                 {:git/url   "https://github.com/polyfy/polylith"
-                                 :sha       "da3bccf3a13ac30be8e31fedeab4de53c1efd951"
+                                 :sha       "ecd2cf2ede81ecd4fbf82f21a075b103b6f2d2af"
                                  :deps/root "projects/poly"}}}}}
 ```
 
@@ -1097,7 +1097,7 @@ When we created the workspace with the [create workspace](doc/commands.md#create
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :extra-deps {polyfy/polylith
                                 {:git/url   "https://github.com/polyfy/polylith.git"
-                                 :sha       "da3bccf3a13ac30be8e31fedeab4de53c1efd951"
+                                 :sha       "ecd2cf2ede81ecd4fbf82f21a075b103b6f2d2af"
                                  :deps/root "projects/poly"}}}
 ```
 
