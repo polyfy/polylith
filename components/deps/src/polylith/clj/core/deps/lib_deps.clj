@@ -4,13 +4,27 @@
 (defn name-version [[k {:keys [mvn/version]}]]
   [(str k) version])
 
-(defn adjust-key [{:keys [type path version git/url sha exclusions]}]
-  (case type
-    "maven" {:mvn/version version
-             :exclusions (vec exclusions)}
-    "local" {:local/root path}
-    "git"   {:git/url url :sha sha}
-    (throw (Exception. (str "Unknown library type: " type)))))
+(defn adjust-key
+  "git deps can have sha or git/sha, tag or git/tag, and deps/root
+  These days, git/url can be omitted and deduced from the lib name.
+
+  All deps can have exclusions."
+  [{:keys [type path version
+           git/url git/sha git/tag deps/root
+           exclusions]
+    old-sha :sha old-tag :tag}]
+  (cond->
+   (case type
+     "maven" {:mvn/version version}
+     "local" {:local/root path}
+     "git"   (cond-> {}
+               url              (assoc :git/url url)
+               (or sha old-sha) (assoc :git/sha (or sha old-sha))
+               (or tag old-tag) (assoc :git/tag (or tag old-tag))
+               root             (assoc :deps/root root))
+     (throw (Exception. (str "Unknown library type: " type))))
+    (seq exclusions)
+    (assoc :exclusions (vec exclusions))))
 
 (defn key-as-symbol
   "The library names (keys) are stored as strings in the workspace
