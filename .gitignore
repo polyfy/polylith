@@ -22,6 +22,7 @@
 .idea/replstate.xml
 
 .nrepl-port
+.socket-repl-port
 
 *.iml
 
