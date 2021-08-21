@@ -225,7 +225,7 @@ If you are using a recent version of the [Clojure CLI](https://clojure.org/relea
 1.10.3.933 or later -- you can install `poly` as a "tool":
 
 ```sh
-clojure -Ttools install io.github.polyfy/polylith '{:git/sha "..."}' :as poly
+clojure -Ttools install io.github.polyfy/polylith '{:git/sha "..." :deps/root "projects/poly"}' :as poly
 ```
 
 **TODO: This needs updating with the latest full SHA after merging the PR, and then with `:git/tag`/`:git/sha` (using a short SHA) after the need tagged version is released!**
@@ -234,6 +234,12 @@ Then you can invoke the `poly` tool using the CLI directly:
 
 ```sh
 clojure -Tpoly info :loc true
+```
+
+You can get basic built-in help via the CLI's help machinery:
+
+```sh
+clojure -A:deps -Tpoly help/doc
 ```
 
 > Note: the command-line argument syntax for "tool" usage follows the CLI "exec args" format which is essentially Clojure's own keyword/value syntax (it's actually read as EDN).
