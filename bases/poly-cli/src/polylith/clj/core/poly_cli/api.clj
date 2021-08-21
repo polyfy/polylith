@@ -13,6 +13,11 @@
   [arg]
   (mapv str (if (vector? arg) arg [arg])))
 
+;; the mappings here should produce keywords that match
+;; polylith.clj.core.user-input.core/extract-params so
+;; that polylith.clj.core.command.interface/execute-command
+;; can be called directly from this exec fn API:
+
 (defn- argument-mapping
   "Map exec args to the sort of internal arguments that
   the poly tool expects. This is made harder by the way
@@ -67,9 +72,8 @@
                  (and (boolean? v)
                       (contains? #{:r} k))
                  (assoc :is-show-resources v)
-                 ;; vectorize skip:
+                 ;; vectorize and stringify skip:
                  (contains? #{:skip} k)
-                 ;; stringify any skipped projects:
                  (assoc :skip (when v (str-coll v)))
                  ;; profile(s):
                  (contains? #{:profile} k)
@@ -79,7 +83,7 @@
                  ;; project(s) + dev (flag):
                  (and (not (boolean? v))
                       (contains? #{:project} k))
-                 (update :select-projects conj (str v))
+                 (update :selected-projects conj (str v))
                  (contains? #{:projects} k)
                  (update :selected-projects into (str-coll v))
                  (contains? #{:dev} k)
