@@ -61,10 +61,6 @@
                 r!
                 resources!
                 verbose!]} named-args]
-    ;; this list of keywords (arguments) needs to be kept in sync
-    ;; with polylith.clj.core.poly-cli.api/argument-mapping and the
-    ;; ->command function there so that the exec fn API continues
-    ;; to work correctly for all the exec arguments it supports:
     (util/ordered-map :args (vec args)
                       :cmd (first args)
                       :get get

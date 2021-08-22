@@ -2,127 +2,90 @@
   "A poly tool API for the Clojure CLI's -X and -T options."
   (:refer-clojure :exclude [test])
   (:require [clojure.string :as str]
-            [polylith.clj.core.command.interface :as command]))
+            [polylith.clj.core.command.interface :as command]
+            [polylith.clj.core.user-input.interface :as user-input]
+            [polylith.clj.core.util.interface.exception :as ex]))
 
 (set! *warn-on-reflection* true)
 
-(defn- str-coll
-  "Given an argument value, coerce it to a vector and
-  make all the elements strings."
-  [arg]
-  (mapv str (if (vector? arg) arg [arg])))
+(defn- ->named-arg
+  "Given a key and a value, return a poly tool style
+  named argument string."
+  [k v]
+  (str (name k)
+       ":"
+       (if (coll? v) (str/join ":" (map str v)) v)))
 
-;; the mappings here should produce keywords that match
-;; polylith.clj.core.user-input.core/extract-params so
-;; that polylith.clj.core.command.interface/execute-command
-;; can be called directly from this exec fn API:
+(defn- ->unnamed-args
+  "Given a key's value, return a vector of poly tool
+  style unnamed arguments."
+  [v]
+  (if (vector? v)
+    v
+    (vec (str/split v #":"))))
 
 (defn- argument-mapping
-  "Map exec args to the sort of internal arguments that
-  the poly tool expects. This is made harder by the way
-  that poly has a somewhat 'unique' approach to command
-  line argument handling!
+  "Map exec args to a vector of strings that represent the
+  poly tool's command-line arguments.
 
-  Keyword differences:
-  :brick    bool -- :is-show-brick true/false
-  :brick    s    -- :brick name
-  :entity   s    -- needed for the create and help commands
-  :profile  s    -- :selected-profiles (singular for convenience)
-  :profiles [s]  -- :selected-profiles (b/c no unnamed args)
-                    (may be just a single symbol/string)
-  :project  bool -- :is-show-project true/false
-  :project  s    -- :selected-projects (singular for convenience)
-  :projects [s]  -- :selected-projects (b/c avoid :-separated)
-                    (may be just a single symbol/string)
-  :ws       bool -- :is-search-for-ws-dir (b/c :: is not legal)
+  In general, a boolean-valued key becomes a :flag argument,
+  string-valued keys become key:value arguments, and vector-
+  valued keys become key:val:val:val arguments.
+
+  Special cases:
+  :entity   -- used to provide a :-separated list of leading
+               arguments; could also be a vector of strings
+  :entities -- alternative to :entity for vector values
+  :profile  -- identify +-prefixed profile names
+  :profiles -- alternative to :profile for vector values
+  :ws       -- alternative to ::
 
   For create -- to make life easier:
   :c s -- component name:s
   :b s -- base name:s
   :p s -- project name:s
-  :w s -- workspace name:s
-
-  Items not yet properly handled:
-  :args -- there's no concept of sequential ordered args
-    (a vector of the command + entity is passed)
-  :replace -- relies on non-interface function
-  :unnamed-args -- there's no concept of sequential ordered args
-    (a vector of the command + entity is passed)"
+  :w s -- workspace name:s"
   [exec-args]
-  (reduce-kv (fn [m k v]
-               (cond-> m
-                 ;; add is-* variant for all booleans:
-                 (boolean? v)
-                 (assoc (keyword (str "is-" (name k))) v)
-                 ;; add is-show-* variant:
-                 (and (boolean? v)
-                      (contains? #{:brick :workspace :project :loc :resources} k))
-                 (assoc (keyword (str "is-show-" (name k))) v)
-                 ;; some special case boolean flags:
-                 (and (boolean? v)
-                      (contains? #{:ws} k))
-                 (assoc :is-search-for-ws-dir v)
-                 (and (boolean? v)
-                      (contains? #{:all :all-bricks} k))
-                 (assoc :is-run-all-brick-tests v)
-                 (and (boolean? v)
-                      (contains? #{:all :project} k))
-                 (assoc :is-run-project-tests v)
-                 (and (boolean? v)
-                      (contains? #{:r} k))
-                 (assoc :is-show-resources v)
-                 ;; vectorize and stringify skip:
-                 (contains? #{:skip} k)
-                 (assoc :skip (when v (str-coll v)))
-                 ;; profile(s):
-                 (contains? #{:profile} k)
-                 (update :selected-profiles conj (str v))
-                 (contains? #{:profiles} k)
-                 (update :selected-profiles into (str-coll v))
-                 ;; project(s) + dev (flag):
-                 (and (not (boolean? v))
-                      (contains? #{:project} k))
-                 (update :selected-projects conj (str v))
-                 (contains? #{:projects} k)
-                 (update :selected-projects into (str-coll v))
-                 (contains? #{:dev} k)
-                 (cond-> v (update :selected-projects conj "dev"))
-                 ;; stringify any possible symbol args:
-                 ;; (this is just a usability issue for exec args)
-                 (and (not (boolean? v))
-                      (contains? #{:get :brick :branch :color-mode
-                                   :entity
-                                   :fake-sha :interface :name :out
-                                   :since :top-ns :ws-dir :ws-file} k))
-                 (update k str)
-                 ;; special handling for create shorthands:
-                 (contains? #{:c :b :p :w} k)
-                 (assoc :entity (name k) :name (str v))))
-             ;; defaults
-             (merge {:selected-profiles #{}
-                     :selected-projects #{}
-                     :unnamed-args []}
-                    exec-args)
+  (reduce-kv (fn [args k v]
+               (case k
+                 ;; entities go at the front:
+                 (:entity :entities)
+                 (into (->unnamed-args v) args)
+                 ;; profiles can go at the end, with + added:
+                 (:profile :profiles)
+                 (into args (map #(str "+" %) (->unnamed-args v)))
+                 ;; :project can be a flag or a named arg:
+                 (:project :projects)
+                 (if (boolean? v)
+                   (conj args ":project")
+                   (conj args (->named-arg :project v)))
+                 ;; shorthands for create:
+                 (:b :c :p :w)
+                 (into [(name k) (str "name:" v)] args)
+                 ;; exec-arg friendly version of :: flag argument:
+                 :ws       (conj args "::")
+                 ;; otherwise it's a regular flag or named arg:
+                 (if (boolean? v)
+                   (conj args (str ":" (name k)))
+                   (conj args (->named-arg k v)))))
+             []
              exec-args))
 
 (defn- ->command
   "Given a command name and the exec args, map those to
   internal arguments, and execute the command."
   [cmd exec-args]
-  (let [args     (argument-mapping exec-args)
-        ;; help is a special case for :entity as it can
-        ;; have multiple arguments, so we :-separate them
-        entities (when-let [entity (:entity args)]
-                   (str/split entity #":"))
-        args     (assoc args
-                        :args (cond-> [cmd]
-                                entities (into entities))
-                        :cmd  cmd)
-        exit
-        (command/execute-command args)]
-    ;; this mirrors the cli/-main behavior:
-    (when-not (:is-no-exit args)
-      (System/exit exit))))
+  (let [args  (cons cmd (argument-mapping exec-args))
+        input (user-input/extract-params args)]
+    ;; identical behavior to core/-main:
+    (try
+      (if (:is-no-exit input)
+        (-> input command/execute-command)
+        (-> input command/execute-command System/exit))
+      (catch Exception e
+        (ex/print-exception (:cmd input) e)
+        (when (-> input :is-no-exit not)
+          (System/exit 1))))))
 
 ;; these are the exec fns that correspond to commands:
 
