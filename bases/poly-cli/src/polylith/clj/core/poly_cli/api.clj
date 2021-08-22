@@ -26,44 +26,47 @@
 
 (defn- argument-mapping
   "Map exec args to a vector of strings that represent the
-  poly tool's command-line arguments.
+  poly tool's command-line arguments. We accept symbols for
+  the keys (or keywords, we don't care). We document it all
+  as symbols.
 
   In general, a boolean-valued key becomes a :flag argument,
   string-valued keys become key:value arguments, and vector-
   valued keys become key:val:val:val arguments.
 
   Special cases:
-  :entity   -- used to provide a :-separated list of leading
+   entity   -- used to provide a :-separated list of leading
                arguments; could also be a vector of strings
-  :entities -- alternative to :entity for vector values
-  :profile  -- identify +-prefixed profile names
-  :profiles -- alternative to :profile for vector values
-  :ws       -- alternative to ::
+   entities -- alternative to entity for vector values
+   profile  -- identify +-prefixed profile names
+   profiles -- alternative to :profile for vector values
+   ws       -- alternative to ::
 
   For create -- to make life easier:
-  :c s -- component name:s
-  :b s -- base name:s
-  :p s -- project name:s
-  :w s -- workspace name:s"
+   c s -- component name:s
+   b s -- base name:s
+   p s -- project name:s
+   w s -- workspace name:s"
   [exec-args]
   (reduce-kv (fn [args k v]
-               (case k
+               (case (name k)
                  ;; entities go at the front:
-                 (:entity :entities)
+                 ("entity" "entities")
                  (into (->unnamed-args v) args)
                  ;; profiles can go at the end, with + added:
-                 (:profile :profiles)
+                 ("profile" "profiles")
                  (into args (map #(str "+" %) (->unnamed-args v)))
-                 ;; :project can be a flag or a named arg:
-                 (:project :projects)
+                 ;; project can be a flag or a named arg:
+                 ("project" "projects")
                  (if (boolean? v)
-                   (conj args ":project")
-                   (conj args (->named-arg :project v)))
+                   (conj args ":project") ; flag
+                   (conj args (->named-arg "project" v)))
                  ;; shorthands for create:
-                 (:b :c :p :w)
+                 ("b" "c" "p" "w")
                  (into [(name k) (str "name:" v)] args)
                  ;; exec-arg friendly version of :: flag argument:
-                 :ws       (conj args "::")
+                 "ws"
+                 (conj args "::")
                  ;; otherwise it's a regular flag or named arg:
                  (if (boolean? v)
                    (conj args (str ":" (name k)))
@@ -98,14 +101,14 @@ Prints 'OK' and returns 0 if no errors were found.
 If errors or warnings were found, show messages and return the error code,
 or 0 if only warnings. If internal errors, 1 is returned.
 
-For more detail: clojure -Tpoly help :entity check"
+For more detail: clojure -Tpoly help entity check"
   [exec-args]
   (->command "check"   exec-args))
 
 (defn create
   "Creates a component, base, project or workspace.
 
-  clojure -Tpoly create :entity TYPE :name NAME [ARGS]
+  clojure -Tpoly create entity TYPE name NAME [ARGS]
     TYPE = c[omponent] -> Creates a component.
            b[ase]      -> Creates a base.
            p[roject]   -> Creates a project.
@@ -114,33 +117,33 @@ For more detail: clojure -Tpoly help :entity check"
     ARGS = Varies depending on TYPE.
 
 Shorthand:
-  clojure -Tpoly create :c NAME -> Creates a component.
-                        :b NAME -> Creates a base.
-                        :p NAME -> Creates a project.
-                        :w NAME -> Creates a workspace.
+  clojure -Tpoly create c NAME -> Creates a component.
+                        b NAME -> Creates a base.
+                        p NAME -> Creates a project.
+                        w NAME -> Creates a workspace.
 
 For more detail:
-  clojure -Tpoly help :entity create
-  clojure -Tpoly help :entity create:base
-  clojure -Tpoly help :entity create:component
-  clojure -Tpoly help :entity create:project
-  clojure -Tpoly help :entity create:workspace"
+  clojure -Tpoly help entity create
+  clojure -Tpoly help entity create:base
+  clojure -Tpoly help entity create:component
+  clojure -Tpoly help entity create:project
+  clojure -Tpoly help entity create:workspace"
   [exec-args]
   (->command "create"  exec-args))
 
 (defn deps
   "Shows dependencies.
 
-  clojure -Tpoly deps [:project PROJECT] [:brick BRICK]
+  clojure -Tpoly deps [project PROJECT] [brick BRICK]
     (omitted) = Show workspace dependencies.
     PROJECT   = Show dependencies for specified project.
     BRICK     = Show dependencies for specified brick.
 
 For more detail:
-  clojure -Tpoly help :entity deps
-  clojure -Tpoly help :entity deps :brick true
-  clojure -Tpoly help :entity deps :project true
-  clojure -Tpoly help :entity deps :project true :brick true"
+  clojure -Tpoly help entity deps
+  clojure -Tpoly help entity deps brick true
+  clojure -Tpoly help entity deps project true
+  clojure -Tpoly help entity deps project true brick true"
   [exec-args]
   (->command "deps"    exec-args))
 
@@ -153,7 +156,7 @@ Internally, it executes 'git diff SHA --name-only' where SHA is the SHA-1
 of the first commit in the repository, or the SHA-1 of the most recent tag
 that matches the default pattern 'stable-*'.
 
-For more detail: clojure -Tpoly help :entity diff"
+For more detail: clojure -Tpoly help entity diff"
   [exec-args]
   (->command "diff"    exec-args))
 
@@ -168,23 +171,23 @@ For more detail: clojure -Tpoly help"
   "Shows workspace information.
 
   clojure -Tpoly info [ARGS]
-    ARGS = :loc true   -> Shows the number of lines of code for each brick
-                          and project.
+    ARGS = loc true   -> Shows the number of lines of code for each brick
+                         and project.
 
 In addition to :loc, all the arguments used by the 'test' command
 can also be used as a way to see what tests will be executed.
 
-For more detail: clojure -Tpoly help :entity info"
+For more detail: clojure -Tpoly help entity info"
   [exec-args]
   (->command "info"    exec-args))
 
 (defn libs
   "Shows all libraries that are used in the workspace.
 
-  clojure -Tpoly libs [:all true]
-    :all true = View all bricks, including those without library dependencies.
+  clojure -Tpoly libs [all true]
+    all true = View all bricks, including those without library dependencies.
 
-For more detail: clojure -Tpoly help :entity libs"
+For more detail: clojure -Tpoly help entity libs"
   [exec-args]
   (->command "libs"    exec-args))
 
@@ -196,7 +199,7 @@ For more detail: clojure -Tpoly help :entity libs"
 If the workspace hasn't been migrated already, then this command will create a new
 ./workspace.edn file + a deps.edn file per brick.
 
-For more detail: clojure -Tpoly help :entity migrate"
+For more detail: clojure -Tpoly help entity migrate"
   [exec-args]
   (->command "migrate" exec-args))
 
@@ -208,7 +211,7 @@ Starts an interactive shell with a prompt that is the name of the current
 workspace, e.g.:
   myworkspace$>
 
-For more detail: clojure -Tpoly help :entity prompt"
+For more detail: clojure -Tpoly help entity prompt"
   ;; Once the interactive poly tool changes from prompt to shell, this
   ;; docstring needs to be updated, as well as the "prompt" cmd below!
   [exec-args]
@@ -222,26 +225,26 @@ For more detail: clojure -Tpoly help :entity prompt"
 The brick tests are executed from all projects they belong to except for the development
 project (if :dev true is not passed in).
 
-For more detail: clojure -Tpoly help :entity test"
+For more detail: clojure -Tpoly help entity test"
   [exec-args]
   (->command "test"    exec-args))
 
 (defn version
   "Display the version.
 
-For more detail: clojure -Tpoly help :entity version"
+For more detail: clojure -Tpoly help entity version"
   [exec-args]
   (->command "version" exec-args))
 
 (defn ws
   "Prints or writes the workspace as data.
 
-  clojure -Tpoly ws [:get ARG] [:out FILE] [:latest-sha true] [:branch BRANCH]
+  clojure -Tpoly ws [get ARG] [out FILE] [latest-sha true] [branch BRANCH]
     ARG = keys  -> Lists the keys for the data structure:
                    - If it's a hash map, it returns all its keys.
                    - If it's a list and its elements are hash maps,
                      it returns a list with all the :name keys.
 
-For more detail: clojure -Tpoly help :entity ws"
+For more detail: clojure -Tpoly help entity ws"
   [exec-args]
   (->command "ws"      exec-args))

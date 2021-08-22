@@ -233,7 +233,7 @@ clojure -Ttools install io.github.polyfy/polylith '{:git/sha "fcca12b72eca02c8bf
 Then you can invoke the `poly` tool using the CLI directly:
 
 ```sh
-clojure -Tpoly info :loc true
+clojure -Tpoly info loc true
 ```
 
 You can get basic built-in help via the CLI's help machinery:
@@ -253,30 +253,30 @@ The "native" `poly` tool has the following argument structure:
 * flag arguments (e.g., `:loc`), and
 * profiles (e.g., `+remote`).
 
-Because "exec args" must follow keyword/value syntax, the argument structure for `-Tpoly` is:
+Because "exec args" must follow key/value syntax, the argument structure for `-Tpoly` is:
 * the command (which is the "exec fn"), followed by
-* `:entity` to name the first argument(s) to `create` or `help`,
-* named arguments as keyword/value pairs (e.g., `:project example`),
-* flag arguments as keywords with `true` or `false` values (e.g., `:loc true`),
-* `:profiles` to list any profiles to enable, without the leading `+` (e.g., `:profiles '[remote]'`).
+* `entity` to name the first argument(s) to `create` or `help`,
+* named arguments as key/value pairs (e.g., `project example`),
+* flag arguments as keys with `true` or `false` values (e.g., `loc true`),
+* `profiles` to list any profiles to enable, without the leading `+` (e.g., `profiles '[remote]'`).
 
 For convenience, most arguments can be provided as symbols rather than requiring quoted strings:
 
 ```sh
 # strings have to be quoted for EDN and the shell:
-clojure -Tpoly info :project '"example"'
+clojure -Tpoly info project '"example"'
 # the following shorthand is allowed:
-clojure -Tpoly info :project example
+clojure -Tpoly info project example
 ```
 
-Both `:project` and `:profile` exist in singular form, taking a symbol or string, and in
+Both `project` and `profile` exist in singular form, taking a symbol or string, and in
 a plural form, taking a vector of symbols or strings:
 
 ```sh
 # select more than one project:
-clojure -Tpoly info :projects '[example cli]'
+clojure -Tpoly info projects '[example cli]'
 # select just one profile:
-clojure -Tpoly info :profile remote
+clojure -Tpoly info profile remote
 ```
 
 Some `poly` commands treat `:brick` and `:project` as flag arguments and other expect
@@ -285,29 +285,31 @@ is determined by whether the value is boolean or not:
 
 ```sh
 # select all projects:
-clojure -Tpoly info :project true # flag argument
+clojure -Tpoly info project true # flag argument
 # select a specific project:
-clojure -Tpoly info :project cli # named argument
+clojure -Tpoly info project cli # named argument
 ```
 
 Since the exec argument format for create becomes verbose, there are four shortcut arguments:
 
 ```sh
 # full create command syntax:
-clojure -Tpoly create :entity component :name user
+clojure -Tpoly create entity component name user
 # shorthand:
-clojure -Tpoly create :c user
-# similarly for :b (base), :p (project), and :w (workspace)
-clojure -Tpoly create :w next-gen :top-ns com.my-company
+clojure -Tpoly create c user
+# similarly for b (base), p (project), and w (workspace)
+clojure -Tpoly create w next-gen top-ns com.my-company
 # is shorthand for:
-clojure -Tpoly create workspace :name next-gen :top-ns com.my-company
+clojure -Tpoly create workspace name next-gen top-ns com.my-company
 ```
 
-Finally, for some commands, more than one "entity" can be provided and for the `:entity`
-exec argument, those can be `:`-separated:
+Finally, for some commands, more than one "entity" can be provided and for the `entity`
+exec argument, those can be `:`-separated, or use `entities` and a vector:
 
 ```sh
-clojure -Tpoly help :entity create:component
+clojure -Tpoly help entity create:component
+# equivalent to:
+clojure -Tpoly help entities '[create component]'
 ```
 
 ### Use the Polylith Tool as a dependency
