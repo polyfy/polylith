@@ -225,10 +225,8 @@ If you are using a recent version of the [Clojure CLI](https://clojure.org/relea
 1.10.3.933 or later -- you can install `poly` as a "tool":
 
 ```sh
-clojure -Ttools install io.github.polyfy/polylith '{:git/sha "2a42efbd508a861a9e7a78ae25143e3ebb066942" :deps/root "projects/poly"}' :as poly
+clojure -Ttools install io.github.polyfy/polylith '{:git/sha "e50a1b8aa9cdf7e05543799723656b7faec9f3f6" :deps/root "projects/poly"}' :as poly
 ```
-
-**TODO: This needs updating with the latest full SHA after merging the PR, and then with `:git/tag`/`:git/sha` (using a short SHA) after the next tagged version is released!**
 
 Then you can invoke the `poly` tool using the CLI directly:
 
