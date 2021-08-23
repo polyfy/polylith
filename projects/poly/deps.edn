@@ -26,6 +26,9 @@
         org.clojure/clojure {:mvn/version "1.10.3"}
         org.slf4j/slf4j-nop {:mvn/version "1.7.32"}}
 
+ ;; so poly can be installed as a tool:
+ :tools/usage {:ns-default polylith.clj.core.poly-cli.api}
+
  :aliases {:test      {:extra-paths ["test"]
                        :extra-deps  {poly/test-helper {:local/root "../../components/test-helper"}}}
 
