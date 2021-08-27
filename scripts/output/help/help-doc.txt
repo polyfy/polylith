@@ -149,7 +149,7 @@ poly help
     poly ws out:ws.edn
 ```
 
-### check
+#### check
 ```
   Validates the workspace.
 
@@ -218,7 +218,7 @@ poly help
     defined in :top-namespace in ./deps.edn.
 ```
 
-### create
+#### create
 ```
   Creates a component, base, project or workspace.
 
@@ -241,7 +241,7 @@ poly help
     poly create workspace name:myws top-ns:com.my.company branch:master
 ```
 
-### create component
+#### create component
 ```
   Creates a component.
 
@@ -256,7 +256,7 @@ poly help
     poly create component name:admin interface:user
 ```
 
-### create base
+#### create base
 ```
   Creates a base.
 
@@ -268,7 +268,7 @@ poly help
     poly create base name:mybase
 ```
 
-### create project
+#### create project
 ```
   Creates a project.
 
@@ -280,7 +280,7 @@ poly help
     poly create project name:myproject
 ```
 
-### create workspace
+#### create workspace
 ```
   Creates a workspace in current directory. If the workspace is created within
   an existing git repo, then that repository will be used. If the workspace is
@@ -298,26 +298,26 @@ poly help
     BRANCH = The name of the branch, e.g. master.
 
   Example:
-    poly create w name:myws top-ns:com.my.company
+    poly create w top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company branch:master
 ```
 
-### deps
+#### deps
 ```
   Shows dependencies.
 
-  poly deps [project:PROJECT] [brick:BRICK]
+  poly deps [project:[35mPROJECT[0m] [brick:[35mBRICK[0m]
     (omitted) = Show workspace dependencies.
-    PROJECT   = Show dependencies for specified project.
-    BRICK     = Show dependencies for specified brick.
+    [35mPROJECT[0m   = Show dependencies for specified project.
+    [35mBRICK[0m     = Show dependencies for specified brick.
 
   To get help for a specific diagram, type: 
-    poly help deps ARGS:
-      ARGS = :brick           Help for the brick diagram.
-             :project         Help for the project diagram.
-             :workspace       Help for the workspace diagram.
-             :project :brick  Help for the project/brick diagram.
+    poly help deps [35mARGS[0m:
+      [35mARGS[0m = [35m:brick[0m           Help for the brick diagram.
+             [35m:project[0m         Help for the project diagram.
+             [35m:workspace[0m       Help for the workspace diagram.
+             [35m:project :brick[0m  Help for the project/brick diagram.
   Example:
     poly deps
     poly deps project:myproject
@@ -325,7 +325,7 @@ poly help
     poly deps project:myproject brick:mybrick
 ```
 
-### deps :brick
+#### deps :brick
 ```
   Shows dependencies for selected brick.
 
@@ -344,7 +344,7 @@ poly help
     poly deps brick:mybrick
 ```
 
-### deps :project
+#### deps :project
 ```
   Shows dependencies for selected project.
 
@@ -371,13 +371,13 @@ poly help
   mark indirect dependencies in the test context. Here the cli base
   depends on user and util, via 'cli > payer > user' and
   'cli > payer > util'. Each usage comes from at least one :require
-  statement in the brick.
+  statement in the brick. 
 
   Example:
     poly deps project:myproject
 ```
 
-### deps :workspace
+#### deps :workspace
 ```
   Shows dependencies for the workspace.
 
@@ -399,27 +399,40 @@ poly help
   Each usage comes from at least one :require statement in the brick.
 ```
 
-### deps :project :brick
+#### deps :brick :project
 ```
-  Shows dependencies for selected brick and project.
+  Shows dependencies for selected project.
 
-  poly deps project:PROJECT brick:BRICK
-    PROJECT = The project (name or alias) to show dependencies for.
-    BRICK   = The brick to show dependencies for.
+  poly deps project:PROJEXT
+    PROJECT = The project name or alias to show dependencies for.
 
-  used by  <  user  >  uses
-  -------              ----
-  payer                util
+         p      
+         a  u  u
+         y  s  t
+         e  e  i
+  brick  r  r  l
+  --------------
+  payer  .  x  t
+  user   .  .  x
+  util   .  .  .
+  cli    x  +  +
 
-  In this example, user is used by payer and it uses util itself.
-  If a brick ends with '(t)' then it indicatest that it's only used
-  from the test context.
+  When the project is known, we also know which components are used.
+
+  In this example, payer uses user in the src context, and util only
+  in the test context. user uses util, and cli uses payer. The 't'
+  means that payer is only used in the test context by user. The +
+  signs mark indirect dependencies, while - signs (not present here)
+  mark indirect dependencies in the test context. Here the cli base
+  depends on user and util, via 'cli > payer > user' and
+  'cli > payer > util'. Each usage comes from at least one :require
+  statement in the brick. 
 
   Example:
-    poly deps project:myproject brick:mybrick
+    poly deps project:myproject
 ```
 
-### diff
+#### diff
 ```
   Shows changed files since the most recent stable point in time.
 
@@ -442,7 +455,7 @@ poly help
     git log --pretty=oneline
 ```
 
-### info
+#### info
 ```
   Shows workspace information.
 
@@ -632,7 +645,7 @@ poly help
     poly info ws-file:ws.edn
 ```
 
-### libs
+#### libs
 ```
   Shows all libraries that are used in the workspace.
 
@@ -679,7 +692,7 @@ poly help
   ~/.gitlibs/libs/YOUR-LIBRARY directory for Git dependencies.
 ```
 
-### migrate
+#### migrate
 ```
   Migrates a workspace to the latest version.
 
@@ -703,9 +716,10 @@ poly help
   Starting from version 0.2.0-alpha10, the tool supports specifying dependencies per
   brick in its own deps.edn files. Workspace specific config is stored in ./workspace.edn
   instead of the :polylith key in ./deps which was the case prior to this version.
+
 ```
 
-### prompt
+#### prompt
 ```
   poly prompt
 
@@ -719,9 +733,10 @@ poly help
   and get instant feedback.
 
   Exit the interactive mode by typing 'exit' or 'quit'.
+
 ```
 
-### test
+#### test
 ```
   Executes brick and/or project tests.
 
@@ -776,7 +791,7 @@ poly help
     poly test :all :dev
 ```
 
-### ws
+#### ws
 ```
   Prints or writes the workspace as data.
 
@@ -801,7 +816,7 @@ poly help
            as setting color-mode:none and piping the output to a file.
 
     :latest-sha = if passed in, then settings:vcs:polylith:latest-sha will be set.
-                  If A branch is given, e.g., branch:master, then the latest sha will be
+                  If A branch is given, e.g., branch:master, then the latest sha will be 
                   retrieved from that branch.
 
   Example:
@@ -820,3 +835,4 @@ poly help
     poly ws out:ws.edn
     poly ws color-mode:none > ws.edn
 ```
+

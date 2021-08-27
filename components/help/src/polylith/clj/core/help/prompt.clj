@@ -12,7 +12,7 @@
        "  The idea is to get get rid of the startup time of the command\n"
        "  and get instant feedback.\n"
        "\n"
-       "  Exit the interactive mode by typing 'exit' or 'quit'.\n"))
+       "  Exit the interactive mode by typing 'exit' or 'quit'."))
 
 (defn print-help []
   (println (help)))

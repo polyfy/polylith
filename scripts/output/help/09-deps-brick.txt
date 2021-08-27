@@ -1,0 +1,15 @@
+  Shows dependencies for selected brick.
+
+  poly deps brick:BRICK
+    BRICK = The name of the brick to show dependencies for.
+
+  used by  <  user  >  uses
+  -------              ----
+  payer                util
+
+  In this example, user is used by payer and it uses util itself.
+  If a brick or interface ends with '(t)' then it indicatest that
+  it's only used from the test context.
+
+  Example:
+    poly deps brick:mybrick

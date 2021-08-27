@@ -1,0 +1,29 @@
+
+The individual help texts listed here are taken from the built-in `help` command.
+
+**Commands**
+- [check](#check)
+- [create](#create)
+  - [create component](#create-component)
+  - [create base](#create-base)
+  - [create project](#create-project)
+  - [create workspace](#create-workspace)
+- [deps](#deps)
+  - [deps :bricks](#deps-bricks)
+  - [deps :brick](#deps-brick)
+  - [deps :project](#deps-project)
+  - [deps :project :brick](#deps-project-brick)
+- [diff](#diff)
+- [info](#info)
+- [libs](#libs)
+- [migrate](#migrate)
+- [prompt](#prompt)
+- [test](#test)
+- [ws](#ws)
+
+To list all available commands, type:
+```
+poly help
+```
+
+```
