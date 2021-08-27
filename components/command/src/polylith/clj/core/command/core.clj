@@ -69,7 +69,7 @@
         "info" (info/info workspace unnamed-args)
         "libs" (lib/print-lib-table workspace is-all)
         "migrate" (migrator/migrate ws-dir workspace)
-        "prompt" (prompt/start-user-prompt execute workspace)
+        "prompt" (prompt/start-user-prompt execute workspace color-mode)
         "test" (test/run workspace unnamed-args is-verbose color-mode)
         "version" (version)
         "ws" (ws-explorer/ws workspace get out color-mode)
