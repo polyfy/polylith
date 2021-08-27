@@ -28,7 +28,7 @@
        "  mark indirect dependencies in the test context. Here the " (color/blue cm "cli") " base\n"
        "  depends on " (color/green cm "user") " and " (color/green cm "util") ", via 'cli > payer > user' and\n"
        "  'cli > payer > util'. Each usage comes from at least one " (color/purple cm ":require") "\n"
-       "  statement in the brick. \n"
+       "  statement in the brick.\n"
        "\n"
        "  Example:\n"
        "    poly deps project:myproject"))

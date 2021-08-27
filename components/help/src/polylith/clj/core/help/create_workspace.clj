@@ -18,7 +18,7 @@
        "    " (s/key "BRANCH" cm) " = The name of the branch, e.g. master.\n"
        "\n"
        "  Example:\n"
-       "    poly create w top-ns:com.my.company\n"
+       "    poly create w name:myws top-ns:com.my.company\n"
        "    poly create workspace name:myws top-ns:com.my.company\n"
        "    poly create workspace name:myws top-ns:com.my.company branch:master"))
 

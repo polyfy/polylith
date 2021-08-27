@@ -1,0 +1,8 @@
+  Creates a project.
+
+  poly create project name:NAME
+    NAME = The name of the project to create.
+
+  Example:
+    poly create p name:myproject
+    poly create project name:myproject

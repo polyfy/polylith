@@ -11,8 +11,8 @@
        "\n"
        "  Example:\n"
        "    poly create c name:user\n"
-       "    poly create c name:admin interface:user\n"
-       "    poly create component name:user\n"))
+       "    poly create component name:user\n"
+       "    poly create component name:admin interface:user"))
 
 (defn print-help [color-mode]
   (println (help-text color-mode)))

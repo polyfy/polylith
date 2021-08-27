@@ -7,7 +7,6 @@
             [polylith.clj.core.validator.m106-multiple-interface-occurrences :as m106]
             [polylith.clj.core.validator.m107-missing-componens-in-project :as m107]
             [polylith.clj.core.validator.m108-project-with-multi-implementing-component :as m108]
-            [polylith.clj.core.validator.m109-missing-libraries :as m109]
             [polylith.clj.core.validator.m201-mismatching-parameters :as m201]
             [polylith.clj.core.validator.m202-missing-paths :as m202]
             [polylith.clj.core.validator.m203-path-exists-in-both-dev-and-profile :as m203]
@@ -27,7 +26,6 @@
                              (m106/errors components projects color-mode)
                              (m107/errors cmd settings projects components color-mode)
                              (m108/errors interfaces projects paths color-mode)
-                             (m109/errors cmd settings version projects components bases color-mode)
                              (m201/warnings interfaces components color-mode)
                              (m202/warnings projects paths color-mode)
                              (m203/warnings settings projects color-mode)

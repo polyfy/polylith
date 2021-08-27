@@ -25,7 +25,7 @@
        "           as setting " (s/key "color-mode:none" cm) " and piping the output to a file.\n"
        "\n"
        "    :latest-sha = if passed in, then " (s/key "settings:vcs:polylith:latest-sha" cm) " will be set.\n"
-       "                  If A branch is given, e.g., branch:master, then the latest sha will be \n"
+       "                  If A branch is given, e.g., branch:master, then the latest sha will be\n"
        "                  retrieved from that branch.\n"
        "\n"
        "  Example:\n"

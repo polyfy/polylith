@@ -1,0 +1,8 @@
+  Creates a base.
+
+  poly create base name:NAME
+    NAME = The name of the base to create.
+
+  Example:
+    poly create b name:mybase
+    poly create base name:mybase

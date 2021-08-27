@@ -22,7 +22,7 @@
        "\n"
        "  Starting from version 0.2.0-alpha10, the tool supports specifying dependencies per\n"
        "  brick in its own deps.edn files. Workspace specific config is stored in ./workspace.edn\n"
-       "  instead of the :polylith key in ./deps which was the case prior to this version.\n"))
+       "  instead of the :polylith key in ./deps which was the case prior to this version."))
 
 (defn print-help []
   (println (help)))

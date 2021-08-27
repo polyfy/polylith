@@ -28,10 +28,10 @@
   {"invoicing" {:src [], :test []}, "development" {:src [], :test []}},
   :project-to-bricks-to-test {"invoicing" [], "development" []},
   :project-to-projects-to-test {"invoicing" [], "development" []},
-  :since-sha "40d2f621963cb62ef4557f38d560e9f6dcf4c5be",
+  :since-sha "f7bae45bd7efbb4dbb7986fe6fb159f6cc72f2a7",
   :changed-files [],
   :git-diff-command
-  "git diff 40d2f621963cb62ef4557f38d560e9f6dcf4c5be --name-only",
+  "git diff f7bae45bd7efbb4dbb7986fe6fb159f6cc72f2a7 --name-only",
   :changed-components [],
   :since-tag "stable-master",
   :changed-or-affected-projects []},
@@ -536,7 +536,7 @@
    :auto-add false,
    :stable-since
    {:tag "stable-master",
-    :sha "40d2f621963cb62ef4557f38d560e9f6dcf4c5be"},
+    :sha "f7bae45bd7efbb4dbb7986fe6fb159f6cc72f2a7"},
    :polylith
    {:repo "https://github.com/polyfy/polylith.git", :branch "master"}},
   :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
@@ -577,12 +577,12 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.0-alpha10",
+  {:name "0.2.0-alpha11",
    :major 0,
    :minor 2,
    :patch 0,
-   :revision "alpha10",
-   :date "2021-08-02"},
+   :revision "alpha11",
+   :date "2021-08-08"},
   :ws {:type :toolsdeps2, :breaking 1, :non-breaking 0}},
  :ws-dir "USER-HOME/source/polylith/examples/local-dep",
  :ws-local-dir "examples/local-dep",

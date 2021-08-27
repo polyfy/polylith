@@ -1,0 +1,65 @@
+  Validates the workspace.
+
+  poly check
+
+  Prints 'OK' and returns 0 if no errors were found.
+  If errors or warnings were found, show messages and return the error code,
+  or 0 if only warnings. If internal errors, 1 is returned.
+
+  Error 101 - Illegal dependency on namespace.
+    Triggered if a :require statement refers to a component namespace
+    other than interface. Examples of valid namespaces:
+     - com.my.company.mycomponent.interface
+     - com.my.company.mycomponent.interface.subns
+     - com.my.company.mycomponent.interface.my.subns
+
+  Error 102 - Function or macro is defined twice.
+    Triggered if a function or macro is defined twice in the same namespace.
+
+  Error 103 - Missing definitions.
+    Triggered if a def, defn or defmacro definition exists in one component's
+    interface but is missing in another component that uses the same interface.
+
+  Error 104 - Circular dependencies.
+    Triggered if circular dependencies were detected, e.g.:
+    Component A depends on B that depends on A (A > B > A), or A > B > C > A.
+
+  Error 105 - Illegal name sharing.
+    Triggered if a base has the same name as a component or interface.
+    Projects and profiles can be given any name.
+
+  Error 106 - Multiple components that share the same interfaces in a project.
+    Triggered if a project contains more than one component that shares the
+    same interface.
+
+  Error 107 - Missing components in project.
+    Triggered if a component depends on an interface that is not included in the
+    project. The solution is to add a component to the project that
+    implements the interface.
+
+  Error 108 - Components with an interface that is implemented by more than one
+              component are not allowed for the development project.
+    The solution is to remove the component from the development project
+    and define the paths for each component in separate profiles
+    (including test paths).
+
+  Warning 201 - Mismatching parameter lists in function or macro.
+    Triggered if a function or macro is defined in the interface for a component
+    but also defined in the same interface for another component but with a
+    different parameter list.
+
+  Warning 202 - Missing paths in project.
+    Triggered if a path in a project doesn't exist on disk.
+    The solution is to add the file or directory, or to remove the path.
+
+  Warning 203 - Path exists in both dev and profile.
+    It's discouraged to have the same path in both the development project
+    and a profile. The solution is to remove the path from dev or the profile.
+
+  Warning 204 - Library exists in both dev and a profile.
+    It's discouraged to have the same library in both development and a profile.
+    The solution is to remove the library from dev or the profile.
+
+  Warning 205 - Non top namespace was found in brick.
+    Triggered if a namespace in a brick doesn't start with the top namespaces
+    defined in :top-namespace in ./deps.edn.

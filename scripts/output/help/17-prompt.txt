@@ -1,0 +1,12 @@
+  poly prompt
+
+  Starts a prompt with the name of the current workspace, e.g.:
+    myworkspace$>
+
+  From here we are free to execute any command we want, e.g.:
+    myworkspace$> info
+
+  The idea is to get get rid of the startup time of the command
+  and get instant feedback.
+
+  Exit the interactive mode by typing 'exit' or 'quit'.

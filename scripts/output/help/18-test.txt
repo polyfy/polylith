@@ -1,0 +1,51 @@
+  Executes brick and/or project tests.
+
+  poly test [ARGS]
+
+  The brick tests are executed from all projects they belong to except for the development
+  project (if not :dev is passed in):
+
+  ARGS              Tests to execute
+  ----------------  -------------------------------------------------------------
+  (empty)           All brick tests that are directly or indirectly changed.
+
+  :project          All brick tests that are directly or indirectly changed +
+                    tests for changed projects.
+
+  :all-bricks       All brick tests.
+
+  :all              All brick tests + all project tests (except development).
+
+
+  To execute the brick tests from the development project, also pass in :dev:
+
+  ARGS              Tests to execute
+  ----------------  -------------------------------------------------------------
+  :dev              All brick tests that are directly or indirectly changed,
+                    only executed from the development project.
+
+  :project :dev     All brick tests that are directly or indirectly changed,
+                    executed from all projects (development included) +
+                    tests for changed projects (development included).
+
+  :all-bricks :dev  All brick tests, executed from all projects
+                    (development included).
+
+  :all :dev         All brick tests, executed from all projects
+                    (development included) + all project tests
+                    (development included).
+
+  Projects can also be explicitly selected with e.g. project:proj1 or project:proj1:proj2.
+  :dev is a shortcut for project:dev.
+
+  Example:
+    poly test
+    poly test :project
+    poly test :all-bricks
+    poly test :all
+    poly test project:proj1
+    poly test project:proj1:proj2
+    poly test :dev
+    poly test :project :dev
+    poly test :all-bricks :dev
+    poly test :all :dev

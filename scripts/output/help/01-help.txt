@@ -1,0 +1,120 @@
+  Poly 0.2.0-alpha11 (2021-08-08) - https://github.com/polyfy/polylith
+
+  poly CMD [ARGS] - where CMD [ARGS] are:
+
+    check                       Checks if the workspace is valid.
+    create E name:N [ARG]       Creates a component, base, project or workspace.
+    deps [project:P] [brick:B]  Shows dependencies.
+    diff                        Shows changed files since last stable point in time.
+    help [C] [ARG]              Shows this help or help for specified command.
+    info [ARGS]                 Shows a workspace overview and checks if it's valid.
+    libs                        Shows all libraries in the workspace.
+    prompt                      Starts an interactive prompt.
+    test [ARGS]                 Runs tests.
+    version                     Shows current version of the tool.
+    ws [get:X]                  Shows the workspace as data.
+
+  If ws-dir:PATH is passed in as an argument, where PATH is a relative
+  or absolute path, then the command is executed from that directory.
+  This works for all commands except 'test'.
+
+  If :: is passed in, then ws-dir is set to the first parent directory (or current)
+  that contains a 'workspace.edn' config file. The exception is the 'test command'
+  that has to be executed from the workspace root.
+
+  If ws-file:FILE is passed in, then the workspace will be populated with the content
+  from that file. All commands except 'create' and 'test' can be executed with this
+  parameter set. The FILE is created by executing the 'ws' command, e.g.:
+  'poly ws out:ws.edn'.
+
+  If skip:PROJECTS is passed in, then the given project(s) will not be read from disk.
+  Both project names and aliases can be used and should be separated by : if more than one.
+
+  If since:SINCE is passed in as an argument, the last stable point in time will be
+  used depending on the value of SINCE (or the first commit if no match was found).
+  If prefixed with 'previous-', e.g. 'previous-release', then the SHA directly before
+  the most recent matching tag of the 'release' pattern will be used:
+    stable  -> the latest tag that matches stable-*, defined by
+               :tag-patterns > :stable in workspace.edn.
+    release -> the latest tag that matches v[0-9]*, defined by
+               :tag-patterns > :release in workspace.edn.
+    KEY     -> any key in :tag-patterns.
+    SHA     -> a git SHA-1 hash (if no key was found in :tag-patterns).
+
+  The color mode is taken from ~/.polylith/config.edn but can be overridden by passing
+  in color-mode:COLOR where valid colors are none, light, and dark.
+
+  Example:
+    poly check
+    poly create c name:user
+    poly create component name:user
+    poly create component name:admin interface:user
+    poly create base name:mybase
+    poly create project name:myproject
+    poly create w top-ns:com.my.company
+    poly create workspace name:myws top-ns:com.my.company
+    poly create workspace name:myws top-ns:com.my.company branch:master
+    poly deps
+    poly deps project:myproject
+    poly deps brick:mybrick
+    poly deps project:myproject brick:mybrick
+    poly diff
+    poly help
+    poly help info
+    poly help create
+    poly help create component
+    poly help create base
+    poly help create project
+    poly help create workspace
+    poly help deps
+    poly help deps :project
+    poly help deps :brick
+    poly help deps :project :brick
+    poly info
+    poly info :loc
+    poly info since:65a7918
+    poly info since:head
+    poly info since:head~1
+    poly info since:stable
+    poly info since:release
+    poly info since:previous-release
+    poly info skip:dev
+    poly info skip:dev:myproject
+    poly info project:myproject
+    poly info project:myproject:another-project
+    poly info :project
+    poly info :dev
+    poly info :project :dev
+    poly info :all
+    poly info :all-bricks
+    poly info ::
+    poly info color-mode:none
+    poly info ws-dir:another-ws
+    poly info ws-file:ws.edn
+    poly libs
+    poly prompt
+    poly test
+    poly test :project
+    poly test :all-bricks
+    poly test :all
+    poly test project:proj1
+    poly test project:proj1:proj2
+    poly test :dev
+    poly test :project :dev
+    poly test :all-bricks :dev
+    poly test :all :dev
+    poly version
+    poly ws
+    poly ws get:keys
+    poly ws get:count
+    poly ws get:settings
+    poly ws get:user-input:args
+    poly ws get:user-input:args:0
+    poly ws get:settings:keys
+    poly ws get:components:keys
+    poly ws get:components:count
+    poly ws get:components:mycomp:lines-of-code
+    poly ws get:settings:vcs:polylith :latest-sha
+    poly ws get:settings:vcs:polylith :latest-sha branch:master
+    poly ws get:changes:changed-or-affected-projects skip:dev
+    poly ws out:ws.edn
