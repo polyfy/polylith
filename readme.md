@@ -2054,6 +2054,8 @@ To also execute the brick tests from the development project, pass in `:dev`:
 
 Projects can also be explicitly selected with e.g. `project:proj1` or `project:proj1:proj2`. `:dev` is a shortcut for `project:dev`.
 
+We can also filter which bricks to run the tests for with e.g. `brick:b1` or `brick:b1:b2`.
+
 These arguments can also be passed in to the `info` command, as we have done in the examples above,
 to get a view of which tests will be executed.
 
