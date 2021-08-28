@@ -26,7 +26,11 @@
    :project-names []}},
  :projects
  {"development" {:alias "dev"},
-  "command-line" {:alias "cl"},
+  "command-line"
+  {:alias "cl",
+   :test
+   {:setup-fn project.command-line.test-setup/test-setup,
+    :teardown-fn project.command-line.test-setup/test-teardown}},
   "user-service" {:alias "user-s"}},
  :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
  :thousand-separator ",",

@@ -100,7 +100,7 @@ cd ..
 tree example > $output/project-tree.txt
 cd example
 cp $sections/project/deps.edn .
-cp $sections/project/workspace.edn .
+cp $sections/project/workspace1.edn ./workspace.edn
 cp $sections/project/command-line-deps.edn projects/command-line/deps.edn
 
 echo "### 6/50 Build ###"
@@ -181,10 +181,17 @@ poly info :all-bricks fake-sha:e7ebe68 > $output/testing-info-7.txt
 poly info :all-bricks :dev fake-sha:e7ebe68 > $output/testing-info-8.txt
 poly info :all fake-sha:e7ebe68 > $output/testing-info-9.txt
 poly info :all :dev fake-sha:e7ebe68 > $output/testing-info-10.txt
+
 cp $sections/testing/workspace.edn .
 poly info :all :dev fake-sha:e7ebe68 > $output/testing-info-11.txt
 poly test :all :dev > $output/testing-test-all.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test-all.txt
+
+cp $sections/project/command-line-test-setup.clj projects/command-line/test/project/command_line/test_setup.clj
+cp $sections/project/workspace2.edn ./workspace.edn
+
+cp $sections/project/command-line-test-setup.clj projects/command-line/test/project/command_line/test_setup.clj
+cp $sections/project/workspace2.edn ./workspace.edn
 
 echo "### 11/50 Profile ###"
 echo "current-dir=$(pwd)"

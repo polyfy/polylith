@@ -1,7 +1,6 @@
 {:top-namespace "se.example"
  :interface-ns "interface"
  :default-profile-name "default"
- :add-to-git-when-create true
  :compact-views #{}
  :vcs {:name "git"
        :auto-add true}

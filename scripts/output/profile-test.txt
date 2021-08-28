@@ -1,5 +1,8 @@
 Projects to run tests from: [35mcommand-line[0m, [35muser-service[0m
 
+Running test setup for the [35mcommand-line[0m project: project.command-line.test-setup/test-setup
+--- test setup for command-line ---
+
 Running tests from the [35mcommand-line[0m project, including 2 bricks and 1 project: [32muser-remote[0m, [34mcli[0m, [35mcommand-line[0m
 
 Testing se.example.cli.core-test
@@ -16,12 +19,22 @@ Ran 1 tests containing 1 assertions.
 
 [32mTest results: 1 passes, 0 failures, 0 errors.[0m
 
+Testing project.command-line.test-setup
+
+Ran 0 tests containing 0 assertions.
+0 failures, 0 errors.
+
+[32mTest results: 0 passes, 0 failures, 0 errors.[0m
+
 Testing project.command-line.dummy_test
 
 Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
 [32mTest results: 1 passes, 0 failures, 0 errors.[0m
+Running test teardown for the [35mcommand-line[0m project: project.command-line.test-setup/test-teardown
+--- test teardown for command-line ---
+
 Running tests from the [35muser-service[0m project, including 2 bricks: [32muser[0m, [34muser-api[0m
 
 Testing se.example.user.interface-test
@@ -37,4 +50,5 @@ Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
 [32mTest results: 1 passes, 0 failures, 0 errors.[0m
+
 Execution time: x seconds
