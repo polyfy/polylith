@@ -1,5 +1,6 @@
 (ns polylith.clj.core.test-runner.core
-  (:require [clojure.string :as str]
+  (:require [clojure.set :as set]
+            [clojure.string :as str]
             [polylith.clj.core.deps.interface :as deps]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.util.interface.color :as color]
@@ -46,13 +47,21 @@
         (throw (Exception. (str "\n" (color/error color-mode result-str)))))
       (println (str "\n" (color/ok color-mode result-str))))))
 
+(defn components-msg [component-names color-mode]
+  (when (seq component-names)
+    [(color/component (str/join ", " component-names) color-mode)]))
+
+(defn bases-msg [base-names color-mode]
+  (when (seq base-names)
+    [(color/base (str/join ", " base-names) color-mode)]))
+
 (defn run-message [project-name components bases bricks-to-test projects-to-test color-mode]
   (let [component-names (set (map :name components))
         base-names (set (map :name bases))
         bases-to-test (filter #(contains? base-names %) bricks-to-test)
-        bases-to-test-msg (when (-> bases-to-test empty? not) [(color/base (str/join ", " bases-to-test) color-mode)])
+        bases-to-test-msg (bases-msg bases-to-test color-mode)
         components-to-test (filter #(contains? component-names %) bricks-to-test)
-        components-to-test-msg (when (-> components-to-test empty? not) [(color/component (str/join ", " components-to-test) color-mode)])
+        components-to-test-msg (components-msg components-to-test color-mode)
         projects-to-test-msg (when (-> projects-to-test empty? not) [(color/project (str/join ", " projects-to-test) color-mode)])
         entities-msg (str/join ", " (concat components-to-test-msg
                                             bases-to-test-msg
@@ -96,17 +105,31 @@
 (defn print-projects-to-test [projects-to-test color-mode]
   (let [projects (str/join ", " (map #(color/project (:name %) color-mode)
                                      projects-to-test))]
-    (println (str "Projects to run tests from: " projects "\n"))))
+    (println (str "Projects to run tests from: " projects))))
 
-(defn run [{:keys [projects changes messages] :as workspace} is-verbose color-mode]
+(defn print-bricks-to-test [component-names base-names bricks-to-test color-mode]
+  (when bricks-to-test
+    (let [components-to-test (sort (set/intersection component-names (set bricks-to-test)))
+          bases-to-test (sort (set/intersection base-names (set bricks-to-test)))
+          components (components-msg components-to-test color-mode)
+          bases (bases-msg bases-to-test color-mode)
+          bricks (str/join ", " (concat components bases))]
+      (println (str "Bricks to run tests for: " bricks)))))
+
+(defn run [{:keys [components bases projects changes messages] :as workspace} is-verbose color-mode]
   (if (validator/has-errors? messages)
     (validator/print-messages workspace)
     (let [start-time (time-util/current-time)
-          projects-to-test (sort-by :name (filter #(has-tests-to-run? % changes) projects))]
+          projects-to-test (sort-by :name (filter #(has-tests-to-run? % changes) projects))
+          bricks-to-test (-> workspace :user-input :selected-bricks)
+          component-names (set (map :name components))
+          base-names (set (map :name bases))]
       (if (empty? projects-to-test)
         (print-no-tests-to-run-if-only-dev-exists projects)
         (do
           (print-projects-to-test projects-to-test color-mode)
+          (print-bricks-to-test component-names base-names bricks-to-test color-mode)
+          (println)
           (doseq [project projects-to-test]
             (run-tests-for-project workspace project changes is-verbose))))
       (time-util/print-execution-time start-time))))

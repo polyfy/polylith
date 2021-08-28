@@ -27,6 +27,18 @@ echo ""; cat testing-info-2.txt ; echo ""
 echo "######### testing-info-3.png #########"
 echo ""; cat testing-info-3.txt ; echo ""
 
+echo "######### testing-info-3a.png #########"
+echo ""; cat testing-info-3a.txt ; echo ""
+
+echo "######### testing-info-3b.png #########"
+echo ""; cat testing-info-3b.txt ; echo ""
+
+echo "######### testing-info-3c.png #########"
+echo ""; cat testing-info-3c.txt ; echo ""
+
+echo "######### testing-info-3d.png #########"
+echo ""; cat testing-info-3d.txt ; echo ""
+
 echo "######### testing-info-4.png #########"
 echo ""; cat testing-info-4.txt ; echo ""
 

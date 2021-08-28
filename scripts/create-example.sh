@@ -129,6 +129,12 @@ poly test > $output/testing-test-ok.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test-ok.txt
 poly info :dev fake-sha:e7ebe68 > $output/testing-info-2.txt
 poly info project:cl:dev fake-sha:e7ebe68 > $output/testing-info-3.txt
+
+poly info fake-sha:e7ebe68 > $output/testing-info-3a.txt
+poly info brick:cli fake-sha:e7ebe68 > $output/testing-info-3b.txt
+poly info :no-changes fake-sha:e7ebe68 > $output/testing-info-3c.txt
+poly info brick:cli :no-changes fake-sha:e7ebe68 > $output/testing-info-3d.txt
+
 mkdir projects/command-line/test
 cp $sections/testing/deps.edn .
 cp $sections/testing/command-line-deps.edn projects/command-line/deps.edn

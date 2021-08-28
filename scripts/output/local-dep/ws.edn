@@ -28,12 +28,11 @@
   {"invoicing" {:src [], :test []}, "development" {:src [], :test []}},
   :project-to-bricks-to-test {"invoicing" [], "development" []},
   :project-to-projects-to-test {"invoicing" [], "development" []},
-  :since-sha "f7bae45bd7efbb4dbb7986fe6fb159f6cc72f2a7",
+  :since-sha "SHA",
   :changed-files [],
-  :git-diff-command
-  "git diff f7bae45bd7efbb4dbb7986fe6fb159f6cc72f2a7 --name-only",
+  :git-diff-command "git diff SHA --name-only",
   :changed-components [],
-  :since-tag "stable-master",
+  :since-tag "stable-jote",
   :changed-or-affected-projects []},
  :components
  [{:lines-of-code {:src 4, :test 6},
@@ -534,9 +533,7 @@
    :branch "BRANCH",
    :git-root "USER-HOME/source/polylith",
    :auto-add false,
-   :stable-since
-   {:tag "stable-master",
-    :sha "f7bae45bd7efbb4dbb7986fe6fb159f6cc72f2a7"},
+   :stable-since {:tag "stable-jote", :sha "SHA"},
    :polylith
    {:repo "https://github.com/polyfy/polylith.git", :branch "master"}},
   :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
