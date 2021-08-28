@@ -1822,6 +1822,8 @@ poly info brick:cli :all-bricks
 Finally, the `cli` brick is now marked to be tested!
 
 It's also possible to give more than one brick, e.g. `brick:cli:user`.
+Another trick we can do is exclude all bricks with `brick:` which can be useful in combination
+with `:project` or `:all` to execute only the project tests.
 
 ### Project tests
 
