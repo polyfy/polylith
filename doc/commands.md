@@ -38,6 +38,7 @@ poly help
     help [C] [ARG]              Shows this help or help for specified command.
     info [ARGS]                 Shows a workspace overview and checks if it's valid.
     libs                        Shows all libraries in the workspace.
+    migrate                     Migrates the workspace to the latest format.
     prompt                      Starts an interactive prompt.
     test [ARGS]                 Runs tests.
     version                     Shows current version of the tool.
@@ -121,6 +122,7 @@ poly help
     poly info ws-dir:another-ws
     poly info ws-file:ws.edn
     poly libs
+    poly migrate
     poly prompt
     poly test
     poly test :project

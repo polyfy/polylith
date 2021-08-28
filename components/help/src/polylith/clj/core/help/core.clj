@@ -11,7 +11,7 @@
             [polylith.clj.core.help.ws :as ws]
             [polylith.clj.core.help.summary :as summary]))
 
-(defn print-help [prompt? cmd ent is-show-project is-show-brick is-show-workspace toolsdeps1? color-mode]
+(defn print-help [prompt? cmd ent is-all is-show-project is-show-brick is-show-workspace toolsdeps1? color-mode]
   (case cmd
     "check" (check/print-help color-mode)
     "create" (create/print-help ent color-mode)
@@ -23,4 +23,4 @@
     "prompt" (prompt/print-help)
     "test" (test/print-help color-mode)
     "ws" (ws/print-help color-mode)
-    (summary/print-help prompt? toolsdeps1? color-mode)))
+    (summary/print-help prompt? is-all toolsdeps1? color-mode)))
