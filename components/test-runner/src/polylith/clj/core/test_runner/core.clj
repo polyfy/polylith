@@ -32,7 +32,6 @@
     (map :namespace (:test namespaces))))
 
 (defn execute-fn [function fn-type project-name class-loader color-mode]
-  (println)
   (when function
     (println (str "Running test " fn-type " for the " (color/project project-name color-mode)
                   " project: " function))
@@ -129,6 +128,10 @@
                                      projects-to-test))]
     (println (str "Projects to run tests from: " projects))))
 
+(defn print-execution-time [start-time]
+  (println)
+  (time-util/print-execution-time start-time))
+
 (defn print-bricks-to-test [component-names base-names bricks-to-test color-mode]
   (when bricks-to-test
     (let [components-to-test (sort (set/intersection component-names (set bricks-to-test)))
@@ -155,4 +158,4 @@
           (doseq [{:keys [name] :as project} projects-to-test]
             (let [test-settings (get-in settings [:projects name :test])]
               (run-tests-for-project workspace project changes test-settings is-verbose color-mode)))))
-      (time-util/print-execution-time start-time))))
+      (print-execution-time start-time))))

@@ -2042,7 +2042,7 @@ Looks like it worked!
 Sometimes we need to perform some test setup/teardown before and after we execute the tests for a project.
 
 If any code is used by more than one project, we can put it in a separate component,
-but in this case we should put it the code in the `command-line` project's `test` directory
+but in this case we should put it in the `command-line` project's `test` directory
 because it's not used by any other project.
 
 Let's create a `test-setup` namespace in the project's test directory and add two functions to it:

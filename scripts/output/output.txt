@@ -479,10 +479,8 @@ Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
 [32mTest results: 1 passes, 0 failures, 0 errors.[0m
-
 Running test teardown for the [35mcommand-line[0m project: project.command-line.test-setup/test-teardown
 --- test teardown for command-line ---
-
 
 Running tests from the [35muser-service[0m project, including 2 bricks: [32muser[0m, [34muser-api[0m
 
