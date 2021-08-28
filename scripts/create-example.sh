@@ -1,6 +1,36 @@
 #!/usr/bin/env bash
 
-# brew install tree
+#----------------------------------------------------------------------
+# This script is used to run all the commands in the documentation
+# and produces output files in the 'output' directory that serves
+# these purposes:
+# - it makes sure all the commands can be executed from a shell.
+# - the output from these commands is version controlled and
+#   is used to validate that the everything works as expected.
+# - the output from 'cat output/output.txt' is used to update
+#   the images in the documentation.
+# - different git commands are executed to ensure everything
+#   works with git as expected.
+# - the whole polylith repository itself is used as test workspace
+#   both with the current :toolsdeps2 format but also the older
+#   :toolsdeps1 format, to ensure we can run all the commands
+#   against workspaces created with 'poly' version 0.1.0-alpha9 or
+#   older.
+# - we also run the commands agains the realworld and usermanager
+#   repos to make sure they work and that we get expected output
+#   from them.
+#
+# Before executing this command, make sure the 'tree' command is
+# installed, by executing:
+#   brew install tree
+#
+# Also make sure the 'poly' command is compiled, by executing:
+#   ./build.sh.
+#
+# To update the documentation:
+#   cd output/help
+#   ./update-commands-doc.sh
+#----------------------------------------------------------------------
 
 SECONDS=0
 
@@ -353,7 +383,6 @@ cd help
 
 echo "### 50/50 help ###"
 
-./help.sh
-./help-doc.sh > ../../../doc/commands.md
+./update-commands-doc.sh
 
 echo "Elapsed: $((($SECONDS / 60) % 60)) min $(($SECONDS % 60)) sec"

@@ -112,6 +112,8 @@ poly help
     poly info skip:dev:myproject
     poly info project:myproject
     poly info project:myproject:another-project
+    poly info brick:mycomponent
+    poly info brick:mycomponent:mybase
     poly info :project
     poly info :dev
     poly info :project :dev
@@ -130,6 +132,8 @@ poly help
     poly test :all
     poly test project:proj1
     poly test project:proj1:proj2
+    poly test brick:mycomponent
+    poly test brick:mycomponent:mybase
     poly test :dev
     poly test :project :dev
     poly test :all-bricks :dev
@@ -625,6 +629,8 @@ poly help
     poly info since:previous-release
     poly info project:myproject
     poly info project:myproject:another-project
+    poly info brick:mycomponent
+    poly info brick:mycomponent:mybase
     poly info :project
     poly info :dev
     poly info :project :dev
@@ -762,8 +768,11 @@ poly help
                     (development included) + all project tests
                     (development included).
 
-  Projects can also be explicitly selected with e.g. project:proj1 or project:proj1:proj2.
-  :dev is a shortcut for project:dev.
+  Projects can also be explicitly selected with e.g. project:proj1 or
+  project:proj1:proj2. Specifying :dev is a shortcut for project:dev.
+
+  We can also specify which bricks to include, by listing them like this:
+  brick:mycomponent:another-component:mybase
 
   Example:
     poly test
@@ -772,6 +781,8 @@ poly help
     poly test :all
     poly test project:proj1
     poly test project:proj1:proj2
+    poly test brick:mycomponent
+    poly test brick:mycomponent:mybase
     poly test :dev
     poly test :project :dev
     poly test :all-bricks :dev

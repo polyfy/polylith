@@ -83,6 +83,8 @@
     poly info skip:dev:myproject
     poly info project:myproject
     poly info project:myproject:another-project
+    poly info brick:mycomponent
+    poly info brick:mycomponent:mybase
     poly info :project
     poly info :dev
     poly info :project :dev
@@ -101,6 +103,8 @@
     poly test :all
     poly test project:proj1
     poly test project:proj1:proj2
+    poly test brick:mycomponent
+    poly test brick:mycomponent:mybase
     poly test :dev
     poly test :project :dev
     poly test :all-bricks :dev

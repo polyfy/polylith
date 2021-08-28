@@ -185,6 +185,8 @@
        "    poly info since:previous-release\n"
        "    poly info project:myproject\n"
        "    poly info project:myproject:another-project\n"
+       "    poly info brick:mycomponent\n"
+       "    poly info brick:mycomponent:mybase\n"
        "    poly info :project\n"
        "    poly info :dev\n"
        "    poly info :project :dev\n"
