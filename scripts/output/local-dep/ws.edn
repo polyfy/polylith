@@ -32,7 +32,7 @@
   :changed-files [],
   :git-diff-command "git diff SHA --name-only",
   :changed-components [],
-  :since-tag "stable-jote",
+  :since-tag "stable-master",
   :changed-or-affected-projects []},
  :components
  [{:lines-of-code {:src 4, :test 6},
@@ -533,7 +533,7 @@
    :branch "BRANCH",
    :git-root "USER-HOME/source/polylith",
    :auto-add false,
-   :stable-since {:tag "stable-jote", :sha "SHA"},
+   :stable-since {:tag "stable-master", :sha "SHA"},
    :polylith
    {:repo "https://github.com/polyfy/polylith.git", :branch "master"}},
   :tag-patterns {:stable "stable-*", :release "v[0-9]*"},

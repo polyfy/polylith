@@ -292,7 +292,7 @@ poly deps color-mode:none > $output/usermanager/deps.txt
 
 cd $examples/local-dep
 echo "current-dir=$(pwd)"
-sha=`git rev-list -n 1 stable-jote`
+sha=`git rev-list -n 1 stable-master`
 branch=`git rev-parse --abbrev-ref HEAD`
 echo "### 33/50 examples/local-dep ###"
 poly info color-mode:none fake-sha:aaaaa > $output/local-dep/info.txt

@@ -64,7 +64,6 @@
     (util/ordered-map :args (vec args)
                       :cmd (first args)
                       :get get
-                      :brick brick ;; todo: replace with selected-bricks
                       :branch branch
                       :color-mode color-mode
                       :fake-sha fake-sha
