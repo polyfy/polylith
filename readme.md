@@ -1794,7 +1794,7 @@ poly info brick:cli
 ```
 <img src="images/testing-info-3b.png" width="35%">
 
-...only that brick is now marked to be tested.
+...now only that brick is marked to be tested.
 
 
 Let's pretend that no bricks were marked to be tested:
