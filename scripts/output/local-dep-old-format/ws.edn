@@ -562,11 +562,11 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.0-alpha11",
+  {:name "0.2.0-alpha11.issue110",
    :major 0,
    :minor 2,
    :patch 0,
-   :revision "alpha11",
+   :revision "alpha11.issue110",
    :date "2021-08-08"},
   :ws {:type :toolsdeps2, :breaking 1, :non-breaking 0},
   :from {:ws {:type :toolsdeps1}}},

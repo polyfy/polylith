@@ -23,8 +23,8 @@
                (or tag old-tag) (assoc :git/tag (or tag old-tag))
                root             (assoc :deps/root root))
      (throw (Exception. (str "Unknown library type: " type))))
-    (seq exclusions)
-    (assoc :exclusions (vec exclusions))))
+   (seq exclusions)
+   (assoc :exclusions (vec exclusions))))
 
 (defn key-as-symbol
   "The library names (keys) are stored as strings in the workspace
@@ -46,5 +46,5 @@
 (defn resolve-deps [project is-verbose]
   "Resolves which library versions that are used by the given project."
   (let [config (->config project)
-        _ (when is-verbose (println (str "# config=" config)))]
+        _ (when is-verbose (println (str "# config:\n" config) "\n"))]
     (tools-deps/resolve-deps config {})))

@@ -31,8 +31,27 @@
   (when (contains? (set projects-to-test) project-name)
     (map :namespace (:test namespaces))))
 
-(defn run-test-statements [project-name class-loader test-statements run-message color-mode]
+(defn execute-fn [function fn-type project-name class-loader color-mode]
+  (println)
+  (when function
+    (println (str "Running test " fn-type " for the " (color/project project-name color-mode)
+                  " project: " function))
+    (try
+      (when (= :missing-fn
+               (common/eval-in class-loader
+                               `(if-let [~'fun (clojure.core/requiring-resolve '~function)]
+                                  (~'fun '~project-name)
+                                  :missing-fn)))
+        (println (color/error color-mode (str "Could not find " fn-type " function: " function))))
+      (println)
+      (catch Throwable t
+        (let [message (str (or (some-> t .getCause) (.getMessage t)))]
+          (println (color/error color-mode (str "\nTest " fn-type " failed: " message))))))))
+
+(defn run-test-statements [project-name class-loader test-statements run-message is-verbose color-mode]
   (println (str run-message))
+  (when is-verbose (println (str "# test-statements:\n" test-statements) "\n"))
+
   (doseq [statement test-statements]
     (let [{:keys [error fail pass]}
           (try
@@ -77,22 +96,25 @@
 (defn run-tests-for-project [{:keys [bases components] :as workspace}
                              {:keys [name paths namespaces] :as project}
                              {:keys [project-to-bricks-to-test project-to-projects-to-test]}
-                             is-verbose]
+                             {:keys [setup-fn teardown-fn]}
+                             is-verbose color-mode]
   (when (-> paths :test empty? not)
-    (let [color-mode (-> workspace :settings :color-mode)
-          lib-paths (resolve-deps project is-verbose color-mode)
+    (let [lib-paths (resolve-deps project is-verbose color-mode)
           all-paths (set (concat (:src paths) (:test paths) lib-paths))
           bricks (concat components bases)
           bricks-to-test (project-to-bricks-to-test name)
           projects-to-test (project-to-projects-to-test name)
           run-message (run-message name components bases bricks-to-test projects-to-test color-mode)
-          test-namespaces (brick-test-namespaces bricks bricks-to-test)
+          brick-test-namespaces (brick-test-namespaces bricks bricks-to-test)
           project-test-namespaces (project-test-namespaces name projects-to-test namespaces)
-          test-statements (map ->test-statement (concat test-namespaces project-test-namespaces))
+          test-statements (mapv ->test-statement (concat brick-test-namespaces project-test-namespaces))
           class-loader (common/create-class-loader all-paths color-mode)]
+      (when is-verbose (println (str "# paths:\n" all-paths "\n")))
       (if (-> test-statements empty?)
         (println (str "No tests to run for the " (color/project name color-mode) " project."))
-        (run-test-statements name class-loader test-statements run-message color-mode)))))
+        (do (execute-fn setup-fn "setup" name class-loader color-mode)
+            (run-test-statements name class-loader test-statements run-message is-verbose color-mode)
+            (execute-fn teardown-fn "teardown" name class-loader color-mode))))))
 
 (defn has-tests-to-run? [{:keys [name]} {:keys [project-to-bricks-to-test project-to-projects-to-test]}]
   (not (empty? (concat (project-to-bricks-to-test name)
@@ -116,7 +138,7 @@
           bricks (str/join ", " (concat components bases))]
       (println (str "Bricks to run tests for: " bricks)))))
 
-(defn run [{:keys [components bases projects changes messages] :as workspace} is-verbose color-mode]
+(defn run [{:keys [components bases projects changes settings messages] :as workspace} is-verbose color-mode]
   (if (validator/has-errors? messages)
     (validator/print-messages workspace)
     (let [start-time (time-util/current-time)
@@ -130,6 +152,7 @@
           (print-projects-to-test projects-to-test color-mode)
           (print-bricks-to-test component-names base-names bricks-to-test color-mode)
           (println)
-          (doseq [project projects-to-test]
-            (run-tests-for-project workspace project changes is-verbose))))
+          (doseq [{:keys [name] :as project} projects-to-test]
+            (let [test-settings (get-in settings [:projects name :test])]
+              (run-tests-for-project workspace project changes test-settings is-verbose color-mode)))))
       (time-util/print-execution-time start-time))))

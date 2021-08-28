@@ -1750,6 +1750,7 @@ Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
 Test results: 1 passes, 0 failures, 0 errors.
+
 Execution time: 1 seconds
 ```
 
@@ -1922,6 +1923,7 @@ Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
 Test results: 1 passes, 0 failures, 0 errors.
+
 Execution time: 1 seconds
 ```
 
@@ -2029,10 +2031,92 @@ Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
 Test results: 1 passes, 0 failures, 0 errors.
+
 Execution time: 3 seconds
 ```
 
 Looks like it worked!
+
+### Test setup and teardown
+
+Sometimes we need to perform some test setup/teardown before and after we execute the tests for a project.
+
+If any code is used by more than one project, we can put it in a separate component,
+but in this case we should put it the code in the `command-line` project's `test` directory
+because it's not used by any other project.
+
+Let's create a `test-setup` namespace in the project's test directory and add two functions to it:
+```
+example
+├── projects
+│   └── command-line
+│       └── test
+│           └── project
+│               └──command_line
+│                  └──test_setup.clj
+```
+```
+(ns project.command-line.test-setup
+  (:require [clojure.test :refer :all]))
+
+(defn test-setup [project-name]
+  (println (str "--- test setup for " project-name " ---")))
+
+(defn test-teardown [project-name]
+  (println (str "--- test teardown for " project-name " ---")))
+```
+We need to keep two things in mind:
+- Make sure the source code which contains our function, is accessible from the project
+  it's executed from (the `command-line` project in this case). Here the project's own `test` directory
+  was already added earlier by the `create project` command, so we are fine.
+- Make sure the functions take exactly one parameter, the project name.
+
+We also need to specify the two functions in `workspace.edn`:
+```
+ ...
+ :projects {"development" {:alias "dev"}
+            "command-line" {:alias "cl"
+                            :test {:setup-fn project.command-line.test-setup/setup
+                                   :teardown-fn project.command-line.test-setup/teardown}}}}
+```
+
+If we don't need the tear down function, we can leave it out.
+
+Let's run our tests:
+```
+poly test
+```
+```
+Projects to run tests from: command-line
+
+Running test setup for the command-line project: project.command-line.test-setup/test-setup
+--- test setup for command-line ---
+
+Running tests from the command-line project, including 2 bricks: user, cli
+
+Testing se.example.cli.core-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing se.example.user.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Running test teardown for the command-line project: project.command-line.test-setup/test-teardown
+--- test teardown for command-line ---
+
+Execution time: 1 seconds
+```
+
+Nice, it worked!
+
+### Summary
 
 Let's summarize the different ways to run the tests.
 The brick tests are executed from all projects they belong to except for the development project
@@ -2066,8 +2150,10 @@ by giving a list of bricks. This can be specified in `workspace.edn`, e.g.:
 ```
 {...
  :projects {"development" {:alias "dev", :test []}
-            "command-line" {:alias "cl", :test ["cli"]}}}
-
+            "command-line" {:alias "cl", 
+                            :test {:include ["cli]
+                                   :setup-fn se.example.test-helper.interface/setup
+                                   :teardown-fn se.example.test-helper.interface/teardown}}}}
 ```
 ...or by using this syntax:
 ```
@@ -2093,37 +2179,44 @@ they will never be tested from that project even if we pass in `:all`.
 
 Let's start with the development project. The main purpose of this project is to allow us to work with our
 code from an IDE using a single REPL. When doing that, the project must be set up in a way that
-it's 100% compatible with tool.deps and the IDE integration. This is also the reason we have to
-add the test paths explicitly in `./deps.edn` and often also the `src` and `resources` paths
-so that the IDE integration will work in all environments.
+it 100% compatible with tool.deps and the IDE integration. This is also the reason we have to
+add the test paths explicitly in `./deps.edn`, which gives us access to the tests from the REPL.
+
+To give us access to the `src` and `resources` paths from the REPL, we often add them as `:extra-paths`
+because we want to make sure that the IDE integration will work in all the development 
+environments on the market.
+
+> Note: At the time of writing, adding bricks to `development` using the `:local/root` syntax works fine in 
+> VSCode/Calva and Emacs/CIDER, but unfortunately not in IDEA/Cursive, see [this](https://github.com/cursive-ide/cursive/issues/2554) issue. 
+> However, if your organisation doesn't use Cursive, it should be fine to use the `:local/root` syntax even for the development project.
 
 The `./deps.edn` config file sets up all our paths and dependencies,
 and when we include the `dev` and `test` aliases (and sometimes `profile` aliases, described in the next section)
-we instruct tools.deps what source code and libraries should be accessible from our IDE and REPL.
+we inform tools.deps what source code and libraries should be accessible from our IDE and REPL.
 When this is set up correctly, we are also able to run our tests from the REPL,
 which will have access to all `test` and `src` code. Libraries that are defined in the `src`
 context will therefore automatically be accessible when running the tests. Additional libraries that are
 only used from the tests should be defined in the `test` context.
 
-But we can also run tests using `poly test`, `clojure -M:poly test`, or `clojure -M:poly test`.
-When we run the `test` command, the tool will detect what component, bases and projects that have been
+When we run the `test` command, the tool will detect which components, bases and projects have been
 affected since the last stable point in time. Based on this information, it will go through all
-the affected projects, one at a time, and run the component, base and project tests that are included in each project.
-That set of tests will be executed in isolation from its own class loader
-which will speed up the test execution but also make it more reliable. Libraries from both the `src` and `test` context
+the affected projects, one at a time, and run the component, base, and project tests that are included in each project.
+This set of tests will be executed in isolation from its own class loader
+which will speed up the test execution and make it more reliable. Libraries from both the `src` and `test` context
 (and libraries that they depend on) will be used when the tests are executed.
+If `:verbose` is given when running the tests, the libraries and paths that are being used will be printed out.
 The development project can also be used to run tests, but that's not its main purpose.
 
 The libraries to use in each project when running the `poly test` command is the sum of all library dependencies that are defined in all the
 components and bases (either indirectly via `local/root` or directly by using `:deps`/`extra-deps`).
 If a library is defined more than once in the set of bricks and projects, then the latest version of
-that library will be used, if not overridden by `:override-deps`.
+that library will be used, if not overridden by `:override-deps` in the project.
 
-At the project level (except for the development project) we only need to define the libraries that are not defined in the included bricks,
+At the project level we only need to define the libraries that are not defined in the included bricks (specified by its `:deps` key)
 which can be libraries like clojure itself, `org.clojure/clojure`, that we don't want to repeat in all our bricks.
 
-Finally, if we have a brick like `datomic-ions`, we can specify a repository it needs, like [this](examples/local-dep/deps.edn).
-We can verify that the repo is picked up by the brick by executing `poly ws get:components:datomic-ions:maven-reops`:
+Finally, if we have a brick like `datomic-ions`, we can specify which repository it needs, like [this](examples/local-dep/deps.edn).
+We can verify that the repo is picked up by the brick by executing `poly ws get:components:datomic-ions:maven-repos`:
 ```
 {"datomic-cloud" {:url "s3://datomic-releases-1fc2183a/maven/releases"}}
 ```
@@ -3001,7 +3094,9 @@ poly ws get:settings
                                  :base-names [],
                                  :project-names []}},
  :projects {"development" {:alias "dev"},
-            "command-line" {:alias "cl"},
+            "command-line" {:alias "cl"
+                            :test {:setup-fn project.command-line.test-setup/test-setup,
+                                   :teardown-fn project.command-line.test-setup/test-teardown},
             "user-service" {:alias "user-s"}},
  :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
  :thousand-separator ",",
