@@ -30,8 +30,8 @@
   (doseq [file (-> workspace :changes :changed-files)]
     (println file)))
 
-(defn help [prompt? [_ cmd ent] is-show-project is-show-brick is-show-workspace toolsdeps1? color-mode]
-  (help/print-help prompt? cmd ent is-show-project is-show-brick is-show-workspace toolsdeps1? color-mode))
+(defn help [prompt? [_ cmd ent] is-all is-show-project is-show-brick is-show-workspace toolsdeps1? color-mode]
+  (help/print-help prompt? cmd ent is-all is-show-project is-show-brick is-show-workspace toolsdeps1? color-mode))
 
 (defn version []
   (println (str "  " ver/name " (" ver/date ")")))
@@ -51,10 +51,11 @@
            ws/enrich-workspace
            change/with-changes)))))
 
-(defn execute [{:keys [cmd args name top-ns branch is-git-add is-prompt ws-file is-all is-show-brick is-show-workspace is-show-project is-verbose brick get out interface selected-projects unnamed-args] :as user-input}]
+(defn execute [{:keys [cmd args name top-ns branch is-git-add is-prompt ws-file is-all is-show-brick is-show-workspace is-show-project is-verbose get out interface selected-bricks selected-projects unnamed-args] :as user-input}]
   (user-config/create-user-config-if-not-exists)
   (let [color-mode (common/color-mode user-input)
         ws-dir (common/workspace-dir user-input color-mode)
+        brick-name (first selected-bricks)
         project-name (first selected-projects)
         workspace (read-workspace ws-file ws-dir user-input color-mode)
         toolsdeps1? (common/toolsdeps1? workspace)
@@ -63,9 +64,9 @@
       (case cmd
         "check" (check workspace color-mode)
         "create" (create/create ws-dir workspace args name top-ns interface branch is-git-add color-mode)
-        "deps" (dependencies/deps workspace project-name brick unnamed-args is-all)
+        "deps" (dependencies/deps workspace project-name brick-name unnamed-args is-all)
         "diff" (diff workspace)
-        "help" (help is-prompt args is-show-project is-show-brick is-show-workspace toolsdeps1? color-mode)
+        "help" (help is-prompt args is-all is-show-project is-show-brick is-show-workspace toolsdeps1? color-mode)
         "info" (info/info workspace unnamed-args)
         "libs" (lib/print-lib-table workspace is-all)
         "migrate" (migrator/migrate ws-dir workspace)

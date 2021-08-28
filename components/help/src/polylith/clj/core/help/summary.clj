@@ -8,8 +8,8 @@
     "    migrate                     Migrates the workspace to the latest format.\n"
     ""))
 
-(defn migrate-command [toolsdeps1?]
-  (if toolsdeps1?
+(defn migrate-command [show-migrate?]
+  (if show-migrate?
     "    poly migrate\n"
     ""))
 
@@ -18,7 +18,7 @@
     "  Exit the prompt by executing 'exit' or 'quit'.\n\n"
     ""))
 
-(defn help-text [prompt? toolsdeps1? cm]
+(defn help-text [prompt? show-migrate? cm]
   (str
     "  Poly " version/name " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
     "\n"
@@ -31,7 +31,7 @@
     "    help [" (s/key "C" cm) "] [" (s/key "ARG" cm) "]              Shows this help or help for specified command.\n"
     "    info [" (s/key "ARGS" cm) "]                 Shows a workspace overview and checks if it's valid.\n"
     "    libs                        Shows all libraries in the workspace.\n"
-    (migrate toolsdeps1?)
+    (migrate show-migrate?)
     "    prompt                      Starts an interactive prompt.\n"
     "    test [" (s/key "ARGS" cm) "]                 Runs tests.\n"
     "    version                     Shows current version of the tool.\n"
@@ -106,6 +106,8 @@
     "    poly info skip:dev:myproject\n"
     "    poly info project:myproject\n"
     "    poly info project:myproject:another-project\n"
+    "    poly info brick:mycomponent\n"
+    "    poly info brick:mycomponent:mybase\n"
     "    poly info :project\n"
     "    poly info :dev\n"
     "    poly info :project :dev\n"
@@ -116,7 +118,7 @@
     "    poly info ws-dir:another-ws\n"
     "    poly info ws-file:ws.edn\n"
     "    poly libs\n"
-    (migrate-command toolsdeps1?)
+    (migrate-command show-migrate?)
     "    poly prompt\n"
     "    poly test\n"
     "    poly test :project\n"
@@ -124,6 +126,8 @@
     "    poly test :all\n"
     "    poly test project:proj1\n"
     "    poly test project:proj1:proj2\n"
+    "    poly test brick:mycomponent\n"
+    "    poly test brick:mycomponent:mybase\n"
     "    poly test :dev\n"
     "    poly test :project :dev\n"
     "    poly test :all-bricks :dev\n"
@@ -144,8 +148,9 @@
     "    poly ws get:changes:changed-or-affected-projects skip:dev\n"
     "    poly ws out:ws.edn"))
 
-(defn print-help [prompt? toolsdeps1? color-mode]
-  (println (help-text prompt? toolsdeps1? color-mode)))
+(defn print-help [prompt? is-all toolsdeps1? color-mode]
+  (let [show-migrate? (or is-all toolsdeps1?)]
+    (println (help-text prompt? show-migrate? color-mode))))
 
 (comment
   (print-help false false "dark")

@@ -35,8 +35,11 @@
                     (development included) + all project tests
                     (development included).
 
-  Projects can also be explicitly selected with e.g. project:proj1 or project:proj1:proj2.
-  :dev is a shortcut for project:dev.
+  Projects can also be explicitly selected with e.g. project:proj1 or
+  project:proj1:proj2. Specifying :dev is a shortcut for project:dev.
+
+  We can also specify which bricks to include, by listing them like this:
+  brick:mycomponent:another-component:mybase
 
   Example:
     poly test
@@ -45,6 +48,8 @@
     poly test :all
     poly test project:proj1
     poly test project:proj1:proj2
+    poly test brick:mycomponent
+    poly test brick:mycomponent:mybase
     poly test :dev
     poly test :project :dev
     poly test :all-bricks :dev

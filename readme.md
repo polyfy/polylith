@@ -1776,15 +1776,54 @@ Now both the `development` and the `command-line` project is marked for test exe
 Here we used the project aliases `cl` and `dev` but we could also have passed in the project
 names or a mix of the two, e.g. `poly info project:command-line:dev`.
 
+#### Filter on bricks
 
-Notice here that we didn't specify what bricks that should be tested for this project
-(by also adding the `:test` key).
-When left out, all bricks that are included in the project will be executed when we run the `test` command
-and if we add e.g. `["user"]` then only the user component will be executed for this project.
-An empty vector means that no brick tests will be executed.
+It's not just possible to filter which projects to run our tests from, but also which bricks to include.
 
-To ignore tests for a project can be useful if we only want to execute the tests for e.g. one project,
-but skip them for all other.
+Right now our workspace looks like this:
+```
+poly info
+```
+<img src="images/testing-info-3a.png" width="35%">
+
+Both bricks in the `cl` project are marked to be tested.
+
+If we select the `cli` brick:
+```
+poly info brick:cli
+```
+<img src="images/testing-info-3b.png" width="35%">
+
+...now only that brick is marked to be tested.
+
+
+Let's pretend that no bricks were marked to be tested:
+
+<img src="images/testing-info-3c.png" width="35%">
+
+
+
+If we run the same command again:
+```
+poly info brick:cli
+```
+<img src="images/testing-info-3c.png" width="35%">
+
+...we get the same result, and that's because the `brick:cli` parameter is just a filter that is applied
+after the other status calculations have been performed.
+
+If we want to force the `cli` tests to be executed, we need to pass in
+`:all-bricks` (or `:all` if we also want to execute the project tests):
+```
+poly info brick:cli :all-bricks
+``` 
+<img src="images/testing-info-3d.png" width="35%">
+
+Finally, the `cli` brick is now marked to be tested!
+
+It's also possible to give more than one brick, e.g. `brick:cli:user`.
+Another trick we can do is exclude all bricks with `brick:` which can be useful in combination
+with `:project` or `:all` to execute only the project tests.
 
 ### Project tests
 
@@ -2017,6 +2056,8 @@ To also execute the brick tests from the development project, pass in `:dev`:
 
 Projects can also be explicitly selected with e.g. `project:proj1` or `project:proj1:proj2`. `:dev` is a shortcut for `project:dev`.
 
+We can also filter which bricks to run the tests for with e.g. `brick:b1` or `brick:b1:b2`.
+
 These arguments can also be passed in to the `info` command, as we have done in the examples above,
 to get a view of which tests will be executed.
 
@@ -2028,15 +2069,25 @@ by giving a list of bricks. This can be specified in `workspace.edn`, e.g.:
             "command-line" {:alias "cl", :test ["cli"]}}}
 
 ```
+...or by using this syntax:
+```
+{...
+ :projects {"development" {:alias "dev", :test {:include []}
+            "command-line" {:alias "cl", :test {:include ["cli"]}}}
+```
+If we run the `info` command with these settings:
 ```
 poly info :all :dev
 ```
 <img src="images/testing-info-11.png" width="35%">
 
-As you can see, the test source code is no longer included for the development project,
+...the test source code will no longer be included in the development project,
 and only `cli` is included for the `command-line` project.
-This can be useful when we don't want to run the same brick tests for all our projects,
+This can be useful when we don't want to run the same brick tests from all our projects,
 as a way to get a faster test suit.
+
+Note that if the tests directory for a brick is excluded from a project like this, 
+they will never be tested from that project even if we pass in `:all`.
 
 ### How tests are executed
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "--- help ---"
-poly help color-mode:none > 01-help.txt
+poly help :all color-mode:none > 01-help.txt
 
 echo "--- check ---"
 poly help check color-mode:none > 02-check.txt

@@ -64,7 +64,6 @@
     (util/ordered-map :args (vec args)
                       :cmd (first args)
                       :get get
-                      :brick brick
                       :branch branch
                       :color-mode color-mode
                       :fake-sha fake-sha
@@ -96,6 +95,7 @@
                       :top-ns top-ns
                       :ws-dir ws-dir
                       :ws-file ws-file
+                      :selected-bricks (when brick (if (vector? brick) brick [brick]))
                       :selected-profiles (selected-profiles unnamed-args)
                       :selected-projects (selected-projects project dev!)
                       :unnamed-args (vec unnamed-args))))

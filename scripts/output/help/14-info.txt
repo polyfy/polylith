@@ -177,6 +177,8 @@
     poly info since:previous-release
     poly info project:myproject
     poly info project:myproject:another-project
+    poly info brick:mycomponent
+    poly info brick:mycomponent:mybase
     poly info :project
     poly info :dev
     poly info :project :dev
