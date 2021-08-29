@@ -1542,7 +1542,7 @@ We have one more thing to cover regarding the `info` command, and that is what t
 
 <img src="images/project-flags.png" width="34%">
 
-Each flag under has a different meaning:<br>
+Each flag under the `status` column has a different meaning:<br>
 
 | status | Explanation                        |
 |:------:|:-----------------------------------|
