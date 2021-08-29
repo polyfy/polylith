@@ -139,7 +139,7 @@ name and email.
 To install the `poly` command on Linux:
 
 - Download the [latest release](https://github.com/polyfy/polylith/releases/latest) of the `poly` jar,
-  e.g. `poly-0.2.0-alpha11.jar`.
+  e.g. `poly-0.2.12-alpha.jar`.
 - Create a directory, e.g. `/usr/local/polylith` and copy the jar file to that directory.
 - Create a file with the name `poly` and put it in e.g. `/usr/local/bin` with this content:
  ```
@@ -151,7 +151,7 @@ while [ "$1" != "" ] ; do
   shift
 done
 
-exec "/usr/bin/java" $JVM_OPTS "-jar" "/usr/local/polylith/poly-0.2.0-alpha11.jar" $ARGS
+exec "/usr/bin/java" $JVM_OPTS "-jar" "/usr/local/polylith/poly-0.2.12-alpha.jar" $ARGS
 ```
 - Make sure that:
   - you point to the correct jar file.
@@ -211,7 +211,7 @@ To install the `poly` command on Windows:
 - Create the file `poly.bat` with this content (make sure you point to the jar):
 ```sh
 @echo off
-start /wait /b java %JAVA_OPTS% -jar "C:\Program Files\Polylith\poly-0.2.0-alpha11.jar" %*
+start /wait /b java %JAVA_OPTS% -jar "C:\Program Files\Polylith\poly-0.2.12-alpha.jar" %*
 ```
 - Add `C:\Program Files\Polylith` to the Windows `PATH` variable.
 
@@ -389,7 +389,7 @@ To upgrade the `poly` tool on Mac, execute:
 brew upgrade polyfy/polylith/poly
 ```
 
-To upgrade on Windows and Linux: download the [latest release](https://github.com/polyfy/polylith/releases/latest) and replace the poly jar (e.g. `poly-0.2.0-alpha11.jar`).
+To upgrade on Windows and Linux: download the [latest release](https://github.com/polyfy/polylith/releases/latest) and replace the poly jar (e.g. `poly-0.2.12-alpha.jar`).
 
 ## RealWorld Example
 
