@@ -321,7 +321,7 @@ To use it this way, add one of the following aliases to the `:aliases` section i
 {
 ...
  :aliases   {:poly  {:extra-deps {polylith/clj-poly
-                                  {:mvn/version "0.2.0-alpha11"}}
+                                  {:mvn/version "0.2.12-alpha"}}
                      :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}}
 ...
 }
@@ -371,7 +371,7 @@ If we use the tools.deps CLI to execute the `poly` command, e.g. `clojure -M:pol
 Similarly, you can use other artifacts from this repository, `clj-api` or `clj-poly-migrator` as dependencies. For example, in order to add `clj-api` as a dependency, add one of the following to your `:deps` section in your `deps.edn` file:
 
 ```clojure
-polylith/clj-api {:mvn/version "0.2.0-alpha11"}
+polylith/clj-api {:mvn/version "0.2.12-alpha"}
 ```
 or
 ```clojure

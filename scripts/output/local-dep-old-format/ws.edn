@@ -562,7 +562,7 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.0-alpha11.issue-110.2",
+  {:name "0.2.12-alpha",
    :major 0,
    :minor 2,
    :patch 0,
