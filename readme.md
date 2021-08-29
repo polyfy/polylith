@@ -1539,6 +1539,7 @@ Here we rely on `release-*` tags that mark the whole repo as released.
 ## Flags
 
 We have one more thing to cover regarding the `info` command, and that is what the `x` and `-` flags mean:
+
 <img src="images/project-flags.png" width="34%">
 
 Each flag under has a different meaning:<br>
