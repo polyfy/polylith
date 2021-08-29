@@ -205,7 +205,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 To install the `poly` command on Windows:
 
 - Download the [latest release](https://github.com/polyfy/polylith/releases/latest) of the `poly` jar,
-  e.g. `poly-0.1.0-alpha9.jar`.
+  e.g. `poly-0.2.12-alpha.jar`.
 - Create the `Polylith` directory somewhere on your machine, e.g.
   `C:\Program Files\Polylith` and copy the jar file to that directory.
 - Create the file `poly.bat` with this content (make sure you point to the jar):
