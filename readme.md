@@ -225,7 +225,7 @@ If you are using a recent version of the [Clojure CLI](https://clojure.org/relea
 1.10.3.933 or later -- you can install `poly` as a "tool":
 
 ```sh
-clojure -Ttools install io.github.polyfy/polylith '{:git/sha "e50a1b8aa9cdf7e05543799723656b7faec9f3f6" :deps/root "projects/poly"}' :as poly
+clojure -Ttools install io.github.polyfy/polylith '{:git/tag "v0.2.12-alpha" :deps/root "projects/poly"}' :as poly
 ```
 
 Then you can invoke the `poly` tool using the CLI directly:
