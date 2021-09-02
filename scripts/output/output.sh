@@ -15,6 +15,9 @@ echo ""; cat tagging-info-2.txt ; echo ""
 echo "######### tagging-info-3.png #########"
 echo ""; cat tagging-info-3.txt ; echo ""
 
+echo "######### tagging-info-4.png #########"
+echo ""; cat tagging-info-4.txt ; echo ""
+
 echo "######### flags-info.png #########"
 echo ""; cat flags-info.txt ; echo ""
 

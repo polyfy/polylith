@@ -1,5 +1,6 @@
 (ns polylith.clj.core.workspace.text-table.project-table
-  (:require [polylith.clj.core.common.interface :as common]
+  (:require [clojure.set :as set]
+            [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.path-finder.interface.status :as status]
             [polylith.clj.core.text-table.interface :as text-table]
@@ -21,17 +22,21 @@
          (map-indexed #(profile-col %1 %2 disk-paths start-column settings projects is-show-resources)
                       profiles)))
 
-(defn project-cell [project project-key column row changed-projects color-mode]
+(defn project-cell [project project-key column row changed-projects affected-projects color-mode]
   (let [name (project-key project)
-        changed (if (contains? (set changed-projects) name) " *" "")
+        changed (cond
+                  (contains? changed-projects name) " *"
+                  (contains? affected-projects name) " +"
+                  :else "")
         project (str (color/project name color-mode)
                      changed)]
     (text-table/cell column row project)))
 
-(defn project-column [projects {:keys [changed-projects]} header project-key column color-mode]
-  (concat [(text-table/cell column header)]
-          (map-indexed #(project-cell %2 project-key column (+ %1 3) changed-projects color-mode)
-                       projects)))
+(defn project-column [projects {:keys [changed-projects changed-or-affected-projects]} header project-key column color-mode]
+  (let [affected-projects (set/difference (set changed-or-affected-projects) (set changed-projects))]
+    (concat [(text-table/cell column header)]
+            (map-indexed #(project-cell %2 project-key column (+ %1 3) (set changed-projects) affected-projects color-mode)
+                         projects))))
 
 (defn status-cell [index {:keys [name paths]} disk-paths projects-to-test is-show-resources]
   (let [path-entries (extract/from-paths paths disk-paths)

@@ -136,8 +136,13 @@ poly info fake-sha:e7ebe68 > $output/tagging-info-1.txt
 firstsha=`git log --pretty=oneline | tail -1 | cut -d " " -f1`
 git tag v1.1.0 $firstsha
 git tag v1.2.0
+
+cp $sections/tagging/user-core-change.clj components/user/src/se/example/user/core.clj
 poly info since:release fake-sha:e7ebe68 > $output/tagging-info-2.txt
-poly info since:previous-release fake-sha:c91fdad > $output/tagging-info-3.txt
+#cp $sections/tagging/user-core.clj components/user/src/se/example/user/core.clj
+
+poly info since:release fake-sha:e7ebe68 > $output/tagging-info-3.txt
+poly info since:previous-release fake-sha:c91fdad > $output/tagging-info-4.txt
 git log --pretty=oneline
 
 echo "### 9/50 Flags ###"

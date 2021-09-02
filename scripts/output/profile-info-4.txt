@@ -9,7 +9,7 @@
   ------------------------------   -----------   --------
   [35mcommand-line[0m *  [35mcl[0m      [35m -t-  [0m   [35m-t-[0m  [35m  --  [0m     0   13
   [35muser-service[0m *  [35muser-s[0m  [35m ---  [0m   [35m---[0m  [35m  --  [0m     0    0
-  [35mdevelopment[0m     [35mdev[0m     [35m s--  [0m   [35ms--[0m  [35m  --  [0m     4    0
+  [35mdevelopment[0m +   [35mdev[0m     [35m s--  [0m   [35ms--[0m  [35m  --  [0m     4    0
                                                    4   13
 
   interface  brick           [35mcl [0m  [35muser-s[0m   [35mdev[0m  [35mremote[0m   loc (t)
