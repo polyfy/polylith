@@ -6,7 +6,7 @@
   project         alias  status   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m *  [35mcl[0m     [35m -t-  [0m   [35m-t-[0m
-  [35mdevelopment[0m     [35mdev[0m    [35m s--  [0m   [35ms--[0m
+  [35mdevelopment[0m +   [35mdev[0m    [35m s--  [0m   [35ms--[0m
 
   interface  brick    [35mcl [0m   [35mdev[0m
   -----------------   ---   ---

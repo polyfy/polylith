@@ -1443,6 +1443,23 @@ git log --pretty=format:'%H %d'
 Then it uses the first line of the output that matches the regular expression
 (e.g. `stable-*`) or if no match was found, the first commit in the repository.
 
+Earlier when we changed a project by editing its `deps.edn` file, it got a trailing `*`
+to indicate that it was changed. But what happens if only some of its bricks have changed?
+Let's try that by adding a comment to the `user.core` namespace:
+```
+(ns se.example.user.core)
+
+; hi
+(defn hello [name]
+  (str "Hello " name "!"))
+```
+...and execute the `info` command again:
+
+<img src="images/tagging-info-2.png" width="35%">
+
+Now the two projects are marked with a `+` which indicates that the projects themselves are unchanged
+but that at least one of their bricks has changed.
+
 ### Release
 
 When we release, we probably want the CI server to tag the release. Here we tag the first commit as `v1.1.0`
@@ -1456,7 +1473,7 @@ If we execute:
 ```
 poly info since:release
 ```
-<img src="images/tagging-info-2.png" width="32%">
+<img src="images/tagging-info-3.png" width="32%">
 
 ...it picks the latest release tag that follows the pattern defined in `workspace.edn`:
 ```
@@ -1468,7 +1485,7 @@ If we execute:
 ```
 poly info since:previous-release
 ```
-<img src="images/tagging-info-3.png" width="32%">
+<img src="images/tagging-info-4.png" width="32%">
 
 ...it picks the second latest release tag.
 
