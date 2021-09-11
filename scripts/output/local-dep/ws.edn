@@ -25,15 +25,21 @@
   :changed-projects [],
   :changed-bases [],
   :project-to-indirect-changes
-  {"invoicing" {:src [], :test []}, "development" {:src [], :test []}},
-  :project-to-bricks-to-test {"invoicing" [], "development" []},
+  {"invoicing"
+   {:src [], :test ["invoicer" "test-helper" "test-helper-db"]},
+   "development"
+   {:src ["test-helper" "test-helper-db"],
+    :test ["invoicer" "test-helper"]}},
+  :project-to-bricks-to-test
+  {"invoicing" ["database" "invoicer" "test-helper" "test-helper-db"],
+   "development" []},
   :project-to-projects-to-test {"invoicing" [], "development" []},
   :since-sha "SHA",
-  :changed-files [],
+  :changed-files ["components/database/src/readers/data_readers.clj"],
   :git-diff-command "git diff SHA --name-only",
-  :changed-components [],
-  :since-tag "stable-BRANCH",
-  :changed-or-affected-projects []},
+  :changed-components ["database"],
+  :since-tag "stable-master",
+  :changed-or-affected-projects ["development" "invoicing"]},
  :components
  [{:lines-of-code {:src 4, :test 6},
    :interface {:name "database", :definitions []},
@@ -533,9 +539,9 @@
    :branch "BRANCH",
    :git-root "USER-HOME/source/polylith",
    :auto-add false,
-   :stable-since {:tag "stable-BRANCH", :sha "SHA"},
+   :stable-since {:tag "stable-master", :sha "SHA"},
    :polylith
-   {:repo "https://github.com/polyfy/polylith.git", :branch "BRANCH"}},
+   {:repo "https://github.com/polyfy/polylith.git", :branch "master"}},
   :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
   :m2-dir "USER-HOME/.m2",
   :color-mode "none",
