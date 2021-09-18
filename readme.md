@@ -1146,7 +1146,7 @@ The reason all paths begin with "../../" is that `components` and `bases` live t
 compared to `projects/command-line` and not at the root as with the `development` project.
 
 The `test` command will figure out what tests that need to be executed.
-If you have resons to run the tests for each project separately using tools.deps,
+If you have reasons to run the tests for each project separately using tools.deps,
 then you also have to specify the test paths.
 
 > Note: All the project `deps.edn` config files under the `projects` directory specifies what bricks to include by giving
