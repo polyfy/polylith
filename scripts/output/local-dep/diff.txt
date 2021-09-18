@@ -5,6 +5,7 @@ components/database/deps.edn
 components/database/resources/database/.keep
 components/database/src/com/localdep/database/core.clj
 components/database/src/com/localdep/database/interface.clj
+components/database/src/readers/data_readers.clj
 components/database/test/com/localdep/database/interface_test.clj
 components/datomic-ions/deps.edn
 components/datomic-ions/src/com/localdep/datomic_ions/interface.clj

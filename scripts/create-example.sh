@@ -337,7 +337,7 @@ echo "current-dir=$(pwd)"
 sha=`git rev-list -n 1 stable-master`
 branch=`git rev-parse --abbrev-ref HEAD`
 echo "### 33/50 examples/local-dep ###"
-poly info color-mode:none fake-sha:aaaaa > $output/local-dep/info.txt
+poly info color-mode:none fake-sha:aaaaa :no-changes > $output/local-dep/info.txt
 echo "### 34/50 examples/local-dep ###"
 poly libs color-mode:none > $output/local-dep/libs.txt
 echo "### 35/50 examples/local-dep ###"
@@ -366,7 +366,7 @@ git commit -m "Workspace created."
 git tag stable-jote
 sha=`git rev-list -n 1 stable-jote`
 
-poly info fake-sha:aaaaa color-mode:none > $output/local-dep-old-format/info.txt
+poly info fake-sha:aaaaa color-mode:none :no-changes > $output/local-dep-old-format/info.txt
 echo "### 43/50 examples/local-dep-old-format ###"
 poly libs color-mode:none > $output/local-dep-old-format/libs.txt
 echo "### 44/50 examples/local-dep-old-format ###"

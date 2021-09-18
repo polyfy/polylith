@@ -17,7 +17,8 @@
         n#nss (count top-nss)
         brick-nss (as-namespaces (take n#nss (drop 3 parts)))]
     (when (and (not= brick-nss top-nss)
-               (not= "project.clj" (last parts)))
+               (not (contains? #{"data_readers.clj"
+                                 "data_readers.cljc"} (last parts))))
       [{:brick brick
         :file path
         :non-top-ns (str/join "." brick-nss)}])))
