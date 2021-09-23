@@ -35,6 +35,8 @@ projects/**/pom.xml
 
 # clojure-lsp
 .lsp/sqlite*.db
+.lsp/.cache
+.clj-kondo/.cache
 
 # Calva
 .calva/output-window/output.calva-repl
