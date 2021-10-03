@@ -19,9 +19,9 @@
 (defn project-base-or-comp? [entity]
   (contains? #{"p" "b" "c"} entity))
 
-(defn invalid-name? [name]
+(defn contains-char? [name chr]
   (and name
-       (str/includes? name ".")))
+       (str/includes? name chr)))
 
 (defn git-repo? [{:keys [ws-dir]}]
   (git/is-git-repo? ws-dir))
@@ -32,7 +32,9 @@
       (cond
         (nil? ent) [false "  The first argument after 'create' is expected to be any of: w, p, b, c, workspace, project, base, component."]
         (and (base-or-comp? ent)
-             (invalid-name? name)) [false "  The . character is not allowed in brick names."]
+             (contains-char? name ".")) [false "  The . character is not allowed in brick names."]
+        (and (base-or-comp? ent)
+             (contains-char? name "/")) [false "  The / character is not allowed in brick names."]
         (and (common/toolsdeps1? workspace)
              (project-base-or-comp? ent)) [false "  Can't create bricks or projects in old workspaces. Execute the 'migrate' command to migrate the workspace. Execute the 'help migrate' command for instructions."]
         (and (nil? workspace)
