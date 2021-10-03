@@ -29,8 +29,8 @@
  ;; so poly can be installed as a tool:
  :tools/usage {:ns-default polylith.clj.core.poly-cli.api}
 
- :aliases {:test      {:extra-paths ["test"]
-                       :extra-deps  {poly/test-helper {:local/root "../../components/test-helper"}}}
+ :aliases {:test {:extra-paths ["test"]
+                  :extra-deps  {poly/test-helper {:local/root "../../components/test-helper"}}}
 
            :uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.250"}}
                      :exec-fn hf.depstar/uberjar
