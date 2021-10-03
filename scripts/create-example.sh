@@ -6,7 +6,7 @@
 # these purposes:
 # - it makes sure all the commands can be executed from a shell.
 # - the output from these commands is version controlled and
-#   is used to validate that the everything works as expected.
+#   is used to validate that everything works as expected.
 # - the output from 'cat output/output.txt' is used to update
 #   the images in the documentation.
 # - different git commands are executed to ensure everything
