@@ -67,8 +67,11 @@
   (.getName file))
 
 (defn lines-of-code [file-path]
-  (with-open [rdr (io/reader file-path)]
-    (count (line-seq rdr))))
+  (try
+    (with-open [rdr (io/reader file-path)]
+      (count (line-seq rdr)))
+    (catch FileNotFoundException _
+      0)))
 
 (defn directory-paths [dir]
   (->> dir
