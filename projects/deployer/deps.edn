@@ -7,7 +7,7 @@
         poly/git            {:local/root "../../components/git"}
         poly/lib            {:local/root "../../components/lib"}
         poly/path-finder    {:local/root "../../components/path-finder"}
-        poly/shell          {:local/root "../../components/shell"}
+        poly/sh             {:local/root "../../components/sh"}
         poly/user-config    {:local/root "../../components/user-config"}
         poly/user-input     {:local/root "../../components/user-input"}
         poly/text-table     {:local/root "../../components/text-table"}

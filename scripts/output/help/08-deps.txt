@@ -11,6 +11,7 @@
              :project         Help for the project diagram.
              :workspace       Help for the workspace diagram.
              :project :brick  Help for the project/brick diagram.
+
   Example:
     poly deps
     poly deps project:myproject

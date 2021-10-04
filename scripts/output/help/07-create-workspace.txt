@@ -11,7 +11,7 @@
 
     TOP-NAMESPACE = The top namespace, e.g. com.my.company.
 
-    BRANCH = The name of the branch, e.g. master.
+    BRANCH = The name of the branch, e.g. master. Default is main.
 
   Example:
     poly create w name:myws top-ns:com.my.company

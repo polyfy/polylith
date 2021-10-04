@@ -263,7 +263,6 @@ cp -R $ws/example $examples/doc-example
 rm -rf $examples/doc-example/.git
 rm $examples/doc-example/.gitignore
 rm $examples/doc-example/readme.md
-rm $examples/doc-example/ws.edn
 rm $examples/doc-example/logo.png
 rm $examples/doc-example/bases/.keep
 rm $examples/doc-example/components/.keep

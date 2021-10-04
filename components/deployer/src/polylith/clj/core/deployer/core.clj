@@ -2,7 +2,7 @@
   (:require [deps-deploy.deps-deploy :as deps-deploy]
             [polylith.clj.core.api.interface :as api]
             [polylith.clj.core.file.interface :as file]
-            [polylith.clj.core.shell.interface :as shell]
+            [polylith.clj.core.sh.interface :as sh]
             [polylith.clj.core.version.interface :as version]
             [clojure.string :as str])
   (:import (java.io File)))
@@ -21,7 +21,7 @@
 (defn build-jar [current-dir project-name type]
   (println (str "Building " (name type) "..."))
   (try
-    (shell/sh (if (= :uberjar type) "./build-uberjar.sh" "./build-thin-jar.sh") project-name :dir (str current-dir "/scripts"))
+    (sh/execute (if (= :uberjar type) "./build-uberjar.sh" "./build-thin-jar.sh") project-name :dir (str current-dir "/scripts"))
     (catch Exception e
       (throw (ex-info (str "Unable to build a " (name type) " for " project-name " project.")
                       {:current-dir  current-dir
@@ -97,7 +97,7 @@
          "exec \"$JAVA_CMD\" $JVM_OPTS -jar \"$" project "_jar\" \"$@\"\n")))
 
 (defn get-sha-sum [file-path]
-  (let [output (shell/sh "shasum" "-a" "256" file-path)]
+  (let [output (sh/execute "shasum" "-a" "256" file-path)]
     (first (str/split output #" "))))
 
 (defn create-brew-package [^String artifacts-dir
@@ -114,11 +114,11 @@
         shasum (File. artifacts-dir (str tar-gz-name ".sha1"))]
     (spit install-sh install-script)
     (spit executable executable-script)
-    (shell/sh "chmod" "+x" (.getAbsolutePath install-sh))
-    (shell/sh "chmod" "+x" (.getAbsolutePath executable))
+    (sh/execute "chmod" "+x" (.getAbsolutePath install-sh))
+    (sh/execute "chmod" "+x" (.getAbsolutePath executable))
     (file/copy-file (str artifacts-dir "/" artifact-name)
                     (str artifacts-dir "/" project-name "/" artifact-name))
-    (shell/sh "tar" "-pcvzf" tar-gz-name project-name :dir artifacts-dir)
+    (sh/execute "tar" "-pcvzf" tar-gz-name project-name :dir artifacts-dir)
     (let [shasum-content (get-sha-sum (str artifacts-dir "/" tar-gz-name))]
       (println (str "Shasum for " project-name ": " shasum-content))
       (spit shasum shasum-content))

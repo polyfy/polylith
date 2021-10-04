@@ -9,7 +9,9 @@
         poly/lib           {:local/root "../../components/lib"}
         poly/migrator      {:local/root "../../components/migrator"}
         poly/path-finder   {:local/root "../../components/path-finder"}
+        poly/sh            {:local/root "../../components/sh"}
         poly/shell         {:local/root "../../components/shell"}
+        poly/tap           {:local/root "../../components/tap"}
         poly/test-runner   {:local/root "../../components/test-runner"}
         poly/text-table    {:local/root "../../components/text-table"}
         poly/user-config   {:local/root "../../components/user-config"}

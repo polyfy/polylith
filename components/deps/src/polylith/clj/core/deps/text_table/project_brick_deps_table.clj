@@ -16,10 +16,13 @@
     (text-table/table "  " color-mode used-by-column uses-column headers spaces)))
 
 (defn validate [project-name brick-name project brick color-mode]
-  (cond
-    (nil? project) [false (str "  Couldn't find the " (color/project project-name color-mode) " project.")]
-    (nil? brick) [false (str "  Couldn't find brick '" brick-name "'.")]
-    :else [true]))
+  (let [brick-names (set (concat (-> project :component-names :src)
+                                 (-> project :component-names :test)))]
+    (cond
+      (nil? project) [false (str "  Couldn't find the " (color/project project-name color-mode) " project.")]
+      (nil? brick) [false (str "  Couldn't find brick '" brick-name "'.")]
+      (not (contains? brick-names brick-name)) [false (str "  The " (color/project project-name color-mode)  " project doesn't contain the '" brick-name "' brick.")]
+      :else [true])))
 
 (defn print-table [{:keys [projects] :as workspace} project-name brick-name]
   (let [color-mode (-> workspace :settings :color-mode)

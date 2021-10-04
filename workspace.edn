@@ -7,8 +7,6 @@
  :tag-patterns {:stable "stable-*"
                 :release "v[0-9]*"}
  :projects {"api"           {:alias "api", :test []}
-            "core"          {:alias "core", :test []}
             "deployer"      {:alias "depl", :test []}
-            "poly-migrator" {:alias "migr", :test []}
             "poly"          {:alias "poly"}
             "development"   {:alias "dev"}}}

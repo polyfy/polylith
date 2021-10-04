@@ -1,7 +1,6 @@
 (ns polylith.clj.core.command.cmd-validator.create
   (:require [clojure.string :as str]
             [polylith.clj.core.command.message :as command]
-            [polylith.clj.core.command.shared :as shared]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.git.interface :as git]))
 
@@ -27,7 +26,7 @@
   (git/is-git-repo? ws-dir))
 
 (defn validate [workspace [cmd entity] name top-ns]
-  (let [ent (shared/entity->short entity)]
+  (let [ent (common/entity->short entity)]
     (if (= "create" cmd)
       (cond
         (nil? ent) [false "  The first argument after 'create' is expected to be any of: w, p, b, c, workspace, project, base, component."]

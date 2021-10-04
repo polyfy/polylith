@@ -17,7 +17,9 @@ The individual help texts listed here are taken from the built-in `help` command
 - [info](#info)
 - [libs](#libs)
 - [migrate](#migrate)
-- [prompt](#prompt)
+- [shell](#shell)
+- [switch-ws (shell)](#switch-ws)
+- [tap (shell)](#tap)
 - [test](#test)
 - [ws](#ws)
 
@@ -27,7 +29,7 @@ poly help
 ```
 
 ```
-  Poly 0.2.12-alpha (2021-08-28) - https://github.com/polyfy/polylith
+  Poly 0.2.13-alpha (2021-09-10) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -39,23 +41,37 @@ poly help
     info [ARGS]                 Shows a workspace overview and checks if it's valid.
     libs                        Shows all libraries in the workspace.
     migrate                     Migrates the workspace to the latest format.
-    prompt                      Starts an interactive prompt.
+    shell                       Starts an interactive shell.
     test [ARGS]                 Runs tests.
     version                     Shows current version of the tool.
     ws [get:X]                  Shows the workspace as data.
 
+  From the shell:
+
+    switch-ws ARG  Switches to specified workspace.
+    tap [ARG]      Opens a portal window that outputs tap> statements.
+    exit           Exits the shell.
+    quit           Quits the shell.
+
+  The ws-dir and ws-file parameters are replaced by switch-ws when executing commands
+  from the shell.
+
   If ws-dir:PATH is passed in as an argument, where PATH is a relative
   or absolute path, then the command is executed from that directory.
   This works for all commands except 'test'.
-
-  If :: is passed in, then ws-dir is set to the first parent directory (or current)
-  that contains a 'workspace.edn' config file. The exception is the 'test command'
-  that has to be executed from the workspace root.
+  If the 'switch-ws dir:DIR' command has been executed from a shell,
+  then ws-dir:DIR will automatically be appended to following commands.
 
   If ws-file:FILE is passed in, then the workspace will be populated with the content
   from that file. All commands except 'create' and 'test' can be executed with this
   parameter set. The FILE is created by executing the 'ws' command, e.g.:
   'poly ws out:ws.edn'.
+  If the 'switch-ws file:FILE' command has been executed from a shell,
+  then ws-file:FILE will automatically be appended to following commands.
+
+  If :: is passed in, then ws-dir is set to the first parent directory (or current)
+  that contains a 'workspace.edn' config file. The exception is the 'test command'
+  that has to be executed from the workspace root.
 
   If skip:PROJECTS is passed in, then the given project(s) will not be read from disk.
   Both project names and aliases can be used and should be separated by : if more than one.
@@ -73,6 +89,14 @@ poly help
 
   The color mode is taken from ~/.polylith/config.edn but can be overridden by passing
   in color-mode:COLOR where valid colors are none, light, and dark.
+
+  Example (shell only):
+    switch-ws dir:~/myworkspace
+    switch-ws file:../../another/ws.edn
+    tap
+    tap open
+    tap clean
+    tap close
 
   Example:
     poly check
@@ -125,7 +149,7 @@ poly help
     poly info ws-file:ws.edn
     poly libs
     poly migrate
-    poly prompt
+    poly shell
     poly test
     poly test :project
     poly test :all-bricks
@@ -221,7 +245,7 @@ poly help
 
   Warning 205 - Non top namespace was found in brick.
     Triggered if a namespace in a brick doesn't start with the top namespaces
-    defined in :top-namespace in ./deps.edn.
+    defined in :top-namespace in ./workspace.edn.
 ```
 
 ### create
@@ -301,7 +325,7 @@ poly help
 
     TOP-NAMESPACE = The top namespace, e.g. com.my.company.
 
-    BRANCH = The name of the branch, e.g. master.
+    BRANCH = The name of the branch, e.g. master. Default is main.
 
   Example:
     poly create w name:myws top-ns:com.my.company
@@ -324,6 +348,7 @@ poly help
              :project         Help for the project diagram.
              :workspace       Help for the workspace diagram.
              :project :brick  Help for the project/brick diagram.
+
   Example:
     poly deps
     poly deps project:myproject
@@ -516,7 +541,9 @@ poly help
     This table lists all projects. The 'project' column shows the name
     of the projects, which are the directory names under the 'projects',
     directory except for 'development' that stores its code under the
-    'development' directory.
+    'development' directory. If any file within the project directory has
+    changed, then it will be marked with a *. If that's not the case, but
+    any of the included bricks are changed, then it will be marked with a +.
 
     The 'deps.edn' config files are stored under each project, except for
     the development project that stores it at the workspace root.
@@ -645,7 +672,8 @@ poly help
   Shows all libraries that are used in the workspace.
 
   poly libs [:all]
-    :all = View all bricks, including those without library dependencies.
+    :all     = View all bricks, including those without library dependencies.
+    :compact = Show the table in a more compact way.
                                                                                       u  u
                                                                                       s  t
                                                                                       e  i
@@ -659,8 +687,8 @@ poly help
   In this example we have four libraries used by the cl and dev projects.
   If any of the libraries are added to the default or admin profiles, they will appear
   as an x in these columns. Remember that src and test sources live together in a profile,
-  which is fine because they are only used from the development project
-.
+  which is fine because they are only used from the development project.
+
   The x for the cl and dev columns says that the library is part of the src scope.
   If a library is only used from the test scope, then it is marked with a 't'. A library
   used in the test scope, can either be specified directly by the project itself via
@@ -713,20 +741,74 @@ poly help
   instead of the :polylith key in ./deps which was the case prior to this version.
 ```
 
-### prompt
+### shell
 ```
-  poly prompt
+  poly [shell]
 
-  Starts a prompt with the name of the current workspace, e.g.:
+  Starts an interactive shell with the name of the selected workspace, e.g.:
     myworkspace$>
 
-  From here we are free to execute any command we want, e.g.:
+  From here we can execute any poly command, e.g.:
     myworkspace$> info
 
-  The idea is to get get rid of the startup time of the command
-  and get instant feedback.
+  We can also use the built in autocomplete, e.g.:
+    myworkspace$> i
 
-  Exit the interactive mode by typing 'exit' or 'quit'.
+  ...and when pressing the <tab> key, the 'i' is completed to 'info'.
+
+  This works for both commands and arguments, and is context sensitive.
+  If we for example type:
+    myworkspace$> deps brick:mybrick project:
+
+  ...and press <tab>, it will only suggest projects that include 'mybrick'.
+
+  Parameters that start with a : can be selected by just typing their name,
+  e.g. 'l' will select ':loc'. To distinguish between 'project:PROJECT' and
+  ':project' we need to type ':p' to select ':project'.
+
+  From the shell we also have access to these commands:
+    switch-ws ARG  Switches to selected workspace.
+    tap [ARG]      Opens (or closes/cleans) a portal window that outputs tap> statements.
+    exit           Exits the shell.
+    quit           Quits the shell.
+
+  An alternative way of exiting the shell is by pressing <ctrl>+C or <ctrl>+D.
+```
+
+### switch-ws
+```
+  Selects which workspace to be used by commands executed from the shell.
+  This replaces the use of ws-dir:DIR and ws-file:FILE, which will be appended
+  automatically when executing commands, if dir:DIR or file:FILE is given.
+
+  switch-ws ARG
+    ARG = dir:DIR    Switches to the selected workspace directory.
+                     The prompt will be prefixed with 'dir:' to show this.
+          file:FILE  Switches to the workspace specified in the selected file,
+                     created by something like 'poly ws out:ws.edn'.
+                     The prompt will be prefixed with 'file:' to show this.
+
+  Example:
+    switch-ws dir:~/myworkspace
+    switch-ws file:../../another/ws.edn
+```
+### tap
+```
+  Opens (or closes/cleans) a portal window (https://github.com/djblue/portal)
+  where tap> statements are sent to. This command is used from the shell and
+  is mainly used internally when developing the poly tool itself.
+
+  tap [ARG]
+    ARG = (omitted)  Opens a portal window.
+          open       Opens a portal window.
+          close      Closes the portal window
+          clear      Clears the portal window
+
+  Example:
+    tap
+    tap open
+    tap clean
+    tap close
 ```
 
 ### test
@@ -833,3 +915,4 @@ poly help
     poly ws out:ws.edn
     poly ws color-mode:none > ws.edn
 ```
+

@@ -17,7 +17,9 @@ The individual help texts listed here are taken from the built-in `help` command
 - [info](#info)
 - [libs](#libs)
 - [migrate](#migrate)
-- [prompt](#prompt)
+- [shell](#shell)
+- [switch-ws (shell)](#switch-ws)
+- [tap (shell)](#tap)
 - [test](#test)
 - [ws](#ws)
 

@@ -56,7 +56,7 @@ and more.
 - [Workspace](#workspace)
 - [Development](#development)
 - [Component](#component)
-- [Prompt](#prompt)
+- [Shell](#shell)
 - [Interface](#interface)
 - [Base](#base)
 - [Project](#project)
@@ -74,7 +74,7 @@ and more.
 - [Parameters](#parameters)
 - [Naming](#naming)
 - [Configuration](#configuration)
-- [Workspace state](#workspace-state)
+- [Workspace structure](#workspace-structure)
 - [Git hook](#git-hook)
 - [Mix languages](#mix-languages)
 - [Commands](doc/commands.md)
@@ -483,7 +483,7 @@ The `workspace.edn` file looks like this:
 ```
 
 If all went well, the `poly` tool managed to set the latest sha for the `:poly` alias by taking it from the `master` branch
-in this repository.
+in this repository. We can instruct it to go and get it by passing in `:latest-sha`:
 
 ```
 poly ws get:settings:vcs:polylith :latest-sha
@@ -741,13 +741,14 @@ The cryptic `s--` and `st-` will be described in the [flags](#flags) section.
 
 If your colors don't look as nice as this, then visit the [colors](#colors) section.
 
-# Prompt
+# Shell
 
 The `poly` tool is a Java program (Clojure code compiled into Java bytecode)
-and it takes a couple of seconds or more to execute a command (depending on how fast computer you have).
-There is a way to execute commands instantly and that is to start an interactive prompt:
+and it takes a few seconds to execute a command (depending on how fast computer you have).
+There is a way to execute commands instantly and to get context aware autocomplete,
+and that is to start an interactive shell:
 ```
-poly prompt
+poly shell
 ```
 
 This will start the `poly` command in an interactive mode with the same name as the workspace:
@@ -760,9 +761,15 @@ From here we can execute any `poly` command, e.g.:
 example$> info
 ```
 
-Feel free to execute any `poly` command in this documentation interactively from now!
+To use the autocomplete, write the beginning of the command (or argument), e.g.:
+```
+example$> i
+```
 
-Type `exit` or `quit` to exit:
+...and press the `<tab>` key to complete to `info` in this case. This works for parameters as well.
+Feel free to execute any `poly` command interactively from now. It will save you both time and typing!
+
+Type `exit` or `quit` to exit (or press `<ctrl>+C` or `<ctrl>+D>`:
 ```
 example$> exit
 ```
@@ -1201,7 +1208,7 @@ clojure -M:poly info
 It takes longer to execute the `poly` command this way, because it needs to compile the Clojure code
 first, but it also allows us to execute older or newer versions of the tool by
 selecting another `sha` from an [existing commit](https://github.com/polyfy/polylith/commits/master).
-To speed things up we can always start a [prompt](doc/commands.md#prompt).
+To speed things up we can always start a [shell](doc/commands.md#shell).
 
 ## Build
 
@@ -1555,8 +1562,7 @@ Here we rely on `release-*` tags that mark the whole repo as released.
 
 ## Flags
 
-We have one more thing to cover regarding the `info` command, and that is what the `x` and `-` flags mean:
-
+We have one more thing to cover regarding the `info` command, and that is what the `-`, `s`, `t` and `x` flags mean:
 <img src="images/project-flags.png" width="34%">
 
 Each flag under the `status` column has a different meaning:<br>
@@ -2219,7 +2225,7 @@ only used from the tests should be defined in the `test` context.
 When we run the `test` command, the tool will detect which components, bases and projects have been
 affected since the last stable point in time. Based on this information, it will go through all
 the affected projects, one at a time, and run the component, base, and project tests that are included in each project.
-This set of tests will be executed in isolation from its own class loader
+This set of tests will be executed in isolation from its own classloader
 which will speed up the test execution and make it more reliable. Libraries from both the `src` and `test` context
 (and libraries that they depend on) will be used when the tests are executed.
 If `:verbose` is given when running the tests, the libraries and paths that are being used will be printed out.
@@ -3067,9 +3073,9 @@ If `~/.polylith/config.edn` doesn't exists, it will be created the first time th
  :empty-character "."}
 ```
 
-## Workspace state
+## Workspace structure
 
-There is a way to view the workspace state, and that is to execute the [ws](doc/commands.md#ws) command:
+There is a way to view the workspace structure, and that is to execute the [ws](doc/commands.md#ws) command:
 
 ```
 poly ws
@@ -3082,7 +3088,7 @@ such as touching the disk or executing git commands. Instead, everything is prep
 be executed in memory.
 
 This will not only simplify the code of the tool itself but it also gives us, as a user of the tool,
-a way to explore the complete state of the workspace.
+a way to explore the complete state of the workspace (or other people's workspaces).
 
 We can limit the "query" by passing in `get`, here against the [example](examples/doc-example), e.g.:
 
@@ -3207,7 +3213,7 @@ poly ws get:components:user-remote:lib-deps
  "slacker/slacker" {:size 28408, :type "maven", :version "0.17.0"}}
 ```
 
-There is a way to store the workspace state to a file, and that is to give the `out` parameter, e.g.:
+There is a way to store the workspace structure to a file, and that is to give the `out` parameter, e.g.:
 ```
 poly ws out:ws.edn
 ```
@@ -3217,7 +3223,7 @@ An alternative way to reach the same result is to turn off the coloring and pipe
 poly ws color-mode:none > ws.edn
 ```
 
-This can be used to share the workspace state with others without sending them the whole workspace including the code.
+This can be used to share the workspace structure with others without sending them the whole workspace including the code.
 To load this workspace, they have to give the `ws-file` parameter, e.g.:
 
 ```

@@ -475,7 +475,7 @@ If the workspace is loaded using `ws-file:WS-FILE` then the `:old` key is popula
     - `:include` Specifies which bricks should be included when running the `test` command.
                  Empty if no bricks, missing if all bricks.
 - `:tag-patterns` The tag patterns that are specified in `workspace.edn`.
-- `:thousand-separator` Used by numbers >= 1000 (e.g. the KB column in the `libs` command) specified in `workspace.edn`.
+- `:thousand-separator` Used by numbers >= 1000 (e.g. the KB column in the `libs` command) specified in `~/.polylith/config.edn`.
 - `:top-namespace` The top namespace for the workspace, specified in `workspace.edn`.
 - `:user-config-filename` The full path to the user config name.
 - `:user-home` The user home, specified by the `user.home` environment variable.
@@ -487,7 +487,7 @@ If the workspace is loaded using `ws-file:WS-FILE` then the `:old` key is popula
   - `:name` Set to "git".
   - `:polylith`
     - `:branch` Set `master` or `BRANCH` if `branch:BRANCH` is given.
-                The branch is used when calculating the latest `sha` in key 
+                The branch is used when calculating the latest `sha` in `./deps.edn` for the key 
                 `:aliases > :poly > :extra-deps > sha`.
     - `:latest-sha` If `:latest-sha` is given, then the latest `sha` from the 
                     Polylith repo (`https://github.com/polyfy/polylith.git`) is retrieved.
@@ -532,6 +532,7 @@ If the workspace is loaded using `ws-file:WS-FILE` then the `:old` key is popula
                 from exiting with `System/exit`.
 - `:is-run-all-brick-tests` Set to `true` if `:all` or `:all-bricks` are given.
 - `:is-run-project-tests` Set to `true` if `:all` or `:project` are given.
+- `:is-shell` Set to `true` if a shell has been started with the `shell` command.
 - `:is-search-for-ws-dir` Set to `true` if `::` is given.
 - `:is-show-brick` Set to `true` if `:brick` is given. Used by `poly help deps :brick`
                    to show help for the `deps` command when `brick:BRICK` is given.
@@ -546,7 +547,7 @@ If the workspace is loaded using `ws-file:WS-FILE` then the `:old` key is popula
                 to show extra information.
 - `:selected-profiles` A list with the passed in profiles, e.g. `["defult" "extra"]` if `poly info +default +extra` is executed.
 - `:selected-projects` The list of projects given by `project:PROJECT` and/or `:dev` (handled as "dev" if given).
-- `:unnamed-args` All given arguments that don't contain a `:`.
+- `:unnamed-args` All given arguments that don't contain a `:` and is not used by the . So if we type `poly ws get:user-input:unnamed-args missing xx:123` it will return `["missing"]` but not `xx`.
 
 There are a few more user input parameters that are mainly useful if you are a maintainer of the Polylith codebase itself:
 

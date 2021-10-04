@@ -1,0 +1,15 @@
+  Opens (or closes/cleans) a portal window (https://github.com/djblue/portal)
+  where tap> statements are sent to. This command is used from the shell and
+  is mainly used internally when developing the poly tool itself.
+
+  tap [ARG]
+    ARG = (omitted)  Opens a portal window.
+          open       Opens a portal window.
+          close      Closes the portal window
+          clear      Clears the portal window
+
+  Example:
+    tap
+    tap open
+    tap clean
+    tap close

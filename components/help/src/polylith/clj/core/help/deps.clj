@@ -19,6 +19,7 @@
        "             " (s/key ":project" cm) "         Help for the project diagram.\n"
        "             " (s/key ":workspace" cm) "       Help for the workspace diagram.\n"
        "             " (s/key ":project :brick" cm) "  Help for the project/brick diagram.\n"
+       "\n"
        "  Example:\n"
        "    poly deps\n"
        "    poly deps project:myproject\n"

@@ -1,7 +1,8 @@
 (ns polylith.clj.core.creator.brick
   (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.file.interface :as file]
-            [polylith.clj.core.git.interface :as git]))
+            [polylith.clj.core.git.interface :as git]
+            [clojure.string :as str]))
 
 (def create-brick-message
   (str "  Remember to add paths and/or local/root dependency to dev and project 'deps.edn' files."))
@@ -14,12 +15,19 @@
                                        (str "                  :extra-deps {}}}}")])
     (git/add ws-dir config-filename is-git-add)))
 
+(defn validate [brick-name workspace]
+  (cond
+    (str/blank? brick-name) [false "  A brick name must be given."]
+    (common/find-brick brick-name workspace) [false (str "  The brick '" brick-name "' already exists.")]
+    :else [true]))
+
 (defn create-brick [workspace brick-name create-fn]
-  (if (common/find-brick brick-name workspace)
-    (println (str "  The brick '" brick-name "' already exists."))
-    (do
-      (create-fn)
-      (println create-brick-message))))
+  (let [[ok? message] (validate brick-name workspace)]
+    (if (not ok?)
+      (println message)
+      (do
+        (create-fn)
+        (println create-brick-message)))))
 
 (defn create-resources-dir [ws-dir bricks-dir brick-name is-git-add]
   (let [keep-file (str ws-dir "/" bricks-dir "/" brick-name "/resources/" brick-name "/.keep")]

@@ -72,5 +72,5 @@
       (eval-in* class-loader '(require 'clojure.main))
       class-loader)
     (catch Exception e
-      (println (str (color/error color-mode "Couldn't create class loader for paths: ") paths " "
+      (println (str (color/error color-mode "Couldn't create classloader for paths: ") paths " "
                     (color/error color-mode e))))))

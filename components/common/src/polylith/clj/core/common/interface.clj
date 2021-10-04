@@ -7,6 +7,8 @@
             [polylith.clj.core.common.validate-args :as validate-args]
             [polylith.clj.core.common.ws-dir :as ws-dir]))
 
+(def entity->short core/entity->short)
+
 (defn absolute-path [path entity-root-path]
   (core/absolute-path path entity-root-path))
 

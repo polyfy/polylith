@@ -1,10 +1,10 @@
 (ns polylith.clj.core.command.create
-  (:require [polylith.clj.core.command.shared :as shared]
+  (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.creator.interface :as creator]))
 
 (defn create [current-dir workspace
               [_ entity] name top-ns interface branch is-git-add color-mode]
-  (let [ent (shared/entity->short entity)
+  (let [ent (common/entity->short entity)
         git-add (if (-> is-git-add nil? not)
                   is-git-add
                   (-> workspace :settings :vcs :auto-add))]

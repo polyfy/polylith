@@ -80,11 +80,11 @@
   (purple color-mode name))
 
 (defn entity [type name color-mode]
-  (case type
-    "interface" (interface name color-mode)
-    "component" (component name color-mode)
-    "base" (base name color-mode)
-    "project" (project name color-mode)
+  (case (keyword type)
+    :interface (interface name color-mode)
+    :component (component name color-mode)
+    :base (base name color-mode)
+    :project (project name color-mode)
     name))
 
 (defn brick [type brick color-mode]

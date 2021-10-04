@@ -1,39 +1,39 @@
 (ns polylith.clj.core.git.core
   (:require [clojure.string :as str]
             [polylith.clj.core.git.tag :as tag]
-            [polylith.clj.core.shell.interface :as shell]))
+            [polylith.clj.core.sh.interface :as sh]))
 
 (def branch "master")
 (def repo "https://github.com/polyfy/polylith.git")
 
 (defn is-git-repo? [ws-dir]
-  (let [{:keys [exit]} (shell/sh-with-return "git" "rev-parse" "--is-inside-work-tree" :dir ws-dir)]
+  (let [{:keys [exit]} (sh/execute-with-return "git" "rev-parse" "--is-inside-work-tree" :dir ws-dir)]
     (and (zero? exit)
-         (= "true" (first (str/split-lines (shell/sh-ignore-exception "git" "rev-parse" "--is-inside-work-tree" :dir ws-dir)))))))
+         (= "true" (first (str/split-lines (sh/execute-ignore-exception "git" "rev-parse" "--is-inside-work-tree" :dir ws-dir)))))))
 
 (defn init [ws-dir git-repo? branch]
   (try
     (when (not git-repo?)
-      (shell/sh "git" "init" :dir ws-dir)
-      (shell/sh "git" "checkout" "-b" (or branch "main") :dir ws-dir))
-    (shell/sh "git" "add" "." :dir ws-dir)
-    (shell/sh "git" "commit" "-m" "Workspace created." :dir ws-dir)
+      (sh/execute "git" "init" :dir ws-dir)
+      (sh/execute "git" "checkout" "-b" (or branch "main") :dir ws-dir))
+    (sh/execute "git" "add" "." :dir ws-dir)
+    (sh/execute "git" "commit" "-m" "Workspace created." :dir ws-dir)
     (catch Exception e
       (println (str "Cannot create a git repository for the workspace.\n"
                     "Please try to create it manually instead: " (.getMessage e))))))
 
 (defn add [ws-dir filename is-git-add]
   (when is-git-add
-    (shell/sh "git" "add" filename :dir ws-dir)))
+    (sh/execute "git" "add" filename :dir ws-dir)))
 
 (defn current-branch []
   (try
-    (str/trim-newline (shell/sh "git" "rev-parse" "--abbrev-ref" "HEAD"))
+    (str/trim-newline (sh/execute "git" "rev-parse" "--abbrev-ref" "HEAD"))
     (catch Exception _
       "master")))
 
 (defn latest-polylith-sha [branch]
-  (some-> (shell/sh-ignore-exception "git" "ls-remote" repo (str "refs/heads/" branch))
+  (some-> (sh/execute-ignore-exception "git" "ls-remote" repo (str "refs/heads/" branch))
           (str/split #"\t")
           first))
 
@@ -66,7 +66,7 @@
   [ws-dir ws-local-dir is-no-changes sha1 sha2]
   (if is-no-changes
     []
-    (let [{:keys [exit out err]} (apply shell/sh-with-return (concat (diff-command-parts sha1 sha2) [:dir ws-dir]))
+    (let [{:keys [exit out err]} (apply sh/execute-with-return (concat (diff-command-parts sha1 sha2) [:dir ws-dir]))
           prefix (if ws-local-dir
                    (str ws-local-dir "/")
                    "")]
@@ -79,11 +79,11 @@
           [])))))
 
 (defn first-committed-sha [ws-dir]
-  (last (str/split-lines (shell/sh "git" "log" "--format=%H" :dir ws-dir))))
+  (last (str/split-lines (sh/execute "git" "log" "--format=%H" :dir ws-dir))))
 
 (defn root-dir []
   (try
-    [true (str/trim-newline (shell/sh "git" "rev-parse" "--show-toplevel"))]
+    [true (str/trim-newline (sh/execute "git" "rev-parse" "--show-toplevel"))]
     (catch Exception e
       [false (.getMessage e)])))
 

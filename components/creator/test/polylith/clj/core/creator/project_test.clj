@@ -5,6 +5,14 @@
 
 (use-fixtures :each helper/test-setup-and-tear-down)
 
+(deftest create-project--whith-missing-name--return-error-message
+  (let [output (with-out-str
+                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
+                 (helper/execute-command "ws1" "create" "p" "name:"))]
+
+    (is (= (str "  A project name must be given.\n")
+           (color/clean-colors output)))))
+
 (deftest create-project--when-project-already-exists--return-error-message
   (let [output (with-out-str
                  (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")

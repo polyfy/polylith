@@ -42,14 +42,20 @@ poly help diff color-mode:none > 13-diff.txt
 echo "--- info ---"
 poly help info color-mode:none > 14-info.txt
 
+echo "--- tap ---"
+poly help tap color-mode:none > 20-tap.txt
+
 echo "--- libs ---"
 poly help libs color-mode:none > 15-libs.txt
 
 echo "--- migrate ---"
 poly help migrate color-mode:none > 16-migrate.txt
 
-echo "--- prompt ---"
-poly help prompt color-mode:none > 17-prompt.txt
+echo "--- shell ---"
+poly help shell color-mode:none > 17-shell.txt
+
+echo "--- switch-ws ---"
+poly help switch-ws color-mode:none > 21-switch-ws.txt
 
 echo "--- test ---"
 poly help test color-mode:none > 18-test.txt

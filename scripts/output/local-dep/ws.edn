@@ -580,12 +580,12 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.12-alpha",
+  {:name "0.2.13-alpha",
    :major 0,
    :minor 2,
-   :patch 12,
+   :patch 13,
    :revision "alpha",
-   :date "2021-08-28"},
+   :date "2021-09-10"},
   :ws {:type :toolsdeps2, :breaking 1, :non-breaking 0}},
  :ws-dir "USER-HOME/source/polylith/examples/local-dep",
  :ws-local-dir "examples/local-dep",

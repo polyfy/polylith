@@ -59,6 +59,9 @@
 (defn directories [dir]
   (core/directory-paths dir))
 
+(defn files-and-dirs [dir home-dir]
+  (core/dirs-and-files dir home-dir))
+
 (defn read-deps-file [path]
   (core/read-deps-file path))
 
