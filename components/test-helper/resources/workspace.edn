@@ -1491,7 +1491,7 @@
      "metosin/malli" {:version "0.5.1", :type "maven", :size 43722},
      "me.raynes/fs" {:version "1.4.6", :type "maven", :size 11209},
      "com.github.polyfy/jline"
-     {:version "3.20.1", :type "maven", :size 1006075},
+     {:version "3.20.0", :type "maven", :size 1006075},
      "org.clojure/tools.deps.alpha"
      {:version "0.12.1003", :type "maven", :size 60953},
      "djblue/portal" {:version "0.13.0", :type "maven", :size 617207},
@@ -2029,7 +2029,7 @@
       {:version "1.0.644-alpha", :type "maven", :size 73108},
       "me.raynes/fs" {:version "1.4.6", :type "maven", :size 11209},
       "com.github.polyfy/jline"
-      {:version "3.20.1", :type "maven", :size 1006075},
+      {:version "3.20.0", :type "maven", :size 1006075},
       "org.clojure/tools.deps.alpha"
       {:version "0.12.1003", :type "maven", :size 60953},
       "djblue/portal" {:version "0.13.0", :type "maven", :size 617207},
@@ -2049,7 +2049,7 @@
      {:version "1.0.644-alpha", :type "maven", :size 73108},
      "me.raynes/fs" {:version "1.4.6", :type "maven", :size 11209},
      "com.github.polyfy/jline"
-     {:version "3.20.1", :type "maven", :size 1006075},
+     {:version "3.20.0", :type "maven", :size 1006075},
      "org.clojure/tools.deps.alpha"
      {:version "0.12.1003", :type "maven", :size 60953},
      "djblue/portal" {:version "0.13.0", :type "maven", :size 617207},
@@ -4512,7 +4512,7 @@
    :lib-deps
    {:src
     {"com.github.polyfy/jline"
-     {:version "3.20.1", :type "maven", :size 1006075},
+     {:version "3.20.0", :type "maven", :size 1006075},
      "djblue/portal"
      {:version "0.13.0", :type "maven", :size 617207}}}}
   {:lines-of-code {:src 270, :test 0},

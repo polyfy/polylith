@@ -35,7 +35,7 @@
                   :extra-deps {org.clojure/clojure {:mvn/version "1.10.3"}
                                org.clojure/tools.deps.alpha {:mvn/version "0.12.1048"}
                                org.slf4j/slf4j-nop {:mvn/version "1.7.32"}
-                               org.jline/jline {:mvn/version "3.20.1"}
+                               org.jline/jline {:mvn/version "3.20.0"}
                                djblue/portal {:mvn/version "0.15.1"}
                                me.raynes/fs {:mvn/version "1.4.6"}
                                metosin/malli {:mvn/version "0.6.2"}

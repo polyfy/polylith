@@ -86,7 +86,7 @@
           "  mvxcvi/puget                  1.3.1          maven     15    x    x     x      x    .  .  .  .  .  .  .  .  x"
           "  org.clojure/clojure           1.10.3         maven  3,822    x    x     x      x    .  .  .  .  .  .  .  .  ."
           "  org.clojure/tools.deps.alpha  0.12.1048      maven     60    x    x     x      x    .  x  x  .  .  .  .  x  ."
-          "  org.jline/jline               3.20.1         maven    982    -    -     x      x    .  .  .  .  x  .  .  .  ."
+          "  org.jline/jline               3.20.0         maven    969    -    -     x      x    .  .  .  .  x  .  .  .  ."
           "  org.slf4j/slf4j-nop           1.7.32         maven      3    -    x     x      x    .  .  .  .  .  .  .  .  ."
           "  rewrite-clj/rewrite-clj       1.0.682-alpha  maven     71    -    -     -      x    .  .  .  .  .  .  .  .  ."
           "  slipset/deps-deploy           0.2.0          maven      7    -    x     -      x    x  .  .  .  .  .  .  .  ."
