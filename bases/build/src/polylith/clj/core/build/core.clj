@@ -121,6 +121,7 @@
         (b/jar {:class-dir class-dir
                 :jar-file jar-file})
         (b/delete {:path class-dir})
+        (println "Jar is built.")
         (assoc opts :jar-file jar-file)))))
 
 (defn uberjar
@@ -171,6 +172,7 @@
                  :main      main
                  :uber-file uber-file})
         (b/delete {:path class-dir})
+        (println "Uberjar is built.")
         (assoc opts :uber-file uber-file)))))
 
 (defn deploy [opts]
@@ -208,7 +210,7 @@
             _ (when-not (zero? exit)
                 (println out)
                 (System/exit 1))
-            sha-sum (str/split out #" ")]
+            sha-sum (first (str/split out #" "))]
         (println (str "Shasum for " project ": " sha-sum))
         (spit (str "artifacts/" tar-file ".sha1") sha-sum))
       (b/delete {:path (str "artifacts/" project)}))))
