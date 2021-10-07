@@ -26,15 +26,26 @@
         :aliases)))
 
 (defn scripts
-  "Produce the artifacts scripts for the specified project."
-  [{:keys [project]}]
-  (b/copy-dir {:src-dirs ["bases/build/resources/build"] :target-dir (str "artifacts/" project)
-               :replace  {"{{PROJECT}}"  (name project)
-                          "{{PROJECT_}}" (str/replace (name project) #"-" "_")
-                          "{{VERSION}}"  version/name}})
-  (b/copy-file {:src    (str "artifacts/" project "/exec")
-                :target (str "artifacts/" project "/" project)})
-  (b/delete {:path (str "artifacts/" project "/exec")}))
+  "Produce the artifacts scripts for the specified project.
+
+  Returns: the input opts with :artifact-path and :artifact-name
+  computed as the path and just the filename of the expected
+  (uber) JAR file."
+  [{:keys [project] :as opts}]
+  (let [project-dir (str "artifacts/" project)]
+    (b/copy-dir {:src-dirs ["bases/build/resources/build"] :target-dir project-dir
+                 :replace  {"{{PROJECT}}"  (name project)
+                            "{{PROJECT_}}" (str/replace (name project) #"-" "_")
+                            "{{VERSION}}"  version/name}})
+    (b/copy-file {:src    (str project-dir "/exec")
+                  :target (str project-dir "/" project)})
+    (b/delete {:path (str project-dir "/exec")})
+    (b/process {:command-args ["chmod" "+x" "install.sh" project]
+                :dir          project-dir})
+    (let [artifact-name (str project "-" version/name ".jar")]
+      (assoc opts
+             :artifact-path (str project-dir "/" artifact-name)
+             :artifact-name artifact-name))))
 
 (defn jar
   "Builds a library jar for the specified project.
@@ -45,6 +56,8 @@
     relative to the project folder; can also be specified in
     the :jar alias in the project's deps.edn file; will
     default to target/PROJECT-thin.jar if not specified.
+
+  Returns: the input opts with the :jar-file computed.
 
   Because we build JARs from Polylith projects, all the source
   code we want in the JAR comes from :local/root dependencies of
@@ -107,7 +120,8 @@
         (println "Building jar:" jar-file "...")
         (b/jar {:class-dir class-dir
                 :jar-file jar-file})
-        (b/delete {:path class-dir})))))
+        (b/delete {:path class-dir})
+        (assoc opts :jar-file jar-file)))))
 
 (defn uberjar
   "Builds an uberjar for the specified project.
@@ -118,6 +132,8 @@
     relative to the project folder; can also be specified in
     the :uberjar alias in the project's deps.edn file; will
     default to target/PROJECT.jar if not specified.
+
+  Returns: the input opts with the :uber-file computed.
 
   The project's deps.edn file must contain an :uberjar alias
   which must contain at least :main, specifying the main ns
@@ -154,10 +170,45 @@
                  log4j2-conflict-handler
                  :main      main
                  :uber-file uber-file})
-        (b/delete {:path class-dir})))))
+        (b/delete {:path class-dir})
+        (assoc opts :uber-file uber-file)))))
 
 (defn deploy [opts]
   (println "deploy!"))
 
-(defn create-artifacts [opts]
-  (println "create-artifacts!"))
+(defn create-artifacts
+  "Create the artifacts for the Polylith project.
+
+  Currently, this only creates artifacts for 'poly'.
+
+  It creates an artifacts directory, containing an uberjar,
+  a '.tar.gz' of the uberjar and install.sh and a project
+  executable script, and a '.sha1' file for that '.tar.gz'."
+  [opts]
+  (b/delete {:path "artifacts"})
+  (doseq [project ["poly"]]
+    (println (str "Creating artifacts for: " project))
+    (let [project-opts        (assoc opts :project project)
+          {:keys [uber-file]} (uberjar project-opts)
+          {:keys [artifact-path artifact-name]} (scripts project-opts)]
+      (b/copy-file {:src    (str "projects/" project "/" uber-file)
+                    :target artifact-path})
+      (b/copy-file {:src    artifact-path
+                    :target (str "artifacts/" artifact-name)})
+      (let [tar-file (str/replace artifact-name #"\.jar$" ".tar.gz")
+            {:keys [exit]}
+            (b/process {:command-args ["tar" "cvfz" tar-file project]
+                        :dir          "artifacts"})
+            _ (when-not (zero? exit)
+                (System/exit 1))
+            {:keys [exit out]}
+            (b/process {:command-args ["shasum" "-a" "256" tar-file]
+                        :out          :capture
+                        :dir          "artifacts"})
+            _ (when-not (zero? exit)
+                (println out)
+                (System/exit 1))
+            sha-sum (str/split out #" ")]
+        (println (str "Shasum for " project ": " sha-sum))
+        (spit (str "artifacts/" tar-file ".sha1") sha-sum))
+      (b/delete {:path (str "artifacts/" project)}))))
