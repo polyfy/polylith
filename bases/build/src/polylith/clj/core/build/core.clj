@@ -1,22 +1,31 @@
 (ns polylith.clj.core.build.core
   "The build script for the Polylith project.
 
-  To build an uberjar for a project, run:
+  Primary targets:
+  * create-artifacts
+    - creates uberjar and homebrew scripts
+  * deploy
+    - creates & deploys project JARs
+    - perform a dry run with :installer :local
 
-  clojure -T:build uberjar :project PROJECT
+  Additional targets:
+  * jar :project PROJECT
+    - creates a library JAR for the given project
+  * scripts :project PROJECT
+    - creates the homebrew scripts for the given project
+  * uberjar :project PROJECT
+    - creates an uberjar for the given project
 
   For help, run:
 
   clojure -A:deps -T:build help/doc"
-  (:require [clojure.string :as str]
+  (:require [clojure.java.io :as io]
+            [clojure.string :as str]
             [clojure.tools.build.api :as b]
             [clojure.tools.deps.alpha :as t]
             [clojure.tools.deps.alpha.util.dir :refer [with-dir]]
-            ;[polylith.clj.core.api.interface :as api]
-            [polylith.clj.core.file.interface :as file]
-            [polylith.clj.core.version.interface :as version]
-            [org.corfield.log4j2-conflict-handler
-             :refer [log4j2-conflict-handler]]))
+            [org.corfield.build :as bb]
+            [polylith.clj.core.version.interface :as version]))
 
 (defn- get-project-aliases []
   (let [edn-fn (juxt :root-edn :project-edn)]
@@ -25,6 +34,37 @@
         (t/merge-edns)
         :aliases)))
 
+(defn- exec->out
+  "Given options for b/process, run the command with stdout
+  and stderr captured, returning stdout if successful.
+
+  If the command fails, display stdout, stderr, and then
+  exit with a non-zero status."
+  [opts]
+  (let [{:keys [exit out err]}
+        (b/process (assoc opts :out :capture :err :capture))]
+    (when-not (zero? exit)
+      (println "Failed to execute:" (str/join " " (:command-args opts)))
+      (when (seq out)
+        (println "Output:")
+        (println out))
+      (when (seq err)
+        (print "Errors:")
+        (println err))
+      (System/exit 1))
+    out))
+
+(defn- ensure-project-root
+  "Given a task name and a project name, ensure the project
+  exists and seems valid, and return the absolute path to it."
+  [task project]
+  (let [project-root (str (System/getProperty "user.dir") "/projects/" project)]
+    (when-not (and project
+                   (.exists (io/file project-root))
+                   (.exists (io/file (str project-root "/deps.edn"))))
+      (throw (ex-info (str task " task requires a valid :project option") {:project project})))
+    project-root))
+
 (defn scripts
   "Produce the artifacts scripts for the specified project.
 
@@ -32,15 +72,18 @@
   computed as the path and just the filename of the expected
   (uber) JAR file."
   [{:keys [project] :as opts}]
-  (let [project-dir (str "artifacts/" project)]
-    (b/copy-dir {:src-dirs ["bases/build/resources/build"] :target-dir project-dir
-                 :replace  {"{{PROJECT}}"  (name project)
-                            "{{PROJECT_}}" (str/replace (name project) #"-" "_")
-                            "{{VERSION}}"  version/name}})
+  (ensure-project-root "scripts" project)
+  (let [project     (name project)
+        project-dir (str "artifacts/" project)]
+    (b/copy-dir {:src-dirs   [(.getFile (io/resource "build"))]
+                 :target-dir project-dir
+                 :replace    {"{{PROJECT}}"  project
+                              "{{PROJECT_}}" (str/replace project #"-" "_")
+                              "{{VERSION}}"  version/name}})
     (b/copy-file {:src    (str project-dir "/exec")
                   :target (str project-dir "/" project)})
     (b/delete {:path (str project-dir "/exec")})
-    (b/process {:command-args ["chmod" "+x" "install.sh" project]
+    (exec->out {:command-args ["chmod" "+x" "install.sh" project]
                 :dir          project-dir})
     (let [artifact-name (str project "-" version/name ".jar")]
       (assoc opts
@@ -57,72 +100,42 @@
     the :jar alias in the project's deps.edn file; will
     default to target/PROJECT-thin.jar if not specified.
 
-  Returns: the input opts with the :jar-file computed.
+  Returns:
+  * the input opts with :class-dir, :jar-file, :lib, :pom-file,
+    and :version computed.
 
   Because we build JARs from Polylith projects, all the source
   code we want in the JAR comes from :local/root dependencies of
   the project and the actual dependencies are transitive to those
-  :local/root dependencies, so we do some surgery on the basis in
-  order to 'lift' the bricks' top-level dependencies and remove
-  all the non-versioned dependencies -- so that the pom.xml is
-  generated correctly. We also copy 'through' those :local/root
-  dependencies to get src/resources etc into the JAR."
+  :local/root dependencies, so we use the :transitive option of
+  build-clj."
   [{:keys [project jar-file] :as opts}]
-  (let [project-root (str (file/current-dir) "/projects/" project)
-        _
-        (when-not (and project
-                       (file/exists project-root)
-                       (file/exists (str project-root "/deps.edn")))
-          (throw (ex-info "jar task requires a valid :project option" {:opts opts})))
-        aliases (with-dir (file/file project-root) (get-project-aliases))]
+  (let [project-root (ensure-project-root "jar" project)
+        aliases      (with-dir (io/file project-root) (get-project-aliases))]
     (binding [b/*project-root* project-root]
-      (let [basis     (b/create-basis)
-            ;; compute the transitive dependencies that come directly from
-            ;; poly/* bricks within the project:
-            poly-deps (into {}
-                            (comp (filter (fn [[_ {:keys [mvn/version dependents]}]]
-                                       (and version
-                                            (some (fn [lib] (= "poly" (namespace lib)))
-                                                  dependents))))
-                                  (map (fn [[lib {:keys [mvn/version]}]]
-                                         [lib {:mvn/version version}])))
-                            (:libs basis))
-            ;; recompute the basis as if those were top-level dependencies:
-            basis     (b/create-basis {:extra {:deps poly-deps}})
-            ;; and then remove :local/root dependencies from :libs:
-            basis     (update basis
-                              :libs #(into {}
-                                           (filter (fn [[_ {:keys [mvn/version]}]] version))
-                                           %))
-            class-dir "target/classes"
+      (let [class-dir "target/classes"
             jar-file  (or jar-file
                           (-> aliases :jar :jar-file)
                           (str "target/" project "-thin.jar"))
-            lib       (symbol "polylith" (str "clj-" project))]
+            lib       (symbol "polylith" (str "clj-" project))
+            opts      (merge opts
+                             {:class-dir  class-dir
+                              :jar-file   jar-file
+                              :lib        lib
+                              :transitive true
+                              :version    version/name})]
         (b/delete {:path class-dir})
-        (println "Writing pom.xml ...")
-        (b/write-pom {:basis     basis
-                      :class-dir class-dir
-                      :lib       lib
-                      :resource-dirs []
-                      :src-dirs  []
-                      :src-pom   "partial_pom.xml"
-                      :version   version/name})
-        ;; and we want that pom.xml file in the target folder for deployment:
+        (bb/jar opts)
+        ;; we want the pom.xml file in the project folder for deployment:
         (b/copy-file {:src    (b/pom-path {:class-dir class-dir
                                            :lib       lib})
                       :target "pom.xml"})
-        (println "Copying files ...")
-        ;; copy all the source files on the classpath (i.e., from local bricks):
-        (b/copy-dir {:src-dirs   (filter (comp file/directory? file/file)
-                                         (:classpath-roots basis))
-                     :target-dir class-dir})
-        (println "Building jar:" jar-file "...")
-        (b/jar {:class-dir class-dir
-                :jar-file jar-file})
         (b/delete {:path class-dir})
         (println "Jar is built.")
-        (assoc opts :jar-file jar-file)))))
+        (-> opts
+            (assoc :pom-file (str project-root "/pom.xml"))
+            ;; account for project root relative paths:
+            (update :jar-file (comp #(.getCanonicalPath %) b/resolve-path)))))))
 
 (defn uberjar
   "Builds an uberjar for the specified project.
@@ -134,49 +147,49 @@
     the :uberjar alias in the project's deps.edn file; will
     default to target/PROJECT.jar if not specified.
 
-  Returns: the input opts with the :uber-file computed.
+  Returns:
+  * the input opts with :class-dir, :compile-opts, :main, and :uber-file
+    computed.
 
   The project's deps.edn file must contain an :uberjar alias
   which must contain at least :main, specifying the main ns
   (to compile and to invoke)."
   [{:keys [project uber-file] :as opts}]
-  (let [project-root (str (file/current-dir) "/projects/" project)
-        _
-        (when-not (and project
-                       (file/exists project-root)
-                       (file/exists (str project-root "/deps.edn")))
-          (throw (ex-info "uberjar task requires a valid :project option" {:opts opts})))
-        aliases (with-dir (file/file project-root) (get-project-aliases))
-        main    (-> aliases :uberjar :main)]
+  (let [project-root (ensure-project-root "uberjar" project)
+        aliases      (with-dir (io/file project-root) (get-project-aliases))
+        main         (-> aliases :uberjar :main)]
     (when-not main
       (throw (ex-info (str "the " project " project's deps.edn file does not specify the :main namespace in its :uberjar alias")
                       {:aliases aliases})))
     (binding [b/*project-root* project-root]
-      (let [basis     (b/create-basis)
-            class-dir "target/classes"
+      (let [class-dir "target/classes"
             uber-file (or uber-file
                           (-> aliases :uberjar :uber-file)
-                          (str "target/" project ".jar"))]
+                          (str "target/" project ".jar"))
+            opts      (merge opts
+                             {:class-dir    class-dir
+                              :compile-opts {:direct-linking true}
+                              :main         main
+                              :uber-file    uber-file})]
         (b/delete {:path class-dir})
-        (println "Compiling" main "...")
-        (b/compile-clj {:basis        basis
-                        :class-dir    class-dir
-                        :compile-opts {:direct-linking true}
-                        :ns-compile   [main]
-                        :src-dirs     []})
-        (println "Building uber jar:" uber-file "...")
-        (b/uber {:basis     basis
-                 :class-dir class-dir
-                 :conflict-handlers
-                 log4j2-conflict-handler
-                 :main      main
-                 :uber-file uber-file})
+        (bb/uber opts)
         (b/delete {:path class-dir})
         (println "Uberjar is built.")
-        (assoc opts :uber-file uber-file)))))
+        opts))))
 
-(defn deploy [opts]
-  (println "deploy!"))
+(defn deploy
+  "Create and deploy library JAR files for the Polylith project.
+
+  Currently, creates and deploys 'api' and 'poly'.
+
+  You can do a dry run by passing :installer :local which will
+  deploy the JARs into your local Maven cache instead of to Clojars."
+  [opts]
+  (doseq [project ["api" "poly"]]
+    (let [project-opts (assoc opts :project project)]
+      (println (str "Starting deployment for " project " project."))
+      (-> project-opts (jar) (bb/deploy))
+      (println (str "Deployment completed for " project " project.")))))
 
 (defn create-artifacts
   "Create the artifacts for the Polylith project.
@@ -198,19 +211,12 @@
       (b/copy-file {:src    artifact-path
                     :target (str "artifacts/" artifact-name)})
       (let [tar-file (str/replace artifact-name #"\.jar$" ".tar.gz")
-            {:keys [exit]}
-            (b/process {:command-args ["tar" "cvfz" tar-file project]
-                        :dir          "artifacts"})
-            _ (when-not (zero? exit)
-                (System/exit 1))
-            {:keys [exit out]}
-            (b/process {:command-args ["shasum" "-a" "256" tar-file]
-                        :out          :capture
-                        :dir          "artifacts"})
-            _ (when-not (zero? exit)
-                (println out)
-                (System/exit 1))
-            sha-sum (first (str/split out #" "))]
+            _        (exec->out {:command-args ["tar" "cvfz" tar-file project]
+                                 :dir "artifacts"})
+            sha-sum  (-> (exec->out {:command-args ["shasum" "-a" "256" tar-file]
+                                     :dir "artifacts"})
+                         (str/split #" ")
+                         (first))]
         (println (str "Shasum for " project ": " sha-sum))
         (spit (str "artifacts/" tar-file ".sha1") sha-sum))
       (b/delete {:path (str "artifacts/" project)}))))
