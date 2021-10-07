@@ -30,6 +30,7 @@
                                 "components/ws-explorer/src"
                                 "components/ws-file/src"
                                 "bases/poly-cli/src"
+                                ;; build base *not* included here
                                 "bases/deployer-cli/src"]
 
                   :extra-deps {org.clojure/clojure {:mvn/version "1.10.3"}
@@ -73,6 +74,9 @@
 
             :migrator {:main-opts  ["-m" "polylith.clj.core.migrator-cli.core"]
                        :extra-deps {polylith/clj-poly-migrator {:local/root "projects/poly-migrator"}}}
+
+            :build {:deps {polylith/clj-build {:local/root "projects/build"}}
+                    :ns-default polylith.clj.core.build.core}
 
             :deploy {:extra-deps {polylith/clj-deployer {:local/root "projects/deployer"}}
                      :main-opts ["-m" "polylith.clj.core.deployer-cli.core" "deploy"]}

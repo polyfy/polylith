@@ -34,11 +34,15 @@
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps  {poly/test-helper {:local/root "../../components/test-helper"}}}
 
-           :uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.250"}}
+           :uberjar {:main polylith.clj.core.poly-cli.core
+
+                     :replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.250"}}
                      :exec-fn hf.depstar/uberjar
                      :exec-args {:aot true, :main-class polylith.clj.core.poly-cli.core}}
 
-           :jar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.278"}}
+           :jar {:jar-file "target/poly-thin.jar"
+
+                 :replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.278"}}
                  :exec-fn hf.depstar/jar
                  :exec-args {:jar "poly-thin.jar"
                              :target-dir "target"}}}}
