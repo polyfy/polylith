@@ -1,13 +1,7 @@
 {:deps {org.clojure/clojure {:mvn/version "1.10.3"}
 
         polylith/build   {:local/root "../../bases/build"}
-        polylith/file    {:local/root "../../components/file"}
-        polylith/util    {:local/root "../../components/util"}
-        polylith/version {:local/root "../../components/version"}
-
-        io.github.clojure/tools.build {:git/tag "v0.5.1" :git/sha "21da7d4"}
-        io.github.seancorfield/build-uber-log4j2-handler {:git/tag "v0.1.0" :git/sha "ab8e499"}
-        slipset/deps-deploy {:mvn/version "0.2.0"}}
+        polylith/version {:local/root "../../components/version"}}
 
  :aliases {:test {:extra-paths []
                   :extra-deps  {}}}}
