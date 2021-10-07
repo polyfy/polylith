@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Set dir containing the installed files
+install_dir=PREFIX
+{{PROJECT_}}_jar="$install_dir/libexec/{{PROJECT}}-{{VERSION}}.jar"
+
+# Find java executable
+set +e
+JAVA_CMD=$(type -p java)
+set -e
+if [[ -z "$JAVA_CMD" ]]; then
+  if [[ -n "$JAVA_HOME" ]] && [[ -x "$JAVA_HOME/bin/java" ]]; then
+    JAVA_CMD="$JAVA_HOME/bin/java"
+  else
+    >&2 echo "Couldn't find 'java'. Please set JAVA_HOME."
+    exit 1
+  fi
+fi
+
+exec "$JAVA_CMD" $JVM_OPTS -jar "${{PROJECT_}}_jar" "$@"

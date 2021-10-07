@@ -8,7 +8,8 @@
   For help, run:
 
   clojure -A:deps -T:build help/doc"
-  (:require [clojure.tools.build.api :as b]
+  (:require [clojure.string :as str]
+            [clojure.tools.build.api :as b]
             [clojure.tools.deps.alpha :as t]
             [clojure.tools.deps.alpha.util.dir :refer [with-dir]]
             ;[polylith.clj.core.api.interface :as api]
@@ -23,6 +24,17 @@
         (edn-fn)
         (t/merge-edns)
         :aliases)))
+
+(defn scripts
+  "Produce the artifacts scripts for the specified project."
+  [{:keys [project]}]
+  (b/copy-dir {:src-dirs ["bases/build/resources/build"] :target-dir (str "artifacts/" project)
+               :replace  {"{{PROJECT}}"  (name project)
+                          "{{PROJECT_}}" (str/replace (name project) #"-" "_")
+                          "{{VERSION}}"  version/name}})
+  (b/copy-file {:src    (str "artifacts/" project "/exec")
+                :target (str "artifacts/" project "/" project)})
+  (b/delete {:path (str "artifacts/" project "/exec")}))
 
 (defn jar
   "Builds a library jar for the specified project.
