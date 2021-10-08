@@ -1,4 +1,4 @@
-(ns polylith.clj.core.build.core
+(ns build
   "The build script for the Polylith project.
 
   Primary targets:
@@ -75,7 +75,7 @@
   (ensure-project-root "scripts" project)
   (let [project     (name project)
         project-dir (str "artifacts/" project)]
-    (b/copy-dir {:src-dirs   [(.getFile (io/resource "build"))]
+    (b/copy-dir {:src-dirs   [(.getFile (io/resource "brew"))]
                  :target-dir project-dir
                  :replace    {"{{PROJECT}}"  project
                               "{{PROJECT_}}" (str/replace project #"-" "_")

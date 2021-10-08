@@ -1,7 +1,0 @@
-{:deps {org.clojure/clojure {:mvn/version "1.10.3"}
-
-        polylith/build   {:local/root "../../bases/build"}
-        polylith/version {:local/root "../../components/version"}}
-
- :aliases {:test {:extra-paths []
-                  :extra-deps  {}}}}
