@@ -19,7 +19,8 @@
   For help, run:
 
   clojure -A:deps -T:build help/doc"
-  (:require [clojure.java.io :as io]
+  (:require [clojure.edn :as edn]
+            [clojure.java.io :as io]
             [clojure.string :as str]
             [clojure.tools.build.api :as b]
             [clojure.tools.deps.alpha :as t]
@@ -49,7 +50,7 @@
         (println "Output:")
         (println out))
       (when (seq err)
-        (print "Errors:")
+        (println "Errors:")
         (println err))
       (System/exit 1))
     out))
@@ -64,6 +65,19 @@
                    (.exists (io/file (str project-root "/deps.edn"))))
       (throw (ex-info (str task " task requires a valid :project option") {:project project})))
     project-root))
+
+(defn- changed-projects
+  "Run the poly tool (from source) to get a list of changed projects."
+  []
+  (-> (b/java-command
+       {:basis     (binding [b/*project-root* (ensure-project-root "changed" "poly")]
+                     (b/create-basis))
+        :main      'clojure.main
+        :main-args ["-m" "polylith.clj.core.poly-cli.core"
+                    "ws" "get:changes:changed-or-affected-projects" "skip:dev"
+                    "color-mode:none"]})
+      (exec->out)
+      (edn/read-string)))
 
 (defn scripts
   "Produce the artifacts scripts for the specified project.
@@ -185,11 +199,16 @@
   You can do a dry run by passing :installer :local which will
   deploy the JARs into your local Maven cache instead of to Clojars."
   [opts]
-  (doseq [project ["api" "poly"]]
-    (let [project-opts (assoc opts :project project)]
-      (println (str "Starting deployment for " project " project."))
-      (-> project-opts (jar) (bb/deploy))
-      (println (str "Deployment completed for " project " project.")))))
+  (let [changed (changed-projects)
+        projects-to-process (filter #{"api" "poly"} changed)]
+    (when-not (seq projects-to-process)
+      (throw (ex-info "Cannot deploy projects. No projects have changed."
+                      {:changed changed})))
+    (doseq [project projects-to-process]
+      (let [project-opts (assoc opts :project project)]
+        (println (str "Starting deployment for " project " project."))
+        (-> project-opts (jar) (bb/deploy))
+        (println (str "Deployment completed for " project " project."))))))
 
 (defn create-artifacts
   "Create the artifacts for the Polylith project.
@@ -200,23 +219,28 @@
   a '.tar.gz' of the uberjar and install.sh and a project
   executable script, and a '.sha1' file for that '.tar.gz'."
   [opts]
-  (b/delete {:path "artifacts"})
-  (doseq [project ["poly"]]
-    (println (str "Creating artifacts for: " project))
-    (let [project-opts        (assoc opts :project project)
-          {:keys [uber-file]} (uberjar project-opts)
-          {:keys [artifact-path artifact-name]} (scripts project-opts)]
-      (b/copy-file {:src    (str "projects/" project "/" uber-file)
-                    :target artifact-path})
-      (b/copy-file {:src    artifact-path
-                    :target (str "artifacts/" artifact-name)})
-      (let [tar-file (str/replace artifact-name #"\.jar$" ".tar.gz")
-            _        (exec->out {:command-args ["tar" "cvfz" tar-file project]
-                                 :dir "artifacts"})
-            sha-sum  (-> (exec->out {:command-args ["shasum" "-a" "256" tar-file]
-                                     :dir "artifacts"})
-                         (str/split #" ")
-                         (first))]
-        (println (str "Shasum for " project ": " sha-sum))
-        (spit (str "artifacts/" tar-file ".sha1") sha-sum))
-      (b/delete {:path (str "artifacts/" project)}))))
+  (let [changed (changed-projects)
+        projects-to-process (filter #{"poly"} changed)]
+    (when-not (seq projects-to-process)
+      (throw (ex-info "Cannot create artifacts. No projects have changed."
+                      {:changed changed})))
+    (b/delete {:path "artifacts"})
+    (doseq [project projects-to-process]
+      (println (str "Creating artifacts for: " project))
+      (let [project-opts        (assoc opts :project project)
+            {:keys [uber-file]} (uberjar project-opts)
+            {:keys [artifact-path artifact-name]} (scripts project-opts)]
+        (b/copy-file {:src    (str "projects/" project "/" uber-file)
+                      :target artifact-path})
+        (b/copy-file {:src    artifact-path
+                      :target (str "artifacts/" artifact-name)})
+        (let [tar-file (str/replace artifact-name #"\.jar$" ".tar.gz")
+              _        (exec->out {:command-args ["tar" "cvfz" tar-file project]
+                                   :dir "artifacts"})
+              sha-sum  (-> (exec->out {:command-args ["shasum" "-a" "256" tar-file]
+                                       :dir "artifacts"})
+                           (str/split #" ")
+                           (first))]
+          (println (str "Shasum for " project ": " sha-sum))
+          (spit (str "artifacts/" tar-file ".sha1") sha-sum))
+        (b/delete {:path (str "artifacts/" project)})))))
