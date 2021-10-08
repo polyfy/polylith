@@ -30,7 +30,6 @@
                                 "components/ws-explorer/src"
                                 "components/ws-file/src"
                                 "bases/poly-cli/src"
-                                ;; build base *not* included here
                                 "bases/deployer-cli/src"]
 
                   :extra-deps {org.clojure/clojure {:mvn/version "1.10.3"}
