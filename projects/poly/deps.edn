@@ -35,13 +35,13 @@
                   :extra-deps  {poly/test-helper {:local/root "../../components/test-helper"}}}
 
            :uberjar {:main polylith.clj.core.poly-cli.core
-
+                     ;; the rest of this will go away once we switch to tools.build:
                      :replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.250"}}
                      :exec-fn hf.depstar/uberjar
                      :exec-args {:aot true, :main-class polylith.clj.core.poly-cli.core}}
 
            :jar {:jar-file "target/poly-thin.jar"
-
+                 ;; the rest of this will go away once we switch to tools.build:
                  :replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.278"}}
                  :exec-fn hf.depstar/jar
                  :exec-args {:jar "poly-thin.jar"
