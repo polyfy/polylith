@@ -5,7 +5,6 @@
                                 "components/common/src"
                                 "components/creator/src"
                                 "components/creator/resources"
-                                "components/deployer/src"
                                 "components/deps/src"
                                 "components/file/src"
                                 "components/git/src"
@@ -29,8 +28,7 @@
                                 "components/workspace-clj/src"
                                 "components/ws-explorer/src"
                                 "components/ws-file/src"
-                                "bases/poly-cli/src"
-                                "bases/deployer-cli/src"]
+                                "bases/poly-cli/src"]
 
                   :extra-deps {org.clojure/clojure {:mvn/version "1.10.3"}
                                org.clojure/tools.deps.alpha {:mvn/version "0.12.1048"}
@@ -78,10 +76,4 @@
                            {:git/tag "v0.5.1" :git/sha "dc121d6"}
                            poly/version {:local/root "components/version"}}
                     :paths ["build/resources"]
-                    :ns-default build}
-
-            :deploy {:extra-deps {polylith/clj-deployer {:local/root "projects/deployer"}}
-                     :main-opts ["-m" "polylith.clj.core.deployer-cli.core" "deploy"]}
-
-            :create-artifacts {:extra-deps {polylith/clj-deployer {:local/root "projects/deployer"}}
-                               :main-opts ["-m" "polylith.clj.core.deployer-cli.core" "create-artifacts"]}}}
+                    :ns-default build}}}

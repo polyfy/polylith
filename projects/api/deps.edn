@@ -19,9 +19,4 @@
 
         org.clojure/clojure {:mvn/version "1.10.3"}}
 
- :aliases {:jar {:jar-file "target/api-thin.jar"
-                 ;; the rest of this will go away once we switch to tools.build:
-                 :replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.250"}}
-                 :exec-fn hf.depstar/jar
-                 :exec-args {:jar "api-thin.jar"
-                             :target-dir "target"}}}}
+ :aliases {:jar {:jar-file "target/api-thin.jar"}}}

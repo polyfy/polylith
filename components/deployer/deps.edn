@@ -1,4 +1,0 @@
-{:paths ["src"]
- :deps {slipset/deps-deploy {:mvn/version "0.2.0"}}
- :aliases {:test {:extra-paths []
-                  :extra-deps {}}}}

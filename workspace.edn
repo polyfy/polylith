@@ -7,6 +7,5 @@
  :tag-patterns {:stable "stable-*"
                 :release "v[0-9]*"}
  :projects {"api"           {:alias "api", :test []}
-            "deployer"      {:alias "depl", :test []}
             "poly"          {:alias "poly"}
             "development"   {:alias "dev"}}}

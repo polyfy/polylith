@@ -7,13 +7,7 @@ then
     exit 1
 fi
 
-cd ../projects/$1
-
-mkdir -p target
-
-rm -rf target/$1.*
-
-clojure -X:jar
+clojure -A:deps -T:build jar :project $1
 
 if [[ $? -ne 0 ]]
 then

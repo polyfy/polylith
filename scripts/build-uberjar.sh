@@ -7,8 +7,4 @@ then
     exit 1
 fi
 
-cd ../projects/$1
-
-echo "Creating an AOT compiled uberjar for the project"
-
-clojure -X:uberjar :aot true :jar target/$1.jar
+clojure -A:deps -T:build uberjar :project $1
