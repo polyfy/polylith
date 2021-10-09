@@ -7,7 +7,7 @@ then
     exit 1
 fi
 
-clojure -A:deps -T:build jar :project $1
+clojure -T:build jar :project $1
 
 if [[ $? -ne 0 ]]
 then

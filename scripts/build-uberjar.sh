@@ -7,4 +7,4 @@ then
     exit 1
 fi
 
-clojure -A:deps -T:build uberjar :project $1
+clojure -T:build uberjar :project $1

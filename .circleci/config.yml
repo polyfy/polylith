@@ -191,7 +191,7 @@ jobs:
           key: polylith-{{ checksum "deps.edn" }}
       - run:
           name: Deploy changed projects to clojars
-          command: clojure -A:deps -T:build deploy
+          command: clojure -T:build deploy
 
   create-artifacts:
     docker:
@@ -204,7 +204,7 @@ jobs:
           key: polylith-{{ checksum "deps.edn" }}
       - run:
           name: Create artifacts
-          command: clojure -A:deps -T:build create-artifacts
+          command: clojure -T:build create-artifacts
       - store_artifacts:
           path: ./artifacts
       - persist_to_workspace:
