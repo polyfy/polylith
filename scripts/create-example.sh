@@ -58,7 +58,7 @@ echo "ws3=$ws3"
 echo "ws4=$ws4"
 
 cd $root
-brew upgrade clojure
+brew upgrade clojure/tools/clojure
 clojure -A:dev:test -P
 
 cd $ws
@@ -103,20 +103,21 @@ cp $sections/project/deps.edn .
 cp $sections/project/workspace1.edn ./workspace.edn
 cp $sections/project/command-line-deps.edn projects/command-line/deps.edn
 
-echo "### 6/50 Build ###"
-echo "current-dir=$(pwd)"
-mkdir scripts
-cp $scripts/build-uberjar.sh scripts
-cp $sections/build/build-cli-uberjar.sh scripts
-chmod +x scripts/build-uberjar.sh
-chmod +x scripts/build-cli-uberjar.sh
-git add scripts/build-uberjar.sh
-git add scripts/build-cli-uberjar.sh
-cp $sections/build/command-line-deps.edn projects/command-line/deps.edn
-cd scripts
-./build-cli-uberjar.sh
-cd ../projects/command-line/target
-java -jar command-line.jar Lisa
+# TODO: Fix this
+#echo "### 6/50 Build ###"
+#echo "current-dir=$(pwd)"
+#mkdir scripts
+#cp $scripts/build-uberjar.sh scripts
+#cp $sections/build/build-cli-uberjar.sh scripts
+#chmod +x scripts/build-uberjar.sh
+#chmod +x scripts/build-cli-uberjar.sh
+#git add scripts/build-uberjar.sh
+#git add scripts/build-cli-uberjar.sh
+#cp $sections/build/command-line-deps.edn projects/command-line/deps.edn
+#cd scripts
+#./build-cli-uberjar.sh
+#cd ../projects/command-line/target
+#java -jar command-line.jar Lisa
 
 echo "### 7/50 Git ###"
 cd ../../..
