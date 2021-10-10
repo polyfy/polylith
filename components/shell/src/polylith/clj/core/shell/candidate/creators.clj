@@ -104,9 +104,6 @@
                                                               :group {:id group-id
                                                                       :param param}}])))
 
-(defn group-text [value group-id & values]
-  (candidate value value value :remaining (concat values [false {:group {:id group-id}}])))
-
 (defn fn-explorer
   ([value group-id select-fn]
    (candidate (str value ":") value value :fn [true
@@ -134,8 +131,3 @@
 (defn multi-param
   ([value & args]
    (candidate (str value ":") value value :candidates (concat args [true]))))
-
-(defn multi-group-arg
-  ([value group-id & args]
-   (candidate (str value ":") value value :candidates (concat args [true {:group {:id group-id
-                                                                                  :param value}}]))))

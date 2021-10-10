@@ -154,55 +154,34 @@
            :groups @groups})
     result))
 
-;(reset! ws nil)
-;(reset! ws (-> "components/test-helper/resources/workspace.edn"
-;               slurp read-string))
-;
-;(reset-groups)
-;
-;(deref groups)
+(comment
+  (reset! ws nil)
+  (reset! ws (-> "components/test-helper/resources/workspace.edn"
+                 slurp read-string))
 
-;(with-potential-exact-match ["deps" :next "brick" "deployer" :next ""])
+  (reset-groups)
+  (deref groups)
 
-;(select-candidate ["ws" :next "get" "components" "shell" "interface" ""])
-;(select-candidate ["ws" :next "get" "components" "shell" "interface"])
-;(select-candidate ["ws" :next "get" "components" "shell" ""])
+  (with-potential-exact-match ["deps" :next "brick" "deployer" :next ""])
 
-;(with-potential-exact-match ["deps" :next "brick" "deployer" :next "project" ""])
+  (select-candidate ["ws" :next "get" "components" "shell" "interface" ""])
+  (select-candidate ["ws" :next "get" "components" "shell" "interface"])
+  (select-candidate ["ws" :next "get" "components" "shell" ""])
 
-
-;
-;
-;(select-candidate ["ws" :next "out" "components" :next ""])
-;
-;["ws" :next "out" ".." ""]
-;["ws" :next "ws-file" ".." "usermanager-example" "ws.edn" :next ""]
+  (with-potential-exact-match ["deps" :next "brick" "deployer" :next "project" ""])
 
 
+  (select-candidate ["ws" :next "out" "components" :next ""])
 
-;;(with-potential-exact-match ["deps" :next "brick" "deployer" :next ""])
-;;[["deps" true] [:next false] ["brick" true] ["deployer" true] [:next false] ["" false]]
-;(def step1 (select-candidates (first-candidate) ["deps" true]))
-;(def step2 (select-candidates step1 [:next false]))
-;(def step3 (select-candidates step2 ["brick" true]))
-;(def step4 (select-candidates step3 ["deployer" true]))
-;(def step5 (select-candidates step4 [:next false]))
-;(def step6 (select-candidates step5 ["project" true]))
-;(def step7 (select-candidates step6 ["" false]))
-;;;;
-;(get-in (:ws-file @groups) ["out"])
-;(get-in (:info @groups) ["project"])
+  ["ws" :next "out" ".." ""]
+  ["ws" :next "ws-file" ".." "usermanager-example" "ws.edn" :next ""]
 
-;; todo: fixa args för :ws out
-
-;(keys @groups)
-
-
-
-
-
-
-
-
-
-
+  ;(with-potential-exact-match ["deps" :next "brick" "deployer" :next ""])
+  ;[["deps" true] [:next false] ["brick" true] ["deployer" true] [:next false] ["" false]]
+  (def step1 (select-candidates (first-candidate) ["deps" true]))
+  (def step2 (select-candidates step1 [:next false]))
+  (def step3 (select-candidates step2 ["brick" true]))
+  (def step4 (select-candidates step3 ["deployer" true]))
+  (def step5 (select-candidates step4 [:next false]))
+  (def step6 (select-candidates step5 ["project" true]))
+  (def step7 (select-candidates step6 ["" false])))

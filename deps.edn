@@ -1,4 +1,5 @@
-{:aliases  {:dev {:extra-paths ["development/src"
+{:aliases  {:dev {:extra-paths ["."
+                                "development/src"
                                 "components/api/src"
                                 "components/change/src"
                                 "components/command/src"
@@ -35,6 +36,8 @@
                                org.slf4j/slf4j-nop {:mvn/version "1.7.32"}
                                org.jline/jline {:mvn/version "3.20.0"}
                                djblue/portal {:mvn/version "0.15.1"}
+                               io.github.clojure/tools.build {:git/tag "v0.5.1" :git/sha "21da7d4"}
+                               io.github.seancorfield/build-clj {:git/tag "v0.5.1" :git/sha "dc121d6"}
                                me.raynes/fs {:mvn/version "1.4.6"}
                                metosin/malli {:mvn/version "0.6.2"}
                                mount/mount {:mvn/version "0.1.16"}

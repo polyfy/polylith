@@ -40,5 +40,4 @@
   (-main "test" ":all" ":no-exit")
   (-main "version" ":no-exit")
   (-main "shell" ":no-exit")
-  (-main "deps" "brick:deployer" "project:core" ":no-exit")
   #__)
