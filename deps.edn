@@ -36,7 +36,6 @@
                                org.slf4j/slf4j-nop {:mvn/version "1.7.32"}
                                org.jline/jline {:mvn/version "3.20.0"}
                                djblue/portal {:mvn/version "0.15.1"}
-                               io.github.clojure/tools.build {:git/tag "v0.5.1" :git/sha "599be6c8c94a6ac6cc02fc9b43536f9052225b60"}
                                io.github.seancorfield/build-clj {:git/tag "v0.5.2" :git/sha "8f75b81088b9809ec3cfc34e951036b3975007fd"}
                                me.raynes/fs {:mvn/version "1.4.6"}
                                metosin/malli {:mvn/version "0.6.2"}

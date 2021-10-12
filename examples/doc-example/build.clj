@@ -8,10 +8,8 @@
    For help, run:
      clojure -A:deps -T:build help/doc
 
-   Create uberjars:
-     clojure -A:deps -T:build uberjar :project command-line
-     clojure -A:deps -T:build uberjar :project user-service
-     "
+   Create uberjar for command-line:
+     clojure -A:deps -T:build uberjar :project command-line"
   (:require [clojure.java.io :as io]
             [clojure.tools.build.api :as b]
             [clojure.tools.deps.alpha :as t]
