@@ -37,7 +37,7 @@
                                org.jline/jline {:mvn/version "3.20.0"}
                                djblue/portal {:mvn/version "0.15.1"}
                                io.github.clojure/tools.build {:git/tag "v0.5.1" :git/sha "599be6c8c94a6ac6cc02fc9b43536f9052225b60"}
-                               io.github.seancorfield/build-clj {:git/tag "v0.5.1" :git/sha "dc121d6a18639f460a17238488f2f5c216242494"}
+                               io.github.seancorfield/build-clj {:git/tag "v0.5.2" :git/sha "8f75b81088b9809ec3cfc34e951036b3975007fd"}
                                me.raynes/fs {:mvn/version "1.4.6"}
                                metosin/malli {:mvn/version "0.6.2"}
                                mount/mount {:mvn/version "0.1.16"}
@@ -76,7 +76,7 @@
                        :extra-deps {polylith/clj-poly-migrator {:local/root "projects/poly-migrator"}}}
 
             :build {:deps {io.github.seancorfield/build-clj
-                           {:git/tag "v0.5.1" :git/sha "dc121d6a18639f460a17238488f2f5c216242494"}
+                           {:git/tag "v0.5.2" :git/sha "8f75b81088b9809ec3cfc34e951036b3975007fd"}
                            poly/version {:local/root "components/version"}}
                     :paths ["build/resources"]
                     :ns-default build}}}
