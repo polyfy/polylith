@@ -1,6 +1,5 @@
 (ns polylith.clj.core.command.cmd-validator.executable
-  (:require [polylith.clj.core.command.shared :as shared]
-            [polylith.clj.core.command.message :as message]
+  (:require [polylith.clj.core.command.message :as message]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.file.interface :as file]))
 
@@ -11,10 +10,9 @@
 (defn cant-be-executed-outside-ws? [workspace cmd [_ entity]]
   (not (or (-> workspace nil? not)
            (nil? cmd)
-           (= "help" cmd)
-           (= "version" cmd)
+           (contains? #{"help" "shell" "version"} cmd)
            (and (= "create" cmd)
-                (= "w" (shared/entity->short entity))))))
+                (= "w" (common/entity->short entity))))))
 
 (defn cant-execute-when-ws-file-is-set? [cmd ws-file]
   (and (contains? #{"create" "test"} cmd)

@@ -1,21 +1,76 @@
 (ns polylith.clj.core.shell.core
-  (:require [clojure.java.shell :as shell]))
+  (:require [clojure.string :as str]
+            [polylith.clj.core.shell.jline :as jline]
+            [polylith.clj.core.util.interface.str :as str-util]
+            [polylith.clj.core.tap.interface :as tap]
+            [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.version.interface :as version]
+            [polylith.clj.core.user-input.interface :as user-input]
+            [polylith.clj.core.shell.candidate.engine :as engine]
+            [polylith.clj.core.common.interface :as common])
+  (:import [org.jline.reader EndOfFileException]
+           [org.jline.reader UserInterruptException])
+  (:refer-clojure :exclude [next]))
 
-(defn execute [args]
-  (let [current-project (into {} (System/getenv))
-        new-env (dissoc current-project "CLASSPATH")]
-    (shell/with-sh-env new-env (apply shell/sh args))))
+(def ws-dir (atom nil))
+(def ws-file (atom nil))
 
-(defn sh-dont-print-exception [args]
-  (let [{:keys [exit out]} (execute args)]
-    (when (zero? exit)
-      out)))
+(defn prompt []
+  (let [prefix (cond @ws-dir "dir:"
+                     @ws-file "file:"
+                     :else "")]
+    (str prefix (-> engine/ws deref :name) "$ ")))
 
-(defn sh-print-and-throw-if-exception [args]
-  (let [{:keys [exit out err]} (execute args)]
-    (if (zero? exit)
-      out
-      (do
-        (println out)
-        (throw (ex-info (str "Shell Err: " err " Exit code: " exit) {:exit-code exit
-                                                                     :error     err}))))))
+(defn print-logo [color-mode]
+  (println "                  _      _ + _   _");
+  (println (str (color/grey color-mode "#####") "   _ __  ___| |_  _| |-| |_| |_"));
+  (println (str (color/green color-mode "#####") "  | '_ \\/ _ \\ | || | | |  _| ' \\"));
+  (println (str (color/blue color-mode "#####") "  | .__/\\___/_|\\_, |_|_|\\__|_||_|"));
+  (println (str "       |_|          |__/ " version/name)))
+
+(defn enhance [user-input dir file]
+   (assoc user-input :is-shell true
+                     :ws-dir dir
+                     :ws-file file))
+
+(defn switch-ws [user-input dir file workspace-fn color-mode]
+  (let [input (enhance user-input dir file)]
+    (reset! ws-dir dir)
+    (reset! ws-file file)
+    (reset! engine/ws
+            (workspace-fn input file
+                          (common/workspace-dir input color-mode)))))
+
+(defn execute-command [command-executor user-input color-mode]
+  (try
+    (let [input (-> user-input
+                    (enhance @ws-dir @ws-file))]
+      (command-executor input))
+    (catch Throwable e
+      (println (color/error color-mode (.getMessage e))))))
+
+(defn start [command-executor {:keys [ws-dir ws-file is-tap] :as user-input} workspace-fn workspace color-mode]
+  (let [reader (jline/reader)]
+    (when is-tap (tap/execute "open"))
+    (print-logo color-mode)
+    (reset! engine/ws workspace)
+    (switch-ws user-input ws-dir ws-file workspace-fn color-mode)
+    (tap> {:workspace @engine/ws
+           :prompt (prompt)})
+    (try
+      (loop []
+        (flush)
+        (when-let [line (.readLine reader (prompt))]
+          (let [{:keys [cmd unnamed-args dir file color-mode] :as input} (user-input/extract-params (str-util/split-text line))
+                color-mode (or color-mode (common/color-mode input))]
+            (when-not (contains? #{"exit" "quit"} cmd)
+              (cond
+                (= "shell" cmd) (println "  Can't start a shell inside another shell.")
+                (= "switch-ws" cmd) (switch-ws input dir file workspace-fn color-mode)
+                (= "tap" cmd) (tap/execute (first unnamed-args))
+                (str/blank? line) nil
+                :else (execute-command command-executor input color-mode))
+              (flush)
+              (recur)))))
+      (catch EndOfFileException _)
+      (catch UserInterruptException _))))

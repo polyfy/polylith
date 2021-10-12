@@ -29,11 +29,18 @@
   (when (and (vector? replace))
     (mapv from-to (partition 2 replace))))
 
+(defn extract [args]
+  {:cmd (first args)
+   :params (-> args rest vec)})
+
 (defn extract-params [args single-arg-commands]
-  (let [{:keys [named-args unnamed-args]} (params/extract (rest args) single-arg-commands)
+  (let [{:keys [cmd params]} (extract args)
+        {:keys [named-args unnamed-args]} (params/extract params single-arg-commands)
         {:keys [brick
                 branch
                 color-mode
+                dir
+                file
                 project
                 fake-sha
                 get
@@ -53,6 +60,7 @@
                 git-add!
                 latest-sha!
                 no-changes!
+                tap!
                 workspace!
                 dev!
                 project!
@@ -62,12 +70,15 @@
                 resources!
                 verbose!]} named-args]
     (util/ordered-map :args (vec args)
-                      :cmd (first args)
+                      :cmd cmd
                       :get get
                       :branch branch
                       :color-mode color-mode
+                      :dir dir
+                      :file file
                       :fake-sha fake-sha
                       :interface interface
+                      :is-tap (= "true" tap!)
                       :is-search-for-ws-dir (contains? (set args) "::")
                       :is-all (= "true" all!)
                       :is-compact (= "true" compact!)

@@ -6,7 +6,8 @@
   (str "  Shows all libraries that are used in the workspace.\n"
        "\n"
        "  poly libs [:all]\n"
-       "    :all = View all bricks, including those without library dependencies.\n"
+       "    :all     = View all bricks, including those without library dependencies.\n"
+       "    :compact = Show the table in a more compact way.\n"
        "                                                                                      " (color/component "u  u\n" cm)
        "                                                                                      " (color/component "s  t\n" cm)
        "                                                                                      " (color/component "e  i\n" cm)
@@ -20,7 +21,7 @@
        "  In this example we have four libraries used by the " (color/project "cl" cm) " and " (color/project "dev" cm) " projects.\n"
        "  If any of the libraries are added to the " (color/profile "default" cm) " or " (color/profile "admin" cm) " profiles, they will appear\n"
        "  as an " (color/project "x" cm) " in these columns. Remember that src and test sources live together in a profile,\n"
-       "  which is fine because they are only used from the development project\n."
+       "  which is fine because they are only used from the development project.\n"
        "\n"
        "  The " (color/project "x" cm) " for the " (color/project "cl" cm) " and " (color/project "dev" cm) " columns says that the library is part of the src scope.\n"
        "  If a library is only used from the test scope, then it is marked with a 't'. A library\n"

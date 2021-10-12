@@ -64,7 +64,9 @@
     This table lists all projects. The 'project' column shows the name
     of the projects, which are the directory names under the 'projects',
     directory except for 'development' that stores its code under the
-    'development' directory.
+    'development' directory. If any file within the project directory has
+    changed, then it will be marked with a *. If that's not the case, but
+    any of the included bricks are changed, then it will be marked with a +.
 
     The 'deps.edn' config files are stored under each project, except for
     the development project that stores it at the workspace root.

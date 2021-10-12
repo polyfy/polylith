@@ -23,28 +23,28 @@
 (defn changes [{:keys [projects settings paths user-input]}
                {:keys [since since-sha tag files]}
                disk-paths]
-   (let [projects-deps (mapv (juxt :name :deps) projects)
-         {:keys [is-dev is-all is-run-all-brick-tests is-run-project-tests selected-bricks]} user-input
-         {:keys [changed-components
-                 changed-bases
-                 changed-projects]} (entity/changed-entities files disk-paths)
-         changed-bricks (set (concat changed-components changed-bases))
-         affected-projects (affected-projects projects changed-components changed-bases changed-projects)
-         project-to-indirect-changes (indirect/project-to-indirect-changes projects-deps changed-bricks)
-         project-to-bricks-to-test (bricks-to-test/project-to-bricks-to-test changed-projects projects settings changed-components changed-bases project-to-indirect-changes selected-bricks is-run-all-brick-tests)
-         project-to-projects-to-test (projects-to-test/project-to-projects-to-test projects affected-projects paths is-dev is-run-project-tests is-all)]
-     (util/ordered-map :since since
-                       :since-sha since-sha
-                       :since-tag tag
-                       :changed-files files
-                       :git-diff-command (git/diff-command since-sha nil)
-                       :changed-components changed-components
-                       :changed-bases changed-bases
-                       :changed-projects changed-projects
-                       :changed-or-affected-projects affected-projects
-                       :project-to-indirect-changes project-to-indirect-changes
-                       :project-to-bricks-to-test project-to-bricks-to-test
-                       :project-to-projects-to-test project-to-projects-to-test)))
+  (let [projects-deps (mapv (juxt :name :deps) projects)
+        {:keys [is-dev is-all is-run-all-brick-tests is-run-project-tests selected-bricks]} user-input
+        {:keys [changed-components
+                changed-bases
+                changed-projects]} (entity/changed-entities files disk-paths)
+        changed-bricks (set (concat changed-components changed-bases))
+        affected-projects (affected-projects projects changed-components changed-bases changed-projects)
+        project-to-indirect-changes (indirect/project-to-indirect-changes projects-deps changed-bricks)
+        project-to-bricks-to-test (bricks-to-test/project-to-bricks-to-test changed-projects projects settings changed-components changed-bases project-to-indirect-changes selected-bricks is-run-all-brick-tests)
+        project-to-projects-to-test (projects-to-test/project-to-projects-to-test projects affected-projects paths is-dev is-run-project-tests is-all)]
+    (util/ordered-map :since since
+                      :since-sha since-sha
+                      :since-tag tag
+                      :changed-files files
+                      :git-diff-command (git/diff-command since-sha nil)
+                      :changed-components changed-components
+                      :changed-bases changed-bases
+                      :changed-projects changed-projects
+                      :changed-or-affected-projects affected-projects
+                      :project-to-indirect-changes project-to-indirect-changes
+                      :project-to-bricks-to-test project-to-bricks-to-test
+                      :project-to-projects-to-test project-to-projects-to-test)))
 
 (defn with-changes [{:keys [ws-dir ws-local-dir settings user-input paths] :as workspace}]
   (if (-> ws-dir git/is-git-repo? not)

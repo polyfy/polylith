@@ -38,4 +38,6 @@
 
 (comment
   (-main "test" ":all" ":no-exit")
+  (-main "version" ":no-exit")
+  (-main "shell" ":no-exit")
   #__)

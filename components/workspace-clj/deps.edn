@@ -1,4 +1,4 @@
 {:paths ["src"]
- :deps {org.clojure/tools.deps.alpha {:mvn/version "0.12.1003"}}
+ :deps {org.clojure/tools.deps.alpha {:mvn/version "0.12.1048"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {}}}}

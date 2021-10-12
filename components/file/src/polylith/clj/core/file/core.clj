@@ -3,6 +3,7 @@
             [clojure.pprint :as pp]
             [clojure.tools.deps.alpha :as tda]
             [me.raynes.fs :as fs]
+            [clojure.string :as str]
             [polylith.clj.core.util.interface.str :as str-util])
   (:import [java.io File PushbackReader FileNotFoundException]
            [java.nio.file Files]))
@@ -80,6 +81,21 @@
        (filter directory?)
        (mapv filename)
        (into #{})))
+
+(defn not-hidden? [name]
+  (not (str/starts-with? name ".")))
+
+(defn dirs-and-files [directory home-dir]
+  (let [dir (str/replace directory "~/" (str home-dir "/"))
+        result (group-by first
+                         (map (juxt directory? filename)
+                              (->> dir
+                                   (io/file)
+                                   (.listFiles))))
+        files (filterv not-hidden? (map second (get result false)))
+        dirs (filterv not-hidden? (map second (get result true)))]
+    {:files files
+     :dirs dirs}))
 
 (defn read-file [path]
   (try

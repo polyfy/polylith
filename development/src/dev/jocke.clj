@@ -2,6 +2,7 @@
   (:require [dev.dev-common :as dev-common]
             [clojure.set :as set]
             [clojure.string :as str]
+            [clojure.pprint :as pp]
             [clojure.tools.deps.alpha :as tools-deps]
             [polylith.clj.core.api.interface :as api]
             [polylith.clj.core.workspace.interface :as ws]
@@ -21,18 +22,23 @@
 ;(require '[dev.jocke :as z])
 ;(def workspace z/workspace)
 
-(def workspace (->
-                 ;(dev-common/dir ".")
-                 (dev-common/dir "examples/local-dep")
-                 ;(dev-common/dir "examples/local-dep-old-format")
-                 ;(dev-common/dir "../poly-example/ws02")
-                 ;(dev-common/dir "../clojure-polylith-realworld-example-app")
-                 ;(dev-common/dir "../sandbox/ws02")
-                 ;(dev-common/dir "../sandbox/ws03")
-                 ;(dev-common/dir "../usermanager-example")
-                 ws-clj/workspace-from-disk
-                 ws/enrich-workspace
-                 change/with-changes))
+(def workspace (-> (dev-common/dir ".")
+                   ;(dev-common/dir "examples/doc-example")
+                   ;(dev-common/dir "examples/local-dep")
+                   ;(dev-common/dir "examples/local-dep-old-format")
+                   ;(dev-common/dir "../poly-example/ws02")
+                   ;(dev-common/dir "../clojure-polylith-realworld-example-app")
+                   ;(dev-common/dir "../sandbox/ws02")
+                   ;(dev-common/dir "../sandbox/ws03")
+                   ;(dev-common/dir "../usermanager-example")
+                   ws-clj/workspace-from-disk
+                   ws/enrich-workspace
+                   change/with-changes))
+
+
+;(spit "development/data/workspace.edn" (with-out-str (pp/pprint workspace)))
+
+
 
 ;(command/execute-command (user-input/extract-params ["info"]))
 ;(command/execute-command (user-input/extract-params ["test"]))

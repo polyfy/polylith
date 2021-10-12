@@ -1,5 +1,6 @@
 (ns polylith.clj.core.git.interface
-  (:require [polylith.clj.core.git.core :as core]))
+  (:require [polylith.clj.core.git.core :as core]
+            [polylith.clj.core.git.tag :as tag]))
 
 (def repo core/repo)
 (def branch core/branch)
@@ -27,6 +28,9 @@
 
 (defn sha [ws-dir since tag-patterns]
   (core/sha ws-dir since tag-patterns))
+
+(defn tags [ws-dir]
+  (tag/tags ws-dir))
 
 (defn diff
   "Lists the changed files that has occurred between two SHAs in git.

@@ -15,7 +15,7 @@
        "\n"
        "    " (s/key "TOP-NAMESPACE" cm) " = The top namespace, e.g. com.my.company.\n"
        "\n"
-       "    " (s/key "BRANCH" cm) " = The name of the branch, e.g. master.\n"
+       "    " (s/key "BRANCH" cm) " = The name of the branch, e.g. master. Default is main.\n"
        "\n"
        "  Example:\n"
        "    poly create w name:myws top-ns:com.my.company\n"

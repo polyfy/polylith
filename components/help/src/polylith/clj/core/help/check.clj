@@ -68,7 +68,7 @@
        "\n"
        "  " (color/warning cm "Warning 205") " - Non top namespace was found in brick.\n"
        "    Triggered if a namespace in a brick doesn't start with the top namespaces\n"
-       "    defined in " (s/key ":top-namespace" cm) " in ./deps.edn."))
+       "    defined in " (s/key ":top-namespace" cm) " in ./workspace.edn."))
 
 (defn print-help [cm]
   (-> cm help-text println))

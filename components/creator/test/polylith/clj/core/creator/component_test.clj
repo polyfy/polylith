@@ -5,6 +5,13 @@
 
 (use-fixtures :each helper/test-setup-and-tear-down)
 
+(deftest create-component--with-missing-name--return-error-message
+  (let [output (with-out-str
+                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
+                 (helper/execute-command "ws1" "create" "c" "name:"))]
+    (is (= "  A brick name must be given.\n"
+           output))))
+
 (deftest create-component--when-component-already-exists--return-error-message
   (let [output (with-out-str
                  (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")

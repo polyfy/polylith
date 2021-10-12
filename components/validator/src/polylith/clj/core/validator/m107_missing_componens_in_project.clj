@@ -9,7 +9,7 @@
 (defn missing-components-error [project-name interface-names test? color-mode]
   (let [interfaces (str/join ", " interface-names)
         message (str "Missing components in the " (color/project project-name color-mode) " project"
-                     (if test? ", for the the test context," "")
+                     (if test? ", for the test context," "")
                      " for these interfaces: " (color/interface interfaces color-mode))]
     [(util/ordered-map :type "error"
                        :code 107

@@ -203,19 +203,16 @@ For more detail: clojure -Tpoly help entity migrate"
   [exec-args]
   (->command "migrate" exec-args))
 
-;; shell -> prompt
 (defn shell
   "clojure -Tpoly shell
 
 Starts an interactive shell with a prompt that is the name of the current
 workspace, e.g.:
-  myworkspace$>
+  myworkspace$
 
-For more detail: clojure -Tpoly help entity prompt"
-  ;; Once the interactive poly tool changes from prompt to shell, this
-  ;; docstring needs to be updated, as well as the "prompt" cmd below!
+For more detail: clojure -Tpoly help entity shell"
   [exec-args]
-  (->command "prompt"  exec-args))
+  (->command "shell"  exec-args))
 
 (defn test
   "Executes brick and/or project tests.

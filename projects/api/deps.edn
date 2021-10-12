@@ -6,7 +6,7 @@
         poly/git           {:local/root "../../components/git"}
         poly/lib           {:local/root "../../components/lib"}
         poly/path-finder   {:local/root "../../components/path-finder"}
-        poly/shell         {:local/root "../../components/shell"}
+        poly/sh            {:local/root "../../components/sh"}
         poly/text-table    {:local/root "../../components/text-table"}
         poly/user-config   {:local/root "../../components/user-config"}
         poly/user-input    {:local/root "../../components/user-input"}
@@ -19,7 +19,4 @@
 
         org.clojure/clojure {:mvn/version "1.10.3"}}
 
- :aliases {:jar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.250"}}
-                 :exec-fn hf.depstar/jar
-                 :exec-args {:jar "api-thin.jar"
-                             :target-dir "target"}}}}
+ :aliases {:jar {:jar-file "target/api-thin.jar"}}}

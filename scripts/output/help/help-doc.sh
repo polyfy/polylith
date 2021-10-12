@@ -64,8 +64,16 @@ cat begin/16-migrate.txt
 cat 16-migrate.txt
 cat end.txt
 
-cat begin/17-prompt.txt
-cat 17-prompt.txt
+cat begin/17-shell.txt
+cat 17-shell.txt
+cat end.txt
+
+cat begin/21-switch-ws.txt
+cat 21-switch-ws.txt
+cat end-last.txt
+
+cat begin/20-tap.txt
+cat 20-tap.txt
 cat end.txt
 
 cat begin/18-test.txt
@@ -74,4 +82,4 @@ cat end.txt
 
 cat begin/19-ws.txt
 cat 19-ws.txt
-cat end-last.txt
+cat end.txt

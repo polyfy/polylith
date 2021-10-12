@@ -9,6 +9,4 @@
  :aliases {:test {:extra-paths []
                   :extra-deps  {}}
 
-           :uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.250"}}
-                     :exec-fn hf.depstar/uberjar
-                     :exec-args {:aot true, :main-class se.example.user-api.core}}}}
+           :uberjar {:main se.example.user-api.core}}}

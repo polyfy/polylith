@@ -3,6 +3,15 @@
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.user-config.interface :as user-config]))
 
+(def entity->short {"w" "w"
+                    "p" "p"
+                    "b" "b"
+                    "c" "c"
+                    "workspace" "w"
+                    "project" "p"
+                    "base" "b"
+                    "component" "c"})
+
 (defn ns-to-path [namespace]
   (-> namespace
       (str/replace "." "/")

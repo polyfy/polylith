@@ -1,7 +1,8 @@
   Shows all libraries that are used in the workspace.
 
   poly libs [:all]
-    :all = View all bricks, including those without library dependencies.
+    :all     = View all bricks, including those without library dependencies.
+    :compact = Show the table in a more compact way.
                                                                                       u  u
                                                                                       s  t
                                                                                       e  i
@@ -15,8 +16,8 @@
   In this example we have four libraries used by the cl and dev projects.
   If any of the libraries are added to the default or admin profiles, they will appear
   as an x in these columns. Remember that src and test sources live together in a profile,
-  which is fine because they are only used from the development project
-.
+  which is fine because they are only used from the development project.
+
   The x for the cl and dev columns says that the library is part of the src scope.
   If a library is only used from the test scope, then it is marked with a 't'. A library
   used in the test scope, can either be specified directly by the project itself via

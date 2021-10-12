@@ -1,5 +1,6 @@
 (ns polylith.clj.core.help.create
-  (:require [polylith.clj.core.help.shared :as s]
+  (:require [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.help.shared :as s]
             [polylith.clj.core.help.create-component :as component]
             [polylith.clj.core.help.create-base :as base]
             [polylith.clj.core.help.create-project :as project]
@@ -26,14 +27,10 @@
        "    poly create workspace name:myws top-ns:com.my.company\n"
        "    poly create workspace name:myws top-ns:com.my.company branch:master"))
 
-(defn print-help [ent color-mode]
-  (case ent
+(defn print-help [entity color-mode]
+  (case (common/entity->short entity)
     "c" (component/print-help color-mode)
-    "component" (component/print-help color-mode)
     "b" (base/print-help color-mode)
-    "base" (base/print-help color-mode)
     "p" (project/print-help color-mode)
-    "project" (project/print-help color-mode)
     "w" (workspace/print-help color-mode)
-    "workspace" (workspace/print-help color-mode)
     (println (help-text color-mode))))

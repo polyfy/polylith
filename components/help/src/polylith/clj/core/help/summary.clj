@@ -13,12 +13,7 @@
     "    poly migrate\n"
     ""))
 
-(defn interactive-prompt [prompt?]
-  (if prompt?
-    "  Exit the prompt by executing 'exit' or 'quit'.\n\n"
-    ""))
-
-(defn help-text [prompt? show-migrate? cm]
+(defn help-text [show-migrate? cm]
   (str
     "  Poly " version/name " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
     "\n"
@@ -32,24 +27,37 @@
     "    info [" (s/key "ARGS" cm) "]                 Shows a workspace overview and checks if it's valid.\n"
     "    libs                        Shows all libraries in the workspace.\n"
     (migrate show-migrate?)
-    "    prompt                      Starts an interactive prompt.\n"
+    "    shell                       Starts an interactive shell.\n"
     "    test [" (s/key "ARGS" cm) "]                 Runs tests.\n"
     "    version                     Shows current version of the tool.\n"
     "    ws [get:" (s/key "X" cm) "]                  Shows the workspace as data.\n"
     "\n"
-    (interactive-prompt prompt?)
+    "  From the shell:\n"
+    "\n"
+    "    switch-ws " (s/key "ARG" cm) "  Switches to specified workspace.\n"
+    "    tap [" (s/key "ARG" cm) "]      Opens a portal window that outputs " (s/key "tap>" cm) " statements.\n"
+    "    exit           Exits the shell.\n"
+    "    quit           Quits the shell.\n"
+    "\n"
+    "  The " (s/key "ws-dir" cm) " and " (s/key "ws-file" cm) " parameters are replaced by " (s/key "switch-ws" cm) " when executing commands\n"
+    "  from the shell.\n"
+    "\n"
     "  If " (s/key "ws-dir:PATH" cm) " is passed in as an argument, where " (s/key "PATH" cm) " is a relative\n"
     "  or absolute path, then the command is executed from that directory.\n"
     "  This works for all commands except 'test'.\n"
-    "\n"
-    "  If " (s/key "::" cm) " is passed in, then ws-dir is set to the first parent directory (or current)\n"
-    "  that contains a 'workspace.edn' config file. The exception is the 'test command'\n"
-    "  that has to be executed from the workspace root.\n"
+    "  If the 'switch-ws dir:" (s/key "DIR" cm) "' command has been executed from a shell,\n"
+    "  then ws-dir:" (s/key "DIR" cm) " will automatically be appended to following commands.\n"
     "\n"
     "  If " (s/key "ws-file:FILE" cm) " is passed in, then the workspace will be populated with the content\n"
     "  from that file. All commands except 'create' and 'test' can be executed with this\n"
     "  parameter set. The " (s/key "FILE" cm) " is created by executing the 'ws' command, e.g.:\n"
     "  'poly ws out:ws.edn'.\n"
+    "  If the 'switch-ws file:" (s/key "FILE" cm) "' command has been executed from a shell,\n"
+    "  then ws-file:" (s/key "FILE" cm) " will automatically be appended to following commands.\n"
+    "\n"
+    "  If " (s/key "::" cm) " is passed in, then ws-dir is set to the first parent directory (or current)\n"
+    "  that contains a 'workspace.edn' config file. The exception is the 'test command'\n"
+    "  that has to be executed from the workspace root.\n"
     "\n"
     "  If " (s/key "skip:PROJECTS" cm) " is passed in, then the given project(s) will not be read from disk.\n"
     "  Both project names and aliases can be used and should be separated by : if more than one.\n"
@@ -67,6 +75,14 @@
     "\n"
     "  The color mode is taken from ~/.polylith/config.edn but can be overridden by passing\n"
     "  in " (s/key "color-mode:COLOR" cm) " where valid colors are " (s/key "none" cm) ", " (s/key "light" cm) ", and " (s/key "dark" cm) ".\n"
+    "\n"
+    "  Example (shell only):\n"
+    "    switch-ws dir:~/myworkspace\n"
+    "    switch-ws file:../../another/ws.edn\n"
+    "    tap\n"
+    "    tap open\n"
+    "    tap clean\n"
+    "    tap close\n"
     "\n"
     "  Example:\n"
     "    poly check\n"
@@ -119,7 +135,7 @@
     "    poly info ws-file:ws.edn\n"
     "    poly libs\n"
     (migrate-command show-migrate?)
-    "    poly prompt\n"
+    "    poly shell\n"
     "    poly test\n"
     "    poly test :project\n"
     "    poly test :all-bricks\n"
@@ -148,9 +164,9 @@
     "    poly ws get:changes:changed-or-affected-projects skip:dev\n"
     "    poly ws out:ws.edn"))
 
-(defn print-help [prompt? is-all toolsdeps1? color-mode]
+(defn print-help [is-all toolsdeps1? color-mode]
   (let [show-migrate? (or is-all toolsdeps1?)]
-    (println (help-text prompt? show-migrate? color-mode))))
+    (println (help-text show-migrate? color-mode))))
 
 (comment
   (print-help false false "dark")

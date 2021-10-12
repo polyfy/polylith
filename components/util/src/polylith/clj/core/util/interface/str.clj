@@ -1,6 +1,10 @@
 (ns polylith.clj.core.util.interface.str
   (:require [clojure.string :as str]
-            [polylith.clj.core.util.str :as str-util]))
+            [polylith.clj.core.util.str :as str-util])
+  (:refer-clojure :exclude [drop-last]))
+
+(defn drop-last [n string]
+  (str-util/drop-last n string))
 
 (defn skip-if-ends-with [string ends-with]
   (when string
@@ -26,6 +30,12 @@
 
 (defn spaces [n#spaces]
   (str-util/spaces n#spaces))
+
+(defn split-text
+  ([text]
+   (str-util/split-text text " "))
+  ([text separator]
+   (str-util/split-text text separator)))
 
 (defn line [length]
   (str-util/line length))

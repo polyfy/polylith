@@ -10,6 +10,4 @@ components/user/test/se/example/user/interface_test.clj
 deps.edn
 development/src/dev/lisa.clj
 projects/command-line/deps.edn
-scripts/build-cli-uberjar.sh
-scripts/build-uberjar.sh
 workspace.edn

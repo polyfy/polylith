@@ -58,7 +58,7 @@ echo "ws3=$ws3"
 echo "ws4=$ws4"
 
 cd $root
-brew upgrade clojure
+brew upgrade clojure/tools/clojure
 clojure -A:dev:test -P
 
 cd $ws
@@ -105,17 +105,11 @@ cp $sections/project/command-line-deps.edn projects/command-line/deps.edn
 
 echo "### 6/50 Build ###"
 echo "current-dir=$(pwd)"
-mkdir scripts
-cp $scripts/build-uberjar.sh scripts
-cp $sections/build/build-cli-uberjar.sh scripts
-chmod +x scripts/build-uberjar.sh
-chmod +x scripts/build-cli-uberjar.sh
-git add scripts/build-uberjar.sh
-git add scripts/build-cli-uberjar.sh
+cp $sections/build/build.clj .
 cp $sections/build/command-line-deps.edn projects/command-line/deps.edn
-cd scripts
-./build-cli-uberjar.sh
-cd ../projects/command-line/target
+
+clojure -A:deps -T:build uberjar :project command-line
+cd projects/command-line/target
 java -jar command-line.jar Lisa
 
 echo "### 7/50 Git ###"
@@ -200,6 +194,7 @@ cp $sections/project/workspace2.edn ./workspace.edn
 
 echo "### 11/50 Profile ###"
 echo "current-dir=$(pwd)"
+
 cp $sections/profile/workspace.edn .
 poly create p name:user-service
 poly create b name:user-api
@@ -213,18 +208,15 @@ cp $sections/profile/user-remote-core.clj components/user-remote/src/se/example/
 cp $sections/profile/user-remote-interface.clj components/user-remote/src/se/example/user/interface.clj
 cp $sections/profile/deps.edn .
 cp $sections/profile/command-line-deps.edn projects/command-line/deps.edn
-cd scripts
-./build-cli-uberjar.sh
-cd ..
-cp $sections/profile/build-user-service-uberjar.sh scripts
-cd scripts
-chmod +x build-user-service-uberjar.sh
-./build-user-service-uberjar.sh
+
+clojure -A:deps -T:build uberjar :project command-line
+clojure -A:deps -T:build uberjar :project user-service
+
 #cd ../projects/user-service/target
 #nohup 'java -jar service.jar' &
 #cd ../../command-line/target
 #java -jar command-line.jar Lisa
-cd ..
+
 poly info + fake-sha:e7ebe68 > $output/profile-info-1.txt
 poly info +remote fake-sha:e7ebe68 > $output/profile-info-2.txt
 set +e
@@ -263,7 +255,6 @@ cp -R $ws/example $examples/doc-example
 rm -rf $examples/doc-example/.git
 rm $examples/doc-example/.gitignore
 rm $examples/doc-example/readme.md
-rm $examples/doc-example/ws.edn
 rm $examples/doc-example/logo.png
 rm $examples/doc-example/bases/.keep
 rm $examples/doc-example/components/.keep
@@ -276,7 +267,6 @@ cd $ws2
 echo "current-dir=$(pwd)"
 git clone git@github.com:furkan3ayraktar/clojure-polylith-realworld-example-app.git
 cd clojure-polylith-realworld-example-app
-git checkout polylith-issue-66
 git tag stable-lisa
 
 poly info fake-sha:f7082da > $output/realworld/realworld-info.txt

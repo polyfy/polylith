@@ -3,7 +3,7 @@ version: 2.0
 jobs:
   check:
     docker:
-      - image: circleci/clojure:tools-deps-1.10.2.796
+      - image: circleci/clojure:tools-deps-1.10.3.933
     working_directory: ~/polylith
     steps:
       - checkout
@@ -31,7 +31,7 @@ jobs:
 
   check-build:
     docker:
-      - image: circleci/clojure:tools-deps-1.10.2.796
+      - image: circleci/clojure:tools-deps-1.10.3.933
     working_directory: ~/polylith
     steps:
       - checkout
@@ -59,7 +59,7 @@ jobs:
 
   info:
     docker:
-      - image: circleci/clojure:tools-deps-1.10.2.796
+      - image: circleci/clojure:tools-deps-1.10.3.933
     working_directory: ~/polylith
     steps:
       - attach_workspace:
@@ -87,7 +87,7 @@ jobs:
 
   info-build:
     docker:
-      - image: circleci/clojure:tools-deps-1.10.2.796
+      - image: circleci/clojure:tools-deps-1.10.3.933
     working_directory: ~/polylith
     steps:
       - attach_workspace:
@@ -115,7 +115,7 @@ jobs:
 
   test:
     docker:
-      - image: circleci/clojure:tools-deps-1.10.2.796
+      - image: circleci/clojure:tools-deps-1.10.3.933
     working_directory: ~/polylith
     steps:
       - attach_workspace:
@@ -137,7 +137,7 @@ jobs:
 
   test-build:
     docker:
-      - image: circleci/clojure:tools-deps-1.10.2.796
+      - image: circleci/clojure:tools-deps-1.10.3.933
     working_directory: ~/polylith
     steps:
       - attach_workspace:
@@ -159,7 +159,7 @@ jobs:
 
   mark-as-stable:
     docker:
-      - image: circleci/clojure:tools-deps-1.10.2.796
+      - image: circleci/clojure:tools-deps-1.10.3.933
     working_directory: ~/polylith
     steps:
       - attach_workspace:
@@ -182,7 +182,7 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/clojure:tools-deps-1.10.2.796
+      - image: circleci/clojure:tools-deps-1.10.3.933
     working_directory: ~/polylith
     steps:
       - attach_workspace:
@@ -191,11 +191,11 @@ jobs:
           key: polylith-{{ checksum "deps.edn" }}
       - run:
           name: Deploy changed projects to clojars
-          command: clojure -A:deploy
+          command: clojure -T:build deploy
 
   create-artifacts:
     docker:
-      - image: circleci/clojure:tools-deps-1.10.2.796
+      - image: circleci/clojure:tools-deps-1.10.3.933
     working_directory: ~/polylith
     steps:
       - attach_workspace:
@@ -204,7 +204,7 @@ jobs:
           key: polylith-{{ checksum "deps.edn" }}
       - run:
           name: Create artifacts
-          command: clojure -A:create-artifacts
+          command: clojure -T:build create-artifacts
       - store_artifacts:
           path: ./artifacts
       - persist_to_workspace:
