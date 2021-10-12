@@ -75,6 +75,7 @@
         :main      'clojure.main
         :main-args ["-m" "polylith.clj.core.poly-cli.core"
                     "ws" "get:changes:changed-or-affected-projects" "skip:dev"
+                    "since:previous-release"
                     "color-mode:none"]})
       (exec->out)
       (edn/read-string)))
