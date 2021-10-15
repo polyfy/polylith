@@ -9,7 +9,7 @@
      clojure -A:deps -T:build help/doc
 
    Create uberjar for command-line:
-     clojure -A:deps -T:build uberjar :project command-line"
+     clojure -T:build uberjar :project command-line"
   (:require [clojure.java.io :as io]
             [clojure.tools.build.api :as b]
             [clojure.tools.deps.alpha :as t]
