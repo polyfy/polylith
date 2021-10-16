@@ -108,7 +108,7 @@ echo "current-dir=$(pwd)"
 cp $sections/build/build.clj .
 cp $sections/build/command-line-deps.edn projects/command-line/deps.edn
 
-clojure -A:deps -T:build uberjar :project command-line
+clojure -T:build uberjar :project command-line
 cd projects/command-line/target
 java -jar command-line.jar Lisa
 
@@ -209,8 +209,8 @@ cp $sections/profile/user-remote-interface.clj components/user-remote/src/se/exa
 cp $sections/profile/deps.edn .
 cp $sections/profile/command-line-deps.edn projects/command-line/deps.edn
 
-clojure -A:deps -T:build uberjar :project command-line
-clojure -A:deps -T:build uberjar :project user-service
+clojure -T:build uberjar :project command-line
+clojure -T:build uberjar :project user-service
 
 #cd ../projects/user-service/target
 #nohup 'java -jar service.jar' &
