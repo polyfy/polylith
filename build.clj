@@ -137,6 +137,7 @@
                              {:class-dir  class-dir
                               :jar-file   jar-file
                               :lib        lib
+                              :src-pom    "partial_pom.xml"
                               :transitive true
                               :version    version/name})]
         (b/delete {:path class-dir})
