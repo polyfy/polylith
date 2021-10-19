@@ -8,8 +8,8 @@
  :profile-to-settings
  {"default"
   {:paths
-   ["components/user/src"
-    "components/user/resources"
+   ["components/user/resources"
+    "components/user/src"
     "components/user/test"],
    :lib-deps {},
    :component-names ["user"],
@@ -17,8 +17,8 @@
    :project-names []},
   "remote"
   {:paths
-   ["components/user-remote/src"
-    "components/user-remote/resources"
+   ["components/user-remote/resources"
+    "components/user-remote/src"
     "components/user-remote/test"],
    :lib-deps {},
    :component-names ["user-remote"],

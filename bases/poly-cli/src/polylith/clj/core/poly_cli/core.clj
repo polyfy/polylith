@@ -38,6 +38,6 @@
 
 (comment
   (-main "test" ":all" ":no-exit")
-  (-main "version" ":no-exit")
+  (-main "version" "ws-dir:../sandbox/ws25" ":no-exit")
   (-main "shell" ":no-exit")
   #__)
