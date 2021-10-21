@@ -89,9 +89,3 @@
                                  (recur false new-line "" (conj result word))
                                  (recur false new-line new-word result))))))))]
       (mapv second (filter #(keep? % words) (map-indexed vector words))))))
-      ;    first-sep? (= separator (first words))
-      ;    last-sep? (= separator (last words))]
-      ;(cond-> (remove #(= "" %) words)
-      ;        first-sep? (add-first "")))))
-              ;last-sep? (conj "")))))
-
