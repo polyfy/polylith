@@ -63,6 +63,7 @@
                                  "components/workspace/test"
                                  "components/workspace-clj/test"
                                  "components/ws-explorer/test"
+                                 "bases/poly-cli/test"
                                  "projects/poly/test"]}
 
             :poly {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
