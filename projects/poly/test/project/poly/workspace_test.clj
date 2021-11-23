@@ -58,7 +58,7 @@
           "  workspace-clj  workspace-clj *   s--  stx    st-"
           "  ws-explorer    ws-explorer *     s--  stx    st-"
           "  ws-file        ws-file *         ---  s--    s--"
-          "  -              poly-cli *        ---  s--    s--"]
+          "  -              poly-cli *        ---  s--    st-"]
          (ws-table/table (workspace) false false))))
 
 (deftest libs
@@ -396,7 +396,31 @@
                                              "workspace-clj"
                                              "ws-explorer"
                                              "ws-file"]}
-                           :test {}}
+                           :test {:direct   ["command"
+                                             "user-input"
+                                             "util"]
+                                  :indirect ["change"
+                                             "common"
+                                             "creator"
+                                             "deps"
+                                             "file"
+                                             "git"
+                                             "help"
+                                             "lib"
+                                             "migrator"
+                                             "path-finder"
+                                             "sh"
+                                             "shell"
+                                             "tap"
+                                             "test-runner"
+                                             "text-table"
+                                             "user-config"
+                                             "validator"
+                                             "version"
+                                             "workspace"
+                                             "workspace-clj"
+                                             "ws-explorer"
+                                             "ws-file"]}}
           "sh"            {:src  {}
                            :test {}}
           "shell"         {:src  {:direct ["common"
