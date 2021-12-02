@@ -119,8 +119,10 @@
       (if (-> test-statements empty?)
         (println (str "No tests to run for the " (color/project name color-mode) " project."))
         (when (execute-fn setup-fn "setup" name class-loader color-mode)
-          (run-test-statements name class-loader test-statements run-message is-verbose color-mode)
-          (execute-fn teardown-fn "teardown" name class-loader color-mode))))))
+          (try
+            (run-test-statements name class-loader test-statements run-message is-verbose color-mode)
+            (finally
+              (execute-fn teardown-fn "teardown" name class-loader color-mode))))))))
 
 (defn has-tests-to-run? [{:keys [name]} {:keys [project-to-bricks-to-test project-to-projects-to-test]}]
   (not (empty? (concat (project-to-bricks-to-test name)
