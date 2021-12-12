@@ -1,12 +1,12 @@
 example
-├── bases
-├── components
-├── deps.edn
-├── development
-│   └── src
-├── logo.png
-├── projects
-├── readme.md
-└── workspace.edn
+|-- bases
+|-- components
+|-- deps.edn
+|-- development
+|   `-- src
+|-- logo.png
+|-- projects
+|-- readme.md
+`-- workspace.edn
 
 5 directories, 4 files
