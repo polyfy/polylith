@@ -15,10 +15,10 @@
          (require '~ns-symbol)
          (clojure.test/run-tests '~ns-symbol))))
 
-(defn resolve-deps [{:keys [name] :as project} is-verbose color-mode]
+(defn resolve-deps [{:keys [name] :as project} settings is-verbose color-mode]
   (try
     (into #{} (mapcat #(-> % second :paths)
-                      (deps/resolve-deps project is-verbose)))
+                      (deps/resolve-deps project settings is-verbose)))
     (catch Exception e
       (println (str "Couldn't resolve libraries for the " (color/project name color-mode) " project: " e))
       (throw e))))
@@ -32,20 +32,27 @@
     (map :namespace (:test namespaces))))
 
 (defn execute-fn [function fn-type project-name class-loader color-mode]
-  (when function
-    (println (str "Running test " fn-type " for the " (color/project project-name color-mode)
-                  " project: " function))
-    (try
-      (when (= :missing-fn
+  (if function
+    (do
+      (println (str "Running test " fn-type " for the " (color/project project-name color-mode)
+                    " project: " function))
+      (try
+        (if (= :missing-fn
                (common/eval-in class-loader
                                `(if-let [~'fun (clojure.core/requiring-resolve '~function)]
                                   (~'fun '~project-name)
                                   :missing-fn)))
-        (println (color/error color-mode (str "Could not find " fn-type " function: " function))))
-      (println)
-      (catch Throwable t
-        (let [message (str (or (some-> t .getCause) (.getMessage t)))]
-          (println (color/error color-mode (str "\nTest " fn-type " failed: " message))))))))
+          (do
+            (println (color/error color-mode (str "Could not find " fn-type " function: " function)))
+            false)
+          (do
+            (println)
+            true))
+        (catch Throwable t
+          (let [message (str (or (some-> t .getCause) (.getMessage t)))]
+            (println (color/error color-mode (str "\nTest " fn-type " failed: " message)))
+            false))))
+    true))
 
 (defn run-test-statements [project-name class-loader test-statements run-message is-verbose color-mode]
   (println (str run-message))
@@ -92,13 +99,13 @@
     (str "Running tests from the " (color/project project-name color-mode) " project, including "
          (str-util/count-things "brick" bricks-cnt) project-msg ": " entities-msg)))
 
-(defn run-tests-for-project [{:keys [bases components] :as workspace}
+(defn run-tests-for-project [{:keys [bases components settings]}
                              {:keys [name paths namespaces] :as project}
                              {:keys [project-to-bricks-to-test project-to-projects-to-test]}
                              {:keys [setup-fn teardown-fn]}
                              is-verbose color-mode]
   (when (-> paths :test empty? not)
-    (let [lib-paths (resolve-deps project is-verbose color-mode)
+    (let [lib-paths (resolve-deps project settings is-verbose color-mode)
           all-paths (set (concat (:src paths) (:test paths) lib-paths))
           bricks (concat components bases)
           bricks-to-test (project-to-bricks-to-test name)
@@ -111,11 +118,11 @@
       (when is-verbose (println (str "# paths:\n" all-paths "\n")))
       (if (-> test-statements empty?)
         (println (str "No tests to run for the " (color/project name color-mode) " project."))
-        (do (execute-fn setup-fn "setup" name class-loader color-mode)
-            (try
-              (run-test-statements name class-loader test-statements run-message is-verbose color-mode)
-              (finally
-                (execute-fn teardown-fn "teardown" name class-loader color-mode))))))))
+        (when (execute-fn setup-fn "setup" name class-loader color-mode)
+          (try
+            (run-test-statements name class-loader test-statements run-message is-verbose color-mode)
+            (finally
+              (execute-fn teardown-fn "teardown" name class-loader color-mode))))))))
 
 (defn has-tests-to-run? [{:keys [name]} {:keys [project-to-bricks-to-test project-to-projects-to-test]}]
   (not (empty? (concat (project-to-bricks-to-test name)

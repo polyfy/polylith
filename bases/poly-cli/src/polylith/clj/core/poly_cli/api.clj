@@ -22,9 +22,9 @@
   [v]
   (if (vector? v)
     v
-    (vec (str/split v #":"))))
+    (vec (str/split (str v) #":"))))
 
-(defn- argument-mapping
+(defn argument-mapping
   "Map exec args to a vector of strings that represent the
   poly tool's command-line arguments. We accept symbols for
   the keys (or keywords, we don't care). We document it all

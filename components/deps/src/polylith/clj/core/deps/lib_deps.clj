@@ -39,12 +39,14 @@
    Tools.deps only resolves src depenencies (:deps) but not test
    dependencies (:aliases > :test > :extra-deps) which is the reason
    we merge :src and :test."
-  [{:keys [lib-deps maven-repos]}]
+  [{:keys [lib-deps maven-repos]}
+   {:keys [m2-dir]}]
   {:mvn/repos maven-repos
+   :mvn/local-repo m2-dir
    :deps (into {} (map key-as-symbol (merge (:src lib-deps)
                                             (:test lib-deps))))})
-(defn resolve-deps [project is-verbose]
+(defn resolve-deps [project settings is-verbose]
   "Resolves which library versions that are used by the given project."
-  (let [config (->config project)
+  (let [config (->config project settings)
         _ (when is-verbose (println (str "# config:\n" config) "\n"))]
     (tools-deps/resolve-deps config {})))
