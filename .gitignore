@@ -41,5 +41,5 @@ projects/**/pom.xml
 # Calva
 .calva/output-window/output.calva-repl
 
-# VS Code/Portal
+# Portal (VS Code)
 .portal
