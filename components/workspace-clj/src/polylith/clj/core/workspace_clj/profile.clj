@@ -29,10 +29,11 @@
        (concat (:src paths)
                (:test paths))))
 
-(defn brick-libs [name->brick brick-name type]
-  (let [lib-deps (-> brick-name name->brick :lib-deps type)]
+(defn brick-libs [name->brick brick-name]
+  (let [lib-deps (-> brick-name name->brick :lib-deps)]
     (util/sort-map (map #(deps/convert-dep-to-symbol %)
-                        lib-deps))))
+                        (merge (:src lib-deps)
+                               (:test lib-deps))))))
 
 (defn profile [ws-dir [profile-key {:keys [extra-paths extra-deps]}] name->brick user-home]
   (let [;; :extra-paths
@@ -47,7 +48,7 @@
         deps-brick-paths (mapcat #(-> % name->brick ->brick-paths) deps-brick-names)
         ;; :local/root deps
         brick-names (brick-deps/extract-brick-names true extra-deps)
-        brick-libs (mapcat #(brick-libs name->brick % type) brick-names)
+        brick-libs (mapcat #(brick-libs name->brick %) brick-names)
         ;; result
         base-names (vec (sort (set (concat path-base-names deps-base-names))))
         component-names (vec (sort (set (concat path-component-names deps-component-names))))

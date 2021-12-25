@@ -38,4 +38,4 @@
   workspace-clj  workspace-clj   s--  st-    st-
   ws-explorer    ws-explorer     s--  st-    st-
   ws-file        ws-file         ---  s--    s--
-  -              poly-cli        ---  s--    s--
+  -              poly-cli        ---  s--    st-

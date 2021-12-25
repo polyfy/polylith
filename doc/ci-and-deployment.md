@@ -58,7 +58,7 @@ After this job is done, all this information will be available in the jobs outpu
 This job runs all the tests for all the bricks that are directly or indirectly changed since the last release. It runs the following command: ```clojure -A:poly test :project since:previous-release```. If any of the tests fail, it will exit with a non-zero exit code and the CircleCI workflow stops at this stage. Information about the passed/failed tests will be printed in the job's output.
 
 ### Deploy
-This job deploys the changed projects to Clojars. It is easy to achieve incremental deployments with Polylith. Changed projects are calculated since the latest release. There is a special component in the Polylith repository that extends the Polylith to make it easier to create artifacts and deploy them to Clojars. It is a good example of how you can use Polylith in your own code to extend its functionality. The source code for that component can be found [here](../components/deployer/src/polylith/clj/core/deployer). 
+This job deploys the changed projects to Clojars. It is easy to achieve incremental deployments with Polylith. Changed projects are calculated since the latest release. You can see how it's done [here](https://github.com/polyfy/polylith/blob/master/build.clj). In a nutshell, it executes `poly ws get:changes:changed-or-affected-projects skip:dev since:previous-release` and only deploys the returned projects. 
 
 ### Create Artifacts
 This job creates two types of artifacts per changed project, an aot compiled uberjar and a package that can be used to deploy [Homebrew](https://brew.sh). Created artifacts can be found in the artifacts section of this job's output.
