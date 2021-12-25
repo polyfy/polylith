@@ -1,18 +1,6 @@
 (ns polylith.clj.core.workspace-clj.brick-deps
   (:require [clojure.string :as str]
-            [polylith.clj.core.deps.interface :as deps]
-            [polylith.clj.core.util.interface.str :as str-util]
-            [polylith.clj.core.util.interface.str :as str-util]
-            [polylith.clj.core.util.interface :as util]))
-
-;; copied from polylith.clj.core.workspace-clj.projects-from-disk/brick-libs
-(defn brick-libs [name->brick brick-name type]
-  (let [lib-deps (-> brick-name name->brick :lib-deps type)]
-    (util/sort-map (map #(deps/convert-dep-to-symbol %)
-                        lib-deps))))
-
-(defn bricks-libs [name->brick brick-names]
-  (mapcat #(brick-libs name->brick % :src) brick-names))
+            [polylith.clj.core.util.interface.str :as str-util]))
 
 ;; copied from polylith.clj.core.workspace-clj.projects-from-disk/extract-brick-name
 (defn brick-name [path is-dev]

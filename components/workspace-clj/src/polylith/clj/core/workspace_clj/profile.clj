@@ -1,5 +1,6 @@
 (ns polylith.clj.core.workspace-clj.profile
   (:require [clojure.string :as str]
+            [polylith.clj.core.deps.interface :as deps]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.path-finder.interface.criterias :as c]
@@ -28,6 +29,11 @@
        (concat (:src paths)
                (:test paths))))
 
+(defn brick-libs [name->brick brick-name type]
+  (let [lib-deps (-> brick-name name->brick :lib-deps type)]
+    (util/sort-map (map #(deps/convert-dep-to-symbol %)
+                        lib-deps))))
+
 (defn profile [ws-dir [profile-key {:keys [extra-paths extra-deps]}] name->brick user-home]
   (let [;; :extra-paths
         path-entries (extract/from-paths {:src extra-paths} nil)
@@ -41,7 +47,7 @@
         deps-brick-paths (mapcat #(-> % name->brick ->brick-paths) deps-brick-names)
         ;; :local/root deps
         brick-names (brick-deps/extract-brick-names true extra-deps)
-        brick-libs (brick-deps/bricks-libs name->brick brick-names)
+        brick-libs (mapcat #(brick-libs name->brick % type) brick-names)
         ;; result
         base-names (vec (sort (set (concat path-base-names deps-base-names))))
         component-names (vec (sort (set (concat path-component-names deps-component-names))))
