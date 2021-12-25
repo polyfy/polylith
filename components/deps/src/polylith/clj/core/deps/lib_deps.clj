@@ -26,7 +26,7 @@
    (seq exclusions)
    (assoc :exclusions (vec exclusions))))
 
-(defn key-as-symbol
+(defn convert-dep-to-symbol
   "The library names (keys) are stored as strings in the workspace
    and need to be converted back to symbols here.
    Library dependencies are stored as :type and :version and need
@@ -41,8 +41,8 @@
    we merge :src and :test."
   [{:keys [lib-deps maven-repos]}]
   {:mvn/repos maven-repos
-   :deps (into {} (map key-as-symbol (merge (:src lib-deps)
-                                            (:test lib-deps))))})
+   :deps (into {} (map convert-dep-to-symbol (merge (:src lib-deps)
+                                                    (:test lib-deps))))})
 (defn resolve-deps [project is-verbose]
   "Resolves which library versions that are used by the given project."
   (let [config (->config project)

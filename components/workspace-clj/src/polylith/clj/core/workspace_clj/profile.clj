@@ -5,7 +5,8 @@
             [polylith.clj.core.path-finder.interface.criterias :as c]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.path-finder.interface.select :as select]
-            [polylith.clj.core.util.interface.str :as str-util]))
+            [polylith.clj.core.util.interface.str :as str-util]
+            [polylith.clj.core.workspace-clj.brick-deps :as brick-deps]))
 
 (defn brick-name [[_ {:keys [local/root]}]]
   (when root
@@ -38,12 +39,16 @@
         deps-component-names (mapcat #(brick-name % "components/") extra-deps)
         deps-brick-names (concat deps-base-names deps-component-names)
         deps-brick-paths (mapcat #(-> % name->brick ->brick-paths) deps-brick-names)
+        ;; :local/root deps
+        brick-names (brick-deps/extract-brick-names true extra-deps)
+        brick-libs (brick-deps/bricks-libs name->brick brick-names)
         ;; result
         base-names (vec (sort (set (concat path-base-names deps-base-names))))
         component-names (vec (sort (set (concat path-component-names deps-component-names))))
         paths (vec (sort (set (concat extra-paths deps-brick-paths))))
         lib-deps (lib/latest-with-sizes ws-dir nil
-                                        (filter lib? extra-deps)
+                                        (concat brick-libs
+                                                (filter lib? extra-deps))
                                         user-home)]
     [(subs (name profile-key) 1)
      (util/ordered-map :paths paths

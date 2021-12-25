@@ -92,7 +92,7 @@
     (str "Running tests from the " (color/project project-name color-mode) " project, including "
          (str-util/count-things "brick" bricks-cnt) project-msg ": " entities-msg)))
 
-(defn run-tests-for-project [{:keys [bases components] :as workspace}
+(defn run-tests-for-project [{:keys [bases components]}
                              {:keys [name paths namespaces] :as project}
                              {:keys [project-to-bricks-to-test project-to-projects-to-test]}
                              {:keys [setup-fn teardown-fn]}
