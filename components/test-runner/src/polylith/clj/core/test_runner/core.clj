@@ -15,10 +15,10 @@
          (require '~ns-symbol)
          (clojure.test/run-tests '~ns-symbol))))
 
-(defn resolve-deps [{:keys [name] :as project} is-verbose color-mode]
+(defn resolve-deps [{:keys [name] :as project} settings is-verbose color-mode]
   (try
     (into #{} (mapcat #(-> % second :paths)
-                      (deps/resolve-deps project is-verbose)))
+                      (deps/resolve-deps project settings is-verbose)))
     (catch Exception e
       (println (str "Couldn't resolve libraries for the " (color/project name color-mode) " project: " e))
       (throw e))))
@@ -99,13 +99,13 @@
     (str "Running tests from the " (color/project project-name color-mode) " project, including "
          (str-util/count-things "brick" bricks-cnt) project-msg ": " entities-msg)))
 
-(defn run-tests-for-project [{:keys [bases components]}
+(defn run-tests-for-project [{:keys [bases components settings]}
                              {:keys [name paths namespaces] :as project}
                              {:keys [project-to-bricks-to-test project-to-projects-to-test]}
                              {:keys [setup-fn teardown-fn]}
                              is-verbose color-mode]
   (when (-> paths :test empty? not)
-    (let [lib-paths (resolve-deps project is-verbose color-mode)
+    (let [lib-paths (resolve-deps project settings is-verbose color-mode)
           all-paths (set (concat (:src paths) (:test paths) lib-paths))
           bricks (concat components bases)
           bricks-to-test (project-to-bricks-to-test name)
