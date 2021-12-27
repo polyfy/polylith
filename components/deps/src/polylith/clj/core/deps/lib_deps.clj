@@ -1,5 +1,6 @@
 (ns polylith.clj.core.deps.lib-deps
-  (:require [clojure.tools.deps.alpha :as tools-deps]))
+  (:require [clojure.tools.deps.alpha :as tools-deps]
+            [polylith.clj.core.user-config.interface :as user-config]))
 
 (defn name-version [[k {:keys [mvn/version]}]]
   [(str k) version])
@@ -41,10 +42,11 @@
    we merge :src and :test."
   [{:keys [lib-deps maven-repos]}
    {:keys [m2-dir]}]
-  {:mvn/repos maven-repos
-   :mvn/local-repo m2-dir
-   :deps (into {} (map convert-dep-to-symbol (merge (:src lib-deps)
-                                                    (:test lib-deps))))})
+  (cond-> {:mvn/repos maven-repos
+           :deps (into {} (map convert-dep-to-symbol (merge (:src lib-deps)
+                                                            (:test lib-deps))))}
+          (-> m2-dir user-config/m2-home-dir? not) (assoc :mvn/local-repo (str m2-dir "/repository"))))
+
 (defn resolve-deps [project settings is-verbose]
   "Resolves which library versions that are used by the given project."
   (let [config (->config project settings)
