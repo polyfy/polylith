@@ -111,7 +111,7 @@
           "  command        .  x  .  x  x  x  x  x  x  x  x  .  .  x  x  .  x  .  x  .  x  x  x  x  x  x  x"
           "  common         .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
           "  creator        .  .  .  x  .  .  x  x  .  .  .  .  .  .  .  t  .  .  .  .  x  .  .  .  .  .  ."
-          "  deps           .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  x  .  .  .  .  .  ."
+          "  deps           .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
           "  file           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  git            .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  help           .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
@@ -158,7 +158,7 @@
             "  command        x  .  x  x  x  x  x  x  x  x  +  +  x  x  .  x  +  x  +  x  x  x  x  x  x  x"
             "  common         .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
             "  creator        -  -  x  -  -  x  x  -  -  -  -  +  -  -  t  -  -  +  -  x  -  -  -  -  -  -"
-            "  deps           .  .  x  .  .  +  .  .  .  .  .  .  .  .  .  .  x  +  .  x  .  .  .  .  .  ."
+            "  deps           .  .  x  .  .  +  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
             "  file           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  git            .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  help           .  .  x  .  .  +  .  .  .  .  .  .  .  .  .  .  .  +  .  x  .  x  .  .  .  ."
@@ -311,14 +311,14 @@
                                              "ws-file"]}}
           "deps"          {:src  {:direct   ["common"
                                              "text-table"
+                                             "user-config"
                                              "util"]
-                                  :indirect ["file"
-                                             "user-config"]}
+                                  :indirect ["file"]}
                            :test {:direct   ["common"
                                              "text-table"
+                                             "user-config"
                                              "util"]
-                                  :indirect ["file"
-                                             "user-config"]}}
+                                  :indirect ["file"]}}
           "file"          {:src  {:direct ["util"]}
                            :test {}}
           "git"           {:src  {:direct ["sh"

@@ -13,5 +13,8 @@
 (defn m2-dir []
   (core/m2-dir))
 
+(defn m2-home-dir? [m2-dir]
+  (core/m2-home-dir? m2-dir))
+
 (defn thousand-separator []
   (core/thousand-separator))
