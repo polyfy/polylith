@@ -8,5 +8,4 @@
                 :release "v[0-9]*"}
  :projects {"api"           {:alias "api", :test []}
             "poly"          {:alias "poly"}
-            "development"   {:alias "dev"
-                             :test {:setup-fn polylith.clj.core.example.fixture/pre-test}}}}
+            "development"   {:alias "dev"}}}
