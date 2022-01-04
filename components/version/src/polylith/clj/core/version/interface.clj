@@ -7,7 +7,7 @@
 (def revision "alpha-issue146-03")
 (def name (str major "." minor "." patch "-" revision))
 
-(def date "2021-12-27")
+(def date "2022-01-04")
 
 (defn version
   ([ws-type]
