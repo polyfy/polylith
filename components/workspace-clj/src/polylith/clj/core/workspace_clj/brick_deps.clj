@@ -2,7 +2,6 @@
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interface.str :as str-util]))
 
-;; copied from polylith.clj.core.workspace-clj.projects-from-disk/extract-brick-name
 (defn brick-name [path is-dev]
   (let [prefix (if is-dev "" "../../")
         base-path (str prefix "bases/")
