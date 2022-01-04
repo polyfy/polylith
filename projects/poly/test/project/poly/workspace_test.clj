@@ -130,7 +130,7 @@
           "  validator      .  .  .  x  .  x  .  .  .  .  .  x  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  version        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  workspace      .  .  .  x  .  x  x  .  .  .  .  x  .  .  .  t  .  x  .  .  x  x  .  .  .  .  ."
-          "  workspace-clj  .  .  .  x  .  .  x  x  .  x  .  x  .  .  .  .  .  .  x  .  x  x  x  .  .  .  ."
+          "  workspace-clj  .  .  .  x  .  x  x  x  .  x  .  x  .  .  .  .  .  .  x  .  x  x  x  .  .  .  ."
           "  ws-explorer    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  ws-file        .  .  .  x  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  ."
           "  poly-cli       .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  ."]
@@ -177,7 +177,7 @@
             "  validator      .  .  x  .  x  +  .  .  .  .  x  .  .  .  .  .  +  +  .  x  .  .  .  .  .  ."
             "  version        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  workspace      -  -  x  -  x  x  -  -  -  -  x  -  -  -  t  -  x  +  -  x  x  -  -  -  -  -"
-            "  workspace-clj  .  .  x  .  +  x  x  .  x  .  x  +  .  .  .  .  +  x  .  x  x  x  .  .  .  ."
+            "  workspace-clj  .  .  x  .  x  x  x  .  x  .  x  +  .  .  .  .  +  x  .  x  x  x  .  .  .  ."
             "  ws-explorer    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  ws-file        .  .  x  .  .  x  x  .  .  .  .  +  .  .  .  .  .  +  .  +  .  x  .  .  .  ."
             "  poly-cli       +  x  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  x  x  +  +  +  +  +  +"]
@@ -538,6 +538,7 @@
                                              "ws-explorer"
                                              "ws-file"]}}
           "workspace-clj" {:src  {:direct   ["common"
+                                             "deps"
                                              "file"
                                              "git"
                                              "lib"
@@ -546,10 +547,10 @@
                                              "util"
                                              "validator"
                                              "version"]
-                                  :indirect ["deps"
-                                             "sh"
+                                  :indirect ["sh"
                                              "text-table"]}
                            :test {:direct   ["common"
+                                             "deps"
                                              "file"
                                              "git"
                                              "lib"
@@ -558,8 +559,7 @@
                                              "util"
                                              "validator"
                                              "version"]
-                                  :indirect ["deps"
-                                             "sh"
+                                  :indirect ["sh"
                                              "text-table"]}}
           "ws-explorer"   {:src  {:direct ["util"]}
                            :test {:direct ["util"]}}

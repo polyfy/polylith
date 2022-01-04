@@ -5,8 +5,8 @@
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.util.interface.str :as str-util]
             [polylith.clj.core.validator.interface :as validator]
+            [polylith.clj.core.workspace-clj.brick-deps :as brick-deps]
             [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]))
 
 (defn absolute-path [path project-name is-dev]
@@ -24,25 +24,9 @@
            (str/starts-with? path (str prefix "bases/"))
            (str/starts-with? path (str prefix "components/"))))))
 
-(defn brick-name [path is-dev]
-  (let [prefix (if is-dev "" "../../")
-        base-path (str prefix "bases/")
-        component-path (str prefix "components/")]
-    (when path
-      (cond
-        (str/starts-with? path base-path) (str-util/skip-prefix path base-path)
-        (str/starts-with? path component-path) (str-util/skip-prefix path component-path)))))
-
 (defn brick? [[_ {:keys [local/root]}] is-dev]
   (and (-> root nil? not)
        (brick-path? root is-dev)))
-
-(defn extract-brick-name
-  "Returns the brick name from a dependency if it's a valid path to a brick."
-  [[_ entry] is-dev]
-  (let [path (:local/root entry)
-        name (brick-name path is-dev)]
-    (when name [name])))
 
 (defn ->brick-src-paths [{:keys [name type paths]}]
   (map #(str type "s/" name "/" %)
@@ -71,7 +55,7 @@
      brick deps.edn files.
    If :override-deps is given, then library versions will be overridden."
   [ws-dir name->brick is-dev project-name user-home project-src-deps project-src-paths override-deps]
-  (let [brick-names (set (mapcat #(extract-brick-name % is-dev) project-src-deps))
+  (let [brick-names (brick-deps/extract-brick-names is-dev project-src-deps)
         paths (vec (sort (set (concat (map #(absolute-path % project-name is-dev) project-src-paths)
                                       (mapcat #(-> % name->brick ->brick-src-paths) brick-names)))))
         entity-root-path (when (not is-dev) (str "projects/" project-name))
@@ -111,10 +95,9 @@
   (if (skip-all-tests? bricks-to-test)
     [[] []]
     (do
-      (let [src-brick-names (set (mapcat #(extract-brick-name % is-dev) project-src-deps))
-            test-brick-names (set (mapcat #(extract-brick-name % is-dev) project-test-deps))
-            brick-names (set (mapcat #(extract-brick-name % is-dev)
-                                     (concat project-src-deps project-test-deps)))
+      (let [src-brick-names (brick-deps/extract-brick-names is-dev project-src-deps)
+            test-brick-names (brick-deps/extract-brick-names is-dev project-test-deps)
+            brick-names (brick-deps/extract-brick-names is-dev (concat project-src-deps project-test-deps))
             only-brick-names (set/difference test-brick-names src-brick-names)
             paths (concat (map #(absolute-path % project-name is-dev) project-test-paths)
                           (mapcat #(-> % name->brick ->brick-test-paths) brick-names)
