@@ -30,8 +30,7 @@
     (is (= (str brick/create-brick-message "\n")
            output))
 
-    (is (= #{".git"
-             ".gitignore"
+    (is (= #{".gitignore"
              ".vscode"
              ".vscode/settings.json"
              "bases"
@@ -84,8 +83,7 @@
     (is (= (str brick/create-brick-message "\n")
            output))
 
-    (is (= #{".git"
-             ".gitignore"
+    (is (= #{".gitignore"
              ".vscode"
              ".vscode/settings.json"
              "bases"
