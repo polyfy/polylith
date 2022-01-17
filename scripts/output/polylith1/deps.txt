@@ -17,7 +17,7 @@
   command        .  x  .  x  x  x  x  x  x  x  x  .  .  x  x  .  x  .  x  .  x  x  x  x  x  x  x
   common         .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  .
   creator        .  .  .  x  .  .  x  x  .  .  .  .  .  .  .  t  .  .  .  .  x  .  .  .  .  .  .
-  deps           .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  x  .  .  .  .  .  .
+  deps           .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  .
   file           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .
   git            .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  x  .  .  .  .  .  .
   help           .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .
@@ -36,7 +36,7 @@
   validator      .  .  .  x  .  x  .  .  .  .  .  x  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .
   version        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
   workspace      .  .  .  x  .  x  x  .  .  .  .  x  .  .  .  t  .  x  .  .  x  x  .  .  .  .  .
-  workspace-clj  .  .  .  x  .  .  x  x  .  x  .  x  .  .  .  .  .  .  x  .  x  x  x  .  .  .  .
+  workspace-clj  .  .  .  x  .  x  x  x  .  x  .  x  .  .  .  .  .  .  x  .  x  x  x  .  .  .  .
   ws-explorer    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .
   ws-file        .  .  .  x  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .
   poly-cli       .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  .

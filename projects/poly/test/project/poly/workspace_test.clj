@@ -77,7 +77,7 @@
           "  library                           version        type      KB   api  poly   dev   s  e  r  l  p  r  j  r"
           "  -------------------------------------------------------------   ---------   ---   ----------------------"
           "  djblue/portal                     0.18.1         maven    768    -    x      x    .  .  .  .  x  .  .  ."
-          "  io.github.seancorfield/build-clj  6e962ef        git       78    -    -      x    .  .  .  .  .  .  .  ."
+          "  io.github.seancorfield/build-clj  6e962ef        git       39    -    -      x    .  .  .  .  .  .  .  ."
           "  me.raynes/fs                      1.4.6          maven     10    x    x      x    .  x  .  .  .  .  .  ."
           "  metosin/malli                     0.7.1          maven     54    x    x      x    .  .  .  .  .  x  .  ."
           "  mount/mount                       0.1.16         maven      8    -    -      x    .  .  .  .  .  .  .  ."

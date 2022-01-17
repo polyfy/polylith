@@ -21,7 +21,7 @@
 (defn with-maven [value]
   (assoc (walk/postwalk-replace {:mvn/version :version} value) :type "maven"))
 
-(defn with-size [lib-name version value]
+(defn with-size [lib-name version coords]
   (if-let [size (lib-size-bytes lib-name version)]
-    [lib-name (assoc (with-maven value) :size size)]
-    [lib-name (with-maven value)]))
+    [lib-name (assoc (with-maven coords) :size size)]
+    [lib-name (with-maven coords)]))
