@@ -8,11 +8,11 @@
     (when (file/exists absolute-path)
       (file/size absolute-path))))
 
-(defn with-size-and-version [ws-dir lib-name path value entity-root-path]
+(defn with-size-and-version [ws-dir lib-name path coords entity-root-path]
   (let [size (file-size ws-dir path entity-root-path)
         version (version/version path)
         absolute-path (common/absolute-path path entity-root-path)]
-    [lib-name (cond-> (assoc value :type "local")
+    [lib-name (cond-> (assoc coords :type "local")
                       absolute-path (assoc :path absolute-path)
                       size (assoc :size size)
                       version (assoc :version version))]))

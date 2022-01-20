@@ -188,8 +188,8 @@
      {:git/url "https://github.com/clj-time/clj-time.git",
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
       :type "git",
-      :size 362768,
-      :version "d9ed4e4"}}}}
+      :version "d9ed4e4",
+      :size 136427}}}}
   {:lines-of-code {:src 0, :test 5},
    :interface {:definitions []},
    :namespaces
@@ -327,8 +327,8 @@
      {:git/url "https://github.com/clj-time/clj-time.git",
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
       :type "git",
-      :size 362768,
-      :version "d9ed4e4"}},
+      :version "d9ed4e4",
+      :size 136427}},
     :test
     {"migrate-me/migrate-me"
      {:local/root "../../migrate-me",
@@ -439,8 +439,8 @@
       {:git/url "https://github.com/clj-time/clj-time.git",
        :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
        :type "git",
-       :size 362768,
-       :version "d9ed4e4"},
+       :version "d9ed4e4",
+       :size 136427},
       "uncomplicate/neanderthal"
       {:version "0.41.0",
        :exclusions [org.jcuda/jcuda-natives org.jcuda/jcublas-natives],
@@ -462,8 +462,8 @@
      {:git/url "https://github.com/clj-time/clj-time.git",
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
       :type "git",
-      :size 362768,
-      :version "d9ed4e4"},
+      :version "d9ed4e4",
+      :size 136427},
      "uncomplicate/neanderthal"
      {:version "0.41.0",
       :exclusions [org.jcuda/jcuda-natives org.jcuda/jcublas-natives],
@@ -563,12 +563,12 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.13-alpha-03",
+  {:name "0.2.14-alpha-issue174-01",
    :major 0,
    :minor 2,
-   :patch 13,
-   :revision "alpha-03",
-   :date "2021-10-10"},
+   :patch 14,
+   :revision "alpha-issue174-01",
+   :date "2022-01-17"},
   :ws {:type :toolsdeps2, :breaking 1, :non-breaking 0},
   :from {:ws {:type :toolsdeps1}}},
  :ws-dir "/privateWS-HOME/local-dep-old-format",
