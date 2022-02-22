@@ -16,7 +16,8 @@
 
 (defn size [path]
   (cond (fs/directory? path) (apply + (pmap size (.listFiles (io/file path))))
-        (fs/file? path) (fs/size path)))
+        (fs/file? path) (fs/size path)
+        :else 0))
 
 (defn delete-file [path]
   (execute-fn #(io/delete-file path true)
