@@ -62,10 +62,6 @@
        "    It's discouraged to have the same path in both the development project\n"
        "    and a profile. The solution is to remove the path from dev or the profile.\n"
        "\n"
-       "  " (color/warning cm "Warning 204") " - Library exists in both dev and a profile.\n"
-       "    It's discouraged to have the same library in both development and a profile.\n"
-       "    The solution is to remove the library from dev or the profile.\n"
-       "\n"
        "  " (color/warning cm "Warning 205") " - Non top namespace was found in brick.\n"
        "    Triggered if a namespace in a brick doesn't start with the top namespaces\n"
        "    defined in " (s/key ":top-namespace" cm) " in ./workspace.edn."))
