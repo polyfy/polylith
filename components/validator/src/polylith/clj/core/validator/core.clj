@@ -16,7 +16,7 @@
 (defn has-errors? [messages]
   (-> (filter #(= "error" (:type %)) messages) empty? not))
 
-(defn validate-ws [suffixed-top-ns settings version paths interface-names interfaces components bases projects interface-ns {:keys [cmd]} color-mode]
+(defn validate-ws [suffixed-top-ns settings paths interface-names interfaces components bases projects interface-ns {:keys [cmd]} color-mode]
   (vec (sort-by (juxt :type :code :message)
                 (set (concat (m101/errors suffixed-top-ns interface-names components bases interface-ns color-mode)
                              (m102/errors components color-mode)
@@ -29,5 +29,4 @@
                              (m201/warnings interfaces components color-mode)
                              (m202/warnings projects paths color-mode)
                              (m203/warnings settings projects color-mode)
-                             (m204/warnings settings projects color-mode)
                              (m205/warnings components bases color-mode))))))
