@@ -1,15 +1,14 @@
 (ns polylith.clj.core.workspace-clj.brick-deps
   (:require [clojure.string :as str]
+            [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.str :as str-util]))
 
 (defn brick-name [path is-dev]
-  (let [prefix (if is-dev "" "../../")
-        base-path (str prefix "bases/")
-        component-path (str prefix "components/")]
-    (when path
-      (cond
-        (str/starts-with? path base-path) (str-util/skip-prefix path base-path)
-        (str/starts-with? path component-path) (str-util/skip-prefix path component-path)))))
+  (when path
+    (when-let [brick-path (util/find-first #(str/starts-with? path %)
+                                           (if is-dev ["bases/" "components/" "./bases/" "./components/"]
+                                                      ["../../bases/" "../../components/"]))]
+      (str-util/skip-prefix path brick-path))))
 
 (defn extract-brick-name
   "Returns the brick name from a dependency if it's a valid path to a brick."

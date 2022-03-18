@@ -18,11 +18,15 @@
       :else (str "projects/" project-name "/" path))))
 
 (defn brick-path? [path is-dev]
-  (let [prefix (if is-dev "" "../../")]
-    (and path
-         (or
-           (str/starts-with? path (str prefix "bases/"))
-           (str/starts-with? path (str prefix "components/"))))))
+  (if is-dev
+    (or
+      (str/starts-with? path "bases/")
+      (str/starts-with? path "components/")
+      (str/starts-with? path "./bases/")
+      (str/starts-with? path "./components/"))
+    (or
+      (str/starts-with? path "../../bases/")
+      (str/starts-with? path "../../components/"))))
 
 (defn brick? [[_ {:keys [local/root]}] is-dev]
   (and (-> root nil? not)
@@ -178,4 +182,5 @@
                                        :project-dir (str ws-dir "/development")
                                        :project-config-dir ws-dir}))]
     (filterv identity
-             (map #(read-project % ws-dir ws-type name->brick project->settings user-home) project-configs))))
+             (map #(read-project % ws-dir ws-type name->brick project->settings user-home)
+                  project-configs))))
