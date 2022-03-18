@@ -48,9 +48,18 @@
     top-namespace
     (str top-namespace ".")))
 
+(defn path->filename [path]
+  (last (str/split path #"/")))
+    
+(defn hidden-file? [path]
+  (str/starts-with? (path->filename path) "."))
+
 (defn filter-clojure-paths [paths]
-  (filterv #(or (str/ends-with? % ".clj")
-                (str/ends-with? % ".cljc"))
+  (filterv #(and 
+              (or (str/ends-with? % ".clj")
+                  (str/ends-with? % ".cljc"))
+              ;; E.g. temporary emacs files might give problems
+              (not (hidden-file? %)))
            paths))
 
 (defn find-brick [name {:keys [components bases]}]
