@@ -152,7 +152,8 @@
 
 (defn run [{:keys [components bases projects changes settings messages] :as workspace} is-verbose color-mode]
   (if (validator/has-errors? messages)
-    (validator/print-messages workspace)
+    (do (validator/print-messages workspace)
+        false)
     (let [start-time (time-util/current-time)
           projects-to-test (sort-by :name (filter #(has-tests-to-run? % changes) projects))
           bricks-to-test (-> workspace :user-input :selected-bricks)
@@ -167,4 +168,5 @@
           (doseq [{:keys [name] :as project} projects-to-test]
             (let [test-settings (get-in settings [:projects name :test])]
               (run-tests-for-project workspace project changes test-settings is-verbose color-mode)))))
-      (print-execution-time start-time))))
+      (print-execution-time start-time)
+      true)))

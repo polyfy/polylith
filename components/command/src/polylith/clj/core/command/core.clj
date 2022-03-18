@@ -69,6 +69,7 @@
     (let [brick-name (first selected-bricks)
           project-name (first selected-projects)
           toolsdeps1? (common/toolsdeps1? workspace)
+          test-result (atom true)
           [ok? message] (cmd-validator/validate workspace user-input color-mode)]
       (if ok?
         (case cmd
@@ -83,9 +84,9 @@
           "migrate" (migrator/migrate ws-dir workspace)
           "prompt" (prompt-message)
           "shell" (shell/start execute user-input workspace-fn workspace color-mode)
-          "test" (test/run workspace unnamed-args is-verbose color-mode)
+          "test" (test/run workspace unnamed-args test-result is-verbose color-mode)
           "version" (version)
           "ws" (ws-explorer/ws workspace get out color-mode)
           (unknown-command cmd))
         (println message))
-      (exit-code/code cmd workspace))))
+      (exit-code/code cmd workspace @test-result))))

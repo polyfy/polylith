@@ -10,6 +10,7 @@
             [polylith.clj.core.command.interface :as command]
             [polylith.clj.core.git.interface :as git]
             [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.command.info :as info]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.workspace-clj.interface :as ws-clj]
             [polylith.clj.core.common.interface :as common]
@@ -28,7 +29,7 @@
                    ;(dev-common/dir "examples/local-dep-old-format")
                    ;(dev-common/dir "../poly-example/ws02")
                    ;(dev-common/dir "../clojure-polylith-realworld-example-app")
-                   ;(dev-common/dir "../sandbox/ws02")
+                   ;(dev-common/dir "../sandbox/ws38")
                    ;(dev-common/dir "../sandbox/ws03")
                    ;(dev-common/dir "../usermanager-example")
                    ws-clj/workspace-from-disk
@@ -38,7 +39,7 @@
 
 ;(spit "development/data/workspace.edn" (with-out-str (pp/pprint workspace)))
 
-
+;(info/info workspace nil)
 
 ;(command/execute-command (user-input/extract-params ["info"]))
 ;(command/execute-command (user-input/extract-params ["test"]))
