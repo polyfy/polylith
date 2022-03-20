@@ -1,15 +1,28 @@
 (ns polylith.clj.core.change.bricks-to-test
   (:require [clojure.set :as set]))
 
-(defn bricks-to-test-for-project [{:keys [name is-run-tests base-names component-names]}
+(defn contains-project? [projects project-alias project-name]
+  (or (contains? (set projects) project-name)
+      (contains? (set projects) project-alias)))
+
+(defn bricks-to-test-for-project [{:keys [is-dev alias name base-names component-names]}
                                   settings
                                   changed-projects
                                   changed-components
                                   changed-bases
                                   project-to-indirect-changes
                                   selected-bricks
+                                  selected-projects
+                                  is-dev-user-input
                                   is-run-all-brick-tests]
-  (let [project-has-changed? (contains? (set changed-projects) name)
+  (let [;; If we specify one or more projects with 'project:p1:p2' then only test this
+        ;; project's bricks if it's included in that list, even if :all is passed in, see issue 189.
+        include-project? (or (and (not is-dev)
+                                  (empty? selected-projects))
+                             (and is-dev-user-input is-dev)
+                             (or (contains? (set selected-projects) name)
+                                 (contains? (set selected-projects) alias)))
+        project-has-changed? (contains? (set changed-projects) name)
         all-brick-names (set (concat (:test base-names) (:test component-names)))
         ;; If the :test key is given for a project in workspace.edn, then only include
         ;; the specified bricks, otherwise, run tests for all bricks that have tests.
@@ -19,7 +32,7 @@
         selected-bricks (if selected-bricks
                           (set selected-bricks)
                           all-brick-names)
-        changed-bricks (if is-run-tests
+        changed-bricks (if include-project?
                          (if (or is-run-all-brick-tests project-has-changed?)
                            ;; if we pass in :all or if the project has changed (e.g. its configuration)
                            ;; then always run all brick tests.
@@ -37,6 +50,6 @@
         bricks-to-test (set/intersection changed-bricks selected-bricks)]
     [name (-> bricks-to-test sort vec)]))
 
-(defn project-to-bricks-to-test [changed-projects projects settings changed-components changed-bases project-to-indirect-changes selected-bricks is-run-all-brick-tests]
-  (into {} (map #(bricks-to-test-for-project % settings changed-projects changed-components changed-bases project-to-indirect-changes selected-bricks is-run-all-brick-tests)
-                projects)))
+(defn project-to-bricks-to-test [changed-projects projects settings changed-components changed-bases project-to-indirect-changes selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests]
+  (into (sorted-map) (map #(bricks-to-test-for-project % settings changed-projects changed-components changed-bases project-to-indirect-changes selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests)
+                          projects)))
