@@ -32,7 +32,7 @@
         affected-projects (affected-projects projects changed-components changed-bases changed-projects)
         project-to-indirect-changes (indirect/project-to-indirect-changes projects-deps changed-bricks)
         project-to-bricks-to-test (bricks-to-test/project-to-bricks-to-test changed-projects projects settings changed-components changed-bases project-to-indirect-changes selected-bricks selected-projects is-dev is-run-all-brick-tests)
-        project-to-projects-to-test (projects-to-test/project-to-projects-to-test projects affected-projects paths is-dev is-run-project-tests is-all)]
+        project-to-projects-to-test (projects-to-test/project-to-projects-to-test projects paths affected-projects selected-projects is-dev is-run-project-tests is-all)]
     (util/ordered-map :since since
                       :since-sha since-sha
                       :since-tag tag
