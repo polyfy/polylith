@@ -649,7 +649,7 @@
           :test ["clojure.test"]}
          (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"]))))
 
-(deftest poly-project-lib-imports
+(deftest shell-component-lib-deps
   (is (= {:src {"org.jline/jline" {:size    994664
                                    :type    "maven"
                                    :version "3.21.0"}}}
