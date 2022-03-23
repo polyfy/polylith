@@ -629,6 +629,7 @@
 (deftest poly-project-lib-imports
   (is (= {:src  ["clojure.java.io"
                  "clojure.java.shell"
+                 "clojure.lang"
                  "clojure.pprint"
                  "clojure.set"
                  "clojure.stacktrace"
@@ -644,8 +645,16 @@
                  "malli.error"
                  "me.raynes.fs"
                  "org.eclipse.aether.util.version"
-                 "puget.printer"]
-          :test ["clojure.test"]}
+                 "org.jline.reader"
+                 "org.jline.reader.impl"
+                 "org.jline.terminal"
+                 "portal.api"
+                 "puget.printer"
+                 "zprint.core"]
+          :test ["clojure.java.shell"
+                 "clojure.string"
+                 "clojure.test"
+                 "polylith.clj.core.poly-cli.api"]}
          (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"]))))
 
 (deftest shell-component-lib-deps
