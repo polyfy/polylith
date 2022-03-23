@@ -16,7 +16,7 @@ jobs:
           command: mkdir -p ~/.polylith && echo "{}" > ~/.polylith/config.edn
       - run:
           name: Check Polylith workspace
-          command: clojure -A:poly check
+          command: clojure -M:poly check
       - save_cache:
           key: polylith-{{ checksum "deps.edn" }}
           paths:
@@ -44,7 +44,7 @@ jobs:
           command: mkdir -p ~/.polylith && echo "{}" > ~/.polylith/config.edn
       - run:
           name: Check Polylith workspace
-          command: clojure -A:poly check since:previous-release
+          command: clojure -M:poly check since:previous-release
       - save_cache:
           key: polylith-{{ checksum "deps.edn" }}
           paths:
@@ -74,16 +74,16 @@ jobs:
           command: git config --global user.name "CircleCI"
       - run:
           name: Run ws command for Polylith workspace
-          command: clojure -A:poly ws
+          command: clojure -M:poly ws
       - run:
           name: Run info command for Polylith workspace
-          command: clojure -A:poly info
+          command: clojure -M:poly info
       - run:
           name: Run deps command for Polylith workspace
-          command: clojure -A:poly deps
+          command: clojure -M:poly deps
       - run:
           name: Run libs command for Polylith workspace
-          command: clojure -A:poly libs
+          command: clojure -M:poly libs
 
   info-build:
     docker:
@@ -102,16 +102,16 @@ jobs:
           command: git config --global user.name "CircleCI"
       - run:
           name: Run ws command for Polylith workspace
-          command: clojure -A:poly ws since:previous-release
+          command: clojure -M:poly ws since:previous-release
       - run:
           name: Run info command for Polylith workspace
-          command: clojure -A:poly info since:previous-release
+          command: clojure -M:poly info since:previous-release
       - run:
           name: Run deps command for Polylith workspace
-          command: clojure -A:poly deps since:previous-release
+          command: clojure -M:poly deps since:previous-release
       - run:
           name: Run libs command for Polylith workspace
-          command: clojure -A:poly libs since:previous-release
+          command: clojure -M:poly libs since:previous-release
 
   test:
     docker:
@@ -133,7 +133,7 @@ jobs:
           command: clojure -A:dev:test -P
       - run:
           name: Run tests for Polylith workspace
-          command: clojure -A:poly test :project
+          command: clojure -M:poly test :project
 
   test-build:
     docker:
@@ -155,7 +155,7 @@ jobs:
           command: clojure -A:dev:test -P
       - run:
           name: Run tests for Polylith workspace
-          command: clojure -A:poly test :project since:previous-release
+          command: clojure -M:poly test :project since:previous-release
 
   mark-as-stable:
     docker:
