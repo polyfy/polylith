@@ -206,37 +206,42 @@
                                                                         :lib-deps {"clojure.core.matrix"
                                                                                    "net.mikera/core.matrix"}}}
                                        :projects {"development" {:alias "dev", :test []}}}
-                                      {:selected-projects #{"dev"}})
+                                      {:is-dev false
+                                       :selected-projects #{"dev"}})
                  :deps))))
 
-(deftest is-run-tests--non-dev-project-no-project-selected--returns-true
+(deftest run-the-tests?--non-dev-project-no-project-selected--returns-true
   (is (true?
-        (proj/run-the-tests? "cli" "cli" false false #{}))))
+        (proj/run-the-tests? "cli" "cli" false false false #{}))))
 
-(deftest is-run-tests--non-dev-project-no-project-selected-run-all-brick-tests--returns-true
+(deftest run-the-tests?--non-dev-project-no-project-selected-run-all-brick-tests--returns-true
   (is (true?
-        (proj/run-the-tests? "cli" "cli" false true #{}))))
+        (proj/run-the-tests? "cli" "cli" false false true #{}))))
 
-(deftest is-run-tests--non-dev-project-dev-selected--returns-false
+(deftest run-the-tests?--non-dev-project-dev-selected--returns-false
   (is (false?
-        (proj/run-the-tests? "cli" "cli" false false #{"dev"}))))
+        (proj/run-the-tests? "cli" "cli" false false false #{"dev"}))))
 
-(deftest is-run-tests--non-dev-project-dev-selected-run-all-brick-tests--returns-true
+(deftest run-the-tests?--non-dev-project-dev-selected-run-all-brick-tests--returns-true
   (is (true?
-        (proj/run-the-tests? "cli" "cli" false true #{"dev"}))))
+        (proj/run-the-tests? "cli" "cli" false false true #{"dev"}))))
 
-(deftest is-run-tests--dev-project-no-project-selected--returns-false
+(deftest run-the-tests?--dev-project-no-project-selected--returns-false
   (is (false?
-        (proj/run-the-tests? "development" "dev" true false #{}))))
+        (proj/run-the-tests? "development" "dev" true false false #{}))))
 
-(deftest is-run-tests--dev-project-no-project-selected-run-all-brick-tests--returns-false
+(deftest run-the-tests?--dev-project-no-project-selected-run-all-brick-tests--returns-false
   (is (false?
-        (proj/run-the-tests? "development" "dev" true true #{}))))
+        (proj/run-the-tests? "development" "dev" true false true #{}))))
 
 (deftest is-run-tests--dev-project-dev-selected--returns-true
   (is (true?
-        (proj/run-the-tests? "development" "dev" true false #{"dev"}))))
+        (proj/run-the-tests? "development" "dev" true false false #{"dev"}))))
 
-(deftest is-run-tests--dev-project-dev-selected-run-all-brick-tests--returns-true
+(deftest run-the-tests?--dev-project-dev-selected-run-all-brick-tests--returns-true
   (is (true?
-        (proj/run-the-tests? "development" "dev" true true #{"dev"}))))
+        (proj/run-the-tests? "development" "dev" true false true #{"dev"}))))
+
+(deftest run-the-tests?--dev-project-dev-selected-include-dev--returns-true
+  (is (true?
+        (proj/run-the-tests? "development" "dev" false true false #{"dev"}))))

@@ -17,11 +17,18 @@
                                   is-run-all-brick-tests]
   (let [;; If we specify one or more projects with 'project:p1:p2' then only test this
         ;; project's bricks if it's included in that list, even if :all is passed in, see issue 189.
-        include-project? (or (and (not is-dev)
-                                  (empty? selected-projects))
-                             (and is-dev-user-input is-dev)
-                             (or (contains? (set selected-projects) name)
-                                 (contains? (set selected-projects) alias)))
+
+        ;;                         Include all projects except development, but also
+        ;;                         include dev if :dev or project:dev is passed in.
+        include-project? (and (or (not is-dev)
+                                  is-dev-user-input
+                                  (contains-project? selected-projects alias name))
+
+        ;;                         And if these statements are true:
+        ;;                           - no projects are selected (then include all),
+        ;;                             or this project is selected with e.g. project:p1
+                              (or (empty? selected-projects)
+                                  (contains-project? selected-projects alias name)))
         project-has-changed? (contains? (set changed-projects) name)
         all-brick-names (set (concat (:test base-names) (:test component-names)))
         ;; If the :test key is given for a project in workspace.edn, then only include
@@ -34,7 +41,7 @@
                           all-brick-names)
         changed-bricks (if include-project?
                          (if (or is-run-all-brick-tests project-has-changed?)
-                           ;; if we pass in :all or if the project has changed (e.g. its configuration)
+                           ;; if we pass in :all or :all-bricks or if the project has changed
                            ;; then always run all brick tests.
                            included-bricks
                            (set/intersection included-bricks

@@ -24,12 +24,21 @@
             (seq src) (assoc :src src)
             (seq test) (assoc :test test))))
 
-(defn run-the-tests? [project-name alias is-dev is-run-all-brick-tests selected-projects]
-  (or (and (not is-dev)
-           (or is-run-all-brick-tests
-               (empty? selected-projects)))
-      (or (contains? selected-projects project-name)
-          (contains? selected-projects alias))))
+(defn run-the-tests?
+  [project-name alias is-dev is-dev-user-input is-run-all-brick-tests selected-projects]
+  ;;   1. Include all projects except development, except if :dev is passed in, then also include dev.
+  (and (or (not is-dev)
+           is-dev-user-input
+           (or (contains? selected-projects project-name)
+               (contains? selected-projects alias)))
+  ;;   2. And if these statements are true:
+  ;;        - :all or :all-bricks is passed in
+  ;;        - no projects are selected (e.g. project:p1 is not passed in),
+  ;;          or this project is selected with e.g. project:p1
+       (or is-run-all-brick-tests
+           (empty? selected-projects)
+           (or (contains? selected-projects project-name)
+               (contains? selected-projects alias)))))
 
 (defn enrich-project [{:keys [name is-dev maven-repos namespaces paths lib-deps] :as project}
                       components
@@ -39,8 +48,9 @@
                       brick->lib-imports
                       disk-paths
                       settings
-                      {:keys [is-run-all-brick-tests selected-projects]}]
-  (let [alias (get-in settings [:projects name :alias])
+                      {:keys [is-run-all-brick-tests selected-projects] :as user-input}]
+  (let [is-dev-user-input (:is-dev user-input)
+        alias (get-in settings [:projects name :alias])
         enriched-maven-repos (apply merge maven-repos (mapcat :maven-repos (concat components bases)))
         lib-entries (extract/from-library-deps is-dev lib-deps settings)
         path-entries (extract/from-unenriched-project is-dev paths disk-paths settings)
@@ -61,7 +71,7 @@
 
         lib-imports (project-lib-imports all-brick-names brick->lib-imports)
 
-        is-run-tests (run-the-tests? name alias is-dev is-run-all-brick-tests selected-projects)
+        is-run-tests (run-the-tests? name alias is-dev is-dev-user-input is-run-all-brick-tests selected-projects)
         lines-of-code-total (project-total-loc all-brick-names brick->loc)
         lines-of-code (assoc (loc/lines-of-code namespaces) :total lines-of-code-total)
         src-lib-deps (select/lib-deps lib-entries c/src?)

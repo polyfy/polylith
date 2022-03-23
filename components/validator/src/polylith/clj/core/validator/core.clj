@@ -10,7 +10,6 @@
             [polylith.clj.core.validator.m201-mismatching-parameters :as m201]
             [polylith.clj.core.validator.m202-missing-paths :as m202]
             [polylith.clj.core.validator.m203-path-exists-in-both-dev-and-profile :as m203]
-            [polylith.clj.core.validator.m204-lib-deps-exists-in-both-dev-and-profile :as m204]
             [polylith.clj.core.validator.m205-non-top-namespace :as m205]))
 
 (defn has-errors? [messages]
