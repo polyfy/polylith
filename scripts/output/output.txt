@@ -146,8 +146,8 @@
 
   interface  brick    [35mcl [0m   [35mdev[0m
   -----------------   ---   ---
-  [33muser     [0m  [32muser[0m *   [35mst-[0m   [35mstx[0m
-  -          [34mcli[0m      [35mst-[0m   [35mstx[0m
+  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mstx[0m
+  -          [34mcli[0m      [35mstx[0m   [35mstx[0m
 
 ######### testing-info-3.png #########
 

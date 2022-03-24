@@ -156,6 +156,7 @@ set -e
 cp $sections/testing/user-interface-test2.clj components/user/test/se/example/user/interface_test.clj
 poly test > $output/testing-test-ok.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test-ok.txt
+clojure -A:dev:test -P
 poly info :dev fake-sha:e7ebe68 > $output/testing-info-2.txt
 poly info project:cl:dev fake-sha:e7ebe68 > $output/testing-info-3.txt
 
@@ -267,6 +268,7 @@ cd $ws2
 echo "current-dir=$(pwd)"
 git clone git@github.com:furkan3ayraktar/clojure-polylith-realworld-example-app.git
 cd clojure-polylith-realworld-example-app
+clojure -A:dev:test -P
 git tag stable-lisa
 
 poly info fake-sha:f7082da > $output/realworld/realworld-info.txt
@@ -296,6 +298,7 @@ cd polylith
 echo "### 24/50 Polylith toolsdeps1 ###"
 poly info fake-sha:40d2f62 :no-changes color-mode:none > $output/polylith1/info.txt
 echo "### 25/50 Polylith toolsdeps1 ###"
+clojure -A:dev:test -P
 poly libs color-mode:none > $output/polylith1/libs.txt
 echo "### 26/50 Polylith toolsdeps1 ###"
 poly deps color-mode:none > $output/polylith1/deps.txt
@@ -343,6 +346,7 @@ poly diff since:0aaeb58 color-mode:none > $output/local-dep/diff.txt
 echo "### 40/50 examples/local-dep ###"
 poly ws out:$output/local-dep/ws.edn replace:$ws4:WS-HOME:$HOME:USER-HOME:$sha:SHA:$branch:BRANCH color-mode:none
 echo "### 41/50 examples/local-dep ###"
+poly info :dev since:0aaeb58 color-mode:none > $output/local-dep/since-info.txt
 poly test :dev since:0aaeb58 color-mode:none > $output/local-dep/test.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/local-dep/test.txt
 
