@@ -309,7 +309,6 @@
                 :is-dev false,
                 :lines-of-code {:src 0, :test 0 :total {:src 666, :test 92}}
                 :name "usermanager",
-                :is-run-tests true,
                 :type "project",
                 :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
                               "clojars" {:url "https://repo.clojars.org/"}},
@@ -398,7 +397,6 @@
                 :is-dev true,
                 :lines-of-code {:src 13, :test 0 :total {:src 666, :test 92}}
                 :name "development",
-                :is-run-tests false,
                 :type "project",
                 :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
                               "clojars" {:url "https://repo.clojars.org/"}},

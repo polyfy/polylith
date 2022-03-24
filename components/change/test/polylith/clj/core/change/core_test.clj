@@ -7,7 +7,6 @@
             "components/deps/src/polylith/clj/core/deps/interface.clj"])
 
 (def projects [{:name                 "cli"
-                :is-run-tests         true
                 :is-dev               false
                 :paths {}
                 :component-names      {:src ["change"
@@ -43,7 +42,6 @@
                                        "common" {:src {:direct ["util"], :indirect []}}
                                        "change" {:src {:direct ["git" "util"], :indirect ["shell"]}}}}
                {:name "core"
-                :is-run-tests true
                 :is-dev false
                 :component-names {:src ["change" "common" "deps" "file" "git" "help" "shell" "text-table" "util" "validator" "workspace"]
                                   :test ["change" "common" "deps" "file" "git" "help" "shell"]}
@@ -76,7 +74,6 @@
                        "common" {:src {:direct ["util"], :indirect []}}
                        "change" {:src {:direct ["git" "util"], :indirect ["shell"]}}}}
                {:name "dev"
-                :is-run-tests false
                 :is-dev true
                 :component-names {:src ["change"
                                         "command"

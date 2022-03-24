@@ -1,10 +1,6 @@
 (ns polylith.clj.core.change.bricks-to-test
   (:require [clojure.set :as set]))
 
-(defn contains-project? [projects project-alias project-name]
-  (or (contains? (set projects) project-name)
-      (contains? (set projects) project-alias)))
-
 (defn bricks-to-test-for-project [{:keys [is-dev alias name base-names component-names]}
                                   settings
                                   changed-projects
@@ -15,20 +11,11 @@
                                   selected-projects
                                   is-dev-user-input
                                   is-run-all-brick-tests]
-  (let [;; If we specify one or more projects with 'project:p1:p2' then only test this
-        ;; project's bricks if it's included in that list, even if :all is passed in, see issue 189.
-
-        ;;                         Include all projects except development, but also
-        ;;                         include dev if :dev or project:dev is passed in.
-        include-project? (and (or (not is-dev)
-                                  is-dev-user-input
-                                  (contains-project? selected-projects alias name))
-
-        ;;                         And if these statements are true:
-        ;;                           - no projects are selected (then include all),
-        ;;                             or this project is selected with e.g. project:p1
-                              (or (empty? selected-projects)
-                                  (contains-project? selected-projects alias name)))
+  (let [include-project? (or (or (contains? selected-projects name)
+                                 (contains? selected-projects alias))
+                             (and (empty? selected-projects)
+                                  (or (not is-dev)
+                                      is-dev-user-input)))
         project-has-changed? (contains? (set changed-projects) name)
         all-brick-names (set (concat (:test base-names) (:test component-names)))
         ;; If the :test key is given for a project in workspace.edn, then only include
