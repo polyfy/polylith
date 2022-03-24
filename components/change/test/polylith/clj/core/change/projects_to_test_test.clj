@@ -14,34 +14,45 @@
   (is (true?
         (t/run-tests? "s" "service" false false true #{}))))
 
+(deftest run-tests?--run-project-tests-if-project-alias-is-selected-but-projects-are-not-marked-for-testing
+  (is (false?
+        (t/run-tests? "s" "service" false false false #{"s"}))))
+
 (deftest run-tests?--run-project-tests-if-project-alias-is-selected
   (is (true?
-        (t/run-tests? "s" "service" false false false #{"s"}))))
+        (t/run-tests? "s" "service" false false true #{"s"}))))
+
+(deftest run-tests?--run-project-tests-if-project-name-is-selected-but-projects-are-not-marked-for-testing
+  (is (false?
+        (t/run-tests? "s" "service" false false false #{"service"}))))
 
 (deftest run-tests?--run-project-tests-if-project-name-is-selected
   (is (true?
-        (t/run-tests? "s" "service" false false false #{"service"}))))
+        (t/run-tests? "s" "service" false false true #{"service"}))))
+
+(deftest run-tests?--dont-run-dev-project-tests-if-project-alias-is-selected-but-projects-are-not-marked-for-testing
+  (is (false?
+        (t/run-tests? "dev" "development" true false false #{"dev"}))))
 
 (deftest run-tests?--run-dev-project-tests-if-project-alias-is-selected
   (is (true?
-        (t/run-tests? "dev" "development" true false false #{"dev"}))))
+        (t/run-tests? "dev" "development" true false true #{"dev"}))))
+
+(deftest run-tests?--dont-run-dev-project-tests-if-project-name-is-selected-but-projects-are-not-marked-for-testing
+  (is (false?
+        (t/run-tests? "dev" "development" true false false #{"development"}))))
 
 (deftest run-tests?--run-dev-project-tests-if-project-name-is-selected
   (is (true?
-        (t/run-tests? "dev" "development" true false false #{"development"}))))
+        (t/run-tests? "dev" "development" true false true #{"development"}))))
 
-(deftest run-tests?--dont-run-project-tests-if-selected-projects-is-not-empty-and-project-is-not-selected
+(deftest run-tests?--dont-run-project-tests-if-selected-projects-only-contains-other-projects
   (is (false?
-        (t/run-tests? "s" "service" false false false #{"another"}))))
+        (t/run-tests? "s" "service" false false true #{"another"}))))
 
 (deftest run-tests?--run-dev-project-tests-if-run-project-test-flag-is-set
   (is (true?
         (t/run-tests? "dev" "development" true true true #{}))))
-
-(deftest run-tests?--dont-run-dev-project-tests-if-run-project-test-flag-is-set-but-only-another-project-is-selected
-  (is (false?
-        (t/run-tests? "dev" "development" true true true #{"another"}))))
-
 
 (deftest dont-run-project-tests--project-tests-are-not-activated-by-default
   (is (= ["service" []]

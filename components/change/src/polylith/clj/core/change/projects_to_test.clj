@@ -12,12 +12,12 @@
       (set/difference project-names #{"development"}))))
 
 (defn run-tests? [project-alias project-name is-dev is-dev-user-input is-run-project-tests selected-projects]
-  (or (or (contains? selected-projects project-name)
-          (contains? selected-projects project-alias))
-      (and (empty? selected-projects)
-           (or (not is-dev)
-               is-dev-user-input)
-           is-run-project-tests)))
+  (and is-run-project-tests
+       (or (or (contains? selected-projects project-name)
+               (contains? selected-projects project-alias))
+           (and (empty? selected-projects)
+                (or (not is-dev)
+                    is-dev-user-input)))))
 
 (defn projects-to-test [{:keys [is-dev alias name paths]} disk-paths affected-projects selected-projects is-dev-user-input is-run-project-tests is-all]
   (let [run-tests? (run-tests? alias name is-dev is-dev-user-input is-run-project-tests selected-projects)

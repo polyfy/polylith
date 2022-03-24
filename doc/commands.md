@@ -10,9 +10,7 @@ The individual help texts listed here are taken from the built-in `help` command
   - [create workspace](#create-workspace)
 - [deps](#deps)
   - [deps :bricks](#deps-bricks)
-  - [deps :brick](#deps-brick)deps-bric
-  - 
-  - k
+  - [deps :brick](#deps-brick)
   - [deps :project](#deps-project)
   - [deps :project :brick](#deps-project-brick)
 - [diff](#diff)
