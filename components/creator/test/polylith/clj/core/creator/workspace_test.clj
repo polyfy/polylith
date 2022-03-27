@@ -109,7 +109,7 @@
            (helper/content "ws1" "readme.md")))
 
     (is (= [(str "{:aliases  {:dev {:extra-paths [\"development/src\"]")
-            (str "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.10.3\"}}}")
+            (str "                  :extra-deps {org.clojure/clojure {:mvn/version \" 1.11.0\"}}}")
             (str "")
             (str "            :test {:extra-paths []}")
             (str "")

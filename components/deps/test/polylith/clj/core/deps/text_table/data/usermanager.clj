@@ -318,12 +318,12 @@
                 :lib-deps {:src {"com.github.seancorfield/next.jdbc" {:version "1.2.689", :type "maven", :size 44942},
                                  "com.stuartsierra/component" {:version "1.0.0", :type "maven", :size 19006},
                                  "compojure/compojure" {:version "1.6.2", :type "maven", :size 15172},
-                                 "org.clojure/clojure" {:version "1.10.3", :type "maven", :size 3914649},
+                                 "org.clojure/clojure" {:version " 1.11.0", :type "maven", :size 3914649},
                                  "org.xerial/sqlite-jdbc" {:version "3.34.0", :type "maven", :size 7296329},
                                  "ring/ring" {:version "1.9.2", :type "maven", :size 4586},
                                  "ring/ring-defaults" {:version "0.3.2", :type "maven", :size 7944},
                                  "selmer/selmer" {:version "1.12.33", :type "maven", :size 61829}}
-                           :test {"org.clojure/clojure" {:version "1.10.3", :type "maven", :size 3914649},
+                           :test {"org.clojure/clojure" {:version " 1.11.0", :type "maven", :size 3914649},
                                   "org.xerial/sqlite-jdbc" {:version "3.34.0", :type "maven", :size 7296329},
                                   "com.github.seancorfield/next.jdbc" {:version "1.2.689", :type "maven", :size 44942},
                                   "com.h2database/h2" {:version "1.4.200", :type "maven", :size 2303679},
@@ -433,7 +433,7 @@
                            :lib-deps {:src {"com.github.seancorfield/next.jdbc" {:version "1.2.689", :type "maven", :size 44942},
                                             "com.stuartsierra/component" {:version "1.0.0", :type "maven", :size 19006},
                                             "compojure/compojure" {:version "1.6.2", :type "maven", :size 15172},
-                                            "org.clojure/clojure" {:version "1.10.3", :type "maven", :size 3914649},
+                                            "org.clojure/clojure" {:version " 1.11.0", :type "maven", :size 3914649},
                                             "org.xerial/sqlite-jdbc" {:version "3.34.0", :type "maven", :size 7296329},
                                             "ring/ring" {:version "1.9.2", :type "maven", :size 4586},
                                             "ring/ring-defaults" {:version "0.3.2", :type "maven", :size 7944},
@@ -447,7 +447,7 @@
                                              "selmer/selmer" {:version "1.12.33", :type "maven", :size 61829},
                                              "compojure/compojure" {:version "1.6.2", :type "maven", :size 15172},
                                              "org.xerial/sqlite-jdbc" {:version "3.34.0", :type "maven", :size 7296329},
-                                             "org.clojure/clojure" {:version "1.10.3", :type "maven", :size 3914649}}}}
+                                             "org.clojure/clojure" {:version " 1.11.0", :type "maven", :size 3914649}}}}
                 :namespaces {:src [{:name "dev",
                                     :namespace "dev",
                                     :file-path "../usermanager-example/development/src/dev.clj",
@@ -455,7 +455,7 @@
                 :lib-deps {:src {"com.github.seancorfield/next.jdbc" {:version "1.2.689", :type "maven", :size 44942},
                                  "com.stuartsierra/component" {:version "1.0.0", :type "maven", :size 19006},
                                  "compojure/compojure" {:version "1.6.2", :type "maven", :size 15172},
-                                 "org.clojure/clojure" {:version "1.10.3", :type "maven", :size 3914649},
+                                 "org.clojure/clojure" {:version " 1.11.0", :type "maven", :size 3914649},
                                  "org.xerial/sqlite-jdbc" {:version "3.34.0", :type "maven", :size 7296329},
                                  "ring/ring" {:version "1.9.2", :type "maven", :size 4586},
                                  "ring/ring-defaults" {:version "0.3.2", :type "maven", :size 7944},
@@ -469,7 +469,7 @@
                                   "selmer/selmer" {:version "1.12.33", :type "maven", :size 61829},
                                   "compojure/compojure" {:version "1.6.2", :type "maven", :size 15172},
                                   "org.xerial/sqlite-jdbc" {:version "3.34.0", :type "maven", :size 7296329},
-                                  "org.clojure/clojure" {:version "1.10.3", :type "maven", :size 3914649}}}
+                                  "org.clojure/clojure" {:version " 1.11.0", :type "maven", :size 3914649}}}
                 :test-component-names ["app-state" "database" "department" "schema" "schema-fixture" "user" "web-server"],
                 :config-filename "../usermanager-example/deps.edn",
                 :component-names ["app-state" "database" "department" "schema" "user" "web-server"],
