@@ -128,9 +128,12 @@
   (not (empty? (concat (project-to-bricks-to-test name)
                        (project-to-projects-to-test name)))))
 
-(defn print-no-tests-to-run-if-only-dev-exists [projects]
-  (when (= 1 (count projects))
-   (println "  No tests to run. To run tests for 'dev', type: poly test :dev")))
+(defn print-no-tests-to-run-if-only-dev-exists [settings projects]
+  (let [git-repo? (-> settings :vcs :is-git-repo)]
+    (when (= 1 (count projects))
+      (if git-repo?
+        (println "  No tests to run. To run tests for 'dev', type: poly test :dev")
+        (println "  No tests to run. Not a git repo. Execute 'git init' + commit files and directories, to add support for testing.")))))
 
 (defn print-projects-to-test [projects-to-test color-mode]
   (let [projects (str/join ", " (map #(color/project (:name %) color-mode)
@@ -160,7 +163,7 @@
           component-names (set (map :name components))
           base-names (set (map :name bases))]
       (if (empty? projects-to-test)
-        (print-no-tests-to-run-if-only-dev-exists projects)
+        (print-no-tests-to-run-if-only-dev-exists settings projects)
         (do
           (print-projects-to-test projects-to-test color-mode)
           (print-bricks-to-test component-names base-names bricks-to-test color-mode)
