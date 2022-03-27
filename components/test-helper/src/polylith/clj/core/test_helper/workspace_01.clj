@@ -14,7 +14,6 @@
                             :is-dev false,
                             :lines-of-code {:src 0, :test 0, :total {:src 3, :test 9}}
                             :name "service",
-                            :is-run-tests true,
                             :type "project",
                             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
                                           "clojars" {:url "https://repo.clojars.org/"}},
@@ -37,7 +36,6 @@
                             :is-dev true,
                             :lines-of-code {:src 0, :test 0, :total {:src 9, :test 18}}
                             :name "development",
-                            :is-run-tests false,
                             :type "project",
                             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
                                           "clojars" {:url "https://repo.clojars.org/"}},

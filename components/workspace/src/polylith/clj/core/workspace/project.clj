@@ -24,13 +24,6 @@
             (seq src) (assoc :src src)
             (seq test) (assoc :test test))))
 
-(defn run-the-tests? [project-name alias is-dev is-run-all-brick-tests selected-projects]
-  (or (and (not is-dev)
-           (or is-run-all-brick-tests
-               (empty? selected-projects)))
-      (or (contains? selected-projects project-name)
-          (contains? selected-projects alias))))
-
 (defn enrich-project [{:keys [name is-dev maven-repos namespaces paths lib-deps] :as project}
                       components
                       bases
@@ -39,8 +32,9 @@
                       brick->lib-imports
                       disk-paths
                       settings
-                      {:keys [is-run-all-brick-tests selected-projects]}]
-  (let [alias (get-in settings [:projects name :alias])
+                      {:keys [is-run-all-brick-tests selected-projects] :as user-input}]
+  (let [is-dev-user-input (:is-dev user-input)
+        alias (get-in settings [:projects name :alias])
         enriched-maven-repos (apply merge maven-repos (mapcat :maven-repos (concat components bases)))
         lib-entries (extract/from-library-deps is-dev lib-deps settings)
         path-entries (extract/from-unenriched-project is-dev paths disk-paths settings)
@@ -61,7 +55,6 @@
 
         lib-imports (project-lib-imports all-brick-names brick->lib-imports)
 
-        is-run-tests (run-the-tests? name alias is-dev is-run-all-brick-tests selected-projects)
         lines-of-code-total (project-total-loc all-brick-names brick->loc)
         lines-of-code (assoc (loc/lines-of-code namespaces) :total lines-of-code-total)
         src-lib-deps (select/lib-deps lib-entries c/src?)
@@ -76,7 +69,6 @@
                                 (seq test-lib-deps) (assoc :test test-lib-deps))]
     (-> project
         (merge {:alias            alias
-                :is-run-tests     is-run-tests
                 :lines-of-code    lines-of-code
                 :component-names  component-names
                 :base-names       base-names

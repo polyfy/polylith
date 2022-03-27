@@ -1,15 +1,22 @@
 (ns polylith.clj.core.change.bricks-to-test
   (:require [clojure.set :as set]))
 
-(defn bricks-to-test-for-project [{:keys [name is-run-tests base-names component-names]}
+(defn bricks-to-test-for-project [{:keys [is-dev alias name base-names component-names]}
                                   settings
                                   changed-projects
                                   changed-components
                                   changed-bases
                                   project-to-indirect-changes
                                   selected-bricks
+                                  selected-projects
+                                  is-dev-user-input
                                   is-run-all-brick-tests]
-  (let [project-has-changed? (contains? (set changed-projects) name)
+  (let [include-project? (or (or (contains? selected-projects name)
+                                 (contains? selected-projects alias))
+                             (and (empty? selected-projects)
+                                  (or (not is-dev)
+                                      is-dev-user-input)))
+        project-has-changed? (contains? (set changed-projects) name)
         all-brick-names (set (concat (:test base-names) (:test component-names)))
         ;; If the :test key is given for a project in workspace.edn, then only include
         ;; the specified bricks, otherwise, run tests for all bricks that have tests.
@@ -19,9 +26,9 @@
         selected-bricks (if selected-bricks
                           (set selected-bricks)
                           all-brick-names)
-        changed-bricks (if is-run-tests
+        changed-bricks (if include-project?
                          (if (or is-run-all-brick-tests project-has-changed?)
-                           ;; if we pass in :all or if the project has changed (e.g. its configuration)
+                           ;; if we pass in :all or :all-bricks or if the project has changed
                            ;; then always run all brick tests.
                            included-bricks
                            (set/intersection included-bricks
@@ -37,6 +44,6 @@
         bricks-to-test (set/intersection changed-bricks selected-bricks)]
     [name (-> bricks-to-test sort vec)]))
 
-(defn project-to-bricks-to-test [changed-projects projects settings changed-components changed-bases project-to-indirect-changes selected-bricks is-run-all-brick-tests]
-  (into {} (map #(bricks-to-test-for-project % settings changed-projects changed-components changed-bases project-to-indirect-changes selected-bricks is-run-all-brick-tests)
-                projects)))
+(defn project-to-bricks-to-test [changed-projects projects settings changed-components changed-bases project-to-indirect-changes selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests]
+  (into (sorted-map) (map #(bricks-to-test-for-project % settings changed-projects changed-components changed-bases project-to-indirect-changes selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests)
+                          projects)))

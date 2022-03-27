@@ -26,7 +26,7 @@
 (defn project-sorter [{:keys [is-dev name]}]
   [is-dev name])
 
-(defn enrich-workspace [{:keys [ws-dir user-input settings components bases projects paths version] :as workspace}]
+(defn enrich-workspace [{:keys [ws-dir user-input settings components bases projects paths] :as workspace}]
   (let [ws-name (workspace-name ws-dir)
         {:keys [top-namespace interface-ns color-mode]} settings
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)

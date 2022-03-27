@@ -7,7 +7,6 @@
             "components/deps/src/polylith/clj/core/deps/interface.clj"])
 
 (def projects [{:name                 "cli"
-                :is-run-tests         true
                 :is-dev               false
                 :paths {}
                 :component-names      {:src ["change"
@@ -43,7 +42,6 @@
                                        "common" {:src {:direct ["util"], :indirect []}}
                                        "change" {:src {:direct ["git" "util"], :indirect ["shell"]}}}}
                {:name "core"
-                :is-run-tests true
                 :is-dev false
                 :component-names {:src ["change" "common" "deps" "file" "git" "help" "shell" "text-table" "util" "validator" "workspace"]
                                   :test ["change" "common" "deps" "file" "git" "help" "shell"]}
@@ -76,7 +74,6 @@
                        "common" {:src {:direct ["util"], :indirect []}}
                        "change" {:src {:direct ["git" "util"], :indirect ["shell"]}}}}
                {:name "dev"
-                :is-run-tests false
                 :is-dev true
                 :component-names {:src ["change"
                                         "command"
@@ -136,8 +133,6 @@
                 :user-input   {}
                 :paths        {:missing []}})
 
-(def workspace-with-active-dev (assoc-in workspace [:projects 2 :is-run-tests] true))
-
 (def workspace-with-run-all-brick-tests-flags (assoc workspace :user-input {:is-run-all-brick-tests true
                                                                             :is-run-project-tests true}))
 
@@ -173,39 +168,6 @@
                                          "core" []
                                          "dev"  []}}
          (core/changes workspace {:files files} nil))))
-
-(deftest changes--a-list-of-changed-files-and-active-dev--returns-changed-bricks-and-bricks-to-test
-  (is (= {:changed-bases                []
-          :changed-components           ["change"
-                                         "deps"]
-          :changed-files                ["components/change/test/polylith/clj/core/change/brick_test.clj"
-                                         "components/change/test/polylith/clj/core/change/core_test.clj"
-                                         "components/deps/src/polylith/clj/core/deps/interface.clj"]
-          :changed-or-affected-projects ["cli"
-                                         "core"
-                                         "dev"]
-          :changed-projects             []
-          :git-diff-command             "git diff --name-only"
-          :project-to-bricks-to-test    {"cli"  []
-                                         "core" ["change"
-                                                 "deps"]
-                                         "dev"  ["change"]}
-          :project-to-indirect-changes  {"cli"  {:src  ["cli"
-                                                        "command"
-                                                        "validator"
-                                                        "workspace"]
-                                                 :test []}
-                                         "core" {:src  ["cli"
-                                                        "command"
-                                                        "validator"
-                                                        "workspace"]
-                                                 :test []}
-                                         "dev"  {:src  []
-                                                 :test []}}
-          :project-to-projects-to-test  {"cli"  []
-                                         "core" []
-                                         "dev"  []}}
-         (core/changes workspace-with-active-dev {:files files} nil))))
 
 (deftest changes--a-list-of-changed-files-and-projects-when-run-all--returns-changed-bricks-and-bricks-to-test2
   (is (= {:changed-bases                []

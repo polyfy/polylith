@@ -109,7 +109,6 @@
                                      :test ["change"
                                             "command"]}
           :is-dev                   true
-          :is-run-tests             false
           :lib-deps                 {:src {"org.clojure/clojure"          #:mvn{:version "1.10.1"}
                                            "org.clojure/tools.deps.alpha" #:mvn{:version "0.12.985"}}}
           :lib-imports              {:src ["clojure.java.io"
@@ -161,7 +160,6 @@
                                         "command"
                                         "user"]}
           :is-dev               true
-          :is-run-tests         true
           :lib-deps             {:src {"clojure.core.matrix"          "net.mikera/core.matrix"
                                        "org.clojure/clojure"          #:mvn{:version "1.10.1"}
                                        "org.clojure/tools.deps.alpha" #:mvn{:version "0.12.985"}}}
@@ -206,37 +204,6 @@
                                                                         :lib-deps {"clojure.core.matrix"
                                                                                    "net.mikera/core.matrix"}}}
                                        :projects {"development" {:alias "dev", :test []}}}
-                                      {:selected-projects #{"dev"}})
+                                      {:is-dev false
+                                       :selected-projects #{"dev"}})
                  :deps))))
-
-(deftest is-run-tests--non-dev-project-no-project-selected--returns-true
-  (is (true?
-        (proj/run-the-tests? "cli" "cli" false false #{}))))
-
-(deftest is-run-tests--non-dev-project-no-project-selected-run-all-brick-tests--returns-true
-  (is (true?
-        (proj/run-the-tests? "cli" "cli" false true #{}))))
-
-(deftest is-run-tests--non-dev-project-dev-selected--returns-false
-  (is (false?
-        (proj/run-the-tests? "cli" "cli" false false #{"dev"}))))
-
-(deftest is-run-tests--non-dev-project-dev-selected-run-all-brick-tests--returns-true
-  (is (true?
-        (proj/run-the-tests? "cli" "cli" false true #{"dev"}))))
-
-(deftest is-run-tests--dev-project-no-project-selected--returns-false
-  (is (false?
-        (proj/run-the-tests? "development" "dev" true false #{}))))
-
-(deftest is-run-tests--dev-project-no-project-selected-run-all-brick-tests--returns-false
-  (is (false?
-        (proj/run-the-tests? "development" "dev" true true #{}))))
-
-(deftest is-run-tests--dev-project-dev-selected--returns-true
-  (is (true?
-        (proj/run-the-tests? "development" "dev" true false #{"dev"}))))
-
-(deftest is-run-tests--dev-project-dev-selected-run-all-brick-tests--returns-true
-  (is (true?
-        (proj/run-the-tests? "development" "dev" true true #{"dev"}))))

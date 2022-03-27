@@ -29,7 +29,7 @@ poly help
 ```
 
 ```
-  Poly 0.2.14-alpha-issue174-01 (2022-01-17) - https://github.com/polyfy/polylith
+  Poly 0.2.14-alpha-issue189-04 (2022-03-24) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -238,10 +238,6 @@ poly help
   Warning 203 - Path exists in both dev and profile.
     It's discouraged to have the same path in both the development project
     and a profile. The solution is to remove the path from dev or the profile.
-
-  Warning 204 - Library exists in both dev and a profile.
-    It's discouraged to have the same library in both development and a profile.
-    The solution is to remove the library from dev or the profile.
 
   Warning 205 - Non top namespace was found in brick.
     Triggered if a namespace in a brick doesn't start with the top namespaces
