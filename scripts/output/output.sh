@@ -27,6 +27,9 @@ echo ""; cat testing-info-1.txt ; echo ""
 echo "######### testing-info-2.png #########"
 echo ""; cat testing-info-2.txt ; echo ""
 
+echo "######### testing-info-2b.png #########"
+echo ""; cat testing-info-2b.txt ; echo ""
+
 echo "######### testing-info-3.png #########"
 echo ""; cat testing-info-3.txt ; echo ""
 

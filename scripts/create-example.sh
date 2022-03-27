@@ -158,6 +158,7 @@ poly test > $output/testing-test-ok.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test-ok.txt
 clojure -A:dev:test -P
 poly info :dev fake-sha:e7ebe68 > $output/testing-info-2.txt
+poly info project:dev fake-sha:e7ebe68 > $output/testing-info-2b.txt
 poly info project:cl:dev fake-sha:e7ebe68 > $output/testing-info-3.txt
 
 poly info fake-sha:e7ebe68 > $output/testing-info-3a.txt
