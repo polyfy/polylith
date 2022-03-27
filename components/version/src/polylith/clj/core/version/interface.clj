@@ -26,3 +26,5 @@
                    :breaking 1
                    :non-breaking 1}}
              from (assoc :from from)))))
+
+;; Removed key :is-run-tests from projects (issue 189)
