@@ -17,6 +17,6 @@
         poly/workspace-clj {:local/root "../../components/workspace-clj"}
         poly/ws-explorer   {:local/root "../../components/ws-explorer"}
 
-        org.clojure/clojure {:mvn/version "1.10.3"}}
+        org.clojure/clojure {:mvn/version "1.11.0"}}
 
  :aliases {:jar {:jar-file "target/api-thin.jar"}}}
