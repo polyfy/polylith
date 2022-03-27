@@ -518,6 +518,7 @@
   :ns-to-lib {"clj-time" "clj-time/clj-time"},
   :vcs
   {:name "git",
+   :is-git-repo true,
    :branch "master",
    :git-root "/privateWS-HOME/local-dep-old-format",
    :auto-add false,
@@ -536,6 +537,7 @@
    "color-mode:none"],
   :unnamed-args [],
   :is-dev false,
+  :is-commit false,
   :is-run-project-tests false,
   :is-compact false,
   :replace
@@ -563,13 +565,13 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.14-alpha-issue174-01",
+  {:name "0.2.14-alpha-issue160-01",
    :major 0,
    :minor 2,
    :patch 14,
-   :revision "alpha-issue174-01",
-   :date "2022-01-17"},
-  :ws {:type :toolsdeps2, :breaking 1, :non-breaking 0},
+   :revision "alpha-issue160-01",
+   :date "2022-01-16"},
+  :ws {:type :toolsdeps2, :breaking 1, :non-breaking 1},
   :from {:ws {:type :toolsdeps1}}},
  :ws-dir "/privateWS-HOME/local-dep-old-format",
  :ws-reader

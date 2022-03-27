@@ -18,7 +18,7 @@
   (shell/sh "clojure" "-A:dev:test" "-P" :dir ws-dir))
 
 (defn execute-commands [commands]
-  (helper/execute-command "" "create" "w" "name:ws03" "top-ns:se.example" ":git-add")
+  (helper/execute-command "" "create" "w" "name:ws03" "top-ns:se.example" ":git-add" ":commit")
   (helper/execute-command "ws03" "create" "c" "name:database1" "interface:database")
   (helper/execute-command "ws03" "create" "c" "name:test-helper1" "interface:test-helper")
   (helper/execute-command "ws03" "create" "c" "name:admin" "interface:user")

@@ -14,7 +14,7 @@
 
 (deftest create-workspace--trying-to-create-a-workspace-within-another-workspace--prints-out-error-messagex
   (let [output (with-out-str
-                 (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example")
+                 (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example" ":commit")
                  (helper/execute-command "ws1" "create" "workspace" "name:ws2" "top-ns:com.example"))]
     (is (= "  Workspace created in existing git repo.\n"
            output))
@@ -70,7 +70,7 @@
 (deftest create-workspace--creates-empty-directories-and-a-deps-edn-config-file
   (let [output (with-redefs [git/latest-polylith-sha (fn [_] "SHA")]
                  (with-out-str
-                   (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example" "branch:create-deps-files")))]
+                   (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example" "branch:create-deps-files" ":commit")))]
     (is (= ""
            output))
 
@@ -109,8 +109,7 @@
            (helper/content "ws1" "readme.md")))
 
     (is (= [(str "{:aliases  {:dev {:extra-paths [\"development/src\"]")
-            (str "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.10.3\"}")
-            (str "                               org.clojure/tools.deps.alpha {:mvn/version \"0.12.1003\"}}}")
+            (str "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.10.3\"}}}")
             (str "")
             (str "            :test {:extra-paths []}")
             (str "")

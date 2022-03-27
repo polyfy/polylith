@@ -5,7 +5,7 @@
 (defn help [cm]
   (str "  Shows all libraries that are used in the workspace.\n"
        "\n"
-       "  poly libs [:all]\n"
+       "  poly libs [:all] [:compact]\n"
        "    :all     = View all bricks, including those without library dependencies.\n"
        "    :compact = Show the table in a more compact way.\n"
        "                                                                                      " (color/component "u  u\n" cm)

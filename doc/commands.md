@@ -29,7 +29,7 @@ poly help
 ```
 
 ```
-  Poly 0.2.14-alpha-issue189-04 (2022-03-24) - https://github.com/polyfy/polylith
+  Poly 0.2.14-alpha-issue160-02 (2022-01-17) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -70,7 +70,7 @@ poly help
   then ws-file:FILE will automatically be appended to following commands.
 
   If :: is passed in, then ws-dir is set to the first parent directory (or current)
-  that contains a 'workspace.edn' config file. The exception is the 'test command'
+  that contains a 'workspace.edn' config file. The exception is the 'test' command
   that has to be executed from the workspace root.
 
   If skip:PROJECTS is passed in, then the given project(s) will not be read from disk.
@@ -175,7 +175,7 @@ poly help
     poly ws get:components:mycomp:lines-of-code
     poly ws get:settings:vcs:polylith :latest-sha
     poly ws get:settings:vcs:polylith :latest-sha branch:master
-    poly ws get:changes:changed-or-affected-projects skip:dev
+    poly ws get:changes:changed-or-affected-projects skip:dev color-mode:none
     poly ws out:ws.edn
 ```
 

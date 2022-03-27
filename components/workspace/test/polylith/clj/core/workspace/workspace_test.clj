@@ -215,6 +215,7 @@
                                   :vcs                  {:git-root (System/getProperty "user.dir")
                                                          :name     "git"
                                                          :auto-add true
+                                                         :is-git-repo true
                                                          :polylith {:branch "create-deps-files"
                                                                     :repo   "https://github.com/polyfy/polylith.git"}}}}])
 

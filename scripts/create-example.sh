@@ -64,7 +64,7 @@ clojure -A:dev:test -P
 cd $ws
 
 echo "### 1/50 Workspace ###"
-poly create w name:example top-ns:se.example :git-add
+poly create w name:example top-ns:se.example :git-add :commit
 tree example > $output/workspace-tree.txt
 cd example
 

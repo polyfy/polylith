@@ -39,6 +39,7 @@
  :user-home "/Users/joakimtengstrand",
  :vcs
  {:name "git",
+  :is-git-repo true,
   :branch "main",
   :git-root "/privateWS-HOME/example",
   :auto-add true,

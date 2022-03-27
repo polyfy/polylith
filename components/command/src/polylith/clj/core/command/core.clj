@@ -59,7 +59,7 @@
   (fn [user-input ws-file ws-dir]
     (read-workspace ws-file ws-dir user-input color-mode)))
 
-(defn execute [{:keys [cmd args name top-ns branch is-tap is-git-add is-all is-show-brick is-show-workspace is-show-project is-verbose get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
+(defn execute [{:keys [cmd args name top-ns branch is-tap is-git-add is-commit is-all is-show-brick is-show-workspace is-show-project is-verbose get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (common/workspace-dir user-input color-mode)
         workspace-fn (workspace-reader-fn color-mode)
@@ -75,7 +75,7 @@
         (case cmd
           nil (shell/start execute user-input workspace-fn workspace color-mode)
           "check" (check workspace color-mode)
-          "create" (create/create ws-dir workspace args name top-ns interface branch is-git-add color-mode)
+          "create" (create/create ws-dir workspace args name top-ns interface branch is-git-add is-commit color-mode)
           "deps" (dependencies/deps workspace project-name brick-name unnamed-args is-all)
           "diff" (diff workspace)
           "help" (help args is-all is-show-project is-show-brick is-show-workspace toolsdeps1? color-mode)
