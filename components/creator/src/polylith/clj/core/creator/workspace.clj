@@ -36,7 +36,10 @@
    ".nrepl-port"
    ""
    "# clojure-lsp"
-   ".lsp/sqlite*.db"
+   ".lsp/.cache"
+   ""
+   "# clj-kondo"
+   ".clj-kondo/.cache"
    ""
    "# Calva VS Code Extension"
    ".calva/output-window/output.calva-repl"])
@@ -56,13 +59,13 @@
    ""
    "<p>Add your workspace documentation here...</p>"])
 
-(defn workspace-content [top-ns is-git-add]
+(defn workspace-content [top-ns git-add?]
   [(str "{:top-namespace \"" top-ns "\"")
    (str " :interface-ns \"interface\"")
    (str " :default-profile-name \"default\"")
    (str " :compact-views #{}")
    (str " :vcs {:name \"git\"")
-   (str "       :auto-add " (or is-git-add false) "}")
+   (str "       :auto-add " (or git-add? false) "}")
    (str " :tag-patterns {:stable \"stable-*\"")
    (str "                :release \"v[0-9]*\"}")
    (str " :projects {\"development\" {:alias \"dev\"}}}")])
@@ -99,7 +102,7 @@
    (str "    ]")
    (str "}")])
 
-(defn create-ws [ws-dir ws-name top-ns create-ws-dir? git-repo? insert-sha? sha branch is-git-add]
+(defn create-ws [ws-dir ws-name top-ns create-ws-dir? git-repo? insert-sha? sha branch git-add? commit?]
   (when create-ws-dir?
     (file/create-dir ws-dir))
   (file/create-dir (str ws-dir "/bases"))
@@ -109,7 +112,7 @@
   (file/create-dir (str ws-dir "/projects"))
   (file/create-dir (str ws-dir "/.vscode"))
   (file/create-file (str ws-dir "/.gitignore") gitignore-content)
-  (file/create-file (str ws-dir "/workspace.edn") (workspace-content top-ns is-git-add))
+  (file/create-file (str ws-dir "/workspace.edn") (workspace-content top-ns git-add?))
   (file/create-file (str ws-dir "/deps.edn") (deps-content sha))
   (file/create-file (str ws-dir "/readme.md") (readme-content ws-name))
   (file/create-file (str ws-dir "/.vscode/settings.json") (calva-settings-content ws-name))
@@ -118,14 +121,15 @@
   (file/create-file (str ws-dir "/bases/.keep") [""])
   (file/create-file (str ws-dir "/projects/.keep") [""])
   (file/copy-resource-file! "creator/logo.png" (str ws-dir "/logo.png"))
-  (git/init ws-dir git-repo? branch)
+  (when commit?
+    (git/init ws-dir git-repo? branch))
   (when git-repo?
     (println "  Workspace created in existing git repo."))
   (when insert-sha?
     (println (str "  Make sure to replace INSERT_LATEST_SHA_HERE in './deps.edn' with the latest SHA "
                   "from https://github.com/polyfy/polylith/commits/" (git/current-branch) "."))))
 
-(defn create [root-dir ws-name top-ns branch is-git-add]
+(defn create [root-dir ws-name top-ns branch git-add? commit?]
   (let [create-ws-dir? (not (str/blank? ws-name))
         ws-dir (if create-ws-dir? (str root-dir "/" ws-name) root-dir)
         [insert-sha? sha] (latest-sha branch)
@@ -135,4 +139,4 @@
            (file/exists ws-dir)) (println (str "  Workspace '" ws-name "' already exists."))
       (and (not create-ws-dir?)
            (not git-repo?)) (println "  Current directory must be a git repo.")
-      :else (create-ws ws-dir ws-name top-ns create-ws-dir? git-repo? insert-sha? sha branch is-git-add))))
+      :else (create-ws ws-dir ws-name top-ns create-ws-dir? git-repo? insert-sha? sha branch git-add? commit?))))

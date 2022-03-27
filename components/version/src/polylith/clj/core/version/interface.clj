@@ -7,7 +7,7 @@
 (def revision "alpha-issue189-04")
 (def name (str major "." minor "." patch "-" revision))
 
-(def date "2022-03-24")
+(def date "2022-03-23")
 
 (defn version
   ([ws-type]
@@ -27,4 +27,7 @@
                    :non-breaking 1}}
              from (assoc :from from)))))
 
-;; Removed key :is-run-tests from projects (issue 189)
+; ws     release         action    attribute
+;; -----  -------------   ------    ------------------------------------
+;; 1.1     0.2.14-alpha   added     :settings > :vcs > :is-git-repo
+;                         deleted   :projects > PROJECT > :is-run-tests
