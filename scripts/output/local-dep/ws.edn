@@ -536,6 +536,7 @@
   :interface-ns "interface",
   :vcs
   {:name "git",
+   :is-git-repo true,
    :branch "BRANCH",
    :git-root "USER-HOME/source/polylith",
    :auto-add false,
@@ -554,6 +555,7 @@
    "color-mode:none"],
   :unnamed-args [],
   :is-dev false,
+  :is-commit false,
   :is-run-project-tests false,
   :is-compact false,
   :replace
@@ -581,13 +583,13 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.14-alpha-issue174-01",
+  {:name "0.2.14-alpha-issue160-01",
    :major 0,
    :minor 2,
    :patch 14,
-   :revision "alpha-issue174-01",
-   :date "2022-01-17"},
-  :ws {:type :toolsdeps2, :breaking 1, :non-breaking 0}},
+   :revision "alpha-issue160-01",
+   :date "2022-01-16"},
+  :ws {:type :toolsdeps2, :breaking 1, :non-breaking 1}},
  :ws-dir "USER-HOME/source/polylith/examples/local-dep",
  :ws-local-dir "examples/local-dep",
  :ws-reader

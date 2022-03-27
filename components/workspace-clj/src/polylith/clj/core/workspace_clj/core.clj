@@ -18,6 +18,8 @@
             [polylith.clj.core.workspace-clj.projects-from-disk :as projects-from-disk]
             [polylith.clj.core.workspace-clj.components-from-disk :as components-from-disk]))
 
+(def no-git-repo "NO-GIT-REPO")
+
 (defn stringify-key-value [[k v]]
   [(str k) (str v)])
 
@@ -25,33 +27,53 @@
   (when (not= ws-type :toolsdeps2)
     (into {} (mapv stringify-key-value ns-to-lib))))
 
-(defn git-root []
-  (let [[ok? root-path] (git/root-dir)]
-    (if ok?
-      root-path
-      :no-git-root)))
+(defn git-root [git-repo?]
+  (if git-repo?
+    (let [[ok? root-path] (git/root-dir)]
+      (if ok?
+        root-path
+        "GIT-ROOT-NOT-ACCESSIBLE"))
+    no-git-repo))
+
+(defn git-current-branch [git-repo?]
+  (if git-repo?
+    (git/current-branch)
+    no-git-repo))
+
+(defn git-sha [ws-dir since tag-patterns git-repo?]
+  (if git-repo?
+    (git/sha ws-dir since tag-patterns)
+    {:sha no-git-repo}))
+
+(defn git-latest-sha [from-branch git-repo?]
+  (if git-repo?
+    (or (git/latest-polylith-sha from-branch)
+        "GIT-REPO-NOT-ACCESSIBLE")
+    no-git-repo))
 
 (defn git-info [ws-dir {:keys [name auto-add]
                         :or {name "git"
                              auto-add false}}
                 tag-patterns {:keys [branch is-latest-sha]}]
-  (let [from-branch (or branch git/branch)]
+  (let [git-repo? (git/is-git-repo? ws-dir)
+        from-branch (or branch git/branch)]
     {:name          name
-     :branch        (git/current-branch)
-     :git-root      (git-root)
+     :is-git-repo   git-repo?
+     :branch        (git-current-branch git-repo?)
+     :git-root      (git-root git-repo?)
      :auto-add      auto-add
-     :stable-since  (git/sha ws-dir "stable" tag-patterns)
+     :stable-since  (git-sha ws-dir "stable" tag-patterns git-repo?)
      :polylith      (cond-> {:repo git/repo
                              :branch from-branch}
-                            is-latest-sha (assoc :latest-sha (or (git/latest-polylith-sha from-branch)
-                                                                 "GIT-REPO-NOT-ACCESSIBLE")))}))
+                            is-latest-sha (assoc :latest-sha (git-latest-sha from-branch git-repo?)))}))
 
 (defn ->ws-local-dir
   "Returns the directory/path to the workspace if it lives
    inside a git repository, or nil if the workspace and the
    git repository lives in the same directory."
   [ws-dir]
-  (let [git-root-dir (git-root)
+  (let [git-repo? (git/is-git-repo? ws-dir)
+        git-root-dir (git-root git-repo?)
         absolute-ws-dir (file/absolute-path ws-dir)]
     (when (and (not= absolute-ws-dir git-root-dir)
                (str/starts-with? absolute-ws-dir git-root-dir))

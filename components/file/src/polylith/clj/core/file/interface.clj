@@ -15,7 +15,10 @@
   (core/create-dir path))
 
 (defn create-file [path rows]
-  (core/create-file path rows))
+  (core/create-file path rows true))
+
+(defn create-file-if-not-exists [path rows]
+  (core/create-file path rows false))
 
 (defn create-missing-dirs [filename]
   (core/create-missing-dirs filename))

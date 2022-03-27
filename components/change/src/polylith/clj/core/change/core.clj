@@ -48,7 +48,15 @@
 
 (defn with-changes [{:keys [ws-dir ws-local-dir settings user-input paths] :as workspace}]
   (if (-> ws-dir git/is-git-repo? not)
-    workspace
+    (assoc workspace :changes {:changed-files []
+                               :changed-components []
+                               :changed-bases []
+                               :changed-projects []
+                               :changed-or-affected-projects []
+                               :project-to-indirect-changes {}
+                               :project-to-bricks-to-test {}
+                               :project-to-projects-to-test {}})
+
     (let [since (:since user-input "stable")
           is-no-changes (:is-no-changes user-input)
           tag-patterns (:tag-patterns settings)
