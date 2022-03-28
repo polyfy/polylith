@@ -29,7 +29,7 @@ poly help
 ```
 
 ```
-  Poly 0.2.14-alpha-issue160-02 (2022-01-17) - https://github.com/polyfy/polylith
+  Poly 0.2.14-alpha-01 (2022-03-28) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -310,12 +310,18 @@ poly help
 ```
   Creates a workspace in current directory. If the workspace is created within
   an existing git repo, then that repository will be used. If the workspace is
-  created outside a git repo, then a new repo will be initiated using the 'main'
-  branch, if another branch is not explicitly given.
-  In both cases, all the created files and directories will be committed to the
-  repo in a single commit with the text 'Workspace created.'.
+  created outside a git repo, and the :create flag is passed in, then a new repo
+  will be initiated using the 'main' branch, if another branch is not explicitly
+  given. In both cases, all the created files and directories will be committed
+  to the repo in a single commit with the text 'Workspace created.'.
 
-  poly create workspace [name:NAME] top-ns:TOP-NAMESPACE [branch:BRANCH]
+  If :commit is not passed in, then the repository needs to be initiated manually
+  with statements similar to this:
+    git init
+    git add .
+    git commit -m "Workspace created."
+
+  poly create workspace [name:NAME] top-ns:TOP-NAMESPACE [:commit] [branch:BRANCH]
     NAME = The name of the workspace to create, which must be given
            if created outside a git repository. Otherwise it's optional.
 
@@ -326,6 +332,7 @@ poly help
   Example:
     poly create w name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company
+    poly create workspace name:myws top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company branch:master
 ```
 
@@ -667,7 +674,7 @@ poly help
 ```
   Shows all libraries that are used in the workspace.
 
-  poly libs [:all]
+  poly libs [:all] [:compact]
     :all     = View all bricks, including those without library dependencies.
     :compact = Show the table in a more compact way.
                                                                                       u  u
