@@ -30,7 +30,8 @@
                                 "components/workspace-clj/src"
                                 "components/ws-explorer/src"
                                 "components/ws-file/src"
-                                "bases/poly-cli/src"]
+                                "bases/poly-cli/src"
+                                "bases/kaocha-test-runner/src"]
 
                   :extra-deps {org.clojure/clojure {:mvn/version "1.11.0"}
                                org.clojure/tools.deps.alpha {:mvn/version "0.13.1168"}
