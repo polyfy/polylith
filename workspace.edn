@@ -6,6 +6,7 @@
  :compact-views #{}
  :tag-patterns {:stable "stable-*"
                 :release "v[0-9]*"}
- :projects {"api"           {:alias "api", :test []}
-            "poly"          {:alias "poly"}
-            "development"   {:alias "dev"}}}
+ :projects {"api"                {:alias "api", :test []}
+            "poly"               {:alias "poly"}
+            "development"        {:alias "dev"}
+            "test-runner-plugin" {:alias "trp"}}}

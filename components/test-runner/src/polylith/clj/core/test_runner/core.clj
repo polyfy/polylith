@@ -3,6 +3,7 @@
             [clojure.string :as str]
             [polylith.clj.core.deps.interface :as deps]
             [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.test-runner-plugin.interface :as test-runner-plugin]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.util.interface.str :as str-util]
             [polylith.clj.core.util.interface.time :as time-util]
@@ -54,14 +55,14 @@
             false))))
     true))
 
-(defn run-test-statements [project-name class-loader test-statements run-message is-verbose color-mode]
+(defn run-test-statements [project-name eval-in-project test-statements run-message is-verbose color-mode]
   (println (str run-message))
   (when is-verbose (println (str "# test-statements:\n" test-statements) "\n"))
 
   (doseq [statement test-statements]
     (let [{:keys [error fail pass]}
           (try
-            (common/eval-in class-loader statement)
+            (eval-in-project statement)
             (catch Exception e
               (.printStackTrace e)
               (println (str (color/error color-mode "Couldn't run test statement") " for the " (color/project project-name color-mode) " project: " statement " " (color/error color-mode e)))))
@@ -99,34 +100,96 @@
     (str "Running tests from the " (color/project project-name color-mode) " project, including "
          (str-util/count-things "brick" bricks-cnt) project-msg ": " entities-msg)))
 
-(defn run-tests-for-project [{:keys [bases components settings]}
-                             {:keys [name paths namespaces] :as project}
-                             {:keys [project-to-bricks-to-test project-to-projects-to-test]}
-                             {:keys [setup-fn teardown-fn]}
-                             is-verbose color-mode]
-  (when (-> paths :test empty? not)
-    (let [lib-paths (resolve-deps project settings is-verbose color-mode)
-          all-paths (set (concat (:src paths) (:test paths) lib-paths))
-          bricks (concat components bases)
-          bricks-to-test (project-to-bricks-to-test name)
-          projects-to-test (project-to-projects-to-test name)
-          run-message (run-message name components bases bricks-to-test projects-to-test color-mode)
-          brick-test-namespaces (brick-test-namespaces bricks bricks-to-test)
-          project-test-namespaces (project-test-namespaces name projects-to-test namespaces)
-          test-statements (mapv ->test-statement (concat brick-test-namespaces project-test-namespaces))
-          class-loader (common/create-class-loader all-paths color-mode)]
-      (when is-verbose (println (str "# paths:\n" all-paths "\n")))
-      (if (-> test-statements empty?)
-        (println (str "No tests to run for the " (color/project name color-mode) " project."))
-        (when (execute-fn setup-fn "setup" name class-loader color-mode)
-          (try
-            (run-test-statements name class-loader test-statements run-message is-verbose color-mode)
-            (finally
-              (execute-fn teardown-fn "teardown" name class-loader color-mode))))))))
+(defn make-default-test-runner
+  [{:keys [workspace project changes _test-settings]}]
+  (let [{:keys [bases components]} workspace
+        {:keys [name namespaces paths]} project
+        {:keys [project-to-bricks-to-test project-to-projects-to-test]} changes
 
-(defn has-tests-to-run? [{:keys [name]} {:keys [project-to-bricks-to-test project-to-projects-to-test]}]
-  (not (empty? (concat (project-to-bricks-to-test name)
-                       (project-to-projects-to-test name)))))
+        ;; TODO: if the project tests aren't to be run, we might further narrow this down
+        test-sources-present* (delay (-> paths :test seq))
+        bricks-to-test* (delay (project-to-bricks-to-test name))
+        projects-to-test* (delay (project-to-projects-to-test name))
+        test-statements* (->> [(brick-test-namespaces (into components bases) @bricks-to-test*)
+                               (project-test-namespaces name @projects-to-test* namespaces)]
+                              (into [] (comp cat (map ->test-statement)))
+                              (delay))]
+
+    (reify test-runner-plugin/TestRunner
+      (test-sources-present? [_] @test-sources-present*)
+
+      (tests-present? [this {_eval-in-project :eval-in-project :as _opts}]
+       (and (test-runner-plugin/test-sources-present? this)
+            (seq @test-statements*)))
+
+      (run-tests [this {:keys [color-mode eval-in-project is-verbose] :as opts}]
+       (when (test-runner-plugin/tests-present? this opts)
+         (let [run-message (run-message name components bases @bricks-to-test*
+                                        @projects-to-test* color-mode)]
+           (run-test-statements
+            name eval-in-project @test-statements* run-message is-verbose color-mode)))))))
+
+(defn ensure-valid-test-runner [candidate]
+  (when-not (satisfies? test-runner-plugin/TestRunner candidate)
+    (throw (ex-info "test runner must satisfy the TestRunner protocol" {}))))
+
+(defn test-runner [{:keys [workspace project test-settings changes]}]
+  (let [make-test-runner-sym
+        (or (-> test-settings :make-test-runner)
+            (-> workspace :settings :make-test-runner) ;; TODO: this doesn't work yet
+            )
+
+        ;; provide an easy way to revert to default when needed in a project
+        make-test-runner-sym
+        (when-not (= :default make-test-runner-sym)
+          make-test-runner-sym)
+
+        make-test-runner-with #(% {:workspace workspace
+                                   :project project
+                                   :changes changes
+                                   :test-settings test-settings})
+
+        test-runner
+        (when make-test-runner-sym
+          (-> (requiring-resolve make-test-runner-sym)
+              (make-test-runner-with)
+              (doto ensure-valid-test-runner)
+              (try
+                (catch Throwable e
+                  (println "Warning. Unable to construct specified test runner"
+                           (pr-str make-test-runner-sym) "for project" (:name project)
+                           ", reverting to default test runner."
+                           (ex-message e))))))]
+    (or test-runner (make-test-runner-with make-default-test-runner))))
+
+(defn run-tests-for-project [{:keys [settings] :as workspace}
+                             {:keys [name paths] :as project}
+                             changes
+                             {:keys [setup-fn teardown-fn] :as test-settings}
+                             is-verbose color-mode]
+  (let [test-runner (test-runner {:workspace workspace
+                                  :project project
+                                  :test-settings test-settings
+                                  :changes changes})]
+    (when (test-runner-plugin/test-sources-present? test-runner)
+      (let [lib-paths (resolve-deps project settings is-verbose color-mode)
+            all-paths (into #{} cat [(:src paths) (:test paths) lib-paths])
+            class-loader (common/create-class-loader all-paths color-mode)
+            runner-opts {:eval-in-project #(common/eval-in class-loader %)
+                         :is-verbose is-verbose
+                         :color-mode color-mode}]
+        (when is-verbose (println (str "# paths:\n" all-paths "\n")))
+        (if-not (test-runner-plugin/tests-present? test-runner runner-opts)
+          (println (str "No tests to run for the " (color/project name color-mode) " project."))
+          (when (execute-fn setup-fn "setup" name class-loader color-mode)
+            (try
+              (test-runner-plugin/run-tests test-runner runner-opts)
+              (finally
+                (execute-fn teardown-fn "teardown" name class-loader color-mode)))))))))
+
+(defn affected-by-changes? [{:keys [name]} {:keys [project-to-bricks-to-test project-to-projects-to-test]}]
+  (seq (concat (project-to-bricks-to-test name)
+               (project-to-projects-to-test name))))
 
 (defn print-no-tests-to-run-if-only-dev-exists [settings projects]
   (let [git-repo? (-> settings :vcs :is-git-repo)]
@@ -158,7 +221,7 @@
     (do (validator/print-messages workspace)
         false)
     (let [start-time (time-util/current-time)
-          projects-to-test (sort-by :name (filter #(has-tests-to-run? % changes) projects))
+          projects-to-test (sort-by :name (filter #(affected-by-changes? % changes) projects))
           bricks-to-test (-> workspace :user-input :selected-bricks)
           component-names (set (map :name components))
           base-names (set (map :name bases))]

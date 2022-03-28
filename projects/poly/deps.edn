@@ -13,6 +13,7 @@
         poly/shell         {:local/root "../../components/shell"}
         poly/tap           {:local/root "../../components/tap"}
         poly/test-runner   {:local/root "../../components/test-runner"}
+        poly/test-runner-plugin   {:local/root "../../components/test-runner-plugin"}
         poly/text-table    {:local/root "../../components/text-table"}
         poly/user-config   {:local/root "../../components/user-config"}
         poly/user-input    {:local/root "../../components/user-input"}

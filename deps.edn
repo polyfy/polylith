@@ -18,6 +18,7 @@
                                 "components/tap/src"
                                 "components/test-helper/resources"
                                 "components/test-helper/src"
+                                "components/test-runner-plugin/src"
                                 "components/test-runner/src"
                                 "components/text-table/src"
                                 "components/user-config/src"
