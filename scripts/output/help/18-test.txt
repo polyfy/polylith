@@ -22,7 +22,7 @@
   ARGS              Tests to execute
   ----------------  -------------------------------------------------------------
   :dev              All brick tests that are directly or indirectly changed,
-                    only executed from the development project.
+                    executed from all projects (development included).
 
   :project :dev     All brick tests that are directly or indirectly changed,
                     executed from all projects (development included) +
@@ -36,7 +36,7 @@
                     (development included).
 
   Projects can also be explicitly selected with e.g. project:proj1 or
-  project:proj1:proj2. Specifying :dev is a shortcut for project:dev.
+  project:proj1:proj2.
 
   We can also specify which bricks to include, by listing them like this:
   brick:mycomponent:another-component:mybase
