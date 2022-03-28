@@ -82,6 +82,7 @@
           "  -------------------------------------------------------------   -------------------   ---   ----------------------"
           "  djblue/portal                     0.22.1         maven  1,126    -    -    x     -     x    .  .  .  .  x  .  .  ."
           "  io.github.seancorfield/build-clj  9bd8b8a        git       41    -    -    -     -     x    .  .  .  .  .  .  .  ."
+          "  lambdaisland/kaocha               1.64.1010      maven     76    -    -    t     -     t    .  .  .  .  .  .  .  ."
           "  me.raynes/fs                      1.4.6          maven     10    x    -    x     -     x    .  x  .  .  .  .  .  ."
           "  metosin/malli                     0.8.4          maven     63    x    -    x     -     x    .  .  .  .  .  x  .  ."
           "  mount/mount                       0.1.16         maven      8    -    -    -     -     x    .  .  .  .  .  .  .  ."
