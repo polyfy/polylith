@@ -29,7 +29,7 @@ poly help
 ```
 
 ```
-  Poly 0.2.14-alpha-01 (2022-03-28) - https://github.com/polyfy/polylith
+  Poly 0.2.14-alpha-02 (2022-03-28) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -840,7 +840,7 @@ poly help
   ARGS              Tests to execute
   ----------------  -------------------------------------------------------------
   :dev              All brick tests that are directly or indirectly changed,
-                    only executed from the development project.
+                    executed from all projects (development included).
 
   :project :dev     All brick tests that are directly or indirectly changed,
                     executed from all projects (development included) +
@@ -854,7 +854,7 @@ poly help
                     (development included).
 
   Projects can also be explicitly selected with e.g. project:proj1 or
-  project:proj1:proj2. Specifying :dev is a shortcut for project:dev.
+  project:proj1:proj2.
 
   We can also specify which bricks to include, by listing them like this:
   brick:mycomponent:another-component:mybase
