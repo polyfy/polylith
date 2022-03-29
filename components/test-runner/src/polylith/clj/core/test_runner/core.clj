@@ -104,6 +104,11 @@
   [{:keys [workspace project changes _test-settings]}]
   (let [{:keys [bases components]} workspace
         {:keys [name namespaces paths]} project
+
+        ;; TODO:
+        ;; {:src [] :test [] :project-src [] :brick-src []
+
+
         {:keys [project-to-bricks-to-test project-to-projects-to-test]} changes
 
         ;; TODO: if the project tests aren't to be run, we might further narrow this down
@@ -156,6 +161,9 @@
               (doto ensure-valid-test-runner)
               (try
                 (catch Throwable e
+                  ;; TODO: poly check could verify this config
+                  ;; LET EXCEPTION THROUGH/RETHROW
+                  ;; `help check` for error codes
                   (println "Warning. Unable to construct specified test runner"
                            (pr-str make-test-runner-sym) "for project" (:name project)
                            ", reverting to default test runner."
@@ -175,7 +183,8 @@
       (let [lib-paths (resolve-deps project settings is-verbose color-mode)
             all-paths (into #{} cat [(:src paths) (:test paths) lib-paths])
             class-loader (common/create-class-loader all-paths color-mode)
-            runner-opts {:eval-in-project #(common/eval-in class-loader %)
+            runner-opts {:class-loader class-loader
+                         :eval-in-project #(common/eval-in class-loader %)
                          :is-verbose is-verbose
                          :color-mode color-mode}]
         (when is-verbose (println (str "# paths:\n" all-paths "\n")))
