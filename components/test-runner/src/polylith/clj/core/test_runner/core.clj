@@ -49,7 +49,7 @@
   (let [make-sym (or (-> test-settings :make-test-runner)
                      (-> workspace :settings :make-test-runner) ;; TODO: this doesn't work yet
                      )
-        make-sym (if (#{nil :default} make-sym)
+        make-sym (if (contains? #{nil :default} make-sym)
                    'polylith.clj.core.test-runner.default-test-runner/make
                    make-sym)]
     (-> (requiring-resolve make-sym)
