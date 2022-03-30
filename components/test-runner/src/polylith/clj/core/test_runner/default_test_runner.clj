@@ -1,0 +1,95 @@
+(ns polylith.clj.core.test-runner.default-test-runner
+  (:require [clojure.string :as str]
+            [polylith.clj.core.test-runner-plugin.interface :as test-runner-plugin]
+            [polylith.clj.core.test-runner.message :as msg]
+            [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.util.interface.str :as str-util]))
+
+(defn ->test-statement [ns-name]
+  (let [ns-symbol (symbol ns-name)]
+    `(do (use 'clojure.test)
+         (require '~ns-symbol)
+         (clojure.test/run-tests '~ns-symbol))))
+
+(defn brick-test-namespaces [bricks test-brick-names]
+  (let [brick-name->namespaces (into {} (map (juxt :name #(-> % :namespaces :test))) bricks)]
+    (into []
+          (comp (mapcat brick-name->namespaces)
+                (map :namespace))
+          test-brick-names)))
+
+(defn project-test-namespaces [project-name projects-to-test namespaces]
+  (when (contains? (set projects-to-test) project-name)
+    (mapv :namespace (:test namespaces))))
+
+(defn run-message [project-name components bases bricks-to-test projects-to-test color-mode]
+  (let [component-names (into #{} (map :name) components)
+        base-names (into #{} (map :name) bases)
+        bases-to-test (filterv #(contains? base-names %) bricks-to-test)
+        bases-to-test-msg (msg/bases bases-to-test color-mode)
+        components-to-test (filterv #(contains? component-names %) bricks-to-test)
+        components-to-test-msg (msg/components components-to-test color-mode)
+        projects-to-test-msg (when (seq projects-to-test)
+                               [(color/project (str/join ", " projects-to-test) color-mode)])
+        entities-msg (str/join ", " (into [] cat [components-to-test-msg
+                                                  bases-to-test-msg
+                                                  projects-to-test-msg]))
+        project-cnt (count projects-to-test)
+        bricks-cnt (count bricks-to-test)
+        project-msg (if (zero? project-cnt)
+                      ""
+                      (str " and " (str-util/count-things "project" project-cnt)))]
+    (str "Running tests from the " (color/project project-name color-mode) " project, including "
+         (str-util/count-things "brick" bricks-cnt) project-msg ": " entities-msg)))
+
+(defn run-test-statements [project-name eval-in-project test-statements run-message is-verbose color-mode]
+  (println (str run-message))
+  (when is-verbose (println (str "# test-statements:\n" test-statements) "\n"))
+
+  (doseq [statement test-statements]
+    (let [{:keys [error fail pass]}
+          (try
+            (eval-in-project statement)
+            (catch Exception e
+              (.printStackTrace e)
+              (println (str (color/error color-mode "Couldn't run test statement") " for the " (color/project project-name color-mode) " project: " statement " " (color/error color-mode e)))))
+          result-str (str "Test results: " pass " passes, " fail " failures, " error " errors.")]
+      (when (or (nil? error)
+                (< 0 error)
+                (< 0 fail))
+        (throw (Exception. (str "\n" (color/error color-mode result-str)))))
+      (println (str "\n" (color/ok color-mode result-str))))))
+
+(defn make
+  [{:keys [workspace project changes _test-settings]}]
+  (let [{:keys [bases components]} workspace
+        {:keys [name namespaces paths]} project
+
+        ;; TODO:
+        ;; {:src [] :test [] :project-src [] :brick-src []
+
+
+        {:keys [project-to-bricks-to-test project-to-projects-to-test]} changes
+
+        ;; TODO: if the project tests aren't to be run, we might further narrow this down
+        test-sources-present* (delay (-> paths :test seq))
+        bricks-to-test* (delay (project-to-bricks-to-test name))
+        projects-to-test* (delay (project-to-projects-to-test name))
+        test-statements* (->> [(brick-test-namespaces (into components bases) @bricks-to-test*)
+                               (project-test-namespaces name @projects-to-test* namespaces)]
+                              (into [] (comp cat (map ->test-statement)))
+                              (delay))]
+
+    (reify test-runner-plugin/TestRunner
+      (test-sources-present? [_] @test-sources-present*)
+
+      (tests-present? [this {_eval-in-project :eval-in-project :as _opts}]
+        (and (test-runner-plugin/test-sources-present? this)
+             (seq @test-statements*)))
+
+      (run-tests [this {:keys [color-mode eval-in-project is-verbose] :as opts}]
+        (when (test-runner-plugin/tests-present? this opts)
+          (let [run-message (run-message name components bases @bricks-to-test*
+                                         @projects-to-test* color-mode)]
+            (run-test-statements
+             name eval-in-project @test-statements* run-message is-verbose color-mode)))))))
