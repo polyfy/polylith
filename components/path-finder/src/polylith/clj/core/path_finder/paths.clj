@@ -6,13 +6,16 @@
 (defn project-paths [{:keys [paths profile-src-paths profile-test-paths]}]
   (concat (:src paths) (:test paths) profile-src-paths profile-test-paths))
 
+(def extract-project-paths-xf (mapcat project-paths))
+(def extract-profile-paths-xf (mapcat #(-> % second :paths)))
+
 (defn paths [ws-dir projects profile-to-settings]
-  (let [project-paths (mapcat project-paths projects)
-        profile-paths (mapcat #(-> % second :paths) profile-to-settings)
-        paths (set (concat project-paths profile-paths))
-        existing-paths (vec (sort (set (filter #(file/exists (str ws-dir "/" %)) paths))))
+  (let [paths (-> #{}
+                  (into extract-project-paths-xf projects)
+                  (into extract-profile-paths-xf profile-to-settings))
+        existing-paths (into (sorted-set) (filter #(file/exists (str ws-dir "/" %))) paths)
         missing-paths (vec (sort (set/difference paths existing-paths)))
         on-disk (sources/source-paths ws-dir)]
-    {:existing existing-paths
+    {:existing (vec existing-paths)
      :missing missing-paths
      :on-disk on-disk}))

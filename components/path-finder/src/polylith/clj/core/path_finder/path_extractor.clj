@@ -53,16 +53,19 @@
 
 (defn single-path-entries [missing-paths paths profile? test?]
   (when paths
-    (filterv :name
-             (map #(path-entry missing-paths % profile? test?)
-                  paths))))
+    (into []
+          (comp
+           (map #(path-entry missing-paths % profile? test?))
+           (filter :name))
+          paths)))
 
 (defn path-entries [src-paths test-paths profile-src-paths profile-test-paths disk-paths]
   (let [missing-paths (some-> disk-paths :missing set)]
-    (vec (concat (single-path-entries missing-paths src-paths false false)
-                 (single-path-entries missing-paths test-paths false true)
-                 (single-path-entries missing-paths profile-src-paths true false)
-                 (single-path-entries missing-paths profile-test-paths true true)))))
+    (into [] cat
+          [(single-path-entries missing-paths src-paths false false)
+           (single-path-entries missing-paths test-paths false true)
+           (single-path-entries missing-paths profile-src-paths true false)
+           (single-path-entries missing-paths profile-test-paths true true)])))
 
 (defn from-paths [paths disk-paths]
   (path-entries (:src paths) (:test paths) nil nil disk-paths))

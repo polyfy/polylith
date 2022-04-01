@@ -22,7 +22,7 @@
   (println))
 
 (defn print-active-profiles [{:keys [active-profiles color-mode]}]
-  (when (-> active-profiles empty? not)
+  (when (seq active-profiles)
     (println)
     (println (str "  active profiles: " (color/profile (str/join ", " (sort active-profiles)) color-mode)))))
 
@@ -37,6 +37,6 @@
     (project-table/print-table workspace is-show-loc is-show-resources)
     (println)
     (ws-table/print-table workspace is-show-loc is-show-resources)
-    (when (-> messages empty? not)
+    (when (seq messages)
       (println)
       (validator/print-messages workspace))))
