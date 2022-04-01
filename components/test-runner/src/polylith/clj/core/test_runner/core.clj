@@ -5,6 +5,8 @@
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.deps.interface :as deps]
             [polylith.clj.core.test-runner-plugin.interface :as test-runner-plugin]
+            [polylith.clj.core.test-runner.default-test-runner :as default-test-runner]
+            [polylith.clj.core.test-runner.interface.runner-init :as runner-init]
             [polylith.clj.core.test-runner.message :as msg]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.util.interface.time :as time-util]
@@ -41,25 +43,18 @@
             false))))
     true))
 
-(defn ensure-valid-test-runner [candidate]
-  (when-not (satisfies? test-runner-plugin/TestRunner candidate)
-    (throw (ex-info "test runner must satisfy the TestRunner protocol" {}))))
-
 (defn ->test-runner [{:keys [project test-settings color-mode] :as opts}]
-  (let [make-sym (-> test-settings :make-test-runner)
-        make-sym (if (contains? #{nil :default} make-sym)
-                   'polylith.clj.core.test-runner.default-test-runner/make
-                   make-sym)]
-    (-> (requiring-resolve make-sym)
-        (#(% opts))
-        ;; TODO: poly check could verify this config
-        ;; `help check` for error codes
-        (doto ensure-valid-test-runner)
-        (try
-          (catch Exception e
-            (println (str "Could not create valid test runner for the "
-                          (color/project (:name project) color-mode)
-                          " project: " e)))))))
+  (-> test-settings
+      (:make-test-runner)
+      (runner-init/->constructor-var)
+      (or default-test-runner/make)
+      (#(% opts))
+      (runner-init/ensure-valid-test-runner)
+      (try
+        (catch Exception e
+          (println (str "Could not create valid test runner for the "
+                        (color/project (:name project) color-mode)
+                        " project: " e))))))
 
 (defn run-tests-for-project [{:keys [workspace project test-settings is-verbose color-mode] :as opts}]
   (let [{:keys [settings]} workspace

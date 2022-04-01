@@ -23,3 +23,16 @@
     (def-map mymap [name age length])"
   [amap keys]
   `(core/def-map ~amap ~keys))
+
+(defn rf-some
+  "Reducing function that returns the first logical true value.
+  Ported from net.cgrand/xforms"
+  ([] nil)
+  ([x] x)
+  ([_ x] (when x (reduced x))))
+
+(defn xf-some
+  "Process coll through the specified xform and returns the first logical true value.
+  Ported from net.cgrand/xforms"
+  [xform coll]
+  (transduce xform rf-some nil coll))
