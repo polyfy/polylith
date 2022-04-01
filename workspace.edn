@@ -7,17 +7,12 @@
  :tag-patterns {:stable "stable-*"
                 :release "v[0-9]*"}
 
-
-
-
- ;; TODO:
  :test
- {;; TODO: should be able to provide a global one here, this is not currently used
-  :make-test-runner polylith.clj.core.kaocha-test-runner/make}
+ {:make-test-runner polylith.clj.core.kaocha-test-runner/make}
 
- :projects {"api"                {:alias "api", :test []}
-            "poly"               {:alias "poly"
-                                  :test {:make-test-runner polylith.clj.core.kaocha-test-runner/make}}
-            "development"        {:alias "dev"}
-            "test-runner-plugin" {:alias "trp"}
+ :projects {"api"                {:alias "api" :test []}
+            "poly"               {:alias "poly" :test {:make-test-runner :default}}
+            "development"        {:alias "dev" :test {:setup-fn clojure.core/identity
+                                                      :teardown-fn clojure.core/identity}}
+            "test-runner-plugin" {:alias "trp" :test {:make-test-runner nil}}
             "kaocha-test-runner" {:alias "ktr"}}}
