@@ -1,12 +1,14 @@
 (ns polylith.clj.core.workspace-clj.project-settings)
 
-(defn convert-test [[k {:keys [test] :as v}]]
-  (if (vector? test)
-    [k (assoc v :test {:include test})]
-    [k v]))
+(defn convert-test-fn [global-test]
+  (fn convert-test [[k {:keys [test] :as v}]]
+    [k
+     (cond-> v
+       (vector? test) (assoc :test {:include test})
+       global-test (update :test #(merge global-test %)))]))
 
 (defn convert
-  [{:keys [projects]}]
+  [{:keys [projects test]}]
   (if projects
-    (into {} (map convert-test projects))
+    (into {} (map (convert-test-fn test)) projects)
     {}))

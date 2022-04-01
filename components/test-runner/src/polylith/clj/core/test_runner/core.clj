@@ -45,10 +45,8 @@
   (when-not (satisfies? test-runner-plugin/TestRunner candidate)
     (throw (ex-info "test runner must satisfy the TestRunner protocol" {}))))
 
-(defn test-runner [{:keys [workspace project test-settings color-mode] :as opts}]
-  (let [make-sym (or (-> test-settings :make-test-runner)
-                     (-> workspace :settings :make-test-runner) ;; TODO: this doesn't work yet
-                     )
+(defn ->test-runner [{:keys [project test-settings color-mode] :as opts}]
+  (let [make-sym (-> test-settings :make-test-runner)
         make-sym (if (contains? #{nil :default} make-sym)
                    'polylith.clj.core.test-runner.default-test-runner/make
                    make-sym)]
@@ -67,7 +65,7 @@
   (let [{:keys [settings]} workspace
         {:keys [name paths]} project
         {:keys [setup-fn teardown-fn]} test-settings
-        test-runner (test-runner opts)]
+        test-runner (->test-runner opts)]
     (when (test-runner-plugin/test-sources-present? test-runner)
       (let [lib-paths (resolve-deps project settings is-verbose color-mode)
             all-paths (into #{} cat [(:src paths) (:test paths) lib-paths])
