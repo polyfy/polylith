@@ -25,7 +25,7 @@
 
 (defn stringify [ws-type ns-to-lib]
   (when (not= ws-type :toolsdeps2)
-    (into {} (mapv stringify-key-value ns-to-lib))))
+    (into {} (map stringify-key-value) ns-to-lib)))
 
 (defn git-root [git-repo?]
   (if git-repo?
