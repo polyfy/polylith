@@ -7,6 +7,8 @@
         poly/lib           {:local/root "../../components/lib"}
         poly/path-finder   {:local/root "../../components/path-finder"}
         poly/sh            {:local/root "../../components/sh"}
+        poly/test-runner-plugin   {:local/root "../../components/test-runner-plugin"}
+        poly/test-runner-plugin-init   {:local/root "../../components/test-runner-plugin-init"}
         poly/text-table    {:local/root "../../components/text-table"}
         poly/user-config   {:local/root "../../components/user-config"}
         poly/user-input    {:local/root "../../components/user-input"}

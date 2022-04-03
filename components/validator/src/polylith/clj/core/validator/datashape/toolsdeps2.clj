@@ -45,8 +45,9 @@
   [:map
    [:alias {:optional true} string?]
    [:test {:optional true}
-    [:or vector? ;; legacy
-     project-test-config-schema]]])
+    [:or project-test-config-schema
+     vector? ;; legacy
+     ]]])
 
 (def workspace-schema
   [:map

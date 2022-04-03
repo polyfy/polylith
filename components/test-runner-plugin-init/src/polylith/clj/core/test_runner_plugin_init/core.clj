@@ -1,4 +1,4 @@
-(ns polylith.clj.core.test-runner.runner-init
+(ns polylith.clj.core.test-runner-plugin-init.core
   (:require [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.test-runner-plugin.interface :as test-runner-plugin]))
 
