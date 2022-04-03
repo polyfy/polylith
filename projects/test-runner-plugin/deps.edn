@@ -1,5 +1,6 @@
 {:deps {poly/test-runner-plugin {:local/root "../../components/test-runner-plugin"}
-        org.clojure/clojure     {:mvn/version "1.11.0"}}
+
+        org.clojure/clojure {:mvn/version "1.11.0"}}
 
  :aliases {:test {:extra-paths []
                   :extra-deps {}}}}
