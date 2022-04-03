@@ -64,11 +64,6 @@
   [{:keys [workspace project changes _test-settings]}]
   (let [{:keys [bases components]} workspace
         {:keys [name namespaces paths]} project
-
-        ;; TODO:
-        ;; {:src [] :test [] :project-src [] :brick-src []
-
-
         {:keys [project-to-bricks-to-test project-to-projects-to-test]} changes
 
         ;; TODO: if the project tests aren't to be run, we might further narrow this down

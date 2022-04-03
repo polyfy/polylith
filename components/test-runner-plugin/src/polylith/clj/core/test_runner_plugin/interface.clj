@@ -1,28 +1,5 @@
 (ns polylith.clj.core.test-runner-plugin.interface)
 
-
-(comment
-
-  "
-
-
-  How could we document the constructor function one needs to supply in code?
-  - in the documentation
-
-  Invoke the `test` command with args that could be passed on to the runner? (verbose, focus etc)
-under workspace's :user-input - link from test runner docs
-
-  Possible improvement: own vs brick paths in project? (could come later in a separate feature)
-
-
-TODO: info command x under tests integration
-- if test discovery is slow we can hide it behind a flag to not only look at test sources
-
-  "
-
-
-  )
-
 (defprotocol TestRunner
   "Implement to supply a custom test runner
 
@@ -43,7 +20,21 @@ TODO: info command x under tests integration
     - this is the primary interface for running tests in the project's context
 
   `class-loader`
-    - the project classloader in case more granular access is needed to it"
+    - the project classloader in case more granular access is needed to it
+
+
+   To use a custom test runner, create a constructor that returns an instance of it:
+   (defn make [{:keys [workspace project changes test-settings]}]
+     ,,,
+     (reify TestRunner ,,,))
+
+   And in workspace.edn:
+
+   {:test {:make-test-runner my.namespace/make} ;; to use it globally
+
+    :projects {\"project-a\" {:test {:make-test-runner my.namespace/make}} ;; to use it only for a project
+               \"project-b\" {:test {:make-test-runner :default}} ;; to reset the global setting to default
+               }}"
   (test-sources-present? [this])
   (tests-present? [this {:keys [class-loader eval-in-project] :as opts}])
   (run-tests [this {:keys [class-loader color-mode eval-in-project is-verbose] :as opts}]))

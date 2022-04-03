@@ -90,35 +90,3 @@
           (unknown-command cmd))
         (println message))
       (exit-code/code cmd workspace @test-result))))
-
-(comment
-
-  ;; TODO: repl test code, remove
-  (execute
-   {:args ["test"],
-    :unnamed-args (),
-    :is-dev false,
-    :is-run-project-tests true,
-    :is-compact false,
-    :is-run-all-brick-tests false,
-    :ws-dir nil,
-    :is-shell true,
-    :is-verbose true,
-    :is-latest-sha false,
-    :selected-projects #{},
-    :is-no-changes false,
-    :is-search-for-ws-dir false,
-    :is-show-brick false,
-    :ws-file nil,
-    :is-show-resources false,
-    :selected-profiles #{},
-    :cmd "test",
-    :is-show-project false,
-    :is-all false,
-    :is-show-workspace false,
-    :is-tap false,
-    :is-show-loc false,
-    :is-no-exit false})
-
-
-  )
