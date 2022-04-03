@@ -24,7 +24,6 @@
   (is (= ["  project               alias  status   dev"
           "  -----------------------------------   ---"
           "  api *                 api     ---     ---"
-          "  kaocha-test-runner *  ktr     ---     ---"
           "  poly *                poly    -t-     -t-"
           "  test-runner-plugin *  trp     ---     ---"
           "  development *         dev     s--     s--"]
@@ -61,7 +60,6 @@
           "  workspace-clj       workspace-clj *        s--  ---  stx   ---   st-"
           "  ws-explorer         ws-explorer *          s--  ---  stx   ---   st-"
           "  ws-file             ws-file *              ---  ---  s--   ---   s--"
-          "  -                   kaocha-test-runner *   ---  s--  ---   ---   s--"
           "  -                   poly-cli *             ---  ---  s--   ---   st-"]
          (ws-table/table (workspace) false false))))
 
@@ -82,7 +80,6 @@
           "  -------------------------------------------------------------   -------------------   ---   ----------------------"
           "  djblue/portal                     0.22.1         maven  1,126    -    -    x     -     x    .  .  .  .  x  .  .  ."
           "  io.github.seancorfield/build-clj  9bd8b8a        git       41    -    -    -     -     x    .  .  .  .  .  .  .  ."
-          "  lambdaisland/kaocha               1.64.1010      maven     76    -    -    t     -     t    .  .  .  .  .  .  .  ."
           "  me.raynes/fs                      1.4.6          maven     10    x    -    x     -     x    .  x  .  .  .  .  .  ."
           "  metosin/malli                     0.8.4          maven     63    x    -    x     -     x    .  .  .  .  .  x  .  ."
           "  mount/mount                       0.1.16         maven      8    -    -    -     -     x    .  .  .  .  .  .  .  ."
@@ -145,7 +142,6 @@
           "  workspace-clj       .  .  .  x  .  x  x  x  .  x  .  x  .  .  .  .  .  .  .  x  .  x  x  x  .  .  .  ."
           "  ws-explorer         .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  ws-file             .  .  .  x  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  ."
-          "  kaocha-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  ."
           "  poly-cli            .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  ."]
          (ws-ifc-deps-table/table (workspace)))))
 
@@ -693,3 +689,18 @@
                                    :type    "maven"
                                    :version "3.21.0"}}}
          (ws-explorer/extract (workspace) ["components" "shell" "lib-deps"]))))
+
+(comment
+
+  (-> [
+       "check"
+       ;"test"
+       ;":all"
+       ;":dev"RE
+       ;":project"
+       ;"project:api:poly"
+       ]
+      (user-input/extract-params)
+      ((requiring-resolve 'polylith.clj.core.command.interface/execute-command)))
+
+  )

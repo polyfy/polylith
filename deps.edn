@@ -31,8 +31,7 @@
                                 "components/workspace-clj/src"
                                 "components/ws-explorer/src"
                                 "components/ws-file/src"
-                                "bases/poly-cli/src"
-                                "bases/kaocha-test-runner/src"]
+                                "bases/poly-cli/src"]
 
                   :extra-deps {org.clojure/clojure {:mvn/version "1.11.0"}
                                org.clojure/tools.deps.alpha {:mvn/version "0.13.1168"}
@@ -67,16 +66,10 @@
                                  "components/workspace-clj/test"
                                  "components/ws-explorer/test"
                                  "bases/poly-cli/test"
-                                 "projects/poly/test"]
-
-                   ;; TODO remove
-                   :extra-deps {lambdaisland/kaocha {:mvn/version "1.64.1010"}}}
+                                 "projects/poly/test"]}
 
             :poly {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
-                   :extra-deps {polylith/clj-poly {:local/root "projects/poly"}
-
-                                ;; this is how one would add a custom runner implementation
-                                polylith/kaocha-test-runner {:local/root "projects/kaocha-test-runner"}}}
+                   :extra-deps {polylith/clj-poly {:local/root "projects/poly"}}}
 
             :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}
                                    :main-opts ["-m" "antq.core"]}
