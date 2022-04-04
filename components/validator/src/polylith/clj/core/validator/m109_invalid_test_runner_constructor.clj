@@ -29,9 +29,9 @@
      (error-message text nil))
     ([text ex]
      (let [project-s (if (multiple? project-names) "projects" "project")]
-       (str text " for " project-s " "
+       (str "Invalid test runner configuration for " project-s " "
             (str/join ", " (mapv #(color/project % color-mode) project-names))
-            ". The value of the optional :make-test-runner key under [:test] or [:projects \"project-name\" :test] must be either nil, :default, or a fully qualified symbol referring to a function on the poly tool's classpath, which can take a single argument and must return an instance of TestRunner."
+            ". " text "."
             (when ex (str " Exception: " ex)))))))
 
 (defn invalid-ctor-error-fn [color-mode]

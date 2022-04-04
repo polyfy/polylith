@@ -39,28 +39,28 @@
 
 (defn error-109 [{:keys [prefix project-text colorized-project-text suffix projects ctor-spec]}]
   {:code 109
-   :colorized-message (str prefix " for " (or colorized-project-text project-text) ". The value of the optional :make-test-runner key under [:test] or [:projects \"project-name\" :test] must be either nil, :default, or a fully qualified symbol referring to a function on the poly tool's classpath, which can take a single argument and must return an instance of TestRunner." suffix)
+   :colorized-message (str "Invalid test runner configuration for " (or colorized-project-text project-text) ". " prefix "." suffix)
    :make-test-runner ctor-spec
-   :message (str prefix " for " project-text ". The value of the optional :make-test-runner key under [:test] or [:projects \"project-name\" :test] must be either nil, :default, or a fully qualified symbol referring to a function on the poly tool's classpath, which can take a single argument and must return an instance of TestRunner." suffix)
+   :message (str "Invalid test runner configuration for " project-text ". " prefix "." suffix)
    :projects projects
    :type "error"})
 
 (deftest unable-to-load-ctor
-  (is (= [(error-109 {:prefix "Unable to load test runner constructor :not-a-symbol"
-                      :project-text "project foo"
-                      :suffix " Exception: java.lang.IllegalArgumentException: Not a qualified symbol: :not-a-symbol"
-                      :ctor-spec :not-a-symbol
-                      :projects ["foo"]})
+  (is (= [(error-109 {:prefix "Unable to load test runner constructor unqualified-symbol"
+                      :project-text "project bar"
+                      :suffix " Exception: java.lang.IllegalArgumentException: Not a qualified symbol: unqualified-symbol"
+                      :ctor-spec 'unqualified-symbol
+                      :projects ["bar"]})
           (error-109 {:prefix "Unable to load test runner constructor non-existing.namespace/baz"
                       :project-text "project baz"
                       :suffix " Exception: java.io.FileNotFoundException: Could not locate non_existing/namespace__init.class, non_existing/namespace.clj or non_existing/namespace.cljc on classpath. Please check that namespaces with dashes use underscores in the Clojure file name."
                       :ctor-spec 'non-existing.namespace/baz
                       :projects ["baz"]})
-          (error-109 {:prefix "Unable to load test runner constructor unqualified-symbol"
-                      :project-text "project bar"
-                      :suffix " Exception: java.lang.IllegalArgumentException: Not a qualified symbol: unqualified-symbol"
-                      :ctor-spec 'unqualified-symbol
-                      :projects ["bar"]})]
+          (error-109 {:prefix "Unable to load test runner constructor :not-a-symbol"
+                      :project-text "project foo"
+                      :suffix " Exception: java.lang.IllegalArgumentException: Not a qualified symbol: :not-a-symbol"
+                      :ctor-spec :not-a-symbol
+                      :projects ["foo"]})]
          (-> {"foo" {:test {:make-test-runner :not-a-symbol}}
               "bar" {:test {:make-test-runner 'unqualified-symbol}}
               "baz" {:test {:make-test-runner 'non-existing.namespace/baz}}}
