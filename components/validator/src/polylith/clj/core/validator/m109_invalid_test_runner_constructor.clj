@@ -1,15 +1,15 @@
 (ns polylith.clj.core.validator.m109-invalid-test-runner-constructor
   (:require [clojure.string :as str]
-            [polylith.clj.core.test-runner-plugin-init.interface :as runner-init]
+            [polylith.clj.core.test-runner-plugin.interface.initializer :as test-runner-initializer]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]))
 
 (defn invalid-ctor? [ctor-var]
   (and (some? ctor-var)
-       (not (runner-init/valid-constructor-var? ctor-var))))
+       (not (test-runner-initializer/valid-constructor-var? ctor-var))))
 
 (defn error-or-maybe-ctor-var [ctor-spec ->error-message]
-  (try {:ctor-var (runner-init/->constructor-var ctor-spec)}
+  (try {:ctor-var (test-runner-initializer/->constructor-var ctor-spec)}
        (catch Exception e
          {:error (->error-message (str "Unable to load test runner constructor " ctor-spec) e)})))
 

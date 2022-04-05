@@ -9,5 +9,4 @@
 
  :projects {"api" {:alias "api" :test []}
             "poly" {:alias "poly"}
-            "development" {:alias "dev"}
-            "test-runner-plugin" {:alias "trp"}}}
+            "development" {:alias "dev"}}}

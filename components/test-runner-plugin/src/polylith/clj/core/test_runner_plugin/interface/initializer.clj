@@ -1,5 +1,5 @@
-(ns polylith.clj.core.test-runner-plugin-init.interface
-  (:require [polylith.clj.core.test-runner-plugin-init.core :as core]))
+(ns polylith.clj.core.test-runner-plugin.interface.initializer
+  (:require [polylith.clj.core.test-runner-plugin.initializer :as core]))
 
 (defn ->constructor-var [make-test-runner-sym]
   (core/->constructor-var make-test-runner-sym))

@@ -4,8 +4,8 @@
             [clojure.string :as str]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.deps.interface :as deps]
-            [polylith.clj.core.test-runner-plugin-init.interface :as runner-init]
             [polylith.clj.core.test-runner-plugin.interface :as test-runner-plugin]
+            [polylith.clj.core.test-runner-plugin.interface.initializer :as test-runner-initializer]
             [polylith.clj.core.test-runner.default-test-runner :as default-test-runner]
             [polylith.clj.core.test-runner.message :as msg]
             [polylith.clj.core.util.interface.color :as color]
@@ -46,10 +46,10 @@
 (defn ->test-runner [{:keys [project test-settings color-mode] :as opts}]
   (-> test-settings
       (:make-test-runner)
-      (runner-init/->constructor-var)
+      (test-runner-initializer/->constructor-var)
       (or default-test-runner/make)
       (#(% opts))
-      (runner-init/ensure-valid-test-runner)
+      (test-runner-initializer/ensure-valid-test-runner)
       (try
         (catch Exception e
           (println (str "Could not create valid test runner for the "

@@ -4,14 +4,14 @@
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.deps.text-table.brick-deps-table :as brick-ifc-deps]
             [polylith.clj.core.deps.text-table.project-brick-deps-table :as brick-deps-table]
-            [polylith.clj.core.deps.text-table.workspace-deps-table :as ws-ifc-deps-table]
             [polylith.clj.core.deps.text-table.project-deps-table :as ws-project-deps-table]
+            [polylith.clj.core.deps.text-table.workspace-deps-table :as ws-ifc-deps-table]
             [polylith.clj.core.lib.text-table.lib-table :as libs]
             [polylith.clj.core.user-input.interface :as user-input]
+            [polylith.clj.core.workspace-clj.interface :as ws-clj]
             [polylith.clj.core.workspace.interface :as ws]
             [polylith.clj.core.workspace.text-table.project-table :as project-table]
             [polylith.clj.core.workspace.text-table.ws-table :as ws-table]
-            [polylith.clj.core.workspace-clj.interface :as ws-clj]
             [polylith.clj.core.ws-explorer.core :as ws-explorer]))
 
 (defn workspace [& args]
@@ -30,38 +30,37 @@
          (project-table/table (workspace) false false))))
 
 (deftest info
-  (is (= ["  interface                brick                       api  poly  trp   dev"
-          "  --------------------------------------------------   --------------   ---"
-          "  api                      api *                       s--  ---   ---   st-"
-          "  change                   change *                    s--  stx   ---   st-"
-          "  command                  command *                   ---  stx   ---   st-"
-          "  common                   common *                    s--  s--   ---   s--"
-          "  creator                  creator *                   ---  stx   ---   st-"
-          "  deps                     deps *                      s--  stx   ---   st-"
-          "  file                     file *                      s--  stx   ---   st-"
-          "  git                      git *                       s--  stx   ---   st-"
-          "  help                     help *                      ---  s--   ---   s--"
-          "  lib                      lib *                       s--  stx   ---   st-"
-          "  migrator                 migrator *                  ---  stx   ---   st-"
-          "  path-finder              path-finder *               s--  stx   ---   st-"
-          "  sh                       sh *                        s--  s--   ---   s--"
-          "  shell                    shell *                     ---  stx   ---   st-"
-          "  tap                      tap *                       ---  s--   ---   s--"
-          "  test-helper              test-helper *               ---  -tx   ---   s--"
-          "  test-runner              test-runner *               ---  stx   ---   st-"
-          "  test-runner-plugin       test-runner-plugin *        s--  s--   s--   s--"
-          "  test-runner-plugin-init  test-runner-plugin-init *   s--  s--   ---   s--"
-          "  text-table               text-table *                s--  s--   ---   s--"
-          "  user-config              user-config *               s--  s--   ---   s--"
-          "  user-input               user-input *                s--  stx   ---   st-"
-          "  util                     util *                      s--  stx   ---   st-"
-          "  validator                validator *                 s--  stx   ---   st-"
-          "  version                  version *                   s--  s--   ---   s--"
-          "  workspace                workspace *                 s--  stx   ---   st-"
-          "  workspace-clj            workspace-clj *             s--  stx   ---   st-"
-          "  ws-explorer              ws-explorer *               s--  stx   ---   st-"
-          "  ws-file                  ws-file *                   ---  s--   ---   s--"
-          "  -                        poly-cli *                  ---  stx   ---   st-"]
+  (is (= ["  interface           brick                  api  poly  trp   dev"
+          "  ----------------------------------------   --------------   ---"
+          "  api                 api *                  s--  ---   ---   st-"
+          "  change              change *               s--  stx   ---   st-"
+          "  command             command *              ---  stx   ---   st-"
+          "  common              common *               s--  s--   ---   s--"
+          "  creator             creator *              ---  stx   ---   st-"
+          "  deps                deps *                 s--  stx   ---   st-"
+          "  file                file *                 s--  stx   ---   st-"
+          "  git                 git *                  s--  stx   ---   st-"
+          "  help                help *                 ---  s--   ---   s--"
+          "  lib                 lib *                  s--  stx   ---   st-"
+          "  migrator            migrator *             ---  stx   ---   st-"
+          "  path-finder         path-finder *          s--  stx   ---   st-"
+          "  sh                  sh *                   s--  s--   ---   s--"
+          "  shell               shell *                ---  stx   ---   st-"
+          "  tap                 tap *                  ---  s--   ---   s--"
+          "  test-helper         test-helper *          ---  -tx   ---   s--"
+          "  test-runner         test-runner *          ---  stx   ---   st-"
+          "  test-runner-plugin  test-runner-plugin *   s--  s--   s--   s--"
+          "  text-table          text-table *           s--  s--   ---   s--"
+          "  user-config         user-config *          s--  s--   ---   s--"
+          "  user-input          user-input *           s--  stx   ---   st-"
+          "  util                util *                 s--  stx   ---   st-"
+          "  validator           validator *            s--  stx   ---   st-"
+          "  version             version *              s--  s--   ---   s--"
+          "  workspace           workspace *            s--  stx   ---   st-"
+          "  workspace-clj       workspace-clj *        s--  stx   ---   st-"
+          "  ws-explorer         ws-explorer *          s--  stx   ---   st-"
+          "  ws-file             ws-file *              ---  s--   ---   s--"
+          "  -                   poly-cli *             ---  stx   ---   st-"]
          (ws-table/table (workspace) false false))))
 
 (deftest libs
@@ -96,119 +95,117 @@
          (libs/table (workspace) false))))
 
 (deftest ifc-deps-table
-  (is (= ["                                                                                 t                              "
-          "                                                                                 e                              "
-          "                                                                                 s                              "
-          "                                                                                 t                              "
-          "                                                                                 -                              "
-          "                                                                              t  r                              "
-          "                                                                              e  u                              "
-          "                                                                              s  n                              "
-          "                                                                              t  n                              "
-          "                                                                              -  e                              "
-          "                                                                              r  r                       w      "
-          "                                                                              u  -                       o      "
-          "                                                            p           t  t  n  p     u                 r  w   "
-          "                                                            a           e  e  n  l  t  s  u              k  s   "
-          "                                                            t           s  s  e  u  e  e  s     v     w  s  -   "
-          "                                                         m  h           t  t  r  g  x  r  e     a     o  p  e   "
-          "                                 c     c                 i  -           -  -  -  i  t  -  r     l  v  r  a  x  w"
-          "                              c  o  c  r                 g  f           h  r  p  n  -  c  -     i  e  k  c  p  s"
-          "                              h  m  o  e                 r  i     s     e  u  l  -  t  o  i     d  r  s  e  l  -"
-          "                              a  m  m  a  d  f     h     a  n     h     l  n  u  i  a  n  n  u  a  s  p  -  o  f"
-          "                           a  n  a  m  t  e  i  g  e  l  t  d     e  t  p  n  g  n  b  f  p  t  t  i  a  c  r  i"
-          "                           p  g  n  o  o  p  l  i  l  i  o  e  s  l  a  e  e  i  i  l  i  u  i  o  o  c  l  e  l"
-          "  brick                    i  e  d  n  r  s  e  t  p  b  r  r  h  l  p  r  r  n  t  e  g  t  l  r  n  e  j  r  e"
-          "  --------------------------------------------------------------------------------------------------------------"
-          "  api                      .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  x  x  x  ."
-          "  change                   .  .  .  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  command                  .  x  .  x  x  x  x  x  x  x  x  .  .  x  x  .  x  .  .  .  x  .  x  x  x  x  x  x  x"
-          "  common                   .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
-          "  creator                  .  .  .  x  .  .  x  x  .  .  .  .  .  .  .  t  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  deps                     .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
-          "  file                     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  git                      .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  help                     .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
-          "  lib                      .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  t  .  .  .  x  x  .  x  .  .  .  .  .  ."
-          "  migrator                 .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  path-finder              .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  sh                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  shell                    .  .  .  x  .  .  x  .  .  .  .  .  x  .  x  .  .  .  .  .  x  x  x  .  x  .  .  x  ."
-          "  tap                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  test-helper              .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  .  ."
-          "  test-runner              .  .  .  x  .  x  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  x  x  .  .  .  .  ."
-          "  test-runner-plugin       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  test-runner-plugin-init  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
-          "  text-table               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  user-config              .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  user-input               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  util                     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  validator                .  .  .  x  .  x  .  .  .  .  .  x  .  .  .  .  .  .  x  .  .  .  x  .  .  .  .  .  ."
-          "  version                  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  workspace                .  .  .  x  .  x  x  .  .  .  .  x  .  .  .  t  .  .  .  x  .  .  x  x  .  .  .  .  ."
-          "  workspace-clj            .  .  .  x  .  x  x  x  .  x  .  x  .  .  .  .  .  .  .  .  x  .  x  x  x  .  .  .  ."
-          "  ws-explorer              .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  ws-file                  .  .  .  x  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  ."
-          "  poly-cli                 .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  ."]
+  (is (= ["                                                                                                             "
+          "                                                                                                             "
+          "                                                                                                             "
+          "                                                                                                             "
+          "                                                                                                             "
+          "                                                                              t                              "
+          "                                                                              e                              "
+          "                                                                              s                              "
+          "                                                                              t                              "
+          "                                                                              -                              "
+          "                                                                              r                       w      "
+          "                                                                              u                       o      "
+          "                                                            p           t  t  n     u                 r  w   "
+          "                                                            a           e  e  n  t  s  u              k  s   "
+          "                                                            t           s  s  e  e  e  s     v     w  s  -   "
+          "                                                         m  h           t  t  r  x  r  e     a     o  p  e   "
+          "                                 c     c                 i  -           -  -  -  t  -  r     l  v  r  a  x  w"
+          "                              c  o  c  r                 g  f           h  r  p  -  c  -     i  e  k  c  p  s"
+          "                              h  m  o  e                 r  i     s     e  u  l  t  o  i     d  r  s  e  l  -"
+          "                              a  m  m  a  d  f     h     a  n     h     l  n  u  a  n  n  u  a  s  p  -  o  f"
+          "                           a  n  a  m  t  e  i  g  e  l  t  d     e  t  p  n  g  b  f  p  t  t  i  a  c  r  i"
+          "                           p  g  n  o  o  p  l  i  l  i  o  e  s  l  a  e  e  i  l  i  u  i  o  o  c  l  e  l"
+          "  brick                    i  e  d  n  r  s  e  t  p  b  r  r  h  l  p  r  r  n  e  g  t  l  r  n  e  j  r  e"
+          "  -----------------------------------------------------------------------------------------------------------"
+          "  api                      .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  x  x  x  ."
+          "  change                   .  .  .  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  command                  .  x  .  x  x  x  x  x  x  x  x  .  .  x  x  .  x  .  .  x  .  x  x  x  x  x  x  x"
+          "  common                   .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
+          "  creator                  .  .  .  x  .  .  x  x  .  .  .  .  .  .  .  t  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  deps                     .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
+          "  file                     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  git                      .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  help                     .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
+          "  lib                      .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  t  .  .  x  x  .  x  .  .  .  .  .  ."
+          "  migrator                 .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+          "  path-finder              .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  sh                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+          "  shell                    .  .  .  x  .  .  x  .  .  .  .  .  x  .  x  .  .  .  .  x  x  x  .  x  .  .  x  ."
+          "  tap                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+          "  test-helper              .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  .  ."
+          "  test-runner              .  .  .  x  .  x  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  x  x  .  .  .  .  ."
+          "  test-runner-plugin       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+          "  text-table               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  user-config              .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  user-input               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  util                     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+          "  validator                .  .  .  x  .  x  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  version                  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+          "  workspace                .  .  .  x  .  x  x  .  .  .  .  x  .  .  .  t  .  .  x  .  .  x  x  .  .  .  .  ."
+          "  workspace-clj            .  .  .  x  .  x  x  x  .  x  .  x  .  .  .  .  .  .  .  x  .  x  x  x  .  .  .  ."
+          "  ws-explorer              .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  ws-file                  .  .  .  x  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  ."
+          "  poly-cli                 .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  ."]
          (ws-ifc-deps-table/table (workspace)))))
 
 (deftest project-deps-table
   (let [ws (workspace)
         projects (:projects ws)
         project (common/find-project "poly" projects)]
-    (is (= ["                                                                              t                              "
-            "                                                                              e                              "
-            "                                                                              s                              "
-            "                                                                              t                              "
-            "                                                                              -                              "
-            "                                                                           t  r                              "
-            "                                                                           e  u                              "
-            "                                                                           s  n                              "
-            "                                                                           t  n                              "
-            "                                                                           -  e                              "
-            "                                                                           r  r                       w      "
-            "                                                                           u  -                       o      "
-            "                                                         p           t  t  n  p     u                 r  w   "
-            "                                                         a           e  e  n  l  t  s  u              k  s   "
-            "                                                         t           s  s  e  u  e  e  s     v     w  s  -   "
-            "                                                      m  h           t  t  r  g  x  r  e     a     o  p  e   "
-            "                              c     c                 i  -           -  -  -  i  t  -  r     l  v  r  a  x  w"
-            "                           c  o  c  r                 g  f           h  r  p  n  -  c  -     i  e  k  c  p  s"
-            "                           h  m  o  e                 r  i     s     e  u  l  -  t  o  i     d  r  s  e  l  -"
-            "                           a  m  m  a  d  f     h     a  n     h     l  n  u  i  a  n  n  u  a  s  p  -  o  f"
-            "                           n  a  m  t  e  i  g  e  l  t  d     e  t  p  n  g  n  b  f  p  t  t  i  a  c  r  i"
-            "                           g  n  o  o  p  l  i  l  i  o  e  s  l  a  e  e  i  i  l  i  u  i  o  o  c  l  e  l"
-            "  brick                    e  d  n  r  s  e  t  p  b  r  r  h  l  p  r  r  n  t  e  g  t  l  r  n  e  j  r  e"
-            "  -----------------------------------------------------------------------------------------------------------"
-            "  change                   .  .  .  .  .  +  x  .  .  .  x  +  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  command                  x  .  x  x  x  x  x  x  x  x  +  +  x  x  .  x  +  +  +  x  +  x  x  x  x  x  x  x"
-            "  common                   .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
-            "  creator                  -  -  x  -  -  x  x  -  -  -  -  +  -  -  t  -  -  -  -  +  -  x  -  -  -  -  -  -"
-            "  deps                     .  .  x  .  .  +  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
-            "  file                     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  git                      .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  help                     .  .  x  .  .  +  .  .  .  .  .  .  .  .  .  .  .  .  .  +  .  x  .  x  .  .  .  ."
-            "  lib                      -  -  x  -  -  x  -  -  -  -  -  -  -  -  t  -  -  -  x  x  -  x  -  -  -  -  -  -"
-            "  migrator                 .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  +  .  +  .  .  .  .  .  ."
-            "  path-finder              .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  sh                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  shell                    .  .  x  .  .  x  .  .  .  .  .  x  .  x  .  .  .  .  .  x  x  x  .  x  .  .  x  ."
-            "  tap                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  test-helper              -  t  -  -  -  t  -  -  -  -  -  -  -  -  .  -  -  -  -  t  t  -  -  -  -  -  -  -"
-            "  test-runner              .  .  x  .  x  +  .  .  .  .  +  .  .  .  .  .  x  x  +  +  .  x  x  .  .  .  .  ."
-            "  test-runner-plugin       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  test-runner-plugin-init  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
-            "  text-table               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  user-config              .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  user-input               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  util                     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  validator                .  .  x  .  x  +  .  .  .  .  x  .  .  .  .  .  +  x  +  +  .  x  .  .  .  .  .  ."
-            "  version                  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  workspace                -  -  x  -  x  x  -  -  -  -  x  -  -  -  t  -  +  +  x  +  -  x  x  -  -  -  -  -"
-            "  workspace-clj            .  .  x  .  x  x  x  .  x  .  x  +  .  .  .  .  +  +  +  x  .  x  x  x  .  .  .  ."
-            "  ws-explorer              .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  ws-file                  .  .  x  .  .  x  x  .  .  .  .  +  .  .  .  .  .  .  .  +  .  +  .  x  .  .  .  ."
-            "  poly-cli                 +  x  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  +  x  x  +  +  +  +  +  +"]
+    (is (= ["                                                                                                          "
+            "                                                                                                          "
+            "                                                                                                          "
+            "                                                                                                          "
+            "                                                                                                          "
+            "                                                                           t                              "
+            "                                                                           e                              "
+            "                                                                           s                              "
+            "                                                                           t                              "
+            "                                                                           -                              "
+            "                                                                           r                       w      "
+            "                                                                           u                       o      "
+            "                                                         p           t  t  n     u                 r  w   "
+            "                                                         a           e  e  n  t  s  u              k  s   "
+            "                                                         t           s  s  e  e  e  s     v     w  s  -   "
+            "                                                      m  h           t  t  r  x  r  e     a     o  p  e   "
+            "                              c     c                 i  -           -  -  -  t  -  r     l  v  r  a  x  w"
+            "                           c  o  c  r                 g  f           h  r  p  -  c  -     i  e  k  c  p  s"
+            "                           h  m  o  e                 r  i     s     e  u  l  t  o  i     d  r  s  e  l  -"
+            "                           a  m  m  a  d  f     h     a  n     h     l  n  u  a  n  n  u  a  s  p  -  o  f"
+            "                           n  a  m  t  e  i  g  e  l  t  d     e  t  p  n  g  b  f  p  t  t  i  a  c  r  i"
+            "                           g  n  o  o  p  l  i  l  i  o  e  s  l  a  e  e  i  l  i  u  i  o  o  c  l  e  l"
+            "  brick                    e  d  n  r  s  e  t  p  b  r  r  h  l  p  r  r  n  e  g  t  l  r  n  e  j  r  e"
+            "  --------------------------------------------------------------------------------------------------------"
+            "  change                   .  .  .  .  .  +  x  .  .  .  x  +  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  command                  x  .  x  x  x  x  x  x  x  x  +  +  x  x  .  x  +  +  x  +  x  x  x  x  x  x  x"
+            "  common                   .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
+            "  creator                  -  -  x  -  -  x  x  -  -  -  -  +  -  -  t  -  -  -  +  -  x  -  -  -  -  -  -"
+            "  deps                     .  .  x  .  .  +  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
+            "  file                     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  git                      .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  help                     .  .  x  .  .  +  .  .  .  .  .  .  .  .  .  .  .  .  +  .  x  .  x  .  .  .  ."
+            "  lib                      -  -  x  -  -  x  -  -  -  -  -  -  -  -  t  -  -  x  x  -  x  -  -  -  -  -  -"
+            "  migrator                 .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  +  .  +  .  .  .  .  .  ."
+            "  path-finder              .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  sh                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  shell                    .  .  x  .  .  x  .  .  .  .  .  x  .  x  .  .  .  .  x  x  x  .  x  .  .  x  ."
+            "  tap                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  test-helper              -  t  -  -  -  t  -  -  -  -  -  -  -  -  .  -  -  -  t  t  -  -  -  -  -  -  -"
+            "  test-runner              .  .  x  .  x  +  .  .  .  .  +  .  .  .  .  .  x  +  +  .  x  x  .  .  .  .  ."
+            "  test-runner-plugin       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  text-table               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  user-config              .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  user-input               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  util                     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  validator                .  .  x  .  x  +  .  .  .  .  x  .  .  .  .  .  +  +  +  .  x  .  .  .  .  .  ."
+            "  version                  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  workspace                -  -  x  -  x  x  -  -  -  -  x  -  -  -  t  -  +  x  +  -  x  x  -  -  -  -  -"
+            "  workspace-clj            .  .  x  .  x  x  x  .  x  .  x  +  .  .  .  .  +  +  x  .  x  x  x  .  .  .  ."
+            "  ws-explorer              .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  ws-file                  .  .  x  .  .  x  x  .  .  .  .  +  .  .  .  .  .  .  +  .  +  .  x  .  .  .  ."
+            "  poly-cli                 +  x  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  +  +  +  +  +  +"]
            (ws-project-deps-table/table (workspace) project false)))))
 
 (deftest project-and-brick-deps
@@ -276,7 +273,6 @@
                                        :indirect ["path-finder"
                                                   "sh"
                                                   "test-runner-plugin"
-                                                  "test-runner-plugin-init"
                                                   "text-table"
                                                   "user-input"]}
                                 :test {:direct   ["change"
@@ -302,7 +298,6 @@
                                        :indirect ["path-finder"
                                                   "sh"
                                                   "test-runner-plugin"
-                                                  "test-runner-plugin-init"
                                                   "text-table"
                                                   "user-input"]}}
           "common"             {:src  {:direct ["file"
@@ -333,7 +328,6 @@
                                                   "tap"
                                                   "test-runner"
                                                   "test-runner-plugin"
-                                                  "test-runner-plugin-init"
                                                   "text-table"
                                                   "user-config"
                                                   "user-input"
@@ -390,7 +384,6 @@
                                                   "tap"
                                                   "test-runner"
                                                   "test-runner-plugin"
-                                                  "test-runner-plugin-init"
                                                   "user-input"
                                                   "validator"
                                                   "version"
@@ -425,7 +418,6 @@
                                                   "tap"
                                                   "test-runner"
                                                   "test-runner-plugin"
-                                                  "test-runner-plugin-init"
                                                   "text-table"
                                                   "user-config"
                                                   "validator"
@@ -452,7 +444,6 @@
                                                   "tap"
                                                   "test-runner"
                                                   "test-runner-plugin"
-                                                  "test-runner-plugin-init"
                                                   "text-table"
                                                   "user-config"
                                                   "validator"
@@ -502,7 +493,6 @@
                                                   "tap"
                                                   "test-runner"
                                                   "test-runner-plugin"
-                                                  "test-runner-plugin-init"
                                                   "text-table"
                                                   "util"
                                                   "validator"
@@ -514,7 +504,6 @@
           "test-runner"        {:src  {:direct   ["common"
                                                   "deps"
                                                   "test-runner-plugin"
-                                                  "test-runner-plugin-init"
                                                   "util"
                                                   "validator"]
                                        :indirect ["file"
@@ -524,7 +513,6 @@
                                 :test {:direct ["common"
                                                 "deps"
                                                 "test-runner-plugin"
-                                                "test-runner-plugin-init"
                                                 "util"
                                                 "validator"]
                                        :indirect ["file"
@@ -533,9 +521,6 @@
                                                   "user-config"]}}
           "test-runner-plugin" {:src  {}
                                 :test {}}
-          "test-runner-plugin-init" {:src  {:direct ["test-runner-plugin"
-                                                     "util"]}
-                                     :test {}}
           "text-table"         {:src  {:direct ["util"]}
                                 :test {}}
           "user-config"        {:src  {:direct ["file"
@@ -548,7 +533,6 @@
           "validator"          {:src  {:direct   ["common"
                                                   "deps"
                                                   "path-finder"
-                                                  "test-runner-plugin-init"
                                                   "util"]
                                        :indirect ["file"
                                                   "test-runner-plugin"
@@ -557,7 +541,6 @@
                                 :test {:direct   ["common"
                                                   "deps"
                                                   "path-finder"
-                                                  "test-runner-plugin-init"
                                                   "util"]
                                        :indirect ["file"
                                                   "test-runner-plugin"
@@ -573,7 +556,6 @@
                                                   "util"
                                                   "validator"]
                                        :indirect ["test-runner-plugin"
-                                                  "test-runner-plugin-init"
                                                   "user-config"]}
                                 :test {:direct   ["common"
                                                   "deps"
@@ -595,7 +577,6 @@
                                                   "tap"
                                                   "test-runner"
                                                   "test-runner-plugin"
-                                                  "test-runner-plugin-init"
                                                   "user-config"
                                                   "user-input"
                                                   "version"
@@ -615,7 +596,6 @@
                                                   "version"]
                                        :indirect ["sh"
                                                   "test-runner-plugin"
-                                                  "test-runner-plugin-init"
                                                   "text-table"]}
                                 :test {:direct   ["common"
                                                   "deps"
@@ -629,7 +609,6 @@
                                                   "version"]
                                        :indirect ["sh"
                                                   "test-runner-plugin"
-                                                  "test-runner-plugin-init"
                                                   "text-table"]}}
           "ws-explorer"        {:src  {:direct ["util"]}
                                 :test {:direct ["util"]}}
@@ -660,7 +639,6 @@
           "components/sh/src"
           "components/shell/src"
           "components/tap/src"
-          "components/test-runner-plugin-init/src"
           "components/test-runner-plugin/src"
           "components/test-runner/src"
           "components/text-table/src"
@@ -736,3 +714,19 @@
                                    :type    "maven"
                                    :version "3.21.0"}}}
          (ws-explorer/extract (workspace) ["components" "shell" "lib-deps"]))))
+
+
+(comment
+
+  (-> [
+       "info"
+       ;"test"
+       ;":all"
+       ;":dev"RE
+       ;":project"
+       ;"project:api:poly"
+       ]
+      (user-input/extract-params)
+      ((requiring-resolve 'polylith.clj.core.command.interface/execute-command)))
+
+  )
