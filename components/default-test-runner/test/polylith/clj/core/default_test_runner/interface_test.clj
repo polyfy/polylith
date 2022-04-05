@@ -1,7 +1,7 @@
-(ns polylith.clj.core.test-runner.default-test-runner-test
+(ns polylith.clj.core.default-test-runner.interface-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.test-runner-plugin.interface.initializer :as test-runner-initializer]
-            [polylith.clj.core.test-runner.default-test-runner :as sut]))
+            [polylith.clj.core.default-test-runner.interface :as sut]
+            [polylith.clj.core.test-runner-plugin.interface.initializer :as test-runner-initializer]))
 
 (deftest default-test-runner-is-valid
   (let [ctor (test-runner-initializer/->constructor-var `sut/make)]

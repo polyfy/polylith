@@ -3,11 +3,10 @@
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.default-test-runner.interface :as default-test-runner]
             [polylith.clj.core.deps.interface :as deps]
             [polylith.clj.core.test-runner-plugin.interface :as test-runner-plugin]
             [polylith.clj.core.test-runner-plugin.interface.initializer :as test-runner-initializer]
-            [polylith.clj.core.test-runner.default-test-runner :as default-test-runner]
-            [polylith.clj.core.test-runner.message :as msg]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.util.interface.time :as time-util]
             [polylith.clj.core.validator.interface :as validator]))
@@ -96,12 +95,20 @@
   (println)
   (time-util/print-execution-time start-time))
 
+(defn components-msg [component-names color-mode]
+  (when (seq component-names)
+    [(color/component (str/join ", " component-names) color-mode)]))
+
+(defn bases-msg [base-names color-mode]
+  (when (seq base-names)
+    [(color/base (str/join ", " base-names) color-mode)]))
+
 (defn print-bricks-to-test [component-names base-names bricks-to-test color-mode]
   (when bricks-to-test
     (let [components-to-test (sort (set/intersection component-names (set bricks-to-test)))
           bases-to-test (sort (set/intersection base-names (set bricks-to-test)))
-          components (msg/components components-to-test color-mode)
-          bases (msg/bases bases-to-test color-mode)
+          components (components-msg components-to-test color-mode)
+          bases (bases-msg bases-to-test color-mode)
           bricks (str/join ", " (concat components bases))]
       (println (str "Bricks to run tests for: " bricks)))))
 

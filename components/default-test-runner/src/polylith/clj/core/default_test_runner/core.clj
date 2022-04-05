@@ -1,7 +1,6 @@
-(ns polylith.clj.core.test-runner.default-test-runner
+(ns polylith.clj.core.default-test-runner.core
   (:require [clojure.string :as str]
             [polylith.clj.core.test-runner-plugin.interface :as test-runner-plugin]
-            [polylith.clj.core.test-runner.message :as msg]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.util.interface.str :as str-util]))
 
@@ -22,13 +21,21 @@
   (when (contains? (set projects-to-test) project-name)
     (mapv :namespace (:test namespaces))))
 
+(defn components-msg [component-names color-mode]
+  (when (seq component-names)
+    [(color/component (str/join ", " component-names) color-mode)]))
+
+(defn bases-msg [base-names color-mode]
+  (when (seq base-names)
+    [(color/base (str/join ", " base-names) color-mode)]))
+
 (defn run-message [project-name components bases bricks-to-test projects-to-test color-mode]
   (let [component-names (into #{} (map :name) components)
         base-names (into #{} (map :name) bases)
         bases-to-test (filterv #(contains? base-names %) bricks-to-test)
-        bases-to-test-msg (msg/bases bases-to-test color-mode)
+        bases-to-test-msg (bases-msg bases-to-test color-mode)
         components-to-test (filterv #(contains? component-names %) bricks-to-test)
-        components-to-test-msg (msg/components components-to-test color-mode)
+        components-to-test-msg (components-msg components-to-test color-mode)
         projects-to-test-msg (when (seq projects-to-test)
                                [(color/project (str/join ", " projects-to-test) color-mode)])
         entities-msg (str/join ", " (into [] cat [components-to-test-msg
@@ -61,7 +68,7 @@
       (println (str "\n" (color/ok color-mode result-str))))))
 
 (defn make
-  [{:keys [workspace project changes _test-settings]}]
+  [{:keys [workspace project changes #_test-settings]}]
   (let [{:keys [bases components]} workspace
         {:keys [name namespaces paths]} project
         {:keys [project-to-bricks-to-test project-to-projects-to-test]} changes
