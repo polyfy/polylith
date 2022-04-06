@@ -48,7 +48,7 @@
           "  shell                     shell *                      ---  stx    st-"
           "  tap                       tap *                        ---  s--    s--"
           "  test-helper               test-helper *                ---  -tx    s--"
-          "  test-runner-contract      test-runner-contract *       s--  s--    s--"
+          "  test-runner-contract      test-runner-contract *       s--  stx    st-"
           "  test-runner-orchestrator  test-runner-orchestrator *   ---  s--    s--"
           "  text-table                text-table *                 s--  s--    s--"
           "  user-config               user-config *                s--  s--    s--"
@@ -138,7 +138,7 @@
           "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  test-helper               .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  .  ."
           "  test-runner-contract      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  test-runner-orchestrator  .  .  x  .  x  .  x  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  x  .  .  .  .  ."
+          "  test-runner-orchestrator  .  .  .  .  x  .  x  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  x  .  .  .  .  ."
           "  text-table                .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  user-config               .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  user-input                .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
@@ -156,60 +156,60 @@
   (let [ws (workspace)
         projects (:projects ws)
         project (common/find-project "poly" projects)]
-    (is (= ["                               c                                               t                              "
-            "                               l                                               e                              "
-            "                               o                                               s                              "
-            "                               j                                               t                              "
-            "                               u                                            t  -                              "
-            "                               r                                            e  r                              "
-            "                               e                                            s  u                              "
-            "                               -                                            t  n                              "
-            "                               t                                            -  n                              "
-            "                               e                                            r  e                              "
-            "                               s                                            u  r                              "
-            "                               t                                            n  -                       w      "
-            "                               -                                            n  o                       o      "
-            "                               t                             p           t  e  r     u                 r  w   "
-            "                               e                             a           e  r  c  t  s  u              k  s   "
-            "                               s                             t           s  -  h  e  e  s     v     w  s  -   "
-            "                               t                          m  h           t  c  e  x  r  e     a     o  p  e   "
-            "                               -  c     c                 i  -           -  o  s  t  -  r     l  v  r  a  x  w"
-            "                            c  r  o  c  r                 g  f           h  n  t  -  c  -     i  e  k  c  p  s"
-            "                            h  u  m  o  e                 r  i     s     e  t  r  t  o  i     d  r  s  e  l  -"
-            "                            a  n  m  m  a  d  f     h     a  n     h     l  r  a  a  n  n  u  a  s  p  -  o  f"
-            "                            n  n  a  m  t  e  i  g  e  l  t  d     e  t  p  a  t  b  f  p  t  t  i  a  c  r  i"
-            "                            g  e  n  o  o  p  l  i  l  i  o  e  s  l  a  e  c  o  l  i  u  i  o  o  c  l  e  l"
-            "  brick                     e  r  d  n  r  s  e  t  p  b  r  r  h  l  p  r  t  r  e  g  t  l  r  n  e  j  r  e"
-            "  ------------------------------------------------------------------------------------------------------------"
-            "  change                    .  .  .  .  .  .  +  x  .  .  .  x  +  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
-            "  command                   x  +  .  x  x  x  x  x  x  x  x  +  +  x  x  .  +  x  +  x  +  x  x  x  x  x  x  x"
-            "  common                    .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
-            "  creator                   -  -  -  x  -  -  x  x  -  -  -  -  +  -  -  t  -  -  -  +  -  x  -  -  -  -  -  -"
-            "  deps                      .  .  .  x  .  .  +  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
-            "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  git                       .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  help                      .  .  .  x  .  .  +  .  .  .  .  .  .  .  .  .  .  .  .  +  .  x  .  x  .  .  .  ."
-            "  lib                       -  -  -  x  -  -  x  -  -  -  -  -  -  -  -  t  -  -  x  x  -  x  -  -  -  -  -  -"
-            "  migrator                  .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  +  .  +  .  .  .  .  .  ."
-            "  path-finder               .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  shell                     .  .  .  x  .  .  x  .  .  .  .  .  x  .  x  .  .  .  .  x  x  x  .  x  .  .  x  ."
-            "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  test-helper               -  -  t  -  -  -  t  -  -  -  -  -  -  -  -  .  -  -  -  t  t  -  -  -  -  -  -  -"
-            "  test-runner-contract      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  test-runner-orchestrator  .  x  .  x  .  x  +  .  .  .  .  +  .  .  .  .  x  .  +  +  .  x  x  .  .  .  .  ."
-            "  text-table                .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  user-config               .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  user-input                .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  validator                 .  .  .  x  .  x  +  .  .  .  .  x  .  .  .  .  x  .  +  +  .  x  .  .  .  .  .  ."
-            "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  workspace                 -  -  -  x  -  x  x  -  -  -  -  x  -  -  -  t  +  -  x  +  -  x  x  -  -  -  -  -"
-            "  workspace-clj             .  .  .  x  .  x  x  x  .  x  .  x  +  .  .  .  +  .  +  x  .  x  x  x  .  .  .  ."
-            "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  ws-file                   .  .  .  x  .  .  x  x  .  .  .  .  +  .  .  .  .  .  .  +  .  +  .  x  .  .  .  ."
-            "  poly-cli                  +  +  x  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  +  +  +  +  +  +"]
+    (is (= ["                                                                            t                              "
+            "                                                                            e                              "
+            "                                                                            s                              "
+            "                                                                            t                              "
+            "                                                                         t  -                              "
+            "                                                                         e  r                              "
+            "                                                                         s  u                              "
+            "                                                                         t  n                              "
+            "                                                                         -  n                              "
+            "                                                                         r  e                              "
+            "                                                                         u  r                              "
+            "                                                                         n  -                       w      "
+            "                                                                         n  o                       o      "
+            "                                                          p           t  e  r     u                 r  w   "
+            "                                                          a           e  r  c  t  s  u              k  s   "
+            "                                                          t           s  -  h  e  e  s     v     w  s  -   "
+            "                                                       m  h           t  c  e  x  r  e     a     o  p  e   "
+            "                               c     c                 i  -           -  o  s  t  -  r     l  v  r  a  x  w"
+            "                            c  o  c  r                 g  f           h  n  t  -  c  -     i  e  k  c  p  s"
+            "                            h  m  o  e                 r  i     s     e  t  r  t  o  i     d  r  s  e  l  -"
+            "                            a  m  m  a  d  f     h     a  n     h     l  r  a  a  n  n  u  a  s  p  -  o  f"
+            "                            n  a  m  t  e  i  g  e  l  t  d     e  t  p  a  t  b  f  p  t  t  i  a  c  r  i"
+            "                            g  n  o  o  p  l  i  l  i  o  e  s  l  a  e  c  o  l  i  u  i  o  o  c  l  e  l"
+            "  brick                     e  d  n  r  s  e  t  p  b  r  r  h  l  p  r  t  r  e  g  t  l  r  n  e  j  r  e"
+            "  ---------------------------------------------------------------------------------------------------------"
+            "  change                    .  .  .  .  .  +  x  .  .  .  x  +  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
+            "  command                   x  .  x  x  x  x  x  x  x  x  +  +  x  x  .  +  x  +  x  +  x  x  x  x  x  x  x"
+            "  common                    .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
+            "  creator                   -  -  x  -  -  x  x  -  -  -  -  +  -  -  t  -  -  -  +  -  x  -  -  -  -  -  -"
+            "  deps                      .  .  x  .  .  +  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
+            "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  git                       .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  help                      .  .  x  .  .  +  .  .  .  .  .  .  .  .  .  .  .  .  +  .  x  .  x  .  .  .  ."
+            "  lib                       -  -  x  -  -  x  -  -  -  -  -  -  -  -  t  -  -  x  x  -  x  -  -  -  -  -  -"
+            "  migrator                  .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  +  .  +  .  .  .  .  .  ."
+            "  path-finder               .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  shell                     .  .  x  .  .  x  .  .  .  .  .  x  .  x  .  .  .  .  x  x  x  .  x  .  .  x  ."
+            "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  test-helper               -  t  -  -  -  t  -  -  -  -  -  -  -  -  .  -  -  -  t  t  -  -  -  -  -  -  -"
+            "  test-runner-contract      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  test-runner-orchestrator  .  .  x  .  x  +  .  .  .  .  +  .  .  .  .  x  .  +  +  .  x  x  .  .  .  .  ."
+            "  text-table                .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  user-config               .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  user-input                .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  validator                 .  .  x  .  x  +  .  .  .  .  x  .  .  .  .  x  .  +  +  .  x  .  .  .  .  .  ."
+            "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  workspace                 -  -  x  -  x  x  -  -  -  -  x  -  -  -  t  +  -  x  +  -  x  x  -  -  -  -  -"
+            "  workspace-clj             .  .  x  .  x  x  x  .  x  .  x  +  .  .  .  +  .  +  x  .  x  x  x  .  .  .  ."
+            "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  ws-file                   .  .  x  .  .  x  x  .  .  .  .  +  .  .  .  .  .  .  +  .  +  .  x  .  .  .  ."
+            "  poly-cli                  +  x  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  +  +  +  +  +  +"]
            (ws-project-deps-table/table (workspace) project false)))))
 
 (deftest project-and-brick-deps
@@ -278,8 +278,7 @@
                                                         "workspace-clj"
                                                         "ws-explorer"
                                                         "ws-file"]
-                                             :indirect ["clojure-test-test-runner"
-                                                        "path-finder"
+                                             :indirect ["path-finder"
                                                         "sh"
                                                         "test-runner-contract"
                                                         "text-table"
@@ -304,8 +303,7 @@
                                                         "workspace-clj"
                                                         "ws-explorer"
                                                         "ws-file"]
-                                             :indirect ["clojure-test-test-runner"
-                                                        "path-finder"
+                                             :indirect ["path-finder"
                                                         "sh"
                                                         "test-runner-contract"
                                                         "text-table"
@@ -326,7 +324,6 @@
                                                         "test-helper"
                                                         "util"]
                                              :indirect ["change"
-                                                        "clojure-test-test-runner"
                                                         "command"
                                                         "creator"
                                                         "deps"
@@ -382,7 +379,6 @@
                                                         "user-config"
                                                         "util"]
                                              :indirect ["change"
-                                                        "clojure-test-test-runner"
                                                         "command"
                                                         "creator"
                                                         "deps"
@@ -416,7 +412,6 @@
                                                         "user-input"
                                                         "util"]
                                              :indirect ["change"
-                                                        "clojure-test-test-runner"
                                                         "common"
                                                         "creator"
                                                         "deps"
@@ -443,7 +438,6 @@
                                                         "user-input"
                                                         "util"]
                                              :indirect ["change"
-                                                        "clojure-test-test-runner"
                                                         "common"
                                                         "creator"
                                                         "deps"
@@ -494,7 +488,6 @@
                                                         "user-config"
                                                         "user-input"]
                                              :indirect ["change"
-                                                        "clojure-test-test-runner"
                                                         "common"
                                                         "creator"
                                                         "deps"
@@ -516,8 +509,7 @@
                                                         "workspace-clj"
                                                         "ws-explorer"
                                                         "ws-file"]}}
-          "test-runner-orchestrator" {:src  {:direct   ["clojure-test-test-runner"
-                                                        "common"
+          "test-runner-orchestrator" {:src  {:direct   ["common"
                                                         "deps"
                                                         "test-runner-contract"
                                                         "util"
@@ -528,7 +520,7 @@
                                                         "user-config"]}
                                       :test {}}
           "test-runner-contract"     {:src  {:direct ["util"]}
-                                      :test {}}
+                                      :test {:direct ["util"]}}
           "text-table"               {:src  {:direct ["util"]}
                                       :test {}}
           "user-config"              {:src  {:direct ["file"
@@ -574,7 +566,6 @@
                                                         "util"
                                                         "validator"]
                                              :indirect ["change"
-                                                        "clojure-test-test-runner"
                                                         "command"
                                                         "creator"
                                                         "git"
@@ -678,6 +669,7 @@
           "components/shell/test"
           "components/test-helper/resources"
           "components/test-helper/src"
+          "components/test-runner-contract/test"
           "components/user-input/test"
           "components/util/test"
           "components/validator/test"
@@ -716,7 +708,8 @@
           :test ["clojure.java.shell"
                  "clojure.string"
                  "clojure.test"
-                 "polylith.clj.core.poly-cli.api"]}
+                 "polylith.clj.core.poly-cli.api"
+                 "polylith.clj.core.test_runner_contract.interface"]}
          (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"]))))
 
 (deftest shell-component-lib-deps
@@ -724,19 +717,3 @@
                                    :type    "maven"
                                    :version "3.21.0"}}}
          (ws-explorer/extract (workspace) ["components" "shell" "lib-deps"]))))
-
-
-(comment
-
-  (-> [
-       "info"
-       ;"test"
-       ;":all"
-       ;":dev"RE
-       ;":project"
-       ;"project:api:poly"
-       ]
-      (user-input/extract-params)
-      ((requiring-resolve 'polylith.clj.core.command.interface/execute-command)))
-
-  )

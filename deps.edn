@@ -59,6 +59,7 @@
                                  "components/migrator/test"
                                  "components/path-finder/test"
                                  "components/shell/test"
+                                 "components/test-runner-contract/test"
                                  "components/user-input/test"
                                  "components/util/test"
                                  "components/validator/test"

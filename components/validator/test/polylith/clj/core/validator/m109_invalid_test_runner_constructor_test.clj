@@ -9,18 +9,6 @@
 (defn ws [projects] {:projects projects})
 
 (defn one-arity-ctor [_])
-
-(deftest pristine-configuration
-  (-> {"foo" {}
-       "bar" {:test {}}
-       "baz" {:test {:create-test-runner nil}}
-       "qux" {:test {:create-test-runner :default}}
-       "zol" {:test {:create-test-runner `one-arity-ctor}}}
-      (ws)
-      (sut/errors color/none)
-      (empty?)
-      (is)))
-
 (defn good-variable-arity-ctor-1 [& _])
 (defn good-variable-arity-ctor-2 [_ & _])
 

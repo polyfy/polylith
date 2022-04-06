@@ -3,7 +3,6 @@
   (:require
    [clojure.set :as set]
    [clojure.string :as str]
-   [polylith.clj.core.clojure-test-test-runner.interface :as clojure-test-test-runner]
    [polylith.clj.core.common.interface :as common]
    [polylith.clj.core.deps.interface :as deps]
    [polylith.clj.core.test-runner-contract.interface :as test-runner-contract]
@@ -48,7 +47,6 @@
   (-> test-settings
       (:create-test-runner)
       (test-runner-initializers/->constructor-var)
-      (or clojure-test-test-runner/create)
       (#(% opts))
       (test-runner-verifiers/ensure-valid-test-runner)
       (try
@@ -139,7 +137,3 @@
                  (run-tests-for-project)))))
       (print-execution-time start-time)
       true)))
-
-;; test-runner-orchestrator
-;; test-runner-contract
-;; clojure-test-test-runner

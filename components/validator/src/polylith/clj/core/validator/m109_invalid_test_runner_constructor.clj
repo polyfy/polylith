@@ -6,19 +6,15 @@
    [polylith.clj.core.util.interface :as util]
    [polylith.clj.core.util.interface.color :as color]))
 
-(defn invalid-constructor? [candidate]
-  (and (some? candidate)
-       (not (test-runner-verifiers/valid-constructor-var? candidate))))
-
-(defn error-or-maybe-constructor-var [candidate ->error-message]
+(defn constructor-var-or-error [candidate ->error-message]
   (try {:constructor-var (test-runner-initializers/->constructor-var candidate)}
        (catch Exception e
          {:error (->error-message (str "Unable to load test runner constructor " candidate) e)})))
 
 (defn invalid-constructor-message [candidate ->error-message]
-  (let [{:keys [constructor-var error]} (error-or-maybe-constructor-var candidate ->error-message)]
+  (let [{:keys [constructor-var error]} (constructor-var-or-error candidate ->error-message)]
     (or error
-        (when (invalid-constructor? constructor-var)
+        (when-not (test-runner-verifiers/valid-constructor-var? constructor-var)
           (->error-message (str "The var referred to by " candidate " is not a valid test runner constructor"))))))
 
 (defn multiple? [coll]

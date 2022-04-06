@@ -9,8 +9,9 @@
       can-be-invoked-with-one-arg-xf (map (some-fn fully-variadic? has-one-fixed-arg))]
 
   (defn valid-constructor-var? [candidate]
-    (and (fn? (deref candidate))
-         (->> candidate (meta) (:arglists) (util/xf-some can-be-invoked-with-one-arg-xf)))))
+    (-> (fn? (deref candidate))
+        (and (->> candidate (meta) (:arglists) (util/xf-some can-be-invoked-with-one-arg-xf)))
+        (boolean))))
 
 (defn valid-test-runner? [candidate]
   (satisfies? test-runner-contract/TestRunner candidate))
