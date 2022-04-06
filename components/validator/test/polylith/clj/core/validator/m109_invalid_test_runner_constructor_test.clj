@@ -60,10 +60,16 @@
                       :project-text "project foo"
                       :suffix " Exception: java.lang.IllegalArgumentException: Not a qualified symbol: :not-a-symbol"
                       :ctor-spec :not-a-symbol
-                      :projects ["foo"]})]
+                      :projects ["foo"]})
+          (error-109 {:prefix "Unable to load test runner constructor clojure.core/non-existing-var"
+                      :project-text "project qux"
+                      :suffix " Exception: clojure.lang.ExceptionInfo: Unable to resolve symbol clojure.core/non-existing-var to a var. {:symbol clojure.core/non-existing-var}"
+                      :ctor-spec 'clojure.core/non-existing-var
+                      :projects ["qux"]})]
          (-> {"foo" {:test {:create-test-runner :not-a-symbol}}
               "bar" {:test {:create-test-runner 'unqualified-symbol}}
-              "baz" {:test {:create-test-runner 'non-existing.namespace/baz}}}
+              "baz" {:test {:create-test-runner 'non-existing.namespace/baz}}
+              "qux" {:test {:create-test-runner 'clojure.core/non-existing-var}}}
              (ws)
              (sut/errors color/none)
              (->> (sort-by :message))))))
