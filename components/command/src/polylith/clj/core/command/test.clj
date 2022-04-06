@@ -1,6 +1,6 @@
 (ns polylith.clj.core.command.test
-  (:require [polylith.clj.core.test-runner.interface :as test-runner]
-            [polylith.clj.core.common.interface :as common]))
+  (:require [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.test-runner-orchestrator.interface :as test-runner-orchestrator]))
 
 (defn run
   "Return true if the tests could be executed correctly."
@@ -8,5 +8,5 @@
   (let [{:keys [ok? message]} (common/validate-args unnamed-args "test project:dev")]
     (if ok?
       (reset! test-result
-              (test-runner/run workspace is-verbose color-mode))
+              (test-runner-orchestrator/run workspace is-verbose color-mode))
       (println message))))

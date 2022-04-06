@@ -13,9 +13,9 @@
 (deftest pristine-configuration
   (-> {"foo" {}
        "bar" {:test {}}
-       "baz" {:test {:make-test-runner nil}}
-       "qux" {:test {:make-test-runner :default}}
-       "zol" {:test {:make-test-runner `one-arity-ctor}}}
+       "baz" {:test {:create-test-runner nil}}
+       "qux" {:test {:create-test-runner :default}}
+       "zol" {:test {:create-test-runner `one-arity-ctor}}}
       (ws)
       (sut/errors color/none)
       (empty?)
@@ -28,10 +28,10 @@
   ([]) ([_ _]) ([_]))
 
 (deftest valid-ctor-arities
-  (-> {"foo" {:test {:make-test-runner `one-arity-ctor}}
-       "bar" {:test {:make-test-runner `good-variable-arity-ctor-1}}
-       "baz" {:test {:make-test-runner `good-variable-arity-ctor-2}}
-       "qux" {:test {:make-test-runner `good-multiple-arity-ctor}}}
+  (-> {"foo" {:test {:create-test-runner `one-arity-ctor}}
+       "bar" {:test {:create-test-runner `good-variable-arity-ctor-1}}
+       "baz" {:test {:create-test-runner `good-variable-arity-ctor-2}}
+       "qux" {:test {:create-test-runner `good-multiple-arity-ctor}}}
       (ws)
       (sut/errors color/none)
       (empty?)
@@ -40,7 +40,7 @@
 (defn error-109 [{:keys [prefix project-text colorized-project-text suffix projects ctor-spec]}]
   {:code 109
    :colorized-message (str "Invalid test runner configuration for " (or colorized-project-text project-text) ". " prefix "." suffix)
-   :make-test-runner ctor-spec
+   :create-test-runner ctor-spec
    :message (str "Invalid test runner configuration for " project-text ". " prefix "." suffix)
    :projects projects
    :type "error"})
@@ -61,9 +61,9 @@
                       :suffix " Exception: java.lang.IllegalArgumentException: Not a qualified symbol: :not-a-symbol"
                       :ctor-spec :not-a-symbol
                       :projects ["foo"]})]
-         (-> {"foo" {:test {:make-test-runner :not-a-symbol}}
-              "bar" {:test {:make-test-runner 'unqualified-symbol}}
-              "baz" {:test {:make-test-runner 'non-existing.namespace/baz}}}
+         (-> {"foo" {:test {:create-test-runner :not-a-symbol}}
+              "bar" {:test {:create-test-runner 'unqualified-symbol}}
+              "baz" {:test {:create-test-runner 'non-existing.namespace/baz}}}
              (ws)
              (sut/errors color/none)
              (->> (sort-by :message))))))
@@ -76,7 +76,7 @@
                       :project-text "project foo"
                       :ctor-spec `no-suitable-arity-ctor
                       :projects ["foo"]})]
-         (-> {"foo" {:test {:make-test-runner `no-suitable-arity-ctor}}}
+         (-> {"foo" {:test {:create-test-runner `no-suitable-arity-ctor}}}
              (ws)
              (sut/errors color/none)))))
 
@@ -92,10 +92,10 @@
                       :ctor-spec 'non-existing.namespace/baz
                       :projects ["baz" "qux"]
                       :suffix " Exception: java.io.FileNotFoundException: Could not locate non_existing/namespace__init.class, non_existing/namespace.clj or non_existing/namespace.cljc on classpath. Please check that namespaces with dashes use underscores in the Clojure file name."})]
-         (-> {"foo" {:test {:make-test-runner `no-suitable-arity-ctor}}
-              "bar" {:test {:make-test-runner `no-suitable-arity-ctor}}
-              "baz" {:test {:make-test-runner 'non-existing.namespace/baz}}
-              "qux" {:test {:make-test-runner 'non-existing.namespace/baz}}}
+         (-> {"foo" {:test {:create-test-runner `no-suitable-arity-ctor}}
+              "bar" {:test {:create-test-runner `no-suitable-arity-ctor}}
+              "baz" {:test {:create-test-runner 'non-existing.namespace/baz}}
+              "qux" {:test {:create-test-runner 'non-existing.namespace/baz}}}
              (ws)
              (sut/errors "light")
              (->> (sort-by :message))))))

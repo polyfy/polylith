@@ -1,23 +1,25 @@
 (ns polylith.clj.core.validator.m109-invalid-test-runner-constructor
-  (:require [clojure.string :as str]
-            [polylith.clj.core.test-runner-plugin.interface.initializer :as test-runner-initializer]
-            [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.util.interface.color :as color]))
+  (:require
+   [clojure.string :as str]
+   [polylith.clj.core.test-runner-contract.interface.initializers :as test-runner-initializers]
+   [polylith.clj.core.test-runner-contract.interface.verifiers :as test-runner-verifiers]
+   [polylith.clj.core.util.interface :as util]
+   [polylith.clj.core.util.interface.color :as color]))
 
-(defn invalid-ctor? [ctor-var]
-  (and (some? ctor-var)
-       (not (test-runner-initializer/valid-constructor-var? ctor-var))))
+(defn invalid-constructor? [candidate]
+  (and (some? candidate)
+       (not (test-runner-verifiers/valid-constructor-var? candidate))))
 
-(defn error-or-maybe-ctor-var [ctor-spec ->error-message]
-  (try {:ctor-var (test-runner-initializer/->constructor-var ctor-spec)}
+(defn error-or-maybe-constructor-var [candidate ->error-message]
+  (try {:constructor-var (test-runner-initializers/->constructor-var candidate)}
        (catch Exception e
-         {:error (->error-message (str "Unable to load test runner constructor " ctor-spec) e)})))
+         {:error (->error-message (str "Unable to load test runner constructor " candidate) e)})))
 
-(defn invalid-ctor-message [ctor-spec ->error-message]
-  (let [{:keys [ctor-var error]} (error-or-maybe-ctor-var ctor-spec ->error-message)]
+(defn invalid-constructor-message [candidate ->error-message]
+  (let [{:keys [constructor-var error]} (error-or-maybe-constructor-var candidate ->error-message)]
     (or error
-        (when (invalid-ctor? ctor-var)
-          (->error-message (str "The var referred to by " ctor-spec " is not a valid test runner constructor"))))))
+        (when (invalid-constructor? constructor-var)
+          (->error-message (str "The var referred to by " candidate " is not a valid test runner constructor"))))))
 
 (defn multiple? [coll]
   (util/xf-some (comp (drop 1) (map any?)) coll))
@@ -34,19 +36,19 @@
             ". " text "."
             (when ex (str " Exception: " ex)))))))
 
-(defn invalid-ctor-error-fn [color-mode]
-  (fn [[ctor-spec project-names]]
+(defn invalid-constructor-error-fn [color-mode]
+  (fn [[?create-test-runner project-names]]
     (let [->error-message (error-message-fn color-mode project-names)]
-      (when-let [message (invalid-ctor-message ctor-spec ->error-message)]
+      (when-let [message (invalid-constructor-message ?create-test-runner ->error-message)]
         (util/ordered-map
          :type "error"
          :code 109
          :message (color/clean-colors message)
          :colorized-message message
-         :make-test-runner ctor-spec
+         :create-test-runner ?create-test-runner
          :projects (vec project-names))))))
 
 (defn errors [{:keys [projects]} color-mode]
-  (->> (for [[k v] (group-by #(-> % val :test :make-test-runner) projects)]
+  (->> (for [[k v] (group-by #(-> % val :test :create-test-runner) projects)]
          [k (sort (mapv key v))])
-       (into [] (keep (invalid-ctor-error-fn color-mode)))))
+       (into [] (keep (invalid-constructor-error-fn color-mode)))))

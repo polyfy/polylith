@@ -31,7 +31,7 @@
 
 (def test-runner-config-schema
   [:map
-   [:make-test-runner {:optional true} [:or qualified-symbol? nil? [:enum :default]]]])
+   [:create-test-runner {:optional true} [:or qualified-symbol? nil? [:enum :default]]]])
 
 (def project-test-config-schema
   (mu/merge
