@@ -59,7 +59,34 @@
        "    poly test :dev\n"
        "    poly test :project :dev\n"
        "    poly test :all-bricks :dev\n"
-       "    poly test :all :dev"))
+       "    poly test :all :dev\n"
+       "\n"
+       ;; TODO: update once issue #206 is addressed
+       "  The poly tool's default test runner will discover clojure.test tests from the \"/test\" directories\n"
+       "  of bricks and projects, and execute them using clojure.test/run-tests.\n"
+       "\n"
+       "  Alternative test runners can also be used by referring to their constructors\n"
+       "  in workspace.edn:\n"
+       "\n"
+       "  {;; To use it as the default test runner for the workspace\n"
+       "   :test {:create-test-runner my.test-runner/create}\n"
+       "\n"
+       "   :projects\n"
+       "   {\n"
+       "    ;; To only use it for specific projects\n"
+       "    \"foo\" {:test {:create-test-runner my.test-runner/create}}\n"
+       "\n"
+       "    ;; To revert to poly's built-in default test runner only for specific projects\n"
+       "    \"bar\" {:test {:create-test-runner :default}}}}\n"
+       "\n"
+       "  This requires that my.test-runner/create is available on the classpath of the\n"
+       "  poly tool, which is easiest to achieve by running poly as a dependency.\n"
+       "\n"
+       "  Please refer to the docstring of polylith.clj.core.test-runner-contract.interface\n"
+       "  for details on how to implement a custom test runner and a constructor.\n"
+       "\n"
+       "  The poly tool's default test runner is also implemented this way and can be referred to\n"
+       "  as an example; see polylith.clj.core.clojure-test-test-runner.interface/create."))
 
 (defn print-help [color-mode]
   (println (help-text color-mode)))
