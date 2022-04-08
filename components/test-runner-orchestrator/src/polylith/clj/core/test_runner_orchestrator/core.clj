@@ -43,38 +43,64 @@
             false))))
     true))
 
-(defn ->test-runner [{:keys [project test-settings color-mode] :as opts}]
-  (-> test-settings
-      (:create-test-runner)
-      (test-runner-initializers/->constructor-var)
-      (#(% opts))
-      (test-runner-verifiers/ensure-valid-test-runner)
-      (try
-        (catch Exception e
-          (println (str "Could not create valid test runner for the "
-                        (color/project (:name project) color-mode)
-                        " project: " e))))))
+(defn ->valid-test-runner-fn [{:keys [project color-mode] :as opts}]
+  (fn ->valid-test-runner [ctor-sym]
+    (-> ctor-sym
+        (test-runner-initializers/->constructor-var)
+        (#(% opts))
+        (test-runner-verifiers/ensure-valid-test-runner)
+        (try
+          (catch Exception e
+            (println (str "Could not create valid test runner for the "
+                          (color/project (:name project) color-mode)
+                          " project: " e))
+            (throw e))))))
+
+(defn run-tests-for-project-with-test-runner
+  [{:keys [test-runner setup-delay teardown-delay color-mode runner-opts project]}]
+  (let [for-project-using-runner
+        (str "for the " (color/project (:name project) color-mode)
+             " project using test runner: "
+             (test-runner-contract/test-runner-name test-runner))]
+    (if-not (test-runner-contract/tests-present? test-runner runner-opts)
+      (println (str "No tests to run " for-project-using-runner "."))
+      (when (deref setup-delay)
+        (try
+          (println (str "Running tests " for-project-using-runner "..."))
+          (test-runner-contract/run-tests test-runner runner-opts)
+          (catch Throwable e (deref teardown-delay) (throw e)))))))
 
 (defn run-tests-for-project [{:keys [workspace project test-settings is-verbose color-mode] :as opts}]
   (let [{:keys [settings]} workspace
         {:keys [name paths]} project
-        {:keys [setup-fn teardown-fn]} test-settings
-        test-runner (->test-runner opts)]
-    (when (test-runner-contract/test-sources-present? test-runner)
+        {:keys [create-test-runner setup-fn teardown-fn]} test-settings
+        test-runners-seeing-test-sources
+        (into []
+              (comp (map (->valid-test-runner-fn opts))
+                    (filter test-runner-contract/test-sources-present?))
+              create-test-runner)]
+    (when (seq test-runners-seeing-test-sources)
       (let [lib-paths (resolve-deps project settings is-verbose color-mode)
             all-paths (into #{} cat [(:src paths) (:test paths) lib-paths])
             class-loader (common/create-class-loader all-paths color-mode)
+            setup!* (delay (execute-fn setup-fn "setup" name class-loader color-mode))
+            setup-failed? #(and (realized? setup!*) (not (deref setup!*)))
+            setup-succeeded? #(and (realized? setup!*) (deref setup!*))
+            teardown!* (delay (execute-fn teardown-fn "teardown" name class-loader color-mode))
             runner-opts (merge opts
                                {:class-loader class-loader
                                 :eval-in-project #(common/eval-in class-loader %)})]
         (when is-verbose (println (str "# paths:\n" all-paths "\n")))
-        (if-not (test-runner-contract/tests-present? test-runner runner-opts)
-          (println (str "No tests to run for the " (color/project name color-mode) " project."))
-          (when (execute-fn setup-fn "setup" name class-loader color-mode)
-            (try
-              (test-runner-contract/run-tests test-runner runner-opts)
-              (finally
-                (execute-fn teardown-fn "teardown" name class-loader color-mode)))))))))
+        (doseq [current-test-runner test-runners-seeing-test-sources]
+          (when-not (setup-failed?)
+            (->> {:test-runner current-test-runner
+                  :setup-delay setup!*
+                  :teardown-delay teardown!*
+                  :runner-opts runner-opts}
+                 (merge opts)
+                 (run-tests-for-project-with-test-runner))))
+        (when (setup-succeeded?)
+          (deref teardown!*))))))
 
 (defn affected-by-changes? [{:keys [name]} {:keys [project-to-bricks-to-test project-to-projects-to-test]}]
   (seq (concat (project-to-bricks-to-test name)

@@ -29,9 +29,14 @@
       (m/explain config)
       (me/humanize)))
 
+(def test-runner-constructor-schema
+  [:or qualified-symbol? [:enum :default]])
+
 (def test-runner-config-schema
   [:map
-   [:create-test-runner {:optional true} [:or qualified-symbol? nil? [:enum :default]]]])
+   [:create-test-runner {:optional true}
+    [:or test-runner-constructor-schema
+     [:repeat {:min 1} test-runner-constructor-schema]]]])
 
 (def project-test-config-schema
   (mu/merge

@@ -708,6 +708,7 @@
           :test ["clojure.java.shell"
                  "clojure.string"
                  "clojure.test"
+                 "malli.core"
                  "polylith.clj.core.poly-cli.api"
                  "polylith.clj.core.test_runner_contract.interface"]}
          (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"]))))

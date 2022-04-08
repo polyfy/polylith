@@ -18,5 +18,5 @@
 
 (defn ensure-valid-test-runner [candidate]
   (when-not (valid-test-runner? candidate)
-    (throw (ex-info "test runner must satisfy the TestRunner protocol" {})))
+    (throw (ex-info "Test runners must satisfy the TestRunner protocol" {:candidate candidate})))
   candidate)

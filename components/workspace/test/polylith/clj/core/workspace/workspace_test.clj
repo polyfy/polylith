@@ -207,9 +207,9 @@
                                                                                       "components/admin/test"]
                                                                     :project-names   []}}
                                   :projects             {"development" {:alias "dev"
-                                                                        :test  {:create-test-runner 'polylith.clj.core.clojure-test-test-runner.interface/create}}
+                                                                        :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}
                                                          "service"     {:alias "s"
-                                                                        :test  {:create-test-runner 'polylith.clj.core.clojure-test-test-runner.interface/create}}}
+                                                                        :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}}
                                   :tag-patterns         {:release "v[0-9]*"
                                                          :stable  "stable-*"}
                                   :thousand-separator   ","

@@ -3,6 +3,9 @@
 (defprotocol TestRunner
   "Implement to supply a custom test runner
 
+  `test-runner-name`
+    - should return a printable name that the test orchestrator can print out for information purposes
+
   `test-sources-present?`
     - called first
     - if falsey, we short-circuit, not even the project classloader will be created
@@ -39,6 +42,7 @@
     :projects {\"project-a\" {:test {:create-test-runner my.namespace/create}} ;; to use it only for a project
                \"project-b\" {:test {:create-test-runner :default}} ;; to reset the global setting to default
                }}"
+  (test-runner-name [this])
   (test-sources-present? [this])
   (tests-present? [this {:keys [class-loader eval-in-project] :as opts}])
   (run-tests [this {:keys [class-loader color-mode eval-in-project is-verbose] :as opts}]))

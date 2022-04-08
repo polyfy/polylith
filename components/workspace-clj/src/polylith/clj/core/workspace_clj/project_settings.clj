@@ -7,18 +7,23 @@
        (vector? test) (assoc :test {:include test})
        global-test (update :test #(merge global-test %)))]))
 
-(defn or-default-constructor [candidate]
+(defn or-default-constructor-sym [candidate]
   (if (contains? #{nil :default} candidate)
     'polylith.clj.core.clojure-test-test-runner.interface/create
     candidate))
 
-(defn ensure-test-runner-constructor [[project settings]]
+(defn ensure-constructor-symbols [candidate]
+  (into []
+        (map or-default-constructor-sym)
+        (cond-> candidate (not (coll? candidate)) vector)))
+
+(defn ensure-create-test-runner [[project settings]]
   [project
-   (update-in settings [:test :create-test-runner] or-default-constructor)])
+   (update-in settings [:test :create-test-runner] ensure-constructor-symbols)])
 
 (defn convert
   [{:keys [projects test]}]
   (into {}
         (comp (map (convert-test-fn test))
-              (map ensure-test-runner-constructor))
+              (map ensure-create-test-runner))
         projects))

@@ -83,6 +83,8 @@
                               (delay))]
 
     (reify test-runner-contract/TestRunner
+      (test-runner-name [_] "Polylith built-in clojure.test runner")
+
       (test-sources-present? [_] @test-sources-present*)
 
       (tests-present? [this {_eval-in-project :eval-in-project :as _opts}]

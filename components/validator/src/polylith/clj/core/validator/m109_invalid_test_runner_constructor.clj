@@ -44,7 +44,15 @@
          :create-test-runner ?create-test-runner
          :projects (vec project-names))))))
 
+(defn ->ctor+project-names [[ctor project-name+ctor-vec]]
+  [ctor (sort (mapv first project-name+ctor-vec))])
+
 (defn errors [{:keys [projects]} color-mode]
-  (->> (for [[k v] (group-by #(-> % val :test :create-test-runner) projects)]
-         [k (sort (mapv key v))])
-       (into [] (keep (invalid-constructor-error-fn color-mode)))))
+  (->> (for [[project-name {{ctors :create-test-runner} :test}] projects
+             ctor ctors]
+         [project-name ctor])
+       (group-by second)
+       (sort-by key)
+       (into []
+             (comp (map ->ctor+project-names)
+                   (keep (invalid-constructor-error-fn color-mode))))))
