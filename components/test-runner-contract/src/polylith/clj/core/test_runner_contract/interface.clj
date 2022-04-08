@@ -24,9 +24,13 @@
 
 
    To use a custom test runner, create a constructor that returns an instance of it:
+
    (defn create [{:keys [workspace project changes test-settings]}]
      ,,,
      (reify TestRunner ,,,))
+
+   `workspace` passed to the constructor will contain `:user-input`, which
+   can be used to receive additional parameters for runtime configuration.
 
    And in workspace.edn:
 
