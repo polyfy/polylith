@@ -70,6 +70,19 @@
           (test-runner-contract/run-tests test-runner runner-opts)
           (catch Throwable e (deref teardown-delay) (throw e)))))))
 
+(defn ex-causes [ex]
+  (str/join "; " (take-while some? (iterate ex-cause ex))))
+
+(defn ->eval-in-project [class-loader]
+  (fn [form]
+    (try (common/eval-in class-loader form)
+         (catch Throwable e
+           (throw (ex-info
+                   (str "Error while evaluating form " form
+                        " in class-loader. Cause: " (ex-causes e))
+                   {:form form}
+                   e))))))
+
 (defn run-tests-for-project [{:keys [workspace project test-settings is-verbose color-mode] :as opts}]
   (let [{:keys [settings]} workspace
         {:keys [name paths]} project
@@ -89,7 +102,7 @@
             teardown!* (delay (execute-fn teardown-fn "teardown" name class-loader color-mode))
             runner-opts (merge opts
                                {:class-loader class-loader
-                                :eval-in-project #(common/eval-in class-loader %)})]
+                                :eval-in-project (->eval-in-project class-loader)})]
         (when is-verbose (println (str "# paths:\n" all-paths "\n")))
         (doseq [current-test-runner test-runners-seeing-test-sources]
           (when-not (setup-failed?)
