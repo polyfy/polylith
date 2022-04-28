@@ -159,7 +159,7 @@
                            "                                                                                   r"
                            "  library                       version   type      KB   s   dev  default  extra   1"
                            "  ----------------------------------------------------   -   -------------------   -"
-                           "  me.raynes/fs                  1.4.6     maven     10   -    -      x       -     ."
+                           "  clj-commons/fs                1.6.310   maven     12   -    -      x       -     ."
                            "  metosin/malli                 0.5.0     maven     42   t    x      -       -     x"
                            "  org.clojure/clojure           1.10.1    maven  3,816   x    x      -       -     ."
                            "  org.clojure/tools.deps.alpha  0.12.985  maven     59   x    x      -       -     ."]}
@@ -178,7 +178,7 @@
                            "                                                             r"
                            "  library                       version   type      KB   s   1"
                            "  ----------------------------------------------------   -   -"
-                           "  me.raynes/fs                  1.4.6     maven     10   -   ."
+                           "  clj-commons/fs                1.6.310   maven     12   -   ."
                            "  metosin/malli                 0.5.0     maven     42   t   x"
                            "  org.clojure/clojure           1.10.1    maven  3,816   x   ."
                            "  org.clojure/tools.deps.alpha  0.12.985  maven     59   x   ."]}
@@ -194,9 +194,9 @@
                                   :m2-dir               (str (System/getProperty "user.home") "/.m2")
                                   :profile-to-settings  {"default" {:base-names      []
                                                                     :component-names ["user1"]
-                                                                    :lib-deps        {"me.raynes/fs" {:size    11209
-                                                                                                      :type    "maven"
-                                                                                                      :version "1.4.6"}}
+                                                                    :lib-deps        {"clj-commons/fs" {:size    12819
+                                                                                                        :type    "maven"
+                                                                                                        :version "1.6.310"}}
                                                                     :paths           ["components/user1/src"
                                                                                       "components/user1/test"]
                                                                     :project-names   []}
