@@ -37,7 +37,7 @@
                                org.jline/jline {:mvn/version "3.21.0"}
                                djblue/portal {:mvn/version "0.22.1"}
                                io.github.seancorfield/build-clj {:git/tag "v0.8.0" :git/sha "9bd8b8a"}
-                               me.raynes/fs {:mvn/version "1.4.6"}
+                               clj-commons/fs {:mvn/version "1.6.310"}
                                metosin/malli {:mvn/version "0.8.4"}
                                mount/mount {:mvn/version "0.1.16"}
                                mvxcvi/puget {:mvn/version "1.3.2"}

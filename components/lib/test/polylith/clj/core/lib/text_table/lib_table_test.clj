@@ -154,8 +154,8 @@
           "                                                                                   e"
           "  library                       version   type      KB   s   dev  default  extra   r"
           "  ----------------------------------------------------   -   -------------------   -"
+          "  clj-commons/fs                1.6.310   maven     12   -    -      x       -     ."
           "  clj-time                      0.15.2    maven      0   t    -      -       -     t"
-          "  me.raynes/fs                  1.4.6     maven     10   -    -      x       -     ."
           "  org.clojure/clojure           1.10.1    maven  3,816   x    x      -       -     ."
           "  org.clojure/tools.deps.alpha  0.12.985  maven     46   x    x      -       -     ."]
          (lib-table/table data/workspace-01 false))))
@@ -173,8 +173,8 @@
           "                                                                                   s  e  e"
           "  library                       version   type      KB   s   dev  default  extra   e  r  r"
           "  ----------------------------------------------------   -   -------------------   -------"
+          "  clj-commons/fs                1.6.310   maven     12   -    -      x       -     .  .  ."
           "  clj-time                      0.15.2    maven      0   t    -      -       -     .  t  ."
-          "  me.raynes/fs                  1.4.6     maven     10   -    -      x       -     .  .  ."
           "  org.clojure/clojure           1.10.1    maven  3,816   x    x      -       -     .  .  ."
           "  org.clojure/tools.deps.alpha  0.12.985  maven     46   x    x      -       -     .  .  ."]
          (lib-table/table data/workspace-01 true))))
