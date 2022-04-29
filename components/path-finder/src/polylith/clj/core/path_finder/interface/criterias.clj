@@ -57,7 +57,7 @@
 (defn filter-entries [path-entries criterias]
   (if (empty? criterias)
     (vec path-entries)
-    (vec (filter #(match? % criterias) path-entries))))
+    (filterv #(match? % criterias) path-entries)))
 
 (defn has-entry? [path-entries criterias]
-  (-> (filter-entries path-entries criterias) empty? not))
+  (seq (filter-entries path-entries criterias)))
