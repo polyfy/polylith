@@ -142,8 +142,7 @@
                                                     "test"]}}}
          (dissoc (proj/enrich-project project components bases "se.example." brick->loc brick->lib-imports
                                       {:missing []}
-                                      {:projects {"development" {:alias "dev"}}}
-                                      {})
+                                      {:projects {"development" {:alias "dev"}}})
                  :deps))))
 
 (deftest paths--with-active-profile--includes-brick-in-profile
@@ -203,7 +202,5 @@
                                                                                 "components/user/test"]
                                                                         :lib-deps {"clojure.core.matrix"
                                                                                    "net.mikera/core.matrix"}}}
-                                       :projects {"development" {:alias "dev", :test []}}}
-                                      {:is-dev false
-                                       :selected-projects #{"dev"}})
+                                       :projects {"development" {:alias "dev", :test []}}})
                  :deps))))

@@ -29,10 +29,11 @@
            (subs path 1))
       path)))
 
-(defn absolute-path [path entity-root-path]
+(defn absolute-path
   "entity-root-path will be passed in as e.g. 'components/invoicer' if a brick,
    or 'projects/invocing' if a project, and nil if the development project
    (dev lives at the root, so keep that path as it is)."
+  [path entity-root-path]
   (when path
     (if (or (nil? entity-root-path)
             (str/starts-with? path "/"))

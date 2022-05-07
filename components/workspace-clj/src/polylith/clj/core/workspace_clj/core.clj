@@ -25,7 +25,7 @@
 
 (defn stringify [ws-type ns-to-lib]
   (when (not= ws-type :toolsdeps2)
-    (into {} (mapv stringify-key-value ns-to-lib))))
+    (into {} (map stringify-key-value) ns-to-lib)))
 
 (defn git-root [git-repo?]
   (if git-repo?
@@ -103,8 +103,7 @@
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
         components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns brick->non-top-namespaces)
         bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir brick->non-top-namespaces)
-        name->brick (into {} (map (juxt :name identity)
-                                  (concat components bases)))
+        name->brick (into {} (comp cat (map (juxt :name identity))) [components bases])
         projects (projects-from-disk/read-projects ws-dir ws-type name->brick project->settings user-input user-home)
         profile-to-settings (profile/profile-to-settings ws-dir aliases name->brick user-home)
         ws-local-dir (->ws-local-dir ws-dir)

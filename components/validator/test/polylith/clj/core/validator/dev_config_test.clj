@@ -10,7 +10,7 @@
                                        :release "v[0-9]*"}
                         :profile-to-alias {"api" "api"
                                            "core" "core"}
-                        :ns-to-lib '{me.raynes  me.raynes/fs
+                        :ns-to-lib '{me.raynes  clj-commons/fs
                                      puget      mvxcvi/puget}}
              :aliases  {:dev {:extra-paths ["development/src"
                                             "bases/cli/src"]

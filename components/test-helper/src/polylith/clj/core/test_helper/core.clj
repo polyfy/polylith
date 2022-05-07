@@ -1,10 +1,9 @@
 (ns polylith.clj.core.test-helper.core
-  (:require [clojure.pprint :as pp]
-            [clojure.string :as str]
-            [polylith.clj.core.file.interface :as file]
+  (:require [clojure.string :as str]
             [polylith.clj.core.command.interface :as command]
-            [polylith.clj.core.user-input.interface :as user-input]
-            [polylith.clj.core.user-config.interface :as user-config]))
+            [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.user-config.interface :as user-config]
+            [polylith.clj.core.user-input.interface :as user-input]))
 
 (def user-home "USER-HOME")
 
