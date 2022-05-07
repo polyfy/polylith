@@ -27,7 +27,7 @@
         poly/ws-file                  {:local/root "../../components/ws-file"}
         poly/poly-cli                 {:local/root "../../bases/poly-cli"}
 
-        org.clojure/clojure {:mvn/version "1.11.0"}
+        org.clojure/clojure {:mvn/version "1.11.1"}
         org.slf4j/slf4j-nop {:mvn/version "1.7.36"}}
 
  ;; so poly can be installed as a tool:
