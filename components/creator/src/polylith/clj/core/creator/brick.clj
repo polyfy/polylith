@@ -37,14 +37,14 @@
 
 (defn create-src-ns [ws-dir top-namespace bricks-dir namespace interface-name is-git-add]
   (let [top-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
-        ns-file (str bricks-dir "/src/" top-dir (common/ns-to-path interface-name) "/" namespace ".clj")]
+        ns-file (str bricks-dir "/src/" top-dir (common/ns-to-path interface-name) "/" (common/ns-to-path namespace) ".clj")]
     (file/create-missing-dirs ns-file)
     (file/create-file ns-file [(str "(ns " top-namespace "." interface-name "." namespace ")")])
     (git/add ws-dir ns-file is-git-add)))
 
 (defn create-test-ns [ws-dir top-namespace bricks-dir namespace entity-name alias is-git-add]
   (let [top-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
-        ns-file (str bricks-dir "/test/" top-dir (common/ns-to-path entity-name) "/" namespace "_test.clj")]
+        ns-file (str bricks-dir "/test/" top-dir (common/ns-to-path entity-name) "/" (common/ns-to-path namespace) "_test.clj")]
     (file/create-missing-dirs ns-file)
     (file/create-file ns-file [(str "(ns " top-namespace "." entity-name "." namespace "-test")
                                (str "  (:require [clojure.test :as test :refer :all]")
