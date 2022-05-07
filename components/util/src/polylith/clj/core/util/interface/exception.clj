@@ -1,6 +1,5 @@
 (ns polylith.clj.core.util.interface.exception
-  (:require [clojure.stacktrace :as stacktrace]
-            [polylith.clj.core.util.interface.color :as color]))
+  (:require [clojure.stacktrace :as stacktrace]))
 
 (defn print-error-message [e]
   (when-let [message (.getMessage e)]

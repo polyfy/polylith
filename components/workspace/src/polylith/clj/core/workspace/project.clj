@@ -31,10 +31,8 @@
                       brick->loc
                       brick->lib-imports
                       disk-paths
-                      settings
-                      {:keys [is-run-all-brick-tests selected-projects] :as user-input}]
-  (let [is-dev-user-input (:is-dev user-input)
-        alias (get-in settings [:projects name :alias])
+                      settings]
+  (let [alias (get-in settings [:projects name :alias])
         enriched-maven-repos (apply merge maven-repos (mapcat :maven-repos (concat components bases)))
         lib-entries (extract/from-library-deps is-dev lib-deps settings)
         path-entries (extract/from-unenriched-project is-dev paths disk-paths settings)

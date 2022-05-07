@@ -81,7 +81,7 @@
                              ""
                              "            :+default {:extra-paths [\"components/user1/src\""
                              "                                     \"components/user1/test\"]"
-                             "                       :extra-deps {me.raynes/fs {:mvn/version \"1.4.6\"}}}"
+                             "                       :extra-deps {clj-commons/fs {:mvn/version \"1.6.310\"}}}"
                              "            :+extra {:extra-paths [\"components/admin/src\""
                              "                                   \"components/admin/test\"]"
                              "                     :extra-deps {}}"
