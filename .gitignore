@@ -43,3 +43,5 @@ projects/**/pom.xml
 
 # Portal (VS Code)
 .portal
+.rebel_readline_history
+
