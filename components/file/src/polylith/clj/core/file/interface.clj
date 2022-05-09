@@ -94,20 +94,3 @@
 
 (defn pretty-spit [filename collection]
   (core/pretty-spit filename collection))
-
-
-;; (defn make-deps-path [deps-segment component-dir top-src-dir component-name interface-ns]
-;;   (let [deps-path (cstr/join "/" [component-dir deps-segment top-src-dir component-name (str interface-ns ".clj")])]
-;;     deps-path))
-
-
-;; (defn check-deps-path [deps-segment component-dir top-src-dir component-name interface-ns]
-;;   (let [deps-path (make-deps-path deps-segment component-dir top-src-dir component-name interface-ns)]
-;;     (if (.exists (java.io.File. deps-path))
-;;       deps-path)))
-
-
-;; (defn find-deps-path [deps-segments component-dir top-src-dir component-name interface-ns]
-;;   (let [deps-paths (map #(check-deps-path % component-dir top-src-dir component-name interface-ns) deps-segments)]
-;;     (if (= (count deps-paths) 1)
-;;       (first deps-paths))))
