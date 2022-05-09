@@ -139,9 +139,6 @@
                       :version (version/version ws-type))))
 
 (defn workspace-from-disk [user-input]
-  (println "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-  (println "workspace-from-disk")
-  (println (str user-input))
   (let [color-mode (or (:color-mode user-input) (user-config/color-mode) color/none)
         ws-dir (common/workspace-dir user-input color-mode)
         ws-type (cond

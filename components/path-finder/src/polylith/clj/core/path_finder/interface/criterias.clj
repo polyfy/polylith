@@ -39,7 +39,7 @@
   (str/ends-with? path "/test"))
 
 (defn resources-path? [{:keys [path]}]
-  (str/ends-with? path "/resources"))
+  (str/includes? path "/resources"))
 
 (defn not-test-or-resources-path [entry]
   (and (not (test-path? entry))

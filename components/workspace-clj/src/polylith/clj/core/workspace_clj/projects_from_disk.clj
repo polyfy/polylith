@@ -7,6 +7,7 @@
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.workspace-clj.brick-deps :as brick-deps]
+            [polylith.clj.core.workspace-clj.brick-paths :as brick-paths]
             [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]))
 
 (defn absolute-path [path project-name is-dev]
@@ -148,7 +149,9 @@
          lib-deps (cond-> {}
                           (seq src-lib-deps) (assoc :src src-lib-deps)
                           (seq test-lib-deps) (assoc :test test-lib-deps))
-         namespaces (ns-from-disk/namespaces-from-disk (str project-dir "/src") (str project-dir "/test"))]
+         namespaces (brick-paths/make-namespaces src-paths test-paths)
+         ]
+
      (util/ordered-map :name project-name
                        :is-dev is-dev
                        :project-dir project-dir

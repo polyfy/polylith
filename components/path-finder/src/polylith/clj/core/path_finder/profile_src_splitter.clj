@@ -2,7 +2,7 @@
   (:require [clojure.string :as str]))
 
 (defn test-path? [path]
-  (str/ends-with? path "/test"))
+  (str/includes? path "/test"))
 
 (defn src-path? [path]
   (not (test-path? path)))

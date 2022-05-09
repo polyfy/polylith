@@ -11,22 +11,13 @@
         config (config-from-disk/read-config-file ws-type base-dir)
         brick-dirs (brick-paths/source-paths base-dir config)
 
-        src-dir (str base-dir "/src/" top-src-dir)
-        src-dirs (:src brick-dirs)
+        src-dirs (brick-paths/make-brick-paths (:src brick-dirs) base-dir top-src-dir)
+        test-dirs (brick-paths/make-brick-paths (:test brick-dirs) base-dir top-src-dir)
 
-        test-dir (str base-dir "/test/" top-src-dir)
-        test-dirs (:test brick-dirs)
+        namespaces (brick-paths/make-namespaces src-dirs test-dirs)
 
-        namespaces (ns-from-disk/namespaces-from-disk src-dir test-dir)
         entity-root-path (str "bases/" base-name)
         lib-deps (lib/brick-lib-deps ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home)]
-    (println ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
-    (println (str src-dir))
-    (println (str src-dirs))
-    (println)
-    (println (str test-dir))
-    (println (str test-dirs))
-    (println ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
     (util/ordered-map :name base-name
                       :type "base"
                       :maven-repos (:mvn/repos config)

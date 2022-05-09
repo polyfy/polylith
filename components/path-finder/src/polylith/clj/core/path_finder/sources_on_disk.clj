@@ -1,9 +1,11 @@
 (ns polylith.clj.core.path-finder.sources-on-disk
-  (:require [polylith.clj.core.file.interface :as file]))
+  (:require
+   [clojure.string :as s]
+   [polylith.clj.core.file.interface :as file]))
 
 (defn entity-source-paths [ws-dir entity-type entity]
   (map #(str entity-type "/" entity "/" %)
-    (filter #(contains? #{"src" "resources" "test"} %)
+    (filter #(s/includes? #{"src" "resources" "test"} %)
       (file/directories (str ws-dir "/" entity-type "/" entity)))))
 
 (defn entity-paths [ws-dir entity-type]
