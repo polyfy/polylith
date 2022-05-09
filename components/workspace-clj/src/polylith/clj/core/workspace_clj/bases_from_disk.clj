@@ -8,12 +8,17 @@
 
 (defn read-base [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir brick->non-top-namespaces base-name]
   (let [base-dir (str ws-dir "/bases/" base-name)
-        src-dir (str base-dir "/src/" top-src-dir)
-        test-dir (str base-dir "/test/" top-src-dir)
-        namespaces (ns-from-disk/namespaces-from-disk src-dir test-dir)
         config (config-from-disk/read-config-file ws-type base-dir)
+        src-dir (str base-dir "/src/" top-src-dir)
+        src-dirs (:src (brick-paths/source-paths base-dir config))
+        test-dir (str base-dir "/test/" top-src-dir)
+        test-dirs (:test (brick-paths/source-paths base-dir config))
+        namespaces (ns-from-disk/namespaces-from-disk src-dir test-dir)
         entity-root-path (str "bases/" base-name)
         lib-deps (lib/brick-lib-deps ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home)]
+    (println ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
+    (println (str src-dirs))
+    (println (str test-dirs))
     (util/ordered-map :name base-name
                       :type "base"
                       :maven-repos (:mvn/repos config)

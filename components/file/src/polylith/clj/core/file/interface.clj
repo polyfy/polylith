@@ -1,5 +1,6 @@
 (ns polylith.clj.core.file.interface
   (:require [me.raynes.fs :as fs]
+            [clojure.string :as cstr]
             [polylith.clj.core.file.core :as core])
   (:import (java.io File)))
 
@@ -93,3 +94,29 @@
 
 (defn pretty-spit [filename collection]
   (core/pretty-spit filename collection))
+
+
+(defn make-deps-path [deps-segment component-dir top-src-dir component-name interface-ns]
+  (let [deps-path (cstr/join "/" [component-dir deps-segment top-src-dir component-name (str interface-ns ".clj")])]
+    deps-path))
+
+
+(defn check-deps-path [deps-segment component-dir top-src-dir component-name interface-ns]
+  (let [deps-path (make-deps-path deps-segment component-dir top-src-dir component-name interface-ns)]
+    (if (.exists (java.io.File. deps-path))
+      deps-path)))
+
+
+(defn find-deps-path [deps-segments component-dir top-src-dir component-name interface-ns]
+  (let [deps-paths (map #(check-deps-path % component-dir top-src-dir component-name interface-ns) deps-segments)]
+    (if (= (count deps-paths) 1)
+      (first deps-paths))))
+
+
+;; (defn check-path-name [deps-segment top-src-dir component-name interface-ns]
+;;   (let [interface-path (cstr/join "/" [ component-name (str interface-ns ".clj")])]
+;;     (if (.exists (java.io.File. interface-path))
+;;       interface-path)))
+
+;; (defn interface-path-name [component-src-dirs top-src-dir component-name interface-ns]
+;;   (map #(check-path-name % top-src-dir component-name interface-ns) component-src-dirs))
