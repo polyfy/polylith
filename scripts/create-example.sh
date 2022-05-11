@@ -174,6 +174,7 @@ cp $sections/testing/dummy_test.clj projects/command-line/test/project/command_l
 git add projects/command-line/test/project/command_line/dummy_test.clj
 poly info fake-sha:e7ebe68 > $output/testing-info-4.txt
 poly info :project fake-sha:e7ebe68 > $output/testing-info-5.txt
+poly test :project fake-sha:e7ebe68 > $output/testing-test-project.txt
 git add --all
 git commit -m "Added tests"
 git tag -f stable-lisa
@@ -183,9 +184,8 @@ poly info :all-bricks :dev fake-sha:e7ebe68 > $output/testing-info-8.txt
 poly info :all fake-sha:e7ebe68 > $output/testing-info-9.txt
 poly info :all :dev fake-sha:e7ebe68 > $output/testing-info-10.txt
 
-cp $sections/testing/workspace.edn .
 poly info :all :dev fake-sha:e7ebe68 > $output/testing-info-11.txt
-poly test :all :dev > $output/testing-test-all.txt
+poly test :all :dev color-mode:none > $output/testing-test-all.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test-all.txt
 
 cp $sections/project/command-line-test-setup.clj projects/command-line/test/project/command_line/test_setup.clj
@@ -193,6 +193,13 @@ cp $sections/project/workspace2.edn ./workspace.edn
 
 cp $sections/project/command-line-test-setup.clj projects/command-line/test/project/command_line/test_setup.clj
 cp $sections/project/workspace2.edn ./workspace.edn
+
+poly test :all color-mode:none > $output/testing-test-fixture.txt
+
+cp $sections/testing/workspace.edn .
+poly info :all :dev fake-sha:e7ebe68 > $output/testing-info-exclude-tests.txt
+poly test :all :dev color-mode:none > $output/testing-test-all-exclude-tests.txt
+sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test-all-exclude-tests.txt
 
 echo "### 11/50 Profile ###"
 echo "current-dir=$(pwd)"

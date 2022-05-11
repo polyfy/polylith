@@ -1,7 +1,7 @@
   stable since: 40d2f62 | stable-master
 
-  projects: 3   interfaces: 27
-  bases:    1   components: 27
+  projects: 3   interfaces: 29
+  bases:    1   components: 29
 
   project      alias  status   dev
   --------------------------   ---
@@ -9,33 +9,35 @@
   poly         poly    -t-     -t-
   development  dev     s--     s--
 
-  interface      brick           api  poly   dev
-  ----------------------------   ---------   ---
-  api            api             s--  ---    st-
-  change         change          s--  st-    st-
-  command        command         ---  st-    st-
-  common         common          s--  s--    s--
-  creator        creator         ---  st-    st-
-  deps           deps            s--  st-    st-
-  file           file            s--  st-    st-
-  git            git             s--  st-    st-
-  help           help            ---  s--    s--
-  lib            lib             s--  st-    st-
-  migrator       migrator        ---  st-    st-
-  path-finder    path-finder     s--  st-    st-
-  sh             sh              s--  s--    s--
-  shell          shell           ---  st-    st-
-  tap            tap             ---  s--    s--
-  test-helper    test-helper     ---  -t-    s--
-  test-runner    test-runner     ---  st-    st-
-  text-table     text-table      s--  s--    s--
-  user-config    user-config     s--  s--    s--
-  user-input     user-input      s--  st-    st-
-  util           util            s--  st-    st-
-  validator      validator       s--  st-    st-
-  version        version         s--  s--    s--
-  workspace      workspace       s--  st-    st-
-  workspace-clj  workspace-clj   s--  st-    st-
-  ws-explorer    ws-explorer     s--  st-    st-
-  ws-file        ws-file         ---  s--    s--
-  -              poly-cli        ---  s--    st-
+  interface                 brick                      api  poly   dev
+  --------------------------------------------------   ---------   ---
+  api                       api                        s--  ---    st-
+  change                    change                     s--  st-    st-
+  clojure-test-test-runner  clojure-test-test-runner   ---  st-    st-
+  command                   command                    ---  st-    st-
+  common                    common                     s--  s--    s--
+  creator                   creator                    ---  st-    st-
+  deps                      deps                       s--  st-    st-
+  file                      file                       s--  st-    st-
+  git                       git                        s--  st-    st-
+  help                      help                       ---  s--    s--
+  lib                       lib                        s--  st-    st-
+  migrator                  migrator                   ---  st-    st-
+  path-finder               path-finder                s--  st-    st-
+  sh                        sh                         s--  s--    s--
+  shell                     shell                      ---  st-    st-
+  tap                       tap                        ---  s--    s--
+  test-helper               test-helper                ---  -t-    s--
+  test-runner-contract      test-runner-contract       s--  st-    st-
+  test-runner-orchestrator  test-runner-orchestrator   ---  s--    s--
+  text-table                text-table                 s--  s--    s--
+  user-config               user-config                s--  s--    s--
+  user-input                user-input                 s--  st-    st-
+  util                      util                       s--  st-    st-
+  validator                 validator                  s--  st-    st-
+  version                   version                    s--  s--    s--
+  workspace                 workspace                  s--  st-    st-
+  workspace-clj             workspace-clj              s--  st-    st-
+  ws-explorer               ws-explorer                s--  st-    st-
+  ws-file                   ws-file                    ---  s--    s--
+  -                         poly-cli                   ---  st-    st-

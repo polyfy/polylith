@@ -1,7 +1,7 @@
 Projects to run tests from: [35mcommand-line[0m
 
 Running tests for the [35mcommand-line[0m project using test runner: Polylith built-in clojure.test runner...
-Running tests from the [35mcommand-line[0m project, including 2 bricks: [32muser[0m, [34mcli[0m
+Running tests from the [35mcommand-line[0m project, including 2 bricks and 1 project: [32muser[0m, [34mcli[0m, [35mcommand-line[0m
 
 Testing se.example.cli.core-test
 
@@ -17,4 +17,11 @@ Ran 1 tests containing 1 assertions.
 
 [32mTest results: 1 passes, 0 failures, 0 errors.[0m
 
-Execution time: x seconds
+Testing project.command-line.dummy_test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+[32mTest results: 1 passes, 0 failures, 0 errors.[0m
+
+Execution time: 1 seconds

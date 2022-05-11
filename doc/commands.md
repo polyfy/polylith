@@ -29,7 +29,7 @@ poly help
 ```
 
 ```
-  Poly 0.2.15-alpha-issue215-01 (2022-04-22) - https://github.com/polyfy/polylith
+  Poly 0.2.15-alpha-issue215-01 (2022-05-07) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -225,6 +225,13 @@ poly help
     The solution is to remove the component from the development project
     and define the paths for each component in separate profiles
     (including test paths).
+
+  Error 109 - Invalid test runner configuration for some projects.
+    The value of the optional :create-test-runner key under [:test] or
+    [:projects "some-project-name" :test] in workspace.edn must be either
+    nil, :default, or a fully qualified symbol referring to a function on
+    the poly tool's classpath, which can take a single argument and must return
+    an instance of polylith.clj.core.test-runner-contract.interface/TestRunner.
 
   Warning 201 - Mismatching parameter lists in function or macro.
     Triggered if a function or macro is defined in the interface for a component
@@ -872,6 +879,39 @@ poly help
     poly test :project :dev
     poly test :all-bricks :dev
     poly test :all :dev
+
+  The poly tool's default test runner will discover clojure.test tests from the "/test"
+  directories of bricks and projects, and execute them using clojure.test/run-tests.
+
+  Alternative test runners can also be used by referring to their constructors
+  in workspace.edn:
+
+  {;; To use it as the default test runner for the workspace
+   :test {:create-test-runner my.test-runner/create}
+
+   :projects
+   {
+    ;; To only use it for specific projects
+    "foo" {:test {:create-test-runner my.test-runner/create}}
+
+    ;; To revert to poly's built-in default test runner only for specific projects
+    "bar" {:test {:create-test-runner :default}}
+
+    ;; To use multiple test runners invoked the specified order
+    "baz" {:test {:create-test-runner [my.linter/create :default my.extra/create]}}
+    }
+   }
+
+  This requires that my.test-runner/create is available on the classpath of the
+  poly tool, which is easiest to achieve by running poly as a dependency.
+
+  The docstring of polylith.clj.core.test-runner-contract.interface/TestRunner
+  contains details on how to implement a custom test runner and a constructor.
+
+  The poly tool's default test runner is also implemented this way and can be referred to
+  as an example; see polylith.clj.core.clojure-test-test-runner.interface/create.
+
+  Refer to the Polylith documentation for more information about custom test runners.
 ```
 
 ### ws

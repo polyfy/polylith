@@ -503,7 +503,17 @@
     "util" {:src {}, :test {}},
     "without-src" {:src {}, :test {}}}}],
  :settings
- {:projects {"development" {:alias "dev"}, "invoicing" {:alias "inv"}},
+ {:projects
+  {"development"
+   {:alias "dev",
+    :test
+    {:create-test-runner
+     [polylith.clj.core.clojure-test-test-runner.interface/create]}},
+   "invoicing"
+   {:alias "inv",
+    :test
+    {:create-test-runner
+     [polylith.clj.core.clojure-test-test-runner.interface/create]}}},
   :user-config-filename "USER-HOME/.polylith/config.edn",
   :top-namespace "com.localdep",
   :default-profile-name "default",
@@ -568,7 +578,7 @@
    :minor 2,
    :patch 15,
    :revision "alpha-issue215-01",
-   :date "2022-04-22"},
+   :date "2022-05-07"},
   :ws {:type :toolsdeps2, :breaking 1, :non-breaking 1},
   :from {:ws {:type :toolsdeps1}}},
  :ws-dir "/privateWS-HOME/local-dep-old-format",

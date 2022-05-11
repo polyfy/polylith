@@ -43,6 +43,13 @@
     and define the paths for each component in separate profiles
     (including test paths).
 
+  Error 109 - Invalid test runner configuration for some projects.
+    The value of the optional :create-test-runner key under [:test] or
+    [:projects "some-project-name" :test] in workspace.edn must be either
+    nil, :default, or a fully qualified symbol referring to a function on
+    the poly tool's classpath, which can take a single argument and must return
+    an instance of polylith.clj.core.test-runner-contract.interface/TestRunner.
+
   Warning 201 - Mismatching parameter lists in function or macro.
     Triggered if a function or macro is defined in the interface for a component
     but also defined in the same interface for another component but with a
