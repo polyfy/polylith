@@ -1,5 +1,6 @@
 Projects to run tests from: development, invoicing
 
+Running tests for the development project using test runner: Polylith built-in clojure.test runner...
 Running tests from the development project, including 6 bricks: database, invoicer, test-helper, util, without-src, invoicer-cli
 
 Testing com.localdep.database.interface-test
@@ -43,6 +44,7 @@ Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
 Test results: 1 passes, 0 failures, 0 errors.
+Running tests for the invoicing project using test runner: Polylith built-in clojure.test runner...
 Running tests from the invoicing project, including 7 bricks: database, invoicer, test-helper, test-helper-db, util, without-src, invoicer-cli
 
 Testing com.localdep.database.interface-test

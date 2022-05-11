@@ -77,7 +77,7 @@
 
 (defn deps-content [sha]
   [(str "{:aliases  {:dev {:extra-paths [\"development/src\"]")
-   (str "                  :extra-deps {org.clojure/clojure {:mvn/version \" 1.11.0\"}}}")
+   (str "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.11.1\"}}}")
    (str "")
    (str "            :test {:extra-paths []}")
    (str "")

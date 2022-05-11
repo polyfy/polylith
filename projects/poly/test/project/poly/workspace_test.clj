@@ -84,14 +84,13 @@
           "  metosin/malli                     0.8.4          maven     63    x    x      x    .  .  .  .  .  x  .  ."
           "  mount/mount                       0.1.16         maven      8    -    -      x    .  .  .  .  .  .  .  ."
           "  mvxcvi/puget                      1.3.2          maven     15    x    x      x    .  .  .  .  .  .  .  x"
-          "  org.clojure/clojure               1.11.0         maven  4,008    x    x      x    .  .  .  .  .  .  .  ."
+          "  org.clojure/clojure               1.11.1         maven  4,008    x    x      x    .  .  .  .  .  .  .  ."
           "  org.clojure/tools.deps.alpha      0.13.1168      maven     63    x    x      x    x  x  .  .  .  .  x  ."
           "  org.jline/jline                   3.21.0         maven    971    -    x      x    .  .  .  x  .  .  .  ."
           "  org.slf4j/slf4j-nop               1.7.36         maven      3    -    x      x    .  .  .  .  .  .  .  ."
           "  rewrite-clj/rewrite-clj           1.0.699-alpha  maven     71    -    -      x    .  .  .  .  .  .  .  ."
           "  slipset/deps-deploy               0.2.0          maven      7    -    -      x    .  .  .  .  .  .  .  ."
           "  zprint/zprint                     1.2.2          maven    171    -    x      x    .  .  x  .  .  .  .  ."]
-
          (libs/table (workspace) false))))
 
 (deftest ifc-deps-table
