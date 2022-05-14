@@ -4,10 +4,10 @@
 (def major 0)
 (def minor 2)
 (def patch 15)
-(def revision "alpha-issue215-01")
+(def revision "alpha-issue219-01")
 (def name (str major "." minor "." patch "-" revision))
 
-(def date "2022-05-07")
+(def date "2022-05-14")
 
 (defn version
   ([ws-type]
