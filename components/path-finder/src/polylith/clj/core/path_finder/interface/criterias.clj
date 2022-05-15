@@ -32,16 +32,20 @@
 (defn not-exists? [{:keys [exists?]}]
   (not exists?))
 
+(defn resources? [path]
+  (or (= path "resources")
+      (str/ends-with? path "/resources")))
+
 (defn src-path? [{:keys [path test?]}]
   (and (not test?)
-       (not (str/ends-with? path "/resources"))))
+       (not (resources? path))))
 
-(defn test-path? [{:keys [path]}]
+(defn test-path? [{:keys [path test?]}]
   (and test?
-       (not (str/ends-with? path "/resources"))))
+       (not (resources? path))))
 
 (defn resources-path? [{:keys [path]}]
-  (str/ends-with? path "/resources"))
+  (resources? path))
 
 (defn profile? [{:keys [profile?]}]
   profile?)

@@ -93,10 +93,10 @@
             common/filter-clojure-paths)))
 
 (defn namespaces-from-disk [src-dirs test-dirs]
-  (let [src (mapcat #(source-namespaces-from-disk %)
-                    src-dirs)
-        test (mapcat #(source-namespaces-from-disk %)
-                     test-dirs)]
+  (let [src (vec (mapcat #(source-namespaces-from-disk %)
+                         src-dirs))
+        test (vec (mapcat #(source-namespaces-from-disk %)
+                          test-dirs))]
     (cond-> {}
             (seq src) (assoc :src src)
             (seq test) (assoc :test test))))
