@@ -59,7 +59,7 @@
   (fn [user-input ws-file ws-dir]
     (read-workspace ws-file ws-dir user-input color-mode)))
 
-(defn execute [{:keys [cmd args name top-ns branch is-tap is-git-add is-all is-show-brick is-show-workspace is-show-project is-verbose get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
+(defn execute [{:keys [cmd args name top-ns branch is-tap is-git-add is-commit is-all is-show-brick is-show-workspace is-show-project is-verbose get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (common/workspace-dir user-input color-mode)
         workspace-fn (workspace-reader-fn color-mode)
@@ -69,12 +69,13 @@
     (let [brick-name (first selected-bricks)
           project-name (first selected-projects)
           toolsdeps1? (common/toolsdeps1? workspace)
+          test-result (atom true)
           [ok? message] (cmd-validator/validate workspace user-input color-mode)]
       (if ok?
         (case cmd
           nil (shell/start execute user-input workspace-fn workspace color-mode)
           "check" (check workspace color-mode)
-          "create" (create/create ws-dir workspace args name top-ns interface branch is-git-add color-mode)
+          "create" (create/create ws-dir workspace args name top-ns interface branch is-git-add is-commit color-mode)
           "deps" (dependencies/deps workspace project-name brick-name unnamed-args is-all)
           "diff" (diff workspace)
           "help" (help args is-all is-show-project is-show-brick is-show-workspace toolsdeps1? color-mode)
@@ -83,9 +84,9 @@
           "migrate" (migrator/migrate ws-dir workspace)
           "prompt" (prompt-message)
           "shell" (shell/start execute user-input workspace-fn workspace color-mode)
-          "test" (test/run workspace unnamed-args is-verbose color-mode)
+          "test" (test/run workspace unnamed-args test-result is-verbose color-mode)
           "version" (version)
           "ws" (ws-explorer/ws workspace get out color-mode)
           (unknown-command cmd))
         (println message))
-      (exit-code/code cmd workspace))))
+      (exit-code/code cmd workspace @test-result))))

@@ -5,8 +5,8 @@
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.util.interface.str :as str-util]
             [polylith.clj.core.validator.interface :as validator]
+            [polylith.clj.core.workspace-clj.brick-deps :as brick-deps]
             [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]))
 
 (defn absolute-path [path project-name is-dev]
@@ -18,31 +18,19 @@
       :else (str "projects/" project-name "/" path))))
 
 (defn brick-path? [path is-dev]
-  (let [prefix (if is-dev "" "../../")]
-    (and path
-         (or
-           (str/starts-with? path (str prefix "bases/"))
-           (str/starts-with? path (str prefix "components/"))))))
-
-(defn brick-name [path is-dev]
-  (let [prefix (if is-dev "" "../../")
-        base-path (str prefix "bases/")
-        component-path (str prefix "components/")]
-    (when path
-      (cond
-        (str/starts-with? path base-path) (str-util/skip-prefix path base-path)
-        (str/starts-with? path component-path) (str-util/skip-prefix path component-path)))))
+  (if is-dev
+    (or
+      (str/starts-with? path "bases/")
+      (str/starts-with? path "components/")
+      (str/starts-with? path "./bases/")
+      (str/starts-with? path "./components/"))
+    (or
+      (str/starts-with? path "../../bases/")
+      (str/starts-with? path "../../components/"))))
 
 (defn brick? [[_ {:keys [local/root]}] is-dev]
   (and (-> root nil? not)
        (brick-path? root is-dev)))
-
-(defn extract-brick-name
-  "Returns the brick name from a dependency if it's a valid path to a brick."
-  [[_ entry] is-dev]
-  (let [path (:local/root entry)
-        name (brick-name path is-dev)]
-    (when name [name])))
 
 (defn ->brick-src-paths [{:keys [name type paths]}]
   (map #(str type "s/" name "/" %)
@@ -71,18 +59,19 @@
      brick deps.edn files.
    If :override-deps is given, then library versions will be overridden."
   [ws-dir name->brick is-dev project-name user-home project-src-deps project-src-paths override-deps]
-  (let [brick-names (set (mapcat #(extract-brick-name % is-dev) project-src-deps))
-        paths (vec (sort (set (concat (map #(absolute-path % project-name is-dev) project-src-paths)
-                                      (mapcat #(-> % name->brick ->brick-src-paths) brick-names)))))
+  (let [src-brick-names (brick-deps/extract-brick-names is-dev project-src-deps)
+        project-src (into (sorted-set) (map #(absolute-path % project-name is-dev)) project-src-paths)
+        bricks-src (into (sorted-set) (mapcat #(-> % name->brick ->brick-src-paths)) src-brick-names)
+        paths (into project-src bricks-src)
         entity-root-path (when (not is-dev) (str "projects/" project-name))
-        lib-deps (lib/resolve-libs (concat (lib/with-sizes-vec ws-dir
-                                                               entity-root-path
-                                                               (filterv #(not (brick? % is-dev))
-                                                                        project-src-deps)
-                                                               user-home)
-                                           (mapcat #(brick-libs name->brick % :src) brick-names))
-                                   override-deps)]
-    [paths lib-deps]))
+        lib-deps (-> ws-dir
+                     (lib/with-sizes-vec
+                      entity-root-path
+                      (filterv #(not (brick? % is-dev)) project-src-deps)
+                      user-home)
+                     (into (mapcat #(brick-libs name->brick % :src)) src-brick-names)
+                     (lib/resolve-libs override-deps))]
+    [(vec paths) lib-deps]))
 
 (defn skip-all-tests? [bricks-to-test]
   (and (-> bricks-to-test nil? not)
@@ -110,34 +99,31 @@
   ;; todo: support filtering on individual bricks.
   (if (skip-all-tests? bricks-to-test)
     [[] []]
-    (do
-      (let [src-brick-names (set (mapcat #(extract-brick-name % is-dev) project-src-deps))
-            test-brick-names (set (mapcat #(extract-brick-name % is-dev) project-test-deps))
-            brick-names (set (mapcat #(extract-brick-name % is-dev)
-                                     (concat project-src-deps project-test-deps)))
-            only-brick-names (set/difference test-brick-names src-brick-names)
-            paths (concat (map #(absolute-path % project-name is-dev) project-test-paths)
-                          (mapcat #(-> % name->brick ->brick-test-paths) brick-names)
-                          (mapcat #(-> % name->brick ->brick-src-paths) only-brick-names))
-            entity-root-path (when (not is-dev) (str "projects/" project-name))
-            lib-deps (lib/resolve-libs (concat (lib/with-sizes-vec ws-dir
-                                                                   entity-root-path
-                                                                   (filterv #(not (brick? % is-dev))
-                                                                            project-test-deps)
-                                                                   user-home)
-                                               (mapcat #(brick-libs name->brick % :test) brick-names)
-                                               (mapcat #(brick-libs name->brick % :src) only-brick-names))
-                                       (merge override-src-deps override-test-deps))]
-
-        [(vec (sort (set paths)))
-         (vec (sort (set lib-deps)))]))))
+    (let [all-brick-names (brick-deps/extract-brick-names is-dev (concat project-src-deps project-test-deps))
+          src-brick-names (brick-deps/extract-brick-names is-dev project-src-deps)
+          test-brick-names (brick-deps/extract-brick-names is-dev project-test-deps)
+          src-only-brick-names (set/difference test-brick-names src-brick-names)
+          paths (-> (sorted-set)
+                    (into (map #(absolute-path % project-name is-dev)) project-test-paths)
+                    (into (mapcat #(-> % name->brick ->brick-test-paths)) all-brick-names)
+                    (into (mapcat #(-> % name->brick ->brick-src-paths)) src-only-brick-names))
+          entity-root-path (when (not is-dev) (str "projects/" project-name))
+          lib-deps (-> ws-dir
+                       (lib/with-sizes-vec
+                        entity-root-path
+                        (filterv #(not (brick? % is-dev)) project-test-deps)
+                        user-home)
+                       (into (mapcat #(brick-libs name->brick % :test)) all-brick-names)
+                       (into (mapcat #(brick-libs name->brick % :src)) src-only-brick-names)
+                       (lib/resolve-libs (merge override-src-deps override-test-deps)))]
+      [(vec paths) (vec (sort (set lib-deps)))])))
 
 (defn read-project
   ([{:keys [project-name project-dir project-config-dir is-dev]} ws-dir ws-type name->brick project->settings user-home]
    (let [config-filename (str project-config-dir "/deps.edn")
          {:keys [paths deps override-deps aliases mvn/repos] :as config} (file/read-deps-file config-filename)
-         project-src-paths (if is-dev (concat paths (-> aliases :dev :extra-paths)) paths)
-         project-src-deps (if is-dev (merge deps (-> aliases :dev :extra-deps)) deps)
+         project-src-paths (cond-> paths is-dev (concat (-> aliases :dev :extra-paths)))
+         project-src-deps (cond-> deps is-dev (merge (-> aliases :dev :extra-deps)))
          project-test-paths (-> aliases :test :extra-paths)
          project-test-deps (-> aliases :test :extra-deps)
          entity-root-path (when (not is-dev) (str "projects/" project-name))
@@ -187,12 +173,13 @@
 
 (defn read-projects [ws-dir ws-type name->brick project->settings user-input user-home]
   (let [skip (if user-input (-> user-input :skip set) #{})
-        project-configs (filter #(keep? % project->settings skip)
-                                (conj (map #(project-map ws-dir %)
-                                           (file/directories (str ws-dir "/projects")))
-                                      {:project-name "development"
-                                       :is-dev true
-                                       :project-dir (str ws-dir "/development")
-                                       :project-config-dir ws-dir}))]
-    (filterv identity
-             (map #(read-project % ws-dir ws-type name->brick project->settings user-home) project-configs))))
+        project-maps (into [{:project-name "development"
+                             :is-dev true
+                             :project-dir (str ws-dir "/development")
+                             :project-config-dir ws-dir}]
+                           (map #(project-map ws-dir %))
+                           (file/directories (str ws-dir "/projects")))]
+    (into []
+          (comp (filter #(keep? % project->settings skip))
+                (keep #(read-project % ws-dir ws-type name->brick project->settings user-home)))
+          project-maps)))

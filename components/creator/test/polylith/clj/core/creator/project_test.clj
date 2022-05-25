@@ -26,14 +26,13 @@
 (deftest create-project--performs-expected-actions
   (let [dir "ws1/projects/proj1"
         output (with-out-str
-                 (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example")
+                 (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example" ":create")
                  (helper/execute-command "ws1" "create" "p" "name:proj1"))]
 
     (is (= "  It's recommended to add an alias to :projects in ./workspace.edn for the proj1 project.\n"
            (color/clean-colors output)))
 
-    (is (= #{".git"
-             ".gitignore"
+    (is (= #{".gitignore"
              ".vscode"
              ".vscode/settings.json"
              "bases"

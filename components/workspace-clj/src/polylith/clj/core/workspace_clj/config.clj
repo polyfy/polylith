@@ -14,7 +14,7 @@
   (let [config (read-string (slurp (str ws-dir "/workspace.edn")))
         message (validator/validate-workspace-config config)]
     (if message
-      (throw (ex-info (str "  " (color/error color-mode "Error in ./worspace.edn: ") message) message))
+      (throw (ex-info (str "  " (color/error color-mode "Error in ./workspace.edn: ") message) message))
       (assoc config :ws-type :toolsdeps2))))
 
 (defn with-alias [[project alias]]

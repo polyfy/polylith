@@ -28,5 +28,8 @@
 (defn print-project-table [workspace project-name is-all]
   (project-deps-table/print-table workspace project-name is-all))
 
+(defn convert-dep-to-symbol [dep]
+  (lib-deps/convert-dep-to-symbol dep))
+
 (defn resolve-deps [project settings is-verbose]
   (lib-deps/resolve-deps project settings is-verbose))

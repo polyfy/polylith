@@ -57,11 +57,12 @@
   (cond
     (= :require statement-type)
     (flatten
-     (concat (map (comp str libspec->lib)
-                  (filter libspec? statement-body))
-             (map prefix-list->lib-strs
-                  (remove libspec? statement-body))))
-
+      (concat (map (comp str libspec->lib)
+                   (filter libspec? statement-body))
+              (map prefix-list->lib-strs
+                   (filter sequential?
+                           (remove libspec?
+                                   statement-body)))))
     (= :import statement-type)
     (map import-list->package-str
          statement-body)))

@@ -145,12 +145,13 @@
                    [])))))
 
 ;; create workspace
+(def create-workspace-commit (c/flag "commit" :create-workspace))
 (def create-workspace-branch (c/multi-param "branch"))
 (def create-workspace-top-ns-value (c/group-arg "" :create-workspace "top-ns" false))
 (def create-workspace-top-ns (c/multi-param "top-ns" (c/group :create-workspace) [create-workspace-top-ns-value]))
 (def create-workspace-name-value (c/group-arg "" :create-workspace "name" false))
 (def create-workspace-name (c/multi-param "name" 1 (c/group :create-workspace) [create-workspace-name-value]))
-(def create-workspace (c/single-txt "workspace" :create-workspace [create-workspace-name create-workspace-top-ns create-workspace-branch]))
+(def create-workspace (c/single-txt "workspace" :create-workspace [create-workspace-name create-workspace-top-ns create-workspace-branch create-workspace-commit]))
 (def create-outside-ws-root (c/single-txt "create" [create-workspace]))
 
 (def candidates-outside-ws-root [help version create-outside-ws-root])

@@ -10,16 +10,17 @@
   (set (map #(subs % 1)
             (filter profile? unnamed-args))))
 
-(defn selected-projects [project-name dev!]
-  (let [project-names (if (coll? project-name)
-                        project-name
-                        (if (nil? project-name)
-                          []
-                          [project-name]))]
-    (set (if dev!
-           (conj project-names "dev")
-           project-names))))
-
+(defn selected-projects
+  "If we pass in e.g project:p1:p2, then that means we should only
+   run tests for these projects (and if :all is passed in, we should
+   run all the tests for selected projects). We normally don't include
+   the development project, but we can pass in :dev as a way to include it."
+  [project-name]
+  (set (if (coll? project-name)
+         project-name
+         (if (nil? project-name)
+           []
+           [project-name]))))
 
 (defn from-to [[from to]]
   {:from from
@@ -57,6 +58,7 @@
                 all-bricks!
                 brick!
                 compact!
+                commit!
                 git-add!
                 latest-sha!
                 no-changes!
@@ -78,6 +80,7 @@
                       :file file
                       :fake-sha fake-sha
                       :interface interface
+                      :is-commit (= "true" commit!)
                       :is-tap (= "true" tap!)
                       :is-search-for-ws-dir (contains? (set args) "::")
                       :is-all (= "true" all!)
@@ -108,5 +111,5 @@
                       :ws-file ws-file
                       :selected-bricks (when brick (if (vector? brick) brick [brick]))
                       :selected-profiles (selected-profiles unnamed-args)
-                      :selected-projects (selected-projects project dev!)
+                      :selected-projects (selected-projects project)
                       :unnamed-args (vec unnamed-args))))

@@ -29,7 +29,7 @@ poly help
 ```
 
 ```
-  Poly 0.2.13-alpha-03 (2021-10-10) - https://github.com/polyfy/polylith
+  Poly 0.2.15-alpha-issue215-01 (2022-05-07) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -70,7 +70,7 @@ poly help
   then ws-file:FILE will automatically be appended to following commands.
 
   If :: is passed in, then ws-dir is set to the first parent directory (or current)
-  that contains a 'workspace.edn' config file. The exception is the 'test command'
+  that contains a 'workspace.edn' config file. The exception is the 'test' command
   that has to be executed from the workspace root.
 
   If skip:PROJECTS is passed in, then the given project(s) will not be read from disk.
@@ -175,7 +175,7 @@ poly help
     poly ws get:components:mycomp:lines-of-code
     poly ws get:settings:vcs:polylith :latest-sha
     poly ws get:settings:vcs:polylith :latest-sha branch:master
-    poly ws get:changes:changed-or-affected-projects skip:dev
+    poly ws get:changes:changed-or-affected-projects skip:dev color-mode:none
     poly ws out:ws.edn
 ```
 
@@ -226,6 +226,13 @@ poly help
     and define the paths for each component in separate profiles
     (including test paths).
 
+  Error 109 - Invalid test runner configuration for some projects.
+    The value of the optional :create-test-runner key under [:test] or
+    [:projects "some-project-name" :test] in workspace.edn must be either
+    nil, :default, or a fully qualified symbol referring to a function on
+    the poly tool's classpath, which can take a single argument and must return
+    an instance of polylith.clj.core.test-runner-contract.interface/TestRunner.
+
   Warning 201 - Mismatching parameter lists in function or macro.
     Triggered if a function or macro is defined in the interface for a component
     but also defined in the same interface for another component but with a
@@ -238,10 +245,6 @@ poly help
   Warning 203 - Path exists in both dev and profile.
     It's discouraged to have the same path in both the development project
     and a profile. The solution is to remove the path from dev or the profile.
-
-  Warning 204 - Library exists in both dev and a profile.
-    It's discouraged to have the same library in both development and a profile.
-    The solution is to remove the library from dev or the profile.
 
   Warning 205 - Non top namespace was found in brick.
     Triggered if a namespace in a brick doesn't start with the top namespaces
@@ -314,12 +317,18 @@ poly help
 ```
   Creates a workspace in current directory. If the workspace is created within
   an existing git repo, then that repository will be used. If the workspace is
-  created outside a git repo, then a new repo will be initiated using the 'main'
-  branch, if another branch is not explicitly given.
-  In both cases, all the created files and directories will be committed to the
-  repo in a single commit with the text 'Workspace created.'.
+  created outside a git repo, and the :create flag is passed in, then a new repo
+  will be initiated using the 'main' branch, if another branch is not explicitly
+  given. In both cases, all the created files and directories will be committed
+  to the repo in a single commit with the text 'Workspace created.'.
 
-  poly create workspace [name:NAME] top-ns:TOP-NAMESPACE [branch:BRANCH]
+  If :commit is not passed in, then the repository needs to be initiated manually
+  with statements similar to this:
+    git init
+    git add .
+    git commit -m "Workspace created."
+
+  poly create workspace [name:NAME] top-ns:TOP-NAMESPACE [:commit] [branch:BRANCH]
     NAME = The name of the workspace to create, which must be given
            if created outside a git repository. Otherwise it's optional.
 
@@ -330,6 +339,7 @@ poly help
   Example:
     poly create w name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company
+    poly create workspace name:myws top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company branch:master
 ```
 
@@ -671,7 +681,7 @@ poly help
 ```
   Shows all libraries that are used in the workspace.
 
-  poly libs [:all]
+  poly libs [:all] [:compact]
     :all     = View all bricks, including those without library dependencies.
     :compact = Show the table in a more compact way.
                                                                                       u  u
@@ -837,7 +847,7 @@ poly help
   ARGS              Tests to execute
   ----------------  -------------------------------------------------------------
   :dev              All brick tests that are directly or indirectly changed,
-                    only executed from the development project.
+                    executed from all projects (development included).
 
   :project :dev     All brick tests that are directly or indirectly changed,
                     executed from all projects (development included) +
@@ -851,7 +861,7 @@ poly help
                     (development included).
 
   Projects can also be explicitly selected with e.g. project:proj1 or
-  project:proj1:proj2. Specifying :dev is a shortcut for project:dev.
+  project:proj1:proj2.
 
   We can also specify which bricks to include, by listing them like this:
   brick:mycomponent:another-component:mybase
@@ -869,6 +879,39 @@ poly help
     poly test :project :dev
     poly test :all-bricks :dev
     poly test :all :dev
+
+  The poly tool's default test runner will discover clojure.test tests from the "/test"
+  directories of bricks and projects, and execute them using clojure.test/run-tests.
+
+  Alternative test runners can also be used by referring to their constructors
+  in workspace.edn:
+
+  {;; To use it as the default test runner for the workspace
+   :test {:create-test-runner my.test-runner/create}
+
+   :projects
+   {
+    ;; To only use it for specific projects
+    "foo" {:test {:create-test-runner my.test-runner/create}}
+
+    ;; To revert to poly's built-in default test runner only for specific projects
+    "bar" {:test {:create-test-runner :default}}
+
+    ;; To use multiple test runners invoked the specified order
+    "baz" {:test {:create-test-runner [my.linter/create :default my.extra/create]}}
+    }
+   }
+
+  This requires that my.test-runner/create is available on the classpath of the
+  poly tool, which is easiest to achieve by running poly as a dependency.
+
+  The docstring of polylith.clj.core.test-runner-contract.interface/TestRunner
+  contains details on how to implement a custom test runner and a constructor.
+
+  The poly tool's default test runner is also implemented this way and can be referred to
+  as an example; see polylith.clj.core.clojure-test-test-runner.interface/create.
+
+  Refer to the Polylith documentation for more information about custom test runners.
 ```
 
 ### ws

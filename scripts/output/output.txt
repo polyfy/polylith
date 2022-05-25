@@ -146,6 +146,23 @@
 
   interface  brick    [35mcl [0m   [35mdev[0m
   -----------------   ---   ---
+  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mstx[0m
+  -          [34mcli[0m      [35mstx[0m   [35mstx[0m
+
+######### testing-info-2b.png #########
+
+  stable since: [37me7ebe68 | stable-lisa[0m
+
+  [35mprojects:[0m 2   [33minterfaces:[0m 1
+  [34mbases:   [0m 1   [32mcomponents:[0m 1
+
+  project         alias  status   [35mdev[0m
+  -----------------------------   ---
+  [35mcommand-line[0m +  [35mcl[0m     [35m ---  [0m   [35m---[0m
+  [35mdevelopment[0m +   [35mdev[0m    [35m s--  [0m   [35ms--[0m
+
+  interface  brick    [35mcl [0m   [35mdev[0m
+  -----------------   ---   ---
   [33muser     [0m  [32muser[0m *   [35mst-[0m   [35mstx[0m
   -          [34mcli[0m      [35mst-[0m   [35mstx[0m
 
@@ -362,6 +379,23 @@
 
   project       alias  status   [35mdev[0m
   ---------------------------   ---
+  [35mcommand-line[0m  [35mcl[0m     [35m -tx  [0m   [35m-tx[0m
+  [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
+
+  interface  brick   [35mcl [0m   [35mdev[0m
+  ----------------   ---   ---
+  [33muser     [0m  [32muser[0m    [35mstx[0m   [35mstx[0m
+  -          [34mcli[0m     [35mstx[0m   [35mstx[0m
+
+######### testing-info-exclude-tests.png #########
+
+  stable since: [37me7ebe68 | stable-lisa[0m
+
+  [35mprojects:[0m 2   [33minterfaces:[0m 1
+  [34mbases:   [0m 1   [32mcomponents:[0m 1
+
+  project       alias  status   [35mdev[0m
+  ---------------------------   ---
   [35mcommand-line[0m  [35mcl[0m     [35m -tx  [0m   [35m---[0m
   [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
 
@@ -467,6 +501,7 @@ Projects to run tests from: [35mcommand-line[0m, [35muser-service[0m
 Running test setup for the [35mcommand-line[0m project: project.command-line.test-setup/test-setup
 --- test setup for command-line ---
 
+Running tests for the [35mcommand-line[0m project using test runner: Polylith built-in clojure.test runner...
 Running tests from the [35mcommand-line[0m project, including 2 bricks and 1 project: [32muser-remote[0m, [34mcli[0m, [35mcommand-line[0m
 
 Testing se.example.cli.core-test
@@ -499,6 +534,7 @@ Ran 1 tests containing 1 assertions.
 Running test teardown for the [35mcommand-line[0m project: project.command-line.test-setup/test-teardown
 --- test teardown for command-line ---
 
+Running tests for the [35muser-service[0m project using test runner: Polylith built-in clojure.test runner...
 Running tests from the [35muser-service[0m project, including 2 bricks: [32muser[0m, [34muser-api[0m
 
 Testing se.example.user.interface-test

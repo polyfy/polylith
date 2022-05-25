@@ -1,6 +1,6 @@
   Shows all libraries that are used in the workspace.
 
-  poly libs [:all]
+  poly libs [:all] [:compact]
     :all     = View all bricks, including those without library dependencies.
     :compact = Show the table in a more compact way.
                                                                                       u  u

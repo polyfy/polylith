@@ -40,3 +40,10 @@
         result (from-disk/imports code)]
     (is (= ["foo.bar" "foo.baz" "lib.a" "lib.b" "lib.c"]
            result))))
+
+(deftest imports--reload--return-imported-namespaces
+  (let [code '(ns foo.baz
+                (:require [foo.bar] :reload))
+        result (from-disk/imports code)]
+    (is (= ["foo.bar"]
+           result))))

@@ -64,7 +64,7 @@ clojure -A:dev:test -P
 cd $ws
 
 echo "### 1/50 Workspace ###"
-poly create w name:example top-ns:se.example :git-add
+poly create w name:example top-ns:se.example :git-add :commit
 tree example > $output/workspace-tree.txt
 cd example
 
@@ -156,7 +156,9 @@ set -e
 cp $sections/testing/user-interface-test2.clj components/user/test/se/example/user/interface_test.clj
 poly test > $output/testing-test-ok.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test-ok.txt
+clojure -A:dev:test -P
 poly info :dev fake-sha:e7ebe68 > $output/testing-info-2.txt
+poly info project:dev fake-sha:e7ebe68 > $output/testing-info-2b.txt
 poly info project:cl:dev fake-sha:e7ebe68 > $output/testing-info-3.txt
 
 poly info fake-sha:e7ebe68 > $output/testing-info-3a.txt
@@ -172,6 +174,7 @@ cp $sections/testing/dummy_test.clj projects/command-line/test/project/command_l
 git add projects/command-line/test/project/command_line/dummy_test.clj
 poly info fake-sha:e7ebe68 > $output/testing-info-4.txt
 poly info :project fake-sha:e7ebe68 > $output/testing-info-5.txt
+poly test :project fake-sha:e7ebe68 > $output/testing-test-project.txt
 git add --all
 git commit -m "Added tests"
 git tag -f stable-lisa
@@ -181,9 +184,8 @@ poly info :all-bricks :dev fake-sha:e7ebe68 > $output/testing-info-8.txt
 poly info :all fake-sha:e7ebe68 > $output/testing-info-9.txt
 poly info :all :dev fake-sha:e7ebe68 > $output/testing-info-10.txt
 
-cp $sections/testing/workspace.edn .
 poly info :all :dev fake-sha:e7ebe68 > $output/testing-info-11.txt
-poly test :all :dev > $output/testing-test-all.txt
+poly test :all :dev color-mode:none > $output/testing-test-all.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test-all.txt
 
 cp $sections/project/command-line-test-setup.clj projects/command-line/test/project/command_line/test_setup.clj
@@ -191,6 +193,13 @@ cp $sections/project/workspace2.edn ./workspace.edn
 
 cp $sections/project/command-line-test-setup.clj projects/command-line/test/project/command_line/test_setup.clj
 cp $sections/project/workspace2.edn ./workspace.edn
+
+poly test :all color-mode:none > $output/testing-test-fixture.txt
+
+cp $sections/testing/workspace.edn .
+poly info :all :dev fake-sha:e7ebe68 > $output/testing-info-exclude-tests.txt
+poly test :all :dev color-mode:none > $output/testing-test-all-exclude-tests.txt
+sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test-all-exclude-tests.txt
 
 echo "### 11/50 Profile ###"
 echo "current-dir=$(pwd)"
@@ -267,6 +276,7 @@ cd $ws2
 echo "current-dir=$(pwd)"
 git clone git@github.com:furkan3ayraktar/clojure-polylith-realworld-example-app.git
 cd clojure-polylith-realworld-example-app
+clojure -A:dev:test -P
 git tag stable-lisa
 
 poly info fake-sha:f7082da > $output/realworld/realworld-info.txt
@@ -296,6 +306,7 @@ cd polylith
 echo "### 24/50 Polylith toolsdeps1 ###"
 poly info fake-sha:40d2f62 :no-changes color-mode:none > $output/polylith1/info.txt
 echo "### 25/50 Polylith toolsdeps1 ###"
+clojure -A:dev:test -P
 poly libs color-mode:none > $output/polylith1/libs.txt
 echo "### 26/50 Polylith toolsdeps1 ###"
 poly deps color-mode:none > $output/polylith1/deps.txt
@@ -343,6 +354,7 @@ poly diff since:0aaeb58 color-mode:none > $output/local-dep/diff.txt
 echo "### 40/50 examples/local-dep ###"
 poly ws out:$output/local-dep/ws.edn replace:$ws4:WS-HOME:$HOME:USER-HOME:$sha:SHA:$branch:BRANCH color-mode:none
 echo "### 41/50 examples/local-dep ###"
+poly info :dev since:0aaeb58 color-mode:none > $output/local-dep/since-info.txt
 poly test :dev since:0aaeb58 color-mode:none > $output/local-dep/test.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/local-dep/test.txt
 

@@ -244,5 +244,5 @@
                            (str/split #" ")
                            (first))]
           (println (str "Shasum for " project ": " sha-sum))
-          (spit (str "artifacts/" tar-file ".sha1") sha-sum))
+          (spit (str "artifacts/" tar-file ".sha256") (str sha-sum " " tar-file)))
         (b/delete {:path (str "artifacts/" project)})))))

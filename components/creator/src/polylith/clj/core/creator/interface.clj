@@ -4,8 +4,8 @@
             [polylith.clj.core.creator.workspace :as workspace]
             [polylith.clj.core.creator.project :as project]))
 
-(defn create-workspace [root-dir ws-name top-ns branch is-git-add]
-  (workspace/create root-dir ws-name top-ns branch is-git-add))
+(defn create-workspace [root-dir ws-name top-ns branch git-add? commit?]
+  (workspace/create root-dir ws-name top-ns branch git-add? commit?))
 
 (defn create-project [workspace project-name is-git-add]
   (project/create workspace project-name is-git-add))

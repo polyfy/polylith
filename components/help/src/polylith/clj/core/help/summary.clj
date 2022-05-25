@@ -56,7 +56,7 @@
     "  then ws-file:" (s/key "FILE" cm) " will automatically be appended to following commands.\n"
     "\n"
     "  If " (s/key "::" cm) " is passed in, then ws-dir is set to the first parent directory (or current)\n"
-    "  that contains a 'workspace.edn' config file. The exception is the 'test command'\n"
+    "  that contains a 'workspace.edn' config file. The exception is the 'test' command\n"
     "  that has to be executed from the workspace root.\n"
     "\n"
     "  If " (s/key "skip:PROJECTS" cm) " is passed in, then the given project(s) will not be read from disk.\n"
@@ -161,7 +161,7 @@
     "    poly ws get:components:mycomp:lines-of-code\n"
     "    poly ws get:settings:vcs:polylith :latest-sha\n"
     "    poly ws get:settings:vcs:polylith :latest-sha branch:master\n"
-    "    poly ws get:changes:changed-or-affected-projects skip:dev\n"
+    "    poly ws get:changes:changed-or-affected-projects skip:dev color-mode:none\n"
     "    poly ws out:ws.edn"))
 
 (defn print-help [is-all toolsdeps1? color-mode]

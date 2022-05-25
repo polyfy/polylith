@@ -3,11 +3,11 @@
 
 (def major 0)
 (def minor 2)
-(def patch 14)
-(def revision "alpha-issue171-01")
+(def patch 15)
+(def revision "alpha-issue219-01")
 (def name (str major "." minor "." patch "-" revision))
 
-(def date "2021-12-20")
+(def date "2022-05-14")
 
 (defn version
   ([ws-type]
@@ -24,5 +24,12 @@
                         :date date}
               :ws {:type :toolsdeps2
                    :breaking 1
-                   :non-breaking 0}}
+                   :non-breaking 1}}
              from (assoc :from from)))))
+
+;; === workspace attributes (ws) ===
+;;
+;; ws     release         action    attribute
+;; -----  -------------   -------   ------------------------------------
+;; 1.1    0.2.14-alpha    added     :settings > :vcs > :is-git-repo
+;;                        deleted   :projects > PROJECT > :is-run-tests

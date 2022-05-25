@@ -14,7 +14,6 @@
                             :is-dev false,
                             :lines-of-code {:src 0, :test 0, :total {:src 3, :test 9}}
                             :name "service",
-                            :is-run-tests true,
                             :type "project",
                             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
                                           "clojars" {:url "https://repo.clojars.org/"}},
@@ -37,7 +36,6 @@
                             :is-dev true,
                             :lines-of-code {:src 0, :test 0, :total {:src 9, :test 18}}
                             :name "development",
-                            :is-run-tests false,
                             :type "project",
                             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
                                           "clojars" {:url "https://repo.clojars.org/"}},
@@ -60,7 +58,7 @@
                             :namespaces {}
                             :lib-deps {:src {"org.clojure/clojure" {:version "1.10.1", :type "maven", :size 3908431},
                                              "org.clojure/tools.deps.alpha" {:version "0.12.985", :type "maven", :size 47566},
-                                             "me.raynes/fs" {:version "1.4.6", :type "maven", :size 11209}}
+                                             "clj-commons/fs" {:version "1.6.310", :type "maven", :size 12819}}
                                        :test {"org.clojure/clojure" {:version "1.10.1", :type "maven", :size 3908431},
                                               "org.clojure/tools.deps.alpha" {:version "0.12.985", :type "maven", :size 47566}}}
                             :config-filename "../sandbox/ws02/deps.edn",
@@ -112,7 +110,7 @@
                            :user-config-filename "/Users/joakimtengstrand/.polylith/config.edn",
                            :empty-character ".",
                            :thousand-separator ",",
-                           :profile-to-settings {"default" {:lib-deps {"me.raynes/fs" {:version "1.4.6", :type "maven", :size 11209}},
+                           :profile-to-settings {"default" {:lib-deps {"clj-commons/fs" {:version "1.6.310", :type "maven", :size 12819}},
                                                             :component-names [],
                                                             :base-names [],
                                                             :project-names []},
@@ -203,5 +201,3 @@
                                           "components/test-helper/deps.edn"
                                           "deps.edn"]},
                 :bases []})
-
-

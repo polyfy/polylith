@@ -16,7 +16,8 @@
 
 (defn size [path]
   (cond (fs/directory? path) (apply + (pmap size (.listFiles (io/file path))))
-        (fs/file? path) (fs/size path)))
+        (fs/file? path) (fs/size path)
+        :else 0))
 
 (defn delete-file [path]
   (execute-fn #(io/delete-file path true)
@@ -27,12 +28,20 @@
     (if (or (Files/isSymbolicLink (.toPath f)) (.exists f))
       (delete-file f))))
 
-(defn create-file [path rows]
-  (delete-file path)
-  (doseq [row rows]
-    (execute-fn
-      #(spit path (str row "\n") :append true)
-      "Could not create file" path)))
+(defn exists [^String path]
+  (if path
+    (.exists (File. path))
+    false))
+
+(defn create-file
+  ([path rows overwrite-if-exists?]
+   (when (or overwrite-if-exists?
+             (-> path exists not))
+     (delete-file path)
+     (doseq [row rows]
+       (execute-fn
+         #(spit path (str row "\n") :append true)
+         "Could not create file" path)))))
 
 (defn create-temp-dir [dir]
   (let [temp-file (execute-fn #(File/createTempFile dir "")
@@ -43,12 +52,8 @@
     (str-util/skip-if-ends-with path "/")))
 
 (defn create-dir [^String path]
-  (.mkdir (File. path)))
-
-(defn exists [^String path]
-  (if path
-    (.exists (File. path))
-    false))
+  (when (-> path exists not)
+    (.mkdir (File. path))))
 
 (defn absolute-path [path]
   (-> path io/file .getAbsolutePath))

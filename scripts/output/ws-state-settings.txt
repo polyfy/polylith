@@ -8,8 +8,8 @@
  :profile-to-settings
  {"default"
   {:paths
-   ["components/user/src"
-    "components/user/resources"
+   ["components/user/resources"
+    "components/user/src"
     "components/user/test"],
    :lib-deps {},
    :component-names ["user"],
@@ -17,21 +17,31 @@
    :project-names []},
   "remote"
   {:paths
-   ["components/user-remote/src"
-    "components/user-remote/resources"
+   ["components/user-remote/resources"
+    "components/user-remote/src"
     "components/user-remote/test"],
    :lib-deps {},
    :component-names ["user-remote"],
    :base-names [],
    :project-names []}},
  :projects
- {"development" {:alias "dev"},
+ {"development"
+  {:alias "dev",
+   :test
+   {:create-test-runner
+    [polylith.clj.core.clojure-test-test-runner.interface/create]}},
   "command-line"
   {:alias "cl",
    :test
    {:setup-fn project.command-line.test-setup/test-setup,
-    :teardown-fn project.command-line.test-setup/test-teardown}},
-  "user-service" {:alias "user-s"}},
+    :teardown-fn project.command-line.test-setup/test-teardown,
+    :create-test-runner
+    [polylith.clj.core.clojure-test-test-runner.interface/create]}},
+  "user-service"
+  {:alias "user-s",
+   :test
+   {:create-test-runner
+    [polylith.clj.core.clojure-test-test-runner.interface/create]}}},
  :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
  :thousand-separator ",",
  :top-namespace "se.example",
@@ -39,6 +49,7 @@
  :user-home "/Users/joakimtengstrand",
  :vcs
  {:name "git",
+  :is-git-repo true,
   :branch "main",
   :git-root "/privateWS-HOME/example",
   :auto-add true,

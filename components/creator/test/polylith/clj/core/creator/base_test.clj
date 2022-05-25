@@ -18,7 +18,7 @@
   (let [src-api-dir "ws1/bases/my-base/src/se/example/my_base"
         test-api-dir "ws1/bases/my-base/test/se/example/my_base"
         output (with-out-str
-                 (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example")
+                 (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example" ":commit")
                  (helper/execute-command "ws1" "create" "b" "name:my-base"))]
     (is (= (str brick/create-brick-message "\n")
            output))

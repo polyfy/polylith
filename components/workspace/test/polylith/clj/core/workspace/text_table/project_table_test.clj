@@ -12,7 +12,6 @@
                 :projects [{:name "core"
                             :alias "core"
                             :type "project"
-                            :is-run-tests true
                             :is-dev false
                             :lines-of-code {:src 1, :test 1}
                             :paths {:src ["projects/core/resources"
@@ -21,7 +20,6 @@
                            {:name "invoice"
                             :alias "inv"
                             :type "project"
-                            :is-run-tests true
                             :is-dev false
                             :lines-of-code {:src 0, :test 1}
                             :paths {:src ["bases/cli/resources"
@@ -43,7 +41,6 @@
                            {:name "development"
                             :alias "dev"
                             :type "project"
-                            :is-run-tests false
                             :is-dev true
                             :lines-of-code {:src 4, :test 0}
                             :paths {:src ["bases/cli/resources"

@@ -23,5 +23,8 @@
   (:m2-dir (config-content)
            (str (home-dir) "/.m2")))
 
+(defn m2-home-dir? [m2-dir]
+  (= m2-dir (str (home-dir) "/.m2")))
+
 (defn thousand-separator []
   (:thousand-separator (config-content) ","))

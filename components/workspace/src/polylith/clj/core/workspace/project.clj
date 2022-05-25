@@ -15,7 +15,7 @@
 
 (defn source-imports [brick-names brick->lib-imports source-key]
   (-> (mapcat #(-> % brick->lib-imports source-key) brick-names)
-    set sort vec))
+      set sort vec))
 
 (defn project-lib-imports [brick-names brick->lib-imports]
   (let [src (source-imports brick-names brick->lib-imports :src)
@@ -24,13 +24,6 @@
             (seq src) (assoc :src src)
             (seq test) (assoc :test test))))
 
-(defn run-the-tests? [project-name alias is-dev is-run-all-brick-tests selected-projects]
-  (or (and (not is-dev)
-           (or is-run-all-brick-tests
-               (empty? selected-projects)))
-      (or (contains? selected-projects project-name)
-          (contains? selected-projects alias))))
-
 (defn enrich-project [{:keys [name is-dev maven-repos namespaces paths lib-deps] :as project}
                       components
                       bases
@@ -38,8 +31,7 @@
                       brick->loc
                       brick->lib-imports
                       disk-paths
-                      settings
-                      {:keys [is-run-all-brick-tests selected-projects]}]
+                      settings]
   (let [alias (get-in settings [:projects name :alias])
         enriched-maven-repos (apply merge maven-repos (mapcat :maven-repos (concat components bases)))
         lib-entries (extract/from-library-deps is-dev lib-deps settings)
@@ -58,8 +50,9 @@
         ;; todo: maybe we can remove the 'bricks-to-test' check from here, because the tests are eliminated in 'workspace-clj' already.
         bricks-to-test (when-let [bricks (get-in settings [:projects name :test :include])] (set bricks))
         deps (proj-deps/project-deps components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns bricks-to-test)
+
         lib-imports (project-lib-imports all-brick-names brick->lib-imports)
-        is-run-tests (run-the-tests? name alias is-dev is-run-all-brick-tests selected-projects)
+
         lines-of-code-total (project-total-loc all-brick-names brick->loc)
         lines-of-code (assoc (loc/lines-of-code namespaces) :total lines-of-code-total)
         src-lib-deps (select/lib-deps lib-entries c/src?)
@@ -74,7 +67,6 @@
                                 (seq test-lib-deps) (assoc :test test-lib-deps))]
     (-> project
         (merge {:alias            alias
-                :is-run-tests     is-run-tests
                 :lines-of-code    lines-of-code
                 :component-names  component-names
                 :base-names       base-names

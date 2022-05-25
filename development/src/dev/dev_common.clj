@@ -6,5 +6,6 @@
   (let [input (user-input/extract-params ["ws" (str "ws-file:" filename)])]
     (command/read-workspace "." input)))
 
-(defn dir [ws-dir]
-  (user-input/extract-params ["info" (str "ws-dir:" ws-dir) ":project" ":user-home" "replace:/Users/joakimtengstrand:USER-HOME"]))
+(defn dir [ws-dir & args]
+  (user-input/extract-params (concat ["info" (str "ws-dir:" ws-dir) ":user-home" "replace:/Users/joakimtengstrand:USER-HOME"]
+                                     args)))
