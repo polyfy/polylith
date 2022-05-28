@@ -594,7 +594,7 @@
                               :release "v[0-9]*"}
                :color-mode "none",
                :compact-views #{},
-               :user-config-filename "/Users/joakimtengstrand/.polylith/config.edn",
+               :user-config-filename "/Users/joakimtengstrand/.config/polylith/config.edn",
                :empty-character ".",
                :thousand-separator ",",
                :profile-to-settings {},

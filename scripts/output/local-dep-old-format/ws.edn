@@ -514,7 +514,7 @@
     :test
     {:create-test-runner
      [polylith.clj.core.clojure-test-test-runner.interface/create]}}},
-  :user-config-filename "USER-HOME/.polylith/config.edn",
+  :user-config-filename "USER-HOME/.config/polylith/config.edn",
   :top-namespace "com.localdep",
   :default-profile-name "default",
   :thousand-separator ",",
