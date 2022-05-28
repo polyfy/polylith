@@ -109,7 +109,7 @@
                                           :release "v[0-9]*"}
                            :color-mode "none",
                            :compact-views #{},
-                           :user-config-filename "/Users/joakimtengstrand/.polylith/config.edn",
+                           :user-config-filename "/Users/joakimtengstrand/.config/polylith/config.edn",
                            :empty-character ".",
                            :thousand-separator ",",
                            :profile-to-settings {"default" {:lib-deps {"me.raynes/fs" {:version "1.4.6", :type "maven", :size 11209}},
@@ -203,5 +203,3 @@
                                           "components/test-helper/deps.edn"
                                           "deps.edn"]},
                 :bases []})
-
-

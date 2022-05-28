@@ -13,14 +13,14 @@ jobs:
           key: polylith-{{ checksum "deps.edn" }}
       - run:
           name: Create polylith config if it does not exist
-          command: mkdir -p ~/.polylith && echo "{}" > ~/.polylith/config.edn
+          command: mkdir -p "${XDG_CONFIG_HOME:=${HOME}/.config}/polylith" && echo "{}" > "${XDG_CONFIG_HOME:=${HOME}/.config}/polylith/config.edn"
       - run:
           name: Check Polylith workspace
           command: clojure -A:poly check
       - save_cache:
           key: polylith-{{ checksum "deps.edn" }}
           paths:
-            - ~/.polylith
+            - ${XDG_CONFIG_HOME:=${HOME}/.config}/polylith
             - ~/.m2
             - ~/.lein
             - ~/polylith/.cpcache
@@ -41,14 +41,14 @@ jobs:
           key: polylith-{{ checksum "deps.edn" }}
       - run:
           name: Create polylith config if it does not exist
-          command: mkdir -p ~/.polylith && echo "{}" > ~/.polylith/config.edn
+          command: mkdir -p "${XDG_CONFIG_HOME:=${HOME}/.config}/polylith" && echo "{}" > "${XDG_CONFIG_HOME:=${HOME}/.config}/polylith/config.edn"
       - run:
           name: Check Polylith workspace
           command: clojure -A:poly check since:previous-release
       - save_cache:
           key: polylith-{{ checksum "deps.edn" }}
           paths:
-            - ~/.polylith
+            - ${XDG_CONFIG_HOME:=${HOME}/.config}/polylith
             - ~/.m2
             - ~/.lein
             - ~/polylith/.cpcache

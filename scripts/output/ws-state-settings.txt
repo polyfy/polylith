@@ -35,7 +35,7 @@
  :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
  :thousand-separator ",",
  :top-namespace "se.example",
- :user-config-filename "/Users/joakimtengstrand/.polylith/config.edn",
+ :user-config-filename "/Users/joakimtengstrand/.config/polylith/config.edn",
  :user-home "/Users/joakimtengstrand",
  :vcs
  {:name "git",

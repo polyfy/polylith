@@ -10,8 +10,8 @@
      (str " :thousand-separator \",\"}")]))
 
 (defn create-user-config-if-not-exists []
-  (let [home-dir (user-config/home-dir)
-        user-config-filename (str home-dir "/.polylith/config.edn")]
+  (let [user-config-filename (user-config/config-file-path)]
     (when (-> user-config-filename file/exists not)
       (file/create-missing-dirs user-config-filename)
+      ;; create fresh or copy legacy file?
       (file/create-file user-config-filename (user-config-content)))))

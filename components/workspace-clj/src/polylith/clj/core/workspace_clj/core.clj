@@ -75,7 +75,7 @@
         m2-dir (user-config/m2-dir)
         user-home (user-config/home-dir)
         thousand-separator (user-config/thousand-separator)
-        user-config-filename (str (user-config/home-dir) "/.polylith/config.edn")
+        user-config-filename (user-config/config-file-path)
         brick->non-top-namespaces (non-top-ns/brick->non-top-namespaces ws-dir top-namespace)
         project->settings (project-settings/convert ws-config)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))

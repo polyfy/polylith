@@ -87,8 +87,9 @@ poly help
     KEY     -> any key in :tag-patterns.
     SHA     -> a git SHA-1 hash (if no key was found in :tag-patterns).
 
-  The color mode is taken from ~/.polylith/config.edn but can be overridden by passing
+  The color mode is taken from ~/.config/polylith/config.edn but can be overridden by passing
   in color-mode:COLOR where valid colors are none, light, and dark.
+  (if the XDG_CONFIG_HOME environment variable is set, that will be used instead of ~/.config)
 
   Example (shell only):
     switch-ws dir:~/myworkspace
@@ -915,4 +916,3 @@ poly help
     poly ws out:ws.edn
     poly ws color-mode:none > ws.edn
 ```
-

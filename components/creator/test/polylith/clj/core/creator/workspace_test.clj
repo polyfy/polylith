@@ -149,4 +149,5 @@
     (is (= ["{:color-mode \"dark\""
             " :empty-character \".\""
             " :thousand-separator \",\"}"]
-           (helper/content (helper/user-home) "/.polylith/config.edn")))))
+           ;; no env vars checked in helper so use defaul XDG location:
+           (helper/content (helper/user-home) "/.config/polylith/config.edn")))))
