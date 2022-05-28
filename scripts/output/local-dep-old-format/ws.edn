@@ -505,7 +505,17 @@
     "util" {:src {}, :test {}},
     "without-src" {:src {}, :test {}}}}],
  :settings
- {:projects {"development" {:alias "dev"}, "invoicing" {:alias "inv"}},
+ {:projects
+  {"development"
+   {:alias "dev",
+    :test
+    {:create-test-runner
+     [polylith.clj.core.clojure-test-test-runner.interface/create]}},
+   "invoicing"
+   {:alias "inv",
+    :test
+    {:create-test-runner
+     [polylith.clj.core.clojure-test-test-runner.interface/create]}}},
   :user-config-filename "USER-HOME/.config/polylith/config.edn",
   :top-namespace "com.localdep",
   :default-profile-name "default",
