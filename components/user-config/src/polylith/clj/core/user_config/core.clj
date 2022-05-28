@@ -3,14 +3,18 @@
             [polylith.clj.core.util.interface.str :as str-util]))
 
 (defn home-dir []
-  (-> (System/getenv "HOME")
+  (-> (System/getProperty "user.home")
       (str-util/skip-if-ends-with file/sep)))
 
 (defn config-file-path []
   (let [xdg-config-home (some-> (not-empty (System/getenv "XDG_CONFIG_HOME"))
                                 (str-util/skip-if-ends-with file/sep))]
-    (str (or xdg-config-home (str (home-dir) file/sep ".config"))
-         file/sep "polylith" file/sep "config.edn")))
+    (str (or xdg-config-home
+             (str (-> (System/getenv "HOME")
+                      (str-util/skip-if-ends-with file/sep))
+                  file/sep ".config"))
+         file/sep "polylith"
+         file/sep "config.edn")))
 
 (defn- config-content []
   (let [config-dir (config-file-path)]
@@ -35,9 +39,5 @@
 (defn thousand-separator []
   (:thousand-separator (config-content) ","))
 
-(defn- legacy-home-dir []
-  (-> (System/getProperty "user.home")
-      (str-util/skip-if-ends-with file/sep)))
-
 (defn legacy-config-file-path []
-  (str (legacy-home-dir) file/sep ".polylith" file/sep "config.edn"))
+  (str (home-dir) file/sep ".polylith" file/sep "config.edn"))
