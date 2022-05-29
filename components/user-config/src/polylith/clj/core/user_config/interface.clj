@@ -4,6 +4,9 @@
 (defn home-dir []
   (core/home-dir))
 
+(defn config-file-path []
+  (core/config-file-path))
+
 (defn color-mode []
   (core/color-mode))
 
@@ -18,3 +21,6 @@
 
 (defn thousand-separator []
   (core/thousand-separator))
+
+(defn legacy-config-file-path []
+  (core/legacy-config-file-path))

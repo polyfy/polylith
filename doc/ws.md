@@ -444,7 +444,7 @@ If the workspace is loaded using `ws-file:WS-FILE` then the `:old` key is popula
  :tag-patterns {:release "v[0-9]*", :stable "stable-*"},
  :thousand-separator ",",
  :top-namespace "se.example",
- :user-config-filename "/Users/joakimtengstrand/.polylith/config.edn",
+ :user-config-filename "/Users/joakimtengstrand/.config/polylith/config.edn",
  :user-home "/Users/joakimtengstrand",
  :vcs {:auto-add true,
        :branch "master",
@@ -457,12 +457,12 @@ If the workspace is loaded using `ws-file:WS-FILE` then the `:old` key is popula
 ```
 
 - `:active-profiles` If any profiles are defined in `./deps.edn` then the active profiles(s) are listed here.
-- `:color-mode` The color mode specified in `~/.polylith/config.edn`.
+- `:color-mode` The color mode specified in `~/.config/polylith/config.edn`.
 - `:compact-views` The set of views that should be shown in a more compact way, specified in `workspace.edn`.
 - `:default-profile-name` The name of the default profile name, specified in `workspace.edn`.
 - `:empty-character` The character used to represent empty space in ouput from e.g. the `libs` command, specified in `workspace.edn`.
 - `:interface-ns` The name of the namespace/package that are used to represent interfaces, specified in `workspace.edn`.
-- `:m2-dir` Maven user root directory. Set to "~/.m2" by default, but can be overridden in `~/.polylith/config.edn`.
+- `:m2-dir` Maven user root directory. Set to "~/.m2" by default, but can be overridden in `~/.config/polylith/config.edn`.
 - `:profile-to-settings` A map with profile name as key and profile definition as value, specified as aliases starting with a `+` in `./deps.edn`:
   - `:base-names` The bases that are referenced from the specified paths.
   - `:component-names` The components that are referenced from the specified paths.
@@ -475,7 +475,7 @@ If the workspace is loaded using `ws-file:WS-FILE` then the `:old` key is popula
     - `:include` Specifies which bricks should be included when running the `test` command.
                  Empty if no bricks, missing if all bricks.
 - `:tag-patterns` The tag patterns that are specified in `workspace.edn`.
-- `:thousand-separator` Used by numbers >= 1000 (e.g. the KB column in the `libs` command) specified in `~/.polylith/config.edn`.
+- `:thousand-separator` Used by numbers >= 1000 (e.g. the KB column in the `libs` command) specified in `~/.config/polylith/config.edn`.
 - `:top-namespace` The top namespace for the workspace, specified in `workspace.edn`.
 - `:user-config-filename` The full path to the user config name.
 - `:user-home` The user home, specified by the `user.home` environment variable.

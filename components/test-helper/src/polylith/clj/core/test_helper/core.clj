@@ -26,7 +26,11 @@
   (with-redefs [file/current-dir (fn [] (if (str/blank? current-dir)
                                           @root-dir
                                           (str @root-dir "/" current-dir)))
-                user-config/home-dir (fn [] (str @root-dir "/" user-home))]
+                user-config/home-dir (fn [] (str @root-dir "/" user-home))
+                user-config/config-file-path
+                (fn [] (str @root-dir "/" user-home "/.config/polylith/config.edn"))
+                user-config/legacy-config-file-path
+                (fn [] (str @root-dir "/" user-home "/.polylith/config.edn"))]
     (let [input (user-input/extract-params args)]
       (command/execute-command input))))
 
