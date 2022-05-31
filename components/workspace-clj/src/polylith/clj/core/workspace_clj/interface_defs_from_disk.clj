@@ -36,7 +36,8 @@
 
 (defn defs-from-disk
   "Example of a src-dir: ./components/workspace-clj/src/polylith/clj/core/workspace_clj"
-  [src-dir interface-ns]
+  [src-dirs interface-ns]
   (vec (sort-by (juxt :sub-ns :type :name params)
                 (mapcat #(interface-from-disk % interface-ns)
-                        (interface-namespaces src-dir interface-ns)))))
+                        (mapcat #(interface-namespaces % interface-ns)
+                                src-dirs)))))

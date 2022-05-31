@@ -148,7 +148,9 @@
          lib-deps (cond-> {}
                           (seq src-lib-deps) (assoc :src src-lib-deps)
                           (seq test-lib-deps) (assoc :test test-lib-deps))
-         namespaces (ns-from-disk/namespaces-from-disk (str project-dir "/src") (str project-dir "/test"))]
+         src-dirs (map #(str project-dir %) project-src-paths)
+         test-dirs (map #(str project-dir %) project-test-paths)
+         namespaces (ns-from-disk/namespaces-from-disk src-dirs test-dirs)]
      (util/ordered-map :name project-name
                        :is-dev is-dev
                        :project-dir project-dir

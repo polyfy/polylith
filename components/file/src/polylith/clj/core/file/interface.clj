@@ -65,6 +65,9 @@
 (defn files-and-dirs [dir home-dir]
   (core/dirs-and-files dir home-dir))
 
+(defn not-hidden? [name]
+  (core/not-hidden? name))
+
 (defn read-deps-file [path]
   (core/read-deps-file path))
 

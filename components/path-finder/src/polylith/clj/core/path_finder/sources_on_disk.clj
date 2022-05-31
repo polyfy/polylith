@@ -3,8 +3,8 @@
 
 (defn entity-source-paths [ws-dir entity-type entity]
   (map #(str entity-type "/" entity "/" %)
-    (filter #(contains? #{"src" "resources" "test"} %)
-      (file/directories (str ws-dir "/" entity-type "/" entity)))))
+    (filter file/not-hidden?
+            (file/directories (str ws-dir "/" entity-type "/" entity)))))
 
 (defn entity-paths [ws-dir entity-type]
   (mapcat #(entity-source-paths ws-dir entity-type %)

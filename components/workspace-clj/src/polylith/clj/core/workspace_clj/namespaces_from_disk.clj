@@ -92,9 +92,11 @@
             file/paths-recursively
             common/filter-clojure-paths)))
 
-(defn namespaces-from-disk [src-dir test-dir]
-  (let [src (source-namespaces-from-disk src-dir)
-        test (source-namespaces-from-disk test-dir)]
+(defn namespaces-from-disk [src-dirs test-dirs]
+  (let [src (mapcat #(source-namespaces-from-disk %)
+                    src-dirs)
+        test (mapcat #(source-namespaces-from-disk %)
+                     test-dirs)]
     (cond-> {}
             (seq src) (assoc :src src)
             (seq test) (assoc :test test))))
