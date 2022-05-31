@@ -70,31 +70,37 @@
 (defn imports [ns-statements]
   (vec (sort (mapcat import (filterv import? ns-statements)))))
 
+(defn skip-slash [path]
+  (or (str-util/skip-until path "/")
+      path))
+
 (defn namespace-name [root-dir path]
   (when path
     (when-let [file-path (-> (subs path (count root-dir))
-                             (str-util/skip-until "/"))]
+                             (skip-slash))]
       (-> file-path
           (str-util/skip-suffixes [".clj" ".cljc"])
           (str/replace "/" ".")
           (str/replace "_" "-")))))
 
-(defn ->namespace [root-dir file-path]
+(defn ->namespace [source-dir file-path]
   (let [content (file/read-file file-path)]
-    {:name (namespace-name root-dir file-path)
+    {:name (namespace-name source-dir file-path)
      :namespace (-> content first second str)
      :file-path file-path
      :imports (-> content first imports)}))
 
-(defn source-namespaces-from-disk [root-dir]
-  (mapv #(->namespace root-dir %)
-        (-> root-dir
+(defn source-namespaces-from-disk [source-dir]
+  (mapv #(->namespace source-dir %)
+        (-> source-dir
             file/paths-recursively
             common/filter-clojure-paths)))
 
-(defn namespaces-from-disk [src-dir test-dir]
-  (let [src (source-namespaces-from-disk src-dir)
-        test (source-namespaces-from-disk test-dir)]
+(defn namespaces-from-disk [src-dirs test-dirs]
+  (let [src (vec (mapcat #(source-namespaces-from-disk %)
+                         src-dirs))
+        test (vec (mapcat #(source-namespaces-from-disk %)
+                          test-dirs))]
     (cond-> {}
             (seq src) (assoc :src src)
             (seq test) (assoc :test test))))

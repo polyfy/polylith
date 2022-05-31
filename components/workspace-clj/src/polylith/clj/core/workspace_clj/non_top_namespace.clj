@@ -4,35 +4,37 @@
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.util.interface.str :as str-util]))
 
-(defn brick? [path]
-  (or (str/starts-with? path "components")
-      (str/starts-with? path "bases")))
+(defn is-not-top-ns? [path top-src-dir]
+  (not (str/starts-with? path top-src-dir)))
 
-(defn as-namespaces [brick-nss]
-  (map #(str/replace % "_" "-") brick-nss))
+(defn non-top-ns-map [brick-type brick-name source-dir path]
+  (let [non-top-ns (if-let [rev-path (str-util/skip-until (str/reverse path) "/")]
+                     (common/path-to-ns (str/reverse rev-path))
+                     (common/path-to-ns path))]
+    {:non-top-ns non-top-ns
+     :file (str brick-type "s/" brick-name "/" source-dir "/" path)}))
 
-(defn non-top-namespace [path top-nss]
-  (let [parts (str/split path #"/")
-        brick (first (drop 1 parts))
-        n#nss (count top-nss)
-        brick-nss (as-namespaces (take n#nss (drop 3 parts)))]
-    (when (and (not= brick-nss top-nss)
-               (not (contains? #{"data_readers.clj"
-                                 "data_readers.cljc"} (last parts))))
-      [{:brick brick
-        :file path
-        :non-top-ns (str/join "." brick-nss)}])))
+(defn non-data-reader-file? [path]
+  (let [filename (last (str/split path #"/"))]
+    (not (contains? #{"data_readers.clj"
+                      "data_readers.cljc"} filename))))
 
-(defn add-non-top-ns [result {:keys [brick non-top-ns file]}]
-  (if (contains? result brick)
-    (assoc result brick (conj (result brick) {:non-top-ns non-top-ns :file file}))
-    (assoc result brick #{{:non-top-ns non-top-ns :file file}})))
+(defn non-top-namespaces-for-source [brick-type brick-name brick-dir top-src-dir source-dir]
+  (let [path (str brick-dir "/" source-dir)
+        path-with-slash (str path "/")]
+    (->> path
+         (file/files-recursively)
+         (into []
+               (comp
+                 (filter #(and (not (file/directory? %))
+                               (non-data-reader-file? (str %))))
+                 (map #(str-util/skip-prefix (str %) path-with-slash))
+                 (filter #(is-not-top-ns? % top-src-dir))
+                 (map #(non-top-ns-map brick-type brick-name source-dir %)))))))
 
-(defn brick->non-top-namespaces [ws-dir top-namespace]
-  (let [top-nss (str/split top-namespace #"\.")
-        non-nss (set (mapcat #(non-top-namespace % top-nss)
-                             (filterv brick?
-                                      (common/filter-clojure-paths
-                                        (map #(str-util/skip-prefix % (str ws-dir "/"))
-                                             (file/paths-recursively ws-dir))))))]
-    (reduce add-non-top-ns {} non-nss)))
+(defn non-top-namespaces [brick-type brick-name brick-dir top-src-dir source-paths]
+  (let [namespaces (mapcat #(non-top-namespaces-for-source brick-type brick-name brick-dir top-src-dir %)
+                           (filter #(not= "resources" %)
+                                   source-paths))]
+    (when (seq namespaces)
+      (vec namespaces))))

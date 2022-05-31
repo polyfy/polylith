@@ -2,7 +2,6 @@
   (:require [polylith.clj.core.common.class-loader :as class-loader]
             [polylith.clj.core.common.core :as core]
             [polylith.clj.core.common.config :as config]
-            [polylith.clj.core.common.leiningen :as leiningen]
             [polylith.clj.core.common.ns-extractor :as ns-extractor]
             [polylith.clj.core.common.validate-args :as validate-args]
             [polylith.clj.core.common.ws-dir :as ws-dir]))
@@ -41,9 +40,6 @@
 
 (defn compact? [workspace view]
   (core/compact? workspace view))
-
-(defn leiningen-config-key [config-path key]
-  (leiningen/config-key config-path key))
 
 (defn ns-to-path [namespace]
   (core/ns-to-path namespace))

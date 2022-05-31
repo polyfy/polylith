@@ -55,8 +55,8 @@
   (when paths
     (into []
           (comp
-           (map #(path-entry missing-paths % profile? test?))
-           (filter :name))
+            (map #(path-entry missing-paths % profile? test?))
+            (filter :name))
           paths)))
 
 (defn path-entries [src-paths test-paths profile-src-paths profile-test-paths disk-paths]
