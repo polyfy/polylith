@@ -71,9 +71,8 @@
   (vec (sort (mapcat import (filterv import? ns-statements)))))
 
 (defn skip-slash [path]
-  (if-let [skipped (str-util/skip-until path "/")]
-    skipped
-    path))
+  (or (str-util/skip-until path "/")
+      path))
 
 (defn namespace-name [root-dir path]
   (when path

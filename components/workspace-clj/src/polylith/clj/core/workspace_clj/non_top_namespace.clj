@@ -21,14 +21,16 @@
 
 (defn non-top-namespaces-for-source [brick-type brick-name brick-dir top-src-dir source-dir]
   (let [path (str brick-dir "/" source-dir)
-        path-with-slash (str path "/")
-        paths (mapv #(str-util/skip-prefix (str %) path-with-slash)
-                    (filterv #(and (-> % file/directory? not)
-                                   (non-data-reader-file? (str %)))
-                             (file/files-recursively path)))]
-    (mapv #(non-top-ns-map brick-type brick-name source-dir %)
-          (filter #(is-not-top-ns? % top-src-dir)
-                  paths))))
+        path-with-slash (str path "/")]
+    (->> path
+         (file/files-recursively)
+         (into []
+               (comp
+                 (filter #(and (not (file/directory? %))
+                               (non-data-reader-file? (str %))))
+                 (map #(str-util/skip-prefix (str %) path-with-slash))
+                 (filter #(is-not-top-ns? % top-src-dir))
+                 (map #(non-top-ns-map brick-type brick-name source-dir %)))))))
 
 (defn non-top-namespaces [brick-type brick-name brick-dir top-src-dir source-paths]
   (let [namespaces (mapcat #(non-top-namespaces-for-source brick-type brick-name brick-dir top-src-dir %)

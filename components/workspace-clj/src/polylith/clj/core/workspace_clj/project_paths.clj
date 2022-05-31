@@ -4,9 +4,12 @@
             [polylith.clj.core.path-finder.interface.select :as select]))
 
 (defn source-paths [project-name is-dev src-paths]
-  (if is-dev src-paths
-             (mapv #(str "projects/" project-name "/" %)
-                   src-paths)))
+  (if is-dev
+    src-paths
+    (mapv #(str "projects/" project-name "/" %)
+          src-paths)))
+
+(defn source-paths [project-name is-dev src-paths])
 
 (defn source-dirs [ws-dir project-name entries src-path-criteria]
   (mapv #(str ws-dir "/" %)

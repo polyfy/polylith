@@ -2,9 +2,10 @@
   (:require [polylith.clj.core.common.interface.config :as config]))
 
 (defn source-dirs [brick-dir paths]
-  (mapv #(str brick-dir "/" %)
-        (filter #(not= "resources" %)
-                paths)))
+  (into []
+        (comp (filter #(not= "resources" %))
+              (map #(str brick-dir "/" %)))
+        paths))
 
 (defn top-source-dirs [brick-dir top-src-dir paths]
   (mapv #(str % "/" top-src-dir)
