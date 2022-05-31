@@ -1,4 +1,5 @@
-(ns polylith.clj.core.workspace-clj.brick-dirs)
+(ns polylith.clj.core.workspace-clj.brick-dirs
+  (:require [polylith.clj.core.common.interface.config :as config]))
 
 (defn source-dirs [brick-dir paths]
   (mapv #(str brick-dir "/" %)
@@ -8,3 +9,9 @@
 (defn top-source-dirs [brick-dir top-src-dir paths]
   (mapv #(str % "/" top-src-dir)
         (source-dirs brick-dir paths)))
+
+(defn top-src-dirs [brick-dir top-src-dir config]
+  (top-source-dirs brick-dir top-src-dir (config/src-paths config)))
+
+(defn top-test-dirs [brick-dir top-src-dir config]
+  (top-source-dirs brick-dir top-src-dir (config/test-paths config)))

@@ -1,5 +1,6 @@
 (ns polylith.clj.core.workspace-clj.components-from-disk
   (:require [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.common.interface.config :as config]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.util.interface :as util]
@@ -13,8 +14,8 @@
 (defn read-component [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir component-name interface-ns]
   (let [component-dir (str ws-dir "/components/" component-name)
         config (config-from-disk/read-config-file ws-type component-dir)
-        component-top-src-dirs (brick-dirs/top-source-dirs component-dir top-src-dir (-> config :paths))
-        component-top-test-dirs (brick-dirs/top-source-dirs component-dir top-src-dir (-> config :aliases :test :extra-paths))
+        component-top-src-dirs (brick-dirs/top-src-dirs component-dir top-src-dir config)
+        component-top-test-dirs (brick-dirs/top-test-dirs component-dir top-src-dir config)
         interface-path-name (first (mapcat file/directories component-top-src-dirs))
         interface-name (common/path-to-ns interface-path-name)
         src-dirs (mapv #(str % interface-path-name)
@@ -24,8 +25,7 @@
         entity-root-path (str "components/" component-name)
         lib-deps (lib/brick-lib-deps ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home)
         paths (brick-paths/source-paths component-dir config)
-        source-paths (concat (-> config :paths)
-                             (-> config :aliases :test :extra-paths))
+        source-paths (config/source-paths config)
         non-top-namespaces (non-top-ns/non-top-namespaces "component" component-name component-dir top-src-dir source-paths)]
     (util/ordered-map :name component-name
                       :type "component"
