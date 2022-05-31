@@ -12,7 +12,6 @@
             [polylith.clj.core.workspace-clj.profile :as profile]
             [polylith.clj.core.workspace-clj.ws-reader :as ws-reader]
             [polylith.clj.core.workspace-clj.tag-pattern :as tag-pattern]
-            [polylith.clj.core.workspace-clj.non-top-namespace :as non-top-ns]
             [polylith.clj.core.workspace-clj.bases-from-disk :as bases-from-disk]
             [polylith.clj.core.workspace-clj.project-settings :as project-settings]
             [polylith.clj.core.workspace-clj.projects-from-disk :as projects-from-disk]
@@ -98,11 +97,10 @@
         user-home (user-config/home-dir)
         thousand-separator (user-config/thousand-separator)
         user-config-filename (user-config/config-file-path)
-        brick->non-top-namespaces (non-top-ns/brick->non-top-namespaces ws-dir top-namespace)
         project->settings (project-settings/convert ws-config)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
-        components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns brick->non-top-namespaces)
-        bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir brick->non-top-namespaces)
+        components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns)
+        bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir)
         name->brick (into {} (comp cat (map (juxt :name identity))) [components bases])
         projects (projects-from-disk/read-projects ws-dir ws-type name->brick project->settings user-input user-home)
         profile-to-settings (profile/profile-to-settings ws-dir aliases name->brick user-home)
