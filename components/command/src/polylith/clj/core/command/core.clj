@@ -84,7 +84,7 @@
           "migrate" (migrator/migrate ws-dir workspace)
           "prompt" (prompt-message)
           "shell" (shell/start execute user-input workspace-fn workspace color-mode)
-          "test" (test/run workspace unnamed-args test-result is-verbose color-mode)
+          "test" (test/run user-input workspace unnamed-args test-result is-verbose color-mode)
           "version" (version)
           "ws" (ws-explorer/ws workspace get out color-mode)
           (unknown-command cmd))
