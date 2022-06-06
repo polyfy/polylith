@@ -35,13 +35,14 @@
         (= value key-name)))))
 
 (defn value-from-map [m key-name]
-  (let [k (keyword key-name)]
+  (let [k (keyword key-name)
+        mm (into {} m)]
     (cond
-      (contains? m k) (m k)
-      (contains? m key-name) (m key-name)
+      (contains? mm k) (mm k)
+      (contains? mm key-name) (mm key-name)
       (search? key-name) (mapv keyword
                                (filter #(match-str? % key-name)
-                                       (map name (keys m)))))))
+                                       (map name (keys mm)))))))
 
 (defn match? [value key-name]
   (or (and (map? value)
