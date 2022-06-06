@@ -16,7 +16,7 @@
            [org.jline.reader Parser$ParseContext]
            [org.jline.reader ParsedLine]))
 
-(def stop-execution? (atom false))
+(def stop-execution?* (atom false))
 
 (defn split-word [word]
   (if (str/starts-with? word ":")
@@ -82,7 +82,7 @@
   (proxy [Terminal$SignalHandler] []
     (handle [^Terminal$Signal _]
       (println "\n### Stop execution...in a moment...")
-      (reset! stop-execution? true))))
+      (reset! stop-execution?* true))))
 
 (defn reader []
   (let [terminal (-> (TerminalBuilder/builder)

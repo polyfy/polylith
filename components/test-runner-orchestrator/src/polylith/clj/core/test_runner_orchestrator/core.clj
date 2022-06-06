@@ -83,7 +83,7 @@
                    {:form form}
                    e))))))
 
-(defn run-tests-for-project [{:keys [workspace project test-settings stop-execution? is-verbose color-mode] :as opts}]
+(defn run-tests-for-project [{:keys [workspace project test-settings stop-execution?* is-verbose color-mode] :as opts}]
   (let [{:keys [settings]} workspace
         {:keys [name paths]} project
         {:keys [create-test-runner setup-fn teardown-fn]} test-settings
@@ -105,12 +105,12 @@
                                 :eval-in-project (->eval-in-project class-loader)})]
         (when is-verbose (println (str "# paths:\n" all-paths "\n")))
         (doseq [current-test-runner test-runners-seeing-test-sources]
-          (when-not (or (setup-failed?) @stop-execution?)
+          (when-not (or (setup-failed?) @stop-execution?*)
             (->> {:test-runner current-test-runner
                   :setup-delay setup!*
                   :teardown-delay teardown!*
                   :runner-opts runner-opts
-                  :stop-execution? stop-execution?}
+                  :stop-execution?* stop-execution?*}
                  (merge opts)
                  (run-tests-for-project-with-test-runner))))
         (when (setup-succeeded?)
@@ -152,7 +152,7 @@
           bricks (str/join ", " (concat components bases))]
       (println (str "Bricks to run tests for: " bricks)))))
 
-(defn run [{:keys [stop-execution?]} {:keys [components bases projects changes settings messages] :as workspace} is-verbose color-mode]
+(defn run [{:keys [stop-execution?*]} {:keys [components bases projects changes settings messages] :as workspace} is-verbose color-mode]
   (if (validator/has-errors? messages)
     (do (validator/print-messages workspace)
         false)
@@ -172,7 +172,7 @@
           (println)
           (doseq [{:keys [name] :as project} projects-to-test]
             (->> {:project project
-                  :stop-execution? (or stop-execution? (atom false))
+                  :stop-execution?* (or stop-execution?* (atom false))
                   :test-settings (get-in settings [:projects name :test])}
                  (merge run-opts)
                  (run-tests-for-project)))))

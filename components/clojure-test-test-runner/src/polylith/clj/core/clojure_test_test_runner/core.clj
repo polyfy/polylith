@@ -49,12 +49,12 @@
     (str "Running tests from the " (color/project project-name color-mode) " project, including "
          (str-util/count-things "brick" bricks-cnt) project-msg ": " entities-msg)))
 
-(defn run-test-statements [project-name eval-in-project test-statements run-message stop-execution? is-verbose color-mode]
+(defn run-test-statements [project-name eval-in-project test-statements run-message stop-execution?* is-verbose color-mode]
   (println (str run-message))
   (when is-verbose (println (str "# test-statements:\n" test-statements) "\n"))
 
   (doseq [statement test-statements]
-    (when-not @stop-execution?
+    (when-not @stop-execution?*
       (let [{:keys [error fail pass]}
             (try
               (eval-in-project statement)
@@ -65,7 +65,7 @@
         (when (or (nil? error)
                   (< 0 error)
                   (< 0 fail))
-          (when (not @stop-execution?)
+          (when (not @stop-execution?*)
             (throw (Exception. (str "\n" (color/error color-mode result-str))))))
         (println (str "\n" (color/ok color-mode result-str)))))))
 
@@ -93,9 +93,9 @@
         (and (test-runner-contract/test-sources-present? this)
              (seq @test-statements*)))
 
-      (run-tests [this {:keys [color-mode eval-in-project stop-execution? is-verbose] :as opts}]
+      (run-tests [this {:keys [color-mode eval-in-project stop-execution?* is-verbose] :as opts}]
         (when (test-runner-contract/tests-present? this opts)
           (let [run-message (run-message name components bases @bricks-to-test*
                                          @projects-to-test* color-mode)]
             (run-test-statements
-             name eval-in-project @test-statements* run-message stop-execution? is-verbose color-mode)))))))
+             name eval-in-project @test-statements* run-message stop-execution?* is-verbose color-mode)))))))
