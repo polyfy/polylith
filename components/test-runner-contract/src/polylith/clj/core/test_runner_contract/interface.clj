@@ -45,4 +45,4 @@
   (test-runner-name [this])
   (test-sources-present? [this])
   (tests-present? [this {:keys [class-loader eval-in-project] :as opts}])
-  (run-tests [this {:keys [class-loader color-mode eval-in-project is-verbose] :as opts}]))
+  (run-tests [this {:keys [class-loader color-mode eval-in-project stop-execution?* is-verbose] :as opts}]))
