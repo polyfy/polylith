@@ -97,7 +97,7 @@
             all-paths (into #{} cat [(:src paths) (:test paths) lib-paths])
             class-loader (common/create-class-loader all-paths color-mode)
             setup!* (delay (execute-fn setup-fn "setup" name class-loader color-mode))
-            setup-failed? #(and (realized? setup!*) (not (deref setup!*)))
+            setup-failed? #(not (deref setup!*))
             setup-succeeded? #(and (realized? setup!*) (deref setup!*))
             teardown!* (delay (execute-fn teardown-fn "teardown" name class-loader color-mode))
             runner-opts (merge opts
