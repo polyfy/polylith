@@ -64,11 +64,12 @@
              (test-runner-contract/test-runner-name test-runner))]
     (if-not (test-runner-contract/tests-present? test-runner runner-opts)
       (println (str "No tests to run " for-project-using-runner "."))
-      (when (deref setup-delay)
+      (if (deref setup-delay)
         (try
           (println (str "Running tests " for-project-using-runner "..."))
           (test-runner-contract/run-tests test-runner runner-opts)
-          (catch Throwable e (deref teardown-delay) (throw e)))))))
+          (catch Throwable e (deref teardown-delay) (throw e)))
+        (throw (ex-info (str "Test terminated due to setup failure") {:project project}))))))
 
 (defn ex-causes [ex]
   (str/join "; " (take-while some? (iterate ex-cause ex))))
@@ -97,7 +98,7 @@
             all-paths (into #{} cat [(:src paths) (:test paths) lib-paths])
             class-loader (common/create-class-loader all-paths color-mode)
             setup!* (delay (execute-fn setup-fn "setup" name class-loader color-mode))
-            setup-failed? #(not (deref setup!*))
+            setup-failed? #(and (realized? setup!*) (not (deref setup!*)))
             setup-succeeded? #(and (realized? setup!*) (deref setup!*))
             teardown!* (delay (execute-fn teardown-fn "teardown" name class-loader color-mode))
             runner-opts (merge opts
