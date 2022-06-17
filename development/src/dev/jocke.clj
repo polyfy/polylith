@@ -41,7 +41,10 @@
 
 ;(info/info workspace nil)
 
-;(command/execute-command (user-input/extract-params ["info"]))
+;(command/execute-command (user-input/extract-params ["info" ":all" "project:poly" "brick:-"]))
+;(command/execute-command (user-input/extract-params ["ws" "get:changes:project-to-projects-to-test:poly" ":all" "project:poly" "brick:-"]))
+;(command/execute-command (user-input/extract-params ["test" ":all" "project:poly" "brick:-"]))
+
 ;(command/execute-command (user-input/extract-params ["test"]))
 
 (:projects workspace)

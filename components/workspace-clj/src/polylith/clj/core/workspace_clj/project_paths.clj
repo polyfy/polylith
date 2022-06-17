@@ -9,8 +9,6 @@
     (mapv #(str "projects/" project-name "/" %)
           src-paths)))
 
-(defn source-paths [project-name is-dev src-paths])
-
 (defn source-dirs [ws-dir project-name entries src-path-criteria]
   (mapv #(str ws-dir "/" %)
         (select/paths entries c/project? src-path-criteria (c/=name project-name))))
