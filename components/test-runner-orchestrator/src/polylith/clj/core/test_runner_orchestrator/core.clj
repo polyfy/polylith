@@ -64,11 +64,12 @@
              (test-runner-contract/test-runner-name test-runner))]
     (if-not (test-runner-contract/tests-present? test-runner runner-opts)
       (println (str "No tests to run " for-project-using-runner "."))
-      (when (deref setup-delay)
+      (if (deref setup-delay)
         (try
           (println (str "Running tests " for-project-using-runner "..."))
           (test-runner-contract/run-tests test-runner runner-opts)
-          (catch Throwable e (deref teardown-delay) (throw e)))))))
+          (catch Throwable e (deref teardown-delay) (throw e)))
+        (throw (ex-info (str "Test terminated due to setup failure") {:project project}))))))
 
 (defn ex-causes [ex]
   (str/join "; " (take-while some? (iterate ex-cause ex))))
