@@ -29,7 +29,7 @@ poly help
 ```
 
 ```
-  Poly 0.2.15-alpha-issue206-01 (2022-05-14) - https://github.com/polyfy/polylith
+  Poly 0.2.15-alpha-issue235-01 (2022-06-17) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -959,3 +959,4 @@ poly help
     poly ws out:ws.edn
     poly ws color-mode:none > ws.edn
 ```
+
