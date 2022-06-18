@@ -74,11 +74,11 @@
 (defn read-file [path]
   (core/read-file path))
 
+(defn read-first-statement [path]
+  (core/read-first-statement path))
+
 (defn size [path]
   (core/size path))
-
-(defn files-recursively [dir]
-  (core/files-recursively dir))
 
 (defn files [dir]
   (core/files dir))
@@ -90,6 +90,11 @@
   "Returns all directories and files in a directory recursively"
   [dir]
   (core/paths-recursively dir))
+
+(defn visible-paths-recursively
+  "Returns all directories and files in a directory recursively, except hidden files and directories."
+  [dir]
+  (core/visible-paths-recursively dir))
 
 (defn relative-paths [path]
   (core/relative-paths path))

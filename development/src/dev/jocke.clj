@@ -25,6 +25,7 @@
 
 (def workspace (-> (dev-common/dir ".")
                    ;(dev-common/dir "examples/doc-example")
+                   ;(dev-common/dir "examples/for-test")
                    ;(dev-common/dir "examples/local-dep")
                    ;(dev-common/dir "examples/local-dep-old-format")
                    ;(dev-common/dir "../poly-example/ws02")

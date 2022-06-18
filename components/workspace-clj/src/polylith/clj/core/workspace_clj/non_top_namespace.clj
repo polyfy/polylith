@@ -23,10 +23,10 @@
   (let [path (str brick-dir "/" source-dir)
         path-with-slash (str path "/")]
     (->> path
-         (file/files-recursively)
+         (file/visible-paths-recursively)
          (into []
                (comp
-                 (filter #(and (not (file/directory? %))
+                 (filter #(and (-> % file/file file/directory? not)
                                (non-data-reader-file? (str %))))
                  (map #(str-util/skip-prefix (str %) path-with-slash))
                  (filter #(is-not-top-ns? % top-src-dir))

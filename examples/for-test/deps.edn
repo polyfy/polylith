@@ -1,0 +1,11 @@
+{:aliases  {:dev {:extra-paths ["development/src"
+                                "components/company/src"]
+                  :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}}}
+
+            :test {:extra-paths ["components/company/test"]}
+
+            :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                   :extra-deps {polyfy/polylith
+                                {:git/url   "https://github.com/polyfy/polylith"
+                                 :sha       "75140d3101805331ba40b7982a69702b11a858e8"
+                                 :deps/root "projects/poly"}}}}}
