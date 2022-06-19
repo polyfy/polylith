@@ -2,6 +2,7 @@
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [clojure.tools.deps.alpha.util.maven :as mvn]
+            [polylith.clj.core.common.interface.config :as config]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.util.interface :as util]
@@ -111,9 +112,9 @@
           entity-root-path (when (not is-dev) (str "projects/" project-name))
           lib-deps (-> ws-dir
                        (lib/with-sizes-vec
-                        entity-root-path
-                        (filterv #(not (brick? % is-dev)) project-test-deps)
-                        user-home)
+                         entity-root-path
+                         (filterv #(not (brick? % is-dev)) project-test-deps)
+                         user-home)
                        (into (mapcat #(brick-libs name->brick % :test)) all-brick-names)
                        (into (mapcat #(brick-libs name->brick % :src)) src-only-brick-names)
                        (lib/resolve-libs (merge override-src-deps override-test-deps)))]
@@ -122,7 +123,7 @@
 (defn read-project
   ([{:keys [project-name project-dir project-config-dir is-dev]} ws-dir ws-type name->brick project->settings user-home]
    (let [config-filename (str project-config-dir "/deps.edn")
-         {:keys [paths deps override-deps aliases mvn/repos] :as config} (file/read-deps-file config-filename)
+         {:keys [paths deps override-deps aliases mvn/repos] :as config} (config/read-deps-file config-filename)
          project-src-paths (cond-> paths is-dev (concat (-> aliases :dev :extra-paths)))
          project-src-deps (cond-> deps is-dev (merge (-> aliases :dev :extra-deps)))
          project-test-paths (-> aliases :test :extra-paths)

@@ -9,6 +9,7 @@
             [polylith.clj.core.command.user-config :as user-config]
             [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.common.interface.config :as config]
             [polylith.clj.core.help.interface :as help]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.migrator.interface :as migrator]
@@ -49,7 +50,7 @@
   ([ws-file ws-dir user-input color-mode]
    (if ws-file
      (ws-file/read-ws-from-file ws-file user-input)
-     (when (common/valid-ws-root-config-file-found? ws-dir color-mode)
+     (when (config/valid-ws-root-config-file-found? ws-dir color-mode)
        (-> user-input
            ws-clj/workspace-from-disk
            ws/enrich-workspace

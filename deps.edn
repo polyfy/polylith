@@ -51,6 +51,7 @@
                                  "components/change/test"
                                  "components/clojure-test-test-runner/test"
                                  "components/command/test"
+                                 "components/common/test"
                                  "components/creator/test"
                                  "components/deps/test"
                                  "components/file/test"

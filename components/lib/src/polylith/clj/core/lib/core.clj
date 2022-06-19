@@ -1,9 +1,9 @@
 (ns polylith.clj.core.lib.core
-  (:require [polylith.clj.core.lib.maven-dep :as maven-dep]
+  (:require [polylith.clj.core.common.interface.config :as config]
+            [polylith.clj.core.lib.maven-dep :as maven-dep]
             [polylith.clj.core.lib.size :as size]
             [polylith.clj.core.lib.ns-to-lib :as ns-to-lib]
-            [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.file.interface :as file]))
+            [polylith.clj.core.util.interface :as util]))
 
 (defn latest-lib-version [result [k v2]]
   (if (:mvn/version v2)
@@ -25,7 +25,7 @@
     (latest-with-sizes ws-dir entity-root-path (get-in config dep-keys) user-home)))
 
 (defn lib->deps [ws-dir]
-  (let [config (file/read-deps-file (str ws-dir "/deps.edn"))]
+  (let [config (config/read-deps-file (str ws-dir "/deps.edn"))]
     (util/stringify-and-sort-map (merge (-> config :aliases :test :extra-deps)
                                         (-> config :aliases :dev :extra-deps)))))
 

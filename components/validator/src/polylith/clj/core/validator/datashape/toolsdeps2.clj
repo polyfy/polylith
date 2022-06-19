@@ -6,7 +6,7 @@
 
 (defn validate-brick-config [config]
   (-> [:map
-       [:paths [:vector string?]]
+       [:paths [:* [:alt keyword? string?]]]
        [:deps [:map-of symbol? map?]]
        [:aliases {:optional true} [:map]]]
       (m/explain config)
@@ -24,7 +24,7 @@
 (defn validate-project-deployable-config [config]
   (-> [:map
        [:paths {:optional true}
-        [:vector string?]]
+        [:* [:alt keyword? string?]]]
        [:deps {:optional true} [:map-of symbol? :map]]]
       (m/explain config)
       (me/humanize)))
@@ -51,8 +51,7 @@
    [:alias {:optional true} string?]
    [:test {:optional true}
     [:or project-test-config-schema
-     vector? ;; legacy
-     ]]])
+     vector?]]]) ;; legacy
 
 (def workspace-schema
   [:map
