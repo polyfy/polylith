@@ -8,6 +8,9 @@
   (:import [java.io File PushbackReader FileNotFoundException]
            [java.nio.file Files]))
 
+(defn file [^String f]
+  (File. f))
+
 (defn execute-fn [f message path]
   (try
     (f)
@@ -87,8 +90,8 @@
        (mapv filename)
        (into #{})))
 
-(defn not-hidden? [name]
-  (not (str/starts-with? name ".")))
+(defn not-hidden? [path]
+  (-> path file fs/hidden? not))
 
 (defn dirs-and-files [directory home-dir]
   (let [dir (str/replace directory "~/" (str home-dir "/"))
@@ -114,6 +117,9 @@
     (catch FileNotFoundException _
       nil)))
 
+(defn read-first-statement [path]
+  (read-string {:read-cond :allow} (slurp path)))
+
 (defn copy-resource-file! [source target-path]
   (delete-file target-path)
   (let [resource-file (io/input-stream (io/resource source))
@@ -121,20 +127,20 @@
     (execute-fn #(io/copy resource-file target-file)
                 "Could not copy resource file" target-path)))
 
-(defn delete-folder [file]
-  (let [files (reverse (file-seq file))]
-    (doseq [^File f files]
-      (when (.exists f)
-        (io/delete-file f)))))
-
 (defn files [dir]
   (map str (.list (io/file dir))))
 
-(defn files-recursively [dir]
+(defn files-and-dirs-recursively [dir]
   (drop-last (reverse (file-seq (io/file dir)))))
 
+(defn visible-paths-recursively [dir]
+  (into []
+        (comp (filter (complement fs/hidden?))
+              (map str))
+        (files-and-dirs-recursively dir)))
+
 (defn paths-recursively [dir]
-  (map str (files-recursively dir)))
+  (map str (files-and-dirs-recursively dir)))
 
 (defn relative-paths [path]
   (let [length (inc (count path))]
@@ -147,9 +153,6 @@
 (defn pretty-spit [filename collection]
   (spit (io/file filename)
         (with-out-str (pp/write collection :dispatch pp/code-dispatch))))
-
-(defn file [^String f]
-  (File. f))
 
 (defn read-deps-file [path]
   (tda/slurp-deps (file path)))

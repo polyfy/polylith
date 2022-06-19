@@ -84,11 +84,11 @@
           (str/replace "_" "-")))))
 
 (defn ->namespace [source-dir file-path]
-  (let [content (file/read-file file-path)]
+  (let [content (file/read-first-statement file-path)]
     {:name (namespace-name source-dir file-path)
-     :namespace (-> content first second str)
+     :namespace (-> content second str)
      :file-path file-path
-     :imports (-> content first imports)}))
+     :imports (-> content imports)}))
 
 (defn source-namespaces-from-disk [source-dir]
   (mapv #(->namespace source-dir %)
