@@ -31,8 +31,7 @@
 (defn enhance [user-input dir file]
    (assoc user-input :is-shell true
                      :ws-dir dir
-                     :ws-file file
-                     :stop-execution?* jline/stop-execution?*))
+                     :ws-file file))
 
 (defn switch-ws [user-input dir file workspace-fn color-mode]
   (let [input (enhance user-input dir file)]
@@ -72,7 +71,6 @@
                 (str/blank? line) nil
                 :else (execute-command command-executor input color-mode))
               (flush)
-              (reset! jline/stop-execution?* false)
               (recur)))))
       (catch EndOfFileException _)
       (catch UserInterruptException _))))
