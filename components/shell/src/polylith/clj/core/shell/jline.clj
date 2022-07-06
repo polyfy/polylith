@@ -3,20 +3,16 @@
             [polylith.clj.core.util.interface.str :as str-util]
             [polylith.clj.core.shell.candidate.engine :as engine])
   (:import [org.jline.terminal TerminalBuilder]
-           [org.jline.terminal Terminal$Signal]
-           [org.jline.terminal Terminal$SignalHandler]
            [org.jline.reader Completer]
            [org.jline.reader.impl DefaultParser]
            [org.jline.reader.impl DefaultParser$ArgumentList]
            [org.jline.reader Candidate]
            [org.jline.reader LineReader]
            [org.jline.reader LineReaderBuilder]
-           [org.jline.reader LineReader$SuggestionType]
            [org.jline.reader Parser]
            [org.jline.reader Parser$ParseContext]
-           [org.jline.reader ParsedLine]))
-
-(def stop-execution?* (atom false))
+           [org.jline.reader ParsedLine]
+           [org.jline.reader LineReader$SuggestionType]))
 
 (defn split-word [word]
   (if (str/starts-with? word ":")
@@ -77,17 +73,8 @@
         (.addAll candidates (map candidate
                                  (engine/candidates line words)))))))
 
-(defn ^Terminal$SignalHandler terminal-handler []
-  "See https://groups.google.com/g/jline-users/c/1QpqwP1IW_g"
-  (proxy [Terminal$SignalHandler] []
-    (handle [^Terminal$Signal _]
-      (println "\n### Stop execution...in a moment...")
-      (reset! stop-execution?* true))))
-
 (defn reader []
   (let [terminal (-> (TerminalBuilder/builder)
-                     (.nativeSignals true)
-                     (.signalHandler (terminal-handler))
                      (.system true)
                      (.dumb true)
                      (.build))
