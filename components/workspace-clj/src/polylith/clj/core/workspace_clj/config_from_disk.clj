@@ -1,11 +1,12 @@
 (ns polylith.clj.core.workspace-clj.config-from-disk
   (:require [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.common.interface.config :as config]
             [polylith.clj.core.validator.interface :as validator]))
 
 (defn read-and-validate-config-file [config-filename]
   (if (-> config-filename file/exists not)
     [false (str "Could not find config file: " config-filename)]
-    (let [config (file/read-deps-file config-filename)
+    (let [config (config/read-deps-file config-filename)
           message (validator/validate-brick-config config)]
       (if message
         [false message]

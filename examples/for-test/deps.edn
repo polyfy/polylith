@@ -1,8 +1,11 @@
 {:aliases  {:dev {:extra-paths ["development/src"
-                                "components/company/src"]
+                                "components/company/clj"
+                                "components/company/cljc"
+                                "components/company/resources"]
                   :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}}}
 
-            :test {:extra-paths ["components/company/test"]}
+            :test {:extra-paths ["components/company/test"
+                                 "components/company/test2"]}
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :extra-deps {polyfy/polylith

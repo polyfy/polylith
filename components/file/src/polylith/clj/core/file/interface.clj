@@ -68,9 +68,6 @@
 (defn not-hidden? [name]
   (core/not-hidden? name))
 
-(defn read-deps-file [path]
-  (core/read-deps-file path))
-
 (defn read-file [path]
   (core/read-file path))
 

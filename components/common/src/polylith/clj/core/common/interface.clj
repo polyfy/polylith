@@ -1,7 +1,6 @@
 (ns polylith.clj.core.common.interface
   (:require [polylith.clj.core.common.class-loader :as class-loader]
             [polylith.clj.core.common.core :as core]
-            [polylith.clj.core.common.config :as config]
             [polylith.clj.core.common.ns-extractor :as ns-extractor]
             [polylith.clj.core.common.validate-args :as validate-args]
             [polylith.clj.core.common.ws-dir :as ws-dir]))
@@ -13,6 +12,9 @@
 
 (defn color-mode [user-input]
   (core/color-mode user-input))
+
+(defn compact? [workspace view]
+  (core/compact? workspace view))
 
 (defn create-class-loader [paths color-mode]
   (class-loader/create-class-loader paths color-mode))
@@ -38,9 +40,6 @@
 (defn find-project [project-name projects]
   (core/find-project project-name projects))
 
-(defn compact? [workspace view]
-  (core/compact? workspace view))
-
 (defn ns-to-path [namespace]
   (core/ns-to-path namespace))
 
@@ -53,9 +52,6 @@
 
 (defn validate-args [unnamed-args example]
   (validate-args/validate unnamed-args example))
-
-(defn valid-ws-root-config-file-found? [ws-dir color-mode]
-  (config/valid-ws-root-config-file-found? ws-dir color-mode))
 
 (defn workspace-dir [user-input color-mode]
   (ws-dir/workspace-dir user-input color-mode))

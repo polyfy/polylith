@@ -1,7 +1,7 @@
 (ns polylith.clj.core.common.ws-dir
   (:require [clojure.string :as str]
             [polylith.clj.core.common.core :as core]
-            [polylith.clj.core.common.config :as config]
+            [polylith.clj.core.common.config.validate :as config]
             [polylith.clj.core.file.interface :as file])
   (:import (java.io File)))
 
