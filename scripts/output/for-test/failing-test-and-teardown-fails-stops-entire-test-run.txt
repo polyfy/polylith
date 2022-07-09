@@ -1,0 +1,28 @@
+Projects to run tests from: failing-test-teardown-fails, okay
+
+Running test setup for the failing-test-teardown-fails project: project.failing-test-teardown-fails.test-setup/setup
+Test setup for project: failing-test-teardown-fails
+
+Running tests for the failing-test-teardown-fails project using test runner: Polylith built-in clojure.test runner...
+Running tests from the failing-test-teardown-fails project, including 3 bricks and 1 project: a-okay, b-fail, util, failing-test-teardown-fails
+
+Testing com.for.test.a-okay.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing com.for.test.b-fail.interface-test
+
+FAIL in (failing-test) (interface_test.clj:6)
+expected: (= 1 2)
+  actual: (not (= 1 2))
+
+Ran 1 tests containing 1 assertions.
+1 failures, 0 errors.
+Running test teardown for the failing-test-teardown-fails project: project.failing-test-teardown-fails.test-setup/teardown
+
+Test teardown failed: java.lang.Exception: Teardown failed for project: failing-test-teardown-fails
+
+Test results: 0 passes, 1 failures, 0 errors.

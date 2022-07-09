@@ -15,7 +15,7 @@
   change                    change                     s--  st-    st-
   clojure-test-test-runner  clojure-test-test-runner   ---  st-    st-
   command                   command                    ---  st-    st-
-  common                    common                     s--  s--    s--
+  common                    common                     s--  st-    st-
   creator                   creator                    ---  st-    st-
   deps                      deps                       s--  st-    st-
   file                      file                       s--  st-    st-
