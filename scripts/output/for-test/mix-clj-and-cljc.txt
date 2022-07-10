@@ -45,3 +45,4 @@ Test teardown for project: okay
 
 
 Execution time: 1 seconds
+exit code: 0

@@ -26,3 +26,4 @@ Running test teardown for the failing-test-teardown-fails project: project.faili
 Test teardown failed: java.lang.Exception: Teardown failed for project: failing-test-teardown-fails
 
 Test results: 0 passes, 1 failures, 0 errors.
+exit code: 1

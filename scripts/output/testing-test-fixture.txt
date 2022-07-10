@@ -38,3 +38,4 @@ Running test teardown for the command-line project: project.command-line.test-se
 
 
 Execution time: 1 seconds
+exit code: 0

@@ -117,3 +117,4 @@ Test teardown for project: x-okay
 
 
 Execution time: 3 seconds
+exit code: 0

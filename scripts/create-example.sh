@@ -151,10 +151,12 @@ poly info fake-sha:e7ebe68 > $output/testing-info-1.txt
 cp $sections/testing/user-interface-test.clj components/user/test/se/example/user/interface_test.clj
 set +e
 poly test > $output/testing-test-failing.txt
+echo "exit code: $?" >> $output/testing-test-failing.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test-failing.txt
 set -e
 cp $sections/testing/user-interface-test2.clj components/user/test/se/example/user/interface_test.clj
 poly test > $output/testing-test-ok.txt
+echo "exit code: $?" >> testing-test-ok.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test-ok.txt
 clojure -A:dev:test -P
 poly info :dev fake-sha:e7ebe68 > $output/testing-info-2.txt
@@ -175,6 +177,7 @@ git add projects/command-line/test/project/command_line/dummy_test.clj
 poly info fake-sha:e7ebe68 > $output/testing-info-4.txt
 poly info :project fake-sha:e7ebe68 > $output/testing-info-5.txt
 poly test :project fake-sha:e7ebe68 > $output/testing-test-project.txt
+echo "exit code: $?" >> $output/testing-test-project.txt
 git add --all
 git commit -m "Added tests"
 git tag -f stable-lisa
@@ -186,6 +189,7 @@ poly info :all :dev fake-sha:e7ebe68 > $output/testing-info-10.txt
 
 poly info :all :dev fake-sha:e7ebe68 > $output/testing-info-11.txt
 poly test :all :dev color-mode:none > $output/testing-test-all.txt
+echo "exit code: $?" >> $output/testing-test-all.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test-all.txt
 
 cp $sections/project/command-line-test-setup.clj projects/command-line/test/project/command_line/test_setup.clj
@@ -195,10 +199,12 @@ cp $sections/project/command-line-test-setup.clj projects/command-line/test/proj
 cp $sections/project/workspace2.edn ./workspace.edn
 
 poly test :all color-mode:none > $output/testing-test-fixture.txt
+echo "exit code: $?" >> $output/testing-test-fixture.txt
 
 cp $sections/testing/workspace.edn .
 poly info :all :dev fake-sha:e7ebe68 > $output/testing-info-exclude-tests.txt
 poly test :all :dev color-mode:none > $output/testing-test-all-exclude-tests.txt
+echo "exit code: $?" >> $output/testing-test-all-exclude-tests.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test-all-exclude-tests.txt
 
 echo "### 11/55 Profile ###"
@@ -233,6 +239,7 @@ poly info +default +remote fake-sha:e7ebe68 > $output/profile-info-3.txt
 set -e
 poly info :loc fake-sha:e7ebe68 > $output/profile-info-4.txt
 poly test :project fake-sha:e7ebe68 > $output/profile-test.txt
+echo "exit code: $?" >> $output/profile-test.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/profile-test.txt
 
 echo "### 12/55 Configuration ###"
@@ -356,6 +363,7 @@ poly ws out:$output/local-dep/ws.edn replace:$ws4:WS-HOME:$HOME:USER-HOME:$sha:S
 echo "### 41/55 examples/local-dep ###"
 poly info :dev since:0aaeb58 color-mode:none > $output/local-dep/since-info.txt
 poly test :dev since:0aaeb58 color-mode:none > $output/local-dep/test.txt
+echo "exit code: $?" >> $output/local-dep/test.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/local-dep/test.txt
 
 echo "### 42/55 examples/local-dep-old-format ###"
@@ -377,6 +385,7 @@ echo "### 45/55 examples/local-dep-old-format ###"
 poly ws out:$output/local-dep-old-format/ws.edn replace:$ws4:WS-HOME:$HOME:USER-HOME:$sha:SHA color-mode:none
 echo "### 46/55 examples/local-dep-old-format ###"
 poly test :dev color-mode:none > $output/local-dep-old-format/test.txt
+echo "exit code: $?" >> $output/local-dep-old-format/test.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/local-dep-old-format/test.txt
 
 poly migrate
@@ -388,6 +397,7 @@ echo "### 48/55 examples/local-dep-old-format (migrated) ###"
 poly deps color-mode:none > $output/local-dep-old-format/deps-migrated.txt
 echo "### 49/55 examples/local-dep-old-format (migrated) ###"
 poly test :de color-mode:none > $output/local-dep-old-format/test-migrated.txt
+echo "exit code: $?" >> $output/local-dep-old-format/test-migrated.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/local-dep-old-format/test-migrated.txt
 
 cd $examples/for-test
@@ -396,14 +406,19 @@ echo "current-dir=$(pwd)"
 set +e
 echo "### 50/55 examples/for-test, issue 208 - Mix clj and cljc source directories ###"
 poly test :all project:okay color-mode:none > $output/for-test/mix-clj-and-cljc.txt
+echo "exit code: $?" >> $output/for-test/mix-clj-and-cljc.txt
 echo "### 51/55 examples/for-test, issue 234 - Test setup fails ###"
 poly test :all project:okay:setup-fails:x-okay color-mode:none > $output/for-test/setup-fails-stops-entire-test-run.txt
+echo "exit code: $?" >> $output/for-test/setup-fails-stops-entire-test-run.txt
 echo "### 52/55 examples/for-test, issue 234 - Test teardown fails ###"
 poly test :all project:okay:teardown-fails:x-okay color-mode:none > $output/for-test/teardown-fails-stops-entire-test-run.txt
+echo "exit code: $?" >> $output/for-test/teardown-fails-stops-entire-test-run.txt
 echo "### 53/55 examples/for-test, issue 234 - Test failed ###"
 poly test :all project:failing-test:okay color-mode:none > $output/for-test/failing-test-runs-teardown-and-stops-entire-test-run.txt
+echo "exit code: $?" >> $output/for-test/failing-test-runs-teardown-and-stops-entire-test-run.txt
 echo "### 54/55 examples/for-test, issue 234 - Test failed, teardown failed ###"
 poly test :all project:failing-test-teardown-fails:okay color-mode:none > $output/for-test/failing-test-and-teardown-fails-stops-entire-test-run.txt
+echo "exit code: $?" >> $output/for-test/failing-test-and-teardown-fails-stops-entire-test-run.txt
 set -e
 
 cd $output

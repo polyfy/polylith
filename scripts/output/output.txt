@@ -552,6 +552,7 @@ Ran 1 tests containing 1 assertions.
 [32mTest results: 1 passes, 0 failures, 0 errors.[0m
 
 Execution time: x seconds
+exit code: 0
 
 ######### realworld-info.png #########
 
