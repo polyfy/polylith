@@ -17,8 +17,8 @@
 #   against workspaces created with 'poly' version 0.1.0-alpha9 or
 #   older.
 # - we also run the commands agains the realworld and usermanager
-#   repos to make sure they work and that we get expected output
-#   from them.
+#   repos and repos under the examples directory, to make sure they
+#   work and that we get expected output from them.
 #
 # Before executing this command, make sure the 'tree' command is
 # installed, by executing:

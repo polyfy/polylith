@@ -45,6 +45,6 @@ Test teardown for project: okay
 
 Running test setup for the setup-fails project: project.setup-fails.test-setup/setup
 
-Test setup failed: java.lang.Exception: Setup failed for projectsetup-fails
+Test setup failed: java.lang.Exception: Setup failed for project: setup-fails
 Test terminated due to setup failure
 exit code: 1
