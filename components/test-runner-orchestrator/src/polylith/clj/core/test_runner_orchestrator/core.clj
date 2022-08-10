@@ -97,42 +97,37 @@
    :is-verbose is-verbose
    :color-mode color-mode})
 
-(defn run-tests-for-project
-  ([{:keys [workspace project test-settings is-verbose color-mode] :as opts}]
-   (let [{:keys [settings]} workspace
-         {:keys [name paths]} project
-         {:keys [create-test-runner setup-fn teardown-fn]} test-settings
-         test-runners-seeing-test-sources
-         (into []
-               (comp (map (->valid-test-runner-fn opts))
-                     (filter test-runner-contract/test-sources-present?))
-               create-test-runner)]
-     (when (seq test-runners-seeing-test-sources)
-       (let [lib-paths (resolve-deps project settings is-verbose color-mode)
-             all-paths (into #{} cat [(:src paths) (:test paths) lib-paths])
-             class-loader (common/create-class-loader all-paths color-mode)
-             setup!* (delay (execute-fn setup-fn "setup" name class-loader color-mode))
-             setup-failed? #(and (realized? setup!*) (not (deref setup!*)))
-             setup-succeeded? #(and (realized? setup!*) (deref setup!*))
-             teardown!* (delay (execute-fn teardown-fn "teardown" name class-loader color-mode))
-             runner-opts (merge opts
-                                {:class-loader class-loader
-                                 :eval-in-project (->eval-in-project class-loader)})]
-         (when is-verbose (println (str "# paths:\n" all-paths "\n")))
-         (doseq [current-test-runner test-runners-seeing-test-sources]
-           (when-not (setup-failed?)
-             (->> {:test-runner current-test-runner
-                   :setup-delay setup!*
-                   :teardown-delay teardown!*
-                   :runner-opts runner-opts}
-                  (merge opts)
-                  (run-tests-for-project-with-test-runner))))
-         (when (setup-succeeded?)
-           (deref teardown!*))))))
-  ([prev-test-ok? opts]
-   (if prev-test-ok?
-     (run-tests-for-project opts)
-     false)))
+(defn run-tests-for-project [{:keys [workspace project test-settings is-verbose color-mode] :as opts}]
+  (let [{:keys [settings]} workspace
+        {:keys [name paths]} project
+        {:keys [create-test-runner setup-fn teardown-fn]} test-settings
+        test-runners-seeing-test-sources
+        (into []
+              (comp (map (->valid-test-runner-fn opts))
+                    (filter test-runner-contract/test-sources-present?))
+              create-test-runner)]
+    (when (seq test-runners-seeing-test-sources)
+      (let [lib-paths (resolve-deps project settings is-verbose color-mode)
+            all-paths (into #{} cat [(:src paths) (:test paths) lib-paths])
+            class-loader (common/create-class-loader all-paths color-mode)
+            setup!* (delay (execute-fn setup-fn "setup" name class-loader color-mode))
+            setup-failed? #(and (realized? setup!*) (not (deref setup!*)))
+            setup-succeeded? #(and (realized? setup!*) (deref setup!*))
+            teardown!* (delay (execute-fn teardown-fn "teardown" name class-loader color-mode))
+            runner-opts (merge opts
+                               {:class-loader class-loader
+                                :eval-in-project (->eval-in-project class-loader)})]
+        (when is-verbose (println (str "# paths:\n" all-paths "\n")))
+        (doseq [current-test-runner test-runners-seeing-test-sources]
+          (when-not (setup-failed?)
+            (->> {:test-runner current-test-runner
+                  :setup-delay setup!*
+                  :teardown-delay teardown!*
+                  :runner-opts runner-opts}
+                 (merge opts)
+                 (run-tests-for-project-with-test-runner))))
+        (when (setup-succeeded?)
+          (deref teardown!*))))))
 
 (defn affected-by-changes? [{:keys [name]} {:keys [project-to-bricks-to-test project-to-projects-to-test]}]
   (seq (concat (project-to-bricks-to-test name)
@@ -185,8 +180,11 @@
           (print-projects-to-test projects-to-test color-mode)
           (print-bricks-to-test component-names base-names bricks-to-test color-mode)
           (println)
-          (reduce run-tests-for-project true
-                  (map #(test-opts workspace settings changes % is-verbose color-mode)
-                       projects-to-test))))
+          (transduce
+            (comp (map #(test-opts workspace settings changes % is-verbose color-mode))
+                  (map run-tests-for-project))
+            (completing (fn [_ x] (cond-> x (not x) (reduced))))
+            true
+            projects-to-test)))
       (print-execution-time start-time)
       true)))
