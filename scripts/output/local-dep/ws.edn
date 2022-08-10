@@ -588,12 +588,12 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.15-alpha-issue208-01",
+  {:name "0.2.15-alpha",
    :major 0,
    :minor 2,
    :patch 15,
-   :revision "alpha-issue208-01",
-   :date "2022-06-18"},
+   :revision "alpha",
+   :date "2022-08-10"},
   :ws {:type :toolsdeps2, :breaking 1, :non-breaking 1}},
  :ws-dir "USER-HOME/source/polylith/examples/local-dep",
  :ws-local-dir "examples/local-dep",
