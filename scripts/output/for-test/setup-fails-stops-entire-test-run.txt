@@ -1,0 +1,50 @@
+Projects to run tests from: okay, setup-fails, x-okay
+
+Running test setup for the okay project: project.okay.test-setup/setup
+Test setup for project: okay
+
+Running tests for the okay project using test runner: Polylith built-in clojure.test runner...
+Running tests from the okay project, including 3 bricks and 1 project: a-okay, company, util, okay
+
+Testing com.for.test.a-okay.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing com.for.test.company.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing com.for.test.company.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing com.for.test.util.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing project.okay.test-setup
+
+Ran 0 tests containing 0 assertions.
+0 failures, 0 errors.
+
+Test results: 0 passes, 0 failures, 0 errors.
+Running test teardown for the okay project: project.okay.test-setup/teardown
+Test teardown for project: okay
+
+Running test setup for the setup-fails project: project.setup-fails.test-setup/setup
+
+Test setup failed: java.lang.Exception: Setup failed for project: setup-fails
+Test terminated due to setup failure
+exit code: 1

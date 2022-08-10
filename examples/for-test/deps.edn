@@ -1,11 +1,24 @@
 {:aliases  {:dev {:extra-paths ["development/src"
                                 "components/company/clj"
                                 "components/company/cljc"
-                                "components/company/resources"]
+                                "components/company/resources"
+                                "components/a-okay/src"
+                                "components/b-fail/src"
+                                "components/util/src"]
+
                   :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}}}
 
             :test {:extra-paths ["components/company/test"
-                                 "components/company/test2"]}
+                                 "components/company/test2"
+                                 "components/a-okay/test"
+                                 "components/b-fail/test"
+                                 "components/util/test"
+                                 "projects/failing-test/test"
+                                 "projects/failing-test-teardown-fails/test"
+                                 "projects/okay/test"
+                                 "projects/setup-fails/test"
+                                 "projects/teardown-fails/test"
+                                 "projects/x-okay/test"]}
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :extra-deps {polyfy/polylith

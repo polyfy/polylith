@@ -84,6 +84,19 @@
                    {:form form}
                    e))))))
 
+(defn test-opts [workspace
+                 settings
+                 changes
+                 {:keys [name] :as project}
+                 is-verbose
+                 color-mode]
+  {:workspace workspace
+   :project project
+   :changes changes
+   :test-settings (get-in settings [:projects name :test])
+   :is-verbose is-verbose
+   :color-mode color-mode})
+
 (defn run-tests-for-project [{:keys [workspace project test-settings is-verbose color-mode] :as opts}]
   (let [{:keys [settings]} workspace
         {:keys [name paths]} project
@@ -163,17 +176,15 @@
           base-names (into #{} (map :name) bases)]
       (if (empty? projects-to-test)
         (print-no-tests-to-run-if-only-dev-exists settings projects)
-        (let [run-opts {:workspace workspace
-                        :changes changes
-                        :is-verbose is-verbose
-                        :color-mode color-mode}]
+        (do
           (print-projects-to-test projects-to-test color-mode)
           (print-bricks-to-test component-names base-names bricks-to-test color-mode)
           (println)
-          (doseq [{:keys [name] :as project} projects-to-test]
-            (->> {:project project
-                  :test-settings (get-in settings [:projects name :test])}
-                 (merge run-opts)
-                 (run-tests-for-project)))))
+          (transduce
+            (comp (map #(test-opts workspace settings changes % is-verbose color-mode))
+                  (map run-tests-for-project))
+            (completing (fn [_ x] (cond-> x (not x) (reduced))))
+            true
+            projects-to-test)))
       (print-execution-time start-time)
       true)))

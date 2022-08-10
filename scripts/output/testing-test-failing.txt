@@ -20,3 +20,4 @@ Ran 1 tests containing 1 assertions.
 1 failures, 0 errors.
 
 [31mTest results: 0 passes, 1 failures, 0 errors.[0m
+exit code: 1

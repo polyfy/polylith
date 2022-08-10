@@ -1,0 +1,77 @@
+Projects to run tests from: okay, teardown-fails, x-okay
+
+Running test setup for the okay project: project.okay.test-setup/setup
+Test setup for project: okay
+
+Running tests for the okay project using test runner: Polylith built-in clojure.test runner...
+Running tests from the okay project, including 3 bricks and 1 project: a-okay, company, util, okay
+
+Testing com.for.test.a-okay.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing com.for.test.company.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing com.for.test.company.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing com.for.test.util.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing project.okay.test-setup
+
+Ran 0 tests containing 0 assertions.
+0 failures, 0 errors.
+
+Test results: 0 passes, 0 failures, 0 errors.
+Running test teardown for the okay project: project.okay.test-setup/teardown
+Test teardown for project: okay
+
+Running test setup for the teardown-fails project: project.teardown-fails.test-setup/setup
+Test setup for project: teardown-fails
+
+Running tests for the teardown-fails project using test runner: Polylith built-in clojure.test runner...
+Running tests from the teardown-fails project, including 2 bricks and 1 project: a-okay, util, teardown-fails
+
+Testing com.for.test.a-okay.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing com.for.test.util.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing project.teardown-fails.test-setup
+
+Ran 0 tests containing 0 assertions.
+0 failures, 0 errors.
+
+Test results: 0 passes, 0 failures, 0 errors.
+Running test teardown for the teardown-fails project: project.teardown-fails.test-setup/teardown
+
+Test teardown failed: java.lang.Exception: Teardown failed for project: teardown-fails
+
+Execution time: 1 seconds
+exit code: 0

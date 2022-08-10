@@ -1,0 +1,6 @@
+{:deps {poly/util {:local/root "../../components/util"}
+        org.clojure/clojure {:mvn/version "1.10.1"}
+        org.clojure/tools.deps.alpha {:mvn/version "0.12.985"}}
+
+ :aliases {:test {:extra-paths ["test"]
+                  :extra-deps  {}}}}
