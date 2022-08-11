@@ -5,7 +5,7 @@
   (:import (java.net URLClassLoader URL)))
 
 (def base-classloader
-  (or (.getClassLoader clojure.lang.RT)
+  (or (.getClassLoader clojure.java.api.Clojure)
       (.getContextClassLoader (Thread/currentThread))))
 
 (def ext-classloader
@@ -68,8 +68,11 @@
   (try
     (let [url-array (into-array URL (map path->url paths))
           ^URLClassLoader class-loader (url-classloader url-array ext-classloader)]
-      (.loadClass class-loader "clojure.lang.RT")
-      (eval-in* class-loader '(require 'clojure.main))
+      ;; use Clojure 1.6+ API to properly initialize Clojure runtime:
+      (.loadClass class-loader "clojure.java.api.Clojure")
+      (eval-in* class-loader '(.invoke (clojure.java.api.Clojure/var "clojure.core" "require")
+                                       (.invoke (clojure.java.api.Clojure/var "clojure.core" "symbol")
+                                                "clojure.main")))
       class-loader)
     (catch Exception e
       (println (str (color/error color-mode "Couldn't create classloader for paths: ") paths " "
