@@ -8,23 +8,23 @@ The main responsibility of this workflow is to validate the workspace and run th
 ## Jobs
 
 ### Check
-This job runs the check command from Polylith as follows: ```clojure -A:poly check```. If there are any errors in the Polylith workspace, it returns with a non-zero exit code and the CircleCI workflow stops at this stage. If there are any warnings printed by Polylith, it will be visible in the job's output.
+This job runs the check command from Polylith as follows: ```clojure -M:poly check```. If there are any errors in the Polylith workspace, it returns with a non-zero exit code and the CircleCI workflow stops at this stage. If there are any warnings printed by Polylith, it will be visible in the job's output.
 
 ### Info
 This job runs the following commands one after another:
-- ```clojure -A:poly ws```
+- ```clojure -M:poly ws```
   - Prints the current workspace as data in [edn format](https://github.com/edn-format/edn).
-- ```clojure -A:poly info```
+- ```clojure -M:poly info```
   - Prints workspace information.
-- ```clojure -A:poly deps```
+- ```clojure -M:poly deps```
   - Prints the dependency information
-- ```clojure -A:poly libs```
+- ```clojure -M:poly libs```
   - Prints all libraries that are used in the workspace.
 
 After this job is done, all this information will be available in the jobs output for debugging purposes if needed. You can read more about available commands [here](commands.md).
 
 ### Test
-This job runs all the tests for all the bricks and projects that are directly or indirectly changed since the last stable point. Polylith supports incremental testing out of the box by using stable point marks in the git history. It runs the following command: ```clojure -A:poly test :project```. If any of the tests fail, it will exit with a non-zero exit code and the CircleCI workflow stops at this stage. Information about the passed/failed tests will be printed in the job's output.
+This job runs all the tests for all the bricks and projects that are directly or indirectly changed since the last stable point. Polylith supports incremental testing out of the box by using stable point marks in the git history. It runs the following command: ```clojure -M:poly test :project```. If any of the tests fail, it will exit with a non-zero exit code and the CircleCI workflow stops at this stage. Information about the passed/failed tests will be printed in the job's output.
 
 ### Mark as stable
 This job only runs for the commits made to master branch. It adds (or moves if there is already one) the `stable-master` tag to the repository. At this point in the workflow, it is proven that the Polylith workspace is valid and all of the tests are passed. It is safe to mark this commit as stable. It does that by running following commands one after another:
@@ -39,23 +39,23 @@ The main responsibility of this workflow is to validate the workspace, run the t
 ## Jobs
 
 ### Check Build
-This job runs the check command from Polylith as follows: ```clojure -A:poly check since:previous-release```. Please note the last part of the command where we specifically tell Polylith to check the workspace since the last release instead of the last stable point. If there are any errors in the Polylith workspace, it returns with a non-zero exit code and the CircleCI workflow stops at this stage. If there are any warnings printed by Polylith, it will be visible in the job's output.
+This job runs the check command from Polylith as follows: ```clojure -M:poly check since:previous-release```. Please note the last part of the command where we specifically tell Polylith to check the workspace since the last release instead of the last stable point. If there are any errors in the Polylith workspace, it returns with a non-zero exit code and the CircleCI workflow stops at this stage. If there are any warnings printed by Polylith, it will be visible in the job's output.
 
 ### Info
 This job runs the following commands one after another. Please note the last part of the command where we specifically say Polylith to check the workspace since the last release instead of the last stable point:
-- ```clojure -A:poly ws since:previous-release```
+- ```clojure -M:poly ws since:previous-release```
   - Prints the current workspace as data in [edn format](https://github.com/edn-format/edn).
-- ```clojure -A:poly info since:previous-release```
+- ```clojure -M:poly info since:previous-release```
   - Prints workspace information.
-- ```clojure -A:poly deps since:previous-release```
+- ```clojure -M:poly deps since:previous-release```
   - Prints the dependency information
-- ```clojure -A:poly libs since:previous-release```
+- ```clojure -M:poly libs since:previous-release```
   - Prints all libraries that are used in the workspace.
 
 After this job is done, all this information will be available in the jobs output for debugging purposes if needed. You can read more about available commands [here](commands.md).
 
 ### Test
-This job runs all the tests for all the bricks that are directly or indirectly changed since the last release. It runs the following command: ```clojure -A:poly test :project since:previous-release```. If any of the tests fail, it will exit with a non-zero exit code and the CircleCI workflow stops at this stage. Information about the passed/failed tests will be printed in the job's output.
+This job runs all the tests for all the bricks that are directly or indirectly changed since the last release. It runs the following command: ```clojure -M:poly test :project since:previous-release```. If any of the tests fail, it will exit with a non-zero exit code and the CircleCI workflow stops at this stage. Information about the passed/failed tests will be printed in the job's output.
 
 ### Deploy
 This job deploys the changed projects to Clojars. It is easy to achieve incremental deployments with Polylith. Changed projects are calculated since the latest release. You can see how it's done [here](https://github.com/polyfy/polylith/blob/master/build.clj). In a nutshell, it executes `poly ws get:changes:changed-or-affected-projects skip:dev since:previous-release` and only deploys the returned projects. 
