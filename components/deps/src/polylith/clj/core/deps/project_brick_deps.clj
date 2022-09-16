@@ -126,9 +126,6 @@
 (defn component-deps [deps ifc->comp]
   (map #(ifc->comp % %) deps))
 
-(defn component-deps [deps ifc->comp]
-  (filter identity (map #(ifc->comp %) deps)))
-
 (defn ifc-names [component-names bricks]
   (set (map #(-> % :interface :name)
             (filter #(contains? (set component-names) (:name %))
