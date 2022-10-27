@@ -1,5 +1,6 @@
 (ns polylith.clj.core.workspace-clj.bases-from-disk
-  (:require [polylith.clj.core.common.interface.config :as config]
+  (:require [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.common.interface.config :as config]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.util.interface :as util]
@@ -9,12 +10,13 @@
             [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]
             [polylith.clj.core.workspace-clj.non-top-namespace :as non-top-ns]))
 
-(defn read-base [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir base-name]
+(defn read-base [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir base-name interface-ns]
   (let [base-dir (str ws-dir "/bases/" base-name)
         config (config-from-disk/read-config-file ws-type base-dir)
         base-src-dirs (brick-dirs/top-src-dirs base-dir top-src-dir config)
         base-test-dirs (brick-dirs/top-test-dirs base-dir top-src-dir config)
-        namespaces (ns-from-disk/namespaces-from-disk base-src-dirs base-test-dirs)
+        suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
+        namespaces (ns-from-disk/namespaces-from-disk base-src-dirs base-test-dirs suffixed-top-ns interface-ns)
         entity-root-path (str "bases/" base-name)
         lib-deps (lib/brick-lib-deps ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home)
         source-paths (config/source-paths config)
@@ -28,6 +30,6 @@
                       :lib-deps lib-deps)))
 
 (defn read-bases
-  [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir]
-  (vec (sort-by :name (map #(read-base ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir %)
+  [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns]
+  (vec (sort-by :name (map #(read-base ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir % interface-ns)
                            (file/directories (str ws-dir "/bases"))))))

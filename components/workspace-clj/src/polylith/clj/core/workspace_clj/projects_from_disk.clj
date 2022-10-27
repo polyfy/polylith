@@ -121,7 +121,7 @@
       [(vec paths) (vec (sort (set lib-deps)))])))
 
 (defn read-project
-  ([{:keys [project-name project-dir project-config-dir is-dev]} ws-dir ws-type name->brick project->settings user-home]
+  ([{:keys [project-name project-dir project-config-dir is-dev]} ws-dir ws-type name->brick project->settings user-home suffixed-top-ns interface-ns]
    (let [config-filename (str project-config-dir "/deps.edn")
          {:keys [paths deps override-deps aliases mvn/repos] :as config} (config/read-deps-file config-filename)
          project-src-paths (cond-> paths is-dev (concat (-> aliases :dev :extra-paths)))
@@ -137,10 +137,10 @@
        (println (str "Couldn't read the 'deps.edn' file from project '" project-name "': " message))
        (read-project ws-dir name->brick project-name project-dir config-filename is-dev maven-repos
                      project->settings user-home project-src-paths project-src-deps project-test-paths
-                     project-test-deps override-src-deps override-test-deps))))
+                     project-test-deps override-src-deps override-test-deps suffixed-top-ns interface-ns))))
   ([ws-dir name->brick project-name project-dir config-filename is-dev maven-repos
     project->settings user-home project-src-paths project-src-deps project-test-paths
-    project-test-deps override-src-deps override-test-deps]
+    project-test-deps override-src-deps override-test-deps suffixed-top-ns interface-ns]
    (let [[src-paths src-lib-deps] (src-paths-and-libs-from-bricks ws-dir name->brick is-dev project-name user-home project-src-deps project-src-paths override-src-deps)
          bricks-to-test (-> project-name project->settings :test :include)
          [test-paths test-lib-deps] (test-paths-and-libs-from-bricks ws-dir name->brick is-dev project-name bricks-to-test user-home project-src-deps project-test-deps project-test-paths override-src-deps override-test-deps)
@@ -151,7 +151,7 @@
                           (seq src-lib-deps) (assoc :src src-lib-deps)
                           (seq test-lib-deps) (assoc :test test-lib-deps))
          {:keys [src-dirs test-dirs]} (project-paths/project-source-dirs ws-dir project-name is-dev project-src-paths project-test-paths)
-         namespaces (ns-from-disk/namespaces-from-disk src-dirs test-dirs)]
+         namespaces (ns-from-disk/namespaces-from-disk src-dirs test-dirs suffixed-top-ns interface-ns)]
      (util/ordered-map :name project-name
                        :is-dev is-dev
                        :project-dir project-dir
@@ -174,7 +174,7 @@
   (not (or (contains? skip project-name)
            (contains? skip (-> project-name project->settings :alias)))))
 
-(defn read-projects [ws-dir ws-type name->brick project->settings user-input user-home]
+(defn read-projects [ws-dir ws-type name->brick project->settings user-input user-home suffixed-top-ns interface-ns]
   (let [skip (if user-input (-> user-input :skip set) #{})
         project-maps (into [{:project-name "development"
                              :is-dev true
@@ -184,5 +184,5 @@
                            (file/directories (str ws-dir "/projects")))]
     (into []
           (comp (filter #(keep? % project->settings skip))
-                (keep #(read-project % ws-dir ws-type name->brick project->settings user-home)))
+                (keep #(read-project % ws-dir ws-type name->brick project->settings user-home suffixed-top-ns interface-ns)))
           project-maps)))
