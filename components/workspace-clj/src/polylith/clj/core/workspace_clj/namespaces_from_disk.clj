@@ -14,8 +14,8 @@
   (or (symbol? x)
       (and (vector? x)
            (or
-            (nil? (second x))
-            (keyword? (second x))))))
+             (nil? (second x))
+             (keyword? (second x))))))
 
 (defn libspec->lib
   "Given a valid libspec, return the lib it's specifying."
@@ -53,12 +53,30 @@
     (sequential? statement)
     (contains? #{:import :require} (first statement))))
 
-(defn import [[statement-type & statement-body]]
+(defn interface-ns? [ns-name interface-ns]
+  (and
+    (-> ns-name nil? not)
+    (or (= interface-ns ns-name)
+        (str/starts-with? ns-name (str interface-ns ".")))))
+
+; [required-ns as]
+
+(defn required-as? [x suffixed-top-ns interface-ns]
+  (when (libspec? x)
+    (let [required-ns (cond (symbol? x) x
+                            (vector? x) (first x))
+          as (when (vector? x) (second x))
+          {:keys [depends-on-ns]} (common/extract-namespace suffixed-top-ns (str required-ns))]
+      (not (and (= :as-alias as)
+                (interface-ns? depends-on-ns interface-ns))))))
+
+(defn import [[statement-type & statement-body] suffixed-top-ns interface-ns]
   (cond
     (= :require statement-type)
     (flatten
       (concat (map (comp str libspec->lib)
-                   (filter libspec? statement-body))
+                   (filterv #(required-as? % suffixed-top-ns interface-ns)
+                            statement-body))
               (map prefix-list->lib-strs
                    (filter sequential?
                            (remove libspec?
@@ -67,8 +85,9 @@
     (map import-list->package-str
          statement-body)))
 
-(defn imports [ns-statements]
-  (vec (sort (mapcat import (filterv import? ns-statements)))))
+(defn imports [ns-statements suffixed-top-ns interface-ns]
+  (vec (sort (mapcat #(import % suffixed-top-ns interface-ns)
+                     (filterv import? ns-statements)))))
 
 (defn skip-slash [path]
   (or (str-util/skip-until path "/")
@@ -83,23 +102,25 @@
           (str/replace "/" ".")
           (str/replace "_" "-")))))
 
-(defn ->namespace [source-dir file-path]
-  (let [content (file/read-first-statement file-path)]
-    {:name (namespace-name source-dir file-path)
+(defn ->namespace [source-dir suffixed-top-ns interface-ns file-path]
+  (let [content (file/read-first-statement file-path)
+        ns-name (namespace-name source-dir file-path)
+        imports (imports content suffixed-top-ns interface-ns)]
+    {:name ns-name
      :namespace (-> content second str)
      :file-path file-path
-     :imports (-> content imports)}))
+     :imports imports}))
 
-(defn source-namespaces-from-disk [source-dir]
-  (mapv #(->namespace source-dir %)
+(defn source-namespaces-from-disk [source-dir suffixed-top-ns interface-ns]
+  (mapv #(->namespace source-dir suffixed-top-ns interface-ns %)
         (-> source-dir
             file/paths-recursively
             common/filter-clojure-paths)))
 
-(defn namespaces-from-disk [src-dirs test-dirs]
-  (let [src (vec (mapcat #(source-namespaces-from-disk %)
+(defn namespaces-from-disk [src-dirs test-dirs suffixed-top-ns interface-ns]
+  (let [src (vec (mapcat #(source-namespaces-from-disk % suffixed-top-ns interface-ns)
                          src-dirs))
-        test (vec (mapcat #(source-namespaces-from-disk %)
+        test (vec (mapcat #(source-namespaces-from-disk % suffixed-top-ns interface-ns)
                           test-dirs))]
     (cond-> {}
             (seq src) (assoc :src src)

@@ -1,4 +1,4 @@
-  stable since: aaaaa | stable-jote
+  stable since: aaaaa | stable-master
 
   projects: 2   interfaces: 7
   bases:    1   components: 7

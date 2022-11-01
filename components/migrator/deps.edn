@@ -1,4 +1,4 @@
 {:paths ["src"]
- :deps {zprint/zprint {:mvn/version "1.2.3"}}
+ :deps {zprint/zprint {:mvn/version "1.2.4"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {}}}}

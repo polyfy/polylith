@@ -4,18 +4,15 @@
     <option name="enabledAliases">
       <set>
         <option value="dev" />
-        <option value="dev2" />
-        <option value="env/core" />
-        <option value="env/core-test" />
         <option value="test" />
       </set>
     </option>
   </component>
   <component name="DepsProjectsManager">
     <option name="projectFiles">
-      <list>
+      <set>
         <option value="file://$PROJECT_DIR$/deps.edn" />
-      </list>
+      </set>
     </option>
   </component>
 </project>

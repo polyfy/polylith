@@ -90,7 +90,7 @@
           "  org.slf4j/slf4j-nop               1.7.36     maven      3    -    x      x    .  .  .  .  .  .  .  ."
           "  rewrite-clj/rewrite-clj           1.1.45     maven     71    -    -      x    .  .  .  .  .  .  .  ."
           "  slipset/deps-deploy               0.2.0      maven      7    -    -      x    .  .  .  .  .  .  .  ."
-          "  zprint/zprint                     1.2.3      maven    176    -    x      x    .  .  x  .  .  .  .  ."]
+          "  zprint/zprint                     1.2.4      maven    185    -    x      x    .  .  x  .  .  .  .  ."]
          (libs/table (workspace) false))))
 
 (deftest ifc-deps-table
