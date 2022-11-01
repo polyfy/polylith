@@ -17,7 +17,7 @@
     ext))
 
 (defmacro with-classloader [class-loader & body]
-  `(binding [*use-context-classloader* true]
+  `(binding [*use-context-classloader* false]
      (let [cl# (.getContextClassLoader (Thread/currentThread))]
        (try (.setContextClassLoader (Thread/currentThread) ~class-loader)
             ~@body
