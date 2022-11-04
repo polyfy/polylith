@@ -66,3 +66,6 @@
   Warning 205 - Non top namespace was found in brick.
     Triggered if a namespace in a brick doesn't start with the top namespaces
     defined in :top-namespace in ./workspace.edn.
+
+  Warning 206 - Unreadable namespace in brick/project.
+    Triggered if a namespace can't be parsed for a brick or project.
