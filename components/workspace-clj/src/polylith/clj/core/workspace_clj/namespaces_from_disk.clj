@@ -86,8 +86,20 @@
          statement-body)))
 
 (defn imports [ns-statements suffixed-top-ns interface-ns]
-  (vec (sort (mapcat #(import % suffixed-top-ns interface-ns)
-                     (filterv import? ns-statements)))))
+  (if (sequential? ns-statements)
+    (vec (sort (mapcat #(import % suffixed-top-ns interface-ns)
+                       (filterv import? ns-statements))))
+    []))
+
+(comment
+  (def ns-statements 'x)
+  (def suffixed-top-ns "polylith.clj.core.")
+  (def interface-ns "interface")
+  (imports ns-statements suffixed-top-ns interface-ns)
+
+  (import? ns-statements)
+
+  #__)
 
 (defn skip-slash [path]
   (or (str-util/skip-until path "/")
@@ -102,14 +114,28 @@
           (str/replace "/" ".")
           (str/replace "_" "-")))))
 
+(defn extract-ns [content file-path]
+  (if (and (sequential? content)
+           (second content))
+    (-> content second str)
+    (str "Can't read namespace from file: " file-path)))
+
 (defn ->namespace [source-dir suffixed-top-ns interface-ns file-path]
   (let [content (file/read-first-statement file-path)
         ns-name (namespace-name source-dir file-path)
         imports (imports content suffixed-top-ns interface-ns)]
     {:name ns-name
-     :namespace (-> content second str)
+     :namespace (extract-ns content file-path)
      :file-path file-path
      :imports imports}))
+
+(comment
+  (def source-dir "/Users/joakimtengstrand/source/polylith/components/workspace-clj/src/polylith/clj/core/")
+  (def file-path "/Users/joakimtengstrand/source/polylith/components/workspace-clj/src/polylith/clj/core/workspace_clj/config.clj")
+  (def content '(ns polylith.clj.core.workspace-clj.config (:require [polylith.clj.core.util.interface.color :as color] [polylith.clj.core.validator.interface :as validator] [polylith.clj.core.common.interface.config :as config])))
+  (-> content second str)
+  (->namespace source-dir "polylith.clj.core." "interface" file-path)
+  #__)
 
 (defn source-namespaces-from-disk [source-dir suffixed-top-ns interface-ns]
   (mapv #(->namespace source-dir suffixed-top-ns interface-ns %)
