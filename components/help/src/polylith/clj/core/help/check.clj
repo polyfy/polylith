@@ -71,7 +71,14 @@
        "\n"
        "  " (color/warning cm "Warning 205") " - Non top namespace was found in brick.\n"
        "    Triggered if a namespace in a brick doesn't start with the top namespaces\n"
-       "    defined in " (s/key ":top-namespace" cm) " in ./workspace.edn."))
+       "    defined in " (s/key ":top-namespace" cm) " in ./workspace.edn.\n"
+       "\n"
+       "  " (color/warning cm "Warning 206") " - Unreadable namespace in brick/project.\n"
+       "    Triggered if a namespace can't be parsed for a brick or project."))
 
 (defn print-help [cm]
   (-> cm help-text println))
+
+(comment
+  (print-help "dark")
+  #__)

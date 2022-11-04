@@ -114,26 +114,26 @@
           (str/replace "/" ".")
           (str/replace "_" "-")))))
 
-(defn extract-ns [content file-path]
-  (if (and (sequential? content)
-           (second content))
-    (-> content second str)
-    (str "Can't read namespace from file: " file-path)))
+(defn valid-ns? [content]
+  (and (sequential? content)
+       (second content)))
 
 (defn ->namespace [source-dir suffixed-top-ns interface-ns file-path]
   (let [content (file/read-first-statement file-path)
         ns-name (namespace-name source-dir file-path)
-        imports (imports content suffixed-top-ns interface-ns)]
-    {:name ns-name
-     :namespace (extract-ns content file-path)
-     :file-path file-path
-     :imports imports}))
+        imports (imports content suffixed-top-ns interface-ns)
+        valid? (valid-ns? content)]
+    (cond-> {:name ns-name
+             :namespace (if valid?
+                          (-> content second str)
+                          "")
+             :file-path file-path
+             :imports imports}
+            (not valid?) (assoc :invalid true))))
 
 (comment
   (def source-dir "/Users/joakimtengstrand/source/polylith/components/workspace-clj/src/polylith/clj/core/")
   (def file-path "/Users/joakimtengstrand/source/polylith/components/workspace-clj/src/polylith/clj/core/workspace_clj/config.clj")
-  (def content '(ns polylith.clj.core.workspace-clj.config (:require [polylith.clj.core.util.interface.color :as color] [polylith.clj.core.validator.interface :as validator] [polylith.clj.core.common.interface.config :as config])))
-  (-> content second str)
   (->namespace source-dir "polylith.clj.core." "interface" file-path)
   #__)
 
