@@ -31,8 +31,8 @@
 ;;
 ;; ws     release         action    attribute
 ;; -----  -------------   -------   -----------------------------------------------------------------
-;; 1.2    0.2.16-alpha    added     :components > COMPONENT > :namespaces > :src/test > [] > :invalid
-;;                        added     :bases/projects > BASE > :namespaces > :src/test > [] > :invalid
+;; 1.2    0.2.16-alpha    added     :bases > BASE > :namespaces > :src/test > [] > :invalid
 ;;                        added     :projects > PROJECT > :namespaces > :src/test > [] > :invalid
+;;                        added     :components > COMPONENT > :namespaces > :src/test > [] > :invalid
 ;; 1.1    0.2.14-alpha    added     :settings > :vcs > :is-git-repo
 ;;                        deleted   :projects > PROJECT > :is-run-tests
