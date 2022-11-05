@@ -1,4 +1,3 @@
-x
 (ns polylith.clj.core.version.interface
   (:refer-clojure :exclude [name]))
 
