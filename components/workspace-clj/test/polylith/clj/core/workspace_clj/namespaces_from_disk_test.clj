@@ -1,5 +1,6 @@
-(ns polylith.clj.core.workspace-clj.readimportsfromdisk-test
+(ns polylith.clj.core.workspace-clj.namespaces-from-disk-test
   (:require [clojure.test :refer :all]
+            [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.workspace-clj.namespaces-from-disk :as from-disk]))
 
 (def suffixed-top-ns "polylith.clj.core.")
@@ -66,3 +67,10 @@
 (deftest import-when-using-as-alias-if-implementation-ns
   (is (= ["asalias.comp-a.core"]
          (from-disk/import '(:require [asalias.comp-a.core :as-alias comp-a]) "asalias." "interface"))))
+
+(deftest ->namespace--read-invalid-namespace
+  (with-redefs [file/read-first-statement (fn [_] '--)
+                from-disk/namespace-name (fn [_ _] "")]
+    (from-disk/->namespace "" "" "" "")
+    (is (= {:name "", :namespace "", :file-path "path", :imports [], :invalid true}
+           (from-disk/->namespace "" "" "" "path")))))

@@ -118,7 +118,12 @@
       nil)))
 
 (defn read-first-statement [path]
-  (read-string {:read-cond :allow} (slurp path)))
+  (try
+    (read-string {:read-cond :allow} (slurp path))
+    (catch Exception _
+      ;; When the whole namespace is commented out, we get the runtime exception
+      ;; "EOF while reading", which is okay, and we just skip the namespace.
+      [])))
 
 (defn copy-resource-file! [source target-path]
   (delete-file target-path)

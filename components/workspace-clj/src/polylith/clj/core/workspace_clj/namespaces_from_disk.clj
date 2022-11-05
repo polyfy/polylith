@@ -114,27 +114,39 @@
           (str/replace "/" ".")
           (str/replace "_" "-")))))
 
+(defn empty-ns? [content]
+  (and (sequential? content)
+       (empty? content)))
+
 (defn valid-ns? [content]
   (and (sequential? content)
        (second content)))
 
 (defn ->namespace [source-dir suffixed-top-ns interface-ns file-path]
   (let [content (file/read-first-statement file-path)
-        ns-name (namespace-name source-dir file-path)
-        imports (imports content suffixed-top-ns interface-ns)
-        valid? (valid-ns? content)]
-    (cond-> {:name ns-name
-             :namespace (if valid?
-                          (-> content second str)
-                          "")
-             :file-path file-path
-             :imports imports}
-            (not valid?) (assoc :invalid true))))
+        ns-name (namespace-name source-dir file-path)]
+    (if (empty-ns? content)
+      {:name ns-name
+       :namespace ""
+       :file-path file-path
+       :imports []}
+      (let [imports (imports content suffixed-top-ns interface-ns)
+            valid? (valid-ns? content)]
+        (cond-> {:name ns-name
+                 :namespace (if valid?
+                              (-> content second str)
+                              "")
+                 :file-path file-path
+                 :imports imports}
+                (not valid?) (assoc :invalid true))))))
 
 (comment
-  (def source-dir "/Users/joakimtengstrand/source/polylith/components/workspace-clj/src/polylith/clj/core/")
-  (def file-path "/Users/joakimtengstrand/source/polylith/components/workspace-clj/src/polylith/clj/core/workspace_clj/config.clj")
+  (imports content suffixed-top-ns interface-ns)
+
+  (def source-dir "/Users/joakimtengstrand/source/polylith/components/version/src/polylith/clj/core/")
+  (def file-path "/Users/joakimtengstrand/source/polylith/components/version/src/polylith/clj/core/version/testing.clj")
   (->namespace source-dir "polylith.clj.core." "interface" file-path)
+  (file/read-first-statement file-path)
   #__)
 
 (defn source-namespaces-from-disk [source-dir suffixed-top-ns interface-ns]
