@@ -1,7 +1,7 @@
 (ns polylith.clj.core.test-runner-contract.interface)
 
 (defprotocol TestRunner
-  "Implement to supply a custom test runner
+  "Implement this protocol to supply a custom test runner.
 
   `test-runner-name`
     - should return a printable name that the test orchestrator can print out for information purposes
@@ -46,3 +46,23 @@
   (test-sources-present? [this])
   (tests-present? [this {:keys [class-loader eval-in-project] :as opts}])
   (run-tests [this {:keys [class-loader color-mode eval-in-project is-verbose] :as opts}]))
+
+(defprotocol ExternalTestRunner
+  "Extends the `TestRunner` protocol to provide an external process namespace for a test runner. Polylith uses
+  a classloader approach to run tests in isolation by default. `ExternalTestRunner` skips the classloaders and
+  uses `java` subprocesses.
+
+  `external-process-namespace`
+    - if returns nil (default), tests are run in isolated classloaders within the same process,
+    - if returns non-nil, it must be a symbol or string identifying the main namespace of an
+      external test-runner to be used.
+      - when an external test-runner is used, no classloader will be created
+        and the `setup-fn`/`teardown-fn` should be run by that test-runner
+        instead of by `poly` itself; the main namespace will be invoked as a
+        `java` subprocess with arguments determined by the test runner;
+      - the external test runner's `run-tests` function is passed:
+        - :process-ns -- the name of the main namespace as above
+        - :setup-fn -- the fully-qualified name of the project setup function
+        - :teardown-fn -- similarly for the teardown function
+        - :all-paths -- a sequence of all the elements of the classpath"
+  (external-process-namespace [this]))
