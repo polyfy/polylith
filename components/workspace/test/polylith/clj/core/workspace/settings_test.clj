@@ -9,19 +9,31 @@
                {:name "helpers"}])
 
 (deftest enrich-settings--a-set-of-projects-without-project-mapping--returns-dev-and-undefined-mappings
-  (is (= {:projects {"backend-system" {:alias "?4"}
-                     "banking-system" {:alias "?2"}
-                     "car"            {:alias "?3"}
-                     "clojure"        {:alias "?1"}
-                     "development"    {:alias "dev"}
-                     "helpers"        {:alias "?5"}}}
+  (is (= {:projects {"backend-system" {:alias "?4"
+                                       :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}
+                     "banking-system" {:alias "?2"
+                                       :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}
+                     "car"            {:alias "?3"
+                                       :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}
+                     "clojure"        {:alias "?1"
+                                       :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}
+                     "development"    {:alias "dev"
+                                       :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}
+                     "helpers"        {:alias "?5"
+                                       :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}}}
          (settings/enrich-settings nil projects))))
 
 (deftest enrich-settings--a-set-of-projects-with-incomplete-project-mapping--returns-dev-and-undefined-mappings
-  (is (= {:projects {"backend-system" {:alias "?4"}
-                     "banking-system" {:alias "?2"}
-                     "car"            {:alias "?3"}
-                     "clojure"        {:alias "?1"}
-                     "development"    {:alias "dev"}
-                     "helpers"        {:alias "h"}}}
+  (is (= {:projects {"backend-system" {:alias "?4"
+                                       :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}
+                     "banking-system" {:alias "?2"
+                                       :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}
+                     "car"            {:alias "?3"
+                                       :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}
+                     "clojure"        {:alias "?1"
+                                       :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}
+                     "development"    {:alias "dev"
+                                       :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}
+                     "helpers"        {:alias "h"
+                                       :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}}}
          (settings/enrich-settings {:projects {"helpers" {:alias "h"}}} projects))))
