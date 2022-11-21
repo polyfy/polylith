@@ -3,66 +3,103 @@
 (defprotocol TestRunner
   "Implement this protocol to supply a custom test runner.
 
-  `test-runner-name`
-    - should return a printable name that the test orchestrator can print out for information purposes
+  Runner options:
+  `is-verbose`      -> A boolean indicating if we are running in verbose mode
+                       or not. TestRunner can use this to print additional
+                       information about the test run.
+  `color-mode`      -> The color-mode that the poly tool is currently running with.
+                       TestRunner is expected to respect the color mode.
+  `project`         -> A map containing the project information.
+  `all-paths`       -> A vector of all paths necessary to create a classpath for
+                       running the tests in isolation within the context of the
+                       current project.
+  `setup-fn`        -> An optional setup function for tests defined in the
+                       workspace config. The poly tool will run this function
+                       before calling run-tests only if this is an in-process
+                       TestRunner. If this is an ExternalTestRunner, the external
+                       test runner should run the setup-fn.
+  `teardown-fn`     -> An optional teardown function for tests defined in the
+                       workspace config. The poly tool will run this function
+                       after the run-tests function completes (exception or not),
+                       only if this is an in-process TestRunner. If this is an
+                       ExternalTestRunner, the external test runner should run
+                       the teardown-fn.
 
-  `test-sources-present?`
-    - called first
-    - if falsey, we short-circuit, not even the project classloader will be created
+  Additional options for in-process TestRunner:
+  `class-loader`    -> The isolated classloader created from the `all-paths`.
+                       This classloader will be used to evaluate statements within
+                       the project's context. Use this if you need more granular
+                       access. `eval-in-project` should be sufficient for most
+                       cases.
+  `eval-in-project` -> A function that takes a single form as its argument and
+                       evaluates it within the project's classloader. It returns
+                       the result of the evaluation. This is the primary interface
+                       for running tests in the project's isolated context.
 
-  `tests-present?`
-    - if falsey, run-tests won't be called; can eval forms in the project context
+  Additional options for ExternalTestRunner:
+  `process-ns`      -> The main namespace of the external test runner. This
+                       namespace will be invoked as a Java subprocess.
 
-  `run-tests`
-    - should throw if the test run is considered failed
+  Usage:
+  Create a constructor function that returns an instance of TestRunner or
+  ExternalTestRunner:
 
-  Special args:
+  ```
+  (defn create [{:keys [workspace project test-settings is-verbose color-mode changes]}]
+    ...
+    (reify TestRunner ...)
 
-  `eval-in-project`
-    - a function that takes a single form which it evaluates in the project classloader and returns its result
-    - this is the primary interface for running tests in the project's context
+    ; Optional, only if you want an external test runner
+    (reify ExternalTestRunner ...))
+  ```
 
-  `class-loader`
-    - the project classloader in case more granular access is needed to it
+  `workspace` passed to the constructor will contain `:user-input`, which
+  can be used to receive additional parameters for runtime configuration.
 
+  Add your constructor function in the workspace.edn:
 
-   To use a custom test runner, create a constructor that returns an instance of it:
+  {:test {:create-test-runner my.namespace/create} ; to use it globally
 
-   (defn create [{:keys [workspace project changes test-settings]}]
-     ,,,
-     (reify TestRunner ,,,))
+   :projects {; to use it only for a project
+              \"project-a\" {:test {:create-test-runner my.namespace/create}}
+              ; to reset the global setting to default
+              \"project-b\" {:test {:create-test-runner :default}}}}"
 
-   `workspace` passed to the constructor will contain `:user-input`, which
-   can be used to receive additional parameters for runtime configuration.
+  (test-runner-name [this]
+    "Returns a printable name that the poly tool can print out for
+    information purposes")
 
-   And in workspace.edn:
+  (test-sources-present? [this]
+    "The poly tool calls this first before attempting to run any tests. If
+    it returns a falsy value, we short-circuit. Not even the project
+    classloader will be created")
 
-   {:test {:create-test-runner my.namespace/create} ;; to use it globally
+  (tests-present? [this runner-opts]
+    "The poly tool calls this before calling the run-tests. If it returns a
+    falsy value, run-tests won't be called. The runner-opts passed to this
+    function is identical to the one passed to the run-tests. It can evaluate
+    forms in the project's context.")
 
-    :projects {\"project-a\" {:test {:create-test-runner my.namespace/create}} ;; to use it only for a project
-               \"project-b\" {:test {:create-test-runner :default}} ;; to reset the global setting to default
-               }}"
-  (test-runner-name [this])
-  (test-sources-present? [this])
-  (tests-present? [this {:keys [class-loader eval-in-project] :as opts}])
-  (run-tests [this {:keys [class-loader color-mode eval-in-project is-verbose] :as opts}]))
+  (run-tests [this runner-opts]
+    "It should run the tests and throw an exception if the test run is considered
+     failed."))
 
 (defprotocol ExternalTestRunner
-  "Extends the `TestRunner` protocol to provide an external process namespace for a test runner. Polylith uses
-  a classloader approach to run tests in isolation by default. `ExternalTestRunner` skips the classloaders and
-  uses `java` subprocesses.
+  "Extends the `TestRunner` protocol to provide an external process namespace
+  for a test runner. Polylith uses a classloader approach to run tests in
+  isolation by default. `ExternalTestRunner` skips the classloaders and uses
+  Java subprocesses."
 
-  `external-process-namespace`
-    - if returns nil (default), tests are run in isolated classloaders within the same process,
-    - if returns non-nil, it must be a symbol or string identifying the main namespace of an
-      external test-runner to be used.
-      - when an external test-runner is used, no classloader will be created
-        and the `setup-fn`/`teardown-fn` should be run by that test-runner
-        instead of by `poly` itself; the main namespace will be invoked as a
-        `java` subprocess with arguments determined by the test runner;
-      - the external test runner's `run-tests` function is passed:
-        - :process-ns -- the name of the main namespace as above
-        - :setup-fn -- the fully-qualified name of the project setup function
-        - :teardown-fn -- similarly for the teardown function
-        - :all-paths -- a sequence of all the elements of the classpath"
-  (external-process-namespace [this]))
+  (external-process-namespace [this]
+    "Returns a symbol or string identifying the main namespace of an external
+    test runner. If it returns nil (default), the test runner will be an
+    in-process test runner and the tests will run in an isolated classloader
+    within the same process.
+
+    When an external test runner is used, the poly tool will not create a
+    classloader. The external test runner implementation should use the
+    `all-paths` argument passed to the run-tests function to create a classpath
+    for the Java subprocesses.
+
+    The setup-fn and teardown-fn must be run by the external test runner
+    instead of the poly tool."))
