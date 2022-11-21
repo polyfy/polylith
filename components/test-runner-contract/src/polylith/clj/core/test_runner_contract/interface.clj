@@ -47,10 +47,20 @@
   ```
   (defn create [{:keys [workspace project test-settings is-verbose color-mode changes]}]
     ...
-    (reify TestRunner ...)
 
-    ; Optional, only if you want an external test runner
-    (reify ExternalTestRunner ...))
+    (reify
+      test-runner-contract/TestRunner
+      (test-runner-name [this] ...)
+
+      (test-sources-present? [this] ...)
+
+      (tests-present? [this runner-opts] ...)
+
+      (run-tests [this runner-opts] ...)
+
+      ; Optional, only if you want an external test runner
+      test-runner-contract/ExternalTestRunner
+      (external-process-namespace [this] ...)))
   ```
 
   `workspace` passed to the constructor will contain `:user-input`, which
@@ -58,12 +68,12 @@
 
   Add your constructor function in the workspace.edn:
 
-  {:test {:create-test-runner my.namespace/create} ; to use it globally
+  {:test {:create-test-runner [my.namespace/create]} ; to use it globally
 
    :projects {; to use it only for a project
-              \"project-a\" {:test {:create-test-runner my.namespace/create}}
+              \"project-a\" {:test {:create-test-runner [my.namespace/create]}}
               ; to reset the global setting to default
-              \"project-b\" {:test {:create-test-runner :default}}}}"
+              \"project-b\" {:test {:create-test-runner [:default]}}}}"
 
   (test-runner-name [this]
     "Returns a printable name that the poly tool can print out for
