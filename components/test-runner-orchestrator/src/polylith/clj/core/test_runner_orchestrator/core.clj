@@ -56,17 +56,17 @@
                           " project: " e))
             (throw e))))))
 
-(defn execute-setup-fn [project color-mode {:keys [setup-fn runner-ns class-loader]}]
+(defn execute-setup-fn [project color-mode {:keys [setup-fn process-ns class-loader]}]
   ;; DO NOT run setup-fn if the current test runner is an external process test runner.
   ;; The external test runner will run setup and teardown functions itself.
-  (if (or runner-ns (nil? setup-fn))
+  (if (or process-ns (nil? setup-fn))
     true
     (execute-fn setup-fn "setup" (:name project) class-loader color-mode)))
 
-(defn execute-teardown-fn [project color-mode {:keys [teardown-fn runner-ns class-loader]} throw?]
+(defn execute-teardown-fn [project color-mode {:keys [teardown-fn process-ns class-loader]} throw?]
   ;; DO NOT run teardown-fn if the current test runner is an external process test runner.
   ;; The external test runner will run setup and teardown functions itself.
-  (when-not runner-ns
+  (when-not process-ns
     (when teardown-fn
       (when-not (execute-fn teardown-fn "teardown" (:name project) class-loader color-mode)
         (when throw?
