@@ -66,14 +66,42 @@
   `workspace` passed to the constructor will contain `:user-input`, which
   can be used to receive additional parameters for runtime configuration.
 
-  Add your constructor function in the workspace.edn:
+  Add your constructor function in the workspace.edn. To add a single global
+  test runner, use the `:test` key:
 
-  {:test {:create-test-runner [my.namespace/create]} ; to use it globally
+  {:test {:create-test-runner my.namespace/create}
 
-   :projects {; to use it only for a project
-              \"project-a\" {:test {:create-test-runner [my.namespace/create]}}
-              ; to reset the global setting to default
-              \"project-b\" {:test {:create-test-runner [:default]}}}}"
+   :projects {\"project-a\" {:alias \"a\"}
+              \"project-b\" {:alias \"b\"}}}
+
+  To add a multiple global test runners, use the vector variant inside the
+  `:test` key. The following example will add three test runners globally
+  where the last one is the default test runner.
+
+  {:test {:create-test-runner [my.namespace/create se.example/create :default]}
+
+   :projects {\"project-a\" {:alias \"a\"}
+              \"project-b\" {:alias \"b\"}}}
+
+  To add a custom test runner for a specific project, use the `:test` key
+  in the project configuration. You can also add multiple test runners with
+  using the vector variant.
+
+  {:projects {\"project-a\" {:alias \"a\"
+                             :test {:create-test-runner my.namespace/create}}
+              \"project-b\" {:alias \"b\"
+                             :test {:create-test-runner [my.namespace/create
+                                                         :default]}}}}
+
+  Adding a test runner definition to a project will override the global test
+  runner. The project-a will use the global test runner, `my.namespace/create`
+  whereas project-b will use the default test runner.
+
+  {:test {:create-test-runner my.namespace/create}
+
+   :projects {\"project-a\" {:alias \"a\"}
+              \"project-b\" {:alias \"b\"
+                             :test {:create-test-runner :default}}}}"
 
   (test-runner-name [this]
     "Returns a printable name that the poly tool can print out for
