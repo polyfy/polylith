@@ -1,29 +1,24 @@
 (ns polylith.clj.core.workspace-clj.project-settings)
 
-(defn convert-test-fn [global-test]
-  (fn convert-test [[k {:keys [test] :as v}]]
-    [k
-     (cond-> v
-       (vector? test) (assoc :test {:include test})
-       global-test (update :test #(merge global-test %)))]))
+(defn convert-test [global-test {:keys [test] :as project-settings}]
+  (cond-> project-settings
 
-(defn or-default-constructor-sym [candidate]
-  (if (contains? #{nil :default} candidate)
-    'polylith.clj.core.clojure-test-test-runner.interface/create
-    candidate))
+          ;; Convert from the old test configuration format to the new one.
+          (vector? test)
+          (assoc :test {:include test})
 
-(defn ensure-constructor-symbols [candidate]
-  (into []
-        (map or-default-constructor-sym)
-        (cond-> candidate (not (coll? candidate)) vector)))
-
-(defn ensure-create-test-runner [[project settings]]
-  [project
-   (update-in settings [:test :create-test-runner] ensure-constructor-symbols)])
+          ;; Merge with the global test configuration.
+          global-test
+          (update :test #(merge global-test %))))
 
 (defn convert
+  "This function converts from the old test settings format to the new
+  one for backward compatibility. It also adds the global test config as
+  the project's test config if it is missing the test keyword and there
+  is a global test configuration."
   [{:keys [projects test]}]
-  (into {}
-        (comp (map (convert-test-fn test))
-              (map ensure-create-test-runner))
-        projects))
+  (reduce (fn [acc [project-name settings]]
+            (assoc acc project-name
+                       (convert-test test settings)))
+          {}
+          projects))

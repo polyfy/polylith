@@ -84,7 +84,30 @@
                      "development"    {:alias "dev"
                                        :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}
                      "helpers"        {:alias "h"
-                                       :test  {:create-test-runner [:default]}}}}
+                                       :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}}}
          (settings/enrich-settings {:projects {"helpers" {:alias "h"
                                                           :test {:create-test-runner [:default]}}}}
+                                   projects))))
+
+(deftest enrich-settings--a-set-of-projects-with-default-nil-and-non-vector-with-test-runner-config--returns-dev-undefined-mappings-and-correct-test-runners
+  (is (= {:projects {"backend-system" {:alias "?3"
+                                       :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}
+                     "banking-system" {:alias "?1"
+                                       :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}
+                     "car"            {:alias "?2"
+                                       :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create
+                                                                    'se.example.create
+                                                                    'polylith.clj.core.clojure-test-test-runner.interface/create]}}
+                     "clojure"        {:alias "clj"
+                                       :test  {:create-test-runner ['se.example/create]}}
+                     "development"    {:alias "dev"
+                                       :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}
+                     "helpers"        {:alias "h"
+                                       :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}}}
+         (settings/enrich-settings {:projects {"helpers" {:alias "h"
+                                                          :test {:create-test-runner [:default]}}
+                                               "development" {:test {:create-test-runner nil}}
+                                               "clojure" {:alias "clj"
+                                                          :test {:create-test-runner 'se.example/create}}
+                                               "car" {:test {:create-test-runner [:default 'se.example.create nil]}}}}
                                    projects))))
