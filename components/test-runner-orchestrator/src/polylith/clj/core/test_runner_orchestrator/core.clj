@@ -56,19 +56,48 @@
                           " project: " e))
             (throw e))))))
 
+(defn execute-setup-fn [project color-mode {:keys [setup-fn process-ns class-loader]}]
+  ;; DO NOT run setup-fn if the current test runner is an external process test runner.
+  ;; The external test runner will run setup and teardown functions itself.
+  (if (or process-ns (nil? setup-fn))
+    true
+    (execute-fn setup-fn "setup" (:name project) class-loader color-mode)))
+
+(defn execute-teardown-fn [project color-mode {:keys [teardown-fn process-ns class-loader]} throw?]
+  ;; DO NOT run teardown-fn if the current test runner is an external process test runner.
+  ;; The external test runner will run setup and teardown functions itself.
+  (when-not process-ns
+    (when teardown-fn
+      (when-not (execute-fn teardown-fn "teardown" (:name project) class-loader color-mode)
+        (when throw?
+          (throw (ex-info "Test terminated due to teardown failure"
+                          {:project project
+                           :teardown-failed? true})))))))
+
 (defn run-tests-for-project-with-test-runner
-  [{:keys [test-runner setup-delay teardown-delay color-mode runner-opts project]}]
+  [{:keys [test-runner color-mode runner-opts project]}]
   (let [for-project-using-runner
         (str "for the " (color/project (:name project) color-mode)
              " project using test runner: "
              (test-runner-contract/test-runner-name test-runner))]
     (if-not (test-runner-contract/tests-present? test-runner runner-opts)
       (println (str "No tests to run " for-project-using-runner "."))
-      (if (deref setup-delay)
+      (if (execute-setup-fn (:name project) color-mode runner-opts)
         (try
           (println (str "Running tests " for-project-using-runner "..."))
           (test-runner-contract/run-tests test-runner runner-opts)
-          (catch Throwable e (deref teardown-delay) (throw e)))
+
+          ;; Run the teardown function and throw if it fails.
+          (execute-teardown-fn project color-mode runner-opts true)
+
+          (catch Throwable e
+            ;; If this exception is due to running teardown function, skip running
+            ;; teardown function again.
+            (when-not (-> e ex-data :teardown-failed?)
+              ;; Run the teardown function and DO NOT throw if it fails. We want to
+              ;; throw the actual exception received from the test runner.
+              (execute-teardown-fn project color-mode runner-opts false))
+            (throw e)))
         (throw (ex-info (str "Test terminated due to setup failure") {:project project}))))))
 
 (defn ex-causes [ex]
@@ -84,12 +113,12 @@
                    {:form form}
                    e))))))
 
-(defn test-opts [workspace
-                 settings
-                 changes
-                 {:keys [name] :as project}
-                 is-verbose
-                 color-mode]
+(defn ->test-opts [workspace
+                   settings
+                   changes
+                   {:keys [name] :as project}
+                   is-verbose
+                   color-mode]
   {:workspace workspace
    :project project
    :changes changes
@@ -99,7 +128,7 @@
 
 (defn run-tests-for-project [{:keys [workspace project test-settings is-verbose color-mode] :as opts}]
   (let [{:keys [settings]} workspace
-        {:keys [name paths]} project
+        {:keys [paths]} project
         {:keys [create-test-runner setup-fn teardown-fn]} test-settings
         test-runners-seeing-test-sources
         (into []
@@ -108,26 +137,26 @@
               create-test-runner)]
     (when (seq test-runners-seeing-test-sources)
       (let [lib-paths (resolve-deps project settings is-verbose color-mode)
-            all-paths (into #{} cat [(:src paths) (:test paths) lib-paths])
-            class-loader (common/create-class-loader all-paths color-mode)
-            setup!* (delay (execute-fn setup-fn "setup" name class-loader color-mode))
-            setup-failed? #(and (realized? setup!*) (not (deref setup!*)))
-            setup-succeeded? #(and (realized? setup!*) (deref setup!*))
-            teardown!* (delay (execute-fn teardown-fn "teardown" name class-loader color-mode))
-            runner-opts (merge opts
-                               {:class-loader class-loader
-                                :eval-in-project (->eval-in-project class-loader)})]
+            all-paths (into [] cat [(:src paths) (:test paths) lib-paths])
+            class-loader-delay (delay (common/create-class-loader all-paths color-mode))]
         (when is-verbose (println (str "# paths:\n" all-paths "\n")))
         (doseq [current-test-runner test-runners-seeing-test-sources]
-          (when-not (setup-failed?)
+          (let [process-ns (when (test-runner-verifiers/valid-external-test-runner? current-test-runner)
+                             (test-runner-contract/external-process-namespace current-test-runner))
+                runner-opts (cond-> {:setup-fn setup-fn
+                                     :teardown-fn teardown-fn
+                                     :all-paths all-paths}
+
+                                    process-ns
+                                    (assoc :process-ns process-ns)
+
+                                    (not process-ns)
+                                    (assoc :class-loader @class-loader-delay
+                                           :eval-in-project (->eval-in-project @class-loader-delay)))]
             (->> {:test-runner current-test-runner
-                  :setup-delay setup!*
-                  :teardown-delay teardown!*
-                  :runner-opts runner-opts}
+                  :runner-opts (merge opts runner-opts)}
                  (merge opts)
-                 (run-tests-for-project-with-test-runner))))
-        (when (setup-succeeded?)
-          (deref teardown!*))))))
+                 (run-tests-for-project-with-test-runner))))))))
 
 (defn affected-by-changes? [{:keys [name]} {:keys [project-to-bricks-to-test project-to-projects-to-test]}]
   (seq (concat (project-to-bricks-to-test name)
@@ -180,12 +209,9 @@
           (print-projects-to-test projects-to-test color-mode)
           (print-bricks-to-test component-names base-names bricks-to-test color-mode)
           (println)
-          (transduce
-            (comp (map #(test-opts workspace settings changes % is-verbose color-mode))
-                  (map run-tests-for-project)
-                  (map #(do (System/gc) %)))
-            (completing (fn [_ x] (cond-> x (not x) (reduced))))
-            true
-            projects-to-test)))
+          (doseq [project projects-to-test]
+            (let [test-opts (->test-opts workspace settings changes project is-verbose color-mode)]
+              (run-tests-for-project test-opts)
+              (System/gc)))))
       (print-execution-time start-time)
       true)))
