@@ -82,7 +82,7 @@
              (test-runner-contract/test-runner-name test-runner))]
     (if-not (test-runner-contract/tests-present? test-runner runner-opts)
       (println (str "No tests to run " for-project-using-runner "."))
-      (if (execute-setup-fn (:name project) color-mode runner-opts)
+      (if (execute-setup-fn project color-mode runner-opts)
         (try
           (println (str "Running tests " for-project-using-runner "..."))
           (test-runner-contract/run-tests test-runner runner-opts)

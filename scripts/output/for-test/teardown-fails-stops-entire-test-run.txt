@@ -72,6 +72,5 @@ Test results: 0 passes, 0 failures, 0 errors.
 Running test teardown for the teardown-fails project: project.teardown-fails.test-setup/teardown
 
 Test teardown failed: java.lang.Exception: Teardown failed for project: teardown-fails
-
-Execution time: 1 seconds
-exit code: 0
+Test terminated due to teardown failure
+exit code: 1

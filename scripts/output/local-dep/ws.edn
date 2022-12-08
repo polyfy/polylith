@@ -28,12 +28,11 @@
   {"invoicing" {:src [], :test []}, "development" {:src [], :test []}},
   :project-to-bricks-to-test {"development" [], "invoicing" []},
   :project-to-projects-to-test {"invoicing" [], "development" []},
-  :since-sha "5292e8ab1bea3ff84b08c7f2142dbe7f1349a3f3",
+  :since-sha "SHA",
   :changed-files [],
-  :git-diff-command
-  "git diff 5292e8ab1bea3ff84b08c7f2142dbe7f1349a3f3 --name-only",
+  :git-diff-command "git diff SHA --name-only",
   :changed-components [],
-  :since-tag "stable-jote",
+  :since-tag "stable-BRANCH",
   :changed-or-affected-projects []},
  :components
  [{:lines-of-code {:src 4, :test 6},
@@ -543,11 +542,9 @@
    :branch "BRANCH",
    :git-root "USER-HOME/source/polylith",
    :auto-add false,
-   :stable-since
-   {:tag "stable-jote",
-    :sha "5292e8ab1bea3ff84b08c7f2142dbe7f1349a3f3"},
+   :stable-since {:tag "stable-BRANCH", :sha "SHA"},
    :polylith
-   {:repo "https://github.com/polyfy/polylith.git", :branch "master"}},
+   {:repo "https://github.com/polyfy/polylith.git", :branch "BRANCH"}},
   :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
   :m2-dir "USER-HOME/.m2",
   :color-mode "none",
@@ -588,13 +585,13 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.15-alpha",
+  {:name "0.2.16-alpha",
    :major 0,
    :minor 2,
-   :patch 15,
+   :patch 16,
    :revision "alpha",
-   :date "2022-08-10"},
-  :ws {:type :toolsdeps2, :breaking 1, :non-breaking 1}},
+   :date "2022-12-08"},
+  :ws {:type :toolsdeps2, :breaking 1, :non-breaking 2}},
  :ws-dir "USER-HOME/source/polylith/examples/local-dep",
  :ws-local-dir "examples/local-dep",
  :ws-reader

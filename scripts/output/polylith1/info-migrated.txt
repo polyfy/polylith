@@ -29,7 +29,7 @@
   tap                       tap                        ---  s--    s--
   test-helper               test-helper                ---  -t-    s--
   test-runner-contract      test-runner-contract       s--  st-    st-
-  test-runner-orchestrator  test-runner-orchestrator   ---  s--    s--
+  test-runner-orchestrator  test-runner-orchestrator   ---  st-    st-
   text-table                text-table                 s--  s--    s--
   user-config               user-config                s--  s--    s--
   user-input                user-input                 s--  st-    st-
