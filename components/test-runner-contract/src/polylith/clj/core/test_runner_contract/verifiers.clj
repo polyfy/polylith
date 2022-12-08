@@ -16,6 +16,9 @@
 (defn valid-test-runner? [candidate]
   (satisfies? test-runner-contract/TestRunner candidate))
 
+(defn valid-external-test-runner? [candidate]
+  (satisfies? test-runner-contract/ExternalTestRunner candidate))
+
 (defn ensure-valid-test-runner [candidate]
   (when-not (valid-test-runner? candidate)
     (throw (ex-info "Test runners must satisfy the TestRunner protocol" {:candidate candidate})))

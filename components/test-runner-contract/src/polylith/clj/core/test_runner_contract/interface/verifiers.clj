@@ -7,5 +7,8 @@
 (defn valid-test-runner? [candidate]
   (core/valid-test-runner? candidate))
 
+(defn valid-external-test-runner? [candidate]
+  (core/valid-external-test-runner? candidate))
+
 (defn ensure-valid-test-runner [candidate]
   (core/ensure-valid-test-runner candidate))

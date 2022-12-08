@@ -49,7 +49,7 @@
           "  tap                       tap *                        ---  s--    s--"
           "  test-helper               test-helper *                ---  -tx    s--"
           "  test-runner-contract      test-runner-contract *       s--  stx    st-"
-          "  test-runner-orchestrator  test-runner-orchestrator *   ---  s--    s--"
+          "  test-runner-orchestrator  test-runner-orchestrator *   ---  stx    st-"
           "  text-table                text-table *                 s--  s--    s--"
           "  user-config               user-config *                s--  s--    s--"
           "  user-input                user-input *                 s--  stx    st-"
@@ -423,7 +423,15 @@
           "test-runner-contract" {:src {:direct ["util"]}, :test {:direct ["util"]}},
           "test-runner-orchestrator" {:src {:direct ["common" "deps" "test-runner-contract" "util" "validator"],
                                             :indirect ["file" "path-finder" "text-table" "user-config"]},
-                                      :test {}},
+                                      :test {:direct   ["common"
+                                                        "deps"
+                                                        "test-runner-contract"
+                                                        "util"
+                                                        "validator"]
+                                             :indirect ["file"
+                                                        "path-finder"
+                                                        "text-table"
+                                                        "user-config"]}},
           "text-table" {:src {:direct ["util"]}, :test {}},
           "user-config" {:src {:direct ["file" "util"]}, :test {}},
           "user-input" {:src {:direct ["util"]}, :test {:direct ["util"]}},
@@ -530,6 +538,7 @@
           "components/test-helper/resources"
           "components/test-helper/src"
           "components/test-runner-contract/test"
+          "components/test-runner-orchestrator/test"
           "components/user-input/test"
           "components/util/test"
           "components/validator/test"
@@ -566,6 +575,7 @@
                  "puget.printer"
                  "zprint.core"]
           :test ["clojure.java.shell"
+                 "clojure.lang"
                  "clojure.string"
                  "clojure.test"
                  "malli.core"
