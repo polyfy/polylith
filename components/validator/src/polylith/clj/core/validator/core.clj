@@ -12,7 +12,8 @@
             [polylith.clj.core.validator.m201-mismatching-parameters :as m201]
             [polylith.clj.core.validator.m202-missing-paths :as m202]
             [polylith.clj.core.validator.m203-path-exists-in-both-dev-and-profile :as m203]
-            [polylith.clj.core.validator.m205-non-top-namespace :as m205]))
+            [polylith.clj.core.validator.m205-non-top-namespace :as m205]
+            [polylith.clj.core.validator.m206-unreadable-namespace :as m206]))
 
 (defn has-errors? [messages]
   (->> messages
@@ -32,7 +33,8 @@
         (m201/warnings interfaces components color-mode)
         (m202/warnings projects paths color-mode)
         (m203/warnings settings projects color-mode)
-        (m205/warnings components bases color-mode)]
+        (m205/warnings components bases color-mode)
+        (m206/warnings components bases projects color-mode)]
        (into #{} cat)
        (sort-by (juxt :type :code :message))
        (vec)))

@@ -29,7 +29,7 @@ poly help
 ```
 
 ```
-  Poly 0.2.16-alpha-issue247 (2022-10-27) - https://github.com/polyfy/polylith
+  Poly 0.2.16-alpha-issue254 (2022-11-04) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -250,6 +250,9 @@ poly help
   Warning 205 - Non top namespace was found in brick.
     Triggered if a namespace in a brick doesn't start with the top namespaces
     defined in :top-namespace in ./workspace.edn.
+
+  Warning 206 - Unreadable namespace in brick/project.
+    Triggered if a namespace can't be parsed for a brick or project.
 ```
 
 ### create
