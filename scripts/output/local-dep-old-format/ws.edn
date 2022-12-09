@@ -668,12 +668,12 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.16-alpha",
+  {:name "0.2.17-alpha",
    :major 0,
    :minor 2,
-   :patch 16,
+   :patch 17,
    :revision "alpha",
-   :date "2022-12-08"},
+   :date "2022-12-09"},
   :ws {:type :toolsdeps2, :breaking 1, :non-breaking 2},
   :from {:ws {:type :toolsdeps1}}},
  :ws-dir "/privateWS-HOME/local-dep-old-format",
