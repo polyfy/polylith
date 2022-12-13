@@ -107,7 +107,7 @@ Let's go through all the keys.
 ```
 Component keys are the same as for the `base` plus the `:interfaces` key:
 - `:interface`
-  - `:definitions` Lists all public `def`, `defn` and `defmacro` definitions in the interface namespace. If a type hint is given, 
+  - `:definitions` Lists all public `def`, `defn` and `defmacro` definitions in the interface namespace. If a type hint is given,
     then `:type` will also be set and be part of the contract.
 - `:interface-deps` Lists the interfaces each component depens on. This component doesn't depend on any other interface.
 - `:lib-deps` Lists the library dependencies the component depends on, defined in the `:deps` key in its `deps.edn` file
@@ -199,8 +199,8 @@ Component keys are the same as for the `base` plus the `:interfaces` key:
 `poly ws get:interfaces:user`
 
 ```
-{:definitions [{:name "hello", 
-                :parameters [{:name "name"}], 
+{:definitions [{:name "hello",
+                :parameters [{:name "name"}],
                 :type "function"}],
  :implementing-components ["user" "user-remote"],
  :name "user",
@@ -230,7 +230,7 @@ Component keys are the same as for the `base` plus the `:interfaces` key:
   :type "error"}]
 ```
 
-To trigger this error, we commented out the `hello` function from the `user` component interface. 
+To trigger this error, we commented out the `hello` function from the `user` component interface.
 
 - `:code` The code of the error or warning. To get a full list of existing codes, execute `poly help check`.
 - `:message` The error message.
@@ -277,8 +277,8 @@ The name of the workspace directory.
 If the workspace is loaded using `ws-file:WS-FILE` then the `:old` key is populated.
 
 - `user-input` The user input from the original `ws` file.
-- `:active-profiles` If any profiles are given, then this key is added with the value 
-                     of `:active-profiles` taken from the `:settings` key from the 
+- `:active-profiles` If any profiles are given, then this key is added with the value
+                     of `:active-profiles` taken from the `:settings` key from the
                      original `ws` file.
 
 ## paths
@@ -344,7 +344,7 @@ If the workspace is loaded using `ws-file:WS-FILE` then the `:old` key is popula
                   "org.clojure/clojure" {:size 3914649,
                                          :type "maven",
                                          :version "1.10.3"},
-                  "org.clojure/tools.deps.alpha" {:size 60953,
+                  "org.clojure/tools.deps"{:size 60953,
                                                   :type "maven",
                                                   :version "0.12.1003"},
                   "slacker/slacker" {:size 28408,
@@ -374,7 +374,7 @@ If the workspace is loaded using `ws-file:WS-FILE` then the `:old` key is popula
             either as paths or included as `:local/root`.
 - `:component-names`
   - `:src` The components that are included in the project for the `src` context,
-           either as paths or included as `:local/root`. 
+           either as paths or included as `:local/root`.
   - `:test` The components that are included in the project for the `test` context,
             either as paths or included as `:local/root`.
 - `:config-filename` The absolute path to the `deps.edn` config file.
@@ -382,9 +382,9 @@ If the workspace is loaded using `ws-file:WS-FILE` then the `:old` key is popula
 - `:is-dev` Set to `true` for the `development` project.
 - `:is-run-tests` Set to `true` if the project is relevant for running tests.
   The `development` project is not included by default (and therefore set to `false`)
-  but can be added by passing in `:dev` or by giving it as `projects:dev` or `projects:development`. 
+  but can be added by passing in `:dev` or by giving it as `projects:dev` or `projects:development`.
   This flag is also affected by passing in `:all` and `:all-bricks`.
-- `:lib-deps` 
+- `:lib-deps`
   - `:src` Stores a map with the libraries that are used in the project for the `src` context.
     - `:size` The size of this library in bytes.
     - `:type` The type of the library, `maven`, `local` or `git` (`:mvn/version`, `:local/root` and `:git/url`).
@@ -393,14 +393,14 @@ If the workspace is loaded using `ws-file:WS-FILE` then the `:old` key is popula
       - if type is `local` then version is set to `-`.
       - if type is `git` then version is set to the first seven characters in the `sha`.
   - `:test` Stores a map with the libraries that are used in the project for the `test` context.
-- `:lib-imports` 
+- `:lib-imports`
   - `src` All `:lib-imports` taken from the bricks that are included in this project for the `src` context.
   - `test` All `:lib-imports` taken from the bricks that are included in this project for the `test` context.
 - `:lines-of-code`
   - `:src` Number of lines of code living in the project's `src` directory.
   - `:test` Number of lines of code living in the project's `test` directory.
   - `:total` Total number of lines of code for all the bricks that are included in this project.
-- `:maven-repos` The maven repos that are used by this project. 
+- `:maven-repos` The maven repos that are used by this project.
   If `:mvn/repos` is specified by a brick that is included in this project,
   then it will automatically turn up in this list.
 - `:name` The name of the project directory under the `projects` directory.
@@ -487,15 +487,15 @@ If the workspace is loaded using `ws-file:WS-FILE` then the `:old` key is popula
   - `:name` Set to "git".
   - `:polylith`
     - `:branch` Set `master` or `BRANCH` if `branch:BRANCH` is given.
-                The branch is used when calculating the latest `sha` in `./deps.edn` for the key 
+                The branch is used when calculating the latest `sha` in `./deps.edn` for the key
                 `:aliases > :poly > :extra-deps > sha`.
-    - `:latest-sha` If `:latest-sha` is given, then the latest `sha` from the 
+    - `:latest-sha` If `:latest-sha` is given, then the latest `sha` from the
                     Polylith repo (`https://github.com/polyfy/polylith.git`) is retrieved.
     - `:repo` Set to "https://github.com/polyfy/polylith.git".
   - `:stable-since`
     - `:sha` The latest stable point in time.
     - `:tag` The `tag` for the latest stable point in time (if given).
-  
+
 ## user-input
 
 `poly ws get:user-input`
@@ -555,7 +555,7 @@ There are a few more user input parameters that are mainly useful if you are a m
 - `:fake-sha` Set to `c91fdad` if `fake-sha:c91fdad` is given. Used to set the "stable since" sha for the output from the `libs` command.
 - `:is-no-changes` Set to `true` if `:no-changes` is given. Used to fake that no changes have been made since the last stable point in time.
 - `:is-no-exit` Set to `true` if `:no-exit` is given. Tells the `poly` command to not exit with `System/exit`.
-- `:replace` Set to e.g. `[{:from "/Users/joakimtengstrand", :to "my-home"}]` if `replace:$HOME:my-home` is given. 
+- `:replace` Set to e.g. `[{:from "/Users/joakimtengstrand", :to "my-home"}]` if `replace:$HOME:my-home` is given.
   It will replace this text too, so the output will actually be `[{:from "my-home", :to "my-home"}]` which is the behaviour we want
   (the whole idea with the `replace` parameter is to get the same output every time).
 
@@ -570,8 +570,8 @@ There are a few more user input parameters that are mainly useful if you are a m
            :patch 0,
            :revision "alpha10.issue66.22"},
            :name "0.2.0.alpha10.issue66.22",
- :ws {:breaking 1, 
-      :non-breaking 0, 
+ :ws {:breaking 1,
+      :non-breaking 0,
       :type :toolsdeps2}}
 ```
 
@@ -589,7 +589,7 @@ There are a few more user input parameters that are mainly useful if you are a m
   - `:type` Set to `:toolsdeps1` if a workspace created by `v0.1.0-alpha9` or earlier.
             Set to `:toolsdeps2` if a workspace created by `v0.2.0-alpha10` or later.
 
-If the workspace has the old `:toolsdeps1` format (created by `v0.1.0-alpha9` or earlier) 
+If the workspace has the old `:toolsdeps1` format (created by `v0.1.0-alpha9` or earlier)
 then it will be transformed to the latest format and the `:from` key is added:
 
 ```
@@ -608,8 +608,8 @@ then the `ws` structure is transformed to the new format and the `:from` key is 
 
 ```
 {:from {:release-name "0.1.0-alpha9",
-        :ws {:breaking 0, 
-             :non-breaking 0, 
+        :ws {:breaking 0,
+             :non-breaking 0,
              :type :toolsdeps1}}
  ...
 ```
@@ -664,6 +664,6 @@ This structure explains different aspects of the tool that created this `ws` str
 - `:language` The name of the supported language.
 - `:name` The name of the workspace reader.
 - `:project-url` The url to the workspace reader tool.
-- `:type-position` Set to `postfix` because types (type hints) come before the arguments, 
-                   in Clojure, e.g. `^String arg`. In some other languages like Scala, 
+- `:type-position` Set to `postfix` because types (type hints) come before the arguments,
+                   in Clojure, e.g. `^String arg`. In some other languages like Scala,
                    the types come after the arguments.

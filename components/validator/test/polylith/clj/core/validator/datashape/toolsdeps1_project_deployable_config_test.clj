@@ -7,7 +7,7 @@
                        "../../bases/poly-cli/src"]
 
              :deps    '{org.clojure/clojure {:mvn/version "1.10.1"}
-                        org.clojure/tools.deps.alpha {:mvn/version "0.12.985"}
+                        org.clojure/tools.deps {:mvn/version "0.16.1264"}
                         clj-commons/fs {:mvn/version "1.6.310"}
                         mvxcvi/puget {:mvn/version "1.3.1"}}
 

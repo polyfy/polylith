@@ -1,5 +1,5 @@
 {:paths ["src"]
  :deps {clj-commons/fs {:mvn/version "1.6.310"}
-        org.clojure/tools.deps.alpha {:mvn/version "0.15.1244"}}
+        org.clojure/tools.deps {:mvn/version "0.16.1264"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {}}}}

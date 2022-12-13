@@ -3,7 +3,7 @@
             [clojure.set :as set]
             [clojure.string :as str]
             [clojure.pprint :as pp]
-            [clojure.tools.deps.alpha :as tools-deps]
+            [clojure.tools.deps :as tools-deps]
             [polylith.clj.core.api.interface :as api]
             [polylith.clj.core.workspace.interface :as ws]
             [polylith.clj.core.change.interface :as change]
@@ -16,7 +16,7 @@
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.help.interface :as help]
-            [clojure.tools.deps.alpha.util.maven :as mvn]
+            [clojure.tools.deps.util.maven :as mvn]
             [polylith.clj.core.user-input.interface :as user-input])
   (:refer-clojure :exclude [base]))
 

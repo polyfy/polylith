@@ -232,7 +232,7 @@
    {:src
     {"org.clojure/clojure"
      {:version "1.10.3", :type "maven", :size 3914649},
-     "org.clojure/tools.deps.alpha"
+     "org.clojure/tools.deps"
      {:version "0.12.1003", :type "maven", :size 60953},
      "org.apache.logging.log4j/log4j-core"
      {:version "2.13.3", :type "maven", :size 1714164},
@@ -278,7 +278,7 @@
    {:src
     {"org.clojure/clojure"
      {:version "1.10.3", :type "maven", :size 3914649},
-     "org.clojure/tools.deps.alpha"
+     "org.clojure/tools.deps"
      {:version "0.12.1003", :type "maven", :size 60953},
      "org.apache.logging.log4j/log4j-core"
      {:version "2.13.3", :type "maven", :size 1714164},
@@ -345,7 +345,7 @@
     {:src
      {"org.clojure/clojure"
       {:version "1.10.3", :type "maven", :size 3914649},
-      "org.clojure/tools.deps.alpha"
+      "org.clojure/tools.deps"
       {:version "0.12.1003", :type "maven", :size 60953},
       "org.apache.logging.log4j/log4j-core"
       {:version "2.13.3", :type "maven", :size 1714164},
@@ -355,7 +355,7 @@
    {:src
     {"org.clojure/clojure"
      {:version "1.10.3", :type "maven", :size 3914649},
-     "org.clojure/tools.deps.alpha"
+     "org.clojure/tools.deps"
      {:version "0.12.1003", :type "maven", :size 60953},
      "org.apache.logging.log4j/log4j-core"
      {:version "2.13.3", :type "maven", :size 1714164},

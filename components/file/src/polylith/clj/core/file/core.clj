@@ -1,7 +1,7 @@
 (ns polylith.clj.core.file.core
   (:require [clojure.java.io :as io]
             [clojure.pprint :as pp]
-            [clojure.tools.deps.alpha :as tda]
+            [clojure.tools.deps :as tda]
             [me.raynes.fs :as fs]
             [clojure.string :as str]
             [polylith.clj.core.util.interface.str :as str-util])

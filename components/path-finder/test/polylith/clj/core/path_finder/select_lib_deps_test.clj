@@ -6,7 +6,7 @@
 
 (deftest all-src-deps--select-src-deps--returns-src-deps
   (is (= {"org.clojure/clojure" #:mvn{:version "1.10.1"},
-          "org.clojure/tools.deps.alpha" #:mvn{:version "0.12.985"},
+          "org.clojure/tools.deps"#:mvn{:version "0.16.1264"},
           "net.mikera/core.matrix" #:mvn{:version "0.62.0"}}
          (select/lib-deps test-data/dep-entries c/src?))))
 

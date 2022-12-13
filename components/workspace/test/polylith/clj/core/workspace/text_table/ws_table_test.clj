@@ -424,7 +424,7 @@
                            :profile-to-settings {},
                            :ns-to-lib {"clojure" "org.clojure/clojure",
                                        "clojure.core.matrix" "net.mikera/core.matrix",
-                                       "clojure.tools.deps" "org.clojure/tools.deps.alpha"},
+                                       "clojure.tools.deps" "org.clojure/tools.deps"},
                            :projects {:projects {"poly" {:alias "poly"}
                                                  "core" {:alias "core"}}}
                            :interface-ns "interface",
@@ -532,14 +532,14 @@
                                                 "clojure.set"
                                                 "clojure.stacktrace"
                                                 "clojure.string"
-                                                "clojure.tools.deps.alpha"
-                                                "clojure.tools.deps.alpha.util.maven"
+                                                "clojure.tools.deps"
+                                                "clojure.tools.deps.util.maven"
                                                 "clojure.walk"]
-                                          :test ["clojure.string" "clojure.tools.deps.alpha.util.maven"]}
+                                          :test ["clojure.string" "clojure.tools.deps.util.maven"]}
                             :lib-deps {"net.mikera/core.matrix" #:mvn{:version "0.62.0"},
                                        "org.slf4j/slf4j-nop" #:mvn{:version "1.7.25"},
                                        "org.clojure/clojure" #:mvn{:version "1.10.1"},
-                                       "org.clojure/tools.deps.alpha" #:mvn{:version "0.12.985"}},
+                                       "org.clojure/tools.deps"#:mvn{:version "0.16.1264"}},
                             :deps {"workspace-clj" {:direct ["common" "file" "user-config" "util"], :indirect []},
                                    "test-runner" {:direct ["common" "util"], :indirect []},
                                    "command" {:direct ["common"
@@ -653,7 +653,7 @@
                                           :test ["clojure.string"]}
                             :lib-deps {"net.mikera/core.matrix" #:mvn{:version "0.62.0"},
                                        "org.clojure/clojure" #:mvn{:version "1.10.1"},
-                                       "org.clojure/tools.deps.alpha" #:mvn{:version "0.12.985"}},
+                                       "org.clojure/tools.deps"#:mvn{:version "0.16.1264"}},
                             :deps {"workspace-clj" {:direct ["common" "file" "user-config" "util"], :indirect []},
                                    "test-runner" {:direct ["common" "util"], :indirect []},
                                    "command" {:direct ["common" "deps" "help" "user-config" "util" "workspace"],
@@ -783,14 +783,14 @@
                                                 "clojure.set"
                                                 "clojure.stacktrace"
                                                 "clojure.string"
-                                                "clojure.tools.deps.alpha"
-                                                "clojure.tools.deps.alpha.util.maven"
+                                                "clojure.tools.deps"
+                                                "clojure.tools.deps.util.maven"
                                                 "clojure.walk"]
-                                          :test ["clojure.string" "clojure.tools.deps.alpha.util.maven"]}
+                                          :test ["clojure.string" "clojure.tools.deps.util.maven"]}
                             :lib-deps {"net.mikera/core.matrix" #:mvn{:version "0.62.0"},
                                        "org.slf4j/slf4j-nop" #:mvn{:version "1.7.25"},
                                        "org.clojure/clojure" #:mvn{:version "1.10.1"},
-                                       "org.clojure/tools.deps.alpha" #:mvn{:version "0.12.985"}},
+                                       "org.clojure/tools.deps"#:mvn{:version "0.16.1264"}},
                             :deps {"workspace-clj" {:direct ["common" "file" "user-config" "util"], :indirect []},
                                    "test-runner" {:direct ["common" "util"], :indirect []},
                                    "command" {:direct ["common"
@@ -1584,12 +1584,12 @@
                                                   :namespace "polylith.clj.core.test-runner.core",
                                                   :file-path "./components/test-runner/src/polylith/clj/core/test_runner/core.clj",
                                                   :imports ["clojure.string"
-                                                            "clojure.tools.deps.alpha"
+                                                            "clojure.tools.deps"
                                                             "polylith.clj.core.common.interfc"
                                                             "polylith.clj.core.util.interfc.color"
                                                             "polylith.clj.core.util.interfc.str"
                                                             "polylith.clj.core.util.interfc.time"]}],}
-                              :lib-imports {:src ["clojure.string" "clojure.tools.deps.alpha"]}
+                              :lib-imports {:src ["clojure.string" "clojure.tools.deps"]}
                               :interface-deps {:src ["common" "util"],}
                               :lib-deps ["clojure" "clojure.tools.deps"]}
                              {:name "text-table",
@@ -2087,7 +2087,7 @@
                                                   :namespace "polylith.clj.core.workspace-clj.project-from-disk",
                                                   :file-path "./components/workspace-clj/src/polylith/clj/core/workspace_clj/project_from_disk.clj",
                                                   :imports ["clojure.string"
-                                                            "clojure.tools.deps.alpha.util.maven"
+                                                            "clojure.tools.deps.util.maven"
                                                             "polylith.clj.core.file.interfc"
                                                             "polylith.clj.core.util.interfc"
                                                             "polylith.clj.core.workspace-clj.namespaces-from-disk"]}
@@ -2142,15 +2142,15 @@
                                                   {:name "project-test",
                                                    :namespace "polylith.clj.core.workspace-clj.project-test",
                                                    :file-path "./components/workspace-clj/test/polylith/clj/core/workspace_clj/project_test.clj",
-                                                   :imports ["clojure.tools.deps.alpha.util.maven"
+                                                   :imports ["clojure.tools.deps.util.maven"
                                                              "polylith.clj.core.file.interfc"
                                                              "polylith.clj.core.workspace-clj.project-from-disk"]}
                                                   {:name "definitions-test",
                                                    :namespace "polylith.clj.core.workspace-clj.definitions-test",
                                                    :file-path "./components/workspace-clj/test/polylith/clj/core/workspace_clj/definitions_test.clj",
                                                    :imports ["polylith.clj.core.workspace-clj.definitions"]}]}
-                              :lib-imports {:src ["clojure.string" "clojure.tools.deps.alpha.util.maven"]
-                                            :test ["clojure.tools.deps.alpha.util.maven"]}
+                              :lib-imports {:src ["clojure.string" "clojure.tools.deps.util.maven"]
+                                            :test ["clojure.tools.deps.util.maven"]}
                               :interface-deps {:src ["common" "file" "user-config" "util"],}
                               :lib-deps ["clojure" "clojure.tools.deps"]}],
                 :changes {:sha1 "HEAD",

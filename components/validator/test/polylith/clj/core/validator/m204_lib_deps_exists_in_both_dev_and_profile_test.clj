@@ -8,7 +8,7 @@
 
 (def projects [{:alias        "dev"
                 :unmerged {:lib-deps {:src {"org.clojure/clojure" {:mvn/version "1.10.2"}
-                                            "org.clojure/tools.deps.alpha" {:mvn/version "0.12.985"}}}}}])
+                                            "org.clojure/tools.deps"{:mvn/version "0.16.1264"}}}}}])
 
 (deftest warnings--path-was-found-in-both-dev-and-a-profile--returns-error-message
   (is (= [{:type "warning"
