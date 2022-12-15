@@ -10,4 +10,4 @@ Iron, Bronze, Silver, Gold, and Platinum sponsors will also be listed on the [fi
 
 ## Bronze sponsors
 
-[<img src="images/logos/scrintal.png" height="40px" alt="scrintal.com"/>](https://www.scrintal.com)
+[<img src="images/logos/scrintal.png" height="50px" alt="scrintal.com"/>](https://www.scrintal.com)
