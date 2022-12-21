@@ -1,5 +1,5 @@
 (ns polylith.clj.core.deps.lib-deps
-  (:require [clojure.tools.deps.alpha :as tools-deps]
+  (:require [clojure.tools.deps :as tools-deps]
             [polylith.clj.core.user-config.interface :as user-config]))
 
 (defn name-version [[k {:keys [mvn/version]}]]

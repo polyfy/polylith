@@ -1,7 +1,7 @@
 (ns polylith.clj.core.workspace-clj.projects-from-disk
   (:require [clojure.set :as set]
             [clojure.string :as str]
-            [clojure.tools.deps.alpha.util.maven :as mvn]
+            [clojure.tools.deps.util.maven :as mvn]
             [polylith.clj.core.common.interface.config :as config]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.lib.interface :as lib]

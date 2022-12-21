@@ -81,7 +81,7 @@
                              "components/command/test"
                              "test"]}
               :lib-deps {:src {"org.clojure/clojure" #:mvn{:version "1.10.1"}
-                               "org.clojure/tools.deps.alpha" #:mvn{:version "0.12.985"}}}
+                               "org.clojure/tools.deps"#:mvn{:version "0.16.1264"}}}
               :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"}}})
 
 (def brick->loc {"command" {:src 36, :test 0}
@@ -110,7 +110,7 @@
                                             "command"]}
           :is-dev                   true
           :lib-deps                 {:src {"org.clojure/clojure"          #:mvn{:version "1.10.1"}
-                                           "org.clojure/tools.deps.alpha" #:mvn{:version "0.12.985"}}}
+                                           "org.clojure/tools.deps"#:mvn{:version "0.16.1264"}}}
           :lib-imports              {:src ["clojure.java.io"
                                            "clojure.pprint"
                                            "clojure.set"
@@ -129,7 +129,7 @@
                           "components/command/test"]}
           :type                     "project"
           :unmerged                 {:lib-deps      {:src {"org.clojure/clojure"          #:mvn{:version "1.10.1"}
-                                                           "org.clojure/tools.deps.alpha" #:mvn{:version "0.12.985"}}}
+                                                           "org.clojure/tools.deps"#:mvn{:version "0.16.1264"}}}
                                      :paths {:src ["bases/cli/src"
                                                    "components/change/src"
                                                    "components/command/src"
@@ -161,7 +161,7 @@
           :is-dev               true
           :lib-deps             {:src {"clojure.core.matrix"          "net.mikera/core.matrix"
                                        "org.clojure/clojure"          #:mvn{:version "1.10.1"}
-                                       "org.clojure/tools.deps.alpha" #:mvn{:version "0.12.985"}}}
+                                       "org.clojure/tools.deps"#:mvn{:version "0.16.1264"}}}
           :lib-imports          {:src ["clojure.java.io"
                                        "clojure.pprint"
                                        "clojure.set"
@@ -183,7 +183,7 @@
                                     "components/user/test"]}
           :type                 "project"
           :unmerged             {:lib-deps   {:src {"org.clojure/clojure"          #:mvn{:version "1.10.1"}
-                                                    "org.clojure/tools.deps.alpha" #:mvn{:version "0.12.985"}}}
+                                                    "org.clojure/tools.deps"#:mvn{:version "0.16.1264"}}}
                                  :paths {:src ["bases/cli/src"
                                                "components/change/src"
                                                "components/command/src"

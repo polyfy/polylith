@@ -895,8 +895,8 @@
      "clojure.set"
      "clojure.stacktrace"
      "clojure.string"
-     "clojure.tools.deps.alpha"
-     "clojure.tools.deps.alpha.util.maven"
+     "clojure.tools.deps"
+     "clojure.tools.deps.util.maven"
      "clojure.walk"
      "java.io"
      "java.net"
@@ -941,7 +941,7 @@
    {:src
     {"org.clojure/clojure"
      {:version "1.10.3", :type "maven", :size 3914649},
-     "org.clojure/tools.deps.alpha"
+     "org.clojure/tools.deps"
      {:version "0.12.1003", :type "maven", :size 60953},
      "mvxcvi/puget" {:version "1.3.1", :type "maven", :size 15930},
      "metosin/malli" {:version "0.5.1", :type "maven", :size 43722},
@@ -1057,7 +1057,7 @@
      "clojure.set"
      "clojure.stacktrace"
      "clojure.string"
-     "clojure.tools.deps.alpha"
+     "clojure.tools.deps"
      "clojure.walk"
      "java.io"
      "java.net"
@@ -1098,7 +1098,7 @@
    {:src
     {"org.clojure/clojure"
      {:version "1.10.3", :type "maven", :size 3914649},
-     "org.clojure/tools.deps.alpha"
+     "org.clojure/tools.deps"
      {:version "0.12.1003", :type "maven", :size 60953},
      "metosin/malli" {:version "0.5.1", :type "maven", :size 43722},
      "clj-commons/fs" {:version "1.6.310", :type "maven", :size 12819}}},
@@ -1171,8 +1171,8 @@
      "clojure.set"
      "clojure.stacktrace"
      "clojure.string"
-     "clojure.tools.deps.alpha"
-     "clojure.tools.deps.alpha.util.maven"
+     "clojure.tools.deps"
+     "clojure.tools.deps.util.maven"
      "clojure.walk"
      "deps-deploy.deps-deploy"
      "java.io"
@@ -1223,7 +1223,7 @@
      {:version "1.10.3", :type "maven", :size 3914649},
      "org.slf4j/slf4j-nop"
      {:version "1.7.32", :type "maven", :size 4020},
-     "org.clojure/tools.deps.alpha"
+     "org.clojure/tools.deps"
      {:version "0.12.1003", :type "maven", :size 60953},
      "slipset/deps-deploy"
      {:version "0.1.5", :type "maven", :size 6205},
@@ -1406,8 +1406,8 @@
      "clojure.set"
      "clojure.stacktrace"
      "clojure.string"
-     "clojure.tools.deps.alpha"
-     "clojure.tools.deps.alpha.util.maven"
+     "clojure.tools.deps"
+     "clojure.tools.deps.util.maven"
      "clojure.walk"
      "java.io"
      "java.net"
@@ -1492,7 +1492,7 @@
      "clj-commons/fs" {:version "1.6.310", :type "maven", :size 12819},
      "com.github.polyfy/jline"
      {:version "3.20.0", :type "maven", :size 1006075},
-     "org.clojure/tools.deps.alpha"
+     "org.clojure/tools.deps"
      {:version "0.12.1003", :type "maven", :size 60953},
      "djblue/portal" {:version "0.13.0", :type "maven", :size 617207},
      "org.clojure/clojure"
@@ -1855,8 +1855,8 @@
       :imports
       ["clojure.set"
        "clojure.string"
-       "clojure.tools.deps.alpha"
-       "clojure.tools.deps.alpha.util.maven"
+       "clojure.tools.deps"
+       "clojure.tools.deps.util.maven"
        "dev.dev-common"
        "polylith.clj.core.api.interface"
        "polylith.clj.core.change.interface"
@@ -1880,8 +1880,8 @@
      "clojure.set"
      "clojure.stacktrace"
      "clojure.string"
-     "clojure.tools.deps.alpha"
-     "clojure.tools.deps.alpha.util.maven"
+     "clojure.tools.deps"
+     "clojure.tools.deps.util.maven"
      "clojure.walk"
      "deps-deploy.deps-deploy"
      "java.io"
@@ -2030,7 +2030,7 @@
       "clj-commons/fs" {:version "1.6.310", :type "maven", :size 12819},
       "com.github.polyfy/jline"
       {:version "3.20.0", :type "maven", :size 1006075},
-      "org.clojure/tools.deps.alpha"
+      "org.clojure/tools.deps"
       {:version "0.12.1003", :type "maven", :size 60953},
       "djblue/portal" {:version "0.13.0", :type "maven", :size 617207},
       "org.clojure/clojure"
@@ -2050,7 +2050,7 @@
      "clj-commons/fs" {:version "1.6.310", :type "maven", :size 12819},
      "com.github.polyfy/jline"
      {:version "3.20.0", :type "maven", :size 1006075},
-     "org.clojure/tools.deps.alpha"
+     "org.clojure/tools.deps"
      {:version "0.12.1003", :type "maven", :size 60953},
      "djblue/portal" {:version "0.13.0", :type "maven", :size 617207},
      "org.clojure/clojure"
@@ -3326,7 +3326,7 @@
       :namespace "polylith.clj.core.deps.lib-deps",
       :file-path
       "/Users/joakimtengstrand/source/polylith/components/deps/src/polylith/clj/core/deps/lib_deps.clj",
-      :imports ["clojure.tools.deps.alpha"]}
+      :imports ["clojure.tools.deps"]}
      {:name "text-table.project-deps-table",
       :namespace
       "polylith.clj.core.deps.text-table.project-deps-table",
@@ -3429,7 +3429,7 @@
        "polylith.clj.core.deps.text-table.data.usermanager"
        "polylith.clj.core.deps.text-table.project-deps-table"]}]},
    :lib-imports
-   {:src ["clojure.set" "clojure.string" "clojure.tools.deps.alpha"],
+   {:src ["clojure.set" "clojure.string" "clojure.tools.deps"],
     :test ["clojure.test"]},
    :name "deps",
    :paths {:src ["src"], :test ["test"]},
@@ -3438,7 +3438,7 @@
    {:src ["common" "text-table" "util"], :test ["common"]},
    :lib-deps
    {:src
-    {"org.clojure/tools.deps.alpha"
+    {"org.clojure/tools.deps"
      {:version "0.12.1003", :type "maven", :size 60953}}}}
   {:lines-of-code {:src 238, :test 2},
    :interface
@@ -3537,7 +3537,7 @@
       ["clojure.java.io"
        "clojure.pprint"
        "clojure.string"
-       "clojure.tools.deps.alpha"
+       "clojure.tools.deps"
        "java.io"
        "java.nio.file"
        "me.raynes.fs"
@@ -3553,7 +3553,7 @@
     ["clojure.java.io"
      "clojure.pprint"
      "clojure.string"
-     "clojure.tools.deps.alpha"
+     "clojure.tools.deps"
      "java.io"
      "java.nio.file"
      "me.raynes.fs"],
@@ -3565,7 +3565,7 @@
    :lib-deps
    {:src
     {"clj-commons/fs" {:version "1.6.310", :type "maven", :size 12819},
-     "org.clojure/tools.deps.alpha"
+     "org.clojure/tools.deps"
      {:version "0.12.1003", :type "maven", :size 60953}}}}
   {:lines-of-code {:src 176, :test 13},
    :interface
@@ -5869,7 +5869,7 @@
       :imports
       ["clojure.set"
        "clojure.string"
-       "clojure.tools.deps.alpha.util.maven"
+       "clojure.tools.deps.util.maven"
        "polylith.clj.core.file.interface"
        "polylith.clj.core.lib.interface"
        "polylith.clj.core.util.interface"
@@ -5913,7 +5913,7 @@
    {:src
     ["clojure.set"
      "clojure.string"
-     "clojure.tools.deps.alpha.util.maven"],
+     "clojure.tools.deps.util.maven"],
     :test ["clojure.test"]},
    :name "workspace-clj",
    :paths {:src ["src"], :test ["test"]},
@@ -5932,7 +5932,7 @@
     :test ["file"]},
    :lib-deps
    {:src
-    {"org.clojure/tools.deps.alpha"
+    {"org.clojure/tools.deps"
      {:version "0.12.1003", :type "maven", :size 60953}}}}
   {:lines-of-code {:src 125, :test 68},
    :interface

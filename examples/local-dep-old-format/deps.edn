@@ -21,7 +21,7 @@
                                 "components/util/src"
                                 "bases/invoicer-cli/src"]
                   :extra-deps {org.clojure/clojure {:mvn/version "1.10.1"}
-                               org.clojure/tools.deps.alpha {:mvn/version "0.12.985"}
+                               org.clojure/tools.deps {:mvn/version "0.16.1264"}
                                clj-time/clj-time {:git/url "https://github.com/clj-time/clj-time.git"
                                                   :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}
                                uncomplicate/neanderthal {:mvn/version "0.41.0"

@@ -12,8 +12,8 @@
      clojure -T:build uberjar :project command-line"
   (:require [clojure.java.io :as io]
             [clojure.tools.build.api :as b]
-            [clojure.tools.deps.alpha :as t]
-            [clojure.tools.deps.alpha.util.dir :refer [with-dir]]
+            [clojure.tools.deps :as t]
+            [clojure.tools.deps.util.dir :refer [with-dir]]
             [org.corfield.build :as bb]))
 
 (defn- get-project-aliases []

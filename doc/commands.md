@@ -356,7 +356,7 @@ poly help
     PROJECT   = Show dependencies for specified project.
     BRICK     = Show dependencies for specified brick.
 
-  To get help for a specific diagram, type: 
+  To get help for a specific diagram, type:
     poly help deps ARGS:
       ARGS = :brick           Help for the brick diagram.
              :project         Help for the project diagram.
@@ -396,7 +396,7 @@ poly help
   poly deps project:PROJEXT
     PROJECT = The project name or alias to show dependencies for.
 
-         p      
+         p
          a  u  u
          y  s  t
          e  e  i
@@ -428,7 +428,7 @@ poly help
 
   poly deps
 
-         p      
+         p
          a  u  u
          y  s  t
          e  e  i
@@ -522,7 +522,7 @@ poly help
 
   1. stable since: dec73ec | stable-lisa
 
-     Shows the most recent commit marked as stable, or the last release if 
+     Shows the most recent commit marked as stable, or the last release if
      since:release or since:previous-release was given, or the first commit
      in the repository if no tag was found, followed by the tag (if found).
      More information can be found in the 'diff' command help.
@@ -638,7 +638,7 @@ poly help
       --x  The brick is marked to be executed from this project.
 
     If :r or :resources is also passed in:
-      s---  The project contains a path to the 'src' directory, e.g. 
+      s---  The project contains a path to the 'src' directory, e.g.
             'components/user/src' (or is indirectly added by a :local/root).
       -r--  The project contains a path to the 'resources' directory, e.g.
             'components/user/resources' (or is indirectly added by a :local/root).
@@ -691,12 +691,12 @@ poly help
                                                                                       u  u
                                                                                       s  t
                                                                                       e  i
-    library                       version   type      KB   cl   dev  default  admin   r  l
-    ----------------------------------------------------   --   -------------------   ----
-    antlr/antlr                   2.7.7     maven    434   x     x      -       -     .  x
-    clj-time                      0.15.2    maven     23   x     x      -       -     x  .
-    org.clojure/clojure           1.10.1    maven  3,816   x     x      -       -     .  .
-    org.clojure/tools.deps.alpha  0.12.985  maven     46   x     x      -       -     .  .
+    library                 version    type      KB   cl   dev  default  admin   r  l
+    -----------------------------------------------   --   -------------------   ----
+    antlr/antlr             2.7.7      maven    434   x     x      -       -     .  x
+    clj-time                0.15.2     maven     23   x     x      -       -     x  .
+    org.clojure/clojure     1.10.1     maven  3,816   x     x      -       -     .  .
+    org.clojure/tools.deps  0.16.1264  maven     46   x     x      -       -     .  .
 
   In this example we have four libraries used by the cl and dev projects.
   If any of the libraries are added to the default or admin profiles, they will appear
@@ -962,4 +962,3 @@ poly help
     poly ws out:ws.edn
     poly ws color-mode:none > ws.edn
 ```
-

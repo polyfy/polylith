@@ -34,7 +34,7 @@
                                 "bases/poly-cli/src"]
 
                   :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}
-                               org.clojure/tools.deps.alpha {:mvn/version "0.15.1244"}
+                               org.clojure/tools.deps {:mvn/version "0.16.1264"}
                                org.slf4j/slf4j-nop {:mvn/version "2.0.3"}
                                org.jline/jline {:mvn/version "3.21.0"}
                                djblue/portal {:mvn/version "0.33.0"}
