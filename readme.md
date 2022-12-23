@@ -11,3 +11,7 @@ Iron, Bronze, Silver, Gold, and Platinum sponsors will also be listed on the [fi
 ### Bronze sponsors
 
 [<img src="images/logos/scrintal.png" height="60px" alt="scrintal.com"/>](https://www.scrintal.com)
+
+### Polylith Friends
+
+[<img src="https://avatars.githubusercontent.com/u/18068051" width="32" alt="Jungin Kwon">](https://github.com/yyna)
