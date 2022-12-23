@@ -8,6 +8,10 @@ Please [sponsor](https://github.com/sponsors/polyfy) the important work of Polyl
 
 Iron, Bronze, Silver, Gold, and Platinum sponsors will also be listed on the [first page](https://polylith.gitbook.io/polylith) of the high-level documentation.
 
-### Bronze sponsors
+### Bronze Sponsors
 
 [<img src="images/logos/scrintal.png" height="60px" alt="scrintal.com"/>](https://www.scrintal.com)
+
+### Polylith Fans
+
+[<img src="https://avatars.githubusercontent.com/u/18068051" width="32" alt="Jungin Kwon">](https://github.com/yyna)
