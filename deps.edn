@@ -80,7 +80,8 @@
             :migrator {:main-opts  ["-m" "polylith.clj.core.migrator-cli.core"]
                        :extra-deps {polylith/clj-poly-migrator {:local/root "projects/poly-migrator"}}}
 
-            :build {:deps {io.github.seancorfield/build-clj
+            :build {:deps {org.clojure/tools.deps {:mvn/version "0.16.1264"}
+                           io.github.seancorfield/build-clj
                            {:git/tag "v0.8.3" :git/sha "7ac1f8d"}
                            poly/version {:local/root "components/version"}}
                     :paths ["build/resources"]
