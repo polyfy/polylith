@@ -36,9 +36,13 @@
 (defn filter-exact-match [word candidates]
   (filter #(= word (:parsed-value %)) candidates))
 
+(defn starts-with [{:keys [parsed-value]} word]
+  (and (not (nil? parsed-value))
+     (str/starts-with? parsed-value word)))
+
 (defn filter-candidates [word candidates potential-exact-match?]
   (let [potentials (filter-exact-match word candidates)
-        filtered (filterv #(str/starts-with? (:parsed-value %) word) candidates)
+        filtered (filterv #(starts-with % word) candidates)
         ordered (sort-by :order (filter #(:order %) filtered))
         order (-> ordered first :order)]
     (if (and potential-exact-match?

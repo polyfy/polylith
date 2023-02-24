@@ -345,6 +345,10 @@
   (is (= ["start"]
          (candidates "ws" :next "get" "components" "shell" "interface" "definitions" ""))))
 
+(deftest ws-get-components-api-non-top-namespaces-
+  (is (= []
+         (setup/candidates "ws" :next "get" "components" "api" "non-top-namespaces" ""))))
+
 (deftest ws-out-components-next-
   (is (= [":all" ":all-bricks" ":dev" ":latest-sha" ":loc" ":project" "branch"
           "brick" "get" "project" "since"]
