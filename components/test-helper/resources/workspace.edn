@@ -2655,6 +2655,8 @@
       :imports ["clojure.test"]}]},
    :lib-imports {:src ["clojure.string"], :test ["clojure.test"]},
    :name "api",
+   :non-top-namespaces [{:file "components/api/test-resources/api/testing.txt",
+                         :non-top-ns "user"}]
    :paths {:src ["src"], :test ["test"]},
    :type "component",
    :interface-deps

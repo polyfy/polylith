@@ -10,11 +10,11 @@
   (mapv :name parameters))
 
 (defn ->multi-interface [[interface-name components]]
-  {:name interface-name
-   :type "interface"
-   :definitions (vec (sort-by (juxt :sub-ns :type :name params)
-                              (set (mapcat #(-> % :interface :definitions) components))))
-   :implementing-components (vec (sort (map :name components)))})
+  (cond-> {:name interface-name
+           :type "interface"
+           :definitions (vec (sort-by (juxt :sub-ns :type :name params)
+                                      (set (mapcat #(-> % :interface :definitions) components))))}
+          interface-name (assoc :implementing-components (vec (sort (map :name components))))))
 
 (defn calculate
   "Calculates all interfaces, which are all definitions (data/function/macro)
