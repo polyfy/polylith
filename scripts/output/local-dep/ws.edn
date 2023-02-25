@@ -22,18 +22,27 @@
    :interface-deps {:src ["invoicer"], :test []}}],
  :changes
  {:since "stable",
-  :changed-projects [],
+  :changed-projects ["invoicing"],
   :changed-bases [],
   :project-to-indirect-changes
   {"invoicing" {:src [], :test []}, "development" {:src [], :test []}},
-  :project-to-bricks-to-test {"development" [], "invoicing" []},
+  :project-to-bricks-to-test
+  {"development" [],
+   "invoicing"
+   ["database"
+    "invoicer"
+    "invoicer-cli"
+    "test-helper"
+    "test-helper-db"
+    "util"
+    "without-src"]},
   :project-to-projects-to-test {"invoicing" [], "development" []},
   :since-sha "SHA",
-  :changed-files [],
+  :changed-files ["deps.edn" "projects/invoicing/deps.edn"],
   :git-diff-command "git diff SHA --name-only",
   :changed-components [],
-  :since-tag "stable-BRANCH",
-  :changed-or-affected-projects []},
+  :since-tag "stable-master",
+  :changed-or-affected-projects ["invoicing"]},
  :components
  [{:lines-of-code {:src 4, :test 6},
    :interface {:name "database", :definitions []},
@@ -330,7 +339,7 @@
     {"org.clojure/clojure"
      {:version "1.10.1", :type "maven", :size 3908431},
      "org.clojure/tools.deps"
-     {:version "0.16.1264", :type "maven", :size 60822},
+     {:version "0.16.1264", :type "maven", :size 59570},
      "clj-time/clj-time"
      {:git/url "https://github.com/clj-time/clj-time.git",
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
@@ -444,7 +453,7 @@
      {"org.clojure/clojure"
       {:version "1.10.1", :type "maven", :size 3908431},
       "org.clojure/tools.deps"
-      {:version "0.16.1264", :type "maven", :size 60822},
+      {:version "0.16.1264", :type "maven", :size 59570},
       "clj-time/clj-time"
       {:git/url "https://github.com/clj-time/clj-time.git",
        :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
@@ -467,7 +476,7 @@
     {"org.clojure/clojure"
      {:version "1.10.1", :type "maven", :size 3908431},
      "org.clojure/tools.deps"
-     {:version "0.16.1264", :type "maven", :size 60822},
+     {:version "0.16.1264", :type "maven", :size 59570},
      "clj-time/clj-time"
      {:git/url "https://github.com/clj-time/clj-time.git",
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
@@ -542,9 +551,9 @@
    :branch "BRANCH",
    :git-root "USER-HOME/source/polylith",
    :auto-add false,
-   :stable-since {:tag "stable-BRANCH", :sha "SHA"},
+   :stable-since {:tag "stable-master", :sha "SHA"},
    :polylith
-   {:repo "https://github.com/polyfy/polylith.git", :branch "BRANCH"}},
+   {:repo "https://github.com/polyfy/polylith.git", :branch "master"}},
   :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
   :m2-dir "USER-HOME/.m2",
   :color-mode "none",
