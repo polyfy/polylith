@@ -1,7 +1,9 @@
-  poly [shell]
+  poly [shell] [:tap]
 
   Starts an interactive shell with the name of the selected workspace, e.g.:
     myworkspace$>
+
+  If :tap is passed in, a portal window that outputs tap> statements is opened.
 
   From here we can execute any poly command, e.g.:
     myworkspace$> info

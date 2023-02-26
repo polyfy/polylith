@@ -11,6 +11,7 @@
             [polylith.clj.core.git.interface :as git]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.command.info :as info]
+            [polylith.clj.core.validator.m207-unnecessary-components-in-project :as validator207]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.workspace-clj.interface :as ws-clj]
             [polylith.clj.core.common.interface :as common]
@@ -48,7 +49,8 @@
 
 ;(command/execute-command (user-input/extract-params ["test"]))
 
-(:projects workspace)
+(validator207/warnings (-> workspace :settings) (:projects workspace) true "dark")
+
 (:messages workspace)
 (:changes workspace)
 (:settings workspace)
@@ -67,6 +69,7 @@
 (map :name projects)
 
 (def project (common/find-project "dev" projects))
+(def project (common/find-project "api" projects))
 (def project (common/find-project "invoice" projects))
 (def project (common/find-project "invoicing" projects))
 (def project (common/find-project "poly-migrator" projects))

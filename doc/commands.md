@@ -29,17 +29,17 @@ poly help
 ```
 
 ```
-  Poly 0.2.17-alpha (2022-12-09) - https://github.com/polyfy/polylith
+  Poly 0.2.18-alpha-issue282 (2023-02-26) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
-    check                       Checks if the workspace is valid.
+    check [ARG]                 Checks if the workspace is valid.
     create E name:N [ARG]       Creates a component, base, project or workspace.
     deps [project:P] [brick:B]  Shows dependencies.
     diff                        Shows changed files since last stable point in time.
     help [C] [ARG]              Shows this help or help for specified command.
     info [ARGS]                 Shows a workspace overview and checks if it's valid.
-    libs                        Shows all libraries in the workspace.
+    libs [ARGS]                 Shows all libraries in the workspace.
     migrate                     Migrates the workspace to the latest format.
     shell                       Starts an interactive shell.
     test [ARGS]                 Runs tests.
@@ -100,7 +100,9 @@ poly help
     tap close
 
   Example:
+    poly
     poly check
+    poly check :dev
     poly create c name:user
     poly create component name:user
     poly create component name:admin interface:user
@@ -149,6 +151,8 @@ poly help
     poly info ws-dir:another-ws
     poly info ws-file:ws.edn
     poly libs
+    poly libs :all
+    poly libs :compact
     poly migrate
     poly shell
     poly test
@@ -184,7 +188,7 @@ poly help
 ```
   Validates the workspace.
 
-  poly check
+  poly check [:dev]
 
   Prints 'OK' and returns 0 if no errors were found.
   If errors or warnings were found, show messages and return the error code,
@@ -253,6 +257,12 @@ poly help
 
   Warning 206 - Unreadable namespace in brick/project.
     Triggered if a namespace can't be parsed for a brick or project.
+
+  Warning 207 - Unnecessary components were found in project.
+    Triggered if components were defined in a project that are not used by any of
+    its bricks. Development is only checked if :dev is passed in.
+    If a component should be included anyway, put the component in the :necessary
+    vector for a project in :projects in ./workspace.edn.
 ```
 
 ### create
@@ -757,10 +767,12 @@ poly help
 
 ### shell
 ```
-  poly [shell]
+  poly [shell] [:tap]
 
   Starts an interactive shell with the name of the selected workspace, e.g.:
     myworkspace$>
+
+  If :tap is passed in, a portal window that outputs tap> statements is opened.
 
   From here we can execute any poly command, e.g.:
     myworkspace$> info
