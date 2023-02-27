@@ -92,6 +92,7 @@
           "  rewrite-clj/rewrite-clj           1.1.46     maven     72    -    -      x    .  .  .  .  .  .  .  ."
           "  slipset/deps-deploy               0.2.0      maven      7    -    -      x    .  .  .  .  .  .  .  ."
           "  zprint/zprint                     1.2.5      maven    195    -    x      x    .  .  x  .  .  .  .  ."]
+
          (libs/table (workspace) false))))
 
 (deftest ifc-deps-table
