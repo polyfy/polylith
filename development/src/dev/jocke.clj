@@ -86,3 +86,40 @@
 (def changed-bricks (set (concat changed-components changed-bases)))
 (def brick-changed? (-> (set/intersection bricks changed-bricks)
                         empty? not))
+
+
+
+
+expected: (= {:src {"org.jline/jline" {:size 994664, :type "maven", :version "3.21.0"}}} (ws-explorer/extract (workspace) ["components" "shell" "lib-deps"]))
+actual: (not (= {:src {"org.jline/jline" {:size 994664, :type "maven", :version "3.21.0"}}} {:src {"org.jline/jline" {:version "3.22.0", :type "maven", :size 1060013}}}))
+
+
+(= {:src {"org.jline/jline" {:size 994664, :type "maven", :version "3.21.0"}}}
+   {:src {"org.jline/jline" {:size 994664, :type "maven", :version "3.21.0"}}})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
