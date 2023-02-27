@@ -80,7 +80,8 @@
        "    Triggered if components were defined in a project that are not used by any of\n"
        "    its bricks. Development is only checked if :dev is passed in.\n"
        "    If a component should be included anyway, put the component in the " (s/key ":necessary" cm) "\n"
-       "    vector for a project in " (s/key ":projects" cm) " in ./workspace.edn."))
+       "    vector for a project in " (s/key ":projects" cm) " in ./workspace.edn. See an example here:\n"
+       "    https://github.com/polyfy/polylith/blob/master/workspace.edn"))
 
 (defn print-help [cm]
   (-> cm help-text println))

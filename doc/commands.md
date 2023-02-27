@@ -106,6 +106,7 @@ poly help
     poly create c name:user
     poly create component name:user
     poly create component name:admin interface:user
+    poly create b name:mybase
     poly create base name:mybase
     poly create project name:myproject
     poly create w top-ns:com.my.company
@@ -262,7 +263,8 @@ poly help
     Triggered if components were defined in a project that are not used by any of
     its bricks. Development is only checked if :dev is passed in.
     If a component should be included anyway, put the component in the :necessary
-    vector for a project in :projects in ./workspace.edn.
+    vector for a project in :projects in ./workspace.edn. See an example here:
+    https://github.com/polyfy/polylith/blob/master/workspace.edn
 ```
 
 ### create
