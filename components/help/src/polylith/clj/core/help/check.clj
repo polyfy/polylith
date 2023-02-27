@@ -5,7 +5,7 @@
 (defn help-text [cm]
   (str "  Validates the workspace.\n"
        "\n"
-       "  poly check\n"
+       "  poly check [:dev]\n"
        "\n"
        "  Prints 'OK' and returns 0 if no errors were found.\n"
        "  If errors or warnings were found, show messages and return the error code,\n"
@@ -74,7 +74,14 @@
        "    defined in " (s/key ":top-namespace" cm) " in ./workspace.edn.\n"
        "\n"
        "  " (color/warning cm "Warning 206") " - Unreadable namespace in brick/project.\n"
-       "    Triggered if a namespace can't be parsed for a brick or project."))
+       "    Triggered if a namespace can't be parsed for a brick or project.\n"
+       "\n"
+       "  " (color/warning cm "Warning 207") " - Unnecessary components were found in project.\n"
+       "    Triggered if components were defined in a project that are not used by any of\n"
+       "    its bricks. Development is only checked if :dev is passed in.\n"
+       "    If a component should be included anyway, put the component in the " (s/key ":necessary" cm) "\n"
+       "    vector for a project in " (s/key ":projects" cm) " in ./workspace.edn. See an example here:\n"
+       "    https://github.com/polyfy/polylith/blob/master/workspace.edn"))
 
 (defn print-help [cm]
   (-> cm help-text println))

@@ -101,7 +101,7 @@
                              " :tag-patterns {:stable \"stable-*\""
                              "                :release \"v[0-9]*\"}"
                              " :projects {\"development\" {:alias \"dev\"}"
-                             "            \"service\" {:alias \"s\"}}}"])]
+                             "            \"service\" {:alias \"s\" :necessary [\"user1\"]}}}"])]
     (resolve-deps ws-dir)
 
     (mapv execute-command commands)))

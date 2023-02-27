@@ -79,18 +79,20 @@
           "  library                           version    type      KB   api  poly   dev   s  e  r  l  p  r  j  r"
           "  ---------------------------------------------------------   ---------   ---   ----------------------"
           "  clj-commons/fs                    1.6.310    maven     12    x    x      x    .  x  .  .  .  .  .  ."
-          "  djblue/portal                     0.33.0     maven  1,150    -    x      x    .  .  .  .  x  .  .  ."
-          "  io.github.seancorfield/build-clj  7ac1f8d    git       41    -    -      x    .  .  .  .  .  .  .  ."
-          "  metosin/malli                     0.9.2      maven     73    x    x      x    .  .  .  .  .  x  .  ."
-          "  mount/mount                       0.1.16     maven      8    -    -      x    .  .  .  .  .  .  .  ."
-          "  mvxcvi/puget                      1.3.2      maven     15    x    x      x    .  .  .  .  .  .  .  x"
+          "  djblue/portal                     0.35.1     maven  1,790    -    x      x    .  .  .  .  x  .  .  ."
+          "  io.github.seancorfield/build-clj  9c9f078    git       42    -    -      x    .  .  .  .  .  .  .  ."
+          "  metosin/malli                     0.10.1     maven     81    x    x      x    .  .  .  .  .  x  .  ."
+          "  mount/mount                       0.1.17     maven      8    -    -      x    .  .  .  .  .  .  .  ."
+          "  mvxcvi/puget                      1.3.2      maven     15    x    x      -    .  .  .  .  .  .  .  x"
+          "  mvxcvi/puget                      1.3.4      maven     15    -    -      x    .  .  .  .  .  .  .  ."
           "  org.clojure/clojure               1.11.1     maven  4,008    x    x      x    .  .  .  .  .  .  .  ."
-          "  org.clojure/tools.deps            0.16.1264  maven     58    x    x      x    x  x  .  .  .  .  x  ."
-          "  org.jline/jline                   3.21.0     maven    971    -    x      x    .  .  .  x  .  .  .  ."
-          "  org.slf4j/slf4j-nop               2.0.3      maven      3    -    x      x    .  .  .  .  .  .  .  ."
-          "  rewrite-clj/rewrite-clj           1.1.45     maven     71    -    -      x    .  .  .  .  .  .  .  ."
+          "  org.clojure/tools.deps            0.16.1281  maven     57    x    x      x    x  x  .  .  .  .  x  ."
+          "  org.jline/jline                   3.22.0     maven  1,035    -    x      x    .  .  .  x  .  .  .  ."
+          "  org.slf4j/slf4j-nop               2.0.6      maven      3    -    x      x    .  .  .  .  .  .  .  ."
+          "  rewrite-clj/rewrite-clj           1.1.46     maven     72    -    -      x    .  .  .  .  .  .  .  ."
           "  slipset/deps-deploy               0.2.0      maven      7    -    -      x    .  .  .  .  .  .  .  ."
-          "  zprint/zprint                     1.2.4      maven    185    -    x      x    .  .  x  .  .  .  .  ."]
+          "  zprint/zprint                     1.2.5      maven    195    -    x      x    .  .  x  .  .  .  .  ."]
+
          (libs/table (workspace) false))))
 
 (deftest ifc-deps-table
@@ -584,7 +586,7 @@
          (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"]))))
 
 (deftest shell-component-lib-deps
-  (is (= {:src {"org.jline/jline" {:size    994664
+  (is (= {:src {"org.jline/jline" {:size    1060013
                                    :type    "maven"
-                                   :version "3.21.0"}}}
+                                   :version "3.22.0"}}}
          (ws-explorer/extract (workspace) ["components" "shell" "lib-deps"]))))

@@ -41,3 +41,6 @@
   ws-explorer               ws-explorer                s--  st-    st-
   ws-file                   ws-file                    ---  s--    s--
   -                         poly-cli                   ---  st-    st-
+
+  Warning 207: Unnecessary components were find in the api project and may be removed: api
+  Warning 207: Unnecessary components were find in the poly project and may be removed: clojure-test-test-runner

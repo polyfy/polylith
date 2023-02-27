@@ -7,6 +7,6 @@
  :tag-patterns {:stable "stable-*"
                 :release "v[0-9]*"}
 
- :projects {"api" {:alias "api" :test []}
-            "poly" {:alias "poly"}
+ :projects {"api" {:alias "api" :test [] :necessary ["api"]}
+            "poly" {:alias "poly" :necessary ["clojure-test-test-runner"]}
             "development" {:alias "dev"}}}

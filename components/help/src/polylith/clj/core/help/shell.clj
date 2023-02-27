@@ -2,10 +2,12 @@
   (:require [polylith.clj.core.help.shared :as s]))
 
 (defn help [cm]
-  (str "  poly [shell]\n"
+  (str "  poly [shell] [:tap]\n"
        "\n"
        "  Starts an interactive shell with the name of the selected workspace, e.g.:\n"
        "    myworkspace$>\n"
+       "\n"
+       "  If :tap is passed in, a portal window that outputs " (s/key "tap>" cm) " statements is opened.\n"
        "\n"
        "  From here we can execute any poly command, e.g.:\n"
        "    myworkspace$> info\n"

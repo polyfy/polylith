@@ -13,14 +13,15 @@
             [polylith.clj.core.validator.m202-missing-paths :as m202]
             [polylith.clj.core.validator.m203-path-exists-in-both-dev-and-profile :as m203]
             [polylith.clj.core.validator.m205-non-top-namespace :as m205]
-            [polylith.clj.core.validator.m206-unreadable-namespace :as m206]))
+            [polylith.clj.core.validator.m206-unreadable-namespace :as m206]
+            [polylith.clj.core.validator.m207-unnecessary-components-in-project :as m207]))
 
 (defn has-errors? [messages]
   (->> messages
        (util/xf-some (keep #(= "error" (:type %))))
        (boolean)))
 
-(defn validate-ws [suffixed-top-ns settings paths interface-names interfaces components bases projects interface-ns {:keys [cmd]} color-mode]
+(defn validate-ws [suffixed-top-ns settings paths interface-names interfaces components bases projects interface-ns {:keys [cmd is-dev]} color-mode]
   (->> [(m101/errors suffixed-top-ns interface-names components bases interface-ns color-mode)
         (m102/errors components color-mode)
         (m103/errors interfaces components color-mode)
@@ -34,7 +35,8 @@
         (m202/warnings projects paths color-mode)
         (m203/warnings settings projects color-mode)
         (m205/warnings components bases color-mode)
-        (m206/warnings components bases projects color-mode)]
+        (m206/warnings components bases projects color-mode)
+        (m207/warnings settings projects is-dev color-mode)]
        (into #{} cat)
        (sort-by (juxt :type :code :message))
        (vec)))

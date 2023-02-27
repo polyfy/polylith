@@ -1,6 +1,6 @@
   Validates the workspace.
 
-  poly check
+  poly check [:dev]
 
   Prints 'OK' and returns 0 if no errors were found.
   If errors or warnings were found, show messages and return the error code,
@@ -69,3 +69,10 @@
 
   Warning 206 - Unreadable namespace in brick/project.
     Triggered if a namespace can't be parsed for a brick or project.
+
+  Warning 207 - Unnecessary components were found in project.
+    Triggered if components were defined in a project that are not used by any of
+    its bricks. Development is only checked if :dev is passed in.
+    If a component should be included anyway, put the component in the :necessary
+    vector for a project in :projects in ./workspace.edn. See an example here:
+    https://github.com/polyfy/polylith/blob/master/workspace.edn

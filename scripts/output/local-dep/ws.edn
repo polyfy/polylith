@@ -257,7 +257,13 @@
    :type "interface",
    :definitions [],
    :implementing-components ["without-src"]}],
- :messages [],
+ :messages
+ [{:type "warning",
+   :code 207,
+   :message
+   "Unnecessary components were find in the invoicing project and may be removed: datomic-ions, without-src",
+   :colorized-message
+   "Unnecessary components were find in the invoicing project and may be removed: datomic-ions, without-src"}],
  :name "local-dep",
  :paths
  {:existing
@@ -594,12 +600,12 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.17-alpha",
+  {:name "0.2.18-alpha-issue282",
    :major 0,
    :minor 2,
-   :patch 17,
-   :revision "alpha",
-   :date "2022-12-09"},
+   :patch 18,
+   :revision "alpha-issue282",
+   :date "2023-02-26"},
   :ws {:type :toolsdeps2, :breaking 1, :non-breaking 2}},
  :ws-dir "USER-HOME/source/polylith/examples/local-dep",
  :ws-local-dir "examples/local-dep",
