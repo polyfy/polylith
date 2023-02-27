@@ -2,7 +2,7 @@
         poly/cli {:local/root "../../bases/cli"}
 
         org.clojure/clojure {:mvn/version "1.10.3"}
-        org.clojure/tools.deps {:mvn/version "0.16.1264"}}
+        org.clojure/tools.deps {:mvn/version "0.16.1281"}}
 
  :aliases {:test {:extra-paths []
                   :extra-deps  {}}
