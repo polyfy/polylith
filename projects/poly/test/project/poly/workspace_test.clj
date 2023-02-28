@@ -87,7 +87,7 @@
           "  mvxcvi/puget                      1.3.4      maven     15    -    -      x    .  .  .  .  .  .  .  ."
           "  org.clojure/clojure               1.11.1     maven  4,008    x    x      x    .  .  .  .  .  .  .  ."
           "  org.clojure/tools.deps            0.16.1281  maven     57    x    x      x    x  x  .  .  .  .  x  ."
-          "  org.jline/jline                   3.22.0     maven  1,035    -    x      x    .  .  .  x  .  .  .  ."
+          "  org.jline/jline                   3.21.0     maven    971    -    x      x    .  .  .  x  .  .  .  ."
           "  org.slf4j/slf4j-nop               2.0.6      maven      3    -    x      x    .  .  .  .  .  .  .  ."
           "  rewrite-clj/rewrite-clj           1.1.46     maven     72    -    -      x    .  .  .  .  .  .  .  ."
           "  slipset/deps-deploy               0.2.0      maven      7    -    -      x    .  .  .  .  .  .  .  ."
@@ -586,7 +586,7 @@
          (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"]))))
 
 (deftest shell-component-lib-deps
-  (is (= {:src {"org.jline/jline" {:size    1060013
+  (is (= {:src {"org.jline/jline" {:size    994664
                                    :type    "maven"
-                                   :version "3.22.0"}}}
+                                   :version "3.21.0"}}}
          (ws-explorer/extract (workspace) ["components" "shell" "lib-deps"]))))
