@@ -221,7 +221,12 @@
   (let [brick-names (set (concat component-names-src component-names-test base-names-src base-names-test))
         bricks (filter #(contains? brick-names (:name %))
                        (concat bases components))
-        ifc->comp (into {} (map (juxt #(-> % :interface :name) :name) components))
+        component-names (set (concat component-names-src component-names-test))
+        ;; Make sure we pick the right component if more than one for an interface.
+        ifc->comp (into {} (map (juxt #(-> % :interface :name) :name)
+                                (concat components
+                                        (filter #(contains? component-names (:name %))
+                                                components))))
         interface-names (set (map #(-> % :interface :name) components))
         interface-names-in-project (ifc-names component-names-src bricks)
         interface-names-in-project-test (ifc-names (concat component-names-src component-names-test) bricks)]
