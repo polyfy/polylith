@@ -19,4 +19,3 @@
   -          [34muser-api[0m *      [35m---[0m  [35m stx  [0m   [35mst-[0m
 
 [31m  Error 106: [0mMore than one component that implements the [33muser[0m interface was found in the [35mdevelopment[0m project: [32muser, user-remote[0m
-[33m  Warning 207: [0mUnnecessary components were find in the [35muser-service[0m project and may be removed: [32muser[0m

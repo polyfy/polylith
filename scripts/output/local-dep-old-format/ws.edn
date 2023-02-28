@@ -422,7 +422,7 @@
     {"org.clojure/clojure"
      {:version "1.10.1", :type "maven", :size 3908431},
      "org.clojure/tools.deps"
-     {:version "0.16.1264", :type "maven", :size 59570},
+     {:version "0.16.1281", :type "maven", :size 58704},
      "clj-time/clj-time"
      {:git/url "https://github.com/clj-time/clj-time.git",
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
@@ -533,7 +533,7 @@
      {"org.clojure/clojure"
       {:version "1.10.1", :type "maven", :size 3908431},
       "org.clojure/tools.deps"
-      {:version "0.16.1264", :type "maven", :size 59570},
+      {:version "0.16.1281", :type "maven", :size 58704},
       "clj-time/clj-time"
       {:git/url "https://github.com/clj-time/clj-time.git",
        :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
@@ -556,7 +556,7 @@
     {"org.clojure/clojure"
      {:version "1.10.1", :type "maven", :size 3908431},
      "org.clojure/tools.deps"
-     {:version "0.16.1264", :type "maven", :size 59570},
+     {:version "0.16.1281", :type "maven", :size 58704},
      "clj-time/clj-time"
      {:git/url "https://github.com/clj-time/clj-time.git",
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
@@ -674,12 +674,12 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.18-alpha-issue282",
+  {:name "0.2.18-alpha-issue282-01",
    :major 0,
    :minor 2,
    :patch 18,
-   :revision "alpha-issue282",
-   :date "2023-02-26"},
+   :revision "alpha-issue282-01",
+   :date "2023-02-28"},
   :ws {:type :toolsdeps2, :breaking 1, :non-breaking 2},
   :from {:ws {:type :toolsdeps1}}},
  :ws-dir "/privateWS-HOME/local-dep-old-format",
