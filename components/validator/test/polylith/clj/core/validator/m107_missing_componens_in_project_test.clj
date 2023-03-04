@@ -17,22 +17,34 @@
                        "lib-dep" {:src {:direct ["common" "util"]
                                         :indirect ["file"]}}}}])
 
-(def components [{:name "file"
-                  :interface {:name "file"}}
-                 {:name "util"
-                  :interface {:name "util"}}
-                 {:name "user-config"
-                  :interface {:name "user-config"}}])
-
 (deftest errors--when-no-active-profiles--ignore-error
   (is (= nil
-         (m107/errors "info" settings projects components color/none))))
+         (m107/errors "info" settings projects color/none))))
 
 (deftest errors--when-projects-with-missing-components--return-error
   (is (= [{:code              107
+           :type              "error"
+           :message           "Missing components in the poly-migrator project for these interfaces: user-config, util"
            :colorized-message "Missing components in the poly-migrator project for these interfaces: user-config, util"
            :interfaces        ["user-config" "util"]
-           :message           "Missing components in the poly-migrator project for these interfaces: user-config, util"
-           :project           "poly-migrator"
-           :type              "error"}]
-         (m107/errors "info" (assoc settings :active-profiles #{"default"}) projects components color/none))))
+           :project           "poly-migrator"}]
+
+         (m107/errors "info" (assoc settings :active-profiles #{"default"}) projects color/none))))
+
+
+(def settings2 {:projects {"development" {:alias "dev"}
+                           "service" {:alias "service"
+                                      :test {}}}})
+
+(def projects2 [{:name "service",
+                 :type "project",
+                 :deps {"user" {:src {}, :test {:missing-ifc {:direct ["test-helper"], :indirect []}}}}}])
+
+(deftest errors--when-projects-with-missing-components-in-test-context--return-error
+  (is (= [{:type              "error"
+           :code              107
+           :message           "Missing components in the service project, for the test context, for these interfaces: test-helper"
+           :colorized-message "Missing components in the service project, for the test context, for these interfaces: test-helper"
+           :interfaces        ["test-helper"]
+           :project           "service"}]
+         (m107/errors "check" settings2 projects2 color/none))))
