@@ -22,21 +22,14 @@
   (let [missing-ifc (mapcat #(-> % second src-type :missing-ifc) deps)]
     (set (mapcat val missing-ifc))))
 
-(defn project-error [{:keys [name deps]} projects brick-name->ifc color-mode]
+(defn project-error [{:keys [name deps]} color-mode]
   (let [missing (vec (sort (missing-components deps :src)))
-        all-missing-test (missing-components deps :test)
-        bricks-to-test (get-in projects [name :test])
-        missing-test (if bricks-to-test
-                       (vec (sort (set/intersection all-missing-test
-                                                    (set (map brick-name->ifc bricks-to-test)))))
-                       (vec (sort all-missing-test)))]
+        missing-test (vec (sort (missing-components deps :test)))]
     (cond
-      (-> missing empty? not) (missing-components-error name missing false color-mode)
-      (-> missing-test empty? not) (missing-components-error name missing-test true color-mode))))
+      (seq missing) (missing-components-error name missing false color-mode)
+      (seq missing-test) (missing-components-error name missing-test true color-mode))))
 
-(defn errors [cmd {:keys [profile-to-settings active-profiles] :as settings} projects components color-mode]
+(defn errors [cmd {:keys [profile-to-settings active-profiles]} projects color-mode]
   (when (shared/show-error? cmd profile-to-settings active-profiles)
-    (let [settings-projects (:projects settings)
-          brick-name->ifc (into {} (map (juxt :name #(-> % :interface :name)) components))]
-      (mapcat #(project-error % settings-projects brick-name->ifc color-mode)
-              projects))))
+    (mapcat #(project-error % color-mode)
+            projects)))

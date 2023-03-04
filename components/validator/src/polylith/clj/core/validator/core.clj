@@ -28,7 +28,7 @@
         (m104/errors projects color-mode)
         (m105/errors interface-names components bases color-mode)
         (m106/errors components projects color-mode)
-        (m107/errors cmd settings projects components color-mode)
+        (m107/errors cmd settings projects color-mode)
         (m108/errors interfaces projects paths color-mode)
         (m109/errors settings color-mode)
         (m201/warnings interfaces components color-mode)

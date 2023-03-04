@@ -8,11 +8,4 @@
       </set>
     </option>
   </component>
-  <component name="DepsProjectsManager">
-    <option name="projectFiles">
-      <set>
-        <option value="file://$PROJECT_DIR$/deps.edn" />
-      </set>
-    </option>
-  </component>
 </project>
