@@ -24,13 +24,14 @@
                         :date date}
               :ws {:type :toolsdeps2
                    :breaking 1
-                   :non-breaking 2}}
+                   :non-breaking 3}}
              from (assoc :from from)))))
 
 ;; === workspace attributes (ws) ===
 ;;
 ;; ws     release         action    attribute
 ;; -----  -------------   -------   -----------------------------------------------------------------
+;; 1.3    0.2.18-alpha    added     :configs
 ;; 1.2    0.2.16-alpha    added     :bases > BASE > :namespaces > :src/test > [] > :invalid
 ;;                        added     :projects > PROJECT > :namespaces > :src/test > [] > :invalid
 ;;                        added     :components > COMPONENT > :namespaces > :src/test > [] > :invalid

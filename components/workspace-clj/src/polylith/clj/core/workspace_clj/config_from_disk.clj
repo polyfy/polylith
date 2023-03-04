@@ -3,23 +3,32 @@
             [polylith.clj.core.common.interface.config :as config]
             [polylith.clj.core.validator.interface :as validator]))
 
-(defn read-and-validate-config-file [config-filename]
-  (if (-> config-filename file/exists not)
-    [false (str "Could not find config file: " config-filename)]
-    (let [config (config/read-deps-file config-filename)
-          message (validator/validate-brick-config config)]
-      (if message
-        [false message]
-        [true config]))))
+(defn read-config-file [ws-type entity-name entity-dir validator]
+  (let [config-filename (str entity-dir "/deps.edn")
+        output (case ws-type
+                 :toolsdeps1
+                 {:config {:paths ["src" "resources"]
+                           :aliases {:test {:extra-paths ["test"]}}}}
+                 :toolsdeps2
+                 (if (-> config-filename file/exists not)
+                   {:error (str "Could not find config file: " config-filename)}
+                   (let [config (config/read-deps-file config-filename)
+                         message (validator config)]
+                     (if message
+                       {:error message}
+                       {:config config}))))]
+    (assoc output :name entity-name)))
 
-(defn read-config-file [ws-type brick-dir]
-  (let [[ok? data] (case ws-type
-                     :toolsdeps1
-                     [true {:paths ["src" "resources"]
-                            :aliases {:test {:extra-paths ["test"]}}}]
-                     :toolsdeps2
-                     (let [config-filename (str brick-dir "/deps.edn")]
-                       (read-and-validate-config-file config-filename)))]
-    (if ok?
-      data
-      (throw (Exception. (str data))))))
+(defn read-config-files [ws-dir ws-type entity-dir validator]
+  (let [configs-and-errors (map #(read-config-file ws-type % (str ws-dir "/" entity-dir "/" %) validator)
+                                (file/directories (str ws-dir (str "/" entity-dir))))
+        configs (vec (sort-by :name (filter :config configs-and-errors)))
+        errors (vec (sort-by :name (filter :error configs-and-errors)))]
+    [configs errors]))
+
+
+(comment
+  (read-config-files "examples/doc-example" :toolsdeps2 "bases" validator/validate-brick-config)
+  (read-config-files "examples/doc-example" :toolsdeps2 "components" validator/validate-brick-config)
+  (read-config-files "examples/doc-example" :toolsdeps2 "projects" #(validator/validate-project-deployable-config :toolsdeps2 %))
+  #__)

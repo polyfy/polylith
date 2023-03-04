@@ -8,7 +8,9 @@
             [polylith.clj.core.user-config.interface :as user-config]
             [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.path-finder.interface :as path-finder]
+            [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.workspace-clj.config :as config]
+            [polylith.clj.core.workspace-clj.config-from-disk :as config-from-disk]
             [polylith.clj.core.workspace-clj.profile :as profile]
             [polylith.clj.core.workspace-clj.ws-reader :as ws-reader]
             [polylith.clj.core.workspace-clj.tag-pattern :as tag-pattern]
@@ -99,8 +101,10 @@
         user-config-filename (user-config/config-file-path)
         project->settings (project-settings/convert ws-config)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
-        components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns)
-        bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns)
+        [component-configs component-errors] (config-from-disk/read-config-files ws-dir ws-type "components" validator/validate-brick-config)
+        components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns component-configs)
+        [base-configs base-errors] (config-from-disk/read-config-files ws-dir ws-type "bases" validator/validate-brick-config)
+        bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns base-configs)
         name->brick (into {} (comp cat (map (juxt :name identity))) [components bases])
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         projects (projects-from-disk/read-projects ws-dir ws-type name->brick project->settings user-input user-home suffixed-top-ns interface-ns)
@@ -131,6 +135,12 @@
                       :ws-reader ws-reader/reader
                       :user-input user-input
                       :settings settings
+                      :configs (cond-> {:component component-configs
+                                        :base base-configs}
+                                       (or (seq component-errors)
+                                           (seq base-errors)) (assoc :errors {:component component-errors
+                                                                              :base base-errors}))
+
                       :components components
                       :bases bases
                       :projects projects
