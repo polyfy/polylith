@@ -113,6 +113,7 @@
         paths (path-finder/paths ws-dir projects profile-to-settings)
         default-profile (or default-profile-name "default")
         active-profiles (profile/active-profiles user-input default-profile profile-to-settings)
+        config-errors (into [] cat [component-errors base-errors project-errors])
         settings (util/ordered-map :vcs (git-info ws-dir vcs patterns user-input)
                                    :top-namespace top-namespace
                                    :interface-ns interface-ns
@@ -137,11 +138,7 @@
                       :configs (cond-> {:component component-configs
                                         :base base-configs
                                         :project project-configs}
-                                       (or (seq component-errors)
-                                           (seq base-errors)
-                                           (seq project-errors)) (assoc :errors {:component component-errors
-                                                                                 :base base-errors
-                                                                                 :project project-errors}))
+                                       (seq config-errors) (assoc :errors config-errors))
                       :components components
                       :bases bases
                       :projects projects
