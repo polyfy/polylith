@@ -8,17 +8,17 @@
             [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]
             [polylith.clj.core.workspace-clj.non-top-namespace :as non-top-ns]))
 
-(defn read-base [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns {:keys [config entity-name]}]
-  (let [base-dir (str ws-dir "/bases/" entity-name)
+(defn read-base [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns {:keys [config name]}]
+  (let [base-dir (str ws-dir "/bases/" name)
         base-src-dirs (brick-dirs/top-src-dirs base-dir top-src-dir config)
         base-test-dirs (brick-dirs/top-test-dirs base-dir top-src-dir config)
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         namespaces (ns-from-disk/namespaces-from-disk base-src-dirs base-test-dirs suffixed-top-ns interface-ns)
-        entity-root-path (str "bases/" entity-name)
+        entity-root-path (str "bases/" name)
         lib-deps (lib/brick-lib-deps ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home)
         source-paths (config/source-paths config)
-        non-top-namespaces (non-top-ns/non-top-namespaces "base" entity-name base-dir top-src-dir source-paths)]
-    (util/ordered-map :name entity-name
+        non-top-namespaces (non-top-ns/non-top-namespaces "base" name base-dir top-src-dir source-paths)]
+    (util/ordered-map :name name
                       :type "base"
                       :maven-repos (:mvn/repos config)
                       :paths (brick-paths/source-paths base-dir config)

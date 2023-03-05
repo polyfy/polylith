@@ -8,7 +8,6 @@
             [polylith.clj.core.user-config.interface :as user-config]
             [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.path-finder.interface :as path-finder]
-            [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.workspace-clj.config :as config]
             [polylith.clj.core.workspace-clj.config-from-disk :as config-from-disk]
             [polylith.clj.core.workspace-clj.profile :as profile]
@@ -101,12 +100,13 @@
         user-config-filename (user-config/config-file-path)
         project->settings (project-settings/convert ws-config)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
-        [component-configs component-errors] (config-from-disk/read-config-files ws-dir ws-type "components" validator/validate-brick-config)
+        [component-configs component-errors] (config-from-disk/read-brick-config-files ws-dir ws-type "components")
         components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns component-configs)
-        [base-configs base-errors] (config-from-disk/read-config-files ws-dir ws-type "bases" validator/validate-brick-config)
+        [base-configs base-errors] (config-from-disk/read-brick-config-files ws-dir ws-type "bases")
         bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns base-configs)
         name->brick (into {} (comp cat (map (juxt :name identity))) [components bases])
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
+        ;[project-configs project-errors] (config-from-disk/read-project-deployable-config-files ws-dir ws-type)
         projects (projects-from-disk/read-projects ws-dir ws-type name->brick project->settings user-input user-home suffixed-top-ns interface-ns)
         profile-to-settings (profile/profile-to-settings ws-dir aliases name->brick user-home)
         ws-local-dir (->ws-local-dir ws-dir)
