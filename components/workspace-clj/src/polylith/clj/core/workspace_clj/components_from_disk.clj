@@ -36,6 +36,6 @@
                       :interface (util/ordered-map :name interface-name
                                                    :definitions definitions))))
 
-(defn read-components [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns component-configs]
+(defn read-components [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns configs]
   (vec (sort-by :name (map #(read-component ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns %)
-                           component-configs))))
+                           configs))))

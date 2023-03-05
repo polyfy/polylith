@@ -30,17 +30,23 @@
       (filter-config-files)))
 
 (defn read-project-deployable-config-files [ws-dir ws-type]
-  (map #(read-config-file ws-type % (str ws-dir "/projects/" %) validator/validate-project-deployable-config)
+  (map #(assoc (read-config-file ws-type % (str ws-dir "/projects/" %) (partial validator/validate-project-deployable-config ws-type))
+               :is-dev false
+               :project-name %
+               :project-dir (str ws-dir "/projects/" %)
+               :project-config-dir (str ws-dir "/projects/" %))
        (file/directories (str ws-dir (str "/projects")))))
 
+(defn read-project-dev-config-file [ws-dir ws-type]
+  (let [config-filename (str ws-dir "/deps.edn")
+        project-dir (str ws-dir "/development")]
+    (assoc (read-config-file ws-type "development" ws-dir #(validator/validate-project-dev-config ws-type %))
+           :is-dev true
+           :config-filename config-filename
+           :project-dir project-dir
+           :project-name "development")))
 
-(defn read-project-dev-config-files [])
-
-
-
-
-(comment
-  (read-brick-config-files "examples/doc-example" :toolsdeps2 "bases" validator/validate-brick-config)
-  (read-brick-config-files "examples/doc-example" :toolsdeps2 "components" validator/validate-brick-config)
-  (read-project-deployable-config-files "examples/doc-example" :toolsdeps2 "projects" #(validator/validate-project-deployable-config :toolsdeps2 %))
-  #__)
+(defn read-project-config-files [ws-dir ws-type]
+  (-> (into [] cat [[(read-project-dev-config-file ws-dir ws-type)]
+                    (read-project-deployable-config-files ws-dir ws-type)])
+      (filter-config-files)))

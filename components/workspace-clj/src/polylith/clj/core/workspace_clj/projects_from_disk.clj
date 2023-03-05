@@ -121,9 +121,9 @@
       [(vec paths) (vec (sort (set lib-deps)))])))
 
 (defn read-project
-  ([{:keys [project-name project-dir project-config-dir is-dev]} ws-dir ws-type name->brick project->settings user-home suffixed-top-ns interface-ns]
+  ([{:keys [config project-name project-dir project-config-dir is-dev]} ws-dir ws-type name->brick project->settings user-home suffixed-top-ns interface-ns]
    (let [config-filename (str project-config-dir "/deps.edn")
-         {:keys [paths deps override-deps aliases mvn/repos] :as config} (config/read-deps-file config-filename)
+         {:keys [paths deps override-deps aliases mvn/repos]} config
          project-src-paths (cond-> paths is-dev (concat (-> aliases :dev :extra-paths)))
          project-src-deps (cond-> deps is-dev (merge (-> aliases :dev :extra-deps)))
          project-test-paths (-> aliases :test :extra-paths)
@@ -162,27 +162,15 @@
                        :maven-repos maven-repos
                        :namespaces namespaces))))
 
-(defn project-map [ws-dir project-name]
-  {:project-name project-name
-   :is-dev false
-   :project-dir (str ws-dir "/projects/" project-name)
-   :project-config-dir (str ws-dir "/projects/" project-name)})
-
 (defn keep?
   "Skip projects that are passed in as e.g. skip:P1:P2."
   [{:keys [project-name]} project->settings skip]
   (not (or (contains? skip project-name)
            (contains? skip (-> project-name project->settings :alias)))))
 
-(defn read-projects [ws-dir ws-type name->brick project->settings user-input user-home suffixed-top-ns interface-ns]
-  (let [skip (if user-input (-> user-input :skip set) #{})
-        project-maps (into [{:project-name "development"
-                             :is-dev true
-                             :project-dir (str ws-dir "/development")
-                             :project-config-dir ws-dir}]
-                           (map #(project-map ws-dir %))
-                           (file/directories (str ws-dir "/projects")))]
+(defn read-projects [ws-dir ws-type name->brick project->settings user-input user-home suffixed-top-ns interface-ns configs]
+  (let [skip (if user-input (-> user-input :skip set) #{})]
     (into []
           (comp (filter #(keep? % project->settings skip))
                 (keep #(read-project % ws-dir ws-type name->brick project->settings user-home suffixed-top-ns interface-ns)))
-          project-maps)))
+          configs)))
