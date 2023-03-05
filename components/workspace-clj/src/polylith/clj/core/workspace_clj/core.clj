@@ -129,7 +129,6 @@
                                    :ns-to-lib ns-to-lib-str
                                    :user-home user-home
                                    :m2-dir m2-dir)]
-
     (util/ordered-map :ws-dir ws-dir
                       :ws-local-dir ws-local-dir
                       :ws-reader ws-reader/reader

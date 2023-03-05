@@ -122,8 +122,7 @@
 
 (defn read-project
   ([{:keys [config project-name project-dir project-config-dir is-dev]} ws-dir ws-type name->brick project->settings user-home suffixed-top-ns interface-ns]
-   (let [config-filename (str project-config-dir "/deps.edn")
-         {:keys [paths deps override-deps aliases mvn/repos]} config
+   (let [{:keys [paths deps override-deps aliases mvn/repos]} config
          project-src-paths (cond-> paths is-dev (concat (-> aliases :dev :extra-paths)))
          project-src-deps (cond-> deps is-dev (merge (-> aliases :dev :extra-deps)))
          project-test-paths (-> aliases :test :extra-paths)
@@ -135,10 +134,10 @@
          message (when (not is-dev) (validator/validate-project-deployable-config ws-type config))]
      (if message
        (println (str "Couldn't read the 'deps.edn' file from project '" project-name "': " message))
-       (read-project ws-dir name->brick project-name project-dir config-filename is-dev maven-repos
+       (read-project ws-dir name->brick project-name project-dir project-config-dir is-dev maven-repos
                      project->settings user-home project-src-paths project-src-deps project-test-paths
                      project-test-deps override-src-deps override-test-deps suffixed-top-ns interface-ns))))
-  ([ws-dir name->brick project-name project-dir config-filename is-dev maven-repos
+  ([ws-dir name->brick project-name project-dir project-config-dir is-dev maven-repos
     project->settings user-home project-src-paths project-src-deps project-test-paths
     project-test-deps override-src-deps override-test-deps suffixed-top-ns interface-ns]
    (let [[src-paths src-lib-deps] (src-paths-and-libs-from-bricks ws-dir name->brick is-dev project-name user-home project-src-deps project-src-paths override-src-deps)
@@ -155,7 +154,7 @@
      (util/ordered-map :name project-name
                        :is-dev is-dev
                        :project-dir project-dir
-                       :config-filename config-filename
+                       :config-filename (str project-config-dir "/deps.edn")
                        :type "project"
                        :paths paths
                        :lib-deps lib-deps
@@ -163,7 +162,7 @@
                        :namespaces namespaces))))
 
 (defn keep?
-  "Skip projects that are passed in as e.g. skip:P1:P2."
+  "Skip projects that are passed in as e.g. skip:p1:p2."
   [{:keys [project-name]} project->settings skip]
   (not (or (contains? skip project-name)
            (contains? skip (-> project-name project->settings :alias)))))
