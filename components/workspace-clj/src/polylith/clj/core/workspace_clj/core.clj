@@ -135,7 +135,8 @@
                       :user-input user-input
                       :settings settings
                       :configs (cond-> {:component component-configs
-                                        :base base-configs}
+                                        :base base-configs
+                                        :project project-configs}
                                        (or (seq component-errors)
                                            (seq base-errors)
                                            (seq project-errors)) (assoc :errors {:component component-errors
