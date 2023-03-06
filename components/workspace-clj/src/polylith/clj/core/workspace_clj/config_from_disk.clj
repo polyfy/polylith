@@ -3,15 +3,15 @@
             [polylith.clj.core.common.interface.config :as config]
             [polylith.clj.core.validator.interface :as validator]))
 
-(defn read-config-file [ws-type entity-name entity-dir validator]
-  (let [config-filename (str entity-dir "/deps.edn")]
+(defn read-config-file [ws-type entity-name entity-dir entity-path validator]
+  (let [config-filename (str entity-path "/deps.edn")]
     (-> (case ws-type
           :toolsdeps1
           {:config {:paths ["src" "resources"]
                     :aliases {:test {:extra-paths ["test"]}}}}
           :toolsdeps2
           (if (-> config-filename file/exists not)
-            {:error (str "Could not find config file: " config-filename)}
+            {:error (str "Could not find config file: " entity-dir "/deps.edn")}
             (let [config (config/read-deps-file config-filename)
                   message (validator config)]
               (if message
@@ -25,12 +25,18 @@
     [configs errors]))
 
 (defn read-brick-config-files [ws-dir ws-type entity-dir]
-  (-> (map #(read-config-file ws-type % (str ws-dir "/" entity-dir "/" %) validator/validate-brick-config)
+  (-> (map #(read-config-file ws-type %
+                              (str entity-dir "/" %)
+                              (str ws-dir "/" entity-dir "/" %)
+                              validator/validate-brick-config)
            (file/directories (str ws-dir (str "/" entity-dir))))
       (filter-config-files)))
 
 (defn read-project-deployable-config-files [ws-dir ws-type]
-  (map #(assoc (read-config-file ws-type % (str ws-dir "/projects/" %) (partial validator/validate-project-deployable-config ws-type))
+  (map #(assoc (read-config-file ws-type %
+                                 (str "projects/" %)
+                                 (str ws-dir "/projects/" %)
+                                 (partial validator/validate-project-deployable-config ws-type))
                :is-dev false
                :project-name %
                :project-dir (str ws-dir "/projects/" %)
@@ -40,7 +46,10 @@
 (defn read-project-dev-config-file [ws-dir ws-type]
   (let [config-filename (str ws-dir "/deps.edn")
         project-dir (str ws-dir "/development")]
-    (assoc (read-config-file ws-type "development" ws-dir #(validator/validate-project-dev-config ws-type %))
+    (assoc (read-config-file ws-type
+                             "development"
+                             "development"
+                             ws-dir #(validator/validate-project-dev-config ws-type %))
            :is-dev true
            :config-filename config-filename
            :project-dir project-dir
