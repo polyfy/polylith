@@ -4,30 +4,33 @@
             [malli.util :as mu]
             [polylith.clj.core.validator.datashape.shared :as shared]))
 
-(defn validate-brick-config [config]
+(defn validate-brick-config [config filename]
   (-> [:map
        [:paths [:* [:alt keyword? string?]]]
        [:deps [:map-of symbol? map?]]
        [:aliases {:optional true} [:map]]]
       (m/explain config)
-      (me/humanize)))
+      (me/humanize)
+      (shared/error-message filename)))
 
-(defn validate-project-dev-config [config]
+(defn validate-project-dev-config [config filename]
   (-> [:map
        [:aliases
         [:map
          [:dev shared/alias]
          [:test shared/alias]]]]
       (m/explain config)
-      (me/humanize)))
+      (me/humanize)
+      (shared/error-message filename)))
 
-(defn validate-project-deployable-config [config]
+(defn validate-project-deployable-config [config filename]
   (-> [:map
        [:paths {:optional true}
         [:* [:alt keyword? string?]]]
        [:deps {:optional true} [:map-of symbol? :map]]]
       (m/explain config)
-      (me/humanize)))
+      (me/humanize)
+      (shared/error-message filename)))
 
 (def test-runner-constructor-schema
   [:or qualified-symbol? [:enum :default]])

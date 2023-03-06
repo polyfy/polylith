@@ -4,16 +4,17 @@
             [polylith.clj.core.validator.interface :as validator]))
 
 (defn read-config-file [ws-type entity-name entity-dir entity-path validator]
-  (let [config-filename (str entity-path "/deps.edn")]
+  (let [config-filename (str entity-path "/deps.edn")
+        short-config-filename (str entity-dir "/deps.edn")]
     (-> (case ws-type
           :toolsdeps1
           {:config {:paths ["src" "resources"]
                     :aliases {:test {:extra-paths ["test"]}}}}
           :toolsdeps2
           (if (-> config-filename file/exists not)
-            {:error (str "Could not find config file: " entity-dir "/deps.edn")}
+            {:error (str "Could not find config file: " short-config-filename)}
             (let [config (config/read-deps-file config-filename)
-                  message (validator config)]
+                  message (validator config short-config-filename)]
               (if message
                 {:error message}
                 {:config config}))))
@@ -49,7 +50,7 @@
     (assoc (read-config-file ws-type
                              "development"
                              "development"
-                             ws-dir #(validator/validate-project-dev-config ws-type %))
+                             ws-dir (partial validator/validate-project-dev-config ws-type))
            :is-dev true
            :config-filename config-filename
            :project-dir project-dir

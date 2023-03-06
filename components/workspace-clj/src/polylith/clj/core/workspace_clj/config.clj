@@ -5,7 +5,7 @@
 
 (defn dev-config-from-disk [ws-dir ws-type color-mode]
   (let [config (config/read-deps-file (str ws-dir "/deps.edn"))
-        message (validator/validate-project-dev-config ws-type config)]
+        message (validator/validate-project-dev-config ws-type config "deps.edn")]
     (if message
       (throw (ex-info (str "  " (color/error color-mode "Error in ./deps.edn: ") message) message))
       config)))

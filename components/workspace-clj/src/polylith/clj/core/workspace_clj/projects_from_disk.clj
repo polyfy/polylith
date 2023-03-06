@@ -131,7 +131,7 @@
          override-src-deps (lib/latest-with-sizes ws-dir entity-root-path (if is-dev (-> aliases :dev :override-deps) override-deps) user-home)
          override-test-deps (lib/latest-with-sizes ws-dir entity-root-path (-> aliases :test :override-deps) user-home)
          maven-repos (merge mvn/standard-repos repos)
-         message (when (not is-dev) (validator/validate-project-deployable-config ws-type config))]
+         message (when (not is-dev) (validator/validate-project-deployable-config ws-type config (str entity-root-path "/deps.edn")))]
      (if message
        (println (str "Couldn't read the 'deps.edn' file from project '" project-name "': " message))
        (read-project ws-dir name->brick project-name project-dir project-config-dir is-dev maven-repos

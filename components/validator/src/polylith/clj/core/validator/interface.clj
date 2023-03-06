@@ -10,17 +10,17 @@
 (defn print-messages [workspace]
   (message-printer/print-messages workspace))
 
-(defn validate-project-dev-config [ws-type config]
-  (dispatch/validate-project-dev-config ws-type config))
+(defn validate-project-dev-config [ws-type config filename]
+  (dispatch/validate-project-dev-config ws-type config filename))
 
-(defn validate-brick-config [config]
-  (toolsdeps2/validate-brick-config config))
+(defn validate-brick-config [config filename]
+  (toolsdeps2/validate-brick-config config filename))
 
 (defn validate-workspace-config [config]
   (toolsdeps2/validate-workspace-config config))
 
-(defn validate-project-deployable-config [ws-type config]
-  (dispatch/validate-project-deployable-config ws-type config))
+(defn validate-project-deployable-config [ws-type config filename]
+  (dispatch/validate-project-deployable-config ws-type config filename))
 
 (defn validate-ws [suffixed-top-ns settings paths interface-names interfaces components bases projects config-errors interface-ns user-input color-mode]
   (core/validate-ws suffixed-top-ns settings paths interface-names interfaces components bases projects config-errors interface-ns user-input color-mode))
