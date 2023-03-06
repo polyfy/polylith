@@ -14,6 +14,7 @@
             [polylith.clj.core.validator.m207-unnecessary-components-in-project :as validator207]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.workspace-clj.interface :as ws-clj]
+            [polylith.clj.core.ws-explorer.interface :as ws-explorer]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.help.interface :as help]
@@ -31,13 +32,15 @@
                    ;(dev-common/dir "examples/local-dep-old-format")
                    ;(dev-common/dir "../poly-example/ws02")
                    ;(dev-common/dir "../clojure-polylith-realworld-example-app")
-                   ;(dev-common/dir "../sandbox/ws38")
+                   ;(dev-common/dir "../sandbox/ws35")
                    ;(dev-common/dir "../sandbox/ws03")
                    ;(dev-common/dir "../usermanager-example")
                    ws-clj/workspace-from-disk
                    ws/enrich-workspace
                    change/with-changes))
 
+
+;(ws-explorer/ws workspace nil nil "dark")
 
 ;(spit "development/data/workspace.edn" (with-out-str (pp/pprint workspace)))
 
