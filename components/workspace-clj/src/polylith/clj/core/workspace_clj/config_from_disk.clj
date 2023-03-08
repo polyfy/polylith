@@ -51,7 +51,8 @@
       (let [config (config/read-deps-file filename)
             message (validator/validate-project-dev-config ws-type config "./deps.edn")]
         (if message
-          {:error message}
+          {:config config
+           :error message}
           {:config config
            :is-dev true
            :name "development"

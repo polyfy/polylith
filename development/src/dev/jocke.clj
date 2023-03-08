@@ -52,9 +52,11 @@
 
 ;(command/execute-command (user-input/extract-params ["test"]))
 
-(validator207/warnings (-> workspace :settings) (:projects workspace) true "dark")
+;(validator207/warnings (-> workspace :settings) (:projects workspace) true "dark")
 
 (:messages workspace)
+(:configs workspace)
+(:projects workspace)
 (:changes workspace)
 (:settings workspace)
 (:user-input workspace)
