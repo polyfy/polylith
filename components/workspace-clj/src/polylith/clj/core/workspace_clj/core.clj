@@ -79,15 +79,13 @@
                (str/starts-with? absolute-ws-dir git-root-dir))
       (subs absolute-ws-dir (-> git-root-dir count inc)))))
 
-(defn toolsdeps-ws-from-disk [ws-dir
-                              ws-type
+(defn toolsdeps-ws-from-disk [ws-name
+                              ws-dir
+                              ws-config
+                              aliases
                               user-input
                               color-mode]
-  (let [{:keys [aliases polylith]} (config/dev-config-from-disk ws-dir ws-type color-mode)
-        ws-config (if (= :toolsdeps2 ws-type)
-                    (config/ws-config-from-disk ws-dir color-mode)
-                    (config/ws-config-from-dev polylith))
-        {:keys [vcs top-namespace ws-type interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views]
+  (let [{:keys [vcs top-namespace ws-type interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views]
          :or {vcs {:name "git", :auto-add false}
               compact-views {}
               interface-ns "interface"}} ws-config
@@ -113,6 +111,7 @@
         paths (path-finder/paths ws-dir projects profile-to-settings)
         default-profile (or default-profile-name "default")
         active-profiles (profile/active-profiles user-input default-profile profile-to-settings)
+        config-errors (into [] cat [component-errors base-errors project-errors])
         settings (util/ordered-map :vcs (git-info ws-dir vcs patterns user-input)
                                    :top-namespace top-namespace
                                    :interface-ns interface-ns
@@ -129,26 +128,48 @@
                                    :ns-to-lib ns-to-lib-str
                                    :user-home user-home
                                    :m2-dir m2-dir)]
-    (util/ordered-map :ws-dir ws-dir
+    (util/ordered-map :name ws-name
+                      :ws-dir ws-dir
                       :ws-local-dir ws-local-dir
                       :ws-reader ws-reader/reader
                       :user-input user-input
                       :settings settings
-                      :configs {:component component-configs
-                                :base base-configs
-                                :project project-configs}
-                      :config-errors (into [] cat [component-errors base-errors project-errors])
+                      :configs {:components component-configs
+                                :bases base-configs
+                                :projects (config-from-disk/clean-project-configs project-configs)
+                                :workspace ws-config}
+                      :config-errors config-errors
                       :components components
                       :bases bases
                       :projects projects
                       :paths paths
                       :version (version/version ws-type))))
 
+(defn workspace-name [ws-dir]
+  (let [cleaned-ws-dir (if (= "." ws-dir) "" ws-dir)
+        path (file/absolute-path cleaned-ws-dir)
+        index (str/last-index-of path file/sep)]
+    (cond-> path
+            (some? index) (subs (inc index)))))
+
 (defn workspace-from-disk [user-input]
   (let [color-mode (or (:color-mode user-input) (user-config/color-mode) color/none)
         ws-dir (common/workspace-dir user-input color-mode)
+        ws-name (workspace-name ws-dir)
+        deps-file (str ws-dir "/deps.edn")
         ws-type (cond
                   (file/exists (str ws-dir "/workspace.edn")) :toolsdeps2
-                  (file/exists (str ws-dir "/deps.edn")) :toolsdeps1)]
+                  (file/exists deps-file) :toolsdeps1)]
     (when ws-type
-      (toolsdeps-ws-from-disk ws-dir ws-type user-input color-mode))))
+      (let [{:keys [config error]} (config-from-disk/read-project-dev-config-file ws-dir ws-type)
+            {:keys [aliases polylith]} config
+            [ws-config ws-error] (when (nil? error)
+                                   (if (= :toolsdeps2 ws-type)
+                                     (config/ws-config-from-disk ws-dir)
+                                     (config/ws-config-from-dev polylith)))
+            config-errors (cond-> []
+                                  ws-error (conj ws-error)
+                                  error (conj error))]
+        (if (empty? config-errors)
+          (toolsdeps-ws-from-disk ws-name ws-dir ws-config aliases user-input color-mode)
+          {:config-errors config-errors})))))
