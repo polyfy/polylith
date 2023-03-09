@@ -38,6 +38,7 @@
 
 (comment
   (-main "test" ":all" ":no-exit")
+  (-main "check" ":no-exit")
   (-main "ws" "get:changes:project-to-bricks-to-test:poly" ":no-exit")
   (-main "version" ":no-exit")
   (-main "shell" ":no-exit")

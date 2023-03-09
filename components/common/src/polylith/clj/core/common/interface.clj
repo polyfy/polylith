@@ -53,8 +53,8 @@
 (defn validate-args [unnamed-args example]
   (validate-args/validate unnamed-args example))
 
-(defn workspace-dir [user-input color-mode]
-  (ws-dir/workspace-dir user-input color-mode))
+(defn workspace-dir [user-input]
+  (ws-dir/workspace-dir user-input))
 
 (defn toolsdeps1? [workspace]
   (= :toolsdeps1 (-> workspace :version :from :ws :type)))

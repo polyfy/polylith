@@ -33,13 +33,13 @@
                      :ws-dir dir
                      :ws-file file))
 
-(defn switch-ws [user-input dir file workspace-fn color-mode]
+(defn switch-ws [user-input dir file workspace-fn]
   (let [input (enhance user-input dir file)]
     (reset! ws-dir dir)
     (reset! ws-file file)
     (reset! engine/ws
             (workspace-fn input file
-                          (common/workspace-dir input color-mode)))))
+                          (common/workspace-dir input)))))
 
 (defn execute-command [command-executor user-input color-mode]
   (try
@@ -54,7 +54,7 @@
     (when is-tap (tap/execute "open"))
     (print-logo color-mode)
     (reset! engine/ws workspace)
-    (switch-ws user-input ws-dir ws-file workspace-fn color-mode)
+    (switch-ws user-input ws-dir ws-file workspace-fn)
     (tap> {:workspace @engine/ws
            :prompt (prompt)})
     (try
@@ -66,7 +66,7 @@
             (when-not (contains? #{"exit" "quit"} cmd)
               (cond
                 (= "shell" cmd) (println "  Can't start a shell inside another shell.")
-                (= "switch-ws" cmd) (switch-ws input dir file workspace-fn color-mode)
+                (= "switch-ws" cmd) (switch-ws input dir file workspace-fn)
                 (= "tap" cmd) (tap/execute (first unnamed-args))
                 (str/blank? line) nil
                 :else (execute-command command-executor input color-mode))

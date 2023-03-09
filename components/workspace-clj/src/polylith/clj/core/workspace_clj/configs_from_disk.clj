@@ -1,15 +1,19 @@
-(ns polylith.clj.core.workspace-clj.config-from-disk
+(ns polylith.clj.core.workspace-clj.configs-from-disk
   (:require [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.common.interface.config :as config]
             [polylith.clj.core.validator.interface :as validator]))
 
-(defn read-config-file [ws-type entity-name entity-dir entity-path validator]
+(defn read-config-file [ws-type entity-name brick? entity-dir entity-path validator]
   (let [config-filename (str entity-path "/deps.edn")
         short-config-filename (str entity-dir "/deps.edn")]
     (-> (case ws-type
           :toolsdeps1
-          {:config {:paths ["src" "resources"]
-                    :aliases {:test {:extra-paths ["test"]}}}}
+          (if (-> config-filename file/exists)
+            {:config (config/read-deps-file config-filename)}
+            (if brick?
+              {:config {:paths ["src" "resources"]
+                        :aliases {:test {:extra-paths ["test"]}}}}
+              {:config {}}))
           :toolsdeps2
           (if (-> config-filename file/exists not)
             {:error (str "Could not find config file: " short-config-filename)}
@@ -26,7 +30,7 @@
     [configs errors]))
 
 (defn read-brick-config-files [ws-dir ws-type entity-dir]
-  (-> (map #(read-config-file ws-type %
+  (-> (map #(read-config-file ws-type % true
                               (str entity-dir "/" %)
                               (str ws-dir "/" entity-dir "/" %)
                               validator/validate-brick-config)
@@ -34,7 +38,7 @@
       (filter-config-files)))
 
 (defn read-project-deployable-config-files [ws-dir ws-type]
-  (map #(assoc (read-config-file ws-type %
+  (map #(assoc (read-config-file ws-type % false
                                  (str "projects/" %)
                                  (str ws-dir "/projects/" %)
                                  validator/validate-project-deployable-config)
@@ -51,8 +55,7 @@
       (let [config (config/read-deps-file filename)
             message (validator/validate-project-dev-config ws-type config "./deps.edn")]
         (if message
-          {:config config
-           :error message}
+          {:error message}
           {:config config
            :is-dev true
            :name "development"

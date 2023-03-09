@@ -9,7 +9,7 @@
             [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.path-finder.interface :as path-finder]
             [polylith.clj.core.workspace-clj.config :as config]
-            [polylith.clj.core.workspace-clj.config-from-disk :as config-from-disk]
+            [polylith.clj.core.workspace-clj.configs-from-disk :as config-from-disk]
             [polylith.clj.core.workspace-clj.profile :as profile]
             [polylith.clj.core.workspace-clj.ws-reader :as ws-reader]
             [polylith.clj.core.workspace-clj.tag-pattern :as tag-pattern]
@@ -129,6 +129,7 @@
                                    :user-home user-home
                                    :m2-dir m2-dir)]
     (util/ordered-map :name ws-name
+                      :ws-type ws-type
                       :ws-dir ws-dir
                       :ws-local-dir ws-local-dir
                       :ws-reader ws-reader/reader
@@ -154,7 +155,7 @@
 
 (defn workspace-from-disk [user-input]
   (let [color-mode (or (:color-mode user-input) (user-config/color-mode) color/none)
-        ws-dir (common/workspace-dir user-input color-mode)
+        ws-dir (common/workspace-dir user-input)
         ws-name (workspace-name ws-dir)
         deps-file (str ws-dir "/deps.edn")
         ws-type (cond
