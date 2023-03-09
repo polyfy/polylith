@@ -4,7 +4,7 @@
 (def major 0)
 (def minor 2)
 (def patch 18)
-(def revision "alpha-issue264-01")
+(def revision "issue264-01")
 (def name (str major "." minor "." patch "-" revision))
 
 (def date "2023-03-09")
@@ -31,7 +31,7 @@
 ;;
 ;; ws     release         action    attribute
 ;; -----  -------------   -------   -----------------------------------------------------------------
-;; 1.3    0.2.18-alpha    added     :configs
+;; 1.3    0.2.18          added     :configs
 ;                         added     :ws-type
 ;; 1.2    0.2.16-alpha    added     :bases > BASE > :namespaces > :src/test > [] > :invalid
 ;;                        added     :projects > PROJECT > :namespaces > :src/test > [] > :invalid

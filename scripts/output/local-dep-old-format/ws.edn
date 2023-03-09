@@ -375,9 +375,9 @@
  [{:type "warning",
    :code 207,
    :message
-   "Unnecessary components were find in the invoicing project and may be removed: datomic-ions, without-src",
+   "Unnecessary components were found in the invoicing project and may be removed: datomic-ions, without-src",
    :colorized-message
-   "Unnecessary components were find in the invoicing project and may be removed: datomic-ions, without-src"}],
+   "Unnecessary components were found in the invoicing project and may be removed: datomic-ions, without-src"}],
  :name "local-dep-old-format",
  :paths
  {:existing

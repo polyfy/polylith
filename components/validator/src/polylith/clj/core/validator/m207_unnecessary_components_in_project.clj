@@ -23,7 +23,7 @@
                                               (sort (set/difference defined-components used-components))))]
     (when (and (or dev? (not is-dev))
                (seq unused-components))
-      (let [message (str "Unnecessary components were find in the " (color/project name color-mode)
+      (let [message (str "Unnecessary components were found in the " (color/project name color-mode)
                          " project and may be removed: " unused-components)]
         [(util/ordered-map :type "warning"
                            :code 207
