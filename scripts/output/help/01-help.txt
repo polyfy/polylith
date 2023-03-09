@@ -1,4 +1,4 @@
-  Poly 0.2.18-alpha-issue272-01 (2023-03-04) - https://github.com/polyfy/polylith
+  Poly 0.2.18-alpha-issue264-01 (2023-03-09) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -141,6 +141,7 @@
     poly ws
     poly ws get:keys
     poly ws get:count
+    poly ws get:configs
     poly ws get:settings
     poly ws get:user-input:args
     poly ws get:user-input:args:0

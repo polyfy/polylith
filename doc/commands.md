@@ -29,7 +29,7 @@ poly help
 ```
 
 ```
-  Poly 0.2.18-alpha-issue272-01 (2023-03-04) - https://github.com/polyfy/polylith
+  Poly 0.2.18-alpha-issue264-01 (2023-03-09) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -172,6 +172,7 @@ poly help
     poly ws
     poly ws get:keys
     poly ws get:count
+    poly ws get:configs
     poly ws get:settings
     poly ws get:user-input:args
     poly ws get:user-input:args:0
@@ -238,6 +239,10 @@ poly help
     nil, :default, or a fully qualified symbol referring to a function on
     the poly tool's classpath, which can take a single argument and must return
     an instance of polylith.clj.core.test-runner-contract.interface/TestRunner.
+
+  Error 110 - Missing or invalid config file.
+    Triggered if a deps.edn file for a brick or project (or workspace.edn)
+    is missing or invalid.
 
   Warning 201 - Mismatching parameter lists in function or macro.
     Triggered if a function or macro is defined in the interface for a component
