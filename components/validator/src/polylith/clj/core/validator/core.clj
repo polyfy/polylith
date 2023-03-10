@@ -38,7 +38,7 @@
         (m203/warnings settings projects color-mode)
         (m205/warnings components bases color-mode)
         (m206/warnings components bases projects color-mode)
-        (m207/warnings settings projects is-dev color-mode)]
+        (m207/warnings cmd settings projects is-dev color-mode)]
        (into #{} cat)
        (sort-by (juxt :type :code :message))
        (vec)))

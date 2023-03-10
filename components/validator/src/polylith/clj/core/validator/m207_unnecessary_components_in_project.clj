@@ -10,7 +10,7 @@
           (:direct test)
           (:indirect test)))
 
-(defn warning [{:keys [is-dev name component-names deps]} project->settings dev? color-mode]
+(defn warning [{:keys [is-dev name component-names deps]} project->settings check-dev color-mode]
   "Warns if a component is not used by any brick in the project for all
    project except development (which can be included by passing in :dev).
    Components can be excluded from the check by putting it in the :necessary
@@ -21,7 +21,7 @@
         used-components (set (mapcat component-deps deps))
         unused-components (str/join ", " (map #(color/component % color-mode)
                                               (sort (set/difference defined-components used-components))))]
-    (when (and (or dev? (not is-dev))
+    (when (and (or check-dev (not is-dev))
                (seq unused-components))
       (let [message (str "Unnecessary components were found in the " (color/project name color-mode)
                          " project and may be removed: " unused-components)]
@@ -30,6 +30,7 @@
                            :message (color/clean-colors message)
                            :colorized-message message)]))))
 
-(defn warnings [settings projects dev? color-mode]
-  (let [project->settings (:projects settings)]
-    (mapcat #(warning % project->settings dev? color-mode) projects)))
+(defn warnings [cmd settings projects dev? color-mode]
+  (let [project->settings (:projects settings)
+        check-dev (and dev? (= "check" cmd))]
+    (mapcat #(warning % project->settings check-dev color-mode) projects)))
