@@ -82,10 +82,10 @@
        "\n"
        "  " (color/warning cm "Warning 207") " - Unnecessary components were found in project.\n"
        "    Triggered if components were defined in a project that are not used by any of\n"
-       "    its bricks. Development is only checked if :dev is passed in.\n"
-       "    If a component should be included anyway, put the component in the " (s/key ":necessary" cm) "\n"
-       "    vector for a project in " (s/key ":projects" cm) " in ./workspace.edn. See an example here:\n"
-       "    https://github.com/polyfy/polylith/blob/master/workspace.edn"))
+       "    its bricks. Development is only checked if :dev is passed in and is only performed\n"
+       "    by the check command (not test and info). To ignore this warning, put the component\n"
+       "    name in the " (s/key ":necessary" cm) " vector for a project in " (s/key ":projects" cm) " in ./workspace.edn.\n"
+       "    See an example here: https://github.com/polyfy/polylith/blob/master/workspace.edn"))
 
 (defn print-help [cm]
   (-> cm help-text println))
