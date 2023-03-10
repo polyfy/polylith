@@ -7,15 +7,13 @@
     (if message
       [config
        {:error (str "Error in ./workspace.edn: " message)}]
-      [(assoc config :ws-type :toolsdeps2)])))
+      [config])))
 
 (defn with-alias [[project alias]]
   [project {:alias alias}])
 
-;; todo: check that top-namespace is set in config
 (defn ws-config-from-dev [{:keys [project-to-alias] :as config}]
   (let [projects (into {} (map with-alias project-to-alias))]
     [(-> config
          (dissoc :project-to-alias)
-         (assoc :ws-type :toolsdeps1
-                :projects projects))]))
+         (assoc :projects projects))]))

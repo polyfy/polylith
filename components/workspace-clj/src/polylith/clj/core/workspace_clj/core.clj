@@ -80,12 +80,13 @@
       (subs absolute-ws-dir (-> git-root-dir count inc)))))
 
 (defn toolsdeps-ws-from-disk [ws-name
+                              ws-type
                               ws-dir
                               ws-config
                               aliases
                               user-input
                               color-mode]
-  (let [{:keys [vcs top-namespace ws-type interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views]
+  (let [{:keys [vcs top-namespace interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views]
          :or {vcs {:name "git", :auto-add false}
               compact-views {}
               interface-ns "interface"}} ws-config
@@ -105,7 +106,7 @@
         name->brick (into {} (comp cat (map (juxt :name identity))) [components bases])
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         [project-configs project-errors] (config-from-disk/read-project-config-files ws-dir ws-type)
-        projects (projects-from-disk/read-projects ws-dir ws-type name->brick project->settings user-input user-home suffixed-top-ns interface-ns project-configs)
+        projects (projects-from-disk/read-projects ws-dir name->brick project->settings user-input user-home suffixed-top-ns interface-ns project-configs)
         profile-to-settings (profile/profile-to-settings ws-dir aliases name->brick user-home)
         ws-local-dir (->ws-local-dir ws-dir)
         paths (path-finder/paths ws-dir projects profile-to-settings)
@@ -172,5 +173,5 @@
                                   ws-error (conj ws-error)
                                   error (conj error))]
         (if (empty? config-errors)
-          (toolsdeps-ws-from-disk ws-name ws-dir ws-config aliases user-input color-mode)
+          (toolsdeps-ws-from-disk ws-name ws-type ws-dir ws-config aliases user-input color-mode)
           {:config-errors config-errors})))))

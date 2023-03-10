@@ -121,7 +121,7 @@
       [(vec paths) (vec (sort (set lib-deps)))])))
 
 (defn read-project
-  ([{:keys [config project-name project-dir project-config-dir is-dev]} ws-dir ws-type name->brick project->settings user-home suffixed-top-ns interface-ns]
+  ([{:keys [config project-name project-dir project-config-dir is-dev]} ws-dir name->brick project->settings user-home suffixed-top-ns interface-ns]
    (let [{:keys [paths deps override-deps aliases mvn/repos]} config
          project-src-paths (cond-> paths is-dev (concat (-> aliases :dev :extra-paths)))
          project-src-deps (cond-> deps is-dev (merge (-> aliases :dev :extra-deps)))
@@ -164,9 +164,9 @@
   (not (or (contains? skip project-name)
            (contains? skip (-> project-name project->settings :alias)))))
 
-(defn read-projects [ws-dir ws-type name->brick project->settings user-input user-home suffixed-top-ns interface-ns configs]
+(defn read-projects [ws-dir name->brick project->settings user-input user-home suffixed-top-ns interface-ns configs]
   (let [skip (if user-input (-> user-input :skip set) #{})]
     (into []
           (comp (filter #(keep? % project->settings skip))
-                (keep #(read-project % ws-dir ws-type name->brick project->settings user-home suffixed-top-ns interface-ns)))
+                (keep #(read-project % ws-dir name->brick project->settings user-home suffixed-top-ns interface-ns)))
           configs)))
