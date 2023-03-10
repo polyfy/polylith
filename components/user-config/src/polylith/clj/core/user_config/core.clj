@@ -16,7 +16,7 @@
          file/sep "polylith"
          file/sep "config.edn")))
 
-(defn- config-content []
+(defn config-content []
   (let [config-dir (config-file-path)]
     (try
       (read-string (slurp config-dir))

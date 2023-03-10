@@ -96,7 +96,7 @@
         m2-dir (user-config/m2-dir)
         user-home (user-config/home-dir)
         thousand-separator (user-config/thousand-separator)
-        user-config-filename (user-config/config-file-path)
+        user-config-filename (user-config/file-path)
         project->settings (project-settings/convert ws-config)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
         [component-configs component-errors] (config-from-disk/read-brick-config-files ws-dir ws-type "components")
@@ -139,6 +139,7 @@
                       :configs {:components component-configs
                                 :bases base-configs
                                 :projects (config-from-disk/clean-project-configs project-configs)
+                                :user (user-config/content)
                                 :workspace ws-config}
                       :config-errors config-errors
                       :components components
