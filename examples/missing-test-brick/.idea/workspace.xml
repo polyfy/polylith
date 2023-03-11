@@ -20,10 +20,10 @@
       <change afterPath="$PROJECT_DIR$/../illegal-configs/deps.edn" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../illegal-configs/development/src/.keep" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../illegal-configs/projects/service/deps.edn" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../illegal-configs/readme.md" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../illegal-configs/workspace.edn" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../missing-configs/.idea/clojure-deps.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../missing-configs/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../components/validator/test/polylith/clj/core/validator/m207_unnecessary_components_in_project_test.clj" beforeDir="false" afterPath="$PROJECT_DIR$/../../components/validator/test/polylith/clj/core/validator/m207_unnecessary_components_in_project_test.clj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../components/workspace-clj/src/polylith/clj/core/workspace_clj/configs_from_disk.clj" beforeDir="false" afterPath="$PROJECT_DIR$/../../components/workspace-clj/src/polylith/clj/core/workspace_clj/configs_from_disk.clj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../components/workspace-clj/src/polylith/clj/core/workspace_clj/core.clj" beforeDir="false" afterPath="$PROJECT_DIR$/../../components/workspace-clj/src/polylith/clj/core/workspace_clj/core.clj" afterDir="false" />
