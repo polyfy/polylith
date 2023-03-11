@@ -3,19 +3,24 @@
             [polylith.clj.core.common.interface.config :as config]
             [polylith.clj.core.validator.interface :as validator]))
 
-(defn read-config-file [ws-type entity-name brick? entity-dir entity-path validator]
+(defn file-exists?
+  "The second argument is used for test purposes."
+  [filename _]
+  (-> filename file/exists))
+
+(defn read-config-file [ws-type entity-name type entity-dir entity-path validator]
   (let [config-filename (str entity-path "/deps.edn")
         short-config-filename (str entity-dir "/deps.edn")]
     (-> (case ws-type
           :toolsdeps1
           (if (-> config-filename file/exists)
             {:config (config/read-deps-file config-filename)}
-            (if brick?
+            (if (= :brick type)
               {:config {:paths ["src" "resources"]
                         :aliases {:test {:extra-paths ["test"]}}}}
               {:config {}}))
           :toolsdeps2
-          (if (-> config-filename file/exists not)
+          (if (not (file-exists? config-filename type))
             {:error (str "Could not find config file: " short-config-filename)}
             (let [config (config/read-deps-file config-filename)
                   message (validator ws-type config short-config-filename)]
@@ -30,7 +35,7 @@
     [configs errors]))
 
 (defn read-brick-config-files [ws-dir ws-type entity-dir]
-  (-> (map #(read-config-file ws-type % true
+  (-> (map #(read-config-file ws-type % :brick
                               (str entity-dir "/" %)
                               (str ws-dir "/" entity-dir "/" %)
                               validator/validate-brick-config)
@@ -38,7 +43,7 @@
       (filter-config-files)))
 
 (defn read-project-deployable-config-files [ws-dir ws-type]
-  (map #(assoc (read-config-file ws-type % false
+  (map #(assoc (read-config-file ws-type % :project
                                  (str "projects/" %)
                                  (str ws-dir "/projects/" %)
                                  validator/validate-project-deployable-config)
@@ -50,8 +55,8 @@
 
 (defn read-project-dev-config-file [ws-dir ws-type]
   (let [filename (str ws-dir "/deps.edn")]
-    (if (-> filename file/exists not)
-      {:error (str "Could not find config file: " filename)}
+    (if (not (file-exists? filename :development))
+      {:error (str "Could not find config file: ./deps.edn")}
       (let [config (config/read-deps-file filename)
             message (validator/validate-project-dev-config ws-type config "./deps.edn")]
         (if message

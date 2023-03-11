@@ -146,7 +146,7 @@
           "  validator                 .  .  .  .  x  .  x  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
           "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  workspace                 .  .  .  .  x  .  x  x  .  .  .  .  x  .  .  .  t  .  .  x  .  .  x  x  .  .  .  .  ."
-          "  workspace-clj             .  .  .  .  x  .  x  x  x  .  x  .  x  .  .  .  .  .  .  .  x  .  x  x  x  .  .  .  ."
+          "  workspace-clj             .  .  .  t  x  .  x  x  x  .  x  .  x  .  .  .  .  .  .  .  x  t  x  x  x  .  .  .  ."
           "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  ws-file                   .  .  .  .  x  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  ."
           "  poly-cli                  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  ."]
@@ -206,7 +206,7 @@
             "  validator                 .  .  x  .  x  +  .  .  .  .  x  .  .  .  .  x  .  +  +  .  x  .  .  .  .  .  ."
             "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  workspace                 -  -  x  -  x  x  -  -  -  -  x  -  -  -  t  +  -  x  +  -  x  x  -  -  -  -  -"
-            "  workspace-clj             .  .  x  .  x  x  x  .  x  .  x  +  .  .  .  +  .  +  x  .  x  x  x  .  .  .  ."
+            "  workspace-clj             -  t  x  -  x  x  x  -  x  -  x  +  -  -  .  +  -  +  x  t  x  x  x  -  -  -  -"
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  ws-file                   .  .  x  .  .  x  x  .  .  .  .  +  .  .  .  .  .  .  +  .  +  .  x  .  .  .  ."
             "  poly-cli                  +  x  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  +  +  +  +  +  +"]
@@ -244,186 +244,284 @@
            (brick-ifc-deps/table ws brick)))))
 
 (deftest poly-project-deps
-  (is (= {"change" {:src {:direct ["git" "path-finder" "util"], :indirect ["file" "sh"]},
-                    :test {:direct ["git" "path-finder" "util"], :indirect ["file" "sh"]}},
-          "clojure-test-test-runner" {:src {:direct ["test-runner-contract" "util"]},
-                                      :test {:direct ["test-runner-contract" "util"]}},
-          "command" {:src {:direct ["change"
-                                    "common"
-                                    "creator"
-                                    "deps"
-                                    "file"
-                                    "git"
-                                    "help"
-                                    "lib"
-                                    "migrator"
-                                    "shell"
-                                    "tap"
-                                    "test-runner-orchestrator"
-                                    "user-config"
-                                    "util"
-                                    "validator"
-                                    "version"
-                                    "workspace"
-                                    "workspace-clj"
-                                    "ws-explorer"
-                                    "ws-file"],
-                           :indirect ["path-finder" "sh" "test-runner-contract" "text-table" "user-input"]},
-                     :test {:direct ["change"
-                                     "common"
-                                     "creator"
-                                     "deps"
-                                     "file"
-                                     "git"
-                                     "help"
-                                     "lib"
-                                     "migrator"
-                                     "shell"
-                                     "tap"
-                                     "test-runner-orchestrator"
-                                     "user-config"
-                                     "util"
-                                     "validator"
-                                     "version"
-                                     "workspace"
-                                     "workspace-clj"
-                                     "ws-explorer"
-                                     "ws-file"],
-                            :indirect ["path-finder" "sh" "test-runner-contract" "text-table" "user-input"]}},
-          "common" {:src {:direct ["file" "user-config" "util"]}, :test {:direct ["file" "user-config" "util"]}},
-          "creator" {:src {:direct ["common" "file" "git" "util"], :indirect ["sh" "user-config"]},
-                     :test {:direct ["common" "file" "git" "test-helper" "util"],
-                            :indirect ["change"
-                                       "command"
-                                       "creator"
-                                       "deps"
-                                       "help"
-                                       "lib"
-                                       "migrator"
-                                       "path-finder"
-                                       "sh"
-                                       "shell"
-                                       "tap"
-                                       "test-runner-contract"
-                                       "test-runner-orchestrator"
-                                       "text-table"
-                                       "user-config"
-                                       "user-input"
-                                       "validator"
-                                       "version"
-                                       "workspace"
-                                       "workspace-clj"
-                                       "ws-explorer"
-                                       "ws-file"]}},
-          "deps" {:src {:direct ["common" "text-table" "user-config" "util"], :indirect ["file"]},
-                  :test {:direct ["common" "text-table" "user-config" "util"], :indirect ["file"]}},
-          "file" {:src {:direct ["util"]}, :test {}},
-          "git" {:src {:direct ["sh" "util"]}, :test {:direct ["sh" "util"]}},
-          "help" {:src {:direct ["common" "util" "version"], :indirect ["file" "user-config"]}, :test {}},
-          "lib" {:src {:direct ["common" "file" "text-table" "user-config" "util"]},
-                 :test {:direct ["common" "file" "test-helper" "text-table" "user-config" "util"],
-                        :indirect ["change"
-                                   "command"
-                                   "creator"
-                                   "deps"
-                                   "git"
-                                   "help"
-                                   "lib"
-                                   "migrator"
-                                   "path-finder"
-                                   "sh"
-                                   "shell"
-                                   "tap"
-                                   "test-runner-contract"
-                                   "test-runner-orchestrator"
-                                   "user-input"
-                                   "validator"
-                                   "version"
-                                   "workspace"
-                                   "workspace-clj"
-                                   "ws-explorer"
-                                   "ws-file"]}},
-          "migrator" {:src {:direct ["common"], :indirect ["file" "user-config" "util"]}, :test {}},
-          "path-finder" {:src {:direct ["file" "util"]}, :test {:direct ["file" "util"]}},
-          "poly-cli" {:src {:direct ["command" "user-input" "util"],
-                            :indirect ["change"
-                                       "common"
-                                       "creator"
-                                       "deps"
-                                       "file"
-                                       "git"
-                                       "help"
-                                       "lib"
-                                       "migrator"
-                                       "path-finder"
-                                       "sh"
-                                       "shell"
-                                       "tap"
-                                       "test-runner-contract"
-                                       "test-runner-orchestrator"
-                                       "text-table"
-                                       "user-config"
-                                       "validator"
-                                       "version"
-                                       "workspace"
-                                       "workspace-clj"
-                                       "ws-explorer"
-                                       "ws-file"]},
-                      :test {:direct ["command" "user-input" "util"],
-                             :indirect ["change"
-                                        "common"
-                                        "creator"
-                                        "deps"
-                                        "file"
-                                        "git"
-                                        "help"
-                                        "lib"
-                                        "migrator"
-                                        "path-finder"
-                                        "sh"
-                                        "shell"
-                                        "tap"
-                                        "test-runner-contract"
-                                        "test-runner-orchestrator"
-                                        "text-table"
-                                        "user-config"
-                                        "validator"
-                                        "version"
-                                        "workspace"
-                                        "workspace-clj"
-                                        "ws-explorer"
-                                        "ws-file"]}},
-          "sh" {:src {}, :test {}},
-          "shell" {:src {:direct ["common" "file" "sh" "tap" "user-config" "user-input" "util" "version" "ws-explorer"]},
-                   :test {:direct ["common" "file" "sh" "tap" "user-config" "user-input" "util" "version" "ws-explorer"]}},
-          "tap" {:src {}, :test {}},
-          "test-helper" {:src {},
-                         :test {:direct ["command" "file" "user-config" "user-input"],
-                                :indirect ["change"
-                                           "common"
-                                           "creator"
-                                           "deps"
-                                           "git"
-                                           "help"
-                                           "lib"
-                                           "migrator"
-                                           "path-finder"
-                                           "sh"
-                                           "shell"
-                                           "tap"
-                                           "test-runner-contract"
-                                           "test-runner-orchestrator"
-                                           "text-table"
-                                           "util"
-                                           "validator"
-                                           "version"
-                                           "workspace"
-                                           "workspace-clj"
-                                           "ws-explorer"
-                                           "ws-file"]}},
-          "test-runner-contract" {:src {:direct ["util"]}, :test {:direct ["util"]}},
-          "test-runner-orchestrator" {:src {:direct ["common" "deps" "test-runner-contract" "util" "validator"],
-                                            :indirect ["file" "path-finder" "text-table" "user-config"]},
+  (is (= {"change"                   {:src  {:direct   ["git"
+                                                        "path-finder"
+                                                        "util"]
+                                             :indirect ["file"
+                                                        "sh"]}
+                                      :test {:direct   ["git"
+                                                        "path-finder"
+                                                        "util"]
+                                             :indirect ["file"
+                                                        "sh"]}}
+          "clojure-test-test-runner" {:src  {:direct ["test-runner-contract"
+                                                      "util"]}
+                                      :test {:direct ["test-runner-contract"
+                                                      "util"]}}
+          "command"                  {:src  {:direct   ["change"
+                                                        "common"
+                                                        "creator"
+                                                        "deps"
+                                                        "file"
+                                                        "git"
+                                                        "help"
+                                                        "lib"
+                                                        "migrator"
+                                                        "shell"
+                                                        "tap"
+                                                        "test-runner-orchestrator"
+                                                        "user-config"
+                                                        "util"
+                                                        "validator"
+                                                        "version"
+                                                        "workspace"
+                                                        "workspace-clj"
+                                                        "ws-explorer"
+                                                        "ws-file"]
+                                             :indirect ["path-finder"
+                                                        "sh"
+                                                        "test-runner-contract"
+                                                        "text-table"
+                                                        "user-input"]}
+                                      :test {:direct   ["change"
+                                                        "common"
+                                                        "creator"
+                                                        "deps"
+                                                        "file"
+                                                        "git"
+                                                        "help"
+                                                        "lib"
+                                                        "migrator"
+                                                        "shell"
+                                                        "tap"
+                                                        "test-runner-orchestrator"
+                                                        "user-config"
+                                                        "util"
+                                                        "validator"
+                                                        "version"
+                                                        "workspace"
+                                                        "workspace-clj"
+                                                        "ws-explorer"
+                                                        "ws-file"]
+                                             :indirect ["path-finder"
+                                                        "sh"
+                                                        "test-runner-contract"
+                                                        "text-table"
+                                                        "user-input"]}}
+          "common"                   {:src  {:direct ["file"
+                                                      "user-config"
+                                                      "util"]}
+                                      :test {:direct ["file"
+                                                      "user-config"
+                                                      "util"]}}
+          "creator"                  {:src  {:direct   ["common"
+                                                        "file"
+                                                        "git"
+                                                        "util"]
+                                             :indirect ["sh"
+                                                        "user-config"]}
+                                      :test {:direct   ["common"
+                                                        "file"
+                                                        "git"
+                                                        "test-helper"
+                                                        "util"]
+                                             :indirect ["change"
+                                                        "command"
+                                                        "creator"
+                                                        "deps"
+                                                        "help"
+                                                        "lib"
+                                                        "migrator"
+                                                        "path-finder"
+                                                        "sh"
+                                                        "shell"
+                                                        "tap"
+                                                        "test-runner-contract"
+                                                        "test-runner-orchestrator"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "user-input"
+                                                        "validator"
+                                                        "version"
+                                                        "workspace"
+                                                        "workspace-clj"
+                                                        "ws-explorer"
+                                                        "ws-file"]}}
+          "deps"                     {:src  {:direct   ["common"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "util"]
+                                             :indirect ["file"]}
+                                      :test {:direct   ["common"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "util"]
+                                             :indirect ["file"]}}
+          "file"                     {:src  {:direct ["util"]}
+                                      :test {}}
+          "git"                      {:src  {:direct ["sh"
+                                                      "util"]}
+                                      :test {:direct ["sh"
+                                                      "util"]}}
+          "help"                     {:src  {:direct   ["common"
+                                                        "util"
+                                                        "version"]
+                                             :indirect ["file"
+                                                        "user-config"]}
+                                      :test {}}
+          "lib"                      {:src  {:direct ["common"
+                                                      "file"
+                                                      "text-table"
+                                                      "user-config"
+                                                      "util"]}
+                                      :test {:direct   ["common"
+                                                        "file"
+                                                        "test-helper"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "util"]
+                                             :indirect ["change"
+                                                        "command"
+                                                        "creator"
+                                                        "deps"
+                                                        "git"
+                                                        "help"
+                                                        "lib"
+                                                        "migrator"
+                                                        "path-finder"
+                                                        "sh"
+                                                        "shell"
+                                                        "tap"
+                                                        "test-runner-contract"
+                                                        "test-runner-orchestrator"
+                                                        "user-input"
+                                                        "validator"
+                                                        "version"
+                                                        "workspace"
+                                                        "workspace-clj"
+                                                        "ws-explorer"
+                                                        "ws-file"]}}
+          "migrator"                 {:src  {:direct   ["common"]
+                                             :indirect ["file"
+                                                        "user-config"
+                                                        "util"]}
+                                      :test {}}
+          "path-finder"              {:src  {:direct ["file"
+                                                      "util"]}
+                                      :test {:direct ["file"
+                                                      "util"]}}
+          "poly-cli"                 {:src  {:direct   ["command"
+                                                        "user-input"
+                                                        "util"]
+                                             :indirect ["change"
+                                                        "common"
+                                                        "creator"
+                                                        "deps"
+                                                        "file"
+                                                        "git"
+                                                        "help"
+                                                        "lib"
+                                                        "migrator"
+                                                        "path-finder"
+                                                        "sh"
+                                                        "shell"
+                                                        "tap"
+                                                        "test-runner-contract"
+                                                        "test-runner-orchestrator"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "validator"
+                                                        "version"
+                                                        "workspace"
+                                                        "workspace-clj"
+                                                        "ws-explorer"
+                                                        "ws-file"]}
+                                      :test {:direct   ["command"
+                                                        "user-input"
+                                                        "util"]
+                                             :indirect ["change"
+                                                        "common"
+                                                        "creator"
+                                                        "deps"
+                                                        "file"
+                                                        "git"
+                                                        "help"
+                                                        "lib"
+                                                        "migrator"
+                                                        "path-finder"
+                                                        "sh"
+                                                        "shell"
+                                                        "tap"
+                                                        "test-runner-contract"
+                                                        "test-runner-orchestrator"
+                                                        "text-table"
+                                                        "user-config"
+                                                        "validator"
+                                                        "version"
+                                                        "workspace"
+                                                        "workspace-clj"
+                                                        "ws-explorer"
+                                                        "ws-file"]}}
+          "sh"                       {:src  {}
+                                      :test {}}
+          "shell"                    {:src  {:direct ["common"
+                                                      "file"
+                                                      "sh"
+                                                      "tap"
+                                                      "user-config"
+                                                      "user-input"
+                                                      "util"
+                                                      "version"
+                                                      "ws-explorer"]}
+                                      :test {:direct ["common"
+                                                      "file"
+                                                      "sh"
+                                                      "tap"
+                                                      "user-config"
+                                                      "user-input"
+                                                      "util"
+                                                      "version"
+                                                      "ws-explorer"]}}
+          "tap"                      {:src  {}
+                                      :test {}}
+          "test-helper"              {:src  {}
+                                      :test {:direct   ["command"
+                                                        "file"
+                                                        "user-config"
+                                                        "user-input"]
+                                             :indirect ["change"
+                                                        "common"
+                                                        "creator"
+                                                        "deps"
+                                                        "git"
+                                                        "help"
+                                                        "lib"
+                                                        "migrator"
+                                                        "path-finder"
+                                                        "sh"
+                                                        "shell"
+                                                        "tap"
+                                                        "test-runner-contract"
+                                                        "test-runner-orchestrator"
+                                                        "text-table"
+                                                        "util"
+                                                        "validator"
+                                                        "version"
+                                                        "workspace"
+                                                        "workspace-clj"
+                                                        "ws-explorer"
+                                                        "ws-file"]}}
+          "test-runner-contract"     {:src  {:direct ["util"]}
+                                      :test {:direct ["util"]}}
+          "test-runner-orchestrator" {:src  {:direct   ["common"
+                                                        "deps"
+                                                        "test-runner-contract"
+                                                        "util"
+                                                        "validator"]
+                                             :indirect ["file"
+                                                        "path-finder"
+                                                        "text-table"
+                                                        "user-config"]}
                                       :test {:direct   ["common"
                                                         "deps"
                                                         "test-runner-contract"
@@ -432,62 +530,119 @@
                                              :indirect ["file"
                                                         "path-finder"
                                                         "text-table"
-                                                        "user-config"]}},
-          "text-table" {:src {:direct ["util"]}, :test {}},
-          "user-config" {:src {:direct ["file" "util"]}, :test {}},
-          "user-input" {:src {:direct ["util"]}, :test {:direct ["util"]}},
-          "util" {:src {}, :test {}},
-          "validator" {:src {:direct ["common" "deps" "path-finder" "test-runner-contract" "util"],
-                             :indirect ["file" "text-table" "user-config"]},
-                       :test {:direct ["common" "deps" "path-finder" "test-runner-contract" "util"],
-                              :indirect ["file" "text-table" "user-config"]}},
-          "version" {:src {}, :test {}},
-          "workspace" {:src {:direct ["common" "deps" "file" "path-finder" "text-table" "util" "validator"],
-                             :indirect ["test-runner-contract" "user-config"]},
-                       :test {:direct ["common" "deps" "file" "path-finder" "test-helper" "text-table" "util" "validator"],
-                              :indirect ["change"
-                                         "command"
-                                         "creator"
-                                         "git"
-                                         "help"
-                                         "lib"
-                                         "migrator"
-                                         "sh"
-                                         "shell"
-                                         "tap"
-                                         "test-runner-contract"
-                                         "test-runner-orchestrator"
-                                         "user-config"
-                                         "user-input"
-                                         "version"
-                                         "workspace"
-                                         "workspace-clj"
-                                         "ws-explorer"
-                                         "ws-file"]}},
-          "workspace-clj" {:src {:direct ["common"
-                                          "deps"
-                                          "file"
-                                          "git"
-                                          "lib"
-                                          "path-finder"
-                                          "user-config"
-                                          "util"
-                                          "validator"
-                                          "version"],
-                                 :indirect ["sh" "test-runner-contract" "text-table"]},
-                           :test {:direct ["common"
-                                           "deps"
-                                           "file"
-                                           "git"
-                                           "lib"
-                                           "path-finder"
-                                           "user-config"
-                                           "util"
-                                           "validator"
-                                           "version"],
-                                  :indirect ["sh" "test-runner-contract" "text-table"]}},
-          "ws-explorer" {:src {:direct ["util"]}, :test {:direct ["util"]}},
-          "ws-file" {:src {:direct ["common" "file" "git" "version"], :indirect ["sh" "user-config" "util"]}, :test {}}}
+                                                        "user-config"]}}
+          "text-table"               {:src  {:direct ["util"]}
+                                      :test {}}
+          "user-config"              {:src  {:direct ["file"
+                                                      "util"]}
+                                      :test {}}
+          "user-input"               {:src  {:direct ["util"]}
+                                      :test {:direct ["util"]}}
+          "util"                     {:src  {}
+                                      :test {}}
+          "validator"                {:src  {:direct   ["common"
+                                                        "deps"
+                                                        "path-finder"
+                                                        "test-runner-contract"
+                                                        "util"]
+                                             :indirect ["file"
+                                                        "text-table"
+                                                        "user-config"]}
+                                      :test {:direct   ["common"
+                                                        "deps"
+                                                        "path-finder"
+                                                        "test-runner-contract"
+                                                        "util"]
+                                             :indirect ["file"
+                                                        "text-table"
+                                                        "user-config"]}}
+          "version"                  {:src  {}
+                                      :test {}}
+          "workspace"                {:src  {:direct   ["common"
+                                                        "deps"
+                                                        "file"
+                                                        "path-finder"
+                                                        "text-table"
+                                                        "util"
+                                                        "validator"]
+                                             :indirect ["test-runner-contract"
+                                                        "user-config"]}
+                                      :test {:direct   ["common"
+                                                        "deps"
+                                                        "file"
+                                                        "path-finder"
+                                                        "test-helper"
+                                                        "text-table"
+                                                        "util"
+                                                        "validator"]
+                                             :indirect ["change"
+                                                        "command"
+                                                        "creator"
+                                                        "git"
+                                                        "help"
+                                                        "lib"
+                                                        "migrator"
+                                                        "sh"
+                                                        "shell"
+                                                        "tap"
+                                                        "test-runner-contract"
+                                                        "test-runner-orchestrator"
+                                                        "user-config"
+                                                        "user-input"
+                                                        "version"
+                                                        "workspace"
+                                                        "workspace-clj"
+                                                        "ws-explorer"
+                                                        "ws-file"]}}
+          "workspace-clj"            {:src  {:direct   ["common"
+                                                        "deps"
+                                                        "file"
+                                                        "git"
+                                                        "lib"
+                                                        "path-finder"
+                                                        "user-config"
+                                                        "util"
+                                                        "validator"
+                                                        "version"]
+                                             :indirect ["sh"
+                                                        "test-runner-contract"
+                                                        "text-table"]}
+                                      :test {:direct   ["command"
+                                                        "common"
+                                                        "deps"
+                                                        "file"
+                                                        "git"
+                                                        "lib"
+                                                        "path-finder"
+                                                        "user-config"
+                                                        "user-input"
+                                                        "util"
+                                                        "validator"
+                                                        "version"]
+                                             :indirect ["change"
+                                                        "creator"
+                                                        "help"
+                                                        "migrator"
+                                                        "sh"
+                                                        "shell"
+                                                        "tap"
+                                                        "test-runner-contract"
+                                                        "test-runner-orchestrator"
+                                                        "text-table"
+                                                        "workspace"
+                                                        "workspace-clj"
+                                                        "ws-explorer"
+                                                        "ws-file"]}}
+          "ws-explorer"              {:src  {:direct ["util"]}
+                                      :test {:direct ["util"]}}
+          "ws-file"                  {:src  {:direct   ["common"
+                                                        "file"
+                                                        "git"
+                                                        "version"]
+                                             :indirect ["sh"
+                                                        "user-config"
+                                                        "util"]}
+                                      :test {}}}
          (ws-explorer/extract (workspace) ["projects" "poly" "deps"]))))
 
 (deftest poly-project-src-paths

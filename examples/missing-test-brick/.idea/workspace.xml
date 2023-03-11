@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="003fedc4-63b8-4740-b58f-0270c7495df6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../components/workspace-clj/test/polylith/clj/core/workspace_clj/missing_deps_test.clj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../illegal-configs/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../illegal-configs/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../illegal-configs/.idea/ClojureProjectResolveSettings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../illegal-configs/.idea/clojure-deps.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../illegal-configs/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../illegal-configs/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../illegal-configs/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../illegal-configs/.vscode/settings.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../illegal-configs/bases/.keep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../illegal-configs/components/util/deps.edn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../illegal-configs/components/util/src/example/util/interface.clj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../illegal-configs/deps.edn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../illegal-configs/development/src/.keep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../illegal-configs/projects/service/deps.edn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../illegal-configs/readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../illegal-configs/workspace.edn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../missing-configs/.idea/clojure-deps.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../missing-configs/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../components/validator/test/polylith/clj/core/validator/m207_unnecessary_components_in_project_test.clj" beforeDir="false" afterPath="$PROJECT_DIR$/../../components/validator/test/polylith/clj/core/validator/m207_unnecessary_components_in_project_test.clj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../components/workspace-clj/src/polylith/clj/core/workspace_clj/configs_from_disk.clj" beforeDir="false" afterPath="$PROJECT_DIR$/../../components/workspace-clj/src/polylith/clj/core/workspace_clj/configs_from_disk.clj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../components/workspace-clj/src/polylith/clj/core/workspace_clj/core.clj" beforeDir="false" afterPath="$PROJECT_DIR$/../../components/workspace-clj/src/polylith/clj/core/workspace_clj/core.clj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../development/src/dev/jocke.clj" beforeDir="false" afterPath="$PROJECT_DIR$/../../development/src/dev/jocke.clj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../projects/poly/test/project/poly/workspace_test.clj" beforeDir="false" afterPath="$PROJECT_DIR$/../../projects/poly/test/project/poly/workspace_test.clj" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="TaskManager">
+    <servers />
+  </component>
+</project>

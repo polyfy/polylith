@@ -159,10 +159,11 @@
   (let [color-mode (or (:color-mode user-input) (user-config/color-mode) color/none)
         ws-dir (common/workspace-dir user-input)
         ws-name (workspace-name ws-dir)
+        ws-file (str ws-dir "/workspace.edn")
         deps-file (str ws-dir "/deps.edn")
         ws-type (cond
-                  (file/exists (str ws-dir "/workspace.edn")) :toolsdeps2
-                  (file/exists deps-file) :toolsdeps1)]
+                  (config-from-disk/file-exists? ws-file :workspace) :toolsdeps2
+                  (config-from-disk/file-exists? deps-file :development) :toolsdeps1)]
     (when ws-type
       (let [{:keys [config error]} (config-from-disk/read-project-dev-config-file ws-dir ws-type)
             {:keys [aliases polylith]} config
@@ -172,7 +173,7 @@
                                      (config/ws-config-from-dev polylith)))
             config-errors (cond-> []
                                   ws-error (conj ws-error)
-                                  error (conj error))]
+                                  error (conj {:error error}))]
         (if (empty? config-errors)
           (toolsdeps-ws-from-disk ws-name ws-type ws-dir ws-config aliases user-input color-mode)
           {:config-errors config-errors})))))
