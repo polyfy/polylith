@@ -1,13 +1,17 @@
 (ns polylith.clj.core.version.interface
-  (:refer-clojure :exclude [name]))
+  (:refer-clojure :exclude [name])
+  (:require [clojure.string :as str]))
 
 (def major 0)
 (def minor 2)
 (def patch 18)
-(def revision "issue264-04")
-(def name (str major "." minor "." patch "-" revision))
+(def revision "-issue264-04")
+(def name (str major "." minor "." patch
+               (if (str/blank? revision)
+                 ""
+                 (str "-" revision))))
 
-(def date "2023-03-11")
+(def date "2023-03-12")
 
 (defn version
   ([ws-type]
