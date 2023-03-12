@@ -1,13 +1,14 @@
 (ns polylith.clj.core.shell.core
   (:require [clojure.string :as str]
+            [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.config-reader.interface :as config-reader]
             [polylith.clj.core.shell.jline :as jline]
-            [polylith.clj.core.util.interface.str :as str-util]
-            [polylith.clj.core.tap.interface :as tap]
-            [polylith.clj.core.util.interface.color :as color]
-            [polylith.clj.core.version.interface :as version]
-            [polylith.clj.core.user-input.interface :as user-input]
             [polylith.clj.core.shell.candidate.engine :as engine]
-            [polylith.clj.core.common.interface :as common])
+            [polylith.clj.core.tap.interface :as tap]
+            [polylith.clj.core.user-input.interface :as user-input]
+            [polylith.clj.core.util.interface.str :as str-util]
+            [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.version.interface :as version])
   (:import [org.jline.reader EndOfFileException]
            [org.jline.reader UserInterruptException])
   (:refer-clojure :exclude [next]))
@@ -33,13 +34,13 @@
                      :ws-dir dir
                      :ws-file file))
 
-(defn switch-ws [user-input dir file workspace-fn color-mode]
+(defn switch-ws [user-input dir file workspace-fn]
   (let [input (enhance user-input dir file)]
     (reset! ws-dir dir)
     (reset! ws-file file)
     (reset! engine/ws
             (workspace-fn input file
-                          (common/workspace-dir input color-mode)))))
+                          (config-reader/workspace-dir input)))))
 
 (defn execute-command [command-executor user-input color-mode]
   (try
@@ -54,7 +55,7 @@
     (when is-tap (tap/execute "open"))
     (print-logo color-mode)
     (reset! engine/ws workspace)
-    (switch-ws user-input ws-dir ws-file workspace-fn color-mode)
+    (switch-ws user-input ws-dir ws-file workspace-fn)
     (tap> {:workspace @engine/ws
            :prompt (prompt)})
     (try
@@ -66,7 +67,7 @@
             (when-not (contains? #{"exit" "quit"} cmd)
               (cond
                 (= "shell" cmd) (println "  Can't start a shell inside another shell.")
-                (= "switch-ws" cmd) (switch-ws input dir file workspace-fn color-mode)
+                (= "switch-ws" cmd) (switch-ws input dir file workspace-fn)
                 (= "tap" cmd) (tap/execute (first unnamed-args))
                 (str/blank? line) nil
                 :else (execute-command command-executor input color-mode))

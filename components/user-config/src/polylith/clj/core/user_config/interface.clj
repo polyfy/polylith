@@ -4,8 +4,11 @@
 (defn home-dir []
   (core/home-dir))
 
-(defn config-file-path []
+(defn file-path []
   (core/config-file-path))
+
+(defn content []
+  (core/config-content))
 
 (defn color-mode []
   (core/color-mode))

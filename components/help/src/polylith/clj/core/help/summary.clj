@@ -158,6 +158,7 @@
     "    poly ws\n"
     "    poly ws get:keys\n"
     "    poly ws get:count\n"
+    "    poly ws get:configs\n"
     "    poly ws get:settings\n"
     "    poly ws get:user-input:args\n"
     "    poly ws get:user-input:args:0\n"

@@ -29,7 +29,7 @@ poly help
 ```
 
 ```
-  Poly 0.2.18-alpha-issue272-01 (2023-03-04) - https://github.com/polyfy/polylith
+  Poly 0.2.18-issue264-04 (2023-03-11) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -172,6 +172,7 @@ poly help
     poly ws
     poly ws get:keys
     poly ws get:count
+    poly ws get:configs
     poly ws get:settings
     poly ws get:user-input:args
     poly ws get:user-input:args:0
@@ -239,6 +240,10 @@ poly help
     the poly tool's classpath, which can take a single argument and must return
     an instance of polylith.clj.core.test-runner-contract.interface/TestRunner.
 
+  Error 110 - Missing or invalid config file.
+    Triggered if a deps.edn file for a brick or project (or the workspace.edn file)
+    is missing or invalid.
+
   Warning 201 - Mismatching parameter lists in function or macro.
     Triggered if a function or macro is defined in the interface for a component
     but also defined in the same interface for another component but with a
@@ -261,10 +266,10 @@ poly help
 
   Warning 207 - Unnecessary components were found in project.
     Triggered if components were defined in a project that are not used by any of
-    its bricks. Development is only checked if :dev is passed in.
-    If a component should be included anyway, put the component in the :necessary
-    vector for a project in :projects in ./workspace.edn. See an example here:
-    https://github.com/polyfy/polylith/blob/master/workspace.edn
+    its bricks. Development is only checked if :dev is passed in and is only performed
+    by the check command (not test and info). To ignore this warning, put the component
+    name in the :necessary vector for a project in :projects in ./workspace.edn.
+    See an example here: https://github.com/polyfy/polylith/blob/master/workspace.edn
 ```
 
 ### create

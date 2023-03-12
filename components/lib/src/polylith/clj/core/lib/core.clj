@@ -1,5 +1,5 @@
 (ns polylith.clj.core.lib.core
-  (:require [polylith.clj.core.common.interface.config :as config]
+  (:require [polylith.clj.core.config-reader.interface :as config-reader]
             [polylith.clj.core.lib.maven-dep :as maven-dep]
             [polylith.clj.core.lib.size :as size]
             [polylith.clj.core.lib.ns-to-lib :as ns-to-lib]
@@ -24,13 +24,13 @@
     (ns-to-lib/lib-deps ws-dir top-namespace ns-to-lib lib->deps namespaces user-home)
     (latest-with-sizes ws-dir entity-root-path (get-in config dep-keys) user-home)))
 
-(defn lib->deps [ws-dir]
-  (let [config (config/read-deps-file (str ws-dir "/deps.edn"))]
+(defn lib->deps [ws-dir ws-type]
+  (let [{:keys [config]} (config-reader/read-project-dev-config-file ws-dir ws-type)]
     (util/stringify-and-sort-map (merge (-> config :aliases :test :extra-deps)
                                         (-> config :aliases :dev :extra-deps)))))
 
 (defn brick-lib-deps [ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home]
-  (let [lib->deps (lib->deps ws-dir)
+  (let [lib->deps (lib->deps ws-dir ws-type)
         src (lib-deps ws-dir ws-type config top-namespace ns-to-lib lib->deps (:src namespaces) entity-root-path user-home [:deps])
         test (lib-deps ws-dir ws-type config top-namespace ns-to-lib lib->deps (:test namespaces) entity-root-path user-home [:aliases :test :extra-deps])]
     (cond-> {}

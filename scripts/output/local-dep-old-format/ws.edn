@@ -205,6 +205,138 @@
    :type "component",
    :interface-deps {:src [], :test []},
    :lib-deps {}}],
+ :configs
+ {:components
+  [{:config
+    {:paths ["src" "resources"],
+     :aliases {:test {:extra-paths ["test"]}}},
+    :name "database"}
+   {:config
+    {:paths ["src" "resources"],
+     :aliases {:test {:extra-paths ["test"]}}},
+    :name "datomic-ions"}
+   {:config
+    {:paths ["src" "resources"],
+     :aliases {:test {:extra-paths ["test"]}}},
+    :name "invoicer"}
+   {:config
+    {:paths ["src" "resources"],
+     :aliases {:test {:extra-paths ["test"]}}},
+    :name "test-helper"}
+   {:config
+    {:paths ["src" "resources"],
+     :aliases {:test {:extra-paths ["test"]}}},
+    :name "test-helper-db"}
+   {:config
+    {:paths ["src" "resources"],
+     :aliases {:test {:extra-paths ["test"]}}},
+    :name "util"}
+   {:config
+    {:paths ["src" "resources"],
+     :aliases {:test {:extra-paths ["test"]}}},
+    :name "without-src"}],
+  :bases
+  [{:config
+    {:paths ["src" "resources"],
+     :aliases {:test {:extra-paths ["test"]}}},
+    :name "invoicer-cli"}],
+  :projects
+  [{:config
+    {:polylith
+     {:release-tag-pattern "v[0-9]*",
+      :top-namespace "com.localdep",
+      :default-profile-name "default",
+      :compact-views #{},
+      :stable-tag-pattern "stable-*",
+      :interface-ns "interface",
+      :ns-to-lib {clj-time clj-time/clj-time},
+      :vcs "git",
+      :project-to-alias {"development" "dev", "invoicing" "inv"}},
+     :aliases
+     {:dev
+      {:extra-paths
+       ["development/src"
+        "migrate-me/src"
+        "components/database/src"
+        "components/database/resources"
+        "components/datomic-ions/src"
+        "components/invoicer/src"
+        "components/invoicer/resources"
+        "components/test-helper/src"
+        "components/test-helper-db/src"
+        "components/util/src"
+        "bases/invoicer-cli/src"],
+       :extra-deps
+       {org.clojure/clojure {:mvn/version "1.10.1"},
+        org.clojure/tools.deps {:mvn/version "0.16.1281"},
+        clj-time/clj-time
+        {:git/url "https://github.com/clj-time/clj-time.git",
+         :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"},
+        uncomplicate/neanderthal
+        {:mvn/version "0.41.0",
+         :exclusions
+         [org.jcuda/jcuda-natives org.jcuda/jcublas-natives]}}},
+      :test
+      {:extra-paths
+       ["components/database/test"
+        "components/invoicer/test"
+        "components/test-helper/test"
+        "components/util/test"
+        "components/without-src/test"
+        "bases/invoicer-cli/test"],
+       :extra-deps {migrate-me/migrate-me {:local/root "migrate-me"}}},
+      :poly
+      {:main-opts ["-m" "polylith.clj.core.poly-cli.core"],
+       :extra-deps
+       {polyfy/polylith
+        {:git/url "https://github.com/polyfy/polylith",
+         :sha "bb594393e03bd97a03109775cb16815594a13748",
+         :deps/root "projects/poly"}}}}},
+    :name "development"}
+   {:config
+    {:mvn/repos
+     {"datomic-cloud"
+      {:url "s3://datomic-releases-1fc2183a/maven/releases"}},
+     :paths
+     ["../../components/database/src"
+      "../../components/database/resources"
+      "../../components/datomic-ions/src"
+      "../../components/invoicer/src"
+      "../../components/invoicer/resources"
+      "../../components/util/src"
+      "../../bases/invoicer-cli/src"],
+     :deps
+     {org.clojure/clojure {:mvn/version "1.10.1"},
+      org.clojure/tools.deps {:mvn/version "0.16.1281"},
+      clj-time/clj-time
+      {:git/url "https://github.com/clj-time/clj-time.git",
+       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}},
+     :aliases
+     {:test
+      {:extra-paths
+       ["../../components/database/test"
+        "../../components/invoicer/test"
+        "../../components/test-helper/src"
+        "../../components/test-helper/test"
+        "../../components/test-helper-db/src"
+        "../../components/util/test"
+        "../../components/without-src/test"
+        "../../bases/invoicer-cli/test"],
+       :extra-deps
+       {migrate-me/migrate-me {:local/root "../../migrate-me"}}}}},
+    :name "invoicing"}],
+  :workspace
+  {:projects
+   {"development" {:alias "dev"}, "invoicing" {:alias "inv"}},
+   :release-tag-pattern "v[0-9]*",
+   :top-namespace "com.localdep",
+   :default-profile-name "default",
+   :compact-views #{},
+   :ws-type :toolsdeps1,
+   :stable-tag-pattern "stable-*",
+   :interface-ns "interface",
+   :ns-to-lib {clj-time clj-time/clj-time},
+   :vcs "git"}},
  :interfaces
  [{:name "database",
    :type "interface",
@@ -243,9 +375,9 @@
  [{:type "warning",
    :code 207,
    :message
-   "Unnecessary components were find in the invoicing project and may be removed: datomic-ions, without-src",
+   "Unnecessary components were found in the invoicing project and may be removed: datomic-ions, without-src",
    :colorized-message
-   "Unnecessary components were find in the invoicing project and may be removed: datomic-ions, without-src"}],
+   "Unnecessary components were found in the invoicing project and may be removed: datomic-ions, without-src"}],
  :name "local-dep-old-format",
  :paths
  {:existing
@@ -674,13 +806,13 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.18-alpha-issue282-01",
+  {:name "0.2.18-alpha-issue264-01",
    :major 0,
    :minor 2,
    :patch 18,
-   :revision "alpha-issue282-01",
-   :date "2023-02-28"},
-  :ws {:type :toolsdeps2, :breaking 1, :non-breaking 2},
+   :revision "alpha-issue264-01",
+   :date "2023-03-09"},
+  :ws {:type :toolsdeps2, :breaking 1, :non-breaking 3},
   :from {:ws {:type :toolsdeps1}}},
  :ws-dir "/privateWS-HOME/local-dep-old-format",
  :ws-reader
@@ -688,4 +820,5 @@
   :project-url "https://github.com/polyfy/polylith",
   :language "Clojure",
   :type-position "postfix",
-  :file-extensions ["clj" "cljc"]}}
+  :file-extensions ["clj" "cljc"]},
+ :ws-type :toolsdeps1}

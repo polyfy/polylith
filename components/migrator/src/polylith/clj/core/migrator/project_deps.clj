@@ -1,7 +1,7 @@
 (ns polylith.clj.core.migrator.project-deps
   (:require [clojure.set :as set]
             [clojure.string :as str]
-            [polylith.clj.core.common.interface.config :as config]
+            [polylith.clj.core.config-reader.interface :as config-reader]
             [polylith.clj.core.migrator.shared :as shared]))
 
 (defn local-root [brick-name brick-dir]
@@ -35,17 +35,18 @@
        (not (str/starts-with? path "../../components/"))))
 
 (defn new-config [filename
+                  project-path
                   {:keys [base-names component-names]}
                   {:keys [components bases]}]
 
-  (let [content (config/read-deps-file filename)
-        paths (:paths content)
-        test-paths (-> :aliases content :test :extra-paths)
+  (let [{:keys [config]} (config-reader/read-deps-file filename project-path)
+        paths (:paths config)
+        test-paths (-> :aliases config :test :extra-paths)
         new-paths (filterv not-brick? paths)
         new-test-paths (filterv not-brick? test-paths)
-        src-deps (deps components bases component-names base-names :src [:deps] content)
-        test-deps (deps components bases component-names base-names :test [:aliases :test :extra-deps] content)
-        new-content (-> content
+        src-deps (deps components bases component-names base-names :src [:deps] config)
+        test-deps (deps components bases component-names base-names :test [:aliases :test :extra-deps] config)
+        new-content (-> config
                         (assoc-in [:aliases :test :extra-paths] new-test-paths)
                         (assoc :deps src-deps)
                         (assoc-in [:aliases :test :extra-deps] test-deps))
@@ -60,7 +61,7 @@
 (defn recreate-config-file [ws-dir {:keys [name] :as project} workspace]
   (let [project-path (str "projects/" name "/deps.edn")
         filename (str ws-dir "/" project-path)]
-    (spit filename (new-config filename project workspace))
+    (spit filename (new-config filename project-path project workspace))
     (println (str " - " project-path " created"))))
 
 (defn recreate-config-files [ws-dir {:keys [projects] :as workspace}]

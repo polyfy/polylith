@@ -182,48 +182,49 @@
                            "  metosin/malli           0.5.0      maven     42   t   x"
                            "  org.clojure/clojure     1.10.1     maven  3,816   x   ."
                            "  org.clojure/tools.deps  0.16.1264  maven     58   x   ."]}
-               {:cmd             "ws"
-                :args            ["get:settings" "branch:create-deps-files"]
+               {:cmd "ws"
+                :args ["get:settings" "branch:create-deps-files"]
                 :clean-result-fn clean-get-settings-result
-                :expected        {:active-profiles      #{"default"}
-                                  :color-mode           "none"
-                                  :compact-views        #{}
-                                  :default-profile-name "default"
-                                  :empty-character      "."
-                                  :interface-ns         "interface"
-                                  :m2-dir               (str (System/getProperty "user.home") "/.m2")
-                                  :profile-to-settings  {"default" {:base-names      []
-                                                                    :component-names ["user1"]
-                                                                    :lib-deps        {"clj-commons/fs" {:size    12819
-                                                                                                        :type    "maven"
-                                                                                                        :version "1.6.310"}}
-                                                                    :paths           ["components/user1/src"
-                                                                                      "components/user1/test"]
-                                                                    :project-names   []}
-                                                         "extra"   {:base-names      []
-                                                                    :component-names ["admin"]
-                                                                    :lib-deps        {}
-                                                                    :paths           ["components/admin/src"
-                                                                                      "components/admin/test"]
-                                                                    :project-names   []}}
-                                  :projects             {"development" {:alias "dev"
-                                                                        :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}
-                                                         "service"     {:alias "s"
-                                                                        :necessary ["user1"]
-                                                                        :test  {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}}
-                                  :tag-patterns         {:release "v[0-9]*"
-                                                         :stable  "stable-*"}
-                                  :thousand-separator   ","
-                                  :top-namespace        "se.example"
-                                  :vcs                  {:git-root (System/getProperty "user.dir")
-                                                         :name     "git"
-                                                         :auto-add true
-                                                         :is-git-repo true
-                                                         :polylith {:branch "create-deps-files"
-                                                                    :repo   "https://github.com/polyfy/polylith.git"}}}}])
+                :expected {:active-profiles #{"default"}
+                           :color-mode "none"
+                           :compact-views #{}
+                           :default-profile-name "default"
+                           :empty-character "."
+                           :interface-ns "interface"
+                           :m2-dir (str (System/getProperty "user.home") "/.m2")
+                           :profile-to-settings  {"default" {:base-names []
+                                                             :component-names ["user1"]
+                                                             :lib-deps {"clj-commons/fs" {:size 12819
+                                                                                          :type "maven"
+                                                                                          :version "1.6.310"}}
+                                                             :paths ["components/user1/src"
+                                                                     "components/user1/test"]
+                                                             :project-names []}
+                                                  "extra" {:base-names []
+                                                           :component-names ["admin"]
+                                                           :lib-deps {}
+                                                           :paths ["components/admin/src"
+                                                                   "components/admin/test"]
+                                                           :project-names []}}
+                           :projects {"development" {:alias "dev"
+                                                     :test {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}
+                                      "service" {:alias "s"
+                                                 :necessary ["user1"]
+                                                 :test {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}}
+                           :tag-patterns {:release "v[0-9]*"
+                                          :stable "stable-*"}
+                           :thousand-separator ","
+                           :top-namespace "se.example"
+                           :vcs {:git-root (System/getProperty "user.dir")
+                                 :name "git"
+                                 :auto-add true
+                                 :is-git-repo true
+                                 :polylith {:branch "create-deps-files"
+                                            :repo "https://github.com/polyfy/polylith.git"}}}}])
 
 (deftest run-profile-tests
   (doseq [{:keys [expected actual]} (profile-ws/execute-commands commands)]
-    (is (= expected (if (string? actual)
-                      (str/split-lines actual)
-                      actual)))))
+    (is (= (if (string? actual)
+             (str/split-lines actual)
+             actual)
+           expected))))

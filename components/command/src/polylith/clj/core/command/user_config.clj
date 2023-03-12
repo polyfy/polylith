@@ -11,7 +11,7 @@
      (str " :thousand-separator \",\"}")]))
 
 (defn create-user-config-if-not-exists []
-  (let [user-config-filename (user-config/config-file-path)]
+  (let [user-config-filename (user-config/file-path)]
     (when (-> user-config-filename file/exists not)
       (file/create-missing-dirs user-config-filename)
       ;; if a legacy configuration exists, copy it to the new

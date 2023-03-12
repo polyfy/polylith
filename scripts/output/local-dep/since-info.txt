@@ -19,5 +19,4 @@
   util            util *             stx   stx
   -               invoicer-cli *     stx   stx
 
-  Warning 207: Unnecessary components were find in the development project and may be removed: datomic-ions, without-src
-  Warning 207: Unnecessary components were find in the invoicing project and may be removed: datomic-ions, without-src
+  Warning 207: Unnecessary components were found in the invoicing project and may be removed: datomic-ions, without-src

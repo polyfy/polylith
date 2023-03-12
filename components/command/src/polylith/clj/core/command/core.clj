@@ -1,19 +1,20 @@
 (ns polylith.clj.core.command.core
-  (:require [polylith.clj.core.command.cmd-validator.core :as cmd-validator]
+  (:require [polylith.clj.core.change.interface :as change]
+            [polylith.clj.core.command.cmd-validator.core :as cmd-validator]
             [polylith.clj.core.command.create :as create]
             [polylith.clj.core.command.dependencies :as dependencies]
             [polylith.clj.core.command.exit-code :as exit-code]
             [polylith.clj.core.command.info :as info]
             [polylith.clj.core.command.test :as test]
-            [polylith.clj.core.tap.interface :as tap]
             [polylith.clj.core.command.user-config :as user-config]
-            [polylith.clj.core.change.interface :as change]
+            [polylith.clj.core.command.ws-check :as ws-check]
             [polylith.clj.core.common.interface :as common]
-            [polylith.clj.core.common.interface.config :as config]
+            [polylith.clj.core.config-reader.interface :as config-reader]
             [polylith.clj.core.help.interface :as help]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.migrator.interface :as migrator]
             [polylith.clj.core.shell.interface :as shell]
+            [polylith.clj.core.tap.interface :as tap]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.version.interface :as ver]
@@ -46,24 +47,24 @@
 
 (defn read-workspace
   ([ws-dir {:keys [ws-file] :as user-input}]
-   (read-workspace ws-file ws-dir user-input (common/color-mode user-input)))
-  ([ws-file ws-dir user-input color-mode]
+   (read-workspace ws-file ws-dir user-input))
+  ([ws-file ws-dir user-input]
    (if ws-file
      (ws-file/read-ws-from-file ws-file user-input)
-     (when (config/valid-ws-root-config-file-found? ws-dir color-mode)
+     (when (ws-check/valid-workspace-file-found? ws-dir)
        (-> user-input
            ws-clj/workspace-from-disk
            ws/enrich-workspace
            change/with-changes)))))
 
-(defn workspace-reader-fn [color-mode]
+(defn workspace-reader-fn []
   (fn [user-input ws-file ws-dir]
-    (read-workspace ws-file ws-dir user-input color-mode)))
+    (read-workspace ws-file ws-dir user-input)))
 
 (defn execute [{:keys [cmd args name top-ns branch is-tap is-git-add is-commit is-all is-show-brick is-show-workspace is-show-project is-verbose get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
   (let [color-mode (common/color-mode user-input)
-        ws-dir (common/workspace-dir user-input color-mode)
-        workspace-fn (workspace-reader-fn color-mode)
+        ws-dir (config-reader/workspace-dir user-input)
+        workspace-fn (workspace-reader-fn)
         workspace (workspace-fn user-input ws-file ws-dir)]
     (user-config/create-user-config-if-not-exists)
     (when is-tap (tap/execute "open"))

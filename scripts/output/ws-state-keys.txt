@@ -1,6 +1,7 @@
 [:bases
  :changes
  :components
+ :configs
  :interfaces
  :messages
  :name
@@ -10,4 +11,5 @@
  :user-input
  :version
  :ws-dir
- :ws-reader]
+ :ws-reader
+ :ws-type]

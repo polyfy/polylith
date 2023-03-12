@@ -32,20 +32,20 @@
 
 (deftest dont-check-the-dev-project
   (is (= []
-         (m207/warnings settings [dev] false c/none))))
+         (m207/warnings "check" settings [dev] false c/none))))
 
 (deftest check-the-dev-project
   (is (= [{:type "warning",
            :code 207,
-           :message "Unnecessary components were find in the development project and may be removed: api, clojure-test-test-runner",
-           :colorized-message "Unnecessary components were find in the development project and may be removed: api, clojure-test-test-runner"}]
-         (m207/warnings settings [dev] true c/none))))
+           :message "Unnecessary components were found in the development project and may be removed: api, clojure-test-test-runner",
+           :colorized-message "Unnecessary components were found in the development project and may be removed: api, clojure-test-test-runner"}]
+         (m207/warnings "check" settings [dev] true c/none))))
 
 (deftest check-the-dev-project-exclude-necessary-components
   (let [settings (assoc-in settings [:projects "development" :necessary]
                            ["clojure-test-test-runner"])]
     (is (= [{:type "warning",
              :code 207,
-             :message "Unnecessary components were find in the development project and may be removed: api",
-             :colorized-message "Unnecessary components were find in the development project and may be removed: api"}]
-           (m207/warnings settings [dev] true c/none)))))
+             :message "Unnecessary components were found in the development project and may be removed: api",
+             :colorized-message "Unnecessary components were found in the development project and may be removed: api"}]
+           (m207/warnings "check" settings [dev] true c/none)))))

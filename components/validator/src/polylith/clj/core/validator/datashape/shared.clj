@@ -5,3 +5,7 @@
             [:extra-paths {:optional true}
              [:vector string?]]
             [:extra-deps {:optional true} [:map-of symbol? :map]]])
+
+(defn error-message [error filename]
+  (when error
+    (str "Validation error in " filename ": " error)))

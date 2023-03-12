@@ -1,13 +1,17 @@
 (ns polylith.clj.core.version.interface
-  (:refer-clojure :exclude [name]))
+  (:refer-clojure :exclude [name])
+  (:require [clojure.string :as str]))
 
 (def major 0)
 (def minor 2)
 (def patch 18)
-(def revision "alpha-issue272-01")
-(def name (str major "." minor "." patch "-" revision))
+(def revision "-issue264-05")
+(def name (str major "." minor "." patch
+               (if (str/blank? revision)
+                 ""
+                 (str "-" revision))))
 
-(def date "2023-03-04")
+(def date "2023-03-12")
 
 (defn version
   ([ws-type]
@@ -24,13 +28,15 @@
                         :date date}
               :ws {:type :toolsdeps2
                    :breaking 1
-                   :non-breaking 2}}
+                   :non-breaking 3}}
              from (assoc :from from)))))
 
 ;; === workspace attributes (ws) ===
 ;;
 ;; ws     release         action    attribute
 ;; -----  -------------   -------   -----------------------------------------------------------------
+;; 1.3    0.2.18          added     :configs
+;                         added     :ws-type
 ;; 1.2    0.2.16-alpha    added     :bases > BASE > :namespaces > :src/test > [] > :invalid
 ;;                        added     :projects > PROJECT > :namespaces > :src/test > [] > :invalid
 ;;                        added     :components > COMPONENT > :namespaces > :src/test > [] > :invalid

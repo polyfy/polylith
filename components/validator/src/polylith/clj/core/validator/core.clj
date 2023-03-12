@@ -9,6 +9,7 @@
             [polylith.clj.core.validator.m107-missing-componens-in-project :as m107]
             [polylith.clj.core.validator.m108-project-with-multi-implementing-component :as m108]
             [polylith.clj.core.validator.m109-invalid-test-runner-constructor :as m109]
+            [polylith.clj.core.validator.m110-missing-config-file :as m110]
             [polylith.clj.core.validator.m201-mismatching-parameters :as m201]
             [polylith.clj.core.validator.m202-missing-paths :as m202]
             [polylith.clj.core.validator.m203-path-exists-in-both-dev-and-profile :as m203]
@@ -21,7 +22,7 @@
        (util/xf-some (keep #(= "error" (:type %))))
        (boolean)))
 
-(defn validate-ws [suffixed-top-ns settings paths interface-names interfaces components bases projects interface-ns {:keys [cmd is-dev]} color-mode]
+(defn validate-ws [suffixed-top-ns settings paths interface-names interfaces components bases projects config-errors interface-ns {:keys [cmd is-dev]} color-mode]
   (->> [(m101/errors suffixed-top-ns interface-names components bases interface-ns color-mode)
         (m102/errors components color-mode)
         (m103/errors interfaces components color-mode)
@@ -31,12 +32,13 @@
         (m107/errors cmd settings projects color-mode)
         (m108/errors interfaces projects paths color-mode)
         (m109/errors settings color-mode)
+        (m110/errors config-errors)
         (m201/warnings interfaces components color-mode)
         (m202/warnings projects paths color-mode)
         (m203/warnings settings projects color-mode)
         (m205/warnings components bases color-mode)
         (m206/warnings components bases projects color-mode)
-        (m207/warnings settings projects is-dev color-mode)]
+        (m207/warnings cmd settings projects is-dev color-mode)]
        (into #{} cat)
        (sort-by (juxt :type :code :message))
        (vec)))
