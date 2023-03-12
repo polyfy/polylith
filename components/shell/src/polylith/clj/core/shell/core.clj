@@ -1,13 +1,14 @@
 (ns polylith.clj.core.shell.core
   (:require [clojure.string :as str]
+            [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.config-reader.interface :as config-reader]
             [polylith.clj.core.shell.jline :as jline]
-            [polylith.clj.core.util.interface.str :as str-util]
-            [polylith.clj.core.tap.interface :as tap]
-            [polylith.clj.core.util.interface.color :as color]
-            [polylith.clj.core.version.interface :as version]
-            [polylith.clj.core.user-input.interface :as user-input]
             [polylith.clj.core.shell.candidate.engine :as engine]
-            [polylith.clj.core.common.interface :as common])
+            [polylith.clj.core.tap.interface :as tap]
+            [polylith.clj.core.user-input.interface :as user-input]
+            [polylith.clj.core.util.interface.str :as str-util]
+            [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.version.interface :as version])
   (:import [org.jline.reader EndOfFileException]
            [org.jline.reader UserInterruptException])
   (:refer-clojure :exclude [next]))
@@ -39,7 +40,7 @@
     (reset! ws-file file)
     (reset! engine/ws
             (workspace-fn input file
-                          (common/workspace-dir input)))))
+                          (config-reader/workspace-dir input)))))
 
 (defn execute-command [command-executor user-input color-mode]
   (try

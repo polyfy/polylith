@@ -1,6 +1,7 @@
 (ns polylith.clj.core.workspace-clj.core
   (:require [clojure.string :as str]
             [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.config-reader.interface :as config-reader]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.git.interface :as git]
             [polylith.clj.core.util.interface :as util]
@@ -8,8 +9,7 @@
             [polylith.clj.core.user-config.interface :as user-config]
             [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.path-finder.interface :as path-finder]
-            [polylith.clj.core.workspace-clj.config :as config]
-            [polylith.clj.core.workspace-clj.configs-from-disk :as config-from-disk]
+            [polylith.clj.core.workspace-clj.ws-config :as ws-config]
             [polylith.clj.core.workspace-clj.profile :as profile]
             [polylith.clj.core.workspace-clj.ws-reader :as ws-reader]
             [polylith.clj.core.workspace-clj.tag-pattern :as tag-pattern]
@@ -99,13 +99,13 @@
         user-config-filename (user-config/file-path)
         project->settings (project-settings/convert ws-config)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
-        [component-configs component-errors] (config-from-disk/read-brick-config-files ws-dir ws-type "components")
+        [component-configs component-errors] (config-reader/read-brick-config-files ws-dir ws-type "components")
         components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns component-configs)
-        [base-configs base-errors] (config-from-disk/read-brick-config-files ws-dir ws-type "bases")
+        [base-configs base-errors] (config-reader/read-brick-config-files ws-dir ws-type "bases")
         bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns base-configs)
         name->brick (into {} (comp cat (map (juxt :name identity))) [components bases])
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
-        [project-configs project-errors] (config-from-disk/read-project-config-files ws-dir ws-type)
+        [project-configs project-errors] (config-reader/read-project-config-files ws-dir ws-type)
         projects (projects-from-disk/read-projects ws-dir name->brick project->settings user-input user-home suffixed-top-ns interface-ns project-configs)
         profile-to-settings (profile/profile-to-settings ws-dir aliases name->brick user-home)
         ws-local-dir (->ws-local-dir ws-dir)
@@ -138,7 +138,7 @@
                       :settings settings
                       :configs {:components component-configs
                                 :bases base-configs
-                                :projects (config-from-disk/clean-project-configs project-configs)
+                                :projects (config-reader/clean-project-configs project-configs)
                                 :user (user-config/content)
                                 :workspace ws-config}
                       :config-errors config-errors
@@ -157,20 +157,20 @@
 
 (defn workspace-from-disk [user-input]
   (let [color-mode (or (:color-mode user-input) (user-config/color-mode) color/none)
-        ws-dir (common/workspace-dir user-input)
+        ws-dir (config-reader/workspace-dir user-input)
         ws-name (workspace-name ws-dir)
         ws-file (str ws-dir "/workspace.edn")
         deps-file (str ws-dir "/deps.edn")
         ws-type (cond
-                  (config-from-disk/file-exists? ws-file :workspace) :toolsdeps2
-                  (config-from-disk/file-exists? deps-file :development) :toolsdeps1)]
+                  (config-reader/file-exists? ws-file :workspace) :toolsdeps2
+                  (config-reader/file-exists? deps-file :development) :toolsdeps1)]
     (when ws-type
-      (let [{:keys [config error]} (config-from-disk/read-project-dev-config-file ws-dir ws-type)
+      (let [{:keys [config error]} (config-reader/read-project-dev-config-file ws-dir ws-type)
             {:keys [aliases polylith]} config
             [ws-config ws-error] (when (nil? error)
                                    (if (= :toolsdeps2 ws-type)
-                                     (config/ws-config-from-disk ws-dir)
-                                     (config/ws-config-from-dev polylith)))
+                                     (ws-config/ws-config-from-disk ws-dir)
+                                     (ws-config/ws-config-from-dev polylith)))
             config-errors (cond-> []
                                   ws-error (conj ws-error)
                                   error (conj {:error error}))]

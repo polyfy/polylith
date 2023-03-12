@@ -1,9 +1,9 @@
 (ns polylith.clj.core.workspace-clj.missing-deps-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.workspace-clj.configs-from-disk :as configs-from-disk]
-            [polylith.clj.core.workspace-clj.core :as ws-clj]
+            [polylith.clj.core.config-reader.interface :as config-reader]
             [polylith.clj.core.command.interface :as command]
-            [polylith.clj.core.user-input.interface :as user-input]))
+            [polylith.clj.core.user-input.interface :as user-input]
+            [polylith.clj.core.workspace-clj.core :as ws-clj]))
 
 (defn ws-from-file [filename]
   (let [input (user-input/extract-params ["ws" (str "ws-file:" filename)])]
@@ -12,7 +12,7 @@
 (defn workspace-from-disk [entity-type]
   (let [ws-dir "examples/illegal-configs"
         user-input (user-input/extract-params (concat ["info" (str "ws-dir:" ws-dir) ":user-home"]))]
-    (:config-errors (with-redefs [configs-from-disk/file-exists? (fn [_ type] (not= entity-type type))]
+    (:config-errors (with-redefs [config-reader/file-exists? (fn [_ type] (not= entity-type type))]
                       (ws-clj/workspace-from-disk user-input)))))
 
 (deftest could-not-find-project-config-file

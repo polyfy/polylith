@@ -1,5 +1,6 @@
 (ns polylith.clj.core.command.core
-  (:require [polylith.clj.core.command.cmd-validator.core :as cmd-validator]
+  (:require [polylith.clj.core.change.interface :as change]
+            [polylith.clj.core.command.cmd-validator.core :as cmd-validator]
             [polylith.clj.core.command.create :as create]
             [polylith.clj.core.command.dependencies :as dependencies]
             [polylith.clj.core.command.exit-code :as exit-code]
@@ -7,13 +8,13 @@
             [polylith.clj.core.command.test :as test]
             [polylith.clj.core.command.user-config :as user-config]
             [polylith.clj.core.command.ws-check :as ws-check]
-            [polylith.clj.core.tap.interface :as tap]
-            [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.config-reader.interface :as config-reader]
             [polylith.clj.core.help.interface :as help]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.migrator.interface :as migrator]
             [polylith.clj.core.shell.interface :as shell]
+            [polylith.clj.core.tap.interface :as tap]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.version.interface :as ver]
@@ -62,7 +63,7 @@
 
 (defn execute [{:keys [cmd args name top-ns branch is-tap is-git-add is-commit is-all is-show-brick is-show-workspace is-show-project is-verbose get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
   (let [color-mode (common/color-mode user-input)
-        ws-dir (common/workspace-dir user-input)
+        ws-dir (config-reader/workspace-dir user-input)
         workspace-fn (workspace-reader-fn)
         workspace (workspace-fn user-input ws-file ws-dir)]
     (user-config/create-user-config-if-not-exists)

@@ -2,8 +2,7 @@
   (:require [polylith.clj.core.common.class-loader :as class-loader]
             [polylith.clj.core.common.core :as core]
             [polylith.clj.core.common.ns-extractor :as ns-extractor]
-            [polylith.clj.core.common.validate-args :as validate-args]
-            [polylith.clj.core.common.ws-dir :as ws-dir]))
+            [polylith.clj.core.common.validate-args :as validate-args]))
 
 (def entity->short core/entity->short)
 
@@ -52,9 +51,6 @@
 
 (defn validate-args [unnamed-args example]
   (validate-args/validate unnamed-args example))
-
-(defn workspace-dir [user-input]
-  (ws-dir/workspace-dir user-input))
 
 (defn toolsdeps1? [workspace]
   (= :toolsdeps1 (-> workspace :version :from :ws :type)))

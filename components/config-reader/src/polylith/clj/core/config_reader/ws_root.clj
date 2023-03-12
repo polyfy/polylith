@@ -1,14 +1,15 @@
-(ns polylith.clj.core.common.ws-dir
+(ns polylith.clj.core.config-reader.ws-root
   (:require [clojure.string :as str]
-            [polylith.clj.core.common.core :as core]
-            [polylith.clj.core.common.config.validate :as config]
+            [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.config-reader.config-reader :as config-reader]
             [polylith.clj.core.file.interface :as file])
   (:import (java.io File)))
 
 (defn find-root-dir [path config-filename valid-fn]
   (if (contains? (set (file/files path))
                  config-filename)
-    path
+    (if (valid-fn path)
+      path)
     (let [parts (str/split path (re-pattern File/separator))]
       (when (or (-> parts empty? not))
         (let [new-path (str/join "/" (drop-last parts))]
@@ -21,8 +22,8 @@
    start by looking in the 'path' and then step one parent directory at a time."
   [path]
   (or
-    (find-root-dir path "workspace.edn" config/valid-ws-deps2-file-found?)
-    (find-root-dir path "deps.edn" config/valid-ws-deps1-file-found?)
+    (find-root-dir path "workspace.edn" config-reader/read-workspace-config-file)
+    (find-root-dir path "deps.edn" config-reader/read-project-dev-config-file)
     (println "  Couldn't find a valid workspace root config file.")))
 
 (defn workspace-dir [{:keys [ws-dir is-search-for-ws-dir]}]
@@ -32,4 +33,4 @@
     (file/current-dir)
     (if is-search-for-ws-dir
       (find-ws-root-dir (file/absolute-path ""))
-      (core/user-path ws-dir))))
+      (common/user-path ws-dir))))

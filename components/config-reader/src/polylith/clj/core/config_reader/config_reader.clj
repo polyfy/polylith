@@ -1,19 +1,14 @@
-(ns polylith.clj.core.workspace-clj.configs-from-disk
+(ns polylith.clj.core.config-reader.config-reader
   (:require [polylith.clj.core.file.interface :as file]
-            [polylith.clj.core.common.interface.config :as config]
+            [polylith.clj.core.config-reader.deps-reader :as deps-reader]
             [polylith.clj.core.validator.interface :as validator]))
-
-(defn file-exists?
-  "The second argument is used for test purposes."
-  [filename _]
-  (-> filename file/exists))
 
 (defn read-config-file [ws-type entity-name type entity-dir entity-path validator]
   (let [config-filename (str entity-path "/deps.edn")
         short-config-filename (str entity-dir "/deps.edn")]
     (-> (case ws-type
           :toolsdeps1
-          (let [{:keys [config]} (config/read-deps-file config-filename)]
+          (let [{:keys [config]} (deps-reader/read-deps-file config-filename short-config-filename)]
             (if config
               {:config config}
               (if (= :brick type)
@@ -21,7 +16,7 @@
                           :aliases {:test {:extra-paths ["test"]}}}}
                 {:config {}})))
           :toolsdeps2
-          (let [{:keys [config error]} (config/read-deps-file config-filename)]
+          (let [{:keys [config error]} (deps-reader/read-deps-file config-filename short-config-filename)]
             (if error
               {:error error}
               (let [message (validator ws-type config short-config-filename)]
@@ -48,15 +43,15 @@
                                  (str "projects/" %)
                                  (str ws-dir "/projects/" %)
                                  validator/validate-project-deployable-config)
-               :is-dev false
-               :project-name %
-               :project-dir (str ws-dir "/projects/" %)
-               :project-config-dir (str ws-dir "/projects/" %))
+          :is-dev false
+          :project-name %
+          :project-dir (str ws-dir "/projects/" %)
+          :project-config-dir (str ws-dir "/projects/" %))
        (file/directories (str ws-dir "/projects"))))
 
 (defn read-project-dev-config-file [ws-dir ws-type]
   (let [filename (str ws-dir "/deps.edn")]
-    (let [{:keys [config error]} (config/read-deps-file filename)]
+    (let [{:keys [config error]} (deps-reader/read-deps-file filename "deps.edn")]
       (if error
         {:error error}
         (let [message (validator/validate-project-dev-config ws-type config "./deps.edn")]
@@ -81,3 +76,14 @@
   (-> (into [] cat [[(read-project-dev-config-file ws-dir ws-type)]
                     (read-project-deployable-config-files ws-dir ws-type)])
       (filter-config-files)))
+
+(defn read-workspace-config-file [ws-dir]
+  (let [filename-path (str ws-dir "/workspace.edn")]
+    (let [{:keys [config error]} (deps-reader/read-deps-file filename-path "workspace.edn")]
+      (if error
+        {:error error}
+        (let [message (validator/validate-workspace-config config)]
+          (if message
+            {:error (str "Error in ./workspace.edn: " message)
+             :config config}
+            {:config config}))))))

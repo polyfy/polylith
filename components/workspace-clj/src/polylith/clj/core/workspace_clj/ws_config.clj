@@ -1,12 +1,10 @@
-(ns polylith.clj.core.workspace-clj.config
-  (:require [polylith.clj.core.validator.interface :as validator]))
+(ns polylith.clj.core.workspace-clj.ws-config
+  (:require [polylith.clj.core.config-reader.interface :as config-reader]))
 
 (defn ws-config-from-disk [ws-dir]
-  (let [config (read-string (slurp (str ws-dir "/workspace.edn")))
-        message (validator/validate-workspace-config config)]
-    (if message
-      [config
-       {:error (str "Error in ./workspace.edn: " message)}]
+  (let [{:keys [config error]} (config-reader/read-workspace-config-file ws-dir)]
+    (if error
+      [config error]
       [config])))
 
 (defn with-alias [[project alias]]

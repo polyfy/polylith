@@ -1,4 +1,4 @@
-(ns polylith.clj.core.common.config.read
+(ns polylith.clj.core.config-reader.deps-reader
   (:require [clojure.java.io :as io]
             [clojure.edn :as edn])
   (:import (java.io IOException)))
@@ -29,17 +29,17 @@
 
 (defn load-edn-file
   "Load edn from an io/reader source (filename or io/resource)."
-  [filename]
+  [file-path filename]
   (try
-    (with-open [reader (io/reader filename)]
+    (with-open [reader (io/reader file-path)]
       {:config (edn/read (java.io.PushbackReader. reader))})
     (catch IOException e
       {:error (str "Couldn't open '" filename "': " (.getMessage e))})
     (catch RuntimeException e
       {:error (str "Couldn't parse '" filename "': " (.getMessage e))})))
 
-(defn read-deps-file [file-path]
-  (let [{:keys [config error]} (load-edn-file file-path)
+(defn read-deps-file [file-path filename]
+  (let [{:keys [config error]} (load-edn-file file-path filename)
         alias->path (:aliases config)]
     (cond-> {}
             config (assoc :config (-> config
