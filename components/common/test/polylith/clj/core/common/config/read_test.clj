@@ -9,4 +9,4 @@
                     :resources-path ["resources"],
                     :test-paths ["test" "test2"],
                     :test {:extra-paths ["test" "test2"], :extra-deps {}}}}
-         (config/read-deps-file "examples/for-test/components/company/deps.edn"))))
+         (:config (config/read-deps-file "examples/for-test/components/company/deps.edn")))))

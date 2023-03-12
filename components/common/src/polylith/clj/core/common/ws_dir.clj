@@ -21,7 +21,7 @@
    start by looking in the 'path' and then step one parent directory at a time."
   [path]
   (or
-    (find-root-dir path "workspace.edn" config/valid-ws-file-found?)
+    (find-root-dir path "workspace.edn" config/valid-ws-deps2-file-found?)
     (find-root-dir path "deps.edn" config/valid-ws-deps1-file-found?)
     (println "  Couldn't find a valid workspace root config file.")))
 

@@ -1,4 +1,7 @@
-(ns polylith.clj.core.common.config.read)
+(ns polylith.clj.core.common.config.read
+  (:require [clojure.java.io :as io]
+            [clojure.edn :as edn])
+  (:import (java.io IOException)))
 
 (defn substitute-if-alias
   "If a path in e.g. {:path ['src']} is a string, return the string
@@ -24,10 +27,23 @@
     (assoc-in content keys (substitute-alias value alias->path))
     content))
 
-(defn read-deps-file [deps-path]
-  (let [content (-> deps-path slurp read-string)
-        alias->path (:aliases content)]
-    (-> content
-        (substitute [:paths] alias->path)
-        (substitute [:aliases :dev :extra-paths] alias->path)
-        (substitute [:aliases :test :extra-paths] alias->path))))
+(defn load-edn-file
+  "Load edn from an io/reader source (filename or io/resource)."
+  [filename]
+  (try
+    (with-open [reader (io/reader filename)]
+      {:config (edn/read (java.io.PushbackReader. reader))})
+    (catch IOException e
+      {:error (str "Couldn't open '" filename "': " (.getMessage e))})
+    (catch RuntimeException e
+      {:error (str "Couldn't parse '" filename "': " (.getMessage e))})))
+
+(defn read-deps-file [file-path]
+  (let [{:keys [config error]} (load-edn-file file-path)
+        alias->path (:aliases config)]
+    (cond-> {}
+            config (assoc :config (-> config
+                                      (substitute [:paths] alias->path)
+                                      (substitute [:aliases :dev :extra-paths] alias->path)
+                                      (substitute [:aliases :test :extra-paths] alias->path)))
+            error (assoc :error error))))

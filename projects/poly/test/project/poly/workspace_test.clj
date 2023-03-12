@@ -705,7 +705,8 @@
          (ws-explorer/extract (workspace) ["projects" "poly" "paths" "test"]))))
 
 (deftest poly-project-lib-imports
-  (is (= {:src  ["clojure.java.io"
+  (is (= {:src  ["clojure.edn"
+                 "clojure.java.io"
                  "clojure.java.shell"
                  "clojure.lang"
                  "clojure.pprint"

@@ -38,14 +38,14 @@
                   {:keys [base-names component-names]}
                   {:keys [components bases]}]
 
-  (let [content (config/read-deps-file filename)
-        paths (:paths content)
-        test-paths (-> :aliases content :test :extra-paths)
+  (let [{:keys [config]} (config/read-deps-file filename)
+        paths (:paths config)
+        test-paths (-> :aliases config :test :extra-paths)
         new-paths (filterv not-brick? paths)
         new-test-paths (filterv not-brick? test-paths)
-        src-deps (deps components bases component-names base-names :src [:deps] content)
-        test-deps (deps components bases component-names base-names :test [:aliases :test :extra-deps] content)
-        new-content (-> content
+        src-deps (deps components bases component-names base-names :src [:deps] config)
+        test-deps (deps components bases component-names base-names :test [:aliases :test :extra-deps] config)
+        new-content (-> config
                         (assoc-in [:aliases :test :extra-paths] new-test-paths)
                         (assoc :deps src-deps)
                         (assoc-in [:aliases :test :extra-deps] test-deps))

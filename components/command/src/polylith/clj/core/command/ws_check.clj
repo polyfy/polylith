@@ -3,11 +3,8 @@
             [polylith.clj.core.file.interface :as file]))
 
 (defn valid-ws-deps1-file-found? [path]
-  (try
-    (and (file/exists (str path "/deps.edn"))
-         (:polylith (config/read-deps-file (str path "/deps.edn"))))
-    (catch Exception _
-      false)))
+  (let [{:keys [config]} (config/read-deps-file (str path "/deps.edn"))]
+    (:polylith config)))
 
 (defn valid-ws-file-found? [path]
   (try

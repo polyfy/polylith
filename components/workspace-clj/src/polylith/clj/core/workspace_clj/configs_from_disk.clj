@@ -13,20 +13,21 @@
         short-config-filename (str entity-dir "/deps.edn")]
     (-> (case ws-type
           :toolsdeps1
-          (if (-> config-filename file/exists)
-            {:config (config/read-deps-file config-filename)}
-            (if (= :brick type)
-              {:config {:paths ["src" "resources"]
-                        :aliases {:test {:extra-paths ["test"]}}}}
-              {:config {}}))
+          (let [{:keys [config]} (config/read-deps-file config-filename)]
+            (if config
+              {:config config}
+              (if (= :brick type)
+                {:config {:paths ["src" "resources"]
+                          :aliases {:test {:extra-paths ["test"]}}}}
+                {:config {}})))
           :toolsdeps2
-          (if (not (file-exists? config-filename type))
-            {:error (str "Could not find config file: " short-config-filename)}
-            (let [config (config/read-deps-file config-filename)
-                  message (validator ws-type config short-config-filename)]
-              (if message
-                {:error message}
-                {:config config}))))
+          (let [{:keys [config error]} (config/read-deps-file config-filename)]
+            (if error
+              {:error error}
+              (let [message (validator ws-type config short-config-filename)]
+                (if message
+                  {:error message}
+                  {:config config})))))
         (assoc :name entity-name))))
 
 (defn filter-config-files [configs-and-errors]
@@ -55,18 +56,18 @@
 
 (defn read-project-dev-config-file [ws-dir ws-type]
   (let [filename (str ws-dir "/deps.edn")]
-    (if (not (file-exists? filename :development))
-      {:error (str "Could not find config file: ./deps.edn")}
-      (let [config (config/read-deps-file filename)
-            message (validator/validate-project-dev-config ws-type config "./deps.edn")]
-        (if message
-          {:error message}
-          {:config config
-           :is-dev true
-           :name "development"
-           :project-name "development"
-           :project-dir (str ws-dir "/development")
-           :project-config-dir ws-dir})))))
+    (let [{:keys [config error]} (config/read-deps-file filename)]
+      (if error
+        {:error error}
+        (let [message (validator/validate-project-dev-config ws-type config "./deps.edn")]
+          (if message
+            {:error message}
+            {:config config
+             :is-dev true
+             :name "development"
+             :project-name "development"
+             :project-dir (str ws-dir "/development")
+             :project-config-dir ws-dir}))))))
 
 (defn clean-project-configs [configs]
   (mapv #(dissoc %
