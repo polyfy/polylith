@@ -9,21 +9,27 @@
  :projects {"development" {:alias "dev"}
             "failing-test" {:alias "failing"
                             :test {:setup-fn project.failing-test.test-setup/setup
-                                   :teardown-fn project.failing-test.test-setup/teardown}}
+                                   :teardown-fn project.failing-test.test-setup/teardown}
+                            :necessary ["a-okay" "b-fail" "util"]}
             "failing-test-teardown-fails" {:alias "failing-x2"
                                            :test {:setup-fn project.failing-test-teardown-fails.test-setup/setup
-                                                  :teardown-fn project.failing-test-teardown-fails.test-setup/teardown}}
+                                                  :teardown-fn project.failing-test-teardown-fails.test-setup/teardown}
+                                           :necessary ["a-okay" "b-fail" "util"]}
 
             "service" {:alias "service"}
             "okay" {:alias "okay"
                     :test {:setup-fn project.okay.test-setup/setup
-                           :teardown-fn project.okay.test-setup/teardown}}
+                           :teardown-fn project.okay.test-setup/teardown}
+                    :necessary ["a-okay" "b-fail" "company" "util"]}
             "setup-fails" {:alias "setup-fails"
                            :test {:setup-fn project.setup-fails.test-setup/setup
-                                  :teardown-fn project.setup-fails.test-setup/teardown}}
+                                  :teardown-fn project.setup-fails.test-setup/teardown}
+                           :necessary ["util"]}
             "teardown-fails" {:alias "teardown-fails"
                               :test {:setup-fn project.teardown-fails.test-setup/setup
-                                     :teardown-fn project.teardown-fails.test-setup/teardown}}
+                                     :teardown-fn project.teardown-fails.test-setup/teardown}
+                              :necessary ["a-okay" "util"]}
             "x-okay" {:alias "x-ok"
                       :test {:setup-fn project.x-okay.test-setup/setup
-                             :teardown-fn project.x-okay.test-setup/teardown}}}}
+                             :teardown-fn project.x-okay.test-setup/teardown}
+                      :necessary ["a-okay" "company" "util"]}}}

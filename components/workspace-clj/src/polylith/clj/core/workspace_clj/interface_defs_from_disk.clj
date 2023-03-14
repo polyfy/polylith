@@ -44,3 +44,15 @@
                (mapcat #(interface-from-disk % interface-ns))))
        (sort-by (juxt :sub-ns :type :name params))
        (vec)))
+
+(comment
+  ;; This returns '() right now, but should return:
+  ;;   '((ns com.for.test.company.interface) (def abc 123))
+  ;;
+  ;; If we comment out the :require statement, then it works.
+  ;;
+  ;; Can also bed tested by executing "poly ws get:components:company:interface"
+  ;; from the examples/for-test directory, which should return:
+  ;;   {:definitions [{:name "abc", :type "data"}], :name "company"}
+  (file/read-file "examples/for-test/components/company/cljc/com/for/test/company/interface.cljc")
+  #__)
