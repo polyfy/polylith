@@ -39,6 +39,7 @@
                                org.slf4j/slf4j-nop {:mvn/version "2.0.6"}
                                org.jline/jline {:mvn/version "3.21.0"}
                                djblue/portal {:mvn/version "0.35.1"}
+                               borkdude/edamame {:mvn/version "1.1.17"}
                                io.github.seancorfield/build-clj {:git/tag "v0.9.2" :git/sha "9c9f078"}
                                clj-commons/fs {:mvn/version "1.6.310"}
                                metosin/malli {:mvn/version "0.10.1"}

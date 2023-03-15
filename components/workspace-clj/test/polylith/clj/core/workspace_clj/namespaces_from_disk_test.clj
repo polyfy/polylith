@@ -69,7 +69,7 @@
          (from-disk/import '(:require [asalias.comp-a.core :as-alias comp-a]) "asalias." "interface"))))
 
 (deftest ->namespace--read-invalid-namespace
-  (with-redefs [file/read-first-statement (fn [_] '--)
+  (with-redefs [file/read-file (fn [_] '--)
                 from-disk/namespace-name (fn [_ _] "")]
     (from-disk/->namespace "" "" "" "")
     (is (= {:name "", :namespace "", :file-path "path", :imports [], :invalid true}

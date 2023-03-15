@@ -1,11 +1,13 @@
 (ns polylith.clj.core.file.core
   (:require [clojure.java.io :as io]
             [clojure.pprint :as pp]
-            [clojure.tools.deps :as tda]
-            [me.raynes.fs :as fs]
             [clojure.string :as str]
+            [clojure.tools.deps :as tda]
+            [clojure.tools.reader :refer [resolve-symbol]]
+            [edamame.core :as edamame]
+            [me.raynes.fs :as fs]
             [polylith.clj.core.util.interface.str :as str-util])
-  (:import [java.io File PushbackReader FileNotFoundException]
+  (:import [java.io File FileNotFoundException]
            [java.nio.file Files]))
 
 (defn file [^String f]
@@ -106,24 +108,16 @@
      :dirs dirs}))
 
 (defn read-file [path]
-  (try
-    (with-open [rdr (-> path
-                        (io/reader)
-                        (PushbackReader.))]
-      (doall
-        (take-while #(not= ::done %)
-                    (repeatedly #(try (read rdr)
-                                      (catch Exception _ ::done))))))
-    (catch FileNotFoundException _
-      nil)))
-
-(defn read-first-statement [path]
-  (try
-    (read-string {:read-cond :allow} (slurp path))
-    (catch Exception _
-      ;; When the whole namespace is commented out, we get the runtime exception
-      ;; "EOF while reading", which is okay, and we just skip the namespace.
-      [])))
+  (edamame/parse-string-all (slurp path)
+                            {:fn true
+                             :var true
+                             :quote true
+                             :regex true
+                             :deref true
+                             :read-eval true
+                             :features #{:clj}
+                             :read-cond :allow
+                             :syntax-quote {:resolve-symbol resolve-symbol}}))
 
 (defn copy-resource-file! [source target-path]
   (delete-file target-path)

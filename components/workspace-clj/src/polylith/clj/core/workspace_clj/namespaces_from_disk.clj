@@ -123,7 +123,8 @@
        (second content)))
 
 (defn ->namespace [source-dir suffixed-top-ns interface-ns file-path]
-  (let [content (file/read-first-statement file-path)
+  (let [file-content (file/read-file file-path)
+        content (when (sequential? file-content) (first file-content))
         ns-name (namespace-name source-dir file-path)]
     (if (empty-ns? content)
       {:name ns-name
@@ -143,10 +144,13 @@
 (comment
   (imports content suffixed-top-ns interface-ns)
 
-  (def source-dir "/Users/joakimtengstrand/source/polylith/components/version/src/polylith/clj/core/")
-  (def file-path "/Users/joakimtengstrand/source/polylith/components/version/src/polylith/clj/core/version/testing.clj")
+  (def source-dir "components/version/src/polylith/clj/core/")
+  (def file-path "components/version/src/polylith/clj/core/version/testing.clj")
+  (def file-path "components/version/src/polylith/clj/core/version/interface.clj")
+  (def file-path "components/clojure-test-test-runner/src/polylith/clj/core/clojure_test_test_runner/core.clj")
+  (def file-path "components/common/src/polylith/clj/core/common/core.clj")
+  (file/read-file file-path)
   (->namespace source-dir "polylith.clj.core." "interface" file-path)
-  (file/read-first-statement file-path)
   #__)
 
 (defn source-namespaces-from-disk [source-dir suffixed-top-ns interface-ns]
