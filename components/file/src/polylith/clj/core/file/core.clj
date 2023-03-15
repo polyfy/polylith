@@ -117,6 +117,7 @@
                              :read-eval true
                              :features #{:clj}
                              :read-cond :allow
+                             :auto-resolve-ns true
                              :syntax-quote {:resolve-symbol resolve-symbol}}))
 
 (defn copy-resource-file! [source target-path]

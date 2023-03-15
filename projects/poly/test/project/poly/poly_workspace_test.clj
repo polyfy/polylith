@@ -82,7 +82,7 @@
           "  ---------------------------------------------------------   ---------   ---   ----------------------"
           "  borkdude/edamame                  1.2.19     maven     23    x    x      x    .  x  .  .  .  .  .  ."
           "  clj-commons/fs                    1.6.310    maven     12    x    x      x    .  x  .  .  .  .  .  ."
-          "  djblue/portal                     0.35.1     maven  1,790    -    x      x    .  .  .  .  x  .  .  ."
+          "  djblue/portal                     0.37.1     maven  1,818    -    x      x    .  .  .  .  x  .  .  ."
           "  io.github.seancorfield/build-clj  9c9f078    git       42    -    -      x    .  .  .  .  .  .  .  ."
           "  metosin/malli                     0.10.2     maven     83    x    x      x    .  .  .  .  .  x  .  ."
           "  mount/mount                       0.1.17     maven      8    -    -      x    .  .  .  .  .  .  .  ."
