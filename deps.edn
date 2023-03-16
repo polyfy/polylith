@@ -77,6 +77,10 @@
             :poly {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
                    :extra-deps {polylith/clj-poly {:local/root "projects/poly"}}}
 
+            :poly17  {:extra-deps {polylith/clj-poly
+                                   {:mvn/version "0.2.17-alpha"}}
+                      :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}
+
             :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}
                                    :main-opts ["-m" "antq.core"]}
 
