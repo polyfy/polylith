@@ -118,13 +118,14 @@
   (and (sequential? content)
        (empty? content)))
 
-(defn valid-ns? [content]
+(defn ns-with-name? [content]
   (and (sequential? content)
-       (second content)))
+       (= (symbol "ns")
+          (first content))
+       (-> content second boolean)))
 
 (defn ->namespace [source-dir suffixed-top-ns interface-ns file-path]
-  (let [file-content (file/read-file file-path)
-        content (when (sequential? file-content) (first file-content))
+  (let [content (-> file-path file/read-file first)
         ns-name (namespace-name source-dir file-path)]
     (if (empty-ns? content)
       {:name ns-name
@@ -132,23 +133,20 @@
        :file-path file-path
        :imports []}
       (let [imports (imports content suffixed-top-ns interface-ns)
-            valid? (valid-ns? content)]
+            invalid? (-> content ns-with-name? not)]
         (cond-> {:name ns-name
-                 :namespace (if valid?
+                 :namespace (if (ns-with-name? content)
                               (-> content second str)
                               "")
                  :file-path file-path
                  :imports imports}
-                (not valid?) (assoc :invalid true))))))
+                invalid? (assoc :invalid true))))))
 
 (comment
-  (imports content suffixed-top-ns interface-ns)
-
   (def source-dir "components/version/src/polylith/clj/core/")
-  (def file-path "components/version/src/polylith/clj/core/version/testing.clj")
-  (def file-path "components/version/src/polylith/clj/core/version/interface.clj")
-  (def file-path "components/clojure-test-test-runner/src/polylith/clj/core/clojure_test_test_runner/core.clj")
-  (def file-path "components/common/src/polylith/clj/core/common/core.clj")
+  (def file-path "components/tap/src/polylith/clj/core/tap/core.clj")
+  (def source-dir "bases/poly-cli/src/polylith/clj/core/")
+  (def file-path "bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj")
   (file/read-file file-path)
   (->namespace source-dir "polylith.clj.core." "interface" file-path)
   #__)

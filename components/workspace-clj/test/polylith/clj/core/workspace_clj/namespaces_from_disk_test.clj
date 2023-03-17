@@ -6,6 +6,23 @@
 (def suffixed-top-ns "polylith.clj.core.")
 (def interface-ns "interface")
 
+(deftest ns-with-name--nil--returns-false
+  ;; this should never happen!
+  (is (= (from-disk/ns-with-name? nil)
+         false)))
+
+(deftest ns-with-name--text--returns-false
+  (is (= (from-disk/ns-with-name? 'hello)
+         false)))
+
+(deftest ns-with-name--only-ns--returns-true
+  (is (= (from-disk/ns-with-name? '(ns myns))
+         true)))
+
+(deftest ns-with-name--ns-with-name--returns-true
+  (is (= (from-disk/ns-with-name? '(ns myns (:require [clojure.string :as str])))
+         true)))
+
 (deftest imports--require-is-first-statement--returns-imported-namespaces
   (let [code '(ns polylith.clj.core.file.core
                 (:require [clojure.java.io :as io]
@@ -68,9 +85,24 @@
   (is (= ["asalias.comp-a.core"]
          (from-disk/import '(:require [asalias.comp-a.core :as-alias comp-a]) "asalias." "interface"))))
 
+(def file-content '[(ns polylith.clj.core.tap.core (:require [clojure.string :as str] [portal.api :as portal]))
+                    (defn command [cmd] (if (str/blank? cmd) "open" cmd))])
+
 (deftest ->namespace--read-invalid-namespace
-  (with-redefs [file/read-file (fn [_] '--)
+  (with-redefs [file/read-file (fn [_] ['--])
                 from-disk/namespace-name (fn [_ _] "")]
     (from-disk/->namespace "" "" "" "")
     (is (= {:name "", :namespace "", :file-path "path", :imports [], :invalid true}
            (from-disk/->namespace "" "" "" "path")))))
+
+(deftest ->namespace--read-namespace
+  (with-redefs [file/read-file (fn [_] file-content)
+                from-disk/namespace-name (fn [_ _] "core")]
+    (is (= (from-disk/->namespace "components/version/src/polylith/clj/core/"
+                                  "polylith.clj.core."
+                                  "interface"
+                                  "components/tap/src/polylith/clj/core/tap/core.clj")
+           {:name "core"
+            :namespace "polylith.clj.core.tap.core"
+            :file-path "components/tap/src/polylith/clj/core/tap/core.clj"
+            :imports ["clojure.string" "portal.api"]}))))
