@@ -7,7 +7,6 @@
 (def interface-ns "interface")
 
 (deftest ns-with-name--nil--returns-false
-  ;; this should never happen!
   (is (= (from-disk/ns-with-name? nil)
          false)))
 

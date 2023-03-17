@@ -115,8 +115,9 @@
           (str/replace "_" "-")))))
 
 (defn empty-ns? [content]
-  (and (sequential? content)
-       (empty? content)))
+  (or (nil? content)
+      (and (sequential? content)
+           (empty? content))))
 
 (defn ns-with-name? [content]
   (and (sequential? content)
@@ -146,10 +147,11 @@
 (comment
   (def source-dir "components/version/src/polylith/clj/core/")
   (def file-path "components/tap/src/polylith/clj/core/tap/core.clj")
+  (def file-path "components/file/src/polylith/clj/core/file/testing.clj")
   (def source-dir "bases/poly-cli/src/polylith/clj/core/")
   (def file-path "bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj")
   (file/read-file file-path)
-  (->namespace source-dir "polylith.clj.core." "interface" file-path)
+  (->namespace "." source-dir "polylith.clj.core." "interface" file-path)
   #__)
 
 (defn source-namespaces-from-disk [ws-dir source-dir suffixed-top-ns interface-ns]
