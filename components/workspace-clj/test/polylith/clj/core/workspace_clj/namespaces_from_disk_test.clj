@@ -91,14 +91,15 @@
 (deftest ->namespace--read-invalid-namespace
   (with-redefs [file/read-file (fn [_] ['--])
                 from-disk/namespace-name (fn [_ _] "")]
-    (from-disk/->namespace "" "" "" "")
+    (from-disk/->namespace "." "" "" "" "")
     (is (= {:name "", :namespace "", :file-path "path", :imports [], :invalid true}
-           (from-disk/->namespace "" "" "" "path")))))
+           (from-disk/->namespace "." "" "" "" "path")))))
 
 (deftest ->namespace--read-namespace
   (with-redefs [file/read-file (fn [_] file-content)
                 from-disk/namespace-name (fn [_ _] "core")]
-    (is (= (from-disk/->namespace "components/version/src/polylith/clj/core/"
+    (is (= (from-disk/->namespace "."
+                                  "components/version/src/polylith/clj/core/"
                                   "polylith.clj.core."
                                   "interface"
                                   "components/tap/src/polylith/clj/core/tap/core.clj")

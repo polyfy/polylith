@@ -147,7 +147,7 @@
                           (seq src-lib-deps) (assoc :src src-lib-deps)
                           (seq test-lib-deps) (assoc :test test-lib-deps))
          {:keys [src-dirs test-dirs]} (project-paths/project-source-dirs ws-dir project-name is-dev project-src-paths project-test-paths)
-         namespaces (ns-from-disk/namespaces-from-disk src-dirs test-dirs suffixed-top-ns interface-ns)]
+         namespaces (ns-from-disk/namespaces-from-disk ws-dir src-dirs test-dirs suffixed-top-ns interface-ns)]
      (util/ordered-map :name project-name
                        :is-dev is-dev
                        :project-dir project-dir

@@ -1,10 +1,10 @@
 (ns polylith.clj.core.workspace.loc
   (:require [polylith.clj.core.file.interface :as file]))
 
-(defn lines-of-code-source [namespaces]
-  (apply + (mapv file/lines-of-code
+(defn lines-of-code-source [ws-dir namespaces]
+  (apply + (mapv #(file/lines-of-code (str ws-dir "/" %))
                  (mapv :file-path namespaces))))
 
-(defn lines-of-code [{:keys [src test]}]
-  {:src (lines-of-code-source src)
-   :test (lines-of-code-source test)})
+(defn lines-of-code [ws-dir {:keys [src test]}]
+  {:src (lines-of-code-source ws-dir src)
+   :test (lines-of-code-source ws-dir test)})

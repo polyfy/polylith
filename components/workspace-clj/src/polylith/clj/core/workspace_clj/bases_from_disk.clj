@@ -13,7 +13,7 @@
         base-src-dirs (brick-dirs/top-src-dirs base-dir top-src-dir config)
         base-test-dirs (brick-dirs/top-test-dirs base-dir top-src-dir config)
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
-        namespaces (ns-from-disk/namespaces-from-disk base-src-dirs base-test-dirs suffixed-top-ns interface-ns)
+        namespaces (ns-from-disk/namespaces-from-disk ws-dir base-src-dirs base-test-dirs suffixed-top-ns interface-ns)
         entity-root-path (str "bases/" name)
         lib-deps (lib/brick-lib-deps ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home)
         source-paths (config/source-paths config)

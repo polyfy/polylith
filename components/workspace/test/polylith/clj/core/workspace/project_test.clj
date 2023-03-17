@@ -140,7 +140,7 @@
                                                     "components/change/test"
                                                     "components/command/test"
                                                     "test"]}}}
-         (dissoc (proj/enrich-project project components bases "se.example." brick->loc brick->lib-imports
+         (dissoc (proj/enrich-project project "." components bases "se.example." brick->loc brick->lib-imports
                                       {:missing []}
                                       {:projects {"development" {:alias "dev"}}})
                  :deps))))
@@ -194,7 +194,7 @@
                                                 "components/change/test"
                                                 "components/command/test"
                                                 "test"]}}}
-         (dissoc (proj/enrich-project project components bases "se.example." brick->loc brick->lib-imports
+         (dissoc (proj/enrich-project project "." components bases "se.example." brick->loc brick->lib-imports
                                       {:missing []}
                                       {:active-profiles ["default"]
                                        :profile-to-settings {"default" {:paths ["components/user/src"

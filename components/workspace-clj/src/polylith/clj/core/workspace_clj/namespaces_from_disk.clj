@@ -124,13 +124,14 @@
           (first content))
        (-> content second boolean)))
 
-(defn ->namespace [source-dir suffixed-top-ns interface-ns file-path]
+(defn ->namespace [ws-dir source-dir suffixed-top-ns interface-ns file-path]
   (let [content (-> file-path file/read-file first)
-        ns-name (namespace-name source-dir file-path)]
+        ns-name (namespace-name source-dir file-path)
+        relative-path (str-util/skip-prefix file-path (str ws-dir "/"))]
     (if (empty-ns? content)
       {:name ns-name
        :namespace ""
-       :file-path file-path
+       :file-path relative-path
        :imports []}
       (let [imports (imports content suffixed-top-ns interface-ns)
             invalid? (-> content ns-with-name? not)]
@@ -138,7 +139,7 @@
                  :namespace (if (ns-with-name? content)
                               (-> content second str)
                               "")
-                 :file-path file-path
+                 :file-path relative-path
                  :imports imports}
                 invalid? (assoc :invalid true))))))
 
@@ -151,16 +152,16 @@
   (->namespace source-dir "polylith.clj.core." "interface" file-path)
   #__)
 
-(defn source-namespaces-from-disk [source-dir suffixed-top-ns interface-ns]
-  (mapv #(->namespace source-dir suffixed-top-ns interface-ns %)
+(defn source-namespaces-from-disk [ws-dir source-dir suffixed-top-ns interface-ns]
+  (mapv #(->namespace ws-dir source-dir suffixed-top-ns interface-ns %)
         (-> source-dir
             file/paths-recursively
             common/filter-clojure-paths)))
 
-(defn namespaces-from-disk [src-dirs test-dirs suffixed-top-ns interface-ns]
-  (let [src (vec (mapcat #(source-namespaces-from-disk % suffixed-top-ns interface-ns)
+(defn namespaces-from-disk [ws-dir src-dirs test-dirs suffixed-top-ns interface-ns]
+  (let [src (vec (mapcat #(source-namespaces-from-disk ws-dir % suffixed-top-ns interface-ns)
                          src-dirs))
-        test (vec (mapcat #(source-namespaces-from-disk % suffixed-top-ns interface-ns)
+        test (vec (mapcat #(source-namespaces-from-disk ws-dir % suffixed-top-ns interface-ns)
                           test-dirs))]
     (cond-> {}
             (seq src) (assoc :src src)

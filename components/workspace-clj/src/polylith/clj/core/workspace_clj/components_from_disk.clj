@@ -19,7 +19,7 @@
         src-dirs (mapv #(str % interface-path-name)
                        component-top-src-dirs)
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
-        namespaces (ns-from-disk/namespaces-from-disk component-top-src-dirs component-top-test-dirs suffixed-top-ns interface-ns)
+        namespaces (ns-from-disk/namespaces-from-disk ws-dir component-top-src-dirs component-top-test-dirs suffixed-top-ns interface-ns)
         definitions (defs-from-disk/defs-from-disk src-dirs interface-ns)
         entity-root-path (str "components/" name)
         lib-deps (lib/brick-lib-deps ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home)
