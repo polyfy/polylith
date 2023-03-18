@@ -7,7 +7,6 @@
             [polylith.clj.core.command.info :as info]
             [polylith.clj.core.command.test :as test]
             [polylith.clj.core.command.user-config :as user-config]
-            [polylith.clj.core.command.ws-check :as ws-check]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.config-reader.interface :as config-reader]
             [polylith.clj.core.help.interface :as help]

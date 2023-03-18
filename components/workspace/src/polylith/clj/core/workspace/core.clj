@@ -16,9 +16,9 @@
 (defn project-sorter [{:keys [is-dev name]}]
   [is-dev name])
 
-(defn enrich-workspace [{:keys [ws-dir user-input settings components bases config-errors projects paths] :as workspace}]
+(defn enrich-workspace [{:keys [ws-dir user-input settings components bases config-error projects paths] :as workspace}]
   (if (or (nil? workspace)
-          (seq config-errors))
+          config-error)
     workspace
     (let [{:keys [top-namespace interface-ns color-mode]} settings
           suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
@@ -31,12 +31,10 @@
           brick->lib-imports (brick->lib-imports enriched-bricks)
           enriched-settings (s/enrich-settings settings projects)
           enriched-projects (vec (sort-by project-sorter (mapv #(project/enrich-project % ws-dir enriched-components enriched-bases suffixed-top-ns brick->loc brick->lib-imports paths enriched-settings) projects)))
-          messages (validator/validate-ws suffixed-top-ns enriched-settings paths interface-names interfaces enriched-components enriched-bases enriched-projects config-errors interface-ns user-input color-mode)]
-      (-> workspace
-          (assoc :settings enriched-settings
-                 :interfaces interfaces
-                 :components enriched-components
-                 :bases enriched-bases
-                 :projects enriched-projects
-                 :messages messages)
-          (dissoc :config-errors)))))
+          messages (validator/validate-ws suffixed-top-ns enriched-settings paths interface-names interfaces enriched-components enriched-bases enriched-projects interface-ns user-input color-mode)]
+      (assoc workspace :settings enriched-settings
+                       :interfaces interfaces
+                       :components enriched-components
+                       :bases enriched-bases
+                       :projects enriched-projects
+                       :messages messages))))

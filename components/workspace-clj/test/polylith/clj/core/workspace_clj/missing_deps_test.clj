@@ -12,8 +12,8 @@
 (defn workspace-from-disk [entity-type]
   (let [ws-dir "examples/illegal-configs"
         user-input (user-input/extract-params (concat ["info" (str "ws-dir:" ws-dir) ":user-home"]))]
-    (:config-errors (with-redefs [config-reader/file-exists? (fn [_ type] (not= entity-type type))]
-                      (ws-clj/workspace-from-disk user-input)))))
+    (:config-error (with-redefs [config-reader/file-exists? (fn [_ type] (not= entity-type type))]
+                     (ws-clj/workspace-from-disk user-input)))))
 
 (deftest could-not-find-project-config-file
   (is (= [{:error "Could not find config file: projects/service/deps.edn"

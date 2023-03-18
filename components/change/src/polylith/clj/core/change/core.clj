@@ -46,9 +46,9 @@
                       :project-to-bricks-to-test project-to-bricks-to-test
                       :project-to-projects-to-test project-to-projects-to-test)))
 
-(defn with-changes [{:keys [ws-dir ws-local-dir settings user-input paths config-errors] :as workspace}]
+(defn with-changes [{:keys [ws-dir ws-local-dir settings user-input paths config-error] :as workspace}]
   (if (or (nil? workspace)
-          (seq config-errors))
+          config-error)
     workspace
     (if (-> ws-dir git/is-git-repo? not)
       (assoc workspace :changes {:changed-files []

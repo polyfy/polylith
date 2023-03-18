@@ -167,13 +167,11 @@
     (when ws-type
       (let [{:keys [config error]} (config-reader/read-project-dev-config-file ws-dir ws-type)
             {:keys [aliases polylith]} config
-            [ws-config ws-error] (when (nil? error)
-                                   (if (= :toolsdeps2 ws-type)
-                                     (ws-config/ws-config-from-disk ws-dir)
-                                     (ws-config/ws-config-from-dev polylith)))
-            config-errors (cond-> []
-                                  ws-error (conj ws-error)
-                                  error (conj error))]
-        (if (empty? config-errors)
-          (toolsdeps-ws-from-disk ws-name ws-type ws-dir ws-config aliases user-input color-mode)
-          {:config-errors config-errors})))))
+            [ws-config ws-error] (if (or error
+                                         (= :toolsdeps2 ws-type))
+                                   (ws-config/ws-config-from-disk ws-dir)
+                                   (ws-config/ws-config-from-dev polylith))
+            config-error (or ws-error error)]
+        (if config-error
+          {:config-error config-error}
+          (toolsdeps-ws-from-disk ws-name ws-type ws-dir ws-config aliases user-input color-mode))))))
