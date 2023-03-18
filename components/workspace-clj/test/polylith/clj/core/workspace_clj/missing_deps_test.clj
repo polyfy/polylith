@@ -12,8 +12,8 @@
 (defn workspace-from-disk [entity-type]
   (let [ws-dir "examples/illegal-configs"
         user-input (user-input/extract-params (concat ["info" (str "ws-dir:" ws-dir) ":user-home"]))]
-    (:config-error (with-redefs [config-reader/file-exists? (fn [_ type] (not= entity-type type))]
-                     (ws-clj/workspace-from-disk user-input)))))
+    (:config-errors (with-redefs [config-reader/file-exists? (fn [_ type] (not= entity-type type))]
+                      (ws-clj/workspace-from-disk user-input)))))
 
 (deftest could-not-find-project-config-file
   (is (= [{:error "Could not find config file: projects/service/deps.edn"
@@ -24,14 +24,14 @@
            :project-config-dir "examples/illegal-configs/projects/service"}])
       (workspace-from-disk :project)))
 
-(deftest could-not-find-workspace-config-file
+(deftest invalid-development-config-file
   (is (= [{:error "Validation error in ./deps.edn: {:polylith [\"missing required key\"]}"}])
       (workspace-from-disk :workspace)))
 
-(deftest could-not-find-workspace-config-file
+(deftest could-not-find-development-config-file
   (is (= [{:error "Could not find config file: ./deps.edn"}])
       (workspace-from-disk :development)))
 
-(deftest could-not-find-workspace-config-file
+(deftest could-not-find-copmponent-config-file
   (is (= [{:error "Could not find config file: components/util/deps.edn", :name "util"}])
       (workspace-from-disk :brick)))

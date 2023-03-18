@@ -4,6 +4,7 @@
             [polylith.clj.core.change.indirect :as indirect]
             [polylith.clj.core.change.bricks-to-test :as bricks-to-test]
             [polylith.clj.core.change.projects-to-test :as projects-to-test]
+            [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.git.interface :as git]
             [polylith.clj.core.util.interface :as util]))
 
@@ -46,9 +47,8 @@
                       :project-to-bricks-to-test project-to-bricks-to-test
                       :project-to-projects-to-test project-to-projects-to-test)))
 
-(defn with-changes [{:keys [ws-dir ws-local-dir settings user-input paths config-error] :as workspace}]
-  (if (or (nil? workspace)
-          config-error)
+(defn with-changes [{:keys [ws-dir ws-local-dir settings user-input paths] :as workspace}]
+  (if (common/invalid-workspace? workspace)
     workspace
     (if (-> ws-dir git/is-git-repo? not)
       (assoc workspace :changes {:changed-files []

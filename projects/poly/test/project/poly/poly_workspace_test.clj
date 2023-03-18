@@ -123,7 +123,7 @@
           "  brick                     i  e  r  d  n  r  r  s  e  t  p  b  r  r  h  l  p  r  t  r  e  g  t  l  r  n  e  j  r  e"
           "  ------------------------------------------------------------------------------------------------------------------"
           "  api                       .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  x  x  x  ."
-          "  change                    .  .  .  .  .  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  change                    .  .  .  .  x  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
           "  command                   .  x  .  .  x  x  x  x  x  x  x  x  x  .  .  x  x  .  .  x  .  x  .  x  x  x  x  x  x  x"
           "  common                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
@@ -184,7 +184,7 @@
             "                            g  n  o  e  o  p  l  i  l  i  o  e  s  l  a  e  c  o  l  i  u  i  o  o  c  l  e  l"
             "  brick                     e  d  n  r  r  s  e  t  p  b  r  r  h  l  p  r  t  r  e  g  t  l  r  n  e  j  r  e"
             "  ------------------------------------------------------------------------------------------------------------"
-            "  change                    .  .  .  .  .  .  +  x  .  .  .  x  +  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  change                    .  .  x  .  .  .  +  x  .  .  .  x  +  .  .  .  .  .  .  +  .  x  .  .  .  .  .  ."
             "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
             "  command                   x  .  x  x  x  x  x  x  x  x  x  +  +  x  x  .  +  x  +  x  +  x  x  x  x  x  x  x"
             "  common                    .  .  .  .  .  .  +  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
@@ -248,16 +248,20 @@
 
 (deftest poly-project-deps
   (is (= (ws-explorer/extract (workspace) ["projects" "poly" "deps"])
-         {"change"                   {:src  {:direct   ["git"
+         {"change"                   {:src  {:direct   ["common"
+                                                        "git"
                                                         "path-finder"
                                                         "util"]
                                              :indirect ["file"
-                                                        "sh"]}
-                                      :test {:direct   ["git"
+                                                        "sh"
+                                                        "user-config"]}
+                                      :test {:direct   ["common"
+                                                        "git"
                                                         "path-finder"
                                                         "util"]
                                              :indirect ["file"
-                                                        "sh"]}}
+                                                        "sh"
+                                                        "user-config"]}}
           "clojure-test-test-runner" {:src  {:direct ["test-runner-contract"
                                                       "util"]}
                                       :test {:direct ["test-runner-contract"

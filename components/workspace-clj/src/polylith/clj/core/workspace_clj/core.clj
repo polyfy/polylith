@@ -130,7 +130,7 @@
                                    :user-home user-home
                                    :m2-dir m2-dir)]
     (util/ordered-map :name ws-name
-                      :ws-type ws-type
+                      :ws-type (name ws-type)
                       :ws-dir ws-dir
                       :ws-local-dir ws-local-dir
                       :ws-reader ws-reader/reader
@@ -170,8 +170,7 @@
             [ws-config ws-error] (if (or error
                                          (= :toolsdeps2 ws-type))
                                    (ws-config/ws-config-from-disk ws-dir)
-                                   (ws-config/ws-config-from-dev polylith))
-            config-error (or ws-error error)]
-        (if config-error
-          {:config-error config-error}
+                                   (ws-config/ws-config-from-dev polylith))]
+        (if ws-error
+          {:ws-config-error ws-error}
           (toolsdeps-ws-from-disk ws-name ws-type ws-dir ws-config aliases user-input color-mode))))))

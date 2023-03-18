@@ -39,7 +39,8 @@
 (comment
   (-main "test" ":all" ":no-exit")
   (-main "check" "ws-file:../sandbox/furkan.edn" ":no-exit")
-  (-main "check" "ws-dir:../sandbox/ws51" ":no-exit")
+  (-main "check" ":no-exit")
+  (-main "check" "ws-dir:../sandbox/ws35" ":no-exit")
   (-main "ws" "get:changes:project-to-bricks-to-test:poly" ":no-exit")
   (-main "version" ":no-exit")
   (-main "shell" ":no-exit")
