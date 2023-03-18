@@ -39,8 +39,7 @@
     (reset! ws-dir dir)
     (reset! ws-file file)
     (reset! engine/ws
-            (workspace-fn input file
-                          (config-reader/workspace-dir input)))))
+            (workspace-fn input file))))
 
 (defn execute-command [command-executor user-input color-mode]
   (try

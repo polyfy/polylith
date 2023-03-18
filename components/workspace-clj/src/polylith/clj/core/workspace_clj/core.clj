@@ -173,7 +173,7 @@
                                      (ws-config/ws-config-from-dev polylith)))
             config-errors (cond-> []
                                   ws-error (conj ws-error)
-                                  error (conj {:error error}))]
+                                  error (conj error))]
         (if (empty? config-errors)
           (toolsdeps-ws-from-disk ws-name ws-type ws-dir ws-config aliases user-input color-mode)
           {:config-errors config-errors})))))

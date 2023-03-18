@@ -17,10 +17,9 @@
   [is-dev name])
 
 (defn enrich-workspace [{:keys [ws-dir user-input settings components bases config-errors projects paths] :as workspace}]
-  (if (seq config-errors)
-    (-> workspace
-        (assoc :messages (validator/validate-config-errors config-errors))
-        (dissoc :config-errors))
+  (if (or (nil? workspace)
+          (seq config-errors))
+    workspace
     (let [{:keys [top-namespace interface-ns color-mode]} settings
           suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
           interfaces (interfaces/calculate components)
