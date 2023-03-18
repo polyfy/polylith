@@ -171,6 +171,7 @@
                                          (= :toolsdeps2 ws-type))
                                    (ws-config/ws-config-from-disk ws-dir)
                                    (ws-config/ws-config-from-dev polylith))]
-        (if ws-error
-          {:ws-config-error ws-error}
-          (toolsdeps-ws-from-disk ws-name ws-type ws-dir ws-config aliases user-input color-mode))))))
+        (cond
+          ws-error {:config-error ws-error}
+          error {:config-error error}
+          :else (toolsdeps-ws-from-disk ws-name ws-type ws-dir ws-config aliases user-input color-mode))))))

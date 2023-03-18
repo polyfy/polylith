@@ -43,8 +43,7 @@
 
 (defn execute-command [command-executor user-input color-mode]
   (try
-    (let [input (-> user-input
-                    (enhance @ws-dir @ws-file))]
+    (let [input (enhance user-input @ws-dir @ws-file)]
       (command-executor input))
     (catch Throwable e
       (println (color/error color-mode (.getMessage e))))))

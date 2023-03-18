@@ -152,7 +152,7 @@
           "  workspace-clj             .  .  .  t  x  x  .  x  x  x  .  x  .  x  .  .  .  .  .  .  .  x  t  x  x  x  .  .  .  ."
           "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  ws-file                   .  .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  ."
-          "  poly-cli                  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  ."])))
+          "  poly-cli                  .  .  .  x  .  t  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  t  .  .  t  .  ."])))
 
 (deftest project-deps-table
   (let [ws (workspace)
@@ -213,7 +213,7 @@
             "  workspace-clj             -  t  x  x  -  x  x  x  -  x  -  x  +  -  -  .  +  -  +  x  t  x  x  x  -  -  -  -"
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  ws-file                   .  .  x  .  .  .  x  x  .  .  .  .  +  .  .  .  .  .  .  +  .  +  .  x  .  .  .  ."
-            "  poly-cli                  +  x  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  +  +  +  +  +  +"]))))
+            "  poly-cli                  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  t  +  +"]))))
 
 (deftest project-and-brick-deps
   (let [{:keys [components projects] :as ws} (workspace)
@@ -477,11 +477,13 @@
                                                         "ws-explorer"
                                                         "ws-file"]}
                                       :test {:direct   ["command"
+                                                        "config-reader"
                                                         "user-input"
-                                                        "util"]
+                                                        "util"
+                                                        "validator"
+                                                        "workspace-clj"]
                                              :indirect ["change"
                                                         "common"
-                                                        "config-reader"
                                                         "creator"
                                                         "deps"
                                                         "file"
@@ -497,10 +499,8 @@
                                                         "test-runner-orchestrator"
                                                         "text-table"
                                                         "user-config"
-                                                        "validator"
                                                         "version"
                                                         "workspace"
-                                                        "workspace-clj"
                                                         "ws-explorer"
                                                         "ws-file"]}}
           "sh"                       {:src  {}
@@ -798,6 +798,7 @@
                  "clojure.test"
                  "malli.core"
                  "polylith.clj.core.poly-cli.api"
+                 "polylith.clj.core.poly-cli.core"
                  "polylith.clj.core.test_runner_contract.interface"]})))
 
 (deftest shell-component-lib-deps

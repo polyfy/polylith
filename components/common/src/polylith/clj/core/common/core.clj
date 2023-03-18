@@ -87,6 +87,6 @@
 (defn color-mode [{:keys [color-mode]}]
   (or color-mode (user-config/color-mode)))
 
-(defn invalid-workspace? [{:keys [ws-config-error] :as workspace}]
+(defn invalid-workspace? [{:keys [config-error] :as workspace}]
   (or (nil? workspace)
-      (boolean ws-config-error)))
+      (boolean config-error)))
