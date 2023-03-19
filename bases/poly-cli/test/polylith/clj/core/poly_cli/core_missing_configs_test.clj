@@ -36,6 +36,13 @@
     (is (= output "  Missing file\n"))
     (is (= (check-fn) 1))))
 
+(deftest check-a-workspace-with-missing-project-config-file
+  (let [check-fn (fn [] (with-redefs [validator/validate-project-deployable-config (fn [_ _ _] "Invalid file")]
+                          (cli/-main "check" "ws-dir:examples/local-dep" "color-mode:none" ":no-exit")))
+        output (with-out-str (check-fn))]
+    (is (= output "  Error 110: Invalid file\n"))
+    (is (= (check-fn) 110))))
+
 (deftest check-a-workspace-with-illegal-component-config-file
   (let [check-fn (fn [] (with-redefs [validator/validate-brick-config (fn [_ _ config-filename]
                                                                         (when (= config-filename "components/without-src/deps.edn")
