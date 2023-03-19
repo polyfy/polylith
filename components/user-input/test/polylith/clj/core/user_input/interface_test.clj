@@ -14,47 +14,47 @@
                [:selected-profiles]))
 
 (deftest parameters--no-arguments
-  (is (= {:is-all false
+  (is (= (test-params)
+         {:is-all false
           :is-run-all-brick-tests false
           :is-run-project-tests false
-          :selected-projects #{}}
-         (test-params))))
+          :selected-projects #{}})))
 
 (deftest parameters--a-single-project
-  (is (= {:is-all false
+  (is (= (test-params "cmd" "project:core")
+         {:is-all false
           :is-run-all-brick-tests false
           :is-run-project-tests false
-          :selected-projects #{"core"}}
-         (test-params "cmd" "project:core"))))
+          :selected-projects #{"core"}})))
 
 (deftest parameters--a-list-of-projects
-  (is (= {:is-all false
+  (is (= (test-params "cmd" "project:core:cli")
+         {:is-all false
           :is-run-all-brick-tests false
           :is-run-project-tests false
-          :selected-projects #{"cli" "core"}}
-         (test-params "cmd" "project:core:cli"))))
+          :selected-projects #{"cli" "core"}})))
 
 (deftest parameters--single-project+all
-  (is (= {:is-all true
+  (is (= (test-params "cmd" "project:core" ":all")
+         {:is-all true
           :is-run-all-brick-tests true
           :is-run-project-tests true
-          :selected-projects #{"core"}}
-         (test-params "cmd" "project:core" ":all"))))
+          :selected-projects #{"core"}})))
 
 (deftest parameters--single-project+all-bricks
-  (is (= {:is-all false
+  (is (= (test-params "cmd" "project:core" ":all-bricks")
+         {:is-all false
           :is-run-all-brick-tests true
           :is-run-project-tests false
-          :selected-projects #{"core"}}
-         (test-params "cmd" "project:core" ":all-bricks"))))
+          :selected-projects #{"core"}})))
 
 (deftest parameters--test-project
-  (is (= {:is-all false
+  (is (= (test-params "cmd" ":project")
+         {:is-all false
           :is-run-all-brick-tests false
           :is-run-project-tests true
-          :selected-projects #{}}
-         (test-params "cmd" ":project"))))
+          :selected-projects #{}})))
 
 (deftest parameters--selected-profiles
-  (is (= {:selected-profiles #{"admin" "user"}}
-         (active-profiles-params "cmd" "+admin" "project:a" "+user"))))
+  (is (= (active-profiles-params "cmd" "+admin" "project:a" "+user")
+         {:selected-profiles #{"admin" "user"}})))

@@ -14,16 +14,16 @@
                                                       "components/admin/test"]}}})
 
 (deftest extract-paths--from-non-dev-project--returns-no-profile-paths
-  (is (= {:profile-src-paths []
-          :profile-test-paths []}
-         (splitter/extract-active-profiles-paths false settings))))
+  (is (= (splitter/extract-active-profiles-paths false settings)
+         {:profile-src-paths []
+          :profile-test-paths []})))
 
 (deftest extract-paths--from-dev-project--returns-src-and-test-paths-from-selected-profiles
-  (is (= {:profile-src-paths  ["components/admin/src"
+  (is (= (splitter/extract-active-profiles-paths true settings)
+         {:profile-src-paths  ["components/admin/src"
                                "components/admin/resources"
                                "components/user/src"
                                "components/user/resources"]
           :profile-test-paths ["components/admin/test"
                                "components/user/test"
-                               "projects/invoice/test"]}
-         (splitter/extract-active-profiles-paths true settings))))
+                               "projects/invoice/test"]})))

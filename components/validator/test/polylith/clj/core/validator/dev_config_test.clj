@@ -33,21 +33,21 @@
 (def filename "deps.edn")
 
 (deftest valid-config--returns-nil
-  (is (= nil
-         (validator/validate-project-dev-config ws-type config filename))))
+  (is (= (validator/validate-project-dev-config ws-type config filename)
+         nil)))
 
 (deftest invalid-nop-namespace--returns-error-message
-  (is (= "Validation error in deps.edn: {:polylith {:top-namespace [\"should be a string\"]}}"
-         (validator/validate-project-dev-config ws-type (assoc-in config [:polylith :top-namespace] 1) filename))))
+  (is (= (validator/validate-project-dev-config ws-type (assoc-in config [:polylith :top-namespace] 1) filename)
+         "Validation error in deps.edn: {:polylith {:top-namespace [\"should be a string\"]}}")))
 
 (deftest invalid-compact-views--returns-error-message
-  (is (= "Validation error in deps.edn: {:polylith {:compact-views [\"should be a set\"]}}"
-         (validator/validate-project-dev-config ws-type (assoc-in config [:polylith :compact-views] 'hello) filename))))
+  (is (= (validator/validate-project-dev-config ws-type (assoc-in config [:polylith :compact-views] 'hello) filename)
+         "Validation error in deps.edn: {:polylith {:compact-views [\"should be a set\"]}}")))
 
 (deftest ns-to-lib--return-errors-message
-  (is (= "Validation error in deps.edn: {:polylith {:ns-to-lib [\"invalid type\"]}}"
-         (validator/validate-project-dev-config ws-type (assoc-in config [:polylith :ns-to-lib] 'hello) filename))))
+  (is (= (validator/validate-project-dev-config ws-type (assoc-in config [:polylith :ns-to-lib] 'hello) filename)
+         "Validation error in deps.edn: {:polylith {:ns-to-lib [\"invalid type\"]}}")))
 
 (deftest aliases-dev--return-errors-message
-  (is (= "Validation error in deps.edn: {:aliases {:dev [\"invalid type\"]}}"
-         (validator/validate-project-dev-config ws-type (assoc-in config [:aliases :dev] [1 2 3]) filename))))
+  (is (= (validator/validate-project-dev-config ws-type (assoc-in config [:aliases :dev] [1 2 3]) filename)
+         "Validation error in deps.edn: {:aliases {:dev [\"invalid type\"]}}")))

@@ -28,28 +28,28 @@
                           [polylith.clj.core.util.interface.str :as str-util])
                 (:import [java.io File PushbackReader FileNotFoundException]
                          [java.nio.file Files]))]
-    (is (= ["clojure.java.io"
+    (is (= (from-disk/imports code suffixed-top-ns interface-ns)
+           ["clojure.java.io"
             "java.io"
             "java.nio.file"
-            "polylith.clj.core.util.interface.str"]
-           (from-disk/imports code suffixed-top-ns interface-ns)))))
+            "polylith.clj.core.util.interface.str"]))))
 
 (deftest imports--require-is-second-statement--returns-imported-namespaces
   (let [code '(ns polylith.spec.interface
                 (:gen-class)
                 (:require [clojure.test :as test]
                           [polylith.spec.core :as core]))]
-    (is (= ["clojure.test"
-            "polylith.spec.core"]
-           (from-disk/imports code suffixed-top-ns interface-ns)))))
+    (is (= (from-disk/imports code suffixed-top-ns interface-ns)
+           ["clojure.test"
+            "polylith.spec.core"]))))
 
 (deftest imports--all-import-forms--returns-imported-packages
   (let [code '(ns polylith.clj.core.file.core
                 (:import java.io.File
                          (java.nio.file Files)))]
     (testing "only package names are returned"
-      (is (= ["java.io" "java.nio.file"]
-             (from-disk/imports code suffixed-top-ns interface-ns))))))
+      (is (= (from-disk/imports code suffixed-top-ns interface-ns)
+             ["java.io" "java.nio.file"])))))
 
 (deftest imports--all-require-forms--return-imported-namespaces
   (let [code '(ns polylith.clj.core.file.core
@@ -58,31 +58,31 @@
                           [lib.c :as c]
                           [foo bar [baz :as baz]]))
         result (from-disk/imports code suffixed-top-ns interface-ns)]
-    (is (= ["foo.bar" "foo.baz" "lib.a" "lib.b" "lib.c"]
-           result))))
+    (is (= result
+           ["foo.bar" "foo.baz" "lib.a" "lib.b" "lib.c"]))))
 
 (deftest imports--reload--return-imported-namespaces
   (let [code '(ns foo.baz
                 (:require [foo.bar] :reload))
         result (from-disk/imports code suffixed-top-ns interface-ns)]
-    (is (= ["foo.bar"]
-           result))))
+    (is (= result
+           ["foo.bar"]))))
 
 (deftest import-when-using-as
-  (is (= '("asalias.comp-a.interface")
-         (from-disk/import '(:require [asalias.comp-a.interface :as comp-a]) "asalias." "interface"))))
+  (is (= (from-disk/import '(:require [asalias.comp-a.interface :as comp-a]) "asalias." "interface")
+         '("asalias.comp-a.interface"))))
 
 (deftest skip-import-when-using-as-alias-if-interface
-  (is (= '()
-         (from-disk/import '(:require [asalias.comp-a.interface :as-alias comp-a]) "asalias." "interface"))))
+  (is (= (from-disk/import '(:require [asalias.comp-a.interface :as-alias comp-a]) "asalias." "interface")
+         '())))
 
 (deftest skip-import-when-using-as-alias-if-sub-interface
-  (is (= '()
-         (from-disk/import '(:require [asalias.comp-a.interface.sub :as-alias comp-a]) "asalias." "interface"))))
+  (is (= (from-disk/import '(:require [asalias.comp-a.interface.sub :as-alias comp-a]) "asalias." "interface")
+         '())))
 
 (deftest import-when-using-as-alias-if-implementation-ns
-  (is (= ["asalias.comp-a.core"]
-         (from-disk/import '(:require [asalias.comp-a.core :as-alias comp-a]) "asalias." "interface"))))
+  (is (= (from-disk/import '(:require [asalias.comp-a.core :as-alias comp-a]) "asalias." "interface")
+         ["asalias.comp-a.core"])))
 
 (def file-content '[(ns polylith.clj.core.tap.core (:require [clojure.string :as str] [portal.api :as portal]))
                     (defn command [cmd] (if (str/blank? cmd) "open" cmd))])
@@ -91,8 +91,8 @@
   (with-redefs [file/read-file (fn [_] ['--])
                 from-disk/namespace-name (fn [_ _] "")]
     (from-disk/->namespace "." "" "" "" "")
-    (is (= {:name "", :namespace "", :file-path "path", :imports [], :invalid true}
-           (from-disk/->namespace "." "" "" "" "path")))))
+    (is (= (from-disk/->namespace "." "" "" "" "path")
+           {:name "", :namespace "", :file-path "path", :imports [], :invalid true}))))
 
 (deftest ->namespace--read-namespace
   (with-redefs [file/read-file (fn [_] file-content)

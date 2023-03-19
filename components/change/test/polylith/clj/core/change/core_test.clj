@@ -137,7 +137,8 @@
                                                                             :is-run-project-tests true}))
 
 (deftest changes--a-list-of-changed-files-and-projects--returns-changed-bricks-and-bricks-to-test
-  (is (= {:changed-bases                []
+  (is (= (core/changes workspace {:files files} nil)
+         {:changed-bases                []
           :changed-components           ["change"
                                          "deps"]
           :changed-files                ["components/change/test/polylith/clj/core/change/brick_test.clj"
@@ -166,11 +167,11 @@
                                                  :test []}}
           :project-to-projects-to-test  {"cli"  []
                                          "core" []
-                                         "dev"  []}}
-         (core/changes workspace {:files files} nil))))
+                                         "dev"  []}})))
 
 (deftest changes--a-list-of-changed-files-and-projects-when-run-all--returns-changed-bricks-and-bricks-to-test2
-  (is (= {:changed-bases                []
+  (is (= (core/changes workspace-with-run-all-brick-tests-flags {:files files} nil)
+         {:changed-bases                []
           :changed-components           ["change"
                                          "deps"]
           :changed-files                ["components/change/test/polylith/clj/core/change/brick_test.clj"
@@ -204,5 +205,4 @@
                                                  :test []}}
           :project-to-projects-to-test  {"cli"  []
                                          "core" []
-                                         "dev"  []}}
-         (core/changes workspace-with-run-all-brick-tests-flags {:files files} nil))))
+                                         "dev"  []}})))

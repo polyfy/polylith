@@ -33,7 +33,11 @@
    :type "error"})
 
 (deftest unable-to-load-ctor
-  (is (= [(error-109 {:prefix "Unable to load test runner constructor clojure.core/non-existing-var"
+  (is (= (-> {"baz" {:test {:create-test-runner ['non-existing.namespace/baz]}}
+              "qux" {:test {:create-test-runner ['clojure.core/non-existing-var]}}}
+             (ws)
+             (sut/errors color/none))
+         [(error-109 {:prefix "Unable to load test runner constructor clojure.core/non-existing-var"
                       :project-text "project qux"
                       :suffix " Exception: clojure.lang.ExceptionInfo: Unable to resolve symbol clojure.core/non-existing-var to a var. {:symbol clojure.core/non-existing-var}"
                       :ctor-spec 'clojure.core/non-existing-var
@@ -42,26 +46,28 @@
                       :project-text "project baz"
                       :suffix " Exception: java.io.FileNotFoundException: Could not locate non_existing/namespace__init.class, non_existing/namespace.clj or non_existing/namespace.cljc on classpath. Please check that namespaces with dashes use underscores in the Clojure file name."
                       :ctor-spec 'non-existing.namespace/baz
-                      :projects ["baz"]})]
-         (-> {"baz" {:test {:create-test-runner ['non-existing.namespace/baz]}}
-              "qux" {:test {:create-test-runner ['clojure.core/non-existing-var]}}}
-             (ws)
-             (sut/errors color/none)))))
+                      :projects ["baz"]})])))
 
 (defn no-suitable-arity-ctor
   ([]) ([_ _]) ([_ _ & _]))
 
 (deftest unsuitable-ctor
-  (is (= [(error-109 {:prefix "The var referred to by polylith.clj.core.validator.m109-invalid-test-runner-constructor-test/no-suitable-arity-ctor is not a valid test runner constructor"
+  (is (= (-> {"foo" {:test {:create-test-runner [`no-suitable-arity-ctor]}}}
+             (ws)
+             (sut/errors color/none))
+         [(error-109 {:prefix "The var referred to by polylith.clj.core.validator.m109-invalid-test-runner-constructor-test/no-suitable-arity-ctor is not a valid test runner constructor"
                       :project-text "project foo"
                       :ctor-spec `no-suitable-arity-ctor
-                      :projects ["foo"]})]
-         (-> {"foo" {:test {:create-test-runner [`no-suitable-arity-ctor]}}}
-             (ws)
-             (sut/errors color/none)))))
+                      :projects ["foo"]})])))
 
 (deftest project-names-grouped-and-colored
-  (is (= [(error-109 {:prefix "Unable to load test runner constructor non-existing.namespace/baz"
+  (is (= (-> {"foo" {:test {:create-test-runner [`no-suitable-arity-ctor]}}
+              "bar" {:test {:create-test-runner [`no-suitable-arity-ctor]}}
+              "baz" {:test {:create-test-runner ['non-existing.namespace/baz]}}
+              "qux" {:test {:create-test-runner ['non-existing.namespace/baz]}}}
+             (ws)
+             (sut/errors "light"))
+         [(error-109 {:prefix "Unable to load test runner constructor non-existing.namespace/baz"
                       :project-text "projects baz, qux"
                       :colorized-project-text "projects \u001B[35mbaz\u001B[0m, \u001B[35mqux\u001B[0m"
                       :ctor-spec 'non-existing.namespace/baz
@@ -71,16 +77,15 @@
                       :project-text "projects bar, foo"
                       :colorized-project-text "projects \u001B[35mbar\u001B[0m, \u001B[35mfoo\u001B[0m"
                       :ctor-spec `no-suitable-arity-ctor
-                      :projects ["bar" "foo"]})]
-         (-> {"foo" {:test {:create-test-runner [`no-suitable-arity-ctor]}}
-              "bar" {:test {:create-test-runner [`no-suitable-arity-ctor]}}
-              "baz" {:test {:create-test-runner ['non-existing.namespace/baz]}}
-              "qux" {:test {:create-test-runner ['non-existing.namespace/baz]}}}
-             (ws)
-             (sut/errors "light")))))
+                      :projects ["bar" "foo"]})])))
 
 (deftest multiple-test-runners
-  (is (= [(error-109 {:prefix "Unable to load test runner constructor non-existing.namespace/baz"
+  (is (= (-> {"foo" {:test {:create-test-runner [`no-suitable-arity-ctor `one-arity-ctor `good-multiple-arity-ctor]}}
+              "bar" {:test {:create-test-runner ['non-existing.namespace/baz `no-suitable-arity-ctor]}}
+              "baz" {:test {:create-test-runner [`no-suitable-arity-ctor]}}}
+             (ws)
+             (sut/errors color/none))
+         [(error-109 {:prefix "Unable to load test runner constructor non-existing.namespace/baz"
                       :project-text "project bar"
                       :ctor-spec 'non-existing.namespace/baz
                       :projects ["bar"]
@@ -88,9 +93,4 @@
           (error-109 {:prefix "The var referred to by polylith.clj.core.validator.m109-invalid-test-runner-constructor-test/no-suitable-arity-ctor is not a valid test runner constructor"
                       :project-text "projects bar, baz, foo"
                       :ctor-spec `no-suitable-arity-ctor
-                      :projects ["bar" "baz" "foo"]})]
-         (-> {"foo" {:test {:create-test-runner [`no-suitable-arity-ctor `one-arity-ctor `good-multiple-arity-ctor]}}
-              "bar" {:test {:create-test-runner ['non-existing.namespace/baz `no-suitable-arity-ctor]}}
-              "baz" {:test {:create-test-runner [`no-suitable-arity-ctor]}}}
-             (ws)
-             (sut/errors color/none)))))
+                      :projects ["bar" "baz" "foo"]})])))

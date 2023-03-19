@@ -4,22 +4,22 @@
             [polylith.clj.core.deps.text-table.brick-deps-table :as table]))
 
 (deftest table--only-source-dependencies
-  (is (= ["  used by         <  schema  >  uses    "
+  (is (= (table/table ws/workspace ws/schema)
+         ["  used by         <  schema  >  uses    "
           "  --------------                --------"
           "  schema-fixture                database"
           "  user                                  "
-          "  web                                   "]
-         (table/table ws/workspace ws/schema))))
+          "  web                                   "])))
 
 (deftest table--test-context-dependers
-  (is (= ["  used by         <  schema-fixture  >  uses  "
+  (is (= (table/table ws/workspace ws/schema-fixture)
+         ["  used by         <  schema-fixture  >  uses  "
           "  --------------                        ------"
           "  department (t)                        schema"
-          "  user (t)                                    "]
-         (table/table ws/workspace ws/schema-fixture))))
+          "  user (t)                                    "])))
 
 (deftest table--test-context-dependees
-  (is (= ["  used by  <  department  >  uses              "
+  (is (= (table/table ws/workspace ws/department)
+         ["  used by  <  department  >  uses              "
           "  -------                    ------------------"
-          "  web                        schema-fixture (t)"]
-         (table/table ws/workspace ws/department))))
+          "  web                        schema-fixture (t)"])))

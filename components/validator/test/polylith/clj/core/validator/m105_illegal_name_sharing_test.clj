@@ -9,14 +9,14 @@
                       :interface {:name "mybase"}}]
         bases [{:name "mybase"}]
         interface-names (set (map :name interfaces))]
-    (is (= [{:type "error"
+    (is (= (m105/errors interface-names components bases color/none)
+           [{:type "error"
              :code 105
              :colorized-message "A base can't have the same name as an interface or component: mybase"
              :message           "A base can't have the same name as an interface or component: mybase"
              :interfaces ["mybase"]
              :components []
-             :bases ["mybase"]}]
-           (m105/errors interface-names components bases color/none)))))
+             :bases ["mybase"]}]))))
 
 (deftest errors--when-a-base-and-a-component-the-same-name--returns-error
   (let [interfaces '[{:name "mybase"}]
@@ -24,11 +24,11 @@
                       :interface {:name "mybase"}}]
         bases [{:name "mybase"}]
         interface-names (set (map :name interfaces))]
-    (is (= [{:code 105
+    (is (= (m105/errors interface-names components bases color/none)
+           [{:code 105
              :type "error"
              :colorized-message "A base can't have the same name as an interface or component: mybase"
              :message           "A base can't have the same name as an interface or component: mybase"
              :interfaces ["mybase"]
              :components ["mybase"]
-             :bases ["mybase"]}]
-           (m105/errors interface-names components bases color/none)))))
+             :bases ["mybase"]}]))))

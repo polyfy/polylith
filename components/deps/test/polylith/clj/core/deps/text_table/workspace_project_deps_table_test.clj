@@ -4,7 +4,8 @@
             [polylith.clj.core.deps.text-table.project-deps-table :as table]))
 
 (deftest table--with-a-mix-of-dependencies
-  (is (= ["                              s      "
+  (is (= (table/table ws/workspace ws/usermanager false)
+         ["                              s      "
           "                              c      "
           "                              h      "
           "                              e      "
@@ -26,5 +27,4 @@
           "  schema-fixture  .  +  .  x  .  .  ."
           "  user            .  +  .  x  t  .  ."
           "  web-server      .  .  .  .  .  .  ."
-          "  web             x  +  x  x  .  x  x"]
-         (table/table ws/workspace ws/usermanager false))))
+          "  web             x  +  x  x  .  x  x"])))

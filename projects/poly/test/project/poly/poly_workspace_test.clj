@@ -149,7 +149,7 @@
           "  validator                 .  .  .  .  x  .  .  x  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
           "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  workspace                 .  .  .  .  x  .  .  x  x  .  .  .  .  x  .  .  .  t  .  .  x  .  .  x  x  .  .  .  .  ."
-          "  workspace-clj             .  .  .  t  x  x  .  x  x  x  .  x  .  x  .  .  .  .  .  .  .  x  t  x  x  x  .  .  .  ."
+          "  workspace-clj             .  .  .  .  x  x  .  x  x  x  .  x  .  x  .  .  .  .  .  .  .  x  .  x  x  x  .  .  .  ."
           "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  ws-file                   .  .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  ."
           "  poly-cli                  .  .  .  x  .  t  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  t  .  .  t  .  ."])))
@@ -210,7 +210,7 @@
             "  validator                 .  .  x  .  .  x  +  .  .  .  .  x  .  .  .  .  x  .  +  +  .  x  .  .  .  .  .  ."
             "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  workspace                 -  -  x  -  -  x  x  -  -  -  -  x  -  -  -  t  +  -  x  +  -  x  x  -  -  -  -  -"
-            "  workspace-clj             -  t  x  x  -  x  x  x  -  x  -  x  +  -  -  .  +  -  +  x  t  x  x  x  -  -  -  -"
+            "  workspace-clj             .  .  x  x  .  x  x  x  .  x  .  x  +  .  .  .  +  .  +  x  .  x  x  x  .  .  .  ."
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  ws-file                   .  .  x  .  .  .  x  x  .  .  .  .  +  .  .  .  .  .  .  +  .  +  .  x  .  .  .  ."
             "  poly-cli                  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  t  +  +"]))))
@@ -219,7 +219,8 @@
   (let [{:keys [components projects] :as ws} (workspace)
         project (common/find-project "poly" projects)
         brick (common/find-component "workspace" components)]
-    (is (= ["  used by  <  workspace  >  uses           "
+    (is (= (brick-deps-table/table ws project brick "none")
+           ["  used by  <  workspace  >  uses           "
             "  -------                   ---------------"
             "  command                   common         "
             "                            deps           "
@@ -228,13 +229,13 @@
             "                            test-helper (t)"
             "                            text-table     "
             "                            util           "
-            "                            validator      "]
-           (brick-deps-table/table ws project brick "none")))))
+            "                            validator      "]))))
 
 (deftest project-brick-deps
   (let [{:keys [components] :as ws} (workspace)
         brick (common/find-component "workspace" components)]
-    (is (= ["  used by  <  workspace  >  uses           "
+    (is (= (brick-ifc-deps/table ws brick)
+           ["  used by  <  workspace  >  uses           "
             "  -------                   ---------------"
             "  api                       common         "
             "  command                   deps           "
@@ -243,8 +244,7 @@
             "                            test-helper (t)"
             "                            text-table     "
             "                            util           "
-            "                            validator      "]
-           (brick-ifc-deps/table ws brick)))))
+            "                            validator      "]))))
 
 (deftest poly-project-deps
   (is (= (ws-explorer/extract (workspace) ["projects" "poly" "deps"])
@@ -663,8 +663,7 @@
                                              :indirect ["sh"
                                                         "test-runner-contract"
                                                         "text-table"]}
-                                      :test {:direct   ["command"
-                                                        "common"
+                                      :test {:direct   ["common"
                                                         "config-reader"
                                                         "deps"
                                                         "file"
@@ -672,24 +671,12 @@
                                                         "lib"
                                                         "path-finder"
                                                         "user-config"
-                                                        "user-input"
                                                         "util"
                                                         "validator"
                                                         "version"]
-                                             :indirect ["change"
-                                                        "creator"
-                                                        "help"
-                                                        "migrator"
-                                                        "sh"
-                                                        "shell"
-                                                        "tap"
+                                             :indirect ["sh"
                                                         "test-runner-contract"
-                                                        "test-runner-orchestrator"
-                                                        "text-table"
-                                                        "workspace"
-                                                        "workspace-clj"
-                                                        "ws-explorer"
-                                                        "ws-file"]}}
+                                                        "text-table"]}}
           "ws-explorer"              {:src  {:direct ["util"]}
                                       :test {:direct ["util"]}}
           "ws-file"                  {:src  {:direct   ["common"
