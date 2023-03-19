@@ -7,13 +7,13 @@
     [{:name "core",
       :namespace "com.localdep.invoicer-cli.core",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/bases/invoicer-cli/src/com/localdep/invoicer_cli/core.clj",
+      "bases/invoicer-cli/src/com/localdep/invoicer_cli/core.clj",
       :imports ["com.localdep.invoicer.interface"]}],
     :test
     [{:name "core-test",
       :namespace "com.localdep.invoicer-cli.core-test",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/bases/invoicer-cli/test/com/localdep/invoicer_cli/core_test.clj",
+      "bases/invoicer-cli/test/com/localdep/invoicer_cli/core_test.clj",
       :imports ["clojure.test" "com.localdep.invoicer-cli.core"]}]},
    :lib-deps {},
    :lines-of-code {:src 5, :test 6},
@@ -42,18 +42,18 @@
     [{:name "interface",
       :namespace "com.localdep.database.interface",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/components/database/src/com/localdep/database/interface.clj",
+      "components/database/src/com/localdep/database/interface.clj",
       :imports ["com.localdep.database.core"]}
      {:name "core",
       :namespace "com.localdep.database.core",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/components/database/src/com/localdep/database/core.clj",
+      "components/database/src/com/localdep/database/core.clj",
       :imports ["com.localdep.util.interface"]}],
     :test
     [{:name "interface-test",
       :namespace "com.localdep.database.interface-test",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/components/database/test/com/localdep/database/interface_test.clj",
+      "components/database/test/com/localdep/database/interface_test.clj",
       :imports ["clojure.test" "com.localdep.database.interface"]}]},
    :lib-imports {:test ["clojure.test"]},
    :name "database",
@@ -68,7 +68,7 @@
     [{:name "interface",
       :namespace "com.localdep.datomic-ions.interface",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/components/datomic-ions/src/com/localdep/datomic_ions/interface.clj",
+      "components/datomic-ions/src/com/localdep/datomic_ions/interface.clj",
       :imports []}]},
    :lib-imports {},
    :name "datomic-ions",
@@ -86,18 +86,18 @@
     [{:name "interface",
       :namespace "com.localdep.invoicer.interface",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/components/invoicer/src/com/localdep/invoicer/interface.clj",
+      "components/invoicer/src/com/localdep/invoicer/interface.clj",
       :imports ["com.localdep.invoicer.core"]}
      {:name "core",
       :namespace "com.localdep.invoicer.core",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/components/invoicer/src/com/localdep/invoicer/core.clj",
+      "components/invoicer/src/com/localdep/invoicer/core.clj",
       :imports ["com.localdep.util.interface"]}],
     :test
     [{:name "interface-test",
       :namespace "com.localdep.invoicer.interface-test",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/components/invoicer/test/com/localdep/invoicer/interface_test.clj",
+      "components/invoicer/test/com/localdep/invoicer/interface_test.clj",
       :imports
       ["clojure.test"
        "com.localdep.migrate-me.core"
@@ -116,18 +116,18 @@
     [{:name "interface",
       :namespace "com.localdep.test-helper.interface",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/components/test-helper/src/com/localdep/test_helper/interface.clj",
+      "components/test-helper/src/com/localdep/test_helper/interface.clj",
       :imports ["com.localdep.test-helper.core"]}
      {:name "core",
       :namespace "com.localdep.test-helper.core",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/components/test-helper/src/com/localdep/test_helper/core.clj",
+      "components/test-helper/src/com/localdep/test_helper/core.clj",
       :imports ["com.localdep.test-helper-db.interface"]}],
     :test
     [{:name "interface-test",
       :namespace "com.localdep.test-helper.interface-test",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/components/test-helper/test/com/localdep/test_helper/interface_test.clj",
+      "components/test-helper/test/com/localdep/test_helper/interface_test.clj",
       :imports
       ["clojure.test" "com.localdep.test-helper.interface"]}]},
    :lib-imports {:test ["clojure.test"]},
@@ -143,12 +143,12 @@
     [{:name "interface",
       :namespace "com.localdep.test-helper-db.interface",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/components/test-helper-db/src/com/localdep/test_helper_db/interface.clj",
+      "components/test-helper-db/src/com/localdep/test_helper_db/interface.clj",
       :imports ["com.localdep.database.interface"]}
      {:name "core",
       :namespace "com.localdep.test-helper-db.core",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/components/test-helper-db/src/com/localdep/test_helper_db/core.clj",
+      "components/test-helper-db/src/com/localdep/test_helper_db/core.clj",
       :imports ["com.localdep.database.interface"]}]},
    :lib-imports {},
    :name "test-helper-db",
@@ -168,14 +168,13 @@
    {:src
     [{:name "interface",
       :namespace "com.localdep.util.interface",
-      :file-path
-      "/privateWS-HOME/local-dep-old-format/components/util/src/com/localdep/util/interface.clj",
+      :file-path "components/util/src/com/localdep/util/interface.clj",
       :imports ["clj-time.core"]}],
     :test
     [{:name "interface-test",
       :namespace "com.localdep.util.interface-test",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/components/util/test/com/localdep/util/interface_test.clj",
+      "components/util/test/com/localdep/util/interface_test.clj",
       :imports ["clojure.test" "com.localdep.util.interface"]}]},
    :lib-imports {:src ["clj-time.core"], :test ["clojure.test"]},
    :name "util",
@@ -197,7 +196,7 @@
     [{:name "dummy-test",
       :namespace "com.localdep.without-src.dummy-test",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/components/without-src/test/com/localdep/without_src/dummy_test.clj",
+      "components/without-src/test/com/localdep/without_src/dummy_test.clj",
       :imports ["clojure.test"]}]},
    :lib-imports {:test ["clojure.test"]},
    :name "without-src",
@@ -205,6 +204,7 @@
    :type "component",
    :interface-deps {:src [], :test []},
    :lib-deps {}}],
+ :config-errors [],
  :configs
  {:components
   [{:config
@@ -325,6 +325,8 @@
        :extra-deps
        {migrate-me/migrate-me {:local/root "../../migrate-me"}}}}},
     :name "invoicing"}],
+  :user
+  {:color-mode "dark", :empty-character ".", :thousand-separator ","},
   :workspace
   {:projects
    {"development" {:alias "dev"}, "invoicing" {:alias "inv"}},
@@ -332,7 +334,6 @@
    :top-namespace "com.localdep",
    :default-profile-name "default",
    :compact-views #{},
-   :ws-type :toolsdeps1,
    :stable-tag-pattern "stable-*",
    :interface-ns "interface",
    :ns-to-lib {clj-time clj-time/clj-time},
@@ -422,58 +423,58 @@
     [{:name "com.localdep.invoicer-cli.core",
       :namespace "com.localdep.invoicer-cli.core",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/projects/invoicing/../../bases/invoicer-cli/src/com/localdep/invoicer_cli/core.clj",
+      "projects/invoicing/../../bases/invoicer-cli/src/com/localdep/invoicer_cli/core.clj",
       :imports ["com.localdep.invoicer.interface"]}
      {:name "com.localdep.database.interface",
       :namespace "com.localdep.database.interface",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/projects/invoicing/../../components/database/src/com/localdep/database/interface.clj",
+      "projects/invoicing/../../components/database/src/com/localdep/database/interface.clj",
       :imports ["com.localdep.database.core"]}
      {:name "com.localdep.database.core",
       :namespace "com.localdep.database.core",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/projects/invoicing/../../components/database/src/com/localdep/database/core.clj",
+      "projects/invoicing/../../components/database/src/com/localdep/database/core.clj",
       :imports ["com.localdep.util.interface"]}
      {:name "readers.data-readers",
       :namespace "data-readers",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/projects/invoicing/../../components/database/src/readers/data_readers.clj",
+      "projects/invoicing/../../components/database/src/readers/data_readers.clj",
       :imports []}
      {:name "com.localdep.datomic-ions.interface",
       :namespace "com.localdep.datomic-ions.interface",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/projects/invoicing/../../components/datomic-ions/src/com/localdep/datomic_ions/interface.clj",
+      "projects/invoicing/../../components/datomic-ions/src/com/localdep/datomic_ions/interface.clj",
       :imports []}
      {:name "com.localdep.invoicer.interface",
       :namespace "com.localdep.invoicer.interface",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/projects/invoicing/../../components/invoicer/src/com/localdep/invoicer/interface.clj",
+      "projects/invoicing/../../components/invoicer/src/com/localdep/invoicer/interface.clj",
       :imports ["com.localdep.invoicer.core"]}
      {:name "com.localdep.invoicer.core",
       :namespace "com.localdep.invoicer.core",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/projects/invoicing/../../components/invoicer/src/com/localdep/invoicer/core.clj",
+      "projects/invoicing/../../components/invoicer/src/com/localdep/invoicer/core.clj",
       :imports ["com.localdep.util.interface"]}
      {:name "com.localdep.util.interface",
       :namespace "com.localdep.util.interface",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/projects/invoicing/../../components/util/src/com/localdep/util/interface.clj",
+      "projects/invoicing/../../components/util/src/com/localdep/util/interface.clj",
       :imports ["clj-time.core"]}],
     :test
     [{:name "com.localdep.invoicer-cli.core-test",
       :namespace "com.localdep.invoicer-cli.core-test",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/projects/invoicing/../../bases/invoicer-cli/test/com/localdep/invoicer_cli/core_test.clj",
+      "projects/invoicing/../../bases/invoicer-cli/test/com/localdep/invoicer_cli/core_test.clj",
       :imports ["clojure.test" "com.localdep.invoicer-cli.core"]}
      {:name "com.localdep.database.interface-test",
       :namespace "com.localdep.database.interface-test",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/projects/invoicing/../../components/database/test/com/localdep/database/interface_test.clj",
+      "projects/invoicing/../../components/database/test/com/localdep/database/interface_test.clj",
       :imports ["clojure.test" "com.localdep.database.interface"]}
      {:name "com.localdep.invoicer.interface-test",
       :namespace "com.localdep.invoicer.interface-test",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/projects/invoicing/../../components/invoicer/test/com/localdep/invoicer/interface_test.clj",
+      "projects/invoicing/../../components/invoicer/test/com/localdep/invoicer/interface_test.clj",
       :imports
       ["clojure.test"
        "com.localdep.migrate-me.core"
@@ -481,37 +482,37 @@
      {:name "com.localdep.test-helper-db.interface",
       :namespace "com.localdep.test-helper-db.interface",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/projects/invoicing/../../components/test-helper-db/src/com/localdep/test_helper_db/interface.clj",
+      "projects/invoicing/../../components/test-helper-db/src/com/localdep/test_helper_db/interface.clj",
       :imports ["com.localdep.database.interface"]}
      {:name "com.localdep.test-helper-db.core",
       :namespace "com.localdep.test-helper-db.core",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/projects/invoicing/../../components/test-helper-db/src/com/localdep/test_helper_db/core.clj",
+      "projects/invoicing/../../components/test-helper-db/src/com/localdep/test_helper_db/core.clj",
       :imports ["com.localdep.database.interface"]}
      {:name "com.localdep.test-helper.interface",
       :namespace "com.localdep.test-helper.interface",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/projects/invoicing/../../components/test-helper/src/com/localdep/test_helper/interface.clj",
+      "projects/invoicing/../../components/test-helper/src/com/localdep/test_helper/interface.clj",
       :imports ["com.localdep.test-helper.core"]}
      {:name "com.localdep.test-helper.core",
       :namespace "com.localdep.test-helper.core",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/projects/invoicing/../../components/test-helper/src/com/localdep/test_helper/core.clj",
+      "projects/invoicing/../../components/test-helper/src/com/localdep/test_helper/core.clj",
       :imports ["com.localdep.test-helper-db.interface"]}
      {:name "com.localdep.test-helper.interface-test",
       :namespace "com.localdep.test-helper.interface-test",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/projects/invoicing/../../components/test-helper/test/com/localdep/test_helper/interface_test.clj",
+      "projects/invoicing/../../components/test-helper/test/com/localdep/test_helper/interface_test.clj",
       :imports ["clojure.test" "com.localdep.test-helper.interface"]}
      {:name "com.localdep.util.interface-test",
       :namespace "com.localdep.util.interface-test",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/projects/invoicing/../../components/util/test/com/localdep/util/interface_test.clj",
+      "projects/invoicing/../../components/util/test/com/localdep/util/interface_test.clj",
       :imports ["clojure.test" "com.localdep.util.interface"]}
      {:name "com.localdep.without-src.dummy-test",
       :namespace "com.localdep.without-src.dummy-test",
       :file-path
-      "/privateWS-HOME/local-dep-old-format/projects/invoicing/../../components/without-src/test/com/localdep/without_src/dummy_test.clj",
+      "projects/invoicing/../../components/without-src/test/com/localdep/without_src/dummy_test.clj",
       :imports ["clojure.test"]}]},
    :base-names {:src ["invoicer-cli"], :test ["invoicer-cli"]},
    :lib-imports
@@ -602,8 +603,7 @@
    {:src
     [{:name "dev.me",
       :namespace "dev.me",
-      :file-path
-      "/privateWS-HOME/local-dep-old-format/development/src/dev/me.clj",
+      :file-path "development/src/dev/me.clj",
       :imports []}]},
    :base-names {:src ["invoicer-cli"], :test ["invoicer-cli"]},
    :lib-imports
@@ -806,13 +806,13 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.18-alpha-issue264-01",
+  {:name "0.2.18-issue259-06",
    :major 0,
    :minor 2,
    :patch 18,
-   :revision "alpha-issue264-01",
-   :date "2023-03-09"},
-  :ws {:type :toolsdeps2, :breaking 1, :non-breaking 3},
+   :revision "issue259-06",
+   :date "2023-03-19"},
+  :ws {:type :toolsdeps2, :breaking 2, :non-breaking 0},
   :from {:ws {:type :toolsdeps1}}},
  :ws-dir "/privateWS-HOME/local-dep-old-format",
  :ws-reader
@@ -821,4 +821,4 @@
   :language "Clojure",
   :type-position "postfix",
   :file-extensions ["clj" "cljc"]},
- :ws-type :toolsdeps1}
+ :ws-type "toolsdeps1"}

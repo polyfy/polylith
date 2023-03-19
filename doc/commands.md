@@ -29,7 +29,7 @@ poly help
 ```
 
 ```
-  Poly 0.2.18-issue264-04 (2023-03-11) - https://github.com/polyfy/polylith
+  Poly 0.2.18-issue259-06 (2023-03-19) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -241,8 +241,7 @@ poly help
     an instance of polylith.clj.core.test-runner-contract.interface/TestRunner.
 
   Error 110 - Missing or invalid config file.
-    Triggered if a deps.edn file for a brick or project (or the workspace.edn file)
-    is missing or invalid.
+    Triggered if a deps.edn file for a brick or project is missing or invalid.
 
   Warning 201 - Mismatching parameter lists in function or macro.
     Triggered if a function or macro is defined in the interface for a component

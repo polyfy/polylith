@@ -11,19 +11,17 @@
  {:src
   [{:name "interface",
     :namespace "se.example.user.interface",
-    :file-path
-    "/privateWS-HOME/example/components/user/src/se/example/user/interface.clj",
+    :file-path "components/user/src/se/example/user/interface.clj",
     :imports ["se.example.user.core"]}
    {:name "core",
     :namespace "se.example.user.core",
-    :file-path
-    "/privateWS-HOME/example/components/user/src/se/example/user/core.clj",
+    :file-path "components/user/src/se/example/user/core.clj",
     :imports []}],
   :test
   [{:name "interface-test",
     :namespace "se.example.user.interface-test",
     :file-path
-    "/privateWS-HOME/example/components/user/test/se/example/user/interface_test.clj",
+    "components/user/test/se/example/user/interface_test.clj",
     :imports ["clojure.test" "se.example.user.interface"]}]},
  :paths {:src ["src" "resources"], :test ["test"]},
  :type "component"}

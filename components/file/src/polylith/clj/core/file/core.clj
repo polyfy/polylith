@@ -108,6 +108,7 @@
      :dirs dirs}))
 
 (defn read-file [path]
+  (tap> (str "Read file: " path))
   (edamame/parse-string-all (slurp path)
                             {:fn true
                              :var true
@@ -117,7 +118,7 @@
                              :read-eval true
                              :features #{:clj}
                              :read-cond :allow
-                             :auto-resolve-ns true
+                             :auto-resolve name
                              :syntax-quote {:resolve-symbol resolve-symbol}}))
 
 (defn copy-resource-file! [source target-path]

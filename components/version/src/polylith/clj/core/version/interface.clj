@@ -5,13 +5,13 @@
 (def major 0)
 (def minor 2)
 (def patch 18)
-(def revision "issue259-05")
+(def revision "issue259-06")
 (def name (str major "." minor "." patch
                (if (str/blank? revision)
                  ""
                  (str "-" revision))))
 
-(def date "2023-03-18")
+(def date "2023-03-19")
 
 (defn version
   ([ws-type]
@@ -34,15 +34,15 @@
 ;; === workspace attributes (ws) ===
 ;;
 ;; ws     release         action    attribute                                            Description
-;; -----  -------------   -------   ------------------------------------------------------------------------------
+;; -----  -------------   -------   ---------------------------------------------------------------------------------
 ;; 2.0    0.2.18          added     configs
 ;;                        added     ws-type
-;;                        changed   bases:BASE:namespaces:src:0:file-path                Skip ws-dir in file-path.
-;;                        changed   bases:BASE:namespaces:test:0:file-path               Skip ws-dir in file-path.
-;;                        changed   components:COMPONENT:namespaces:src:0:file-path      Skip ws-dir in file-path.
-;;                        changed   components:COMPONENT:namespaces:test:0:file-path     Skip ws-dir in file-path.
-;;                        changed   projects:PROJECT:namespaces:src:0:file-path          Skip ws-dir in file-path.
-;;                        changed   projects:PROJECT:namespaces:test:0:file-path         Skip ws-dir in file-path.
+;;                        changed   bases:BASE:namespaces:src:0:file-path                Skipped ws-dir in file-path.
+;;                        changed   bases:BASE:namespaces:test:0:file-path               Skipped ws-dir in file-path.
+;;                        changed   components:COMPONENT:namespaces:src:0:file-path      Skipped ws-dir in file-path.
+;;                        changed   components:COMPONENT:namespaces:test:0:file-path     Skipped ws-dir in file-path.
+;;                        changed   projects:PROJECT:namespaces:src:0:file-path          Skipped ws-dir in file-path.
+;;                        changed   projects:PROJECT:namespaces:test:0:file-path         Skipped ws-dir in file-path.
 ;; 1.2    0.2.16-alpha    added     bases:BASE:namespaces:src:0:invalid
 ;;                        added     bases:BASE:namespaces:test:0:invalid
 ;;                        added     components:COMPONENT:namespaces:src:0:invalid

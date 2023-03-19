@@ -18,5 +18,3 @@
   test-helper-db  test-helper-db *   -tx   s--
   util            util *             stx   stx
   -               invoicer-cli *     stx   stx
-
-  Warning 207: Unnecessary components were found in the invoicing project and may be removed: datomic-ions, without-src
