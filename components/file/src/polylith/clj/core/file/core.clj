@@ -108,7 +108,6 @@
      :dirs dirs}))
 
 (defn read-file [path]
-  (tap> (str "Read file: " path))
   (edamame/parse-string-all (slurp path)
                             {:fn true
                              :var true
