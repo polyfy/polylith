@@ -80,18 +80,18 @@
           "                                                                                p  l  o  l  a  o  l  e"
           "  library                           version    type      KB   api  poly   dev   s  e  r  l  p  r  j  r"
           "  ---------------------------------------------------------   ---------   ---   ----------------------"
-          "  borkdude/edamame                  1.2.19     maven     23    x    x      x    .  x  .  .  .  .  .  ."
+          "  borkdude/edamame                  1.3.20     maven     24    x    x      x    .  x  .  .  .  .  .  ."
           "  clj-commons/fs                    1.6.310    maven     12    x    x      x    .  x  .  .  .  .  .  ."
           "  djblue/portal                     0.37.1     maven  1,818    -    x      x    .  .  .  .  x  .  .  ."
           "  io.github.seancorfield/build-clj  9c9f078    git       42    -    -      x    .  .  .  .  .  .  .  ."
-          "  metosin/malli                     0.10.2     maven     83    x    x      x    .  .  .  .  .  x  .  ."
+          "  metosin/malli                     0.10.4     maven     85    x    x      x    .  .  .  .  .  x  .  ."
           "  mount/mount                       0.1.17     maven      8    -    -      x    .  .  .  .  .  .  .  ."
           "  mvxcvi/puget                      1.3.4      maven     15    x    x      x    .  .  .  .  .  .  .  x"
           "  org.clojure/clojure               1.11.1     maven  4,008    x    x      x    .  .  .  .  .  .  .  ."
-          "  org.clojure/tools.deps            0.17.1297  maven     57    x    x      x    x  x  .  .  .  .  x  ."
+          "  org.clojure/tools.deps            0.18.1308  maven     57    x    x      x    x  x  .  .  .  .  x  ."
           "  org.jline/jline                   3.21.0     maven    971    -    x      x    .  .  .  x  .  .  .  ."
-          "  org.slf4j/slf4j-nop               2.0.6      maven      3    -    x      x    .  .  .  .  .  .  .  ."
-          "  rewrite-clj/rewrite-clj           1.1.46     maven     72    -    -      x    .  .  .  .  .  .  .  ."
+          "  org.slf4j/slf4j-nop               2.0.7      maven      4    -    x      x    .  .  .  .  .  .  .  ."
+          "  rewrite-clj/rewrite-clj           1.1.47     maven     73    -    -      x    .  .  .  .  .  .  .  ."
           "  slipset/deps-deploy               0.2.0      maven      7    -    -      x    .  .  .  .  .  .  .  ."
           "  zprint/zprint                     1.2.5      maven    195    -    x      x    .  .  x  .  .  .  .  ."])))
 
@@ -127,7 +127,7 @@
           "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
           "  command                   .  x  .  .  x  x  x  x  x  x  x  x  x  .  .  x  x  .  .  x  .  x  .  x  x  x  x  x  x  x"
           "  common                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
-          "  config-reader             .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
+          "  config-reader             .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  ."
           "  creator                   .  .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  t  .  .  .  .  .  x  .  .  .  .  .  ."
           "  deps                      .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
           "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
@@ -188,7 +188,7 @@
             "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
             "  command                   x  .  x  x  x  x  x  x  x  x  x  +  +  x  x  .  +  x  +  x  +  x  x  x  x  x  x  x"
             "  common                    .  .  .  .  .  .  +  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
-            "  config-reader             .  .  x  .  .  +  x  .  .  .  .  +  .  .  .  .  +  .  +  +  .  +  x  .  .  .  .  ."
+            "  config-reader             .  .  x  .  .  +  x  .  .  .  .  +  .  .  .  .  +  .  +  +  .  x  x  .  .  .  .  ."
             "  creator                   -  -  x  -  -  -  x  x  -  -  -  -  +  -  -  t  -  -  -  +  -  x  -  -  -  -  -  -"
             "  deps                      .  .  x  .  .  .  +  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
             "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
@@ -324,22 +324,22 @@
                                       :test {}}
           "config-reader"            {:src  {:direct   ["common"
                                                         "file"
+                                                        "util"
                                                         "validator"]
                                              :indirect ["deps"
                                                         "path-finder"
                                                         "test-runner-contract"
                                                         "text-table"
-                                                        "user-config"
-                                                        "util"]}
+                                                        "user-config"]}
                                       :test {:direct   ["common"
                                                         "file"
+                                                        "util"
                                                         "validator"]
                                              :indirect ["deps"
                                                         "path-finder"
                                                         "test-runner-contract"
                                                         "text-table"
-                                                        "user-config"
-                                                        "util"]}}
+                                                        "user-config"]}}
           "creator"                  {:src  {:direct   ["common"
                                                         "file"
                                                         "git"
