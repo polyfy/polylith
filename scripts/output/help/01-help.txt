@@ -1,11 +1,11 @@
-  Poly 0.2.18-issue259-06 (2023-03-19) - https://github.com/polyfy/polylith
+  Poly 0.2.18-issue259-08 (2023-03-26) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
     check [ARG]                 Checks if the workspace is valid.
     create E name:N [ARG]       Creates a component, base, project or workspace.
     deps [project:P] [brick:B]  Shows dependencies.
-    diff                        Shows changed files since last stable point in time.
+    diff [ARG]                  Shows changed files since last stable point in time.
     help [C] [ARG]              Shows this help or help for specified command.
     info [ARGS]                 Shows a workspace overview and checks if it's valid.
     libs [ARGS]                 Shows all libraries in the workspace.

@@ -47,7 +47,7 @@
    :interface-deps {:src ["user"], :test []}}],
  :changes
  {:since "stable",
-  :since-sha "d04816ea4bca4a7ad5ae9eb700622e69d316f269",
+  :since-sha "27d40903ed61a3b9ccbf6db7e172267eaa8380f0",
   :since-tag "stable-lisa",
   :changed-files
   ["bases/user-api/deps.edn"
@@ -63,7 +63,7 @@
    "projects/user-service/deps.edn"
    "workspace.edn"],
   :git-diff-command
-  "git diff d04816ea4bca4a7ad5ae9eb700622e69d316f269 --name-only",
+  "git diff 27d40903ed61a3b9ccbf6db7e172267eaa8380f0 --name-only",
   :changed-components ["user-remote"],
   :changed-bases ["user-api"],
   :changed-projects ["command-line" "user-service"],
@@ -143,7 +143,6 @@
      "ring/ring" {:version "1.8.1", :type "maven", :size 4621},
      "slacker/slacker"
      {:version "0.17.0", :type "maven", :size 28408}}}}],
- :config-errors [],
  :configs
  {:components
   [{:config
@@ -338,7 +337,7 @@
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "cl",
    :project-dir
-   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-03-19-073612.sThyxgjD/example/projects/command-line",
+   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-03-26-191702.RSFuFZjs/example/projects/command-line",
    :lib-deps
    {:src
     {"org.clojure/clojure"
@@ -357,7 +356,7 @@
      "slacker/slacker"
      {:version "0.17.0", :type "maven", :size 28408}}},
    :config-filename
-   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-03-19-073612.sThyxgjD/example/projects/command-line/deps.edn",
+   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-03-26-191702.RSFuFZjs/example/projects/command-line/deps.edn",
    :component-names {:src ["user-remote"], :test ["user-remote"]},
    :deps
    {"cli"
@@ -384,7 +383,7 @@
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "user-s",
    :project-dir
-   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-03-19-073612.sThyxgjD/example/projects/user-service",
+   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-03-26-191702.RSFuFZjs/example/projects/user-service",
    :lib-deps
    {:src
     {"org.clojure/clojure"
@@ -398,7 +397,7 @@
      "slacker/slacker"
      {:version "0.17.0", :type "maven", :size 28408}}},
    :config-filename
-   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-03-19-073612.sThyxgjD/example/projects/user-service/deps.edn",
+   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-03-26-191702.RSFuFZjs/example/projects/user-service/deps.edn",
    :component-names {:src ["user"], :test ["user"]},
    :deps
    {"user-api" {:src {:direct ["user"]}, :test {:direct ["user"]}},
@@ -437,7 +436,7 @@
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "dev",
    :project-dir
-   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-03-19-073612.sThyxgjD/example/development",
+   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-03-26-191702.RSFuFZjs/example/development",
    :unmerged
    {:paths
     {:src
@@ -471,7 +470,7 @@
      "org.apache.logging.log4j/log4j-slf4j-impl"
      {:version "2.13.3", :type "maven", :size 23590}}},
    :config-filename
-   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-03-19-073612.sThyxgjD/example/deps.edn",
+   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-03-26-191702.RSFuFZjs/example/deps.edn",
    :component-names {:src ["user"], :test ["user"]},
    :deps
    {"cli" {:src {:direct ["user"]}, :test {:direct ["user"]}},
@@ -483,11 +482,11 @@
    :is-git-repo true,
    :branch "main",
    :git-root
-   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-03-19-073612.sThyxgjD/example",
+   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-03-26-191702.RSFuFZjs/example",
    :auto-add true,
    :stable-since
    {:tag "stable-lisa",
-    :sha "d04816ea4bca4a7ad5ae9eb700622e69d316f269"},
+    :sha "27d40903ed61a3b9ccbf6db7e172267eaa8380f0"},
    :polylith
    {:repo "https://github.com/polyfy/polylith.git", :branch "master"}},
   :top-namespace "se.example",
@@ -566,15 +565,15 @@
   :unnamed-args []},
  :version
  {:release
-  {:name "0.2.18-issue259-06",
+  {:name "0.2.18-issue259-08",
    :major 0,
    :minor 2,
    :patch 18,
-   :revision "issue259-06",
-   :date "2023-03-19"},
+   :revision "issue259-08",
+   :date "2023-03-26"},
   :ws {:type :toolsdeps2, :breaking 2, :non-breaking 0}},
  :ws-dir
- "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-03-19-073612.sThyxgjD/example",
+ "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-03-26-191702.RSFuFZjs/example",
  :ws-reader
  {:name "polylith-clj",
   :project-url "https://github.com/polyfy/polylith",

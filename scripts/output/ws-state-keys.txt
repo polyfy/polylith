@@ -1,7 +1,6 @@
 [:bases
  :changes
  :components
- :config-errors
  :configs
  :interfaces
  :messages

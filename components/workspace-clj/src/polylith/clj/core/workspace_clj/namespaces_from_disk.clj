@@ -59,8 +59,6 @@
     (or (= interface-ns ns-name)
         (str/starts-with? ns-name (str interface-ns ".")))))
 
-; [required-ns as]
-
 (defn required-as? [x suffixed-top-ns interface-ns]
   (when (libspec? x)
     (let [required-ns (cond (symbol? x) x
@@ -90,16 +88,6 @@
     (vec (sort (mapcat #(import % suffixed-top-ns interface-ns)
                        (filterv import? ns-statements))))
     []))
-
-(comment
-  (def ns-statements 'x)
-  (def suffixed-top-ns "polylith.clj.core.")
-  (def interface-ns "interface")
-  (imports ns-statements suffixed-top-ns interface-ns)
-
-  (import? ns-statements)
-
-  #__)
 
 (defn skip-slash [path]
   (or (str-util/skip-until path "/")

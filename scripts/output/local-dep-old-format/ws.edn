@@ -204,7 +204,6 @@
    :type "component",
    :interface-deps {:src [], :test []},
    :lib-deps {}}],
- :config-errors [],
  :configs
  {:components
   [{:config
@@ -806,12 +805,12 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.18-issue259-06",
+  {:name "0.2.18-issue259-08",
    :major 0,
    :minor 2,
    :patch 18,
-   :revision "issue259-06",
-   :date "2023-03-19"},
+   :revision "issue259-08",
+   :date "2023-03-26"},
   :ws {:type :toolsdeps2, :breaking 2, :non-breaking 0},
   :from {:ws {:type :toolsdeps1}}},
  :ws-dir "/privateWS-HOME/local-dep-old-format",
