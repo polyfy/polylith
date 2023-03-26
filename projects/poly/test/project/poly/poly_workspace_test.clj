@@ -151,7 +151,7 @@
           "  workspace                 .  .  .  .  x  .  .  x  x  .  .  .  .  x  .  .  .  t  .  .  x  .  .  x  x  .  .  .  .  ."
           "  workspace-clj             .  .  .  .  x  x  .  x  x  x  .  x  .  x  .  .  .  .  .  .  .  x  .  x  x  x  .  .  .  ."
           "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  ws-file                   .  .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  ."
+          "  ws-file                   .  .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
           "  poly-cli                  .  .  .  x  .  t  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  t  .  .  t  .  ."])))
 
 (deftest project-deps-table
@@ -212,7 +212,7 @@
             "  workspace                 -  -  x  -  -  x  x  -  -  -  -  x  -  -  -  t  +  -  x  +  -  x  x  -  -  -  -  -"
             "  workspace-clj             .  .  x  x  .  x  x  x  .  x  .  x  +  .  .  .  +  .  +  x  .  x  x  x  .  .  .  ."
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  ws-file                   .  .  x  .  .  .  x  x  .  .  .  .  +  .  .  .  .  .  .  +  .  +  .  x  .  .  .  ."
+            "  ws-file                   .  .  x  .  .  .  x  x  .  .  .  .  +  .  .  .  .  .  .  +  .  x  .  x  .  .  .  ."
             "  poly-cli                  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  t  +  +"]))))
 
 (deftest project-and-brick-deps
@@ -682,10 +682,10 @@
           "ws-file"                  {:src  {:direct   ["common"
                                                         "file"
                                                         "git"
+                                                        "util"
                                                         "version"]
                                              :indirect ["sh"
-                                                        "user-config"
-                                                        "util"]}
+                                                        "user-config"]}
                                       :test {}}})))
 
 (deftest poly-project-src-paths

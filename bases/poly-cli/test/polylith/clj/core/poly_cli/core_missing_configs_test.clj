@@ -22,10 +22,10 @@
 (deftest check-a-workspace-with-missing-workspace-config-file
   (let [check-fn (fn [] (with-redefs [config-reader/file-exists? (fn [_ type] (not= :workspace type))
                                       validator/validate-project-dev-config (fn [_ _ _] "Invalid file")
-                                      ws-config/ws-config-from-disk (fn [_] [nil "Missing workspace"])]
+                                      ws-config/ws-config-from-disk (fn [_] [nil "Missing workspace config"])]
                           (cli/-main "check" "ws-dir:examples/local-dep" "color-mode:none" ":no-exit")))
         output (with-out-str (check-fn))]
-    (is (= output "  Missing workspace\n"))
+    (is (= output "  Missing workspace config\n"))
     (is (= (check-fn) 1))))
 
 (deftest check-a-workspace-with-missing-development-config-file

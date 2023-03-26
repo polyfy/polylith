@@ -2,7 +2,8 @@
   (:require [clojure.string :as str]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.config-reader.config-reader :as config-reader]
-            [polylith.clj.core.file.interface :as file])
+            [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.util.interface.str :as str-util])
   (:import (java.io File)))
 
 (defn find-root-dir [path config-filename valid-fn]
@@ -33,4 +34,7 @@
     (file/current-dir)
     (if is-search-for-ws-dir
       (find-ws-root-dir (file/absolute-path ""))
-      (common/user-path ws-dir))))
+      (-> ws-dir
+          common/user-path
+          (str-util/skip-if-ends-with "/")
+          (str-util/skip-if-ends-with "\\")))))
