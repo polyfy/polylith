@@ -114,10 +114,12 @@
        (-> content second boolean)))
 
 (defn ->namespace [ws-dir source-dir suffixed-top-ns interface-ns file-path]
-  (let [content (-> file-path file/read-file first)
+  (let [all-content (file/read-file file-path)
+        content (first (drop-while #(-> % ns-with-name? not)
+                                   all-content))
         ns-name (namespace-name source-dir file-path)
         relative-path (str-util/skip-prefix file-path (str ws-dir "/"))]
-    (if (empty-ns? content)
+    (if (-> all-content first empty-ns?)
       {:name ns-name
        :namespace ""
        :file-path relative-path

@@ -84,13 +84,13 @@
   (is (= (from-disk/import '(:require [asalias.comp-a.core :as-alias comp-a]) "asalias." "interface")
          ["asalias.comp-a.core"])))
 
-(def file-content '[(ns polylith.clj.core.tap.core (:require [clojure.string :as str] [portal.api :as portal]))
+(def file-content '[(System/setProperty "com.sun.xml.bind.v2.bytecode.ClassTailor.noOptimize" "true")
+                    (ns polylith.clj.core.tap.core (:require [clojure.string :as str] [portal.api :as portal]))
                     (defn command [cmd] (if (str/blank? cmd) "open" cmd))])
 
 (deftest ->namespace--read-invalid-namespace
   (with-redefs [file/read-file (fn [_] ['--])
                 from-disk/namespace-name (fn [_ _] "")]
-    (from-disk/->namespace "." "" "" "" "")
     (is (= (from-disk/->namespace "." "" "" "" "path")
            {:name "", :namespace "", :file-path "path", :imports [], :invalid true}))))
 
