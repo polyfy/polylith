@@ -91,8 +91,8 @@
 (deftest ->namespace--read-invalid-namespace
   (with-redefs [file/read-file (fn [_] ['--])
                 from-disk/namespace-name (fn [_ _] "")]
-    (is (= (from-disk/->namespace "." "" "" "" "path")
-           {:name "", :namespace "", :file-path "path", :imports [], :invalid true}))))
+    (is (= (from-disk/->namespace "." "" "" "" [] "path")
+           {:name "", :namespace "", :file-path "path", :imports [], :is-invalid true}))))
 
 (deftest ->namespace--read-namespace
   (with-redefs [file/read-file (fn [_] file-content)
@@ -101,8 +101,24 @@
                                   "components/version/src/polylith/clj/core/"
                                   "polylith.clj.core."
                                   "interface"
+                                  []
                                   "components/tap/src/polylith/clj/core/tap/core.clj")
            {:name "core"
+            :namespace "polylith.clj.core.tap.core"
+            :file-path "components/tap/src/polylith/clj/core/tap/core.clj"
+            :imports ["clojure.string" "portal.api"]}))))
+
+(deftest ->namespace--read-namespace--ignore-file
+  (with-redefs [file/read-file (fn [_] file-content)
+                from-disk/namespace-name (fn [_ _] "core")]
+    (is (= (from-disk/->namespace "."
+                                  "components/version/src/polylith/clj/core/"
+                                  "polylith.clj.core."
+                                  "interface"
+                                  ["core.clj"]
+                                  "components/tap/src/polylith/clj/core/tap/core.clj")
+           {:name "core"
+            :is-ignored true
             :namespace "polylith.clj.core.tap.core"
             :file-path "components/tap/src/polylith/clj/core/tap/core.clj"
             :imports ["clojure.string" "portal.api"]}))))

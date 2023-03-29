@@ -113,7 +113,11 @@
           (first content))
        (-> content second boolean)))
 
-(defn ->namespace [ws-dir source-dir suffixed-top-ns interface-ns file-path]
+(defn ignore-file? [file-path files-to-ignore]
+  (some #(str/ends-with? file-path (str "/" %))
+        files-to-ignore))
+
+(defn ->namespace [ws-dir source-dir suffixed-top-ns interface-ns files-to-ignore file-path]
   (let [all-content (file/read-file file-path)
         content (first (drop-while #(-> % ns-with-name? not)
                                    all-content))
@@ -125,18 +129,22 @@
        :file-path relative-path
        :imports []}
       (let [imports (imports content suffixed-top-ns interface-ns)
-            invalid? (-> content ns-with-name? not)]
+            ignore? (ignore-file? file-path files-to-ignore)
+            invalid? (and (not ignore?)
+                          (-> content ns-with-name? not))]
         (cond-> {:name ns-name
                  :namespace (if (ns-with-name? content)
                               (-> content second str)
                               "")
                  :file-path relative-path
                  :imports imports}
-                invalid? (assoc :invalid true))))))
+                ignore? (assoc :is-ignored true)
+                invalid? (assoc :is-invalid true))))))
 
 (comment
   (def source-dir "components/version/src/polylith/clj/core/")
   (def file-path "components/tap/src/polylith/clj/core/tap/core.clj")
+  (def file-path "components/tap/src/polylith/clj/core/tap/config.clj")
   (def file-path "components/file/src/polylith/clj/core/file/testing.clj")
   (def source-dir "bases/poly-cli/src/polylith/clj/core/")
   (def file-path "bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj")
@@ -144,16 +152,16 @@
   (->namespace "." source-dir "polylith.clj.core." "interface" file-path)
   #__)
 
-(defn source-namespaces-from-disk [ws-dir source-dir suffixed-top-ns interface-ns]
-  (mapv #(->namespace ws-dir source-dir suffixed-top-ns interface-ns %)
+(defn source-namespaces-from-disk [ws-dir source-dir suffixed-top-ns interface-ns files-to-ignore]
+  (mapv #(->namespace ws-dir source-dir suffixed-top-ns interface-ns files-to-ignore %)
         (-> source-dir
             file/paths-recursively
             common/filter-clojure-paths)))
 
-(defn namespaces-from-disk [ws-dir src-dirs test-dirs suffixed-top-ns interface-ns]
-  (let [src (vec (mapcat #(source-namespaces-from-disk ws-dir % suffixed-top-ns interface-ns)
+(defn namespaces-from-disk [ws-dir src-dirs test-dirs suffixed-top-ns interface-ns files-to-ignore]
+  (let [src (vec (mapcat #(source-namespaces-from-disk ws-dir % suffixed-top-ns interface-ns files-to-ignore)
                          src-dirs))
-        test (vec (mapcat #(source-namespaces-from-disk ws-dir % suffixed-top-ns interface-ns)
+        test (vec (mapcat #(source-namespaces-from-disk ws-dir % suffixed-top-ns interface-ns files-to-ignore)
                           test-dirs))]
     (cond-> {}
             (seq src) (assoc :src src)

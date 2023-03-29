@@ -123,6 +123,7 @@
 (defn read-project
   ([{:keys [config project-name project-dir project-config-dir is-dev]} ws-dir name->brick project->settings user-home suffixed-top-ns interface-ns]
    (let [{:keys [paths deps override-deps aliases mvn/repos]} config
+         files-to-ignore (get-in project->settings [project-name :ignore-files])
          project-src-paths (cond-> paths is-dev (concat (-> aliases :dev :extra-paths)))
          project-src-deps (cond-> deps is-dev (merge (-> aliases :dev :extra-deps)))
          project-test-paths (-> aliases :test :extra-paths)
@@ -133,10 +134,12 @@
          maven-repos (merge mvn/standard-repos repos)]
      (read-project ws-dir name->brick project-name project-dir project-config-dir is-dev maven-repos
                    project->settings user-home project-src-paths project-src-deps project-test-paths
-                   project-test-deps override-src-deps override-test-deps suffixed-top-ns interface-ns)))
+                   project-test-deps override-src-deps override-test-deps suffixed-top-ns interface-ns
+                   files-to-ignore)))
   ([ws-dir name->brick project-name project-dir project-config-dir is-dev maven-repos
     project->settings user-home project-src-paths project-src-deps project-test-paths
-    project-test-deps override-src-deps override-test-deps suffixed-top-ns interface-ns]
+    project-test-deps override-src-deps override-test-deps suffixed-top-ns interface-ns
+    files-to-ignore]
    (let [[src-paths src-lib-deps] (src-paths-and-libs-from-bricks ws-dir name->brick is-dev project-name user-home project-src-deps project-src-paths override-src-deps)
          bricks-to-test (-> project-name project->settings :test :include)
          [test-paths test-lib-deps] (test-paths-and-libs-from-bricks ws-dir name->brick is-dev project-name bricks-to-test user-home project-src-deps project-test-deps project-test-paths override-src-deps override-test-deps)
@@ -147,7 +150,7 @@
                           (seq src-lib-deps) (assoc :src src-lib-deps)
                           (seq test-lib-deps) (assoc :test test-lib-deps))
          {:keys [src-dirs test-dirs]} (project-paths/project-source-dirs ws-dir project-name is-dev project-src-paths project-test-paths)
-         namespaces (ns-from-disk/namespaces-from-disk ws-dir src-dirs test-dirs suffixed-top-ns interface-ns)]
+         namespaces (ns-from-disk/namespaces-from-disk ws-dir src-dirs test-dirs suffixed-top-ns interface-ns files-to-ignore)]
      (util/ordered-map :name project-name
                        :is-dev is-dev
                        :project-dir project-dir

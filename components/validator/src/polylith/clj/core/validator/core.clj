@@ -14,7 +14,7 @@
             [polylith.clj.core.validator.m202-missing-paths :as m202]
             [polylith.clj.core.validator.m203-path-exists-in-both-dev-and-profile :as m203]
             [polylith.clj.core.validator.m205-non-top-namespace :as m205]
-            [polylith.clj.core.validator.m206-unreadable-namespace :as m206]
+            [polylith.clj.core.validator.m206-missing-or-unreadable-namespace :as m206]
             [polylith.clj.core.validator.m207-unnecessary-components-in-project :as m207]))
 
 (defn has-errors? [messages]
