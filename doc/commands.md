@@ -29,7 +29,7 @@ poly help
 ```
 
 ```
-  Poly 0.2.18-issue259-08 (2023-03-26) - https://github.com/polyfy/polylith
+  Poly 0.2.18-issue187-01 (2023-03-30) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -260,8 +260,14 @@ poly help
     Triggered if a namespace in a brick doesn't start with the top namespaces
     defined in :top-namespace in ./workspace.edn.
 
-  Warning 206 - Unreadable namespace in brick/project.
-    Triggered if a namespace can't be parsed for a brick or project.
+  Warning 206 - Missing or unreadable namespace in brick/project.
+    Triggered if a namespace can't be parsed or found for a brick or project.
+    A way to ignore this warning is to add the :ignore-files key to the brick or project
+    in workspace.edn (- will be repladec by _ in the file path), e.g.
+    { ...
+      :bricks {"mybrick" {:ignore-files ["myfile.clj"]}}
+      :projects {"myproject" {:alias "mp" :ignore-files ["sub-ns/myfile.clj"]}}
+      ...}
 
   Warning 207 - Unnecessary components were found in project.
     Triggered if components were defined in a project that are not used by any of
