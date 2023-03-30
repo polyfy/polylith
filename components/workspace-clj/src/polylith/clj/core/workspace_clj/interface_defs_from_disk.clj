@@ -27,9 +27,9 @@
     (mapv #(->interface-ns src-dir %) paths)))
 
 (defn interface-from-disk [{:keys [sub-ns path]} interface-ns]
-  (let [content (file/read-file path)
-        statements (defs/filter-statements content)]
-    (mapcat #(defs/definitions sub-ns % interface-ns) statements)))
+  (let [content (file/read-file path)]
+    (mapcat #(defs/definitions sub-ns % interface-ns)
+            (defs/filter-statements content))))
 
 (defn params [parameters]
   (mapv :name parameters))

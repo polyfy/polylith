@@ -60,3 +60,10 @@
 
 (defn invalid-workspace? [workspace]
   (core/invalid-workspace? workspace))
+
+(defn interface-nss [interface-ns]
+  (set ["ifc" "interface" interface-ns]))
+
+(defn interface-ns? [namespace interface-ns]
+  (contains? (interface-nss interface-ns)
+             namespace))
