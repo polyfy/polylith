@@ -11,8 +11,8 @@
                                             "org.clojure/tools.deps"{:mvn/version "0.16.1264"}}}}}])
 
 (deftest warnings--path-was-found-in-both-dev-and-a-profile--returns-error-message
-  (is (= [{:type "warning"
+  (is (= (m204/warnings settings projects color/none)
+         [{:type "warning"
            :code 204
            :message "The same library dependency exists in both the development project and the admin profile: org.clojure/clojure"
-           :colorized-message "The same library dependency exists in both the development project and the admin profile: org.clojure/clojure"}]
-         (m204/warnings settings projects color/none))))
+           :colorized-message "The same library dependency exists in both the development project and the admin profile: org.clojure/clojure"}])))

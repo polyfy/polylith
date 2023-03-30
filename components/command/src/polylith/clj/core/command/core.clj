@@ -7,7 +7,6 @@
             [polylith.clj.core.command.info :as info]
             [polylith.clj.core.command.test :as test]
             [polylith.clj.core.command.user-config :as user-config]
-            [polylith.clj.core.command.ws-check :as ws-check]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.config-reader.interface :as config-reader]
             [polylith.clj.core.help.interface :as help]
@@ -46,26 +45,25 @@
   (println "  Please use the 'shell' command instead, which gives you support for history (<up> key) and autocomplete (<tab> key)."))
 
 (defn read-workspace
-  ([ws-dir {:keys [ws-file] :as user-input}]
-   (read-workspace ws-file ws-dir user-input))
-  ([ws-file ws-dir user-input]
+  ([{:keys [ws-file] :as user-input}]
+   (read-workspace ws-file user-input))
+  ([ws-file user-input]
    (if ws-file
      (ws-file/read-ws-from-file ws-file user-input)
-     (when (ws-check/valid-workspace-file-found? ws-dir)
-       (-> user-input
-           ws-clj/workspace-from-disk
-           ws/enrich-workspace
-           change/with-changes)))))
+     (-> user-input
+         ws-clj/workspace-from-disk
+         ws/enrich-workspace
+         change/with-changes))))
 
 (defn workspace-reader-fn []
-  (fn [user-input ws-file ws-dir]
-    (read-workspace ws-file ws-dir user-input)))
+  (fn [user-input ws-file]
+    (read-workspace ws-file user-input)))
 
 (defn execute [{:keys [cmd args name top-ns branch is-tap is-git-add is-commit is-all is-show-brick is-show-workspace is-show-project is-verbose get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (config-reader/workspace-dir user-input)
         workspace-fn (workspace-reader-fn)
-        workspace (workspace-fn user-input ws-file ws-dir)]
+        workspace (workspace-fn user-input ws-file)]
     (user-config/create-user-config-if-not-exists)
     (when is-tap (tap/execute "open"))
     (let [brick-name (first selected-bricks)

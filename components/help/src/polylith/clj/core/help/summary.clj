@@ -22,7 +22,7 @@
     "    check [" (s/key "ARG" cm) "]                 Checks if the workspace is valid.\n"
     "    create " (s/key "E" cm) " name:" (s/key "N" cm) " [" (s/key "ARG" cm) "]       Creates a component, base, project or workspace.\n"
     "    deps [project:" (s/key "P" cm) "] [brick:" (s/key "B" cm) "]  Shows dependencies.\n"
-    "    diff                        Shows changed files since last stable point in time.\n"
+    "    diff [" (s/key "ARG" cm) "]                  Shows changed files since last stable point in time.\n"
     "    help [" (s/key "C" cm) "] [" (s/key "ARG" cm) "]              Shows this help or help for specified command.\n"
     "    info [" (s/key "ARGS" cm) "]                 Shows a workspace overview and checks if it's valid.\n"
     "    libs [" (s/key "ARGS" cm) "]                 Shows all libraries in the workspace.\n"

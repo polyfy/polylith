@@ -13,13 +13,13 @@
                :profile-to-settings {"default" {:lib-deps {"net.mikera/core.matrix" {:mvn/version "0.62.0"}}}}})
 
 (deftest dep-entries
-  (is (= test-data/dep-entries
-         (lib-dep-extractor/from-library-deps true deps settings))))
+  (is (= (lib-dep-extractor/from-library-deps true deps settings)
+         test-data/dep-entries)))
 
 (deftest extract-deps--from-non-dev-project--returns-no-dependencies
-  (is (= {}
-         (lib-dep-extractor/extract-deps false settings))))
+  (is (= (lib-dep-extractor/extract-deps false settings)
+         {})))
 
 (deftest extract-deps--from-dev-project--returns-selected-profiles-dependencies
-  (is (= {"net.mikera/core.matrix" #:mvn{:version "0.62.0"}}
-         (lib-dep-extractor/extract-deps true settings))))
+  (is (= (lib-dep-extractor/extract-deps true settings)
+         {"net.mikera/core.matrix" #:mvn{:version "0.62.0"}})))

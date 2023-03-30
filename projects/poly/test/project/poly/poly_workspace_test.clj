@@ -1,4 +1,4 @@
-(ns project.poly.workspace-test
+(ns project.poly.poly-workspace-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.common.interface :as common]
@@ -21,15 +21,16 @@
       change/with-changes))
 
 (deftest project-table
-  (is (= ["  project        alias  status   dev"
+  (is (= (project-table/table (workspace) false false)
+         ["  project        alias  status   dev"
           "  ----------------------------   ---"
           "  api *          api     ---     ---"
           "  poly *         poly    -t-     -t-"
-          "  development *  dev     s--     s--"]
-         (project-table/table (workspace) false false))))
+          "  development *  dev     s--     s--"])))
 
 (deftest info
-  (is (= ["  interface                 brick                        api  poly   dev"
+  (is (= (ws-table/table (workspace) false false)
+         ["  interface                 brick                        api  poly   dev"
           "  ----------------------------------------------------   ---------   ---"
           "  api                       api *                        s--  ---    st-"
           "  change                    change *                     s--  stx    st-"
@@ -61,11 +62,11 @@
           "  workspace-clj             workspace-clj *              s--  stx    st-"
           "  ws-explorer               ws-explorer *                s--  stx    st-"
           "  ws-file                   ws-file *                    ---  s--    s--"
-          "  -                         poly-cli *                   ---  stx    st-"]
-         (ws-table/table (workspace) false false))))
+          "  -                         poly-cli *                   ---  stx    st-"])))
 
 (deftest libs
-  (is (= ["                                                                                                  w   "
+  (is (= (libs/table (workspace) false)
+         ["                                                                                                  w   "
           "                                                                                                  o   "
           "                                                                                                  r  w"
           "                                                                                                  k  s"
@@ -79,24 +80,24 @@
           "                                                                                p  l  o  l  a  o  l  e"
           "  library                           version    type      KB   api  poly   dev   s  e  r  l  p  r  j  r"
           "  ---------------------------------------------------------   ---------   ---   ----------------------"
+          "  borkdude/edamame                  1.3.20     maven     24    x    x      x    .  x  .  .  .  .  .  ."
           "  clj-commons/fs                    1.6.310    maven     12    x    x      x    .  x  .  .  .  .  .  ."
-          "  djblue/portal                     0.35.1     maven  1,790    -    x      x    .  .  .  .  x  .  .  ."
+          "  djblue/portal                     0.37.1     maven  1,818    -    x      x    .  .  .  .  x  .  .  ."
           "  io.github.seancorfield/build-clj  9c9f078    git       42    -    -      x    .  .  .  .  .  .  .  ."
-          "  metosin/malli                     0.10.1     maven     81    x    x      x    .  .  .  .  .  x  .  ."
+          "  metosin/malli                     0.10.4     maven     85    x    x      x    .  .  .  .  .  x  .  ."
           "  mount/mount                       0.1.17     maven      8    -    -      x    .  .  .  .  .  .  .  ."
           "  mvxcvi/puget                      1.3.4      maven     15    x    x      x    .  .  .  .  .  .  .  x"
           "  org.clojure/clojure               1.11.1     maven  4,008    x    x      x    .  .  .  .  .  .  .  ."
-          "  org.clojure/tools.deps            0.16.1281  maven     57    x    x      x    x  x  .  .  .  .  x  ."
+          "  org.clojure/tools.deps            0.18.1308  maven     57    x    x      x    x  x  .  .  .  .  x  ."
           "  org.jline/jline                   3.21.0     maven    971    -    x      x    .  .  .  x  .  .  .  ."
-          "  org.slf4j/slf4j-nop               2.0.6      maven      3    -    x      x    .  .  .  .  .  .  .  ."
-          "  rewrite-clj/rewrite-clj           1.1.46     maven     72    -    -      x    .  .  .  .  .  .  .  ."
+          "  org.slf4j/slf4j-nop               2.0.7      maven      4    -    x      x    .  .  .  .  .  .  .  ."
+          "  rewrite-clj/rewrite-clj           1.1.47     maven     73    -    -      x    .  .  .  .  .  .  .  ."
           "  slipset/deps-deploy               0.2.0      maven      7    -    -      x    .  .  .  .  .  .  .  ."
-          "  zprint/zprint                     1.2.5      maven    195    -    x      x    .  .  x  .  .  .  .  ."]
-
-         (libs/table (workspace) false))))
+          "  zprint/zprint                     1.2.5      maven    195    -    x      x    .  .  x  .  .  .  .  ."])))
 
 (deftest ifc-deps-table
-  (is (= ["                                  c                                                  t                              "
+  (is (= (ws-ifc-deps-table/table (workspace))
+         ["                                  c                                                  t                              "
           "                                  l                                                  e                              "
           "                                  o                                                  s                              "
           "                                  j                                                  t                              "
@@ -122,11 +123,11 @@
           "  brick                     i  e  r  d  n  r  r  s  e  t  p  b  r  r  h  l  p  r  t  r  e  g  t  l  r  n  e  j  r  e"
           "  ------------------------------------------------------------------------------------------------------------------"
           "  api                       .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  x  x  x  ."
-          "  change                    .  .  .  .  .  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  change                    .  .  .  .  x  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
           "  command                   .  x  .  .  x  x  x  x  x  x  x  x  x  .  .  x  x  .  .  x  .  x  .  x  x  x  x  x  x  x"
           "  common                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
-          "  config-reader             .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  ."
+          "  config-reader             .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  ."
           "  creator                   .  .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  t  .  .  .  .  .  x  .  .  .  .  .  ."
           "  deps                      .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
           "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
@@ -148,17 +149,17 @@
           "  validator                 .  .  .  .  x  .  .  x  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
           "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  workspace                 .  .  .  .  x  .  .  x  x  .  .  .  .  x  .  .  .  t  .  .  x  .  .  x  x  .  .  .  .  ."
-          "  workspace-clj             .  .  .  t  x  x  .  x  x  x  .  x  .  x  .  .  .  .  .  .  .  x  t  x  x  x  .  .  .  ."
+          "  workspace-clj             .  .  .  .  x  x  .  x  x  x  .  x  .  x  .  .  .  .  .  .  .  x  .  x  x  x  .  .  .  ."
           "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  ws-file                   .  .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  ."
-          "  poly-cli                  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  ."]
-         (ws-ifc-deps-table/table (workspace)))))
+          "  ws-file                   .  .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
+          "  poly-cli                  .  .  .  x  .  t  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  t  .  .  t  .  ."])))
 
 (deftest project-deps-table
   (let [ws (workspace)
         projects (:projects ws)
         project (common/find-project "poly" projects)]
-    (is (= ["                                                                               t                              "
+    (is (= (ws-project-deps-table/table (workspace) project false)
+           ["                                                                               t                              "
             "                                                                               e                              "
             "                                                                               s                              "
             "                                                                               t                              "
@@ -183,11 +184,11 @@
             "                            g  n  o  e  o  p  l  i  l  i  o  e  s  l  a  e  c  o  l  i  u  i  o  o  c  l  e  l"
             "  brick                     e  d  n  r  r  s  e  t  p  b  r  r  h  l  p  r  t  r  e  g  t  l  r  n  e  j  r  e"
             "  ------------------------------------------------------------------------------------------------------------"
-            "  change                    .  .  .  .  .  .  +  x  .  .  .  x  +  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  change                    .  .  x  .  .  .  +  x  .  .  .  x  +  .  .  .  .  .  .  +  .  x  .  .  .  .  .  ."
             "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
             "  command                   x  .  x  x  x  x  x  x  x  x  x  +  +  x  x  .  +  x  +  x  +  x  x  x  x  x  x  x"
             "  common                    .  .  .  .  .  .  +  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
-            "  config-reader             .  .  x  .  .  +  x  .  .  .  .  +  .  .  .  .  +  .  +  +  .  +  x  .  .  .  .  ."
+            "  config-reader             .  .  x  .  .  +  x  .  .  .  .  +  .  .  .  .  +  .  +  +  .  x  x  .  .  .  .  ."
             "  creator                   -  -  x  -  -  -  x  x  -  -  -  -  +  -  -  t  -  -  -  +  -  x  -  -  -  -  -  -"
             "  deps                      .  .  x  .  .  .  +  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
             "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
@@ -209,17 +210,17 @@
             "  validator                 .  .  x  .  .  x  +  .  .  .  .  x  .  .  .  .  x  .  +  +  .  x  .  .  .  .  .  ."
             "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  workspace                 -  -  x  -  -  x  x  -  -  -  -  x  -  -  -  t  +  -  x  +  -  x  x  -  -  -  -  -"
-            "  workspace-clj             -  t  x  x  -  x  x  x  -  x  -  x  +  -  -  .  +  -  +  x  t  x  x  x  -  -  -  -"
+            "  workspace-clj             .  .  x  x  .  x  x  x  .  x  .  x  +  .  .  .  +  .  +  x  .  x  x  x  .  .  .  ."
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  ws-file                   .  .  x  .  .  .  x  x  .  .  .  .  +  .  .  .  .  .  .  +  .  +  .  x  .  .  .  ."
-            "  poly-cli                  +  x  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  +  +  +  +  +  +"]
-           (ws-project-deps-table/table (workspace) project false)))))
+            "  ws-file                   .  .  x  .  .  .  x  x  .  .  .  .  +  .  .  .  .  .  .  +  .  x  .  x  .  .  .  ."
+            "  poly-cli                  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  t  +  +"]))))
 
 (deftest project-and-brick-deps
   (let [{:keys [components projects] :as ws} (workspace)
         project (common/find-project "poly" projects)
         brick (common/find-component "workspace" components)]
-    (is (= ["  used by  <  workspace  >  uses           "
+    (is (= (brick-deps-table/table ws project brick "none")
+           ["  used by  <  workspace  >  uses           "
             "  -------                   ---------------"
             "  command                   common         "
             "                            deps           "
@@ -228,13 +229,13 @@
             "                            test-helper (t)"
             "                            text-table     "
             "                            util           "
-            "                            validator      "]
-           (brick-deps-table/table ws project brick "none")))))
+            "                            validator      "]))))
 
 (deftest project-brick-deps
   (let [{:keys [components] :as ws} (workspace)
         brick (common/find-component "workspace" components)]
-    (is (= ["  used by  <  workspace  >  uses           "
+    (is (= (brick-ifc-deps/table ws brick)
+           ["  used by  <  workspace  >  uses           "
             "  -------                   ---------------"
             "  api                       common         "
             "  command                   deps           "
@@ -243,20 +244,24 @@
             "                            test-helper (t)"
             "                            text-table     "
             "                            util           "
-            "                            validator      "]
-           (brick-ifc-deps/table ws brick)))))
+            "                            validator      "]))))
 
 (deftest poly-project-deps
-  (is (= {"change"                   {:src  {:direct   ["git"
+  (is (= (ws-explorer/extract (workspace) ["projects" "poly" "deps"])
+         {"change"                   {:src  {:direct   ["common"
+                                                        "git"
                                                         "path-finder"
                                                         "util"]
                                              :indirect ["file"
-                                                        "sh"]}
-                                      :test {:direct   ["git"
+                                                        "sh"
+                                                        "user-config"]}
+                                      :test {:direct   ["common"
+                                                        "git"
                                                         "path-finder"
                                                         "util"]
                                              :indirect ["file"
-                                                        "sh"]}}
+                                                        "sh"
+                                                        "user-config"]}}
           "clojure-test-test-runner" {:src  {:direct ["test-runner-contract"
                                                       "util"]}
                                       :test {:direct ["test-runner-contract"
@@ -319,22 +324,22 @@
                                       :test {}}
           "config-reader"            {:src  {:direct   ["common"
                                                         "file"
+                                                        "util"
                                                         "validator"]
                                              :indirect ["deps"
                                                         "path-finder"
                                                         "test-runner-contract"
                                                         "text-table"
-                                                        "user-config"
-                                                        "util"]}
+                                                        "user-config"]}
                                       :test {:direct   ["common"
                                                         "file"
+                                                        "util"
                                                         "validator"]
                                              :indirect ["deps"
                                                         "path-finder"
                                                         "test-runner-contract"
                                                         "text-table"
-                                                        "user-config"
-                                                        "util"]}}
+                                                        "user-config"]}}
           "creator"                  {:src  {:direct   ["common"
                                                         "file"
                                                         "git"
@@ -472,11 +477,13 @@
                                                         "ws-explorer"
                                                         "ws-file"]}
                                       :test {:direct   ["command"
+                                                        "config-reader"
                                                         "user-input"
-                                                        "util"]
+                                                        "util"
+                                                        "validator"
+                                                        "workspace-clj"]
                                              :indirect ["change"
                                                         "common"
-                                                        "config-reader"
                                                         "creator"
                                                         "deps"
                                                         "file"
@@ -492,10 +499,8 @@
                                                         "test-runner-orchestrator"
                                                         "text-table"
                                                         "user-config"
-                                                        "validator"
                                                         "version"
                                                         "workspace"
-                                                        "workspace-clj"
                                                         "ws-explorer"
                                                         "ws-file"]}}
           "sh"                       {:src  {}
@@ -658,8 +663,7 @@
                                              :indirect ["sh"
                                                         "test-runner-contract"
                                                         "text-table"]}
-                                      :test {:direct   ["command"
-                                                        "common"
+                                      :test {:direct   ["common"
                                                         "config-reader"
                                                         "deps"
                                                         "file"
@@ -667,38 +671,26 @@
                                                         "lib"
                                                         "path-finder"
                                                         "user-config"
-                                                        "user-input"
                                                         "util"
                                                         "validator"
                                                         "version"]
-                                             :indirect ["change"
-                                                        "creator"
-                                                        "help"
-                                                        "migrator"
-                                                        "sh"
-                                                        "shell"
-                                                        "tap"
+                                             :indirect ["sh"
                                                         "test-runner-contract"
-                                                        "test-runner-orchestrator"
-                                                        "text-table"
-                                                        "workspace"
-                                                        "workspace-clj"
-                                                        "ws-explorer"
-                                                        "ws-file"]}}
+                                                        "text-table"]}}
           "ws-explorer"              {:src  {:direct ["util"]}
                                       :test {:direct ["util"]}}
           "ws-file"                  {:src  {:direct   ["common"
                                                         "file"
                                                         "git"
+                                                        "util"
                                                         "version"]
                                              :indirect ["sh"
-                                                        "user-config"
-                                                        "util"]}
-                                      :test {}}}
-         (ws-explorer/extract (workspace) ["projects" "poly" "deps"]))))
+                                                        "user-config"]}
+                                      :test {}}})))
 
 (deftest poly-project-src-paths
-  (is (= ["bases/poly-cli/src"
+  (is (= (ws-explorer/extract (workspace) ["projects" "poly" "paths" "src"])
+         ["bases/poly-cli/src"
           "components/change/src"
           "components/clojure-test-test-runner/src"
           "components/command/src"
@@ -727,11 +719,11 @@
           "components/workspace-clj/src"
           "components/workspace/src"
           "components/ws-explorer/src"
-          "components/ws-file/src"]
-         (ws-explorer/extract (workspace) ["projects" "poly" "paths" "src"]))))
+          "components/ws-file/src"])))
 
 (deftest poly-project-test-paths
-  (is (= ["bases/poly-cli/test"
+  (is (= (ws-explorer/extract (workspace) ["projects" "poly" "paths" "test"])
+         ["bases/poly-cli/test"
           "components/change/test"
           "components/clojure-test-test-runner/test"
           "components/command/test"
@@ -755,11 +747,11 @@
           "components/workspace-clj/test"
           "components/workspace/test"
           "components/ws-explorer/test"
-          "projects/poly/test"]
-         (ws-explorer/extract (workspace) ["projects" "poly" "paths" "test"]))))
+          "projects/poly/test"])))
 
 (deftest poly-project-lib-imports
-  (is (= {:src  ["clojure.edn"
+  (is (= (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"])
+         {:src  ["clojure.edn"
                  "clojure.java.io"
                  "clojure.java.shell"
                  "clojure.lang"
@@ -769,7 +761,9 @@
                  "clojure.string"
                  "clojure.tools.deps"
                  "clojure.tools.deps.util.maven"
+                 "clojure.tools.reader"
                  "clojure.walk"
+                 "edamame.core"
                  "java.io"
                  "java.net"
                  "java.nio.file"
@@ -791,11 +785,11 @@
                  "clojure.test"
                  "malli.core"
                  "polylith.clj.core.poly-cli.api"
-                 "polylith.clj.core.test_runner_contract.interface"]}
-         (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"]))))
+                 "polylith.clj.core.poly-cli.core"
+                 "polylith.clj.core.test_runner_contract.interface"]})))
 
 (deftest shell-component-lib-deps
-  (is (= {:src {"org.jline/jline" {:size    994664
+  (is (= (ws-explorer/extract (workspace) ["components" "shell" "lib-deps"])
+         {:src {"org.jline/jline" {:size    994664
                                    :type    "maven"
-                                   :version "3.21.0"}}}
-         (ws-explorer/extract (workspace) ["components" "shell" "lib-deps"]))))
+                                   :version "3.21.0"}}})))

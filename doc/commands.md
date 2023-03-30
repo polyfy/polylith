@@ -29,14 +29,14 @@ poly help
 ```
 
 ```
-  Poly 0.2.18-issue264-04 (2023-03-11) - https://github.com/polyfy/polylith
+  Poly 0.2.18-issue259-08 (2023-03-26) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
     check [ARG]                 Checks if the workspace is valid.
     create E name:N [ARG]       Creates a component, base, project or workspace.
     deps [project:P] [brick:B]  Shows dependencies.
-    diff                        Shows changed files since last stable point in time.
+    diff [ARG]                  Shows changed files since last stable point in time.
     help [C] [ARG]              Shows this help or help for specified command.
     info [ARGS]                 Shows a workspace overview and checks if it's valid.
     libs [ARGS]                 Shows all libraries in the workspace.
@@ -241,8 +241,7 @@ poly help
     an instance of polylith.clj.core.test-runner-contract.interface/TestRunner.
 
   Error 110 - Missing or invalid config file.
-    Triggered if a deps.edn file for a brick or project (or the workspace.edn file)
-    is missing or invalid.
+    Triggered if a deps.edn file for a brick or project is missing or invalid.
 
   Warning 201 - Mismatching parameter lists in function or macro.
     Triggered if a function or macro is defined in the interface for a component
@@ -485,11 +484,22 @@ poly help
 ```
   Shows changed files since the most recent stable point in time.
 
-  poly diff
+  poly diff [ARG]
+
+  If since:SINCE is passed in as an argument, the last stable point in time will be
+  used depending on the value of SINCE (or the first commit if no match was found).
+  If prefixed with 'previous-', e.g. 'previous-release', then the SHA directly before
+  the most recent matching tag of the 'release' pattern will be used:
+    stable  -> the latest tag that matches stable-*, defined by
+               :tag-patterns > :stable in workspace.edn.
+    release -> the latest tag that matches v[0-9]*, defined by
+               :tag-patterns > :release in workspace.edn.
+    KEY     -> any key in :tag-patterns.
+    SHA     -> a git SHA-1 hash (if no key was found in :tag-patterns).
 
   Internally, it executes 'git diff SHA --name-only' where SHA is the SHA-1
   of the first commit in the repository, or the SHA-1 of the most recent tag
-  that matches the default pattern 'stable-*'.
+  that matches the default pattern 'stable-*' or the passed in since:SINCE.
 
   Stable points are normally set by the CI server or by individual developers,
   e.g. Lisa, with 'git tag -f stable-lisa'.

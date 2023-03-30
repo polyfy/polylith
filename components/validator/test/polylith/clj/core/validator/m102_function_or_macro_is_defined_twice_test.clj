@@ -83,9 +83,9 @@
                   :interface-deps ["auth"]}])
 
 (deftest errors--when-having-duplicated-parameter-lists--return-error
-  (is (= [{:type "error",
+  (is (= (m102/errors components color/none)
+         [{:type "error",
            :code 102,
            :message "Function or macro is defined twice in payment: pay[a], pay[b]",
            :colorized-message "Function or macro is defined twice in payment: pay[a], pay[b]",
-           :components ["payment"]}]
-         (m102/errors components color/none))))
+           :components ["payment"]}])))

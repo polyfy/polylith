@@ -71,9 +71,6 @@
 (defn read-file [path]
   (core/read-file path))
 
-(defn read-first-statement [path]
-  (core/read-first-statement path))
-
 (defn size [path]
   (core/size path))
 

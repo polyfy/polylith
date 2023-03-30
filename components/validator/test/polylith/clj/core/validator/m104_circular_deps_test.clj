@@ -38,14 +38,14 @@
                                      :indirect ["common" "deps" "file" "help" "test-runner" "text-table" "validator" "workspace"]},}}}])
 
 (deftest errors--an-project-with-circular-dependencies--should-return-an-error
-  (is (= [{:type "error"
+  (is (= (m104/errors projects color/none)
+         [{:type "error"
            :code 104
            :project "cli"
            :message "A circular dependency was found in the cli project: command > help > command"
            :colorized-message "A circular dependency was found in the cli project: command > help > command"
-           :components ["command" "help"]}]
-         (m104/errors projects color/none))))
+           :components ["command" "help"]}])))
 
 (deftest errors--when-having-no-projects--return-no-errors
-  (is (= []
-         (m104/errors [] color/none))))
+  (is (= (m104/errors [] color/none)
+         [])))

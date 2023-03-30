@@ -30,11 +30,11 @@
                               "components/shell2/src"]}}])
 
 (deftest errors--when-more-than-one-component-implements-the-same-interface-in-an-project--return-error-message
-  (is (= [{:type "error"
+  (is (= (m106/errors components projects color/none)
+         [{:type "error"
            :code 106
            :colorized-message "More than one component that implements the shell interface was found in the core project: shell, shell2"
            :message           "More than one component that implements the shell interface was found in the core project: shell, shell2"
            :interface "shell"
            :components ["shell" "shell2"]
-           :project "core"}]
-         (m106/errors components projects color/none))))
+           :project "core"}])))

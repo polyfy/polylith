@@ -13,6 +13,7 @@
             [polylith.clj.core.workspace-clj.profile :as profile]
             [polylith.clj.core.workspace-clj.ws-reader :as ws-reader]
             [polylith.clj.core.workspace-clj.tag-pattern :as tag-pattern]
+            [polylith.clj.core.workspace-clj.ignore-files-settings :as ignore-files-settings]
             [polylith.clj.core.workspace-clj.bases-from-disk :as bases-from-disk]
             [polylith.clj.core.workspace-clj.project-settings :as project-settings]
             [polylith.clj.core.workspace-clj.projects-from-disk :as projects-from-disk]
@@ -86,10 +87,10 @@
                               aliases
                               user-input
                               color-mode]
-  (let [{:keys [vcs top-namespace interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views]
-         :or {vcs {:name "git", :auto-add false}
-              compact-views {}
-              interface-ns "interface"}} ws-config
+  (let [{:keys [vcs top-namespace interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views bricks]
+         :or   {vcs           {:name "git", :auto-add false}
+                compact-views {}
+                interface-ns  "interface"}} ws-config
         patterns (tag-pattern/patterns tag-patterns stable-tag-pattern release-tag-pattern)
         top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
         empty-character (user-config/empty-character)
@@ -97,12 +98,13 @@
         user-home (user-config/home-dir)
         thousand-separator (user-config/thousand-separator)
         user-config-filename (user-config/file-path)
-        project->settings (project-settings/convert ws-config)
+        project->settings (-> ws-config project-settings/convert ignore-files-settings/convert)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
+        brick->settings (ignore-files-settings/convert bricks)
         [component-configs component-errors] (config-reader/read-brick-config-files ws-dir ws-type "components")
-        components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns component-configs)
+        components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns component-configs brick->settings)
         [base-configs base-errors] (config-reader/read-brick-config-files ws-dir ws-type "bases")
-        bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns base-configs)
+        bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns base-configs brick->settings)
         name->brick (into {} (comp cat (map (juxt :name identity))) [components bases])
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         [project-configs project-errors] (config-reader/read-project-config-files ws-dir ws-type)
@@ -125,12 +127,13 @@
                                    :empty-character empty-character
                                    :thousand-separator thousand-separator
                                    :profile-to-settings profile-to-settings
+                                   :bricks brick->settings
                                    :projects project->settings
                                    :ns-to-lib ns-to-lib-str
                                    :user-home user-home
                                    :m2-dir m2-dir)]
     (util/ordered-map :name ws-name
-                      :ws-type ws-type
+                      :ws-type (name ws-type)
                       :ws-dir ws-dir
                       :ws-local-dir ws-local-dir
                       :ws-reader ws-reader/reader
@@ -167,13 +170,11 @@
     (when ws-type
       (let [{:keys [config error]} (config-reader/read-project-dev-config-file ws-dir ws-type)
             {:keys [aliases polylith]} config
-            [ws-config ws-error] (when (nil? error)
-                                   (if (= :toolsdeps2 ws-type)
-                                     (ws-config/ws-config-from-disk ws-dir)
-                                     (ws-config/ws-config-from-dev polylith)))
-            config-errors (cond-> []
-                                  ws-error (conj ws-error)
-                                  error (conj {:error error}))]
-        (if (empty? config-errors)
-          (toolsdeps-ws-from-disk ws-name ws-type ws-dir ws-config aliases user-input color-mode)
-          {:config-errors config-errors})))))
+            [ws-config ws-error] (if (or error
+                                         (= :toolsdeps2 ws-type))
+                                   (ws-config/ws-config-from-disk ws-dir)
+                                   (ws-config/ws-config-from-dev polylith))]
+        (cond
+          ws-error {:config-error ws-error}
+          error {:config-error error}
+          :else (toolsdeps-ws-from-disk ws-name ws-type ws-dir ws-config aliases user-input color-mode))))))

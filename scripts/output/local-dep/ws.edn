@@ -7,13 +7,13 @@
     [{:name "core",
       :namespace "com.localdep.invoicer-cli.core",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep/bases/invoicer-cli/src/com/localdep/invoicer_cli/core.clj",
+      "bases/invoicer-cli/src/com/localdep/invoicer_cli/core.clj",
       :imports ["com.localdep.invoicer.interface"]}],
     :test
     [{:name "core-test",
       :namespace "com.localdep.invoicer-cli.core-test",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep/bases/invoicer-cli/test/com/localdep/invoicer_cli/core_test.clj",
+      "bases/invoicer-cli/test/com/localdep/invoicer_cli/core_test.clj",
       :imports ["clojure.test" "com.localdep.invoicer-cli.core"]}]},
    :lib-deps {},
    :lines-of-code {:src 5, :test 6},
@@ -38,7 +38,8 @@
     "without-src"]},
   :project-to-projects-to-test {"invoicing" [], "development" []},
   :since-sha "SHA",
-  :changed-files ["deps.edn" "projects/invoicing/deps.edn"],
+  :changed-files
+  ["deps.edn" "projects/invoicing/deps.edn" "workspace.edn"],
   :git-diff-command "git diff SHA --name-only",
   :changed-components [],
   :since-tag "stable-master",
@@ -51,18 +52,18 @@
     [{:name "interface",
       :namespace "com.localdep.database.interface",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep/components/database/src/com/localdep/database/interface.clj",
+      "components/database/src/com/localdep/database/interface.clj",
       :imports ["com.localdep.database.core"]}
      {:name "core",
       :namespace "com.localdep.database.core",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep/components/database/src/com/localdep/database/core.clj",
+      "components/database/src/com/localdep/database/core.clj",
       :imports ["com.localdep.util.interface"]}],
     :test
     [{:name "interface-test",
       :namespace "com.localdep.database.interface-test",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep/components/database/test/com/localdep/database/interface_test.clj",
+      "components/database/test/com/localdep/database/interface_test.clj",
       :imports ["clojure.test" "com.localdep.database.interface"]}]},
    :lib-imports {:test ["clojure.test"]},
    :name "database",
@@ -77,7 +78,7 @@
     [{:name "interface",
       :namespace "com.localdep.datomic-ions.interface",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep/components/datomic-ions/src/com/localdep/datomic_ions/interface.clj",
+      "components/datomic-ions/src/com/localdep/datomic_ions/interface.clj",
       :imports []}]},
    :lib-imports {},
    :name "datomic-ions",
@@ -98,18 +99,18 @@
     [{:name "interface",
       :namespace "com.localdep.invoicer.interface",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep/components/invoicer/src/com/localdep/invoicer/interface.clj",
+      "components/invoicer/src/com/localdep/invoicer/interface.clj",
       :imports ["com.localdep.invoicer.core"]}
      {:name "core",
       :namespace "com.localdep.invoicer.core",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep/components/invoicer/src/com/localdep/invoicer/core.clj",
+      "components/invoicer/src/com/localdep/invoicer/core.clj",
       :imports ["com.localdep.util.interface"]}],
     :test
     [{:name "interface-test",
       :namespace "com.localdep.invoicer.interface-test",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep/components/invoicer/test/com/localdep/invoicer/interface_test.clj",
+      "components/invoicer/test/com/localdep/invoicer/interface_test.clj",
       :imports
       ["clojure.test"
        "com.localdep.migrate-me.core"
@@ -134,18 +135,18 @@
     [{:name "interface",
       :namespace "com.localdep.test-helper.interface",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep/components/test-helper/src/com/localdep/test_helper/interface.clj",
+      "components/test-helper/src/com/localdep/test_helper/interface.clj",
       :imports ["com.localdep.test-helper.core"]}
      {:name "core",
       :namespace "com.localdep.test-helper.core",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep/components/test-helper/src/com/localdep/test_helper/core.clj",
+      "components/test-helper/src/com/localdep/test_helper/core.clj",
       :imports ["com.localdep.test-helper-db.interface"]}],
     :test
     [{:name "interface-test",
       :namespace "com.localdep.test-helper.interface-test",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep/components/test-helper/test/com/localdep/test_helper/interface_test.clj",
+      "components/test-helper/test/com/localdep/test_helper/interface_test.clj",
       :imports
       ["clojure.test" "com.localdep.test-helper.interface"]}]},
    :lib-imports {:test ["clojure.test"]},
@@ -161,12 +162,12 @@
     [{:name "interface",
       :namespace "com.localdep.test-helper-db.interface",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep/components/test-helper-db/src/com/localdep/test_helper_db/interface.clj",
+      "components/test-helper-db/src/com/localdep/test_helper_db/interface.clj",
       :imports ["com.localdep.database.interface"]}
      {:name "core",
       :namespace "com.localdep.test-helper-db.core",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep/components/test-helper-db/src/com/localdep/test_helper_db/core.clj",
+      "components/test-helper-db/src/com/localdep/test_helper_db/core.clj",
       :imports ["com.localdep.database.interface"]}]},
    :lib-imports {},
    :name "test-helper-db",
@@ -186,14 +187,13 @@
    {:src
     [{:name "interface",
       :namespace "com.localdep.util.interface",
-      :file-path
-      "USER-HOME/source/polylith/examples/local-dep/components/util/src/com/localdep/util/interface.clj",
+      :file-path "components/util/src/com/localdep/util/interface.clj",
       :imports ["clj-time.core"]}],
     :test
     [{:name "interface-test",
       :namespace "com.localdep.util.interface-test",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep/components/util/test/com/localdep/util/interface_test.clj",
+      "components/util/test/com/localdep/util/interface_test.clj",
       :imports ["clojure.test" "com.localdep.util.interface"]}]},
    :lib-imports {:src ["clj-time.core"], :test ["clojure.test"]},
    :name "util",
@@ -215,7 +215,7 @@
     [{:name "dummy-test",
       :namespace "com.localdep.without-src.dummy-test",
       :file-path
-      "USER-HOME/source/polylith/examples/local-dep/components/without-src/test/com/localdep/without_src/dummy_test.clj",
+      "components/without-src/test/com/localdep/without_src/dummy_test.clj",
       :imports ["clojure.test"]}]},
    :lib-imports {:test ["clojure.test"]},
    :name "without-src",
@@ -337,6 +337,8 @@
         poly/test-helper-db
         {:local/root "../../components/test-helper-db"}}}}},
     :name "invoicing"}],
+  :user
+  {:color-mode "dark", :empty-character ".", :thousand-separator ","},
   :workspace
   {:top-namespace "com.localdep",
    :interface-ns "interface",
@@ -345,8 +347,9 @@
    :vcs {:name "git", :auto-add false},
    :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
    :projects
-   {"development" {:alias "dev"}, "invoicing" {:alias "inv"}},
-   :ws-type :toolsdeps2}},
+   {"development" {:alias "dev"},
+    "invoicing"
+    {:alias "inv", :necessary ["datomic-ions" "without-src"]}}}},
  :interfaces
  [{:name "database",
    :type "interface",
@@ -381,13 +384,7 @@
    :type "interface",
    :definitions [],
    :implementing-components ["without-src"]}],
- :messages
- [{:type "warning",
-   :code 207,
-   :message
-   "Unnecessary components were found in the invoicing project and may be removed: datomic-ions, without-src",
-   :colorized-message
-   "Unnecessary components were found in the invoicing project and may be removed: datomic-ions, without-src"}],
+ :messages [],
  :name "local-dep",
  :paths
  {:existing
@@ -517,8 +514,7 @@
    {:src
     [{:name "dev.me",
       :namespace "dev.me",
-      :file-path
-      "USER-HOME/source/polylith/examples/local-dep/development/src/dev/me.clj",
+      :file-path "development/src/dev/me.clj",
       :imports []}]},
    :base-names {:src ["invoicer-cli"], :test ["invoicer-cli"]},
    :lib-imports
@@ -663,6 +659,7 @@
      [polylith.clj.core.clojure-test-test-runner.interface/create]}},
    "invoicing"
    {:alias "inv",
+    :necessary ["datomic-ions" "without-src"],
     :test
     {:create-test-runner
      [polylith.clj.core.clojure-test-test-runner.interface/create]}}},
@@ -724,13 +721,13 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.18-alpha-issue264-01",
+  {:name "0.2.18-issue259-08",
    :major 0,
    :minor 2,
    :patch 18,
-   :revision "alpha-issue264-01",
-   :date "2023-03-09"},
-  :ws {:type :toolsdeps2, :breaking 1, :non-breaking 3}},
+   :revision "issue259-08",
+   :date "2023-03-26"},
+  :ws {:type :toolsdeps2, :breaking 2, :non-breaking 0}},
  :ws-dir "USER-HOME/source/polylith/examples/local-dep",
  :ws-local-dir "examples/local-dep",
  :ws-reader
@@ -739,4 +736,4 @@
   :language "Clojure",
   :type-position "postfix",
   :file-extensions ["clj" "cljc"]},
- :ws-type :toolsdeps2}
+ :ws-type "toolsdeps2"}

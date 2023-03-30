@@ -5,13 +5,13 @@
 (def major 0)
 (def minor 2)
 (def patch 18)
-(def revision "issue264-06")
+(def revision "issue259-12")
 (def name (str major "." minor "." patch
                (if (str/blank? revision)
                  ""
                  (str "-" revision))))
 
-(def date "2023-03-12")
+(def date "2023-03-30")
 
 (defn version
   ([ws-type]
@@ -27,18 +27,24 @@
                         :revision revision
                         :date date}
               :ws {:type :toolsdeps2
-                   :breaking 1
-                   :non-breaking 3}}
+                   :breaking 2
+                   :non-breaking 0}}
              from (assoc :from from)))))
 
-;; === workspace attributes (ws) ===
+;; ====== Workspace attributes (ws) ======
 ;;
-;; ws     release         action    attribute
-;; -----  -------------   -------   -----------------------------------------------------------------
-;; 1.3    0.2.18          added     :configs
-;                         added     :ws-type
-;; 1.2    0.2.16-alpha    added     :bases > BASE > :namespaces > :src/test > [] > :invalid
-;;                        added     :projects > PROJECT > :namespaces > :src/test > [] > :invalid
-;;                        added     :components > COMPONENT > :namespaces > :src/test > [] > :invalid
-;; 1.1    0.2.14-alpha    added     :settings > :vcs > :is-git-repo
-;;                        deleted   :projects > PROJECT > :is-run-tests
+;; ws     release         action    attribute                                           Description
+;; -----  -------------   -------   ----------------------------------------------------------------------------------------------
+;; 2.0    0.2.18          added     configs
+;;                        added     ws-type
+;;                        added     entities:ENTITY:namespaces:source:0:is-ignored
+;;                        added     entities:ENTITY:namespaces:source:0:is-invalid
+;;                        changed   entities:ENTITY:namespaces:source:0:file-path       ws-dir is no longer part of the file path.
+;; 1.2    0.2.16-alpha    added     entities:ENTITY:namespaces:src:0:invalid
+;; 1.1    0.2.14-alpha    added     settings:vcs:is-git-repo
+;;                        deleted   projects:PROJECT:is-run-tests
+;;
+;; 0 = vector element.
+;; entities = bases, components, or projects.
+;; ENTITY = an entity name.
+;; source = src or test.

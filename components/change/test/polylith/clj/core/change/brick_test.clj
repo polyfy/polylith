@@ -14,7 +14,7 @@
             "todo.txt"])
 
 (deftest bricks--when-having-a-list-of-changed-files--return-bases-and-components
-  (is (= {:changed-bases ["core"]
+  (is (= (brick/changed-entities files {:missing []})
+         {:changed-bases ["core"]
           :changed-components ["cmd" "workspace"]
-          :changed-projects []}
-         (brick/changed-entities files {:missing []}))))
+          :changed-projects []})))

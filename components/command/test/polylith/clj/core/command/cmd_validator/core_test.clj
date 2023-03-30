@@ -4,28 +4,28 @@
             [polylith.clj.core.command.cmd-validator.core :as core]))
 
 (deftest execute-test-command-from-the-workspace-root
-  (is (= [true]
-         (core/validate {:settings {} :projects {}}
+  (is (= (core/validate {:settings {} :projects {}}
                         {:cmd "test"}
-                        color/none))))
+                        color/none)
+         [true])))
 
 (deftest execute-test-command-from-outside-the-workspace
-  (is (= [false "  The command can only be executed from the workspace root."]
-         (core/validate nil
+  (is (= (core/validate nil
                         {:cmd "test"}
-                        color/none))))
+                        color/none)
+         [false "  The command can only be executed from the workspace root."])))
 
 (deftest execute-create-command-when-ws-file-is-set
-  (is (= [false "  The 'create' command can't be executed when the workspace is read from file via 'ws-file'."]
-         (core/validate {}
+  (is (= (core/validate {}
                         {:ws-file "ws.edn"
                          :cmd "create"
                          :args ["create" "c"]
                          :name "myname"}
-                        color/none))))
+                        color/none)
+         [false "  The 'create' command can't be executed when the workspace is read from file via 'ws-file'."])))
 
 (deftest execute-help-command-from-outside-the-workspace
-  (is (= [true]
-         (core/validate nil
+  (is (= (core/validate nil
                         {:cmd "help"}
-                        color/none))))
+                        color/none)
+         [true])))

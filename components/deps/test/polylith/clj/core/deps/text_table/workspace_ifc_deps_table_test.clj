@@ -4,7 +4,8 @@
             [polylith.clj.core.deps.text-table.workspace-deps-table :as table]))
 
 (deftest table--brick-dependencies--should-return-a-correct-table
-  (is (= ["                              s      "
+  (is (= (table/table ws/workspace2)
+         ["                              s      "
           "                              c      "
           "                              h      "
           "                              e      "
@@ -26,5 +27,4 @@
           "  schema-fixture  .  .  .  x  .  .  ."
           "  user            .  .  .  x  t  .  ."
           "  web-server      .  .  .  .  .  .  ."
-          "  web             x  .  x  x  .  x  x"]
-         (table/table ws/workspace2))))
+          "  web             x  .  x  x  .  x  x"])))

@@ -57,3 +57,6 @@
 
 (defn user-path [path]
   (core/user-path path))
+
+(defn invalid-workspace? [workspace]
+  (core/invalid-workspace? workspace))

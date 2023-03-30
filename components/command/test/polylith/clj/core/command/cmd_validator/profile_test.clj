@@ -7,9 +7,9 @@
                :profile-to-settings {"default" {},
                                      "admin" {}}})
 (deftest validate--when-the-profile-exists--return-empty-list
-  (is (= nil
-         (profile/validate settings color/none))))
+  (is (= (profile/validate settings color/none)
+         nil)))
 
 (deftest validate--when-missing-profile--return-error
-  (is (= ["  Can't find profile: adminx"]
-         (profile/validate (assoc settings :active-profiles #{"adminx"}) color/none))))
+  (is (= (profile/validate (assoc settings :active-profiles #{"adminx"}) color/none)
+         ["  Can't find profile: adminx"])))

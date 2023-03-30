@@ -43,9 +43,9 @@
                                           {:setup-fn     setup-fn
                                            :class-loader class-loader})]
         (is (true? result))
-        (is (= 1 (:call-count @mock)))
-        (is (= [[setup-fn "setup" "test-project-name" class-loader "light"]]
-               (:call-args @mock)))))))
+        (is (= (:call-count @mock) 1))
+        (is (= (:call-args @mock)
+               [[setup-fn "setup" "test-project-name" class-loader "light"]]))))))
 
 (deftest execute-setup-fn--in-process-test-runner-and-with-setup-fn-returns-false--execute-setup-fn
   (let [{:keys [mock-fn mock]} (->mock-execute-fn :returns? false)
@@ -56,9 +56,9 @@
                                           {:setup-fn     setup-fn
                                            :class-loader class-loader})]
         (is (false? result))
-        (is (= 1 (:call-count @mock)))
-        (is (= [[setup-fn "setup" "test-project-name" class-loader "light"]]
-               (:call-args @mock)))))))
+        (is (= (:call-count @mock) 1))
+        (is (= (:call-args @mock)
+               [[setup-fn "setup" "test-project-name" class-loader "light"]]))))))
 
 (deftest execute-teardown-fn--external-test-runner--do-nothing-and-return-nil
   (let [{:keys [mock-fn mock]} (->mock-execute-fn)
@@ -91,9 +91,9 @@
                                               :class-loader class-loader}
                                              true)]
         (is (nil? result))
-        (is (= 1 (:call-count @mock)))
-        (is (= [[teardown-fn "teardown" "test-project-name" class-loader "light"]]
-               (:call-args @mock)))))))
+        (is (= (:call-count @mock) 1))
+        (is (= (:call-args @mock)
+               [[teardown-fn "teardown" "test-project-name" class-loader "light"]]))))))
 
 (deftest execute-teardown-fn--in-process-test-runner-and-with-teardown-fn-and-teardown-fail-and-throws--execute-teardown-and-throw
   (let [{:keys [mock-fn mock]} (->mock-execute-fn :returns? false)
@@ -106,12 +106,12 @@
                                    :class-loader class-loader}
                                   true)
         (catch ExceptionInfo e
-          (is (= {:project          {:name "test-project-name"}
-                  :teardown-failed? true}
-                 (ex-data e)))))
-      (is (= 1 (:call-count @mock)))
-      (is (= [[teardown-fn "teardown" "test-project-name" class-loader "light"]]
-             (:call-args @mock))))))
+          (is (= (ex-data e)
+                 {:project          {:name "test-project-name"}
+                  :teardown-failed? true}))))
+      (is (= (:call-count @mock) 1))
+      (is (= (:call-args @mock)
+             [[teardown-fn "teardown" "test-project-name" class-loader "light"]])))))
 
 (deftest execute-teardown-fn--in-process-test-runner-and-with-teardown-fn-and-teardown-fail-and-not-throws--execute-teardown-and-return-nil
   (let [{:keys [mock-fn mock]} (->mock-execute-fn :returns? false)
@@ -123,6 +123,6 @@
                                               :class-loader class-loader}
                                              false)]
         (is (nil? result))
-        (is (= 1 (:call-count @mock)))
-        (is (= [[teardown-fn "teardown" "test-project-name" class-loader "light"]]
-               (:call-args @mock)))))))
+        (is (= (:call-count @mock) 1))
+        (is (= (:call-args @mock)
+               [[teardown-fn "teardown" "test-project-name" class-loader "light"]]))))))

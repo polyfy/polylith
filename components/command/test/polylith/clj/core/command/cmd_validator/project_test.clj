@@ -7,13 +7,13 @@
                {:name "default"}])
 
 (deftest validate--find-by-alias--returns-with-no-error
-  (is (= nil
-         (project/validate #{"adm"} projects color/none))))
+  (is (= (project/validate #{"adm"} projects color/none)
+         nil)))
 
 (deftest validate--find-by-name--returns-with-no-error
-  (is (= nil
-         (project/validate #{"default"} projects color/none))))
+  (is (= (project/validate #{"default"} projects color/none)
+         nil)))
 
 (deftest validate--cant-find--returns-with-error
-  (is (= ["  Can't find project: core"]
-         (project/validate #{"core"} projects color/none))))
+  (is (= (project/validate #{"core"} projects color/none)
+         ["  Can't find project: core"])))

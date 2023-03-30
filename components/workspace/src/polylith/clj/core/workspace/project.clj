@@ -25,6 +25,7 @@
             (seq test) (assoc :test test))))
 
 (defn enrich-project [{:keys [name is-dev maven-repos namespaces paths lib-deps] :as project}
+                      ws-dir
                       components
                       bases
                       suffixed-top-ns
@@ -54,7 +55,7 @@
         lib-imports (project-lib-imports all-brick-names brick->lib-imports)
 
         lines-of-code-total (project-total-loc all-brick-names brick->loc)
-        lines-of-code (assoc (loc/lines-of-code namespaces) :total lines-of-code-total)
+        lines-of-code (assoc (loc/lines-of-code ws-dir namespaces) :total lines-of-code-total)
         src-lib-deps (select/lib-deps lib-entries c/src?)
         test-lib-deps (select/lib-deps lib-entries c/test?)
         src-paths (select/paths path-entries c/src?)

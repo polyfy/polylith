@@ -39,7 +39,13 @@
 (comment
   (-main "test" ":all" ":no-exit")
   (-main "check" "ws-file:../sandbox/furkan.edn" ":no-exit")
+  (-main "ws" "get:components:account:namespaces:src:core:file-path" "ws-file:../sandbox/furkan.edn" ":no-exit")
+  (-main "ws" "get:components:api:namespaces:src:core:file-path" "ws-dir:../../Downloads/polylith-0.1.0-alpha9/" ":no-exit")
   (-main "check" ":no-exit")
+  (-main "check" "ws-dir:examples/local-dep" ":no-exit")
+  (-main "ws" "get:components:without-src:non-top-namespaces" "ws-dir:examples/local-dep" ":no-exit")
+  (-main "check" "ws-dir:examples/local-dep-old-format" ":no-exit")
+  (-main "check" "ws-dir:../sandbox/ws35" ":no-exit")
   (-main "ws" "get:changes:project-to-bricks-to-test:poly" ":no-exit")
   (-main "version" ":no-exit")
   (-main "shell" ":no-exit")
