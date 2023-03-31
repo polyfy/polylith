@@ -137,5 +137,6 @@
       (and create-ws-dir?
            (file/exists ws-dir)) (println (str "  Workspace '" ws-name "' already exists."))
       (and (not create-ws-dir?)
-           (not git-repo?)) (println "  Current directory must be a git repo.")
+           (not git-repo?)) (println "  Current directory must be a git repo. Leave out :commit and try again.")
+      (and commit? git-repo?) (println "  Can't commit a workspace inside an existing git repo.")
       :else (create-ws ws-dir ws-name top-ns create-ws-dir? git-repo? insert-sha? sha branch git-add? commit?))))
