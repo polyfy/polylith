@@ -154,4 +154,4 @@
 (def create-workspace (c/single-txt "workspace" :create-workspace [create-workspace-name create-workspace-top-ns create-workspace-branch create-workspace-commit]))
 (def create-outside-ws-root (c/single-txt "create" [create-workspace]))
 
-(def candidates-outside-ws-root [help version create-outside-ws-root])
+(def candidates-outside-ws-root [help version create-outside-ws-root switch-ws])
