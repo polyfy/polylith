@@ -24,11 +24,11 @@
   brick                     i  e  r  d  n  r  r  s  e  t  p  b  r  r  h  l  p  r  t  r  e  g  t  l  r  n  e  j  r  e
   ------------------------------------------------------------------------------------------------------------------
   api                       .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  x  x  x  .
-  change                    .  .  .  .  .  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .
+  change                    .  .  .  .  x  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .
   clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  .
   command                   .  x  .  .  x  x  x  x  x  x  x  x  x  .  .  x  x  .  .  x  .  x  .  x  x  x  x  x  x  x
   common                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  .
-  config-reader             .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .
+  config-reader             .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .
   creator                   .  .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  t  .  .  .  .  .  x  .  .  .  .  .  .
   deps                      .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  .
   file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .
@@ -50,7 +50,7 @@
   validator                 .  .  .  .  x  .  .  x  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  .
   version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
   workspace                 .  .  .  .  x  .  .  x  x  .  .  .  .  x  .  .  .  t  .  .  x  .  .  x  x  .  .  .  .  .
-  workspace-clj             .  .  .  t  x  x  .  x  x  x  .  x  .  x  .  .  .  .  .  .  .  x  t  x  x  x  .  .  .  .
+  workspace-clj             .  .  .  .  x  x  .  x  x  x  .  x  .  x  .  .  .  .  .  .  .  x  .  x  x  x  .  .  .  .
   ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .
-  ws-file                   .  .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .
-  poly-cli                  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  .
+  ws-file                   .  .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .
+  poly-cli                  .  .  .  x  .  t  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  t  .  .  t  .  .
