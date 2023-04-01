@@ -120,12 +120,6 @@
     (next candidate)
     (select candidate word potential-exact-match?)))
 
-
-;; todo: eventuellt räcker det med bara :select och ej :type,
-;;       då om :select är satt så är det implicit en :fn.
-
-;; todo: ändra från :type till :select-as, alternative ha bara kvar :select.
-
 (defn reset-groups []
   (reset! groups
           (shared/groups (spec-candidates))))
