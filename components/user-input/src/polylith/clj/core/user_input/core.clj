@@ -65,6 +65,7 @@
                 tap!
                 workspace!
                 dev!
+                outdated!
                 project!
                 loc!
                 no-exit!
@@ -90,6 +91,7 @@
                       :is-latest-sha (= "true" latest-sha!)
                       :is-no-changes (= "true" no-changes!)
                       :is-no-exit (= "true" no-exit!)
+                      :is-outdated (= "true" outdated!)
                       :is-show-brick (= "true" brick!)
                       :is-show-workspace (= "true" workspace!)
                       :is-show-project (= "true" project!)

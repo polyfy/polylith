@@ -20,7 +20,7 @@
 (info/info workspace [])
 
 ;; libs
-(lib-table/print-table workspace false)
+(lib-table/print-table workspace false false)
 
 ;; deps
 (ws-ifc-deps-table/print-table workspace)

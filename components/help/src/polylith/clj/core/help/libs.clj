@@ -5,12 +5,13 @@
 (defn help [cm]
   (str "  Shows all libraries that are used in the workspace.\n"
        "\n"
-       "  poly libs [:all] [:compact]\n"
-       "    :all     = View all bricks, including those without library dependencies.\n"
-       "    :compact = Show the table in a more compact way.\n"
-       "                                                                                      " (color/component "u  u\n" cm)
-       "                                                                                      " (color/component "s  t\n" cm)
-       "                                                                                      " (color/component "e  i\n" cm)
+       "  poly libs [:all] [:compact] [:outdated]\n"
+       "    :all      = View all bricks, including those without library dependencies.\n"
+       "    :compact  = Show the table in a more compact way.\n"
+       "    :outdated = Show the latest version of each library, or blank if up to date.\n"
+       "                                                                                 " (color/component "u  u\n" cm)
+       "                                                                                 " (color/component "s  t\n" cm)
+       "                                                                                 " (color/component "e  i\n" cm)
        "    library                 version    type      KB   " (s/key "cl   dev  default  admin" cm) (color/component "   r  l\n" cm)
        "    -----------------------------------------------   --   -------------------   ----\n"
        "    antlr/antlr             2.7.7      maven    434   " (s/key "x     x      -       -" cm) "     .  x\n"

@@ -80,8 +80,9 @@
                         (when all? [info-fake-sha]))))
 
 ;; libs
-(def libs (c/single-txt "libs" :libs))
-(def all-libs (c/single-txt "libs" :libs [compact]))
+(def outdated (c/flag "outdated" :libs))
+(def libs (c/single-txt "libs" :libs [outdated]))
+(def all-libs (c/single-txt "libs" :libs [outdated compact]))
 
 ;; test
 (def test-since (c/fn-explorer "since" :test #'ws-tag-patterns/select))

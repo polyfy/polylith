@@ -13,8 +13,8 @@
 (defn brick-lib-deps [ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home]
   (core/brick-lib-deps ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home))
 
-(defn print-lib-table [workspace is-all]
-  (lib-table/print-table workspace is-all))
+(defn print-lib-table [workspace is-all is-outdated]
+  (lib-table/print-table workspace is-all is-outdated))
 
 (defn resolve-libs [src-deps override-deps]
   (resolve-libs/resolve-libs src-deps override-deps))

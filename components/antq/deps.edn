@@ -1,0 +1,4 @@
+{:paths ["src" "resources"]
+ :deps {com.github.liquidz/antq {:git/sha "3414e7e0a3ca626dfea1f6b483abfd142d0b4164"}}
+ :aliases {:test {:extra-paths ["test"]
+                  :extra-deps {}}}}
