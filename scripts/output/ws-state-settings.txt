@@ -25,17 +25,17 @@
    :base-names [],
    :project-names []}},
  :projects
- {"development"
-  {:alias "dev",
-   :test
-   {:create-test-runner
-    [polylith.clj.core.clojure-test-test-runner.interface/create]}},
-  "command-line"
+ {"command-line"
   {:alias "cl",
    :test
    {:setup-fn project.command-line.test-setup/test-setup,
     :teardown-fn project.command-line.test-setup/test-teardown,
     :create-test-runner
+    [polylith.clj.core.clojure-test-test-runner.interface/create]}},
+  "development"
+  {:alias "dev",
+   :test
+   {:create-test-runner
     [polylith.clj.core.clojure-test-test-runner.interface/create]}},
   "user-service"
   {:alias "user-s",

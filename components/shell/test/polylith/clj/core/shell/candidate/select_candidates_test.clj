@@ -278,11 +278,11 @@
 
 (deftest libs
   (is (= (candidates "libs")
-         [])))
+         [":outdated"])))
 
 (deftest libs-
   (is (= (candidates "libs" :next "")
-         [])))
+         [":outdated"])))
 
 (deftest test
   (is (= (candidates "test")

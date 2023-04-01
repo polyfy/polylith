@@ -1,5 +1,5 @@
 {:vcs {:name "git"
-       :auto-add false}
+       :auto-add true}
  :top-namespace "polylith.clj.core"
  :interface-ns "interface"
  :default-profile-name "default"
