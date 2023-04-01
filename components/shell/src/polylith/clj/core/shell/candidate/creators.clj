@@ -49,8 +49,6 @@
     stay?          Set to true if the cursor should stay with the current word. Used
                    with e.g. values like name: so that a name can be given. If set to
                    false, then the cursor will move to the next word by adding a space.
-                   A modified version of jline, com.github.polyfy/jline, is used to
-                   support this behaviour.
 
     candidates     If type is :candidates then this attribute may be set. Lists all the
                    next possible candidates."
