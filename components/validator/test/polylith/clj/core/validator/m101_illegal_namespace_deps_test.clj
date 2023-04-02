@@ -33,18 +33,31 @@
                                                   "polylith.user.ifc"
                                                   "polylith.cmd.core"]}]}}]
     (is (= (m101/brick-errors "polylith." component #{"spec" "cmd" "file" "invoice" "user"} "ifc" color/none)
-
            [{:type "error"
              :code 101
              :bricks ["common"]
-             :colorized-message "Illegal dependency on namespace invoice.core in common.purchase. Use invoice.ifc instead to fix the problem."
-             :message           "Illegal dependency on namespace invoice.core in common.purchase. Use invoice.ifc instead to fix the problem."}
+             :message           "Illegal dependency on namespace invoice.core in common.purchase. Use invoice.ifc instead to fix the problem."
+             :colorized-message "Illegal dependency on namespace invoice.core in common.purchase. Use invoice.ifc instead to fix the problem."}
 
             {:type "error"
              :code 101
              :bricks ["common"]
-             :colorized-message "Illegal dependency on namespace cmd.core in common.billing. Use cmd.ifc instead to fix the problem."
-             :message           "Illegal dependency on namespace cmd.core in common.billing. Use cmd.ifc instead to fix the problem."}]))))
+             :message           "Illegal dependency on namespace cmd.core in common.billing. Use cmd.ifc instead to fix the problem."
+             :colorized-message "Illegal dependency on namespace cmd.core in common.billing. Use cmd.ifc instead to fix the problem."}]))))
+
+(deftest component-error--component-depends-on-a-base--returns-errors
+  (let [component {:name "util"
+                   :namespaces {:src [{:namespace "polylith.util.interface"
+                                       :imports ["polylith.cli.core"]}]}}
+        base-namespaces #{"polylith.cli.core"
+                          "polylith.worker.core"}]
+
+    (is (= (m101/component-errors component base-namespaces "polylith." color/none)
+           [{:type              "error"
+             :code              101
+             :bricks            ["util"]
+             :message           "Illegal dependency on namespace cli.core in util.interface. Components are not allowed to depend on bases."
+             :colorized-message "Illegal dependency on namespace cli.core in util.interface. Components are not allowed to depend on bases."}]))))
 
 (deftest errors--component-with-mismatching-interface-name--returns-no-errors
   (let [component {:type "component"

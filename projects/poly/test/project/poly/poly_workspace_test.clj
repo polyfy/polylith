@@ -115,7 +115,7 @@
           "  ------------------------------------------------------------------   ---------   ---   -------------------------"
           "  borkdude/edamame                  1.3.20              maven     24    x    x      x    .  .  x  .  .  .  .  .  ."
           "  clj-commons/fs                    1.6.310             maven     12    x    x      x    .  .  x  .  .  .  .  .  ."
-          "  com.github.liquidz/antq           3414e7e    86eddb8  git      293    x    x      x    x  .  .  .  .  .  .  .  ."
+          "  com.github.liquidz/antq           3414e7e    0a6ce33  git      293    x    x      x    x  .  .  .  .  .  .  .  ."
           "  djblue/portal                     0.38.1              maven  1,819    -    x      x    .  .  .  .  .  x  .  .  ."
           "  io.github.seancorfield/build-clj  9c9f078             git       42    -    -      x    .  .  .  .  .  .  .  .  ."
           "  metosin/malli                     0.10.4              maven     85    x    x      x    .  .  .  .  .  .  x  .  ."
