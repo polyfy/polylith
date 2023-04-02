@@ -21,6 +21,15 @@
 (defn eval-in [class-loader form]
   (class-loader/eval-in class-loader form))
 
+(defn entity-imports [entity & sources]
+  (ns-extractor/entity-imports entity sources))
+
+(defn entity-namespaces [entity & sources]
+  (ns-extractor/entity-namespaces entity sources))
+
+(defn entities-namespaces [entities & sources]
+  (ns-extractor/entities-namespaces entities sources))
+
 (defn extract-namespace [suffixed-top-ns ns-to-extract]
   (ns-extractor/extract suffixed-top-ns ns-to-extract))
 

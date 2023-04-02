@@ -32,15 +32,11 @@
             (filterv #(not= interface-ns (get-namespace %))
                      dependencies))))
 
-(defn nss [{:keys [namespaces]}]
-  (concat (map :namespace (:src namespaces))
-          (map :namespace (:test namespaces))))
-
 (defn import-ns [{:keys [namespace imports]}]
   (map #(vec [% namespace]) imports))
 
-(defn component-ns [namespace sufixed-top-ns]
-  (:depends-on-ns (common/extract-namespace sufixed-top-ns namespace)))
+(defn component-ns [namespace suffixed-top-ns]
+  (:depends-on-ns (common/extract-namespace suffixed-top-ns namespace)))
 
 (defn component-error [component-name illegal-import ns->name suffixed-top-ns color-mode]
   (let [namespace (ns->name illegal-import)
@@ -63,14 +59,8 @@
     (map #(component-error name % ns->name suffixed-top-ns color-mode)
          illegal-imports)))
 
-(defn components-errors [components bases top-namespace color-mode]
-  (let [sufixed-top-ns (common/suffix-ns-with-dot top-namespace)
-        base-namespaces (set (mapcat nss bases))]
-    (mapcat #(component-errors % base-namespaces sufixed-top-ns color-mode)
-            components)))
-
 (defn errors [suffixed-top-ns interface-names components bases interface-ns color-mode]
-  (let [base-namespaces (set (mapcat nss bases))]
+  (let [base-namespaces (set (common/entities-namespaces bases :src :test))]
     (vec (concat (mapcat #(brick-errors suffixed-top-ns % interface-names interface-ns color-mode)
                          (concat components bases))
                  (mapcat #(component-errors % base-namespaces suffixed-top-ns color-mode)
