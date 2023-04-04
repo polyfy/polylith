@@ -11,7 +11,7 @@
                  ""
                  (str "-" revision))))
 
-(def date "2023-04-02")
+(def date "2023-04-04")
 
 (defn version
   ([ws-type]
@@ -37,6 +37,7 @@
 ;; -----  -------------   -------   ----------------------------------------------------------------------------------------------
 ;; 2.0    0.2.18          added     configs
 ;;                        added     ws-type
+;;                        added     bases:BASE:base-deps
 ;;                        added     entities:ENTITY:namespaces:source:0:is-ignored
 ;;                        added     entities:ENTITY:namespaces:source:0:is-invalid
 ;;                        changed   entities:ENTITY:namespaces:source:0:file-path       ws-dir is no longer part of the file path.

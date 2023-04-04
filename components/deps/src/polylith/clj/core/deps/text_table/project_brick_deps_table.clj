@@ -16,7 +16,9 @@
     (text-table/table "  " color-mode used-by-column uses-column headers spaces)))
 
 (defn validate [project-name brick-name project brick color-mode]
-  (let [brick-names (set (concat (-> project :component-names :src)
+  (let [brick-names (set (concat (-> project :base-names :src)
+                                 (-> project :base-names :test)
+                                 (-> project :component-names :src)
                                  (-> project :component-names :test)))]
     (cond
       (nil? project) [false (str "  Couldn't find the " (color/project project-name color-mode) " project.")]
