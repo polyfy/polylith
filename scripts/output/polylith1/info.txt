@@ -1,7 +1,7 @@
   stable since: 40d2f62 | stable-master
 
-  projects: 3   interfaces: 30
-  bases:    1   components: 30
+  projects: 3   interfaces: 31
+  bases:    1   components: 31
 
   project      alias  status   dev
   --------------------------   ---
@@ -11,6 +11,7 @@
 
   interface                 brick                      api  poly   dev
   --------------------------------------------------   ---------   ---
+  antq                      antq                       s--  s--    s--
   api                       api                        s--  ---    st-
   change                    change                     s--  st-    st-
   clojure-test-test-runner  clojure-test-test-runner   ---  st-    st-
