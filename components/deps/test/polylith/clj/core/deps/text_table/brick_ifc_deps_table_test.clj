@@ -12,8 +12,9 @@
 
 (deftest table--test-context-dependees
   (is (= (table/table for-test/workspace for-test/cli)
-         ["  used by  <  cli  >  uses    "
-          "  -------             --------"
-          "                      a-okay  "
-          "                      util (t)"
-          "                      worker  "])))
+         ["  used by  <  cli  >  uses      "
+          "  -------             ----------"
+          "                      a-okay    "
+          "                      util (t)  "
+          "                      helper (t)"
+          "                      worker    "])))

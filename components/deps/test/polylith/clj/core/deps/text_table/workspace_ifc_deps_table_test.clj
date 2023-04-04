@@ -5,17 +5,18 @@
 
 (deftest table--brick-dependencies--should-return-a-correct-table
   (is (= (table/table for-test/workspace)
-         ["                 c      "
-          "           a  b  o     w"
-          "           -  -  m     o"
-          "           o  f  p  u  r"
-          "           k  a  a  t  k"
-          "           a  i  n  i  e"
-          "  brick    y  l  y  l  r"
-          "  ----------------------"
-          "  a-okay   .  .  .  x  ."
-          "  b-fail   .  .  .  .  ."
-          "  company  .  .  .  .  ."
-          "  util     .  .  .  .  ."
-          "  cli      x  .  .  t  x"
-          "  worker   .  .  .  .  ."])))
+         ["                 c         "
+          "           a  b  o     h  w"
+          "           -  -  m     e  o"
+          "           o  f  p  u  l  r"
+          "           k  a  a  t  p  k"
+          "           a  i  n  i  e  e"
+          "  brick    y  l  y  l  r  r"
+          "  -------------------------"
+          "  a-okay   .  .  .  x  .  ."
+          "  b-fail   .  .  .  .  .  ."
+          "  company  .  .  .  .  .  ."
+          "  util     .  .  .  .  .  ."
+          "  cli      x  .  .  t  t  x"
+          "  helper   .  .  .  .  .  ."
+          "  worker   .  .  .  .  .  ."])))

@@ -136,22 +136,26 @@
                     (filter #(contains? (set base-names) (:name %))
                             bricks)))))
 
+(defn first-brick [brick-name]
+  (when-let [brick (first brick-name)]
+    (first (str/split brick #" "))))
+
 (defn source-deps
   "Takes a sequence of namespace paths and calculates direct, indirect, and circular
    dependencies + dependencies on missing interfaces (if any). All incoming dependencies
    are bases and interfaces, but the latter is translated to corresponding components,
    using the ifc->comp map that is based on the components in the project for which this
    calculation operates on."
-  [ns-paths ifc->comp interface-and-base-names interface-names-in-project src-test-brick-ns]
+  [ns-paths ifc->comp interface-and-base-names interface-and-base-names-in-project src-test-brick-ns]
   (let [circular (first (sort-by count (filter circular? ns-paths)))
         paths (mapv #(drop-brick-ns % src-test-brick-ns)
                     (set (mapv clean-nss ns-paths)))
         direct-and-indirect (set (flatten paths))
-        all-direct (set/intersection interface-and-base-names (set (filter identity (map first paths))))
-        direct (set/intersection all-direct interface-names-in-project)
-        missing-ifc (set/difference all-direct interface-names-in-project)
+        all-direct (set/intersection interface-and-base-names (set (filter identity (map first-brick paths))))
+        direct (set/intersection all-direct interface-and-base-names-in-project)
+        missing-ifc (set/difference all-direct interface-and-base-names-in-project)
         all-indirect (set/difference direct-and-indirect all-direct)
-        indirect (set/intersection all-indirect interface-names-in-project)
+        indirect (set/intersection all-indirect interface-and-base-names-in-project)
         indirect-missing-ifc (set/difference indirect all-indirect)
         has-missing-ifc? (or (seq missing-ifc) (seq indirect-missing-ifc))]
     (cond-> {}

@@ -167,14 +167,15 @@
                              :deps {"a-okay" {:src {:direct ["util"]}, :test {:direct ["util"]}},
                                     "company" {:src {}, :test {}},
                                     "util" {:src {}, :test {}}}}
-                            {:lines-of-code {:src 0, :test 0, :total {:src 37, :test 74}},
+                            {:lines-of-code {:src 0, :test 0, :total {:src 39, :test 98}},
                              :namespaces {},
-                             :base-names {:src ["cli" "worker"], :test ["cli"]},
+                             :base-names {:src ["cli" "helper" "worker"], :test ["cli" "helper"]},
                              :lib-imports {:src ["clojure.string" "com.for.test.cli.impl" "com.for.test.worker.core"],
-                                           :test ["clojure.test"]},
+                                           :test ["clojure.test" "com.for.test.helper.core" "com.for.test.helper.core-test"]},
                              :is-dev true,
                              :name "development",
                              :paths {:src ["bases/cli/src"
+                                           "bases/helper/src"
                                            "bases/worker/src"
                                            "components/a-okay/src"
                                            "components/b-fail/src"
@@ -184,6 +185,7 @@
                                            "components/util/src"
                                            "development/src"],
                                      :test ["bases/cli/test"
+                                            "bases/helper/test"
                                             "components/a-okay/test"
                                             "components/b-fail/test"
                                             "components/company/test"
@@ -201,6 +203,7 @@
                              :alias "dev",
                              :project-dir "examples/for-test/development",
                              :unmerged {:paths {:src ["bases/cli/src"
+                                                      "bases/helper/src"
                                                       "bases/worker/src"
                                                       "components/a-okay/src"
                                                       "components/b-fail/src"
@@ -210,6 +213,7 @@
                                                       "components/util/src"
                                                       "development/src"],
                                                 :test ["bases/cli/test"
+                                                       "bases/helper/test"
                                                        "components/a-okay/test"
                                                        "components/b-fail/test"
                                                        "components/company/test"
@@ -225,7 +229,8 @@
                              :lib-deps {:src {"org.clojure/clojure" {:version "1.11.1", :type "maven", :size 4105111}}},
                              :config-filename "examples/for-test/deps.edn",
                              :component-names {:src ["a-okay" "b-fail" "company" "util"], :test ["a-okay" "b-fail" "company" "util"]},
-                             :deps {"cli" {:src {:direct ["a-okay" "worker"], :indirect ["util"]}, :test {:direct ["util"]}},
+                             :deps {"cli" {:src {:direct ["a-okay" "worker"], :indirect ["util"]}, :test {:direct ["helper" "util"]}},
+                                    "helper" {:src {}, :test {}},
                                     "worker" {:src {}, :test {}},
                                     "a-okay" {:src {:direct ["util"]}, :test {:direct ["util"]}},
                                     "b-fail" {:src {}, :test {}},
@@ -233,8 +238,8 @@
                                     "util" {:src {}, :test {}}}}],
                  :ws-dir "examples/for-test",
                  :name "for-test",
-                 :user-input {:args ["check" "ws-dir:examples/for-test"],
-                              :cmd "check",
+                 :user-input {:args ["info" "ws-dir:examples/for-test" "replace:/Users/joakimtengstrand:USER-HOME"],
+                              :cmd "info",
                               :is-commit false,
                               :is-tap false,
                               :is-search-for-ws-dir false,
@@ -253,6 +258,7 @@
                               :is-run-project-tests false,
                               :is-show-resources false,
                               :is-verbose false,
+                              :replace [{:from "/Users/joakimtengstrand", :to "USER-HOME"}],
                               :ws-dir "examples/for-test",
                               :selected-profiles #{},
                               :selected-projects #{},
@@ -318,6 +324,8 @@
                              :file-extensions ["clj" "cljc"]},
                  :paths {:existing ["bases/cli/src"
                                     "bases/cli/test"
+                                    "bases/helper/src"
+                                    "bases/helper/test"
                                     "bases/worker/src"
                                     "components/a-okay/src"
                                     "components/a-okay/test"
@@ -340,6 +348,8 @@
                          :missing [],
                          :on-disk ["bases/cli/src"
                                    "bases/cli/test"
+                                   "bases/helper/src"
+                                   "bases/helper/test"
                                    "bases/worker/src"
                                    "components/a-okay/src"
                                    "components/a-okay/test"
@@ -445,6 +455,9 @@
                                            "bases/cli/src/com/for/test/cli/core.clj"
                                            "bases/cli/src/com/for/test/cli/impl.clj"
                                            "bases/cli/test/com/for/test/cli/core_test.clj"
+                                           "bases/helper/deps.edn"
+                                           "bases/helper/src/com/for/test/helper/core.clj"
+                                           "bases/helper/test/com/for/test/helper/core_test.clj"
                                            "bases/worker/deps.edn"
                                            "bases/worker/src/com/for/test/worker/core.clj"
                                            "components/a-okay/src/com/for/test/a_okay/interface.clj"
@@ -461,7 +474,7 @@
                                            "workspace.edn"],
                            :git-diff-command "git diff 441e71050d506b7cee8fb64e107ff0fafcf36472 --name-only",
                            :changed-components ["a-okay" "company" "util"],
-                           :changed-bases ["cli" "worker"],
+                           :changed-bases ["cli" "helper" "worker"],
                            :changed-projects ["failing-test"
                                               "failing-test-teardown-fails"
                                               "okay"
@@ -501,9 +514,9 @@
                                      :minor 2,
                                      :patch 18,
                                      :revision "issue293-01",
-                                     :date "2023-04-02"},
+                                     :date "2023-04-04"},
                            :ws {:type :toolsdeps2, :breaking 2, :non-breaking 0}},
-                 :bases [{:lines-of-code {:src 5, :test 6},
+                 :bases [{:lines-of-code {:src 5, :test 10},
                           :namespaces {:src [{:name "core",
                                               :namespace "com.for.test.cli.core",
                                               :file-path "bases/cli/src/com/for/test/cli/core.clj",
@@ -517,14 +530,31 @@
                                        :test [{:name "core-test",
                                                :namespace "com.for.test.cli.core-test",
                                                :file-path "bases/cli/test/com/for/test/cli/core_test.clj",
-                                               :imports ["clojure.test" "com.for.test.util.interface"]}]},
-                          :lib-imports {:src ["com.for.test.cli.impl" "com.for.test.worker.core"], :test ["clojure.test"]},
+                                               :imports ["clojure.test" "com.for.test.helper.core-test" "com.for.test.util.interface"]}]},
+                          :lib-imports {:src ["com.for.test.cli.impl" "com.for.test.worker.core"],
+                                        :test ["clojure.test" "com.for.test.helper.core-test"]},
                           :name "cli",
                           :paths {:src ["src"], :test ["test"]},
                           :type "base",
                           :interface-deps {:src ["a-okay"], :test ["util"]},
                           :lib-deps {},
-                          :base-deps {:src ["worker"], :test []}}
+                          :base-deps {:src ["worker"], :test ["helper"]}}
+                         {:lines-of-code {:src 1, :test 8},
+                          :namespaces {:src [{:name "core",
+                                              :namespace "com.for.test.helper.core",
+                                              :file-path "bases/helper/src/com/for/test/helper/core.clj",
+                                              :imports []}],
+                                       :test [{:name "core-test",
+                                               :namespace "com.for.test.helper.core-test",
+                                               :file-path "bases/helper/test/com/for/test/helper/core_test.clj",
+                                               :imports ["clojure.test" "com.for.test.helper.core"]}]},
+                          :lib-imports {:test ["clojure.test" "com.for.test.helper.core"]},
+                          :name "helper",
+                          :paths {:src ["src"], :test ["test"]},
+                          :type "base",
+                          :interface-deps {:src [], :test []},
+                          :lib-deps {},
+                          :base-deps {:src [], :test []}}
                          {:lines-of-code {:src 1, :test 0},
                           :namespaces {:src [{:name "core",
                                               :namespace "com.for.test.worker.core",
@@ -552,6 +582,8 @@
                                          :name "util"}],
                            :bases [{:config {:paths ["src"], :deps {}, :aliases {:test {:extra-paths ["test"], :extra-deps {}}}},
                                     :name "cli"}
+                                   {:config {:paths ["src"], :deps {}, :aliases {:test {:extra-paths ["test"], :extra-deps {}}}},
+                                    :name "helper"}
                                    {:config {:paths ["src"], :deps {}, :aliases {:test {:extra-paths [], :extra-deps {}}}},
                                     :name "worker"}],
                            :projects [{:config {:aliases {:dev {:extra-paths ["development/src"
@@ -562,6 +594,7 @@
                                                                               "components/b-fail/src"
                                                                               "components/util/src"
                                                                               "bases/cli/src"
+                                                                              "bases/helper/src"
                                                                               "bases/worker/src"],
                                                                 :extra-deps #:org.clojure{clojure #:mvn{:version "1.11.1"}}},
                                                           :test {:extra-paths ["components/company/test"
@@ -570,6 +603,7 @@
                                                                                "components/b-fail/test"
                                                                                "components/util/test"
                                                                                "bases/cli/test"
+                                                                               "bases/helper/test"
                                                                                "projects/failing-test/test"
                                                                                "projects/failing-test-teardown-fails/test"
                                                                                "projects/okay/test"
