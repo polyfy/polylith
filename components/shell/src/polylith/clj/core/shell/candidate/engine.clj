@@ -43,7 +43,7 @@
 (defn filter-candidates [word candidates potential-exact-match?]
   (let [potentials (filter-exact-match word candidates)
         filtered (filterv #(starts-with % word) candidates)
-        ordered (sort-by :order (filter #(:order %) filtered))
+        ordered (sort-by :order (filter :order filtered))
         order (-> ordered first :order)]
     (if (and potential-exact-match?
              (= 1 (count potentials)))
