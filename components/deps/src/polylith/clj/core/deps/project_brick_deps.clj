@@ -84,10 +84,12 @@
   "If a component is only used in the test context from a project,
    then test-only-interfaces will contain its interface."
   [namespace
-   test-only-interfaces
-   {:keys [type interface]}]
-  (or (and (= type "component")
-           (contains? test-only-interfaces (:name interface)))
+   test-only-interfaces-and-bricks
+   {:keys [type name interface]}]
+  (or (and (= type "base")
+        (contains? test-only-interfaces-and-bricks name))
+      (and (= type "component")
+         (contains? test-only-interfaces-and-bricks (:name interface)))
       (and namespace
            (str/ends-with? namespace " (t)"))))
 
@@ -126,27 +128,34 @@
 (defn component-deps [deps ifc->comp]
   (map #(ifc->comp % %) deps))
 
-(defn ifc-names [component-names bricks]
-  (set (map #(-> % :interface :name)
-            (filter #(contains? (set component-names) (:name %))
-                    bricks))))
+(defn ifc-and-brick-names [component-names base-names bricks]
+  (set (concat (map #(-> % :interface :name)
+                    (filter #(contains? (set component-names) (:name %))
+                            bricks))
+               (map :name
+                    (filter #(contains? (set base-names) (:name %))
+                            bricks)))))
+
+(defn first-brick [brick-name]
+  (when-let [brick (first brick-name)]
+    (first (str/split brick #" "))))
 
 (defn source-deps
   "Takes a sequence of namespace paths and calculates direct, indirect, and circular
    dependencies + dependencies on missing interfaces (if any). All incoming dependencies
-   are on interfaces, but are then translated to corresponding components, using the
-   ifc->comp map that is based on the components in the project for which this
+   are bases and interfaces, but the latter is translated to corresponding components,
+   using the ifc->comp map that is based on the components in the project for which this
    calculation operates on."
-  [ns-paths ifc->comp interface-names interface-names-in-project src-test-brick-ns]
+  [ns-paths ifc->comp interface-and-base-names interface-and-base-names-in-project src-test-brick-ns]
   (let [circular (first (sort-by count (filter circular? ns-paths)))
-        paths (map #(drop-brick-ns % src-test-brick-ns)
-                   (set (map clean-nss ns-paths)))
+        paths (mapv #(drop-brick-ns % src-test-brick-ns)
+                    (set (mapv clean-nss ns-paths)))
         direct-and-indirect (set (flatten paths))
-        all-direct (set/intersection interface-names (set (filter identity (map first paths))))
-        direct (set/intersection all-direct interface-names-in-project)
-        missing-ifc (set/difference all-direct interface-names-in-project)
+        all-direct (set/intersection interface-and-base-names (set (filter identity (map first-brick paths))))
+        direct (set/intersection all-direct interface-and-base-names-in-project)
+        missing-ifc (set/difference all-direct interface-and-base-names-in-project)
         all-indirect (set/difference direct-and-indirect all-direct)
-        indirect (set/intersection all-indirect interface-names-in-project)
+        indirect (set/intersection all-indirect interface-and-base-names-in-project)
         indirect-missing-ifc (set/difference indirect all-indirect)
         has-missing-ifc? (or (seq missing-ifc) (seq indirect-missing-ifc))]
     (cond-> {}
@@ -163,6 +172,7 @@
   (or (nil? bricks-to-test)
       (contains? bricks-to-test name)))
 
+;; todo: change the comment (bases can depend on bases)
 (defn brick-deps
   "Calculates all dependencies for a given brick. To describe what's going on here, lets introduce
    a few abbreviations:
@@ -171,8 +181,8 @@
           where 'util' in this case is an IB and 'util-test' is a top namespace within
           that brick (a brick with the interface 'util' in this case).
 
-   The 'all-src-ns->namespaces' map has an IB as key, and a sequence of component
-   interfaces as a value for each key (components and bases can't depend on bases).
+   The 'all-src-ns->namespaces' map has an IB as key, and a sequence of IB:s as a value
+   for each key (bases can depend on bases).
 
    The 'all-test-ns->namespaces' map has an SN as key, and a sequence of IB's and SN's
    as a value for each key. If depending on another test namespace, either within its own
@@ -189,7 +199,7 @@
 
    The 'src' dependencies are then calculated, and also the 'test' dependencies if the
    brick is not excluded in workspace.edn > :projects > PROJECT-KEY > :test."
-  [brick components bases suffixed-top-ns ifc->comp interface-names interface-names-in-project interface-names-in-project-test bricks-to-test]
+  [brick components bases suffixed-top-ns ifc->comp interface-and-base-names interface-and-brick-names-in-project interface-and-brick-names-in-project-test bricks-to-test]
   (let [brick-ns (brick-namespace brick)
         src-test-brick-ns #{brick-ns (str brick-ns " (t)")}
         bricks (concat components bases)
@@ -198,18 +208,18 @@
         all-test-ns->namespaces (into {} (apply merge (map #(test-ns->namespaces % suffixed-top-ns test-namespaces) bricks)))
         all-ns->namespaces (merge-with into all-src-ns->namespaces all-test-ns->namespaces)
         namespaces (all-brick-namespaces brick suffixed-top-ns test-namespaces)
-        test-only-interfaces (set/difference interface-names-in-project-test interface-names-in-project)
+        test-only-interfaces-and-bricks (set/difference interface-and-brick-names-in-project-test interface-and-brick-names-in-project)
         brick-paths (atom [])
         _ (doseq [namespace namespaces]
-            (let [test? (test-context? namespace test-only-interfaces brick)]
+            (let [test? (test-context? namespace test-only-interfaces-and-bricks brick)]
               (ns-deps-recursively test? namespace all-ns->namespaces brick-paths #{} [])))
         all-paths (filter identity @brick-paths)
-        src-paths (map :path (filter (complement test-path?) all-paths))
-        test-paths (map :path (filter test-path? all-paths))
-        src-deps (source-deps src-paths ifc->comp interface-names interface-names-in-project src-test-brick-ns)]
-    {:src src-deps
+        src-paths (mapv :path (filterv (complement test-path?) all-paths))
+        test-paths (mapv :path (filterv test-path? all-paths))
+        src-deps (source-deps src-paths ifc->comp interface-and-base-names interface-and-brick-names-in-project src-test-brick-ns)]
+    {:src  src-deps
      :test (if (include-test? brick bricks-to-test)
-             (source-deps test-paths ifc->comp interface-names interface-names-in-project-test src-test-brick-ns)
+             (source-deps test-paths ifc->comp interface-and-base-names interface-and-brick-names-in-project-test src-test-brick-ns)
              {})}))
 
 (defn project-deps
@@ -227,8 +237,9 @@
                                 (concat components
                                         (filter #(contains? component-names (:name %))
                                                 components))))
-        interface-names (set (map #(-> % :interface :name) components))
-        interface-names-in-project (ifc-names component-names-src bricks)
-        interface-names-in-project-test (ifc-names (concat component-names-src component-names-test) bricks)]
-    (into {} (map (juxt :name #(brick-deps % components bases suffixed-top-ns ifc->comp interface-names interface-names-in-project interface-names-in-project-test bricks-to-test))
+        interface-and-base-names (set (concat (map #(-> % :interface :name) components)
+                                              (map :name bases)))
+        interface-and-brick-names-in-project (ifc-and-brick-names component-names-src base-names-src bricks)
+        interface-and-brick-names-in-project-test (ifc-and-brick-names (concat component-names-src component-names-test) (concat base-names-src base-names-test) bricks)]
+    (into {} (map (juxt :name #(brick-deps % components bases suffixed-top-ns ifc->comp interface-and-base-names interface-and-brick-names-in-project interface-and-brick-names-in-project-test bricks-to-test))
                   bricks))))

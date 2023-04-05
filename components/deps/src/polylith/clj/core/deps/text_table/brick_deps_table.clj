@@ -25,17 +25,26 @@
     [interface :yellow]
     [(str interface " (t)") :yellow]))
 
-(defn uses-ifc [{:keys [interface-deps]}]
+(defn base [base src-bases]
+  (if (contains? src-bases base)
+    [base :blue]
+    [(str base " (t)") :blue]))
+
+(defn uses-ifc-base [{:keys [interface-deps base-deps]}]
   (let [interface-deps-src (set (:src interface-deps))
-        interface-deps-test (:test interface-deps)]
-    (map #(ifc % interface-deps-src)
-         (sort (set (concat interface-deps-src interface-deps-test))))))
+        interface-deps-test (:test interface-deps)
+        base-deps-src (set (:src base-deps))
+        base-deps-test (set (:test base-deps))]
+    (concat (map #(ifc % interface-deps-src)
+                 (sort (set (concat interface-deps-src interface-deps-test))))
+            (map #(base % base-deps-src)
+                 (sort (set (concat base-deps-src base-deps-test)))))))
 
 (defn table [{:keys [components bases settings]} brick]
   (let [color-mode (:color-mode settings)
         brick-interface-name (-> brick :interface :name)
         bricks (concat components bases)
-        uses (uses-ifc brick)
+        uses (uses-ifc-base brick)
         uses-column (shared/deps-column 9 "uses" uses)
         used-by (mapcat #(used-by-interface % brick-interface-name) bricks)
         used-by-column (shared/deps-column 1 "used by" used-by)

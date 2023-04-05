@@ -1,7 +1,5 @@
 {:bases
- [{:name "invoicer-cli",
-   :type "base",
-   :paths {:src ["src"], :test ["test"]},
+ [{:lines-of-code {:src 5, :test 6},
    :namespaces
    {:src
     [{:name "core",
@@ -15,11 +13,14 @@
       :file-path
       "bases/invoicer-cli/test/com/localdep/invoicer_cli/core_test.clj",
       :imports ["clojure.test" "com.localdep.invoicer-cli.core"]}]},
-   :lib-deps {},
-   :lines-of-code {:src 5, :test 6},
    :lib-imports
    {:test ["clojure.test" "com.localdep.invoicer-cli.core"]},
-   :interface-deps {:src ["invoicer"], :test []}}],
+   :name "invoicer-cli",
+   :paths {:src ["src"], :test ["test"]},
+   :type "base",
+   :interface-deps {:src ["invoicer"], :test []},
+   :lib-deps {},
+   :base-deps {:src [], :test []}}],
  :changes
  {:since "stable",
   :changed-projects ["invoicing"],
@@ -722,12 +723,12 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.18-issue294-01",
+  {:name "0.2.18-issue293-01",
    :major 0,
    :minor 2,
    :patch 18,
-   :revision "issue294-01",
-   :date "2023-04-01"},
+   :revision "issue293-01",
+   :date "2023-04-02"},
   :ws {:type :toolsdeps2, :breaking 2, :non-breaking 0}},
  :ws-dir "USER-HOME/source/polylith/examples/local-dep",
  :ws-local-dir "examples/local-dep",

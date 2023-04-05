@@ -24,7 +24,7 @@
           interfaces (interfaces/calculate components)
           interface-names (into (sorted-set) (keep :name) interfaces)
           enriched-components (mapv #(component/enrich ws-dir suffixed-top-ns interface-names %) components)
-          enriched-bases (mapv #(base/enrich ws-dir suffixed-top-ns interface-names %) bases)
+          enriched-bases (mapv #(base/enrich ws-dir suffixed-top-ns bases interface-names %) bases)
           enriched-bricks (into [] cat [enriched-components enriched-bases])
           brick->loc (brick->loc enriched-bricks)
           brick->lib-imports (brick->lib-imports enriched-bricks)

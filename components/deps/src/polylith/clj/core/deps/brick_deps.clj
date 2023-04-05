@@ -27,8 +27,11 @@
 (defn dependee [name test? color]
   [(suffixed-name name test?) color])
 
-(defn ->dependees [names test? color]
-  (mapv #(dependee % test? color) names))
+(defn ->dependees-ifc [names test?]
+  (mapv #(dependee % test? :yellow) names))
+
+(defn ->dependees-brick [names test? brick->color]
+  (mapv #(dependee % test? (brick->color %)) names))
 
 (defn deps [project brick->color brick-name]
   (let [deps (:deps project)
@@ -36,11 +39,11 @@
         brick-deps (deps brick-name)
         direct-src-names (-> :src brick-deps :direct set)
         direct-test-names (-> :test brick-deps :direct set)
-        direct-src (->dependees direct-src-names false :green)
-        direct-test (->dependees (set/difference direct-test-names direct-src-names) true :green)
+        direct-src (->dependees-brick direct-src-names false brick->color)
+        direct-test (->dependees-brick (set/difference direct-test-names direct-src-names) true brick->color)
         missing-ifc-src-names (-> :src brick-deps :missing-ifc :direct set)
         missing-ifc-test-names (-> :test brick-deps :missing-ifc :direct set)
-        missing-ifc-src (->dependees missing-ifc-src-names false :yellow)
-        missing-ifc-test (->dependees (set/difference missing-ifc-test-names missing-ifc-src) true :yellow)
+        missing-ifc-src (->dependees-ifc missing-ifc-src-names false)
+        missing-ifc-test (->dependees-ifc (set/difference missing-ifc-test-names missing-ifc-src) true)
         dependees (sort-them (concat direct-src direct-test missing-ifc-src missing-ifc-test))]
     [dependers dependees]))
