@@ -1,4 +1,4 @@
-(ns polylith.clj.core.ws-file.shorten-paths
+(ns polylith.clj.core.ws-file.from-1-to-2.skip-ws-dir-in-paths
   (:require [polylith.clj.core.util.interface.str :as str-util]))
 
 (defn skip-ws-dir-in-file-path [{:keys [file-path] :as source-ns} ws-dir]
@@ -20,7 +20,7 @@
 (defn skip-in-entities [entities ws-dir]
   (mapv #(skip-in-ns-paths % ws-dir) entities))
 
-(defn skip-ws-dir-in-paths [{:keys [components bases projects] :as ws}]
+(defn convert [{:keys [components bases projects] :as ws}]
   (let [ws-dir (str (:ws-dir ws) "/")]
     (assoc ws :components (skip-in-entities components ws-dir)
               :bases (skip-in-entities bases ws-dir)

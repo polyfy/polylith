@@ -1,6 +1,6 @@
 (ns polylith.clj.core.ws-file.from-disk
   (:require [polylith.clj.core.ws-file.from-0-to-1 :as from-0-to-1]
-            [polylith.clj.core.ws-file.from-1-to-2 :as from-1-to-2]
+            [polylith.clj.core.ws-file.from-1-to-2.converter :as from-1-to-2]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.common.interface :as common]))
 
