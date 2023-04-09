@@ -76,12 +76,14 @@
                                  "bases/poly-cli/test"
                                  "projects/poly/test"]}
 
-            :poly {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
-                   :extra-deps {polylith/clj-poly {:local/root "projects/poly"}}}
-
+            ;; ws version 1.2
             :poly17  {:extra-deps {polylith/clj-poly
                                    {:mvn/version "0.2.17-alpha"}}
                       :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}
+
+            ;; ws version 2.0
+            :poly {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
+                   :extra-deps {polylith/clj-poly {:local/root "projects/poly"}}}
 
             :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}
                                    :main-opts ["-m" "antq.core"]}

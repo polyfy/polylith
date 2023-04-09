@@ -8,8 +8,10 @@
   (mapv #(skip-ws-dir-in-file-path % ws-dir)
         source-namespaces))
 
-(defn skip-in-ns-paths [{:keys [namespaces] :as entity} ws-dir]
-  (let [{:keys [src test]} namespaces
+(defn skip-in-ns-paths [{:keys [namespaces namespaces-src namespaces-test] :as entity} ws-dir]
+  (let [namespaces (or namespaces {:src namespaces-src
+                                   :test namespaces-test})
+        {:keys [src test]} namespaces
         namespaces (cond-> namespaces
                            src (assoc :src (skip-in-source-paths src ws-dir))
                            test (assoc :test (skip-in-source-paths test ws-dir)))]
