@@ -13,26 +13,20 @@
 
 (def date "2023-05-18")
 
-(def ws-breaking 2)
-(def ws-non-breaking 0)
-
 (defn version
-  ([ws-type]
-   (version {:type ws-type} nil ws-breaking ws-non-breaking))
-  ([{:keys [type] :as from-ws} from-release-name ws-breaking ws-non-breaking]
-   (let [from (when (not= :toolsdeps2 type)
-                (cond-> {:ws from-ws}
-                        from-release-name (assoc :release-name from-release-name)))]
-     (cond-> {:release {:name name
-                        :major major
-                        :minor minor
-                        :patch patch
-                        :revision revision
-                        :date date}
-              :ws {:type :toolsdeps2
-                   :breaking ws-breaking
-                   :non-breaking ws-non-breaking}}
-             from (assoc :from from)))))
+  ([]
+   (version nil))
+  ([from-version]
+   (cond-> {:release {:name name
+                      :major major
+                      :minor minor
+                      :patch patch
+                      :revision revision
+                      :date date}
+            :ws {:type :toolsdeps2
+                 :breaking 2
+                 :non-breaking 0}}
+           from-version (assoc :from from-version))))
 
 ;; ====== Workspace attributes (ws) ======
 ;;

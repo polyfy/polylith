@@ -80,6 +80,13 @@
                (str/starts-with? absolute-ws-dir git-root-dir))
       (subs absolute-ws-dir (-> git-root-dir count inc)))))
 
+(defn ->version [ws-type]
+  (if (= :toolsdeps1 ws-type)
+    (version/version {:ws {:type ws-type
+                           :breaking 0
+                           :non-breaking 0}})
+    (version/version)))
+
 (defn toolsdeps-ws-from-disk [ws-name
                               ws-type
                               ws-dir
@@ -115,6 +122,7 @@
         default-profile (or default-profile-name "default")
         active-profiles (profile/active-profiles user-input default-profile profile-to-settings)
         config-errors (into [] cat [component-errors base-errors project-errors])
+        version (->version ws-type)
         settings (util/ordered-map :vcs (git-info ws-dir vcs patterns user-input)
                                    :top-namespace top-namespace
                                    :interface-ns interface-ns
@@ -149,7 +157,7 @@
                       :bases bases
                       :projects projects
                       :paths paths
-                      :version (version/version ws-type))))
+                      :version version)))
 
 (defn workspace-name [ws-dir]
   (let [cleaned-ws-dir (if (= "." ws-dir) "" ws-dir)

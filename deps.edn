@@ -76,6 +76,21 @@
                                  "bases/poly-cli/test"
                                  "projects/poly/test"]}
 
+            ;; ws version 0.0
+            :poly9  {:extra-deps {polylith/clj-poly
+                                  {:mvn/version "0.1.0-alpha9"}}
+                     :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}
+
+            ;; ws version 1.0
+            :poly13  {:extra-deps {polylith/clj-poly
+                                   {:mvn/version "0.2.13-alpha"}}
+                      :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}
+
+            ;; ws version 1.1
+            :poly15  {:extra-deps {polylith/clj-poly
+                                   {:mvn/version "0.2.15-alpha"}}
+                      :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}
+
             ;; ws version 1.2
             :poly17  {:extra-deps {polylith/clj-poly
                                    {:mvn/version "0.2.17-alpha"}}

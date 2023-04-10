@@ -4,8 +4,13 @@
   (:refer-clojure :exclude [alias]))
 
 (defn convert-version [{:keys [version ws-schema-version]}]
-  (let [from-ws (assoc ws-schema-version :type :toolsdeps1)]
-    (ver/version from-ws version 1 0)))
+  (let [breaking (:breaking ws-schema-version 0)
+        non-breaking (:non-breaking ws-schema-version 0)
+        from-version {:ws {:type :toolsdeps1
+                           :breaking breaking
+                           :non-breaking non-breaking}
+                      :release-name version}]
+    (ver/version from-version)))
 
 (defn alias [[project-name alias]]
   [project-name {:alias alias}])
