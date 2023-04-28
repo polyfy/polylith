@@ -11,7 +11,7 @@
 
   All deps can have exclusions."
   [{:keys [type path version
-           git/url git/sha git/tag deps/root
+           git/url git/sha git/tag deps/root deps/manifest
            exclusions]
     old-sha :sha old-tag :tag}]
   (cond->
@@ -22,7 +22,8 @@
                url              (assoc :git/url url)
                (or sha old-sha) (assoc :git/sha (or sha old-sha))
                (or tag old-tag) (assoc :git/tag (or tag old-tag))
-               root             (assoc :deps/root root))
+               root             (assoc :deps/root root)
+               manifest         (assoc :deps/manifest manifest))
      (throw (Exception. (str "Unknown library type: " type))))
    (seq exclusions)
    (assoc :exclusions (vec exclusions))))
