@@ -29,9 +29,8 @@
   (let [interface-name (:name interface)
         dependencies (deps/interface-ns-deps suffixed-top-ns interface-name interface-names (:src namespaces))]
     (mapcat #(brick-error % name type interface-ns color-mode)
-            (filterv #(not= interface-ns (get-namespace %))
+            (filterv #(not (common/interface-ns? (get-namespace %) interface-ns))
                      dependencies))))
-
 
 (defn import-ns [{:keys [namespace imports]}]
   (map #(vec [% namespace]) imports))
