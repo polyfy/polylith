@@ -7,8 +7,8 @@
     (if ok?
       (if project-name
         (if brick-name
-          (deps/print-project-brick-table workspace project-name brick-name)
-          (deps/print-project-table workspace project-name is-all))
+          (deps/print-brick-project-table workspace project-name brick-name)
+          (deps/print-workspace-project-table workspace project-name is-all))
         (if brick-name
           (deps/print-brick-table workspace brick-name)
           (deps/print-workspace-table workspace)))

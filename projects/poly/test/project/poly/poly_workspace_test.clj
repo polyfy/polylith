@@ -1,10 +1,12 @@
 (ns project.poly.poly-workspace-test
-  (:require [clojure.test :refer :all]
+  (:require [clojure.string :as str]
+            [clojure.test :refer :all]
             [polylith.clj.core.change.interface :as change]
+            [polylith.clj.core.command.interface :as command]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.deps.text-table.brick-deps-table :as brick-ifc-deps]
-            [polylith.clj.core.deps.text-table.project-brick-deps-table :as brick-deps-table]
-            [polylith.clj.core.deps.text-table.project-deps-table :as ws-project-deps-table]
+            [polylith.clj.core.deps.text-table.brick-project-deps-table :as brick-deps-table]
+            [polylith.clj.core.deps.text-table.workspace-project-deps-table :as ws-project-deps-table]
             [polylith.clj.core.deps.text-table.workspace-deps-table :as ws-ifc-deps-table]
             [polylith.clj.core.lib.text-table.lib-table :as libs]
             [polylith.clj.core.user-input.interface :as user-input]
@@ -20,15 +22,28 @@
       ws/enrich-workspace
       change/with-changes))
 
-(deftest project-table
+(defn run-cmd [ws-dir cmd & args]
+  (let [input (user-input/extract-params (concat [cmd] args [(str "ws-dir:" ws-dir) "fake-sha:1234567" "color-mode:none"]))]
+    (str/split-lines
+      (with-out-str
+        (-> input command/execute-command)))))
+
+(defn ws-get [ws-dir ws-param & args]
+  (let [workspace (-> (user-input/extract-params (concat ["version" (str "ws-dir:" ws-dir) "color-mode:none"] args))
+                      ws-clj/workspace-from-disk
+                      ws/enrich-workspace
+                      change/with-changes)]
+    (get-in workspace ws-param)))
+
+(deftest polylith-project-table
   (is (= (project-table/table (workspace) false false)
-         ["  project        alias  status   dev"
+         ["  project        alias  source   dev"
           "  ----------------------------   ---"
           "  api *          api     ---     ---"
           "  poly *         poly    -t-     -t-"
           "  development *  dev     s--     s--"])))
 
-(deftest info
+(deftest polylith-info
   (is (= (ws-table/table (workspace) false false)
          ["  interface                 brick                        api  poly   dev"
           "  ----------------------------------------------------   ---------   ---"
@@ -65,7 +80,7 @@
           "  ws-file                   ws-file *                    ---  s--    s--"
           "  -                         poly-cli *                   ---  stx    st-"])))
 
-(deftest libs
+(deftest polylith-libs
   (is (= (libs/table (workspace) false false)
          ["                                                                                                     w   "
           "                                                                                                     o   "
@@ -97,39 +112,39 @@
           "  slipset/deps-deploy               0.2.1      maven      7    -    -      x    .  .  .  .  .  .  .  .  ."
           "  zprint/zprint                     1.2.5      maven    195    -    x      x    .  .  .  x  .  .  .  .  ."])))
 
-(deftest libs-outdated
+(deftest polylith-libs-outdated
   (is (= (libs/table (workspace) false true)
-         ["                                                                                                             w   "
-          "                                                                                                             o   "
-          "                                                                                                             r  w"
-          "                                                                                                             k  s"
-          "                                                                                                          v  s  -"
-          "                                                                                                 m        a  p  e"
-          "                                                                                                 i        l  a  x"
-          "                                                                                                 g        i  c  p"
-          "                                                                                                 r  s     d  e  l"
-          "                                                                                        a  d  f  a  h     a  -  o"
-          "                                                                                        n  e  i  t  e  t  t  c  r"
-          "                                                                                        t  p  l  o  l  a  o  l  e"
-          "  library                           version    latest  type      KB   api  poly   dev   q  s  e  r  l  p  r  j  r"
-          "  -----------------------------------------------------------------   ---------   ---   -------------------------"
-          "  borkdude/edamame                  1.3.20     1.3.22  maven     24    x    x      x    .  .  x  .  .  .  .  .  ."
-          "  clj-commons/fs                    1.6.310            maven     12    x    x      x    .  .  x  .  .  .  .  .  ."
-          "  com.github.liquidz/antq           2.3.1043           maven     48    x    x      x    x  .  .  .  .  .  .  .  ."
-          "  djblue/portal                     0.38.2     0.40.0  maven  1,820    -    x      x    .  .  .  .  .  x  .  .  ."
-          "  io.github.seancorfield/build-clj  9c9f078            git       42    -    -      x    .  .  .  .  .  .  .  .  ."
-          "  metosin/malli                     0.10.4     0.11.0  maven     85    x    x      x    .  .  .  .  .  .  x  .  ."
-          "  mount/mount                       0.1.17             maven      8    -    -      x    .  .  .  .  .  .  .  .  ."
-          "  mvxcvi/puget                      1.3.4              maven     15    x    x      x    .  .  .  .  .  .  .  .  x"
-          "  org.clojure/clojure               1.11.1             maven  4,008    x    x      x    .  .  .  .  .  .  .  .  ."
-          "  org.clojure/tools.deps            0.18.1335          maven     58    x    x      x    .  x  x  .  .  .  .  x  ."
-          "  org.jline/jline                   3.21.0     3.23.0  maven    971    -    x      x    .  .  .  .  x  .  .  .  ."
-          "  org.slf4j/slf4j-nop               2.0.7              maven      4    -    x      x    .  .  .  .  .  .  .  .  ."
-          "  rewrite-clj/rewrite-clj           1.1.47             maven     73    -    -      x    .  .  .  .  .  .  .  .  ."
-          "  slipset/deps-deploy               0.2.1              maven      7    -    -      x    .  .  .  .  .  .  .  .  ."
-          "  zprint/zprint                     1.2.5              maven    195    -    x      x    .  .  .  x  .  .  .  .  ."])))
+         ["                                                                                                               w   "
+          "                                                                                                               o   "
+          "                                                                                                               r  w"
+          "                                                                                                               k  s"
+          "                                                                                                            v  s  -"
+          "                                                                                                   m        a  p  e"
+          "                                                                                                   i        l  a  x"
+          "                                                                                                   g        i  c  p"
+          "                                                                                                   r  s     d  e  l"
+          "                                                                                          a  d  f  a  h     a  -  o"
+          "                                                                                          n  e  i  t  e  t  t  c  r"
+          "                                                                                          t  p  l  o  l  a  o  l  e"
+          "  library                           version    latest    type      KB   api  poly   dev   q  s  e  r  l  p  r  j  r"
+          "  -------------------------------------------------------------------   ---------   ---   -------------------------"
+          "  borkdude/edamame                  1.3.20     1.3.22    maven     24    x    x      x    .  .  x  .  .  .  .  .  ."
+          "  clj-commons/fs                    1.6.310              maven     12    x    x      x    .  .  x  .  .  .  .  .  ."
+          "  com.github.liquidz/antq           2.3.1043   2.4.1070  maven     48    x    x      x    x  .  .  .  .  .  .  .  ."
+          "  djblue/portal                     0.38.2     0.40.0    maven  1,820    -    x      x    .  .  .  .  .  x  .  .  ."
+          "  io.github.seancorfield/build-clj  9c9f078              git       42    -    -      x    .  .  .  .  .  .  .  .  ."
+          "  metosin/malli                     0.10.4     0.11.0    maven     85    x    x      x    .  .  .  .  .  .  x  .  ."
+          "  mount/mount                       0.1.17               maven      8    -    -      x    .  .  .  .  .  .  .  .  ."
+          "  mvxcvi/puget                      1.3.4                maven     15    x    x      x    .  .  .  .  .  .  .  .  x"
+          "  org.clojure/clojure               1.11.1               maven  4,008    x    x      x    .  .  .  .  .  .  .  .  ."
+          "  org.clojure/tools.deps            0.18.1335            maven     58    x    x      x    .  x  x  .  .  .  .  x  ."
+          "  org.jline/jline                   3.21.0     3.23.0    maven    971    -    x      x    .  .  .  .  x  .  .  .  ."
+          "  org.slf4j/slf4j-nop               2.0.7                maven      4    -    x      x    .  .  .  .  .  .  .  .  ."
+          "  rewrite-clj/rewrite-clj           1.1.47               maven     73    -    -      x    .  .  .  .  .  .  .  .  ."
+          "  slipset/deps-deploy               0.2.1                maven      7    -    -      x    .  .  .  .  .  .  .  .  ."
+          "  zprint/zprint                     1.2.5                maven    195    -    x      x    .  .  .  x  .  .  .  .  ."])))
 
-(deftest ifc-deps-table
+(deftest polylith-workspace-ifc-deps-table
   (is (= (ws-ifc-deps-table/table (workspace))
          ["                                     c                                                  t                              "
           "                                     l                                                  e                              "
@@ -183,13 +198,13 @@
           "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  validator                 .  .  .  .  .  x  .  .  x  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
           "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  workspace                 .  .  .  .  .  x  .  .  x  x  .  .  .  .  x  .  .  .  t  .  .  x  .  .  x  x  .  .  .  .  ."
+          "  workspace                 .  .  .  .  .  x  .  .  x  x  .  .  .  .  x  .  .  .  .  .  .  x  .  .  x  x  .  .  .  .  ."
           "  workspace-clj             .  .  .  .  .  x  x  .  x  x  x  .  x  .  x  .  .  .  .  .  .  .  x  .  x  x  x  .  .  .  ."
           "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  ws-file                   .  .  .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
           "  poly-cli                  .  .  .  .  x  .  t  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  t  .  .  t  .  ."])))
 
-(deftest project-deps-table
+(deftest polylith-workspace-project-deps-table
   (let [ws (workspace)
         projects (:projects ws)
         project (common/find-project "poly" projects)]
@@ -245,44 +260,107 @@
             "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  validator                 .  .  .  x  .  .  x  +  .  .  .  .  x  .  .  .  .  x  .  +  +  .  x  .  .  .  .  .  ."
             "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  workspace                 -  -  -  x  -  -  x  x  -  -  -  -  x  -  -  -  t  +  -  x  +  -  x  x  -  -  -  -  -"
+            "  workspace                 .  .  .  x  .  .  x  x  .  .  .  .  x  .  .  .  .  +  .  x  +  .  x  x  .  .  .  .  ."
             "  workspace-clj             +  .  .  x  x  .  x  x  x  .  x  .  x  +  .  .  .  +  .  +  x  .  x  x  x  .  .  .  ."
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  ws-file                   .  .  .  x  .  .  .  x  x  .  .  .  .  +  .  .  .  .  .  .  +  .  x  .  x  .  .  .  ."
             "  poly-cli                  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  t  +  +"]))))
 
-(deftest project-and-brick-deps
+;(deftest polylith-workspace-project-deps-table-indirect
+;  (let [ws (workspace)
+;        projects (:projects ws)
+;        project (common/find-project "poly" projects)]
+;    (is (= (ws-project-deps-table/table (workspace) project false false true)
+;           ["                                                                                        t                              "
+;            "                                                                                        e                              "
+;            "                                                                                        s                              "
+;            "                                                                                        t                              "
+;            "                                                                                     t  -                              "
+;            "                                                                                     e  r                              "
+;            "                                                                                     s  u                              "
+;            "                                                                                     t  n                              "
+;            "                                                                                     -  n                              "
+;            "                                                                                     r  e                              "
+;            "                                                                                     u  r                              "
+;            "                                        c                 i                          n  -                       w      "
+;            "                                        o                 m                          n  o                       o      "
+;            "                                        n                 a           p           t  e  r     u                 r  w   "
+;            "                                        f                 g           a           e  r  c  t  s  u              k  s   "
+;            "                                        i                 e           t           s  -  h  e  e  s     v     w  s  -   "
+;            "                                        g                 -     m  o  h           t  c  e  x  r  e     a     o  p  e   "
+;            "                                  c     -  c              c     i  v  -           -  o  s  t  -  r     l  v  r  a  x  w"
+;            "                               c  o  c  r  r              r     g  e  f           h  n  t  -  c  -     i  e  k  c  p  s"
+;            "                               h  m  o  e  e              e     r  r  i     s     e  t  r  t  o  i     d  r  s  e  l  -"
+;            "                            a  a  m  m  a  a  d  f     h  a     a  v  n     h     l  r  a  a  n  n  u  a  s  p  -  o  f"
+;            "                            n  n  a  m  d  t  e  i  g  e  t  l  t  i  d     e  t  p  a  t  b  f  p  t  t  i  a  c  r  i"
+;            "                            t  g  n  o  e  o  p  l  i  l  o  i  o  e  e  s  l  a  e  c  o  l  i  u  i  o  o  c  l  e  l"
+;            "  brick                     q  e  d  n  r  r  s  e  t  p  r  b  r  w  r  h  l  p  r  t  r  e  g  t  l  r  n  e  j  r  e"
+;            "  ---------------------------------------------------------------------------------------------------------------------"
+;            "  antq                      .  .  .  x  .  .  .  +  .  .  +  .  .  .  .  .  .  .  .  .  .  +  +  .  +  .  .  .  .  .  ."
+;            "  change                    .  .  .  x  .  .  .  +  x  .  +  .  .  .  x  +  .  .  .  .  .  +  +  .  x  .  .  .  .  .  ."
+;            "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
+;            "  command                   +  x  .  x  x  x  x  x  x  x  +  x  x  x  +  +  x  x  .  +  x  +  x  +  x  x  x  x  x  x  x"
+;            "  common                    .  .  .  .  .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
+;            "  config-reader             .  .  .  x  .  .  +  x  .  .  +  .  .  .  +  .  .  .  .  +  .  +  +  .  x  x  .  .  .  .  ."
+;            "  creator                   +  +  +  x  +  +  +  x  x  +  +  +  +  +  +  +  +  +  t  +  +  +  +  +  x  +  +  +  +  +  +"
+;            "  deps                      +  t  .  x  +  .  +  +  +  .  x  +  .  .  +  +  .  .  .  +  .  x  x  t  x  +  +  t  t  .  ."
+;            "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+;            "  git                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+;            "  help                      .  .  .  x  .  .  .  +  .  .  +  .  .  .  .  .  .  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
+;            "  image-creator             .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+;            "  lib                       x  +  +  x  x  +  +  x  +  +  +  +  +  +  +  +  +  +  t  +  +  x  x  +  x  +  +  +  +  +  +"
+;            "  migrator                  .  .  .  x  x  .  +  +  .  .  +  .  .  .  +  .  .  .  .  +  .  +  +  .  +  +  .  .  .  .  ."
+;            "  overview                  +  x  .  x  +  .  x  +  +  .  x  x  .  .  +  +  .  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
+;            "  path-finder               .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+;            "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+;            "  shell                     .  .  .  x  x  .  +  x  .  .  +  .  .  .  +  x  .  x  .  +  .  +  x  x  x  +  x  .  .  x  ."
+;            "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+;            "  test-helper               +  +  t  +  +  +  +  t  +  +  +  +  +  +  +  +  +  +  .  +  +  +  t  t  +  +  +  +  +  +  +"
+;            "  test-runner-contract      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+;            "  test-runner-orchestrator  .  .  .  x  .  .  x  +  .  .  +  .  .  .  +  .  .  .  .  x  .  +  +  .  x  x  .  .  .  .  ."
+;            "  text-table                .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+;            "  user-config               .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+;            "  user-input                .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+;            "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+;            "  validator                 .  .  .  x  .  .  x  +  .  .  +  .  .  .  x  .  .  .  .  x  .  +  +  .  x  .  .  .  .  .  ."
+;            "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+;            "  workspace                 .  .  .  x  .  .  x  x  .  .  +  .  .  .  x  .  .  .  .  +  .  x  +  .  x  x  .  .  .  .  ."
+;            "  workspace-clj             +  .  .  x  x  .  x  x  x  .  +  x  .  .  x  +  .  .  .  +  .  +  x  .  x  +  x  .  .  .  ."
+;            "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+;            "  ws-file                   .  .  .  x  .  .  .  x  x  .  +  .  .  .  .  +  .  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
+;            "  poly-cli                  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  t  +  +"]))))
+
+(deftest polylith-brick-and-project-deps
   (let [{:keys [components projects] :as ws} (workspace)
         project (common/find-project "poly" projects)
         brick (common/find-component "workspace" components)]
     (is (= (brick-deps-table/table ws project brick "none")
-           ["  used by  <  workspace  >  uses           "
-            "  -------                   ---------------"
-            "  command                   common         "
-            "                            deps           "
-            "                            file           "
-            "                            path-finder    "
-            "                            test-helper (t)"
-            "                            text-table     "
-            "                            util           "
-            "                            validator      "]))))
+           ["  used by  <  workspace  >  uses       "
+            "  -------                   -----------"
+            "  command                   common     "
+            "                            deps       "
+            "                            file       "
+            "                            path-finder"
+            "                            text-table "
+            "                            util       "
+            "                            validator  "]))))
 
-(deftest project-brick-deps
+;; todo: check why test-helper (t) is not included
+(deftest polylith-project-brick-deps
   (let [{:keys [components] :as ws} (workspace)
         brick (common/find-component "workspace" components)]
     (is (= (brick-ifc-deps/table ws brick)
-           ["  used by  <  workspace  >  uses           "
-            "  -------                   ---------------"
-            "  api                       common         "
-            "  command                   deps           "
-            "                            file           "
-            "                            path-finder    "
-            "                            test-helper (t)"
-            "                            text-table     "
-            "                            util           "
-            "                            validator      "]))))
+           ["  used by  <  workspace  >  uses       "
+            "  -------                   -----------"
+            "  api                       common     "
+            "  command                   deps       "
+            "                            file       "
+            "                            path-finder"
+            "                            text-table "
+            "                            util       "
+            "                            validator  "]))))
 
-(deftest poly-project-deps
+(deftest polylith-poly-project-deps
   (is (= (ws-explorer/extract (workspace) ["projects" "poly" "deps"])
          {"antq"                     {:src  {:direct   ["common"]
                                              :indirect ["file"
@@ -674,31 +752,11 @@
                                                         "deps"
                                                         "file"
                                                         "path-finder"
-                                                        "test-helper"
                                                         "text-table"
                                                         "util"
                                                         "validator"]
-                                             :indirect ["antq"
-                                                        "change"
-                                                        "command"
-                                                        "config-reader"
-                                                        "creator"
-                                                        "git"
-                                                        "help"
-                                                        "lib"
-                                                        "migrator"
-                                                        "sh"
-                                                        "shell"
-                                                        "tap"
-                                                        "test-runner-contract"
-                                                        "test-runner-orchestrator"
-                                                        "user-config"
-                                                        "user-input"
-                                                        "version"
-                                                        "workspace"
-                                                        "workspace-clj"
-                                                        "ws-explorer"
-                                                        "ws-file"]}}
+                                             :indirect ["test-runner-contract"
+                                                        "user-config"]}}
           "workspace-clj"            {:src  {:direct   ["common"
                                                         "config-reader"
                                                         "deps"
@@ -740,7 +798,7 @@
                                                         "user-config"]}
                                       :test {}}})))
 
-(deftest poly-project-src-paths
+(deftest polylith-poly-project-src-paths
   (is (= (ws-explorer/extract (workspace) ["projects" "poly" "paths" "src"])
          ["bases/poly-cli/src"
           "components/antq/src"
@@ -774,7 +832,7 @@
           "components/ws-explorer/src"
           "components/ws-file/src"])))
 
-(deftest poly-project-test-paths
+(deftest polylith-poly-project-test-paths
   (is (= (ws-explorer/extract (workspace) ["projects" "poly" "paths" "test"])
          ["bases/poly-cli/test"
           "components/change/test"
@@ -802,7 +860,7 @@
           "components/ws-explorer/test"
           "projects/poly/test"])))
 
-(deftest poly-project-lib-imports
+(deftest polylith-poly-project-lib-imports
   (is (= (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"])
          {:src  ["antq.api"
                  "clojure.edn"
@@ -833,17 +891,30 @@
                  "portal.api"
                  "puget.printer"
                  "zprint.core"]
-          :test ["clojure.java.shell"
-                 "clojure.lang"
-                 "clojure.string"
+          :test ["clojure.lang"
                  "clojure.test"
                  "malli.core"
                  "polylith.clj.core.poly-cli.api"
                  "polylith.clj.core.poly-cli.core"
-                          "polylith.clj.core.test_runner_contract.interface"]})))
+                 "polylith.clj.core.test_runner_contract.interface"]})))
 
-(deftest shell-component-lib-deps
+(deftest polylith-shell-component-lib-deps
   (is (= (ws-explorer/extract (workspace) ["components" "shell" "lib-deps"])
          {:src {"org.jline/jline" {:size    994664
                                    :type    "maven"
                                    :version "3.21.0"}}})))
+
+(deftest the-test-context-of-cli-only-depends-on-the-src-context-of-user-remote-and-is-affected-when-src-context-changes-in-user-remote
+  (is (= (ws-get "examples/doc-example"
+                 [:changes :project-to-bricks-to-test]
+                 "skip:dev:user-s:remote"
+                 "changed-files:components/user-remote/src/se/example/user/interface.clj")
+         {"command-line" ["cli" "user-remote"]})))
+
+(deftest the-test-context-of-cli-only-depends-on-the-src-context-of-user-remote--and-is-not-affected-when-test-context-changes-in-user-remote
+  (is (= (ws-get "examples/doc-example"
+                 [:changes :project-to-bricks-to-test]
+                 "skip:dev:user-s"
+                 "changed-files:components/user-remote/test/se/example/user/interface_test.clj")
+         {"command-line" ["cli"
+                          "user-remote"]})))

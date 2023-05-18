@@ -38,18 +38,18 @@
             (map-indexed #(project-cell %2 project-key column (+ %1 3) (set changed-projects) affected-projects color-mode)
                          projects))))
 
-(defn status-cell [index {:keys [name paths]} disk-paths projects-to-test is-show-resources]
+(defn source-cell [index {:keys [name paths]} disk-paths projects-to-test is-show-resources]
   (let [path-entries (extract/from-paths paths disk-paths)
         satus-flags (str (status/project-status-flags path-entries name is-show-resources)
                          (if (contains? projects-to-test name) "x" "-"))]
     (text-table/cell 5 (+ index 3) satus-flags :purple :center)))
 
-(defn status-column
+(defn source-column
   "The third '--x' column is marked if the project is marked to be tested from *any* project."
   [projects disk-paths {:keys [project-to-projects-to-test]} is-show-resources]
   (let [projects-to-test (set (mapcat second project-to-projects-to-test))]
-    (concat [(text-table/cell 5 "status")]
-            (map-indexed #(status-cell %1 %2 disk-paths projects-to-test is-show-resources)
+    (concat [(text-table/cell 5 "source")]
+            (map-indexed #(source-cell %1 %2 disk-paths projects-to-test is-show-resources)
                          projects))))
 
 (defn dev-cell [index {:keys [name]} path-entries projects-to-test is-show-resources]
@@ -88,13 +88,13 @@
         total-loc-test (apply + (filter identity (map #(-> % :lines-of-code :test) projects)))
         project-col (project-column projects changes "project" :name 1 color-mode)
         alias-col (project-column projects {} "alias" :alias 3 color-mode)
-        status-col (status-column projects paths changes is-show-resources)
+        source-col (source-column projects paths changes is-show-resources)
         dev-col (if (zero? n#dev) [] (dev-column projects changes is-show-resources))
         profile-cols (if (zero? n#dev) [] (profile-columns paths 9 projects profiles settings is-show-resources))
         loc-col (loc-columns is-show-loc projects n#profiles thousand-separator total-loc-src total-loc-test)
         space-columns (range 2 (* 2 (+ 3 n#dev n#profiles (if is-show-loc 2 0))) 2)
         header-spaces (text-table/spaces 1 space-columns (repeat "  "))
-        cells (text-table/merge-cells project-col alias-col status-col dev-col loc-col profile-cols header-spaces)
+        cells (text-table/merge-cells project-col alias-col source-col dev-col loc-col profile-cols header-spaces)
         section-cols (if (or is-show-loc (-> n#profiles zero? not)) [6 (+ 8 (* 2 n#profiles))] (if (zero? n#dev) [] [6]))
         line-spaces (text-table/spaces 2 section-cols (repeat "   "))
         line (text-table/line 2 cells)]

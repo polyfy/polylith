@@ -6,7 +6,7 @@
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]))
 
-(defn error-message [{:keys [namespace depends-on-interface depends-on-ns]} brick-name type interface-ns color-mode]
+(defn brick-error [{:keys [namespace depends-on-interface depends-on-ns]} brick-name type interface-ns color-mode]
   (when namespace
     (let [message (str "Illegal dependency on namespace " (color/namespc depends-on-interface depends-on-ns color-mode)
                        " in " (color/brick type brick-name color-mode) "." (color/namespc namespace color-mode)
@@ -23,13 +23,13 @@
     depends-on-ns))
 
 (defn brick-errors
-  "Checks for dependencies to component namespaces other than 'interface'
-   for the 'src' context."
+  "Checks for dependencies to component interface namespaces other than 'ifc' or 'interface'
+   (or what is specified in :interface-ns in workspace.edn) for the 'src' context."
   [suffixed-top-ns {:keys [name interface type namespaces]} interface-names interface-ns color-mode]
   (let [interface-name (:name interface)
         dependencies (deps/interface-ns-deps suffixed-top-ns interface-name interface-names (:src namespaces))]
     (mapcat #(brick-error % name type interface-ns color-mode)
-            (filterv #(not= interface-ns (get-namespace %))
+            (filterv #(not (common/interface-ns? (get-namespace %) interface-ns))
                      dependencies))))
 
 (defn import-ns [{:keys [namespace imports]}]

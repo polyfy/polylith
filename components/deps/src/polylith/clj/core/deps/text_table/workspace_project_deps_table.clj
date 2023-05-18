@@ -1,4 +1,4 @@
-(ns polylith.clj.core.deps.text-table.project-deps-table
+(ns polylith.clj.core.deps.text-table.workspace-project-deps-table
   (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.text-table.interface :as text-table]))
@@ -103,5 +103,5 @@
 (comment
   (require '[dev.jocke :as dev])
   (def workspace dev/workspace)
-  (print-table workspace "inv" false)
+  (print-table workspace "poly" false)
   #__)
