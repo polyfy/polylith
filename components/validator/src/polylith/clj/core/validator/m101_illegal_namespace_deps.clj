@@ -23,14 +23,15 @@
     depends-on-ns))
 
 (defn brick-errors
-  "Checks for dependencies to component namespaces other than 'interface'
-   for the 'src' context."
+  "Checks for dependencies to component interface namespaces other than 'ifc' or 'interface'
+   (or what is specified in :interface-ns in workspace.edn) for the 'src' context."
   [suffixed-top-ns {:keys [name interface type namespaces]} interface-names interface-ns color-mode]
   (let [interface-name (:name interface)
         dependencies (deps/interface-ns-deps suffixed-top-ns interface-name interface-names (:src namespaces))]
     (mapcat #(brick-error % name type interface-ns color-mode)
             (filterv #(not= interface-ns (get-namespace %))
                      dependencies))))
+
 
 (defn import-ns [{:keys [namespace imports]}]
   (map #(vec [% namespace]) imports))
@@ -43,8 +44,8 @@
         component-ns (:depends-on-ns (common/extract-namespace suffixed-top-ns namespace))
         {:keys [root-ns depends-on-ns]} (common/extract-namespace suffixed-top-ns illegal-import)
         message (str "Illegal dependency on namespace " (color/base root-ns color-mode) "." (color/namespc depends-on-ns color-mode)
-                   " in " (color/component component-name color-mode) "." (color/namespc component-ns color-mode)
-                   ". Components are not allowed to depend on bases.")]
+                     " in " (color/component component-name color-mode) "." (color/namespc component-ns color-mode)
+                     ". Components are not allowed to depend on bases.")]
     (util/ordered-map :type "error"
                       :code 101
                       :message (color/clean-colors message)

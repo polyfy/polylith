@@ -1,5 +1,6 @@
 (ns polylith.clj.core.workspace-clj.definitions
   (:require [clojure.string :as str]
+            [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.util.interface :as util]))
 
 (def ->generic-type {'def "data"
@@ -22,7 +23,7 @@
            (drop 1 statements)))
 
 (defn sub-namespace [namespace interface-ns]
-  (when (not= namespace interface-ns)
+  (when (not (common/interface-ns? namespace interface-ns))
     (str/join "." (drop 1 (str/split namespace #"\.")))))
 
 (defn parameter [name]

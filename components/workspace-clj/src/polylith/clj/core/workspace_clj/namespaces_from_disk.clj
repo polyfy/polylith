@@ -54,10 +54,12 @@
     (contains? #{:import :require} (first statement))))
 
 (defn interface-ns? [ns-name interface-ns]
-  (and
-    (-> ns-name nil? not)
-    (or (= interface-ns ns-name)
-        (str/starts-with? ns-name (str interface-ns ".")))))
+  (let [interface-nss (common/interface-nss interface-ns)]
+    (and
+      (-> ns-name nil? not)
+      (some #(or (= % ns-name)
+                 (str/starts-with? ns-name (str % ".")))
+            interface-nss))))
 
 (defn required-as? [x suffixed-top-ns interface-ns]
   (when (libspec? x)
