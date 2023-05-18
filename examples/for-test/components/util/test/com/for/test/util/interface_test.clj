@@ -3,4 +3,4 @@
             [com.for.test.util.ifc :as util]))
 
 (deftest successful-test
-  (is (= 1 1)))
+  (is (= util/abc 123)))

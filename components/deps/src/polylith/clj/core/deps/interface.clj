@@ -1,5 +1,6 @@
 (ns polylith.clj.core.deps.interface
-  (:require [polylith.clj.core.deps.interface-deps :as ifc-deps]
+  (:require [polylith.clj.core.deps.base-deps :as base-deps]
+            [polylith.clj.core.deps.interface-deps :as ifc-deps]
             [polylith.clj.core.deps.lib-deps :as lib-deps]
             [polylith.clj.core.deps.project-brick-deps :as project-brick-deps]
             [polylith.clj.core.deps.text-table.brick-deps-table :as brick-deps-table]
@@ -12,6 +13,9 @@
 
 (defn interface-deps [suffixed-top-ns interface-names brick]
   (ifc-deps/interface-deps suffixed-top-ns interface-names brick))
+
+(defn base-deps [bases base suffixed-top-ns]
+  (base-deps/base-deps bases base suffixed-top-ns))
 
 (defn project-deps [components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns bricks-to-test]
   (project-brick-deps/project-deps components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns bricks-to-test))

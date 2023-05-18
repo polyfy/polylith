@@ -3,21 +3,24 @@
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.text-table.interface :as text-table]))
 
-(defn brick-cell [row {:keys [name type]} color-mode]
+(defn first-cell [row {:keys [name type]} color-mode]
   (text-table/cell 1 row (color/brick type name color-mode) :none :left :horizontal))
 
-(defn brick-column [bricks color-mode]
+(defn first-column [bricks color-mode]
   (concat
     [(text-table/cell 1 1 "brick" :none :left :horizontal)]
-    (map-indexed #(brick-cell (+ %1 3) %2 color-mode)
+    (map-indexed #(first-cell (+ %1 3) %2 color-mode)
                  bricks)))
 
-(defn interface-cell [column row {:keys [type name]} brick-name deps empty-character]
+(defn brick? [type]
+  (contains? #{"base" "component"} type))
+
+(defn brick-cell [column row {:keys [type name]} brick-name deps empty-character]
   (let [value (cond
-                (and (= "component" type) (contains? (-> brick-name deps :src :direct set) name)) "x"
-                (and (= "component" type) (contains? (-> brick-name deps :test :direct set) name)) "t"
-                (and (= "component" type) (contains? (-> brick-name deps :src :indirect set) name)) "+"
-                (and (= "component" type) (contains? (-> brick-name deps :test :indirect set) name)) "-"
+                (and (brick? type) (contains? (-> brick-name deps :src :direct set) name)) "x"
+                (and (brick? type) (contains? (-> brick-name deps :test :direct set) name)) "t"
+                (and (brick? type) (contains? (-> brick-name deps :src :indirect set) name)) "+"
+                (and (brick? type) (contains? (-> brick-name deps :test :indirect set) name)) "-"
                 (and (= "interface" type) (contains? (-> brick-name deps :src :missing-ifc :direct set) name)) "x"
                 (and (= "interface" type) (contains? (-> brick-name deps :test :missing-ifc :direct set) name)) "t"
                 (and (= "interface" type) (contains? (-> brick-name deps :src :missing-ifc :indirect set) name)) "+"
@@ -26,34 +29,41 @@
     (text-table/cell column row value :none :center :horizontal)))
 
 (def type->color {"interface" :yellow
-                  "component" :green})
+                  "component" :green
+                  "base" :blue})
 
-(defn interface-column [column {:keys [type name] :as entity} brick-names deps empty-character]
+(defn brick-column [column {:keys [type name] :as entity} brick-names deps empty-character]
   (concat
     [(text-table/cell column 1 name (type->color type) :right :vertical)]
-    (map-indexed #(interface-cell column (+ %1 3) entity %2 deps empty-character)
+    (map-indexed #(brick-cell column (+ %1 3) entity %2 deps empty-character)
                  brick-names)))
 
-(defn entity-columns [entities brick-names deps empty-character]
-  (apply concat (map-indexed #(interface-column (+ (* %1 2) 3) %2 brick-names deps empty-character)
+(defn brick-columns [entities brick-names deps empty-character]
+  (apply concat (map-indexed #(brick-column (+ (* %1 2) 3) %2 brick-names deps empty-character)
                              entities)))
 
 (def sorter {"interface" 1
-             "component" 2})
+             "component" 2
+             "base" 3})
 
 (defn entity [name type]
   {:name name
    :type type})
 
-(defn source-brick-entity [{:keys [direct missing-ifc]}]
+(defn brick-type [brick-name all-base-names]
+  (if (contains? all-base-names brick-name)
+    "base"
+    "component"))
+
+(defn source-brick-entity [{:keys [direct missing-ifc]} all-base-names]
   (concat (map #(entity % "interface")
                (:direct missing-ifc))
-          (map #(entity % "component")
+          (map #(entity % (brick-type % all-base-names))
                direct)))
 
-(defn brick-entity-from-deps [[_ {:keys [src test]}]]
-  (concat (source-brick-entity src)
-          (source-brick-entity test)))
+(defn brick-entity-from-deps [[_ {:keys [src test]}] all-base-names]
+  (concat (source-brick-entity src all-base-names)
+          (source-brick-entity test all-base-names)))
 
 (defn brick-entity [{:keys [name type]}]
   {:name name
@@ -71,16 +81,17 @@
         bricks (filter #(contains? entity-names (:name %))
                        (concat components bases))
         brick-names (map :name bricks)
+        all-base-names (set (map :name bases))
         entities (sort-by (juxt #(-> % :type sorter) :name)
-                          (set (cond-> (mapcat brick-entity-from-deps deps)
+                          (set (cond-> (mapcat #(brick-entity-from-deps % all-base-names) deps)
                                        is-all (concat (map brick-entity components)))))
         compact? (common/compact? workspace "deps")
         space-columns (range 2 (* 2 (inc (count entities))) 2)
         spaces (conj (repeat (if compact? " " "  ")) "  ")
         header-spaces (text-table/spaces 1 space-columns spaces)
-        brick-col (brick-column bricks color-mode)
-        entity-cols (entity-columns entities brick-names deps empty-character)
-        cells (text-table/merge-cells brick-col entity-cols header-spaces)
+        first-col (first-column bricks color-mode)
+        brick-cols (brick-columns entities brick-names deps empty-character)
+        cells (text-table/merge-cells first-col brick-cols header-spaces)
         line (text-table/line 2 cells)]
     (text-table/table "  " color-mode cells line)))
 

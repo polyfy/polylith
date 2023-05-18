@@ -5,13 +5,13 @@
 (def major 0)
 (def minor 2)
 (def patch 18)
-(def revision "issue294-01")
+(def revision "issue293-02")
 (def name (str major "." minor "." patch
                (if (str/blank? revision)
                  ""
                  (str "-" revision))))
 
-(def date "2023-04-01")
+(def date "2023-04-04")
 
 (defn version
   ([ws-type]
@@ -37,6 +37,7 @@
 ;; -----  -------------   -------   ----------------------------------------------------------------------------------------------
 ;; 2.0    0.2.18          added     configs
 ;;                        added     ws-type
+;;                        added     bases:BASE:base-deps
 ;;                        added     entities:ENTITY:namespaces:source:0:is-ignored
 ;;                        added     entities:ENTITY:namespaces:source:0:is-invalid
 ;;                        changed   entities:ENTITY:namespaces:source:0:file-path       ws-dir is no longer part of the file path.

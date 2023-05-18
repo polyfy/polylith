@@ -1,6 +1,18 @@
 (ns polylith.clj.core.common.ns-extractor
   (:require [clojure.string :as str]))
 
+(defn entity-imports [{:keys [namespaces]} sources]
+  (mapcat #(mapcat :imports (% namespaces))
+          sources))
+
+(defn entity-namespaces [{:keys [namespaces]} sources]
+  (mapcat #(map :namespace (% namespaces))
+          sources))
+
+(defn entities-namespaces [entities sources]
+  (mapcat #(entity-namespaces % sources)
+          entities))
+
 (defn extract [suffixed-top-ns ns-to-extract]
   (when (str/starts-with? ns-to-extract suffixed-top-ns)
     (let [import (subs ns-to-extract (count suffixed-top-ns))

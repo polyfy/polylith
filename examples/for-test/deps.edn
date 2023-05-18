@@ -4,7 +4,10 @@
                                 "components/company/resources"
                                 "components/a-okay/src"
                                 "components/b-fail/src"
-                                "components/util/src"]
+                                "components/util/src"
+                                "bases/cli/src"
+                                "bases/helper/src"
+                                "bases/worker/src"]
 
                   :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}}}
 
@@ -13,6 +16,8 @@
                                  "components/a-okay/test"
                                  "components/b-fail/test"
                                  "components/util/test"
+                                 "bases/cli/test"
+                                 "bases/helper/test"
                                  "projects/failing-test/test"
                                  "projects/failing-test-teardown-fails/test"
                                  "projects/okay/test"
