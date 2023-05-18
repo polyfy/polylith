@@ -3,7 +3,7 @@
   projects: 3   interfaces: 31
   bases:    1   components: 31
 
-  project      alias  status   dev
+  project      alias  source   dev
   --------------------------   ---
   api          api     ---     ---
   poly         poly    -t-     -t-

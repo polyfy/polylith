@@ -9,4 +9,4 @@ example
 ├── readme.md
 └── workspace.edn
 
-5 directories, 4 files
+6 directories, 4 files

@@ -208,7 +208,7 @@
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
       :type "git",
       :version "d9ed4e4",
-      :size 136427}}}}
+      :size 136433}}}}
   {:lines-of-code {:src 0, :test 5},
    :interface {:definitions []},
    :namespaces
@@ -473,7 +473,7 @@
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
       :type "git",
       :version "d9ed4e4",
-      :size 136427}},
+      :size 136433}},
     :test
     {"migrate-me/migrate-me"
      {:local/root "../../migrate-me",
@@ -586,7 +586,7 @@
        :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
        :type "git",
        :version "d9ed4e4",
-       :size 136427},
+       :size 136433},
       "uncomplicate/neanderthal"
       {:version "0.41.0",
        :exclusions [org.jcuda/jcuda-natives org.jcuda/jcublas-natives],
@@ -609,7 +609,7 @@
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
       :type "git",
       :version "d9ed4e4",
-      :size 136427},
+      :size 136433},
      "uncomplicate/neanderthal"
      {:version "0.41.0",
       :exclusions [org.jcuda/jcuda-natives org.jcuda/jcublas-natives],
@@ -723,12 +723,12 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.18-issue293-01",
+  {:name "0.2.18-issue187-02",
    :major 0,
    :minor 2,
    :patch 18,
-   :revision "issue293-01",
-   :date "2023-04-02"},
+   :revision "issue187-02",
+   :date "2023-05-18"},
   :ws {:type :toolsdeps2, :breaking 2, :non-breaking 0}},
  :ws-dir "USER-HOME/source/polylith/examples/local-dep",
  :ws-local-dir "examples/local-dep",
