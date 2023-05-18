@@ -44,8 +44,7 @@
                                                           :lib-deps {"zprint" {:version "0.5.4" :type "maven" :size 0}}
                                                           :component-names ["admin"]
                                                           :base-names []
-                                                          :project-names []}}
-                           :ns-to-lib {"zprint" "zprint" "antlr" "antlr"}}
+                                                          :project-names []}}}
                 :projects [{:base-names {}
                             :is-dev false
                             :name "core"
@@ -100,7 +99,7 @@
                          :type "base"}]})
 
 (deftest table--show-brick-with-deps--returns-correct-table
-  (is (= (lib-table/table workspace false)
+  (is (= (lib-table/table workspace false false)
          ["                                                                                                                d   "
           "                                                                                                          a     a   "
           "                                                                                                          d     t   "
@@ -121,7 +120,7 @@
           "  zprint                                  0.5.4          maven      0    -     -     -      -       x     .  .  .  ."])))
 
 (deftest table--show-all-brick-deps--returns-correct-table
-  (is (= (lib-table/table workspace false)
+  (is (= (lib-table/table workspace false false)
          ["                                                                                                                d   "
           "                                                                                                          a     a   "
           "                                                                                                          d     t   "
@@ -142,7 +141,7 @@
           "  zprint                                  0.5.4          maven      0    -     -     -      -       x     .  .  .  ."])))
 
 (deftest table--show-source-dependencies
-  (is (= (lib-table/table data/workspace-01 false)
+  (is (= (lib-table/table data/workspace-01 false false)
          ["                                                                              t"
           "                                                                              e"
           "                                                                              s"
@@ -161,7 +160,7 @@
           "  org.clojure/tools.deps  0.16.1264  maven     46   x    x      -       -     ."])))
 
 (deftest table--show-test-dependencies-for-all-bricks
-  (is (= (lib-table/table data/workspace-01 true)
+  (is (= (lib-table/table data/workspace-01 true false)
          ["                                                                                 t   "
           "                                                                                 e   "
           "                                                                                 s   "

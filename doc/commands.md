@@ -29,7 +29,7 @@ poly help
 ```
 
 ```
-  Poly 0.2.18-issue187-01 (2023-03-30) - https://github.com/polyfy/polylith
+  Poly 0.2.18-issue294-01 (2023-04-01) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -41,7 +41,7 @@ poly help
     info [ARGS]                 Shows a workspace overview and checks if it's valid.
     libs [ARGS]                 Shows all libraries in the workspace.
     migrate                     Migrates the workspace to the latest format.
-    shell                       Starts an interactive shell.
+    shell [ARGS]                Starts an interactive shell.
     test [ARGS]                 Runs tests.
     version                     Shows current version of the tool.
     ws [get:X]                  Shows the workspace as data.
@@ -154,8 +154,11 @@ poly help
     poly libs
     poly libs :all
     poly libs :compact
+    poly libs :outdated
     poly migrate
     poly shell
+    poly shell :tap
+    poly shell :all
     poly test
     poly test :project
     poly test :all-bricks
@@ -718,12 +721,13 @@ poly help
 ```
   Shows all libraries that are used in the workspace.
 
-  poly libs [:all] [:compact]
-    :all     = View all bricks, including those without library dependencies.
-    :compact = Show the table in a more compact way.
-                                                                                      u  u
-                                                                                      s  t
-                                                                                      e  i
+  poly libs [:all] [:compact] [:outdated]
+    :all      = View all bricks, including those without library dependencies.
+    :compact  = Show the table in a more compact way.
+    :outdated = Show the latest version of each library, or blank if up to date.
+                                                                                 u  u
+                                                                                 s  t
+                                                                                 e  i
     library                 version    type      KB   cl   dev  default  admin   r  l
     -----------------------------------------------   --   -------------------   ----
     antlr/antlr             2.7.7      maven    434   x     x      -       -     .  x
@@ -790,12 +794,12 @@ poly help
 
 ### shell
 ```
-  poly [shell] [:tap]
+  poly [shell] [:tap] [:all]
 
   Starts an interactive shell with the name of the selected workspace, e.g.:
     myworkspace$>
 
-  If :tap is passed in, a portal window that outputs tap> statements is opened.
+  If :tap is passed in, a Portal window that outputs tap> statements is opened.
 
   From here we can execute any poly command, e.g.:
     myworkspace$> info
@@ -814,6 +818,9 @@ poly help
   Parameters that start with a : can be selected by just typing their name,
   e.g. 'l' will select ':loc'. To distinguish between 'project:PROJECT' and
   ':project' we need to type ':p' to select ':project'.
+
+  If :all is passed in, show all options, including rarely used ones and those that
+  are only useful for maintainers of the poly tool itself.
 
   From the shell we also have access to these commands:
     switch-ws ARG  Switches to selected workspace.

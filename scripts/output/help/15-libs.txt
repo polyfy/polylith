@@ -1,11 +1,12 @@
   Shows all libraries that are used in the workspace.
 
-  poly libs [:all] [:compact]
-    :all     = View all bricks, including those without library dependencies.
-    :compact = Show the table in a more compact way.
-                                                                                      u  u
-                                                                                      s  t
-                                                                                      e  i
+  poly libs [:all] [:compact] [:outdated]
+    :all      = View all bricks, including those without library dependencies.
+    :compact  = Show the table in a more compact way.
+    :outdated = Show the latest version of each library, or blank if up to date.
+                                                                                 u  u
+                                                                                 s  t
+                                                                                 e  i
     library                 version    type      KB   cl   dev  default  admin   r  l
     -----------------------------------------------   --   -------------------   ----
     antlr/antlr             2.7.7      maven    434   x     x      -       -     .  x

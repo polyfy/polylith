@@ -1,9 +1,9 @@
-  poly [shell] [:tap]
+  poly [shell] [:tap] [:all]
 
   Starts an interactive shell with the name of the selected workspace, e.g.:
     myworkspace$>
 
-  If :tap is passed in, a portal window that outputs tap> statements is opened.
+  If :tap is passed in, a Portal window that outputs tap> statements is opened.
 
   From here we can execute any poly command, e.g.:
     myworkspace$> info
@@ -22,6 +22,9 @@
   Parameters that start with a : can be selected by just typing their name,
   e.g. 'l' will select ':loc'. To distinguish between 'project:PROJECT' and
   ':project' we need to type ':p' to select ':project'.
+
+  If :all is passed in, show all options, including rarely used ones and those that
+  are only useful for maintainers of the poly tool itself.
 
   From the shell we also have access to these commands:
     switch-ws ARG  Switches to selected workspace.

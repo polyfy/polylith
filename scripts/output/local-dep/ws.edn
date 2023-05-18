@@ -707,6 +707,7 @@
   :selected-projects #{},
   :is-no-changes false,
   :is-search-for-ws-dir false,
+  :is-outdated false,
   :out "USER-HOME/source/polylith/scripts/output/local-dep/ws.edn",
   :is-show-brick false,
   :is-show-resources false,
@@ -721,12 +722,12 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.18-issue259-08",
+  {:name "0.2.18-issue294-01",
    :major 0,
    :minor 2,
    :patch 18,
-   :revision "issue259-08",
-   :date "2023-03-26"},
+   :revision "issue294-01",
+   :date "2023-04-01"},
   :ws {:type :toolsdeps2, :breaking 2, :non-breaking 0}},
  :ws-dir "USER-HOME/source/polylith/examples/local-dep",
  :ws-local-dir "examples/local-dep",

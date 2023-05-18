@@ -1,4 +1,5 @@
-{:deps {poly/api                  {:local/root "../../components/api"}
+{:deps {poly/antq                 {:local/root "../../components/antq"}
+        poly/api                  {:local/root "../../components/api"}
         poly/change               {:local/root "../../components/change"}
         poly/common               {:local/root "../../components/common"}
         poly/config-reader        {:local/root "../../components/config-reader"}

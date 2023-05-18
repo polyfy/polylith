@@ -27,7 +27,7 @@
     "    info [" (s/key "ARGS" cm) "]                 Shows a workspace overview and checks if it's valid.\n"
     "    libs [" (s/key "ARGS" cm) "]                 Shows all libraries in the workspace.\n"
     (migrate show-migrate?)
-    "    shell                       Starts an interactive shell.\n"
+    "    shell [" (s/key "ARGS" cm) "]                Starts an interactive shell.\n"
     "    test [" (s/key "ARGS" cm) "]                 Runs tests.\n"
     "    version                     Shows current version of the tool.\n"
     "    ws [get:" (s/key "X" cm) "]                  Shows the workspace as data.\n"
@@ -140,8 +140,11 @@
     "    poly libs\n"
     "    poly libs :all\n"
     "    poly libs :compact\n"
+    "    poly libs :outdated\n"
     (migrate-command show-migrate?)
     "    poly shell\n"
+    "    poly shell :tap\n"
+    "    poly shell :all\n"
     "    poly test\n"
     "    poly test :project\n"
     "    poly test :all-bricks\n"
