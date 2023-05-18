@@ -29,7 +29,7 @@ poly help
 ```
 
 ```
-  Poly 0.2.18-issue293-01 (2023-04-02) - https://github.com/polyfy/polylith
+  Poly 0.2.18-issue187-02 (2023-05-18) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
