@@ -21,10 +21,10 @@
                 (and (brick? type) (contains? (-> brick-name deps :test :direct set) name)) "t"
                 (and (brick? type) (contains? (-> brick-name deps :src :indirect set) name)) "+"
                 (and (brick? type) (contains? (-> brick-name deps :test :indirect set) name)) "-"
-                (and (= "interface" type) (contains? (-> brick-name deps :src :missing-ifc :direct set) name)) "x"
-                (and (= "interface" type) (contains? (-> brick-name deps :test :missing-ifc :direct set) name)) "t"
-                (and (= "interface" type) (contains? (-> brick-name deps :src :missing-ifc :indirect set) name)) "+"
-                (and (= "interface" type) (contains? (-> brick-name deps :test :missing-ifc :indirect set) name)) "-"
+                (and (= "interface" type) (contains? (-> brick-name deps :src :missing-ifc-and-bases :direct set) name)) "x"
+                (and (= "interface" type) (contains? (-> brick-name deps :test :missing-ifc-and-bases :direct set) name)) "t"
+                (and (= "interface" type) (contains? (-> brick-name deps :src :missing-ifc-and-bases :indirect set) name)) "+"
+                (and (= "interface" type) (contains? (-> brick-name deps :test :missing-ifc-and-bases :indirect set) name)) "-"
                 :else empty-character)]
     (text-table/cell column row value :none :center :horizontal)))
 
@@ -55,9 +55,9 @@
     "base"
     "component"))
 
-(defn source-brick-entity [{:keys [direct missing-ifc]} all-base-names]
+(defn source-brick-entity [{:keys [direct missing-ifc-and-bases]} all-base-names]
   (concat (map #(entity % "interface")
-               (:direct missing-ifc))
+               (:direct missing-ifc-and-bases))
           (map #(entity % (brick-type % all-base-names))
                direct)))
 

@@ -153,16 +153,16 @@
         direct-and-indirect (set (flatten paths))
         all-direct (set/intersection interface-and-base-names (set (filter identity (map first-brick paths))))
         direct (set/intersection all-direct interface-and-base-names-in-project)
-        missing-ifc (set/difference all-direct interface-and-base-names-in-project)
+        missing-ifc-and-bases (set/difference all-direct interface-and-base-names-in-project)
         all-indirect (set/difference direct-and-indirect all-direct)
         indirect (set/intersection all-indirect interface-and-base-names-in-project)
-        indirect-missing-ifc (set/difference indirect all-indirect)
-        has-missing-ifc? (or (seq missing-ifc) (seq indirect-missing-ifc))]
+        indirect-missing-ifc-and-bases (set/difference indirect all-indirect)
+        has-missing-ifc-and-bases? (or (seq missing-ifc-and-bases) (seq indirect-missing-ifc-and-bases))]
     (cond-> {}
             (seq direct) (assoc :direct (vec (sort (component-deps direct ifc->comp))))
             (seq indirect) (assoc :indirect (vec (sort (component-deps indirect ifc->comp))))
-            has-missing-ifc? (assoc :missing-ifc {:direct (-> missing-ifc sort vec)
-                                                  :indirect (-> indirect-missing-ifc sort vec)})
+            has-missing-ifc-and-bases? (assoc :missing-ifc-and-bases {:direct (-> missing-ifc-and-bases sort vec)
+                                                                      :indirect (-> indirect-missing-ifc-and-bases sort vec)})
             (seq circular) (assoc :circular (vec (component-deps circular ifc->comp))))))
 
 (defn include-test?

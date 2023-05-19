@@ -33,14 +33,15 @@
 
 ;; ====== Workspace attributes (ws) ======
 ;;
-;; ws     release         action    attribute                                           Description
+;; ws     release         action    attribute                                                  Description
 ;; -----  -------------   -------   ----------------------------------------------------------------------------------------------
 ;; 2.0    0.2.18          added     configs
 ;;                        added     ws-type
 ;;                        added     bases:BASE:base-deps
 ;;                        added     entities:ENTITY:namespaces:source:0:is-ignored
 ;;                        added     entities:ENTITY:namespaces:source:0:is-invalid
-;;                        changed   entities:ENTITY:namespaces:source:0:file-path       ws-dir is no longer part of the file path.
+;;                        changed   entities:ENTITY:namespaces:source:0:file-path              The ws-dir part is removed from the file path.
+;;                        added     projects:PROJECT:deps:BRICK:source:missing-ifc-and-bases   Renamed from missing-ifc.
 ;; 1.2    0.2.16-alpha    added     entities:ENTITY:namespaces:src:0:invalid
 ;; 1.1    0.2.14-alpha    added     settings:vcs:is-git-repo
 ;;                        deleted   projects:PROJECT:is-run-tests
