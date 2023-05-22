@@ -5,13 +5,13 @@
 (def major 0)
 (def minor 2)
 (def patch 18)
-(def revision "issue187-02")
+(def revision "issue187-03")
 (def name (str major "." minor "." patch
                (if (str/blank? revision)
                  ""
                  (str "-" revision))))
 
-(def date "2023-05-18")
+(def date "2023-05-22")
 
 (defn version
   ([]
@@ -23,6 +23,8 @@
                       :patch patch
                       :revision revision
                       :date date}
+            :test-runner-api {:breaking 1
+                              :non-breaking 0}
             :ws {:type :toolsdeps2
                  :breaking 2
                  :non-breaking 0}}

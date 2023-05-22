@@ -1,1 +1,2 @@
-(ns com.for.test.util.ifc)
+(ns com.for.test.util.ifc
+  (:require [com.for.test.exclude-me.interface :as exclude-me]))

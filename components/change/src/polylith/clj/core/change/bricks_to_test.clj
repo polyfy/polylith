@@ -1,6 +1,17 @@
 (ns polylith.clj.core.change.bricks-to-test
   (:require [clojure.set :as set]))
 
+(defn include-and-exclude-bricks
+  "If the :test key is given for a project in workspace.edn, then only include and/or exclude
+   the specified bricks, otherwise, run tests for all bricks that have tests."
+  [brick-name all-brick-names settings]
+  (let [included (if-let [bricks (get-in settings [:projects brick-name :test :include])]
+                   (set/intersection all-brick-names (set bricks))
+                   all-brick-names)]
+    (if-let [bricks (get-in settings [:projects brick-name :test :exclude])]
+      (set/difference included (set bricks))
+      included)))
+
 (defn bricks-to-test-for-project [{:keys [is-dev alias name base-names component-names]}
                                   settings
                                   changed-projects
@@ -18,11 +29,7 @@
                                       is-dev-user-input)))
         project-has-changed? (contains? (set changed-projects) name)
         all-brick-names (into #{} (mapcat :test) [base-names component-names])
-        ;; If the :test key is given for a project in workspace.edn, then only include
-        ;; the specified bricks, otherwise, run tests for all bricks that have tests.
-        included-bricks (if-let [bricks (get-in settings [:projects name :test :include])]
-                          (set/intersection all-brick-names (set bricks))
-                          all-brick-names)
+        included-bricks (include-and-exclude-bricks name all-brick-names settings)
         selected-bricks (if selected-bricks
                           (set selected-bricks)
                           all-brick-names)

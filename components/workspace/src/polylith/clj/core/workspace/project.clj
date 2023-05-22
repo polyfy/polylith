@@ -48,7 +48,6 @@
                            (seq base-names-src) (assoc :src base-names-src)
                            (seq base-names-test) (assoc :test base-names-test))
         all-brick-names (concat component-names-src base-names-src component-names-test base-names-test)
-        ;; todo: maybe we can remove the 'bricks-to-test' check from here, because the tests are eliminated in 'workspace-clj' already.
         bricks-to-test (when-let [bricks (get-in settings [:projects name :test :include])] (set bricks))
         deps (proj-deps/project-deps components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns bricks-to-test)
 
