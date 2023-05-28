@@ -47,9 +47,16 @@ Running test setup for the teardown-fails project: project.teardown-fails.test-s
 Test setup for project: teardown-fails
 
 Running tests for the teardown-fails project using test runner: Polylith built-in clojure.test runner...
-Running tests from the teardown-fails project, including 2 bricks and 1 project: a-okay, util, teardown-fails
+Running tests from the teardown-fails project, including 3 bricks and 1 project: a-okay, exclude-me, util, teardown-fails
 
 Testing com.for.test.a-okay.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing com.for.test.exclude-me.interface-test
 
 Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.

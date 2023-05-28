@@ -4,7 +4,7 @@ Running test setup for the failing-test-teardown-fails project: project.failing-
 Test setup for project: failing-test-teardown-fails
 
 Running tests for the failing-test-teardown-fails project using test runner: Polylith built-in clojure.test runner...
-Running tests from the failing-test-teardown-fails project, including 3 bricks and 1 project: a-okay, b-fail, util, failing-test-teardown-fails
+Running tests from the failing-test-teardown-fails project, including 4 bricks and 1 project: a-okay, b-fail, exclude-me, util, failing-test-teardown-fails
 
 Testing com.for.test.a-okay.interface-test
 

@@ -24,7 +24,7 @@
        "    poly deps\n"
        "    poly deps brick:mybrick\n"
        "    poly deps project:myproject\n"
-       "    poly deps project:myproject brick:mybrick\n"))
+       "    poly deps project:myproject brick:mybrick"))
 
 (defn print-help [is-show-project is-show-brick is-show-workspace color-mode]
   (cond
