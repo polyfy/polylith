@@ -15,6 +15,7 @@
             [polylith.clj.core.shell.interface :as shell]
             [polylith.clj.core.tap.interface :as tap]
             [polylith.clj.core.util.interface.color :as color]
+            [polylith.clj.core.util.interface.time :as time-util]
             [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.version.interface :as ver]
             [polylith.clj.core.workspace-clj.interface :as ws-clj]
@@ -50,10 +51,10 @@
   ([ws-file user-input]
    (if ws-file
      (ws-file/read-ws-from-file ws-file user-input)
-     (-> user-input
-         ws-clj/workspace-from-disk
-         ws/enrich-workspace
-         change/with-changes))))
+     (time-util/tap-seconds "#read-workspace" (-> user-input
+                                                  ws-clj/workspace-from-disk
+                                                  ws/enrich-workspace
+                                                  change/with-changes)))))
 
 (defn workspace-reader-fn []
   (fn [user-input ws-file]

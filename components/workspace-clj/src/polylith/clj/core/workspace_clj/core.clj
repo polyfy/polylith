@@ -8,6 +8,7 @@
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.user-config.interface :as user-config]
             [polylith.clj.core.version.interface :as version]
+            [polylith.clj.core.util.interface.time :as time-util]
             [polylith.clj.core.path-finder.interface :as path-finder]
             [polylith.clj.core.workspace-clj.ws-config :as ws-config]
             [polylith.clj.core.workspace-clj.profile :as profile]
@@ -109,13 +110,13 @@
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
         brick->settings (ignore-files-settings/convert bricks)
         [component-configs component-errors] (config-reader/read-brick-config-files ws-dir ws-type "components")
-        components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns component-configs brick->settings)
+        components (time-util/tap-seconds "#read-components" (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns component-configs brick->settings))
         [base-configs base-errors] (config-reader/read-brick-config-files ws-dir ws-type "bases")
-        bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns base-configs brick->settings)
+        bases (time-util/tap-seconds "#read-bases" (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns base-configs brick->settings))
         name->brick (into {} (comp cat (map (juxt :name identity))) [components bases])
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         [project-configs project-errors] (config-reader/read-project-config-files ws-dir ws-type)
-        projects (projects-from-disk/read-projects ws-dir name->brick project->settings user-input user-home suffixed-top-ns interface-ns project-configs)
+        projects (time-util/tap-seconds "#read-projects" (projects-from-disk/read-projects ws-dir name->brick project->settings user-input user-home suffixed-top-ns interface-ns project-configs))
         profile-to-settings (profile/profile-to-settings ws-dir aliases name->brick user-home)
         ws-local-dir (->ws-local-dir ws-dir)
         paths (path-finder/paths ws-dir projects profile-to-settings)
