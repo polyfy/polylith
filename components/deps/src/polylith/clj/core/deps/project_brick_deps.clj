@@ -1,5 +1,6 @@
 (ns polylith.clj.core.deps.project-brick-deps
   (:require [clojure.set :as set]
+            [clojure.string :as str]
             [polylith.clj.core.common.interface :as common]))
 
 (defn update-deps! [next-brick-id [brick-id & path :as full-path] visited brick-id->deps]
@@ -97,10 +98,16 @@
   (or (nil? bricks-to-test)
       (contains? bricks-to-test name)))
 
+(defn drop-prefix [brick-id]
+  (first (str/split brick-id #" ")))
+
+(defn drop-prefixes [brick-ids]
+  (set (map drop-prefix brick-ids)))
+
 (defn enhance-deps [brick-id brick-id->brick-ids brick-id->deps ifc->comp interface-and-base-names interface-and-base-names-in-project]
   (let [{:keys [indirect circular]} (@brick-id->deps brick-id)
-        all-direct (set/intersection (set (brick-id->brick-ids brick-id)) interface-and-base-names)
-        all-indirect (set/intersection indirect interface-and-base-names)
+        all-direct (set/intersection (-> brick-id brick-id->brick-ids drop-prefixes) interface-and-base-names)
+        all-indirect (set/intersection (drop-prefixes indirect) interface-and-base-names)
         direct (set/intersection all-direct interface-and-base-names-in-project)
         indirect (set/difference (set/intersection all-indirect interface-and-base-names-in-project) direct)
         missing-direct (set/difference all-direct interface-and-base-names-in-project)

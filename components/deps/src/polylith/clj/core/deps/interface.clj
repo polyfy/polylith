@@ -4,9 +4,9 @@
             [polylith.clj.core.deps.lib-deps :as lib-deps]
             [polylith.clj.core.deps.project-brick-deps :as project-brick-deps]
             [polylith.clj.core.deps.text-table.brick-deps-table :as brick-deps-table]
-            [polylith.clj.core.deps.text-table.project-brick-deps-table :as project-brick-deps-table]
+            [polylith.clj.core.deps.text-table.brick-project-deps-table :as brick-project-deps-table]
             [polylith.clj.core.deps.text-table.workspace-deps-table :as workspace-deps-table]
-            [polylith.clj.core.deps.text-table.project-deps-table :as project-deps-table]))
+            [polylith.clj.core.deps.text-table.workspace-project-deps-table :as workspace-project-deps-table]))
 
 (defn interface-ns-deps [suffixed-top-ns interface-name interface-names brick-namespaces]
   (ifc-deps/interface-ns-deps suffixed-top-ns interface-name interface-names brick-namespaces))
@@ -20,8 +20,8 @@
 (defn project-deps [components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns bricks-to-test]
   (project-brick-deps/project-deps components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns bricks-to-test))
 
-(defn print-project-brick-table [workspace project-name brick-name]
-  (project-brick-deps-table/print-table workspace project-name brick-name))
+(defn print-brick-project-table [workspace project-name brick-name]
+  (brick-project-deps-table/print-table workspace project-name brick-name))
 
 (defn print-brick-table [workspace brick-name]
   (brick-deps-table/print-table workspace brick-name))
@@ -29,8 +29,8 @@
 (defn print-workspace-table [workspace]
   (workspace-deps-table/print-table workspace))
 
-(defn print-project-table [workspace project-name is-all]
-  (project-deps-table/print-table workspace project-name is-all))
+(defn print-workspace-project-table [workspace project-name is-all]
+  (workspace-project-deps-table/print-table workspace project-name is-all))
 
 (defn convert-dep-to-symbol [dep]
   (lib-deps/convert-dep-to-symbol dep))

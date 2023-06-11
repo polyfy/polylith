@@ -63,20 +63,20 @@
 (defn diff
   "ws-local-dir is the name of the workspace if it lives within a git repo,
    otherwise nil. If :no-changes is passed in, return an empty vector."
-  [ws-dir ws-local-dir is-no-changes sha1 sha2]
-  (if is-no-changes
-    []
-    (let [{:keys [exit out err]} (apply sh/execute-with-return (concat (diff-command-parts sha1 sha2) [:dir ws-dir]))
-          prefix (if ws-local-dir
-                   (str ws-local-dir "/")
-                   "")]
-      (if (zero? exit)
-        (mapv #(remove-prefix % prefix)
-              (filter #(keep-path? % prefix)
-                      (str/split-lines out)))
-        (do
-          (println err)
-          [])))))
+  [ws-dir ws-local-dir is-no-changes changed-files sha1 sha2]
+  (cond (seq changed-files) changed-files
+        is-no-changes []
+        :else (let [{:keys [exit out err]} (apply sh/execute-with-return (concat (diff-command-parts sha1 sha2) [:dir ws-dir]))
+                    prefix (if ws-local-dir
+                             (str ws-local-dir "/")
+                             "")]
+                (if (zero? exit)
+                  (mapv #(remove-prefix % prefix)
+                        (filter #(keep-path? % prefix)
+                                (str/split-lines out)))
+                  (do
+                    (println err)
+                    [])))))
 
 (defn first-committed-sha [ws-dir]
   (last (str/split-lines (sh/execute "git" "log" "--format=%H" :dir ws-dir))))

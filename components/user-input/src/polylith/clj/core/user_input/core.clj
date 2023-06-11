@@ -34,12 +34,19 @@
   {:cmd (first args)
    :params (-> args rest vec)})
 
+(defn as-vector [parameter]
+  (when parameter
+    (if (vector? parameter)
+      parameter
+      [parameter])))
+
 (defn extract-params [args single-arg-commands]
   (let [{:keys [cmd params]} (extract args)
         {:keys [named-args unnamed-args]} (params/extract params single-arg-commands)
         {:keys [brick
                 branch
                 color-mode
+                changed-files
                 dir
                 file
                 project
@@ -77,6 +84,7 @@
                       :get get
                       :branch branch
                       :color-mode color-mode
+                      :changed-files (as-vector changed-files)
                       :dir dir
                       :file file
                       :fake-sha fake-sha
@@ -107,11 +115,11 @@
                       :out out
                       :replace (replace-from-to replace)
                       :since since
-                      :skip (when skip (if (vector? skip) skip [skip]))
+                      :skip (as-vector skip)
                       :top-ns top-ns
                       :ws-dir ws-dir
                       :ws-file ws-file
-                      :selected-bricks (when brick (if (vector? brick) brick [brick]))
+                      :selected-bricks (as-vector brick)
                       :selected-profiles (selected-profiles unnamed-args)
                       :selected-projects (selected-projects project)
                       :unnamed-args (vec unnamed-args))))

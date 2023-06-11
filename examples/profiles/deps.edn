@@ -1,0 +1,22 @@
+{:aliases  {:dev {:extra-paths ["development/src"
+                                "components/calculator1/src"
+                                "components/database1/src"
+                                "components/util1/src"
+                                "bases/base1/src"
+                                "bases/base2/src"]
+                  :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}
+                               metosin/malli {:mvn/version "0.11.1"}}}
+
+            :+default {:extra-paths ["components/user1/src"
+                                     "components/user1/test"]
+                       :extra-deps {clj-commons/fs {:mvn/version "1.6.310"}}}
+            :+extra {:extra-paths ["components/admin/src"
+                                   "components/admin/test"]
+                     :extra-deps {}}
+
+            :test {:extra-paths ["components/database1/test"
+                                 "components/test-helper1/src"
+                                 "components/test-helper1/test"
+                                 "components/util1/test"
+                                 "bases/base1/test"
+                                 "bases/base2/test"]}}}

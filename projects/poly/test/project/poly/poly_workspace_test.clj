@@ -1,10 +1,12 @@
 (ns project.poly.poly-workspace-test
-  (:require [clojure.test :refer :all]
+  (:require [clojure.string :as str]
+            [clojure.test :refer :all]
             [polylith.clj.core.change.interface :as change]
+            [polylith.clj.core.command.interface :as command]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.deps.text-table.brick-deps-table :as brick-ifc-deps]
-            [polylith.clj.core.deps.text-table.project-brick-deps-table :as brick-deps-table]
-            [polylith.clj.core.deps.text-table.project-deps-table :as ws-project-deps-table]
+            [polylith.clj.core.deps.text-table.brick-project-deps-table :as brick-deps-table]
+            [polylith.clj.core.deps.text-table.workspace-project-deps-table :as ws-project-deps-table]
             [polylith.clj.core.deps.text-table.workspace-deps-table :as ws-ifc-deps-table]
             [polylith.clj.core.lib.text-table.lib-table :as libs]
             [polylith.clj.core.user-input.interface :as user-input]
@@ -20,7 +22,20 @@
       ws/enrich-workspace
       change/with-changes))
 
-(deftest project-table
+(defn run-cmd [ws-dir cmd & args]
+  (let [input (user-input/extract-params (concat [cmd] args [(str "ws-dir:" ws-dir) "fake-sha:1234567" "color-mode:none"]))]
+    (str/split-lines
+      (with-out-str
+        (-> input command/execute-command)))))
+
+(defn ws-get [ws-dir ws-param & args]
+  (let [workspace (-> (user-input/extract-params (concat ["version" (str "ws-dir:" ws-dir) "color-mode:none"] args))
+                      ws-clj/workspace-from-disk
+                      ws/enrich-workspace
+                      change/with-changes)]
+    (get-in workspace ws-param)))
+
+(deftest polylith-project-table
   (is (= (project-table/table (workspace) false false)
          ["  project        alias  status   dev"
           "  ----------------------------   ---"
@@ -28,7 +43,7 @@
           "  poly *         poly    -t-     -t-"
           "  development *  dev     s--     s--"])))
 
-(deftest info
+(deftest polylith-info
   (is (= (ws-table/table (workspace) false false)
          ["  interface                 brick                        api  poly   dev"
           "  ----------------------------------------------------   ---------   ---"
@@ -65,7 +80,7 @@
           "  ws-file                   ws-file *                    ---  s--    s--"
           "  -                         poly-cli *                   ---  stx    st-"])))
 
-(deftest libs
+(deftest polylith-libs
   (is (= (libs/table (workspace) false false)
          ["                                                                                                     w   "
           "                                                                                                     o   "
@@ -81,115 +96,115 @@
           "                                                                                t  p  l  o  l  a  o  l  e"
           "  library                           version    type      KB   api  poly   dev   q  s  e  r  l  p  r  j  r"
           "  ---------------------------------------------------------   ---------   ---   -------------------------"
-          "  borkdude/edamame                  1.3.20     maven     24    x    x      x    .  .  x  .  .  .  .  .  ."
+          "  borkdude/edamame                  1.3.22     maven     24    x    x      x    .  .  x  .  .  .  .  .  ."
           "  clj-commons/fs                    1.6.310    maven     12    x    x      x    .  .  x  .  .  .  .  .  ."
-          "  com.github.liquidz/antq           2.3.1043   maven     48    x    x      x    x  .  .  .  .  .  .  .  ."
-          "  djblue/portal                     0.38.2     maven  1,820    -    x      x    .  .  .  .  .  x  .  .  ."
+          "  com.github.liquidz/antq           2.4.1070   maven     48    x    x      x    x  .  .  .  .  .  .  .  ."
+          "  djblue/portal                     0.42.0     maven  1,809    -    x      x    .  .  .  .  .  x  .  .  ."
           "  io.github.seancorfield/build-clj  9c9f078    git       42    -    -      x    .  .  .  .  .  .  .  .  ."
-          "  metosin/malli                     0.10.4     maven     85    x    x      x    .  .  .  .  .  .  x  .  ."
+          "  metosin/malli                     0.11.0     maven     85    x    x      x    .  .  .  .  .  .  x  .  ."
           "  mount/mount                       0.1.17     maven      8    -    -      x    .  .  .  .  .  .  .  .  ."
           "  mvxcvi/puget                      1.3.4      maven     15    x    x      x    .  .  .  .  .  .  .  .  x"
           "  org.clojure/clojure               1.11.1     maven  4,008    x    x      x    .  .  .  .  .  .  .  .  ."
-          "  org.clojure/tools.deps            0.18.1335  maven     58    x    x      x    .  x  x  .  .  .  .  x  ."
+          "  org.clojure/tools.deps            0.18.1354  maven     58    x    x      x    .  x  x  .  .  .  .  x  ."
           "  org.jline/jline                   3.21.0     maven    971    -    x      x    .  .  .  .  x  .  .  .  ."
           "  org.slf4j/slf4j-nop               2.0.7      maven      4    -    x      x    .  .  .  .  .  .  .  .  ."
           "  rewrite-clj/rewrite-clj           1.1.47     maven     73    -    -      x    .  .  .  .  .  .  .  .  ."
           "  slipset/deps-deploy               0.2.1      maven      7    -    -      x    .  .  .  .  .  .  .  .  ."
-          "  zprint/zprint                     1.2.5      maven    195    -    x      x    .  .  .  x  .  .  .  .  ."])))
+          "  zprint/zprint                     1.2.7      maven    210    -    x      x    .  .  .  x  .  .  .  .  ."])))
 
-(deftest libs-outdated
+(deftest polylith-libs-outdated
   (is (= (libs/table (workspace) false true)
-         ["                                                                                                                w   "
-          "                                                                                                                o   "
-          "                                                                                                                r  w"
-          "                                                                                                                k  s"
-          "                                                                                                             v  s  -"
-          "                                                                                                    m        a  p  e"
-          "                                                                                                    i        l  a  x"
-          "                                                                                                    g        i  c  p"
-          "                                                                                                    r  s     d  e  l"
-          "                                                                                           a  d  f  a  h     a  -  o"
-          "                                                                                           n  e  i  t  e  t  t  c  r"
-          "                                                                                           t  p  l  o  l  a  o  l  e"
-          "  library                           version    latest     type      KB   api  poly   dev   q  s  e  r  l  p  r  j  r"
-          "  --------------------------------------------------------------------   ---------   ---   -------------------------"
-          "  borkdude/edamame                  1.3.20     1.3.22     maven     24    x    x      x    .  .  x  .  .  .  .  .  ."
-          "  clj-commons/fs                    1.6.310               maven     12    x    x      x    .  .  x  .  .  .  .  .  ."
-          "  com.github.liquidz/antq           2.3.1043   2.4.1070   maven     48    x    x      x    x  .  .  .  .  .  .  .  ."
-          "  djblue/portal                     0.38.2     0.42.0     maven  1,820    -    x      x    .  .  .  .  .  x  .  .  ."
-          "  io.github.seancorfield/build-clj  9c9f078               git       42    -    -      x    .  .  .  .  .  .  .  .  ."
-          "  metosin/malli                     0.10.4     0.11.0     maven     85    x    x      x    .  .  .  .  .  .  x  .  ."
-          "  mount/mount                       0.1.17                maven      8    -    -      x    .  .  .  .  .  .  .  .  ."
-          "  mvxcvi/puget                      1.3.4                 maven     15    x    x      x    .  .  .  .  .  .  .  .  x"
-          "  org.clojure/clojure               1.11.1                maven  4,008    x    x      x    .  .  .  .  .  .  .  .  ."
-          "  org.clojure/tools.deps            0.18.1335  0.18.1354  maven     58    x    x      x    .  x  x  .  .  .  .  x  ."
-          "  org.jline/jline                   3.21.0     3.23.0     maven    971    -    x      x    .  .  .  .  x  .  .  .  ."
-          "  org.slf4j/slf4j-nop               2.0.7                 maven      4    -    x      x    .  .  .  .  .  .  .  .  ."
-          "  rewrite-clj/rewrite-clj           1.1.47                maven     73    -    -      x    .  .  .  .  .  .  .  .  ."
-          "  slipset/deps-deploy               0.2.1                 maven      7    -    -      x    .  .  .  .  .  .  .  .  ."
-          "  zprint/zprint                     1.2.5      1.2.7      maven    195    -    x      x    .  .  .  x  .  .  .  .  ."])))
+         ["                                                                                                             w   "
+          "                                                                                                             o   "
+          "                                                                                                             r  w"
+          "                                                                                                             k  s"
+          "                                                                                                          v  s  -"
+          "                                                                                                 m        a  p  e"
+          "                                                                                                 i        l  a  x"
+          "                                                                                                 g        i  c  p"
+          "                                                                                                 r  s     d  e  l"
+          "                                                                                        a  d  f  a  h     a  -  o"
+          "                                                                                        n  e  i  t  e  t  t  c  r"
+          "                                                                                        t  p  l  o  l  a  o  l  e"
+          "  library                           version    latest  type      KB   api  poly   dev   q  s  e  r  l  p  r  j  r"
+          "  -----------------------------------------------------------------   ---------   ---   -------------------------"
+          "  borkdude/edamame                  1.3.22             maven     24    x    x      x    .  .  x  .  .  .  .  .  ."
+          "  clj-commons/fs                    1.6.310            maven     12    x    x      x    .  .  x  .  .  .  .  .  ."
+          "  com.github.liquidz/antq           2.4.1070           maven     48    x    x      x    x  .  .  .  .  .  .  .  ."
+          "  djblue/portal                     0.42.0             maven  1,809    -    x      x    .  .  .  .  .  x  .  .  ."
+          "  io.github.seancorfield/build-clj  9c9f078            git       42    -    -      x    .  .  .  .  .  .  .  .  ."
+          "  metosin/malli                     0.11.0             maven     85    x    x      x    .  .  .  .  .  .  x  .  ."
+          "  mount/mount                       0.1.17             maven      8    -    -      x    .  .  .  .  .  .  .  .  ."
+          "  mvxcvi/puget                      1.3.4              maven     15    x    x      x    .  .  .  .  .  .  .  .  x"
+          "  org.clojure/clojure               1.11.1             maven  4,008    x    x      x    .  .  .  .  .  .  .  .  ."
+          "  org.clojure/tools.deps            0.18.1354          maven     58    x    x      x    .  x  x  .  .  .  .  x  ."
+          "  org.jline/jline                   3.21.0     3.23.0  maven    971    -    x      x    .  .  .  .  x  .  .  .  ."
+          "  org.slf4j/slf4j-nop               2.0.7              maven      4    -    x      x    .  .  .  .  .  .  .  .  ."
+          "  rewrite-clj/rewrite-clj           1.1.47             maven     73    -    -      x    .  .  .  .  .  .  .  .  ."
+          "  slipset/deps-deploy               0.2.1              maven      7    -    -      x    .  .  .  .  .  .  .  .  ."
+          "  zprint/zprint                     1.2.7              maven    210    -    x      x    .  .  .  x  .  .  .  .  ."])))
 
-(deftest ifc-deps-table
+(deftest polylith-workspace-ifc-deps-table
   (is (= (ws-ifc-deps-table/table (workspace))
-         ["                                     c                                                  t                              "
-          "                                     l                                                  e                              "
-          "                                     o                                                  s                              "
-          "                                     j                                                  t                              "
-          "                                     u                                               t  -                              "
-          "                                     r                                               e  r                              "
-          "                                     e                                               s  u                              "
-          "                                     -                                               t  n                              "
-          "                                     t                                               -  n                              "
-          "                                     e                                               r  e                              "
-          "                                     s                                               u  r                              "
-          "                                     t        c                                      n  -                       w      "
-          "                                     -        o                                      n  o                       o      "
-          "                                     t        n                       p           t  e  r     u                 r  w   "
-          "                                     e        f                       a           e  r  c  t  s  u              k  s   "
-          "                                     s        i                       t           s  -  h  e  e  s     v     w  s  -   "
-          "                                     t        g                    m  h           t  c  e  x  r  e     a     o  p  e   "
-          "                                     -  c     -  c                 i  -           -  o  s  t  -  r     l  v  r  a  x  w"
-          "                                  c  r  o  c  r  r                 g  f           h  n  t  -  c  -     i  e  k  c  p  s"
-          "                                  h  u  m  o  e  e                 r  i     s     e  t  r  t  o  i     d  r  s  e  l  -"
-          "                            a     a  n  m  m  a  a  d  f     h     a  n     h     l  r  a  a  n  n  u  a  s  p  -  o  f"
-          "                            n  a  n  n  a  m  d  t  e  i  g  e  l  t  d     e  t  p  a  t  b  f  p  t  t  i  a  c  r  i"
-          "                            t  p  g  e  n  o  e  o  p  l  i  l  i  o  e  s  l  a  e  c  o  l  i  u  i  o  o  c  l  e  l"
-          "  brick                     q  i  e  r  d  n  r  r  s  e  t  p  b  r  r  h  l  p  r  t  r  e  g  t  l  r  n  e  j  r  e"
-          "  ---------------------------------------------------------------------------------------------------------------------"
-          "  antq                      .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  api                       .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  x  x  x  ."
-          "  change                    .  .  .  .  .  x  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
-          "  command                   .  .  x  .  .  x  x  x  x  x  x  x  x  x  .  .  x  x  .  .  x  .  x  .  x  x  x  x  x  x  x"
-          "  common                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
-          "  config-reader             .  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  ."
-          "  creator                   .  .  .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  t  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  deps                      .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
-          "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  git                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  help                      .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
-          "  lib                       x  .  .  .  .  x  x  .  .  x  .  .  .  .  .  .  .  .  t  .  .  x  x  .  x  .  .  .  .  .  ."
-          "  migrator                  .  .  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  path-finder               .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  shell                     .  .  .  .  .  x  x  .  .  x  .  .  .  .  .  x  .  x  .  .  .  .  x  x  x  .  x  .  .  x  ."
-          "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  test-helper               .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  .  ."
-          "  test-runner-contract      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  test-runner-orchestrator  .  .  .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  x  .  .  .  .  ."
-          "  text-table                .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  user-config               .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  user-input                .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  validator                 .  .  .  .  .  x  .  .  x  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
-          "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  workspace                 .  .  .  .  .  x  .  .  x  x  .  .  .  .  x  .  .  .  t  .  .  x  .  .  x  x  .  .  .  .  ."
-          "  workspace-clj             .  .  .  .  .  x  x  .  x  x  x  .  x  .  x  .  .  .  .  .  .  .  x  .  x  .  x  .  .  .  ."
-          "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  ws-file                   .  .  .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
-          "  poly-cli                  .  .  .  .  x  .  t  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  t  .  .  t  .  ."])))
+         ["                                                                                  t                              "
+          "                                                                                  e                              "
+          "                                                                                  s                              "
+          "                                                                                  t                              "
+          "                                                                               t  -                              "
+          "                                                                               e  r                              "
+          "                                                                               s  u                              "
+          "                                                                               t  n                              "
+          "                                                                               -  n                              "
+          "                                                                               r  e                              "
+          "                                                                               u  r                              "
+          "                                        c                                      n  -                       w      "
+          "                                        o                                      n  o                       o      "
+          "                                        n                       p           t  e  r     u                 r  w   "
+          "                                        f                       a           e  r  c  t  s  u              k  s   "
+          "                                        i                       t           s  -  h  e  e  s     v     w  s  -   "
+          "                                        g                    m  h           t  c  e  x  r  e     a     o  p  e   "
+          "                                  c     -  c                 i  -           -  o  s  t  -  r     l  v  r  a  x  w"
+          "                               c  o  c  r  r                 g  f           h  n  t  -  c  -     i  e  k  c  p  s"
+          "                               h  m  o  e  e                 r  i     s     e  t  r  t  o  i     d  r  s  e  l  -"
+          "                            a  a  m  m  a  a  d  f     h     a  n     h     l  r  a  a  n  n  u  a  s  p  -  o  f"
+          "                            n  n  a  m  d  t  e  i  g  e  l  t  d     e  t  p  a  t  b  f  p  t  t  i  a  c  r  i"
+          "                            t  g  n  o  e  o  p  l  i  l  i  o  e  s  l  a  e  c  o  l  i  u  i  o  o  c  l  e  l"
+          "  brick                     q  e  d  n  r  r  s  e  t  p  b  r  r  h  l  p  r  t  r  e  g  t  l  r  n  e  j  r  e"
+          "  ---------------------------------------------------------------------------------------------------------------"
+          "  antq                      .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+          "  api                       .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  x  x  x  ."
+          "  change                    .  .  .  x  .  .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
+          "  command                   .  x  .  x  x  x  x  x  x  x  x  x  .  .  x  x  .  .  x  .  x  .  x  x  x  x  x  x  x"
+          "  common                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
+          "  config-reader             .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  ."
+          "  creator                   .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  t  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  deps                      .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
+          "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  git                       .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  help                      .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
+          "  lib                       x  .  .  x  x  .  .  x  .  .  .  .  .  .  .  .  t  .  .  x  x  .  x  .  .  .  .  .  ."
+          "  migrator                  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+          "  path-finder               .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+          "  shell                     .  .  .  x  x  .  .  x  .  .  .  .  .  x  .  x  .  .  .  .  x  x  x  .  x  .  .  x  ."
+          "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+          "  test-helper               .  .  x  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  .  .  ."
+          "  test-runner-contract      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  test-runner-orchestrator  .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  x  .  .  .  .  ."
+          "  text-table                .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  user-config               .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  user-input                .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+          "  validator                 .  .  .  x  .  .  x  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
+          "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+          "  workspace                 .  .  .  x  .  .  x  x  .  .  .  .  x  .  .  .  t  .  .  x  .  .  x  x  .  .  .  .  ."
+          "  workspace-clj             .  .  .  x  x  .  x  x  x  .  x  .  x  .  .  .  .  .  .  .  x  .  x  .  x  .  .  .  ."
+          "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  ws-file                   .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
+          "  poly-cli                  .  .  x  .  t  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  t  .  .  t  .  ."])))
 
-(deftest project-deps-table
+(deftest polylith-workspace-project-deps-table
   (let [ws (workspace)
         projects (:projects ws)
         project (common/find-project "poly" projects)]
@@ -251,7 +266,69 @@
             "  ws-file                   .  .  .  x  .  .  .  x  x  .  .  .  .  +  .  .  .  .  .  .  +  .  x  .  x  .  .  .  ."
             "  poly-cli                  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  t  +  +"]))))
 
-(deftest project-and-brick-deps
+(deftest polylith-workspace-project-deps-table-indirect
+  (let [ws (workspace)
+        projects (:projects ws)
+        project (common/find-project "poly" projects)]
+    (is (= (ws-project-deps-table/table (workspace) project false)
+           ["                                                                                  t                              "
+            "                                                                                  e                              "
+            "                                                                                  s                              "
+            "                                                                                  t                              "
+            "                                                                               t  -                              "
+            "                                                                               e  r                              "
+            "                                                                               s  u                              "
+            "                                                                               t  n                              "
+            "                                                                               -  n                              "
+            "                                                                               r  e                              "
+            "                                                                               u  r                              "
+            "                                        c                                      n  -                       w      "
+            "                                        o                                      n  o                       o      "
+            "                                        n                       p           t  e  r     u                 r  w   "
+            "                                        f                       a           e  r  c  t  s  u              k  s   "
+            "                                        i                       t           s  -  h  e  e  s     v     w  s  -   "
+            "                                        g                    m  h           t  c  e  x  r  e     a     o  p  e   "
+            "                                  c     -  c                 i  -           -  o  s  t  -  r     l  v  r  a  x  w"
+            "                               c  o  c  r  r                 g  f           h  n  t  -  c  -     i  e  k  c  p  s"
+            "                               h  m  o  e  e                 r  i     s     e  t  r  t  o  i     d  r  s  e  l  -"
+            "                            a  a  m  m  a  a  d  f     h     a  n     h     l  r  a  a  n  n  u  a  s  p  -  o  f"
+            "                            n  n  a  m  d  t  e  i  g  e  l  t  d     e  t  p  a  t  b  f  p  t  t  i  a  c  r  i"
+            "                            t  g  n  o  e  o  p  l  i  l  i  o  e  s  l  a  e  c  o  l  i  u  i  o  o  c  l  e  l"
+            "  brick                     q  e  d  n  r  r  s  e  t  p  b  r  r  h  l  p  r  t  r  e  g  t  l  r  n  e  j  r  e"
+            "  ---------------------------------------------------------------------------------------------------------------"
+            "  antq                      .  .  .  x  .  .  .  +  .  .  .  .  .  .  .  .  .  .  .  .  +  .  +  .  .  .  .  .  ."
+            "  change                    .  .  .  x  .  .  .  +  x  .  .  .  x  +  .  .  .  .  .  .  +  .  x  .  .  .  .  .  ."
+            "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
+            "  command                   +  x  .  x  x  x  x  x  x  x  x  x  +  +  x  x  .  +  x  +  x  +  x  x  x  x  x  x  x"
+            "  common                    .  .  .  .  .  .  .  +  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
+            "  config-reader             .  .  .  x  .  .  +  x  .  .  .  .  +  .  .  .  .  +  .  +  +  .  x  x  .  .  .  .  ."
+            "  creator                   -  -  -  x  -  -  -  x  x  -  -  -  -  +  -  -  t  -  -  -  +  -  x  -  -  -  -  -  -"
+            "  deps                      .  .  .  x  .  .  .  +  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
+            "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  git                       .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  help                      .  .  .  x  .  .  .  +  .  .  .  .  .  .  .  .  .  .  .  .  +  .  x  .  x  .  .  .  ."
+            "  lib                       x  -  -  x  x  -  +  x  -  -  -  -  +  -  -  -  t  +  -  x  x  -  x  +  -  -  -  -  -"
+            "  migrator                  .  .  .  x  x  .  +  +  .  .  .  .  +  .  .  .  .  +  .  +  +  .  +  +  .  .  .  .  ."
+            "  path-finder               .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  shell                     .  .  .  x  x  .  +  x  .  .  .  .  +  x  .  x  .  +  .  +  x  x  x  +  x  .  .  x  ."
+            "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  test-helper               -  -  t  -  -  -  -  t  -  -  -  -  -  -  -  -  .  -  -  -  t  t  -  -  -  -  -  -  -"
+            "  test-runner-contract      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  test-runner-orchestrator  .  .  .  x  .  .  x  +  .  .  .  .  +  .  .  .  .  x  .  +  +  .  x  x  .  .  .  .  ."
+            "  text-table                .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  user-config               .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  user-input                .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  validator                 .  .  .  x  .  .  x  +  .  .  .  .  x  .  .  .  .  x  .  +  +  .  x  .  .  .  .  .  ."
+            "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  workspace                 -  -  -  x  -  -  x  x  -  -  -  -  x  -  -  -  t  +  -  x  +  -  x  x  -  -  -  -  -"
+            "  workspace-clj             +  .  .  x  x  .  x  x  x  .  x  .  x  +  .  .  .  +  .  +  x  .  x  +  x  .  .  .  ."
+            "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+            "  ws-file                   .  .  .  x  .  .  .  x  x  .  .  .  .  +  .  .  .  .  .  .  +  .  x  .  x  .  .  .  ."
+            "  poly-cli                  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  t  +  +"]))))
+
+(deftest polylith-brick-and-project-deps
   (let [{:keys [components projects] :as ws} (workspace)
         project (common/find-project "poly" projects)
         brick (common/find-component "workspace" components)]
@@ -267,7 +344,7 @@
             "                            util           "
             "                            validator      "]))))
 
-(deftest project-brick-deps
+(deftest polylith-project-brick-deps
   (let [{:keys [components] :as ws} (workspace)
         brick (common/find-component "workspace" components)]
     (is (= (brick-ifc-deps/table ws brick)
@@ -282,7 +359,7 @@
             "                            util           "
             "                            validator      "]))))
 
-(deftest poly-project-deps
+(deftest polylith-poly-project-deps
   (is (= (ws-explorer/extract (workspace) ["projects" "poly" "deps"])
          {"antq"                     {:src  {:direct   ["common"]
                                              :indirect ["file"
@@ -740,7 +817,7 @@
                                                         "user-config"]}
                                       :test {}}})))
 
-(deftest poly-project-src-paths
+(deftest polylith-poly-project-src-paths
   (is (= (ws-explorer/extract (workspace) ["projects" "poly" "paths" "src"])
          ["bases/poly-cli/src"
           "components/antq/src"
@@ -774,7 +851,7 @@
           "components/ws-explorer/src"
           "components/ws-file/src"])))
 
-(deftest poly-project-test-paths
+(deftest polylith-poly-project-test-paths
   (is (= (ws-explorer/extract (workspace) ["projects" "poly" "paths" "test"])
          ["bases/poly-cli/test"
           "components/change/test"
@@ -802,7 +879,7 @@
           "components/ws-explorer/test"
           "projects/poly/test"])))
 
-(deftest poly-project-lib-imports
+(deftest polylith-poly-project-lib-imports
   (is (= (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"])
          {:src  ["antq.api"
                  "clojure.edn"
@@ -835,14 +912,311 @@
                  "zprint.core"]
           :test ["clojure.java.shell"
                  "clojure.lang"
-                 "clojure.string"
                  "clojure.test"
                  "malli.core"
                  "polylith.clj.core.poly-cli.api"
                  "polylith.clj.core.poly-cli.core"]})))
 
-(deftest shell-component-lib-deps
+(deftest polylith-shell-component-lib-deps
   (is (= (ws-explorer/extract (workspace) ["components" "shell" "lib-deps"])
          {:src {"org.jline/jline" {:size    994664
                                    :type    "maven"
                                    :version "3.21.0"}}})))
+
+(deftest profile-info
+  (is (= (run-cmd "examples/profiles"
+                  "info"
+                  ":no-changes")
+         ["  stable since: 1234567 | stable-master"
+          ""
+          "  projects: 2   interfaces: 5"
+          "  bases:    2   components: 6"
+          ""
+          "  active profiles: default"
+          ""
+          "  project      alias  status   dev  extra   "
+          "  --------------------------   ----------   "
+          "  service      s       ---     ---   --     "
+          "  development  dev     s--     s--   --     "
+          ""
+          "  interface    brick           s    dev  extra"
+          "  -------------------------   ---   ----------"
+          "  calculator   calculator1    ---   s--   --  "
+          "  database     database1      st-   st-   --  "
+          "  test-helper  test-helper1   -t-   -t-   --  "
+          "  user         admin          ---   ---   st  "
+          "  user         user1          st-   st-   --  "
+          "  util         util1          st-   st-   --  "
+          "  -            base1          st-   st-   --  "
+          "  -            base2          st-   st-   --  "
+          ""
+          "  Error 107: Missing components in the service project for these interfaces: calculator"])))
+
+(deftest profile-info-where-test-has-changed
+  (is (= (run-cmd "examples/profiles"
+                  "info"
+                  "changed-files:bases/base2/test/se/example/base2/core_test.clj")
+         ["  stable since: 1234567 | stable-master"
+          ""
+          "  projects: 2   interfaces: 5"
+          "  bases:    2   components: 6"
+          ""
+          "  active profiles: default"
+          ""
+          "  project        alias  status   dev  extra   "
+          "  ----------------------------   ----------   "
+          "  service +      s       ---     ---   --     "
+          "  development +  dev     s--     s--   --     "
+          ""
+          "  interface    brick           s    dev  extra"
+          "  -------------------------   ---   ----------"
+          "  calculator   calculator1    ---   s--   --  "
+          "  database     database1      st-   st-   --  "
+          "  test-helper  test-helper1   -t-   -t-   --  "
+          "  user         admin          ---   ---   st  "
+          "  user         user1          st-   st-   --  "
+          "  util         util1          st-   st-   --  "
+          "  -            base1          stx   st-   --  "
+          "  -            base2 *        stx   st-   --  "
+          ""
+          "  Error 107: Missing components in the service project for these interfaces: calculator"])))
+
+(deftest profile-info-where-src-has-changed
+  (is (= (run-cmd "examples/profiles"
+                  "info"
+                  "changed-files:bases/base2/src/se/example/base2/core.clj")
+         ["  stable since: 1234567 | stable-master"
+          ""
+          "  projects: 2   interfaces: 5"
+          "  bases:    2   components: 6"
+          ""
+          "  active profiles: default"
+          ""
+          "  project        alias  status   dev  extra   "
+          "  ----------------------------   ----------   "
+          "  service +      s       ---     ---   --     "
+          "  development +  dev     s--     s--   --     "
+          ""
+          "  interface    brick           s    dev  extra"
+          "  -------------------------   ---   ----------"
+          "  calculator   calculator1    ---   s--   --  "
+          "  database     database1      st-   st-   --  "
+          "  test-helper  test-helper1   -t-   -t-   --  "
+          "  user         admin          ---   ---   st  "
+          "  user         user1          st-   st-   --  "
+          "  util         util1          st-   st-   --  "
+          "  -            base1          stx   st-   --  "
+          "  -            base2 *        stx   st-   --  "
+          ""
+          "  Error 107: Missing components in the service project for these interfaces: calculator"])))
+
+(deftest profile-info-loc
+  (is (= (run-cmd "examples/profiles"
+                  "info" ":loc"
+                  ":no-changes")
+         ["  stable since: 1234567 | stable-master"
+          ""
+          "  projects: 2   interfaces: 5"
+          "  bases:    2   components: 6"
+          ""
+          "  active profiles: default"
+          ""
+          "  project      alias  status   dev  extra   loc  (t)"
+          "  --------------------------   ----------   --------"
+          "  service      s       ---     ---   --       0    0"
+          "  development  dev     s--     s--   --       0    0"
+          "                                              0    0"
+          ""
+          "  interface    brick           s    dev  extra   loc (t)"
+          "  -------------------------   ---   ----------   -------"
+          "  calculator   calculator1    ---   s--   --       1   0"
+          "  database     database1      st-   st-   --       3   6"
+          "  test-helper  test-helper1   -t-   -t-   --       3   3"
+          "  user         admin          ---   ---   st       3   6"
+          "  user         user1          st-   st-   --       3   5"
+          "  util         util1          st-   st-   --       1   6"
+          "  -            base1          st-   st-   --       1   7"
+          "  -            base2          st-   st-   --       1   5"
+          "                              12    13            16  38"
+          ""
+          "  Error 107: Missing components in the service project for these interfaces: calculator"])))
+
+(deftest profile-info-skip-dev
+  (is (= (run-cmd "examples/profiles"
+                  "info" "skip:dev"
+                  ":no-changes")
+         ["  stable since: 1234567 | stable-master"
+          ""
+          "  projects: 1   interfaces: 5"
+          "  bases:    2   components: 6"
+          ""
+          "  active profiles: default"
+          ""
+          "  project  alias  status"
+          "  ----------------------"
+          "  service  s       ---  "
+          ""
+          "  interface    brick           s "
+          "  -------------------------   ---"
+          "  calculator   calculator1    ---"
+          "  database     database1      st-"
+          "  test-helper  test-helper1   -t-"
+          "  user         admin          ---"
+          "  user         user1          st-"
+          "  util         util1          st-"
+          "  -            base1          st-"
+          "  -            base2          st-"
+          ""
+          "  Error 107: Missing components in the service project for these interfaces: calculator"])))
+
+(deftest profile-deps
+  (is (= (run-cmd "examples/profiles"
+                  "deps")
+         ["                      t      "
+          "                c     e      "
+          "                a     s      "
+          "                l  d  t      "
+          "                c  a  -      "
+          "                u  t  h      "
+          "                l  a  e     b"
+          "                a  b  l  u  a"
+          "                t  a  p  t  s"
+          "                o  s  e  i  e"
+          "  brick         r  e  r  l  2"
+          "  ---------------------------"
+          "  admin         .  .  .  .  ."
+          "  calculator1   .  .  .  .  ."
+          "  database1     x  .  .  x  ."
+          "  test-helper1  .  .  .  .  ."
+          "  user1         .  t  t  .  ."
+          "  util1         .  .  .  .  ."
+          "  base1         .  .  .  .  t"
+          "  base2         .  .  .  .  ."])))
+
+(deftest profile-deps-project
+  (is (= (run-cmd "examples/profiles"
+                  "deps" "project:s")
+         ["                      t      "
+          "                      e      "
+          "                c     s      "
+          "                a  d  t      "
+          "                l  a  -      "
+          "                c  t  h      "
+          "                u  a  e      "
+          "                l  b  l  u  b"
+          "                a  a  p  t  a"
+          "                t  s  e  i  s"
+          "                o  e  r  l  e"
+          "  brick         r  1  1  1  2"
+          "  ---------------------------"
+          "  database1     x  .  .  x  ."
+          "  test-helper1  .  .  .  .  ."
+          "  user1         .  t  t  -  ."
+          "  util1         .  .  .  .  ."
+          "  base1         .  .  .  .  t"
+          "  base2         .  .  .  .  ."])))
+
+(deftest profile-deps-brick
+  (is (= (run-cmd "examples/profiles"
+                  "deps" "brick:database1")
+         ["  used by    <  database1  >  uses      "
+          "  ---------                   ----------"
+          "  user1 (t)                   calculator"
+          "                              util      "])))
+
+(deftest profile-deps-project-brick
+  (is (= (run-cmd "examples/profiles"
+                  "deps" "project:s" "brick:database1")
+         ["  used by    <  database1  >  uses          "
+          "  ---------                   --------------"
+          "  user1 (t)                   calculator    "
+          "                              calculator (t)"
+          "                              util1         "])))
+
+(deftest profile-libs
+  (is (= (run-cmd "examples/profiles"
+                  "libs")
+         ["                                                                         t"
+          "                                                                         e"
+          "                                                                         s"
+          "                                                                         t"
+          "                                                                         -"
+          "                                                                         h"
+          "                                                                         e"
+          "                                                                         l"
+          "                                                                         p"
+          "                                                                         e"
+          "                                                                         r"
+          "  library              version  type      KB   s   dev  default  extra   1"
+          "  ------------------------------------------   -   -------------------   -"
+          "  clj-commons/fs       1.6.310  maven     12   -    -      x       -     ."
+          "  metosin/malli        0.11.1   maven      0   t    x      -       -     x"
+          "  org.clojure/clojure  1.11.1   maven  4,008   x    x      -       -     ."])))
+
+(deftest profile-libs-skip-dev
+  (is (= (run-cmd "examples/profiles"
+                  "libs" "skip:dev")
+         ["                                                   t"
+          "                                                   e"
+          "                                                   s"
+          "                                                   t"
+          "                                                   -"
+          "                                                   h"
+          "                                                   e"
+          "                                                   l"
+          "                                                   p"
+          "                                                   e"
+          "                                                   r"
+          "  library              version  type      KB   s   1"
+          "  ------------------------------------------   -   -"
+          "  clj-commons/fs       1.6.310  maven     12   -   ."
+          "  metosin/malli        0.11.1   maven      0   t   x"
+          "  org.clojure/clojure  1.11.1   maven  4,008   x   ."])))
+
+(defn clean-settings [ws]
+  (let [vcs (dissoc (:vcs ws) :branch :stable-since)]
+    (dissoc (assoc ws :vcs vcs)
+            :user-config-filename
+            :user-home)))
+
+(deftest ws-get-settings
+  (let [actual (clean-settings (ws-get "."
+                                       [:settings]
+                                       "ws-dir:examples/profiles"))]
+    (is (= actual
+           {:active-profiles #{"default"}
+            :color-mode "none"
+            :compact-views #{}
+            :default-profile-name "default"
+            :empty-character "."
+            :interface-ns "interface"
+            :m2-dir (str (System/getProperty "user.home") "/.m2")
+            :profile-to-settings  {"default" {:base-names []
+                                              :component-names ["user1"]
+                                              :lib-deps {"clj-commons/fs" {:size 12819
+                                                                           :type "maven"
+                                                                           :version "1.6.310"}}
+                                              :paths ["components/user1/src"
+                                                      "components/user1/test"]
+                                              :project-names []}
+                                   "extra" {:base-names []
+                                            :component-names ["admin"]
+                                            :lib-deps {}
+                                            :paths ["components/admin/src"
+                                                    "components/admin/test"]
+                                            :project-names []}}
+            :projects {"development" {:alias "dev"
+                                      :test {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}
+                       "service" {:alias "s"
+                                  :necessary ["user1"]
+                                  :test {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}}
+            :tag-patterns {:release "v[0-9]*"
+                           :stable "stable-*"}
+            :thousand-separator ","
+            :top-namespace "se.example"
+            :vcs {:git-root (System/getProperty "user.dir")
+                  :name "git"
+                  :auto-add true
+                  :is-git-repo true
+                  :polylith {:branch "master"
+                             :repo "https://github.com/polyfy/polylith.git"}}}))))

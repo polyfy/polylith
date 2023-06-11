@@ -59,7 +59,8 @@
                                  :project-to-indirect-changes {}
                                  :project-to-bricks-to-test {}
                                  :project-to-projects-to-test {}})
-      (let [since (:since user-input "stable")
+      (let [{:keys [since changed-files]
+             :or {since "stable"}} user-input
             is-no-changes (:is-no-changes user-input)
             tag-patterns (:tag-patterns settings)
             {:keys [tag sha]} (git/sha ws-dir since tag-patterns)]
@@ -67,5 +68,5 @@
                          (changes workspace {:tag tag
                                              :since since
                                              :since-sha sha
-                                             :files (git/diff ws-dir ws-local-dir is-no-changes sha nil)}
+                                             :files (git/diff ws-dir ws-local-dir is-no-changes changed-files sha nil)}
                                   paths))))))
