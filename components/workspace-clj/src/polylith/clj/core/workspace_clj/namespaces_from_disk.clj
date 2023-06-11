@@ -37,14 +37,16 @@
   "Given an import-list, as handled by `clojure.core/import`, return the
   package name as a string."
   [import-list]
-  (if (symbol? import-list)
-    (->> import-list
-         str
-         (re-find #"(.*)\.\w+$")
-         last)
-    (-> import-list
-        first
-        str)))
+  (str/replace (if (symbol? import-list)
+                 (->> import-list
+                      str
+                      (re-find #"(.*)\.\w+$")
+                      last)
+                 (-> import-list
+                     first
+                     str))
+               "_" "-"))
+
 
 ;; import/require handling
 

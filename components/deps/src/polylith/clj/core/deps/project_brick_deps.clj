@@ -1,42 +1,41 @@
 (ns polylith.clj.core.deps.project-brick-deps
   (:require [clojure.set :as set]
-            [clojure.string :as str]
             [polylith.clj.core.common.interface :as common]))
 
-(defn ns-deps-recursively
+(defn update-deps! [next-brick-id [brick-id & path :as full-path] visited brick-id->deps]
+  (when brick-id
+    (let [{:keys [direct indirect circular completed?]} (@brick-id->deps brick-id)]
+      (when (not completed?)
+        (let [deps {:direct (if (empty? path) (conj direct next-brick-id) direct)
+                    :indirect (if (seq path) (conj indirect next-brick-id) indirect)
+                    :circular (if (seq circular)
+                                circular
+                                (if (= brick-id next-brick-id)
+                                  (conj full-path next-brick-id)
+                                  []))
+                    :completed? completed?}]
+          (swap! brick-id->deps assoc brick-id deps)
+          (when (seq path)
+            (recur next-brick-id path visited brick-id->deps)))))))
+
+(defn brick-deps-recursively
+  ; todo: update
   "This is the core calculation of the dependencies for a specific namespace
    living in a brick for a specific project. The ns->namespaces is a bit misleading
    because it not only contains namespaces pointing to other namespaces, but also
    component interfaces and base (IB) names, pointing to both namespaces and other
    IB names."
-  [test-context? current-ns ns->namespaces brick-paths visited path]
-  (let [namespaces (ns->namespaces current-ns)]
-    (if (or (empty? namespaces)
-            (contains? visited current-ns))
-      (swap! brick-paths conj
-             {:test? test-context?
-              :path (conj path current-ns)})
-      (doseq [namespace namespaces]
-        (ns-deps-recursively test-context? namespace ns->namespaces brick-paths
-                             (conj visited current-ns)
-                             (conj path current-ns))))))
+  [brick-id brick-id->brick-ids brick-id->deps visited path]
+  (let [depends-on-brick-ids (brick-id->brick-ids brick-id)]
+    (update-deps! brick-id path visited brick-id->deps)
+    (when (not (contains? visited brick-id))
+      (doseq [depends-on-brick-id depends-on-brick-ids]
+        (brick-deps-recursively depends-on-brick-id brick-id->brick-ids brick-id->deps
+                                (conj visited brick-id)
+                                (conj path brick-id))))
+    (swap! brick-id->deps assoc-in [brick-id :completed?] true)))
 
-(defn short-ns [namespace suffixed-top-ns test-namespaces]
-  (let [{:keys [root-ns depends-on-ns]} (common/extract-namespace suffixed-top-ns namespace)
-        short-ns (str root-ns "." depends-on-ns)]
-    (when root-ns
-      (if (contains? test-namespaces short-ns)
-        (str short-ns " (t)")
-        root-ns))))
-
-(defn interface-name [{:keys [namespace]} suffixed-top-ns]
-  (let [{:keys [root-ns]} (common/extract-namespace suffixed-top-ns namespace)]
-    root-ns))
-
-(defn filter-component-ns [namespaces suffixed-top-ns]
-  (filterv #(str/starts-with? % suffixed-top-ns) namespaces))
-
-(defn brick-namespace [{:keys [type name interface]}]
+(defn brick-name-id [{:keys [type name interface]}]
   (case type
     "base" name
     "component" (:name interface)))
@@ -49,81 +48,34 @@
 (defn test-keys [{:keys [namespaces]} suffixed-top-ns]
   (mapcat #(test-key % suffixed-top-ns) (:test namespaces)))
 
-(defn all-test-keys [components suffixed-top-ns]
-  (set (mapcat #(test-keys % suffixed-top-ns) components)))
+(defn all-test-keys [bricks suffixed-top-ns]
+  (set (mapcat #(test-keys % suffixed-top-ns) bricks)))
 
-(defn src-namespaces [{:keys [namespaces] :as brick} suffixed-top-ns]
-  (let [brick-ns (brick-namespace brick)]
-    [brick-ns
-     (sort (set (filter #(and (not= brick-ns %)
-                              (-> % nil? not))
-                        (map #(:root-ns (common/extract-namespace suffixed-top-ns %))
-                             (mapcat :imports (:src namespaces))))))]))
+(defn src-brick-ids [{:keys [namespaces] :as brick} suffixed-top-ns]
+  (let [brick-id (brick-name-id brick)]
+    [brick-id
+     (vec (sort (set (filter #(and (not= brick-id %)
+                                   (-> % nil? not))
+                             (map #(:root-ns (common/extract-namespace suffixed-top-ns %))
+                                  (mapcat :imports (:src namespaces)))))))]))
 
-(defn test-ns->namespaces [{:keys [namespaces]} suffixed-top-ns test-namespaces]
-  (into {} (filter first (map (juxt #(short-ns (:namespace %) suffixed-top-ns test-namespaces)
-                                    #(set (filter identity (map (fn [n] (short-ns n suffixed-top-ns test-namespaces))
-                                                                (:imports %)))))
-                              (:test namespaces)))))
+(defn test-brick [suffixed-top-ns ns-to-extract brick-id all-test-namespaces src-brick-id->brick-ids]
+  (let [{:keys [root-ns depends-on-ns]} (common/extract-namespace suffixed-top-ns ns-to-extract)]
+    (if (contains? all-test-namespaces (str root-ns "." depends-on-ns))
+      [(str root-ns " (t)")]
+      (if (= brick-id root-ns)
+        ;; if the test context depends on the src context of itself, use the dependencies from the src context.
+        (src-brick-id->brick-ids brick-id)
+        [root-ns]))))
 
-(defn brick-test-namespaces [{:keys [namespaces]} suffixed-top-ns test-namespaces]
-  (map #(short-ns % suffixed-top-ns test-namespaces)
-       ;; Skip namespaces that are commented out.
-       (filterv #(-> % str/blank? not)
-                (map :namespace (:test namespaces)))))
-
-(defn all-brick-namespaces [brick suffixed-top-ns test-namespaces]
-  (set (conj (brick-test-namespaces brick suffixed-top-ns test-namespaces)
-             (brick-namespace brick))))
-
-(defn circular? [namespaces]
-  (not= (count namespaces)
-        (-> namespaces set count)))
-
-(defn test-context?
-  "If a component is only used in the test context from a project,
-   then test-only-interfaces will contain its interface."
-  [namespace
-   test-only-interfaces-and-bricks
-   {:keys [type name interface]}]
-  (or (and (= type "base")
-        (contains? test-only-interfaces-and-bricks name))
-      (and (= type "component")
-         (contains? test-only-interfaces-and-bricks (:name interface)))
-      (and namespace
-           (str/ends-with? namespace " (t)"))))
-
-(defn test-path? [{:keys [test?]}]
-  test?)
-
-(defn test-ns-suffix [brick-ns]
-  (if (and brick-ns
-           (str/ends-with? brick-ns " (t)"))
-    " (t)"
-    ""))
-
-(defn clean-ns [ns-name]
-  (when ns-name
-    (let [test-suffix (test-ns-suffix ns-name)
-          idx (str/index-of ns-name ".")]
-      (if idx
-        (str (subs ns-name 0 idx) test-suffix)
-        ns-name))))
-
-(defn extract-name [path]
-  (if-let [idx (str/index-of path ".")]
-    (subs path 0 idx)))
-
-(defn clean-nss [ns-names]
-  (let [cleaned-ns-names (map clean-ns ns-names)
-        brick-ns (first cleaned-ns-names)]
-    (conj (drop-while #(= brick-ns %)
-                      cleaned-ns-names)
-          brick-ns)))
-
-(defn drop-brick-ns [ns-names src-test-brick-ns]
-  (drop-while #(contains? src-test-brick-ns %)
-              ns-names))
+(defn test-brick-ids [{:keys [namespaces] :as brick} suffixed-top-ns all-test-namespaces src-brick-id->brick-ids]
+  (let [plain-brick-id (brick-name-id brick)
+        brick-id (str plain-brick-id " (t)")]
+    [brick-id
+     (vec (sort (set (filter #(and (not= brick-id %)
+                                   (-> % nil? not))
+                             (mapcat #(test-brick suffixed-top-ns % plain-brick-id all-test-namespaces src-brick-id->brick-ids)
+                                     (mapcat :imports (:test namespaces)))))))]))
 
 (defn component-deps [deps ifc->comp]
   (map #(ifc->comp % %) deps))
@@ -136,35 +88,6 @@
                     (filter #(contains? (set base-names) (:name %))
                             bricks)))))
 
-(defn first-brick [brick-name]
-  (when-let [brick (first brick-name)]
-    (first (str/split brick #" "))))
-
-(defn source-deps
-  "Takes a sequence of namespace paths and calculates direct, indirect, and circular
-   dependencies + dependencies on missing interfaces (if any). All incoming dependencies
-   are bases and interfaces, but the latter is translated to corresponding components,
-   using the ifc->comp map that is based on the components in the project for which this
-   calculation operates on."
-  [ns-paths ifc->comp interface-and-base-names interface-and-base-names-in-project src-test-brick-ns]
-  (let [circular (first (sort-by count (filter circular? ns-paths)))
-        paths (mapv #(drop-brick-ns % src-test-brick-ns)
-                    (set (mapv clean-nss ns-paths)))
-        direct-and-indirect (set (flatten paths))
-        all-direct (set/intersection interface-and-base-names (set (filter identity (map first-brick paths))))
-        direct (set/intersection all-direct interface-and-base-names-in-project)
-        missing-ifc-and-bases (set/difference all-direct interface-and-base-names-in-project)
-        all-indirect (set/difference direct-and-indirect all-direct)
-        indirect (set/intersection all-indirect interface-and-base-names-in-project)
-        indirect-missing-ifc-and-bases (set/difference indirect all-indirect)
-        has-missing-ifc-and-bases? (or (seq missing-ifc-and-bases) (seq indirect-missing-ifc-and-bases))]
-    (cond-> {}
-            (seq direct) (assoc :direct (vec (sort (component-deps direct ifc->comp))))
-            (seq indirect) (assoc :indirect (vec (sort (component-deps indirect ifc->comp))))
-            has-missing-ifc-and-bases? (assoc :missing-ifc-and-bases {:direct (-> missing-ifc-and-bases sort vec)
-                                                                      :indirect (-> indirect-missing-ifc-and-bases sort vec)})
-            (seq circular) (assoc :circular (vec (component-deps circular ifc->comp))))))
-
 (defn include-test?
   "Checks if the brick is included in workspace.edn > :projects > PROJECT-KEY > :test > :include.
    If the :test key is not present, then it is treated as included."
@@ -172,7 +95,31 @@
   (or (nil? bricks-to-test)
       (contains? bricks-to-test name)))
 
-;; todo: change the comment (bases can depend on bases)
+(defn enhance-deps [{:keys [direct indirect circular]} ifc->comp interface-and-base-names interface-and-base-names-in-project]
+  (let [all-direct (set/intersection direct interface-and-base-names)
+        all-indirect (set/intersection indirect interface-and-base-names)
+        direct (set/intersection all-direct interface-and-base-names-in-project)
+        indirect (set/difference (set/intersection all-indirect interface-and-base-names-in-project) direct)
+        missing-direct (set/difference all-direct interface-and-base-names-in-project)
+        missing-indirect (set/difference indirect all-indirect)
+        has-missing? (or (seq missing-direct) (seq missing-indirect))]
+    (cond-> {}
+            (seq direct) (assoc :direct (vec (sort (component-deps direct ifc->comp))))
+            (seq indirect) (assoc :indirect (vec (sort (component-deps indirect ifc->comp))))
+            has-missing? (assoc :missing-ifc-and-bases {:direct (-> missing-direct sort vec)
+                                                        :indirect (-> missing-indirect sort vec)})
+            (seq circular) (assoc :circular (vec (component-deps circular ifc->comp))))))
+
+(defn merge-deps [{direct1 :direct indirect1 :indirect circular1 :circular}
+                  {direct2 :direct indirect2 :indirect circular2 :circular}]
+  (let [direct (vec (sort (concat direct1 direct2)))
+        indirect (vec (sort (concat indirect1 indirect2)))
+        circular (if (seq circular1) circular1 circular2)]
+    (cond-> {}
+            (seq direct) (assoc :direct direct)
+            (seq indirect) (assoc :indirect indirect)
+            (seq circular) (assoc :circular circular))))
+
 (defn brick-deps
   "Calculates all dependencies for a given brick. To describe what's going on here, lets introduce
    a few abbreviations:
@@ -199,30 +146,45 @@
 
    The 'src' dependencies are then calculated, and also the 'test' dependencies if the
    brick is not excluded in workspace.edn > :projects > PROJECT-KEY > :test."
-  [brick components bases suffixed-top-ns ifc->comp interface-and-base-names interface-and-brick-names-in-project interface-and-brick-names-in-project-test bricks-to-test]
-  (let [brick-ns (brick-namespace brick)
-        src-test-brick-ns #{brick-ns (str brick-ns " (t)")}
-        bricks (concat components bases)
-        test-namespaces (all-test-keys bricks suffixed-top-ns)
-        all-src-ns->namespaces (into {} (map #(src-namespaces % suffixed-top-ns) bricks))
-        all-test-ns->namespaces (into {} (apply merge (map #(test-ns->namespaces % suffixed-top-ns test-namespaces) bricks)))
-        all-ns->namespaces (merge-with into all-src-ns->namespaces all-test-ns->namespaces)
-        namespaces (all-brick-namespaces brick suffixed-top-ns test-namespaces)
-        test-only-interfaces-and-bricks (set/difference interface-and-brick-names-in-project-test interface-and-brick-names-in-project)
-        brick-paths (atom [])
-        _ (doseq [namespace namespaces]
-            (let [test? (test-context? namespace test-only-interfaces-and-bricks brick)]
-              (ns-deps-recursively test? namespace all-ns->namespaces brick-paths #{} [])))
-        all-paths (filter identity @brick-paths)
-        src-paths (mapv :path (filterv (complement test-path?) all-paths))
-        test-paths (mapv :path (filterv test-path? all-paths))
-        src-deps (source-deps src-paths ifc->comp interface-and-base-names interface-and-brick-names-in-project src-test-brick-ns)]
-    {:src  src-deps
-     :test (if (include-test? brick bricks-to-test)
-             (source-deps test-paths ifc->comp interface-and-base-names interface-and-brick-names-in-project-test src-test-brick-ns)
-             {})}))
+  ;"Takes a sequence of namespace paths and calculates direct, indirect, and circular
+  ; dependencies + dependencies on missing interfaces (if any). All incoming dependencies
+  ; are bases and interfaces, but the latter is translated to corresponding components,
+  ; using the ifc->comp map that is based on the components in the project for which this
+  ; calculation operates on."
+
+  ;; todo update
+  ;"Calculate the source and test dependencies for a project. The returned dependencies
+  ; are stored in a map with a :src and :test key and includes a key for each brick that is included
+  ; in the project together with the direct, indirect, and circular dependencies (if any) +
+  ; missing dependencies on interfaces."
+  [brick brick-id->deps ifc->comp bricks-to-test brick-id->brick-ids interface-and-base-names interface-and-base-names-in-project interface-and-base-names-in-project-test test-only-interfaces-and-bricks]
+  (let [src-brick-id (brick-name-id brick)
+        test-brick-id (str src-brick-id " (t)")
+        _ (brick-deps-recursively src-brick-id brick-id->brick-ids brick-id->deps #{} [])
+        src-deps (enhance-deps (@brick-id->deps src-brick-id) ifc->comp interface-and-base-names interface-and-base-names-in-project)
+        include-test? (include-test? brick bricks-to-test)
+        test-deps (if include-test?
+                    (do
+                      (brick-deps-recursively test-brick-id brick-id->brick-ids brick-id->deps #{} [])
+                      (enhance-deps (@brick-id->deps test-brick-id) ifc->comp interface-and-base-names interface-and-base-names-in-project-test))
+                    {})]
+    (if (contains? test-only-interfaces-and-bricks src-brick-id)
+      {:src {}
+       :test (if include-test?
+               (merge-deps src-deps test-deps)
+               {})}
+      {:src src-deps
+       :test test-deps})))
+
+(defn empty-dep [brick-id]
+  [brick-id
+   {:direct #{}
+    :indirect #{}
+    :circular []
+    :completed? false}])
 
 (defn project-deps
+  ;; todo: update
   "Calculate the source and test dependencies for a project. The returned dependencies
    are stored in a map with a :src and :test key and includes a key for each brick that is included
    in the project together with the direct, indirect, and circular dependencies (if any) +
@@ -239,7 +201,14 @@
                                                 components))))
         interface-and-base-names (set (concat (map #(-> % :interface :name) components)
                                               (map :name bases)))
-        interface-and-brick-names-in-project (ifc-and-brick-names component-names-src base-names-src bricks)
-        interface-and-brick-names-in-project-test (ifc-and-brick-names (concat component-names-src component-names-test) (concat base-names-src base-names-test) bricks)]
-    (into {} (map (juxt :name #(brick-deps % components bases suffixed-top-ns ifc->comp interface-and-base-names interface-and-brick-names-in-project interface-and-brick-names-in-project-test bricks-to-test))
+        interface-and-base-names-in-project (ifc-and-brick-names component-names-src base-names-src bricks)
+        interface-and-base-names-in-project-test (ifc-and-brick-names (concat component-names-src component-names-test) (concat base-names-src base-names-test) bricks)
+        test-only-interfaces-and-bricks (set/difference interface-and-base-names-in-project-test interface-and-base-names-in-project)
+        all-bricks (concat components bases)
+        src-brick-id->brick-ids (into {} (map #(src-brick-ids % suffixed-top-ns) all-bricks))
+        all-test-namespaces (all-test-keys all-bricks suffixed-top-ns)
+        all-test-brick-id->brick-ids (into {} (map #(test-brick-ids % suffixed-top-ns all-test-namespaces src-brick-id->brick-ids) all-bricks))
+        brick-id->brick-ids (merge-with into src-brick-id->brick-ids all-test-brick-id->brick-ids)
+        brick-id->deps (atom (into {} (map empty-dep (keys brick-id->brick-ids))))]
+    (into {} (map (juxt :name #(brick-deps % brick-id->deps ifc->comp bricks-to-test brick-id->brick-ids interface-and-base-names interface-and-base-names-in-project interface-and-base-names-in-project-test test-only-interfaces-and-bricks))
                   bricks))))

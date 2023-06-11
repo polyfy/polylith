@@ -99,35 +99,35 @@
 
 (deftest libs-outdated
   (is (= (libs/table (workspace) false true)
-         ["                                                                                                               w   "
-          "                                                                                                               o   "
-          "                                                                                                               r  w"
-          "                                                                                                               k  s"
-          "                                                                                                            v  s  -"
-          "                                                                                                   m        a  p  e"
-          "                                                                                                   i        l  a  x"
-          "                                                                                                   g        i  c  p"
-          "                                                                                                   r  s     d  e  l"
-          "                                                                                          a  d  f  a  h     a  -  o"
-          "                                                                                          n  e  i  t  e  t  t  c  r"
-          "                                                                                          t  p  l  o  l  a  o  l  e"
-          "  library                           version    latest    type      KB   api  poly   dev   q  s  e  r  l  p  r  j  r"
-          "  -------------------------------------------------------------------   ---------   ---   -------------------------"
-          "  borkdude/edamame                  1.3.20     1.3.22    maven     24    x    x      x    .  .  x  .  .  .  .  .  ."
-          "  clj-commons/fs                    1.6.310              maven     12    x    x      x    .  .  x  .  .  .  .  .  ."
-          "  com.github.liquidz/antq           2.3.1043   2.4.1070  maven     48    x    x      x    x  .  .  .  .  .  .  .  ."
-          "  djblue/portal                     0.38.2     0.40.0    maven  1,820    -    x      x    .  .  .  .  .  x  .  .  ."
-          "  io.github.seancorfield/build-clj  9c9f078              git       42    -    -      x    .  .  .  .  .  .  .  .  ."
-          "  metosin/malli                     0.10.4     0.11.0    maven     85    x    x      x    .  .  .  .  .  .  x  .  ."
-          "  mount/mount                       0.1.17               maven      8    -    -      x    .  .  .  .  .  .  .  .  ."
-          "  mvxcvi/puget                      1.3.4                maven     15    x    x      x    .  .  .  .  .  .  .  .  x"
-          "  org.clojure/clojure               1.11.1               maven  4,008    x    x      x    .  .  .  .  .  .  .  .  ."
-          "  org.clojure/tools.deps            0.18.1335            maven     58    x    x      x    .  x  x  .  .  .  .  x  ."
-          "  org.jline/jline                   3.21.0     3.23.0    maven    971    -    x      x    .  .  .  .  x  .  .  .  ."
-          "  org.slf4j/slf4j-nop               2.0.7                maven      4    -    x      x    .  .  .  .  .  .  .  .  ."
-          "  rewrite-clj/rewrite-clj           1.1.47               maven     73    -    -      x    .  .  .  .  .  .  .  .  ."
-          "  slipset/deps-deploy               0.2.1                maven      7    -    -      x    .  .  .  .  .  .  .  .  ."
-          "  zprint/zprint                     1.2.5                maven    195    -    x      x    .  .  .  x  .  .  .  .  ."])))
+         ["                                                                                                                w   "
+          "                                                                                                                o   "
+          "                                                                                                                r  w"
+          "                                                                                                                k  s"
+          "                                                                                                             v  s  -"
+          "                                                                                                    m        a  p  e"
+          "                                                                                                    i        l  a  x"
+          "                                                                                                    g        i  c  p"
+          "                                                                                                    r  s     d  e  l"
+          "                                                                                           a  d  f  a  h     a  -  o"
+          "                                                                                           n  e  i  t  e  t  t  c  r"
+          "                                                                                           t  p  l  o  l  a  o  l  e"
+          "  library                           version    latest     type      KB   api  poly   dev   q  s  e  r  l  p  r  j  r"
+          "  --------------------------------------------------------------------   ---------   ---   -------------------------"
+          "  borkdude/edamame                  1.3.20     1.3.22     maven     24    x    x      x    .  .  x  .  .  .  .  .  ."
+          "  clj-commons/fs                    1.6.310               maven     12    x    x      x    .  .  x  .  .  .  .  .  ."
+          "  com.github.liquidz/antq           2.3.1043   2.4.1070   maven     48    x    x      x    x  .  .  .  .  .  .  .  ."
+          "  djblue/portal                     0.38.2     0.42.0     maven  1,820    -    x      x    .  .  .  .  .  x  .  .  ."
+          "  io.github.seancorfield/build-clj  9c9f078               git       42    -    -      x    .  .  .  .  .  .  .  .  ."
+          "  metosin/malli                     0.10.4     0.11.0     maven     85    x    x      x    .  .  .  .  .  .  x  .  ."
+          "  mount/mount                       0.1.17                maven      8    -    -      x    .  .  .  .  .  .  .  .  ."
+          "  mvxcvi/puget                      1.3.4                 maven     15    x    x      x    .  .  .  .  .  .  .  .  x"
+          "  org.clojure/clojure               1.11.1                maven  4,008    x    x      x    .  .  .  .  .  .  .  .  ."
+          "  org.clojure/tools.deps            0.18.1335  0.18.1354  maven     58    x    x      x    .  x  x  .  .  .  .  x  ."
+          "  org.jline/jline                   3.21.0     3.23.0     maven    971    -    x      x    .  .  .  .  x  .  .  .  ."
+          "  org.slf4j/slf4j-nop               2.0.7                 maven      4    -    x      x    .  .  .  .  .  .  .  .  ."
+          "  rewrite-clj/rewrite-clj           1.1.47                maven     73    -    -      x    .  .  .  .  .  .  .  .  ."
+          "  slipset/deps-deploy               0.2.1                 maven      7    -    -      x    .  .  .  .  .  .  .  .  ."
+          "  zprint/zprint                     1.2.5      1.2.7      maven    195    -    x      x    .  .  .  x  .  .  .  .  ."])))
 
 (deftest ifc-deps-table
   (is (= (ws-ifc-deps-table/table (workspace))
@@ -184,7 +184,7 @@
           "  validator                 .  .  .  .  .  x  .  .  x  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
           "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  workspace                 .  .  .  .  .  x  .  .  x  x  .  .  .  .  x  .  .  .  t  .  .  x  .  .  x  x  .  .  .  .  ."
-          "  workspace-clj             .  .  .  .  .  x  x  .  x  x  x  .  x  .  x  .  .  .  .  .  .  .  x  .  x  x  x  .  .  .  ."
+          "  workspace-clj             .  .  .  .  .  x  x  .  x  x  x  .  x  .  x  .  .  .  .  .  .  .  x  .  x  .  x  .  .  .  ."
           "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  ws-file                   .  .  .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
           "  poly-cli                  .  .  .  .  x  .  t  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  t  .  .  t  .  ."])))
@@ -246,7 +246,7 @@
             "  validator                 .  .  .  x  .  .  x  +  .  .  .  .  x  .  .  .  .  x  .  +  +  .  x  .  .  .  .  .  ."
             "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  workspace                 -  -  -  x  -  -  x  x  -  -  -  -  x  -  -  -  t  +  -  x  +  -  x  x  -  -  -  -  -"
-            "  workspace-clj             +  .  .  x  x  .  x  x  x  .  x  .  x  +  .  .  .  +  .  +  x  .  x  x  x  .  .  .  ."
+            "  workspace-clj             +  .  .  x  x  .  x  x  x  .  x  .  x  +  .  .  .  +  .  +  x  .  x  +  x  .  .  .  ."
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  ws-file                   .  .  .  x  .  .  .  x  x  .  .  .  .  +  .  .  .  .  .  .  +  .  x  .  x  .  .  .  ."
             "  poly-cli                  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  t  +  +"]))))
@@ -708,12 +708,12 @@
                                                         "path-finder"
                                                         "user-config"
                                                         "util"
-                                                        "validator"
                                                         "version"]
                                              :indirect ["antq"
                                                         "sh"
                                                         "test-runner-contract"
-                                                        "text-table"]}
+                                                        "text-table"
+                                                        "validator"]}
                                       :test {:direct   ["common"
                                                         "config-reader"
                                                         "deps"
@@ -723,12 +723,12 @@
                                                         "path-finder"
                                                         "user-config"
                                                         "util"
-                                                        "validator"
                                                         "version"]
                                              :indirect ["antq"
                                                         "sh"
                                                         "test-runner-contract"
-                                                        "text-table"]}}
+                                                        "text-table"
+                                                        "validator"]}}
           "ws-explorer"              {:src  {:direct ["util"]}
                                       :test {:direct ["util"]}}
           "ws-file"                  {:src  {:direct   ["common"
@@ -839,8 +839,7 @@
                  "clojure.test"
                  "malli.core"
                  "polylith.clj.core.poly-cli.api"
-                 "polylith.clj.core.poly-cli.core"
-                          "polylith.clj.core.test_runner_contract.interface"]})))
+                 "polylith.clj.core.poly-cli.core"]})))
 
 (deftest shell-component-lib-deps
   (is (= (ws-explorer/extract (workspace) ["components" "shell" "lib-deps"])

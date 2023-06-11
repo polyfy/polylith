@@ -29,7 +29,7 @@ poly help
 ```
 
 ```
-  Poly 0.2.18-issue187-03 (2023-05-22) - https://github.com/polyfy/polylith
+  Poly 0.2.18-issue309-01 (2023-06-11) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -394,7 +394,6 @@ poly help
     poly deps brick:mybrick
     poly deps project:myproject
     poly deps project:myproject brick:mybrick
-
 ```
 
 ### deps :brick
