@@ -4,10 +4,9 @@
 
 (defn update-deps! [next-brick-id [brick-id & path :as full-path] visited brick-id->deps]
   (when brick-id
-    (let [{:keys [direct indirect circular completed?]} (@brick-id->deps brick-id)]
+    (let [{:keys [indirect circular completed?]} (@brick-id->deps brick-id)]
       (when (not completed?)
-        (let [deps {:direct (if (empty? path) (conj direct next-brick-id) direct)
-                    :indirect (if (seq path) (conj indirect next-brick-id) indirect)
+        (let [deps {:indirect (if (seq path) (conj indirect next-brick-id) indirect)
                     :circular (if (seq circular)
                                 circular
                                 (if (= brick-id next-brick-id)
@@ -95,8 +94,9 @@
   (or (nil? bricks-to-test)
       (contains? bricks-to-test name)))
 
-(defn enhance-deps [{:keys [direct indirect circular]} ifc->comp interface-and-base-names interface-and-base-names-in-project]
-  (let [all-direct (set/intersection direct interface-and-base-names)
+(defn enhance-deps [brick-id brick-id->brick-ids brick-id->deps ifc->comp interface-and-base-names interface-and-base-names-in-project]
+  (let [{:keys [indirect circular]} (@brick-id->deps brick-id)
+        all-direct (set/intersection (set (brick-id->brick-ids brick-id)) interface-and-base-names)
         all-indirect (set/intersection indirect interface-and-base-names)
         direct (set/intersection all-direct interface-and-base-names-in-project)
         indirect (set/difference (set/intersection all-indirect interface-and-base-names-in-project) direct)
@@ -161,12 +161,12 @@
   (let [src-brick-id (brick-name-id brick)
         test-brick-id (str src-brick-id " (t)")
         _ (brick-deps-recursively src-brick-id brick-id->brick-ids brick-id->deps #{} [])
-        src-deps (enhance-deps (@brick-id->deps src-brick-id) ifc->comp interface-and-base-names interface-and-base-names-in-project)
+        src-deps (enhance-deps src-brick-id brick-id->brick-ids brick-id->deps ifc->comp interface-and-base-names interface-and-base-names-in-project)
         include-test? (include-test? brick bricks-to-test)
         test-deps (if include-test?
                     (do
                       (brick-deps-recursively test-brick-id brick-id->brick-ids brick-id->deps #{} [])
-                      (enhance-deps (@brick-id->deps test-brick-id) ifc->comp interface-and-base-names interface-and-base-names-in-project-test))
+                      (enhance-deps test-brick-id brick-id->brick-ids brick-id->deps ifc->comp interface-and-base-names interface-and-base-names-in-project-test))
                     {})]
     (if (contains? test-only-interfaces-and-bricks src-brick-id)
       {:src {}
