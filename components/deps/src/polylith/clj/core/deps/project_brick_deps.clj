@@ -6,13 +6,16 @@
   (when brick-id
     (let [{:keys [indirect circular completed?]} (@brick-id->deps brick-id)]
       (when (not completed?)
-        (let [deps {:indirect (if (seq path) (conj indirect next-brick-id) indirect)
-                    :circular (if (seq circular)
-                                circular
-                                (if (= brick-id next-brick-id)
-                                  (conj full-path next-brick-id)
-                                  []))
-                    :completed? completed?}]
+        (let [circular (if (seq circular)
+                         circular
+                         (if (= brick-id next-brick-id)
+                           (conj (vec full-path) next-brick-id)
+                           []))
+              deps {:indirect (if (seq path)
+                                (conj indirect next-brick-id)
+                                indirect)
+                    :circular circular
+                    :completed? (or completed? (seq circular))}]
           (swap! brick-id->deps assoc brick-id deps)
           (when (seq path)
             (recur next-brick-id path visited brick-id->deps)))))))

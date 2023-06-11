@@ -6,7 +6,7 @@
 (defn dep [[_ {:keys [src test]}] project-name]
   (let [circular (or (:circular src)
                      (:circular test))]
-    {:project-name  project-name
+    {:project-name project-name
      :circular-deps circular}))
 
 (defn circular-dep [{:keys [name deps]}]
