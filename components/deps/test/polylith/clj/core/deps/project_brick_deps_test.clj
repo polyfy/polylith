@@ -9,11 +9,11 @@
                               "b" {:direct ["a"]
                                    :indirect #{}
                                    :completed? false}})]
-    (is (= (pbd/update-indirect-deps! "a" "b"
-                                      {"a" ["b"]
-                                       "b" ["a"]}
-                                      brick-id->deps
-                                      #{"a"})
+    (is (= (pbd/update-deps! "a" "b"
+                             {"a" ["b"]
+                              "b" ["a"]}
+                             brick-id->deps
+                             #{"a"})
            {"a" {:completed? true
                  :direct     ["b"]
                  :indirect   #{"a" "b"}
@@ -28,7 +28,7 @@
                         "b" {:direct ["a"], :indirect #{"b"}, :completed? true, :paths [["a"]]}}
         ifc->comp {"a" "a"
                    "b" "b"}]
-    (is (= (pbd/finalise-deps "a" brick-id->deps ifc->comp #{"a" "b"} #{"a" "b"} #{})
+    (is (= (pbd/finalize-deps "a" brick-id->deps ifc->comp #{"a" "b"} #{"a" "b"} #{})
            {:circular ["a" "b" "a"]
             :direct   ["b"]
             :indirect ["a"]}))))
