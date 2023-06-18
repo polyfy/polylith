@@ -1,23 +1,23 @@
-                              t   
-                              e   
-                     d        s   
-                     a     t  t   
-                     t     e  -   
-                     o     s  h   
-                  d  m  i  t  e   
-                  a  i  n  -  l   
-                  t  c  v  h  p   
-                  a  -  o  e  e   
-                  b  i  i  l  r  u
-                  a  o  c  p  -  t
-                  s  n  e  e  d  i
-  brick           e  s  r  r  b  l
-  --------------------------------
-  database        .  .  .  .  .  x
-  datomic-ions    .  .  .  .  .  .
-  invoicer        .  .  .  t  .  x
-  test-helper     .  .  .  .  x  .
-  test-helper-db  x  .  .  .  .  .
-  util            .  .  .  .  .  .
-  without-src     .  .  .  .  .  .
-  invoicer-cli    .  .  x  .  .  .
+                           t   
+                           e   
+                           s   
+                        t  t   
+                        e  -   
+                        s  h   
+                  d  i  t  e   
+                  a  n  -  l   
+                  t  v  h  p   
+                  a  o  e  e   
+                  b  i  l  r  u
+                  a  c  p  -  t
+                  s  e  e  d  i
+  brick           e  r  r  b  l
+  -----------------------------
+  database        .  .  .  .  x
+  datomic-ions    .  .  .  .  .
+  invoicer        .  .  t  .  x
+  test-helper     .  .  .  x  .
+  test-helper-db  x  .  .  .  .
+  util            .  .  .  .  .
+  without-src     .  .  .  .  .
+  invoicer-cli    .  x  .  .  .

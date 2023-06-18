@@ -35,7 +35,7 @@
         brick->ifc-deps (into {} (concat (map (juxt :name :interface-deps) bricks)))
         brick->base-deps (into {} (map (juxt :name :base-deps) bases))
         used-interfaces (sort (set (mapcat #(concat (-> % :interface-deps :src)
-                                                    (-> % :interface-deps :test)) components)))
+                                                    (-> % :interface-deps :test)) bricks)))
         used-bases (sort (set (mapcat #(concat (-> % :base-deps :src)
                                                (-> % :base-deps :test)) bases)))
         base-col (+ 3 (* 2 (count used-interfaces)))
