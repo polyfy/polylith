@@ -89,8 +89,8 @@
 
 (defn imports [ns-statements suffixed-top-ns interface-ns]
   (if (sequential? ns-statements)
-    (vec (sort (mapcat #(import % suffixed-top-ns interface-ns)
-                       (filterv import? ns-statements))))
+    (vec (sort (set (mapcat #(import % suffixed-top-ns interface-ns)
+                            (filterv import? ns-statements)))))
     []))
 
 (defn skip-slash [path]

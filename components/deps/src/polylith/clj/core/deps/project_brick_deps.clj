@@ -131,9 +131,9 @@
 
 (defn circular-dep [brick-id indirect paths]
   (when (contains? indirect brick-id)
-    (vec (cons brick-id
-               (first (filterv #(= brick-id (last %))
-                               paths))))))
+    (cons brick-id
+          (first (filterv #(= brick-id (last %))
+                          paths)))))
 
 (defn missing-deps
   "All bricks that we depend on that is not included in the project are considered missing,
@@ -176,8 +176,8 @@
 
 (defn merge-missing [{src1 :src test1 :test}
                      {src2 :src test2 :test}]
-  (let [src (vec (concat src1 src2))
-        test (vec (concat test1 test2))]
+  (let [src (vec (set (concat src1 src2)))
+        test (vec (set (concat test1 test2)))]
     [{:src src
       :test test}
      (or (seq src)
