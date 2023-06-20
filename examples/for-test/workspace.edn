@@ -18,7 +18,8 @@
 
             "service" {:alias "service"}
             "okay" {:alias "okay"
-                    :test {:setup-fn project.okay.test-setup/setup
+                    :test {:exclude ["exclude-me"]
+                           :setup-fn project.okay.test-setup/setup
                            :teardown-fn project.okay.test-setup/teardown}
                     :necessary ["a-okay" "b-fail" "company" "util"]}
             "setup-fails" {:alias "setup-fails"

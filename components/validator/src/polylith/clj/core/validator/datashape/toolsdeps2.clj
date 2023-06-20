@@ -46,6 +46,7 @@
    test-runner-config-schema
    [:map
     [:include {:optional true} vector?]
+    [:exclude {:optional true} vector?]
     [:setup-fn {:optional true} qualified-symbol?]
     [:teardown-fn {:optional true} qualified-symbol?]]))
 

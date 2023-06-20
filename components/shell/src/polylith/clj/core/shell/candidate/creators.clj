@@ -3,7 +3,7 @@
 
 (defn with-val [candidate value]
   (cond
-    (map? value) (cond-> (merge candidate value))
+    (map? value) (merge candidate value)
     (keyword? value) (assoc candidate :top-group-id value)
     (string? value) (assoc candidate :parsed-value value)
     (integer? value) (assoc candidate :order value)
@@ -121,10 +121,6 @@
                          :stay? true
                          :group group
                          :function select-fn}]))
-
-(defn multi-fn
-  ([value & args]
-   (candidate (str value ":") value value :fn (concat args [true]))))
 
 (defn multi-param
   ([value & args]

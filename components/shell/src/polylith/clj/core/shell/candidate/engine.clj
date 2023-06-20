@@ -43,7 +43,7 @@
 (defn filter-candidates [word candidates potential-exact-match?]
   (let [potentials (filter-exact-match word candidates)
         filtered (filterv #(starts-with % word) candidates)
-        ordered (sort-by :order (filter #(:order %) filtered))
+        ordered (sort-by :order (filter :order filtered))
         order (-> ordered first :order)]
     (if (and potential-exact-match?
              (= 1 (count potentials)))
@@ -115,7 +115,7 @@
                :word word)))))
 
 (defn select-candidates [candidate [word potential-exact-match?]]
-  (tap "select-candidates" word candidate)
+  ;(tap "select-candidates" word candidate)
   (if (= :next word)
     (next candidate)
     (select candidate word potential-exact-match?)))
@@ -138,18 +138,18 @@
           (with-potential-exact-match words)))
 
 (defn candidates [line words]
-  (tap> {:fn "----- candidates -----"
-         :line line
-         :first-candidate (first-candidate)
-         :words-str (clean-words words)
-         :words words
-         :groups @groups
-         :workspace @ws})
+  #_(tap> {:fn "----- candidates -----"
+           :line line
+           :first-candidate (first-candidate)
+           :words-str (clean-words words)
+           :words words
+           :groups @groups
+           :workspace @ws})
   (let [result (-> (select-candidate words)
                    :candidates
                    empty-if-nil)]
-    (tap> {:candidates result
-           :groups @groups})
+    #_(tap> {:candidates result
+             :groups @groups})
     result))
 
 (comment

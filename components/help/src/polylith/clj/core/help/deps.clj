@@ -17,13 +17,13 @@
        "    poly help deps " (s/key "ARGS" cm) ":\n"
        "      " (s/key "ARGS" cm) " = " (s/key ":brick" cm) "           Help for the brick diagram.\n"
        "             " (s/key ":project" cm) "         Help for the project diagram.\n"
-       "             " (s/key ":workspace" cm) "       Help for the workspace diagram.\n"
        "             " (s/key ":project :brick" cm) "  Help for the project/brick diagram.\n"
+       "             " (s/key ":workspace" cm) "       Help for the workspace diagram.\n"
        "\n"
        "  Example:\n"
        "    poly deps\n"
-       "    poly deps project:myproject\n"
        "    poly deps brick:mybrick\n"
+       "    poly deps project:myproject\n"
        "    poly deps project:myproject brick:mybrick"))
 
 (defn print-help [is-show-project is-show-brick is-show-workspace color-mode]

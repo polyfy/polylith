@@ -41,9 +41,9 @@
         direct-test-names (-> :test brick-deps :direct set)
         direct-src (->dependees-brick direct-src-names false brick->color)
         direct-test (->dependees-brick (set/difference direct-test-names direct-src-names) true brick->color)
-        missing-ifc-src-names (-> :src brick-deps :missing-ifc :direct set)
-        missing-ifc-test-names (-> :test brick-deps :missing-ifc :direct set)
-        missing-ifc-src (->dependees-ifc missing-ifc-src-names false)
-        missing-ifc-test (->dependees-ifc (set/difference missing-ifc-test-names missing-ifc-src) true)
-        dependees (sort-them (concat direct-src direct-test missing-ifc-src missing-ifc-test))]
+        missing-ifc-and-bases-src-names (-> :src brick-deps :missing-ifc-and-bases :direct set)
+        missing-ifc-and-bases-test-names (-> :test brick-deps :missing-ifc-and-bases :direct set)
+        missing-ifc-and-bases-src (->dependees-ifc missing-ifc-and-bases-src-names false)
+        missing-ifc-and-bases-test (->dependees-ifc (set/difference missing-ifc-and-bases-test-names missing-ifc-and-bases-src) true)
+        dependees (sort-them (concat direct-src direct-test missing-ifc-and-bases-src missing-ifc-and-bases-test))]
     [dependers dependees]))

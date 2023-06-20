@@ -29,7 +29,7 @@ poly help
 ```
 
 ```
-  Poly 0.2.18-issue187-02 (2023-05-18) - https://github.com/polyfy/polylith
+  Poly 0.2.18-issue309-04 (2023-06-20) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -113,8 +113,8 @@ poly help
     poly create workspace name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company branch:master
     poly deps
-    poly deps project:myproject
     poly deps brick:mybrick
+    poly deps project:myproject
     poly deps project:myproject brick:mybrick
     poly diff
     poly help
@@ -128,6 +128,7 @@ poly help
     poly help deps :project
     poly help deps :brick
     poly help deps :project :brick
+    poly help deps :workspace
     poly info
     poly info :loc
     poly info since:65a7918
@@ -385,13 +386,13 @@ poly help
     poly help deps ARGS:
       ARGS = :brick           Help for the brick diagram.
              :project         Help for the project diagram.
-             :workspace       Help for the workspace diagram.
              :project :brick  Help for the project/brick diagram.
+             :workspace       Help for the workspace diagram.
 
   Example:
     poly deps
-    poly deps project:myproject
     poly deps brick:mybrick
+    poly deps project:myproject
     poly deps project:myproject brick:mybrick
 ```
 

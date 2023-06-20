@@ -110,7 +110,7 @@
                          "tag"
                          "user"]})))
 
-(deftest project-to-bricks-to-test--with-run-all-brick-tests-only-test-two-bricks--returns-the-two-bricks
+(deftest project-to-bricks-to-test--include-two-bricks--returns-the-two-bricks
   (is (= (test {:changed-projects []
                 :settings {:projects {"core" {:test {:include ["tag" "user"]}}}}
                 :changed-components ["article" "comment" "rest-api" "tag" "user"]
@@ -122,6 +122,20 @@
                 :is-run-all-brick-tests false})
          {"core" ["tag"
                   "user"]
+          "development" []})))
+
+(deftest project-to-bricks-to-test--inlude-two-bricks-exclude-one--returns-one-brick
+  (is (= (test {:changed-projects []
+                :settings {:projects {"core" {:test {:include ["tag" "user"]
+                                                     :exclude ["user"]}}}}
+                :changed-components ["article" "comment" "rest-api" "tag" "user"]
+                :changed-bases []
+                :project-to-indirect-changes {}
+                :selected-bricks nil
+                :selected-projects #{}
+                :is-dev-user-input false
+                :is-run-all-brick-tests false})
+         {"core" ["tag"]
           "development" []})))
 
 (deftest project-to-bricks-to-test--when-the-project-itself-has-changed--return-all-bricks-for-that-project

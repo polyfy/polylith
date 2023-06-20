@@ -17,3 +17,10 @@
 
 (defn print-execution-time [start-time]
   (println (str "Execution time: " (minutes-and-seconds (elapsed-time start-time)))))
+
+(defmacro tap-seconds
+  [message expr]
+  `(let [start# (. System (nanoTime))
+         ret# ~expr]
+     (tap> (str ~message ", elapsed time: " (/ (double (- (. System (nanoTime)) start#)) 1000000000.0) " seconds"))
+     ret#))

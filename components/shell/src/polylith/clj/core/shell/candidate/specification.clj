@@ -110,10 +110,10 @@
     [(c/single-txt "migrate")]))
 
 (def branch (c/fn-explorer "branch" :ws #'remote-branches/select))
-
+(def ws-with (c/fn-explorer "project" :deps #'ws-deps-entities/select-projects))
 (def ws-replace (c/multi-param "replace"))
-(def ws-project (c/multi-fn "project" (c/group :ws) (c/function #'ws-projects-to-test/select)))
-(def ws-brick (c/multi-fn "brick" (c/group :ws) (c/function #'ws-bricks/select)))
+(def ws-project (c/fn-explorer "project" :ws #'ws-projects-to-test/select))
+(def ws-brick (c/fn-explorer "brick" :ws #'ws-bricks/select))
 (def ws-project-flag (c/flag-explicit "project" :ws))
 (def ws-dev (c/flag "dev" :ws))
 (def ws-latest-sha (c/flag "latest-sha" :ws))
@@ -122,7 +122,7 @@
 (def ws-all (c/flag "all" :ws))
 (def ws-since (c/fn-explorer "since" :ws #'ws-tag-patterns/select))
 (def ws-out (c/fn-explorer "out" :ws #'file-explorer/select))
-(def ws-get (c/multi-fn "get" (c/group :ws) (c/function #'ws-explore/select)))
+(def ws-get (c/fn-explorer "get" :ws #'ws-explore/select))
 
 ;; ws
 (defn ws [profiles all?]

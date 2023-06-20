@@ -29,22 +29,23 @@
   (apply concat (map-indexed #(entity-column (+ (* %1 2) column) color %2 brick-names brick->ifc-deps empty-character)
                              interface-names)))
 
-(defn table [{:keys [settings interfaces components bases] :as workspace}]
+(defn table [{:keys [settings components bases] :as workspace}]
   (let [{:keys [color-mode empty-character]} settings
         bricks (concat components bases)
         brick->ifc-deps (into {} (concat (map (juxt :name :interface-deps) bricks)))
         brick->base-deps (into {} (map (juxt :name :base-deps) bases))
-        interface-names (sort (filter identity (map :name interfaces)))
+        used-interfaces (sort (set (mapcat #(concat (-> % :interface-deps :src)
+                                                    (-> % :interface-deps :test)) bricks)))
         used-bases (sort (set (mapcat #(concat (-> % :base-deps :src)
                                                (-> % :base-deps :test)) bases)))
-        base-col (+ 3 (* 2 (count interface-names)))
+        base-col (+ 3 (* 2 (count used-interfaces)))
         brick-names (map :name bricks)
-        space-columns (range 2 (* 2 (+ 1 (count interface-names) (count used-bases))) 2)
+        space-columns (range 2 (* 2 (+ 1 (count used-interfaces) (count used-bases))) 2)
         compact? (common/compact? workspace "deps")
         spaces (conj (repeat (if compact? " " "  ")) "  ")
         header-spaces (text-table/spaces 1 space-columns spaces)
         brick-col (brick-column bricks color-mode)
-        interface-cols (columns 3 :yellow interface-names brick-names brick->ifc-deps empty-character)
+        interface-cols (columns 3 :yellow used-interfaces brick-names brick->ifc-deps empty-character)
         base-cols (columns base-col :blue used-bases brick-names brick->base-deps empty-character)
         cells (text-table/merge-cells brick-col interface-cols base-cols header-spaces)
         line (text-table/line 2 cells)]

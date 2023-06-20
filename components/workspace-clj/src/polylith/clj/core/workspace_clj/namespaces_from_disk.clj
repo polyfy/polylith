@@ -37,14 +37,16 @@
   "Given an import-list, as handled by `clojure.core/import`, return the
   package name as a string."
   [import-list]
-  (if (symbol? import-list)
-    (->> import-list
-         str
-         (re-find #"(.*)\.\w+$")
-         last)
-    (-> import-list
-        first
-        str)))
+  (str/replace (if (symbol? import-list)
+                 (->> import-list
+                      str
+                      (re-find #"(.*)\.\w+$")
+                      last)
+                 (-> import-list
+                     first
+                     str))
+               "_" "-"))
+
 
 ;; import/require handling
 
@@ -87,8 +89,8 @@
 
 (defn imports [ns-statements suffixed-top-ns interface-ns]
   (if (sequential? ns-statements)
-    (vec (sort (mapcat #(import % suffixed-top-ns interface-ns)
-                       (filterv import? ns-statements))))
+    (vec (sort (set (mapcat #(import % suffixed-top-ns interface-ns)
+                            (filterv import? ns-statements)))))
     []))
 
 (defn skip-slash [path]

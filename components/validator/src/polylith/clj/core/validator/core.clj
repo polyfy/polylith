@@ -6,7 +6,7 @@
             [polylith.clj.core.validator.m104-circular-deps :as m104]
             [polylith.clj.core.validator.m105-illegal-name-sharing :as m105]
             [polylith.clj.core.validator.m106-multiple-interface-occurrences :as m106]
-            [polylith.clj.core.validator.m107-missing-componens-in-project :as m107]
+            [polylith.clj.core.validator.m107-missing-bricks-in-project :as m107]
             [polylith.clj.core.validator.m108-project-with-multi-implementing-component :as m108]
             [polylith.clj.core.validator.m109-invalid-test-runner-constructor :as m109]
             [polylith.clj.core.validator.m110-missing-or-invalid-config-file :as m110]
@@ -29,7 +29,7 @@
         (m104/errors projects color-mode)
         (m105/errors interface-names components bases color-mode)
         (m106/errors components projects color-mode)
-        (m107/errors cmd settings projects color-mode)
+        (m107/errors cmd settings bases projects color-mode)
         (m108/errors interfaces projects paths color-mode)
         (m109/errors settings color-mode)
         (m110/errors config-errors)
