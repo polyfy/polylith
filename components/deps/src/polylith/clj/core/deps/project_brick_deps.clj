@@ -188,8 +188,8 @@
    are treated as test dependencies, so we merge them."
   [{direct1 :direct indirect1 :indirect circular1 :circular missing-ifc-and-bases1 :missing-ifc-and-bases}
    {direct2 :direct indirect2 :indirect circular2 :circular missing-ifc-and-bases2 :missing-ifc-and-bases}]
-  (let [direct (vec (sort (concat direct1 direct2)))
-        indirect (vec (sort (concat indirect1 indirect2)))
+  (let [direct (vec (sort (set (concat direct1 direct2))))
+        indirect (vec (sort (set (concat indirect1 indirect2))))
         circular (if (seq circular1) circular1 circular2)
         [missing missing?] (merge-missing missing-ifc-and-bases1 missing-ifc-and-bases2)]
     (cond-> {}
