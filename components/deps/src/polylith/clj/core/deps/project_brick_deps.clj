@@ -230,8 +230,9 @@
    Bases will keep their names."
   [bricks-to-test components]
   (when bricks-to-test
-    (let [name->brick-id (map (fn [{:keys [name interface]}] [name (:name interface)])
-                              components)]
+    (let [name->brick-id (into {} (map (fn [{:keys [name interface]}]
+                                         [name (:name interface)])
+                                       components))]
       (set (map #(name->brick-id % %) bricks-to-test)))))
 
 (defn project-deps
