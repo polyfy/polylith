@@ -1,0 +1,2 @@
+{;:paths ["bb"]
+ :deps {polylith/polith {:local/root "."}}}
