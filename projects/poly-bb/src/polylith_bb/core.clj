@@ -72,7 +72,7 @@
 (ns polylith.clj.core.shell.interface)
 
 (defn start [execute user-input workspace-fn workspace color-mode]
-  (throw (ex-info "Unsupported" {})))
+  (throw (ex-info "'shell' command is unsupported due to Babashka's incompatibility with JLine" {})))
 
 (ns polylith-bb.core
   (:require [polylith.clj.core.poly-cli.core :as core]))
