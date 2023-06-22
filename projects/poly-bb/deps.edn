@@ -1,6 +1,6 @@
 {:paths ["src"]
  :deps {
-        ;poly/antq                     {:local/root "../../components/antq"}
+        poly/antq                     {:local/root "../../components/antq"}
         poly/change                   {:local/root "../../components/change"}
         poly/clojure-test-test-runner {:local/root "../../components/clojure-test-test-runner"}
         poly/command                  {:local/root "../../components/command"}
@@ -11,7 +11,7 @@
         poly/file                     {:local/root "../../components/file"}
         poly/git                      {:local/root "../../components/git"}
         poly/help                     {:local/root "../../components/help"}
-        ;poly/lib                      {:local/root "../../components/lib"}
+        poly/lib                      {:local/root "../../components/lib"}
         poly/migrator                 {:local/root "../../components/migrator"}
         poly/path-finder              {:local/root "../../components/path-finder"}
         poly/sh                       {:local/root "../../components/sh"}
@@ -32,10 +32,7 @@
         poly/poly-cli                 {:local/root "../../bases/poly-cli"}
 
         org.clojure/clojure {:mvn/version "1.11.1"}
-        org.slf4j/slf4j-nop {:mvn/version "2.0.7"}
-
-        org.clojure/tools.deps {:git/url "https://github.com/babashka/tools-deps-native.git" :sha "d1d80492ecb47d34820b8237431396e51d3dde5f"}
-      
+        org.slf4j/slf4j-nop {:mvn/version "2.0.7"}      
       }
 
  ;; so poly can be installed as a tool:

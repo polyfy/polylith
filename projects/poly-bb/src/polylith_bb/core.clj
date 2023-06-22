@@ -3,10 +3,7 @@
 ;; Hack 1: Load tools.deps pod instead of library
 
 (require '[babashka.pods :as pods])
-
-(let [pod-binary (-> (clojure.java.io/file *file*) .getParentFile .getParentFile .getParentFile (clojure.java.io/file "tools-deps-native") .getAbsolutePath)]
-  ;; FIXME fetch pod in some other way
-  (pods/load-pod pod-binary))
+(pods/load-pod 'org.babashka/tools-deps-native "0.1.0")
 
 ;; Hack 2: add clojure.tools.reader/resolve-symbol
 
