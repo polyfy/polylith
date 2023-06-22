@@ -1,1 +1,2 @@
-{:deps {polylith/polith {:local/root "."}}}
+{:bbin/bin {polylith-bb {:main-opts ["-m" "polylith-bb.core"]}}
+ :deps {polylith/polith {:local/root "."}}}
