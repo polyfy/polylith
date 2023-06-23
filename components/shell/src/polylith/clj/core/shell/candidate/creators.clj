@@ -103,15 +103,15 @@
                                                                       :param param}}])))
 
 (defn fn-explorer
-  ([value group-id select-fn]
-   (candidate (str value ":") value value :fn [true
-                                               {:group {:id group-id}
-                                                :function select-fn}
-                                               {:child {:type :fn
-                                                        :stay? true
-                                                        :group {:id group-id
-                                                                :param value}
-                                                        :function select-fn}}])))
+  ([value group-id select-fn & values]
+   (candidate (str value ":") value value :fn (concat values [true
+                                                              {:group {:id group-id}
+                                                               :function select-fn}
+                                                              {:child {:type :fn
+                                                                       :stay? true
+                                                                       :group {:id group-id
+                                                                               :param value}
+                                                                       :function select-fn}}]))))
 
 (defn fn-explorer-child [value entity color-mode group select-fn]
   (candidate (str value ":")

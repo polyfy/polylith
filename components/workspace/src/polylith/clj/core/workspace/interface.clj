@@ -9,3 +9,6 @@
 
 (defn print-info [workspace]
   (info-table/print-info workspace))
+
+(defn table [workspace]
+  (info-table/table workspace))

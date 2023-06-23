@@ -16,6 +16,7 @@
                                 "components/image-creator/src"
                                 "components/lib/src"
                                 "components/migrator/src"
+                                "components/overview/src"
                                 "components/path-finder/src"
                                 "components/sh/src"
                                 "components/shell/src"

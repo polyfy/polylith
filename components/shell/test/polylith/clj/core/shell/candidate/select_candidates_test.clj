@@ -15,7 +15,7 @@
 
 (deftest all-commands
   (is (= (candidates "")
-         ["check" "create" "deps" "diff" "help" "info" "libs" "switch-ws" "test" "version" "ws"])))
+         ["check" "create" "deps" "diff" "help" "info" "libs" "overview" "switch-ws" "test" "version" "ws"])))
 
 (deftest check
   (is (= (candidates "check")

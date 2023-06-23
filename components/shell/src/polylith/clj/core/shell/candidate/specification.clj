@@ -104,6 +104,10 @@
                               test-dev test-project test-project-flag test-since]
                              profiles))))
 
+;; overview
+(def overview-image (c/fn-explorer "image" :overview #'file-explorer/select-image {:description "overview.png"}))
+(def overview (c/single-txt "overview" :overview [overview-image]))
+
 ;; version
 (def version (c/single-txt "version"))
 
@@ -158,6 +162,7 @@
                   help
                   (if is-all all-libs libs)
                   version
+                  overview
                   switch-ws
                   (info info-profiles is-all)
                   (ws ws-profiles is-all)]

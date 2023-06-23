@@ -8,6 +8,9 @@
             [polylith.clj.core.deps.text-table.workspace-deps-table :as workspace-deps-table]
             [polylith.clj.core.deps.text-table.workspace-project-deps-table :as workspace-project-deps-table]))
 
+(defn convert-dep-to-symbol [dep]
+  (lib-deps/convert-dep-to-symbol dep))
+
 (defn interface-ns-deps [suffixed-top-ns interface-name interface-names brick-namespaces]
   (ifc-deps/interface-ns-deps suffixed-top-ns interface-name interface-names brick-namespaces))
 
@@ -32,8 +35,8 @@
 (defn print-workspace-project-table [workspace project-name is-all]
   (workspace-project-deps-table/print-table workspace project-name is-all))
 
-(defn convert-dep-to-symbol [dep]
-  (lib-deps/convert-dep-to-symbol dep))
-
 (defn resolve-deps [project settings is-verbose]
   (lib-deps/resolve-deps project settings is-verbose))
+
+(defn table [workspace]
+  (workspace-deps-table/table workspace))

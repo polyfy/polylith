@@ -18,3 +18,7 @@
 
 (defn resolve-libs [src-deps override-deps]
   (resolve-libs/resolve-libs src-deps override-deps))
+
+(defn table [workspace]
+  (let [outdated? (-> workspace :user-input :is-outdated)]
+    (lib-table/table workspace false outdated?)))

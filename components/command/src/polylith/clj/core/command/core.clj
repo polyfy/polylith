@@ -12,6 +12,7 @@
             [polylith.clj.core.help.interface :as help]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.migrator.interface :as migrator]
+            [polylith.clj.core.overview.interface :as overview]
             [polylith.clj.core.shell.interface :as shell]
             [polylith.clj.core.tap.interface :as tap]
             [polylith.clj.core.util.interface.color :as color]
@@ -40,9 +41,6 @@
 
 (defn unknown-command [cmd]
   (println (str "  Unknown command '" cmd "'. Type 'poly help' for help.")))
-
-(defn prompt-message []
-  (println "  Please use the 'shell' command instead, which gives you support for history (<up> key) and autocomplete (<tab> key)."))
 
 (defn read-workspace [ws-file user-input]
   (if ws-file
@@ -87,7 +85,7 @@
           "info" (info/info workspace unnamed-args)
           "libs" (lib/print-lib-table workspace is-all is-outdated)
           "migrate" (migrator/migrate ws-dir workspace)
-          "prompt" (prompt-message)
+          "overview" (overview/create-image workspace)
           "shell" (shell/start execute user-input workspace-fn workspace color-mode)
           "test" (test/run workspace unnamed-args test-result is-verbose color-mode)
           "version" (version)
