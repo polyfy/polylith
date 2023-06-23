@@ -1,5 +1,6 @@
 (ns polylith.clj.core.deps.text-table.workspace-deps-table
   (:require [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.image-creator.interface :as image-creator]
             [polylith.clj.core.text-table.interface :as text-table]
             [polylith.clj.core.util.interface.color :as color]))
 
@@ -52,7 +53,11 @@
     (text-table/table "  " color-mode cells line)))
 
 (defn print-table [workspace]
-  (text-table/print-table (table workspace)))
+  (let [image (-> workspace :user-input :image)
+        table (table workspace)]
+    (if image
+      (image-creator/create-image image table)
+      (text-table/print-table table))))
 
 (comment
   (require '[dev.jocke :as dev])

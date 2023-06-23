@@ -79,7 +79,7 @@
 
 (deftest deps
   (is (= (candidates "deps")
-         ["brick" "project"])))
+         ["brick" "image" "project"])))
 
 (deftest deps-brick
   (is (= (candidates "deps" :next "brick")
@@ -123,7 +123,7 @@
 
 (deftest deps-brick-test-helper
   (is (= (candidates "deps" :next "brick" "test-helper" :next "")
-         ["project"])))
+         ["image" "project"])))
 
 (deftest deps-brick-help
   (is (= (candidates "deps" :next "brick" "help")
@@ -131,7 +131,7 @@
 
 (deftest deps-brick-file-
   (is (= (candidates "deps" :next "brick" "file" :next "")
-         ["project"])))
+         ["image" "project"])))
 
 (deftest deps-brick-deployer-project-
   (is (= (clean-colors (candidates "deps" :next "brick" "deployer" :next "project" ""))
@@ -155,7 +155,7 @@
 
 (deftest deps-project-api-
   (is (= (candidates "deps" :next "project" "api" :next)
-         ["brick"])))
+         ["brick" "image"])))
 
 (deftest deps-project-deployer-brick-
   (is (= (clean-colors (candidates "deps" :next "project" "deployer" :next "brick" ""))
@@ -182,7 +182,7 @@
 
 (deftest deps-project-api-brick-file-
   (is (= (candidates "deps" :next "project" "api" :next "brick" "file" :next)
-         [])))
+         ["image"])))
 
 (deftest diff
   (is (= (candidates "diff")

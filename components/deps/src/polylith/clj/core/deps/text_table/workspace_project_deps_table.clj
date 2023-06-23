@@ -1,5 +1,6 @@
 (ns polylith.clj.core.deps.text-table.workspace-project-deps-table
   (:require [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.image-creator.interface :as image-creator]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.text-table.interface :as text-table]))
 
@@ -96,12 +97,17 @@
     (text-table/table "  " color-mode cells line)))
 
 (defn print-table [{:keys [projects settings] :as workspace} project-name is-all]
-  (if-let [project (common/find-project project-name projects)]
-    (text-table/print-table (table workspace project is-all))
-    (println (str "  Couldn't find the " (color/project project-name (:color-mode settings)) " project."))))
+  (let [image (-> workspace :user-input :image)
+        project (common/find-project project-name projects)]
+    (if project
+      (let [table (table workspace project is-all)]
+        (if image
+          (image-creator/create-image image table)
+          (text-table/print-table table)))
+      (println (str "  Couldn't find the " (color/project project-name (:color-mode settings)) " project.")))))
 
 (comment
   (require '[dev.jocke :as dev])
   (def workspace dev/workspace)
-  (print-table workspace "inv" false)
+  (print-table workspace "poly" false)
   #__)

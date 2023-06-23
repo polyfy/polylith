@@ -34,6 +34,12 @@
   {:cmd (first args)
    :params (-> args rest vec)})
 
+(defn as-value [parameter]
+  (when parameter
+    (if (vector? parameter)
+      (first parameter)
+      parameter)))
+
 (defn as-vector [parameter]
   (when parameter
     (if (vector? parameter)
@@ -52,6 +58,7 @@
                 project
                 fake-sha
                 get
+                image
                 interface
                 name
                 out
@@ -112,7 +119,8 @@
                                              (= "true" resources!))
                       :is-verbose (= "true" verbose!)
                       :name name
-                      :out out
+                      :out (as-value out)
+                      :image (as-value image)
                       :replace (replace-from-to replace)
                       :since since
                       :skip (as-vector skip)

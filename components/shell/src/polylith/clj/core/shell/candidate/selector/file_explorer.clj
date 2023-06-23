@@ -57,3 +57,6 @@
 
 (defn select-all [{:keys [group]} groups _]
   (select-and-filter group groups #'select-all (constantly true)))
+
+(defn select-image [{:keys [group]} groups _]
+  (select-and-filter group groups #'select-image #(str/ends-with? % ".png")))

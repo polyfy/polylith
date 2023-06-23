@@ -1,6 +1,7 @@
 (ns polylith.clj.core.deps.text-table.brick-deps-table
   (:require [polylith.clj.core.deps.text-table.shared :as shared]
             [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.image-creator.interface :as image-creator]
             [polylith.clj.core.text-table.interface :as text-table]))
 
 (defn interface-cell [row interface-name]
@@ -53,9 +54,13 @@
     (text-table/table "  " color-mode used-by-column uses-column headers spaces)))
 
 (defn print-table [workspace brick-name]
-  (let [brick (common/find-brick brick-name workspace)]
+  (let [brick (common/find-brick brick-name workspace)
+        image (-> workspace :user-input :image)]
     (if brick
-      (text-table/print-table (table workspace brick))
+      (let [table (table workspace brick)]
+        (if image
+          (image-creator/create-image image table)
+          (text-table/print-table table)))
       (println (str "  Couldn't find brick '" brick-name "'.")))))
 
 (comment

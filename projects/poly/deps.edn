@@ -9,6 +9,7 @@
         poly/file                     {:local/root "../../components/file"}
         poly/git                      {:local/root "../../components/git"}
         poly/help                     {:local/root "../../components/help"}
+        poly/image-creator            {:local/root "../../components/image-creator"}
         poly/lib                      {:local/root "../../components/lib"}
         poly/migrator                 {:local/root "../../components/migrator"}
         poly/path-finder              {:local/root "../../components/path-finder"}

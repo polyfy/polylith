@@ -45,16 +45,13 @@
 (defn prompt-message []
   (println "  Please use the 'shell' command instead, which gives you support for history (<up> key) and autocomplete (<tab> key)."))
 
-(defn read-workspace
-  ([{:keys [ws-file] :as user-input}]
-   (read-workspace ws-file user-input))
-  ([ws-file user-input]
-   (if ws-file
-     (ws-file/read-ws-from-file ws-file user-input)
-     (time-util/tap-seconds "#read-workspace" (-> user-input
-                                                  ws-clj/workspace-from-disk
-                                                  ws/enrich-workspace
-                                                  change/with-changes)))))
+(defn read-workspace [ws-file user-input]
+  (if ws-file
+    (ws-file/read-ws-from-file ws-file user-input)
+    (-> user-input
+        ws-clj/workspace-from-disk
+        ws/enrich-workspace
+        change/with-changes)))
 
 (defn workspace-reader-fn []
   (fn [user-input ws-file]

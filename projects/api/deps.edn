@@ -6,6 +6,7 @@
         poly/deps                 {:local/root "../../components/deps"}
         poly/file                 {:local/root "../../components/file"}
         poly/git                  {:local/root "../../components/git"}
+        poly/image-creator        {:local/root "../../components/image-creator"}
         poly/lib                  {:local/root "../../components/lib"}
         poly/path-finder          {:local/root "../../components/path-finder"}
         poly/sh                   {:local/root "../../components/sh"}

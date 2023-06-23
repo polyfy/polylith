@@ -40,8 +40,9 @@
 ;; deps
 (def deps-brick (c/fn-explorer "brick" :deps #'ws-deps-entities/select-bricks))
 (def deps-project (c/fn-explorer "project" :deps #'ws-deps-entities/select-projects))
-(def deps (c/single-txt "deps" :deps [deps-brick deps-project]))
-(def all-deps (c/single-txt "deps" :deps [deps-brick deps-project compact]))
+(def deps-image (c/fn-explorer "image" :deps #'file-explorer/select-image))
+(def deps (c/single-txt "deps" :deps [deps-brick deps-project deps-image]))
+(def all-deps (c/single-txt "deps" :deps [deps-brick deps-project compact deps-image]))
 
 ;; diff
 (def diff-since (c/fn-explorer "since" :diff #'ws-tag-patterns/select))
