@@ -34,3 +34,9 @@
     (if ok?
       (text-table/print-table (table workspace project brick color-mode))
       (println message))))
+
+(comment
+  (require '[dev.jocke :as dev])
+  (def workspace dev/workspace)
+  (print-table workspace "poly" "deps")
+  #__)

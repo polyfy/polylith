@@ -57,3 +57,9 @@
     (if brick
       (text-table/print-table (table workspace brick))
       (println (str "  Couldn't find brick '" brick-name "'.")))))
+
+(comment
+  (require '[dev.jocke :as dev])
+  (def workspace dev/workspace)
+  (print-table workspace "deps")
+  #__)
