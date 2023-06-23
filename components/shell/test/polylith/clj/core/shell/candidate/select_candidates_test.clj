@@ -219,11 +219,11 @@
 
 (deftest help-deps
   (is (= (candidates "help" :next "deps")
-         [":brick" ":project"])))
+         [":brick" ":project" ":workspace"])))
 
 (deftest help-deps-brick-
   (is (= (candidates "help" :next "deps" :next "brick" "")
-         [":project"])))
+         [":project" ":workspace"])))
 
 (deftest help-deps-brick-project
   (is (= (candidates "help" :next "deps" :next "brick" :next "project")
@@ -231,7 +231,7 @@
 
 (deftest help-deps-project-
   (is (= (candidates "help" :next "deps" :next "project" "")
-         [":brick"])))
+         [":brick" ":workspace"])))
 
 (deftest help-deps-project-brick
   (is (= (candidates "help" :next "deps" :next "project" :next "brick")

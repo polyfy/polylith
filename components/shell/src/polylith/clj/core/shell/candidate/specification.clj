@@ -54,8 +54,9 @@
 (def help-create-workspace (c/single-txt "workspace"))
 (def help-create (c/single-txt "create" [help-create-base help-create-component help-create-project help-create-workspace]))
 (def help-deps-project (c/flag "project" :help-deps))
+(def help-deps-workspace (c/flag "workspace" :help-deps))
 (def help-deps-brick (c/flag "brick" :help-deps))
-(def help-deps (c/single-txt "deps" :help-deps [help-deps-brick help-deps-project]))
+(def help-deps (c/single-txt "deps" :help-deps [help-deps-brick help-deps-project help-deps-workspace]))
 (def help (c/single-txt "help" (vec (concat [help-create help-deps]
                                             (mapv #(c/single-txt %)
                                                   ["check" "diff" "info" "libs" "switch-ws" "shell" "tap" "test" "version" "ws"])))))
