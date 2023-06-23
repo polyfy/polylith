@@ -48,7 +48,7 @@
   "The third '--x' column is marked if the project is marked to be tested from *any* project."
   [projects disk-paths {:keys [project-to-projects-to-test]} is-show-resources]
   (let [projects-to-test (set (mapcat second project-to-projects-to-test))]
-    (concat [(text-table/cell 5 "status")]
+    (concat [(text-table/cell 5 "source")]
             (map-indexed #(status-cell %1 %2 disk-paths projects-to-test is-show-resources)
                          projects))))
 
