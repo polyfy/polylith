@@ -29,7 +29,7 @@
     args
     (concat ["."] args)))
 
-(defn select [{:keys [group]} groups _]
+(defn select-files-and-dirs [group groups]
   (let [{:keys [id param]} group
         args (get-in groups [id param :args])
         home-dir (user-config/home-dir)
@@ -39,11 +39,21 @@
         prev-dir? (and (or (empty? args)
                            (= ".." (last args)))
                        (not= files-and-dirs
-                             (file/files-and-dirs (str path "/..") home-dir)))
-        {:keys [files dirs]} files-and-dirs]
-    (vec (concat (map #(dir-fn % group #'select)
+                             (file/files-and-dirs (str path "/..") home-dir)))]
+    (assoc files-and-dirs :args args
+                          :prev-dir? prev-dir?)))
+
+(defn- select-and-filter [group groups the-fn the-filter]
+  (let [{:keys [args files dirs prev-dir?]} (select-files-and-dirs group groups)]
+    (vec (concat (map #(dir-fn % group the-fn)
                       (cond-> dirs
                               prev-dir? (conj "..")
                               (empty? args) (conj "~")))
                  (map #(file-arg % group)
-                      (filter #(str/ends-with? % ".edn") files))))))
+                      (filter the-filter files))))))
+
+(defn select-edn [{:keys [group]} groups _]
+  (select-and-filter group groups #'select-edn #(str/ends-with? % ".edn")))
+
+(defn select-all [{:keys [group]} groups _]
+  (select-and-filter group groups #'select-all (constantly true)))

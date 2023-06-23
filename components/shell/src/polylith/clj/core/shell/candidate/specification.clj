@@ -63,6 +63,7 @@
 
 ;; info
 (def info-fake-sha (c/multi-param "fake-sha"))
+(def info-changed-files (c/fn-explorer "changed-files" :info #'file-explorer/select-all))
 (def info-since (c/fn-explorer "since" :info #'ws-tag-patterns/select))
 (def info-project (c/fn-explorer "project" :info #'ws-projects-to-test/select))
 (def info-brick (c/fn-explorer "brick" :info #'ws-bricks/select))
@@ -78,7 +79,7 @@
                 (concat profiles
                         [info-all info-all-bricks info-brick info-loc info-dev
                          info-resources info-project info-project-flag info-since]
-                        (when all? [info-fake-sha]))))
+                        (when all? [info-fake-sha info-changed-files]))))
 
 ;; libs
 (def outdated (c/flag "outdated" :libs))
@@ -122,7 +123,7 @@
 (def ws-all-bricks (c/flag "all-bricks" :ws))
 (def ws-all (c/flag "all" :ws))
 (def ws-since (c/fn-explorer "since" :ws #'ws-tag-patterns/select))
-(def ws-out (c/fn-explorer "out" :ws #'file-explorer/select))
+(def ws-out (c/fn-explorer "out" :ws #'file-explorer/select-edn))
 (def ws-get (c/fn-explorer "get" :ws #'ws-explore/select))
 
 ;; ws
@@ -133,8 +134,8 @@
                              profiles
                              (when all? [branch ws-replace])))))
 
-(def switch-ws-dir (c/fn-explorer "dir" :switch-ws #'file-explorer/select))
-(def switch-ws-file (c/fn-explorer "file" :switch-ws #'file-explorer/select))
+(def switch-ws-dir (c/fn-explorer "dir" :switch-ws #'file-explorer/select-edn))
+(def switch-ws-file (c/fn-explorer "file" :switch-ws #'file-explorer/select-edn))
 (def switch-ws (c/single-txt "switch-ws" :switch-ws [switch-ws-file switch-ws-dir]))
 
 (defn profiles [group-id settings]

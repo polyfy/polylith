@@ -124,7 +124,7 @@
                                :syntax-quote {:resolve-symbol resolve-symbol}})
     (catch ExceptionInfo e
      (let [{:keys [row col]} (ex-data e)]
-       (println (str "  Couldn't read file '" path "', row: " row ", column: " col ", message: " (.getMessage e)))))))
+       (println (str "  Couldn't read file '" path "', row: " row ", column: " col ". Message: " (.getMessage e)))))))
 
 (defn copy-resource-file! [source target-path]
   (delete-file target-path)
