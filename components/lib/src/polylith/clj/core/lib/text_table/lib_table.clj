@@ -1,8 +1,9 @@
 (ns polylith.clj.core.lib.text-table.lib-table
   (:require [polylith.clj.core.antq.ifc :as antq]
-            [polylith.clj.core.util.interface.str :as str-util]
+            [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.image-creator.interface :as image-creator]
             [polylith.clj.core.text-table.interface :as text-table]
-            [polylith.clj.core.common.interface :as common]))
+            [polylith.clj.core.util.interface.str :as str-util]))
 
 (def type->color {"component" :green
                   "base" :blue})
@@ -160,7 +161,11 @@
     (text-table/table "  " color-mode cells line spaces)))
 
 (defn print-table [workspace is-all is-outdated]
-  (text-table/print-table (table workspace is-all is-outdated)))
+  (let [image (-> workspace :user-input :image)
+        table (table workspace is-all is-outdated)]
+     (if image
+       (image-creator/create-image image table)
+       (text-table/print-table table))))
 
 (comment
   (require '[dev.jocke :as jocke])
