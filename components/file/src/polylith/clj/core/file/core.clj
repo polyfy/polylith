@@ -7,7 +7,8 @@
             [edamame.core :as edamame]
             [me.raynes.fs :as fs]
             [polylith.clj.core.util.interface.str :as str-util])
-  (:import [java.io File FileNotFoundException]
+  (:import (clojure.lang ExceptionInfo)
+           [java.io File FileNotFoundException]
            [java.nio.file Files]))
 
 (defn file [^String f]
@@ -108,18 +109,22 @@
      :dirs dirs}))
 
 (defn read-file [path]
-  (edamame/parse-string-all (slurp path)
-                            {:fn true
-                             :var true
-                             :quote true
-                             :regex true
-                             :deref true
-                             :read-eval true
-                             :features #{:clj}
-                             :read-cond :allow
-                             :auto-resolve name
-                             :auto-resolve-ns true
-                             :syntax-quote {:resolve-symbol resolve-symbol}}))
+  (try
+    (edamame/parse-string-all (slurp path)
+                              {:fn true
+                               :var true
+                               :quote true
+                               :regex true
+                               :deref true
+                               :read-eval true
+                               :features #{:clj}
+                               :read-cond :allow
+                               :auto-resolve name
+                               :auto-resolve-ns true
+                               :syntax-quote {:resolve-symbol resolve-symbol}})
+    (catch ExceptionInfo e
+     (let [{:keys [row col]} (ex-data e)]
+       (println (str "  Couldn't read file '" path "', row: " row ", column: " col ", message: " (.getMessage e)))))))
 
 (defn copy-resource-file! [source target-path]
   (delete-file target-path)
