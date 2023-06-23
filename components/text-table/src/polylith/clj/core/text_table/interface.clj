@@ -1,9 +1,9 @@
 (ns polylith.clj.core.text-table.interface
-  (:require [polylith.clj.core.text-table.core :as core]
-            [polylith.clj.core.text-table.cell :as cell]
-            [polylith.clj.core.text-table.spaces :as spaces]
+  (:require [polylith.clj.core.text-table.cell :as cell]
+            [polylith.clj.core.text-table.core :as core]
             [polylith.clj.core.text-table.line :as line]
-            [polylith.clj.core.text-table.merger :as merger]))
+            [polylith.clj.core.text-table.merger :as merger]
+            [polylith.clj.core.text-table.spaces :as spaces]))
 
 (defn cell
   ([column value]
@@ -22,6 +22,9 @@
 
 (defn spaces [row column-nums spaces]
   (spaces/spaces row column-nums spaces))
+
+(defn empty-line [row]
+  (cell 1 row ""))
 
 (defn line [row cells]
   (line/line row cells))

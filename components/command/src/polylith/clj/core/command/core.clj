@@ -15,11 +15,10 @@
             [polylith.clj.core.shell.interface :as shell]
             [polylith.clj.core.tap.interface :as tap]
             [polylith.clj.core.util.interface.color :as color]
-            [polylith.clj.core.util.interface.time :as time-util]
             [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.version.interface :as ver]
             [polylith.clj.core.workspace-clj.interface :as ws-clj]
-            [polylith.clj.core.workspace.interface :as ws]
+            [polylith.clj.core.workspace.interface :as workspace]
             [polylith.clj.core.ws-file.interface :as ws-file]
             [polylith.clj.core.ws-explorer.interface :as ws-explorer])
   (:refer-clojure :exclude [test]))
@@ -50,7 +49,7 @@
     (ws-file/read-ws-from-file ws-file user-input)
     (-> user-input
         ws-clj/workspace-from-disk
-        ws/enrich-workspace
+        workspace/enrich-workspace
         change/with-changes)))
 
 (defn workspace-reader-fn []

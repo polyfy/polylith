@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.text-table.count-table
+(ns polylith.clj.core.workspace.text-table.number-of-entities
   (:require [polylith.clj.core.text-table.interface :as text-table]))
 
 (defn table [{:keys [settings projects bases components interfaces]}]
