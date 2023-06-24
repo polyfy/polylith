@@ -1,422 +1,422 @@
 ######### component-info.png #########
 
-  stable since: [37mc91fdad[0m
-
-  [35mprojects:[0m 1   [33minterfaces:[0m 1
-  [34mbases:   [0m 0   [32mcomponents:[0m 1
-
-  project        alias  status   [35mdev[0m
+  stable since: [37mc91fdad[0m             
+                                    
+  [35mprojects:[0m 1   [33minterfaces:[0m 1       
+  [34mbases:   [0m 0   [32mcomponents:[0m 1       
+                                    
+  project        alias  source   [35mdev[0m
   ----------------------------   ---
   [35mdevelopment[0m *  [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick    [35mdev[0m
-  -----------------   ---
-  [33muser     [0m  [32muser[0m *   [35mst-[0m
+                                    
+  interface  brick    [35mdev[0m           
+  -----------------   ---           
+  [33muser     [0m  [32muser[0m *   [35mst-[0m           
 
 ######### git-info.png #########
 
-  stable since: [37mc91fdad[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project         alias  status   [35mdev[0m
+  stable since: [37mc91fdad[0m              
+                                     
+  [35mprojects:[0m 2   [33minterfaces:[0m 1        
+  [34mbases:   [0m 1   [32mcomponents:[0m 1        
+                                     
+  project         alias  source   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m *  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m *   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick    [35mcl [0m   [35mdev[0m
-  -----------------   ---   ---
-  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mst-[0m
-  -          [34mcli[0m *    [35mstx[0m   [35mst-[0m
+                                     
+  interface  brick    [35mcl [0m   [35mdev[0m      
+  -----------------   ---   ---      
+  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mst-[0m      
+  -          [34mcli[0m *    [35mstx[0m   [35mst-[0m      
 
 ######### tagging-info-1.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project       alias  status   [35mdev[0m
+  stable since: [37me7ebe68[0m            
+                                   
+  [35mprojects:[0m 2   [33minterfaces:[0m 1      
+  [34mbases:   [0m 1   [32mcomponents:[0m 1      
+                                   
+  project       alias  source   [35mdev[0m
   ---------------------------   ---
   [35mcommand-line[0m  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick   [35mcl [0m   [35mdev[0m
-  ----------------   ---   ---
-  [33muser     [0m  [32muser[0m    [35mst-[0m   [35mst-[0m
-  -          [34mcli[0m     [35mst-[0m   [35mst-[0m
+                                   
+  interface  brick   [35mcl [0m   [35mdev[0m     
+  ----------------   ---   ---     
+  [33muser     [0m  [32muser[0m    [35mst-[0m   [35mst-[0m     
+  -          [34mcli[0m     [35mst-[0m   [35mst-[0m     
 
 ######### tagging-info-2.png #########
 
-  stable since: [37me7ebe68 | v1.2.0[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project         alias  status   [35mdev[0m
+  stable since: [37me7ebe68[0m              
+                                     
+  [35mprojects:[0m 2   [33minterfaces:[0m 1        
+  [34mbases:   [0m 1   [32mcomponents:[0m 1        
+                                     
+  project         alias  source   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m +  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m +   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick    [35mcl [0m   [35mdev[0m
-  -----------------   ---   ---
-  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mst-[0m
-  -          [34mcli[0m      [35mstx[0m   [35mst-[0m
+                                     
+  interface  brick    [35mcl [0m   [35mdev[0m      
+  -----------------   ---   ---      
+  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mst-[0m      
+  -          [34mcli[0m      [35mstx[0m   [35mst-[0m      
 
 ######### tagging-info-3.png #########
 
-  stable since: [37me7ebe68 | v1.2.0[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project         alias  status   [35mdev[0m
+  stable since: [37me7ebe68[0m              
+                                     
+  [35mprojects:[0m 2   [33minterfaces:[0m 1        
+  [34mbases:   [0m 1   [32mcomponents:[0m 1        
+                                     
+  project         alias  source   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m +  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m +   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick    [35mcl [0m   [35mdev[0m
-  -----------------   ---   ---
-  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mst-[0m
-  -          [34mcli[0m      [35mstx[0m   [35mst-[0m
+                                     
+  interface  brick    [35mcl [0m   [35mdev[0m      
+  -----------------   ---   ---      
+  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mst-[0m      
+  -          [34mcli[0m      [35mstx[0m   [35mst-[0m      
 
 ######### tagging-info-4.png #########
 
-  stable since: [37mc91fdad | v1.1.0[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project         alias  status   [35mdev[0m
+  stable since: [37mc91fdad[0m              
+                                     
+  [35mprojects:[0m 2   [33minterfaces:[0m 1        
+  [34mbases:   [0m 1   [32mcomponents:[0m 1        
+                                     
+  project         alias  source   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m *  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m *   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick    [35mcl [0m   [35mdev[0m
-  -----------------   ---   ---
-  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mst-[0m
-  -          [34mcli[0m *    [35mstx[0m   [35mst-[0m
+                                     
+  interface  brick    [35mcl [0m   [35mdev[0m      
+  -----------------   ---   ---      
+  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mst-[0m      
+  -          [34mcli[0m *    [35mstx[0m   [35mst-[0m      
 
 ######### flags-info.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project         alias  status   [35mdev [0m
+  stable since: [37me7ebe68[0m               
+                                      
+  [35mprojects:[0m 2   [33minterfaces:[0m 1         
+  [34mbases:   [0m 1   [32mcomponents:[0m 1         
+                                      
+  project         alias  source   [35mdev [0m
   -----------------------------   ----
   [35mcommand-line[0m +  [35mcl[0m     [35m ---- [0m   [35m----[0m
   [35mdevelopment[0m +   [35mdev[0m    [35m s--- [0m   [35ms---[0m
-
-  interface  brick    [35m cl [0m   [35mdev [0m
-  -----------------   ----   ----
-  [33muser     [0m  [32muser[0m *   [35msrtx[0m   [35msrt-[0m
-  -          [34mcli[0m      [35msrtx[0m   [35msrt-[0m
+                                      
+  interface  brick    [35m cl [0m   [35mdev [0m     
+  -----------------   ----   ----     
+  [33muser     [0m  [32muser[0m *   [35msrtx[0m   [35msrt-[0m     
+  -          [34mcli[0m      [35msrtx[0m   [35msrt-[0m     
 
 ######### testing-info-1.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project         alias  status   [35mdev[0m
+  stable since: [37me7ebe68[0m              
+                                     
+  [35mprojects:[0m 2   [33minterfaces:[0m 1        
+  [34mbases:   [0m 1   [32mcomponents:[0m 1        
+                                     
+  project         alias  source   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m +  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m +   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick    [35mcl [0m   [35mdev[0m
-  -----------------   ---   ---
-  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mst-[0m
-  -          [34mcli[0m      [35mstx[0m   [35mst-[0m
+                                     
+  interface  brick    [35mcl [0m   [35mdev[0m      
+  -----------------   ---   ---      
+  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mst-[0m      
+  -          [34mcli[0m      [35mstx[0m   [35mst-[0m      
 
 ######### testing-info-2.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project         alias  status   [35mdev[0m
+  stable since: [37me7ebe68[0m              
+                                     
+  [35mprojects:[0m 2   [33minterfaces:[0m 1        
+  [34mbases:   [0m 1   [32mcomponents:[0m 1        
+                                     
+  project         alias  source   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m +  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m +   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick    [35mcl [0m   [35mdev[0m
-  -----------------   ---   ---
-  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mstx[0m
-  -          [34mcli[0m      [35mstx[0m   [35mstx[0m
+                                     
+  interface  brick    [35mcl [0m   [35mdev[0m      
+  -----------------   ---   ---      
+  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mstx[0m      
+  -          [34mcli[0m      [35mstx[0m   [35mstx[0m      
 
 ######### testing-info-2b.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project         alias  status   [35mdev[0m
+  stable since: [37me7ebe68[0m              
+                                     
+  [35mprojects:[0m 2   [33minterfaces:[0m 1        
+  [34mbases:   [0m 1   [32mcomponents:[0m 1        
+                                     
+  project         alias  source   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m +  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m +   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick    [35mcl [0m   [35mdev[0m
-  -----------------   ---   ---
-  [33muser     [0m  [32muser[0m *   [35mst-[0m   [35mstx[0m
-  -          [34mcli[0m      [35mst-[0m   [35mstx[0m
+                                     
+  interface  brick    [35mcl [0m   [35mdev[0m      
+  -----------------   ---   ---      
+  [33muser     [0m  [32muser[0m *   [35mst-[0m   [35mstx[0m      
+  -          [34mcli[0m      [35mst-[0m   [35mstx[0m      
 
 ######### testing-info-3.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project         alias  status   [35mdev[0m
+  stable since: [37me7ebe68[0m              
+                                     
+  [35mprojects:[0m 2   [33minterfaces:[0m 1        
+  [34mbases:   [0m 1   [32mcomponents:[0m 1        
+                                     
+  project         alias  source   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m +  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m +   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick    [35mcl [0m   [35mdev[0m
-  -----------------   ---   ---
-  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mstx[0m
-  -          [34mcli[0m      [35mstx[0m   [35mstx[0m
+                                     
+  interface  brick    [35mcl [0m   [35mdev[0m      
+  -----------------   ---   ---      
+  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mstx[0m      
+  -          [34mcli[0m      [35mstx[0m   [35mstx[0m      
 
 ######### testing-info-3a.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project         alias  status   [35mdev[0m
+  stable since: [37me7ebe68[0m              
+                                     
+  [35mprojects:[0m 2   [33minterfaces:[0m 1        
+  [34mbases:   [0m 1   [32mcomponents:[0m 1        
+                                     
+  project         alias  source   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m +  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m +   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick    [35mcl [0m   [35mdev[0m
-  -----------------   ---   ---
-  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mst-[0m
-  -          [34mcli[0m      [35mstx[0m   [35mst-[0m
+                                     
+  interface  brick    [35mcl [0m   [35mdev[0m      
+  -----------------   ---   ---      
+  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mst-[0m      
+  -          [34mcli[0m      [35mstx[0m   [35mst-[0m      
 
 ######### testing-info-3b.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project         alias  status   [35mdev[0m
+  stable since: [37me7ebe68[0m              
+                                     
+  [35mprojects:[0m 2   [33minterfaces:[0m 1        
+  [34mbases:   [0m 1   [32mcomponents:[0m 1        
+                                     
+  project         alias  source   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m +  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m +   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick    [35mcl [0m   [35mdev[0m
-  -----------------   ---   ---
-  [33muser     [0m  [32muser[0m *   [35mst-[0m   [35mst-[0m
-  -          [34mcli[0m      [35mstx[0m   [35mst-[0m
+                                     
+  interface  brick    [35mcl [0m   [35mdev[0m      
+  -----------------   ---   ---      
+  [33muser     [0m  [32muser[0m *   [35mst-[0m   [35mst-[0m      
+  -          [34mcli[0m      [35mstx[0m   [35mst-[0m      
 
 ######### testing-info-3c.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project       alias  status   [35mdev[0m
+  stable since: [37me7ebe68[0m            
+                                   
+  [35mprojects:[0m 2   [33minterfaces:[0m 1      
+  [34mbases:   [0m 1   [32mcomponents:[0m 1      
+                                   
+  project       alias  source   [35mdev[0m
   ---------------------------   ---
   [35mcommand-line[0m  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick   [35mcl [0m   [35mdev[0m
-  ----------------   ---   ---
-  [33muser     [0m  [32muser[0m    [35mst-[0m   [35mst-[0m
-  -          [34mcli[0m     [35mst-[0m   [35mst-[0m
+                                   
+  interface  brick   [35mcl [0m   [35mdev[0m     
+  ----------------   ---   ---     
+  [33muser     [0m  [32muser[0m    [35mst-[0m   [35mst-[0m     
+  -          [34mcli[0m     [35mst-[0m   [35mst-[0m     
 
 ######### testing-info-3d.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project       alias  status   [35mdev[0m
+  stable since: [37me7ebe68[0m            
+                                   
+  [35mprojects:[0m 2   [33minterfaces:[0m 1      
+  [34mbases:   [0m 1   [32mcomponents:[0m 1      
+                                   
+  project       alias  source   [35mdev[0m
   ---------------------------   ---
   [35mcommand-line[0m  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick   [35mcl [0m   [35mdev[0m
-  ----------------   ---   ---
-  [33muser     [0m  [32muser[0m    [35mst-[0m   [35mst-[0m
-  -          [34mcli[0m     [35mst-[0m   [35mst-[0m
+                                   
+  interface  brick   [35mcl [0m   [35mdev[0m     
+  ----------------   ---   ---     
+  [33muser     [0m  [32muser[0m    [35mst-[0m   [35mst-[0m     
+  -          [34mcli[0m     [35mst-[0m   [35mst-[0m     
 
 ######### testing-info-4.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project         alias  status   [35mdev[0m
+  stable since: [37me7ebe68[0m              
+                                     
+  [35mprojects:[0m 2   [33minterfaces:[0m 1        
+  [34mbases:   [0m 1   [32mcomponents:[0m 1        
+                                     
+  project         alias  source   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m *  [35mcl[0m     [35m -t-  [0m   [35m-t-[0m
   [35mdevelopment[0m +   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick    [35mcl [0m   [35mdev[0m
-  -----------------   ---   ---
-  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mst-[0m
-  -          [34mcli[0m      [35mstx[0m   [35mst-[0m
+                                     
+  interface  brick    [35mcl [0m   [35mdev[0m      
+  -----------------   ---   ---      
+  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mst-[0m      
+  -          [34mcli[0m      [35mstx[0m   [35mst-[0m      
 
 ######### testing-info-5.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project         alias  status   [35mdev[0m
+  stable since: [37me7ebe68[0m              
+                                     
+  [35mprojects:[0m 2   [33minterfaces:[0m 1        
+  [34mbases:   [0m 1   [32mcomponents:[0m 1        
+                                     
+  project         alias  source   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m *  [35mcl[0m     [35m -tx  [0m   [35m-t-[0m
   [35mdevelopment[0m +   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick    [35mcl [0m   [35mdev[0m
-  -----------------   ---   ---
-  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mst-[0m
-  -          [34mcli[0m      [35mstx[0m   [35mst-[0m
+                                     
+  interface  brick    [35mcl [0m   [35mdev[0m      
+  -----------------   ---   ---      
+  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mst-[0m      
+  -          [34mcli[0m      [35mstx[0m   [35mst-[0m      
 
 ######### testing-info-6.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project       alias  status   [35mdev[0m
+  stable since: [37me7ebe68[0m            
+                                   
+  [35mprojects:[0m 2   [33minterfaces:[0m 1      
+  [34mbases:   [0m 1   [32mcomponents:[0m 1      
+                                   
+  project       alias  source   [35mdev[0m
   ---------------------------   ---
   [35mcommand-line[0m  [35mcl[0m     [35m -t-  [0m   [35m-t-[0m
   [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick   [35mcl [0m   [35mdev[0m
-  ----------------   ---   ---
-  [33muser     [0m  [32muser[0m    [35mst-[0m   [35mst-[0m
-  -          [34mcli[0m     [35mst-[0m   [35mst-[0m
+                                   
+  interface  brick   [35mcl [0m   [35mdev[0m     
+  ----------------   ---   ---     
+  [33muser     [0m  [32muser[0m    [35mst-[0m   [35mst-[0m     
+  -          [34mcli[0m     [35mst-[0m   [35mst-[0m     
 
 ######### testing-info-7.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project       alias  status   [35mdev[0m
+  stable since: [37me7ebe68[0m            
+                                   
+  [35mprojects:[0m 2   [33minterfaces:[0m 1      
+  [34mbases:   [0m 1   [32mcomponents:[0m 1      
+                                   
+  project       alias  source   [35mdev[0m
   ---------------------------   ---
   [35mcommand-line[0m  [35mcl[0m     [35m -t-  [0m   [35m-t-[0m
   [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick   [35mcl [0m   [35mdev[0m
-  ----------------   ---   ---
-  [33muser     [0m  [32muser[0m    [35mstx[0m   [35mst-[0m
-  -          [34mcli[0m     [35mstx[0m   [35mst-[0m
+                                   
+  interface  brick   [35mcl [0m   [35mdev[0m     
+  ----------------   ---   ---     
+  [33muser     [0m  [32muser[0m    [35mstx[0m   [35mst-[0m     
+  -          [34mcli[0m     [35mstx[0m   [35mst-[0m     
 
 ######### testing-info-8.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project       alias  status   [35mdev[0m
+  stable since: [37me7ebe68[0m            
+                                   
+  [35mprojects:[0m 2   [33minterfaces:[0m 1      
+  [34mbases:   [0m 1   [32mcomponents:[0m 1      
+                                   
+  project       alias  source   [35mdev[0m
   ---------------------------   ---
   [35mcommand-line[0m  [35mcl[0m     [35m -t-  [0m   [35m-t-[0m
   [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick   [35mcl [0m   [35mdev[0m
-  ----------------   ---   ---
-  [33muser     [0m  [32muser[0m    [35mstx[0m   [35mstx[0m
-  -          [34mcli[0m     [35mstx[0m   [35mstx[0m
+                                   
+  interface  brick   [35mcl [0m   [35mdev[0m     
+  ----------------   ---   ---     
+  [33muser     [0m  [32muser[0m    [35mstx[0m   [35mstx[0m     
+  -          [34mcli[0m     [35mstx[0m   [35mstx[0m     
 
 ######### testing-info-9.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project       alias  status   [35mdev[0m
+  stable since: [37me7ebe68[0m            
+                                   
+  [35mprojects:[0m 2   [33minterfaces:[0m 1      
+  [34mbases:   [0m 1   [32mcomponents:[0m 1      
+                                   
+  project       alias  source   [35mdev[0m
   ---------------------------   ---
   [35mcommand-line[0m  [35mcl[0m     [35m -tx  [0m   [35m-t-[0m
   [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick   [35mcl [0m   [35mdev[0m
-  ----------------   ---   ---
-  [33muser     [0m  [32muser[0m    [35mstx[0m   [35mst-[0m
-  -          [34mcli[0m     [35mstx[0m   [35mst-[0m
+                                   
+  interface  brick   [35mcl [0m   [35mdev[0m     
+  ----------------   ---   ---     
+  [33muser     [0m  [32muser[0m    [35mstx[0m   [35mst-[0m     
+  -          [34mcli[0m     [35mstx[0m   [35mst-[0m     
 
 ######### testing-info-10.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project       alias  status   [35mdev[0m
+  stable since: [37me7ebe68[0m            
+                                   
+  [35mprojects:[0m 2   [33minterfaces:[0m 1      
+  [34mbases:   [0m 1   [32mcomponents:[0m 1      
+                                   
+  project       alias  source   [35mdev[0m
   ---------------------------   ---
   [35mcommand-line[0m  [35mcl[0m     [35m -tx  [0m   [35m-tx[0m
   [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick   [35mcl [0m   [35mdev[0m
-  ----------------   ---   ---
-  [33muser     [0m  [32muser[0m    [35mstx[0m   [35mstx[0m
-  -          [34mcli[0m     [35mstx[0m   [35mstx[0m
+                                   
+  interface  brick   [35mcl [0m   [35mdev[0m     
+  ----------------   ---   ---     
+  [33muser     [0m  [32muser[0m    [35mstx[0m   [35mstx[0m     
+  -          [34mcli[0m     [35mstx[0m   [35mstx[0m     
 
 ######### testing-info-11.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project       alias  status   [35mdev[0m
+  stable since: [37me7ebe68[0m            
+                                   
+  [35mprojects:[0m 2   [33minterfaces:[0m 1      
+  [34mbases:   [0m 1   [32mcomponents:[0m 1      
+                                   
+  project       alias  source   [35mdev[0m
   ---------------------------   ---
   [35mcommand-line[0m  [35mcl[0m     [35m -tx  [0m   [35m-tx[0m
   [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick   [35mcl [0m   [35mdev[0m
-  ----------------   ---   ---
-  [33muser     [0m  [32muser[0m    [35mstx[0m   [35mstx[0m
-  -          [34mcli[0m     [35mstx[0m   [35mstx[0m
+                                   
+  interface  brick   [35mcl [0m   [35mdev[0m     
+  ----------------   ---   ---     
+  [33muser     [0m  [32muser[0m    [35mstx[0m   [35mstx[0m     
+  -          [34mcli[0m     [35mstx[0m   [35mstx[0m     
 
 ######### testing-info-exclude-tests.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project       alias  status   [35mdev[0m
+  stable since: [37me7ebe68[0m            
+                                   
+  [35mprojects:[0m 2   [33minterfaces:[0m 1      
+  [34mbases:   [0m 1   [32mcomponents:[0m 1      
+                                   
+  project       alias  source   [35mdev[0m
   ---------------------------   ---
   [35mcommand-line[0m  [35mcl[0m     [35m -tx  [0m   [35m---[0m
   [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick   [35mcl [0m   [35mdev[0m
-  ----------------   ---   ---
-  [33muser     [0m  [32muser[0m    [35mst-[0m   [35ms--[0m
-  -          [34mcli[0m     [35mstx[0m   [35ms--[0m
+                                   
+  interface  brick   [35mcl [0m   [35mdev[0m     
+  ----------------   ---   ---     
+  [33muser     [0m  [32muser[0m    [35mst-[0m   [35ms--[0m     
+  -          [34mcli[0m     [35mstx[0m   [35ms--[0m     
 
 ######### profile-info-1.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 3   [33minterfaces:[0m 1
-  [34mbases:   [0m 2   [32mcomponents:[0m 2
-
-  project         alias   status   [35mdev[0m  [35mdefault[0m  [35mremote[0m   
-  ------------------------------   --------------------   
-  [35mcommand-line[0m *  [35mcl[0m      [35m -t-  [0m   [35m-t-[0m  [35m  --   [0m  [35m  --  [0m   
-  [35muser-service[0m *  [35muser-s[0m  [35m ---  [0m   [35m---[0m  [35m  --   [0m  [35m  --  [0m   
-  [35mdevelopment[0m +   [35mdev[0m     [35m s--  [0m   [35ms--[0m  [35m  --   [0m  [35m  --  [0m   
-
+  stable since: [37me7ebe68[0m                                        
+                                                               
+  [35mprojects:[0m 3   [33minterfaces:[0m 1                                  
+  [34mbases:   [0m 2   [32mcomponents:[0m 2                                  
+                                                               
+  project         alias   source   [35mdev[0m  [35mdefault[0m  [35mremote[0m        
+  ------------------------------   --------------------        
+  [35mcommand-line[0m *  [35mcl[0m      [35m -t-  [0m   [35m-t-[0m  [35m  --   [0m  [35m  --  [0m        
+  [35muser-service[0m *  [35muser-s[0m  [35m ---  [0m   [35m---[0m  [35m  --   [0m  [35m  --  [0m        
+  [35mdevelopment[0m +   [35mdev[0m     [35m s--  [0m   [35ms--[0m  [35m  --   [0m  [35m  --  [0m        
+                                                               
   interface  brick           [35mcl [0m  [35muser-s[0m   [35mdev[0m  [35mdefault[0m  [35mremote[0m
   ------------------------   -----------   --------------------
   [33muser     [0m  [32muser[0m            [35m---[0m  [35m stx  [0m   [35m---[0m  [35m  st   [0m  [35m  --  [0m
@@ -426,19 +426,19 @@
 
 ######### profile-info-2.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 3   [33minterfaces:[0m 1
-  [34mbases:   [0m 2   [32mcomponents:[0m 2
-
-  active profiles: [35mremote[0m
-
-  project         alias   status   [35mdev[0m  [35mdefault[0m   
-  ------------------------------   ------------   
-  [35mcommand-line[0m *  [35mcl[0m      [35m -t-  [0m   [35m-t-[0m  [35m  --   [0m   
-  [35muser-service[0m *  [35muser-s[0m  [35m ---  [0m   [35m---[0m  [35m  --   [0m   
-  [35mdevelopment[0m +   [35mdev[0m     [35m s--  [0m   [35ms--[0m  [35m  --   [0m   
-
+  stable since: [37me7ebe68[0m                                
+                                                       
+  [35mprojects:[0m 3   [33minterfaces:[0m 1                          
+  [34mbases:   [0m 2   [32mcomponents:[0m 2                          
+                                                       
+  active profiles: [35mremote[0m                              
+                                                       
+  project         alias   source   [35mdev[0m  [35mdefault[0m        
+  ------------------------------   ------------        
+  [35mcommand-line[0m *  [35mcl[0m      [35m -t-  [0m   [35m-t-[0m  [35m  --   [0m        
+  [35muser-service[0m *  [35muser-s[0m  [35m ---  [0m   [35m---[0m  [35m  --   [0m        
+  [35mdevelopment[0m +   [35mdev[0m     [35m s--  [0m   [35ms--[0m  [35m  --   [0m        
+                                                       
   interface  brick           [35mcl [0m  [35muser-s[0m   [35mdev[0m  [35mdefault[0m
   ------------------------   -----------   ------------
   [33muser     [0m  [32muser[0m            [35m---[0m  [35m stx  [0m   [35m---[0m  [35m  st   [0m
@@ -448,19 +448,19 @@
 
 ######### profile-info-3.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 3   [33minterfaces:[0m 1
-  [34mbases:   [0m 2   [32mcomponents:[0m 2
-
-  active profiles: [35mdefault, remote[0m
-
-  project         alias   status   [35mdev[0m
-  ------------------------------   ---
-  [35mcommand-line[0m *  [35mcl[0m      [35m -t-  [0m   [35m-t-[0m
-  [35muser-service[0m *  [35muser-s[0m  [35m ---  [0m   [35m---[0m
-  [35mdevelopment[0m +   [35mdev[0m     [35m s--  [0m   [35ms--[0m
-
+  stable since: [37me7ebe68[0m                       
+                                              
+  [35mprojects:[0m 3   [33minterfaces:[0m 1                 
+  [34mbases:   [0m 2   [32mcomponents:[0m 2                 
+                                              
+  active profiles: [35mdefault, remote[0m            
+                                              
+  project         alias   source   [35mdev[0m        
+  ------------------------------   ---        
+  [35mcommand-line[0m *  [35mcl[0m      [35m -t-  [0m   [35m-t-[0m        
+  [35muser-service[0m *  [35muser-s[0m  [35m ---  [0m   [35m---[0m        
+  [35mdevelopment[0m +   [35mdev[0m     [35m s--  [0m   [35ms--[0m        
+                                              
   interface  brick           [35mcl [0m  [35muser-s[0m   [35mdev[0m
   ------------------------   -----------   ---
   [33muser     [0m  [32muser[0m            [35m---[0m  [35m stx  [0m   [35mst-[0m
@@ -468,24 +468,22 @@
   -          [34mcli[0m             [35mstx[0m  [35m ---  [0m   [35mst-[0m
   -          [34muser-api[0m *      [35m---[0m  [35m stx  [0m   [35mst-[0m
 
-[31m  Error 106: [0mMore than one component that implements the [33muser[0m interface was found in the [35mdevelopment[0m project: [32muser, user-remote[0m
-
 ######### profile-info-4.png #########
 
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 3   [33minterfaces:[0m 1
-  [34mbases:   [0m 2   [32mcomponents:[0m 2
-
-  active profiles: [35mdefault[0m
-
-  project         alias   status   [35mdev[0m  [35mremote[0m   loc  (t)
-  ------------------------------   -----------   --------
-  [35mcommand-line[0m *  [35mcl[0m      [35m -t-  [0m   [35m-t-[0m  [35m  --  [0m     0   13
-  [35muser-service[0m *  [35muser-s[0m  [35m ---  [0m   [35m---[0m  [35m  --  [0m     0    0
-  [35mdevelopment[0m +   [35mdev[0m     [35m s--  [0m   [35ms--[0m  [35m  --  [0m     4    0
-                                                   4   13
-
+  stable since: [37me7ebe68[0m                                         
+                                                                
+  [35mprojects:[0m 3   [33minterfaces:[0m 1                                   
+  [34mbases:   [0m 2   [32mcomponents:[0m 2                                   
+                                                                
+  active profiles: [35mdefault[0m                                      
+                                                                
+  project         alias   source   [35mdev[0m  [35mremote[0m   loc  (t)       
+  ------------------------------   -----------   --------       
+  [35mcommand-line[0m *  [35mcl[0m      [35m -t-  [0m   [35m-t-[0m  [35m  --  [0m     0   13       
+  [35muser-service[0m *  [35muser-s[0m  [35m ---  [0m   [35m---[0m  [35m  --  [0m     0    0       
+  [35mdevelopment[0m +   [35mdev[0m     [35m s--  [0m   [35ms--[0m  [35m  --  [0m     4    0       
+                                                   4   13       
+                                                                
   interface  brick           [35mcl [0m  [35muser-s[0m   [35mdev[0m  [35mremote[0m   loc (t)
   ------------------------   -----------   -----------   -------
   [33muser     [0m  [32muser[0m            [35m---[0m  [35m stx  [0m   [35mst-[0m  [35m  --  [0m     9   7
@@ -556,28 +554,28 @@ exit code: 0
 
 ######### realworld-info.png #########
 
-  stable since: [37mf7082da | stable-master[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 9
-  [34mbases:   [0m 1   [32mcomponents:[0m 9
-
-  project            alias  status   [35mdev[0m
+  stable since: [37mf7082da[0m                 
+                                        
+  [35mprojects:[0m 2   [33minterfaces:[0m 9           
+  [34mbases:   [0m 1   [32mcomponents:[0m 9           
+                                        
+  project            alias  source   [35mdev[0m
   --------------------------------   ---
   [35mrealworld-backend[0m  [35mrb[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m        [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick      [35mrb [0m   [35mdev[0m
-  -------------------   ---   ---
-  [33marticle  [0m  [32marticle[0m    [35mst-[0m   [35mst-[0m
-  [33mcomment  [0m  [32mcomment[0m    [35mst-[0m   [35mst-[0m
-  [33mdatabase [0m  [32mdatabase[0m   [35ms--[0m   [35ms--[0m
-  [33menv      [0m  [32menv[0m        [35ms--[0m   [35ms--[0m
-  [33mlog      [0m  [32mlog[0m        [35ms--[0m   [35ms--[0m
-  [33mprofile  [0m  [32mprofile[0m    [35mst-[0m   [35mst-[0m
-  [33mspec     [0m  [32mspec[0m       [35ms--[0m   [35ms--[0m
-  [33mtag      [0m  [32mtag[0m        [35mst-[0m   [35mst-[0m
-  [33muser     [0m  [32muser[0m       [35mst-[0m   [35mst-[0m
-  -          [34mrest-api[0m   [35mst-[0m   [35mst-[0m
+                                        
+  interface  brick      [35mrb [0m   [35mdev[0m       
+  -------------------   ---   ---       
+  [33marticle  [0m  [32marticle[0m    [35mst-[0m   [35mst-[0m       
+  [33mcomment  [0m  [32mcomment[0m    [35mst-[0m   [35mst-[0m       
+  [33mdatabase [0m  [32mdatabase[0m   [35ms--[0m   [35ms--[0m       
+  [33menv      [0m  [32menv[0m        [35ms--[0m   [35ms--[0m       
+  [33mlog      [0m  [32mlog[0m        [35ms--[0m   [35ms--[0m       
+  [33mprofile  [0m  [32mprofile[0m    [35mst-[0m   [35mst-[0m       
+  [33mspec     [0m  [32mspec[0m       [35ms--[0m   [35ms--[0m       
+  [33mtag      [0m  [32mtag[0m        [35mst-[0m   [35mst-[0m       
+  [33muser     [0m  [32muser[0m       [35mst-[0m   [35mst-[0m       
+  -          [34mrest-api[0m   [35mst-[0m   [35mst-[0m       
 
 ######### realworld-deps-interfaces.png #########
 

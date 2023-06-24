@@ -1,13 +1,13 @@
-  stable since: 82d0641 | stable-sean
-
-  projects: 2   interfaces: 7
-  bases:    1   components: 7
-
-  project      alias  status   dev
-  --------------------------   ---
-  usermanager  um      st-     -t-
-  development  dev     st-     st-
-
+  stable since: 82d0641 | stable-sean       
+                                            
+  projects: 2   interfaces: 7               
+  bases:    1   components: 7               
+                                            
+  project      alias  source   dev          
+  --------------------------   ---          
+  usermanager  um      st-     -t-          
+  development  dev     st-     st-          
+                                            
   interface       brick            um    dev
   ------------------------------   ---   ---
   app-state       app-state        st-   st-

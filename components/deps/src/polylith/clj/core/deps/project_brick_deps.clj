@@ -113,13 +113,6 @@
                     (filter #(contains? (set base-names) (:name %))
                             bricks)))))
 
-(defn include-test?
-  "Checks if the brick is included in workspace.edn > :projects > PROJECT-KEY > :test > :include.
-   If the :test key is not present, then the brick is treated as included."
-  [{:keys [name]} bricks-to-test]
-  (or (nil? bricks-to-test)
-      (contains? bricks-to-test name)))
-
 (defn drop-suffix [brick-id]
   (first (str/split brick-id #" ")))
 
@@ -236,7 +229,7 @@
       (set (map #(name->brick-id % %) bricks-to-test)))))
 
 (defn project-deps
-  [components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns bricks-to-test]
+  [components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test]
   "Calculate the src and test dependencies for a project. The returned dependencies
    are stored in a map with a :src and :test key and includes a key for each brick that is included
    in the project, together with the direct, indirect, and circular dependencies (if any) +
@@ -287,7 +280,7 @@
                                 (concat components
                                         (filter #(contains? component-names (:name %))
                                                 components))))
-        brick-ids-to-test (brick-names-to-ids bricks-to-test components)
+        brick-ids-to-test (brick-names-to-ids brick-names-to-test components)
         all-brick-ids (set (concat (map #(-> % :interface :name) components)
                                    (map :name bases)))
         brick-ids-in-project-src (brick-ids-in-project component-names-src base-names-src bricks)
@@ -311,9 +304,8 @@
             test-brick-id (str src-brick-id " (t)")]
         (doseq [brick-id (brick-id->brick-ids src-brick-id)]
           (update-deps! src-brick-id brick-id brick-id->brick-ids brick-id->deps #{src-brick-id}))
-        (when (include-test? brick bricks-to-test)
-          (doseq [brick-id (brick-id->brick-ids test-brick-id)]
-            (update-deps! test-brick-id brick-id brick-id->brick-ids brick-id->deps #{test-brick-id})))))
+        (doseq [brick-id (brick-id->brick-ids test-brick-id)]
+          (update-deps! test-brick-id brick-id brick-id->brick-ids brick-id->deps #{test-brick-id}))))
     ;; Step 2: For each brick, convert interface names to component names + calculate missing and circular dependencies.
     (into {} (map (juxt :name #(brick-deps % @brick-id->deps ifc->comp all-brick-ids brick-ids-in-project-src brick-ids-in-project-test test-only-brick-ids brick-ids-to-test))
                   bricks))))

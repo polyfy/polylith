@@ -10,6 +10,9 @@
 (defn absolute-path [path entity-root-path]
   (core/absolute-path path entity-root-path))
 
+(defn brick-names-to-test [settings project-name all-brick-names]
+  (core/brick-names-to-test settings project-name all-brick-names))
+
 (defn color-mode [user-input]
   (core/color-mode user-input))
 

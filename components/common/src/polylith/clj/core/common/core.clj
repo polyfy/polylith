@@ -1,5 +1,6 @@
 (ns polylith.clj.core.common.core
-  (:require [clojure.string :as str]
+  (:require [clojure.set :as set]
+            [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.user-config.interface :as user-config]))
 
@@ -90,3 +91,18 @@
 (defn invalid-workspace? [{:keys [config-error] :as workspace}]
   (or (nil? workspace)
       (boolean config-error)))
+
+(defn brick-names-to-test
+  "Returns the brick names to include for a project when running the tests.
+   The dependencies that are calculated per project are used to test runner
+   to decide which tests to run, which means that direct and indirect dependencies
+   can sometimes be disabled if :include or :exclude is set."
+  [settings project-name all-brick-names]
+  (let [include (get-in settings [:projects project-name :test :include])
+        exclude (get-in settings [:projects project-name :test :exclude])]
+    (set/difference (if include
+                      (set include)
+                      (set all-brick-names))
+                    (if exclude
+                      (set exclude)
+                      #{}))))

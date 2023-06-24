@@ -1194,11 +1194,10 @@
 (deftest profile-deps-project-brick
   (is (= (run-cmd "examples/profiles"
                   "deps" "project:s" "brick:database1")
-         ["  used by    <  database1  >  uses          "
-          "  ---------                   --------------"
-          "  user1 (t)                   calculator    "
-          "                              calculator (t)"
-          "                              util1         "])))
+         ["  used by    <  database1  >  uses      "
+          "  ---------                   ----------"
+          "  user1 (t)                   calculator"
+          "                              util1     "])))
 
 (deftest profile-libs
   (is (= (run-cmd "examples/profiles"

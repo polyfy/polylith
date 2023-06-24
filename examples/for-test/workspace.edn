@@ -8,7 +8,8 @@
                 :release "v[0-9]*"}
  :projects {"development" {:alias "dev"}
             "failing-test" {:alias "failing"
-                            :test {:setup-fn project.failing-test.test-setup/setup
+                            :test {:exclude ["exclude-me"]
+                                   :setup-fn project.failing-test.test-setup/setup
                                    :teardown-fn project.failing-test.test-setup/teardown}
                             :necessary ["a-okay" "b-fail" "util"]}
             "failing-test-teardown-fails" {:alias "failing-x2"
@@ -22,15 +23,18 @@
                            :setup-fn project.okay.test-setup/setup
                            :teardown-fn project.okay.test-setup/teardown}
                     :necessary ["a-okay" "b-fail" "company" "util"]}
-            "setup-fails" {:alias "setup-fails"
+            "setup-fails" {:exclude ["exclude-me"]
+                           :alias "setup-fails"
                            :test {:setup-fn project.setup-fails.test-setup/setup
                                   :teardown-fn project.setup-fails.test-setup/teardown}
                            :necessary ["util"]}
-            "teardown-fails" {:alias "teardown-fails"
+            "teardown-fails" {:exclude ["exclude-me"]
+                              :alias "teardown-fails"
                               :test {:setup-fn project.teardown-fails.test-setup/setup
                                      :teardown-fn project.teardown-fails.test-setup/teardown}
                               :necessary ["a-okay" "util"]}
             "x-okay" {:alias "x-ok"
-                      :test {:setup-fn project.x-okay.test-setup/setup
+                      :test {:exclude ["exclude-me"]
+                             :setup-fn project.x-okay.test-setup/setup
                              :teardown-fn project.x-okay.test-setup/teardown}
                       :necessary ["a-okay" "company" "util"]}}}

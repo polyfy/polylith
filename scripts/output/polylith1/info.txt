@@ -1,14 +1,14 @@
-  stable since: 40d2f62 | stable-master
-
-  projects: 3   interfaces: 31
-  bases:    1   components: 31
-
-  project      alias  status   dev
-  --------------------------   ---
-  api          api     ---     ---
-  poly         poly    -t-     -t-
-  development  dev     s--     s--
-
+  stable since: 40d2f62                                               
+                                                                      
+  projects: 3   interfaces: 31                                        
+  bases:    1   components: 31                                        
+                                                                      
+  project      alias  source   dev                                    
+  --------------------------   ---                                    
+  api          api     ---     ---                                    
+  poly         poly    -t-     -t-                                    
+  development  dev     s--     s--                                    
+                                                                      
   interface                 brick                      api  poly   dev
   --------------------------------------------------   ---------   ---
   antq                      antq                       s--  s--    s--

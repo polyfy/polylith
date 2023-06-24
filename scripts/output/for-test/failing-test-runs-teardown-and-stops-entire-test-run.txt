@@ -4,7 +4,7 @@ Running test setup for the failing-test project: project.failing-test.test-setup
 Test setup for project: failing-test
 
 Running tests for the failing-test project using test runner: Polylith built-in clojure.test runner...
-Running tests from the failing-test project, including 4 bricks and 1 project: a-okay, b-fail, exclude-me, util, failing-test
+Running tests from the failing-test project, including 3 bricks and 1 project: a-okay, b-fail, util, failing-test
 
 Testing com.for.test.a-okay.interface-test
 
