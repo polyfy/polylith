@@ -107,7 +107,7 @@
                              profiles))))
 
 ;; overview
-(def overview-image (c/fn-explorer "image" :overview #'file-explorer/select-image {:description "overview.png"}))
+(def overview-image (c/fn-explorer "image" :overview #'file-explorer/select-image))
 (def overview (c/single-txt "overview" :overview [overview-image]))
 
 ;; version

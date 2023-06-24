@@ -53,7 +53,7 @@
     (validator/print-messages workspace)))
 
 (defn print-info [{:keys [messages] :as  workspace}]
-  (common/print-or-save-table workspace table
+  (common/print-or-save-table workspace table nil
                               (partial print-messages workspace messages)))
 
 (comment

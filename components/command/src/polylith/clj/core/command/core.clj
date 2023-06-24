@@ -85,7 +85,7 @@
           "info" (info/info workspace unnamed-args)
           "libs" (lib/print-lib-table workspace is-all is-outdated)
           "migrate" (migrator/migrate ws-dir workspace)
-          "overview" (overview/create-image workspace)
+          "overview" (overview/print-table workspace)
           "shell" (shell/start execute user-input workspace-fn workspace color-mode)
           "test" (test/run workspace unnamed-args test-result is-verbose color-mode)
           "version" (version)

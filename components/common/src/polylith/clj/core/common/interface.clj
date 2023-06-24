@@ -80,6 +80,6 @@
 
 (defn print-or-save-table
   ([workspace table-fn]
-   (file-output/print-or-save-table workspace table-fn nil))
-  ([workspace table-fn post-print-fn]
-   (file-output/print-or-save-table workspace table-fn post-print-fn)))
+   (file-output/print-or-save-table workspace table-fn nil nil))
+  ([workspace table-fn canvas-areas post-print-fn]
+   (file-output/print-or-save-table workspace table-fn canvas-areas post-print-fn)))

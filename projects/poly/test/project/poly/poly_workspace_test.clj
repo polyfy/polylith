@@ -186,7 +186,7 @@
           "  image-creator             .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  lib                       x  .  .  x  x  .  .  x  .  .  .  .  .  .  .  .  .  .  t  .  .  x  x  .  x  .  .  .  .  .  ."
           "  migrator                  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  overview                  .  x  .  .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  x  x  .  ."
+          "  overview                  .  x  .  x  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  x  x  .  ."
           "  path-finder               .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  shell                     .  .  .  x  x  .  .  x  .  .  .  .  .  .  .  x  .  x  .  .  .  .  x  x  x  .  x  .  .  x  ."
@@ -250,7 +250,7 @@
             "  image-creator             .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  lib                       x  -  -  x  x  -  +  x  -  -  +  -  -  -  +  -  -  -  t  +  -  x  x  -  x  +  -  -  -  -  -"
             "  migrator                  .  .  .  x  x  .  +  +  .  .  +  .  .  .  +  .  .  .  .  +  .  +  +  .  +  +  .  .  .  .  ."
-            "  overview                  +  x  .  +  +  .  x  +  +  .  x  x  .  .  +  +  .  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
+            "  overview                  +  x  .  x  +  .  x  +  +  .  x  x  .  .  +  +  .  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
             "  path-finder               .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  shell                     .  .  .  x  x  .  +  x  .  .  +  .  .  .  +  x  .  x  .  +  .  +  x  x  x  +  x  .  .  x  ."
@@ -314,7 +314,7 @@
             "  image-creator             .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  lib                       x  -  -  x  x  -  +  x  -  -  +  -  -  -  +  -  -  -  t  +  -  x  x  -  x  +  -  -  -  -  -"
             "  migrator                  .  .  .  x  x  .  +  +  .  .  +  .  .  .  +  .  .  .  .  +  .  +  +  .  +  +  .  .  .  .  ."
-            "  overview                  +  x  .  +  +  .  x  +  +  .  x  x  .  .  +  +  .  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
+            "  overview                  +  x  .  x  +  .  x  +  +  .  x  x  .  .  +  +  .  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
             "  path-finder               .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  shell                     .  .  .  x  x  .  +  x  .  .  +  .  .  .  +  x  .  x  .  +  .  +  x  x  x  +  x  .  .  x  ."
@@ -603,6 +603,7 @@
                                                         "validator"]}
                                       :test {}}
           "overview"                 {:src  {:direct   ["change"
+                                                        "common"
                                                         "deps"
                                                         "image-creator"
                                                         "lib"
@@ -611,7 +612,6 @@
                                                         "workspace"
                                                         "workspace-clj"]
                                              :indirect ["antq"
-                                                        "common"
                                                         "config-reader"
                                                         "file"
                                                         "git"
