@@ -264,12 +264,12 @@
 (deftest info
   (is (= (candidates "info")
          [":all" ":all-bricks" ":dev" ":loc" ":project" ":resources" "brick"
-          "project" "since"])))
+          "image" "project" "since"])))
 
 (deftest info-loc-
   (is (= (candidates "info" :next "loc" :next "")
          [":all" ":all-bricks" ":dev" ":project" ":resources" "brick"
-          "project" "since"])))
+          "image" "project" "since"])))
 
 (deftest info-wsfile-go-back-4-dirs-
   (is (= (contains? (set (candidates "info" :next "ws-file" ".." ".." ".." ".." ""))
@@ -371,4 +371,4 @@
                      "dev" :next
                      "all" :next
                      "all-bricks" :next)
-         ["+remote" ":project" ":resources" "brick" "project" "since"])))
+         ["+remote" ":project" ":resources" "brick" "image" "project" "since"])))

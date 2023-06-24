@@ -69,6 +69,7 @@
 (def info-project (c/fn-explorer "project" :info #'ws-projects-to-test/select))
 (def info-brick (c/fn-explorer "brick" :info #'ws-bricks/select))
 (def info-resources (c/flag "resources" :info))
+(def info-image (c/fn-explorer "image" :info #'file-explorer/select-image))
 (def info-project-flag (c/flag-explicit "project" :info))
 (def info-dev (c/flag "dev" :info))
 (def info-loc (c/flag "loc" :info))
@@ -79,7 +80,8 @@
   (c/single-txt "info" :info
                 (concat profiles
                         [info-all info-all-bricks info-brick info-loc info-dev
-                         info-resources info-project info-project-flag info-since]
+                         info-resources info-project info-project-flag info-since
+                         info-image]
                         (when all? [info-fake-sha info-changed-files]))))
 
 ;; libs
