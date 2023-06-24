@@ -40,9 +40,9 @@
 ;; deps
 (def deps-brick (c/fn-explorer "brick" :deps #'ws-deps-entities/select-bricks))
 (def deps-project (c/fn-explorer "project" :deps #'ws-deps-entities/select-projects))
-(def deps-image (c/fn-explorer "image" :deps #'file-explorer/select-image))
-(def deps (c/single-txt "deps" :deps [deps-brick deps-project deps-image]))
-(def all-deps (c/single-txt "deps" :deps [deps-brick deps-project compact deps-image]))
+(def deps-out (c/fn-explorer "out" :deps #'file-explorer/select-image))
+(def deps (c/single-txt "deps" :deps [deps-brick deps-project deps-out]))
+(def all-deps (c/single-txt "deps" :deps [deps-brick deps-project compact deps-out]))
 
 ;; diff
 (def diff-since (c/fn-explorer "since" :diff #'ws-tag-patterns/select))
@@ -69,7 +69,7 @@
 (def info-project (c/fn-explorer "project" :info #'ws-projects-to-test/select))
 (def info-brick (c/fn-explorer "brick" :info #'ws-bricks/select))
 (def info-resources (c/flag "resources" :info))
-(def info-image (c/fn-explorer "image" :info #'file-explorer/select-image))
+(def info-out (c/fn-explorer "out" :info #'file-explorer/select-image))
 (def info-project-flag (c/flag-explicit "project" :info))
 (def info-dev (c/flag "dev" :info))
 (def info-loc (c/flag "loc" :info))
@@ -81,13 +81,14 @@
                 (concat profiles
                         [info-all info-all-bricks info-brick info-loc info-dev
                          info-resources info-project info-project-flag info-since
-                         info-image]
+                         info-out]
                         (when all? [info-fake-sha info-changed-files]))))
 
 ;; libs
 (def outdated (c/flag "outdated" :libs))
-(def libs (c/single-txt "libs" :libs [outdated]))
-(def all-libs (c/single-txt "libs" :libs [outdated compact]))
+(def libs-out (c/fn-explorer "out" :libs #'file-explorer/select-image))
+(def libs (c/single-txt "libs" :libs [outdated libs-out]))
+(def all-libs (c/single-txt "libs" :libs [outdated libs-out compact]))
 
 ;; test
 (def test-since (c/fn-explorer "since" :test #'ws-tag-patterns/select))
@@ -107,8 +108,8 @@
                              profiles))))
 
 ;; overview
-(def overview-image (c/fn-explorer "image" :overview #'file-explorer/select-image))
-(def overview (c/single-txt "overview" :overview [overview-image]))
+(def overview-out (c/fn-explorer "out" :overview #'file-explorer/select-image))
+(def overview (c/single-txt "overview" :overview [overview-out]))
 
 ;; version
 (def version (c/single-txt "version"))

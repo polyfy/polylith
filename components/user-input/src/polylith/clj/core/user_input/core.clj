@@ -58,7 +58,6 @@
                 project
                 fake-sha
                 get
-                image
                 interface
                 name
                 out
@@ -120,7 +119,6 @@
                       :is-verbose (= "true" verbose!)
                       :name name
                       :out (as-value out)
-                      :image (as-value image)
                       :replace (replace-from-to replace)
                       :since since
                       :skip (as-vector skip)
