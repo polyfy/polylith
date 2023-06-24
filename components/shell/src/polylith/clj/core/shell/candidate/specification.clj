@@ -142,6 +142,7 @@
                              profiles
                              (when all? [branch ws-replace])))))
 
+;; switch-ws
 (def switch-ws-dir (c/fn-explorer "dir" :switch-ws #'file-explorer/select-edn))
 (def switch-ws-file (c/fn-explorer "file" :switch-ws #'file-explorer/select-edn))
 (def switch-ws (c/single-txt "switch-ws" :switch-ws [switch-ws-file switch-ws-dir]))
