@@ -216,7 +216,9 @@
                               :compile-opts {:direct-linking true}
                               :main         main
                               :ns-compile   [main]
-                              :uber-file    uber-file})]
+                              :uber-file    uber-file
+                              :exclude      [#"(?i)^META-INF/license/.*"
+                                             #"^license/.*"]})]
         (b/delete {:path class-dir})
         ;; no src or resources to copy
         (println "\nCompiling" (str main "..."))
