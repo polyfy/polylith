@@ -1,7 +1,7 @@
 (ns polylith.clj.core.overview.core
   (:require [clojure.string :as str]
             [polylith.clj.core.change.interface :as change]
-            [polylith.clj.core.image-creator.interface :as image-creator]
+            [polylith.clj.core.image-creator.interface :as ic]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.util.interface.str :as str-util]
@@ -10,8 +10,11 @@
             [polylith.clj.core.workspace-clj.interface :as ws-clj]
             [polylith.clj.core.workspace.interface :as ws]))
 
+(defn width [table]
+  (-> table first color/clean-colors count))
+
 (defn align-bottom [table max-height]
-  (let [width (-> table first color/clean-colors count)
+  (let [width (width table)
         height (count table)
         empty-row (str-util/spaces width)
         empty-rows (repeat (- max-height height) empty-row)]
@@ -25,16 +28,36 @@
         deps-table (deps/table workspace)
         lib-table (lib/table workspace)
         tables [info-table deps-table lib-table]
+        table-width (apply + (map width tables))
+        n#spaces (quot table-width 40)
         max-height (apply max (map count tables))
-        empty-row (str-util/spaces 10)
+        empty-row (str-util/spaces n#spaces)
         empty-column (repeat max-height empty-row)]
-    (apply map join-row
-           (interpose empty-column (map #(align-bottom % max-height) tables)))))
+    {:table (apply map join-row
+                   (interpose empty-column (map #(align-bottom % max-height) tables)))
+     :heights (mapv count tables)
+     :widths (mapv width tables)
+     :max-height max-height
+     :n#spaces n#spaces}))
+
+(defn canvas-area [index x1s heights max-height n#spaces]
+  (let [spacing (* n#spaces index)
+        x1 (x1s index)
+        x2 (x1s (inc index))
+        width (- x2 x1 -2)
+        height (+ (heights index))]
+    {:x (* (+ x1 spacing) ic/font-width)
+     :y (* (- max-height height) ic/font-height)
+     :w (* width ic/font-width)
+     :h (* (+ height 2) ic/font-height)}))
 
 (defn create-image [{:keys [image] :as workspace}]
-  (let [table (table workspace)
-        filename (or image "overview.png")]
-    (image-creator/create-image filename table)))
+  (let [{:keys [table heights widths max-height n#spaces]} (table workspace)
+        x1s (mapv #(apply + (take % widths))
+                  (range (inc (count widths))))
+        filename (or image "overview.png")
+        canvas-areas (mapv #(canvas-area % x1s heights max-height n#spaces) (range (count widths)))]
+    (ic/create-image filename table canvas-areas)))
 
 (comment
   (def input (user-input/extract-params (concat ["overview" "ws-dir:examples/for-test"])))
@@ -44,4 +67,6 @@
                      change/with-changes))
 
   (text-table/print-table (table workspace))
+
+  (create-image workspace)
   #__)

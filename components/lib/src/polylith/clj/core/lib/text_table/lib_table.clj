@@ -154,9 +154,10 @@
                        (text-table/spaces 1 space-brick-columns (repeat space)))
         cells (text-table/merge-cells lib-col version-col latest-col type-col size-col project-cols profile-cols brick-cols spaces)
         line (text-table/line 2 cells)
+        brick-spacing (if (zero? n#bricks) -1 0)
         section1 10
         section2 (+ 10 (* 2 n#projects))
-        section3 (+ 10 (* 2 (+ n#projects n#dev n#profiles)))
+        section3 (+ 10 (* 2 (+ n#projects n#dev n#profiles brick-spacing)))
         spaces (text-table/spaces 2 [section1 section2 section3] (repeat "   "))]
     (text-table/table "  " color-mode cells line spaces)))
 

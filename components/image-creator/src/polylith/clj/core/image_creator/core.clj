@@ -22,14 +22,19 @@
     (when (-> text str/blank? not)
       (set-text-row! text x (+ y (* index font-height)) font-width graphics))))
 
-(defn create-image [filename table]
+(defn create-image [filename table canvas-areas]
   (let [width (+ 25 (* font-width (apply max (mapv #(-> % color/clean-colors count) table))))
-        height (+ 40 (* font-height (count table)))
+        height (+ 45 (* font-height (count table)))
         canvas (c2d/canvas width height :high)
         graphics (c2d/make-graphics canvas)]
-    (c2d/set-background graphics 36 39 43)
+    (doseq [{:keys [x y w h]} canvas-areas]
+       (c2d/set-color graphics 36 39 43)
+       (c2d/rect graphics x y w h))
+    (if (nil? canvas-areas)
+      (c2d/set-background graphics 36 39 43))
+
     (c2d/set-font graphics font-name)
     (c2d/set-font-attributes graphics font-size)
-    (set-table! table 0 37 font-width font-height graphics)
+    (set-table! table 0 42 font-width font-height graphics)
     (c2d/save graphics filename)
     (c2d/flush-graphics graphics)))
