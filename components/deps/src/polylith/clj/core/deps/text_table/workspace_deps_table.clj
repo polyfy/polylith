@@ -53,11 +53,7 @@
     (text-table/table "  " color-mode cells line)))
 
 (defn print-table [workspace]
-  (let [image (-> workspace :user-input :image)
-        table (table workspace)]
-    (if image
-      (image-creator/create-image image table)
-      (text-table/print-table table))))
+  (common/print-or-save-table workspace table))
 
 (comment
   (require '[dev.jocke :as dev])

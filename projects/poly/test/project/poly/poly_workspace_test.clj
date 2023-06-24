@@ -176,7 +176,7 @@
           "  change                    .  .  .  x  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
           "  command                   .  x  .  x  x  x  x  x  x  x  .  x  x  x  .  .  x  x  .  .  x  .  x  .  x  x  x  x  x  x  x"
-          "  common                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
+          "  common                    .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
           "  config-reader             .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  ."
           "  creator                   .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  t  .  .  .  .  .  x  .  .  .  .  .  ."
           "  deps                      .  .  .  x  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
@@ -184,7 +184,7 @@
           "  git                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  help                      .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
           "  image-creator             .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  lib                       x  .  .  x  x  .  .  x  .  .  x  .  .  .  .  .  .  .  t  .  .  x  x  .  x  .  .  .  .  .  ."
+          "  lib                       x  .  .  x  x  .  .  x  .  .  .  .  .  .  .  .  .  .  t  .  .  x  x  .  x  .  .  .  .  .  ."
           "  migrator                  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  overview                  .  x  .  .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  x  x  .  ."
           "  path-finder               .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
@@ -200,7 +200,7 @@
           "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  validator                 .  .  .  x  .  .  x  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
           "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  workspace                 .  .  .  x  .  .  x  x  .  .  x  .  .  .  x  .  .  .  t  .  .  x  .  .  x  x  .  .  .  .  ."
+          "  workspace                 .  .  .  x  .  .  x  x  .  .  .  .  .  .  x  .  .  .  t  .  .  x  .  .  x  x  .  .  .  .  ."
           "  workspace-clj             .  .  .  x  x  .  x  x  x  .  .  x  .  .  x  .  .  .  .  .  .  .  x  .  x  .  x  .  .  .  ."
           "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  ws-file                   .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
@@ -236,19 +236,19 @@
             "                            t  g  n  o  e  o  p  l  i  l  o  i  o  e  e  s  l  a  e  c  o  l  i  u  i  o  o  c  l  e  l"
             "  brick                     q  e  d  n  r  r  s  e  t  p  r  b  r  w  r  h  l  p  r  t  r  e  g  t  l  r  n  e  j  r  e"
             "  ---------------------------------------------------------------------------------------------------------------------"
-            "  antq                      .  .  .  x  .  .  .  +  .  .  .  .  .  .  .  .  .  .  .  .  .  .  +  .  +  .  .  .  .  .  ."
-            "  change                    .  .  .  x  .  .  .  +  x  .  .  .  .  .  x  +  .  .  .  .  .  .  +  .  x  .  .  .  .  .  ."
+            "  antq                      .  .  .  x  .  .  .  +  .  .  +  .  .  .  .  .  .  .  .  .  .  +  +  .  +  .  .  .  .  .  ."
+            "  change                    .  .  .  x  .  .  .  +  x  .  +  .  .  .  x  +  .  .  .  .  .  +  +  .  x  .  .  .  .  .  ."
             "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
             "  command                   +  x  .  x  x  x  x  x  x  x  +  x  x  x  +  +  x  x  .  +  x  +  x  +  x  x  x  x  x  x  x"
-            "  common                    .  .  .  .  .  .  .  +  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
+            "  common                    .  .  .  .  .  .  .  +  .  .  x  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
             "  config-reader             .  .  .  x  .  .  +  x  .  .  +  .  .  .  +  .  .  .  .  +  .  +  +  .  x  x  .  .  .  .  ."
-            "  creator                   -  -  -  x  -  -  -  x  x  -  -  -  -  -  -  +  -  -  t  -  -  -  +  -  x  -  -  -  -  -  -"
+            "  creator                   -  -  -  x  -  -  -  x  x  -  +  -  -  -  -  +  -  -  t  -  -  +  +  -  x  -  -  -  -  -  -"
             "  deps                      .  .  .  x  .  .  .  +  .  .  x  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
             "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  git                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  help                      .  .  .  x  .  .  .  +  .  .  .  .  .  .  .  .  .  .  .  .  .  .  +  .  x  .  x  .  .  .  ."
+            "  help                      .  .  .  x  .  .  .  +  .  .  +  .  .  .  .  .  .  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
             "  image-creator             .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  lib                       x  -  -  x  x  -  +  x  -  -  x  -  -  -  +  -  -  -  t  +  -  x  x  -  x  +  -  -  -  -  -"
+            "  lib                       x  -  -  x  x  -  +  x  -  -  +  -  -  -  +  -  -  -  t  +  -  x  x  -  x  +  -  -  -  -  -"
             "  migrator                  .  .  .  x  x  .  +  +  .  .  +  .  .  .  +  .  .  .  .  +  .  +  +  .  +  +  .  .  .  .  ."
             "  overview                  +  x  .  +  +  .  x  +  +  .  x  x  .  .  +  +  .  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
             "  path-finder               .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
@@ -264,10 +264,10 @@
             "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  validator                 .  .  .  x  .  .  x  +  .  .  +  .  .  .  x  .  .  .  .  x  .  +  +  .  x  .  .  .  .  .  ."
             "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  workspace                 -  -  -  x  -  -  x  x  -  -  x  -  -  -  x  -  -  -  t  +  -  x  +  -  x  x  -  -  -  -  -"
+            "  workspace                 -  -  -  x  -  -  x  x  -  -  +  -  -  -  x  -  -  -  t  +  -  x  +  -  x  x  -  -  -  -  -"
             "  workspace-clj             +  .  .  x  x  .  x  x  x  .  +  x  .  .  x  +  .  .  .  +  .  +  x  .  x  +  x  .  .  .  ."
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  ws-file                   .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  +  .  .  .  .  .  .  +  .  x  .  x  .  .  .  ."
+            "  ws-file                   .  .  .  x  .  .  .  x  x  .  +  .  .  .  .  +  .  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
             "  poly-cli                  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  t  +  +"]))))
 
 (deftest polylith-workspace-project-deps-table-indirect
@@ -300,19 +300,19 @@
             "                            t  g  n  o  e  o  p  l  i  l  o  i  o  e  e  s  l  a  e  c  o  l  i  u  i  o  o  c  l  e  l"
             "  brick                     q  e  d  n  r  r  s  e  t  p  r  b  r  w  r  h  l  p  r  t  r  e  g  t  l  r  n  e  j  r  e"
             "  ---------------------------------------------------------------------------------------------------------------------"
-            "  antq                      .  .  .  x  .  .  .  +  .  .  .  .  .  .  .  .  .  .  .  .  .  .  +  .  +  .  .  .  .  .  ."
-            "  change                    .  .  .  x  .  .  .  +  x  .  .  .  .  .  x  +  .  .  .  .  .  .  +  .  x  .  .  .  .  .  ."
+            "  antq                      .  .  .  x  .  .  .  +  .  .  +  .  .  .  .  .  .  .  .  .  .  +  +  .  +  .  .  .  .  .  ."
+            "  change                    .  .  .  x  .  .  .  +  x  .  +  .  .  .  x  +  .  .  .  .  .  +  +  .  x  .  .  .  .  .  ."
             "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
             "  command                   +  x  .  x  x  x  x  x  x  x  +  x  x  x  +  +  x  x  .  +  x  +  x  +  x  x  x  x  x  x  x"
-            "  common                    .  .  .  .  .  .  .  +  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .  .  ."
+            "  common                    .  .  .  .  .  .  .  +  .  .  x  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
             "  config-reader             .  .  .  x  .  .  +  x  .  .  +  .  .  .  +  .  .  .  .  +  .  +  +  .  x  x  .  .  .  .  ."
-            "  creator                   -  -  -  x  -  -  -  x  x  -  -  -  -  -  -  +  -  -  t  -  -  -  +  -  x  -  -  -  -  -  -"
+            "  creator                   -  -  -  x  -  -  -  x  x  -  +  -  -  -  -  +  -  -  t  -  -  +  +  -  x  -  -  -  -  -  -"
             "  deps                      .  .  .  x  .  .  .  +  .  .  x  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
             "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  git                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  help                      .  .  .  x  .  .  .  +  .  .  .  .  .  .  .  .  .  .  .  .  .  .  +  .  x  .  x  .  .  .  ."
+            "  help                      .  .  .  x  .  .  .  +  .  .  +  .  .  .  .  .  .  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
             "  image-creator             .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  lib                       x  -  -  x  x  -  +  x  -  -  x  -  -  -  +  -  -  -  t  +  -  x  x  -  x  +  -  -  -  -  -"
+            "  lib                       x  -  -  x  x  -  +  x  -  -  +  -  -  -  +  -  -  -  t  +  -  x  x  -  x  +  -  -  -  -  -"
             "  migrator                  .  .  .  x  x  .  +  +  .  .  +  .  .  .  +  .  .  .  .  +  .  +  +  .  +  +  .  .  .  .  ."
             "  overview                  +  x  .  +  +  .  x  +  +  .  x  x  .  .  +  +  .  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
             "  path-finder               .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
@@ -328,10 +328,10 @@
             "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  validator                 .  .  .  x  .  .  x  +  .  .  +  .  .  .  x  .  .  .  .  x  .  +  +  .  x  .  .  .  .  .  ."
             "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  workspace                 -  -  -  x  -  -  x  x  -  -  x  -  -  -  x  -  -  -  t  +  -  x  +  -  x  x  -  -  -  -  -"
+            "  workspace                 -  -  -  x  -  -  x  x  -  -  +  -  -  -  x  -  -  -  t  +  -  x  +  -  x  x  -  -  -  -  -"
             "  workspace-clj             +  .  .  x  x  .  x  x  x  .  +  x  .  .  x  +  .  .  .  +  .  +  x  .  x  +  x  .  .  .  ."
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  ws-file                   .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  +  .  .  .  .  .  .  +  .  x  .  x  .  .  .  ."
+            "  ws-file                   .  .  .  x  .  .  .  x  x  .  +  .  .  .  .  +  .  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
             "  poly-cli                  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  t  +  +"]))))
 
 (deftest polylith-brick-and-project-deps
@@ -344,7 +344,6 @@
             "  command                    common         "
             "  overview                   deps           "
             "                             file           "
-            "                             image-creator  "
             "                             path-finder    "
             "                             test-helper (t)"
             "                             text-table     "
@@ -360,7 +359,6 @@
             "  api                        common         "
             "  command                    deps           "
             "  overview                   file           "
-            "                             image-creator  "
             "                             path-finder    "
             "                             test-helper (t)"
             "                             text-table     "
@@ -371,6 +369,8 @@
   (is (= (ws-explorer/extract (workspace) ["projects" "poly" "deps"])
          {"antq"                     {:src  {:direct   ["common"]
                                              :indirect ["file"
+                                                        "image-creator"
+                                                        "text-table"
                                                         "user-config"
                                                         "util"]}
                                       :test {}}
@@ -379,14 +379,18 @@
                                                         "path-finder"
                                                         "util"]
                                              :indirect ["file"
+                                                        "image-creator"
                                                         "sh"
+                                                        "text-table"
                                                         "user-config"]}
                                       :test {:direct   ["common"
                                                         "git"
                                                         "path-finder"
                                                         "util"]
                                              :indirect ["file"
+                                                        "image-creator"
                                                         "sh"
+                                                        "text-table"
                                                         "user-config"]}}
           "clojure-test-test-runner" {:src  {:direct ["test-runner-contract"
                                                       "util"]}
@@ -450,7 +454,9 @@
                                                         "test-runner-contract"
                                                         "text-table"
                                                         "user-input"]}}
-          "common"                   {:src  {:direct   ["user-config"
+          "common"                   {:src  {:direct   ["image-creator"
+                                                        "text-table"
+                                                        "user-config"
                                                         "util"]
                                              :indirect ["file"]}
                                       :test {}}
@@ -478,7 +484,9 @@
                                                         "file"
                                                         "git"
                                                         "util"]
-                                             :indirect ["sh"
+                                             :indirect ["image-creator"
+                                                        "sh"
+                                                        "text-table"
                                                         "user-config"]}
                                       :test {:direct   ["common"
                                                         "file"
@@ -533,6 +541,8 @@
                                                         "util"
                                                         "version"]
                                              :indirect ["file"
+                                                        "image-creator"
+                                                        "text-table"
                                                         "user-config"]}
                                       :test {}}
           "image-creator"            {:src  {:direct ["util"]}
@@ -541,11 +551,11 @@
                                                         "common"
                                                         "config-reader"
                                                         "file"
-                                                        "image-creator"
                                                         "text-table"
                                                         "user-config"
                                                         "util"]
                                              :indirect ["deps"
+                                                        "image-creator"
                                                         "path-finder"
                                                         "test-runner-contract"
                                                         "validator"]}
@@ -553,7 +563,6 @@
                                                         "common"
                                                         "config-reader"
                                                         "file"
-                                                        "image-creator"
                                                         "test-helper"
                                                         "text-table"
                                                         "user-config"
@@ -564,6 +573,7 @@
                                                         "deps"
                                                         "git"
                                                         "help"
+                                                        "image-creator"
                                                         "lib"
                                                         "migrator"
                                                         "overview"
@@ -798,17 +808,16 @@
           "workspace"                {:src  {:direct   ["common"
                                                         "deps"
                                                         "file"
-                                                        "image-creator"
                                                         "path-finder"
                                                         "text-table"
                                                         "util"
                                                         "validator"]
-                                             :indirect ["test-runner-contract"
+                                             :indirect ["image-creator"
+                                                        "test-runner-contract"
                                                         "user-config"]}
                                       :test {:direct   ["common"
                                                         "deps"
                                                         "file"
-                                                        "image-creator"
                                                         "path-finder"
                                                         "test-helper"
                                                         "text-table"
@@ -821,6 +830,7 @@
                                                         "creator"
                                                         "git"
                                                         "help"
+                                                        "image-creator"
                                                         "lib"
                                                         "migrator"
                                                         "overview"
@@ -875,7 +885,9 @@
                                                         "git"
                                                         "util"
                                                         "version"]
-                                             :indirect ["sh"
+                                             :indirect ["image-creator"
+                                                        "sh"
+                                                        "text-table"
                                                         "user-config"]}
                                       :test {}}})))
 

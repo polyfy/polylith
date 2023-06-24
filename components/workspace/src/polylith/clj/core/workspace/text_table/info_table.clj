@@ -1,7 +1,6 @@
 (ns polylith.clj.core.workspace.text-table.info-table
   (:require [clojure.string :as str]
-            [polylith.clj.core.image-creator.interface :as image-creator]
-            [polylith.clj.core.text-table.interface :as text-table]
+            [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.workspace.text-table.active-profiles :as active-profiles]
@@ -48,16 +47,14 @@
         max-width (apply max (map table-width tables))]
     (mapcat #(adjust-width % max-width) tables)))
 
-(defn print-info [{:keys [messages] :as workspace}]
-  (let [image (-> workspace :user-input :image)
-        table (table workspace)]
-    (if image
-      (image-creator/create-image image table)
-      (do
-        (text-table/print-table table)
-        (when (seq messages)
-          (println)
-          (validator/print-messages workspace))))))
+(defn print-messages [workspace messages]
+  (when (seq messages)
+    (println)
+    (validator/print-messages workspace)))
+
+(defn print-info [{:keys [messages] :as  workspace}]
+  (common/print-or-save-table workspace table
+                              (partial print-messages workspace messages)))
 
 (comment
   (require '[dev.jocke :as dev])

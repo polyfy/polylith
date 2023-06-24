@@ -97,14 +97,10 @@
     (text-table/table "  " color-mode cells line)))
 
 (defn print-table [{:keys [projects settings] :as workspace} project-name is-all]
-  (let [image (-> workspace :user-input :image)
-        project (common/find-project project-name projects)]
-    (if project
-      (let [table (table workspace project is-all)]
-        (if image
-          (image-creator/create-image image table)
-          (text-table/print-table table)))
-      (println (str "  Couldn't find the " (color/project project-name (:color-mode settings)) " project.")))))
+  (if-let [project (common/find-project project-name projects)]
+    (common/print-or-save-table workspace
+                                #(table % project is-all))
+    (println (str "  Couldn't find the " (color/project project-name (:color-mode settings)) " project."))))
 
 (comment
   (require '[dev.jocke :as dev])

@@ -29,15 +29,12 @@
 
 (defn print-table [{:keys [projects] :as workspace} project-name brick-name]
   (let [color-mode (-> workspace :settings :color-mode)
-        image (-> workspace :user-input :image)
         project (common/find-project project-name projects)
         brick (common/find-brick brick-name workspace)
         [ok? message] (validate project-name brick-name project brick color-mode)]
     (if ok?
-      (let [table (table workspace project brick color-mode)]
-        (if image
-          (image-creator/create-image image table)
-          (text-table/print-table table)))
+      (common/print-or-save-table workspace
+                                  #(table % project brick color-mode))
       (println message))))
 
 (comment

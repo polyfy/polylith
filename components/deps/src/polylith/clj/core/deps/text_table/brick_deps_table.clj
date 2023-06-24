@@ -54,13 +54,10 @@
     (text-table/table "  " color-mode used-by-column uses-column headers spaces)))
 
 (defn print-table [workspace brick-name]
-  (let [brick (common/find-brick brick-name workspace)
-        image (-> workspace :user-input :image)]
+  (let [brick (common/find-brick brick-name workspace)]
     (if brick
-      (let [table (table workspace brick)]
-        (if image
-          (image-creator/create-image image table)
-          (text-table/print-table table)))
+      (common/print-or-save-table workspace
+                                  #(table % brick))
       (println (str "  Couldn't find brick '" brick-name "'.")))))
 
 (comment
