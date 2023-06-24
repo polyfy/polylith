@@ -15,6 +15,7 @@
   (let [{:keys [is-show-loc is-show-resources fake-sha]} user-input
         {:keys [color-mode]} settings
         {:keys [since-sha since-tag]} changes
+        since-tag (if fake-sha nil since-tag)
         since (stable-since/table (or fake-sha since-sha) since-tag color-mode)
         number-of-entities (number-of-entities/table workspace)
         profiles (active-profiles/table settings)
