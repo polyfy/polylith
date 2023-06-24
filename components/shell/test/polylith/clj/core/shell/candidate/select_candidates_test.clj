@@ -79,7 +79,7 @@
 
 (deftest deps
   (is (= (candidates "deps")
-         ["brick" "image" "project"])))
+         ["brick" "out" "project"])))
 
 (deftest deps-brick
   (is (= (candidates "deps" :next "brick")
@@ -123,7 +123,7 @@
 
 (deftest deps-brick-test-helper
   (is (= (candidates "deps" :next "brick" "test-helper" :next "")
-         ["image" "project"])))
+         ["out" "project"])))
 
 (deftest deps-brick-help
   (is (= (candidates "deps" :next "brick" "help")
@@ -131,7 +131,7 @@
 
 (deftest deps-brick-file-
   (is (= (candidates "deps" :next "brick" "file" :next "")
-         ["image" "project"])))
+         ["out" "project"])))
 
 (deftest deps-brick-deployer-project-
   (is (= (clean-colors (candidates "deps" :next "brick" "deployer" :next "project" ""))
@@ -155,7 +155,7 @@
 
 (deftest deps-project-api-
   (is (= (candidates "deps" :next "project" "api" :next)
-         ["brick" "image"])))
+         ["brick" "out"])))
 
 (deftest deps-project-deployer-brick-
   (is (= (clean-colors (candidates "deps" :next "project" "deployer" :next "brick" ""))
@@ -182,7 +182,7 @@
 
 (deftest deps-project-api-brick-file-
   (is (= (candidates "deps" :next "project" "api" :next "brick" "file" :next)
-         ["image"])))
+         ["out"])))
 
 (deftest diff
   (is (= (candidates "diff")
@@ -264,12 +264,12 @@
 (deftest info
   (is (= (candidates "info")
          [":all" ":all-bricks" ":dev" ":loc" ":project" ":resources" "brick"
-          "image" "project" "since"])))
+          "out" "project" "since"])))
 
 (deftest info-loc-
   (is (= (candidates "info" :next "loc" :next "")
          [":all" ":all-bricks" ":dev" ":project" ":resources" "brick"
-          "image" "project" "since"])))
+          "out" "project" "since"])))
 
 (deftest info-wsfile-go-back-4-dirs-
   (is (= (contains? (set (candidates "info" :next "ws-file" ".." ".." ".." ".." ""))
@@ -278,11 +278,11 @@
 
 (deftest libs
   (is (= (candidates "libs")
-         [":outdated"])))
+         [":outdated" "out"])))
 
 (deftest libs-
   (is (= (candidates "libs" :next "")
-         [":outdated"])))
+         [":outdated" "out"])))
 
 (deftest test
   (is (= (candidates "test")
@@ -371,4 +371,4 @@
                      "dev" :next
                      "all" :next
                      "all-bricks" :next)
-         ["+remote" ":project" ":resources" "brick" "image" "project" "since"])))
+         ["+remote" ":project" ":resources" "brick" "out" "project" "since"])))

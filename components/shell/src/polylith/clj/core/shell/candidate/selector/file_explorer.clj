@@ -58,10 +58,9 @@
 (defn select-all [{:keys [group]} groups _]
   (select-and-filter group groups #'select-all (constantly true)))
 
-(defn image-file? [filename]
-  (or (str/ends-with? filename ".bmp")
-      (str/ends-with? filename ".png")
-      (str/ends-with? filename ".jpg")))
+(defn image-or-txt-file? [filename]
+  (or (file/image-file? filename)
+      (str/ends-with? filename ".txt")))
 
-(defn select-image [{:keys [group]} groups _]
-  (select-and-filter group groups #'select-image image-file?))
+(defn select-image-or-txt [{:keys [group]} groups _]
+  (select-and-filter group groups #'select-image-or-txt image-or-txt-file?))

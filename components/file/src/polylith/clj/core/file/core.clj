@@ -14,6 +14,11 @@
 (defn file [^String f]
   (File. f))
 
+(defn image-file? [filename]
+  (or (str/ends-with? filename ".bmp")
+      (str/ends-with? filename ".png")
+      (str/ends-with? filename ".jpg")))
+
 (defn execute-fn [f message path]
   (try
     (f)

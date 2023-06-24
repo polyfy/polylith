@@ -176,7 +176,7 @@
           "  change                    .  .  .  x  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
           "  command                   .  x  .  x  x  x  x  x  x  x  .  x  x  x  .  .  x  x  .  .  x  .  x  .  x  x  x  x  x  x  x"
-          "  common                    .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
+          "  common                    .  .  .  .  .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
           "  config-reader             .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  ."
           "  creator                   .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  t  .  .  .  .  .  x  .  .  .  .  .  ."
           "  deps                      .  .  .  x  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
@@ -240,7 +240,7 @@
             "  change                    .  .  .  x  .  .  .  +  x  .  +  .  .  .  x  +  .  .  .  .  .  +  +  .  x  .  .  .  .  .  ."
             "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
             "  command                   +  x  .  x  x  x  x  x  x  x  +  x  x  x  +  +  x  x  .  +  x  +  x  +  x  x  x  x  x  x  x"
-            "  common                    .  .  .  .  .  .  .  +  .  .  x  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
+            "  common                    .  .  .  .  .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
             "  config-reader             .  .  .  x  .  .  +  x  .  .  +  .  .  .  +  .  .  .  .  +  .  +  +  .  x  x  .  .  .  .  ."
             "  creator                   -  -  -  x  -  -  -  x  x  -  +  -  -  -  -  +  -  -  t  -  -  +  +  -  x  -  -  -  -  -  -"
             "  deps                      .  .  .  x  .  .  .  +  .  .  x  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
@@ -304,7 +304,7 @@
             "  change                    .  .  .  x  .  .  .  +  x  .  +  .  .  .  x  +  .  .  .  .  .  +  +  .  x  .  .  .  .  .  ."
             "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
             "  command                   +  x  .  x  x  x  x  x  x  x  +  x  x  x  +  +  x  x  .  +  x  +  x  +  x  x  x  x  x  x  x"
-            "  common                    .  .  .  .  .  .  .  +  .  .  x  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
+            "  common                    .  .  .  .  .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
             "  config-reader             .  .  .  x  .  .  +  x  .  .  +  .  .  .  +  .  .  .  .  +  .  +  +  .  x  x  .  .  .  .  ."
             "  creator                   -  -  -  x  -  -  -  x  x  -  +  -  -  -  -  +  -  -  t  -  -  +  +  -  x  -  -  -  -  -  -"
             "  deps                      .  .  .  x  .  .  .  +  .  .  x  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
@@ -454,11 +454,11 @@
                                                         "test-runner-contract"
                                                         "text-table"
                                                         "user-input"]}}
-          "common"                   {:src  {:direct   ["image-creator"
-                                                        "text-table"
-                                                        "user-config"
-                                                        "util"]
-                                             :indirect ["file"]}
+          "common"                   {:src  {:direct ["file"
+                                                      "image-creator"
+                                                      "text-table"
+                                                      "user-config"
+                                                      "util"]}
                                       :test {}}
           "config-reader"            {:src  {:direct   ["common"
                                                         "file"
@@ -1025,9 +1025,7 @@
           "  user         user1          st-   st-   --  "
           "  util         util1          st-   st-   --  "
           "  -            base1          st-   st-   --  "
-          "  -            base2          st-   st-   --  "
-          ""
-          "  Error 107: Missing components in the service project for these interfaces: calculator"])))
+          "  -            base2          st-   st-   --  "])))
 
 (deftest profile-info-where-test-has-changed
   (is (= (run-cmd "examples/profiles"
@@ -1054,9 +1052,7 @@
           "  user         user1          st-   st-   --  "
           "  util         util1          st-   st-   --  "
           "  -            base1          stx   st-   --  "
-          "  -            base2 *        stx   st-   --  "
-          ""
-          "  Error 107: Missing components in the service project for these interfaces: calculator"])))
+          "  -            base2 *        stx   st-   --  "])))
 
 (deftest profile-info-where-src-has-changed
   (is (= (run-cmd "examples/profiles"
@@ -1083,9 +1079,7 @@
           "  user         user1          st-   st-   --  "
           "  util         util1          st-   st-   --  "
           "  -            base1          stx   st-   --  "
-          "  -            base2 *        stx   st-   --  "
-          ""
-          "  Error 107: Missing components in the service project for these interfaces: calculator"])))
+          "  -            base2 *        stx   st-   --  "])))
 
 (deftest profile-info-loc
   (is (= (run-cmd "examples/profiles"
@@ -1114,9 +1108,7 @@
           "  util         util1          st-   st-   --       1   6"
           "  -            base1          st-   st-   --       1   7"
           "  -            base2          st-   st-   --       1   5"
-          "                              12    13            16  38"
-          ""
-          "  Error 107: Missing components in the service project for these interfaces: calculator"])))
+          "                              12    13            16  38"])))
 
 (deftest profile-info-skip-dev
   (is (= (run-cmd "examples/profiles"
@@ -1142,9 +1134,7 @@
           "  user         user1          st-      "
           "  util         util1          st-      "
           "  -            base1          st-      "
-          "  -            base2          st-      "
-          ""
-          "  Error 107: Missing components in the service project for these interfaces: calculator"])))
+          "  -            base2          st-      "])))
 
 (deftest profile-deps
   (is (= (run-cmd "examples/profiles"
