@@ -1,5 +1,6 @@
 (ns polylith.clj.core.help.summary
   (:require [polylith.clj.core.help.shared :as s]
+            [polylith.clj.core.system.interface :as system]
             [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.util.interface.color :as color]))
 
@@ -102,6 +103,9 @@
     "    poly deps brick:mybrick\n"
     "    poly deps project:myproject\n"
     "    poly deps project:myproject brick:mybrick\n"
+    "    poly deps out:deps.txt\n"
+    (if system/admin-tool?
+      "    poly deps out:deps.png\n" "")
     "    poly diff\n"
     "    poly help\n"
     "    poly help info\n"

@@ -1,5 +1,6 @@
 (ns polylith.clj.core.help.deps
   (:require [polylith.clj.core.help.shared :as s]
+            [polylith.clj.core.system.interface :as system]
             [polylith.clj.core.help.deps-project :as deps-project]
             [polylith.clj.core.help.deps-brick :as deps-brick]
             [polylith.clj.core.help.deps-workspace :as deps-workspace]
@@ -8,10 +9,16 @@
 (defn help [cm]
   (str "  Shows dependencies.\n"
        "\n"
-       "  poly deps [project:" (s/key "PROJECT" cm) "] [brick:" (s/key "BRICK" cm) "]\n"
-       "    (omitted) = Show workspace dependencies.\n"
-       "    " (s/key "PROJECT" cm) "   = Show dependencies for specified project.\n"
-       "    " (s/key "BRICK" cm) "     = Show dependencies for specified brick.\n"
+       "  poly deps [project:" (s/key "PROJECT" cm) "] [brick:" (s/key "BRICK" cm) "] [out:" (s/key "FILENAME" cm) "]\n"
+       "    (omitted) = Shows workspace dependencies.\n"
+       "    project   = Shows dependencies for specified project.\n"
+       "    brick     = Shows dependencies for specified brick.\n"
+       (if system/admin-tool?
+         (str "    out       = Creates a text file or image based on the output. If FILENAME\n"
+              "                ends with .txt, then the file will contain the output as text.\n"
+              "                If FILENAME ends with .bmp, .jpg, or .png, then the file will\n"
+              "                be generated as an image.")
+         (str "    " (s/key "FILENAME" cm) "  = Creates a text file based on the output.\n"))
        "\n"
        "  To get help for a specific diagram, type: \n"
        "    poly help deps " (s/key "ARGS" cm) ":\n"
@@ -24,7 +31,10 @@
        "    poly deps\n"
        "    poly deps brick:mybrick\n"
        "    poly deps project:myproject\n"
-       "    poly deps project:myproject brick:mybrick"))
+       "    poly deps project:myproject brick:mybrick\n"
+       "    poly deps out:deps.txt"
+       (if system/admin-tool?
+         (str "\n    poly deps out:deps.png" ""))))
 
 (defn print-help [is-show-project is-show-brick is-show-workspace color-mode]
   (cond
