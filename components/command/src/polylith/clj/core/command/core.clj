@@ -83,7 +83,7 @@
           "diff" (diff workspace)
           "help" (help args is-all is-show-project is-show-brick is-show-workspace toolsdeps1? color-mode)
           "info" (info/info workspace unnamed-args)
-          "libs" (lib/print-lib-table workspace is-all is-outdated)
+          "libs" (lib/print-lib-table workspace is-outdated)
           "migrate" (migrator/migrate ws-dir workspace)
           "overview" (overview/print-table workspace)
           "shell" (shell/start execute user-input workspace-fn workspace color-mode)

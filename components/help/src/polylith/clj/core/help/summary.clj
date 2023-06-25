@@ -143,9 +143,11 @@
     "    poly info ws-dir:another-ws\n"
     "    poly info ws-file:ws.edn\n"
     "    poly libs\n"
-    "    poly libs :all\n"
     "    poly libs :compact\n"
     "    poly libs :outdated\n"
+    "    poly libs out:libs.txt\n"
+    (if system/admin-tool?
+      "    poly libs out:libs.png\n" "")
     (migrate-command show-migrate?)
     "    poly shell\n"
     "    poly shell :tap\n"

@@ -18,7 +18,7 @@
               "                ends with .txt, then the file will contain the output as text.\n"
               "                If FILENAME ends with .bmp, .jpg, or .png, then the file will\n"
               "                be generated as an image.")
-         (str "    " (s/key "FILENAME" cm) "  = Creates a text file based on the output.\n"))
+         (str "    out       = Creates a text file based on the output.\n"))
        "\n"
        "  To get help for a specific diagram, type: \n"
        "    poly help deps " (s/key "ARGS" cm) ":\n"

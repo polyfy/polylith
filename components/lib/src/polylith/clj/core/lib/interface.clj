@@ -13,12 +13,12 @@
 (defn brick-lib-deps [ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home]
   (core/brick-lib-deps ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home))
 
-(defn print-lib-table [workspace is-all is-outdated]
-  (lib-table/print-table workspace is-all is-outdated))
+(defn print-lib-table [workspace is-outdated]
+  (lib-table/print-table workspace is-outdated))
 
 (defn resolve-libs [src-deps override-deps]
   (resolve-libs/resolve-libs src-deps override-deps))
 
 (defn table [workspace]
   (let [outdated? (-> workspace :user-input :is-outdated)]
-    (lib-table/table workspace false outdated?)))
+    (lib-table/table workspace outdated?)))

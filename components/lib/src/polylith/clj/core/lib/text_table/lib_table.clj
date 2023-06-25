@@ -116,7 +116,7 @@
 (defn profile-lib [[_ {:keys [lib-deps]}]]
   (mapcat lib lib-deps))
 
-(defn table [{:keys [configs settings components bases projects] :as workspace} is-all is-outdated]
+(defn table [{:keys [configs settings components bases projects] :as workspace} is-outdated]
   (let [{:keys [profile-to-settings empty-character thousand-separator color-mode]} settings
         lib->latest-version (if is-outdated (antq/library->latest-version configs) {})
         entities (concat components bases projects)
@@ -127,9 +127,7 @@
                            (set (concat src-libs test-libs)))
         all-bricks (concat components bases)
         brick->libs (into {} (map brick-libs all-bricks))
-        bricks (if is-all
-                 all-bricks
-                 (filter #(-> % :name brick->libs empty? not) all-bricks))
+        bricks (filter #(-> % :name brick->libs empty? not) all-bricks)
         lib-col (lib-column libraries)
         version-col (version-column libraries)
         latest-col (when is-outdated (latest-column libraries lib->latest-version))
@@ -160,12 +158,12 @@
         spaces (text-table/spaces 2 [section1 section2 section3] (repeat "   "))]
     (text-table/table "  " color-mode cells line spaces)))
 
-(defn print-table [workspace is-all is-outdated]
+(defn print-table [workspace is-outdated]
   (common/print-or-save-table workspace
-                              #(table % is-all is-outdated)))
+                              #(table % is-outdated)))
 
 (comment
   (require '[dev.jocke :as jocke])
-  (print-table jocke/workspace false false)
-  (print-table jocke/workspace false true)
+  (print-table jocke/workspace false)
+  (print-table jocke/workspace true)
   #__)
