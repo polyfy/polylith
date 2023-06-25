@@ -9,14 +9,14 @@
         poly/file                     {:local/root "../../components/file"}
         poly/git                      {:local/root "../../components/git"}
         poly/help                     {:local/root "../../components/help"}
-        poly/image-creator            {:local/root "../../components/image-creator"}
+        poly/image-creator            {:local/root "../../components/image-creator-x"}
         poly/lib                      {:local/root "../../components/lib"}
         poly/migrator                 {:local/root "../../components/migrator"}
         poly/overview                 {:local/root "../../components/overview"}
         poly/path-finder              {:local/root "../../components/path-finder"}
         poly/sh                       {:local/root "../../components/sh"}
         poly/shell                    {:local/root "../../components/shell"}
-        poly/system                   {:local/root "../../components/system"}
+        poly/system                   {:local/root "../../components/system-x"}
         poly/tap                      {:local/root "../../components/tap"}
         poly/test-runner-contract     {:local/root "../../components/test-runner-contract"}
         poly/test-runner-orchestrator {:local/root "../../components/test-runner-orchestrator"}
@@ -39,8 +39,7 @@
  :tools/usage {:ns-default polylith.clj.core.poly-cli.api}
 
  :aliases {:test {:extra-paths ["test"]
-                  :extra-deps  {poly/test-helper {:local/root "../../components/test-helper"}
-                                pjstadig/humane-test-output {:mvn/version "0.11.0"}}}
+                  :extra-deps  {poly/test-helper {:local/root "../../components/test-helper"}}}
 
            :uberjar {:main polylith.clj.core.poly-cli.core}
 

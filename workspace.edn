@@ -8,6 +8,7 @@
                 :release "v[0-9]*"}
 
  :projects {"api" {:alias "api" :test [] :necessary ["api"]}
-            "poly" {:alias "poly" :necessary ["clojure-test-test-runner"]
+            "poly" {:alias "poly"
+                    :necessary ["clojure-test-test-runner"]
                     :test {:setup-fn project.poly.hto/activate!}}
             "development" {:alias "dev"}}}

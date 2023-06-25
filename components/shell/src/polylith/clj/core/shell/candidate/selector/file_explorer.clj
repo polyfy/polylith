@@ -2,6 +2,7 @@
   (:require [clojure.string :as str]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.shell.candidate.creators :as c]
+            [polylith.clj.core.system.interface :as system]
             [polylith.clj.core.user-config.interface :as user-config]))
 
 (defn quotify [path]
@@ -62,5 +63,13 @@
   (or (file/image-file? filename)
       (str/ends-with? filename ".txt")))
 
+(defn select-txt [{:keys [group]} groups _]
+  (select-and-filter group groups #'select-txt #(str/ends-with? % ".txt")))
+
 (defn select-image-or-txt [{:keys [group]} groups _]
   (select-and-filter group groups #'select-image-or-txt image-or-txt-file?))
+
+(defn select-fn []
+  (if system/admin-tool?
+    #'select-image-or-txt
+    #'select-txt))

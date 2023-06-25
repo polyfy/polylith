@@ -40,7 +40,7 @@
 ;; deps
 (def deps-brick (c/fn-explorer "brick" :deps #'ws-deps-entities/select-bricks))
 (def deps-project (c/fn-explorer "project" :deps #'ws-deps-entities/select-projects))
-(def deps-out (c/fn-explorer "out" :deps #'file-explorer/select-image-or-txt))
+(def deps-out (c/fn-explorer "out" :deps (file-explorer/select-fn)))
 (def deps (c/single-txt "deps" :deps [deps-brick deps-project deps-out]))
 (def all-deps (c/single-txt "deps" :deps [deps-brick deps-project compact deps-out]))
 
@@ -69,7 +69,7 @@
 (def info-project (c/fn-explorer "project" :info #'ws-projects-to-test/select))
 (def info-brick (c/fn-explorer "brick" :info #'ws-bricks/select))
 (def info-resources (c/flag "resources" :info))
-(def info-out (c/fn-explorer "out" :info #'file-explorer/select-image-or-txt))
+(def info-out (c/fn-explorer "out" :info (file-explorer/select-fn)))
 (def info-project-flag (c/flag-explicit "project" :info))
 (def info-dev (c/flag "dev" :info))
 (def info-loc (c/flag "loc" :info))
@@ -86,7 +86,7 @@
 
 ;; libs
 (def outdated (c/flag "outdated" :libs))
-(def libs-out (c/fn-explorer "out" :libs #'file-explorer/select-image-or-txt))
+(def libs-out (c/fn-explorer "out" :libs (file-explorer/select-fn)))
 (def libs (c/single-txt "libs" :libs [outdated libs-out]))
 (def all-libs (c/single-txt "libs" :libs [outdated libs-out compact]))
 
@@ -108,7 +108,7 @@
                              profiles))))
 
 ;; overview
-(def overview-out (c/fn-explorer "out" :overview #'file-explorer/select-image-or-txt))
+(def overview-out (c/fn-explorer "out" :overview (file-explorer/select-fn)))
 (def overview (c/single-txt "overview" :overview [overview-out]))
 
 ;; version

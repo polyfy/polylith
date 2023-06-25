@@ -1,8 +1,7 @@
-(ns polylith.clj.core.image-creator.interface
-  (:require [polylith.clj.core.image-creator.core :as core]))
+(ns polylith.clj.core.image-creator.interface)
 
-(def font-width core/font-width) ;(c2d/char-width graphics \x)
-(def font-height core/font-height) ; (c2d/font-height graphics))
+(def font-width)
+(def font-height)
 
 (defn create-image [filename table canvas-areas]
-  (core/create-image filename table canvas-areas))
+  (println "  Creating images is not supported by the 'poly' tool. Please use 'polyx' instead."))
