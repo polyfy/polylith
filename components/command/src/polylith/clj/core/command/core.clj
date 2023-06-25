@@ -79,7 +79,7 @@
         (case cmd
           "check" (check workspace color-mode)
           "create" (create/create ws-dir workspace args name top-ns interface branch is-git-add is-commit color-mode)
-          "deps" (dependencies/deps workspace project-name brick-name unnamed-args is-all)
+          "deps" (dependencies/deps workspace project-name brick-name unnamed-args)
           "diff" (diff workspace)
           "help" (help args is-all is-show-project is-show-brick is-show-workspace toolsdeps1? color-mode)
           "info" (info/info workspace unnamed-args)

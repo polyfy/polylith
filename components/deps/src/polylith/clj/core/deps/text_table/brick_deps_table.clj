@@ -1,7 +1,6 @@
 (ns polylith.clj.core.deps.text-table.brick-deps-table
   (:require [polylith.clj.core.deps.text-table.shared :as shared]
             [polylith.clj.core.common.interface :as common]
-            [polylith.clj.core.image-creator.interface :as image-creator]
             [polylith.clj.core.text-table.interface :as text-table]))
 
 (defn interface-cell [row interface-name]

@@ -32,8 +32,8 @@
 (defn print-workspace-table [workspace]
   (workspace-deps-table/print-table workspace))
 
-(defn print-workspace-project-table [workspace project-name is-all]
-  (workspace-project-deps-table/print-table workspace project-name is-all))
+(defn print-workspace-project-table [workspace project-name]
+  (workspace-project-deps-table/print-table workspace project-name))
 
 (defn resolve-deps [project settings is-verbose]
   (lib-deps/resolve-deps project settings is-verbose))

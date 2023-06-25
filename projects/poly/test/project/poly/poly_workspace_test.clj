@@ -183,7 +183,7 @@
           "  common                    .  .  .  .  .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
           "  config-reader             .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  ."
           "  creator                   .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  t  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  deps                      .  .  .  x  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
+          "  deps                      .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
           "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  git                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  help                      .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
@@ -217,7 +217,7 @@
   (let [ws (workspace)
         projects (:projects ws)
         project (common/find-project "poly" projects)]
-    (is (= (ws-project-deps-table/table (workspace) project false)
+    (is (= (ws-project-deps-table/table (workspace) project)
            ["                                                                                           t                              "
             "                                                                                           e                              "
             "                                                                                           s                              "
@@ -250,7 +250,7 @@
             "  common                    .  .  .  .  .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
             "  config-reader             .  .  .  x  .  .  +  x  .  .  +  .  .  .  +  .  .  .  .  .  +  .  +  +  .  x  x  .  .  .  .  ."
             "  creator                   -  -  -  x  -  -  -  x  x  -  +  -  -  -  -  +  -  -  -  t  -  -  +  +  -  x  -  -  -  -  -  -"
-            "  deps                      .  .  .  x  .  .  .  +  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
+            "  deps                      .  .  .  x  .  .  .  +  .  .  +  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
             "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  git                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  help                      .  .  .  x  .  .  .  +  .  .  +  .  .  .  .  .  .  .  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
@@ -282,7 +282,7 @@
   (let [ws (workspace)
         projects (:projects ws)
         project (common/find-project "poly" projects)]
-    (is (= (ws-project-deps-table/table (workspace) project false)
+    (is (= (ws-project-deps-table/table (workspace) project)
            ["                                                                                           t                              "
             "                                                                                           e                              "
             "                                                                                           s                              "
@@ -315,7 +315,7 @@
             "  common                    .  .  .  .  .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
             "  config-reader             .  .  .  x  .  .  +  x  .  .  +  .  .  .  +  .  .  .  .  .  +  .  +  +  .  x  x  .  .  .  .  ."
             "  creator                   -  -  -  x  -  -  -  x  x  -  +  -  -  -  -  +  -  -  -  t  -  -  +  +  -  x  -  -  -  -  -  -"
-            "  deps                      .  .  .  x  .  .  .  +  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
+            "  deps                      .  .  .  x  .  .  .  +  .  .  +  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
             "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  git                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  help                      .  .  .  x  .  .  .  +  .  .  +  .  .  .  .  .  .  .  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
@@ -532,17 +532,17 @@
                                                         "ws-explorer"
                                                         "ws-file"]}}
           "deps"                     {:src  {:direct   ["common"
-                                                        "image-creator"
                                                         "text-table"
                                                         "user-config"
                                                         "util"]
-                                             :indirect ["file"]}
+                                             :indirect ["file"
+                                                        "image-creator"]}
                                       :test {:direct   ["common"
-                                                        "image-creator"
                                                         "text-table"
                                                         "user-config"
                                                         "util"]
-                                             :indirect ["file"]}}
+                                             :indirect ["file"
+                                                        "image-creator"]}}
           "file"                     {:src  {:direct ["util"]}
                                       :test {}}
           "git"                      {:src  {:direct ["sh"

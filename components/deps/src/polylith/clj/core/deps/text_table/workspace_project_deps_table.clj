@@ -1,6 +1,5 @@
 (ns polylith.clj.core.deps.text-table.workspace-project-deps-table
   (:require [polylith.clj.core.common.interface :as common]
-            [polylith.clj.core.image-creator.interface :as image-creator]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.text-table.interface :as text-table]))
 
@@ -66,26 +65,19 @@
   (concat (source-brick-entity src all-base-names)
           (source-brick-entity test all-base-names)))
 
-(defn brick-entity [{:keys [name type]}]
-  {:name name
-   :type type})
-
 (defn table [{:keys [settings components bases] :as workspace}
-             {:keys [deps component-names base-names]} is-all]
+             {:keys [deps component-names base-names]}]
   (let [{:keys [color-mode empty-character]} settings
-        entity-names (if is-all
-                       (set (map key deps))
-                       (set (concat (:src component-names)
-                                    (:test component-names)
-                                    (:src base-names)
-                                    (:test base-names))))
+        entity-names (set (concat (:src component-names)
+                                  (:test component-names)
+                                  (:src base-names)
+                                  (:test base-names)))
         bricks (filter #(contains? entity-names (:name %))
                        (concat components bases))
         brick-names (map :name bricks)
         all-base-names (set (map :name bases))
         entities (sort-by (juxt #(-> % :type sorter) :name)
-                          (set (cond-> (mapcat #(brick-entity-from-deps % all-base-names) deps)
-                                       is-all (concat (map brick-entity components)))))
+                          (set (mapcat #(brick-entity-from-deps % all-base-names) deps)))
         compact? (common/compact? workspace "deps")
         space-columns (range 2 (* 2 (inc (count entities))) 2)
         spaces (conj (repeat (if compact? " " "  ")) "  ")
@@ -96,14 +88,14 @@
         line (text-table/line 2 cells)]
     (text-table/table "  " color-mode cells line)))
 
-(defn print-table [{:keys [projects settings] :as workspace} project-name is-all]
+(defn print-table [{:keys [projects settings] :as workspace} project-name]
   (if-let [project (common/find-project project-name projects)]
     (common/print-or-save-table workspace
-                                #(table % project is-all))
+                                #(table % project))
     (println (str "  Couldn't find the " (color/project project-name (:color-mode settings)) " project."))))
 
 (comment
   (require '[dev.jocke :as dev])
   (def workspace dev/workspace)
-  (print-table workspace "poly" false)
+  (print-table workspace "poly")
   #__)
