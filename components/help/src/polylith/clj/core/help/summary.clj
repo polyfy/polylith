@@ -133,13 +133,16 @@
     "    poly info project:myproject:another-project\n"
     "    poly info brick:mycomponent\n"
     "    poly info brick:mycomponent:mybase\n"
+    "    poly info color-mode:none\n"
     "    poly info :project\n"
     "    poly info :dev\n"
     "    poly info :project :dev\n"
     "    poly info :all\n"
     "    poly info :all-bricks\n"
     "    poly info ::\n"
-    "    poly info color-mode:none\n"
+    "    poly info out:info.txt\n"
+    (if system/admin-tool?
+      "    poly info out:info.png\n" "")
     "    poly info ws-dir:another-ws\n"
     "    poly info ws-file:ws.edn\n"
     "    poly libs\n"
