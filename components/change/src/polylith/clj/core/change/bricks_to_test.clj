@@ -36,8 +36,7 @@
                           bricks-for-source)
         changed-bricks (if include-project?
                          (if (or is-run-all-brick-tests project-has-changed?)
-                           ;; if we pass in :all or :all-bricks or if the project has changed
-                           ;; then always run all brick tests.
+                           ;; if we pass in :all or :all-bricks or if the project has changed then always run all brick tests.
                            included-bricks
                            (set/intersection included-bricks
                                              selected-bricks
