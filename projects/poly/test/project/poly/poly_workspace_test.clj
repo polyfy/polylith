@@ -1241,7 +1241,7 @@
           "  library              version  type      KB   s   dev  default  extra   1"
           "  ------------------------------------------   -   -------------------   -"
           "  clj-commons/fs       1.6.310  maven     12   -    -      x       -     ."
-          "  metosin/malli        0.11.1   maven      0   t    x      -       -     x"
+          "  metosin/malli        0.11.1   maven      -   t    x      -       -     x"
           "  org.clojure/clojure  1.11.1   maven  4,008   x    x      -       -     ."])))
 
 (deftest profile-libs-skip-dev
@@ -1261,7 +1261,7 @@
           "  library              version  type      KB   s   1"
           "  ------------------------------------------   -   -"
           "  clj-commons/fs       1.6.310  maven     12   -   ."
-          "  metosin/malli        0.11.1   maven      0   t   x"
+          "  metosin/malli        0.11.1   maven      -   t   x"
           "  org.clojure/clojure  1.11.1   maven  4,008   x   ."])))
 
 (defn clean-settings [ws]

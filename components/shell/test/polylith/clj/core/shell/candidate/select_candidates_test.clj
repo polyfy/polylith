@@ -1,5 +1,6 @@
 (ns polylith.clj.core.shell.candidate.select-candidates-test
   (:require [clojure.test :refer :all]
+            [polylith.clj.core.system.interface :as system]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.shell.candidate.setup :as setup]
             [polylith.clj.core.shell.candidate.engine :as engine])
@@ -15,7 +16,9 @@
 
 (deftest all-commands
   (is (= (candidates "")
-         ["check" "create" "deps" "diff" "help" "info" "libs" "overview" "switch-ws" "test" "version" "ws"])))
+         (concat ["check" "create" "deps" "diff" "help" "info" "libs"]
+                 (if system/admin-tool? ["overview"] [])
+                 ["switch-ws" "test" "version" "ws"]))))
 
 (deftest check
   (is (= (candidates "check")
