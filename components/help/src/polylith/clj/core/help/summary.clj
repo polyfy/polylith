@@ -4,16 +4,6 @@
             [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.util.interface.color :as color]))
 
-(defn migrate [toolsdeps1?]
-  (if toolsdeps1?
-    "    migrate                     Migrates the workspace to the latest format.\n"
-    ""))
-
-(defn migrate-command [show-migrate?]
-  (if show-migrate?
-    "    poly migrate\n"
-    ""))
-
 (defn help-text [show-migrate? cm]
   (str
     "  Poly " version/name " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
@@ -27,7 +17,12 @@
     "    help [" (s/key "C" cm) "] [" (s/key "ARG" cm) "]              Shows this help or help for specified command.\n"
     "    info [" (s/key "ARGS" cm) "]                 Shows a workspace overview and checks if it's valid.\n"
     "    libs [" (s/key "ARGS" cm) "]                 Shows all libraries in the workspace.\n"
-    (migrate show-migrate?)
+    (if show-migrate?
+      "    migrate                     Migrates the workspace to the latest format.\n"
+      "")
+    (if system/admin-tool?
+      "    overview                    Shows output from info, deps, and libs side by side.\n"
+      "")
     "    shell [" (s/key "ARGS" cm) "]                Starts an interactive shell.\n"
     "    test [" (s/key "ARGS" cm) "]                 Runs tests.\n"
     "    version                     Shows current version of the tool.\n"
@@ -151,7 +146,9 @@
     "    poly libs out:libs.txt\n"
     (if system/admin-tool?
       "    poly libs out:libs.png\n" "")
-    (migrate-command show-migrate?)
+    (if show-migrate?
+      "    poly migrate\n"
+      "")
     "    poly shell\n"
     "    poly shell :tap\n"
     "    poly shell :all\n"

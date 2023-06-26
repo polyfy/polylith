@@ -7,7 +7,8 @@
             [polylith.clj.core.shell.candidate.selector.file-explorer :as file-explorer]
             [polylith.clj.core.shell.candidate.selector.ws-tag-patterns :as ws-tag-patterns]
             [polylith.clj.core.shell.candidate.selector.ws-deps-entities :as ws-deps-entities]
-            [polylith.clj.core.shell.candidate.selector.ws-projects-to-test :as ws-projects-to-test]]
+            [polylith.clj.core.shell.candidate.selector.ws-projects-to-test :as ws-projects-to-test]
+            [polylith.clj.core.system.interface :as system]]
   (:refer-clojure :exclude [load test]))
 
 ;; check
@@ -166,10 +167,10 @@
                   help
                   (if is-all all-libs libs)
                   version
-                  overview
                   switch-ws
                   (info info-profiles is-all)
                   (ws ws-profiles is-all)]
+                 (if system/admin-tool? [overview] [])
                  (migrate show-migrate?)
                  (if current-ws?
                    [(if is-all all-create create)
