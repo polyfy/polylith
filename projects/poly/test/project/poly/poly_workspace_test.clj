@@ -87,7 +87,7 @@
           "  -                         poly-cli *                   ---  stx    s--    st-   --  "])))
 
 (deftest polylith-libs
-  (is (= (libs/table (workspace) false false)
+  (is (= (libs/table (workspace) false)
          ["                                                                                                w   "
           "                                                                                                o   "
           "                                                                                                r  w"
@@ -118,7 +118,7 @@
           "  zprint/zprint                1.2.7      maven    210    -    x      x    .  .  .  x  .  .  .  .  ."])))
 
 (deftest polylith-libs-outdated
-  (is (= (libs/table (workspace) false true)
+  (is (= (libs/table (workspace) true)
          ["                                                                                                        w   "
           "                                                                                                        o   "
           "                                                                                                        r  w"
@@ -470,7 +470,11 @@
                                                       "text-table"
                                                       "user-config"
                                                       "util"]}
-                                      :test {}}
+                                      :test {:direct ["file"
+                                                      "image-creator"
+                                                      "text-table"
+                                                      "user-config"
+                                                      "util"]}}
           "config-reader"            {:src  {:direct   ["common"
                                                         "file"
                                                         "util"
@@ -992,7 +996,6 @@
                  "clojure.tools.deps.util.maven"
                  "clojure.tools.reader"
                  "clojure.walk"
-                 "clojure2d.core"
                  "edamame.core"
                  "java.io"
                  "java.net"
