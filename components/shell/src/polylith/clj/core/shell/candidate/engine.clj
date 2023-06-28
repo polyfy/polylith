@@ -137,19 +137,10 @@
           (first-candidate)
           (with-potential-exact-match words)))
 
-(defn candidates [line words]
-  #_(tap> {:fn "----- candidates -----"
-           :line line
-           :first-candidate (first-candidate)
-           :words-str (clean-words words)
-           :words words
-           :groups @groups
-           :workspace @ws})
+(defn candidates [words]
   (let [result (-> (select-candidate words)
                    :candidates
                    empty-if-nil)]
-    #_(tap> {:candidates result
-             :groups @groups})
     result))
 
 (comment

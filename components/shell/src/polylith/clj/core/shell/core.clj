@@ -1,7 +1,6 @@
 (ns polylith.clj.core.shell.core
   (:require [clojure.string :as str]
             [polylith.clj.core.common.interface :as common]
-            [polylith.clj.core.config-reader.interface :as config-reader]
             [polylith.clj.core.shell.jline :as jline]
             [polylith.clj.core.shell.candidate.engine :as engine]
             [polylith.clj.core.tap.interface :as tap]
@@ -50,12 +49,12 @@
 
 (defn start [command-executor {:keys [ws-dir ws-file is-tap] :as user-input} workspace-fn workspace color-mode]
   (let [reader (jline/reader)]
-    (when is-tap (tap/execute "open"))
+    (when is-tap
+      (tap/execute "open"))
     (print-logo color-mode)
     (reset! engine/ws workspace)
     (switch-ws user-input ws-dir ws-file workspace-fn)
-    (tap> {:workspace @engine/ws
-           :prompt (prompt)})
+    (tap> {:workspace @engine/ws})
     (try
       (loop []
         (flush)

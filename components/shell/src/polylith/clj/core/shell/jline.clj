@@ -68,10 +68,10 @@
     (complete [^LineReader _
                ^ParsedLine parsed-line
                ^java.util.List candidates]
-      (let [line (.line parsed-line)
+      (let [;line (.line parsed-line)
             words (vec (.words parsed-line))]
         (.addAll candidates (map candidate
-                                 (engine/candidates line words)))))))
+                                 (engine/candidates words)))))))
 
 (defn reader []
   (let [terminal (-> (TerminalBuilder/builder)
