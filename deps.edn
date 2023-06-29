@@ -52,6 +52,7 @@
                                zprint/zprint {:mvn/version "1.2.7"}}}
 
             :+default {:extra-paths ["components/image-creator-x/src"
+                                     "components/image-creator-x/resources"
                                      "components/system-x/src"]}
 
             :+plain {:extra-paths ["components/image-creator/src"

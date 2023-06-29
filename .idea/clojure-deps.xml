@@ -3,7 +3,7 @@
   <component name="DepsProjectSettings">
     <option name="enabledAliases">
       <set>
-        <option value="+plain" />
+        <option value="+default" />
         <option value="dev" />
         <option value="test" />
       </set>
