@@ -73,7 +73,8 @@
   Warning 206 - Missing or unreadable namespace in brick/project.
     Triggered if a namespace can't be parsed or found for a brick or project.
     A way to ignore this warning is to add the :ignore-files key to the brick or project
-    in workspace.edn (- will be repladec by _ in the file path), e.g.
+    in ./workspace.edn. All dashes (-) will be replaced by underscores (_).
+    Files ending with the specified path(s), prepended by a slash, will be ignored, e.g.:
     { ...
       :bricks {"mybrick" {:ignore-files ["myfile.clj"]}}
       :projects {"myproject" {:alias "mp" :ignore-files ["sub-ns/myfile.clj"]}}

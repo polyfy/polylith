@@ -116,6 +116,7 @@ poly help
     poly deps brick:mybrick
     poly deps project:myproject
     poly deps project:myproject brick:mybrick
+    poly deps out:deps.txt
     poly diff
     poly help
     poly help info
@@ -143,19 +144,20 @@ poly help
     poly info project:myproject:another-project
     poly info brick:mycomponent
     poly info brick:mycomponent:mybase
+    poly info color-mode:none
     poly info :project
     poly info :dev
     poly info :project :dev
     poly info :all
     poly info :all-bricks
     poly info ::
-    poly info color-mode:none
+    poly info out:info.txt
     poly info ws-dir:another-ws
     poly info ws-file:ws.edn
     poly libs
-    poly libs :all
     poly libs :compact
     poly libs :outdated
+    poly libs out:libs.txt
     poly migrate
     poly shell
     poly shell :tap
@@ -267,7 +269,8 @@ poly help
   Warning 206 - Missing or unreadable namespace in brick/project.
     Triggered if a namespace can't be parsed or found for a brick or project.
     A way to ignore this warning is to add the :ignore-files key to the brick or project
-    in workspace.edn (- will be repladec by _ in the file path), e.g.
+    in ./workspace.edn. All dashes (-) will be replaced by underscores (_).
+    Files ending with the specified path(s), prepended by a slash, will be ignored, e.g.:
     { ...
       :bricks {"mybrick" {:ignore-files ["myfile.clj"]}}
       :projects {"myproject" {:alias "mp" :ignore-files ["sub-ns/myfile.clj"]}}
@@ -377,10 +380,11 @@ poly help
 ```
   Shows dependencies.
 
-  poly deps [project:PROJECT] [brick:BRICK]
-    (omitted) = Show workspace dependencies.
-    PROJECT   = Show dependencies for specified project.
-    BRICK     = Show dependencies for specified brick.
+  poly deps [project:PROJECT] [brick:BRICK] [out:FILENAME]
+    (omitted) = Shows workspace dependencies.
+    project   = Shows dependencies for specified project.
+    brick     = Shows dependencies for specified brick.
+    out       = Creates a text file based on the output.
 
   To get help for a specific diagram, type: 
     poly help deps ARGS:
@@ -394,6 +398,7 @@ poly help
     poly deps brick:mybrick
     poly deps project:myproject
     poly deps project:myproject brick:mybrick
+    poly deps out:deps.txt
 ```
 
 ### deps :brick
@@ -709,11 +714,13 @@ poly help
     poly info project:myproject:another-project
     poly info brick:mycomponent
     poly info brick:mycomponent:mybase
+    poly info color-mode:none
     poly info :project
     poly info :dev
     poly info :project :dev
     poly info :all
     poly info :all-bricks
+    poly info out:info.txt
     poly info ws-dir:another-ws
     poly info ws-file:ws.edn
 ```
@@ -722,10 +729,10 @@ poly help
 ```
   Shows all libraries that are used in the workspace.
 
-  poly libs [:all] [:compact] [:outdated]
-    :all      = View all bricks, including those without library dependencies.
-    :compact  = Show the table in a more compact way.
-    :outdated = Show the latest version of each library, or blank if up to date.
+  poly libs [:compact] [:outdated] [out:FILENAME]
+    :compact  = Shows the table in a more compact way.
+    :outdated = Shows the latest version of each library, or blank if up to date.
+    out       = Creates a text file based on the output.
                                                                                  u  u
                                                                                  s  t
                                                                                  e  i
@@ -765,6 +772,12 @@ poly help
   The KB column shows the size in kilobytes, which is the size of the jar
   file for Maven and Local dependencies, and the size of all files in the
   ~/.gitlibs/libs/YOUR-LIBRARY directory for Git dependencies.
+
+  Example:
+    poly libs
+    poly libs :compact
+    poly libs :outdated
+    poly libs out:libs.txt
 ```
 
 ### migrate

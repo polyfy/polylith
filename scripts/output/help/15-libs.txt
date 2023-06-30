@@ -1,9 +1,9 @@
   Shows all libraries that are used in the workspace.
 
-  poly libs [:all] [:compact] [:outdated]
-    :all      = View all bricks, including those without library dependencies.
-    :compact  = Show the table in a more compact way.
-    :outdated = Show the latest version of each library, or blank if up to date.
+  poly libs [:compact] [:outdated] [out:FILENAME]
+    :compact  = Shows the table in a more compact way.
+    :outdated = Shows the latest version of each library, or blank if up to date.
+    out       = Creates a text file based on the output.
                                                                                  u  u
                                                                                  s  t
                                                                                  e  i
@@ -43,3 +43,9 @@
   The KB column shows the size in kilobytes, which is the size of the jar
   file for Maven and Local dependencies, and the size of all files in the
   ~/.gitlibs/libs/YOUR-LIBRARY directory for Git dependencies.
+
+  Example:
+    poly libs
+    poly libs :compact
+    poly libs :outdated
+    poly libs out:libs.txt

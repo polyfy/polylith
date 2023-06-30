@@ -188,13 +188,13 @@
           "  git                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  help                      .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
           "  image-creator             .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  image-creator-x           .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  image-creator-x           .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  lib                       x  .  .  x  x  .  .  x  .  .  .  .  .  .  .  .  .  .  .  t  .  .  x  x  .  x  .  .  .  .  .  ."
           "  migrator                  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  overview                  .  x  .  x  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  x  x  .  ."
           "  path-finder               .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  shell                     .  .  .  x  x  .  .  x  .  .  .  .  .  .  .  x  .  x  x  .  .  .  .  x  x  x  .  x  .  .  x  ."
+          "  shell                     .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  x  .  x  x  .  .  .  .  x  x  x  .  x  .  .  x  ."
           "  system                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  system-x                  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
@@ -260,7 +260,7 @@
             "  overview                  +  x  .  x  +  .  x  +  +  .  x  x  .  .  +  +  .  .  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
             "  path-finder               .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  shell                     .  .  .  x  x  .  +  x  .  .  +  .  .  .  +  x  .  x  x  .  +  .  +  x  x  x  +  x  .  .  x  ."
+            "  shell                     .  .  .  x  .  .  .  x  .  .  +  .  .  .  .  x  .  x  x  .  .  .  +  x  x  x  .  x  .  .  x  ."
             "  system                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  test-helper               -  -  t  -  -  -  -  t  -  -  -  -  -  -  -  -  -  -  -  .  -  -  -  t  t  -  -  -  -  -  -  -"
@@ -325,7 +325,7 @@
             "  overview                  +  x  .  x  +  .  x  +  +  .  x  x  .  .  +  +  .  .  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
             "  path-finder               .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  shell                     .  .  .  x  x  .  +  x  .  .  +  .  .  .  +  x  .  x  x  .  +  .  +  x  x  x  +  x  .  .  x  ."
+            "  shell                     .  .  .  x  .  .  .  x  .  .  +  .  .  .  .  x  .  x  x  .  .  .  +  x  x  x  .  x  .  .  x  ."
             "  system                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  test-helper               -  -  t  -  -  -  -  t  -  -  -  -  -  -  -  -  -  -  -  .  -  -  -  t  t  -  -  -  -  -  -  -"
@@ -561,7 +561,8 @@
                                                         "text-table"
                                                         "user-config"]}
                                       :test {}}
-          "image-creator"            {:src  {:direct ["util"]}
+          "image-creator"            {:src  {:direct ["file"
+                                                      "util"]}
                                       :test {}}
           "lib"                      {:src  {:direct   ["antq"
                                                         "common"
@@ -709,7 +710,6 @@
           "sh"                       {:src  {}
                                       :test {}}
           "shell"                    {:src  {:direct   ["common"
-                                                        "config-reader"
                                                         "file"
                                                         "sh"
                                                         "system"
@@ -719,14 +719,9 @@
                                                         "util"
                                                         "version"
                                                         "ws-explorer"]
-                                             :indirect ["deps"
-                                                        "image-creator"
-                                                        "path-finder"
-                                                        "test-runner-contract"
-                                                        "text-table"
-                                                        "validator"]}
+                                             :indirect ["image-creator"
+                                                        "text-table"]}
                                       :test {:direct   ["common"
-                                                        "config-reader"
                                                         "file"
                                                         "sh"
                                                         "system"
@@ -736,12 +731,8 @@
                                                         "util"
                                                         "version"
                                                         "ws-explorer"]
-                                             :indirect ["deps"
-                                                        "image-creator"
-                                                        "path-finder"
-                                                        "test-runner-contract"
-                                                        "text-table"
-                                                        "validator"]}}
+                                             :indirect ["image-creator"
+                                                        "text-table"]}}
           "system"                   {:src  {}
                                       :test {}}
           "tap"                      {:src  {}

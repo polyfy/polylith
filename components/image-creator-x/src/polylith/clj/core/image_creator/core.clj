@@ -23,13 +23,14 @@
     (when (-> text str/blank? not)
       (set-text-row! text x (+ y (* index font-height)) font-width graphics))))
 
-(def font-path "components/image-creator-x/resources/JetBrainsMono-Medium.ttf")
+(def font-resources-path "image-creator/JetBrainsMono-Medium.ttf")
+(def font-path (str "components/image-creator-x/resources/" font-resources-path))
 
 (defn load-font []
   (try
     (c2d/load-font (file/file font-path))
     (catch Exception _
-      (c2d/load-font (io/resource font-path)))))
+      (c2d/load-font (io/resource font-resources-path)))))
 
 (defn create-image [filename table canvas-areas]
   (let [width (+ 25 (* font-width (apply max (mapv #(-> % color/clean-colors count) table))))

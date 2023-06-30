@@ -181,10 +181,12 @@
     poly info project:myproject:another-project
     poly info brick:mycomponent
     poly info brick:mycomponent:mybase
+    poly info color-mode:none
     poly info :project
     poly info :dev
     poly info :project :dev
     poly info :all
     poly info :all-bricks
+    poly info out:info.txt
     poly info ws-dir:another-ws
     poly info ws-file:ws.edn

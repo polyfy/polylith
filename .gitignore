@@ -28,6 +28,7 @@
 
 artifacts
 projects/**/pom.xml
+/scripts/images/**
 /scripts/output/example/**
 /examples/doc-example/.idea/**
 /examples/local-dep/.idea/**ZZ

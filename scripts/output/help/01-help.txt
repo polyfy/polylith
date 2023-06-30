@@ -85,6 +85,7 @@
     poly deps brick:mybrick
     poly deps project:myproject
     poly deps project:myproject brick:mybrick
+    poly deps out:deps.txt
     poly diff
     poly help
     poly help info
@@ -112,19 +113,20 @@
     poly info project:myproject:another-project
     poly info brick:mycomponent
     poly info brick:mycomponent:mybase
+    poly info color-mode:none
     poly info :project
     poly info :dev
     poly info :project :dev
     poly info :all
     poly info :all-bricks
     poly info ::
-    poly info color-mode:none
+    poly info out:info.txt
     poly info ws-dir:another-ws
     poly info ws-file:ws.edn
     poly libs
-    poly libs :all
     poly libs :compact
     poly libs :outdated
+    poly libs out:libs.txt
     poly migrate
     poly shell
     poly shell :tap
