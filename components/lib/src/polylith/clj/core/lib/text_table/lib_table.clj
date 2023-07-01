@@ -46,7 +46,7 @@
                        (map :type libraries))))
 
 (defn size-kb [{:keys [size]} thousand-separator]
-  (if (zero? size)
+  (if (nil? size)
     "-"
     (str-util/sep-1000 (quot size 1024) thousand-separator)))
 
