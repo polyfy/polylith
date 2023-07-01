@@ -2,7 +2,42 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/components/antq/antq.iml" filepath="$PROJECT_DIR$/components/antq/antq.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/api/api.iml" filepath="$PROJECT_DIR$/components/api/api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/change/change.iml" filepath="$PROJECT_DIR$/components/change/change.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/clojure-test-test-runner/clojure-test-test-runner.iml" filepath="$PROJECT_DIR$/components/clojure-test-test-runner/clojure-test-test-runner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/command/command.iml" filepath="$PROJECT_DIR$/components/command/command.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/common/common.iml" filepath="$PROJECT_DIR$/components/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/config-reader/config-reader.iml" filepath="$PROJECT_DIR$/components/config-reader/config-reader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/creator/creator.iml" filepath="$PROJECT_DIR$/components/creator/creator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/deps/deps.iml" filepath="$PROJECT_DIR$/components/deps/deps.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/file/file.iml" filepath="$PROJECT_DIR$/components/file/file.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/git/git.iml" filepath="$PROJECT_DIR$/components/git/git.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/help/help.iml" filepath="$PROJECT_DIR$/components/help/help.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/image-creator-x/image-creator-x.iml" filepath="$PROJECT_DIR$/components/image-creator-x/image-creator-x.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/lib/lib.iml" filepath="$PROJECT_DIR$/components/lib/lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/migrator/migrator.iml" filepath="$PROJECT_DIR$/components/migrator/migrator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/overview/overview.iml" filepath="$PROJECT_DIR$/components/overview/overview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/path-finder/path-finder.iml" filepath="$PROJECT_DIR$/components/path-finder/path-finder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bases/poly-cli/poly-cli.iml" filepath="$PROJECT_DIR$/bases/poly-cli/poly-cli.iml" />
       <module fileurl="file://$PROJECT_DIR$/polylith.iml" filepath="$PROJECT_DIR$/polylith.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/sh/sh.iml" filepath="$PROJECT_DIR$/components/sh/sh.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/shell/shell.iml" filepath="$PROJECT_DIR$/components/shell/shell.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/system-x/system-x.iml" filepath="$PROJECT_DIR$/components/system-x/system-x.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/tap/tap.iml" filepath="$PROJECT_DIR$/components/tap/tap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/test-helper/test-helper.iml" filepath="$PROJECT_DIR$/components/test-helper/test-helper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/test-runner-contract/test-runner-contract.iml" filepath="$PROJECT_DIR$/components/test-runner-contract/test-runner-contract.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/test-runner-orchestrator/test-runner-orchestrator.iml" filepath="$PROJECT_DIR$/components/test-runner-orchestrator/test-runner-orchestrator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/text-table/text-table.iml" filepath="$PROJECT_DIR$/components/text-table/text-table.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/user-config/user-config.iml" filepath="$PROJECT_DIR$/components/user-config/user-config.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/user-input/user-input.iml" filepath="$PROJECT_DIR$/components/user-input/user-input.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/util/util.iml" filepath="$PROJECT_DIR$/components/util/util.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/validator/validator.iml" filepath="$PROJECT_DIR$/components/validator/validator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/version/version.iml" filepath="$PROJECT_DIR$/components/version/version.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/workspace/workspace.iml" filepath="$PROJECT_DIR$/components/workspace/workspace.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/workspace-clj/workspace-clj.iml" filepath="$PROJECT_DIR$/components/workspace-clj/workspace-clj.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/ws-explorer/ws-explorer.iml" filepath="$PROJECT_DIR$/components/ws-explorer/ws-explorer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/ws-file/ws-file.iml" filepath="$PROJECT_DIR$/components/ws-file/ws-file.iml" />
     </modules>
   </component>
 </project>

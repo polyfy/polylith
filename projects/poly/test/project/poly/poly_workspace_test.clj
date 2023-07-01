@@ -554,6 +554,7 @@
                                       :test {:direct ["sh"
                                                       "util"]}}
           "help"                     {:src  {:direct   ["common"
+                                                        "system"
                                                         "util"
                                                         "version"]
                                              :indirect ["file"
