@@ -1,23 +1,27 @@
 (ns polylith.clj.core.version.interface
   (:refer-clojure :exclude [name])
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [polylith.clj.core.system.interface :as sys]))
 
+(def system (if sys/admin-tool? "polyx" "poly"))
 (def major 0)
 (def minor 2)
 (def patch 18)
-(def revision "issue312-01")
-(def name (str major "." minor "." patch
+(def revision "issue205-01")
+(def name (str system "-"
+               major "." minor "." patch
                (if (str/blank? revision)
                  ""
                  (str "-" revision))))
 
-(def date "2023-06-20")
+(def date "2023-06-24")
 
 (defn version
   ([]
    (version nil))
   ([from-version]
    (cond-> {:release {:name name
+                      :system system
                       :major major
                       :minor minor
                       :patch patch
@@ -47,5 +51,5 @@
 ;;
 ;; 0 = vector element.
 ;; entities = bases, components, or projects.
-;; ENTITY = an entity name.
+;; ENTITY = a base, component, or project name.
 ;; source = src or test.

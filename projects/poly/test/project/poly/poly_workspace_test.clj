@@ -68,7 +68,7 @@
           "  path-finder               path-finder *                s--  stx    s--    st-   --  "
           "  sh                        sh *                         s--  s--    s--    s--   --  "
           "  shell                     shell *                      ---  stx    s--    st-   --  "
-          "  system                    system *                     ---  s--    ---    ---   s-  "
+          "  system                    system *                     s--  s--    ---    ---   s-  "
           "  system                    system-x *                   ---  ---    s--    s--   --  "
           "  tap                       tap *                        ---  s--    s--    s--   --  "
           "  test-helper               test-helper *                ---  -tx    ---    s--   --  "
@@ -218,7 +218,7 @@
           "  user-input                .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  validator                 .  .  .  x  .  .  x  .  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
-          "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+          "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  workspace                 .  .  .  x  .  .  x  x  .  .  .  .  .  .  x  .  .  .  .  t  .  .  x  .  .  x  x  .  .  .  .  ."
           "  workspace-clj             .  .  .  x  x  .  x  x  x  .  .  x  .  .  x  .  .  .  .  .  .  .  .  x  .  x  .  x  .  .  .  ."
           "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
@@ -269,7 +269,7 @@
             "  image-creator             .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  lib                       x  -  -  x  x  -  +  x  -  -  +  -  -  -  +  -  -  -  -  t  +  -  x  x  -  x  +  -  -  -  -  -"
             "  migrator                  .  .  .  x  x  .  +  +  .  .  +  .  .  .  +  .  .  .  .  .  +  .  +  +  .  +  +  .  .  .  .  ."
-            "  overview                  +  x  .  x  +  .  x  +  +  .  x  x  .  .  +  +  .  .  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
+            "  overview                  +  x  .  x  +  .  x  +  +  .  x  x  .  .  +  +  .  +  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
             "  path-finder               .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  shell                     .  .  .  x  .  .  .  x  .  .  +  .  .  .  .  x  .  x  x  .  .  .  +  x  x  x  .  x  .  .  x  ."
@@ -283,11 +283,11 @@
             "  user-input                .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  validator                 .  .  .  x  .  .  x  +  .  .  +  .  .  .  x  .  .  .  .  .  x  .  +  +  .  x  .  .  .  .  .  ."
-            "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  workspace                 -  -  -  x  -  -  x  x  -  -  +  -  -  -  x  -  -  -  -  t  +  -  x  +  -  x  x  -  -  -  -  -"
-            "  workspace-clj             +  .  .  x  x  .  x  x  x  .  +  x  .  .  x  +  .  .  .  .  +  .  +  x  .  x  +  x  .  .  .  ."
+            "  workspace-clj             +  .  .  x  x  .  x  x  x  .  +  x  .  .  x  +  .  +  .  .  +  .  +  x  .  x  +  x  .  .  .  ."
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  ws-file                   .  .  .  x  .  .  .  x  x  .  +  .  .  .  .  +  .  .  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
+            "  ws-file                   .  .  .  x  .  .  .  x  x  .  +  .  .  .  .  +  .  +  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
             "  poly-cli                  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  t  +  +"]))))
 
 (deftest polylith-workspace-project-deps-table-indirect
@@ -334,7 +334,7 @@
             "  image-creator             .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  lib                       x  -  -  x  x  -  +  x  -  -  +  -  -  -  +  -  -  -  -  t  +  -  x  x  -  x  +  -  -  -  -  -"
             "  migrator                  .  .  .  x  x  .  +  +  .  .  +  .  .  .  +  .  .  .  .  .  +  .  +  +  .  +  +  .  .  .  .  ."
-            "  overview                  +  x  .  x  +  .  x  +  +  .  x  x  .  .  +  +  .  .  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
+            "  overview                  +  x  .  x  +  .  x  +  +  .  x  x  .  .  +  +  .  +  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
             "  path-finder               .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  shell                     .  .  .  x  .  .  .  x  .  .  +  .  .  .  .  x  .  x  x  .  .  .  +  x  x  x  .  x  .  .  x  ."
@@ -348,11 +348,11 @@
             "  user-input                .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  validator                 .  .  .  x  .  .  x  +  .  .  +  .  .  .  x  .  .  .  .  .  x  .  +  +  .  x  .  .  .  .  .  ."
-            "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+            "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  workspace                 -  -  -  x  -  -  x  x  -  -  +  -  -  -  x  -  -  -  -  t  +  -  x  +  -  x  x  -  -  -  -  -"
-            "  workspace-clj             +  .  .  x  x  .  x  x  x  .  +  x  .  .  x  +  .  .  .  .  +  .  +  x  .  x  +  x  .  .  .  ."
+            "  workspace-clj             +  .  .  x  x  .  x  x  x  .  +  x  .  .  x  +  .  +  .  .  +  .  +  x  .  x  +  x  .  .  .  ."
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-            "  ws-file                   .  .  .  x  .  .  .  x  x  .  +  .  .  .  .  +  .  .  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
+            "  ws-file                   .  .  .  x  .  .  .  x  x  .  +  .  .  .  .  +  .  +  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
             "  poly-cli                  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  t  +  +"]))))
 
 (deftest polylith-brick-and-project-deps
@@ -648,6 +648,7 @@
                                                         "git"
                                                         "path-finder"
                                                         "sh"
+                                                        "system"
                                                         "test-runner-contract"
                                                         "text-table"
                                                         "user-config"
@@ -831,7 +832,7 @@
                                                         "image-creator"
                                                         "text-table"
                                                         "user-config"]}}
-          "version"                  {:src  {}
+          "version"                  {:src  {:direct ["system"]}
                                       :test {}}
           "workspace"                {:src  {:direct   ["common"
                                                         "deps"
@@ -888,6 +889,7 @@
                                              :indirect ["antq"
                                                         "image-creator"
                                                         "sh"
+                                                        "system"
                                                         "test-runner-contract"
                                                         "text-table"
                                                         "validator"]}
@@ -904,6 +906,7 @@
                                              :indirect ["antq"
                                                         "image-creator"
                                                         "sh"
+                                                        "system"
                                                         "test-runner-contract"
                                                         "text-table"
                                                         "validator"]}}
@@ -916,6 +919,7 @@
                                                         "version"]
                                              :indirect ["image-creator"
                                                         "sh"
+                                                        "system"
                                                         "text-table"
                                                         "user-config"]}
                                       :test {}}})))
