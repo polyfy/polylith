@@ -24,7 +24,7 @@
                                              "org.clojure/tools.deps"{:version "0.16.1264", :type "maven", :size 47566}}
                                        :test {"org.clojure/clojure" {:version "1.10.1", :type "maven", :size 3908431},
                                               "org.clojure/tools.deps"{:version "0.16.1264", :type "maven", :size 47566},
-                                              "clj-time" {:version "0.15.2", :type "maven", :size 0}}}
+                                              "clj-time" {:version "0.15.2", :type "maven"}}}
                             :config-filename "../sandbox/ws02/projects/service/deps.edn",
                             :deps-test {"user" {:direct [], :direct-ifc [], :indirect []}},
                             :component-names {:src ["user"], :test ["user"]}
@@ -166,7 +166,7 @@
                                                   :namespace "se.example.test-helper.interface",
                                                   :file-path "../sandbox/ws02/components/test-helper/src/se/example/test_helper/interface.clj",
                                                   :imports []}]}
-                              :lib-deps {:test {"clj-time" {:version "0.15.2", :type "maven", :size 0}}}
+                              :lib-deps {:test {"clj-time" {:version "0.15.2", :type "maven", :size nil}}}
                               :lib-imports {}}
                              {:interface {:name "user", :definitions [{:name "value", :type "data"}]},
                               :interface-deps {:test ["database" "test-helper"]}

@@ -14,7 +14,7 @@
       <module fileurl="file://$PROJECT_DIR$/components/file/file.iml" filepath="$PROJECT_DIR$/components/file/file.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/git/git.iml" filepath="$PROJECT_DIR$/components/git/git.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/help/help.iml" filepath="$PROJECT_DIR$/components/help/help.iml" />
-      <module fileurl="file://$PROJECT_DIR$/components/image-creator-x/image-creator-x.iml" filepath="$PROJECT_DIR$/components/image-creator-x/image-creator-x.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/image-creator/image-creator.iml" filepath="$PROJECT_DIR$/components/image-creator/image-creator.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/lib/lib.iml" filepath="$PROJECT_DIR$/components/lib/lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/migrator/migrator.iml" filepath="$PROJECT_DIR$/components/migrator/migrator.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/overview/overview.iml" filepath="$PROJECT_DIR$/components/overview/overview.iml" />
@@ -23,7 +23,7 @@
       <module fileurl="file://$PROJECT_DIR$/polylith.iml" filepath="$PROJECT_DIR$/polylith.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/sh/sh.iml" filepath="$PROJECT_DIR$/components/sh/sh.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/shell/shell.iml" filepath="$PROJECT_DIR$/components/shell/shell.iml" />
-      <module fileurl="file://$PROJECT_DIR$/components/system-x/system-x.iml" filepath="$PROJECT_DIR$/components/system-x/system-x.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/system/system.iml" filepath="$PROJECT_DIR$/components/system/system.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/tap/tap.iml" filepath="$PROJECT_DIR$/components/tap/tap.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/test-helper/test-helper.iml" filepath="$PROJECT_DIR$/components/test-helper/test-helper.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/test-runner-contract/test-runner-contract.iml" filepath="$PROJECT_DIR$/components/test-runner-contract/test-runner-contract.iml" />

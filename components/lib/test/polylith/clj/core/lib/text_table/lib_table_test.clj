@@ -41,7 +41,7 @@
                                                  "admin" {:paths ["components/admin/src"
                                                                   "components/admin/resources"
                                                                   "components/admin/test"]
-                                                          :lib-deps {"zprint" {:version "0.5.4" :type "maven" :size 0}}
+                                                          :lib-deps {"zprint" {:version "0.5.4" :type "maven"}}
                                                           :component-names ["admin"]
                                                           :base-names []
                                                           :project-names []}}}
