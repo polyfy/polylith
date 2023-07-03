@@ -76,7 +76,7 @@
        "    Triggered if a namespace in a brick doesn't start with the top namespaces\n"
        "    defined in " (s/key ":top-namespace" cm) " in ./workspace.edn.\n"
        "\n"
-       "  " (color/warning cm "Warning 206") " - Missing or unreadable namespace in brick/project.\n"
+       "  " (color/warning cm "Warning 206") " - Unreadable namespace in brick/project.\n"
        "    Triggered if a namespace can't be parsed or found for a brick or project.\n"
        "    A way to ignore this warning is to add the " (s/key ":ignore-files" cm) " key to the brick or project\n"
        "    in ./workspace.edn. All dashes (-) will be replaced by underscores (_).\n"
