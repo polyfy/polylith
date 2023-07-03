@@ -104,7 +104,7 @@
             :migrator {:main-opts  ["-m" "polylith.clj.core.migrator-cli.core"]
                        :extra-deps {polylith/clj-poly-migrator {:local/root "projects/poly-migrator"}}}
 
-            :build {:deps {org.clojure/tools.deps {:mvn/version "0.18.1308"}
+            :build {:deps {org.clojure/tools.deps {:mvn/version "0.18.1354"}
                            io.github.clojure/tools.build {:mvn/version "0.9.4"}
                            slipset/deps-deploy {:mvn/version "0.2.1"}
                            poly/version {:local/root "components/version"}

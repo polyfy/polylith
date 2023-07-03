@@ -50,7 +50,7 @@
    "The Polylith documentation can be found here:"
    ""
    "- The [high-level documentation](https://polylith.gitbook.io/polylith)"
-   "- The [Polylith Tool documentation](https://polylith.gitbook.io/polylith/poly)"
+   "- The [poly tool documentation](https://polylith.gitbook.io/polylith/poly)"
    "- The [RealWorld example app documentation](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app)"
    ""
    "You can also get in touch with the Polylith Team on [Slack](https://clojurians.slack.com/archives/C013B7MQHJQ)."
@@ -85,7 +85,13 @@
    (str "                   :extra-deps {polyfy/polylith")
    (str "                                {:git/url   \"https://github.com/polyfy/polylith\"")
    (str "                                 :sha       \"" sha "\"")
-   (str "                                 :deps/root \"projects/poly\"}}}}}")])
+   (str "                                 :deps/root \"projects/poly\"}}}")
+   (str "")
+   (str "            :polyx {:main-opts [\"-m\" \"polylith.clj.core.poly-cli.core\"]")
+   (str "                    :extra-deps {polyfy/polylith")
+   (str "                                 {:git/url   \"https://github.com/polyfy/polylith\"")
+   (str "                                  :sha       \"6073e2e78548c87239f892d0afe03e929e7e073f\"")
+   (str "                                  :deps/root \"projects/polyx\"}}}}}")])
 
 (defn calva-settings-content [ws-name]
   [(str "{")

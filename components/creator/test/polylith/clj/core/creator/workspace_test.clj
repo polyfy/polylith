@@ -99,7 +99,7 @@
             "The Polylith documentation can be found here:"
             ""
             "- The [high-level documentation](https://polylith.gitbook.io/polylith)"
-            "- The [Polylith Tool documentation](https://polylith.gitbook.io/polylith/poly)"
+            "- The [poly tool documentation](https://polylith.gitbook.io/polylith/poly)"
             "- The [RealWorld example app documentation](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app)"
             ""
             "You can also get in touch with the Polylith Team on [Slack](https://clojurians.slack.com/archives/C013B7MQHJQ)."
@@ -109,16 +109,22 @@
             "<p>Add your workspace documentation here...</p>"]))
 
     (is (= (helper/content "ws1" "deps.edn")
-           [(str "{:aliases  {:dev {:extra-paths [\"development/src\"]")
-            (str "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.11.1\"}}}")
-            (str "")
-            (str "            :test {:extra-paths []}")
-            (str "")
-            (str "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly-cli.core\"]")
-            (str "                   :extra-deps {polyfy/polylith")
-            (str "                                {:git/url   \"https://github.com/polyfy/polylith\"")
-            (str "                                 :sha       \"SHA\"")
-            (str "                                 :deps/root \"projects/poly\"}}}}}")]))
+           ["{:aliases  {:dev {:extra-paths [\"development/src\"]"
+            "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.11.1\"}}}"
+            ""
+            "            :test {:extra-paths []}"
+            ""
+            "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly-cli.core\"]"
+            "                   :extra-deps {polyfy/polylith"
+            "                                {:git/url   \"https://github.com/polyfy/polylith\""
+            "                                 :sha       \"SHA\""
+            "                                 :deps/root \"projects/poly\"}}}"
+            ""
+            "            :polyx {:main-opts [\"-m\" \"polylith.clj.core.poly-cli.core\"]"
+            "                    :extra-deps {polyfy/polylith"
+            "                                 {:git/url   \"https://github.com/polyfy/polylith\""
+            "                                  :sha       \"6073e2e78548c87239f892d0afe03e929e7e073f\""
+            "                                  :deps/root \"projects/polyx\"}}}}}"]))
 
     (is (= (helper/content "ws1" ".vscode/settings.json")
            ["{"
