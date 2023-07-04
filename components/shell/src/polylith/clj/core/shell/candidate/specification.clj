@@ -152,16 +152,19 @@
 (def switch-ws-file (c/fn-explorer "file" :switch-ws #'file-explorer/select-edn))
 (def switch-ws (c/single-txt "switch-ws" :switch-ws [switch-ws-file switch-ws-dir]))
 
-(defn profiles [group-id settings]
-  (map #(c/group-arg (str "+" %) group-id (str "+" %))
-       (-> settings :profile-to-settings keys)))
+(defn profiles [group-id settings is-all]
+  (let [profile-keys (-> settings :profile-to-settings keys)]
+    (when (seq profile-keys)
+      (concat (when is-all [(c/group-arg "+" group-id "+")])
+              (map #(c/group-arg (str "+" %) group-id (str "+" %))
+                   profile-keys)))))
 
 (defn candidates [{:keys [settings user-input] :as workspace}]
   (let [{:keys [ws-dir ws-file is-all]} user-input
         show-migrate? (common/toolsdeps1? workspace)
-        info-profiles (profiles :info settings)
-        test-profiles (profiles :test settings)
-        ws-profiles (profiles :ws settings)
+        info-profiles (profiles :info settings is-all)
+        test-profiles (profiles :test settings is-all)
+        ws-profiles (profiles :ws settings is-all)
         current-ws? (or (nil? ws-file)
                         (or (nil? ws-dir)
                             (= "." ws-dir)))]
