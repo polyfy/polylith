@@ -61,7 +61,8 @@
 (def help-deps (c/single-txt "deps" :help-deps [help-deps-brick help-deps-project help-deps-workspace]))
 (def help (c/single-txt "help" (vec (concat [help-create help-deps]
                                             (mapv #(c/single-txt %)
-                                                  ["check" "diff" "info" "libs" "switch-ws" "shell" "tap" "test" "version" "ws"])))))
+                                                  (concat ["check" "diff" "info" "libs" "switch-ws" "shell" "tap" "test" "version" "ws"]
+                                                          (if system/admin-tool? ["overview"] [])))))))
 
 ;; info
 (def info-fake-sha (c/multi-param "fake-sha"))

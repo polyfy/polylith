@@ -23,7 +23,7 @@
     "diff" (diff/print-help color-mode)
     "info" (info/print-help color-mode)
     "libs" (libs/print-help color-mode)
-    "overview" (overview/help-text color-mode)
+    "overview" (overview/print-help color-mode)
     "switch-ws" (switch-ws/print-help color-mode)
     "migrate" (migrate/print-help)
     "shell" (shell/print-help color-mode)

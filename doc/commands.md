@@ -29,7 +29,7 @@ poly help
 ```
 
 ```
-  Poly 0.2.18-issue205-01 (2023-06-24) - https://github.com/polyfy/polylith
+  Poly poly-0.2.18-issue205-01 (2023-06-24) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -534,11 +534,12 @@ poly help
   Shows workspace information.
 
   poly info [ARGS]
-    ARGS = :loc   -> Shows the number of lines of code for each brick
-                     and project.
+    ARGS = :loc          -> Shows the number of lines of code for each brick
+                            and project.
+           out:FILENAME  -> Creates a text file based on the output.
 
-  In addition to :loc, all the arguments used by the 'test' command
-  can also be used as a way to see what tests will be executed.
+  In addition to :loc and out:FILENAME, all the arguments used by the 'test'
+  command can also be used as a way to see what tests will be executed.
 
     stable since: dec73ec | stable-lisa
 
@@ -708,6 +709,7 @@ poly help
   Example:
     poly info
     poly info :loc
+    poly info out:info.txt
     poly info since:release
     poly info since:previous-release
     poly info project:myproject
@@ -806,12 +808,18 @@ poly help
   instead of the :polylith key in ./deps which was the case prior to this version.
 ```
 
+### overview
+```
+  The overview command is only supported from the polyx tool.
+nil
+```
+
 ### shell
 ```
-  poly [shell] [:tap] [:all]
-
   Starts an interactive shell with the name of the selected workspace, e.g.:
     myworkspace$>
+
+  poly [shell] [:tap] [:all]
 
   If :tap is passed in, a Portal window that outputs tap> statements is opened.
 
