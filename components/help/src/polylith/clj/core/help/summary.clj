@@ -116,6 +116,8 @@
     "    poly help deps :workspace\n"
     "    poly info\n"
     "    poly info :loc\n"
+    (if system/admin-tool?
+      "    poly info out:info.png\n" "")
     "    poly info since:65a7918\n"
     "    poly info since:head\n"
     "    poly info since:head~1\n"
@@ -136,8 +138,6 @@
     "    poly info :all-bricks\n"
     "    poly info ::\n"
     "    poly info out:info.txt\n"
-    (if system/admin-tool?
-      "    poly info out:info.png\n" "")
     "    poly info ws-dir:another-ws\n"
     "    poly info ws-file:ws.edn\n"
     "    poly libs\n"

@@ -110,7 +110,8 @@
 
 ;; overview
 (def overview-out (c/fn-explorer "out" :overview (file-explorer/select-fn)))
-(def overview (c/single-txt "overview" :overview [overview-out]))
+(def overview-no-changes (c/flag "no-changes" :overview))
+(def overview (c/single-txt "overview" :overview [overview-out overview-no-changes]))
 
 ;; version
 (def version (c/single-txt "version"))

@@ -8,11 +8,18 @@
   (str "  Shows workspace information.\n"
        "\n"
        "  poly info [" (s/key "ARGS" cm) "]\n"
-       "    ARGS = " (s/key ":loc" cm) "   -> Shows the number of lines of code for each brick\n"
-       "                     and project.\n"
+       "    ARGS = " (s/key ":loc" cm) "          -> Shows the number of lines of code for each brick\n"
+       "                            and project.\n"
+       "           out:" (s/key "FILENAME" cm)
+       (if system/admin-tool?
+            (str "  -> Creates a text or image file based on the output.\n"
+                 "                            If " (s/key "FILENAME" cm) " ends with .txt, then the file will contain\n"
+                 "                            the output as text. If FILENAME ends with .bmp, .jpg,\n"
+                 "                            or .png, then the file will be generated as an image.\n")
+         (str "  -> Creates a text file based on the output.\n"))
        "\n"
-       "  In addition to " (s/key ":loc" cm) ", all the arguments used by the 'test' command\n"
-       "  can also be used as a way to see what tests will be executed.\n"
+       "  In addition to " (s/key ":loc" cm) " and out:" (s/key "FILENAME" cm) ", all the arguments used by the 'test'\n"
+       "  command can also be used as a way to see what tests will be executed.\n"
        "\n"
        "    stable since: " (color/grey cm "dec73ec | stable-lisa\n")
        "\n"
@@ -184,6 +191,9 @@
        "  Example:\n"
        "    poly info\n"
        "    poly info :loc\n"
+       "    poly info out:info.txt\n"
+       (if system/admin-tool?
+            "    poly info out:info.png\n" "")
        "    poly info since:release\n"
        "    poly info since:previous-release\n"
        "    poly info project:myproject\n"
