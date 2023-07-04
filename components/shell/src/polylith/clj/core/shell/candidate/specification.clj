@@ -70,6 +70,7 @@
 (def info-since (c/fn-explorer "since" :info #'ws-tag-patterns/select))
 (def info-project (c/fn-explorer "project" :info #'ws-projects-to-test/select))
 (def info-brick (c/fn-explorer "brick" :info #'ws-bricks/select))
+(def info-no-changes (c/flag "no-changes" :overview))
 (def info-resources (c/flag "resources" :info))
 (def info-out (c/fn-explorer "out" :info (file-explorer/select-fn)))
 (def info-project-flag (c/flag-explicit "project" :info))
@@ -84,7 +85,8 @@
                         [info-all info-all-bricks info-brick info-loc info-dev
                          info-resources info-project info-project-flag info-since
                          info-out]
-                        (when all? [info-fake-sha info-changed-files]))))
+                        (when all? [info-fake-sha info-changed-files])
+                        (when system/admin-tool? [info-no-changes]))))
 
 ;; libs
 (def outdated (c/flag "outdated" :libs))
