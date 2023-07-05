@@ -73,7 +73,7 @@
 
 (deftest table--no-resources-flat--returns-correct-table
   (is (= (env-table/table workspace false false)
-         ["  project      alias  source   dev"
+         ["  project      alias  status   dev"
           "  --------------------------   ---"
           "  core *       core    s--     s--"
           "  invoice *    inv     -t-     -t-"
@@ -81,7 +81,7 @@
 
 (deftest table--with-resources-flag--returns-correct-table
   (is (= (env-table/table workspace false true)
-         ["  project      alias  source   dev "
+         ["  project      alias  status   dev "
           "  --------------------------   ----"
           "  core *       core    sr--    s---"
           "  invoice *    inv     --t-    --t-"
@@ -89,7 +89,7 @@
 
 (deftest table--projects-with-loc--returns-table-with-lines-of-code
   (is (= (env-table/table workspace true false)
-         ["  project      alias  source   dev   loc  (t)"
+         ["  project      alias  status   dev   loc  (t)"
           "  --------------------------   ---   --------"
           "  core *       core    s--     s--     1    1"
           "  invoice *    inv     -t-     -t-     0    1"
@@ -98,7 +98,7 @@
 
 (deftest table--with-profile--returns-correct-table
   (is (= (env-table/table workspace-with-profiles false false)
-         ["  project      alias  source   dev  default   "
+         ["  project      alias  status   dev  default   "
           "  --------------------------   ------------   "
           "  core *       core    s--     s--    -t      "
           "  invoice *    inv     -t-     -t-    --      "
@@ -106,7 +106,7 @@
 
 (deftest table--with-profile-and-loc--returns-correct-table
   (is (= (env-table/table workspace-with-profiles true false)
-         ["  project      alias  source   dev  default   loc  (t)"
+         ["  project      alias  status   dev  default   loc  (t)"
           "  --------------------------   ------------   --------"
           "  core *       core    s--     s--    -t        1    1"
           "  invoice *    inv     -t-     -t-    --        0    1"

@@ -20,11 +20,11 @@
 (info/info workspace [])
 
 ;; libs
-(lib-table/print-table workspace false false)
+(lib-table/print-table workspace false)
 
 ;; deps
 (ws-ifc-deps-table/print-table workspace)
-(ws-project-deps-table/print-table workspace "poly" false)
+(ws-project-deps-table/print-table workspace "poly")
 (brick-ifc-deps-table/print-table workspace "workspace")
 (brick-deps-table/print-table workspace "poly" "workspace")
 
