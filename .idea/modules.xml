@@ -25,6 +25,7 @@
       <module fileurl="file://$PROJECT_DIR$/components/shell/shell.iml" filepath="$PROJECT_DIR$/components/shell/shell.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/system/system.iml" filepath="$PROJECT_DIR$/components/system/system.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/tap/tap.iml" filepath="$PROJECT_DIR$/components/tap/tap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/test-helper/test-helper.iml" filepath="$PROJECT_DIR$/components/test-helper/test-helper.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/test-runner-contract/test-runner-contract.iml" filepath="$PROJECT_DIR$/components/test-runner-contract/test-runner-contract.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/test-runner-orchestrator/test-runner-orchestrator.iml" filepath="$PROJECT_DIR$/components/test-runner-orchestrator/test-runner-orchestrator.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/text-table/text-table.iml" filepath="$PROJECT_DIR$/components/text-table/text-table.iml" />

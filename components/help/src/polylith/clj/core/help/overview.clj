@@ -10,8 +10,9 @@
        "    :no-changes = Shows the output as if there were no changes in the workspace.\n"
        "    out         = Creates a text or image file based on the output.\n"
        "                  If " (s/key "FILENAME" cm) " ends with .txt, then the file will contain\n"
-       "                  the output as text. If FILENAME ends with .bmp, .jpg, or .png,\n"
-       "                  then the file will be generated as an image."))
+       "                  the output as text. If FILENAME ends with .bmp, .gif, .png,\n"
+       "                  .jpeg, .jpg, .png, .tif, .tiff, or .wbmp, then the file will be\n"
+       "                  generated as an image."))
 
 (defn print-help [color-mode]
   (println (help-text color-mode)))

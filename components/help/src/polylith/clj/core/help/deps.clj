@@ -14,10 +14,10 @@
        "    project   = Shows dependencies for specified project.\n"
        "    brick     = Shows dependencies for specified brick.\n"
        (if system/admin-tool?
-         (str "    out       = Creates a text file or image based on the output. If FILENAME\n"
+         (str "    out       = Creates a text or image file based on the output. If " (s/key "FILENAME" cm) "\n"
               "                ends with .txt, then the file will contain the output as text.\n"
-              "                If FILENAME ends with .bmp, .jpg, or .png, then the file will\n"
-              "                be generated as an image.")
+              "                If FILENAME ends with .bmp, .gif, .jpeg, .jpg, .png, .tif, .tiff,\n"
+              "                or .wbmp, then the file will be generated as an image.\n")
          (str "    out       = Creates a text file based on the output.\n"))
        "\n"
        "  To get help for a specific diagram, type: \n"

@@ -12,8 +12,8 @@
        (if system/admin-tool?
             (str "    out       = Creates a text or image file based on the output. If " (s/key "FILENAME" cm) "\n"
                  "                ends with .txt, then the file will contain the output as text.\n"
-                 "                If FILENAME ends with .bmp, .jpg, or .png, then the file will\n"
-                 "                be generated as an image.")
+                 "                If FILENAME ends with .bmp, .gif, .jpeg, .jpg, .png, .tif, .tiff,\n"
+                 "                or .wbmp, then the file will be generated as an image.\n")
             (str "    out       = Creates a text file based on the output.\n"))
        "                                                                                 " (color/component "u  u\n" cm)
        "                                                                                 " (color/component "s  t\n" cm)

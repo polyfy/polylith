@@ -16,8 +16,13 @@
 
 (defn image-file? [filename]
   (or (str/ends-with? filename ".bmp")
+      (str/ends-with? filename ".gif")
+      (str/ends-with? filename ".jpeg")
+      (str/ends-with? filename ".jpg")
       (str/ends-with? filename ".png")
-      (str/ends-with? filename ".jpg")))
+      (str/ends-with? filename ".tif")
+      (str/ends-with? filename ".tiff")
+      (str/ends-with? filename ".wbmp")))
 
 (defn execute-fn [f message path]
   (try

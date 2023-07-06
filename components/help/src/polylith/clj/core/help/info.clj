@@ -14,8 +14,9 @@
        (if system/admin-tool?
             (str "  -> Creates a text or image file based on the output.\n"
                  "                            If " (s/key "FILENAME" cm) " ends with .txt, then the file will contain\n"
-                 "                            the output as text. If FILENAME ends with .bmp, .jpg,\n"
-                 "                            or .png, then the file will be generated as an image.\n")
+                 "                            the output as text. If FILENAME ends with .bmp, .gif,\n"
+                 "                            .jpeg, .jpg, .png, .tif, .tiff, or .png, then the file\n"
+                 "                            will be generated as an image.\n")
          (str "  -> Creates a text file based on the output.\n"))
        "\n"
        "  In addition to " (s/key ":loc" cm) " and out:" (s/key "FILENAME" cm) ", all the arguments used by the 'test'\n"
