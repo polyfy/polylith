@@ -62,7 +62,7 @@
 (def help (c/single-txt "help" (vec (concat [help-create help-deps]
                                             (mapv #(c/single-txt %)
                                                   (concat ["check" "diff" "info" "libs" "switch-ws" "shell" "tap" "test" "version" "ws"]
-                                                          (if system/admin-tool? ["overview"] [])))))))
+                                                          (if system/extended? ["overview"] [])))))))
 
 ;; info
 (def info-fake-sha (c/multi-param "fake-sha"))
@@ -86,7 +86,7 @@
                          info-resources info-project info-project-flag info-since
                          info-out]
                         (when all? [info-fake-sha info-changed-files])
-                        (when system/admin-tool? [info-no-changes]))))
+                        (when system/extended? [info-no-changes]))))
 
 ;; libs
 (def outdated (c/flag "outdated" :libs))
@@ -177,7 +177,7 @@
                   switch-ws
                   (info info-profiles is-all)
                   (ws ws-profiles is-all)]
-                 (if system/admin-tool? [overview] [])
+                 (if system/extended? [overview] [])
                  (migrate show-migrate?)
                  (if current-ws?
                    [(if is-all all-create create)

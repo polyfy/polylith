@@ -11,7 +11,7 @@
        "    ARGS = " (s/key ":loc" cm) "          -> Shows the number of lines of code for each brick\n"
        "                            and project.\n"
        "           out:" (s/key "FILENAME" cm)
-       (if system/admin-tool?
+       (if system/extended?
             (str "  -> Creates a text or image file based on the output.\n"
                  "                            If " (s/key "FILENAME" cm) " ends with .txt, then the file will contain\n"
                  "                            the output as text. If FILENAME ends with .bmp, .gif,\n"
@@ -193,7 +193,7 @@
        "    poly info\n"
        "    poly info :loc\n"
        "    poly info out:info.txt\n"
-       (if system/admin-tool?
+       (if system/extended?
             "    poly info out:info.png\n" "")
        "    poly info since:release\n"
        "    poly info since:previous-release\n"
@@ -208,7 +208,7 @@
        "    poly info :all\n"
        "    poly info :all-bricks\n"
        "    poly info out:info.txt\n"
-       (if system/admin-tool?
+       (if system/extended?
             (str "    poly info out:info.png\n" ""))
        "    poly info ws-dir:another-ws\n"
        "    poly info ws-file:ws.edn"))

@@ -9,7 +9,7 @@
        "  poly libs [:compact] [:outdated] [out:" (s/key  "FILENAME" cm) "]\n"
        "    :compact  = Shows the table in a more compact way.\n"
        "    :outdated = Shows the latest version of each library, or blank if up to date.\n"
-       (if system/admin-tool?
+       (if system/extended?
             (str "    out       = Creates a text or image file based on the output. If " (s/key "FILENAME" cm) "\n"
                  "                ends with .txt, then the file will contain the output as text.\n"
                  "                If FILENAME ends with .bmp, .gif, .jpeg, .jpg, .png, .tif, .tiff,\n"
@@ -60,7 +60,7 @@
        "    poly libs :compact\n"
        "    poly libs :outdated\n"
        "    poly libs out:libs.txt"
-       (if system/admin-tool?
+       (if system/extended?
             (str "\n    poly libs out:libs.png" ""))))
 
 (defn print-help [color-mode]

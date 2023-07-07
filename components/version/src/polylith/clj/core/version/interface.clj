@@ -3,7 +3,7 @@
   (:require [clojure.string :as str]
             [polylith.clj.core.system.interface :as sys]))
 
-(def system (if sys/admin-tool? "polyx" "poly"))
+(def system (if sys/extended? "polyx" "poly"))
 (def major 0)
 (def minor 2)
 (def patch 18)

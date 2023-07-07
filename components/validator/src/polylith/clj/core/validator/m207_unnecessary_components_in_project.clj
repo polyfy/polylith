@@ -24,7 +24,8 @@
     (when (and (or check-dev (not is-dev))
                (seq unused-components))
       (let [message (str "Unnecessary components were found in the " (color/project name color-mode)
-                         " project and may be removed: " unused-components)]
+                         " project and may be removed: " unused-components ". To ignore this warning,"
+                         " execute 'poly help check' and follow the instructions for warning 207.")]
         [(util/ordered-map :type "warning"
                            :code 207
                            :message (color/clean-colors message)

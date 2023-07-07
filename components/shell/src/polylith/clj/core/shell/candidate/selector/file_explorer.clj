@@ -70,6 +70,6 @@
   (select-and-filter group groups #'select-image-or-txt image-or-txt-file?))
 
 (defn select-fn []
-  (if system/admin-tool?
+  (if system/extended?
     #'select-image-or-txt
     #'select-txt))

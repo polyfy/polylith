@@ -13,7 +13,7 @@
        "    (omitted) = Shows workspace dependencies.\n"
        "    project   = Shows dependencies for specified project.\n"
        "    brick     = Shows dependencies for specified brick.\n"
-       (if system/admin-tool?
+       (if system/extended?
          (str "    out       = Creates a text or image file based on the output. If " (s/key "FILENAME" cm) "\n"
               "                ends with .txt, then the file will contain the output as text.\n"
               "                If FILENAME ends with .bmp, .gif, .jpeg, .jpg, .png, .tif, .tiff,\n"
@@ -33,7 +33,7 @@
        "    poly deps project:myproject\n"
        "    poly deps project:myproject brick:mybrick\n"
        "    poly deps out:deps.txt"
-       (if system/admin-tool?
+       (if system/extended?
          (str "\n    poly deps out:deps.png" ""))))
 
 (defn print-help [is-show-project is-show-brick is-show-workspace color-mode]

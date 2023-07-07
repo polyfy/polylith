@@ -36,16 +36,16 @@
 
 (deftest check-the-dev-project
   (is (= (m207/warnings "check" settings [dev] true c/none)
-         [{:type "warning",
-           :code 207,
-           :message "Unnecessary components were found in the development project and may be removed: api, clojure-test-test-runner",
-           :colorized-message "Unnecessary components were found in the development project and may be removed: api, clojure-test-test-runner"}])))
+         [{:code              207
+           :colorized-message "Unnecessary components were found in the development project and may be removed: api, clojure-test-test-runner. To ignore this warning, execute 'poly help check' and follow the instructions for warning 207."
+           :message           "Unnecessary components were found in the development project and may be removed: api, clojure-test-test-runner. To ignore this warning, execute 'poly help check' and follow the instructions for warning 207."
+           :type              "warning"}])))
 
 (deftest check-the-dev-project-exclude-necessary-components
   (let [settings (assoc-in settings [:projects "development" :necessary]
                            ["clojure-test-test-runner"])]
     (is (= (m207/warnings "check" settings [dev] true c/none)
-           [{:type "warning",
-             :code 207,
-             :message "Unnecessary components were found in the development project and may be removed: api",
-             :colorized-message "Unnecessary components were found in the development project and may be removed: api"}]))))
+           [{:code              207
+             :colorized-message "Unnecessary components were found in the development project and may be removed: api. To ignore this warning, execute 'poly help check' and follow the instructions for warning 207."
+             :message           "Unnecessary components were found in the development project and may be removed: api. To ignore this warning, execute 'poly help check' and follow the instructions for warning 207."
+             :type              "warning"}]))))

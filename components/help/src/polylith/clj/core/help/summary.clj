@@ -20,7 +20,7 @@
     (if show-migrate?
       "    migrate                     Migrates the workspace to the latest format.\n"
       "")
-    (if system/admin-tool?
+    (if system/extended?
       "    overview                    Shows output from info, deps, and libs side by side.\n"
       "")
     "    shell [" (s/key "ARGS" cm) "]                Starts an interactive shell.\n"
@@ -99,7 +99,7 @@
     "    poly deps project:myproject\n"
     "    poly deps project:myproject brick:mybrick\n"
     "    poly deps out:deps.txt\n"
-    (if system/admin-tool?
+    (if system/extended?
       "    poly deps out:deps.png\n" "")
     "    poly diff\n"
     "    poly help\n"
@@ -116,7 +116,7 @@
     "    poly help deps :workspace\n"
     "    poly info\n"
     "    poly info :loc\n"
-    (if system/admin-tool?
+    (if system/extended?
       "    poly info out:info.png\n" "")
     "    poly info since:65a7918\n"
     "    poly info since:head\n"
@@ -144,7 +144,7 @@
     "    poly libs :compact\n"
     "    poly libs :outdated\n"
     "    poly libs out:libs.txt\n"
-    (if system/admin-tool?
+    (if system/extended?
       "    poly libs out:libs.png\n" "")
     (if show-migrate?
       "    poly migrate\n"

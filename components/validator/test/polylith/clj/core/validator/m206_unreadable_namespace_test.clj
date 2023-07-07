@@ -27,10 +27,10 @@
 (deftest warning--when-having-unreadable-namespaces--returns-warnings
   (is (= (m206/warnings nil bases nil "none")
          [{:code              206
-           :colorized-message "Unreadable namespace in poly-cli: bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj"
-           :message           "Unreadable namespace in poly-cli: bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj"
+           :colorized-message "Unreadable namespace in poly-cli: bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj. To ignore this warning, execute 'poly help check' and follow the instructions for warning 206."
+           :message           "Unreadable namespace in poly-cli: bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj. To ignore this warning, execute 'poly help check' and follow the instructions for warning 206."
            :type              "warning"}
           {:code              206
-           :colorized-message "Unreadable namespace in poly-cli: bases/poly-cli/test/polylith/clj/core/poly_cli/api_argument_mapping_test.clj"
-           :message           "Unreadable namespace in poly-cli: bases/poly-cli/test/polylith/clj/core/poly_cli/api_argument_mapping_test.clj"
+           :colorized-message "Unreadable namespace in poly-cli: bases/poly-cli/test/polylith/clj/core/poly_cli/api_argument_mapping_test.clj. To ignore this warning, execute 'poly help check' and follow the instructions for warning 206."
+           :message           "Unreadable namespace in poly-cli: bases/poly-cli/test/polylith/clj/core/poly_cli/api_argument_mapping_test.clj. To ignore this warning, execute 'poly help check' and follow the instructions for warning 206."
            :type              "warning"}])))
