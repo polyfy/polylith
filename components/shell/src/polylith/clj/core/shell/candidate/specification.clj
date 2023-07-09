@@ -87,8 +87,7 @@
                         [info-all info-all-bricks info-brick info-loc info-dev
                          info-resources info-project info-project-flag info-since
                          info-out]
-                        (when all? [info-fake-sha info-changed-files info-skip])
-                        (when system/extended? [info-no-changes]))))
+                        (when all? [info-fake-sha info-changed-files info-skip info-no-changes]))))
 
 ;; libs
 (def outdated (c/flag "outdated" :libs))
