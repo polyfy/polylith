@@ -142,6 +142,7 @@
 (def ws-since (c/fn-explorer "since" :ws #'ws-tag-patterns/select))
 (def ws-out (c/fn-explorer "out" :ws #'file-explorer/select-edn))
 (def ws-get (c/fn-explorer "get" :ws #'ws-explore/select))
+(def ws-no-changes (c/flag "no-changes" :ws))
 
 ;; ws
 (defn ws [profiles all?]
@@ -149,7 +150,7 @@
                 (vec (concat [ws-project ws-brick ws-project-flag ws-dev ws-latest-sha
                               ws-loc ws-all-bricks ws-all ws-get ws-out ws-since branch]
                              profiles
-                             (when all? [branch ws-replace])))))
+                             (when all? [branch ws-replace ws-no-changes])))))
 
 ;; switch-ws
 (def switch-ws-dir (c/fn-explorer "dir" :switch-ws #'file-explorer/select-edn))
