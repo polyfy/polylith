@@ -23,7 +23,7 @@
                          :code 104
                          :message (color/clean-colors message)
                          :colorized-message message
-                         :components (vec (sort (set circular-deps)))
+                         :circular-deps circular-deps
                          :project project-name)])))
 
 (defn errors [projects color-mode]
