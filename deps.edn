@@ -40,11 +40,11 @@
                                org.slf4j/slf4j-nop {:mvn/version "2.0.7"}
                                rewrite-clj/rewrite-clj {:mvn/version "1.1.47"}}}
 
-            :+default {:extra-deps {poly/image-creator-x {:local/root "components/image-creator-x"}
-                                    poly/system-x {:local/root "components/system-x"}}}
+            :+default {:extra-deps {poly/image-creator {:local/root "components/image-creator"}
+                                    poly/system {:local/root "components/system"}}}
 
-            :+plain {:extra-deps {poly/image-creator {:local/root "components/image-creator"}
-                                  poly/system {:local/root "components/system"}}}
+            :+extended {:extra-deps {poly/image-creator-x {:local/root "components/image-creator-x"}
+                                     poly/system-x {:local/root "components/system-x"}}}
 
             :test {:extra-paths ["components/api/test"
                                  "components/change/test"

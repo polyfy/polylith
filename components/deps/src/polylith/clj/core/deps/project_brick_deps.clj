@@ -122,11 +122,21 @@
   [brick-ids]
   (set (map drop-suffix brick-ids)))
 
+(defn circular-path
+  "The circular reference doesn't need to start at the first element
+   in the path, and that's why we need to drop non brick-id elements
+   from the end."
+  [brick-id path]
+  (let [cleaned-path (reverse (drop-while #(not= brick-id %)
+                                          (reverse path)))]
+    (when (> (count cleaned-path) 1)
+      (conj cleaned-path brick-id))))
+
 (defn circular-dep [brick-id indirect paths]
   (when (contains? indirect brick-id)
-    (cons brick-id
-          (first (filterv #(= brick-id (last %))
-                          paths)))))
+    (first (filter identity
+                   (map #(circular-path brick-id %)
+                        paths)))))
 
 (defn missing-deps
   "All bricks that we depend on that is not included in the project are considered missing,

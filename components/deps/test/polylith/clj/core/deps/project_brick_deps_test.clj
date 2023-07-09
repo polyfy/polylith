@@ -24,7 +24,7 @@
                  :paths      [["a"]]}}))))
 
 (deftest finalise-deps--check-for-circular-deps
-  (let [brick-id->deps {"a" {:direct ["b"], :indirect #{"a" "b"}, :completed? true, :paths [["b" "a"]]},
+  (let [brick-id->deps {"a" {:direct ["b"], :indirect #{"a" "b"}, :completed? true, :paths [["b" "a" "x"]]},
                         "b" {:direct ["a"], :indirect #{"b"}, :completed? true, :paths [["a"]]}}
         ifc->comp {"a" "a"
                    "b" "b"}]
