@@ -7,6 +7,7 @@
             [polylith.clj.core.shell.candidate.selector.file-explorer :as file-explorer]
             [polylith.clj.core.shell.candidate.selector.ws-tag-patterns :as ws-tag-patterns]
             [polylith.clj.core.shell.candidate.selector.ws-deps-entities :as ws-deps-entities]
+            [polylith.clj.core.shell.candidate.selector.ws-projects :as ws-projects]
             [polylith.clj.core.shell.candidate.selector.ws-projects-to-test :as ws-projects-to-test]
             [polylith.clj.core.system.interface :as system]]
   (:refer-clojure :exclude [load test]))
@@ -78,6 +79,7 @@
 (def info-loc (c/flag "loc" :info))
 (def info-all-bricks (c/flag "all-bricks" :info))
 (def info-all (c/flag "all" :info))
+(def info-skip (c/fn-explorer "skip" :info #'ws-projects/select))
 
 (defn info [profiles all?]
   (c/single-txt "info" :info
@@ -85,14 +87,15 @@
                         [info-all info-all-bricks info-brick info-loc info-dev
                          info-resources info-project info-project-flag info-since
                          info-out]
-                        (when all? [info-fake-sha info-changed-files])
+                        (when all? [info-fake-sha info-changed-files info-skip])
                         (when system/extended? [info-no-changes]))))
 
 ;; libs
 (def outdated (c/flag "outdated" :libs))
 (def libs-out (c/fn-explorer "out" :libs (file-explorer/select-fn)))
+(def libs-skip (c/fn-explorer "skip" :libs #'ws-projects/select))
 (def libs (c/single-txt "libs" :libs [outdated libs-out]))
-(def all-libs (c/single-txt "libs" :libs [outdated libs-out compact]))
+(def all-libs (c/single-txt "libs" :libs [outdated libs-out compact libs-skip]))
 
 ;; test
 (def test-since (c/fn-explorer "since" :test #'ws-tag-patterns/select))
@@ -102,13 +105,15 @@
 (def test-dev (c/flag "dev" :test))
 (def test-loc (c/flag "loc" :test))
 (def test-verbose (c/flag "verbose" :test))
+(def test-skip (c/fn-explorer "skip" :test #'ws-projects/select))
 (def test-all-bricks (c/flag "all-bricks" :test))
 (def test-all (c/flag "all" :test))
 
-(defn test [profiles]
+(defn test [profiles all?]
   (c/single-txt "test" :test
                 (vec (concat [test-all test-all-bricks test-brick test-loc test-verbose
                               test-dev test-project test-project-flag test-since]
+                             (when all? [test-skip])
                              profiles))))
 
 ;; overview
@@ -181,7 +186,7 @@
                  (migrate show-migrate?)
                  (if current-ws?
                    [(if is-all all-create create)
-                    (test test-profiles)]
+                    (test test-profiles is-all)]
                    [])))))
 
 (def create-outside-ws-root (c/single-txt "create" [create-workspace]))
