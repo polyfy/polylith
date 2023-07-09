@@ -16,9 +16,6 @@
   (reset! groups specification/groups)
   #__)
 
-(defn clean-words [value]
-  (str/replace (str value) "\"" "'"))
-
 (defn tap [fn-name word candidate]
   (tap> {:fn    fn-name
          :word  word

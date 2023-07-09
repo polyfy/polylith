@@ -11,7 +11,7 @@
   (let [color-mode (:color-mode settings)
         {:keys [project-to-bricks-to-test
                 project-to-projects-to-test]} changes]
-    (mapv #(c/fn-explorer-child % :project color-mode group #'select)
+    (mapv #(c/fn-explorer-child % :project color-mode true group #'select)
           (sort (set/difference
                   (set (concat ["development"]
                                (map first (filter #(-> % second seq) project-to-bricks-to-test))

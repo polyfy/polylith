@@ -89,7 +89,7 @@
                       :cmd cmd
                       :get get
                       :branch branch
-                      :color-mode color-mode
+                      :color-mode (as-value color-mode)
                       :changed-files (as-vector changed-files)
                       :dir dir
                       :file file

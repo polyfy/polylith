@@ -7,6 +7,7 @@
             [polylith.clj.core.shell.candidate.selector.file-explorer :as file-explorer]
             [polylith.clj.core.shell.candidate.selector.ws-tag-patterns :as ws-tag-patterns]
             [polylith.clj.core.shell.candidate.selector.ws-deps-entities :as ws-deps-entities]
+            [polylith.clj.core.shell.candidate.selector.color-modes :as color-modes]
             [polylith.clj.core.shell.candidate.selector.ws-projects :as ws-projects]
             [polylith.clj.core.shell.candidate.selector.ws-projects-to-test :as ws-projects-to-test]
             [polylith.clj.core.system.interface :as system]]
@@ -43,8 +44,9 @@
 (def deps-brick (c/fn-explorer "brick" :deps #'ws-deps-entities/select-bricks))
 (def deps-project (c/fn-explorer "project" :deps #'ws-deps-entities/select-projects))
 (def deps-out (c/fn-explorer "out" :deps (file-explorer/select-fn)))
+(def deps-color-mode (c/fn-values "color-mode" :deps #'color-modes/select))
 (def deps (c/single-txt "deps" :deps [deps-brick deps-project deps-out]))
-(def all-deps (c/single-txt "deps" :deps [deps-brick deps-project compact deps-out]))
+(def all-deps (c/single-txt "deps" :deps [deps-brick deps-project compact deps-out deps-color-mode]))
 
 ;; diff
 (def diff-since (c/fn-explorer "since" :diff #'ws-tag-patterns/select))
@@ -80,6 +82,7 @@
 (def info-all-bricks (c/flag "all-bricks" :info))
 (def info-all (c/flag "all" :info))
 (def info-skip (c/fn-explorer "skip" :info #'ws-projects/select))
+(def info-color-mode (c/fn-values "color-mode" :info #'color-modes/select))
 
 (defn info [profiles all?]
   (c/single-txt "info" :info
@@ -87,14 +90,15 @@
                         [info-all info-all-bricks info-brick info-loc info-dev
                          info-resources info-project info-project-flag info-since
                          info-out]
-                        (when all? [info-fake-sha info-changed-files info-skip info-no-changes]))))
+                        (when all? [info-fake-sha info-changed-files info-skip info-no-changes info-color-mode]))))
 
 ;; libs
 (def outdated (c/flag "outdated" :libs))
 (def libs-out (c/fn-explorer "out" :libs (file-explorer/select-fn)))
 (def libs-skip (c/fn-explorer "skip" :libs #'ws-projects/select))
+(def libs-color-mode (c/fn-values "color-mode" :libs #'color-modes/select))
 (def libs (c/single-txt "libs" :libs [outdated libs-out]))
-(def all-libs (c/single-txt "libs" :libs [outdated libs-out compact libs-skip]))
+(def all-libs (c/single-txt "libs" :libs [outdated libs-out compact libs-skip libs-color-mode]))
 
 ;; test
 (def test-since (c/fn-explorer "since" :test #'ws-tag-patterns/select))
@@ -143,6 +147,7 @@
 (def ws-out (c/fn-explorer "out" :ws #'file-explorer/select-edn))
 (def ws-get (c/fn-explorer "get" :ws #'ws-explore/select))
 (def ws-no-changes (c/flag "no-changes" :ws))
+(def ws-color-mode (c/fn-values "color-mode" :ws #'color-modes/select))
 
 ;; ws
 (defn ws [profiles all?]
@@ -150,7 +155,7 @@
                 (vec (concat [ws-project ws-brick ws-project-flag ws-dev ws-latest-sha
                               ws-loc ws-all-bricks ws-all ws-get ws-out ws-since branch]
                              profiles
-                             (when all? [branch ws-replace ws-no-changes])))))
+                             (when all? [branch ws-replace ws-no-changes ws-color-mode])))))
 
 ;; switch-ws
 (def switch-ws-dir (c/fn-explorer "dir" :switch-ws #'file-explorer/select-edn))

@@ -6,7 +6,7 @@
 (defn select [{:keys [group]} groups {:keys [projects settings]}]
   (let [color-mode (:color-mode settings)
         project-names (set (map :name projects))]
-    (mapv #(c/fn-explorer-child % :project color-mode group #'select)
+    (mapv #(c/fn-explorer-child % :project color-mode true group #'select)
           (sort (set/difference
                   project-names
                   (set (shared/args groups group)))))))
