@@ -12,8 +12,8 @@
        (if system/extended?
             (str "    out       = Creates a text or image file based on the output. If " (s/key "FILENAME" cm) "\n"
                  "                ends with .txt, then the file will contain the output as text.\n"
-                 "                If FILENAME ends with .bmp, .gif, .jpeg, .jpg, .png, .tif, .tiff,\n"
-                 "                or .wbmp, then the file will be generated as an image.\n")
+                 "                If FILENAME ends with .bmp, .wbmp, .gif, .jpeg, .jpg, .png, .tif,\n"
+                 "                or .tiff, then the file will be generated as an image.\n")
             (str "    out       = Creates a text file based on the output.\n"))
        "                                                                                 " (color/component "u  u\n" cm)
        "                                                                                 " (color/component "s  t\n" cm)
