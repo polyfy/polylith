@@ -60,6 +60,7 @@
 (comment
   (require '[dev.jocke :as dev])
   (def workspace dev/workspace)
+  (def workspace (assoc-in dev/workspace [:user-input :out] "info.png"))
 
   (print-info workspace)
   #__)

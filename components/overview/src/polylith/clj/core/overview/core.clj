@@ -30,7 +30,7 @@
         lib-table (lib/table workspace)
         tables [info-table deps-table lib-table]
         table-width (apply + (map width tables))
-        n#spaces (quot table-width 40)
+        n#spaces (+ 4 (quot table-width 40))
         max-height (apply max (map count tables))
         empty-row (str-util/spaces n#spaces)
         empty-column (repeat max-height empty-row)]
@@ -56,16 +56,23 @@
   (let [{:keys [table heights widths max-height n#spaces]} (table workspace)
         x1s (mapv #(apply + (take % widths))
                   (range (inc (count widths))))
-        canvas-areas (mapv #(canvas-area % x1s heights max-height n#spaces) (range (count widths)))]
+        canvas-areas (mapv #(canvas-area % x1s heights max-height n#spaces)
+                           (range (count widths)))]
     (common/print-or-save-table workspace
                                 #((constantly table) %)
                                 canvas-areas nil)))
 
 (comment
-  (def input (user-input/extract-params (concat ["overview" "ws-dir:examples/for-test"])))
+  (def input (user-input/extract-params ["overview" "ws-dir:examples/for-test"]))
   (def workspace (-> input
                      ws-clj/workspace-from-disk
                      ws/enrich-workspace
                      change/with-changes))
+  (def workspace (assoc-in workspace [:user-input :out] "overview.png"))
+
+  (require '[dev.jocke :as dev])
+  (def workspace (-> dev/workspace
+                     (assoc-in [:user-input :out] "overview.png")))
+
   (print-table workspace)
   #__)
