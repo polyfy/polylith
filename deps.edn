@@ -72,24 +72,24 @@
                                  "projects/poly/test"]}
 
             ;; ws version 0.0
-            :poly9  {:extra-deps {polylith/clj-poly
-                                  {:mvn/version "0.1.0-alpha9"}}
-                     :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}
+            :poly9  {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
+                     :extra-deps {polylith/clj-poly
+                                  {:mvn/version "0.1.0-alpha9"}}}
 
             ;; ws version 1.0
-            :poly13  {:extra-deps {polylith/clj-poly
-                                   {:mvn/version "0.2.13-alpha"}}
-                      :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}
+            :poly13  {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
+                      :extra-deps {polylith/clj-poly
+                                   {:mvn/version "0.2.13-alpha"}}}
 
             ;; ws version 1.1
-            :poly15  {:extra-deps {polylith/clj-poly
-                                   {:mvn/version "0.2.15-alpha"}}
-                      :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}
+            :poly15  {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
+                      :extra-deps {polylith/clj-poly
+                                   {:mvn/version "0.2.15-alpha"}}}
 
             ;; ws version 1.2
-            :poly17  {:extra-deps {polylith/clj-poly
-                                   {:mvn/version "0.2.17-alpha"}}
-                      :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}
+            :poly17  {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
+                      :extra-deps {polylith/clj-poly
+                                   {:mvn/version "0.2.17-alpha"}}}
 
             ;; ws version 2.0
             :poly {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
@@ -99,7 +99,7 @@
                     :extra-deps {polylith/clj-polyx {:local/root "projects/polyx"}}}
 
             :outdated {:main-opts ["-m" "antq.core"]
-                       :deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}}
+                       :extra-deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}}
 
             :migrator {:main-opts  ["-m" "polylith.clj.core.migrator-cli.core"]
                        :extra-deps {polylith/clj-poly-migrator {:local/root "projects/poly-migrator"}}}
