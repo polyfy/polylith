@@ -21,11 +21,12 @@
   clojure -A:deps -T:build help/doc"
   (:require [clojure.edn :as edn]
             [clojure.java.io :as io]
+            [clojure.set :as set]
             [clojure.string :as str]
             [clojure.tools.build.api :as b]
             [clojure.tools.deps :as t]
             [clojure.tools.deps.util.dir :refer [with-dir]]
-            [org.corfield.build :as bb]
+            [deps-deploy.deps-deploy :as d]
             [polylith.clj.core.version.interface :as version]))
 
 (defn- get-project-aliases []
@@ -105,6 +106,23 @@
              :artifact-path (str project-dir "/" artifact-name)
              :artifact-name artifact-name))))
 
+(defn- lifted-basis
+  "This creates a basis where source deps have their primary
+  external dependencies lifted to the top-level, such as is
+  needed by Polylith and possibly other monorepo setups."
+  []
+  (let [default-libs  (:libs (b/create-basis))
+        source-dep?   #(not (:mvn/version (get default-libs %)))
+        lifted-deps
+        (reduce-kv (fn [deps lib {:keys [dependents] :as coords}]
+                     (if (and (contains? coords :mvn/version) (some source-dep? dependents))
+                       (assoc deps lib (select-keys coords [:mvn/version :exclusions]))
+                       deps))
+                   {}
+                   default-libs)]
+    (-> (b/create-basis {:extra {:deps lifted-deps}})
+        (update :libs #(into {} (filter (comp :mvn/version val)) %)))))
+
 (defn jar
   "Builds a library jar for the specified project.
 
@@ -122,26 +140,36 @@
   Because we build JARs from Polylith projects, all the source
   code we want in the JAR comes from :local/root dependencies of
   the project and the actual dependencies are transitive to those
-  :local/root dependencies, so we use the :transitive option of
-  build-clj."
+  :local/root dependencies, so we create a 'lifted' basis."
   [{:keys [project jar-file] :as opts}]
   (let [project-root (ensure-project-root "jar" project)
         aliases      (with-dir (io/file project-root) (get-project-aliases))]
-    (binding [b/*project-root* project-root]
-      (let [class-dir "target/classes"
+    (b/with-project-root project-root
+      (let [basis     (lifted-basis)
+            class-dir "target/classes"
             jar-file  (or jar-file
                           (-> aliases :jar :jar-file)
                           (str "target/" project "-thin.jar"))
             lib       (symbol "polylith" (str "clj-" project))
+            current-dir (System/getProperty "user.dir")
+            current-rel #(str/replace % (str current-dir "/") "")
+            directory?  #(let [f (java.io.File. %)]
+                           (and (.exists f) (.isDirectory f)))
+            src+dirs  (filter directory? (:classpath-roots basis))
             opts      (merge opts
-                             {:class-dir  class-dir
+                             {:basis      basis
+                              :class-dir  class-dir
                               :jar-file   jar-file
                               :lib        lib
+                              :scm        {:tag (str "v" version/name)}
                               :src-pom    "partial_pom.xml"
-                              :transitive true
                               :version    version/name})]
         (b/delete {:path class-dir})
-        (bb/jar opts)
+        (println "\nWriting pom.xml...")
+        (b/write-pom opts)
+        (println "Copying" (str (str/join ", " (map current-rel src+dirs)) "..."))
+        (println "Building jar" (str jar-file "..."))
+        (b/jar opts)
         ;; we want the pom.xml file in the project folder for deployment:
         (b/copy-file {:src    (b/pom-path {:class-dir class-dir
                                            :lib       lib})
@@ -177,18 +205,24 @@
     (when-not main
       (throw (ex-info (str "the " project " project's deps.edn file does not specify the :main namespace in its :uberjar alias")
                       {:aliases aliases})))
-    (binding [b/*project-root* project-root]
+    (b/with-project-root project-root
       (let [class-dir "target/classes"
             uber-file (or uber-file
                           (-> aliases :uberjar :uber-file)
                           (str "target/" project ".jar"))
             opts      (merge opts
-                             {:class-dir    class-dir
+                             {:basis        (b/create-basis)
+                              :class-dir    class-dir
                               :compile-opts {:direct-linking true}
                               :main         main
+                              :ns-compile   [main]
                               :uber-file    uber-file})]
         (b/delete {:path class-dir})
-        (bb/uber opts)
+        ;; no src or resources to copy
+        (println "\nCompiling" (str main "..."))
+        (b/compile-clj opts)
+        (println "Building uberjar" (str uber-file "..."))
+        (b/uber opts)
         (b/delete {:path class-dir})
         (println "Uberjar is built.")
         opts))))
@@ -207,9 +241,14 @@
       (throw (ex-info "Cannot deploy projects. No projects have changed."
                       {:changed changed})))
     (doseq [project projects-to-process]
-      (let [project-opts (assoc opts :project project)]
+      (let [project-opts (assoc opts
+                                :project project
+                                :installer (get opts :installer :remote))]
         (println (str "Starting deployment for " project " project."))
-        (-> project-opts (jar) (bb/deploy))
+        (-> project-opts
+            (jar)
+            (set/rename-keys {:jar-file :artifact})
+            (d/deploy))
         (println (str "Deployment completed for " project " project."))))))
 
 (defn create-artifacts
