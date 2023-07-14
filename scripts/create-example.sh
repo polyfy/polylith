@@ -63,17 +63,17 @@ clojure -A:dev:test -P
 
 cd $ws
 
-echo "### 1/55 Workspace ###"
+echo "### 1/57 Workspace ###"
 poly create w name:example top-ns:se.example :git-add :commit
 tree example > $output/workspace-tree.txt
 cd example
 
-echo "### 2/55 Development ###"
+echo "### 2/57 Development ###"
 mkdir development/src/dev
 cp $sections/development/lisa.clj development/src/dev
 git add development/src/dev/lisa.clj
 
-echo "### 3/55 Component ###"
+echo "### 3/57 Component ###"
 echo "current dir=$(pwd)"
 poly create c name:user
 tree . > ../component-tree.txt
@@ -84,7 +84,7 @@ cp $sections/component/user-interface.clj components/user/src/se/example/user/in
 cp $sections/component/deps.edn .
 poly info fake-sha:c91fdad > $output/component-info.txt
 
-echo "### 4/55 Base ###"
+echo "### 4/57 Base ###"
 poly create b name:cli
 cd ..
 tree example > $output/base-tree.txt
@@ -93,7 +93,7 @@ echo "current-dir=$(pwd)"
 cp $sections/base/deps.edn .
 cp $sections/base/cli-core.clj bases/cli/src/se/example/cli/core.clj
 
-echo "### 5/55 Project ###"
+echo "### 5/57 Project ###"
 echo "current-dir=$(pwd)"
 poly create p name:command-line
 cd ..
@@ -103,7 +103,17 @@ cp $sections/project/deps.edn .
 cp $sections/project/workspace1.edn ./workspace.edn
 cp $sections/project/command-line-deps.edn projects/command-line/deps.edn
 
-echo "### 6/55 Build ###"
+echo "### 6/57 Out ###"
+echo "current-dir=$(pwd)"
+poly info fake-sha:c91fdad out:$output/out-info-colored.txt
+poly info fake-sha:c91fdad color-mode:none out:$output/out-info.txt
+
+echo "### 7/57 Polyx ###"
+echo "current-dir=$(pwd)"
+clojure -M:polyx info out:$output/info.png
+clojure -M:polyx info out:$output/overview.png
+
+echo "### 8/57 Build ###"
 echo "current-dir=$(pwd)"
 cp $sections/build/build.clj .
 cp $sections/build/command-line-deps.edn projects/command-line/deps.edn
@@ -112,7 +122,7 @@ clojure -T:build uberjar :project command-line
 cd projects/command-line/target
 java -jar command-line.jar Lisa
 
-echo "### 7/55 Git ###"
+echo "### 9/57 Git ###"
 cd ../../..
 echo "current-dir=$(pwd)"
 poly info fake-sha:c91fdad > $output/git-info.txt
@@ -122,7 +132,7 @@ git add --all
 git commit -m "Created the user and cli bricks."
 git log --pretty=oneline
 
-echo "### 8/55 Tagging ###"
+echo "### 10/57 Tagging ###"
 echo "current-dir=$(pwd)"
 git tag -f stable-lisa
 git log --pretty=oneline
@@ -139,11 +149,11 @@ poly info since:release fake-sha:e7ebe68 > $output/tagging-info-3.txt
 poly info since:previous-release fake-sha:c91fdad > $output/tagging-info-4.txt
 git log --pretty=oneline
 
-echo "### 9/55 Flags ###"
+echo "### 11/57 Flags ###"
 echo "current-dir=$(pwd)"
 poly info :r fake-sha:e7ebe68 > $output/flags-info.txt
 
-echo "### 10/55 Testing ###"
+echo "### 12/57 Testing ###"
 echo "current-dir=$(pwd)"
 cp $sections/testing/user-core.clj components/user/src/se/example/user/core.clj
 poly diff > $output/testing-diff.txt
@@ -207,7 +217,7 @@ poly test :all :dev color-mode:none > $output/testing-test-all-exclude-tests.txt
 echo "exit code: $?" >> $output/testing-test-all-exclude-tests.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test-all-exclude-tests.txt
 
-echo "### 11/55 Profile ###"
+echo "### 13/57 Profile ###"
 echo "current-dir=$(pwd)"
 
 cp $sections/profile/workspace.edn .
@@ -242,7 +252,7 @@ poly test :project fake-sha:e7ebe68 > $output/profile-test.txt
 echo "exit code: $?" >> $output/profile-test.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/profile-test.txt
 
-echo "### 12/55 Configuration ###"
+echo "### 14/57 Configuration ###"
 echo "current-dir=$(pwd)"
 poly ws get:settings
 poly ws get:settings:profile-to-settings:default:paths
@@ -252,7 +262,7 @@ poly ws out:ws.edn
 poly info ws-file:ws.edn fake-sha:e7ebe68
 poly ws get:old:user-input:args ws-file:ws.edn > $output/config-ws.txt
 
-echo "### 13/55 Workspace state ###"
+echo "### 15/57 Workspace state ###"
 echo "current-dir=$(pwd)"
 sha=`git rev-list -n 1 stable-lisa`
 poly ws get:settings replace:$ws:WS-HOME:$sha:SHA color-mode:none > $output/ws-state-settings.txt
@@ -263,7 +273,7 @@ poly ws get:components:user replace:$ws:WS-HOME color-mode:none > $output/ws-sta
 poly ws get:components:user-remote:lib-deps color-mode:none > $output/ws-state-components-user-remote-lib-deps.txt
 poly ws get:old:user-input:args ws-file:ws.edn color-mode:none > $output/ws-state-ws-file.txt
 
-echo "### 14/55 Copy doc-example ###"
+echo "### 16/57 Copy doc-example ###"
 echo "current-dir=$(pwd)"
 cp $examples/doc-example/readme.txt $ws
 rm -rf $examples/doc-example
@@ -278,7 +288,7 @@ rm $examples/doc-example/projects/.keep
 rm $examples/doc-example/development/src/.keep
 cp $ws/readme.txt $examples/doc-example/readme.txt
 
-echo "### 15/55 Realworld example app ###"
+echo "### 17/57 Realworld example app ###"
 cd $ws2
 echo "current-dir=$(pwd)"
 git clone git@github.com:furkan3ayraktar/clojure-polylith-realworld-example-app.git
@@ -288,43 +298,43 @@ git tag stable-lisa
 
 poly info fake-sha:f7082da > $output/realworld/realworld-info.txt
 echo "current-dir=$(pwd)"
-echo "### 16/55 Realworld example app ###"
+echo "### 18/57 Realworld example app ###"
 poly deps > $output/realworld/realworld-deps-interfaces.txt
-echo "### 17/55 Realworld example app ###"
+echo "### 19/57 Realworld example app ###"
 poly deps brick:article > $output/realworld/realworld-deps-interface.txt
-echo "### 18/55 Realworld example app ###"
+echo "### 20/57 Realworld example app ###"
 poly deps project:rb > $output/realworld/realworld-deps-components.txt
-echo "### 19/55 Realworld example app ###"
+echo "### 21/57 Realworld example app ###"
 poly deps project:rb :compact > $output/realworld/realworld-deps-components-compact.txt
-echo "### 20/55 Realworld example app ###"
+echo "### 22/57 Realworld example app ###"
 poly deps project:rb brick:article > $output/realworld/realworld-deps-component.txt
-echo "### 21/55 Realworld example app ###"
+echo "### 23/57 Realworld example app ###"
 poly libs > $output/realworld/realworld-lib-deps.txt
-echo "### 22/55 Realworld example app ###"
+echo "### 24/57 Realworld example app ###"
 cp $scripts/realworld/workspace-compact.edn ./workspace.edn
 poly libs > $output/realworld/realworld-lib-deps-compact.txt
 cp $scripts/realworld/workspace.edn .
 
-echo "### 23/55 Polylith toolsdeps1 ###"
+echo "### 25/57 Polylith toolsdeps1 ###"
 cd $ws1
 echo "current-dir=$(pwd)"
 git clone git@github.com:polyfy/polylith.git
 cd polylith
-echo "### 24/55 Polylith toolsdeps1 ###"
+echo "### 26/57 Polylith toolsdeps1 ###"
 poly info fake-sha:40d2f62 :no-changes color-mode:none > $output/polylith1/info.txt
-echo "### 25/55 Polylith toolsdeps1 ###"
+echo "### 27/57 Polylith toolsdeps1 ###"
 clojure -A:dev:test -P
 poly libs color-mode:none > $output/polylith1/libs.txt
-echo "### 26/55 Polylith toolsdeps1 ###"
+echo "### 28/57 Polylith toolsdeps1 ###"
 poly deps color-mode:none > $output/polylith1/deps.txt
 
 poly migrate
 echo "current-dir=$(pwd)"
-echo "### 27/55 Polylith toolsdeps1 (migrated) ###"
+echo "### 29/57 Polylith toolsdeps1 (migrated) ###"
 poly info fake-sha:40d2f62 :no-changes color-mode:none > $output/polylith1/info-migrated.txt
-echo "### 28/55 Polylith toolsdeps1 (migrated) ###"
+echo "### 30/57 Polylith toolsdeps1 (migrated) ###"
 poly libs color-mode:none > $output/polylith1/libs-migrated.txt
-echo "### 29/55 Polylith toolsdeps1 (migrated) ###"
+echo "### 31/57 Polylith toolsdeps1 (migrated) ###"
 poly deps color-mode:none > $output/polylith1/deps-migrated.txt
 
 cd $ws3
@@ -333,40 +343,40 @@ cd usermanager-example
 echo "current-dir=$(pwd)"
 git checkout polylith
 clojure -A:dev:test -P
-echo "### 30/55 Usermanager ###"
+echo "### 32/57 Usermanager ###"
 poly info :no-changes color-mode:none > $output/usermanager/info.txt
-echo "### 31/55 Usermanager ###"
+echo "### 33/57 Usermanager ###"
 poly libs color-mode:none > $output/usermanager/libs.txt
-echo "### 32/55 Usermanager ###"
+echo "### 34/57 Usermanager ###"
 poly deps color-mode:none > $output/usermanager/deps.txt
 
 cd $examples/local-dep
 echo "current-dir=$(pwd)"
 sha=`git rev-list -n 1 stable-master`
 branch=`git rev-parse --abbrev-ref HEAD`
-echo "### 33/55 examples/local-dep ###"
+echo "### 35/57 examples/local-dep ###"
 poly info color-mode:none fake-sha:aaaaa :no-changes > $output/local-dep/info.txt
-echo "### 34/55 examples/local-dep ###"
+echo "### 36/57 examples/local-dep ###"
 poly libs color-mode:none > $output/local-dep/libs.txt
-echo "### 35/55 examples/local-dep ###"
+echo "### 37/57 examples/local-dep ###"
 poly libs :compact color-mode:none > $output/local-dep/libs-compact.txt
-echo "### 36/55 examples/local-dep ###"
+echo "### 38/57 examples/local-dep ###"
 poly deps color-mode:none > $output/local-dep/deps.txt
-echo "### 37/55 examples/local-dep ###"
+echo "### 39/57 examples/local-dep ###"
 poly deps :compact color-mode:none > $output/local-dep/deps-compact.txt
-echo "### 38/55 examples/local-dep ###"
+echo "### 40/57 examples/local-dep ###"
 poly deps :compact project:inv color-mode:none > $output/local-dep/deps-project-compact.txt
-echo "### 39/55 examples/local-dep ###"
+echo "### 41/57 examples/local-dep ###"
 poly diff since:0aaeb58 color-mode:none > $output/local-dep/diff.txt
-echo "### 40/55 examples/local-dep ###"
+echo "### 42/57 examples/local-dep ###"
 poly ws out:$output/local-dep/ws.edn replace:$ws4:WS-HOME:$HOME:USER-HOME:$sha:SHA:$branch:BRANCH color-mode:none
-echo "### 41/55 examples/local-dep ###"
+echo "### 43/57 examples/local-dep ###"
 poly info :dev since:0aaeb58 color-mode:none > $output/local-dep/since-info.txt
 poly test :dev since:0aaeb58 color-mode:none > $output/local-dep/test.txt
 echo "exit code: $?" >> $output/local-dep/test.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/local-dep/test.txt
 
-echo "### 42/55 examples/local-dep-old-format ###"
+echo "### 44/57 examples/local-dep-old-format ###"
 cp -R $examples/local-dep-old-format $ws4
 cd $ws4/local-dep-old-format
 echo "current-dir=$(pwd)"
@@ -377,13 +387,13 @@ git tag stable-jote
 sha=`git rev-list -n 1 stable-jote`
 
 poly info fake-sha:aaaaa color-mode:none :no-changes > $output/local-dep-old-format/info.txt
-echo "### 43/55 examples/local-dep-old-format ###"
+echo "### 45/57 examples/local-dep-old-format ###"
 poly libs color-mode:none > $output/local-dep-old-format/libs.txt
-echo "### 44/55 examples/local-dep-old-format ###"
+echo "### 46/57 examples/local-dep-old-format ###"
 poly deps color-mode:none > $output/local-dep-old-format/deps.txt
-echo "### 45/55 examples/local-dep-old-format ###"
+echo "### 47/57 examples/local-dep-old-format ###"
 poly ws out:$output/local-dep-old-format/ws.edn replace:$ws4:WS-HOME:$HOME:USER-HOME:$sha:SHA color-mode:none
-echo "### 46/55 examples/local-dep-old-format ###"
+echo "### 48/57 examples/local-dep-old-format ###"
 poly test :dev color-mode:none > $output/local-dep-old-format/test.txt
 echo "exit code: $?" >> $output/local-dep-old-format/test.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/local-dep-old-format/test.txt
@@ -391,11 +401,11 @@ sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/local-dep-ol
 poly migrate
 git add --all
 poly info fake-sha:aaaaa :no-changes color-mode:none > $output/local-dep-old-format/info-migrated.txt
-echo "### 47/55 examples/local-dep-old-format (migrated) ###"
+echo "### 49/57 examples/local-dep-old-format (migrated) ###"
 poly libs color-mode:none > $output/local-dep-old-format/libs-migrated.txt
-echo "### 48/55 examples/local-dep-old-format (migrated) ###"
+echo "### 50/57 examples/local-dep-old-format (migrated) ###"
 poly deps color-mode:none > $output/local-dep-old-format/deps-migrated.txt
-echo "### 49/55 examples/local-dep-old-format (migrated) ###"
+echo "### 51/57 examples/local-dep-old-format (migrated) ###"
 poly test :de color-mode:none > $output/local-dep-old-format/test-migrated.txt
 echo "exit code: $?" >> $output/local-dep-old-format/test-migrated.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/local-dep-old-format/test-migrated.txt
@@ -404,19 +414,19 @@ cd $examples/for-test
 echo "current-dir=$(pwd)"
 
 set +e
-echo "### 50/55 examples/for-test, issue 208 - Mix clj and cljc source directories ###"
+echo "### 52/57 examples/for-test, issue 208 - Mix clj and cljc source directories ###"
 poly test :all project:okay color-mode:none > $output/for-test/mix-clj-and-cljc.txt
 echo "exit code: $?" >> $output/for-test/mix-clj-and-cljc.txt
-echo "### 51/55 examples/for-test, issue 234 - Test setup fails ###"
+echo "### 53/57 examples/for-test, issue 234 - Test setup fails ###"
 poly test :all project:okay:setup-fails:x-okay color-mode:none > $output/for-test/setup-fails-stops-entire-test-run.txt
 echo "exit code: $?" >> $output/for-test/setup-fails-stops-entire-test-run.txt
-echo "### 52/55 examples/for-test, issue 234 - Test teardown fails ###"
+echo "### 54/57 examples/for-test, issue 234 - Test teardown fails ###"
 poly test :all project:okay:teardown-fails:x-okay color-mode:none > $output/for-test/teardown-fails-stops-entire-test-run.txt
 echo "exit code: $?" >> $output/for-test/teardown-fails-stops-entire-test-run.txt
-echo "### 53/55 examples/for-test, issue 234 - Test failed ###"
+echo "### 55/57 examples/for-test, issue 234 - Test failed ###"
 poly test :all project:failing-test:okay color-mode:none > $output/for-test/failing-test-runs-teardown-and-stops-entire-test-run.txt
 echo "exit code: $?" >> $output/for-test/failing-test-runs-teardown-and-stops-entire-test-run.txt
-echo "### 54/55 examples/for-test, issue 234 - Test failed, teardown failed ###"
+echo "### 56/57 examples/for-test, issue 234 - Test failed, teardown failed ###"
 poly test :all project:failing-test-teardown-fails:okay color-mode:none > $output/for-test/failing-test-and-teardown-fails-stops-entire-test-run.txt
 echo "exit code: $?" >> $output/for-test/failing-test-and-teardown-fails-stops-entire-test-run.txt
 set -e
@@ -426,7 +436,7 @@ cd $output
 
 cd help
 
-echo "### 55/55 help ###"
+echo "### 57/57 help ###"
 
 ./update-commands-doc.sh
 

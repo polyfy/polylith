@@ -32,19 +32,17 @@
    and a list of keywords, strings, or numbers as the second argument.
    :keys and :count are also valid keys to send in. If keys are empty,
    returns the whole workspace."
-  ([keys]
-   (workspace :stable keys))
-  ([since keys]
-   (let [keys-str (map key->str keys)
-         since-str (str "since:" (key->str since))
-         args (if-not (empty keys-str)
-                ["ws" since-str (str "get:" (str/join ":" keys-str))]
-                ["ws" since-str])
-         user-input (user-input/extract-params args)
-         workspace (-> user-input
-                       ws-clj/workspace-from-disk
-                       ws/enrich-workspace
-                       change/with-changes)]
-     (if (empty? keys-str)
-       workspace
-       (ws-explorer/extract workspace keys-str)))))
+  [since keys]
+  (let [keys-str (map key->str keys)
+        since-str (str "since:" (key->str since))
+        args (if (empty? keys-str)
+               ["ws" since-str]
+               ["ws" since-str (str "get:" (str/join ":" keys-str))])
+        user-input (user-input/extract-params args)
+        workspace (-> user-input
+                      ws-clj/workspace-from-disk
+                      ws/enrich-workspace
+                      change/with-changes)]
+    (if (empty? keys-str)
+      workspace
+      (ws-explorer/extract workspace keys-str))))

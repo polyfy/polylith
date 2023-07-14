@@ -1,5 +1,6 @@
 (ns polylith.clj.core.creator.workspace
   (:require [clojure.string :as str]
+            [polylith.clj.core.creator.shared :as shared]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.git.interface :as git]))
 
@@ -77,7 +78,8 @@
 
 (defn deps-content [sha]
   [(str "{:aliases  {:dev {:extra-paths [\"development/src\"]")
-   (str "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.11.1\"}}}")
+   (str "")
+   (str "                  :extra-deps {org.clojure/clojure {:mvn/version \"" shared/clojure-ver "\"}}}")
    (str "")
    (str "            :test {:extra-paths []}")
    (str "")
@@ -90,7 +92,7 @@
    (str "            :polyx {:main-opts [\"-m\" \"polylith.clj.core.poly-cli.core\"]")
    (str "                    :extra-deps {polyfy/polylith")
    (str "                                 {:git/url   \"https://github.com/polyfy/polylith\"")
-   (str "                                  :sha       \"6073e2e78548c87239f892d0afe03e929e7e073f\"")
+   (str "                                  :sha       \"" sha "\"")
    (str "                                  :deps/root \"projects/polyx\"}}}}}")])
 
 (defn calva-settings-content [ws-name]

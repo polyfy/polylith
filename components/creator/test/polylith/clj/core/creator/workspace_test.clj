@@ -110,6 +110,7 @@
 
     (is (= (helper/content "ws1" "deps.edn")
            ["{:aliases  {:dev {:extra-paths [\"development/src\"]"
+            ""
             "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.11.1\"}}}"
             ""
             "            :test {:extra-paths []}"
@@ -123,7 +124,7 @@
             "            :polyx {:main-opts [\"-m\" \"polylith.clj.core.poly-cli.core\"]"
             "                    :extra-deps {polyfy/polylith"
             "                                 {:git/url   \"https://github.com/polyfy/polylith\""
-            "                                  :sha       \"6073e2e78548c87239f892d0afe03e929e7e073f\""
+            "                                  :sha       \"SHA\""
             "                                  :deps/root \"projects/polyx\"}}}}}"]))
 
     (is (= (helper/content "ws1" ".vscode/settings.json")

@@ -14,7 +14,7 @@
                  ""
                  (str "-" revision))))
 
-(def date "2023-06-24")
+(def date "2023-07-14")
 
 (defn version
   ([]
@@ -40,16 +40,16 @@
 ;; -----  -------------   -------   ------------------------------------------------------------------------------------------------------
 ;; 2.0    0.2.18          added     configs
 ;;                        added     bases:BASE:base-deps
-;;                        added     entities:ENTITY:namespaces:source:0:is-ignored
-;;                        added     entities:ENTITY:namespaces:source:0:is-invalid
-;;                        changed   entities:ENTITY:namespaces:source:0:file-path              The ws-dir part is removed from the file path.
-;;                        added     projects:PROJECT:deps:BRICK:source:missing-ifc-and-bases   Renamed from missing-ifc.
+;;                        added     ENTITIES:ENTITY:namespaces:SOURCE:0:is-ignored
+;;                        added     ENTITIES:ENTITY:namespaces:SOURCE:0:is-invalid
+;;                        changed   ENTITIES:ENTITY:namespaces:SOURCE:0:file-path              The ws-dir part is removed from the file path.
+;;                        added     projects:PROJECT:deps:BRICK:SOURCE:missing-ifc-and-bases   Renamed from missing-ifc.
 ;;                        added     ws-type
-;; 1.2    0.2.16-alpha    added     entities:ENTITY:namespaces:src:0:invalid
+;; 1.2    0.2.16-alpha    added     ENTITIES:ENTITY:namespaces:src:0:invalid
 ;; 1.1    0.2.14-alpha    added     settings:vcs:is-git-repo
 ;;                        deleted   projects:PROJECT:is-run-tests
 ;;
 ;; 0 = vector element.
-;; entities = bases, components, or projects.
+;; ENTITIES = bases, components, or projects.
 ;; ENTITY = a base, component, or project name.
-;; source = src or test.
+;; SOURCE = src or test.

@@ -53,7 +53,7 @@
              "workspace.edn"}))
 
     (is (= (helper/content dir "deps.edn")
-           ["{:deps {org.clojure/clojure {:mvn/version \"1.10.1\"}}"
+           ["{:deps {org.clojure/clojure {:mvn/version \"1.11.1\"}}"
             ""
             " :aliases {:test {:extra-paths []"
             "                  :extra-deps  {}}}}"]))))

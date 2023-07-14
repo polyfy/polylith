@@ -98,8 +98,8 @@
             :polyx {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
                     :extra-deps {polylith/clj-polyx {:local/root "projects/polyx"}}}
 
-            :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}
-                                   :main-opts ["-m" "antq.core"]}
+            :outdated {:main-opts ["-m" "antq.core"]
+                       :deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}}
 
             :migrator {:main-opts  ["-m" "polylith.clj.core.migrator-cli.core"]
                        :extra-deps {polylith/clj-poly-migrator {:local/root "projects/poly-migrator"}}}
