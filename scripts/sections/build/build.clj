@@ -14,7 +14,8 @@
             [clojure.tools.build.api :as b]
             [clojure.tools.deps :as t]
             [clojure.tools.deps.util.dir :refer [with-dir]]
-            [org.corfield.build :as bb]))
+            [org.corfield.log4j2-conflict-handler
+             :refer [log4j2-conflict-handler]]))
 
 (defn- get-project-aliases []
   (let [edn-fn (juxt :root-edn :project-edn)]
@@ -58,18 +59,27 @@
     (when-not main
       (throw (ex-info (str "the " project " project's deps.edn file does not specify the :main namespace in its :uberjar alias")
                       {:aliases aliases})))
-    (binding [b/*project-root* project-root]
+    (b/with-project-root project-root
       (let [class-dir "target/classes"
             uber-file (or uber-file
                           (-> aliases :uberjar :uber-file)
                           (str "target/" project ".jar"))
             opts      (merge opts
-                             {:class-dir    class-dir
+                             {:basis        (b/create-basis)
+                              :class-dir    class-dir
                               :compile-opts {:direct-linking true}
+                              ;; if your project (or any of its dependencies)
+                              ;; uses log4j 2.x, you need this:
+                              :conflict-handlers log4j2-conflict-handler
                               :main         main
+                              :ns-compile   [main]
                               :uber-file    uber-file})]
         (b/delete {:path class-dir})
-        (bb/uber opts)
+        ;; no src or resources to copy
+        (println "\nCompiling" (str main "..."))
+        (b/compile-clj opts)
+        (println "Building uberjar" (str uber-file "..."))
+        (b/uber opts)
         (b/delete {:path class-dir})
         (println "Uberjar is built.")
         opts))))
