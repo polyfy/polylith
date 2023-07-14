@@ -29,7 +29,7 @@ poly help
 ```
 
 ```
-  Poly poly-0.2.18-issue205-01 (2023-06-24) - https://github.com/polyfy/polylith
+  Poly poly-0.2.18-issue205-01 (2023-07-14) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -810,8 +810,17 @@ poly help
 
 ### overview
 ```
-  The overview command is only supported from the polyx tool.
-nil
+  Shows the output from the info, deps, and libs commands, side by side.
+  This command is mainly used to generate an image for your documentation.
+
+  poly overview [:no-changes] [out:FILENAME]
+    (omitted)   = Shows the output.
+    :no-changes = Shows the output as if there were no changes in the workspace.
+    out         = Creates a text or image file based on the output.
+                  If FILENAME ends with .txt, then the file will contain
+                  the output as text. If FILENAME ends with .bmp, .wbmp, .gif,
+                  .png, .jpeg, .jpg, .png, .tif, or .tiff, then the file will be
+                  generated as an image.
 ```
 
 ### shell

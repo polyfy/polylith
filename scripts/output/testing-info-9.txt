@@ -3,7 +3,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1      
   [34mbases:   [0m 1   [32mcomponents:[0m 1      
                                    
-  project       alias  source   [35mdev[0m
+  project       alias  status   [35mdev[0m
   ---------------------------   ---
   [35mcommand-line[0m  [35mcl[0m     [35m -tx  [0m   [35m-t-[0m
   [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m

@@ -45,5 +45,5 @@ Ran 1 tests containing 1 assertions.
 
 Test results: 1 passes, 0 failures, 0 errors.
 
-Execution time: x minutes 44 seconds
+Execution time: x seconds
 exit code: 0

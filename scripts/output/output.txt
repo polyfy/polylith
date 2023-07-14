@@ -5,7 +5,7 @@
   [35mprojects:[0m 1   [33minterfaces:[0m 1       
   [34mbases:   [0m 0   [32mcomponents:[0m 1       
                                     
-  project        alias  source   [35mdev[0m
+  project        alias  status   [35mdev[0m
   ----------------------------   ---
   [35mdevelopment[0m *  [35mdev[0m    [35m s--  [0m   [35ms--[0m
                                     
@@ -20,7 +20,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1        
   [34mbases:   [0m 1   [32mcomponents:[0m 1        
                                      
-  project         alias  source   [35mdev[0m
+  project         alias  status   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m *  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m *   [35mdev[0m    [35m s--  [0m   [35ms--[0m
@@ -37,7 +37,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1      
   [34mbases:   [0m 1   [32mcomponents:[0m 1      
                                    
-  project       alias  source   [35mdev[0m
+  project       alias  status   [35mdev[0m
   ---------------------------   ---
   [35mcommand-line[0m  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
@@ -54,7 +54,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1        
   [34mbases:   [0m 1   [32mcomponents:[0m 1        
                                      
-  project         alias  source   [35mdev[0m
+  project         alias  status   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m +  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m +   [35mdev[0m    [35m s--  [0m   [35ms--[0m
@@ -71,7 +71,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1        
   [34mbases:   [0m 1   [32mcomponents:[0m 1        
                                      
-  project         alias  source   [35mdev[0m
+  project         alias  status   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m +  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m +   [35mdev[0m    [35m s--  [0m   [35ms--[0m
@@ -88,7 +88,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1        
   [34mbases:   [0m 1   [32mcomponents:[0m 1        
                                      
-  project         alias  source   [35mdev[0m
+  project         alias  status   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m *  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m *   [35mdev[0m    [35m s--  [0m   [35ms--[0m
@@ -105,7 +105,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1         
   [34mbases:   [0m 1   [32mcomponents:[0m 1         
                                       
-  project         alias  source   [35mdev [0m
+  project         alias  status   [35mdev [0m
   -----------------------------   ----
   [35mcommand-line[0m +  [35mcl[0m     [35m ---- [0m   [35m----[0m
   [35mdevelopment[0m +   [35mdev[0m    [35m s--- [0m   [35ms---[0m
@@ -122,7 +122,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1        
   [34mbases:   [0m 1   [32mcomponents:[0m 1        
                                      
-  project         alias  source   [35mdev[0m
+  project         alias  status   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m +  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m +   [35mdev[0m    [35m s--  [0m   [35ms--[0m
@@ -139,7 +139,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1        
   [34mbases:   [0m 1   [32mcomponents:[0m 1        
                                      
-  project         alias  source   [35mdev[0m
+  project         alias  status   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m +  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m +   [35mdev[0m    [35m s--  [0m   [35ms--[0m
@@ -156,7 +156,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1        
   [34mbases:   [0m 1   [32mcomponents:[0m 1        
                                      
-  project         alias  source   [35mdev[0m
+  project         alias  status   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m +  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m +   [35mdev[0m    [35m s--  [0m   [35ms--[0m
@@ -173,7 +173,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1        
   [34mbases:   [0m 1   [32mcomponents:[0m 1        
                                      
-  project         alias  source   [35mdev[0m
+  project         alias  status   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m +  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m +   [35mdev[0m    [35m s--  [0m   [35ms--[0m
@@ -190,7 +190,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1        
   [34mbases:   [0m 1   [32mcomponents:[0m 1        
                                      
-  project         alias  source   [35mdev[0m
+  project         alias  status   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m +  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m +   [35mdev[0m    [35m s--  [0m   [35ms--[0m
@@ -207,7 +207,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1        
   [34mbases:   [0m 1   [32mcomponents:[0m 1        
                                      
-  project         alias  source   [35mdev[0m
+  project         alias  status   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m +  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m +   [35mdev[0m    [35m s--  [0m   [35ms--[0m
@@ -224,7 +224,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1      
   [34mbases:   [0m 1   [32mcomponents:[0m 1      
                                    
-  project       alias  source   [35mdev[0m
+  project       alias  status   [35mdev[0m
   ---------------------------   ---
   [35mcommand-line[0m  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
@@ -241,7 +241,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1      
   [34mbases:   [0m 1   [32mcomponents:[0m 1      
                                    
-  project       alias  source   [35mdev[0m
+  project       alias  status   [35mdev[0m
   ---------------------------   ---
   [35mcommand-line[0m  [35mcl[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
@@ -258,7 +258,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1        
   [34mbases:   [0m 1   [32mcomponents:[0m 1        
                                      
-  project         alias  source   [35mdev[0m
+  project         alias  status   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m *  [35mcl[0m     [35m -t-  [0m   [35m-t-[0m
   [35mdevelopment[0m +   [35mdev[0m    [35m s--  [0m   [35ms--[0m
@@ -275,7 +275,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1        
   [34mbases:   [0m 1   [32mcomponents:[0m 1        
                                      
-  project         alias  source   [35mdev[0m
+  project         alias  status   [35mdev[0m
   -----------------------------   ---
   [35mcommand-line[0m *  [35mcl[0m     [35m -tx  [0m   [35m-t-[0m
   [35mdevelopment[0m +   [35mdev[0m    [35m s--  [0m   [35ms--[0m
@@ -292,7 +292,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1      
   [34mbases:   [0m 1   [32mcomponents:[0m 1      
                                    
-  project       alias  source   [35mdev[0m
+  project       alias  status   [35mdev[0m
   ---------------------------   ---
   [35mcommand-line[0m  [35mcl[0m     [35m -t-  [0m   [35m-t-[0m
   [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
@@ -309,7 +309,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1      
   [34mbases:   [0m 1   [32mcomponents:[0m 1      
                                    
-  project       alias  source   [35mdev[0m
+  project       alias  status   [35mdev[0m
   ---------------------------   ---
   [35mcommand-line[0m  [35mcl[0m     [35m -t-  [0m   [35m-t-[0m
   [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
@@ -326,7 +326,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1      
   [34mbases:   [0m 1   [32mcomponents:[0m 1      
                                    
-  project       alias  source   [35mdev[0m
+  project       alias  status   [35mdev[0m
   ---------------------------   ---
   [35mcommand-line[0m  [35mcl[0m     [35m -t-  [0m   [35m-t-[0m
   [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
@@ -343,7 +343,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1      
   [34mbases:   [0m 1   [32mcomponents:[0m 1      
                                    
-  project       alias  source   [35mdev[0m
+  project       alias  status   [35mdev[0m
   ---------------------------   ---
   [35mcommand-line[0m  [35mcl[0m     [35m -tx  [0m   [35m-t-[0m
   [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
@@ -360,7 +360,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1      
   [34mbases:   [0m 1   [32mcomponents:[0m 1      
                                    
-  project       alias  source   [35mdev[0m
+  project       alias  status   [35mdev[0m
   ---------------------------   ---
   [35mcommand-line[0m  [35mcl[0m     [35m -tx  [0m   [35m-tx[0m
   [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
@@ -377,7 +377,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1      
   [34mbases:   [0m 1   [32mcomponents:[0m 1      
                                    
-  project       alias  source   [35mdev[0m
+  project       alias  status   [35mdev[0m
   ---------------------------   ---
   [35mcommand-line[0m  [35mcl[0m     [35m -tx  [0m   [35m-tx[0m
   [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
@@ -394,7 +394,7 @@
   [35mprojects:[0m 2   [33minterfaces:[0m 1      
   [34mbases:   [0m 1   [32mcomponents:[0m 1      
                                    
-  project       alias  source   [35mdev[0m
+  project       alias  status   [35mdev[0m
   ---------------------------   ---
   [35mcommand-line[0m  [35mcl[0m     [35m -tx  [0m   [35m---[0m
   [35mdevelopment[0m   [35mdev[0m    [35m s--  [0m   [35ms--[0m
@@ -411,7 +411,7 @@
   [35mprojects:[0m 3   [33minterfaces:[0m 1                                  
   [34mbases:   [0m 2   [32mcomponents:[0m 2                                  
                                                                
-  project         alias   source   [35mdev[0m  [35mdefault[0m  [35mremote[0m        
+  project         alias   status   [35mdev[0m  [35mdefault[0m  [35mremote[0m        
   ------------------------------   --------------------        
   [35mcommand-line[0m *  [35mcl[0m      [35m -t-  [0m   [35m-t-[0m  [35m  --   [0m  [35m  --  [0m        
   [35muser-service[0m *  [35muser-s[0m  [35m ---  [0m   [35m---[0m  [35m  --   [0m  [35m  --  [0m        
@@ -433,7 +433,7 @@
                                                        
   active profiles: [35mremote[0m                              
                                                        
-  project         alias   source   [35mdev[0m  [35mdefault[0m        
+  project         alias   status   [35mdev[0m  [35mdefault[0m        
   ------------------------------   ------------        
   [35mcommand-line[0m *  [35mcl[0m      [35m -t-  [0m   [35m-t-[0m  [35m  --   [0m        
   [35muser-service[0m *  [35muser-s[0m  [35m ---  [0m   [35m---[0m  [35m  --   [0m        
@@ -455,7 +455,7 @@
                                               
   active profiles: [35mdefault, remote[0m            
                                               
-  project         alias   source   [35mdev[0m        
+  project         alias   status   [35mdev[0m        
   ------------------------------   ---        
   [35mcommand-line[0m *  [35mcl[0m      [35m -t-  [0m   [35m-t-[0m        
   [35muser-service[0m *  [35muser-s[0m  [35m ---  [0m   [35m---[0m        
@@ -477,7 +477,7 @@
                                                                 
   active profiles: [35mdefault[0m                                      
                                                                 
-  project         alias   source   [35mdev[0m  [35mremote[0m   loc  (t)       
+  project         alias   status   [35mdev[0m  [35mremote[0m   loc  (t)       
   ------------------------------   -----------   --------       
   [35mcommand-line[0m *  [35mcl[0m      [35m -t-  [0m   [35m-t-[0m  [35m  --  [0m     0   13       
   [35muser-service[0m *  [35muser-s[0m  [35m ---  [0m   [35m---[0m  [35m  --  [0m     0    0       
@@ -559,7 +559,7 @@ exit code: 0
   [35mprojects:[0m 2   [33minterfaces:[0m 9           
   [34mbases:   [0m 1   [32mcomponents:[0m 9           
                                         
-  project            alias  source   [35mdev[0m
+  project            alias  status   [35mdev[0m
   --------------------------------   ---
   [35mrealworld-backend[0m  [35mrb[0m     [35m ---  [0m   [35m---[0m
   [35mdevelopment[0m        [35mdev[0m    [35m s--  [0m   [35ms--[0m
