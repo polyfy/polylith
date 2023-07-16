@@ -34,19 +34,18 @@
 ;; (:import ,,,) handling
 
 (defn import-list->package-str
-  "Given an import-list, as handled by `clojure.core/import`, return the
-  package name as a string."
+  "Given an import-list, as handled by `clojure.core/import`,
+   return the package name as a string."
   [import-list]
-  (str/replace (if (symbol? import-list)
-                 (->> import-list
-                      str
-                      (re-find #"(.*)\.\w+$")
-                      last)
-                 (-> import-list
-                     first
-                     str))
-               "_" "-"))
-
+  (when-let [import (if (symbol? import-list)
+                      (some->> import-list
+                               str
+                               (re-find #"(.*)\.[a-zA-Z0-9_$]+$")
+                               last)
+                      (some-> import-list
+                              first
+                              str))]
+    (str/replace import "_" "-")))
 
 ;; import/require handling
 
