@@ -5,7 +5,7 @@
 (def major 0)
 (def minor 2)
 (def patch 18)
-(def revision "issue309-05")
+(def revision "issue312-01")
 (def name (str major "." minor "." patch
                (if (str/blank? revision)
                  ""
