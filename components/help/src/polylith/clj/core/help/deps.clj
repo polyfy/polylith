@@ -9,7 +9,10 @@
 (defn help [cm]
   (str "  Shows dependencies.\n"
        "\n"
-       "  poly deps [project:" (s/key "PROJECT" cm) "] [brick:" (s/key "BRICK" cm) "] [out:" (s/key "FILENAME" cm) "]\n"
+       "  poly deps [project:" (s/key "PROJECT" cm) "] [brick:" (s/key "BRICK" cm) "] "
+       (if system/extended?
+         (str "[out:" (s/key "FILENAME" cm) "]\n")
+         "\n")
        "    (omitted) = Shows workspace dependencies.\n"
        "    project   = Shows dependencies for specified project.\n"
        "    brick     = Shows dependencies for specified brick.\n"
@@ -18,7 +21,7 @@
               "                ends with .txt, then the file will contain the output as text.\n"
               "                If FILENAME ends with .bmp, .wbmp, .gif, .jpeg, .jpg, .png, .tif,\n"
               "                or .tiff, then the file will be generated as an image.\n")
-         (str "    out       = Creates a text file based on the output.\n"))
+         "")
        "\n"
        "  To get help for a specific diagram, type: \n"
        "    poly help deps " (s/key "ARGS" cm) ":\n"
@@ -31,8 +34,7 @@
        "    poly deps\n"
        "    poly deps brick:mybrick\n"
        "    poly deps project:myproject\n"
-       "    poly deps project:myproject brick:mybrick\n"
-       "    poly deps out:deps.txt"
+       "    poly deps project:myproject brick:mybrick"
        (if system/extended?
          (str "\n    poly deps out:deps.png" ""))))
 

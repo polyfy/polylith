@@ -21,7 +21,7 @@
       "    migrate                     Migrates the workspace to the latest format.\n"
       "")
     (if system/extended?
-      "    overview                    Shows output from info, deps, and libs side by side.\n"
+      (str "    overview [" (s/key "ARGS" cm) "]             Shows output from info, deps, and libs side by side.\n")
       "")
     "    shell [" (s/key "ARGS" cm) "]                Starts an interactive shell.\n"
     "    test [" (s/key "ARGS" cm) "]                 Runs tests.\n"
@@ -81,8 +81,23 @@
     "    tap clean\n"
     "    tap close\n"
     "\n"
+    "  If :tap is passed in when starting a shell, then a portal window is opened.\n"
+    "\n"
+    "  If :all is passed in when starting a shell, the autocomplete will be activated for rarely\n"
+    "  used parameters, e.g.:\n"
+    "    info +\n"
+    "    info color-mode:none\n"
+    "    info fake-sha:c91fdad\n"
+    "    info :no-changes\n"
+    "    info changed-files:workspace.edn:components/user/myapp/user/core.clj\n"
+    "    test skip:development\n"
+    "    ws branch:main\n"
+    "    ws replace:hello:goodbye\n"
+    "\n"
     "  Example:\n"
     "    poly\n"
+    "    poly :all\n"
+    "    poly :tap\n"
     "    poly check\n"
     "    poly check :dev\n"
     "    poly create c name:user\n"
@@ -98,9 +113,10 @@
     "    poly deps brick:mybrick\n"
     "    poly deps project:myproject\n"
     "    poly deps project:myproject brick:mybrick\n"
-    "    poly deps out:deps.txt\n"
     (if system/extended?
-      "    poly deps out:deps.png\n" "")
+      (str "    poly deps out:deps.png\n"
+           "    poly deps out:deps.txt\n")
+      "")
     "    poly diff\n"
     "    poly help\n"
     "    poly help info\n"

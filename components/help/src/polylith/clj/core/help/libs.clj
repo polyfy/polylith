@@ -6,7 +6,10 @@
 (defn help [cm]
   (str "  Shows all libraries that are used in the workspace.\n"
        "\n"
-       "  poly libs [:compact] [:outdated] [out:" (s/key  "FILENAME" cm) "]\n"
+       "  poly libs [:compact] [:outdated]"
+       (if system/extended?
+         (str " [out:" (s/key  "FILENAME" cm) "]\n")
+         "\n")
        "    :compact  = Shows the table in a more compact way.\n"
        "    :outdated = Shows the latest version of each library, or blank if up to date.\n"
        (if system/extended?
@@ -14,7 +17,7 @@
                  "                ends with .txt, then the file will contain the output as text.\n"
                  "                If FILENAME ends with .bmp, .wbmp, .gif, .jpeg, .jpg, .png, .tif,\n"
                  "                or .tiff, then the file will be generated as an image.\n")
-            (str "    out       = Creates a text file based on the output.\n"))
+            "")
        "                                                                                 " (color/component "u  u\n" cm)
        "                                                                                 " (color/component "s  t\n" cm)
        "                                                                                 " (color/component "e  i\n" cm)
@@ -58,10 +61,13 @@
        "  Example:\n"
        "    poly libs\n"
        "    poly libs :compact\n"
-       "    poly libs :outdated\n"
-       "    poly libs out:libs.txt"
+       "    poly libs :outdated"
+
        (if system/extended?
-            (str "\n    poly libs out:libs.png" ""))))
+         (str "\n    poly libs out:libs.png"
+              "\n    poly libs out:libs.txt")
+
+         "")))
 
 (defn print-help [color-mode]
   (println (help color-mode)))

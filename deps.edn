@@ -1,5 +1,6 @@
 {:aliases  {:dev {:extra-paths ["."
                                 "development/src"]
+
                   :extra-deps {poly/antq                     {:local/root "components/antq"}
                                poly/api                      {:local/root "components/api"}
                                poly/change                   {:local/root "components/change"}

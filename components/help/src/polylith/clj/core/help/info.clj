@@ -8,19 +8,17 @@
   (str "  Shows workspace information.\n"
        "\n"
        "  poly info [" (s/key "ARGS" cm) "]\n"
-       "    ARGS = " (s/key ":loc" cm) "          -> Shows the number of lines of code for each brick\n"
-       "                            and project.\n"
-       "           out:" (s/key "FILENAME" cm)
+       "    ARGS = " (s/key ":loc" cm) "  -> Shows the number of lines of code for each brick and project.\n"
        (if system/extended?
-            (str "  -> Creates a text or image file based on the output.\n"
-                 "                            If " (s/key "FILENAME" cm) " ends with .txt, then the file will contain\n"
-                 "                            the output as text. If FILENAME ends with .bmp, .wbmp,\n"
-                 "                            .gif, .jpeg, .jpg, .png, .tif, or .tiff, then the file\n"
-                 "                            will be generated as an image.\n")
-         (str "  -> Creates a text file based on the output.\n"))
+         (str "           out:" (s/key "FILENAME" cm) "  -> Creates a text or image file based on the output.\n"
+              "                            If " (s/key "FILENAME" cm) " ends with .txt, then the file will contain\n"
+              "                            the output as text. If FILENAME ends with .bmp, .wbmp,\n"
+              "                            .gif, .jpeg, .jpg, .png, .tif, or .tiff, then the file\n"
+              "                            will be generated as an image.\n")
+         "")
        "\n"
-       "  In addition to " (s/key ":loc" cm) " and out:" (s/key "FILENAME" cm) ", all the arguments used by the 'test'\n"
-       "  command can also be used as a way to see what tests will be executed.\n"
+       "  All the arguments used by the 'test' command can also be used as a way to\n"
+       "  see what tests will be executed.\n"
        "\n"
        "    stable since: " (color/grey cm "dec73ec | stable-lisa\n")
        "\n"

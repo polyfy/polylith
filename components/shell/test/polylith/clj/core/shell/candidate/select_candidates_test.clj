@@ -82,7 +82,7 @@
 
 (deftest deps
   (is (= (candidates "deps")
-         ["brick" "out" "project"])))
+         ["brick" "project"])))
 
 (deftest deps-brick
   (is (= (candidates "deps" :next "brick")
@@ -126,7 +126,7 @@
 
 (deftest deps-brick-test-helper
   (is (= (candidates "deps" :next "brick" "test-helper" :next "")
-         ["out" "project"])))
+         ["project"])))
 
 (deftest deps-brick-help
   (is (= (candidates "deps" :next "brick" "help")
@@ -134,7 +134,7 @@
 
 (deftest deps-brick-file-
   (is (= (candidates "deps" :next "brick" "file" :next "")
-         ["out" "project"])))
+         ["project"])))
 
 (deftest deps-brick-deployer-project-
   (is (= (clean-colors (candidates "deps" :next "brick" "deployer" :next "project" ""))
@@ -158,7 +158,7 @@
 
 (deftest deps-project-api-
   (is (= (candidates "deps" :next "project" "api" :next)
-         ["brick" "out"])))
+         ["brick"])))
 
 (deftest deps-project-deployer-brick-
   (is (= (clean-colors (candidates "deps" :next "project" "deployer" :next "brick" ""))
@@ -185,7 +185,7 @@
 
 (deftest deps-project-api-brick-file-
   (is (= (candidates "deps" :next "project" "api" :next "brick" "file" :next)
-         ["out"])))
+         [])))
 
 (deftest diff
   (is (= (candidates "diff")
@@ -267,12 +267,12 @@
 (deftest info
   (is (= (candidates "info")
          [":all" ":all-bricks" ":dev" ":loc" ":project" ":resources" "brick"
-          "out" "project" "since"])))
+          "project" "since"])))
 
 (deftest info-loc-
   (is (= (candidates "info" :next "loc" :next "")
          [":all" ":all-bricks" ":dev" ":project" ":resources" "brick"
-          "out" "project" "since"])))
+          "project" "since"])))
 
 (deftest info-wsfile-go-back-4-dirs-
   (is (= (contains? (set (candidates "info" :next "ws-file" ".." ".." ".." ".." ""))
@@ -281,11 +281,11 @@
 
 (deftest libs
   (is (= (candidates "libs")
-         [":outdated" "out"])))
+         [":outdated"])))
 
 (deftest libs-
   (is (= (candidates "libs" :next "")
-         [":outdated" "out"])))
+         [":outdated"])))
 
 (deftest test
   (is (= (candidates "test")
@@ -374,4 +374,4 @@
                      "dev" :next
                      "all" :next
                      "all-bricks" :next)
-         ["+remote" ":project" ":resources" "brick" "out" "project" "since"])))
+         ["+remote" ":project" ":resources" "brick"  "project" "since"])))

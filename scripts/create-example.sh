@@ -25,7 +25,7 @@
 #   brew install tree
 #
 # Also make sure the 'poly' command is compiled, by executing:
-#   ./build-plain.sh.
+#   ./build.sh.
 #
 # To update the documentation:
 #   cd output/help
