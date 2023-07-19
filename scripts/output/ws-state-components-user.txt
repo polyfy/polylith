@@ -5,7 +5,7 @@
  :interface-deps {:src [], :test []},
  :lib-deps {},
  :lib-imports {:test ["clojure.test"]},
- :lines-of-code {:src 9, :test 7},
+ :lines-of-code {:src 9, :test 8},
  :name "user",
  :namespaces
  {:src

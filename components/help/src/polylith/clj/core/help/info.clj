@@ -17,8 +17,8 @@
               "                            will be generated as an image.\n")
          "")
        "\n"
-       "  All the arguments used by the 'test' command can also be used as a way to\n"
-       "  see what tests will be executed.\n"
+       "  All the arguments used by the 'test' command can also be used as a way to see\n"
+       "  what tests will be executed.\n"
        "\n"
        "    stable since: " (color/grey cm "dec73ec | stable-lisa\n")
        "\n"

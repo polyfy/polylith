@@ -189,7 +189,7 @@
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
       :type "git",
       :version "d9ed4e4",
-      :size 136427}}}}
+      :size 136433}}}}
   {:lines-of-code {:src 0, :test 5},
    :interface {:definitions []},
    :namespaces
@@ -376,9 +376,9 @@
  [{:type "warning",
    :code 207,
    :message
-   "Unnecessary components were found in the invoicing project and may be removed: datomic-ions, without-src",
+   "Unnecessary components were found in the invoicing project and may be removed: datomic-ions, without-src. To ignore this warning, execute 'poly help check' and follow the instructions for warning 207.",
    :colorized-message
-   "Unnecessary components were found in the invoicing project and may be removed: datomic-ions, without-src"}],
+   "Unnecessary components were found in the invoicing project and may be removed: datomic-ions, without-src. To ignore this warning, execute 'poly help check' and follow the instructions for warning 207."}],
  :name "local-dep-old-format",
  :paths
  {:existing
@@ -561,7 +561,7 @@
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
       :type "git",
       :version "d9ed4e4",
-      :size 136427}},
+      :size 136433}},
     :test
     {"migrate-me/migrate-me"
      {:local/root "../../migrate-me",
@@ -671,7 +671,7 @@
        :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
        :type "git",
        :version "d9ed4e4",
-       :size 136427},
+       :size 136433},
       "uncomplicate/neanderthal"
       {:version "0.41.0",
        :exclusions [org.jcuda/jcuda-natives org.jcuda/jcublas-natives],
@@ -694,7 +694,7 @@
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
       :type "git",
       :version "d9ed4e4",
-      :size 136427},
+      :size 136433},
      "uncomplicate/neanderthal"
      {:version "0.41.0",
       :exclusions [org.jcuda/jcuda-natives org.jcuda/jcublas-natives],
@@ -760,7 +760,7 @@
   :vcs
   {:name "git",
    :is-git-repo true,
-   :branch "master",
+   :branch "main",
    :git-root "/privateWS-HOME/local-dep-old-format",
    :auto-add false,
    :stable-since {:tag "stable-jote", :sha "SHA"},
@@ -807,14 +807,16 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.18-issue293-01",
+  {:name "poly-0.2.18-issue205-01",
+   :system "poly",
    :major 0,
    :minor 2,
    :patch 18,
-   :revision "issue293-01",
-   :date "2023-04-02"},
+   :revision "issue205-01",
+   :date "2023-07-14"},
+  :test-runner-api {:breaking 1, :non-breaking 0},
   :ws {:type :toolsdeps2, :breaking 2, :non-breaking 0},
-  :from {:ws {:type :toolsdeps1}}},
+  :from {:ws {:type :toolsdeps1, :breaking 0, :non-breaking 0}}},
  :ws-dir "/privateWS-HOME/local-dep-old-format",
  :ws-reader
  {:name "polylith-clj",

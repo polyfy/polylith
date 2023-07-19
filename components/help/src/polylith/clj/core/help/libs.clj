@@ -18,6 +18,7 @@
                  "                If FILENAME ends with .bmp, .wbmp, .gif, .jpeg, .jpg, .png, .tif,\n"
                  "                or .tiff, then the file will be generated as an image.\n")
             "")
+       "\n"
        "                                                                                 " (color/component "u  u\n" cm)
        "                                                                                 " (color/component "s  t\n" cm)
        "                                                                                 " (color/component "e  i\n" cm)

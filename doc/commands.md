@@ -99,8 +99,23 @@ poly help
     tap clean
     tap close
 
+  If :tap is passed in when starting a shell, then a portal window is opened.
+
+  If :all is passed in when starting a shell, the autocomplete will be activated for rarely
+  used parameters, e.g.:
+    info +
+    info color-mode:none
+    info fake-sha:c91fdad
+    info :no-changes
+    info changed-files:workspace.edn:components/user/myapp/user/core.clj
+    test skip:development
+    ws branch:main
+    ws replace:hello:goodbye
+
   Example:
     poly
+    poly :all
+    poly :tap
     poly check
     poly check :dev
     poly create c name:user
@@ -116,7 +131,6 @@ poly help
     poly deps brick:mybrick
     poly deps project:myproject
     poly deps project:myproject brick:mybrick
-    poly deps out:deps.txt
     poly diff
     poly help
     poly help info
@@ -151,13 +165,11 @@ poly help
     poly info :all
     poly info :all-bricks
     poly info ::
-    poly info out:info.txt
     poly info ws-dir:another-ws
     poly info ws-file:ws.edn
     poly libs
     poly libs :compact
     poly libs :outdated
-    poly libs out:libs.txt
     poly migrate
     poly shell
     poly shell :tap
@@ -380,11 +392,10 @@ poly help
 ```
   Shows dependencies.
 
-  poly deps [project:PROJECT] [brick:BRICK] [out:FILENAME]
+  poly deps [project:PROJECT] [brick:BRICK] 
     (omitted) = Shows workspace dependencies.
     project   = Shows dependencies for specified project.
     brick     = Shows dependencies for specified brick.
-    out       = Creates a text file based on the output.
 
   To get help for a specific diagram, type: 
     poly help deps ARGS:
@@ -398,7 +409,6 @@ poly help
     poly deps brick:mybrick
     poly deps project:myproject
     poly deps project:myproject brick:mybrick
-    poly deps out:deps.txt
 ```
 
 ### deps :brick
@@ -534,12 +544,10 @@ poly help
   Shows workspace information.
 
   poly info [ARGS]
-    ARGS = :loc          -> Shows the number of lines of code for each brick
-                            and project.
-           out:FILENAME  -> Creates a text file based on the output.
+    ARGS = :loc  -> Shows the number of lines of code for each brick and project.
 
-  In addition to :loc and out:FILENAME, all the arguments used by the 'test'
-  command can also be used as a way to see what tests will be executed.
+  All the arguments used by the 'test' command can also be used as a way to see
+  what tests will be executed.
 
     stable since: dec73ec | stable-lisa
 
@@ -731,10 +739,10 @@ poly help
 ```
   Shows all libraries that are used in the workspace.
 
-  poly libs [:compact] [:outdated] [out:FILENAME]
+  poly libs [:compact] [:outdated]
     :compact  = Shows the table in a more compact way.
     :outdated = Shows the latest version of each library, or blank if up to date.
-    out       = Creates a text file based on the output.
+
                                                                                  u  u
                                                                                  s  t
                                                                                  e  i
@@ -779,7 +787,6 @@ poly help
     poly libs
     poly libs :compact
     poly libs :outdated
-    poly libs out:libs.txt
 ```
 
 ### migrate

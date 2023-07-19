@@ -1,12 +1,10 @@
   Shows workspace information.
 
   poly info [ARGS]
-    ARGS = :loc          -> Shows the number of lines of code for each brick
-                            and project.
-           out:FILENAME  -> Creates a text file based on the output.
+    ARGS = :loc  -> Shows the number of lines of code for each brick and project.
 
-  In addition to :loc and out:FILENAME, all the arguments used by the 'test'
-  command can also be used as a way to see what tests will be executed.
+  All the arguments used by the 'test' command can also be used as a way to see
+  what tests will be executed.
 
     stable since: dec73ec | stable-lisa
 

@@ -7,9 +7,9 @@
   (let [filename (-> workspace :user-input :out)
         table (table-fn workspace)]
     (if filename
-       (if (file/image-file? filename)
-         (image-creator/create-image filename table canvas-areas)
-         (file/create-file filename table))
-       (do
-         (text-table/print-table table)
-         (when post-print-fn)))))
+      (if (file/image-file? filename)
+        (image-creator/create-image filename table canvas-areas)
+        (file/create-file filename table))
+      (text-table/print-table table))
+    (when post-print-fn
+      (post-print-fn))))

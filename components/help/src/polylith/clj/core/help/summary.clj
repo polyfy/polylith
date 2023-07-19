@@ -153,15 +153,14 @@
     "    poly info :all\n"
     "    poly info :all-bricks\n"
     "    poly info ::\n"
-    "    poly info out:info.txt\n"
     "    poly info ws-dir:another-ws\n"
     "    poly info ws-file:ws.edn\n"
     "    poly libs\n"
     "    poly libs :compact\n"
     "    poly libs :outdated\n"
-    "    poly libs out:libs.txt\n"
     (if system/extended?
-      "    poly libs out:libs.png\n" "")
+      "    poly libs out:libs.png\n"
+      "")
     (if show-migrate?
       "    poly migrate\n"
       "")

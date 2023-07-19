@@ -4,6 +4,7 @@
     <option name="enabledAliases">
       <set>
         <option value="+default" />
+        <option value="build" />
         <option value="dev" />
         <option value="test" />
       </set>

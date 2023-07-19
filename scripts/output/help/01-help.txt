@@ -68,8 +68,23 @@
     tap clean
     tap close
 
+  If :tap is passed in when starting a shell, then a portal window is opened.
+
+  If :all is passed in when starting a shell, the autocomplete will be activated for rarely
+  used parameters, e.g.:
+    info +
+    info color-mode:none
+    info fake-sha:c91fdad
+    info :no-changes
+    info changed-files:workspace.edn:components/user/myapp/user/core.clj
+    test skip:development
+    ws branch:main
+    ws replace:hello:goodbye
+
   Example:
     poly
+    poly :all
+    poly :tap
     poly check
     poly check :dev
     poly create c name:user
@@ -85,7 +100,6 @@
     poly deps brick:mybrick
     poly deps project:myproject
     poly deps project:myproject brick:mybrick
-    poly deps out:deps.txt
     poly diff
     poly help
     poly help info
@@ -120,13 +134,11 @@
     poly info :all
     poly info :all-bricks
     poly info ::
-    poly info out:info.txt
     poly info ws-dir:another-ws
     poly info ws-file:ws.edn
     poly libs
     poly libs :compact
     poly libs :outdated
-    poly libs out:libs.txt
     poly migrate
     poly shell
     poly shell :tap

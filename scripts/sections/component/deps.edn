@@ -1,14 +1,10 @@
-{:aliases  {:dev {:extra-paths ["development/src"
-                                "components/user/src"
-                                "components/user/resources"]
-                  :extra-deps {org.clojure/clojure {:mvn/version "1.10.3"}}}
+{:aliases  {:dev {:extra-paths ["development/src"]
+
+                  :extra-deps {poly/user {:local/root "components/user"}
+
+                               org.clojure/clojure {:mvn/version "1.11.1"}}}
 
             :test {:extra-paths ["components/user/test"]}
-
-            :build {:deps {org.clojure/tools.deps {:mvn/version "0.16.1281"}
-                           io.github.clojure/tools.build {:mvn/version "0.9.4"}}
-                    :paths ["build/resources"]
-                    :ns-default build}
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :extra-deps {polyfy/polylith

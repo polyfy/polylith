@@ -1,6 +1,6 @@
-  used by   <  [32marticle[0m  >  uses    
+  used by   <  article  >  uses    
   --------                 --------
-  [32mcomment [0m                 [33mdatabase[0m
-  [34mrest-api[0m                 [33mprofile [0m
-                           [33mspec    [0m
-                           [33muser (t)[0m
+  comment                  database
+  rest-api                 profile 
+                           spec    
+                           user (t)

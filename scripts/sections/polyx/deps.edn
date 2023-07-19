@@ -6,20 +6,13 @@
                                org.clojure/clojure {:mvn/version "1.11.1"}}}
 
             :test {:extra-paths ["components/user/test"
-                                 "bases/cli/test"
-                                 "projects/command-line/test"]}
-
-            :build {:deps {org.clojure/tools.deps {:mvn/version "0.16.1281"}
-                           io.github.clojure/tools.build {:mvn/version "0.9.4"}}
-                    :paths ["build/resources"]
-                    :ns-default build}
+                                 "bases/cli/test"]}
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :extra-deps {polyfy/polylith
                                 {:git/url   "https://github.com/polyfy/polylith"
                                  :sha       "1b91de1cb96dd286c9f5f9bda6a97d62c40b67a7"
                                  :deps/root "projects/poly"}}}
-
             :polyx {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                     :extra-deps {polyfy/polylith
                                  {:git/url   "https://github.com/polyfy/polylith"
