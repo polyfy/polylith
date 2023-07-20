@@ -99,23 +99,27 @@ poly help
     tap clean
     tap close
 
-  If :tap is passed in when starting a shell, then a portal window is opened.
-
-  If :all is passed in when starting a shell, the autocomplete will be activated for rarely
-  used parameters, e.g.:
+  'poly :all' will start a shell and activate autocomplete for rarely used parameters, e.g:
+    deps out:out.txt
     info +
     info color-mode:none
+    info out:info.txt
     info fake-sha:c91fdad
     info :no-changes
+    info changed-files:components/user/
     info changed-files:workspace.edn:components/user/myapp/user/core.clj
+    libs out:libs.txt
     test skip:development
     ws branch:main
     ws replace:hello:goodbye
+
+  'poly :tap' will start a shell and open a portal window.
 
   Example:
     poly
     poly :all
     poly :tap
+    poly :all :tap
     poly check
     poly check :dev
     poly create c name:user
@@ -717,7 +721,6 @@ poly help
   Example:
     poly info
     poly info :loc
-    poly info out:info.txt
     poly info since:release
     poly info since:previous-release
     poly info project:myproject
@@ -828,6 +831,11 @@ poly help
                   the output as text. If FILENAME ends with .bmp, .wbmp, .gif,
                   .png, .jpeg, .jpg, .png, .tif, or .tiff, then the file will be
                   generated as an image.
+
+  Example:
+    poly overview
+    poly overview out:overview.png
+    poly overview out:overview.jpg :no-changes
 ```
 
 ### shell

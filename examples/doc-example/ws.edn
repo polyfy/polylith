@@ -49,7 +49,7 @@
    :base-deps {:src [], :test []}}],
  :changes
  {:since "stable",
-  :since-sha "443371f8dd522df36683346e3333103205d919ca",
+  :since-sha "95624481979a669f1a5fd0646756fe59ba725e3a",
   :since-tag "stable-lisa",
   :changed-files
   ["bases/user-api/deps.edn"
@@ -65,7 +65,7 @@
    "projects/user-service/deps.edn"
    "workspace.edn"],
   :git-diff-command
-  "git diff 443371f8dd522df36683346e3333103205d919ca --name-only",
+  "git diff 95624481979a669f1a5fd0646756fe59ba725e3a --name-only",
   :changed-components ["user-remote"],
   :changed-bases ["user-api"],
   :changed-projects ["command-line" "user-service"],
@@ -177,8 +177,7 @@
     {:deps
      {poly/user-remote {:local/root "../../components/user-remote"},
       poly/cli {:local/root "../../bases/cli"},
-      org.clojure/clojure {:mvn/version "1.10.3"},
-      org.clojure/tools.deps {:mvn/version "0.16.1281"},
+      org.clojure/clojure {:mvn/version "1.11.1"},
       org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"},
       org.apache.logging.log4j/log4j-slf4j-impl
       {:mvn/version "2.13.3"}},
@@ -189,15 +188,11 @@
    {:config
     {:aliases
      {:dev
-      {:extra-paths
-       ["development/src"
-        "bases/cli/src"
-        "bases/cli/resources"
-        "bases/user-api/src"
-        "bases/user-api/resources"],
+      {:extra-paths ["development/src"],
        :extra-deps
-       {org.clojure/clojure {:mvn/version "1.10.3"},
-        org.clojure/tools.deps {:mvn/version "0.16.1281"},
+       {poly/cli {:local/root "bases/cli"},
+        poly/user-api {:local/root "bases/user-api"},
+        org.clojure/clojure {:mvn/version "1.11.1"},
         org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"},
         org.apache.logging.log4j/log4j-slf4j-impl
         {:mvn/version "2.13.3"}}},
@@ -207,20 +202,18 @@
         "bases/user-api/test"
         "projects/command-line/test"]},
       :+default
-      {:extra-paths
-       ["components/user/src"
-        "components/user/resources"
-        "components/user/test"]},
+      {:extra-deps {poly/user {:local/root "components/user"}},
+       :extra-paths ["components/user/test"]},
       :+remote
-      {:extra-paths
-       ["components/user-remote/src"
-        "components/user-remote/resources"
-        "components/user-remote/test"]},
+      {:extra-deps
+       {poly/user-remote {:local/root "components/user-remote"}},
+       :extra-paths ["components/user-remote/test"]},
       :build
       {:deps
        {org.clojure/tools.deps {:mvn/version "0.16.1281"},
-        io.github.seancorfield/build-clj
-        {:git/tag "v0.9.2", :git/sha "9c9f078"}},
+        io.github.clojure/tools.build {:mvn/version "0.9.4"},
+        io.github.seancorfield/build-uber-log4j2-handler
+        {:git/tag "v0.1.5", :git/sha "55fb6f6"}},
        :paths ["build/resources"],
        :ns-default build},
       :poly
@@ -235,8 +228,7 @@
     {:deps
      {poly/user {:local/root "../../components/user"},
       poly/user-api {:local/root "../../bases/user-api"},
-      org.clojure/clojure {:mvn/version "1.10.3"},
-      org.clojure/tools.deps {:mvn/version "0.16.1281"},
+      org.clojure/clojure {:mvn/version "1.11.1"},
       org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"},
       org.apache.logging.log4j/log4j-slf4j-impl
       {:mvn/version "2.13.3"}},
@@ -339,13 +331,11 @@
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "cl",
    :project-dir
-   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-04-04-113118.BY2lH8EZ/example/projects/command-line",
+   "/private/var/folders/_d/7pv3mjnn18z3rkh7z7680xj40000gn/T/polylith-ws-2023-07-19-200625.McbHJnP1/example/projects/command-line",
    :lib-deps
    {:src
     {"org.clojure/clojure"
-     {:version "1.10.3", :type "maven", :size 3914649},
-     "org.clojure/tools.deps"
-     {:version "0.16.1281", :type "maven", :size 58704},
+     {:version "1.11.1", :type "maven", :size 4105111},
      "org.apache.logging.log4j/log4j-core"
      {:version "2.13.3", :type "maven", :size 1714164},
      "org.apache.logging.log4j/log4j-slf4j-impl"
@@ -358,7 +348,7 @@
      "slacker/slacker"
      {:version "0.17.0", :type "maven", :size 28408}}},
    :config-filename
-   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-04-04-113118.BY2lH8EZ/example/projects/command-line/deps.edn",
+   "/private/var/folders/_d/7pv3mjnn18z3rkh7z7680xj40000gn/T/polylith-ws-2023-07-19-200625.McbHJnP1/example/projects/command-line/deps.edn",
    :component-names {:src ["user-remote"], :test ["user-remote"]},
    :deps
    {"cli"
@@ -385,13 +375,11 @@
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "user-s",
    :project-dir
-   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-04-04-113118.BY2lH8EZ/example/projects/user-service",
+   "/private/var/folders/_d/7pv3mjnn18z3rkh7z7680xj40000gn/T/polylith-ws-2023-07-19-200625.McbHJnP1/example/projects/user-service",
    :lib-deps
    {:src
     {"org.clojure/clojure"
-     {:version "1.10.3", :type "maven", :size 3914649},
-     "org.clojure/tools.deps"
-     {:version "0.16.1281", :type "maven", :size 58704},
+     {:version "1.11.1", :type "maven", :size 4105111},
      "org.apache.logging.log4j/log4j-core"
      {:version "2.13.3", :type "maven", :size 1714164},
      "org.apache.logging.log4j/log4j-slf4j-impl"
@@ -399,7 +387,7 @@
      "slacker/slacker"
      {:version "0.17.0", :type "maven", :size 28408}}},
    :config-filename
-   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-04-04-113118.BY2lH8EZ/example/projects/user-service/deps.edn",
+   "/private/var/folders/_d/7pv3mjnn18z3rkh7z7680xj40000gn/T/polylith-ws-2023-07-19-200625.McbHJnP1/example/projects/user-service/deps.edn",
    :component-names {:src ["user"], :test ["user"]},
    :deps
    {"user-api" {:src {:direct ["user"]}, :test {:direct ["user"]}},
@@ -438,7 +426,7 @@
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "dev",
    :project-dir
-   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-04-04-113118.BY2lH8EZ/example/development",
+   "/private/var/folders/_d/7pv3mjnn18z3rkh7z7680xj40000gn/T/polylith-ws-2023-07-19-200625.McbHJnP1/example/development",
    :unmerged
    {:paths
     {:src
@@ -454,25 +442,25 @@
     :lib-deps
     {:src
      {"org.clojure/clojure"
-      {:version "1.10.3", :type "maven", :size 3914649},
-      "org.clojure/tools.deps"
-      {:version "0.16.1281", :type "maven", :size 58704},
+      {:version "1.11.1", :type "maven", :size 4105111},
       "org.apache.logging.log4j/log4j-core"
       {:version "2.13.3", :type "maven", :size 1714164},
       "org.apache.logging.log4j/log4j-slf4j-impl"
-      {:version "2.13.3", :type "maven", :size 23590}}}},
+      {:version "2.13.3", :type "maven", :size 23590},
+      "slacker/slacker"
+      {:version "0.17.0", :type "maven", :size 28408}}}},
    :lib-deps
    {:src
     {"org.clojure/clojure"
-     {:version "1.10.3", :type "maven", :size 3914649},
-     "org.clojure/tools.deps"
-     {:version "0.16.1281", :type "maven", :size 58704},
+     {:version "1.11.1", :type "maven", :size 4105111},
      "org.apache.logging.log4j/log4j-core"
      {:version "2.13.3", :type "maven", :size 1714164},
      "org.apache.logging.log4j/log4j-slf4j-impl"
-     {:version "2.13.3", :type "maven", :size 23590}}},
+     {:version "2.13.3", :type "maven", :size 23590},
+     "slacker/slacker"
+     {:version "0.17.0", :type "maven", :size 28408}}},
    :config-filename
-   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-04-04-113118.BY2lH8EZ/example/deps.edn",
+   "/private/var/folders/_d/7pv3mjnn18z3rkh7z7680xj40000gn/T/polylith-ws-2023-07-19-200625.McbHJnP1/example/deps.edn",
    :component-names {:src ["user"], :test ["user"]},
    :deps
    {"cli" {:src {:direct ["user"]}, :test {:direct ["user"]}},
@@ -484,11 +472,11 @@
    :is-git-repo true,
    :branch "main",
    :git-root
-   "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-04-04-113118.BY2lH8EZ/example",
+   "/private/var/folders/_d/7pv3mjnn18z3rkh7z7680xj40000gn/T/polylith-ws-2023-07-19-200625.McbHJnP1/example",
    :auto-add true,
    :stable-since
    {:tag "stable-lisa",
-    :sha "443371f8dd522df36683346e3333103205d919ca"},
+    :sha "95624481979a669f1a5fd0646756fe59ba725e3a"},
    :polylith
    {:repo "https://github.com/polyfy/polylith.git", :branch "master"}},
   :top-namespace "se.example",
@@ -517,7 +505,14 @@
     ["components/user-remote/resources"
      "components/user-remote/src"
      "components/user-remote/test"],
-    :lib-deps {},
+    :lib-deps
+    {"compojure/compojure"
+     {:version "1.6.2", :type "maven", :size 15172},
+     "http-kit/http-kit"
+     {:version "2.4.0", :type "maven", :size 191467},
+     "ring/ring" {:version "1.8.1", :type "maven", :size 4621},
+     "slacker/slacker"
+     {:version "0.17.0", :type "maven", :size 28408}},
     :component-names ["user-remote"],
     :base-names [],
     :project-names []}},
@@ -568,15 +563,17 @@
   :unnamed-args []},
  :version
  {:release
-  {:name "0.2.18-issue293-01",
+  {:name "poly-0.2.18-issue205-01",
+   :system "poly",
    :major 0,
    :minor 2,
    :patch 18,
-   :revision "issue293-01",
-   :date "2023-04-02"},
+   :revision "issue205-01",
+   :date "2023-07-14"},
+  :test-runner-api {:breaking 1, :non-breaking 0},
   :ws {:type :toolsdeps2, :breaking 2, :non-breaking 0}},
  :ws-dir
- "/private/var/folders/q7/ky18vssj6jz0mhfr8lcv1xzh0000gp/T/polylith-ws-2023-04-04-113118.BY2lH8EZ/example",
+ "/private/var/folders/_d/7pv3mjnn18z3rkh7z7680xj40000gn/T/polylith-ws-2023-07-19-200625.McbHJnP1/example",
  :ws-reader
  {:name "polylith-clj",
   :project-url "https://github.com/polyfy/polylith",

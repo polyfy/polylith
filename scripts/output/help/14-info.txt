@@ -174,7 +174,6 @@
   Example:
     poly info
     poly info :loc
-    poly info out:info.txt
     poly info since:release
     poly info since:previous-release
     poly info project:myproject

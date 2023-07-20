@@ -13,8 +13,8 @@ Test results: 1 passes, 0 failures, 0 errors.
 Testing se.example.user.interface-test
 
 FAIL in (hello--when-called-with-a-name--then-return-hello-phrase) (interface_test.clj:6)
-expected: (= (user/hello "Lisa") "Hello Lisa!")
-  actual: (not (= "Hello Lisa!!" "Hello Lisa!"))
+expected: (= "Hello Lisa!" (user/hello "Lisa"))
+  actual: (not (= "Hello Lisa!" "Hello Lisa!!"))
 
 Ran 1 tests containing 1 assertions.
 1 failures, 0 errors.

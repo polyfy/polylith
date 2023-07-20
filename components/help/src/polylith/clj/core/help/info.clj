@@ -190,9 +190,6 @@
        "  Example:\n"
        "    poly info\n"
        "    poly info :loc\n"
-       "    poly info out:info.txt\n"
-       (if system/extended?
-            "    poly info out:info.png\n" "")
        "    poly info since:release\n"
        "    poly info since:previous-release\n"
        "    poly info project:myproject\n"

@@ -3,6 +3,5 @@
             [se.example.user.interface :as user]))
 
 (deftest hello--when-called-with-a-name--then-return-hello-phrase
-  (is (= (user/hello "Lisa")
-         "Hello Lisa!!")))
-
+  (is (= "Hello Lisa!!"
+         (user/hello "Lisa"))))

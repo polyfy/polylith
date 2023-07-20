@@ -12,7 +12,12 @@
        "                  If " (s/key "FILENAME" cm) " ends with .txt, then the file will contain\n"
        "                  the output as text. If FILENAME ends with .bmp, .wbmp, .gif,\n"
        "                  .png, .jpeg, .jpg, .png, .tif, or .tiff, then the file will be\n"
-       "                  generated as an image."))
+       "                  generated as an image.\n"
+       "\n"
+       "  Example:\n"
+       "    poly overview\n"
+       "    poly overview out:overview.png\n"
+       "    poly overview out:overview.jpg :no-changes"))
 
 (defn print-help [color-mode]
   (println (help-text color-mode)))

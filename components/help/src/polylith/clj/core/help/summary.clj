@@ -4,7 +4,7 @@
             [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.util.interface.color :as color]))
 
-(defn help-text [show-migrate? cm]
+(defn help-text [show-migrate? extended? cm]
   (str
     "  Poly " version/name " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
     "\n"
@@ -20,7 +20,7 @@
     (if show-migrate?
       "    migrate                     Migrates the workspace to the latest format.\n"
       "")
-    (if system/extended?
+    (if extended?
       (str "    overview [" (s/key "ARGS" cm) "]             Shows output from info, deps, and libs side by side.\n")
       "")
     "    shell [" (s/key "ARGS" cm) "]                Starts an interactive shell.\n"
@@ -81,12 +81,16 @@
     "    tap clean\n"
     "    tap close\n"
     "\n"
-    "  'poly :all' will start a shell and activate autocomplete for rarely used parameters, e.g::\n"
+    "  'poly :all' will start a shell and activate autocomplete for rarely used parameters, e.g:\n"
+    "    deps out:out.txt\n"
     "    info +\n"
     "    info color-mode:none\n"
+    "    info out:info.txt\n"
     "    info fake-sha:c91fdad\n"
     "    info :no-changes\n"
+    "    info changed-files:components/user/\n"
     "    info changed-files:workspace.edn:components/user/myapp/user/core.clj\n"
+    "    libs out:libs.txt\n"
     "    test skip:development\n"
     "    ws branch:main\n"
     "    ws replace:hello:goodbye\n"
@@ -113,7 +117,7 @@
     "    poly deps brick:mybrick\n"
     "    poly deps project:myproject\n"
     "    poly deps project:myproject brick:mybrick\n"
-    (if system/extended?
+    (if extended?
       (str "    poly deps out:deps.png\n"
            "    poly deps out:deps.txt\n")
       "")
@@ -132,7 +136,7 @@
     "    poly help deps :workspace\n"
     "    poly info\n"
     "    poly info :loc\n"
-    (if system/extended?
+    (if extended?
       "    poly info out:info.png\n" "")
     "    poly info since:65a7918\n"
     "    poly info since:head\n"
@@ -158,8 +162,11 @@
     "    poly libs\n"
     "    poly libs :compact\n"
     "    poly libs :outdated\n"
-    (if system/extended?
-      "    poly libs out:libs.png\n"
+    (if extended?
+      (str "    poly libs out:libs.png\n"
+           "    poly overview\n"
+           "    poly overview out:overview.png\n"
+           "    poly overview out:overview.jpg :no-changes\n")
       "")
     (if show-migrate?
       "    poly migrate\n"
@@ -198,8 +205,9 @@
 
 (defn print-help [is-all toolsdeps1? color-mode]
   (let [show-migrate? (or is-all toolsdeps1?)]
-    (println (help-text show-migrate? color-mode))))
+    (println (help-text show-migrate? system/extended? color-mode))))
 
 (comment
-  (print-help false false "dark")
+  (println (help-text false false "dark"))
+  (println (help-text false true "dark"))
   #__)

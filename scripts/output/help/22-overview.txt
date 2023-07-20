@@ -9,3 +9,8 @@
                   the output as text. If FILENAME ends with .bmp, .wbmp, .gif,
                   .png, .jpeg, .jpg, .png, .tif, or .tiff, then the file will be
                   generated as an image.
+
+  Example:
+    poly overview
+    poly overview out:overview.png
+    poly overview out:overview.jpg :no-changes
