@@ -203,9 +203,6 @@ sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test
 cp $sections/project/command-line-test-setup.clj projects/command-line/test/project/command_line/test_setup.clj
 cp $sections/project/workspace2.edn ./workspace.edn
 
-cp $sections/project/command-line-test-setup.clj projects/command-line/test/project/command_line/test_setup.clj
-cp $sections/project/workspace2.edn ./workspace.edn
-
 poly test :all color-mode:none > $output/testing-test-fixture.txt
 echo "exit code: $?" >> $output/testing-test-fixture.txt
 

@@ -166,9 +166,6 @@ poly info :all :dev fake-sha:e7ebe68 out:$images/testing-info-11.png
 cp $sections/project/command-line-test-setup.clj projects/command-line/test/project/command_line/test_setup.clj
 cp $sections/project/workspace2.edn ./workspace.edn
 
-cp $sections/project/command-line-test-setup.clj projects/command-line/test/project/command_line/test_setup.clj
-cp $sections/project/workspace2.edn ./workspace.edn
-
 cp $sections/testing/workspace.edn .
 poly info :all :dev fake-sha:e7ebe68 out:$images/testing-info-exclude-tests.png
 
