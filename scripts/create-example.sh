@@ -164,7 +164,7 @@ sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test
 set -e
 cp $sections/testing/user-interface-test2.clj components/user/test/se/example/user/interface_test.clj
 poly test color-mode:none > $output/testing-test-ok.txt
-echo "exit code: $?" >> testing-test-ok.txt
+echo "exit code: $?" >> $output/testing-test-ok.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test-ok.txt
 clojure -A:dev:test -P
 poly info :dev fake-sha:e7ebe68 color-mode:none > $output/testing-info-2.txt
