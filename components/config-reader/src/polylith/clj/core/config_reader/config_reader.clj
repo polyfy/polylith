@@ -3,7 +3,7 @@
             [polylith.clj.core.config-reader.deps-reader :as deps-reader]
             [polylith.clj.core.validator.interface :as validator]))
 
-(defn read-config-file [ws-type entity-name type entity-dir entity-path validator]
+(defn read-config-file [ws-type entity-name entity-type entity-dir entity-path validator]
   (let [config-filename (str entity-path "/deps.edn")
         short-config-filename (str entity-dir "/deps.edn")]
     (-> (case ws-type
@@ -11,10 +11,10 @@
           (let [{:keys [config]} (deps-reader/read-deps-file config-filename short-config-filename)]
             (if config
               {:config config}
-              (if (= :brick type)
+              (if (= :project entity-type)
+                {:config {}}
                 {:config {:paths ["src" "resources"]
-                          :aliases {:test {:extra-paths ["test"]}}}}
-                {:config {}})))
+                          :aliases {:test {:extra-paths ["test"]}}}})))
           :toolsdeps2
           (let [{:keys [config error]} (deps-reader/read-deps-file config-filename short-config-filename)]
             (if error
@@ -23,15 +23,16 @@
                 (if message
                   {:error message}
                   {:config config})))))
-        (assoc :name entity-name))))
+        (assoc :name entity-name
+               :type entity-type))))
 
 (defn filter-config-files [configs-and-errors]
   (let [configs (vec (sort-by :name (filter :config configs-and-errors)))
         errors (vec (sort-by :name (filter :error configs-and-errors)))]
     [configs errors]))
 
-(defn read-brick-config-files [ws-dir ws-type entity-dir]
-  (-> (map #(read-config-file ws-type % :brick
+(defn read-brick-config-files [ws-dir ws-type entity-type entity-dir]
+  (-> (map #(read-config-file ws-type % entity-type
                               (str entity-dir "/" %)
                               (str ws-dir "/" entity-dir "/" %)
                               validator/validate-brick-config)
