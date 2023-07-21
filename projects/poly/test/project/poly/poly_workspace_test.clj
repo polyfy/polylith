@@ -217,7 +217,7 @@
           "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  validator                 .  .  .  x  .  .  x  .  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
           "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  workspace                 .  .  .  x  .  .  x  x  .  .  .  .  .  .  x  .  .  .  .  t  .  .  x  .  .  x  x  .  .  .  .  ."
+          "  workspace                 .  .  .  x  .  .  x  x  .  .  .  .  .  .  x  .  .  .  .  .  .  .  x  .  .  x  x  .  .  .  .  ."
           "  workspace-clj             .  .  .  x  x  .  x  x  x  .  .  x  .  .  x  .  .  .  .  .  .  .  .  x  .  x  .  x  .  .  .  ."
           "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  ws-file                   .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
@@ -282,7 +282,7 @@
             "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  validator                 .  .  .  x  .  .  x  +  .  .  +  .  .  .  x  .  .  .  .  .  x  .  +  +  .  x  .  .  .  .  .  ."
             "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  workspace                 -  -  -  x  -  -  x  x  -  -  +  -  -  -  x  -  -  -  -  t  +  -  x  +  -  x  x  -  -  -  -  -"
+            "  workspace                 .  .  .  x  .  .  x  x  .  .  +  .  .  .  x  .  .  .  .  .  +  .  x  +  .  x  x  .  .  .  .  ."
             "  workspace-clj             +  .  .  x  x  .  x  x  x  .  +  x  .  .  x  +  .  +  .  .  +  .  +  x  .  x  +  x  .  .  .  ."
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  ws-file                   .  .  .  x  .  .  .  x  x  .  +  .  .  .  .  +  .  +  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
@@ -347,7 +347,7 @@
             "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  validator                 .  .  .  x  .  .  x  +  .  .  +  .  .  .  x  .  .  .  .  .  x  .  +  +  .  x  .  .  .  .  .  ."
             "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  workspace                 -  -  -  x  -  -  x  x  -  -  +  -  -  -  x  -  -  -  -  t  +  -  x  +  -  x  x  -  -  -  -  -"
+            "  workspace                 .  .  .  x  .  .  x  x  .  .  +  .  .  .  x  .  .  .  .  .  +  .  x  +  .  x  x  .  .  .  .  ."
             "  workspace-clj             +  .  .  x  x  .  x  x  x  .  +  x  .  .  x  +  .  +  .  .  +  .  +  x  .  x  +  x  .  .  .  ."
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  ws-file                   .  .  .  x  .  .  .  x  x  .  +  .  .  .  .  +  .  +  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
@@ -358,31 +358,29 @@
         project (common/find-project "poly" projects)
         brick (common/find-component "workspace" components)]
     (is (= (brick-deps-table/table ws project brick "none")
-           ["  used by   <  workspace  >  uses           "
-            "  --------                   ---------------"
-            "  command                    common         "
-            "  overview                   deps           "
-            "                             file           "
-            "                             path-finder    "
-            "                             test-helper (t)"
-            "                             text-table     "
-            "                             util           "
-            "                             validator      "]))))
+           ["  used by   <  workspace  >  uses       "
+            "  --------                   -----------"
+            "  command                    common     "
+            "  overview                   deps       "
+            "                             file       "
+            "                             path-finder"
+            "                             text-table "
+            "                             util       "
+            "                             validator  "]))))
 
 (deftest polylith-project-brick-deps
   (let [{:keys [components] :as ws} (workspace)
         brick (common/find-component "workspace" components)]
     (is (= (brick-ifc-deps/table ws brick)
-           ["  used by   <  workspace  >  uses           "
-            "  --------                   ---------------"
-            "  api                        common         "
-            "  command                    deps           "
-            "  overview                   file           "
-            "                             path-finder    "
-            "                             test-helper (t)"
-            "                             text-table     "
-            "                             util           "
-            "                             validator      "]))))
+           ["  used by   <  workspace  >  uses       "
+            "  --------                   -----------"
+            "  api                        common     "
+            "  command                    deps       "
+            "  overview                   file       "
+            "                             path-finder"
+            "                             text-table "
+            "                             util       "
+            "                             validator  "]))))
 
 (deftest polylith-poly-project-deps
   (is (= (ws-explorer/extract (workspace) ["projects" "poly" "deps"])
@@ -846,34 +844,12 @@
                                                         "deps"
                                                         "file"
                                                         "path-finder"
-                                                        "test-helper"
                                                         "text-table"
                                                         "util"
                                                         "validator"]
-                                             :indirect ["antq"
-                                                        "change"
-                                                        "command"
-                                                        "config-reader"
-                                                        "creator"
-                                                        "git"
-                                                        "help"
-                                                        "image-creator"
-                                                        "lib"
-                                                        "migrator"
-                                                        "overview"
-                                                        "sh"
-                                                        "shell"
-                                                        "system"
-                                                        "tap"
+                                             :indirect ["image-creator"
                                                         "test-runner-contract"
-                                                        "test-runner-orchestrator"
-                                                        "user-config"
-                                                        "user-input"
-                                                        "version"
-                                                        "workspace"
-                                                        "workspace-clj"
-                                                        "ws-explorer"
-                                                        "ws-file"]}}
+                                                        "user-config"]}}
           "workspace-clj"            {:src  {:direct   ["common"
                                                         "config-reader"
                                                         "deps"
@@ -1018,8 +994,7 @@
                  "portal.api"
                  "puget.printer"
                  "zprint.core"]
-          :test ["clojure.java.shell"
-                 "clojure.lang"
+          :test ["clojure.lang"
                  "clojure.test"
                  "malli.core"
                  "polylith.clj.core.poly-cli.api"

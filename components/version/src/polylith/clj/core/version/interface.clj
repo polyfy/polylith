@@ -3,30 +3,30 @@
   (:require [clojure.string :as str]
             [polylith.clj.core.system.interface :as sys]))
 
-(def system (if sys/extended? "polyx" "poly"))
+(def tool (if sys/extended? "polyx" "poly"))
 (def major 0)
 (def minor 2)
 (def patch 18)
 (def revision "issue205-01")
-(def name (str system "-"
+(def name (str tool "-"
                major "." minor "." patch
                (if (str/blank? revision)
                  ""
                  (str "-" revision))))
 
-(def date "2023-07-14")
+(def date "2023-07-21")
 
 (defn version
   ([]
    (version nil))
   ([from-version]
-   (cond-> {:release {:name name
-                      :system system
-                      :major major
-                      :minor minor
-                      :patch patch
+   (cond-> {:release {:name     name
+                      :tool     tool
+                      :major    major
+                      :minor    minor
+                      :patch    patch
                       :revision revision
-                      :date date}
+                      :date     date}
             :test-runner-api {:breaking 1
                               :non-breaking 0}
             :ws {:type :toolsdeps2
@@ -41,6 +41,7 @@
 ;; 2.0    0.2.18          added     configs
 ;;                        added     bases:BASE:base-deps
 ;;                        added     version:test-runner-api
+;;                        added     version:tool
 ;;                        added     ENTITIES:ENTITY:namespaces:SOURCE:0:is-ignored
 ;;                        added     ENTITIES:ENTITY:namespaces:SOURCE:0:is-invalid
 ;;                        changed   ENTITIES:ENTITY:namespaces:SOURCE:0:file-path              The ws-dir part is removed from the file path.
