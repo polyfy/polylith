@@ -40,6 +40,7 @@
 ;; -----  -------------   -------   ------------------------------------------------------------------------------------------------------
 ;; 2.0    0.2.18          added     configs
 ;;                        added     bases:BASE:base-deps
+;;                        added     version:test-runner-api
 ;;                        added     ENTITIES:ENTITY:namespaces:SOURCE:0:is-ignored
 ;;                        added     ENTITIES:ENTITY:namespaces:SOURCE:0:is-invalid
 ;;                        changed   ENTITIES:ENTITY:namespaces:SOURCE:0:file-path              The ws-dir part is removed from the file path.
