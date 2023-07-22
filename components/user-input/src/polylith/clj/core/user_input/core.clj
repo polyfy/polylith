@@ -11,7 +11,7 @@
             (filter profile? unnamed-args))))
 
 (defn selected-projects
-  "If we pass in e.g project:p1:p2, then that means we should only
+  "If we pass in e.g. project:p1:p2, then that means we should only
    run tests for these projects (and if :all is passed in, we should
    run all the tests for selected projects). We normally don't include
    the development project, but we can pass in :dev as a way to include it."

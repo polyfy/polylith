@@ -14,7 +14,7 @@
                  ""
                  (str "-" revision))))
 
-(def date "2023-07-21")
+(def date "2023-07-22")
 
 (defn version
   ([]
