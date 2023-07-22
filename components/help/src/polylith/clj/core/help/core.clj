@@ -7,6 +7,7 @@
             [polylith.clj.core.help.libs :as libs]
             [polylith.clj.core.help.switch-ws :as switch-ws]
             [polylith.clj.core.help.migrate :as migrate]
+            [polylith.clj.core.help.overview :as overview]
             [polylith.clj.core.help.shell :as shell]
             [polylith.clj.core.help.tap :as tap]
             [polylith.clj.core.help.test :as test]
@@ -22,6 +23,7 @@
     "diff" (diff/print-help color-mode)
     "info" (info/print-help color-mode)
     "libs" (libs/print-help color-mode)
+    "overview" (overview/print-help color-mode)
     "switch-ws" (switch-ws/print-help color-mode)
     "migrate" (migrate/print-help)
     "shell" (shell/print-help color-mode)

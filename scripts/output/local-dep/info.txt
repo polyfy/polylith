@@ -1,13 +1,13 @@
-  stable since: aaaaa | stable-master
-
-  projects: 2   interfaces: 7
-  bases:    1   components: 7
-
-  project      alias  status   dev
-  --------------------------   ---
-  invoicing    inv     ---     ---
-  development  dev     s--     s--
-
+  stable since: aaaaa                       
+                                            
+  projects: 2   interfaces: 7               
+  bases:    1   components: 7               
+                                            
+  project      alias  status   dev          
+  --------------------------   ---          
+  invoicing    inv     ---     ---          
+  development  dev     s--     s--          
+                                            
   interface       brick            inv   dev
   ------------------------------   ---   ---
   -               without-src      -t-   -t-

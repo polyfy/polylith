@@ -55,5 +55,12 @@
 (defn print-table [workspace brick-name]
   (let [brick (common/find-brick brick-name workspace)]
     (if brick
-      (text-table/print-table (table workspace brick))
+      (common/print-or-save-table workspace
+                                  #(table % brick))
       (println (str "  Couldn't find brick '" brick-name "'.")))))
+
+(comment
+  (require '[dev.jocke :as dev])
+  (def workspace dev/workspace)
+  (print-table workspace "deps")
+  #__)

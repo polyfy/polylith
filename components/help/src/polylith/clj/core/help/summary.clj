@@ -1,19 +1,10 @@
 (ns polylith.clj.core.help.summary
   (:require [polylith.clj.core.help.shared :as s]
+            [polylith.clj.core.system.interface :as system]
             [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.util.interface.color :as color]))
 
-(defn migrate [toolsdeps1?]
-  (if toolsdeps1?
-    "    migrate                     Migrates the workspace to the latest format.\n"
-    ""))
-
-(defn migrate-command [show-migrate?]
-  (if show-migrate?
-    "    poly migrate\n"
-    ""))
-
-(defn help-text [show-migrate? cm]
+(defn help-text [show-migrate? extended? cm]
   (str
     "  Poly " version/name " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
     "\n"
@@ -26,7 +17,12 @@
     "    help [" (s/key "C" cm) "] [" (s/key "ARG" cm) "]              Shows this help or help for specified command.\n"
     "    info [" (s/key "ARGS" cm) "]                 Shows a workspace overview and checks if it's valid.\n"
     "    libs [" (s/key "ARGS" cm) "]                 Shows all libraries in the workspace.\n"
-    (migrate show-migrate?)
+    (if show-migrate?
+      "    migrate                     Migrates the workspace to the latest format.\n"
+      "")
+    (if extended?
+      (str "    overview [" (s/key "ARGS" cm) "]             Shows output from info, deps, and libs side by side.\n")
+      "")
     "    shell [" (s/key "ARGS" cm) "]                Starts an interactive shell.\n"
     "    test [" (s/key "ARGS" cm) "]                 Runs tests.\n"
     "    version                     Shows current version of the tool.\n"
@@ -85,8 +81,27 @@
     "    tap clean\n"
     "    tap close\n"
     "\n"
+    "  'poly :all' will start a shell and activate autocomplete for rarely used parameters, e.g:\n"
+    "    deps out:out.txt\n"
+    "    info +\n"
+    "    info color-mode:none\n"
+    "    info out:info.txt\n"
+    "    info fake-sha:c91fdad\n"
+    "    info :no-changes\n"
+    "    info changed-files:components/user/\n"
+    "    info changed-files:workspace.edn:components/user/myapp/user/core.clj\n"
+    "    libs out:libs.txt\n"
+    "    test skip:development\n"
+    "    ws branch:main\n"
+    "    ws replace:hello:goodbye\n"
+    "\n"
+    "  'poly :tap' will start a shell and open a portal window.\n"
+    "\n"
     "  Example:\n"
     "    poly\n"
+    "    poly :all\n"
+    "    poly :tap\n"
+    "    poly :all :tap\n"
     "    poly check\n"
     "    poly check :dev\n"
     "    poly create c name:user\n"
@@ -102,6 +117,10 @@
     "    poly deps brick:mybrick\n"
     "    poly deps project:myproject\n"
     "    poly deps project:myproject brick:mybrick\n"
+    (if extended?
+      (str "    poly deps out:deps.png\n"
+           "    poly deps out:deps.txt\n")
+      "")
     "    poly diff\n"
     "    poly help\n"
     "    poly help info\n"
@@ -117,6 +136,8 @@
     "    poly help deps :workspace\n"
     "    poly info\n"
     "    poly info :loc\n"
+    (if extended?
+      "    poly info out:info.png\n" "")
     "    poly info since:65a7918\n"
     "    poly info since:head\n"
     "    poly info since:head~1\n"
@@ -129,20 +150,27 @@
     "    poly info project:myproject:another-project\n"
     "    poly info brick:mycomponent\n"
     "    poly info brick:mycomponent:mybase\n"
+    "    poly info color-mode:none\n"
     "    poly info :project\n"
     "    poly info :dev\n"
     "    poly info :project :dev\n"
     "    poly info :all\n"
     "    poly info :all-bricks\n"
     "    poly info ::\n"
-    "    poly info color-mode:none\n"
     "    poly info ws-dir:another-ws\n"
     "    poly info ws-file:ws.edn\n"
     "    poly libs\n"
-    "    poly libs :all\n"
     "    poly libs :compact\n"
     "    poly libs :outdated\n"
-    (migrate-command show-migrate?)
+    (if extended?
+      (str "    poly libs out:libs.png\n"
+           "    poly overview\n"
+           "    poly overview out:overview.png\n"
+           "    poly overview out:overview.jpg :no-changes\n")
+      "")
+    (if show-migrate?
+      "    poly migrate\n"
+      "")
     "    poly shell\n"
     "    poly shell :tap\n"
     "    poly shell :all\n"
@@ -177,8 +205,9 @@
 
 (defn print-help [is-all toolsdeps1? color-mode]
   (let [show-migrate? (or is-all toolsdeps1?)]
-    (println (help-text show-migrate? color-mode))))
+    (println (help-text show-migrate? system/extended? color-mode))))
 
 (comment
-  (print-help false false "dark")
+  (println (help-text false false "dark"))
+  (println (help-text false true "dark"))
   #__)

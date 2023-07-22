@@ -1,5 +1,6 @@
 (ns polylith.clj.core.shell.candidate.select-candidates-test
   (:require [clojure.test :refer :all]
+            [polylith.clj.core.system.interface :as system]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.shell.candidate.setup :as setup]
             [polylith.clj.core.shell.candidate.engine :as engine])
@@ -15,7 +16,9 @@
 
 (deftest all-commands
   (is (= (candidates "")
-         ["check" "create" "deps" "diff" "help" "info" "libs" "switch-ws" "test" "version" "ws"])))
+         (concat ["check" "create" "deps" "diff" "help" "info" "libs"]
+                 (if system/extended? ["overview"] [])
+                 ["switch-ws" "test" "version" "ws"]))))
 
 (deftest check
   (is (= (candidates "check")
@@ -219,11 +222,11 @@
 
 (deftest help-deps
   (is (= (candidates "help" :next "deps")
-         [":brick" ":project"])))
+         [":brick" ":project" ":workspace"])))
 
 (deftest help-deps-brick-
   (is (= (candidates "help" :next "deps" :next "brick" "")
-         [":project"])))
+         [":project" ":workspace"])))
 
 (deftest help-deps-brick-project
   (is (= (candidates "help" :next "deps" :next "brick" :next "project")
@@ -231,7 +234,7 @@
 
 (deftest help-deps-project-
   (is (= (candidates "help" :next "deps" :next "project" "")
-         [":brick"])))
+         [":brick" ":workspace"])))
 
 (deftest help-deps-project-brick
   (is (= (candidates "help" :next "deps" :next "project" :next "brick")
@@ -371,4 +374,4 @@
                      "dev" :next
                      "all" :next
                      "all-bricks" :next)
-         ["+remote" ":project" ":resources" "brick" "project" "since"])))
+         ["+remote" ":project" ":resources" "brick"  "project" "since"])))

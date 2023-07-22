@@ -22,6 +22,10 @@
   (is (= (from-disk/ns-with-name? '(ns myns (:require [clojure.string :as str])))
          true)))
 
+(deftest import-list->package-str--handle-dollar-sign-correctly
+  (is (= (from-disk/import-list->package-str 'io.opentracing.Tracer$SpanBuilder)
+         "io.opentracing")))
+
 (deftest imports--require-is-first-statement--returns-imported-namespaces
   (let [code '(ns polylith.clj.core.file.core
                 (:require [clojure.java.io :as io]

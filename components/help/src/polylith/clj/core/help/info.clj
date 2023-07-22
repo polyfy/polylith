@@ -1,17 +1,24 @@
 (ns polylith.clj.core.help.info
      (:require [polylith.clj.core.help.shared :as s]
                [polylith.clj.core.help.shared :as shared]
+               [polylith.clj.core.system.interface :as system]
                [polylith.clj.core.util.interface.color :as color]))
 
 (defn help-text [cm]
   (str "  Shows workspace information.\n"
        "\n"
        "  poly info [" (s/key "ARGS" cm) "]\n"
-       "    ARGS = " (s/key ":loc" cm) "   -> Shows the number of lines of code for each brick\n"
-       "                     and project.\n"
+       "    ARGS = " (s/key ":loc" cm) "  -> Shows the number of lines of code for each brick and project.\n"
+       (if system/extended?
+         (str "           out:" (s/key "FILENAME" cm) "  -> Creates a text or image file based on the output.\n"
+              "                            If " (s/key "FILENAME" cm) " ends with .txt, then the file will contain\n"
+              "                            the output as text. If FILENAME ends with .bmp, .wbmp,\n"
+              "                            .gif, .jpeg, .jpg, .png, .tif, or .tiff, then the file\n"
+              "                            will be generated as an image.\n")
+         "")
        "\n"
-       "  In addition to " (s/key ":loc" cm) ", all the arguments used by the 'test' command\n"
-       "  can also be used as a way to see what tests will be executed.\n"
+       "  All the arguments used by the 'test' command can also be used as a way to see\n"
+       "  what tests will be executed.\n"
        "\n"
        "    stable since: " (color/grey cm "dec73ec | stable-lisa\n")
        "\n"
@@ -189,11 +196,15 @@
        "    poly info project:myproject:another-project\n"
        "    poly info brick:mycomponent\n"
        "    poly info brick:mycomponent:mybase\n"
+       "    poly info color-mode:none\n"
        "    poly info :project\n"
        "    poly info :dev\n"
        "    poly info :project :dev\n"
        "    poly info :all\n"
        "    poly info :all-bricks\n"
+       "    poly info out:info.txt\n"
+       (if system/extended?
+            (str "    poly info out:info.png\n" ""))
        "    poly info ws-dir:another-ws\n"
        "    poly info ws-file:ws.edn"))
 

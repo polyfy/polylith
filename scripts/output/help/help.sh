@@ -51,6 +51,9 @@ poly help libs color-mode:none > 15-libs.txt
 echo "--- migrate ---"
 poly help migrate color-mode:none > 16-migrate.txt
 
+echo "--- overview ---"
+poly help overview color-mode:none > 22-overview.txt
+
 echo "--- shell ---"
 poly help shell color-mode:none > 17-shell.txt
 

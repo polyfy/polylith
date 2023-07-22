@@ -44,7 +44,7 @@
            :project "cli"
            :message "A circular dependency was found in the cli project: command > help > command"
            :colorized-message "A circular dependency was found in the cli project: command > help > command"
-           :components ["command" "help"]}])))
+           :circular-deps  ["command" "help" "command"]}])))
 
 (deftest errors--when-having-no-projects--return-no-errors
   (is (= (m104/errors [] color/none)

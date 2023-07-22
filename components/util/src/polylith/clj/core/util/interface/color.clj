@@ -1,10 +1,32 @@
 (ns polylith.clj.core.util.interface.color
-  (:require [polylith.clj.core.util.colorizer :as colorizer]))
+  (:require [polylith.clj.core.util.colorizer :as colorizer]
+            [polylith.clj.core.util.color-splitter :as color-splitter]))
 
 (def none "none")
 
+(def colors {:black [36, 39, 43]
+             :cyan [0, 255, 255]
+             :blue [119, 188, 252]
+             :green [191, 239, 197]
+             :grey [204 204 204]
+             :grey-light [204 204 204]
+             :grey-dark [204 204 204]
+             :purple [226, 174, 255]
+             :red [238, 155, 154]
+             :white [255 255 255]
+             :yellow [248, 238, 182]})
+
+(defn color->rgb [color]
+  (colors color [0 255 255]))
+
 (defn clean-colors [message]
   (colorizer/clean-colors message))
+
+(defn extract-color [message]
+  (colorizer/extract-color message))
+
+(defn split-colors [message x font-width]
+  (color-splitter/split-colors message x font-width))
 
 (defn blue [color-mode & messages]
   (colorizer/blue color-mode messages))

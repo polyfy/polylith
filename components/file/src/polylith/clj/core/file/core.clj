@@ -7,11 +7,22 @@
             [edamame.core :as edamame]
             [me.raynes.fs :as fs]
             [polylith.clj.core.util.interface.str :as str-util])
-  (:import [java.io File FileNotFoundException]
+  (:import (clojure.lang ExceptionInfo)
+           [java.io File FileNotFoundException]
            [java.nio.file Files]))
 
 (defn file [^String f]
   (File. f))
+
+(defn image-file? [filename]
+  (or (str/ends-with? filename ".bmp")
+      (str/ends-with? filename ".gif")
+      (str/ends-with? filename ".jpeg")
+      (str/ends-with? filename ".jpg")
+      (str/ends-with? filename ".png")
+      (str/ends-with? filename ".tif")
+      (str/ends-with? filename ".tiff")
+      (str/ends-with? filename ".wbmp")))
 
 (defn execute-fn [f message path]
   (try
@@ -22,7 +33,7 @@
 (defn size [path]
   (cond (fs/directory? path) (apply + (pmap size (.listFiles (io/file path))))
         (fs/file? path) (fs/size path)
-        :else 0))
+        :else nil))
 
 (defn delete-file [path]
   (execute-fn #(io/delete-file path true)
@@ -108,18 +119,22 @@
      :dirs dirs}))
 
 (defn read-file [path]
-  (edamame/parse-string-all (slurp path)
-                            {:fn true
-                             :var true
-                             :quote true
-                             :regex true
-                             :deref true
-                             :read-eval true
-                             :features #{:clj}
-                             :read-cond :allow
-                             :auto-resolve name
-                             :auto-resolve-ns true
-                             :syntax-quote {:resolve-symbol resolve-symbol}}))
+  (try
+    (edamame/parse-string-all (slurp path)
+                              {:fn true
+                               :var true
+                               :quote true
+                               :regex true
+                               :deref true
+                               :read-eval true
+                               :features #{:clj}
+                               :read-cond :allow
+                               :auto-resolve name
+                               :auto-resolve-ns true
+                               :syntax-quote {:resolve-symbol resolve-symbol}})
+    (catch ExceptionInfo e
+     (let [{:keys [row col]} (ex-data e)]
+       (println (str "  Couldn't read file '" path "', row: " row ", column: " col ". Message: " (.getMessage e)))))))
 
 (defn copy-resource-file! [source target-path]
   (delete-file target-path)

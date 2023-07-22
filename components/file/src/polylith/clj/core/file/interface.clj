@@ -65,6 +65,9 @@
 (defn files-and-dirs [dir home-dir]
   (core/dirs-and-files dir home-dir))
 
+(defn image-file? [filename]
+  (core/image-file? filename))
+
 (defn not-hidden? [name]
   (core/not-hidden? name))
 

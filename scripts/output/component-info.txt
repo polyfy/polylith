@@ -1,12 +1,12 @@
-  stable since: [37mc91fdad[0m
-
-  [35mprojects:[0m 1   [33minterfaces:[0m 1
-  [34mbases:   [0m 0   [32mcomponents:[0m 1
-
-  project        alias  status   [35mdev[0m
+  stable since: c91fdad             
+                                    
+  projects: 1   interfaces: 1       
+  bases:    0   components: 1       
+                                    
+  project        alias  status   dev
   ----------------------------   ---
-  [35mdevelopment[0m *  [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick    [35mdev[0m
-  -----------------   ---
-  [33muser     [0m  [32muser[0m *   [35mst-[0m
+  development *  dev     s--     s--
+                                    
+  interface  brick    dev           
+  -----------------   ---           
+  user       user *   st-           

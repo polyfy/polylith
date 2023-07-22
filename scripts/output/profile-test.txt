@@ -1,57 +1,57 @@
-Projects to run tests from: [35mcommand-line[0m, [35muser-service[0m
+Projects to run tests from: command-line, user-service
 
-Running test setup for the [35mcommand-line[0m project: project.command-line.test-setup/test-setup
+Running test setup for the command-line project: project.command-line.test-setup/test-setup
 --- test setup for command-line ---
 
-Running tests for the [35mcommand-line[0m project using test runner: Polylith built-in clojure.test runner...
-Running tests from the [35mcommand-line[0m project, including 2 bricks and 1 project: [32muser-remote[0m, [34mcli[0m, [35mcommand-line[0m
+Running tests for the command-line project using test runner: Polylith built-in clojure.test runner...
+Running tests from the command-line project, including 2 bricks and 1 project: user-remote, cli, command-line
 
 Testing se.example.cli.core-test
 
 Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
-[32mTest results: 1 passes, 0 failures, 0 errors.[0m
+Test results: 1 passes, 0 failures, 0 errors.
 
 Testing se.example.user.interface-test
 
 Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
-[32mTest results: 1 passes, 0 failures, 0 errors.[0m
+Test results: 1 passes, 0 failures, 0 errors.
 
 Testing project.command-line.test-setup
 
 Ran 0 tests containing 0 assertions.
 0 failures, 0 errors.
 
-[32mTest results: 0 passes, 0 failures, 0 errors.[0m
+Test results: 0 passes, 0 failures, 0 errors.
 
 Testing project.command-line.dummy_test
 
 Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
-[32mTest results: 1 passes, 0 failures, 0 errors.[0m
-Running test teardown for the [35mcommand-line[0m project: project.command-line.test-setup/test-teardown
+Test results: 1 passes, 0 failures, 0 errors.
+Running test teardown for the command-line project: project.command-line.test-setup/test-teardown
 --- test teardown for command-line ---
 
-Running tests for the [35muser-service[0m project using test runner: Polylith built-in clojure.test runner...
-Running tests from the [35muser-service[0m project, including 2 bricks: [32muser[0m, [34muser-api[0m
+Running tests for the user-service project using test runner: Polylith built-in clojure.test runner...
+Running tests from the user-service project, including 2 bricks: user, user-api
 
 Testing se.example.user.interface-test
 
 Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
-[32mTest results: 1 passes, 0 failures, 0 errors.[0m
+Test results: 1 passes, 0 failures, 0 errors.
 
 Testing se.example.user-api.core-test
 
 Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
-[32mTest results: 1 passes, 0 failures, 0 errors.[0m
+Test results: 1 passes, 0 failures, 0 errors.
 
 Execution time: x seconds
 exit code: 0

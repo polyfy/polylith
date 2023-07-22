@@ -1,6 +1,6 @@
 {:paths ["src"]
  :deps {clj-commons/fs {:mvn/version "1.6.310"}
         org.clojure/tools.deps {:mvn/version "0.18.1354"}
-        borkdude/edamame {:mvn/version "1.3.22"}}
+        borkdude/edamame {:mvn/version "1.3.23"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {}}}}

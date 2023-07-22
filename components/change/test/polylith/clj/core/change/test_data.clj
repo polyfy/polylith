@@ -4,11 +4,16 @@
 (def projects [{:is-dev true
                 :alias "dev"
                 :name  "development"
-                :component-names {:test ["article" "comment" "profile" "tag" "user"]}
-                :base-names {:test ["rest-api"]}}
+                :deps {"rest-api" {:test {:direct {:src ["article" "comment" "profile" "tag" "user"]}}}}
+                :component-names {:src ["article" "comment" "profile" "tag" "user"]
+                                  :test ["article" "comment" "profile" "tag" "user"]}
+                :base-names {:src ["rest-api"]
+                             :test ["rest-api"]}}
 
                {:is-dev false
                 :alias "core"
                 :name "core"
-                :component-names {:test ["article" "comment" "tag" "user"]}
-                :base-names {:test ["rest-api"]}}])
+                :component-names {:src ["article" "comment" "tag" "user"]
+                                  :test ["article" "comment" "tag" "user"]}
+                :base-names {:src ["rest-api"]
+                             :test ["rest-api"]}}])

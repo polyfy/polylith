@@ -32,5 +32,12 @@
         brick (common/find-brick brick-name workspace)
         [ok? message] (validate project-name brick-name project brick color-mode)]
     (if ok?
-      (text-table/print-table (table workspace project brick color-mode))
+      (common/print-or-save-table workspace
+                                  #(table % project brick color-mode))
       (println message))))
+
+(comment
+  (require '[dev.jocke :as dev])
+  (def workspace dev/workspace)
+  (print-table workspace "poly" "deps")
+  #__)

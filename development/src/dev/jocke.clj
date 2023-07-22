@@ -22,8 +22,7 @@
             [polylith.clj.core.user-input.interface :as user-input])
   (:refer-clojure :exclude [base]))
 
-;(require '[dev.jocke :as z])
-;(def workspace z/workspace)
+; clojure -A:dev:test -P
 
 (def workspace (-> (dev-common/dir ".")
                    ;(dev-common/dir "examples/doc-example")

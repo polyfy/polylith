@@ -51,7 +51,7 @@
   validator                 .  .  .  x  .  .  x  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  .
   version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
   workspace                 .  .  .  x  .  .  x  x  .  .  .  .  x  .  .  .  t  .  .  x  .  .  x  x  .  .  .  .  .
-  workspace-clj             .  .  .  x  x  .  x  x  x  .  x  .  x  .  .  .  .  .  .  .  x  .  x  x  x  .  .  .  .
+  workspace-clj             .  .  .  x  x  .  x  x  x  .  x  .  x  .  .  .  .  .  .  .  x  .  x  .  x  .  .  .  .
   ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .
   ws-file                   .  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  .
   poly-cli                  .  .  x  .  t  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  t  .  .  t  .  .

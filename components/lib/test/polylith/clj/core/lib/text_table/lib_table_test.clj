@@ -41,7 +41,7 @@
                                                  "admin" {:paths ["components/admin/src"
                                                                   "components/admin/resources"
                                                                   "components/admin/test"]
-                                                          :lib-deps {"zprint" {:version "0.5.4" :type "maven" :size 0}}
+                                                          :lib-deps {"zprint" {:version "0.5.4" :type "maven"}}
                                                           :component-names ["admin"]
                                                           :base-names []
                                                           :project-names []}}}
@@ -99,7 +99,7 @@
                          :type "base"}]})
 
 (deftest table--show-brick-with-deps--returns-correct-table
-  (is (= (lib-table/table workspace false false)
+  (is (= (lib-table/table workspace false)
          ["                                                                                                                d   "
           "                                                                                                          a     a   "
           "                                                                                                          d     t   "
@@ -117,10 +117,10 @@
           "  org.clojure/clojure                     1.10.2-alpha1  maven  3,817    x     -     -      -       -     .  .  .  ."
           "  org.clojure/tools.deps                  0.16.1264      maven     46    x     x     x      -       -     .  .  .  ."
           "  zprint                                  0.4.15         maven    125    -     x     -      x       -     .  x  x  x"
-          "  zprint                                  0.5.4          maven      0    -     -     -      -       x     .  .  .  ."])))
+          "  zprint                                  0.5.4          maven      -    -     -     -      -       x     .  .  .  ."])))
 
 (deftest table--show-all-brick-deps--returns-correct-table
-  (is (= (lib-table/table workspace false false)
+  (is (= (lib-table/table workspace false)
          ["                                                                                                                d   "
           "                                                                                                          a     a   "
           "                                                                                                          d     t   "
@@ -138,10 +138,10 @@
           "  org.clojure/clojure                     1.10.2-alpha1  maven  3,817    x     -     -      -       -     .  .  .  ."
           "  org.clojure/tools.deps                  0.16.1264      maven     46    x     x     x      -       -     .  .  .  ."
           "  zprint                                  0.4.15         maven    125    -     x     -      x       -     .  x  x  x"
-          "  zprint                                  0.5.4          maven      0    -     -     -      -       x     .  .  .  ."])))
+          "  zprint                                  0.5.4          maven      -    -     -     -      -       x     .  .  .  ."])))
 
 (deftest table--show-source-dependencies
-  (is (= (lib-table/table data/workspace-01 false false)
+  (is (= (lib-table/table data/workspace-01 false)
          ["                                                                              t"
           "                                                                              e"
           "                                                                              s"
@@ -155,25 +155,6 @@
           "  library                 version    type      KB   s   dev  default  extra   r"
           "  -----------------------------------------------   -   -------------------   -"
           "  clj-commons/fs          1.6.310    maven     12   -    -      x       -     ."
-          "  clj-time                0.15.2     maven      0   t    -      -       -     t"
+          "  clj-time                0.15.2     maven      -   t    -      -       -     t"
           "  org.clojure/clojure     1.10.1     maven  3,816   x    x      -       -     ."
           "  org.clojure/tools.deps  0.16.1264  maven     46   x    x      -       -     ."])))
-
-(deftest table--show-test-dependencies-for-all-bricks
-  (is (= (lib-table/table data/workspace-01 true false)
-         ["                                                                                 t   "
-          "                                                                                 e   "
-          "                                                                                 s   "
-          "                                                                              d  t   "
-          "                                                                              a  -   "
-          "                                                                              t  h   "
-          "                                                                              a  e   "
-          "                                                                              b  l  u"
-          "                                                                              a  p  s"
-          "                                                                              s  e  e"
-          "  library                 version    type      KB   s   dev  default  extra   e  r  r"
-          "  -----------------------------------------------   -   -------------------   -------"
-          "  clj-commons/fs          1.6.310    maven     12   -    -      x       -     .  .  ."
-          "  clj-time                0.15.2     maven      0   t    -      -       -     .  t  ."
-          "  org.clojure/clojure     1.10.1     maven  3,816   x    x      -       -     .  .  ."
-          "  org.clojure/tools.deps  0.16.1264  maven     46   x    x      -       -     .  .  ."])))

@@ -1,22 +1,22 @@
-  stable since: [37mf7082da | stable-master[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 9
-  [34mbases:   [0m 1   [32mcomponents:[0m 9
-
-  project            alias  status   [35mdev[0m
+  stable since: f7082da                 
+                                        
+  projects: 2   interfaces: 9           
+  bases:    1   components: 9           
+                                        
+  project            alias  status   dev
   --------------------------------   ---
-  [35mrealworld-backend[0m  [35mrb[0m     [35m ---  [0m   [35m---[0m
-  [35mdevelopment[0m        [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick      [35mrb [0m   [35mdev[0m
-  -------------------   ---   ---
-  [33marticle  [0m  [32marticle[0m    [35mst-[0m   [35mst-[0m
-  [33mcomment  [0m  [32mcomment[0m    [35mst-[0m   [35mst-[0m
-  [33mdatabase [0m  [32mdatabase[0m   [35ms--[0m   [35ms--[0m
-  [33menv      [0m  [32menv[0m        [35ms--[0m   [35ms--[0m
-  [33mlog      [0m  [32mlog[0m        [35ms--[0m   [35ms--[0m
-  [33mprofile  [0m  [32mprofile[0m    [35mst-[0m   [35mst-[0m
-  [33mspec     [0m  [32mspec[0m       [35ms--[0m   [35ms--[0m
-  [33mtag      [0m  [32mtag[0m        [35mst-[0m   [35mst-[0m
-  [33muser     [0m  [32muser[0m       [35mst-[0m   [35mst-[0m
-  -          [34mrest-api[0m   [35mst-[0m   [35mst-[0m
+  realworld-backend  rb      ---     ---
+  development        dev     s--     s--
+                                        
+  interface  brick      rb    dev       
+  -------------------   ---   ---       
+  article    article    st-   st-       
+  comment    comment    st-   st-       
+  database   database   s--   s--       
+  env        env        s--   s--       
+  log        log        s--   s--       
+  profile    profile    st-   st-       
+  spec       spec       s--   s--       
+  tag        tag        st-   st-       
+  user       user       st-   st-       
+  -          rest-api   st-   st-       

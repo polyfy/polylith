@@ -7,7 +7,10 @@
             [polylith.clj.core.shell.candidate.selector.file-explorer :as file-explorer]
             [polylith.clj.core.shell.candidate.selector.ws-tag-patterns :as ws-tag-patterns]
             [polylith.clj.core.shell.candidate.selector.ws-deps-entities :as ws-deps-entities]
-            [polylith.clj.core.shell.candidate.selector.ws-projects-to-test :as ws-projects-to-test]]
+            [polylith.clj.core.shell.candidate.selector.color-modes :as color-modes]
+            [polylith.clj.core.shell.candidate.selector.ws-projects :as ws-projects]
+            [polylith.clj.core.shell.candidate.selector.ws-projects-to-test :as ws-projects-to-test]
+            [polylith.clj.core.system.interface :as system]]
   (:refer-clojure :exclude [load test]))
 
 ;; check
@@ -23,8 +26,6 @@
 (def create-component (c/single-txt "component" :create-component [create-component-name interface]))
 (def create-project-name (c/multi-param "name"))
 (def create-project (c/single-txt "project" [create-project-name]))
-(def create (c/single-txt "create" :create [create-base create-component create-project]))
-
 (def create-workspace-commit (c/flag "commit" :create-workspace))
 (def create-workspace-branch (c/multi-param "branch"))
 (def create-workspace-top-ns-value (c/group-arg "" :create-workspace "top-ns" false))
@@ -33,15 +34,25 @@
 (def create-workspace-name (c/multi-param "name" 1 (c/group :create-workspace) [create-workspace-name-value]))
 (def create-workspace (c/single-txt "workspace" :create-workspace [create-workspace-name create-workspace-top-ns create-workspace-branch create-workspace-commit]))
 
-(def all-create (c/single-txt "create" :create [create-base create-component create-project create-workspace]))
+(defn create [current-ws? all?]
+  (when current-ws?
+    (c/single-txt "create" :create
+      (concat [create-base create-component create-project]
+              (when all? [create-workspace])))))
 
 (def compact (c/flag "compact" :compact))
 
 ;; deps
 (def deps-brick (c/fn-explorer "brick" :deps #'ws-deps-entities/select-bricks))
 (def deps-project (c/fn-explorer "project" :deps #'ws-deps-entities/select-projects))
-(def deps (c/single-txt "deps" :deps [deps-brick deps-project]))
-(def all-deps (c/single-txt "deps" :deps [deps-brick deps-project compact]))
+(def deps-out (c/fn-explorer "out" :deps (file-explorer/select-fn)))
+(def deps-color-mode (c/fn-values "color-mode" :deps #'color-modes/select))
+
+(defn deps [all? extended?]
+  (c/single-txt "deps" :deps
+    (concat [deps-brick deps-project]
+            (when all? [compact deps-color-mode])
+            (when (or all? extended?) [deps-out]))))
 
 ;; diff
 (def diff-since (c/fn-explorer "since" :diff #'ws-tag-patterns/select))
@@ -54,35 +65,50 @@
 (def help-create-workspace (c/single-txt "workspace"))
 (def help-create (c/single-txt "create" [help-create-base help-create-component help-create-project help-create-workspace]))
 (def help-deps-project (c/flag "project" :help-deps))
+(def help-deps-workspace (c/flag "workspace" :help-deps))
 (def help-deps-brick (c/flag "brick" :help-deps))
-(def help-deps (c/single-txt "deps" :help-deps [help-deps-brick help-deps-project]))
+(def help-deps (c/single-txt "deps" :help-deps [help-deps-brick help-deps-project help-deps-workspace]))
 (def help (c/single-txt "help" (vec (concat [help-create help-deps]
                                             (mapv #(c/single-txt %)
-                                                  ["check" "diff" "info" "libs" "switch-ws" "shell" "tap" "test" "version" "ws"])))))
+                                                  (concat ["check" "diff" "info" "libs" "switch-ws" "shell" "tap" "test" "version" "ws"]
+                                                          (if system/extended? ["overview"] [])))))))
 
 ;; info
 (def info-fake-sha (c/multi-param "fake-sha"))
+(def info-changed-files (c/fn-explorer "changed-files" :info #'file-explorer/select-all))
 (def info-since (c/fn-explorer "since" :info #'ws-tag-patterns/select))
 (def info-project (c/fn-explorer "project" :info #'ws-projects-to-test/select))
 (def info-brick (c/fn-explorer "brick" :info #'ws-bricks/select))
+(def info-no-changes (c/flag "no-changes" :overview))
 (def info-resources (c/flag "resources" :info))
+(def info-out (c/fn-explorer "out" :info (file-explorer/select-fn)))
 (def info-project-flag (c/flag-explicit "project" :info))
 (def info-dev (c/flag "dev" :info))
 (def info-loc (c/flag "loc" :info))
 (def info-all-bricks (c/flag "all-bricks" :info))
 (def info-all (c/flag "all" :info))
+(def info-skip (c/fn-explorer "skip" :info #'ws-projects/select))
+(def info-color-mode (c/fn-values "color-mode" :info #'color-modes/select))
 
-(defn info [profiles all?]
+(defn info [profiles all? extended?]
   (c/single-txt "info" :info
-                (concat profiles
-                        [info-all info-all-bricks info-brick info-loc info-dev
-                         info-resources info-project info-project-flag info-since]
-                        (when all? [info-fake-sha]))))
+    (concat profiles
+            [info-all info-all-bricks info-brick info-loc info-dev
+             info-resources info-project info-project-flag info-since]
+            (when all? [info-fake-sha info-changed-files info-skip info-no-changes info-color-mode])
+            (when (or all? extended?) [info-out]))))
 
 ;; libs
 (def outdated (c/flag "outdated" :libs))
-(def libs (c/single-txt "libs" :libs [outdated]))
-(def all-libs (c/single-txt "libs" :libs [outdated compact]))
+(def libs-out (c/fn-explorer "out" :libs (file-explorer/select-fn)))
+(def libs-skip (c/fn-explorer "skip" :libs #'ws-projects/select))
+(def libs-color-mode (c/fn-values "color-mode" :libs #'color-modes/select))
+
+(defn libs [all? extended?]
+  (c/single-txt "libs" :libs
+    (concat [outdated]
+            (when all? [outdated compact libs-skip libs-color-mode])
+            (when (or all? extended?) [libs-out]))))
 
 ;; test
 (def test-since (c/fn-explorer "since" :test #'ws-tag-patterns/select))
@@ -92,22 +118,25 @@
 (def test-dev (c/flag "dev" :test))
 (def test-loc (c/flag "loc" :test))
 (def test-verbose (c/flag "verbose" :test))
+(def test-skip (c/fn-explorer "skip" :test #'ws-projects/select))
 (def test-all-bricks (c/flag "all-bricks" :test))
 (def test-all (c/flag "all" :test))
 
-(defn test [profiles]
-  (c/single-txt "test" :test
-                (vec (concat [test-all test-all-bricks test-brick test-loc test-verbose
-                              test-dev test-project test-project-flag test-since]
-                             profiles))))
+(defn test [profiles current-ws? all?]
+  (when current-ws?
+    (c/single-txt "test" :test
+      (vec (concat [test-all test-all-bricks test-brick test-loc test-verbose
+                    test-dev test-project test-project-flag test-since]
+                   (when all? [test-skip])
+                   profiles)))))
+
+;; overview
+(def overview-out (c/fn-explorer "out" :overview (file-explorer/select-fn)))
+(def overview-no-changes (c/flag "no-changes" :overview))
+(def overview (c/single-txt "overview" :overview [overview-out overview-no-changes]))
 
 ;; version
 (def version (c/single-txt "version"))
-
-;; migrate
-(defn migrate [show-migrate?]
-  (when show-migrate?
-    [(c/single-txt "migrate")]))
 
 (def branch (c/fn-explorer "branch" :ws #'remote-branches/select))
 (def ws-with (c/fn-explorer "project" :deps #'ws-deps-entities/select-projects))
@@ -121,48 +150,54 @@
 (def ws-all-bricks (c/flag "all-bricks" :ws))
 (def ws-all (c/flag "all" :ws))
 (def ws-since (c/fn-explorer "since" :ws #'ws-tag-patterns/select))
-(def ws-out (c/fn-explorer "out" :ws #'file-explorer/select))
+(def ws-out (c/fn-explorer "out" :ws #'file-explorer/select-edn))
 (def ws-get (c/fn-explorer "get" :ws #'ws-explore/select))
+(def ws-no-changes (c/flag "no-changes" :ws))
+(def ws-color-mode (c/fn-values "color-mode" :ws #'color-modes/select))
 
 ;; ws
 (defn ws [profiles all?]
   (c/single-txt "ws" :ws
-                (vec (concat [ws-project ws-brick ws-project-flag ws-dev ws-latest-sha
-                              ws-loc ws-all-bricks ws-all ws-get ws-out ws-since branch]
-                             profiles
-                             (when all? [branch ws-replace])))))
+    (vec (concat [ws-project ws-brick ws-project-flag ws-dev ws-latest-sha
+                  ws-loc ws-all-bricks ws-all ws-get ws-out ws-since branch]
+                 profiles
+                 (when all? [branch ws-replace ws-no-changes ws-color-mode])))))
 
-(def switch-ws-dir (c/fn-explorer "dir" :switch-ws #'file-explorer/select))
-(def switch-ws-file (c/fn-explorer "file" :switch-ws #'file-explorer/select))
+;; switch-ws
+(def switch-ws-dir (c/fn-explorer "dir" :switch-ws #'file-explorer/select-edn))
+(def switch-ws-file (c/fn-explorer "file" :switch-ws #'file-explorer/select-edn))
 (def switch-ws (c/single-txt "switch-ws" :switch-ws [switch-ws-file switch-ws-dir]))
 
-(defn profiles [group-id settings]
-  (map #(c/group-arg (str "+" %) group-id (str "+" %))
-       (-> settings :profile-to-settings keys)))
+(defn profiles [group-id settings all?]
+  (let [profile-keys (-> settings :profile-to-settings keys)]
+    (when (seq profile-keys)
+      (concat (when all? [(c/group-arg "+" group-id "+")])
+              (map #(c/group-arg (str "+" %) group-id (str "+" %))
+                   profile-keys)))))
 
 (defn candidates [{:keys [settings user-input] :as workspace}]
   (let [{:keys [ws-dir ws-file is-all]} user-input
         show-migrate? (common/toolsdeps1? workspace)
-        info-profiles (profiles :info settings)
-        test-profiles (profiles :test settings)
-        ws-profiles (profiles :ws settings)
+        info-profiles (profiles :info settings is-all)
+        test-profiles (profiles :test settings is-all)
+        ws-profiles (profiles :ws settings is-all)
         current-ws? (or (nil? ws-file)
                         (or (nil? ws-dir)
                             (= "." ws-dir)))]
     (vec (concat [check
-                  (if is-all all-deps deps)
                   diff
                   help
-                  (if is-all all-libs libs)
-                  version
                   switch-ws
-                  (info info-profiles is-all)
-                  (ws ws-profiles is-all)]
-                 (migrate show-migrate?)
-                 (if current-ws?
-                   [(if is-all all-create create)
-                    (test test-profiles)]
-                   [])))))
+                  version
+                  (create current-ws? is-all)
+                  (deps is-all system/extended?)
+                  (info info-profiles is-all system/extended?)
+                  (libs is-all system/extended?)
+                  (test test-profiles current-ws? is-all)
+                  (ws ws-profiles is-all)
+                  (when show-migrate? (c/single-txt "migrate"))
+                  (when show-migrate? (c/single-txt "migrate"))
+                  (when system/extended? overview)]))))
 
 (def create-outside-ws-root (c/single-txt "create" [create-workspace]))
 

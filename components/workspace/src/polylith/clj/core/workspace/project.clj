@@ -1,5 +1,6 @@
 (ns polylith.clj.core.workspace.project
-  (:require [polylith.clj.core.deps.interface :as proj-deps]
+  (:require [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.deps.interface :as proj-deps]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.path-finder.interface.select :as select]
             [polylith.clj.core.path-finder.interface.extract :as extract]
@@ -48,8 +49,8 @@
                            (seq base-names-src) (assoc :src base-names-src)
                            (seq base-names-test) (assoc :test base-names-test))
         all-brick-names (concat component-names-src base-names-src component-names-test base-names-test)
-        bricks-to-test (when-let [bricks (get-in settings [:projects name :test :include])] (set bricks))
-        deps (proj-deps/project-deps components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns bricks-to-test)
+        brick-names-to-test (common/brick-names-to-test settings name all-brick-names)
+        deps (proj-deps/project-deps components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test)
 
         lib-imports (project-lib-imports all-brick-names brick->lib-imports)
 

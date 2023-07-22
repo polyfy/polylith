@@ -1,0 +1,20 @@
+{:aliases  {:dev {:extra-paths ["development/src"]
+
+                  :extra-deps {poly/user {:local/root "components/user"}
+                               poly/cli  {:local/root "bases/cli"}
+
+                               org.clojure/clojure {:mvn/version "1.11.1"}}}
+
+            :test {:extra-paths ["components/user/test"
+                                 "bases/cli/test"]}
+
+            :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                   :extra-deps {polyfy/polylith
+                                {:git/url   "https://github.com/polyfy/polylith"
+                                 :sha       "1b91de1cb96dd286c9f5f9bda6a97d62c40b67a7"
+                                 :deps/root "projects/poly"}}}
+            :polyx {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                    :extra-deps {polyfy/polylith
+                                 {:git/url   "https://github.com/polyfy/polylith"
+                                  :sha       "1b91de1cb96dd286c9f5f9bda6a97d62c40b67a7"
+                                  :deps/root "projects/polyx"}}}}}

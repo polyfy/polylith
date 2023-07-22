@@ -102,23 +102,29 @@
                                                               :group {:id group-id
                                                                       :param param}}])))
 
-(defn fn-explorer
-  ([value group-id select-fn]
-   (candidate (str value ":") value value :fn [true
-                                               {:group {:id group-id}
-                                                :function select-fn}
-                                               {:child {:type :fn
-                                                        :stay? true
-                                                        :group {:id group-id
-                                                                :param value}
-                                                        :function select-fn}}])))
+(defn fn-explorer [value group-id select-fn & values]
+  (candidate (str value ":") value value :fn (concat values [true
+                                                             {:group {:id group-id}
+                                                              :function select-fn}
+                                                             {:child {:type :fn
+                                                                      :stay? true
+                                                                      :group {:id group-id
+                                                                              :param value}
+                                                                      :function select-fn}}])))
 
-(defn fn-explorer-child [value entity color-mode group select-fn]
+
+(defn fn-values [value group-id select-fn & extra-values]
+  (candidate (str value ":") value value :fn (concat extra-values
+                                                     [true
+                                                      {:group {:id group-id}
+                                                       :function select-fn}])))
+
+(defn fn-explorer-child [value entity color-mode stay? group select-fn]
   (candidate (str value ":")
              (color/entity entity value color-mode)
              value :fn [true
                         {:type :fn
-                         :stay? true
+                         :stay? stay?
                          :group group
                          :function select-fn}]))
 

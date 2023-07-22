@@ -39,8 +39,8 @@
     (skip-suffix string suffix)
     string))
 
-(defn spaces [length]
-  (str/join (take length (repeat " "))))
+(defn spaces [n#spaces]
+  (str/join (take n#spaces (repeat " "))))
 
 (defn line [length]
   (str/join (take length (repeat "-"))))

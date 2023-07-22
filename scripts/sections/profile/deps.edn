@@ -1,10 +1,9 @@
-{:aliases  {:dev {:extra-paths ["development/src"
-                                "bases/cli/src"
-                                "bases/cli/resources"
-                                "bases/user-api/src"
-                                "bases/user-api/resources"]
-                  :extra-deps {org.clojure/clojure {:mvn/version "1.10.3"}
-                               org.clojure/tools.deps {:mvn/version "0.16.1281"}
+{:aliases  {:dev {:extra-paths ["development/src"]
+
+                  :extra-deps {poly/cli      {:local/root "bases/cli"}
+                               poly/user-api {:local/root "bases/user-api"}
+
+                               org.clojure/clojure {:mvn/version "1.11.1"}
                                org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
                                org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}}}
 
@@ -12,19 +11,16 @@
                                  "bases/user-api/test"
                                  "projects/command-line/test"]}
 
-            :+default {:extra-paths ["components/user/src"
-                                     "components/user/resources"
-                                     "components/user/test"]}
+            :+default {:extra-deps {poly/user {:local/root "components/user"}}
+                       :extra-paths ["components/user/test"]}
 
-            :+remote {:extra-paths ["components/user-remote/src"
-                                    "components/user-remote/resources"
-                                    "components/user-remote/test"]}
+            :+remote {:extra-deps {poly/user-remote {:local/root "components/user-remote"}}
+                      :extra-paths ["components/user-remote/test"]}
 
             :build {:deps {org.clojure/tools.deps {:mvn/version "0.16.1281"}
                            io.github.clojure/tools.build {:mvn/version "0.9.4"}
                            ;; because we use log4j 2.x:
-                           io.github.seancorfield/build-uber-log4j2-handler
-                           {:git/tag "v0.1.5" :git/sha "55fb6f6"}}
+                           io.github.seancorfield/build-uber-log4j2-handler {:git/tag "v0.1.5" :git/sha "55fb6f6"}}
                     :paths ["build/resources"]
                     :ns-default build}
 

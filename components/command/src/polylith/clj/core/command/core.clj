@@ -12,14 +12,14 @@
             [polylith.clj.core.help.interface :as help]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.migrator.interface :as migrator]
+            [polylith.clj.core.overview.interface :as overview]
             [polylith.clj.core.shell.interface :as shell]
             [polylith.clj.core.tap.interface :as tap]
             [polylith.clj.core.util.interface.color :as color]
-            [polylith.clj.core.util.interface.time :as time-util]
             [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.version.interface :as ver]
             [polylith.clj.core.workspace-clj.interface :as ws-clj]
-            [polylith.clj.core.workspace.interface :as ws]
+            [polylith.clj.core.workspace.interface :as workspace]
             [polylith.clj.core.ws-file.interface :as ws-file]
             [polylith.clj.core.ws-explorer.interface :as ws-explorer])
   (:refer-clojure :exclude [test]))
@@ -42,19 +42,13 @@
 (defn unknown-command [cmd]
   (println (str "  Unknown command '" cmd "'. Type 'poly help' for help.")))
 
-(defn prompt-message []
-  (println "  Please use the 'shell' command instead, which gives you support for history (<up> key) and autocomplete (<tab> key)."))
-
-(defn read-workspace
-  ([{:keys [ws-file] :as user-input}]
-   (read-workspace ws-file user-input))
-  ([ws-file user-input]
-   (if ws-file
-     (ws-file/read-ws-from-file ws-file user-input)
-     (time-util/tap-seconds "#read-workspace" (-> user-input
-                                                  ws-clj/workspace-from-disk
-                                                  ws/enrich-workspace
-                                                  change/with-changes)))))
+(defn read-workspace [ws-file user-input]
+  (if ws-file
+    (ws-file/read-ws-from-file ws-file user-input)
+    (-> user-input
+        ws-clj/workspace-from-disk
+        workspace/enrich-workspace
+        change/with-changes)))
 
 (defn workspace-reader-fn []
   (fn [user-input ws-file]
@@ -85,13 +79,13 @@
         (case cmd
           "check" (check workspace color-mode)
           "create" (create/create ws-dir workspace args name top-ns interface branch is-git-add is-commit color-mode)
-          "deps" (dependencies/deps workspace project-name brick-name unnamed-args is-all)
+          "deps" (dependencies/deps workspace project-name brick-name unnamed-args)
           "diff" (diff workspace)
           "help" (help args is-all is-show-project is-show-brick is-show-workspace toolsdeps1? color-mode)
           "info" (info/info workspace unnamed-args)
-          "libs" (lib/print-lib-table workspace is-all is-outdated)
+          "libs" (lib/print-lib-table workspace is-outdated)
           "migrate" (migrator/migrate ws-dir workspace)
-          "prompt" (prompt-message)
+          "overview" (overview/print-table workspace)
           "shell" (shell/start execute user-input workspace-fn workspace color-mode)
           "test" (test/run workspace unnamed-args test-result is-verbose color-mode)
           "version" (version)

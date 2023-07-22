@@ -1,14 +1,24 @@
 (ns polylith.clj.core.help.libs
      (:require [polylith.clj.core.help.shared :as s]
+               [polylith.clj.core.system.interface :as system]
                [polylith.clj.core.util.interface.color :as color]))
 
 (defn help [cm]
   (str "  Shows all libraries that are used in the workspace.\n"
        "\n"
-       "  poly libs [:all] [:compact] [:outdated]\n"
-       "    :all      = View all bricks, including those without library dependencies.\n"
-       "    :compact  = Show the table in a more compact way.\n"
-       "    :outdated = Show the latest version of each library, or blank if up to date.\n"
+       "  poly libs [:compact] [:outdated]"
+       (if system/extended?
+         (str " [out:" (s/key  "FILENAME" cm) "]\n")
+         "\n")
+       "    :compact  = Shows the table in a more compact way.\n"
+       "    :outdated = Shows the latest version of each library, or blank if up to date.\n"
+       (if system/extended?
+            (str "    out       = Creates a text or image file based on the output. If " (s/key "FILENAME" cm) "\n"
+                 "                ends with .txt, then the file will contain the output as text.\n"
+                 "                If FILENAME ends with .bmp, .wbmp, .gif, .jpeg, .jpg, .png, .tif,\n"
+                 "                or .tiff, then the file will be generated as an image.\n")
+            "")
+       "\n"
        "                                                                                 " (color/component "u  u\n" cm)
        "                                                                                 " (color/component "s  t\n" cm)
        "                                                                                 " (color/component "e  i\n" cm)
@@ -47,7 +57,18 @@
        "\n"
        "  The KB column shows the size in kilobytes, which is the size of the jar\n"
        "  file for Maven and Local dependencies, and the size of all files in the\n"
-       "  ~/.gitlibs/libs/YOUR-LIBRARY directory for Git dependencies."))
+       "  ~/.gitlibs/libs/YOUR-LIBRARY directory for Git dependencies.\n"
+       "\n"
+       "  Example:\n"
+       "    poly libs\n"
+       "    poly libs :compact\n"
+       "    poly libs :outdated"
+
+       (if system/extended?
+         (str "\n    poly libs out:libs.png"
+              "\n    poly libs out:libs.txt")
+
+         "")))
 
 (defn print-help [color-mode]
   (println (help color-mode)))

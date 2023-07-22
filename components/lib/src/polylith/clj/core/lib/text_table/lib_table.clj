@@ -1,8 +1,8 @@
 (ns polylith.clj.core.lib.text-table.lib-table
   (:require [polylith.clj.core.antq.ifc :as antq]
-            [polylith.clj.core.util.interface.str :as str-util]
+            [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.text-table.interface :as text-table]
-            [polylith.clj.core.common.interface :as common]))
+            [polylith.clj.core.util.interface.str :as str-util]))
 
 (def type->color {"component" :green
                   "base" :blue})
@@ -46,9 +46,9 @@
                        (map :type libraries))))
 
 (defn size-kb [{:keys [size]} thousand-separator]
-  (if size
-    (str-util/sep-1000 (quot size 1024) thousand-separator)
-    "-"))
+  (if (nil? size)
+    "-"
+    (str-util/sep-1000 (quot size 1024) thousand-separator)))
 
 (defn kb-cell [row library thousand-separator]
   (let [size (size-kb library thousand-separator)]
@@ -116,7 +116,7 @@
 (defn profile-lib [[_ {:keys [lib-deps]}]]
   (mapcat lib lib-deps))
 
-(defn table [{:keys [configs settings components bases projects] :as workspace} is-all is-outdated]
+(defn table [{:keys [configs settings components bases projects] :as workspace} is-outdated]
   (let [{:keys [profile-to-settings empty-character thousand-separator color-mode]} settings
         lib->latest-version (if is-outdated (antq/library->latest-version configs) {})
         entities (concat components bases projects)
@@ -127,9 +127,7 @@
                            (set (concat src-libs test-libs)))
         all-bricks (concat components bases)
         brick->libs (into {} (map brick-libs all-bricks))
-        bricks (if is-all
-                 all-bricks
-                 (filter #(-> % :name brick->libs empty? not) all-bricks))
+        bricks (filter #(-> % :name brick->libs empty? not) all-bricks)
         lib-col (lib-column libraries)
         version-col (version-column libraries)
         latest-col (when is-outdated (latest-column libraries lib->latest-version))
@@ -140,8 +138,8 @@
         n#projects (- (count projects) n#dev)
         profile-col (+ 11 (* 2 (+ n#dev n#projects)))
         profile-cols (if (zero? n#dev) [] (profile-columns profile-col libraries profile-to-settings))
-        brick-col (+ profile-col (* 2 (count profile-to-settings)))
         n#profiles (if (zero? n#dev) 0 (count profile-to-settings))
+        brick-col (+ profile-col (* 2 n#profiles))
         n#bricks (count bricks)
         brick-cols (brick-columns brick-col bricks libraries src-libs brick->libs empty-character)
         end-space-column (* 2 (+ 5 n#projects n#dev n#profiles))
@@ -153,17 +151,19 @@
                        (text-table/spaces 1 space-brick-columns (repeat space)))
         cells (text-table/merge-cells lib-col version-col latest-col type-col size-col project-cols profile-cols brick-cols spaces)
         line (text-table/line 2 cells)
+        brick-spacing (if (zero? n#bricks) -1 0)
         section1 10
         section2 (+ 10 (* 2 n#projects))
-        section3 (+ 10 (* 2 (+ n#projects n#dev n#profiles)))
+        section3 (+ 10 (* 2 (+ n#projects n#dev n#profiles brick-spacing)))
         spaces (text-table/spaces 2 [section1 section2 section3] (repeat "   "))]
     (text-table/table "  " color-mode cells line spaces)))
 
-(defn print-table [workspace is-all is-outdated]
-  (text-table/print-table (table workspace is-all is-outdated)))
+(defn print-table [workspace is-outdated]
+  (common/print-or-save-table workspace
+                              #(table % is-outdated)))
 
 (comment
   (require '[dev.jocke :as jocke])
-  (print-table jocke/workspace false false)
-  (print-table jocke/workspace false true)
+  (print-table jocke/workspace false)
+  (print-table jocke/workspace true)
   #__)

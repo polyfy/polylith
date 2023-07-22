@@ -1,0 +1,28 @@
+{:aliases  {:dev {:extra-paths ["development/src"]
+
+                  :extra-deps {poly/user {:local/root "components/user"}
+                               poly/cli  {:local/root "bases/cli"}
+
+                               org.clojure/clojure {:mvn/version "1.11.1"}}}
+
+            :test {:extra-paths ["components/user/test"
+                                 "bases/cli/test"]}
+
+            :build {:deps {org.clojure/tools.deps {:mvn/version "0.16.1281"}
+                           io.github.clojure/tools.build {:mvn/version "0.9.4"}
+                           ;; because we use log4j 2.x:
+                           io.github.seancorfield/build-uber-log4j2-handler {:git/tag "v0.1.5" :git/sha "55fb6f6"}}
+                    :paths ["build/resources"]
+                    :extra-paths ["."]
+                    :ns-default build}
+
+            :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                   :extra-deps {polyfy/polylith
+                                {:git/url   "https://github.com/polyfy/polylith"
+                                 :sha       "1b91de1cb96dd286c9f5f9bda6a97d62c40b67a7"
+                                 :deps/root "projects/poly"}}}
+            :polyx {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                    :extra-deps {polyfy/polylith
+                                 {:git/url   "https://github.com/polyfy/polylith"
+                                  :sha       "1b91de1cb96dd286c9f5f9bda6a97d62c40b67a7"
+                                  :deps/root "projects/polyx"}}}}}

@@ -1,19 +1,19 @@
-  stable since: [37me7ebe68 | stable-lisa[0m
-
-  [35mprojects:[0m 3   [33minterfaces:[0m 1
-  [34mbases:   [0m 2   [32mcomponents:[0m 2
-
-  active profiles: [35mremote[0m
-
-  project         alias   status   [35mdev[0m  [35mdefault[0m   
-  ------------------------------   ------------   
-  [35mcommand-line[0m *  [35mcl[0m      [35m -t-  [0m   [35m-t-[0m  [35m  --   [0m   
-  [35muser-service[0m *  [35muser-s[0m  [35m ---  [0m   [35m---[0m  [35m  --   [0m   
-  [35mdevelopment[0m +   [35mdev[0m     [35m s--  [0m   [35ms--[0m  [35m  --   [0m   
-
-  interface  brick           [35mcl [0m  [35muser-s[0m   [35mdev[0m  [35mdefault[0m
+  stable since: e7ebe68                                
+                                                       
+  projects: 3   interfaces: 1                          
+  bases:    2   components: 2                          
+                                                       
+  active profiles: remote                              
+                                                       
+  project         alias   status   dev  default        
+  ------------------------------   ------------        
+  command-line *  cl       -t-     -t-    --           
+  user-service *  user-s   ---     ---    --           
+  development +   dev      s--     s--    --           
+                                                       
+  interface  brick           cl   user-s   dev  default
   ------------------------   -----------   ------------
-  [33muser     [0m  [32muser[0m            [35m---[0m  [35m stx  [0m   [35m---[0m  [35m  st   [0m
-  [33muser     [0m  [32muser-remote[0m *   [35mstx[0m  [35m ---  [0m   [35mst-[0m  [35m  --   [0m
-  -          [34mcli[0m             [35mstx[0m  [35m ---  [0m   [35mst-[0m  [35m  --   [0m
-  -          [34muser-api[0m *      [35m---[0m  [35m stx  [0m   [35mst-[0m  [35m  --   [0m
+  user       user            ---   stx     ---    st   
+  user       user-remote *   stx   ---     st-    --   
+  -          cli             stx   ---     st-    --   
+  -          user-api *      ---   stx     st-    --   

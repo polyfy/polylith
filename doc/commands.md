@@ -29,7 +29,7 @@ poly help
 ```
 
 ```
-  Poly 0.2.18-issue309-04 (2023-06-20) - https://github.com/polyfy/polylith
+  Poly poly-0.2.18-issue205-01 (2023-07-14) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -99,8 +99,27 @@ poly help
     tap clean
     tap close
 
+  'poly :all' will start a shell and activate autocomplete for rarely used parameters, e.g:
+    deps out:out.txt
+    info +
+    info color-mode:none
+    info out:info.txt
+    info fake-sha:c91fdad
+    info :no-changes
+    info changed-files:components/user/
+    info changed-files:workspace.edn:components/user/myapp/user/core.clj
+    libs out:libs.txt
+    test skip:development
+    ws branch:main
+    ws replace:hello:goodbye
+
+  'poly :tap' will start a shell and open a portal window.
+
   Example:
     poly
+    poly :all
+    poly :tap
+    poly :all :tap
     poly check
     poly check :dev
     poly create c name:user
@@ -143,17 +162,16 @@ poly help
     poly info project:myproject:another-project
     poly info brick:mycomponent
     poly info brick:mycomponent:mybase
+    poly info color-mode:none
     poly info :project
     poly info :dev
     poly info :project :dev
     poly info :all
     poly info :all-bricks
     poly info ::
-    poly info color-mode:none
     poly info ws-dir:another-ws
     poly info ws-file:ws.edn
     poly libs
-    poly libs :all
     poly libs :compact
     poly libs :outdated
     poly migrate
@@ -264,10 +282,11 @@ poly help
     Triggered if a namespace in a brick doesn't start with the top namespaces
     defined in :top-namespace in ./workspace.edn.
 
-  Warning 206 - Missing or unreadable namespace in brick/project.
+  Warning 206 - Unreadable namespace in brick/project.
     Triggered if a namespace can't be parsed or found for a brick or project.
     A way to ignore this warning is to add the :ignore-files key to the brick or project
-    in workspace.edn (- will be repladec by _ in the file path), e.g.
+    in ./workspace.edn. All dashes (-) will be replaced by underscores (_).
+    Files ending with the specified path(s), prepended by a slash, will be ignored, e.g.:
     { ...
       :bricks {"mybrick" {:ignore-files ["myfile.clj"]}}
       :projects {"myproject" {:alias "mp" :ignore-files ["sub-ns/myfile.clj"]}}
@@ -377,10 +396,10 @@ poly help
 ```
   Shows dependencies.
 
-  poly deps [project:PROJECT] [brick:BRICK]
-    (omitted) = Show workspace dependencies.
-    PROJECT   = Show dependencies for specified project.
-    BRICK     = Show dependencies for specified brick.
+  poly deps [project:PROJECT] [brick:BRICK] 
+    (omitted) = Shows workspace dependencies.
+    project   = Shows dependencies for specified project.
+    brick     = Shows dependencies for specified brick.
 
   To get help for a specific diagram, type: 
     poly help deps ARGS:
@@ -529,11 +548,10 @@ poly help
   Shows workspace information.
 
   poly info [ARGS]
-    ARGS = :loc   -> Shows the number of lines of code for each brick
-                     and project.
+    ARGS = :loc  -> Shows the number of lines of code for each brick and project.
 
-  In addition to :loc, all the arguments used by the 'test' command
-  can also be used as a way to see what tests will be executed.
+  All the arguments used by the 'test' command can also be used as a way to see
+  what tests will be executed.
 
     stable since: dec73ec | stable-lisa
 
@@ -709,11 +727,13 @@ poly help
     poly info project:myproject:another-project
     poly info brick:mycomponent
     poly info brick:mycomponent:mybase
+    poly info color-mode:none
     poly info :project
     poly info :dev
     poly info :project :dev
     poly info :all
     poly info :all-bricks
+    poly info out:info.txt
     poly info ws-dir:another-ws
     poly info ws-file:ws.edn
 ```
@@ -722,10 +742,10 @@ poly help
 ```
   Shows all libraries that are used in the workspace.
 
-  poly libs [:all] [:compact] [:outdated]
-    :all      = View all bricks, including those without library dependencies.
-    :compact  = Show the table in a more compact way.
-    :outdated = Show the latest version of each library, or blank if up to date.
+  poly libs [:compact] [:outdated]
+    :compact  = Shows the table in a more compact way.
+    :outdated = Shows the latest version of each library, or blank if up to date.
+
                                                                                  u  u
                                                                                  s  t
                                                                                  e  i
@@ -765,6 +785,11 @@ poly help
   The KB column shows the size in kilobytes, which is the size of the jar
   file for Maven and Local dependencies, and the size of all files in the
   ~/.gitlibs/libs/YOUR-LIBRARY directory for Git dependencies.
+
+  Example:
+    poly libs
+    poly libs :compact
+    poly libs :outdated
 ```
 
 ### migrate
@@ -793,12 +818,32 @@ poly help
   instead of the :polylith key in ./deps which was the case prior to this version.
 ```
 
+### overview
+```
+  Shows the output from the info, deps, and libs commands, side by side.
+  This command is mainly used to generate an image for your documentation.
+
+  poly overview [:no-changes] [out:FILENAME]
+    (omitted)   = Shows the output.
+    :no-changes = Shows the output as if there were no changes in the workspace.
+    out         = Creates a text or image file based on the output.
+                  If FILENAME ends with .txt, then the file will contain
+                  the output as text. If FILENAME ends with .bmp, .wbmp, .gif,
+                  .png, .jpeg, .jpg, .png, .tif, or .tiff, then the file will be
+                  generated as an image.
+
+  Example:
+    poly overview
+    poly overview out:overview.png
+    poly overview out:overview.jpg :no-changes
+```
+
 ### shell
 ```
-  poly [shell] [:tap] [:all]
-
   Starts an interactive shell with the name of the selected workspace, e.g.:
     myworkspace$>
+
+  poly [shell] [:tap] [:all]
 
   If :tap is passed in, a Portal window that outputs tap> statements is opened.
 

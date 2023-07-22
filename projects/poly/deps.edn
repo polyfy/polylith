@@ -9,11 +9,14 @@
         poly/file                     {:local/root "../../components/file"}
         poly/git                      {:local/root "../../components/git"}
         poly/help                     {:local/root "../../components/help"}
+        poly/image-creator            {:local/root "../../components/image-creator"}
         poly/lib                      {:local/root "../../components/lib"}
         poly/migrator                 {:local/root "../../components/migrator"}
+        poly/overview                 {:local/root "../../components/overview"}
         poly/path-finder              {:local/root "../../components/path-finder"}
         poly/sh                       {:local/root "../../components/sh"}
         poly/shell                    {:local/root "../../components/shell"}
+        poly/system                   {:local/root "../../components/system"}
         poly/tap                      {:local/root "../../components/tap"}
         poly/test-runner-contract     {:local/root "../../components/test-runner-contract"}
         poly/test-runner-orchestrator {:local/root "../../components/test-runner-orchestrator"}

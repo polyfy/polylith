@@ -1,6 +1,7 @@
 (ns polylith.clj.core.common.interface
   (:require [polylith.clj.core.common.class-loader :as class-loader]
             [polylith.clj.core.common.core :as core]
+            [polylith.clj.core.common.file-output :as file-output]
             [polylith.clj.core.common.ns-extractor :as ns-extractor]
             [polylith.clj.core.common.validate-args :as validate-args]))
 
@@ -8,6 +9,9 @@
 
 (defn absolute-path [path entity-root-path]
   (core/absolute-path path entity-root-path))
+
+(defn brick-names-to-test [settings project-name all-brick-names]
+  (core/brick-names-to-test settings project-name all-brick-names))
 
 (defn color-mode [user-input]
   (core/color-mode user-input))
@@ -76,3 +80,9 @@
 (defn interface-ns? [namespace interface-ns]
   (contains? (interface-nss interface-ns)
              namespace))
+
+(defn print-or-save-table
+  ([workspace table-fn]
+   (file-output/print-or-save-table workspace table-fn nil nil))
+  ([workspace table-fn canvas-areas post-print-fn]
+   (file-output/print-or-save-table workspace table-fn canvas-areas post-print-fn)))

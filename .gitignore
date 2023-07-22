@@ -28,10 +28,13 @@
 
 artifacts
 projects/**/pom.xml
+/scripts/images/**
 /scripts/output/example/**
 /examples/doc-example/.idea/**
 /examples/local-dep/.idea/**ZZ
 /examples/local-dep-old-format/.idea/**
+/scripts/output/info.png
+/scripts/output/overview.png
 
 # clojure-lsp
 .lsp/sqlite*.db

@@ -1,5 +1,6 @@
 (ns polylith.clj.core.creator.workspace
   (:require [clojure.string :as str]
+            [polylith.clj.core.creator.shared :as shared]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.git.interface :as git]))
 
@@ -50,7 +51,7 @@
    "The Polylith documentation can be found here:"
    ""
    "- The [high-level documentation](https://polylith.gitbook.io/polylith)"
-   "- The [Polylith Tool documentation](https://polylith.gitbook.io/polylith/poly)"
+   "- The [poly tool documentation](https://polylith.gitbook.io/polylith/poly)"
    "- The [RealWorld example app documentation](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app)"
    ""
    "You can also get in touch with the Polylith Team on [Slack](https://clojurians.slack.com/archives/C013B7MQHJQ)."
@@ -77,7 +78,8 @@
 
 (defn deps-content [sha]
   [(str "{:aliases  {:dev {:extra-paths [\"development/src\"]")
-   (str "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.11.1\"}}}")
+   (str "")
+   (str "                  :extra-deps {org.clojure/clojure {:mvn/version \"" shared/clojure-ver "\"}}}")
    (str "")
    (str "            :test {:extra-paths []}")
    (str "")
@@ -85,7 +87,13 @@
    (str "                   :extra-deps {polyfy/polylith")
    (str "                                {:git/url   \"https://github.com/polyfy/polylith\"")
    (str "                                 :sha       \"" sha "\"")
-   (str "                                 :deps/root \"projects/poly\"}}}}}")])
+   (str "                                 :deps/root \"projects/poly\"}}}")
+   (str "")
+   (str "            :polyx {:main-opts [\"-m\" \"polylith.clj.core.poly-cli.core\"]")
+   (str "                    :extra-deps {polyfy/polylith")
+   (str "                                 {:git/url   \"https://github.com/polyfy/polylith\"")
+   (str "                                  :sha       \"" sha "\"")
+   (str "                                  :deps/root \"projects/polyx\"}}}}}")])
 
 (defn calva-settings-content [ws-name]
   [(str "{")

@@ -52,7 +52,7 @@
     (text-table/table "  " color-mode cells line)))
 
 (defn print-table [workspace]
-  (text-table/print-table (table workspace)))
+  (common/print-or-save-table workspace table))
 
 (comment
   (require '[dev.jocke :as dev])
