@@ -1,4 +1,4 @@
-image::images/logo.png[]
+image::images/logo.png[alt=Polylith,width=400]
 
 == Welcome to the wonderful world of Polylith!
 
