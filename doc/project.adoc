@@ -105,16 +105,8 @@ The reason all paths begin with "../../" is that _components_ and _bases_ live t
 
 The _test_ command will figure out what tests need to be executed. If you have reasons to run the tests for each project separately using _tools.deps_, then you also have to specify the test paths (as we did for the _development_ project).
 
-[Note]
 ====
-Note: All the project _deps.edn_ config files under the _projects_ directory
-      specifies what bricks to include by giving a list of _:local/root_ mappings.
-      The poly _test_ command uses this information to figure out what bricks and
-      library dependencies that should be included when executing the tests,
-      by looking into each brick's _deps.edn_ file. _tools.deps_ does not "inherit"
-      test dependencies from :local/root mappings, which is the reason we have to
-      add our dependencis as separate paths in /deps.edn to allow IDE's and other
-      tooling to work properly.
+NOTE: All the project _deps.edn_ config files under the _projects_ directory specifies what bricks to include by giving a list of _:local/root_ mappings. The poly _test_ command uses this information to figure out what bricks and library dependencies that should be included when executing the tests, by looking into each brick's _deps.edn_ file. _tools.deps_ does not "inherit" test dependencies from :local/root mappings, which is the reason we have to add our dependencis as separate paths in /deps.edn to allow IDE's and other tooling to work properly.
 ====
 
 Let's summarise where the dependencies to bricks are located:
