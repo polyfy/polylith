@@ -1,0 +1,33 @@
+{;; Parts of this script have been copied from: https://github.com/clj-commons/etaoin/blob/master/bb.edn
+
+ :min-bb-version "0.8.2"
+ :paths ["." "scripts"]
+ :deps {doric/doric {:mvn/version "0.9.0"}
+        lread/status-line {:git/url "https://github.com/lread/status-line.git"
+                           :sha "cf44c15f30ea3867227fa61ceb823e5e942c707f"}
+        dev.nubank/docopt {:mvn/version "0.6.1-fix7"}}
+ :tasks
+ {;; setup
+  :requires ([babashka.classpath :as cp]
+             [babashka.fs :as fs]
+             [clojure.string :as string]
+             [helper.shell :as shell]
+             [lread.status-line :as status])
+  :enter (let [{:keys [name]} (current-task)]
+           (when-not (string/starts-with? name "-")
+             (status/line :head "TASK %s %s" name (string/join " " *command-line-args*))))
+  :leave (let [{:keys [name]} (current-task)]
+           (when-not (string/starts-with? name "-")
+             (status/line :detail "\nTASK %s done." name)))
+
+  ;; commands
+  jar {:doc "Builds projects/poly/target/poly.jar"
+       :task (shell/command "clojure -T:build uberjar :project poly")}
+
+  poly-local {:doc "Installs the poly tool locally"
+              :depends [jar]
+              :task (shell/command "sudo cp projects/poly/target/poly.jar /usr/local/polylith/poly.jar")}
+
+  doc {:doc "preview what docs will look like on cljdoc, use --help for args"
+       :depends [jar]
+       :task cljdoc-preview/-main}}}
