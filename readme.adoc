@@ -10,7 +10,7 @@ Polylith introduces the architectural concept of “service level building block
 
 The bricks can easily be put together to form different kinds of deployable artifacts, like services, tools,  and libraries, in the same way we put together LEGO® when we were kids! Not surprisingly, it's just as simple and fun!
 
-To give you an idea of what that can look like, take a quick look at the bricks and libraries that we use to build the Polylith tool (which is itself a Polylith workspace, represented by the poly column in the first diagram and from now on we will call it the poly tool):
+To give you an idea of what that can look like, take a quick look at the projects, bricks, and libraries that we use to build the Polylith tool (which is itself a Polylith workspace, represented by the poly column in the first diagram and from now on we will call it the poly tool):
 
 image::images/overview.png[]
 
