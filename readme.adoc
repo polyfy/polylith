@@ -1,4 +1,4 @@
-image::images/logo.png[alt=Polylith,width=400]
+image::doc/images/logo.png[alt=Polylith,width=400]
 
 == Welcome to the wonderful world of Polylith!
 
@@ -12,7 +12,7 @@ The bricks can easily be put together to form different kinds of deployable arti
 
 To give you an idea of what that can look like, take a quick look at the projects, bricks, and libraries that we use to build the Polylith tool (which is itself a Polylith workspace, represented by the poly column in the first diagram and from now on we will call it the poly tool):
 
-image::images/overview.png[]
+image::doc/images/overview.png[]
 
 To better understand the principles and ideas behind this tool, we recommend you first read the https://polylith.gitbook.io[high-level documentation!]
 
@@ -40,12 +40,11 @@ Iron, Bronze, Silver, Gold, and Platinum sponsors will also be listed on the htt
 
 === Bronze Sponsors
 
-image::images/logos/scrintal.png[link=https://www.scrintal.com,alt=scrintal.com,width=200]
+image::doc/images/sponsors/scrintal.png[link=https://www.scrintal.com,alt=scrintal.com,width=200]
 
 === Iron Sponsors
 
-image::images/logos/adgoji.png[link=https://www.adgoji.com,alt=adgoji.com,width=200]
-
+image::doc/images/sponsors/adgoji.png[link=https://www.adgoji.com,alt=adgoji.com,width=200]
 
 === Polylith Super Fans
 
