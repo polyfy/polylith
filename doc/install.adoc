@@ -121,12 +121,11 @@ start /wait /b java %JAVA_OPTS% -jar "C:\Program Files\Polylith\poly-0.2.18.jar"
 
 * Add _C:\Program Files\Polylith_ to the Windows _PATH_ environment variable.
 
-Test the installation by typing poly help from the command line.
-
+Test the installation by typing _poly help_ from the command line.
 
 [Note]
 ====
-Note: The coloring of text is not supported on Windows.
+NOTE: The coloring of text is not supported on Windows.
 ====
 
 == Install via nix
@@ -176,8 +175,7 @@ Replace _INSERT_LATEST_SHA_HERE_ with a https://github.com/polyfy/polylith/commi
 
 [Note]
 ====
-Note: The master branch can sometimes be ahead of the https://github.com/polyfy/polylith/releases[latest release]. Instead of waiting for the next version to be released, you can set the latest commited SHA from the https://github.com/polyfy/polylith/commits/master[master branch] each time it updates in _./deps.edn_ (see the example above).
-
+NOTE: The master branch can sometimes be ahead of the https://github.com/polyfy/polylith/releases[latest release]. Instead of waiting for the next version to be released, you can set the latest commited SHA from the https://github.com/polyfy/polylith/commits/master[master branch] each time it updates in _./deps.edn_ (see the example above).
 This works especially well if you also start a shell from the workspace root with:
 [source,shell]
 ----
@@ -234,7 +232,8 @@ clojure -Ttools install io.github.polyfy/polylith '{:git/sha "5f74c8b8675dbb0912
 
 [Note]
 ====
-Note: do not use the _install-latest_ option to `clojure -Ttools` as it does not support _:deps/root_.
+NOTE: do not use the _install-latest_ option to `clojure -Ttools` as it does not support _:deps/root_.
+====
 
 Then we can invoke the poly tool using the CLI directly:
 
@@ -273,7 +272,8 @@ clojure -A:deps -Tpoly help/doc
 
 [Note]
 ====
-Note: the command-line argument syntax for "tool" usage follows the CLI "exec args" format which is essentially Clojure's own keyword/value syntax (it's actually read as EDN).
+NOTE: the command-line argument syntax for "tool" usage follows the CLI "exec args" format which is essentially Clojure's own keyword/value syntax (it's actually read as EDN).
+====
 
 How to use the _poly_ command as a tool is described in the Clojure CLI Tool section. The official documentation can be found https://clojure.org/reference/deps_and_cli#tool_install[here].
 
