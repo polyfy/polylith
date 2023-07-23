@@ -1,0 +1,123 @@
+= Project
+
+There are two kinds of projects in Polylith: development and deployable.
+
+* The _development_ project:
+- This is where we work with the code, often from a REPL.
+- It contains all components, bases in the workspace, and project level libraries, which is specified in _./deps.edn_.
+- If we have any profiles then they are defined in _./deps.edn_.
+- Any extra code, that is not part of a component or base, lives under the _development_ directory.
+
+* Any deployable project:
+- Used to build deployable artifacts, e.g.: lambda functions, REST API's, tools, and more.
+- Lives under the _projects_ directory where each project has its own directory.
+- Has a _deps.edn_ config file that specifies which libraries, component and bases that are included.
+- Can optionally have a _resources_ directory.
+- If the base (we often have only one base per project) and the components that belong to it contain any tests, then they will be run when we execute the test command.
+- If it has any tests of its own, they will live in the _test_ directory, e.g. _projects/my-project/test_.
+- It's discouraged to have a _src_ directory since all production code should normally only live in components and bases.
+
+The _:project_ key in _./workspace.edn_ configures which alias each project has and optionally how the tests should be run (covered in the testing section).
+
+Let's create a project, by executing the create project command:
+
+[source,shell]
+----
+poly create project name:command-line
+----
+
+Our workspace should now look like this:
+
+[source,shell]
+----
+example
+├── bases
+│   └── cli
+│       ├── deps.edn
+│       ├── resources
+│       │   └── cli
+│       ├── src
+│       │   └── se
+│       │       └── example
+│       │           └── cli
+│       │               └── core.clj
+│       └── test
+│           └── se
+│               └── example
+│                   └── cli
+│                       └── core_test.clj
+├── components
+│   └── user
+│       ├── deps.edn
+│       ├── resources
+│       │   └── user
+│       ├── src
+│       │   └── se
+│       │       └── example
+│       │           └── user
+│       │               ├── core.clj
+│       │               └── interface.clj
+│       └── test
+│           └── se
+│               └── example
+│                   └── user
+│                       └── interface_test.clj
+├── deps.edn
+├── development
+│   └── src
+│       └── dev
+│           └── lisa.clj
+├── logo.png
+├── projects
+│   └── command-line
+│       └── deps.edn
+├── readme.md
+└── workspace.edn
+----
+
+The tool also reminds us of this:
+
+[source,shell]
+----
+  It's recommended to add an alias to :projects in ./workspace.edn for the command-line project.
+----
+
+If we don't add the alias to _workspace.edn_, the project heading will show up as _?1_ when we execute the _info_ command, so let's add it:
+
+[source,clojure]
+----
+  {...
+   :projects {"development" {:alias "dev"}
+              "command-line" {:alias "cl"}}}
+----
+
+Now add user and cli to projects/command-line/deps.edn:
+
+[source,clojure]
+----
+{:deps {poly/user {:local/root "../../components/user"}
+        poly/cli  {:local/root "../../bases/cli"}
+
+        org.clojure/clojure {:mvn/version "1.11.1"}}
+----
+
+The reason all paths begin with "../../" is that _components_ and _bases_ live two levels up compared to _projects/command-line_ and not at the root as with the _development_ project.
+
+The _test_ command will figure out what tests need to be executed. If you have reasons to run the tests for each project separately using _tools.deps_, then you also have to specify the test paths (as we did for the _development_ project).
+
+[Note]
+====
+Note: All the project _deps.edn_ config files under the _projects_ directory
+      specifies what bricks to include by giving a list of _:local/root_ mappings.
+      The poly _test_ command uses this information to figure out what bricks and
+      library dependencies that should be included when executing the tests,
+      by looking into each brick's _deps.edn_ file. _tools.deps_ does not "inherit"
+      test dependencies from :local/root mappings, which is the reason we have to
+      add our dependencis as separate paths in /deps.edn to allow IDE's and other
+      tooling to work properly.
+====
+
+Let's summarise where the dependencies to bricks are located:
+
+* The dev project: _./deps.edn_ > _:aliases_ > _:dev_ > _:extra-deps_
+* Other projects: _projects/PROJECT-DIR_ > _deps.edn_ > _:deps_
