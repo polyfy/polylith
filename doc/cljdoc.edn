@@ -1,2 +1,9 @@
 {:cljdoc.doc/tree [["Readme" {:file "readme.adoc"}]
-                   ["Install" {:file "doc/install.adoc"}]]}
+                   ["Install" {:file "doc/install.adoc"}]
+                   ["Upgrade" {:file "doc/upgrade.adoc"}]
+                   ["Migrate" {:file "doc/migrate.adoc"}]
+                   ["Example systems" {:file "doc/example-systems.adoc"}]
+                   ["Workspace" {:file "doc/workspace.adoc"}]
+                   ["Development" {:file "doc/development.adoc"}]
+                   ["Component" {:file "doc/component.adoc"}]
+                   ["Interface" {:file "doc/interface.adoc"}]]}

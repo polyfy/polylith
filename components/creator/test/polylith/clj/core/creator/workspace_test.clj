@@ -119,13 +119,7 @@
             "                   :extra-deps {polyfy/polylith"
             "                                {:git/url   \"https://github.com/polyfy/polylith\""
             "                                 :sha       \"SHA\""
-            "                                 :deps/root \"projects/poly\"}}}"
-            ""
-            "            :polyx {:main-opts [\"-m\" \"polylith.clj.core.poly-cli.core\"]"
-            "                    :extra-deps {polyfy/polylith"
-            "                                 {:git/url   \"https://github.com/polyfy/polylith\""
-            "                                  :sha       \"SHA\""
-            "                                  :deps/root \"projects/polyx\"}}}}}"]))
+            "                                 :deps/root \"projects/poly\"}}}}}"]))
 
     (is (= (helper/content "ws1" ".vscode/settings.json")
            ["{"

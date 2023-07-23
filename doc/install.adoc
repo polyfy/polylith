@@ -1,17 +1,17 @@
 = Install
 
-There are several ways to install the poly tool, which determines how the `poly` tool will be executed:
+There are several ways to install the poly tool, which determines how the _poly_ tool will be executed:
 
 1. As a stand-alone command line tool, executed as a Java program, e.g. `poly info`:
-- The `poly` tool can be executed from any directory.
+- The _poly_ tool can be executed from any directory.
 - A script named  poly is installed on your local disk and added to the system path, with a content like this: `java -jar poly.jar`
 
 2. By the https://clojure.org/guides/deps_and_cli[Clojure CLI], e.g. `clojure -M:poly info`:
-- The `poly` tool can only be executed from inside a Polylith workspace directory (it uses the `:poly` alias in `deps.edn`).
-- Which version of the poly tool to use can easily be selected by changing the SHA in `deps.edn`.
+- The _poly_ tool can only be executed from inside a Polylith workspace directory (it uses the _:poly_ alias in _deps.edn_).
+- Which version of the poly tool to use can easily be selected by changing the SHA in _deps.edn_.
 
 3. As a https://clojure.org/reference/deps_and_cli#tool_install[Clojure CLI tool], e.g. `clojure -Tpoly info`:
-- The `poly` tool can be executed from any directory.
+- The _poly_ tool can be executed from any directory.
 - Different versions of the poly tool can easily be installed and switched to.
 - It doesn't follow the poly way of passing in arguments, which is described here.
 
@@ -23,7 +23,7 @@ Now it's time to install the `poly` tool, so please follow the installation inst
 
 To use the poly tool and to get access to all the features in tools.deps, make sure you have https://clojure.org/guides/getting_started[CLI tools] and https://git-scm.com/book/en/v2/Getting-Started-Installing-Git[git] installed. If you install git for the first time, don't forget to set the https://docs.github.com/en/github/using-git/setting-your-username-in-git[user] name and email.
 
-To install the `poly` command on Mac, execute:
+To install the _poly_ command on Mac, execute:
 
 [source,shell]
 ----
@@ -42,12 +42,12 @@ Verify the installation by executing `poly help`.
 
 To use the poly tool and to get access to all the features in tools.deps, make sure you have https://clojure.org/guides/getting_started[CLI tools] and https://git-scm.com/book/en/v2/Getting-Started-Installing-Git[git] installed. If you install git for the first time, don't forget to set the https://docs.github.com/en/github/using-git/setting-your-username-in-git[user] name and email.
 
-To install the `poly` command on Linux:
+To install the _poly_ command on Linux:
 
-* Download the https://github.com/polyfy/polylith/releases/latest[latest release] of the `poly` jar,
-e.g. `poly-0.2.18.jar`.
-* Create a directory, e.g. `/usr/local/polylith` and copy the jar file to that directory.
-* Create a file with the name `poly` and put it in e.g. `/usr/local/bin` with this content:
+* Download the https://github.com/polyfy/polylith/releases/latest[latest release] of the _poly_ jar,
+e.g. _poly-0.2.18.jar_.
+* Create a directory, e.g. _/usr/local/polylith_ and copy the jar file to that directory.
+* Create a file with the name _poly_ and put it in e.g. _/usr/local/bin_ with this content:
 
 [source,shell]
 ----
@@ -64,8 +64,8 @@ exec "/usr/bin/java" $JVM_OPTS "-jar" "/usr/local/polylith/poly-0.2.17-alpha.jar
 
 * Make sure that:
 - You point to the correct jar file.
-- The path to `java` is correct (can be verified with `which java`).
-* If you choose `/usr/local/bin`, it was probably already on your path, otherwise you have to add it.
+- The path to _java_ is correct (can be verified with `which java`).
+* If you choose _/usr/local/bin_, it was probably already on your path, otherwise you have to add it.
 * Make it executable by executing `chmod +x poly`.
 
 Verify the installation by executing `poly help`.
@@ -74,7 +74,7 @@ Verify the installation by executing `poly help`.
 
 To use the poly tool and to get access to all the features in tools.deps, make sure you have https://clojure.org/guides/getting_started[CLI tools] and https://git-scm.com/book/en/v2/Getting-Started-Installing-Git[git] installed. If you install git for the first time, don't forget to set the https://docs.github.com/en/github/using-git/setting-your-username-in-git[user] name and email.
 
-If you got this error when installing `clj`:
+If you got this error when installing _clj_:
 
 [source,shell]
 ----
@@ -105,13 +105,13 @@ see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ----
 
-To install the `poly` command on Windows:
+To install the _poly_ command on Windows:
 
 * Download the latest release of the poly jar,
-e.g. `poly-0.2.18.jar`.
-* Create the `Polylith` directory somewhere on your machine, e.g.
-`C:\Program Files\Polylith` and copy the jar file to that directory.
-* Create the file `poly.bat with this content (make sure you point to the jar):
+e.g. _poly-0.2.18.jar_.
+* Create the _Polylith_ directory somewhere on your machine, e.g.
+_C:\Program Files\Polylith_ and copy the jar file to that directory.
+* Create the file _poly.bat_ with this content (make sure you point to the jar):
 
 [source,shell]
 ----
@@ -119,7 +119,7 @@ e.g. `poly-0.2.18.jar`.
 start /wait /b java %JAVA_OPTS% -jar "C:\Program Files\Polylith\poly-0.2.18.jar" %*
 ----
 
-* Add `C:\Program Files\Polylith` to the Windows `PATH` environment variable.
+* Add _C:\Program Files\Polylith_ to the Windows _PATH_ environment variable.
 
 Test the installation by typing poly help from the command line.
 
@@ -142,7 +142,7 @@ nix-env -iA 'nixos.polylith'
 
 == Use as dependency
 
-An alternative way of executing the `poly` tool is to specify it as a dependency, by giving a commit SHA. To use it this way, add one of the following aliases to the `:aliases` section in your `./deps.edn`:
+An alternative way of executing the _poly_ tool is to specify it as a dependency, by giving a commit SHA. To use it this way, add one of the following aliases to the _:aliases_ section in your _./deps.edn_:
 
 * Via Clojars:
 
@@ -172,11 +172,11 @@ An alternative way of executing the `poly` tool is to specify it as a dependency
 }
 ----
 
-Replace `INSERT_LATEST_SHA_HERE` with a https://github.com/polyfy/polylith/commits/master[commit SHA] from the Polylith repository (e.g. the latest).
+Replace _INSERT_LATEST_SHA_HERE_ with a https://github.com/polyfy/polylith/commits/master[commit SHA] from the Polylith repository (e.g. the latest).
 
 [Note]
 ====
-Note: The master branch can sometimes be ahead of the https://github.com/polyfy/polylith/releases[latest release]. Instead of waiting for the next version to be released, you can set the latest commited SHA from the https://github.com/polyfy/polylith/commits/master[master branch] each time it updates in `./deps.edn` (see the example above).
+Note: The master branch can sometimes be ahead of the https://github.com/polyfy/polylith/releases[latest release]. Instead of waiting for the next version to be released, you can set the latest commited SHA from the https://github.com/polyfy/polylith/commits/master[master branch] each time it updates in _./deps.edn_ (see the example above).
 
 This works especially well if you also start a shell from the workspace root with:
 [source,shell]
@@ -192,13 +192,13 @@ Once we have added one of the aliases above, we can now use the poly tool from t
 clojure -M:poly version
 ----
 
-We will soon create our first _workspace_ but before that is done, only the `version`, `help`, and `create workspace` commands will work.
+We will soon create our first _workspace_ but before that is done, only the _version_, _help_, and _create workspace_ commands will work.
 
 == Polylith as a library
 
-If you are building tooling around Polylith, then you can use the `clj-api` library, which contains what's in `poly` except the command line functionality. It also includes an `api` component to simplify accessing the workspace structure and to retrieve which projects to deploy.
+If you are building tooling around Polylith, then you can use the _clj-api_ library, which contains what's in _poly_ except the command line functionality. It also includes an _api_ component to simplify accessing the workspace structure and to retrieve which projects to deploy.
 
-You can add `clj-api` as a dependency to a `:deps` section in your `deps.edn` file (make sure to use the https://github.com/polyfy/polylith/releases[latest] release):
+You can add _clj-api_ as a dependency to a _:deps_ section in your _deps.edn_ file (make sure to use the https://github.com/polyfy/polylith/releases[latest] release):
 
 [source,shell]
 ----
@@ -214,11 +214,11 @@ polylith/clj-api {:git/url   "https://github.com/polyfy/polylith.git"
 :deps/root "projects/api"}
 ----
 
-...and remember to set the `:sha` to an existing https://github.com/polyfy/polylith/commits/master[SHA].
+...and remember to set the _:sha_ to an existing https://github.com/polyfy/polylith/commits/master[SHA].
 
 == Install as Clojure CLI Tool
 
-If we are using a recent version of the https://clojure.org/releases/tools[Clojure CLI] -- 1.10.3.933 or later -- we can install `poly` as a "tool":
+If we are using a recent version of the https://clojure.org/releases/tools[Clojure CLI] -- 1.10.3.933 or later -- we can install _poly_ as a "tool":
 
 [source,shell]
 ----
@@ -234,7 +234,7 @@ clojure -Ttools install io.github.polyfy/polylith '{:git/sha "5f74c8b8675dbb0912
 
 [Note]
 ====
-Note: do not use the `install-latest` option to `clojure -Ttools` as it does not support `:deps/root`.
+Note: do not use the _install-latest_ option to `clojure -Ttools` as it does not support _:deps/root_.
 
 Then we can invoke the poly tool using the CLI directly:
 
@@ -257,7 +257,7 @@ Installed versions can be listed with:
 clojure -Ttools list
 ----
 
-...or the shorter (`clojure` can often be replaced with `clj`):
+...or the shorter (_clojure_ can often be replaced with _clj_):
 
 [source,shell]
 ----
@@ -275,13 +275,13 @@ clojure -A:deps -Tpoly help/doc
 ====
 Note: the command-line argument syntax for "tool" usage follows the CLI "exec args" format which is essentially Clojure's own keyword/value syntax (it's actually read as EDN).
 
-How to use the `poly` command as a tool is described in the Clojure CLI Tool section. The official documentation can be found https://clojure.org/reference/deps_and_cli#tool_install[here].
+How to use the _poly_ command as a tool is described in the Clojure CLI Tool section. The official documentation can be found https://clojure.org/reference/deps_and_cli#tool_install[here].
 
 == JVM options
 
-If we want to add extra memory to the `poly` command or maybe specify where the configuration file for the logging is stored, then we can set the `JVM_OPTS` environment variable to do that, because `JVM_OPTS` is also passed in when executing the `poly` command.
+If we want to add extra memory to the _poly_ command or maybe specify where the configuration file for the logging is stored, then we can set the _JVM_OPTS_ environment variable to do that, because _JVM_OPTS_ is also passed in when executing the _poly_ command.
 
-If we use the tools.deps CLI to execute the `poly` command, e.g. `clojure -M:poly test`, we can configure the logging in the `:poly` alias in `./deps.edn` for the project, e.g.:
+If we use the tools.deps CLI to execute the _poly_ command, e.g. `clojure -M:poly test`, we can configure the logging in the _:poly_ alias in _./deps.edn_ for the project, e.g.:
 
 [source,clojure]
 ----
