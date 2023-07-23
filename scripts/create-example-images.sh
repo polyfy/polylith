@@ -17,7 +17,7 @@ root=$(cd ../ && pwd)
 scripts=$(pwd)
 examples=$root/examples
 output=$scripts/output
-images=$scripts/images
+images=$root/doc/images
 sections=$scripts/sections
 ws=$(mktemp -d -t polylith-ws-$(date +%Y-%m-%d-%H%M%S))
 ws1=$(mktemp -d -t polylith-ws1-$(date +%Y-%m-%d-%H%M%S))
@@ -59,7 +59,7 @@ cp $sections/component/user-core.clj components/user/src/se/example/user/core.cl
 git add components/user/src/se/example/user/core.clj
 cp $sections/component/user-interface.clj components/user/src/se/example/user/interface.clj
 cp $sections/component/deps.edn .
-poly info fake-sha:c91fdad out:$images/component-info.png
+poly info fake-sha:c91fdad out:$images/component/info.png
 
 echo "### 4/56 Base ###"
 poly create b name:cli
