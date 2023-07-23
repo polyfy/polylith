@@ -1,0 +1,17 @@
+= Upgrade
+
+To upgrade the _poly_ tool on Mac, execute (this assumes you have it installed already):
+
+[source,shell]
+----
+brew upgrade poly
+----
+
+...or use the full path (if needed):
+
+[source,shell]
+----
+brew upgrade polyfy/polylith/poly
+----
+
+To upgrade on Windows and Linux: download the https://github.com/polyfy/polylith/releases/latest[latest release] and replace the poly jar (e.g. poly-0.2.18.jar).

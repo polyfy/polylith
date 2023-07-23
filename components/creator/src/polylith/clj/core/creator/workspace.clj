@@ -87,13 +87,7 @@
    (str "                   :extra-deps {polyfy/polylith")
    (str "                                {:git/url   \"https://github.com/polyfy/polylith\"")
    (str "                                 :sha       \"" sha "\"")
-   (str "                                 :deps/root \"projects/poly\"}}}")
-   (str "")
-   (str "            :polyx {:main-opts [\"-m\" \"polylith.clj.core.poly-cli.core\"]")
-   (str "                    :extra-deps {polyfy/polylith")
-   (str "                                 {:git/url   \"https://github.com/polyfy/polylith\"")
-   (str "                                  :sha       \"" sha "\"")
-   (str "                                  :deps/root \"projects/polyx\"}}}}}")])
+   (str "                                 :deps/root \"projects/poly\"}}}}}")])
 
 (defn calva-settings-content [ws-name]
   [(str "{")

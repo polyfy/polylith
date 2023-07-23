@@ -1,0 +1,206 @@
+= Component
+
+Now when we have a working development environment, let's continue and create our first component. But before we do that, open _workspace.edn_ in a text editor and set _:auto-add_ to true:
+
+[source,clojure]
+----
+...
+ :vcs {:name "git"
+       :auto-add true}
+...
+----
+
+By doing this, we want to ensure that the created files and directories from the create _command_ is also committed to git, which will come in handy in this example.
+
+== How to execute commands
+
+Before we continue with creating a component, let's say a few words about the different ways of executing commands. We have described three ways already, e.g.:
+
+1. `poly info` - using the compiled version of the tool.
+
+2. `clojure -M:poly info` - using Clojure CLI from the workspace directory.
+
+3. `clojure -Tpoly info` - as a Clojure CLI Tool
+
+All the documentation refers to the first form, even though the other two are also valid. There is also a fourth way, and that is to execute the command from a shell. We can start an interactive shell by leaving out the (info) command:
+
+1. `poly`
+
+2. `clojure -M:poly`
+
+3. `clojure -T:poly`
+
+image::images/component/start-a-shell.png[alt=Start a shell,width=600]
+
+From here it's enough to enter the name of the command, e.g.:
+
+image::images/component/shell-info.png[alt=Start a shell,width=600]
+
+This way of executing commands is the most convenient way in most cases, because it gives us instant feedback, history, and autocomplete. Feel free to use the shell from now on. It will make you more productive and enhances the development experience!
+
+Now let's continue with our example by executing the create component command:
+
+[source,shell]
+----
+poly create component name:user
+----
+
+Our workspace will now look like this:
+
+[source,shell]
+----
+example
+├── bases
+│   └── .keep
+├── components
+│   └── user
+│       ├── deps.edn
+│       ├── resources
+│       │   └── user
+│       │       └── .keep
+│       ├── src
+│       │   └── se
+│       │       └── example
+│       │           └── user
+│       │               └── interface.clj
+│       └── test
+│           └── se
+│               └── example
+│                   └── user
+│                       └── interface_test.clj
+├── deps.edn
+├── development
+│   └── src
+│       └── dev
+│           └── lisa.clj
+├── logo.png
+├── projects
+│   └── .keep
+├── readme.md
+└── workspace.edn
+----
+
+The command also printed out this message:
+
+[source,shell]
+----
+  Remember to add :local/root dependencies to dev and project 'deps.edn' files.
+----
+
+This was a reminder for us to add the component to _deps.edn_. If we don't, then _tools.deps_ and the development environment will not recognize our newly created component, which would be a pity! The tool leaves this task to you as a developer, with the idea to give you as much control as possible (files are only edited by you, not by the tool).
+
+Let's continue by adding the user component to _deps.edn_:
+
+[source,clojure]
+----
+{:aliases  {:dev {:extra-paths ["development/src"]
+
+                  :extra-deps {poly/user {:local/root "components/user"}
+
+                               org.clojure/clojure {:mvn/version "1.11.1"}}}
+
+            :test {:extra-paths ["components/user/test"]}
+----
+
+All keys must be unique, and a good pattern is to prefix them with _poly/_ followed by the brick name, e.g. _poly/user_ as in this case.
+
+Adding the component to _:extra-deps_ should now be supported by all the main IDE's, https://github.com/clojure-emacs/cider[Cider], https://marketplace.visualstudio.com/items?itemName=betterthantomorrow.calva[Calva] or  https://cursive-ide.com/[Cursive]. Cursive users have to use _1.13.0_ or later for this to work.
+
+If your IDE doesn't support this, then you have to add the component paths instead:
+
+[source,clojure]
+----
+ :aliases  {:dev {:extra-paths ["development/src"
+                                "components/user/src"
+                                "components/user/resources"]
+
+            :test {:extra-paths ["components/user/test"]}
+----
+
+Here are some of the benefits of adding bricks as dependencies instead of paths:
+
+* It's more readable
+
+* We don't have to duplicate the bricks library dependencies in _./deps.edn_.
+
+* It's consistent with how projects are specified.
+
+* You can add or remove the _resources_ directory from a brick, without updating _./deps.edn_.
+
+You can have a look in the RealWorld example app on how to configure _./deps.edn_ as https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/master/deps.edn[extra-deps] or https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/e6f7f200bc46e4e2595e123947eec442ad91c9ab/deps.edn[extra-paths].
+
+Now we may need to refresh our IDE, by clicking this link, or the icon we used before:
+
+image::images/component/cursive-import-changes.png[alt=Start a shell,width=400]
+
+The component also has its own _deps.edn_ file that looks like this:
+
+[source,clojure]
+----
+{:paths ["src" "resources"]
+ :deps {}
+ :aliases {:test {:extra-paths ["test"]
+                  :extra-deps {}}}}
+----
+
+It specifies that it has a _src_, _resources_ and _test_ directory.
+
+The component was created with a _resources_ directory:
+
+[source,shell]
+----
+example
+├── components
+│   └── user
+│       ├── resources
+│       │   └── user
+----
+
+This directory contains a _user_ directory, which is the name of the component's interface and is the place where we put our resources, e.g. _user/mydata.edn_. The reason we namespace the resource files is to avoid name collisions between files that live in different components and bases and is why we should avoid putting files directly under resources.
+
+
+If the resources directory is not needed, it can be deleted and removed from the corresponding _deps.edn_ file. It has some value to keep it though, to avoid the risk of someone adding it again in the future without the _user_ subdirectory (in this case).
+
+Let's continue by executing the info command:
+
+[source,shell]
+----
+poly info
+----
+
+image::images/component/info.png[alt=Output from the info command,width=350]
+
+This tells us that we have one _development_ project, one _user_ component and one _user_ interface but no base (yet). Components and bases are referred to as _bricks_ (we will soon explain what a base is). The cryptic _s--_ and _st-_ will be described in the flags section.
+
+If your colors don't look as nice as this, then you can visit the colors section.
+
+== Add implementation
+
+Now, let's add the _core_ namespace to _user_:
+
+image::images/component/add-user-namespaces.png[alt=Start a shell,width=350]
+
+...and change it to:
+
+[source,clojure]
+----
+(ns se.example.user.core)
+
+(defn hello [name]
+  (str "Hello " name "!"))
+----
+
+...and update the _interface_ to:
+
+[source,clojure]
+----
+(ns se.example.user.interface
+  (:require [se.example.user.core :as core]))
+
+(defn hello [name]
+  (core/hello name))
+----
+
+Here we delegate the incoming call to the implementing _core_ namespace, which is the most common way of structuring components in Polylith.
+
+Here we put all our implementing code in one single namespace, but as the codebase grows, more namespaces can be added to the component when needed. The implementing _core_ namespace can be renamed to something else, but here we choose to keep it as it is.
