@@ -1,0 +1,107 @@
+= Base
+
+A _base_ is similar to a _component_ except for two things:
+
+* It doesn't have an _interface_.
+
+* It exposes a public API to the outside world.
+
+The lack of an _interface_ makes bases less composable compared to components. This is okay because they serve a different purpose which is to be a bridge between the real world and the components the base delegates to. This gives us the modularity and structure we need to build simple and understandable services and tools.
+
+Let's create the _cli_ base to see how it works, by executing the create base command:
+
+[source,shell]
+----
+poly create base name:cli
+----
+
+Our workspace should now look like this:
+
+[source,shell]
+----
+example
+├── bases
+│   └── cli
+│       ├── deps.edn
+│       ├── resources
+│       │   └── cli
+│       ├── src
+│       │   └── se
+│       │       └── example
+│       │           └── cli
+│       │               └── core.clj
+│       └── test
+│           └── se
+│               └── example
+│                   └── cli
+│                       └── core_test.clj
+├── components
+│   └── user
+│       ├── deps.edn
+│       ├── resources
+│       │   └── user
+│       ├── src
+│       │   └── se
+│       │       └── example
+│       │           └── user
+│       │               ├── core.clj
+│       │               └── interface.clj
+│       └── test
+│           └── se
+│               └── example
+│                   └── user
+│                       └── interface_test.clj
+├── deps.edn
+├── development
+│   └── src
+│       └── dev
+│           └── lisa.clj
+├── logo.png
+├── projects
+├── readme.md
+└── workspace.edn
+----
+
+Now we need to update _./deps.edn_ with our newly created base:
+
+[source,clojure]
+----
+ :aliases  {:dev {:extra-paths ["development/src"]
+
+                  :extra-deps {poly/user {:local/root "components/user"}
+                               poly/cli  {:local/root "bases/cli"
+
+                               org.clojure/clojure {:mvn/version "1.11.1"}}}
+
+            :test {:extra-paths ["components/user/test"
+                                 "bases/cli/test"]}
+----
+
+Now let's add some code to the base:
+
+[source,clojure]
+----
+(ns se.example.cli.core
+  (:require [se.example.user.interface :as user])
+  (:gen-class))
+
+(defn -main [& args]
+  (println (user/hello (first args)))
+  (System/exit 0))
+----
+
+Here we added the _-main_ function that will later be called from the command line. The https://clojuredocs.org/clojure.core/gen-class[:gen-class] statement tells the compiler to generate a Java class for us when the code is compiled.
+
+A deps.edn file was also created with this content:
+
+[source,clojure]
+----
+{:paths ["src" "resources"]
+ :deps {}
+ :aliases {:test {:extra-paths ["test"]
+                  :extra-deps {}}}}
+----
+
+This config file is identical to the _user _config file, and will soon be needed again when we create a project that includes it.
+
+The next thing we want to do is to build an artifact that will turn the code into something useful, a command-line tool. To do that, we need to start by creating a project.
