@@ -159,7 +159,7 @@ An alternative way of executing the `poly` tool is to specify it as a dependency
 
 * Via GitHub:
 
-[source,shell]
+[source,clojure]
 ----
 {
 ...
@@ -283,7 +283,7 @@ If we want to add extra memory to the `poly` command or maybe specify where the 
 
 If we use the tools.deps CLI to execute the `poly` command, e.g. `clojure -M:poly test`, we can configure the logging in the `:poly` alias in `./deps.edn` for the project, e.g.:
 
-[source,shell]
+[source,clojure]
 ----
 {:aliases  {...
             :poly {...
