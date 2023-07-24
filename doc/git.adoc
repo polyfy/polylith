@@ -60,6 +60,7 @@ bases/cli/deps.edn
 bases/cli/resources/cli/.keep
 bases/cli/src/se/example/cli/core.clj
 bases/cli/test/se/example/cli/core_test.clj
+build.clj
 components/user/deps.edn
 components/user/resources/user/.keep
 components/user/src/se/example/user/core.clj

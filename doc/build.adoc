@@ -16,6 +16,7 @@ Now add the _:uberjar_ alias to _projects/command-line/deps.edn_:
 ----
 {...
  :aliases {:test {...}
+
            :uberjar {:main se.example.cli.core}}}
 ----
 
@@ -24,20 +25,19 @@ Also add the _:build_ alias to _./deps.edn_:
 [source,clojure]
 ----
 {:aliases {...
-            :build {:deps {org.clojure/tools.deps {:mvn/version "0.16.1281"}
-                           io.github.clojure/tools.build {:mvn/version "0.9.4"}
-                           ;; because we use log4j 2.x:
-                           io.github.seancorfield/build-uber-log4j2-handler {:git/tag "v0.1.5" :git/sha "55fb6f6"}}
-                    :paths ["build/resources"]
-                    :extra-paths ["."]
-                    :ns-default build}
+           :build {:deps {org.clojure/tools.deps {:mvn/version "0.16.1281"}
+                          io.github.clojure/tools.build {:mvn/version "0.9.4"}
+                          ;; because we use log4j 2.x:
+                          io.github.seancorfield/build-uber-log4j2-handler {:git/tag "v0.1.5" :git/sha "55fb6f6"}}
+                   :paths ["build/resources"]
+                   :ns-default build}}
 ----
 
 Now select the _build_ alias and refresh the IDE:
 
-image::images/build/aliases.png[alt=Select build alias,width=250]
+image::images/build/aliases.png[alt=Select build alias,width=400]
 
-Also add "build" to Aliases in the REPL settings + restart the REPL:
+Also add "build" to Options in the REPL settings + restart the REPL:
 
 image::images/build/add-build-to-repl-settings.png[alt=Select build alias,width=600]
 

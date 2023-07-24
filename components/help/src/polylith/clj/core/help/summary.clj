@@ -88,6 +88,7 @@
     "    info color-mode:none\n"
     "    info out:info.txt\n"
     "    info fake-sha:c91fdad\n"
+    "    info fake-tag:stable-me\n"
     "    info :no-changes\n"
     "    info changed-files:components/user/\n"
     "    info changed-files:workspace.edn:components/user/myapp/user/core.clj\n"

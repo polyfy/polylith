@@ -23,7 +23,7 @@
       change/with-changes))
 
 (defn run-cmd [ws-dir cmd & args]
-  (let [input (user-input/extract-params (concat [cmd] args [(str "ws-dir:" ws-dir) "fake-sha:1234567" "color-mode:none"]))]
+  (let [input (user-input/extract-params (concat [cmd] args [(str "ws-dir:" ws-dir) "fake-sha:1234567" "fake-tag:" "color-mode:none"]))]
     (str/split-lines
       (with-out-str
         (-> input command/execute-command)))))

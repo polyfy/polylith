@@ -9,7 +9,7 @@ The way we mark a stable point in time is to tag it with git (-f tells git to re
 git tag -f stable-lisa
 ----
 
-image::images/build/aliases.png[alt=Select build alias,width=250]
+image::images/tagging/info-01.png[alt=Select build alias,width=400]
 
 If we now run `git log --pretty=oneline` again:
 
@@ -37,13 +37,6 @@ The pattern is configured in _workspace.edn_ and can be changed if we prefer som
 ----
  :tag-patterns {:stable "stable-*"
                 :release "v[0-9]*"}
-----
-
-An alternative to tag patterns is to give a git SHA, where the first few letters is enough as long as they are unique (but let's not do that now):
-
-[source,shell]
-----
-git tag -f stable-lisa c91fdad
 ----
 
 The way the tool finds the latest tag is to execute this command internally:
@@ -100,6 +93,11 @@ image::images/tagging/info-03.png[alt=info since:relese,width=400]
 ----
 
 If we execute:
+
+[source,shell]
+----
+poly info since:previous-release
+----
 
 image::images/tagging/info-04.png[alt=info since:relese,width=400]
 

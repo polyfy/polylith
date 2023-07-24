@@ -57,6 +57,7 @@
                 file
                 project
                 fake-sha
+                fake-tag
                 get
                 interface
                 name
@@ -94,6 +95,7 @@
                       :dir dir
                       :file file
                       :fake-sha fake-sha
+                      :fake-tag fake-tag
                       :interface interface
                       :is-commit (= "true" commit!)
                       :is-tap (= "true" tap!)
