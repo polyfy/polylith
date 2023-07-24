@@ -1,14 +1,15 @@
 (ns polylith.clj.core.help.summary
-  (:require [polylith.clj.core.help.shared :as s]
+  (:require [clojure.string :as str]
+            [polylith.clj.core.help.shared :as s]
             [polylith.clj.core.system.interface :as system]
             [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.util.interface.color :as color]))
 
 (defn help-text [show-migrate? extended? cm]
   (str
-    "  Poly " version/name " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
+    "  " (str/capitalize version/tool) " " version/name " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
     "\n"
-    "  poly " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] - where " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] are:\n"
+    "  " version/tool " " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] - where " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] are:\n"
     "\n"
     "    check [" (s/key "ARG" cm) "]                 Checks if the workspace is valid.\n"
     "    create " (s/key "E" cm) " name:" (s/key "N" cm) " [" (s/key "ARG" cm) "]       Creates a component, base, project or workspace.\n"

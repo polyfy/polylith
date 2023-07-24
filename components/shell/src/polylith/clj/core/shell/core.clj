@@ -26,7 +26,7 @@
   (println (str (color/grey color-mode "#####") "   _ __  ___| |_  _| |-| |_| |_"));
   (println (str (color/green color-mode "#####") "  | '_ \\/ _ \\ | || | | |  _| ' \\"));
   (println (str (color/blue color-mode "#####") "  | .__/\\___/_|\\_, |_|_|\\__|_||_|"));
-  (println (str "       |_|          |__/ " version/name)))
+  (println (str "       |_|          |__/ " version/tool " " version/name)))
 
 (defn enhance [user-input dir file]
    (assoc user-input :is-shell true

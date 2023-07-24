@@ -37,7 +37,7 @@
   (help/print-help cmd ent is-all is-show-project is-show-brick is-show-workspace toolsdeps1? color-mode))
 
 (defn version []
-  (println (str "  " ver/name " (" ver/date ")")))
+  (println (str "  " ver/tool " " ver/name " (" ver/date ")")))
 
 (defn unknown-command [cmd]
   (println (str "  Unknown command '" cmd "'. Type 'poly help' for help.")))
