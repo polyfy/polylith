@@ -16,4 +16,5 @@
                    ["Build" {:file "doc/build.adoc"}]
                    ["Git" {:file "doc/git.adoc"}]
                    ["Tagging" {:file "doc/tagging.adoc"}]
-                   ["Continuous Integration" {:file "doc/continuous-integration.adoc"}]]}
+                   ["Continuous Integration" {:file "doc/continuous-integration.adoc"}]
+                   ["Flags" {:file "doc/flags.adoc"}]]}
