@@ -9,4 +9,5 @@
                    ["Interface" {:file "doc/interface.adoc"}]
                    ["Base" {:file "doc/base.adoc"}]
                    ["Project" {:file "doc/project.adoc"}]
-                   ["Shell" {:file "doc/shell.adoc"}]]}
+                   ["Shell" {:file "doc/shell.adoc"}]
+                   ["Polyx" {:file "doc/polyx.adoc"}]]}
