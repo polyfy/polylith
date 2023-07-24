@@ -1,0 +1,55 @@
+= Configuration
+
+The workspace configuration is stored in ./workspace.edn and defines the following keys:
+
+|===
+| Key | Description
+| :vcs | A map with two keys, where _:name_ is set to "git" which is the only supported https://en.wikipedia.org/wiki/Version_control[version control] system at the moment. The key _:auto-add_ is a boolean flag that tells whether directories and files added by the create command should automatically be added to git or not.
+| :top-namespace | The workspace top namespace. If changed, the source code has to be changed accordingly.
+| :interface-ns | The default value is _interface_. If changed, the source code has to be changed accordingly.
+| :default-profile-name | The _default_ value is default. If changed, the _+default_ alias in _./deps.edn_ has to be renamed accordingly.
+| _tag-patterns | The default value for the _:release_ key is _v[0-9]*_, and for the _:stable_ key it's _stable-*_. If changed, old tags may not be recognised.
+| :project | If the development key is missing, _{"development" {:alias "dev"}_ will be added.
+|===
+
+Only the _:top-namespace_ attribute is mandatory, all other attributes will use their default values if missing. A complete list of keys can be found in the workspace structure for the _:settings_ key.
+
+The content of _workspace.edn_ can be viewed by executing:
+
+[source,shell]
+----
+poly ws get:configs:workspace
+----
+
+Settings that are unique per developer/user are stored in _~/.config/polylith/config.edn_ (if you started using the poly tool from version _0.2.14 or_ earlier, then it may be stored in _~/.polylith/config.edn_):
+
+|===
+| Key | Description
+| :thousand‑separator | Set to "," by default (when first created).
+| :color-mode | Set to "none" on Windows, and to "dark" on other operating systems (when first created). Valid values are "none", "light" and "dark", see the color section. Can be overridden, e.g.: `poly info color-mode:none`.
+| :empty-character | Set to "." by default (when first created). Used by the deps and libs commands.
+| :m2-dir | If omitted, the _.m2_ directory will be set to _USER-HOME/.m2_. Used by the libs command to calculate file sizes (KB).
+|===
+
+If _~/.config/polylith/config.edn_ doesn't exist, it will be created the first time the create workspace command is executed, e.g.:
+
+[source,shell]
+----
+{:color-mode "dark"
+ :thousand-separator ","
+ :empty-character "."}
+----
+
+The content of the user config file can be viewed by:
+
+[source,shell]
+----
+poly ws get:configs:user
+----
+
+The content of all config files (components, bases, projects, user, and workspace) can be viewed by executing:
+
+[source,shell]
+----
+poly ws get:configs
+----
