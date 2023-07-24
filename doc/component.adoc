@@ -34,7 +34,7 @@ image::images/component/start-a-shell.png[alt=Start a shell,width=600]
 
 From here it's enough to enter the name of the command, e.g.:
 
-image::images/component/shell-info.png[alt=Start a shell,width=600]
+image::images/component/shell-info.png[alt=info,width=600]
 
 This way of executing commands is the most convenient way in most cases, because it gives us instant feedback, history, and autocomplete. Feel free to use the shell from now on. It will make you more productive and enhances the development experience!
 
@@ -131,7 +131,7 @@ You can have a look in the RealWorld example app on how to configure _./deps.edn
 
 Now we may need to refresh our IDE, by clicking this link, or the icon we used before:
 
-image::images/component/cursive-import-changes.png[alt=Start a shell,width=400]
+image::images/component/cursive-import-changes.png[alt=Import changes,width=400]
 
 The component also has its own _deps.edn_ file that looks like this:
 
@@ -168,7 +168,7 @@ Let's continue by executing the info command:
 poly info
 ----
 
-image::images/component/info.png[alt=Output from the info command,width=350]
+image::images/component/info.png[alt=poly info,width=350]
 
 This tells us that we have one _development_ project, one _user_ component and one _user_ interface but no base (yet). Components and bases are referred to as _bricks_ (we will soon explain what a base is). The cryptic _s--_ and _st-_ will be described in the flags section.
 
@@ -178,7 +178,7 @@ If your colors don't look as nice as this, then you can visit the colors section
 
 Now, let's add the _core_ namespace to _user_:
 
-image::images/component/add-user-namespaces.png[alt=Start a shell,width=350]
+image::images/component/add-user-namespaces.png[alt=Add the core namespace,width=350]
 
 ...and change it to:
 

@@ -65,7 +65,7 @@ image::images/development/add-file-to-git.png[alt=Debug,width=600]
 
 If the namespace is not recognised, you may need to click the refresh button (two arrows):
 
-image::images/development/refresh.png[alt=Debug,width=90]
+image::images/development/refresh.png[alt=Add file to git,width=90]
 
 Now let's write some code:
 
