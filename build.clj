@@ -168,6 +168,8 @@
         (println "\nWriting pom.xml...")
         (b/write-pom opts)
         (println "Copying" (str (str/join ", " (map current-rel src+dirs)) "..."))
+        (b/copy-dir {:src-dirs   src+dirs
+                     :target-dir class-dir})
         (println "Building jar" (str jar-file "..."))
         (b/jar opts)
         ;; we want the pom.xml file in the project folder for deployment:
