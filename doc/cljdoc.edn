@@ -23,4 +23,5 @@
                    ["Dependencies" {:file "doc/dependencies.adoc"}]
                    ["Libraries" {:file "doc/libraries.adoc"}]
                    ["Configuration" {:file "doc/configuration.adoc"}]
-                   ["Validations" {:file "doc/validations.adoc"}]]}
+                   ["Validations" {:file "doc/validations.adoc"}]
+                   ["Source code" {:file "doc/source-code.adoc"}]]}
