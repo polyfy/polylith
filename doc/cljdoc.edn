@@ -25,4 +25,5 @@
                    ["Configuration" {:file "doc/configuration.adoc"}]
                    ["Validations" {:file "doc/validations.adoc"}]
                    ["Source code" {:file "doc/source-code.adoc"}]
-                   ["Explore the workspace" {:file "doc/explore-the-workspace.adoc"}]]}
+                   ["Explore the workspace" {:file "doc/explore-the-workspace.adoc"}]
+                   ["Clojure CLI tool" {:file "doc/clojure-cli-tool.adoc"}]]}
