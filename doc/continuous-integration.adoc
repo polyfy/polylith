@@ -1,0 +1,53 @@
+= Continuous Integration
+
+How this repository sets up its own continuous integration and deployment is described https://github.com/polyfy/polylith/blob/master/doc/ci-and-deployment.md[here]. In this document we will look at the general setup of CI.
+
+When setting up continuous integration, we sometimes want to keep track of changes per project. To support this we need to add tag patterns for the projects we want to build, e.g.:
+
+[source,clojure]
+----
+ :tag-patterns {:stable "stable-*"
+                :release "v[0-9]*"
+                :myproject "myproject-*"}
+----
+
+When our build is triggered, e.g. via a webhook, we can ask the poly tool what projects have changed since the last successful build:
+
+[source,clojure]
+----
+poly ws get:changes:changed-or-affected-projects since:myproject
+----
+
+Output, e.g.:
+
+[source,clojure]
+----
+["invoicer" "myproject"]
+----
+
+If _myproject_ is returned, which is the case here, then we know that this project needs to be built and deployed, as long as all tests also pass. After a successful build, we tag the repository, e.g.:
+
+[source,shell]
+----
+git tag myproject-1
+----
+
+We want to keep the release tags, which is the reason each tag gets its own unique tag name, e.g. _myproject-1_, _myproject-2_, and so on. It's not important that the IDs are sequential. The tool will always sort them by the order they exist in git anyway.
+
+If the CI build is set up so that it builds all projects in one go, then we could first start by asking what projects we have:
+
+[source,shell]
+----
+poly ws get:projects:keys skip:dev
+----
+
+The _skip:dev_ parameter tells the tool to ignore the development environment (we are not interested in deploying dev). More than one project can be ignored, e.g. _skip:dev:invoicer_, where both project names and aliases can be used.
+
+Then we can ask for changed or affected projects:
+
+[source,shell]
+----
+poly ws get:changes:changed-or-affected-projects since:release skip:dev
+----
+
+Here we rely on release-* tags that mark the whole repo as released.
