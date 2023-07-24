@@ -13,4 +13,5 @@
                    ["Polyx" {:file "doc/polyx.adoc"}]
                    ["Tap" {:file "doc/tap.adoc"}]
                    ["Tools.deps" {:file "doc/tools-deps.adoc"}]
-                   ["Build" {:file "doc/build.adoc"}]]}
+                   ["Build" {:file "doc/build.adoc"}]
+                   ["Git" {:file "doc/git.adoc"}]]}
