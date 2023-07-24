@@ -19,4 +19,5 @@
                    ["Continuous Integration" {:file "doc/continuous-integration.adoc"}]
                    ["Flags" {:file "doc/flags.adoc"}]
                    ["Testing" {:file "doc/testing.adoc"}]
-                   ["Profile" {:file "doc/profile.adoc"}]]}
+                   ["Profile" {:file "doc/profile.adoc"}]
+                   ["Dependencies" {:file "doc/dependencies.adoc"}]]}
