@@ -4,12 +4,12 @@ The workspace configuration is stored in ./workspace.edn and defines the followi
 
 |===
 | Key | Description
-| :vcs | A map with two keys, where _:name_ is set to "git" which is the only supported https://en.wikipedia.org/wiki/Version_control[version control] system at the moment. The key _:auto-add_ is a boolean flag that tells whether directories and files added by the create command should automatically be added to git or not.
+| :vcs | A map with two keys, where _:name_ is set to "git" which is the only supported https://en.wikipedia.org/wiki/Version_control[version control] system at the moment. The key _:auto-add_ is a boolean flag that tells whether directories and files added by the _create_ command should automatically be added to git or not.
 | :top-namespace | The workspace top namespace. If changed, the source code has to be changed accordingly.
 | :interface-ns | The default value is _interface_. If changed, the source code has to be changed accordingly.
-| :default-profile-name | The _default_ value is default. If changed, the _+default_ alias in _./deps.edn_ has to be renamed accordingly.
-| _tag-patterns | The default value for the _:release_ key is _v[0-9]*_, and for the _:stable_ key it's _stable-*_. If changed, old tags may not be recognised.
-| :project | If the development key is missing, _{"development" {:alias "dev"}_ will be added.
+| :default-profile-name | The default value is _default_. If changed (don't include the "+") the _+default_ alias in _./deps.edn_ has to be renamed accordingly.
+| :tag-patterns | The default value for the _:release_ key is "v[0-9]*", and for _:stable_ it's "stable-*". If changed, old tags may not be recognised.
+| :project | If the development key is missing, _{"development" {:alias "dev"}_ will be used under the hood.
 |===
 
 Only the _:top-namespace_ attribute is mandatory, all other attributes will use their default values if missing. A complete list of keys can be found in the workspace structure for the _:settings_ key.
