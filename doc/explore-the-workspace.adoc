@@ -1,0 +1,215 @@
+= Explore the workspace
+
+There is a way to view the workspace structure, and that is to execute the ws command:
+
+[source,shell]
+----
+poly ws
+----
+
+This will view the whole workspace as plain data. This data structure is produced by the tool itself and is used by all the commands internally. The commands only operate on this hash map and are not performing any io operations, such as touching the disk or executing git commands. Instead, everything is prepared so that all commands can be executed in memory.
+
+This will not only simplify the code of the tool itself but also gives us, as a user of the tool, a way to explore the complete state of the workspace (or other people's workspaces).
+
+We can limit the "query" by passing in get, here against the https://github.com/polyfy/polylith/tree/master/examples/doc-example[doc-example], e.g.:
+
+[source,shell]
+----
+poly ws get:settings
+----
+
+[source,clojure]
+----
+{:active-profiles #{"default"}
+ :color-mode "dark"
+ :compact-views #{}
+ :default-profile-name "default"
+ :empty-character "."
+ :interface-ns "interface"
+ :m2-dir "/Users/joakimtengstrand/.m2"
+ :profile-to-settings {"default" {:base-names []
+                                  :component-names ["user"]
+                                  :lib-deps {}
+                                  :paths ["components/user/resources"
+                                          "components/user/src"
+                                          "components/user/test"]
+                                  :project-names []}
+                       "remote" {:base-names []
+                                 :component-names ["user-remote"]
+                                 :lib-deps {"compojure/compojure" {:size 15172
+                                                                   :type "maven"
+                                                                   :version "1.6.2"}
+                                            "http-kit/http-kit" {:size 191467
+                                                                 :type "maven"
+                                                                 :version "2.4.0"}
+                                            "ring/ring" {:size 4621
+                                                         :type "maven"
+                                                         :version "1.8.1"}
+                                            "slacker/slacker" {:size 28408
+                                                               :type "maven"
+                                                               :version "0.17.0"}}
+                                 :paths ["components/user-remote/resources"
+                                         "components/user-remote/src"
+                                         "components/user-remote/test"]
+                                 :project-names []}},
+ :projects {"command-line" {:alias "cl",
+                            :test {:create-test-runner [polylith.clj.core.clojure-test-test-runner.interface/create]}},
+            "development" {:alias "dev",
+                           :test {:create-test-runner [polylith.clj.core.clojure-test-test-runner.interface/create]}},
+            "user-service" {:alias "user-s",
+                            :test {:create-test-runner [polylith.clj.core.clojure-test-test-runner.interface/create]}}},
+ :tag-patterns {:release "v[0-9]*", :stable "stable-*"},
+ :thousand-separator ",",
+ :top-namespace "se.example",
+ :user-config-filename "/Users/joakimtengstrand/.config/polylith/config.edn",
+ :user-home "/Users/joakimtengstrand",
+ :vcs {:auto-add true,
+       :branch "issue-205",
+       :git-root "/Users/joakimtengstrand/source/polylith",
+       :is-git-repo true,
+       :name "git",
+       :polylith {:branch "master",
+                  :repo "https://github.com/polyfy/polylith.git"},
+       :stable-since {:sha "b3b6e2ae3dfea55713312591313ef13c57858991",
+                      :tag "stable-master"}}}
+----
+
+If we are only interested in a specific element in this structure, we can dig deeper into it:
+[source,shell]
+----
+poly ws get:settings:profile-to-settings:default:paths
+----
+
+[source,clojure]
+----
+["components/user/src" "components/user/resources" "components/user/test"]
+----
+
+A good way to start digging into this data structure is to list all its keys:
+
+[source,clojure]
+----
+poly ws get:keys
+----
+
+[source,clojure]
+----
+[:bases
+ :changes
+ :components
+ :configs
+ :interfaces
+ :messages
+ :name
+ :paths
+ :projects
+ :settings
+ :user-input
+ :version
+ :ws-dir
+ :ws-local-dir
+ :ws-reader
+ :ws-type]
+----
+
+To list the components, type:
+
+[source,shell]
+----
+poly ws get:components:keys
+----
+
+[source,clojure]
+----
+["user" "user-remote"]
+----
+
+An even better way of exploring the data structure is to do it from a _shell_ which we have already covered in the shell section.
+
+To show the user component:
+
+[source,shell]
+----
+poly ws get:components:user
+----
+
+[source,clojure]
+----
+{:interface {:definitions [{:name "hello"
+                            :parameters [{:name "name"}]
+                            :type "function"}]
+             :name "user"}
+ :interface-deps {:src [], :test []}
+ :lib-deps {}
+ :lib-imports {:test ["clojure.test"]}
+ :lines-of-code {:src 9, :test 7}
+ :name "user"
+ :namespaces {:src [{:file-path "components/user/src/se/example/user/interface.clj"
+                     :imports ["se.example.user.core"]
+                     :name "interface"
+                     :namespace "se.example.user.interface"}
+                    {:file-path "components/user/src/se/example/user/core.clj"
+                     :imports []
+                     :name "core"
+                     :namespace "se.example.user.core"}]
+              :test [{:file-path "components/user/test/se/example/user/interface_test.clj"
+                      :imports ["clojure.test" "se.example.user.interface"]
+                      :name "interface-test"
+                      :namespace "se.example.user.interface-test"}]}
+ :paths {:src ["src" "resources"], :test ["test"]}
+ :type "component"}
+----
+
+Earlier, we executed the libs command to show library usage. The same information is also stored in the workspace structure, e.g.:
+
+[source,shell]
+----
+poly ws get:components:user-remote:lib-deps
+----
+
+[source,clojure]
+----
+{"compojure/compojure" {:size 15172, :type "maven", :version "1.6.2"},
+ "http-kit/http-kit" {:size 191467, :type "maven", :version "2.4.0"},
+ "ring/ring" {:size 4621, :type "maven", :version "1.8.1"},
+ "slacker/slacker" {:size 28408, :type "maven", :version "0.17.0"}}
+----
+
+There is a way to store the workspace structure to a file, and that is to give the _out_ parameter, e.g.:
+
+[source,shell]
+----
+poly ws out:ws.edn
+----
+
+An alternative way to reach the same result is to turn off the coloring and pipe to ws.edn:
+
+[source,shell]
+----
+poly ws color-mode:none > ws.edn
+----
+
+This can be used to share the workspace structure with others without sending them the whole workspace including the code. To load this workspace, they have to give the _ws-file_ parameter, e.g.:
+
+[source,shell]
+----
+poly info ws-file:ws.edn
+----
+
+This will give the exact same output as if we execute _poly info_ on the machine that created _ws.edn_. All commands except _test_ and _create_ can be executed when _ws-file_ or _ws-dir_ is given. If you run commands in a shell, then _switch-ws file:ws.edn_ will add _ws-file:ws.edn_ to all subsequent commands to get the same result.
+
+Here is an example where we inspect the arguments used to produce the file:
+
+[source,shell]
+----
+poly ws get:old:user-input:args ws-file:ws.edn
+----
+
+..which returns:
+
+[source,shell]
+----
+["ws" "out:ws.edn"]
+----
+
+A complete guide over the workspace structure can be found in the Workspace structure section.
