@@ -1,0 +1,72 @@
+= Clojure CLI Tool
+
+The _poly_ tool uses its own syntax when passing in parameters. When using the _poly_ command as a Clojure CLI Tool (see Install using Clojure CLI) we instead use the standard way of passing in arguments as pairs.
+
+The "native" _poly_ tool has the following argument structure:
+
+* the command, followed by
+- zero or more entities (e.g., _create_ can be followed by _component_), followed by
+- named arguments (e.g., project:example), and
+- flag arguments (e.g., :loc), and
+- profiles (e.g., +remote).
+
+Because "exec args" must follow key/value syntax, the argument structure for _-Tpoly_ is:
+
+* the command (which is the "exec fn"), followed by
+- entity to name the first argument(s) to create or help,
+- named arguments as key/value pairs (e.g., project example),
+- flag arguments as keys with true or false values (e.g., loc true),
+- profiles to list any profiles to enable, without the leading + (e.g., profiles '[remote]').
+
+For convenience, most arguments can be provided as symbols rather than requiring quoted strings:
+
+[source,shell]
+----
+# strings have to be quoted for EDN and the shell:
+clojure -Tpoly info project '"example"'
+# the following shorthand is allowed:
+clojure -Tpoly info project example
+----
+
+Both _project_ and _profile_ exist in singular form, taking a symbol or string, and in a plural form, taking a vector of symbols or strings:
+
+[source,shell]
+----
+# select more than one project:
+clojure -Tpoly info projects '[example cli]'
+# select just one profile:
+clojure -Tpoly info profile remote
+----
+
+Some poly commands treat _:brick_ and _:project_ as flag arguments and other expect _brick:name_ or _project:name_ as named argumens. When using "exec args", the meaning is determined by whether the value is boolean or not:
+
+[source,shell]
+----
+# select all projects:
+clojure -Tpoly info project true # flag argument
+# select a specific project:
+clojure -Tpoly info project cli # named argument
+----
+
+Since the exec argument format for create becomes verbose, there are four shortcut arguments:
+
+[source,shell]
+----
+# full create command syntax:
+clojure -Tpoly create entity component name user
+# shorthand:
+clojure -Tpoly create c user
+# similarly for b (base), p (project), and w (workspace)
+clojure -Tpoly create w next-gen top-ns com.my-company
+# is shorthand for:
+clojure -Tpoly create entity workspace name next-gen top-ns com.my-company
+----
+
+Finally, for some commands, more than one "entity" can be provided for the entity exec argument, those can be :-separated (in a string), or use _entities_ and a vector (which can have symbols instead of strings):
+
+[source,shell]
+----
+clojure -Tpoly help entity create:component
+# equivalent to:
+clojure -Tpoly help entities '[create component]'
+----
