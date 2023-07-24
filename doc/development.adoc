@@ -61,7 +61,7 @@ Right click on the _development/src_ directory and select _New > Clojure Namespa
 
 When this dialog turns up, select _Don't ask again_ and click the _Add_ button:
 
-image::images/development/add-file-to-git.png[alt=Debug,width=400]
+image::images/development/add-file-to-git.png[alt=Debug,width=600]
 
 If the namespace is not recognised, you may need to click the refresh button (two arrows):
 

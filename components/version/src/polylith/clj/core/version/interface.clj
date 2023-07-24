@@ -1,20 +1,20 @@
 (ns polylith.clj.core.version.interface
   (:refer-clojure :exclude [name])
   (:require [clojure.string :as str]
-            [polylith.clj.core.system.interface :as sys]))
+            [polylith.clj.core.system.interface :as system]))
 
-(def tool (if sys/extended? "polyx" "poly"))
 (def major 0)
 (def minor 2)
 (def patch 18)
-(def revision"") ;"issue205-01"
-(def name (str tool "-"
-               major "." minor "." patch
+(def revision "issue318-01")
+(def name (str major "." minor "." patch
                (if (str/blank? revision)
                  ""
                  (str "-" revision))))
 
-(def date "2023-07-23")
+(def tool (if system/extended? "polyx" "poly"))
+
+(def date "2023-07-24")
 
 (defn version
   ([]

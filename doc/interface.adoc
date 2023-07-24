@@ -111,7 +111,7 @@ So far, we have only used functions in the interface. Polylith also supports hav
 `(timbre/log! :info :p ~args))
 ----
 
-== Good to know about interfaces
+== About interfaces
 
 This list of tips makes more sense when you have used Polylith for a while, so take note of this section for later:
 
