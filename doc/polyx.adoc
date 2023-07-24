@@ -1,0 +1,106 @@
+= Polyx
+
+Since version 0.2.18, we have the new _polyx_ tool which can do everything that poly can, plus create images from different commands. One more difference is that it's not released as an AOT compiled, stand-alone application.
+
+If you want to use polyx, then add it as an alias to _./deps.edn_:
+
+[source,clojure]
+----
+:polyx {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+        :extra-deps {polyfy/polylith
+                     {:git/url   "https://github.com/polyfy/polylith"
+                      :sha       "1b91de1cb96dd286c9f5f9bda6a97d62c40b67a7"
+                      :deps/root "projects/polyx"}}}}}
+----
+
+Now let's start a shell, using the polyx tool:
+
+[source,shell]
+----
+clojure -M:polyx
+----
+
+Let's create an image by running the info command (deps and libs are also supported):
+
+[source,shell]
+----
+example$ info out:info.png
+----
+
+This will create the _info.png_ image containing the output from the info command. If the file ends with any of the file formats listed https://clojure2d.github.io/clojure2d/docs/codox/clojure2d.core.html#var-img-writer-formats[here] then an image will be created in the specified format, but if it ends with _.txt_ then a text file is created:
+
+[source,shell]
+----
+poly info out:info.txt
+----
+
+[source,shell]
+----
+  stable since: [37mc91fdad[0m
+
+  [35mprojects:[0m 2   [33minterfaces:[0m 1
+  [34mbases:   [0m 1   [32mcomponents:[0m 1
+
+  project         alias  status   [35mdev[0m
+  -----------------------------   ---
+  [35mcommand-line[0m *  [35mcl[0m     [35m ---  [0m   [35m---[0m
+  [35mdevelopment[0m *   [35mdev[0m    [35m s--  [0m   [35ms--[0m
+
+  interface  brick    [35mcl [0m   [35mdev[0m
+  -----------------   ---   ---
+  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mst-[0m
+  -          [34mcli[0m *    [35mstx[0m   [35mst-[0m
+----
+
+This can be "printed" by executing cat info.txt:
+
+image::images/polyx/info.png[alt=cat info.txt,width=400]
+
+The colors can be removed if we want:
+
+[source,shell]
+----
+poly info out:info.txt color-mode:none
+----
+
+[source,shell]
+----
+  stable since: c91fdad
+
+  projects: 2   interfaces: 1
+  bases:    1   components: 1
+
+  project         alias  status   dev
+  -----------------------------   ---
+  command-line *  cl      ---     ---
+  development *   dev     s--     s--
+
+  interface  brick    cl    dev
+  -----------------   ---   ---
+  user       user *   stx   st-
+  -          cli *    stx   st-
+----
+
+The polyx tool also includes the new overview command:
+
+[source,shell]
+----
+example$ overview out:overview.png :no-changes
+----
+
+The generated image looks like this:
+
+image::images/polyx/overview.png[alt=Overview,width=600]
+
+This image can be used in our documentation to get an overview of the workspace.
+
+[Note]
+====
+NOTE: There are issues reported for Apple silicon when using https://en.wikipedia.org/wiki/Abstract_Window_Toolkit[Java AWT] (used by the underlying clojure2d library) which is one of the reasons we don't include support for creating images in the poly tool. Another source of trouble may be that _polyx_ starts a Java process:
+image::images/polyx/java.png[alt=Java,width=600]
+====
+
+[Caution]
+====
+CAUTION: The polyx tool may be converted to a custom command in the future, when we have support for that, and when that happens the polyx project will be deleted. This means that image creation may be configured in a different way in the future.
+====
