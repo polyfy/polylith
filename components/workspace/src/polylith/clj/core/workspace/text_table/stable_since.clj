@@ -10,7 +10,7 @@
 
 (defn table [since-sha since-tag color-mode]
   (let [short-sha (short-name since-sha)
-        stable-since (if since-tag
+        stable-since (if (-> since-tag str/blank? not)
                        (text-table/cell 1 1 (str "stable since: " (color/grey color-mode (str short-sha " | " since-tag))))
                        (if (str/blank? since-sha)
                          (text-table/cell 1 1 (str (color/warning color-mode "Warning:") (color/error color-mode " not a git repo!")))

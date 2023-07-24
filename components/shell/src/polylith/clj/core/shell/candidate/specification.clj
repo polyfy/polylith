@@ -75,6 +75,7 @@
 
 ;; info
 (def info-fake-sha (c/multi-param "fake-sha"))
+(def info-fake-tag (c/multi-param "fake-tag"))
 (def info-changed-files (c/fn-explorer "changed-files" :info #'file-explorer/select-all))
 (def info-since (c/fn-explorer "since" :info #'ws-tag-patterns/select))
 (def info-project (c/fn-explorer "project" :info #'ws-projects-to-test/select))
@@ -95,7 +96,7 @@
     (concat profiles
             [info-all info-all-bricks info-brick info-loc info-dev
              info-resources info-project info-project-flag info-since]
-            (when all? [info-fake-sha info-changed-files info-skip info-no-changes info-color-mode])
+            (when all? [info-fake-sha info-fake-tag info-changed-files info-skip info-no-changes info-color-mode])
             (when (or all? extended?) [info-out]))))
 
 ;; libs
