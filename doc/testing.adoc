@@ -1,0 +1,215 @@
+= Testing
+
+Polylith encourages a test-centric approach when working with code. New brick tests are easy to write, and mocking can be avoided in most cases as we have access to all components from the projects they live in.
+
+Let's go back to our example. We added _; hi_  to the _user_ core namespace earlier:
+
+[source,clojure]
+----
+(ns se.example.user.core)
+
+; hi
+(defn hello [name]
+  (str "Hello " name "!"))
+----
+
+We verify that the tool picked up the change:
+
+[source,shell]
+----
+poly diff
+----
+
+[source,shell]
+----
+components/user/src/se/example/user/core.clj
+----
+
+It did, and if f we run the _info_ command:
+
+image::images/testing/info.png[alt=info,width=400]
+
+...we can see that the _user_ component is marked with an asterisk, _*_. If we look carefully we will also notice that the status flags _stx_ under the _cl_ column now has an _x_ in its last position. As we already know, this means that the tests for _user_ and _cli_ will be executed from the _command-line_ project if we execute the _test_ command.
+
+But why is _cli_ marked to be tested? The reason is that even though _cli_ itself hasn't changed, it depends on something that has, namely the _user_ component.
+
+The columns under the _development_ project are all marked as _st-_. The reason the _development_ project is not marked to be tested is that the _development_ project's tests are not included by default.
+
+But before we run the test command, we should first add a test by editing the _interface-test_ namespace in the _user_ component:
+
+[source,shell]
+----
+(ns se.example.user.interface-test
+  (:require [clojure.test :refer :all]
+            [se.example.user.interface :as user]))
+
+(deftest hello--when-called-with-a-name--then-return-hello-phrase
+  (is (= "Hello Lisa!"
+         (user/hello "Lisa"))))
+----
+
+To demonstrate how the tool handles failing tests, let's change the _core_ namespace in the user component:
+
+[source,shell]
+----
+(ns se.example.user.core)
+
+(defn hello [name]
+  (str "Hello " name "!!"))
+----
+
+Now we can run the test from the IDE:
+
+* Make sure the namespace is loaded, e.g. via the menu (or keyboard shortcuts) _Tools_ > _REPL_ > _Load File in REPL_.
+
+* Or, place the cursor under the test and run: _Tools_ > _REPL_ > _Run Test under carret in REPL_
+
+image::images/testing/failing-test.png[alt=Run test]
+
+And if we run the test command:
+
+[source,shell]
+----
+poly test
+----
+
+...it fails too:
+
+[source,shell]
+----
+poly test
+----
+
+[source,shell]
+----
+Projects to run tests from: command-line
+
+Running tests for the command-line project using test runner: Polylith built-in clojure.test runner...
+Running tests from the command-line project, including 2 bricks: user, cli
+
+Testing se.example.cli.core-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing se.example.user.interface-test
+
+FAIL in (hello--when-called-with-a-name--then-return-hello-phrase) (interface_test.clj:6)
+expected: (= "Hello Lisa!" (user/hello "Lisa"))
+  actual: (not (= "Hello Lisa!" "Hello Lisa!!"))
+
+Ran 1 tests containing 1 assertions.
+1 failures, 0 errors.
+
+Test results: 0 passes, 1 failures, 0 errors.
+----
+
+Remember that we added an extra ! so now we need to update the corresponding test accordingly:
+
+[source,clojure]
+----
+(ns se.example.user.interface-test
+  (:require [clojure.test :refer :all]
+            [se.example.user.interface :as user]))
+
+(deftest hello--when-called-with-a-name--then-return-hello-phrase
+  (is (= "Hello Lisa!!"
+         (user/hello "Lisa"))))
+----
+
+If we run the test again from the REPL, it will now turn to green:
+
+image::images/testing/successful-test.png[alt=Successful test run]
+
+...and the _test_ command will pass too:
+
+[source,shell]
+----
+Projects to run tests from: command-line
+
+Running tests for the command-line project using test runner: Polylith built-in clojure.test runner...
+Running tests from the command-line project, including 2 bricks: user, cli
+
+Testing se.example.cli.core-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing se.example.user.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Execution time: 1 seconds
+----
+
+We have already mentioned that the brick tests will not be executed from the _development_ project when we run the _test_ command. But there is a way to do that, and that is to pass in _:dev_.
+
+Let's try it out with the _info_ command first:
+
+[source,shell]
+----
+poly info :dev
+----
+
+image::images/testing/info-dev.png[alt=info :dev,width=400]
+
+Now both the _development_ and the _command-line_ project is marked for test execution.
+
+== Test Filters
+
+=== Filter on projects
+
+We can narrow the number of projects we want to test by passing in e.g. _project:dev_ or _project:cl:dev_ (both project alias and name can be used). If _development_ is given, it will automatically be included as if _:dev_ was passed in:
+
+[source,shell]
+----
+poly info project:dev
+----
+
+image::images/testing/info-project-dev.png[alt=Run test,width=400]
+
+[source,shell]
+----
+poly info project:cl:dev
+----
+
+image::images/testing/info-project-cl-dev.png[alt=Run test,width=400]
+
+=== Filter on bricks
+
+It's not just possible to filter which projects to run our tests from, but also which bricks to include.
+
+Right now our workspace looks like this:
+
+[source,shell]
+----
+poly info
+----
+
+image::images/testing/info.png[alt=info,width=400]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

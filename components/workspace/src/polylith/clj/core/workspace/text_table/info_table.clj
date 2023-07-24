@@ -12,11 +12,10 @@
 (def empty-line [""])
 
 (defn tables [{:keys [settings changes user-input] :as workspace}]
-  (let [{:keys [is-show-loc is-show-resources fake-sha]} user-input
+  (let [{:keys [is-show-loc is-show-resources fake-sha fake-tag]} user-input
         {:keys [color-mode]} settings
         {:keys [since-sha since-tag]} changes
-        since-tag (if fake-sha nil since-tag)
-        since (stable-since/table (or fake-sha since-sha) since-tag color-mode)
+        since (stable-since/table (or fake-sha since-sha) (or fake-tag since-tag) color-mode)
         number-of-entities (number-of-entities/table workspace)
         profiles (active-profiles/table settings)
         project (project-table/table workspace is-show-loc is-show-resources)
@@ -61,6 +60,9 @@
 (comment
   (require '[dev.jocke :as dev])
   (def workspace dev/workspace)
+  (def workspace (-> dev/workspace
+                     (assoc-in [:user-input :fake-sha] "aaaaa")
+                     (assoc-in [:user-input :fake-tag] "")))
   (def workspace (assoc-in dev/workspace [:user-input :out] "info.png"))
 
   (print-info workspace)
