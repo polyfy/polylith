@@ -1,0 +1,125 @@
+= Tagging
+
+Tags are used in Polylith to mark points in time where we consider the whole codebase (workspace) to be in a valid state, for example that everything compiles and that all the tests and the _check_ command executes without errors. This is then used by the test command to run the tests incrementally, by only executing the affected tests, which substantially speeds up the tests.
+
+The way we mark a stable point in time is to tag it with git (-f tells git to reuse the tag if already exists):
+
+[source,shell]
+----
+git tag -f stable-lisa
+----
+
+image::images/build/aliases.png[alt=Select build alias,width=250]
+
+If we now run `git log --pretty=oneline` again:
+
+[source,shell]
+----
+e7ebe683a775ec28b7c2b5d77e01e79d48149d13 (HEAD -> main, tag: stable-lisa) Created the user and cli bricks.
+c91fdad4a34927d9aacfe4b04ea2f304f3303282 Workspace created.
+----
+
+...we can see that the second commit has been tagged with _stable-lisa_. Note that your hash tags will be different and when we refer to e.g. _c91fdad_ in the following examples, you should instead give your own corresponding hash code.
+
+If we execute the _info_ command:
+
+image::images/tagging/info-01.png[alt=info,width=400]
+
+...the _stable since_ hash has been updated and is now tagged with _stable-lisa_. All the _*_ signs are gone because no _component_, _base_ or _project_ has yet changed since the second commit (which can be verified by running _poly diff_ again).
+
+We added the tag _stable-lisa_ but we could have named the tag with anything that starts with _stable-_. We choose _stable-lisa_ because Lisa is our name (let's pretend that at least!). The idea is that every developer could use their own unique tag name that doesn't conflict with other developers.
+
+The CI build should also use its own pattern, like _stable-_ plus branch name or build number, to mark successful builds. It may be enough to only use the stable points that the CI server creates. That is at least a good way to start out and only add custom tags per developer when needed.
+
+The pattern is configured in _workspace.edn_ and can be changed if we prefer something else:
+
+[source,clojure]
+----
+ :tag-patterns {:stable "stable-*"
+                :release "v[0-9]*"}
+----
+
+An alternative to tag patterns is to give a git SHA, where the first few letters is enough as long as they are unique (but let's not do that now):
+
+[source,shell]
+----
+git tag -f stable-lisa c91fdad
+----
+
+The way the tool finds the latest tag is to execute this command internally:
+
+[source,shell]
+----
+git log --pretty=format:'%H %d'
+----
+
+Then it uses the first line of the output that matches the regular expression (e.g. _stable-*_) or if no match was found, the first commit in the repository.
+
+Earlier when we changed a project by editing its _deps.edn_ file, it got a trailing _*_ to indicate that it was changed. But what happens if only some of its bricks have changed? Let's try that by adding a comment to the _user.core_ namespace:
+
+[source,clojure]
+----
+(ns se.example.user.core)
+
+; hi
+(defn hello [name]
+  (str "Hello " name "!"))
+----
+
+...and execute the info command again:
+
+image::images/tagging/info-02.png[alt=info,width=400]
+
+Now the two projects are marked with a _+_ which indicates that the projects themselves are unchanged but that at least one of their bricks has changed.
+
+== Release
+
+When we release, we probably want the CI server to tag the release. Here we tag the first commit as _v1.1.0_ and the second as _v1.2.0_ (make sure you replace _c91fdad_ with your corresponding sha):
+
+[source,shell]
+----
+git tag v1.1.0 c91fdad
+git tag v1.2.0
+----
+
+If we execute:
+
+[source,shell]
+----
+poly info since:release
+----
+
+image::images/tagging/info-03.png[alt=info since:relese,width=400]
+
+...it picks the latest release tag that follows the pattern defined in _workspace.edn_:
+
+[source,clojure]
+----
+ :tag-patterns {...
+                :release "v[0-9]*"}
+----
+
+If we execute:
+
+image::images/tagging/info-04.png[alt=info since:relese,width=400]
+
+...it picks the second latest release tag.
+
+By executing `git log --pretty=oneline` we can verify that the tags are correctly set:
+
+[source,shell]
+----
+e7ebe683a775ec28b7c2b5d77e01e79d48149d13 (HEAD -> main, tag: v1.2.0, tag: stable-lisa) Created the user and cli bricks.
+c91fdad4a34927d9aacfe4b04ea2f304f3303282 (tag: v1.1.0) Workspace created.
+----
+
+The _since_ parameter is used by the CI server to run all tests since the previous release, e.g.:
+
+[source,shell]
+----
+poly test since:previous-release
+----
+
+Depending on whether we tag before or after the build, we will choose _release_ or _previous-release_. If _since_ is not given, _stable_ will be used by default.
+
+Some other variants, like _since:e7ebe68_, _since:head_, or _since:head~1_ are also valid.
