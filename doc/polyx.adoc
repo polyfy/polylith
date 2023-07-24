@@ -90,7 +90,7 @@ example$ overview out:overview.png :no-changes
 
 The generated image looks like this:
 
-image::images/polyx/overview.png[alt=Overview,width=600]
+image::images/polyx/overview.png[alt=Overview]
 
 This image can be used in our documentation to get an overview of the workspace.
 
