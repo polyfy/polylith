@@ -8,4 +8,5 @@
                    ["Component" {:file "doc/component.adoc"}]
                    ["Interface" {:file "doc/interface.adoc"}]
                    ["Base" {:file "doc/base.adoc"}]
-                   ["Project" {:file "doc/project.adoc"}]]}
+                   ["Project" {:file "doc/project.adoc"}]
+                   ["Shell" {:file "doc/shell.adoc"}]]}
