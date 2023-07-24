@@ -205,7 +205,7 @@ Here is an example where we inspect the arguments used to produce the file:
 poly ws get:old:user-input:args ws-file:ws.edn
 ----
 
-..which returns:
+Which returns:
 
 [source,shell]
 ----
