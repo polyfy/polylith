@@ -1,4 +1,4 @@
-  Poly poly-0.2.18-issue205-01 (2023-07-14) - https://github.com/polyfy/polylith
+  Poly 0.2.18-issue318-02 (2023-07-24) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -74,6 +74,7 @@
     info color-mode:none
     info out:info.txt
     info fake-sha:c91fdad
+    info fake-tag:stable-me
     info :no-changes
     info changed-files:components/user/
     info changed-files:workspace.edn:components/user/myapp/user/core.clj

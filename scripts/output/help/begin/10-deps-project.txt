@@ -1,2 +1,5 @@
-### deps :project
-```
+[#deps-project]
+=== deps :project
+
+[source,shell]
+----

@@ -1,2 +1,5 @@
-### info
-```
+[#info]
+=== info
+
+[source,shell]
+----

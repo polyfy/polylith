@@ -1,2 +1,5 @@
-### switch-ws
-```
+[#switch-ws]
+=== switch-ws
+
+[source,shell]
+----

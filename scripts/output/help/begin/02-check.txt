@@ -1,2 +1,5 @@
-### check
-```
+[#check]
+=== check
+
+[source,shell]
+----

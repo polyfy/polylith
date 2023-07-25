@@ -1,22 +1,21 @@
 (ns polylith.clj.core.help.deps
   (:require [polylith.clj.core.help.shared :as s]
-            [polylith.clj.core.system.interface :as system]
             [polylith.clj.core.help.deps-project :as deps-project]
             [polylith.clj.core.help.deps-brick :as deps-brick]
             [polylith.clj.core.help.deps-workspace :as deps-workspace]
             [polylith.clj.core.help.deps-brick-project :as deps-brick-project]))
 
-(defn help [cm]
+(defn help [extended? cm]
   (str "  Shows dependencies.\n"
        "\n"
        "  poly deps [project:" (s/key "PROJECT" cm) "] [brick:" (s/key "BRICK" cm) "] "
-       (if system/extended?
+       (if extended?
          (str "[out:" (s/key "FILENAME" cm) "]\n")
          "\n")
        "    (omitted) = Shows workspace dependencies.\n"
        "    project   = Shows dependencies for specified project.\n"
        "    brick     = Shows dependencies for specified brick.\n"
-       (if system/extended?
+       (if extended?
          (str "    out       = Creates a text or image file based on the output. If " (s/key "FILENAME" cm) "\n"
               "                ends with .txt, then the file will contain the output as text.\n"
               "                If FILENAME ends with .bmp, .wbmp, .gif, .jpeg, .jpg, .png, .tif,\n"
@@ -35,20 +34,21 @@
        "    poly deps brick:mybrick\n"
        "    poly deps project:myproject\n"
        "    poly deps project:myproject brick:mybrick"
-       (if system/extended?
+       (if extended?
          (str "\n    poly deps out:deps.png" ""))))
 
-(defn print-help [is-show-project is-show-brick is-show-workspace color-mode]
+(defn print-help [is-show-project is-show-brick is-show-workspace extended? color-mode]
   (cond
     (and is-show-project is-show-brick) (deps-brick-project/print-help color-mode)
     is-show-project (deps-project/print-help color-mode)
     is-show-brick (deps-brick/print-help color-mode)
     is-show-workspace (deps-workspace/print-help color-mode)
-    :else (println (help color-mode))))
+    :else (println (help extended? color-mode))))
 
 (comment
-  (print-help false false false "dark")
-  (print-help false false true "dark") ; workspace
-  (print-help true false false "dark") ; project
-  (print-help false true false "dark") ; brick
+  (print-help false false false false "dark")
+  (print-help false false false true "dark")
+  (print-help false false true false "dark") ; workspace
+  (print-help true false false false "dark") ; project
+  (print-help false true false false "dark") ; brick
   #__)

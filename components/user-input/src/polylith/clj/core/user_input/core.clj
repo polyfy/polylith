@@ -73,6 +73,7 @@
                 brick!
                 compact!
                 commit!
+                fake-poly!
                 git-add!
                 latest-sha!
                 no-changes!
@@ -108,6 +109,7 @@
                       :is-no-changes (= "true" no-changes!)
                       :is-no-exit (= "true" no-exit!)
                       :is-outdated (= "true" outdated!)
+                      :is-fake-poly (= "true" fake-poly!)
                       :is-show-brick (= "true" brick!)
                       :is-show-workspace (= "true" workspace!)
                       :is-show-project (= "true" project!)
