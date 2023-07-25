@@ -1,15 +1,20 @@
 (ns polylith.clj.core.help.summary
   (:require [clojure.string :as str]
+            [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.help.shared :as s]
-            [polylith.clj.core.system.interface :as system]
             [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.util.interface.color :as color]))
 
-(defn help-text [show-migrate? extended? cm]
+(defn tool-command [extended?]
+  (if extended?
+    "polyx"
+    "poly"))
+
+(defn help-text [show-migrate? extended? fake-poly? cm]
   (str
-    "  " (str/capitalize version/tool) " " version/name " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
+    "  " (-> fake-poly? common/tool-name str/capitalize) " " version/name " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
     "\n"
-    "  " version/tool " " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] - where " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] are:\n"
+    "  " (tool-command extended?) " " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] - where " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] are:\n"
     "\n"
     "    check [" (s/key "ARG" cm) "]                 Checks if the workspace is valid.\n"
     "    create " (s/key "E" cm) " name:" (s/key "N" cm) " [" (s/key "ARG" cm) "]       Creates a component, base, project or workspace.\n"
@@ -82,8 +87,11 @@
     "    tap clean\n"
     "    tap close\n"
     "\n"
-    "  'poly :all' will start a shell and activate autocomplete for rarely used parameters, e.g:\n"
+    "  'poly :all' will start a shell and activate autocomplete for rarely used parameters:\n"
     "    deps out:out.txt\n"
+    (if extended?
+      "    help :fake-poly\n"
+      "")
     "    info +\n"
     "    info color-mode:none\n"
     "    info out:info.txt\n"
@@ -165,10 +173,7 @@
     "    poly libs :compact\n"
     "    poly libs :outdated\n"
     (if extended?
-      (str "    poly libs out:libs.png\n"
-           "    poly overview\n"
-           "    poly overview out:overview.png\n"
-           "    poly overview out:overview.jpg :no-changes\n")
+      (str "    poly libs out:libs.png\n")
       "")
     (if show-migrate?
       "    poly migrate\n"
@@ -203,13 +208,21 @@
     "    poly ws get:settings:vcs:polylith :latest-sha\n"
     "    poly ws get:settings:vcs:polylith :latest-sha branch:master\n"
     "    poly ws get:changes:changed-or-affected-projects skip:dev color-mode:none\n"
-    "    poly ws out:ws.edn"))
+    "    poly ws out:ws.edn"
+    (if extended?
+     (str "\n    clojure -M:polyx overview"
+          "\n    clojure -M:polyx overview out:overview.png"
+          "\n    clojure -M:polyx overview out:overview.jpg :no-changes")
+     "")))
 
-(defn print-help [is-all toolsdeps1? color-mode]
+(defn print-help [is-all toolsdeps1? extended? fake-poly? color-mode]
   (let [show-migrate? (or is-all toolsdeps1?)]
-    (println (help-text show-migrate? system/extended? color-mode))))
+    (println (help-text show-migrate? extended? fake-poly? color-mode))))
 
 (comment
-  (println (help-text false false "dark"))
-  (println (help-text false true "dark"))
+  (println (help-text false false false "dark")) ; poly
+  (println (help-text false true false "dark"))  ; polyx
+
+  (println (help-text true false false "dark"))  ; poly + show migrate
+  (println (help-text true true false "dark"))   ; polyx + show migrate
   #__)

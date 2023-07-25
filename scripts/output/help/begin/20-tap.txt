@@ -1,2 +1,5 @@
-### tap
-```
+[#tap]
+=== tap
+
+[source,shell]
+----

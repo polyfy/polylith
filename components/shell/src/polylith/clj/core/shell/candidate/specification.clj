@@ -68,10 +68,15 @@
 (def help-deps-workspace (c/flag "workspace" :help-deps))
 (def help-deps-brick (c/flag "brick" :help-deps))
 (def help-deps (c/single-txt "deps" :help-deps [help-deps-brick help-deps-project help-deps-workspace]))
-(def help (c/single-txt "help" (vec (concat [help-create help-deps]
-                                            (mapv #(c/single-txt %)
-                                                  (concat ["check" "diff" "info" "libs" "switch-ws" "shell" "tap" "test" "version" "ws"]
-                                                          (if system/extended? ["overview"] [])))))))
+(def help-fake-poly (c/flag "fake-poly" :help-deps))
+
+(defn help [all?]
+  (c/single-txt "help" (vec (concat [help-create help-deps]
+                                    (when all? [help-fake-poly])
+                                    (mapv #(c/single-txt %)
+                                          (concat ["check" "diff" "info" "libs" "switch-ws" "shell" "tap" "test" "version" "ws"]
+                                                  (if system/extended? ["overview"] [])))))))
+
 
 ;; info
 (def info-fake-sha (c/multi-param "fake-sha"))
@@ -187,11 +192,11 @@
                             (= "." ws-dir)))]
     (vec (concat [check
                   diff
-                  help
                   switch-ws
                   version
                   (create current-ws? is-all)
                   (deps is-all system/extended?)
+                  (help is-all)
                   (info info-profiles is-all system/extended?)
                   (libs is-all system/extended?)
                   (test test-profiles current-ws? is-all)
@@ -202,4 +207,4 @@
 
 (def create-outside-ws-root (c/single-txt "create" [create-workspace]))
 
-(def candidates-outside-ws-root [help version create-outside-ws-root switch-ws])
+(def candidates-outside-ws-root [(help false) version create-outside-ws-root switch-ws])

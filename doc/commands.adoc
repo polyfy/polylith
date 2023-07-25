@@ -1,35 +1,18 @@
+= Commands
 
-The individual help texts listed here are taken from the built-in `help` command.
+The individual help texts listed here are taken from the built-in _help_ command.
 
-**Commands**
-- [check](#check)
-- [create](#create)
-  - [create component](#create-component)
-  - [create base](#create-base)
-  - [create project](#create-project)
-  - [create workspace](#create-workspace)
-- [deps](#deps)
-  - [deps :bricks](#deps-bricks)
-  - [deps :brick](#deps-brick)
-  - [deps :project](#deps-project)
-  - [deps :project :brick](#deps-project-brick)
-- [diff](#diff)
-- [info](#info)
-- [libs](#libs)
-- [migrate](#migrate)
-- [shell](#shell)
-- [switch-ws (shell)](#switch-ws)
-- [tap (shell)](#tap)
-- [test](#test)
-- [ws](#ws)
+:toc:
 
 To list all available commands, type:
-```
-poly help
-```
 
-```
-  Poly poly-0.2.18-issue205-01 (2023-07-14) - https://github.com/polyfy/polylith
+[source,shell]
+----
+poly help
+----
+
+----
+  Poly 0.2.18-issue318-02 (2023-07-24) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -105,6 +88,7 @@ poly help
     info color-mode:none
     info out:info.txt
     info fake-sha:c91fdad
+    info fake-tag:stable-me
     info :no-changes
     info changed-files:components/user/
     info changed-files:workspace.edn:components/user/myapp/user/core.clj
@@ -206,10 +190,13 @@ poly help
     poly ws get:settings:vcs:polylith :latest-sha branch:master
     poly ws get:changes:changed-or-affected-projects skip:dev color-mode:none
     poly ws out:ws.edn
-```
+----
 
-### check
-```
+[#check]
+=== check
+
+[source,shell]
+----
   Validates the workspace.
 
   poly check [:dev]
@@ -298,10 +285,13 @@ poly help
     by the check command (not test and info). To ignore this warning, put the component
     name in the :necessary vector for a project in :projects in ./workspace.edn.
     See an example here: https://github.com/polyfy/polylith/blob/master/workspace.edn
-```
+----
 
-### create
-```
+[#create]
+=== create
+
+[source,shell]
+----
   Creates a component, base, project or workspace.
 
   poly create TYPE [ARGS]
@@ -321,10 +311,13 @@ poly help
     poly create project name:myproject
     poly create workspace name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company branch:master
-```
+----
 
-### create component
-```
+[#create-component]
+=== create component
+
+[source,shell]
+----
   Creates a component.
 
   poly create component name:NAME [interface:INTERFACE]
@@ -336,10 +329,13 @@ poly help
     poly create c name:user
     poly create component name:user
     poly create component name:admin interface:user
-```
+----
 
-### create base
-```
+[#create-base]
+=== create base
+
+[source,shell]
+----
   Creates a base.
 
   poly create base name:NAME
@@ -348,10 +344,13 @@ poly help
   Example:
     poly create b name:mybase
     poly create base name:mybase
-```
+----
 
-### create project
-```
+[#create-project]
+=== create project
+
+[source,shell]
+----
   Creates a project.
 
   poly create project name:NAME
@@ -360,10 +359,13 @@ poly help
   Example:
     poly create p name:myproject
     poly create project name:myproject
-```
+----
 
-### create workspace
-```
+[#create-workspace]
+=== create workspace
+
+[source,shell]
+----
   Creates a workspace in current directory. If the workspace is created within
   an existing git repo, then that repository will be used. If the workspace is
   created outside a git repo, and the :create flag is passed in, then a new repo
@@ -390,10 +392,13 @@ poly help
     poly create workspace name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company branch:master
-```
+----
 
-### deps
-```
+[#deps]
+=== deps
+
+[source,shell]
+----
   Shows dependencies.
 
   poly deps [project:PROJECT] [brick:BRICK] 
@@ -413,10 +418,13 @@ poly help
     poly deps brick:mybrick
     poly deps project:myproject
     poly deps project:myproject brick:mybrick
-```
+----
 
-### deps :brick
-```
+[#deps-brick]
+=== deps :brick
+
+[source,shell]
+----
   Shows dependencies for selected brick.
 
   poly deps brick:BRICK
@@ -432,10 +440,13 @@ poly help
 
   Example:
     poly deps brick:mybrick
-```
+----
 
-### deps :project
-```
+[#deps-project]
+=== deps :project
+
+[source,shell]
+----
   Shows dependencies for selected project.
 
   poly deps project:PROJEXT
@@ -465,10 +476,13 @@ poly help
 
   Example:
     poly deps project:myproject
-```
+----
 
-### deps :workspace
-```
+[#deps-workspace]
+=== deps :workspace
+
+[source,shell]
+----
   Shows dependencies for the workspace.
 
   poly deps
@@ -487,10 +501,13 @@ poly help
   In this example, payer uses user from the src context, and util from
   the test context (indicated by 't'). user uses util and cli uses payer.
   Each usage comes from at least one :require statement in the brick.
-```
+----
 
-### deps :project :brick
-```
+[#deps-project-brick]
+=== deps :project :brick
+
+[source,shell]
+----
   Shows dependencies for selected brick and project.
 
   poly deps project:PROJECT brick:BRICK
@@ -507,10 +524,13 @@ poly help
 
   Example:
     poly deps project:myproject brick:mybrick
-```
+----
 
-### diff
-```
+[#diff]
+=== diff
+
+[source,shell]
+----
   Shows changed files since the most recent stable point in time.
 
   poly diff [ARG]
@@ -541,10 +561,13 @@ poly help
 
   Here is a compact way of listing all the commits including tags:
     git log --pretty=oneline
-```
+----
 
-### info
-```
+[#info]
+=== info
+
+[source,shell]
+----
   Shows workspace information.
 
   poly info [ARGS]
@@ -736,10 +759,13 @@ poly help
     poly info out:info.txt
     poly info ws-dir:another-ws
     poly info ws-file:ws.edn
-```
+----
 
-### libs
-```
+[#libs]
+=== libs
+
+[source,shell]
+----
   Shows all libraries that are used in the workspace.
 
   poly libs [:compact] [:outdated]
@@ -790,10 +816,13 @@ poly help
     poly libs
     poly libs :compact
     poly libs :outdated
-```
+----
 
-### migrate
-```
+[#migrate]
+=== migrate
+
+[source,shell]
+----
   Migrates a workspace to the latest version.
 
   poly migrate
@@ -816,12 +845,19 @@ poly help
   Starting from version 0.2.0-alpha10, the tool supports specifying dependencies per
   brick in its own deps.edn files. Workspace specific config is stored in ./workspace.edn
   instead of the :polylith key in ./deps which was the case prior to this version.
-```
+----
 
-### overview
-```
+[#overview]
+=== overview
+
+[source,shell]
+----
   Shows the output from the info, deps, and libs commands, side by side.
-  This command is mainly used to generate an image for your documentation.
+  This command is mainly used to generate an image for your documentation
+  and is only available from the polyx tool.
+
+  We can duplicate the :poly alias in ./deps.edn and rename it to :polyx and
+  change :deps/root to "projects/polyx" to get access to the :polyx command.
 
   poly overview [:no-changes] [out:FILENAME]
     (omitted)   = Shows the output.
@@ -833,13 +869,16 @@ poly help
                   generated as an image.
 
   Example:
-    poly overview
-    poly overview out:overview.png
-    poly overview out:overview.jpg :no-changes
-```
+    clojure -M:polyx overview
+    clojure -M:polyx overview out:overview.png
+    clojure -M:polyx overview out:overview.jpg :no-changes
+----
 
-### shell
-```
+[#shell]
+=== shell
+
+[source,shell]
+----
   Starts an interactive shell with the name of the selected workspace, e.g.:
     myworkspace$>
 
@@ -875,10 +914,13 @@ poly help
     quit           Quits the shell.
 
   An alternative way of exiting the shell is by pressing <ctrl>+C or <ctrl>+D.
-```
+----
 
-### switch-ws
-```
+[#switch-ws]
+=== switch-ws
+
+[source,shell]
+----
   Selects which workspace to be used by commands executed from the shell.
   This replaces the use of ws-dir:DIR and ws-file:FILE, which will be appended
   automatically when executing commands, if dir:DIR or file:FILE is given.
@@ -893,9 +935,13 @@ poly help
   Example:
     switch-ws dir:~/myworkspace
     switch-ws file:../../another/ws.edn
-```
-### tap
-```
+----
+
+[#tap]
+=== tap
+
+[source,shell]
+----
   Opens (or closes/cleans) a portal window (https://github.com/djblue/portal)
   where tap> statements are sent to. This command is used from the shell and
   is mainly used internally when developing the poly tool itself.
@@ -911,10 +957,13 @@ poly help
     tap open
     tap clean
     tap close
-```
+----
 
-### test
-```
+[#test]
+=== test
+
+[source,shell]
+----
   Executes brick and/or project tests.
 
   poly test [ARGS]
@@ -1004,10 +1053,13 @@ poly help
   as an example; see polylith.clj.core.clojure-test-test-runner.interface/create.
 
   Refer to the Polylith documentation for more information about custom test runners.
-```
+----
 
-### ws
-```
+[#ws]
+=== ws
+
+[source,shell]
+----
   Prints or writes the workspace as data.
 
   poly ws [get:ARG] [out:FILE] [:latest-sha] [branch:BRANCH]
@@ -1049,5 +1101,5 @@ poly help
     poly ws get:settings:vcs:polylith :latest-sha branch:master
     poly ws out:ws.edn
     poly ws color-mode:none > ws.edn
-```
+----
 

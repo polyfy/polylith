@@ -3,16 +3,16 @@
                [polylith.clj.core.system.interface :as system]
                [polylith.clj.core.util.interface.color :as color]))
 
-(defn help [cm]
+(defn help [extended? cm]
   (str "  Shows all libraries that are used in the workspace.\n"
        "\n"
        "  poly libs [:compact] [:outdated]"
-       (if system/extended?
+       (if extended?
          (str " [out:" (s/key  "FILENAME" cm) "]\n")
          "\n")
        "    :compact  = Shows the table in a more compact way.\n"
        "    :outdated = Shows the latest version of each library, or blank if up to date.\n"
-       (if system/extended?
+       (if extended?
             (str "    out       = Creates a text or image file based on the output. If " (s/key "FILENAME" cm) "\n"
                  "                ends with .txt, then the file will contain the output as text.\n"
                  "                If FILENAME ends with .bmp, .wbmp, .gif, .jpeg, .jpg, .png, .tif,\n"
@@ -64,14 +64,15 @@
        "    poly libs :compact\n"
        "    poly libs :outdated"
 
-       (if system/extended?
+       (if extended?
          (str "\n    poly libs out:libs.png"
               "\n    poly libs out:libs.txt")
 
          "")))
 
-(defn print-help [color-mode]
-  (println (help color-mode)))
+(defn print-help [extended? color-mode]
+  (println (help extended? color-mode)))
 
 (comment
-  (print-help "dark"))
+  (print-help false "dark")
+  (print-help true "dark"))

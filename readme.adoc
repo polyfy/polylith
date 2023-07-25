@@ -4,13 +4,13 @@ image::doc/images/logo.png[alt=Polylith,width=400]
 
 This tool is made by developers for developers with the goal to maximize productivity and increase the quality of the systems we write. It supports your build pipeline but is not a build tool itself.
 
-The Polylith concept can be implemented in any programming language, but this version of the Polylith tool targets Clojure which is a powerful and simple functional language for the JVM.
+The Polylith concept can be implemented in any programming language, but this version of the Polylith tool targets https://clojure.org/[Clojure] which is a powerful and simple functional language for the https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiB88eLxansAhUyi8MKHd6jDPEQFjAAegQIBRAC&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FJava_virtual_machine&usg=AOvVaw0YtnMyoG7GQIhUPeLulbfr[JVM].
 
-Polylith introduces the architectural concept of “service level building blocks”, which can be combined like LEGO® bricks to build our services and systems. Polylith’s LEGO-like bricks are easy to reason about, test, refactor, and reuse. They allow us to work with all our code in one place for maximum productivity, using a single REPL
+Polylith introduces the architectural concept of “service level building blocks”, which can be combined like LEGO® bricks to build our services and systems. Polylith’s LEGO-like bricks are easy to reason about, test, refactor, and reuse. They allow us to work with all our code in one place for maximum productivity, using a single https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop[REPL]
 
-The bricks can easily be put together to form different kinds of deployable artifacts, like services, tools,  and libraries, in the same way we put together LEGO® when we were kids! Not surprisingly, it's just as simple and fun!
+The bricks can easily be put together to form different kinds of deployable artifacts, like services and tools, in the same way we put together LEGO® when we were kids! Not surprisingly, it's just as simple and fun!
 
-To give you an idea of what that can look like, take a quick look at the projects, bricks, and libraries that we use to build the Polylith tool (which is itself a Polylith workspace, represented by the poly column in the first diagram and from now on we will call it the poly tool):
+To give you an idea of what that can look like, take a quick look at the projects, bricks, and libraries that we use to build the _poly tool_ (which is itself a Polylith workspace, represented by the poly column in the first diagram):
 
 image::doc/images/overview.png[]
 

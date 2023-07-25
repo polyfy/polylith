@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "--- help ---"
-poly help :all color-mode:none > 01-help.txt
+poly help :all color-mode:none :fake-poly > 01-help.txt
 
 echo "--- check ---"
 poly help check color-mode:none > 02-check.txt
@@ -22,7 +22,7 @@ echo "--- create workspace ---"
 poly help create workspace color-mode:none > 07-create-workspace.txt
 
 echo "--- deps ---"
-poly help deps color-mode:none > 08-deps.txt
+poly help deps color-mode:none :fake-poly > 08-deps.txt
 
 echo "--- deps :brick ---"
 poly help deps :brick color-mode:none > 09-deps-brick.txt
@@ -40,13 +40,13 @@ echo "--- diff ---"
 poly help diff color-mode:none > 13-diff.txt
 
 echo "--- info ---"
-poly help info color-mode:none > 14-info.txt
+poly help info color-mode:none :fake-poly > 14-info.txt
 
 echo "--- tap ---"
 poly help tap color-mode:none > 20-tap.txt
 
 echo "--- libs ---"
-poly help libs color-mode:none > 15-libs.txt
+poly help libs color-mode:none :fake-poly > 15-libs.txt
 
 echo "--- migrate ---"
 poly help migrate color-mode:none > 16-migrate.txt

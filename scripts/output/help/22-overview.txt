@@ -1,5 +1,9 @@
   Shows the output from the info, deps, and libs commands, side by side.
-  This command is mainly used to generate an image for your documentation.
+  This command is mainly used to generate an image for your documentation
+  and is only available from the polyx tool.
+
+  We can duplicate the :poly alias in ./deps.edn and rename it to :polyx and
+  change :deps/root to "projects/polyx" to get access to the :polyx command.
 
   poly overview [:no-changes] [out:FILENAME]
     (omitted)   = Shows the output.
@@ -11,6 +15,6 @@
                   generated as an image.
 
   Example:
-    poly overview
-    poly overview out:overview.png
-    poly overview out:overview.jpg :no-changes
+    clojure -M:polyx overview
+    clojure -M:polyx overview out:overview.png
+    clojure -M:polyx overview out:overview.jpg :no-changes

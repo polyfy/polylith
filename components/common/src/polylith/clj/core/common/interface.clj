@@ -3,7 +3,8 @@
             [polylith.clj.core.common.core :as core]
             [polylith.clj.core.common.file-output :as file-output]
             [polylith.clj.core.common.ns-extractor :as ns-extractor]
-            [polylith.clj.core.common.validate-args :as validate-args]))
+            [polylith.clj.core.common.validate-args :as validate-args]
+            [polylith.clj.core.version.interface :as version]))
 
 (def entity->short core/entity->short)
 
@@ -67,6 +68,11 @@
 
 (defn toolsdeps1? [workspace]
   (= :toolsdeps1 (-> workspace :version :from :ws :type)))
+
+(defn tool-name [fake-poly?]
+  (if fake-poly?
+    "poly"
+    version/tool))
 
 (defn user-path [path]
   (core/user-path path))

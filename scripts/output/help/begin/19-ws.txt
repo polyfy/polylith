@@ -1,2 +1,5 @@
-### ws
-```
+[#ws]
+=== ws
+
+[source,shell]
+----

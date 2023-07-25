@@ -1,2 +1,5 @@
-### diff
-```
+[#diff]
+=== diff
+
+[source,shell]
+----

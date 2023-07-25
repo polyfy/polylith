@@ -1,2 +1,5 @@
-### deps
-```
+[#deps]
+=== deps
+
+[source,shell]
+----

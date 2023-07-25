@@ -4,12 +4,12 @@
                [polylith.clj.core.system.interface :as system]
                [polylith.clj.core.util.interface.color :as color]))
 
-(defn help-text [cm]
+(defn help-text [extended? cm]
   (str "  Shows workspace information.\n"
        "\n"
        "  poly info [" (s/key "ARGS" cm) "]\n"
        "    ARGS = " (s/key ":loc" cm) "  -> Shows the number of lines of code for each brick and project.\n"
-       (if system/extended?
+       (if extended?
          (str "           out:" (s/key "FILENAME" cm) "  -> Creates a text or image file based on the output.\n"
               "                            If " (s/key "FILENAME" cm) " ends with .txt, then the file will contain\n"
               "                            the output as text. If FILENAME ends with .bmp, .wbmp,\n"
@@ -203,14 +203,15 @@
        "    poly info :all\n"
        "    poly info :all-bricks\n"
        "    poly info out:info.txt\n"
-       (if system/extended?
+       (if extended?
             (str "    poly info out:info.png\n" ""))
        "    poly info ws-dir:another-ws\n"
        "    poly info ws-file:ws.edn"))
 
-(defn print-help [color-mode]
-  (println (help-text color-mode)))
+(defn print-help [extended? color-mode]
+  (println (help-text extended? color-mode)))
 
 (comment
-  (print-help "dark")
+  (print-help false "dark")
+  (print-help true "dark")
   #__)
