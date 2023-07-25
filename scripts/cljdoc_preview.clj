@@ -18,6 +18,8 @@
 (def cljdoc-container {:name "cljdoc-server"
                        :image "cljdoc/cljdoc"
                        :port 8000})
+;; the polylith lib we'll be previewing
+(def short-lib-name "poly")
 
 ;;
 ;; Prerequisites
@@ -198,12 +200,12 @@
 
 (def args-usage "
 Commands:
- start             Start docker containers supporting cljdoc preview
- ingest [poly|api] Locally publishes lib for cljdoc preview (default: poly)
- view   [poly|api] Opens cljdoc preview in your default browser (default: poly)
- stop              Stops docker containers supporting cljdoc preview
- status            Status of docker containers supporting cljdoc preview
- help              Show this help
+ start   Start docker containers supporting cljdoc preview
+ ingest  Locally publishes poly for cljdoc preview
+ view    Opens cljdoc preview in your default browser
+ stop    Stops docker containers supporting cljdoc preview
+ status  Status of docker containers supporting cljdoc preview
+ help    Show this help
 
 Must be run from project root directory.")
 
@@ -227,16 +229,15 @@ Must be run from project root directory.")
 (defn cmd-start [_opts]
   (start-cljdoc-server cljdoc-container))
 
-(defn cmd-ingest [{:keys [opts] :as all}]
-  (let [short-lib-name (:lib opts)
-        lib (short-lib->full-artifact-name short-lib-name)
+(defn cmd-ingest [_opts]
+  (let [lib (short-lib->full-artifact-name short-lib-name)
         version (version)]
     (git-warnings)
     (local-install short-lib-name)
     (cljdoc-ingest cljdoc-container lib version)))
 
-(defn cmd-view [{:keys [opts]}]
-  (let [lib (short-lib->full-artifact-name (:lib opts))
+(defn cmd-view [_opts]
+  (let [lib (short-lib->full-artifact-name short-lib-name)
         version (version)]
     (wait-for-server cljdoc-container)
     (view-in-browser (str "http://localhost:" (:port cljdoc-container) "/d/" lib "/" version))))
@@ -258,23 +259,16 @@ Must be run from project root directory.")
 
 (defn -main [& args]
   (check-prerequisites)
-  (let [valid-projects ["poly" "api"]
-        lib-spec {:lib {:default (first valid-projects)
-                        :validate {:pred #(some #{%} valid-projects)
-                                   :ex-msg (fn [m] (format "Invalid lib: %s\nValid values: %s\nDefault: %s\n%s"
-                                                           (:value m) (string/join ", " valid-projects)
-                                                           (first valid-projects)
-                                                           args-usage))}}}]
-    (cli/dispatch
-      [{:cmds ["start"] :fn (cmd-fn cmd-start)}
-       {:cmds ["ingest"] :fn (cmd-fn cmd-ingest) :args->opts [:lib] :spec lib-spec}
-       {:cmds ["view"] :fn (cmd-fn cmd-view) :args->opts [:lib] :spec lib-spec}
-       {:cmds ["stop"] :fn (cmd-fn cmd-stop)}
-       {:cmds ["status"] :fn (cmd-fn cmd-status)}
-       {:cmds ["help"] :fn (cmd-fn cmd-help)}
-       {:cmds [] :fn unrecognized-cmd}]
-      args
-      {:error-fn (fn [m] (status/die 1 (:msg m)))})))
+  (cli/dispatch
+    [{:cmds ["start"] :fn (cmd-fn cmd-start)}
+     {:cmds ["ingest"] :fn (cmd-fn cmd-ingest)}
+     {:cmds ["view"] :fn (cmd-fn cmd-view)}
+     {:cmds ["stop"] :fn (cmd-fn cmd-stop)}
+     {:cmds ["status"] :fn (cmd-fn cmd-status)}
+     {:cmds ["help"] :fn (cmd-fn cmd-help)}
+     {:cmds [] :fn unrecognized-cmd}]
+    args
+    {:error-fn (fn [m] (status/die 1 (:msg m)))}))
 
 ;; when invoked as script (sometimes helpful when debugging)
 (when (= *file* (System/getProperty "babashka.file"))
