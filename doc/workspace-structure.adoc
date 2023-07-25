@@ -1,4 +1,5 @@
 = Build
+:toc:
 
 The _poly_ tool gives us access to the data structure that represents the workspace, which is the same structure that all the poly commands operate on.
 
@@ -34,8 +35,6 @@ poly ws get:keys
 An even better way is to explore the workspace interactively from a shell:
 
 image::images/workspace-structure/shell.png[alt=shell]
-
-:toc:
 
 == bases
 
