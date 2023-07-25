@@ -27,4 +27,5 @@
                    ["Source code" {:file "doc/source-code.adoc"}]
                    ["Explore the workspace" {:file "doc/explore-the-workspace.adoc"}]
                    ["Clojure CLI tool" {:file "doc/clojure-cli-tool.adoc"}]
-                   ["Commands" {:file "doc/commands.adoc"}]]}
+                   ["Commands" {:file "doc/commands.adoc"}]
+                   ["Workspace structure" {:file "doc/workspace-structure.adoc"}]]}
