@@ -4,47 +4,47 @@
   "Implement this protocol to supply a custom test runner.
 
   Runner options:
-  `is-verbose`      -> A boolean indicating if we are running in verbose mode
-                       or not. TestRunner can use this to print additional
+  - `is-verbose`       A boolean indicating if we are running in verbose mode
+                       or not. `TestRunner` can use this to print additional
                        information about the test run.
-  `color-mode`      -> The color-mode that the poly tool is currently running with.
-                       TestRunner is expected to respect the color mode.
-  `project`         -> A map containing the project information.
-  `all-paths`       -> A vector of all paths necessary to create a classpath for
+  - `color-mode`       The color-mode that the poly tool is currently running with.
+                       `TestRunner` is expected to respect the color mode.
+  - `project`          A map containing the project information.
+  - `all-paths`        A vector of all paths necessary to create a classpath for
                        running the tests in isolation within the context of the
                        current project.
-  `setup-fn`        -> An optional setup function for tests defined in the
+  - `setup-fn`         An optional setup function for tests defined in the
                        workspace config. The poly tool will run this function
                        before calling run-tests only if this is an in-process
-                       TestRunner. If this is an ExternalTestRunner, the external
-                       test runner should run the setup-fn.
-  `teardown-fn`     -> An optional teardown function for tests defined in the
+                       `TestRunner`. If this is an `ExternalTestRunner`, the external
+                       test runner should run the `setup-fn`.
+  - `teardown-fn`      An optional teardown function for tests defined in the
                        workspace config. The poly tool will run this function
                        after the run-tests function completes (exception or not),
-                       only if this is an in-process TestRunner. If this is an
-                       ExternalTestRunner, the external test runner should run
-                       the teardown-fn.
+                       only if this is an in-process `TestRunner`. If this is an
+                       `ExternalTestRunner`, the external test runner should run
+                       the `teardown-fn`.
 
-  Additional options for in-process TestRunner:
-  `class-loader`    -> The isolated classloader created from the `all-paths`.
+  Additional options for in-process `TestRunner`:
+  - `class-loader`     The isolated classloader created from the `all-paths`.
                        This classloader will be used to evaluate statements within
                        the project's context. Use this if you need more granular
                        access. `eval-in-project` should be sufficient for most
                        cases.
-  `eval-in-project` -> A function that takes a single form as its argument and
+  - `eval-in-project`  A function that takes a single form as its argument and
                        evaluates it within the project's classloader. It returns
                        the result of the evaluation. This is the primary interface
                        for running tests in the project's isolated context.
 
-  Additional options for ExternalTestRunner:
-  `process-ns`      -> The main namespace of the external test runner. This
+  Additional options for `ExternalTestRunner`:
+  - `process-ns`       The main namespace of the external test runner. This
                        namespace will be invoked as a Java subprocess.
 
   Usage:
-  Create a constructor function that returns an instance of TestRunner or
-  ExternalTestRunner:
+  Create a constructor function that returns an instance of `TestRunner` or
+  `ExternalTestRunner`:
 
-  ```
+  ```Clojure
   (defn create [{:keys [workspace project test-settings is-verbose color-mode changes]}]
     ...
 
@@ -62,46 +62,50 @@
       test-runner-contract/ExternalTestRunner
       (external-process-namespace [this] ...)))
   ```
-
   `workspace` passed to the constructor will contain `:user-input`, which
   can be used to receive additional parameters for runtime configuration.
 
-  Add your constructor function in the workspace.edn. To add a single global
+  Add your constructor function in the `workspace.edn`. To add a single global
   test runner, use the `:test` key:
 
+  ```Clojure
   {:test {:create-test-runner my.namespace/create}
-
    :projects {\"project-a\" {:alias \"a\"}
               \"project-b\" {:alias \"b\"}}}
+  ```
 
   To add a multiple global test runners, use the vector variant inside the
   `:test` key. The following example will add three test runners globally
   where the last one is the default test runner.
 
+  ```Clojure
   {:test {:create-test-runner [my.namespace/create se.example/create :default]}
-
    :projects {\"project-a\" {:alias \"a\"}
               \"project-b\" {:alias \"b\"}}}
+  ```
 
   To add a custom test runner for a specific project, use the `:test` key
   in the project configuration. You can also add multiple test runners with
   using the vector variant.
 
+  ```Clojure
   {:projects {\"project-a\" {:alias \"a\"
                              :test {:create-test-runner my.namespace/create}}
               \"project-b\" {:alias \"b\"
                              :test {:create-test-runner [my.namespace/create
                                                          :default]}}}}
+  ```
 
   Adding a test runner definition to a project will override the global test
-  runner. The project-a will use the global test runner, `my.namespace/create`
-  whereas project-b will use the default test runner.
+  runner. The `project-a` will use the global test runner, `my.namespace/create`
+  whereas `project-b` will use the default test runner.
 
+  ```Clojure
   {:test {:create-test-runner my.namespace/create}
-
    :projects {\"project-a\" {:alias \"a\"}
               \"project-b\" {:alias \"b\"
-                             :test {:create-test-runner :default}}}}"
+                             :test {:create-test-runner :default}}}}
+  ```"
 
   (test-runner-name [this]
     "Returns a printable name that the poly tool can print out for
@@ -130,7 +134,7 @@
 
   (external-process-namespace [this]
     "Returns a symbol or string identifying the main namespace of an external
-    test runner. If it returns nil (default), the test runner will be an
+    test runner. If it returns `nil` (default), the test runner will be an
     in-process test runner and the tests will run in an isolated classloader
     within the same process.
 
