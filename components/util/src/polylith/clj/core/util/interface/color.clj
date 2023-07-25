@@ -1,4 +1,4 @@
-(ns polylith.clj.core.util.interface.color
+(ns ^:no-doc polylith.clj.core.util.interface.color
   (:require [polylith.clj.core.util.colorizer :as colorizer]
             [polylith.clj.core.util.color-splitter :as color-splitter]))
 

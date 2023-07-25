@@ -1,4 +1,4 @@
-(ns polylith.clj.core.lib.text-table.lib-table
+(ns ^:no-doc polylith.clj.core.lib.text-table.lib-table
   (:require [polylith.clj.core.antq.ifc :as antq]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.text-table.interface :as text-table]

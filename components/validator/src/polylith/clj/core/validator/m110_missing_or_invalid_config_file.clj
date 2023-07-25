@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.m110-missing-or-invalid-config-file)
+(ns ^:no-doc polylith.clj.core.validator.m110-missing-or-invalid-config-file)
 
 (defn error [{:keys [error]}]
   {:type "error"

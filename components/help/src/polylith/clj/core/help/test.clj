@@ -1,4 +1,4 @@
-(ns polylith.clj.core.help.test
+(ns ^:no-doc polylith.clj.core.help.test
   (:require [polylith.clj.core.help.shared :as s]
             [polylith.clj.core.util.interface.color :as color]))
 

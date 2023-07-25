@@ -1,4 +1,4 @@
-(ns polylith.clj.core.change.core
+(ns ^:no-doc polylith.clj.core.change.core
   (:require [clojure.set :as set]
             [polylith.clj.core.change.entity :as entity]
             [polylith.clj.core.change.indirect :as indirect]

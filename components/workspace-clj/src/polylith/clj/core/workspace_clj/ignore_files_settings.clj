@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace-clj.ignore-files-settings
+(ns ^:no-doc polylith.clj.core.workspace-clj.ignore-files-settings
   (:require [clojure.string :as str]))
 
 (defn file-path [namespace]

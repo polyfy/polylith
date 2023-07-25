@@ -1,4 +1,4 @@
-(ns polylith.clj.core.deps.project-brick-deps
+(ns ^:no-doc polylith.clj.core.deps.project-brick-deps
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [polylith.clj.core.common.interface :as common]))

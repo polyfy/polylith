@@ -1,4 +1,4 @@
-(ns polylith.clj.core.command.cmd-validator.executable
+(ns ^:no-doc polylith.clj.core.command.cmd-validator.executable
   (:require [polylith.clj.core.command.message :as message]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.file.interface :as file]))

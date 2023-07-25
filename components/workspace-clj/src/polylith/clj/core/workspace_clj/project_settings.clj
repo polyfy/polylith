@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace-clj.project-settings)
+(ns ^:no-doc polylith.clj.core.workspace-clj.project-settings)
 
 (defn convert-test [global-test {:keys [test] :as project-settings}]
   (cond-> project-settings

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.lib.resolve-libs
+(ns ^:no-doc polylith.clj.core.lib.resolve-libs
   (:require [polylith.clj.core.lib.maven-dep :as maven-dep]))
 
 (defn latest [m [library version]]

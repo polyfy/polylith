@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.m203-path-exists-in-both-dev-and-profile
+(ns ^:no-doc polylith.clj.core.validator.m203-path-exists-in-both-dev-and-profile
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [polylith.clj.core.common.interface :as common]

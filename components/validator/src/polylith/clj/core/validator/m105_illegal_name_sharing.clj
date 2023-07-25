@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.m105-illegal-name-sharing
+(ns ^:no-doc polylith.clj.core.validator.m105-illegal-name-sharing
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]

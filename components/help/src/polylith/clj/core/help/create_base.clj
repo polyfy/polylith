@@ -1,4 +1,4 @@
-(ns polylith.clj.core.help.create-base
+(ns ^:no-doc polylith.clj.core.help.create-base
   (:require [polylith.clj.core.help.shared :as s]))
 
 (defn help-text [cm]

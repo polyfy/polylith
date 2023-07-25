@@ -1,4 +1,4 @@
-(ns polylith.clj.core.poly-cli.api
+(ns ^:no-doc polylith.clj.core.poly-cli.api
   "A poly tool API for the Clojure CLI's -X and -T options."
   (:refer-clojure :exclude [test])
   (:require [clojure.string :as str]

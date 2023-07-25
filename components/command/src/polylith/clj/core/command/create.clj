@@ -1,4 +1,4 @@
-(ns polylith.clj.core.command.create
+(ns ^:no-doc polylith.clj.core.command.create
   (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.creator.interface :as creator]))
 

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.settings.alias
+(ns ^:no-doc polylith.clj.core.workspace.settings.alias
   (:require [clojure.set :as set]))
 
 (defn project-name->alias [index project-name]

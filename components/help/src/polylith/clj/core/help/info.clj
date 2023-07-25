@@ -1,4 +1,4 @@
-(ns polylith.clj.core.help.info
+(ns ^:no-doc polylith.clj.core.help.info
      (:require [polylith.clj.core.help.shared :as s]
                [polylith.clj.core.help.shared :as shared]
                [polylith.clj.core.system.interface :as system]

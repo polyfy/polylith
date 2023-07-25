@@ -1,4 +1,4 @@
-(ns polylith.clj.core.command.cmd-validator.core
+(ns ^:no-doc polylith.clj.core.command.cmd-validator.core
   (:require [polylith.clj.core.command.cmd-validator.create :as create]
             [polylith.clj.core.command.cmd-validator.profile :as profile]
             [polylith.clj.core.command.cmd-validator.project :as project]

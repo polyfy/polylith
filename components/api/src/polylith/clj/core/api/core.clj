@@ -1,4 +1,4 @@
-(ns polylith.clj.core.api.core
+(ns ^:no-doc polylith.clj.core.api.core
   (:require [clojure.string :as str]
             [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.user-input.interface :as user-input]

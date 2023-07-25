@@ -1,4 +1,4 @@
-(ns polylith.clj.core.help.deps-brick-project
+(ns ^:no-doc polylith.clj.core.help.deps-brick-project
   (:require [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.help.shared :as s]))
 

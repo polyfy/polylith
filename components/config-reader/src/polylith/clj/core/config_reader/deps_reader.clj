@@ -1,4 +1,4 @@
-(ns polylith.clj.core.config-reader.deps-reader
+(ns ^:no-doc polylith.clj.core.config-reader.deps-reader
   (:require [clojure.java.io :as io]
             [clojure.edn :as edn])
   (:import (java.io IOException)))

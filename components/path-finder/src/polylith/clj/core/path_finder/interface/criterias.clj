@@ -1,4 +1,4 @@
-(ns polylith.clj.core.path-finder.interface.criterias
+(ns ^:no-doc polylith.clj.core.path-finder.interface.criterias
   (:require [clojure.string :as str]))
 
 (defn truthy [_]

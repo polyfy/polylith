@@ -1,4 +1,4 @@
-(ns polylith.clj.core.ws-explorer.core
+(ns ^:no-doc polylith.clj.core.ws-explorer.core
   (:require [clojure.pprint :as pp]
             [clojure.string :as str]
             [puget.printer :as puget]

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.poly-cli.core
+(ns ^:no-doc polylith.clj.core.poly-cli.core
   (:require [polylith.clj.core.command.interface :as command]
             [polylith.clj.core.util.interface.exception :as ex]
             [polylith.clj.core.user-input.interface :as user-input])

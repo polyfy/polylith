@@ -1,4 +1,4 @@
-(ns polylith.clj.core.deps.base-deps
+(ns ^:no-doc polylith.clj.core.deps.base-deps
   (:require [clojure.set :as set]
             [polylith.clj.core.common.interface :as common]))
 

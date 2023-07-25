@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.project
+(ns ^:no-doc polylith.clj.core.workspace.project
   (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.deps.interface :as proj-deps]
             [polylith.clj.core.file.interface :as file]

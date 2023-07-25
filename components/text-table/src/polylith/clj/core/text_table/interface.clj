@@ -1,4 +1,4 @@
-(ns polylith.clj.core.text-table.interface
+(ns ^:no-doc polylith.clj.core.text-table.interface
   (:require [polylith.clj.core.text-table.cell :as cell]
             [polylith.clj.core.text-table.core :as core]
             [polylith.clj.core.text-table.line :as line]

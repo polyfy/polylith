@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.m108-project-with-multi-implementing-component
+(ns ^:no-doc polylith.clj.core.validator.m108-project-with-multi-implementing-component
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [polylith.clj.core.common.interface :as common]

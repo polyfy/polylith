@@ -1,4 +1,4 @@
-(ns polylith.clj.core.test-runner-contract.verifiers
+(ns ^:no-doc polylith.clj.core.test-runner-contract.verifiers
   (:require [polylith.clj.core.test-runner-contract.interface :as test-runner-contract]
             [polylith.clj.core.util.interface :as util]))
 

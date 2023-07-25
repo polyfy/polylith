@@ -1,4 +1,4 @@
-(ns polylith.clj.core.config-reader.ws-root
+(ns ^:no-doc polylith.clj.core.config-reader.ws-root
   (:require [clojure.string :as str]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.config-reader.config-reader :as config-reader]

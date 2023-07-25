@@ -1,4 +1,4 @@
-(ns polylith.clj.core.lib.size
+(ns ^:no-doc polylith.clj.core.lib.size
   (:require [polylith.clj.core.lib.git-size :as git-size]
             [polylith.clj.core.lib.mvn-size :as mvn-size]
             [polylith.clj.core.lib.local-size :as local-size]))

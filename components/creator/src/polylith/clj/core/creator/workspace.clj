@@ -1,4 +1,4 @@
-(ns polylith.clj.core.creator.workspace
+(ns ^:no-doc polylith.clj.core.creator.workspace
   (:require [clojure.string :as str]
             [polylith.clj.core.creator.shared :as shared]
             [polylith.clj.core.file.interface :as file]

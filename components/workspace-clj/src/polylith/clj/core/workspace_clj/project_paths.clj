@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace-clj.project-paths
+(ns ^:no-doc polylith.clj.core.workspace-clj.project-paths
   (:require [polylith.clj.core.path-finder.interface.criterias :as c]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.path-finder.interface.select :as select]))

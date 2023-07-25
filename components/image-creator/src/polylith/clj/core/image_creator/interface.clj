@@ -1,4 +1,4 @@
-(ns polylith.clj.core.image-creator.interface)
+(ns ^:no-doc polylith.clj.core.image-creator.interface)
 
 (def font-width 12)
 (def font-height 24)

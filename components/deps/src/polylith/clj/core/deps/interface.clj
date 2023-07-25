@@ -1,4 +1,4 @@
-(ns polylith.clj.core.deps.interface
+(ns ^:no-doc polylith.clj.core.deps.interface
   (:require [polylith.clj.core.deps.base-deps :as base-deps]
             [polylith.clj.core.deps.interface-deps :as ifc-deps]
             [polylith.clj.core.deps.lib-deps :as lib-deps]

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.interface
+(ns ^:no-doc polylith.clj.core.validator.interface
   (:require [polylith.clj.core.validator.core :as core]
             [polylith.clj.core.validator.datashape.dispatcher :as dispatch]
             [polylith.clj.core.validator.datashape.toolsdeps2 :as toolsdeps2]
