@@ -29,4 +29,4 @@
                    ["Clojure CLI tool" {:file "doc/clojure-cli-tool.adoc"}]
                    ["Commands" {:file "doc/commands.adoc"}]
                    ["Workspace structure" {:file "doc/workspace-structure.adoc"}]
-                   ["Naming" {:file "doc/naming.adoc"}]]}
+                   ["Misc" {:file "doc/misc.adoc"}]]}
