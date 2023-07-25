@@ -1,0 +1,281 @@
+= Naming
+
+Every time we create an _interface_, _component_, _base_, _project_ or _workspace_, we need to come up with a good name. Finding good names is one of the hardest and most important thing in software. Every time we fail to find a good name, it will make the system harder to reason about and change.
+
+The components are the core of Polylith, so let's start with them. If a component does one thing then we can name it based on that, e.g. _validator_, _invoicer_ or _purchaser_. Sometimes a component operates around a concept that we can name it after, e.g. _account_ or _car_. This can be an alternative if the component does more than one thing, but always around that single concept.
+
+If the component's main responsibility is to simplify access to a third-party API, then suffixing it with _-api_ is a good pattern, like _myexternalsystem-api_. API's that are heavily used like _aws_ can skip the suffix in some cases.
+
+If we have two components that share the same interface, e.g. _invoicer_, where the _invoicer_ component contains the business logic, while the other component only delegates to a service that includes the _invoicer_ component, then we can name the component that does the remote call _invoicer-remote_.
+
+If we have found a good name for the component, then it's generally a good idea to keep the same name for the interface, which is also the default behavior when a component is created, e.g.:
+
+[source,shell]
+----
+poly create component name:invoicer
+----
+
+...which is the same as:
+
+[source,shell]
+----
+poly create component name:invoicer interface:invoicer
+----
+
+Bases are responsible for exposing a public API and delegating the incoming calls to components. A good way to name them is to start with what they do, followed by the type of the API.
+
+If it's a REST API that takes care of invoicing, then we can name it _invoicer-rest-api_. If it's a lambda function that generates different reports, then _report-generator-lambda_ can be a good name.
+
+Projects (development excluded) represent the deployable artifacts, like services. Those artifacts should, if possible, be named after what they are, like _invoicer_ or _report-generator_.
+
+= Context
+
+The component interfaces bring context to the development experience.
+
+Object oriented languages give us context by using objects. Let’s say we work in an object oriented language and that we want to save the object _userToBeSaved_. If we type _userToBeSaved_ followed by a ., the intellisense in the IDE will show us a list of available methods for that object, for example _persist_:
+
+[source,java]
+----
+userToBeSaved.persist(db)
+----
+
+...or if implemented as a service:
+
+[source,java]
+----
+userService.persist(db, userToBeSaved)
+----
+
+With Polylith we get the same level of support from the IDE by first importing the user interface and then typing:
+
+[source,java]
+----
+(user/
+----
+
+Now the IDE will list all available functions in the _user_ interface and one of them would be _persist!_:
+
+[source,clojure]
+----
+(user/persist! db user-to-be-saved)
+----
+
+= Parameters
+
+There are a few parameters that are either rarely used or added to simplify the work with the Polylith codebase itself. For these reasons, they are not suggested by the autocomplete when in a shell. What they have in common is that they are all used to control the output of the different _poly_ commands.
+
+The internal help for these parameters are included in `poly help`.
+
+=== all
+
+If used when starting a shell:
+
+[source,shell]
+----
+poly :all
+----
+
+It gives us access to all available parameters, even those that are rarely used (which are often just in the way) and parameters that only make sense when developing the _poly_ tool itself. For example, _workspace_ will be available when using the _create_ command when passing in :all. The reason it's not included by default is that we seldom want to create another workspace within the current workspace:
+
+image::images/misc/poly-all.png[]
+
+Examples of other parameters that will also be available for some commands: _changed-files_, _color-mode_, _:compact_, _:no-changes_, _out_, _skip_, _+_.
+
+=== changed-files
+
+This parameter is used to fake changes of files, and is used for testing purposes when developing the _poly_ tool itself, e.g:
+
+[source,shell]
+----
+poly info changed-files:components/file/polylith/clj/core/user_input/core.clj
+----
+
+More than one file can be marked as changed by separating them with colons (the autocomplete only works for the first file at the moment).
+
+it's enough to include the brick or project name plus a slash, and the tool will treat it as a change, e.g.:
+
+[source,shell]
+----
+poly info changed-files:bases/mybase/:components/mycomponent/:projects/myproject/
+----
+
+
+
+=== commit
+
+This parameter is only suggested if you are outside a git repository. The _:auto-add_ parameter in the _:vcs_ section in _workspace.edn_, can be set to true to automatically add files to git when executing the _create_ command (we normally want that set to _false_). If set to _false_, we can pass in _:commit_ to get the same effect, e.g.:
+
+[source,shell]
+----
+poly create component name:mycomp :commit
+----
+
+=== fake-sha
+
+This parameter can be passed in to fake a _sha_ when executing the _info_ command, which is used when taking screenshots for this documentation.
+
+[source,shell]
+----
+poly info fake-sha:c91fdad
+----
+
+=== fake-tag
+
+This parameter can be passed in to fake a _tag_ when executing the _info_ command, which sometimes is used when taking screenshots for this documentation, e.g.:
+
+[source,shell]
+----
+poly info fake-tag:stable-lisa
+----
+
+The tag can be removed with:
+
+[source,shell]
+----
+poly info fake-tag:
+----
+
+=== fake-poly
+
+This parameter is used to fake that we are running the _poly_ tool, when we actually run the _polyx_ tool. Only used by the help command:
+
+[source,shell]
+----
+poly help :fake-poly
+----
+
+=== latest-sha
+
+This parameter is used to tell the tool to fetch the latest sha from the git repo (otherwise it's not populated), e.g.:
+
+[source,shell]
+----
+poly ws get:settings:vcs:polylith:latest-sha :latest-sha
+----
+
+=== no-changes
+
+This parameter can be used to fake that no changes have been made since the last stable point in time, and can be used when taking a screenshot of the _info_ command without getting the * characters.
+
+* `poly diff :no-changes` Returns no rows.
+* `poly info :no-changes` Gets rid of the * characters.
+
+Has the same effect as:
+
+[source,shell]
+----
+poly info changed-files:
+----
+
+=== no-exit
+
+When the _poly_ command is executed, it exits with _System/exit_ internally, see https://app.gitbook.com/s/-Mj2L4VeP3frziYOoQWC/misc/bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj[poly-cli]. If executing the poly tool from a REPL, this will also exit the REPL. To avoid that, we can pass in _:no-exit_.
+
+If we execute `poly info :no-exit` we have to press _Ctrl+C_ to exit, which is not so useful!
+
+=== replace
+
+This parameter is used to manipulate the output from the _ws_ command. When we execute `poly ws get:settings:user-home` it will return something like "/Users/joakimtengstrand". We can tell the _ws_ command to search for strings (using regular expressions) and replace the occurrences with another string, e.g.:
+
+* `poly ws get:settings:user-home replace:$HOME:MY-HOME` Outputs: "MY-HOME".
+
+* `poly ws get:settings:user-config-filename replace:$HOME:MY-HOME` Outputs: "MY-HOME/.polylith/config.edn".
+
+* `poly ws get:settings:user-config-filename replace:$HOME:MY-HOME:config.edn:USER-CONFIG` Outputs: "MY-HOME/.polylith/USER-CONFIG".
+
+* `poly ws get:settings:vcs:stable-since:sha replace:"[0-9]+":"*"` Outputs "*e*d*b*cee*fb*e*ff*fafcf".
+Here we need to surround the regular expressions with "" for the terminal to ignore the special characters.
+
+= Git hook
+
+We can ensure that we don't push code that puts the workspace in an invalid state, by adding a https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks[git hook] to our workspace, that executes the _check_ command.
+
+To make this work, all developers should add _.git/hooks/commit-msg_ to the root of the workspace on their local disk with the following content, e.g.:
+
+[source,shell]
+----
+#!/usr/bin/env bash
+
+exec /usr/bin/java -jar /usr/local/polylith/poly.jar check color-mode:none ws-dir:PATH-TO-WORKSPACE-DIRECTORY
+
+if [[ $? -ne 0 ]] ; then
+  exit 1
+fi
+----
+
+Replace _PATH-TO-WORKSPACE-DIRECTORY_ with the path to the workspace root.
+
+= Colors
+
+When we created the example workspace, the file _~/.config/polylith/config.edn_ was also created:
+
+[source,clojure]
+----
+{:color-mode "dark"
+ :thousand-separator ","
+ :empty-character "·"}
+----
+
+For Windows systems the _color-mode_ is set to _none_ and for all other systems, _dark_ will be used as default. Valid values are: _none_, _light_ and _dark_.
+
+In this documentation we have used the dark color schema, but we can switch to light by giving the color-mode parameter (or by updating ~/.config/polylith/config.edn):
+
+[source,clojure]
+----
+poly info color-mode:light
+----
+
+image::images/misc/info-light.png[width=400]
+
+...everything suddenly looks much brighter! The only difference between _light_ and _dark_ is that they use different https://github.com/polyfy/polylith/tree/master/components/util/src/polylith/clj/core/util/colorizer.clj[codes] for grey.
+
+If we switch back to dark background and select _none_:
+
+[source,clojure]
+----
+poly info color-mode:none
+----
+
+----
+  stable since: 65957ce | stable-lisa
+
+  projects: 3   interfaces: 1
+  bases:    2   components: 2
+
+  active profiles: default
+
+  project         alias   status   dev  remote
+  ------------------------------   -----------
+  command-line *  cl       -t-     -t-    --
+  user-service *  user-s   ---     ---    --
+  development *   dev      s--     s--    --
+
+  interface  brick           cl   user-s   dev  remote
+  ------------------------   -----------   -----------
+  user       user *          ---   stx     st-    --
+  user       user-remote *   stx   ---     ---    st
+  -          cli *           stx   ---     st-    --
+  -          user-api *      ---   stx     st-    --
+----
+
+...things are now displayed without colors.
+
+To refresh our memory, this is what it looked like using the dark color schema:
+
+image::images/misc/info-dark.png[width=400]
+
+If you want to use the same colors in your terminal, here they are:
+
+
+|===
+| name | color | RGB
+| yellow a|image::images/misc/yelow.png[] | f8eeb6
+| green a|image::images/misc/green.png[] | bfefc5
+| blue a|image::images/misc/blue.png[] | 77bcfc
+| purple a|image::images/misc/purple.png[] | e2aeff
+| red a|image::images/misc/red.png[] | ee9b9a
+| grey a|image::images/misc/grey.png[] | cccccc
+| black a|image::images/misc/black.png[] | 24242b
+|===
+
+If the colors look familiar to you, it's because they are more or less stolen from the https://github.com/Misophistful/borealis-cursive-theme[Borealis] color schema! This color schema gives a really pleasant user experience when used from the text editor / IDE.
