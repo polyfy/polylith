@@ -231,6 +231,27 @@
         (println "Uberjar is built.")
         opts))))
 
+(defn version
+  "Prints the current version"
+  [opts]
+  (println version/name))
+
+(defn install
+  "Create and locally install library JAR files for the Polylith project
+
+  Options:
+  * :project - required, the name of the project to build"
+  [{:keys [project] :as opts}]
+  (let [project-opts (assoc opts
+                            :project project
+                            :installer (get opts :installer :local))]
+    (println (str "Starting install for " project " project."))
+    (-> project-opts
+        (jar)
+        (set/rename-keys {:jar-file :artifact})
+        (d/deploy))
+    (println (str "Local install completed for " project " project."))))
+
 (defn deploy
   "Create and deploy library JAR files for the Polylith project.
 
