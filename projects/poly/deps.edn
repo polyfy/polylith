@@ -1,4 +1,5 @@
-{:deps {poly/antq                     {:local/root "../../components/antq"}
+{:deps {poly/api                      {:local/root "../../components/api"}
+        poly/antq                     {:local/root "../../components/antq"}
         poly/change                   {:local/root "../../components/change"}
         poly/clojure-test-test-runner {:local/root "../../components/clojure-test-test-runner"}
         poly/command                  {:local/root "../../components/command"}
