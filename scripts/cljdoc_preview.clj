@@ -1,35 +1,22 @@
 #!/usr/bin/env bb
 
-;;
-;; Copied from: https://github.com/clj-commons/etaoin/blob/master/script/cljdoc_preview.clj
-;;
-
 (ns cljdoc-preview
-  (:require [babashka.curl :as curl]
+  (:require [babashka.cli :as cli]
             [babashka.fs :as fs]
+            [babashka.http-client :as http]
+            [babashka.process :as process]
             [clojure.java.browse :as browse]
             [clojure.string :as string]
-            [helper.main :as main]
-            [helper.shell :as shell]
             [lread.status-line :as status]))
-
-;;
-;; helpers
-;;
-
-(defn- on-path? [prog-name]
-  (when-let [p (fs/which prog-name)]
-    (fs/executable? p)))
 
 ;;
 ;; constants
 ;;
 
-(def project "polyfy/polylith")
-(def cljdoc-root-temp-dir "/tmp/poly")
+(def cljdoc-root-temp-dir "/tmp/cljdoc-preview")
 (def cljdoc-db-dir (str cljdoc-root-temp-dir  "/db"))
-(def cljdoc-container {:name "poly-server"
-                       :image "poly/poly"
+(def cljdoc-container {:name "cljdoc-server"
+                       :image "cljdoc/cljdoc"
                        :port 8000})
 
 ;;
@@ -37,7 +24,7 @@
 ;;
 
 (defn check-prerequisites []
-  (let [missing-cmds (doall (remove on-path? ["git" "docker"]))]
+  (let [missing-cmds (doall (remove fs/which ["git" "docker"]))]
     (when (seq missing-cmds)
       (status/die 1 (string/join "\n" ["Required commands not found:"
                                        (string/join "\n" missing-cmds)])))))
@@ -46,19 +33,21 @@
 ;; project build info
 ;;
 
-(defn local-install []
-  (status/line :head "installing thin jar")
-  (shell/clojure "-T:build install :version-suffix cljdoc-preview"))
+(defn version []
+  (-> (process/shell {:out :string} "clojure -T:build version")
+      :out
+      string/trim))
 
-(defn built-version []
-  (slurp "target/built-jar-version.txt"))
+(defn local-install [short-lib-name]
+  (status/line :head "installing %s to local maven repo" short-lib-name)
+  (process/shell "clojure -T:build install :project" short-lib-name))
 
 ;;
 ;; git
 ;;
 
 (defn git-sha []
-  (-> (shell/command {:out :string}
+  (-> (process/shell {:out :string}
                      "git rev-parse HEAD")
       :out
       string/trim))
@@ -80,21 +69,21 @@
         (string/replace #"^(ssh///)*git@" "https://"))))
 
 (defn git-origin-url-as-https []
-  (-> (shell/command {:out :string}
+  (-> (process/shell {:out :string}
                      "git config --get remote.origin.url")
       :out
       string/trim
       https-uri))
 
 (defn uncommitted-code? []
-  (-> (shell/command {:out :string}
+  (-> (process/shell {:out :string}
                      "git status --porcelain")
       :out
       string/trim
       seq))
 
 (defn unpushed-commits? []
-  (let [{:keys [:exit :out]} (shell/command {:continue true :out :string}
+  (let [{:keys [:exit :out]} (process/shell {:continue true :out :string}
                                             "git cherry -v")]
     (if (zero? exit)
       (-> out string/trim seq)
@@ -104,26 +93,26 @@
 ;; docker
 ;;
 
-(defn status-server [ container]
-  (let [container-id (-> (shell/command {:out :string}
+(defn status-server [ container ]
+  (let [container-id (-> (process/shell {:out :string}
                                         "docker ps -q -f" (str "name=" (:name container)))
                          :out
                          string/trim)]
     (if (string/blank? container-id) "down" "up")))
 
-(defn docker-pull-latest [ container]
-  (shell/command "docker pull" (:image container)))
+(defn docker-pull-latest [ container ]
+  (process/shell "docker pull" (:image container)))
 
-(defn stop-server [ container]
+(defn stop-server [ container ]
   (when (= "down" (status-server container))
     (status/die 1
                 "%s does not appear to be running"
                 (:name container)))
-  (shell/command "docker" "stop" (:name container) "--time" "0"))
+  (process/shell "docker" "stop" (:name container) "--time" "0"))
 
 (defn wait-for-server
   "Wait for container's http server to become available, assumes server has valid root page"
-  [container]
+  [ container ]
   (status/line :head "Waiting for %s to become available" (:name container))
   (when (= "down" (status-server container))
     (status/die 1
@@ -133,7 +122,7 @@
   (let [url (str "http://localhost:" (:port container))]
     (loop []
       (if-not (try
-                (curl/get url)
+                (http/get url)
                 url
                 (catch Exception _e
                   (Thread/sleep 4000)))
@@ -150,13 +139,14 @@
 
 (defn cljdoc-ingest [container project version]
   (status/line :head "Ingesting project %s %s\ninto local cljdoc database" project version)
-  (shell/command "docker"
+  (process/shell "docker"
                  "run" "--rm"
                  "-v" (str cljdoc-db-dir ":/app/data")
                  "-v" (str (fs/home) "/.m2:/root/.m2")
                  "-v" (str (fs/cwd) ":" (fs/cwd) ":ro")
                  "--entrypoint" "clojure"
                  (:image container)
+                 "-Sforce"
                  "-M:cli"
                  "ingest"
                  ;; project and version are used to locate the maven artifact (presumably locally)
@@ -174,7 +164,7 @@
   (status/line :head "Checking for updates")
   (docker-pull-latest container)
   (status/line :head "Starting %s on port %d" (:name container) (:port container))
-  (shell/command "docker"
+  (process/shell "docker"
                  "run" "--rm"
                  "--name" (:name container)
                  "-d"
@@ -186,10 +176,9 @@
 
 (defn view-in-browser [url]
   (status/line :head "opening %s in browser" url)
-  (when (not= 200 (:status (curl/get url {:throw false})))
+  (when (not= 200 (:status (http/get url {:throw false})))
     (status/die 1 "Could not reach:\n%s\nDid you run the ingest command yet?" url))
   (browse/browse-url url))
-
 
 ;;
 ;; main
@@ -200,58 +189,93 @@
                          [(when (uncommitted-code?)
                             "There are changes that have not been committed, they will not be previewed")
                           (when (unpushed-commits?)
-                            "There are commits that have not been pushed, they will not be previewed")])]
+                            "There are commits that have not been pushed, articles will fail to import")])]
     (when (seq warnings)
       (status/line :warn (string/join "\n" warnings)))))
 
 (defn cleanup-resources []
-  (when (fs/exists? cljdoc-db-dir)
-    (fs/delete-tree cljdoc-db-dir)))
+  (fs/delete-tree cljdoc-db-dir))
 
-(def args-usage "Valid args: (start|ingest|view|stop|status|--help)
-
+(def args-usage "
 Commands:
-  start   Start docker containers supporting cljdoc preview
-  ingest  Locally publishes your project for cljdoc preview
-  view    Opens cljdoc preview in your default browser
-  stop    Stops docker containers supporting cljdoc preview
-  status  Status of docker containers supporting cljdoc preview
-
-Options:
-  --help  Show this help
+ start             Start docker containers supporting cljdoc preview
+ ingest [poly|api] Locally publishes lib for cljdoc preview (default: poly)
+ view   [poly|api] Opens cljdoc preview in your default browser (default: poly)
+ stop              Stops docker containers supporting cljdoc preview
+ status            Status of docker containers supporting cljdoc preview
+ help              Show this help
 
 Must be run from project root directory.")
 
+(defn short-lib->full-artifact-name [s]
+  (str "polylith/clj-" s))
+
+;;
+;; commands
+;;
+
+(defn cmd-fn
+  "A little wrapper for cmds for some extra validation that bb cli does not do."
+  [cmd]
+  (fn [{:keys [args] :as m}]
+    (when (seq args)
+      (status/die 1 "invalid args: %s\n%s"
+                  (string/join " " args)
+                  args-usage))
+    (cmd m)))
+
+(defn cmd-start [_opts]
+  (start-cljdoc-server cljdoc-container))
+
+(defn cmd-ingest [{:keys [opts] :as all}]
+  (let [short-lib-name (:lib opts)
+        lib (short-lib->full-artifact-name short-lib-name)
+        version (version)]
+    (git-warnings)
+    (local-install short-lib-name)
+    (cljdoc-ingest cljdoc-container lib version)))
+
+(defn cmd-view [{:keys [opts]}]
+  (let [lib (short-lib->full-artifact-name (:lib opts))
+        version (version)]
+    (wait-for-server cljdoc-container)
+    (view-in-browser (str "http://localhost:" (:port cljdoc-container) "/d/" lib "/" version))))
+
+(defn cmd-stop [_opts]
+  (stop-server cljdoc-container)
+  (cleanup-resources))
+
+(defn cmd-status [_opts]
+  (status-server-print cljdoc-container))
+
+(defn cmd-help [_opts]
+  (status/line :detail args-usage))
+
+(defn unrecognized-cmd [opts]
+  (status/die 1
+              "Unrecognized command: %s\n%s" (string/join " " (:cmds opts))
+              args-usage))
+
 (defn -main [& args]
   (check-prerequisites)
-  (when-let [opts (main/doc-arg-opt args-usage args)]
-    (cond
-      (get opts "start")
-      (do
-        (start-cljdoc-server cljdoc-container)
-        nil)
+  (let [valid-projects ["poly" "api"]
+        lib-spec {:lib {:default (first valid-projects)
+                        :validate {:pred #(some #{%} valid-projects)
+                                   :ex-msg (fn [m] (format "Invalid lib: %s\nValid values: %s\nDefault: %s\n%s"
+                                                           (:value m) (string/join ", " valid-projects)
+                                                           (first valid-projects)
+                                                           args-usage))}}}]
+    (cli/dispatch
+      [{:cmds ["start"] :fn (cmd-fn cmd-start)}
+       {:cmds ["ingest"] :fn (cmd-fn cmd-ingest) :args->opts [:lib] :spec lib-spec}
+       {:cmds ["view"] :fn (cmd-fn cmd-view) :args->opts [:lib] :spec lib-spec}
+       {:cmds ["stop"] :fn (cmd-fn cmd-stop)}
+       {:cmds ["status"] :fn (cmd-fn cmd-status)}
+       {:cmds ["help"] :fn (cmd-fn cmd-help)}
+       {:cmds [] :fn unrecognized-cmd}]
+      args
+      {:error-fn (fn [m] (status/die 1 (:msg m)))})))
 
-      (get opts "ingest")
-      (do
-        (git-warnings)
-        (local-install)
-        (cljdoc-ingest cljdoc-container project (built-version))
-        nil)
-
-      (get opts "view")
-      (do
-        (wait-for-server cljdoc-container)
-        (view-in-browser (str "http://localhost:" (:port cljdoc-container) "/d/" project "/" (built-version)))
-        nil)
-
-      (get opts "status")
-      (status-server-print cljdoc-container)
-
-      (get opts "stop")
-      (do
-        (stop-server cljdoc-container)
-        (cleanup-resources)
-        nil))))
-
-(main/when-invoked-as-script
+;; when invoked as script (sometimes helpful when debugging)
+(when (= *file* (System/getProperty "babashka.file"))
   (apply -main *command-line-args*))
