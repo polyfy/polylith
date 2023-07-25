@@ -1,2 +1,5 @@
-### create component
-```
+[#create-component]
+=== create component
+
+[source,shell]
+----

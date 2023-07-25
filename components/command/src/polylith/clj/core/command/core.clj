@@ -33,8 +33,8 @@
   (doseq [file (-> workspace :changes :changed-files)]
     (println file)))
 
-(defn help [[_ cmd ent] is-all is-show-project is-show-brick is-show-workspace toolsdeps1? color-mode]
-  (help/print-help cmd ent is-all is-show-project is-show-brick is-show-workspace toolsdeps1? color-mode))
+(defn help [[_ cmd ent] is-all is-show-project is-show-brick is-show-workspace toolsdeps1? fake-poly? color-mode]
+  (help/print-help cmd ent is-all is-show-project is-show-brick is-show-workspace toolsdeps1? fake-poly? color-mode))
 
 (defn version []
   (println (str "  " ver/tool " " ver/name " (" ver/date ")")))
@@ -62,7 +62,7 @@
     ":tap" ["shell" (assoc user-input :is-tap true)]
     [cmd user-input]))
 
-(defn execute [{:keys [cmd args name top-ns branch is-tap is-git-add is-commit is-all is-outdated is-show-brick is-show-workspace is-show-project is-verbose get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
+(defn execute [{:keys [cmd args name top-ns branch is-tap is-git-add is-commit is-all is-outdated is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (config-reader/workspace-dir user-input)
         workspace-fn (workspace-reader-fn)
@@ -81,7 +81,7 @@
           "create" (create/create ws-dir workspace args name top-ns interface branch is-git-add is-commit color-mode)
           "deps" (dependencies/deps workspace project-name brick-name unnamed-args)
           "diff" (diff workspace)
-          "help" (help args is-all is-show-project is-show-brick is-show-workspace toolsdeps1? color-mode)
+          "help" (help args is-all is-show-project is-show-brick is-show-workspace toolsdeps1? is-fake-poly color-mode)
           "info" (info/info workspace unnamed-args)
           "libs" (lib/print-lib-table workspace is-outdated)
           "migrate" (migrator/migrate ws-dir workspace)

@@ -21,12 +21,12 @@
                      :else "")]
     (str prefix (-> engine/ws deref :name) "$ ")))
 
-(defn print-logo [color-mode]
+(defn print-logo [fake-poly? color-mode]
   (println "                  _      _ + _   _");
   (println (str (color/grey color-mode "#####") "   _ __  ___| |_  _| |-| |_| |_"));
   (println (str (color/green color-mode "#####") "  | '_ \\/ _ \\ | || | | |  _| ' \\"));
   (println (str (color/blue color-mode "#####") "  | .__/\\___/_|\\_, |_|_|\\__|_||_|"));
-  (println (str "       |_|          |__/ " version/tool " " version/name)))
+  (println (str "       |_|          |__/ " (common/tool-name fake-poly?) " " version/name)))
 
 (defn enhance [user-input dir file]
    (assoc user-input :is-shell true
@@ -47,11 +47,11 @@
     (catch Throwable e
       (println (color/error color-mode (.getMessage e))))))
 
-(defn start [command-executor {:keys [ws-dir ws-file is-tap] :as user-input} workspace-fn workspace color-mode]
+(defn start [command-executor {:keys [ws-dir ws-file is-tap is-fake-poly] :as user-input} workspace-fn workspace color-mode]
   (let [reader (jline/reader)]
     (when is-tap
       (tap/execute "open"))
-    (print-logo color-mode)
+    (print-logo is-fake-poly color-mode)
     (reset! engine/ws workspace)
     (switch-ws user-input ws-dir ws-file workspace-fn)
     (tap> {:workspace @engine/ws})

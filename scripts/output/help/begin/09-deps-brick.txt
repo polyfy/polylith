@@ -1,2 +1,5 @@
-### deps :brick
-```
+[#deps-brick]
+=== deps :brick
+
+[source,shell]
+----
