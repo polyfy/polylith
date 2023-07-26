@@ -1,6 +1,6 @@
 == Install on Windows
 
-To use the poly tool and to get access to all the features in tools.deps, make sure you have https://clojure.org/guides/getting_started[CLI tools] and https://git-scm.com/book/en/v2/Getting-Started-Installing-Git[git] installed. If you install git for the first time, don't forget to set the https://docs.github.com/en/github/using-git/setting-your-username-in-git[user] name and email.
+To use the _poly_ tool and to get access to all the features in tools.deps, make sure you have https://clojure.org/guides/getting_started[CLI tools] and https://git-scm.com/book/en/v2/Getting-Started-Installing-Git[git] installed. If you install git for the first time, don't forget to set the https://docs.github.com/en/github/using-git/setting-your-username-in-git[user] name and email.
 
 If you got this error when installing _clj_:
 
@@ -33,7 +33,7 @@ see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ----
 
-To install the _poly_ command on Windows:
+To install the _poly_ tool on Windows:
 
 * Download the latest release of the poly jar,
 e.g. _poly-0.2.18.jar_.
@@ -53,5 +53,5 @@ Test the installation by typing _poly help_ from the command line.
 
 [Note]
 ====
-NOTE: The coloring of text is not supported on Windows.
+Note: The coloring of text is not supported on Windows.
 ====
