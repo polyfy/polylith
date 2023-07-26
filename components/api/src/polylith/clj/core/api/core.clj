@@ -7,9 +7,6 @@
             [polylith.clj.core.ws-explorer.interface :as ws-explorer]))
 
 (defn projects-to-deploy
-  "Returns the projects that have been affected since last deploy,
-   tagged in git following the pattern defined by :release-tag-pattern in
-   deps.edn, or v[0-9]* if not defined."
   [since]
   (let [since-then (str "since:" since)
         user-input (user-input/extract-params ["ws" since-then "skip:development"])
