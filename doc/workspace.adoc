@@ -2,9 +2,9 @@
 
 The workspace directory is the place where all our code and most of the configuration lives.
 
-Let’s start by creating the example workspace with the top namespace se.example by using the create workspace command (create w works as well as create workspace). Make sure you execute the command outside a git repository:
+Let’s start by creating the example workspace with the top namespace _se.example_ by using the `create workspace` command (`create w` works as well).
 
-Let’s start by creating the example workspace with the top namespace _se.example_ by using the create workspace command (`create w` works as well as `create workspace`). Make sure you execute the command outside a git repository:
+Make sure you execute the command outside a git repository:
 
 [source,shell]
 ----
@@ -52,9 +52,9 @@ Each top-level directory contains a specific type of Polylith concept:
 
 This structure gives a consistent shape to all Polylith projects and ensures that both new developers and veterans can quickly understand and start working with systems that are new to them. We think you will soon be addicted to the power and simplicity the Polylith structure gives to your projects!
 
-The bases, components and projects directories also contain a .keep file, which is added to prevent git from deleting these directories, and can be deleted as soon as we add something to them.
+The _bases_, _components_ and _projects_ directories also contain a _.keep_ file, which is added to prevent git from deleting these directories, and can be deleted as soon as we add something to them.
 
-The workspace.edn file looks like this:
+The _workspace.edn_ file looks like this:
 
 [source,shell]
 ----
@@ -69,7 +69,7 @@ The workspace.edn file looks like this:
  :projects {"development" {:alias "dev"}}}
 ----
 
-...and deps.edn like this:
+...and _deps.edn_ like this:
 
 [source,shell]
 ----
