@@ -1,6 +1,8 @@
 = Example systems
 
-If you want to start by seeing how a full-blown system looks like in Polylith, then have a look at the systems listed here. Otherwise, let’s jump in and start making our own very basic Polylith workspace!
+If you want to start by seeing how a full-blown system looks like in Polylith, then have a look at the systems listed here.
+
+Otherwise, let’s jump in and start making our own very basic Polylith xref:workspace.adoc[workspace]!
 
 == RealWorld
 
