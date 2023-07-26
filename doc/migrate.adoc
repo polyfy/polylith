@@ -8,4 +8,4 @@ The biggest difference compared to the old tools is that the new tool is based o
 
 == Migrate
 
-If the workspace has been created with https://github.com/polyfy/polylith/releases/tag/v0.1.0-alpha9[v0.1.0-alpha9] or earlier, then it has to be migrated by following the instructions here.
+If the workspace has been created with https://github.com/polyfy/polylith/releases/tag/v0.1.0-alpha9[v0.1.0-alpha9] or earlier, then it has to be migrated by following the instructions xref:commands.adoc#migrate[here].
