@@ -1,6 +1,6 @@
 = Upgrade
 
-To upgrade the _poly_ tool on Mac, execute (this assumes you have it installed already):
+If the _poly_ tools is installed, it can be upgrade by executing:
 
 [source,shell]
 ----
