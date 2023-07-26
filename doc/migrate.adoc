@@ -2,9 +2,9 @@
 
 == Leiningen
 
-The old https://github.com/tengstrand/lein-polylith[lein-polylith] tool has reached the end of its life and has been replaced by this tools.deps version. If you have any old Leiningen based projects to migrate, follow the instructions https://github.com/tengstrand/lein-polylith/blob/migrate/migrate/migrate.md[here].
+The old https://github.com/tengstrand/lein-polylith[lein-polylith] tool has reached the end of its life and has been replaced by this _tools.deps_ based version. If you have any old Leiningen based projects to migrate, please follow the instructions https://github.com/tengstrand/lein-polylith/blob/migrate/migrate/migrate.md[here].
 
-The biggest difference compared to the old tools is that the new tool is based on https://github.com/clojure/tools.deps.alpha[tools.deps] instead of https://leiningen.org/[Leiningen] which has a number of benefits, like an improved development experience, faster tests, Windows support, and more.
+The biggest difference compared to the old tool is that the new tool is based on https://github.com/clojure/tools.deps.alpha[tools.deps] instead of https://leiningen.org/[Leiningen] which has a number of benefits, like an improved development experience, faster tests, Windows support, and more.
 
 == Migrate
 
