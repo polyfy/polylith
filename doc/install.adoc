@@ -45,7 +45,7 @@ To use the poly tool and to get access to all the features in tools.deps, make s
 
 To install the _poly_ command on Linux:
 
-* Download the https://github.com/polyfy/polylith/releases/latest[latest release] of the _poly_ jar,
+* Download the https://github.com/polyfy/polylith/releases/latest[latest release] of the poly jar,
 e.g. _poly-0.2.18.jar_.
 * Create a directory, e.g. _/usr/local/polylith_ and copy the jar file to that directory.
 * Create a file with the name _poly_ and put it in e.g. _/usr/local/bin_ with this content:
@@ -108,7 +108,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 To install the _poly_ tool on Windows:
 
-* Download the latest release of the poly jar,
+* Download the https://github.com/polyfy/polylith/releases/latest[latest release] of the poly jar,
 e.g. _poly-0.2.18.jar_.
 * Create the _Polylith_ directory somewhere on your machine, e.g.
 _C:\Program Files\Polylith_ and copy the jar file to that directory.
@@ -158,7 +158,7 @@ clojure -Ttools install io.github.polyfy/polylith '{:git/sha "5f74c8b8675dbb0912
 
 [Note]
 ====
-Note: do not use the _install-latest_ option to `clojure -Ttools` as it does not support _:deps/root_.
+NOTE: do not use the _install-latest_ option to `clojure -Ttools` as it does not support _:deps/root_.
 ====
 
 Then we can invoke the poly tool using the CLI directly:
@@ -168,11 +168,11 @@ Then we can invoke the poly tool using the CLI directly:
 clojure -Tpoly info loc true
 ----
 
-Or start a poly shell, which uses the standard Polylith way of passing in arguments to commands:
+Or start a poly shell, which uses the standard Polylith way of passing in arguments to commands (`clojure -Tpoly` will not work here):
 
 [source,shell]
 ----
-clojure -Tpoly
+clojure -Tpoly shell
 ----
 
 Installed versions can be listed with:
@@ -235,7 +235,7 @@ An alternative way of executing the _poly_ tool is to specify it as a dependency
 }
 ----
 
-Replace _INSERT_LATEST_SHA_HERE_ with a https://github.com/polyfy/polylith/commits/master[commit SHA] from the Polylith repository (e.g. the latest).
+Replace _INSERT_LATEST_SHA_HERE_ with a https://github.com/polyfy/polylith/commits/master[commit SHA] from the Polylith repository (e.g. the latest from the _master_ branch).
 
 [Note]
 ====
@@ -260,7 +260,7 @@ If we are building tooling around Polylith, then we can use the https://clojars.
 
 * The https://github.com/polyfy/polylith/blob/master/components/test-runner-contract/src/polylith/clj/core/test_runner_contract/interface.clj[test-runner-contract] interface.
 
-Since version 0.2.18 we only publish _clj-poly_ (not the old _clj-api_) to Clojars that now also includes the https://github.com/polyfy/polylith/blob/master/components/api/src/polylith/clj/core/api/interface.clj[api].
+Since version 0.2.18 we only publish _clj-poly_ to Clojars and not the old _clj-api_ any more.
 
 You can add _clj-poly_ as a dependency to a _:deps_ section in your _deps.edn_ file (make sure to use the https://github.com/polyfy/polylith/releases[latest] release):
 
@@ -273,7 +273,7 @@ or
 
 [source,shell]
 ----
-polylith/clj-api {:git/url   "https://github.com/polyfy/polylith.git"
+polylith/clj-poly {:git/url   "https://github.com/polyfy/polylith.git"
 :sha       "ecd2cf2ede81ecd4fbf82f21a075b103b6f2d2af"
 :deps/root "projects/poly"}
 ----
