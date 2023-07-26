@@ -1,0 +1,10 @@
+== Install via nix
+
+poly tool is available in the https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/tools/misc/polylith/default.nix[nixpkgs] as well:
+
+[source,shell]
+----
+nix-shell -p polylith
+# or
+nix-env -iA 'nixos.polylith'
+----
