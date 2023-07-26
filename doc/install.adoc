@@ -5,7 +5,7 @@ There are several ways to install the poly tool, which determines how the _poly_
 
 1. As a stand-alone command line tool, executed as a Java program, e.g. `poly info`:
 - The _poly_ tool can be executed from any directory.
-- A script named  poly is installed on your local disk and added to the system path, with a content like this: `java -jar poly.jar`
+- A script named _poly_ is installed on your local disk and added to the system path, with a content like this: `java -jar poly.jar`
 
 2. By the https://clojure.org/guides/deps_and_cli[Clojure CLI], e.g. `clojure -M:poly info`:
 - The _poly_ tool can only be executed from inside a Polylith workspace directory (it uses the _:poly_ alias in _deps.edn_).
@@ -14,7 +14,7 @@ There are several ways to install the poly tool, which determines how the _poly_
 3. As a https://clojure.org/reference/deps_and_cli#tool_install[Clojure CLI tool], e.g. `clojure -Tpoly info`:
 - The _poly_ tool can be executed from any directory.
 - Different versions of the poly tool can easily be installed and switched to.
-- It doesn't follow the poly way of passing in arguments, which is described here.
+- It doesn't follow the poly way of passing in arguments, which is described xref:clojure-cli-tool.adoc[here].
 
 With this said, it's useful to install the tool both as a stand-alone command line tool, and any or both of the other two variants, but it's mainly up to your preferences how you prefer to use the tool.
 
