@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace-clj.definitions
+(ns ^:no-doc polylith.clj.core.workspace-clj.definitions
   (:require [clojure.string :as str]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.util.interface :as util]))

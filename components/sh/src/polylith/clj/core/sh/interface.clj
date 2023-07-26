@@ -1,4 +1,4 @@
-(ns polylith.clj.core.sh.interface
+(ns ^:no-doc polylith.clj.core.sh.interface
   (:require [polylith.clj.core.sh.core :as core]))
 
 (defn execute [& args]

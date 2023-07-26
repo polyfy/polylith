@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.text-table.project-table
+(ns ^:no-doc polylith.clj.core.workspace.text-table.project-table
   (:require [clojure.set :as set]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.path-finder.interface.extract :as extract]

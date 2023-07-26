@@ -1,4 +1,4 @@
-(ns polylith.clj.core.shell.candidate.engine
+(ns ^:no-doc polylith.clj.core.shell.candidate.engine
   (:require [clojure.string :as str]
             [polylith.clj.core.shell.candidate.shared :as shared]
             [polylith.clj.core.shell.candidate.specification :as specification])

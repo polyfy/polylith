@@ -1,4 +1,4 @@
-(ns polylith.clj.core.command.exit-code)
+(ns ^:no-doc polylith.clj.core.command.exit-code)
 
 (defn code [cmd {:keys [config-error messages]} test-ok?]
   (if config-error

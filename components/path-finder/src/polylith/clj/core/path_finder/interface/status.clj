@@ -1,4 +1,4 @@
-(ns polylith.clj.core.path-finder.interface.status
+(ns ^:no-doc polylith.clj.core.path-finder.interface.status
   (:require [polylith.clj.core.path-finder.interface.criterias :as c]
             [polylith.clj.core.path-finder.status-calculator :as status-calculator]))
 

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.deps.lib-deps
+(ns ^:no-doc polylith.clj.core.deps.lib-deps
   (:require [clojure.tools.deps :as tools-deps]
             [polylith.clj.core.user-config.interface :as user-config]))
 

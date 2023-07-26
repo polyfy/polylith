@@ -1,4 +1,4 @@
-(ns polylith.clj.core.migrator.core
+(ns ^:no-doc polylith.clj.core.migrator.core
   (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.migrator.brick-deps :as brick-deps]
             [polylith.clj.core.migrator.project-deps :as project-deps]

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.change.project
+(ns ^:no-doc polylith.clj.core.change.project
   (:require [clojure.set :as set]))
 
 (defn changed-project [{:keys [name component-names base-names]} changed-bricks]

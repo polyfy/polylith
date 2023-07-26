@@ -1,4 +1,4 @@
-(ns polylith.clj.core.file.core
+(ns ^:no-doc polylith.clj.core.file.core
   (:require [clojure.java.io :as io]
             [clojure.pprint :as pp]
             [clojure.string :as str]

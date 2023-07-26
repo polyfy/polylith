@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.m104-circular-deps
+(ns ^:no-doc polylith.clj.core.validator.m104-circular-deps
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]))

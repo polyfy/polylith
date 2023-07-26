@@ -1,4 +1,4 @@
-(ns polylith.clj.core.common.file-output
+(ns ^:no-doc polylith.clj.core.common.file-output
   (:require [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.image-creator.interface :as image-creator]
             [polylith.clj.core.text-table.interface :as text-table]))

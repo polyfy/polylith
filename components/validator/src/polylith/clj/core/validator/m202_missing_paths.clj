@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.m202-missing-paths
+(ns ^:no-doc polylith.clj.core.validator.m202-missing-paths
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]

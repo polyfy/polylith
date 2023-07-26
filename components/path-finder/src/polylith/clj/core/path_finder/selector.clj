@@ -1,4 +1,4 @@
-(ns polylith.clj.core.path-finder.selector
+(ns ^:no-doc polylith.clj.core.path-finder.selector
   (:require [polylith.clj.core.path-finder.interface.criterias :as criterias]))
 
 (defn entries [path-entries criterias]

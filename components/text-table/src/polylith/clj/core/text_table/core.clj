@@ -1,4 +1,4 @@
-(ns polylith.clj.core.text-table.core
+(ns ^:no-doc polylith.clj.core.text-table.core
   (:require [clojure.string :as str]
             [polylith.clj.core.text-table.flipper :as flipper]
             [polylith.clj.core.text-table.merger :as merger]

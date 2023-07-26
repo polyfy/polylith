@@ -1,4 +1,4 @@
-(ns polylith.clj.core.migrator.workspace-deps
+(ns ^:no-doc polylith.clj.core.migrator.workspace-deps
   (:require [polylith.clj.core.migrator.shared :as shared]))
 
 (defn create-config-file

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.help.migrate)
+(ns ^:no-doc polylith.clj.core.help.migrate)
 
 (defn help []
   (str "  Migrates a workspace to the latest version.\n"

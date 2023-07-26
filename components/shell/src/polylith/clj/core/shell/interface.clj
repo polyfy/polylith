@@ -1,4 +1,4 @@
-(ns polylith.clj.core.shell.interface
+(ns ^:no-doc polylith.clj.core.shell.interface
   (:require [polylith.clj.core.shell.core :as core]))
 
 (defn start

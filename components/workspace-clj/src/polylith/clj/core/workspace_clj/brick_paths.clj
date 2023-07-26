@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace-clj.brick-paths
+(ns ^:no-doc polylith.clj.core.workspace-clj.brick-paths
   (:require [polylith.clj.core.file.interface :as file]))
 
 (defn existing-paths [brick-dir paths]

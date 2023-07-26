@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace-clj.components-from-disk
+(ns ^:no-doc polylith.clj.core.workspace-clj.components-from-disk
   (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.common.interface.config :as config]
             [polylith.clj.core.file.interface :as file]

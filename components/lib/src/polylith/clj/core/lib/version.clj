@@ -1,4 +1,4 @@
-(ns polylith.clj.core.lib.version
+(ns ^:no-doc polylith.clj.core.lib.version
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interface.str :as str-util]))
 

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.shell.candidate.specification
+(ns ^:no-doc polylith.clj.core.shell.candidate.specification
   [:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.shell.candidate.creators :as c]
             [polylith.clj.core.shell.candidate.selector.remote-branches :as remote-branches]

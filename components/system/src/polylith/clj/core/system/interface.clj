@@ -1,3 +1,3 @@
-(ns polylith.clj.core.system.interface)
+(ns ^:no-doc polylith.clj.core.system.interface)
 
 (def extended? false)

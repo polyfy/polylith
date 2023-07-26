@@ -1,4 +1,4 @@
-(ns polylith.clj.core.common.interface.config)
+(ns ^:no-doc polylith.clj.core.common.interface.config)
 
 (defn src-paths [config]
   (-> config :paths))

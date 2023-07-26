@@ -1,4 +1,4 @@
-(ns polylith.clj.core.help.summary
+(ns ^:no-doc polylith.clj.core.help.summary
   (:require [clojure.string :as str]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.help.shared :as s]

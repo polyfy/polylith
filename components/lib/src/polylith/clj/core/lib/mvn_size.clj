@@ -1,4 +1,4 @@
-(ns polylith.clj.core.lib.mvn-size
+(ns ^:no-doc polylith.clj.core.lib.mvn-size
   (:require [clojure.string :as str]
             [clojure.walk :as walk]
             [polylith.clj.core.file.interface :as file]

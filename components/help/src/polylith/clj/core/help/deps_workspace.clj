@@ -1,4 +1,4 @@
-(ns polylith.clj.core.help.deps-workspace
+(ns ^:no-doc polylith.clj.core.help.deps-workspace
   (:require [polylith.clj.core.util.interface.color :as color]))
 
 (defn help [cm]

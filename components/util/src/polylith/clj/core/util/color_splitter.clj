@@ -1,4 +1,4 @@
-(ns polylith.clj.core.util.color-splitter
+(ns ^:no-doc polylith.clj.core.util.color-splitter
   (:require [clojure.string :as str]
             [polylith.clj.core.util.colors :as c]))
 

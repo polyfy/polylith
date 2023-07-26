@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.text-table.stable-since
+(ns ^:no-doc polylith.clj.core.workspace.text-table.stable-since
   (:require [clojure.string :as str]
             [polylith.clj.core.text-table.interface :as text-table]
             [polylith.clj.core.util.interface.color :as color]))

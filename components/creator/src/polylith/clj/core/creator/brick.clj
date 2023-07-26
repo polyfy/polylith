@@ -1,4 +1,4 @@
-(ns polylith.clj.core.creator.brick
+(ns ^:no-doc polylith.clj.core.creator.brick
   (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.git.interface :as git]

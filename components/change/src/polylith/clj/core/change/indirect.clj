@@ -1,4 +1,4 @@
-(ns polylith.clj.core.change.indirect
+(ns ^:no-doc polylith.clj.core.change.indirect
   (:require [clojure.set :as set]))
 
 (defn brick-source-indirect-change [brick {:keys [direct indirect]} changed-bricks]

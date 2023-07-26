@@ -1,4 +1,4 @@
-(ns polylith.clj.core.common.interface
+(ns ^:no-doc polylith.clj.core.common.interface
   (:require [polylith.clj.core.common.class-loader :as class-loader]
             [polylith.clj.core.common.core :as core]
             [polylith.clj.core.common.file-output :as file-output]

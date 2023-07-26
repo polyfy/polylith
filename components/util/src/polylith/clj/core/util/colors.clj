@@ -1,4 +1,4 @@
-(ns polylith.clj.core.util.colors)
+(ns ^:no-doc polylith.clj.core.util.colors)
 
 (def color-reset      "\u001B[0m")
 (def color-black      "\u001B[30m")

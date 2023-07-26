@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace-clj.non-top-namespace
+(ns ^:no-doc polylith.clj.core.workspace-clj.non-top-namespace
   (:require [clojure.string :as str]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.common.interface :as common]

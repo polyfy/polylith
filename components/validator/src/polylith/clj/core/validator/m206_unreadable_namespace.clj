@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.m206-unreadable-namespace
+(ns ^:no-doc polylith.clj.core.validator.m206-unreadable-namespace
   (:require [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]))
 

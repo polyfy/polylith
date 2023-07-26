@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace-clj.bases-from-disk
+(ns ^:no-doc polylith.clj.core.workspace-clj.bases-from-disk
   (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.common.interface.config :as config]
             [polylith.clj.core.lib.interface :as lib]

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.change.projects-to-test
+(ns ^:no-doc polylith.clj.core.change.projects-to-test
   (:require [clojure.set :as set]
             [polylith.clj.core.path-finder.interface.criterias :as c]
             [polylith.clj.core.path-finder.interface.select :as select]

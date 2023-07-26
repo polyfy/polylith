@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.settings
+(ns ^:no-doc polylith.clj.core.workspace.settings
   (:require [polylith.clj.core.workspace.settings.alias :as alias]
             [polylith.clj.core.workspace.settings.test :as test]))
 

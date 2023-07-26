@@ -1,4 +1,4 @@
-(ns polylith.clj.core.help.create-workspace
+(ns ^:no-doc polylith.clj.core.help.create-workspace
      (:require [polylith.clj.core.help.shared :as s]))
 
 (defn help-text [cm]

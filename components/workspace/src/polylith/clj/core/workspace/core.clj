@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.core
+(ns ^:no-doc polylith.clj.core.workspace.core
   (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.workspace.settings :as s]
