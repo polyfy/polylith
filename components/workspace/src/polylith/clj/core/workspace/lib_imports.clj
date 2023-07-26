@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.lib-imports
+(ns ^:no-doc polylith.clj.core.workspace.lib-imports
   (:require [clojure.string :as str]))
 
 (defn library? [import suffixed-top-ns interface-names]

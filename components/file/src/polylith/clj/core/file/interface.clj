@@ -1,4 +1,4 @@
-(ns polylith.clj.core.file.interface
+(ns ^:no-doc polylith.clj.core.file.interface
   (:require [me.raynes.fs :as fs]
             [polylith.clj.core.file.core :as core])
   (:import (java.io File)))

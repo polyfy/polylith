@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.m109-invalid-test-runner-constructor
+(ns ^:no-doc polylith.clj.core.validator.m109-invalid-test-runner-constructor
   (:require
    [clojure.string :as str]
    [polylith.clj.core.test-runner-contract.interface.initializers :as test-runner-initializers]

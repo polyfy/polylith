@@ -1,4 +1,4 @@
-(ns polylith.clj.core.git.core
+(ns ^:no-doc polylith.clj.core.git.core
   (:require [clojure.string :as str]
             [polylith.clj.core.git.tag :as tag]
             [polylith.clj.core.sh.interface :as sh]))

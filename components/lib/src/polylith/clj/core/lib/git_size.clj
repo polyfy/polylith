@@ -1,4 +1,4 @@
-(ns polylith.clj.core.lib.git-size
+(ns ^:no-doc polylith.clj.core.lib.git-size
   (:require [clojure.string :as str]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.util.interface :as util]))

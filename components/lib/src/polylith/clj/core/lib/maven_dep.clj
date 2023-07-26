@@ -1,4 +1,4 @@
-(ns polylith.clj.core.lib.maven-dep
+(ns ^:no-doc polylith.clj.core.lib.maven-dep
   (:import [org.eclipse.aether.util.version GenericVersionScheme]))
 
 (defonce version-scheme (GenericVersionScheme.))

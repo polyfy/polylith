@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace-clj.core
+(ns ^:no-doc polylith.clj.core.workspace-clj.core
   (:require [clojure.string :as str]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.config-reader.interface :as config-reader]

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.help.version
+(ns ^:no-doc polylith.clj.core.help.version
   (:require [polylith.clj.core.version.interface :as version]))
 
 (defn help []

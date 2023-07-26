@@ -1,4 +1,4 @@
-(ns polylith.clj.core.common.ns-extractor
+(ns ^:no-doc polylith.clj.core.common.ns-extractor
   (:require [clojure.string :as str]))
 
 (defn entity-imports [{:keys [namespaces]} sources]

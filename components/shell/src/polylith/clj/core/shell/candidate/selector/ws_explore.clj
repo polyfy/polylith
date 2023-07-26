@@ -1,4 +1,4 @@
-(ns polylith.clj.core.shell.candidate.selector.ws-explore
+(ns ^:no-doc polylith.clj.core.shell.candidate.selector.ws-explore
   (:require [polylith.clj.core.shell.candidate.creators :as c]
             [polylith.clj.core.ws-explorer.interface :as ws-explorer]))
 

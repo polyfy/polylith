@@ -1,4 +1,4 @@
-(ns polylith.clj.core.tap.core
+(ns ^:no-doc polylith.clj.core.tap.core
   (:require [clojure.string :as str]
             [portal.api :as portal]))
 

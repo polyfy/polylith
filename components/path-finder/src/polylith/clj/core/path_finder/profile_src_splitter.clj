@@ -1,4 +1,4 @@
-(ns polylith.clj.core.path-finder.profile-src-splitter
+(ns ^:no-doc polylith.clj.core.path-finder.profile-src-splitter
   (:require [clojure.string :as str]))
 
 (defn test-path? [path]

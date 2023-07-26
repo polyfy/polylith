@@ -1,4 +1,4 @@
-(ns polylith.clj.core.shell.candidate.shared
+(ns ^:no-doc polylith.clj.core.shell.candidate.shared
   (:require [polylith.clj.core.util.interface.color :as color]))
 
 (defn show-compact? [view settings]

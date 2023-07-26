@@ -1,4 +1,4 @@
-(ns polylith.clj.core.help.core
+(ns ^:no-doc polylith.clj.core.help.core
   (:require [polylith.clj.core.help.check :as check]
             [polylith.clj.core.help.create :as create]
             [polylith.clj.core.help.deps :as deps]

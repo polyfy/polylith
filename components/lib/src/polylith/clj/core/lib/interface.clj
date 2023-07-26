@@ -1,4 +1,4 @@
-(ns polylith.clj.core.lib.interface
+(ns ^:no-doc polylith.clj.core.lib.interface
   (:require [polylith.clj.core.lib.core :as core]
             [polylith.clj.core.lib.size :as size]
             [polylith.clj.core.lib.resolve-libs :as resolve-libs]

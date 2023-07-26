@@ -1,4 +1,4 @@
-(ns polylith.clj.core.path-finder.status-calculator
+(ns ^:no-doc polylith.clj.core.path-finder.status-calculator
   (:require [polylith.clj.core.path-finder.interface.criterias :as c]))
 
 (defn status-flag [path-entries name flag & criterias]

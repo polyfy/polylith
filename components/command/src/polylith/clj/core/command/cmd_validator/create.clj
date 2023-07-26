@@ -1,4 +1,4 @@
-(ns polylith.clj.core.command.cmd-validator.create
+(ns ^:no-doc polylith.clj.core.command.cmd-validator.create
   (:require [clojure.string :as str]
             [polylith.clj.core.command.message :as command]
             [polylith.clj.core.common.interface :as common]

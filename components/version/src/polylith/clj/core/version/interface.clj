@@ -1,4 +1,4 @@
-(ns polylith.clj.core.version.interface
+(ns ^:no-doc polylith.clj.core.version.interface
   (:refer-clojure :exclude [name])
   (:require [clojure.string :as str]
             [polylith.clj.core.system.interface :as system]))

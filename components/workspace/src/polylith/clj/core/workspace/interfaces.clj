@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.interfaces)
+(ns ^:no-doc polylith.clj.core.workspace.interfaces)
 
 (defn ->interface [[_ [{:keys [name interface]}]]]
   {:name (:name interface)

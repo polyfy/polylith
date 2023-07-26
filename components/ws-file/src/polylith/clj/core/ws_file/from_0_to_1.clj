@@ -1,4 +1,4 @@
-(ns polylith.clj.core.ws-file.from-0-to-1
+(ns ^:no-doc polylith.clj.core.ws-file.from-0-to-1
   (:require [polylith.clj.core.git.interface :as git]
             [polylith.clj.core.version.interface :as ver])
   (:refer-clojure :exclude [alias]))

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.text-table.info-table
+(ns ^:no-doc polylith.clj.core.workspace.text-table.info-table
   (:require [clojure.string :as str]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.util.interface.color :as color]

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.lib.core
+(ns ^:no-doc polylith.clj.core.lib.core
   (:require [polylith.clj.core.config-reader.interface :as config-reader]
             [polylith.clj.core.lib.maven-dep :as maven-dep]
             [polylith.clj.core.lib.size :as size]

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.user-config.core
+(ns ^:no-doc polylith.clj.core.user-config.core
   (:require [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.util.interface.str :as str-util]))
 

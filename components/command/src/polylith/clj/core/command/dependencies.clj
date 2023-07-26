@@ -1,4 +1,4 @@
-(ns polylith.clj.core.command.dependencies
+(ns ^:no-doc polylith.clj.core.command.dependencies
   (:require [polylith.clj.core.deps.interface :as deps]
             [polylith.clj.core.common.interface :as common]))
 

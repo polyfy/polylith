@@ -1,4 +1,4 @@
-(ns polylith.clj.core.sh.core
+(ns ^:no-doc polylith.clj.core.sh.core
   (:require [clojure.java.shell :as shell]))
 
 (defn execute [args]

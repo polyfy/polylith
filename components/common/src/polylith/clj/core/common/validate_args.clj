@@ -1,4 +1,4 @@
-(ns polylith.clj.core.common.validate-args
+(ns ^:no-doc polylith.clj.core.common.validate-args
   (:require [clojure.string :as str]))
 
 (defn not-profile-or-empty? [arg]

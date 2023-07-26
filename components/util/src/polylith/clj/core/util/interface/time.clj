@@ -1,4 +1,4 @@
-(ns polylith.clj.core.util.interface.time
+(ns ^:no-doc polylith.clj.core.util.interface.time
   (:require [polylith.clj.core.util.time :as time]))
 
 (defn current-time []

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.test-runner-contract.interface.verifiers
+(ns ^:no-doc polylith.clj.core.test-runner-contract.interface.verifiers
   (:require [polylith.clj.core.test-runner-contract.verifiers :as core]))
 
 (defn valid-constructor-var? [candidate]

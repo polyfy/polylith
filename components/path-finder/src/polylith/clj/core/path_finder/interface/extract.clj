@@ -1,4 +1,4 @@
-(ns polylith.clj.core.path-finder.interface.extract
+(ns ^:no-doc polylith.clj.core.path-finder.interface.extract
   (:require [polylith.clj.core.path-finder.path-extractor :as path-extractor]
             [polylith.clj.core.path-finder.lib-dep-extractor :as lib-dep-extractor]))
 

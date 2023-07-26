@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.datashape.toolsdeps2
+(ns ^:no-doc polylith.clj.core.validator.datashape.toolsdeps2
   (:require [malli.core :as m]
             [malli.error :as me]
             [malli.util :as mu]

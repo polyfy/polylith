@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace-clj.projects-from-disk
+(ns ^:no-doc polylith.clj.core.workspace-clj.projects-from-disk
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [clojure.tools.deps.util.maven :as mvn]

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.datashape.toolsdeps1
+(ns ^:no-doc polylith.clj.core.validator.datashape.toolsdeps1
   (:require [malli.core :as m]
             [malli.error :as me]
             [polylith.clj.core.validator.datashape.shared :as shared]))

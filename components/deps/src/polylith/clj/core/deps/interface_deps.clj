@@ -1,4 +1,4 @@
-(ns polylith.clj.core.deps.interface-deps
+(ns ^:no-doc polylith.clj.core.deps.interface-deps
   (:require [clojure.string :as str]
             [polylith.clj.core.common.interface :as common]))
 

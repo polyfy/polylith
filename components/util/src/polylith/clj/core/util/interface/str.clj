@@ -1,4 +1,4 @@
-(ns polylith.clj.core.util.interface.str
+(ns ^:no-doc polylith.clj.core.util.interface.str
   (:require [clojure.string :as str]
             [polylith.clj.core.util.str :as str-util])
   (:refer-clojure :exclude [drop-last]))

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.help.shared
+(ns ^:no-doc polylith.clj.core.help.shared
   (:require [polylith.clj.core.util.interface.color :as color]
             [clojure.string :as str])
   (:refer-clojure :exclude [key]))

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.creator.interface
+(ns ^:no-doc polylith.clj.core.creator.interface
   (:require [polylith.clj.core.creator.base :as base]
             [polylith.clj.core.creator.component :as component]
             [polylith.clj.core.creator.workspace :as workspace]

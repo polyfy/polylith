@@ -1,4 +1,4 @@
-(ns polylith.clj.core.antq.core
+(ns ^:no-doc polylith.clj.core.antq.core
   (:require [antq.api :as antq]
             [polylith.clj.core.common.interface :as common]))
 

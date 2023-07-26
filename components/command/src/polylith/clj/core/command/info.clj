@@ -1,4 +1,4 @@
-(ns polylith.clj.core.command.info
+(ns ^:no-doc polylith.clj.core.command.info
   (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.workspace.interface :as ws]))
 

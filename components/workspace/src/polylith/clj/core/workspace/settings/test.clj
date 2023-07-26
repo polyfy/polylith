@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.settings.test)
+(ns ^:no-doc polylith.clj.core.workspace.settings.test)
 
 (def default-test-runner
   'polylith.clj.core.clojure-test-test-runner.interface/create)

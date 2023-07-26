@@ -1,4 +1,4 @@
-(ns polylith.clj.core.change.entity
+(ns ^:no-doc polylith.clj.core.change.entity
   (:require [polylith.clj.core.path-finder.interface.criterias :as c]
             [polylith.clj.core.path-finder.interface.select :as select]
             [polylith.clj.core.path-finder.interface.extract :as extract]))

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.path-finder.sources-on-disk
+(ns ^:no-doc polylith.clj.core.path-finder.sources-on-disk
   (:require [polylith.clj.core.file.interface :as file]))
 
 (defn- entity-source-paths [ws-dir entity-type entity]

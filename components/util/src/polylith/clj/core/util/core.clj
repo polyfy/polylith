@@ -1,4 +1,4 @@
-(ns polylith.clj.core.util.core)
+(ns ^:no-doc polylith.clj.core.util.core)
 
 (defn find-first [predicate sequence]
   (first (filter predicate sequence)))

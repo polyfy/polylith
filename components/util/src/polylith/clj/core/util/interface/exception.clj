@@ -1,4 +1,4 @@
-(ns polylith.clj.core.util.interface.exception
+(ns ^:no-doc polylith.clj.core.util.interface.exception
   (:require [clojure.stacktrace :as stacktrace]))
 
 (defn print-error-message [e]

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.shell.candidate.selector.ws-bricks
+(ns ^:no-doc polylith.clj.core.shell.candidate.selector.ws-bricks
   (:require [clojure.set :as set]
             [polylith.clj.core.shell.candidate.creators :as c]
             [polylith.clj.core.shell.candidate.shared :as shared]))

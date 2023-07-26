@@ -1,4 +1,4 @@
-(ns polylith.clj.core.config-reader.interface
+(ns ^:no-doc polylith.clj.core.config-reader.interface
   (:require [polylith.clj.core.config-reader.check-file :as check-file]
             [polylith.clj.core.config-reader.config-reader :as config-reader]
             [polylith.clj.core.config-reader.deps-reader :as deps-reader]

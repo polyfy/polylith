@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.shared
+(ns ^:no-doc polylith.clj.core.validator.shared
   (:require [clojure.string :as str]))
 
 (defn full-name

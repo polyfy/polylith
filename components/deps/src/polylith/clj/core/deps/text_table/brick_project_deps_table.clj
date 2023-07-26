@@ -1,4 +1,4 @@
-(ns polylith.clj.core.deps.text-table.brick-project-deps-table
+(ns ^:no-doc polylith.clj.core.deps.text-table.brick-project-deps-table
   (:require [polylith.clj.core.deps.text-table.shared :as shared]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.text-table.interface :as text-table]

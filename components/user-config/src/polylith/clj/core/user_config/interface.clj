@@ -1,4 +1,4 @@
-(ns polylith.clj.core.user-config.interface
+(ns ^:no-doc polylith.clj.core.user-config.interface
   (:require [polylith.clj.core.user-config.core :as core]))
 
 (defn home-dir []

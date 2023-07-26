@@ -1,4 +1,4 @@
-(ns polylith.clj.core.help.switch-ws
+(ns ^:no-doc polylith.clj.core.help.switch-ws
   (:require [polylith.clj.core.help.shared :as s]))
 
 (defn help [cm]

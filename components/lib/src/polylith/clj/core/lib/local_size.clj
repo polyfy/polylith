@@ -1,4 +1,4 @@
-(ns polylith.clj.core.lib.local-size
+(ns ^:no-doc polylith.clj.core.lib.local-size
   (:require [polylith.clj.core.lib.version :as version]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.common.interface :as common]))

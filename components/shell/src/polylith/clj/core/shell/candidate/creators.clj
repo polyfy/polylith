@@ -1,4 +1,4 @@
-(ns polylith.clj.core.shell.candidate.creators
+(ns ^:no-doc polylith.clj.core.shell.candidate.creators
   (:require [polylith.clj.core.util.interface.color :as color]))
 
 (defn with-val [candidate value]

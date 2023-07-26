@@ -1,4 +1,4 @@
-(ns polylith.clj.core.help.tap
+(ns ^:no-doc polylith.clj.core.help.tap
   (:require [polylith.clj.core.help.shared :as s]))
 
 (defn help [cm]

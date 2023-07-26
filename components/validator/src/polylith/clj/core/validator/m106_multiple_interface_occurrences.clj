@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.m106-multiple-interface-occurrences
+(ns ^:no-doc polylith.clj.core.validator.m106-multiple-interface-occurrences
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]))

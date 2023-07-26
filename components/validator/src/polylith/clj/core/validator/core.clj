@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.core
+(ns ^:no-doc polylith.clj.core.validator.core
   (:require [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.validator.m101-illegal-namespace-deps :as m101]
             [polylith.clj.core.validator.m102-function-or-macro-is-defined-twice :as m102]

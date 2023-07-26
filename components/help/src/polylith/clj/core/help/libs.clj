@@ -1,4 +1,4 @@
-(ns polylith.clj.core.help.libs
+(ns ^:no-doc polylith.clj.core.help.libs
      (:require [polylith.clj.core.help.shared :as s]
                [polylith.clj.core.system.interface :as system]
                [polylith.clj.core.util.interface.color :as color]))

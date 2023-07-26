@@ -1,4 +1,4 @@
-(ns polylith.clj.core.help.create
+(ns ^:no-doc polylith.clj.core.help.create
   (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.help.shared :as s]
             [polylith.clj.core.help.create-component :as component]

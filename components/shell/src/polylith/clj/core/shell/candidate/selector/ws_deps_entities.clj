@@ -1,4 +1,4 @@
-(ns polylith.clj.core.shell.candidate.selector.ws-deps-entities
+(ns ^:no-doc polylith.clj.core.shell.candidate.selector.ws-deps-entities
   (:require [clojure.set :as set]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.shell.candidate.creators :as c]
