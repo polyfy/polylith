@@ -1,0 +1,18 @@
+= Git hook
+
+We can ensure that we don't push code that puts the workspace in an invalid state, by adding a https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks[git hook] to our workspace, that executes the _check_ command.
+
+To make this work, all developers should add _.git/hooks/commit-msg_ to the root of the workspace on their local disk with the following content, e.g.:
+
+[source,shell]
+----
+#!/usr/bin/env bash
+
+exec /usr/bin/java -jar /usr/local/polylith/poly.jar check color-mode:none ws-dir:PATH-TO-WORKSPACE-DIRECTORY
+
+if [[ $? -ne 0 ]] ; then
+  exit 1
+fi
+----
+
+Replace _PATH-TO-WORKSPACE-DIRECTORY_ with the path to the workspace root.
