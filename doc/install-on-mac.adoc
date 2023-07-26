@@ -1,0 +1,18 @@
+== Install on Mac
+
+To use the poly tool and to get access to all the features in tools.deps, make sure you have https://clojure.org/guides/getting_started[CLI tools] and https://git-scm.com/book/en/v2/Getting-Started-Installing-Git[git] installed. If you install git for the first time, don't forget to set the https://docs.github.com/en/github/using-git/setting-your-username-in-git[user] name and email.
+
+To install the _poly_ command on Mac, execute:
+
+[source,shell]
+----
+brew install polyfy/polylith/poly
+----
+
+If you get the error "openjdk-13.0.2.jdk could not be opened...", do this:
+
+- Open MacOS "System Preferences > Security & Privacy > General".
+- Click Allow at the bottom for "openjdk-13.0.2.jdk".
+- Run brew install `polyfy/polylith/poly` again.
+
+Verify the installation by executing `poly help`.

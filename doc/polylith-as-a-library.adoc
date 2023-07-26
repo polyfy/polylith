@@ -1,0 +1,27 @@
+== Polylith as a library
+
+If you are building tooling around Polylith, then you can use the _clj-poly_ library, that exposes two interfaces:
+
+* The https://github.com/polyfy/polylith/blob/master/components/api/src/polylith/clj/core/api/interface.clj[api] interface.
+
+* The https://github.com/polyfy/polylith/blob/master/components/test-runner-contract/src/polylith/clj/core/test_runner_contract/interface.clj[test-runner-contract] interface.
+
+Since version 0.2.18 we only publish https://clojars.org/polylith/clj-poly/versions[clj-poly] to Clojars which also includes `api`. The old _clj-api_ is no longer needed.
+
+You can add _clj-poly_ as a dependency to a _:deps_ section in your _deps.edn_ file (make sure to use the https://github.com/polyfy/polylith/releases[latest] release):
+
+[source,shell]
+----
+polylith/clj-api {:mvn/version "0.2.17-alpha"}
+----
+
+or
+
+[source,shell]
+----
+polylith/clj-api {:git/url   "https://github.com/polyfy/polylith.git"
+:sha       "ecd2cf2ede81ecd4fbf82f21a075b103b6f2d2af"
+:deps/root "projects/api"}
+----
+
+...and remember to set the _:sha_ to an existing https://github.com/polyfy/polylith/commits/master[SHA].

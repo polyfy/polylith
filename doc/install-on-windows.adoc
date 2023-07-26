@@ -1,0 +1,57 @@
+== Install on Windows
+
+To use the poly tool and to get access to all the features in tools.deps, make sure you have https://clojure.org/guides/getting_started[CLI tools] and https://git-scm.com/book/en/v2/Getting-Started-Installing-Git[git] installed. If you install git for the first time, don't forget to set the https://docs.github.com/en/github/using-git/setting-your-username-in-git[user] name and email.
+
+If you got this error when installing _clj_:
+
+[source,shell]
+----
+clj : The 'clj' command was found in the module 'ClojureTools', but the module could not be loaded.
+For more information, run 'Import-Module ClojureTools'.
+----
+
+...and if you followed the instruction and executed this:
+
+[source,shell]
+----
+Import-Module ClojureTools
+----
+
+...and got this error:
+
+[source,shell]
+----
+Import-Module : File C:\Users\Admin\Documents\WindowsPowerShell\Modules\ClojureTools\ClojureTools.psm1
+cannot be loaded because running scripts is disabled on this system. For more information,
+see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.
+----
+
+...then try this:
+
+[source,shell]
+----
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+----
+
+To install the _poly_ command on Windows:
+
+* Download the latest release of the poly jar,
+e.g. _poly-0.2.18.jar_.
+* Create the _Polylith_ directory somewhere on your machine, e.g.
+_C:\Program Files\Polylith_ and copy the jar file to that directory.
+* Create the file _poly.bat_ with this content (make sure you point to the jar):
+
+[source,shell]
+----
+@echo off
+start /wait /b java %JAVA_OPTS% -jar "C:\Program Files\Polylith\poly-0.2.18.jar" %*
+----
+
+* Add _C:\Program Files\Polylith_ to the Windows _PATH_ environment variable.
+
+Test the installation by typing _poly help_ from the command line.
+
+[Note]
+====
+NOTE: The coloring of text is not supported on Windows.
+====
