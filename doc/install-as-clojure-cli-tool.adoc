@@ -4,7 +4,7 @@ If we are using a recent version of the https://clojure.org/releases/tools[Cloju
 
 [source,shell]
 ----
-clojure -Ttools install io.github.polyfy/polylith '{:git/tag "v0.2.17-alpha" :deps/root "projects/poly"}' :as poly
+clojure -Ttools install io.github.polyfy/polylith '{:git/tag "v0.2.18" :deps/root "projects/poly"}' :as poly
 ----
 
 An alternative is to give a sha, which allows us to use old versions or versions that hasn't been released yet, e.g.:
@@ -16,7 +16,7 @@ clojure -Ttools install io.github.polyfy/polylith '{:git/sha "5f74c8b8675dbb0912
 
 [Note]
 ====
-NOTE: do not use the _install-latest_ option to `clojure -Ttools` as it does not support _:deps/root_.
+Note: do not use the _install-latest_ option to `clojure -Ttools` as it does not support _:deps/root_.
 ====
 
 Then we can invoke the poly tool using the CLI directly:
@@ -30,7 +30,7 @@ Or start a poly shell, which uses the standard Polylith way of passing in argume
 
 [source,shell]
 ----
-clojure -Tpoly shell
+clojure -Tpoly
 ----
 
 Installed versions can be listed with:
@@ -59,4 +59,4 @@ clojure -A:deps -Tpoly help/doc
 NOTE: the command-line argument syntax for "tool" usage follows the CLI "exec args" format which is essentially Clojure's own keyword/value syntax (it's actually read as EDN).
 ====
 
-How to use the _poly_ command as a tool is described in the Clojure CLI Tool section. The official documentation can be found https://clojure.org/reference/deps_and_cli#tool_install[here].
+How to use the _poly_ command as a tool is described in the xref:clojure-cli-tool.adoc[Clojure CLI Tool] section. The official documentation can be found https://clojure.org/reference/deps_and_cli#tool_install[here].

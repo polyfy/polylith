@@ -53,5 +53,5 @@ Test the installation by typing _poly help_ from the command line.
 
 [Note]
 ====
-Note: The coloring of text is not supported on Windows.
+NOTE: The coloring of text is not supported on Windows.
 ====
