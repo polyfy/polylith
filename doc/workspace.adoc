@@ -42,13 +42,13 @@ The directory structure is designed for quick navigation and ease of use. It hel
 
 Each top-level directory contains a specific type of Polylith concept:
 
-* A _base_ is a building block that exposes a public API to external systems.
+* A xref:base.adoc[base] a building block that exposes a public API to external systems.
 
-* A _component_ is a building block for encapsulating a specific domain or part of the system.
+* A xref:component.adoc[component] is a building block for encapsulating a specific domain or part of the system.
 
-* A _project_ specifies a deployable artifact and what components, bases, and libraries it contains.
+* A xref:project.adoc[project] specifies a deployable artifact and what components, bases, and libraries it contains.
 
-* The _development_ project (_development_ + _deps.edn_) is used to work with the code in one place.
+* The xref:development.adoc[development] project (_development_ + _deps.edn_) is used to work with the code in one place.
 
 This structure gives a consistent shape to all Polylith projects and ensures that both new developers and veterans can quickly understand and start working with systems that are new to them. We think you will soon be addicted to the power and simplicity the Polylith structure gives to your projects!
 
@@ -85,7 +85,7 @@ The _workspace.edn_ file looks like this:
                                  :deps/root "projects/poly"}}}}}
 ----
 
-If all went well, the _poly_ tool managed to set the latest sha for the _:poly_ alias by taking it from the _master_ branch in this repository. We can instruct it to go and get it by passing in _:latest-sha_:
+If all went well, the _poly_ tool managed to set the latest sha for the _:poly_ alias by taking it from the https://github.com/polyfy/polylith/commits/master[master] branch in this repository. We can instruct it to go and get it by passing in _:latest-sha_:
 
 [source,shell]
 ----
@@ -102,7 +102,7 @@ The output will look something like this:
  :repo "https://github.com/polyfy/polylith.git"}
 ----
 
-The _:latest-sha_ argument will tell the tool to go out and find the latest SHA from the Polylith repo and populate the _:latest-sha_ attribute in the workspace structure, which would otherwise not be set.
+The _:latest-sha_ argument will tell the tool to go out and find the latest SHA from the Polylith repo and populate the _:latest-sha_ attribute in the xref:workspace-structure.adoc[workspace structure], which would otherwise not be set.
 
 If you wonder how the _ws_ command works or what all the settings are for, be patient, everything will soon be covered in detail.
 
