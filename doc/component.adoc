@@ -10,7 +10,7 @@ Now when we have a working development environment, let's continue and create ou
 ...
 ----
 
-By doing this, we want to ensure that the created files and directories from the create _command_ is also committed to git, which will come in handy in this example.
+By doing this, we want to ensure that the created files and directories from the _create_ command is also committed to git, which will come in handy in this example.
 
 == How to execute commands
 
@@ -22,19 +22,21 @@ Before we continue with creating a component, let's say a few words about the di
 
 3. `clojure -Tpoly info` - as a Clojure CLI Tool
 
-All the documentation refers to the first form, even though the other two are also valid. There is also a fourth way, and that is to execute the command from a shell. We can start an interactive shell by leaving out the (info) command:
+All the documentation refers to the first form, even though the other two are also valid. There is also a fourth way, and that is to execute the command from a shell.
+
+We can start an interactive shell by leaving out the command in the fist two cases, but in the third it has to be included:
 
 1. `poly`
 
 2. `clojure -M:poly`
 
-3. `clojure -T:poly`
+3. `clojure -T:poly shell`
 
-image::images/component/start-a-shell.png[alt=Start a shell,width=600]
+image::images/component/start-a-shell.png[]
 
 From here it's enough to enter the name of the command, e.g.:
 
-image::images/component/shell-info.png[alt=info,width=600]
+image::images/component/shell-info.png[]
 
 This way of executing commands is the most convenient way in most cases, because it gives us instant feedback, history, and autocomplete. Feel free to use the shell from now on. It will make you more productive and enhances the development experience!
 
@@ -51,13 +53,11 @@ Our workspace will now look like this:
 ----
 example
 ├── bases
-│   └── .keep
 ├── components
 │   └── user
 │       ├── deps.edn
 │       ├── resources
 │       │   └── user
-│       │       └── .keep
 │       ├── src
 │       │   └── se
 │       │       └── example
@@ -75,7 +75,6 @@ example
 │           └── lisa.clj
 ├── logo.png
 ├── projects
-│   └── .keep
 ├── readme.md
 └── workspace.edn
 ----
@@ -89,7 +88,7 @@ The command also printed out this message:
 
 This was a reminder for us to add the component to _deps.edn_. If we don't, then _tools.deps_ and the development environment will not recognize our newly created component, which would be a pity! The tool leaves this task to you as a developer, with the idea to give you as much control as possible (files are only edited by you, not by the tool).
 
-Let's continue by adding the user component to _deps.edn_:
+Let's continue by adding the _user- component to _deps.edn_:
 
 [source,clojure]
 ----
@@ -104,7 +103,7 @@ Let's continue by adding the user component to _deps.edn_:
 
 All keys must be unique, and a good pattern is to prefix them with _poly/_ followed by the brick name, e.g. _poly/user_ as in this case.
 
-Adding the component to _:extra-deps_ should now be supported by all the main IDE's, https://github.com/clojure-emacs/cider[Cider], https://marketplace.visualstudio.com/items?itemName=betterthantomorrow.calva[Calva] or  https://cursive-ide.com/[Cursive]. Cursive users have to use _1.13.0_ or later for this to work.
+Adding the component to _:extra-deps_ should now be supported by all the main IDE's: https://github.com/clojure-emacs/cider[Cider], https://marketplace.visualstudio.com/items?itemName=betterthantomorrow.calva[Calva] and https://cursive-ide.com/[Cursive]. Cursive users have to use _1.13.0_ or later for this to work.
 
 If your IDE doesn't support this, then you have to add the component paths instead:
 
@@ -117,21 +116,22 @@ If your IDE doesn't support this, then you have to add the component paths inste
             :test {:extra-paths ["components/user/test"]}
 ----
 
-Here are some of the benefits of adding bricks as dependencies instead of paths:
+We recommend you to add them as dependencies instead of as paths (if possible) for these reasons:
 
 * It's more readable
 
 * We don't have to duplicate the bricks library dependencies in _./deps.edn_.
 
-* It's consistent with how projects are specified.
+* It's consistent with how xref:project.adoc[projects] are specified.
 
 * You can add or remove the _resources_ directory from a brick, without updating _./deps.edn_.
 
-You can have a look in the RealWorld example app on how to configure _./deps.edn_ as https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/master/deps.edn[extra-deps] or https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/e6f7f200bc46e4e2595e123947eec442ad91c9ab/deps.edn[extra-paths].
+If you want to see an example of what this might look like in practice, take a look at how _article_ can be added as a https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/5b6df23d63500a4540b75308379e06dfdeb8b767/deps.edn#L7[dependency] or as https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/e6f7f200bc46e4e2595e123947eec442ad91c9ab/deps.edn#L7-L8[paths] in the RealWorld example app.
 
-Now we may need to refresh our IDE, by clicking this link, or the icon we used before:
+Now we may need to refresh our IDE, by clicking the _Import Changes_ link (or the icon we used before):
 
-image::images/component/cursive-import-changes.png[alt=Import changes,width=400]
+image::images/component/cursive-import-changes.png[alt=Import changes,width=300]
+
 
 The component also has its own _deps.edn_ file that looks like this:
 
@@ -156,12 +156,23 @@ example
 │       │   └── user
 ----
 
-This directory contains a _user_ directory, which is the name of the component's interface and is the place where we put our resources, e.g. _user/mydata.edn_. The reason we namespace the resource files is to avoid name collisions between files that live in different components and bases and is why we should avoid putting files directly under resources.
+This directory contains a _user_ directory, which is the name of the component's interface and is the place where we put our resources, e.g.:
 
+[source,shell]
+----
+example
+├── components
+│   └── user
+│       ├── resources
+│       │   └── user
+│       │       └── myimage.png
+----
 
-If the resources directory is not needed, it can be deleted and removed from the corresponding _deps.edn_ file. It has some value to keep it though, to avoid the risk of someone adding it again in the future without the _user_ subdirectory (in this case).
+The reason we put _myimage.png_ under _resources/user_ and not directly under _resources_ is that we want to avoid name clashes, which could happen if a file name exists in more than one brick in a xref:project.adoc[project].
 
-Let's continue by executing the info command:
+If the resources directory is not needed, it can be deleted and removed from the corresponding _deps.edn_ file. It has some value to keep it though, to avoid the risk of someone adding it again in the future without the _user_ subdirectory (in this example).
+
+Let's continue by executing the xref:commands.adoc#info[info] command:
 
 [source,shell]
 ----
@@ -170,9 +181,9 @@ poly info
 
 image::images/component/info.png[alt=poly info,width=350]
 
-This tells us that we have one _development_ project, one _user_ component and one _user_ interface but no base (yet). Components and bases are referred to as _bricks_ (we will soon explain what a base is). The cryptic _s--_ and _st-_ will be described in the flags section.
+This tells us that we have one _development_ xref:project.adoc[project], one _user_ component and one _user_ xref:interface.adoc[interface] but no xref:base.adoc[base] (yet). Components and bases are referred to as _bricks_ (we will soon explain what a base is). The cryptic `s--` and `st-` will be described in the xref:flags.adoc[flags] section.
 
-If your colors don't look as nice as this, then you can visit the colors section.
+If your colors don't look as nice as this, then you can visit the xref:colors.adoc[colors] section.
 
 == Add implementation
 
@@ -196,7 +207,7 @@ image::images/component/add-user-namespaces.png[alt=Add the core namespace,width
 ----
 (ns se.example.user.interface
   (:require [se.example.user.core :as core]))
-
+K
 (defn hello [name]
   (core/hello name))
 ----
