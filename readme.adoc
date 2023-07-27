@@ -12,7 +12,7 @@ The bricks can easily be put together to form different kinds of deployable arti
 
 To give you an idea of what that can look like, take a quick look at the projects, bricks, and libraries that we use to build the _poly tool_ (which is itself a Polylith workspace, represented by the poly column in the first diagram):
 
-image::doc/images/overview.png[]
+image::doc/images/overview.png[link="doc/overview.png"]
 
 To better understand the principles and ideas behind this tool, we recommend you first read the https://polylith.gitbook.io[high-level documentation!]
 
