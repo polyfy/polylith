@@ -1,6 +1,6 @@
 = Introduction
 
-This documentation aims to be a practical guide to this tool with lots of code examples. We encourage you to follow the code examples and try it out yourself. We will guide you through the steps of creating a workspace with projects composed of components, bases, and libraries and how to work with them from the development environment.
+This documentation aims to be a practical guide to this tool with lots of code examples. We encourage you to follow the code examples and try it out yourself. We will guide you through the steps of creating a workspace with projects composed of components, bases, and libraries and how to work with them from the development environment and the interactive shell.
 
 We will give a short introduction to tools.deps and how to use tools.build to create deployable artifacts. We will show how git is used to tag the code and how it enables us to test and release the code incrementally.
 
