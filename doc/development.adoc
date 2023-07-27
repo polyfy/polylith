@@ -1,5 +1,4 @@
 = Development
-:hardbreaks-option:
 
 When working with a Polylith codebase, we are free to choose any editor/IDE we like, for example:
 
@@ -9,13 +8,13 @@ When working with a Polylith codebase, we are free to choose any editor/IDE we l
 
 * https://www.jetbrains.com/idea/[IDEA] / https://cursive-ide.com/[Cursive].
 
-Here we will use Cursive, and if you do, make sure you have https://cursive-ide.com/userguide/deps.html[tools.deps] configured correctly.
+Here we will use Cursive, and if you do too, make sure you have https://cursive-ide.com/userguide/deps.html[tools.deps] configured correctly.
 
 Let's get started by creating a project. From the menu, select _File > New > Project from existing sources_. Select the _deps.edn_ file, the desired version of SDK and finish the wizard.
 
 If you are a Cursive user (1.13.0 or later) then you need to select "Resolve over whole project" in the settings:
 
-image::images/development/idea-resolve-over-whole-project.png[alt=Resolve over whole project,width=400]
+image::images/development/idea-resolve-over-whole-project.png[alt=Resolve over whole project,width=600]
 
 Make sure to activate the :dev alias (and press the "two arrows" icon to refresh):
 
@@ -40,7 +39,6 @@ Fill in:
 Press OK and start the REPL in debug mode, by clicking the bug icon:
 
 image::images/development/debug.png[alt=Debug,width=150]
-
 
 When this turns up:
 

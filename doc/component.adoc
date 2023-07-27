@@ -10,21 +10,21 @@ Now when we have a working development environment, let's continue and create ou
 ...
 ----
 
-By doing this, we want to ensure that the created files and directories from the _create_ command is also committed to git, which will come in handy in this example.
+By doing this, we want to ensure that the created files and directories from the xref:commands.adoc#create[create] command is also committed to git, which will come in handy in this example.
 
 == How to execute commands
 
 Before we continue with creating a component, let's say a few words about the different ways of executing commands. We have described three ways already, e.g.:
 
-1. `poly info` - using the compiled version of the tool.
+1. `poly help` - using the compiled version of the tool.
 
-2. `clojure -M:poly info` - using Clojure CLI from the workspace directory.
+2. `clojure -M:poly help` - using Clojure CLI from the workspace directory.
 
-3. `clojure -Tpoly info` - as a Clojure CLI Tool
+3. `clojure -Tpoly help` - as a Clojure CLI Tool
 
 All the documentation refers to the first form, even though the other two are also valid. There is also a fourth way, and that is to execute the command from a shell.
 
-We can start an interactive shell by leaving out the command in the fist two cases, but in the third it has to be included:
+We can start an interactive shell by leaving out the command in the fist two cases (or include "shell") but in the third it has to include "shell":
 
 1. `poly`
 
@@ -38,7 +38,7 @@ From here it's enough to enter the name of the command, e.g.:
 
 image::images/component/shell-info.png[]
 
-This way of executing commands is the most convenient way in most cases, because it gives us instant feedback, history, and autocomplete. Feel free to use the shell from now on. It will make you more productive and enhances the development experience!
+This way of executing commands is the most convenient way in most cases, because it gives us instant feedback, history, and autocomplete. Feel free to use the xref:shell.adoc[shell] from now on. It will make you more productive and enhances the development experience!
 
 Now let's continue with our example by executing the create component command:
 
@@ -88,7 +88,7 @@ The command also printed out this message:
 
 This was a reminder for us to add the component to _deps.edn_. If we don't, then _tools.deps_ and the development environment will not recognize our newly created component, which would be a pity! The tool leaves this task to you as a developer, with the idea to give you as much control as possible (files are only edited by you, not by the tool).
 
-Let's continue by adding the _user- component to _deps.edn_:
+Let's continue by adding the _user_ component to _deps.edn_:
 
 [source,clojure]
 ----
@@ -124,14 +124,13 @@ We recommend you to add them as dependencies instead of as paths (if possible) f
 
 * It's consistent with how xref:project.adoc[projects] are specified.
 
-* You can add or remove the _resources_ directory from a brick, without updating _./deps.edn_.
+* You can add or remove the _resources_ directory from a brick, without having to remember to update _./deps.edn_.
 
 If you want to see an example of what this might look like in practice, take a look at how _article_ can be added as a https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/5b6df23d63500a4540b75308379e06dfdeb8b767/deps.edn#L7[dependency] or as https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/e6f7f200bc46e4e2595e123947eec442ad91c9ab/deps.edn#L7-L8[paths] in the RealWorld example app.
 
 Now we may need to refresh our IDE, by clicking the _Import Changes_ link (or the icon we used before):
 
-image::images/component/cursive-import-changes.png[alt=Import changes,width=300]
-
+image::images/component/cursive-import-changes.png[alt=Import changes,width=400]
 
 The component also has its own _deps.edn_ file that looks like this:
 
@@ -156,7 +155,7 @@ example
 │       │   └── user
 ----
 
-This directory contains a _user_ directory, which is the name of the component's interface and is the place where we put our resources, e.g.:
+This directory contains a _user_ directory, which is the name of the component's xref:interface.adoc[interface] and is the place where we put our resources, e.g.:
 
 [source,shell]
 ----
@@ -181,7 +180,7 @@ poly info
 
 image::images/component/info.png[alt=poly info,width=350]
 
-This tells us that we have one _development_ xref:project.adoc[project], one _user_ component and one _user_ xref:interface.adoc[interface] but no xref:base.adoc[base] (yet). Components and bases are referred to as _bricks_ (we will soon explain what a base is). The cryptic `s--` and `st-` will be described in the xref:flags.adoc[flags] section.
+This tells us that we have one _development_ project, one _user_ component and one _user_ xref:interface.adoc[interface] but no xref:base.adoc[base] (yet). Components and bases are referred to as _bricks_ (we will soon explain what a base is). The cryptic `s--` and `st-` will be described in the xref:flags.adoc[flags] section.
 
 If your colors don't look as nice as this, then you can visit the xref:colors.adoc[colors] section.
 
@@ -207,7 +206,7 @@ image::images/component/add-user-namespaces.png[alt=Add the core namespace,width
 ----
 (ns se.example.user.interface
   (:require [se.example.user.core :as core]))
-K
+
 (defn hello [name]
   (core/hello name))
 ----
