@@ -14,6 +14,7 @@ The status column has a different meaning:
 
 |===
 | status | Explanation
+
 | s-- | The project has a _src_ directory
 | -t- | The project has a _test_ directory
 | --x | Run the tests for this project
@@ -29,6 +30,7 @@ Each flag under _dev_ has a slightly different meaning, where project refers to 
 
 |===
 | status | Explanation
+
 | s-- | The _src_ directory is included in the development project
 | -t- | The _test_ directory is included in the development project
 | --x | Run the tests for this brick from the development project
@@ -46,6 +48,7 @@ Here the flags have a slightly different meaning:
 
 |===
 | status | Explanation
+
 | s-- | The brick's _src_ directory is included in this project
 | -t- | The brick's _test_ directory is included in this project
 | --x | Run the tests for this brick from this project

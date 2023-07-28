@@ -62,6 +62,7 @@ If you want to use the same colors in your terminal, here they are:
 
 |===
 | name | color | RGB
+
 | yellow a|image::images/misc/yelow.png[] | f8eeb6
 | green a|image::images/misc/green.png[] | bfefc5
 | blue a|image::images/misc/blue.png[] | 77bcfc

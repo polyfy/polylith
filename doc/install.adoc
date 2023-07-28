@@ -255,6 +255,7 @@ clojure -M:poly version
 We will soon create our first xref:workspace.adoc[workspace] but before that is done, only the _version_, _help_, and _create workspace_ commands will work.
 
 == Polylith as a library
+[#polylith-as-a-library]
 
 If we are building tooling around Polylith, then we can use the https://clojars.org/polylith/clj-poly/versions[clj-poly] library to get access to some of the funtionality that is built in to the poly tool itself.
 
