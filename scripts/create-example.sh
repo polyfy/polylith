@@ -106,10 +106,10 @@ echo "current-dir=$(pwd)"
 cp $sections/polyx/deps.edn .
 poly info fake-sha:c91fdad color-mode:none out:$output/polyx-info.txt
 clojure -M:polyx info out:$output/info.png
-clojure -M:polyx info out:$output/overview.png
+clojure -M:polyx overview out:$output/overview.png
+cp $sections/project/deps.edn .
 
 echo "### 7/57 Tools.deps ###"
-clojure -M:poly info fake-sha:c91fdad color-mode:none > $output/toolsdeps-info.txt
 
 echo "### 8/57 Build ###"
 echo "current-dir=$(pwd)"

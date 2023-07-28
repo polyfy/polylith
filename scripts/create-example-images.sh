@@ -81,11 +81,11 @@ cp $sections/project/command-line-deps.edn projects/command-line/deps.edn
 echo "### 6/56 Polyx ###"
 echo "current-dir=$(pwd)"
 cp $sections/polyx/deps.edn .
-clojure -M:polyx info out:$output/info.png
-clojure -M:polyx info out:$output/overview.png
+clojure -M:polyx info fake-sha:c91fdad out:$images/polyx/info.png
+clojure -M:polyx overview fake-sha:c91fdad out:$images/polyx/overview.png
+cp $sections/project/deps.edn .
 
-echo "### 7/56 Tools.deps ###" 
-clojure -M:poly info fake-sha:c91fdad out:$images/toolsdeps-info.png
+echo "### 7/56 Tools.deps ###"
 
 echo "### 8/56 Build ###"
 echo "current-dir=$(pwd)"
@@ -93,56 +93,46 @@ cp $sections/build/deps.edn .
 cp $sections/build/build.clj .
 cp $sections/build/command-line-deps.edn projects/command-line/deps.edn
 
-clojure -T:build uberjar :project command-line
-cd projects/command-line/target
-java -jar command-line.jar Lisa
-
 echo "### 9/56 Git ###"
-cd ../../..
 echo "current-dir=$(pwd)"
-poly info fake-sha:c91fdad out:$images/git-info.png
-git log
+poly info fake-sha:c91fdad out:$images/git/info.png
 git add --all
 git commit -m "Created the user and cli bricks."
-git log --pretty=oneline
 
 echo "### 10/56 Tagging ###"
 echo "current-dir=$(pwd)"
 git tag -f stable-lisa
 git log --pretty=oneline
-poly info fake-sha:e7ebe68 out:$images/tagging-info-1.png
+poly info fake-sha:e7ebe68 out:$images/tagging/info-01.png
 firstsha=`git log --pretty=oneline | tail -1 | cut -d " " -f1`
 git tag v1.1.0 $firstsha
 git tag v1.2.0
 
 cp $sections/tagging/user-core-change.clj components/user/src/se/example/user/core.clj
-poly info since:release fake-sha:e7ebe68 out:$images/tagging-info-2.png
+poly info since:release fake-sha:e7ebe68 out:$images/tagging/info-02.png
 
-poly info since:release fake-sha:e7ebe68 out:$images/tagging-info-3.png
-poly info since:previous-release fake-sha:c91fdad out:$images/tagging-info-4.png
-git log --pretty=oneline
+poly info since:release fake-sha:e7ebe68 out:$images/tagging/info-03.png
+poly info since:previous-release fake-sha:c91fdad out:$images/tagging/info-04.png
 
 echo "### 11/56 Flags ###"
 echo "current-dir=$(pwd)"
-poly info :resources fake-sha:e7ebe68 out:$images/flags-info.png
+poly info :resources fake-sha:e7ebe68 out:$images/flags/info.png
 
 echo "### 12/56 Testing ###"
 echo "current-dir=$(pwd)"
 cp $sections/testing/user-core.clj components/user/src/se/example/user/core.clj
-poly info fake-sha:e7ebe68 out:$images/testing-info-1.png
-cp $sections/testing/user-interface-test.clj components/user/test/se/example/user/interface_test.clj
-set +e
-set -e
+poly info fake-sha:e7ebe68 out:$images/testing/info.png
 cp $sections/testing/user-interface-test2.clj components/user/test/se/example/user/interface_test.clj
 clojure -A:dev:test -P
-poly info :dev fake-sha:e7ebe68 out:$images/testing-info-2.png
-poly info project:dev fake-sha:e7ebe68 out:$images/testing-info-2b.png
-poly info project:cl:dev fake-sha:e7ebe68 out:$images/testing-info-3.png
+poly info :dev fake-sha:e7ebe68 out:$images/testing/info-dev.png
+poly info project:dev fake-sha:e7ebe68 out:$images/testing/info-project-dev.png
+poly info project:cl:dev fake-sha:e7ebe68 out:$images/testing/info-project-cl-dev.png
 
-poly info fake-sha:e7ebe68 out:$images/testing-info-3a.png
-poly info brick:cli fake-sha:e7ebe68 out:$images/testing-info-3b.png
-poly info :no-changes fake-sha:e7ebe68 out:$images/testing-info-3c.png
-poly info brick:cli :no-changes fake-sha:e7ebe68 out:$images/testing-info-3d.png
+poly info fake-sha:e7ebe68 out:$images/testing/info-filter-on-bricks.png
+poly info brick:cli fake-sha:e7ebe68 out:$images/testing/info-brick-cli.png
+poly info :no-changes fake-sha:e7ebe68 out:$images/testing/info-no-changes.png
+poly info brick:cli :no-changes fake-sha:e7ebe68 out:$images/testing/info-brick-cli-no-changes.png
+poly info :no-changes brick:cli :all-bricks fake-sha:e7ebe68 out:$images/testing/info-brick-cli-no-changes-all-bricks.png
 
 mkdir projects/command-line/test
 cp $sections/testing/deps.edn .
@@ -150,24 +140,19 @@ cp $sections/testing/command-line-deps.edn projects/command-line/deps.edn
 mkdir -p projects/command-line/test/project/command_line
 cp $sections/testing/dummy_test.clj projects/command-line/test/project/command_line
 git add projects/command-line/test/project/command_line/dummy_test.clj
-poly info fake-sha:e7ebe68 out:$images/testing-info-4.png
-poly info :project fake-sha:e7ebe68 out:$images/testing-info-5.png
+poly info fake-sha:e7ebe68 out:$images/testing/info-project-dir.png
+poly info :project fake-sha:e7ebe68 out:$images/testing/info-project.png
 git add --all
 git commit -m "Added tests"
 git tag -f stable-lisa
-poly info fake-sha:e7ebe68 out:$images/testing-info-6.png
-poly info :all-bricks fake-sha:e7ebe68 out:$images/testing-info-7.png
-poly info :all-bricks :dev fake-sha:e7ebe68 out:$images/testing-info-8.png
-poly info :all fake-sha:e7ebe68 out:$images/testing-info-9.png
-poly info :all :dev fake-sha:e7ebe68 out:$images/testing-info-10.png
-
-poly info :all :dev fake-sha:e7ebe68 out:$images/testing-info-11.png
+poly info fake-sha:e7ebe68 out:$images/testing/info-added-tests.png
+poly info :all-bricks fake-sha:e7ebe68 out:$images/testing/info-all-bricks.png
+poly info :all-bricks :dev fake-sha:e7ebe68 out:$images/testing/info-all-bricks-dev.png
+poly info :all fake-sha:e7ebe68 out:$images/testing/info-all.png
+poly info :all :dev fake-sha:e7ebe68 out:$images/testing/info-all-dev.png
 
 cp $sections/project/command-line-test-setup.clj projects/command-line/test/project/command_line/test_setup.clj
-cp $sections/project/workspace2.edn ./workspace.edn
-
 cp $sections/testing/workspace.edn .
-poly info :all :dev fake-sha:e7ebe68 out:$images/testing-info-exclude-tests.png
 
 echo "### 13/56 Profile ###"
 echo "current-dir=$(pwd)"
@@ -189,34 +174,20 @@ cp $sections/profile/command-line-deps.edn projects/command-line/deps.edn
 clojure -T:build uberjar :project command-line
 clojure -T:build uberjar :project user-service
 
-poly info + fake-sha:e7ebe68 out:$images/profile-info-1.png
-poly info +remote fake-sha:e7ebe68 out:$images/profile-info-2.png
-set +e
-poly info +default +remote fake-sha:e7ebe68 out:$images/profile-info-3.png
-set -e
-poly info :loc fake-sha:e7ebe68 out:$images/profile-info-4.png
+poly info + fake-sha:e7ebe68 out:$images/profile/info-all-aliases.png
+poly info +remote fake-sha:e7ebe68 out:$images/profile/info-with-remote-profile.png
+# We don't include the error message today, so we can't use the generated image.
+# poly info +default +remote fake-sha:e7ebe68 out:$images/profile/info-multiple-profiles.png
+poly info :loc fake-sha:e7ebe68 out:$images/profile/info-loc.png
 
 echo "### 14/56 Configuration ###"
 echo "current-dir=$(pwd)"
 
 echo "### 15/56 Workspace state ###"
 echo "current-dir=$(pwd)"
-sha=`git rev-list -n 1 stable-lisa`
 
 echo "### 16/56 Copy doc-example ###"
 echo "current-dir=$(pwd)"
-cp $examples/doc-example/readme.txt $ws
-rm -rf $examples/doc-example
-cp -R $ws/example $examples/doc-example
-rm -rf $examples/doc-example/.git
-rm $examples/doc-example/.gitignore
-rm $examples/doc-example/readme.md
-rm $examples/doc-example/logo.png
-rm $examples/doc-example/bases/.keep
-rm $examples/doc-example/components/.keep
-rm $examples/doc-example/projects/.keep
-rm $examples/doc-example/development/src/.keep
-cp $ws/readme.txt $examples/doc-example/readme.txt
 
 echo "### 17/56 Realworld example app ###"
 cd $ws2
@@ -226,7 +197,6 @@ cd clojure-polylith-realworld-example-app
 clojure -A:dev:test -P
 git tag stable-lisa
 
-poly info fake-sha:f7082da > $output/realworld/realworld-info.txt
 echo "current-dir=$(pwd)"
 echo "### 18/56 Realworld example app ###"
 poly deps out:$images/realworld/realworld-deps-interfaces.png
@@ -331,12 +301,10 @@ echo "### 51/56 examples/local-dep-old-format (migrated) ###"
 cd $examples/for-test
 echo "current-dir=$(pwd)"
 
-set +e
 echo "### 52/56 examples/for-test, issue 208 - Mix clj and cljc source directories ###"
 echo "### 53/56 examples/for-test, issue 234 - Test setup fails ###"
 echo "### 54/56 examples/for-test, issue 234 - Test teardown fails ###"
 echo "### 55/56 examples/for-test, issue 234 - Test failed ###"
 echo "### 56/56 examples/for-test, issue 234 - Test failed, teardown failed ###"
-set -e
 
 echo "Elapsed: $((($SECONDS / 60) % 60)) min $(($SECONDS % 60)) sec"

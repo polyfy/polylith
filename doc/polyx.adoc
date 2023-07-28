@@ -2,7 +2,7 @@
 
 Since version 0.2.18, we have the new _polyx_ tool which can do everything that _poly_ can, plus create images from different commands. One more difference is that it's not released as an AOT compiled, stand-alone tool, as _poly_ is.
 
-If you want to use polyx, then add it as an alias to _./deps.edn_:
+If we want to use polyx, then we need to add it as an alias to _./deps.edn_:
 
 [source,clojure]
 ----

@@ -1,0 +1,315 @@
+= Test Runners
+:toc:
+
+The poly tool started to support test runners since version 0.2.15. There is a default test runner which uses Clojure's default testing framework to run the tests as an in-process test runner.
+
+It's possible to create and use our own custom test runner(s) with the poly tool. There are two types of test runners; in-process and external. Polylith provides us with two protocols, _TestRunner_ and _ExternalTestRunner_. We can use them to easily plug our custom test runner(s) into the poly tool.
+
+== In-Process Test Runner
+
+As you already learned, the poly tool can run our tests incrementally. It creates an isolated classloader for each project and runs our tests within that classloader. The idea is to speed up the execution time by running the tests in the same process with minimal overhead.
+
+The default in-process test runner and custom in-process test runners use the isolated classloader approach we just described. The poly tool will figure out which bricks and projects are affected, calculate the classpath for each project, create an isolated classloader, and pass it to the test runner for execution.
+
+== External Test Runner
+
+The alternative to the in-process isolated classloader approach is to execute each project's tests in a separate external Java subprocess. The advantage of this approach is that you have complete control of the test execution, and the memory is released after each project. If you have issues with the in-process approach, then this type of test runner is the right way to go.
+
+An external test runner will use external Java subprocesses to run the tests. The poly tool will still figure out the changed bricks and projects and calculate the classpath for each project. However, the external test runner will create a runtime and run the tests. Another difference is that the poly tool will not run the setup and teardown functions for the tests.
+
+[Note]
+====
+NOTE: The external test runner must run setup and teardown functions within the external process it creates. The poly tool will not run them for external test runners.
+====
+
+== In-process vs. External Test Runner
+
+|===
+| Aspect | In-Proces Test Runner | External Test Runner
+
+| Context | Isolated project context | Isolated project context
+| Approach | Isolated in-process classloaders | Isolated Java subprocesses
+| Speed | Fast | Some overhead per project
+| Memory usage | Memory is released when the whole test run has finished | Memory is released after each project's test run
+| Setup & Teardown | Handled by the poly tool | Handled by the test runner
+| Special arguments | _class-loader_, _eval-in-project_ | _process-ns_
+| Additional functions | _N/A_ | _external-process-namespace_
+|===
+
+== TestRunner Protocol
+
+You can find the _TestRunner_ protocol https://github.com/polyfy/polylith/blob/master/components/test-runner-contract/src/polylith/clj/core/test_runner_contract/interface.clj#L3[here] in the polylith project.
+
+[source,clojure]
+----
+(defprotocol TestRunner
+  "Implement this protocol to supply a custom test runner.
+
+  Runner options:
+  `is-verbose`      -> A boolean indicating if we are running in verbose mode
+                       or not. TestRunner can use this to print additional
+                       information about the test run.
+  `color-mode`      -> The color-mode that the poly tool is currently running with.
+                       TestRunner is expected to respect the color mode.
+  `project`         -> A map containing the project information.
+  `all-paths`       -> A vector of all paths necessary to create a classpath for
+                       running the tests in isolation within the context of the
+                       current project.
+  `setup-fn`        -> An optional setup function for tests defined in the
+                       workspace config. The poly tool will run this function
+                       before calling run-tests only if this is an in-process
+                       TestRunner. If this is an ExternalTestRunner, the external
+                       test runner should run the setup-fn.
+  `teardown-fn`     -> An optional teardown function for tests defined in the
+                       workspace config. The poly tool will run this function
+                       after the run-tests function completes (exception or not),
+                       only if this is an in-process TestRunner. If this is an
+                       ExternalTestRunner, the external test runner should run
+                       the teardown-fn.
+
+  Additional options for in-process TestRunner:
+  `class-loader`    -> The isolated classloader created from the `all-paths`.
+                       This classloader will be used to evaluate statements within
+                       the project's context. Use this if you need more granular
+                       access. `eval-in-project` should be sufficient for most
+                       cases.
+  `eval-in-project` -> A function that takes a single form as its argument and
+                       evaluates it within the project's classloader. It returns
+                       the result of the evaluation. This is the primary interface
+                       for running tests in the project's isolated context.
+
+  Additional options for ExternalTestRunner:
+  `process-ns`      -> The main namespace of the external test runner. This
+                       namespace will be invoked as a Java subprocess.
+
+  Usage:
+  Create a constructor function that returns an instance of TestRunner or
+  ExternalTestRunner:
+
+  ```
+  (defn create [{:keys [workspace changes project test-settings
+                        is-verbose color-mode]}]
+    ...
+    (reify TestRunner ...)
+
+    ; Optional, only if you want an external test runner
+    (reify ExternalTestRunner ...))
+  ```
+
+  `workspace` passed to the constructor will contain `:user-input`, which
+  can be used to receive additional parameters for runtime configuration.
+
+  Add your constructor function in the workspace.edn. To add a single global
+  test runner, use the `:test` key:
+
+  {:test {:create-test-runner my.namespace/create}
+
+   :projects {\"project-a\" {:alias \"a\"}
+              \"project-b\" {:alias \"b\"}}}
+
+  To add a multiple global test runners, use the vector variant inside the
+  `:test` key. The following example will add three test runners globally
+  where the last one is the default test runner.
+
+  {:test {:create-test-runner [my.namespace/create se.example/create :default]}
+
+   :projects {\"project-a\" {:alias \"a\"}
+              \"project-b\" {:alias \"b\"}}}
+
+  To add a custom test runner for a specific project, use the `:test` key
+  in the project configuration. You can also add multiple test runners with
+  using the vector variant.
+
+  {:projects {\"project-a\" {:alias \"a\"
+                             :test {:create-test-runner my.namespace/create}}
+              \"project-b\" {:alias \"b\"
+                             :test {:create-test-runner [my.namespace/create
+                                                         :default]}}}}
+
+  Adding a test runner definition to a project will override the global test
+  runner. The project-a will use the global test runner, `my.namespace/create`
+  whereas project-b will use the default test runner.
+
+  {:test {:create-test-runner my.namespace/create}
+
+   :projects {\"project-a\" {:alias \"a\"}
+              \"project-b\" {:alias \"b\"
+                             :test {:create-test-runner :default}}}}"
+
+  (test-runner-name [this]
+    "Returns a printable name that the poly tool can print out for
+    information purposes")
+
+  (test-sources-present? [this]
+    "The poly tool calls this first before attempting to run any tests. If
+    it returns a falsy value, we short-circuit. Not even the project
+    classloader will be created")
+
+  (tests-present? [this runner-opts]
+    "The poly tool calls this before calling the run-tests. If it returns a
+    falsy value, run-tests won't be called. The runner-opts passed to this
+    function is identical to the one passed to the run-tests. It can evaluate
+    forms in the project's context.")
+
+  (run-tests [this runner-opts]
+    "It should run the tests and throw an exception if the test run is considered
+     failed."))
+----
+
+== ExternalTestRunnerProtocol
+
+You can find the _ExternalTestRunner_ protocol https://github.com/polyfy/polylith/blob/master/components/test-runner-contract/src/polylith/clj/core/test_runner_contract/interface.clj#L87[here] in the polylith project.
+
+[source,clojure]
+----
+(defprotocol ExternalTestRunner
+  "Extends the `TestRunner` protocol to provide an external process namespace
+  for a test runner. Polylith uses a classloader approach to run tests in
+  isolation by default. `ExternalTestRunner` skips the classloaders and uses
+  Java subprocesses."
+
+  (external-process-namespace [this]
+    "Returns a symbol or string identifying the main namespace of an external
+    test runner. If it returns nil (default), the test runner will be an
+    in-process test runner and the tests will run in an isolated classloader
+    within the same process.
+
+    When an external test runner is used, the poly tool will not create a
+    classloader. The external test runner implementation should use the
+    `all-paths` argument passed to the run-tests function to create a classpath
+    for the Java subprocesses.
+
+    The setup-fn and teardown-fn must be run by the external test runner
+    instead of the poly tool."))
+----
+
+== Implement Your Own Test Runner
+
+To implement your custom test runner, create a single-arity constructor function that reifies the _TestRunner_ protocol. Optionally, you can also reify the _ExternalTestRunner_ protocol if you want to make an external test runner.
+
+[source,clojure]
+----
+(ns se.example.example-test-runner)
+
+...
+
+(defn create [{:keys [workspace project test-settings is-verbose color-mode changes]}]
+  ...
+
+  (reify
+    test-runner-contract/TestRunner
+    (test-runner-name [this] ...)
+
+    (test-sources-present? [this] ...)
+
+    (tests-present? [this runner-opts] ...)
+
+    (run-tests [this runner-opts] ...)
+
+    ; Optional, only if you want an external test runner
+    test-runner-contract/ExternalTestRunner
+    (external-process-namespace [this] ...)))
+----
+
+The _poly_ tool will call your constructor function to get an instance of your test runner. The constructor function will receive a map as the single argument. This map contains the following:
+
+|===
+| Map key | Description
+
+| _:workspace_ | The workspace map. This map contains _:user-input_ which can be used to receive additional parameters for runtime configuration.
+| _:project_ | A map that contains the details of the project that is currently being tested.
+| _:test-settings_ | Test settings for the project that is currently being tested. This information is extracted from the _workspace.edn_.
+| _:is-verbose_ | A boolean indicates if we are running in verbose mode or not.
+| _:color-mode_ | The color mode that the poly tool is currently running with.
+| _:changes_ | A map of changes since the last stable point in time.
+|===
+
+== Use a Test Runner
+
+To use a test runner in your workspace, you have to add it to the classpath that you are running the poly tool to run the tests. An ideal place to do it is the _:poly_ alias in your workspace _deps.edn_ file:
+
+[source,clojure]
+----
+{:aliases
+ {:poly
+  {:extra-deps
+   {polylith/clj-poly
+    {:mvn/version "INSERT_LATEST_VERSION_HERE"}
+
+    se.example/example-test-runner
+    {:git/url   "https://github.com/my-company/example-test-runner"
+     :git/sha   "INSERT_COMMIT_SHA_HERE"
+     :deps/root "projects/example-test-runner"}}}}}
+----
+
+[Note]
+====
+NOTE: The example above assumes that you use a test runner from a GitHub repository as a git dependency. You can also have your custom test runner within the same Polylith workspace and depend on it via _:local/root_.
+====
+
+Once you have your test runner in the classpath, you can add it to your workspace configuration so that the poly tool can use it instead of the default test runner. You can add global test runners, which the poly tool will use for every project unless the project-specific test configuration overrides it. To add a global test configuration, add a map with the _:test_ key in your _workspace.edn_ file:
+
+[source,clojure]
+----
+{...
+ ; Global test configuration, used as default for every project.
+ :test     {:create-test-runner [se.example.example-test-runner/create]}
+
+ ; Project specific configurations
+ :projects {"foo" {:alias "foo"}
+            "bar" {:alias "barr"}
+            "baz" {:alias "baz"}}}
+----
+
+[Note]
+====
+NOTE: You can specify more than one test runner. In that case, all the test runners will run for the project one after another.
+====
+
+You can also define test runners per project. The test runners specified for the project will be used instead of the global test runner if any. You can add a _:test_ key in the project's configuration to select project-specific test runners:
+
+[source,clojure]
+----
+{...
+ ; Global test configuration, used as default for every project.
+ :test     {:create-test-runner [se.example.example-test-runner/create]}
+
+ ; Project specific configurations
+ :projects {"foo" {:alias "foo"
+                   ; Use another test runner only for this project
+                   :test  {:create-test-runner [se.example.another-test-runner/create]}}
+
+            "bar" {:alias "bar"
+                   ; Use the default test runner instead of the global
+                   :test  {:create-test-runner [:default]}}
+
+            "baz" {:alias "bz"
+                   ; Use both default and the example test runner for this project
+                   :test {:create-test-runner [:default
+                                               se.example.example-test-runner/create]}}}}
+----
+
+== Test Runners from the Community
+
+The default test runner works fine in most cases and is simple and fast. In some circumstances, using the same classloader for all your tests in the workspace doesn't give enough isolation. In this case, the External Test Runner is a good choice. If you switch to the Kaocha Test Runner, you will get more options in how to run your tests.
+
+== Kaocha Test Runner
+
+A simple https://github.com/lambdaisland/kaocha/[Kaocha]-based test runner implementation for Polylith.
+
+*Repository*: https://github.com/imrekoszo/polylith-kaocha[imrekoszo/polylith-kaocha]
+
+*Author*: https://github.com/imrekoszo[@imrekoszo]
+
+*License*: MIT
+
+
+== External Test Runner
+
+An external (subprocess) test runner for Polylith. Avoids classloader, daemon thread, and memory usage issues by running tests in a subprocess with only Clojure itself as a dependency.
+
+*Repository*: https://github.com/seancorfield/polylith-external-test-runner[seancorfield/polylith-external-test-runner]
+
+*Author*: https://github.com/seancorfield[@seancorfield]
+
+*License*: Apache-2.0
