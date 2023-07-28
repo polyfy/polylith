@@ -46,11 +46,11 @@ Let's go through the list.
 
 === 1. Create the user-api base
 
-- [ ] Create the base.
-- [ ] Create the base.
-- [ ] Add the slacker library to the base.
-- [ ] Add the base to ./deps.edn.
-- [ ] Implement the server for user-api:
+- Create the base.
+- Create the base.
+- Add the slacker library to the base.
+- Add the base to ./deps.edn.
+- Implement the server for user-api:
 
 Execute this statement:
 
@@ -118,13 +118,13 @@ example
 
 === 2. Create the user-remote component
 
-- [ ] Create the component.
-- [ ] Add the slacker library to the component.
-- [ ] Remove user from ./deps.edn.
-- [ ] Create the default and remote profiles.
-- [ ] Activate the remote profile in the IDE.
-- [ ] Activate the default profile in the REPL configuration.
-- [ ] Implement the component.
+- Create the component.
+- Add the slacker library to the component.
+- Remove user from ./deps.edn.
+- Create the default and remote profiles.
+- Activate the remote profile in the IDE.
+- Activate the default profile in the REPL configuration.
+- Implement the component.
 
 Create the component:
 
@@ -224,9 +224,9 @@ For the changes to take affect we now need to restart the REPL. Normally we don'
 
 == 3. Switch from user to user-remote in deps.edn for the command-line project
 
-- [ ] Replace user with user-remote for the command-line project.
-- [ ] Add the log4j library to deps.edn for command-line.
-- [ ] Create a command-line uberjar.
+- Replace user with user-remote for the command-line project.
+- Add the log4j library to deps.edn for command-line.
+- Create a command-line uberjar.
 
 Update the configuration file for the command-line project:
 
@@ -258,12 +258,12 @@ clojure -A:deps -T:build uberjar :project command-line
 
 === 4. Create the user-service project
 
-- [ ] Create the project.
-- [ ] Update its deps.edn:
+* Create the project.
+* Update its deps.edn:
   - Add dependency to the user component.
   - Add dependency to the user-api base.
   - Add the uberjar alias.
-- [ ] Add the cl alias for the user-service in workspace.edn.
+* Add the cl alias for the user-service in workspace.edn.
 
 Create the project:
 
