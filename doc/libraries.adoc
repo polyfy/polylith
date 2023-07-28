@@ -4,6 +4,7 @@ Libraries are specified in _deps.edn_ in each component, base, and project:
 
 |===
 | Entity | Scope | Location
+
 | Components | src | components/COMPONENT-DIR > deps.edn > :deps
 | | test | components/COMPONENT-DIR > deps.edn > :aliases > :test > :extra-deps
 | Bases | src | bases/BASE-DIR > deps.edn > :deps
@@ -38,6 +39,7 @@ Libraries can be specified in three different ways in tools.deps:
 
 |===
 | Type | Description
+
 | Maven | As a Maven dependency. Example: _clj-time/clj-time {:mvn/version "0.15.2"}_ where the key is the Maven _groupId/artifactId_. Those dependencies are stored locally in the _~/.m2/repositories_ directory (but can be changed in _~/.config/polylith/config.edn_, property _m2-dir_).
 | Local | As a local dependency. Example: _clj-time {:local/root "/local-libs/clj-time-0.15.2.jar"}_ where the key is an arbitrary identifier. A local dependency is a path to a locally stored file.
 | Git | As a Git dependency. Example: _clj-time/clj-time {:git/url "https://github.com/clj-time/clj-time.git", :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}_ where the key must match the path for the library in _~/.gitlibs/libs_ (to be able to calculate the KB column).
@@ -89,6 +91,7 @@ Here are all the places where libraries can be overridden:
 
 |===
 | Entity | Scope | Location
+
 | Dev project | src | ./deps.edn > :aliases > :dev > :override-deps
 |  | test | ./deps.edn > :aliases > :test > :override-deps
 | Other projects | src | projects/PROJECT-DIR > deps.edn > :override-deps

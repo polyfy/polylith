@@ -337,6 +337,8 @@ poly ws get:configs
 
 * `:workspace` Shows the content of the _workspace.edn_ config file.
 
+Go to xref:configuration.adoc[Configuration] to read more about the keys.
+
 == interface
 
 [source,shell]

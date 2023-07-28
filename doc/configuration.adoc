@@ -1,9 +1,103 @@
 = Configuration
+:toc:
+
+We have two categories of configuration:
+
+1. Configuration used by the poly tool
+2. Configuration used by tools.deps
+
+The first type are stored in _workspace.edn_ and _~/.config/polylith/config.edn_, while the second one are stored in _deps.edn_ files together with bricks and projects.
+
+The content of all these configuration files are also accessible via the workspace structure, in the _:configs_ key:
+
+[source,shell]
+----
+poly ws get:configs:keys
+----
+
+[source,shell]
+----
+[:bases :components :projects :user :workspace]
+----
+
+Let's cover the different types of configuration.
+
+== Workspace
+
+The configuration file lives in __./workspace.edn_ and can also be accessed with:
+
+[source,shell]
+----
+poly ws get:configs:workspace
+----
+
+[source,clojure]
+----
+{:compact-views #{}
+ :default-profile-name "default"
+ :interface-ns "interface"
+ :projects {"command-line" {:alias "cl"}
+            "development" {:alias "dev"}
+            "user-service" {:alias "user-s"}}
+ :tag-patterns {:release "v[0-9]*"
+                :stable "stable-*"}
+ :top-namespace "se.example",
+ :vcs {:auto-add true
+       :name "git"}}
+----
+
+=== Table 1
+
+|===
+| Key | Description
+
+| _:compact-view_ | Specifies which views to display in a more compact way. Only "info" and "libs" are supported, which affects the output from the xref:commands#info[info] and xref:commands.adoc#libs[libs] command, so that they are displayed in a more compact way, e.g.: _#{"info" "libs"}_.
+| _:default-profile-name_ | The name of the profile that will be merged into the development project if xref:profile.adoc[profiles] are used and no profile is given. Specified in https://github.com/polyfy/polylith/blob/a4d9d2f3e50a2b76f36ed75c4a7ba7aa9a7b0db6/examples/doc-example/deps.edn#L14-L15[./deps.edn].
+| :interface-ns | The name of the namespace that will be treated as the component's interface, together with _interface_ and _ifc_. The value configured here are used in the xref:create-component[create component] command. The default value is _interface_ but can be changed to any valid namespace name. Recommended values are _interface_ and _ifc_.
+| _projects_ | Contains a map with all the projects in the workspace, where each project has these keys:
+|===
+
+=== Table 2
+
+|===
+| Key | Description
+
+| _:compact-view_
+| Specifies which views to display in a more compact way. Only "info" and "libs" are supported, which affects the output from the xref:commands#info[info] and xref:commands.adoc#libs[libs] command, so that they are displayed in a more compact way, e.g.: _#{"info" "libs"}_.
+
+| _:default-profile-name_
+| The name of the profile that will be merged into the development project if xref:profile.adoc[profiles] are used and no profile is given. Specified in https://github.com/polyfy/polylith/blob/a4d9d2f3e50a2b76f36ed75c4a7ba7aa9a7b0db6/examples/doc-example/deps.edn#L14-L15[./deps.edn].
+
+| _projects_
+| Contains a map with all the projects in the workspace, where each project has these keys:
+
+[cols="2,1"]
+!===
+! Key ! Description
+
+! _:alias_
+! The value is used by the xref:commands#info[info] and by various commands as a valid synonym for the full project name.
+
+!===
+
+|===
+
+
+
+
+If you use xref:install.adoc#polylith-as-a-library[Polylith as a library] then you shouldn't rely on any value listed above. Instead you should use xref:workspace-structure.adoc#_settings[:settings].
+
+
+
+
+
+
 
 The workspace configuration is stored in ./workspace.edn and defines the following keys:
 
 |===
 | Key | Description
+
 | :vcs | A map with two keys, where _:name_ is set to "git" which is the only supported https://en.wikipedia.org/wiki/Version_control[version control] system at the moment. The key _:auto-add_ is a boolean flag that tells whether directories and files added by the _create_ command should automatically be added to git or not.
 | :top-namespace | The workspace top namespace. If changed, the source code has to be changed accordingly.
 | :interface-ns | The default value is _interface_. If changed, the source code has to be changed accordingly.
@@ -25,6 +119,7 @@ Settings that are unique per developer/user are stored in _~/.config/polylith/co
 
 |===
 | Key | Description
+
 | :thousand‑separator | Set to "," by default (when first created).
 | :color-mode | Set to "none" on Windows, and to "dark" on other operating systems (when first created). Valid values are "none", "light" and "dark", see the color section. Can be overridden, e.g.: `poly info color-mode:none`.
 | :empty-character | Set to "." by default (when first created). Used by the deps and libs commands.
