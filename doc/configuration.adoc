@@ -3,12 +3,12 @@
 
 We have two categories of configuration:
 
-1. Configuration used by the poly tool
-2. Configuration used by tools.deps
+1. Configuration used by the poly tool, stored in _workspace.edn_ and _~/.config/polylith/config.edn_.
+2. Configuration used by tools.deps, stored in _deps.edn_ files in bricks and projects.
 
-The first type are stored in _workspace.edn_ and _~/.config/polylith/config.edn_, while the second one are stored in _deps.edn_ files together with bricks and projects.
+The content of all these configuration files also live in the xref:workspace-structure.adoc[workspace structure] under the _:configs_ key:
 
-The content of all these configuration files are also accessible via the workspace structure, in the _:configs_ key:
+We can list the top keys by executing:
 
 [source,shell]
 ----
@@ -20,11 +20,9 @@ poly ws get:configs:keys
 [:bases :components :projects :user :workspace]
 ----
 
-Let's cover the different types of configuration.
+== workspace
 
-== Workspace
-
-The configuration file lives in __./workspace.edn_ and can also be accessed with:
+The configuration file lives in _./workspace.edn_, and can be viewed with:
 
 [source,shell]
 ----
@@ -33,7 +31,8 @@ poly ws get:configs:workspace
 
 [source,clojure]
 ----
-{:compact-views #{}
+{:bricks {"user" {:ignored-files ["core.clj"]}}
+ :compact-views #{}
  :default-profile-name "default"
  :interface-ns "interface"
  :projects {"command-line" {:alias "cl"}
@@ -46,105 +45,191 @@ poly ws get:configs:workspace
        :name "git"}}
 ----
 
-=== Table 1
+If we use xref:install.adoc#polylith-as-a-library[Polylith as a library] then we shouldn't rely on any of these attributes in this data structure, but instead use xref:workspace-structure.adoc#_settings[:settings].
+
+A workspace contains these keys:
 
 |===
 | Key | Description
 
-| _:compact-view_ | Specifies which views to display in a more compact way. Only "info" and "libs" are supported, which affects the output from the xref:commands#info[info] and xref:commands.adoc#libs[libs] command, so that they are displayed in a more compact way, e.g.: _#{"info" "libs"}_.
-| _:default-profile-name_ | The name of the profile that will be merged into the development project if xref:profile.adoc[profiles] are used and no profile is given. Specified in https://github.com/polyfy/polylith/blob/a4d9d2f3e50a2b76f36ed75c4a7ba7aa9a7b0db6/examples/doc-example/deps.edn#L14-L15[./deps.edn].
-| :interface-ns | The name of the namespace that will be treated as the component's interface, together with _interface_ and _ifc_. The value configured here are used in the xref:create-component[create component] command. The default value is _interface_ but can be changed to any valid namespace name. Recommended values are _interface_ and _ifc_.
-| _projects_ | Contains a map with all the projects in the workspace, where each project has these keys:
+| _:bricks_ | Allows us to turn off _Warning 206_ for one or more bricks, see xref:validations.adoc[validations].
+| _:compact-view_ | Controls the output from the xref:commands#info[info] and xref:commands.adoc#libs[libs] commands so that they can be viewed in a more compact way, e.g.: _#{"info" "libs"}_.
+| _:default-profile-name_ | The name of the profile that is automatically merged into the xref:development.adoc[development] project if xref:profile.adoc[profiles] are used and no profile is given. https://github.com/polyfy/polylith/blob/a4d9d2f3e50a2b76f36ed75c4a7ba7aa9a7b0db6/examples/doc-example/deps.edn#L14-L15[Here] is an example of how it can be used.
+| _:interface-ns_ | The namespaces _interface_ and _ifc_ are always treated as interfaces (with start from version 0.2.18) including the namespace given here. Recommended values are _interface_ and _ifc_, which will be used in the xref:create-component[create component] command.
+The default value is _interface_ but can be changed to any valid namespace name, see the xref:interface.adoc[Interface] section.
+| _:projects_ | A map that configures the projects in the workspace (the attributes for a project is listed below).
+| _:tag-patterns_ | Holds the https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html[regex] patterns that are used when searching for the most recent tag in git with a matching name, explained xref:tagging.adoc[here], to calculate the latest committed sha, that will be considered the _latest stable point in time_.
+| _:top-namespace_ | The top namespace used throughout the workspace in components and bases.
+| _:vcs_ | A map with two keys, where _:name_ is set to "git" which is the only supported https://en.wikipedia.org/wiki/Version_control[version control] system at the moment. +
+The key _:auto-add_ is a boolean flag that tells whether directories and files added by the xref:commands#create[create] command should automatically be added to git or not.
 |===
 
-=== Table 2
+Only the _:top-namespace_ attribute is mandatory, all other attributes will use their default values if missing.
 
-|===
-| Key | Description
+=== project
 
-| _:compact-view_
-| Specifies which views to display in a more compact way. Only "info" and "libs" are supported, which affects the output from the xref:commands#info[info] and xref:commands.adoc#libs[libs] command, so that they are displayed in a more compact way, e.g.: _#{"info" "libs"}_.
-
-| _:default-profile-name_
-| The name of the profile that will be merged into the development project if xref:profile.adoc[profiles] are used and no profile is given. Specified in https://github.com/polyfy/polylith/blob/a4d9d2f3e50a2b76f36ed75c4a7ba7aa9a7b0db6/examples/doc-example/deps.edn#L14-L15[./deps.edn].
-
-| _projects_
-| Contains a map with all the projects in the workspace, where each project has these keys:
-
-[cols="2,1"]
-!===
-! Key ! Description
-
-! _:alias_
-! The value is used by the xref:commands#info[info] and by various commands as a valid synonym for the full project name.
-
-!===
-
-|===
-
-
-
-
-If you use xref:install.adoc#polylith-as-a-library[Polylith as a library] then you shouldn't rely on any value listed above. Instead you should use xref:workspace-structure.adoc#_settings[:settings].
-
-
-
-
-
-
-
-The workspace configuration is stored in ./workspace.edn and defines the following keys:
-
-|===
-| Key | Description
-
-| :vcs | A map with two keys, where _:name_ is set to "git" which is the only supported https://en.wikipedia.org/wiki/Version_control[version control] system at the moment. The key _:auto-add_ is a boolean flag that tells whether directories and files added by the _create_ command should automatically be added to git or not.
-| :top-namespace | The workspace top namespace. If changed, the source code has to be changed accordingly.
-| :interface-ns | The default value is _interface_. If changed, the source code has to be changed accordingly.
-| :default-profile-name | The default value is _default_. If changed (don't include the "+") the _+default_ alias in _./deps.edn_ has to be renamed accordingly.
-| :tag-patterns | The default value for the _:release_ key is "v[0-9]*", and for _:stable_ it's "stable-*". If changed, old tags may not be recognised.
-| :project | If the development key is missing, _{"development" {:alias "dev"}_ will be used under the hood.
-|===
-
-Only the _:top-namespace_ attribute is mandatory, all other attributes will use their default values if missing. A complete list of keys can be found in the workspace structure for the _:settings_ key.
-
-The content of _workspace.edn_ can be viewed by executing:
+Configuration for a specific project, e.g:
 
 [source,shell]
 ----
-poly ws get:configs:workspace
+poly ws get:configs:workspace:projects:user-service
 ----
 
-Settings that are unique per developer/user are stored in _~/.config/polylith/config.edn_ (if you started using the poly tool from version _0.2.14 or_ earlier, then it may be stored in _~/.polylith/config.edn_):
+[source,clojure]
+----
+{:alias "us"
+ :necessary ["clojure-test-test-runner"]}
+----
 
 |===
 | Key | Description
 
-| :thousand‑separator | Set to "," by default (when first created).
-| :color-mode | Set to "none" on Windows, and to "dark" on other operating systems (when first created). Valid values are "none", "light" and "dark", see the color section. Can be overridden, e.g.: `poly info color-mode:none`.
-| :empty-character | Set to "." by default (when first created). Used by the deps and libs commands.
-| :m2-dir | If omitted, the _.m2_ directory will be set to _USER-HOME/.m2_. Used by the libs command to calculate file sizes (KB).
+| _:alias_ | This value is used in the output of the xref:commands.adoc#info[info] command and various commands as an alternative value for the project name.
+| _:necessary_ | Allows us to turn off _Warning 206_ for one or more bricks in the project, see xref:validations.adoc[Validations]
+| _:test_ | A map with test configuration for the project, see below.
 |===
 
-If _~/.config/polylith/config.edn_ doesn't exist, it will be created the first time the create workspace command is executed, e.g.:
+=== project test
+
+Test configuration for a specific project, e.g:
 
 [source,shell]
 ----
-{:color-mode "dark"
- :thousand-separator ","
- :empty-character "."}
+poly ws get:configs:workspace:projects:command-line:test
 ----
 
-The content of the user config file can be viewed by:
+[source,clojure]
+----
+{:alias "cli"
+ :exclude ["mybrick"]}
+ :test {:setup-fn project.command-line.test-setup/setup
+        :teardown-fn project.command-line.test-setup/teardown}}
+----
+
+|===
+| Key | Description
+
+| _:exclude_ | Lists the bricks to be xref:testing.adoc#include-exclude[excluded] when running tests for the project.
+| _:include_ | Lists the bricks to be xref:testing#include-exclude[included] when running tests for the project.
+| _:setup-fn_ | The name of the function (namespace included) that will be executed before the tests are executed, see xref:testing#setup-and-teardown[Test setup and teardown].
+| _:teardown-fn_ | The name of the function (namespace included) that will be executed after the tests have been executed, see see xref:testing#setup-and-teardown[Test setup and teardown].
+|===
+
+== projects
+
+Each project has its own _deps.edn_ configuration file. The xref:development.adoc[development] config file lives in _./deps.edn_, while other xref:project.adoc[projects] have them in e.g. _projects/myproject/deps.edn_.
+
+The content of a configuration file can be viewed with e.g.:
+
+[source,shell]
+----
+poly ws get:configs:projects:command-line
+----
+
+[source,clojure]
+----
+{:config {:aliases {:test {:extra-deps {}, :extra-paths ["test"]},
+                    :uberjar {:main se.example.cli.core}},
+          :deps {org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"},
+                 org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"},
+                 org.clojure/clojure {:mvn/version "1.11.1"},
+                 poly/cli {:local/root "../../bases/cli"},
+                 poly/user-remote {:local/root "../../components/user-remote"}}},
+ :name "command-line",
+ :type :project}
+----
+
+|===
+| Key | Description
+
+| _:config_ | The content of _deps.edn_.
+| _:name_ | The project name.
+| _:type_ | The type of configuration, set to _:project_ for projects.
+|===
+
+== bases
+
+Each xref:base.adoc[base] has its own _deps.edn_ configuration file that lives in e.g. _bases/mybase/deps.edn_.
+
+The content of a configuration file can be viewed with e.g.:
+
+[source,shell]
+----
+poly ws get:configs:bases:cli
+----
+
+[source,clojure]
+----
+{:config {:aliases {:test {:extra-deps {}
+                           :extra-paths ["test"]}}
+          :deps {}
+          :paths ["src" "resources"]}
+ :name "cli"
+ :type :base}
+----
+
+|===
+| Key | Description
+
+| _:config_ | The content of _deps.edn_.
+| _:name_ | The base name.
+| _:type_ | The type of configuration, set to _:base_ for bases.
+|===
+
+== components
+
+Each xref:component.adoc[component] has its own _deps.edn_ configuration file that lives in e.g. _components/mycomponent/deps.edn_.
+
+The content of a configuration file can be viewed with e.g.:
+
+[source,shell]
+----
+poly ws get:configs:components:user
+----
+
+[source,clojure]
+----
+{:config {:aliases {:test {:extra-deps {}
+                           :extra-paths ["test"]}}
+          :deps {}
+          :paths ["src" "resources"]}
+ :name "user"
+ :type :component}
+----
+
+|===
+| Key | Description
+
+| _:config_ | The content of _deps.edn_.
+| _:name_ | The component name.
+| _:type_ | The type of configuration, set to _:component_ for components.
+|===
+
+== user
+
+Settings that are unique per developer/user and are stored in _~/.config/polylith/config.edn_. If you started using the _poly_ tool from version _0.2.14_ or earlier, then the settings may be stored in _~/.polylith/config.edn_:
+
+The content of the file can be viewed with:
 
 [source,shell]
 ----
 poly ws get:configs:user
 ----
 
-The content of all config files (components, bases, projects, user, and workspace) can be viewed by executing:
+[source,clojure]
+----
+{:color-mode "dark"
+ :empty-character "."
+ :thousand-separator ","}
+----
 
-[source,shell]
-----
-poly ws get:configs
-----
+|===
+| Key | Description
+
+| _:color-mode_ | Defaults to "none" on Windows, and to "dark" on other operating systems. Valid values are "none", "light" and "dark", see the xref:colors.adoc[Colors] section. Can be overridden, e.g.: `poly info color-mode:none`.
+| _:empty-character_ | Set to "." by default, and is used in the output from the xref:commands.adoc#deps[deps] and xref:commands.adoc#libs[libs] commands.
+| _:thousand-separator_ | Set to "," by default. Used in the output from `poly info :loc` when showing number of rows.
+| _:m2-dir_ | If omitted, the _.m2_ directory will be set to _USER-HOME/.m2_. Used by the _libs_ command to calculate file sizes (KB).
+|===
+
+If _~/.config/polylith/config.edn_ doesn't exist, it will be created the first time the xref:create-workspace[create workspace] command is executed.

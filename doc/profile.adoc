@@ -384,6 +384,8 @@ poly info +
 
 ...and compare it with the target design:
 
+// compare-with-target-design.png is manually created by putting all-aliases.png and target-design.png side by side.
+
 image::images/profile/compare-with-target-design.png[alt=Compare with target design,width=600]
 
 Looks like we got everything right!
@@ -399,13 +401,18 @@ If we want to switch profile when running a command, we need to pass them in, e.
 poly info +remote
 ----
 
-image::images/profile/info-with-remote-profile.png[alt=info +remote,width=500]
+image::images/profile/info-with-remote-profile.png[width=500]
 
 Now the _remote_ profile is included in the _development_ project and listed after active profiles.
 
 It's possible to give more than one profile:
 
-image::images/profile/info-multiple-profiles.png[alt=info +default +remote,width=500]
+[source,text]
+----
+poly info +default +remote
+----
+
+image::images/profile/info-multiple-profiles.png[width=500]
 
 The tool complains and doesn't like that we just included both _user_ and _user-remote_ in the _development_ project!
 
