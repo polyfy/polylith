@@ -1,7 +1,7 @@
 = Test Runners
 :toc:
 
-The poly tool started to support test runners since version 0.2.15. There is a default test runner which uses Clojure's default testing framework to run the tests as an in-process test runner.
+The _poly_ tool started to support test runners since version 0.2.15. There is a https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/components/clojure-test-test-runner/src/polylith/clj/core/clojure_test_test_runner/core.clj#L85-L99[default test runner] which uses Clojure's default testing framework to run the tests as an in-process test runner.
 
 It's possible to create and use our own custom test runner(s) with the poly tool. There are two types of test runners; in-process and external. Polylith provides us with two protocols, _TestRunner_ and _ExternalTestRunner_. We can use them to easily plug our custom test runner(s) into the poly tool.
 
