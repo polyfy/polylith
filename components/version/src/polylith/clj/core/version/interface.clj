@@ -7,7 +7,8 @@
 (def minor 2)
 (def patch 18)
 (def revision "issue318-02")
-(def name (str major "." minor "." patch
+(def name-without-rev (str major "." minor "." patch))
+(def name (str name-without-rev
                (if (str/blank? revision)
                  ""
                  (str "-" revision))))

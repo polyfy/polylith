@@ -4,6 +4,7 @@
 
   If since:SINCE is passed in as an argument, the last stable point in time will be
   used depending on the value of SINCE (or the first commit if no match was found).
+
   If prefixed with 'previous-', e.g. 'previous-release', then the SHA directly before
   the most recent matching tag of the 'release' pattern will be used:
     stable  -> the latest tag that matches stable-*, defined by
@@ -23,8 +24,17 @@
   The pattern can be changed in :tag-patterns in workspace.edn.
 
   The way the latest tag is found is by taking the first line that matches the 'stable-*'
-  regular expression, or if no match was found, the first commit in the repository.
+  regular expression, or if no match was found, the first commit in the repository:
     git log --pretty=format:'%H %d'
 
   Here is a compact way of listing all the commits including tags:
     git log --pretty=oneline
+
+  Example:
+    poly diff
+    poly diff since:65a7918
+    poly diff since:head
+    poly diff since:head~1
+    poly diff since:stable
+    poly diff since:release
+    poly diff since:previous-release

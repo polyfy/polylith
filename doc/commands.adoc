@@ -81,7 +81,7 @@ poly help
     tap clean
     tap close
 
-  'poly :all' will start a shell and activate autocomplete for rarely used parameters, e.g:
+  'poly :all' will start a shell and activate autocomplete for rarely used parameters:
     deps out:out.txt
     info +
     info color-mode:none
@@ -238,7 +238,7 @@ poly help
   Error 108 - Components with an interface that is implemented by more than one
               component are not allowed for the development project.
     The solution is to remove the component from the development project
-    and define the paths for each component in separate profiles
+    and define the deps/paths for each component in separate profiles
     (including test paths).
 
   Error 109 - Invalid test runner configuration for some projects.
@@ -367,9 +367,9 @@ poly help
 ----
   Creates a workspace in current directory. If the workspace is created within
   an existing git repo, then that repository will be used. If the workspace is
-  created outside a git repo, and the :create flag is passed in, then a new repo
-  will be initiated using the 'main' branch, if another branch is not explicitly
-  given. In both cases, all the created files and directories will be committed
+  created outside a git repo, and :commit is passed in, then a new repo will be
+  initiated using the 'main' branch, if another branch is not explicitly given.
+  In both cases, all the created files and directories will be committed
   to the repo in a single commit with the text 'Workspace created.'.
 
   If :commit is not passed in, then the repository needs to be initiated manually
@@ -536,6 +536,7 @@ poly help
 
   If since:SINCE is passed in as an argument, the last stable point in time will be
   used depending on the value of SINCE (or the first commit if no match was found).
+
   If prefixed with 'previous-', e.g. 'previous-release', then the SHA directly before
   the most recent matching tag of the 'release' pattern will be used:
     stable  -> the latest tag that matches stable-*, defined by
@@ -555,11 +556,20 @@ poly help
   The pattern can be changed in :tag-patterns in workspace.edn.
 
   The way the latest tag is found is by taking the first line that matches the 'stable-*'
-  regular expression, or if no match was found, the first commit in the repository.
+  regular expression, or if no match was found, the first commit in the repository:
     git log --pretty=format:'%H %d'
 
   Here is a compact way of listing all the commits including tags:
     git log --pretty=oneline
+
+  Example:
+    poly diff
+    poly diff since:65a7918
+    poly diff since:head
+    poly diff since:head~1
+    poly diff since:stable
+    poly diff since:release
+    poly diff since:previous-release
 ----
 
 [#info]
@@ -649,7 +659,7 @@ poly help
       --x  The project tests (its own) are marked for execution.
 
     To show the 'resources' directory, also pass in :r or :resources, e.g.
-    'poly info :r':
+    'poly info :resources':
       s---  The project has a 'src' directory, e.g.
             'projects/command-line/src'.
       -r--  The project has a 'resources' directory, e.g.
@@ -660,11 +670,9 @@ poly help
 
     The dev column has three flags with different meaning:
       s--  The project's 'src' directory, e.g.
-           'projects/command-line/src' is added to './deps.edn'
-           (or indirectly added as :local/root).
+           'development/src' is added to './deps.edn'
       -t-  The project's 'test' directory, e.g.
-           'projects/command-line/test' is added to './deps.edn'
-           (or indirectly added as :local/root).
+           'development/test' is added to './deps.edn'
       --x  The project tests are marked for execution from development.
 
     The last admin column, is a profile:
@@ -673,7 +681,7 @@ poly help
       -t  The profile contains a path to the 'test' directory, e.g.
           'projects/command-line/test'.
 
-    If also passing in :r or :resources, e.g. 'poly info +r':
+    If also passing in :r or :resources, e.g. 'poly info :resources':
       s--  The profile contains a path to the 'src' directory, e.g.
            'projects/command-line/src'.
       -r-  The profile contains a path to the 'resources' directory, e.g.
@@ -828,8 +836,8 @@ poly help
 
   If the workspace hasn't been migrated already, then this command will create a new
   ./workspace.edn file + a deps.edn file per brick. All project deps.edn files will be
-   updated. The libraries in each project's deps.edn file will be sorted, so it can be
-   an idea to manually change that order and put bricks first followed by the libraries.
+  updated. The libraries in each project's deps.edn file will be sorted, so it can be
+  an idea to manually change that order and put bricks first followed by the libraries.
 
   The migration tool will use the :ns-to-lib key to figure out what libraries are
   used in each brick. After the migration, it's recommended to go through all the
@@ -852,7 +860,7 @@ poly help
 [source,shell]
 ----
   Shows the output from the info, deps, and libs commands, side by side.
-  This command is mainly used to generate an image for your documentation
+  This command is mainly used to generate an image for our documentation
   and is only available from the polyx tool.
 
   We can duplicate the :poly alias in ./deps.edn and rename it to :polyx and
@@ -921,12 +929,13 @@ poly help
 [source,shell]
 ----
   Selects which workspace to be used by commands executed from the shell.
-  This replaces the use of ws-dir:DIR and ws-file:FILE, which will be appended
-  automatically when executing commands, if dir:DIR or file:FILE is given.
+  After we have switched workspace, all subsequent commands will append either
+  ws-dir:DIR or ws-file:FILE, depending on whether we switch to a directory or a file.
 
   switch-ws ARG
     ARG = dir:DIR    Switches to the selected workspace directory.
                      The prompt will be prefixed with 'dir:' to show this.
+
           file:FILE  Switches to the workspace specified in the selected file,
                      created by something like 'poly ws out:ws.edn'.
                      The prompt will be prefixed with 'file:' to show this.
@@ -982,7 +991,7 @@ poly help
   :all              All brick tests + all project tests (except development).
 
 
-  To execute the brick tests from the development project, also pass in :dev:
+  To also execute the brick tests from the development project, pass in :dev:
 
   ARGS              Tests to execute
   ----------------  -------------------------------------------------------------
@@ -1065,7 +1074,7 @@ poly help
     ARG = keys  -> Lists the keys for the data structure:
                    - If it's a hash map, it returns all its keys.
                    - If it's a list and its elements are hash maps,
-                     it returns a list with all the :name keys.
+                     it returns a vector with all the :name keys.
 
           count -> Counts the number of elements.
 

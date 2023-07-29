@@ -69,10 +69,10 @@
 (defn toolsdeps1? [workspace]
   (= :toolsdeps1 (-> workspace :version :from :ws :type)))
 
-(defn tool-name [fake-poly?]
+(defn version-name [fake-poly?]
   (if fake-poly?
-    "poly"
-    version/tool))
+    (str "poly " version/name-without-rev)
+    (str version/tool " " version/name)))
 
 (defn user-path [path]
   (core/user-path path))

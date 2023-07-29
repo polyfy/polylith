@@ -1,8 +1,8 @@
   Creates a workspace in current directory. If the workspace is created within
   an existing git repo, then that repository will be used. If the workspace is
-  created outside a git repo, and the :create flag is passed in, then a new repo
-  will be initiated using the 'main' branch, if another branch is not explicitly
-  given. In both cases, all the created files and directories will be committed
+  created outside a git repo, and :commit is passed in, then a new repo will be
+  initiated using the 'main' branch, if another branch is not explicitly given.
+  In both cases, all the created files and directories will be committed
   to the repo in a single commit with the text 'Workspace created.'.
 
   If :commit is not passed in, then the repository needs to be initiated manually

@@ -23,7 +23,7 @@
        "  " (s/key ":all" cm) "              All brick tests + all project tests (except development).\n"
        "\n"
        "\n"
-       "  To execute the brick tests from the development project, also pass in :dev:\n"
+       "  To also execute the brick tests from the development project, pass in :dev:\n"
        "\n"
        "  ARGS              Tests to execute\n"
        "  ----------------  -------------------------------------------------------------\n"

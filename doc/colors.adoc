@@ -9,9 +9,9 @@ When we created the example workspace, the file _~/.config/polylith/config.edn_ 
  :empty-character "·"}
 ----
 
-For Windows systems the _color-mode_ is set to _none_ and for all other systems, _dark_ will be used as default. Valid values are: _none_, _light_ and _dark_.
+For Windows systems the _color-mode_ is set to "none" and for all other systems, "dark" will be used as default. Valid values are: "none", "light" and "dark".
 
-In this documentation we have used the dark color schema, but we can switch to light by giving the color-mode parameter (or by updating ~/.config/polylith/config.edn):
+In this documentation we have used the _dark_ color schema, but we can switch to _light_ by giving the _color-mode_ parameter (or by updating it in the xref:configuration.adoc#color-mode[user config]):
 
 [source,clojure]
 ----
@@ -20,9 +20,9 @@ poly info color-mode:light
 
 image::images/misc/info-light.png[width=400]
 
-...everything suddenly looks much brighter! The only difference between _light_ and _dark_ is that they use different https://github.com/polyfy/polylith/tree/master/components/util/src/polylith/clj/core/util/colorizer.clj[codes] for grey.
+...everything suddenly looks much brighter! The only difference between _light_ and _dark_ is that they use different https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/components/util/src/polylith/clj/core/util/colors.clj#L3-L13[codes] for grey.
 
-If we switch back to dark background and select _none_:
+If we pass in _:none_:
 
 [source,clojure]
 ----
@@ -51,14 +51,15 @@ poly info color-mode:none
   -          user-api *      ---   stx     st-    --
 ----
 
-...things are now displayed without colors.
+...then things are displayed without colors.
 
 To refresh our memory, this is what it looked like using the dark color schema:
 
 image::images/misc/info-dark.png[width=400]
 
-If you want to use the same colors in your terminal, here they are:
+== Colors codes
 
+If you want to use the same colors in your terminal, here they are:
 
 |===
 | name | color | RGB
