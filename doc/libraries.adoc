@@ -1,6 +1,6 @@
 = Libraries
 
-Libraries are specified in _deps.edn_ in each component, base, and project:
+Libraries are specified in _deps.edn_ for each component, base, and project:
 
 |===
 | Entity | Scope | Location
@@ -15,18 +15,18 @@ Libraries are specified in _deps.edn_ in each component, base, and project:
 | | test | projects/PROJECT-DIR > deps.edn > :deps
 |===
 
-The poly tool parses each _deps.edn_ file and looks for library dependencies, which are then used by the libs and test commands.
+The poly tool parses each _deps.edn_ file and looks for library dependencies, which are then used by the xref:commands.adoc#libs[libs] and xref:commands.adoc#test[test] commands.
 
 [source,shell]
 ----
 poly libs
 ----
 
-image::images/libraries/libs.png[alt=libs]
+image::images/libraries/libs.png[]
 
 An _x_ means that the library is added to the _src_ context, while _t_ means that it's only used from the _test_ context.
 
-We can list the outdate libraries by passing in :outdated (which uses antq internally):
+We can list the outdate libraries by passing in _:outdated_ (which uses https://github.com/liquidz/antq[antq] internally):
 
 [source,shell]
 ----
@@ -52,9 +52,9 @@ The KB column shows the size of each library in kilobytes. If you get the key pa
 clojure -A:dev:test -P
 ----
 
-In the tools.deps CLI tool, when a dependency is included using _:local/root_, only _:src_ dependencies will be inherited while the _:test_ dependencies will be ignored. The _poly_ tool builds upon tools.deps but has its own test runner that is accessed via the _test_ command. A difference between tools.deps CLI and the _poly_ tool is that it also inherits dependencies from the test context.
+In the tools.deps CLI tool, when a dependency is included using _:local/root_, only _:src_ dependencies will be inherited while the _:test_ dependencies will be ignored. The _poly_ tool builds upon tools.deps but has its own xref:test-runners.adoc[test runner] that is accessed via the xref:commands.adoc#test[test] command. A difference between tools.deps CLI and the _poly_ tool is that the latter also inherits dependencies from the test context.
 
-If you want to run the tests directly from a project using the tools.deps CLI tool, then you also have to add the test dependencies again in the project's _deps.edn_ file under _:aliases > :test > :extra-paths_. As long as you run the tests with the built-in _test_ command you don't have to worry about this.
+If you want to run the tests directly from a project using the tools.deps CLI tool, then you also have to duplicate test dependencies from the bricks to the project's _deps.edn_ file under _:aliases > :test > :extra-paths_. As long as you run the tests with the built-in xref:commands.adoc#test[test] command you don't have to worry about this.
 
 ==== Brick libraries
 
@@ -85,14 +85,14 @@ If we now run the libs command:
 
 image::images/libraries/libs-override-deps.png[alt=libs (override deps)]
 
-...we will have two versions of _clj-time where the _realworld-backend_ project uses _0.15.1_ and the _user_ component uses _0.15.2_.
+...we will have two versions of _clj-time_ where the _realworld-backend_ project uses _0.15.1_ and the _user_ component uses _0.15.2_.
 
 Here are all the places where libraries can be overridden:
 
 |===
 | Entity | Scope | Location
 
-| Dev project | src | ./deps.edn > :aliases > :dev > :override-deps
+| Development project | src | ./deps.edn > :aliases > :dev > :override-deps
 |  | test | ./deps.edn > :aliases > :test > :override-deps
 | Other projects | src | projects/PROJECT-DIR > deps.edn > :override-deps
 |  | test | projects/PROJECT-DIR > deps.edn > :aliases > :test > :override-deps
@@ -101,7 +101,8 @@ Here are all the places where libraries can be overridden:
 If a library is overridden in the _src_ scope it will also affect the _test_ scope. If a library is overridden in the _test_ scope it will only affect the _test_ scope.
 
 === Compact view
+[#compact-view]
 
-If we have a lot of libraries, we can choose a more compact format by setting _:compact-views_ to #{"libs"} in _./workspace.edn_ or by passing in _:compact_:
+If we have a lot of libraries, we can choose a more compact format by setting _:compact-views_ to _#{"libs"}_ in _./workspace.edn_ or by passing in _:compact_:
 
-image::images/libraries/libs-compact.png[alt=libs :compact]
+image::images/libraries/libs-compact.png[]

@@ -17,7 +17,7 @@
   :all              All brick tests + all project tests (except development).
 
 
-  To execute the brick tests from the development project, also pass in :dev:
+  To also execute the brick tests from the development project, pass in :dev:
 
   ARGS              Tests to execute
   ----------------  -------------------------------------------------------------

@@ -1,17 +1,20 @@
 = Validations
 
-Each time we execute the check, info, or test command, the workspace is validated. The various checks that are executed can be listed by executing the help for the check command:
+Each time we execute the xref:commands.adoc#check[check], xref:commands.adoc#info[info], or xref:commands.adoc#test[test] command, the workspace is validated. The various checks that are executed can be listed by executing the help for the xref:commands.adoc#check[check] command:
 
 [source,shell]
 ----
 poly help check
 ----
 
-The test command will not be executed if check discovers any errors.
+The _test_ command will not be executed if _check_ discovers any errors.
 
-=== Warning 206 - Missing or unreadable namespace in brick/project
+[#warning206]
+=== Warning 206 - Unreadable namespace in brick/project
 
-If a source file (_.clj_ or _.cljc_) can't be read or if the namespace is missing, we get warning 206. If we comment out the https://github.com/polyfy/polylith/blob/master/examples/doc-example/components/user/src/se/example/user/core.clj[core] namespace for the _user_ component in the example app and execute the check command, it will show a warning:
+If a source file (_.clj_ or _.cljc_) can't be read or if the namespace is missing, we get _Warning 206 - Unreadable namespace in brick/project_.
+
+If we comment out the https://github.com/polyfy/polylith/blob/master/examples/doc-example/components/user/src/se/example/user/core.clj[core] namespace for the _user_ component in the example app and execute the _check_ command, it will show a warning:
 
 [source,clojure]
 ----
@@ -21,14 +24,16 @@ If a source file (_.clj_ or _.cljc_) can't be read or if the namespace is missin
   (str "Hello " name "!!"))
 ----
 
-image::images/validations/missing-or-unreadable-namespace.png[Unreadable namespace]
+image::images/validations/missing-or-unreadable-namespace.png[]
 
-If we have a look at the namespace, we can see that it's marked as invalid:
+If we have a look at the namespace:
 
 [source,shell]
 ----
 poly ws get:components:user:namespaces:src:core
 ----
+
+...we can see that it's marked as invalid:
 
 [source,clojure]
 ----
@@ -39,7 +44,8 @@ poly ws get:components:user:namespaces:src:core
  :namespace ""}
 ----
 
-If we want to get rid of this warning, we can add the file name to the :ignore-files key for the user component in https://github.com/polyfy/polylith/blob/master/examples/doc-example/workspace.edn[workspace.edn]:
+[#ignore-files]
+If we want to get rid of this warning, we can add the filename to _:ignore-files_ for the _user_ component:
 
 [source,clojure]
 ----
@@ -51,9 +57,9 @@ If we want to get rid of this warning, we can add the file name to the :ignore-f
 
 If a file is ignored, it's no longer considered as invalid.
 
-Any path that matches the end of _components/user/src/se/example/user/core.clj_ is considered a match, e.g. "core.clj", "user/core.clj" or "example/user/core.clj", but not "ore.clj" because it will try to match "/ore.clj" (a slash is appended when comparing). If you use a dash (-) in the filename (to mimic the namespace name) it will be replaced by an underscore (_).
+Any path that matches "core.clj" exact or ends with "/core.clj" is considered a match, e.g. "core.clj", "user/core.clj" or "example/user/core.clj", but not "ore.clj" because it will try to match "/ore.clj" (a slash is appended when comparing). If we use a dash (-) in the filename (to mimic the namespace name) it will be replaced by an underscore (_) so that it can match correctly against the actual Clojure filename.
 
-If we now look at the namespaces for the user component again, the core namespace will be marked as ignored:
+If we now look at the namespaces for the _user_ component again, the core namespace will be marked as ignored:
 
 [source,shell]
 ----
@@ -69,12 +75,11 @@ poly ws get:components:user:namespaces:src:core
  :namespace ""}
 ----
 
-It's also possible to ignore files in bricks and projects, e.g.:
+It's also possible to ignore files in projects, e.g.:
 
 [source,clojure]
 ----
 { ...
- :bricks {"mybrick" {:ignore-files ["my_ns/myfile.clj" "com/my-ns/another-file.clj"}}
  :projects {...
             "command-line" {...
                             :ignore-files ["test-setup.clj"]
@@ -85,9 +90,9 @@ It's also possible to ignore files in bricks and projects, e.g.:
 }
 ----
 
-Which will ignore all files ending with the path _/my_ns/myfile.clj_ and _/com/my_ns/another_file.clj_ (all - will be replaced by underscore) for the _mybrick_ brick + all files with the name _test_setup.clj_ in the _command-line_ project.
+Which will ignore all files with the name "test_setup.clj" or files that end with "/test-setup.clj" in the _command-line_ project.
 
-The https://github.com/polyfy/polylith/blob/master/examples/doc-example/projects/command-line/test/project/command_line/test_setup.clj[test-setup] namespace in the _command-line_ project will also be ignored, and the _:is-ignored_ key will be set for the namespace:
+The https://github.com/polyfy/polylith/blob/master/examples/doc-example/projects/command-line/test/project/command_line/test_setup.clj[test-setup] namespace in the _command-line_ project will be ignored, and _:is-ignored_ will be set to _true_ for the namespace:
 
 [source,shell]
 ----
@@ -103,11 +108,12 @@ poly ws get:projects:command-line:namespaces:test:project.command-line.test-setu
  :namespace "project.command-line.test-setup"}
 ----
 
+[#warning206]
 === Warning 207 - Unnecessary components were found in project
 
-If there are any unnecessary components in a project (i.e. that are not used by any of the bricks in the project), then _check_ will return "Warning 207".
+If there are any unnecessary components in a project (i.e. that are not used by any of the bricks in the project), then xref:commands.adoc#check[check] will return _Warning 207 - Unnecessary components were found in project_.
 
-By default, _check_ only runs for projects under the projects directory. To also check the development project, we have to pass in _:dev_ when executing the _check_ command. Warning 207 will not be checked for the _info_ and _test_ commands. All other validations are performed when executing the _check_, _info_, or _test_ command.
+By default, _check_ only runs for projects under the _projects_ directory. To also check the _development_ project, we have to pass in _:dev_ when executing the _check_ command. Warning 207 will not be checked for the _info_ and _test_ commands. All other validations are performed when executing the _check_, _info_, or _test_ command.
 
 If we get warning 207 for a project, but we know that the component is needed (e.g. used in a dynamic way, but not explicitly called) then we can add a _:necessary_ key to the project in _workspace.edn_ to get rid of the warning (this example is taken from the poly tool itself):
 

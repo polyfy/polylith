@@ -35,7 +35,7 @@
        "  which is fine because they are only used from the development project.\n"
        "\n"
        "  The " (color/project "x" cm) " for the " (color/project "cl" cm) " and " (color/project "dev" cm) " columns says that the library is part of the src scope.\n"
-       "  If a library is only used from the test scope, then it is marked with a 't'. A library\n"
+       "  If a library is only used from the test scope, then it's marked with a 't'. A library\n"
        "  used in the test scope, can either be specified directly by the project itself via\n"
        "  " (color/project ":aliases > :test > :extra-deps" cm) " or indirectly via included bricks in " (color/project ":deps > :local/root" cm) "\n"
        "  which will be picked up and used by the 'test' command.\n"

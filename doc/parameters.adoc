@@ -2,18 +2,20 @@
 
 There are a few parameters that are either rarely used or added to simplify the work with the Polylith codebase itself. For these reasons, they are not suggested by the autocomplete when in a shell. What they have in common is that they are all used to control the output of the different _poly_ commands.
 
-The internal help for these parameters are included in `poly help`.
+The internal help for these parameters can be access by executing `poly help`.
 
 === all
 
-If used when starting a shell:
+We can pass in _:all_  when starting a shell:
 
 [source,shell]
 ----
 poly :all
 ----
 
-It gives us access to all available parameters, even those that are rarely used (which are often just in the way) and parameters that only make sense when developing the _poly_ tool itself. For example, _workspace_ will be available when using the _create_ command when passing in :all. The reason it's not included by default is that we seldom want to create another workspace within the current workspace:
+This will give us access to all available parameters, even those that are rarely used (which are often just in the way) and parameters that only make sense when developing the _poly_ tool itself. For example, _workspace_ will be available when using the _create_ command.
+
+The reason it's not included by default is that we seldom want to create another workspace within the current workspace:
 
 image::images/misc/poly-all.png[]
 
@@ -30,7 +32,7 @@ poly info changed-files:components/file/polylith/clj/core/user_input/core.clj
 
 More than one file can be marked as changed by separating them with colons (the autocomplete only works for the first file at the moment).
 
-it's enough to include the brick or project name plus a slash, and the tool will treat it as a change, e.g.:
+it's enough to include the brick or project name plus a slash, and the tool will treat the brick/project as changed, e.g.:
 
 [source,shell]
 ----
@@ -39,7 +41,7 @@ poly info changed-files:bases/mybase/:components/mycomponent/:projects/myproject
 
 === commit
 
-This parameter is only suggested if you are outside a git repository. The _:auto-add_ parameter in the _:vcs_ section in _workspace.edn_, can be set to true to automatically add files to git when executing the _create_ command (we normally want that set to _false_). If set to _false_, we can pass in _:commit_ to get the same effect, e.g.:
+This parameter is only suggested if we are outside a git repository. The _:auto-add_ parameter in the _:vcs_ section in _workspace.edn_, can be set to true to automatically add files to git when executing the _create_ command (we normally want to set it to _false_). If set to _false_, we can pass in _:commit_ to get the same effect, e.g.:
 
 [source,shell]
 ----
@@ -105,13 +107,13 @@ poly info changed-files:
 
 === no-exit
 
-When the _poly_ command is executed, it exits with _System/exit_ internally, see https://app.gitbook.com/s/-Mj2L4VeP3frziYOoQWC/misc/bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj[poly-cli]. If executing the poly tool from a REPL, this will also exit the REPL. To avoid that, we can pass in _:no-exit_.
+When the _poly_ command is executed, it exits with _System/exit_ internally, see poly-cli. If executing the poly tool from a REPL, this will also exit the REPL. To avoid that, we can pass in https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj#L31-L32[:no-exit].
 
 If we execute `poly info :no-exit` we have to press _Ctrl+C_ to exit, which is not so useful!
 
 === replace
 
-This parameter is used to manipulate the output from the _ws_ command. When we execute `poly ws get:settings:user-home` it will return something like "/Users/joakimtengstrand". We can tell the _ws_ command to search for strings (using regular expressions) and replace the occurrences with another string, e.g.:
+This parameter is used to manipulate the output from the xref:commands.adoc#ws[ws] command. When we execute `poly ws get:settings:user-home` it will return something like "/Users/joakimtengstrand". We can tell the _ws_ command to search for strings (using regular expressions) and replace the occurrences with another string, e.g. (assumes that $HOME is set):
 
 * `poly ws get:settings:user-home replace:$HOME:MY-HOME` Outputs: "MY-HOME".
 

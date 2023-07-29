@@ -68,7 +68,7 @@
     tap clean
     tap close
 
-  'poly :all' will start a shell and activate autocomplete for rarely used parameters, e.g:
+  'poly :all' will start a shell and activate autocomplete for rarely used parameters:
     deps out:out.txt
     info +
     info color-mode:none

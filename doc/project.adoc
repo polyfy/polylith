@@ -4,18 +4,18 @@ There are two kinds of projects in Polylith: development and deployable.
 
 * The xref:development.adoc[development] project:
 - This is where we work with the code, often from a REPL.
-- It contains all components, bases in the workspace, and project level libraries, which is specified in _./deps.edn_.
+- Has a _deps.edn_ file that specifies all bricks and project libraries that are included in the project.
 - If we have any profiles then they are defined in _./deps.edn_.
 - Any extra code, that is not part of a component or base, lives under the _development_ directory.
 
 * Any deployable project:
 - Used to build deployable artifacts, e.g.: lambda functions, REST API's, tools, and more.
 - Lives under the _projects_ directory where each project has its own directory.
-- Has a _deps.edn_ config file that specifies which libraries, component and bases that are included.
+- Has a _deps.edn_ file that specifies which bricks and project libraries that are included in the project.
 - Can optionally have a _resources_ directory.
-- If the base (we often have only one base per project) and the components that belong to it contain any tests, then they will be run when we execute the test command.
+- If the included bricks contain any tests, then they will be run when we execute the xref:commands.adoc#test[test] command.
 - If it has any tests of its own, they will live in the _test_ directory, e.g. _projects/my-project/test_.
-- It's normally discouraged to have a _src_ directory, e.g. _projects/my-project/src_, since all production code should normally only live in components and bases.
+- It's discouraged to have a _src_ directory, e.g. _projects/my-project/src_, since all production code should normally only live in bricks.
 
 The xref: _:project_ key in _./workspace.edn_ configures which alias each project has and optionally how the tests should be run (covered in the testing section).
 

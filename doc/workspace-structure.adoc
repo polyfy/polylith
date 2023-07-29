@@ -78,8 +78,8 @@ No interfaces are imported from the test context in this example.
 * `:lib-deps` Lists the library dependencies this base depends on, defined in the _:deps_ key in its _deps.edn_ file for the _src_ context, and the _:aliases_ > _:test_ > _:extra-deps_ for the _test_ context. The _:size_ is in bytes.
 
 * `:lib-imports` The name is a bit misleading as internal namespaces for the base is also included.
-** _src_ Lists all imports from the src context except component interfaces.
-** `test` Lists all imports from the test context except component interfaces.
+** `:src` Lists all imports from the src context except component interfaces.
+** `:test` Lists all imports from the test context except component interfaces.
 
 * `:lines-of-code` The total number of lines of code for this base (all namespaces included).
 
@@ -89,7 +89,7 @@ No interfaces are imported from the test context in this example.
 ** `:src` Lists all the namespaces that live under the src directory.
 *** `:file-path` The absolute path to the namespace.
 *** `:imports` Lists all its namespaces.
-*** `:is-ignored` Set to true if the namespace is ignored (by specifying it in the key _:ignored-files_ in workspace.edn. If ignored, then "warning 206 - Missing or unreadable namespace" will not be triggered.
+*** `:is-ignored` Set to true if the namespace is ignored (by specifying it in the key _:ignored-files_ in workspace.edn. If ignored, then xref:validations.adoc#warning206[_warning 206 - Unreadable namespace_] will not be triggered.
 *** `:is-invalid` Set to true if the namespace is missing or if the file can't be parsed.
 *** `:name` The name of the namespace where top namespace + base name (_se.example_ + user-api in this case) have been stripped away.
 *** `:namespace` The full name of the namespace.
@@ -235,7 +235,7 @@ No interfaces are imported from the test context in this example.
 ** `:src` Lists all the namespaces that live under the src directory.
 *** `:file-path` The absolute path to the namespace.
 *** `:imports` Lists all its namespaces.
-*** `:is-ignored` Set to true if the namespace is ignored (by specifying it in the key _:ignored-files_ in workspace.edn. If ignored, then "warning 206 - Missing or unreadable namespace" will not be triggered.
+*** `:is-ignored` Set to true if the namespace is ignored (by specifying it in the key _:ignored-files_ in workspace.edn. If ignored, then "warning 206 - Unreadable namespace" will not be triggered.
 *** `:is-invalid` Set to true if the namespace is missing or if the file can't be parsed.
 *** `:name` The name of the namespace where top namespace + base name (_se.example_ + user-api in this case) have been stripped away.
 *** `:namespace` The full name of the namespace.
@@ -327,17 +327,7 @@ poly ws get:configs
              :vcs {:auto-add true, :name "git"}}}
 ----
 
-* `:bases` Shows the content of the _deps.edn_ config files for all bases.
-
-* `:components` Shows the content of the _deps.edn_ config files for all components.
-
-* `:projects` Shows the content of the _deps.edn_ config files for all projects.
-
-* `:user` Shows the content of the _deps.edn_ config file for the file used to store user config (_~/.config/polylith/config.edn_ or _~/.polylith/config.edn_).
-
-* `:workspace` Shows the content of the _workspace.edn_ config file.
-
-Go to xref:configuration.adoc[Configuration] to read more about the keys.
+These attributes are described in the xref:configuration.adoc[Configuration] section.
 
 == interface
 
@@ -360,8 +350,8 @@ poly ws get:interfaces:user
 ** `:name` the name of the _def_, _defn_ or _defmacro_ definition. If it's a multi-arity function or macro, then each arity will be stored separately.
 ** `:parameters` Set for functions and macros. Specifies the function/macro parameters:
 *** `:name` The name of the parameter.
-*** `:type If a type hint, e.g. _^String_ is given then this attribute is set.
-** `:type` Set to data, function or macro.
+*** `:type` If a type hint, e.g. _^String_ is given, then this attribute is set.
+** `:type` Set to "data", "function" or "macro".
 
 * `:name` The name of the interface. In this case the bricks _user_ and _user-remote_ share the same _user_ interface and live in the _se.example.user.interface_ namespace.
 
@@ -541,22 +531,31 @@ poly ws get:projects:user-service
 * `:alias` The alias that is specified in _:projects_ in _workspace.edn_ for this project.
 
 * `:base-names`
-** `:src The bases that are included in the project for the _src_ context, either as paths or included as _:local/root_.
+** `:src` The bases that are included in the project for the _src_ context, either as paths or included as _:local/root_.
+** `:test` The bases that are included in the project for the _test_ context, either as paths or included as _:local/root_.
 
 * `:component-names`
-** `:src` The components that are included in the project for the src context, either as paths or included as _:local/root_.
-** `:test` The components that are included in the project for the test context, either as paths or included as _:local/root_.
+** `:src` The components that are included in the project for the _src_ context, either as paths or included as _:local/root_.
+** `:test` The components that are included in the project for the _test_ context, either as paths or included as _:local/root_.
 
 * `:config-filename` The absolute path to the _deps.edn_ config file.
 
-* `:deps` A map that stores brick names with a list of the interfaces each brick uses.
+* `:deps` A map with brick names as keys where each brick contains:
+** `:src` Keeps track of the dependencies from the `:src` context.
+*** `:direct` A vector with the direct dependencies, from the _:src_ directory, to components (component names).
+*** `:indirect` A vector with the indirect dependencies, from the _:src_ directory, to components (component names).
+*** `:circular` A vector with the circular dependency chain, translated to the components in the project, e.g. ["a" "b" "c" "a"] from the _:src_ directory.
+*** `:missing-ifc-and-bases`
+**** `:direct` A vector containing missing interface and brick names, that are directly accessed from the _:src_ directory.
+**** `:indirect` A vector containing missing interface and brick names, that are indirectly accessed from the _:src_ directory.
+** `:test` Keeps track of the dependencies from the `:test` context, with the same set of keys as the `:src` context.
 
 * `:is-dev` Set to true for the development project.
 
 * `:lib-deps`
 ** `:src` Stores a map with the libraries that are used in the project for the src context.
 *** `:size` The size of this library in bytes.
-*** `:type` The type of the library, maven, local or git (_:mvn/version_, _:local/root_ and _:git/url_).
+*** `:type` The type of the library, "maven", "local" or "git" (_:mvn/version_, _:local/root_ and _:git/url_).
 *** `:version` The library version:
 **** if type is _maven_ then version is set to _groupId/artifactId_.
 **** if type is _local_ then the version is set to -.
@@ -564,30 +563,30 @@ poly ws get:projects:user-service
 ** `:test` Stores a map with the libraries that are used in the project for the test context.
 
 * `:lib-imports`
-** `:src` All _:lib-imports_ taken from the bricks that are included in this project for the src context.
-** `:test` All _:lib-imports_ taken from the bricks that are included in this project for the test context.
+** `:src` All _:lib-imports_ taken from the bricks that are included in this project for the _src_ context.
+** `:test` All _:lib-imports_ taken from the bricks that are included in this project for the _test_ context.
 
 * `:lines-of-code`
-** `:src` Number of lines of code living in the project's src directory.
-** `:test` Number of lines of code living in the project's test directory.
+** `:src` Number of lines of code living in the project's _src_ directory.
+** `:test` Number of lines of code living in the project's _test_ directory.
 ** `:total` The total number of lines of code for all the bricks that are included in this project.
 
 * `:maven-repos` The maven repos that are used by this project. If _:mvn/repos_ is specified by a brick that is included in this project, then it will automatically turn up in this list.
 
 * `:name` The name of the project directory under the _projects_ directory.
 
-* `:namespaces` If the project has a test directory (and/or a _src_ directory, but they are discouraged to use for projects) then the included namespaces are listed here.
+* `:namespaces` If the project has a _test_ and/or _src_ directory, then the included namespaces are listed here.
 ** `:src` Lists all the namespaces that live under the src directory.
 *** `:file-path` The absolute path to the namespace.
 *** `:imports` Lists all its namespaces.
-*** `:is-ignored` Set to true if the namespace is ignored (by specifying it in the _:ignored-files_ key in _workspace.edn_. If ignored, then "warning 206 - Missing or unreadable namespace" will not be triggered.
+*** `:is-ignored` Set to true if the namespace is ignored (by specifying it in the _:ignored-files_ key in _workspace.edn_. If ignored, then "warning 206 - Unreadable namespace" will not be triggered.
 *** `:is-invalid` Set to true if the namespace is missing or if the file can't be parsed.
 *** `:name` The name of the namespace where top namespace + component name (_se.example_ + _user_ in this case) are stripped away.
 *** `namespace` The full name of the namespace.
-** `:test` Lists all the namespaces that live under the test directory (same keys as for the _:src_).
+** `:test` Lists all the namespaces that live under the _test_ directory (same keys as for the _:src_).
 
 * `:paths`
-** `:src Lists the paths that are either explicitly defined as paths or implicitly defined as _:local/root_ bricks, for the _src_ context.
+** `:src` Lists the paths that are either explicitly defined as paths or implicitly defined as _:local/root_ bricks, for the _src_ context.
 ** `:test` Lists the paths that are either explicitly defined as paths or implicitly defined as _:local/root_ bricks, for the _test_ context.
 * `:project-dir` The absolute path to the project directory.
 * `:type` Set to "project".
@@ -642,8 +641,8 @@ poly ws get:settings
 
 * `:active-profiles` If any profiles are defined in _./deps.edn_ then the active profiles(s) are listed here.
 
-* `:bricks` A map with configuration information per brick where the keys are brick names, specified in _workspace.edn_.
-** `:ignore-files` A vector containing file or file paths to ignore, e.g.: _["myfile.clj" "myns/another_file.clj" "com/myns/a-thrird-file.clj"]_. All files ending with the specified files will be ignored. Dashes (-) will be replaced by underscores (_).
+* `:bricks` A map with configuration information per brick where the keys are brick names, specified in _workspace.edn_:
+** `:ignore-files` A vector containing file or file paths to ignore, e.g.: _["myfile.clj" "myns/another_file.clj" "com/myns/a-thrird-file.clj"]_. See xref:validations.adoc#ignore-files[Validations].
 
 * `:color-mode` The color mode specified in _~/.config/polylith/config.edn_.
 
@@ -667,7 +666,7 @@ poly ws get:settings
 * `:projects` A map with extra information per project, specified in _workspace.edn_.
 ** `:alias` The alias for a project, used by e.g. the _info_ command.
 ** `:ignore-files` A vector containing file or file paths to ignore, e.g.: _["myfile.clj" "myns/another_file.clj" "com/myns/a-thrird-file.clj"]_. All files ending with the specified files () will be ignored, or to be exact, if it's an exact match or if it ends with _/_ + the string. Dashes (-) will be replaced by underscores (_).
-** `:necessary If we get a validation 207 warning (Missing or unreadable namespace in brick/project) and we know that the brick(s) has to be included in the project, then we can add the necessary bricks(s) to the project in a vector for this key.
+** `:necessary` If we get warning 206 (Unreadable namespace in brick/project) and we know that the brick(s) has to be included in the project, then we can add the necessary bricks(s) to the project in a vector for this key.
 ** `:test`
 *** `:include` Specifies which bricks should be included when running the test command. Empty if no bricks, missing if all bricks.
 *** `:exclude` Specifies which brick should be excluded when running the test command.
@@ -678,20 +677,20 @@ poly ws get:settings
 
 * `:top-namespace` The top namespace for the workspace, specified in _workspace.edn_.
 
-* `:user-config-filename` The full path to the user config name.
+* `:user-config-filename` The full path to the user config filename.
 
 * `:user-home` The user home, specified by the user.home environment variable.
 
 * `vcs`
 ** `:auto-add` Set to _true_ if files and directories created by the create command should be automatically added to git. Specified in _workspace.edn_.
 ** `:branch` The name of the git branch.
-** `:git-root The root of the git repository.
+** `:git-root` The root of the git repository.
 ** `:name` Set to "git".
 ** `:polylith`
 *** `:branch` Set to _master_ or _BRANCH_ if _branch:BRANCH_ is given. The branch is used when calculating the latest sha in _./deps.edn_ for the key _:aliases_ > _:poly_ > _:extra-deps_ > _sha_.
 *** `:repo` Set to "https://github.com/polyfy/polylith.git".
 ** `:stable-since`
-*** `:sha The latest stable point in time.
+*** `:sha` The latest stable point in time.
 *** `:tag` The tag for the latest stable point in time (if exists).
 
 == user-input
@@ -707,17 +706,24 @@ poly ws get:user-input
  :cmd "ws",
  :get "user-input",
  :is-all false,
+ :is-commit false,
+ :is-compact false,
  :is-dev false,
+ :is-fake-poly false,
  :is-latest-sha false,
+ :is-no-changes false,
  :is-no-exit false,
+ :is-outdated false,
  :is-run-all-brick-tests false,
  :is-run-project-tests false,
  :is-search-for-ws-dir false,
+ :is-shell false,
  :is-show-brick false,
  :is-show-loc false,
  :is-show-project false,
  :is-show-resources false,
  :is-show-workspace false,
+ :is-tap false,
  :is-verbose false,
  :selected-profiles #{},
  :selected-projects #{},
@@ -728,53 +734,57 @@ poly ws get:user-input
 
 * `:cmd` The first argument to the poly tool.
 
-* `:get` The ARGS of get:ARGS if given.
+* `:fake-sha` Set to _c91fdad_ if _fake-sha:c91fdad_ is given. Used to set the "stable since" sha for the output from the _info_ command. Used to control the output when taking screenshots for the documentation.
 
-* `:is-all` Set to true if _:all_ is given.
+* `:get` The ARGS of get:ARGS, if given.
 
-* `:is-dev` Set to true if _:dev_ is given.
+* `:is-all` Set to _true_ if _:all_ is given.
+
+* `:is-commit` Set to _true_ if _:commit_ is given.
+
+* `:is-compact` Set to _true_ if _:compact_ is given. Used in combination with the _libs_ and _deps_ commands.
+
+* `:is-dev` Set to _true_ if _:dev_ is given.
+
+* `:is-fake-poly` Set to _true_ if _:fake-poly_ is given. Used when using the _polyx_ tool with the _help_ command, and when starting a _shell_ with `poly shell :fake-poly` where the latter will show e.g. "poly 0.2.18" as version, instead of e.g. "polyx 0.2.18-issue318-02".
 
 * `:is-latest-sha` Set to _true_ if _:latest-sha_ is given.
 
-* `:is-no-exit` Set to true if _:no-exit_ is given. This will prevent the _poly_ tool from exiting with _System/exit_.
+* `:is-no-changes` Set to _true_ if _:no-changes_ is given. Used to fake that no changes have been made since the last stable point in time.
 
-* `:is-run-all-brick-tests` Set to true if _:all_ or _:all-bricks are given_.
+* `:is-no-exit` Set to _true_ if _:no-exit_ is given. This will prevent the _poly_ tool from exiting with _System/exit_.
 
-* `:is-run-project-tests` Set to true if _:all_ or _:project_ are given.
+* `:is-outdated` Set to _true_ if _:outdated_ is given.
 
-* `:is-shell` Set to true if a shell has been started with the shell command.
+* `:is-run-all-brick-tests` Set to _true_ if _:all_ or _:all-bricks are given_.
 
-* `:is-search-for-ws-dir` Set to true if _::_ is given.
+* `:is-run-project-tests` Set to _true_ if _:all_ or _:project_ are given.
 
-* `:is-show-brick` Set to true if _:brick_ is given. Used by poly help deps _:brick_ to show help for the deps command when _brick:BRICK_ is given.
+* `:is-shell` Set to _true_ if a shell has been started with the shell command.
 
-* `:is-show-loc` Set to true if _:loc_ is given. If given, then the info command will show the number of lines of code.
+* `:is-search-for-ws-dir` Set to _true_ if _::_ is given.
 
-* `:is-show-project` Set to true if _:project_ is given. Used by poly help deps _:project_ to show help for the deps command when _project:PROJECT_ is given.
+* `:is-show-brick` Set to _true_ if _:brick_ is given. Used by poly help deps _:brick_ to show help for the deps command when _brick:BRICK_ is given.
 
-* `:is-show-resources` Set to true if _:r_ or _:resources_ is given. This will tell the _info_ command to show the _r_ status flag.
+* `:is-show-loc` Set to _true_ if _:loc_ is given. If given, then the _info_ command will show the number of lines of code.
 
-* `:is-show-workspace` Set to true if _:workspace_ is given. Used by `poly help deps :workspace` to show help for the deps command when _workspace:WORKSPACE_ is given.
+* `:is-show-project` Set to _true_ if _:project_ is given. Used by poly help deps _:project_ to show help for the deps command when _project:PROJECT_ is given.
 
-* `:is-verbose` Experimental at the moment. Can be used in combination with the test command to show extra information.
+* `:is-show-resources` Set to _true_ if _:r_ or _:resources_ is given. This will tell the _info_ command to show the _r_ status flag.
+
+* `:is-show-workspace` Set to _true_ if _:workspace_ is given. Used by `poly help deps :workspace` to show help for the deps command when _workspace:WORKSPACE_ is given.
+
+* `:is-tap` Set to _true_ if _:tap_ is given.
+
+* `:is-verbose` Used in combination with the _test_ command to show extra information.
+
+* `:replace` Used in tests, when maintaining the _poly_ tool. Set to e.g. _[{:from "/Users/joakimtengstrand", :to "my-home"}]_ if _replace:$HOME:my-home_ is given. It will replace this text too, so the output will actually be _[{:from "my-home", :to "my-home"}]_ which is the behavior we want (the whole idea with the replace parameter is to get the same output every time).
 
 * `:selected-profiles` A list with the passed in profiles, e.g. _["default" "extra"]_ if `poly info +default +extra` is executed.
 
 * `:selected-projects` The list of projects given by _project:PROJECT_ and/or _:dev_ (handled as "dev" if given).
 
 * `:unnamed-args` All given arguments that don't contain a `:`. So if we type `poly ws get:user-input:unnamed-args arg xx:123` it will return _["arg"]_ but not _xx_.
-
-There are a few more user input parameters that are mainly useful if you are a maintainer of the Polylith codebase itself:
-
-* `:is-compact` Set to _true_ if _:compact_ is given. Used in combination with the libs and deps commands.
-
-* `:fake-sha` Set to _c91fdad_ if _fake-sha:c91fdad_ is given. Used to set the "stable since" sha for the output from the info command.
-
-* `:is-no-changes` Set to _true_ if _:no-changes_ is given. Used to fake that no changes have been made since the last stable point in time.
-
-* `:is-no-exit` Set to _true_ if _:no-exit_ is given. Tells the poly command to not exit with _System/exit_.
-
-* `:replace` Set to e.g. _[{:from "/Users/joakimtengstrand", :to "my-home"}]_ if _replace:$HOME:my-home_ is given. It will replace this text too, so the output will actually be _[{:from "my-home", :to "my-home"}]_ which is the behavior we want (the whole idea with the replace parameter is to get the same output every time).
 
 == version
 
@@ -791,7 +801,7 @@ poly ws get:version
            :name "0.2.18-issue318-02"
            :patch 18
            :revision "issue318-02"
-           :tool "polyx"}
+           :tool "poly"}
  :test-runner-api {:breaking 1
                    :non-breaking 0}
  :ws {:breaking 2
@@ -807,26 +817,25 @@ for generating image files and the _overview_ command.
 ** `:name` The full name of the release.
 ** `:patch` Increased by one for each release within a given _major.minor_.
 ** `:revision` What comes after _major.minor.path_.
-** `:tool` Set to "poly" if the poly tool, or "polyx" if the extended poly tool that includes support
+** `:tool` Set to "poly" if the poly tool, or "polyx" if the extended poly tool that includes support for creating images.
 
 * `:test-runner-api` Versioning of the test runner API:
 ** `:breaking` Increased by one if introducing a non-backward compatible change of the test runner API.
 ** `:non-breaking` Increased by one when a non-breaking change is made to the test runner API.
 
-* `:ws` Versioning of the internal ws format, returned by poly _ws_.
+* `:ws` Versioning of the internal workspace format, returned by poly _ws_.
 ** `:breaking` Increased by one if introducing a non-backward compatible change of the ws format.
 ** `:non-breaking` Increased by one when a non-breaking change is made to the ws format.
-** `:type` Set to _:toolsdeps1_ if the workspace was created by _v0.1.0-alpha9_ or earlier (where each brick doesn't store its own _deps.edn_ file). Set to _:toolsdeps2_ if the workspace was created by _v0.2.0-alpha10_ or later (where each brick store its own _deps.edn_ file).
+** `:type` Set to _:toolsdeps1_ if the workspace was created by _v0.1.0-alpha9_ or earlier (where each brick doesn't have its own _deps.edn_ file). Set to _:toolsdeps2_ if the workspace was created by _v0.2.0-alpha10_ or later (where each brick has its own _deps.edn_ file).
 
-* `:from` Set to the value of _:version_ if the workspace is read from a file, produced by a different version than the current version of the poly tool, or if the workspace is read from a directory that has not been migrated from _:toolsdeps1_ to _:toolsdeps2_.
+* `:from` Set to the value of _:version_ if the workspace is read from a file, produced by a different version than the current version of the _poly_ tool, or if the workspace is read from a directory that has not been migrated from _:toolsdeps1_ to _:toolsdeps2_.
 ** `:release-name` The version of the poly tool from which this ws file was created.
+** `:ws`
+*** `:breaking` The breaking version of the original _ws_ format.
+*** `:non-breaking` The non-breaking version of the original _ws_ format.
+*** `:type` The type of the original _ws_ file.
 
-* `:ws`
-** `:breaking` The breaking version of the original _ws_ format.
-** `:non-breaking` The non-breaking version of the original _ws_ format.
-** `:type` The type of the original _ws_ file.
-
-The changes to the _ws_ format are documented in the version component.
+Changes to the _workspace structure_, is documented in the https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/components/version/src/polylith/clj/core/version/interface.clj#L37-L57[version] component.
 
 == ws-dir
 
@@ -854,7 +863,7 @@ poly ws get:ws-local-dir
 "examples/doc-example"
 ----
 
-If the workspace lives at the same level as the git root, which is the case if we create a workspace with ´poly create workspace ...´, then this attribute is not set. If the workspace lives inside the git root as a directory or subdirectory, then it is set to the relative path to the git root.
+If the workspace lives at the same level as the git root, which will be the case if we create a workspace outside a git repository, or within an existing without giving a name, then this attribute is not set. If the workspace lives inside the git root as a directory or subdirectory, which will be the case if we create the workspace inside an existing repository and giving it a name, then it is set to the relative path to the git root.
 
 == ws-reader
 
@@ -872,17 +881,17 @@ poly ws get:ws-reader
  :type-position "postfix"}
 ----
 
-This structure explains different aspects of the tool that created this _ws_ structure (the poly tool in this case) and the idea is that new tooling could support the _ws_ format and populate this structure so that it can be used by external tooling.
+This structure explains different aspects of the tool that created this _workspace structure_ (the poly tool in this case) and the idea is that new tooling could support the _workspace format_ and populate this structure so that it can be used by external tooling.
 
 * `:file-extensions` Lists the supported file extensions.
 
-* `:language The name of the supported language.
+* `:language` The name of the supported language.
 
 * `:name` The name of the workspace reader.
 
 * `:project-url` The URL to the workspace reader tool.
 
-* `:type-position Set to _postfix_ because types (type hints) come before the arguments, in Clojure, e.g. _^String arg_. In some other languages like Scala, the types come after the arguments.
+* `:type-position` Set to _postfix_ because types (type hints) come before the arguments, in Clojure, e.g. _^String arg_. In some other languages like Scala, the types come after the arguments.
 
 == ws-type
 

@@ -1,8 +1,8 @@
 = Source code
 
-In all our examples so far, the source code has been stored in two directories, _src_ and _test_. The poly tool also supports splitting up the source and test code into several directories.
+In all our examples so far, the source code has been stored in two directories, _src_ and _test_. The _poly_ tool also supports splitting up the source and test code into several directories.
 
-It's also worth mentioning that the poly tool understands _.cljc_ files which can be used to share code between _.clj_ and _.cljs_.
+It's also worth mentioning that the _poly_ tool understands _.cljc_ files which can be used to share code between _.clj_ and _.cljs_.
 
 Let's say we have a _company_ component that contains both _.clj_ and _.cljc_ files. Now we can choose to store the source files in two separate directories:
 
@@ -32,7 +32,7 @@ Mixing both _.clj_ and _.cljc_ files in a single src directory will also work:
 
 == Resources
 
-The _resources_ directory is to store non-source files, e.g. images or data. It lives in bricks and projects. To avoid file naming conflicts, the tool creates a sub-directory under _resources_. For components, the name is the component's interface name, and for bases, it's the base name, e.g.:
+The _resources_ directory is to store non-source files, e.g. images or data, and lives in bricks and projects. To avoid file naming conflicts, the tool creates a sub-directory under _resources_. For components, the name is the component's xref:interface.adoc[interface] name, and for bases, it's the base name, e.g.:
 
 [source,shell]
 ----
@@ -50,15 +50,17 @@ The _resources_ directory is to store non-source files, e.g. images or data. It 
 
 == Frontend
 
-The poly tool doesn't understand https://clojurescript.org/[ClojureScript] (.cljs) code, but does understand _.cljc_ code, which we can use if we want to share code between backend and frontend. To do so we have three alternatives:
+The _poly_ tool doesn't understand https://clojurescript.org/[ClojureScript] (.cljs) code, but does understand _.cljc_ code, which we can use if we want to share code between backend and frontend. To do so we have three alternatives:
 
 ==== 1. Put frontend code in a base
 
-The first option is to put all the frontend code in a base. Even though the poly tool will not recognise any source code (if we put all our _.cljc_ files in the backend) we should now be able to access all our _.cljc_ files from the frontend code.
+One option is to put all the frontend code in a base. The tool will recognise all _.cljc_ code in the base, which can  Even though the _poly_ tool will not recognise any source code (if we put all our _.cljc_ files in the backend) we should now be able to access all our _.cljc_ files from the frontend code.
 
 ==== 2. Put frontend code in a directory
 
-The second option is to put the frontend code in a separate directory, which is located with the backend code in the same git repository. If we do that, we have two alternatives. Either we let the frontend code live in the same workspace:
+Another option is to put the frontend code in a separate directory, which is located with the backend code in the same git repository. If we do that, we have two alternatives.
+
+===== a) Let the frontend code live in the same workspace
 
 [source,shell]
 ----
@@ -69,6 +71,10 @@ myworkspace
 ├── myfrontend
 └── projects
 ----
+
+Now we can include _.cljc_ files in our backend code, by treating them as libraries and "import" them with _:local/root_. The drawback with this is that they will not be recognised as bricks, and changes in these files will not trigger a test run or build, if only a .cljc file has changed. There are plans to fix this, see https://github.com/polyfy/polylith/discussions/301[this] discussion.
+
+===== b) Let the frontend code live outside the workspace
 
 We can also put the backend and frontend code in two separate directories within the same git repo. The two directories can live anywhere in the repo, e.g. at the top level:
 
@@ -83,8 +89,8 @@ myrepository
 └── myfrontend
 ----
 
-The poly tool can handle both situations, so it's more a matter of preference what you choose.
+Here we can "import" _.cljc_ files as libraries, in the same way as in the previous alternative. The poly tool can handle both situations, so it's more a matter of preference what you choose.
 
-==== 3. Frontend repository
+==== 3. Let the frontend code live in another repository
 
-The third alternative is to put the frontend code in a separate repository. If we do that we will lose the Polylith way of sharing "living" code, by automatically having access to the latest code. Now we have to "freeze" the _.cljc_ code by building a library of it so that it can be used by the frontend code.
+The last alternative is to put the frontend code in a separate repository. If we do that we will lose the Polylith way of sharing "living" code, by automatically having access to the latest version of the code. Now we have to "freeze" the _.cljc_ code by building a library of it, if we want to share the code.

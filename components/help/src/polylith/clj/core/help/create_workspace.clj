@@ -4,9 +4,9 @@
 (defn help-text [cm]
   (str "  Creates a workspace in current directory. If the workspace is created within\n"
        "  an existing git repo, then that repository will be used. If the workspace is\n"
-       "  created outside a git repo, and the " (s/key ":create" cm) " flag is passed in, then a new repo\n"
-       "  will be initiated using the 'main' branch, if another branch is not explicitly\n"
-       "  given. In both cases, all the created files and directories will be committed\n"
+       "  created outside a git repo, and " (s/key ":commit" cm) " is passed in, then a new repo will be\n"
+       "  initiated using the 'main' branch, if another branch is not explicitly given.\n"
+       "  In both cases, all the created files and directories will be committed\n"
        "  to the repo in a single commit with the text 'Workspace created.'.\n"
        "\n"
        "  If " (s/key ":commit" cm) " is not passed in, then the repository needs to be initiated manually\n"

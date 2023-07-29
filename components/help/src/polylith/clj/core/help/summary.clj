@@ -12,7 +12,7 @@
 
 (defn help-text [show-migrate? extended? fake-poly? cm]
   (str
-    "  " (-> fake-poly? common/tool-name str/capitalize) " " version/name " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
+    "  " (-> fake-poly? common/version-name str/capitalize) " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
     "\n"
     "  " (tool-command extended?) " " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] - where " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] are:\n"
     "\n"
@@ -221,6 +221,7 @@
 
 (comment
   (println (help-text false false false "dark")) ; poly
+  (println (help-text false false true "dark")) ; poly
   (println (help-text false true false "dark"))  ; polyx
 
   (println (help-text true false false "dark"))  ; poly + show migrate

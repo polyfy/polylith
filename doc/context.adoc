@@ -2,7 +2,7 @@
 
 The component interfaces bring context to the development experience.
 
-Object oriented languages give us context by using objects. Let’s say we work in an object oriented language and that we want to save the object _userToBeSaved_. If we type _userToBeSaved_ followed by a ., the intellisense in the IDE will show us a list of available methods for that object, for example _persist_:
+Object oriented languages give us context by using objects. Let’s say we work in an object oriented language and that we want to save the object _userToBeSaved_. If we type _userToBeSaved_ followed by a `.`, the intellisense in the IDE will show us a list of available methods for that object, for example _persist_:
 
 [source,java]
 ----

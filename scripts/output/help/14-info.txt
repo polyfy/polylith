@@ -80,7 +80,7 @@
       --x  The project tests (its own) are marked for execution.
 
     To show the 'resources' directory, also pass in :r or :resources, e.g.
-    'poly info :r':
+    'poly info :resources':
       s---  The project has a 'src' directory, e.g.
             'projects/command-line/src'.
       -r--  The project has a 'resources' directory, e.g.
@@ -91,11 +91,9 @@
 
     The dev column has three flags with different meaning:
       s--  The project's 'src' directory, e.g.
-           'projects/command-line/src' is added to './deps.edn'
-           (or indirectly added as :local/root).
+           'development/src' is added to './deps.edn'
       -t-  The project's 'test' directory, e.g.
-           'projects/command-line/test' is added to './deps.edn'
-           (or indirectly added as :local/root).
+           'development/test' is added to './deps.edn'
       --x  The project tests are marked for execution from development.
 
     The last admin column, is a profile:
@@ -104,7 +102,7 @@
       -t  The profile contains a path to the 'test' directory, e.g.
           'projects/command-line/test'.
 
-    If also passing in :r or :resources, e.g. 'poly info +r':
+    If also passing in :r or :resources, e.g. 'poly info :resources':
       s--  The profile contains a path to the 'src' directory, e.g.
            'projects/command-line/src'.
       -r-  The profile contains a path to the 'resources' directory, e.g.
@@ -146,7 +144,7 @@
       --x  The brick is marked to be executed from this project.
 
     If :r or :resources is also passed in:
-      s---  The project contains a path to the 'src' directory, e.g. 
+      s---  The project contains a path to the 'src' directory, e.g.
             'components/user/src' (or is indirectly added by a :local/root).
       -r--  The project contains a path to the 'resources' directory, e.g.
             'components/user/resources' (or is indirectly added by a :local/root).

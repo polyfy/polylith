@@ -3,7 +3,7 @@
 
 (defn help-text [cm]
   (str "  Shows the output from the info, deps, and libs commands, side by side.\n"
-       "  This command is mainly used to generate an image for your documentation\n"
+       "  This command is mainly used to generate an image for our documentation\n"
        "  and is only available from the polyx tool.\n"
        "\n"
        "  We can duplicate the " (s/key ":poly" cm) " alias in ./deps.edn and rename it to " (s/key ":polyx" cm) " and\n"
