@@ -221,7 +221,6 @@
           "\n    poly help :fake-poly"
           "")
         "\n    poly info :no-changes"
-        "\n    poly info color-mode:none"
         "\n    poly info fake-sha:c91fdad"
         "\n    poly info fake-tag:stable-me"
         "\n    poly info changed-files:components/user/deps.edn"
