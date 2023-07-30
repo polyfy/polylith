@@ -6,8 +6,9 @@
            p[roject]   -> Creates a project.
            w[orkspace] -> Creates a workspace.
 
-    ARGS = Varies depending on TYPE. To get help for a specific TYPE, type:
-             poly help create TYPE
+    ARGS = Varies depending on TYPE.
+
+  To get help for a specific TYPE, execute 'poly help create TYPE'.
 
   Example:
     poly create c name:user

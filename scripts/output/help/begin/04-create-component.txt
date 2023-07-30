@@ -1,5 +1,5 @@
 [#create-component]
 === create component
 
-[source,shell]
+[source,text]
 ----

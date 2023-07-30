@@ -1,5 +1,5 @@
 [#create-base]
 === create base
 
-[source,shell]
+[source,text]
 ----

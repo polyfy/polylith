@@ -1,5 +1,5 @@
 [#deps-project]
 === deps :project
 
-[source,shell]
+[source,text]
 ----

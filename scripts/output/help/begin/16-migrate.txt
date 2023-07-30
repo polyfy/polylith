@@ -1,5 +1,5 @@
 [#migrate]
 === migrate
 
-[source,shell]
+[source,text]
 ----

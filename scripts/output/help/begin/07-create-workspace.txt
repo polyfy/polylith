@@ -1,5 +1,5 @@
 [#create-workspace]
 === create workspace
 
-[source,shell]
+[source,text]
 ----

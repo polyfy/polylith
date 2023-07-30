@@ -1,5 +1,5 @@
 [#create-project]
 === create project
 
-[source,shell]
+[source,text]
 ----

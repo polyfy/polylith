@@ -22,9 +22,6 @@
     exit           Exits the shell.
     quit           Quits the shell.
 
-  The ws-dir and ws-file parameters are replaced by switch-ws when executing commands
-  from the shell.
-
   If ws-dir:PATH is passed in as an argument, where PATH is a relative
   or absolute path, then the command is executed from that directory.
   This works for all commands except 'test'.
@@ -37,6 +34,9 @@
   'poly ws out:ws.edn'.
   If the 'switch-ws file:FILE' command has been executed from a shell,
   then ws-file:FILE will automatically be appended to following commands.
+
+  The ws-dir and ws-file parameters are replaced by switch-ws when executing commands
+  from the shell.
 
   If :: is passed in, then ws-dir is set to the first parent directory (or current)
   that contains a 'workspace.edn' config file. The exception is the 'test' command
@@ -56,8 +56,8 @@
     KEY     -> any key in :tag-patterns.
     SHA     -> a git SHA-1 hash (if no key was found in :tag-patterns).
 
-  Execute 'poly help :all' to include rarely used parameters in this help,
-  to the 'Example (shell only)' section.
+  Execute 'poly help :all' to include rarely used parameters in this help.
+  Will be added to the 'Example (shell only)' section.
 
   The color mode is taken from ~/.config/polylith/config.edn but can be overridden by passing
   in color-mode:COLOR where valid colors are none, light, and dark.

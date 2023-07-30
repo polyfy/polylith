@@ -1,5 +1,5 @@
 [#shell]
 === shell
 
-[source,shell]
+[source,text]
 ----

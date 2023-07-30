@@ -1,5 +1,5 @@
 [#deps-workspace]
 === deps :workspace
 
-[source,shell]
+[source,text]
 ----
