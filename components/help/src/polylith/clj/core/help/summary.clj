@@ -221,10 +221,10 @@
     "    poly ws get:changes:changed-or-affected-projects skip:dev color-mode:none\n"
     "    poly ws out:ws.edn"
     (if extended?
-     (str "\n    clojure -M:polyx overview"
-          "\n    clojure -M:polyx overview out:overview.png"
-          "\n    clojure -M:polyx overview out:overview.jpg :no-changes")
-     "")))
+      (str "\n    clojure -M:polyx overview"
+           "\n    clojure -M:polyx overview out:overview.png"
+           "\n    clojure -M:polyx overview out:overview.jpg :no-changes")
+      "")))
 
 (defn print-help [is-all toolsdeps1? extended? fake-poly? color-mode]
   (let [show-migrate? (or is-all toolsdeps1?)]

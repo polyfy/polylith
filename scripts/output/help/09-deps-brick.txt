@@ -15,3 +15,4 @@
 
   Example:
     poly deps brick:mybrick
+    poly deps brick:mybrick out:deps.txt

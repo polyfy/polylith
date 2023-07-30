@@ -32,16 +32,18 @@
        "    poly deps\n"
        "    poly deps brick:mybrick\n"
        "    poly deps project:myproject\n"
-       "    poly deps project:myproject brick:mybrick"
+       "    poly deps project:myproject brick:mybrick\n"
+       "    poly deps out:deps.txt"
        (if extended?
-         (str "\n    poly deps out:deps.png" ""))))
+         "\n    poly deps out:deps.png"
+         "")))
 
 (defn print-help [is-show-project is-show-brick is-show-workspace extended? color-mode]
   (cond
-    (and is-show-project is-show-brick) (deps-brick-project/print-help color-mode)
-    is-show-project (deps-project/print-help color-mode)
-    is-show-brick (deps-brick/print-help color-mode)
-    is-show-workspace (deps-workspace/print-help color-mode)
+    (and is-show-project is-show-brick) (deps-brick-project/print-help extended? color-mode)
+    is-show-project (deps-project/print-help extended? color-mode)
+    is-show-brick (deps-brick/print-help extended? color-mode)
+    is-show-workspace (deps-workspace/print-help extended? color-mode)
     :else (println (help extended? color-mode))))
 
 (comment

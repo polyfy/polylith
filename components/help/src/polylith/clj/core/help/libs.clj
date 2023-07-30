@@ -6,18 +6,17 @@
 (defn help [extended? cm]
   (str "  Shows all libraries that are used in the workspace.\n"
        "\n"
-       "  poly libs [" (s/key ":compact" cm) "] [" (s/key ":outdated" cm) "]"
-       (if extended?
-         (str " [out:" (s/key  "FILENAME" cm) "]\n")
-         "\n")
+       "  poly libs [" (s/key ":compact" cm) "] [" (s/key ":outdated" cm) "] [out:" (s/key  "FILENAME" cm) "]\n"
        "    " (s/key ":compact" cm) "  = Shows the table in a more compact way.\n"
        "    " (s/key ":outdated" cm) " = Shows the latest version of each library, or blank if up to date.\n"
        (if extended?
-            (str "    out       = Creates a text or image file based on the output. If " (s/key "FILENAME" cm) "\n"
-                 "                ends with .txt, then the file will contain the output as text.\n"
-                 "                If FILENAME ends with .bmp, .wbmp, .gif, .jpeg, .jpg, .png, .tif,\n"
-                 "                or .tiff, then the file will be generated as an image.\n")
-            "")
+            (str "    " (s/key "FILENAME" cm) "  = The name of the text or image file to create, containing the\n"
+                 "                output from this command. If " (s/key "FILENAME" cm) " ends with .bmp, .wbmp,\n"
+                 "                .gif, .jpeg, .jpg, .png, .tif, or .tiff, then the file will\n"
+                 "                be generated as an image, otherwise as text.\n")
+            (str "    " (s/key "FILENAME" cm) "  = The name of the text file to create, containing the\n"
+                 "                output from this command.\n"))
+
        "\n"
        "                                                                                 " (color/component "u  u\n" cm)
        "                                                                                 " (color/component "s  t\n" cm)
@@ -62,12 +61,11 @@
        "  Example:\n"
        "    poly libs\n"
        "    poly libs :compact\n"
-       "    poly libs :outdated"
+       "    poly libs :outdated\n"
+       "    poly libs out:libs.txt"
 
        (if extended?
-         (str "\n    poly libs out:libs.png"
-              "\n    poly libs out:libs.txt")
-
+         "\n    poly libs out:libs.png"
          "")))
 
 (defn print-help [extended? color-mode]

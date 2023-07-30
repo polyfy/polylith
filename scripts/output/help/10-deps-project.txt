@@ -29,4 +29,4 @@
 
   Example:
     poly deps project:myproject
-    poly deps project:myproject out:myproject-deps.txt
+    poly deps project:myproject out:deps.txt

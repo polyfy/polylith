@@ -3,6 +3,7 @@
   poly deps [out:FILENAME]
     FILENAME = The name of the text file to create, containing the
                output from this command.
+
          p      
          a  u  u
          y  s  t
@@ -17,3 +18,7 @@
   In this example, payer uses user from the src context, and util from
   the test context (indicated by 't'). user uses util and cli uses payer.
   Each usage comes from at least one :require statement in the brick.
+
+  Example:
+    poly deps
+    poly deps out:deps.txt
