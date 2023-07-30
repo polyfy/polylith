@@ -1,5 +1,5 @@
 [#overview]
 === overview
 
-[source,shell]
+[source,text]
 ----

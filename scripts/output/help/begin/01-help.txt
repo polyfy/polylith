@@ -10,4 +10,5 @@ To list all available commands, type:
 poly help
 ----
 
+[source,text]
 ----

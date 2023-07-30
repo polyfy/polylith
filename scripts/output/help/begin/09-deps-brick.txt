@@ -1,5 +1,5 @@
 [#deps-brick]
 === deps :brick
 
-[source,shell]
+[source,text]
 ----

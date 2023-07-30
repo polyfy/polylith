@@ -1,5 +1,5 @@
 [#create]
 === create
 
-[source,shell]
+[source,text]
 ----
