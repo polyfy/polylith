@@ -8,19 +8,18 @@
 (defn help [extended? cm]
   (str "  Shows dependencies.\n"
        "\n"
-       "  poly deps [project:" (s/key "PROJECT" cm) "] [brick:" (s/key "BRICK" cm) "] "
-       (if extended?
-         (str "[out:" (s/key "FILENAME" cm) "]\n")
-         "\n")
+       "  poly deps [project:" (s/key "PROJECT" cm) "] [brick:" (s/key "BRICK" cm) "] [out:" (s/key "FILENAME" cm) "]\n"
+       "\n"
        "    (omitted) = Shows workspace dependencies.\n"
-       "    project   = Shows dependencies for specified project.\n"
-       "    brick     = Shows dependencies for specified brick.\n"
+       "    " (s/key "PROJECT" cm) "   = Shows dependencies for the given project.\n"
+       "    " (s/key "BRICK" cm) "     = Shows dependencies for the given brick.\n"
        (if extended?
-         (str "    out       = Creates a text or image file based on the output. If " (s/key "FILENAME" cm) "\n"
-              "                ends with .txt, then the file will contain the output as text.\n"
-              "                If FILENAME ends with .bmp, .wbmp, .gif, .jpeg, .jpg, .png, .tif,\n"
-              "                or .tiff, then the file will be generated as an image.\n")
-         "")
+         (str "    " (s/key "FILENAME" cm) "  = The name of the text or image file to create, containing the\n"
+              "                output from this command. If " (s/key "FILENAME" cm) " ends with .bmp, .wbmp,\n"
+              "                .gif, .jpeg, .jpg, .png, .tif, or .tiff, then the file will\n"
+              "                be generated as an image, otherwise as text.\n")
+         (str "    " (s/key "FILENAME" cm) "  = The name of the text file to create, containing the\n"
+              "                output from this command.\n"))
        "\n"
        "  To get help for a specific diagram, type: \n"
        "    poly help deps " (s/key "ARGS" cm) ":\n"
@@ -46,9 +45,6 @@
     :else (println (help extended? color-mode))))
 
 (comment
-  (print-help false false false false "dark")
-  (print-help false false false true "dark")
-  (print-help false false true false "dark") ; workspace
-  (print-help true false false false "dark") ; project
-  (print-help false true false false "dark") ; brick
+  (println (help false "dark"))
+  (println (help true "dark"))
   #__)

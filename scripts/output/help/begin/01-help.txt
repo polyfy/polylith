@@ -1,8 +1,7 @@
 = Commands
+:toc:
 
 The individual help texts listed here are taken from the built-in _help_ command.
-
-:toc:
 
 To list all available commands, type:
 

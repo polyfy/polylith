@@ -40,7 +40,7 @@
   Error 108 - Components with an interface that is implemented by more than one
               component are not allowed for the development project.
     The solution is to remove the component from the development project
-    and define the paths for each component in separate profiles
+    and define the deps/paths for each component in separate profiles
     (including test paths).
 
   Error 109 - Invalid test runner configuration for some projects.
@@ -72,9 +72,10 @@
 
   Warning 206 - Unreadable namespace in brick/project.
     Triggered if a namespace can't be parsed or found for a brick or project.
-    A way to ignore this warning is to add the :ignore-files key to the brick or project
-    in ./workspace.edn. All dashes (-) will be replaced by underscores (_).
-    Files ending with the specified path(s), prepended by a slash, will be ignored, e.g.:
+    A way to ignore this warning is to add the :ignore-files key to the brick
+    or project in ./workspace.edn. All dashes (-) will be replaced by underscores
+    (_). Paths that match exact and paths ending with the specified path(s),
+    prepended by a slash, will be ignored, e.g.:
     { ...
       :bricks {"mybrick" {:ignore-files ["myfile.clj"]}}
       :projects {"myproject" {:alias "mp" :ignore-files ["sub-ns/myfile.clj"]}}

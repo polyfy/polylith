@@ -159,6 +159,7 @@ poly ws get:changes since:b339c35
 
 * `:changed-components` Lists the changed components since the sha _b339c35_ (or last stable point in time if _:since_ is not given).
 
+[#changed-files]
 * `:changed-files` The same list that is returned by `poly diff since:b339c35`. The keys _:changed-bases_, _:changed-components_ and _:changed-projects_ are calculated from this list.
 
 * `:changed-or-affected-projects` Lists the projects that are directly changed, e.g. its file _deps.edn_ or indirectly changed, e.g. if one of the bricks it includes are changed.
@@ -644,6 +645,7 @@ poly ws get:settings
 * `:bricks` A map with configuration information per brick where the keys are brick names, specified in _workspace.edn_:
 ** `:ignore-files` A vector containing file or file paths to ignore, e.g.: _["myfile.clj" "myns/another_file.clj" "com/myns/a-thrird-file.clj"]_. See xref:validations.adoc#ignore-files[Validations].
 
+[#color-mode]
 * `:color-mode` The color mode specified in _~/.config/polylith/config.edn_.
 
 * `:compact-views` The set of views that should be shown in a more compact way, specified in _workspace.edn_.
@@ -702,41 +704,80 @@ poly ws get:user-input
 
 [source,clojure]
 ----
-{:args ["ws" "get:user-input"],
- :cmd "ws",
- :get "user-input",
- :is-all false,
- :is-commit false,
- :is-compact false,
- :is-dev false,
- :is-fake-poly false,
- :is-latest-sha false,
- :is-no-changes false,
- :is-no-exit false,
- :is-outdated false,
- :is-run-all-brick-tests false,
- :is-run-project-tests false,
- :is-search-for-ws-dir false,
- :is-shell false,
- :is-show-brick false,
- :is-show-loc false,
- :is-show-project false,
- :is-show-resources false,
- :is-show-workspace false,
- :is-tap false,
- :is-verbose false,
- :selected-profiles #{},
- :selected-projects #{},
+{:args ["ws" "get:user-input"]
+ :cmd "ws"
+ :is-all false
+ :is-commit false
+ :is-compact false
+ :is-dev false
+ :is-fake-poly false
+ :is-latest-sha false
+ :is-no-changes false
+ :is-no-exit false
+ :is-outdated false
+ :is-run-all-brick-tests false
+ :is-run-project-tests false
+ :is-search-for-ws-dir false
+ :is-shell false
+ :is-show-brick false
+ :is-show-loc false
+ :is-show-project false
+ :is-show-resources false
+ :is-show-workspace false
+ :is-tap false
+ :is-verbose false
+ :selected-profiles #{}
+ :selected-projects #{}
  :unnamed-args []}
+----
+
+We also have a number of arguments that are only populated if they are passed in as a parameter:
+
+[source,clojure]
+----
+{:branch "master"
+ :changed-files ["images/doc.png" "workspace.edn"]
+ :color-mode "none"
+ :dir "../clojure-polylith-realworld-example-app"
+ :fake-sha "c91fdad"
+ :fake-tag "stable-lisa"
+ :file "usermanager.edn"
+ :get "user-input"
+ :interface "user"
+ :is-git-add true
+ :out "example.edn"
+ :replace [{:from "this", :to "that"}
+           {:from "bb", :to "bb"}]
+ :selected-bricks ["user"]
+ :since "previous-release"
+ :skip ["dev"]
+ :top-ns "se.example"
+ :ws-dir "examples/doc-example"
+ :ws-file "realworld.edn"
+}
 ----
 
 * `:args` The arguments to the _poly_ tool where the first argument is the command.
 
+* `:branch` Used in the xref:commands.adoc#create-workspace[create workspace] command to give the branch, otherwise the workspace will be created in the _main_ branch.
+
+* `:changed-files` Overrides the real xref:changed-files[changed-files] that is retrieved from a git.
+
 * `:cmd` The first argument to the poly tool.
 
-* `:fake-sha` Set to _c91fdad_ if _fake-sha:c91fdad_ is given. Used to set the "stable since" sha for the output from the _info_ command. Used to control the output when taking screenshots for the documentation.
+* `:color-mode` Overrides the xref:color-mode[color-mode].
 
-* `:get` The ARGS of get:ARGS, if given.
+* `:dir` Used by the xref:commands.adoc#switch-ws[switch-ws] command.
+
+* `:fake-sha` Overrides the "stable since" _sha_ in the output from the xref:commands.adoc#info[info] command. Used when taking screenshots for this documentation.
+
+* `:fake-tag` Sets the tag (or clears it if "") used by the xref:commands.adoc#info[info] command. Sometimes used when taking screenshots for this documentation.
+
+* `:file` Used by the xref:commands.adoc#switch-ws[switch-ws] command.
+
+* `:get` Used by the xref:commands.adoc#ws[ws] command.
+
+* `:interface` Used by the xref:commands.adoc#create-component[create component] command.
 
 * `:is-all` Set to _true_ if _:all_ is given.
 
@@ -747,6 +788,8 @@ poly ws get:user-input
 * `:is-dev` Set to _true_ if _:dev_ is given.
 
 * `:is-fake-poly` Set to _true_ if _:fake-poly_ is given. Used when using the _polyx_ tool with the _help_ command, and when starting a _shell_ with `poly shell :fake-poly` where the latter will show e.g. "poly 0.2.18" as version, instead of e.g. "polyx 0.2.18-issue318-02".
+
+* `:is-git-add` Used by the xref:commands.adoc#create-component[create component], xref:commands.adoc#create-base[create base] and xref:commands.adoc#create-project[create project] commands.
 
 * `:is-latest-sha` Set to _true_ if _:latest-sha_ is given.
 
@@ -778,13 +821,27 @@ poly ws get:user-input
 
 * `:is-verbose` Used in combination with the _test_ command to show extra information.
 
-* `:replace` Used in tests, when maintaining the _poly_ tool. Set to e.g. _[{:from "/Users/joakimtengstrand", :to "my-home"}]_ if _replace:$HOME:my-home_ is given. It will replace this text too, so the output will actually be _[{:from "my-home", :to "my-home"}]_ which is the behavior we want (the whole idea with the replace parameter is to get the same output every time).
+* `:out` Mainly used by the xref:commands.adoc#ws[ws] command, but can also be passed in to the xref:commands.adoc#info[info], xref:commands.adoc#deps[deps], and xref:commands.adoc#libs[libs] commands to generate a text file from the output. Also available in the xref:commands.adoc#overview[overview] command if using the  xref:polyx.adoc[polyx] tool.
 
-* `:selected-profiles` A list with the passed in profiles, e.g. _["default" "extra"]_ if `poly info +default +extra` is executed.
+* `:replace` Used in tests when maintaining the _poly_ tool itself, to make the output more stable. Set to e.g. _[{:from "/Users/joakimtengstrand", :to "my-home"}]_ if _replace:$HOME:my-home_ is given. It will replace this text too, so the output will actually be _[{:from "my-home", :to "my-home"}]_ which is the behavior we want (the whole idea with the replace parameter is to get the same output every time).
 
-* `:selected-projects` The list of projects given by _project:PROJECT_ and/or _:dev_ (handled as "dev" if given).
+* `:selected-bricks` A vector of bricks. The key is only populated if _bricks:_ is given. Used by the xref:commands.adoc#info[info] and xref:commands.adoc#test[test] commands.
 
-* `:unnamed-args` All given arguments that don't contain a `:`. So if we type `poly ws get:user-input:unnamed-args arg xx:123` it will return _["arg"]_ but not _xx_.
+* `:selected-profiles` A vector of profiles, e.g. _["default" "extra"]_, if `poly info +default +extra` is executed. Used by the xref:commands.adoc#info[info] and xref:commands.adoc#test[test] commands.
+
+* `:selected-projects` A vector of projects. Used by the xref:commands.adoc#info[info] and xref:commands.adoc#test[test] commands.
+
+* `:since` Finds the corresponding key in _:tag-patterns_ in _workspace.edn_ and uses that regex to find the latest matching tag/sha in the git repository, which is _the latest stable point in time_ used by various commands.
+
+* `:skip` Used to skip projects, as if they never existed. Often used to skip the development project, in e.g. the xref:commands.adoc#ws[ws] commands.
+
+* `:top-ns` The top namespace, used by the xref:commands.adoc#create-workspace[create workspace] command.
+
+* `:unnamed-args` All given arguments that don't contain a `:`. So if we type `poly ws get:user-input:unnamed-args :flag arg xx:123` it will return _["arg"]_ but not _xx_.
+
+* `:ws-dir` If set, holds the workspace directory we have switched to. Can either be explicitly passed in together with the `poly` command, or implicitly set by the xref:commands.adoc#switch-ws command, using the _dir_ parameter.
+
+* `:ws-file` If set, holds the filename of the exported workspace we have switched to. Can either be explicitly passed in together with the `poly` command, or implicitly set by the xref:commands.adoc#switch-ws, using the _file_  parameter.
 
 == version
 

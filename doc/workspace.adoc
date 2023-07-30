@@ -2,7 +2,7 @@
 
 The workspace directory is the place where all our code and most of the configuration lives.
 
-Let’s start by creating the example workspace with the top namespace _se.example_ by using the `create workspace` command (`create w` works as well).
+Let’s start by creating the example workspace with the top namespace _se.example_ by using the xref:commands.adoc#create-workspace[create workspace] command.
 
 Make sure you execute the command outside a git repository:
 

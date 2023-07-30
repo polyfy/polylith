@@ -25,11 +25,4 @@
 
   poly-local {:doc "Installs the poly tool locally"
               :depends [jar]
-              :task (shell "sudo cp projects/poly/target/poly.jar /usr/local/polylith/poly.jar")}
-
-  polyx-jar {:doc "Builds projects/polyx/target/polyx.jar"
-             :task (shell "clojure -T:build uberjar :project polyx")}
-
-  polyx-local {:doc "Installs the polyx tool locally"
-               :depends [polyx-jar]
-               :task (shell "sudo cp projects/polyx/target/polyx.jar /usr/local/polylith/poly.jar")}}}
+              :task (shell "sudo cp projects/poly/target/poly.jar /usr/local/polylith/poly.jar")}}}

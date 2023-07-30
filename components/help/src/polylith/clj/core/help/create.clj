@@ -34,3 +34,7 @@
     "p" (project/print-help color-mode)
     "w" (workspace/print-help color-mode)
     (println (help-text color-mode))))
+
+(comment
+  (print-help nil "dark")
+  #__)

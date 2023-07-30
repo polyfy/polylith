@@ -1,14 +1,14 @@
-  stable since: e7ebe68            
-                                   
-  projects: 2   interfaces: 1      
-  bases:    1   components: 1      
-                                   
-  project       alias  status   dev
-  ---------------------------   ---
-  command-line  cl      -tx     -tx
-  development   dev     s--     s--
-                                   
-  interface  brick   cl    dev     
-  ----------------   ---   ---     
-  user       user    stx   stx     
-  -          cli     stx   stx     
+  stable since: e7ebe68 | stable-lisa
+                                     
+  projects: 2   interfaces: 1        
+  bases:    1   components: 1        
+                                     
+  project       alias  status   dev  
+  ---------------------------   ---  
+  command-line  cl      -tx     -tx  
+  development   dev     s--     s--  
+                                     
+  interface  brick   cl    dev       
+  ----------------   ---   ---       
+  user       user    stx   stx       
+  -          cli     stx   stx       

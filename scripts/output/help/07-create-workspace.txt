@@ -1,26 +1,25 @@
   Creates a workspace in current directory. If the workspace is created within
   an existing git repo, then that repository will be used. If the workspace is
-  created outside a git repo, and :commit is passed in, then a new repo will be
-  initiated using the 'main' branch, if another branch is not explicitly given.
-  In both cases, all the created files and directories will be committed
-  to the repo in a single commit with the text 'Workspace created.'.
+  created outside a git repo, then you have two alternatives:
 
-  If :commit is not passed in, then the repository needs to be initiated manually
-  with statements similar to this:
-    git init
-    git add .
-    git commit -m "Workspace created."
+  1. Pass in :commit and let the tool initiate the repository and commit the files
+     for you, using these commands:
+       git init
+       git add .
+       git commit -m "Workspace created."
+
+  2. Initiate the workspace manually by executing commands similar to the ones above.
 
   poly create workspace [name:NAME] top-ns:TOP-NAMESPACE [:commit] [branch:BRANCH]
     NAME = The name of the workspace to create, which must be given
            if created outside a git repository. Otherwise it's optional.
 
-    TOP-NAMESPACE = The top namespace, e.g. com.my.company.
+    TOP-NAMESPACE = The top namespace name.
 
-    BRANCH = The name of the branch, e.g. master. Default is main.
+    BRANCH = The name of the branch, or main if not given.
 
   Example:
-    poly create w name:myws top-ns:com.my.company
+    poly create w name:myws top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company :commit
-    poly create workspace name:myws top-ns:com.my.company branch:master
+    poly create workspace name:myws top-ns:com.my.company branch:master :commit

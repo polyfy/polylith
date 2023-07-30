@@ -1,8 +1,10 @@
   Shows dependencies for selected brick and project.
 
-  poly deps project:PROJECT brick:BRICK
-    PROJECT = The project (name or alias) to show dependencies for.
-    BRICK   = The brick to show dependencies for.
+  poly deps project:PROJECT brick:BRICK [out:FILENAME]
+    PROJECT  = The project (name or alias) to show dependencies for.
+    BRICK    = The brick to show dependencies for.
+    FILENAME = The name of the text file to create, containing the
+               output from this command.
 
   used by  <  user  >  uses
   -------              ----

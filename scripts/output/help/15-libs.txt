@@ -20,7 +20,7 @@
   which is fine because they are only used from the development project.
 
   The x for the cl and dev columns says that the library is part of the src scope.
-  If a library is only used from the test scope, then it is marked with a 't'. A library
+  If a library is only used from the test scope, then it's marked with a 't'. A library
   used in the test scope, can either be specified directly by the project itself via
   :aliases > :test > :extra-deps or indirectly via included bricks in :deps > :local/root
   which will be picked up and used by the 'test' command.

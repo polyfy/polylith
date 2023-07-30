@@ -23,8 +23,8 @@
   e.g. 'l' will select ':loc'. To distinguish between 'project:PROJECT' and
   ':project' we need to type ':p' to select ':project'.
 
-  If :all is passed in, show all options, including rarely used ones and those that
-  are only useful for maintainers of the poly tool itself.
+  If :all is passed in, all options will be available, including rarely used ones
+  and those that are only useful for maintainers of the poly tool itself.
 
   From the shell we also have access to these commands:
     switch-ws ARG  Switches to selected workspace.

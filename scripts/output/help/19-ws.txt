@@ -21,8 +21,8 @@
            as setting color-mode:none and piping the output to a file.
 
     :latest-sha = if passed in, then settings:vcs:polylith:latest-sha will be set.
-                  If A branch is given, e.g., branch:master, then the latest sha will be
-                  retrieved from that branch.
+                  If A branch is given, e.g., branch:master, then the latest sha will
+                  be retrieved from that branch.
 
   Example:
     poly ws
