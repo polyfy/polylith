@@ -85,20 +85,6 @@ poly help
     tap clean
     tap close
 
-    deps out:out.txt
-    info +
-    info color-mode:none
-    info out:info.txt
-    info fake-sha:c91fdad
-    info fake-tag:stable-me
-    info :no-changes
-    info changed-files:components/user/deps.edn
-    info changed-files:workspace.edn:components/user/
-    libs out:libs.txt
-    test skip:development
-    ws branch:main
-    ws replace:this:that
-
   'poly :all' will start a shell and activate autocomplete for rarely used parameters.
   'poly :tap' will start a shell and open a portal window.
 
@@ -123,6 +109,7 @@ poly help
     poly deps brick:mybrick
     poly deps project:myproject
     poly deps project:myproject brick:mybrick
+    poly deps out:out.txt
     poly diff
     poly help
     poly help :all
@@ -138,6 +125,7 @@ poly help
     poly help deps :project :brick
     poly help deps :workspace
     poly info
+    poly info +
     poly info :loc
     poly info since:65a7918
     poly info since:head
@@ -158,11 +146,13 @@ poly help
     poly info :all
     poly info :all-bricks
     poly info ::
+    poly info out:info.txt
     poly info ws-dir:another-ws
     poly info ws-file:ws.edn
     poly libs
     poly libs :compact
     poly libs :outdated
+    poly libs out:libs.txt
     poly migrate
     poly shell
     poly shell :tap
@@ -195,6 +185,14 @@ poly help
     poly ws get:settings:vcs:polylith :latest-sha branch:master
     poly ws get:changes:changed-or-affected-projects skip:dev color-mode:none
     poly ws out:ws.edn
+
+  Rarely used parameters:
+    poly info :no-changes
+    poly info fake-sha:c91fdad
+    poly info fake-tag:stable-me
+    poly info changed-files:components/user/deps.edn
+    poly info changed-files:workspace.edn:components/user/
+    poly ws replace:this:that
 ----
 
 [#check]
@@ -956,8 +954,9 @@ poly help
   e.g. 'l' will select ':loc'. To distinguish between 'project:PROJECT' and
   ':project' we need to type ':p' to select ':project'.
 
-  If :all is passed in, all options will be available, including rarely used ones
-  and those that are only useful for maintainers of the poly tool itself.
+  If :all is passed in, the autocomplete will suggest all available parameters,
+  including rarely used ones and those that are only useful for maintainers of
+  the poly tool itself.
 
   From the shell we also have access to these commands:
     switch-ws ARG  Switches to selected workspace.
