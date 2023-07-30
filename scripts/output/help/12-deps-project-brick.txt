@@ -16,3 +16,4 @@
 
   Example:
     poly deps project:myproject brick:mybrick
+    poly deps project:myproject brick:mybrick out:deps.txt

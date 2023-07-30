@@ -2,12 +2,18 @@
   (:require [polylith.clj.core.help.shared :as s]
             [polylith.clj.core.util.interface.color :as color]))
 
-(defn help [cm]
+(defn help [extended? cm]
   (str "  Shows dependencies for the workspace.\n"
        "\n"
        "  poly deps [out:" (s/key "FILENAME" cm) "]\n"
-       "    " (s/key "FILENAME" cm) " = The name of the text file to create, containing the\n"
-       "               output from this command.\n"
+       (if extended?
+         (str "    " (s/key "FILENAME" cm) " = The name of the text or image file to create, containing the\n"
+              "               output from this command. If " (s/key "FILENAME" cm) " ends with .bmp, .wbmp,\n"
+              "               .gif, .jpeg, .jpg, .png, .tif, or .tiff, then the file will\n"
+              "               be generated as an image, otherwise as text.\n")
+         (str "    " (s/key "FILENAME" cm) " = The name of the text file to create, containing the\n"
+              "               output from this command.\n"))
+       "\n"
        "         " (color/yellow cm "p      \n")
        "         " (color/yellow cm "a  u  u\n")
        "         " (color/yellow cm "y  s  t\n")
@@ -21,11 +27,19 @@
        "\n"
        "  In this example, " (color/green cm "payer") " uses " (color/yellow cm "user") " from the src context, and " (color/yellow cm "util") " from\n"
        "  the test context (indicated by 't'). " (color/green cm "user") " uses " (color/yellow cm "util") " and " (color/blue cm "cli") " uses " (color/yellow cm "payer") ".\n"
-       "  Each usage comes from at least one " (color/purple cm ":require") " statement in the brick."))
+       "  Each usage comes from at least one " (color/purple cm ":require") " statement in the brick.\n"
+       "\n"
+       "  Example:\n"
+       "    poly deps\n"
+       "    poly deps out:deps.txt"
+       (if extended?
+         "\n    poly deps out:deps.png"
+         "")))
 
-(defn print-help [color-mode]
-  (println (help color-mode)))
+(defn print-help [extended? color-mode]
+  (println (help extended? color-mode)))
 
 (comment
-  (print-help "dark")
+  (print-help false "dark")
+  (print-help true "dark")
   #__)

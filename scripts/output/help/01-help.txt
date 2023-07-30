@@ -56,6 +56,9 @@
     KEY     -> any key in :tag-patterns.
     SHA     -> a git SHA-1 hash (if no key was found in :tag-patterns).
 
+  Execute 'poly help :all' to include rarely used parameters in this help,
+  to the 'Example (shell only)' section.
+
   The color mode is taken from ~/.config/polylith/config.edn but can be overridden by passing
   in color-mode:COLOR where valid colors are none, light, and dark.
   (if the XDG_CONFIG_HOME environment variable is set, that will be used instead of ~/.config)
@@ -68,7 +71,6 @@
     tap clean
     tap close
 
-  'poly :all' will start a shell and activate autocomplete for rarely used parameters:
     deps out:out.txt
     info +
     info color-mode:none
@@ -83,6 +85,7 @@
     ws branch:main
     ws replace:this:that
 
+  'poly :all' will start a shell and activate autocomplete for rarely used parameters.
   'poly :tap' will start a shell and open a portal window.
 
   Example:
@@ -108,6 +111,7 @@
     poly deps project:myproject brick:mybrick
     poly diff
     poly help
+    poly help :all
     poly help info
     poly help create
     poly help create component

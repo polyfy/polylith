@@ -20,3 +20,4 @@
     poly deps brick:mybrick
     poly deps project:myproject
     poly deps project:myproject brick:mybrick
+    poly deps out:deps.txt

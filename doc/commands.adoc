@@ -69,6 +69,9 @@ poly help
     KEY     -> any key in :tag-patterns.
     SHA     -> a git SHA-1 hash (if no key was found in :tag-patterns).
 
+  Execute 'poly help :all' to include rarely used parameters in this help,
+  to the 'Example (shell only)' section.
+
   The color mode is taken from ~/.config/polylith/config.edn but can be overridden by passing
   in color-mode:COLOR where valid colors are none, light, and dark.
   (if the XDG_CONFIG_HOME environment variable is set, that will be used instead of ~/.config)
@@ -81,7 +84,6 @@ poly help
     tap clean
     tap close
 
-  'poly :all' will start a shell and activate autocomplete for rarely used parameters:
     deps out:out.txt
     info +
     info color-mode:none
@@ -96,6 +98,7 @@ poly help
     ws branch:main
     ws replace:this:that
 
+  'poly :all' will start a shell and activate autocomplete for rarely used parameters.
   'poly :tap' will start a shell and open a portal window.
 
   Example:
@@ -121,6 +124,7 @@ poly help
     poly deps project:myproject brick:mybrick
     poly diff
     poly help
+    poly help :all
     poly help info
     poly help create
     poly help create component
@@ -435,6 +439,7 @@ poly help
     poly deps brick:mybrick
     poly deps project:myproject
     poly deps project:myproject brick:mybrick
+    poly deps out:deps.txt
 ----
 
 [#deps-brick]
@@ -459,6 +464,7 @@ poly help
 
   Example:
     poly deps brick:mybrick
+    poly deps brick:mybrick out:deps.txt
 ----
 
 [#deps-project]
@@ -497,7 +503,7 @@ poly help
 
   Example:
     poly deps project:myproject
-    poly deps project:myproject out:myproject-deps.txt
+    poly deps project:myproject out:deps.txt
 ----
 
 [#deps-workspace]
@@ -510,6 +516,7 @@ poly help
   poly deps [out:FILENAME]
     FILENAME = The name of the text file to create, containing the
                output from this command.
+
          p      
          a  u  u
          y  s  t
@@ -524,6 +531,10 @@ poly help
   In this example, payer uses user from the src context, and util from
   the test context (indicated by 't'). user uses util and cli uses payer.
   Each usage comes from at least one :require statement in the brick.
+
+  Example:
+    poly deps
+    poly deps out:deps.txt
 ----
 
 [#deps-project-brick]
@@ -549,6 +560,7 @@ poly help
 
   Example:
     poly deps project:myproject brick:mybrick
+    poly deps project:myproject brick:mybrick out:deps.txt
 ----
 
 [#diff]
@@ -803,9 +815,11 @@ poly help
 ----
   Shows all libraries that are used in the workspace.
 
-  poly libs [:compact] [:outdated]
+  poly libs [:compact] [:outdated] [out:FILENAME]
     :compact  = Shows the table in a more compact way.
     :outdated = Shows the latest version of each library, or blank if up to date.
+    FILENAME  = The name of the text file to create, containing the
+                output from this command.
 
                                                                                  u  u
                                                                                  s  t
@@ -851,6 +865,7 @@ poly help
     poly libs
     poly libs :compact
     poly libs :outdated
+    poly libs out:libs.txt
 ----
 
 [#migrate]
