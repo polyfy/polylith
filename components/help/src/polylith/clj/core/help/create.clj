@@ -10,6 +10,7 @@
   (str "  Creates a component, base, project or workspace.\n"
        "\n"
        "  poly create " (s/key "TYPE" cm) " [" (s/key "ARGS" cm) "]\n"
+       "\n"
        "    " (s/key "TYPE" cm) " = " (s/key "c[omponent]" cm) " -> Creates a component.\n"
        "           " (s/key "b[ase]     " cm) " -> Creates a base.\n"
        "           " (s/key "p[roject]  " cm) " -> Creates a project.\n"

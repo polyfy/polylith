@@ -15,6 +15,7 @@
        "  2. Initiate the workspace manually by executing commands similar to the ones above.\n"
        "\n"
        "  poly create workspace [name:" (s/key "NAME" cm) "] top-ns:" (s/key "TOP-NAMESPACE" cm) " [:commit] [branch:" (s/key "BRANCH" cm) "]\n"
+       "\n"
        "    " (s/key "NAME" cm) " = The name of the workspace to create, which must be given\n"
        "           if created outside a git repository. Otherwise it's optional.\n"
        "\n"

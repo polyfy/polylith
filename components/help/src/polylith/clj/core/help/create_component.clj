@@ -5,6 +5,7 @@
   (str "  Creates a component.\n"
        "\n"
        "  poly create component name:" (s/key "NAME" cm) " [interface:" (s/key "INTERFACE" cm) "] [" (s/key ":git-add" cm) "]\n"
+       "\n"
        "    " (s/key "NAME" cm) " = The name of the component to create.\n"
        "\n"
        "    " (s/key ":git-add" cm) " = If " (s/key ":vcs" cm) " > " (s/key ":auto-add" cm) " in workspace.edn is set to false,\n"

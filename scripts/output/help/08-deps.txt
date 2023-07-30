@@ -13,6 +13,7 @@
 
   To get help for a specific diagram, type: 
     poly help deps ARGS:
+
       ARGS = :brick           Help for the brick diagram.
              :project         Help for the project diagram.
              :project :brick  Help for the project/brick diagram.

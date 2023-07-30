@@ -1,6 +1,7 @@
   Creates a base.
 
   poly create base name:NAME [:git-add] 
+
     NAME = The name of the base to create.
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,

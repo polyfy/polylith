@@ -1,6 +1,7 @@
   Creates a component, base, project or workspace.
 
   poly create TYPE [ARGS]
+
     TYPE = c[omponent] -> Creates a component.
            b[ase]      -> Creates a base.
            p[roject]   -> Creates a project.
