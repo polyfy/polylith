@@ -5,6 +5,7 @@
   (str "  Creates a base.\n"
        "\n"
        "  poly create base name:" (s/key "NAME" cm) " [" (s/key ":git-add" cm) "] \n"
+       "\n"
        "    " (s/key "NAME" cm) " = The name of the base to create.\n"
        "\n"
        "    " (s/key ":git-add" cm) " = If " (s/key ":vcs" cm) " > " (s/key ":auto-add" cm) " in workspace.edn is set to false,\n"

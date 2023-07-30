@@ -26,6 +26,7 @@
        "\n"
        "  To get help for a specific diagram, type: \n"
        "    poly help deps " (s/key "ARGS" cm) ":\n"
+       "\n"
        "      " (s/key "ARGS" cm) " = " (s/key ":brick" cm) "           Help for the brick diagram.\n"
        "             " (s/key ":project" cm) "         Help for the project diagram.\n"
        "             " (s/key ":project :brick" cm) "  Help for the project/brick diagram.\n"

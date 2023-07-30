@@ -1,6 +1,7 @@
   Creates a component.
 
   poly create component name:NAME [interface:INTERFACE] [:git-add]
+
     NAME = The name of the component to create.
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,

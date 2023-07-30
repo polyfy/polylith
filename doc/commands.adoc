@@ -298,6 +298,7 @@ poly help
   Creates a component, base, project or workspace.
 
   poly create TYPE [ARGS]
+
     TYPE = c[omponent] -> Creates a component.
            b[ase]      -> Creates a base.
            p[roject]   -> Creates a project.
@@ -325,6 +326,7 @@ poly help
   Creates a component.
 
   poly create component name:NAME [interface:INTERFACE] [:git-add]
+
     NAME = The name of the component to create.
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,
@@ -348,6 +350,7 @@ poly help
   Creates a base.
 
   poly create base name:NAME [:git-add] 
+
     NAME = The name of the base to create.
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,
@@ -398,6 +401,7 @@ poly help
   2. Initiate the workspace manually by executing commands similar to the ones above.
 
   poly create workspace [name:NAME] top-ns:TOP-NAMESPACE [:commit] [branch:BRANCH]
+
     NAME = The name of the workspace to create, which must be given
            if created outside a git repository. Otherwise it's optional.
 
@@ -432,6 +436,7 @@ poly help
 
   To get help for a specific diagram, type: 
     poly help deps ARGS:
+
       ARGS = :brick           Help for the brick diagram.
              :project         Help for the project diagram.
              :project :brick  Help for the project/brick diagram.
