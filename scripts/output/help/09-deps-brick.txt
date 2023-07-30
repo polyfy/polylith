@@ -2,7 +2,7 @@
 
   poly deps brick:BRICK [out:FILENAME]
 
-    BRICK    = The name of the brick to show dependencies for.
+    BRICK = The name of the brick to show dependencies for.
 
     FILENAME = The name of the text file to create, containing the
                output from this command.

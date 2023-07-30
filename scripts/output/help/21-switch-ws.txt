@@ -4,8 +4,8 @@
 
   switch-ws [dir:DIR] [file:FILE]
 
-    DIR  = Switches to the given workspace directory.
-           The prompt will be prefixed with 'dir:' to show this.
+    DIR = Switches to the given workspace directory.
+          The prompt will be prefixed with 'dir:' to show this.
 
     FILE = Switches to the workspace specified in the selected file,
            created by something like 'poly ws out:ws.edn'.

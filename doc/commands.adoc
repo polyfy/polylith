@@ -427,12 +427,12 @@ poly help
 
     (omitted) = Shows workspace dependencies.
 
-    PROJECT   = Shows dependencies for the given project.
+    PROJECT = Shows dependencies for the given project.
 
-    BRICK     = Shows dependencies for the given brick.
+    BRICK = Shows dependencies for the given brick.
 
-    FILENAME  = The name of the text file to create, containing the
-                output from this command.
+    FILENAME = The name of the text file to create, containing the
+               output from this command.
 
   To get help for a specific diagram, type: 
     poly help deps ARGS:
@@ -459,7 +459,7 @@ poly help
 
   poly deps brick:BRICK [out:FILENAME]
 
-    BRICK    = The name of the brick to show dependencies for.
+    BRICK = The name of the brick to show dependencies for.
 
     FILENAME = The name of the text file to create, containing the
                output from this command.
@@ -559,9 +559,9 @@ poly help
 
   poly deps project:PROJECT brick:BRICK [out:FILENAME]
 
-    PROJECT  = The project (name or alias) to show dependencies for.
+    PROJECT = The project (name or alias) to show dependencies for.
 
-    BRICK    = The brick to show dependencies for.
+    BRICK = The brick to show dependencies for.
 
     FILENAME = The name of the text file to create, containing the
                output from this command.
@@ -931,15 +931,15 @@ poly help
 
   poly overview [:no-changes] [out:FILENAME]
 
-    (omitted)   = Shows the output.
+    (omitted)  Shows the output.
 
     :no-changes = Shows the output as if there were no changes in the workspace.
 
-    out         = Creates a text or image file based on the output.
-                  If FILENAME ends with .txt, then the file will contain
-                  the output as text. If FILENAME ends with .bmp, .wbmp, .gif,
-                  .png, .jpeg, .jpg, .png, .tif, or .tiff, then the file will be
-                  generated as an image.
+    out = Creates a text or image file based on the output.
+          If FILENAME ends with .txt, then the file will contain
+          the output as text. If FILENAME ends with .bmp, .wbmp, .gif,
+          .png, .jpeg, .jpg, .png, .tif, or .tiff, then the file will be
+          generated as an image.
 
   Example:
     clojure -M:polyx overview
@@ -1001,8 +1001,8 @@ poly help
 
   switch-ws [dir:DIR] [file:FILE]
 
-    DIR  = Switches to the given workspace directory.
-           The prompt will be prefixed with 'dir:' to show this.
+    DIR = Switches to the given workspace directory.
+          The prompt will be prefixed with 'dir:' to show this.
 
     FILE = Switches to the workspace specified in the selected file,
            created by something like 'poly ws out:ws.edn'.
