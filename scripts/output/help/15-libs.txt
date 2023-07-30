@@ -1,11 +1,13 @@
   Shows all libraries that are used in the workspace.
 
   poly libs [:compact] [:outdated] [out:FILENAME]
+
     :compact  = Shows the table in a more compact way.
+
     :outdated = Shows the latest version of each library, or blank if up to date.
+
     FILENAME  = The name of the text file to create, containing the
                 output from this command.
-
                                                                                  u  u
                                                                                  s  t
                                                                                  e  i

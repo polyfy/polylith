@@ -3,6 +3,7 @@
   is mainly used internally when developing the poly tool itself.
 
   tap [ARG]
+
     ARG = (omitted)  Opens a portal window.
           open       Opens a portal window.
           close      Closes the portal window

@@ -7,6 +7,7 @@
        "  ws-dir:" (s/key "DIR" cm) " or ws-file:" (s/key "FILE" cm) ", depending on whether we switch to a directory or a file.\n"
        "\n"
        "  switch-ws [dir:" (s/key "DIR" cm) "] [file:" (s/key "FILE" cm) "]\n"
+       "\n"
        "    " (s/key "DIR" cm) "  = Switches to the given workspace directory.\n"
        "           The prompt will be prefixed with 'dir:' to show this.\n"
        "\n"

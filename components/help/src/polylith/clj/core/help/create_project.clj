@@ -13,7 +13,7 @@
        "\n"
        "  Example:\n"
        "    poly create p name:myproject\n"
-       "    poly create project name:myproject"
+       "    poly create project name:myproject\n"
        "    poly create project name:myproject :git-add"))
 
 (defn print-help [color-mode]

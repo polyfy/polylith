@@ -57,7 +57,6 @@
     SHA     -> a git SHA-1 hash (if no key was found in :tag-patterns).
 
   Execute 'poly help :all' to include rarely used parameters in this help.
-  Will be added to the 'Example (shell only)' section.
 
   The color mode is taken from ~/.config/polylith/config.edn but can be overridden by passing
   in color-mode:COLOR where valid colors are none, light, and dark.

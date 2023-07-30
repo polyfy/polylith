@@ -1,7 +1,9 @@
   Shows workspace information.
 
   poly info [:loc] [out:FILENAME]
+
     :loc     = Shows the number of lines of code for each brick and project.
+
     FILENAME = The name of the text file to create, containing the output from
                this command.
 

@@ -5,6 +5,7 @@
   (str "  Prints or writes the workspace as data.\n"
        "\n"
        "  poly ws [get:" (s/key "ARG" cm) "] [out:" (s/key "FILE" cm) "] [branch:" (s/key "BRANCH" cm) "] [" (s/key ":latest-sha" cm) "]\n"
+       "\n"
        "    " (s/key "ARG" cm) " = keys  -> Lists the keys for the data structure:\n"
        "                   - If it's a hash map, it returns all its keys.\n"
        "                   - If it's a list and its elements are hash maps,\n"

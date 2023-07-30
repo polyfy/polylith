@@ -71,7 +71,6 @@ poly help
     SHA     -> a git SHA-1 hash (if no key was found in :tag-patterns).
 
   Execute 'poly help :all' to include rarely used parameters in this help.
-  Will be added to the 'Example (shell only)' section.
 
   The color mode is taken from ~/.config/polylith/config.edn but can be overridden by passing
   in color-mode:COLOR where valid colors are none, light, and dark.
@@ -378,6 +377,7 @@ poly help
   Example:
     poly create p name:myproject
     poly create project name:myproject
+    poly create project name:myproject :git-add
 ----
 
 [#create-workspace]
@@ -422,8 +422,11 @@ poly help
   poly deps [project:PROJECT] [brick:BRICK] [out:FILENAME]
 
     (omitted) = Shows workspace dependencies.
+
     PROJECT   = Shows dependencies for the given project.
+
     BRICK     = Shows dependencies for the given brick.
+
     FILENAME  = The name of the text file to create, containing the
                 output from this command.
 
@@ -450,7 +453,9 @@ poly help
   Shows dependencies for selected brick.
 
   poly deps brick:BRICK [out:FILENAME]
+
     BRICK    = The name of the brick to show dependencies for.
+
     FILENAME = The name of the text file to create, containing the
                output from this command.
 
@@ -475,7 +480,9 @@ poly help
   Shows dependencies for selected project.
 
   poly deps project:PROJECT [out:FILENAME]
+
     PROJECT = The project name or alias to show dependencies for.
+
     FILENAME = The name of the text file to create, containing the
                output from this command.
 
@@ -514,6 +521,7 @@ poly help
   Shows dependencies for the workspace.
 
   poly deps [out:FILENAME]
+
     FILENAME = The name of the text file to create, containing the
                output from this command.
 
@@ -545,8 +553,11 @@ poly help
   Shows dependencies for selected brick and project.
 
   poly deps project:PROJECT brick:BRICK [out:FILENAME]
+
     PROJECT  = The project (name or alias) to show dependencies for.
+
     BRICK    = The brick to show dependencies for.
+
     FILENAME = The name of the text file to create, containing the
                output from this command.
 
@@ -618,7 +629,9 @@ poly help
   Shows workspace information.
 
   poly info [:loc] [out:FILENAME]
+
     :loc     = Shows the number of lines of code for each brick and project.
+
     FILENAME = The name of the text file to create, containing the output from
                this command.
 
@@ -816,11 +829,13 @@ poly help
   Shows all libraries that are used in the workspace.
 
   poly libs [:compact] [:outdated] [out:FILENAME]
+
     :compact  = Shows the table in a more compact way.
+
     :outdated = Shows the latest version of each library, or blank if up to date.
+
     FILENAME  = The name of the text file to create, containing the
                 output from this command.
-
                                                                                  u  u
                                                                                  s  t
                                                                                  e  i
@@ -910,8 +925,11 @@ poly help
   change :deps/root to "projects/polyx" to get access to the :polyx command.
 
   poly overview [:no-changes] [out:FILENAME]
+
     (omitted)   = Shows the output.
+
     :no-changes = Shows the output as if there were no changes in the workspace.
+
     out         = Creates a text or image file based on the output.
                   If FILENAME ends with .txt, then the file will contain
                   the output as text. If FILENAME ends with .bmp, .wbmp, .gif,
@@ -977,6 +995,7 @@ poly help
   ws-dir:DIR or ws-file:FILE, depending on whether we switch to a directory or a file.
 
   switch-ws [dir:DIR] [file:FILE]
+
     DIR  = Switches to the given workspace directory.
            The prompt will be prefixed with 'dir:' to show this.
 
@@ -999,6 +1018,7 @@ poly help
   is mainly used internally when developing the poly tool itself.
 
   tap [ARG]
+
     ARG = (omitted)  Opens a portal window.
           open       Opens a portal window.
           close      Closes the portal window
@@ -1115,6 +1135,7 @@ poly help
   Prints or writes the workspace as data.
 
   poly ws [get:ARG] [out:FILE] [branch:BRANCH] [:latest-sha]
+
     ARG = keys  -> Lists the keys for the data structure:
                    - If it's a hash map, it returns all its keys.
                    - If it's a list and its elements are hash maps,
