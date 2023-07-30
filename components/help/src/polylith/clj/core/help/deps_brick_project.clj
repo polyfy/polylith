@@ -6,8 +6,11 @@
   (str "  Shows dependencies for selected brick and project.\n"
        "\n"
        "  poly deps project:" (s/key "PROJECT" cm) " brick:" (s/key "BRICK" cm) " [out:" (s/key "FILENAME" cm) "]\n"
+       "\n"
        "    " (s/key "PROJECT" cm) "  = The project (name or alias) to show dependencies for.\n"
+       "\n"
        "    " (s/key "BRICK" cm) "    = The brick to show dependencies for.\n"
+       "\n"
        (if extended?
          (str "    " (s/key "FILENAME" cm) " = The name of the text or image file to create, containing the\n"
               "               output from this command. If " (s/key "FILENAME" cm) " ends with .bmp, .wbmp,\n"

@@ -6,8 +6,11 @@
   change :deps/root to "projects/polyx" to get access to the :polyx command.
 
   poly overview [:no-changes] [out:FILENAME]
+
     (omitted)   = Shows the output.
+
     :no-changes = Shows the output as if there were no changes in the workspace.
+
     out         = Creates a text or image file based on the output.
                   If FILENAME ends with .txt, then the file will contain
                   the output as text. If FILENAME ends with .bmp, .wbmp, .gif,

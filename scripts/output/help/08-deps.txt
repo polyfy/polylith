@@ -3,8 +3,11 @@
   poly deps [project:PROJECT] [brick:BRICK] [out:FILENAME]
 
     (omitted) = Shows workspace dependencies.
+
     PROJECT   = Shows dependencies for the given project.
+
     BRICK     = Shows dependencies for the given brick.
+
     FILENAME  = The name of the text file to create, containing the
                 output from this command.
 

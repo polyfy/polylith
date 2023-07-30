@@ -6,6 +6,7 @@
   (str "  Shows dependencies for the workspace.\n"
        "\n"
        "  poly deps [out:" (s/key "FILENAME" cm) "]\n"
+       "\n"
        (if extended?
          (str "    " (s/key "FILENAME" cm) " = The name of the text or image file to create, containing the\n"
               "               output from this command. If " (s/key "FILENAME" cm) " ends with .bmp, .wbmp,\n"

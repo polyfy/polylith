@@ -7,8 +7,11 @@
   (str "  Shows all libraries that are used in the workspace.\n"
        "\n"
        "  poly libs [" (s/key ":compact" cm) "] [" (s/key ":outdated" cm) "] [out:" (s/key  "FILENAME" cm) "]\n"
+       "\n"
        "    " (s/key ":compact" cm) "  = Shows the table in a more compact way.\n"
+       "\n"
        "    " (s/key ":outdated" cm) " = Shows the latest version of each library, or blank if up to date.\n"
+       "\n"
        (if extended?
             (str "    " (s/key "FILENAME" cm) "  = The name of the text or image file to create, containing the\n"
                  "                output from this command. If " (s/key "FILENAME" cm) " ends with .bmp, .wbmp,\n"
@@ -17,7 +20,6 @@
             (str "    " (s/key "FILENAME" cm) "  = The name of the text file to create, containing the\n"
                  "                output from this command.\n"))
 
-       "\n"
        "                                                                                 " (color/component "u  u\n" cm)
        "                                                                                 " (color/component "s  t\n" cm)
        "                                                                                 " (color/component "e  i\n" cm)

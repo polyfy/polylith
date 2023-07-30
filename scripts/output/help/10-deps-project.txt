@@ -1,7 +1,9 @@
   Shows dependencies for selected project.
 
   poly deps project:PROJECT [out:FILENAME]
+
     PROJECT = The project name or alias to show dependencies for.
+
     FILENAME = The name of the text file to create, containing the
                output from this command.
 

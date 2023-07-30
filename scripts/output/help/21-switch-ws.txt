@@ -3,6 +3,7 @@
   ws-dir:DIR or ws-file:FILE, depending on whether we switch to a directory or a file.
 
   switch-ws [dir:DIR] [file:FILE]
+
     DIR  = Switches to the given workspace directory.
            The prompt will be prefixed with 'dir:' to show this.
 

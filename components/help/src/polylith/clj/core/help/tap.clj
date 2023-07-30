@@ -7,6 +7,7 @@
        "  is mainly used internally when developing the poly tool itself.\n"
        "\n"
        "  tap [" (s/key "ARG" cm) "]\n"
+       "\n"
        "    " (s/key "ARG" cm) " = " (s/key "(omitted)" cm) "  Opens a portal window.\n"
        "          " (s/key "open" cm) "       Opens a portal window.\n"
        "          " (s/key "close" cm) "      Closes the portal window\n"

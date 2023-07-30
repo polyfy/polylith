@@ -1,6 +1,7 @@
   Shows dependencies for the workspace.
 
   poly deps [out:FILENAME]
+
     FILENAME = The name of the text file to create, containing the
                output from this command.
 

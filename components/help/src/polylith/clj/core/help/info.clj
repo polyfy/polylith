@@ -7,7 +7,9 @@
   (str "  Shows workspace information.\n"
        "\n"
        "  poly info [" (s/key ":loc" cm) "] [out:" (s/key "FILENAME" cm) "]\n"
+       "\n"
        "    " (s/key ":loc" cm) "     = Shows the number of lines of code for each brick and project.\n"
+       "\n"
        (if extended?
          (str "    " (s/key "FILENAME" cm) " = Creates a text or image file based on the output.\n"
               "               If " (s/key "FILENAME" cm) " ends with .txt, then the file will contain\n"
