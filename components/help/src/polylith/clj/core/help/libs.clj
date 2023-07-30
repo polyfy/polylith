@@ -63,7 +63,6 @@
        "    poly libs :compact\n"
        "    poly libs :outdated\n"
        "    poly libs out:libs.txt"
-
        (if extended?
          "\n    poly libs out:libs.png"
          "")))

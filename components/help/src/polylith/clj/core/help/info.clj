@@ -202,7 +202,8 @@
        "    poly info :all-bricks\n"
        "    poly info out:info.txt\n"
        (if extended?
-            (str "    poly info out:info.png\n" ""))
+         "    poly info out:info.png\n"
+         "")
        "    poly info ws-dir:another-ws\n"
        "    poly info ws-file:ws.edn"))
 
