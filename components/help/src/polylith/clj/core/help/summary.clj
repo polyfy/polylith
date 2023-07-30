@@ -91,25 +91,7 @@
     "    tap close\n"
     "\n"
     (if show-all?
-      (str
-           "    deps out:out.txt\n"
-           (if extended?
-             "    help :fake-poly\n"
-             "")
-           "    info +\n"
-           "    info color-mode:none\n"
-           "    info out:info.txt\n"
-           "    info fake-sha:c91fdad\n"
-           "    info fake-tag:stable-me\n"
-           "    info :no-changes\n"
-           "    info changed-files:components/user/deps.edn\n"
-           "    info changed-files:workspace.edn:components/user/\n"
-           "    libs out:libs.txt\n"
-           "    test skip:development\n"
-           "    ws branch:main\n"
-           "    ws replace:this:that\n"
-           "\n"
-           "  'poly :all' will start a shell and activate autocomplete for rarely used parameters.\n"
+      (str "  'poly :all' will start a shell and activate autocomplete for rarely used parameters.\n"
            "  'poly :tap' will start a shell and open a portal window.\n\n")
       "")
     "  Example:\n"
@@ -135,9 +117,9 @@
     "    poly deps brick:mybrick\n"
     "    poly deps project:myproject\n"
     "    poly deps project:myproject brick:mybrick\n"
+    "    poly deps out:out.txt\n"
     (if extended?
-      (str "    poly deps out:deps.png\n"
-           "    poly deps out:deps.txt\n")
+      "    poly deps out:deps.png\n"
       "")
     "    poly diff\n"
     "    poly help\n"
@@ -154,6 +136,7 @@
     "    poly help deps :project :brick\n"
     "    poly help deps :workspace\n"
     "    poly info\n"
+    "    poly info +\n"
     "    poly info :loc\n"
     (if extended?
       "    poly info out:info.png\n" "")
@@ -176,13 +159,18 @@
     "    poly info :all\n"
     "    poly info :all-bricks\n"
     "    poly info ::\n"
+    "    poly info out:info.txt\n"
+    (if extended?
+      "    poly info out:info.png\n"
+      "")
     "    poly info ws-dir:another-ws\n"
     "    poly info ws-file:ws.edn\n"
     "    poly libs\n"
     "    poly libs :compact\n"
     "    poly libs :outdated\n"
+    "    poly libs out:libs.txt\n"
     (if extended?
-      (str "    poly libs out:libs.png\n")
+      "    poly libs out:libs.png\n"
       "")
     (if show-migrate?
       "    poly migrate\n"
@@ -224,6 +212,21 @@
       (str "\n    clojure -M:polyx overview"
            "\n    clojure -M:polyx overview out:overview.png"
            "\n    clojure -M:polyx overview out:overview.jpg :no-changes")
+      "")
+    (if show-all?
+      (str
+        "\n"
+        "\n  Rarely used parameters:"
+        (if extended?
+          "\n    poly help :fake-poly"
+          "")
+        "\n    poly info :no-changes"
+        "\n    poly info color-mode:none"
+        "\n    poly info fake-sha:c91fdad"
+        "\n    poly info fake-tag:stable-me"
+        "\n    poly info changed-files:components/user/deps.edn"
+        "\n    poly info changed-files:workspace.edn:components/user/"
+        "\n    poly ws replace:this:that")
       "")))
 
 (defn print-help [is-all toolsdeps1? extended? fake-poly? color-mode]
