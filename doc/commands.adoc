@@ -329,7 +329,7 @@ poly help
     NAME = The name of the component to create.
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,
-               then we can pass in this flag instead to explicitly add the
+               then we can pass in this flag instead, to explicitly add the
                created files to git.
 
     INTERFACE = The name of the interface (namespace) or NAME if not given.
@@ -352,7 +352,7 @@ poly help
     NAME = The name of the base to create.
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,
-               then we can pass in this flag instead to explicitly add the
+               then we can pass in this flag instead, to explicitly add the
                created files to git.
 
   Example:
@@ -372,7 +372,7 @@ poly help
     NAME = The name of the project to create.
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,
-               then we can pass in this flag instead to explicitly add the
+               then we can pass in this flag instead, to explicitly add the
                created files to git.
 
   Example:
