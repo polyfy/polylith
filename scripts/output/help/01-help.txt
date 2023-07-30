@@ -76,12 +76,12 @@
     info fake-sha:c91fdad
     info fake-tag:stable-me
     info :no-changes
-    info changed-files:components/user/
-    info changed-files:workspace.edn:components/user/myapp/user/core.clj
+    info changed-files:components/user/deps.edn
+    info changed-files:workspace.edn:components/user/
     libs out:libs.txt
     test skip:development
     ws branch:main
-    ws replace:hello:goodbye
+    ws replace:this:that
 
   'poly :tap' will start a shell and open a portal window.
 

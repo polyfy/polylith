@@ -6,12 +6,12 @@
 (defn help [extended? cm]
   (str "  Shows all libraries that are used in the workspace.\n"
        "\n"
-       "  poly libs [:compact] [:outdated]"
+       "  poly libs [" (s/key ":compact" cm) "] [" (s/key ":outdated" cm) "]"
        (if extended?
          (str " [out:" (s/key  "FILENAME" cm) "]\n")
          "\n")
-       "    :compact  = Shows the table in a more compact way.\n"
-       "    :outdated = Shows the latest version of each library, or blank if up to date.\n"
+       "    " (s/key ":compact" cm) "  = Shows the table in a more compact way.\n"
+       "    " (s/key ":outdated" cm) " = Shows the latest version of each library, or blank if up to date.\n"
        (if extended?
             (str "    out       = Creates a text or image file based on the output. If " (s/key "FILENAME" cm) "\n"
                  "                ends with .txt, then the file will contain the output as text.\n"

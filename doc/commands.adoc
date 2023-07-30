@@ -89,12 +89,12 @@ poly help
     info fake-sha:c91fdad
     info fake-tag:stable-me
     info :no-changes
-    info changed-files:components/user/
-    info changed-files:workspace.edn:components/user/myapp/user/core.clj
+    info changed-files:components/user/deps.edn
+    info changed-files:workspace.edn:components/user/
     libs out:libs.txt
     test skip:development
     ws branch:main
-    ws replace:hello:goodbye
+    ws replace:this:that
 
   'poly :tap' will start a shell and open a portal window.
 
@@ -510,7 +510,6 @@ poly help
   poly deps [out:FILENAME]
     FILENAME = The name of the text file to create, containing the
                output from this command.
-
          p      
          a  u  u
          y  s  t
@@ -608,7 +607,6 @@ poly help
 
   poly info [:loc] [out:FILENAME]
     :loc     = Shows the number of lines of code for each brick and project.
-
     FILENAME = The name of the text file to create, containing the output from
                this command.
 
@@ -962,13 +960,13 @@ poly help
   After we have switched workspace, all subsequent commands will append either
   ws-dir:DIR or ws-file:FILE, depending on whether we switch to a directory or a file.
 
-  switch-ws ARG
-    ARG = dir:DIR    Switches to the selected workspace directory.
-                     The prompt will be prefixed with 'dir:' to show this.
+  switch-ws [dir:DIR] [file:FILE]
+    DIR  = Switches to the given workspace directory.
+           The prompt will be prefixed with 'dir:' to show this.
 
-          file:FILE  Switches to the workspace specified in the selected file,
-                     created by something like 'poly ws out:ws.edn'.
-                     The prompt will be prefixed with 'file:' to show this.
+    FILE = Switches to the workspace specified in the selected file,
+           created by something like 'poly ws out:ws.edn'.
+           The prompt will be prefixed with 'file:' to show this.
 
   Example:
     switch-ws dir:~/myworkspace
@@ -1100,7 +1098,7 @@ poly help
 ----
   Prints or writes the workspace as data.
 
-  poly ws [get:ARG] [out:FILE] [:latest-sha] [branch:BRANCH]
+  poly ws [get:ARG] [out:FILE] [branch:BRANCH] [:latest-sha]
     ARG = keys  -> Lists the keys for the data structure:
                    - If it's a hash map, it returns all its keys.
                    - If it's a list and its elements are hash maps,
@@ -1110,7 +1108,8 @@ poly help
 
           KEY   -> If applied to a hash map, it returns the value of the KEY.
                    If applied to a list of hash maps, it returns the hash map with
-                   a matching :name. Projects are also matched against :alias.
+                   a matching :name. Projects are also matched against :alias
+                   e.g. 'dev' instead of 'development'.
 
           INDEX -> A list element can be looked up by INDEX.
 
@@ -1120,10 +1119,11 @@ poly help
     FILE = Writes the output to the specified FILE. Will have the same effect
            as setting color-mode:none and piping the output to a file.
 
-    :latest-sha = if passed in, then settings:vcs:polylith:latest-sha will be set.
-                  If A branch is given, e.g., branch:master, then the latest sha will
-                  be retrieved from that branch.
+    BRANCH = Can be used together with :latest-sh to set the branch to use
+             if other than 'main'.
 
+    :latest-sha = if passed in, then settings:vcs:polylith:latest-sha will be set,
+                  by retreiving the latest sha from the 'main' branch.
   Example:
     poly ws
     poly ws get:keys

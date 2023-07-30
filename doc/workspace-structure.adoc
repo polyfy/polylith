@@ -746,8 +746,7 @@ We also have a number of arguments that are only populated if they are passed in
  :interface "user"
  :is-git-add true
  :out "example.edn"
- :replace [{:from "this", :to "that"}
-           {:from "bb", :to "bb"}]
+ :replace [{:from "this", :to "that"}]
  :selected-bricks ["user"]
  :since "previous-release"
  :skip ["dev"]
@@ -823,7 +822,7 @@ We also have a number of arguments that are only populated if they are passed in
 
 * `:out` Mainly used by the xref:commands.adoc#ws[ws] command, but can also be passed in to the xref:commands.adoc#info[info], xref:commands.adoc#deps[deps], and xref:commands.adoc#libs[libs] commands to generate a text file from the output. Also available in the xref:commands.adoc#overview[overview] command if using the  xref:polyx.adoc[polyx] tool.
 
-* `:replace` Used in tests when maintaining the _poly_ tool itself, to make the output more stable. Set to e.g. _[{:from "/Users/joakimtengstrand", :to "my-home"}]_ if _replace:$HOME:my-home_ is given. It will replace this text too, so the output will actually be _[{:from "my-home", :to "my-home"}]_ which is the behavior we want (the whole idea with the replace parameter is to get the same output every time).
+* `:replace` Used in tests when maintaining the _poly_ tool itself, to make the output more stable. Set to e.g. _[{:from "this", :to "that"}]_ if _replace:this:that_ is given. More than one pair of values can be passed in, separated with :.
 
 * `:selected-bricks` A vector of bricks. The key is only populated if _bricks:_ is given. Used by the xref:commands.adoc#info[info] and xref:commands.adoc#test[test] commands.
 
