@@ -1,28 +1,44 @@
 = Profile
 
-When working with a Polylith system, we want to keep everything as simple as possible and maximize our productivity. The Lego-like way of organising code into bricks, helps us with both of these goals.
+When working with a Polylith system, we want to keep everything as simple as possible and maximize our productivity.
+The Lego-like way of organising code into bricks, helps us with both of these goals.
 
-One problem we normally have when developing software without using Polylith, is that the production environment and the development environment has a 1:1 relationship. This happens because we use the production codebase for development, so if we create a new service in production, it will automatically "turn up" in the development project.
+One problem we normally have when developing software without using Polylith,
+is that the production environment and the development environment has a 1:1 relationship.
+This happens because we use the production codebase for development, so if we create a new service in production,
+it will automatically "turn up" in the development project.
 
-In Polylith we avoid this problem by separating the development project from production. Thanks to components, we can create any project we want by putting the bricks we need into one place. This allows us to optimize the development environment for productivity while in production, we can focus on fulfilling non-functional requirements like performance or uptime.
+In Polylith we avoid this problem by separating the development project from production.
+Thanks to components, we can create any project we want by putting the bricks we need into one place.
+This allows us to optimize the development environment for productivity while in production,
+we can focus on fulfilling non-functional requirements like performance or uptime.
 
 Right now, our _development_ project mirrors the _command-line_ project:
 
 image::images/profile/prod-mirrors-dev.png[alt=Prod mirrors dev,width=600]
 
-Let's pretend we get performance problems in the _user_ component and that we think distributing the load, by delegating to a new service, could solve the problem:
+Let's pretend we get performance problems in the _user_ component and that we think distributing the load,
+by delegating to a new service, could solve the problem:
 
 image::images/profile/new-service-in-prod.png[alt=New service in prod,width=600]
 
-The production environment now looks good, but how about the _development_ environment? The problem here is that it contains two components that share the same _user_ interface. This will confuse both the classloader (if we start a REPL) and the IDE, because we now have two components using the same _se.example.user_ namespace in the path, which is not a desirable situation.
+The production environment now looks good, but how about the _development_ environment?
+The problem here is that it contains two components that share the same _user_ interface.
+This will confuse both the classloader (if we start a REPL) and the IDE,
+because we now have two components using the same _se.example.user_ namespace in the path, which is not a desirable situation.
 
 The solution is to use profiles:
 
 image::images/profile/profiles-in-dev.png[alt=Profiles in dev,width=600]
 
-By leaving out any component that implements the _user_ interface from the _development_ project and combining it with one of the two possible profiles we get a complete _development_ project. This allows us to work with the code from a single place, but still be able to mimic the various projects we have.
+By leaving out any component that implements the _user_ interface from the _development_ project
+and combining it with one of the two possible profiles we get a complete _development_ project.
+This allows us to work with the code from a single place, but still be able to mimic the various projects we have.
 
-The default profile (if exists) is automatically merged into the _development_ project, if no other profiles are selected. The name _default_ is set by _:default-profile-name_ in _workspace.edn_ and can be changed, but here we will leave it as it is.
+The default profile (if exists) is automatically merged into the _development_ project,
+if no other profiles are selected.
+The name _default_ is set by _:default-profile-name_ in _workspace.edn_ and can be changed,
+but here we will leave it as it is.
 
 Now let's try to move from this design:
 
@@ -32,7 +48,12 @@ image::images/profile/prod-mirrors-dev.png[alt=Prod mirrors dev,width=600]
 
 image::images/profile/target-design.png[alt=Target design,width=600]
 
-First we need to decide how the _command-line_ tool should communicate with _user-service_ over the wire. After some searching, we found this https://github.com/sunng87/slacker[slacker] library that allows us to use https://en.wikipedia.org/wiki/Remote_procedure_call[remote procedure calls] in a simple way.
+First we need to decide how the _command-line_ tool should communicate with _user-service_ over the wire.
+After some searching, we found this
+https://github.com/sunng87/slacker[slacker] library
+that allows us to use
+https://en.wikipedia.org/wiki/Remote_procedure_call[remote procedure calls]
+in a simple way.
 
 Let's create a checklist that will take us there:
 
@@ -168,7 +189,8 @@ Add the _default_ and _remote_ profiles to _./deps.edn_:
                      :extra-paths ["components/user-remote/test"]}
 ----
 
-Notice here that the profiles contain both _src_ and _test_ directories. This works as profiles are only used from the development project.
+Notice here that the profiles contain both _src_ and _test_ directories.
+This works as profiles are only used from the development project.
 
 The next step is to activate the _remote_ profile in our IDE:
 
@@ -218,7 +240,12 @@ image::images/profile/edit-repl-config.png[alt=Edit REPL confit,width=250]
 
 ...and add the default profile to Options: _--A:dev:test:build:+default_
 
-The reason we have to do this, is because we removed the _user_ component from _./deps.edn_ and now we have to add it via a profile instead. We need access to the source code for the _se.example.user.interface_ namespace, and we have two alternatives, the _user_ or the _user-remote_ component that both use this interface. The _user_ component is a better default because it's simpler and only communicates via direct function calls without hitting the wire.
+The reason we have to do this, is because we removed the _user_ component
+from _./deps.edn_ and now we have to add it via a profile instead.
+We need access to the source code for the _se.example.user.interface_ namespace,
+and we have two alternatives, the _user_ or the _user-remote_ component that both use this interface.
+The _user_ component is a better default because it's simpler
+and only communicates via direct function calls without hitting the wire.
 
 For the changes to take affect we now need to restart the REPL. Normally we don't have to do that, but when adding profiles it's necessary.
 
@@ -238,7 +265,9 @@ example
 │       └── deps.edn
 ----
 
-Replace _user_ with _user-remote_, and add the _log4j_ library (to get rid of warnings) in _projects/command-line/deps.edn_ (it's okay to keep _poly/user name_, because it's also the name of the interface that both _user_ and _user-remote_ share):
+Replace _user_ with _user-remote_, and add the _log4j_ library (to get rid of warnings)
+in _projects/command-line/deps.edn_
+(it's okay to keep _poly/user name_, because it's also the name of the interface that both _user_ and _user-remote_ share):
 
 [source,clojure]
 ----
@@ -317,7 +346,9 @@ cd projects/user-service/target
 java -jar user-service.jar
 ----
 
-Now when we have a running service, we could test if we can call it from the REPL. We activated the remote profile in our IDE earlier, which made the _user-remote_ component active. Note that this only instructs the IDE to treat _user-remote_ as source code:
+Now when we have a running service, we could test if we can call it from the REPL.
+We activated the remote profile in our IDE earlier, which made the _user-remote_ component active.
+Note that this only instructs the IDE to treat _user-remote_ as source code:
 
 image::images/profile/user-and-user-remote.png[alt=User and user-remote,width=200]
 
@@ -340,7 +371,11 @@ We can verify this by adding this code to _development/src/dev/lisa.clj_:
 "Hello Lisa!!"
 ----
 
-Remember that we set the REPL configuration to _-A:test:dev:build:+default_ which loads the _user_ component into the REPL every time we start or restart the REPL. This is the recommended way of configuring the default REPL, by selecting the "simple" components that communicate with each other using direct function calls. Because of this, we should keep the _-A:test:dev:build:+default_ configuration as it is.
+Remember that we set the REPL configuration to _-A:test:dev:build:+default_
+which loads the _user_ component into the REPL every time we start or restart the REPL.
+This is the recommended way of configuring the default REPL,
+by selecting the "simple" components that communicate with each other using direct function calls.
+Because of this, we should keep the _-A:test:dev:build:+default_ configuration as it is.
 
 Let's create a REPL that includes the remote profile:
 
@@ -351,7 +386,9 @@ This REPL will use the _user-remote_ component and can be used to "emulate" a pr
 But let's continue with the REPL that is already running and see if we can switch to _user-remote_ without restarting it.
 
 
-Open the _core_ namespace of the _user-remote_ component and select _Tools > REPL > Load file in REPL_. This will replace the _user_ implementation with the _user-remote_ component, which works because both live in the same _se.example.user_ namespace, which is also their interface (user).
+Open the _core_ namespace of the _user-remote_ component and select _Tools > REPL > Load file in REPL_.
+This will replace the _user_ implementation with the _user-remote_ component,
+which works because both live in the same _se.example.user_ namespace, which is also their interface (user).
 
 If we execute the _hello_ function agan from _dev.lisa_, we should get:
 
@@ -373,7 +410,8 @@ java -jar command-line.jar Lisa
 Hello Lisa - from the server!!
 ----
 
-Wow, that worked too! The complete code can be found https://github.com/polyfy/polylith/tree/master/examples/doc-example[here].
+Wow, that worked too! The complete code can be found
+https://github.com/polyfy/polylith/tree/master/examples/doc-example[here].
 
 Now execute the _info_ command (_+_ inactivates all profiles, and makes the _default_ profile visible):
 
@@ -391,9 +429,17 @@ image::images/profile/compare-with-target-design.png[alt=Compare with target des
 
 Looks like we got everything right!
 
-The profile flags, _st_, follow the same pattern as for bricks and projects except that the last "Run the tests" flag is omitted.
+The profile flags, _st_, follow the same pattern as for bricks and projects
+except that the last "Run the tests" flag is omitted.
 
-This example was quite simple, but if our project is more complicated, we may want to manage state during development with a tool like https://github.com/tolitius/mount[Mount], https://github.com/stuartsierra/component[Component], or https://github.com/weavejester/integrant[Integrant], or we could create our own helper functions that we put in the dev.lisa namespace, which can help us switch profiles by using a library like https://github.com/clojure/tools.namespace[tools.namespace].
+This example was quite simple, but if our project is more complicated,
+we may want to manage state during development with a tool like
+https://github.com/tolitius/mount[Mount],
+https://github.com/stuartsierra/component[Component], or
+https://github.com/weavejester/integrant[Integrant],
+or we could create our own helper functions that we put in the _dev.lisa_ namespace,
+which can help us switch profiles by using a library like
+https://github.com/clojure/tools.namespace[tools.namespace].
 
 If we want to switch profile when running a command, we need to pass them in, e.g.:
 
@@ -417,9 +463,12 @@ image::images/profile/info-multiple-profiles.png[width=500]
 
 The tool complains and doesn't like that we just included both _user_ and _user-remote_ in the _development_ project!
 
-The profiles can also contain libraries and paths to projects, but right now we have no such paths and therefore all profiles are marked with _--_ in the project section.
+The profiles can also contain libraries and paths to projects,
+but right now we have no such paths and therefore all profiles are marked with _--_ in the project section.
 
-Now when we are finished with our example system, it could be interesting to see how many lines of code each brick and project consists of. This can be done by passing in _:loc_:
+Now when we are finished with our example system,
+it could be interesting to see how many lines of code each brick and project consists of.
+This can be done by passing in _:loc_:
 
 [source,text]
 ----
@@ -428,9 +477,13 @@ poly info :loc
 
 image::images/profile/info-loc.png[alt=info :loc,width=500]
 
-Each project summarises the number of lines of code for each brick it contains. The _loc_ column counts the number of lines of codes under the _src_ directory, while _(t)_ counts for the test directory.
+Each project summarises the number of lines of code for each brick it contains.
+The _loc_ column counts the number of lines of codes under the _src_ directory,
+while _(t)_ counts for the test directory.
 
-Our projects are still quite small, but they will eventually reach 1000 lines of code, and when that happens we may want to change the thousand delimiter in _~/.polylith/config.edn_ which is set to _,_ by default.
+Our projects are still quite small, but they will eventually reach 1000 lines of code,
+and when that happens we may want to change the thousand delimiter in _~/.polylith/config.edn_
+which is set to _,_ by default.
 
 Let's run all the tests to see if everything works:
 

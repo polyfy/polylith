@@ -1,8 +1,14 @@
 = Build
 
-The poly tool doesn’t include a _build_ command. That’s because we don’t want the tool to restrict our build pipeline in any way. Instead, the tool lets us choose our own way to build our Polylith artifacts for our particular pipeline; which could be with simple build scripts, all the way to cloud-based build tools.
+The poly tool doesn’t include a _build_ command.
+That’s because we don’t want the tool to restrict our build pipeline in any way.
+Instead, the tool lets us choose our own way to build our Polylith artifacts for our particular pipeline;
+which could be with simple build scripts, all the way to cloud-based build tools.
 
-Let's say we want to create an executable jar file out of the _command-line_ project. Let's start by downloading https://github.com/polyfy/polylith/blob/master/examples/doc-example/build.clj[build.clj] and copy it to the workspace root:
+Let's say we want to create an executable jar file out of the _command-line_ project.
+Let's start by downloading
+https://github.com/polyfy/polylith/blob/master/examples/doc-example/build.clj[build.clj]
+and copy it to the workspace root:
 
 [source,shell]
 ----
@@ -43,7 +49,8 @@ image::images/build/add-build-to-repl-settings.png[alt=Select build alias,width=
 
 == Old Cursive versions
 
-If you an older version of Cursive than 1.13.0, then set Options to _dev,test,build_ instead, and you may also need to add this to your _./deps.edn_ if the IDE doesn't recognise _build.clj_ as source code:
+If you an older version of Cursive than 1.13.0, then set Options to _dev,test,build_ instead,
+and you may also need to add this to your _./deps.edn_ if the IDE doesn't recognise _build.clj_ as source code:
 
 [source,clojure]
 ----

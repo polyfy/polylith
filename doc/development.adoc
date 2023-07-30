@@ -10,7 +10,8 @@ When working with a Polylith codebase, we are free to choose any editor/IDE we l
 
 Here we will use Cursive, and if you do too, make sure you have https://cursive-ide.com/userguide/deps.html[tools.deps] configured correctly.
 
-Let's get started by creating a project. From the menu, select _File > New > Project from existing sources_. Select the _deps.edn_ file, the desired version of SDK and finish the wizard.
+Let's get started by creating a project. From the menu, select _File > New > Project from existing sources_. Select the _deps.edn_ file,
+the desired version of SDK and finish the wizard.
 
 If you are a Cursive user (1.13.0 or later) then you need to select "Resolve over whole project" in the settings:
 
@@ -59,11 +60,16 @@ If we look at the _deps.edn_ file again, we can see that "development/src" was a
 
 This gives us access to the _development/src_ directory so that we can work with the code.
 
-The "development/src" path belongs to the _dev_ alias which we activated previously and also added to the REPL by selecting the _-A:dev:test_ option. This means that we have configured everything that https://github.com/clojure/tools.deps.alpha[tools.deps] needs and that we are ready to write some Clojure code!
+The "development/src" path belongs to the _dev_ alias which we activated previously and also added to the REPL
+by selecting the _-A:dev:test_ option. This means that we have configured everything that
+https://github.com/clojure/tools.deps.alpha[tools.deps] needs and that we are ready to write some Clojure code!
 
-To do that we first need to create a namespace. We suggest that you use _dev_ as a top namespace here and not the workspace top namespace _se.example_. The reason is that we don't want to mix the code we put here with the production code.
+To do that we first need to create a namespace. We suggest that you use _dev_ as a top namespace here
+and not the workspace top namespace _se.example_.
+The reason is that we don't want to mix the code we put here with the production code.
 
-One way of structuring the code is to give all developers their own namespace under the _dev_ top namespace. Let's follow that pattern and create the namespace _dev.lisa_.
+One way of structuring the code is to give all developers their own namespace under the _dev_ top namespace.
+Let's follow that pattern and create the namespace _dev.lisa_.
 
 Right click on the _development/src_ directory and select _New > Clojure Namespace_ and type _dev.lisa_:
 
@@ -84,4 +90,5 @@ Now let's write some code:
 (+ 1 2 3)
 ----
 
-Make sure the namespace is loaded, by sending `(ns dev.lisa)` to the REPL. If we then send `(+ 1 2 3)` to the REPL we should get 6 back, and if we do, it means that we now have a working development environment!
+Make sure the namespace is loaded, by sending `(ns dev.lisa)` to the REPL. If we then send `(+ 1 2 3)` to the REPL
+we should get 6 back, and if we do, it means that we now have a working development environment!

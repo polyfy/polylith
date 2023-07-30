@@ -1,6 +1,8 @@
 = Testing
 
-Polylith encourages a test-centric approach when working with code. New brick tests are easy to write, and mocking can be avoided in most cases as we have access to all components from the projects they live in.
+Polylith encourages a test-centric approach when working with code.
+New brick tests are easy to write,
+and mocking can be avoided in most cases as we have access to all components from the projects they live in.
 
 Let's go back to our example. We added _; hi_  to the _user_ core namespace earlier:
 
@@ -29,13 +31,22 @@ It did, and if f we run the _info_ command:
 
 image::images/testing/info.png[alt=info,width=400]
 
-...we can see that the _user_ component is marked with an asterisk, _*_. If we look carefully we will also notice that the status flags _stx_ under the _cl_ column now has an _x_ in its last position. As we already know, this means that the tests for _user_ and _cli_ will be executed from the _command-line_ project if we execute the _test_ command.
+...we can see that the _user_ component is marked with an asterisk, _*_.
+If we look carefully we will also notice that the status flags _stx_
+under the _cl_ column now has an _x_ in its last position.
+As we already know, this means that the tests for _user_ and _cli_ will be executed from the _command-line_ project
+if we execute the _test_ command.
 
-But why is _cli_ marked to be tested? The reason is that even though _cli_ itself hasn't changed, it depends on something that has, namely the _user_ component.
+But why is _cli_ marked to be tested?
+The reason is that even though _cli_ itself hasn't changed,
+it depends on something that has, namely the _user_ component.
 
-The columns under the _development_ project are all marked as _st-_. The reason the _development_ project is not marked to be tested is that the _development_ project's tests are not included by default.
+The columns under the _development_ project are all marked as _st-_.
+The reason the _development_ project is not marked to be tested
+is that the _development_ project's tests are not included by default.
 
-But before we run the test command, we should first add a test by editing the _interface-test_ namespace in the _user_ component:
+But before we run the test command,
+we should first add a test by editing the _interface-test_ namespace in the _user_ component:
 
 [source,clojure]
 ----
@@ -149,7 +160,8 @@ Test results: 1 passes, 0 failures, 0 errors.
 Execution time: 1 seconds
 ----
 
-We have already mentioned that the brick tests will not be executed from the _development_ project when we run the _test_ command. But there is a way to do that, and that is to pass in _:dev_.
+We have already mentioned that the brick tests will not be executed from the _development_ project
+when we run the _test_ command. But there is a way to do that, and that is to pass in _:dev_.
 
 Let's try it out with the _info_ command first:
 
@@ -166,7 +178,9 @@ Now both the _development_ and the _command-line_ project is marked for test exe
 
 === Filter on projects
 
-We can narrow the number of projects we want to test by passing in e.g. _project:dev_ or _project:cl:dev_ (both project alias and name can be used). If _development_ is given, it will automatically be included as if _:dev_ was passed in:
+We can narrow the number of projects we want to test by passing in e.g. _project:dev_ or _project:cl:dev_
+(both project alias and name can be used).
+If _development_ is given, it will automatically be included as if _:dev_ was passed in:
 
 [source,shell]
 ----
@@ -216,9 +230,11 @@ If we run the same command again:
 
 image::images/testing/info-brick-cli-no-changes.png[width=400]
 
-...we get the same result, and that's because the _brick:cli_ parameter is just a filter that is applied after the other status calculations have been performed.
+...we get the same result, and that's because the _brick:cli_ parameter is just a filter
+that is applied after the other status calculations have been performed.
 
-If we want to force the cli tests to be executed, we need to pass in _:all-bricks_ (or _:all_ if we also want to execute the project tests):
+If we want to force the cli tests to be executed,
+we need to pass in _:all-bricks_ (or _:all_ if we also want to execute the project tests):
 
 [source,shell]
 ----
@@ -229,7 +245,9 @@ image::images/testing/info-brick-cli-no-changes-all-bricks.png[width=400]
 
 Finally, the _cli_ brick is now marked to be tested!
 
-It's also possible to give more than one brick, e.g. _brick:cli:user_. Another trick we can do is to exclude all bricks with _brick:-_ which can be useful in combination with _:project_ or _:all_ to execute only the project tests.
+It's also possible to give more than one brick, e.g. _brick:cli:user_.
+Another trick we can do is to exclude all bricks with _brick:-_
+which can be useful in combination with _:project_ or _:all_ to execute only the project tests.
 
 == Project tests
 
@@ -284,15 +302,23 @@ example
   (is (= 1 1)))
 ----
 
-We could have chosen another top namespace, e.g., _se.example.project.command-line_, as long as we don't have any brick with the name _project_. But because we don't want to get into any name conflicts with bricks and also because each project is executed in isolation, the choice of namespace is less important and here we choose the _project.command-line_ top namespace to keep it simple.
+We could have chosen another top namespace, e.g., _se.example.project.command-line_,
+as long as we don't have any brick with the name _project_.
+But because we don't want to get into any name conflicts with bricks and also because each project is executed in isolation,
+the choice of namespace is less important and here we choose the _project.command-line_ top namespace to keep it simple.
 
-Normally, we are forced to put our tests in the same namespace as the code we want to test, to get proper access, but in Polylith the encapsulation is guaranteed by the _poly_ tool and all code can therefore be declared public, which allows us to put the test code wherever we want.
+Normally, we are forced to put our tests in the same namespace as the code we want to test,
+to get proper access, but in Polylith the encapsulation is guaranteed by the _poly_ tool
+and all code can therefore be declared public, which allows us to put the test code wherever we want.
 
 If we execute the `info` command:
 
 image::images/testing/info-project-dir.png[width=400]
 
-...the _command-line_ project is marked as changed and flagged as `-t-` telling us that it now has a _test_ directory. The `-t-` in the dev column says that it has been added to the development project. The reason it's not tagged as `-tx` is that project tests are not marked to be executed without explicitly telling them to, by passing in _:project_.
+...the _command-line_ project is marked as changed and flagged as `-t-` telling us that it now has a _test_ directory.
+The `-t-` in the dev column says that it has been added to the development project.
+The reason it's not tagged as `-tx` is that project tests are not marked to be executed
+without explicitly telling them to, by passing in _:project_.
 
 [source,shell]
 ----
@@ -345,11 +371,16 @@ They passed!
 
 As you have just seen, with Polylith we can add tests at two different levels: brick and project.
 
-The _project_ tests should be used for our slow tests, e.g. tests that take more than 100 milliseconds to execute, or whatever we draw the line. The project tests also give us a way to write tailor-made tests that are unique per project.
+The _project_ tests should be used for our slow tests, e.g. tests that take more than 100 milliseconds to execute,
+or whatever we draw the line. The project tests also give us a way to write tailor-made tests that are unique per project.
 
-The second category is the _brick_ tests. To keep the feedback loop short, we should only put fast-running tests in our bricks. This will give us a faster feedback loop, because the brick tests are the ones that are executed when we run `poly test` while the project tests are not.
+The second category is the _brick_ tests.
+To keep the feedback loop short, we should only put fast-running tests in our bricks.
+This will give us a faster feedback loop,
+because the brick tests are the ones that are executed when we run `poly test` while the project tests are not.
 
-But does that mean we are only allowed to put unit tests in our bricks? No. As long as the tests are fast (by e.g. using in-memory databases) they should be put in the bricks they belong to.
+But does that mean we are only allowed to put unit tests in our bricks?
+No. As long as the tests are fast (by e.g. using in-memory databases) they should be put in the bricks they belong to.
 
 Before we continue, let's commit what we have done so far and mark the workspace as stable:
 
@@ -366,7 +397,8 @@ image::images/testing/info-added-tests.png[width=400]
 
 ...the * signs are now gone and nothing is marked to be tested.
 
-The tool only executes tests if a brick is directly or indirectly changed. A way to force it to test all bricks is to pass in _:all-bricks_:
+The tool only executes tests if a brick is directly or indirectly changed.
+A way to force it to test all bricks is to pass in _:all-bricks_:
 
 [source,shell]
 ----
@@ -397,7 +429,8 @@ poly info :all :dev
 
 image::images/testing/info-all-dev.png[width=400]
 
-Running the brick tests from the _development_ projects are something we don't normally need to do, at least not if we have production projects, but it's good to know that it's supported.
+Running the brick tests from the _development_ projects are something we don't normally need to do,
+at least not if we have production projects, but it's good to know that it's supported.
 
 Now let's see if it actually works:
 
@@ -460,7 +493,8 @@ Looks like it worked!
 
 Sometimes we need to perform some test setup/teardown before and after we execute the tests for a project.
 
-If any code is used by more than one project, we can put it in a separate component, but in this case we should put it in the _command-line_ project's _test_ directory because it's not used by any other project.
+If any code is used by more than one project, we can put it in a separate component,
+but in this case we should put it in the _command-line_ project's _test_ directory because it's not used by any other project.
 
 Let's create a _test-setup_ namespace in the project's test directory and add two functions to it:
 
@@ -489,7 +523,10 @@ example
 
 We need to keep two things in mind:
 
-* Make sure the source code which contains our function, is accessible from the project it's executed from (the _command-line_ project in this case). Here the project's own test directory was already added earlier by the xref:commands.adoc#create-project[create project] command, so we are fine.
+* Make sure the source code which contains our function, is accessible from the project it's executed from
+(the _command-line_ project in this case).
+Here the project's own test directory was already added earlier by the
+xref:commands.adoc#create-project[create project] command, so we are fine.
 
 * Make sure the functions take exactly one parameter, the project name.
 
@@ -556,7 +593,8 @@ Nice, it worked!
 
 == Include and exclude bricks
 
-There is a way to restrict what test code to run for a project, by giving a list of bricks to include and/or exclude in _workspace.edn_, e.g.:
+There is a way to restrict what test code to run for a project,
+by giving a list of bricks to include and/or exclude in _workspace.edn_, e.g.:
 
 [#include-exclude]
 [source,clojure]
@@ -578,7 +616,8 @@ The old shorter syntax for including bricks is also valid:
              ....
 ----
 
-You may wonder when this could be useful. A good example is the polylith codebase itself, where _workspace.edn_ looks similar to this:
+You may wonder when this could be useful.
+A good example is the polylith codebase itself, where _workspace.edn_ looks similar to this:
 
 [source,clojure]
 ----
@@ -590,13 +629,20 @@ You may wonder when this could be useful. A good example is the polylith codebas
              ...
 ----
 
-Here the tests are only executed from the poly project (the development project is not included anyway, unless we explicitly ask for it). The idea here is to speed up the test execution time. This is only a good idea if we are pretty sure that our bricks behave the same in all our projects, which is true in this case.
+Here the tests are only executed from the poly project
+(the development project is not included anyway, unless we explicitly ask for it).
+The idea here is to speed up the test execution time.
+This is only a good idea if we are pretty sure that our bricks behave the same in all our projects,
+which is true in this case.
 
-Note that if a brick is excluded by using _:include_ or _:exclude_, they will never be tested from that project even if we pass in _:all_.
+Note that if a brick is excluded by using _:include_ or _:exclude_,
+they will never be tested from that project even if we pass in _:all_.
 
 == Summary
 
-Let's summarise the different ways to run the tests. The brick tests are executed from all projects they belong to except for the development project (if _:dev_ is not passed in):
+Let's summarise the different ways to run the tests.
+The brick tests are executed from all projects they belong to except for the development project
+(if _:dev_ is not passed in):
 
 |===
 | Command | Tests to execute
@@ -613,7 +659,9 @@ To also execute the brick tests from the development project, pass in _:dev_:
 | Command | Tests to execute
 
 | poly test :dev | All brick tests that are directly or indirectly changed, executed from all projects (development included).
-| All brick tests that are directly or indirectly changed, executed from all projects (development included). | All brick tests that are directly or indirectly changed, executed from all projects (development included) + tests for changed projects (development included).
+| All brick tests that are directly or indirectly changed, executed from all projects (development included). |
+All brick tests that are directly or indirectly changed, executed from all projects (development included) +
+tests for changed projects (development included).
 | poly test :all‑bricks :dev | All brick tests, executed from all projects (development included).
 | poly test :all :dev | All brick tests, executed from all projects (development included) + all project tests (development included).
 |===
@@ -626,21 +674,45 @@ Remember that executing the info command is a good way to get an overview of wha
 
 == How tests are executed
 
-Let's start with the development project. The main purpose of this project is to allow us to work with our code from an IDE using a single REPL. When doing that, the project must be set up in a way that it's 100% compatible with tool.deps and the IDE integration. This is also the reason we have to add the test paths explicitly in _./deps.edn_ which gives us access to the tests from the REPL.
+Let's start with the development project.
+The main purpose of this project is to allow us to work with our code from an IDE using a single REPL.
+When doing that, the project must be set up in a way that it's 100% compatible with tool.deps and the IDE integration.
+This is also the reason we have to add the test paths explicitly in _./deps.edn_
+which gives us access to the tests from the REPL.
 
-The _./deps.edn_ config file sets up all our paths and dependencies, and when we include the dev and test aliases (and sometimes xref:profile.adoc[profile] aliases, described in the next section) we inform tools.deps what source code and libraries should be accessible from our IDE and REPL. When this is set up correctly, we are also able to run our tests from the REPL, which will have access to all _test_ and _src_ code. Libraries that are defined in the _src_ context will therefore automatically be accessible when running the tests. Additional libraries that are only used from the tests should be defined in the _test_ context.
+The _./deps.edn_ config file sets up all our paths and dependencies, and when we include the dev and test aliases
+(and sometimes xref:profile.adoc[profile] aliases, described in the next section)
+we inform tools.deps what source code and libraries should be accessible from our IDE and REPL.
+When this is set up correctly, we are also able to run our tests from the REPL,
+which will have access to all _test_ and _src_ code.
+Libraries that are defined in the _src_ context will therefore automatically be accessible when running the tests.
+Additional libraries that are only used from the tests should be defined in the _test_ context.
 
-When we run the _test_ command, the tool will detect which components, bases and projects have been affected since the last stable point in time. Based on this information, it will go through all the affected projects, one at a time, and run the component, base, and project tests that are included in each project.
+When we run the _test_ command, the tool will detect which components, bases and projects
+have been affected since the last stable point in time.
+Based on this information, it will go through all the affected projects, one at a time,
+and run the component, base, and project tests that are included in each project.
 
-This set of tests will be executed in isolation from its own classloader which will speed up the test execution and make it more reliable. Libraries from both the _src_ and _test_ context (and libraries that they depend on) will be used when the tests are executed. The development project can also be used to run tests, but that's not its main purpose.
+This set of tests will be executed in isolation from its own classloader which will speed up the test execution
+and make it more reliable. Libraries from both the _src_ and _test_ context
+(and libraries that they depend on) will be used when the tests are executed.
+The development project can also be used to run tests, but that's not its main purpose.
 
-If the projects A, B, C and D are included in the test run and if a test in B fails (or a project setup or teardown) then the whole test run will stop, and no tests are executed for C or D.
+If the projects A, B, C and D are included in the test run and if a test in B fails (or a project setup or teardown)
+then the whole test run will stop, and no tests are executed for C or D.
 
-The libraries to use in each project when running the `poly test` command is the sum of all library dependencies that are defined in all the components and bases (either indirectly via _:local/root_ or directly by using _:deps/extra-deps_). If a library is defined more than once in the set of bricks and projects, then the latest version of that library will be used, if not overridden by _:override-deps_ in the project.
+The libraries to use in each project when running the `poly test` command
+is the sum of all library dependencies that are defined in all the components and bases
+(either indirectly via _:local/root_ or directly by using _:deps/extra-deps_).
+If a library is defined more than once in the set of bricks and projects,
+then the latest version of that library will be used, if not overridden by _:override-deps_ in the project.
 
-At the project level we only need to define the libraries that are not defined in the included bricks (specified by its _:deps_ key) which can be libraries like clojure itself, _org.clojure/clojure_, that we don't want to repeat in all our bricks.
+At the project level we only need to define the libraries that are not defined in the included bricks
+(specified by its _:deps_ key) which can be libraries like clojure itself, _org.clojure/clojure_,
+that we don't want to repeat in all our bricks.
 
-If we have a brick like _datomic-ions_, we can specify which repository it needs, like this. We can verify that the repo is picked up by the brick by executing `poly ws get:components:datomic-ions:maven-repos`:
+If we have a brick like _datomic-ions_, we can specify which repository it needs, like this.
+We can verify that the repo is picked up by the brick by executing `poly ws get:components:datomic-ions:maven-repos`:
 
 [source,clojure]
 ----
@@ -660,7 +732,8 @@ Every project that uses the _datomic-ions_ brick will now also include the _dato
 
 == Troubleshooting
 
-If our tests don't work properly for some reason, we can pass in :verbose to see what configuration and paths that is used when executing the tests:
+If our tests don't work properly for some reason,
+we can pass in :verbose to see what configuration and paths that is used when executing the tests:
 
 [source,shell]
 ----
@@ -677,4 +750,6 @@ poly test :verbose
 
 == Long living shell sessions
 
-If you let the same shell session live for a long time you may get classloader errors when running the xref:testing.adoc[test] command. The solution is to restart the shell or by running the tests outside of the shell, e.g. `poly test`. Another solution can be to switch to a more isolated xref:test-runners.adoc[test runner].
+If you let the same shell session live for a long time you may get classloader errors when running the
+xref:testing.adoc[test] command. The solution is to restart the shell or by running the tests outside of the shell,
+e.g. `poly test`. Another solution can be to switch to a more isolated xref:test-runners.adoc[test runner].

@@ -15,7 +15,8 @@ Libraries are specified in _deps.edn_ for each component, base, and project:
 | | test | projects/PROJECT-DIR > deps.edn > :deps
 |===
 
-The poly tool parses each _deps.edn_ file and looks for library dependencies, which are then used by the xref:commands.adoc#libs[libs] and xref:commands.adoc#test[test] commands.
+The poly tool parses each _deps.edn_ file and looks for library dependencies,
+which are then used by the xref:commands.adoc#libs[libs] and xref:commands.adoc#test[test] commands.
 
 [source,shell]
 ----
@@ -40,21 +41,37 @@ Libraries can be specified in three different ways in tools.deps:
 |===
 | Type | Description
 
-| Maven | As a Maven dependency. Example: _clj-time/clj-time {:mvn/version "0.15.2"}_ where the key is the Maven _groupId/artifactId_. Those dependencies are stored locally in the _~/.m2/repositories_ directory (but can be changed in _~/.config/polylith/config.edn_, property _m2-dir_).
-| Local | As a local dependency. Example: _clj-time {:local/root "/local-libs/clj-time-0.15.2.jar"}_ where the key is an arbitrary identifier. A local dependency is a path to a locally stored file.
-| Git | As a Git dependency. Example: _clj-time/clj-time {:git/url "https://github.com/clj-time/clj-time.git", :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}_ where the key must match the path for the library in _~/.gitlibs/libs_ (to be able to calculate the KB column).
+| Maven | As a Maven dependency. Example: _clj-time/clj-time {:mvn/version "0.15.2"}_ where the key is the Maven _groupId/artifactId_.
+Those dependencies are stored locally in the _~/.m2/repositories_ directory
+(but can be changed in _~/.config/polylith/config.edn_, property _m2-dir_).
+| Local | As a local dependency.
+Example: _clj-time {:local/root "/local-libs/clj-time-0.15.2.jar"}_ where the key is an arbitrary identifier.
+A local dependency is a path to a locally stored file.
+| Git | As a Git dependency.
+Example: _clj-time/clj-time {:git/url "https://github.com/clj-time/clj-time.git",
+:sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}_
+where the key must match the path for the library in _~/.gitlibs/libs_ (to be able to calculate the KB column).
 |===
 
-The KB column shows the size of each library in kilobytes. If you get the key path wrong or if the library hasn't been downloaded yet, then it will appear as -. One way to solve this is to force dependencies to be downloaded by executing something like this from the workspace root:
+The KB column shows the size of each library in kilobytes.
+If you get the key path wrong or if the library hasn't been downloaded yet, then it will appear as -.
+One way to solve this is to force dependencies to be downloaded by executing something like this from the workspace root:
 
 [source,shell]
 ----
 clojure -A:dev:test -P
 ----
 
-In the tools.deps CLI tool, when a dependency is included using _:local/root_, only _:src_ dependencies will be inherited while the _:test_ dependencies will be ignored. The _poly_ tool builds upon tools.deps but has its own xref:test-runners.adoc[test runner] that is accessed via the xref:commands.adoc#test[test] command. A difference between tools.deps CLI and the _poly_ tool is that the latter also inherits dependencies from the test context.
+In the tools.deps CLI tool, when a dependency is included using _:local/root_,
+only _:src_ dependencies will be inherited while the _:test_ dependencies will be ignored.
+The _poly_ tool builds upon tools.deps but has its own xref:test-runners.adoc[test runner]
+that is accessed via the xref:commands.adoc#test[test] command.
+A difference between tools.deps CLI and the _poly_ tool is that the latter also inherits dependencies from the test context.
 
-If you want to run the tests directly from a project using the tools.deps CLI tool, then you also have to duplicate test dependencies from the bricks to the project's _deps.edn_ file under _:aliases > :test > :extra-paths_. As long as you run the tests with the built-in xref:commands.adoc#test[test] command you don't have to worry about this.
+If you want to run the tests directly from a project using the tools.deps CLI tool,
+then you also have to duplicate test dependencies from the bricks to the project's _deps.edn_ file
+under _:aliases > :test > :extra-paths_.
+As long as you run the tests with the built-in xref:commands.adoc#test[test] command you don't have to worry about this.
 
 ==== Brick libraries
 
@@ -64,7 +81,9 @@ The brick columns are marked with an _x_ if the library is used by the _src_ cod
 
 The project columns are marked with an _x_ if the library is used by the _src_ code and with a _t_ if it's only used by the _test_ code.
 
-The dependencies for a project are the sum of all dependencies that are indirectly included via its bricks, together with dependencies declared by the project itself. If different versions of the same dependency exist, then the latest version will be used for the project.
+The dependencies for a project are the sum of all dependencies that are indirectly included via its bricks,
+together with dependencies declared by the project itself. If different versions of the same dependency exist,
+then the latest version will be used for the project.
 
 An exception is if a dependency is overridden with _:override-deps_ in a project's _deps.edn_ file, e.g. _projects/realworld-backend/deps.edn_:
 
@@ -85,7 +104,8 @@ If we now run the libs command:
 
 image::images/libraries/libs-override-deps.png[alt=libs (override deps)]
 
-...we will have two versions of _clj-time_ where the _realworld-backend_ project uses _0.15.1_ and the _user_ component uses _0.15.2_.
+...we will have two versions of _clj-time_ where the _realworld-backend_ project uses _0.15.1_
+and the _user_ component uses _0.15.2_.
 
 Here are all the places where libraries can be overridden:
 
@@ -98,11 +118,13 @@ Here are all the places where libraries can be overridden:
 |  | test | projects/PROJECT-DIR > deps.edn > :aliases > :test > :override-deps
 |===
 
-If a library is overridden in the _src_ scope it will also affect the _test_ scope. If a library is overridden in the _test_ scope it will only affect the _test_ scope.
+If a library is overridden in the _src_ scope it will also affect the _test_ scope.
+If a library is overridden in the _test_ scope it will only affect the _test_ scope.
 
 === Compact view
 [#compact-view]
 
-If we have a lot of libraries, we can choose a more compact format by setting _:compact-views_ to _#{"libs"}_ in _./workspace.edn_ or by passing in _:compact_:
+If we have a lot of libraries, we can choose a more compact format by setting _:compact-views_ to _#{"libs"}_
+in _./workspace.edn_ or by passing in _:compact_:
 
 image::images/libraries/libs-compact.png[]
