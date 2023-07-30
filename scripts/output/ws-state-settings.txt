@@ -34,9 +34,7 @@
  {"command-line"
   {:alias "cl",
    :test
-   {:setup-fn project.command-line.test-setup/test-setup,
-    :teardown-fn project.command-line.test-setup/test-teardown,
-    :create-test-runner
+   {:create-test-runner
     [polylith.clj.core.clojure-test-test-runner.interface/create]}},
   "development"
   {:alias "dev",
