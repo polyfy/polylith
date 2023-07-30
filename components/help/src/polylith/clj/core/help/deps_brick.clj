@@ -5,8 +5,10 @@
 (defn help [cm]
   (str "  Shows dependencies for selected brick.\n"
        "\n"
-       "  poly deps brick:" (s/key "BRICK" cm) "\n"
-       "    " (s/key "BRICK" cm) " = The name of the brick to show dependencies for.\n"
+       "  poly deps brick:" (s/key "BRICK" cm) " [out:" (s/key "FILENAME" cm) "]\n"
+       "    " (s/key "BRICK" cm) "    = The name of the brick to show dependencies for.\n"
+       "    " (s/key "FILENAME" cm) " = The name of the text file to create, containing the\n"
+       "               output from this command.\n"
        "\n"
        "  used by  <  " (color/green cm "user") "  >  uses\n"
        "  -------              ----\n"

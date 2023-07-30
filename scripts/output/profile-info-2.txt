@@ -1,4 +1,4 @@
-  stable since: e7ebe68                                
+  stable since: e7ebe68 | stable-lisa                  
                                                        
   projects: 3   interfaces: 1                          
   bases:    2   components: 2                          

@@ -1,6 +1,6 @@
   Shows changed files since the most recent stable point in time.
 
-  poly diff [ARG]
+  poly diff [since:SINCE]
 
   If since:SINCE is passed in as an argument, the last stable point in time will be
   used depending on the value of SINCE (or the first commit if no match was found).

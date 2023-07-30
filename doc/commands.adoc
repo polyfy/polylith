@@ -11,7 +11,7 @@ poly help
 ----
 
 ----
-  Poly 0.2.18-issue318-02 (2023-07-24) - https://github.com/polyfy/polylith
+  Poly 0.2.18 (2023-07-30) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -111,9 +111,10 @@ poly help
     poly create b name:mybase
     poly create base name:mybase
     poly create project name:myproject
-    poly create w top-ns:com.my.company
+    poly create w top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company
-    poly create workspace name:myws top-ns:com.my.company branch:master
+    poly create workspace name:myws top-ns:com.my.company :commit
+    poly create workspace name:myws top-ns:com.my.company branch:master :commit
     poly deps
     poly deps brick:mybrick
     poly deps project:myproject
@@ -270,9 +271,10 @@ poly help
 
   Warning 206 - Unreadable namespace in brick/project.
     Triggered if a namespace can't be parsed or found for a brick or project.
-    A way to ignore this warning is to add the :ignore-files key to the brick or project
-    in ./workspace.edn. All dashes (-) will be replaced by underscores (_).
-    Files ending with the specified path(s), prepended by a slash, will be ignored, e.g.:
+    A way to ignore this warning is to add the :ignore-files key to the brick
+    or project in ./workspace.edn. All dashes (-) will be replaced by underscores
+    (_). Paths that match exact and paths ending with the specified path(s),
+    prepended by a slash, will be ignored, e.g.:
     { ...
       :bricks {"mybrick" {:ignore-files ["myfile.clj"]}}
       :projects {"myproject" {:alias "mp" :ignore-files ["sub-ns/myfile.clj"]}}
@@ -319,14 +321,19 @@ poly help
 ----
   Creates a component.
 
-  poly create component name:NAME [interface:INTERFACE]
+  poly create component name:NAME [interface:INTERFACE] [:git-add]
     NAME = The name of the component to create.
+
+    :git-add = If :vcs > :auto-add in workspace.edn is set to false,
+               then we can pass in this flag instead to explicitly add the
+               created files to git.
 
     INTERFACE = The name of the interface (namespace) or NAME if not given.
 
   Example:
     poly create c name:user
     poly create component name:user
+    poly create component name:user :git-add
     poly create component name:admin interface:user
 ----
 
@@ -337,12 +344,17 @@ poly help
 ----
   Creates a base.
 
-  poly create base name:NAME
+  poly create base name:NAME [:git-add] 
     NAME = The name of the base to create.
+
+    :git-add = If :vcs > :auto-add in workspace.edn is set to false,
+               then we can pass in this flag instead to explicitly add the
+               created files to git.
 
   Example:
     poly create b name:mybase
     poly create base name:mybase
+    poly create base name:mybase :git-add
 ----
 
 [#create-project]
@@ -352,8 +364,12 @@ poly help
 ----
   Creates a project.
 
-  poly create project name:NAME
+  poly create project name:NAME [:git-add]
     NAME = The name of the project to create.
+
+    :git-add = If :vcs > :auto-add in workspace.edn is set to false,
+               then we can pass in this flag instead to explicitly add the
+               created files to git.
 
   Example:
     poly create p name:myproject
@@ -367,30 +383,29 @@ poly help
 ----
   Creates a workspace in current directory. If the workspace is created within
   an existing git repo, then that repository will be used. If the workspace is
-  created outside a git repo, and :commit is passed in, then a new repo will be
-  initiated using the 'main' branch, if another branch is not explicitly given.
-  In both cases, all the created files and directories will be committed
-  to the repo in a single commit with the text 'Workspace created.'.
+  created outside a git repo, then you have two alternatives:
 
-  If :commit is not passed in, then the repository needs to be initiated manually
-  with statements similar to this:
-    git init
-    git add .
-    git commit -m "Workspace created."
+  1. Pass in :commit and let the tool initiate the repository and commit the files
+     for you, using these commands:
+       git init
+       git add .
+       git commit -m "Workspace created."
+
+  2. Initiate the workspace manually by executing commands similar to the ones above.
 
   poly create workspace [name:NAME] top-ns:TOP-NAMESPACE [:commit] [branch:BRANCH]
     NAME = The name of the workspace to create, which must be given
            if created outside a git repository. Otherwise it's optional.
 
-    TOP-NAMESPACE = The top namespace, e.g. com.my.company.
+    TOP-NAMESPACE = The top namespace name.
 
-    BRANCH = The name of the branch, e.g. master. Default is main.
+    BRANCH = The name of the branch, or main if not given.
 
   Example:
-    poly create w name:myws top-ns:com.my.company
+    poly create w name:myws top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company :commit
-    poly create workspace name:myws top-ns:com.my.company branch:master
+    poly create workspace name:myws top-ns:com.my.company branch:master :commit
 ----
 
 [#deps]
@@ -400,10 +415,13 @@ poly help
 ----
   Shows dependencies.
 
-  poly deps [project:PROJECT] [brick:BRICK] 
+  poly deps [project:PROJECT] [brick:BRICK] [out:FILENAME]
+
     (omitted) = Shows workspace dependencies.
-    project   = Shows dependencies for specified project.
-    brick     = Shows dependencies for specified brick.
+    PROJECT   = Shows dependencies for the given project.
+    BRICK     = Shows dependencies for the given brick.
+    FILENAME  = The name of the text file to create, containing the
+                output from this command.
 
   To get help for a specific diagram, type: 
     poly help deps ARGS:
@@ -426,8 +444,10 @@ poly help
 ----
   Shows dependencies for selected brick.
 
-  poly deps brick:BRICK
-    BRICK = The name of the brick to show dependencies for.
+  poly deps brick:BRICK [out:FILENAME]
+    BRICK    = The name of the brick to show dependencies for.
+    FILENAME = The name of the text file to create, containing the
+               output from this command.
 
   used by  <  user  >  uses
   -------              ----
@@ -448,8 +468,10 @@ poly help
 ----
   Shows dependencies for selected project.
 
-  poly deps project:PROJEXT
+  poly deps project:PROJECT [out:FILENAME]
     PROJECT = The project name or alias to show dependencies for.
+    FILENAME = The name of the text file to create, containing the
+               output from this command.
 
          p      
          a  u  u
@@ -475,6 +497,7 @@ poly help
 
   Example:
     poly deps project:myproject
+    poly deps project:myproject out:myproject-deps.txt
 ----
 
 [#deps-workspace]
@@ -484,7 +507,9 @@ poly help
 ----
   Shows dependencies for the workspace.
 
-  poly deps
+  poly deps [out:FILENAME]
+    FILENAME = The name of the text file to create, containing the
+               output from this command.
 
          p      
          a  u  u
@@ -509,9 +534,11 @@ poly help
 ----
   Shows dependencies for selected brick and project.
 
-  poly deps project:PROJECT brick:BRICK
-    PROJECT = The project (name or alias) to show dependencies for.
-    BRICK   = The brick to show dependencies for.
+  poly deps project:PROJECT brick:BRICK [out:FILENAME]
+    PROJECT  = The project (name or alias) to show dependencies for.
+    BRICK    = The brick to show dependencies for.
+    FILENAME = The name of the text file to create, containing the
+               output from this command.
 
   used by  <  user  >  uses
   -------              ----
@@ -532,7 +559,7 @@ poly help
 ----
   Shows changed files since the most recent stable point in time.
 
-  poly diff [ARG]
+  poly diff [since:SINCE]
 
   If since:SINCE is passed in as an argument, the last stable point in time will be
   used depending on the value of SINCE (or the first commit if no match was found).
@@ -579,8 +606,11 @@ poly help
 ----
   Shows workspace information.
 
-  poly info [ARGS]
-    ARGS = :loc  -> Shows the number of lines of code for each brick and project.
+  poly info [:loc] [out:FILENAME]
+    :loc     = Shows the number of lines of code for each brick and project.
+
+    FILENAME = The name of the text file to create, containing the output from
+               this command.
 
   All the arguments used by the 'test' command can also be used as a way to see
   what tests will be executed.
@@ -795,7 +825,7 @@ poly help
   which is fine because they are only used from the development project.
 
   The x for the cl and dev columns says that the library is part of the src scope.
-  If a library is only used from the test scope, then it is marked with a 't'. A library
+  If a library is only used from the test scope, then it's marked with a 't'. A library
   used in the test scope, can either be specified directly by the project itself via
   :aliases > :test > :extra-deps or indirectly via included bricks in :deps > :local/root
   which will be picked up and used by the 'test' command.
@@ -911,8 +941,8 @@ poly help
   e.g. 'l' will select ':loc'. To distinguish between 'project:PROJECT' and
   ':project' we need to type ':p' to select ':project'.
 
-  If :all is passed in, show all options, including rarely used ones and those that
-  are only useful for maintainers of the poly tool itself.
+  If :all is passed in, all options will be available, including rarely used ones
+  and those that are only useful for maintainers of the poly tool itself.
 
   From the shell we also have access to these commands:
     switch-ws ARG  Switches to selected workspace.
@@ -1091,8 +1121,8 @@ poly help
            as setting color-mode:none and piping the output to a file.
 
     :latest-sha = if passed in, then settings:vcs:polylith:latest-sha will be set.
-                  If A branch is given, e.g., branch:master, then the latest sha will be
-                  retrieved from that branch.
+                  If A branch is given, e.g., branch:master, then the latest sha will
+                  be retrieved from that branch.
 
   Example:
     poly ws

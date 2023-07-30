@@ -15,7 +15,7 @@
 
 (def tool (if system/extended? "polyx" "poly"))
 
-(def date "2023-07-24")
+(def date "2023-07-30")
 
 (defn version
   ([]

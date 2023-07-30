@@ -1,7 +1,10 @@
   Shows workspace information.
 
-  poly info [ARGS]
-    ARGS = :loc  -> Shows the number of lines of code for each brick and project.
+  poly info [:loc] [out:FILENAME]
+    :loc     = Shows the number of lines of code for each brick and project.
+
+    FILENAME = The name of the text file to create, containing the output from
+               this command.
 
   All the arguments used by the 'test' command can also be used as a way to see
   what tests will be executed.
@@ -144,7 +147,7 @@
       --x  The brick is marked to be executed from this project.
 
     If :r or :resources is also passed in:
-      s---  The project contains a path to the 'src' directory, e.g.
+      s---  The project contains a path to the 'src' directory, e.g. 
             'components/user/src' (or is indirectly added by a :local/root).
       -r--  The project contains a path to the 'resources' directory, e.g.
             'components/user/resources' (or is indirectly added by a :local/root).

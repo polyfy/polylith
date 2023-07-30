@@ -5,8 +5,10 @@
 (defn help [cm]
   (str "  Shows dependencies for selected project.\n"
        "\n"
-       "  poly deps project:" (s/key "PROJEXT" cm) "\n"
+       "  poly deps project:" (s/key "PROJECT" cm) " [out:" (s/key "FILENAME" cm) "]\n"
        "    " (s/key "PROJECT" cm) " = The project name or alias to show dependencies for.\n"
+       "    " (s/key "FILENAME" cm) " = The name of the text file to create, containing the\n"
+       "               output from this command.\n"
        "\n"
        "         " (color/green cm "p      \n")
        "         " (color/green cm "a  u  u\n")
@@ -31,7 +33,8 @@
        "  statement in the brick.\n"
        "\n"
        "  Example:\n"
-       "    poly deps project:myproject"))
+       "    poly deps project:myproject\n"
+       "    poly deps project:myproject out:myproject-deps.txt"))
 
 (defn print-help [color-mode]
   (println (help color-mode)))

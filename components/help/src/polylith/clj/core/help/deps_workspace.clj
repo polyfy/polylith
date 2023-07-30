@@ -1,11 +1,13 @@
 (ns ^:no-doc polylith.clj.core.help.deps-workspace
-  (:require [polylith.clj.core.util.interface.color :as color]))
+  (:require [polylith.clj.core.help.shared :as s]
+            [polylith.clj.core.util.interface.color :as color]))
 
 (defn help [cm]
   (str "  Shows dependencies for the workspace.\n"
        "\n"
-       "  poly deps\n"
-       "\n"
+       "  poly deps [out:" (s/key "FILENAME" cm) "]\n"
+       "    " (s/key "FILENAME" cm) " = The name of the text file to create, containing the\n"
+       "               output from this command.\n"
        "         " (color/yellow cm "p      \n")
        "         " (color/yellow cm "a  u  u\n")
        "         " (color/yellow cm "y  s  t\n")

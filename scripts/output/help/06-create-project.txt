@@ -1,7 +1,11 @@
   Creates a project.
 
-  poly create project name:NAME
+  poly create project name:NAME [:git-add]
     NAME = The name of the project to create.
+
+    :git-add = If :vcs > :auto-add in workspace.edn is set to false,
+               then we can pass in this flag instead to explicitly add the
+               created files to git.
 
   Example:
     poly create p name:myproject

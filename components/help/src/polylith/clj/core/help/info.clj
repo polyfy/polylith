@@ -1,21 +1,22 @@
 (ns ^:no-doc polylith.clj.core.help.info
      (:require [polylith.clj.core.help.shared :as s]
                [polylith.clj.core.help.shared :as shared]
-               [polylith.clj.core.system.interface :as system]
                [polylith.clj.core.util.interface.color :as color]))
 
 (defn help-text [extended? cm]
   (str "  Shows workspace information.\n"
        "\n"
-       "  poly info [" (s/key "ARGS" cm) "]\n"
-       "    ARGS = " (s/key ":loc" cm) "  -> Shows the number of lines of code for each brick and project.\n"
+       "  poly info [" (s/key ":loc" cm) "] [out:" (s/key "FILENAME" cm) "]\n"
+       "    " (s/key ":loc" cm) "     = Shows the number of lines of code for each brick and project.\n"
+       "\n"
        (if extended?
-         (str "           out:" (s/key "FILENAME" cm) "  -> Creates a text or image file based on the output.\n"
-              "                            If " (s/key "FILENAME" cm) " ends with .txt, then the file will contain\n"
-              "                            the output as text. If FILENAME ends with .bmp, .wbmp,\n"
-              "                            .gif, .jpeg, .jpg, .png, .tif, or .tiff, then the file\n"
-              "                            will be generated as an image.\n")
-         "")
+         (str "    " (s/key "FILENAME" cm) " = Creates a text or image file based on the output.\n"
+              "               If " (s/key "FILENAME" cm) " ends with .txt, then the file will contain\n"
+              "               the output as text. If FILENAME ends with .bmp, .wbmp,\n"
+              "               .gif, .jpeg, .jpg, .png, .tif, or .tiff, then the file\n"
+              "               will be generated as an image.\n")
+         (str "    " (s/key "FILENAME" cm) " = The name of the text file to create, containing the output from\n"
+              "               this command.\n"))
        "\n"
        "  All the arguments used by the 'test' command can also be used as a way to see\n"
        "  what tests will be executed.\n"

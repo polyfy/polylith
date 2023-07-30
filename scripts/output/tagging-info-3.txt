@@ -1,4 +1,4 @@
-  stable since: e7ebe68              
+  stable since: e7ebe68 | v1.2.0     
                                      
   projects: 2   interfaces: 1        
   bases:    1   components: 1        
