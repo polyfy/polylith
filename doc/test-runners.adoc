@@ -1,25 +1,41 @@
 = Test Runners
 :toc:
 
-The _poly_ tool started to support test runners since version 0.2.15. There is a https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/components/clojure-test-test-runner/src/polylith/clj/core/clojure_test_test_runner/core.clj#L85-L99[default test runner] which uses Clojure's default testing framework to run the tests as an in-process test runner.
+The _poly_ tool started to support test runners since version 0.2.15.
+There is a https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/components/clojure-test-test-runner/src/polylith/clj/core/clojure_test_test_runner/core.clj#L85-L99[default test runner]
+which uses Clojure's default testing framework to run the tests as an in-process test runner.
 
-It's possible to create and use our own custom test runner(s) with the poly tool. There are two types of test runners; in-process and external. Polylith provides us with two protocols, _TestRunner_ and _ExternalTestRunner_. We can use them to easily plug our custom test runner(s) into the poly tool.
+It's possible to create and use our own custom test runner(s) with the poly tool.
+There are two types of test runners; in-process and external.
+Polylith provides us with two protocols, _TestRunner_ and _ExternalTestRunner_.
+We can use them to easily plug our custom test runner(s) into the poly tool.
 
 == In-Process Test Runner
 
-As you already learned, the poly tool can run our tests incrementally. It creates an isolated classloader for each project and runs our tests within that classloader. The idea is to speed up the execution time by running the tests in the same process with minimal overhead.
+As you already learned, the poly tool can run our tests incrementally.
+It creates an isolated classloader for each project and runs our tests within that classloader.
+The idea is to speed up the execution time by running the tests in the same process with minimal overhead.
 
-The default in-process test runner and custom in-process test runners use the isolated classloader approach we just described. The poly tool will figure out which bricks and projects are affected, calculate the classpath for each project, create an isolated classloader, and pass it to the test runner for execution.
+The default in-process test runner and custom in-process test runners use the isolated classloader approach we just described.
+The poly tool will figure out which bricks and projects are affected, calculate the classpath for each project,
+create an isolated classloader, and pass it to the test runner for execution.
 
 == External Test Runner
 
-The alternative to the in-process isolated classloader approach is to execute each project's tests in a separate external Java subprocess. The advantage of this approach is that you have complete control of the test execution, and the memory is released after each project. If you have issues with the in-process approach, then this type of test runner is the right way to go.
+The alternative to the in-process isolated classloader approach is to execute each project's tests in a separate external Java subprocess.
+The advantage of this approach is that you have complete control of the test execution,
+and the memory is released after each project.
+If you have issues with the in-process approach, then this type of test runner is the right way to go.
 
-An external test runner will use external Java subprocesses to run the tests. The poly tool will still figure out the changed bricks and projects and calculate the classpath for each project. However, the external test runner will create a runtime and run the tests. Another difference is that the poly tool will not run the setup and teardown functions for the tests.
+An external test runner will use external Java subprocesses to run the tests.
+The poly tool will still figure out the changed bricks and projects and calculate the classpath for each project.
+However, the external test runner will create a runtime and run the tests.
+Another difference is that the poly tool will not run the setup and teardown functions for the tests.
 
 [Note]
 ====
-NOTE: The external test runner must run setup and teardown functions within the external process it creates. The poly tool will not run them for external test runners.
+NOTE: The external test runner must run setup and teardown functions within the external process it creates.
+The poly tool will not run them for external test runners.
 ====
 
 == In-process vs. External Test Runner
@@ -38,7 +54,9 @@ NOTE: The external test runner must run setup and teardown functions within the 
 
 == TestRunner Protocol
 
-You can find the _TestRunner_ protocol https://github.com/polyfy/polylith/blob/master/components/test-runner-contract/src/polylith/clj/core/test_runner_contract/interface.clj#L3[here] in the polylith project.
+You can find the _TestRunner_ protocol
+https://github.com/polyfy/polylith/blob/master/components/test-runner-contract/src/polylith/clj/core/test_runner_contract/interface.clj#L3[here]
+in the polylith project.
 
 [source,clojure]
 ----
@@ -158,7 +176,9 @@ You can find the _TestRunner_ protocol https://github.com/polyfy/polylith/blob/m
 
 == ExternalTestRunnerProtocol
 
-You can find the _ExternalTestRunner_ protocol https://github.com/polyfy/polylith/blob/master/components/test-runner-contract/src/polylith/clj/core/test_runner_contract/interface.clj#L87[here] in the polylith project.
+You can find the _ExternalTestRunner_ protocol
+https://github.com/polyfy/polylith/blob/master/components/test-runner-contract/src/polylith/clj/core/test_runner_contract/interface.clj#L87[here]
+in the polylith project.
 
 [source,clojure]
 ----
@@ -185,7 +205,9 @@ You can find the _ExternalTestRunner_ protocol https://github.com/polyfy/polylit
 
 == Implement Your Own Test Runner
 
-To implement your custom test runner, create a single-arity constructor function that reifies the _TestRunner_ protocol. Optionally, you can also reify the _ExternalTestRunner_ protocol if you want to make an external test runner.
+To implement your custom test runner,
+create a single-arity constructor function that reifies the _TestRunner_ protocol.
+Optionally, you can also reify the _ExternalTestRunner_ protocol if you want to make an external test runner.
 
 [source,clojure]
 ----
@@ -211,7 +233,8 @@ To implement your custom test runner, create a single-arity constructor function
     (external-process-namespace [this] ...)))
 ----
 
-The _poly_ tool will call your constructor function to get an instance of your test runner. The constructor function will receive a map as the single argument. This map contains the following:
+The _poly_ tool will call your constructor function to get an instance of your test runner.
+The constructor function will receive a map as the single argument. This map contains the following:
 
 |===
 | Map key | Description
@@ -226,7 +249,8 @@ The _poly_ tool will call your constructor function to get an instance of your t
 
 == Use a Test Runner
 
-To use a test runner in your workspace, you have to add it to the classpath that you are running the poly tool to run the tests. An ideal place to do it is the _:poly_ alias in your workspace _deps.edn_ file:
+To use a test runner in your workspace, you have to add it to the classpath that you are running the poly tool to run the tests.
+An ideal place to do it is the _:poly_ alias in your workspace _deps.edn_ file:
 
 [source,clojure]
 ----
@@ -244,10 +268,15 @@ To use a test runner in your workspace, you have to add it to the classpath that
 
 [Note]
 ====
-NOTE: The example above assumes that you use a test runner from a GitHub repository as a git dependency. You can also have your custom test runner within the same Polylith workspace and depend on it via _:local/root_.
+NOTE: The example above assumes that you use a test runner from a GitHub repository as a git dependency.
+You can also have your custom test runner within the same Polylith workspace and depend on it via _:local/root_.
 ====
 
-Once you have your test runner in the classpath, you can add it to your workspace configuration so that the poly tool can use it instead of the default test runner. You can add global test runners, which the poly tool will use for every project unless the project-specific test configuration overrides it. To add a global test configuration, add a map with the _:test_ key in your _workspace.edn_ file:
+Once you have your test runner in the classpath,
+you can add it to your workspace configuration so that the poly tool can use it instead of the default test runner.
+You can add global test runners,
+which the poly tool will use for every project unless the project-specific test configuration overrides it.
+To add a global test configuration, add a map with the _:test_ key in your _workspace.edn_ file:
 
 [source,clojure]
 ----
@@ -266,7 +295,9 @@ Once you have your test runner in the classpath, you can add it to your workspac
 NOTE: You can specify more than one test runner. In that case, all the test runners will run for the project one after another.
 ====
 
-You can also define test runners per project. The test runners specified for the project will be used instead of the global test runner if any. You can add a _:test_ key in the project's configuration to select project-specific test runners:
+You can also define test runners per project.
+The test runners specified for the project will be used instead of the global test runner if any.
+You can add a _:test_ key in the project's configuration to select project-specific test runners:
 
 [source,clojure]
 ----
@@ -291,7 +322,10 @@ You can also define test runners per project. The test runners specified for the
 
 == Test Runners from the Community
 
-The default test runner works fine in most cases and is simple and fast. In some circumstances, using the same classloader for all your tests in the workspace doesn't give enough isolation. In this case, the External Test Runner is a good choice. If you switch to the Kaocha Test Runner, you will get more options in how to run your tests.
+The default test runner works fine in most cases and is simple and fast.
+In some circumstances, using the same classloader for all your tests in the workspace doesn't give enough isolation.
+In this case, the External Test Runner is a good choice.
+If you switch to the Kaocha Test Runner, you will get more options in how to run your tests.
 
 == Kaocha Test Runner
 
@@ -306,7 +340,8 @@ A simple https://github.com/lambdaisland/kaocha/[Kaocha]-based test runner imple
 
 == External Test Runner
 
-An external (subprocess) test runner for Polylith. Avoids classloader, daemon thread, and memory usage issues by running tests in a subprocess with only Clojure itself as a dependency.
+An external (subprocess) test runner for Polylith. Avoids classloader, daemon thread, and memory usage issues
+by running tests in a subprocess with only Clojure itself as a dependency.
 
 *Repository*: https://github.com/seancorfield/polylith-external-test-runner[seancorfield/polylith-external-test-runner]
 

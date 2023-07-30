@@ -2,7 +2,8 @@
 
 If you are looking for library dependencies, then visit the #xref:libraries.adoc[Libraries] section.
 
-To explain dependencies, we will use the https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[RealWorld example app].
+To explain dependencies, we will use the
+https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[RealWorld example app].
 
 Start by cloning the project by executing these commands from outside the example workspace, e.g. the parent folder of our example workspace:
 
@@ -19,14 +20,17 @@ git clone git@github.com:furkan3ayraktar/clojure-polylith-realworld-example-app.
 cd clojure-polylith-realworld-example-app
 ----
 
-Before we continue, it may be worth mentioning that most commands, except the xref:commands.adoc#test[test] and xref:commands.adoc#create[create] commands, can be executed from other workspaces by giving _ws-dir_, e.g.:
+Before we continue, it may be worth mentioning that most commands,
+except the xref:commands.adoc#test[test] and xref:commands.adoc#create[create] commands,
+can be executed from other workspaces by giving _ws-dir_, e.g.:
 
 [source,shell]
 ----
 poly check ws-dir:../example
 ----
 
-Another way of giving the _ws-dir_ is to pass in _::_ which will set it to the first parent directory that contains a _workspace.edn_ file, e.g.:
+Another way of giving the _ws-dir_ is to pass in _::_
+which will set it to the first parent directory that contains a _workspace.edn_ file, e.g.:
 
 [source,shell]
 ----
@@ -62,9 +66,13 @@ poly deps
 
 image::images/dependencies/deps.png[alt=deps,width=400]
 
-This lists all dependencies in the workspace. Notice the yellow color in the headers. They are yellow because components and bases normally only depend on interfaces. Each _x_ is a _src_ dependency, while a _t_ means it only exists in the _test_ context.
+This lists all dependencies in the workspace. Notice the yellow color in the headers.
+They are yellow because components and bases normally only depend on interfaces.
+Each _x_ is a _src_ dependency, while a _t_ means it only exists in the _test_ context.
 
-If we read the diagram horizontally, we can see that the _article_ component uses the _database_, _profile_, and _spec_ interfaces. If we read it vertically, we can see that the _article_ is used by the _comment_ and _rest-api_ bricks.
+If we read the diagram horizontally,
+we can see that the _article_ component uses the _database_, _profile_, and _spec_ interfaces.
+If we read it vertically, we can see that the _article_ is used by the _comment_ and _rest-api_ bricks.
 
 This is also what is shown if we specify article as brick:
 
@@ -84,7 +92,10 @@ poly deps project:rb
 
 image::images/dependencies/deps-project.png[alt=deps project:rb,width=350]
 
-Now, all the headers are green, and that is because all the implementing components are known within the selected project. The _+_ signs mark indirect dependencies, while _-_ signs mark indirect test dependencies (not present here). An example is the _article_ component that uses _log_ indirectly: _article_ > _database_ > _log_.
+Now, all the headers are green,
+and that is because all the implementing components are known within the selected project.
+The _+_ signs mark indirect dependencies, while _-_ signs mark indirect test dependencies (not present here).
+An example is the _article_ component that uses _log_ indirectly: _article_ > _database_ > _log_.
 
 [#compact-view]
 If we have many libraries, they can be viewed in a more compact format:
@@ -109,12 +120,23 @@ image::images/dependencies/deps-brick-project.png[alt=deps project:rb brick:arti
 
 == Depend on namespaces
 
-From the _:src_ context, components can only depend on interfaces, but bases can depend on both component interfaces and any namespace in a brick, e.g. another base (if you have more than one base in the project).
+From the _:src_ context, components can only depend on interfaces,
+but bases can depend on both component interfaces and any namespace in a brick,
+e.g. another base (if you have more than one base in the project).
 
-Components are allowed to access other components test code from its _:test_ context. Bases are allowed to access any test code in components and bases. Accessing other bases' test code from a base is fine, but accessing other components' test code has the disadvantage that it will make it more difficult to swap out a component for another, because it may break code that depends on that test code.
+Components are allowed to access other components test code from its _:test_ context.
+Bases are allowed to access any test code in components and bases.
+Accessing other bases' test code from a base is fine,
+but accessing other components' test code has the disadvantage
+that it will make it more difficult to swap out a component for another,
+because it may break code that depends on that test code.
 
-A better strategy is to create a separate test-helper component, put the shared code there, and depend on that component's interface.
+A better strategy is to create a separate test-helper component,
+put the shared code there, and depend on that component's interface.
 
 == Circular dependencies
 
-The poly tool is checking for circular dependencies. If we have a dependency chain like A > B > A, or A > B > C > A, then we will get an "Error 104 - Circular dependencies". To read more about this and other errors, we can execute `poly help check`.
+The poly tool is checking for circular dependencies.
+If we have a dependency chain like A > B > A, or A > B > C > A,
+then we will get an "Error 104 - Circular dependencies".
+To read more about this and other errors, we can execute the xref:commands.adoc#check[check] command.

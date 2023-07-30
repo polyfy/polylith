@@ -12,7 +12,8 @@ poly info
 
 image::images/git/info.png[alt=info,width=400]
 
-At the top we have the line _stable since: c91fdad_ (you most likely have another git SHA/hash). To explain what this is, let's take it from the beginning.
+At the top we have the line _stable since: c91fdad_ (you most likely have another git SHA/hash).
+To explain what this is, let's take it from the beginning.
 
 If we pass in :commit when a Polylith workspace is created these git commands are executed:
 
@@ -23,7 +24,8 @@ git add .
 git commit -m "Workspace created."
 ----
 
-If we don't pass in _:commit_ to the `create workspace` command (and _:auto-add_ is not set to _true_) then we have to perform these (or similar) commands manually.
+If we don't pass in _:commit_ to the `create workspace` command (and _:auto-add_ is not set to _true_)
+then we have to perform these (or similar) commands manually.
 
 If we run `git log` from the workspace root, it returns something like this:
 
@@ -36,9 +38,14 @@ Date:   Thu Sep 3 06:11:23 2020 +0200
     Workspace created.
 ----
 
-This is the first and only commit of this repository so far. This is also the first _stable point in time_ of this workspace which the tool uses when it calculates what changes have been made (up till now). Notice that the first letters of the hash correspond to _stable since: c91fdad_ and this is because it refers to this SHA-1 hash in git.
+This is the first and only commit of this repository so far.
+This is also the first _stable point in time_ of this workspace
+which the tool uses when it calculates what changes have been made (up till now).
+Notice that the first letters of the hash correspond to _stable since: c91fdad_
+and this is because it refers to this SHA-1 hash in git.
 
-The _command-line_ and _development_ projects, and the _user_ and _cli_ bricks are all marked with an asterisk, _*_. The way the tool calculates changes is to ask _git_ by running this command internally:
+The _command-line_ and _development_ projects, and the _user_ and _cli_ bricks are all marked with an asterisk, _*_.
+The way the tool calculates changes is to ask _git_ by running this command internally:
 
 [source,shell]
 ----
@@ -72,9 +79,12 @@ projects/command-line/deps.edn
 workspace.edn
 ----
 
-Here we have the answer to where the _*_ signs come from. The paths that start with _projects/command-line/_, _development/_, _components/user/_ and _bases/cli/_ makes the tool understand that _command-line_, _development_, _user_ and _cli_ are changed.
+Here we have the answer to where the _*_ signs come from.
+The paths that start with _projects/command-line/_, _development/_, _components/user/_ and _bases/cli/_
+makes the tool understand that _command-line_, _development_, _user_ and _cli_ are changed.
 
-When we created the workspace, a https://git-scm.com/docs/gitignore[.gitignore] file was also created for us. Now is a good time to add more rows here if needed:
+When we created the workspace, a https://git-scm.com/docs/gitignore[.gitignore] file was also created for us.
+Now is a good time to add more rows here if needed:
 
 [source,shell]
 ----
@@ -103,6 +113,11 @@ e7ebe683a775ec28b7c2b5d77e01e79d48149d13 (HEAD -> main) Created the user and cli
 c91fdad4a34927d9aacfe4b04ea2f304f3303282 Workspace created.
 ----
 
-If we run the _info_ command again, it will return the same result as before, and the reason is that we haven't told git to move the _stable point in time_ to our second commit.
+If we run the _info_ command again, it will return the same result as before,
+and the reason is that we haven't told git to move the _stable point in time_ to our second commit.
 
-We said that the _diff_ command returns the same result as _git diff SHA --name-only_. This is normally true, except for the case when the workspace lives inside a git repo. In that case, the _git diff_ command will also return the workspace directory in the path (which is stripped away by the _poly_ tool). This directory can be shown by running the poly _ws get:ws-local-dir_ command.
+We said that the _diff_ command returns the same result as _git diff SHA --name-only_.
+This is normally true, except for the case when the workspace lives inside a git repo.
+In that case, the _git diff_ command will also return the workspace directory in the path
+(which is stripped away by the _poly_ tool).
+This directory can be shown by running the poly _ws get:ws-local-dir_ command.

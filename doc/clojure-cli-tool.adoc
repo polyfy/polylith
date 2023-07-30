@@ -1,6 +1,9 @@
 = Clojure CLI Tool
 
-The _poly_ tool uses its own syntax when passing in parameters. When using the _poly_ command as a Clojure CLI Tool (see xref:install.adoc#_install_as_clojure_cli_tool[Install using Clojure CLI]) we instead use the standard way of passing in arguments as pairs.
+The _poly_ tool uses its own syntax when passing in parameters.
+When using the _poly_ command as a Clojure CLI Tool
+(see xref:install.adoc#_install_as_clojure_cli_tool[Install using Clojure CLI])
+we instead use the standard way of passing in arguments as pairs.
 
 The "native" _poly_ tool has the following argument structure:
 
@@ -28,7 +31,8 @@ clojure -Tpoly info project '"example"'
 clojure -Tpoly info project example
 ----
 
-Both _project_ and _profile_ exist in singular form, taking a symbol or string, and in a plural form, taking a vector of symbols or strings:
+Both _project_ and _profile_ exist in singular form, taking a symbol or string,
+and in a plural form, taking a vector of symbols or strings:
 
 [source,shell]
 ----
@@ -38,7 +42,9 @@ clojure -Tpoly info projects '[example cli]'
 clojure -Tpoly info profile remote
 ----
 
-Some poly commands treat _:brick_ and _:project_ as flag arguments and other expect _brick:name_ or _project:name_ as named argumens. When using "exec args", the meaning is determined by whether the value is boolean or not:
+Some poly commands treat _:brick_ and _:project_ as flag arguments
+and other expect _brick:name_ or _project:name_ as named argumens.
+When using "exec args", the meaning is determined by whether the value is boolean or not:
 
 [source,shell]
 ----
@@ -62,7 +68,8 @@ clojure -Tpoly create w next-gen top-ns com.my-company
 clojure -Tpoly create entity workspace name next-gen top-ns com.my-company
 ----
 
-Finally, for some commands, more than one "entity" can be provided for the entity exec argument, those can be `:`-separated (in a string), or use _entities_ and a vector (which can have symbols instead of strings):
+Finally, for some commands, more than one "entity" can be provided for the entity exec argument,
+those can be `:`-separated (in a string), or use _entities_ and a vector (which can have symbols instead of strings):
 
 [source,shell]
 ----

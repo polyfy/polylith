@@ -14,4 +14,5 @@ brew upgrade poly
 brew upgrade polyfy/polylith/poly
 ----
 
-To upgrade on Windows and Linux, download the https://github.com/polyfy/polylith/releases/latest[latest release] and replace the poly jar with it (e.g. _poly-0.2.18.jar_).
+To upgrade on Windows and Linux, download the https://github.com/polyfy/polylith/releases/latest[latest release]
+and replace the poly jar with it (e.g. _poly-0.2.18.jar_).

@@ -9,9 +9,12 @@ When we created the example workspace, the file _~/.config/polylith/config.edn_ 
  :empty-character "·"}
 ----
 
-For Windows systems the _color-mode_ is set to "none" and for all other systems, "dark" will be used as default. Valid values are: "none", "light" and "dark".
+For Windows systems the _color-mode_ is set to "none" and for all other systems,
+"dark" will be used as default. Valid values are: "none", "light" and "dark".
 
-In this documentation we have used the _dark_ color schema, but we can switch to _light_ by giving the _color-mode_ parameter (or by updating it in the xref:configuration.adoc#color-mode[user config]):
+In this documentation we have used the _dark_ color schema,
+but we can switch to _light_ by giving the _color-mode_ parameter
+(or by updating it in the xref:configuration.adoc#color-mode[user config]):
 
 [source,clojure]
 ----
@@ -20,7 +23,10 @@ poly info color-mode:light
 
 image::images/misc/info-light.png[width=400]
 
-...everything suddenly looks much brighter! The only difference between _light_ and _dark_ is that they use different https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/components/util/src/polylith/clj/core/util/colors.clj#L3-L13[codes] for grey.
+...everything suddenly looks much brighter!
+The only difference between _light_ and _dark_ is that they use different
+https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/components/util/src/polylith/clj/core/util/colors.clj#L3-L13[codes]
+for grey.
 
 If we pass in _:none_:
 
@@ -73,4 +79,6 @@ If you want to use the same colors in your terminal, here they are:
 | black a|image::images/misc/black.png[] | 24242b
 |===
 
-If the colors look familiar to you, it's because they are more or less stolen from the https://github.com/Misophistful/borealis-cursive-theme[Borealis] color schema! This color schema gives a really pleasant user experience when used from the text editor / IDE.
+If the colors look familiar to you, it's because they are more or less stolen from the
+https://github.com/Misophistful/borealis-cursive-theme[Borealis] color schema!
+This color schema gives a really pleasant user experience when used from the text editor / IDE.

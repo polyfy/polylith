@@ -6,16 +6,22 @@ Otherwise, let’s jump in and start making our own very basic Polylith xref:wor
 
 == RealWorld
 
-https://github.com/furkan3ayraktar[Furkan Bayraktar] has made a full-blown https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[RealWorld] web application, which can be compared with https://github.com/gothinkster/realworld[implementations made in other languages].
+https://github.com/furkan3ayraktar[Furkan Bayraktar] has made a full-blown
+https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[RealWorld] web application,
+which can be compared with https://github.com/gothinkster/realworld[implementations made in other languages].
 
 == Usermanager
 
-https://github.com/seancorfield[Sean Corfield] has made a full-blown https://github.com/seancorfield/usermanager-example/tree/polylith[usermanager] web application, which can be compared with non-Polylith systems living in other branches of the repository.
+https://github.com/seancorfield[Sean Corfield] has made a full-blown
+https://github.com/seancorfield/usermanager-example/tree/polylith[usermanager] web application,
+which can be compared with non-Polylith systems living in other branches of the repository.
 
 == Polylith
 
-The Polylith https://github.com/polyfy/polylith[codebase] itself is structured as a Polylith workspace, and yes, we are https://en.wikipedia.org/wiki/Eating_your_own_dog_food[dogfooding] and it tastes delicious!
+The Polylith https://github.com/polyfy/polylith[codebase] itself is structured as a Polylith workspace,
+and yes, we are https://en.wikipedia.org/wiki/Eating_your_own_dog_food[dogfooding] and it tastes delicious!
 
 == Game of life
 
-https://github.com/tengstrand[Joakim Tengstrand] has made a small Game of life https://github.com/tengstrand/game-of-life[example app] to show how a tiny Polylith system could look like.
+https://github.com/tengstrand[Joakim Tengstrand] has made a small Game of life
+https://github.com/tengstrand/game-of-life[example app] to show how a tiny Polylith system could look like.

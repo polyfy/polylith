@@ -7,11 +7,17 @@ There is a way to view the workspace structure, and that is to execute the ws co
 poly ws
 ----
 
-This will view the whole workspace as plain data. This data structure is produced by the tool itself and is used by all the commands internally. The commands only operate on this hash map and are not performing any io operations, such as touching the disk or executing git commands. Instead, everything is prepared so that all commands can be executed in memory.
+This will view the whole workspace as plain data.
+This data structure is produced by the tool itself and is used by all the commands internally.
+The commands only operate on this hash map and are not performing any io operations,
+such as touching the disk or executing git commands.
+Instead, everything is prepared so that all commands can be executed in memory.
 
-This will not only simplify the code of the tool itself but also gives us, as a user of the tool, a way to explore the complete state of the workspace (or other people's workspaces).
+This will not only simplify the code of the tool itself but also gives us, as a user of the tool,
+a way to explore the complete state of the workspace (or other people's workspaces).
 
-We can limit the "query" by passing in get, here against the https://github.com/polyfy/polylith/tree/master/examples/doc-example[doc-example], e.g.:
+We can limit the "query" by passing in get, here against the
+https://github.com/polyfy/polylith/tree/master/examples/doc-example[doc-example], e.g.:
 
 [source,shell]
 ----
@@ -160,7 +166,8 @@ poly ws get:components:user
  :type "component"}
 ----
 
-Earlier, we executed the libs command to show library usage. The same information is also stored in the workspace structure, e.g.:
+Earlier, we executed the libs command to show library usage.
+The same information is also stored in the workspace structure, e.g.:
 
 [source,shell]
 ----
@@ -189,14 +196,18 @@ An alternative way to reach the same result is to turn off the coloring and pipe
 poly ws color-mode:none > ws.edn
 ----
 
-This can be used to share the workspace structure with others without sending them the whole workspace including the code. To load this workspace, they have to give the _ws-file_ parameter, e.g.:
+This can be used to share the workspace structure with others without sending them the whole workspace including the code.
+To load this workspace, they have to give the _ws-file_ parameter, e.g.:
 
 [source,shell]
 ----
 poly info ws-file:ws.edn
 ----
 
-This will give the exact same output as if we execute `poly info` on the machine that created _ws.edn_. All commands except _test_ and _create_ can be executed when _ws-file_ or _ws-dir_ is given. If we run commands in a shell, then _switch-ws file:ws.edn_ will add _ws-file:ws.edn_ to all subsequent commands to get the same result.
+This will give the exact same output as if we execute `poly info` on the machine that created _ws.edn_.
+All commands except _test_ and _create_ can be executed when _ws-file_ or _ws-dir_ is given.
+If we run commands in a shell,
+then _switch-ws file:ws.edn_ will add _ws-file:ws.edn_ to all subsequent commands to get the same result.
 
 Here is an example where we inspect the arguments used to produce the file:
 
