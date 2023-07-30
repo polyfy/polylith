@@ -68,7 +68,6 @@ Let's go through the list.
 === 1. Create the user-api base
 
 - Create the base.
-- Create the base.
 - Add the slacker library to the base.
 - Add the base to ./deps.edn.
 - Implement the server for user-api:
@@ -249,7 +248,7 @@ and only communicates via direct function calls without hitting the wire.
 
 For the changes to take affect we now need to restart the REPL. Normally we don't have to do that, but when adding profiles it's necessary.
 
-== 3. Switch from user to user-remote in deps.edn for the command-line project
+=== 3. Switch from user to user-remote in deps.edn for the command-line project
 
 - Replace user with user-remote for the command-line project.
 - Add the log4j library to deps.edn for command-line.
