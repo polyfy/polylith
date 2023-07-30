@@ -1,4 +1,5 @@
 = Testing
+:toc:
 
 Polylith encourages a test-centric approach when working with code.
 New brick tests are easy to write,
@@ -750,6 +751,6 @@ poly test :verbose
 
 == Long living shell sessions
 
-If you let the same shell session live for a long time you may get classloader errors when running the
+If you let the same xref:shell[shell] session live for a long time, you may get _classloader_ errors when running the
 xref:testing.adoc[test] command. The solution is to restart the shell or by running the tests outside of the shell,
 e.g. `poly test`. Another solution can be to switch to a more isolated xref:test-runners.adoc[test runner].

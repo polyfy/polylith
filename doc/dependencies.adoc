@@ -1,6 +1,6 @@
 = Dependencies
 
-If you are looking for library dependencies, then visit the #xref:libraries.adoc[Libraries] section.
+If you are looking for library dependencies, then visit the xref:libraries.adoc[Libraries] section.
 
 To explain dependencies, we will use the
 https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[RealWorld example app].
@@ -118,21 +118,33 @@ poly deps project:rb brick:article
 
 image::images/dependencies/deps-brick-project.png[alt=deps project:rb brick:article,width=350]
 
-== Depend on namespaces
+== Namespace access restrictions
 
-From the _:src_ context, components can only depend on interfaces,
-but bases can depend on both component interfaces and any namespace in a brick,
-e.g. another base (if you have more than one base in the project).
+In Polylith there are restrictions on how we can access namespaces of other bricks:
 
-Components are allowed to access other components test code from its _:test_ context.
-Bases are allowed to access any test code in components and bases.
-Accessing other bases' test code from a base is fine,
-but accessing other components' test code has the disadvantage
-that it will make it more difficult to swap out a component for another,
-because it may break code that depends on that test code.
+|===
+| Entity | Restrictions from _:src_ context | Restrictions from _:test_ context
 
+| Component | Can only access xref:interface.adoc[interface] namespaces, but no other _brick_ namespace. |
+Can access any _brick_ namespace.
+| Base | Can access xref:interface.adoc[interface] namespaces, but no other component namespaces.
+Can access any _base_ namespace. | Can access any _brick_ namespace.
+| Project | Can access any namespace. | Can access any namespace.
+|===
+
+Allowing deployable projects to have their own _src_ directory and put code there is discouraged.
+One reason is that it violates the whole LEGO idea,
+and the other is that the poly tool doesn't force us to only use interfaces (this may change in the future).
+An exception could be if we want to migrate services to Polylith,
+then the code can start in the project and then gradually move out to bricks.
+
+[Note]
+====
+WARNING: Allowing other bricks to access a component's test code will make it harder to replace that component,
+as the new component must implement the same set of test functions. +
 A better strategy is to create a separate test-helper component,
 put the shared code there, and depend on that component's interface.
+====
 
 == Circular dependencies
 
