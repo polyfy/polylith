@@ -5,7 +5,7 @@
 (defn help-text [cm]
   (str "  Validates the workspace.\n"
        "\n"
-       "  poly check [:dev]\n"
+       "  poly check [" (s/key ":dev" cm) "]\n"
        "\n"
        "  Prints 'OK' and returns 0 if no errors were found.\n"
        "  If errors or warnings were found, show messages and return the error code,\n"
@@ -89,7 +89,7 @@
        "\n"
        "  " (color/warning cm "Warning 207") " - Unnecessary components were found in project.\n"
        "    Triggered if components were defined in a project that are not used by any of\n"
-       "    its bricks. Development is only checked if :dev is passed in and is only performed\n"
+       "    its bricks. Development is only checked if " (s/key ":dev" cm) " is passed in and is only performed\n"
        "    by the check command (not test and info). To ignore this warning, put the component\n"
        "    name in the " (s/key ":necessary" cm) " vector for a project in " (s/key ":projects" cm) " in ./workspace.edn.\n"
        "    See an example here: https://github.com/polyfy/polylith/blob/master/workspace.edn"))
