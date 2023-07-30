@@ -12,17 +12,17 @@
        "\n"
        "    (omitted) = Shows workspace dependencies.\n"
        "\n"
-       "    " (s/key "PROJECT" cm) "   = Shows dependencies for the given project.\n"
+       "    " (s/key "PROJECT" cm) " = Shows dependencies for the given project.\n"
        "\n"
-       "    " (s/key "BRICK" cm) "     = Shows dependencies for the given brick.\n"
+       "    " (s/key "BRICK" cm) " = Shows dependencies for the given brick.\n"
        "\n"
        (if extended?
          (str "    " (s/key "FILENAME" cm) "  = The name of the text or image file to create, containing the\n"
               "                output from this command. If " (s/key "FILENAME" cm) " ends with .bmp, .wbmp,\n"
               "                .gif, .jpeg, .jpg, .png, .tif, or .tiff, then the file will\n"
               "                be generated as an image, otherwise as text.\n")
-         (str "    " (s/key "FILENAME" cm) "  = The name of the text file to create, containing the\n"
-              "                output from this command.\n"))
+         (str "    " (s/key "FILENAME" cm) " = The name of the text file to create, containing the\n"
+              "               output from this command.\n"))
        "\n"
        "  To get help for a specific diagram, type: \n"
        "    poly help deps " (s/key "ARGS" cm) ":\n"

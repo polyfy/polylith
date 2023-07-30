@@ -4,12 +4,12 @@
 
     (omitted) = Shows workspace dependencies.
 
-    PROJECT   = Shows dependencies for the given project.
+    PROJECT = Shows dependencies for the given project.
 
-    BRICK     = Shows dependencies for the given brick.
+    BRICK = Shows dependencies for the given brick.
 
-    FILENAME  = The name of the text file to create, containing the
-                output from this command.
+    FILENAME = The name of the text file to create, containing the
+               output from this command.
 
   To get help for a specific diagram, type: 
     poly help deps ARGS:
