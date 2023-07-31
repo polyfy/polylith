@@ -1,5 +1,6 @@
 = CI Deployment
 :toc:
+:toclevels: 4
 
 The polylith repository has a continuous integration and deployment setup via https://circleci.com[CircleCI].
 The setup has two workflows, one for regular validation and testing, and another one for deployments.
