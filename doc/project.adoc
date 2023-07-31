@@ -109,7 +109,6 @@ The _test_ command will figure out what tests need to be executed.
 If you have reasons to run the tests for each project separately using _tools.deps_,
 then you also have to specify the test paths (as we did for the _development_ project).
 
-[Note]
 ====
 NOTE: All the project _deps.edn_ config files under the _projects_ directory specifies what bricks to include
 by giving a list of _:local/root_ mappings.
