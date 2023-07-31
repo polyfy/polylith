@@ -138,6 +138,7 @@ and the other is that the poly tool doesn't force us to only use interfaces (thi
 An exception could be if we want to migrate services to Polylith,
 then the code can start in the project and then gradually move out to bricks.
 
+[Note]
 ====
 WARNING: Allowing other bricks to access a component's test code will make it harder to replace that component,
 as the new component must implement the same set of test functions. +
