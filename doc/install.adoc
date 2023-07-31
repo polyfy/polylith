@@ -1,7 +1,7 @@
 = Install
 :toc:
 
-There are several ways to install the poly tool, which determines how the _poly_ tool will be executed:
+There are several ways to install the _poly_ tool, which determines how the _poly_ tool will be executed:
 
 1. As a stand-alone command line tool, executed as a Java program, e.g. `poly help`:
 - The _poly_ tool can be executed from any directory.
@@ -9,7 +9,7 @@ There are several ways to install the poly tool, which determines how the _poly_
 
 2. By the https://clojure.org/guides/deps_and_cli[Clojure CLI], e.g. `clojure -M:poly help`:
 - The _poly_ tool can only be executed from inside a Polylith xref:workspace.adoc[workspace] directory (it uses the _:poly_ alias in _deps.edn_).
-- Which version of the poly tool to use can easily be selected by changing the SHA in _./deps.edn_.
+- Which version of the _poly_ tool to use can easily be selected by changing the SHA in _./deps.edn_.
 
 3. As a https://clojure.org/reference/deps_and_cli#tool_install[Clojure CLI tool], e.g. `clojure -Tpoly help`:
 - The _poly_ tool can be executed from any directory.
@@ -45,7 +45,7 @@ Verify the installation by executing `poly help`.
 
 == Install on Linux
 
-To use the poly tool and to get access to all the features in tools.deps, make sure you have
+To use the _poly_ tool and to get access to all the features in tools.deps, make sure you have
 https://clojure.org/guides/getting_started[CLI tools] and https://git-scm.com/book/en/v2/Getting-Started-Installing-Git[git] installed.
 If you install git for the first time, don't forget to set the
 https://docs.github.com/en/github/using-git/setting-your-username-in-git[user] name and email.
@@ -173,7 +173,7 @@ clojure -Ttools install io.github.polyfy/polylith '{:git/sha "5f74c8b8675dbb0912
 NOTE: do not use the _install-latest_ option to `clojure -Ttools` as it does not support _:deps/root_.
 ====
 
-Then we can invoke the poly tool using the CLI directly:
+Then we can invoke the _poly_ tool using the CLI directly:
 
 [source,shell]
 ----
@@ -273,7 +273,7 @@ and _create workspace_ commands will work.
 [#polylith-as-a-library]
 
 If we are building tooling around Polylith, then we can use the https://clojars.org/polylith/clj-poly/versions[clj-poly]
-library to get access to some of the funtionality that is built in to the poly tool itself.
+library to get access to some of the funtionality that is built in to the _poly_ tool itself.
 
 It exposes two interfaces:
 

@@ -15,7 +15,7 @@ To support this we need to add tag patterns for the projects we want to build, e
 ----
 
 When our build is triggered, e.g. via a webhook,
-we can ask the poly tool what projects have changed since the last successful build:
+we can ask the _poly_ tool what projects have changed since the last successful build:
 
 [source,clojure]
 ----

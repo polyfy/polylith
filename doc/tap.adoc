@@ -1,6 +1,6 @@
 = Tap
 
-The _tap_ command is mainly for poly tool development for now,
+The _tap_ command is mainly for _poly_ tool development for now,
 but might be interesting for those who like to peek under the covers and understand how things work.
 
 We can open a https://github.com/djblue/portal[portal] window by passing in _:tap_ when starting a shell,
@@ -14,6 +14,6 @@ https://app.gitbook.com/o/-LAhrWK-mSHRqiTNUTDP/s/-Mj2L4VeP3frziYOoQWC/~/changes/
 image::images/tap/tap-workspace.png[alt=browse workspace,width=400]
 
 The portal window outputs data from https://clojuredocs.org/clojure.core/tap%3E[tap>]
-statements produced by the poly tool itself.
+statements produced by the _poly_ tool itself.
 
 Let's continue by looking at tools.deps.

@@ -104,7 +104,7 @@ This image can be used in our documentation to get an overview of the workspace.
 NOTE: There are issues reported for Apple silicon when using
 https://en.wikipedia.org/wiki/Abstract_Window_Toolkit[Java AWT]
 (used by the underlying https://github.com/Clojure2D/clojure2d[clojure2d] library)
-which is one of the reasons we don't include support for creating images in the poly tool.
+which is one of the reasons we don't include support for creating images in the _poly_ tool.
 Another source of trouble may be that _polyx_ starts a Java process: +
 image:images/polyx/java.png[]
 ====

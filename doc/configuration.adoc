@@ -3,7 +3,7 @@
 
 We have two categories of configuration:
 
-1. Configuration used by the poly tool, stored in _workspace.edn_ and _~/.config/polylith/config.edn_.
+1. Configuration used by the _poly_ tool, stored in _workspace.edn_ and _~/.config/polylith/config.edn_.
 2. Configuration used by tools.deps, stored in _deps.edn_ files in bricks and projects.
 
 The content of all these configuration files also live in the xref:workspace-structure.adoc[workspace structure]
@@ -36,7 +36,8 @@ poly ws get:configs:workspace
  :interface-ns "interface"
  :projects {"command-line" {:alias "cl"}
             "development" {:alias "dev"}
-            "user-service" {:alias "user-s"}}
+            "user-service" {:alias "user-s"
+                            :test {:create-test-runner my.test-runner/create}}}
  :tag-patterns {:release "v[0-9]*"
                 :stable "stable-*"}
  :top-namespace "se.example",
@@ -80,7 +81,7 @@ Only the _:top-namespace_ attribute is mandatory, all other attributes will use 
 
 === projects
 
-The _:projects_ key contains configuration used by the poly tool.
+The _:projects_ key contains configuration for how individual projects, e.g. how each of them should be tested.
 
 [source,shell]
 ----
@@ -138,14 +139,15 @@ poly ws get:configs:projects:command-line
 
 [source,clojure]
 ----
-{:config {:aliases {:test {:extra-deps {}, :extra-paths ["test"]},
-                    :uberjar {:main se.example.cli.core}},
-          :deps {org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"},
-                 org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"},
-                 org.clojure/clojure {:mvn/version "1.11.1"},
-                 poly/cli {:local/root "../../bases/cli"},
-                 poly/user-remote {:local/root "../../components/user-remote"}}},
- :name "command-line",
+{:config {:aliases {:test {:extra-deps {}
+                           :extra-paths ["test"]}
+                    :uberjar {:main se.example.cli.core}}
+          :deps {org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
+                 org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}
+                 org.clojure/clojure {:mvn/version "1.11.1"}
+                 poly/cli {:local/root "../../bases/cli"}
+                 poly/user-remote {:local/root "../../components/user-remote"}}}
+ :name "command-line"
  :type :project}
 ----
 

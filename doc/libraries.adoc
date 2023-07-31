@@ -15,7 +15,7 @@ Libraries are specified in _deps.edn_ for each component, base, and project:
 | | test | projects/PROJECT-DIR > deps.edn > :deps
 |===
 
-The poly tool parses each _deps.edn_ file and looks for library dependencies,
+The _poly_ tool parses each _deps.edn_ file and looks for library dependencies,
 which are then used by the xref:commands.adoc#libs[libs] and xref:commands.adoc#test[test] commands.
 
 [source,shell]
