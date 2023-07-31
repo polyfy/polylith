@@ -17,7 +17,7 @@ poly :all
 
 This will give us access to all available parameters, even those that are rarely used (which are often just in the way)
 and parameters that only make sense when developing the _poly_ tool itself.
-For example, _workspace_ will be available when using the _create_ command.
+For example, _workspace_ will be available when using the xref:commands.adoc#create[create] command.
 
 The reason it's not included by default is that we seldom want to create another workspace within the current workspace:
 
@@ -48,7 +48,8 @@ poly info changed-files:bases/mybase/:components/mycomponent/:projects/myproject
 
 This parameter is only suggested if we are outside a git repository.
 The _:auto-add_ parameter in the _:vcs_ section in _workspace.edn_,
-can be set to true to automatically add files to git when executing the _create_ command (we normally want to set it to _false_).
+can be set to true to automatically add files to git when executing the xref:commands.adoc#create[create] command
+(we normally want to set it to _false_).
 If set to _false_, we can pass in _:commit_ to get the same effect, e.g.:
 
 [source,shell]

@@ -85,7 +85,8 @@ image::images/shell/shell-ws-get-browse.png[alt=ws get:components:user:namespace
 When starting a shell from a workspace directory (where the _workspace.edn_ file lives)
 we can execute all available commands from that directory.
 It's also possible to switch workspace without leaving the shell,
-but then the create and test commands will not work (or show up in the autocomplete).
+but then the xref:commands.adoc#create[create] and xref:commands.adoc#test[test] commands will not work
+(or show up in the autocomplete).
 
 Let's say we have cloned the
 https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[realworld-example-app].

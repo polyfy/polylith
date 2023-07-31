@@ -18,7 +18,7 @@ which can be compared with non-Polylith systems living in other branches of the 
 
 == Polylith
 
-The Polylith https://github.com/polyfy/polylith[codebase] itself is structured as a Polylith workspace,
+The Polylith https://github.com/polyfy/polylith[codebase] itself is structured as a Polylith xref:workspace.adoc[workspace],
 and yes, we are https://en.wikipedia.org/wiki/Eating_your_own_dog_food[dogfooding] and it tastes delicious!
 
 == Game of life

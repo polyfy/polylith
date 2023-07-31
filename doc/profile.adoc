@@ -412,7 +412,7 @@ Hello Lisa - from the server!!
 Wow, that worked too! The complete code can be found
 https://github.com/polyfy/polylith/tree/master/examples/doc-example[here].
 
-Now execute the _info_ command (_+_ inactivates all profiles, and makes the _default_ profile visible):
+Now execute the xref:commands.adoc#info[info] command (_+_ inactivates all profiles, and makes the _default_ profile visible):
 
 [source,text]
 ----

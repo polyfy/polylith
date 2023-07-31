@@ -1,6 +1,6 @@
 = Explore the workspace
 
-There is a way to view the workspace structure, and that is to execute the ws command:
+There is a way to view the workspace structure, and that is to execute the xref:commands.adoc#ws[ws] command:
 
 [source,shell]
 ----
@@ -130,7 +130,7 @@ poly ws get:components:keys
 ["user" "user-remote"]
 ----
 
-An even better way of exploring the data structure is to do it from a _shell_ which we have already covered in the shell section.
+An even better way of exploring the data structure is to do it from a _shell_ which we have already covered in the xref:shell[Shell] section.
 
 To show the user component:
 
@@ -166,8 +166,8 @@ poly ws get:components:user
  :type "component"}
 ----
 
-Earlier, we executed the libs command to show library usage.
-The same information is also stored in the workspace structure, e.g.:
+Earlier, we executed the xref:commands.adoc#libs[libs] command to show library usage.
+The same information is also stored in the xref:workspace-structure.adoc[workspace structure], e.g.:
 
 [source,shell]
 ----

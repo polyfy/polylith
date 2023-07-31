@@ -159,7 +159,8 @@ in the interface, a simplification is to pass in what comes after `&` as a vecto
 
 * Testing is simplified by allowing access to implementing namespaces from the _test_ directory.
 The code under the _src_ directory is restricted to only access the _interface_ namespace.
-This check is performed when running the _check_, _info_ or _test_ command.
+This check is performed when running the xref:commands.adoc#check[check], xref:commands#info[info] or
+xref:commands#test[test] command.
 
 * All functions can be declared public while still being protected.
 This improves testability and the debugging experience.

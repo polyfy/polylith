@@ -3,7 +3,7 @@
 Tags are used in Polylith to mark points in time where we consider the whole codebase (workspace)
 to be in a valid state, for example that everything compiles
 and that all the tests and the _check_ command executes without errors.
-This is then used by the test command to run the tests incrementally,
+This is then used by the xref:commands.adoc#test[test] command to run the tests incrementally,
 by only executing the affected tests, which substantially speeds up the tests.
 
 The way we mark a stable point in time is to tag it with git (-f tells git to reuse the tag if already exists):
@@ -27,7 +27,7 @@ c91fdad4a34927d9aacfe4b04ea2f304f3303282 Workspace created.
 Note that your hash tags will be different and when we refer to e.g. _c91fdad_ in the following examples,
 you should instead give your own corresponding hash code.
 
-If we execute the _info_ command:
+If we execute the xref:commands.adoc#info[info] command:
 
 image::images/tagging/info-01.png[alt=info,width=400]
 
@@ -73,7 +73,7 @@ But what happens if only some of its bricks have changed? Let's try that by addi
   (str "Hello " name "!"))
 ----
 
-...and execute the info command again:
+...and execute the xref:commands.adoc#info[info] command again:
 
 image::images/tagging/info-02.png[alt=info,width=400]
 

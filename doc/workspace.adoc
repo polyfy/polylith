@@ -1,6 +1,6 @@
 = Workspace
 
-The workspace directory is the place where all our code and most of the configuration lives.
+The workspace directory is the place where all our code and most of the xref:configuration.adoc[configuration] lives.
 
 Let’s start by creating the example workspace with the top namespace _se.example_
 by using the xref:commands.adoc#create-workspace[create workspace] command.
