@@ -833,7 +833,9 @@ and when starting a _shell_ with `poly shell :fake-poly` where the latter will s
 instead of e.g. "polyx 0.2.18-issue318-02".
 
 * `:is-git-add` Used by the xref:commands.adoc#create-component[create component],
-xref:commands.adoc#create-base[create base] and xref:commands.adoc#create-project[create project] commands.
+xref:commands.adoc#create-base[create base] and xref:commands.adoc#create-project[create project] commands
+to add created files to git. Has the same effect for current command as if _:vcs:_ > _:auto-add_ was set to _true_
+in _workspace.edn_.
 
 * `:is-latest-sha` Set to _true_ if _:latest-sha_ is given.
 
