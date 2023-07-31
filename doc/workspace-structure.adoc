@@ -801,7 +801,7 @@ to give the branch, otherwise the workspace will be created in the _main_ branch
 
 * `:changed-files` Overrides the real xref:changed-files[changed-files] that is retrieved from a git.
 
-* `:cmd` The first argument to the poly tool.
+* `:cmd` The first argument to the _poly_ tool.
 
 * `:color-mode` Overrides the xref:color-mode[color-mode].
 
@@ -938,7 +938,7 @@ for generating image files and the _overview_ command.
 ** `:name` The full name of the release.
 ** `:patch` Increased by one for each release within a given _major.minor_.
 ** `:revision` What comes after _major.minor.path_.
-** `:tool` Set to "poly" if the poly tool, or "polyx" if the extended poly tool that includes support for creating images.
+** `:tool` Set to "poly" if the _poly_ tool, or "polyx" if the extended _poly_ tool that includes support for creating images.
 
 * `:test-runner-api` Versioning of the test runner API:
 ** `:breaking` Increased by one if introducing a non-backward compatible change of the test runner API.
@@ -955,7 +955,7 @@ Set to _:toolsdeps2_ if the workspace was created by _v0.2.0-alpha10_ or later
 * `:from` Set to the value of _:version_ if the workspace is read from a file,
 produced by a different version than the current version of the _poly_ tool,
 or if the workspace is read from a directory that has not been migrated from _:toolsdeps1_ to _:toolsdeps2_.
-** `:release-name` The version of the poly tool from which this ws file was created.
+** `:release-name` The version of the _poly_ tool from which this ws file was created.
 ** `:ws`
 *** `:breaking` The breaking version of the original _ws_ format.
 *** `:non-breaking` The non-breaking version of the original _ws_ format.
@@ -1014,7 +1014,7 @@ poly ws get:ws-reader
 ----
 
 This structure explains different aspects of the tool that created this _workspace structure_
-(the poly tool in this case) and the idea is that new tooling could support the _workspace format_
+(the _poly_ tool in this case) and the idea is that new tooling could support the _workspace format_
 and populate this structure so that it can be used by external tooling.
 
 * `:file-extensions` Lists the supported file extensions.

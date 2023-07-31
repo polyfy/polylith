@@ -128,7 +128,7 @@ All other validations are performed when executing the _check_, _info_, or _test
 
 If we get warning 207 for a project, but we know that the component is needed
 (e.g. used in a dynamic way, but not explicitly called) then we can add a _:necessary_ key
-to the project in _workspace.edn_ to get rid of the warning (this example is taken from the poly tool itself):
+to the project in _workspace.edn_ to get rid of the warning (this example is taken from the _poly_ tool itself):
 
 [source,clojure]
 ----

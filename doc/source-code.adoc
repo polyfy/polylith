@@ -104,7 +104,7 @@ myrepository
 ----
 
 Here we can "import" _.cljc_ files as libraries, in the same way as in alternative 2a.
-The poly tool can handle both situations, so it's more a matter of preference what you choose.
+The _poly_ tool can handle both situations, so it's more a matter of preference what you choose.
 
 ==== 3. Let the frontend code live in another repository
 

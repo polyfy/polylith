@@ -120,7 +120,7 @@ poly info changed-files:
 === no-exit
 
 When the _poly_ command is executed, it exits with _System/exit_ internally, see poly-cli.
-If executing the poly tool from a REPL, this will also exit the REPL.
+If executing the _poly_ tool from a REPL, this will also exit the REPL.
 To avoid that, we can pass in
 https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj#L31-L32[:no-exit].
 
