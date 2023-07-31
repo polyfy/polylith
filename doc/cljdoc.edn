@@ -16,7 +16,9 @@
                    ["Build" {:file "doc/build.adoc"}]
                    ["Git" {:file "doc/git.adoc"}]
                    ["Tagging" {:file "doc/tagging.adoc"}]
-                   ["Continuous Integration" {:file "doc/continuous-integration.adoc"}]
+                   ["Continuous Integration"
+                    ["CI Setup" {:file "doc/ci-setup.adoc"}]
+                    ["CI Deployment" {:file "doc/ci-deployment.adoc"}]]
                    ["Flags" {:file "doc/flags.adoc"}]
                    ["Testing" {:file "doc/testing.adoc"}]
                    ["Test Runners" {:file "doc/test-runners.adoc"}]
