@@ -85,19 +85,18 @@ image::images/shell/shell-ws-get-browse.png[alt=ws get:components:user:namespace
 When starting a shell from a workspace directory (where the _workspace.edn_ file lives)
 we can execute all available commands from that directory.
 It's also possible to switch workspace without leaving the shell,
-but then the xref:commands.adoc#create[create] and xref:commands.adoc#test[test] commands will not work
-(or show up in the autocomplete).
+but then the xref:commands.adoc#create[create] and xref:commands.adoc#test[test] commands will not work.
 
 Let's say we have cloned the
 https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[realworld-example-app].
-We can now switch to that workspace using the _switch-ws_ command in combination with the _dir_ parameter:
+We can now switch to that workspace using the xref:commands.adoc#switch-ws[switch-ws] command in combination with the _dir_ parameter:
 
 image::images/shell/shell-switch-dir.png[alt=switch-ws dir:,width=600]
 
 This will list all directories and files ending with _.edn_ in the current directory.
 
-We can select the clojure-polylith-realworld-example-app directory by typing _._ followed by _<tab>_
-to select _.._ and then typing _clo_ (or something long enough) followed by _<tab>_ to select the workspace:
+We can select the clojure-polylith-realworld-example-app directory by typing `.` followed by _<tab>_
+to select `..` and then typing `clo` (or something long enough) followed by _<tab>_ to select the workspace:
 
 image::images/shell/shell-switch-dir-realworld.png[alt=switch-ws dir:../clojure-polylith-realworld-example-app/,width=600]
 
@@ -110,8 +109,9 @@ and not from the current directory. We can go back to the workspace directory by
 
 image::images/shell/shell-switch-ws.png[alt=switch-ws,width=600]
 
-If a workspace has been exported to a file using something like ws out:ws.edn then we can switch to that workspace.
-Here we use the usermanager project as an example (make sure to switch to the _polylith_ branch):
+If a workspace has been exported to a file using something like `poly ws out:ws.edn` then we can switch to that workspace.
+Here we use the https://github.com/seancorfield/usermanager-example/tree/polylith[usermanager] project
+as an example (make sure to switch to the _polylith_ branch, after cloning the repository):
 
 image::images/shell/shell-switch-ws-file.png[alt=switch-ws file:../usermanager-example/ws.edn,width=600]
 
@@ -121,6 +121,32 @@ to indicate that it has been imported from a file.
 The "trick" the shell does is to append _ws-dir:DIR_ or _ws-file:FILE_
 to the command for us before the command is executed
 (if we have switched workspace using the _dir:DIR_ or _file:FILE_ parameters).
+
+It's also possible to start a shell and switch to a workspace at the same time, e.g.:
+
+[source,shell]
+----
+$ poly shell ws-dir:examples/doc-example
+                  _      _ + _   _
+#####   _ __  ___| |_  _| |-| |_| |_
+#####  | '_ \/ _ \ | || | | |  _| ' \
+#####  | .__/\___/_|\_, |_|_|\__|_||_|
+       |_|          |__/ poly 0.2.18
+dir:doc-example$
+----
+
+...or read a workspace from a file, e.g.:
+
+[source,shell]
+----
+$ poly shell ws-file:realworld.edn
+                  _      _ + _   _
+#####   _ __  ___| |_  _| |-| |_| |_
+#####  | '_ \/ _ \ | || | | |  _| ' \
+#####  | .__/\___/_|\_, |_|_|\__|_||_|
+       |_|          |__/ poly 0.2.18
+file:clojure-polylith-realworld-example-app$
+----
 
 == Autocomplete
 

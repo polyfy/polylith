@@ -37,6 +37,10 @@
        "    exit           Exits the shell.\n"
        "    quit           Quits the shell.\n"
        "\n"
+       "  It's also possible to start a shell and switch to a workspace at the same time, e.g.:\n"
+       "    poly shell ws-dir:examples/doc-example\n"
+       "    poly shell ws-file:realworld.edn\n"
+       "\n"
        "  An alternative way of exiting the shell is by pressing <ctrl>+C or <ctrl>+D."))
 
 (defn print-help [color-mode]
