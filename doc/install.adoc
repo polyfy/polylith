@@ -136,7 +136,6 @@ start /wait /b java %JAVA_OPTS% -jar "C:\Program Files\Polylith\poly-0.2.18.jar"
 
 Test the installation by typing _poly help_ from the command line.
 
-[Note]
 ====
 NOTE: The xref:colors.adoc[coloring] of text is not supported on Windows.
 ====
@@ -170,7 +169,6 @@ An alternative is to give a sha, which allows us to use old versions or versions
 clojure -Ttools install io.github.polyfy/polylith '{:git/sha "5f74c8b8675dbb091258165d327af3958716a247" :deps/root "projects/poly"}' :as poly
 ----
 
-[Note]
 ====
 NOTE: do not use the _install-latest_ option to `clojure -Ttools` as it does not support _:deps/root_.
 ====
@@ -210,7 +208,6 @@ We can get basic built-in help via the CLI's help machinery:
 clojure -A:deps -Tpoly help/doc
 ----
 
-[Note]
 ====
 NOTE: the command-line argument syntax for "tool" usage follows the CLI "exec args" format which is essentially
 Clojure's own keyword/value syntax (it's actually read as EDN).
@@ -255,7 +252,6 @@ To use it this way, add one of the following aliases to the _:aliases_ section i
 Replace _INSERT_LATEST_SHA_HERE_ with a https://github.com/polyfy/polylith/commits/master[commit SHA]
 from the Polylith repository (e.g. the latest from the _master_ branch).
 
-[Note]
 ====
 NOTE: The master branch can sometimes be ahead of the https://github.com/polyfy/polylith/releases[latest release].
 Instead of waiting for the next version to be released, you can set the latest commited SHA from the
