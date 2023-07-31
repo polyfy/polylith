@@ -32,6 +32,7 @@ The poly tool will still figure out the changed bricks and projects and calculat
 However, the external test runner will create a runtime and run the tests.
 Another difference is that the poly tool will not run the setup and teardown functions for the tests.
 
+[Note]
 ====
 NOTE: The external test runner must run setup and teardown functions within the external process it creates.
 The poly tool will not run them for external test runners.
@@ -265,6 +266,7 @@ An ideal place to do it is the _:poly_ alias in your workspace _deps.edn_ file:
      :deps/root "projects/example-test-runner"}}}}}
 ----
 
+[Note]
 ====
 NOTE: The example above assumes that you use a test runner from a GitHub repository as a git dependency.
 You can also have your custom test runner within the same Polylith workspace and depend on it via _:local/root_.
@@ -288,6 +290,7 @@ To add a global test configuration, add a map with the _:test_ key in your _work
             "baz" {:alias "baz"}}}
 ----
 
+[Note]
 ====
 NOTE: You can specify more than one test runner. In that case, all the test runners will run for the project one after another.
 ====

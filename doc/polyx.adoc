@@ -100,6 +100,7 @@ image::images/polyx/overview.png[alt=Overview]
 
 This image can be used in our documentation to get an overview of the workspace.
 
+[Note]
 ====
 NOTE: There are issues reported for Apple silicon when using
 https://en.wikipedia.org/wiki/Abstract_Window_Toolkit[Java AWT]
