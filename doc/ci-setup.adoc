@@ -1,4 +1,4 @@
-= Continuous Integration
+= Continuous Integration Setup
 
 How this repository sets up its own continuous integration and deployment is described
 https://github.com/polyfy/polylith/blob/master/doc/ci-and-deployment.md[here].
