@@ -4,7 +4,7 @@ The _tap_ command is mainly for _poly_ tool development for now,
 but might be interesting for those who like to peek under the covers and understand how things work.
 
 We can open a https://github.com/djblue/portal[portal] window by passing in _:tap_ when starting a shell,
-e.g. _poly :tap_ or by executing the _tap_ command from a shell:
+e.g. _poly :tap_ or by executing the xref:commands.adoc#tap[tap] command from a shell:
 
 image::images/tap/tap-shell.png[alt=poly :tap]
 

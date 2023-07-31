@@ -28,7 +28,7 @@ https://clojure.org/guides/getting_started[CLI tools] and https://git-scm.com/bo
 If you install git for the first time, don't forget to set the
 https://docs.github.com/en/github/using-git/setting-your-username-in-git[user] name and email.
 
-To install the _poly_ command on Mac, execute:
+To install the _poly_ tool on Mac, execute:
 
 [source,shell]
 ----
