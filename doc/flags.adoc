@@ -1,6 +1,6 @@
 = Flags
 
-We have one more thing to cover regarding the info command, and that is what the -, s, t and x flags mean:
+We have one more thing to cover regarding the xref:commands.adoc#info[info] command, and that is what the -, s, t and x flags mean:
 
 [source,shell]
 ----

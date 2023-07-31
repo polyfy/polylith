@@ -24,7 +24,7 @@ git add .
 git commit -m "Workspace created."
 ----
 
-If we don't pass in _:commit_ to the `create workspace` command (and _:auto-add_ is not set to _true_)
+If we don't pass in _:commit_ to the xref:commands.adoc#create-workspace[create workspace] command (and _:auto-add_ is not set to _true_)
 then we have to perform these (or similar) commands manually.
 
 If we run `git log` from the workspace root, it returns something like this:
