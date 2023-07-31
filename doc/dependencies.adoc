@@ -57,7 +57,7 @@ image::images/dependencies/info.png[alt=info,width=400]
 
 Now we have some bricks to play with!
 
-Let's list all dependencies by executing the deps command:
+Let's list all dependencies by executing the xref:commands.adoc#deps[deps] command:
 
 [source,shell]
 ----

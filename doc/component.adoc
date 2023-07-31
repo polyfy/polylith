@@ -35,7 +35,7 @@ We have described three ways already, e.g.:
 All the documentation refers to the first form, even though the other two are also valid.
 There is also a fourth way, and that is to execute the command from a shell.
 
-We can start an interactive shell by leaving out the command in the fist two cases (or include "shell")
+We can start an interactive xref:commands#shell[shell] by leaving out the command in the fist two cases (or include "shell")
 but in the third it has to include "shell":
 
 1. `poly`
@@ -54,7 +54,7 @@ This way of executing commands is the most convenient way in most cases, because
 and autocomplete. Feel free to use the xref:shell.adoc[shell] from now on. It will make you more productive and enhances
 the development experience!
 
-Now let's continue with our example by executing the create component command:
+Now let's continue with our example by executing the xref:commands.adoc#create-component[create component] command:
 
 [source,shell]
 ----

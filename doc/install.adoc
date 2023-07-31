@@ -311,7 +311,7 @@ then we can set the _JVM_OPTS_ environment variable to do that, because _JVM_OPT
 https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/build/resources/brew/exec#L22[passed in]
 when executing the _poly_ command.
 
-If we use the tools.deps CLI to execute the _poly_ command, e.g. `clojure -M:poly test`,
+If we use the tools.deps CLI to execute the _poly_ tool, e.g. `clojure -M:poly test`,
 we can configure the logging in the _:poly_ alias in _./deps.edn_ for the project, e.g.:
 
 [source,clojure]

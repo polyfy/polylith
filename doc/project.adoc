@@ -5,7 +5,7 @@ There are two kinds of projects in Polylith: development and deployable.
 * The xref:development.adoc[development] project:
 - This is where we work with the code, often from a REPL.
 - Has a _deps.edn_ file that specifies all bricks and project libraries that are included in the project.
-- If we have any profiles then they are defined in _./deps.edn_.
+- If we have any xref:profile.adoc[profiles] then they are defined in _./deps.edn_.
 - Any extra code, that is not part of a component or base, lives under the _development_ directory.
 
 * Any deployable project:
@@ -18,9 +18,9 @@ There are two kinds of projects in Polylith: development and deployable.
 - It's discouraged to have a _src_ directory, e.g. _projects/my-project/src_, since all production code should normally only live in bricks.
 
 The xref: _:project_ key in _./workspace.edn_ configures which alias each project has
-and optionally how the tests should be run (covered in the testing section).
+and optionally how the tests should be run (covered in the xref:testing.adoc[testing] section).
 
-Let's create a project, by executing the create project command:
+Let's create a project, by executing the xref:commands#create-project[create project] command:
 
 [source,shell]
 ----
@@ -83,7 +83,8 @@ The tool also reminds us of this:
   It's recommended to add an alias to :projects in ./workspace.edn for the command-line project.
 ----
 
-If we don't add the alias to _workspace.edn_, the project heading will show up as _?1_ when we execute the _info_ command, so let's add it:
+If we don't add the alias to _workspace.edn_, the project heading will show up as _?1_ when we execute the
+xref:commands.adoc#info[info] command, so let's add it:
 
 [source,clojure]
 ----

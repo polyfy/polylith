@@ -17,7 +17,7 @@ The _test_ command will not be executed if _check_ discovers any errors.
 If a source file (_.clj_ or _.cljc_) can't be read or if the namespace is missing, we get _Warning 206 - Unreadable namespace in brick/project_.
 
 If we comment out the https://github.com/polyfy/polylith/blob/master/examples/doc-example/components/user/src/se/example/user/core.clj[core] namespace
-for the _user_ component in the example app and execute the _check_ command, it will show a warning:
+for the _user_ component in the example app and execute the xref:commands.adoc#check[check] command, it will show a warning:
 
 [source,clojure]
 ----

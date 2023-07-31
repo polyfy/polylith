@@ -36,7 +36,7 @@ image::images/testing/info.png[alt=info,width=400]
 If we look carefully we will also notice that the status flags _stx_
 under the _cl_ column now has an _x_ in its last position.
 As we already know, this means that the tests for _user_ and _cli_ will be executed from the _command-line_ project
-if we execute the _test_ command.
+if we execute the xref:commands.adoc#test[test] command.
 
 But why is _cli_ marked to be tested?
 The reason is that even though _cli_ itself hasn't changed,
@@ -46,7 +46,7 @@ The columns under the _development_ project are all marked as _st-_.
 The reason the _development_ project is not marked to be tested
 is that the _development_ project's tests are not included by default.
 
-But before we run the test command,
+But before we run the xref:commands.adoc#test[test] command,
 we should first add a test by editing the _interface-test_ namespace in the _user_ component:
 
 [source,clojure]
@@ -78,7 +78,7 @@ Now we can run the test from the IDE:
 
 image::images/testing/failing-test.png[alt=Run test]
 
-And if we run the test command:
+And if we run the xref:commands.adoc#test[test] command:
 
 [source,shell]
 ----
@@ -312,7 +312,7 @@ Normally, we are forced to put our tests in the same namespace as the code we wa
 to get proper access, but in Polylith the encapsulation is guaranteed by the _poly_ tool
 and all code can therefore be declared public, which allows us to put the test code wherever we want.
 
-If we execute the `info` command:
+If we execute the xref:commands.adoc#info[info] command:
 
 image::images/testing/info-project-dir.png[width=400]
 
@@ -392,7 +392,7 @@ git commit -m "Added tests"
 git tag -f stable-lisa
 ----
 
-If we execute the _info_ command again:
+If we execute the xref:commands.adoc#info[info] command again:
 
 image::images/testing/info-added-tests.png[width=400]
 

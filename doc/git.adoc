@@ -1,8 +1,8 @@
 = Git
 
-We have already used the info command a couple of times without explaining everything in its output.
+We have already used the xref:commands.adoc#info[info] command a couple of times without explaining everything in its output.
 
-Let's execute the _info_ command again to see the current state of the workspace:
+Let's execute the xref:commands.adoc#info[info] command again to see the current state of the workspace:
 
 [source,shell]
 ----
@@ -52,7 +52,7 @@ The way the tool calculates changes is to ask _git_ by running this command inte
 git diff c91fdad4a34927d9aacfe4b04ea2f304f3303282 --name-only
 ----
 
-We can also run the diff command, which will execute the same git statement internally:
+We can also run the xref:commands.adoc#diff[diff] command, which will execute the same git statement internally:
 
 [source,shell]
 ----

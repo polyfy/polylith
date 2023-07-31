@@ -33,7 +33,7 @@ poly ws get:keys
  :ws-type]
 ----
 
-An even better way is to explore the workspace interactively from a shell:
+An even better way is to explore the workspace interactively from a xref:commands.adoc#shell[shell]:
 
 image::images/workspace-structure/shell.png[alt=shell]
 
