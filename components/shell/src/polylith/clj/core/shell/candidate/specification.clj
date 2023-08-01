@@ -59,6 +59,7 @@
 (def diff (c/single-txt "diff" :diff [diff-since]))
 
 ;; help
+(def help-all (c/flag "all" :help))
 (def help-create-base (c/single-txt "base"))
 (def help-create-component (c/single-txt "component"))
 (def help-create-project (c/single-txt "project"))
@@ -72,11 +73,10 @@
 
 (defn help [all?]
   (c/single-txt "help" (vec (concat [help-create help-deps]
-                                    (when all? [help-fake-poly])
+                                    (when all? [help-all help-fake-poly])
                                     (mapv #(c/single-txt %)
                                           (concat ["check" "diff" "info" "libs" "switch-ws" "shell" "tap" "test" "version" "ws"]
                                                   (if system/extended? ["overview"] [])))))))
-
 
 ;; info
 (def info-fake-sha (c/multi-param "fake-sha"))

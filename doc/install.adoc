@@ -170,7 +170,7 @@ clojure -Ttools install io.github.polyfy/polylith '{:git/sha "5f74c8b8675dbb0912
 ----
 
 ====
-NOTE: do not use the _install-latest_ option to `clojure -Ttools` as it does not support _:deps/root_.
+CAUTION: do not use the _install-latest_ option to `clojure -Ttools` as it does not support _:deps/root_.
 ====
 
 Then we can invoke the _poly_ tool using the CLI directly:

@@ -1,4 +1,5 @@
 = Shell
+:toc:
 
 The goal of the shell is to make us more productive and to have more fun!
 
@@ -115,16 +116,18 @@ as an example (make sure to switch to the _polylith_ branch, after cloning the r
 
 image::images/shell/shell-switch-ws-file.png[alt=switch-ws file:../usermanager-example/ws.edn,width=600]
 
-The promt name is picked from the _:name_ attribute in the file and is prefixed with _file:_
+The promt name is picked from the _:name_ attribute in the _ws.edn_ file and is prefixed with _file:_
 to indicate that it has been imported from a file.
 
 The "trick" the shell does is to append _ws-dir:DIR_ or _ws-file:FILE_
 to the command for us before the command is executed
 (if we have switched workspace using the _dir:DIR_ or _file:FILE_ parameters).
 
-It's also possible to start a shell and switch to a workspace at the same time, e.g.:
+=== Start a shell in another workspace
 
-[source,shell]
+It's possible to start a shell and immediately switch to a workspace (now _shell_ command has to be included), e.g.:
+
+[source,text]
 ----
 $ poly shell ws-dir:examples/doc-example
                   _      _ + _   _
@@ -137,7 +140,7 @@ dir:doc-example$
 
 ...or read a workspace from a file, e.g.:
 
-[source,shell]
+[source,text]
 ----
 $ poly shell ws-file:realworld.edn
                   _      _ + _   _
@@ -178,12 +181,42 @@ When browsing the file system from a _dir:PATH_ parameter, there are a couple of
 * When a file or directory contains spaces, it will be surrounded with quotes, e.g. "My path".
 To select such a path we need to include the first " in the path for the autocomplete to work.
 
-Rarely used parameters are sometimes not suggested, e.g. _color-mode_.
-Another example is the create workspace command that we normally only execute outside of a repository
-and is therefore not suggested when inside an existing workspace.
+=== Create workspace
 
-If we are outside a workspace, then the autocomplete will work for the _create workspace_ command, e.g.:
+We often execute the xref:commands#create-workspace[create workspace] command outside a xref:workspace.adoc[workspace].
+This command is therefore not suggested by the autocomplete when inside an existing workspace. The exception is when
+we are outside a workspace, then the autocomplete will help out with creating a workspace, e.g.:
 
 image::images/shell/shell-create-workspace.png[alt=create workspace name:myws,width=600]
+
+=== Rarely used parameters
+
+Rarely used xref:parameters.adoc[parameters] are not suggested by the autocomplete, e.g. _color-mode_.
+A way to include them is to pass in _:all_ when starting a shell:
+
+[source,shell]
+----
+poly :all
+----
+
+Parameters used by maintainers of the _poly_ tool will be listed at the end if passing in _:all_:
+
+[source,shell]
+----
+poly help :all
+----
+
+[source,shell]
+----
+  Parameters used by maintainers of the poly tool:
+    poly info :no-changes
+    poly info fake-sha:c91fdad
+    poly info fake-tag:stable-me
+    poly info changed-files:components/user/deps.edn
+    poly info changed-files:workspace.edn:components/user/
+    poly ws replace:this:that
+----
+
+== Quit
 
 To quit the shell, type _exit_ or _quit_ or press _<ctrl>+C_ or _<ctrl>+D_.
