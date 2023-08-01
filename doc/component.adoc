@@ -12,14 +12,11 @@ But before we do that, open _workspace.edn_ in a text editor and set _:auto-add_
 ----
 
 By doing this, we want to ensure that the created files and directories from the xref:commands.adoc#create[create]
-command is also added to git, which will come in handy in this example.
+command is also added to xref:git.adoc[git], which will come in handy in this example.
 
-====
-NOTE: If we leave _:auto-add_ as _false_, then we have to manually add files that are created with the
-xref:commands.adoc#create-component[create component], xref:commands.adoc#create-base[create base],
-and xref:create-project[create project] commands, to xref:git.adoc[git].
-In that case we can add them to git by passing in _:git-add_.
-====
+If _:auto-add_ is set to _false_, then we have to manually add created files to git,
+after the xref:commands.adoc#create[create] command has been executed, or pass in `:git-add`
+to explicitly add them, which will have the same effect as setting _:auto-add_ to true.
 
 == How to execute commands
 

@@ -215,7 +215,7 @@
     (if show-all?
       (str
         "\n"
-        "\n  Rarely used parameters:"
+        "\n  Parameters used by maintainers of the poly tool:"
         (if extended?
           "\n    poly help :fake-poly"
           "")
