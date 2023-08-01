@@ -199,12 +199,15 @@ A way to include them is to pass in _:all_ when starting a shell:
 poly :all
 ----
 
-Parameters used by maintainers of the _poly_ tool will be listed at the end if passing in _:all_:
+Parameters that are mainly used by maintainers of the _poly_ tool are exclude in the output from the
+xref:commands.adoc[help] command, but can be included by passing in _:all_:
 
 [source,shell]
 ----
 poly help :all
 ----
+
+Which will now include this at the end:
 
 [source,shell]
 ----
