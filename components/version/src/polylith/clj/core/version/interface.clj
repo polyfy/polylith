@@ -6,6 +6,10 @@
 (def major 0)
 (def minor 2)
 (def patch 18)
+
+;; - if a release: set revision to ""
+;; - if a release candidate, set revision to e.g.: "rc-1"
+;; - if an ongoing issue, set revision to e.g.: issue318-01
 (def revision "issue318-02")
 (def name-without-rev (str major "." minor "." patch))
 (def name (str name-without-rev
@@ -17,7 +21,7 @@
 
 (def doc-url "http://localhost:8000/d/polylith/clj-poly/0.2.18-issue318-02/doc")
 
-(def date "2023-07-30")
+(def date "2023-08-02")
 
 (defn version
   ([]
