@@ -75,7 +75,7 @@
                  (b/create-basis))
         :main 'clojure.main
         :main-args ["-m" "polylith.clj.core.poly-cli.core"
-                    "ws" "get:changes:changed-or-affected-projects" "skip:dev"
+                    "ws" "get:changes:changed-or-affected-projects" "skip:dev:polyx"
                     "since:previous-release"
                     "color-mode:none"]})
       (exec->out)
@@ -257,13 +257,13 @@
 (defn deploy
   "Create and deploy library JAR files for the Polylith project.
 
-   Currently, creates and deploys 'api' and 'poly'.
+   Currently, creates 'poly'.
 
    You can do a dry run by passing :installer :local which will
    deploy the JARs into your local Maven cache instead of to Clojars."
   [opts]
   (let [changed (changed-projects)
-        projects-to-process (filter #{"api" "poly"} changed)]
+        projects-to-process (filter #{"poly"} changed)]
     (when-not (seq projects-to-process)
       (throw (ex-info "Cannot deploy projects. No projects have changed."
                       {:changed changed})))
