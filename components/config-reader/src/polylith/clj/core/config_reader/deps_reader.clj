@@ -27,7 +27,7 @@
     (assoc-in content keys (substitute-alias value alias->path))
     content))
 
-(defn load-edn-file
+(defn read-edn-file
   "Load edn from an io/reader source (filename or io/resource)."
   [file-path filename]
   (try
@@ -39,7 +39,7 @@
       {:error (str "Couldn't parse '" filename "': " (.getMessage e))})))
 
 (defn read-deps-file [file-path filename]
-  (let [{:keys [config error]} (load-edn-file file-path filename)
+  (let [{:keys [config error]} (read-edn-file file-path filename)
         alias->path (:aliases config)]
     (cond-> {}
             config (assoc :config (-> config

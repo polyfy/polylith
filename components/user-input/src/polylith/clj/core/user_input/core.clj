@@ -49,44 +49,45 @@
 (defn extract-params [args single-arg-commands]
   (let [{:keys [cmd params]} (extract args)
         {:keys [named-args unnamed-args]} (params/extract params single-arg-commands)
-        {:keys [brick
+        {:keys [all!
+                all-bricks!
+                brick
                 branch
+                brick!
                 color-mode
+                commit!
                 changed-files
+                compact!
                 dir
-                file
-                project
+                dev!
+                fake-poly!
                 fake-sha
                 fake-tag
+                file
                 get
+                git-add!
                 interface
+                latest-sha!
+                loc!
                 name
+                no-changes!
+                no-exit!
                 out
+                outdated!
+                poly
+                project
+                project!
+                r!
                 replace
+                resources!
                 since
                 skip
-                top-ns
-                ws-dir
-                ws-file
-                all!
-                all-bricks!
-                brick!
-                compact!
-                commit!
-                fake-poly!
-                git-add!
-                latest-sha!
-                no-changes!
                 tap!
+                top-ns
+                verbose!
                 workspace!
-                dev!
-                outdated!
-                project!
-                loc!
-                no-exit!
-                r!
-                resources!
-                verbose!]} named-args]
+                ws-dir
+                ws-file]} named-args]
     (util/ordered-map :args (vec args)
                       :cmd cmd
                       :get get
@@ -98,38 +99,39 @@
                       :fake-sha fake-sha
                       :fake-tag fake-tag
                       :interface interface
-                      :is-commit (= "true" commit!)
-                      :is-tap (= "true" tap!)
-                      :is-search-for-ws-dir (contains? (set args) "::")
                       :is-all (= "true" all!)
+                      :is-commit (= "true" commit!)
                       :is-compact (= "true" compact!)
                       :is-dev (= "true" dev!)
+                      :is-fake-poly (= "true" fake-poly!)
                       :is-git-add (when git-add! (= "true" git-add!))
                       :is-latest-sha (= "true" latest-sha!)
                       :is-no-changes (= "true" no-changes!)
                       :is-no-exit (= "true" no-exit!)
                       :is-outdated (= "true" outdated!)
-                      :is-fake-poly (= "true" fake-poly!)
-                      :is-show-brick (= "true" brick!)
-                      :is-show-workspace (= "true" workspace!)
-                      :is-show-project (= "true" project!)
-                      :is-show-loc (= "true" loc!)
                       :is-run-all-brick-tests (or (= "true" all!)
                                                   (= "true" all-bricks!))
                       :is-run-project-tests (or (= "true" all!)
                                                 (= "true" project!))
+                      :is-search-for-ws-dir (contains? (set args) "::")
+                      :is-show-brick (= "true" brick!)
+                      :is-show-loc (= "true" loc!)
+                      :is-show-project (= "true" project!)
                       :is-show-resources (or (= "true" r!)
                                              (= "true" resources!))
+                      :is-show-workspace (= "true" workspace!)
+                      :is-tap (= "true" tap!)
                       :is-verbose (= "true" verbose!)
                       :name name
                       :out (as-value out)
+                      :poly (as-value poly)
                       :replace (replace-from-to replace)
+                      :selected-bricks (as-vector brick)
+                      :selected-profiles (selected-profiles unnamed-args)
+                      :selected-projects (selected-projects project)
                       :since since
                       :skip (as-vector skip)
                       :top-ns top-ns
                       :ws-dir ws-dir
                       :ws-file ws-file
-                      :selected-bricks (as-vector brick)
-                      :selected-profiles (selected-profiles unnamed-args)
-                      :selected-projects (selected-projects project)
                       :unnamed-args (vec unnamed-args))))
