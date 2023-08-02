@@ -1,8 +1,10 @@
 = Continuous Integration
 :toc:
-:toclevels: 5
+:toclevels: 3
 
-In this document we will look at the general setup of CI.
+== General setup of CI
+
+In this document we will look at the general setup of CI and how the polylith (this) repo xref:_the_polylith_setup[sets up CI].
 
 When setting up continuous integration, we sometimes want to keep track of changes per project.
 To support this we need to add tag patterns for the projects we want to build, e.g.:
@@ -63,7 +65,7 @@ poly ws get:changes:changed-or-affected-projects since:release skip:dev
 
 Here we rely on release-* tags that mark the whole repo as released.
 
-== How this repo sets up CI and deployment
+== The polylith setup
 
 The polylith repository has a continuous integration and deployment setup via https://circleci.com[CircleCI].
 The setup has two workflows, one for regular validation and testing, and another one for deployments.
