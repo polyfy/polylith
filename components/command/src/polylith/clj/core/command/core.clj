@@ -1,5 +1,6 @@
 (ns ^:no-doc polylith.clj.core.command.core
   (:require [clojure.java.browse :as browse]
+            [clojure.string :as str]
             [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.command.cmd-validator.core :as cmd-validator]
             [polylith.clj.core.command.create :as create]
@@ -36,18 +37,16 @@
 
 (def doc-url (str "http://localhost:8000/d/polylith/clj-poly/" ver/name "/doc"))
 
-(defn page-with-bookmark [[page bookmark]]
-  (let [the-page (if (= "ws-structure" page)
-                   "workspace-structure"
-                   page)]
-   (str "reference/" the-page "#_" bookmark)))
+(defn bookmark [page separator bookmark]
+  (str "reference/" page separator bookmark))
 
-(defn open-doc [page]
-  (tap> {:page page})
-  (let [the-page (cond
-                   (nil? page) "readme"
-                   (= 1 (count page)) (first page)
-                   :else (page-with-bookmark page))]
+(defn open-doc [command page ws [_ cmd]]
+  (let [cmd (when cmd (-> cmd (str/split #":") first))
+        the-page (condp = cmd
+                   "command" (bookmark "commands" "#" command)
+                   "page" (or page "readme")
+                   "ws" (bookmark "workspace-structure" "#_" ws)
+                   "readme")]
     (browse/browse-url (str doc-url "/" the-page))))
 
 (defn help [[_ cmd ent] is-all is-show-project is-show-brick is-show-workspace toolsdeps1? fake-poly? color-mode]
@@ -79,7 +78,7 @@
     ":tap" ["shell" (assoc user-input :is-tap true)]
     [cmd user-input]))
 
-(defn execute [{:keys [cmd args name top-ns branch page is-tap is-git-add is-commit is-all is-outdated is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
+(defn execute [{:keys [cmd args name top-ns branch command page ws is-tap is-git-add is-commit is-all is-outdated is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (config-reader/workspace-dir user-input)
         workspace-fn (workspace-reader-fn)
@@ -97,7 +96,7 @@
           "check" (check workspace color-mode)
           "create" (create/create ws-dir workspace args name top-ns interface branch is-git-add is-commit color-mode)
           "deps" (dependencies/deps workspace project-name brick-name unnamed-args)
-          "doc" (open-doc page)
+          "doc" (open-doc command page ws args)
           "diff" (diff workspace)
           "help" (help args is-all is-show-project is-show-brick is-show-workspace toolsdeps1? is-fake-poly color-mode)
           "info" (info/info workspace unnamed-args)

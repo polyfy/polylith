@@ -1,4 +1,4 @@
-= Build
+= Workspace Structure
 :toc:
 
 The _poly_ tool gives us access to the data structure that represents the workspace,

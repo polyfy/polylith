@@ -27,62 +27,62 @@
 (defn ws-key [bookmark]
   [(subs bookmark 3) []])
 
-(defn entry [page commands ws-struct]
-  (let [[page data] (condp = page
-                      "commands" [page commands]
-                      "workspace-structure" ["ws-structure" ws-struct]
-                      [page {}])]
-    [page data]))
+(defn entry [page]
+  [page {}])
 
 (comment
-  (def commands (into (sorted-map)
-                  (mapv command
-                        (filter #(str/starts-with? % "[#")
-                                (-> "doc/commands.adoc"
-                                    slurp
-                                    str/split-lines)))))
+  ;; commands
+  (into (sorted-map)
+        (mapv command
+              (filter #(str/starts-with? % "[#")
+                      (-> "doc/commands.adoc"
+                          slurp
+                          str/split-lines))))
 
-  (def ws-struct (into (sorted-map)
-                       (mapv ws-key
-                             (filter #(str/starts-with? % "== ")
-                                     (-> "doc/workspace-structure.adoc"
-                                         slurp
-                                         str/split-lines)))))
+  ;; ws-structure
+  (into (sorted-map)
+        (mapv ws-key
+              (filter #(str/starts-with? % "== ")
+                      (-> "doc/workspace-structure.adoc"
+                          slurp
+                          str/split-lines))))
 
   (def cljdoc-pages (-> (config-reader/read-edn-file "doc/cljdoc.edn" "cljdoc.edn")
                         :config :cljdoc.doc/tree))
   ;; pages
-  (into (sorted-map) (mapv #(entry % commands ws-struct) (sort (mapcat pages-info cljdoc-pages))))
+  (into (sorted-map) (mapv entry (sort (mapcat pages-info cljdoc-pages))))
 
 
 
   #__)
 
+(def commands {"check" [],
+               "create" [],
+               "create-base" [],
+               "create-component" [],
+               "create-project" [],
+               "create-workspace" [],
+               "deps" [],
+               "deps-brick" [],
+               "deps-project" [],
+               "deps-project-brick" [],
+               "deps-workspace" [],
+               "diff" [],
+               "info" [],
+               "libs" [],
+               "migrate" [],
+               "overview" [],
+               "shell" [],
+               "switch-ws" [],
+               "tap" [],
+               "test" [],
+               "ws" []})
+
 (def pages {"base" {},
             "build" {},
             "clojure-cli-tool" {},
             "colors" {},
-            "commands" {"check" [],
-                        "create" [],
-                        "create-base" [],
-                        "create-component" [],
-                        "create-project" [],
-                        "create-workspace" [],
-                        "deps" [],
-                        "deps-brick" [],
-                        "deps-project" [],
-                        "deps-project-brick" [],
-                        "deps-workspace" [],
-                        "diff" [],
-                        "info" [],
-                        "libs" [],
-                        "migrate" [],
-                        "overview" [],
-                        "shell" [],
-                        "switch-ws" [],
-                        "tap" [],
-                        "test" [],
-                        "ws" []},
+            "commands" {},
             "component" {},
             "configuration" {},
             "context" {},
@@ -115,23 +115,25 @@
             "upgrade" {},
             "validations" {},
             "workspace" {},
-            "ws-structure" {"bases" [],
-                            "changes" [],
-                            "components" [],
-                            "configs" [],
-                            "interface" [],
-                            "messages" [],
-                            "name" [],
-                            "old" [],
-                            "paths" [],
-                            "projects" [],
-                            "settings" [],
-                            "user-input" [],
-                            "version" [],
-                            "ws-dir" [],
-                            "ws-local-dir" [],
-                            "ws-reader" [],
-                            "ws-type" []}})
+            "ws-structure" {}})
+
+(def ws-structure {"bases" [],
+                   "changes" [],
+                   "components" [],
+                   "configs" [],
+                   "interface" [],
+                   "messages" [],
+                   "name" [],
+                   "old" [],
+                   "paths" [],
+                   "projects" [],
+                   "settings" [],
+                   "user-input" [],
+                   "version" [],
+                   "ws-dir" [],
+                   "ws-local-dir" [],
+                   "ws-reader" [],
+                   "ws-type" []})
 
 (defn map-strings [values]
   (if (-> values first keyword?)
@@ -148,9 +150,23 @@
         (sequential? raw-values) (seq-strings values raw-values)
         :else values))
 
-(defn select [_ groups _]
+(defn select-command [_ groups _]
+  (let [current (or (get-in groups [:doc "command" :args]) [])
+        values (ws-explorer/extract commands current)
+        result (strings values (ws-explorer/extract commands (conj current "keys")))]
+    (mapv #(c/fn-comma-arg % :doc "command" #'select-command true)
+          result)))
+
+(defn select-page [_ groups _]
   (let [current (or (get-in groups [:doc "page" :args]) [])
         values (ws-explorer/extract pages current)
         result (strings values (ws-explorer/extract pages (conj current "keys")))]
-    (mapv #(c/fn-comma-arg % :doc "page" #'select true)
+    (mapv #(c/fn-comma-arg % :doc "page" #'select-page true)
+          result)))
+
+(defn select-ws [_ groups _]
+  (let [current (or (get-in groups [:doc "ws" :args]) [])
+        values (ws-explorer/extract ws-structure current)
+        result (strings values (ws-explorer/extract ws-structure (conj current "keys")))]
+    (mapv #(c/fn-comma-arg % :doc "ws" #'select-ws true)
           result)))
