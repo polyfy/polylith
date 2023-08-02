@@ -1,4 +1,6 @@
 = Continuous Integration
+:toc:
+:toclevels: 5
 
 In this document we will look at the general setup of CI.
 
@@ -62,8 +64,6 @@ poly ws get:changes:changed-or-affected-projects since:release skip:dev
 Here we rely on release-* tags that mark the whole repo as released.
 
 == How this repo sets up CI and deployment
-:toc:
-:toclevels: 4
 
 The polylith repository has a continuous integration and deployment setup via https://circleci.com[CircleCI].
 The setup has two workflows, one for regular validation and testing, and another one for deployments.
