@@ -5,7 +5,7 @@
             [polylith.clj.core.config-reader.interface :as config-reader]
             [polylith.clj.core.shell.candidate.shared :as shared]
 ;            [polylith.clj.core.ws-explorer.interface :as ws-explorer]
-            [polylith.clj.core.util.str :as str-util]))
+            [polylith.clj.core.util.interface.str :as str-util]))
 
 (defn page [item]
   {:name (-> item

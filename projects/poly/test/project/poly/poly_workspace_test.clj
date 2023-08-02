@@ -203,7 +203,7 @@
           "  overview                  .  x  .  x  .  .  x  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  x  x  .  ."
           "  path-finder               .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  shell                     .  .  .  x  .  .  .  x  .  .  .  .  .  .  .  x  .  x  x  .  .  .  .  x  x  x  .  x  .  .  x  ."
+          "  shell                     .  .  .  x  x  .  .  x  .  .  .  .  .  .  .  x  .  x  x  .  .  .  .  x  x  x  .  x  .  .  x  ."
           "  system                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  system-x                  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
@@ -270,7 +270,7 @@
             "  overview                  +  x  .  x  +  .  x  +  +  .  x  x  .  .  +  +  .  +  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
             "  path-finder               .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  shell                     .  .  .  x  .  .  .  x  .  .  +  .  .  .  .  x  .  x  x  .  .  .  +  x  x  x  .  x  .  .  x  ."
+            "  shell                     .  .  .  x  x  .  +  x  .  .  +  .  .  .  +  x  .  x  x  .  +  .  +  x  x  x  +  x  .  .  x  ."
             "  system                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  test-helper               -  -  t  -  -  -  -  t  -  -  -  -  -  -  -  -  -  -  -  .  -  -  -  t  t  -  -  -  -  -  -  -"
@@ -336,7 +336,7 @@
             "  overview                  +  x  .  x  +  .  x  +  +  .  x  x  .  .  +  +  .  +  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
             "  path-finder               .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  shell                     .  .  .  x  .  .  .  x  .  .  +  .  .  .  .  x  .  x  x  .  .  .  +  x  x  x  .  x  .  .  x  ."
+            "  shell                     .  .  .  x  x  .  +  x  .  .  +  .  .  .  +  x  .  x  x  .  +  .  +  x  x  x  +  x  .  .  x  ."
             "  system                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  test-helper               -  -  t  -  -  -  -  t  -  -  -  -  -  -  -  -  -  -  -  .  -  -  -  t  t  -  -  -  -  -  -  -"
@@ -768,6 +768,7 @@
           "sh"                       {:src  {}
                                       :test {}}
           "shell"                    {:src  {:direct   ["common"
+                                                        "config-reader"
                                                         "file"
                                                         "sh"
                                                         "system"
@@ -777,9 +778,14 @@
                                                         "util"
                                                         "version"
                                                         "ws-explorer"]
-                                             :indirect ["image-creator"
-                                                        "text-table"]}
+                                             :indirect ["deps"
+                                                        "image-creator"
+                                                        "path-finder"
+                                                        "test-runner-contract"
+                                                        "text-table"
+                                                        "validator"]}
                                       :test {:direct   ["common"
+                                                        "config-reader"
                                                         "file"
                                                         "sh"
                                                         "system"
@@ -789,8 +795,12 @@
                                                         "util"
                                                         "version"
                                                         "ws-explorer"]
-                                             :indirect ["image-creator"
-                                                        "text-table"]}}
+                                             :indirect ["deps"
+                                                        "image-creator"
+                                                        "path-finder"
+                                                        "test-runner-contract"
+                                                        "text-table"
+                                                        "validator"]}}
           "system"                   {:src  {}
                                       :test {}}
           "tap"                      {:src  {}
@@ -1029,6 +1039,7 @@
   (is (= (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"])
          {:src  ["antq.api"
                  "clojure.edn"
+                 "clojure.java.browse"
                  "clojure.java.io"
                  "clojure.java.shell"
                  "clojure.lang"

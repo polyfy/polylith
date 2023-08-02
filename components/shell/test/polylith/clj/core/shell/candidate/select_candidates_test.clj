@@ -16,7 +16,7 @@
 
 (deftest all-commands
   (is (= (candidates "")
-         (concat ["check" "create" "deps" "diff" "help" "info" "libs"]
+         (concat ["check" "create" "deps" "diff" "doc" "help" "info" "libs"]
                  (if system/extended? ["overview"] [])
                  ["switch-ws" "test" "version" "ws"]))))
 
