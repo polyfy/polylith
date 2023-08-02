@@ -24,10 +24,14 @@
         cmd (subs the-rest 0 (-> the-rest count dec))]
     [cmd []]))
 
-(defn entry [page commands]
-  (let [data (if (= "commands" page)
-               commands
-               {})]
+(defn ws-key [bookmark]
+  [(subs bookmark 3) []])
+
+(defn entry [page commands ws-struct]
+  (let [[page data] (condp = page
+                      "commands" [page commands]
+                      "workspace-structure" ["ws-structure" ws-struct]
+                      [page {}])]
     [page data]))
 
 (comment
@@ -38,10 +42,20 @@
                                     slurp
                                     str/split-lines)))))
 
+  (def ws-struct (into (sorted-map)
+                       (mapv ws-key
+                             (filter #(str/starts-with? % "== ")
+                                     (-> "doc/workspace-structure.adoc"
+                                         slurp
+                                         str/split-lines)))))
+
   (def cljdoc-pages (-> (config-reader/read-edn-file "doc/cljdoc.edn" "cljdoc.edn")
                         :config :cljdoc.doc/tree))
   ;; pages
-  (into (sorted-map) (mapv #(entry % commands) (sort (mapcat pages-info cljdoc-pages))))
+  (into (sorted-map) (mapv #(entry % commands ws-struct) (sort (mapcat pages-info cljdoc-pages))))
+
+
+
   #__)
 
 (def pages {"base" {},
@@ -101,7 +115,23 @@
             "upgrade" {},
             "validations" {},
             "workspace" {},
-            "workspace-structure" {}})
+            "ws-structure" {"bases" [],
+                            "changes" [],
+                            "components" [],
+                            "configs" [],
+                            "interface" [],
+                            "messages" [],
+                            "name" [],
+                            "old" [],
+                            "paths" [],
+                            "projects" [],
+                            "settings" [],
+                            "user-input" [],
+                            "version" [],
+                            "ws-dir" [],
+                            "ws-local-dir" [],
+                            "ws-reader" [],
+                            "ws-type" []}})
 
 (defn map-strings [values]
   (if (-> values first keyword?)

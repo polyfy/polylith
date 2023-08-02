@@ -36,12 +36,18 @@
 
 (def doc-url (str "http://localhost:8000/d/polylith/clj-poly/" ver/name "/doc"))
 
+(defn page-with-bookmark [[page bookmark]]
+  (let [the-page (if (= "ws-structure" page)
+                   "workspace-structure"
+                   page)]
+   (str "reference/" the-page "#_" bookmark)))
+
 (defn open-doc [page]
   (tap> {:page page})
   (let [the-page (cond
                    (nil? page) "readme"
                    (= 1 (count page)) (first page)
-                   :else (str "reference/" (first page) "#" (second page)))]
+                   :else (page-with-bookmark page))]
     (browse/browse-url (str doc-url "/" the-page))))
 
 (defn help [[_ cmd ent] is-all is-show-project is-show-brick is-show-workspace toolsdeps1? fake-poly? color-mode]
