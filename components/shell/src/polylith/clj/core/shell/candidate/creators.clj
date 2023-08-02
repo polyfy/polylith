@@ -127,7 +127,6 @@
                          :group group
                          :function select-fn}]))
 
-
 (defn fn-explorer-child [value entity color-mode stay? group select-fn]
   (candidate (str value ":")
              (color/entity entity value color-mode)
