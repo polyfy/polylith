@@ -37,6 +37,7 @@ An even better way is to explore the workspace interactively from a xref:command
 
 image::images/workspace-structure/shell.png[alt=shell]
 
+[#bases]
 == bases
 
 [source,shell]
@@ -108,6 +109,7 @@ If ignored, then xref:validations.adoc#warning206[_warning 206 - Unreadable name
 (paths for _src_ and _resources_ paths + _aliases_ > _:test_ > _:extra-paths_ for test paths).
 * `:type` Set to "base".
 
+[#changes]
 == changes
 
 [source,shell]
@@ -194,6 +196,7 @@ if executing the xref:commands.adoc#test[test] command.
 
 * `:since-tag` The name of the tag, e.g. v_0.1.0-alpha9_ if _since:release_ was given.
 
+[#components]
 == components
 
 [source,shell]
@@ -269,6 +272,7 @@ If ignored, then "warning 206 - Unreadable namespace" will not be triggered.
 (paths for _src_ and _resources_ paths + _aliases_ > _:test_ > _:extra-paths_ for test paths).
 * `:type` Set to "base".
 
+[#configs]
 == configs
 
 [source,shell]
@@ -353,6 +357,7 @@ poly ws get:configs
 
 These attributes are described in the xref:configuration.adoc[Configuration] section.
 
+[#interface]
 == interface
 
 [source,shell]
@@ -383,6 +388,7 @@ and live in the _se.example.user.interface_ namespace.
 
 * `:type` Set to "interface".
 
+[#messages]
 == messages
 
 [source,shell]
@@ -411,6 +417,7 @@ To trigger this error, we commented out the hello function from the user compone
 
 * `:type` Set to "error" or "warning".
 
+[#name]
 == name
 
 [source,shell]
@@ -425,6 +432,7 @@ poly ws get:name
 
 The name of the workspace directory.
 
+[#old]
 == old
 
 [source,shell]
@@ -462,6 +470,7 @@ If the workspace is loaded using _ws-file:WS-FILE_ then the _:old_ key is popula
 * `:active-profiles` If any profiles are given, then this key is added with the value of _:active-profiles_
 taken from the _:settings_ key from the original ws file.
 
+[#paths]
 == paths
 
 [source,shell]
@@ -507,6 +516,7 @@ poly ws get:paths
 
 * `:missing` All missing paths in the workspace that are used in bricks, projects, and profiles but don't exist on disk.
 
+[#projects]
 == projects
 
 [source,shell]
@@ -622,6 +632,7 @@ If ignored, then "warning 206 - Unreadable namespace" will not be triggered.
 * `:project-dir` The absolute path to the project directory.
 * `:type` Set to "project".
 
+[#settings]
 == settings
 
 [source,shell]
@@ -733,6 +744,7 @@ The branch is used when calculating the latest sha in _./deps.edn_ for the key _
 *** `:sha` The latest stable point in time.
 *** `:tag` The tag for the latest stable point in time (if exists).
 
+[#user-input]
 == user-input
 
 [source,shell]
@@ -907,6 +919,7 @@ or implicitly set by the xref:commands.adoc#switch-ws command, using the _dir_ p
 Can either be explicitly passed in together with the `poly` command,
 or implicitly set by the xref:commands.adoc#switch-ws, using the _file_  parameter.
 
+[#version]
 == version
 
 [source,shell]
@@ -964,6 +977,7 @@ or if the workspace is read from a directory that has not been migrated from _:t
 Changes to the _workspace structure_, is documented in the
 https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/components/version/src/polylith/clj/core/version/interface.clj#L37-L57[version] component.
 
+[#ws-dir]
 == ws-dir
 
 [source,shell]
@@ -978,6 +992,7 @@ poly ws get:ws-dir
 
 The absolute path of the workspace directory.
 
+[#ws-local-dir]
 == ws-local-dir
 
 [source,shell]
@@ -997,6 +1012,7 @@ If the workspace lives inside the git root as a directory or subdirectory,
 which will be the case if we create the workspace inside an existing repository and giving it a name,
 then it is set to the relative path to the git root.
 
+[#ws-reader]
 == ws-reader
 
 [source,shell]
@@ -1028,6 +1044,7 @@ and populate this structure so that it can be used by external tooling.
 * `:type-position` Set to _postfix_ because types (type hints) come before the arguments, in Clojure, e.g. _^String arg_.
 In some other languages like Scala, the types come after the arguments.
 
+[#ws-type]
 == ws-type
 
 [source,shell]
