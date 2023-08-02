@@ -141,8 +141,8 @@ then the code can start in the project and then gradually move out to bricks.
 ====
 CAUTION: Allowing other bricks to access a component's test code will make it harder to replace that component,
 as the new component must implement the same set of test functions. +
-A better strategy is to create a separate test-helper component,
-put the shared code there, and depend on that component's interface.
+A better strategy is to put the shared code in a separate test helper component,
+and depend on that component's interface.
 ====
 
 == Circular dependencies

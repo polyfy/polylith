@@ -60,8 +60,8 @@
 (def diff (c/single-txt "diff" :diff [diff-since]))
 
 ;; doc
-(def doc-poly (c/fn-values "poly" :doc #'doc-sections/select))
-(def doc (c/single-txt "doc" :doc [doc-poly]))
+(def doc-page (c/fn-values "page" :doc #'doc-sections/select))
+(def doc (c/single-txt "doc" :doc [doc-page]))
 
 ;; help
 (def help-all (c/flag "all" :help))
