@@ -12,6 +12,9 @@
 (defn clean-project-configs [configs]
   (config-reader/clean-project-configs configs))
 
+(defn read-edn-file [file-path filename]
+  (deps-reader/read-edn-file file-path filename))
+
 (defn read-deps-file [file-path filename]
   (deps-reader/read-deps-file file-path filename))
 

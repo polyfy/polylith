@@ -8,6 +8,7 @@
             [polylith.clj.core.shell.candidate.selector.ws-tag-patterns :as ws-tag-patterns]
             [polylith.clj.core.shell.candidate.selector.ws-deps-entities :as ws-deps-entities]
             [polylith.clj.core.shell.candidate.selector.color-modes :as color-modes]
+            [polylith.clj.core.shell.candidate.selector.doc-sections :as doc-sections]
             [polylith.clj.core.shell.candidate.selector.ws-projects :as ws-projects]
             [polylith.clj.core.shell.candidate.selector.ws-projects-to-test :as ws-projects-to-test]
             [polylith.clj.core.system.interface :as system]]
@@ -57,6 +58,10 @@
 ;; diff
 (def diff-since (c/fn-explorer "since" :diff #'ws-tag-patterns/select))
 (def diff (c/single-txt "diff" :diff [diff-since]))
+
+;; doc
+(def doc-poly (c/fn-values "poly" :doc #'doc-sections/select))
+(def doc (c/single-txt "doc" :doc [doc-poly]))
 
 ;; help
 (def help-all (c/flag "all" :help))
@@ -191,6 +196,7 @@
                         (or (nil? ws-dir)
                             (= "." ws-dir)))]
     (vec (concat [check
+                  doc
                   diff
                   switch-ws
                   version
@@ -207,4 +213,4 @@
 
 (def create-outside-ws-root (c/single-txt "create" [create-workspace]))
 
-(def candidates-outside-ws-root [(help false) version create-outside-ws-root switch-ws])
+(def candidates-outside-ws-root [(help false) version create-outside-ws-root doc switch-ws])
