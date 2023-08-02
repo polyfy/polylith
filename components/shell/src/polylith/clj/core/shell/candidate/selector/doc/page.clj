@@ -12,13 +12,6 @@
       (str-util/skip-prefix "doc/")
       (str-util/skip-suffix ".adoc")))
 
-(defn pages-info [item]
-  (let [page (page-name item)]
-    (if page
-      [page]
-      (mapv page-name
-            (drop 2 item)))))
-
 (defn entry [page]
   [page {}])
 
@@ -26,14 +19,13 @@
   (def cljdoc-pages (-> (config-reader/read-edn-file "doc/cljdoc.edn" "cljdoc.edn")
                         :config :cljdoc.doc/tree))
   ;; pages
-  (into (sorted-map) (mapv entry (sort (mapcat pages-info cljdoc-pages))))
+  (into (sorted-map) (mapv entry (sort (remove nil? (map page-name cljdoc-pages)))))
   #__)
 
 (def pages {"base" {},
             "build" {},
             "clojure-cli-tool" {},
             "colors" {},
-            "commands" {},
             "component" {},
             "configuration" {},
             "context" {},
@@ -65,8 +57,7 @@
             "tools-deps" {},
             "upgrade" {},
             "validations" {},
-            "workspace" {},
-            "ws-structure" {}})
+            "workspace" {}})
 
 (defn select [_ groups _]
   (let [current (or (get-in groups [:doc "page" :args]) [])
