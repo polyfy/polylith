@@ -34,8 +34,15 @@
   (doseq [file (-> workspace :changes :changed-files)]
     (println file)))
 
+(def doc-url (str "http://localhost:8000/d/polylith/clj-poly/" ver/name "/doc"))
+
 (defn open-doc [page]
-  (browse/browse-url (str ver/doc-url "/" (or page "readme"))))
+  (tap> {:page page})
+  (let [the-page (cond
+                   (nil? page) "readme"
+                   (= 1 (count page)) (first page)
+                   :else (str "reference/" (first page) "#" (second page)))]
+    (browse/browse-url (str doc-url "/" the-page))))
 
 (defn help [[_ cmd ent] is-all is-show-project is-show-brick is-show-workspace toolsdeps1? fake-poly? color-mode]
   (help/print-help cmd ent is-all is-show-project is-show-brick is-show-workspace toolsdeps1? fake-poly? color-mode))
@@ -66,7 +73,7 @@
     ":tap" ["shell" (assoc user-input :is-tap true)]
     [cmd user-input]))
 
-(defn execute [{:keys [cmd args name top-ns branch poly is-tap is-git-add is-commit is-all is-outdated is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
+(defn execute [{:keys [cmd args name top-ns branch page is-tap is-git-add is-commit is-all is-outdated is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (config-reader/workspace-dir user-input)
         workspace-fn (workspace-reader-fn)
@@ -84,7 +91,7 @@
           "check" (check workspace color-mode)
           "create" (create/create ws-dir workspace args name top-ns interface branch is-git-add is-commit color-mode)
           "deps" (dependencies/deps workspace project-name brick-name unnamed-args)
-          "doc" (open-doc poly)
+          "doc" (open-doc page)
           "diff" (diff workspace)
           "help" (help args is-all is-show-project is-show-brick is-show-workspace toolsdeps1? is-fake-poly color-mode)
           "info" (info/info workspace unnamed-args)

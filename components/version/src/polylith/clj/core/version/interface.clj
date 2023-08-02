@@ -19,8 +19,6 @@
 
 (def tool (if system/extended? "polyx" "poly"))
 
-(def doc-url "http://localhost:8000/d/polylith/clj-poly/0.2.18-issue318-02/doc")
-
 (def date "2023-08-02")
 
 (defn version

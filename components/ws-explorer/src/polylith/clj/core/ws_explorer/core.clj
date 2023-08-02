@@ -98,9 +98,9 @@
     (walk/postwalk (replace-fn replace) value)
     value))
 
-(defn extract [workspace values]
-  (let [replace (-> workspace :user-input :replace)
-        value (-> (extract-value workspace values)
+(defn extract [edn-data values]
+  (let [replace (-> edn-data :user-input :replace)
+        value (-> (extract-value edn-data values)
                   (replace-values replace))]
     (if (map? value)
       (into (sorted-map) value)

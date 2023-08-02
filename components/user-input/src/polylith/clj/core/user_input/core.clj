@@ -46,6 +46,12 @@
       parameter
       [parameter])))
 
+(defn as-page [parameter]
+  (let [param (as-vector parameter)]
+    (if (-> param last str/blank?)
+      (drop-last param)
+      param)))
+
 (defn extract-params [args single-arg-commands]
   (let [{:keys [cmd params]} (extract args)
         {:keys [named-args unnamed-args]} (params/extract params single-arg-commands)
@@ -74,7 +80,7 @@
                 no-exit!
                 out
                 outdated!
-                poly
+                page
                 project
                 project!
                 r!
@@ -124,7 +130,7 @@
                       :is-verbose (= "true" verbose!)
                       :name name
                       :out (as-value out)
-                      :poly (as-value poly)
+                      :page (as-page page)
                       :replace (replace-from-to replace)
                       :selected-bricks (as-vector brick)
                       :selected-profiles (selected-profiles unnamed-args)
