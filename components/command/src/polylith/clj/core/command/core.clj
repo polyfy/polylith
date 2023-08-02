@@ -37,18 +37,15 @@
 
 (def doc-url (str "http://localhost:8000/d/polylith/clj-poly/" ver/name "/doc"))
 
-(defn bookmark [page bookmark heading?]
-  (let [[bookmark separator] (if heading?
-                           [(str/replace bookmark "-" "_") "#_"]
-                           [bookmark "#"])]
-    (str "reference/" page separator bookmark)))
+(defn bookmark [page bookmark]
+  (str "reference/" page "#" bookmark))
 
 (defn open-doc [command page ws [_ cmd]]
   (let [cmd (when cmd (-> cmd (str/split #":") first))
         the-page (condp = cmd
-                   "command" (bookmark "commands" command false)
+                   "command" (bookmark "commands" command)
                    "page" (or page "readme")
-                   "ws" (bookmark "workspace-structure" ws true)
+                   "ws" (bookmark "workspace-structure" ws)
                    "readme")]
     (browse/browse-url (str doc-url "/" the-page))))
 
