@@ -46,12 +46,6 @@
       parameter
       [parameter])))
 
-(defn as-page [parameter]
-  (let [param (as-vector parameter)]
-    (if (-> param last str/blank?)
-      (drop-last param)
-      param)))
-
 (defn extract-params [args single-arg-commands]
   (let [{:keys [cmd params]} (extract args)
         {:keys [named-args unnamed-args]} (params/extract params single-arg-commands)
@@ -61,6 +55,7 @@
                 branch
                 brick!
                 color-mode
+                command
                 commit!
                 changed-files
                 compact!
@@ -92,6 +87,7 @@
                 top-ns
                 verbose!
                 workspace!
+                ws
                 ws-dir
                 ws-file]} named-args]
     (util/ordered-map :args (vec args)
@@ -100,6 +96,7 @@
                       :branch branch
                       :color-mode (as-value color-mode)
                       :changed-files (as-vector changed-files)
+                      :command (as-value command)
                       :dir dir
                       :file file
                       :fake-sha fake-sha
@@ -130,7 +127,7 @@
                       :is-verbose (= "true" verbose!)
                       :name name
                       :out (as-value out)
-                      :page (as-page page)
+                      :page (as-value page)
                       :replace (replace-from-to replace)
                       :selected-bricks (as-vector brick)
                       :selected-profiles (selected-profiles unnamed-args)
@@ -138,6 +135,7 @@
                       :since since
                       :skip (as-vector skip)
                       :top-ns top-ns
+                      :ws (as-value ws)
                       :ws-dir ws-dir
                       :ws-file ws-file
                       :unnamed-args (vec unnamed-args))))

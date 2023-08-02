@@ -60,8 +60,10 @@
 (def diff (c/single-txt "diff" :diff [diff-since]))
 
 ;; doc
-(def doc-page (c/fn-values "page" :doc #'doc-sections/select))
-(def doc (c/single-txt "doc" :doc [doc-page]))
+(def doc-command (c/fn-values "command" :doc #'doc-sections/select-command))
+(def doc-page (c/fn-values "page" :doc #'doc-sections/select-page))
+(def doc-ws (c/fn-values "ws" :doc #'doc-sections/select-ws))
+(def doc (c/single-txt "doc" :doc [doc-command doc-page doc-ws]))
 
 ;; help
 (def help-all (c/flag "all" :help))
