@@ -6,6 +6,7 @@
         poly/config-reader            {:local/root "../../components/config-reader"}
         poly/creator                  {:local/root "../../components/creator"}
         poly/deps                     {:local/root "../../components/deps"}
+        poly/doc                      {:local/root "../../components/doc"}
         poly/file                     {:local/root "../../components/file"}
         poly/git                      {:local/root "../../components/git"}
         poly/help                     {:local/root "../../components/help"}
