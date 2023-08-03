@@ -3,6 +3,7 @@
             [polylith.clj.core.help.create :as create]
             [polylith.clj.core.help.deps :as deps]
             [polylith.clj.core.help.diff :as diff]
+            [polylith.clj.core.help.doc :as doc]
             [polylith.clj.core.help.info :as info]
             [polylith.clj.core.help.libs :as libs]
             [polylith.clj.core.help.switch-ws :as switch-ws]
@@ -24,6 +25,7 @@
       "create" (create/print-help ent color-mode)
       "deps" (deps/print-help is-show-project is-show-brick is-show-workspace extended? color-mode)
       "diff" (diff/print-help color-mode)
+      "doc" (doc/print-help color-mode)
       "info" (info/print-help extended? color-mode)
       "libs" (libs/print-help extended? color-mode)
       "overview" (overview/print-help color-mode)

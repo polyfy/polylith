@@ -39,6 +39,9 @@ poly help deps :project :brick color-mode:none > 12-deps-project-brick.txt
 echo "--- diff ---"
 poly help diff color-mode:none > 13-diff.txt
 
+echo "--- doc ---"
+poly help doc color-mode:none > doc.txt
+
 echo "--- info ---"
 poly help info color-mode:none :fake-poly > 14-info.txt
 

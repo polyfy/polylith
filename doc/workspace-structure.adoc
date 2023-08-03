@@ -788,6 +788,7 @@ We also have a number of arguments that are only populated if they are passed in
 {:branch "master"
  :changed-files ["images/doc.png" "workspace.edn"]
  :color-mode "none"
+ :command "info"
  :dir "../clojure-polylith-realworld-example-app"
  :fake-sha "c91fdad"
  :fake-tag "stable-lisa"
@@ -814,6 +815,8 @@ to give the branch, otherwise the workspace will be created in the _main_ branch
 * `:changed-files` Overrides the real xref:changed-files[changed-files] that is retrieved from a git.
 
 * `:cmd` The first argument to the _poly_ tool.
+
+* `:command` Used by the xref:doc.
 
 * `:color-mode` Overrides the xref:color-mode[color-mode].
 

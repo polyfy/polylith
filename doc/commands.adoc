@@ -12,7 +12,7 @@ poly help
 
 [source,text]
 ----
-  Poly 0.2.18 (2023-07-30) - https://github.com/polyfy/polylith
+  Poly 0.2.18 (2023-08-02) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -70,7 +70,7 @@ poly help
     KEY     -> any key in :tag-patterns.
     SHA     -> a git SHA-1 hash (if no key was found in :tag-patterns).
 
-  Execute 'poly help :all' to include rarely used parameters in this help.
+  Execute 'poly help :all' to include parameters used when maintaining the poly tool.
 
   The color mode is taken from ~/.config/polylith/config.edn but can be overridden by passing
   in color-mode:COLOR where valid colors are none, light, and dark.
@@ -185,7 +185,7 @@ poly help
     poly ws get:changes:changed-or-affected-projects skip:dev color-mode:none
     poly ws out:ws.edn
 
-  Rarely used parameters:
+  Parameters used when maintaining the poly tool:
     poly info :no-changes
     poly info fake-sha:c91fdad
     poly info fake-tag:stable-me
@@ -626,6 +626,44 @@ poly help
     poly diff since:previous-release
 ----
 
+[#doc]
+=== doc
+
+[source,text]
+----
+  Opens a document in a web browser.
+
+  poly doc [ARG]
+
+    ARG = (omitted)       -> Opens the poly tool readme.
+
+          command:COMMAND -> Opens the help for the given poly COMMAND,
+                             or the overall help if not given.
+
+          page:PAGE       -> Opens the given PAGE for the poly tool documentation.
+
+          ws:KEY          -> Opens the workspace structure section in the poly tool
+                             documentation, and scrolls to the KEY section.
+
+          more:TYPE       -> Opens up the given blog-post, podcast, video, et cetera.
+
+  Example:
+    poly doc
+    poly doc command:check
+    poly doc page install
+    poly doc ws:settings
+    poly doc more:blog-posts
+    poly doc more:blog-posts:how-polylith-came-to-life
+    poly doc more:high-level
+    poly doc more:podcasts
+    poly doc more:podcasts:polylith-with-joakim-james-and-furkan
+    poly doc more:python-tool
+    poly doc more:slack
+    poly doc more:videos
+    poly doc more:videos:polylith-in-a-nutshell
+    poly doc more:workspaces:realworld
+----
+
 [#info]
 === info
 
@@ -986,6 +1024,10 @@ poly help
     tap [ARG]      Opens (or closes/cleans) a portal window that outputs tap> statements.
     exit           Exits the shell.
     quit           Quits the shell.
+
+  It's also possible to start a shell and switch to a workspace at the same time, e.g.:
+    poly shell ws-dir:examples/doc-example
+    poly shell ws-file:realworld.edn
 
   An alternative way of exiting the shell is by pressing <ctrl>+C or <ctrl>+D.
 ----
