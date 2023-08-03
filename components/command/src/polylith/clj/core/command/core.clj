@@ -1,7 +1,5 @@
 (ns ^:no-doc polylith.clj.core.command.core
-  (:require [clojure.java.browse :as browse]
-            [clojure.string :as str]
-            [polylith.clj.core.change.interface :as change]
+  (:require [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.command.cmd-validator.core :as cmd-validator]
             [polylith.clj.core.command.create :as create]
             [polylith.clj.core.command.dependencies :as dependencies]
@@ -11,6 +9,7 @@
             [polylith.clj.core.command.user-config :as user-config]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.config-reader.interface :as config-reader]
+            [polylith.clj.core.doc.interface :as doc]
             [polylith.clj.core.help.interface :as help]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.migrator.interface :as migrator]
@@ -35,19 +34,8 @@
   (doseq [file (-> workspace :changes :changed-files)]
     (println file)))
 
-(def doc-url (str "http://localhost:8000/d/polylith/clj-poly/" ver/name "/doc"))
-
-(defn bookmark [page bookmark]
-  (str "reference/" page "#" bookmark))
-
-(defn open-doc [command page ws [_ cmd]]
-  (let [cmd (when cmd (-> cmd (str/split #":") first))
-        the-page (condp = cmd
-                   "command" (bookmark "commands" command)
-                   "page" (or page "readme")
-                   "ws" (bookmark "workspace-structure" ws)
-                   "readme")]
-    (browse/browse-url (str doc-url "/" the-page))))
+(defn open-doc [[_ cmd] command other page ws]
+  (doc/open-doc cmd command other page ws))
 
 (defn help [[_ cmd ent] is-all is-show-project is-show-brick is-show-workspace toolsdeps1? fake-poly? color-mode]
   (help/print-help cmd ent is-all is-show-project is-show-brick is-show-workspace toolsdeps1? fake-poly? color-mode))
@@ -78,7 +66,7 @@
     ":tap" ["shell" (assoc user-input :is-tap true)]
     [cmd user-input]))
 
-(defn execute [{:keys [cmd args name top-ns branch command page ws is-tap is-git-add is-commit is-all is-outdated is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
+(defn execute [{:keys [cmd args name top-ns branch command other page ws is-tap is-git-add is-commit is-all is-outdated is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (config-reader/workspace-dir user-input)
         workspace-fn (workspace-reader-fn)
@@ -96,7 +84,7 @@
           "check" (check workspace color-mode)
           "create" (create/create ws-dir workspace args name top-ns interface branch is-git-add is-commit color-mode)
           "deps" (dependencies/deps workspace project-name brick-name unnamed-args)
-          "doc" (open-doc command page ws args)
+          "doc" (open-doc args command other page ws )
           "diff" (diff workspace)
           "help" (help args is-all is-show-project is-show-brick is-show-workspace toolsdeps1? is-fake-poly color-mode)
           "info" (info/info workspace unnamed-args)

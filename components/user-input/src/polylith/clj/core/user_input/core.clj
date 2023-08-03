@@ -73,6 +73,7 @@
                 name
                 no-changes!
                 no-exit!
+                other
                 out
                 outdated!
                 page
@@ -126,6 +127,7 @@
                       :is-tap (= "true" tap!)
                       :is-verbose (= "true" verbose!)
                       :name name
+                      :other (as-vector other)
                       :out (as-value out)
                       :page (as-value page)
                       :replace (replace-from-to replace)

@@ -11,6 +11,7 @@
       <module fileurl="file://$PROJECT_DIR$/components/config-reader/config-reader.iml" filepath="$PROJECT_DIR$/components/config-reader/config-reader.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/creator/creator.iml" filepath="$PROJECT_DIR$/components/creator/creator.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/deps/deps.iml" filepath="$PROJECT_DIR$/components/deps/deps.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/doc/doc.iml" filepath="$PROJECT_DIR$/components/doc/doc.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/file/file.iml" filepath="$PROJECT_DIR$/components/file/file.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/git/git.iml" filepath="$PROJECT_DIR$/components/git/git.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/help/help.iml" filepath="$PROJECT_DIR$/components/help/help.iml" />
