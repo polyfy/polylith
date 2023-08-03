@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.shell.candidate.selector.doc.other
+(ns ^:no-doc polylith.clj.core.shell.candidate.selector.doc.more
   (:require [polylith.clj.core.shell.candidate.creators :as c]
             [polylith.clj.core.doc.interface :as doc]
             [polylith.clj.core.shell.candidate.selector.doc.shared :as shared]
@@ -6,7 +6,7 @@
 
 (defn select [_ groups _]
   (let [current (or (get-in groups [:doc "other" :args]) [])
-        values (ws-explorer/extract doc/other-urls current)
-        result (shared/strings values (ws-explorer/extract doc/other-urls (conj current "keys")))]
+        values (ws-explorer/extract doc/more-urls current)
+        result (shared/strings values (ws-explorer/extract doc/more-urls (conj current "keys")))]
     (mapv #(c/fn-comma-arg % :doc "other" #'select true)
           result)))
