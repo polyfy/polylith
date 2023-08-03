@@ -30,16 +30,19 @@ We have described three ways already, e.g.:
 3. `clojure -Tpoly help` - as a Clojure CLI Tool
 
 All the documentation refers to the first form, even though the other two are also valid.
-There is also a fourth way, and that is to execute the command from a shell.
+There is also a fourth way, and that is to execute the command from a xref:commands#shell[shell]:
 
-We can start an interactive xref:commands#shell[shell] by leaving out the command in the fist two cases (or include "shell")
-but in the third it has to include "shell":
+1. `poly shell`
+
+2. `clojure -M:poly shell`
+
+3. `clojure -T:poly shell`
+
+We can leave out _shell_ except in the third case:
 
 1. `poly`
 
 2. `clojure -M:poly`
-
-3. `clojure -T:poly shell`
 
 image::images/component/start-a-shell.png[]
 

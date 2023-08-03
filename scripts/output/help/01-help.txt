@@ -1,4 +1,4 @@
-  Poly 0.2.18 (2023-07-30) - https://github.com/polyfy/polylith
+  Poly 0.2.18 (2023-08-02) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -56,7 +56,7 @@
     KEY     -> any key in :tag-patterns.
     SHA     -> a git SHA-1 hash (if no key was found in :tag-patterns).
 
-  Execute 'poly help :all' to include rarely used parameters in this help.
+  Execute 'poly help :all' to include parameters used when maintaining the poly tool.
 
   The color mode is taken from ~/.config/polylith/config.edn but can be overridden by passing
   in color-mode:COLOR where valid colors are none, light, and dark.
@@ -171,7 +171,7 @@
     poly ws get:changes:changed-or-affected-projects skip:dev color-mode:none
     poly ws out:ws.edn
 
-  Rarely used parameters:
+  Parameters used when maintaining the poly tool:
     poly info :no-changes
     poly info fake-sha:c91fdad
     poly info fake-tag:stable-me

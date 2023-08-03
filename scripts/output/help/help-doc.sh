@@ -52,6 +52,10 @@ cat begin/13-diff.txt
 cat 13-diff.txt
 cat end.txt
 
+cat begin/doc.txt
+cat doc.txt
+cat end.txt
+
 cat begin/14-info.txt
 cat 14-info.txt
 cat end.txt

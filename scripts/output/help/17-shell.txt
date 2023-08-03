@@ -33,4 +33,8 @@
     exit           Exits the shell.
     quit           Quits the shell.
 
+  It's also possible to start a shell and switch to a workspace at the same time, e.g.:
+    poly shell ws-dir:examples/doc-example
+    poly shell ws-file:realworld.edn
+
   An alternative way of exiting the shell is by pressing <ctrl>+C or <ctrl>+D.
