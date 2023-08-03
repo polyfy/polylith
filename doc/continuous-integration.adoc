@@ -1,6 +1,5 @@
 = Continuous Integration
 :toc:
-:toclevels: 3
 
 == General setup of CI
 

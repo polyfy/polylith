@@ -1,4 +1,4 @@
-(ns polylith.clj.core.doc.generator.command
+(ns ^:no-doc polylith.clj.core.doc.generator.command
   (:require [clojure.string :as str]))
 
 (defn command [bookmark]

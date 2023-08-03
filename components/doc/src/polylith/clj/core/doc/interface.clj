@@ -1,4 +1,4 @@
-(ns polylith.clj.core.doc.interface
+(ns ^:no-doc polylith.clj.core.doc.interface
   (:require [polylith.clj.core.doc.core :as core]))
 
 (def command-pages {"check" [],
