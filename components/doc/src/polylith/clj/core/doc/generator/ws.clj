@@ -1,4 +1,4 @@
-(ns polylith.clj.core.doc.generator.ws
+(ns ^:no-doc polylith.clj.core.doc.generator.ws
   (:require [clojure.string :as str]))
 
 (defn ws-key [bookmark]

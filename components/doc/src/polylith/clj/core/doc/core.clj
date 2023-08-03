@@ -1,4 +1,4 @@
-(ns polylith.clj.core.doc.core
+(ns ^:no-doc polylith.clj.core.doc.core
   (:require [clojure.java.browse :as browse]
             [clojure.string :as str]
             [polylith.clj.core.version.interface :as ver]))

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.doc.generator.pages
+(ns ^:no-doc polylith.clj.core.doc.generator.pages
   (:require [polylith.clj.core.util.interface.str :as str-util]
             [polylith.clj.core.config-reader.interface :as config-reader]))
 
