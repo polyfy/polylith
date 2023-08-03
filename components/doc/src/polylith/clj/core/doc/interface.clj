@@ -1,9 +1,6 @@
 (ns polylith.clj.core.doc.interface
   (:require [polylith.clj.core.doc.core :as core]))
 
-(defn open-doc [cmd command other page ws]
-  (core/open-doc cmd command other page ws))
-
 (def command-pages {"check" [],
                     "create" [],
                     "create-base" [],
@@ -26,7 +23,20 @@
                     "test" [],
                     "ws" []})
 
-(def other-urls {"realworld" []})
+;; Remember to also update other->url in core.
+(def more-urls {core/realworld []
+                core/slack []
+                core/python-tool []
+                core/high-level []
+                core/blog-post {core/the-monorepos-polylith-series []
+                                core/a-fresh-take-on-monorepos-in-python-blog-post []}
+                core/podcast {core/polylith-with-joakim-james-and-furkan {core/part1 []
+                                                                          core/part2 []}}
+                core/video {core/a-fresh-take-on-monorepos-video []
+                            core/polylith-in-a-nutshell []
+                            core/the-last-architecture-you-will-ever-need []
+                            core/los-angeles-clojure-users-group []
+                            core/polylith–a-software-architecture-based-on-lego-like-blocks []}})
 
 (def pages {"base" {},
             "build" {},
@@ -82,3 +92,6 @@
                "ws-local-dir" [],
                "ws-reader" [],
                "ws-type" []})
+
+(defn open-doc [cmd command more page ws]
+  (core/open-doc cmd command more page ws))

@@ -46,6 +46,13 @@
       parameter
       [parameter])))
 
+(defn as-more [parameter]
+  (let [parameter (as-vector parameter)]
+    (if (and (seq parameter)
+             (-> parameter last empty?))
+      (vec (drop-last parameter))
+      parameter)))
+
 (defn extract-params [args single-arg-commands]
   (let [{:keys [cmd params]} (extract args)
         {:keys [named-args unnamed-args]} (params/extract params single-arg-commands)
@@ -70,10 +77,10 @@
                 interface
                 latest-sha!
                 loc!
+                more
                 name
                 no-changes!
                 no-exit!
-                other
                 out
                 outdated!
                 page
@@ -126,8 +133,8 @@
                       :is-show-workspace (= "true" workspace!)
                       :is-tap (= "true" tap!)
                       :is-verbose (= "true" verbose!)
+                      :more (as-more more)
                       :name name
-                      :other (as-vector other)
                       :out (as-value out)
                       :page (as-value page)
                       :replace (replace-from-to replace)

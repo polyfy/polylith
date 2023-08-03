@@ -9,7 +9,7 @@
             [polylith.clj.core.shell.candidate.selector.ws-deps-entities :as ws-deps-entities]
             [polylith.clj.core.shell.candidate.selector.color-modes :as color-modes]
             [polylith.clj.core.shell.candidate.selector.doc.command :as doc-command]
-            [polylith.clj.core.shell.candidate.selector.doc.other :as doc-other]
+            [polylith.clj.core.shell.candidate.selector.doc.more :as doc-more]
             [polylith.clj.core.shell.candidate.selector.doc.page :as doc-page]
             [polylith.clj.core.shell.candidate.selector.doc.ws :as doc-ws]
             [polylith.clj.core.shell.candidate.selector.ws-projects :as ws-projects]
@@ -64,10 +64,10 @@
 
 ;; doc
 (def doc-command (c/fn-values "command" :doc #'doc-command/select))
-(def doc-other (c/fn-values "other" :doc #'doc-other/select))
+(def doc-more (c/fn-values "more" :doc #'doc-more/select))
 (def doc-page (c/fn-values "page" :doc #'doc-page/select))
 (def doc-ws (c/fn-values "ws" :doc #'doc-ws/select))
-(def doc (c/single-txt "doc" :doc [doc-command doc-page doc-ws]))
+(def doc (c/single-txt "doc" :doc [doc-command doc-more doc-page doc-ws]))
 
 ;; help
 (def help-all (c/flag "all" :help))
