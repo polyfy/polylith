@@ -6,7 +6,7 @@
 
 (defn select [_ groups _]
   (let [current (or (get-in groups [:doc "command" :args]) [])
-        values (ws-explorer/extract doc/command-pages current)
-        result (shared/strings values (ws-explorer/extract doc/command-pages (conj current "keys")))]
+        values (ws-explorer/extract doc/command-nav current)
+        result (shared/strings values (ws-explorer/extract doc/command-nav (conj current "keys")))]
     (mapv #(c/fn-comma-arg % :doc "command" #'select true)
           result)))
