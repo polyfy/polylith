@@ -796,12 +796,15 @@ We also have a number of arguments that are only populated if they are passed in
  :get "user-input"
  :interface "user"
  :is-git-add true
+ :more ["blog-posts" "how-polylith-came-to-life"]
  :out "example.edn"
+ :page "naming"
  :replace [{:from "this", :to "that"}]
  :selected-bricks ["user"]
  :since "previous-release"
  :skip ["dev"]
  :top-ns "se.example"
+ :ws "settings"
  :ws-dir "examples/doc-example"
  :ws-file "realworld.edn"
 }
@@ -816,7 +819,7 @@ to give the branch, otherwise the workspace will be created in the _main_ branch
 
 * `:cmd` The first argument to the _poly_ tool.
 
-* `:command` Used by the xref:doc.
+* `:command` Used by the xref:commands.adoc#doc[doc] command.
 
 * `:color-mode` Overrides the xref:color-mode[color-mode].
 
@@ -913,6 +916,8 @@ Often used to skip the development project, in e.g. the xref:commands.adoc#ws[ws
 
 * `:unnamed-args` All given arguments that don't contain a `:`.
 So if we type `poly ws get:user-input:unnamed-args :flag arg xx:123` it will return _["arg"]_ but not _xx_.
+
+* `:ws` Used by the xref:commands.adoc#doc[doc] command.
 
 * `:ws-dir` If set, holds the workspace directory we have switched to.
 Can either be explicitly passed in together with the `poly` command,
