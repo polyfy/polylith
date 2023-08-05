@@ -191,6 +191,26 @@
   (is (= (candidates "diff")
          ["since"])))
 
+(deftest doc
+  (is (= (candidates "doc")
+         ["command" "more" "page" "ws"])))
+
+(deftest doc-command-deps
+  (is (= (candidates "doc" :next "command" "deps" :next)
+         ["more" "page" "ws"])))
+
+(deftest doc-move-videos-polylith-in-a-nutshell
+  (is (= (candidates "doc" :next "more" "videos" "polylith-in")
+         ["polylith-in-a-nutshell"])))
+
+(deftest doc-page-git
+  (is (= (candidates "doc" :next "page" "git" :next)
+         ["command" "more" "ws"])))
+
+(deftest doc-ws-settings
+  (is (= (candidates "doc" :next "ws" "settings" :next)
+         ["command" "more" "page"])))
+
 (deftest help
   (is (= (candidates "help")
          ["check" "create" "deps" "diff" "info" "libs" "shell" "switch-ws"
