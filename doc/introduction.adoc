@@ -1,3 +1,4 @@
+[#introduction]
 = Introduction
 
 This documentation aims to be a practical guide to this tool with lots of code examples.
