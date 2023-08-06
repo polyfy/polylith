@@ -5,34 +5,13 @@ Polylith encourages a test-centric approach when working with code.
 New brick tests are easy to write,
 and mocking can be avoided in most cases as we have access to all components from the projects they live in.
 
-Let's go back to our example. We added _; hi_  to the _user_ core namespace earlier:
-
-[source,clojure]
-----
-(ns se.example.user.core)
-
-; hi
-(defn hello [name]
-  (str "Hello " name "!"))
-----
-
-We verify that the tool picked up the change:
-
-[source,shell]
-----
-poly diff
-----
-
-[source,shell]
-----
-components/user/src/se/example/user/core.clj
-----
-
-It did, and if f we run the _info_ command:
+Let's go back to our example and run the _info_ command:
 
 image::images/testing/info.png[alt=info,width=400]
 
-...we can see that the _user_ component is marked with an asterisk, _*_.
+...we can see that the _user_ component is marked with an asterisk, _*_. That is because its _core_ namespace
+has been changed (remember that we added a "hi" comment to its _core_ namespace).
+
 If we look carefully we will also notice that the status flags _stx_
 under the _cl_ column now has an _x_ in its last position.
 As we already know, this means that the tests for _user_ and _cli_ will be executed from the _command-line_ project
@@ -76,16 +55,15 @@ Now we can run the test from the IDE:
 
 * Or, place the cursor under the test and run: _Tools_ > _REPL_ > _Run Test under carret in REPL_
 
+
+====
+NOTE: If you are a Cursive user and the test doesn't run at all, you may need to manually set the module to
+the root module (_example_ in this case). This is reported https://github.com/cursive-ide/cursive/issues/2828[issue].
+====
+
 image::images/testing/failing-test.png[alt=Run test]
 
-And if we run the xref:commands.adoc#test[test] command:
-
-[source,shell]
-----
-poly test
-----
-
-...it fails too:
+And if we run the xref:commands.adoc#test[test] command, it fails too:
 
 [source,shell]
 ----
