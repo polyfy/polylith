@@ -10,7 +10,7 @@
 ;; - if a release: set revision to ""
 ;; - if a release candidate, set revision to e.g.: "rc-1"
 ;; - if an ongoing issue, set revision to e.g.: issue318-01
-(def revision "") ;"issue318-02")
+(def revision "issue318-02")
 (def name-without-rev (str major "." minor "." patch))
 (def name (str name-without-rev
                (if (str/blank? revision)
