@@ -1,4 +1,4 @@
-image::doc/images/logo.png[alt=Polylith,width=400]
+image::doc/images/logo.png[width=400]
 
 == Welcome to the wonderful world of Polylith!
 
@@ -30,6 +30,21 @@ https://polylith.gitbook.io/polylith/introduction/polylith-in-a-nutshell[Polylit
 from the high-level doc, where concepts like component, base, interface, brick, project, and workspace, are introduced.
 
 Enjoy the ride!
+
+ifndef::env-cljdoc[]
+== The poly tool documentation
+
+Since version 0.2.18, the _poly_ tool lives together with the source code in this repo, under the _doc_ directory.
+From these files, the _cljdoc_ based documentation is generated for each released version,
+which means you should pay attention to which version of the
+http://localhost:8000/d/polylith/clj-poly/0.2.18-issue318-02/doc/readme[documentation] you are using, e.g.:
+
+image:doc/images/cljdoc-version.png[width:100]
+
+Now please continue with the http://localhost:8000/d/polylith/clj-poly/0.2.18-issue318-02/doc/introduction[introduction].
+
+image:doc/images/introduction.png[width=100,link=http://localhost:8000/d/polylith/clj-poly/0.2.18-issue318-02/doc/introduction]
+endif::[]
 
 = Sponsor Polylith
 
