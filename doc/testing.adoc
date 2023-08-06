@@ -58,7 +58,7 @@ Now we can run the test from the IDE:
 
 ====
 NOTE: If you are a Cursive user and the test doesn't run at all, you may need to manually set the module to
-the root module (_example_ in this case). This is reported https://github.com/cursive-ide/cursive/issues/2828[issue].
+the root module (_example_ in this case). This is reported https://github.com/cursive-ide/cursive/issues/2828[here].
 ====
 
 image::images/testing/failing-test.png[alt=Run test]
