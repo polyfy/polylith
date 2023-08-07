@@ -788,7 +788,7 @@ We also have a number of arguments that are only populated if they are passed in
 {:branch "master"
  :changed-files ["images/doc.png" "workspace.edn"]
  :color-mode "none"
- :command "info"
+ :help "info"
  :dir "../clojure-polylith-realworld-example-app"
  :fake-sha "c91fdad"
  :fake-tag "stable-lisa"
@@ -819,8 +819,6 @@ to give the branch, otherwise the workspace will be created in the _main_ branch
 
 * `:cmd` The first argument to the _poly_ tool.
 
-* `:command` Used by the xref:commands.adoc#doc[doc] command.
-
 * `:color-mode` Overrides the xref:color-mode[color-mode].
 
 * `:dir` Used by the xref:commands.adoc#switch-ws[switch-ws] command.
@@ -834,6 +832,8 @@ Sometimes used when taking screenshots for this documentation.
 * `:file` Used by the xref:commands.adoc#switch-ws[switch-ws] command.
 
 * `:get` Used by the xref:commands.adoc#ws[ws] command.
+
+* `:help` Used by the xref:commands.adoc#doc[doc] command.
 
 * `:interface` Used by the xref:commands.adoc#create-component[create component] command.
 
