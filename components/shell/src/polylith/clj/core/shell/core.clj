@@ -6,8 +6,7 @@
             [polylith.clj.core.tap.interface :as tap]
             [polylith.clj.core.user-input.interface :as user-input]
             [polylith.clj.core.util.interface.str :as str-util]
-            [polylith.clj.core.util.interface.color :as color]
-            [polylith.clj.core.version.interface :as version])
+            [polylith.clj.core.util.interface.color :as color])
   (:import [org.jline.reader EndOfFileException]
            [org.jline.reader UserInterruptException])
   (:refer-clojure :exclude [next]))
@@ -21,12 +20,12 @@
                      :else "")]
     (str prefix (-> engine/ws deref :name) "$ ")))
 
-(defn print-logo [fake-poly? color-mode]
-  (println "                  _      _ + _   _");
-  (println (str (color/grey color-mode "#####") "   _ __  ___| |_  _| |-| |_| |_"));
-  (println (str (color/green color-mode "#####") "  | '_ \\/ _ \\ | || | | |  _| ' \\"));
-  (println (str (color/blue color-mode "#####") "  | .__/\\___/_|\\_, |_|_|\\__|_||_|"));
-  (println (str "       |_|          |__/ " (common/version-name fake-poly?))))
+(defn logo [fake-poly? color-mode]
+  (str "                  _      _ + _   _\n"
+       (color/grey color-mode "#####") "   _ __  ___| |_  _| |-| |_| |_\n"
+       (color/green color-mode "#####") "  | '_ \\/ _ \\ | || | | |  _| ' \\\n"
+       (color/blue color-mode "#####") "  | .__/\\___/_|\\_, |_|_|\\__|_||_|\n"
+       "       |_|          |__/ " (common/version-name fake-poly?)))
 
 (defn enhance [user-input dir file]
    (assoc user-input :is-shell true
@@ -51,7 +50,7 @@
   (let [reader (jline/reader)]
     (when is-tap
       (tap/execute "open"))
-    (print-logo is-fake-poly color-mode)
+    (println (logo is-fake-poly color-mode))
     (reset! engine/ws workspace)
     (switch-ws user-input ws-dir ws-file workspace-fn)
     (tap> {:workspace @engine/ws})
