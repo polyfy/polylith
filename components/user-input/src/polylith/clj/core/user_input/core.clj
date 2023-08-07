@@ -62,7 +62,6 @@
                 branch
                 brick!
                 color-mode
-                command
                 commit!
                 changed-files
                 compact!
@@ -74,6 +73,7 @@
                 file
                 get
                 git-add!
+                help
                 interface
                 latest-sha!
                 loc!
@@ -104,11 +104,11 @@
                       :branch branch
                       :color-mode (as-value color-mode)
                       :changed-files (as-vector changed-files)
-                      :command (as-value command)
                       :dir dir
                       :file file
                       :fake-sha fake-sha
                       :fake-tag fake-tag
+                      :help (as-value help)
                       :interface interface
                       :is-all (= "true" all!)
                       :is-commit (= "true" commit!)

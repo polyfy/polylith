@@ -206,7 +206,7 @@
           "  overview                  .  x  .  x  .  .  x  .  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  x  x  .  ."
           "  path-finder               .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  shell                     .  .  .  x  x  .  .  x  x  .  .  .  .  .  .  .  x  .  x  x  .  .  .  .  x  x  x  .  x  .  .  x  ."
+          "  shell                     .  .  .  x  x  .  .  x  x  .  .  .  .  .  .  .  x  .  x  x  .  .  .  .  x  x  x  .  .  .  .  x  ."
           "  system                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  system-x                  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
@@ -275,7 +275,7 @@
             "  overview                  +  x  .  x  +  .  x  .  +  +  .  x  x  .  .  +  +  .  +  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
             "  path-finder               .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  shell                     .  .  .  x  x  .  +  x  x  .  .  +  .  .  .  +  x  .  x  x  .  +  .  +  x  x  x  +  x  .  .  x  ."
+            "  shell                     .  .  .  x  x  .  +  x  x  .  .  +  .  .  .  +  x  .  x  x  .  +  .  +  x  x  x  +  +  .  .  x  ."
             "  system                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  test-helper               -  -  t  -  -  -  -  -  t  -  -  -  -  -  -  -  -  -  -  -  .  -  -  -  t  t  -  -  -  -  -  -  -"
@@ -343,7 +343,7 @@
             "  overview                  +  x  .  x  +  .  x  .  +  +  .  x  x  .  .  +  +  .  +  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
             "  path-finder               .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  shell                     .  .  .  x  x  .  +  x  x  .  .  +  .  .  .  +  x  .  x  x  .  +  .  +  x  x  x  +  x  .  .  x  ."
+            "  shell                     .  .  .  x  x  .  +  x  x  .  .  +  .  .  .  +  x  .  x  x  .  +  .  +  x  x  x  +  +  .  .  x  ."
             "  system                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  test-helper               -  -  t  -  -  -  -  -  t  -  -  -  -  -  -  -  -  -  -  -  .  -  -  -  t  t  -  -  -  -  -  -  -"
@@ -808,14 +808,14 @@
                                                         "user-config"
                                                         "user-input"
                                                         "util"
-                                                        "version"
                                                         "ws-explorer"]
                                              :indirect ["deps"
                                                         "image-creator"
                                                         "path-finder"
                                                         "test-runner-contract"
                                                         "text-table"
-                                                        "validator"]}
+                                                        "validator"
+                                                        "version"]}
                                       :test {:direct   ["common"
                                                         "config-reader"
                                                         "doc"
@@ -826,14 +826,14 @@
                                                         "user-config"
                                                         "user-input"
                                                         "util"
-                                                        "version"
                                                         "ws-explorer"]
                                              :indirect ["deps"
                                                         "image-creator"
                                                         "path-finder"
                                                         "test-runner-contract"
                                                         "text-table"
-                                                        "validator"]}}
+                                                        "validator"
+                                                        "version"]}}
           "system"                   {:src  {}
                                       :test {}}
           "tap"                      {:src  {}
@@ -1100,7 +1100,7 @@
                  "org.jline.reader"
                  "org.jline.reader.impl"
                  "org.jline.terminal"
-                 "polylith.clj.core.nav-generator.command-generator"
+                 "polylith.clj.core.nav-generator.help-generator"
                  "polylith.clj.core.nav-generator.pages-generator"
                  "polylith.clj.core.nav-generator.ws-generator"
                  "portal.api"

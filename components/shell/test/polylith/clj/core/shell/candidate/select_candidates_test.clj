@@ -193,10 +193,10 @@
 
 (deftest doc
   (is (= (candidates "doc")
-         ["command" "more" "page" "ws"])))
+         ["help" "more" "page" "ws"])))
 
 (deftest doc-command-deps
-  (is (= (candidates "doc" :next "command" "deps" :next)
+  (is (= (candidates "doc" :next "help" "deps" :next)
          ["more" "page" "ws"])))
 
 (deftest doc-move-videos-polylith-in-a-nutshell
@@ -205,11 +205,11 @@
 
 (deftest doc-page-git
   (is (= (candidates "doc" :next "page" "git" :next)
-         ["command" "more" "ws"])))
+         ["help" "more" "ws"])))
 
 (deftest doc-ws-settings
   (is (= (candidates "doc" :next "ws" "settings" :next)
-         ["command" "more" "page"])))
+         ["help" "more" "page"])))
 
 (deftest help
   (is (= (candidates "help")
