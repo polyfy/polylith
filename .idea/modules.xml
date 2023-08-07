@@ -18,6 +18,7 @@
       <module fileurl="file://$PROJECT_DIR$/components/image-creator/image-creator.iml" filepath="$PROJECT_DIR$/components/image-creator/image-creator.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/lib/lib.iml" filepath="$PROJECT_DIR$/components/lib/lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/migrator/migrator.iml" filepath="$PROJECT_DIR$/components/migrator/migrator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bases/nav-generator/nav-generator.iml" filepath="$PROJECT_DIR$/bases/nav-generator/nav-generator.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/overview/overview.iml" filepath="$PROJECT_DIR$/components/overview/overview.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/path-finder/path-finder.iml" filepath="$PROJECT_DIR$/components/path-finder/path-finder.iml" />
       <module fileurl="file://$PROJECT_DIR$/bases/poly-cli/poly-cli.iml" filepath="$PROJECT_DIR$/bases/poly-cli/poly-cli.iml" />

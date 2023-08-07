@@ -56,7 +56,7 @@
           "  config-reader             config-reader *              stx    s--    st-     --   "
           "  creator                   creator *                    stx    s--    st-     --   "
           "  deps                      deps *                       stx    s--    st-     --   "
-          "  doc                       doc *                        stx    s--    st-     --   "
+          "  doc                       doc *                        s--    s--    s--     --   "
           "  file                      file *                       stx    s--    st-     --   "
           "  git                       git *                        stx    s--    st-     --   "
           "  help                      help *                       s--    s--    s--     --   "
@@ -84,6 +84,7 @@
           "  workspace-clj             workspace-clj *              stx    s--    st-     --   "
           "  ws-explorer               ws-explorer *                stx    s--    st-     --   "
           "  ws-file                   ws-file *                    s--    s--    s--     --   "
+          "  -                         nav-generator *              s--    ---    s--     --   "
           "  -                         poly-cli *                   stx    s--    st-     --   "])))
 
 (defn keep-except [exclude rows]
@@ -194,7 +195,7 @@
           "  config-reader             .  .  .  x  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  ."
           "  creator                   .  .  .  x  .  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  t  .  .  .  .  .  x  .  .  .  .  .  ."
           "  deps                      .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
-          "  doc                       .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
+          "  doc                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  ."
           "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  git                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  help                      .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
@@ -222,6 +223,7 @@
           "  workspace-clj             .  .  .  x  x  .  x  .  x  x  .  .  x  .  .  x  .  .  .  .  .  .  .  .  x  .  x  .  x  .  .  .  ."
           "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  ws-file                   .  .  .  x  .  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
+          "  nav-generator             .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  poly-cli                  .  .  x  .  t  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  t  .  .  t  .  ."])))
 
 (deftest polylith-workspace-project-deps-table
@@ -263,7 +265,7 @@
             "  config-reader             .  .  .  x  .  .  +  .  x  .  .  +  .  .  .  +  .  .  +  .  .  +  .  +  +  .  x  x  +  .  .  .  ."
             "  creator                   -  -  -  x  -  -  -  -  x  x  -  +  -  -  -  -  +  -  +  -  t  -  -  +  +  -  x  -  +  -  -  -  -"
             "  deps                      .  .  .  x  .  .  .  .  +  .  .  +  .  .  .  .  .  .  +  .  .  .  .  x  x  .  x  .  +  .  .  .  ."
-            "  doc                       .  .  .  +  x  .  +  .  +  .  .  +  .  .  .  +  .  .  +  .  .  +  .  +  +  .  x  +  x  .  .  .  ."
+            "  doc                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  +  .  .  .  .  .  .  .  .  .  x  .  .  .  ."
             "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  git                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  help                      .  .  .  x  .  .  .  .  +  .  .  +  .  .  .  .  .  .  x  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
@@ -289,6 +291,7 @@
             "  workspace-clj             +  .  .  x  x  .  x  .  x  x  .  +  x  .  .  x  +  .  +  .  .  +  .  +  x  .  x  +  x  .  .  .  ."
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  ws-file                   .  .  .  x  .  .  .  .  x  x  .  +  .  .  .  .  +  .  +  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
+            "  nav-generator             .  .  .  +  x  .  +  .  +  .  .  +  .  .  .  +  .  .  +  .  .  +  .  +  +  .  x  +  +  .  .  .  ."
             "  poly-cli                  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  t  +  +"]))))
 
 (deftest polylith-workspace-project-deps-table-indirect
@@ -330,7 +333,7 @@
             "  config-reader             .  .  .  x  .  .  +  .  x  .  .  +  .  .  .  +  .  .  +  .  .  +  .  +  +  .  x  x  +  .  .  .  ."
             "  creator                   -  -  -  x  -  -  -  -  x  x  -  +  -  -  -  -  +  -  +  -  t  -  -  +  +  -  x  -  +  -  -  -  -"
             "  deps                      .  .  .  x  .  .  .  .  +  .  .  +  .  .  .  .  .  .  +  .  .  .  .  x  x  .  x  .  +  .  .  .  ."
-            "  doc                       .  .  .  +  x  .  +  .  +  .  .  +  .  .  .  +  .  .  +  .  .  +  .  +  +  .  x  +  x  .  .  .  ."
+            "  doc                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  +  .  .  .  .  .  .  .  .  .  x  .  .  .  ."
             "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  git                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  help                      .  .  .  x  .  .  .  .  +  .  .  +  .  .  .  .  .  .  x  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
@@ -356,6 +359,7 @@
             "  workspace-clj             +  .  .  x  x  .  x  .  x  x  .  +  x  .  .  x  +  .  +  .  .  +  .  +  x  .  x  +  x  .  .  .  ."
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  ws-file                   .  .  .  x  .  .  .  .  x  x  .  +  .  .  .  .  +  .  +  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
+            "  nav-generator             .  .  .  +  x  .  +  .  +  .  .  +  .  .  .  +  .  .  +  .  .  +  .  +  +  .  x  +  +  .  .  .  ."
             "  poly-cli                  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  t  +  +"]))))
 
 (deftest polylith-brick-and-project-deps
@@ -606,32 +610,9 @@
                                                         "image-creator"
                                                         "system"
                                                         "version"]}}
-          "doc"                      {:src  {:direct   ["config-reader"
-                                                        "util"
-                                                        "version"]
-                                             :indirect ["common"
-                                                        "deps"
-                                                        "file"
-                                                        "image-creator"
-                                                        "path-finder"
-                                                        "system"
-                                                        "test-runner-contract"
-                                                        "text-table"
-                                                        "user-config"
-                                                        "validator"]}
-                                      :test {:direct   ["config-reader"
-                                                        "util"
-                                                        "version"]
-                                             :indirect ["common"
-                                                        "deps"
-                                                        "file"
-                                                        "image-creator"
-                                                        "path-finder"
-                                                        "system"
-                                                        "test-runner-contract"
-                                                        "text-table"
-                                                        "user-config"
-                                                        "validator"]}}
+          "doc"                      {:src  {:direct   ["version"]
+                                             :indirect ["system"]}
+                                      :test {}}
           "file"                     {:src  {:direct ["util"]}
                                       :test {}}
           "git"                      {:src  {:direct ["sh"
@@ -708,6 +689,20 @@
                                                         "text-table"
                                                         "user-config"
                                                         "util"
+                                                        "validator"
+                                                        "version"]}
+                                      :test {}}
+          "nav-generator"            {:src  {:direct   ["config-reader"
+                                                        "util"]
+                                             :indirect ["common"
+                                                        "deps"
+                                                        "file"
+                                                        "image-creator"
+                                                        "path-finder"
+                                                        "system"
+                                                        "test-runner-contract"
+                                                        "text-table"
+                                                        "user-config"
                                                         "validator"
                                                         "version"]}
                                       :test {}}
@@ -1009,7 +1004,8 @@
 
 (deftest polylith-poly-project-src-paths
   (is (= (ws-explorer/extract (workspace) ["projects" "poly" "paths" "src"])
-         ["bases/poly-cli/src"
+         ["bases/nav-generator/src"
+          "bases/poly-cli/src"
           "components/antq/src"
           "components/api/src"
           "components/change/src"
@@ -1057,7 +1053,6 @@
           "components/config-reader/test"
           "components/creator/test"
           "components/deps/test"
-          "components/doc/test"
           "components/file/test"
           "components/git/test"
           "components/lib/test"
@@ -1105,6 +1100,9 @@
                  "org.jline.reader"
                  "org.jline.reader.impl"
                  "org.jline.terminal"
+                 "polylith.clj.core.nav-generator.command-generator"
+                 "polylith.clj.core.nav-generator.pages-generator"
+                 "polylith.clj.core.nav-generator.ws-generator"
                  "portal.api"
                  "puget.printer"
                  "zprint.core"]

@@ -32,6 +32,7 @@
         poly/workspace-clj            {:local/root "../../components/workspace-clj"}
         poly/ws-explorer              {:local/root "../../components/ws-explorer"}
         poly/ws-file                  {:local/root "../../components/ws-file"}
+        poly/nav-generator            {:local/root "../../bases/nav-generator"}
         poly/poly-cli                 {:local/root "../../bases/poly-cli"}
 
         org.clojure/clojure {:mvn/version "1.11.1"}
