@@ -425,7 +425,7 @@ poly test :all project:failing-test-teardown-fails:okay color-mode:none > $outpu
 echo "exit code: $?" >> $output/for-test/failing-test-and-teardown-fails-stops-entire-test-run.txt
 set -e
 
-cd $output/help
+cd $scripts/help
 
 echo "### 57/57 help ###"
 
