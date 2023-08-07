@@ -6,6 +6,7 @@
     create E name:N [ARG]       Creates a component, base, project or workspace.
     deps [project:P] [brick:B]  Shows dependencies.
     diff [ARG]                  Shows changed files since last stable point in time.
+    doc [ARG]                   Opens web based documentation in a browser.
     help [C] [ARG]              Shows this help or help for specified command.
     info [ARGS]                 Shows a workspace overview and checks if it's valid.
     libs [ARGS]                 Shows all libraries in the workspace.
@@ -96,6 +97,20 @@
     poly deps project:myproject brick:mybrick
     poly deps out:out.txt
     poly diff
+    poly doc
+    poly doc help:check
+    poly doc page:install
+    poly doc ws:settings
+    poly doc more:blog-posts
+    poly doc more:blog-posts:how-polylith-came-to-life
+    poly doc more:high-level
+    poly doc more:podcasts
+    poly doc more:podcasts:polylith-with-joakim-james-and-furkan
+    poly doc more:python-tool
+    poly doc more:slack
+    poly doc more:videos
+    poly doc more:videos:polylith-in-a-nutshell
+    poly doc more:workspaces:realworld
     poly help
     poly help :all
     poly help info

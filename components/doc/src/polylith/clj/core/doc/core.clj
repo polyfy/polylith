@@ -55,11 +55,10 @@
   (or (get-in more-config (map keyword (conj page "url")))
       (page "readme")))
 
-(defn open-doc [cmd command more page ws]
-  (tap> {:more more})
+(defn open-doc [cmd help more page ws]
   (let [cmd (when cmd (-> cmd (str/split #":") first))
         url (condp = cmd
-                   "command" (bookmark-url "commands" command)
+                   "help" (bookmark-url "commands" help)
                    "more" (more-url more)
                    "page" (page-url page)
                    "ws" (bookmark-url "workspace-structure" ws)
