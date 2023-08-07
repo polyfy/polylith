@@ -1,84 +1,11 @@
 (ns ^:no-doc polylith.clj.core.doc.interface
-  (:require [polylith.clj.core.doc.core :as core]))
+  (:require [polylith.clj.core.doc.core :as core]
+            [polylith.clj.core.doc.navigation :as navigation]))
 
-(def command-nav {"check" [],
-                  "create" [],
-                  "create-base" [],
-                  "create-component" [],
-                  "create-project" [],
-                  "create-workspace" [],
-                  "deps" [],
-                  "deps-brick" [],
-                  "deps-project" [],
-                  "deps-project-brick" [],
-                  "deps-workspace" [],
-                  "diff" [],
-                  "info" [],
-                  "libs" [],
-                  "migrate" [],
-                  "overview" [],
-                  "shell" [],
-                  "switch-ws" [],
-                  "tap" [],
-                  "test" [],
-                  "ws" []})
-
+(def command-nav navigation/command-nav)
 (def more-nav core/more-navigation)
-
-(def pages-nav {"base" {},
-                "build" {},
-                "clojure-cli-tool" {},
-                "colors" {},
-                "component" {},
-                "configuration" {},
-                "context" {},
-                "continuous-integration" {},
-                "dependencies" {},
-                "development" {},
-                "example-systems" {},
-                "explore-the-workspace" {},
-                "flags" {},
-                "git" {},
-                "git-hooks" {},
-                "install" {},
-                "interface" {},
-                "introduction" {},
-                "libraries" {},
-                "migrate" {},
-                "naming" {},
-                "parameters" {},
-                "polyx" {},
-                "profile" {},
-                "project" {},
-                "readme" {},
-                "shell" {},
-                "source-code" {},
-                "tagging" {},
-                "tap" {},
-                "test-runners" {},
-                "testing" {},
-                "tools-deps" {},
-                "upgrade" {},
-                "validations" {},
-                "workspace" {}})
-
-(def ws-nav {"bases" [],
-             "changes" [],
-             "components" [],
-             "configs" [],
-             "interface" [],
-             "messages" [],
-             "name" [],
-             "old" [],
-             "paths" [],
-             "projects" [],
-             "settings" [],
-             "user-input" [],
-             "version" [],
-             "ws-dir" [],
-             "ws-local-dir" [],
-             "ws-reader" [],
-             "ws-type" []})
+(def pages-nav navigation/pages-nav)
+(def ws-nav navigation/ws-nav)
 
 (defn open-doc [cmd command more page ws]
   (core/open-doc cmd command more page ws))

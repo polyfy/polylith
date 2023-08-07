@@ -56,8 +56,12 @@ echo "ws3=$ws3"
 echo "ws4=$ws4"
 
 cd $root
+echo "### Upgrade the clojure tool ###"
 brew upgrade clojure/tools/clojure
 clojure -A:dev:test -P
+
+echo "### Generate doc navigation, used by the shell ###"
+clojure -M:gen-nav
 
 cd $ws
 

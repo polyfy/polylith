@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.doc.generator.command
+(ns ^:no-doc polylith.clj.core.nav-generator.command-generator
   (:require [clojure.string :as str]))
 
 (defn command [bookmark]
@@ -6,12 +6,10 @@
         cmd (subs the-rest 0 (-> the-rest count dec))]
     [cmd []]))
 
-(comment
-  ;; commands
+(defn navigation []
   (into (sorted-map)
         (mapv command
               (filter #(str/starts-with? % "[#")
                       (-> "doc/commands.adoc"
                           slurp
-                          str/split-lines))))
-  #__)
+                          str/split-lines)))))
