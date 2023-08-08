@@ -115,25 +115,14 @@ example
 
 [source,clojure]
 ----
-(ns se.example.user-api.api
-  (:require [se.example.user.interface :as user]))
-
-(defn hello-remote [name]
-  (user/hello (str name " - from the server")))
+include::../scripts/sections/profile/user-api-api.clj[]
 ----
 
 ...and update the _core_ namespace:
 
 [source,clojure]
 ----
-(ns se.example.user-api.core
-  (:require [se.example.user-api.api]
-            [slacker.server :as server])
-  (:gen-class))
-
-(defn -main [& args]
-  (server/start-slacker-server [(the-ns 'se.example.user-api.api)] 2104)
-  (println "server started: http://127.0.0.1:2104"))
+include::../scripts/sections/profile/user-api-core.clj[]
 ----
 
 === 2. Create the user-remote component
@@ -211,26 +200,14 @@ example
 
 [source,clojure]
 ----
-(ns se.example.user.core
-  (:require [slacker.client :as client]))
-
-(declare hello-remote)
-
-(defn hello [name]
-  (let [connection (client/slackerc "localhost:2104")
-        _ (client/defn-remote connection se.example.user-api.api/hello-remote)]
-    (hello-remote name)))
+include::../scripts/sections/profile/user-remote-core.clj[]
 ----
 
 ...and update the interface namespace:
 
 [source,clojure]
 ----
-(ns se.example.user.interface
-  (:require [se.example.user.core :as core]))
-
-(defn hello [name]
-  (core/hello name))
+include::../scripts/sections/profile/user-remote-interface.clj[]
 ----
 
 Edit the REPL configuration:
@@ -304,17 +281,7 @@ Set the content of projects/user-service/deps.edn to this:
 
 [source,clojure]
 ----
-{:deps {poly/user     {:local/root "../../components/user"}
-        poly/user-api {:local/root "../../bases/user-api"}
-
-        org.clojure/clojure {:mvn/version "1.11.1"}
-        org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
-        org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}}
-
- :aliases {:test {:extra-paths []
-                  :extra-deps  {}}
-
-           :uberjar {:main se.example.user-api.core}}}
+include::../scripts/sections/profile/user-service-deps.edn[]
 ----
 
 Add the _user-s_ alias for the _user-service_ in _workspace.edn_:
@@ -428,7 +395,7 @@ image::images/profile/compare-with-target-design.png[alt=Compare with target des
 
 Looks like we got everything right!
 
-The profile flags, _st_, follow the same pattern as for bricks and projects
+The profile flags, `st`, follow the same pattern as for bricks and projects
 except that the last "Run the tests" flag is omitted.
 
 This example was quite simple, but if our project is more complicated,

@@ -1,0 +1,2 @@
+:cljdoc-url: http://localhost:8000/d/polylith/clj-poly/0.2.18-issue318-02
+:github-url: https://github.com/polyfy/polylith/blob/master

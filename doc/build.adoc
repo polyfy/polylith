@@ -49,7 +49,7 @@ image::images/build/add-build-to-repl-settings.png[alt=Select build alias,width=
 
 == Old Cursive versions
 
-If you an older version of Cursive than 1.13.0, then set Options to _dev,test,build_ instead,
+If you use an older version of Cursive than 1.13.0, then set Options to _dev,test,build_ instead,
 and you may also need to add this to your _./deps.edn_ if the IDE doesn't recognise _build.clj_ as source code:
 
 [source,clojure]

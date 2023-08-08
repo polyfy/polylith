@@ -72,7 +72,7 @@ Now we need to update _./deps.edn_ with our newly created base:
  :aliases  {:dev {:extra-paths ["development/src"]
 
                   :extra-deps {poly/user {:local/root "components/user"}
-                               poly/cli  {:local/root "bases/cli"
+                               poly/cli  {:local/root "bases/cli"}
 
                                org.clojure/clojure {:mvn/version "1.11.1"}}}
 
@@ -80,7 +80,7 @@ Now we need to update _./deps.edn_ with our newly created base:
                                  "bases/cli/test"]}
 ----
 
-...and let's add some code to the base:
+Refresh the IDE with the new settings and let's add some code to the base:
 
 [source,clojure]
 ----

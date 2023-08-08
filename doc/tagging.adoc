@@ -66,11 +66,7 @@ But what happens if only some of its bricks have changed? Let's try that by addi
 
 [source,clojure]
 ----
-(ns se.example.user.core)
-
-; hi
-(defn hello [name]
-  (str "Hello " name "!"))
+include::../scripts/sections/tagging/user-core-change.clj[]
 ----
 
 ...and execute the xref:commands.adoc#info[info] command again:

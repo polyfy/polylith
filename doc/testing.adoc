@@ -5,15 +5,15 @@ Polylith encourages a test-centric approach when working with code.
 New brick tests are easy to write,
 and mocking can be avoided in most cases as we have access to all components from the projects they live in.
 
-Let's go back to our example and run the _info_ command:
+Let's go back to our example and run the xref:commands.adoc#info[info] command:
 
 image::images/testing/info.png[alt=info,width=400]
 
 ...we can see that the _user_ component is marked with an asterisk, _*_. That is because its _core_ namespace
-has been changed (remember that we added a "hi" comment to its _core_ namespace).
+has been changed (remember that we added a "hi" comment to its xref:../scripts/sections/tagging/user-core-change.clj[core] namespace).
 
 If we look carefully we will also notice that the status flags _stx_
-under the _cl_ column now has an _x_ in its last position.
+under the _cl_ column now has an `x` in its last position.
 As we already know, this means that the tests for _user_ and _cli_ will be executed from the _command-line_ project
 if we execute the xref:commands.adoc#test[test] command.
 
@@ -21,7 +21,7 @@ But why is _cli_ marked to be tested?
 The reason is that even though _cli_ itself hasn't changed,
 it depends on something that has, namely the _user_ component.
 
-The columns under the _development_ project are all marked as _st-_.
+The columns under the _development_ project are all marked as `st-`.
 The reason the _development_ project is not marked to be tested
 is that the _development_ project's tests are not included by default.
 
@@ -30,36 +30,26 @@ we should first add a test by editing the _interface-test_ namespace in the _use
 
 [source,clojure]
 ----
-(ns se.example.user.interface-test
-  (:require [clojure.test :refer :all]
-            [se.example.user.interface :as user]))
-
-(deftest hello--when-called-with-a-name--then-return-hello-phrase
-  (is (= "Hello Lisa!"
-         (user/hello "Lisa"))))
+include::../scripts/sections/testing/user-interface-test.clj[]
 ----
 
 To demonstrate how the tool handles failing tests, let's change the _core_ namespace in the user component:
 
 [source,clojure]
 ----
-(ns se.example.user.core)
-
-(defn hello [name]
-  (str "Hello " name "!!"))
+include::../scripts/sections/testing/user-core.clj[]
 ----
+
+====
+NOTE: If you are a Cursive user and the test doesn't run at all, you may need to manually set the module to
+the root module (_example_ in this case). This is reported as a Cursive https://github.com/cursive-ide/cursive/issues/2828[issue].
+====
 
 Now we can run the test from the IDE:
 
 * Make sure the namespace is loaded, e.g. via the menu (or keyboard shortcuts) _Tools_ > _REPL_ > _Load File in REPL_.
 
 * Or, place the cursor under the test and run: _Tools_ > _REPL_ > _Run Test under carret in REPL_
-
-
-====
-NOTE: If you are a Cursive user and the test doesn't run at all, you may need to manually set the module to
-the root module (_example_ in this case). This is reported https://github.com/cursive-ide/cursive/issues/2828[here].
-====
 
 image::images/testing/failing-test.png[alt=Run test]
 
@@ -72,71 +62,25 @@ poly test
 
 [source,shell]
 ----
-Projects to run tests from: command-line
-
-Running tests for the command-line project using test runner: Polylith built-in clojure.test runner...
-Running tests from the command-line project, including 2 bricks: user, cli
-
-Testing se.example.cli.core-test
-
-Ran 1 tests containing 1 assertions.
-0 failures, 0 errors.
-
-Test results: 1 passes, 0 failures, 0 errors.
-
-Testing se.example.user.interface-test
-
-FAIL in (hello--when-called-with-a-name--then-return-hello-phrase) (interface_test.clj:6)
-expected: (= "Hello Lisa!" (user/hello "Lisa"))
-  actual: (not (= "Hello Lisa!" "Hello Lisa!!"))
-
-Ran 1 tests containing 1 assertions.
-1 failures, 0 errors.
-
-Test results: 0 passes, 1 failures, 0 errors.
+include::../scripts/output/testing-test-failing.txt[]
 ----
 
-Remember that we added an extra ! so now we need to update the corresponding test accordingly:
+Because we added an extra `!`, we now need to update the corresponding test accordingly:
 
 [source,clojure]
 ----
-(ns se.example.user.interface-test
-  (:require [clojure.test :refer :all]
-            [se.example.user.interface :as user]))
-
-(deftest hello--when-called-with-a-name--then-return-hello-phrase
-  (is (= "Hello Lisa!!"
-         (user/hello "Lisa"))))
+include::../scripts/sections/testing/user-interface-test2.clj[]
 ----
 
 If we run the test again from the REPL, it will now turn to green:
 
-image::images/testing/successful-test.png[alt=Successful test run]
+image::images/testing/successful-test.png[]
 
 ...and the _test_ command will pass too:
 
 [source,shell]
 ----
-Projects to run tests from: command-line
-
-Running tests for the command-line project using test runner: Polylith built-in clojure.test runner...
-Running tests from the command-line project, including 2 bricks: user, cli
-
-Testing se.example.cli.core-test
-
-Ran 1 tests containing 1 assertions.
-0 failures, 0 errors.
-
-Test results: 1 passes, 0 failures, 0 errors.
-
-Testing se.example.user.interface-test
-
-Ran 1 tests containing 1 assertions.
-0 failures, 0 errors.
-
-Test results: 1 passes, 0 failures, 0 errors.
-
-Execution time: 1 seconds
+include::../scripts/output/testing-test-ok.txt[]
 ----
 
 We have already mentioned that the brick tests will not be executed from the _development_ project
@@ -274,11 +218,7 @@ example
 
 [source,clojure]
 ----
-(ns project.command-line.dummy-test
-  (:require [clojure.test :refer :all]))
-
-(deftest dummy-test
-  (is (= 1 1)))
+include::../scripts/sections/testing/dummy_test.clj[]
 ----
 
 We could have chosen another top namespace, e.g., _se.example.project.command-line_,
@@ -315,33 +255,7 @@ poly test :project
 
 [source,shell]
 ----
-Projects to run tests from: command-line
-
-Running tests for the command-line project using test runner: Polylith built-in clojure.test runner...
-Running tests from the command-line project, including 2 bricks and 1 project: user, cli, command-line
-
-Testing se.example.cli.core-test
-
-Ran 1 tests containing 1 assertions.
-0 failures, 0 errors.
-
-Test results: 1 passes, 0 failures, 0 errors.
-
-Testing se.example.user.interface-test
-
-Ran 1 tests containing 1 assertions.
-0 failures, 0 errors.
-
-Test results: 1 passes, 0 failures, 0 errors.
-
-Testing project.command-line.dummy_test
-
-Ran 1 tests containing 1 assertions.
-0 failures, 0 errors.
-
-Test results: 1 passes, 0 failures, 0 errors.
-
-Execution time: 1 seconds
+include::../scripts/output/testing-test-project.txt[]
 ----
 
 They passed!
@@ -420,49 +334,7 @@ poly test :all :dev
 
 [source,shell]
 ----
-Projects to run tests from: command-line, development
-
-Running tests for the command-line project using test runner: Polylith built-in clojure.test runner...
-Running tests from the command-line project, including 2 bricks and 1 project: user, cli, command-line
-
-Testing se.example.cli.core-test
-
-Ran 1 tests containing 1 assertions.
-0 failures, 0 errors.
-
-Test results: 1 passes, 0 failures, 0 errors.
-
-Testing se.example.user.interface-test
-
-Ran 1 tests containing 1 assertions.
-0 failures, 0 errors.
-
-Test results: 1 passes, 0 failures, 0 errors.
-
-Testing project.command-line.dummy_test
-
-Ran 1 tests containing 1 assertions.
-0 failures, 0 errors.
-
-Test results: 1 passes, 0 failures, 0 errors.
-Running tests for the development project using test runner: Polylith built-in clojure.test runner...
-Running tests from the development project, including 2 bricks and 1 project: user, cli, command-line
-
-Testing se.example.cli.core-test
-
-Ran 1 tests containing 1 assertions.
-0 failures, 0 errors.
-
-Test results: 1 passes, 0 failures, 0 errors.
-
-Testing se.example.user.interface-test
-
-Ran 1 tests containing 1 assertions.
-0 failures, 0 errors.
-
-Test results: 1 passes, 0 failures, 0 errors.
-
-Execution time: x seconds
+include::../scripts/output/testing-test-all-dev.txt[]
 ----
 
 Looks like it worked!
@@ -490,14 +362,7 @@ example
 
 [source,clojure]
 ----
-(ns project.command-line.test-setup
-  (:require [clojure.test :refer :all]))
-
-(defn setup [project-name]
-  (println (str "--- test setup for " project-name " ---")))
-
-(defn teardown [project-name]
-  (println (str "--- test teardown for " project-name " ---")))
+include::../scripts/sections/testing/command-line-test-setup.clj[]
 ----
 
 We need to keep two things in mind:
@@ -524,48 +389,14 @@ If we don't need the tear-down function, we can leave it out.
 
 Let's run our tests:
 
+[source,shell]
+----
+poly test :all
+----
+
 [source,text]
 ----
-Projects to run tests from: command-line
-
-Running test setup for the command-line project: project.command-line.test-setup/test-setup
---- test setup for command-line ---
-
-Running tests for the command-line project using test runner: Polylith built-in clojure.test runner...
-Running tests from the command-line project, including 2 bricks and 1 project: user, cli, command-line
-
-Testing se.example.cli.core-test
-
-Ran 1 tests containing 1 assertions.
-0 failures, 0 errors.
-
-Test results: 1 passes, 0 failures, 0 errors.
-
-Testing se.example.user.interface-test
-
-Ran 1 tests containing 1 assertions.
-0 failures, 0 errors.
-
-Test results: 1 passes, 0 failures, 0 errors.
-
-Testing project.command-line.test-setup
-
-Ran 0 tests containing 0 assertions.
-0 failures, 0 errors.
-
-Test results: 0 passes, 0 failures, 0 errors.
-
-Testing project.command-line.dummy_test
-
-Ran 1 tests containing 1 assertions.
-0 failures, 0 errors.
-
-Test results: 1 passes, 0 failures, 0 errors.
-Running test teardown for the command-line project: project.command-line.test-setup/test-teardown
---- test teardown for command-line ---
-
-
-Execution time: 1 seconds
+include::../scripts/output/testing-test-all-dev.txt[]
 ----
 
 Nice, it worked!

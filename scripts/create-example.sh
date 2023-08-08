@@ -80,6 +80,7 @@ echo "current dir=$(pwd)"
 poly create component name:user
 tree . > ../component-tree.txt
 
+cp $sections/component/workspace.edn .
 cp $sections/component/user-core.clj components/user/src/se/example/user/core.clj
 git add components/user/src/se/example/user/core.clj
 cp $sections/component/user-interface.clj components/user/src/se/example/user/interface.clj
@@ -130,8 +131,9 @@ cd ../../..
 echo "current-dir=$(pwd)"
 poly info fake-sha:c91fdad color-mode:none > $output/git-info.txt
 git log
-poly diff > $output/git-diff.txt
 git add --all
+poly diff > $output/git-diff.txt
+
 git commit -m "Created the user and cli bricks."
 git log --pretty=oneline
 
@@ -200,15 +202,15 @@ poly info :all fake-sha:e7ebe68 color-mode:none > $output/testing-info-9.txt
 poly info :all :dev fake-sha:e7ebe68 color-mode:none > $output/testing-info-10.txt
 
 poly info :all :dev fake-sha:e7ebe68 color-mode:none > $output/testing-info-11.txt
-poly test :all :dev color-mode:none > $output/testing-test-all.txt
-echo "exit code: $?" >> $output/testing-test-all.txt
-sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test-all.txt
+poly test :all :dev color-mode:none > $output/testing-test-all-dev.txt
+echo "exit code: $?" >> $output/testing-test-all-dev.txt
+sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test-all-dev.txt
 
-cp $sections/project/command-line-test-setup.clj projects/command-line/test/project/command_line/test_setup.clj
+cp $sections/testing/command-line-test-setup.clj projects/command-line/test/project/command_line/test_setup.clj
 cp $sections/project/workspace2.edn ./workspace.edn
 
-poly test :all color-mode:none > $output/testing-test-fixture.txt
-echo "exit code: $?" >> $output/testing-test-fixture.txt
+poly test :all color-mode:none > $output/testing-test-all.txt
+echo "exit code: $?" >> $output/testing-test-all.txt
 
 cp $sections/testing/workspace.edn .
 poly info :all :dev fake-sha:e7ebe68 color-mode:none > $output/testing-info-exclude-tests.txt

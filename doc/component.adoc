@@ -38,7 +38,7 @@ There is also a fourth way, and that is to execute the command from a xref:comma
 
 3. `clojure -T:poly shell`
 
-We can leave out _shell_ except in the third case:
+There is a shorter form that works in the first two cases:
 
 1. `poly`
 
@@ -104,7 +104,7 @@ This was a reminder for us to add the component to _deps.edn_. If we don't, then
 environment will not recognize our newly created component, which would be a pity! The tool leaves this task to you
 as a developer, with the idea to give you as much control as possible (files are only edited by you, not by the tool).
 
-Let's continue by adding the _user_ component to _deps.edn_:
+Let's continue by adding the _user_ component to _./deps.edn_:
 
 [source,clojure]
 ----
@@ -224,21 +224,14 @@ image::images/component/add-user-namespaces.png[alt=Add the core namespace,width
 
 [source,clojure]
 ----
-(ns se.example.user.core)
-
-(defn hello [name]
-  (str "Hello " name "!"))
+include::../scripts/sections/component/user-core.clj[]
 ----
 
 ...and update the _interface_ to:
 
 [source,clojure]
 ----
-(ns se.example.user.interface
-  (:require [se.example.user.core :as core]))
-
-(defn hello [name]
-  (core/hello name))
+include::../scripts/sections/component/user-interface.clj[]
 ----
 
 Here we delegate the incoming call to the implementing _core_ namespace,
