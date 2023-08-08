@@ -23,3 +23,5 @@ link:../doc[doc] directory. A cljdoc based http://localhost:8000/d/polylith/clj-
 is then generated for each released version (the version is displayed at the top of the page) which we recommend you to use.
 ====
 endif::[]
+
+site.base_url= #{site.base_url}

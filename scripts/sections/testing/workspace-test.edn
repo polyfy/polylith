@@ -5,7 +5,7 @@
  :vcs {:name "git"
        :auto-add true}
  :tag-patterns {:stable "stable-*"
-                 :release "v[0-9]*"}
+                :release "v[0-9]*"}
  :projects {"development" {:alias "dev"}
             "command-line" {:alias "cl"
                             :test {:setup-fn project.command-line.test-setup/test-setup

@@ -541,10 +541,13 @@ Let's run our tests:
 poly test :all
 ----
 
-// scripts/output/testing-test-all-dev.txt
+// scripts/output/testing-test-all.txt
 [source,text]
 ----
-Projects to run tests from: command-line, development
+Projects to run tests from: command-line
+
+Running test setup for the command-line project: project.command-line.test-setup/test-setup
+--- test setup for command-line ---
 
 Running tests for the command-line project using test runner: Polylith built-in clojure.test runner...
 Running tests from the command-line project, including 2 bricks and 1 project: user, cli, command-line
@@ -563,30 +566,24 @@ Ran 1 tests containing 1 assertions.
 
 Test results: 1 passes, 0 failures, 0 errors.
 
+Testing project.command-line.test-setup
+
+Ran 0 tests containing 0 assertions.
+0 failures, 0 errors.
+
+Test results: 0 passes, 0 failures, 0 errors.
+
 Testing project.command-line.dummy_test
 
 Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
 Test results: 1 passes, 0 failures, 0 errors.
-Running tests for the development project using test runner: Polylith built-in clojure.test runner...
-Running tests from the development project, including 2 bricks and 1 project: user, cli, command-line
+Running test teardown for the command-line project: project.command-line.test-setup/test-teardown
+--- test teardown for command-line ---
 
-Testing se.example.cli.core-test
 
-Ran 1 tests containing 1 assertions.
-0 failures, 0 errors.
-
-Test results: 1 passes, 0 failures, 0 errors.
-
-Testing se.example.user.interface-test
-
-Ran 1 tests containing 1 assertions.
-0 failures, 0 errors.
-
-Test results: 1 passes, 0 failures, 0 errors.
-
-Execution time: x seconds
+Execution time: 2 seconds
 exit code: 0
 ----
 
