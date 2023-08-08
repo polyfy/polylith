@@ -31,7 +31,7 @@
       (println (str "Warning. " message " '" path "': " (.getMessage e))))))
 
 (defn size [path]
-  (cond (fs/directory? path) (apply + (pmap size (.listFiles (io/file path))))
+  (cond (fs/directory? path) (apply + (pmap #(or (size %) 0) (.listFiles (io/file path))))
         (fs/file? path) (fs/size path)
         :else nil))
 
