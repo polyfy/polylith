@@ -125,7 +125,7 @@ to the command for us before the command is executed
 
 === Start a shell in another workspace
 
-It's possible to start a shell and immediately switch to a workspace (now _shell_ command has to be included), e.g.:
+It's possible to start a shell and immediately switch to a workspace (now the _shell_ command has to be included), e.g.:
 
 [source,text]
 ----
@@ -162,6 +162,8 @@ The autocomplete helps us execute different commands with correct parameters:
 * The file system can be browsed when selecting files and directories.
 
 * The workspace structure can be browsed via the ws command.
+
+* The documentation can be browsed via the doc command.
 
 * Tag patterns defined in workspace.edn are suggested when using the _since:X_ parameter.
 

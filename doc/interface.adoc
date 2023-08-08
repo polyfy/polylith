@@ -104,7 +104,7 @@ keep in mind that it may be an indicator that it's instead time to split up the 
 The most common way of structuring code in components is to delegate calls from the interface to one or more implementing namespaces.
 There is a situations when putting everything in the interface can be worth considering,
 and that is if the functions are mostly one-liners or tiny.
-In that case it makes sense to put the implementation directly in the interface namespace.
+In that case it can make sense to put the implementation directly in the interface namespace.
 An example of this can be found in the
 https://github.com/polyfy/polylith/blob/master/components/path-finder/src/polylith/clj/core/path_finder/interface/criterias.clj[path-finder]
 component of the Polylith workspace.
@@ -132,10 +132,10 @@ There is no magic here, just include the definitions you want, like this:
 [source,clojure]
 ----
 (ns se.example.logger.core
-(:require [taoensso.timbre :as timbre]))
+  (:require [taoensso.timbre :as timbre]))
 
 (defmacro info [args]
-`(timbre/log! :info :p ~args))
+  `(timbre/log! :info :p ~args))
 ----
 
 == More about interfaces

@@ -44,6 +44,13 @@ which the tool uses when it calculates what changes have been made (up till now)
 Notice that the first letters of the hash correspond to _stable since: c91fdad_
 and this is because it refers to this SHA-1 hash in git.
 
+We told the IDE to automatically add new files to git, but if we didn't, we can add them now:
+
+[source,shell]
+----
+git add --all
+----
+
 The _command-line_ and _development_ projects, and the _user_ and _cli_ bricks are all marked with an asterisk, _*_.
 The way the tool calculates changes is to ask _git_ by running this command internally:
 
@@ -63,20 +70,7 @@ The output is the same (this assumes that you have added the files to your git r
 
 [source,shell]
 ----
-bases/cli/deps.edn
-bases/cli/resources/cli/.keep
-bases/cli/src/se/example/cli/core.clj
-bases/cli/test/se/example/cli/core_test.clj
-build.clj
-components/user/deps.edn
-components/user/resources/user/.keep
-components/user/src/se/example/user/core.clj
-components/user/src/se/example/user/interface.clj
-components/user/test/se/example/user/interface_test.clj
-deps.edn
-development/src/dev/lisa.clj
-projects/command-line/deps.edn
-workspace.edn
+include::../scripts/output/git-diff.txt[]
 ----
 
 Here we have the answer to where the _*_ signs come from.

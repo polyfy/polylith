@@ -151,7 +151,7 @@ poly info :all-bricks :dev fake-sha:e7ebe68 out:$images/testing/info-all-bricks-
 poly info :all fake-sha:e7ebe68 out:$images/testing/info-all.png
 poly info :all :dev fake-sha:e7ebe68 out:$images/testing/info-all-dev.png
 
-cp $sections/project/command-line-test-setup.clj projects/command-line/test/project/command_line/test_setup.clj
+cp $sections/testing/command-line-test-setup.clj projects/command-line/test/project/command_line/test_setup.clj
 cp $sections/testing/workspace.edn .
 
 echo "### 13/56 Profile ###"
