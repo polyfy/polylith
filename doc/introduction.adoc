@@ -1,4 +1,3 @@
-include::cljdoc-attributes.adoc[]
 = Introduction
 
 This documentation aims to be a practical guide to this tool with lots of code examples.
@@ -20,7 +19,7 @@ Let's begin!
 ifndef::env-cljdoc[]
 ====
 NOTE: With start from version 0.2.18, this _poly_ tool documentation lives together with the source code in the
-link:../doc[doc] directory. A cljdoc based {cljdoc-url}/doc/readme[documentation]
+link:../doc[doc] directory. A cljdoc based http://localhost:8000/d/polylith/clj-poly/0.2.18-issue318-02/doc/readme[documentation]
 is then generated for each released version (the version is displayed at the top of the page) which we recommend you to use.
 ====
 endif::[]

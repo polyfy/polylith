@@ -42,16 +42,16 @@ clojure -A:dev:test -P
 
 cd $ws
 
-echo "### 1/56 Workspace ###"
+echo "### 1/25 Workspace ###"
 poly create workspace name:example top-ns:se.example :git-add :commit
 cd example
 
-echo "### 2/56 Development ###"
+echo "### 2/25 Development ###"
 mkdir development/src/dev
 cp $sections/development/lisa.clj development/src/dev
 git add development/src/dev/lisa.clj
 
-echo "### 3/56 Component ###"
+echo "### 3/25 Component ###"
 echo "current dir=$(pwd)"
 poly create component name:user
 
@@ -61,7 +61,7 @@ cp $sections/component/user-interface.clj components/user/src/se/example/user/in
 cp $sections/component/deps.edn .
 poly info fake-sha:c91fdad out:$images/component/info.png
 
-echo "### 4/56 Base ###"
+echo "### 4/25 Base ###"
 poly create b name:cli
 cd ..
 cd example
@@ -69,7 +69,7 @@ echo "current-dir=$(pwd)"
 cp $sections/base/deps.edn .
 cp $sections/base/cli-core.clj bases/cli/src/se/example/cli/core.clj
 
-echo "### 5/56 Project ###"
+echo "### 5/25 Project ###"
 echo "current-dir=$(pwd)"
 poly create project name:command-line
 cd ..
@@ -78,28 +78,28 @@ cp $sections/project/deps.edn .
 cp $sections/project/workspace1.edn ./workspace.edn
 cp $sections/project/command-line-deps.edn projects/command-line/deps.edn
 
-echo "### 6/56 Polyx ###"
+echo "### 6/25 Polyx ###"
 echo "current-dir=$(pwd)"
 cp $sections/polyx/deps.edn .
 clojure -M:polyx info fake-sha:c91fdad out:$images/polyx/info.png
 clojure -M:polyx overview fake-sha:c91fdad out:$images/polyx/overview.png
 cp $sections/project/deps.edn .
 
-echo "### 7/56 Tools.deps ###"
+echo "### 7/25 Tools.deps ###"
 
-echo "### 8/56 Build ###"
+echo "### 8/25 Build ###"
 echo "current-dir=$(pwd)"
 cp $sections/build/deps.edn .
 cp $sections/build/build.clj .
 cp $sections/build/command-line-deps.edn projects/command-line/deps.edn
 
-echo "### 9/56 Git ###"
+echo "### 9/25 Git ###"
 echo "current-dir=$(pwd)"
 poly info fake-sha:c91fdad out:$images/git/info.png
 git add --all
 git commit -m "Created the user and cli bricks."
 
-echo "### 10/56 Tagging ###"
+echo "### 10/25 Tagging ###"
 echo "current-dir=$(pwd)"
 git tag -f stable-lisa
 git log --pretty=oneline
@@ -114,11 +114,11 @@ poly info since:release fake-sha:e7ebe68 out:$images/tagging/info-02.png
 poly info since:release fake-sha:e7ebe68 out:$images/tagging/info-03.png
 poly info since:previous-release fake-sha:c91fdad out:$images/tagging/info-04.png
 
-echo "### 11/56 Flags ###"
+echo "### 11/25 Flags ###"
 echo "current-dir=$(pwd)"
 poly info :resources fake-sha:e7ebe68 out:$images/flags/info.png
 
-echo "### 12/56 Testing ###"
+echo "### 12/25 Testing ###"
 echo "current-dir=$(pwd)"
 cp $sections/testing/user-core.clj components/user/src/se/example/user/core.clj
 poly info fake-sha:e7ebe68 out:$images/testing/info.png
@@ -154,7 +154,7 @@ poly info :all :dev fake-sha:e7ebe68 out:$images/testing/info-all-dev.png
 cp $sections/testing/command-line-test-setup.clj projects/command-line/test/project/command_line/test_setup.clj
 cp $sections/testing/workspace.edn .
 
-echo "### 13/56 Profile ###"
+echo "### 13/25 Profile ###"
 echo "current-dir=$(pwd)"
 
 cp $sections/profile/workspace.edn .
@@ -180,21 +180,28 @@ poly info +remote fake-sha:e7ebe68 out:$images/profile/info-with-remote-profile.
 # poly info +default +remote fake-sha:e7ebe68 out:$images/profile/info-multiple-profiles.png
 poly info :loc fake-sha:e7ebe68 out:$images/profile/info-loc.png
 
-echo "### 14/56 Configuration ###"
-echo "current-dir=$(pwd)"
+echo "### 14/25 Configuration ###"
 
-echo "### 15/56 Workspace state ###"
-echo "current-dir=$(pwd)"
+echo "### 15/25 Copy doc-example ###"
 
-echo "### 16/56 Copy doc-example ###"
-echo "current-dir=$(pwd)"
+echo "### 16/25 Realworld example app ###"
 
-echo "### 17/56 Realworld example app ###"
-cd $ws2
-echo "current-dir=$(pwd)"
-git clone git@github.com:furkan3ayraktar/clojure-polylith-realworld-example-app.git
-cd clojure-polylith-realworld-example-app
-clojure -A:dev:test -P
-git tag stable-lisa
+echo "### 17/25 Polylith toolsdeps1 ###"
+
+echo "### 18/25 Polylith toolsdeps1 (migrated) ###"
+
+echo "### 19/25 Usermanager ###"
+
+echo "### 20/25 examples/local-dep ###"
+
+echo "### 21/25 examples/local-dep-old-format ###"
+
+echo "### 22/25 examples/local-dep-old-format ###"
+
+echo "### 23/25 examples/local-dep-old-format (migrated) ###"
+
+echo "### 24/25 examples/for-test, issue 208 - Mix clj and cljc source directories ###"
+
+echo "### 25/25 help ###"
 
 echo "Elapsed: $((($SECONDS / 60) % 60)) min $(($SECONDS % 60)) sec"

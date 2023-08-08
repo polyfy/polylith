@@ -28,16 +28,27 @@ is that the _development_ project's tests are not included by default.
 But before we run the xref:commands.adoc#test[test] command,
 we should first add a test by editing the _interface-test_ namespace in the _user_ component:
 
+// scripts/sections/testing/user-interface-test.clj
 [source,clojure]
 ----
-include::../scripts/sections/testing/user-interface-test.clj[]
+(ns se.example.user.interface-test
+  (:require [clojure.test :refer :all]
+            [se.example.user.interface :as user]))
+
+(deftest hello--when-called-with-a-name--then-return-hello-phrase
+  (is (= "Hello Lisa!"
+         (user/hello "Lisa"))))
 ----
 
 To demonstrate how the tool handles failing tests, let's change the _core_ namespace in the user component:
 
+// scripts/sections/testing/user-core.clj
 [source,clojure]
 ----
-include::../scripts/sections/testing/user-core.clj[]
+(ns se.example.user.core)
+
+(defn hello [name]
+  (str "Hello " name "!!"))
 ----
 
 ====
@@ -60,16 +71,46 @@ And if we run the xref:commands.adoc#test[test] command, it fails too:
 poly test
 ----
 
+// scripts/output/testing-test-failing.txt
 [source,shell]
 ----
-include::../scripts/output/testing-test-failing.txt[]
+Projects to run tests from: command-line
+
+Running tests for the command-line project using test runner: Polylith built-in clojure.test runner...
+Running tests from the command-line project, including 2 bricks: user, cli
+
+Testing se.example.cli.core-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing se.example.user.interface-test
+
+FAIL in (hello--when-called-with-a-name--then-return-hello-phrase) (interface_test.clj:6)
+expected: (= "Hello Lisa!" (user/hello "Lisa"))
+  actual: (not (= "Hello Lisa!" "Hello Lisa!!"))
+
+Ran 1 tests containing 1 assertions.
+1 failures, 0 errors.
+
+Test results: 0 passes, 1 failures, 0 errors.
+exit code: 1
 ----
 
 Because we added an extra `!`, we now need to update the corresponding test accordingly:
 
+// scripts/sections/testing/user-interface-test2.clj
 [source,clojure]
 ----
-include::../scripts/sections/testing/user-interface-test2.clj[]
+(ns se.example.user.interface-test
+  (:require [clojure.test :refer :all]
+            [se.example.user.interface :as user]))
+
+(deftest hello--when-called-with-a-name--then-return-hello-phrase
+  (is (= "Hello Lisa!!"
+         (user/hello "Lisa"))))
 ----
 
 If we run the test again from the REPL, it will now turn to green:
@@ -78,9 +119,30 @@ image::images/testing/successful-test.png[]
 
 ...and the _test_ command will pass too:
 
+// scripts/output/testing-test-ok.txt
 [source,shell]
 ----
-include::../scripts/output/testing-test-ok.txt[]
+Projects to run tests from: command-line
+
+Running tests for the command-line project using test runner: Polylith built-in clojure.test runner...
+Running tests from the command-line project, including 2 bricks: user, cli
+
+Testing se.example.cli.core-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing se.example.user.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Execution time: x seconds
+exit code: 0
 ----
 
 We have already mentioned that the brick tests will not be executed from the _development_ project
@@ -216,9 +278,14 @@ example
 │                  └──dummy_test.clj
 ----
 
+// scripts/sections/testing/dummy_test.clj
 [source,clojure]
 ----
-include::../scripts/sections/testing/dummy_test.clj[]
+(ns project.command-line.dummy_test
+  (:require [clojure.test :refer :all]))
+
+(deftest dummy-test
+  (is (= 1 1)))
 ----
 
 We could have chosen another top namespace, e.g., _se.example.project.command-line_,
@@ -253,9 +320,37 @@ Now the command-line project is also marked to be tested. Let's verify that by r
 poly test :project
 ----
 
+// scripts/output/testing-test-project.txt
 [source,shell]
 ----
-include::../scripts/output/testing-test-project.txt[]
+Projects to run tests from: command-line
+
+Running tests for the command-line project using test runner: Polylith built-in clojure.test runner...
+Running tests from the command-line project, including 2 bricks and 1 project: user, cli, command-line
+
+Testing se.example.cli.core-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing se.example.user.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing project.command-line.dummy_test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Execution time: 2 seconds
+exit code: 0
 ----
 
 They passed!
@@ -332,9 +427,53 @@ Now let's see if it actually works:
 poly test :all :dev
 ----
 
+// scripts/output/testing-test-all-dev.txt
 [source,shell]
 ----
-include::../scripts/output/testing-test-all-dev.txt[]
+Projects to run tests from: command-line, development
+
+Running tests for the command-line project using test runner: Polylith built-in clojure.test runner...
+Running tests from the command-line project, including 2 bricks and 1 project: user, cli, command-line
+
+Testing se.example.cli.core-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing se.example.user.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing project.command-line.dummy_test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+Running tests for the development project using test runner: Polylith built-in clojure.test runner...
+Running tests from the development project, including 2 bricks and 1 project: user, cli, command-line
+
+Testing se.example.cli.core-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing se.example.user.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Execution time: x seconds
+exit code: 0
 ----
 
 Looks like it worked!
@@ -360,9 +499,17 @@ example
 │                  └──test_setup.clj
 ----
 
+// scripts/sections/testing/command-line-test-setup.clj
 [source,clojure]
 ----
-include::../scripts/sections/testing/command-line-test-setup.clj[]
+(ns project.command-line.test-setup
+  (:require [clojure.test :refer :all]))
+
+(defn test-setup [project-name]
+  (println (str "--- test setup for " project-name " ---")))
+
+(defn test-teardown [project-name]
+  (println (str "--- test teardown for " project-name " ---")))
 ----
 
 We need to keep two things in mind:
@@ -394,9 +541,53 @@ Let's run our tests:
 poly test :all
 ----
 
+// scripts/output/testing-test-all-dev.txt
 [source,text]
 ----
-include::../scripts/output/testing-test-all-dev.txt[]
+Projects to run tests from: command-line, development
+
+Running tests for the command-line project using test runner: Polylith built-in clojure.test runner...
+Running tests from the command-line project, including 2 bricks and 1 project: user, cli, command-line
+
+Testing se.example.cli.core-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing se.example.user.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing project.command-line.dummy_test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+Running tests for the development project using test runner: Polylith built-in clojure.test runner...
+Running tests from the development project, including 2 bricks and 1 project: user, cli, command-line
+
+Testing se.example.cli.core-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing se.example.user.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Execution time: x seconds
+exit code: 0
 ----
 
 Nice, it worked!

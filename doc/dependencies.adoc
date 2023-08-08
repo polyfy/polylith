@@ -64,7 +64,7 @@ Let's list all dependencies by executing the xref:commands.adoc#deps[deps] comma
 poly deps
 ----
 
-image::images/dependencies/deps.png[alt=deps,width=400]
+image::images/dependencies/deps.png[alt=deps,width=370]
 
 This lists all dependencies in the workspace. Notice the yellow color in the headers.
 They are yellow because components and bases normally only depend on interfaces.
