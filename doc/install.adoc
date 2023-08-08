@@ -118,7 +118,7 @@ see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ----
 
-=== Install poly
+=== Install the poly tool
 
 * Download the https://github.com/polyfy/polylith/releases/latest[latest release] of the poly jar,
 e.g. _poly-0.2.18.jar_.
@@ -255,19 +255,22 @@ from the Polylith repository (e.g. the latest from the _master_ branch).
 ====
 NOTE: The master branch can sometimes be ahead of the https://github.com/polyfy/polylith/releases[latest release].
 Instead of waiting for the next version to be released, you can set the latest commited SHA from the
-https://github.com/polyfy/polylith/commits/master[master branch], each time it updates in _./deps.edn_ (see the example above).
+https://github.com/polyfy/polylith/commits/master[master branch] in _./deps.edn_, each time it updates (see the example above).
 This works especially well if you also start a xref:shell[]] from the workspace root with `clojure -M:poly`.
 ====
 
-Once we have added one of the aliases above, we can now use the _poly_ tool from the terminal:
+Once we have added one of the aliases above, we can now use the _poly_ tool from the terminal, e.g.:
 
 [source,shell]
 ----
 clojure -M:poly version
 ----
 
-We will soon create our first xref:workspace.adoc[workspace] but before that is done, only the _version_, _help_,
-and _create workspace_ commands will work.
+We will soon create our first xref:workspace.adoc[workspace] but before that is done, only the
+_version_, _help_, _doc_, and _create workspace_ commands will work.
+
+create        switch-ws
+
 
 == Polylith as a library
 [#polylith-as-a-library]

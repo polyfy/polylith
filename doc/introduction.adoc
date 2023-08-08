@@ -14,4 +14,4 @@ and how dependencies and library usage can be displayed.
 We will explain the value of components and how they bring context to our development experience,
 which will help us build decoupled and scalable systems from day one.
 
-Happy coding!
+Let's begin!
