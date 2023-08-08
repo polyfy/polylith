@@ -20,8 +20,7 @@ ifndef::env-cljdoc[]
 ====
 NOTE: With start from version 0.2.18, this _poly_ tool documentation lives together with the source code in the
 link:../doc[doc] directory. A cljdoc based http://localhost:8000/d/polylith/clj-poly/0.2.18-issue318-02/doc/readme[documentation]
-is then generated for each released version (the version is displayed at the top of the page) which we recommend you to use.
+that includes a left menu for easy navigation and a search box, is published for each released version of the _poly_ tool
+(the version number is displayed at the top of the page).
 ====
 endif::[]
-
-site.base_url= #{site.base_url}

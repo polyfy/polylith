@@ -55,7 +55,7 @@ The _poly_ tool will not run them for external test runners.
 
 You can find the _TestRunner_ protocol
 ifdef::env-cljdoc[]
-link:../api/polylith.clj.core.test-runner-contract.interface#TestRunner[here].
+link:api/polylith.clj.core.test-runner-contract.interface#TestRunner[here].
 endif::[]
 ifndef::env-cljdoc[]
 link:http://localhost:8000/d/polylith/clj-poly/0.2.18-issue318-02/api/polylith.clj.core.test-runner-contract.interface#TestRunner[here].
@@ -65,7 +65,7 @@ endif::[]
 
 You can find the _ExternalTestRunner_ protocol
 ifdef::env-cljdoc[]
-link:../api/polylith.clj.core.test-runner-contract.interface#ExternalTestRunner[here].
+link:api/polylith.clj.core.test-runner-contract.interface#ExternalTestRunner[here].
 endif::[]
 ifndef::env-cljdoc[]
 link:http://localhost:8000/d/polylith/clj-poly/0.2.18-issue318-02/api/polylith.clj.core.test-runner-contract.interface#ExternalTestRunner[here].
