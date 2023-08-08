@@ -64,9 +64,14 @@ or if no match was found, the first commit in the repository.
 Earlier when we changed a project by editing its _deps.edn_ file, it got a trailing _*_ to indicate that it was changed.
 But what happens if only some of its bricks have changed? Let's try that by adding a comment to the _user.core_ namespace:
 
+// scripts/sections/tagging/user-core-change.clj
 [source,clojure]
 ----
-include::../scripts/sections/tagging/user-core-change.clj[]
+(ns se.example.user.core)
+
+; hi!
+(defn hello [name]
+      (str "Hello " name "!"))
 ----
 
 ...and execute the xref:commands.adoc#info[info] command again:

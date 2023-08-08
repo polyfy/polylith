@@ -113,16 +113,29 @@ example
 
 ...with this content:
 
+// scripts/sections/profile/user-api-api.clj
 [source,clojure]
 ----
-include::../scripts/sections/profile/user-api-api.clj[]
+(ns se.example.user-api.api
+  (:require [se.example.user.interface :as user]))
+
+(defn hello-remote [name]
+  (user/hello (str name " - from the server")))
 ----
 
 ...and update the _core_ namespace:
 
+// scripts/sections/profile/user-api-core.clj
 [source,clojure]
 ----
-include::../scripts/sections/profile/user-api-core.clj[]
+(ns se.example.user-api.core
+  (:require [se.example.user-api.api]
+            [slacker.server :as server])
+  (:gen-class))
+
+(defn -main [& args]
+  (server/start-slacker-server [(the-ns 'se.example.user-api.api)] 2104)
+  (println "server started: http://127.0.0.1:2104"))
 ----
 
 === 2. Create the user-remote component
@@ -198,16 +211,30 @@ example
 
 ...with this content:
 
+// scripts/sections/profile/user-remote-core.clj
 [source,clojure]
 ----
-include::../scripts/sections/profile/user-remote-core.clj[]
+(ns se.example.user.core
+  (:require [slacker.client :as client]))
+
+(declare hello-remote)
+
+(defn hello [name]
+  (let [connection (client/slackerc "localhost:2104")
+        _ (client/defn-remote connection se.example.user-api.api/hello-remote)]
+    (hello-remote name)))
 ----
 
 ...and update the interface namespace:
 
+// scripts/sections/profile/user-remote-interface.clj
 [source,clojure]
 ----
-include::../scripts/sections/profile/user-remote-interface.clj[]
+(ns se.example.user.interface
+  (:require [se.example.user.core :as core]))
+
+(defn hello [name]
+  (core/hello name))
 ----
 
 Edit the REPL configuration:
@@ -279,9 +306,20 @@ poly create project name:user-service
 
 Set the content of projects/user-service/deps.edn to this:
 
+// scripts/sections/profile/user-service-deps.edn
 [source,clojure]
 ----
-include::../scripts/sections/profile/user-service-deps.edn[]
+{:deps {poly/user {:local/root "../../components/user"}
+        poly/user-api {:local/root "../../bases/user-api"}
+
+        org.clojure/clojure {:mvn/version "1.11.1"}
+        org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
+        org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}}
+
+ :aliases {:test {:extra-paths []
+                  :extra-deps  {}}
+
+           :uberjar {:main se.example.user-api.core}}}
 ----
 
 Add the _user-s_ alias for the _user-service_ in _workspace.edn_:

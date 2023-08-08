@@ -222,16 +222,25 @@ image::images/component/add-user-namespaces.png[alt=Add the core namespace,width
 
 ...and change it to:
 
+// scripts/sections/component/user-core.clj
 [source,clojure]
 ----
-include::../scripts/sections/component/user-core.clj[]
+(ns se.example.user.core)
+
+(defn hello [name]
+  (str "Hello " name "!"))
 ----
 
 ...and update the _interface_ to:
 
+// scripts/sections/component/user-interface.clj
 [source,clojure]
 ----
-include::../scripts/sections/component/user-interface.clj[]
+(ns se.example.user.interface
+  (:require [se.example.user.core :as core]))
+
+(defn hello [name]
+  (core/hello name))
 ----
 
 Here we delegate the incoming call to the implementing _core_ namespace,
