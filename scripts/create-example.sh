@@ -103,7 +103,7 @@ cd ..
 tree example > $output/project-tree.txt
 cd example
 cp $sections/project/deps.edn .
-cp $sections/project/workspace1.edn ./workspace.edn
+cp $sections/project/workspace.edn ./workspace.edn
 cp $sections/project/command-line-deps.edn projects/command-line/deps.edn
 
 echo "### 6/25 Polyx ###"
@@ -207,7 +207,7 @@ echo "exit code: $?" >> $output/testing-test-all-dev.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test-all-dev.txt
 
 cp $sections/testing/command-line-test-setup.clj projects/command-line/test/project/command_line/test_setup.clj
-cp $sections/project/workspace2.edn ./workspace.edn
+cp $sections/testing/workspace-test.edn ./workspace.edn
 
 poly test :all color-mode:none > $output/testing-test-all.txt
 echo "exit code: $?" >> $output/testing-test-all.txt

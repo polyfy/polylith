@@ -75,7 +75,7 @@ poly create project name:command-line
 cd ..
 cd example
 cp $sections/project/deps.edn .
-cp $sections/project/workspace1.edn ./workspace.edn
+cp $sections/project/workspace.edn ./workspace.edn
 cp $sections/project/command-line-deps.edn projects/command-line/deps.edn
 
 echo "### 6/25 Polyx ###"
@@ -152,7 +152,7 @@ poly info :all fake-sha:e7ebe68 out:$images/testing/info-all.png
 poly info :all :dev fake-sha:e7ebe68 out:$images/testing/info-all-dev.png
 
 cp $sections/testing/command-line-test-setup.clj projects/command-line/test/project/command_line/test_setup.clj
-cp $sections/testing/workspace.edn .
+cp $sections/testing/workspace-test.edn ./workspace.edn
 
 echo "### 13/25 Profile ###"
 echo "current-dir=$(pwd)"
