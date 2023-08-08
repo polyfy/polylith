@@ -24,3 +24,6 @@ that includes a left menu for easy navigation and a search box, is published for
 (the version number is displayed at the top of the page).
 ====
 endif::[]
+
+env-cljdoc= {env-cljdoc}
+
