@@ -9,7 +9,7 @@ example
 ├── build.clj
 ----
 
-image::images/flags/projects.png[alt=Projects,width=350]
+image::images/flags/projects.png[width=350]
 
 The status column has a different meaning:
 
@@ -49,7 +49,7 @@ but not _development/test_ and that no tests in _development/test_ will be execu
 
 We also have this section:
 
-image::images/flags/bricks.png[alt=Projects,width=300]
+image::images/flags/bricks.png[width=300]
 
 Here the flags have a slightly different meaning:
 
@@ -103,6 +103,6 @@ The `st-` for the _cli_ base follows the same pattern as for the _user_ componen
 
 If we execute `poly info :resources` (or the shorter `poly info :r`):
 
-image::images/flags/info.png[alt=info,width=400]
+image::images/flags/info.png[width=400]
 
 ...then the resources directory is also included, where r stands for resources.

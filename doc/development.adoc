@@ -15,19 +15,19 @@ the desired version of SDK and finish the wizard.
 
 If you are a Cursive user (1.13.0 or later) then you need to select "Resolve over whole project" in the settings:
 
-image::images/development/idea-resolve-over-whole-project.png[alt=Resolve over whole project,width=600]
+image::images/development/idea-resolve-over-whole-project.png[width=600]
 
 Make sure to activate the :dev alias (and press the "two arrows" icon to refresh):
 
-image::images/development/activate-dev-alias.png[alt=Activate the :dev alias,width=250]
+image::images/development/activate-dev-alias.png[width=250]
 
 Let's create a REPL by clicking _Edit Configurations..._:
 
-image::images/development/edit-configuration.png[alt=Edit configuration...,width=200]
+image::images/development/edit-configuration.png[width=200]
 
 Click the + sign and select _Clojure REPL_ > _Local_:
 
-image::images/development/create-local-repl.png[alt=Create local REPL,width=250]
+image::images/development/create-local-repl.png[width=250]
 
 Fill in:
 
@@ -39,7 +39,7 @@ Fill in:
 
 Press OK and start the REPL in debug mode, by clicking the bug icon:
 
-image::images/development/debug.png[alt=Debug,width=150]
+image::images/development/debug.png[width=150]
 
 When this turns up:
 
@@ -75,11 +75,11 @@ Right click on the _development/src_ directory and select _New > Clojure Namespa
 
 When this dialog turns up, select _Don't ask again_ and click the _Add_ button:
 
-image::images/development/add-file-to-git.png[alt=Debug,width=600]
+image::images/development/add-file-to-git.png[width=600]
 
 If the namespace is not recognised, you may need to click the refresh button (two arrows):
 
-image::images/development/refresh.png[alt=Add file to git,width=150]
+image::images/development/refresh.png[width=150]
 
 Now let's write some code:
 

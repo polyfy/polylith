@@ -8,78 +8,78 @@ Mac OS X, Linux, FreeBSD, Solaris, and Windows.
 
 Let's start a shell by typing _poly_ from the workspace root:
 
-image::images/shell/shell-start.png[alt=Start a shell,width=600]
+image::images/shell/shell-start.png[width=600]
 
 The prompt is set to the workspace name. From here we can execute different commands and get instant feedback.
 
 We can list all available commands by pressing the _<tab>_ key:
 
-image::images/shell/shell-all-commands.png[alt=List all available commands,width=600]
+image::images/shell/shell-all-commands.png[width=600]
 
 If we type i, it will show all commands starting with ‘i’:
 
-image::images/shell/shell-i.png[alt=i,width=600]
+image::images/shell/shell-i.png[width=600]
 
 If we press _<tab>_, it will complete the info command and suggest available parameters:
 
-image::images/shell/shell-info.png[alt=info,width=600]
+image::images/shell/shell-info.png[width=600]
 
 Most parameters starting with a colon (:) can be selected by typing their name, e.g. _l_ for _:loc_:
 
-image::images/shell/shell-info-loc.png[alt=info l,width=600]
+image::images/shell/shell-info-loc.png[width=600]
 
 Press _<tab>_ to select _:loc_:
 
-image::images/shell/shell-info-loc-tab.png[alt=info :loc,width=600]
+image::images/shell/shell-info-loc-tab.png[width=600]
 
 We mentioned that parameters starting with a colon can be selected by their name.
 he exception is _:project_ which has to start with _:p_ to distinguish it from _project_:
 
-image::images/shell/shell-info-loc-p.png[alt=info :loc :p,width=600]
+image::images/shell/shell-info-loc-p.png[width=600]
 
 Complete with _<tab>_ and type p and press _<tab>_ again to list all available projects in the workspace:
 
-image::images/shell/shell-info-loc-project.png[alt=info :loc :project project:,width=600]
+image::images/shell/shell-info-loc-project.png[width=600]
 
 When we have only one candidate, then it can be selected by pressing _<tab>_:
 
-image::images/shell/shell-one-candidate.png[alt=info :loc :project:development:,width=600]
+image::images/shell/shell-one-candidate.png[width=600]
 
 The trailing colon indicates that this is a multi-select parameter (more than one project can be selected).
 We can leave the multi-select input mode by pressing <space> to remove the trailing colon:
 
-image::images/shell/shell-leave-multi-select.png[alt=info :loc :project :project:develoment,width=600]
+image::images/shell/shell-leave-multi-select.png[width=600]
 
 An alternative way of selecting a candidate is by pressing _<tab>_ twice, and using the arrow keys to move the "cursor" around, e.g:
 
-image::images/shell/shell-move-cursor.png[alt=info :loc :project project:development :resources,width=600]
+image::images/shell/shell-move-cursor.png[width=600]
 
 Press <enter> to make a choice:
 
-image::images/shell/shell-move-cursor-and-select.png[alt=info :loc :project project:development :resources,width=600]
+image::images/shell/shell-move-cursor-and-select.png[width=600]
 
 The brick parameter lists all bricks, including "no brick" represented by a dash (if _-_ is chosen,
 then no bricks will be selected for testing):
 
-image::images/shell/shell-info-brick.png[alt=info brick:,width=600]
+image::images/shell/shell-info-brick.png[width=600]
 
 A command that really benefits from being executed from the shell is the _ws_ command.
 Instead of trying to remember all the different attributes, we get them suggested for us:
 
-image::images/shell/shell-ws-get.png[alt=ws get:,width=600]
+image::images/shell/shell-ws-get.png[width=600]
 
 From here we can dig deeper into the structure.
 Sometimes we encounter two words that start the same, where one of them is an exact match:
 
-image::images/shell/shell-ws-get-components-user.png[alt=ws get:components:user,width=600]
+image::images/shell/shell-ws-get-components-user.png[width=600]
 
 We can select user in this case, by typing _:_:
 
-image::images/shell/shell-ws-get-components-user-colon.png[alt=ws get:components:user:,width=600]
+image::images/shell/shell-ws-get-components-user-colon.png[width=600]
 
 We can continue browsing the workspace structure and view the information we are interested in, e.g.:
 
-image::images/shell/shell-ws-get-browse.png[alt=ws get:components:user:namespaces:src:core:namespace,width=600]
+image::images/shell/shell-ws-get-browse.png[width=600]
 
 == Switching workspace
 
@@ -92,29 +92,29 @@ Let's say we have cloned the
 https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[realworld-example-app].
 We can now switch to that workspace using the xref:commands.adoc#switch-ws[switch-ws] command in combination with the _dir_ parameter:
 
-image::images/shell/shell-switch-dir.png[alt=switch-ws dir:,width=600]
+image::images/shell/shell-switch-dir.png[width=600]
 
 This will list all directories and files ending with _.edn_ in the current directory.
 
 We can select the clojure-polylith-realworld-example-app directory by typing `.` followed by _<tab>_
 to select `..` and then typing `clo` (or something long enough) followed by _<tab>_ to select the workspace:
 
-image::images/shell/shell-switch-dir-realworld.png[alt=switch-ws dir:../clojure-polylith-realworld-example-app/,width=600]
+image::images/shell/shell-switch-dir-realworld.png[width=600]
 
 Switch workspace by pressing <enter>:
 
-image::images/shell/shell-switched-dir.png[alt=switch-ws dir:../clojure-polylith-realworld-example-app,width=600]
+image::images/shell/shell-switched-dir.png[width=600]
 
 The _dir:_ prefix indicates that commands will be executed from the selected workspace,
 and not from the current directory. We can go back to the workspace directory by executing _switch-ws_:
 
-image::images/shell/shell-switch-ws.png[alt=switch-ws,width=600]
+image::images/shell/shell-switch-ws.png[width=600]
 
 If a workspace has been exported to a file using something like `poly ws out:ws.edn` then we can switch to that workspace.
 Here we use the https://github.com/seancorfield/usermanager-example/tree/polylith[usermanager] project
 as an example (make sure to switch to the _polylith_ branch, after cloning the repository):
 
-image::images/shell/shell-switch-ws-file.png[alt=switch-ws file:../usermanager-example/ws.edn,width=600]
+image::images/shell/shell-switch-ws-file.png[width=600]
 
 The promt name is picked from the _:name_ attribute in the _ws.edn_ file and is prefixed with _file:_
 to indicate that it has been imported from a file.
@@ -189,7 +189,7 @@ We often execute the xref:commands#create-workspace[create workspace] command ou
 This command is therefore not suggested by the autocomplete when inside an existing workspace. The exception is when
 we are outside a workspace, then the autocomplete will help out with creating a workspace, e.g.:
 
-image::images/shell/shell-create-workspace.png[alt=create workspace name:myws,width=600]
+image::images/shell/shell-create-workspace.png[width=600]
 
 === Rarely used parameters
 

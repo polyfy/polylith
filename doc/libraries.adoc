@@ -34,7 +34,7 @@ We can list the outdate libraries by passing in _:outdated_ (which uses https://
 poly libs :outdated
 ----
 
-image::images/libraries/libs-outdated.png[alt=libs :outdated]
+image::images/libraries/libs-outdated.png[]
 
 Libraries can be specified in three different ways in tools.deps:
 
@@ -102,7 +102,7 @@ An exception is if a dependency is overridden with _:override-deps_ in a project
 
 If we now run the libs command:
 
-image::images/libraries/libs-override-deps.png[alt=libs (override deps)]
+image::images/libraries/libs-override-deps.png[]
 
 ...we will have two versions of _clj-time_ where the _realworld-backend_ project uses _0.15.1_
 and the _user_ component uses _0.15.2_.

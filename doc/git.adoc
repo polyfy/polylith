@@ -10,7 +10,7 @@ cd ../../..
 poly info
 ----
 
-image::images/git/info.png[alt=info,width=400]
+image::images/git/info.png[width=400]
 
 At the top we have the line _stable since: c91fdad_ (you most likely have another git SHA/hash).
 To explain what this is, let's take it from the beginning.
