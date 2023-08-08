@@ -257,6 +257,7 @@ poly ws get:keys color-mode:none > $output/ws-state-keys.txt
 poly ws get:components:keys replace:$ws:WS-HOME color-mode:none > $output/ws-state-components-keys.txt
 poly ws get:components:user replace:$ws:WS-HOME color-mode:none > $output/ws-state-components-user.txt
 poly ws get:components:user-remote:lib-deps color-mode:none > $output/ws-state-components-user-remote-lib-deps.txt
+poly ws out:ws.edn
 poly ws get:old:user-input:args ws-file:ws.edn color-mode:none > $output/ws-state-ws-file.txt
 
 echo "### 15/25 Copy doc-example ###"
