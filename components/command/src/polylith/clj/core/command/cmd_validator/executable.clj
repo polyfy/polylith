@@ -10,7 +10,7 @@
 (defn cant-be-executed-outside-ws? [workspace cmd [_ entity]]
   (not (or (-> workspace nil? not)
            (nil? cmd)
-           (contains? #{"help" "shell" "version"} cmd)
+           (contains? #{"doc" "help" "shell" "version"} cmd)
            (and (= "create" cmd)
                 (= "w" (common/entity->short entity))))))
 
