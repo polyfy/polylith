@@ -25,5 +25,6 @@ that includes a left menu for easy navigation and a search box, is published for
 ====
 endif::[]
 
-env-cljdoc= {env-cljdoc}
+http://localhost:8000/d/polylith/clj-poly/0.2.18-issue318-02/api/polylith.clj.core.test-runner-contract.interface[localhost]
 
+https://cljdoc.org/d/polylith/clj-poly/0.2.18-issue318-02/api/polylith.clj.core.test-runner-contract.interface[api]
