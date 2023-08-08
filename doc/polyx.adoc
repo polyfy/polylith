@@ -60,7 +60,7 @@ poly info out:info.txt
 
 This can be "printed" by executing `cat info.txt`:
 
-image::images/polyx/info.png[alt=cat info.txt,width=400]
+image::images/polyx/info.png[width=400]
 
 The colors can be removed if we want:
 
@@ -96,7 +96,7 @@ example$ overview out:overview.png :no-changes
 
 The generated image looks like this:
 
-image::images/polyx/overview.png[alt=Overview]
+image::images/polyx/overview.png[]
 
 This image can be used in our documentation to get an overview of the workspace.
 

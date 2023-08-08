@@ -154,7 +154,7 @@ in the RealWorld example app.
 
 Now we may need to refresh our IDE, by clicking the _Import Changes_ link (or the icon we used before):
 
-image::images/component/cursive-import-changes.png[alt=Import changes,width=400]
+image::images/component/cursive-import-changes.png[width=400]
 
 The component also has its own _deps.edn_ file that looks like this:
 
@@ -206,7 +206,7 @@ Let's continue by executing the xref:commands.adoc#info[info] command:
 poly info
 ----
 
-image::images/component/info.png[alt=poly info,width=350]
+image::images/component/info.png[width=350]
 
 This tells us that we have one _development_ project, one _user_ component and one _user_ xref:interface.adoc[interface]
 but no xref:base.adoc[base] (yet). Components and bases are referred to as _bricks_ (we will soon explain what a base is).
@@ -218,7 +218,7 @@ If your colors don't look as nice as this, then you can visit the xref:colors.ad
 
 Now, let's add the _core_ namespace to _user_:
 
-image::images/component/add-user-namespaces.png[alt=Add the core namespace,width=350]
+image::images/component/add-user-namespaces.png[width=350]
 
 ...and change it to:
 

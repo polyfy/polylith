@@ -41,11 +41,11 @@ Also add the _:build_ alias to _./deps.edn_:
 
 Now select the _build_ alias and refresh the IDE:
 
-image::images/build/aliases.png[alt=Select build alias,width=400]
+image::images/build/aliases.png[width=400]
 
 Also add "build" to Options in the REPL settings + restart the REPL:
 
-image::images/build/add-build-to-repl-settings.png[alt=Select build alias,width=600]
+image::images/build/add-build-to-repl-settings.png[width=600]
 
 == Old Cursive versions
 

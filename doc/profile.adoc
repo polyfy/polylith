@@ -15,12 +15,12 @@ we can focus on fulfilling non-functional requirements like performance or uptim
 
 Right now, our _development_ project mirrors the _command-line_ project:
 
-image::images/profile/prod-mirrors-dev.png[alt=Prod mirrors dev,width=600]
+image::images/profile/prod-mirrors-dev.png[width=600]
 
 Let's pretend we get performance problems in the _user_ component and that we think distributing the load,
 by delegating to a new service, could solve the problem:
 
-image::images/profile/new-service-in-prod.png[alt=New service in prod,width=600]
+image::images/profile/new-service-in-prod.png[width=600]
 
 The production environment now looks good, but how about the _development_ environment?
 The problem here is that it contains two components that share the same _user_ interface.
@@ -29,7 +29,7 @@ because we now have two components using the same _se.example.user_ namespace in
 
 The solution is to use profiles:
 
-image::images/profile/profiles-in-dev.png[alt=Profiles in dev,width=600]
+image::images/profile/profiles-in-dev.png[width=600]
 
 By leaving out any component that implements the _user_ interface from the _development_ project
 and combining it with one of the two possible profiles we get a complete _development_ project.
@@ -42,11 +42,11 @@ but here we will leave it as it is.
 
 Now let's try to move from this design:
 
-image::images/profile/prod-mirrors-dev.png[alt=Prod mirrors dev,width=600]
+image::images/profile/prod-mirrors-dev.png[width=600]
 
 ...to this:
 
-image::images/profile/target-design.png[alt=Target design,width=600]
+image::images/profile/target-design.png[width=600]
 
 First we need to decide how the _command-line_ tool should communicate with _user-service_ over the wire.
 After some searching, we found this
@@ -195,7 +195,7 @@ This works as profiles are only used from the development project.
 
 The next step is to activate the _remote_ profile in our IDE:
 
-image::images/profile/activate-remote-profile.png[alt=Prod mirrors dev,width=200]
+image::images/profile/activate-remote-profile.png[width=200]
 
 Create the core namespace:
 
@@ -239,7 +239,7 @@ example
 
 Edit the REPL configuration:
 
-image::images/profile/edit-repl-config.png[alt=Edit REPL confit,width=250]
+image::images/profile/edit-repl-config.png[width=250]
 
 ...and add the default profile to Options: _--A:dev:test:build:+default_
 
@@ -354,7 +354,7 @@ Now when we have a running service, we could test if we can call it from the REP
 We activated the remote profile in our IDE earlier, which made the _user-remote_ component active.
 Note that this only instructs the IDE to treat _user-remote_ as source code:
 
-image::images/profile/user-and-user-remote.png[alt=User and user-remote,width=200]
+image::images/profile/user-and-user-remote.png[width=200]
 
 ...but it _doesn't_ load its source code into the REPL!
 
@@ -383,7 +383,7 @@ Because of this, we should keep the _-A:test:dev:build:+default_ configuration a
 
 Let's create a REPL that includes the remote profile:
 
-image::images/profile/prod-repl.png[alt=User and user-remote,width=600]
+image::images/profile/prod-repl.png[width=600]
 
 This REPL will use the _user-remote_ component and can be used to "emulate" a production like environment.
 
@@ -429,7 +429,7 @@ poly info +
 
 // compare-with-target-design.png is manually created by putting all-aliases.png and target-design.png side by side.
 
-image::images/profile/compare-with-target-design.png[alt=Compare with target design,width=600]
+image::images/profile/compare-with-target-design.png[width=600]
 
 Looks like we got everything right!
 
@@ -479,7 +479,7 @@ This can be done by passing in _:loc_:
 poly info :loc
 ----
 
-image::images/profile/info-loc.png[alt=info :loc,width=500]
+image::images/profile/info-loc.png[width=500]
 
 Each project summarises the number of lines of code for each brick it contains.
 The _loc_ column counts the number of lines of codes under the _src_ directory,
@@ -496,6 +496,6 @@ Let's run all the tests to see if everything works:
 poly test :project
 ----
 
-image::images/profile/test.png[alt=info :loc,width=600]
+image::images/profile/test.png[width=600]
 
 It worked!

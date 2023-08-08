@@ -13,7 +13,7 @@ The way we mark a stable point in time is to tag it with git (-f tells git to re
 git tag -f stable-lisa
 ----
 
-image::images/tagging/info-01.png[alt=Select build alias,width=400]
+image::images/tagging/info-01.png[width=400]
 
 If we now run `git log --pretty=oneline` again:
 
@@ -29,7 +29,7 @@ you should instead give your own corresponding hash code.
 
 If we execute the xref:commands.adoc#info[info] command:
 
-image::images/tagging/info-01.png[alt=info,width=400]
+image::images/tagging/info-01.png[width=400]
 
 ...the _stable since_ hash has been updated and is now tagged with _stable-lisa_.
 All the _*_ signs are gone because no _component_, _base_ or _project_ has yet changed since the second commit
@@ -76,7 +76,7 @@ But what happens if only some of its bricks have changed? Let's try that by addi
 
 ...and execute the xref:commands.adoc#info[info] command again:
 
-image::images/tagging/info-02.png[alt=info,width=400]
+image::images/tagging/info-02.png[width=400]
 
 Now the two projects are marked with a _+_ which indicates that the projects themselves are unchanged
 but that at least one of their bricks has changed.
@@ -100,7 +100,7 @@ If we execute:
 poly info since:release
 ----
 
-image::images/tagging/info-03.png[alt=info since:relese,width=400]
+image::images/tagging/info-03.png[width=400]
 
 ...it picks the latest release tag that follows the pattern defined in _workspace.edn_:
 
@@ -117,7 +117,7 @@ If we execute:
 poly info since:previous-release
 ----
 
-image::images/tagging/info-04.png[alt=info since:relese,width=400]
+image::images/tagging/info-04.png[width=400]
 
 ...it picks the second latest release tag.
 

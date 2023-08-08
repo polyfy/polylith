@@ -7,7 +7,7 @@ and mocking can be avoided in most cases as we have access to all components fro
 
 Let's go back to our example and run the xref:commands.adoc#info[info] command:
 
-image::images/testing/info.png[alt=info,width=400]
+image::images/testing/info.png[width=400]
 
 ...we can see that the _user_ component is marked with an asterisk, _*_. That is because its _core_ namespace
 has been changed (remember that we added a "hi" comment to its xref:../scripts/sections/tagging/user-core-change.clj[core] namespace).
@@ -62,7 +62,7 @@ Now we can run the test from the IDE:
 
 * Or, place the cursor under the test and run: _Tools_ > _REPL_ > _Run Test under carret in REPL_
 
-image::images/testing/failing-test.png[alt=Run test]
+image::images/testing/failing-test.png[]
 
 And if we run the xref:commands.adoc#test[test] command, it fails too:
 
@@ -155,7 +155,7 @@ Let's try it out with the _info_ command first:
 poly info :dev
 ----
 
-image::images/testing/info-dev.png[alt=info :dev,width=400]
+image::images/testing/info-dev.png[width=400]
 
 Now both the _development_ and the _command-line_ project is marked for test execution.
 
@@ -172,14 +172,14 @@ If _development_ is given, it will automatically be included as if _:dev_ was pa
 poly info project:dev
 ----
 
-image::images/testing/info-project-dev.png[alt=Run test,width=400]
+image::images/testing/info-project-dev.png[width=400]
 
 [source,shell]
 ----
 poly info project:cl:dev
 ----
 
-image::images/testing/info-project-cl-dev.png[alt=Run test,width=400]
+image::images/testing/info-project-cl-dev.png[width=400]
 
 === Filter on bricks
 
