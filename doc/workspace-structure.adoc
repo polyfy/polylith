@@ -762,6 +762,7 @@ poly ws get:user-input
  :is-dev false
  :is-fake-poly false
  :is-latest-sha false
+ :is-local false
  :is-no-changes false
  :is-no-exit false
  :is-outdated false
@@ -856,6 +857,10 @@ to add created files to git. Has the same effect for current command as if _:vcs
 in _workspace.edn_.
 
 * `:is-latest-sha` Set to _true_ if _:latest-sha_ is given.
+
+* `:is-local` Set to _true_ if _:local_ is given. If set, the xref:commands.adoc#doc[doc] command will use
+_localhost_ instead of _cljdoc.org_, when opening cljdoc pages.
+The _:local_ parameter can also be passed in when starting a xref:commands.adoc#shell[shell].
 
 * `:is-no-changes` Set to _true_ if _:no-changes_ is given. Used to fake that no changes have been made since the last stable point in time.
 

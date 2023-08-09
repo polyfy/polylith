@@ -17,7 +17,8 @@
        "    tap\n"
        "    tap open\n"
        "    tap clean\n"
-       "    tap close"))
+       "    tap close\n"
+       "    doc page:tap"))
 
 (defn print-help [color-mode]
   (println (help color-mode)))

@@ -3,7 +3,10 @@
             [clojure.string :as str]
             [polylith.clj.core.version.interface :as ver]))
 
-(def doc-url (str "http://localhost:8000/d/polylith/clj-poly/" ver/name "/doc"))
+(defn doc-url [local?]
+  (if local?
+    (str "http://localhost:8000/d/polylith/clj-poly/" ver/name "/doc")
+    (str "https://cljdoc.org/d/polylith/clj-poly/" ver/name "/doc")))
 
 (def more-config {:high-level {:url "https://polylith.gitbook.io/polylith"}
                   :slack {:url "https://clojurians.slack.com/archives/C013B7MQHJQ"}
@@ -45,22 +48,22 @@
 
 (def more-navigation (second (navigation :root more-config)))
 
-(defn bookmark-url [page bookmark]
-  (str doc-url "/reference/" page "#" bookmark))
+(defn bookmark-url [page bookmark local?]
+  (str (doc-url local?) "/reference/" page "#" bookmark))
 
-(defn page-url [page]
-  (str doc-url "/" (or page "readme")))
+(defn page-url [page local?]
+  (str (doc-url local?) "/" (or page "readme")))
 
 (defn more-url [page]
   (or (get-in more-config (map keyword (conj page "url")))
       (page "readme")))
 
-(defn open-doc [cmd help more page ws]
+(defn open-doc [cmd local? help more page ws]
   (let [cmd (when cmd (-> cmd (str/split #":") first))
         url (condp = cmd
-                   "help" (bookmark-url "commands" help)
+                   "help" (bookmark-url "commands" help local?)
                    "more" (more-url more)
-                   "page" (page-url page)
-                   "ws" (bookmark-url "workspace-structure" ws)
-                   (page-url "readme"))]
+                   "page" (page-url page local?)
+                   "ws" (bookmark-url "workspace-structure" ws local?)
+                   (page-url "readme" local?))]
     (browse/browse-url url)))

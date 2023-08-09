@@ -42,3 +42,5 @@
     poly ws get:settings:vcs:polylith :latest-sha branch:master
     poly ws out:ws.edn
     poly ws color-mode:none > ws.edn
+    poly doc ws
+    poly doc ws:components

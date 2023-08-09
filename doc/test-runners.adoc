@@ -1,5 +1,6 @@
 = Test Runners
 :toc:
+:cljdoc-api-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/api
 
 The _poly_ tool started to support test runners since version 0.2.15.
 There is a https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/components/clojure-test-test-runner/src/polylith/clj/core/clojure_test_test_runner/core.clj#L85-L99[default test runner]
@@ -53,23 +54,11 @@ The _poly_ tool will not run them for external test runners.
 
 == TestRunner Protocol
 
-You can find the _TestRunner_ protocol
-ifdef::env-cljdoc[]
-xref:../api/polylith.clj.core.test-runner-contract.interface#TestRunner[here]
-endif::[]
-ifndef::env-cljdoc[]
-link:http://localhost:8000/d/polylith/clj-poly/0.2.18-issue318-02/api/polylith.clj.core.test-runner-contract.interface#TestRunner[here].
-endif::[]
+You can find the _TestRunner_ protocol link:{cljdoc-api-url}/polylith.clj.core.test-runner-contract.interface#TestRunner[here].
 
 == ExternalTestRunnerProtocol
 
-You can find the _ExternalTestRunner_ protocol
-ifdef::env-cljdoc[]
-xref:../api/polylith.clj.core.test-runner-contract.interface#TestRunnerProtocol[here]
-endif::[]
-ifndef::env-cljdoc[]
-link:http://localhost:8000/d/polylith/clj-poly/0.2.18-issue318-02/api/polylith.clj.core.test-runner-contract.interface#ExternalTestRunner[here].
-endif::[]
+You can find the _ExternalTestRunner_ protocol link:{cljdoc-api-url}/polylith.clj.core.test-runner-contract.interface#ExternalTestRunner[here].
 
 == Implement Your Own Test Runner
 

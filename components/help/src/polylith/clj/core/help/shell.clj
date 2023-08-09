@@ -5,9 +5,12 @@
   (str "  Starts an interactive shell with the name of the selected workspace, e.g.:\n"
        "    myworkspace$>\n"
        "\n"
-       "  poly [shell] [" (s/key ":tap" cm) "] [" (s/key ":all" cm) "]\n"
+       "  poly [shell] [" (s/key ":all" cm) "] [" (s/key ":tap" cm) "]\n"
        "\n"
-       "  If " (s/key ":tap" cm) " is passed in, a Portal window that outputs " (s/key "tap>" cm) " statements is opened.\n"
+       "    " (s/key ":all" cm) " = The autocomplete will suggest all available parameters,\n"
+       "           including rarely used ones.\n"
+       "\n"
+       "    " (s/key ":tap" cm) " = A Portal window that outputs " (s/key "tap>" cm) " statements is opened.\n"
        "\n"
        "  From here we can execute any poly command, e.g.:\n"
        "    myworkspace$> info\n"
@@ -27,10 +30,6 @@
        "  e.g. 'l' will select ':loc'. To distinguish between 'project:PROJECT' and\n"
        "  ':project' we need to type ':p' to select ':project'.\n"
        "\n"
-       "  If " (s/key ":all" cm) " is passed in, the autocomplete will suggest all available parameters,\n"
-       "  including rarely used ones and those that are only useful for maintainers of\n"
-       "  the poly tool itself.\n"
-       "\n"
        "  From the shell we also have access to these commands:\n"
        "    switch-ws " (s/key "ARG" cm) "  Switches to selected workspace.\n"
        "    tap [" (s/key "ARG" cm) "]      Opens (or closes/cleans) a portal window that outputs " (s/key "tap>" cm) " statements.\n"
@@ -41,11 +40,20 @@
        "    poly shell ws-dir:examples/doc-example\n"
        "    poly shell ws-file:realworld.edn\n"
        "\n"
-       "  An alternative way of exiting the shell is by pressing <ctrl>+C or <ctrl>+D."))
+       "  An alternative way of exiting the shell is by pressing <ctrl>+C or <ctrl>+D.\n"
+       "\n"
+       "  Example:\n"
+       "    poly shell\n"
+       "    poly shell :all\n"
+       "    poly shell :tap\n"
+       "    poly shell :all :tap\n"
+       "    poly doc page:shell"))
 
 (defn print-help [color-mode]
   (println (help color-mode)))
 
 (comment
   (print-help "dark")
+
+  ; .......10|.......20|.......30|.......40|.......50|.......60|.......70|.......80|
   #__)

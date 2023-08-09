@@ -57,7 +57,7 @@
     KEY     -> any key in :tag-patterns.
     SHA     -> a git SHA-1 hash (if no key was found in :tag-patterns).
 
-  Execute 'poly help :all' to include parameters used when maintaining the poly tool.
+  Execute 'poly doc page:parameters' to show documentation for rarely used parameters.
 
   The color mode is taken from ~/.config/polylith/config.edn but can be overridden by passing
   in color-mode:COLOR where valid colors are none, light, and dark.
@@ -112,7 +112,6 @@
     poly doc more:videos:polylith-in-a-nutshell
     poly doc more:workspaces:realworld
     poly help
-    poly help :all
     poly help info
     poly help create
     poly help create component
@@ -185,11 +184,3 @@
     poly ws get:settings:vcs:polylith :latest-sha branch:master
     poly ws get:changes:changed-or-affected-projects skip:dev color-mode:none
     poly ws out:ws.edn
-
-  Parameters used when maintaining the poly tool:
-    poly info :no-changes
-    poly info fake-sha:c91fdad
-    poly info fake-tag:stable-me
-    poly info changed-files:components/user/deps.edn
-    poly info changed-files:workspace.edn:components/user/
-    poly ws replace:this:that

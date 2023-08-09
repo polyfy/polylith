@@ -10,7 +10,7 @@
     "polyx"
     "poly"))
 
-(defn help-text [show-all? show-migrate? extended? fake-poly? cm]
+(defn help-text [show-migrate? extended? fake-poly? cm]
   (str
     "  " (-> fake-poly? common/version-name str/capitalize) " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
     "\n"
@@ -76,7 +76,7 @@
     "    KEY     -> any key in " (s/key ":tag-patterns" cm) ".\n"
     "    SHA     -> a git SHA-1 hash (if no key was found in " (s/key ":tag-patterns" cm) ").\n"
     "\n"
-    "  Execute 'poly help :all' to include parameters used when maintaining the poly tool.\n"
+    "  Execute 'poly doc page:parameters' to show documentation for rarely used parameters.\n"
     "\n"
     "  The color mode is taken from ~/.config/polylith/config.edn but can be overridden by passing\n"
     "  in " (s/key "color-mode:COLOR" cm) " where valid colors are " (s/key "none" cm) ", " (s/key "light" cm) ", and " (s/key "dark" cm) ".\n"
@@ -90,17 +90,14 @@
     "    tap clean\n"
     "    tap close\n"
     "\n"
-    (if show-all?
-      (str "  'poly :all' will start a shell and activate autocomplete for rarely used parameters.\n"
-           "  'poly :tap' will start a shell and open a portal window.\n\n")
-      "")
+    "  'poly :all' will start a shell and activate autocomplete for rarely used parameters.\n"
+    "  'poly :tap' will start a shell and open a portal window.\n"
+    "\n"
     "  Example:\n"
     "    poly\n"
     "    poly :all\n"
-    (if show-all?
-      (str "    poly :tap\n"
-           "    poly :all :tap\n")
-      "")
+    "    poly :tap\n"
+    "    poly :all :tap\n"
     "    poly check\n"
     "    poly check :dev\n"
     "    poly create c name:user\n"
@@ -137,7 +134,6 @@
     "    poly doc more:videos:polylith-in-a-nutshell\n"
     "    poly doc more:workspaces:realworld\n"
     "    poly help\n"
-    "    poly help :all\n"
     "    poly help info\n"
     "    poly help create\n"
     "    poly help create component\n"
@@ -190,9 +186,7 @@
       "    poly migrate\n"
       "")
     "    poly shell\n"
-    (if show-all?
-      "    poly shell :tap\n"
-      "")
+    "    poly shell :tap\n"
     "    poly shell :all\n"
     "    poly test\n"
     "    poly test :project\n"
@@ -226,30 +220,16 @@
       (str "\n    clojure -M:polyx overview"
            "\n    clojure -M:polyx overview out:overview.png"
            "\n    clojure -M:polyx overview out:overview.jpg :no-changes")
-      "")
-    (if show-all?
-      (str
-        "\n"
-        "\n  Parameters used when maintaining the poly tool:"
-        (if extended?
-          "\n    poly help :fake-poly"
-          "")
-        "\n    poly info :no-changes"
-        "\n    poly info fake-sha:c91fdad"
-        "\n    poly info fake-tag:stable-me"
-        "\n    poly info changed-files:components/user/deps.edn"
-        "\n    poly info changed-files:workspace.edn:components/user/"
-        "\n    poly ws replace:this:that")
       "")))
 
 (defn print-help [is-all toolsdeps1? extended? fake-poly? color-mode]
   (let [show-migrate? (or is-all toolsdeps1?)]
-    (println (help-text is-all show-migrate? extended? fake-poly? color-mode))))
+    (println (help-text show-migrate? extended? fake-poly? color-mode))))
 
 (comment
-  (println (help-text false false false false "dark")) ; poly
-  (println (help-text false false true false "dark"))  ; polyx
+  (println (help-text false false false "dark")) ; poly
+  (println (help-text false true false "dark"))  ; polyx
 
-  (println (help-text true true false false "dark"))  ; poly + show all + migrate
-  (println (help-text true true true false "dark"))   ; polyx + show all + migrate
+  (println (help-text true false false "dark"))  ; poly + + migrate
+  (println (help-text true true false "dark"))   ; polyx + migrate
   #__)

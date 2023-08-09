@@ -8,7 +8,14 @@ The internal help for these parameters can be access by executing `poly help`.
 
 === all
 
-We can pass in _:all_  when starting a shell:
+If passing in _:all_ to the xref:commands.adoc[help] command, the help for the  xref:commands.adoc#migrate[migrate] command will also be included:
+
+[source,shell]
+----
+poly help :all
+----
+
+We can also pass in _:all_ when starting a shell:
 
 [source,shell]
 ----
@@ -24,7 +31,7 @@ The reason it's not included by default is that we seldom want to create another
 image::images/misc/poly-all.png[]
 
 Examples of other parameters that will also be available for some commands:
-_changed-files_, _color-mode_, _:compact_, _:no-changes_, _out_, _skip_, _+_.
+_changed-files_, _color-mode_, _:compact_, _:local:_, _:no-changes_, _out_, _skip_, _+_.
 
 === changed-files
 
@@ -102,6 +109,93 @@ This parameter is used to tell the tool to fetch the latest sha from the git rep
 ----
 poly ws get:settings:vcs:polylith:latest-sha :latest-sha
 ----
+
+=== local
+
+This parameter can be passed in to the xref:commands.adoc#doc[doc] command to open pages that runs on localhost.
+To run the cljdoc locally, we can start by cloning the https://github.com/polyfy/polylith[polylith] repo:
+
+[source,shell]
+----
+git clone git@github.com:polyfy/polylith.git
+----
+
+This is how the help for the
+https://github.com/polyfy/polylith/blob/0d204094cb597cea6be417ab05baa2139b78e6d1/bb.edn#L20[doc]
+command looks like:
+
+[source,shell]
+----
+cd polylith
+bb doc help
+
+Commands:
+ start   Start docker containers supporting cljdoc preview
+ ingest  Locally publishes poly for cljdoc preview
+ view    Opens cljdoc preview in your default browser
+ stop    Stops docker containers supporting cljdoc preview
+ status  Status of docker containers supporting cljdoc preview
+ help    Show this help
+----
+
+Now we can start the server and publish the documentation locally (which takes some time!):
+
+[source,shell]
+----
+bb doc start
+bb doc ingest
+----
+
+Before we can run the _poly_ command from a workspace, we need to add or replace the _:poly_ alias
+in that workspace (e.g. _myws/deps.edn_):
+
+[source,clojure]
+----
+    ...
+    :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+           :extra-deps {polylith/clj-poly {:local/root "../polylith/projects/poly"}}}
+
+----
+
+Make sure the "../polylith/projects/poly" path points to the _poly_ project in the cloned _polylith_ workspace directory.
+
+Now we can use the _poly_ tool from our workspace:
+
+[source,shell]
+----
+cd myws
+clojure -M:poly doc page:component :local
+----
+
+A more convenient way is to start a xref:commands.adoc#shell[shell] and pass in _:local_, e.g.:
+
+[source,shell]
+----
+clojure -M:poly shell :local
+myws$ doc page:component
+myws$ doc help:check
+myws$ doc ws:components
+----
+
+Sometimes the cljdoc platform that builds the documentation is changed, then we need to restart the Docker container:
+
+[source,shell]
+----
+bb doc stop
+bb doc start
+----
+
+If the polylith codebase is changed, e.g. if we retrieve more commits or if we switch branch,
+then we have to run _ingest_ again to get the latest and greatest (the server doesn't need to be restarted):
+
+[source,shell]
+----
+bb doc ingest
+----
+
+Viewing the documentation locally is used when developing the _poly_ tool itself,
+but can be useful if we want to work against the _master_ branch
+and get easy access to the latest updates of the documentation.
 
 === no-changes
 

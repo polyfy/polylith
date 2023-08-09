@@ -14,3 +14,4 @@
     tap open
     tap clean
     tap close
+    doc page:tap

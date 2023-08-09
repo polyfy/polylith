@@ -201,27 +201,6 @@ A way to include them is to pass in _:all_ when starting a shell:
 poly :all
 ----
 
-Parameters that are mainly used by maintainers of the _poly_ tool are exclude in the output from the
-xref:commands.adoc[help] command, but can be included by passing in _:all_:
-
-[source,shell]
-----
-poly help :all
-----
-
-Which will now include this at the end:
-
-[source,shell]
-----
-  Parameters used by maintainers of the poly tool:
-    poly info :no-changes
-    poly info fake-sha:c91fdad
-    poly info fake-tag:stable-me
-    poly info changed-files:components/user/deps.edn
-    poly info changed-files:workspace.edn:components/user/
-    poly ws replace:this:that
-----
-
 == Quit
 
 To quit the shell, type _exit_ or _quit_ or press _<ctrl>+C_ or _<ctrl>+D_.
