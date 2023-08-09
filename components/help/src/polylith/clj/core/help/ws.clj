@@ -46,7 +46,9 @@
        "    poly ws get:settings:vcs:polylith :latest-sha\n"
        "    poly ws get:settings:vcs:polylith :latest-sha branch:master\n"
        "    poly ws out:ws.edn\n"
-       "    poly ws color-mode:none > ws.edn"))
+       "    poly ws color-mode:none > ws.edn\n"
+       "    poly doc ws\n"
+       "    poly doc ws:components"))
 
 (defn print-help [color-mode]
   (println (help color-mode)))

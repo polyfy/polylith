@@ -27,32 +27,33 @@
        (color/blue color-mode "#####") "  | .__/\\___/_|\\_, |_|_|\\__|_||_|\n"
        "       |_|          |__/ " (common/version-name fake-poly?)))
 
-(defn enhance [user-input dir file]
+(defn enhance [user-input dir file local?]
    (assoc user-input :is-shell true
+                     :is-local (or local? (:is-local user-input))
                      :ws-dir dir
                      :ws-file file))
 
-(defn switch-ws [user-input dir file workspace-fn]
-  (let [input (enhance user-input dir file)]
+(defn switch-ws [user-input dir file local? workspace-fn]
+  (let [input (enhance user-input dir file local?)]
     (reset! ws-dir dir)
     (reset! ws-file file)
     (reset! engine/ws
             (workspace-fn input file))))
 
-(defn execute-command [command-executor user-input color-mode]
+(defn execute-command [command-executor user-input local? color-mode]
   (try
-    (let [input (enhance user-input @ws-dir @ws-file)]
+    (let [input (enhance user-input @ws-dir @ws-file local?)]
       (command-executor input))
     (catch Throwable e
       (println (color/error color-mode (.getMessage e))))))
 
-(defn start [command-executor {:keys [ws-dir ws-file is-tap is-fake-poly] :as user-input} workspace-fn workspace color-mode]
+(defn start [command-executor {:keys [ws-dir ws-file is-local is-tap is-fake-poly] :as user-input} workspace-fn workspace color-mode]
   (let [reader (jline/reader)]
     (when is-tap
       (tap/execute "open"))
     (println (logo is-fake-poly color-mode))
     (reset! engine/ws workspace)
-    (switch-ws user-input ws-dir ws-file workspace-fn)
+    (switch-ws user-input ws-dir ws-file is-local workspace-fn)
     (tap> {:workspace @engine/ws})
     (try
       (loop []
@@ -63,10 +64,10 @@
             (when-not (contains? #{"exit" "quit"} cmd)
               (cond
                 (= "shell" cmd) (println "  Can't start a shell inside another shell.")
-                (= "switch-ws" cmd) (switch-ws input dir file workspace-fn)
+                (= "switch-ws" cmd) (switch-ws input dir file is-local workspace-fn)
                 (= "tap" cmd) (tap/execute (first unnamed-args))
                 (str/blank? line) nil
-                :else (execute-command command-executor input color-mode))
+                :else (execute-command command-executor input is-local color-mode))
               (flush)
               (recur)))))
       (catch EndOfFileException _)

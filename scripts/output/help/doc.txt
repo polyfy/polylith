@@ -14,6 +14,9 @@
 
           more:TYPE    -> Opens the given blog-post, podcast, video, et cetera.
 
+  How the doc command can be used locally is explained under the 'local' section in the Parameters page.
+  To read more, execute 'poly doc:parameters'.
+
   Example:
     poly doc
     poly doc help:check

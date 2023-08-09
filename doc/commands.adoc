@@ -71,7 +71,7 @@ poly help
     KEY     -> any key in :tag-patterns.
     SHA     -> a git SHA-1 hash (if no key was found in :tag-patterns).
 
-  Execute 'poly help :all' to include parameters used when maintaining the poly tool.
+  Execute 'poly doc page:parameters' to show documentation for rarely used parameters.
 
   The color mode is taken from ~/.config/polylith/config.edn but can be overridden by passing
   in color-mode:COLOR where valid colors are none, light, and dark.
@@ -126,7 +126,6 @@ poly help
     poly doc more:videos:polylith-in-a-nutshell
     poly doc more:workspaces:realworld
     poly help
-    poly help :all
     poly help info
     poly help create
     poly help create component
@@ -199,14 +198,6 @@ poly help
     poly ws get:settings:vcs:polylith :latest-sha branch:master
     poly ws get:changes:changed-or-affected-projects skip:dev color-mode:none
     poly ws out:ws.edn
-
-  Parameters used when maintaining the poly tool:
-    poly info :no-changes
-    poly info fake-sha:c91fdad
-    poly info fake-tag:stable-me
-    poly info changed-files:components/user/deps.edn
-    poly info changed-files:workspace.edn:components/user/
-    poly ws replace:this:that
 ----
 
 [#check]
@@ -662,6 +653,9 @@ poly help
 
           more:TYPE    -> Opens the given blog-post, podcast, video, et cetera.
 
+  How the doc command can be used locally is explained under the 'local' section in the Parameters page.
+  To read more, execute 'poly doc:parameters'.
+
   Example:
     poly doc
     poly doc help:check
@@ -939,6 +933,7 @@ poly help
     poly libs :compact
     poly libs :outdated
     poly libs out:libs.txt
+    poly doc page:libraries
 ----
 
 [#migrate]
@@ -984,15 +979,15 @@ poly help
 
   poly overview [:no-changes] [out:FILENAME]
 
-    (omitted)  Shows the output.
+    (omitted)  = Shows the output.
 
     :no-changes = Shows the output as if there were no changes in the workspace.
 
-    out = Creates a text or image file based on the output.
-          If FILENAME ends with .txt, then the file will contain
-          the output as text. If FILENAME ends with .bmp, .wbmp, .gif,
-          .png, .jpeg, .jpg, .png, .tif, or .tiff, then the file will be
-          generated as an image.
+    FILENAME = Creates a text or image file based on the output.
+               If FILENAME ends with .txt, then the file will contain
+               the output as text. If FILENAME ends with .bmp, .wbmp, .gif,
+               .png, .jpeg, .jpg, .png, .tif, or .tiff, then the file will be
+               generated as an image.
 
   Example:
     clojure -M:polyx overview
@@ -1008,9 +1003,12 @@ poly help
   Starts an interactive shell with the name of the selected workspace, e.g.:
     myworkspace$>
 
-  poly [shell] [:tap] [:all]
+  poly [shell] [:all] [:tap]
 
-  If :tap is passed in, a Portal window that outputs tap> statements is opened.
+    :all = The autocomplete will suggest all available parameters,
+           including rarely used ones.
+
+    :tap = A Portal window that outputs tap> statements is opened.
 
   From here we can execute any poly command, e.g.:
     myworkspace$> info
@@ -1030,10 +1028,6 @@ poly help
   e.g. 'l' will select ':loc'. To distinguish between 'project:PROJECT' and
   ':project' we need to type ':p' to select ':project'.
 
-  If :all is passed in, the autocomplete will suggest all available parameters,
-  including rarely used ones and those that are only useful for maintainers of
-  the poly tool itself.
-
   From the shell we also have access to these commands:
     switch-ws ARG  Switches to selected workspace.
     tap [ARG]      Opens (or closes/cleans) a portal window that outputs tap> statements.
@@ -1045,6 +1039,13 @@ poly help
     poly shell ws-file:realworld.edn
 
   An alternative way of exiting the shell is by pressing <ctrl>+C or <ctrl>+D.
+
+  Example:
+    poly shell
+    poly shell :all
+    poly shell :tap
+    poly shell :all :tap
+    poly doc page:shell
 ----
 
 [#switch-ws]
@@ -1091,6 +1092,7 @@ poly help
     tap open
     tap clean
     tap close
+    doc page:tap
 ----
 
 [#test]
@@ -1107,7 +1109,7 @@ poly help
 
   ARGS              Tests to execute
   ----------------  -------------------------------------------------------------
-  (empty)           All brick tests that are directly or indirectly changed.
+  (omitted)         All brick tests that are directly or indirectly changed.
 
   :project          All brick tests that are directly or indirectly changed +
                     tests for changed projects.
@@ -1154,39 +1156,8 @@ poly help
     poly test :project :dev
     poly test :all-bricks :dev
     poly test :all :dev
-
-  The poly tool's default test runner will discover clojure.test tests from the "/test"
-  directories of bricks and projects, and execute them using clojure.test/run-tests.
-
-  Alternative test runners can also be used by referring to their constructors
-  in workspace.edn:
-
-  {;; To use it as the default test runner for the workspace
-   :test {:create-test-runner my.test-runner/create}
-
-   :projects
-   {
-    ;; To only use it for specific projects
-    "foo" {:test {:create-test-runner my.test-runner/create}}
-
-    ;; To revert to poly's built-in default test runner only for specific projects
-    "bar" {:test {:create-test-runner :default}}
-
-    ;; To use multiple test runners invoked the specified order
-    "baz" {:test {:create-test-runner [my.linter/create :default my.extra/create]}}
-    }
-   }
-
-  This requires that my.test-runner/create is available on the classpath of the
-  poly tool, which is easiest to achieve by running poly as a dependency.
-
-  The docstring of polylith.clj.core.test-runner-contract.interface/TestRunner
-  contains details on how to implement a custom test runner and a constructor.
-
-  The poly tool's default test runner is also implemented this way and can be referred to
-  as an example; see polylith.clj.core.clojure-test-test-runner.interface/create.
-
-  Refer to the Polylith documentation for more information about custom test runners.
+    poly doc page:testing
+    poly doc page:test-runners
 ----
 
 [#ws]
@@ -1238,5 +1209,7 @@ poly help
     poly ws get:settings:vcs:polylith :latest-sha branch:master
     poly ws out:ws.edn
     poly ws color-mode:none > ws.edn
+    poly doc ws
+    poly doc ws:components
 ----
 

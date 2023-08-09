@@ -53,3 +53,4 @@
     poly libs :compact
     poly libs :outdated
     poly libs out:libs.txt
+    poly doc page:libraries

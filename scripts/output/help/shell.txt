@@ -1,9 +1,12 @@
   Starts an interactive shell with the name of the selected workspace, e.g.:
     myworkspace$>
 
-  poly [shell] [:tap] [:all]
+  poly [shell] [:all] [:tap]
 
-  If :tap is passed in, a Portal window that outputs tap> statements is opened.
+    :all = The autocomplete will suggest all available parameters,
+           including rarely used ones.
+
+    :tap = A Portal window that outputs tap> statements is opened.
 
   From here we can execute any poly command, e.g.:
     myworkspace$> info
@@ -23,10 +26,6 @@
   e.g. 'l' will select ':loc'. To distinguish between 'project:PROJECT' and
   ':project' we need to type ':p' to select ':project'.
 
-  If :all is passed in, the autocomplete will suggest all available parameters,
-  including rarely used ones and those that are only useful for maintainers of
-  the poly tool itself.
-
   From the shell we also have access to these commands:
     switch-ws ARG  Switches to selected workspace.
     tap [ARG]      Opens (or closes/cleans) a portal window that outputs tap> statements.
@@ -38,3 +37,10 @@
     poly shell ws-file:realworld.edn
 
   An alternative way of exiting the shell is by pressing <ctrl>+C or <ctrl>+D.
+
+  Example:
+    poly shell
+    poly shell :all
+    poly shell :tap
+    poly shell :all :tap
+    poly doc page:shell

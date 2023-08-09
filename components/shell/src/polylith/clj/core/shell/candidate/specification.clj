@@ -67,7 +67,12 @@
 (def doc-more (c/fn-values "more" :doc #'doc-more/select))
 (def doc-page (c/fn-values "page" :doc #'doc-page/select))
 (def doc-ws (c/fn-values "ws" :doc #'doc-ws/select))
-(def doc (c/single-txt "doc" :doc [doc-help doc-more doc-page doc-ws]))
+(def doc-local (c/flag "local" :doc))
+
+(defn doc [all?]
+  (c/single-txt "doc" :doc
+                (concat [doc-help doc-more doc-page doc-ws]
+                        (when all? [doc-local]))))
 
 ;; help
 (def help-all (c/flag "all" :help))
@@ -202,12 +207,12 @@
                         (or (nil? ws-dir)
                             (= "." ws-dir)))]
     (vec (concat [check
-                  doc
                   diff
                   switch-ws
                   version
                   (create current-ws? is-all)
                   (deps is-all system/extended?)
+                  (doc is-all)
                   (help is-all)
                   (info info-profiles is-all system/extended?)
                   (libs is-all system/extended?)

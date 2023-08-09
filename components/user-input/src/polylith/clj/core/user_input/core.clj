@@ -77,6 +77,7 @@
                 interface
                 latest-sha!
                 loc!
+                local!
                 more
                 name
                 no-changes!
@@ -117,6 +118,7 @@
                       :is-fake-poly (= "true" fake-poly!)
                       :is-git-add (when git-add! (= "true" git-add!))
                       :is-latest-sha (= "true" latest-sha!)
+                      :is-local (= "true" local!)
                       :is-no-changes (= "true" no-changes!)
                       :is-no-exit (= "true" no-exit!)
                       :is-outdated (= "true" outdated!)
