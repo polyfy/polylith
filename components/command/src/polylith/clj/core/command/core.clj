@@ -81,7 +81,7 @@
           "check" (check workspace color-mode)
           "create" (create/create ws-dir workspace args name top-ns interface branch is-git-add is-commit color-mode)
           "deps" (dependencies/deps workspace project-name brick-name unnamed-args)
-          "doc" (doc/open-doc branch is-local help more page ws)
+          "doc" (doc/open-doc branch is-local help more page ws unnamed-args)
           "diff" (diff workspace)
           "help" (open-help args is-all is-show-project is-show-brick is-show-workspace toolsdeps1? is-fake-poly color-mode)
           "info" (info/info workspace unnamed-args)
