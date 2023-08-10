@@ -69,7 +69,7 @@
    "changes" []
    "components" []
    "configs" []
-   "interface" []
+   "interfaces" []
    "messages" []
    "name" []
    "old" []

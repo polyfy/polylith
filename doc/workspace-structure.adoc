@@ -357,8 +357,8 @@ poly ws get:configs
 
 These attributes are described in the xref:configuration.adoc[Configuration] section.
 
-[#interface]
-== interface
+[#interfaces]
+== interfaces
 
 [source,shell]
 ----

@@ -1,5 +1,4 @@
 = Shell
-:toc:
 
 The goal of the shell is to make us more productive and to have more fun!
 
