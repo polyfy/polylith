@@ -66,40 +66,21 @@
   (or (get-in more-config (map keyword (conj page "url")))
       (page-url "readme" nil local?)))
 
-(defn open-doc [branch local? help more page ws]
-  (let [url (cond
+(defn command
+  "Helper function that makes sure that we go to the beginning of the help
+   or workspace structure, even if we only pass in 'help' or 'ws'."
+  [command-name command unnamed-args]
+  (if (contains? (set unnamed-args) command-name)
+    ""
+    command))
+
+(defn open-doc [branch local? help more page ws unnamed-args]
+  (let [help (command "help" help unnamed-args)
+        ws (command "ws" ws unnamed-args)
+        url (cond
               help (bookmark-url "commands" help branch local?)
               more (more-url more local?)
               page (page-url page branch local?)
               ws (bookmark-url "workspace-structure" ws branch local?)
               :else (page-url nil branch local?))]
     (browse/browse-url url)))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
