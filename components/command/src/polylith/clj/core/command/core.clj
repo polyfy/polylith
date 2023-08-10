@@ -34,9 +34,6 @@
   (doseq [file (-> workspace :changes :changed-files)]
     (println file)))
 
-(defn open-doc [[_ cmd] local? help more page ws]
-  (doc/open-doc cmd local? help more page ws))
-
 (defn open-help [[_ cmd ent] is-all is-show-project is-show-brick is-show-workspace toolsdeps1? fake-poly? color-mode]
   (help/print-help cmd ent is-all is-show-project is-show-brick is-show-workspace toolsdeps1? fake-poly? color-mode))
 
@@ -84,7 +81,7 @@
           "check" (check workspace color-mode)
           "create" (create/create ws-dir workspace args name top-ns interface branch is-git-add is-commit color-mode)
           "deps" (dependencies/deps workspace project-name brick-name unnamed-args)
-          "doc" (open-doc args is-local help more page ws)
+          "doc" (doc/open-doc branch is-local help more page ws)
           "diff" (diff workspace)
           "help" (open-help args is-all is-show-project is-show-brick is-show-workspace toolsdeps1? is-fake-poly color-mode)
           "info" (info/info workspace unnamed-args)

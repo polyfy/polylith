@@ -27,9 +27,9 @@
        (color/blue color-mode "#####") "  | .__/\\___/_|\\_, |_|_|\\__|_||_|\n"
        "       |_|          |__/ " (common/version-name fake-poly?)))
 
-(defn enhance [user-input dir file local?]
+(defn enhance [{:keys [is-local] :as user-input} dir file local?]
    (assoc user-input :is-shell true
-                     :is-local (or local? (:is-local user-input))
+                     :is-local (or local? is-local false)
                      :ws-dir dir
                      :ws-file file))
 

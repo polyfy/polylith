@@ -7,5 +7,5 @@
 (def pages-nav navigation/pages-nav)
 (def ws-nav navigation/ws-nav)
 
-(defn open-doc [cmd local? help more page ws]
-  (core/open-doc cmd local? help more page ws))
+(defn open-doc [branch local? help more page ws]
+  (core/open-doc branch local? help more page ws))

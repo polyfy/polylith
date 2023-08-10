@@ -4,7 +4,6 @@
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.shell.candidate.setup :as setup]
             [polylith.clj.core.shell.candidate.engine :as engine])
-
   (:refer-clojure :exclude [test]))
 
 (use-fixtures :each setup/reset-ws)
@@ -329,12 +328,12 @@
 
 (deftest ws
   (is (= (candidates "ws")
-         [":all" ":all-bricks" ":dev"  ":latest-sha" ":loc" ":project" "branch"
+         [":all" ":all-bricks" ":dev"  ":latest-sha" ":loc" ":project"
           "brick" "get" "out" "project" "since"])))
 
 (deftest ws-
   (is (= (candidates "ws" :next "")
-         [":all" ":all-bricks" ":dev"  ":latest-sha" ":loc" ":project" "branch"
+         [":all" ":all-bricks" ":dev"  ":latest-sha" ":loc" ":project"
           "brick" "get" "out" "project" "since"])))
 
 (deftest ws-get
@@ -374,7 +373,7 @@
 
 (deftest ws-out-components-next-
   (is (= (candidates "ws" :next "out" "components" :next "")
-         [":all" ":all-bricks" ":dev" ":latest-sha" ":loc" ":project" "branch"
+         [":all" ":all-bricks" ":dev" ":latest-sha" ":loc" ":project"
           "brick" "get" "project" "since"])))
 
 (deftest ws-out-parentdir-
