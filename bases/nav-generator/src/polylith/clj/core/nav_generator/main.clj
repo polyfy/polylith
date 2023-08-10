@@ -23,3 +23,7 @@
   (save-file "pages-nav" (pages-gen/navigation))
   (save-file "ws-nav" (ws-gen/navigation))
   (spit filename "\n" :append true))
+
+(comment
+  (-main)
+  #__)
