@@ -68,11 +68,14 @@
 (def doc-page (c/fn-values "page" :doc #'doc-page/select))
 (def doc-ws (c/fn-values "ws" :doc #'doc-ws/select))
 (def doc-local (c/flag "local" :doc))
+(def doc-branch (c/fn-explorer "branch" :doc #'remote-branches/select))
 
-(defn doc [all?]
+(defn doc [all? local?]
   (c/single-txt "doc" :doc
                 (concat [doc-help doc-more doc-page doc-ws]
-                        (when all? [doc-local]))))
+                        (when all? [doc-branch])
+                        ;; If starting a shell with :local, don't suggest :local
+                        (when (and all? (not local?)) [doc-local]))))
 
 ;; help
 (def help-all (c/flag "all" :help))
@@ -160,8 +163,8 @@
 ;; version
 (def version (c/single-txt "version"))
 
-(def branch (c/fn-explorer "branch" :ws #'remote-branches/select))
-(def ws-with (c/fn-explorer "project" :deps #'ws-deps-entities/select-projects))
+(def ws-branch (c/fn-explorer "branch" :ws #'remote-branches/select))
+(def ws-with (c/fn-explorer "project" :ws #'ws-deps-entities/select-projects))
 (def ws-replace (c/multi-param "replace"))
 (def ws-project (c/fn-explorer "project" :ws #'ws-projects-to-test/select))
 (def ws-brick (c/fn-explorer "brick" :ws #'ws-bricks/select))
@@ -181,9 +184,9 @@
 (defn ws [profiles all?]
   (c/single-txt "ws" :ws
     (vec (concat [ws-project ws-brick ws-project-flag ws-dev ws-latest-sha
-                  ws-loc ws-all-bricks ws-all ws-get ws-out ws-since branch]
+                  ws-loc ws-all-bricks ws-all ws-get ws-out ws-since]
                  profiles
-                 (when all? [branch ws-replace ws-no-changes ws-color-mode])))))
+                 (when all? [ws-branch ws-replace ws-no-changes ws-color-mode])))))
 
 ;; switch-ws
 (def switch-ws-dir (c/fn-explorer "dir" :switch-ws #'file-explorer/select-edn))
@@ -198,7 +201,7 @@
                    profile-keys)))))
 
 (defn candidates [{:keys [settings user-input] :as workspace}]
-  (let [{:keys [ws-dir ws-file is-all]} user-input
+  (let [{:keys [ws-dir ws-file is-all is-local]} user-input
         show-migrate? (common/toolsdeps1? workspace)
         info-profiles (profiles :info settings is-all)
         test-profiles (profiles :test settings is-all)
@@ -212,7 +215,7 @@
                   version
                   (create current-ws? is-all)
                   (deps is-all system/extended?)
-                  (doc is-all)
+                  (doc is-all is-local)
                   (help is-all)
                   (info info-profiles is-all system/extended?)
                   (libs is-all system/extended?)

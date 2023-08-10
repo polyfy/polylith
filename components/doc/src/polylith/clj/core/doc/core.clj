@@ -1,12 +1,6 @@
 (ns ^:no-doc polylith.clj.core.doc.core
   (:require [clojure.java.browse :as browse]
-            [clojure.string :as str]
             [polylith.clj.core.version.interface :as ver]))
-
-(defn doc-url [local?]
-  (if local?
-    (str "http://localhost:8000/d/polylith/clj-poly/" ver/name "/doc")
-    (str "https://cljdoc.org/d/polylith/clj-poly/" ver/name "/doc")))
 
 (def more-config {:high-level {:url "https://polylith.gitbook.io/polylith"}
                   :slack {:url "https://clojurians.slack.com/archives/C013B7MQHJQ"}
@@ -48,22 +42,64 @@
 
 (def more-navigation (second (navigation :root more-config)))
 
-(defn bookmark-url [page bookmark local?]
-  (str (doc-url local?) "/reference/" page "#" bookmark))
+(defn doc-url [branch local?]
+  (cond
+    branch (if (= "master" branch)
+             (str "https://github.com/polyfy/polylith/tree/master")
+             (str "https://github.com/polyfy/polylith/blob/" branch))
+    local? (str "http://localhost:8000/d/polylith/clj-poly/" ver/name)
+    :else (str "https://cljdoc.org/d/polylith/clj-poly/" ver/name)))
 
-(defn page-url [page local?]
-  (str (doc-url local?) "/" (or page "readme")))
+(defn bookmark-url [page bookmark branch local?]
+  (str (doc-url branch local?) "/doc/reference/" page
+       (if branch ".adoc" "")
+       "#" bookmark))
 
-(defn more-url [page]
+(defn page-url [page branch local?]
+  (str (doc-url branch local?)
+       (if (and branch (= "readme" page))
+         "/" "/doc/")
+       (or page "readme")
+       (if branch ".adoc" "")))
+
+(defn more-url [page local?]
   (or (get-in more-config (map keyword (conj page "url")))
-      (page "readme")))
+      (page-url "readme" nil local?)))
 
-(defn open-doc [cmd local? help more page ws]
-  (let [cmd (when cmd (-> cmd (str/split #":") first))
-        url (condp = cmd
-                   "help" (bookmark-url "commands" help local?)
-                   "more" (more-url more)
-                   "page" (page-url page local?)
-                   "ws" (bookmark-url "workspace-structure" ws local?)
-                   (page-url "readme" local?))]
+(defn open-doc [branch local? help more page ws]
+  (let [url (cond
+              help (bookmark-url "commands" help branch local?)
+              more (more-url more local?)
+              page (page-url page branch local?)
+              ws (bookmark-url "workspace-structure" ws branch local?)
+              :else (page-url nil branch local?))]
     (browse/browse-url url)))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

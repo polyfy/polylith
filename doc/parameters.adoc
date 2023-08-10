@@ -1,7 +1,7 @@
 = Parameters
 
-There are a few parameters that are either rarely used or added to simplify maintenance work with the Polylith codebase.
-For these reasons, they are not suggested by the autocomplete when in a shell.
+There are a few parameters that are either rarely used, added to simplify maintenance work with the Polylith codebase,
+or used in special circumstances. For these reasons, they are not suggested by the autocomplete when in a shell.
 What most of them have in common is that they are used to control the output of the different _poly_ commands.
 
 The internal help for these parameters can be access by executing `poly help`.
@@ -32,6 +32,23 @@ image::images/misc/poly-all.png[]
 
 Examples of other parameters that will also be available for some commands:
 _changed-files_, _color-mode_, _:compact_, _:local:_, _:no-changes_, _out_, _skip_, _+_.
+
+=== branch
+
+By passing in _branch_ to the doc command together with _page_, the corresponding document opens in github, e.g.:
+
+[source,shell]
+----
+poly doc page:install branch:master
+----
+
+If we start a xref:commands.adoc#shell[shell] and passes in _:all_, we will get suggestions for existing branches:
+
+[source,shell]
+----
+poly :all
+myws$ doc branch:master page:install
+----
 
 === changed-files
 
