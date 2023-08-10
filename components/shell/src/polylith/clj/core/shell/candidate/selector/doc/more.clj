@@ -5,8 +5,8 @@
             [polylith.clj.core.ws-explorer.interface :as ws-explorer]))
 
 (defn select [_ groups _]
-  (let [current (or (get-in groups [:doc "other" :args]) [])
+  (let [current (or (get-in groups [:doc "more" :args]) [])
         values (ws-explorer/extract doc/more-nav current)
         result (shared/strings values (ws-explorer/extract doc/more-nav (conj current "keys")))]
-    (mapv #(c/fn-comma-arg % :doc "other" #'select true)
+    (mapv #(c/fn-comma-arg % :doc "more" #'select true)
           result)))

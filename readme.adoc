@@ -37,7 +37,7 @@ endif::[]
 
 Enjoy the ride!
 
-= Sponsor Polylith
+== Sponsor Polylith
 
 Please https://github.com/sponsors/polyfy[sponsor] the important work of Polylith! ❤️
 

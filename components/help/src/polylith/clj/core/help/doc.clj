@@ -2,7 +2,7 @@
   (:require [polylith.clj.core.help.shared :as s]))
 
 (defn help [cm]
-  (str "  Opens a document in a web browser.\n"
+  (str "  Opens a help page in a web browser.\n"
        "\n"
        "  poly doc [" (s/key "ARG" cm) "]\n"
        "\n"
@@ -18,17 +18,16 @@
        "\n"
        "          more:" (s/key "TYPE" cm) "    -> Opens the given blog-post, podcast, video, et cetera.\n"
        "\n"
-       "  How the doc command can be used locally is explained under the 'local' section in the Parameters page.\n"
-       "  To read more, execute 'poly doc:parameters'.\n"
-       "\n"
        "  Example:\n"
        "    poly doc\n"
+       "    poly doc help\n"
        "    poly doc help:check\n"
        "    poly doc page:install\n"
        "    poly doc ws:settings\n"
        "    poly doc more:blog-posts\n"
        "    poly doc more:blog-posts:how-polylith-came-to-life\n"
        "    poly doc more:high-level\n"
+       "    poly doc more:high-level:who-made-this\n"
        "    poly doc more:podcasts\n"
        "    poly doc more:podcasts:polylith-with-joakim-james-and-furkan\n"
        "    poly doc more:python-tool\n"
