@@ -11,6 +11,7 @@
                    ["Base" {:file "doc/base.adoc"}]
                    ["Project" {:file "doc/project.adoc"}]
                    ["Shell" {:file "doc/shell.adoc"}]
+                   ["Doc" {:file "doc/doc.adoc"}]
                    ["Tap" {:file "doc/tap.adoc"}]
                    ["Tools.deps" {:file "doc/tools-deps.adoc"}]
                    ["Build" {:file "doc/build.adoc"}]
