@@ -10,7 +10,7 @@ poly doc
 
 This opens this tool's readme file in a browser:
 
-image::images/doc/poly-readme.png[width=200]
+image::images/doc/poly-readme.png[width=400]
 
 // Todo: explain the different parts of the page
 
@@ -42,9 +42,9 @@ Let's dig into these.
 == page
 
 The `page` parameter is used to navigate the _poly_ tool documentation.
-Notice that we have to type `page:` to list the pages:
+Notice that we have to end `page` with a `:` to list the pages:
 
-[source,text]
+[source,shell]
 ----
 example$ doc page:
 base                     flags                    project
@@ -61,8 +61,7 @@ example-systems          polyx                    validations
 explore-the-workspace    profile                  workspace
 ----
 
-This lists all the pages of the _poly_ tool documentation, and is the same list you
-will find in the left menu.
+This lists all the pages of the _poly_ tool documentation, and is the same as the items in the left menu.
 
 If we select a page, it will be opened in a browser on your machine, e.g.:
 
@@ -71,20 +70,20 @@ If we select a page, it will be opened in a browser on your machine, e.g.:
 doc page:component
 ----
 
-image::images/doc/component-page.png[width=200]
+image::images/doc/component-page.png[width=400]
 
 == help
 
 The `help` parameter takes us to the xref:commands.adoc[commands] help:
 
-[source,text]
+[source,shell]
 ----
 example$ doc help
 ----
 
-We can list all available help commands by typing `doc help:`:
+We can list all help commands like this:
 
-[source,text]
+[source,shell]
 ----
 example$ doc help:
 check                deps-project         overview
@@ -97,17 +96,17 @@ deps-brick           libs
 deps-project-brick   migrate
 ----
 
-Now we can select a command, e.g. `check`:
+..and select a command:
 
-[source,text]
+[source,shell]
 ----
 example$ doc help:check
 ----
 
 ...which take us to the web based help for the xref:commands.adoc#check[check] command.
-The content of this help is taken from the output of the help for the xref:commands.adoc#check[check] command:
+The content of this help is taken from the output of the help of that command:
 
-[source,text]
+[source,shell]
 ----
 poly help check
 ----
@@ -116,14 +115,14 @@ poly help check
 
 The `ws` parameter takes us to the xref:workspace-structure.adoc[Workspace structure] documentation:
 
-[source,text]
+[source,shell]
 ----
 example$ doc ws
 ----
 
-We can list all top keys by typing `doc ws:`:
+We can list all top keys with:
 
-[source,text]
+[source,shell]
 ----
 example$ doc ws:
 bases          name           version
@@ -134,19 +133,18 @@ interfaces     settings       ws-type
 messages       user-input
 ----
 
-And then go to the description for e.g. the `configs` key:
+...and then go to the description for one of the keys, e.g.:
 
-[source,text]
+[source,shell]
 ----
 example$ doc ws:configs
 ----
 
 == more
 
-Under the _more_ key we find all other documentation that is not exclusively about the _poly_ tool.
-The different areas can be listed by typing `doc more:`:
+The _more_ parameter stores all other documentation that is not exclusively about the _poly_ tool:
 
-[source,text]
+[source,shell]
 ----
 example$ doc more:
 blog-posts    python-tool   workspaces
@@ -154,11 +152,11 @@ high-level    slack
 podcasts      videos
 ----
 
+Let's dig into the different types of documentation.
+
 === blog posts
 
-The blog posts can be listed with `doc more:blog-posts:`:
-
-[source,text]
+[source,shell]
 ----
 example$ doc more:blog-posts:
 a-fresh-take-on-monorepos-in-python
@@ -167,8 +165,6 @@ the-micro-monolith-architecture
 the-monorepos-polylith-series
 the-origin-of-complexity
 ----
-
-The blog posts:
 
 [%autowidth]
 |===
@@ -194,14 +190,14 @@ https://github.com/tengstrand[Joakim Tengstrand] explains the foundational conce
 
 The high-level documentation can be accessed with:
 
-[source,text]
+[source,shell]
 ----
 example$ doc more:high-level
 ----
 
-We can list all pages (also found in the left menu) with `doc more:high-level:`:
+We can list all pages in the left menu with:
 
-[source,text]
+[source,shell]
 ----
 example$ doc more:high-level:
 advantages-of-polylith      faq                         transitioning-to-polylith
@@ -212,9 +208,9 @@ current-architectures       simplicity                  workspace
 development-project         tool
 ----
 
-And we can e.g. open the FAQ page with:
+.. and e.g. open the FAQ page:
 
-[source,text]
+[source,shell]
 ----
 example$ doc more:high-level:faq
 ----
@@ -226,38 +222,38 @@ example$ doc more:high-level:faq
 | Podcast | What | Published
 
 | https://podcasts.apple.com/se/podcast/s4-e21-polylith-with-joakim-james-and-furkan-part-1/id1461500416?i=1000505948894&l=en[polylith-with-joakim-james-and-furkan:part1] |
-https://github.com/jacekschae[Jacek Schae] discuss the Polylith architecture with the Polylith team, https://github.com/tengstrand[Joakim Tengstrand], https://www.linkedin.com/in/james-trunk/[James Trunk],
-and link:https://github.com/furkan3ayraktar[Furkan Bayraktar], where the team tries to explain the ideas behind Polylith. | 2021
+https://github.com/jacekschae[Jacek Schae] discuss the Polylith architecture with the https://polylith.gitbook.io/polylith/conclusion/who-made-polylith[Polylith team]
+where they try to explain the ideas behind Polylith. | 2021
+
 | https://podcasts.apple.com/se/podcast/s4-e22-polylith-with-joakim-james-and-furkan-part-2/id1461500416?i=1000507542984[polylith-with-joakim-james-and-furkan:part2] |
-The same four people goes deeper into the Polylith concepts, the benefits of using it, and how it differs from other ways of working with code. | 2021
+The same people goes deeper into the Polylith concepts, the benefits of using it, and how it differs from other ways of working with code. | 2021
 |===
 
 === python tool
 
-David Vujic maintains the Python equivalent to the Clojure _poly_ tool,
-and we can open its https://davidvujic.github.io/python-polylith-docs/[documentation] with:
+David Vujic has created Polylith tools for Python, that can be accessed https://davidvujic.github.io/python-polylith-docs[here].
 
-[source,text]
+[source,shell]
 ----
 example$ doc more:python-tool
 ----
 
 === slack
 
-You can reach out to the https://polylith.gitbook.io/polylith/conclusion/who-made-polylith[Polylith team]
-in the https://clojurians.slack.com/archives/C013B7MQHJQ[polylith] channel
+Reach out to the https://polylith.gitbook.io/polylith/conclusion/who-made-polylith[Polylith team]
+in the https://clojurians.slack.com/archives/C013B7MQHJQ[#polylith] channel
 in the clojurians workspace in Slack.
 
-[source,text]
+[source,shell]
 ----
 example$ doc more:slack
 ----
 
 === videos
 
-There are a number of videos that can be listed with `doc more:videos:`:
+There are a number of videos:
 
-[source,text]
+[source,shell]
 ----
 example$ doc more:videos:
 a-fresh-take-on-monorepos-in-python
@@ -266,8 +262,6 @@ polylith-in-a-nutshell
 polylith–a-software-architecture-based-on-lego-like-blocks
 the-last-architecture-you-will-ever-need
 ----
-
-Videos:
 
 [%autowidth]
 |===
@@ -292,9 +286,9 @@ https://github.com/tengstrand[Joakim Tengstrand] and link:https://github.com/fur
 
 === workspaces
 
-Here we can list a number of example workspaces by giving `doc more:workspaces:`:
+Example workspaces can be listed with:
 
-[source,text]
+[source,shell]
 ----
 example$ doc more:workspaces:
 game-of-life
@@ -305,12 +299,11 @@ usermanager
 
 [%autowidth]
 |===
-| Video | What
+| Workspace | What
 
 | https://github.com/tengstrand/game-of-life[game-of-life] |
 A tiny workspace that implements Game of Life,
-created by https://github.com/tengstrand[Joakim Tengstrand] and
-link:https://github.com/furkan3ayraktar[Furkan Bayraktar].
+created by https://github.com/tengstrand[Joakim Tengstrand].
 
 | https://github.com/polyfy/polylith[polylith] |
 The Polylith workspace, from which this _poly_ tool itself is built,
@@ -318,10 +311,10 @@ created by https://github.com/tengstrand[Joakim Tengstrand] and link:https://git
 
 | https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/master[realworld] |
 A full-fledged RealWorld server, built with Clojure, Polylith,
-and Ring, including CRUD operations, authentication, routing, pagination, and more,
-created by link:https://github.com/furkan3ayraktar[Furkan Bayraktar].
+and Ring, including CRUD operations, authentication, routing, pagination, and more.
+Created by link:https://github.com/furkan3ayraktar[Furkan Bayraktar].
 
 | https://github.com/seancorfield/usermanager-example/tree/polylith[usermanager] |
-A simple web application using Component, Ring, Compojure, and Selmer connected to a local SQLite database,
-created by https://github.com/seancorfield[Sean Corfield].
+A simple web application using Component, Ring, Compojure, and Selmer connected to a local SQLite database.
+Created by https://github.com/seancorfield[Sean Corfield].
 |===
