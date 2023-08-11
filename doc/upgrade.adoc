@@ -1,6 +1,6 @@
 = Upgrade
 
-If the _poly_ tools is installed, it can be upgrade by executing:
+If the `poly` tools is installed, it can be upgrade by executing:
 
 [source,shell]
 ----

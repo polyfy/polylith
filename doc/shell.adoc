@@ -160,23 +160,23 @@ The autocomplete helps us execute different commands with correct parameters:
 
 * The file system can be browsed when selecting files and directories.
 
-* The workspace structure can be browsed via the ws command.
+* The workspace structure can be browsed via the xref:commands.adoc#ws[ws] command.
 
-* The documentation can be browsed via the doc command.
+* The documentation can be browsed via the xref:commands.adoc#doc[doc] command.
 
-* Tag patterns defined in workspace.edn are suggested when using the _since:X_ parameter.
+* Tag patterns defined in _workspace.edn_ are suggested when using the `since:X` parameter.
 
-* Remote git branches are suggested when using the _branch:X_ parameter.
+* Remote git branches are suggested when using the `branch:X` parameter.
 
-* Relevant bricks and projects are suggested when using the _brick:X_ and _project:X_ parameters:
-- If a _project:X_ parameter is selected from the info or test command,
+* Relevant bricks and projects are suggested when using the `brick:X` and `project:X` parameters:
+- If a `project:X` parameter is selected from the info or test command,
 only projects that are marked for testing will be suggested (we don't need to select already filtered out projects).
-- If a brick has been selected from the _deps_ command, only projects that contain that brick will be suggested.
-- If a project has been selected from the _deps_ command, only bricks from that project will be suggested.
+- If a brick has been selected from the xref:commands.adoc#deps[deps] command, only projects that contain that brick will be suggested.
+- If a project has been selected from the xref:commands.adoc#deps[deps] command, only bricks from that project will be suggested.
 
-When browsing the file system from a _dir:PATH_ parameter, there are a couple of things worth mentioning:
+When browsing the file system from a `dir:PATH` parameter, there are a couple of things worth mentioning:
 
-* If we want to go to the user home directory we have to type _~/_ and not just _~_
+* If we want to go to the user home directory we have to type `~/` and not just `~`
 (this is a problem with the underlying https://github.com/jline/jline3[jline3] integration).
 
 * When a file or directory contains spaces, it will be surrounded with quotes, e.g. "My path".
@@ -185,8 +185,8 @@ To select such a path we need to include the first " in the path for the autocom
 === Create workspace
 
 We often execute the xref:commands#create-workspace[create workspace] command outside a xref:workspace.adoc[workspace].
-This command is therefore not suggested by the autocomplete when inside an existing workspace. The exception is when
-we are outside a workspace, then the autocomplete will help out with creating a workspace, e.g.:
+The `workspace` parameter is therefore not suggested by xref:commands.adoc#create[create] when inside an existing workspace,
+but if we are outside a workspace, the autocomplete will help out with creating a workspace, e.g.:
 
 image::images/shell/shell-create-workspace.png[width=600]
 

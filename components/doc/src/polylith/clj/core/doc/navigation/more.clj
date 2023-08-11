@@ -1,4 +1,4 @@
-(ns polylith.clj.core.doc.navigation.more
+(ns ^:no-doc polylith.clj.core.doc.navigation.more
   (:require [polylith.clj.core.doc.navigation.calculator :as calculator]))
 
 (def clojurescript-podcast-part1 "https://podcasts.apple.com/se/podcast/s4-e21-polylith-with-joakim-james-and-furkan-part-1/id1461500416?i=1000505948894")

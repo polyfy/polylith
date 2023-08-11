@@ -16,7 +16,7 @@ Specifically for the _master_ branch, it also marks the commit as stable via a g
 
 ==== Check
 
-This job runs the check command from the _poly_ tool as follows: `clojure -M:poly check`.
+This job runs the check command from the `poly` tool as follows: `clojure -M:poly check`.
 If there are any errors in the xref:workspace.adoc[workspace], it returns with a non-zero exit code and the CircleCI workflow stops at this stage.
 If there are any warnings printed by the tool, it will be visible in the job's output.
 
@@ -39,7 +39,7 @@ You can read more about available commands xref:commands.adoc[here].
 ==== Test
 
 This job runs all the tests for all the bricks and projects that are directly or indirectly changed since the last stable point in time.
-The _poly_ tool supports incremental testing out-of-the-box by using stable point marks in the git repository.
+The `poly` tool supports incremental testing out-of-the-box by using stable point marks in the git repository.
 It runs the following command: `clojure -M:poly test :project`.
 If any of the tests fail, it will exit with a non-zero exit code and the CircleCI workflow stops at this stage.
 Information about the passed/failed tests will be printed in the job's output.
@@ -69,7 +69,7 @@ It only runs when a new tag is pushed to the git repository with the following r
 ==== Check Build
 
 This job runs the xref:commands.adoc#check[check] command as follows: `clojure -M:poly check since:previous-release`.
-Please note the last part of the command where we specifically tell the _poly_ tool to check the workspace
+Please note the last part of the command where we specifically tell the `poly` tool to check the workspace
 since the last release, instead of the last stable point in time. If there are any errors in the Polylith workspace,
 it returns with a non-zero exit code and the CircleCI workflow stops at this stage.
 If there are any warnings printed by the tool, it will be visible in the job's output.
@@ -101,7 +101,7 @@ Information about the passed/failed tests will be printed in the job's output.
 
 ==== Deploy
 
-This job deploys the changed projects to Clojars. It's easy to deploy incrementally with the _poly_ tool.
+This job deploys the changed projects to Clojars. It's easy to deploy incrementally with the `poly` tool.
 Changed projects are calculated since the latest release.
 You can see how it's done https://github.com/polyfy/polylith/blob/master/build.clj[here].
 In a nutshell, it executes `poly ws get:changes:changed-or-affected-projects skip:dev since:previous-release`

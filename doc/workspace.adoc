@@ -90,7 +90,7 @@ The _workspace.edn_ file looks like this:
                                  :deps/root "projects/poly"}}}}}
 ----
 
-If all went well, the _poly_ tool managed to set the latest sha for the _:poly_ alias by taking it from the
+If all went well, the `poly` tool managed to set the latest sha for the _:poly_ alias by taking it from the
 https://github.com/polyfy/polylith/commits/master[master] branch in this repository.
 We can instruct it to go and get it by passing in _:latest-sha_:
 

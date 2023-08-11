@@ -3,7 +3,7 @@
 
 We have two categories of configuration:
 
-1. Configuration used by the _poly_ tool, is stored in _workspace.edn_ and _~/.config/polylith/config.edn_.
+1. Configuration used by the `poly` tool, is stored in _workspace.edn_ and _~/.config/polylith/config.edn_.
 2. Configuration used by tools.deps, is stored in _deps.edn_ files in bricks and projects.
 
 The content of all these configuration files also live in the xref:workspace-structure.adoc[workspace structure]
@@ -220,7 +220,7 @@ poly ws get:configs:components:user
 == user
 
 Settings that are unique per developer/user are stored in _~/.config/polylith/config.edn_.
-If you started using the _poly_ tool from version _0.2.14_ or earlier,
+If you started using the `poly` tool from version _0.2.14_ or earlier,
 then the settings may be stored in _~/.polylith/config.edn_:
 
 The content of the file can be viewed with:

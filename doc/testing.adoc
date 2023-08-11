@@ -294,7 +294,7 @@ But because we don't want to get into any name conflicts with bricks and also be
 the choice of namespace is less important and here we choose the _project.command-line_ top namespace to keep it simple.
 
 Normally, we are forced to put our tests in the same namespace as the code we want to test,
-to get proper access, but in Polylith the encapsulation is guaranteed by the _poly_ tool
+to get proper access, but in Polylith the encapsulation is guaranteed by the `poly` tool
 and all code can therefore be declared public, which allows us to put the test code wherever we want.
 
 If we execute the xref:commands.adoc#info[info] command:

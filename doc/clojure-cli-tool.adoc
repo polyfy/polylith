@@ -1,11 +1,11 @@
 = Clojure CLI Tool
 
-The _poly_ tool uses its own syntax when passing in parameters.
+The `poly` tool uses its own syntax when passing in parameters.
 When using the _poly_ command as a Clojure CLI Tool
 (see xref:install.adoc#_install_as_clojure_cli_tool[Install using Clojure CLI])
 we instead use the standard way of passing in arguments as pairs.
 
-The "native" _poly_ tool has the following argument structure:
+The "native" `poly` tool has the following argument structure:
 
 * the command, followed by
 ** zero or more entities (e.g., _create_ can be followed by _component_), followed by:

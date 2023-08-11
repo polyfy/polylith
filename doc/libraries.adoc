@@ -15,7 +15,7 @@ Libraries are specified in _deps.edn_ for each component, base, and project:
 | | test | projects/PROJECT-DIR > deps.edn > :deps
 |===
 
-The _poly_ tool parses each _deps.edn_ file and looks for library dependencies,
+The `poly` tool parses each _deps.edn_ file and looks for library dependencies,
 which are then used by the xref:commands.adoc#libs[libs] and xref:commands.adoc#test[test] commands.
 
 [source,shell]
@@ -64,9 +64,9 @@ clojure -A:dev:test -P
 
 In the tools.deps CLI tool, when a dependency is included using _:local/root_,
 only _:src_ dependencies will be inherited while the _:test_ dependencies will be ignored.
-The _poly_ tool builds upon tools.deps but has its own xref:test-runners.adoc[test runner]
+The `poly` tool builds upon tools.deps but has its own xref:test-runners.adoc[test runner]
 that is accessed via the xref:commands.adoc#test[test] command.
-A difference between tools.deps CLI and the _poly_ tool is that the latter also inherits dependencies from the test context.
+A difference between tools.deps CLI and the `poly` tool is that the latter also inherits dependencies from the test context.
 
 If you want to run the tests directly from a project using the tools.deps CLI tool,
 then you also have to duplicate test dependencies from the bricks to the project's _deps.edn_ file

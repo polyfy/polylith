@@ -23,7 +23,7 @@ poly :all
 ----
 
 This will give us access to all available parameters, even those that are rarely used (which are often just in the way)
-and parameters that only make sense when developing the _poly_ tool itself.
+and parameters that only make sense when developing the `poly` tool itself.
 For example, _workspace_ will be available when using the xref:commands.adoc#create[create] command.
 
 The reason it's not included by default is that we seldom want to create another workspace within the current workspace:
@@ -52,7 +52,7 @@ myws$ doc branch:master page:install
 
 === changed-files
 
-This parameter is used to fake changes of files, and is used for testing purposes when developing the _poly_ tool itself, e.g:
+This parameter is used to fake changes of files, and is used for testing purposes when developing the `poly` tool itself, e.g:
 
 [source,shell]
 ----
@@ -110,7 +110,7 @@ poly info fake-tag:
 
 === fake-poly
 
-This parameter is used to fake that we are running the _poly_ tool,
+This parameter is used to fake that we are running the `poly` tool,
 when we actually run the _polyx_ tool. Only used by the help command:
 
 [source,shell]
@@ -176,7 +176,7 @@ in that workspace (e.g. _myws/deps.edn_):
 
 Make sure the "../polylith/projects/poly" path points to the _poly_ project in the cloned _polylith_ workspace directory.
 
-Now we can use the _poly_ tool from our workspace:
+Now we can use the `poly` tool from our workspace:
 
 [source,shell]
 ----
@@ -210,7 +210,7 @@ then we have to run _ingest_ again to get the latest and greatest (the server do
 bb doc ingest
 ----
 
-Viewing the documentation locally is used when developing the _poly_ tool itself,
+Viewing the documentation locally is used when developing the `poly` tool itself,
 but can be useful if we want to work against the _master_ branch
 and get easy access to the latest updates of the documentation.
 
@@ -232,7 +232,7 @@ poly info changed-files:
 === no-exit
 
 When the _poly_ command is executed, it exits with _System/exit_ internally, see poly-cli.
-If executing the _poly_ tool from a REPL, this will also exit the REPL.
+If executing the `poly` tool from a REPL, this will also exit the REPL.
 To avoid that, we can pass in
 https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj#L31-L32[:no-exit].
 

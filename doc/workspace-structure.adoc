@@ -1,7 +1,7 @@
 = Workspace Structure
 :toc:
 
-The _poly_ tool gives us access to the data structure that represents the workspace,
+The `poly` tool gives us access to the data structure that represents the workspace,
 which is the same structure that all the poly commands operate on.
 
 Here we will use the output from the https://github.com/polyfy/polylith/tree/master/examples/doc-example[example in the documentation].
@@ -811,14 +811,14 @@ We also have a number of arguments that are only populated if they are passed in
 }
 ----
 
-* `:args` The arguments to the _poly_ tool where the first argument is the command.
+* `:args` The arguments to the `poly` tool where the first argument is the command.
 
 * `:branch` Used in the xref:commands.adoc#create-workspace[create workspace] command
 to give the branch, otherwise the workspace will be created in the _main_ branch.
 
 * `:changed-files` Overrides the real xref:changed-files[changed-files] that is retrieved from a git.
 
-* `:cmd` The first argument to the _poly_ tool.
+* `:cmd` The first argument to the `poly` tool.
 
 * `:color-mode` Overrides the xref:color-mode[color-mode].
 
@@ -864,7 +864,7 @@ The _:local_ parameter can also be passed in when starting a xref:commands.adoc#
 
 * `:is-no-changes` Set to _true_ if _:no-changes_ is given. Used to fake that no changes have been made since the last stable point in time.
 
-* `:is-no-exit` Set to _true_ if _:no-exit_ is given. This will prevent the _poly_ tool from exiting with _System/exit_.
+* `:is-no-exit` Set to _true_ if _:no-exit_ is given. This will prevent the `poly` tool from exiting with _System/exit_.
 
 * `:is-outdated` Set to _true_ if _:outdated_ is given.
 
@@ -898,7 +898,7 @@ but can also be passed in to the xref:commands.adoc#info[info], xref:commands.ad
 and xref:commands.adoc#libs[libs] commands to generate a text file from the output.
 This is also available in the xref:commands.adoc#overview[overview] command if using the xref:polyx.adoc[polyx] tool.
 
-* `:replace` Used in tests when maintaining the _poly_ tool itself, to make the output more stable.
+* `:replace` Used in tests when maintaining the `poly` tool itself, to make the output more stable.
 Set to e.g. _[{:from "this", :to "that"}]_ if _replace:this:that_ is given.
 More than one pair of values can be passed in, separated with :.
 
@@ -964,7 +964,7 @@ for generating image files and the _overview_ command.
 ** `:name` The full name of the release.
 ** `:patch` Increased by one for each release within a given _major.minor_.
 ** `:revision` What comes after _major.minor.path_.
-** `:tool` Set to "poly" if the _poly_ tool, or "polyx" if the extended _poly_ tool that includes support for creating images.
+** `:tool` Set to "poly" if the `poly` tool, or "polyx" if the extended `poly` tool that includes support for creating images.
 
 * `:test-runner-api` Versioning of the test runner API:
 ** `:breaking` Increased by one if introducing a non-backward compatible change of the test runner API.
@@ -979,9 +979,9 @@ Set to _:toolsdeps2_ if the workspace was created by _v0.2.0-alpha10_ or later
 (where each brick has its own _deps.edn_ file).
 
 * `:from` Set to the value of _:version_ if the workspace is read from a file,
-produced by a different version than the current version of the _poly_ tool,
+produced by a different version than the current version of the `poly` tool,
 or if the workspace is read from a directory that has not been migrated from _:toolsdeps1_ to _:toolsdeps2_.
-** `:release-name` The version of the _poly_ tool from which this ws file was created.
+** `:release-name` The version of the `poly` tool from which this ws file was created.
 ** `:ws`
 *** `:breaking` The breaking version of the original _ws_ format.
 *** `:non-breaking` The non-breaking version of the original _ws_ format.
@@ -1043,7 +1043,7 @@ poly ws get:ws-reader
 ----
 
 This structure explains different aspects of the tool that created this _workspace structure_
-(the _poly_ tool in this case) and the idea is that new tooling could support the _workspace format_
+(the `poly` tool in this case) and the idea is that new tooling could support the _workspace format_
 and populate this structure so that it can be used by external tooling.
 
 * `:file-extensions` Lists the supported file extensions.

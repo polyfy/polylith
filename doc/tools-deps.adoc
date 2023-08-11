@@ -1,6 +1,6 @@
 = Tools.deps
 
-This _poly_ tool is built on top of _tools.deps_.To get the most out of it, we recommend you to read its
+This `poly` tool is built on top of _tools.deps_. To get the most out of it, we recommend you to read its
 https://github.com/clojure/tools.deps.alpha[documentation].
 
 When we created the workspace with the xref:commands#create-workspace[create workspace] command, the _poly_ alias was also added to _./deps.edn_:
@@ -14,7 +14,7 @@ When we created the workspace with the xref:commands#create-workspace[create wor
                                  :deps/root "projects/poly"}}}
 ----
 
-This alias can now be used to execute the _poly_ tool from the workspace root, e.g.:
+This alias can now be used to execute the `poly` tool from the workspace root, e.g.:
 
 [source,shell]
 ----
@@ -22,7 +22,7 @@ cd ../..
 clojure -M:poly info
 ----
 
-It takes longer to execute the _poly_ tool this way, because it needs to compile the Clojure code first,
+It takes longer to execute the `poly` tool this way, because it needs to compile the Clojure code first,
 but it also allows us to execute older or newer versions of the tool by selecting another _sha_ from an
 https://github.com/polyfy/polylith/commits/master[existing commit].
 
@@ -35,8 +35,8 @@ clojure -M:poly
 
 == clojure vs clj
 
-In the example above, we started the _poly_ tool using _clojure_ which is preferable over _clj_
-when executing a program like the _poly_ tool, and is well described
+In the example above, we started the `poly` tool using _clojure_ which is preferable over _clj_
+when executing a program like the `poly` tool, and is well described
 https://betweentwoparens.com/blog/what-are-the-clojure-tools/#clj%2Fclojure[here].
 
 If we use clj instead, things will still work, but we will get a warning in some situations:
