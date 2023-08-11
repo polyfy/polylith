@@ -4,20 +4,20 @@ There are two kinds of projects in Polylith: development and deployable.
 
 * The xref:development.adoc[development] project:
 - This is where we work with the code, often from a REPL.
-- Has a _deps.edn_ file that specifies all bricks and project libraries that are included in the project.
-- If we have any xref:profile.adoc[profiles] then they are defined in _./deps.edn_.
+- Has a `deps.edn` file that specifies all bricks and project libraries that are included in the project.
+- If we have any xref:profile.adoc[profiles] then they are defined in `./deps.edn`.
 - Any extra code, that is not part of a component or base, lives under the _development_ directory.
 
 * Any deployable project:
 - Used to build deployable artifacts, e.g.: lambda functions, REST API's, tools, and more.
-- Lives under the _projects_ directory where each project has its own directory.
-- Has a _deps.edn_ file that specifies which bricks and project libraries that are included in the project.
-- Can optionally have a _resources_ directory.
+- Lives under the `projects` directory where each project has its own directory.
+- Has a `deps.edn` file that specifies which bricks and project libraries that are included in the project.
+- Can optionally have a `resources` directory.
 - If the included bricks contain any tests, then they will be run when we execute the xref:commands.adoc#test[test] command.
-- If it has any tests of its own, they will live in the _test_ directory, e.g. _projects/my-project/test_.
-- It's discouraged to have a _src_ directory, e.g. _projects/my-project/src_, since all production code should normally only live in bricks.
+- If it has any tests of its own, they will live in the `test` directory, e.g. `projects/my-project/test`.
+- It's discouraged to have a `src` directory, e.g. `projects/my-project/src`, since all production code should normally only live in bricks.
 
-The xref: _:project_ key in _./workspace.edn_ configures which alias each project has
+The `:project` key in `./workspace.ednv configures which alias each project has
 and optionally how the tests should be run (covered in the xref:testing.adoc[testing] section).
 
 Let's create a project, by executing the xref:commands#create-project[create project] command:
@@ -83,7 +83,7 @@ The tool also reminds us of this:
   It's recommended to add an alias to :projects in ./workspace.edn for the command-line project.
 ----
 
-If we don't add the alias to _workspace.edn_, the project heading will show up as _?1_ when we execute the
+If we don't add the alias to `workspace.edn`, the project heading will show up as `?1` when we execute the
 xref:commands.adoc#info[info] command, so let's add it:
 
 [source,clojure]
@@ -93,7 +93,7 @@ xref:commands.adoc#info[info] command, so let's add it:
               "command-line" {:alias "cl"}}}
 ----
 
-Now add user and cli to projects/command-line/deps.edn:
+Now add `user` and cli to `projects/command-line/deps.edn`:
 
 [source,clojure]
 ----
@@ -103,24 +103,24 @@ Now add user and cli to projects/command-line/deps.edn:
         org.clojure/clojure {:mvn/version "1.11.1"}}
 ----
 
-The reason all paths begin with "../../" is that _components_ and _bases_ live two levels up
-compared to _projects/command-line_ and not at the root as with the _development_ project.
+The reason all paths begin with "../../" is that `components` and `bases` live two levels up
+compared to `projects/command-line` and not at the root as with the `development` project.
 
 The _test_ command will figure out what tests need to be executed.
-If you have reasons to run the tests for each project separately using _tools.deps_,
-then you also have to specify the test paths (as we did for the _development_ project).
+If you have reasons to run the tests for each project separately using tools.deps,
+then you also have to specify the test paths (as we did for the `development` project).
 
 ====
-NOTE: All the project _deps.edn_ config files under the _projects_ directory specifies what bricks to include
+NOTE: All the project `deps.edn` config files under the _projects_ directory specifies what bricks to include
 by giving a list of _:local/root_ mappings.
 The poly _test_ command uses this information to figure out what bricks and library dependencies
-that should be included when executing the tests, by looking into each brick's _deps.edn_ file.
-_tools.deps_ does not "inherit" test dependencies from :local/root mappings,
-which is the reason we have to add our dependencies as separate paths in _deps.edn_
+that should be included when executing the tests, by looking into each brick's `deps.edn` file.
+tools.deps does not "inherit" test dependencies from :local/root mappings,
+which is the reason we have to add our dependencies as separate paths in `deps.edn`
 to allow IDE's and other tooling to work properly.
 ====
 
 Let's summarise where the dependencies to bricks are located:
 
-* The dev project: _./deps.edn_ > _:aliases_ > _:dev_ > _:extra-deps_
-* Other projects: _projects/PROJECT-DIR_ > _deps.edn_ > _:deps_
+* The dev project: `./deps.edn` > `:aliases` > `:dev` > `:extra-deps`
+* Other projects: `projects/PROJECT-DIR` > `deps.edn` > `:deps`

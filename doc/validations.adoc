@@ -9,15 +9,15 @@ The various checks that are executed can be listed by executing the help for the
 poly help check
 ----
 
-The _test_ command will not be executed if _check_ discovers any errors.
+The xref:commands.adoc#test[test] command will not be executed if xref:commands.adoc#check[check] discovers any errors.
 
 [#warning206]
 === Warning 206 - Unreadable namespace in brick/project
 
-If a source file (_.clj_ or _.cljc_) can't be read or if the namespace is missing, we get _Warning 206 - Unreadable namespace in brick/project_.
+If a source file (`.clj` or `.cljc`) can't be read or if the namespace is missing, we get `Warning 206 - Unreadable namespace in brick/project`.
 
 If we comment out the https://github.com/polyfy/polylith/blob/master/examples/doc-example/components/user/src/se/example/user/core.clj[core] namespace
-for the _user_ component in the example app and execute the xref:commands.adoc#check[check] command, it will show a warning:
+for the `user` component in the example app and execute the xref:commands.adoc#check[check] command, it will show a warning:
 
 [source,clojure]
 ----
@@ -48,7 +48,7 @@ poly ws get:components:user:namespaces:src:core
 ----
 
 [#ignore-files]
-If we want to get rid of this warning, we can add the filename to _:ignore-files_ for the _user_ component:
+If we want to get rid of this warning, we can add the filename to `:ignore-files` for the `user` component:
 
 [source,clojure]
 ----
@@ -65,7 +65,7 @@ or "example/user/core.clj", but not "ore.clj" because it will try to match "/ore
 (a slash is appended when comparing). If we use a dash (-) in the filename (to mimic the namespace name)
 it will be replaced by an underscore (_) so that it can match correctly against the actual Clojure filename.
 
-If we now look at the namespaces for the _user_ component again, the core namespace will be marked as ignored:
+If we now look at the namespaces for the `user` component again, the core namespace will be marked as ignored:
 
 [source,shell]
 ----
@@ -96,10 +96,10 @@ It's also possible to ignore files in projects, e.g.:
 }
 ----
 
-Which will ignore all files with the name "test_setup.clj" or files that end with "/test-setup.clj" in the _command-line_ project.
+Which will ignore all files with the name "test_setup.clj" or files that end with "/test-setup.clj" in the `command-line` project.
 
 The https://github.com/polyfy/polylith/blob/master/examples/doc-example/projects/command-line/test/project/command_line/test_setup.clj[test-setup]
-namespace in the _command-line_ project will be ignored, and _:is-ignored_ will be set to _true_ for the namespace:
+namespace in the `command-line` project will be ignored, and `:is-ignored` will be set to `true` for the namespace:
 
 [source,shell]
 ----
@@ -119,16 +119,17 @@ poly ws get:projects:command-line:namespaces:test:project.command-line.test-setu
 === Warning 207 - Unnecessary components were found in project
 
 If there are any unnecessary components in a project (i.e. that are not used by any of the bricks in the project),
-then xref:commands.adoc#check[check] will return _Warning 207 - Unnecessary components were found in project_.
+then xref:commands.adoc#check[check] will return `Warning 207 - Unnecessary components were found in project`.
 
-By default, _check_ only runs for projects under the _projects_ directory.
-To also check the _development_ project, we have to pass in _:dev_ when executing the _check_ command.
-Warning 207 will not be checked for the _info_ and _test_ commands.
-All other validations are performed when executing the _check_, _info_, or _test_ command.
+By default, xref:commands.adoc#check[check] only runs for projects under the `projects` directory.
+To also check the `development` project, we have to pass in `:dev` when executing the xref:commands.adoc#check[check] command.
+Warning 207 will not be checked for the xref:commands.adoc#info[info] and xref:commands.adoc#test[test] commands.
+All other validations are performed when executing the xref:commands.adoc#check[check], xref:commands.adoc#info[info],
+or xref:commands.adoc#test[test] command.
 
 If we get warning 207 for a project, but we know that the component is needed
-(e.g. used in a dynamic way, but not explicitly called) then we can add a _:necessary_ key
-to the project in _workspace.edn_ to get rid of the warning (this example is taken from the `poly` tool itself):
+(e.g. used in a dynamic way, but not explicitly called) then we can add a `:necessary` key
+to the project in `workspace.edn` to get rid of the warning (this example is taken from the `poly` tool itself):
 
 [source,clojure]
 ----

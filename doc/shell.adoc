@@ -5,64 +5,64 @@ The goal of the shell is to make us more productive and to have more fun!
 The shell uses https://github.com/jline/jline3[jline3] under the hood which supports the following operating systems:
 Mac OS X, Linux, FreeBSD, Solaris, and Windows.
 
-Let's start a shell by typing _poly_ from the workspace root:
+Let's start a shell by typing `poly` from the workspace root:
 
 image::images/shell/shell-start.png[width=600]
 
 The prompt is set to the workspace name. From here we can execute different commands and get instant feedback.
 
-We can list all available commands by pressing the _<tab>_ key:
+We can list all available commands by pressing the `<tab>` key:
 
 image::images/shell/shell-all-commands.png[width=600]
 
-If we type i, it will show all commands starting with ‘i’:
+If we type i, it will show all commands starting with `i`:
 
 image::images/shell/shell-i.png[width=600]
 
-If we press _<tab>_, it will complete the info command and suggest available parameters:
+If we press `<tab>`, it will complete the info command and suggest available parameters:
 
 image::images/shell/shell-info.png[width=600]
 
-Most parameters starting with a colon (:) can be selected by typing their name, e.g. _l_ for _:loc_:
+Most parameters starting with a colon (`:`) can be selected by typing their name, e.g. `l` for `:loc`:
 
 image::images/shell/shell-info-loc.png[width=600]
 
-Press _<tab>_ to select _:loc_:
+Press `<tab>` to select `:loc`:
 
 image::images/shell/shell-info-loc-tab.png[width=600]
 
 We mentioned that parameters starting with a colon can be selected by their name.
-he exception is _:project_ which has to start with _:p_ to distinguish it from _project_:
+The exception is `:project` which has to start with `:p` to distinguish it from `project`:
 
 image::images/shell/shell-info-loc-p.png[width=600]
 
-Complete with _<tab>_ and type p and press _<tab>_ again to list all available projects in the workspace:
+Complete with `<tab>` and type `p` and press `<tab>` again to list all available projects in the workspace:
 
 image::images/shell/shell-info-loc-project.png[width=600]
 
-When we have only one candidate, then it can be selected by pressing _<tab>_:
+When we have only one candidate, then it can be selected by pressing `<tab>`:
 
 image::images/shell/shell-one-candidate.png[width=600]
 
 The trailing colon indicates that this is a multi-select parameter (more than one project can be selected).
-We can leave the multi-select input mode by pressing <space> to remove the trailing colon:
+We can leave the multi-select input mode by pressing `<space>` to remove the trailing colon:
 
 image::images/shell/shell-leave-multi-select.png[width=600]
 
-An alternative way of selecting a candidate is by pressing _<tab>_ twice, and using the arrow keys to move the "cursor" around, e.g:
+An alternative way of selecting a candidate is by pressing `<tab>` twice, and using the arrow keys to move the "cursor" around, e.g:
 
 image::images/shell/shell-move-cursor.png[width=600]
 
-Press <enter> to make a choice:
+Press `<enter>` to make a choice:
 
 image::images/shell/shell-move-cursor-and-select.png[width=600]
 
-The brick parameter lists all bricks, including "no brick" represented by a dash (if _-_ is chosen,
+The brick parameter lists all bricks, including "no brick" represented by a dash (if `-` is chosen,
 then no bricks will be selected for testing):
 
 image::images/shell/shell-info-brick.png[width=600]
 
-A command that really benefits from being executed from the shell is the _ws_ command.
+A command that really benefits from being executed from the shell is the xref:commands.adoc#ws[ws] command.
 Instead of trying to remember all the different attributes, we get them suggested for us:
 
 image::images/shell/shell-ws-get.png[width=600]
@@ -72,7 +72,7 @@ Sometimes we encounter two words that start the same, where one of them is an ex
 
 image::images/shell/shell-ws-get-components-user.png[width=600]
 
-We can select user in this case, by typing _:_:
+We can select user in this case, by typing `:`:
 
 image::images/shell/shell-ws-get-components-user-colon.png[width=600]
 
@@ -82,49 +82,50 @@ image::images/shell/shell-ws-get-browse.png[width=600]
 
 == Switching workspace
 
-When starting a shell from a workspace directory (where the _workspace.edn_ file lives)
+When starting a shell from a workspace directory (where the `workspace.edn` file lives)
 we can execute all available commands from that directory.
 It's also possible to switch workspace without leaving the shell,
 but then the xref:commands.adoc#create[create] and xref:commands.adoc#test[test] commands will not work.
 
 Let's say we have cloned the
 https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[realworld-example-app].
-We can now switch to that workspace using the xref:commands.adoc#switch-ws[switch-ws] command in combination with the _dir_ parameter:
+We can now switch to that workspace using the xref:commands.adoc#switch-ws[switch-ws] command in combination with the `dir` parameter:
 
 image::images/shell/shell-switch-dir.png[width=600]
 
-This will list all directories and files ending with _.edn_ in the current directory.
+This will list all directories and files ending with `.edn` in the current directory.
 
-We can select the clojure-polylith-realworld-example-app directory by typing `.` followed by _<tab>_
-to select `..` and then typing `clo` (or something long enough) followed by _<tab>_ to select the workspace:
+We can select the clojure-polylith-realworld-example-app directory by typing `.` followed by `<tab>`
+to select `..` and then typing `clo` (or something long enough) followed by `<tab>` to select the workspace:
 
 image::images/shell/shell-switch-dir-realworld.png[width=600]
 
-Switch workspace by pressing <enter>:
+Switch workspace by pressing `<enter>`:
 
 image::images/shell/shell-switched-dir.png[width=600]
 
-The _dir:_ prefix indicates that commands will be executed from the selected workspace,
-and not from the current directory. We can go back to the workspace directory by executing _switch-ws_:
+The `dir:` prefix indicates that commands will be executed from the selected workspace,
+and not from the current directory. We can go back to the workspace directory by executing `switch-ws`:
 
 image::images/shell/shell-switch-ws.png[width=600]
 
 If a workspace has been exported to a file using something like `poly ws out:ws.edn` then we can switch to that workspace.
-Here we use the https://github.com/seancorfield/usermanager-example/tree/polylith[usermanager] project
-as an example (make sure to switch to the _polylith_ branch, after cloning the repository):
+Here we use the https://github.com/seancorfield/usermanager-example/tree/polylith[usermanager] project as an example
+(make sure to switch to the `polylith` branch, after cloning the repository):
 
 image::images/shell/shell-switch-ws-file.png[width=600]
 
-The promt name is picked from the _:name_ attribute in the _ws.edn_ file and is prefixed with _file:_
+The prompt name is picked from the `:name` attribute in the `ws.edn` file and is prefixed with `file:`
 to indicate that it has been imported from a file.
 
-The "trick" the shell does is to append _ws-dir:DIR_ or _ws-file:FILE_
+The "trick" the shell does is to append `ws-dir:DIR` or `ws-file:FILE`
 to the command for us before the command is executed
-(if we have switched workspace using the _dir:DIR_ or _file:FILE_ parameters).
+(if we have switched workspace using the `dir:DIR` or `file:FILE` parameters).
 
 === Start a shell in another workspace
 
-It's possible to start a shell and immediately switch to a workspace (now the _shell_ command has to be included), e.g.:
+It's possible to start a shell and immediately switch to a workspace
+(now the xref:commands.adoc#shell[shell] command has to be included), e.g.:
 
 [source,text]
 ----
@@ -164,7 +165,7 @@ The autocomplete helps us execute different commands with correct parameters:
 
 * The documentation can be browsed via the xref:commands.adoc#doc[doc] command.
 
-* Tag patterns defined in _workspace.edn_ are suggested when using the `since:X` parameter.
+* Tag patterns defined in `workspace.edn` are suggested when using the `since:X` parameter.
 
 * Remote git branches are suggested when using the `branch:X` parameter.
 
@@ -186,14 +187,14 @@ To select such a path we need to include the first " in the path for the autocom
 
 We often execute the xref:commands#create-workspace[create workspace] command outside a xref:workspace.adoc[workspace].
 The `workspace` parameter is therefore not suggested by xref:commands.adoc#create[create] when inside an existing workspace,
-but if we are outside a workspace, the autocomplete will help out with creating a workspace, e.g.:
+but if we are outside we will get some guidance:
 
 image::images/shell/shell-create-workspace.png[width=600]
 
 === Rarely used parameters
 
-Rarely used xref:parameters.adoc[parameters] are not suggested by the autocomplete, e.g. _color-mode_.
-A way to include them is to pass in _:all_ when starting a shell:
+Rarely used xref:parameters.adoc[parameters] are not suggested by the autocomplete, e.g. `color-mode` and `branch`.
+A way to include them is to pass in `:all` when starting a shell:
 
 [source,shell]
 ----
@@ -202,4 +203,4 @@ poly :all
 
 == Quit
 
-To quit the shell, type _exit_ or _quit_ or press _<ctrl>+C_ or _<ctrl>+D_.
+To quit the shell, type `exit` or `quit` or press `<ctrl>+C` or `<ctrl>+D`.

@@ -1,10 +1,10 @@
 = Polyx
 
-Since version 0.2.18, we have the new _polyx_ tool which can do everything that _poly_ can,
+Since version `0.2.18`, we have the new `polyx` tool which can do everything that `poly` can,
 plus create images from different commands.
-One more difference is that it's not released as an AOT compiled, stand-alone tool, as _poly_ is.
+One more difference is that it's not released as an AOT compiled, stand-alone tool, as `poly` is.
 
-If we want to use _polyx_, then we need to add it as an alias to _./deps.edn_:
+If we want to use `polyx`, then we need to add it as an alias to `./deps.edn`:
 
 [source,clojure]
 ----
@@ -15,7 +15,7 @@ If we want to use _polyx_, then we need to add it as an alias to _./deps.edn_:
                       :deps/root "projects/polyx"}}}}}
 ----
 
-Now let's start a shell, using the _polyx_ tool, by executing this from the workspace root:
+Now let's start a shell, using the `polyx` tool, by executing this from the workspace root:
 
 [source,shell]
 ----
@@ -30,10 +30,10 @@ Let's create an image by running the xref:commands.adoc#info[info] command
 example$ info out:info.png
 ----
 
-This will create the _info.png_ image containing the output from the info command.
+This will create the `info.png` image containing the output from the info command.
 If the file ends with any of the file formats listed
 https://clojure2d.github.io/clojure2d/docs/codox/clojure2d.core.html#var-img-writer-formats[here]
-then an image will be created in the specified format, but if it ends with _.txt_ then a text file is created:
+then an image will be created in the specified format, but if it ends with `.txt` then a text file is created:
 
 [source,shell]
 ----
@@ -87,7 +87,7 @@ poly info out:info.txt color-mode:none
   -          cli *    stx   st-
 ----
 
-The _polyx_ tool also includes the new xref:commands.adoc#overview[overview] command:
+The `polyx` tool also includes the new xref:commands.adoc#overview[overview] command:
 
 [source,shell]
 ----
@@ -105,13 +105,13 @@ NOTE: There are issues reported for Apple silicon when using
 https://en.wikipedia.org/wiki/Abstract_Window_Toolkit[Java AWT]
 (used by the underlying https://github.com/Clojure2D/clojure2d[clojure2d] library)
 which is one of the reasons we don't include support for creating images in the `poly` tool.
-Another source of trouble may be that _polyx_ starts a Java process: +
+Another source of trouble may be that `polyx` starts a Java process: +
 image:images/polyx/java.png[]
 ====
 
 [Caution]
 ====
-CAUTION: The polyx tool may be converted to a custom command in the future, when we have support for that,
-and when that happens the polyx project will be deleted.
+CAUTION: The `polyx` tool may be converted to a custom command in the future, when we have support for that,
+and when that happens the `polyx` project will be deleted.
 This means that image creation may be configured in a different way in the future.
 ====

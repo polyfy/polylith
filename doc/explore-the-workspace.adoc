@@ -130,7 +130,8 @@ poly ws get:components:keys
 ["user" "user-remote"]
 ----
 
-An even better way of exploring the data structure is to do it from a _shell_ which we have already covered in the xref:shell[Shell] section.
+An even better way of exploring the data structure is to do it from a `shell`
+which we have already covered in the xref:shell[Shell] section.
 
 To show the user component:
 
@@ -182,14 +183,14 @@ poly ws get:components:user-remote:lib-deps
  "slacker/slacker" {:size 28408, :type "maven", :version "0.17.0"}}
 ----
 
-There is a way to store the workspace structure to a file, and that is to give the _out_ parameter, e.g.:
+There is a way to store the workspace structure to a file, and that is to give the `out` parameter, e.g.:
 
 [source,shell]
 ----
 poly ws out:ws.edn
 ----
 
-An alternative way to reach the same result is to turn off the coloring and pipe to _ws.edn_:
+An alternative way to reach the same result is to turn off the coloring and pipe to `ws.edn`:
 
 [source,shell]
 ----
@@ -197,17 +198,17 @@ poly ws color-mode:none > ws.edn
 ----
 
 This can be used to share the workspace structure with others without sending them the whole workspace including the code.
-To load this workspace, they have to give the _ws-file_ parameter, e.g.:
+To load this workspace, they have to give the `ws-file` parameter, e.g.:
 
 [source,shell]
 ----
 poly info ws-file:ws.edn
 ----
 
-This will give the exact same output as if we execute `poly info` on the machine that created _ws.edn_.
-All commands except _test_ and _create_ can be executed when _ws-file_ or _ws-dir_ is given.
+This will give the exact same output as if we execute `poly info` on the machine that created `ws.edn`.
+All commands except `test` and `create` can be executed when `ws-file` or `ws-dir` is given.
 If we run commands in a shell,
-then _switch-ws file:ws.edn_ will add _ws-file:ws.edn_ to all subsequent commands to get the same result.
+then `switch-ws file:ws.edn` will add `ws-file:ws.edn` to all subsequent commands to get the same result.
 
 Here is an example where we inspect the arguments used to produce the file:
 

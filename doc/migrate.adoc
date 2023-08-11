@@ -3,7 +3,7 @@
 == Leiningen
 
 The old https://github.com/tengstrand/lein-polylith[lein-polylith] tool has reached the end of its life
-and has been replaced by this _tools.deps_ based version. If you have any old Leiningen based projects to migrate,
+and has been replaced by this tools.deps based version. If you have any old Leiningen based projects to migrate,
 please follow the instructions https://github.com/tengstrand/lein-polylith/blob/migrate/migrate/migrate.md[here].
 
 The biggest difference compared to the old tool is that the new tool is based on

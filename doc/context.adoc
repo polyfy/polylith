@@ -5,7 +5,7 @@ The component interfaces bring context to the development experience.
 Object oriented languages give us context by using objects.
 Let’s say we work in an object oriented language and that we want to save the object _userToBeSaved_.
 If we type _userToBeSaved_ followed by a `.`,
-the intellisense in the IDE will show us a list of available methods for that object, for example _persist_:
+the intellisense in the IDE will show us a list of available methods for that object, for example `persist`:
 
 [source,java]
 ----
@@ -26,7 +26,7 @@ With Polylith we get the same level of support from the IDE by first importing t
 (user/
 ----
 
-Now the IDE will list all available functions in the _user_ interface and one of them would be _persist!_:
+Now the IDE will list all available functions in the `user` interface and one of them would be `persist!`:
 
 [source,clojure]
 ----
