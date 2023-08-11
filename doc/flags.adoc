@@ -16,36 +16,37 @@ The status column has a different meaning:
 |===
 | status | Explanation
 
-| s-- | The project has a _src_ directory
-| -t- | The project has a _test_ directory
-| --x | Run the tests for this project
+| `s--` | The project has a _src_ directory
+| `-t-` | The project has a _test_ directory
+| `--x` | Run the tests for this project
 |===
 
 If the "to be tested" flag `--x` is marked for a project under the status column,
 it means that the tests for that project will be executed from at least one project,
-which often is the project itself and/or the _development_ project.
+which often is the project itself and/or the `development` project.
 
-Under the _status_ column, the `---` means we have a _projects/command-line_ directory
-but no _src_ or _test_ directories in it and that no tests will be executed for this project.
+// todo: elaborate on this
+Under the `status` column, the `---` means we have a `projects/command-line` directory
+but no `src` or `test` directories in it and that no tests will be executed for this project.
 
-Under the _status_ column, the `s--` means we have a _development/src_ directory
-but no _development/test_ directory and that no tests will be executed for this project.
+Under the `status` column, the `s--` means we have a `development/src` directory
+but no `development/test` directory and that no tests will be executed for this project.
 
-Each flag under _dev_ has a slightly different meaning, where project refers to _development_:
+Each flag under `dev` has a slightly different meaning, where project refers to `development`:
 
 |===
 | status | Explanation
 
-| s-- | The _src_ directory is included in the development project
-| -t- | The _test_ directory is included in the development project
-| --x | Run the tests for this brick from the development project
+| `s--` | The _src_ directory is included in the development project
+| `-t-` | The _test_ directory is included in the development project
+| `--x` | Run the tests for this brick from the development project
 |===
 
-Under the _dev_ column, the `---` means that neither _projects/command-line/src_ or _projects/command-line/test_
-is added to _./deps.edn_ and that no tests in _projects/command-line/test_ will be executed from the _development_ project.
+Under the `dev` column, the `---` means that neither `projects/command-line/src` or `projects/command-line/test`
+is added to `./deps.edn` and that no tests in `projects/command-line/test` will be executed from the `development_ project`.
 
-Under the _dev_ column, the `s--` means that _development/src_ is added to _./deps.edn_
-but not _development/test_ and that no tests in _development/test_ will be executed from the _development_ project.
+Under the `dev` column, the `s--` means that `development/src` is added to `./deps.edn`
+but not `development/test` and that no tests in `development/test` will be executed from the `development` project.
 
 We also have this section:
 
@@ -56,16 +57,16 @@ Here the flags have a slightly different meaning:
 |===
 | status | Explanation
 
-| s-- | The brick's _src_ directory is included in this project
-| -t- | The brick's _test_ directory is included in this project
-| --x | Run the tests for this brick from this project
+| `s--` | The brick's _src_ directory is included in this project
+| `-t-` | The brick's _test_ directory is included in this project
+| `--x` | Run the tests for this brick from this project
 |===
 
-The `st-` for the _user_ component under the _dev_ column tells that both
-_components/user/src_ and _components/user/test_ are included in the _development_ projects,
+The `st-` for the `user` component under the `dev` column tells that both
+`components/user/src` and `components/user/test` are included in the `development` projects,
 and that no brick tests will be executed.
 
-The _./deps.edn_ looks like this:
+The `./deps.edn` looks like this:
 
 [source,clojure]
 ----
@@ -76,11 +77,11 @@ The _./deps.edn_ looks like this:
             :test {:extra-paths ["components/user/test"
 ----
 
-The `st-` for the _user_ component under the _cl_ column tells that _user_ is included in the _command-line_ project
-and that _user_ has both a _src_ and _test_ directory specified in its _deps.edn_
-(probably indirectly included via a _:local/root_ statement) and that no brick tests will be executed.
+The `st-` for the `user` component under the `cl` column tells that `user` is included in the `command-line` project
+and that `user` has both a `src` and `test` directory specified in its `deps.edn`
+(probably indirectly included via a `:local/root` statement) and that no brick tests will be executed.
 
-The bricks for the _command-line_ project is configured in _projects/command-line/deps.edn_:
+The bricks for the `command-line` project is configured in `projects/command-line/deps.edn`:
 
 [source,clojure]
 ----
@@ -88,8 +89,8 @@ The bricks for the _command-line_ project is configured in _projects/command-lin
         poly/cli    {:local/root "../../bases/cli"}
 ----
 
-...where the _src_, _resources_, and _test_ folders for the bricks
-are specified in _components/user/deps.edn_ and _bases/cli/deps.edn_ where both have this content:
+...where the `src`, `resources`, and `test` folders for the bricks
+are specified in `components/user/deps.edn` and `bases/cli/deps.edn` where both have this content:
 
 [source,clojure]
 ----
@@ -99,7 +100,7 @@ are specified in _components/user/deps.edn_ and _bases/cli/deps.edn_ where both 
                   :extra-deps {}}}}
 ----
 
-The `st-` for the _cli_ base follows the same pattern as for the _user_ component but for the _bases/cli_ directory.
+The `st-` for the `cli` base follows the same pattern as for the `user` component but for the `bases/cli` directory.
 
 If we execute `poly info :resources` (or the shorter `poly info :r`):
 

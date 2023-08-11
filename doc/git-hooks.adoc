@@ -4,7 +4,7 @@ We can ensure that we don't push code that puts the workspace in an invalid stat
 by adding a https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks[git hook] to our workspace,
 that executes the xref:commands.adoc#check[check] command.
 
-To make this work, all developers should add _.git/hooks/commit-msg_
+To make this work, all developers should add `.git/hooks/commit-msg`
 to the root of the workspace on their local disk with the following content, e.g.:
 
 [source,shell]
@@ -18,4 +18,4 @@ if [[ $? -ne 0 ]] ; then
 fi
 ----
 
-Replace _PATH-TO-WORKSPACE-DIRECTORY_ with the path to the workspace root.
+Replace `PATH-TO-WORKSPACE-DIRECTORY` with the path to the workspace root.

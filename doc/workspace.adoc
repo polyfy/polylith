@@ -2,7 +2,7 @@
 
 The workspace directory is the place where all our code and most of the xref:configuration.adoc[configuration] lives.
 
-Let’s start by creating the example workspace with the top namespace _se.example_
+Let’s start by creating the example workspace with the top namespace `se.example`
 by using the xref:commands.adoc#create-workspace[create workspace] command.
 
 Make sure you execute the command outside a git repository:
@@ -12,7 +12,7 @@ Make sure you execute the command outside a git repository:
 poly create workspace name:example top-ns:se.example :commit
 ----
 
-This will create a workspace in the _main_ branch. By giving _branch:BRANCH-NAME_ the workspace can be created in a different branch, e.g.:
+This will create a workspace in the _main_ branch. By giving `branch:BRANCH-NAME` the workspace can be created in a different branch, e.g.:
 
 [source,shell]
 ----
@@ -50,16 +50,16 @@ Each top-level directory contains a specific type of Polylith concept:
 
 * A xref:project.adoc[project] specifies a deployable artifact and what components, bases, and libraries it contains.
 
-* The xref:development.adoc[development] project (_development_ + _deps.edn_) is used to work with the code in one place.
+* The xref:development.adoc[development] project (`development` + `deps.edn`) is used to work with the code in one place.
 
 This structure gives a consistent shape to all Polylith projects and ensures that both new developers and veterans
 can quickly understand and start working with systems that are new to them.
 We think you will soon be addicted to the power and simplicity the Polylith structure gives to your projects!
 
-The _bases_, _components_ and _projects_ directories also contain a _.keep_ file,
+The `bases`, `components` and `projects` directories also contain a `.keep` file,
 which is added to prevent git from deleting these directories, and can be deleted as soon as we add something to them.
 
-The _workspace.edn_ file looks like this:
+The `workspace.edn` file looks like this:
 
 [source,shell]
 ----
@@ -74,7 +74,7 @@ The _workspace.edn_ file looks like this:
  :projects {"development" {:alias "dev"}}}
 ----
 
-...and _deps.edn_ like this:
+...and `deps.edn` like this:
 
 [source,shell]
 ----
@@ -90,9 +90,9 @@ The _workspace.edn_ file looks like this:
                                  :deps/root "projects/poly"}}}}}
 ----
 
-If all went well, the `poly` tool managed to set the latest sha for the _:poly_ alias by taking it from the
+If all went well, the `poly` tool managed to set the latest sha for the `:poly` alias by taking it from the
 https://github.com/polyfy/polylith/commits/master[master] branch in this repository.
-We can instruct it to go and get it by passing in _:latest-sha_:
+We can instruct it to go and get it by passing in `:latest-sha`:
 
 [source,shell]
 ----
@@ -109,11 +109,11 @@ The output will look something like this:
  :repo "https://github.com/polyfy/polylith.git"}
 ----
 
-The _:latest-sha_ argument will tell the tool to go out and find the latest SHA from the Polylith repo
-and populate the _:latest-sha_ attribute in the xref:workspace-structure.adoc[workspace structure],
+The `:latest-sha` argument will tell the tool to go out and find the latest SHA from the Polylith repo
+and populate the `:latest-sha` attribute in the xref:workspace-structure.adoc[workspace structure],
 which would otherwise not be set.
 
-If you wonder how the _ws_ command works or what all the settings are for, be patient, everything will soon be covered in detail.
+If you wonder how the `ws` command works or what all the settings are for, be patient, everything will soon be covered in detail.
 
 == Existing git repository
 

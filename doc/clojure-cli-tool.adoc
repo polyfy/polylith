@@ -1,25 +1,25 @@
 = Clojure CLI Tool
 
 The `poly` tool uses its own syntax when passing in parameters.
-When using the _poly_ command as a Clojure CLI Tool
+When using the `poly` command as a Clojure CLI Tool
 (see xref:install.adoc#_install_as_clojure_cli_tool[Install using Clojure CLI])
 we instead use the standard way of passing in arguments as pairs.
 
 The "native" `poly` tool has the following argument structure:
 
 * the command, followed by
-** zero or more entities (e.g., _create_ can be followed by _component_), followed by:
-*** named arguments (e.g., project:example)
-*** flag arguments (e.g., :loc)
-*** profiles (e.g., +remote)
+** zero or more entities (e.g., `create` can be followed by `component`), followed by:
+*** named arguments (e.g., `project:example`)
+*** flag arguments (e.g., `:loc`)
+*** profiles (e.g., `+remote`)
 
-Because "exec args" must follow key/value syntax, the argument structure for _-Tpoly_ is:
+Because "exec args" must follow key/value syntax, the argument structure for `-Tpoly` is:
 
 * the command (which is the "exec fn"), followed by
 - entity to name the first argument(s) to create or help,
-- named arguments as key/value pairs (e.g., project example),
-- flag arguments as keys with true or false values (e.g., loc true),
-- profiles to list any profiles to enable, without the leading + (e.g., profiles '[remote]').
+- named arguments as key/value pairs (e.g., `project example`),
+- flag arguments as keys with true or false values (e.g., `loc true`),
+- profiles to list any profiles to enable, without the leading + (e.g., `profiles '[remote]'`).
 
 For convenience, most arguments can be provided as symbols rather than requiring quoted strings:
 
@@ -31,7 +31,7 @@ clojure -Tpoly info project '"example"'
 clojure -Tpoly info project example
 ----
 
-Both _project_ and _profile_ exist in singular form, taking a symbol or string,
+Both `project` and `profile` exist in singular form, taking a symbol or string,
 and in a plural form, taking a vector of symbols or strings:
 
 [source,shell]
@@ -42,8 +42,8 @@ clojure -Tpoly info projects '[example cli]'
 clojure -Tpoly info profile remote
 ----
 
-Some poly commands treat _:brick_ and _:project_ as flag arguments
-and other expect _brick:name_ or _project:name_ as named argumens.
+Some poly commands treat `:brick` and `:project` as flag arguments
+and other expect `brick:name` or `project:name` as named arguments.
 When using "exec args", the meaning is determined by whether the value is boolean or not:
 
 [source,shell]
@@ -69,7 +69,7 @@ clojure -Tpoly create entity workspace name next-gen top-ns com.my-company
 ----
 
 Finally, for some commands, more than one "entity" can be provided for the entity exec argument,
-those can be `:`-separated (in a string), or use _entities_ and a vector (which can have symbols instead of strings):
+those can be `:`-separated (in a string), or use `entities` and a vector (which can have symbols instead of strings):
 
 [source,shell]
 ----

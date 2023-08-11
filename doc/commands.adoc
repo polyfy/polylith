@@ -1,7 +1,7 @@
 = Commands
 :toc:
 
-The individual help texts listed here are taken from the built-in _help_ command.
+The individual help texts listed here are taken from the built-in `help` command.
 
 To list all available commands, type:
 

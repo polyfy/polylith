@@ -13,31 +13,31 @@ Thanks to components, we can create any project we want by putting the bricks we
 This allows us to optimize the development environment for productivity while in production,
 we can focus on fulfilling non-functional requirements like performance or uptime.
 
-Right now, our _development_ project mirrors the _command-line_ project:
+Right now, our `development` project mirrors the `command-line` project:
 
 image::images/profile/prod-mirrors-dev.png[width=600]
 
-Let's pretend we get performance problems in the _user_ component and that we think distributing the load,
+Let's pretend we get performance problems in the `user` component and that we think distributing the load,
 by delegating to a new service, could solve the problem:
 
 image::images/profile/new-service-in-prod.png[width=600]
 
-The production environment now looks good, but how about the _development_ environment?
-The problem here is that it contains two components that share the same _user_ interface.
+The production environment now looks good, but how about the `development` environment?
+The problem here is that it contains two components that share the same `user` interface.
 This will confuse both the classloader (if we start a REPL) and the IDE,
-because we now have two components using the same _se.example.user_ namespace in the path, which is not a desirable situation.
+because we now have two components using the same `se.example.user` namespace in the path, which is not a desirable situation.
 
 The solution is to use profiles:
 
 image::images/profile/profiles-in-dev.png[width=600]
 
-By leaving out any component that implements the _user_ interface from the _development_ project
-and combining it with one of the two possible profiles we get a complete _development_ project.
+By leaving out any component that implements the `user` interface from the `development` project
+and combining it with one of the two possible profiles we get a complete `development` project.
 This allows us to work with the code from a single place, but still be able to mimic the various projects we have.
 
-The default profile (if exists) is automatically merged into the _development_ project,
+The default profile (if exists) is automatically merged into the `development` project,
 if no other profiles are selected.
-The name _default_ is set by _:default-profile-name_ in _workspace.edn_ and can be changed,
+The name `default` is set by `:default-profile-name` in `workspace.edn` and can be changed,
 but here we will leave it as it is.
 
 Now let's try to move from this design:
@@ -48,7 +48,7 @@ image::images/profile/prod-mirrors-dev.png[width=600]
 
 image::images/profile/target-design.png[width=600]
 
-First we need to decide how the _command-line_ tool should communicate with _user-service_ over the wire.
+First we need to decide how the `command-line` tool should communicate with `user-service` over the wire.
 After some searching, we found this
 https://github.com/sunng87/slacker[slacker] library
 that allows us to use
@@ -69,7 +69,7 @@ Let's go through the list.
 
 - Create the base.
 - Add the slacker library to the base.
-- Add the base to ./deps.edn.
+- Add the base to `./deps.edn`.
 - Implement the server for user-api:
 
 Execute this statement:
@@ -79,7 +79,7 @@ Execute this statement:
 poly create base name:user-api
 ----
 
-Add the slacker library to _bases/user-api/deps.edn_:
+Add the slacker library to `bases/user-api/deps.edn`:
 
 [source,clojure]
 ----
@@ -87,7 +87,7 @@ Add the slacker library to _bases/user-api/deps.edn_:
  :deps {slacker/slacker {:mvn/version "0.17.0"}}
 ----
 
-Add _user-api_ to _./deps.edn_:
+Add `user-api` to `./deps.edn`:
 
 [source,clojure]
 ----
@@ -99,7 +99,7 @@ Add _user-api_ to _./deps.edn_:
                                  "bases/user-api/test"
 ----
 
-Create the _api_ namespace:
+Create the `api` namespace:
 
 [source,shell]
 ----
@@ -123,7 +123,7 @@ example
   (user/hello (str name " - from the server")))
 ----
 
-...and update the _core_ namespace:
+...and update the `core` namespace:
 
 // scripts/sections/profile/user-api-core.clj
 [source,clojure]
@@ -142,7 +142,7 @@ example
 
 - Create the component.
 - Add the slacker library to the component.
-- Remove user from ./deps.edn.
+- Remove user from `./deps.edn`.
 - Create the default and remote profiles.
 - Activate the remote profile in the IDE.
 - Activate the default profile in the REPL configuration.
@@ -155,7 +155,7 @@ Create the component:
 poly create component name:user-remote interface:user
 ----
 
-Add the _slacker_ library to _components/user-remote/deps.edn_:
+Add the `slacker` library to `components/user-remote/deps.edn`:
 
 [source,clojure]
 ----
@@ -163,7 +163,7 @@ Add the _slacker_ library to _components/user-remote/deps.edn_:
  :deps {slacker/slacker {:mvn/version "0.17.0"}}
 ----
 
-Remove user from ./deps.edn:
+Remove user from `./deps.edn`:
 
 [source,clojure]
 ----
@@ -177,7 +177,7 @@ Remove user from ./deps.edn:
                                  "bases/user-api/test"]}
 ----
 
-Add the _default_ and _remote_ profiles to _./deps.edn_:
+Add the `default` and `remote` profiles to `./deps.edn`:
 
 [source,clojure]
 ----
@@ -190,14 +190,14 @@ Add the _default_ and _remote_ profiles to _./deps.edn_:
                      :extra-paths ["components/user-remote/test"]}
 ----
 
-Notice here that the profiles contain both _src_ and _test_ directories.
+Notice here that the profiles contain both `src` and `testv directories.
 This works as profiles are only used from the development project.
 
-The next step is to activate the _remote_ profile in our IDE:
+The next step is to activate the `remote` profile in our IDE:
 
 image::images/profile/activate-remote-profile.png[width=200]
 
-Create the core namespace:
+Create the `core` namespace:
 
 [source,shell]
 ----
@@ -241,16 +241,17 @@ Edit the REPL configuration:
 
 image::images/profile/edit-repl-config.png[width=250]
 
-...and add the default profile to Options: _--A:dev:test:build:+default_
+...and add the `default` profile to Options: `--A:dev:test:build:+default`
 
-The reason we have to do this, is because we removed the _user_ component
-from _./deps.edn_ and now we have to add it via a profile instead.
-We need access to the source code for the _se.example.user.interface_ namespace,
-and we have two alternatives, the _user_ or the _user-remote_ component that both use this interface.
-The _user_ component is a better default because it's simpler
+The reason we have to do this, is because we removed the `user` component
+from `./deps.edn` and now we have to add it via a profile instead.
+We need access to the source code for the `se.example.user.interface` namespace,
+and we have two alternatives, the `user` or the `user-remote` component that both use this interface.
+The `user` component is a better default because it's simpler
 and only communicates via direct function calls without hitting the wire.
 
-For the changes to take affect we now need to restart the REPL. Normally we don't have to do that, but when adding profiles it's necessary.
+For the changes to take affect we now need to restart the REPL.
+Normally we don't have to do that, but when adding profiles it's necessary.
 
 === 3. Switch from user to user-remote in deps.edn for the command-line project
 
@@ -268,9 +269,9 @@ example
 │       └── deps.edn
 ----
 
-Replace _user_ with _user-remote_, and add the _log4j_ library (to get rid of warnings)
-in _projects/command-line/deps.edn_
-(it's okay to keep _poly/user name_, because it's also the name of the interface that both _user_ and _user-remote_ share):
+Replace `user` with `user-remote`, and add the `log4j` library (to get rid of warnings)
+in `projects/command-line/deps.edn`
+(it's okay to keep `poly/user name`, because it's also the name of the interface that both `user` and `user-remote` share):
 
 [source,clojure]
 ----
@@ -291,11 +292,11 @@ clojure -A:deps -T:build uberjar :project command-line
 === 4. Create the user-service project
 
 * Create the project.
-* Update its deps.edn:
+* Update its `deps.edn`:
   - Add dependency to the user component.
   - Add dependency to the user-api base.
   - Add the uberjar alias.
-* Add the cl alias for the user-service in workspace.edn.
+* Add the `cl` alias for the `user-service` in `workspace.edn`.
 
 Create the project:
 
@@ -304,7 +305,7 @@ Create the project:
 poly create project name:user-service
 ----
 
-Set the content of projects/user-service/deps.edn to this:
+Set the content of `projects/user-service/deps.edn` to this:
 
 // scripts/sections/profile/user-service-deps.edn
 [source,clojure]
@@ -322,7 +323,7 @@ Set the content of projects/user-service/deps.edn to this:
            :uberjar {:main se.example.user-api.core}}}
 ----
 
-Add the _user-s_ alias for the _user-service_ in _workspace.edn_:
+Add the `user-s` alias for the `user-service` in `workspace.edn`:
 
 [source,clojure]
 ----
@@ -333,7 +334,7 @@ Add the _user-s_ alias for the _user-service_ in _workspace.edn_:
 
 === 5. Build user-service
 
-Create an uberjar for the _user-service_:
+Create an uberjar for the `user-service`:
 
 [source,shell]
 ----
@@ -351,14 +352,14 @@ java -jar user-service.jar
 ----
 
 Now when we have a running service, we could test if we can call it from the REPL.
-We activated the remote profile in our IDE earlier, which made the _user-remote_ component active.
-Note that this only instructs the IDE to treat _user-remote_ as source code:
+We activated the remote profile in our IDE earlier, which made the `user-remote` component active.
+Note that this only instructs the IDE to treat `user-remote` as source code:
 
 image::images/profile/user-and-user-remote.png[width=200]
 
 ...but it _doesn't_ load its source code into the REPL!
 
-We can verify this by adding this code to _development/src/dev/lisa.clj_:
+We can verify this by adding this code to `development/src/dev/lisa.clj`:
 
 [source,clojure]
 ----
@@ -368,33 +369,33 @@ We can verify this by adding this code to _development/src/dev/lisa.clj_:
 (user/hello "Lisa")
 ----
 
-...and if we execute the hello function, we still get:
+...and if we execute the `hello` function, we still get:
 
 [source,clojure]
 ----
 "Hello Lisa!!"
 ----
 
-Remember that we set the REPL configuration to _-A:test:dev:build:+default_
-which loads the _user_ component into the REPL every time we start or restart the REPL.
+Remember that we set the REPL configuration to `-A:test:dev:build:+default`
+which loads the `user` component into the REPL every time we start or restart the REPL.
 This is the recommended way of configuring the default REPL,
 by selecting the "simple" components that communicate with each other using direct function calls.
-Because of this, we should keep the _-A:test:dev:build:+default_ configuration as it is.
+Because of this, we should keep the `-A:test:dev:build:+default` configuration as it is.
 
 Let's create a REPL that includes the remote profile:
 
 image::images/profile/prod-repl.png[width=600]
 
-This REPL will use the _user-remote_ component and can be used to "emulate" a production like environment.
+This REPL will use the `user-remote` component and can be used to "emulate" a production like environment.
 
-But let's continue with the REPL that is already running and see if we can switch to _user-remote_ without restarting it.
+But let's continue with the REPL that is already running and see if we can switch to `user-remote` without restarting it.
 
 
-Open the _core_ namespace of the _user-remote_ component and select _Tools > REPL > Load file in REPL_.
-This will replace the _user_ implementation with the _user-remote_ component,
-which works because both live in the same _se.example.user_ namespace, which is also their interface (user).
+Open the `core` namespace of the `user-remote` component and select `Tools` > `REPL` > `Load file in REPL`.
+This will replace the `user` implementation with the `user-remote` component,
+which works because both live in the same `se.example.userv namespace, which is also their interface (`user`).
 
-If we execute the _hello_ function agan from _dev.lisa_, we should get:
+If we execute the `hello` function agan from `dev.lisa`, we should get:
 
 [source,text]
 ----
@@ -417,7 +418,7 @@ Hello Lisa - from the server!!
 Wow, that worked too! The complete code can be found
 https://github.com/polyfy/polylith/tree/master/examples/doc-example[here].
 
-Now execute the xref:commands.adoc#info[info] command (_+_ inactivates all profiles, and makes the _default_ profile visible):
+Now execute the xref:commands.adoc#info[info] command (`+` inactivates all profiles, and makes the `default` profile visible):
 
 [source,text]
 ----
@@ -441,7 +442,7 @@ we may want to manage state during development with a tool like
 https://github.com/tolitius/mount[Mount],
 https://github.com/stuartsierra/component[Component], or
 https://github.com/weavejester/integrant[Integrant],
-or we could create our own helper functions that we put in the _dev.lisa_ namespace,
+or we could create our own helper functions that we put in the `dev.lisa` namespace,
 which can help us switch profiles by using a library like
 https://github.com/clojure/tools.namespace[tools.namespace].
 
@@ -454,7 +455,7 @@ poly info +remote
 
 image::images/profile/info-with-remote-profile.png[width=500]
 
-Now the _remote_ profile is included in the _development_ project and listed after active profiles.
+Now the `remote` profile is included in the `development` project and listed after active profiles.
 
 It's possible to give more than one profile:
 
@@ -465,14 +466,14 @@ poly info +default +remote
 
 image::images/profile/info-multiple-profiles.png[width=500]
 
-The tool complains and doesn't like that we just included both _user_ and _user-remote_ in the _development_ project!
+The tool complains and doesn't like that we just included both `user` and `user-remote` in the `development` project!
 
 The profiles can also contain libraries and paths to projects,
-but right now we have no such paths and therefore all profiles are marked with _--_ in the project section.
+but right now we have no such paths and therefore all profiles are marked with `--` in the project section.
 
 Now when we are finished with our example system,
 it could be interesting to see how many lines of code each brick and project consists of.
-This can be done by passing in _:loc_:
+This can be done by passing in `:loc`:
 
 [source,text]
 ----
@@ -482,12 +483,12 @@ poly info :loc
 image::images/profile/info-loc.png[width=500]
 
 Each project summarises the number of lines of code for each brick it contains.
-The _loc_ column counts the number of lines of codes under the _src_ directory,
-while _(t)_ counts for the test directory.
+The `loc` column counts the number of lines of codes under the `src` directory,
+while `(t)` counts for the test directory.
 
 Our projects are still quite small, but they will eventually reach 1000 lines of code,
-and when that happens we may want to change the thousand delimiter in _~/.polylith/config.edn_
-which is set to _,_ by default.
+and when that happens we may want to change the thousand delimiter in `~/.polylith/config.edn`
+which is set to `,` by default.
 
 Let's run all the tests to see if everything works:
 

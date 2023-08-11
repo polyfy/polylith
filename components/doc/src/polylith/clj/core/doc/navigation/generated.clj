@@ -37,6 +37,7 @@
    "continuous-integration" {}
    "dependencies" {}
    "development" {}
+   "doc" {}
    "example-systems" {}
    "explore-the-workspace" {}
    "flags" {}

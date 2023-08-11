@@ -1,17 +1,17 @@
 = Base
 
-A _base_ is similar to a _component_ except for two things:
+A `base` is similar to a `componentv except for two things:
 
-* It doesn't have an _interface_.
+* It doesn't have an `interface`.
 
 * It exposes a public API to the outside world.
 
-The lack of an _interface_ makes bases less composable compared to components.
+The lack of an `interface` makes bases less composable compared to components.
 This is okay because they serve a different purpose which is to be a bridge
 between the real world and the components it delegates to.
 This gives us the modularity and structure we need to build simple and understandable services and tools.
 
-Let's create the _cli_ base to see how it works, by executing the xref:commands.adoc#create-base[create base]:
+Let's create the `cli` base to see how it works, by executing the xref:commands.adoc#create-base[create base] command:
 
 [source,shell]
 ----
@@ -65,7 +65,7 @@ example
 └── workspace.edn
 ----
 
-Now we need to update _./deps.edn_ with our newly created base:
+Now we need to update `./deps.edn` with our newly created base:
 
 [source,clojure]
 ----
@@ -93,11 +93,11 @@ Refresh the IDE with the new settings and let's add some code to the base:
   (System/exit 0))
 ----
 
-Here we added the _-main_ function that will later be called from the command line.
+Here we added the `-main` function that will later be called from the command line.
 The https://clojuredocs.org/clojure.core/gen-class[:gen-class] statement
 tells the compiler to generate a Java class for us when the code is compiled.
 
-A _deps.edn_ file was also created with this content:
+A `deps.edn` file was also created with this content:
 
 [source,clojure]
 ----
@@ -108,7 +108,7 @@ A _deps.edn_ file was also created with this content:
 ----
 
 This config file is identical to the _user_ config file,
-and will soon be needed again when we create a _project_ that includes it.
+and will soon be needed again when we create a project that includes it.
 
 The next thing we want to do is to build an artifact that will turn the code into something useful,
 a command-line tool. To do that, we need to start by creating a project.

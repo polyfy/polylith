@@ -36,7 +36,7 @@ out which libraries are used (before it's scrapped) and the versions to use are 
 ** Paths to bricks are replaced by `:local/root` dependencies and libraries that are defined
 by these bricks are removed from the project, and will instead be implicitly included via
 `:local/root` definitions (which also means that you don't have to explicitly specify the `src`, `resources`
-and `test` directories anymore, only the bricks). Notice that `test` directories are not inherited by `tools.deps`
+and `test` directories anymore, only the bricks). Notice that `test` directories are not inherited by tools.deps
 when `:local-root` dependencies are used, but that they _are_ included when you run the built-in poly xref:commands.adoc#test[test]
 command. If you rely on `test` paths via other tooling, you may therefore keep these paths.
 ** Notice that the `development` environment, with its `./deps.edn` file, is not converted to use `:local/root`
