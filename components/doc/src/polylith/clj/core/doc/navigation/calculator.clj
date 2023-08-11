@@ -1,4 +1,4 @@
-(ns polylith.clj.core.doc.navigation.calculator)
+(ns ^:no-doc polylith.clj.core.doc.navigation.calculator)
 
 (defn include-key? [[key data]]
   (and (not= :url key)

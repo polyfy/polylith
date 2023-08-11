@@ -1,13 +1,14 @@
 = Introduction
 :cljdoc-doc-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc
 
-This documentation aims to be a practical guide to this tool with lots of code examples.
+This {cljdoc-doc-url}/readme[documentation] aims to be a practical guide to this tool with lots of code examples.
 We encourage you to follow the code examples and try it out yourself.
 We will guide you through the steps of creating a workspace with projects composed of components, bases, and libraries
 and how to work with them from the development environment and the interactive shell.
 
 We will give a short introduction to tools.deps and how to use tools.build to create deployable artifacts.
-We will show how git is used to tag the code and how it enables us to test and release the code incrementally.
+We will explain how the doc command helps us access web based documentation, and how git is used to tag
+the code and how it enables us to test and release the code incrementally.
 
 We will show how profiles will help us work from a single development environment for maximum efficiency
 and how dependencies and library usage can be displayed.
@@ -16,12 +17,3 @@ We will explain the value of components and how they bring context to our develo
 which will help us build decoupled and scalable systems from day one.
 
 Let's begin!
-
-ifndef::env-cljdoc[]
-====
-NOTE: With start from version 0.2.18, this _poly_ tool documentation lives together with the source code in the
-link:../doc[doc] directory. A cljdoc based {cljdoc-doc-url}/readme[documentation]
-that includes a left menu for easy navigation and a search box, is published for each released version of the _poly_ tool
-(the version number is displayed at the top of the page).
-====
-endif::[]

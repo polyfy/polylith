@@ -7,7 +7,7 @@ xref:commands.adoc#create-base[create base] and xref:commands.adoc#create-projec
 
 Another difference is that the xref:commands.adoc#ws[ws] command will create files with a richer format
 than before, which is not backward compatible with the previous format.
-The good thing is that old files, exported with e.g. `poly ws out:ws.edn` can still be read by the latest _poly_ tool
+The good thing is that old files, exported with e.g. `poly ws out:ws.edn` can still be read by the latest `poly` tool
 but will lack some information like library dependencies for the _test_ context which was not calculated prior to
 version _v0.2.0-alpha10_.
 

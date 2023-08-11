@@ -41,7 +41,7 @@ Let's dig into these.
 
 == page
 
-The `page` parameter is used to navigate the _poly_ tool documentation.
+The `page` parameter is used to navigate the `poly` tool documentation.
 Notice that we have to end `page` with a `:` to list the pages:
 
 [source,shell]
@@ -61,7 +61,7 @@ example-systems          polyx                    validations
 explore-the-workspace    profile                  workspace
 ----
 
-This lists all the pages of the _poly_ tool documentation, and is the same as the items in the left menu.
+This lists all the pages of the `poly` tool documentation, and is the same as the items in the left menu.
 
 If we select a page, it will be opened in a browser on your machine, e.g.:
 
@@ -142,7 +142,7 @@ example$ doc ws:configs
 
 == more
 
-The _more_ parameter stores all other documentation that is not exclusively about the _poly_ tool:
+The _more_ parameter stores all other documentation that is not exclusively about the `poly` tool:
 
 [source,shell]
 ----
@@ -272,7 +272,7 @@ https://github.com/DavidVujic[David Vujic] explains how Polylith can be used in 
 
 | https://www.youtube.com/watch?v=_tpNKAv4fro[collaborative-learning-polylith] | 2022
 Sean Corfield is interviewed by the Los Angeles Clojure Users Group
-about how he uses Polylith and the _poly_ tool in production at
+about how he uses Polylith and the `poly` tool in production at
 https://polylith.gitbook.io/polylith/conclusion/production-systems#world-singles-networks[World Singles Network]. | 2022
 
 | https://www.youtube.com/watch?v=Xz8slbpGvnk[polylith-in-a-nutshell] |
@@ -306,7 +306,7 @@ A tiny workspace that implements Game of Life,
 created by https://github.com/tengstrand[Joakim Tengstrand].
 
 | https://github.com/polyfy/polylith[polylith] |
-The Polylith workspace, from which this _poly_ tool itself is built,
+The Polylith workspace, from which this `poly` tool itself is built,
 created by https://github.com/tengstrand[Joakim Tengstrand] and link:https://github.com/furkan3ayraktar[Furkan Bayraktar].
 
 | https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/master[realworld] |

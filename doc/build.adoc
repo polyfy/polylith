@@ -1,6 +1,6 @@
 = Build
 
-The _poly_ tool doesn’t include a _build_ command.
+The `poly` tool doesn’t include a _build_ command.
 That’s because we don’t want the tool to restrict our build pipeline in any way.
 Instead, the tool lets us choose our own way to build our Polylith artifacts for our particular pipeline;
 which could be with simple build scripts, all the way to cloud-based build tools.

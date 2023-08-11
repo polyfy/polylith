@@ -127,5 +127,5 @@ and the reason is that we haven't told git to move the _stable point in time_ to
 We said that the _diff_ command returns the same result as _git diff SHA --name-only_.
 This is normally true, except for the case when the workspace lives inside a git repo.
 In that case, the _git diff_ command will also return the workspace directory in the path
-(which is stripped away by the _poly_ tool).
+(which is stripped away by the `poly` tool).
 This directory can be shown by running the poly _ws get:ws-local-dir_ command.
