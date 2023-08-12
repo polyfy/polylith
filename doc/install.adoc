@@ -53,10 +53,10 @@ https://clojure.org/guides/getting_started[CLI tools] and https://git-scm.com/bo
 If you install git for the first time, don't forget to set the
 https://docs.github.com/en/github/using-git/setting-your-username-in-git[user] name and email.
 
-To install the _poly_ command on Linux:
+To install the `poly` command on Linux:
 
 * Download the https://github.com/polyfy/polylith/releases/latest[latest release] of the poly jar,
-e.g.: _poly-0.2.18.jar_.
+e.g.: `poly-0.2.18.jar`.
 * Create a directory, e.g. `/usr/local/polylith`, and copy the jar file to that directory.
 * Create a file with the name _poly_ and put it in e.g. `/usr/local/bin` with this content:
 
@@ -75,7 +75,7 @@ exec "/usr/bin/java" $JVM_OPTS "-jar" "/usr/local/polylith/poly-0.2.18.jar" $ARG
 
 * Make sure that:
 - You point to the correct jar file.
-- The path to _java_ is correct (can be verified with `which java`).
+- The path to `java` is correct (can be verified with `which java`).
 * If you choose `/usr/local/bin`, it was probably already on your path, otherwise you have to add it.
 * Make it executable by executing `chmod +x poly`.
 
@@ -125,7 +125,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 * Download the https://github.com/polyfy/polylith/releases/latest[latest release] of the poly jar,
 e.g. `poly-0.2.18.jar`.
-* Create the _Polylith_ directory somewhere on your machine, e.g.
+* Create the `Polylith` directory somewhere on your machine, e.g.
 `C:\Program Files\Polylith` and copy the jar file to that directory.
 * Create the file `poly.bat` with this content (make sure you point to the jar):
 
@@ -158,14 +158,14 @@ nix-env -iA 'nixos.polylith'
 == Install as Clojure CLI Tool
 
 If we are using a recent version of the
-https://clojure.org/releases/tools[Clojure CLI] -- 1.10.3.933 or later -- we can install _poly_ as a "tool":
+https://clojure.org/releases/tools[Clojure CLI] -- 1.10.3.933 or later -- we can install `poly` as a "tool":
 
 [source,shell]
 ----
 clojure -Ttools install io.github.polyfy/polylith '{:git/tag "v0.2.18" :deps/root "projects/poly"}' :as poly
 ----
 
-An alternative is to give a sha, which allows us to use old versions or versions that hasn't been released yet, e.g.:
+An alternative is to give a `sha`, which allows us to use old versions or versions that hasn't been released yet, e.g.:
 
 [source,shell]
 ----
@@ -173,7 +173,7 @@ clojure -Ttools install io.github.polyfy/polylith '{:git/sha "5f74c8b8675dbb0912
 ----
 
 ====
-CAUTION: do not use the _install-latest_ option to `clojure -Ttools` as it does not support `:deps/root`.
+CAUTION: Do not use the _install-latest_ option to `clojure -Ttools` as it does not support `:deps/root`.
 ====
 
 Then we can invoke the `poly` tool using the CLI directly:
@@ -216,7 +216,7 @@ NOTE: the command-line argument syntax for "tool" usage follows the CLI "exec ar
 Clojure's own keyword/value syntax (it's actually read as EDN).
 ====
 
-How to use the _poly_ command as a tool is described in the xref:clojure-cli-tool.adoc[Clojure CLI Tool] section.
+How to use the `poly` command as a tool is described in the xref:clojure-cli-tool.adoc[Clojure CLI Tool] section.
 The official documentation can be found https://clojure.org/reference/deps_and_cli#tool_install[here].
 
 == Use as dependency
@@ -230,9 +230,9 @@ Via Clojars:
 ----
 {
 ...
- :aliases   {:poly  {:extra-deps {polylith/clj-poly
-                                  {:mvn/version "0.2.18"}}
-                     :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}}
+ :aliases {:poly  {:extra-deps {polylith/clj-poly
+                                {:mvn/version "0.2.18"}}
+                   :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}}
 ...
 }
 ----
@@ -243,17 +243,17 @@ Via GitHub:
 ----
 {
 ...
- :aliases   {:poly  {:extra-deps {polylith/clj-poly
-                                  {:git/url   "https://github.com/polyfy/polylith.git"
-                                   :sha       "INSERT_LATEST_SHA_HERE"
-                                   :deps/root "projects/poly"}}
-                     :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}}
+ :aliases {:poly  {:extra-deps {polylith/clj-poly
+                                {:git/url   "https://github.com/polyfy/polylith.git"
+                                 :sha       "INSERT_LATEST_SHA_HERE"
+                                 :deps/root "projects/poly"}}
+                   :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}}
 ...
 }
 ----
 
 Replace _INSERT_LATEST_SHA_HERE_ with a https://github.com/polyfy/polylith/commits/master[commit SHA]
-from the Polylith repository (e.g. the latest from the _master_ branch).
+from the Polylith repository (e.g. the latest from the `master` branch).
 
 ====
 NOTE: The master branch can sometimes be ahead of the https://github.com/polyfy/polylith/releases[latest release].
@@ -272,20 +272,20 @@ clojure -M:poly version
 We will soon create our first xref:workspace.adoc[workspace] but before that is done, only the
 _version_, _help_, _doc_, and _create workspace_ commands will work.
 
-== Polylith as a library
-[#polylith-as-a-library]
+== Use as a library
+[#use-as-a-library]
 
 If we are building tooling around Polylith, then we can use the https://clojars.org/polylith/clj-poly/versions[clj-poly]
 library to get access to some of the funtionality that is built in to the `poly` tool itself.
 
 It exposes two interfaces:
 
-* The {cljdoc-api-url}/polylith.clj.core.api.interface[api] interface.
-** Only these exposed functions are part of the public API. All other code is subject to change.
+* The {cljdoc-api-url}/polylith.clj.core.api.interface[api] interface (only these exposed functions are part of the public API,
+all other code is subject to change).
 
 * The {cljdoc-api-url}/polylith.clj.core.test-runner-contract.interface[test-runner-contract] interface.
 
-You can add `clj-poly` as a dependency to a `:deps` section in your `deps.edn` file
+You can add `clj-poly` as a dependency to a `:deps` or `:extra-deps` in your `deps.edn` file
 (make sure to use the https://github.com/polyfy/polylith/releases[latest] release):
 
 [source,shell]
@@ -298,14 +298,14 @@ or
 [source,shell]
 ----
 polylith/clj-poly {:git/url   "https://github.com/polyfy/polylith.git"
-:sha       "ecd2cf2ede81ecd4fbf82f21a075b103b6f2d2af"
-:deps/root "projects/poly"}
+                   :sha       "ecd2cf2ede81ecd4fbf82f21a075b103b6f2d2af"
+                   :deps/root "projects/poly"}
 ----
 
 ...and remember to set the `:sha` to an existing https://github.com/polyfy/polylith/commits/master[SHA].
 
 ====
-NOTE: Since version 0.2.18 we only publish `clj-poly` to Clojars and not the old `clj-api`.
+NOTE: Since version `0.2.18` we only publish `clj-poly` to Clojars and not the old `clj-api`.
 ====
 
 == JVM options
@@ -313,7 +313,7 @@ NOTE: Since version 0.2.18 we only publish `clj-poly` to Clojars and not the old
 If we want to add extra memory to the `poly` tool or maybe specify where the configuration file for the logging is stored,
 then we can set the `JVM_OPTS` environment variable to do that, because `JVM_OPTS` is also
 https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/build/resources/brew/exec#L22[passed in]
-when executing the _poly_ command.
+when executing the `poly` command.
 
 If we use the tools.deps CLI to execute the `poly` tool, e.g. `clojure -M:poly test`,
 we can configure the logging in the `:poly` alias in `./deps.edn` for the project, e.g.:

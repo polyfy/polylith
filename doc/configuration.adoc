@@ -3,11 +3,11 @@
 
 We have two categories of configuration:
 
-1. Configuration used by the `poly` tool, is stored in `workspace.edn` and `~/.config/polylith/config.edn`.
-2. Configuration used by tools.deps, is stored in `deps.edn` files in bricks and projects.
+1. Configuration used by the `poly` tool, stored in `workspace.edn` and `~/.config/polylith/config.edn`.
+2. Configuration used by tools.deps, stored in `deps.edn` files in bricks and projects.
 
-The content of all these configuration files also live in the xref:workspace-structure.adoc[workspace structure]
-under the `:configs` key, and contains these keys:
+The content of all the configuration files also lives in the xref:workspace-structure.adoc[workspace structure],
+under these top keys.
 
 [source,shell]
 ----
@@ -45,43 +45,48 @@ poly ws get:configs:workspace
        :name "git"}}
 ----
 
-If we use xref:install.adoc#polylith-as-a-library[Polylith as a library] then we shouldn't rely on any of these attributes,
-but instead use xref:workspace-structure.adoc#_settings[:settings].
-
 A workspace contains these keys:
 
+[%autowidth]
 |===
 | Key | Description
 
 | `:bricks` | Allows us to turn off _Warning 206_ for one or more bricks, see xref:validations.adoc[validations].
+
 | `:compact-view` | Controls the xref:dependencies.adoc#compact-view[output] from the xref:commands#info[deps]
 and the xref:libraries.adoc#compact-view[output] from the xref:commands.adoc#libs[libs] command
-so that they can be viewed in a more compact way, e.g.: v#{"deps" "libs"}`.
+so that they can be viewed in a more compact way, e.g.: `#{"deps" "libs"}`.
+
 | `:default-profile-name` | The name of the profile that is automatically merged into the
 xref:development.adoc[development] project if xref:profile.adoc[profiles] are used and no profile is given.
-https://github.com/polyfy/polylith/blob/a4d9d2f3e50a2b76f36ed75c4a7ba7aa9a7b0db6/examples/doc-example/deps.edn#L14-L15[Here]
-is an example of how it can be used.
-| `:interface-ns` | The namespaces `interface` and `ifc` are always treated as interfaces
-(with start from version `0.2.18`) including the namespace given here.
-Recommended values are `interface` and `ifc`, which will be used in the xref:create-component[create component] command.
-The default value is `interface` but can be changed to any valid namespace name, see the xref:interface.adoc[Interface] section.
-| `:projects` | A map that configures the projects in the workspace (the project attributes are listed below).
+An example can be found
+https://github.com/polyfy/polylith/blob/a4d9d2f3e50a2b76f36ed75c4a7ba7aa9a7b0db6/examples/doc-example/deps.edn#L14-L15[here].
+
+| `:interface-ns` |
+All namespaces within a component with this name, `interface`, or `ifc`, will be considered the component's interface.
+The name set by this parameter is also used by the xref:commands.adoc#create-component[create component] command.
+
+| `:projects` | A map that configures the projects in the workspace, see xref:ws-projects[projects] below.
+
 | `:tag-patterns` | Holds the https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html[regex] patterns
 that are used when searching for the most recent tag in git with a matching name,
 explained xref:tagging.adoc[here], to calculate the latest committed sha,
 that will be considered the _latest stable point in time_.
+
 | `:top-namespace` | The top namespace used throughout the workspace in components and bases.
+
 | `:vcs` | A map with two keys, where `:name` is set to "git" which is the only supported
-https://en.wikipedia.org/wiki/Version_control[version control] system at the moment. +
+https://en.wikipedia.org/wiki/Version_control[version control system] at the moment. +
 The key `:auto-add` is a boolean flag that tells whether directories and files added by the
 xref:commands#create[create] command should automatically be added to git or not.
 |===
 
 Only the `:top-namespace` attribute is mandatory, all other attributes will use their default values if missing.
 
+[#ws-projects]
 === projects
 
-The `:projects` key contains configuration for how individual projects, e.g. how each of them should be tested.
+The `:projects` key contains configuration for individual projects:
 
 [source,shell]
 ----
@@ -102,17 +107,19 @@ poly ws get:configs:workspace:projects
 
 Configuration for a specific project:
 
+[%autowidth]
 |===
 | Key | Description
 
 | `:alias` | This value is used in the output of the xref:commands.adoc#info[info] command
 and various commands as an alternative value for the project name.
-| `:necessary` | Allows us to turn off `Warning 206` for one or more bricks in the project, see xref:validations.adoc[Validations]
+| `:necessary` | Allows us to turn off `Warning 206` for one or more bricks in the project, see xref:validations.adoc[Validations].
 | `:test` | A map with test configuration for the project, see below.
 |===
 
-Test configuration for a specific project:
+Test configuration under the `:test` key for a specific project:
 
+[%autowidth]
 |===
 | Key | Description
 
@@ -128,7 +135,7 @@ see xref:testing#setup-and-teardown[Test setup and teardown].
 
 Each project has its own `deps.edn` configuration file.
 The xref:development.adoc[development] config file lives in `./deps.edn`,
-while other xref:project.adoc[projects] keep them in e.g. `projects/myproject/deps.edn`.
+while other xref:project.adoc[projects] keep them in `projects/PROJECT/deps.edn`.
 
 The content of a configuration file can be viewed with e.g.:
 
@@ -151,6 +158,7 @@ poly ws get:configs:projects:command-line
  :type :project}
 ----
 
+[%autowidth]
 |===
 | Key | Description
 
@@ -161,7 +169,7 @@ poly ws get:configs:projects:command-line
 
 == bases
 
-Each xref:base.adoc[base] has its own `deps.edn` configuration file that lives in e.g. `bases/mybase/deps.edn`.
+Each xref:base.adoc[base] has its own `deps.edn` configuration file that lives in `bases/BASE/deps.edn`.
 
 The content of a configuration file can be viewed with e.g.:
 
@@ -180,6 +188,7 @@ poly ws get:configs:bases:cli
  :type :base}
 ----
 
+[%autowidth]
 |===
 | Key | Description
 
@@ -190,7 +199,7 @@ poly ws get:configs:bases:cli
 
 == components
 
-Each xref:component.adoc[component] has its own `deps.edn` configuration file that lives in e.g. _components/mycomponent/deps.edn_.
+Each xref:component.adoc[component] has its own `deps.edn` configuration file that lives in `components/COMPONENT/deps.edn`.
 
 The content of a configuration file can be viewed with e.g.:
 
@@ -209,6 +218,7 @@ poly ws get:configs:components:user
  :type :component}
 ----
 
+[%autowidth]
 |===
 | Key | Description
 
@@ -220,7 +230,7 @@ poly ws get:configs:components:user
 == user
 
 Settings that are unique per developer/user are stored in `~/.config/polylith/config.edn`.
-If you started using the `poly` tool from version `0.2.14` or earlier,
+If you started using the `poly` tool from version `0.2.14-alpha` or earlier,
 then the settings may be stored in `~/.polylith/config.edn`:
 
 The content of the file can be viewed with:
@@ -237,6 +247,7 @@ poly ws get:configs:user
  :thousand-separator ","}
 ----
 
+[%autowidth]
 |===
 | Key | Description
 

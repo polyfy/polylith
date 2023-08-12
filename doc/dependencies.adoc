@@ -68,14 +68,15 @@ poly deps
 image::images/dependencies/deps.png[width=370]
 
 This lists all dependencies in the workspace. Notice the yellow color in the headers.
-They are yellow because components and bases normally only depend on interfaces.
-Each `x` is a `src` dependency, while a `t` means it only exists in the `test` context.
+They are yellow because components only depend on interfaces (bases can also depend on other bases).
+Each `x` is a `src` dependency, while a `t` means that we only use code from the `test` context
+(code that lives in any of the directories specified in `:aliases > :test > :extra-paths`).
 
 If we read the diagram horizontally,
 we can see that the `article` component uses the `database`, `profile`, and `spec` interfaces.
 If we read it vertically, we can see that the `article` is used by the `comment` and `rest-api` bricks.
 
-This is also what is shown if we specify article as brick:
+This is also what is shown if we specify `article` as brick:
 
 [source,shell]
 ----
@@ -121,25 +122,26 @@ image::images/dependencies/deps-brick-project.png[width=350]
 
 == Namespace access restrictions
 
-In Polylith there are restrictions on how we can access namespaces of other bricks:
+The `poly` tool introduces restrictions on how we can access namespaces of other bricks:
 
+[%autowidth]
 |===
-| Entity | Restrictions from `:src` context | Restrictions from `:test` context
+| Entity | Restrictions from the `:src` context | Restrictions from the `:test` context
 
 | Component | Can only access xref:interface.adoc[interface] namespaces, but no other `brick` namespace. |
-Can access any _brick_ namespace.
+Can access any namespace.
 | Base | Can access xref:interface.adoc[interface] namespaces, but no other component namespaces.
-Can access any `base` namespace. | Can access any `brick` namespace.
+Can access any `base` namespace. | Can access any namespace.
 | Project | Can access any namespace. | Can access any namespace.
 |===
 
 Allowing deployable projects to have their own `src` directory and put code there is discouraged.
 One reason is that it violates the whole LEGO idea,
-and the other is that the `poly` tool doesn't force us to only use interfaces from project code (this may change in the future).
+and the other is that the `poly` tool doesn't force us to only use interfaces from project code.
 
 An exception could be if we want to migrate services to Polylith.
 Then the code can start in the project and then gradually move out to bricks,
-but in that case it's probably better to put everything in a single base instead,
+but in that case it's probably better to put all code in a single base,
 as suggested in https://polylith.gitbook.io/polylith/conclusion/should-you-convert-your-system[Transitioning to Polylith]
 in the high-level documentation.
 
@@ -153,6 +155,6 @@ and depend on that component's interface.
 == Circular dependencies
 
 The `poly` tool is checking for circular dependencies.
-If we have a dependency chain like `A` > `B` > `A`, or `A` > `B` > `C` > `A`,
+If we have a dependency chain like A > B > A, or A > B > C > A,
 then we will get an "Error 104 - Circular dependencies".
-To read more about this and other errors, we can execute the xref:commands.adoc#check[check] command.
+To read more about this and other errors, execute the xref:commands.adoc#check[check] command.

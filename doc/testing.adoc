@@ -54,7 +54,7 @@ To demonstrate how the tool handles failing tests, let's change the `core` names
 
 ====
 NOTE: If you are a Cursive user and the test doesn't run at all, you may need to manually set the module to
-the root module (`example` in this case). This is reported as a Cursive https://github.com/cursive-ide/cursive/issues/2828[issue].
+the root module (`example` in this case). This is reported to Cursive as issue https://github.com/cursive-ide/cursive/issues/2828[2828].
 ====
 
 Now we can run the test from the IDE:
@@ -158,7 +158,7 @@ poly info :dev
 
 image::images/testing/info-dev.png[width=400]
 
-Now both the `development` and the `command-line` project is marked for test execution.
+Now both the `command-line` and the `development` project is marked for test execution.
 
 == Test Filters
 
@@ -166,7 +166,8 @@ Now both the `development` and the `command-line` project is marked for test exe
 
 We can narrow the number of projects we want to test by passing in e.g. `project:dev` or `project:cl:dev`
 (both project alias and name can be used).
-If `development` is given, it will automatically be included as if `:dev` was passed in:
+
+If only `:dev` is given, then only the `development` project will be included:
 
 [source,shell]
 ----
@@ -174,6 +175,8 @@ poly info project:dev
 ----
 
 image::images/testing/info-project-dev.png[width=400]
+
+But if we want to get the same behaviour as `poly info :dev` we need to list all projects + `development`:
 
 [source,shell]
 ----
@@ -237,7 +240,7 @@ which can be useful in combination with `:project` or `:all` to execute only the
 
 == Project tests
 
-Before we execute any tests, let's add a project test for the `command-linev project.
+Before we execute any tests, let's add a project test for the `command-line` project.
 
 Begin by adding a `test` directory for the `command-line` project:
 
@@ -303,7 +306,7 @@ If we execute the xref:commands.adoc#info[info] command:
 image::images/testing/info-project-dir.png[width=400]
 
 ...the `command-line` project is marked as changed and flagged as `-t-` telling us that it now has a `test` directory.
-The `-t-` in the dev column says that it has been added to the development project.
+The `-t-` in the `dev` column says that it has been added to the `development` project.
 The reason it's not tagged as `-tx` is that project tests are not marked to be executed
 without explicitly telling them to, by passing in `:project`.
 
@@ -384,7 +387,7 @@ If we execute the xref:commands.adoc#info[info] command again:
 
 image::images/testing/info-added-tests.png[width=400]
 
-...the * signs are now gone and nothing is marked to be tested.
+...the `*` signs are now gone and nothing is marked to be tested.
 
 The tool only executes tests if a brick is directly or indirectly changed.
 A way to force it to test all bricks is to pass in `:all-bricks`:
@@ -396,12 +399,12 @@ poly info :all-bricks
 
 image::images/testing/info-all-bricks.png[width=400]
 
-Now all the brick tests are marked to be executed, except for the development project.
-To include dev, also add `:dev`:
+Now all the brick tests are marked to be executed, except for the `development` project.
+To include it, also add `:dev`:
 
 image::images/testing/info-all-bricks-dev.png[width=400]
 
-To include all brick and project tests (except `dev`) we can type:
+To include all brick and project tests (except `development`) we can type:
 
 [source,shell]
 ----
@@ -419,8 +422,8 @@ poly info :all :dev
 
 image::images/testing/info-all-dev.png[width=400]
 
-Running the brick tests from the `development` projects are something we don't normally need to do,
-at least not if we have production projects, but it's good to know that it's supported.
+Running the brick tests from the `development` projects are something we normally only want to do
+in the beginning, before any production projects have been added.
 
 Now let's see if it actually works:
 
@@ -622,9 +625,8 @@ A good example is the polylith codebase itself, where `workspace.edn` looks simi
 [source,clojure]
 ----
 ...
-  :projects {"api" {:alias "api" :test []}
-             "poly" {:alias "poly"}
-             "polyx" {:alias "poly" :test []}
+  :projects {"poly" {:alias "poly"}
+             "polyx" {:alias "polyx" :test []}
              "development" {:alias "dev"}
              ...
 ----
@@ -636,41 +638,39 @@ This is only a good idea if we are pretty sure that our bricks behave the same i
 which is true in this case.
 
 Note that if a brick is excluded by using `:include` or `:exclude`,
-they will never be tested from that project even if we pass in `:all`.
+it will never be tested from that project even if we pass in `:project` or `:all` to the command.
 
 == Summary
 
 Let's summarise the different ways to run the tests.
-The brick tests are executed from all projects they belong to except for the development project
+The brick tests are executed from all projects they belong to except for the `development` project
 (if `:dev` is not passed in):
 
 |===
 | Command | Tests to execute
 
-| poly test | All brick tests that are directly or indirectly changed.
-| poly test :project | All brick tests that are directly or indirectly changed + tests for changed projects.
-| poly test :all‑bricks | All brick tests.
-| poly test :all | All brick tests + all project tests (except `development`), executed from all projects.
+| `poly test` | All brick tests that are directly or indirectly changed.
+| `poly test :project` | All brick tests that are directly or indirectly changed + tests for changed projects.
+| `poly test :all‑bricks` | All brick tests.
+| `poly test :all` | All brick tests + all project tests (except `development`), executed from all projects.
 |===
 
-To also execute the brick tests from the `development` project, pass in `:dev`:
+To also execute the brick tests from the `development` project, we can pass in `:dev`:
 
 |===
 | Command | Tests to execute
 
-| poly test :dev | All brick tests that are directly or indirectly changed, executed from all projects (`development` included).
-| All brick tests that are directly or indirectly changed, executed from all projects (`development` included). |
-All brick tests that are directly or indirectly changed, executed from all projects (`developmentv included) +
-tests for changed projects (development included).
-| poly test :all‑bricks :dev | All brick tests, executed from all projects (`development` included).
-| poly test :all :dev | All brick tests, executed from all projects (`development` included) + all project tests (`development` included).
+| `poly test :dev` | All brick tests that are directly or indirectly changed, executed from all projects (`development` included).
+| `poly test :project :dev` | All brick tests that are directly or indirectly changed, executed from all projects (`development` included).
+| `poly test :all‑bricks :dev` | All brick tests, executed from all projects (`development` included).
+| `poly test :all :dev` | All brick tests, executed from all projects (`development` included) + all project tests (`development` included).
 |===
 
 Projects can also be explicitly selected with e.g. `project:proj1` or `project:proj1:proj2`.
 
 We can also filter which bricks to run the tests for with e.g. `brick:b1` or `brick:b1:b2`.
 
-Remember that executing the info command is a good way to get an overview of what tests will be run.
+Remember that executing the xref:commands.adoc#info[info] command is a good way to get an overview of what tests will be run.
 
 == How tests are executed
 
@@ -680,8 +680,8 @@ When doing that, the project must be set up in a way that it's 100% compatible w
 This is also the reason we have to add the test paths explicitly in `./deps.edn`
 which gives us access to the tests from the REPL.
 
-The `./deps.edn` config file sets up all our paths and dependencies, and when we include the dev and test aliases
-(and sometimes xref:profile.adoc[profile] aliases, described in the next section)
+The `./deps.edn` config file sets up all our paths and dependencies, and when we include the `:dev` and `:test` aliases
+(and sometimes xref:profile.adoc[profile] aliases)
 we inform tools.deps what source code and libraries should be accessible from our IDE and REPL.
 When this is set up correctly, we are also able to run our tests from the REPL,
 which will have access to all `test` and `src` code.
@@ -689,16 +689,16 @@ Libraries that are defined in the `src` context will therefore automatically be 
 Additional libraries that are only used from the tests should be defined in the `test` context.
 
 When we run the `test` command, the tool will detect which components, bases and projects
-have been affected since the last stable point in time.
+have been affected since the _last stable point in time_.
 Based on this information, it will go through all the affected projects, one at a time,
 and run the component, base, and project tests that are included in each project.
 
 This set of tests will be executed in isolation from its own classloader which will speed up the test execution
 and make it more reliable. Libraries from both the `src` and `test` context
 (and libraries that they depend on) will be used when the tests are executed.
-The development project can also be used to run tests, but that's not its main purpose.
+The `development` project can also be used to run tests, but that's not its main purpose.
 
-If the projects A, B, C and D are included in the test run and if a test in B fails (or a project setup or teardown)
+If the projects A, B, C and D are included in the test run and if a test in B fails (or a project test setup or teardown)
 then the whole test run will stop, and no tests are executed for C or D.
 
 The libraries to use in each project when running the `poly test` command
@@ -711,7 +711,8 @@ At the project level we only need to define the libraries that are not defined i
 (specified by its `:deps` key) which can be libraries like clojure itself, `org.clojure/clojure`,
 that we don't want to repeat in all our bricks.
 
-If we have a brick like _datomic-ions_, we can specify which repository it needs, like this.
+If we have a brick like `datomic-ions`, we can specify which repository it needs, like
+https://github.com/polyfy/polylith/blob/edaef89207c2852010132e863ae87ebba5bedc5b/examples/local-dep/components/datomic-ions/deps.edn#L1[this].
 We can verify that the repo is picked up by the brick by executing `poly ws get:components:datomic-ions:maven-repos`:
 
 [source,clojure]
@@ -719,7 +720,7 @@ We can verify that the repo is picked up by the brick by executing `poly ws get:
 {"datomic-cloud" {:url "s3://datomic-releases-1fc2183a/maven/releases"}}
 ----
 
-...and used by the _invoicing_ project by executing `poly ws get:projects:invoicing:maven-repos`:
+...and that it's used by the `invoicing` project by executing `poly ws get:projects:invoicing:maven-repos`:
 
 [source,clojure]
 ----
@@ -728,7 +729,7 @@ We can verify that the repo is picked up by the brick by executing `poly ws get:
  "datomic-cloud" {:url "s3://datomic-releases-1fc2183a/maven/releases"}}
 ----
 
-Every project that uses the _datomic-ions_ brick will now also include the _datomic-cloud_ repository.
+Every project that uses the _datomic-ions_ brick will now also include the `datomic-cloud` repository.
 
 == Troubleshooting
 
@@ -750,6 +751,7 @@ poly test :verbose
 
 == Long living shell sessions
 
-If you let the same xref:shell[shell] session live for a long time, you may get _classloader_ errors when running the
-xref:testing.adoc[test] command. The solution is to restart the shell or by running the tests outside the shell,
-e.g. `poly test`. Another solution can be to switch to a more isolated xref:test-runners.adoc[test runner].
+If you let the same xref:shell[shell] session live for a long time, you may get `classloader` errors
+after a while, when running the xref:testing.adoc[test] command.
+The solution is to restart the shell or to only run the tests outside the shell, e.g. `poly test`.
+Another solution can be to switch to a more isolated test runner.

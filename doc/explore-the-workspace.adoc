@@ -207,8 +207,6 @@ poly info ws-file:ws.edn
 
 This will give the exact same output as if we execute `poly info` on the machine that created `ws.edn`.
 All commands except `test` and `create` can be executed when `ws-file` or `ws-dir` is given.
-If we run commands in a shell,
-then `switch-ws file:ws.edn` will add `ws-file:ws.edn` to all subsequent commands to get the same result.
 
 Here is an example where we inspect the arguments used to produce the file:
 

@@ -14,7 +14,7 @@ image::images/doc/poly-readme.png[width=600]
 
 // Todo: explain the different parts of the page
 
-By using the xref:commands.adoc#doc[doc] command, we can open different pages listed in the left menu by giving a page, e.g.:
+By using the xref:commands.adoc#doc[doc] command, we can open different pages, listed in the left menu, by giving a page, e.g.:
 
 [source,shell]
 ----
@@ -39,17 +39,16 @@ example$ doc
 help   more   page   ws
 ----
 
-Let's dig into these categories.
+Let's dig into these four categories.
 
 == page
 
-The `page` parameter is used to navigate the `poly` tool documentation.
-We can pass in `page:` to list all pages we find in the left menu (notice that it ends with a `:`):
+The `page` parameter is used to navigate the `poly` tool documentation, as we have already mentioned.
+We can pass in `page:` to list all pages, which are also accessible in the left menu (notice that it ends with a `:`):
 
 [source,shell]
 ----
 example$ doc page:
-polylith$ doc page:
 base                     libraries
 build                    migrate
 clojure-cli-tool         naming
@@ -71,8 +70,6 @@ interface                workspace
 introduction
 ----
 
-This lists all the pages of the `poly` tool documentation, also found in the left menu.
-
 If we select a page, it will be opened in a browser on your machine, e.g.:
 
 [source,shell]
@@ -82,7 +79,7 @@ doc page:flags
 
 == help
 
-The `help` parameter takes us to the xref:commands.adoc[commands] help:
+The `help` parameter takes us to the xref:commands.adoc[commands] help page:
 
 [source,shell]
 ----
@@ -112,7 +109,8 @@ example$ doc help:check
 ----
 
 ...which take us to the web based help for the xref:commands.adoc#check[check] command.
-The content of this help is taken from the output of the help for that command:
+
+The content is the same as the output from the selected help command (`check` in this case):
 
 [source,shell]
 ----
@@ -141,7 +139,7 @@ interfaces     settings       ws-type
 messages       user-input
 ----
 
-...and then go to the description for one of the top keys, e.g.:
+...and open the description for a specific top key, e.g.:
 
 [source,shell]
 ----
@@ -150,7 +148,7 @@ example$ doc ws:configs
 
 == more
 
-The _more_ parameter stores all other documentation that is not exclusively about the `poly` tool:
+The `more` parameter stores all other documentation that is not exclusively about the `poly` tool:
 
 [source,shell]
 ----
@@ -196,7 +194,7 @@ https://github.com/tengstrand[Joakim Tengstrand] explains the foundational conce
 
 === high-level
 
-The high-level documentation can be accessed with:
+The high-level documentation can be opened with:
 
 [source,shell]
 ----
@@ -208,12 +206,23 @@ We can list all pages in the left menu with:
 [source,shell]
 ----
 example$ doc more:high-level:
-advantages-of-polylith      faq                         transitioning-to-polylith
-base                        polylith-in-a-nutshell      videos
-bring-it-all-together       production-systems          who-made-this
-component                   project                     why-the-name-polylith
-current-architectures       simplicity                  workspace
-development-project         tool
+advantages-of-polylith
+base
+bring-it-all-together
+component
+current-architectures
+development-project
+faq
+polylith-in-a-nutshell
+production-systems
+project
+simplicity
+tool
+transitioning-to-polylith
+videos
+who-made-this
+why-the-name-polylith
+workspace
 ----
 
 ...and e.g. open the https://polylith.gitbook.io/polylith/conclusion/faq[FAQ] page:
@@ -224,6 +233,15 @@ example$ doc more:high-level:faq
 ----
 
 === podcasts
+
+We can open the
+https://podcasts.apple.com/se/podcast/s4-e21-polylith-with-joakim-james-and-furkan-part-1/id1461500416?i=1000505948894[first episode]
+of the only podcast we have with:
+
+[source,shell]
+----
+example$ doc more:podcasts:polylith-with-joakim-james-and-furkan:part1
+----
 
 [%autowidth]
 |===

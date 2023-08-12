@@ -2,6 +2,7 @@
 
 Libraries are specified in `deps.edn` for each component, base, and project:
 
+[%autowidth]
 |===
 | Entity | Scope | Location
 
@@ -25,9 +26,9 @@ poly libs
 
 image::images/libraries/libs.png[]
 
-An  `x` means that the library is added to the `src` context, while `t` means that it's only used from the `testv context.
+An  `x` means that the library is added to the `src` context, while `t` means that it's only used from the `test` context.
 
-We can list the outdated libraries by passing in _:outdated_ (which uses https://github.com/liquidz/antq[antq] internally):
+We can list the outdated libraries by passing in `:outdated` (which uses https://github.com/liquidz/antq[antq] internally):
 
 [source,shell]
 ----
@@ -38,6 +39,7 @@ image::images/libraries/libs-outdated.png[]
 
 Libraries can be specified in three different ways in tools.deps:
 
+[%autowidth]
 |===
 | Type | Description
 
@@ -53,7 +55,7 @@ Example: `clj-time/clj-time {:git/url "https://github.com/clj-time/clj-time.git"
 where the key must match the path for the library in `~/.gitlibs/libs` (to be able to calculate the KB column).
 |===
 
-The KB column shows the size of each library in kilobytes.
+The `KB` column shows the size of each library in kilobytes.
 If you get the key path wrong or if the library hasn't been downloaded yet, then it will appear as `-`.
 One way to solve this is to force dependencies to be downloaded by executing something like this from the workspace root:
 
@@ -75,7 +77,7 @@ As long as you run the tests with the built-in xref:commands.adoc#test[test] com
 
 ==== Brick libraries
 
-The brick columns are marked with an `x`_ if the library is used by the `src` code and with a `t` if it's only used by the `test` code.
+The brick columns are marked with an `x` if the library is used by the `src` code and with a `t` if it's only used by the `test` code.
 
 ==== Project libraries
 
@@ -105,10 +107,11 @@ If we now run the libs command:
 image::images/libraries/libs-override-deps.png[]
 
 ...we will have two versions of `clj-time` where the `realworld-backend` project uses `0.15.1`
-and the `user` component uses `0.15.2`.
+and the components use `0.15.2`.
 
 Here are all the places where libraries can be overridden:
 
+[%autowidth]
 |===
 | Entity | Scope | Location
 
@@ -126,5 +129,10 @@ If a library is overridden in the `test` scope it will only affect the `test` sc
 
 If we have a lot of libraries, we can choose a more compact format by setting `:compact-views` to `#{"libs"}`
 in `./workspace.edn` or by passing in `:compact`:
+
+[source,shell]
+----
+poly libs :compact
+----
 
 image::images/libraries/libs-compact.png[]

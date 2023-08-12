@@ -96,7 +96,7 @@ It's also possible to ignore files in projects, e.g.:
 }
 ----
 
-Which will ignore all files with the name "test_setup.clj" or files that end with "/test-setup.clj" in the `command-line` project.
+Which will ignore all files with the name "test_setup.clj" or files that end with "/test_setup.clj" in the `command-line` project.
 
 The https://github.com/polyfy/polylith/blob/master/examples/doc-example/projects/command-line/test/project/command_line/test_setup.clj[test-setup]
 namespace in the `command-line` project will be ignored, and `:is-ignored` will be set to `true` for the namespace:
@@ -118,7 +118,7 @@ poly ws get:projects:command-line:namespaces:test:project.command-line.test-setu
 [#warning206]
 === Warning 207 - Unnecessary components were found in project
 
-If there are any unnecessary components in a project (i.e. that are not used by any of the bricks in the project),
+If there are any unnecessary components in a project (i.e. that are not used by any of the bricks in the project)
 then xref:commands.adoc#check[check] will return `Warning 207 - Unnecessary components were found in project`.
 
 By default, xref:commands.adoc#check[check] only runs for projects under the `projects` directory.

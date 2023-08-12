@@ -81,7 +81,7 @@ No interfaces are imported from the test context in this example.
 
 * `:lib-deps` Lists the library dependencies this base depends on,
 defined in the `:deps` key in its `deps.edn` file for the `src` context,
-and the `:aliases` > `:testv > `:extra-deps` for the `test` context.
+and the `:aliases` > `:test` > `:extra-deps` for the `test` context.
 The `:size` is in bytes.
 
 * `:lib-imports` The name is a bit misleading as internal namespaces for the base is also included.
@@ -96,10 +96,10 @@ The `:size` is in bytes.
 ** `:src` Lists all the namespaces that live under the src directory.
 *** `:file-path` The absolute path to the namespace.
 *** `:imports` Lists all its namespaces.
-*** `:is-ignored` Set to true if the namespace is ignored
+*** `:is-ignored` Set to `true` if the namespace is ignored
 (by specifying it in the key `:ignored-files` in `workspace.edn`.
-If ignored, then xref:validations.adoc#warning206[_warning 206 - Unreadable namespace_] will not be triggered.
-*** `:is-invalid` Set to true if the namespace is missing or if the file can't be parsed.
+If ignored, then xref:validations.adoc#warning206[warning 206 - Unreadable namespace in brick/project] will not be triggered.
+*** `:is-invalid` Set to `true` if the namespace is missing or if the file can't be parsed.
 *** `:name` The name of the namespace where top namespace + base name (`se.example` + `user-api` in this case) have been stripped away.
 *** `:namespace` The full name of the namespace.
 ** `:test` Lists all the namespaces that live under the test directory (same keys as for the `:src`).
@@ -185,7 +185,7 @@ A project will be marked as changed if a file in its project directory has chang
 
 * `:project-to-indirect-changes` A map that stores project names with a list of the bricks that are indirectly changed
 (directly changed bricks excluded). E.g. if components `a` and `b` are included in the project,
-and `a` has not changed, but `b` has changed and `a` uses `b`, then `bv will be included in the list.
+and `a` has not changed, but `b` has changed and `a` uses `b`, then `b` will be included in the list.
 
 * `:project-to-projects-to-test` A map that stores project names with a list of projects to test from that project
 if executing the xref:commands.adoc#test[test] command.
@@ -231,7 +231,7 @@ poly ws get:components:user
  :type "component"}
 ----
 
-Component keys are the same as for the base, except that it doesn't have `:base-deps`, plus the `:interfaces` key:
+Component keys are the same as for the base plus the `:interfaces` key, except that it doesn't have `:base-deps`:
 
 * `:interface`
 ** `:definitions` Lists all public `def`, `defn` and `defmacro` definitions in the interface namespace.
@@ -258,12 +258,12 @@ and the `:aliases` > `:test` > `:extra-deps` for the `test` context. The `:size`
 ** `:src` Lists all the namespaces that live under the src directory.
 *** `:file-path` The absolute path to the namespace.
 *** `:imports` Lists all its namespaces.
-*** `:is-ignored` Set to true if the namespace is ignored
+*** `:is-ignored` Set to `true` if the namespace is ignored
 (by specifying it in the key `:ignored-files` in workspace.edn.
-If ignored, then "warning 206 - Unreadable namespace" will not be triggered.
-*** `:is-invalid` Set to true if the namespace is missing or if the file can't be parsed.
+If ignored, then xref:validations.adoc#warning206[warning 206 - Unreadable namespace in brick/project] will not be triggered.
+*** `:is-invalid` Set to `true` if the namespace is missing or if the file can't be parsed.
 *** `:name` The name of the namespace where top namespace + base name
-(`se.example` + user-api in this case) have been stripped away.
+(`se.example` + `user-api` in this case) have been stripped away.
 *** `:namespace` The full name of the namespace.
 ** `:test` Lists all the namespaces that live under the test directory (same keys as for the `:src`).
 * `:non-top-namespace` If the base contains any non-top namespaces, they will be stored in a vector with elements like this:
@@ -444,7 +444,7 @@ poly ws get:old ws-file:ws.edn
 ----
 {:user-input {:args ["ws" "out:ws.edn"],
               :cmd "ws",
-              :is-all false,
+              :is-all `true`,
               :is-dev false,
               :is-latest-sha false,
               :is-no-exit false,
@@ -588,7 +588,7 @@ translated to the components in the project, e.g. ["a" "b" "c" "a"] from the `:s
 **** `:indirect` A vector containing missing interface and brick names, that are indirectly accessed from the `:src` directory.
 ** `:test` Keeps track of the dependencies from the `:test` context, with the same set of keys as the `:src` context.
 
-* `:is-dev` Set to true for the development project.
+* `:is-dev` Set to `true` for the development project.
 
 * `:lib-deps`
 ** `:src` Stores a map with the libraries that are used in the project for the src context.
@@ -596,7 +596,7 @@ translated to the components in the project, e.g. ["a" "b" "c" "a"] from the `:s
 *** `:type` The type of the library, "maven", "local" or "git" (`:mvn/version`, `:local/root` and `:git/url`).
 *** `:version` The library version:
 **** if type is `maven` then version is set to `groupId/artifactId`.
-**** if type is `local` then the version is set to -.
+**** if type is `local` then the version key is excluded (a `-` is shown in the output from the xref:commands.adoc#libs[libs] command).
 **** if type is `git` then the version is set to the first seven characters in the `sha`.
 ** `:test` Stores a map with the libraries that are used in the project for the test context.
 
@@ -618,10 +618,10 @@ If `:mvn/repos` is specified by a brick that is included in this project, then i
 ** `:src` Lists all the namespaces that live under the src directory.
 *** `:file-path` The absolute path to the namespace.
 *** `:imports` Lists all its namespaces.
-*** `:is-ignored` Set to true if the namespace is ignored
+*** `:is-ignored` Set to `true` if the namespace is ignored
 (by specifying it in the `:ignored-files` key in `workspace.edn`.
-If ignored, then "warning 206 - Unreadable namespace" will not be triggered.
-*** `:is-invalid` Set to true if the namespace is missing or if the file can't be parsed.
+If ignored, then xref:validations.adoc#warning206[warning 206 - Unreadable namespace in brick/project] will not be triggered.
+*** `:is-invalid` Set to `true` if the namespace is missing or if the file can't be parsed.
 *** `:name` The name of the namespace where top namespace + component name (`se.example` + `user` in this case) are stripped away.
 *** `namespace` The full name of the namespace.
 ** `:test` Lists all the namespaces that live under the `test` directory (same keys as for the `:src`).
@@ -713,7 +713,7 @@ e.g.: `["myfile.clj" "myns/another_file.clj" "com/myns/a-thrird-file.clj"]`. See
 e.g.: `["myfile.clj" "myns/another_file.clj" "com/myns/a-thrird-file.clj"]`.
 All files ending with the specified files () will be ignored, or to be exact,
 if it's an exact match or if it ends with `/` + the string. Dashes (-) will be replaced by underscores (_).
-** `:necessary` If we get warning 206 (Unreadable namespace in brick/project)
+** `:necessary` If we get xref:validations.adoc#warning206[warning 206 - Unreadable namespace in brick/project]
 and know that the brick(s) has to be included in the project,
 then we can add the necessary bricks(s) to the project in a vector for this key.
 ** `:test`
@@ -853,7 +853,7 @@ instead of e.g. "polyx 0.2.18-issue318-02".
 
 * `:is-git-add` Used by the xref:commands.adoc#create-component[create component],
 xref:commands.adoc#create-base[create base] and xref:commands.adoc#create-project[create project] commands
-to add created files to git. Has the same effect for current command as if `:vcs:` > `:auto-add` was set to `true`
+to add created files to git. Has the same effect for current command as if `:vcs` > `:auto-add` was set to `true`
 in `workspace.edn`.
 
 * `:is-latest-sha` Set to `true` if `:latest-sha` is given.

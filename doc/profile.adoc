@@ -4,9 +4,9 @@ When working with a Polylith system, we want to keep everything as simple as pos
 The Lego-like way of organising code into bricks, helps us with both of these goals.
 
 One problem we normally have when developing software without using Polylith,
-is that the production environment and the development environment has a 1:1 relationship.
+is that the production environment and the development environment have a 1:1 relationship.
 This happens because we use the production codebase for development, so if we create a new service in production,
-it will automatically "turn up" in the development project.
+it will automatically turn up in the development project.
 
 In Polylith we avoid this problem by separating the development project from production.
 Thanks to components, we can create any project we want by putting the bricks we need into one place.
@@ -57,11 +57,11 @@ in a simple way.
 
 Let's create a checklist that will take us there:
 
-1. Create the user-api base.
-2. Create the user-remote component.
-3. Switch from user to user-remote in deps.edn for the command-line project.
-4. Create the user-service project.
-5. Build user-service.
+1. Create the `user-api` base.
+2. Create the `user-remote` component.
+3. Switch from `user` to `user-remote` in `deps.edn` for the `command-line` project.
+4. Create the `user-service` project.
+5. Build `user-service`.
 
 Let's go through the list.
 
@@ -70,7 +70,7 @@ Let's go through the list.
 - Create the base.
 - Add the slacker library to the base.
 - Add the base to `./deps.edn`.
-- Implement the server for user-api:
+- Implement the server for `user-api`:
 
 Execute this statement:
 
@@ -143,9 +143,9 @@ example
 - Create the component.
 - Add the slacker library to the component.
 - Remove user from `./deps.edn`.
-- Create the default and remote profiles.
-- Activate the remote profile in the IDE.
-- Activate the default profile in the REPL configuration.
+- Create the `default` and `remote` profiles.
+- Activate the `remote` profile in the IDE.
+- Activate the `default` profile in the REPL configuration.
 - Implement the component.
 
 Create the component:
@@ -190,8 +190,8 @@ Add the `default` and `remote` profiles to `./deps.edn`:
                      :extra-paths ["components/user-remote/test"]}
 ----
 
-Notice here that the profiles contain both `src` and `testv directories.
-This works as profiles are only used from the development project.
+Notice here that the profiles contain both `src` and `test` directories.
+This works as profiles are only used from the `development` project.
 
 The next step is to activate the `remote` profile in our IDE:
 
@@ -225,7 +225,7 @@ example
     (hello-remote name)))
 ----
 
-...and update the interface namespace:
+...and update the `interface` namespace:
 
 // scripts/sections/profile/user-remote-interface.clj
 [source,clojure]
@@ -241,7 +241,14 @@ Edit the REPL configuration:
 
 image::images/profile/edit-repl-config.png[width=250]
 
-...and add the `default` profile to Options: `--A:dev:test:build:+default`
+...and add the `default` profile to Options: `-A:dev:test:build:+default`
+
+====
+NOTE: In the beginning we added `-A:dev:test` when we configured the REPL.
+Alternatively we could have added `-A:dev:test:build:+default`;
+this is a good idea because now we don't have to remember to add the aliases later.
+Any unused aliases are ignored by tools.deps.
+====
 
 The reason we have to do this, is because we removed the `user` component
 from `./deps.edn` and now we have to add it via a profile instead.
@@ -255,11 +262,11 @@ Normally we don't have to do that, but when adding profiles it's necessary.
 
 === 3. Switch from user to user-remote in deps.edn for the command-line project
 
-- Replace user with user-remote for the command-line project.
-- Add the log4j library to deps.edn for command-line.
+- Replace `user` with `user-remote` for the `command-line` project.
+- Add the `log4j` library to `deps.edn` for `command-line`.
 - Create a command-line uberjar.
 
-Update the configuration file for the command-line project:
+Update the configuration file for the `command-line` project:
 
 [source,shell]
 ----
@@ -271,7 +278,7 @@ example
 
 Replace `user` with `user-remote`, and add the `log4j` library (to get rid of warnings)
 in `projects/command-line/deps.edn`
-(it's okay to keep `poly/user name`, because it's also the name of the interface that both `user` and `user-remote` share):
+(it's okay to keep the interface name `poly/user`, because it's unique within the project):
 
 [source,clojure]
 ----
@@ -293,8 +300,8 @@ clojure -A:deps -T:build uberjar :project command-line
 
 * Create the project.
 * Update its `deps.edn`:
-  - Add dependency to the user component.
-  - Add dependency to the user-api base.
+  - Add dependency to the `user` component.
+  - Add dependency to the `user-api` base.
   - Add the uberjar alias.
 * Add the `cl` alias for the `user-service` in `workspace.edn`.
 
@@ -353,11 +360,12 @@ java -jar user-service.jar
 
 Now when we have a running service, we could test if we can call it from the REPL.
 We activated the remote profile in our IDE earlier, which made the `user-remote` component active.
+
 Note that this only instructs the IDE to treat `user-remote` as source code:
 
 image::images/profile/user-and-user-remote.png[width=200]
 
-...but it _doesn't_ load its source code into the REPL!
+...but it *doesn't* load its source code into the REPL!
 
 We can verify this by adding this code to `development/src/dev/lisa.clj`:
 
@@ -393,7 +401,7 @@ But let's continue with the REPL that is already running and see if we can switc
 
 Open the `core` namespace of the `user-remote` component and select `Tools` > `REPL` > `Load file in REPL`.
 This will replace the `user` implementation with the `user-remote` component,
-which works because both live in the same `se.example.userv namespace, which is also their interface (`user`).
+which works because both live in the same `se.example.userv` namespace, which is also their interface (`user`).
 
 If we execute the `hello` function agan from `dev.lisa`, we should get:
 
@@ -430,12 +438,12 @@ poly info +
 
 // compare-with-target-design.png is manually created by putting all-aliases.png and target-design.png side by side.
 
-image::images/profile/compare-with-target-design.png[width=600]
+image::images/profile/compare-with-target-design.png[]
 
 Looks like we got everything right!
 
 The profile flags, `st`, follow the same pattern as for bricks and projects
-except that the last "Run the tests" flag is omitted.
+except that the last "Run the tests" `x` flag is omitted.
 
 This example was quite simple, but if our project is more complicated,
 we may want to manage state during development with a tool like
@@ -455,7 +463,7 @@ poly info +remote
 
 image::images/profile/info-with-remote-profile.png[width=500]
 
-Now the `remote` profile is included in the `development` project and listed after active profiles.
+Now the `remote` profile is included in the `development` project and listed after `active profiles`.
 
 It's possible to give more than one profile:
 
