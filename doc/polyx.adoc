@@ -4,7 +4,8 @@ Since version `0.2.18`, we have the new `polyx` tool which can do everything tha
 plus create images from different commands.
 One more difference is that it's not released as an AOT compiled, stand-alone tool, as `poly` is.
 
-If we want to use `polyx`, then we need to add it as an alias to `./deps.edn`:
+If we want to use `polyx`, then we need to add it as an alias to `./deps.edn`, e.g. by copying
+the existing `:poly` alias and modifying it slightly:
 
 [source,clojure]
 ----
@@ -23,17 +24,18 @@ clojure -M:polyx
 ----
 
 Let's create an image by running the xref:commands.adoc#info[info] command
-(xref:commands.adoc#[deps] and xref:commands.adoc#libs[libs] are also supported):
+(which can also be done from the xref:commands.adoc#[deps] and xref:commands.adoc#libs[libs] commands):
 
 [source,shell]
 ----
 example$ info out:info.png
 ----
 
-This will create the `info.png` image containing the output from the info command.
+This will create the `info.png` image containing the output from the xref:commands.adoc#info[info] command.
 If the file ends with any of the file formats listed
 https://clojure2d.github.io/clojure2d/docs/codox/clojure2d.core.html#var-img-writer-formats[here]
-then an image will be created in the specified format, but if it ends with `.txt` then a text file is created:
+then an image will be created in the specified format,
+but if it ends with something else, e.g. `.txt`, then a text file is created:
 
 [source,shell]
 ----
@@ -103,7 +105,8 @@ This image can be used in our documentation to get an overview of the workspace.
 ====
 NOTE: There are issues reported for Apple silicon when using
 https://en.wikipedia.org/wiki/Abstract_Window_Toolkit[Java AWT]
-(used by the underlying https://github.com/Clojure2D/clojure2d[clojure2d] library)
+(used by the underlying https://github.com/Clojure2D/clojure2d[clojure2d] library
+that we use to create the pictures)
 which is one of the reasons we don't include support for creating images in the `poly` tool.
 Another source of trouble may be that `polyx` starts a Java process: +
 image:images/polyx/java.png[]

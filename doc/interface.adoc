@@ -2,7 +2,7 @@
 
 Component interfaces give a number of benefits:
 
-* _Single point of access_. Components can only be accessed through their interface, which makes them easy to find, use and reason about.
+* _Consistency_. Components can only be accessed through their interface, which makes them easy to find, use and reason about.
 
 * _Encapsulation_. All the implementing namespaces for a component can be changed without breaking the interface contract.
 
@@ -12,7 +12,7 @@ When we created the `user` component, the `user` interface was also created.
 
 So what is an `interface` and what is it good for?
 
-An interface in the Polylith world is a namespace named `interfacev that often lives in one but sometimes several namespaces within a component.
+An interface in the Polylith world is a namespace named `interface` that often lives in one but sometimes several namespaces within a component.
 To be exact, the full interface name is `user.interface` in this example.
 It defines a number of `def`, `defn` or `defmacro` statements which forms the contract that it exposes to other components and bases.
 
@@ -46,7 +46,7 @@ containing the functions `fun1` and `fun2` and that two components "implement" t
   ...
 ----
 
-Now we are free to edit the `interface.cljv file for both `user` and `admin`,
+Now we are free to edit the `interface.clj` file for both `user` and `admin`,
 which means they can get out of sync if we are not careful enough.
 Luckily, the Polylith tool will help us keep them consistent, and complain if they differ when we run the
 xref:commands.adoc#check[check], xref:commands.adoc#info[info] or xref:commands.adoc#test[test] commands.
@@ -99,7 +99,7 @@ namespace in `rest-api`:
 Every time you think of splitting up the interface,
 keep in mind that it may be an indicator that it's instead time to split up the component into smaller components!
 
-== Delegate
+== Delegation
 
 The most common way of structuring code in components is to delegate calls from the interface to one or more implementing namespaces.
 There is a situations when putting everything in the interface can be worth considering,
@@ -157,8 +157,8 @@ that allows some parameters to be passed in as nil.
 * If using http://clojure-doc.org/articles/language/functions.html#variadic-functions[variadic functions]
 in the interface, a simplification is to pass in what comes after `&` as a vector to the implementing function.
 
-* Testing is simplified by allowing access to implementing namespaces from the _test_ directory.
-The code under the _src_ directory is restricted to only access the _interface_ namespace.
+* Testing is simplified by allowing access to implementing namespaces from the `test` directory.
+The code under the `src directory is restricted to only access the `interface` namespace.
 This check is performed when running the xref:commands.adoc#check[check], xref:commands#info[info] or
 xref:commands#test[test] command.
 
@@ -172,9 +172,9 @@ The same goes for `macros`. The reason for this restriction is that functions ar
 which could otherwise cause problems.
 
 Finally, the interface namespace name can be changed in `:interface-ns` in `./workspace.edn`.
-Here are a few reasons why we would like to do that:
+Here are a few reasons why we would want to do that:
 
-* We want to share code between Clojure and ClojureScript via `.cljc` files.
+* We want to share code between Clojure and ClojureScript via `cljc` files.
 Since `interface` is a reserved word in ClojureScript, it could otherwise cause problems.
 
 * We want to consume Clojure code from another language on the JVM, e.g. Kotlin, where `interface` is a reserved word.
@@ -182,13 +182,13 @@ Since `interface` is a reserved word in ClojureScript, it could otherwise cause 
 A good reason to keep the default `interface` name is that it communicates what it is.
 
 With start from version `0.2.18` (see issue https://github.com/polyfy/polylith/issues/187#issuecomment-1203567170[187])
-not only interfaces matching the name specified in `:interface-ns` in _workspace.edn_ will be treated as interfaces,
+not only interfaces matching the name specified in `:interface-ns` in `workspace.edn` will be treated as interfaces,
 but also the interface names `interface` and `ifc`.
 The recommendation is to specify the interface name as either `interface` or `ifc`,
 but any other valid namespace name, specified in `:interface-ns`, is accepted.
 
-If you already know that you will need to share code between frontend and backend in `.cljc` files,
-then you can either set `:interface-nsv to `ifc` from start, or you keep `interfacev as the default,
+If you already know that you will need to share code between frontend and backend in `cljc` files,
+then you can either set `:interface-ns` to `ifc` from start, or you keep `interface` as the default,
 and only use `ifc` as interface name in the components you share.
 
 The name that is specified in `:interface-ns` will be the interface name used when creating new components.

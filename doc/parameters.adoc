@@ -35,7 +35,7 @@ Examples of other parameters that will also be available for some commands:
 
 === branch
 
-By passing in _branch_ to the doc command together with `page`, the corresponding document opens in github, e.g.:
+By passing in `branch` to the doc command together with `page`, the corresponding document opens in github, e.g.:
 
 [source,shell]
 ----
@@ -66,19 +66,6 @@ it's enough to include the brick or project name plus a slash, and the tool will
 [source,shell]
 ----
 poly info changed-files:bases/mybase/:components/mycomponent/:projects/myproject/
-----
-
-=== commit
-
-This parameter is only suggested if we are outside a git repository.
-The `:auto-add` parameter in the `:vcs` section in _workspace.edn_,
-can be set to true to automatically add files to git when executing the xref:commands.adoc#create[create] command
-(we normally want to set it to `false`).
-If set to `false`, we can pass in `:commit` to get the same effect, e.g.:
-
-[source,shell]
-----
-poly create component name:mycomp :commit
 ----
 
 === fake-sha
@@ -232,7 +219,7 @@ poly info changed-files:
 
 === no-exit
 
-When the _poly_ tool is executed, it exits with `System/exit` internally, see
+When the `poly` tool is executed, it exits with `System/exit` internally, see
 https://github.com/polyfy/polylith/blob/edaef89207c2852010132e863ae87ebba5bedc5b/bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj#L33[poly-cli].
 If executing the `poly` tool from a REPL, this will also exit the REPL.
 To avoid that, we can pass in

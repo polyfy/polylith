@@ -12,7 +12,7 @@ Make sure you execute the command outside a git repository:
 poly create workspace name:example top-ns:se.example :commit
 ----
 
-This will create a workspace in the _main_ branch. By giving `branch:BRANCH-NAME` the workspace can be created in a different branch, e.g.:
+This will create a workspace in the `main` branch. By giving `branch:BRANCH-NAME` the workspace can be created in a different branch, e.g.:
 
 [source,shell]
 ----

@@ -13,7 +13,7 @@ Here we will use Cursive, and if you do too, make sure you have https://cursive-
 Let's get started by creating a project. From the menu, select `File` > `New` > `Project from existing sources`.
 Select the `deps.edn` file, the desired version of SDK and finish the wizard.
 
-If you are a Cursive user (`1.13.0` or later) then you need to select "Resolve over whole project" in the settings:
+If you are a Cursive user, and use version `1.13.0` or later, then you need to select "Resolve over whole project" in the settings:
 
 image::images/development/idea-resolve-over-whole-project.png[width=600]
 
@@ -25,7 +25,7 @@ Let's create a REPL by clicking `Edit Configurations...`:
 
 image::images/development/edit-configuration.png[width=200]
 
-Click the + sign and select `Clojure REPL` > `Local`:
+Click the `+` sign and select `Clojure REPL` > `Local`:
 
 image::images/development/create-local-repl.png[width=250]
 
@@ -58,20 +58,20 @@ If we look at the `deps.edn` file again, we can see that "development/src" was a
  :aliases  {:dev {:extra-paths ["development/src"]
 ----
 
-This gives us access to the _development/src_ directory so that we can work with the code.
+This gives us access to the `development/src` directory so that we can work with the code.
 
-The "development/src" path belongs to the _dev_ alias which we activated previously and also added to the REPL
-by selecting the _-A:dev:test_ option. This means that we have configured everything that
+The "development/src" path belongs to the `dev` alias which we activated previously and also added to the REPL
+by selecting the `-A:dev:test` option. This means that we have configured everything that
 https://github.com/clojure/tools.deps.alpha[tools.deps] needs and that we are ready to write some Clojure code!
 
-To do that we first need to create a namespace. We suggest that you use _dev_ as a top namespace here
+To do that we first need to create a namespace. We suggest that you use `dev` as a top namespace here
 and not the workspace top namespace `se.example`.
 The reason is that we don't want to mix the code we put here with the production code.
 
 One way of structuring the code is to give all developers their own namespace under the `dev` top namespace.
 Let's follow that pattern and create the namespace `dev.lisa`.
 
-Right click on the _development/src_ directory and select `New` > `Clojure Namespace` and type `dev.lisa`:
+Right-click on the `development/src` directory and select `New` > `Clojure Namespace` and type `dev.lisa`:
 
 When this dialog turns up, select `Don't ask again` and click the `Add` button:
 
@@ -91,4 +91,4 @@ Now let's write some code:
 ----
 
 Make sure the namespace is loaded, by sending `(ns dev.lisa)` to the REPL. If we then send `(+ 1 2 3)` to the REPL
-we should get 6 back, and if we do, it means that we now have a working development environment!
+we should get `6` back, and if we do, it means that we now have a working development environment!

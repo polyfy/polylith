@@ -107,8 +107,8 @@ A `deps.edn` file was also created with this content:
                   :extra-deps {}}}}
 ----
 
-This config file is identical to the _user_ config file,
-and will soon be needed again when we create a project that includes it.
+This config file is identical to the `user` config file,
+and will soon be needed when we create a project that includes it.
 
 The next thing we want to do is to build an artifact that will turn the code into something useful,
 a command-line tool. To do that, we need to start by creating a project.

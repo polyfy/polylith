@@ -1,10 +1,10 @@
 = Tap
 
 The `tap` command is mainly for `poly` tool development,
-but can also be used to browse the internal workspace structure.
+but can also be used to browse the internal xref:workspace-structure.adoc[workspace structure].
 
 We can open a https://github.com/djblue/portal[portal] window by passing in `:tap` when starting a shell,
-e.g. `poly :tap` or by executing the xref:commands.adoc#tap[tap] command from a shell:
+e.g. `poly :tap` or by executing the xref:commands.adoc#tap[tap] command from a xref:shell[shell]:
 
 image::images/tap/tap-shell.png[]
 
@@ -17,5 +17,3 @@ image::images/tap/tap-workspace.png[width=400]
 The portal window outputs data from https://clojuredocs.org/clojure.core/tap%3E[tap>]
 statements produced by the `poly` tool itself. With start from version _0.2.18_,
 there will be only one `tap>` statement, which outputs the workspace structure.
-
-Let's continue by looking at tools.deps.

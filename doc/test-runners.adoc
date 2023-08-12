@@ -41,7 +41,7 @@ The `poly` tool will not run them for external test runners.
 == In-process vs. External Test Runner
 
 |===
-| Aspect | In-Proces Test Runner | External Test Runner
+| What | In-Proces Test Runner | External Test Runner
 
 | Context | Isolated project context | Isolated project context
 | Approach | Isolated in-process classloaders | Isolated Java subprocesses
@@ -96,12 +96,12 @@ The constructor function will receive a map as the single argument. This map con
 |===
 | Map key | Description
 
-| _:workspace_ | The workspace map. This map contains `:user-input` which can be used to receive additional parameters for runtime configuration.
-| _:project_ | A map that contains the details of the project that is currently being tested.
-| _:test-settings_ | Test settings for the project that is currently being tested. This information is extracted from the `workspace.edn`.
-| _:is-verbose_ | A boolean indicates if we are running in verbose mode or not.
-| _:color-mode_ | The color mode that the `poly` tool is currently running with.
-| _:changes_ | A map of changes since the last stable point in time.
+| `:workspace` | The workspace map. This map contains `:user-input` which can be used to receive additional parameters for runtime configuration.
+| `:project` | A map that contains the details of the project that is currently being tested.
+| `:test-settings` | Test settings for the project that is currently being tested. This information is extracted from `workspace.edn`.
+| `:is-verbose` | A boolean indicates if we are running in verbose mode or not.
+| `:color-mode` | The color mode that the `poly` tool is currently running with.
+| `:changes` | A map of changes since the last stable point in time.
 |===
 
 == Use a Test Runner
@@ -130,6 +130,7 @@ You can also have your custom test runner within the same Polylith workspace and
 
 Once you have your test runner in the classpath,
 you can add it to your workspace configuration so that the `poly` tool can use it instead of the default test runner.
+
 You can add global test runners,
 which the `poly` tool will use for every project unless the project-specific test configuration overrides it.
 To add a global test configuration, add a map with the `:test` key in your `workspace.edn` file:
@@ -138,7 +139,7 @@ To add a global test configuration, add a map with the `:test` key in your `work
 ----
 {...
  ; Global test configuration, used as default for every project.
- :test     {:create-test-runner [se.example.example-test-runner/create]}
+ :test {:create-test-runner [se.example.example-test-runner/create]}
 
  ; Project specific configurations
  :projects {"foo" {:alias "foo"}
@@ -158,7 +159,7 @@ You can add a `:test` key in the project's configuration to select project-speci
 ----
 {...
  ; Global test configuration, used as default for every project.
- :test     {:create-test-runner [se.example.example-test-runner/create]}
+ :test {:create-test-runner [se.example.example-test-runner/create]}
 
  ; Project specific configurations
  :projects {"foo" {:alias "foo"

@@ -1,7 +1,8 @@
 = Source code
 
 In all our examples so far, the source code has been stored in two directories, `src` and `test`.
-The `poly` tool also supports splitting up the source and test code into several directories.
+The `poly` tool also supports splitting up the source and test code into several directories,
+because it's supported by tools.deps.
 
 It's also worth mentioning that the `poly` tool understands `.cljc` files which can be used to share code between `.clj` and `.cljs`.
 
@@ -24,7 +25,7 @@ Then we add them to the component's `deps.edn` file:
  ....
 ----
 
-Mixing both `.clj` and `.cljc` files in a single src directory will also work:
+Mixing both `.clj` and `.cljc` files in a single `src` directory will also work:
 
 [source,clojure]
 ----
@@ -34,7 +35,7 @@ Mixing both `.clj` and `.cljc` files in a single src directory will also work:
 
 == Resources
 
-The `resources` directory is to store non-source files, e.g. images or data, and lives in bricks and projects.
+The `resources` directory is used to store non-source files, e.g. images or data, and lives in bricks and projects.
 To avoid file naming conflicts, the tool creates a sub-directory under `resources`.
 For components, the name is the component's xref:interface.adoc[interface] name, and for bases, it's the base name, e.g.:
 

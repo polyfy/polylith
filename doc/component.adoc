@@ -1,7 +1,7 @@
 = Component
 
 Now when we have a working development environment, let's continue and create our first component.
-But before we do that, open `workspace.edn` in a text editor and set `:auto-add` to true:
+But before we do that, open `workspace.edn` in a text editor and set `:auto-add` to `true`:
 
 [source,clojure]
 ----
@@ -38,7 +38,7 @@ There is also a fourth way, and that is to execute the command from a xref:comma
 
 3. `clojure -T:poly shell`
 
-There is also a shorter form that works in the first two cases:
+We can skip `shell` in the first two forms:
 
 1. `poly`
 
@@ -104,7 +104,7 @@ This was a reminder for us to add the component to `deps.edn`. If we don't, then
 environment will not recognize our newly created component, which would be a pity! The tool leaves this task to you
 as a developer, with the idea to give you as much control as possible (files are only edited by you, not by the tool).
 
-Let's continue by adding the `ser` component to `./deps.edn`:
+Let's continue by adding the `user` component to `./deps.edn`:
 
 [source,clojure]
 ----
@@ -139,15 +139,15 @@ If your IDE doesn't support this, then you have to add the component paths inste
 
 We recommend you to add them as dependencies instead of as paths (if possible) for these reasons:
 
-* It's more readable
-
-* We don't have to duplicate the bricks library dependencies in `./deps.edn`.
+* It's more readable.
 
 * It's consistent with how xref:project.adoc[projects] are specified.
 
+* We don't have to duplicate the bricks library dependencies in `./deps.edn`.
+
 * You can add or remove the `resources` directory from a brick, without having to remember to update `./deps.edn`.
 
-If you want to see an example of what this might look like in practice, take a look at how _article_ can be added as a
+If you want to see an example of what this might look like in practice, take a look at how `article` can be added as a
 https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/5b6df23d63500a4540b75308379e06dfdeb8b767/deps.edn#L7[dependency]
 or as https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/e6f7f200bc46e4e2595e123947eec442ad91c9ab/deps.edn#L7-L8[paths]
 in the RealWorld example app.
@@ -166,7 +166,7 @@ The component also has its own `deps.edn` file that looks like this:
                   :extra-deps {}}}}
 ----
 
-It specifies that it has a `srcv, `resourcesv and `test` directory.
+It specifies that it has a `src`, `resources` and `test` directory.
 
 The component was created with a `resources` directory:
 
@@ -193,9 +193,9 @@ example
 ----
 
 The reason we put `myimage.png` under `resources/user` and not directly under `resources` is that we want to avoid name clashes,
-which could happen if a file name exists in more than one brick in a xref:project.adoc[project].
+which could happen if a filename exists in more than one brick in a xref:project.adoc[project].
 
-If the resources directory is not needed, it can be deleted and removed from the corresponding `deps.edn` file.
+If the `resources` directory is not needed, it can be deleted and removed from the corresponding `deps.edn` file.
 It has some value to keep it though, to avoid the risk of someone adding it again in the future
 without the `user` subdirectory (in this example).
 
@@ -248,4 +248,4 @@ which is the most common way of structuring components in Polylith.
 
 Here we put all our implementing code in one single namespace, but as the codebase grows,
 more namespaces can be added to the component when needed.
-The implementing _core_ namespace can be renamed to something else, but here we choose to keep it as it is.
+The implementing `core` namespace can be renamed to something else, but here we choose to keep it as it is.
