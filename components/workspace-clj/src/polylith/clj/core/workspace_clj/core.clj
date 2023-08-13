@@ -52,12 +52,18 @@
         "GIT-REPO-NOT-ACCESSIBLE")
     no-git-repo))
 
-(defn git-info [ws-dir {:keys [name auto-add]
-                        :or {name "git"
-                             auto-add false}}
-                tag-patterns {:keys [branch is-latest-sha]}]
+(defn git-info [ws-dir
+                {:keys [name auto-add]
+                 :or {name "git"
+                      auto-add false}}
+                tag-patterns
+                {:keys [branch is-latest-sha]}]
   (let [git-repo? (git/is-git-repo? ws-dir)
-        from-branch (or branch git/branch)]
+        from-branch (or branch
+                        ;; if we run this from the polylith repo, we want to use its branch.
+                        (if (and is-latest-sha (git/is-polylith-repo? ws-dir))
+                          (git/current-branch)
+                          git/branch))]
     {:name          name
      :is-git-repo   git-repo?
      :branch        (git-current-branch git-repo?)

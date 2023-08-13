@@ -1,6 +1,8 @@
 = Commands
 :toc:
 
+// This code is generated (do not update manually).
+
 The individual help texts listed here are taken from the built-in ´help´ command.
 
 To list all available commands, type:
