@@ -152,7 +152,9 @@
    Because we build JARs from Polylith projects, all the source
    code we want in the JAR comes from :local/root dependencies of
    the project and the actual dependencies are transitive to those
-   :local/root dependencies, so we create a 'lifted' basis."
+   :local/root dependencies, so we create a 'lifted' basis.
+
+   Example: clojure -T:build jar :project poly"
   [{:keys [project jar-file] :as opts}]
   (let [project-root (ensure-project-root "jar" project)
         aliases (with-dir (io/file project-root) (get-project-aliases))]
