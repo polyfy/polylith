@@ -12,7 +12,7 @@
 
 (defn help-text [show-migrate? extended? fake-poly? cm]
   (str
-    "  " (-> fake-poly? common/version-name str/capitalize) " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
+    "  " (-> fake-poly? common/version-name) " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
     "\n"
     "  " (tool-command extended?) " " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] - where " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] are:\n"
     "\n"
@@ -20,7 +20,7 @@
     "    create " (s/key "E" cm) " name:" (s/key "N" cm) " [" (s/key "ARG" cm) "]       Creates a component, base, project or workspace.\n"
     "    deps [project:" (s/key "P" cm) "] [brick:" (s/key "B" cm) "]  Shows dependencies.\n"
     "    diff [" (s/key "ARG" cm) "]                  Shows changed files since last stable point in time.\n"
-    "    doc [" (s/key "ARG" cm) "]                   Opens web based documentation in a browser.\n"
+    "    doc [" (s/key "ARG" cm) "]                   Opens the web based documentation in a browser.\n"
     "    help [" (s/key "C" cm) "] [" (s/key "ARG" cm) "]              Shows this help or help for specified command.\n"
     "    info [" (s/key "ARGS" cm) "]                 Shows a workspace overview and checks if it's valid.\n"
     "    libs [" (s/key "ARGS" cm) "]                 Shows all libraries in the workspace.\n"
