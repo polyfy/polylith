@@ -67,6 +67,18 @@
       (throw (ex-info (str task " task requires a valid :project option") {:project project})))
     project-root))
 
+(defn- latest-committed-sha
+  "Get the latest committed SHA, in current branch, by asking the poly tool."
+  []
+  (-> (b/java-command
+        {:basis (binding [b/*project-root* (ensure-project-root "changed" "poly")]
+                  (b/create-basis))
+         :main 'clojure.main
+         :main-args ["-m" "polylith.clj.core.poly-cli.core"
+                     "ws" "get:settings:vcs:polylith:latest-sha" ":latest-sha"]})
+      (exec->out)
+      (edn/read-string)))
+
 (defn- changed-projects
   "Run the poly tool (from source) to get a list of changed projects."
   []
@@ -161,7 +173,9 @@
                          :class-dir class-dir
                          :jar-file jar-file
                          :lib lib
-                         :scm {:tag (str "v" version/name)
+                         :scm {:tag (if (= "SNAPSHOT" version/revision)
+                                      (latest-committed-sha)
+                                      (str "v" version/name))
                                :name "git"
                                :url "https://github.com/polyfy/polylith"}
                          :src-pom "partial_pom.xml"

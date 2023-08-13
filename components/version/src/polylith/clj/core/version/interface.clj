@@ -3,19 +3,29 @@
   (:require [clojure.string :as str]
             [polylith.clj.core.system.interface :as system]))
 
+;; ------------------------------------------------------------------------
+;; - if a release: set revision to "" and leave snapshot as it is.
+;; - if working towards a release candidate (or a release fix):
+;;   set revision to "SNAPSHOT", and increment snapshot to e.g. 1.
+;;
+;; Note that revision should only be set to "SNAPSHOT" or "" (if a release).
+;; If set to "SNAPSHOT" we will release a clj-poly library to Clojars,
+;; which will trigger a new build of the cljdoc documentation.
+;; An AOT compiled poly tool is only built and released to github if a release,
+;; not if it's a SNAPSHOT.
+;; ------------------------------------------------------------------------
+
 (def major 0)
 (def minor 2)
 (def patch 18)
+(def revision "SNAPSHOT")
+(def snapshot 1)
 
-;; - if a release: set revision to ""
-;; - if a release candidate, set revision to e.g.: "rc-1"
-;; - if an ongoing issue, set revision to e.g.: issue318-01
-(def revision "issue318-02")
 (def name-without-rev (str major "." minor "." patch))
 (def name (str name-without-rev
                (if (str/blank? revision)
                  ""
-                 (str "-" revision))))
+                 (str "-" revision "#" snapshot))))
 
 (def tool (if system/extended? "polyx" "poly"))
 
@@ -31,6 +41,7 @@
                       :minor    minor
                       :patch    patch
                       :revision revision
+                      :snapshot snapshot
                       :date     date}
             :test-runner-api {:breaking 1
                               :non-breaking 0}

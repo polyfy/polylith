@@ -9,7 +9,7 @@ The status column has a different meaning:
 
 [%autowidth]
 |===
-| Status | Explanation
+| status | Explanation
 
 | `s--` | The project has a `src` directory
 | `-t-` | The project has a `test` directory
@@ -20,7 +20,6 @@ If the "to be tested" flag `--x` is marked for a project under the `status` colu
 it means that the tests for that project will be executed from at least one project,
 which often is the project itself and/or the `development` project.
 
-// todo: elaborate on this
 Under the `status` column, the `---` means we have a `projects/command-line` directory
 but no `src` or `test` directories in it and that no tests will be executed for this project.
 
@@ -31,7 +30,7 @@ Each flag under `dev` has a slightly different meaning, where project refers to 
 
 [%autowidth]
 |===
-| Status | Explanation
+| status | Explanation
 
 | `s--` | The `src` directory is included in the development project
 | `-t-` | The `test` directory is included in the development project
@@ -52,7 +51,7 @@ Here the flags have a slightly different meaning:
 
 [%autowidth]
 |===
-| Status | Explanation
+| status | Explanation
 
 | `s--` | The brick's `src` directory is included in this project
 | `-t-` | The brick's `test` directory is included in this project

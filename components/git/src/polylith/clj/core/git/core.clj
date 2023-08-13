@@ -7,9 +7,15 @@
 (def repo "https://github.com/polyfy/polylith.git")
 
 (defn is-git-repo? [ws-dir]
-  (let [{:keys [exit]} (sh/execute-with-return "git" "rev-parse" "--is-inside-work-tree" :dir ws-dir)]
+  (let [{:keys [out exit]} (sh/execute-with-return "git" "rev-parse" "--is-inside-work-tree" :dir ws-dir)]
     (and (zero? exit)
-         (= "true" (first (str/split-lines (sh/execute-ignore-exception "git" "rev-parse" "--is-inside-work-tree" :dir ws-dir)))))))
+         (= "true" (first (str/split-lines out))))))
+
+(defn is-polylith-repo? [ws-dir]
+  (let [{:keys [out exit]} (sh/execute-with-return "git" "config" "--get" "remote.origin.url" :dir ws-dir)]
+    (and (zero? exit)
+         (= "git@github.com:polyfy/polylith.git"
+            (first (str/split-lines out))))))
 
 (defn init [ws-dir git-repo? branch]
   (try
