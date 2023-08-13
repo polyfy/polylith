@@ -945,9 +945,10 @@ poly ws get:version
 {:release {:date "2023-07-24"
            :major 0
            :minor 2
-           :name "0.2.18-issue318-02"
+           :name "0.2.18-SNAPSHOT"
            :patch 18
-           :revision "issue318-02"
+           :revision "SNAPSHOT"
+           :snapshot 1
            :tool "poly"}
  :test-runner-api {:breaking 1
                    :non-breaking 0}
@@ -963,8 +964,11 @@ for generating image files and the `overview` command.
 ** `:minor` Increased by one if any breaking changes.
 ** `:name` The full name of the release.
 ** `:patch` Increased by one for each release within a given `major.minor`.
-** `:revision` What comes after `major.minor.path`.
-** `:tool` Set to "poly" if the `poly` tool, or "polyx" if the extended `poly` tool that includes support for creating images.
+** `:revision` What comes after `major.minor.path`. Has the value "" if a final release,
+or "SNAPSHOT" if a snapshot release.
+** `:snapshot` Only set if a snapshot release. The first snapshot release will have the value of 1.
+Each subsequent snapshot release will increase this value by one.
+** `:tool` Set to "poly" if the `poly` tool, or "polyx" if the extended `polyx` tool that includes support for creating images.
 
 * `:test-runner-api` Versioning of the test runner API:
 ** `:breaking` Increased by one if introducing a non-backward compatible change of the test runner API.

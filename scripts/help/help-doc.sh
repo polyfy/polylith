@@ -88,6 +88,10 @@ cat ../output/help/begin/test.txt
 cat ../output/help/test.txt
 cat ../output/help/end.txt
 
+cat ../output/help/begin/version.txt
+cat ../output/help/version.txt
+cat ../output/help/end.txt
+
 cat ../output/help/begin/ws.txt
 cat ../output/help/ws.txt
 cat ../output/help/end.txt

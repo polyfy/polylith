@@ -66,5 +66,8 @@ poly help switch-ws color-mode:none > ../output/help/switch-ws.txt
 echo "--- test ---"
 poly help test color-mode:none > ../output/help/test.txt
 
+echo "--- version ---"
+poly help version color-mode:none > ../output/help/version.txt
+
 echo "--- ws ---"
 poly help ws color-mode:none > ../output/help/ws.txt
