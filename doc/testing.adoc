@@ -646,6 +646,7 @@ Let's summarise the different ways to run the tests.
 The brick tests are executed from all projects they belong to except for the `development` project
 (if `:dev` is not passed in):
 
+[%autowidth]
 |===
 | Command | Tests to execute
 
@@ -657,6 +658,7 @@ The brick tests are executed from all projects they belong to except for the `de
 
 To also execute the brick tests from the `development` project, we can pass in `:dev`:
 
+[%autowidth]
 |===
 | Command | Tests to execute
 

@@ -40,6 +40,7 @@ The `poly` tool will not run them for external test runners.
 
 == In-process vs. External Test Runner
 
+[%autowidth]
 |===
 | What | In-Proces Test Runner | External Test Runner
 
@@ -93,6 +94,7 @@ Optionally, you can also reify the `ExternalTestRunner` protocol if you want to 
 The `poly` tool will call your constructor function to get an instance of your test runner.
 The constructor function will receive a map as the single argument. This map contains the following:
 
+[%autowidth]
 |===
 | Map key | Description
 
