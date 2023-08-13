@@ -25,7 +25,7 @@
 (def name (str name-without-rev
                (if (str/blank? revision)
                  ""
-                 (str "-" revision "#" snapshot))))
+                 (str "-" revision))))
 
 (def tool (if system/extended? "polyx" "poly"))
 
