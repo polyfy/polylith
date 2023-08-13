@@ -1,4 +1,4 @@
-  Opens a document in a web browser.
+  Opens a help page in a web browser.
 
   poly doc [ARG]
 
@@ -14,17 +14,16 @@
 
           more:TYPE    -> Opens the given blog-post, podcast, video, et cetera.
 
-  How the doc command can be used locally is explained under the 'local' section in the Parameters page.
-  To read more, execute 'poly doc:parameters'.
-
   Example:
     poly doc
+    poly doc help
     poly doc help:check
     poly doc page:install
     poly doc ws:settings
     poly doc more:blog-posts
     poly doc more:blog-posts:how-polylith-came-to-life
     poly doc more:high-level
+    poly doc more:high-level:who-made-this
     poly doc more:podcasts
     poly doc more:podcasts:polylith-with-joakim-james-and-furkan
     poly doc more:python-tool

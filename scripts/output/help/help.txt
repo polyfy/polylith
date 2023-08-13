@@ -1,4 +1,4 @@
-  Poly 0.2.18 (2023-08-02) - https://github.com/polyfy/polylith
+  Poly 0.2.18 (2023-08-13) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -98,12 +98,14 @@
     poly deps out:out.txt
     poly diff
     poly doc
+    poly doc help
     poly doc help:check
     poly doc page:install
     poly doc ws:settings
     poly doc more:blog-posts
     poly doc more:blog-posts:how-polylith-came-to-life
     poly doc more:high-level
+    poly doc more:high-level:who-made-this
     poly doc more:podcasts
     poly doc more:podcasts:polylith-with-joakim-james-and-furkan
     poly doc more:python-tool
