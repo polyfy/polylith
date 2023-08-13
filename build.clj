@@ -27,6 +27,7 @@
             [clojure.tools.deps :as t]
             [clojure.tools.deps.util.dir :refer [with-dir]]
             [deps-deploy.deps-deploy :as d]
+            [polylith.clj.core.git.interface :as git]
             [polylith.clj.core.version.interface :as version]))
 
 (defn- get-project-aliases []
@@ -68,16 +69,10 @@
     project-root))
 
 (defn- latest-committed-sha
-  "Get the latest committed SHA, in current branch, by asking the poly tool."
+  "Get the latest committed SHA from current branch."
   []
-  (-> (b/java-command
-        {:basis (binding [b/*project-root* (ensure-project-root "changed" "poly")]
-                  (b/create-basis))
-         :main 'clojure.main
-         :main-args ["-m" "polylith.clj.core.poly-cli.core"
-                     "ws" "get:settings:vcs:polylith:latest-sha" ":latest-sha"]})
-      (exec->out)
-      (edn/read-string)))
+  (let [branch (git/current-branch)]
+    (git/latest-polylith-sha branch)))
 
 (defn- changed-projects
   "Run the poly tool (from source) to get a list of changed projects."

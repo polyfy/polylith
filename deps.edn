@@ -113,7 +113,6 @@
             :build {:deps {org.clojure/tools.deps {:mvn/version "0.18.1354"}
                            io.github.clojure/tools.build {:mvn/version "0.9.4"}
                            slipset/deps-deploy {:mvn/version "0.2.1"}
-                           poly/version {:local/root "components/version"}
-                           poly/system {:local/root "components/system"}}
+                           polylith/clj-poly {:local/root "projects/poly"}}
                     :paths ["build/resources"]
                     :ns-default build}}}
