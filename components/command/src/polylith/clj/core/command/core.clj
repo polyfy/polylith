@@ -61,6 +61,7 @@
     "shell" ["shell" user-input]
     ":all" ["shell" (assoc user-input :is-all true)]
     ":tap" ["shell" (assoc user-input :is-tap true)]
+    ":local" ["shell" (assoc user-input :is-local true)]
     [cmd user-input]))
 
 (defn execute [{:keys [cmd args name top-ns branch help is-local more page ws is-tap is-git-add is-commit is-all is-outdated is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
