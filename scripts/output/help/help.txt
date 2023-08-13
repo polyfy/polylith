@@ -44,7 +44,8 @@
   that has to be executed from the workspace root.
 
   If skip:PROJECTS is passed in, then the given project(s) will not be read from disk.
-  Both project names and aliases can be used and should be separated by : if more than one.
+  Both project names and aliases can be used and should be separated by : if more than
+  one.
 
   If since:SINCE is passed in as an argument, the last stable point in time will be
   used depending on the value of SINCE (or the first commit if no match was found).
@@ -59,9 +60,10 @@
 
   Execute 'poly doc page:parameters' to show documentation for rarely used parameters.
 
-  The color mode is taken from ~/.config/polylith/config.edn but can be overridden by passing
-  in color-mode:COLOR where valid colors are none, light, and dark.
-  (if the XDG_CONFIG_HOME environment variable is set, that will be used instead of ~/.config)
+  The color mode is taken from ~/.config/polylith/config.edn but can be overridden by
+  passing in color-mode:COLOR where valid colors are none, light, and dark.
+  (if the XDG_CONFIG_HOME environment variable is set, that will be used instead of
+  ~/.config)
 
   Example (shell only):
     switch-ws dir:~/myworkspace
