@@ -8,7 +8,8 @@
        "  If the workspace hasn't been migrated already, then this command will create a new\n"
        "  ./workspace.edn file + a deps.edn file per brick. All project deps.edn files will be\n"
        "  updated. The libraries in each project's deps.edn file will be sorted, so it can be\n"
-       "  an idea to manually change that order and put bricks first followed by the libraries.\n"
+       "  an idea to manually change that order and put bricks first followed by the\n"
+       "  libraries.\n"
        "\n"
        "  The migration tool will use the :ns-to-lib key to figure out what libraries are\n"
        "  used in each brick. After the migration, it's recommended to go through all the\n"
@@ -21,8 +22,9 @@
        "  syntax is not supported by all IDE's.\n"
        "\n"
        "  Starting from version 0.2.0-alpha10, the tool supports specifying dependencies per\n"
-       "  brick in its own deps.edn files. Workspace specific config is stored in ./workspace.edn\n"
-       "  instead of the :polylith key in ./deps which was the case prior to this version."))
+       "  brick in its own deps.edn files. Workspace specific config is stored in\n"
+       "  ./workspace.edn instead of the :polylith key in ./deps which was the case prior to\n"
+       "  this version."))
 
 (defn print-help []
   (println (help)))
