@@ -7,8 +7,8 @@
        "\n"
        "  poly test [" (s/key "ARGS" cm) "]\n"
        "\n"
-       "  The brick tests are executed from all projects they belong to except for the development\n"
-       "  project (if not " (s/key ":dev" cm) " is passed in):\n"
+       "  The brick tests are executed from all projects they belong to except for the\n"
+       "  development project (if not " (s/key ":dev" cm) " is passed in):\n"
        "\n"
 
        "  ARGS              Tests to execute\n"
