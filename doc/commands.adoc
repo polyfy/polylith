@@ -60,7 +60,8 @@ poly help
   that has to be executed from the workspace root.
 
   If skip:PROJECTS is passed in, then the given project(s) will not be read from disk.
-  Both project names and aliases can be used and should be separated by : if more than one.
+  Both project names and aliases can be used and should be separated by : if more than
+  one.
 
   If since:SINCE is passed in as an argument, the last stable point in time will be
   used depending on the value of SINCE (or the first commit if no match was found).
@@ -75,9 +76,10 @@ poly help
 
   Execute 'poly doc page:parameters' to show documentation for rarely used parameters.
 
-  The color mode is taken from ~/.config/polylith/config.edn but can be overridden by passing
-  in color-mode:COLOR where valid colors are none, light, and dark.
-  (if the XDG_CONFIG_HOME environment variable is set, that will be used instead of ~/.config)
+  The color mode is taken from ~/.config/polylith/config.edn but can be overridden by
+  passing in color-mode:COLOR where valid colors are none, light, and dark.
+  (if the XDG_CONFIG_HOME environment variable is set, that will be used instead of
+  ~/.config)
 
   Example (shell only):
     switch-ws dir:~/myworkspace
@@ -619,8 +621,9 @@ poly help
 
   The pattern can be changed in :tag-patterns in workspace.edn.
 
-  The way the latest tag is found is by taking the first line that matches the 'stable-*'
-  regular expression, or if no match was found, the first commit in the repository:
+  The way the latest tag is found is by taking the first line that matches the
+  'stable-*' regular expression, or if no match was found, the first commit in
+  the repository:
     git log --pretty=format:'%H %d'
 
   Here is a compact way of listing all the commits including tags:
@@ -903,14 +906,14 @@ poly help
 
   In this example we have four libraries used by the cl and dev projects.
   If any of the libraries are added to the default or admin profiles, they will appear
-  as an x in these columns. Remember that src and test sources live together in a profile,
-  which is fine because they are only used from the development project.
+  as an x in these columns. Remember that src and test sources live together in a
+  profile, which is fine because they are only used from the development project.
 
   The x for the cl and dev columns says that the library is part of the src scope.
-  If a library is only used from the test scope, then it's marked with a 't'. A library
-  used in the test scope, can either be specified directly by the project itself via
-  :aliases > :test > :extra-deps or indirectly via included bricks in :deps > :local/root
-  which will be picked up and used by the 'test' command.
+  If a library is only used from the test scope, then it's marked with a 't'.
+  A library used in the test scope, can either be specified directly by the project
+  itself via :aliases > :test > :extra-deps or indirectly via included bricks in
+  :deps > :local/root which will be picked up and used by the 'test' command.
 
   The x in the user column, tells that clj-time is used by that component
   by having it specified in its 'deps.edn' file as a src dependency.
@@ -921,11 +924,11 @@ poly help
   Use the :override-deps key in the project's 'deps.edn' file to explicitly set
   a version for one or several libraries in a project.
 
-  The 'type' column says in what way the dependency is included:
-   - maven, e.g.: clj-time/clj-time {:mvn/version "0.15.2"}
-   - local, e.g.: clj-time {:local/root "/local-libs/clj-time-0.15.2.jar"}
-   - git,   e.g.: clj-time/clj-time {:git/url "https://github.com/clj-time/clj-time.git"
-                                     :sha     "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}
+  The 'type' column says in what way the dependency is included, e.g.:
+   - maven: clj-time/clj-time {:mvn/version "0.15.2"}
+   - local: clj-time {:local/root "/local-libs/clj-time-0.15.2.jar"}
+   - git:   clj-time/clj-time {:git/url "https://github.com/clj-time/clj-time.git"
+                               :sha     "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}
 
   The KB column shows the size in kilobytes, which is the size of the jar
   file for Maven and Local dependencies, and the size of all files in the
@@ -951,7 +954,8 @@ poly help
   If the workspace hasn't been migrated already, then this command will create a new
   ./workspace.edn file + a deps.edn file per brick. All project deps.edn files will be
   updated. The libraries in each project's deps.edn file will be sorted, so it can be
-  an idea to manually change that order and put bricks first followed by the libraries.
+  an idea to manually change that order and put bricks first followed by the
+  libraries.
 
   The migration tool will use the :ns-to-lib key to figure out what libraries are
   used in each brick. After the migration, it's recommended to go through all the
@@ -964,8 +968,9 @@ poly help
   syntax is not supported by all IDE's.
 
   Starting from version 0.2.0-alpha10, the tool supports specifying dependencies per
-  brick in its own deps.edn files. Workspace specific config is stored in ./workspace.edn
-  instead of the :polylith key in ./deps which was the case prior to this version.
+  brick in its own deps.edn files. Workspace specific config is stored in
+  ./workspace.edn instead of the :polylith key in ./deps which was the case prior to
+  this version.
 ----
 
 [#overview]
@@ -1033,11 +1038,13 @@ poly help
 
   From the shell we also have access to these commands:
     switch-ws ARG  Switches to selected workspace.
-    tap [ARG]      Opens (or closes/cleans) a portal window that outputs tap> statements.
+    tap [ARG]      Opens (or closes/cleans) a portal window that outputs tap>
+                   statements.
     exit           Exits the shell.
     quit           Quits the shell.
 
-  It's also possible to start a shell and switch to a workspace at the same time, e.g.:
+  It's also possible to start a shell and switch to a workspace at the same time,
+  e.g.:
     poly shell ws-dir:examples/doc-example
     poly shell ws-file:realworld.edn
 
@@ -1107,8 +1114,8 @@ poly help
 
   poly test [ARGS]
 
-  The brick tests are executed from all projects they belong to except for the development
-  project (if not :dev is passed in):
+  The brick tests are executed from all projects they belong to except for the
+  development project (if not :dev is passed in):
 
   ARGS              Tests to execute
   ----------------  -------------------------------------------------------------

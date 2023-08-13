@@ -23,8 +23,9 @@
 
   The pattern can be changed in :tag-patterns in workspace.edn.
 
-  The way the latest tag is found is by taking the first line that matches the 'stable-*'
-  regular expression, or if no match was found, the first commit in the repository:
+  The way the latest tag is found is by taking the first line that matches the
+  'stable-*' regular expression, or if no match was found, the first commit in
+  the repository:
     git log --pretty=format:'%H %d'
 
   Here is a compact way of listing all the commits including tags:

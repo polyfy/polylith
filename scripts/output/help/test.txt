@@ -2,8 +2,8 @@
 
   poly test [ARGS]
 
-  The brick tests are executed from all projects they belong to except for the development
-  project (if not :dev is passed in):
+  The brick tests are executed from all projects they belong to except for the
+  development project (if not :dev is passed in):
 
   ARGS              Tests to execute
   ----------------  -------------------------------------------------------------

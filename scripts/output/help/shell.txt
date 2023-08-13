@@ -28,11 +28,13 @@
 
   From the shell we also have access to these commands:
     switch-ws ARG  Switches to selected workspace.
-    tap [ARG]      Opens (or closes/cleans) a portal window that outputs tap> statements.
+    tap [ARG]      Opens (or closes/cleans) a portal window that outputs tap>
+                   statements.
     exit           Exits the shell.
     quit           Quits the shell.
 
-  It's also possible to start a shell and switch to a workspace at the same time, e.g.:
+  It's also possible to start a shell and switch to a workspace at the same time,
+  e.g.:
     poly shell ws-dir:examples/doc-example
     poly shell ws-file:realworld.edn
 
