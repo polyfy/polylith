@@ -11,9 +11,9 @@ The status column has a different meaning:
 |===
 | status | Explanation
 
-| `s--` | The project has a `src` directory
-| `-t-` | The project has a `test` directory
-| `--x` | Run the tests for this project
+| s-- | The project has a `src` directory
+| -t- | The project has a `test` directory
+| --x | Run the tests for this project
 |===
 
 If the "to be tested" flag `--x` is marked for a project under the `status` column,
@@ -32,9 +32,9 @@ Each flag under `dev` has a slightly different meaning, where project refers to 
 |===
 | status | Explanation
 
-| `s--` | The `src` directory is included in the development project
-| `-t-` | The `test` directory is included in the development project
-| `--x` | Run the tests for this brick from the `development` project
+| s-- | The `src` directory is included in the development project
+| -t- | The `test` directory is included in the development project
+| --x | Run the tests for this brick from the `development` project
 |===
 
 Under the `dev` column, the `---` means that neither `projects/command-line/src` or `projects/command-line/test`
@@ -53,9 +53,9 @@ Here the flags have a slightly different meaning:
 |===
 | status | Explanation
 
-| `s--` | The brick's `src` directory is included in this project
-| `-t-` | The brick's `test` directory is included in this project
-| `--x` | Run the tests for this brick from this project
+| s-- | The brick's `src` directory is included in this project
+| -t- | The brick's `test` directory is included in this project
+| --x | Run the tests for this brick from this project
 |===
 
 The `st-` for the `user` component under the `dev` column tells that both
