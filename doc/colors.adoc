@@ -67,6 +67,7 @@ image::images/misc/info-dark.png[width=400]
 
 If you want to use the same colors in your terminal, here they are:
 
+[%autowidth]
 |===
 | name | color | RGB
 

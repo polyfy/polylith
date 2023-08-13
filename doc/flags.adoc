@@ -3,12 +3,11 @@
 We have one more thing to cover regarding the xref:commands.adoc#info[info] command,
 and that is what the `-`, `s`, `t` and `x` flags mean:
 
-[source,shell]
-----
 image::images/flags/projects.png[width=350]
 
 The status column has a different meaning:
 
+[%autowidth]
 |===
 | status | Explanation
 
@@ -30,6 +29,7 @@ but no `development/test` directory and that no tests will be executed for this 
 
 Each flag under `dev` has a slightly different meaning, where project refers to `development`:
 
+[%autowidth]
 |===
 | status | Explanation
 
@@ -50,6 +50,7 @@ image::images/flags/bricks.png[width=300]
 
 Here the flags have a slightly different meaning:
 
+[%autowidth]
 |===
 | status | Explanation
 
