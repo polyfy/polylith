@@ -73,8 +73,8 @@
   (if fake-poly?
     (str "poly " version/name-without-rev)
     (str version/tool " " version/name
-         (if (= "SNAPSHOT" version/revision)
-           (str "#" version/snapshot)
+         (if version/snapshot?
+           (str " #" version/snapshot)
             ""))))
 
 (defn user-path [path]
