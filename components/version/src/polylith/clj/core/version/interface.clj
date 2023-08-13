@@ -22,6 +22,7 @@
 (def patch 18)
 (def revision "SNAPSHOT")
 (def snapshot 1)
+(def snapshot? (= "SNAPSHOT" revision))
 
 (def name-without-rev (str major "." minor "." patch))
 (def name (str name-without-rev

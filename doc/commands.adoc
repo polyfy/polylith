@@ -1170,8 +1170,22 @@ poly help
 ----
   poly version
 
-  Prints out the version and release date (yyyy-mm-dd) of this tool, e.g.:
-    0.2.18-SNAPSHOT (2023-08-13).
+  Prints out:
+    - the tool name ('poly' or 'polyx')
+    - the version (major.minor.patch)
+    - the revision (SNAPSHOT if a shapshot release, otherwise empty)
+    - snapshot sequence number (if a snapshot release)
+    - the date (year-month-day)
+
+  Example of a final release:
+    poly 0.2.18 (2023-09-27)
+
+  Example of a snapshot release:
+    poly 0.2.18-SNAPSHOT #1 (2023-09-15)
+
+  The poly tool does not only version control releases but also the workspace
+  structure and the public API, which we can read more about by executing:
+    poly doc ws:version
 ----
 
 [#ws]
