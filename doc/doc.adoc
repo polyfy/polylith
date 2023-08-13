@@ -21,8 +21,6 @@ By using the xref:commands.adoc#doc[doc] command, we can open different pages, l
 poly doc page:component
 ----
 
-image::images/doc/component-page.png[width=300]
-
 We can improve the user experience by starting a xref:commands.adoc#shell[shell]
 and letting the tool guide us to different help pages:
 

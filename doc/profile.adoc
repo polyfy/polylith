@@ -399,7 +399,7 @@ This REPL will use the `user-remote` component and can be used to "emulate" a pr
 But let's continue with the REPL that is already running and see if we can switch to `user-remote` without restarting it.
 
 
-Open the `core` namespace of the `user-remote` component and select `Tools` > `REPL` > `Load file in REPL`.
+Open the `core` namespace of the `user-remote` component and select `Tools > REPL > Load file in REPL`.
 This will replace the `user` implementation with the `user-remote` component,
 which works because both live in the same `se.example.userv` namespace, which is also their interface (`user`).
 
