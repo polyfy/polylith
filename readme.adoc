@@ -1,5 +1,9 @@
 image::doc/images/logo.png[width=400]
 
+https://cljdoc.org/d/polylith/clj-poly/CURRENT[image:https://cljdoc.org/badge/polylith/clj-poly[cljdoc]]
+https://clojurians.slack.com/messages/C013B7MQHJQ[image:https://img.shields.io/badge/slack-join_chat-brightgreen.svg[Join chat]]
+// https://clojars.org/polylith/clj-poly[image:https://img.shields.io/badge/clojars-0.2.18-SNAPSHOT[Clojars project]]
+
 == Welcome to the wonderful world of Polylith!
 
 This tool is made by developers for developers with the goal to maximize productivity and increase the quality of the systems we write.
