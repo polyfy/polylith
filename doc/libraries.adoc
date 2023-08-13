@@ -6,14 +6,14 @@ Libraries are specified in `deps.edn` for each component, base, and project:
 |===
 | Entity | Scope | Location
 
-| Components | src | `components/COMPONENT-DIR` > `deps.edn` > `:deps`
-| | test | `components/COMPONENT-DIR` > `deps.edn` > `:aliases` > `:test` > `:extra-deps`
-| Bases | src | `bases/BASE-DIR` > `deps.edn` > `:deps`
-| | test | `bases/BASE-DIR` > `deps.edn` > `:aliases` > `:test` > `:extra-deps`
-| Dev project | src | `./deps.edn` > `:aliases` > `:dev` > `:extra-deps`
-| | test | `./deps.edn` > `:aliases` > `:test` > `:extra-deps`
-| Other projects | src | `projects/PROJECT-DIR` > `deps.edn` > `:deps`
-| | test | `projects/PROJECT-DIR` > `deps.edn` > `:deps`
+| Components | src | `components/COMPONENT-DIR > deps.edn > :deps`
+| | test | `components/COMPONENT-DIR > deps.edn > :aliases > :test > :extra-deps`
+| Bases | src | `bases/BASE-DIR > deps.edn > :deps`
+| | test | `bases/BASE-DIR > deps.edn > :aliases > :test > :extra-deps`
+| Dev project | src | `./deps.edn > :aliases > :dev > :extra-deps`
+| | test | `./deps.edn > :aliases > :test > :extra-deps`
+| Other projects | src | `projects/PROJECT-DIR > deps.edn > :deps`
+| | test | `projects/PROJECT-DIR > deps.edn > :deps`
 |===
 
 The `poly` tool parses each `deps.edn` file and looks for library dependencies,
@@ -72,7 +72,7 @@ A difference between tools.deps CLI and the `poly` tool is that the latter also 
 
 If you want to run the tests directly from a project using the tools.deps CLI tool,
 then you also have to duplicate test dependencies from the bricks to the project's `deps.edn` file
-under `:aliases` > `:test` > `:extra-paths`.
+under `:aliases > :test > :extra-paths`.
 As long as you run the tests with the built-in xref:commands.adoc#test[test] command you don't have to worry about this.
 
 ==== Brick libraries
@@ -115,10 +115,10 @@ Here are all the places where libraries can be overridden:
 |===
 | Entity | Scope | Location
 
-| Development project | src | `./deps.edn` > `:aliases` > `:dev` > `:override-deps`
-|  | test | `./deps.edn` > `:aliases` > `:test` > `:override-deps`
-| Other projects | src | `projects/PROJECT-DIR` > `deps.edn` > `:override-deps`
-|  | test | `projects/PROJECT-DIR` > `deps.edn` > `:aliases` > `:test` > `:override-deps`
+| Development project | src | `./deps.edn > :aliases > :dev > :override-deps`
+|  | test | `./deps.edn > :aliases > :test > :override-deps`
+| Other projects | src | `projects/PROJECT-DIR > deps.edn > :override-deps`
+|  | test | `projects/PROJECT-DIR > deps.edn > :aliases > :test > :override-deps`
 |===
 
 If a library is overridden in the `src` scope it will also affect the `test` scope.

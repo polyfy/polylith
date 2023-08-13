@@ -81,7 +81,7 @@ No interfaces are imported from the test context in this example.
 
 * `:lib-deps` Lists the library dependencies this base depends on,
 defined in the `:deps` key in its `deps.edn` file for the `src` context,
-and the `:aliases` > `:test` > `:extra-deps` for the `test` context.
+and the `:aliases > :test > :extra-deps` for the `test` context.
 The `:size` is in bytes.
 
 * `:lib-imports` The name is a bit misleading as internal namespaces for the base is also included.
@@ -106,7 +106,7 @@ If ignored, then xref:validations.adoc#warning206[warning 206 - Unreadable names
 * `:non-top-namespace` If the base contains any non-top namespaces, they will be stored in a vector with elements like this:
 ** `{:non-top-ns "com.wrong", :file "bases/cli/src/com/wrong/cli/interface.clj"}`
 * `:paths` The paths that are specified in its `deps.edn` file
-(paths for `src` and `resources` paths + `aliases` > `:test` > `:extra-paths` for test paths).
+(paths for `src` and `resources` paths + `aliases > :test > :extra-paths` for test paths).
 * `:type` Set to "base".
 
 [#changes]
@@ -244,7 +244,7 @@ No interfaces are imported from the test context in this example.
 
 * `:lib-deps` Lists the library dependencies this base depends on,
 defined in the `:deps` key in its `deps.edn` file for the `src` context,
-and the `:aliases` > `:test` > `:extra-deps` for the `test` context. The `:size` is in bytes.
+and the `:aliases > :test > :extra-deps` for the `test` context. The `:size` is in bytes.
 
 * `:lib-imports` The name is a bit misleading as internal namespaces for the base is also included.
 ** `src` Lists all imports from the src context except component interfaces.
@@ -269,7 +269,7 @@ If ignored, then xref:validations.adoc#warning206[warning 206 - Unreadable names
 * `:non-top-namespace` If the base contains any non-top namespaces, they will be stored in a vector with elements like this:
 ** {`:non-top-ns` "com.wrong", `:file` "bases/cli/src/com/wrong/cli/interface.clj"}
 * `:paths` The paths that are specified in its `deps.edn` file
-(paths for `src` and `resources` paths + `aliasesv > `:test` > `:extra-paths` for test paths).
+(paths for `src` and `resources` paths + `aliases > :test > :extra-paths` for test paths).
 * `:type` Set to "base".
 
 [#configs]
@@ -738,7 +738,7 @@ Specified in `workspace.edn`.
 ** `:name` Set to "git".
 ** `:polylith`
 *** `:branch` Set to `master` or `BRANCH` if `branch:BRANCH` is given.
-The branch is used when calculating the latest sha in `./deps.edn` for the key `:aliases` > `:poly` > `:extra-deps` > `sha`.
+The branch is used when calculating the latest sha in `./deps.edn` for the key `:aliases > :poly > :extra-deps > sha`.
 *** `:repo` Set to "https://github.com/polyfy/polylith.git".
 ** `:stable-since`
 *** `:sha` The latest stable point in time.
@@ -853,7 +853,7 @@ instead of e.g. "polyx 0.2.18-issue318-02".
 
 * `:is-git-add` Used by the xref:commands.adoc#create-component[create component],
 xref:commands.adoc#create-base[create base] and xref:commands.adoc#create-project[create project] commands
-to add created files to git. Has the same effect for current command as if `:vcs` > `:auto-add` was set to `true`
+to add created files to git. Has the same effect for current command as if `:vcs > :auto-add` was set to `true`
 in `workspace.edn`.
 
 * `:is-latest-sha` Set to `true` if `:latest-sha` is given.

@@ -9,7 +9,7 @@ The status column has a different meaning:
 
 [%autowidth]
 |===
-| status | Explanation
+| Status | Explanation
 
 | `s--` | The project has a `src` directory
 | `-t-` | The project has a `test` directory
@@ -31,7 +31,7 @@ Each flag under `dev` has a slightly different meaning, where project refers to 
 
 [%autowidth]
 |===
-| status | Explanation
+| Status | Explanation
 
 | `s--` | The `src` directory is included in the development project
 | `-t-` | The `test` directory is included in the development project
@@ -52,7 +52,7 @@ Here the flags have a slightly different meaning:
 
 [%autowidth]
 |===
-| status | Explanation
+| Status | Explanation
 
 | `s--` | The brick's `src` directory is included in this project
 | `-t-` | The brick's `test` directory is included in this project

@@ -97,7 +97,7 @@ image::images/dependencies/deps-project.png[width=350]
 Now, all the headers are green,
 and that is because all the implementing components are known within the selected project.
 The `+` signs mark indirect dependencies, while `-` signs mark indirect test dependencies (not present here).
-An example is the `article` component that uses `log` indirectly: `article` > `database` > `log`.
+An example is the `article` component that uses `log` indirectly: `article > database > log`.
 
 [#compact-view]
 If we have many libraries, they can be viewed in a more compact format:

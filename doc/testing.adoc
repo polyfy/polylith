@@ -59,9 +59,9 @@ the root module (`example` in this case). This is reported to Cursive as issue h
 
 Now we can run the test from the IDE:
 
-* Make sure the namespace is loaded, e.g. via the menu (or keyboard shortcuts) `Tools` > `REPL` > `Load File in REPL`.
+* Make sure the namespace is loaded, e.g. via the menu (or keyboard shortcuts) `Tools > REPL > Load File in REPL`.
 
-* Or, place the cursor under the test and run: `Tools` > `REPL` > `Run Test under carret in REPL`
+* Or, place the cursor under the test and run: `Tools > REPL > Run Test under carret in REPL`
 
 image::images/testing/failing-test.png[]
 

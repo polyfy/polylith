@@ -122,5 +122,5 @@ to allow IDE's and other tooling to work properly.
 
 Let's summarise where the dependencies to bricks are located:
 
-* The dev project: `./deps.edn` > `:aliases` > `:dev` > `:extra-deps`
-* Other projects: `projects/PROJECT-DIR` > `deps.edn` > `:deps`
+* The dev project: `./deps.edn > :aliases > :dev > :extra-deps`
+* Other projects: `projects/PROJECT-DIR > deps.edn > :deps`
