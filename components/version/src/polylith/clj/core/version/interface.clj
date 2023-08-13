@@ -5,7 +5,7 @@
 
 ;; ------------------------------------------------------------------------
 ;; - if a release: set revision to "" and leave snapshot as it is.
-;; - if working towards a release candidate (or a release fix):
+;; - if working towards a release (or a release fix):
 ;;   set revision to "SNAPSHOT", and increment snapshot to e.g. 1.
 ;;
 ;; Note that revision should only be set to "SNAPSHOT" or "" (if a release).
@@ -29,7 +29,7 @@
 
 (def tool (if system/extended? "polyx" "poly"))
 
-(def date "2023-08-02")
+(def date "2023-08-13")
 
 (defn version
   ([]
@@ -57,6 +57,7 @@
 ;; 2.0    0.2.18          added     configs
 ;;                        added     bases:BASE:base-deps
 ;;                        added     version:test-runner-api
+;;                        added     version:snapshot
 ;;                        added     version:tool
 ;;                        added     ENTITIES:ENTITY:namespaces:SOURCE:0:is-ignored
 ;;                        added     ENTITIES:ENTITY:namespaces:SOURCE:0:is-invalid
