@@ -21,13 +21,8 @@ By using the xref:commands.adoc#doc[doc] command, we can open different pages, l
 poly doc page:component
 ----
 
-We can improve the user experience by starting a xref:commands.adoc#shell[shell]
-and letting the tool guide us to different help pages:
-
-[source,shell]
-----
-poly
-----
+We can improve the user experience by starting a xref:commands.adoc#shell[shell],
+by e.g. executing `poly`.
 
 Now we can type `doc` followed by a space, from the shell, to list the different help categories:
 
@@ -37,12 +32,12 @@ example$ doc
 help   more   page   ws
 ----
 
-Let's dig into these four categories.
+Let's dig into these four help categories.
 
 == page
 
 The `page` parameter is used to navigate the `poly` tool documentation, as we have already mentioned.
-We can pass in `page:` to list all pages, which are also accessible in the left menu (notice that it ends with a `:`):
+We can pass in `page:` to list all pages, which are also accessible in the left menu (notice that it ends with a colon):
 
 [source,shell]
 ----
@@ -94,8 +89,8 @@ create-base          deps-workspace       shell
 create-component     deps                 switch-ws
 create-project       diff                 tap
 create-workspace     doc                  test
-create               info                 ws
-deps-brick           libs
+create               info                 version
+deps-brick           libs                 ws
 deps-project-brick   migrate
 ----
 
@@ -107,12 +102,11 @@ example$ doc help:check
 ----
 
 ...which take us to the web based help for the xref:commands.adoc#check[check] command.
-
-The content is the same as the output from the selected help command (`check` in this case):
+We can get the same output if we execute `help` command (but in the console):
 
 [source,shell]
 ----
-poly help check
+example$ help check
 ----
 
 == ws
@@ -192,7 +186,7 @@ https://github.com/tengstrand[Joakim Tengstrand] explains the foundational conce
 
 === high-level
 
-The high-level documentation can be opened with:
+The https://polylith.gitbook.io/polylith[high-level] documentation can be opened with:
 
 [source,shell]
 ----
@@ -255,7 +249,7 @@ The same people goes deeper into the Polylith concepts, the benefits of using it
 
 === python tool
 
-https://github.com/DavidVujic[David Vujic] has created Polylith tools for Python, that can be accessed https://davidvujic.github.io/python-polylith-docs[here].
+https://github.com/DavidVujic[David Vujic] has created https://davidvujic.github.io/python-polylith-docs[Polylith tools for Python]:
 
 [source,shell]
 ----
@@ -266,7 +260,7 @@ example$ doc more:python-tool
 
 Reach out to the https://polylith.gitbook.io/polylith/conclusion/who-made-polylith[Polylith team]
 in the https://clojurians.slack.com/archives/C013B7MQHJQ[#polylith] channel
-in the clojurians workspace in Slack.
+in the clojurians workspace in Slack:
 
 [source,shell]
 ----
@@ -339,9 +333,9 @@ mainly maintained by https://github.com/tengstrand[Joakim Tengstrand].
 | https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/master[realworld] |
 A full-fledged RealWorld server, built with Clojure, Polylith,
 and Ring, including CRUD operations, authentication, routing, pagination, and more.
-Created by link:https://github.com/furkan3ayraktar[Furkan Bayraktar].
+Created and maintained by link:https://github.com/furkan3ayraktar[Furkan Bayraktar].
 
 | https://github.com/seancorfield/usermanager-example/tree/polylith[usermanager] |
 A simple web application using Component, Ring, Compojure, and Selmer connected to a local SQLite database.
-Created by https://github.com/seancorfield[Sean Corfield].
+Created and maintained by https://github.com/seancorfield[Sean Corfield].
 |===
