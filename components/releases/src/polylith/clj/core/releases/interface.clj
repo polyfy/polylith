@@ -1,4 +1,4 @@
-(ns polylith.clj.core.releases.interface)
+(ns ^:no-doc polylith.clj.core.releases.interface)
 
 ;; Workspace attributes:
 ;;   ENTITIES = bases, components, or projects.
