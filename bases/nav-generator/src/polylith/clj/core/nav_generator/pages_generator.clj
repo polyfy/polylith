@@ -16,3 +16,7 @@
   (let [cljdoc-pages (-> (config-reader/read-edn-file "doc/cljdoc.edn" "cljdoc.edn")
                          :config :cljdoc.doc/tree)]
     (into (sorted-map) (mapv entry (sort (remove nil? (map page-name cljdoc-pages)))))))
+
+(comment
+  (navigation)
+  #__)
