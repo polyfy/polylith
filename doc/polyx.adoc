@@ -105,16 +105,17 @@ This image can be used in our documentation to get an overview of the workspace.
 ====
 NOTE: There are issues reported for Apple silicon when using
 https://en.wikipedia.org/wiki/Abstract_Window_Toolkit[Java AWT]
-(used by the underlying https://github.com/Clojure2D/clojure2d[clojure2d] library
-that we use to create the pictures)
+(used by the underlying https://github.com/Clojure2D/clojure2d[clojure2d] library,
+to create the images)
 which is one of the reasons we don't include support for creating images in the `poly` tool.
-Another source of trouble may be that `polyx` starts a Java process: +
+Another source of trouble may be that `polyx` starts a Java process,
+which is not always desirable in a command line tool: +
 image:images/polyx/java.png[]
 ====
 
 [Caution]
 ====
 CAUTION: The `polyx` tool may be converted to a custom command in the future, when we have support for that,
-and when that happens the `polyx` project will be deleted.
-This means that image creation may be configured in a different way in the future.
+and when that happens the `polyx` project may be deleted, and that image creation have to be configured
+in a different way in the future.
 ====
