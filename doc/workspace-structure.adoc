@@ -24,6 +24,7 @@ poly ws get:keys
  :name
  :paths
  :projects
+ :releases
  :settings
  :user-input
  :version
@@ -677,7 +678,7 @@ poly ws get:releases:0.2.18-SNAPSHOT:issue-187
  :url "https://github.com/polyfy/polylith/issues/187"}
 ----
 
-And sometimes PR:s, e.g.:
+And sometimes PRs, e.g.:
 
 [source,shell]
 ----
@@ -693,7 +694,7 @@ poly ws get:releases:0.2.18-SNAPSHOT:pr-319
 ----
 
 If the xref:workspace-structure.adoc[workspace structure] has changed,
-we can list the changed attributes, by giving the new version, e.g.:
+we can list the changed attributes, by giving the new workspace structure version, e.g.:
 
 [source,shell]
 ----
@@ -719,6 +720,8 @@ ws get:releases:0.2.18-SNAPSHOT:ws-2.0
               {:attribute "releases", :description "Added"}],
 :name "ws-2.0"}
 ----
+
+Information on how the workspace structure is version controlled, can be found xref:workspace-structure.adoc#version[here].
 
 [#settings]
 == settings
@@ -1062,9 +1065,12 @@ Each subsequent snapshot release will increase this value by one.
 ** `:breaking` Increased by one if introducing a non-backward compatible change of the test runner API.
 ** `:non-breaking` Increased by one when a non-breaking change is made to the test runner API.
 
-* `:ws` Versioning of the internal workspace format, returned by poly `ws`.
-** `:breaking` Increased by one if introducing a non-backward compatible change of the ws format.
-** `:non-breaking` Increased by one when a non-breaking change is made to the ws format.
+* `:ws` Versioning of the internal workspace format, returned by `poly ws`.
+** `:breaking` Increased by one if introducing a non-backward compatible change of the workspace format:
+*** If an attribute has changed name.
+*** If an attribute has been deleted.
+*** If the data format of an attribute has changed.
+** `:non-breaking` Increased by one when a non-breaking change is made to the workspace format.
 ** `:type` Set to `:toolsdeps1` if the workspace was created by `v0.1.0-alpha9` or earlier
 (where each brick doesn't have its own `deps.edn` file).
 Set to `:toolsdeps2` if the workspace was created by `v0.2.0-alpha10` or later
