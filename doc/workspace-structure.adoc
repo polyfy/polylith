@@ -313,7 +313,7 @@ poly ws get:configs
                                            :extra-paths ["components/user/test"]}
                                 :+remote {:extra-deps {poly/user-remote {:local/root "components/user-remote"}}
                                           :extra-paths ["components/user-remote/test"]}
-                                :build {:deps {io.github.clojure/tools.build {:mvn/version "0.9.4"}
+                                :build {:deps {io.github.clojure/tools.build {:mvn/version "0.9.5"}
                                                io.github.seancorfield/build-uber-log4j2-handler {:git/sha "55fb6f6"
                                                                                                  :git/tag "v0.1.5"}
                                                org.clojure/tools.deps {:mvn/version "0.16.1281"}}

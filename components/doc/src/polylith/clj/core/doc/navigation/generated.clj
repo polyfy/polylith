@@ -24,6 +24,7 @@
    "switch-ws" []
    "tap" []
    "test" []
+   "version" []
    "ws" []})
 
 (def pages-nav

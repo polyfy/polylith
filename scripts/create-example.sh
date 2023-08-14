@@ -60,22 +60,22 @@ echo "### Upgrade the clojure tool ###"
 brew upgrade clojure/tools/clojure
 clojure -A:dev:test -P
 
-echo "### Generate doc navigation, used by the shell ###"
+echo "### 1/26 Generate doc navigation, used by the shell ###"
 clojure -M:gen-nav
 
 cd $ws
 
-echo "### 1/25 Workspace ###"
+echo "### 2/26 Workspace ###"
 poly create workspace name:example top-ns:se.example :git-add :commit
 tree example > $output/workspace-tree.txt
 cd example
 
-echo "### 2/25 Development ###"
+echo "### 3/26 Development ###"
 mkdir development/src/dev
 cp $sections/development/lisa.clj development/src/dev
 git add development/src/dev/lisa.clj
 
-echo "### 3/25 Component ###"
+echo "### 4/26 Component ###"
 echo "current dir=$(pwd)"
 poly create component name:user
 tree . > ../component-tree.txt
@@ -87,7 +87,7 @@ cp $sections/component/user-interface.clj components/user/src/se/example/user/in
 cp $sections/component/deps.edn .
 poly info fake-sha:c91fdad color-mode:none > $output/component-info.txt
 
-echo "### 4/25 Base ###"
+echo "### 5/26 Base ###"
 poly create base name:cli
 cd ..
 tree example > $output/base-tree.txt
@@ -96,7 +96,7 @@ echo "current-dir=$(pwd)"
 cp $sections/base/deps.edn .
 cp $sections/base/cli-core.clj bases/cli/src/se/example/cli/core.clj
 
-echo "### 5/25 Project ###"
+echo "### 6/26 Project ###"
 echo "current-dir=$(pwd)"
 poly create project name:command-line
 cd ..
@@ -106,7 +106,7 @@ cp $sections/project/deps.edn .
 cp $sections/project/workspace.edn ./workspace.edn
 cp $sections/project/command-line-deps.edn projects/command-line/deps.edn
 
-echo "### 6/25 Polyx ###"
+echo "### 7/26 Polyx ###"
 echo "current-dir=$(pwd)"
 cp $sections/polyx/deps.edn .
 poly info fake-sha:c91fdad color-mode:none out:$output/polyx-info.txt
@@ -114,9 +114,9 @@ clojure -M:polyx info out:$output/info.png
 clojure -M:polyx overview out:$output/overview.png
 cp $sections/project/deps.edn .
 
-echo "### 7/25 Tools.deps ###"
+echo "### 8/26 Tools.deps ###"
 
-echo "### 8/25 Build ###"
+echo "### 9/26 Build ###"
 echo "current-dir=$(pwd)"
 cp $sections/build/deps.edn .
 cp $sections/build/build.clj .
@@ -126,7 +126,7 @@ clojure -T:build uberjar :project command-line
 cd projects/command-line/target
 java -jar command-line.jar Lisa
 
-echo "### 9/25 Git ###"
+echo "### 10/26 Git ###"
 cd ../../..
 echo "current-dir=$(pwd)"
 poly info fake-sha:c91fdad color-mode:none > $output/git-info.txt
@@ -137,7 +137,7 @@ poly diff > $output/git-diff.txt
 git commit -m "Created the user and cli bricks."
 git log --pretty=oneline
 
-echo "### 10/25 Tagging ###"
+echo "### 11/26 Tagging ###"
 echo "current-dir=$(pwd)"
 git tag -f stable-lisa
 git log --pretty=oneline
@@ -153,11 +153,11 @@ poly info since:release fake-sha:e7ebe68 color-mode:none > $output/tagging-info-
 poly info since:previous-release fake-sha:c91fdad color-mode:none > $output/tagging-info-4.txt
 git log --pretty=oneline
 
-echo "### 11/25 Flags ###"
+echo "### 12/26 Flags ###"
 echo "current-dir=$(pwd)"
 poly info :resources fake-sha:e7ebe68 color-mode:none > $output/flags-info.txt
 
-echo "### 12/25 Testing ###"
+echo "### 13/26 Testing ###"
 echo "current-dir=$(pwd)"
 cp $sections/testing/user-core.clj components/user/src/se/example/user/core.clj
 poly diff > $output/testing-diff.txt
@@ -218,7 +218,7 @@ poly test :all :dev color-mode:none > $output/testing-test-all-exclude-tests.txt
 echo "exit code: $?" >> $output/testing-test-all-exclude-tests.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/testing-test-all-exclude-tests.txt
 
-echo "### 13/25 Profile ###"
+echo "### 14/26 Profile ###"
 echo "current-dir=$(pwd)"
 
 cp $sections/profile/workspace.edn .
@@ -248,7 +248,7 @@ poly test :project fake-sha:e7ebe68 color-mode:none > $output/profile-test.txt
 echo "exit code: $?" >> $output/profile-test.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/profile-test.txt
 
-echo "### 14/25 Configuration ###"
+echo "### 15/26 Configuration ###"
 echo "current-dir=$(pwd)"
 sha=`git rev-list -n 1 stable-lisa`
 poly ws get:settings replace:$ws:WS-HOME:$sha:SHA color-mode:none > $output/ws-state-settings.txt
@@ -260,7 +260,7 @@ poly ws get:components:user-remote:lib-deps color-mode:none > $output/ws-state-c
 poly ws out:ws.edn
 poly ws get:old:user-input:args ws-file:ws.edn color-mode:none > $output/ws-state-ws-file.txt
 
-echo "### 15/25 Copy doc-example ###"
+echo "### 16/26 Copy doc-example ###"
 echo "current-dir=$(pwd)"
 cp $examples/doc-example/readme.txt $ws
 rm -rf $examples/doc-example
@@ -275,7 +275,7 @@ rm $examples/doc-example/projects/.keep
 rm $examples/doc-example/development/src/.keep
 cp $ws/readme.txt $examples/doc-example/readme.txt
 
-echo "### 16/25 Realworld example app ###"
+echo "### 17/26 Realworld example app ###"
 cd $ws2
 echo "current-dir=$(pwd)"
 git clone git@github.com:furkan3ayraktar/clojure-polylith-realworld-example-app.git
@@ -295,7 +295,7 @@ cp $scripts/realworld/workspace-compact.edn ./workspace.edn
 poly libs color-mode:none > $output/realworld/realworld-lib-deps-compact.txt
 cp $scripts/realworld/workspace.edn .
 
-echo "### 17/25 Polylith toolsdeps1 ###"
+echo "### 18/26 Polylith toolsdeps1 ###"
 cd $ws1
 echo "current-dir=$(pwd)"
 git clone git@github.com:polyfy/polylith.git
@@ -305,14 +305,14 @@ clojure -A:dev:test -P
 poly libs color-mode:none > $output/polylith1/libs.txt
 poly deps color-mode:none > $output/polylith1/deps.txt
 
-echo "### 18/25 Polylith toolsdeps1 (migrated) ###"
+echo "### 19/26 Polylith toolsdeps1 (migrated) ###"
 poly migrate
 echo "current-dir=$(pwd)"
 poly info fake-sha:40d2f62 :no-changes color-mode:none > $output/polylith1/info-migrated.txt
 poly libs color-mode:none > $output/polylith1/libs-migrated.txt
 poly deps color-mode:none > $output/polylith1/deps-migrated.txt
 
-echo "### 19/25 Usermanager ###"
+echo "### 20/26 Usermanager ###"
 cd $ws3
 git clone https://github.com/seancorfield/usermanager-example.git
 cd usermanager-example
@@ -323,7 +323,7 @@ poly info :no-changes color-mode:none > $output/usermanager/info.txt
 poly libs color-mode:none > $output/usermanager/libs.txt
 poly deps color-mode:none > $output/usermanager/deps.txt
 
-echo "### 20/25 examples/local-dep ###"
+echo "### 21/26 examples/local-dep ###"
 
 cd $examples/local-dep
 echo "current-dir=$(pwd)"
@@ -342,7 +342,7 @@ poly test :dev since:0aaeb58 color-mode:none > $output/local-dep/test.txt
 echo "exit code: $?" >> $output/local-dep/test.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/local-dep/test.txt
 
-echo "### 21/25 examples/local-dep-old-format ###"
+echo "### 22/26 examples/local-dep-old-format ###"
 cp -R $examples/local-dep-old-format $ws4
 cd $ws4/local-dep-old-format
 echo "current-dir=$(pwd)"
@@ -352,7 +352,7 @@ git commit -m "Workspace created."
 git tag stable-jote
 sha=`git rev-list -n 1 stable-jote`
 
-echo "### 22/25 examples/local-dep-old-format ###"
+echo "### 23/26 examples/local-dep-old-format ###"
 poly info fake-sha:aaaaa color-mode:none :no-changes > $output/local-dep-old-format/info.txt
 poly libs color-mode:none > $output/local-dep-old-format/libs.txt
 poly deps color-mode:none > $output/local-dep-old-format/deps.txt
@@ -361,7 +361,7 @@ poly test :dev color-mode:none > $output/local-dep-old-format/test.txt
 echo "exit code: $?" >> $output/local-dep-old-format/test.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/local-dep-old-format/test.txt
 
-echo "### 23/25 examples/local-dep-old-format (migrated) ###"
+echo "### 24/26 examples/local-dep-old-format (migrated) ###"
 poly migrate
 git add --all
 poly info fake-sha:aaaaa :no-changes color-mode:none > $output/local-dep-old-format/info-migrated.txt
@@ -371,7 +371,7 @@ poly test :de color-mode:none > $output/local-dep-old-format/test-migrated.txt
 echo "exit code: $?" >> $output/local-dep-old-format/test-migrated.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/local-dep-old-format/test-migrated.txt
 
-echo "### 24/25 examples/for-test, issue 208 - Mix clj and cljc source directories ###"
+echo "### 25/26 examples/for-test, issue 208 - Mix clj and cljc source directories ###"
 cd $examples/for-test
 echo "current-dir=$(pwd)"
 set +e
@@ -389,7 +389,7 @@ set -e
 
 cd $scripts/help
 
-echo "### 25/25 help ###"
+echo "### 26/26 help ###"
 ./update-commands-doc.sh
 
 echo "Elapsed: $((($SECONDS / 60) % 60)) min $(($SECONDS % 60)) sec"
