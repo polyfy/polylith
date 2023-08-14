@@ -205,8 +205,8 @@ example
 ├── components
 │   └── user-remote
 │       └── src
-│           ├── se.example.user_remote.core.clj
-│           └── se.example.user_remote.interface.clj
+│           ├── se.example.user.core.clj
+│           └── se.example.user.interface.clj
 ----
 
 ...with this content:
