@@ -189,19 +189,17 @@ If you switch to the Kaocha Test Runner, you will get more options in how to run
 
 A simple https://github.com/lambdaisland/kaocha/[Kaocha]-based test runner implementation for Polylith.
 
-*Repository*: https://github.com/imrekoszo/polylith-kaocha[imrekoszo/polylith-kaocha]
-
-*Author*: https://github.com/imrekoszo[@imrekoszo]
-
-*License*: MIT
+[horizontal]
+Repository:: https://github.com/imrekoszo/polylith-kaocha[imrekoszo/polylith-kaocha]
+Author:: https://github.com/imrekoszo[@imrekoszo]
+License:: MIT
 
 == External Test Runner
 
 An external (subprocess) test runner for Polylith. Avoids classloader, daemon thread, and memory usage issues
 by running tests in a subprocess with only Clojure itself as a dependency.
 
-*Repository*: https://github.com/seancorfield/polylith-external-test-runner[seancorfield/polylith-external-test-runner]
-
-*Author*: https://github.com/seancorfield[@seancorfield]
-
-*License*: Apache-2.0
+[horizontal]
+Repository:: https://github.com/seancorfield/polylith-external-test-runner[seancorfield/polylith-external-test-runner]
+Author:: https://github.com/seancorfield[@seancorfield]
+License:: Apache-2.0
