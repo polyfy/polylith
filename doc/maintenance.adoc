@@ -5,9 +5,9 @@ Feel free to read what's in here, and hopefully you will pick up something of va
 
 == Parameters
 
-There are a few parameters that are either rarely used, added to simplify maintenance work with the Polylith codebase,
-or used in special circumstances. For these reasons, they are not suggested by the autocomplete when in a
-xref:commands.adoc#shell[shell].
+There are a few parameters that are either rarely used, added to simplify maintenance work with the
+https://github.com/polyfy/polylith[polylith] codebase, or used in special circumstances.
+For these reasons, they are not suggested by the autocomplete when in a xref:commands.adoc#shell[shell].
 What most of them have in common is that they are used to control the output of the different `poly` commands.
 
 === all
@@ -30,11 +30,6 @@ poly :all
 This will activate autocomplete for all available parameters, even those that are rarely used, and mostly in the way,
 and parameters that only make sense when developing the `poly` tool itself.
 For example, `:fake-poly` is only used to fake that we use a released version of the `poly` tool.
-
-image::images/colors/poly-all.png[]
-
-Examples of other parameters that will also be available for some commands:
-`branch`, `changed-files`, `color-mode`, `:compact`, `:local:`, `:no-changes`, `+`.
 
 === changed-files
 
@@ -86,15 +81,11 @@ poly info fake-tag:
 This parameter is used to fake that we are using the `poly` tool,
 when we actually use the `polyx` tool.
 
-These two will remove the "-SNAPSHOT" from the output of the version number:
-
 [source,shell]
 ----
+# Excludes "-SNAPSHOT" from the version at the top of the help output:
 poly help :fake-poly
-----
-
-[source,shell]
-----
+# Excludes "-SNAPSHOT" from the Polylith ascii art logo:
 poly :fake-poly
 ----
 
@@ -112,13 +103,13 @@ poly ws get:settings:vcs:polylith:latest-sha :latest-sha
 This parameter can be used to fake that no changes have been made since the last stable point in time,
 and can be used when taking a screenshot of the xref:commands.adoc#info[info] command without getting the `*` characters.
 
-* `poly diff :no-changes` Returns no rows.
-* `poly info :no-changes` Gets rid of the * characters.
-
-Has the same effect as:
-
 [source,shell]
 ----
+# Returns no rows:
+poly diff :no-changes
+# Gets rid of the * characters:
+poly info :no-changes
+# ...has the same effect as:
 poly info changed-files:
 ----
 
@@ -130,7 +121,7 @@ If executing the `poly` tool from a REPL, this will also exit the REPL.
 To avoid that, we can pass in
 https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj#L31-L32[:no-exit].
 
-If we execute `poly info :no-exit` we have to press `<ctrl>+C` to exit, which is not so useful!
+If we execute e.g. `poly info :no-exit` we have to press `<ctrl>+C` to exit, which is not so useful!
 
 === replace
 
@@ -179,12 +170,11 @@ We can now start the server and publish the documentation locally (which takes a
 
 [source,shell]
 ----
-cd polylith
 bb doc start
 bb doc ingest
 ----
 
-If we are a maintainer of the `poly` tool itself, then start a shell:
+If you are a maintainer of the `poly` tool itself, then start a shell:
 
 [source,clojure]
 ----
@@ -214,6 +204,8 @@ clojure -M:poly :local
 
 The `:local` flag will tell the `poly` tool to open pages on `http://localhost:8000` instead of `https://cljdoc.org`.
 
+=== Open pages in GitHub
+
 If we are in the polylith workspace root directory, we can start a shell with `:local` and then open the corresponding file in GitHub:
 
 [source,shell]
@@ -223,10 +215,11 @@ clojure -M:poly :local
 polylith$ doc page:component :github
 ----
 
-And if we are in another branch than `master` it will open up that page in the correct branch.
+If we have checked out another branch than `master`, the page will be opened in that branch.
 
-But if we start a xref:commands.adoc#shell[shell] from another workspace, we will need to tell on which branch
-the GitHub file should be opened up in, otherwise it will use `master` as default:
+But if we start a xref:commands.adoc#shell[shell] from another workspace than `polylith`,
+we will need to tell on which branch the GitHub file should be opened up in,
+otherwise it will use `master` as default:
 
 [source,shell]
 ----
@@ -255,7 +248,8 @@ clojure -M:poly :github branch:issue-318
 polylith$ doc page:component
 ----
 
-This can be useful if we are a maintainer of the `poly` tool documentation.
+This can be useful if we are a maintainer of the `poly` tool documentation,
+and don't want to start a local cljdoc server.
 
 == Reloading changes
 
