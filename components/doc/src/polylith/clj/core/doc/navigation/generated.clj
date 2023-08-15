@@ -77,7 +77,6 @@
    "old" []
    "paths" []
    "projects" []
-   "releases" []
    "settings" []
    "user-input" []
    "version" []

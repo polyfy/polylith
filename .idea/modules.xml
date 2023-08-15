@@ -24,7 +24,6 @@
       <module fileurl="file://$PROJECT_DIR$/projects/poly/poly.iml" filepath="$PROJECT_DIR$/projects/poly/poly.iml" />
       <module fileurl="file://$PROJECT_DIR$/bases/poly-cli/poly-cli.iml" filepath="$PROJECT_DIR$/bases/poly-cli/poly-cli.iml" />
       <module fileurl="file://$PROJECT_DIR$/polylith.iml" filepath="$PROJECT_DIR$/polylith.iml" />
-      <module fileurl="file://$PROJECT_DIR$/components/releases/releases.iml" filepath="$PROJECT_DIR$/components/releases/releases.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/sh/sh.iml" filepath="$PROJECT_DIR$/components/sh/sh.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/shell/shell.iml" filepath="$PROJECT_DIR$/components/shell/shell.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/system/system.iml" filepath="$PROJECT_DIR$/components/system/system.iml" />

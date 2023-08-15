@@ -1,0 +1,47 @@
+
+Included in 0.2.18-SNAPSHOT.
+Every time a new shapshot is released, we increment the snapshot number (#) by one.
+
+ #  Issue  Description
+ -  -----  --------------------------------------------------------------------------------------------------------------------
+ 1   187   Support for more than one interface (always accept 'interface' and 'ifc' + what's specified in :interface-ns).
+ 1   259   Added warning 206 'Unreadable namespace in brick/project' + support for excluding files to parse,
+           see 'poly help check' (warning 206) for details.
+ 1   264   Improved error messages for workspace.edn and deps.edn config files (now we use clojure.edn when reading edn files).
+ 1   272   poly check doesn't check test dependencies (solved by issue 293 and 274).
+ 1   274   Support exclusion of bricks to test so that we support both :include and :exclude for projects in workspace.edn.
+ 1   277   Improved warning 205 by also showing non top namespace files. Error 106 and 108 are not displayed in some edge cases.
+ 1   282   The check/info/test commands are now reporting unnecessary components (warning 207). If a component is not referred
+           to but still needed, it can be marked as :necessary by that project, see 'poly help check' (warning 207) for details.
+ 1   286   Make switch-ws available in the shell outside a workspace.
+ 1   289   Make it possible to show all available options in a shell.
+ 1   290   Don't allow :commit when creating a workspace within an existing repo.
+ 1   293   Handle bases that depend on other bases correctly.
+ 1   294   Support for showing outdated libraries by passing in :outdated to the libs command.
+ 1   304   Outdated examples/docs (solved by 312).
+ 1   309   Improve the performance of the poly commands by optimising the dependency calculations.
+ 1   312   Build docs/example code should not use build-clj.
+ 1   318   Use cljdoc for the poly tool documentation.
+
+ #   PR    Author        Description
+ -  -----  ------------  ----------------------------------------------------------------------------
+ 1   268   seancorfield  Start using tools.deps instead of tools.deps.alpha.
+ 1   275   sundbry       Require clojure.tools.deps correctly in build.clj.
+ 1   319   lread         Tweak bb doc task that offers cljdoc previews + the related PRs 320 and 321.
+ 1   323   john-shaffer  Fix NPE when taking the size of a directory.
+ 1   324   j1mr10rd4n    Fix filename/namespace mismatch in profile.adoc.
+
+ #  Description
+ -  --------------------------------------------------------------------------------------------------------------------
+ 1  Exclude license files when building an uberjar.
+ 1  We no longer include tools.deps as a library when creating projects (issue 304).
+ 1  Removed the :all option for the deps and libs commands (which included bricks that didn't have a deps/libs).
+ 1  Also include missing bases in validation error 107.
+ 1  A shell can be startee using 'poly :tap' which is equivalent to 'poly shell :tap' and will start a shell
+    and open up a portal window at the same time.
+ 1  The portal window now only includes the workspace structure, which allows us to browse it from there.
+ 1  In the deps command, we now exclude empty columns (bricks that don't use any library).
+ 1  If we use switch-ws in a shell and execute a command and give the color-mode, then it will be used by that command.
+ 1  The autocomplete now works when starting a shell outside a workspace, which can be useful when creating a workspace,
+    or if we want to switch to another workspace.
+ 1  The test that executed 'libs :outdated' has been removed, so that it doesn't fail intermittently.

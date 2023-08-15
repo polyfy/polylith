@@ -58,3 +58,26 @@
 ;; - when the shape of the data for an attribute changes.
 ;; - when an attribute is deleted.
 ;; All other changes are non-breaking changes.
+
+;; ====== Workspace attributes (ws) ======
+;;
+;; ws     release         action    attribute                                                  Description
+;; -----  -------------   -------   --------------------------------------------------------------------------------------------------------
+;; 2.0    0.2.18          added     configs
+;;                        added     bases:BASE:base-deps
+;;                        added     version:test-runner-api
+;;                        added     version:release:snapshot
+;;                        added     version:tool
+;;                        added     ENTITIES:ENTITY:namespaces:SOURCE:NAMESPACE:is-ignored
+;;                        added     ENTITIES:ENTITY:namespaces:SOURCE:NAMESPACE:is-invalid
+;;                        changed   ENTITIES:ENTITY:namespaces:SOURCE:NAMESPACE:file-path      The ws-dir part is removed from the file path.
+;;                        added     projects:PROJECT:deps:BRICK:SOURCE:missing-ifc-and-bases   Renamed from missing-ifc.
+;;                        added     ws-type
+;; 1.2    0.2.16-alpha    added     ENTITIES:ENTITY:namespaces:src:0:invalid
+;; 1.1    0.2.14-alpha    added     settings:vcs:is-git-repo
+;;                        deleted   projects:PROJECT:is-run-tests
+;;
+;; ENTITIES = bases, components, or projects.
+;; ENTITY = a base, component, or project name.
+;; NAMESPACE = a namespace name
+;; SOURCE = src or test.

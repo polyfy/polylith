@@ -7,7 +7,6 @@
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.user-config.interface :as user-config]
-            [polylith.clj.core.releases.interface :as releases]
             [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.path-finder.interface :as path-finder]
             [polylith.clj.core.workspace-clj.profile :as profile]
@@ -164,7 +163,6 @@
                       :bases bases
                       :projects projects
                       :paths paths
-                      :releases releases/releases
                       :version version)))
 
 (defn workspace-name [ws-dir]
