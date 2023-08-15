@@ -306,7 +306,7 @@
     (b/delete {:path "artifacts"})
     (doseq [project projects-to-process]
       (println (str "Creating artifacts for: " project))
-      (let [project-opts        (assoc opts :project project)
+      (let [project-opts (assoc opts :project project)
             {:keys [uber-file]} (uberjar project-opts)
             {:keys [artifact-path artifact-name]} (scripts project-opts)]
         (b/copy-file {:src (str "projects/" project "/" uber-file)

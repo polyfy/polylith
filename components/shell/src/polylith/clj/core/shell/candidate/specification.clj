@@ -67,6 +67,7 @@
 (def doc-more (c/fn-values "more" :doc #'doc-more/select))
 (def doc-page (c/fn-values "page" :doc #'doc-page/select))
 (def doc-ws (c/fn-values "ws" :doc #'doc-ws/select))
+(def doc-github (c/flag "github" :doc))
 (def doc-local (c/flag "local" :doc))
 (def doc-branch (c/fn-explorer "branch" :doc #'remote-branches/select))
 
@@ -74,6 +75,7 @@
   (c/single-txt "doc" :doc
                 (concat [doc-help doc-more doc-page doc-ws]
                         (when all? [doc-branch])
+                        (when (or all? local?) [doc-github])
                         ;; If starting a shell with :local, don't suggest :local
                         (when (and all? (not local?)) [doc-local]))))
 

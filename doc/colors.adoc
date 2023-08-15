@@ -21,7 +21,7 @@ but we can switch to `light` by giving the `color-mode` parameter
 poly info color-mode:light
 ----
 
-image::images/misc/info-light.png[width=400]
+image::images/colors/info-light.png[width=400]
 
 ...everything suddenly looks much brighter!
 The only difference between `light` and `dark` is that they use different
@@ -61,7 +61,7 @@ poly info color-mode:none
 
 To refresh our memory, this is what it looked like using the dark color schema:
 
-image::images/misc/info-dark.png[width=400]
+image::images/colors/info-dark.png[width=400]
 
 == Colors codes
 
@@ -71,13 +71,13 @@ If you want to use the same colors in your terminal, here they are:
 |===
 | name | color | RGB
 
-| yellow a|image::images/misc/yelow.png[] | f8eeb6
-| green a|image::images/misc/green.png[] | bfefc5
-| blue a|image::images/misc/blue.png[] | 77bcfc
-| purple a|image::images/misc/purple.png[] | e2aeff
-| red a|image::images/misc/red.png[] | ee9b9a
-| grey a|image::images/misc/grey.png[] | cccccc
-| black a|image::images/misc/black.png[] | 24242b
+| yellow a|image::images/colors/yelow.png[] | f8eeb6
+| green a|image::images/colors/green.png[] | bfefc5
+| blue a|image::images/colors/blue.png[] | 77bcfc
+| purple a|image::images/colors/purple.png[] | e2aeff
+| red a|image::images/colors/red.png[] | ee9b9a
+| grey a|image::images/colors/grey.png[] | cccccc
+| black a|image::images/colors/black.png[] | 24242b
 |===
 
 If the colors look familiar to you, it's because they are more or less stolen from the

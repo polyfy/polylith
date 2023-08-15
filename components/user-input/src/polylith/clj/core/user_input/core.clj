@@ -73,6 +73,7 @@
                 file
                 get
                 git-add!
+                github!
                 help
                 interface
                 latest-sha!
@@ -117,6 +118,7 @@
                       :is-dev (= "true" dev!)
                       :is-fake-poly (= "true" fake-poly!)
                       :is-git-add (when git-add! (= "true" git-add!))
+                      :is-github (= "true" github!)
                       :is-latest-sha (= "true" latest-sha!)
                       :is-local (= "true" local!)
                       :is-no-changes (= "true" no-changes!)

@@ -48,9 +48,9 @@
    "interface" {}
    "introduction" {}
    "libraries" {}
+   "maintain-poly" {}
    "migrate" {}
    "naming" {}
-   "parameters" {}
    "polyx" {}
    "profile" {}
    "project" {}

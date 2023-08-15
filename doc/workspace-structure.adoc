@@ -852,6 +852,7 @@ poly ws get:user-input
  :is-compact false
  :is-dev false
  :is-fake-poly false
+ :is-github false
  :is-latest-sha false
  :is-local false
  :is-no-changes false
@@ -946,6 +947,8 @@ instead of e.g. "polyx 0.2.18-issue318-02".
 xref:commands.adoc#create-base[create base] and xref:commands.adoc#create-project[create project] commands
 to add created files to git. Has the same effect for current command as if `:vcs > :auto-add` was set to `true`
 in `workspace.edn`.
+
+* `:is-github` Set to `true` if `:github` is given. Used by the xref:commands.adoc#doc[doc] command to open the corresponding page on GitHub.
 
 * `:is-latest-sha` Set to `true` if `:latest-sha` is given.
 

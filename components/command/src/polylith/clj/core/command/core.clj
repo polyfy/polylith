@@ -61,15 +61,20 @@
     "shell" ["shell" user-input]
     ":all" ["shell" (assoc user-input :is-all true)]
     ":tap" ["shell" (assoc user-input :is-tap true)]
+    ":fake-poly" ["shell" (assoc user-input :is-fake-poly true)]
+    ":github" ["shell" (assoc user-input :is-github true)]
     ":local" ["shell" (assoc user-input :is-local true)]
     [cmd user-input]))
 
-(defn execute [{:keys [cmd args name top-ns branch help is-local more page ws is-tap is-git-add is-commit is-all is-outdated is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
+(defn execute [{:keys [cmd args name top-ns branch help is-local more page ws is-tap is-git-add is-github is-commit is-all is-outdated is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (config-reader/workspace-dir user-input)
         workspace-fn (workspace-reader-fn)
         workspace (workspace-fn user-input ws-file)
         [cmd user-input] (with-shell cmd user-input)]
+    (tap> {:execute cmd
+           :is-local is-local
+           :branch branch})
     (user-config/create-user-config-if-not-exists)
     (when is-tap (tap/execute "open"))
     (let [brick-name (first selected-bricks)
@@ -82,7 +87,7 @@
           "check" (check workspace color-mode)
           "create" (create/create ws-dir workspace args name top-ns interface branch is-git-add is-commit color-mode)
           "deps" (dependencies/deps workspace project-name brick-name unnamed-args)
-          "doc" (doc/open-doc branch is-local help more page ws unnamed-args)
+          "doc" (doc/open-doc branch is-local is-github help more page ws unnamed-args)
           "diff" (diff workspace)
           "help" (open-help args is-all is-show-project is-show-brick is-show-workspace toolsdeps1? is-fake-poly color-mode)
           "info" (info/info workspace unnamed-args)

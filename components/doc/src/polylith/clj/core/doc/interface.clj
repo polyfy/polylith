@@ -8,5 +8,5 @@
 (def pages-nav nav/pages-nav)
 (def ws-nav nav/ws-nav)
 
-(defn open-doc [branch local? help more page ws unnamed-args]
-  (core/open-doc branch local? help more page ws unnamed-args))
+(defn open-doc [branch local? github?  help more page ws unnamed-args]
+  (core/open-doc branch local? github? help more page ws unnamed-args))
