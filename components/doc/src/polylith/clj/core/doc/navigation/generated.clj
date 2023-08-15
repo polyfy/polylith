@@ -48,7 +48,7 @@
    "interface" {}
    "introduction" {}
    "libraries" {}
-   "maintain-poly" {}
+   "maintenance" {}
    "migrate" {}
    "naming" {}
    "polyx" {}
