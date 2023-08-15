@@ -1,6 +1,6 @@
 = Base
 
-A `base` is similar to a `componentv except for two things:
+A `base` is similar to a `component` except for two things:
 
 * It doesn't have an `interface`.
 
