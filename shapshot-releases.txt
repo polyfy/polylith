@@ -5,6 +5,7 @@ Every time a new shapshot is released, we increment the snapshot number (#) by o
  #  Issue  Description
  -  -----  --------------------------------------------------------------------------------------------------------------------
  1   187   Support for more than one interface (always accept 'interface' and 'ifc' + what's specified in :interface-ns).
+ 1   205   Generate images from command's output.
  1   259   Added warning 206 'Unreadable namespace in brick/project' + support for excluding files to parse,
            see 'poly help check' (warning 206) for details.
  1   264   Improved error messages for workspace.edn and deps.edn config files (now we use clojure.edn when reading edn files).
