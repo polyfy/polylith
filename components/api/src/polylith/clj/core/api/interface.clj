@@ -8,8 +8,8 @@
    `deps.edn`, or `v[0-9]*` if not defined.
 
    Example:
-     (projects-to-deploy nil)       ;; `poly ws get:changes:changed-or-affected-projects skip:dev since:stable`
-     (projects-to-deploy \"release\"  ;; `poly ws get:changes:changed-or-affected-projects skip:dev since:release)`"
+     - (projects-to-deploy nil)       ;; `poly ws get:changes:changed-or-affected-projects skip:dev since:stable`
+     - (projects-to-deploy \"release\"  ;; `poly ws get:changes:changed-or-affected-projects skip:dev since:release)`"
   [since]
   (core/projects-to-deploy since))
 
@@ -22,9 +22,9 @@
    returns the whole workspace.
 
    Example:
-     (workspace nil)                             ;; `poly ws`
-     (workspace \"release\")                       ;; `poly ws since:release`
-     (workspace nil \"settings\" \"interface-ns\")  ;; `poly ws get:settings:interface-ns`"
+     - (workspace nil)                             ;; `poly ws`
+     - (workspace \"release\")                       ;; `poly ws since:release`
+     - (workspace nil \"settings\" \"interface-ns\")  ;; `poly ws get:settings:interface-ns`"
   [stable-point & keys]
   (core/workspace stable-point keys))
 
