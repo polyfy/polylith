@@ -51,6 +51,7 @@
    "maintenance" {}
    "migrate" {}
    "naming" {}
+   "poly-as-a-library" {}
    "polyx" {}
    "profile" {}
    "project" {}

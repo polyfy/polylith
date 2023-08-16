@@ -77,8 +77,6 @@
     "    KEY     -> any key in " (s/key ":tag-patterns" cm) ".\n"
     "    SHA     -> a git SHA-1 hash (if no key was found in " (s/key ":tag-patterns" cm) ").\n"
     "\n"
-    "  Execute 'poly doc page:parameters' to show documentation for rarely used parameters.\n"
-    "\n"
     "  The color mode is taken from ~/.config/polylith/config.edn but can be overridden by\n"
     "  passing in " (s/key "color-mode:COLOR" cm) " where valid colors are " (s/key "none" cm) ", " (s/key "light" cm) ", and " (s/key "dark" cm) ".\n"
     "  (if the XDG_CONFIG_HOME environment variable is set, that will be used instead of\n"

@@ -45,6 +45,8 @@
                       :patch patch
                       :revision revision
                       :date date}
+            :api {:breaking 1
+                  :non-breaking 0}
             :test-runner-api {:breaking 1
                               :non-breaking 0}
             :ws {:type :toolsdeps2
@@ -62,18 +64,19 @@
 ;; ====== Workspace attributes (ws) ======
 ;;
 ;; ws     release         action    attribute                                                  Description
-;; -----  -------------   -------   --------------------------------------------------------------------------------------------------------
+;; -----  -------------   -------   -----------------------------------------------------------------------------------------------------------------------
 ;; 2.0    0.2.18          added     configs
 ;;                        added     bases:BASE:base-deps
+;;                        added     version:api
+;;                        added     version:tool
 ;;                        added     version:test-runner-api
 ;;                        added     version:release:snapshot
-;;                        added     version:tool
+;;                        added     ws-type
+;;                        renamed   projects:PROJECT:deps:BRICK:SOURCE:missing-ifc-and-bases   Renamed from missing-ifc.
 ;;                        added     ENTITIES:ENTITY:namespaces:SOURCE:NAMESPACE:is-ignored
 ;;                        added     ENTITIES:ENTITY:namespaces:SOURCE:NAMESPACE:is-invalid
-;;                        changed   ENTITIES:ENTITY:namespaces:SOURCE:NAMESPACE:file-path      The ws-dir part is removed from the file path.
-;;                        added     projects:PROJECT:deps:BRICK:SOURCE:missing-ifc-and-bases   Renamed from missing-ifc.
-;;                        added     ws-type
-;; 1.2    0.2.16-alpha    added     ENTITIES:ENTITY:namespaces:src:0:invalid
+;;                        changed   ENTITIES:ENTITY:namespaces:SOURCE:NAMESPACE:file-path      The ws-dir part is removed from the file path (data change).
+;; 1.2    0.2.16-alpha    added     ENTITIES:ENTITY:namespaces:src:NAMESPACE:invalid
 ;; 1.1    0.2.14-alpha    added     settings:vcs:is-git-repo
 ;;                        deleted   projects:PROJECT:is-run-tests
 ;;

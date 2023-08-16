@@ -1,0 +1,41 @@
+= Poly as a library
+:cljdoc-api-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/api
+
+We can use the `poly` tool as a library by including `clj-poly` as a dependency to a `:deps` or `:extra-deps` in any of our `deps.edn` files
+(make sure to use the https://github.com/polyfy/polylith/releases[latest] release):
+
+[source,shell]
+----
+polylith/clj-poly {:mvn/version "0.2.18"}
+----
+
+or:
+
+[source,shell]
+----
+polylith/clj-poly {:git/url   "https://github.com/polyfy/polylith.git"
+                   :sha       "ecd2cf2ede81ecd4fbf82f21a075b103b6f2d2af"
+                   :deps/root "projects/poly"}
+----
+
+...and remember to set the `:sha` to an existing https://github.com/polyfy/polylith/commits/master[SHA].
+
+The library exposes two parts:
+
+* The {cljdoc-api-url}/polylith.clj.core.api.interface[api] interface.
+These functions are part of the public API.
+All other code is subject to change and may therefore break your code in the future.
+If you need access to more functionality, please reach out to the Polylith team
+in https://clojurians.slack.com/messages/C013B7MQHJQ[Slack],
+which probably can add it to the API in the next release.
+
+* The {cljdoc-api-url}/polylith.clj.core.test-runner-contract.interface[test-runner-contract] interface.
+
+********** skriv om att workspace:t också exponeras och förändras över tid,
+men att gamla filer och workspaces går att läsa in, vilka översätts.
+- flytta beskrivning i version-komponenten och referera hit.
+
+====
+NOTE: Since version `0.2.18` we only publish `clj-poly` to Clojars and not the old `clj-api`.
+`clj-poly` now also includes the https://github.com/polyfy/polylith/blob/master/components/api/src/polylith/clj/core/api/interface.clj[api] component.
+====

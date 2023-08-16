@@ -16,8 +16,9 @@
        "  Example of a snapshot release:\n"
        "    poly 0.2.18-SNAPSHOT #1 (2023-09-15)\n"
        "\n"
-       "  The poly tool does not only version control releases but also the workspace\n"
-       "  structure and the public API, which we can read more about by executing:\n"
+       "  The poly tool does not only version control releases but also the public API,\n"
+       "  the workspace structure, and the test runner API, which we can read more about\n"
+       "  by executing:\n"
        "    poly doc ws:version"
        ))
 
