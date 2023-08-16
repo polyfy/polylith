@@ -1,6 +1,5 @@
 = Install
 :toc:
-:cljdoc-api-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/api
 
 There are several ways to install the `poly` tool, which determines how the `poly` tool will be executed:
 
@@ -173,7 +172,7 @@ clojure -Ttools install io.github.polyfy/polylith '{:git/sha "5f74c8b8675dbb0912
 ----
 
 ====
-CAUTION: Do not use the _install-latest_ option to `clojure -Ttools` as it does not support `:deps/root`.
+CAUTION: Do not use the `install-latest` option to `clojure -Ttools` as it does not support `:deps/root`.
 ====
 
 Then we can invoke the `poly` tool using the CLI directly:
@@ -259,7 +258,7 @@ from the Polylith repository (e.g. the latest from the `master` branch).
 NOTE: The master branch can sometimes be ahead of the https://github.com/polyfy/polylith/releases[latest release].
 Instead of waiting for the next version to be released, you can set the latest commited SHA from the
 https://github.com/polyfy/polylith/commits/master[master branch] in `./deps.edn`, each time it updates (see the example above).
-This works especially well if you also start a xref:shell[] from the workspace root.
+This works especially well if you also start a xref:commands.adoc#shell[shell] from the workspace root.
 ====
 
 Once we have added one of the aliases above, we can now use the `poly` tool from the terminal, e.g.:
@@ -278,35 +277,7 @@ _version_, _help_, _doc_, and _create workspace_ commands will work.
 If we are building tooling around Polylith, then we can use the https://clojars.org/polylith/clj-poly/versions[clj-poly]
 library to get access to some of the funtionality that is built in to the `poly` tool itself.
 
-It exposes two interfaces:
-
-* The {cljdoc-api-url}/polylith.clj.core.api.interface[api] interface (only these exposed functions are part of the public API,
-all other code is subject to change).
-
-* The {cljdoc-api-url}/polylith.clj.core.test-runner-contract.interface[test-runner-contract] interface.
-
-You can add `clj-poly` as a dependency to a `:deps` or `:extra-deps` in your `deps.edn` file
-(make sure to use the https://github.com/polyfy/polylith/releases[latest] release):
-
-[source,shell]
-----
-polylith/clj-poly {:mvn/version "0.2.18"}
-----
-
-or
-
-[source,shell]
-----
-polylith/clj-poly {:git/url   "https://github.com/polyfy/polylith.git"
-                   :sha       "ecd2cf2ede81ecd4fbf82f21a075b103b6f2d2af"
-                   :deps/root "projects/poly"}
-----
-
-...and remember to set the `:sha` to an existing https://github.com/polyfy/polylith/commits/master[SHA].
-
-====
-NOTE: Since version `0.2.18` we only publish `clj-poly` to Clojars and not the old `clj-api`.
-====
+This is described in the xref:poly-as-a-library.adoc[Polylith as a library] section.
 
 == JVM options
 

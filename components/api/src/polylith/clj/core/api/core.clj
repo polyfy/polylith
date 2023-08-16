@@ -7,7 +7,7 @@
             [polylith.clj.core.ws-explorer.interface :as ws-explorer]))
 
 (defn projects-to-deploy [since]
-  (let [since-then (str "since:" since)
+  (let [since-then (str "since:" (or since "stable"))
         user-input (user-input/extract-params ["ws" since-then "skip:development"])
         workspace (-> user-input
                       ws-clj/workspace-from-disk
