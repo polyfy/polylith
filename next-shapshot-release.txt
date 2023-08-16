@@ -33,15 +33,15 @@ Included in 0.2.18-SNAPSHOT #1:
 
  Description
  --------------------------------------------------------------------------------------------------------------------
- Exclude license files when building an uberjar.
- We no longer include tools.deps as a library when creating projects (issue 304).
- Removed the :all option for the deps and libs commands (which included bricks that didn't have a deps/libs).
- Also include missing bases in validation error 107.
- A shell can be startee using 'poly :tap' which is equivalent to 'poly shell :tap' and will start a shell
- and open up a portal window at the same time.
- The portal window now only includes the workspace structure, which allows us to browse it from there.
- In the deps command, we now exclude empty columns (bricks that don't use any library).
- If we use switch-ws in a shell and execute a command and give the color-mode, then it will be used by that command.
- The autocomplete now works when starting a shell outside a workspace, which can be useful when creating a workspace,
- or if we want to switch to another workspace.
- The test that executed 'libs :outdated' has been removed, so that it doesn't fail intermittently.
+ - Exclude license files when building an uberjar.
+ - We no longer include tools.deps as a library when creating projects (issue 304).
+ - Removed the :all option for the deps and libs commands (which included bricks that didn't have a deps/libs).
+ - Also include missing bases in validation error 107.
+ - A shell can be startee using 'poly :tap' which is equivalent to 'poly shell :tap' and will start a shell
+   and open up a portal window at the same time.
+ - The portal window now only includes the workspace structure, which allows us to browse it from there.
+ - In the deps command, we now exclude empty columns (bricks that don't use any library).
+ - If we use switch-ws in a shell and execute a command and give the color-mode, then it will be used by that command.
+ - The autocomplete now works when starting a shell outside a workspace, which can be useful when creating a workspace,
+   or if we want to switch to another workspace.
+ - The test that executed 'libs :outdated' has been removed, so that it doesn't fail intermittently.
