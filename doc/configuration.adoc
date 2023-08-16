@@ -7,17 +7,14 @@ We have two categories of configuration:
 2. Configuration used by tools.deps, stored in `deps.edn` files in bricks and projects.
 
 The content of all the configuration files also lives in the xref:workspace-structure.adoc[workspace structure],
-under these top keys.
-
-[source,shell]
-----
-poly ws get:configs:keys
-----
+under these top keys (retrieved by `poly ws get:configs:keys`):
 
 [source,shell]
 ----
 [:bases :components :projects :user :workspace]
 ----
+
+Let's go through each of them:
 
 == workspace
 
@@ -51,7 +48,7 @@ A workspace contains these keys:
 |===
 | Key | Description
 
-| `:bricks` | Allows us to turn off _Warning 206_ for one or more bricks, see xref:validations.adoc[validations].
+| `:bricks` | Present if we want to turn off _Warning 206_ for one or more bricks, see xref:validations.adoc[validations].
 
 | `:compact-view` | Controls the xref:dependencies.adoc#compact-view[output] from the xref:commands#info[deps]
 and the xref:libraries.adoc#compact-view[output] from the xref:commands.adoc#libs[libs] command
