@@ -53,6 +53,7 @@ The `poly` tool will not run them for external test runners.
 | Additional functions | `N/A` | `external-process-namespace`
 |===
 
+[#test-runner-protocol]
 == TestRunner Protocol
 
 You can find the `TestRunner` protocol link:{cljdoc-api-url}/polylith.clj.core.test-runner-contract.interface#TestRunner[here].

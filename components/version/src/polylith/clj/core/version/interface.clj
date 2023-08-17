@@ -12,7 +12,7 @@
 ;;     set revision to "SNAPSHOT" and snapshot to 1.
 ;;   - for all subsequent snapshot releases, increase snapshot by 1.
 ;;
-;; If a snapshot release, we will release a clj-poly library to Clojars,
+;; If a SNAPSHOT release, we will release a clj-poly library to Clojars,
 ;; which will trigger a new build of the cljdoc documentation.
 ;; If a final release, we will also build and deploy the poly tool to github.
 ;; ------------------------------------------------------------------------
@@ -34,6 +34,10 @@
 
 (def date "2023-08-14")
 
+(def api-version {:breaking 1, :non-breaking 0})
+(def test-runner-api-version {:breaking 1, :non-breaking 0})
+(def ws-api-version {:breaking 2, :non-breaking 0})
+
 (defn version
   ([]
    (version nil))
@@ -45,21 +49,11 @@
                       :patch patch
                       :revision revision
                       :date date}
-            :api {:breaking 1
-                  :non-breaking 0}
-            :test-runner-api {:breaking 1
-                              :non-breaking 0}
-            :ws {:type :toolsdeps2
-                 :breaking 2
-                 :non-breaking 0}}
+            :api api-version
+            :test-runner-api test-runner-api-version
+            :ws ws-api-version}
            from-version (assoc :from from-version)
            (= "SNAPSHOT" revision) (assoc-in [:release :snapshot] snapshot))))
-
-;; Definition of a breaking change in the workspace structure is:
-;; - when an attribute changes name.
-;; - when the shape of the data for an attribute changes.
-;; - when an attribute is deleted.
-;; All other changes are non-breaking changes.
 
 ;; ====== Workspace attributes (ws) ======
 ;;
@@ -67,6 +61,7 @@
 ;; -----  -------------   -------   -----------------------------------------------------------------------------------------------------------------------
 ;; 2.0    0.2.18          added     configs
 ;;                        added     bases:BASE:base-deps
+;;                        deleted   version.ws.type                                            Moved out to ws-type.
 ;;                        added     version:api
 ;;                        added     version:tool
 ;;                        added     version:test-runner-api
