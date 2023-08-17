@@ -187,7 +187,7 @@
           "  brick                     q  e  d  n  r  r  s  c  e  t  p  r  b  r  w  r  h  l  m  p  r  t  r  e  g  t  l  r  n  e  j  r  e"
           "  ---------------------------------------------------------------------------------------------------------------------------"
           "  antq                      .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  api                       .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  x  x  x  ."
+          "  api                       .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  x  x  x  x  ."
           "  change                    .  .  .  x  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
           "  command                   .  x  .  x  x  x  x  x  x  x  x  .  x  x  x  .  .  x  .  x  .  .  x  .  x  .  x  x  x  x  x  x  x"
@@ -257,7 +257,7 @@
             "  brick                     q  e  d  n  r  r  s  c  e  t  p  r  b  r  w  r  h  l  m  p  r  t  r  e  g  t  l  r  n  e  j  r  e"
             "  ---------------------------------------------------------------------------------------------------------------------------"
             "  antq                      .  .  .  x  .  .  .  .  +  .  .  +  .  .  .  .  .  .  +  .  .  .  .  +  +  .  +  .  +  .  .  .  ."
-            "  api                       +  x  .  +  +  .  +  .  +  +  .  +  +  .  .  +  +  .  +  .  .  +  .  +  +  x  +  +  +  x  x  x  ."
+            "  api                       +  x  .  +  +  .  +  .  +  +  .  +  +  .  .  +  +  .  +  .  .  +  .  +  +  x  +  +  x  x  x  x  ."
             "  change                    .  .  .  x  .  .  .  .  +  x  .  +  .  .  .  x  +  .  +  .  .  .  .  +  +  .  x  .  +  .  .  .  ."
             "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
             "  command                   +  x  .  x  x  x  x  x  x  x  x  +  x  x  x  +  +  x  +  x  .  +  x  +  x  +  x  x  x  x  x  x  x"
@@ -325,7 +325,7 @@
             "  brick                     q  e  d  n  r  r  s  c  e  t  p  r  b  r  w  r  h  l  m  p  r  t  r  e  g  t  l  r  n  e  j  r  e"
             "  ---------------------------------------------------------------------------------------------------------------------------"
             "  antq                      .  .  .  x  .  .  .  .  +  .  .  +  .  .  .  .  .  .  +  .  .  .  .  +  +  .  +  .  +  .  .  .  ."
-            "  api                       +  x  .  +  +  .  +  .  +  +  .  +  +  .  .  +  +  .  +  .  .  +  .  +  +  x  +  +  +  x  x  x  ."
+            "  api                       +  x  .  +  +  .  +  .  +  +  .  +  +  .  .  +  +  .  +  .  .  +  .  +  +  x  +  +  x  x  x  x  ."
             "  change                    .  .  .  x  .  .  .  .  +  x  .  +  .  .  .  x  +  .  +  .  .  .  .  +  +  .  x  .  +  .  .  .  ."
             "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
             "  command                   +  x  .  x  x  x  x  x  x  x  x  +  x  x  x  +  +  x  +  x  .  +  x  +  x  +  x  x  x  x  x  x  x"
@@ -404,6 +404,7 @@
                                       :test {}}
           "api"                      {:src  {:direct   ["change"
                                                         "user-input"
+                                                        "version"
                                                         "workspace"
                                                         "workspace-clj"
                                                         "ws-explorer"]
@@ -422,8 +423,7 @@
                                                         "text-table"
                                                         "user-config"
                                                         "util"
-                                                        "validator"
-                                                        "version"]}
+                                                        "validator"]}
                                       :test {}}
           "change"                   {:src  {:direct   ["common"
                                                         "git"
