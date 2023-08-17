@@ -1,41 +1,173 @@
 = Poly as a library
+:toc:
 :cljdoc-api-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/api
 
-We can use the `poly` tool as a library by including `clj-poly` as a dependency to a `:deps` or `:extra-deps` in any of our `deps.edn` files
-(make sure to use the https://github.com/polyfy/polylith/releases[latest] release):
+If we want to build tooling around Polylith or e.g. use `poly` functionality in our `build.clj` file,
+then we can use `poly` as a library.
 
-[source,shell]
+The `poly` tool and the https://clojars.org/polylith/clj-poly[clj-poly]
+library contain the exact same code with the same set of bricks.
+The only difference is that the `poly` tool is AOT compiled into Java bytecode,
+while the `clj-poly` library is just plain Clojure code that is zipped into a jar file.
+This is good, because now we can expect the same behaviour from both.
+
+We can use the `poly` tool as a library by including the `clj-poly` library
+as a dependency to a project's `deps.edn` file, e.g.:
+
+[source,clojure]
 ----
-polylith/clj-poly {:mvn/version "0.2.18"}
+:aliases {:dostuff {...
+                    :extra-deps {...
+                                 polylith/clj-poly {:mvn/version "0.2.18"}}
+ ...
+
 ----
 
-or:
+...or by selecting a https://github.com/polyfy/polylith/commits/master[sha] from the polylith GitHub repo, e.g.:
 
-[source,shell]
+[source,clojure]
 ----
-polylith/clj-poly {:git/url   "https://github.com/polyfy/polylith.git"
-                   :sha       "ecd2cf2ede81ecd4fbf82f21a075b103b6f2d2af"
-                   :deps/root "projects/poly"}
+    ...
+    polylith/clj-poly {:git/url   "https://github.com/polyfy/polylith.git"
+                       :sha       "3b3e4ceac31d27f9a87862286f1ba01a3e4705ef"
+                       :deps/root "projects/poly"}
 ----
 
-...and remember to set the `:sha` to an existing https://github.com/polyfy/polylith/commits/master[SHA].
-
-The library exposes two parts:
+These are the parts that we have access to:
 
 * The {cljdoc-api-url}/polylith.clj.core.api.interface[api] interface.
-These functions are part of the public API.
-All other code is subject to change and may therefore break your code in the future.
-If you need access to more functionality, please reach out to the Polylith team
-in https://clojurians.slack.com/messages/C013B7MQHJQ[Slack],
-which probably can add it to the API in the next release.
 
-* The {cljdoc-api-url}/polylith.clj.core.test-runner-contract.interface[test-runner-contract] interface.
+* The {cljdoc-api-url}/polylith.clj.core.test-runner-contract.interface[Test runner contract].
 
-********** skriv om att workspace:t också exponeras och förändras över tid,
-men att gamla filer och workspaces går att läsa in, vilka översätts.
-- flytta beskrivning i version-komponenten och referera hit.
+* The xref:workspace-structure.adoc[workspace structure].
+
+== The API
+
+Via the {cljdoc-api-url}/polylith.clj.core.api.interface[api] we get access to a couple of functions
+and the version of each API.
+
+=== API Versions
+
+[source,clojure]
+----
+(def api-version ...)
+(def test-runner-api-version ...)
+(def ws-api-version ...)
+----
+
+These three APIs are version-controlled, and each of them keeps a map with two keys, e.g.:
+
+[source,clojure]
+----
+{:breaking 2
+ :non-breaking 0}
+----
+
+Every time we release a new version of `clj-poly` to Clojars (which can also be a SNAPSHOT release)
+the `:breaking` or `:non-breaking` number will change, if any attribute in the workspace
+structure has changed in any way:
+
+* Any changes that may break our code will increase the `:breaking` number by one and set `:non-breaking` to zero:
+** If an attribute changes name
+** If an attribute is deleted
+** If an attribute starts to store its data in a breaking way
+
+* Any changes that only add functionality/attributes, will increase the `:non-breaking` number by one.
+
+We will try really hard to not introduce breaking changes to the {cljdoc-api-url}/polylith.clj.core.api.interface[api]
+(`api-version`) or the test runner (`test-runner-api-version`).
+However, this is not true for the xref:workspace-structure.adoc[workspace structure] (`ws-api-version`)
+which sometimes will change in a breaking way when new functionality is added.
+
+=== projects-to-deploy
+
+This function returns the projects that have changed (directly or indirectly) since the _last stable point in time_,
+and is primarily used to know which projects we have to build and deploy.
+
+[source,clojure]
+----
+(defn projects-to-deploy
+  [since]
+  (core/projects-to-deploy since))
+----
+
+This function call:
+
+[source,clojure]
+----
+(projects-to-deploy "release")
+----
+
+...will execute the equivalent to this call, under the hood:
+
+[source,shell]
+----
+poly ws get:changes:changed-or-affected-projects since:release skip:development
+----
+
+...which returns all changed projects since the last stable release xref:tagging.adoc[tag].
+If `since` is passed in as `nil`, then `stable` will be used.
+
+=== workspace
+
+This function provides easy access to the workspace structure and any keys in it.
+
+[source,clojure]
+----
+(defn workspace
+  [stable-point & keys]
+  (core/workspace stable-point keys))
+----
+
+Here are some examples:
+
+[source,clojure]
+----
+;; Returns the whole workspace structure, same as: poly ws since:stable
+(workspace nil)
+
+;; Returns the whole workspace structure, same as: poly ws since:release
+(workspace "release")
+
+;; Returns the interface namespace name, same as: poly ws get:settings:interface-ns
+(workspace nil "settings" "interface-ns")
+----
+
+Passing in `since` is only needed if we access things under the `:changes` top key.
+
+=== Ask for more access
+
+If you need to access more functionality than is provided in the api,
+please reach out to the Polylith team in
+https://clojurians.slack.com/messages/C013B7MQHJQ[Slack].
+
+All other code that is not part of the public API,
+is used at your own risk, and may change in a way that
+it breaks your code in the future.
+
+== The Test runner contract
+
+The test runner interface is documented xref:test-runners.adoc#test-runner-protocol[here].
+
+== The workspace structure
+
+We mentioned earlier that the workspace structure may introduce breaking changes between releases.
+If we build a tool around the `clj-poly` library, we therefore need to pay attention to breaking changes,
+which is documented at the end of the
+https://github.com/polyfy/polylith/blob/master/components/version/src/polylith/clj/core/version/interface.clj[version] component interface.
+
+Both the `poly` tool and the `clj-poly` library can read old workspace files,
+e.g. exported with `poly ws out:ws.edn`, and older versions of the polylith workspace,
+and will automatically migrate them to the latest version of the workspace structure.
+
+As an example, if we clone the https://github.com/polyfy/polylith/tree/master[polylith repository]
+and check out the https://github.com/polyfy/polylith/releases/tag/v0.1.0-alpha9[0.1.0-alpha9] tag,
+the `polylith` workspace will now store its configuration in `./deps.edn` under the `:polylith` key,
+instead of in `workspace.edn`, and the bricks don't even have their own `deps.edn` files,
+because all dependencies are instead configured by the projects themselves.
+Luckily, the workspace will automatically be migrated to the latest version of the workspace structure for us.
 
 ====
 NOTE: Since version `0.2.18` we only publish `clj-poly` to Clojars and not the old `clj-api`.
-`clj-poly` now also includes the https://github.com/polyfy/polylith/blob/master/components/api/src/polylith/clj/core/api/interface.clj[api] component.
+The enhanced `clj-poly` library now also includes the same API as the old `clj-api`.
 ====

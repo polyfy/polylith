@@ -229,9 +229,8 @@ Via Clojars:
 ----
 {
 ...
- :aliases {:poly  {:extra-deps {polylith/clj-poly
-                                {:mvn/version "0.2.18"}}
-                   :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}}
+ :aliases {:poly {:extra-deps {polylith/clj-poly {:mvn/version "0.2.18"}}
+                  :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}}
 ...
 }
 ----
@@ -244,14 +243,14 @@ Via GitHub:
 ...
  :aliases {:poly  {:extra-deps {polylith/clj-poly
                                 {:git/url   "https://github.com/polyfy/polylith.git"
-                                 :sha       "INSERT_LATEST_SHA_HERE"
+                                 :sha       "INSERT-LATEST-SHA-HERE"
                                  :deps/root "projects/poly"}}
                    :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}}
 ...
 }
 ----
 
-Replace _INSERT_LATEST_SHA_HERE_ with a https://github.com/polyfy/polylith/commits/master[commit SHA]
+Replace `INSERT-LATEST-SHA-HERE` with a https://github.com/polyfy/polylith/commits/master[commit SHA]
 from the Polylith repository (e.g. the latest from the `master` branch).
 
 ====
