@@ -46,5 +46,5 @@
               more (more-url more local?)
               page (page-url page branch local? github?)
               ws (bookmark-url "workspace-structure" ws branch local? github?)
-              :else (page-url nil branch local? github?))]
+              :else (page-url "readme" branch local? github?))]
     (browse/browse-url url)))
