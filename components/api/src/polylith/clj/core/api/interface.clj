@@ -5,8 +5,8 @@
 
 (def api-version {:api version/api-version
                   :test-runner version/test-runner-api-version
-                  :ws version/ws-api-version}
-  "The version of the different types of APIs.")
+                  :ws version/ws-api-version})
+;;  "The version of the different types of APIs.")
 
 (defn projects-to-deploy
   "Returns the projects that have been affected since last deploy,

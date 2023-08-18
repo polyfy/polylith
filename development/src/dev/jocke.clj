@@ -24,6 +24,12 @@
 
 ; clojure -A:dev:test -P
 
+
+
+
+
+
+
 (def workspace (-> (dev-common/dir ".")
                    ;(dev-common/dir "examples/doc-example")
                    ;(dev-common/dir "examples/for-test")

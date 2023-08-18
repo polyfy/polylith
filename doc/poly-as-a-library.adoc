@@ -135,6 +135,8 @@ Here are some examples:
 (workspace nil "settings" "interface-ns")
 ----
 
+A tip is to use attributes from `:settings` if possible, instead of from `:configs`.
+
 Passing in `since` is only needed if we access things under the `:changes` top key.
 
 === Ask for more access
