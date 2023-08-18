@@ -1,5 +1,6 @@
 = Poly as a library
 :toc:
+:poly-version: 0.2.18
 :cljdoc-api-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/api
 
 If we want to build tooling around Polylith or e.g. use `poly` functionality in our `build.clj` file,
@@ -18,7 +19,7 @@ as a dependency to a project's `deps.edn` file, e.g.:
 ----
 :aliases {:dostuff {...
                     :extra-deps {...
-                                 polylith/clj-poly {:mvn/version "0.2.18"}}
+                                 polylith/clj-poly {:mvn/version "{poly-version}"}}
  ...
 
 ----
