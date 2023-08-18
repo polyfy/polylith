@@ -67,8 +67,5 @@ image::https://avatars.githubusercontent.com/u/18068051[link=https://github.com/
 
 === Polylith Friends
 
-[.float-group]
---
-image::https://avatars.githubusercontent.com/u/43875[link=https://github.com/seancorfield,alt=Sean Corfield,width=32]
-image::https://avatars.githubusercontent.com/u/243097[link=https://github.com/namenu,alt=Hyunwoo Nam,width=32]
---
+image::https://avatars.githubusercontent.com/u/43875[link=https://github.com/seancorfield,alt=Sean Corfield,width=32,float=left]
+image::https://avatars.githubusercontent.com/u/243097[link=https://github.com/namenu,alt=Hyunwoo Nam,width=32,float=left]
