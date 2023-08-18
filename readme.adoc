@@ -1,4 +1,5 @@
 image::doc/images/logo.png[width=400]
+:cljdoc-doc-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc
 
 https://cljdoc.org/d/polylith/clj-poly/CURRENT[image:https://cljdoc.org/badge/polylith/clj-poly[cljdoc]]
 https://clojurians.slack.com/messages/C013B7MQHJQ[image:https://img.shields.io/badge/slack-join_chat-brightgreen.svg[Join chat]]
@@ -36,7 +37,7 @@ ifdef::env-cljdoc[]
 before continuing with the xref:doc/introduction.adoc[introduction].
 endif::[]
 ifndef::env-cljdoc[]
-before continuing with the http://localhost:8000/d/polylith/clj-poly/0.2.18-issue318-02/doc/introduction[introduction].
+before continuing with the {cljdoc-doc-url}/introduction[introduction].
 endif::[]
 
 Enjoy the ride!

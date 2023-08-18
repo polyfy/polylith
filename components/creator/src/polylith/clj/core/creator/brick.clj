@@ -5,7 +5,7 @@
             [clojure.string :as str]))
 
 (def create-brick-message
-  (str "  Remember to add paths and/or local/root dependency to dev and project 'deps.edn' files."))
+  (str "  Remember to add :local/root dependencies to dev and project 'deps.edn' files."))
 
 (defn create-config-file [ws-dir bricks-dir brick-name is-git-add]
   (let [config-filename (str ws-dir "/" bricks-dir "/" brick-name "/deps.edn")]
