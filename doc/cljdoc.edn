@@ -27,6 +27,7 @@
                    ["Configuration" {:file "doc/configuration.adoc"}]
                    ["Validations" {:file "doc/validations.adoc"}]
                    ["Source code" {:file "doc/source-code.adoc"}]
+                   ["Artifacts" {:file "doc/artifacts.adoc"}]
                    ["Explore the workspace" {:file "doc/explore-the-workspace.adoc"}]
                    ["Polyx" {:file "doc/polyx.adoc"}]
                    ["Poly as a library" {:file "doc/poly-as-a-library.adoc"}]
