@@ -77,8 +77,8 @@ structure has changed in any way:
 * Any changes that only add functionality/attributes, will increase the `:non-breaking` number by one.
 
 We will try really hard to not introduce breaking changes to the {cljdoc-api-url}/polylith.clj.core.api.interface[api]
-(`api-version`) or the test runner (`test-runner-api-version`).
-However, this is not true for the xref:workspace-structure.adoc[workspace structure] (`ws-api-version`)
+(`api-version.api`) or the test runner (`api-version.test-runner`).
+However, this is not true for the xref:workspace-structure.adoc[workspace structure] (`api-version.ws`)
 which sometimes will change in a breaking way when new functionality is added.
 
 === projects-to-deploy
@@ -135,7 +135,7 @@ Here are some examples:
 (workspace nil "settings" "interface-ns")
 ----
 
-A tip is to use attributes from `:settings` if possible, instead of from `:configs`.
+The recommendation is to use attributes from `:settings` if possible, instead of from `:configs`.
 
 Passing in `since` is only needed if we access things under the `:changes` top key.
 

@@ -28,7 +28,8 @@
    "ws" []})
 
 (def pages-nav
-  {"base" {}
+  {"artifacts" {}
+   "base" {}
    "build" {}
    "clojure-cli-tool" {}
    "colors" {}
