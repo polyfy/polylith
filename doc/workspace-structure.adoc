@@ -957,8 +957,7 @@ poly ws get:version
  :test-runner-api {:breaking 1
                    :non-breaking 0}
  :ws {:breaking 2
-      :non-breaking 0
-      :type :toolsdeps2}}
+      :non-breaking 0}}
 ----
 
 * `:release`
@@ -984,10 +983,6 @@ Each subsequent snapshot release will increase this value by one.
 *** If an attribute has been deleted.
 *** If the data format of an attribute has changed.
 ** `:non-breaking` Increased by one when a non-breaking change is made to the workspace format.
-** `:type` Set to `:toolsdeps1` if the workspace was created by `v0.1.0-alpha9` or earlier
-(where each brick doesn't have its own `deps.edn` file).
-Set to `:toolsdeps2` if the workspace was created by `v0.2.0-alpha10` or later
-(where each brick has its own `deps.edn` file).
 
 * `:from` Set to the value of `:version` if the workspace is read from a file,
 produced by a different version than the current version of the `poly` tool,
@@ -996,7 +991,6 @@ or if the workspace is read from a directory that has not been migrated from `:t
 ** `:ws`
 *** `:breaking` The breaking version of the original `ws` format.
 *** `:non-breaking` The non-breaking version of the original `ws` format.
-*** `:type` The type of the original `ws` file.
 
 Changes to the xref:workspace-structure.adoc[workspace structure], is documented in the
 https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/components/version/src/polylith/clj/core/version/interface.clj#L37-L57[version] component.

@@ -48,14 +48,16 @@ and the version of each API.
 
 === API Versions
 
+The API has an `api-version`, containing three keys:
+
 [source,clojure]
 ----
-(def api-version ...)
-(def test-runner-api-version ...)
-(def ws-api-version ...)
+(def api-version {:api version/api-version
+                  :test-runner version/test-runner-api-version
+                  :ws version/ws-api-version})
 ----
 
-These three APIs are version-controlled, and each of them keeps a map with two keys, e.g.:
+...where each key keeps a map with two keys, e.g.:
 
 [source,clojure]
 ----

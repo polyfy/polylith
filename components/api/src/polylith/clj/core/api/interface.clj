@@ -3,9 +3,10 @@
             [polylith.clj.core.version.interface :as version])
   (:gen-class))
 
-(def api-version version/api-version)
-(def test-runner-api-version version/test-runner-api-version)
-(def ws-api-version version/ws-api-version)
+(def api-version {:api version/api-version
+                  :test-runner version/test-runner-api-version
+                  :ws version/ws-api-version}
+  "The version of the different types of APIs.")
 
 (defn projects-to-deploy
   "Returns the projects that have been affected since last deploy,

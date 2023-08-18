@@ -88,8 +88,7 @@
 
 (defn ->version [ws-type]
   (if (= :toolsdeps1 ws-type)
-    (version/version {:ws {:type ws-type
-                           :breaking 0
+    (version/version {:ws {:breaking 0
                            :non-breaking 0}})
     (version/version)))
 

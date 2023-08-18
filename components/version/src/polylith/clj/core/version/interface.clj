@@ -17,12 +17,15 @@
 ;; If a final release, we will also build and deploy the poly tool to github.
 ;; ------------------------------------------------------------------------
 
+(def RELEASE "")
+(def SNAPSHOT "SNAPSHOT")
+
 (def major 0)
 (def minor 2)
 (def patch 18)
-(def revision "SNAPSHOT")
+(def revision SNAPSHOT) ;; Set to SNAPSHOT or RELEASE.
 (def snapshot 1)
-(def snapshot? (= "SNAPSHOT" revision))
+(def snapshot? (= SNAPSHOT revision))
 
 (def name-without-rev (str major "." minor "." patch))
 (def name (str name-without-rev
@@ -62,6 +65,7 @@
 ;; 2.0    0.2.18          added     configs
 ;;                        added     bases:BASE:base-deps
 ;;                        deleted   version.ws.type                                            Moved out to ws-type.
+;;                        deleted   version.from.ws.type
 ;;                        added     version:api
 ;;                        added     version:tool
 ;;                        added     version:test-runner-api
@@ -74,6 +78,8 @@
 ;; 1.2    0.2.16-alpha    added     ENTITIES:ENTITY:namespaces:src:NAMESPACE:invalid
 ;; 1.1    0.2.14-alpha    added     settings:vcs:is-git-repo
 ;;                        deleted   projects:PROJECT:is-run-tests
+;;
+;; 0.0    0.2.0-alpha9    Version 0.2.0-alpha9 and earlier, has from.ws set to 0.0 if read from file.
 ;;
 ;; ENTITIES = bases, components, or projects.
 ;; ENTITY = a base, component, or project name.
