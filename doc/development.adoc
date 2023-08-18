@@ -41,6 +41,8 @@ Press OK and start the REPL in debug mode, by clicking the bug icon:
 
 image::images/development/debug.png[width=150]
 
+NBSP +
+
 When this turns up:
 
 [source,shell]
