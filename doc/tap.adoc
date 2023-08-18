@@ -15,5 +15,5 @@ by clicking the `:workspace` key:
 image::images/tap/tap-workspace.png[width=400]
 
 The portal window outputs data from https://clojuredocs.org/clojure.core/tap%3E[tap>]
-statements produced by the `poly` tool itself. With start from version _0.2.18_,
+statements produced by the `poly` tool itself. With start from version `0.2.18`,
 there will be only one `tap>` statement, which outputs the workspace structure.

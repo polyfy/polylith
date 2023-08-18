@@ -1,5 +1,6 @@
 = Workspace Structure
 :toc:
+:poly-version: 0.2.18
 
 The `poly` tool gives us access to the data structure that represents the workspace,
 which is the same structure that all the poly commands operate on.
@@ -850,8 +851,8 @@ Sometimes used when taking screenshots for this documentation.
 
 * `:is-fake-poly` Set to `true` if `:fake-poly` is given.
 Used when using the `polyx` tool with the `help` command,
-and when starting a `shell` with `poly shell :fake-poly` where the latter will show e.g. "poly 0.2.18" as version,
-instead of e.g. "polyx 0.2.18-issue318-02".
+and when starting a `shell` with `poly shell :fake-poly` where the latter will show e.g. "poly {poly-version}" as version,
+instead of e.g. "polyx {poly-version}-SNAPSHOT".
 
 * `:is-git-add` Used by the xref:commands.adoc#create-component[create component],
 xref:commands.adoc#create-base[create base] and xref:commands.adoc#create-project[create project] commands

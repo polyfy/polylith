@@ -1,4 +1,5 @@
 = Shell
+:poly-version: 0.2.18
 
 The goal of the shell is to make us more productive and to have more fun!
 
@@ -134,7 +135,7 @@ $ poly shell ws-dir:examples/doc-example
 #####   _ __  ___| |_  _| |-| |_| |_
 #####  | '_ \/ _ \ | || | | |  _| ' \
 #####  | .__/\___/_|\_, |_|_|\__|_||_|
-       |_|          |__/ poly 0.2.18
+       |_|          |__/ poly {poly-version}
 dir:doc-example$
 ----
 
@@ -147,7 +148,7 @@ $ poly shell ws-file:realworld.edn
 #####   _ __  ___| |_  _| |-| |_| |_
 #####  | '_ \/ _ \ | || | | |  _| ' \
 #####  | .__/\___/_|\_, |_|_|\__|_||_|
-       |_|          |__/ poly 0.2.18
+       |_|          |__/ poly {poly-version}
 file:clojure-polylith-realworld-example-app$
 ----
 
