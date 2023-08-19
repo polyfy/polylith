@@ -22,6 +22,7 @@ Included in 0.2.18-SNAPSHOT #1:
   304   Update outdated examples/docs (solved by 312).
   309   Improve the performance of the poly commands by optimising the dependency calculations.
   312   Build docs/example code should not use build-clj.
+  313   NPE when importing Java sub namespace.
   318   Use cljdoc for the poly tool documentation. Moved back all the poly tool documentation to the GitHib repository
         together with the source code + updated the documentation + added new pages:
         Artifacts, Doc, Poly as a library, Tap, Test Runners, Validations, Source code, Polyx, and Maintenance.
