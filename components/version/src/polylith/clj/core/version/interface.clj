@@ -3,19 +3,13 @@
   (:require [clojure.string :as str]
             [polylith.clj.core.system.interface :as system]))
 
-;; ------------------------------------------------------------------------
-;; - if a final release:
-;;   - set revision to "", and snapshot to 0.
-;;
-;; - if working towards a release:
-;;   - if we have just released a version, and snapshot is 0,
-;;     set revision to "SNAPSHOT" and snapshot to 1.
-;;   - for all subsequent snapshot releases, increase snapshot by 1.
+;; --------------------------------------------------------------------------
+;; If a final release:
+;;  -  we will build and deploy the poly tool to github,
 ;;
 ;; If a SNAPSHOT release, we will release a clj-poly library to Clojars,
 ;; which will trigger a new build of the cljdoc documentation.
-;; If a final release, we will also build and deploy the poly tool to github.
-;; ------------------------------------------------------------------------
+;; --------------------------------------------------------------------------
 
 (def RELEASE "")
 (def SNAPSHOT "SNAPSHOT")
@@ -24,7 +18,7 @@
 (def minor 2)
 (def patch 18)
 (def revision SNAPSHOT) ;; Set to SNAPSHOT or RELEASE.
-(def snapshot 1)
+(def snapshot 1) ;; Increase by one for every snapshot release, or set to 0 if a release.
 (def snapshot? (= SNAPSHOT revision))
 
 (def name-without-rev (str major "." minor "." patch))
@@ -35,7 +29,7 @@
 
 (def tool (if system/extended? "polyx" "poly"))
 
-(def date "2023-08-14")
+(def date "2023-08-19")
 
 (def api-version {:breaking 1, :non-breaking 0})
 (def test-runner-api-version {:breaking 1, :non-breaking 0})
@@ -56,7 +50,7 @@
             :test-runner-api test-runner-api-version
             :ws ws-api-version}
            from-version (assoc :from from-version)
-           (= "SNAPSHOT" revision) (assoc-in [:release :snapshot] snapshot))))
+           snapshot? (assoc-in [:release :snapshot] snapshot))))
 
 ;; ====== Workspace attributes (ws) ======
 ;;
