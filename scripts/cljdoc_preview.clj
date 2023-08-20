@@ -29,7 +29,12 @@
   (let [missing-cmds (doall (remove fs/which ["git" "docker"]))]
     (when (seq missing-cmds)
       (status/die 1 (string/join "\n" ["Required commands not found:"
-                                       (string/join "\n" missing-cmds)])))))
+                                       (string/join "\n" missing-cmds)]))))
+  (let [{:keys [exit err]} (process/shell {:continue true :err :string :out :string}
+                                           "docker version")]
+    (when-not (zero? exit)
+      (status/die 1 (str "Docker check failed with:\n\n"
+                         err)))))
 
 ;;
 ;; project build info
