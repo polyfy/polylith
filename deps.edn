@@ -75,24 +75,20 @@
                                  "projects/poly/test"]}
 
             ;; ws version 0.0
-            :poly9  {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
-                     :extra-deps {polylith/clj-poly
-                                  {:mvn/version "0.1.0-alpha9"}}}
+            :poly109  {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                       :extra-deps {polylith/clj-poly {:mvn/version "0.1.0-alpha9"}}}
 
             ;; ws version 1.0
-            :poly13  {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
-                      :extra-deps {polylith/clj-poly
-                                   {:mvn/version "0.2.13-alpha"}}}
+            :poly213  {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                       :extra-deps {polylith/clj-poly {:mvn/version "0.2.13-alpha"}}}
 
             ;; ws version 1.1
-            :poly15  {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
-                      :extra-deps {polylith/clj-poly
-                                   {:mvn/version "0.2.15-alpha"}}}
+            :poly215  {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                       :extra-deps {polylith/clj-poly {:mvn/version "0.2.15-alpha"}}}
 
             ;; ws version 1.2
-            :poly17  {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
-                      :extra-deps {polylith/clj-poly
-                                   {:mvn/version "0.2.17-alpha"}}}
+            :poly217  {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                       :extra-deps {polylith/clj-poly {:mvn/version "0.2.17-alpha"}}}
 
             ;; ws version 2.0
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]

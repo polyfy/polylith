@@ -128,6 +128,7 @@
                                :deref true
                                :read-eval true
                                :features #{:clj}
+                               :readers (fn [_] (fn [_] nil))
                                :read-cond :allow
                                :auto-resolve name
                                :auto-resolve-ns true
