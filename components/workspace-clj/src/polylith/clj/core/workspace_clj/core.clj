@@ -7,17 +7,18 @@
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.user-config.interface :as user-config]
+            [polylith.clj.core.releases.interface :as releases]
             [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.path-finder.interface :as path-finder]
-            [polylith.clj.core.workspace-clj.ws-config :as ws-config]
             [polylith.clj.core.workspace-clj.profile :as profile]
-            [polylith.clj.core.workspace-clj.ws-reader :as ws-reader]
             [polylith.clj.core.workspace-clj.tag-pattern :as tag-pattern]
-            [polylith.clj.core.workspace-clj.ignore-files-settings :as ignore-files-settings]
+            [polylith.clj.core.workspace-clj.ws-config :as ws-config]
+            [polylith.clj.core.workspace-clj.ws-reader :as ws-reader]
             [polylith.clj.core.workspace-clj.bases-from-disk :as bases-from-disk]
             [polylith.clj.core.workspace-clj.project-settings :as project-settings]
             [polylith.clj.core.workspace-clj.projects-from-disk :as projects-from-disk]
-            [polylith.clj.core.workspace-clj.components-from-disk :as components-from-disk]))
+            [polylith.clj.core.workspace-clj.components-from-disk :as components-from-disk]
+            [polylith.clj.core.workspace-clj.ignore-files-settings :as ignore-files-settings]))
 
 (def no-git-repo "NO-GIT-REPO")
 
@@ -163,6 +164,7 @@
                       :bases bases
                       :projects projects
                       :paths paths
+                      :releases releases/releases
                       :version version)))
 
 (defn workspace-name [ws-dir]

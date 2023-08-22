@@ -19,6 +19,7 @@
                                poly/migrator                 {:local/root "components/migrator"}
                                poly/overview                 {:local/root "components/overview"}
                                poly/path-finder              {:local/root "components/path-finder"}
+                               poly/releases                 {:local/root "components/releases"}
                                poly/sh                       {:local/root "components/sh"}
                                poly/shell                    {:local/root "components/shell"}
                                poly/tap                      {:local/root "components/tap"}
