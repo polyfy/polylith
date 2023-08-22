@@ -1,1 +1,2 @@
-{:cljdoc.doc/tree [["Readme" {:file "readme.adoc"}]]}
+{:cljdoc.doc/tree [["Readme" {:file "readme.adoc"}]
+                   ["Install" {:file "doc/install.adoc"}]]}
