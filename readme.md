@@ -23,3 +23,8 @@ Iron, Bronze, Silver, Gold, and Platinum sponsors will also be listed on the [fi
 ### Polylith Fans
 
 [<img src="https://avatars.githubusercontent.com/u/18068051" width="32" alt="Jungin Kwon">](https://github.com/yyna)
+
+### Polylith Friends
+
+[<img src="https://avatars.githubusercontent.com/u/43875" width="32" alt="Sean Corfield">](https://github.com/seancorfield)
+[<img src="https://avatars.githubusercontent.com/u/243097" width="32" alt="Hyunwoo Nam">](https://github.com/namenu)
