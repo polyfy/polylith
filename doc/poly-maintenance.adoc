@@ -1,4 +1,4 @@
-= Maintainers of poly
+= Poly maintenance
 
 Here we will go through things that primarily have value if you are a developer of the poly tool itself.
 Feel free to read what's in here, and hopefully you will pick up something of value.
@@ -79,7 +79,7 @@ poly info fake-tag:
 === fake-poly
 
 This parameter is used to fake that we are using the `poly` tool,
-when we actually use the `polyx` tool.
+when we actually use a SNAPSHOT version (or the `polyx` tool).
 
 [source,shell]
 ----
@@ -174,7 +174,7 @@ bb doc start
 bb doc ingest
 ----
 
-If you are a maintainer of the `poly` tool itself, then start a shell:
+If we are a maintainer of the `poly` tool itself, then we can start a shell from the `polylith` directory:
 
 [source,clojure]
 ----
@@ -206,7 +206,7 @@ The `:local` flag will tell the `poly` tool to open pages on `http://localhost:8
 
 === Open pages in GitHub
 
-If we are in the polylith workspace root directory, we can start a shell with `:local` and then open the corresponding file in GitHub:
+If we are in the `polylith` workspace root directory, we can start a shell with `:local` and then open the corresponding file in GitHub, e.g.:
 
 [source,shell]
 ----
@@ -239,6 +239,7 @@ polylith$ doc page:component
 ----
 
 This will open the page on the `master` branch.
+
 If we want to open the pages in another branch, we have to give the branch, e.g.:
 
 [source,shell]
@@ -249,7 +250,7 @@ polylith$ doc page:component
 ----
 
 This can be useful if we are a maintainer of the `poly` tool documentation,
-and don't want to start a local cljdoc server.
+and want to see how the pages are rendered by GitHub.
 
 == Reloading changes
 
@@ -262,10 +263,15 @@ bb doc stop
 bb doc start
 ----
 
-If the polylith codebase is changed, e.g. if we retrieve more commits or if we switch branch,
-we have to run `ingest` again to get the latest and greatest (the server doesn't need to be restarted):
+If the polylith codebase has changed, we need to run `ingest` again (the server does not need to be restarted):
 
 [source,shell]
 ----
 bb doc ingest
 ----
+
+Examples of when we might want to do this
+
+* When we have switched branch with `git checkout`
+* When we have received more commits with `git pull`
+* When we have pushed commits with `git push` (commits have to be pushed for the `ingest` to work)
