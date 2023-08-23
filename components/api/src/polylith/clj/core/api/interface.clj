@@ -15,7 +15,7 @@
    `deps.edn`, or `v[0-9]*` if not defined.
 
    Read more in the documentation on how to use this:
-     poly doc page:poly-as-a-library"
+     `poly doc page:poly-as-a-library`"
   [since]
   (core/projects-to-deploy since))
 
@@ -27,7 +27,7 @@
    `:keys` and `:count` are also valid keys to send in.
 
    Read more in the documentation on how to use this:
-     poly doc page:poly-as-a-library"
+     `poly doc page:poly-as-a-library`"
   [stable-point & keys]
   (core/workspace stable-point keys))
 
