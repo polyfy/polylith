@@ -32,7 +32,7 @@ https://polylith.gitbook.io[high-level documentation!]
 
 If you want to get started right away with writing code, we recommend you to at least read the page
 https://polylith.gitbook.io/polylith/introduction/polylith-in-a-nutshell[Polylith in a Nutshell]
-from the high-level doc, where concepts like component, base, interface, brick, project, and workspace, are introduced,
+from the high-level doc, where concepts like interface, component, base, brick, project, and workspace, are introduced,
 ifdef::env-cljdoc[]
 before continuing with the xref:doc/introduction.adoc[introduction].
 endif::[]

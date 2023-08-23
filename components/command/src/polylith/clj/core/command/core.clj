@@ -1,5 +1,6 @@
 (ns ^:no-doc polylith.clj.core.command.core
-  (:require [polylith.clj.core.change.interface :as change]
+  (:require [clojure.string :as str]
+            [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.command.cmd-validator.core :as cmd-validator]
             [polylith.clj.core.command.create :as create]
             [polylith.clj.core.command.dependencies :as dependencies]
@@ -55,16 +56,30 @@
   (fn [user-input ws-file]
     (read-workspace ws-file user-input)))
 
-(defn with-shell [cmd user-input]
-  (condp = cmd
-    nil ["shell" user-input]
-    "shell" ["shell" user-input]
-    ":all" ["shell" (assoc user-input :is-all true)]
-    ":tap" ["shell" (assoc user-input :is-tap true)]
-    ":fake-poly" ["shell" (assoc user-input :is-fake-poly true)]
-    ":github" ["shell" (assoc user-input :is-github true)]
-    ":local" ["shell" (assoc user-input :is-local true)]
-    [cmd user-input]))
+(defn with-switch [cmd user-input]
+  (let [[switch path] (when cmd (str/split cmd #":"))]
+    (if (contains? #{"ws-dir" "ws-file"} switch)
+      ["shell" (assoc user-input (keyword switch) path)]
+      [cmd user-input])))
+
+(defn with-shell
+  "This function allows us to open a shell by skipping the word 'shell', e.g.:
+     poly :tap
+     poly :github
+     poly ws-dir:examples/doc-example
+     poly ws-file:aproject.edn"
+  [cmd user-input]
+  (let [[cmd user-input] (with-switch cmd user-input)]
+    (condp = cmd
+      nil ["shell" user-input]
+      "shell" ["shell" user-input]
+      "ws-dir" ["shell" user-input]
+      ":all" ["shell" (assoc user-input :is-all true)]
+      ":tap" ["shell" (assoc user-input :is-tap true)]
+      ":fake-poly" ["shell" (assoc user-input :is-fake-poly true)]
+      ":github" ["shell" (assoc user-input :is-github true)]
+      ":local" ["shell" (assoc user-input :is-local true)]
+      [cmd user-input])))
 
 (defn execute [{:keys [cmd args name top-ns branch help is-local more page ws is-tap is-git-add is-github is-commit is-all is-outdated is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
   (let [color-mode (common/color-mode user-input)

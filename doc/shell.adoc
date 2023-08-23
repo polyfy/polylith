@@ -125,12 +125,11 @@ to the command for us before the command is executed
 
 === Start a shell in another workspace
 
-It's possible to start a shell and immediately switch to a workspace
-(now the xref:commands.adoc#shell[shell] command has to be included), e.g.:
+It's possible to start a shell and immediately switch to a workspace, e.g.:
 
 [source,text]
 ----
-$ poly shell ws-dir:examples/doc-example
+$ poly ws-dir:examples/doc-example
                   _      _ + _   _
 #####   _ __  ___| |_  _| |-| |_| |_
 #####  | '_ \/ _ \ | || | | |  _| ' \
@@ -143,7 +142,7 @@ dir:doc-example$
 
 [source,text]
 ----
-$ poly shell ws-file:realworld.edn
+$ poly ws-file:realworld.edn
                   _      _ + _   _
 #####   _ __  ___| |_  _| |-| |_| |_
 #####  | '_ \/ _ \ | || | | |  _| ' \
