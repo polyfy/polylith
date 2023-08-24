@@ -3,13 +3,19 @@
   (:require [clojure.string :as str]
             [polylith.clj.core.system.interface :as system]))
 
-;; --------------------------------------------------------------------------
+;; -----------------------------------------------------------------------------
 ;; If a final release:
-;;  -  we will build and deploy the poly tool to github,
+;;  - build and release the 'poly' tool to https://github.com/polyfy/polylith.
+;;  - build and release the 'clj-poly' library to https://clojars.org.
+;;  - release the 'clj-poly-NAME' documentation to cljdoc.org
+;;    where NAME is specified by 'name' in this namespace
+;;    (triggered when 'clj-poly' is pushed to Clojars).
 ;;
-;; If a SNAPSHOT release, we will release a clj-poly library to Clojars,
-;; which will trigger a new build of the cljdoc documentation.
-;; --------------------------------------------------------------------------
+;; If a SNAPSHOT release:
+;;  - build and release the 'clj-poly' library to https://clojars.org.
+;;  - release the 'clj-poly-SNAPSHOT' documentation to cljdoc.org
+;;    (triggered when 'clj-poly' is pushed to Clojars).
+;; -----------------------------------------------------------------------------
 
 (def RELEASE "")
 (def SNAPSHOT "SNAPSHOT")

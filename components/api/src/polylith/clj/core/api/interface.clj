@@ -4,7 +4,8 @@
   (:gen-class))
 
 (def api-version
-  "The version of the different types of APIs."
+  "The version of the different types of APIs in a hash map with the keys:
+   `:api`, `:test-runner`, and `:ws`"
   {:api version/api-version
    :test-runner version/test-runner-api-version
    :ws version/ws-api-version})
@@ -14,7 +15,7 @@
    tagged in git following the pattern defined by `:release-tag-pattern` in
    `deps.edn`, or `v[0-9]*` if not defined.
 
-   Read more in the documentation on how to use this:
+   Read more in the documentation on how to use this by executing
      `poly doc page:poly-as-a-library`"
   [since]
   (core/projects-to-deploy since))
@@ -22,11 +23,11 @@
 (defn workspace
   "Returns the workspace or part of the workspace by sending in either
    a key that can be found in the `:tag-patterns` keys in `workspace.edn`,
-   optionally prefixed with 'previous-', or a git SHA, as the first argument,
+   optionally prefixed with `previous-`, or a git SHA, as the first argument,
    and a list of keywords, strings, or numbers as the second argument.
-   `:keys` and `:count` are also valid keys to send in.
+   `:keys` and `:count` are also valid keys to pass in.
 
-   Read more in the documentation on how to use this:
+   Read more in the documentation on how to use this by executing
      `poly doc page:poly-as-a-library`"
   [stable-point & keys]
   (core/workspace stable-point keys))
