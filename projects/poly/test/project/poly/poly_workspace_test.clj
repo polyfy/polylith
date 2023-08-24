@@ -113,7 +113,7 @@
           "  borkdude/edamame             1.3.23     maven     24    x      x      x      -         -      .  .  x  .  .  .  .  .  .  ."
           "  clj-commons/fs               1.6.310    maven     12    x      x      x      -         -      .  .  x  .  .  .  .  .  .  ."
           "  com.github.liquidz/antq      2.5.1109   maven     50    x      x      x      -         -      x  .  .  .  .  .  .  .  .  ."
-          "  djblue/portal                0.45.1     maven  1,822    x      x      x      -         -      .  .  .  .  .  .  x  .  .  ."
+          "  djblue/portal                0.46.0     maven  1,827    x      x      x      -         -      .  .  .  .  .  .  x  .  .  ."
           "  metosin/malli                0.11.0     maven     85    x      x      x      -         -      .  .  .  .  .  .  .  x  .  ."
           "  mount/mount                  0.1.17     maven      8    -      -      x      -         -      .  .  .  .  .  .  .  .  .  ."
           "  mvxcvi/puget                 1.3.4      maven     15    x      x      x      -         -      .  .  .  .  .  .  .  .  .  x"
