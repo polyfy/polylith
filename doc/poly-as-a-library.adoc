@@ -7,9 +7,10 @@ If we want to build tooling around Polylith or e.g. use `poly` functionality in 
 then we can use `poly` as a library.
 
 The `poly` tool and the https://clojars.org/polylith/clj-poly[clj-poly]
-library contain the exact same code with the same set of bricks.
+library contain the exact same code with the same set of bricks,
+at least if you use version `0.2.18` or later.
 The only difference is that the `poly` tool is AOT compiled into Java bytecode,
-while the `clj-poly` library is just plain Clojure code that is zipped into a jar file.
+while `clj-poly` is just plain Clojure code that is zipped into a jar file so that it can be used as a library.
 This is good, because now we can expect the same behaviour from both.
 
 We can use the `poly` tool as a library by including the `clj-poly` library
@@ -19,7 +20,7 @@ as a dependency to a project's `deps.edn` file, e.g.:
 ----
 :aliases {:dostuff {...
                     :extra-deps {...
-                                 polylith/clj-poly {:mvn/version "{poly-version}"}}
+                                 polylith/clj-poly {:mvn/version "0.2.18"}}
  ...
 
 ----
@@ -34,22 +35,17 @@ as a dependency to a project's `deps.edn` file, e.g.:
                        :deps/root "projects/poly"}
 ----
 
-These are the parts that we have access to:
+These are the parts that we get access to:
 
 * The {cljdoc-api-url}/polylith.clj.core.api.interface[api] interface.
 
-* The {cljdoc-api-url}/polylith.clj.core.test-runner-contract.interface[Test runner contract].
+* The {cljdoc-api-url}/polylith.clj.core.test-runner-contract.interface[test runner contract].
 
 * The xref:workspace-structure.adoc[workspace structure].
 
 == The API
 
-Via the {cljdoc-api-url}/polylith.clj.core.api.interface[api] we get access to a couple of functions
-and the version of each API.
-
-=== API Versions
-
-The API has an `api-version`, containing three keys:
+The {cljdoc-api-url}/polylith.clj.core.api.interface[API] has an `api-version`, containing three keys:
 
 [source,clojure]
 ----
@@ -66,9 +62,8 @@ The API has an `api-version`, containing three keys:
  :non-breaking 0}
 ----
 
-Every time we release a new version of `clj-poly` to Clojars (which can also be a SNAPSHOT release)
-the `:breaking` or `:non-breaking` number will change, if any attribute in the workspace
-structure has changed in any way:
+Every time we release a new version of `clj-poly` to Clojars, which can either be a "real" release or a SNAPSHOT release,
+the `:breaking` or `:non-breaking` number will change if any attribute in the workspace structure has changed in any way:
 
 * Any changes that may break our code will increase the `:breaking` number by one and set `:non-breaking` to zero:
 ** If an attribute changes name
@@ -78,7 +73,7 @@ structure has changed in any way:
 * Any changes that only add functionality/attributes, will increase the `:non-breaking` number by one.
 
 We will try really hard to not introduce breaking changes to the {cljdoc-api-url}/polylith.clj.core.api.interface[api]
-(`api-version.api`) or the test runner (`api-version.test-runner`).
+or the {cljdoc-api-url}/polylith.clj.core.test-runner-contract[test runner].
 However, this is not true for the xref:workspace-structure.adoc[workspace structure] (`api-version.ws`)
 which sometimes will change in a breaking way when new functionality is added.
 
@@ -94,14 +89,14 @@ and is primarily used to know which projects we have to build and deploy.
   (core/projects-to-deploy since))
 ----
 
-This function call:
+If called with:
 
 [source,clojure]
 ----
 (projects-to-deploy "release")
 ----
 
-...will execute the equivalent to this call, under the hood:
+...it will execute the equivalent to this under the hood:
 
 [source,shell]
 ----
@@ -109,7 +104,7 @@ poly ws get:changes:changed-or-affected-projects since:release skip:development
 ----
 
 ...which returns all changed projects since the last stable release xref:tagging.adoc[tag].
-If `since` is passed in as `nil`, then `stable` will be used.
+If `since` is passed in as `nil` then `stable` will be used.
 
 === workspace
 
@@ -161,16 +156,23 @@ If we build a tool around the `clj-poly` library, we therefore need to pay atten
 which is documented at the end of the
 https://github.com/polyfy/polylith/blob/master/components/version/src/polylith/clj/core/version/interface.clj[version] component interface.
 
-Both the `poly` tool and the `clj-poly` library can read old workspace files,
-e.g. exported with `poly ws out:ws.edn`, and older versions of the polylith workspace,
+Both the `poly` tool and the `clj-poly` library can read old workspace files that are exported with e.g.
+`poly ws out:ws.edn`, and older versions of the polylith workspace (when read as a directory)
 and will automatically migrate them to the latest version of the workspace structure.
+
+====
+CAUTION: We only guarantee that workspaces exported with release versions can be automatically
+migrated to the latest version of the workspace structure, not SNAPSHOT releases between stable releases,
+so be careful if you export a workspace with a SNAPSHOT version.
+====
 
 As an example, if we clone the https://github.com/polyfy/polylith/tree/master[polylith repository]
 and check out the https://github.com/polyfy/polylith/releases/tag/v0.1.0-alpha9[0.1.0-alpha9] tag,
 the `polylith` workspace will now store its configuration in `./deps.edn` under the `:polylith` key,
 instead of in `workspace.edn`, and the bricks don't even have their own `deps.edn` files,
 because all dependencies are instead configured by the projects themselves.
-Luckily, the workspace will automatically be migrated to the latest version of the workspace structure for us.
+Luckily, the workspace will automatically be migrated to the latest version of the workspace structure for us,
+and all the `poly` tool commands will still work.
 
 ====
 NOTE: Since version `0.2.18` we only publish `clj-poly` to Clojars and not the old `clj-api`.
