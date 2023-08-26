@@ -129,8 +129,8 @@
        (empty? bricks-to-test)))
 
 (defn read-project
-  ([{:keys [config project-name project-dir project-config-dir is-dev]} ws-dir name->brick project->settings user-home suffixed-top-ns interface-ns]
-   (let [{:keys [paths deps override-deps aliases mvn/repos]} config
+  ([{:keys [deps project-name project-dir project-config-dir is-dev]} ws-dir name->brick project->settings user-home suffixed-top-ns interface-ns]
+   (let [{:keys [paths deps override-deps aliases mvn/repos]} deps
          files-to-ignore (get-in project->settings [project-name :ignore-files])
          project-src-paths (cond-> paths is-dev (concat (-> aliases :dev :extra-paths)))
          project-src-deps (cond-> deps is-dev (merge (-> aliases :dev :extra-deps)))

@@ -7,22 +7,63 @@ We have two categories of configuration:
 2. Configuration used by tools.deps, stored in `deps.edn` files in bricks and projects.
 
 The content of all the configuration files also lives in the xref:workspace-structure.adoc[workspace structure],
-under these top keys (retrieved by `poly ws get:configs:keys`):
+under these top keys:
 
 [source,shell]
 ----
-[:bases :components :projects :user :workspace]
+[:bases :components :projects :user :workspaces]
+----
+
+...which can be listed by:
+
+[source,shell]
+----
+poly ws get:configs:keys
 ----
 
 Let's go through each of them:
 
-== workspace
+== workspaces
+
+Today we always operate against one workspace at a time,
+but the plan is to support multiple workspaces in the future,
+to facilitate code sharing, see discussion https://github.com/polyfy/polylith/discussions/301[301].
+
+The workspaces can be listed with:
+
+[source,shell]
+----
+poly ws get:configs:workspaces
+----
+
+[source,clojure]
+----
+[{:config { ... }
+  :is-main true
+  :name "example"
+  :type "workspace"}]
+----
+
+Description of the keys:
+
+[%autowidth]
+|===
+| Key | Description
+
+| `:config` | The content of `workspace.edn`.
+
+| `:is-main` | Always `true` (right now).
+
+| `:name` | The name of the workspace directory.
+
+| `:type` | Set to "workspace".
+|===
 
 The workspace configuration file lives in `./workspace.edn`, and can be viewed with:
 
 [source,shell]
 ----
-poly ws get:configs:workspace
+poly ws get:configs:workspaces:example
 ----
 
 [source,clojure]
@@ -37,7 +78,7 @@ poly ws get:configs:workspace
                             :test {:create-test-runner my.test-runner/create}}}
  :tag-patterns {:release "v[0-9]*"
                 :stable "stable-*"}
- :top-namespace "se.example",
+ :top-namespace "se.example"
  :vcs {:auto-add true
        :name "git"}}
 ----
@@ -87,19 +128,18 @@ The `:projects` key contains configuration for individual projects:
 
 [source,shell]
 ----
-poly ws get:configs:workspace:projects
+poly ws get:configs:workspaces:example:config:projects
 ----
 
 [source,shell]
 ----
-:projects {"command-line" {:alias "cl"
-                           :test {:exclude ["mybrick"]}
-                           :necessary ["helper"]}}
-           "development" {:alias "dev"}
-           "user-service" {:alias "user-s"
-                           :test {:setup-fn project.command-line.test-setup/setup
-                                  :teardown-fn project.command-line.test-setup/teardown}}
-                        }}
+{"command-line" {:alias "cl"
+                 :test {:exclude ["mybrick"]}
+                 :necessary ["helper"]}}
+ "development" {:alias "dev"}
+ "user-service" {:alias "user-s"
+                 :test {:setup-fn project.command-line.test-setup/setup
+                        :teardown-fn project.command-line.test-setup/teardown}}}
 ----
 
 Configuration for a specific project:
@@ -110,7 +150,9 @@ Configuration for a specific project:
 
 | `:alias` | This value is used in the output of the xref:commands.adoc#info[info] command
 and various commands as an alternative value for the project name.
+
 | `:necessary` | Allows us to turn off `Warning 206` for one or more bricks in the project, see xref:validations.adoc[Validations].
+
 | `:test` | A map with test configuration for the project, see below.
 |===
 
@@ -121,9 +163,12 @@ Test configuration under the `:test` key for a specific project:
 | Key | Description
 
 | `:exclude` | Lists the bricks to be xref:testing.adoc#include-exclude[excluded] when running tests for the project.
+
 | `:include` | Lists the bricks to be xref:testing#include-exclude[included] when running tests for the project.
+
 | `:setup-fn` | The name of the function (namespace included) that will be executed before the tests are executed,
 see xref:testing#setup-and-teardown[Test setup and teardown].
+
 | `:teardown-fn` | The name of the function (namespace included) that will be executed after the tests have been executed,
 see xref:testing#setup-and-teardown[Test setup and teardown].
 |===

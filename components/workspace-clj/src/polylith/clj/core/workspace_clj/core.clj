@@ -100,9 +100,9 @@
                               user-input
                               color-mode]
   (let [{:keys [vcs top-namespace interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views bricks]
-         :or   {vcs           {:name "git", :auto-add false}
+         :or   {vcs {:name "git", :auto-add false}
                 compact-views {}
-                interface-ns  "interface"}} ws-config
+                interface-ns "interface"}} ws-config
         patterns (tag-pattern/patterns tag-patterns stable-tag-pattern release-tag-pattern)
         top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
         empty-character (user-config/empty-character)
@@ -158,7 +158,7 @@
                                 :user (user-config/content)
                                 :workspaces [{:name ws-name
                                               :type "workspace"
-                                              :main true
+                                              :is-main true
                                               :config ws-config}]}
                       :config-errors config-errors
                       :components components
@@ -184,8 +184,8 @@
                   (config-reader/file-exists? ws-file :workspace) :toolsdeps2
                   (config-reader/file-exists? deps-file :development) :toolsdeps1)]
     (when ws-type
-      (let [{:keys [config error]} (config-reader/read-project-dev-config-file ws-dir ws-type)
-            {:keys [aliases polylith]} config
+      (let [{:keys [deps error]} (config-reader/read-project-dev-config-file ws-dir ws-type)
+            {:keys [aliases polylith]} deps
             [ws-config ws-error] (if (or error
                                          (= :toolsdeps2 ws-type))
                                    (ws-config/ws-config-from-disk ws-dir)

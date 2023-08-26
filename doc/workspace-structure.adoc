@@ -284,77 +284,87 @@ poly ws get:configs
 
 [source,clojure]
 ----
-{:bases [{:config {:aliases {:test {:extra-deps {}, :extra-paths ["test"]}}
-                   :deps {}
-                   :paths ["src" "resources"]}
-          :name "cli"}
-         {:config {:aliases {:test {:extra-deps {}, :extra-paths ["test"]}}
-                   :deps {slacker/slacker {:mvn/version "0.17.0"}}
-                   :paths ["src" "resources"]}
-          :name "user-api"}]
- :components [{:config {:aliases {:test {:extra-deps {}, :extra-paths ["test"]}}
-                        :deps {}
-                        :paths ["src" "resources"]}
-               :name "user"}
-              {:config {:aliases {:test {:extra-deps {}, :extra-paths ["test"]}}
-                        :deps {compojure/compojure {:mvn/version "1.6.2"}
-                               http-kit/http-kit {:mvn/version "2.4.0"}
-                               ring/ring {:mvn/version "1.8.1"}
-                               slacker/slacker {:mvn/version "0.17.0"}}
-                        :paths ["src" "resources"]}
-               :name "user-remote"}]
- :projects [{:config {:aliases {:test {:extra-deps {}, :extra-paths ["test"]}
-                                :uberjar {:main se.example.cli.core}}
-                      :deps {org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
-                             org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}
-                             org.clojure/clojure {:mvn/version "1.11.1"}
-                             poly/cli {:local/root "../../bases/cli"}
-                             poly/user-remote {:local/root "../../components/user-remote"}}}
-             :name "command-line"}
-            {:config {:aliases {:+default {:extra-deps {poly/user {:local/root "components/user"}}
-                                           :extra-paths ["components/user/test"]}
-                                :+remote {:extra-deps {poly/user-remote {:local/root "components/user-remote"}}
-                                          :extra-paths ["components/user-remote/test"]}
-                                :build {:deps {io.github.clojure/tools.build {:mvn/version "0.9.5"}
-                                               io.github.seancorfield/build-uber-log4j2-handler {:git/sha "55fb6f6"
-                                                                                                 :git/tag "v0.1.5"}
-                                               org.clojure/tools.deps {:mvn/version "0.16.1281"}}
-                                        :ns-default build
-                                        :paths ["build/resources"]}
-                                :dev {:extra-deps {org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
-                                                   org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}
-                                                   org.clojure/clojure {:mvn/version "1.11.1"}
-                                                   poly/cli {:local/root "bases/cli"}
-                                                   poly/user-api {:local/root "bases/user-api"}}
-                                      :extra-paths ["development/src"]}
-                                :poly {:extra-deps {polyfy/polylith {:sha "78b2c77c56d1b41109d68b451069affac935200e"
-                                                                     :deps/root "projects/poly"
-                                                                     :git/url "https://github.com/polyfy/polylith.git"}}
-                                       :main-opts ["-m"
-                                                   "polylith.clj.core.poly-cli.core"]}
-                                :test {:extra-paths ["bases/cli/test"
-                                                     "bases/user-api/test"
-                                                     "projects/command-line/test"]}}}
-             :name "development"}
-            {:config {:aliases {:test {:extra-deps {}, :extra-paths []}
-                                :uberjar {:main se.example.user-api.core}}
-                      :deps {org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
-                             org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}
-                             org.clojure/clojure {:mvn/version "1.11.1"}
-                             poly/user {:local/root "../../components/user"}
-                             poly/user-api {:local/root "../../bases/user-api"}}}
-             :name "user-service"}]
- :user {:color-mode "dark", :empty-character ".", :thousand-separator ","}
- :workspace {:compact-views #{}
-             :default-profile-name "default"
-             :interface-ns "interface"
-             :projects {"command-line" {:alias "cl"}
-                        "development" {:alias "dev"}
-                        "user-service" {:alias "user-s"}}
-             :release-tag-pattern "v[0-9]*"
-             :stable-tag-pattern "stable-*"
-             :top-namespace "se.example"
-             :vcs {:auto-add true, :name "git"}}}
+{:bases [{:deps {:aliases {:test {:extra-deps {}, :extra-paths ["test"]}},
+                 :deps {},
+                 :paths ["src" "resources"]},
+          :name "cli",
+          :type "base"}
+         {:deps {:aliases {:test {:extra-deps {}, :extra-paths ["test"]}},
+                 :deps {slacker/slacker {:mvn/version "0.17.0"}},
+                 :paths ["src" "resources"]},
+          :name "user-api",
+          :type "base"}],
+ :components [{:deps {:aliases {:test {:extra-deps {}, :extra-paths ["test"]}},
+                      :deps {},
+                      :paths ["src" "resources"]},
+               :name "user",
+               :type "component"}
+              {:deps {:aliases {:test {:extra-deps {}, :extra-paths ["test"]}},
+                      :deps {compojure/compojure {:mvn/version "1.6.2"},
+                             http-kit/http-kit {:mvn/version "2.4.0"},
+                             ring/ring {:mvn/version "1.8.1"},
+                             slacker/slacker {:mvn/version "0.17.0"}},
+                      :paths ["src" "resources"]},
+               :name "user-remote",
+               :type "component"}],
+ :projects [{:deps {:aliases {:test {:extra-deps {}, :extra-paths ["test"]},
+                              :uberjar {:main se.example.cli.core}},
+                    :deps {org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"},
+                           org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"},
+                           org.clojure/clojure {:mvn/version "1.11.1"},
+                           poly/cli {:local/root "../../bases/cli"},
+                           poly/user-remote {:local/root "../../components/user-remote"}}},
+             :name "command-line",
+             :type "project"}
+            {:deps {:aliases {:+default {:extra-deps {poly/user {:local/root "components/user"}},
+                                         :extra-paths ["components/user/test"]},
+                              :+remote {:extra-deps {poly/user-remote {:local/root "components/user-remote"}},
+                                        :extra-paths ["components/user-remote/test"]},
+                              :build {:deps {io.github.clojure/tools.build {:mvn/version "0.9.5"},
+                                             io.github.seancorfield/build-uber-log4j2-handler {:git/sha "55fb6f6",
+                                                                                               :git/tag "v0.1.5"},
+                                             org.clojure/tools.deps {:mvn/version "0.16.1281"}},
+                                      :ns-default build,
+                                      :paths ["build/resources"]},
+                              :dev {:extra-deps {org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"},
+                                                 org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"},
+                                                 org.clojure/clojure {:mvn/version "1.11.1"},
+                                                 poly/cli {:local/root "bases/cli"},
+                                                 poly/user-api {:local/root "bases/user-api"}},
+                                    :extra-paths ["development/src"]},
+                              :poly {:extra-deps {polyfy/polylith {:sha "78b2c77c56d1b41109d68b451069affac935200e",
+                                                                   :deps/root "projects/poly",
+                                                                   :git/url "https://github.com/polyfy/polylith.git"}},
+                                     :main-opts ["-m"
+                                                 "polylith.clj.core.poly-cli.core"]},
+                              :test {:extra-paths ["bases/cli/test"
+                                                   "bases/user-api/test"
+                                                   "projects/command-line/test"]}}},
+             :name "development",
+             :type "project"}
+            {:deps {:aliases {:test {:extra-deps {}, :extra-paths []},
+                              :uberjar {:main se.example.user-api.core}},
+                    :deps {org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"},
+                           org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"},
+                           org.clojure/clojure {:mvn/version "1.11.1"},
+                           poly/user {:local/root "../../components/user"},
+                           poly/user-api {:local/root "../../bases/user-api"}}},
+             :name "user-service",
+             :type "project"}],
+ :user {:color-mode "dark", :empty-character ".", :thousand-separator ","},
+ :workspaces [{:config {:compact-views #{},
+                        :default-profile-name "default",
+                        :interface-ns "interface",
+                        :projects {"command-line" {:alias "cl"},
+                                   "development" {:alias "dev"},
+                                   "user-service" {:alias "user-s"}},
+                        :tag-patterns {:release "v[0-9]*"
+                                       :stable "stable-*"}
+                        :top-namespace "se.example",
+                        :vcs {:auto-add true, :name "git"}},
+               :is-main true,
+               :name "example",
+               :type "workspace"}]}
 ----
 
 These attributes are described in the xref:configuration.adoc[Configuration] section.
