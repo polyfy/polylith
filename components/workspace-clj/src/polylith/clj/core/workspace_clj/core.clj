@@ -156,7 +156,10 @@
                                 :bases base-configs
                                 :projects (config-reader/clean-project-configs project-configs)
                                 :user (user-config/content)
-                                :workspace ws-config}
+                                :workspaces [{:name ws-name
+                                              :type "workspace"
+                                              :main true
+                                              :config ws-config}]}
                       :config-errors config-errors
                       :components components
                       :bases bases
