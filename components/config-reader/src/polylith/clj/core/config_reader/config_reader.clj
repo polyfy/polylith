@@ -11,7 +11,7 @@
           (let [{:keys [config]} (deps-reader/read-deps-file config-filename short-config-filename)]
             (if config
               {:config config}
-              (if (= :project entity-type)
+              (if (= "project" entity-type)
                 {:config {}}
                 {:config {:paths ["src" "resources"]
                           :aliases {:test {:extra-paths ["test"]}}}})))
@@ -40,7 +40,7 @@
       (filter-config-files)))
 
 (defn read-project-deployable-config-files [ws-dir ws-type]
-  (map #(assoc (read-config-file ws-type % :project
+  (map #(assoc (read-config-file ws-type % "project"
                                  (str "projects/" %)
                                  (str ws-dir "/projects/" %)
                                  validator/validate-project-deployable-config)
@@ -61,6 +61,7 @@
             {:config config
              :is-dev true
              :name "development"
+             :type "project"
              :project-name "development"
              :project-dir (str ws-dir "/development")
              :project-config-dir ws-dir}))))))
