@@ -170,8 +170,9 @@ the file should be read with the same snapshot version if we want to be sure tha
 As an example, if we clone the https://github.com/polyfy/polylith/tree/master[polylith repository]
 and check out the https://github.com/polyfy/polylith/releases/tag/v0.1.0-alpha9[0.1.0-alpha9] tag,
 the `polylith` workspace will now store its configuration in `./deps.edn` under the `:polylith` key,
-instead of in `workspace.edn`, and the bricks don't even have their own `deps.edn` files,
-because all dependencies are instead configured by the projects themselves.
+instead of in `workspace.edn` and the bricks don't even have their own `deps.edn` files
+because all dependencies are instead configured by the projects themselves
+(this was changed in https://github.com/polyfy/polylith/releases/tag/v0.2.0-alpha10[0.2.0-alpha10]).
 Luckily, the workspace will automatically be migrated to the latest version of the workspace structure for us,
 and all the `poly` tool commands will still work as normal.
 
