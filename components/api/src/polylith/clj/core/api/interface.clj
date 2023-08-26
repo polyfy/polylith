@@ -1,5 +1,6 @@
 (ns polylith.clj.core.api.interface
-  "Read more by executing
+  "This namespace contains the `poly` tool functionality that is exposed as a library.
+   Read more in the `poly` tool documentation, by executing:
    ```clojure
      poly doc page:poly-as-a-library
    ```"
@@ -9,15 +10,15 @@
 
 (def api-version
   "The version of the different types of APIs, stored in a hash map with the keys:
-   `:api`, `:test-runner`, and `:ws`"
+   `:api`, `:test-runner`, and `:ws`."
   {:api version/api-version
    :test-runner version/test-runner-api-version
    :ws version/ws-api-version})
 
 (defn projects-to-deploy
   "Returns the projects that have been affected since last deploy,
-   tagged in git following the pattern defined by `:release-tag-pattern` in
-   `./deps.edn`, or `v[0-9]*` if not defined."
+   tagged in git following the pattern defined by `:tag-patterns` in
+   `./deps.edn`, or `v[0-9]*` if not specified."
   [since]
   (core/projects-to-deploy since))
 
@@ -26,7 +27,19 @@
    a key that can be found in the `:tag-patterns` keys in `workspace.edn`,
    optionally prefixed with `previous-`, or a git SHA, as the first argument,
    and a list of keywords, strings, or numbers as the second argument.
-   `:keys` and `:count` are also valid keys to pass in."
+   `:keys` and `:count` are also valid keys to pass in.
+
+   Examples
+   ```clojure
+   ;; Returns the whole workspace structure, same as: poly ws since:stable
+   (workspace nil)
+
+   ;; Returns the whole workspace structure, same as: poly ws since:release
+   (workspace \"release\")
+
+   ;; Returns the interface namespace name, same as: poly ws get:settings:interface-ns
+   (workspace nil \"settings\" \"interface-ns\")
+   ```"
   [stable-point & keys]
   (core/workspace stable-point keys))
 
