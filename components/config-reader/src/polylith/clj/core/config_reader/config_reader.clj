@@ -31,12 +31,12 @@
         errors (vec (sort-by :name (filter :error configs-and-errors)))]
     [configs errors]))
 
-(defn read-brick-config-files [ws-dir ws-type entity-type entity-dir]
+(defn read-brick-config-files [ws-dir ws-type entity-type]
   (-> (map #(read-config-file ws-type % entity-type
-                              (str entity-dir "/" %)
-                              (str ws-dir "/" entity-dir "/" %)
+                              (str entity-type "s/" %)
+                              (str ws-dir "/" entity-type "s/" %)
                               validator/validate-brick-config)
-           (file/directories (str ws-dir "/" entity-dir)))
+           (file/directories (str ws-dir "/" entity-type "s")))
       (filter-config-files)))
 
 (defn read-project-deployable-config-files [ws-dir ws-type]
