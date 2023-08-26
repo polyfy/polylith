@@ -274,10 +274,9 @@ _version_, _help_, _doc_, and _create workspace_ commands will work.
 == Use as a library
 [#use-as-a-library]
 
-If we are building tooling around Polylith, then we can use the https://clojars.org/polylith/clj-poly/versions[clj-poly]
-library to get access to some of the funtionality that is built in to the `poly` tool itself.
-
-This is described in the xref:poly-as-a-library.adoc[Polylith as a library] section.
+If we build tooling around Polylith, then we can use the https://clojars.org/polylith/clj-poly/versions[clj-poly]
+library to get access to some of the funtionality that is built into the `poly` tool itself,
+which is described in the xref:poly-as-a-library.adoc[Polylith as a library] section.
 
 == JVM options
 

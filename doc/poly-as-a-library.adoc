@@ -10,7 +10,7 @@ The `poly` tool and the https://clojars.org/polylith/clj-poly[clj-poly]
 library contain the exact same code with the same set of bricks,
 at least if we use version `0.2.18` or later.
 The only difference is that the `poly` tool is AOT compiled into Java bytecode,
-while `clj-poly` is just plain Clojure code that is zipped into a jar file so that it can be used as a library.
+while `clj-poly` is a normal Clojure library, source code that is zipped into a jar file.
 This is good, because now we can expect the same behaviour from both.
 
 We can use the `poly` tool as a library by including the `clj-poly` library
@@ -161,9 +161,10 @@ Both the `poly` tool and the `clj-poly` library can read old workspace files tha
 and will automatically migrate them to the latest version of the workspace structure.
 
 ====
-CAUTION: We only guarantee that workspaces exported with release versions can be automatically
-migrated to the latest version of the workspace structure, not SNAPSHOT releases between stable releases,
-so be careful if you export a workspace with a SNAPSHOT version.
+CAUTION: We only guarantee that workspaces exported with release versions,
+e.g. `0.2.17-alpha` or `0.2.18`, can be read without problems.
+If we export a workspace to a file with a snapshot version, e.g. `0.2.18-SNAPSHOT`,
+the file should be read with the same snapshot version if we want to be sure that it can be read correctly.
 ====
 
 As an example, if we clone the https://github.com/polyfy/polylith/tree/master[polylith repository]

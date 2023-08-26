@@ -9,7 +9,7 @@ There are two kinds of projects in Polylith: development and deployable.
 - Any extra code, that is not part of a component or base, lives under the ´development´ directory.
 
 * Any deployable project:
-- Used to build deployable artifacts, e.g.: lambda functions, REST API's, tools, and more.
+- Used to build deployable xref:artifacts.adoc[artifacts], e.g.: lambda functions, REST API's, tools, and more.
 - Lives under the `projects` directory where each project has its own directory.
 - Has a `deps.edn` file that specifies which bricks and project libraries that are included in the project.
 - Can optionally have a `resources` directory.
