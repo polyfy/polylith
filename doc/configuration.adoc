@@ -14,20 +14,13 @@ under these top keys:
 [:bases :components :projects :user :workspaces]
 ----
 
-...which can be listed with:
-
-[source,shell]
-----
-poly ws get:configs:keys
-----
-
 Let's go through each of them:
 
 == workspaces
 
 Today we always operate against one workspace at a time,
-but the plan is to support multiple workspaces in the future,
-to facilitate code sharing, see discussion https://github.com/polyfy/polylith/discussions/301[301].
+but the plan is to support multiple workspaces in the future, to facilitate code sharing,
+see discussion https://github.com/polyfy/polylith/discussions/301[301] if you want to join the discussion.
 
 The workspaces can be listed with:
 
@@ -43,8 +36,6 @@ poly ws get:configs:workspaces
   :name "example"
   :type "workspace"}]
 ----
-
-Description of the keys:
 
 [%autowidth]
 |===
