@@ -3,8 +3,8 @@
    `build.clj` file, then we can use the [clj-poly](https://clojars.org/polylith/clj-poly) library
    and get access to some of the functionality that is included in the `poly` command line tool.
 
-   The difference between the library and the `poly` tool is that the latter is AOT compiled
-   into Java bytecode, while `clj-poly` is just a normal Clojure library (source code that is zipped
+   The difference between the `clj-ply` library and the `poly` tool is that the latter is AOT compiled
+   into Java bytecode, while the library is just a normal Clojure library (source code that is zipped
    into a jar file). This is good, because now we can expect the same behaviour from both.
 
    We can use the `poly` tool as a library by including the `clj-poly` library
@@ -24,8 +24,9 @@
                       :deps/root \"projects/poly\"}
    ```
 
-   If you need more access than is provided by the api at the moment, just reach out to the
-   Polylith team in [Slack](https://clojurians.slack.com/messages/C013B7MQHJQ).
+   If you need more access than is provided by the API at the moment, just reach out to the
+   Polylith team in [Slack](https://clojurians.slack.com/messages/C013B7MQHJQ)
+   and we will try to help out.
 
    All other code that is not part of the public API, is used at your own risk,
    and may change in a breaking way between `clj-poly` versions."

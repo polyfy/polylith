@@ -3,7 +3,7 @@
 
 The poly tool comes with a xref:commands.adoc#doc[doc] command that helps us access the web based documentation.
 
-The easiest way to access different parts of the documentation is by first starting a shell:
+The easiest way to access different parts of the documentation is by first starting a xref:shell.adoc[shell]:
 
 [source,shell]
 ----
@@ -17,9 +17,9 @@ Now we can execute the `doc` command to open the start page of this documentatio
 example$ doc
 ----
 
-image::images/doc/doc-overview.png[]
-
 {nbsp} +
+
+image::images/doc/doc-overview.png[]
 
 If we type `doc` followed by a space, the different help categories are listed:
 
@@ -99,7 +99,7 @@ example$ doc help:check
 ----
 
 ...which take us to the web based help for the xref:commands.adoc#check[check] command.
-We can get the same output if we execute `help` command (but in the console):
+We can get the same output if we execute the corresponding `help` command:
 
 [source,shell]
 ----
@@ -137,7 +137,7 @@ example$ doc ws:configs
 
 == more
 
-The `more` parameter stores all other documentation that is not exclusively about the `poly` tool:
+The `more` parameter stores all other documentation that is not about the `poly` tool:
 
 [source,shell]
 ----
@@ -147,7 +147,7 @@ high-level    slack
 podcasts      videos
 ----
 
-Let's dig into the different types of documentation.
+Let's dig into the different categories:
 
 === blog posts
 
