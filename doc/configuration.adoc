@@ -14,7 +14,7 @@ under these top keys:
 [:bases :components :projects :user :workspaces]
 ----
 
-...which can be listed by:
+...which can be listed with:
 
 [source,shell]
 ----
@@ -52,7 +52,7 @@ Description of the keys:
 
 | `:config` | The content of `workspace.edn`.
 
-| `:is-main` | Always `true` (right now).
+| `:is-main` | Set to `true`.
 
 | `:name` | The name of the workspace directory.
 
@@ -188,14 +188,14 @@ poly ws get:configs:projects:command-line
 
 [source,clojure]
 ----
-{:config {:aliases {:test {:extra-deps {}
-                           :extra-paths ["test"]}
-                    :uberjar {:main se.example.cli.core}}
-          :deps {org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
-                 org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}
-                 org.clojure/clojure {:mvn/version "1.11.1"}
-                 poly/cli {:local/root "../../bases/cli"}
-                 poly/user-remote {:local/root "../../components/user-remote"}}}
+{:deps {:aliases {:test {:extra-deps {}
+                         :extra-paths ["test"]}
+                  :uberjar {:main se.example.cli.core}}
+        :deps {org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"}
+               org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"}
+               org.clojure/clojure {:mvn/version "1.11.1"}
+               poly/cli {:local/root "../../bases/cli"}
+               poly/user-remote {:local/root "../../components/user-remote"}}}
  :name "command-line"
  :type :project}
 ----
@@ -204,7 +204,7 @@ poly ws get:configs:projects:command-line
 |===
 | Key | Description
 
-| `:config` | The content of `deps.edn`.
+| `:deps` | The content of `deps.edn`.
 | `:name` | The project name.
 | `:type` | The type of configuration, set to `:project` for projects.
 |===
@@ -222,10 +222,10 @@ poly ws get:configs:bases:cli
 
 [source,clojure]
 ----
-{:config {:aliases {:test {:extra-deps {}
-                           :extra-paths ["test"]}}
-          :deps {}
-          :paths ["src" "resources"]}
+{:deps {:aliases {:test {:extra-deps {}
+                         :extra-paths ["test"]}}
+        :deps {}
+        :paths ["src" "resources"]}
  :name "cli"
  :type :base}
 ----
@@ -234,7 +234,7 @@ poly ws get:configs:bases:cli
 |===
 | Key | Description
 
-| `:config` | The content of `deps.edn`.
+| `:deps` | The content of `deps.edn`.
 | `:name` | The base name.
 | `:type` | The type of configuration, set to `:base` for bases.
 |===
@@ -252,10 +252,10 @@ poly ws get:configs:components:user
 
 [source,clojure]
 ----
-{:config {:aliases {:test {:extra-deps {}
-                           :extra-paths ["test"]}}
-          :deps {}
-          :paths ["src" "resources"]}
+{:deps {:aliases {:test {:extra-deps {}
+                         :extra-paths ["test"]}}
+        :deps {}
+        :paths ["src" "resources"]}
  :name "user"
  :type :component}
 ----
@@ -264,7 +264,7 @@ poly ws get:configs:components:user
 |===
 | Key | Description
 
-| `:config` | The content of `deps.edn`.
+| `:deps` | The content of `deps.edn`.
 | `:name` | The component name.
 | `:type` | The type of configuration, set to `:component` for components.
 |===
