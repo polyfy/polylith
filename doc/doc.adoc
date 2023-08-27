@@ -10,7 +10,7 @@ poly doc
 
 This opens this tool's readme file in a browser:
 
-image::images/doc/poly-readme.png[width=600]
+image::images/doc/doc-overview.png[width=600]
 
 By using the xref:commands.adoc#doc[doc] command, we can open different pages, listed in the left menu, by giving a page, e.g.:
 
