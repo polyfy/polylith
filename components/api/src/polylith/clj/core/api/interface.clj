@@ -1,16 +1,47 @@
 (ns polylith.clj.core.api.interface
-  "This namespace contains the `poly` tool functionality that is exposed as a library.
-   Read more in the `poly` tool documentation, by executing:
+  "If we want to build tooling around Polylith or e.g. use `poly` functionality in our
+   `build.clj` file, then we can use `poly` as a library.
+
+   The `poly` tool and the [clj-poly](https://clojars.org/polylith/clj-poly) library
+   contain the exact same code with the same set of bricks, at least if we use version
+   `0.2.18` or later.
+
+   The only difference is that the `poly` tool is AOT compiled into Java bytecode, while
+   `clj-poly` is a normal Clojure library, source code that is zipped into a jar file.
+   This is good, because now we can expect the same behaviour from both.
+
+   We can use the `poly` tool as a library by including the `clj-poly` library
+   as a dependency to a project's `deps.edn` file, e.g.:
    ```clojure
-     poly doc page:poly-as-a-library
+   :aliases {:dostuff {...
+                       :extra-deps {...
+                                    polylith/clj-poly {:mvn/version \"0.2.18\"}}
+   ```
+
+   ...or by selecting a [sha](https://github.com/polyfy/polylith/commits/master) from
+   the polylith GitHub repo, e.g.:
+   ```clojure
+   ...
+   polylith/clj-poly {:git/url   \"https://github.com/polyfy/polylith.git\"
+                      :sha       \"3b3e4ceac31d27f9a87862286f1ba01a3e4705ef\"
+                      :deps/root \"projects/poly\"}
    ```"
   (:require [polylith.clj.core.api.core :as core]
             [polylith.clj.core.version.interface :as version])
   (:gen-class))
 
 (def api-version
-  "The version of the different types of APIs, stored in a hash map with the keys:
-   `:api`, `:test-runner`, and `:ws`."
+  "The version of the different types of APIs, stored in a hash map with these keys:
+  ```clojure
+  `:api`          The version of this API.
+  `:test-runner`  The version of the test runner.
+  `:ws`           The version of the workspace structure.
+
+  Each key stores a map with two keys:
+  ```clojure
+  `:breaking`      Increased by one if a breaking change + `:non-breaking` is set to 0.
+  `:non-breaking`  Increased by one if non-breaking change.
+  ```"
   {:api version/api-version
    :test-runner version/test-runner-api-version
    :ws version/ws-api-version})
