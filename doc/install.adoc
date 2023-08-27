@@ -1,6 +1,7 @@
 = Install
 :toc:
 :poly-version: 0.2.18
+:cljdoc-api-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/api
 
 There are several ways to install the `poly` tool, which determines how the `poly` tool will be executed:
 
@@ -274,9 +275,7 @@ _version_, _help_, _doc_, and _create workspace_ commands will work.
 == Use as a library
 [#use-as-a-library]
 
-If we build tooling around Polylith, then we can use the https://clojars.org/polylith/clj-poly/versions[clj-poly]
-library to get access to some of the funtionality that is built into the `poly` tool itself,
-which is described in the xref:poly-as-a-library.adoc[Polylith as a library] section.
+How the `poly` functionality can be used as a library is explained link:{cljdoc-api-url}/polylith[here].
 
 == JVM options
 
