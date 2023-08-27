@@ -1,14 +1,7 @@
 = Doc
 :toc:
 
-The poly tool comes with a xref:commands.adoc#doc[doc] command that helps us access the web based documentation, e.g.:
-
-[source,shell]
-----
-poly doc
-----
-
-This opens this tool's readme file in a browser:
+The poly tool comes with a xref:commands.adoc#doc[doc] command that helps us access the web based documentation:
 
 image::images/doc/doc-overview.png[]
 
