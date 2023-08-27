@@ -27,8 +27,8 @@
    If you need more access than is provided by the api at the moment, just reach out to the
    Polylith team in [Slack](https://clojurians.slack.com/messages/C013B7MQHJQ).
 
-   All other code that is not part of the public API, is used at your own risk, and may change
-   in a way that may break your code, when bumping the `clj-poly` version."
+   All other code that is not part of the public API, is used at your own risk,
+   and may change in a breaking way between `clj-poly` versions."
   (:require [polylith.clj.core.api.core :as core]
             [polylith.clj.core.version.interface :as version])
   (:gen-class))
@@ -47,21 +47,20 @@
    :non-breaking   Increased by one if a non-breaking change.
   ```
 
-  When a new version of [clj-poly](https://clojars.org/polylith/clj-poly) is released to Clojars,
-  any of the three APIs may change version.
+  When a new version of the [clj-poly](https://clojars.org/polylith/clj-poly) library is released to Clojars,
+  any of the three APIs may change version, but the ambition is to never break `:api` and `:test-runner`.
 
-  Examples of a breaking change of the workspace structure (`:ws`):
+  With `:ws` it's different, and we know that the workspace structure will change over time, so pay extra
+  attention every time you bump `clj-poly` and have a look in the `version` component's interface,
+  which lists all the changes for different versions.
+
+  Examples of a breaking change of the workspace structure:
   ```
   - If an attribute changes name.
   - If an attribute is deleted.
   - If an attribute starts to store its data in a breaking way.
   ```
   Any changes that only add functionality/attributes, will increase the `:non-breaking` number by one.
-
-  The ambition is to  never break `:api` and `:test-runner`. With `:ws` it's different, and we know
-  that the workspace structure will change over time, so pay extra attention every time
-  you bump `clj-poly` and have a look in the `version` component's interface, that lists all the
-  changes for different versions.
 
   If we use a SNAPSHOT version, then we can check [next-release.txt](https://github.com/polyfy/polylith/blob/issue-318/next-release.txt)
   to get a summary of all the changes that have been made since the last final release."
@@ -91,12 +90,12 @@
 
 (defn workspace
   "Returns the workspace or part of the workspace by passing in either
-   a key that can be found in the `:tag-patterns` keys in `workspace.edn`,
+   a key that can be found in the `:tag-patterns` keys in `workspace.edn`
    optionally prefixed with `previous-`, or a git SHA, as the first argument,
    and a list of keywords, strings, or numbers as the second argument.
    `:keys` and `:count` are also valid keys to pass in.
 
-   Examples
+   Examples:
    ```clojure
    ;; Returns the whole workspace structure, equivalent to: poly ws since:stable
    (workspace nil)
@@ -113,7 +112,7 @@
    Avoid using things under `:configs`, if they can be found in e.g. `:settings`,
    `:components`, `:bases`, `:projects`, or elsewhere.
 
-   > Since version `0.2.18` we only publish `clj-poly` to Clojars and not the old `clj-api`."
+   Note that since version `0.2.18` we only publish `clj-poly` to Clojars and not the old `clj-api`."
   [stable-point & keys]
   (core/workspace stable-point keys))
 
