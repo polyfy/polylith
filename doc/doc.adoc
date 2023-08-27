@@ -1,21 +1,27 @@
 = Doc
 :toc:
 
-The poly tool comes with a xref:commands.adoc#doc[doc] command that helps us access the web based documentation:
+The poly tool comes with a xref:commands.adoc#doc[doc] command that helps us access the web based documentation.
 
-image::images/doc/doc-overview.png[]
-
-By using the xref:commands.adoc#doc[doc] command, we can open different pages, listed in the left menu, by giving a page, e.g.:
+The easiest way to access different parts of the documentation is by first starting a shell:
 
 [source,shell]
 ----
-poly doc page:component
+poly
 ----
 
-We can improve the user experience by starting a xref:commands.adoc#shell[shell],
-by e.g. executing `poly`.
+Now we can execute the `doc` command to open the start page of this documentation:
 
-Now we can type `doc` followed by a space, from the shell, to list the different help categories:
+[source,shell]
+----
+example$ doc
+----
+
+image::images/doc/doc-overview.png[]
+
+{nbsp} +
+
+If we type `doc` followed by a space, the different help categories are listed:
 
 [source,shell]
 ----
