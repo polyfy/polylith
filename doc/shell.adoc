@@ -134,7 +134,7 @@ $ poly ws-dir:examples/doc-example
 #####   _ __  ___| |_  _| |-| |_| |_
 #####  | '_ \/ _ \ | || | | |  _| ' \
 #####  | .__/\___/_|\_, |_|_|\__|_||_|
-       |_|          |__/ poly {poly-version}
+       |_|          |__/ poly 0.2.18
 dir:doc-example$
 ----
 
@@ -147,7 +147,7 @@ $ poly ws-file:realworld.edn
 #####   _ __  ___| |_  _| |-| |_| |_
 #####  | '_ \/ _ \ | || | | |  _| ' \
 #####  | .__/\___/_|\_, |_|_|\__|_||_|
-       |_|          |__/ poly {poly-version}
+       |_|          |__/ poly 0.2.18
 file:clojure-polylith-realworld-example-app$
 ----
 
@@ -191,16 +191,6 @@ The `workspace` parameter is therefore not suggested by xref:commands.adoc#creat
 If we are outside a workspace, we will get some guidance:
 
 image::images/shell/shell-create-workspace.png[width=600]
-
-=== Rarely used parameters
-
-Rarely used xref:parameters.adoc[parameters] are not suggested by the autocomplete, e.g. `color-mode` and `branch`.
-A way to include them is to pass in `:all` when starting a shell:
-
-[source,shell]
-----
-poly :all
-----
 
 == Quit
 

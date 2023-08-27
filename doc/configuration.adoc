@@ -293,4 +293,5 @@ and xref:commands.adoc#libs[libs] commands.
 Used by the xref:commands.adoc#libs[libs] command to calculate file sizes (KB).
 |===
 
-If `~/.config/polylith/config.edn` doesn't exist, it will be created the first time the xref:create-workspace[create workspace] command is executed.
+If `~/.config/polylith/config.edn` doesn't exist,
+it will be created the first time the xref:create-workspace[create workspace] command is executed.

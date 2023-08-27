@@ -67,7 +67,7 @@ We can also run the xref:commands.adoc#diff[diff] command, which will execute th
 poly diff
 ----
 
-The output is the same (this assumes that you have added the files to your git repository):
+The output is the same (this assumes that you have https://git-scm.com/docs/git-add[added] the files to your git repository):
 
 // scripts/output/git-diff.txt
 [source,shell]
@@ -129,4 +129,4 @@ We said that the xref:commands.adoc#diff[diff] command returns the same result a
 This is normally true, except for the case when the workspace lives inside a git repo.
 In that case, the `git diff` command will also return the workspace directory in the path
 (which is stripped away by the `poly` tool).
-This directory can be shown by executing the `poly ws get:ws-local-dir` command.
+This directory can be shown by executing `poly ws get:ws-local-dir`.

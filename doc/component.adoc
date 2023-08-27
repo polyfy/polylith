@@ -145,11 +145,11 @@ We recommend you to add them as dependencies instead of as paths (if possible) f
 
 * We don't have to duplicate the bricks library dependencies in `./deps.edn`.
 
-* You can add or remove the `resources` directory from a brick, without having to remember to update `./deps.edn`.
+* We can add or remove the `resources` directory from a brick, without having to remember to update `./deps.edn`.
 
-If you want to see an example of what this might look like in practice, take a look at how `article` can be added as a
+If you want to see an example of what this might look like in practice, take a look at how `article` can be added as a single
 https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/5b6df23d63500a4540b75308379e06dfdeb8b767/deps.edn#L7[dependency]
-or as https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/e6f7f200bc46e4e2595e123947eec442ad91c9ab/deps.edn#L7-L8[paths]
+or as two https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/e6f7f200bc46e4e2595e123947eec442ad91c9ab/deps.edn#L7-L8[paths]
 in the RealWorld example app.
 
 Now we may need to refresh our IDE, by clicking the `Import Changes` link (or the icon we used before):

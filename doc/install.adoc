@@ -174,7 +174,7 @@ clojure -Ttools install io.github.polyfy/polylith '{:git/sha "5f74c8b8675dbb0912
 ----
 
 ====
-CAUTION: Do not use the `install-latest` option to `clojure -Ttools` as it does not support `:deps/root`.
+NOTE: Do not use the `install-latest` option to `clojure -Ttools` as it does not support `:deps/root`.
 ====
 
 Then we can invoke the `poly` tool using the CLI directly:
@@ -252,14 +252,14 @@ Via GitHub:
 }
 ----
 
-Replace `INSERT-LATEST-SHA-HERE` with a https://github.com/polyfy/polylith/commits/master[commit SHA]
-from the Polylith repository (e.g. the latest from the `master` branch).
+Replace `INSERT-LATEST-SHA-HERE` with a commit SHA from the Polylith repository,
+e.g. the https://github.com/polyfy/polylith/commits/master[latest] from the `master` branch.
 
 ====
 NOTE: The master branch can sometimes be ahead of the https://github.com/polyfy/polylith/releases[latest release].
-Instead of waiting for the next version to be released, you can set the latest commited SHA from the
+Instead of waiting for the next version to be released, we can set the latest commited SHA from the
 https://github.com/polyfy/polylith/commits/master[master branch] in `./deps.edn`, each time it updates (see the example above).
-This works especially well if you also start a xref:commands.adoc#shell[shell] from the workspace root.
+This works especially well if we also start a xref:commands.adoc#shell[shell] from the workspace root.
 ====
 
 Once we have added one of the aliases above, we can now use the `poly` tool from the terminal, e.g.:
@@ -275,7 +275,7 @@ _version_, _help_, _doc_, and _create workspace_ commands will work.
 == Use as a library
 [#use-as-a-library]
 
-How the `poly` functionality can be used as a library is explained link:{cljdoc-api-url}/polylith[here].
+The `poly` functionality can be accessed as a library, which is explained link:{cljdoc-api-url}/polylith[here].
 
 == JVM options
 

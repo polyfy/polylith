@@ -6,13 +6,13 @@ Finding good names is one of the hardest and most important thing in software.
 Every time we fail to find a good name, it will make the system harder to reason about and change.
 
 The components are the core of Polylith, so let's start with them.
-If a component does one thing then we can name it based on that, e.g. `validator`, `invoicer` or `purchaser`.
+If a component does _one thing_ then we can name it based on that, e.g. `validator`, `invoicer` or `purchaser`.
 Sometimes a component operates around a concept that we can name it after, e.g. `account` or `car`.
 This can be an alternative if the component does more than one thing, but always around that single concept.
 
 If the component's main responsibility is to simplify access to a third-party API,
 then suffixing it with `-api` is a good pattern, like `myexternalsystem-api`.
-API's that are heavily used like `aws` can skip the suffix in some cases.
+APIs that are heavily used like `aws` can skip the suffix in some cases.
 
 If we have two components that share the same interface,
 e.g. `invoicer`, where the `invoicer` component contains the business logic,

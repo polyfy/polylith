@@ -66,8 +66,7 @@ For components, the name is the component's xref:interface.adoc[interface] name,
 
 == Frontend
 
-The `poly` tool doesn't understand https://clojurescript.org/[ClojureScript]
-(`.cljs`) code, but does understand `.cljc` code, which we can use if we want to share code between backend and frontend.
+The `poly` tool doesn't understand https://clojurescript.org/[ClojureScript] code (`.cljs`), but does understand `.cljc` code, which we can use if we want to share code between backend and frontend.
 To do so we have three alternatives:
 
 ==== 1. Put the frontend code in a base

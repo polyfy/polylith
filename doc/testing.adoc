@@ -5,7 +5,7 @@ Polylith encourages a test-centric approach when working with code.
 New brick tests are easy to write,
 and mocking can be avoided in most cases as we have access to all components from the projects they live in.
 
-Let's go back to our example and run the xref:commands.adoc#info[info] command:
+Let's go back to our example and execute the xref:commands.adoc#info[info] command:
 
 image::images/testing/info.png[width=400]
 
@@ -736,7 +736,7 @@ Every project that uses the _datomic-ions_ brick will now also include the `dato
 == Troubleshooting
 
 If our tests don't work properly for some reason,
-we can pass in `:verbose` to see what configuration and paths that is used when executing the tests:
+we can pass in `:verbose` to see what configuration and paths that are used when executing the tests:
 
 [source,shell]
 ----
@@ -753,7 +753,7 @@ poly test :verbose
 
 == Long living shell sessions
 
-If you let the same xref:shell[shell] session live for a long time, you may get `classloader` errors
+If we let the same xref:shell[shell] session live for a long time, we may get `classloader` errors
 after a while, when running the xref:testing.adoc[test] command.
 The solution is to restart the shell or to only run the tests outside the shell, e.g. `poly test`.
-Another solution can be to switch to a more isolated test runner.
+Another solution can be to switch to a more isolated xref:test-runners.adoc[test runner].

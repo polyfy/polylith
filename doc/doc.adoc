@@ -10,7 +10,7 @@ The easiest way to access different parts of the documentation is by first start
 poly
 ----
 
-Now we can execute the `doc` command to open the start page of this documentation:
+We can now execute the `doc` command to open the start page of this documentation:
 
 [source,shell]
 ----
@@ -29,7 +29,7 @@ example$ doc
 help   more   page   ws
 ----
 
-Let's dig into these four help categories.
+Let's dig into these categories.
 
 == page
 

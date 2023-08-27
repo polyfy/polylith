@@ -56,17 +56,16 @@ The `poly` tool will not run them for external test runners.
 [#test-runner-protocol]
 == TestRunner Protocol
 
-You can find the `TestRunner` protocol link:{cljdoc-api-url}/polylith.clj.core.test-runner-contract.interface#TestRunner[here].
+The `TestRunner` protocol can be found link:{cljdoc-api-url}/polylith.clj.core.test-runner-contract.interface#TestRunner[here].
 
 == ExternalTestRunnerProtocol
 
-You can find the `ExternalTestRunner` protocol link:{cljdoc-api-url}/polylith.clj.core.test-runner-contract.interface#ExternalTestRunner[here].
+The `ExternalTestRunner` protocol can be found link:{cljdoc-api-url}/polylith.clj.core.test-runner-contract.interface#ExternalTestRunner[here].
 
 == Implement Your Own Test Runner
 
-To implement your custom test runner,
-create a single-arity constructor function that reifies the `TestRunner` protocol.
-Optionally, you can also reify the `ExternalTestRunner` protocol if you want to make an external test runner.
+To implement our custom test runner, create a single-arity constructor function that reifies the `TestRunner` protocol.
+Optionally, we can also reify the `ExternalTestRunner` protocol if we want to make an external test runner.
 
 [source,clojure]
 ----
@@ -109,8 +108,8 @@ The constructor function will receive a map as the single argument. This map con
 
 == Use a Test Runner
 
-To use a test runner in your workspace, you have to add it to the classpath that you are running the `poly` tool to run the tests.
-An ideal place to do it is the `:poly` alias in your workspace `deps.edn` file:
+To use a test runner in our workspace, we have to add it to the classpath that we are running the `poly` tool to run the tests.
+An ideal place to do it is the `:poly` alias in our workspace `deps.edn` file:
 
 [source,clojure]
 ----
@@ -127,16 +126,16 @@ An ideal place to do it is the `:poly` alias in your workspace `deps.edn` file:
 ----
 
 ====
-NOTE: The example above assumes that you use a test runner from a GitHub repository as a git dependency.
-You can also have your custom test runner within the same Polylith workspace and depend on it via `:local/root`.
+NOTE: The example above assumes that we use a test runner from a GitHub repository as a git dependency.
+We can also have our custom test runner within the same Polylith workspace and depend on it via `:local/root`.
 ====
 
-Once you have your test runner in the classpath,
-you can add it to your workspace configuration so that the `poly` tool can use it instead of the default test runner.
+Once we have our test runner in the classpath,
+we can add it to our workspace configuration so that the `poly` tool can use it instead of the default test runner.
 
-You can add global test runners,
+We can add global test runners,
 which the `poly` tool will use for every project unless the project-specific test configuration overrides it.
-To add a global test configuration, add a map with the `:test` key in your `workspace.edn` file:
+To add a global test configuration, add a map with the `:test` key in our `workspace.edn` file:
 
 [source,clojure]
 ----
@@ -151,12 +150,13 @@ To add a global test configuration, add a map with the `:test` key in your `work
 ----
 
 ====
-NOTE: You can specify more than one test runner. In that case, all the test runners will run for the project one after another.
+NOTE: We can specify more than one test runner.
+In that case, all the test runners will run for the project one after another.
 ====
 
-You can also define test runners per project.
+We can also define test runners per project.
 The test runners specified for the project will be used instead of the global test runner if any.
-You can add a `:test` key in the project's configuration to select project-specific test runners:
+We can add a `:test` key in the project's configuration to select project-specific test runners:
 
 [source,clojure]
 ----
@@ -182,9 +182,9 @@ You can add a `:test` key in the project's configuration to select project-speci
 == Test Runners from the Community
 
 The default test runner works fine in most cases and is simple and fast.
-In some circumstances, using the same classloader for all your tests in the workspace doesn't give enough isolation.
+In some circumstances, using the same classloader for all our tests in the workspace doesn't give enough isolation.
 In this case, the External Test Runner is a good choice.
-If you switch to the Kaocha Test Runner, you will get more options in how to run your tests.
+If we switch to the Kaocha Test Runner, we will get more options in how to run our tests.
 
 == Kaocha Test Runner
 

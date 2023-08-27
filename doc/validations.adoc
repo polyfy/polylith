@@ -9,7 +9,7 @@ The various checks that are executed can be listed by executing the help for the
 poly help check
 ----
 
-The xref:commands.adoc#test[test] command will not be executed if xref:commands.adoc#check[check] discovers any errors.
+The xref:commands.adoc#test[test] command will be interrupted if xref:commands.adoc#check[check] discovers any errors.
 
 [#warning206]
 === Warning 206 - Unreadable namespace in brick/project
@@ -29,6 +29,7 @@ for the `user` component in the example app and execute the xref:commands.adoc#c
 
 image::images/validations/missing-or-unreadable-namespace.png[]
 
+{nbsp} +
 If we have a look at the namespace:
 
 [source,shell]

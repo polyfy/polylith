@@ -133,7 +133,7 @@ poly ws get:components:keys
 An even better way of exploring the data structure is to do it from a `shell`
 which we have already covered in the xref:shell[Shell] section.
 
-To show the user component:
+To show the `user` component:
 
 [source,shell]
 ----
