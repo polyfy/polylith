@@ -1,9 +1,9 @@
 image::doc/images/logo.png[width=400]
 :cljdoc-doc-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc
 
-// https://cljdoc.org/d/polylith/clj-poly/CURRENT[image:https://cljdoc.org/badge/polylith/clj-poly[cljdoc]]
-https://clojurians.slack.com/messages/C013B7MQHJQ[image:https://img.shields.io/badge/slack-join_chat-brightgreen.svg[Join chat]]
-// https://clojars.org/polylith/clj-poly[image:https://img.shields.io/badge/clojars-0.2.18-SNAPSHOT[Clojars project]]
+https://cljdoc.org/d/polylith/clj-poly/CURRENT[image:https://cljdoc.org/badge/polylith/clj-poly[cljdoc]]
+https://cljdoc.org/d/polylith/clj-poly/0.2.18-SNAPSHOT[image:https://badgen.net/badge/cljdoc/0.2.18-SNAPSHOT/cyan[]]
+https://clojurians.slack.com/messages/C013B7MQHJQ[image:https://badgen.net/badge/slack/join chat/green[]]
 
 == Welcome to the wonderful world of Polylith!
 
