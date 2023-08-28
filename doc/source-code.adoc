@@ -16,7 +16,7 @@ Now we can choose to store both type of files in the same `src` directory:
 │   │   ├── src
 ----
 
-...and configured the component's `deps.edn` file like this:
+...and configure the component's `deps.edn` file like this:
 
 [source,clojure]
 ----

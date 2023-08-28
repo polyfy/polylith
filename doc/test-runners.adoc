@@ -62,7 +62,7 @@ The `TestRunner` protocol can be found link:{cljdoc-api-url}/polylith.clj.core.t
 
 The `ExternalTestRunner` protocol can be found link:{cljdoc-api-url}/polylith.clj.core.test-runner-contract.interface#ExternalTestRunner[here].
 
-== Implement Your Own Test Runner
+== Implement Our Own Test Runner
 
 To implement our custom test runner, create a single-arity constructor function that reifies the `TestRunner` protocol.
 Optionally, we can also reify the `ExternalTestRunner` protocol if we want to make an external test runner.
@@ -91,7 +91,7 @@ Optionally, we can also reify the `ExternalTestRunner` protocol if we want to ma
     (external-process-namespace [this] ...)))
 ----
 
-The `poly` tool will call your constructor function to get an instance of your test runner.
+The `poly` tool will call our constructor function to get an instance of our test runner.
 The constructor function will receive a map as the single argument. This map contains the following:
 
 [%autowidth]

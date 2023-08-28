@@ -3,19 +3,19 @@
 There are two kinds of projects in Polylith: development and deployable.
 
 * The xref:development.adoc[development] project:
-- This is where we work with the code, often from a REPL.
-- Has a `deps.edn` file that specifies all bricks and project libraries that are included in the project.
-- If we have any xref:profile.adoc[profiles] then they are defined in `./deps.edn`.
-- Any extra code, that is not part of a component or base, lives under the ´development´ directory.
+** This is where we work with the code, often from a REPL.
+** Has a `deps.edn` file that specifies all bricks and project libraries that are included in the project.
+** If we have any xref:profile.adoc[profiles] then they are defined in `./deps.edn`.
+** Any extra code, that is not part of a component or base, lives under the `development` directory.
 
 * Any deployable project:
-- Used to build deployable xref:artifacts.adoc[artifacts], e.g.: lambda functions, REST API's, tools, and more.
-- Lives under the `projects` directory where each project has its own directory.
-- Has a `deps.edn` file that specifies which bricks and project libraries that are included in the project.
-- Can optionally have a `resources` directory.
-- If the included bricks contain any tests, then they will be run when we execute the xref:commands.adoc#test[test] command.
-- If it has any tests of its own, they will live in the `test` directory, e.g. `projects/my-project/test`.
-- It's discouraged to have a `src` directory, e.g. `projects/my-project/src`, since all production code should normally only live in bricks.
+** Used to build deployable xref:artifacts.adoc[artifacts], e.g.: lambda functions, REST API's, tools, and more.
+** Lives under the `projects` directory where each project has its own directory.
+** Has a `deps.edn` file that specifies which bricks and project libraries that are included in the project.
+** Can optionally have a `resources` directory.
+** If the included bricks contain any tests, then they will be run when we execute the xref:commands.adoc#test[test] command.
+** If it has any tests of its own, they will live in the `test` directory, e.g. `projects/my-project/test`.
+** It's discouraged to have a `src` directory, e.g. `projects/my-project/src`, since all production code should normally only live in bricks.
 
 The `:project` key in `./workspace.edn` configures which alias each project has
 and optionally how the tests should be run (covered in the xref:testing.adoc[testing] section).

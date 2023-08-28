@@ -83,6 +83,8 @@ If the namespace is not recognised, you may need to click the refresh button (tw
 
 image::images/development/refresh.png[width=150]
 
+{nbsp} +
+
 Now let's write some code:
 
 [source,clojure]

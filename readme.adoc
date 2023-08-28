@@ -25,22 +25,19 @@ The bricks can easily be put together to form different kinds of deployable arti
 we put together LEGO® when we were kids! Not surprisingly, it's just as simple and fun!
 
 To give you an idea of what that can look like, take a quick look at the projects, bricks, and libraries that we use
-to build the _poly tool_ (which is itself a Polylith workspace, represented by the poly column in the first diagram):
+to build the _poly_ tool (which is itself a Polylith workspace, represented by the poly column in the first diagram):
 
 image::doc/images/overview.png[link="doc/images/overview.png"]
+
+{nbsp} +
 
 To better understand the principles and ideas behind this tool, we recommend you first read the
 https://polylith.gitbook.io[high-level documentation!]
 
 If you want to get started right away with writing code, we recommend you to at least read the page
 https://polylith.gitbook.io/polylith/introduction/polylith-in-a-nutshell[Polylith in a Nutshell]
-from the high-level doc, where concepts like interface, component, base, brick, project, and workspace, are introduced,
-ifdef::env-cljdoc[]
-before continuing with the xref:doc/introduction.adoc[introduction].
-endif::[]
-ifndef::env-cljdoc[]
-before continuing with the {cljdoc-doc-url}/introduction[introduction].
-endif::[]
+from the high-level doc, where concepts like interface, component, base, brick, project, and workspace,
+are introduced, before continuing with the {cljdoc-doc-url}/introduction[introduction].
 
 Enjoy the ride!
 

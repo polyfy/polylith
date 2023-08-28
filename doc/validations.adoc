@@ -66,7 +66,7 @@ or "example/user/core.clj", but not "ore.clj" because it will try to match "/ore
 (a slash is appended when comparing). If we use a dash (-) in the filename (to mimic the namespace name)
 it will be replaced by an underscore (_) so that it can match correctly against the actual Clojure filename.
 
-If we now look at the namespaces for the `user` component again, the core namespace will be marked as ignored:
+If we now look at the namespaces for the `user` component again, the `core` namespace will be marked as ignored:
 
 [source,shell]
 ----

@@ -402,6 +402,11 @@ image::images/testing/info-all-bricks.png[width=400]
 Now all the brick tests are marked to be executed, except for the `development` project.
 To include it, also add `:dev`:
 
+[source,shell]
+----
+poly info :all-bricks :dev
+----
+
 image::images/testing/info-all-bricks-dev.png[width=400]
 
 To include all brick and project tests (except `development`) we can type:
@@ -653,7 +658,7 @@ The brick tests are executed from all projects they belong to except for the `de
 | `poly test` | All brick tests that are directly or indirectly changed.
 | `poly test :project` | All brick tests that are directly or indirectly changed + tests for changed projects.
 | `poly test :all‑bricks` | All brick tests.
-| `poly test :all` | All brick tests + all project tests (except `development`), executed from all projects.
+| `poly test :all` | All brick tests and all project tests (except `development`), executed from all projects.
 |===
 
 To also execute the brick tests from the `development` project, we can pass in `:dev`:
@@ -665,7 +670,7 @@ To also execute the brick tests from the `development` project, we can pass in `
 | `poly test :dev` | All brick tests that are directly or indirectly changed, executed from all projects (`development` included).
 | `poly test :project :dev` | All brick tests that are directly or indirectly changed, executed from all projects (`development` included).
 | `poly test :all‑bricks :dev` | All brick tests, executed from all projects (`development` included).
-| `poly test :all :dev` | All brick tests, executed from all projects (`development` included) + all project tests (`development` included).
+| `poly test :all :dev` | All brick tests, executed from all projects (`development` included) and all project tests (`development` included).
 |===
 
 Projects can also be explicitly selected with e.g. `project:proj1` or `project:proj1:proj2`.

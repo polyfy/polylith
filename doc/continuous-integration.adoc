@@ -18,7 +18,7 @@ we can ask the `poly` tool what projects have changed since the last successful 
 poly ws get:changes:changed-or-affected-projects since:myproject
 ----
 
-Outputs, e.g.:
+...outputs, e.g.:
 
 [source,clojure]
 ----
@@ -45,8 +45,8 @@ then we could first start by asking what projects we have:
 poly ws get:projects:keys skip:dev
 ----
 
-The `skip:dev` parameter tells the tool to ignore the development environment
-(we are not interested in deploying the development project).
+The `skip:dev` parameter tells the tool to ignore the `development`project
+(we are not interested in deploying that project).
 More than one project can be ignored, e.g. `skip:dev:invoicer`,
 where both project names and aliases can be used.
 

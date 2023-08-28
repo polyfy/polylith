@@ -46,4 +46,4 @@ If we use `clj` instead, things will still work, but we will get a warning in so
 clj -M:poly
 ----
 
-image::images/toolsdeps/clj-poly-shell.png[width=500]
+image::images/toolsdeps/clj-poly-shell.png[width=600]

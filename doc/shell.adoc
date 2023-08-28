@@ -156,30 +156,22 @@ file:clojure-polylith-realworld-example-app$
 The autocomplete helps us execute different commands with correct parameters:
 
 * Available commands can be suggested when we first select a command.
-
 * Available parameters are suggested for the current command.
-
 * The file system can be browsed when selecting files and directories.
-
 * The workspace structure can be browsed via the xref:commands.adoc#ws[ws] command.
-
 * The documentation can be browsed via the xref:commands.adoc#doc[doc] command.
-
 * Tag patterns defined in `workspace.edn` are suggested when using the `since:X` parameter.
-
 * Remote git branches are suggested when using the `branch:X` parameter.
-
 * Relevant bricks and projects are suggested when using the `brick:X` and `project:X` parameters:
-- If a `project:X` parameter is selected from the xref:commands.adoc#info[info] or xref:commands.adoc#test[test] command,
+** If a `project:X` parameter is selected from the xref:commands.adoc#info[info] or xref:commands.adoc#test[test] command,
 only projects that are marked for testing will be suggested (we don't need to select already filtered out projects).
-- If a brick has been selected from the xref:commands.adoc#deps[deps] command, only projects that contain that brick will be suggested.
-- If a project has been selected from the xref:commands.adoc#deps[deps] command, only bricks from that project will be suggested.
+** If a brick has been selected from the xref:commands.adoc#deps[deps] command, only projects that contain that brick will be suggested.
+** If a project has been selected from the xref:commands.adoc#deps[deps] command, only bricks from that project will be suggested.
 
 When browsing the file system from a `dir:PATH` parameter, there are a couple of things worth mentioning:
 
 * If we want to go to the user home directory we have to type `~/` and not just `~`
 (this is a problem with the underlying https://github.com/jline/jline3[jline3] integration).
-
 * When a file or directory contains spaces, it will be surrounded with quotes, e.g. "My path".
 To select such a path we need to include the first " in the path for the autocomplete to work.
 
@@ -189,6 +181,11 @@ We often execute the xref:commands#create-workspace[create workspace] command ou
 The `workspace` parameter is therefore not suggested by xref:commands.adoc#create[create] when inside an existing workspace.
 
 If we are outside a workspace, we will get some guidance:
+
+[source,shell]
+----
+poly
+----
 
 image::images/shell/shell-create-workspace.png[width=600]
 

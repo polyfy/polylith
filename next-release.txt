@@ -36,7 +36,7 @@ Included in 0.2.18-SNAPSHOT #1:
   323   john-shaffer  Fix NPE when taking the size of a directory.
   324   j1mr10rd4n    Fix filename/namespace mismatch in profile.adoc.
 
- Description
+Other improvements
  --------------------------------------------------------------------------------------------------------------------
  - Exclude license files when building an uberjar.
  - We no longer include tools.deps as a library when creating projects.

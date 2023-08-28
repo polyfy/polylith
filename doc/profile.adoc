@@ -35,7 +35,7 @@ By leaving out any component that implements the `user` interface from the `deve
 and combining it with one of the two possible profiles we get a complete `development` project.
 This allows us to work with the code from a single place, but still be able to mimic the various projects we have.
 
-The default profile (if exists) is automatically merged into the `development` project,
+The `default` profile (if exists) is automatically merged into the `development` project,
 if no other profiles are selected.
 The name `default` is set by `:default-profile-name` in `workspace.edn` and can be changed,
 but here we will leave it as it is.
@@ -189,9 +189,6 @@ Add the `default` and `remote` profiles to `./deps.edn`:
            :+remote {:extra-deps {poly/user-remote {:local/root "components/user-remote"}}
                      :extra-paths ["components/user-remote/test"]}
 ----
-
-Notice here that the profiles contain both `src` and `test` directories.
-This works as profiles are only used from the `development` project.
 
 The next step is to activate the `remote` profile in our IDE:
 

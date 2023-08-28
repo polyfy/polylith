@@ -158,7 +158,7 @@ that allows some parameters to be passed in as nil.
 in the interface, a simplification is to pass in what comes after `&` as a vector to the implementing function.
 
 * Testing is simplified by allowing access to implementing namespaces from the `test` directory.
-The code under the `src directory is restricted to only access the `interface` namespace.
+The code under the `src` directory is restricted to only access the `interface` namespace.
 This check is performed when running the xref:commands.adoc#check[check], xref:commands#info[info] or
 xref:commands#test[test] command.
 
@@ -190,5 +190,6 @@ but any other valid namespace name, specified in `:interface-ns`, is accepted.
 If you already know that you will need to share code between frontend and backend in `cljc` files,
 then you can either set `:interface-ns` to `ifc` from start, or you keep `interface` as the default,
 and only use `ifc` as interface name in the components you share.
+`interface` is a reserved word in ClojureScript, so we need to use something else.
 
 The name that is specified in `:interface-ns` will be the interface name used when creating new components.

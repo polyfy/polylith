@@ -1,4 +1,4 @@
-= Poly maintenance
+= Developing poly
 
 Here we will go through things that primarily have value if you are a developer of the poly tool itself.
 Feel free to read what's in here, and hopefully you will pick up something of value.
@@ -202,7 +202,7 @@ cd myws
 clojure -M:poly :local
 ----
 
-The `:local` flag will tell the `poly` tool to open pages on `http://localhost:8000` instead of `https://cljdoc.org`.
+The `:local` flag will tell the xref:doc.adoc[doc] commandto open pages on `http://localhost:8000` instead of `https://cljdoc.org`.
 
 === Open pages in GitHub
 
@@ -254,7 +254,7 @@ and want to see how the pages are rendered by GitHub.
 
 == Reloading changes
 
-Sometimes the cljdoc platform that builds the documentation has changed,
+Sometimes the cljdoc platform that builds the documentation has been updated,
 and in that case we need to restart the Docker container to get the latest version:
 
 [source,shell]

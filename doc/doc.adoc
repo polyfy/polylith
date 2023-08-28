@@ -33,8 +33,8 @@ Let's dig into these categories.
 
 == page
 
-The `page` parameter is used to navigate the `poly` tool documentation, as we have already mentioned.
-We can pass in `page:` to list all pages, which are also accessible in the left menu (notice that it ends with a colon):
+The `page` parameter is used to navigate the `poly` tool documentation. We can pass in `page:` to list all pages,
+which are also accessible in the left menu (notice that it ends with a colon):
 
 [source,shell]
 ----
@@ -99,7 +99,7 @@ example$ doc help:check
 ----
 
 ...which take us to the web based help for the xref:commands.adoc#check[check] command.
-We can get the same output if we execute the corresponding `help` command:
+We will get the same output if we execute the corresponding `help` command:
 
 [source,shell]
 ----

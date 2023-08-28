@@ -35,7 +35,7 @@
                    ["Context" {:file "doc/context.adoc"}]
                    ["Git hooks" {:file "doc/git-hooks.adoc"}]
                    ["Colors" {:file "doc/colors.adoc"}]
-                   ["Poly maintenance" {:file "doc/poly-maintenance.adoc"}]
+                   ["Developing poly" {:file "doc/developing-poly.adoc"}]
                    ["Reference" {}
                     ["Commands" {:file "doc/commands.adoc"}]
                     ["Workspace structure" {:file "doc/workspace-structure.adoc"}]]]}

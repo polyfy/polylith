@@ -38,7 +38,7 @@ There is also a fourth way, and that is to execute the command from a xref:comma
 
 3. `clojure -T:poly shell`
 
-We can skip `shell` in the first two forms:
+We can skip the `shell` parameter in the first two forms, but in the third we have to keep it:
 
 1. `poly`
 
@@ -49,6 +49,8 @@ image::images/component/start-a-shell.png[]
 From here it's enough to enter the name of the command, e.g.:
 
 image::images/component/shell-info.png[]
+
+{nbsp} +
 
 This way of executing commands is the most convenient way in most cases, because it gives us instant feedback, history,
 and autocomplete. Feel free to use the xref:shell.adoc[shell] from now on. It will make you more productive and enhances
@@ -155,6 +157,8 @@ in the RealWorld example app.
 Now we may need to refresh our IDE, by clicking the `Import Changes` link (or the icon we used before):
 
 image::images/component/cursive-import-changes.png[width=400]
+
+{nbsp} +
 
 The component also has its own `deps.edn` file that looks like this:
 

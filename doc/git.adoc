@@ -26,7 +26,6 @@ git commit -m "Workspace created."
 
 If we don't pass in `:commit` to the xref:commands.adoc#create-workspace[create workspace] command
 then we have to perform these (or similar) commands manually.
-If `:auto-add` is not set to `true` in `workspace.edn`, then it will help us with the `git add` command.
 
 If we run `git log` from the workspace root, it returns something like this:
 

@@ -26,10 +26,6 @@
 
 
 
-
-
-
-
 (def workspace (-> (dev-common/dir ".")
                    ;(dev-common/dir "examples/doc-example")
                    ;(dev-common/dir "examples/for-test")
@@ -96,3 +92,40 @@
 (def changed-bricks (set (concat changed-components changed-bases)))
 (def brick-changed? (-> (set/intersection bricks changed-bricks)
                         empty? not))
+
+;;------------------------------
+
+;; polylith.edn
+
+{:workspaces {:polylith {:dir "." :main true}
+              :realworld {:dir "../clojure-polylith-realworld-example-app" :alias "r"}
+              :doc-example {:dir "examples/doc-example"}
+              :for-test {:dir "examples/doc-for-test"}
+              :illegal-configs {:dir "examples/illegal-configs"}
+              :local-dep {:dir "examples/local-dep"}
+              :local-dep-old-format {:dir "examples/local-dep-old-format"}
+              :profiles {:dir "examples/profiles"}}}
+
+;; - alla workspaces ligger i filen polylith.edn:
+;;   - alias specas i respektive workspace, men kan överridas med :alias.
+;;   - det workspace som har :dir satt till "." blir main, men kan överridas med :main true.
+;;   - är inget workspace satt till main, så får man ett error.
+;;   - läser man in gamla repon som bara har ett workspace, så kommer det sättas till main.
+;;
+;; - ett workspace ska kunna innehålla både clj och cljs kod.
+;;   - vissa låter i stort sett alla komponenter bestå av cljc-kod och har sedan olika
+;;     projekt för clj och cljs för de olika artifakterna.
+;;   - om vi ska stödja Electric på ett bra sätt, så är de mixade (tror jag).
+;; - när man kör ett kommando så ska alltid endast en av dem vara aktiv/vald.
+;;   - detta kan anges när man kör ett kommando, t.ex. "poly info :cljs"
+;;   - ett shell kan startas som :clj eller :cljs, t.ex. "poly :clj" eller "poly :cljs".
+;;   - inne i ett shell så kan man byta med t.ex "type:cljs".
+;; - varje project.edn ska innehålla :type + :alias.
+;    - om type inte är specificerad, så sätts :type till "clj" som default.
+;; - det ska gå att blanda clj och cljs i samma workspace:
+;;   - det ska gå att ha olika top-namespace för clj och cljs:
+;;     - :top-namespace {:clj "xxx", :cljs "yyy"}
+;; - det ska gå att ha olika interface-ns:
+;    - :interface-ns {:clj "interface", :cljs "ifc"}
+;;
+

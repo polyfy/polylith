@@ -139,4 +139,4 @@ poly test since:previous-release
 Depending on whether we tag before or after the build, we will choose `release` or `previous-release`.
 If `since` is not given, `stable` will be used by default.
 
-Some other variants, like `since:e7ebe68v, `since:head`, or `since:head~1` are also valid.
+Some other variants, like `since:e7ebe68v`, `since:head`, or `since:head~1` are also valid.

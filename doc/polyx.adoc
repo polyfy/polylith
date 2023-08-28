@@ -116,6 +116,5 @@ image:images/polyx/java.png[]
 [Caution]
 ====
 CAUTION: The `polyx` tool may be converted to a custom command in the future, when we have support for that,
-and when that happens the `polyx` project may be deleted, and that image creation have to be configured
-in a different way in the future.
+and when that happens the `polyx` project may be deleted and configured in a different way.
 ====

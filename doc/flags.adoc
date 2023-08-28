@@ -32,8 +32,8 @@ Each flag under `dev` has a slightly different meaning, where project refers to 
 |===
 | status | Explanation
 
-| s-- | The `src` directory is included in the development project
-| -t- | The `test` directory is included in the development project
+| s-- | The `src` directory is included in the `development` project
+| -t- | The `test` directory is included in the `development` project
 | --x | Run the tests for this brick from the `development` project
 |===
 
@@ -66,9 +66,7 @@ The `./deps.edn` looks like this:
 
 [source,clojure]
 ----
- :aliases  {:dev {:extra-paths [...
-                                "components/user/src"
-                                "components/user/resources"
+ :aliases  {:dev {:extra-deps {poly/user {:local/root "components/user"}
   ...
             :test {:extra-paths ["components/user/test"
 ----
