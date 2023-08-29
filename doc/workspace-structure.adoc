@@ -362,7 +362,6 @@ poly ws get:configs
                                        :stable "stable-*"}
                         :top-namespace "se.example",
                         :vcs {:auto-add true, :name "git"}},
-               :is-main true,
                :name "example",
                :type "workspace"}]}
 ----

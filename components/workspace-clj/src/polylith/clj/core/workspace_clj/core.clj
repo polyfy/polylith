@@ -158,7 +158,6 @@
                                 :user (user-config/content)
                                 :workspaces [{:name ws-name
                                               :type "workspace"
-                                              :is-main true
                                               :config ws-config}]}
                       :config-errors config-errors
                       :components components

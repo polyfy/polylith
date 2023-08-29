@@ -38,6 +38,7 @@
    "context" {}
    "continuous-integration" {}
    "dependencies" {}
+   "developing-poly" {}
    "development" {}
    "doc" {}
    "example-systems" {}
@@ -49,14 +50,13 @@
    "interface" {}
    "introduction" {}
    "libraries" {}
-   "maintenance" {}
    "migrate" {}
    "naming" {}
-   "poly-as-a-library" {}
    "polyx" {}
    "profile" {}
    "project" {}
    "readme" {}
+   "releases" {}
    "shell" {}
    "source-code" {}
    "tagging" {}

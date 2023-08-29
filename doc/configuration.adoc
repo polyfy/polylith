@@ -32,7 +32,6 @@ poly ws get:configs:workspaces
 [source,clojure]
 ----
 [{:config { ... }
-  :is-main true
   :name "example"
   :type "workspace"}]
 ----
@@ -42,8 +41,6 @@ poly ws get:configs:workspaces
 | Key | Description
 
 | `:config` | The content of `workspace.edn`.
-
-| `:is-main` | Set to `true`.
 
 | `:name` | The name of the workspace directory.
 
