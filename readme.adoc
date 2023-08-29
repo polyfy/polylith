@@ -2,9 +2,10 @@ image::doc/images/logo.png[width=400]
 :cljdoc-doc-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc
 
 //https://cljdoc.org/d/polylith/clj-poly/CURRENT[image:https://cljdoc.org/badge/polylith/clj-poly[cljdoc]]
-
 https://polylith.gitbook.io/poly[image:https://badgen.net/badge/gitbook/0.2.17-alpha/blue[]]
+ifdef::env-cljdoc[]
 https://cljdoc.org/d/polylith/clj-poly/0.2.18-SNAPSHOT[image:https://badgen.net/badge/cljdoc/0.2.18-SNAPSHOT/cyan[]]
+endif::[]
 https://clojurians.slack.com/messages/C013B7MQHJQ[image:https://badgen.net/badge/slack/join chat/green[]]
 
 == Welcome to the wonderful world of Polylith!
