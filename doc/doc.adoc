@@ -16,22 +16,28 @@ We can now execute the `doc` command to open the start page of this documentatio
 example$ doc
 ----
 
-At the top of the page we have a number of useful links:
-
-image::images/doc/doc-top.png[width=400]
-
-Here is a map of ways on how to navigate to different pages with the `doc` command:
-
 image::images/doc/doc-overview.png[]
 
 {nbsp} +
 
-The image:images/gitbook-badge.png[] badge takes us to the documentation for the latest https://github.com/polyfy/polylith/releases[release].
+We can either use the left menu or the `doc` command to access different pages.
 
-The image:images/cljdoc-snapshot-badge.png[] badge takes us to the latest `SNAPSHOT` build,
-which is the one you should use if you work on code in the
-https://github.com/polyfy/polylith[master] branch that lives between releases
-(the `SNAPSHOT` documentation is built every time we commit something to the `master` branch).
+== Top navigation
+
+At the top of the page we have a number of useful links:
+
+image::images/doc/doc-top.png[width=400]
+
+* The image:images/gitbook-badge.png[] badge takes us to the documentation for the latest https://github.com/polyfy/polylith/releases[release].
+
+* The image:images/cljdoc-snapshot-badge.png[] badge takes us to the latest `SNAPSHOT` build of this documentation,
+which is the one we should use if we work on code in the
+https://github.com/polyfy/polylith[master] branch and if something new has been pushed to that
+since the last release.
+
+====
+NOTE: The `SNAPSHOT` documentation is built every time we commit something to the https://github.com/polyfy/polylith[master] branch.
+====
 
 If we type `doc` followed by a space, the different help categories are listed:
 
