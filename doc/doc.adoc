@@ -2,7 +2,6 @@
 :toc:
 
 The poly tool comes with a xref:commands.adoc#doc[doc] command that helps us access the web based documentation.
-
 The easiest way to access different parts of the documentation is by first starting a xref:shell.adoc[shell]:
 
 [source,shell]
@@ -17,20 +16,22 @@ We can now execute the `doc` command to open the start page of this documentatio
 example$ doc
 ----
 
+At the top of the page we have a number of useful links:
+
 image::images/doc/doc-top.png[width=400]
 
-At the top of the page we have different links to pages that can be good to have access to.
+Here is a map of ways on how to navigate to different pages with the `doc` command:
 
 image::images/doc/doc-overview.png[]
 
 {nbsp} +
 
-Worth noticing here is that the image:images/gitbook-badge.png[] badge takes us to the latest final https://github.com/polyfy/polylith/releases[release],
-while image:images/cljdoc-snapshot-badge.png[] takes us to the latest `SNAPSHOT` release.
-The latter is built every time we push code to the `master` branch, and since a final release almost always includes
-more than one issue/commit, the https://cljdoc.org/[cljdoc] based `SNAPSHOT` documentation will be updated multiple times
-between final releases, and should be used if you use the latest version of the `poly` command or `clj-poly` library
-from the `master` branch.
+The image:images/gitbook-badge.png[] badge takes us to the documentation for the latest https://github.com/polyfy/polylith/releases[release].
+
+The image:images/cljdoc-snapshot-badge.png[] badge takes us to the latest `SNAPSHOT` build,
+which is the one you should use if you work on code in the
+https://github.com/polyfy/polylith[master] branch that lives between releases
+(the `SNAPSHOT` documentation is built every time we commit something to the `master` branch).
 
 If we type `doc` followed by a space, the different help categories are listed:
 
