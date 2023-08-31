@@ -17,6 +17,10 @@ We can now execute the `doc` command to open the start page of this documentatio
 example$ doc
 ----
 
+image::images/doc/doc-top.png[width=400]
+
+At the top of the page we have different links to pages that can be good to have access to.
+
 image::images/doc/doc-overview.png[]
 
 {nbsp} +
