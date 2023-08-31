@@ -24,16 +24,26 @@ We can either use the left menu or the `doc` command to access different pages.
 
 == Top navigation
 
+image::images/doc/top-doc.png[]
+
 At the top of the page we have a number of useful links:
 
-image::images/doc/doc-top.png[width=400]
+* image:images/doc/clj-poly-lib.png[] links to the different versions of the `clj-poly` library.
 
-* The image:images/gitbook-badge.png[] badge takes us to the documentation for the latest https://github.com/polyfy/polylith/releases[release].
+* image:images/doc/clj-poly-doc.png[] links to http://localhost:8000/versions/polylith/clj-poly[different versions] of this documentation.
 
-* The image:images/cljdoc-snapshot-badge.png[] badge takes us to the latest `SNAPSHOT` build of this documentation,
-which is the one we should use if we work on code in the
-https://github.com/polyfy/polylith[master] branch and if something new has been pushed to that
-since the last release.
+* image:images/doc/clj-doc.png[] links to https://cljdoc.org/[cljdoc.org].
+
+* image:images/doc/polylith-repo.png[] links to the https://github.com/polyfy/polylith[polylith] GitHub repo.
+
+* image:images/gitbook-badge.png[] links to the documentation for the latest https://github.com/polyfy/polylith/releases[release].
+
+* image:images/cljdoc-snapshot-badge.png[] links to the latest `SNAPSHOT` build of this documentation,
+which we should use if we work on code in the https://github.com/polyfy/polylith[master] branch
+between releases.
+
+* image:images/doc/slack.png[] links to the https://clojurians.slack.com/messages/C013B7MQHJQ[#polylith] channel
+in the clojurians workspace in Slack.
 
 ====
 NOTE: The `SNAPSHOT` documentation is built every time we commit something to the https://github.com/polyfy/polylith[master] branch.
