@@ -17,7 +17,7 @@ image::images/polylith-ci-setup/release-timeline.png[]
 
 ==== Final release
 
-* A https://github.com/polyfy/polylith/releases[release] of the `poly` tool is triggered by tagging a commit in the
+* A https://github.com/polyfy/polylith/releases[release] of the `poly` tool (`v0.2.18` and `v0.2.19` in the example) is triggered by tagging a commit in the
 https://github.com/polyfy/polylith[polylith] repository in GitHub.
 * This will also release the https://clojars.org/polylith/clj-poly[clj-poly] library to Clojars.
 * Which triggers a build of the web based https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc/readme[clj-doc] documentation.
@@ -25,8 +25,8 @@ https://github.com/polyfy/polylith[polylith] repository in GitHub.
 ==== Snapshot release
 
 * A commit is tagged/retagged with a SNAPSHOT version in the https://github.com/polyfy/polylith[polylith] repository in GitHub.
-* This will also release a snapshot version of the https://clojars.org/polylith/clj-poly[clj-poly] library to Clojars.
-* Which triggers a build of the snapshot version of the https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc/readme[clj-doc] documentation.
+* This will trigger a snapshot release of the https://clojars.org/polylith/clj-poly[clj-poly] library to Clojars (`0.2.19-SNAPSHOT` in the example).
+* Which triggers a build of the snapshot version of the https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc/readme[clj-doc] documentation (`0.2.19-SNAPSHOT`).
 
 The same snapshot release can be triggered several times. The `poly` tool is not included in a snapshot release.
 
