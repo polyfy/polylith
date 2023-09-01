@@ -58,7 +58,3 @@ poly ws get:changes:changed-or-affected-projects since:release skip:dev
 ----
 
 Here we rely on `release-*` tags that mark the whole repo as released.
-
-== The poly CI setup
-
-If you are interested in how the poly tool sets up CI, you can have a look xref:the-polylith-ci-setup.adoc[here].
