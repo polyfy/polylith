@@ -1,4 +1,0 @@
-# Releases
-
-image::images/releases/release-timeline.png[]
-

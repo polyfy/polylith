@@ -52,11 +52,11 @@
    "libraries" {}
    "migrate" {}
    "naming" {}
+   "polylith-ci-setup" {}
    "polyx" {}
    "profile" {}
    "project" {}
    "readme" {}
-   "releases" {}
    "shell" {}
    "source-code" {}
    "tagging" {}

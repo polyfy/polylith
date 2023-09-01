@@ -28,15 +28,16 @@
                    ["Source code" {:file "doc/source-code.adoc"}]
                    ["Artifacts" {:file "doc/artifacts.adoc"}]
                    ["Explore the workspace" {:file "doc/explore-the-workspace.adoc"}]
-                   ["Continuous Integration" {:file "doc/continuous-integration.adoc"}]
                    ["Clojure CLI tool" {:file "doc/clojure-cli-tool.adoc"}]
                    ["Polyx" {:file "doc/polyx.adoc"}]
-                   ["Releases" {:file "doc/releases.adoc"}]
                    ["Naming" {:file "doc/naming.adoc"}]
                    ["Context" {:file "doc/context.adoc"}]
                    ["Git hooks" {:file "doc/git-hooks.adoc"}]
                    ["Colors" {:file "doc/colors.adoc"}]
                    ["Developing poly" {:file "doc/developing-poly.adoc"}]
+                   ["CI" {}
+                    ["Continuous Integration" {:file "doc/continuous-integration.adoc"}]
+                    ["Polylith CI setup" {:file "doc/polylith-ci-setup.adoc"}]]
                    ["Reference" {}
                     ["Commands" {:file "doc/commands.adoc"}]
                     ["Workspace structure" {:file "doc/workspace-structure.adoc"}]]]}

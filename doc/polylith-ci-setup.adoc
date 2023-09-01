@@ -3,9 +3,32 @@
 The polylith repository has a continuous integration and deployment setup via https://circleci.com[CircleCI].
 The setup has two workflows, one for regular validation and testing, and another one for deployments.
 Both workflows have several jobs that validate, test, and deploy the artifacts to
-https://clojars.org/search?q=polylith[Clojars] and GitHub as https://github.com/polyfy/polylith/releases[releases].
+https://clojars.org/search?q=polylith[Clojars],
+https://cljdoc.org/versions/polylith/clj-poly[cljdoc],
+and GitHub as https://github.com/polyfy/polylith/releases[releases].
 
 You can find the CircleCI configuration file link:../.circleci/config.yml[here].
+
+== Releases
+
+Examples of the artifacts that are built and released from the https://github.com/polyfy/polylith[polyfy/polylith] repository in GitHub:
+
+image::images/polylith-ci-setup/release-timeline.png[]
+
+==== Final release
+
+* A https://github.com/polyfy/polylith/releases[release] of the `poly` tool is triggered by tagging a commit in the
+https://github.com/polyfy/polylith[polylith] repository in GitHub.
+* This will also release the https://clojars.org/polylith/clj-poly[clj-poly] library to Clojars.
+* Which triggers a build of the web based https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc/readme[clj-doc] documentation.
+
+==== Snapshot release
+
+* A commit is tagged/retagged with a SNAPSHOT version in the https://github.com/polyfy/polylith[polylith] repository in GitHub.
+* This will also release a snapshot version of the https://clojars.org/polylith/clj-poly[clj-poly] library to Clojars.
+* Which triggers a build of the snapshot version of the https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc/readme[clj-doc] documentation.
+
+The same snapshot release can be triggered several times. The `poly` tool is not included in a snapshot release.
 
 == Validate Workflow
 
