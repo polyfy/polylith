@@ -19,8 +19,9 @@
          (str "/doc/reference/" page))
        "#" bookmark))
 
-(defn the-page [page]
-  (if (contains? generated/ci-pages page)
+(defn the-page [page github?]
+  (if (and (not github?)
+           (contains? generated/ci-pages page))
     (str "ci/" page)
     (or page "readme")))
 
@@ -28,7 +29,7 @@
   (str (doc-url branch local? github?)
        (if (and github? (= "readme" page))
          "/" "/doc/")
-       (the-page page)
+       (the-page page github?)
        (if github? ".adoc" "")))
 
 (defn more-url [page local?]
