@@ -24,6 +24,7 @@ but it's mainly up to your preferences how you prefer to use the tool.
 
 Now it's time to install the `poly` tool, so please follow the installation instructions for your operating system of choice.
 
+[#install-on-mac]
 == Install on Mac
 
 To use the `poly` tool and to get access to all the features in tools.deps, make sure you have
@@ -46,6 +47,7 @@ If you get the error "openjdk-13.0.2.jdk could not be opened...", do this:
 
 Verify the installation by executing `poly help`.
 
+[#install-on-linux]
 == Install on Linux
 
 To use the `poly` tool and to get access to all the features in tools.deps, make sure you have
@@ -81,6 +83,7 @@ exec "/usr/bin/java" $JVM_OPTS "-jar" "/usr/local/polylith/poly-{poly-version}.j
 
 Verify the installation by executing `poly help`.
 
+[#install-on-windows]
 == Install on Windows
 
 To use the `poly` tool and to get access to all the features in tools.deps, make sure you have
@@ -143,6 +146,7 @@ Test the installation by typing `poly help` from the command line.
 NOTE: The xref:colors.adoc[coloring] of text is not supported on Windows.
 ====
 
+[#install-via-nix]
 == Install via nix
 
 The `poly` tool is available in the
@@ -155,6 +159,7 @@ nix-shell -p polylith
 nix-env -iA 'nixos.polylith'
 ----
 
+[#install-as-clojure-cli-tool]
 == Install as Clojure CLI Tool
 
 If we are using a recent version of the
@@ -219,6 +224,7 @@ Clojure's own keyword/value syntax (it's actually read as EDN).
 How to use the `poly` command as a tool is described in the xref:clojure-cli-tool.adoc[Clojure CLI Tool] section.
 The official documentation can be found https://clojure.org/reference/deps_and_cli#tool_install[here].
 
+[#use-as-dependency]
 == Use as dependency
 
 An alternative way of executing the `poly` tool is to specify it as a dependency, by giving a commit SHA.
@@ -279,6 +285,7 @@ _version_, _help_, _doc_, and _create workspace_ commands will work.
 
 The `poly` functionality can also be accessed as a library, which is explained link:{cljdoc-api-url}/polylith[here].
 
+[#jvm-options]
 == JVM options
 
 If we want to add extra memory to the `poly` tool or maybe specify where the configuration file for the logging is stored,

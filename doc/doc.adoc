@@ -68,11 +68,12 @@ which are also accessible in the left menu (notice that it ends with a colon):
 example$ doc page:
 artifacts                introduction
 base                     libraries
-build                    migrate
-clojure-cli-tool         naming
-colors                   polylith-ci-setup
-component                polyx
-configuration            profile
+build                    license
+clojure-cli-tool         migrate
+colors                   naming
+component                polylith-ci-setup
+configuration            polyx
+contact                  profile
 context                  project
 continuous-integration   readme
 dependencies             shell

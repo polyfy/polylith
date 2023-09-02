@@ -38,6 +38,7 @@
    "colors" {}
    "component" {}
    "configuration" {}
+   "contact" {}
    "context" {}
    "continuous-integration" {}
    "dependencies" {}
@@ -53,6 +54,7 @@
    "interface" {}
    "introduction" {}
    "libraries" {}
+   "license" {}
    "migrate" {}
    "naming" {}
    "polylith-ci-setup" {}

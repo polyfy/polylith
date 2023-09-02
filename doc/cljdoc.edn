@@ -40,4 +40,6 @@
                     ["Polylith CI setup" {:file "doc/polylith-ci-setup.adoc"}]]
                    ["Reference" {}
                     ["Commands" {:file "doc/commands.adoc"}]
-                    ["Workspace structure" {:file "doc/workspace-structure.adoc"}]]]}
+                    ["Workspace structure" {:file "doc/workspace-structure.adoc"}]]
+                   ["Contact" {:file "doc/contact.adoc"}]
+                   ["License" {:file "doc/license.adoc"}]]}

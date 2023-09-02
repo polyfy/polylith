@@ -33,9 +33,10 @@ A commit is https://github.com/polyfy/polylith/tags[tagged], e.g. `v0.2.18` or `
 A commit is https://github.com/polyfy/polylith/tags[tagged]. e.g. `0.2.19-SNAPSHOT`, which triggers a build in CircleCi that:
 
 * Releases a snapshot release of the {cljdoc-api-url}/polylith[clj-poly] library to Clojars (`0.2.19-SNAPSHOT` in the example).
-* Triggers a build of the snapshot version of the https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc/readme[clj-doc] documentation, e.g. `0.2.19-SNAPSHOT`.
+* Triggers a build of the snapshot version of the https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc/readme[clj-doc] documentation (`0.2.19-SNAPSHOT` in the example).
 
-The same snapshot release can be triggered several times. The `poly` tool is not included in a snapshot release.
+The same snapshot release can be triggered several times, by recreating the snapshot tag.
+The `poly` tool is not included in a snapshot release.
 
 ====
 NOTE: The {cljdoc-doc-url}/next-release.txt[next-release.txt] file lists what has been included in the SNAPSHOT release,

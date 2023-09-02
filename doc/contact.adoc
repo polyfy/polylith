@@ -1,0 +1,9 @@
+= Contact
+
+Feel free to contact me:
+
+[horizontal]
+Twitter:: @jtengstrand
+Email:: joakim.tengstrand[at]gmail[dot]com
+
+You can also get in touch with us on https://clojurians.slack.com/messages/C013B7MQHJQ[Slack].
