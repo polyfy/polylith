@@ -51,13 +51,13 @@
       (println (color/error color-mode (.getMessage e))))))
 
 (defn current-branch
-  "If we pass in :local or branch:BRANCH when starting a shell,
-   then we if we later execute the doc command, make sure we use
-   the correct branch, which is used in combination with :github,
-   that will open the page in GitHub."
-  [cmd branch local? ws-dir]
+  "If we pass in :local, :github, or branch:BRANCH when starting a shell,
+   then if we later execute the doc command, make sure we use the correct
+   branch in GitHub if executing the command from the polylith repository
+   in combination with :github."
+  [cmd branch local? github? ws-dir]
   (or branch
-      (when (and local?
+      (when (and (or local? github?)
                  (= "doc" cmd))
         (if (git/is-polylith-repo? ws-dir)
           (git/current-branch)
@@ -83,7 +83,7 @@
                 is-local (or is-local local?)
                 is-github (or is-github github?)
                 branch (or branch
-                           (current-branch cmd shell-branch is-local (or dir ws-dir (:ws-dir workspace))))]
+                           (current-branch cmd shell-branch is-local is-github (or dir ws-dir (:ws-dir workspace))))]
             (when-not (contains? #{"exit" "quit"} cmd)
               (cond
                 (= "shell" cmd) (println "  Can't start a shell inside another shell.")

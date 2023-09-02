@@ -1,6 +1,6 @@
 = Developing poly
 
-Here we will go through things that primarily have value if you are a developer of the poly tool itself.
+Here we will go through things that primarily have value if you are a developer of the `poly` tool itself.
 Feel free to read what's in here, and hopefully you will pick up something of value.
 
 == Parameters
@@ -202,7 +202,7 @@ cd myws
 clojure -M:poly :local
 ----
 
-The `:local` flag will tell the xref:doc.adoc[doc] commandto open pages on `http://localhost:8000` instead of `https://cljdoc.org`.
+The `:local` flag will tell the xref:doc.adoc[doc] command to open pages on `http://localhost:8000` instead of `https://cljdoc.org`.
 
 === Open pages in GitHub
 
@@ -238,7 +238,8 @@ clojure -M:poly :github
 polylith$ doc page:component
 ----
 
-This will open the page on the `master` branch.
+If the shell is opened from the `polylith` repository as in this example, then the branch will automatically be detected,
+otherwise the `master` branch will be used.
 
 If we want to open the pages in another branch, we have to give the branch, e.g.:
 
@@ -248,9 +249,6 @@ cd myws
 clojure -M:poly :github branch:issue-318
 polylith$ doc page:component
 ----
-
-This can be useful if we are a maintainer of the `poly` tool documentation,
-and want to see how the pages are rendered by GitHub.
 
 == Reloading changes
 
