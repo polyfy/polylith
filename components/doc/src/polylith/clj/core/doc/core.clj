@@ -1,7 +1,8 @@
 (ns ^:no-doc polylith.clj.core.doc.core
   (:require [clojure.java.browse :as browse]
             [polylith.clj.core.version.interface :as ver]
-            [polylith.clj.core.doc.navigation.more :as more]))
+            [polylith.clj.core.doc.navigation.more :as more]
+            [polylith.clj.core.doc.navigation.generated :as generated]))
 
 (defn doc-url [branch local? github?]
   (cond
@@ -18,11 +19,16 @@
          (str "/doc/reference/" page))
        "#" bookmark))
 
+(defn the-page [page]
+  (if (contains? generated/ci-pages page)
+    (str "ci/" page)
+    (or page "readme")))
+
 (defn page-url [page branch local? github?]
   (str (doc-url branch local? github?)
        (if (and github? (= "readme" page))
          "/" "/doc/")
-       (or page "readme")
+       (the-page page)
        (if github? ".adoc" "")))
 
 (defn more-url [page local?]

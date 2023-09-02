@@ -13,15 +13,33 @@
 (defn entry [page]
   [page {}])
 
+(defn read-cljdoc-pages []
+  (-> (config-reader/read-edn-file "doc/cljdoc.edn" "cljdoc.edn")
+      :config :cljdoc.doc/tree))
+
+(defn strip-prefix-and-suffix [filename]
+  (-> filename
+      (str-util/skip-prefix "doc/")
+      (str-util/skip-suffix ".adoc")))
+
 (defn navigation []
-  (let [cljdoc-pages (-> (config-reader/read-edn-file "doc/cljdoc.edn" "cljdoc.edn")
-                         :config :cljdoc.doc/tree)]
-    (into (sorted-map) (mapv entry
-                             (sort (map #(-> %
-                                             (str-util/skip-prefix "doc/")
-                                             (str-util/skip-suffix ".adoc"))
-                                        (mapcat page-names cljdoc-pages)))))))
+  (into (sorted-map)
+        (mapv entry
+              (sort (map #(-> %
+                              (strip-prefix-and-suffix))
+                         (mapcat page-names
+                                 (read-cljdoc-pages)))))))
+
+(defn ci-pages []
+  (->> (read-cljdoc-pages)
+       (filter #(= "CI" (first %)))
+       first
+       (drop 2)
+       (map #(-> % second :file))
+       (map strip-prefix-and-suffix)
+       (set)))
 
 (comment
   (navigation)
+  (ci-pages)
   #__)

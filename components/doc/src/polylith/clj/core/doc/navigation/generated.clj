@@ -27,6 +27,9 @@
    "version" []
    "ws" []})
 
+(def ci-pages
+  #{"polylith-ci-setup" "continuous-integration"})
+
 (def pages-nav
   {"artifacts" {}
    "base" {}
