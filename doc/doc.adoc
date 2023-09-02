@@ -20,19 +20,19 @@ image::images/doc/top-doc.png[]
 
 Here we have a number of useful links:
 
-* image:images/doc/clj-poly-lib.png[] opens the latest version of this cljdoc based documentation
-(snapshot releases excluded) for this documentation.
+* image:images/doc/clj-poly-lib.png[] link to this documentation..
 
-* image:images/doc/clj-poly-doc.png[] the version of this documentation, which links to a page that lists the
+* image:images/doc/clj-poly-doc.png[] the version of this documentation, which links to a page that lists all the
 http://localhost:8000/versions/polylith/clj-poly[different versions] of this documentation,
-where `0.2.18` and later are useful.
+where `0.2.18` and later contains useful documentation (`0.2.17-alpha` and earlier only include the code).
 
 * image:images/doc/clj-doc.png[] opens the https://cljdoc.org/[cljdoc.org] documentation which is the platform where
-this documentation lives.
+this documentation lives, together with other libraries and tools.
 
 * image:images/doc/polylith-repo.png[] opens the https://github.com/polyfy/polylith[polylith] GitHub repo.
 
-* image:images/gitbook-badge.png[] opens the documentation for the latest https://github.com/polyfy/polylith/releases[release].
+* image:images/gitbook-badge.png[] opens the documentation for the latest https://github.com/polyfy/polylith/releases[release]
+which the documentation you should use if you use
 
 * image:images/cljdoc-snapshot-badge.png[] opens the latest `SNAPSHOT` version of this documentation.
 
