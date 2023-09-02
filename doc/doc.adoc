@@ -16,14 +16,6 @@ We can now execute the `doc` command to open the start page of this documentatio
 example$ doc
 ----
 
-image::images/doc/doc-overview.png[]
-
-{nbsp} +
-
-We can either use the left menu or the `doc` command to access different pages.
-
-== Top navigation
-
 image::images/doc/top-doc.png[]
 
 At the top of the page we have a number of useful links:
@@ -46,7 +38,10 @@ between releases.
 in the clojurians workspace in Slack.
 
 ====
-NOTE: The `SNAPSHOT` documentation is built every time we commit something to the https://github.com/polyfy/polylith[master] branch.
+NOTE: The `SNAPSHOT` documentation is built every time we commit something to the https://github.com/polyfy/polylith[master] branch,
+which is documented xref:polylith-ci-setup.adoc#releases[here].
+This is useful if we use the `poly` tool as a xref:install.adoc#github-dependency[GitHub dependency]
+and want to access its documentation.
 ====
 
 If we type `doc` followed by a space, the different help categories are listed:
@@ -57,7 +52,9 @@ example$ doc
 help   more   page   ws
 ----
 
-Let's dig into these categories.
+We can either use the left menu or the `doc` command to access different pages:
+
+image::images/doc/doc-overview.png[]
 
 == page
 

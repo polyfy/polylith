@@ -11,6 +11,7 @@ and GitHub as https://github.com/polyfy/polylith/releases[releases].
 
 We can find the CircleCI configuration file link:../.circleci/config.yml[here].
 
+[#releases]
 == Releases
 
 A release is always triggered by adding a release tag to the https://github.com/polyfy/polylith[polyfy/polylith] repository in GitHub:

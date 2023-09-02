@@ -236,6 +236,7 @@ Via Clojars:
 }
 ----
 
+[#github-dependency]
 Via GitHub:
 
 [source,clojure]
