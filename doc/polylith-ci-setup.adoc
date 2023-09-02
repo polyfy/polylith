@@ -1,4 +1,5 @@
 = The Polylith CI setup
+:cljdoc-api-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/api
 
 The polylith repository has a continuous integration and deployment setup via https://circleci.com[CircleCI].
 The setup has two workflows, one for regular validation and testing, and another one for deployments.
@@ -15,18 +16,22 @@ Examples of the artifacts that are built and released from the https://github.co
 
 image::images/polylith-ci-setup/release-timeline.png[]
 
+{nbsp} +
+
+There are two types of releases, final and shapshot.
+
 ==== Final release
 
 * A https://github.com/polyfy/polylith/releases[release] of the `poly` tool (`v0.2.18` and `v0.2.19` in this example) is triggered by tagging a commit in the
 https://github.com/polyfy/polylith[polyfy/polylith] repository in GitHub.
-* This will also release the https://clojars.org/polylith/clj-poly[polylith/clj-poly] library to Clojars.
-* Which triggers a build of the web based https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc/readme[polylith/clj-doc] documentation.
+* This will also release the {cljdoc-api-url}/polylith[clj-poly] library to Clojars.
+* Which triggers a build of the web based https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc/readme[clj-doc] documentation.
 
 ==== Snapshot release
 
 * A commit is tagged/retagged with a SNAPSHOT version in the https://github.com/polyfy/polylith[polyfy/polylith] repository in GitHub.
-* This will trigger a snapshot release of the https://clojars.org/polylith/clj-poly[polylith/clj-poly] library to Clojars (`0.2.19-SNAPSHOT` in the example).
-* Which triggers a build of the snapshot version of the https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc/readme[polylith/clj-doc] documentation (`0.2.19-SNAPSHOT`).
+* This will trigger a snapshot release of the {cljdoc-api-url}/polylith[clj-poly] library to Clojars (`0.2.19-SNAPSHOT` in the example).
+* Which triggers a build of the snapshot version of the https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc/readme[clj-doc] documentation (`0.2.19-SNAPSHOT`).
 
 The same snapshot release can be triggered several times. The `poly` tool is not included in a snapshot release.
 
