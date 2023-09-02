@@ -9,7 +9,7 @@ https://clojars.org/search?q=polylith[Clojars],
 https://cljdoc.org/versions/polylith/clj-poly[cljdoc],
 and GitHub as https://github.com/polyfy/polylith/releases[releases].
 
-You can find the CircleCI configuration file link:../.circleci/config.yml[here].
+We can find the CircleCI configuration file link:../.circleci/config.yml[here].
 
 == Releases
 

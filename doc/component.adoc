@@ -38,11 +38,13 @@ There is also a fourth way, and that is to execute the command from a xref:comma
 
 3. `clojure -T:poly shell`
 
-We can skip the `shell` parameter in the first two forms, but in the third we have to keep it:
+We can skip the `shell` parameter in the first two forms:
 
 1. `poly`
 
 2. `clojure -M:poly`
+
+3. `clojure -T:poly shell`
 
 image::images/component/start-a-shell.png[]
 
