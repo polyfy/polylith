@@ -18,23 +18,25 @@ example$ doc
 
 image::images/doc/top-doc.png[]
 
-At the top of the page we have a number of useful links:
+Here we have a number of useful links:
 
-* image:images/doc/clj-poly-lib.png[] links to the different versions of the `clj-poly` library.
+* image:images/doc/clj-poly-lib.png[] opens the latest version of this cljdoc based documentation
+(snapshot releases excluded) for this documentation.
 
-* image:images/doc/clj-poly-doc.png[] links to http://localhost:8000/versions/polylith/clj-poly[different versions] of this documentation.
+* image:images/doc/clj-poly-doc.png[] the version of this documentation, which links to a page that lists the
+http://localhost:8000/versions/polylith/clj-poly[different versions] of this documentation,
+where `0.2.18` and later are useful.
 
-* image:images/doc/clj-doc.png[] links to https://cljdoc.org/[cljdoc.org].
+* image:images/doc/clj-doc.png[] opens the https://cljdoc.org/[cljdoc.org] documentation which is the platform where
+this documentation lives.
 
-* image:images/doc/polylith-repo.png[] links to the https://github.com/polyfy/polylith[polylith] GitHub repo.
+* image:images/doc/polylith-repo.png[] opens the https://github.com/polyfy/polylith[polylith] GitHub repo.
 
-* image:images/gitbook-badge.png[] links to the documentation for the latest https://github.com/polyfy/polylith/releases[release].
+* image:images/gitbook-badge.png[] opens the documentation for the latest https://github.com/polyfy/polylith/releases[release].
 
-* image:images/cljdoc-snapshot-badge.png[] links to the latest `SNAPSHOT` build of this documentation,
-which we should use if we work on code in the https://github.com/polyfy/polylith[master] branch
-between releases.
+* image:images/cljdoc-snapshot-badge.png[] opens the latest `SNAPSHOT` version of this documentation.
 
-* image:images/doc/slack.png[] links to the https://clojurians.slack.com/messages/C013B7MQHJQ[#polylith] channel
+* image:images/doc/slack.png[] opens the https://clojurians.slack.com/messages/C013B7MQHJQ[#polylith] channel
 in the clojurians workspace in Slack.
 
 ====
@@ -64,25 +66,26 @@ which are also accessible in the left menu (notice that it ends with a colon):
 [source,shell]
 ----
 example$ doc page:
+artifacts                introduction
 base                     libraries
 build                    migrate
 clojure-cli-tool         naming
-colors                   parameters
+colors                   polylith-ci-setup
 component                polyx
 configuration            profile
 context                  project
 continuous-integration   readme
 dependencies             shell
-development              source-code
-doc                      tagging
-example-systems          tap
-explore-the-workspace    test-runners
-flags                    testing
-git-hooks                tools-deps
-git                      upgrade
-install                  validations
-interface                workspace
-introduction
+developing-poly          source-code
+development              tagging
+doc                      tap
+example-systems          test-runners
+explore-the-workspace    testing
+flags                    tools-deps
+git-hooks                upgrade
+git                      validations
+install                  workspace
+interface
 ----
 
 If we select a page, it will be opened in a browser on your machine, e.g.:
