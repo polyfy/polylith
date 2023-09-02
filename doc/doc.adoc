@@ -31,10 +31,10 @@ this documentation lives, together with other libraries and tools.
 
 * image:images/doc/polylith-repo.png[] opens the https://github.com/polyfy/polylith[polylith] GitHub repo.
 
-* image:images/gitbook-badge.png[] opens the documentation for the latest https://github.com/polyfy/polylith/releases[release]
+* image:images/doc/gitbook-badge.png[] opens the documentation for the latest https://github.com/polyfy/polylith/releases[release]
 which the documentation you should use if you use
 
-* image:images/cljdoc-snapshot-badge.png[] opens the latest `SNAPSHOT` version of this documentation.
+* image:images/doc/cljdoc-snapshot-badge.png[] opens the latest `SNAPSHOT` version of this documentation.
 
 * image:images/doc/slack.png[] opens the https://clojurians.slack.com/messages/C013B7MQHJQ[#polylith] channel
 in the clojurians workspace in Slack.

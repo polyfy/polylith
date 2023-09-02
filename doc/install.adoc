@@ -262,11 +262,12 @@ Replace `INSERT-LATEST-SHA-HERE` with a commit SHA from the Polylith repository,
 e.g. the https://github.com/polyfy/polylith/commits/master[latest] from the `master` branch.
 
 ====
-NOTE: The master branch can sometimes be ahead of the https://github.com/polyfy/polylith/releases[latest release].
+NOTE: The master branch can sometimes be ahead of the https://github.com/polyfy/polylith/releases[latest release]
+which is described xref:polylith-ci-setup.adoc#releases[here].
 Instead of waiting for the next version to be released, we can set the latest committed SHA from the
 https://github.com/polyfy/polylith/commits/master[master branch] in `./deps.edn`, each time it updates (see the example above).
 If the `master` branch is ahead of the latest release, then you should also use the latest `SNAPSHOT` version
-of the cljdoc based documentation, e.g. by clicking the image:images/cljdoc-snapshot.png[] badge at the top
+of the cljdoc based documentation, e.g. by clicking the image:images/doc/cljdoc-snapshot-badge.png[] badge at the top
 of the start page.
 ====
 
