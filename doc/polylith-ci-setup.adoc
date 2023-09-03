@@ -14,7 +14,8 @@ We can find the CircleCI configuration file link:../.circleci/config.yml[here].
 [#releases]
 == Releases
 
-A release is triggered when a release tag, e.g. `v0.2.18`, is added to a commit in the https://github.com/polyfy/polylith[polyfy/polylith] repository in GitHub:
+A release is triggered when a release https://github.com/polyfy/polylith/tags[tag], e.g. `v0.2.18`,
+is added to a commit in the https://github.com/polyfy/polylith[polyfy/polylith] repository in GitHub:
 
 image::images/polylith-ci-setup/release-timeline.png[]
 
