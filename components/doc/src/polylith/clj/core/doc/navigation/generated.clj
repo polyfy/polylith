@@ -59,6 +59,7 @@
    "naming" {}
    "polylith-ci-setup" {}
    "polyx" {}
+   "production-systems" {}
    "profile" {}
    "project" {}
    "readme" {}

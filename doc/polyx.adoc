@@ -5,7 +5,7 @@ plus create images from different commands.
 One more difference is that it's not released as an AOT compiled, stand-alone tool, as `poly` is.
 
 If we want to use `polyx`, then we need to add it as an alias to `./deps.edn`, e.g. by copying
-the existing `:poly` alias and modifying it slightly:
+the existing `:poly` alias and change `:deps/root` from "projects/poly" to "projects/polyx":
 
 [source,clojure]
 ----
