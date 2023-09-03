@@ -241,6 +241,13 @@ polylith$ doc page:component
 If the shell is opened from the `polylith` repository as in this example, then the branch will automatically be detected,
 otherwise the `master` branch will be used.
 
+====
+NOTE: The documentation lives under the https://github.com/polyfy/polylith/tree/master/doc[doc]
+directory in the `polylith` repository from which the https://cljdoc.org/[cljdoc] based documentation is generated.
+The documentation is triggered when we release the `poly` tool and when we push commits to the `master` branch,
+which is described xref:polylith-ci-setup.adoc#releases[here].
+====
+
 If we want to open the pages in another branch, we have to give the branch, e.g.:
 
 [source,shell]
