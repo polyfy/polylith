@@ -50,8 +50,10 @@
     the poly tool's classpath, which can take a single argument and must return
     an instance of polylith.clj.core.test-runner-contract.interface/TestRunner.
 
-  Error 110 - Missing or invalid config file.
-    Triggered if a deps.edn file for a brick or project is missing or invalid.
+  Error 110 - Invalid config file.
+    Triggered if a deps.edn file for a brick or project is invalid.
+    It's allowed to omit the deps.edn file entirely, except for development,
+    and in that case the brick/project will be ignored.
 
   Warning 201 - Mismatching parameter lists in function or macro.
     Triggered if a function or macro is defined in the interface for a component

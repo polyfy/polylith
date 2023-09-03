@@ -31,12 +31,23 @@
         errors (vec (sort-by :name (filter :error configs-and-errors)))]
     [configs errors]))
 
+(defn dirs-with-deps-file
+  "If the deps.edn file doesn't exist, then it's probably because we have
+   switched between branches in git and left a brick directory empty,
+   which is the reason we skip these bricks/projects."
+  [ws-dir entity-type]
+  (let [dir (str ws-dir "/" entity-type "s")]
+    (->> dir
+         (file/directories)
+         (filter #(file/exists (str dir "/" % "/deps.edn")))
+         (sort))))
+
 (defn read-brick-config-files [ws-dir ws-type entity-type]
   (-> (map #(read-deps-edn-file ws-type % entity-type
                                 (str entity-type "s/" %)
                                 (str ws-dir "/" entity-type "s/" %)
                                 validator/validate-brick-config)
-           (file/directories (str ws-dir "/" entity-type "s")))
+           (dirs-with-deps-file ws-dir entity-type))
       (filter-config-files)))
 
 (defn read-project-deployable-config-files [ws-dir ws-type]
@@ -48,7 +59,7 @@
           :project-name %
           :project-dir (str ws-dir "/projects/" %)
           :project-config-dir (str ws-dir "/projects/" %))
-       (file/directories (str ws-dir "/projects"))))
+       (dirs-with-deps-file ws-dir "project")))
 
 (defn read-project-dev-config-file [ws-dir ws-type]
   (let [filename (str ws-dir "/deps.edn")]

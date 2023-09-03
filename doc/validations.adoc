@@ -17,7 +17,7 @@ The xref:commands.adoc#test[test] command will be interrupted if xref:commands.a
 If a source file (`.clj` or `.cljc`) can't be read or if the namespace is missing, we get `Warning 206 - Unreadable namespace in brick/project`.
 
 If we comment out the https://github.com/polyfy/polylith/blob/master/examples/doc-example/components/user/src/se/example/user/core.clj[core] namespace
-for the `user` component in the example app and execute the xref:commands.adoc#check[check] command, it will show a warning:
+for the `user` component in the example app:
 
 [source,clojure]
 ----
@@ -26,6 +26,8 @@ for the `user` component in the example app and execute the xref:commands.adoc#c
 (defn hello [name]
   (str "Hello " name "!!"))
 ----
+
+...and execute the xref:commands.adoc#check[check] command, then this warning will be shown:
 
 image::images/validations/missing-or-unreadable-namespace.png[]
 
