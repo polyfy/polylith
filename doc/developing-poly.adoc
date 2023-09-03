@@ -238,8 +238,8 @@ clojure -M:poly :github
 polylith$ doc page:component
 ----
 
-If the shell is opened from the `polylith` repository as in this example, then the branch will automatically be detected,
-otherwise the `master` branch will be used.
+If the shell is started from the `polylith` repository as in this example, then pages will automatically be opened
+in the current branch, and we don't have to pass in `branch:BRANCH`, otherwise the `master` branch will be used.
 
 ====
 NOTE: The documentation lives under the https://github.com/polyfy/polylith/tree/master/doc[doc]
