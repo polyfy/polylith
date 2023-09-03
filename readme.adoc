@@ -6,6 +6,7 @@ https://polylith.gitbook.io/poly[image:https://badgen.net/badge/gitbook/0.2.17-a
 ifdef::env-cljdoc[]
 https://cljdoc.org/d/polylith/clj-poly/0.2.18-SNAPSHOT[image:https://badgen.net/badge/cljdoc/0.2.18-SNAPSHOT/cyan[]]
 endif::[]
+https://cljdoc.org/download/polylith/clj-poly/CURRENT/doc[image:https://badgen.net/badge/cljdoc/Download/purple[]]
 https://clojurians.slack.com/messages/C013B7MQHJQ[image:https://badgen.net/badge/slack/join chat/green[]]
 
 == Welcome to the wonderful world of Polylith!

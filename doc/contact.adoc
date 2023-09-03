@@ -6,4 +6,4 @@ Feel free to contact me:
 Twitter:: @jtengstrand
 Email:: joakim.tengstrand[at]gmail[dot]com
 
-You can also get in touch with us on https://clojurians.slack.com/messages/C013B7MQHJQ[Slack].
+You can also post your questions in the https://clojurians.slack.com/messages/C013B7MQHJQ[polylith] channel in Slack.

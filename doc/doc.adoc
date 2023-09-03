@@ -54,7 +54,7 @@ example$ doc
 help   more   page   ws
 ----
 
-We can either use the left menu or the `doc` command to access different pages:
+We can either use the left menu, the search box, or the `doc` command to access different pages:
 
 image::images/doc/doc-overview.png[]
 
