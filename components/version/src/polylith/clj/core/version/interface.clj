@@ -35,7 +35,7 @@
 
 (def tool (if system/extended? "polyx" "poly"))
 
-(def date "2023-08-26")
+(def date "2023-09-03")
 
 (def api-version {:breaking 1, :non-breaking 0})
 (def test-runner-api-version {:breaking 1, :non-breaking 0})
