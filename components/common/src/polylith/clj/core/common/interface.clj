@@ -75,7 +75,7 @@
     (str version/tool " " version/name
          (if version/snapshot?
            (str " #" version/snapshot)
-            ""))))
+           ""))))
 
 (defn user-path [path]
   (core/user-path path))

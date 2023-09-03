@@ -53,6 +53,7 @@
      :h (* (+ height 2) ic/font-height)}))
 
 (defn print-table [workspace]
+  (tap> {:user-input (:user-input workspace)})
   (let [{:keys [table heights widths max-height n#spaces]} (table workspace)
         x1s (mapv #(apply + (take % widths))
                   (range (inc (count widths))))

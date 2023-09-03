@@ -59,9 +59,8 @@
                                  :project-to-indirect-changes {}
                                  :project-to-bricks-to-test {}
                                  :project-to-projects-to-test {}})
-      (let [{:keys [since changed-files]
+      (let [{:keys [since changed-files is-no-changes]
              :or {since "stable"}} user-input
-            is-no-changes (:is-no-changes user-input)
             tag-patterns (:tag-patterns settings)
             {:keys [tag sha]} (git/sha ws-dir since tag-patterns)]
         (assoc workspace :changes
