@@ -1,6 +1,6 @@
 = Production systems
 
-Here is a list with companies that use Polylith in production.
+Here is a list with some of the companies that use Polylith in production.
 
 == Scrintal
 
