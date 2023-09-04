@@ -29,7 +29,7 @@ we put together LEGO® when we were kids! Not surprisingly, it's just as simple 
 To give you an idea of what that can look like, take a quick look at the projects, bricks, and libraries that we use
 to build the _poly_ tool (which is itself a Polylith workspace, represented by the poly column in the first diagram):
 
-image::doc/images/overview.png[link="doc/images/overview.png"]
+image::doc/images/example-systems/polylith.png[link="doc/images/example-systems/polylith.png"]
 
 {nbsp} +
 

@@ -4,7 +4,7 @@ Here is a list with some of the companies that use Polylith in production.
 
 == Scrintal
 
-image::images/production-systems/scrintal.png[]
+image::images/production-systems/scrintal.png[link="images/production-systems/scrintal.png"]
 
 http://scrintal.com[Scrintal's] first commit dates back to April 2019 and the workspace has used Polylith since day one.
 Polylith enabled us to experiment fast locally and ship features easily.
@@ -14,7 +14,7 @@ most bricks can be shared and reused across all our products.
 
 == Funnel
 
-image::images/production-systems/funnel.png[]
+image::images/production-systems/funnel.png[link="images/production-systems/funnel.png"]
 
 https://funnel.io/[Funnel] helps companies collect, prepare and analyze all their marketing data with ease.
 The company was founded in 2014, has 1000+ customers, and integrates with 500+ marketing apps and platforms.
@@ -24,7 +24,7 @@ separate how services are deployed and run from how functionality is developed a
 
 == World Singles Networks
 
-image::images/production-systems/world-singles-networks.png[]
+image::images/production-systems/world-singles-networks.png[link="images/production-systems/world-singles-networks.png"]
 
 Connecting hearts all over the world.
 
