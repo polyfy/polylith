@@ -1,4 +1,5 @@
 = Artifacts
+:cljdoc-api-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/api
 
 With Polylith bricks, we put together xref:projects[projects] from which we build artifacts.
 
@@ -13,14 +14,11 @@ Polylith supports all types of artifacts, such as:
 There is one situation that needs special consideration, and that is when we want to build
 more than one library from our workspace.
 
-One thing that distinguishes libraries from other types of artifacts is that we don't need a base,
-because we use a library by calling functions (and maybe macros and `def` definitions)
-directly from our code, and the purpose of a base is to be a bridge between the "real world" and the code,
-which we don't need.
-
-A good pattern is instead to put the functionality we want to expose in a component called `api`.
-An example of that is the `clj-poly` library that includes an https://github.com/polyfy/polylith/blob/master/components/api/src/polylith/clj/core/api/interface.clj[api]
-component.
+One thing that distinguishes libraries from other types of artifacts is that they don't need a base,
+since it's about code talking directly to code.
+Instead we can have an `api` component that exposes the functionality in the library.
+A good example is the {cljdoc-api-url}/polylith.clj.core.api[clj-poly] library that includes an
+https://github.com/polyfy/polylith/blob/master/components/api/src/polylith/clj/core/api/interface.clj[api] component.
 
 If we publish more than one library from the same workspace, we need to build all library artifacts at the same time
 and make sure they all use the same versioning pattern, e.g.: `myfamily-lib1-1.2.3.jar` + `myfamily-lib2-1.2.3.jar`.

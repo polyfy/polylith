@@ -36,8 +36,6 @@ which the documentation you should use if you use
 
 * image:images/doc/snapshot-doc-badge.png[] opens the latest `SNAPSHOT` version of this documentation.
 
-* image:images/doc/download-doc-badge.png[] downloads a zipped offline version of this documentation.
-
 * image:images/doc/slack.png[] opens the https://clojurians.slack.com/messages/C013B7MQHJQ[#polylith] channel
 in the clojurians workspace in Slack.
 
