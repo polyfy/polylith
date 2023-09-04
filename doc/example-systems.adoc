@@ -30,5 +30,5 @@ https://github.com/tengstrand/game-of-life[example app] to show how a tiny Polyl
 image::images/example-systems/polylith.png[link="images/example-systems/polylith.png"]
 
 As we have already mentioned, the Polylith https://github.com/polyfy/polylith[codebase] itself is structured as a Polylith
-xref:workspace.adoc[workspace], and yes, we are https://en.wikipedia.org/wiki/Eating_your_own_dog_food[dogfooding],
+xref:workspace.adoc[workspace], and yes, we are https://en.wikipedia.org/wiki/Eating_your_own_dog_food[dogfooding]
 and it tastes delicious 😃!
