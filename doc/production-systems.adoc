@@ -40,6 +40,16 @@ The concept of "swappable implementations" for component interfaces has allowed 
 more easily share code between a variety of applications that need to run in difference contexts,
 such as running without a database, or on older JVMs.
 
+== Polylith
+
+image::images/example-systems/polylith.png[link="images/example-systems/polylith.png"]
+
+The https://github.com/polyfy/polylith[polylith] codebase itself is structured as a Polylith workspace.
+The initial commit was made in June 9, 2019. The Polylith way of working gives us a range of benefits,
+such as decoupled building blocks that are easy to find,
+understand, change, and reuse. They are then combined into the `poly` and `polyx` command line tools,
+and the `clj-poly` library.
+
 == How to be added
 
 Feel free to contact us if you can't find your company here!
