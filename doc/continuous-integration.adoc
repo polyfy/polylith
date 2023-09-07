@@ -45,7 +45,7 @@ then we could first start by asking what projects we have:
 poly ws get:projects:keys skip:dev
 ----
 
-The `skip:dev` parameter tells the tool to ignore the `development`project
+The `skip:dev` parameter tells the tool to ignore the `development` project
 (we are not interested in deploying that project).
 More than one project can be ignored, e.g. `skip:dev:invoicer`,
 where both project names and aliases can be used.
@@ -57,4 +57,4 @@ Then we can ask for changed or affected projects:
 poly ws get:changes:changed-or-affected-projects since:release skip:dev
 ----
 
-Here we rely on `release-*` tags that mark the whole repo as released.
+This will list all projects that need to be deployed since the latest tag that matches `release-*`.

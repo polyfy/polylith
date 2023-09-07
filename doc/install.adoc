@@ -11,7 +11,7 @@ There are several ways to install the `poly` tool, which determines how the `pol
 named `poly` is installed on your local disk and added to the system path, with a content like this: `java -jar poly.jar`
 
 2. By the https://clojure.org/guides/deps_and_cli[Clojure CLI], e.g. `clojure -M:poly help`:
-* The `poly` tool can only be executed from inside a Polylith xref:workspace.adoc[workspace] directory (it uses the `:poly` alias in `deps.edn`).
+* The `poly` tool can only be executed from inside a Polylith xref:workspace.adoc[workspace] directory (it uses the `:poly` alias in `./deps.edn`).
 * Which version of the `poly` tool to use can easily be selected by changing the `sha` in `./deps.edn`.
 
 3. As a https://clojure.org/reference/deps_and_cli#tool_install[Clojure CLI tool], e.g. `clojure -Tpoly help`:
@@ -135,7 +135,7 @@ e.g. `poly-{poly-version}.jar`.
 [source,shell]
 ----
 @echo off
-start /wait /b java %JAVA_OPTS% -jar "C:\Program Files\Polylith\poly-{poly-version}.jar" %*
+start /wait /b java %JAVA_OPTS% -jar "C:\Program Files\Polylith\poly-poly-0.2.18.jar.jar" %*
 ----
 
 * Add `C:\Program Files\Polylith` to the Windows `PATH` environment variable.
@@ -163,7 +163,7 @@ nix-env -iA 'nixos.polylith'
 == Install as Clojure CLI Tool
 
 If we are using a recent version of the
-https://clojure.org/releases/tools[Clojure CLI] -- 1.10.3.933 or later -- we can install `poly` as a "tool":
+https://clojure.org/guides/install_clojure[Clojure CLI] -- 1.10.3.933 or later -- we can install `poly` as a "tool":
 
 [source,shell]
 ----
@@ -217,7 +217,7 @@ clojure -A:deps -Tpoly help/doc
 ----
 
 ====
-NOTE: the command-line argument syntax for "tool" usage follows the CLI "exec args" format which is essentially
+NOTE: The command-line argument syntax for "tool" usage follows the CLI "exec args" format which is essentially
 Clojure's own keyword/value syntax (it's actually read as EDN).
 ====
 
@@ -227,7 +227,8 @@ The official documentation can be found https://clojure.org/reference/deps_and_c
 [#use-as-dependency]
 == Use as dependency
 
-An alternative way of executing the `poly` tool is to specify it as a dependency, by giving a commit SHA.
+An alternative way of executing the `poly` tool is to specify it as a dependency, by giving a commit SHA,
+or a release version.
 To use it this way, add one of the following aliases to the `:aliases` section in your `./deps.edn`:
 
 Via Clojars:
@@ -265,9 +266,9 @@ e.g. the https://github.com/polyfy/polylith/commits/master[latest] from the `mas
 NOTE: The master branch can sometimes be ahead of the https://github.com/polyfy/polylith/releases[latest release]
 which is described xref:polylith-ci-setup.adoc#releases[here].
 Instead of waiting for the next version to be released, we can set the latest committed SHA from the
-https://github.com/polyfy/polylith/commits/master[master branch] in `./deps.edn`, each time it updates (see the example above).
+https://github.com/polyfy/polylith/commits/master[master branch] in `./deps.edn`, each time it updates (as in the example above).
 If the `master` branch is ahead of the latest release, then you should also use the latest `SNAPSHOT` version
-of the cljdoc based documentation, e.g. by clicking the image:images/doc/cljdoc-snapshot-badge.png[] badge at the top
+of the cljdoc based documentation, e.g. by clicking the image:images/doc/snapshot-doc-badge.png[] badge at the top
 of the start page.
 ====
 

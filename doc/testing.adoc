@@ -215,6 +215,8 @@ Let's pretend that no bricks were marked to be tested:
 
 image::images/testing/info-no-changes.png[width=400]
 
+{nbsp} +
+
 If we run the same command again:
 
 image::images/testing/info-brick-cli-no-changes.png[width=400]
@@ -308,7 +310,7 @@ image::images/testing/info-project-dir.png[width=400]
 ...the `command-line` project is marked as changed and flagged as `-t-` telling us that it now has a `test` directory.
 The `-t-` in the `dev` column says that it has been added to the `development` project.
 The reason it's not tagged as `-tx` is that project tests are not marked to be executed
-without explicitly telling them to, by passing in `:project`.
+without explicitly telling them to, by passing in `:project` (or `:all`):
 
 [source,shell]
 ----
@@ -417,6 +419,8 @@ poly info :all
 ----
 
 image::images/testing/info-all.png[width=400]
+
+{nbsp} +
 
 ...to also include `development`, type:
 
@@ -655,10 +659,10 @@ The brick tests are executed from all projects they belong to except for the `de
 |===
 | Command | Tests to execute
 
-| `poly test` | All brick tests that are directly or indirectly changed.
-| `poly test :project` | All brick tests that are directly or indirectly changed + tests for changed projects.
-| `poly test :all‑bricks` | All brick tests.
-| `poly test :all` | All brick tests and all project tests (except `development`), executed from all projects.
+| `poly test` a| All brick tests that are directly or indirectly changed.
+| `poly test :project` a| All brick tests that are directly or indirectly changed + tests for changed projects.
+| `poly test :all‑bricks` a| All brick tests.
+| `poly test :all` a| All brick tests and all project tests (except `development`), executed from all projects.
 |===
 
 To also execute the brick tests from the `development` project, we can pass in `:dev`:
@@ -667,10 +671,10 @@ To also execute the brick tests from the `development` project, we can pass in `
 |===
 | Command | Tests to execute
 
-| `poly test :dev` | All brick tests that are directly or indirectly changed, executed from all projects (`development` included).
-| `poly test :project :dev` | All brick tests that are directly or indirectly changed, executed from all projects (`development` included).
-| `poly test :all‑bricks :dev` | All brick tests, executed from all projects (`development` included).
-| `poly test :all :dev` | All brick tests, executed from all projects (`development` included) and all project tests (`development` included).
+| `poly test :dev` a| All brick tests that are directly or indirectly changed, executed from all projects (`development` included).
+| `poly test :project :dev` a| All brick tests that are directly or indirectly changed, executed from all projects (`development` included).
+| `poly test :all‑bricks :dev` a| All brick tests, executed from all projects (`development` included).
+| `poly test :all :dev` a| All brick tests, executed from all projects (`development` included) and all project tests (`development` included).
 |===
 
 Projects can also be explicitly selected with e.g. `project:proj1` or `project:proj1:proj2`.

@@ -11,8 +11,11 @@ Sometimes a component operates around a concept that we can name it after, e.g. 
 This can be an alternative if the component does more than one thing, but always around that single concept.
 
 If the component's main responsibility is to simplify access to a third-party API,
-then suffixing it with `-api` is a good pattern, like `myexternalsystem-api`.
-APIs that are heavily used like `aws` can skip the suffix in some cases.
+then suffixing it with `-api` is a good pattern, like `externalsystem-api`.
+If we use a cloud service like https://aws.amazon.com/[AWS], we can drop the `-api` prefix
+and either use the plain service names, like `s3`, `dynamodb`, and `cloudwatch`,
+or prefix them like `aws-s3`, `aws-dynamodb`, and `aws-cloudwatch`, which will also group
+them nicely in different commands like the xref:commands.adoc#info[info] command.
 
 If we have two components that share the same interface,
 e.g. `invoicer`, where the `invoicer` component contains the business logic,
@@ -41,5 +44,7 @@ A good way to name them is to start with what they do, followed by the type of t
 If it's a REST API that takes care of invoicing, then we can name it `invoicer-rest-api`.
 If it's a lambda function that generates different reports, then `report-generator-lambda` can be a good name.
 
-Projects (development excluded) represent the deployable artifacts, like services and tools.
-Those artifacts should, if possible, be named after what they are, like `invoicer` or `report-generator`.
+Projects represent the deployable artifacts (development excluded).
+Services can be named after what they are, like `invoicer` or `report-generator`.
+For tools, we can use the tool name.
+

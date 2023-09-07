@@ -3,7 +3,7 @@
    `build.clj` file, then we can use the [clj-poly](https://clojars.org/polylith/clj-poly) library
    and get access to some of the functionality that is included in the `poly` command line tool.
 
-   The difference between the `clj-ply` library and the `poly` tool is that the latter is AOT compiled
+   The difference between the `clj-poly` library and the `poly` tool is that the latter is AOT compiled
    into Java bytecode, while the library is just a normal Clojure library (source code that is zipped
    into a jar file). This is good, because now we can expect the same behaviour from both.
 
@@ -24,7 +24,7 @@
                       :deps/root \"projects/poly\"}
    ```
 
-   If you need more access than is provided by the API at the moment, just reach out to the
+   If you need more access than is exposed by the API at the moment, just reach out to the
    Polylith team in [Slack](https://clojurians.slack.com/messages/C013B7MQHJQ)
    and we will try to help out.
 
@@ -44,7 +44,7 @@
 
   Each key stores a map with two keys:
   ```clojure
-   :breaking       Increased by one if a breaking change + set `:non-breaking` to zero.
+   :breaking       Increased by one if a breaking change + `:non-breaking` is set to zero.
    :non-breaking   Increased by one if a non-breaking change.
   ```
 
@@ -52,7 +52,7 @@
   any of the three APIs may change version, but the ambition is to never break `:api` and `:test-runner`.
 
   With `:ws` it's different, and we know that the workspace structure will change over time, so pay extra
-  attention every time you bump `clj-poly` and have a look in the `version` component's interface,
+  attention every time you bump `clj-poly` and have a look in the `version` component's interface namespace,
   which lists all the changes for different versions.
 
   Examples of a breaking change of the workspace structure:

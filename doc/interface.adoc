@@ -13,10 +13,10 @@ When we created the `user` component, the `user` interface was also created.
 So what is an `interface` and what is it good for?
 
 An interface in the Polylith world is a namespace named `interface` that often lives in one but sometimes several namespaces within a component.
-To be exact, the full interface name is `user.interface` in this example.
+To be exact, the full interface namespace name is `user.interface` in this example (if we exclude the top namespace).
 It defines a number of `def`, `defn` or `defmacro` statements which forms the contract that it exposes to other components and bases.
 
-To give an example, let's pretend we have the interface `user.interface`
+To give an example, let's pretend we have the interface namespace `user.interface`
 containing the functions `fun1` and `fun2` and that two components "implement" this interface, e.g:
 
 
@@ -50,6 +50,9 @@ Now we are free to edit the `interface.clj` file for both `user` and `admin`,
 which means they can get out of sync if we are not careful enough.
 Luckily, the Polylith tool will help us keep them consistent, and complain if they differ when we run the
 xref:commands.adoc#check[check], xref:commands.adoc#info[info] or xref:commands.adoc#test[test] commands.
+
+The "poly" tool not only checks the number of parameters and the types (if we use type hints) in functions and macros,
+it also ensures that the names of the parameters match, to minimize the risk of them coming in the wrong order.
 
 We often choose to have just a single `interface` namespace in a component,
 but it's also possible to divide the interface into several sub namespaces.
@@ -164,8 +167,7 @@ xref:commands#test[test] command.
 
 * All functions can be declared public while still being protected.
 This improves testability and the debugging experience.
-When stopping at a breakpoint to evaluate a function, we don't need to use any special syntax to access it,
-that we otherwise would have to if it was private.
+When stopping at a breakpoint to evaluate a private function, we don't need to use any special syntax to access it.
 
 * If using a `function` in two components that implement the same interface, all definitions must be `function`.
 The same goes for `macros`. The reason for this restriction is that functions are composable, but macros are not,
@@ -190,6 +192,5 @@ but any other valid namespace name, specified in `:interface-ns`, is accepted.
 If you already know that you will need to share code between frontend and backend in `cljc` files,
 then you can either set `:interface-ns` to `ifc` from start, or you keep `interface` as the default,
 and only use `ifc` as interface name in the components you share.
-`interface` is a reserved word in ClojureScript, so we need to use something else.
 
 The name that is specified in `:interface-ns` will be the interface name used when creating new components.

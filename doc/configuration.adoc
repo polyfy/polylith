@@ -19,8 +19,8 @@ Let's go through each of them:
 == workspaces
 
 Today we always operate against one workspace at a time,
-but the plan is to support multiple workspaces in the future, to facilitate code sharing,
-see discussion https://github.com/polyfy/polylith/discussions/301[301] if you want to join the discussion.
+but the plan is to support multiple workspaces in the future,
+see discussion https://github.com/polyfy/polylith/discussions/301[301].
 
 The workspaces can be listed with:
 
@@ -77,31 +77,31 @@ A workspace contains these keys:
 |===
 | Key | Description
 
-| `:bricks` | Present if we want to turn off `Warning 206` for one or more bricks, see xref:validations.adoc[validations].
+a| `:bricks` a| Present if we want to turn off `Warning 206` for one or more bricks, see xref:validations.adoc[validations].
 
-| `:compact-view` | Controls the xref:dependencies.adoc#compact-view[output] from the xref:commands#info[deps]
+a| `:compact-view` a| Controls the xref:dependencies.adoc#compact-view[output] from the xref:commands#info[deps]
 and the xref:libraries.adoc#compact-view[output] from the xref:commands.adoc#libs[libs] command
 so that they can be viewed in a more compact way, e.g.: `#{"deps" "libs"}`.
 
-| `:default-profile-name` | The name of the profile that is automatically merged into the
+a| `:default-profile-name` a| The name of the profile that is automatically merged into the
 xref:development.adoc[development] project if xref:profile.adoc[profiles] are used and no profile is given.
 An example can be found
 https://github.com/polyfy/polylith/blob/a4d9d2f3e50a2b76f36ed75c4a7ba7aa9a7b0db6/examples/doc-example/deps.edn#L14-L15[here].
 
-| `:interface-ns` |
+a| `:interface-ns` a|
 All namespaces within a component with this name, `interface`, or `ifc`, will be considered the component's interface.
 The name set by this parameter is also used by the xref:commands.adoc#create-component[create component] command.
 
-| `:projects` | A map that configures the projects in the workspace, see xref:ws-projects[projects] below.
+a| `:projects` a| A map that configures the projects in the workspace, see xref:ws-projects[projects] below.
 
-| `:tag-patterns` | Holds the https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html[regex] patterns
+a| `:tag-patterns` a| Holds the https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html[regex] patterns
 that are used when searching for the most recent tag in git with a matching name,
 explained xref:tagging.adoc[here], to calculate the latest committed sha,
 that will be considered the _latest stable point in time_.
 
-| `:top-namespace` | The top namespace used throughout the workspace in components and bases.
+a| `:top-namespace` a| The top namespace used throughout the workspace in components and bases.
 
-| `:vcs` | A map with two keys, where `:name` is set to "git" which is the only supported
+a| `:vcs` a| A map with two keys, where `:name` is set to "git" which is the only supported
 https://en.wikipedia.org/wiki/Version_control[version control system] at the moment. +
 The key `:auto-add` is a boolean flag that tells whether directories and files added by the
 xref:commands#create[create] command should automatically be added to git or not.
@@ -136,28 +136,28 @@ Configuration for a specific project:
 |===
 | Key | Description
 
-| `:alias` | This value is used in the output of the xref:commands.adoc#info[info] command
+a| `:alias` a| This value is used in the output of the xref:commands.adoc#info[info] command
 and various commands as an alternative value for the project name.
 
-| `:necessary` | Allows us to turn off `Warning 206` for one or more bricks in the project, see xref:validations.adoc[Validations].
+a| `:necessary` a| Allows us to turn off `Warning 206` for one or more bricks in the project, see xref:validations.adoc[Validations].
 
-| `:test` | A map with test configuration for the project, see below.
+a| `:test` a| A map with test configuration for the project, see below.
 |===
 
 Test configuration under the `:test` key for a specific project:
 
 [%autowidth]
 |===
-| Key | Description
+a| Key a| Description
 
-| `:exclude` | Lists the bricks to be xref:testing.adoc#include-exclude[excluded] when running tests for the project.
+a| `:exclude` a| Lists the bricks to be xref:testing.adoc#include-exclude[excluded] when running tests for the project.
 
-| `:include` | Lists the bricks to be xref:testing#include-exclude[included] when running tests for the project.
+a| `:include` a| Lists the bricks to be xref:testing#include-exclude[included] when running tests for the project.
 
-| `:setup-fn` | The name of the function (namespace included) that will be executed before the tests are executed,
+a| `:setup-fn` a| The name of the function (namespace included) that will be executed before the tests are executed,
 see xref:testing#setup-and-teardown[Test setup and teardown].
 
-| `:teardown-fn` | The name of the function (namespace included) that will be executed after the tests have been executed,
+a| `:teardown-fn` a| The name of the function (namespace included) that will be executed after the tests have been executed,
 see xref:testing#setup-and-teardown[Test setup and teardown].
 |===
 
@@ -192,9 +192,9 @@ poly ws get:configs:projects:command-line
 |===
 | Key | Description
 
-| `:deps` | The content of `deps.edn`.
-| `:name` | The project name.
-| `:type` | The type of configuration, set to `:project` for projects.
+a| `:deps` a| The content of `deps.edn`.
+a| `:name` a| The project name.
+a| `:type` a| The type of configuration, set to `:project` for projects.
 |===
 
 == bases
@@ -222,9 +222,9 @@ poly ws get:configs:bases:cli
 |===
 | Key | Description
 
-| `:deps` | The content of `deps.edn`.
-| `:name` | The base name.
-| `:type` | The type of configuration, set to `:base` for bases.
+a| `:deps` a| The content of `deps.edn`.
+a| `:name` a| The base name.
+a| `:type` a| The type of configuration, set to `:base` for bases.
 |===
 
 == components
@@ -252,9 +252,9 @@ poly ws get:configs:components:user
 |===
 | Key | Description
 
-| `:deps` | The content of `deps.edn`.
-| `:name` | The component name.
-| `:type` | The type of configuration, set to `:component` for components.
+a| `:deps` a| The content of `deps.edn`.
+a| `:name` a| The component name.
+a| `:type` a| The type of configuration, set to `:component` for components.
 |===
 
 == user
@@ -281,12 +281,12 @@ poly ws get:configs:user
 |===
 | Key | Description
 
-| [[color-mode]] `:color-mode` | Defaults to "none" on Windows, and to "dark" on other operating systems.
+a| [[color-mode]] `:color-mode` a| Defaults to "none" on Windows, and to "dark" on other operating systems.
 Valid values are "none", "light" and "dark", see the xref:colors.adoc[Colors] section. Can be overridden with e.g.: `poly info color-mode:none`.
-| `:empty-character` | Set to "." by default, and is used in the output from the xref:commands.adoc#deps[deps]
+a| `:empty-character` a| Set to "." by default, and is used in the output from the xref:commands.adoc#deps[deps]
 and xref:commands.adoc#libs[libs] commands.
-| `:thousand-separator` | Set to "," by default. Use by the xref:commands.adoc#info[info] command for number >= 1000, when passing in `:loc`.
-| `:m2-dir` | If omitted, the `.m2` directory will be set to `USER-HOME/.m2`.
+a| `:thousand-separator` a| Set to "," by default. Use by the xref:commands.adoc#info[info] command for number >= 1000, when passing in `:loc`.
+a| `:m2-dir` a| If omitted, the `.m2` directory will be set to `USER-HOME/.m2`.
 Used by the xref:commands.adoc#libs[libs] command to calculate file sizes (KB).
 |===
 

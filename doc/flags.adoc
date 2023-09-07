@@ -5,15 +5,15 @@ and that is what the `-`, `s`, `t` and `x` flags mean:
 
 image::images/flags/projects.png[width=350]
 
-The status column has a different meaning:
+Let's start with the _status_  column:
 
 [%autowidth]
 |===
 | status | Explanation
 
-| s-- | The project has a `src` directory
-| -t- | The project has a `test` directory
-| --x | Run the tests for this project
+| s-- a| The project has a `src` directory
+| -t- a| The project has a `test` directory
+| --x a| Run the tests for this project
 |===
 
 If the "to be tested" flag `--x` is marked for a project under the `status` column,
@@ -32,9 +32,9 @@ Each flag under `dev` has a slightly different meaning, where project refers to 
 |===
 | status | Explanation
 
-| s-- | The `src` directory is included in the `development` project
-| -t- | The `test` directory is included in the `development` project
-| --x | Run the tests for this brick from the `development` project
+| s-- a| The `src` directory is included in the `development` project
+| -t- a| The `test` directory is included in the `development` project
+| --x a| Run the tests for this brick from the `development` project
 |===
 
 Under the `dev` column, the `---` means that neither `projects/command-line/src` or `projects/command-line/test`
@@ -47,15 +47,17 @@ We also have this section:
 
 image::images/flags/bricks.png[width=300]
 
+{nbsp} +
+
 Here the flags have a slightly different meaning:
 
 [%autowidth]
 |===
 | status | Explanation
 
-| s-- | The brick's `src` directory is included in this project
-| -t- | The brick's `test` directory is included in this project
-| --x | Run the tests for this brick from this project
+| s-- a| The brick's `src` directory is included in this project
+| -t- a| The brick's `test` directory is included in this project
+| --x a| Run the tests for this brick from this project
 |===
 
 The `st-` for the `user` component under the `dev` column tells that both

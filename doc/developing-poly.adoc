@@ -20,15 +20,15 @@ command will also be included (it will also be included if the workspace needs t
 poly help :all
 ----
 
-We can also pass in `:all` when starting a shell:
+If `:all` is passed in when starting a shell:
 
 [source,shell]
 ----
 poly :all
 ----
 
-This will activate autocomplete for all available parameters, even those that are rarely used, and mostly in the way,
-and parameters that only make sense when developing the `poly` tool itself.
+...the autocomplete for all available parameters will be activated, including those that are rarely used
+(and are mostly in the way) and parameters that only make sense when developing the `poly` tool itself.
 For example, `:fake-poly` is only used to fake that we use a released version of the `poly` tool.
 
 === changed-files
@@ -78,8 +78,8 @@ poly info fake-tag:
 
 === fake-poly
 
-This parameter is used to fake that we are using the `poly` tool,
-when we actually use a SNAPSHOT version (or the `polyx` tool).
+This parameter is used to fake that we are using a non-snapshot version of the `poly` tool,
+and not the `polyx` tool.
 
 [source,shell]
 ----
@@ -141,7 +141,8 @@ Here we need to surround the regular expressions with "" for the terminal to ign
 
 == Run cljdoc locally
 
-To run the cljdoc documentation locally, we can start by cloning the https://github.com/polyfy/polylith[polylith] repo:
+If we are maintainers of the documentation, we may want to see how it looks in https://cljdoc.org[cljdoc].
+To do that we can start by cloning the https://github.com/polyfy/polylith[polylith] repository:
 
 [source,shell]
 ----
@@ -174,25 +175,12 @@ bb doc start
 bb doc ingest
 ----
 
-If we are a maintainer of the `poly` tool itself, then we can start a shell from the `polylith` directory:
+Now we can start a shell from the `polylith` directory:
 
 [source,clojure]
 ----
 poly :local
 ----
-
-If we want to access the `poly` tool from another Polylith xref:workspace.adoc[workspace]
-then we have to add or replace the `:poly` alias in that workspace (e.g. `myws/deps.edn`):
-
-[source,clojure]
-----
-    ...
-    :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
-           :extra-deps {polylith/clj-poly {:local/root "../polylith/projects/poly"}}}
-
-----
-
-Make sure the "../polylith/projects/poly" path points to the `poly` project in the cloned `polylith` workspace directory.
 
 Now we can start a xref:commands.adoc#shell[shell] from our workspace:
 
@@ -280,3 +268,18 @@ Examples of when we might want to do this
 * When we have switched branch with `git checkout`
 * When we have received more commits with `git pull`
 * When we have pushed commits with `git push` (commits have to be pushed for the `ingest` to work)
+
+== Use the local version of polylith
+
+Now when the `polylith` workspace is cloned locally, it can be accessed directly from other workspaces if we want.
+This can be achieved by replacing the `:poly` alias, in e.g. `myws/deps.edn`:
+
+[source,clojure]
+----
+    ...
+    :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+           :extra-deps {polylith/clj-poly {:local/root "../polylith/projects/poly"}}}
+
+----
+
+Make sure the "../polylith/projects/poly" path points to the `poly` project in the cloned `polylith` workspace directory.

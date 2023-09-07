@@ -3,9 +3,9 @@
 :poly-version: 0.2.18
 
 The `poly` tool gives us access to the data structure that represents the workspace,
-which is the same structure that all the poly commands operate on.
+which is the same structure that all the `poly` commands operate on internally.
 
-Here we will use the output from the https://github.com/polyfy/polylith/tree/master/examples/doc-example[example in the documentation].
+Here we will use the output from the https://github.com/polyfy/polylith/tree/master/examples/doc-example[example] in the documentation.
 
 To list all the keys at the root, execute this from the `examples/doc-example` directory:
 
@@ -78,7 +78,7 @@ poly ws get:bases:user-api
 
 * `:interface-deps` Lists the interfaces this base depends on.
 Here it depends on the `user` interface from the `src` context.
-This is because the `se.example.user-api.api` namespace imports `se.example.user.interface`. +
+This is because the `se.example.user-api.api` namespace imports `se.example.user.interface`.
 No interfaces are imported from the test context in this example.
 
 * `:lib-deps` Lists the library dependencies this base depends on,
@@ -978,8 +978,8 @@ for generating image files and the `overview` command.
 ** `:name` The full name of the release.
 ** `:patch` Increased by one for each release within a given `major.minor`.
 ** `:revision` What comes after `major.minor.path`. Has the value "" if a final release,
-or "SNAPSHOT" if a snapshot release.
-** `:snapshot` Only set if a snapshot release. The first snapshot release will have the value of 1.
+or "SNAPSHOT" if a snapshot release (older releases can have other values here).
+** `:snapshot` Only set if a snapshot release, otherwise 0. The first snapshot release will have the value of 1.
 Each subsequent snapshot release will increase this value by one.
 ** `:tool` Set to "poly" if the `poly` tool, or "polyx" if the extended `polyx` tool that includes support for creating images.
 

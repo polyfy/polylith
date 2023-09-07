@@ -43,10 +43,11 @@ Other improvements
  - Removed the :all option for the deps and libs commands, so that we no longer include bricks that don't have a lib dep.
  - Also include missing bases in validation error 107.
  - A shell can be started using 'poly :tap' which is equivalent to 'poly shell :tap', this will start a shell
-   and open up a portal window at the same time. Other valid first parameters: :all, :fake-poly, :github, and :local.
+   and open up a portal window at the same time. Other valid first parameters: :all, :fake-poly, :github, :local, :ws-file, and :ws-dir.
  - The portal window now only includes the workspace structure, which makes it an alternative way to browse the workspace.
  - In the deps command, we now exclude empty columns (bricks that don't use any library).
  - If we use switch-ws in a shell and execute a command and give the color-mode, then it will be used by that command.
  - The autocomplete now works when starting a shell outside a workspace, which can be useful when creating a workspace,
    or if we want to switch to another workspace.
  - The test that executed 'libs :outdated' has been removed, so that it doesn't fail intermittently.
+ - If we switch to a file using e.g. 'switch-ws file:ws.edn', the :no-changes will now work properly.

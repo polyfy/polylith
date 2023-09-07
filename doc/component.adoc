@@ -30,7 +30,7 @@ We have described three ways already, e.g.:
 3. `clojure -Tpoly help` - as a Clojure CLI Tool
 
 All the documentation refers to the first form, even though the other two are also valid.
-There is also a fourth way, and that is to execute the command from a xref:commands#shell[shell]:
+There is also a fourth way, and that is to execute the command from a xref:commands#shell[shell], which can be started with:
 
 1. `poly shell`
 
@@ -38,7 +38,7 @@ There is also a fourth way, and that is to execute the command from a xref:comma
 
 3. `clojure -T:poly shell`
 
-We can skip the `shell` parameter in the first two forms:
+We can skip the `shell` parameter in the first two forms, but not the third:
 
 1. `poly`
 
@@ -215,7 +215,7 @@ poly info
 image::images/component/info.png[width=350]
 
 This tells us that we have one `development` project, one `user` component and one `user` xref:interface.adoc[interface]
-but no xref:base.adoc[base] (yet). Components and bases are referred to as `bricks` (we will soon explain what a base is).
+but no xref:base.adoc[base] (yet). Components and bases are referred to as _bricks_ (we will soon explain what a base is).
 The cryptic `s--` and `st-` will be described in the xref:flags.adoc[flags] section.
 
 If your colors don't look as nice as this, then you can visit the xref:colors.adoc[colors] section.

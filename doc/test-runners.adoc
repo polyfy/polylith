@@ -98,12 +98,12 @@ The constructor function will receive a map as the single argument. This map con
 |===
 | Key | Description
 
-| `:workspace` | The workspace map. This map contains `:user-input` which can be used to receive additional parameters for runtime configuration.
-| `:project` | A map that contains the details of the project that is currently being tested.
-| `:test-settings` | Test settings for the project that is currently being tested. This information is extracted from `workspace.edn`.
-| `:is-verbose` | A boolean indicates if we are running in verbose mode or not.
-| `:color-mode` | The color mode that the `poly` tool is currently running with.
-| `:changes` | A map of changes since the last stable point in time.
+| `:workspace` a| The workspace map. This map contains `:user-input` which can be used to receive additional parameters for runtime configuration.
+| `:project` a| A map that contains the details of the project that is currently being tested.
+| `:test-settings` a| Test settings for the project that is currently being tested. This information is extracted from `workspace.edn`.
+| `:is-verbose` a| A boolean indicates if we are running in verbose mode or not.
+| `:color-mode` a| The color mode that the `poly` tool is currently running with.
+| `:changes` a| A map of changes since the last stable point in time.
 |===
 
 == Use a Test Runner

@@ -15,7 +15,7 @@ image::images/git/info.png[width=400]
 At the top we have the line `stable since: c91fdad` (you most likely have another git SHA/hash).
 To explain what this is, let's take it from the beginning.
 
-If we pass in `:commit` when a Polylith workspace is created these git commands are executed:
+If we pass in `:commit` when a Polylith workspace is created, these git commands are executed:
 
 [source,shell]
 ----

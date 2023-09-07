@@ -16,7 +16,7 @@ Instead, everything is prepared so that all commands can be executed in memory.
 This will not only simplify the code of the tool itself but also gives us, as a user of the tool,
 a way to explore the complete state of the workspace (or other people's workspaces).
 
-We can limit the "query" by passing in get, here against the
+We can limit the "query" by passing in `get`, here against the
 https://github.com/polyfy/polylith/tree/master/examples/doc-example[doc-example], e.g.:
 
 [source,shell]
@@ -93,7 +93,7 @@ poly ws get:settings:profile-to-settings:default:paths
 
 A good way to start digging into this data structure is to list all its keys:
 
-[source,clojure]
+[source,shell]
 ----
 poly ws get:keys
 ----

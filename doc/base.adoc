@@ -108,13 +108,14 @@ A `deps.edn` file was also created with this content:
 ----
 
 This config file is identical to the `user` config file,
-and will soon be needed when we create a project that includes it.
+and will soon be needed when we create a project that uses it.
 
 ====
-NOTE: It's important that we don't add a dependency to the `users` component in the base's `deps.edn` file!
+NOTE: It's important that we don't add a dependency to the `users` component in the base's `deps.edn` file.
 The `cli` base will automatically "connect" to the `user` component, via the user's xref:interface.adoc[interface],
-when both are added to a xref:project.adoc[project]. The base don't know about concrete components, just interfaces.
+when both are added to a xref:project.adoc[project].
+The base (or any brick) don't know about concrete components, just xref:interface.adoc[interfaces].
 ====
 
-The next thing we want to do is to build an artifact that will turn the code into something useful,
+The next thing we want to do is to build an xref:artifacts.adoc[artifact] that will turn the code into something useful,
 a command-line tool. To do that, we need to start by creating a project.

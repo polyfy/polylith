@@ -68,7 +68,7 @@ Let's go through the list.
 === 1. Create the user-api base
 
 - Create the base.
-- Add the slacker library to the base.
+- Add the `slacker` library to the base.
 - Add the base to `./deps.edn`.
 - Implement the server for `user-api`:
 
@@ -79,7 +79,7 @@ Execute this statement:
 poly create base name:user-api
 ----
 
-Add the slacker library to `bases/user-api/deps.edn`:
+Add the `slacker` library to `bases/user-api/deps.edn`:
 
 [source,clojure]
 ----
@@ -141,8 +141,8 @@ example
 === 2. Create the user-remote component
 
 - Create the component.
-- Add the slacker library to the component.
-- Remove user from `./deps.edn`.
+- Add the `slacker` library to the component.
+- Remove `user from `./deps.edn`.
 - Create the `default` and `remote` profiles.
 - Activate the `remote` profile in the IDE.
 - Activate the `default` profile in the REPL configuration.
@@ -163,7 +163,7 @@ Add the `slacker` library to `components/user-remote/deps.edn`:
  :deps {slacker/slacker {:mvn/version "0.17.0"}}
 ----
 
-Remove user from `./deps.edn`:
+Remove `user` from `./deps.edn`:
 
 [source,clojure]
 ----
@@ -391,14 +391,13 @@ Let's create a REPL that includes the remote profile:
 
 image::images/profile/prod-repl.png[width=600]
 
-This REPL will use the `user-remote` component and can be used to "emulate" a production like environment.
+This REPL will use the `user-remote` component and can be used to emulate a production like environment.
 
 But let's continue with the REPL that is already running and see if we can switch to `user-remote` without restarting it.
 
-
 Open the `core` namespace of the `user-remote` component and select `Tools > REPL > Load file in REPL`.
 This will replace the `user` implementation with the `user-remote` component,
-which works because both live in the same `se.example.userv` namespace, which is also their interface (`user`).
+which works because both live in the same `se.example.user` namespace, which is also their interface (`user`).
 
 If we execute the `hello` function agan from `dev.lisa`, we should get:
 

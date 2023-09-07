@@ -131,7 +131,7 @@ The `poly` tool introduces restrictions on what code we can access:
 | Component | Can only access xref:interface.adoc[interface] namespaces, but no other namespace. |
 Can access any namespace. |
 Accessing another component's test code from a test, will make it harder to swap out (replace) that component,
-as the replacing component must implement the same test function(s). +
+as the replacing component must implement the same set of test functions. +
 A better strategy is to put the shared code in a separate test helper component,
 and depend on that component's interface.
 

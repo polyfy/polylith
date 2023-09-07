@@ -34,8 +34,8 @@ example$ info out:info.png
 This will create the `info.png` image containing the output from the xref:commands.adoc#info[info] command.
 If the file ends with any of the file formats listed
 https://clojure2d.github.io/clojure2d/docs/codox/clojure2d.core.html#var-img-writer-formats[here]
-then an image will be created in the specified format,
-but if it ends with something else, e.g. `.txt`, then a text file is created:
+then an image will be created in the specified format.
+It ends with something else, e.g. `.txt`, then a text file is created:
 
 [source,shell]
 ----
@@ -64,7 +64,7 @@ This can be "printed" by executing `cat info.txt`:
 
 image::images/polyx/info.png[width=400]
 
-The colors can be removed if we want:
+The color codes can be removed if we want:
 
 [source,shell]
 ----

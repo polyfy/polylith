@@ -37,6 +37,8 @@ poly libs :outdated
 
 image::images/libraries/libs-outdated.png[]
 
+{nbsp} +
+
 Libraries can be specified in three different ways in tools.deps:
 
 [%autowidth]
@@ -72,7 +74,7 @@ A difference between tools.deps CLI and the `poly` tool is that the latter also 
 
 If you want to run the tests directly from a project using the tools.deps CLI tool,
 then you also have to duplicate test dependencies from the bricks to the project's `deps.edn` file
-under `:aliases > :test > :extra-paths`.
+under `:aliases > :test > :extra-deps`.
 As long as you run the tests with the built-in xref:commands.adoc#test[test] command you don't have to worry about this.
 
 ==== Brick libraries

@@ -48,7 +48,7 @@ Each top-level directory contains a specific type of Polylith concept:
 
 * A xref:component.adoc[component] is a building block for encapsulating a specific domain or part of the system.
 
-* A xref:project.adoc[project] specifies a deployable artifact and what components, bases, and libraries it contains.
+* A xref:project.adoc[project] specifies a deployable artifact and what components and bases it contains.
 
 * The xref:development.adoc[development] project (`development` + `deps.edn`) is used to work with the code in one place.
 

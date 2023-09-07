@@ -73,14 +73,11 @@
     tap clean
     tap close
 
-  'poly :all' will start a shell and activate autocomplete for rarely used parameters.
   'poly :tap' will start a shell and open a portal window.
 
   Example:
     poly
-    poly :all
     poly :tap
-    poly :all :tap
     poly check
     poly check :dev
     poly create c name:user

@@ -3,7 +3,7 @@
 This `poly` tool is built on top of tools.deps. To get the most out of it, we recommend you to read its
 https://github.com/clojure/tools.deps.alpha[documentation].
 
-When we created the workspace with the xref:commands#create-workspace[create workspace] command, the `poly` alias was also added to `./deps.edn`:
+When we created the workspace with the xref:commands#create-workspace[create workspace] command, the `poly` alias was also be added to `./deps.edn`:
 
 [source,clojure]
 ----

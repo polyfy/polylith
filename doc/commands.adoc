@@ -3,7 +3,7 @@
 
 // This code is generated (do not update manually).
 
-The individual help texts listed here are taken from the built-in ´help´ command.
+The individual help texts listed here are taken from the built-in `help` command.
 
 To list all available commands, type:
 
@@ -87,14 +87,11 @@ poly help
     tap clean
     tap close
 
-  'poly :all' will start a shell and activate autocomplete for rarely used parameters.
   'poly :tap' will start a shell and open a portal window.
 
   Example:
     poly
-    poly :all
     poly :tap
-    poly :all :tap
     poly check
     poly check :dev
     poly create c name:user
