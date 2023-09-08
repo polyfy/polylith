@@ -10,7 +10,8 @@ Let's start a shell by typing `poly` from the workspace root:
 
 image::images/shell/shell-start.png[width=600]
 
-The prompt is set to the workspace name. From here we can execute different commands and get instant feedback.
+The prompt is set to the workspace name.
+From here we can execute different commands and get instant feedback.
 
 We can list all available commands by pressing the `<tab>` key:
 
@@ -58,8 +59,7 @@ Press `<enter>` to make a choice:
 
 image::images/shell/shell-move-cursor-and-select.png[width=600]
 
-The brick parameter lists all bricks, including "no brick" represented by a dash (if `-` is chosen,
-then no bricks will be selected for testing):
+The brick parameter lists all bricks, including "no brick" represented by a dash (if `-` is chosen, then no bricks will be selected for testing):
 
 image::images/shell/shell-info-brick.png[width=600]
 
@@ -83,21 +83,17 @@ image::images/shell/shell-ws-get-browse.png[width=600]
 
 == Switching workspace
 
-When starting a shell from a workspace directory (where the `workspace.edn` file lives)
-we can execute all available commands from that directory.
-It's also possible to switch workspace without leaving the shell,
-but then the xref:commands.adoc#create[create] and xref:commands.adoc#test[test] commands will not work.
+When starting a shell from a workspace directory (where the `workspace.edn` file lives) we can execute all available commands from that directory.
+It's also possible to switch workspace without leaving the shell, but then the xref:commands.adoc#create[create] and xref:commands.adoc#test[test] commands will not work.
 
-Let's say we have cloned the
-https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[realworld-example-app].
+Let's say we have cloned the https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[realworld-example-app].
 We can now switch to that workspace using the xref:commands.adoc#switch-ws[switch-ws] command in combination with the `dir` parameter:
 
 image::images/shell/shell-switch-dir.png[width=600]
 
 This will list all directories and files ending with `.edn` in the current directory.
 
-We can select the `clojure-polylith-realworld-example-app` directory by typing `.` followed by `<tab>`
-to select `..` and then typing `clo` (or something long enough) followed by `<tab>` to select the workspace:
+We can select the `clojure-polylith-realworld-example-app` directory by typing `.` followed by `<tab>` to select `..` and then typing `clo` (or something long enough) followed by `<tab>` to select the workspace:
 
 image::images/shell/shell-switch-dir-realworld.png[width=600]
 
@@ -105,23 +101,20 @@ Switch workspace by pressing `<enter>`:
 
 image::images/shell/shell-switched-dir.png[width=600]
 
-The `dir:` prefix indicates that commands will be executed from the selected workspace,
-and not from the current directory. We can go back to the workspace directory by executing `switch-ws`:
+The `dir:` prefix indicates that commands will be executed from the selected workspace, and not from the current directory.
+We can go back to the workspace directory by executing `switch-ws`:
 
 image::images/shell/shell-switch-ws.png[width=600]
 
 If a workspace has been exported to a file using something like `poly ws out:ws.edn` then we can switch to that workspace.
-Here we use the https://github.com/seancorfield/usermanager-example/tree/polylith[usermanager] project as an example
-(make sure to switch to the `polylith` branch, after cloning the repository):
+Here we use the https://github.com/seancorfield/usermanager-example/tree/polylith[usermanager] project as an example (make sure to switch to the `polylith` branch, after cloning the repository):
 
 image::images/shell/shell-switch-ws-file.png[width=600]
 
 The prompt name is picked from the `:name` attribute in the `ws.edn` file and is prefixed with `file:`
 to indicate that it has been imported from a file.
 
-The "trick" the shell does is to append `ws-dir:DIR` or `ws-file:FILE`
-to the command for us before the command is executed
-(if we have switched workspace using the `dir:DIR` or `file:FILE` parameters).
+The "trick" the shell does is to append `ws-dir:DIR` or `ws-file:FILE` to the command for us before the command is executed (if we have switched workspace using the `dir:DIR` or `file:FILE` parameters).
 
 === Start a shell in another workspace
 
@@ -170,8 +163,7 @@ only projects that are marked for testing will be suggested (we don't need to se
 
 When browsing the file system from a `dir:PATH` parameter, there are a couple of things worth mentioning:
 
-* If we want to go to the user home directory we have to type `~/` and not just `~`
-(this is a problem with the underlying https://github.com/jline/jline3[jline3] integration).
+* If we want to go to the user home directory we have to type `~/` and not just `~` (this is a problem with the underlying https://github.com/jline/jline3[jline3] integration).
 * When a file or directory contains spaces, it will be surrounded with quotes, e.g. "My path".
 To select such a path we need to include the first " in the path for the autocomplete to work.
 

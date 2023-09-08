@@ -4,18 +4,14 @@
 
 The polylith repository has a continuous integration and deployment setup via https://circleci.com[CircleCI].
 The setup has two workflows, one for regular validation and testing, and another one for deployments.
-Both workflows have several jobs that validate, test, and deploy the artifacts to
-https://clojars.org/search?q=polylith[Clojars],
-https://cljdoc.org/versions/polylith/clj-poly[cljdoc],
-and GitHub as https://github.com/polyfy/polylith/releases[releases].
+Both workflows have several jobs that validate, test, and deploy the artifacts to https://clojars.org/search?q=polylith[Clojars], https://cljdoc.org/versions/polylith/clj-poly[cljdoc], and GitHub as https://github.com/polyfy/polylith/releases[releases].
 
 We can find the CircleCI configuration file link:../.circleci/config.yml[here].
 
 [#releases]
 == Releases
 
-A release is triggered when a release https://github.com/polyfy/polylith/tags[tag], e.g. `v0.2.18`,
-is added to a commit in the https://github.com/polyfy/polylith[polyfy/polylith] repository in GitHub:
+A release is triggered when a release https://github.com/polyfy/polylith/tags[tag], e.g. `v0.2.18`, is added to a commit in the https://github.com/polyfy/polylith[polyfy/polylith] repository in GitHub:
 
 image::images/polylith-ci-setup/release-timeline.png[]
 
@@ -40,8 +36,8 @@ The same snapshot release can be triggered several times, by recreating the snap
 The `poly` tool is not included in a snapshot release.
 
 ====
-NOTE: The {cljdoc-doc-url}/next-release.txt[next-release.txt] file lists what has been included in the SNAPSHOT release,
-since the previous final release. This file is cleared when making a final release.
+NOTE: The {cljdoc-doc-url}/next-release.txt[next-release.txt] file lists what has been included in the SNAPSHOT release, since the previous final release.
+This file is cleared when making a final release.
 ====
 
 == Validate Workflow
@@ -85,8 +81,7 @@ Information about the passed/failed tests will be printed in the job's output.
 
 This job only runs for the commits made to the _master_ branch.
 It adds (or replaces if already exists) the `stable-master` tag to the repository.
-At this point in the workflow, it is "proven" that the Polylith workspace is valid and all of the tests are passed,
-and it's safe to mark this commit as stable.
+At this point in the workflow, it is "proven" that the Polylith workspace is valid and all of the tests are passed, and it's safe to mark this commit as stable.
 
 It does that by running the following commands, one after another:
 
@@ -97,8 +92,7 @@ It does that by running the following commands, one after another:
 
 == Deploy Workflow
 
-The main responsibility of this workflow is to validate the workspace,
-run the tests incrementally and deploy artifacts to Clojars and GitHub releases.
+The main responsibility of this workflow is to validate the workspace, run the tests incrementally and deploy artifacts to Clojars and GitHub releases.
 It only runs when a new tag is pushed to the git repository with the following regex pattern: `/^v.*/`.
 
 === Jobs
@@ -106,16 +100,14 @@ It only runs when a new tag is pushed to the git repository with the following r
 ==== Check Build
 
 This job runs the xref:commands.adoc#check[check] command as follows: `clojure -M:poly check since:previous-release`.
-Please note the last part of the command where we specifically tell the `poly` tool to check the workspace
-since the last release, instead of the last stable point in time. If there are any errors in the Polylith workspace,
-it returns with a non-zero exit code and the CircleCI workflow stops at this stage.
+Please note the last part of the command where we specifically tell the `poly` tool to check the workspace since the last release, instead of the last stable point in time.
+If there are any errors in the Polylith workspace, it returns with a non-zero exit code and the CircleCI workflow stops at this stage.
 If there are any warnings printed by the tool, it will be visible in the job's output.
 
 ==== Info
 
 This job runs the following commands, one after another.
-Please note the last part of the command, where we specifically tell the tool to check the workspace
-since the last release, instead of the last stable point in time:
+Please note the last part of the command, where we specifically tell the tool to check the workspace since the last release, instead of the last stable point in time:
 
 * `clojure -M:poly ws since:previous-release`
 ** Prints the current workspace as data in https://github.com/edn-format/edn[edn format].
@@ -138,11 +130,11 @@ Information about the passed/failed tests will be printed in the job's output.
 
 ==== Deploy
 
-This job deploys the changed projects to Clojars. It's easy to deploy incrementally with the `poly` tool.
+This job deploys the changed projects to Clojars.
+It's easy to deploy incrementally with the `poly` tool.
 Changed projects are calculated since the latest release.
 You can see how it's done https://github.com/polyfy/polylith/blob/master/build.clj[here].
-In a nutshell, it executes `poly ws get:changes:changed-or-affected-projects skip:dev since:previous-release`
-and only deploys the returned projects.
+In a nutshell, it executes `poly ws get:changes:changed-or-affected-projects skip:dev since:previous-release` and only deploys the returned projects.
 
 ==== Create Artifacts
 

@@ -5,15 +5,13 @@ Feel free to read what's in here, and hopefully you will pick up something of va
 
 == Parameters
 
-There are a few parameters that are either rarely used, added to simplify maintenance work with the
-https://github.com/polyfy/polylith[polylith] codebase, or used in special circumstances.
+There are a few parameters that are either rarely used, added to simplify maintenance work with the https://github.com/polyfy/polylith[polylith] codebase, or used in special circumstances.
 For these reasons, they are not suggested by the autocomplete when in a xref:commands.adoc#shell[shell].
 What most of them have in common is that they are used to control the output of the different `poly` commands.
 
 === all
 
-If passing in `:all` to the xref:commands.adoc[help] command, the help for the  xref:commands.adoc#migrate[migrate]
-command will also be included (it will also be included if the workspace needs to be migrated):
+If passing in `:all` to the xref:commands.adoc[help] command, the help for the  xref:commands.adoc#migrate[migrate] command will also be included (it will also be included if the workspace needs to be migrated):
 
 [source,shell]
 ----
@@ -27,8 +25,7 @@ If `:all` is passed in when starting a shell:
 poly :all
 ----
 
-...the autocomplete for all available parameters will be activated, including those that are rarely used
-(and are mostly in the way) and parameters that only make sense when developing the `poly` tool itself.
+...the autocomplete for all available parameters will be activated, including those that are rarely used (and are mostly in the way) and parameters that only make sense when developing the `poly` tool itself.
 For example, `:fake-poly` is only used to fake that we use a released version of the `poly` tool.
 
 === changed-files
@@ -51,8 +48,7 @@ poly info changed-files:bases/mybase/:components/mycomponent/:projects/myproject
 
 === fake-sha
 
-This parameter can be passed in to fake a `sha` when executing the xref:commands.adoc#info[info] command,
-which is used when taking screenshots for this documentation.
+This parameter can be passed in to fake a `sha` when executing the xref:commands.adoc#info[info] command, which is used when taking screenshots for this documentation.
 
 [source,shell]
 ----
@@ -61,8 +57,7 @@ poly info fake-sha:c91fdad
 
 === fake-tag
 
-This parameter can be passed in to fake a `tag` when executing the xref:commands.adoc#info[info] command,
-which sometimes is used when taking screenshots for this documentation, e.g.:
+This parameter can be passed in to fake a `tag` when executing the xref:commands.adoc#info[info] command, which sometimes is used when taking screenshots for this documentation, e.g.:
 
 [source,shell]
 ----
@@ -78,8 +73,7 @@ poly info fake-tag:
 
 === fake-poly
 
-This parameter is used to fake that we are using a non-snapshot version of the `poly` tool,
-and not the `polyx` tool.
+This parameter is used to fake that we are using a non-snapshot version of the `poly` tool, and not the `polyx` tool.
 
 [source,shell]
 ----
@@ -100,8 +94,7 @@ poly ws get:settings:vcs:polylith:latest-sha :latest-sha
 
 === no-changes
 
-This parameter can be used to fake that no changes have been made since the last stable point in time,
-and can be used when taking a screenshot of the xref:commands.adoc#info[info] command without getting the `*` characters.
+This parameter can be used to fake that no changes have been made since the last stable point in time, and can be used when taking a screenshot of the xref:commands.adoc#info[info] command without getting the `*` characters.
 
 [source,shell]
 ----
@@ -115,11 +108,9 @@ poly info changed-files:
 
 === no-exit
 
-When the `poly` tool is executed, it exits with `System/exit` internally, see
-https://github.com/polyfy/polylith/blob/edaef89207c2852010132e863ae87ebba5bedc5b/bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj#L33[poly-cli].
+When the `poly` tool is executed, it exits with `System/exit` internally, see https://github.com/polyfy/polylith/blob/edaef89207c2852010132e863ae87ebba5bedc5b/bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj#L33[poly-cli].
 If executing the `poly` tool from a REPL, this will also exit the REPL.
-To avoid that, we can pass in
-https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj#L31-L32[:no-exit].
+To avoid that, we can pass in https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj#L31-L32[:no-exit].
 
 If we execute e.g. `poly info :no-exit` we have to press `<ctrl>+C` to exit, which is not so useful!
 
@@ -127,8 +118,7 @@ If we execute e.g. `poly info :no-exit` we have to press `<ctrl>+C` to exit, whi
 
 This parameter is used to manipulate the output from the xref:commands.adoc#ws[ws] command.
 When we execute `poly ws get:settings:user-home` it will return something like "/Users/joakimtengstrand".
-We can tell the xref:commands.adoc#ws[ws] command to search for strings (using regular expressions) and replace the occurrences with another string,
-e.g. (assumes that $HOME is set):
+We can tell the xref:commands.adoc#ws[ws] command to search for strings (using regular expressions) and replace the occurrences with another string, e.g. (assumes that $HOME is set):
 
 * `poly ws get:settings:user-home replace:$HOME:MY-HOME` Outputs: "MY-HOME".
 
@@ -149,8 +139,7 @@ To do that we can start by cloning the https://github.com/polyfy/polylith[polyli
 git clone git@github.com:polyfy/polylith.git
 ----
 
-This is how the help for the
-https://github.com/polyfy/polylith/blob/0d204094cb597cea6be417ab05baa2139b78e6d1/bb.edn#L20[doc]
+This is how the help for the https://github.com/polyfy/polylith/blob/0d204094cb597cea6be417ab05baa2139b78e6d1/bb.edn#L20[doc]
 command looks like:
 
 [source,shell]
@@ -206,8 +195,7 @@ polylith$ doc page:component :github
 If we have checked out another branch than `master`, the page will be opened in that branch.
 
 But if we start a xref:commands.adoc#shell[shell] from another workspace than `polylith`,
-we will need to tell on which branch the GitHub file should be opened up in,
-otherwise it will use `master` as default:
+we will need to tell on which branch the GitHub file should be opened up in, otherwise it will use `master` as default:
 
 [source,shell]
 ----
@@ -216,8 +204,7 @@ clojure -M:poly :local
 polylith$ doc page:component branch:issue-318 :github
 ----
 
-If we don't run a local server, we may want to always open pages on GitHub instead of cljdoc,
-which can be achieved by passing in `:github` when starting a shell:
+If we don't run a local server, we may want to always open pages on GitHub instead of cljdoc, which can be achieved by passing in `:github` when starting a shell:
 
 [source,shell]
 ----
@@ -226,14 +213,11 @@ clojure -M:poly :github
 polylith$ doc page:component
 ----
 
-If the shell is started from the `polylith` repository as in this example, then pages will automatically be opened
-in the current branch, and we don't have to pass in `branch:BRANCH`, otherwise the `master` branch will be used.
+If the shell is started from the `polylith` repository as in this example, then pages will automatically be opened in the current branch, and we don't have to pass in `branch:BRANCH`, otherwise the `master` branch will be used.
 
 ====
-NOTE: The documentation lives under the https://github.com/polyfy/polylith/tree/master/doc[doc]
-directory in the `polylith` repository from which the https://cljdoc.org/[cljdoc] based documentation is generated.
-The documentation is triggered when we release the `poly` tool and when we push commits to the `master` branch,
-which is described xref:polylith-ci-setup.adoc#releases[here].
+NOTE: The documentation lives under the https://github.com/polyfy/polylith/tree/master/doc[doc] directory in the `polylith` repository from which the https://cljdoc.org/[cljdoc] based documentation is generated.
+The documentation is triggered when we release the `poly` tool and when we push commits to the `master` branch, which is described xref:polylith-ci-setup.adoc#releases[here].
 ====
 
 If we want to open the pages in another branch, we have to give the branch, e.g.:
@@ -247,8 +231,7 @@ polylith$ doc page:component
 
 == Reloading changes
 
-Sometimes the cljdoc platform that builds the documentation has been updated,
-and in that case we need to restart the Docker container to get the latest version:
+Sometimes the cljdoc platform that builds the documentation has been updated, and in that case we need to restart the Docker container to get the latest version:
 
 [source,shell]
 ----

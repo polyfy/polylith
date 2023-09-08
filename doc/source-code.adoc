@@ -1,8 +1,7 @@
 = Source code
 
 In all our examples so far, the source code has been stored in two directories, `src` and `test`.
-xref:tools-deps.adoc[Tools.deps] supports splitting up the source and test code into several directories,
-and that is also supported by the `poly` tool.
+xref:tools-deps.adoc[Tools.deps] supports splitting up the source and test code into several directories, and that is also supported by the `poly` tool.
 
 It's also worth mentioning that the `poly` tool understands `.cljc` files which can be used to share code between `.clj` and `.cljs`.
 
@@ -94,8 +93,7 @@ myworkspace
 ----
 
 Now we can include `.cljc` files from our backend code, by treating them as libraries and "import" them with `:local/root`.
-The drawback with this is that they will not be recognised as bricks,
-and changes to these files will not be recognised by the `poly` tool.
+The drawback with this is that they will not be recognised as bricks, and changes to these files will not be recognised by the `poly` tool.
 There are plans to fix this, see https://github.com/polyfy/polylith/discussions/301[this] discussion.
 
 ===== b) Let the frontend code live outside the workspace
@@ -120,6 +118,5 @@ The `poly` tool can handle both situations, so it's more a matter of preference 
 ==== 3. Let the frontend code live in another repository
 
 The last alternative is to put the frontend code in a separate repository.
-If we do that we will lose the Polylith way of sharing "living" code,
-by automatically having access to the latest version of the code.
+If we do that we will lose the Polylith way of sharing "living" code, by automatically having access to the latest version of the code.
 Now we have to "freeze" the `.cljc` code by building a library of it, to be able to share the code.

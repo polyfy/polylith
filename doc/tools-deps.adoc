@@ -1,7 +1,7 @@
 = Tools.deps
 
-This `poly` tool is built on top of tools.deps. To get the most out of it, we recommend you to read its
-https://github.com/clojure/tools.deps.alpha[documentation].
+This `poly` tool is built on top of tools.deps.
+To get the most out of it, we recommend you to read its https://github.com/clojure/tools.deps.alpha[documentation].
 
 When we created the workspace with the xref:commands#create-workspace[create workspace] command, the `poly` alias was also be added to `./deps.edn`:
 
@@ -22,9 +22,7 @@ cd ../..
 clojure -M:poly info
 ----
 
-It takes longer to execute the `poly` tool this way, because it needs to compile the Clojure code first,
-but it also allows us to execute older or newer versions of the tool by selecting another `sha` from an
-https://github.com/polyfy/polylith/commits/master[existing commit].
+It takes longer to execute the `poly` tool this way, because it needs to compile the Clojure code first, but it also allows us to execute older or newer versions of the tool by selecting another `sha` from an https://github.com/polyfy/polylith/commits/master[existing commit].
 
 To speed things up we can always start a xref:commands.adoc#shell[shell]:
 
@@ -35,9 +33,7 @@ clojure -M:poly
 
 == clojure vs clj
 
-In the example above, we started the `poly` tool using `clojure` which is preferable over `clj`
-when executing a program like the `poly` tool, and is well described
-https://betweentwoparens.com/blog/what-are-the-clojure-tools/#clj%2Fclojure[here].
+In the example above, we started the `poly` tool using `clojure` which is preferable over `clj` when executing a program like the `poly` tool, and is well described https://betweentwoparens.com/blog/what-are-the-clojure-tools/#clj%2Fclojure[here].
 
 If we use `clj` instead, things will still work, but we will get a warning in some situations:
 

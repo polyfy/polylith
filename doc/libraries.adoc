@@ -16,8 +16,7 @@ Libraries are specified in `deps.edn` for each component, base, and project:
 | | test | `projects/PROJECT-DIR > deps.edn > :deps`
 |===
 
-The `poly` tool parses each `deps.edn` file and looks for library dependencies,
-which are then used by the xref:commands.adoc#libs[libs] and xref:commands.adoc#test[test] commands.
+The `poly` tool parses each `deps.edn` file and looks for library dependencies, which are then used by the xref:commands.adoc#libs[libs] and xref:commands.adoc#test[test] commands.
 
 [source,shell]
 ----
@@ -45,9 +44,9 @@ Libraries can be specified in three different ways in tools.deps:
 |===
 | Type | Description
 
-| Maven | As a Maven dependency. Example: `clj-time/clj-time {:mvn/version "0.15.2"}` where the key is the Maven `groupId/artifactId`.
-Those dependencies are stored locally in the `~/.m2/repositories` directory
-(but can be changed in `~/.config/polylith/config.edn`, property `m2-dir`).
+| Maven | As a Maven dependency.
+Example: `clj-time/clj-time {:mvn/version "0.15.2"}` where the key is the Maven `groupId/artifactId`.
+Those dependencies are stored locally in the `~/.m2/repositories` directory (but can be changed in `~/.config/polylith/config.edn`, property `m2-dir`).
 | Local | As a local dependency.
 Example: `clj-time {:local/root "/local-libs/clj-time-0.15.2.jar"}` where the key is an arbitrary identifier.
 A local dependency is a path to a locally stored file.
@@ -66,15 +65,11 @@ One way to solve this is to force dependencies to be downloaded by executing som
 clojure -A:dev:test -P
 ----
 
-In the tools.deps CLI tool, when a dependency is included using `:local/root`,
-only `:src` dependencies will be inherited while the `:test` dependencies will be ignored.
-The `poly` tool builds upon tools.deps but has its own xref:test-runners.adoc[test runner]
-that is accessed via the xref:commands.adoc#test[test] command.
+In the tools.deps CLI tool, when a dependency is included using `:local/root`, only `:src` dependencies will be inherited while the `:test` dependencies will be ignored.
+The `poly` tool builds upon tools.deps but has its own xref:test-runners.adoc[test runner] that is accessed via the xref:commands.adoc#test[test] command.
 A difference between tools.deps CLI and the `poly` tool is that the latter also inherits dependencies from the test context.
 
-If you want to run the tests directly from a project using the tools.deps CLI tool,
-then you also have to duplicate test dependencies from the bricks to the project's `deps.edn` file
-under `:aliases > :test > :extra-deps`.
+If you want to run the tests directly from a project using the tools.deps CLI tool, then you also have to duplicate test dependencies from the bricks to the project's `deps.edn` file under `:aliases > :test > :extra-deps`.
 As long as you run the tests with the built-in xref:commands.adoc#test[test] command you don't have to worry about this.
 
 ==== Brick libraries
@@ -85,9 +80,8 @@ The brick columns are marked with an `x` if the library is used by the `src` cod
 
 The project columns are marked with an `x` if the library is used by the `src` code and with a `t` if it's only used by the `test` code.
 
-The dependencies for a project are the sum of all dependencies that are indirectly included via its bricks,
-together with dependencies declared by the project itself. If different versions of the same dependency exist,
-then the latest version will be used for the project.
+The dependencies for a project are the sum of all dependencies that are indirectly included via its bricks, together with dependencies declared by the project itself.
+If different versions of the same dependency exist, then the latest version will be used for the project.
 
 An exception is if a dependency is overridden with `:override-deps` in a project's `deps.edn` file, e.g. `projects/realworld-backend/deps.edn`:
 
@@ -108,8 +102,7 @@ If we now run the libs command:
 
 image::images/libraries/libs-override-deps.png[]
 
-...we will have two versions of `clj-time` where the `realworld-backend` project uses `0.15.1`
-and the components use `0.15.2`.
+...we will have two versions of `clj-time` where the `realworld-backend` project uses `0.15.1` and the components use `0.15.2`.
 
 Here are all the places where libraries can be overridden:
 
@@ -129,8 +122,7 @@ If a library is overridden in the `test` scope it will only affect the `test` sc
 === Compact view
 [#compact-view]
 
-If we have a lot of libraries, we can choose a more compact format by setting `:compact-views` to `#{"libs"}`
-in `./workspace.edn` or by passing in `:compact`:
+If we have a lot of libraries, we can choose a more compact format by setting `:compact-views` to `#{"libs"}` in `./workspace.edn` or by passing in `:compact`:
 
 [source,shell]
 ----

@@ -11,12 +11,9 @@ But before we do that, open `workspace.edn` in a text editor and set `:auto-add`
 ...
 ----
 
-By doing this, we want to ensure that the created files and directories from the xref:commands.adoc#create[create]
-command is also added to xref:git.adoc[git], which will come in handy in this example.
+By doing this, we want to ensure that the created files and directories from the xref:commands.adoc#create[create] command is also added to xref:git.adoc[git], which will come in handy in this example.
 
-If `:auto-add` is set to `false`, then we have to manually add created files to git,
-after the xref:commands.adoc#create[create] command has been executed, or pass in `:git-add`
-to explicitly add them, which will have the same effect as setting `:auto-add` to `true`.
+If `:auto-add` is set to `false`, then we have to manually add created files to git, after the xref:commands.adoc#create[create] command has been executed, or pass in `:git-add` to explicitly add them, which will have the same effect as setting `:auto-add` to `true`.
 
 == How to execute commands
 
@@ -54,9 +51,9 @@ image::images/component/shell-info.png[]
 
 {nbsp} +
 
-This way of executing commands is the most convenient way in most cases, because it gives us instant feedback, history,
-and autocomplete. Feel free to use the xref:shell.adoc[shell] from now on. It will make you more productive and enhances
-the development experience!
+This way of executing commands is the most convenient way in most cases, because it gives us instant feedback, history, and autocomplete.
+Feel free to use the xref:shell.adoc[shell] from now on.
+It will make you more productive and enhances the development experience!
 
 Now let's continue with our example by executing the xref:commands.adoc#create-component[create component] command:
 
@@ -104,9 +101,9 @@ The command also printed out this message:
   Remember to add :local/root dependencies to dev and project 'deps.edn' files.
 ----
 
-This was a reminder for us to add the component to `deps.edn`. If we don't, then tools.deps and the development
-environment will not recognize our newly created component, which would be a pity! The tool leaves this task to you
-as a developer, with the idea to give you as much control as possible (files are only edited by you, not by the tool).
+This was a reminder for us to add the component to `deps.edn`.
+If we don't, then tools.deps and the development environment will not recognize our newly created component, which would be a pity!
+The tool leaves this task to you as a developer, with the idea to give you as much control as possible (files are only edited by you, not by the tool).
 
 Let's continue by adding the `user` component to `./deps.edn`:
 
@@ -121,13 +118,9 @@ Let's continue by adding the `user` component to `./deps.edn`:
             :test {:extra-paths ["components/user/test"]}
 ----
 
-All keys must be unique, and a good pattern is to prefix them with `poly/` followed by the brick name,
-e.g. `poly/user` as in this case.
+All keys must be unique, and a good pattern is to prefix them with `poly/` followed by the brick name, e.g. `poly/user` as in this case.
 
-Adding the component to `:extra-deps` should now be supported by all the main IDE's:
-https://github.com/clojure-emacs/cider[Cider],
-https://marketplace.visualstudio.com/items?itemName=betterthantomorrow.calva[Calva] and
-https://cursive-ide.com/[Cursive].
+Adding the component to `:extra-deps` should now be supported by all the main IDE's: https://github.com/clojure-emacs/cider[Cider], https://marketplace.visualstudio.com/items?itemName=betterthantomorrow.calva[Calva] and https://cursive-ide.com/[Cursive].
 Cursive users have to use `1.13.0` or later for this to work.
 
 If your IDE doesn't support this, then you have to add the component paths instead:
@@ -151,10 +144,7 @@ We recommend you to add them as dependencies instead of as paths (if possible) f
 
 * We can add or remove the `resources` directory from a brick, without having to remember to update `./deps.edn`.
 
-If you want to see an example of what this might look like in practice, take a look at how `article` can be added as a single
-https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/5b6df23d63500a4540b75308379e06dfdeb8b767/deps.edn#L7[dependency]
-or as two https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/e6f7f200bc46e4e2595e123947eec442ad91c9ab/deps.edn#L7-L8[paths]
-in the RealWorld example app.
+If you want to see an example of what this might look like in practice, take a look at how `article` can be added as a single https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/5b6df23d63500a4540b75308379e06dfdeb8b767/deps.edn#L7[dependency] or as two https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/e6f7f200bc46e4e2595e123947eec442ad91c9ab/deps.edn#L7-L8[paths] in the RealWorld example app.
 
 Now we may need to refresh our IDE, by clicking the `Import Changes` link (or the icon we used before):
 
@@ -185,8 +175,7 @@ example
 │       │   └── user
 ----
 
-This directory contains a `user` directory, which is the name of the component's xref:interface.adoc[interface]
-and is the place where we put our resources, e.g.:
+This directory contains a `user` directory, which is the name of the component's xref:interface.adoc[interface] and is the place where we put our resources, e.g.:
 
 [source,shell]
 ----
@@ -198,12 +187,10 @@ example
 │       │       └── myimage.png
 ----
 
-The reason we put `myimage.png` under `resources/user` and not directly under `resources` is that we want to avoid name clashes,
-which could happen if a filename exists in more than one brick in a xref:project.adoc[project].
+The reason we put `myimage.png` under `resources/user` and not directly under `resources` is that we want to avoid name clashes, which could happen if a filename exists in more than one brick in a xref:project.adoc[project].
 
 If the `resources` directory is not needed, it can be deleted and removed from the corresponding `deps.edn` file.
-It has some value to keep it though, to avoid the risk of someone adding it again in the future
-without the `user` subdirectory (in this example).
+It has some value to keep it though, to avoid the risk of someone adding it again in the future without the `user` subdirectory (in this example).
 
 Let's continue by executing the xref:commands.adoc#info[info] command:
 
@@ -214,8 +201,8 @@ poly info
 
 image::images/component/info.png[width=350]
 
-This tells us that we have one `development` project, one `user` component and one `user` xref:interface.adoc[interface]
-but no xref:base.adoc[base] (yet). Components and bases are referred to as _bricks_ (we will soon explain what a base is).
+This tells us that we have one `development` project, one `user` component and one `user` xref:interface.adoc[interface] but no xref:base.adoc[base] (yet).
+Components and bases are referred to as _bricks_ (we will soon explain what a base is).
 The cryptic `s--` and `st-` will be described in the xref:flags.adoc[flags] section.
 
 If your colors don't look as nice as this, then you can visit the xref:colors.adoc[colors] section.
@@ -249,9 +236,7 @@ image::images/component/add-user-namespaces.png[width=350]
   (core/hello name))
 ----
 
-Here we delegate the incoming call to the implementing `core` namespace,
-which is the most common way of structuring components in Polylith.
+Here we delegate the incoming call to the implementing `core` namespace, which is the most common way of structuring components in Polylith.
 
-Here we put all our implementing code in one single namespace, but as the codebase grows,
-more namespaces can be added to the component when needed.
+Here we put all our implementing code in one single namespace, but as the codebase grows, more namespaces can be added to the component when needed.
 The implementing `core` namespace can be renamed to something else, but here we choose to keep it as it is.
