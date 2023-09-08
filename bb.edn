@@ -17,8 +17,8 @@
              (status/line :detail "\nTASK %s done." name)))
 
   ;; commands
-  doc {:doc "preview what docs will look like on cljdoc, use help for args"
-       :task cljdoc-preview/-main}
+  doc-preview {:doc "preview what docs will look like on cljdoc, use help for args"
+               :task cljdoc-preview/-main}
 
   jar {:doc "Builds projects/poly/target/poly.jar"
        :task (shell "clojure -T:build uberjar :project poly")}
