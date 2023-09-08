@@ -156,7 +156,7 @@ command looks like:
 [source,shell]
 ----
 cd polylith
-bb doc help
+bb doc-preview help
 
 Commands:
  start   Start docker containers supporting cljdoc preview
@@ -171,8 +171,8 @@ We can now start the server and publish the documentation locally (which takes a
 
 [source,shell]
 ----
-bb doc start
-bb doc ingest
+bb doc-preview start
+bb doc-preview ingest
 ----
 
 Now we can start a shell from the `polylith` directory:
@@ -252,15 +252,15 @@ and in that case we need to restart the Docker container to get the latest versi
 
 [source,shell]
 ----
-bb doc stop
-bb doc start
+bb doc-preview stop
+bb doc-preview start
 ----
 
 If the polylith codebase has changed, we need to run `ingest` again (the server does not need to be restarted):
 
 [source,shell]
 ----
-bb doc ingest
+bb doc-preview ingest
 ----
 
 Examples of when we might want to do this
