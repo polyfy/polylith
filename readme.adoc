@@ -19,13 +19,12 @@ Polylith, as a concept, is documented https://polylith.gitbook.io/polylith[here]
 The documentation you are reading now describes the Polylith tool built for https://clojure.org/[Clojure].
 Clojure is a powerful and simple functional language for the https://en.wikipedia.org/wiki/Java_virtual_machine[JVM].
 
-Polylith introduces the architectural concept of “service level building blocks” which can be combined like LEGO® bricks
-to build our services and systems. Polylith’s LEGO-like bricks are easy to reason about, test, refactor, and reuse.
-They allow us to work with all our code in one place for maximum productivity, from a single
-https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop[REPL].
+Polylith introduces the architectural concept of “service level building blocks” which can be combined like LEGO® bricks to build our services and systems.
+Polylith’s LEGO-like bricks are easy to reason about, test, refactor, and reuse.
+They allow us to work with all our code in one place for maximum productivity, from a single https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop[REPL].
 
-We can easily assemble our Polylith bricks into different kinds of deployable artifacts, like services and tools, in the same way
-we put together LEGO® when we were kids! Not surprisingly, it's just as simple and fun!
+We can easily assemble our Polylith bricks into different kinds of deployable artifacts, like services and tools, in the same way we put together LEGO® when we were kids!
+Not surprisingly, it's just as simple and fun!
 
 To better understand the principles and ideas behind this tool, we recommend you first read about https://polylith.gitbook.io/polylith[Polylith as a concept].
 At the very least, read https://polylith.gitbook.io/polylith/introduction/polylith-in-a-nutshell[Polylith in a Nutshell], where concepts like interface, component, base, brick, project, and workspace are introduced.
