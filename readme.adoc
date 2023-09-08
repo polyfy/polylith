@@ -14,7 +14,6 @@ Polylith is made by developers for developers.
 Our goal is to maximize productivity and increase the quality of the systems we create.
 Although Polylith is not a build tool, it integrates into your build pipeline.
 
-Polylith can be implemented in any programming language.
 Polylith, as a concept, is documented https://polylith.gitbook.io/polylith[here].
 
 The documentation you are reading now describes the Polylith tool built for https://clojure.org/[Clojure].
@@ -27,20 +26,6 @@ https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop[REPL].
 
 We can easily assemble our Polylith bricks into different kinds of deployable artifacts, like services and tools, in the same way
 we put together LEGO® when we were kids! Not surprisingly, it's just as simple and fun!
-
-To give you an idea of what this can look like, take a quick look at the projects, bricks, and libraries we use to build the Clojure _poly_ tool.
-(The _poly_ tool is, of course, written with Polylith.)
-
-image::doc/images/example-systems/polylith.png[link="doc/images/example-systems/polylith.png"]
-
-These tables were generated with the poly tool.
-At a high level:
-
-* The first table shows the bricks that make up the poly tool
-* The second, describes brick usage across interfaces
-* And the third, dependencies usage across projects and bricks
-
-You'll understand what all this means after reading through the documentation.
 
 To better understand the principles and ideas behind this tool, we recommend you first read about https://polylith.gitbook.io/polylith[Polylith as a concept].
 At the very least, read https://polylith.gitbook.io/polylith/introduction/polylith-in-a-nutshell[Polylith in a Nutshell], where concepts like interface, component, base, brick, project, and workspace are introduced.
