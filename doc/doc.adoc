@@ -313,7 +313,7 @@ https://github.com/DavidVujic[David Vujic] explains how Polylith can be used in 
 Sean Corfield is interviewed by the https://www.youtube.com/@losangelesclojureusersgrou5432[Los Angeles Clojure Users Group] about his experience with Polylith and how he uses the `poly` tool in production at https://polylith.gitbook.io/polylith/conclusion/production-systems#world-singles-networks[World Singles Network]. | 2022
 
 | https://www.youtube.com/watch?v=Xz8slbpGvnk[polylith-in-a-nutshell] |
-https://www.linkedin.com/in/james-trunk/[James Trunk] explains the basic concepts of the Polylith architecture | 2019
+https://www.linkedin.com/in/james-trunk/[James Trunk] explains the basic concepts of the Polylith architecture. | 2019
 
 | https://www.youtube.com/watch?v=wy4LZykQBkY[polylith–a-software-architecture-based-on-lego-like-blocks] |
 https://github.com/tengstrand[Joakim Tengstrand] explains how Polylith is like building with LEGO bricks, at https://www.youtube.com/playlist?list=PLaSn8eiZ631nv68lHjZIfrSXOLIDsf726[ClojureD 2019]. | 2019
