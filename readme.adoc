@@ -16,8 +16,7 @@ Although Polylith is not a build tool, it integrates into your build pipeline.
 
 Polylith, as a concept, is documented https://polylith.gitbook.io/polylith[here].
 
-The documentation you are reading now describes the Polylith tool built for https://clojure.org/[Clojure].
-Clojure is a powerful and simple functional language for the https://en.wikipedia.org/wiki/Java_virtual_machine[JVM].
+The documentation you are reading now describes the Polylith tool built for https://clojure.org/[Clojure], a powerful and simple functional language for the https://en.wikipedia.org/wiki/Java_virtual_machine[JVM].
 
 Polylith introduces the architectural concept of “service level building blocks” which can be combined like LEGO® bricks to build our services and systems.
 Polylith’s LEGO-like bricks are easy to reason about, test, refactor, and reuse.
