@@ -39,6 +39,12 @@ NOTE: The `SNAPSHOT` documentation is built every time we commit something to th
 This is useful if we use the `poly` tool as a xref:install.adoc#github-dependency[GitHub dependency] and want to access its documentation.
 ====
 
+We can either use the left menu, the search box, or the `doc` command to access different pages:
+
+image::images/doc/doc-overview.png[]
+
+{nbsp} +
+
 If we type `doc` followed by a space, the different help categories are listed:
 
 [source,shell]
@@ -47,9 +53,7 @@ example$ doc
 help   more   page   ws
 ----
 
-We can either use the left menu, the search box, or the `doc` command to access different pages:
-
-image::images/doc/doc-overview.png[]
+Let's dig into these four categories.
 
 == page
 
