@@ -2,11 +2,9 @@
 
 If you are looking for library dependencies, then visit the xref:libraries.adoc[Libraries] section.
 
-To explain dependencies, we will use the
-https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[RealWorld example app].
+To explain dependencies, we will use the https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[RealWorld example app].
 
-Start by cloning the project by executing these commands from outside the example workspace,
-e.g. the parent folder of our example workspace:
+Start by cloning the project by executing these commands from outside the example workspace, e.g. the parent folder of our example workspace:
 
 [source,shell]
 ----
@@ -21,17 +19,14 @@ git clone git@github.com:furkan3ayraktar/clojure-polylith-realworld-example-app.
 cd clojure-polylith-realworld-example-app
 ----
 
-Before we continue, it may be worth mentioning that most commands,
-except the xref:commands.adoc#test[test] and xref:commands.adoc#create[create] commands,
-can be executed from other workspaces by giving `ws-dir`, e.g.:
+Before we continue, it may be worth mentioning that most commands, except the xref:commands.adoc#test[test] and xref:commands.adoc#create[create] commands, can be executed from other workspaces by giving `ws-dir`, e.g.:
 
 [source,shell]
 ----
 poly check ws-dir:../example
 ----
 
-Another way of giving the `ws-dir` is to pass in `::`
-which will set it to the first parent directory that contains a `workspace.edn` file, e.g.:
+Another way of giving the `ws-dir` is to pass in `::` which will set it to the first parent directory that contains a `workspace.edn` file, e.g.:
 
 [source,shell]
 ----
@@ -67,13 +62,12 @@ poly deps
 
 image::images/dependencies/deps.png[width=370]
 
-This lists all dependencies in the workspace. Notice the yellow color in the headers.
+This lists all dependencies in the workspace.
+Notice the yellow color in the headers.
 They are yellow because components only depend on interfaces (bases can also depend on other bases).
-Each `x` is a `src` dependency, while a `t` means that we only use code from the `test` context
-(code that lives in any of the directories specified in `:aliases > :test > :extra-paths`).
+Each `x` is a `src` dependency, while a `t` means that we only use code from the `test` context (code that lives in any of the directories specified in `:aliases > :test > :extra-paths`).
 
-If we read the diagram horizontally,
-we can see that the `article` component uses the `database`, `profile`, and `spec` interfaces.
+If we read the diagram horizontally, we can see that the `article` component uses the `database`, `profile`, and `spec` interfaces.
 If we read it vertically, we can see that the `article` is used by the `comment` and `rest-api` bricks.
 
 This is also what is shown if we specify `article` as brick:
@@ -94,8 +88,7 @@ poly deps project:rb
 
 image::images/dependencies/deps-project.png[width=350]
 
-Now, all the headers are green,
-and that is because all the implementing components are known within the selected project.
+Now, all the headers are green, and that is because all the implementing components are known within the selected project.
 The `+` signs mark indirect dependencies, while `-` signs mark indirect test dependencies (not present here).
 An example is the `article` component that uses `log` indirectly: `article > database > log`.
 
@@ -130,23 +123,19 @@ The `poly` tool introduces restrictions on what code we can access:
 
 | Component | Can only access xref:interface.adoc[interface] namespaces, but no other namespace. |
 Can access any namespace. |
-Accessing another component's test code from a test, will make it harder to swap out (replace) that component,
-as the replacing component must implement the same set of test functions. +
-A better strategy is to put the shared code in a separate test helper component,
-and depend on that component's interface.
+Accessing another component's test code from a test, will make it harder to swap out (replace) that component, as the replacing component must implement the same set of test functions. +
+A better strategy is to put the shared code in a separate test helper component, and depend on that component's interface.
 
 | Base | Can access xref:interface.adoc[interface] namespaces, but no other component namespace.
 Can access any `base` namespace. | Can access any namespace. |
 
 | Project | Can access any namespace. | Can access any namespace. |
 It's possible to create a `src` directory for a project that lives under the `projects` directory, and put production code in there.
-But try to avoid this, because this code will not be checked by the `poly` tool,
-and we need a really good reason for putting code here.
+But try to avoid this, because this code will not be checked by the `poly` tool, and we need a really good reason for putting code here.
 |===
 
 == Circular dependencies
 
 The `poly` tool is checking for circular dependencies.
-If we have a dependency chain like A > B > A, or A > B > C > A,
-then we will get an "Error 104 - Circular dependencies".
+If we have a dependency chain like A > B > A, or A > B > C > A, then we will get an "Error 104 - Circular dependencies".
 To read more about this and other errors, execute the xref:commands.adoc#check[check] command.

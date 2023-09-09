@@ -3,10 +3,8 @@
 When working with a Polylith system, we want to keep everything as simple as possible and maximize our productivity.
 The Lego-like way of organising code into bricks, helps us with both of these goals.
 
-One problem we normally have when developing software without using Polylith,
-is that the production environment and the development environment have a 1:1 relationship.
-This happens because we use the production codebase for development, so if we create a new service in production,
-it will automatically turn up in the development project.
+One problem we normally have when developing software without using Polylith, is that the production environment and the development environment have a 1:1 relationship.
+This happens because we use the production codebase for development, so if we create a new service in production, it will automatically turn up in the development project.
 
 In Polylith we avoid this problem by separating the development project from production.
 Thanks to components, we can create any project we want by putting the bricks we need into one place.
@@ -17,28 +15,23 @@ Right now, our `development` project mirrors the `command-line` project:
 
 image::images/profile/prod-mirrors-dev.png[width=600]
 
-Let's pretend we get performance problems in the `user` component and that we think distributing the load,
-by delegating to a new service, could solve the problem:
+Let's pretend we get performance problems in the `user` component and that we think distributing the load, by delegating to a new service, could solve the problem:
 
 image::images/profile/new-service-in-prod.png[width=600]
 
 The production environment now looks good, but how about the `development` environment?
 The problem here is that it contains two components that share the same `user` interface.
-This will confuse both the classloader (if we start a REPL) and the IDE,
-because we now have two components using the same `se.example.user` namespace in the path, which is not a desirable situation.
+This will confuse both the classloader (if we start a REPL) and the IDE, because we now have two components using the same `se.example.user` namespace in the path, which is not a desirable situation.
 
 The solution is to use profiles:
 
 image::images/profile/profiles-in-dev.png[width=600]
 
-By leaving out any component that implements the `user` interface from the `development` project
-and combining it with one of the two possible profiles we get a complete `development` project.
+By leaving out any component that implements the `user` interface from the `development` project and combining it with one of the two possible profiles we get a complete `development` project.
 This allows us to work with the code from a single place, but still be able to mimic the various projects we have.
 
-The `default` profile (if exists) is automatically merged into the `development` project,
-if no other profiles are selected.
-The name `default` is set by `:default-profile-name` in `workspace.edn` and can be changed,
-but here we will leave it as it is.
+The `default` profile (if exists) is automatically merged into the `development` project, if no other profiles are selected.
+The name `default` is set by `:default-profile-name` in `workspace.edn` and can be changed, but here we will leave it as it is.
 
 Now let's try to move from this design:
 
@@ -49,11 +42,7 @@ image::images/profile/prod-mirrors-dev.png[width=600]
 image::images/profile/target-design.png[width=600]
 
 First we need to decide how the `command-line` tool should communicate with `user-service` over the wire.
-After some searching, we found this
-https://github.com/sunng87/slacker[slacker] library
-that allows us to use
-https://en.wikipedia.org/wiki/Remote_procedure_call[remote procedure calls]
-in a simple way.
+After some searching, we found this https://github.com/sunng87/slacker[slacker] library that allows us to use https://en.wikipedia.org/wiki/Remote_procedure_call[remote procedure calls] in a simple way.
 
 Let's create a checklist that will take us there:
 
@@ -242,17 +231,13 @@ image::images/profile/edit-repl-config.png[width=250]
 
 ====
 NOTE: In the beginning we added `-A:dev:test` when we configured the REPL.
-Alternatively we could have added `-A:dev:test:build:+default`;
-this is a good idea because now we don't have to remember to add the aliases later.
+Alternatively we could have added `-A:dev:test:build:+default`; this is a good idea because now we don't have to remember to add the aliases later.
 Any unused aliases are ignored by tools.deps.
 ====
 
-The reason we have to do this, is because we removed the `user` component
-from `./deps.edn` and now we have to add it via a profile instead.
-We need access to the source code for the `se.example.user.interface` namespace,
-and we have two alternatives, the `user` or the `user-remote` component that both use this interface.
-The `user` component is a better default because it's simpler
-and only communicates via direct function calls without hitting the wire.
+The reason we have to do this, is because we removed the `user` component from `./deps.edn` and now we have to add it via a profile instead.
+We need access to the source code for the `se.example.user.interface` namespace, and we have two alternatives, the `user` or the `user-remote` component that both use this interface.
+The `user` component is a better default because it's simpler and only communicates via direct function calls without hitting the wire.
 
 For the changes to take affect we now need to restart the REPL.
 Normally we don't have to do that, but when adding profiles it's necessary.
@@ -273,9 +258,7 @@ example
 │       └── deps.edn
 ----
 
-Replace `user` with `user-remote`, and add the `log4j` library (to get rid of warnings)
-in `projects/command-line/deps.edn`
-(it's okay to keep the interface name `poly/user`, because it's unique within the project):
+Replace `user` with `user-remote`, and add the `log4j` library (to get rid of warnings) in `projects/command-line/deps.edn` (it's okay to keep the interface name `poly/user`, because it's unique within the project):
 
 [source,clojure]
 ----
@@ -381,10 +364,8 @@ We can verify this by adding this code to `development/src/dev/lisa.clj`:
 "Hello Lisa!!"
 ----
 
-Remember that we set the REPL configuration to `-A:test:dev:build:+default`
-which loads the `user` component into the REPL every time we start or restart the REPL.
-This is the recommended way of configuring the default REPL,
-by selecting the "simple" components that communicate with each other using direct function calls.
+Remember that we set the REPL configuration to `-A:test:dev:build:+default` which loads the `user` component into the REPL every time we start or restart the REPL.
+This is the recommended way of configuring the default REPL, by selecting the "simple" components that communicate with each other using direct function calls.
 Because of this, we should keep the `-A:test:dev:build:+default` configuration as it is.
 
 Let's create a REPL that includes the remote profile:
@@ -396,8 +377,7 @@ This REPL will use the `user-remote` component and can be used to emulate a prod
 But let's continue with the REPL that is already running and see if we can switch to `user-remote` without restarting it.
 
 Open the `core` namespace of the `user-remote` component and select `Tools > REPL > Load file in REPL`.
-This will replace the `user` implementation with the `user-remote` component,
-which works because both live in the same `se.example.user` namespace, which is also their interface (`user`).
+This will replace the `user` implementation with the `user-remote` component, which works because both live in the same `se.example.user` namespace, which is also their interface (`user`).
 
 If we execute the `hello` function agan from `dev.lisa`, we should get:
 
@@ -406,7 +386,8 @@ If we execute the `hello` function agan from `dev.lisa`, we should get:
 Hello Lisa - from the server!!
 ----
 
-Now, let's continue with our example. Execute this from the other terminal (the one that we didn't start the server from):
+Now, let's continue with our example.
+Execute this from the other terminal (the one that we didn't start the server from):
 
 [source,text]
 ----
@@ -438,17 +419,9 @@ image::images/profile/compare-with-target-design.png[]
 
 Looks like we got everything right!
 
-The profile flags, `st`, follow the same pattern as for bricks and projects
-except that the last "Run the tests" `x` flag is omitted.
+The profile flags, `st`, follow the same pattern as for bricks and projects except that the last "Run the tests" `x` flag is omitted.
 
-This example was quite simple, but if our project is more complicated,
-we may want to manage state during development with a tool like
-https://github.com/tolitius/mount[Mount],
-https://github.com/stuartsierra/component[Component], or
-https://github.com/weavejester/integrant[Integrant],
-or we could create our own helper functions that we put in the `dev.lisa` namespace,
-which can help us switch profiles by using a library like
-https://github.com/clojure/tools.namespace[tools.namespace].
+This example was quite simple, but if our project is more complicated, we may want to manage state during development with a tool like https://github.com/tolitius/mount[Mount], https://github.com/stuartsierra/component[Component], or https://github.com/weavejester/integrant[Integrant], or we could create our own helper functions that we put in the `dev.lisa` namespace, which can help us switch profiles by using a library like https://github.com/clojure/tools.namespace[tools.namespace].
 
 If we want to switch profile when running a command, we need to pass them in, e.g.:
 
@@ -472,11 +445,9 @@ image::images/profile/info-multiple-profiles.png[width=500]
 
 The tool complains and doesn't like that we just included both `user` and `user-remote` in the `development` project!
 
-The profiles can also contain libraries and paths to projects,
-but right now we have no such paths and therefore all profiles are marked with `--` in the project section.
+The profiles can also contain libraries and paths to projects, but right now we have no such paths and therefore all profiles are marked with `--` in the project section.
 
-Now when we are finished with our example system,
-it could be interesting to see how many lines of code each brick and project consists of.
+Now when we are finished with our example system, it could be interesting to see how many lines of code each brick and project consists of.
 This can be done by passing in `:loc`:
 
 [source,text]
@@ -487,12 +458,9 @@ poly info :loc
 image::images/profile/info-loc.png[width=500]
 
 Each project summarises the number of lines of code for each brick it contains.
-The `loc` column counts the number of lines of codes under the `src` directory,
-while `(t)` counts for the test directory.
+The `loc` column counts the number of lines of codes under the `src` directory, while `(t)` counts for the test directory.
 
-Our projects are still quite small, but they will eventually reach 1000 lines of code,
-and when that happens we may want to change the thousand delimiter in `~/.polylith/config.edn`
-which is set to `,` by default.
+Our projects are still quite small, but they will eventually reach 1000 lines of code, and when that happens we may want to change the thousand delimiter in `~/.polylith/config.edn` which is set to `,` by default.
 
 Let's run all the tests to see if everything works:
 

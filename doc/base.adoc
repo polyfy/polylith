@@ -7,8 +7,7 @@ A `base` is similar to a `component` except for two things:
 * It exposes a public API to the outside world.
 
 The lack of an `interface` makes bases less composable compared to components.
-This is okay because they serve a different purpose which is to be a bridge
-between the real world and the components it delegates to.
+This is okay because they serve a different purpose which is to be a bridge between the real world and the components it delegates to.
 This gives us the modularity and structure we need to build simple and understandable services and tools.
 
 Let's create the `cli` base to see how it works, by executing the xref:commands.adoc#create-base[create base] command:
@@ -107,15 +106,13 @@ A `deps.edn` file was also created with this content:
                   :extra-deps {}}}}
 ----
 
-This config file is identical to the `user` config file,
-and will soon be needed when we create a project that uses it.
+This config file is identical to the `user` config file, and will soon be needed when we create a project that uses it.
 
 ====
 NOTE: It's important that we don't add a dependency to the `users` component in the base's `deps.edn` file.
-The `cli` base will automatically "connect" to the `user` component, via the user's xref:interface.adoc[interface],
-when both are added to a xref:project.adoc[project].
+The `cli` base will automatically "connect" to the `user` component, via the user's xref:interface.adoc[interface], when both are added to a xref:project.adoc[project].
 The base (or any brick) don't know about concrete components, just xref:interface.adoc[interfaces].
 ====
 
-The next thing we want to do is to build an xref:artifacts.adoc[artifact] that will turn the code into something useful,
-a command-line tool. To do that, we need to start by creating a project.
+The next thing we want to do is to build an xref:artifacts.adoc[artifact] that will turn the code into something useful, a command-line tool.
+To do that, we need to start by creating a project.

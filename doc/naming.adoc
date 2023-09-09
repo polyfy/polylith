@@ -1,7 +1,6 @@
 = Naming
 
-Every time we create an `interface`, `component`, `base`, `project` or `workspace`,
-we need to come up with a good name.
+Every time we create an `interface`, `component`, `base`, `project` or `workspace`, we need to come up with a good name.
 Finding good names is one of the hardest and most important thing in software.
 Every time we fail to find a good name, it will make the system harder to reason about and change.
 
@@ -10,21 +9,12 @@ If a component does _one thing_ then we can name it based on that, e.g. `validat
 Sometimes a component operates around a concept that we can name it after, e.g. `account` or `car`.
 This can be an alternative if the component does more than one thing, but always around that single concept.
 
-If the component's main responsibility is to simplify access to a third-party API,
-then suffixing it with `-api` is a good pattern, like `externalsystem-api`.
-If we use a cloud service like https://aws.amazon.com/[AWS], we can drop the `-api` prefix
-and either use the plain service names, like `s3`, `dynamodb`, and `cloudwatch`,
-or prefix them like `aws-s3`, `aws-dynamodb`, and `aws-cloudwatch`, which will also group
-them nicely in different commands like the xref:commands.adoc#info[info] command.
+If the component's main responsibility is to simplify access to a third-party API, then suffixing it with `-api` is a good pattern, like `externalsystem-api`.
+If we use a cloud service like https://aws.amazon.com/[AWS], we can drop the `-api` prefix and either use the plain service names, like `s3`, `dynamodb`, and `cloudwatch`, or prefix them like `aws-s3`, `aws-dynamodb`, and `aws-cloudwatch`, which will also group them nicely in different commands like the xref:commands.adoc#info[info] command.
 
-If we have two components that share the same interface,
-e.g. `invoicer`, where the `invoicer` component contains the business logic,
-while the other component only delegates to a service that includes the `invoicer` component,
-then we can name the component that does the remote call `invoicer-remote`.
+If we have two components that share the same interface, e.g. `invoicer`, where the `invoicer` component contains the business logic, while the other component only delegates to a service that includes the `invoicer` component, then we can name the component that does the remote call `invoicer-remote`.
 
-If we have found a good name for the component,
-then it's generally a good idea to keep the same name for the interface,
-which is also the default behavior when a component is created, e.g.:
+If we have found a good name for the component, then it's generally a good idea to keep the same name for the interface, which is also the default behavior when a component is created, e.g.:
 
 [source,shell]
 ----

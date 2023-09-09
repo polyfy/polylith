@@ -1,20 +1,14 @@
 = Tap
 
-The `tap` command is mainly for `poly` tool development,
-but can also be used to browse the internal xref:workspace-structure.adoc[workspace structure].
+The `tap` command is mainly for `poly` tool development, but can also be used to browse the internal xref:workspace-structure.adoc[workspace structure].
 
-We can open a https://github.com/djblue/portal[portal] window by passing in `:tap` when starting a shell,
-e.g. `poly :tap` or by executing the xref:commands.adoc#tap[tap] command from a xref:shell[shell]:
+We can open a https://github.com/djblue/portal[portal] window by passing in `:tap` when starting a shell, e.g. `poly :tap` or by executing the xref:commands.adoc#tap[tap] command from a xref:shell[shell]:
 
 image::images/tap/tap-shell.png[]
 
-We can dig into the
-https://app.gitbook.com/o/-LAhrWK-mSHRqiTNUTDP/s/-Mj2L4VeP3frziYOoQWC/~/changes/124/workspace-structure[workspace structure]
-by clicking the `:workspace` key:
+We can dig into the https://app.gitbook.com/o/-LAhrWK-mSHRqiTNUTDP/s/-Mj2L4VeP3frziYOoQWC/~/changes/124/workspace-structure[workspace structure] by clicking the `:workspace` key:
 
 image::images/tap/tap-workspace.png[width=400]
 
-The portal window outputs data from https://clojuredocs.org/clojure.core/tap%3E[tap>]
-statements produced by the `poly` tool itself. With start from version `0.2.18`,
-only the workspace structure is "logged", to keep it nice and clean for the
-user of the `poly` tool.
+The portal window outputs data from https://clojuredocs.org/clojure.core/tap%3E[tap>] statements produced by the `poly` tool itself.
+With start from version `0.2.18`, only the workspace structure is "logged", to keep it nice and clean for the user of the `poly` tool.

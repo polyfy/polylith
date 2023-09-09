@@ -3,8 +3,7 @@
 :cljdoc-api-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/api
 
 The `poly` tool started to support test runners since version `0.2.15`.
-There is a https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/components/clojure-test-test-runner/src/polylith/clj/core/clojure_test_test_runner/core.clj#L85-L99[default test runner]
-which uses Clojure's default testing framework to run the tests as an in-process test runner.
+There is a https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/components/clojure-test-test-runner/src/polylith/clj/core/clojure_test_test_runner/core.clj#L85-L99[default test runner] which uses Clojure's default testing framework to run the tests as an in-process test runner.
 
 It's possible to create and use our own custom test runner(s) with the `poly` tool.
 There are two types of test runners; in-process and external.
@@ -18,14 +17,12 @@ It creates an isolated classloader for each project and runs our tests within th
 The idea is to speed up the execution time by running the tests in the same process with minimal overhead.
 
 The default in-process test runner and custom in-process test runners use the isolated classloader approach we just described.
-The `poly` tool will figure out which bricks and projects are affected, calculate the classpath for each project,
-create an isolated classloader, and pass it to the test runner for execution.
+The `poly` tool will figure out which bricks and projects are affected, calculate the classpath for each project, create an isolated classloader, and pass it to the test runner for execution.
 
 == External Test Runner
 
 The alternative to the in-process isolated classloader approach is to execute each project's tests in a separate external Java subprocess.
-The advantage of this approach is that you have complete control of the test execution,
-and the memory is released after each project.
+The advantage of this approach is that you have complete control of the test execution, and the memory is released after each project.
 If you have issues with the in-process approach, then this type of test runner is the right way to go.
 
 An external test runner will use external Java subprocesses to run the tests.
@@ -92,15 +89,18 @@ Optionally, we can also reify the `ExternalTestRunner` protocol if we want to ma
 ----
 
 The `poly` tool will call our constructor function to get an instance of our test runner.
-The constructor function will receive a map as the single argument. This map contains the following:
+The constructor function will receive a map as the single argument.
+This map contains the following:
 
 [%autowidth]
 |===
 | Key | Description
 
-| `:workspace` a| The workspace map. This map contains `:user-input` which can be used to receive additional parameters for runtime configuration.
+| `:workspace` a| The workspace map.
+This map contains `:user-input` which can be used to receive additional parameters for runtime configuration.
 | `:project` a| A map that contains the details of the project that is currently being tested.
-| `:test-settings` a| Test settings for the project that is currently being tested. This information is extracted from `workspace.edn`.
+| `:test-settings` a| Test settings for the project that is currently being tested.
+This information is extracted from `workspace.edn`.
 | `:is-verbose` a| A boolean indicates if we are running in verbose mode or not.
 | `:color-mode` a| The color mode that the `poly` tool is currently running with.
 | `:changes` a| A map of changes since the last stable point in time.
@@ -130,11 +130,9 @@ NOTE: The example above assumes that we use a test runner from a GitHub reposito
 We can also have our custom test runner within the same Polylith workspace and depend on it via `:local/root`.
 ====
 
-Once we have our test runner in the classpath,
-we can add it to our workspace configuration so that the `poly` tool can use it instead of the default test runner.
+Once we have our test runner in the classpath, we can add it to our workspace configuration so that the `poly` tool can use it instead of the default test runner.
 
-We can add global test runners,
-which the `poly` tool will use for every project unless the project-specific test configuration overrides it.
+We can add global test runners, which the `poly` tool will use for every project unless the project-specific test configuration overrides it.
 To add a global test configuration, add a map with the `:test` key in our `workspace.edn` file:
 
 [source,clojure]
@@ -197,8 +195,8 @@ License:: MIT
 
 == External Test Runner
 
-An external (subprocess) test runner for Polylith. Avoids classloader, daemon thread, and memory usage issues
-by running tests in a subprocess with only Clojure itself as a dependency.
+An external (subprocess) test runner for Polylith.
+Avoids classloader, daemon thread, and memory usage issues by running tests in a subprocess with only Clojure itself as a dependency.
 
 [horizontal]
 Repository:: https://github.com/seancorfield/polylith-external-test-runner[seancorfield/polylith-external-test-runner]

@@ -1,10 +1,8 @@
 = Tagging
 
-Tags are used in Polylith to mark points in time when we consider the whole codebase (workspace)
-to be in a valid state, for example that everything compiles
+Tags are used in Polylith to mark points in time when we consider the whole codebase (workspace) to be in a valid state, for example that everything compiles
 and that all the tests and the xref:commands.adoc#check[check] command executes without errors.
-This is then used by the xref:commands.adoc#test[test] command to run the tests incrementally,
-by only executing the affected tests, which substantially speeds up the tests.
+This is then used by the xref:commands.adoc#test[test] command to run the tests incrementally, by only executing the affected tests, which substantially speeds up the tests.
 
 The way we mark a stable point in time is to tag it with git (`-f` tells git to reuse the tag if already exists):
 
@@ -24,23 +22,21 @@ c91fdad4a34927d9aacfe4b04ea2f304f3303282 Workspace created.
 ----
 
 ...we can see that the second commit has been tagged with `stable-lisa`.
-Note that your hash tags will be different and when we refer to e.g. `c91fdad` in the following examples,
-you should instead give your own corresponding hash code.
+Note that your hash tags will be different and when we refer to e.g. `c91fdad` in the following examples, you should instead give your own corresponding hash code.
 
 If we execute the xref:commands.adoc#info[info] command:
 
 image::images/tagging/info-01.png[width=400]
 
 ...the `stable since` hash has been updated and is now tagged with `stable-lisa`.
-All the `*` signs are gone because no component, base or project has yet changed since the second commit
-(which can be verified by running `poly diff` again).
+All the `*` signs are gone because no component, base or project has yet changed since the second commit (which can be verified by running `poly diff` again).
 
 We added the tag `stable-lisa` but we could have named the tag with anything that starts with `stable-`.
 We choose `stable-lisa` because Lisa is our name (let's pretend that at least!).
 The idea is that every developer could use their own unique tag name that doesn't conflict with other developers.
 
-The CI build should also use its own pattern, like `stable-` plus branch name or build number,
-to mark successful builds. It may be enough to only use the stable points that the CI server creates.
+The CI build should also use its own pattern, like `stable-` plus branch name or build number, to mark successful builds.
+It may be enough to only use the stable points that the CI server creates.
 That is at least a good way to start out and only add custom tags per developer when needed.
 
 The pattern is configured in `workspace.edn` and can be changed if we prefer something else:
@@ -58,8 +54,7 @@ The way the tool finds the latest tag is to execute this command internally:
 git log --pretty=format:'%H %d'
 ----
 
-Then it uses the first line of the output that matches the regular expression (e.g. `stable-*`)
-or if no match was found, the first commit in the repository.
+Then it uses the first line of the output that matches the regular expression (e.g. `stable-*`) or if no match was found, the first commit in the repository.
 
 Earlier when we changed a project by editing its `deps.edn` file, it got a trailing `*` to indicate that it was changed.
 But what happens if only some of its bricks have changed? Let's try that by adding a comment to the `user.core` namespace:
@@ -78,14 +73,12 @@ But what happens if only some of its bricks have changed? Let's try that by addi
 
 image::images/tagging/info-02.png[width=400]
 
-Now the two projects are marked with a `+` which indicates that the projects themselves are unchanged
-but that at least one of their bricks has changed.
+Now the two projects are marked with a `+` which indicates that the projects themselves are unchanged but that at least one of their bricks has changed.
 
 == Release
 
 When we release, we probably want the CI server to tag the release.
-Here we tag the first commit as `v1.1.0` and the second as `v1.2.0`
-(make sure you replace `c91fdad` with your corresponding sha):
+Here we tag the first commit as `v1.1.0` and the second as `v1.2.0` (make sure you replace `c91fdad` with your corresponding sha):
 
 [source,shell]
 ----
