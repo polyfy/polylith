@@ -37,7 +37,7 @@ Enjoy the ride!
 
 Please https://github.com/sponsors/polyfy[sponsor] the important work of Polylith! ❤️
 
-Iron, Bronze, Silver, Gold, and Platinum sponsors are also listed and on the https://polylith.gitbook.io/polylith[front page of the Polylith docs].
+Iron, Bronze, Silver, Gold, and Platinum sponsors are also listed and on the https://polylith.gitbook.io/polylith[front page] of the Polylith docs.
 
 === Bronze Sponsors
 
