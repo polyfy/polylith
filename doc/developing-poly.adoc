@@ -139,7 +139,7 @@ To do that we can start by cloning the https://github.com/polyfy/polylith[polyli
 git clone git@github.com:polyfy/polylith.git
 ----
 
-This is how the help for the https://github.com/polyfy/polylith/blob/0d204094cb597cea6be417ab05baa2139b78e6d1/bb.edn#L20[doc]
+This is how the help for the https://github.com/polyfy/polylith/blob/dae4bfb16e1e478ce815d1f223b57c269128d324/bb.edn#L20[doc-preview]
 command looks like:
 
 [source,shell]
