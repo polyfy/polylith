@@ -8,37 +8,27 @@ https://cljdoc.org/d/polylith/clj-poly/0.2.18-SNAPSHOT[image:https://badgen.net/
 endif::[]
 https://clojurians.slack.com/messages/C013B7MQHJQ[image:https://badgen.net/badge/slack/join chat/green[]]
 
-== Welcome to the wonderful world of Polylith!
+== Welcome to the wonderful world of Polylith for Clojure!
 
-This tool is made by developers for developers with the goal to maximize productivity and increase the quality of the systems we write.
-It supports your build pipeline but is not a build tool itself.
+Polylith is made by developers for developers.
+Our goal is to maximize productivity and increase the quality of the systems we create.
+Although Polylith is not a build tool, it integrates into your build pipeline.
 
-The Polylith concept can be implemented in any programming language, but this version of the Polylith tool targets
-https://clojure.org/[Clojure] which is a powerful and simple functional language for the
-https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiB88eLxansAhUyi8MKHd6jDPEQFjAAegQIBRAC&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FJava_virtual_machine&usg=AOvVaw0YtnMyoG7GQIhUPeLulbfr[JVM].
+Polylith, as a concept, is documented https://polylith.gitbook.io/polylith[here].
 
-Polylith introduces the architectural concept of “service level building blocks”, which can be combined like LEGO® bricks
-to build our services and systems. Polylith’s LEGO-like bricks are easy to reason about, test, refactor, and reuse.
-They allow us to work with all our code in one place for maximum productivity, using a single
-https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop[REPL].
+The documentation you are reading now describes the Polylith tool built for https://clojure.org/[Clojure], a powerful and simple functional language for the https://en.wikipedia.org/wiki/Java_virtual_machine[JVM].
 
-The bricks can easily be put together to form different kinds of deployable artifacts, like services and tools, in the same way
-we put together LEGO® when we were kids! Not surprisingly, it's just as simple and fun!
+Polylith introduces the architectural concept of “service level building blocks” which can be combined like LEGO® bricks to build our services and systems.
+Polylith’s LEGO-like bricks are easy to reason about, test, refactor, and reuse.
+They allow us to work with all our code in one place for maximum productivity, from a single https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop[REPL].
 
-To give you an idea of what that can look like, take a quick look at the projects, bricks, and libraries that we use
-to build the _poly_ tool (which is itself a Polylith workspace, represented by the poly column in the first diagram):
+We can easily assemble our Polylith bricks into different kinds of deployable artifacts, like services and tools, in the same way we put together LEGO® when we were kids!
+Not surprisingly, it's just as simple and fun!
 
-image::doc/images/example-systems/polylith.png[link="doc/images/example-systems/polylith.png"]
+To better understand the principles and ideas behind this tool, we recommend you first read about https://polylith.gitbook.io/polylith[Polylith as a concept].
+At the very least, read https://polylith.gitbook.io/polylith/introduction/polylith-in-a-nutshell[Polylith in a Nutshell], where concepts like interface, component, base, brick, project, and workspace are introduced.
 
-{nbsp} +
-
-To better understand the principles and ideas behind this tool, we recommend you first read the
-https://polylith.gitbook.io[high-level documentation!]
-
-If you want to get started right away with writing code, we recommend you to at least read the page
-https://polylith.gitbook.io/polylith/introduction/polylith-in-a-nutshell[Polylith in a Nutshell]
-from the high-level doc, where concepts like interface, component, base, brick, project, and workspace,
-are introduced, before continuing with the {cljdoc-doc-url}/introduction[introduction].
+You can then dig into the Clojure Polylith tool {cljdoc-doc-url}/introduction[introduction].
 
 Enjoy the ride!
 
@@ -46,8 +36,7 @@ Enjoy the ride!
 
 Please https://github.com/sponsors/polyfy[sponsor] the important work of Polylith! ❤️
 
-Iron, Bronze, Silver, Gold, and Platinum sponsors will also be listed on the
-https://polylith.gitbook.io/polylith[first page] of the high-level documentation.
+Iron, Bronze, Silver, Gold, and Platinum sponsors are also listed and on the https://polylith.gitbook.io/polylith[front page] of the Polylith docs.
 
 === Bronze Sponsors
 
