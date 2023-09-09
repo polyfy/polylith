@@ -310,7 +310,7 @@ the-last-architecture-you-will-ever-need
 https://github.com/DavidVujic[David Vujic] explains how Polylith can be used in https://en.wikipedia.org/wiki/Python_(programming_language)[Python]. | 2023
 
 | https://www.youtube.com/watch?v=_tpNKAv4fro[collaborative-learning-polylith] |
-Sean Corfield is interviewed by the https://www.youtube.com/@losangelesclojureusersgrou5432[Los Angeles Clojure Users Group] about his experience with Polylith and how he used the `poly` tool in production at https://polylith.gitbook.io/polylith/conclusion/production-systems#world-singles-networks[World Singles Network]. | 2022
+Sean Corfield is interviewed by the https://www.youtube.com/@losangelesclojureusersgrou5432[Los Angeles Clojure Users Group] about his experience with Polylith and how he uses the `poly` tool in production at https://polylith.gitbook.io/polylith/conclusion/production-systems#world-singles-networks[World Singles Network]. | 2022
 
 | https://www.youtube.com/watch?v=Xz8slbpGvnk[polylith-in-a-nutshell] |
 https://www.linkedin.com/in/james-trunk/[James Trunk] explains the basic concepts of the Polylith architecture | 2019
