@@ -74,6 +74,13 @@
                                  "bases/poly-cli/test"
                                  "projects/poly/test"]}
 
+            ;; master
+            :polym  {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                     :extra-deps {polyfy/polylith
+                                  {:git/url   "https://github.com/polyfy/polylith"
+                                   :sha       "48d8a14d31a02cd2229d99bca094fe383d3dcace"
+                                   :deps/root "projects/poly"}}}
+
             ;; ws version 0.0
             :poly109  {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                        :extra-deps {polylith/clj-poly {:mvn/version "0.1.0-alpha9"}}}
