@@ -291,19 +291,30 @@
         (println (str "Deployment completed for " project " project."))))))
 
 (defn deploy-snapshot
-  "Deploys clj-poly to cljdoc.org"
-  [version]
-  (let [{:keys [status]} (http/post "https://cljdoc.org/api/request-build2"
+  "Deploys clj-poly to Clojars and requests a build from cljdoc.org."
+  [opts]
+  (when-not version/snapshot?
+    (throw (ex-info "Cannot deploy a snapshot. The revision must be set to SNAPSHOT in `polylith.clj.core.version.interface` before triggering a snapshot deployment."
+                    {:version (version/version)})))
+  (println "Triggering a deployment to Clojars for the changed projects.")
+  (deploy opts)
+  (println "Deployment to Clojars completed for the changed projects.")
+  (println "Requesting a new documentation build from cljdoc.org for the new SNAPSHOT.")
+  (let [{:keys [status body]} (http/post "https://cljdoc.org/api/request-build2"
                                     {:throw false
                                      :form-params {"project" "polylith/clj-poly"
-                                                   "version" version}})]
+                                                   "version" version/name}})]
     (if (= 200 status)
-      (println (str "Deployment completed for polylith/cljpoly " version))
-      (throw (ex-info "Cannot deploy clj-poly to cljdoc.org."
-                      {:version version})))))
+      (println (str "Request completed for polylith/clj-poly version " version/name "."))
+      (throw (ex-info (str "Could not request a new build from cljdoc.org for polylith/clj-poly version " version/name ".")
+                      {:version version/name
+                       :status status
+                       :body body})))))
 
-(comment
-  (deploy-snapshot "0.2.18-SNAPSHOT"))
+(defn create-version-txt
+  "Spits the current version to version.txt"
+  [opts]
+  (spit "version.txt" version/name))
 
 (defn create-artifacts
   "Create the artifacts for the Polylith project.

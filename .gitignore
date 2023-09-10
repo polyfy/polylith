@@ -44,3 +44,6 @@ projects/**/pom.xml
 
 # Portal (VS Code)
 .portal
+
+# Build Releates
+/version.txt
