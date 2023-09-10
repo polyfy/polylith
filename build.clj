@@ -27,6 +27,7 @@
             [clojure.tools.deps :as t]
             [clojure.tools.deps.util.dir :refer [with-dir]]
             [deps-deploy.deps-deploy :as d]
+            [babashka.http-client :as http]
             [polylith.clj.core.git.interface :as git]
             [polylith.clj.core.version.interface :as version]))
 
@@ -288,6 +289,21 @@
             (set/rename-keys {:jar-file :artifact})
             (d/deploy))
         (println (str "Deployment completed for " project " project."))))))
+
+(defn deploy-snapshot
+  "Deploys clj-poly to cljdoc.org"
+  [version]
+  (let [{:keys [status]} (http/post "https://cljdoc.org/api/request-build2"
+                                    {:throw false
+                                     :form-params {"project" "polylith/clj-poly"
+                                                   "version" version}})]
+    (if (= 200 status)
+      (println (str "Deployment completed for polylith/cljpoly " version))
+      (throw (ex-info "Cannot deploy clj-poly to cljdoc.org."
+                      {:version version})))))
+
+(comment
+  (deploy-snapshot "0.2.18-SNAPSHOT"))
 
 (defn create-artifacts
   "Create the artifacts for the Polylith project.
