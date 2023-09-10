@@ -1,12 +1,20 @@
 {
   "calva.replConnectSequences": [
-      {
-          "projectType": "deps.edn",
-          "name": "Polylith",
-          "cljsType": "none",
-          "menuSelections": {
-              "cljAliases": ["dev", "test"]
-          }
-      }
+    {
+        "projectType": "deps.edn",
+        "name": "Start Polylith REPL",
+        "autoSelectForJackIn": true,
+        "projectRootPath": [
+          "."
+        ],
+        "menuSelections": {
+          "cljAliases": [
+            "dev",
+            "+default",
+            "test",
+            "build"
+          ]
+        }
+      },
   ]
 }
