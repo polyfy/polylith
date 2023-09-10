@@ -961,7 +961,6 @@ poly ws get:version
 
 * `:release`
 ** `:date` The date of the release in the format `yyyy-mm-dd`.
-for generating image files and the `overview` command.
 ** `:major` The major version, set to zero.
 ** `:minor` Increased by one if any breaking changes.
 ** `:name` The full name of the release.
@@ -971,8 +970,7 @@ Has the value "" if a final release, or "SNAPSHOT" if a snapshot release (older 
 ** `:snapshot` Only set if a snapshot release, otherwise 0.
 The first snapshot release will have the value of 1.
 Each subsequent snapshot release will increase this value by one.
-** `:tool` Set to "poly" if the `poly` tool, or "polyx" if the extended `polyx` tool that includes support for creating images.
-
+** `:tool` Set to "poly" if the `poly` tool, or "polyx" if the extended xref:polyx.adoc[polyx] tool.
 * `:test-runner-api` Versioning of the test runner API:
 ** `:breaking` Increased by one if introducing a non-backward compatible change of the test runner API.
 ** `:non-breaking` Increased by one when a non-breaking change is made to the test runner API.
