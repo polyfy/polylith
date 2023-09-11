@@ -19,8 +19,7 @@
    For help, run:
 
    clojure -A:deps -T:build help/doc"
-  (:require [clojure.edn :as edn]
-            [clojure.java.io :as io]
+  (:require [clojure.java.io :as io]
             [clojure.set :as set]
             [clojure.string :as str]
             [clojure.tools.build.api :as b]
@@ -28,6 +27,7 @@
             [clojure.tools.deps.util.dir :refer [with-dir]]
             [deps-deploy.deps-deploy :as d]
             [babashka.http-client :as http]
+            [polylith.clj.core.api.interface :as api]
             [polylith.clj.core.git.interface :as git]
             [polylith.clj.core.version.interface :as version]))
 
@@ -75,19 +75,12 @@
   (let [branch (git/current-branch)]
     (git/latest-polylith-sha branch)))
 
-(defn- changed-projects
-  "Run the poly tool (from source) to get a list of changed projects."
+(defn- projects-to-deploy
+  "Returns the projects to deploy.
+   Read more in the api/projects-to-deploy doc on how this works under the hood."
   []
-  (-> (b/java-command
-       {:basis (binding [b/*project-root* (ensure-project-root "changed" "poly")]
-                 (b/create-basis))
-        :main 'clojure.main
-        :main-args ["-m" "polylith.clj.core.poly-cli.core"
-                    "ws" "get:changes:changed-or-affected-projects" "skip:dev:polyx"
-                    "since:previous-release"
-                    "color-mode:none"]})
-      (exec->out)
-      (edn/read-string)))
+  (filterv #{"poly"}
+           (api/projects-to-deploy "previous-release")))
 
 (defn scripts
   "Produce the artifacts scripts for the specified project.
@@ -274,12 +267,10 @@
    You can do a dry run by passing :installer :local which will
    deploy the JARs into your local Maven cache instead of to Clojars."
   [opts]
-  (let [changed (changed-projects)
-        projects-to-process (filter #{"poly"} changed)]
-    (when-not (seq projects-to-process)
-      (throw (ex-info "Cannot deploy projects. No projects have changed."
-                      {:changed changed})))
-    (doseq [project projects-to-process]
+  (let [projects (projects-to-deploy)]
+    (when (empty? projects)
+      (throw (ex-info "Cannot deploy projects. No projects have changed." {})))
+    (doseq [project projects]
       (let [project-opts (assoc opts
                                 :project project
                                 :installer (get opts :installer :remote))]
@@ -325,13 +316,11 @@
    a '.tar.gz' of the uberjar and install.sh and a project
    executable script, and a '.sha1' file for that '.tar.gz'."
   [opts]
-  (let [changed (changed-projects)
-        projects-to-process (filter #{"poly"} changed)]
-    (when-not (seq projects-to-process)
-      (throw (ex-info "Cannot create artifacts. No projects have changed."
-                      {:changed changed})))
+  (let [projects (projects-to-deploy)]
+    (when (empty? projects)
+      (throw (ex-info "Cannot create artifacts. No projects have changed." {})))
     (b/delete {:path "artifacts"})
-    (doseq [project projects-to-process]
+    (doseq [project projects]
       (println (str "Creating artifacts for: " project))
       (let [project-opts (assoc opts :project project)
             {:keys [uber-file]} (uberjar project-opts)
