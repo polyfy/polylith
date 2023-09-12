@@ -11,7 +11,11 @@ We can find the CircleCI configuration file link:../.circleci/config.yml[here].
 [#releases]
 == Releases
 
-A release is triggered when a release https://github.com/polyfy/polylith/tags[tag], e.g. `v0.2.18`, is added to a commit in the https://github.com/polyfy/polylith[polyfy/polylith] repository in GitHub:
+A https://github.com/polyfy/polylith/releases[release] is triggered when a commit is pushed to master, often a squashed branch that fixes/implements an https://github.com/polyfy/polylith/issues[issue].
+If SNAPSHOT is included in the version name, then it becomes a
+https://github.com/polyfy/polylith/blob/56a481b9a209bc013fbe1852d1797b4bba2bdf1a/components/version/src/polylith/clj/core/version/interface.clj#L26[snapshot] release, otherwise a "final" release.
+
+{nbsp} +
 
 image::images/polylith-ci-setup/release-timeline.png[]
 
@@ -19,20 +23,22 @@ image::images/polylith-ci-setup/release-timeline.png[]
 
 ==== Final release
 
-A commit is https://github.com/polyfy/polylith/tags[tagged], e.g. `v0.2.18` or `v0.2.19`, which triggers a build in CircleCi that:
+A commit is pushed to the `master` branch where https://github.com/polyfy/polylith/blob/56a481b9a209bc013fbe1852d1797b4bba2bdf1a/components/version/src/polylith/clj/core/version/interface.clj#L31[version]
+is not a snapshot, e.g. `0.2.18` or `0.2.19`, which triggers a build in CircleCi that:
 
 * Creates a https://github.com/polyfy/polylith/releases[release] of the `poly` tool.
 * Releases the {cljdoc-api-url}/polylith[clj-poly] library to Clojars.
-* Triggers a build of the web based https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc/readme[clj-doc] documentation.
+* Triggers a build of the web based https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc/readme[cljdoc] documentation.
 
 ==== Snapshot release
 
-A commit is https://github.com/polyfy/polylith/tags[tagged]. e.g. `0.2.19-SNAPSHOT`, which triggers a build in CircleCi that:
+A commit is pushed to the `master` branch where https://github.com/polyfy/polylith/blob/56a481b9a209bc013fbe1852d1797b4bba2bdf1a/components/version/src/polylith/clj/core/version/interface.clj#L31[version]
+is a snapshot, e.g. `0.2.19-SNAPSHOT`, which triggers a build in CircleCi that:
 
-* Releases a snapshot release of the {cljdoc-api-url}/polylith[clj-poly] library to Clojars (`0.2.19-SNAPSHOT` in the example).
-* Triggers a build of the snapshot version of the https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc/readme[clj-doc] documentation (`0.2.19-SNAPSHOT` in the example).
+* Releases the snapshot version of the {cljdoc-api-url}/polylith[clj-poly] library to Clojars.
+* Triggers a snapshot build of the web based https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc/readme[cljdoc] documentation.
 
-The same snapshot release can be triggered several times, by recreating the snapshot tag.
+The same snapshot release can be triggered several times and will the overwrite the latest snapshot release.
 The `poly` tool is not included in a snapshot release.
 
 ====
