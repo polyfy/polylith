@@ -35,6 +35,7 @@ is not a snapshot, e.g. `0.2.18` or `0.2.19`, which triggers a build in CircleCi
 A commit is pushed to the `master` branch where https://github.com/polyfy/polylith/blob/56a481b9a209bc013fbe1852d1797b4bba2bdf1a/components/version/src/polylith/clj/core/version/interface.clj#L31[version]
 is a snapshot, e.g. `0.2.19-SNAPSHOT`, which triggers a build in CircleCi that:
 
+* Creates a https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository[pre-release] of the `poly` tool.
 * Releases the snapshot version of the {cljdoc-api-url}/polylith[clj-poly] library to Clojars.
 * Triggers a snapshot build of the web based https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc/readme[cljdoc] documentation.
 
