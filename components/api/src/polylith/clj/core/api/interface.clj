@@ -24,6 +24,11 @@
                       :deps/root \"projects/poly\"}
    ```
 
+   As an example, the `clj-poly` library is first specified in the
+   https://github.com/polyfy/polylith/blob/5ff79341e7dc3fc6a486584c6c2f2f46cb577d6e/deps.edn#L120[:build]
+   alias in polylith's `build.clj` and then used in
+   https://github.com/polyfy/polylith/blob/5ff79341e7dc3fc6a486584c6c2f2f46cb577d6e/build.clj#L83[build.clj].
+
    If you need more access than is exposed by the API at the moment, just reach out to the
    Polylith team in [Slack](https://clojurians.slack.com/messages/C013B7MQHJQ)
    and we will try to help out.
