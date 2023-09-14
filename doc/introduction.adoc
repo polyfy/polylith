@@ -5,23 +5,15 @@ ifndef::env-cljdoc[]
 TIP: For a richer experience, we recommend reading on {cljdoc-doc-url}/introduction[cljdoc].
 endif::[]
 
-This documentation offers a practical guide to using the Polylith tool.
-Our goal is to teach you the value of components and how they bring context to the development experience.
-We want to empower you to build decoupled and scalable systems from day one.
+This documentation aims to be a practical guide to this tool with lots of code examples.
+We encourage you to follow the code examples and try it out yourself.
+We will guide you through the steps of creating a workspace with projects composed of components, bases, and libraries and how to work with them from the development environment and the interactive shell.
 
-We have included many code examples.
-We strongly encourage you to try them out!
+We will give a short introduction to tools.deps and how to use tools.build to create deployable artifacts.
+We will explain how git is used to tag the code and how it enables us to test and release the code incrementally.
 
-You will learn how to:
+We will show how profiles will help us work from a single development environment for maximum efficiency and how dependencies and library usage can be displayed.
 
-* Create a workspace with projects composed of components, bases, and libraries.
-* Use the development environment and the interactive shell.
-* Use tools.deps and then tools.build to create deployable artifacts.
-
-We will explain how:
-
-* We leverage git tagging to support incremental tests and releases.
-* Profiles allow us to work efficiently from a single development environment.
-* To easily understand your dependency and library usage.
+We will explain the value of components and how they bring context to our development experience, which will help us build decoupled and scalable systems from day one.
 
 Let's begin!
