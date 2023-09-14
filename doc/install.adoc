@@ -223,7 +223,7 @@ After adding one of the `:poly` aliases as described above, test the installatio
 
 {post-install}
 
-=== Testing from Master
+=== Running from `master`
 Sometimes, it is convenient to work with a version of `poly` that has yet to be officially released.
 You can either:
 
