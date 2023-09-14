@@ -9,23 +9,23 @@ There are 3 ways to install the `poly` tool:
 |===
 | | 1. Stand-alone | 2. link:#use-as-dependency[Clojure CLI dep] | 3. link:#install-as-clojure-cli-tool[Clojure CLI tool]
 
-| Example usage
+h| Example usage:
 | `poly help`
 | `clojure -M:poly help`
 a| `clojure -Tpoly help` +
 ⚠️ xref:clojure-cli-tool.adoc[command line uses Clojure Tools exec args syntax] 
 
-| Installed via
+h| Installed via:
 | Homebrew on macOS, otherwise via Nix or a manual download
 | Adding a `:poly` alias in `./deps.edn` 
 | Clojure Tools
 
-| Can be invoked from
+h| Can be invoked from:
 | Any directory 
 | A Polylith xref:workspace.adoc[workspace] directory 
 | Any directory 
 
-| Switch `poly` version via
+h| Switch `poly` version via:
 | `@<version>` if using HomeBrew 
 | Updating dependency for `:poly` alias in `./deps.edn` 
 | Reinstalling with Clojure Tools
