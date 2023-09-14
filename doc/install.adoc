@@ -231,6 +231,8 @@ You can either:
 2. Specify the latest commit from the https://github.com/polyfy/polylith/commits/master[master branch] for your `:sha` as a git dep.
 
 If you are using the latest from master, you'll also want to refer to the latest SNAPSHOT version of cljdoc-based documentation.
+ 
+For more details on how `poly` is released, see docs on xref:polylith-ci-setup.adoc#releases[releases]. 
 
 === Specifying Logging Libraries
 You can add in the logging libraries you'd like to use with `poly`:    
