@@ -288,7 +288,7 @@ clojure -Tpoly shell
 ----
 
 After which you can specify standard Polylith arguments:
-[source,shell,subs="attributes+"]
+[source,text,subs="attributes+"]
 ----
                   _      _ + _   _
 #####   _ __  ___| |_  _| |-| |_| |_
