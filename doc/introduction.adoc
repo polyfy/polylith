@@ -1,7 +1,11 @@
 = Introduction
 :cljdoc-doc-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc
 
-This {cljdoc-doc-url}/readme[documentation] aims to be a practical guide to this tool with lots of code examples.
+ifndef::env-cljdoc[]
+TIP: For a richer experience, we recommend reading on {cljdoc-doc-url}/introduction[cljdoc].
+endif::[]
+
+This documentation aims to be a practical guide to this tool with lots of code examples.
 We encourage you to follow the code examples and try it out yourself.
 We will guide you through the steps of creating a workspace with projects composed of components, bases, and libraries and how to work with them from the development environment and the interactive shell.
 
