@@ -52,7 +52,7 @@ nix-env -u polylith
 
 == As Dependency
 
-Update your `polylith/clj-poly` dependency in your `deps.edn` to the current version.
+Update your `polylith/clj-poly` dependency in your `./deps.edn` to the current version.
 
 == Clojure CLI Tool
 
