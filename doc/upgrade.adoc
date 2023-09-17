@@ -1,18 +1,59 @@
 = Upgrade
+:toc:
 :poly-version: 0.2.18
 
-If the `poly` tools is installed, it can be upgrade by executing:
+If the `poly` tool has been xref:install.adoc[installed], it can be upgraded.
+
+Polylith's releases are found and described on our link:https://github.com/polyfy/polylith/releases[releases page].
+We document our release strategy in detail xref:polylith-ci-setup.adoc#release[here].
+
+== Stand-alone macOS
+
+Use standard brew package upgrade techniques.
+For example:
 
 [source,shell]
 ----
 brew upgrade poly
 ----
 
-...or use the full path (if needed):
+Or, optionally, specify the tap:
 
 [source,shell]
 ----
 brew upgrade polyfy/polylith/poly
 ----
 
-To upgrade on Windows and Linux, download the https://github.com/polyfy/polylith/releases/latest[latest release] and replace the poly jar with it, e.g. `poly-{poly-version}.jar`.
+== Stand-alone Linux 
+
+1. Download the https://github.com/polyfy/polylith/releases/latest[latest release], e.g. `poly-{poly-version}.jar`. 
+2. Update the `poly` shell script you created during xref:install.adoc#install-on-linux[installation] to reference the new jar.
+
+== Stand-alone Windows
+
+1. Download the https://github.com/polyfy/polylith/releases/latest[latest release], e.g. `poly-{poly-version}.jar`. 
+2. Update the `poly.bat` file you created during xref:install.adoc#install-on-windows[installation] to reference the new jar.
+
+== Stand-alone Nix
+
+Use standard Nix upgrade techniques. 
+For example:
+
+[source,shell]
+----
+nix-channel --update
+----
+
+Followed by:
+[source,shell]
+----
+nix-env -u polylith
+----
+
+== As Dependency
+
+Update your `polylith/clj-poly` dependency in your `./deps.edn` to the current version.
+
+== Clojure CLI Tool
+
+Follow the same instructions you used to xref:install.adoc#install-as-clojure-cli-tool[install].
