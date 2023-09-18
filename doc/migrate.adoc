@@ -1,12 +1,102 @@
 = Migrate
 
-== Leiningen
+TIP: Migration is unnecessary if you are using `poly` v0.2 or above. 
+Instead, see xref:upgrade.adoc[upgrade].
 
-The old https://github.com/tengstrand/lein-polylith[lein-polylith] tool has reached the end of its life and has been replaced by this tools.deps based version.
-If you have any old Leiningen based projects to migrate, please follow the instructions https://github.com/tengstrand/lein-polylith/blob/migrate/migrate/migrate.md[here].
+== From `poly` v0.1
 
-The biggest difference compared to the old tool is that the new tool is based on https://github.com/clojure/tools.deps.alpha[tools.deps] instead of https://leiningen.org/[Leiningen] which has a number of benefits, like an improved development experience, faster tests, Windows support, and more.
+If you created your workspace with https://github.com/polyfy/polylith/releases/tag/v0.1.0-alpha9[v0.1.0-alpha9] or earlier and want to take advantage of features in the current `poly` release, you should migrate your workspace.
 
-== Migrate
+****
+What happens if I upgrade `poly` but don't migrate?
 
-If the workspace has been created with https://github.com/polyfy/polylith/releases/tag/v0.1.0-alpha9[v0.1.0-alpha9] or earlier, then it has to be migrated by following the instructions xref:migrate-workspace-from-v1-to-v2.adoc[here].
+* All `poly` commands will still work except for xref:commands.adoc#create-component[create component], xref:commands.adoc#create-base[create base] and xref:commands.adoc#create-project[create project].
+* The xref:commands.adoc#ws[ws] command creates files with a richer format than before, which is not backward compatible with the v0.1 format.
+* Files exported with v0.1 `poly`, e.g., `poly ws out:ws.edn`, can still be read by the latest `poly` tool, but the v0.1 exports lack some information like library dependencies for the test context.
+
+Our advice is, therefore, to migrate!
+****
+
+=== Before you Begin
+
+Before you start the migration, we highly recommend you follow these tips:
+
+. Be sure you are running the current version of `poly`.
+See xref:upgrade.adoc[upgrade].
+
+. Make sure your workspace doesn't have any uncommitted changes.
+Check with `git status`.
+
+. (Optional) Consider running the migration in a separate git branch. 
+You can merge your branch into your main branch after everything works.
+
+. Review and update `./deps.edn` (migration uses this data when creating `deps.edn` files for bricks)
+** Double-check the `:ns-to-lib` key 
+** Ensure you are using the correct library versions 
+
+. Run all your tests to verify everything works correctly, e.g. `poly test :all`.
+
+. Run the xref:commands.adoc#info[info] and xref:commands.adoc#libs[libs] commands and write the result to files, e.g.:
++
+[source,shell]
+----
+poly info color-mode:none > info-pre.txt
+poly libs color-mode:none > libs-pre.txt
+----
+
+=== Migration
+
+Run the `poly` xref:commands.adoc#migrate[migrate] command.  
+It:
+
+* Transforms `:polylith` from `./deps.edn` to a new `workspace.edn` file:
+
+** `:vcs` becomes a map with the keys `:name` and `:auto-add`, the latter determines whether files should automatically be added to `git` when you issue the `create` command.
+** `:stable-tag-pattern` and `:release-tag-pattern` are moved under `:tag-patterns` as `:stable` and `:release`.
+** `:ns-to-lib` is removed.
+** `:project-to-alias` is trasformed to `:projects`. 
+Each project is a map entry.
+The project name is the key pointing to a map optionally with `:alias` and `:test` keys.
+*** A value of `[]` for `:test` indicates no tests are executed for the project 
+
+* Creates a `deps.edn` for each brick specifying the `src`, `test`, and `resources` directories + dependencies to libraries, if any.
+Draws from the old workspace `deps.edn`:
+** `:ns-to-lib` determines brick libraries  
+** Associated library versions come from dependencies
+
+* Updates all the `deps.edn` files under the `projects` directory:
+** Replaces `:paths` to bricks with `:local/root` `:deps`. 
+** Removes libraries defined by these bricks.
+You no longer explicitly include a brick's `src`, `test`, and `resources` directories, only the brick via its `:local/root`.
++
+*Note:* `test` `:paths` are not inherited by tools.deps for `:local-root` dependencies, but they _are_ included when you run the built-in `poly` xref:commands.adoc#test[test] command.
+You may need to keep these paths if you rely on `test` paths via other tooling.
+** Note that migration does not convert the `development` environment `./deps.edn` file to use `:local/root`.
+This is to support IDEs (such as Cursive pre v1.13) which do not pick up `:local/root` definitions
+
+* Finally, migration instructs you to manually remove the `:polylith` entry from `./deps.edn`.
+
+=== After the Migration
+After migration is complete, we highly recommend that you:
+
+. Rerun the `info` and `libs` commands and check their outputs against your pre-migration runs.
+
+. Fix formatting and ordering to your taste.
+Migration will have sorted all libraries, so you may want to adjust the ordering, e.g., specifying bricks before library dependencies.
+
+. Review the paths and dependencies in the `deps.edn` files under the `projects` directory. 
+Remove misplaced libraries from the project's `deps.edn` file and add them to the corresponding brick's `deps.edn` file.
+You only need to do this for dependencies you did not specify under `:ns-to-lib`.
+If you specify libraries correctly in each brick's `deps.edn` file, they will also show up under each brick when running the `libs` command.
+
+. Run all the tests, e.g., `poly test :all`.
+Check that the same tests run and that they all pass.
+
+. When everything works, commit and push to git!
+
+NOTE: After migration, you will no longer see warnings from `tools.deps` about relative paths not working in the future.
+Addressing this was one of the main reasons that we created this migration.
+
+You can find an example of a project before and after a migration in https://github.com/polyfy/polylith/tree/issue-318/examples/local-dep-old-format[examples/local-dep-old-format] and https://github.com/polyfy/polylith/tree/issue-318/examples/local-dep[examples/local-dep].
+
+Good luck with your migration!
