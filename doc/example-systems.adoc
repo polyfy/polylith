@@ -1,4 +1,4 @@
-= Example systems
+= Example Systems
 
 If you are curious about what a full-blown system looks like in Polylith, look at the examples listed here.
 
@@ -17,7 +17,7 @@ image::images/example-systems/user-manager.png[link="images/example-systems/user
 
 https://github.com/seancorfield[Sean Corfield] has made a full-blown https://github.com/seancorfield/usermanager-example/tree/polylith[usermanager] web application, which can be compared with non-Polylith systems living in other branches of the repository.
 
-== Game of life
+== Game of Life
 
 image::images/example-systems/game-of-life.png[link="images/example-systems/game-of-life.png"]
 
