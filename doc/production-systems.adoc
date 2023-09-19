@@ -1,4 +1,4 @@
-= Production systems
+= Production Systems
 
 Here, we list some companies that use Polylith in production.
 
