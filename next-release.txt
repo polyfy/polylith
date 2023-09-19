@@ -35,6 +35,8 @@ Included in 0.2.18-SNAPSHOT #1:
   319   lread         Tweak bb doc task that offers cljdoc previews + the related PRs 320, 321 and 325.
   323   john-shaffer  Fix NPE when taking the size of a directory.
   324   j1mr10rd4n    Fix filename/namespace mismatch in profile.adoc.
+  327   lread         Reviews all the documentation, with one PR per page, starting with PR 327!
+  332   lread         Add clj-kondo config exports.
 
 Other improvements
  --------------------------------------------------------------------------------------------------------------------
