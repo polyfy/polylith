@@ -248,6 +248,7 @@ workflows:
             branches:
               only:
                 - master
+                - build-snapshot
       - create-version-txt:
           requires:
             - test
@@ -255,6 +256,7 @@ workflows:
             branches:
               only:
                 - master
+                - build-snapshot
       - add-version-tag:
           requires:
             - create-version-txt
@@ -262,6 +264,7 @@ workflows:
             branches:
               only:
                 - master
+                - build-snapshot
       - deploy:
           requires:
             - create-version-txt
@@ -269,6 +272,7 @@ workflows:
             branches:
               only:
                 - master
+                - build-snapshot
       - create-artifacts:
           requires:
             - deploy
@@ -276,6 +280,7 @@ workflows:
             branches:
               only:
                 - master
+                - build-snapshot
       - publish-github-release:
           requires:
             - mark-as-stable
@@ -285,3 +290,4 @@ workflows:
             branches:
               only:
                 - master
+                - build-snapshot
