@@ -162,7 +162,8 @@ Since `interface` is a reserved word in ClojureScript, it could otherwise cause 
 
 A good reason to keep the default `interface` name is that it communicates what it is.
 
-With start from version `0.2.18` (see issue https://github.com/polyfy/polylith/issues/187#issuecomment-1203567170[187]) not only interfaces matching the name specified in `:interface-ns` in `workspace.edn` will be treated as interfaces, but also the interface names `interface` and `ifc`.
+With start from version `0.2.18` not only interfaces matching the name specified in `:interface-ns` in `workspace.edn` will be treated as interfaces, but also the interface names `interface` and `ifc`
+(see issue https://github.com/polyfy/polylith/issues/187#issuecomment-1203567170[187]).
 The recommendation is to specify the interface name as either `interface` or `ifc`, but any other valid namespace name, specified in `:interface-ns`, is accepted.
 
 If you already know that you will need to share code between frontend and backend in `cljc` files, then you can either set `:interface-ns` to `ifc` from start, or you keep `interface` as the default, and only use `ifc` as interface name in the components you share.
