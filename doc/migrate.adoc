@@ -1,6 +1,6 @@
 = Migrate
 
-TIP: Migration is unnecessary if you are using `poly` v0.2 or above. 
+TIP: Migration is unnecessary if you created your workspace with `poly` v0.2.0-alpha10 or above.
 Instead, see xref:upgrade.adoc[upgrade].
 
 == From `poly` v0.1
