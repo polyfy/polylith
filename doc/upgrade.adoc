@@ -4,9 +4,6 @@
 
 If the `poly` tool has been xref:install.adoc[installed], it can be upgraded.
 
-TIP: Upgrading from `poly` v0.1? 
-Please also see our xref:migrate.adoc[v0.1 migration guide].
-
 Polylith's releases are found and described on our link:https://github.com/polyfy/polylith/releases[releases page].
 We document our release strategy in detail xref:polylith-ci-setup.adoc#release[here].
 
