@@ -21,7 +21,7 @@ Stick with this name when following this example, but choose whatever name makes
 
 [TIP]
 ====
-You can override the git branch with the `branch:` option.
+You can override the default of `main` for the git branch with the `branch:` option.
 For example, to use `master`:
 
 [source,shell]
