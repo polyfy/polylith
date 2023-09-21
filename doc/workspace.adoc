@@ -65,7 +65,7 @@ Each top-level directory contains a specific Polylith concept:
 
 This structure gives a consistent shape to all Polylith projects.
 The familiar convention ensures that all developers, be they new or veterans, will quickly get started on Polylith systems that are new to them.
-We think you will become enamored with the power and simplicity the Polylith structure gives to your projects!
+We think you will fall in love with the power and simplicity the Polylith structure gives to your projects!
 
 ****
 The `bases`, `components`, and `projects` directories include a `.keep` file.
