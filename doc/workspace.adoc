@@ -1,65 +1,81 @@
 = Workspace
+:poly-version: 0.2.18
 
-The workspace directory is the place where all our code and most of the xref:configuration.adoc[configuration] lives.
+The workspace directory is where all your code and most of your xref:configuration.adoc[configuration] lives.
 
-Let’s start by creating the example workspace with the top namespace `se.example` by using the xref:commands.adoc#create-workspace[create workspace] command.
+NOTE: Unless otherwise noted, our examples assume `poly` is xref:install.adoc[installed] as a stand-alone tool. 
+Adjust your command line if you've installed `poly` differently.
 
-Make sure you execute the command outside a git repository:
+Let's create an example workspace with a top namespace of `se.example` using the xref:commands.adoc#create-workspace[create workspace] command.
+By default, this command also creates a git repository, so execute it outside any existing git repository: 
 
 [source,shell]
 ----
 poly create workspace name:example top-ns:se.example :commit
 ----
 
-This will create a workspace in the `main` branch.
-By giving `branch:BRANCH-NAME` the workspace can be created in a different branch, e.g.:
+The `poly` tool has created an `example` workspace in the `main` branch of a new git repository and committed all files. 
+
+TIP: The `se.example` top namespace is just an example.
+Stick with this name when following this example, but choose whatever name makes sense when creating your own Polylith workspaces.
+
+[TIP]
+====
+You can override the default of `main` for the git branch with the `branch:` option.
+For example, to use `master`:
 
 [source,shell]
 ----
 poly create workspace name:example top-ns:se.example branch:master :commit
 ----
+====
 
-The workspace directory structure will end up like this:
+Your workspace directory structure should look like this:
 
 [source,shell]
 ----
 example                # workspace dir
-├── .git               # git repository dir
+├── .git/              # git repository dir
 ├── .gitignore         # ignored files and dirs in git
-├── .vscode
+├── .vscode/
 │   └── settings.json  # configuration for Calva
-├── bases              # bases dir
-├── components         # components dir
+├── bases/             # bases dir
+├── components/        # components dir
 ├── deps.edn           # development config file
-├── development
-│   └── src            # development specific code
+├── development/
+│   └── src/           # development-specific code
 ├── logo.png           # polylith logo
-├── projects           # projects dir
+├── projects/          # projects dir
 ├── readme.md          # documentation
 └── workspace.edn      # workspace config file
 ----
 
-The directory structure is designed for quick navigation and ease of use.
-It helps us to understand and find all our service-level building blocks, which lets us reason about the system at a higher level.
+We designed the directory structure for quick navigation and ease of use.
+Your service-level building blocks are easy to find and understand, which helps you to reason about your system at a higher level.
 
-Each top-level directory contains a specific type of Polylith concept:
+Each top-level directory contains a specific Polylith concept:
 
-* A xref:base.adoc[base] is a building block that exposes a public API to external systems.
+* A xref:base.adoc[base] is a building block that exposes a public API to the outside world, e.g., external systems and users.
 
-* A xref:component.adoc[component] is a building block for encapsulating a specific domain or part of the system.
+* A xref:component.adoc[component] is a building block that encapsulates a specific domain or part of the system.
 
 * A xref:project.adoc[project] specifies a deployable artifact and what components and bases it contains.
 
-* The xref:development.adoc[development] project (`development` + `deps.edn`) is used to work with the code in one place.
+* The xref:development.adoc[development] project (`development/` + `deps.edn`) supports working on all code from one place.
 
-This structure gives a consistent shape to all Polylith projects and ensures that both new developers and veterans can quickly understand and start working with systems that are new to them.
-We think you will soon be addicted to the power and simplicity the Polylith structure gives to your projects!
+This structure gives a consistent shape to all Polylith projects.
+The familiar convention ensures that all developers, be they new or veterans, will quickly get started on Polylith systems that are new to them.
+We think you will fall in love with the power and simplicity the Polylith structure gives to your projects!
 
-The `bases`, `components` and `projects` directories also contain a `.keep` file, which is added to prevent git from deleting these directories, and can be deleted as soon as we add something to them.
+****
+The `bases`, `components`, and `projects` directories include a `.keep` file.
+This file ensures that git tracks these otherwise empty directories.
+You can delete the `.keep` files after you add other files.
+****
 
-The `workspace.edn` file looks like this:
+The `workspace.edn` file looks like:
 
-[source,shell]
+[source,clojure]
 ----
 {:top-namespace "se.example"
  :interface-ns "interface"
@@ -72,9 +88,9 @@ The `workspace.edn` file looks like this:
  :projects {"development" {:alias "dev"}}}
 ----
 
-...and `deps.edn` like this:
+The `deps.edn` file:
 
-[source,shell]
+[source,clojure,subs="+attributes"]
 ----
 {:aliases  {:dev {:extra-paths ["development/src"]
                   :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}}}
@@ -82,45 +98,25 @@ The `workspace.edn` file looks like this:
             :test {:extra-paths []}
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
-                   :extra-deps {polyfy/polylith
-                                {:git/url   "https://github.com/polyfy/polylith"
-                                 :sha       "1209a81e6b8f70987050d65d106e99d1a902969a"
-                                 :deps/root "projects/poly"}}}}}
+                   :extra-deps {polyfy/clj-poly {:mvn/version "{poly-version}"}}}}}
 ----
 
-If all went well, the `poly` tool managed to set the latest sha for the `:poly` alias by taking it from the https://github.com/polyfy/polylith/commits/master[master] branch in this repository.
-We can instruct it to go and get it by passing in `:latest-sha`:
+The `:dev` alias supports your Polylith development environment, and the `:test` alias your tests.
+The `:poly` alias allows you to run `poly` as a local dependency, e.g., `clj -M:poly version`, and is not used by `poly` stand-alone.
 
-[source,shell]
-----
-cd example
-poly ws get:settings:vcs:polylith :latest-sha
-----
+== Existing git Repository
 
-The output will look something like this:
-
-[source,shell]
-----
-{:branch "master",
- :latest-sha "887e4237cec8f42eaa15be3501f134732602bb41",
- :repo "https://github.com/polyfy/polylith.git"}
-----
-
-The `:latest-sha` argument will tell the tool to go out and find the latest SHA from the Polylith repo and populate the `:latest-sha` attribute in the xref:workspace-structure.adoc[workspace structure], which would otherwise not be set.
-
-If you wonder how the `ws` command works or what all the settings are for, be patient, everything will soon be covered in detail.
-
-== Existing git repository
-
-A Polylith workspace can also be created inside an existing git repo.
-When we do that, we have two alternatives.
-Either we create the workspace directly at the root of the git repository (without giving a name) by executing e.g.:
+You can also create a Polylith workspace inside an existing git repo.
+There are two ways to do this.
+Either you create the workspace directly at the root of the git repository (without giving a workspace name) by executing:
 
 [source,shell]
 ----
 cd my-git-repo-dir
 poly create workspace top-ns:com.mycompany
 ----
+
+...which results in:
 
 [source,shell]
 ----
@@ -133,13 +129,15 @@ my-git-repo-dir
 └── workspace.edn
 ----
 
-...or we put the workspace in a directory under the git repository by executing e.g.:
+...or you create the workspace in a directory under the git repository root by executing e.g.,:
 
 [source,shell]
 ----
 cd my-git-repo-dir
 poly create workspace name:my-workspace top-ns:com.mycompany
 ----
+
+...which result in:
 
 [source,shell]
 ----
@@ -153,7 +151,11 @@ my-git-repo-dir
     └── workspace.edn
 ----
 
-To execute a command, we need to be at the root of the workspace, e.g.:
+NOTE: In the above examples you'll notice we ommitted the `:commit` option. 
+It is not supported when creating a workspace in an existing git repository.
+You'll have to commit your new workspace files yourself.
+
+To execute a command, you need to be at the root of your workspace:
 
 [source,shell]
 ----
