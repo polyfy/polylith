@@ -181,73 +181,67 @@ Test the installation by typing `poly help` from the command line.
 {post-install}
 
 [#use-as-dependency]
-== Use as dependency
+== Use as Dependency
 
-An alternative way of executing the `poly` tool is to specify it as a dependency in your `./deps.edn` file.
+An alternative way to run the `poly` tool is as a dependency from the `:poly` alias in your workspace `./deps.edn` file.
 
 {prerequisites}
 
-Installing `poly` as a Clojure dependency is not OS-specific.
-
-Specify a *maven dep* Clojars release in your `deps.edn` file:
+After you have created a Polylith xref:workspace.adoc[workspace], you'll notice a `./deps.edn` file was automatically generated.
+It includes a `:poly` alias.
+It will look something like:
 
 [source,clojure,subs="attributes+"]
 ----
-{
-...
  :aliases {:poly {:extra-deps {polylith/clj-poly {:mvn/version "{poly-version}"}}
                   :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}}
-...
-}
 ----
 
-[#github-dependency]
-Or specify a *git dep* revision from the GitHub Polylith project:
+Feel free to adjust the `:mvn/version` to suit your needs.
+For example, you might want to try out the latest `SNAPSHOT` version.
 
-[source,clojure]
-----
-{
-...
- :aliases {:poly  {:extra-deps {polylith/clj-poly
-                                {:git/url   "https://github.com/polyfy/polylith.git"
-                                 :sha       "INSERT-LATEST-SHA-HERE"
-                                 :deps/root "projects/poly"}}
-                   :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}}
-...
-}
-----
+TIP: Docs for `SNAPSHOT` releases are also available on cljdoc.
 
-Replace `INSERT-LATEST-SHA-HERE` with a commit SHA from the Polylith repository, e.g. the https://github.com/polyfy/polylith/commits/master[latest] from the `master` branch.
+Navigate to your newly created workspace directory and verify via `clojure -M:poly help`.
 
-After adding one of the `:poly` aliases as described above, test the installation via `clojure -M:poly help`.
+TIP: If you have no interest in using any stand-alone variant of `poly` and want to use `poly` only as a dependency, see xref:workspace.adoc#bootstrap[Bootstrapping a Workspace].
 
-{post-install}
-
-=== Running from `master`
-Sometimes, it is convenient to work with a version of `poly` that has yet to be officially released.
-You can either:
-
-1. Specify a SNAPSHOT maven dep Clojars release.
-2. Specify the latest commit from the https://github.com/polyfy/polylith/commits/master[master branch] for your `:sha` as a git dep.
-
-If you are using the latest from master, you'll also want to refer to the latest SNAPSHOT version of cljdoc-based documentation.
- 
 For more details on how `poly` is released, see docs on xref:polylith-ci-setup.adoc#releases[releases]. 
 
-=== Specifying Logging Libraries
-You can add in the logging libraries you'd like to use with `poly`:    
+[#github-dependency]
+=== Using a Git Dependency
+If you wish, you can specify a git dep revision from the GitHub Polylith project.
+To do so, you'd adjust your workspace `./deps.edn` `:poly` alias to something like:
 
 [source,clojure]
 ----
-{:aliases  {...
-            :poly {...
-                   :extra-deps {...
-                                org.apache.logging.log4j/log4j-api {:mvn/version "2.20."}
-                                org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.20.0"}}}}
+ :aliases {:poly {:extra-deps {polylith/clj-poly
+                               {:git/url   "https://github.com/polyfy/polylith.git"
+                                :sha       "INSERT-SHA-HERE"
+                                :deps/root "projects/poly"}}
+                  :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}}
+----
+
+Replace `INSERT-SHA-HERE` with a commit SHA from the Polylith repository, for example:
+
+1. From the https://github.com/polyfy/polylith/commits/master[latest commit] from the `master` branch.
+(Alternatively, you can specify the latest `SNAPSHOT` release as a maven dependency)
+2. Or some commit SHA from a work-in-progress branch you want to try
+
+=== Specifying Logging Libraries
+You can add in the logging libraries you'd like to use with `poly` by adjusting your `:poly` alias in your workspace `./deps.edn` like so:    
+
+[source,clojure]
+----
+ :aliases {:poly {:extra-deps {polylith/clj-poly {:mvn/version "{poly-version}"}
+                               ;; your logging libraries here:
+                               org.apache.logging.log4j/log4j-api {:mvn/version "2.20.0"}
+                               org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.20.0"}}
+                  :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}}
 ----
 
 [#install-as-clojure-cli-tool]
-== Install as Clojure CLI Tool
+== Install as Stand-alone via Clojure CLI Tool
 
 {prerequisites}
 
@@ -264,7 +258,7 @@ clojure -Ttools install io.github.polyfy/polylith '{:git/tag "v{poly-version}" :
 ----
 
 An alternative to specifying a `:git/tag` is to specify a `:git/sha`.
-This allows you to install any git revision poly and is often used to test out a version that has not been officially released yet:
+This allows you to install any git revision poly and is often used to test out a version that has not been officially released yet or is on some work-in-progress branch:
 
 [source,shell]
 ----
