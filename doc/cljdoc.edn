@@ -2,7 +2,6 @@
                    ["Introduction" {:file "doc/introduction.adoc"}]
                    ["Install" {:file "doc/install.adoc"}]
                    ["Upgrade" {:file "doc/upgrade.adoc"}]
-                   ["Migrate" {:file "doc/migrate.adoc"}]
                    ["Example systems" {:file "doc/example-systems.adoc"}]
                    ["Production systems" {:file "doc/production-systems.adoc"}]
                    ["Workspace" {:file "doc/workspace.adoc"}]
