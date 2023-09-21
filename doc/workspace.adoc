@@ -55,7 +55,7 @@ Your service-level building blocks are easy to find and understand, which helps 
 
 Each top-level directory contains a specific Polylith concept:
 
-* A xref:base.adoc[base] is a building block that exposes a public API to external systems.
+* A xref:base.adoc[base] is a building block that exposes a public API to the outside world, e.g., external systems and users.
 
 * A xref:component.adoc[component] is a building block that encapsulates a specific domain or part of the system.
 
