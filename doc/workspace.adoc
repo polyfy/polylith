@@ -17,7 +17,7 @@ poly create workspace name:example top-ns:se.example :commit
 The `poly` tool has created an `example` workspace in the `main` branch of a new git repository and committed all files. 
 
 TIP: The `se.example` top namespace is just an example.
-Choose what makes sense for your Polylith workspace.
+Stick with this name when following this example, but choose whatever name makes sense when creating your own Polylith workspaces.
 
 [TIP]
 ====
