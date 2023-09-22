@@ -3,8 +3,13 @@
 
 The workspace directory is where all your code and most of your xref:configuration.adoc[configuration] lives.
 
-NOTE: Unless otherwise noted, our examples assume `poly` is xref:install.adoc[installed] as a stand-alone tool. 
+[NOTE]
+====
+Unless otherwise noted, our examples assume `poly` is xref:install.adoc[installed] as a stand-alone tool. 
 Adjust your command line if you've installed `poly` differently.
+
+See also: <<bootstrap>>.
+====
 
 Let's create an example workspace with a top namespace of `se.example` using the xref:commands.adoc#create-workspace[create workspace] command.
 By default, this command also creates a git repository, so execute it outside any existing git repository: 
@@ -13,6 +18,7 @@ By default, this command also creates a git repository, so execute it outside an
 ----
 poly create workspace name:example top-ns:se.example :commit
 ----
+
 
 The `poly` tool has created an `example` workspace in the `main` branch of a new git repository and committed all files. 
 
@@ -162,3 +168,27 @@ To execute a command, you need to be at the root of your workspace:
 cd my-workspace
 poly info
 ----
+
+[#bootstrap]
+== Bootstrapping a Workspace
+
+If you don't have a stand-alone version of `poly` xref:install.adoc[installed] and prefer to use `poly` xref:install.adoc#use-as-dependency[as a dependency], you can bootstrap your workspace.
+
+All techniques above still apply, but you will instead, for example:
+
+[source,shell]
+----
+clojure -Sdeps '{:deps {polylith/clj-poly {:mvn/version "RELEASE"}}}' \
+        -M -m  polylith.clj.core.poly-cli.core \
+        create workspace name:example top-ns:se.example :commit
+----
+
+And now you can use `poly` as a dependency:
+
+[source,shell]
+----
+cd example
+clojure -M:poly info
+----
+
+
