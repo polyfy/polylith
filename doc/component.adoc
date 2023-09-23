@@ -32,13 +32,13 @@ Which forms are available depends on how you xref:install.adoc[installed] `poly`
 All the documentation refers to the first form, even though the other two are also valid.
 
 A fourth way to execute `poly` commands is through the `poly` shell.
-You start the poly shell via the xref:commands#shell[shell] command.
+You start the poly shell via the xref:commands.adoc#shell[shell] command.
 
 1. `poly shell` 
 2. `clojure -M:poly shell`
 3. `clojure -T:poly shell`
 
-The `shell` command is the default command for the first two forms but not the third:
+The xref:commands.adoc#shell[shell] command is the default command for the first two forms but not the third:
 
 1. `poly`
 2. `clojure -M:poly`
@@ -127,7 +127,7 @@ Add the `user` component to our workspace `./deps.edn`:
 ----
 
 All dependency keys must be unique. 
-A good pattern is to prefix them with `poly/` followed by the brick name, e.g. `poly/user` as in this example.
+A good pattern is to prefix them with `poly/` followed by the brick name, e.g., `poly/user` as in this example.
 
 NOTE: Most IDEs now support adding components as a dependency, but if you are not using Cider, Calva, or a current version of Cursive, please review <<ide-extra-deps>>.
 
@@ -150,7 +150,7 @@ The component has its own `deps.edn` file that looks like:
 
 It specifies a `src`, `resources`, and `test` directory.
 
-The `create component` command created the user component `resources` directory:
+The xref:commands.adoc#create-component[create component] command created the user component `resources` directory:
 
 [source,shell]
 ----
