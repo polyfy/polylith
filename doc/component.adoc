@@ -228,7 +228,7 @@ The `interface` delegates the incoming call to the implementing `core` namespace
 
 In this example, we had you put all your implementing code in one single namespace.
 As a codebase grows, more namespaces can be added to the component as needed.
-There is no rule that the implementing namespace must be named `core`, but we chose that convention for this example.
+There is no rule that the implementing namespace must be named `core`, but this is what the xref:commands.adoc#create-component[create component] command generates, and we stuck with this default for this example.
 
 [[ide-extra-deps]]
 == IDE Support for `:local/root` `:extra-deps`
