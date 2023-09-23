@@ -31,8 +31,7 @@ Which forms are available depends on how you xref:install.adoc[installed] `poly`
 
 All the documentation refers to the first form, even though the other two are also valid.
 
-There is also a fourth way to execute `poly` commands.
-You can use the `poly` shell.
+A fourth way to execute `poly` commands is through the `poly` shell.
 You start the poly shell via the xref:commands#shell[shell] command.
 
 1. `poly shell` 
