@@ -55,7 +55,7 @@ It gives you instant feedback, history, and autocomplete.
 Feel free to use the xref:shell.adoc[shell] from now on.
 It will make you more productive and enhance your development experience!
 
-TIP: Use `exit` to leave the `poly` shell.
+TIP: Type xref:shell.adoc#quit[`quit`] to end your `poly` shell session.
 
 == Creating a Component
 
