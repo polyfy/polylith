@@ -176,17 +176,17 @@ If `some-call` is a function in one `foo` interface, it must be a function in al
 We have this restriction because functions are composable, but macros are not.
 
 * Polylith will always recognize `interface` and `ifc` as interface namespace names.
-By default, it will generate code using `interface` as the interface namespace name.
+By default, it will generate code using `interface` as the interface namespace name when you create a component.
 You can override this default via `:interface-ns` in `./workspace.edn`.
 Scenarios:
 ** You want to share code between Clojure and ClojureScript via `.cljc` source files.
 Since `interface` is a reserved word in ClojureScript, it will cause problems.
 In this case, you can either:
-*** set `:interface-ns` to `ifc`, `poly` will use `ifc` as the interface namespace name for all generated code
-*** or leave `interface` as the default and manually rename any generated `interface` to `ifc` for the components that will also run from ClojureScript.
+*** set `:interface-ns` to `ifc`, `poly` will use `ifc` as the interface namespace name for generated code when you create a component
+*** or leave `interface` as the default and override by specifying `interface:ifc` as an option to xref:commands.adoc#create-component[create component] for components that will also run from ClojureScript.
 ** You want to consume Clojure code from another language on the JVM, e.g., Kotlin, where `interface` is a reserved word.
 You could set `:interface-ns` to anything that won't conflict, for the sake of this example, let's say `api`. 
-The `poly` tool would now use `api` for the interface namespace name when it generates code but also recognize `interface` and `ifc` as interface names.
+The `poly` tool would now use `api` for the interface namespace name when it generates code when you create a component, but also recognize `interface` and `ifc` as interface names.
 
 
 
