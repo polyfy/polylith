@@ -146,7 +146,7 @@ Order functions in implementation namespaces freely.
 * The interface can expose the entity's name, e.g., `sell [car]`. 
 The implementing function can expose specific usage via destructuring, e.g., `sell [{:keys [model type color]}]`.
 
-* It sometimes makes sense for a http://clojure-doc.org/articles/language/functions.html#multi-arity-functions[multi-arity function] in an interface to delegate to a single arity function in the implementing namespace. 
+* It sometimes makes sense for a http://clojure-doc.org/articles/language/functions.html#multi-arity-functions[multi-arity function] in an interface to delegate to a single arity function in the implementing namespace:
 +
 [source,clojure]
 ----
@@ -155,7 +155,7 @@ The implementing function can expose specific usage via destructuring, e.g., `se
   ([a b] (foo a b nil)))
 ----
 
-* It sometimes makes sense for a http://clojure-doc.org/articles/language/functions.html#variadic-functions[variadic functions] in an interface to delegate to function in the implementing namespace that accepts the variadic portion as a vector.
+* It sometimes makes sense for a http://clojure-doc.org/articles/language/functions.html#variadic-functions[variadic functions] in an interface to delegate to function in the implementing namespace that accepts the variadic portion as a vector:
 +
 [source,clojure]
 ----
