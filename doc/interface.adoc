@@ -52,7 +52,7 @@ Let's pretend we have the interface namespace `user.interface` containing the fu
 Because we are free to edit the `interface.clj` file for both user and admin, they can get out of sync if we are not careful. 
 Luckily, the `poly` tool will help us keep them consistent and complain if they differ when we run the xref:commands.adoc#check[check], xref:commands.adoc#info[info] or xref:commands.adoc#test[test] commands:
 
-[%autowidth]
+[cols="25,25,50"]
 |===
 |Check |Example mismatch| To protect against
 
