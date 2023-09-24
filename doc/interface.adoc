@@ -50,7 +50,7 @@ Let's pretend we have the interface namespace `user.interface` containing the fu
 ----
 
 Because we are free to edit the `interface.clj` file for both user and admin, they can get out of sync if we are not careful. 
-Luckily, the Polylith tool will help us keep them consistent and complain if they differ when we run the xref:commands.adoc#check[check], xref:commands.adoc#info[info] or xref:commands.adoc#test[test] commands.
+Luckily, the `poly` tool will help us keep them consistent and complain if they differ when we run the xref:commands.adoc#check[check], xref:commands.adoc#info[info] or xref:commands.adoc#test[test] commands.
 
 The `poly` tool checks the number of parameters and types (if we use type hints) in `interface` functions and macros.
 It also verifies that the names of the parameters are the same to minimize accidental argument call order mismatches.
