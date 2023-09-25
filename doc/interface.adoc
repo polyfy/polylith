@@ -165,8 +165,7 @@ This list of tips makes more sense when you have used Polylith for a while, so b
 * Consider sorting interface namespace functions in alphabetical order for easy lookup. 
 Order functions in implementation namespaces freely.
 
-* The interface can expose the entity's name, e.g., `sell [car]`. 
-The implementing function can expose specific usage via destructuring, e.g., `sell [{:keys [model type color]}]`.
+* The interface can expose the entity's name, e.g., `sell [car]`, while the implementing function can expose specific usage via destructuring, e.g., `sell [{:keys [model type color]}]`.
 
 * It sometimes makes sense for a http://clojure-doc.org/articles/language/functions.html#multi-arity-functions[multi-arity function] in an interface to delegate to a single arity function in the implementing namespace:
 +
