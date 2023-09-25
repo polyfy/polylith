@@ -181,6 +181,7 @@ poly
 
 image::images/shell/shell-create-workspace.png[width=600]
 
+[[quit]]
 == Quit
 
 To quit the shell, type `exit` or `quit` or press `<ctrl>+C` or `<ctrl>+D`.
