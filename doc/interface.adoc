@@ -1,23 +1,27 @@
 = Interface
 
-Component interfaces give a number of benefits:
+Component interfaces give many benefits:
 
-* _Consistency_. Components can only be accessed through their interface, which makes them easy to find, use and reason about.
+* _Consistency_. Components can only be accessed through their interface, making them easy to find, use, and reason about.
 
-* _Encapsulation_. All the implementing namespaces for a component can be changed without breaking the interface contract.
+* _Encapsulation_. You can change a component's implementing namespaces without breaking the interface contract.
 
-* _Composability_. All components have access to all other components via interfaces, and can be replaced as long as they use the same interface.
+* _Composability_. All components have access to all other components via their interfaces, and you can replace them as long as they use the same interface.
 
-When we created the `user` component, the `user` interface was also created.
+When you created the `user` xref:component.adoc[component], `poly` also created the `user` interface.
 
-So what is an `interface` and what is it good for?
+So what is an `interface`, and what is it good for?
 
-An interface in the Polylith world is a namespace named `interface` that often lives in one but sometimes several namespaces within a component.
-To be exact, the full interface namespace name is `user.interface` in this example (if we exclude the top namespace).
-It defines a number of `def`, `defn` or `defmacro` statements which forms the contract that it exposes to other components and bases.
+An interface in the Polylith world is a namespace named `interface` that usually lives in one, but sometimes several, sub-namespaces within a component.
 
-To give an example, let's pretend we have the interface namespace `user.interface` containing the functions `fun1` and `fun2` and that two components "implement" this interface, e.g:
+Looking at our example user component, if you exclude the top namespace, in Polylith we think of its interface namespace as `user.interface`.
 
+The interface defines `def`, `defn`, or `defmacro` statements which form the contract that it exposes to other components and bases.
+
+[[one-interface-in-multiple-components]]
+== Declaring the Same Interface in Multiple Components
+
+Let's pretend we have the interface namespace `user.interface` containing the functions `fun1` and `fun2` and that two components `user` and `admin` implement this interface, e.g,:
 
 [source,shell]
 ----
@@ -45,16 +49,41 @@ To give an example, let's pretend we have the interface namespace `user.interfac
   ...
 ----
 
-Now we are free to edit the `interface.clj` file for both `user` and `admin`, which means they can get out of sync if we are not careful enough.
-Luckily, the Polylith tool will help us keep them consistent, and complain if they differ when we run the xref:commands.adoc#check[check], xref:commands.adoc#info[info] or xref:commands.adoc#test[test] commands.
+Because we are free to edit the `interface.clj` file for both user and admin, they can get out of sync if we are not careful. 
+Luckily, the `poly` tool will help us keep them consistent and complain if they differ when we run the xref:commands.adoc#check[check], xref:commands.adoc#info[info] or xref:commands.adoc#test[test] commands:
 
-The "poly" tool not only checks the number of parameters and the types (if we use type hints) in functions and macros, it also ensures that the names of the parameters match, to minimize the risk of them coming in the wrong order.
+[cols="25,25,50"]
+|===
+|Check |Example mismatch| To protect against
 
-We often choose to have just a single `interface` namespace in a component, but it's also possible to divide the interface into several sub namespaces.
-To do so we first create an `interface` package (directory) with the name `interface` at the root, and then we put the sub namespaces in there.
+| Number of parameters
+| `[a b]` +
+`[a b c]`
+| Incompatible signatures
 
-We can find an example where the `util` component in the Polylith repository does that, by dividing its https://github.com/polyfy/polylith/tree/master/components/util/src/polylith/clj/core/util/interface[util]
-interface into several sub namespaces:
+| Parameter order
+| `[a b c]` +
+`[b c a]`
+| Accidental argument call order mismatches
+
+| Type hints
+| `[^String x y]` +
+`[x y]`
+| Incompatible types and type confusion
+
+| Functions and macros
+| `(defn foo [])` +
+`(defmacro foo [])`
+| Incompatible composability: functions are composable, and macros are not
+
+|===
+
+== Splitting an Interface into Sub-Namespaces
+
+We often choose to have a single `interface` namespace in a component, but dividing the interface into several sub-namespaces is possible.
+To do so, create an `interface` package (directory) with the name `interface` at the component root and then add the sub-namespaces.
+
+You can find an example in Polylith itself, where the `util` component divides its https://github.com/polyfy/polylith/tree/master/components/util/src/polylith/clj/core/util/interface[interface] into several sub-namespaces:
 
 [source,shell]
 ----
@@ -67,10 +96,11 @@ util
     └── time.clj
 ----
 
-This can be handy if we want to group the functions and not put everyone into one place.
-A common usage is to place https://clojure.org/about/spec[clojure specs] in its own `spec` sub namespace, which we have an example of in the RealWorld example app, where the `article` component also has an https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/master/components/article/src/clojure/realworld/article/interface/spec.clj[interface.spec] sub interface.
+Dividing an interface like this can be handy to group and sub-group the interface functions.
+One typical usage is to place https://clojure.org/about/spec[clojure specs] in its own `spec` sub-namespace.
+You can see an example of this in the https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[RealWorld example app], where the `article` component has both an `article.interface` and an https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/master/components/article/src/clojure/realworld/article/interface/spec.clj[`article.interface.spec`] sub-interface.
 
-It can then be used from e.g. the https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/master/bases/rest-api/src/clojure/realworld/rest_api/handler.clj[handler] namespace in `rest-api`:
+Here's an example of the sub-interface usage from the https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/master/bases/rest-api/src/clojure/realworld/rest_api/handler.clj[RealWorld example app handler] namespace in its `rest-api` xref:base.adoc[base]:
 
 [source,clojure]
 ----
@@ -87,24 +117,24 @@ It can then be used from e.g. the https://github.com/furkan3ayraktar/clojure-pol
       (handle 422 {:errors {:body ["Invalid request body."]}}))))
 ----
 
-Every time you think of splitting up the interface,
-keep in mind that it may be an indicator that it's instead time to split up the component into smaller components!
+TIP: Every time you are tempted to split up an interface into sub-namespaces, instead consider splitting the component into smaller components!
 
 == Delegation
 
 The most common way of structuring code in components is to delegate calls from the interface to one or more implementing namespaces.
-There is a situations when putting everything in the interface can be worth considering, and that is if the functions are mostly one-liners or tiny.
-In that case it can make sense to put the implementation directly in the interface namespace.
-An example of this can be found in the https://github.com/polyfy/polylith/blob/master/components/path-finder/src/polylith/clj/core/path_finder/interface/criterias.clj[path-finder] component of the Polylith workspace.
 
-In the end it's up to you what you think is best.
-With that said, experience has shown that there are many advantages of keeping the interface tiny and to expose only what is needed in it.
+There is one case where putting the implementation directly in the interface can be worth considering: if the functions are one-liners or tiny.
+You can see an example of this in the https://github.com/polyfy/polylith/blob/master/components/path-finder/src/polylith/clj/core/path_finder/interface/criterias.clj[path-finder] component of the Polylith workspace.
 
-== Interface definitions
+Ultimately, it's up to you to do what you think is best.
+
+Our experience has shown us many advantages to keeping interfaces tiny and having them only expose what is needed. 
+
+== Interface Definitions
 
 So far, we have only used functions in the interface.
 Polylith also supports having `def` and `defmacro` statements in the interface.
-There is no magic here, just include the definitions you want, like this:
+There is no magic here; just include the definitions you want, like this:
 
 [source,clojure]
 ----
@@ -126,46 +156,56 @@ There is no magic here, just include the definitions you want, like this:
   `(timbre/log! :info :p ~args))
 ----
 
-== More about interfaces
+== More About Interfaces
 
-This list of tips makes more sense when you have used Polylith for a while, so take note of this section for later:
+This list of tips makes more sense when you have used Polylith for a while, so bookmark this section for later:
 
-* The interface docstring can focus on what problem each function/macro solves, while the implementation can focus on implementation details.
+* The interface docstrings should focus on what problem each function/macro solves, while the implementation docstrings can focus on concrete details.
 
-* Functions can be sorted in alphabetical order in the interface, while we can freely arrange them in the implementation namespace(s).
+* Consider sorting interface namespace functions in alphabetical order for easy lookup. 
+Order functions in implementation namespaces freely.
 
-* The interface can expose the name of the entity, e.g. `sell [car]`, while the implementing function can do the destructuring, e.g. `sell [{:keys [model type color]}]` which sometimes can improve the readability.
+* The interface can expose the entity's name, e.g., `sell [car]`, while the implementing function can expose specific usage via destructuring, e.g., `sell [{:keys [model type color]}]`.
 
-* If we have a http://clojure-doc.org/articles/language/functions.html#multi-arity-functions[multi-arity function] in the interface, a simplification can sometimes be to have a single arity function in the implementing namespace that allows some parameters to be passed in as nil.
+* It sometimes makes sense for a http://clojure-doc.org/articles/language/functions.html#multi-arity-functions[multi-arity function] in an interface to delegate to a single arity function in the implementing namespace:
++
+[source,clojure]
+----
+(defn foo 
+  ([a b c] (some-impl/foo a b c)
+  ([a b] (foo a b nil)))
+----
 
-* If using http://clojure-doc.org/articles/language/functions.html#variadic-functions[variadic functions] in the interface, a simplification is to pass in what comes after `&` as a vector to the implementing function.
+* It sometimes makes sense for a http://clojure-doc.org/articles/language/functions.html#variadic-functions[variadic functions] in an interface to delegate to function in the implementing namespace that accepts the variadic portion as a vector:
++
+[source,clojure]
+----
+(defn foo [a b & other]
+  (some-impl/foo a b other))
+----
 
-* Testing is simplified by allowing access to implementing namespaces from the `test` directory.
-The code under the `src` directory is restricted to only access the `interface` namespace.
-This check is performed when running the xref:commands.adoc#check[check], xref:commands#info[info] or xref:commands#test[test] command.
+* Polylith simplifies testing by allowing access to implementing namespaces from the `test` directory.
+Polylith restricts the code under the `src` directory to only access the `interface` namespace.
+The `poly` tool validates these restrictions when running the xref:commands.adoc#check[check], xref:commands#info[info], and xref:commands#test[test] command.
 
-* All functions can be declared public while still being protected.
-This improves testability and the debugging experience.
-When stopping at a breakpoint to evaluate a private function, we don't need to use any special syntax to access it.
+* Because Polylith only allows the code under `src` to call `interface` code, you can think of publicly declared implementation functions as protected (as in Java).
+Because these "protected" functions are technically public, you can test and debug them more easily.
+For example, when stopping at a breakpoint to evaluate a "protected" function, you don't need to use the special syntax you would need to access a private function.
 
-* If using a `function` in two components that implement the same interface, all definitions must be `function`.
-The same goes for `macros`.
-The reason for this restriction is that functions are composable, but macros are not, which could otherwise cause problems.
+* Polylith will always recognize `interface` and `ifc` as interface namespace names.
+By default, it will generate code using `interface` as the interface namespace name when you create a component.
+You can override this default via `:interface-ns` in `./workspace.edn`.
+Scenarios:
+** You want to share code between Clojure and ClojureScript via `.cljc` source files.
+Since `interface` is a reserved word in ClojureScript, it will cause problems.
+In this case, you can either:
+*** set `:interface-ns` to `ifc`, `poly` will use `ifc` as the interface namespace name for generated code when you create a component
+*** or leave `interface` as the default and override by specifying `interface:ifc` as an option to xref:commands.adoc#create-component[create component] for components that will also run from ClojureScript.
+** You want to consume Clojure code from another language on the JVM, e.g., Kotlin, where `interface` is a reserved word.
+You could set `:interface-ns` to anything that won't conflict, for the sake of this example, let's say `api`. 
+The `poly` tool would now use `api` for the interface namespace name when it generates code when you create a component, but also recognize `interface` and `ifc` as interface names.
 
-Finally, the interface namespace name can be changed in `:interface-ns` in `./workspace.edn`.
-Here are a few reasons why we would want to do that:
 
-* We want to share code between Clojure and ClojureScript via `cljc` files.
-Since `interface` is a reserved word in ClojureScript, it could otherwise cause problems.
 
-* We want to consume Clojure code from another language on the JVM, e.g. Kotlin, where `interface` is a reserved word.
 
-A good reason to keep the default `interface` name is that it communicates what it is.
 
-With start from version `0.2.18` not only interfaces matching the name specified in `:interface-ns` in `workspace.edn` will be treated as interfaces, but also the interface names `interface` and `ifc`
-(see issue https://github.com/polyfy/polylith/issues/187#issuecomment-1203567170[187]).
-The recommendation is to specify the interface name as either `interface` or `ifc`, but any other valid namespace name, specified in `:interface-ns`, is accepted.
-
-If you already know that you will need to share code between frontend and backend in `cljc` files, then you can either set `:interface-ns` to `ifc` from start, or you keep `interface` as the default, and only use `ifc` as interface name in the components you share.
-
-The name that is specified in `:interface-ns` will be the interface name used when creating new components.
