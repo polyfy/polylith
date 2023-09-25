@@ -129,7 +129,23 @@ We can tell the xref:commands.adoc#ws[ws] command to search for strings (using r
 * `poly ws get:settings:vcs:stable-since:sha replace:"[0-9]+":"*"` Outputs "*e*d*b*cee*fb*e*ff*fafcf".
 Here we need to surround the regular expressions with "" for the terminal to ignore the special characters.
 
-== Run cljdoc locally
+== Documentation
+
+We strive to write great documentation for our Polylith users.
+
+https://asciidoctor.org/docs/what-is-asciidoc/#what-is-asciidoc[AsciiDoc] is thoughtfully designed for writing articles; we like that, so all of our articles are written in AsciiDoc.
+
+Some conventions we have found helpful are:
+
+* Write one sentence per line.
+Among other https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line[things], this helps us to avoid run-on sentences.
+* These particular docs cover an implementation of a Polylith tool, so use the concrete `poly` instead of the abstract "Polylith tool".
+* Always link to referenced commands and concepts to make it easier for readers to explore and dig into details.
+* Use "we" when talking from the Polylith core team and "you" when directing the reader through some steps or a tutorial.
+
+We host our docs on https://cljdoc.org/d/polylith/clj-poly[cljdoc].
+
+=== Run cljdoc locally
 
 If we are maintainers of the documentation, we may want to see how it looks in https://cljdoc.org[cljdoc].
 To do that we can start by cloning the https://github.com/polyfy/polylith[polylith] repository:
@@ -229,7 +245,7 @@ clojure -M:poly :github branch:issue-318
 polylith$ doc page:component
 ----
 
-== Reloading changes
+=== Reloading changes
 
 Sometimes the cljdoc platform that builds the documentation has been updated, and in that case we need to restart the Docker container to get the latest version:
 
