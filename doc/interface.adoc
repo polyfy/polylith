@@ -83,8 +83,7 @@ Luckily, the `poly` tool will help us keep them consistent and complain if they 
 We often choose to have a single `interface` namespace in a component, but dividing the interface into several sub-namespaces is possible.
 To do so, create an `interface` package (directory) with the name `interface` at the component root and then add the sub-namespaces.
 
-You can find an example in Polylith itself.
-The `util` component divides its https://github.com/polyfy/polylith/tree/master/components/util/src/polylith/clj/core/util/interface[interface] into several sub-namespaces:
+You can find an example in Polylith itself, where the `util` component divides its https://github.com/polyfy/polylith/tree/master/components/util/src/polylith/clj/core/util/interface[interface] into several sub-namespaces:
 
 [source,shell]
 ----
