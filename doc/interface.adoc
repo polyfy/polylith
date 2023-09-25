@@ -100,7 +100,7 @@ Dividing an interface like this can be handy to group and sub-group the interfac
 One typical usage is to place https://clojure.org/about/spec[clojure specs] in its own `spec` sub-namespace.
 You can see an example of this in the https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[RealWorld example app], where the `article` component has both an `article.interface` and an https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/master/components/article/src/clojure/realworld/article/interface/spec.clj[`article.interface.spec`] sub-interface.
 
-Here's an example of the sub-interface usage from the https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/master/bases/rest-api/src/clojure/realworld/rest_api/handler.clj[RealWorld example app handler] namespace in its `rest-api`:
+Here's an example of the sub-interface usage from the https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/master/bases/rest-api/src/clojure/realworld/rest_api/handler.clj[RealWorld example app handler] namespace in its `rest-api` xref:base.adoc[base]:
 
 [source,clojure]
 ----
