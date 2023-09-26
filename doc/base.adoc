@@ -1,29 +1,32 @@
 = Base
 
-A `base` is similar to a `component` except for two things:
+A `base` is similar to a xref:component.adoc[component] except for two things:
 
-* It doesn't have an `interface`.
+* It doesn't have an xref:interface.adoc[interface].
 
 * It exposes a public API to the outside world.
 
-The lack of an `interface` makes bases less composable compared to components.
-This is okay because they serve a different purpose which is to be a bridge between the real world and the components it delegates to.
-This gives us the modularity and structure we need to build simple and understandable services and tools.
+The lack of an xref:interface.adoc[interface] makes bases less composable than components.
+This is fine; the sole purpose of a `base` is to act as a bridge between the real world and the xref:component.adoc[component] it delegates to.
+A `base` gives us the modularity and structure we need to build simple, understandable services and tools.
 
-Let's create the `cli` base to see how it works, by executing the xref:commands.adoc#create-base[create base] command:
+
+Let's continue with our tutorial.
+The last thing you did was xref:component.adoc#create-component[create a component].
+Run the following xref:commands.adoc#create-base[create base] command to create a `cli` `base`:
 
 [source,shell]
 ----
 poly create base name:cli
 ----
 
-Our workspace should now look like this:
+Your workspace should now look like this:
 
 [source,shell]
 ----
 example
-├── bases
-│   └── cli
+├── bases # <1>
+│   └── cli # <2>
 │       ├── deps.edn
 │       ├── resources
 │       │   └── cli
@@ -63,40 +66,44 @@ example
 ├── readme.md
 └── workspace.edn
 ----
+<1> new `bases` directory
+<2> new `cli` base
 
-Now we need to update `./deps.edn` with our newly created base:
+Edit your workspace `./deps.edn` to add your newly created `base`:
 
 [source,clojure]
 ----
  :aliases  {:dev {:extra-paths ["development/src"]
 
                   :extra-deps {poly/user {:local/root "components/user"}
-                               poly/cli  {:local/root "bases/cli"}
+                               poly/cli  {:local/root "bases/cli"}  ;; <1>
 
                                org.clojure/clojure {:mvn/version "1.11.1"}}}
 
             :test {:extra-paths ["components/user/test"
-                                 "bases/cli/test"]}
+                                 "bases/cli/test"]} ;; <2>
 ----
+<1> Add the `cli` base as a dependency
+<2> Add the `cli` base tests
 
-Refresh the IDE with the new settings and let's add some code to the base:
+TIP: Cursive users: refresh your IDE to pick up the updates.
+
+Now, add some code to the base:
 
 [source,clojure]
 ----
 (ns se.example.cli.core
   (:require [se.example.user.interface :as user])
-  (:gen-class))
+  (:gen-class)) ;; <1>
 
-(defn -main [& args]
+(defn -main [& args] ;; <2>
   (println (user/hello (first args)))
   (System/exit 0))
 ----
+<1> https://clojuredocs.org/clojure.core/gen-class[:gen-class] tells the Clojure compiler to generate a Java class
+<2> which allows the JVM to invoke `-main` when the `cli` base is invoked from the command line
 
-Here we added the `-main` function that will later be called from the command line.
-The https://clojuredocs.org/clojure.core/gen-class[:gen-class] statement
-tells the compiler to generate a Java class for us when the code is compiled.
-
-A `deps.edn` file was also created with this content:
+The `poly` tool generated a `deps.edn` file for the `cli` base:
 
 [source,clojure]
 ----
@@ -106,13 +113,11 @@ A `deps.edn` file was also created with this content:
                   :extra-deps {}}}}
 ----
 
-This config file is identical to the `user` config file, and will soon be needed when we create a project that uses it.
+This is identical to the xref:component#generated-deps-edn[deps.edn poly generated when you created the user component]. It will soon be needed when we create a xref:project.adoc[project].
 
-====
-NOTE: It's important that we don't add a dependency to the `users` component in the base's `deps.edn` file.
-The `cli` base will automatically "connect" to the `user` component, via the user's xref:interface.adoc[interface], when both are added to a xref:project.adoc[project].
-The base (or any brick) don't know about concrete components, just xref:interface.adoc[interfaces].
-====
+IMPORTANT: You never add a dependency from a base `deps.edn` to a component.
+The `poly` tool will automatically wire the `cli` base to the `user` component via its xref:interface.adoc[interface] after you've added them to your xref:project.adoc[project].
+Bases, or bricks for that matter, are unaware of concrete components; they only talk to xref:interface.adoc[interfaces].
 
-The next thing we want to do is to build an xref:artifacts.adoc[artifact] that will turn the code into something useful, a command-line tool.
-To do that, we need to start by creating a project.
+We are getting closer to building a deployable xref:artifacts.adoc[artifact], which will turn your code into something useable, a command-line tool.
+To get there, you must first create a xref:project.adoc[project].
