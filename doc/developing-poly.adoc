@@ -140,6 +140,9 @@ Some conventions we have found helpful are:
 * Write one sentence per line.
 Among other https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line[things], this helps us to avoid run-on sentences.
 * These particular docs cover an implementation of a Polylith tool, so use the concrete `poly` instead of the abstract "Polylith tool".
+* For command-line `poly create workspace top-ns:my-ns branch:my-branch :commit` refer to:
+** `create workspace` as a command
+** `top-ns:my-ns`, `branch:my-branch` and `:commit` as arguments
 * Always link to referenced commands and concepts to make it easier for readers to explore and dig into details.
 * Use "we" when talking from the Polylith core team and "you" when directing the reader through some steps or a tutorial.
 
