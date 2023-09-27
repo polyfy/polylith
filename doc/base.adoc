@@ -25,8 +25,8 @@ Your workspace should now look like this:
 [source,shell]
 ----
 example
-├── bases # <1>
-│   └── cli # <2>
+├── bases
+│   └── cli # <1>
 │       ├── deps.edn
 │       ├── resources
 │       │   └── cli
@@ -66,8 +66,7 @@ example
 ├── readme.md
 └── workspace.edn
 ----
-<1> new `bases` directory
-<2> new `cli` base
+<1> new `cli` base
 
 Edit your workspace `./deps.edn` to add your newly created `base`:
 
