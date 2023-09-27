@@ -1,187 +1,361 @@
 = Shell
 :poly-version: 0.2.18
 
-The goal of the shell is to make us more productive and to have more fun!
+Not only does the `shell` make you more productive, but it's also fun to use!
+It takes full advantage of https://github.com/jline/jline3[jline3] under the hood, which supports macOS, Linux, FreeBSD, Solaris, and Windows.
 
-The shell uses https://github.com/jline/jline3[jline3] under the hood which supports the following operating systems:
-Mac OS X, Linux, FreeBSD, Solaris, and Windows.
+Let's explore some shell features.
 
-Let's start a shell by typing `poly` from the workspace root:
+TIP: Our examples assume you are exploring from our ongoing tutorial `example` xref:workspace.adoc[workspace].
+
+[[launch]]
+== Launching
+
+Start a shell by typing `poly` from your workspace root directory (xref:component.adoc#shell-is-default[shell is the default command]):
 
 image::images/shell/shell-start.png[width=600]
 
-The prompt is set to the workspace name.
-From here we can execute different commands and get instant feedback.
+Notice that the `example$` prompt includes your current workspace name.
+From here, you can run commands and get instant feedback.
 
-We can list all available commands by pressing the `<tab>` key:
+[[quit]]
+== Quitting
+
+To quit the shell, type `exit` or `quit` or press either of:
+
+* kbd:[Ctrl+C]
+* kbd:[Ctrl+D] (if not on Windows)
+
+== Let's Play
+
+xref:#launch[Launch a poly shell] and play along.
+
+Press kbd:[Tab] to see all available commands:
 
 image::images/shell/shell-all-commands.png[width=600]
 
-If we type `i`, it will show all commands starting with `i`:
+Type `i` to match all commands starting with the letter `i`:
 
 image::images/shell/shell-i.png[width=600]
 
-If we press `<tab>`, it will complete the xref:commands.adoc#info[info] command and suggest available parameters:
+Press kbd:[Tab] to autocomplete the xref:commands.adoc#info[info] command and list valid arguments:
 
 image::images/shell/shell-info.png[width=600]
 
-Most parameters starting with a colon (`:`) can be selected by typing their name, e.g. `l` for `:loc`:
+You can usually skip the leading colon character; for example, type `l` to match `:loc`.
 
 image::images/shell/shell-info-loc.png[width=600]
 
-Press `<tab>` to select `:loc`:
+Press kbd:[Tab] to autocomplete `:loc`:
 
 image::images/shell/shell-info-loc-tab.png[width=600]
 
-We mentioned that parameters starting with a colon can be selected by their name.
-The exception is `:project` which has to start with `:p` to distinguish it from `project`:
+To distinguish `:project` from `project`, type the leading `:` (colon character):
 
 image::images/shell/shell-info-loc-p.png[width=600]
 
-Complete with `<tab>` and type `p` and press `<tab>` again to list all available projects in the workspace:
+Complete `:project` by pressing kbd:[Tab].
+Type `p` then press kbd:[Tab] to autocomplete `project:`, and kbd:[Tab] again, to list all projects in the workspace:
 
 image::images/shell/shell-info-loc-project.png[width=600]
 
-When we have only one candidate, then it can be selected by pressing `<tab>`:
+When you have only one candidate, select it by pressing kbd:[Tab]:
 
 image::images/shell/shell-one-candidate.png[width=600]
 
-The trailing colon indicates that this is a multi-select parameter (more than one project can be selected).
-We can leave the multi-select input mode by pressing `<space>` to remove the trailing colon:
+The trailing `:` (colon character) indicates a multi-select argument (you can select more than one project).
+You can leave the multi-select input mode by pressing kbd:[Space]; this removes the trailing colon:
 
 image::images/shell/shell-leave-multi-select.png[width=600]
 
-An alternative way of selecting a candidate is by pressing `<tab>` twice, and using the arrow keys to move the "cursor" around, e.g:
+An alternative way of selecting a listed candidate is to press kbd:[Tab] twice and use the arrow keys to move the selection cursor around (kbd:[Tab] and kbd:[Shift+Tab] also work):
 
 image::images/shell/shell-move-cursor.png[width=600]
 
-Press `<enter>` to make a choice:
+Press kbd:[Enter] to choose the item at the cursor:
 
 image::images/shell/shell-move-cursor-and-select.png[width=600]
 
-The brick parameter lists all bricks, including "no brick" represented by a dash (if `-` is chosen, then no bricks will be selected for testing):
+== The Dash Item
+
+The `brick` argument shows you all available bricks.
+Selecting the `-` (the dash character) tells `poly` you want no bricks selected (e.g., for testing):
 
 image::images/shell/shell-info-brick.png[width=600]
 
-A command that really benefits from being executed from the shell is the xref:commands.adoc#ws[ws] command.
-Instead of trying to remember all the different attributes, we get them suggested for us:
+== Using Autocomplete to Explore
+
+Autocomplete really shines when there are many available suggestions.
+The xref:commands.adoc#ws[ws] command offers a good example.
+Instead of trying to remember all the different `get:` arguments, the `shell` lists them for you:
 
 image::images/shell/shell-ws-get.png[width=600]
 
-From here we can dig deeper into the structure.
-Sometimes we encounter two words that start the same, where one of them is an exact match:
+After you select `components`, the `shell` lists valid arguments.
+Sometimes, you encounter multiple matching suggestions.
+When one of them is an exact match for what you have typed:
 
 image::images/shell/shell-ws-get-components-user.png[width=600]
 
-We can select user in this case, by typing `:`:
+You can select it by typing `:` (the colon character):
 
 image::images/shell/shell-ws-get-components-user-colon.png[width=600]
 
-We can continue browsing the workspace structure and view the information we are interested in, e.g.:
+You can continue navigating down into the workspace structure to find the information you are interested in:
 
 image::images/shell/shell-ws-get-browse.png[width=600]
 
-== Switching workspace
+== Switching Workspace
 
-When starting a shell from a workspace directory (where the `workspace.edn` file lives) we can execute all available commands from that directory.
-It's also possible to switch workspace without leaving the shell, but then the xref:commands.adoc#create[create] and xref:commands.adoc#test[test] commands will not work.
+When you start a shell from a workspace root directory (where the `workspace.edn` file lives), the workspace is automatically loaded, and you can execute all available commands against it.
 
-Let's say we have cloned the https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[realworld-example-app].
-We can now switch to that workspace using the xref:commands.adoc#switch-ws[switch-ws] command in combination with the `dir` parameter:
+You can switch to a different workspace without leaving the poly shell.
 
-image::images/shell/shell-switch-dir.png[width=600]
+NOTE: The xref:commands.adoc#create[create] and xref:commands.adoc#test[test] commands do not work on workspaces you have switched to.
 
-This will list all directories and files ending with `.edn` in the current directory.
-
-We can select the `clojure-polylith-realworld-example-app` directory by typing `.` followed by `<tab>` to select `..` and then typing `clo` (or something long enough) followed by `<tab>` to select the workspace:
-
-image::images/shell/shell-switch-dir-realworld.png[width=600]
-
-Switch workspace by pressing `<enter>`:
-
-image::images/shell/shell-switched-dir.png[width=600]
-
-The `dir:` prefix indicates that commands will be executed from the selected workspace, and not from the current directory.
-We can go back to the workspace directory by executing `switch-ws`:
-
-image::images/shell/shell-switch-ws.png[width=600]
-
-If a workspace has been exported to a file using something like `poly ws out:ws.edn` then we can switch to that workspace.
-Here we use the https://github.com/seancorfield/usermanager-example/tree/polylith[usermanager] project as an example (make sure to switch to the `polylith` branch, after cloning the repository):
-
-image::images/shell/shell-switch-ws-file.png[width=600]
-
-The prompt name is picked from the `:name` attribute in the `ws.edn` file and is prefixed with `file:`
-to indicate that it has been imported from a file.
-
-The "trick" the shell does is to append `ws-dir:DIR` or `ws-file:FILE` to the command for us before the command is executed (if we have switched workspace using the `dir:DIR` or `file:FILE` parameters).
-
-=== Start a shell in another workspace
-
-It's possible to start a shell and immediately switch to a workspace, e.g.:
-
-[source,text]
-----
-$ poly ws-dir:examples/doc-example
-                  _      _ + _   _
-#####   _ __  ___| |_  _| |-| |_| |_
-#####  | '_ \/ _ \ | || | | |  _| ' \
-#####  | .__/\___/_|\_, |_|_|\__|_||_|
-       |_|          |__/ poly 0.2.18
-dir:doc-example$
-----
-
-...or read a workspace from a file, e.g.:
-
-[source,text]
-----
-$ poly ws-file:realworld.edn
-                  _      _ + _   _
-#####   _ __  ___| |_  _| |-| |_| |_
-#####  | '_ \/ _ \ | || | | |  _| ' \
-#####  | .__/\___/_|\_, |_|_|\__|_||_|
-       |_|          |__/ poly 0.2.18
-file:clojure-polylith-realworld-example-app$
-----
-
-== Autocomplete
-
-The autocomplete helps us execute different commands with correct parameters:
-
-* Available commands can be suggested when we first select a command.
-* Available parameters are suggested for the current command.
-* The file system can be browsed when selecting files and directories.
-* The workspace structure can be browsed via the xref:commands.adoc#ws[ws] command.
-* The documentation can be browsed via the xref:commands.adoc#doc[doc] command.
-* Tag patterns defined in `workspace.edn` are suggested when using the `since:X` parameter.
-* Remote git branches are suggested when using the `branch:X` parameter.
-* Relevant bricks and projects are suggested when using the `brick:X` and `project:X` parameters:
-** If a `project:X` parameter is selected from the xref:commands.adoc#info[info] or xref:commands.adoc#test[test] command,
-only projects that are marked for testing will be suggested (we don't need to select already filtered out projects).
-** If a brick has been selected from the xref:commands.adoc#deps[deps] command, only projects that contain that brick will be suggested.
-** If a project has been selected from the xref:commands.adoc#deps[deps] command, only bricks from that project will be suggested.
-
-When browsing the file system from a `dir:PATH` parameter, there are a couple of things worth mentioning:
-
-* If we want to go to the user home directory we have to type `~/` and not just `~` (this is a problem with the underlying https://github.com/jline/jline3[jline3] integration).
-* When a file or directory contains spaces, it will be surrounded with quotes, e.g. "My path".
-To select such a path we need to include the first " in the path for the autocomplete to work.
-
-=== Create workspace
-
-We often execute the xref:commands#create-workspace[create workspace] command outside a xref:workspace.adoc[workspace].
-The `workspace` parameter is therefore not suggested by xref:commands.adoc#create[create] when inside an existing workspace.
-
-If we are outside a workspace, we will get some guidance:
+****
+If you want to play along, exit the shell, then clone https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[clojure-polylith-realworld-example-app] under the same parent directory as your `example` workspace:
 
 [source,shell]
 ----
+cd ..
+git clone https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app.git
+----
+And relaunch the poly shell:
+[source,shell]
+----
+cd example
 poly
 ----
+****
+
+You can switch to another workspace using the xref:commands.adoc#switch-ws[switch-ws] command in combination with its `dir` argument:
+
+image::images/shell/shell-switch-dir.png[width=600]
+
+The `shell` lists all directories and `.edn` files under the current directory.
+
+Select the `clojure-polylith-realworld-example-app` directory by typing `.` followed by kbd:[Tab] to select `..` and then type `clo` (or something long enough) followed by kbd:[Tab] to select the workspace directory:
+
+image::images/shell/shell-switch-dir-realworld.png[width=600]
+
+Switch workspace by pressing kbd:[Enter]:
+
+image::images/shell/shell-switched-dir.png[width=600]
+
+Notice the prompt has changed to show the currently selected workspace (by dir).
+All commands will be run against this selected workspace.
+
+You can go back to the `example` workspace by invoking `switch-ws` without arguments:
+
+image::images/shell/shell-switch-ws.png[width=600]
+
+=== Switching to an Exported Workspace
+
+You can switch to an exported workspace.
+
+NOTE: You can export a workspace to a `.edn` file, e.g. via `poly ws out:ws.edn`.
+
+****
+If you want to play along, exit the shell, then clone the `polylith` branch of https://github.com/seancorfield/usermanager-example/tree/polylith[usermanager-example] project under the same parent directory as your `example` workspace, and export its workspace:
+
+[source,shell]
+----
+cd ..
+git clone --branch polylith https://github.com/seancorfield/usermanager-example.git
+cd usermanager-example
+poly ws out:ws.edn
+----
+
+And relaunch the poly shell:
+[source,shell]
+----
+cd ../example
+poly
+----
+****
+
+Switch to the exported workspace using the `file` argument.
+
+image::images/shell/shell-switch-ws-file.png[width=600]
+
+Notice that the prompt has changed to show the currently selected workspace (by export file).
+
+=== Switch at Launch
+
+You can launch a shell and immediately switch to a workspace:
+
+[source,text,subs="+attributes"]
+----
+$ poly ws-dir:../clojure-polylith-realworld-example-app
+                  _      _ + _   _
+#####   _ __  ___| |_  _| |-| |_| |_
+#####  | '_ \/ _ \ | || | | |  _| ' \
+#####  | .__/\___/_|\_, |_|_|\__|_||_|
+       |_|          |__/ poly {poly-version}
+dir:clojure-polylith-realworld-example-app$
+----
+
+...or load a workspace from an export file, e.g.:
+
+[source,text,subs="+attributes"]
+----
+$ poly ws-file:../usermanager-example/ws.edn
+                  _      _ + _   _
+#####   _ __  ___| |_  _| |-| |_| |_
+#####  | '_ \/ _ \ | || | | |  _| ' \
+#####  | .__/\___/_|\_, |_|_|\__|_||_|
+       |_|          |__/ poly  {poly-version}
+file:usermanager-example$
+----
+
+=== Workspace Switch Mechanics
+
+Knowing how the shell supports workspace switching can be helpful.
+It is pretty simple:
+
+* After switching to workspace dir `D`, the shell silently appends `ws-dir:D` to each command before it runs it.
+* After switching to workspace export file `F`, the shell silently appends `ws-file:F` to each command before it runs it.
+
+== Autocomplete Examples
+
+Autocomplete helps you execute different commands with the correct arguments:
+
+* All valid sub-commands are suggested for a command:
++
+[source,text]
+----
+example$ create
+base        component   project
+----
+* All valid arguments are suggested for a command:
++
+[source,text]
+----
+example$ test
+:all          :all-bricks   :dev          :loc          :project      :verbose
+brick         project       since
+----
+* Browse your file system when selecting files and directories:
++
+[source,text]
+----
+example$ switch-ws dir:
+../             bases/          components/     deps.edn        development/
+projects/       workspace.edn   ~/
+----
+* Browse your workspace structure via the xref:commands.adoc#ws[ws] command:
++
+[source,text]
+----
+example$ ws get:interfaces:user:
+definitions               implementing-components   name                      type
+----
+* Browse documentation with the xref:commands.adoc#doc[doc] command:
++
+[source,text]
+----
+example$ doc help:
+check                deps-brick           doc                  switch-ws
+create-base          deps-project-brick   info                 tap
+create-component     deps-project         libs                 test
+create-project       deps-workspace       migrate              version
+create-workspace     deps                 overview             ws
+create               diff                 shell
+----
+* Tag patterns defined in `workspace.edn` are suggested for the `since:` argument:
++
+[source,text]
+----
+example$ info since:
+previous-release   previous-stable    release            stable
+----
+* Remote git branches are suggested for some commands for the `branch:` argument (for autocomplete to work here, you need to start your shell with xref:developing-poly.adoc#all[:all] e.g., `poly :all`):
++
+[source,text]
+----
+usermanager-example$ ws branch:
+develop    master     polylith
+----
+* Only relevant bricks and projects are suggested for the `brick` and `project` arguments:
+** The shell only suggests projects marked for testing for the xref:commands.adoc#info[info] and xref:commands.adoc#test[test] commands:
++
+[source,text]
+----
+usermanager-example$ test project:
+development   usermanager
+----
+** After you select a brick from the xref:commands.adoc#deps[deps] command, only projects that contain that brick will be suggested:
++
+[source,text]
+----
+usermanager-example$ deps brick:database project:
+development   usermanager
+----
+** After you select a project from the xref:commands.adoc#deps[deps] command, only bricks from that project will be suggested:
++
+[source,text]
+----
+usermanager-example$ deps project:usermanager brick:
+app-state        department       schema-fixture   web
+database         schema           user             web-server
+----
+
+== Limitations
+
+=== Browsing Directories
+
+When browsing the file system from the `dir:` argument, there are a couple of things worth mentioning:
+
+* To go to the user home directory, you must type the full `~/` and not just `~` (this reflects a limitation in the underlying https://github.com/jline/jline3[jline3] integration):
++
+[source,text]
+----
+example$ switch-ws dir:~/
+Public/                      Desktop/                     Templates/
+proj/                        Documents/                   Videos/
+Downloads/                   Dropbox/                     bin/
+Music/                       Pictures/
+----
+* To navigate to a directory containing spaces, you must type the leading `"`.
++
+Notice directory `"foo bar baz"`:
++
+[source,text]
+----
+example$ switch-ws dir:
+"foo bar baz"/   bases/           deps.edn         projects/        ~/
+../              components/      development/     workspace.edn
+----
++
+To match it type the leading `"`:
++
+[source,text]
+----
+example$ switch-ws dir:"
+"foo bar baz"/
+----
+
+=== Creating a Workspace
+
+The poly shell will not suggest `workspace` for the xref:commands.adoc#create[create] command when already associated with a workspace:
+[source,text]
+----
+example$ create
+base        component   project
+----
+
+You'll typically run xref:commands#create-workspace[create workspace] from your terminal shell (bash, PowerShell, zsh, etc) and then use the poly shell on that workspace:
+[source,text]
+----
+$ poly create workspace name:myws top-ns:com.example
+$ cd myws
+$ poly
+----
+
+If you prefer to use the shell to create a workspace, run the poly shell outside of any workspace directory:
 
 image::images/shell/shell-create-workspace.png[width=600]
 
-[[quit]]
-== Quit
-
-To quit the shell, type `exit` or `quit` or press `<ctrl>+C` or `<ctrl>+D`.
+Notice the lack of a workspace name in the prompt.
+After you create your workspace, exit the shell and relaunch it from the new workspace directory.
