@@ -14,7 +14,7 @@ So what is an `interface`, and what is it good for?
 
 An interface in the Polylith world is a namespace named `interface` that usually lives in one, but sometimes several, sub-namespaces within a component.
 
-Looking at our example user component, if you exclude the top namespace, in Polylith we think of its interface namespace as `user.interface`.
+Looking at our example `user` component, if you exclude the top namespace, in Polylith we think of its interface namespace as `user.interface`.
 
 The interface defines `def`, `defn`, or `defmacro` statements which form the contract that it exposes to other components and bases.
 
