@@ -139,11 +139,14 @@ jobs:
           name: Add global git user name
           command: git config --global user.name "CircleCI"
       - run:
-          name: Add git tag to mark this commit as stable point
-          command: git tag -f -a "stable-$CIRCLE_BRANCH" -m "[skip ci] Added Stable Polylith tag"
-      - run:
-          name: Push the new tag
-          command: git push origin $CIRCLE_BRANCH --tags --force-with-lease=$CIRCLE_BRANCH
+          name: Delete existing stable tag and mark this commit as stable point
+          command: |
+            TAG_NAME="stable-$CIRCLE_BRANCH"
+
+            git tag -d ${TAG_NAME}
+            git push origin --delete ${TAG_NAME}
+            git tag ${TAG_NAME} -m "[skip ci] Added Stable Polylith tag"
+            git push origin ${TAG_NAME}
   add-version-tag:
     docker:
       - image: cimg/clojure:1.11.1
@@ -161,18 +164,20 @@ jobs:
           name: Add global git user name
           command: git config --global user.name "CircleCI"
       - run:
-          name: Add git tag to mark this commit as a new version
+          name: Delete existing stable tag and mark this commit as a new version
           command: |
             VERSION=`cat version.txt`
             
             if [[ "$VERSION" == *-SNAPSHOT ]]; then
               echo "Skip adding tag. Reason: SNAPSHOT build"
             else
-              git tag -f -a "v$VERSION" -m "[skip ci] Added new version tag"
+              TAG_NAME="v$VERSION"
+
+              git tag -d ${TAG_NAME}
+              git push origin --delete ${TAG_NAME}
+              git tag ${TAG_NAME} -m "[skip ci] Added new version tag"
+              git push origin ${TAG_NAME}
             fi
-      - run:
-          name: Push the new tag
-          command: git push origin $CIRCLE_BRANCH --tags --force-with-lease=$CIRCLE_BRANCH
   deploy:
     docker:
       - image: cimg/clojure:1.11.1
@@ -241,23 +246,10 @@ workflows:
       - test:
           requires:
             - check
-      - mark-as-stable:
-          requires:
-            - test
-          filters:
-            branches:
-              only:
-                - master
       - create-version-txt:
           requires:
+            - info
             - test
-          filters:
-            branches:
-              only:
-                - master
-      - add-version-tag:
-          requires:
-            - create-version-txt
           filters:
             branches:
               only:
@@ -265,6 +257,21 @@ workflows:
       - deploy:
           requires:
             - create-version-txt
+          filters:
+            branches:
+              only:
+                - master
+      - mark-as-stable:
+          requires:
+            - deploy
+          filters:
+            branches:
+              only:
+                - master
+      - add-version-tag:
+          requires:
+            - create-version-txt
+            - deploy
           filters:
             branches:
               only:
