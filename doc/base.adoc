@@ -8,8 +8,7 @@ A `base` is similar to a xref:component.adoc[component] except for two things:
 
 The lack of an xref:interface.adoc[interface] makes bases less composable than components.
 This is fine; the sole purpose of a `base` is to act as a bridge between the real world and the xref:component.adoc[components] it delegates to.
-A `base` gives us the modularity and structure we need to build simple, understandable services and tools.
-
+This structure gives us the modularity we need to build simple, understandable services and tools.
 
 Let's continue with our tutorial.
 The last thing you did was xref:component.adoc#create-component[create a component].
