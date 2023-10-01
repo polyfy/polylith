@@ -12,7 +12,7 @@ This structure gives us the modularity we need to build simple, understandable s
 
 Let's continue with our tutorial.
 The last thing you did was xref:component.adoc#create-component[create a component].
-Run the following xref:commands.adoc#create-base[create base] command to create a `cli` `base`:
+Run the following xref:commands.adoc#create-base[create base] command to create a `cli` base:
 
 [source,shell]
 ----
@@ -67,7 +67,7 @@ example
 ----
 <1> new `cli` base
 
-Edit your workspace `./deps.edn` to add your newly created `base`:
+Edit your workspace `./deps.edn` to add your newly created base:
 
 [source,clojure]
 ----
