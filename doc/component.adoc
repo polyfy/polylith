@@ -57,6 +57,7 @@ It will make you more productive and enhance your development experience!
 
 TIP: Type xref:shell.adoc#quit[`quit`] to end your `poly` shell session.
 
+[[create-component]]
 == Creating a Component
 
 Let's continue with our example by executing the xref:commands.adoc#create-component[create component] command:
@@ -138,6 +139,7 @@ Cursive users: After creating a component, you may need to refresh your IDE by c
 image::images/component/cursive-import-changes.png[width=400]
 ====
 
+[[generated-deps-edn]]
 The component has its own `deps.edn` file that looks like:
 
 [source,clojure]
