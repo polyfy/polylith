@@ -1,6 +1,22 @@
 version: 2.0
 
 jobs:
+  create-version-txt:
+    docker:
+      - image: cimg/clojure:1.11.1
+    working_directory: ~/polylith
+    steps:
+      - attach_workspace:
+          at: ~/polylith
+      - restore_cache:
+          key: polylith-{{ checksum "deps.edn" }}
+      - run:
+          name: Create version.txt
+          command: clojure -T:build create-version-txt
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
   check:
     docker:
       - image: cimg/clojure:1.11.1
@@ -16,7 +32,12 @@ jobs:
           command: mkdir -p "${XDG_CONFIG_HOME:=${HOME}/.config}/polylith" && echo "{}" > "${XDG_CONFIG_HOME:=${HOME}/.config}/polylith/config.edn"
       - run:
           name: Check Polylith workspace
-          command: clojure -M:poly check
+          command: |
+            if [[ "$CIRCLE_BRANCH" = "master" ]]; then
+              clojure -M:poly check since:previous-release
+            else
+              clojure -M:poly check
+            fi
       - save_cache:
           key: polylith-{{ checksum "deps.edn" }}
           paths:
@@ -28,35 +49,6 @@ jobs:
           root: .
           paths:
             - .
-
-  check-build:
-    docker:
-      - image: cimg/clojure:1.11.1
-    working_directory: ~/polylith
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/polylith
-      - restore_cache:
-          key: polylith-{{ checksum "deps.edn" }}
-      - run:
-          name: Create polylith config if it does not exist
-          command: mkdir -p "${XDG_CONFIG_HOME:=${HOME}/.config}/polylith" && echo "{}" > "${XDG_CONFIG_HOME:=${HOME}/.config}/polylith/config.edn"
-      - run:
-          name: Check Polylith workspace
-          command: clojure -M:poly check since:previous-release
-      - save_cache:
-          key: polylith-{{ checksum "deps.edn" }}
-          paths:
-            - ${XDG_CONFIG_HOME:=${HOME}/.config}/polylith
-            - ~/.m2
-            - ~/.lein
-            - ~/polylith/.cpcache
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-
   info:
     docker:
       - image: cimg/clojure:1.11.1
@@ -74,45 +66,36 @@ jobs:
           command: git config --global user.name "CircleCI"
       - run:
           name: Run ws command for Polylith workspace
-          command: clojure -M:poly ws
+          command: |
+            if [[ "$CIRCLE_BRANCH" = "master" ]]; then
+              clojure -M:poly ws since:previous-release
+            else
+              clojure -M:poly ws
+            fi
       - run:
           name: Run info command for Polylith workspace
-          command: clojure -M:poly info
+          command: |
+            if [[ "$CIRCLE_BRANCH" = "master" ]]; then
+              clojure -M:poly info since:previous-release
+            else
+              clojure -M:poly info
+            fi
       - run:
           name: Run deps command for Polylith workspace
-          command: clojure -M:poly deps
+          command: |
+            if [[ "$CIRCLE_BRANCH" = "master" ]]; then
+              clojure -M:poly deps since:previous-release
+            else
+              clojure -M:poly deps
+            fi
       - run:
           name: Run libs command for Polylith workspace
-          command: clojure -M:poly libs
-
-  info-build:
-    docker:
-      - image: cimg/clojure:1.11.1
-    working_directory: ~/polylith
-    steps:
-      - attach_workspace:
-          at: ~/polylith
-      - restore_cache:
-          key: polylith-{{ checksum "deps.edn" }}
-      - run:
-          name: Add global git user email
-          command: git config --global user.email "circleci@polyfy.com"
-      - run:
-          name: Add global git user name
-          command: git config --global user.name "CircleCI"
-      - run:
-          name: Run ws command for Polylith workspace
-          command: clojure -M:poly ws since:previous-release
-      - run:
-          name: Run info command for Polylith workspace
-          command: clojure -M:poly info since:previous-release
-      - run:
-          name: Run deps command for Polylith workspace
-          command: clojure -M:poly deps since:previous-release
-      - run:
-          name: Run libs command for Polylith workspace
-          command: clojure -M:poly libs since:previous-release
-
+          command: |
+            if [[ "$CIRCLE_BRANCH" = "master" ]]; then
+              clojure -M:poly libs since:previous-release
+            else
+              clojure -M:poly libs
+            fi
   test:
     docker:
       - image: cimg/clojure:1.11.1
@@ -133,30 +116,12 @@ jobs:
           command: clojure -A:dev:test -P
       - run:
           name: Run tests for Polylith workspace
-          command: clojure -M:poly test :project
-
-  test-build:
-    docker:
-      - image: cimg/clojure:1.11.1
-    working_directory: ~/polylith
-    steps:
-      - attach_workspace:
-          at: ~/polylith
-      - restore_cache:
-          key: polylith-{{ checksum "deps.edn" }}
-      - run:
-          name: Add global git user email
-          command: git config --global user.email "circleci@polyfy.com"
-      - run:
-          name: Add global git user name
-          command: git config --global user.name "CircleCI"
-      - run:
-          name: Force clojure to resolve dependencies
-          command: clojure -A:dev:test -P
-      - run:
-          name: Run tests for Polylith workspace
-          command: clojure -M:poly test :project since:previous-release
-
+          command: |
+            if [[ "$CIRCLE_BRANCH" = "master" ]]; then
+              clojure -M:poly test :project since:previous-release
+            else
+              clojure -M:poly test :project
+            fi
   mark-as-stable:
     docker:
       - image: cimg/clojure:1.11.1
@@ -174,12 +139,40 @@ jobs:
           name: Add global git user name
           command: git config --global user.name "CircleCI"
       - run:
-          name: Add git tag to mark this stable point
+          name: Add git tag to mark this commit as stable point
           command: git tag -f -a "stable-$CIRCLE_BRANCH" -m "[skip ci] Added Stable Polylith tag"
       - run:
           name: Push the new tag
-          command: git push origin $CIRCLE_BRANCH --tags --force
-
+          command: git push origin $CIRCLE_BRANCH --tags --force-with-lease=$CIRCLE_BRANCH
+  add-version-tag:
+    docker:
+      - image: cimg/clojure:1.11.1
+    working_directory: ~/polylith
+    steps:
+      - attach_workspace:
+          at: ~/polylith
+      - run:
+          name: Add github.com to known hosts
+          command: mkdir -p ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - run:
+          name: Add global git user email
+          command: git config --global user.email "circleci@polyfy.com"
+      - run:
+          name: Add global git user name
+          command: git config --global user.name "CircleCI"
+      - run:
+          name: Add git tag to mark this commit as a new version
+          command: |
+            VERSION=`cat version.txt`
+            
+            if [[ "$VERSION" == *-SNAPSHOT ]]; then
+              echo "Skip adding tag. Reason: SNAPSHOT build"
+            else
+              git tag -f -a "v$VERSION" -m "[skip ci] Added new version tag"
+            fi
+      - run:
+          name: Push the new tag
+          command: git push origin $CIRCLE_BRANCH --tags --force-with-lease=$CIRCLE_BRANCH
   deploy:
     docker:
       - image: cimg/clojure:1.11.1
@@ -190,9 +183,15 @@ jobs:
       - restore_cache:
           key: polylith-{{ checksum "deps.edn" }}
       - run:
-          name: Deploy changed projects to clojars
-          command: clojure -T:build deploy
+          name: Deploy changed projects to clojars and request a cljdoc build if snapshot
+          command: |
+            VERSION=`cat version.txt`
 
+            if [[ "$VERSION" == *-SNAPSHOT ]]; then
+              clojure -T:build deploy-snapshot
+            else
+              clojure -T:build deploy
+            fi
   create-artifacts:
     docker:
       - image: cimg/clojure:1.11.1
@@ -211,7 +210,6 @@ jobs:
           root: .
           paths:
             - .
-
   publish-github-release:
     docker:
       - image: cibuilds/github:0.13
@@ -220,14 +218,21 @@ jobs:
       - attach_workspace:
           at: ~/polylith
       - run:
-          name: Publish release on GitHub
+          name: Publish a new release on GitHub
           command: |
-            VERSION=${CIRCLE_TAG#?}
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -n "Version ${VERSION}" ${CIRCLE_TAG} ./artifacts
+            VERSION=`cat version.txt`
+
+            if [[ "$VERSION" == *-SNAPSHOT ]]; then
+              STABLE_TAG="stable-$CIRCLE_BRANCH"
+              ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -n "Version ${VERSION}" -replace -prerelease ${STABLE_TAG} ./artifacts
+            else
+              VERSION_TAG="v$VERSION"
+              ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -n "Version ${VERSION}" ${VERSION_TAG} ./artifacts
+            fi
 
 workflows:
   version: 2
-  validate:
+  deploy:
     jobs:
       - check
       - info:
@@ -243,51 +248,40 @@ workflows:
             branches:
               only:
                 - master
-  deploy:
-    jobs:
-      - check-build:
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
-      - info-build:
+      - create-version-txt:
           requires:
-            - check-build
+            - test
           filters:
-            tags:
-              only: /^v.*/
             branches:
-              ignore: /.*/
-      - test-build:
+              only:
+                - master
+      - add-version-tag:
           requires:
-            - check-build
+            - create-version-txt
           filters:
-            tags:
-              only: /^v.*/
             branches:
-              ignore: /.*/
+              only:
+                - master
       - deploy:
           requires:
-            - test-build
+            - create-version-txt
           filters:
-            tags:
-              only: /^v.*/
             branches:
-              ignore: /.*/
+              only:
+                - master
       - create-artifacts:
           requires:
-            - test-build
+            - deploy
           filters:
-            tags:
-              only: /^v.*/
             branches:
-              ignore: /.*/
+              only:
+                - master
       - publish-github-release:
           requires:
+            - mark-as-stable
+            - add-version-tag
             - create-artifacts
           filters:
-            tags:
-              only: /^v.*/
             branches:
-              ignore: /.*/
+              only:
+                - master

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.text-table.profile)
+(ns ^:no-doc polylith.clj.core.workspace.text-table.profile)
 
 (defn profile-sorting [profile default-profile-name]
   [(not= default-profile-name profile) profile])

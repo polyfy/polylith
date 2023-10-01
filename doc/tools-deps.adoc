@@ -1,0 +1,45 @@
+= Tools.deps
+
+This `poly` tool is built on top of tools.deps.
+To get the most out of it, we recommend you to read its https://github.com/clojure/tools.deps.alpha[documentation].
+
+When we created the workspace with the xref:commands#create-workspace[create workspace] command, the `poly` alias was also be added to `./deps.edn`:
+
+[source,clojure]
+----
+    :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+           :extra-deps {polyfy/polylith
+                        {:git/url   "https://github.com/polyfy/polylith"
+                         :sha       "1b91de1cb96dd286c9f5f9bda6a97d62c40b67a7"
+                         :deps/root "projects/poly"}}}
+----
+
+This alias can now be used to execute the `poly` tool from the workspace root, e.g.:
+
+[source,shell]
+----
+cd ../..
+clojure -M:poly info
+----
+
+It takes longer to execute the `poly` tool this way, because it needs to compile the Clojure code first, but it also allows us to execute older or newer versions of the tool by selecting another `sha` from an https://github.com/polyfy/polylith/commits/master[existing commit].
+
+To speed things up we can always start a xref:commands.adoc#shell[shell]:
+
+[source,shell]
+----
+clojure -M:poly
+----
+
+== clojure vs clj
+
+In the example above, we started the `poly` tool using `clojure` which is preferable over `clj` when executing a program like the `poly` tool, and is well described https://betweentwoparens.com/blog/what-are-the-clojure-tools/#clj%2Fclojure[here].
+
+If we use `clj` instead, things will still work, but we will get a warning in some situations:
+
+[source,shell]
+----
+clj -M:poly
+----
+
+image::images/toolsdeps/clj-poly-shell.png[width=600]

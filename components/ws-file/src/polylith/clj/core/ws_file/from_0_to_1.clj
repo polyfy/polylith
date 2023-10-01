@@ -1,4 +1,4 @@
-(ns polylith.clj.core.ws-file.from-0-to-1
+(ns ^:no-doc polylith.clj.core.ws-file.from-0-to-1
   (:require [polylith.clj.core.git.interface :as git]
             [polylith.clj.core.version.interface :as ver])
   (:refer-clojure :exclude [alias]))
@@ -136,7 +136,7 @@
   (assoc (dissoc changes :git-command) :git-diff-command git-command))
 
 (defn convert
-  "Convert from the old workspace format, sed by version 0.2.0-alpha9
+  "Convert from the old workspace format, created by version 0.2.0-alpha9
    and earlier, stored as type :toolsdeps1, to the new format."
   [{:keys [settings bases components projects changes] :as ws}]
   (assoc ws :settings (convert-settings settings)

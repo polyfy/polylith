@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.interface
+(ns ^:no-doc polylith.clj.core.workspace.interface
   (:require [polylith.clj.core.workspace.core :as core]
             [polylith.clj.core.workspace.text-table.info-table :as info-table])
   (:gen-class))

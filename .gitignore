@@ -33,16 +33,18 @@ projects/**/pom.xml
 /examples/doc-example/.idea/**
 /examples/local-dep/.idea/**ZZ
 /examples/local-dep-old-format/.idea/**
-/scripts/output/info.png
-/scripts/output/overview.png
 
 # clojure-lsp
 .lsp/sqlite*.db
 .lsp/.cache
-.clj-kondo/.cache
+.clj-kondo/*
+!.clj-kondo/config.edn
 
 # Calva
 .calva/output-window/output.calva-repl
 
 # Portal (VS Code)
 .portal
+
+# Build Releates
+/version.txt

@@ -1,0 +1,23 @@
+  Shows the output from the info, deps, and libs commands, side by side.
+  This command is mainly used to generate an image for our documentation
+  and is only available from the polyx tool.
+
+  We can duplicate the :poly alias in ./deps.edn and rename it to :polyx and
+  change :deps/root to "projects/polyx" to get access to the :polyx command.
+
+  poly overview [:no-changes] [out:FILENAME]
+
+    (omitted)  = Shows the output.
+
+    :no-changes = Shows the output as if there were no changes in the workspace.
+
+    FILENAME = Creates a text or image file based on the output.
+               If FILENAME ends with .txt, then the file will contain
+               the output as text. If FILENAME ends with .bmp, .wbmp, .gif,
+               .png, .jpeg, .jpg, .png, .tif, or .tiff, then the file will be
+               generated as an image.
+
+  Example:
+    clojure -M:polyx overview
+    clojure -M:polyx overview out:overview.png
+    clojure -M:polyx overview out:overview.jpg :no-changes

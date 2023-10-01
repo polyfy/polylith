@@ -1,4 +1,4 @@
-(ns polylith.clj.core.migrator.project-deps
+(ns ^:no-doc polylith.clj.core.migrator.project-deps
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [polylith.clj.core.config-reader.interface :as config-reader]

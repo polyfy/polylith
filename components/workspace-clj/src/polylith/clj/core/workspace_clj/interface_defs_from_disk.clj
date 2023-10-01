@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace-clj.interface-defs-from-disk
+(ns ^:no-doc polylith.clj.core.workspace-clj.interface-defs-from-disk
   (:require [clojure.string :as str]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.common.interface :as common]

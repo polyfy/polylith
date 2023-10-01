@@ -1,4 +1,4 @@
-(ns polylith.clj.core.config-reader.interface
+(ns ^:no-doc polylith.clj.core.config-reader.interface
   (:require [polylith.clj.core.config-reader.check-file :as check-file]
             [polylith.clj.core.config-reader.config-reader :as config-reader]
             [polylith.clj.core.config-reader.deps-reader :as deps-reader]
@@ -12,11 +12,14 @@
 (defn clean-project-configs [configs]
   (config-reader/clean-project-configs configs))
 
+(defn read-edn-file [file-path filename]
+  (deps-reader/read-edn-file file-path filename))
+
 (defn read-deps-file [file-path filename]
   (deps-reader/read-deps-file file-path filename))
 
-(defn read-brick-config-files [ws-dir ws-type entity-type entity-dir]
-  (config-reader/read-brick-config-files ws-dir ws-type entity-type entity-dir))
+(defn read-brick-config-files [ws-dir ws-type entity-type]
+  (config-reader/read-brick-config-files ws-dir ws-type entity-type))
 
 (defn read-project-config-files [ws-dir ws-type]
   (config-reader/read-project-config-files ws-dir ws-type))

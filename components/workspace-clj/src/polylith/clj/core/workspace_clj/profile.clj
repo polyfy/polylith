@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace-clj.profile
+(ns ^:no-doc polylith.clj.core.workspace-clj.profile
   (:require [clojure.string :as str]
             [polylith.clj.core.deps.interface :as deps]
             [polylith.clj.core.lib.interface :as lib]

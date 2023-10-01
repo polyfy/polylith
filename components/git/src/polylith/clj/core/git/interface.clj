@@ -1,4 +1,4 @@
-(ns polylith.clj.core.git.interface
+(ns ^:no-doc polylith.clj.core.git.interface
   (:require [polylith.clj.core.git.core :as core]
             [polylith.clj.core.git.tag :as tag]))
 
@@ -7,6 +7,9 @@
 
 (defn is-git-repo? [ws-dir]
   (core/is-git-repo? ws-dir))
+
+(defn is-polylith-repo? [ws-dir]
+  (core/is-polylith-repo? ws-dir))
 
 (defn init [ws-dir git-repo? branch]
   (core/init ws-dir git-repo? branch))

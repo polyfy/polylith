@@ -11,10 +11,10 @@
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :extra-deps {polyfy/polylith
                                 {:git/url   "https://github.com/polyfy/polylith"
-                                 :sha       "1b91de1cb96dd286c9f5f9bda6a97d62c40b67a7"
+                                 :sha       "45de4c6f9429018c5c43280ad21dd7f0e72cd3c5"
                                  :deps/root "projects/poly"}}}
             :polyx {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                     :extra-deps {polyfy/polylith
                                  {:git/url   "https://github.com/polyfy/polylith"
-                                  :sha       "1b91de1cb96dd286c9f5f9bda6a97d62c40b67a7"
+                                  :sha       "45de4c6f9429018c5c43280ad21dd7f0e72cd3c5"
                                   :deps/root "projects/polyx"}}}}}

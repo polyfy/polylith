@@ -1,4 +1,4 @@
-(ns polylith.clj.core.util.time
+(ns ^:no-doc polylith.clj.core.util.time
   (:import (java.util Date)))
 
 (defn current-time []

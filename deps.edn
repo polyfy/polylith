@@ -1,5 +1,6 @@
 {:aliases  {:dev {:extra-paths ["."
-                                "development/src"]
+                                "development/src"
+                                "scripts"]
 
                   :extra-deps {poly/antq                     {:local/root "components/antq"}
                                poly/api                      {:local/root "components/api"}
@@ -10,6 +11,7 @@
                                poly/config-reader            {:local/root "components/config-reader"}
                                poly/creator                  {:local/root "components/creator"}
                                poly/deps                     {:local/root "components/deps"}
+                               poly/doc                      {:local/root "components/doc"}
                                poly/file                     {:local/root "components/file"}
                                poly/git                      {:local/root "components/git"}
                                poly/help                     {:local/root "components/help"}
@@ -33,11 +35,12 @@
                                poly/workspace-clj            {:local/root "components/workspace-clj"}
                                poly/ws-explorer              {:local/root "components/ws-explorer"}
                                poly/ws-file                  {:local/root "components/ws-file"}
+                               poly/nav-generator            {:local/root "bases/nav-generator"}
                                poly/poly-cli                 {:local/root "bases/poly-cli"}
 
                                mount/mount {:mvn/version "0.1.17"}
                                org.clojure/clojure {:mvn/version "1.11.1"}
-                               org.slf4j/slf4j-nop {:mvn/version "2.0.7"}
+                               org.slf4j/slf4j-nop {:mvn/version "2.0.9"}
                                rewrite-clj/rewrite-clj {:mvn/version "1.1.47"}}}
 
             :+default {:extra-deps {poly/image-creator {:local/root "components/image-creator"}
@@ -71,43 +74,49 @@
                                  "bases/poly-cli/test"
                                  "projects/poly/test"]}
 
+            ;; master
+            :polym  {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                     :extra-deps {polyfy/polylith
+                                  {:git/url   "https://github.com/polyfy/polylith"
+                                   :sha       "48d8a14d31a02cd2229d99bca094fe383d3dcace"
+                                   :deps/root "projects/poly"}}}
+
             ;; ws version 0.0
-            :poly9  {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
-                     :extra-deps {polylith/clj-poly
-                                  {:mvn/version "0.1.0-alpha9"}}}
+            :poly109  {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                       :extra-deps {polylith/clj-poly {:mvn/version "0.1.0-alpha9"}}}
 
             ;; ws version 1.0
-            :poly13  {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
-                      :extra-deps {polylith/clj-poly
-                                   {:mvn/version "0.2.13-alpha"}}}
+            :poly213  {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                       :extra-deps {polylith/clj-poly {:mvn/version "0.2.13-alpha"}}}
 
             ;; ws version 1.1
-            :poly15  {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
-                      :extra-deps {polylith/clj-poly
-                                   {:mvn/version "0.2.15-alpha"}}}
+            :poly215  {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                       :extra-deps {polylith/clj-poly {:mvn/version "0.2.15-alpha"}}}
 
             ;; ws version 1.2
-            :poly17  {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
-                      :extra-deps {polylith/clj-poly
-                                   {:mvn/version "0.2.17-alpha"}}}
+            :poly217  {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                       :extra-deps {polylith/clj-poly {:mvn/version "0.2.17-alpha"}}}
 
             ;; ws version 2.0
-            :poly {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
+            :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :extra-deps {polylith/clj-poly {:local/root "projects/poly"}}}
 
-            :polyx {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
+            :polyx {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                     :extra-deps {polylith/clj-polyx {:local/root "projects/polyx"}}}
 
             :outdated {:main-opts ["-m" "antq.core"]
                        :extra-deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}}
 
-            :migrator {:main-opts  ["-m" "polylith.clj.core.migrator-cli.core"]
+            :migrator {:main-opts ["-m" "polylith.clj.core.migrator-cli.core"]
                        :extra-deps {polylith/clj-poly-migrator {:local/root "projects/poly-migrator"}}}
 
+            :gen-nav {:main-opts ["-m" "polylith.clj.core.nav-generator.main"]
+                      :extra-deps {polylith/clj-poly {:local/root "projects/poly"}}}
+
             :build {:deps {org.clojure/tools.deps {:mvn/version "0.18.1354"}
-                           io.github.clojure/tools.build {:mvn/version "0.9.4"}
+                           io.github.clojure/tools.build {:mvn/version "0.9.5"}
+                           org.babashka/http-client {:mvn/version "0.3.11"}
                            slipset/deps-deploy {:mvn/version "0.2.1"}
-                           poly/version {:local/root "components/version"}
-                           poly/system {:local/root "components/system"}}
+                           polylith/clj-poly {:local/root "projects/poly"}}
                     :paths ["build/resources"]
                     :ns-default build}}}

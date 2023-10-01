@@ -1,4 +1,4 @@
-(ns polylith.clj.core.shell.candidate.selector.file-explorer
+(ns ^:no-doc polylith.clj.core.shell.candidate.selector.file-explorer
   (:require [clojure.string :as str]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.shell.candidate.creators :as c]

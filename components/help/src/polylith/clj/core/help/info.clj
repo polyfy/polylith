@@ -1,21 +1,23 @@
-(ns polylith.clj.core.help.info
+(ns ^:no-doc polylith.clj.core.help.info
      (:require [polylith.clj.core.help.shared :as s]
                [polylith.clj.core.help.shared :as shared]
-               [polylith.clj.core.system.interface :as system]
                [polylith.clj.core.util.interface.color :as color]))
 
-(defn help-text [cm]
+(defn help-text [extended? cm]
   (str "  Shows workspace information.\n"
        "\n"
-       "  poly info [" (s/key "ARGS" cm) "]\n"
-       "    ARGS = " (s/key ":loc" cm) "  -> Shows the number of lines of code for each brick and project.\n"
-       (if system/extended?
-         (str "           out:" (s/key "FILENAME" cm) "  -> Creates a text or image file based on the output.\n"
-              "                            If " (s/key "FILENAME" cm) " ends with .txt, then the file will contain\n"
-              "                            the output as text. If FILENAME ends with .bmp, .wbmp,\n"
-              "                            .gif, .jpeg, .jpg, .png, .tif, or .tiff, then the file\n"
-              "                            will be generated as an image.\n")
-         "")
+       "  poly info [" (s/key ":loc" cm) "] [out:" (s/key "FILENAME" cm) "]\n"
+       "\n"
+       "    " (s/key ":loc" cm) "     = Shows the number of lines of code for each brick and project.\n"
+       "\n"
+       (if extended?
+         (str "    " (s/key "FILENAME" cm) " = Creates a text or image file based on the output.\n"
+              "               If " (s/key "FILENAME" cm) " ends with .txt, then the file will contain\n"
+              "               the output as text. If FILENAME ends with .bmp, .wbmp,\n"
+              "               .gif, .jpeg, .jpg, .png, .tif, or .tiff, then the file\n"
+              "               will be generated as an image.\n")
+         (str "    " (s/key "FILENAME" cm) " = The name of the text file to create, containing the output from\n"
+              "               this command.\n"))
        "\n"
        "  All the arguments used by the 'test' command can also be used as a way to see\n"
        "  what tests will be executed.\n"
@@ -94,7 +96,7 @@
        "      " (color/project "--x" cm) "  The project tests (its own) are marked for execution.\n"
        "\n"
        "    To show the 'resources' directory, also pass in :r or :resources, e.g.\n"
-       "    'poly info :r':\n"
+       "    'poly info :resources':\n"
        "      " (color/project "s---" cm) "  The project has a 'src' directory, e.g.\n"
        "            'projects/command-line/src'.\n"
        "      " (color/project "-r--" cm) "  The project has a 'resources' directory, e.g.\n"
@@ -106,11 +108,9 @@
        ""
        "    The " (s/key "dev" cm) " column has three flags with different meaning:\n"
        "      " (color/project "s--" cm) "  The project's 'src' directory, e.g.\n"
-       "           'projects/command-line/src' is added to './deps.edn'\n"
-       "           (or indirectly added as :local/root).\n"
+       "           'development/src' is added to './deps.edn'\n"
        "      " (color/project "-t-" cm) "  The project's 'test' directory, e.g.\n"
-       "           'projects/command-line/test' is added to './deps.edn'\n"
-       "           (or indirectly added as :local/root).\n"
+       "           'development/test' is added to './deps.edn'\n"
        "      " (color/project "--x" cm) "  The project tests are marked for execution from development.\n"
        "\n"
        "    The last " (s/key "admin" cm) " column, is a profile:\n"
@@ -119,7 +119,7 @@
        "      " (color/project "-t" cm) "  The profile contains a path to the 'test' directory, e.g.\n"
        "          'projects/command-line/test'.\n"
        "\n"
-       "    If also passing in :r or :resources, e.g. 'poly info +r':\n"
+       "    If also passing in :r or :resources, e.g. 'poly info :resources':\n"
        "      " (color/project "s--" cm) "  The profile contains a path to the 'src' directory, e.g.\n"
        "           'projects/command-line/src'.\n"
        "      " (color/project "-r-" cm) "  The profile contains a path to the 'resources' directory, e.g.\n"
@@ -203,14 +203,16 @@
        "    poly info :all\n"
        "    poly info :all-bricks\n"
        "    poly info out:info.txt\n"
-       (if system/extended?
-            (str "    poly info out:info.png\n" ""))
+       (if extended?
+         "    poly info out:info.png\n"
+         "")
        "    poly info ws-dir:another-ws\n"
        "    poly info ws-file:ws.edn"))
 
-(defn print-help [color-mode]
-  (println (help-text color-mode)))
+(defn print-help [extended? color-mode]
+  (println (help-text extended? color-mode)))
 
 (comment
-  (print-help "dark")
+  (print-help false "dark")
+  (print-help true "dark")
   #__)

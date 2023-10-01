@@ -1,4 +1,4 @@
-(ns polylith.clj.core.text-table.line
+(ns ^:no-doc polylith.clj.core.text-table.line
   (:require [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.util.interface.str :as str-util]))
 

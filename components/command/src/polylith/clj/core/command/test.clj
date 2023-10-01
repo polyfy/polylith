@@ -1,4 +1,4 @@
-(ns polylith.clj.core.command.test
+(ns ^:no-doc polylith.clj.core.command.test
   (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.test-runner-orchestrator.interface :as test-runner-orchestrator]))
 

@@ -1,0 +1,5 @@
+[#create-component]
+=== create component
+
+[source,text]
+----

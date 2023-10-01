@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.m201-mismatching-parameters
+(ns ^:no-doc polylith.clj.core.validator.m201-mismatching-parameters
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.validator.shared :as shared]

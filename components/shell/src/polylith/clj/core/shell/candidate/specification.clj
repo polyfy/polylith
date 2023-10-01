@@ -1,4 +1,4 @@
-(ns polylith.clj.core.shell.candidate.specification
+(ns ^:no-doc polylith.clj.core.shell.candidate.specification
   [:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.shell.candidate.creators :as c]
             [polylith.clj.core.shell.candidate.selector.remote-branches :as remote-branches]
@@ -8,6 +8,10 @@
             [polylith.clj.core.shell.candidate.selector.ws-tag-patterns :as ws-tag-patterns]
             [polylith.clj.core.shell.candidate.selector.ws-deps-entities :as ws-deps-entities]
             [polylith.clj.core.shell.candidate.selector.color-modes :as color-modes]
+            [polylith.clj.core.shell.candidate.selector.doc.help :as doc-help]
+            [polylith.clj.core.shell.candidate.selector.doc.more :as doc-more]
+            [polylith.clj.core.shell.candidate.selector.doc.page :as doc-page]
+            [polylith.clj.core.shell.candidate.selector.doc.ws :as doc-ws]
             [polylith.clj.core.shell.candidate.selector.ws-projects :as ws-projects]
             [polylith.clj.core.shell.candidate.selector.ws-projects-to-test :as ws-projects-to-test]
             [polylith.clj.core.system.interface :as system]]
@@ -58,7 +62,25 @@
 (def diff-since (c/fn-explorer "since" :diff #'ws-tag-patterns/select))
 (def diff (c/single-txt "diff" :diff [diff-since]))
 
+;; doc
+(def doc-help (c/fn-values "help" :doc #'doc-help/select))
+(def doc-more (c/fn-values "more" :doc #'doc-more/select))
+(def doc-page (c/fn-values "page" :doc #'doc-page/select))
+(def doc-ws (c/fn-values "ws" :doc #'doc-ws/select))
+(def doc-github (c/flag "github" :doc))
+(def doc-local (c/flag "local" :doc))
+(def doc-branch (c/fn-explorer "branch" :doc #'remote-branches/select))
+
+(defn doc [all? local?]
+  (c/single-txt "doc" :doc
+                (concat [doc-help doc-more doc-page doc-ws]
+                        (when all? [doc-branch])
+                        (when (or all? local?) [doc-github])
+                        ;; If starting a shell with :local, don't suggest :local
+                        (when (and all? (not local?)) [doc-local]))))
+
 ;; help
+(def help-all (c/flag "all" :help))
 (def help-create-base (c/single-txt "base"))
 (def help-create-component (c/single-txt "component"))
 (def help-create-project (c/single-txt "project"))
@@ -68,13 +90,18 @@
 (def help-deps-workspace (c/flag "workspace" :help-deps))
 (def help-deps-brick (c/flag "brick" :help-deps))
 (def help-deps (c/single-txt "deps" :help-deps [help-deps-brick help-deps-project help-deps-workspace]))
-(def help (c/single-txt "help" (vec (concat [help-create help-deps]
-                                            (mapv #(c/single-txt %)
-                                                  (concat ["check" "diff" "info" "libs" "switch-ws" "shell" "tap" "test" "version" "ws"]
-                                                          (if system/extended? ["overview"] [])))))))
+(def help-fake-poly (c/flag "fake-poly" :help-deps))
+
+(defn help [all?]
+  (c/single-txt "help" (vec (concat [help-create help-deps]
+                                    (when all? [help-all help-fake-poly])
+                                    (mapv #(c/single-txt %)
+                                          (concat ["check" "diff" "info" "libs" "switch-ws" "shell" "tap" "test" "version" "ws"]
+                                                  (if system/extended? ["overview"] [])))))))
 
 ;; info
 (def info-fake-sha (c/multi-param "fake-sha"))
+(def info-fake-tag (c/multi-param "fake-tag"))
 (def info-changed-files (c/fn-explorer "changed-files" :info #'file-explorer/select-all))
 (def info-since (c/fn-explorer "since" :info #'ws-tag-patterns/select))
 (def info-project (c/fn-explorer "project" :info #'ws-projects-to-test/select))
@@ -95,7 +122,7 @@
     (concat profiles
             [info-all info-all-bricks info-brick info-loc info-dev
              info-resources info-project info-project-flag info-since]
-            (when all? [info-fake-sha info-changed-files info-skip info-no-changes info-color-mode])
+            (when all? [info-fake-sha info-fake-tag info-changed-files info-skip info-no-changes info-color-mode])
             (when (or all? extended?) [info-out]))))
 
 ;; libs
@@ -138,8 +165,8 @@
 ;; version
 (def version (c/single-txt "version"))
 
-(def branch (c/fn-explorer "branch" :ws #'remote-branches/select))
-(def ws-with (c/fn-explorer "project" :deps #'ws-deps-entities/select-projects))
+(def ws-branch (c/fn-explorer "branch" :ws #'remote-branches/select))
+(def ws-with (c/fn-explorer "project" :ws #'ws-deps-entities/select-projects))
 (def ws-replace (c/multi-param "replace"))
 (def ws-project (c/fn-explorer "project" :ws #'ws-projects-to-test/select))
 (def ws-brick (c/fn-explorer "brick" :ws #'ws-bricks/select))
@@ -159,9 +186,9 @@
 (defn ws [profiles all?]
   (c/single-txt "ws" :ws
     (vec (concat [ws-project ws-brick ws-project-flag ws-dev ws-latest-sha
-                  ws-loc ws-all-bricks ws-all ws-get ws-out ws-since branch]
+                  ws-loc ws-all-bricks ws-all ws-get ws-out ws-since]
                  profiles
-                 (when all? [branch ws-replace ws-no-changes ws-color-mode])))))
+                 (when all? [ws-branch ws-replace ws-no-changes ws-color-mode])))))
 
 ;; switch-ws
 (def switch-ws-dir (c/fn-explorer "dir" :switch-ws #'file-explorer/select-edn))
@@ -176,7 +203,7 @@
                    profile-keys)))))
 
 (defn candidates [{:keys [settings user-input] :as workspace}]
-  (let [{:keys [ws-dir ws-file is-all]} user-input
+  (let [{:keys [ws-dir ws-file is-all is-local]} user-input
         show-migrate? (common/toolsdeps1? workspace)
         info-profiles (profiles :info settings is-all)
         test-profiles (profiles :test settings is-all)
@@ -186,11 +213,12 @@
                             (= "." ws-dir)))]
     (vec (concat [check
                   diff
-                  help
                   switch-ws
                   version
                   (create current-ws? is-all)
                   (deps is-all system/extended?)
+                  (doc is-all is-local)
+                  (help is-all)
                   (info info-profiles is-all system/extended?)
                   (libs is-all system/extended?)
                   (test test-profiles current-ws? is-all)
@@ -201,4 +229,4 @@
 
 (def create-outside-ws-root (c/single-txt "create" [create-workspace]))
 
-(def candidates-outside-ws-root [help version create-outside-ws-root switch-ws])
+(def candidates-outside-ws-root [(help false) version create-outside-ws-root doc switch-ws])

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.command.user-config
+(ns ^:no-doc polylith.clj.core.command.user-config
   (:require [clojure.java.io :as io]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.user-config.interface :as user-config]

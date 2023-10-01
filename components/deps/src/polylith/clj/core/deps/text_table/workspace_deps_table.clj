@@ -1,4 +1,4 @@
-(ns polylith.clj.core.deps.text-table.workspace-deps-table
+(ns ^:no-doc polylith.clj.core.deps.text-table.workspace-deps-table
   (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.text-table.interface :as text-table]
             [polylith.clj.core.util.interface.color :as color]))

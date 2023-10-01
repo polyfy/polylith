@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.m107-missing-bricks-in-project
+(ns ^:no-doc polylith.clj.core.validator.m107-missing-bricks-in-project
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [polylith.clj.core.validator.shared :as shared]

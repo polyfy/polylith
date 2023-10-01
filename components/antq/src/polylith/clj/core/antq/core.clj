@@ -1,4 +1,4 @@
-(ns polylith.clj.core.antq.core
+(ns ^:no-doc polylith.clj.core.antq.core
   (:require [antq.api :as antq]
             [polylith.clj.core.common.interface :as common]))
 
@@ -15,6 +15,6 @@
   "Returns a map where the key is [lib-name lib-version]
    and the value is the latest version of the library."
   [{:keys [projects]}]
-  (let [dev-config (:config (common/find-project "development" projects))]
+  (let [dev-config (:deps (common/find-project "development" projects))]
     (into {} (map key-value
                   (antq/outdated-deps dev-config)))))

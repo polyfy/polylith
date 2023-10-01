@@ -1,0 +1,5 @@
+[#deps-brick]
+=== deps :brick
+
+[source,text]
+----

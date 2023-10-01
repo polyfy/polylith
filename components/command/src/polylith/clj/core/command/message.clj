@@ -1,4 +1,4 @@
-(ns polylith.clj.core.command.message)
+(ns ^:no-doc polylith.clj.core.command.message)
 
 (defn cant-be-executed-outside-ws-message [cmd]
   (if (= "test" cmd)

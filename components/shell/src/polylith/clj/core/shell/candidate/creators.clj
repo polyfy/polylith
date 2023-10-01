@@ -1,4 +1,4 @@
-(ns polylith.clj.core.shell.candidate.creators
+(ns ^:no-doc polylith.clj.core.shell.candidate.creators
   (:require [polylith.clj.core.util.interface.color :as color]))
 
 (defn with-val [candidate value]
@@ -118,6 +118,14 @@
                                                      [true
                                                       {:group {:id group-id}
                                                        :function select-fn}])))
+(defn fn-explorer-child-plain [value entity color-mode stay? group select-fn]
+  (candidate value
+             (color/entity entity value color-mode)
+             value :fn [true
+                        {:type :fn
+                         :stay? stay?
+                         :group group
+                         :function select-fn}]))
 
 (defn fn-explorer-child [value entity color-mode stay? group select-fn]
   (candidate (str value ":")

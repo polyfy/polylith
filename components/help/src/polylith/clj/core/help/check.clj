@@ -1,11 +1,11 @@
-(ns polylith.clj.core.help.check
+(ns ^:no-doc polylith.clj.core.help.check
      (:require [polylith.clj.core.help.shared :as s]
                [polylith.clj.core.util.interface.color :as color]))
 
 (defn help-text [cm]
   (str "  Validates the workspace.\n"
        "\n"
-       "  poly check [:dev]\n"
+       "  poly check [" (s/key ":dev" cm) "]\n"
        "\n"
        "  Prints 'OK' and returns 0 if no errors were found.\n"
        "  If errors or warnings were found, show messages and return the error code,\n"
@@ -46,7 +46,7 @@
        "  " (color/error cm "Error 108") " - Components with an interface that is implemented by more than one\n"
        "              component are not allowed for the development project.\n"
        "    The solution is to remove the component from the development project\n"
-       "    and define the paths for each component in separate profiles\n"
+       "    and define the deps/paths for each component in separate profiles\n"
        "    (including test paths).\n"
        "\n"
        "  " (color/error cm "Error 109") " - Invalid test runner configuration for some projects.\n"
@@ -56,8 +56,10 @@
        "    the poly tool's classpath, which can take a single argument and must return\n"
        "    an instance of polylith.clj.core.test-runner-contract.interface/TestRunner.\n"
        "\n"
-       "  " (color/error cm "Error 110") " - Missing or invalid config file.\n"
-       "    Triggered if a deps.edn file for a brick or project is missing or invalid.\n"
+       "  " (color/error cm "Error 110") " - Invalid config file.\n"
+       "    Triggered if a deps.edn file for a brick or project is invalid.\n"
+       "    It's allowed to omit the deps.edn file entirely, except for development,\n"
+       "    and in that case the brick/project will be ignored.\n"
        "\n"
        "  " (color/warning cm "Warning 201") " - Mismatching parameter lists in function or macro.\n"
        "    Triggered if a function or macro is defined in the interface for a component\n"
@@ -78,9 +80,10 @@
        "\n"
        "  " (color/warning cm "Warning 206") " - Unreadable namespace in brick/project.\n"
        "    Triggered if a namespace can't be parsed or found for a brick or project.\n"
-       "    A way to ignore this warning is to add the " (s/key ":ignore-files" cm) " key to the brick or project\n"
-       "    in ./workspace.edn. All dashes (-) will be replaced by underscores (_).\n"
-       "    Files ending with the specified path(s), prepended by a slash, will be ignored, e.g.:\n"
+       "    A way to ignore this warning is to add the " (s/key ":ignore-files" cm) " key to the brick\n"
+       "    or project in ./workspace.edn. All dashes (-) will be replaced by underscores\n"
+       "    (_). Paths that match exact and paths ending with the specified path(s),\n"
+       "    prepended by a slash, will be ignored, e.g.:\n"
        "    { ...\n"
        "      :bricks {\"mybrick\" {:ignore-files [\"myfile.clj\"]}}\n"
        "      :projects {\"myproject\" {:alias \"mp\" :ignore-files [\"sub-ns/myfile.clj\"]}}\n"
@@ -88,7 +91,7 @@
        "\n"
        "  " (color/warning cm "Warning 207") " - Unnecessary components were found in project.\n"
        "    Triggered if components were defined in a project that are not used by any of\n"
-       "    its bricks. Development is only checked if :dev is passed in and is only performed\n"
+       "    its bricks. Development is only checked if " (s/key ":dev" cm) " is passed in and is only performed\n"
        "    by the check command (not test and info). To ignore this warning, put the component\n"
        "    name in the " (s/key ":necessary" cm) " vector for a project in " (s/key ":projects" cm) " in ./workspace.edn.\n"
        "    See an example here: https://github.com/polyfy/polylith/blob/master/workspace.edn"))

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.shell.candidate.selector.ws-tag-patterns
+(ns ^:no-doc polylith.clj.core.shell.candidate.selector.ws-tag-patterns
   (:require [polylith.clj.core.shell.candidate.creators :as c]))
 
 (defn tag-keys [tag-pattern-key]

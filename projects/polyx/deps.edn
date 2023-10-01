@@ -6,6 +6,7 @@
         poly/config-reader            {:local/root "../../components/config-reader"}
         poly/creator                  {:local/root "../../components/creator"}
         poly/deps                     {:local/root "../../components/deps"}
+        poly/doc                      {:local/root "../../components/doc"}
         poly/file                     {:local/root "../../components/file"}
         poly/git                      {:local/root "../../components/git"}
         poly/help                     {:local/root "../../components/help"}
@@ -33,7 +34,7 @@
         poly/poly-cli                 {:local/root "../../bases/poly-cli"}
 
         org.clojure/clojure {:mvn/version "1.11.1"}
-        org.slf4j/slf4j-nop {:mvn/version "2.0.7"}}
+        org.slf4j/slf4j-nop {:mvn/version "2.0.9"}}
 
  ;; so poly can be installed as a tool:
  :tools/usage {:ns-default polylith.clj.core.poly-cli.api}

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.shell.candidate.selector.remote-branches
+(ns ^:no-doc polylith.clj.core.shell.candidate.selector.remote-branches
   (:require [clojure.string :as str]
             [polylith.clj.core.sh.interface :as sh]
             [polylith.clj.core.shell.candidate.creators :as c]))

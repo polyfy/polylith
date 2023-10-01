@@ -1,0 +1,27 @@
+  Shows dependencies.
+
+  poly deps [project:PROJECT] [brick:BRICK] [out:FILENAME]
+
+    (omitted) = Shows workspace dependencies.
+
+    PROJECT = Shows dependencies for the given project.
+
+    BRICK = Shows dependencies for the given brick.
+
+    FILENAME = The name of the text file to create, containing the
+               output from this command.
+
+  To get help for a specific diagram, type: 
+    poly help deps ARGS:
+
+      ARGS = :brick           Help for the brick diagram.
+             :project         Help for the project diagram.
+             :project :brick  Help for the project/brick diagram.
+             :workspace       Help for the workspace diagram.
+
+  Example:
+    poly deps
+    poly deps brick:mybrick
+    poly deps project:myproject
+    poly deps project:myproject brick:mybrick
+    poly deps out:deps.txt

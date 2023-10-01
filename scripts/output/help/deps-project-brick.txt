@@ -1,0 +1,22 @@
+  Shows dependencies for selected brick and project.
+
+  poly deps project:PROJECT brick:BRICK [out:FILENAME]
+
+    PROJECT = The project (name or alias) to show dependencies for.
+
+    BRICK = The brick to show dependencies for.
+
+    FILENAME = The name of the text file to create, containing the
+               output from this command.
+
+  used by  <  user  >  uses
+  -------              ----
+  payer                util
+
+  In this example, user is used by payer and it uses util itself.
+  If a brick ends with '(t)' then it indicatest that it's only used
+  from the test context.
+
+  Example:
+    poly deps project:myproject brick:mybrick
+    poly deps project:myproject brick:mybrick out:deps.txt

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.image-creator.interface
+(ns ^:no-doc polylith.clj.core.image-creator.interface
   (:require [polylith.clj.core.image-creator.core :as core]))
 
 (def font-width core/font-width) ;(c2d/char-width graphics \x)

@@ -1,4 +1,4 @@
-(ns polylith.clj.core.file.core
+(ns ^:no-doc polylith.clj.core.file.core
   (:require [clojure.java.io :as io]
             [clojure.pprint :as pp]
             [clojure.string :as str]
@@ -128,6 +128,7 @@
                                :deref true
                                :read-eval true
                                :features #{:clj}
+                               :readers (fn [_] (fn [_] nil))
                                :read-cond :allow
                                :auto-resolve name
                                :auto-resolve-ns true

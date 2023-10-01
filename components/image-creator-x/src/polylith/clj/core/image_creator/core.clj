@@ -1,4 +1,4 @@
-(ns polylith.clj.core.image-creator.core
+(ns ^:no-doc polylith.clj.core.image-creator.core
   (:require [clojure.java.io :as io]
             [clojure.string :as str]
             [clojure2d.core :as c2d]

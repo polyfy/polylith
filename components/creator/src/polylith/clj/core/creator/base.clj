@@ -1,4 +1,4 @@
-(ns polylith.clj.core.creator.base
+(ns ^:no-doc polylith.clj.core.creator.base
   (:require [polylith.clj.core.creator.brick :as brick]))
 
 (defn create-base [ws-dir settings base-name is-git-add]

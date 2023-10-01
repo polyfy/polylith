@@ -1,4 +1,4 @@
-(ns polylith.clj.core.user-input.core
+(ns ^:no-doc polylith.clj.core.user-input.core
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.user-input.params :as params]))
@@ -46,45 +46,60 @@
       parameter
       [parameter])))
 
+(defn as-more [parameter]
+  (let [parameter (as-vector parameter)]
+    (if (and (seq parameter)
+             (-> parameter last empty?))
+      (vec (drop-last parameter))
+      parameter)))
+
 (defn extract-params [args single-arg-commands]
   (let [{:keys [cmd params]} (extract args)
         {:keys [named-args unnamed-args]} (params/extract params single-arg-commands)
-        {:keys [brick
+        {:keys [all!
+                all-bricks!
+                brick
                 branch
+                brick!
                 color-mode
+                commit!
                 changed-files
+                compact!
                 dir
-                file
-                project
+                dev!
+                fake-poly!
                 fake-sha
+                fake-tag
+                file
                 get
+                git-add!
+                github!
+                help
                 interface
+                latest-sha!
+                loc!
+                local!
+                more
                 name
+                no-changes!
+                no-exit!
                 out
+                outdated!
+                page
+                project
+                project!
+                r!
                 replace
+                resources!
                 since
                 skip
-                top-ns
-                ws-dir
-                ws-file
-                all!
-                all-bricks!
-                brick!
-                compact!
-                commit!
-                git-add!
-                latest-sha!
-                no-changes!
                 tap!
+                top-ns
+                verbose!
                 workspace!
-                dev!
-                outdated!
-                project!
-                loc!
-                no-exit!
-                r!
-                resources!
-                verbose!]} named-args]
+                ws
+                ws-dir
+                ws-file]} named-args]
     (util/ordered-map :args (vec args)
                       :cmd cmd
                       :get get
@@ -94,38 +109,46 @@
                       :dir dir
                       :file file
                       :fake-sha fake-sha
+                      :fake-tag fake-tag
+                      :help (as-value help)
                       :interface interface
-                      :is-commit (= "true" commit!)
-                      :is-tap (= "true" tap!)
-                      :is-search-for-ws-dir (contains? (set args) "::")
                       :is-all (= "true" all!)
+                      :is-commit (= "true" commit!)
                       :is-compact (= "true" compact!)
                       :is-dev (= "true" dev!)
+                      :is-fake-poly (= "true" fake-poly!)
                       :is-git-add (when git-add! (= "true" git-add!))
+                      :is-github (= "true" github!)
                       :is-latest-sha (= "true" latest-sha!)
+                      :is-local (= "true" local!)
                       :is-no-changes (= "true" no-changes!)
                       :is-no-exit (= "true" no-exit!)
                       :is-outdated (= "true" outdated!)
-                      :is-show-brick (= "true" brick!)
-                      :is-show-workspace (= "true" workspace!)
-                      :is-show-project (= "true" project!)
-                      :is-show-loc (= "true" loc!)
                       :is-run-all-brick-tests (or (= "true" all!)
                                                   (= "true" all-bricks!))
                       :is-run-project-tests (or (= "true" all!)
                                                 (= "true" project!))
+                      :is-search-for-ws-dir (contains? (set args) "::")
+                      :is-show-brick (= "true" brick!)
+                      :is-show-loc (= "true" loc!)
+                      :is-show-project (= "true" project!)
                       :is-show-resources (or (= "true" r!)
                                              (= "true" resources!))
+                      :is-show-workspace (= "true" workspace!)
+                      :is-tap (= "true" tap!)
                       :is-verbose (= "true" verbose!)
+                      :more (as-more more)
                       :name name
                       :out (as-value out)
+                      :page (as-value page)
                       :replace (replace-from-to replace)
-                      :since since
-                      :skip (as-vector skip)
-                      :top-ns top-ns
-                      :ws-dir ws-dir
-                      :ws-file ws-file
                       :selected-bricks (as-vector brick)
                       :selected-profiles (selected-profiles unnamed-args)
                       :selected-projects (selected-projects project)
+                      :since since
+                      :skip (as-vector skip)
+                      :top-ns top-ns
+                      :ws (as-value ws)
+                      :ws-dir ws-dir
+                      :ws-file ws-file
                       :unnamed-args (vec unnamed-args))))

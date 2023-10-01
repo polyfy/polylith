@@ -1,4 +1,4 @@
-(ns polylith.clj.core.path-finder.paths
+(ns ^:no-doc polylith.clj.core.path-finder.paths
   (:require [clojure.set :as set]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.path-finder.sources-on-disk :as sources]))

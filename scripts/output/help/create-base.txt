@@ -1,0 +1,14 @@
+  Creates a base.
+
+  poly create base name:NAME [:git-add] 
+
+    NAME = The name of the base to create.
+
+    :git-add = If :vcs > :auto-add in workspace.edn is set to false,
+               then we can pass in this flag instead, to explicitly add the
+               created files to git.
+
+  Example:
+    poly create b name:mybase
+    poly create base name:mybase
+    poly create base name:mybase :git-add

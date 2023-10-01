@@ -1,4 +1,4 @@
-  stable since: c91fdad              
+  stable since: c91fdad | v1.1.0     
                                      
   projects: 2   interfaces: 1        
   bases:    1   components: 1        

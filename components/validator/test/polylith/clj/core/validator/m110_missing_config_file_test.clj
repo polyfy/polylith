@@ -1,6 +1,6 @@
 (ns polylith.clj.core.validator.m110-missing-config-file-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.validator.m110-missing-or-invalid-config-file :as m110]))
+            [polylith.clj.core.validator.m110-invalid-config-file :as m110]))
 
 (deftest errors--missing-config-file
   (is (= (m110/errors [{:error "Missing config file: deps.edn"}])

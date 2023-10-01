@@ -1,0 +1,125 @@
+= Git
+
+We have already used the xref:commands.adoc#info[info] command a couple of times without explaining everything in its output.
+
+Let's execute the xref:commands.adoc#info[info] command again to see the current state of the workspace:
+
+[source,shell]
+----
+cd ../../..
+poly info
+----
+
+image::images/git/info.png[width=400]
+
+At the top we have the line `stable since: c91fdad` (you most likely have another git SHA/hash).
+To explain what this is, let's take it from the beginning.
+
+If we pass in `:commit` when a Polylith workspace is created, these git commands are executed:
+
+[source,shell]
+----
+git init
+git add .
+git commit -m "Workspace created."
+----
+
+If we don't pass in `:commit` to the xref:commands.adoc#create-workspace[create workspace] command then we have to perform these (or similar) commands manually.
+
+If we run `git log` from the workspace root, it returns something like this:
+
+[source,shell]
+----
+commit c91fdad4a34927d9aacfe4b04ea2f304f3303282 (HEAD -> main)
+Author: lisa <lisa@gmail.com>
+Date:   Thu Sep 3 06:11:23 2020 +0200
+
+    Workspace created.
+----
+
+This is the first and only commit of this repository so far.
+This is also the first _stable point in time_ of this workspace which the tool uses when it calculates what changes have been made (up till now).
+Notice that the first letters of the hash correspond to `stable since: c91fdad` and this is because it refers to this SHA-1 hash in git.
+
+We told the IDE to automatically add new files to git, but if we didn't, we can add them now:
+
+[source,shell]
+----
+git add --all
+----
+
+The `command-line` and `development` projects, and the `user` and `cli` bricks are all marked with an asterisk, `*`.
+The way the tool calculates changes is to ask git by running this command internally:
+
+[source,shell]
+----
+git diff c91fdad4a34927d9aacfe4b04ea2f304f3303282 --name-only
+----
+
+We can also run the xref:commands.adoc#diff[diff] command, which will execute the same git statement internally:
+
+[source,shell]
+----
+poly diff
+----
+
+The output is the same (this assumes that you have https://git-scm.com/docs/git-add[added] the files to your git repository):
+
+// scripts/output/git-diff.txt
+[source,shell]
+----
+bases/cli/deps.edn
+bases/cli/resources/cli/.keep
+bases/cli/src/se/example/cli/core.clj
+bases/cli/test/se/example/cli/core_test.clj
+build.clj
+components/user/deps.edn
+components/user/resources/user/.keep
+components/user/src/se/example/user/core.clj
+components/user/src/se/example/user/interface.clj
+components/user/test/se/example/user/interface_test.clj
+deps.edn
+development/src/dev/lisa.clj
+projects/command-line/deps.edn
+workspace.edn
+----
+
+Here we have the answer to where the `*` signs come from.
+The paths that start with `projects/command-line/`, `development/`, `components/user/` and `bases/cli/` makes the tool understand that `command-line`, `development`, `user` and `cli` are changed.
+
+When we created the workspace, a https://git-scm.com/docs/gitignore[.gitignore] file was also created for us.
+Now is a good time to add more rows here if needed:
+
+[source,shell]
+----
+**/classes
+...
+----
+
+Let's add and commit the changed files:
+
+[source,shell]
+----
+git add --all
+git commit -m "Created the user and cli bricks."
+----
+
+Let's have a look at our workspace repository again:
+
+[source,shell]
+----
+git log --pretty=oneline
+----
+
+[source,shell]
+----
+e7ebe683a775ec28b7c2b5d77e01e79d48149d13 (HEAD -> main) Created the user and cli bricks.
+c91fdad4a34927d9aacfe4b04ea2f304f3303282 Workspace created.
+----
+
+If we run the xref:commands.adoc#info[info] command again, it will return the same result as before, and the reason is that we haven't told git to move the _stable point in time_ to our second commit.
+
+We said that the xref:commands.adoc#diff[diff] command returns the same result as `git diff SHA --name-only`.
+This is normally true, except for the case when the workspace lives inside a git repo.
+In that case, the `git diff` command will also return the workspace directory in the path (which is stripped away by the `poly` tool).
+This directory can be shown by executing `poly ws get:ws-local-dir`.

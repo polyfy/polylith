@@ -1,20 +1,22 @@
-(ns polylith.clj.core.help.ws
+(ns ^:no-doc polylith.clj.core.help.ws
   (:require [polylith.clj.core.help.shared :as s]))
 
 (defn help [cm]
   (str "  Prints or writes the workspace as data.\n"
        "\n"
-       "  poly ws [get:" (s/key "ARG" cm) "] [out:" (s/key "FILE" cm) "] [:latest-sha] [branch:BRANCH]\n"
+       "  poly ws [get:" (s/key "ARG" cm) "] [out:" (s/key "FILE" cm) "] [branch:" (s/key "BRANCH" cm) "] [" (s/key ":latest-sha" cm) "]\n"
+       "\n"
        "    " (s/key "ARG" cm) " = keys  -> Lists the keys for the data structure:\n"
        "                   - If it's a hash map, it returns all its keys.\n"
        "                   - If it's a list and its elements are hash maps,\n"
-       "                     it returns a list with all the " (s/key ":name" cm) " keys.\n"
+       "                     it returns a vector with all the " (s/key ":name" cm) " keys.\n"
        "\n"
        "          count -> Counts the number of elements.\n"
        "\n"
        "          " (s/key "KEY" cm) "   -> If applied to a hash map, it returns the value of the " (s/key "KEY" cm) ".\n"
        "                   If applied to a list of hash maps, it returns the hash map with\n"
-       "                   a matching " (s/key ":name" cm) ". Projects are also matched against " (s/key ":alias" cm) ".\n"
+       "                   a matching " (s/key ":name" cm) ". Projects are also matched against " (s/key ":alias" cm) "\n"
+       "                   e.g. 'dev' instead of 'development'.\n"
        "\n"
        "          " (s/key "INDEX" cm) " -> A list element can be looked up by " (s/key "INDEX" cm) ".\n"
        "\n"
@@ -24,9 +26,11 @@
        "    " (s/key "FILE" cm) " = Writes the output to the specified " (s/key "FILE" cm) ". Will have the same effect\n"
        "           as setting " (s/key "color-mode:none" cm) " and piping the output to a file.\n"
        "\n"
-       "    :latest-sha = if passed in, then " (s/key "settings:vcs:polylith:latest-sha" cm) " will be set.\n"
-       "                  If A branch is given, e.g., branch:master, then the latest sha will be\n"
-       "                  retrieved from that branch.\n"
+       "    " (s/key "BRANCH" cm) " = Can be used together with " (s/key ":latest-sh" cm) " to set the branch to use\n"
+       "             if other than 'main'.\n"
+       "\n"
+       "    " (s/key ":latest-sha" cm) " = if passed in, then " (s/key "settings:vcs:polylith:latest-sha" cm) " will be set,\n"
+       "                  by retreiving the latest sha from the 'main' branch."
        "\n"
        "  Example:\n"
        "    poly ws\n"
@@ -42,7 +46,9 @@
        "    poly ws get:settings:vcs:polylith :latest-sha\n"
        "    poly ws get:settings:vcs:polylith :latest-sha branch:master\n"
        "    poly ws out:ws.edn\n"
-       "    poly ws color-mode:none > ws.edn"))
+       "    poly ws color-mode:none > ws.edn\n"
+       "    poly doc ws\n"
+       "    poly doc ws:components"))
 
 (defn print-help [color-mode]
   (println (help color-mode)))

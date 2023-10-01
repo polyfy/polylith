@@ -1,0 +1,34 @@
+  Shows dependencies for selected project.
+
+  poly deps project:PROJECT [out:FILENAME]
+
+    PROJECT = The project name or alias to show dependencies for.
+
+    FILENAME = The name of the text file to create, containing the
+               output from this command.
+
+         p      
+         a  u  u
+         y  s  t
+         e  e  i
+  brick  r  r  l
+  --------------
+  payer  .  x  t
+  user   .  .  x
+  util   .  .  .
+  cli    x  +  +
+
+  When the project is known, we also know which components are used.
+
+  In this example, payer uses user in the src context, and util only
+  in the test context. user uses util, and cli uses payer. The 't'
+  means that payer is only used in the test context by user. The +
+  signs mark indirect dependencies, while - signs (not present here)
+  mark indirect dependencies in the test context. Here the cli base
+  depends on user and util, via 'cli > payer > user' and
+  'cli > payer > util'. Each usage comes from at least one :require
+  statement in the brick.
+
+  Example:
+    poly deps project:myproject
+    poly deps project:myproject out:deps.txt

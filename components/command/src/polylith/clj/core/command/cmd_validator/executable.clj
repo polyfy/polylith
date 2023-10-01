@@ -1,4 +1,4 @@
-(ns polylith.clj.core.command.cmd-validator.executable
+(ns ^:no-doc polylith.clj.core.command.cmd-validator.executable
   (:require [polylith.clj.core.command.message :as message]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.file.interface :as file]))
@@ -10,7 +10,7 @@
 (defn cant-be-executed-outside-ws? [workspace cmd [_ entity]]
   (not (or (-> workspace nil? not)
            (nil? cmd)
-           (contains? #{"help" "shell" "version"} cmd)
+           (contains? #{"doc" "help" "shell" "version"} cmd)
            (and (= "create" cmd)
                 (= "w" (common/entity->short entity))))))
 

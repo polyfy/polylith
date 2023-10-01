@@ -1,11 +1,11 @@
-(ns polylith.clj.core.creator.interface
+(ns ^:no-doc polylith.clj.core.creator.interface
   (:require [polylith.clj.core.creator.base :as base]
             [polylith.clj.core.creator.component :as component]
             [polylith.clj.core.creator.workspace :as workspace]
             [polylith.clj.core.creator.project :as project]))
 
-(defn create-workspace [root-dir ws-name top-ns branch git-add? commit?]
-  (workspace/create root-dir ws-name top-ns branch git-add? commit?))
+(defn create-workspace [root-dir ws-name top-ns branch commit?]
+  (workspace/create root-dir ws-name top-ns branch commit?))
 
 (defn create-project [workspace project-name is-git-add]
   (project/create workspace project-name is-git-add))

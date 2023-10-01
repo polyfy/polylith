@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.m101-illegal-namespace-deps
+(ns ^:no-doc polylith.clj.core.validator.m101-illegal-namespace-deps
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [polylith.clj.core.common.interface :as common]

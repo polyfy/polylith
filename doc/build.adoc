@@ -1,0 +1,89 @@
+= Build
+
+The `poly` tool doesn’t include a `build` command.
+That’s because we don’t want the tool to restrict our build pipeline in any way.
+Instead, the tool lets us choose our own way to build our Polylith artifacts for our particular pipeline; which could be with simple build scripts, all the way to cloud-based build tools.
+
+Let's say we want to create an executable jar file out of the `command-line` project.
+Let's start by downloading https://github.com/polyfy/polylith/blob/master/examples/doc-example/build.clj[build.clj] and copy it to the workspace root:
+
+[source,shell]
+----
+example
+├── build.clj
+----
+
+Now add the `:uberjar` alias to `projects/command-line/deps.edn`:
+
+[source,clojure]
+----
+{...
+ :aliases {:test {...}
+
+           :uberjar {:main se.example.cli.core}}}
+----
+
+Also add the `:build` alias to `./deps.edn`:
+
+[source,clojure]
+----
+{:aliases {...
+           :build {:deps {org.clojure/tools.deps {:mvn/version "0.16.1281"}
+                          io.github.clojure/tools.build {:mvn/version "0.9.5"}
+                          ;; because we use log4j 2.x:
+                          io.github.seancorfield/build-uber-log4j2-handler {:git/tag "v0.1.5" :git/sha "55fb6f6"}}
+                   :paths ["build/resources"]
+                   :ns-default build}}
+----
+
+Now select the `build` alias and refresh the IDE:
+
+image::images/build/aliases.png[width=400]
+
+Also add `build` to Options in the REPL settings + restart the REPL:
+
+image::images/build/add-build-to-repl-settings.png[width=600]
+
+== Old Cursive versions
+
+If you use an older version of Cursive than `1.13.0`, then set Options to `dev,test,build` instead, and you may also need to add this to your `./deps.edn` if the IDE doesn't recognise `build.clj` as source code:
+
+[source,clojure]
+----
+{:aliases  {...
+            :build {...
+                    :extra-paths ["."]
+----
+
+== Try it out
+
+Let's try to build the `command-line` tool by executing this statement from the workspace root:
+
+[source,shell]
+----
+clojure -T:build uberjar :project command-line
+----
+
+This will output:
+
+[source,shell]
+----
+Compiling se.example.cli.core...
+Building uberjar target/command-line.jar...
+Uberjar is built.
+----
+
+Let's execute it:
+
+[source,shell]
+----
+cd projects/command-line/target
+java -jar command-line.jar Lisa
+----
+
+[source,shell]
+----
+Hello Lisa!
+----
+
+Nice, it worked!

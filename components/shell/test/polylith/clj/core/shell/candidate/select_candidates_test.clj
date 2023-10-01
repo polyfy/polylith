@@ -4,7 +4,6 @@
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.shell.candidate.setup :as setup]
             [polylith.clj.core.shell.candidate.engine :as engine])
-
   (:refer-clojure :exclude [test]))
 
 (use-fixtures :each setup/reset-ws)
@@ -16,7 +15,7 @@
 
 (deftest all-commands
   (is (= (candidates "")
-         (concat ["check" "create" "deps" "diff" "help" "info" "libs"]
+         (concat ["check" "create" "deps" "diff" "doc" "help" "info" "libs"]
                  (if system/extended? ["overview"] [])
                  ["switch-ws" "test" "version" "ws"]))))
 
@@ -191,6 +190,26 @@
   (is (= (candidates "diff")
          ["since"])))
 
+(deftest doc
+  (is (= (candidates "doc")
+         ["help" "more" "page" "ws"])))
+
+(deftest doc-command-deps
+  (is (= (candidates "doc" :next "help" "deps" :next)
+         ["more" "page" "ws"])))
+
+(deftest doc-move-videos-polylith-in-a-nutshell
+  (is (= (candidates "doc" :next "more" "videos" "polylith-in")
+         ["polylith-in-a-nutshell"])))
+
+(deftest doc-page-git
+  (is (= (candidates "doc" :next "page" "git" :next)
+         ["help" "more" "ws"])))
+
+(deftest doc-ws-settings
+  (is (= (candidates "doc" :next "ws" "settings" :next)
+         ["help" "more" "page"])))
+
 (deftest help
   (is (= (candidates "help")
          ["check" "create" "deps" "diff" "info" "libs" "shell" "switch-ws"
@@ -309,12 +328,12 @@
 
 (deftest ws
   (is (= (candidates "ws")
-         [":all" ":all-bricks" ":dev"  ":latest-sha" ":loc" ":project" "branch"
+         [":all" ":all-bricks" ":dev"  ":latest-sha" ":loc" ":project"
           "brick" "get" "out" "project" "since"])))
 
 (deftest ws-
   (is (= (candidates "ws" :next "")
-         [":all" ":all-bricks" ":dev"  ":latest-sha" ":loc" ":project" "branch"
+         [":all" ":all-bricks" ":dev"  ":latest-sha" ":loc" ":project"
           "brick" "get" "out" "project" "since"])))
 
 (deftest ws-get
@@ -354,7 +373,7 @@
 
 (deftest ws-out-components-next-
   (is (= (candidates "ws" :next "out" "components" :next "")
-         [":all" ":all-bricks" ":dev" ":latest-sha" ":loc" ":project" "branch"
+         [":all" ":all-bricks" ":dev" ":latest-sha" ":loc" ":project"
           "brick" "get" "project" "since"])))
 
 (deftest ws-out-parentdir-

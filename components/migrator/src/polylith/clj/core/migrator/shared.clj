@@ -1,4 +1,4 @@
-(ns polylith.clj.core.migrator.shared
+(ns ^:no-doc polylith.clj.core.migrator.shared
   (:require [clojure.walk :as walk]
             [zprint.core :as zp])
   (:import (clojure.lang PersistentArrayMap)

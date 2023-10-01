@@ -1,4 +1,4 @@
-(ns polylith.clj.core.text-table.spaces)
+(ns ^:no-doc polylith.clj.core.text-table.spaces)
 
 (defn row-cell [row column value]
   {:row row

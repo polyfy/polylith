@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.text-table.ws-table-column.profile-columns
+(ns ^:no-doc polylith.clj.core.workspace.text-table.ws-table-column.profile-columns
   (:require [polylith.clj.core.text-table.interface :as text-table]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.path-finder.interface.status :as status]))

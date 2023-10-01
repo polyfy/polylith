@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.text-table.stable-since
+(ns ^:no-doc polylith.clj.core.workspace.text-table.stable-since
   (:require [clojure.string :as str]
             [polylith.clj.core.text-table.interface :as text-table]
             [polylith.clj.core.util.interface.color :as color]))
@@ -10,7 +10,7 @@
 
 (defn table [since-sha since-tag color-mode]
   (let [short-sha (short-name since-sha)
-        stable-since (if since-tag
+        stable-since (if (-> since-tag str/blank? not)
                        (text-table/cell 1 1 (str "stable since: " (color/grey color-mode (str short-sha " | " since-tag))))
                        (if (str/blank? since-sha)
                          (text-table/cell 1 1 (str (color/warning color-mode "Warning:") (color/error color-mode " not a git repo!")))

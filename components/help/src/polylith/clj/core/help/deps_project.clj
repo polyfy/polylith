@@ -1,12 +1,21 @@
-(ns polylith.clj.core.help.deps-project
+(ns ^:no-doc polylith.clj.core.help.deps-project
      (:require [polylith.clj.core.help.shared :as s]
                [polylith.clj.core.util.interface.color :as color]))
 
-(defn help [cm]
+(defn help [extended? cm]
   (str "  Shows dependencies for selected project.\n"
        "\n"
-       "  poly deps project:" (s/key "PROJEXT" cm) "\n"
+       "  poly deps project:" (s/key "PROJECT" cm) " [out:" (s/key "FILENAME" cm) "]\n"
+       "\n"
        "    " (s/key "PROJECT" cm) " = The project name or alias to show dependencies for.\n"
+       "\n"
+       (if extended?
+            (str "    " (s/key "FILENAME" cm) " = The name of the text or image file to create, containing the\n"
+                 "               output from this command. If " (s/key "FILENAME" cm) " ends with .bmp, .wbmp,\n"
+                 "               .gif, .jpeg, .jpg, .png, .tif, or .tiff, then the file will\n"
+                 "               be generated as an image, otherwise as text.\n")
+            (str "    " (s/key "FILENAME" cm) " = The name of the text file to create, containing the\n"
+                 "               output from this command.\n"))
        "\n"
        "         " (color/green cm "p      \n")
        "         " (color/green cm "a  u  u\n")
@@ -31,11 +40,16 @@
        "  statement in the brick.\n"
        "\n"
        "  Example:\n"
-       "    poly deps project:myproject"))
+       "    poly deps project:myproject\n"
+       "    poly deps project:myproject out:deps.txt"
+       (if extended?
+         "\n    poly deps project:myproject out:deps.png"
+         "")))
 
-(defn print-help [color-mode]
-  (println (help color-mode)))
+(defn print-help [extended? color-mode]
+  (println (help extended? color-mode)))
 
 (comment
-  (print-help "dark")
+  (print-help false "dark")
+  (print-help true "dark")
   #__)

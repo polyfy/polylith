@@ -1,0 +1,28 @@
+= Artifacts
+:cljdoc-api-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/api
+
+With Polylith bricks, we put together xref:projects[projects] from which we build artifacts.
+
+The type of xref:bases[base] (we often have just one base) and how it is built determines the type of aftifact that is created in the end.
+
+Polylith supports all types of artifacts, such as:
+
+* REST APIs
+* Lambda functions
+* Command line tools
+
+There is one situation that needs special consideration, and that is when we want to build more than one library from our workspace.
+
+One thing that distinguishes libraries from other types of artifacts is that they don't need a base, since it's about code talking directly to code.
+Instead we can have an `api` component that exposes the functionality in the library.
+A good example is the {cljdoc-api-url}/polylith.clj.core.api[clj-poly] library that includes an https://github.com/polyfy/polylith/blob/master/components/api/src/polylith/clj/core/api/interface.clj[api] component.
+
+If we publish more than one library from the same workspace, we need to build all library artifacts at the same time and make sure they all use the same versioning pattern, e.g.: `myfamily-lib1-1.2.3.jar` + `myfamily-lib2-1.2.3.jar`.
+The reason we include `myfamily` in the library name (which is just an example) is that if both `lib1` and `lib2` are used, the same version number must be included for both.
+This also makes it easier to find/sort them and makes it clear that they belong to the same "family" of libraries.
+
+If we are a user of e.g. `myfamily-lib1-1.2.3.jar` and an older version of another library within the same family (`myfamily` in this case) is implicitly needed by a library we use, then we must include "our" version of that library (which should be the newest), `myfamily-lib2-1.2.3.jar` in this case, to make sure we use the same version of the code (the library's components).
+
+This shows that building libraries with Polylith also comes with some challenges, though these could also be advantages, as it forces us to do the right thing, i.e. use the same version of all libraries within the same family, whose bricks originate from the same monorepo.
+
+Issue https://github.com/polyfy/polylith/issues/212[212] explores the problems of trying to isolate libraries that share components, and it's well explained by Sean Corfield in the comments of that issue.

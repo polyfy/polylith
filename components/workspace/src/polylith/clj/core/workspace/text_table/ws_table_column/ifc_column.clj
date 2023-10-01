@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace.text-table.ws-table-column.ifc-column
+(ns ^:no-doc polylith.clj.core.workspace.text-table.ws-table-column.ifc-column
   (:require [polylith.clj.core.text-table.interface :as text-table]))
 
 (defn ifc-name [component]

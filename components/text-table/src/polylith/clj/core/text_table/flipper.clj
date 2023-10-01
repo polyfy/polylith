@@ -1,4 +1,4 @@
-(ns polylith.clj.core.text-table.flipper
+(ns ^:no-doc polylith.clj.core.text-table.flipper
   (:require [polylith.clj.core.util.interface.str :as str-util]
             [polylith.clj.core.util.interface.color :as color]))
 

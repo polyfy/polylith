@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.core
+(ns ^:no-doc polylith.clj.core.validator.core
   (:require [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.validator.m101-illegal-namespace-deps :as m101]
             [polylith.clj.core.validator.m102-function-or-macro-is-defined-twice :as m102]
@@ -9,7 +9,7 @@
             [polylith.clj.core.validator.m107-missing-bricks-in-project :as m107]
             [polylith.clj.core.validator.m108-project-with-multi-implementing-component :as m108]
             [polylith.clj.core.validator.m109-invalid-test-runner-constructor :as m109]
-            [polylith.clj.core.validator.m110-missing-or-invalid-config-file :as m110]
+            [polylith.clj.core.validator.m110-invalid-config-file :as m110]
             [polylith.clj.core.validator.m201-mismatching-parameters :as m201]
             [polylith.clj.core.validator.m202-missing-paths :as m202]
             [polylith.clj.core.validator.m203-path-exists-in-both-dev-and-profile :as m203]

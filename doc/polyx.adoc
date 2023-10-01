@@ -1,0 +1,109 @@
+= Polyx
+
+Since version `0.2.18`, we have the new `polyx` tool which can do everything that `poly` can, plus create images from different commands.
+One more difference is that it's not released as an AOT compiled, stand-alone tool, as `poly` is.
+
+If we want to use `polyx`, then we need to add it as an alias to `./deps.edn`, e.g. by copying the existing `:poly` alias and change `:deps/root` from "projects/poly" to "projects/polyx":
+
+[source,clojure]
+----
+:polyx {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+        :extra-deps {polyfy/polylith
+                     {:git/url   "https://github.com/polyfy/polylith"
+                      :sha       "155b55ab9e51ecd5ee0622a82a87468dac00bba3"
+                      :deps/root "projects/polyx"}}}}}
+----
+
+Now let's start a shell, using the `polyx` tool, by executing this from the workspace root:
+
+[source,shell]
+----
+clojure -M:polyx
+----
+
+Let's create an image by running the xref:commands.adoc#info[info] command (which can also be done from the xref:commands.adoc#[deps] and xref:commands.adoc#libs[libs] commands):
+
+[source,shell]
+----
+example$ info out:info.png
+----
+
+This will create the `info.png` image containing the output from the xref:commands.adoc#info[info] command.
+If the file ends with any of the file formats listed https://clojure2d.github.io/clojure2d/docs/codox/clojure2d.core.html#var-img-writer-formats[here] then an image will be created in the specified format.
+It ends with something else, e.g. `.txt`, then a text file is created:
+
+[source,shell]
+----
+poly info out:info.txt
+----
+
+[source,shell]
+----
+  stable since: [37mc91fdad[0m
+
+  [35mprojects:[0m 2   [33minterfaces:[0m 1
+  [34mbases:   [0m 1   [32mcomponents:[0m 1
+
+  project         alias  status   [35mdev[0m
+  -----------------------------   ---
+  [35mcommand-line[0m *  [35mcl[0m     [35m ---  [0m   [35m---[0m
+  [35mdevelopment[0m *   [35mdev[0m    [35m s--  [0m   [35ms--[0m
+
+  interface  brick    [35mcl [0m   [35mdev[0m
+  -----------------   ---   ---
+  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mst-[0m
+  -          [34mcli[0m *    [35mstx[0m   [35mst-[0m
+----
+
+This can be "printed" by executing `cat info.txt`:
+
+image::images/polyx/info.png[width=400]
+
+The color codes can be removed if we want:
+
+[source,shell]
+----
+poly info out:info.txt color-mode:none
+----
+
+[source,shell]
+----
+  stable since: c91fdad
+
+  projects: 2   interfaces: 1
+  bases:    1   components: 1
+
+  project         alias  status   dev
+  -----------------------------   ---
+  command-line *  cl      ---     ---
+  development *   dev     s--     s--
+
+  interface  brick    cl    dev
+  -----------------   ---   ---
+  user       user *   stx   st-
+  -          cli *    stx   st-
+----
+
+The `polyx` tool also includes the new xref:commands.adoc#overview[overview] command:
+
+[source,shell]
+----
+example$ overview out:overview.png :no-changes
+----
+
+The generated image looks like this:
+
+image::images/polyx/overview.png[]
+
+This image can be used in our documentation to get an overview of the workspace.
+
+====
+NOTE: There are issues reported for Apple silicon when using https://en.wikipedia.org/wiki/Abstract_Window_Toolkit[Java AWT] (used by the underlying https://github.com/Clojure2D/clojure2d[clojure2d] library, to create the images) which is one of the reasons we don't include support for creating images in the `poly` tool.
+Another source of trouble may be that `polyx` starts a Java process, which is not always desirable in a command line tool: +
+image:images/polyx/java.png[]
+====
+
+[Caution]
+====
+CAUTION: The `polyx` tool may be converted to a custom command in the future, when we have support for that, and when that happens the `polyx` project may be deleted and configured in a different way.
+====

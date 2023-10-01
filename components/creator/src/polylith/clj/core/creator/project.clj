@@ -1,4 +1,4 @@
-(ns polylith.clj.core.creator.project
+(ns ^:no-doc polylith.clj.core.creator.project
   (:require [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.common.interface :as common]

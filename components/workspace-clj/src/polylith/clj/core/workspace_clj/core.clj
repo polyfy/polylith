@@ -1,4 +1,4 @@
-(ns polylith.clj.core.workspace-clj.core
+(ns ^:no-doc polylith.clj.core.workspace-clj.core
   (:require [clojure.string :as str]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.config-reader.interface :as config-reader]
@@ -9,15 +9,15 @@
             [polylith.clj.core.user-config.interface :as user-config]
             [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.path-finder.interface :as path-finder]
-            [polylith.clj.core.workspace-clj.ws-config :as ws-config]
             [polylith.clj.core.workspace-clj.profile :as profile]
-            [polylith.clj.core.workspace-clj.ws-reader :as ws-reader]
             [polylith.clj.core.workspace-clj.tag-pattern :as tag-pattern]
-            [polylith.clj.core.workspace-clj.ignore-files-settings :as ignore-files-settings]
+            [polylith.clj.core.workspace-clj.ws-config :as ws-config]
+            [polylith.clj.core.workspace-clj.ws-reader :as ws-reader]
             [polylith.clj.core.workspace-clj.bases-from-disk :as bases-from-disk]
             [polylith.clj.core.workspace-clj.project-settings :as project-settings]
             [polylith.clj.core.workspace-clj.projects-from-disk :as projects-from-disk]
-            [polylith.clj.core.workspace-clj.components-from-disk :as components-from-disk]))
+            [polylith.clj.core.workspace-clj.components-from-disk :as components-from-disk]
+            [polylith.clj.core.workspace-clj.ignore-files-settings :as ignore-files-settings]))
 
 (def no-git-repo "NO-GIT-REPO")
 
@@ -52,12 +52,18 @@
         "GIT-REPO-NOT-ACCESSIBLE")
     no-git-repo))
 
-(defn git-info [ws-dir {:keys [name auto-add]
-                        :or {name "git"
-                             auto-add false}}
-                tag-patterns {:keys [branch is-latest-sha]}]
+(defn git-info [ws-dir
+                {:keys [name auto-add]
+                 :or {name "git"
+                      auto-add false}}
+                tag-patterns
+                {:keys [branch is-latest-sha]}]
   (let [git-repo? (git/is-git-repo? ws-dir)
-        from-branch (or branch git/branch)]
+        from-branch (or branch
+                        ;; if we run this from the polylith repo, we want to use its branch.
+                        (if (and is-latest-sha (git/is-polylith-repo? ws-dir))
+                          (git/current-branch)
+                          git/branch))]
     {:name          name
      :is-git-repo   git-repo?
      :branch        (git-current-branch git-repo?)
@@ -82,8 +88,7 @@
 
 (defn ->version [ws-type]
   (if (= :toolsdeps1 ws-type)
-    (version/version {:ws {:type ws-type
-                           :breaking 0
+    (version/version {:ws {:breaking 0
                            :non-breaking 0}})
     (version/version)))
 
@@ -95,9 +100,9 @@
                               user-input
                               color-mode]
   (let [{:keys [vcs top-namespace interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views bricks]
-         :or   {vcs           {:name "git", :auto-add false}
+         :or   {vcs {:name "git", :auto-add false}
                 compact-views {}
-                interface-ns  "interface"}} ws-config
+                interface-ns "interface"}} ws-config
         patterns (tag-pattern/patterns tag-patterns stable-tag-pattern release-tag-pattern)
         top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
         empty-character (user-config/empty-character)
@@ -108,9 +113,9 @@
         project->settings (-> ws-config project-settings/convert ignore-files-settings/convert)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
         brick->settings (ignore-files-settings/convert bricks)
-        [component-configs component-errors] (config-reader/read-brick-config-files ws-dir ws-type :component "components")
+        [component-configs component-errors] (config-reader/read-brick-config-files ws-dir ws-type "component")
         components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns component-configs brick->settings)
-        [base-configs base-errors] (config-reader/read-brick-config-files ws-dir ws-type :base "bases")
+        [base-configs base-errors] (config-reader/read-brick-config-files ws-dir ws-type "base")
         bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns base-configs brick->settings)
         name->brick (into {} (comp cat (map (juxt :name identity))) [components bases])
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
@@ -151,7 +156,9 @@
                                 :bases base-configs
                                 :projects (config-reader/clean-project-configs project-configs)
                                 :user (user-config/content)
-                                :workspace ws-config}
+                                :workspaces [{:name ws-name
+                                              :type "workspace"
+                                              :config ws-config}]}
                       :config-errors config-errors
                       :components components
                       :bases bases
@@ -176,8 +183,8 @@
                   (config-reader/file-exists? ws-file :workspace) :toolsdeps2
                   (config-reader/file-exists? deps-file :development) :toolsdeps1)]
     (when ws-type
-      (let [{:keys [config error]} (config-reader/read-project-dev-config-file ws-dir ws-type)
-            {:keys [aliases polylith]} config
+      (let [{:keys [deps error]} (config-reader/read-project-dev-config-file ws-dir ws-type)
+            {:keys [aliases polylith]} deps
             [ws-config ws-error] (if (or error
                                          (= :toolsdeps2 ws-type))
                                    (ws-config/ws-config-from-disk ws-dir)

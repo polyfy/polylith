@@ -1,4 +1,4 @@
-(ns polylith.clj.core.creator.component
+(ns ^:no-doc polylith.clj.core.creator.component
   (:require [polylith.clj.core.creator.brick :as brick]))
 
 (defn create-component [ws-dir settings component-name interface-name is-git-add]

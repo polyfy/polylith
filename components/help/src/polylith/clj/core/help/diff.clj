@@ -1,13 +1,14 @@
-(ns polylith.clj.core.help.diff
+(ns ^:no-doc polylith.clj.core.help.diff
   (:require [polylith.clj.core.help.shared :as s]))
 
 (defn help [cm]
   (str "  Shows changed files since the most recent stable point in time.\n"
        "\n"
-       "  poly diff [" (s/key "ARG" cm) "]\n"
+       "  poly diff [since:" (s/key "SINCE" cm) "]\n"
        "\n"
-       "  If " (s/key "since:SINCE" cm) " is passed in as an argument, the last stable point in time will be\n"
+       "  If since:" (s/key "SINCE" cm) " is passed in as an argument, the last stable point in time will be\n"
        "  used depending on the value of " (s/key "SINCE" cm) " (or the first commit if no match was found).\n"
+       "\n"
        "  If prefixed with 'previous-', e.g. 'previous-release', then the SHA directly before\n"
        "  the most recent matching tag of the 'release' pattern will be used:\n"
        "    stable  -> the latest tag that matches stable-*, defined by\n"
@@ -26,12 +27,22 @@
        "\n"
        "  The pattern can be changed in " (s/key ":tag-patterns" cm) " in workspace.edn.\n"
        "\n"
-       "  The way the latest tag is found is by taking the first line that matches the 'stable-*'\n"
-       "  regular expression, or if no match was found, the first commit in the repository.\n"
+       "  The way the latest tag is found is by taking the first line that matches the\n"
+       "  'stable-*' regular expression, or if no match was found, the first commit in\n"
+       "  the repository:\n"
        "    git log --pretty=format:'%H %d'\n"
        "\n"
        "  Here is a compact way of listing all the commits including tags:\n"
-       "    git log --pretty=oneline"))
+       "    git log --pretty=oneline\n"
+       "\n"
+       "  Example:\n"
+       "    poly diff\n"
+       "    poly diff since:65a7918\n"
+       "    poly diff since:head\n"
+       "    poly diff since:head~1\n"
+       "    poly diff since:stable\n"
+       "    poly diff since:release\n"
+       "    poly diff since:previous-release"))
 
 (defn print-help [color-mode]
   (println (help color-mode)))

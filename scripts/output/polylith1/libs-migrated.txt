@@ -1,28 +1,31 @@
-                                                                                                w   
-                                                                                                o   
-                                                                                                r  w
-                                                                                                k  s
-                                                                                             v  s  -
-                                                                                    m        a  p  e
-                                                                                    i        l  a  x
-                                                                                    g        i  c  p
-                                                                                    r  s     d  e  l
-                                                                           a  d  f  a  h     a  -  o
-                                                                           n  e  i  t  e  t  t  c  r
-                                                                           t  p  l  o  l  a  o  l  e
-  library                      version    type      KB   api  poly   dev   q  s  e  r  l  p  r  j  r
-  ----------------------------------------------------   ---------   ---   -------------------------
-  borkdude/edamame             1.3.22     maven     24    x    x      x    .  .  x  .  .  .  .  .  .
-  clj-commons/fs               1.6.310    maven     12    x    x      x    .  .  x  .  .  .  .  .  .
-  com.github.liquidz/antq      2.5.1095   maven     50    x    x      x    x  .  .  .  .  .  .  .  .
-  djblue/portal                0.42.0     maven  1,809    -    x      x    .  .  .  .  .  x  .  .  .
-  metosin/malli                0.11.0     maven     85    x    x      x    .  .  .  .  .  .  x  .  .
-  mount/mount                  0.1.17     maven      8    -    -      x    .  .  .  .  .  .  .  .  .
-  mvxcvi/puget                 1.3.4      maven     15    x    x      x    .  .  .  .  .  .  .  .  x
-  org.clojure/clojure          1.11.1     maven  4,008    x    x      x    .  .  .  .  .  .  .  .  .
-  org.clojure/tools.deps       0.18.1354  maven     58    x    x      x    .  x  x  .  .  .  .  x  .
-  org.jline/jline              3.21.0     maven    971    -    x      x    .  .  .  .  x  .  .  .  .
-  org.slf4j/slf4j-nop          2.0.7      maven      4    -    x      x    .  .  .  .  .  .  .  .  .
-  pjstadig/humane-test-output  0.11.0     maven      7    -    t      -    .  .  .  .  .  .  .  .  .
-  rewrite-clj/rewrite-clj      1.1.47     maven     73    -    -      x    .  .  .  .  .  .  .  .  .
-  zprint/zprint                1.2.7      maven    210    -    x      x    .  .  .  x  .  .  .  .  .
+                                                                                                              i                  
+                                                                                                              m                  
+                                                                                                              a              w   
+                                                                                                              g              o   
+                                                                                                              e              r  w
+                                                                                                              -              k  s
+                                                                                                              c           v  s  -
+                                                                                                              r  m        a  p  e
+                                                                                                              e  i        l  a  x
+                                                                                                              a  g        i  c  p
+                                                                                                              t  r  s     d  e  l
+                                                                                                     a  d  f  o  a  h     a  -  o
+                                                                                                     n  e  i  r  t  e  t  t  c  r
+                                                                                                     t  p  l  -  o  l  a  o  l  e
+  library                      version    type      KB   api  poly  polyx   dev  extended  default   q  s  e  x  r  l  p  r  j  r
+  ----------------------------------------------------   ----------------   ----------------------   ----------------------------
+  borkdude/edamame             1.3.23     maven     24    x    x      x      x      -         -      .  .  x  .  .  .  .  .  .  .
+  clj-commons/fs               1.6.310    maven     12    x    x      x      x      -         -      .  .  x  .  .  .  .  .  .  .
+  clojure2d/clojure2d          1.4.5      maven  2,215    -    -      x      -      x         -      .  .  .  x  .  .  .  .  .  .
+  com.github.liquidz/antq      2.5.1095   maven     50    x    x      x      x      -         -      x  .  .  .  .  .  .  .  .  .
+  djblue/portal                0.42.1     maven  1,809    -    x      x      x      -         -      .  .  .  .  .  .  x  .  .  .
+  metosin/malli                0.11.0     maven     85    x    x      x      x      -         -      .  .  .  .  .  .  .  x  .  .
+  mount/mount                  0.1.17     maven      8    -    -      -      x      -         -      .  .  .  .  .  .  .  .  .  .
+  mvxcvi/puget                 1.3.4      maven     15    x    x      x      x      -         -      .  .  .  .  .  .  .  .  .  x
+  org.clojure/clojure          1.11.1     maven  4,008    x    x      x      x      -         -      .  .  .  .  .  .  .  .  .  .
+  org.clojure/tools.deps       0.18.1354  maven     58    x    x      x      x      -         -      .  x  x  .  .  .  .  .  x  .
+  org.jline/jline              3.21.0     maven    971    -    x      x      x      -         -      .  .  .  .  .  x  .  .  .  .
+  org.slf4j/slf4j-nop          2.0.7      maven      4    -    x      x      x      -         -      .  .  .  .  .  .  .  .  .  .
+  pjstadig/humane-test-output  0.11.0     maven      7    -    t      -      -      -         -      .  .  .  .  .  .  .  .  .  .
+  rewrite-clj/rewrite-clj      1.1.47     maven     73    -    -      -      x      -         -      .  .  .  .  .  .  .  .  .  .
+  zprint/zprint                1.2.7      maven    210    -    x      x      x      -         -      .  .  .  .  x  .  .  .  .  .

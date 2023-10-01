@@ -1,8 +1,8 @@
-(ns polylith.clj.core.ws-explorer.interface
+(ns ^:no-doc polylith.clj.core.ws-explorer.interface
   (:require [polylith.clj.core.ws-explorer.core :as core]))
 
-(defn extract [workspace get]
-  (core/extract workspace get))
+(defn extract [edn-data values]
+  (core/extract edn-data values))
 
 (defn ws
   "Prints or writes the workspace to standard output or disk."

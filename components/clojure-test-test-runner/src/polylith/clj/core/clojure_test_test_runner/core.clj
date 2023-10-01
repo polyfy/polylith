@@ -1,4 +1,4 @@
-(ns polylith.clj.core.clojure-test-test-runner.core
+(ns ^:no-doc polylith.clj.core.clojure-test-test-runner.core
   (:require [clojure.string :as str]
             [polylith.clj.core.test-runner-contract.interface :as test-runner-contract]
             [polylith.clj.core.util.interface.color :as color]

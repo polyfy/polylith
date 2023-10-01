@@ -1,4 +1,4 @@
-(ns polylith.clj.core.overview.core
+(ns ^:no-doc polylith.clj.core.overview.core
   (:require [clojure.string :as str]
             [polylith.clj.core.change.interface :as change]
             [polylith.clj.core.common.interface :as common]
@@ -53,6 +53,7 @@
      :h (* (+ height 2) ic/font-height)}))
 
 (defn print-table [workspace]
+  (tap> {:user-input (:user-input workspace)})
   (let [{:keys [table heights widths max-height n#spaces]} (table workspace)
         x1s (mapv #(apply + (take % widths))
                   (range (inc (count widths))))

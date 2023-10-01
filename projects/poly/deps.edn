@@ -1,4 +1,5 @@
-{:deps {poly/antq                     {:local/root "../../components/antq"}
+{:deps {poly/api                      {:local/root "../../components/api"}
+        poly/antq                     {:local/root "../../components/antq"}
         poly/change                   {:local/root "../../components/change"}
         poly/clojure-test-test-runner {:local/root "../../components/clojure-test-test-runner"}
         poly/command                  {:local/root "../../components/command"}
@@ -6,6 +7,7 @@
         poly/config-reader            {:local/root "../../components/config-reader"}
         poly/creator                  {:local/root "../../components/creator"}
         poly/deps                     {:local/root "../../components/deps"}
+        poly/doc                      {:local/root "../../components/doc"}
         poly/file                     {:local/root "../../components/file"}
         poly/git                      {:local/root "../../components/git"}
         poly/help                     {:local/root "../../components/help"}
@@ -30,10 +32,11 @@
         poly/workspace-clj            {:local/root "../../components/workspace-clj"}
         poly/ws-explorer              {:local/root "../../components/ws-explorer"}
         poly/ws-file                  {:local/root "../../components/ws-file"}
+        poly/nav-generator            {:local/root "../../bases/nav-generator"}
         poly/poly-cli                 {:local/root "../../bases/poly-cli"}
 
         org.clojure/clojure {:mvn/version "1.11.1"}
-        org.slf4j/slf4j-nop {:mvn/version "2.0.7"}}
+        org.slf4j/slf4j-nop {:mvn/version "2.0.9"}}
 
  ;; so poly can be installed as a tool:
  :tools/usage {:ns-default polylith.clj.core.poly-cli.api}

@@ -1,19 +1,26 @@
-(ns polylith.clj.core.help.summary
-  (:require [polylith.clj.core.help.shared :as s]
-            [polylith.clj.core.system.interface :as system]
+(ns ^:no-doc polylith.clj.core.help.summary
+  (:require [clojure.string :as str]
+            [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.help.shared :as s]
             [polylith.clj.core.version.interface :as version]
             [polylith.clj.core.util.interface.color :as color]))
 
-(defn help-text [show-migrate? extended? cm]
+(defn tool-command [extended?]
+  (if extended?
+    "polyx"
+    "poly"))
+
+(defn help-text [show-migrate? extended? fake-poly? cm]
   (str
-    "  Poly " version/name " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
+    "  " (-> fake-poly? common/version-name) " (" version/date ") - " (color/blue cm "https://github.com/polyfy/polylith\n")
     "\n"
-    "  poly " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] - where " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] are:\n"
+    "  " (tool-command extended?) " " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] - where " (s/key "CMD" cm) " [" (s/key "ARGS" cm) "] are:\n"
     "\n"
     "    check [" (s/key "ARG" cm) "]                 Checks if the workspace is valid.\n"
     "    create " (s/key "E" cm) " name:" (s/key "N" cm) " [" (s/key "ARG" cm) "]       Creates a component, base, project or workspace.\n"
     "    deps [project:" (s/key "P" cm) "] [brick:" (s/key "B" cm) "]  Shows dependencies.\n"
     "    diff [" (s/key "ARG" cm) "]                  Shows changed files since last stable point in time.\n"
+    "    doc [" (s/key "ARG" cm) "]                   Opens the web based documentation in a browser.\n"
     "    help [" (s/key "C" cm) "] [" (s/key "ARG" cm) "]              Shows this help or help for specified command.\n"
     "    info [" (s/key "ARGS" cm) "]                 Shows a workspace overview and checks if it's valid.\n"
     "    libs [" (s/key "ARGS" cm) "]                 Shows all libraries in the workspace.\n"
@@ -35,9 +42,6 @@
     "    exit           Exits the shell.\n"
     "    quit           Quits the shell.\n"
     "\n"
-    "  The " (s/key "ws-dir" cm) " and " (s/key "ws-file" cm) " parameters are replaced by " (s/key "switch-ws" cm) " when executing commands\n"
-    "  from the shell.\n"
-    "\n"
     "  If " (s/key "ws-dir:PATH" cm) " is passed in as an argument, where " (s/key "PATH" cm) " is a relative\n"
     "  or absolute path, then the command is executed from that directory.\n"
     "  This works for all commands except 'test'.\n"
@@ -51,12 +55,16 @@
     "  If the 'switch-ws file:" (s/key "FILE" cm) "' command has been executed from a shell,\n"
     "  then ws-file:" (s/key "FILE" cm) " will automatically be appended to following commands.\n"
     "\n"
+    "  The " (s/key "ws-dir" cm) " and " (s/key "ws-file" cm) " parameters are replaced by " (s/key "switch-ws" cm) " when executing commands\n"
+    "  from the shell.\n"
+    "\n"
     "  If " (s/key "::" cm) " is passed in, then ws-dir is set to the first parent directory (or current)\n"
     "  that contains a 'workspace.edn' config file. The exception is the 'test' command\n"
     "  that has to be executed from the workspace root.\n"
     "\n"
     "  If " (s/key "skip:PROJECTS" cm) " is passed in, then the given project(s) will not be read from disk.\n"
-    "  Both project names and aliases can be used and should be separated by : if more than one.\n"
+    "  Both project names and aliases can be used and should be separated by : if more than\n"
+    "  one.\n"
     "\n"
     "  If " (s/key "since:SINCE" cm) " is passed in as an argument, the last stable point in time will be\n"
     "  used depending on the value of " (s/key "SINCE" cm) " (or the first commit if no match was found).\n"
@@ -69,9 +77,10 @@
     "    KEY     -> any key in " (s/key ":tag-patterns" cm) ".\n"
     "    SHA     -> a git SHA-1 hash (if no key was found in " (s/key ":tag-patterns" cm) ").\n"
     "\n"
-    "  The color mode is taken from ~/.config/polylith/config.edn but can be overridden by passing\n"
-    "  in " (s/key "color-mode:COLOR" cm) " where valid colors are " (s/key "none" cm) ", " (s/key "light" cm) ", and " (s/key "dark" cm) ".\n"
-    "  (if the XDG_CONFIG_HOME environment variable is set, that will be used instead of ~/.config)\n"
+    "  The color mode is taken from ~/.config/polylith/config.edn but can be overridden by\n"
+    "  passing in " (s/key "color-mode:COLOR" cm) " where valid colors are " (s/key "none" cm) ", " (s/key "light" cm) ", and " (s/key "dark" cm) ".\n"
+    "  (if the XDG_CONFIG_HOME environment variable is set, that will be used instead of\n"
+    "  ~/.config)\n"
     "\n"
     "  Example (shell only):\n"
     "    switch-ws dir:~/myworkspace\n"
@@ -81,27 +90,11 @@
     "    tap clean\n"
     "    tap close\n"
     "\n"
-    "  'poly :all' will start a shell and activate autocomplete for rarely used parameters, e.g:\n"
-    "    deps out:out.txt\n"
-    "    info +\n"
-    "    info color-mode:none\n"
-    "    info out:info.txt\n"
-    "    info fake-sha:c91fdad\n"
-    "    info :no-changes\n"
-    "    info changed-files:components/user/\n"
-    "    info changed-files:workspace.edn:components/user/myapp/user/core.clj\n"
-    "    libs out:libs.txt\n"
-    "    test skip:development\n"
-    "    ws branch:main\n"
-    "    ws replace:hello:goodbye\n"
-    "\n"
     "  'poly :tap' will start a shell and open a portal window.\n"
     "\n"
     "  Example:\n"
     "    poly\n"
-    "    poly :all\n"
     "    poly :tap\n"
-    "    poly :all :tap\n"
     "    poly check\n"
     "    poly check :dev\n"
     "    poly create c name:user\n"
@@ -110,18 +103,35 @@
     "    poly create b name:mybase\n"
     "    poly create base name:mybase\n"
     "    poly create project name:myproject\n"
-    "    poly create w top-ns:com.my.company\n"
+    "    poly create w top-ns:com.my.company :commit\n"
     "    poly create workspace name:myws top-ns:com.my.company\n"
-    "    poly create workspace name:myws top-ns:com.my.company branch:master\n"
+    "    poly create workspace name:myws top-ns:com.my.company :commit\n"
+    "    poly create workspace name:myws top-ns:com.my.company branch:master :commit\n"
     "    poly deps\n"
     "    poly deps brick:mybrick\n"
     "    poly deps project:myproject\n"
     "    poly deps project:myproject brick:mybrick\n"
+    "    poly deps out:out.txt\n"
     (if extended?
-      (str "    poly deps out:deps.png\n"
-           "    poly deps out:deps.txt\n")
+      "    poly deps out:deps.png\n"
       "")
     "    poly diff\n"
+    "    poly doc\n"
+    "    poly doc help\n"
+    "    poly doc help:check\n"
+    "    poly doc page:install\n"
+    "    poly doc ws:settings\n"
+    "    poly doc more:blog-posts\n"
+    "    poly doc more:blog-posts:how-polylith-came-to-life\n"
+    "    poly doc more:high-level\n"
+    "    poly doc more:high-level:who-made-this\n"
+    "    poly doc more:podcasts\n"
+    "    poly doc more:podcasts:polylith-with-joakim-james-and-furkan\n"
+    "    poly doc more:python-tool\n"
+    "    poly doc more:slack\n"
+    "    poly doc more:videos\n"
+    "    poly doc more:videos:polylith-in-a-nutshell\n"
+    "    poly doc more:workspaces:realworld\n"
     "    poly help\n"
     "    poly help info\n"
     "    poly help create\n"
@@ -135,6 +145,7 @@
     "    poly help deps :project :brick\n"
     "    poly help deps :workspace\n"
     "    poly info\n"
+    "    poly info +\n"
     "    poly info :loc\n"
     (if extended?
       "    poly info out:info.png\n" "")
@@ -157,16 +168,18 @@
     "    poly info :all\n"
     "    poly info :all-bricks\n"
     "    poly info ::\n"
+    "    poly info out:info.txt\n"
+    (if extended?
+      "    poly info out:info.png\n"
+      "")
     "    poly info ws-dir:another-ws\n"
     "    poly info ws-file:ws.edn\n"
     "    poly libs\n"
     "    poly libs :compact\n"
     "    poly libs :outdated\n"
+    "    poly libs out:libs.txt\n"
     (if extended?
-      (str "    poly libs out:libs.png\n"
-           "    poly overview\n"
-           "    poly overview out:overview.png\n"
-           "    poly overview out:overview.jpg :no-changes\n")
+      "    poly libs out:libs.png\n"
       "")
     (if show-migrate?
       "    poly migrate\n"
@@ -201,13 +214,21 @@
     "    poly ws get:settings:vcs:polylith :latest-sha\n"
     "    poly ws get:settings:vcs:polylith :latest-sha branch:master\n"
     "    poly ws get:changes:changed-or-affected-projects skip:dev color-mode:none\n"
-    "    poly ws out:ws.edn"))
+    "    poly ws out:ws.edn"
+    (if extended?
+      (str "\n    clojure -M:polyx overview"
+           "\n    clojure -M:polyx overview out:overview.png"
+           "\n    clojure -M:polyx overview out:overview.jpg :no-changes")
+      "")))
 
-(defn print-help [is-all toolsdeps1? color-mode]
+(defn print-help [is-all toolsdeps1? extended? fake-poly? color-mode]
   (let [show-migrate? (or is-all toolsdeps1?)]
-    (println (help-text show-migrate? system/extended? color-mode))))
+    (println (help-text show-migrate? extended? fake-poly? color-mode))))
 
 (comment
-  (println (help-text false false "dark"))
-  (println (help-text false true "dark"))
+  (println (help-text false false false "dark")) ; poly
+  (println (help-text false true false "dark"))  ; polyx
+
+  (println (help-text true false false "dark"))  ; poly + + migrate
+  (println (help-text true true false "dark"))   ; polyx + migrate
   #__)

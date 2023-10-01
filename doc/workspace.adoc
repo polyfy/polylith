@@ -1,0 +1,194 @@
+= Workspace
+:poly-version: 0.2.18
+
+The workspace directory is where all your code and most of your xref:configuration.adoc[configuration] lives.
+
+[NOTE]
+====
+Unless otherwise noted, our examples assume `poly` is xref:install.adoc[installed] as a stand-alone tool. 
+Adjust your command line if you've installed `poly` differently.
+
+See also: <<bootstrap>>.
+====
+
+Let's create an example workspace with a top namespace of `se.example` using the xref:commands.adoc#create-workspace[create workspace] command.
+By default, this command also creates a git repository, so execute it outside any existing git repository: 
+
+[source,shell]
+----
+poly create workspace name:example top-ns:se.example :commit
+----
+
+
+The `poly` tool has created an `example` workspace in the `main` branch of a new git repository and committed all files. 
+
+TIP: The `se.example` top namespace is just an example.
+Stick with this name when following this example, but choose whatever name makes sense when creating your own Polylith workspaces.
+
+[TIP]
+====
+You can override the default of `main` for the git branch with the `branch:` option.
+For example, to use `master`:
+
+[source,shell]
+----
+poly create workspace name:example top-ns:se.example branch:master :commit
+----
+====
+
+Your workspace directory structure should look like this:
+
+[source,shell]
+----
+example                # workspace dir
+├── .git/              # git repository dir
+├── .gitignore         # ignored files and dirs in git
+├── .vscode/
+│   └── settings.json  # configuration for Calva
+├── bases/             # bases dir
+├── components/        # components dir
+├── deps.edn           # development config file
+├── development/
+│   └── src/           # development-specific code
+├── logo.png           # polylith logo
+├── projects/          # projects dir
+├── readme.md          # documentation
+└── workspace.edn      # workspace config file
+----
+
+We designed the directory structure for quick navigation and ease of use.
+Your service-level building blocks are easy to find and understand, which helps you to reason about your system at a higher level.
+
+Each top-level directory contains a specific Polylith concept:
+
+* A xref:base.adoc[base] is a building block that exposes a public API to the outside world, e.g., external systems and users.
+
+* A xref:component.adoc[component] is a building block that encapsulates a specific domain or part of the system.
+
+* A xref:project.adoc[project] specifies a deployable artifact and what components and bases it contains.
+
+* The xref:development.adoc[development] project (`development/` + `deps.edn`) supports working on all code from one place.
+
+This structure gives a consistent shape to all Polylith projects.
+The familiar convention ensures that all developers, be they new or veterans, will quickly get started on Polylith systems that are new to them.
+We think you will fall in love with the power and simplicity the Polylith structure gives to your projects!
+
+****
+The `bases`, `components`, and `projects` directories include a `.keep` file.
+This file ensures that git tracks these otherwise empty directories.
+You can delete the `.keep` files after you add other files.
+****
+
+The `workspace.edn` file looks like:
+
+[source,clojure]
+----
+{:top-namespace "se.example"
+ :interface-ns "interface"
+ :default-profile-name "default"
+ :compact-views #{}
+ :vcs {:name "git"
+       :auto-add false}
+ :tag-patterns {:stable "stable-*"
+                :release "v[0-9]*"}
+ :projects {"development" {:alias "dev"}}}
+----
+
+The `deps.edn` file:
+
+[source,clojure,subs="+attributes"]
+----
+{:aliases  {:dev {:extra-paths ["development/src"]
+                  :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}}}
+
+            :test {:extra-paths []}
+
+            :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                   :extra-deps {polyfy/clj-poly {:mvn/version "{poly-version}"}}}}}
+----
+
+The `:dev` alias supports your Polylith development environment, and the `:test` alias your tests.
+The `:poly` alias allows you to run `poly` as a local dependency, e.g., `clj -M:poly version`, and is not used by `poly` stand-alone.
+
+== Existing git Repository
+
+You can also create a Polylith workspace inside an existing git repo.
+There are two ways to do this.
+Either you create the workspace directly at the root of the git repository (without giving a workspace name) by executing:
+
+[source,shell]
+----
+cd my-git-repo-dir
+poly create workspace top-ns:com.mycompany
+----
+
+...which results in:
+
+[source,shell]
+----
+my-git-repo-dir
+├── bases
+├── components
+├── deps.edn
+├── development
+├── projects
+└── workspace.edn
+----
+
+...or you create the workspace in a directory under the git repository root by executing e.g.,:
+
+[source,shell]
+----
+cd my-git-repo-dir
+poly create workspace name:my-workspace top-ns:com.mycompany
+----
+
+...which result in:
+
+[source,shell]
+----
+my-git-repo-dir
+└── my-workspace
+    ├── bases
+    ├── components
+    ├── deps.edn
+    ├── development
+    ├── projects
+    └── workspace.edn
+----
+
+NOTE: In the above examples you'll notice we ommitted the `:commit` option. 
+It is not supported when creating a workspace in an existing git repository.
+You'll have to commit your new workspace files yourself.
+
+To execute a command, you need to be at the root of your workspace:
+
+[source,shell]
+----
+cd my-workspace
+poly info
+----
+
+[#bootstrap]
+== Bootstrapping a Workspace
+
+If you don't have a stand-alone version of `poly` xref:install.adoc[installed] and prefer to use `poly` xref:install.adoc#use-as-dependency[as a dependency], you can bootstrap your workspace.
+
+All techniques above still apply, but you will instead, for example:
+
+[source,shell]
+----
+clojure -Sdeps '{:deps {polylith/clj-poly {:mvn/version "RELEASE"}}}' \
+        -M -m  polylith.clj.core.poly-cli.core \
+        create workspace name:example top-ns:se.example :commit
+----
+
+And now you can use `poly` as a dependency:
+
+[source,shell]
+----
+cd example
+clojure -M:poly info
+----
+
+

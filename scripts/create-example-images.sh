@@ -17,7 +17,7 @@ root=$(cd ../ && pwd)
 scripts=$(pwd)
 examples=$root/examples
 output=$scripts/output
-images=$scripts/images
+images=$root/doc/images
 sections=$scripts/sections
 ws=$(mktemp -d -t polylith-ws-$(date +%Y-%m-%d-%H%M%S))
 ws1=$(mktemp -d -t polylith-ws1-$(date +%Y-%m-%d-%H%M%S))
@@ -42,16 +42,16 @@ clojure -A:dev:test -P
 
 cd $ws
 
-echo "### 1/56 Workspace ###"
+echo "### 1/25 Workspace ###"
 poly create workspace name:example top-ns:se.example :git-add :commit
 cd example
 
-echo "### 2/56 Development ###"
+echo "### 2/25 Development ###"
 mkdir development/src/dev
 cp $sections/development/lisa.clj development/src/dev
 git add development/src/dev/lisa.clj
 
-echo "### 3/56 Component ###"
+echo "### 3/25 Component ###"
 echo "current dir=$(pwd)"
 poly create component name:user
 
@@ -59,9 +59,9 @@ cp $sections/component/user-core.clj components/user/src/se/example/user/core.cl
 git add components/user/src/se/example/user/core.clj
 cp $sections/component/user-interface.clj components/user/src/se/example/user/interface.clj
 cp $sections/component/deps.edn .
-poly info fake-sha:c91fdad out:$images/component-info.png
+poly info fake-sha:c91fdad out:$images/component/info.png
 
-echo "### 4/56 Base ###"
+echo "### 4/25 Base ###"
 poly create b name:cli
 cd ..
 cd example
@@ -69,80 +69,70 @@ echo "current-dir=$(pwd)"
 cp $sections/base/deps.edn .
 cp $sections/base/cli-core.clj bases/cli/src/se/example/cli/core.clj
 
-echo "### 5/56 Project ###"
+echo "### 5/25 Project ###"
 echo "current-dir=$(pwd)"
 poly create project name:command-line
 cd ..
 cd example
 cp $sections/project/deps.edn .
-cp $sections/project/workspace1.edn ./workspace.edn
+cp $sections/project/workspace.edn ./workspace.edn
 cp $sections/project/command-line-deps.edn projects/command-line/deps.edn
 
-echo "### 6/56 Polyx ###"
+echo "### 6/25 Polyx ###"
 echo "current-dir=$(pwd)"
 cp $sections/polyx/deps.edn .
-clojure -M:polyx info out:$output/info.png
-clojure -M:polyx info out:$output/overview.png
+clojure -M:polyx info fake-sha:c91fdad out:$images/polyx/info.png
+clojure -M:polyx overview fake-sha:c91fdad out:$images/polyx/overview.png
+cp $sections/project/deps.edn .
 
-echo "### 7/56 Tools.deps ###" 
-clojure -M:poly info fake-sha:c91fdad out:$images/toolsdeps-info.png
+echo "### 7/25 Tools.deps ###"
 
-echo "### 8/56 Build ###"
+echo "### 8/25 Build ###"
 echo "current-dir=$(pwd)"
 cp $sections/build/deps.edn .
 cp $sections/build/build.clj .
 cp $sections/build/command-line-deps.edn projects/command-line/deps.edn
 
-clojure -T:build uberjar :project command-line
-cd projects/command-line/target
-java -jar command-line.jar Lisa
-
-echo "### 9/56 Git ###"
-cd ../../..
+echo "### 9/25 Git ###"
 echo "current-dir=$(pwd)"
-poly info fake-sha:c91fdad out:$images/git-info.png
-git log
+poly info fake-sha:c91fdad out:$images/git/info.png
 git add --all
 git commit -m "Created the user and cli bricks."
-git log --pretty=oneline
 
-echo "### 10/56 Tagging ###"
+echo "### 10/25 Tagging ###"
 echo "current-dir=$(pwd)"
 git tag -f stable-lisa
 git log --pretty=oneline
-poly info fake-sha:e7ebe68 out:$images/tagging-info-1.png
+poly info fake-sha:e7ebe68 out:$images/tagging/info-01.png
 firstsha=`git log --pretty=oneline | tail -1 | cut -d " " -f1`
 git tag v1.1.0 $firstsha
 git tag v1.2.0
 
 cp $sections/tagging/user-core-change.clj components/user/src/se/example/user/core.clj
-poly info since:release fake-sha:e7ebe68 out:$images/tagging-info-2.png
+poly info since:release fake-sha:e7ebe68 out:$images/tagging/info-02.png
 
-poly info since:release fake-sha:e7ebe68 out:$images/tagging-info-3.png
-poly info since:previous-release fake-sha:c91fdad out:$images/tagging-info-4.png
-git log --pretty=oneline
+poly info since:release fake-sha:e7ebe68 out:$images/tagging/info-03.png
+poly info since:previous-release fake-sha:c91fdad out:$images/tagging/info-04.png
 
-echo "### 11/56 Flags ###"
+echo "### 11/25 Flags ###"
 echo "current-dir=$(pwd)"
-poly info :resources fake-sha:e7ebe68 out:$images/flags-info.png
+poly info :resources fake-sha:e7ebe68 out:$images/flags/info.png
 
-echo "### 12/56 Testing ###"
+echo "### 12/25 Testing ###"
 echo "current-dir=$(pwd)"
 cp $sections/testing/user-core.clj components/user/src/se/example/user/core.clj
-poly info fake-sha:e7ebe68 out:$images/testing-info-1.png
-cp $sections/testing/user-interface-test.clj components/user/test/se/example/user/interface_test.clj
-set +e
-set -e
+poly info fake-sha:e7ebe68 out:$images/testing/info.png
 cp $sections/testing/user-interface-test2.clj components/user/test/se/example/user/interface_test.clj
 clojure -A:dev:test -P
-poly info :dev fake-sha:e7ebe68 out:$images/testing-info-2.png
-poly info project:dev fake-sha:e7ebe68 out:$images/testing-info-2b.png
-poly info project:cl:dev fake-sha:e7ebe68 out:$images/testing-info-3.png
+poly info :dev fake-sha:e7ebe68 out:$images/testing/info-dev.png
+poly info project:dev fake-sha:e7ebe68 out:$images/testing/info-project-dev.png
+poly info project:cl:dev fake-sha:e7ebe68 out:$images/testing/info-project-cl-dev.png
 
-poly info fake-sha:e7ebe68 out:$images/testing-info-3a.png
-poly info brick:cli fake-sha:e7ebe68 out:$images/testing-info-3b.png
-poly info :no-changes fake-sha:e7ebe68 out:$images/testing-info-3c.png
-poly info brick:cli :no-changes fake-sha:e7ebe68 out:$images/testing-info-3d.png
+poly info fake-sha:e7ebe68 out:$images/testing/info-filter-on-bricks.png
+poly info brick:cli fake-sha:e7ebe68 out:$images/testing/info-brick-cli.png
+poly info :no-changes fake-sha:e7ebe68 out:$images/testing/info-no-changes.png
+poly info brick:cli :no-changes fake-sha:e7ebe68 out:$images/testing/info-brick-cli-no-changes.png
+poly info :no-changes brick:cli :all-bricks fake-sha:e7ebe68 out:$images/testing/info-brick-cli-no-changes-all-bricks.png
 
 mkdir projects/command-line/test
 cp $sections/testing/deps.edn .
@@ -150,26 +140,21 @@ cp $sections/testing/command-line-deps.edn projects/command-line/deps.edn
 mkdir -p projects/command-line/test/project/command_line
 cp $sections/testing/dummy_test.clj projects/command-line/test/project/command_line
 git add projects/command-line/test/project/command_line/dummy_test.clj
-poly info fake-sha:e7ebe68 out:$images/testing-info-4.png
-poly info :project fake-sha:e7ebe68 out:$images/testing-info-5.png
+poly info fake-sha:e7ebe68 out:$images/testing/info-project-dir.png
+poly info :project fake-sha:e7ebe68 out:$images/testing/info-project.png
 git add --all
 git commit -m "Added tests"
 git tag -f stable-lisa
-poly info fake-sha:e7ebe68 out:$images/testing-info-6.png
-poly info :all-bricks fake-sha:e7ebe68 out:$images/testing-info-7.png
-poly info :all-bricks :dev fake-sha:e7ebe68 out:$images/testing-info-8.png
-poly info :all fake-sha:e7ebe68 out:$images/testing-info-9.png
-poly info :all :dev fake-sha:e7ebe68 out:$images/testing-info-10.png
+poly info fake-sha:e7ebe68 out:$images/testing/info-added-tests.png
+poly info :all-bricks fake-sha:e7ebe68 out:$images/testing/info-all-bricks.png
+poly info :all-bricks :dev fake-sha:e7ebe68 out:$images/testing/info-all-bricks-dev.png
+poly info :all fake-sha:e7ebe68 out:$images/testing/info-all.png
+poly info :all :dev fake-sha:e7ebe68 out:$images/testing/info-all-dev.png
 
-poly info :all :dev fake-sha:e7ebe68 out:$images/testing-info-11.png
+cp $sections/testing/command-line-test-setup.clj projects/command-line/test/project/command_line/test_setup.clj
+cp $sections/testing/workspace-test.edn ./workspace.edn
 
-cp $sections/project/command-line-test-setup.clj projects/command-line/test/project/command_line/test_setup.clj
-cp $sections/project/workspace2.edn ./workspace.edn
-
-cp $sections/testing/workspace.edn .
-poly info :all :dev fake-sha:e7ebe68 out:$images/testing-info-exclude-tests.png
-
-echo "### 13/56 Profile ###"
+echo "### 13/25 Profile ###"
 echo "current-dir=$(pwd)"
 
 cp $sections/profile/workspace.edn .
@@ -189,154 +174,34 @@ cp $sections/profile/command-line-deps.edn projects/command-line/deps.edn
 clojure -T:build uberjar :project command-line
 clojure -T:build uberjar :project user-service
 
-poly info + fake-sha:e7ebe68 out:$images/profile-info-1.png
-poly info +remote fake-sha:e7ebe68 out:$images/profile-info-2.png
-set +e
-poly info +default +remote fake-sha:e7ebe68 out:$images/profile-info-3.png
-set -e
-poly info :loc fake-sha:e7ebe68 out:$images/profile-info-4.png
+poly info + fake-sha:e7ebe68 out:$images/profile/info-all-aliases.png
+poly info +remote fake-sha:e7ebe68 out:$images/profile/info-with-remote-profile.png
+# We don't include the error message today, so we can't use the generated image.
+# poly info +default +remote fake-sha:e7ebe68 out:$images/profile/info-multiple-profiles.png
+poly info :loc fake-sha:e7ebe68 out:$images/profile/info-loc.png
 
-echo "### 14/56 Configuration ###"
-echo "current-dir=$(pwd)"
+echo "### 14/25 Configuration ###"
 
-echo "### 15/56 Workspace state ###"
-echo "current-dir=$(pwd)"
-sha=`git rev-list -n 1 stable-lisa`
+echo "### 15/25 Copy doc-example ###"
 
-echo "### 16/56 Copy doc-example ###"
-echo "current-dir=$(pwd)"
-cp $examples/doc-example/readme.txt $ws
-rm -rf $examples/doc-example
-cp -R $ws/example $examples/doc-example
-rm -rf $examples/doc-example/.git
-rm $examples/doc-example/.gitignore
-rm $examples/doc-example/readme.md
-rm $examples/doc-example/logo.png
-rm $examples/doc-example/bases/.keep
-rm $examples/doc-example/components/.keep
-rm $examples/doc-example/projects/.keep
-rm $examples/doc-example/development/src/.keep
-cp $ws/readme.txt $examples/doc-example/readme.txt
+echo "### 16/25 Realworld example app ###"
 
-echo "### 17/56 Realworld example app ###"
-cd $ws2
-echo "current-dir=$(pwd)"
-git clone git@github.com:furkan3ayraktar/clojure-polylith-realworld-example-app.git
-cd clojure-polylith-realworld-example-app
-clojure -A:dev:test -P
-git tag stable-lisa
+echo "### 17/25 Polylith toolsdeps1 ###"
 
-poly info fake-sha:f7082da > $output/realworld/realworld-info.txt
-echo "current-dir=$(pwd)"
-echo "### 18/56 Realworld example app ###"
-poly deps out:$images/realworld/realworld-deps-interfaces.png
-echo "### 19/56 Realworld example app ###"
-poly deps brick:article out:$images/realworld/realworld-deps-interface.png
-echo "### 20/56 Realworld example app ###"
-poly deps project:rb out:$images/realworld/realworld-deps-components.png
-echo "### 21/56 Realworld example app ###"
-poly deps project:rb :compact out:$images/realworld/realworld-deps-components-compact.png
-echo "### 22/56 Realworld example app ###"
-poly deps project:rb brick:article out:$images/realworld/realworld-deps-component.png
-echo "### 23/56 Realworld example app ###"
-poly libs out:$images/realworld/realworld-lib-deps.png
-echo "### 24/56 Realworld example app ###"
-cp $scripts/realworld/workspace-compact.edn ./workspace.edn
-poly libs out:$images/realworld/realworld-lib-deps-compact.png
-cp $scripts/realworld/workspace.edn .
+echo "### 18/25 Polylith toolsdeps1 (migrated) ###"
 
-echo "### 25/56 Polylith toolsdeps1 ###"
-cd $ws1
-echo "current-dir=$(pwd)"
-git clone git@github.com:polyfy/polylith.git
-cd polylith
-echo "### 26/56 Polylith toolsdeps1 ###"
-poly info fake-sha:40d2f62 :no-changes out:$images/polylith1/info.png
-echo "### 27/56 Polylith toolsdeps1 ###"
-clojure -A:dev:test -P
-poly libs out:$images/polylith1/libs.png
-echo "### 28/56 Polylith toolsdeps1 ###"
-poly deps out:$images/polylith1/deps.png
+echo "### 19/25 Usermanager ###"
 
-poly migrate
-echo "current-dir=$(pwd)"
-echo "### 29/56 Polylith toolsdeps1 (migrated) ###"
-poly info fake-sha:40d2f62 :no-changes out:$images/polylith1/info-migrated.png
-echo "### 30/56 Polylith toolsdeps1 (migrated) ###"
-poly libs out:$images/polylith1/libs-migrated.png
-echo "### 31/56 Polylith toolsdeps1 (migrated) ###"
-poly deps out:$images/polylith1/deps-migrated.png
+echo "### 20/25 examples/local-dep ###"
 
-cd $ws3
-git clone https://github.com/seancorfield/usermanager-example.git
-cd usermanager-example
-echo "current-dir=$(pwd)"
-git checkout polylith
-clojure -A:dev:test -P
-echo "### 32/56 Usermanager ###"
-poly info :no-changes out:$images/usermanager/info.png
-echo "### 33/56 Usermanager ###"
-poly libs out:$images/usermanager/libs.png
-echo "### 34/56 Usermanager ###"
-poly deps out:$images/usermanager/deps.png
+echo "### 21/25 examples/local-dep-old-format ###"
 
-cd $examples/local-dep
-echo "current-dir=$(pwd)"
-sha=`git rev-list -n 1 stable-master`
-branch=`git rev-parse --abbrev-ref HEAD`
-echo "### 35/56 examples/local-dep ###"
-poly info fake-sha:aaaaa :no-changes out:$images/local-dep/info.png
-echo "### 36/56 examples/local-dep ###"
-poly libs out:$images/local-dep/libs.png
-echo "### 37/56 examples/local-dep ###"
-poly libs :compact out:$images/local-dep/libs-compact.png
-echo "### 38/56 examples/local-dep ###"
-poly deps out:$images/local-dep/deps.png
-echo "### 39/56 examples/local-dep ###"
-poly deps :compact out:$images/local-dep/deps-compact.png
-echo "### 40/56 examples/local-dep ###"
-poly deps :compact project:inv out:$images/local-dep/deps-project-compact.png
-echo "### 41/56 examples/local-dep ###"
-echo "### 42/56 examples/local-dep ###"
-echo "### 43/56 examples/local-dep ###"
-poly info :dev since:0aaeb58 out:$images/local-dep/since-info.png
+echo "### 22/25 examples/local-dep-old-format ###"
 
-echo "### 44/56 examples/local-dep-old-format ###"
-cp -R $examples/local-dep-old-format $ws4
-cd $ws4/local-dep-old-format
-echo "current-dir=$(pwd)"
-git init
-git add .
-git commit -m "Workspace created."
-git tag stable-jote
-sha=`git rev-list -n 1 stable-jote`
+echo "### 23/25 examples/local-dep-old-format (migrated) ###"
 
-poly info fake-sha:aaaaa out:$images/local-dep-old-format/info.png
-echo "### 45/56 examples/local-dep-old-format ###"
-poly libs out:$images/local-dep-old-format/libs.png
-echo "### 46/56 examples/local-dep-old-format ###"
-poly deps out:$images/local-dep-old-format/deps.png
-echo "### 47/56 examples/local-dep-old-format ###"
-echo "### 48/56 examples/local-dep-old-format ###"
+echo "### 24/25 examples/for-test, issue 208 - Mix clj and cljc source directories ###"
 
-poly migrate
-git add --all
-poly info fake-sha:aaaaa :no-changes out:$images/local-dep-old-format/info-migrated.png
-echo "### 49/56 examples/local-dep-old-format (migrated) ###"
-poly libs out:$images/local-dep-old-format/libs-migrated.png
-echo "### 50/56 examples/local-dep-old-format (migrated) ###"
-poly deps out:$images/local-dep-old-format/deps-migrated.png
-echo "### 51/56 examples/local-dep-old-format (migrated) ###"
-
-cd $examples/for-test
-echo "current-dir=$(pwd)"
-
-set +e
-echo "### 52/56 examples/for-test, issue 208 - Mix clj and cljc source directories ###"
-echo "### 53/56 examples/for-test, issue 234 - Test setup fails ###"
-echo "### 54/56 examples/for-test, issue 234 - Test teardown fails ###"
-echo "### 55/56 examples/for-test, issue 234 - Test failed ###"
-echo "### 56/56 examples/for-test, issue 234 - Test failed, teardown failed ###"
-set -e
+echo "### 25/25 help ###"
 
 echo "Elapsed: $((($SECONDS / 60) % 60)) min $(($SECONDS % 60)) sec"

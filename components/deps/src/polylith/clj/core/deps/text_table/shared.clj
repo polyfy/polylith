@@ -1,4 +1,4 @@
-(ns polylith.clj.core.deps.text-table.shared
+(ns ^:no-doc polylith.clj.core.deps.text-table.shared
   (:require [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.text-table.interface :as text-table]))
 

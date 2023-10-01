@@ -1,4 +1,4 @@
-(ns polylith.clj.core.help.tap
+(ns ^:no-doc polylith.clj.core.help.tap
   (:require [polylith.clj.core.help.shared :as s]))
 
 (defn help [cm]
@@ -7,6 +7,7 @@
        "  is mainly used internally when developing the poly tool itself.\n"
        "\n"
        "  tap [" (s/key "ARG" cm) "]\n"
+       "\n"
        "    " (s/key "ARG" cm) " = " (s/key "(omitted)" cm) "  Opens a portal window.\n"
        "          " (s/key "open" cm) "       Opens a portal window.\n"
        "          " (s/key "close" cm) "      Closes the portal window\n"
@@ -16,7 +17,8 @@
        "    tap\n"
        "    tap open\n"
        "    tap clean\n"
-       "    tap close"))
+       "    tap close\n"
+       "    doc page:tap"))
 
 (defn print-help [color-mode]
   (println (help color-mode)))

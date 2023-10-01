@@ -1,4 +1,4 @@
-(ns polylith.clj.core.test-runner-orchestrator.core
+(ns ^:no-doc polylith.clj.core.test-runner-orchestrator.core
   (:refer-clojure :exclude [test])
   (:require
    [clojure.set :as set]

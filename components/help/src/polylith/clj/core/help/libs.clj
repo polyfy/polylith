@@ -1,24 +1,25 @@
-(ns polylith.clj.core.help.libs
+(ns ^:no-doc polylith.clj.core.help.libs
      (:require [polylith.clj.core.help.shared :as s]
                [polylith.clj.core.system.interface :as system]
                [polylith.clj.core.util.interface.color :as color]))
 
-(defn help [cm]
+(defn help [extended? cm]
   (str "  Shows all libraries that are used in the workspace.\n"
        "\n"
-       "  poly libs [:compact] [:outdated]"
-       (if system/extended?
-         (str " [out:" (s/key  "FILENAME" cm) "]\n")
-         "\n")
-       "    :compact  = Shows the table in a more compact way.\n"
-       "    :outdated = Shows the latest version of each library, or blank if up to date.\n"
-       (if system/extended?
-            (str "    out       = Creates a text or image file based on the output. If " (s/key "FILENAME" cm) "\n"
-                 "                ends with .txt, then the file will contain the output as text.\n"
-                 "                If FILENAME ends with .bmp, .wbmp, .gif, .jpeg, .jpg, .png, .tif,\n"
-                 "                or .tiff, then the file will be generated as an image.\n")
-            "")
+       "  poly libs [" (s/key ":compact" cm) "] [" (s/key ":outdated" cm) "] [out:" (s/key  "FILENAME" cm) "]\n"
        "\n"
+       "    " (s/key ":compact" cm) "  = Shows the table in a more compact way.\n"
+       "\n"
+       "    " (s/key ":outdated" cm) " = Shows the latest version of each library, or blank if up to date.\n"
+       "\n"
+       (if extended?
+            (str "    " (s/key "FILENAME" cm) "  = The name of the text or image file to create, containing the\n"
+                 "                output from this command. If " (s/key "FILENAME" cm) " ends with .bmp, .wbmp,\n"
+                 "                .gif, .jpeg, .jpg, .png, .tif, or .tiff, then the file will\n"
+                 "                be generated as an image, otherwise as text.\n")
+            (str "    " (s/key "FILENAME" cm) "  = The name of the text file to create, containing the\n"
+                 "                output from this command.\n"))
+
        "                                                                                 " (color/component "u  u\n" cm)
        "                                                                                 " (color/component "s  t\n" cm)
        "                                                                                 " (color/component "e  i\n" cm)
@@ -31,14 +32,14 @@
        "\n"
        "  In this example we have four libraries used by the " (color/project "cl" cm) " and " (color/project "dev" cm) " projects.\n"
        "  If any of the libraries are added to the " (color/profile "default" cm) " or " (color/profile "admin" cm) " profiles, they will appear\n"
-       "  as an " (color/project "x" cm) " in these columns. Remember that src and test sources live together in a profile,\n"
-       "  which is fine because they are only used from the development project.\n"
+       "  as an " (color/project "x" cm) " in these columns. Remember that src and test sources live together in a\n"
+       "  profile, which is fine because they are only used from the development project.\n"
        "\n"
        "  The " (color/project "x" cm) " for the " (color/project "cl" cm) " and " (color/project "dev" cm) " columns says that the library is part of the src scope.\n"
-       "  If a library is only used from the test scope, then it is marked with a 't'. A library\n"
-       "  used in the test scope, can either be specified directly by the project itself via\n"
-       "  " (color/project ":aliases > :test > :extra-deps" cm) " or indirectly via included bricks in " (color/project ":deps > :local/root" cm) "\n"
-       "  which will be picked up and used by the 'test' command.\n"
+       "  If a library is only used from the test scope, then it's marked with a 't'.\n"
+       "  A library used in the test scope, can either be specified directly by the project\n"
+       "  itself via " (color/project ":aliases > :test > :extra-deps" cm) " or indirectly via included bricks in\n"
+       "  " (color/project ":deps > :local/root" cm) " which will be picked up and used by the 'test' command.\n"
        "\n"
        "  The " (color/project "x" cm) " in the " (color/component "user" cm) " column, tells that " (color/library "clj-time" cm) " is used by that component\n"
        "  by having it specified in its 'deps.edn' file as a src dependency.\n"
@@ -49,11 +50,11 @@
        "  Use the " (s/key ":override-deps" cm) " key in the project's 'deps.edn' file to explicitly set\n"
        "  a version for one or several libraries in a project.\n"
        "\n"
-       "  The 'type' column says in what way the dependency is included:\n"
-       "   - maven, e.g.: clj-time/clj-time {" (s/key ":mvn/version" cm) " " (color/yellow cm "\"0.15.2\"") "}\n"
-       "   - local, e.g.: clj-time {" (s/key ":local/root" cm) " " (color/yellow cm "\"/local-libs/clj-time-0.15.2.jar\"") "}\n"
-       "   - git,   e.g.: clj-time/clj-time {" (s/key ":git/url" cm) " " (color/yellow cm "\"https://github.com/clj-time/clj-time.git\"") "\n"
-       "                                     " (s/key ":sha" cm) "     " (color/yellow cm "\"d9ed4e46c6b42271af69daa1d07a6da2df455fab\"") "}\n"
+       "  The 'type' column says in what way the dependency is included, e.g.:\n"
+       "   - maven: clj-time/clj-time {" (s/key ":mvn/version" cm) " " (color/yellow cm "\"0.15.2\"") "}\n"
+       "   - local: clj-time {" (s/key ":local/root" cm) " " (color/yellow cm "\"/local-libs/clj-time-0.15.2.jar\"") "}\n"
+       "   - git:   clj-time/clj-time {" (s/key ":git/url" cm) " " (color/yellow cm "\"https://github.com/clj-time/clj-time.git\"") "\n"
+       "                               " (s/key ":sha" cm) "     " (color/yellow cm "\"d9ed4e46c6b42271af69daa1d07a6da2df455fab\"") "}\n"
        "\n"
        "  The KB column shows the size in kilobytes, which is the size of the jar\n"
        "  file for Maven and Local dependencies, and the size of all files in the\n"
@@ -62,16 +63,16 @@
        "  Example:\n"
        "    poly libs\n"
        "    poly libs :compact\n"
-       "    poly libs :outdated"
-
-       (if system/extended?
-         (str "\n    poly libs out:libs.png"
-              "\n    poly libs out:libs.txt")
-
+       "    poly libs :outdated\n"
+       "    poly libs out:libs.txt\n"
+       "    poly doc page:libraries"
+       (if extended?
+         "\n    poly libs out:libs.png"
          "")))
 
-(defn print-help [color-mode]
-  (println (help color-mode)))
+(defn print-help [extended? color-mode]
+  (println (help extended? color-mode)))
 
 (comment
-  (print-help "dark"))
+  (print-help false "dark")
+  (print-help true "dark"))

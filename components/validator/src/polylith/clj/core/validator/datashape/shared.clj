@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.datashape.shared
+(ns ^:no-doc polylith.clj.core.validator.datashape.shared
   (:refer-clojure :exclude [alias]))
 
 (def alias [:map

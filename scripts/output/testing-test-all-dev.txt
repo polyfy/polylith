@@ -1,0 +1,44 @@
+Projects to run tests from: command-line, development
+
+Running tests for the command-line project using test runner: Polylith built-in clojure.test runner...
+Running tests from the command-line project, including 2 bricks and 1 project: user, cli, command-line
+
+Testing se.example.cli.core-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing se.example.user.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing project.command-line.dummy_test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+Running tests for the development project using test runner: Polylith built-in clojure.test runner...
+Running tests from the development project, including 2 bricks and 1 project: user, cli, command-line
+
+Testing se.example.cli.core-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Testing se.example.user.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Execution time: x seconds
+exit code: 0

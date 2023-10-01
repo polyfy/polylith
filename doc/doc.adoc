@@ -1,0 +1,355 @@
+= Doc
+:toc:
+
+The poly tool comes with a xref:commands.adoc#doc[doc] command that helps us access the web based documentation.
+The easiest way to access different parts of the documentation is by first starting a xref:shell.adoc[shell]:
+
+[source,shell]
+----
+poly
+----
+
+We can now execute the `doc` command to open the start page of this documentation:
+
+[source,shell]
+----
+example$ doc
+----
+
+image::images/doc/top-doc.png[]
+
+Here we have a number of useful links:
+
+* image:images/doc/clj-poly-lib.png[] link to this documentation.
+
+* image:images/doc/clj-poly-doc.png[] the version of this documentation, which links to a page that lists all the http://localhost:8000/versions/polylith/clj-poly[different versions] of this documentation, where `0.2.18` and later contains useful documentation (`0.2.17-alpha` and earlier only include the code).
+
+* image:images/doc/clj-doc.png[] opens the https://cljdoc.org/[cljdoc.org] documentation which is the platform that stores this `clj-poly` documentation, together with other libraries and tools.
+
+* image:images/doc/polylith-repo.png[] opens the https://github.com/polyfy/polylith[polylith] GitHub repo.
+
+* image:images/doc/latest-doc-badge.png[] opens the documentation for the latest https://github.com/polyfy/polylith/releases[release] which is the documentation you should use together with the `poly` command line tool.
+
+* image:images/doc/snapshot-doc-badge.png[] opens the latest `SNAPSHOT` version of this documentation.
+
+* image:images/doc/slack.png[] opens the https://clojurians.slack.com/messages/C013B7MQHJQ[#polylith] channel in the clojurians workspace in Slack.
+
+====
+NOTE: The `SNAPSHOT` documentation is built every time we commit something to the https://github.com/polyfy/polylith[master] branch, which is documented xref:polylith-ci-setup.adoc#releases[here].
+This is useful if we use the `poly` tool as a xref:install.adoc#github-dependency[GitHub dependency] and want to access its documentation.
+====
+
+We can either use the left menu, the search box, or the `doc` command to access different pages:
+
+image::images/doc/doc-overview.png[]
+
+{nbsp} +
+
+If we type `doc` followed by a space, the different help categories are listed:
+
+[source,shell]
+----
+example$ doc
+help   more   page   ws
+----
+
+Let's dig into these four categories.
+
+== page
+
+The `page` parameter is used to navigate the `poly` tool documentation.
+We can pass in `page:` to list all pages, which are also accessible in the left menu (notice that it ends with a colon):
+
+[source,shell]
+----
+example$ doc page:
+artifacts                introduction
+base                     libraries
+build                    license
+clojure-cli-tool         migrate
+colors                   naming
+component                polylith-ci-setup
+configuration            polyx
+contact                  profile
+context                  project
+continuous-integration   readme
+dependencies             shell
+developing-poly          source-code
+development              tagging
+doc                      tap
+example-systems          test-runners
+explore-the-workspace    testing
+flags                    tools-deps
+git-hooks                upgrade
+git                      validations
+install                  workspace
+interface
+----
+
+If we select a page, it will be opened in a browser on your machine, e.g.:
+
+[source,shell]
+----
+doc page:flags
+----
+
+== help
+
+The `help` parameter takes us to the xref:commands.adoc[commands] help page:
+
+[source,shell]
+----
+example$ doc help
+----
+
+We can list all help commands with:
+
+[source,shell]
+----
+example$ doc help:
+check                deps-project         overview
+create-base          deps-workspace       shell
+create-component     deps                 switch-ws
+create-project       diff                 tap
+create-workspace     doc                  test
+create               info                 version
+deps-brick           libs                 ws
+deps-project-brick   migrate
+----
+
+...and select a command:
+
+[source,shell]
+----
+example$ doc help:check
+----
+
+...which take us to the web based help for the xref:commands.adoc#check[check] command.
+We will get the same output if we execute the corresponding `help` command:
+
+[source,shell]
+----
+example$ help check
+----
+
+== ws
+
+The `ws` parameter takes us to the xref:workspace-structure.adoc[Workspace structure] documentation:
+
+[source,shell]
+----
+example$ doc ws
+----
+
+We can list all top keys with:
+
+[source,shell]
+----
+example$ doc ws:
+bases          name           version
+changes        old            ws-dir
+components     paths          ws-local-dir
+configs        projects       ws-reader
+interfaces     settings       ws-type
+messages       user-input
+----
+
+...and open the description for a specific top key, e.g.:
+
+[source,shell]
+----
+example$ doc ws:configs
+----
+
+== more
+
+The `more` parameter stores all other documentation that is not about the `poly` tool:
+
+[source,shell]
+----
+example$ doc more:
+blog-posts    slack
+high-level    videos
+podcasts      workspaces
+python-tool
+----
+
+Let's dig into the different categories:
+
+=== blog posts
+
+[source,shell]
+----
+example$ doc more:blog-posts:
+a-fresh-take-on-monorepos-in-python
+how-polylith-came-to-life
+the-micro-monolith-architecture
+the-monorepos-polylith-series
+the-origin-of-complexity
+----
+
+[%autowidth]
+|===
+| Blog post | What | Published
+
+| https://davidvujic.blogspot.com/2022/02/a-fresh-take-on-monorepos-in-python.html[a-fresh-take-on-monorepos-in-python] |
+https://github.com/DavidVujic[David Vujic] explains what would happen if they had Polylith in the Python community. | 2022
+
+| https://medium.com/@joakimtengstrand/the-polylith-architecture-1eec55c5ebce[how-polylith-came-to-life] |
+https://github.com/tengstrand[Joakim Tengstrand] explains how the Polylith architecture came to life. | 2018
+
+| https://medium.com/@joakimtengstrand/the-micro-monolith-architecture-d135d9cafbe[the-micro-monolith-architecture] |
+https://github.com/tengstrand[Joakim Tengstrand] explains the ideas behind Micro Monolith, which is a predecessor to Polylith. | 2016
+
+| https://corfield.org/blog/2021/04/21/deps-edn-monorepo-2/[the-monorepos-polylith-series] |
+https://github.com/seancorfield[Sean Corfield] describes his experience with migrating a big production system to Polylith, in a series of blog posts. | 2021-2023
+
+| https://itnext.io/the-origin-of-complexity-8ecb39130fc[the-origin-of-complexity] |
+https://github.com/tengstrand[Joakim Tengstrand] explains the foundational concepts that Polylith is built upon. | 2019
+|===
+
+=== high-level
+
+The https://polylith.gitbook.io/polylith[high-level] documentation can be opened with:
+
+[source,shell]
+----
+example$ doc more:high-level
+----
+
+We can list all pages in the left menu with:
+
+[source,shell]
+----
+example$ doc more:high-level:
+advantages-of-polylith
+base
+bring-it-all-together
+component
+current-architectures
+development-project
+faq
+polylith-in-a-nutshell
+production-systems
+project
+simplicity
+tool
+transitioning-to-polylith
+videos
+who-made-this
+why-the-name-polylith
+workspace
+----
+
+...and e.g. open the https://polylith.gitbook.io/polylith/conclusion/faq[FAQ] page:
+
+[source,shell]
+----
+example$ doc more:high-level:faq
+----
+
+=== podcasts
+
+We can open the https://podcasts.apple.com/se/podcast/s4-e21-polylith-with-joakim-james-and-furkan-part-1/id1461500416?i=1000505948894[first episode] of the only podcast we have with:
+
+[source,shell]
+----
+example$ doc more:podcasts:polylith-with-joakim-james-and-furkan:part1
+----
+
+[%autowidth]
+|===
+| Podcast | What | Published
+
+| https://podcasts.apple.com/se/podcast/s4-e21-polylith-with-joakim-james-and-furkan-part-1/id1461500416?i=1000505948894&l=en[polylith-with-joakim-james-and-furkan:part1] |
+https://github.com/jacekschae[Jacek Schae] discuss the Polylith architecture with the https://polylith.gitbook.io/polylith/conclusion/who-made-polylith[Polylith team] where they explain the ideas behind Polylith. | 2021
+
+| https://podcasts.apple.com/se/podcast/s4-e22-polylith-with-joakim-james-and-furkan-part-2/id1461500416?i=1000507542984[polylith-with-joakim-james-and-furkan:part2] |
+The same people goes deeper into the Polylith concepts, the benefits of using it, and how it differs from other ways of working with code. | 2021
+|===
+
+=== python tool
+
+https://github.com/DavidVujic[David Vujic] has created https://davidvujic.github.io/python-polylith-docs[Polylith tools for Python]:
+
+[source,shell]
+----
+example$ doc more:python-tool
+----
+
+=== slack
+
+Reach out to the https://polylith.gitbook.io/polylith/conclusion/who-made-polylith[Polylith team]
+in the https://clojurians.slack.com/archives/C013B7MQHJQ[#polylith] channel
+in the clojurians workspace in Slack:
+
+[source,shell]
+----
+example$ doc more:slack
+----
+
+=== videos
+
+The videos can be listed with:
+
+[source,shell]
+----
+example$ doc more:videos:
+a-fresh-take-on-monorepos-in-python
+collaborative-learning-polylith
+polylith-in-a-nutshell
+polylith–a-software-architecture-based-on-lego-like-blocks
+the-last-architecture-you-will-ever-need
+----
+
+[%autowidth]
+|===
+| Video | What | Published
+
+| https://www.youtube.com/watch?v=HU61vjZPPfQ[a-fresh-take-on-monorepos-in-python] |
+https://github.com/DavidVujic[David Vujic] explains how Polylith can be used in https://en.wikipedia.org/wiki/Python_(programming_language)[Python]. | 2023
+
+| https://www.youtube.com/watch?v=_tpNKAv4fro[collaborative-learning-polylith] |
+Sean Corfield is interviewed by the https://www.youtube.com/@losangelesclojureusersgrou5432[Los Angeles Clojure Users Group] about his experience with Polylith and how he uses the `poly` tool in production at https://polylith.gitbook.io/polylith/conclusion/production-systems#world-singles-networks[World Singles Network]. | 2022
+
+| https://www.youtube.com/watch?v=Xz8slbpGvnk[polylith-in-a-nutshell] |
+https://www.linkedin.com/in/james-trunk/[James Trunk] explains the basic concepts of the Polylith architecture. | 2019
+
+| https://www.youtube.com/watch?v=wy4LZykQBkY[polylith–a-software-architecture-based-on-lego-like-blocks] |
+https://github.com/tengstrand[Joakim Tengstrand] explains how Polylith is like building with LEGO bricks, at https://www.youtube.com/playlist?list=PLaSn8eiZ631nv68lHjZIfrSXOLIDsf726[ClojureD 2019]. | 2019
+
+| https://www.youtube.com/watch?v=pebwHmibla4[the-last-architecture-you-will-ever-need] |
+https://github.com/tengstrand[Joakim Tengstrand] and link:https://github.com/furkan3ayraktar[Furkan Bayraktar] tries to convince people why Polylith is the last architecture they will ever need! | 2020
+|===
+
+=== workspaces
+
+Example workspaces can be listed with:
+
+[source,shell]
+----
+example$ doc more:workspaces:
+game-of-life
+polylith
+realworld
+usermanager
+----
+
+[%autowidth]
+|===
+| Workspace | What
+
+| https://github.com/tengstrand/game-of-life[game-of-life] |
+A tiny workspace that implements https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life[Game of Life], created by https://github.com/tengstrand[Joakim Tengstrand].
+
+| https://github.com/polyfy/polylith[polylith] |
+The Polylith workspace, from which this `poly` tool itself is built, mainly maintained by https://github.com/tengstrand[Joakim Tengstrand].
+
+| https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/tree/master[realworld] |
+A full-fledged RealWorld server, built with Clojure, Polylith, and Ring, including CRUD operations, authentication, routing, pagination, and more.
+Created and maintained by link:https://github.com/furkan3ayraktar[Furkan Bayraktar].
+
+| https://github.com/seancorfield/usermanager-example/tree/polylith[usermanager] |
+A simple web application using Component, Ring, Compojure, and Selmer connected to a local SQLite database.
+Created and maintained by https://github.com/seancorfield[Sean Corfield].
+|===

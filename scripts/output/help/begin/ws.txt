@@ -1,0 +1,5 @@
+[#ws]
+=== ws
+
+[source,text]
+----

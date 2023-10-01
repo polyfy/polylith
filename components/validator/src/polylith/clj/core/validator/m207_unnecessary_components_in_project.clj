@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.m207-unnecessary-components-in-project
+(ns ^:no-doc polylith.clj.core.validator.m207-unnecessary-components-in-project
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]

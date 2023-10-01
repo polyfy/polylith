@@ -1,4 +1,4 @@
-(ns polylith.clj.core.help.create
+(ns ^:no-doc polylith.clj.core.help.create
   (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.help.shared :as s]
             [polylith.clj.core.help.create-component :as component]
@@ -10,13 +10,15 @@
   (str "  Creates a component, base, project or workspace.\n"
        "\n"
        "  poly create " (s/key "TYPE" cm) " [" (s/key "ARGS" cm) "]\n"
+       "\n"
        "    " (s/key "TYPE" cm) " = " (s/key "c[omponent]" cm) " -> Creates a component.\n"
        "           " (s/key "b[ase]     " cm) " -> Creates a base.\n"
        "           " (s/key "p[roject]  " cm) " -> Creates a project.\n"
        "           " (s/key "w[orkspace]" cm) " -> Creates a workspace.\n"
        "\n"
-       "    " (s/key "ARGS" cm) " = Varies depending on " (s/key "TYPE" cm) ". To get help for a specific " (s/key "TYPE" cm) ", type:\n"
-       "             poly help create " (s/key "TYPE" cm) "\n"
+       "    " (s/key "ARGS" cm) " = Varies depending on " (s/key "TYPE" cm) ".\n"
+       "\n"
+       "  To get help for a specific " (s/key "TYPE" cm) ", execute 'poly help create " (s/key "TYPE" cm) "'.\n"
        "\n"
        "  Example:\n"
        "    poly create c name:user\n"
@@ -34,3 +36,7 @@
     "p" (project/print-help color-mode)
     "w" (workspace/print-help color-mode)
     (println (help-text color-mode))))
+
+(comment
+  (print-help nil "dark")
+  #__)

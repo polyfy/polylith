@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.m205-non-top-namespace
+(ns ^:no-doc polylith.clj.core.validator.m205-non-top-namespace
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]))

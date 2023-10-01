@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.message-printer
+(ns ^:no-doc polylith.clj.core.validator.message-printer
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interface.color :as color]))
 

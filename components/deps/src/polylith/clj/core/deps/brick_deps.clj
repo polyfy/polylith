@@ -1,4 +1,4 @@
-(ns polylith.clj.core.deps.brick-deps
+(ns ^:no-doc polylith.clj.core.deps.brick-deps
   (:require [clojure.set :as set]))
 
 (defn suffixed-name [name test?]

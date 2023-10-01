@@ -99,7 +99,7 @@
             "The Polylith documentation can be found here:"
             ""
             "- The [high-level documentation](https://polylith.gitbook.io/polylith)"
-            "- The [poly tool documentation](https://polylith.gitbook.io/polylith/poly)"
+            "- The [poly tool documentation](https://cljdoc.org/d/polylith/clj-poly/CURRENT)"
             "- The [RealWorld example app documentation](https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app)"
             ""
             "You can also get in touch with the Polylith Team on [Slack](https://clojurians.slack.com/archives/C013B7MQHJQ)."
@@ -119,13 +119,7 @@
             "                   :extra-deps {polyfy/polylith"
             "                                {:git/url   \"https://github.com/polyfy/polylith\""
             "                                 :sha       \"SHA\""
-            "                                 :deps/root \"projects/poly\"}}}"
-            ""
-            "            :polyx {:main-opts [\"-m\" \"polylith.clj.core.poly-cli.core\"]"
-            "                    :extra-deps {polyfy/polylith"
-            "                                 {:git/url   \"https://github.com/polyfy/polylith\""
-            "                                  :sha       \"SHA\""
-            "                                  :deps/root \"projects/polyx\"}}}}}"]))
+            "                                 :deps/root \"projects/poly\"}}}}}"]))
 
     (is (= (helper/content "ws1" ".vscode/settings.json")
            ["{"

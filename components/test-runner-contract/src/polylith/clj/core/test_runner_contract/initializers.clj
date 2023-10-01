@@ -1,4 +1,4 @@
-(ns polylith.clj.core.test-runner-contract.initializers)
+(ns ^:no-doc polylith.clj.core.test-runner-contract.initializers)
 
 (defn ensure-var [candidate sym]
   (when-not (var? candidate)

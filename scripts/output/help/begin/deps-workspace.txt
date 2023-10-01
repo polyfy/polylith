@@ -1,0 +1,5 @@
+[#deps-workspace]
+=== deps :workspace
+
+[source,text]
+----
