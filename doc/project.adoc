@@ -1,32 +1,37 @@
 = Project
 
-There are two kinds of projects in Polylith: development and deployable.
+There are two kinds of `projects` in Polylith: development and deployable.
 
-* The xref:development.adoc[development] project:
-** This is where we work with the code, often from a REPL.
-** Has a `deps.edn` file that specifies all bricks and project libraries that are included in the project.
-** If we have any xref:profile.adoc[profiles] then they are defined in `./deps.edn`.
-** Any extra code, that is not part of a component or base, lives under the `development` directory.
+*The xref:development.adoc[development] project*:
 
-* Any deployable project:
-** Used to build deployable xref:artifacts.adoc[artifacts], e.g.: lambda functions, REST API's, tools, and more.
-** Lives under the `projects` directory where each project has its own directory.
-** Has a `deps.edn` file that specifies which bricks and project libraries that are included in the project.
+* Where you work with the code, often from a REPL.
+* Described in the workspace `./deps.edn` which:
+** Specifies all bricks and project libraries used by the project.
+** Optionally defines xref:profile.adoc[profiles].
+* Source code to support development (not part of any component or base) lives under the `./development` directory.
+
+*A deployable project:*
+
+* Used to build deployable xref:artifacts.adoc[artifacts], e.g., lambda functions, REST APIs, tools, etc.
+* Has its own directory under the `./projects` directory (e.g., `my-project`), which:
+** Has a `deps.edn` specifying the bricks and libraries used by the deployable project.
+*** If the referenced bricks contain any tests, they are run when you execute the xref:commands.adoc#test[test] command.
 ** Can optionally have a `resources` directory.
-** If the included bricks contain any tests, then they will be run when we execute the xref:commands.adoc#test[test] command.
-** If it has any tests of its own, they will live in the `test` directory, e.g. `projects/my-project/test`.
-** It's discouraged to have a `src` directory, e.g. `projects/my-project/src`, since all production code should normally only live in bricks.
+** Can optionally have a `test` directory for project-specific tests.
+** Doesn't have a `src` directory.
+We discourage a `src` directory for deployable projects; all production code should normally only live in bricks.
 
-The `:project` key in `./workspace.edn` configures which alias each project has and optionally how the tests should be run (covered in the xref:testing.adoc[testing] section).
+The `:project` key in `./workspace.edn` configures project aliases and, optionally, how `poly` should run your xref:testing.adoc[tests].
 
-Let's create a project, by executing the xref:commands#create-project[create project] command:
+Let's carry on with our tutorial.
+Run the following xref:commands#create-project[create project] command:
 
 [source,shell]
 ----
 poly create project name:command-line
 ----
 
-Our workspace should now look like this:
+Your workspace should now look like this:
 
 [source,shell]
 ----
@@ -69,50 +74,60 @@ example
 │           └── lisa.clj
 ├── logo.png
 ├── projects
-│   └── command-line
+│   └── command-line # <1>
 │       └── deps.edn
 ├── readme.md
 └── workspace.edn
 ----
+<1> new `command-line` project
 
-The tool also reminds us of this:
+The `poly` tool helpfully reminds us:
 
 [source,shell]
 ----
   It's recommended to add an alias to :projects in ./workspace.edn for the command-line project.
 ----
 
-If we don't add the alias to `workspace.edn`, the project heading will show up as `?1` when we execute the xref:commands.adoc#info[info] command, so let's add it:
+If you don't follow this advice, the `command-line` project heading will default to `?1` when running the xref:commands.adoc#info[info] command.
+Go ahead and add an alias in your `./workspace.edn`:
 
 [source,clojure]
 ----
   {...
    :projects {"development" {:alias "dev"}
-              "command-line" {:alias "cl"}}}
+              "command-line" {:alias "cli"}}} <1>
 ----
+<1> Add the `cli` `alias` for the `command-line` project
 
-Now add `user` and `cli` to `projects/command-line/deps.edn`:
+Add the `user` component and the `cli` base to your new project by editing `projects/command-line/deps.edn`:
 
 [source,clojure]
 ----
-{:deps {poly/user {:local/root "../../components/user"}
-        poly/cli  {:local/root "../../bases/cli"}
+{:deps {poly/user {:local/root "../../components/user"} ;; <1>
+        poly/cli  {:local/root "../../bases/cli"} ;; <2>
 
         org.clojure/clojure {:mvn/version "1.11.1"}}
 ----
+<1> Add `user` component
+<2> Add `cli` base
 
-The reason all paths begin with `../../` is that `components` and `bases` live two levels up compared to `projects/command-line` and not at the root as with the `development` project.
+****
+The `:local/root` paths begin with `../../` because the `components` and `bases` directories are two levels up relative to `projects/command-line` directory.
+****
 
-The xref:commands.adoc#test[test] command will figure out what tests need to be executed.
-If you have reasons to run the tests for each project separately using tools.deps, then you also have to specify the test paths (as we did for the `development` project).
+When you run the xref:commands.adoc#test[test] command, `poly` will determine which tests should run.
+If you want to run tests for each deployable project outside of `poly` using Clojure's tools.deps, you must specify the test paths in your workspace `./deps.edn`.
 
+[NOTE]
 ====
-NOTE: All the project `deps.edn` config files under the `projects` directory specifies what bricks to include by giving a list of `:local/root` mappings.
-The poly xref:commands.adoc[test] command uses this information to figure out what bricks and library dependencies that should be included when executing the tests, by looking into each brick's `deps.edn` file.
-tools.deps does not "inherit" test dependencies from `:local/root` mappings, which is the reason we have to add our dependencies as separate paths in `deps.edn` to allow IDE's and other tooling to work properly.
+Each `./projects/**/deps.edn` specifies what bricks to include via `:local/root` dependencies.
+The `poly` xref:commands.adoc[test] command determines the appropriate test dependencies from each referenced brick's `deps.edn`.
+
+But Clojure's tools.deps does not include test dependencies from `:local/root` dependencies.
+To support IDEs and other tooling, you must compensate by adding your brick tests as separate paths in your workspace `deps.edn`, just as you did for your xref:component.adoc#add-to-deps-edn[user component] and xref:base.adoc#add-to-deps-edn[cli base].
 ====
 
-Let's summarise where the dependencies to bricks are located:
+Where you specify dependency to bricks differs based on the project type:
 
-* The dev project: `./deps.edn > :aliases > :dev > :extra-deps`
-* Other projects: `projects/PROJECT-DIR > deps.edn > :deps`
+* For the development project: `./deps.edn > :aliases > :dev > :extra-deps`
+* For deployable projects: `./projects/PROJECT-DIR/deps.edn > :deps`
