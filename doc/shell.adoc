@@ -154,7 +154,7 @@ image::images/shell/shell-switch-ws.png[width=600]
 
 You can switch to an exported workspace.
 
-NOTE: You can export a workspace to a `.edn` file, e.g. via `poly ws out:ws.edn`.
+NOTE: You can export a workspace to a `.edn` file, e.g. via `poly ws out:usermanager.edn`.
 
 ****
 If you want to play along, exit the shell, then clone the `polylith` branch of https://github.com/seancorfield/usermanager-example/tree/polylith[usermanager-example] project under the same parent directory as your `example` workspace, and export its workspace:
@@ -164,7 +164,7 @@ If you want to play along, exit the shell, then clone the `polylith` branch of h
 cd ..
 git clone --branch polylith https://github.com/seancorfield/usermanager-example.git
 cd usermanager-example
-poly ws out:ws.edn
+poly ws out:usermanager.edn
 ----
 
 And relaunch the poly shell:
@@ -175,9 +175,13 @@ poly
 ----
 ****
 
-Switch to the exported workspace using the `file` argument.
+Switch to the exported workspace using the `file` argument:
 
-image::images/shell/shell-switch-ws-file.png[width=600]
+[source,text]
+----
+example$ switch-ws file:../usermanager-example/usermanager.edn
+file:usermanager-example$
+----
 
 Notice that the prompt has changed to show the currently selected workspace (by export file).
 
