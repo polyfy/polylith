@@ -114,6 +114,7 @@ The `poly` tool leaves this task to you as a developer.
 Our philosophy is to leave the editing of files to you.
 While we are happy to generate files for you, we want to give you complete control over changing your files.
 
+[[add-to-deps-edn]]
 Let's listen to the helpful reminder.
 Add the `user` component to our workspace `./deps.edn`:
 
@@ -121,12 +122,14 @@ Add the `user` component to our workspace `./deps.edn`:
 ----
 {:aliases  {:dev {:extra-paths ["development/src"]
 
-                  :extra-deps {poly/user {:local/root "components/user"}
+                  :extra-deps {poly/user {:local/root "components/user"} ;; <1>
 
                                org.clojure/clojure {:mvn/version "1.11.1"}}}
 
-            :test {:extra-paths ["components/user/test"]}
+            :test {:extra-paths ["components/user/test"]} ;; <2>
 ----
+<1> Add the `user` component as a dependency
+<2> Add the `user` component tests
 
 All dependency keys must be unique.
 A good pattern is to prefix them with `poly/` followed by the brick name, e.g., `poly/user` as in this example.
