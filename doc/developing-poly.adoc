@@ -9,6 +9,7 @@ There are a few parameters that are either rarely used, added to simplify mainte
 For these reasons, they are not suggested by the autocomplete when in a xref:commands.adoc#shell[shell].
 What most of them have in common is that they are used to control the output of the different `poly` commands.
 
+[[all]]
 === all
 
 If passing in `:all` to the xref:commands.adoc[help] command, the help for the  xref:commands.adoc#migrate[migrate] command will also be included (it will also be included if the workspace needs to be migrated):
