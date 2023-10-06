@@ -31,7 +31,7 @@ The page has some helpful links:
 
 | image:images/doc/clj-poly-doc.png[] +
 (the version of this documentation)
-| A page listing all the link:versions/polylith/clj-poly[different versions] of this documentation.
+| A page listing all the https://cljdoc.org/versions/polylith/clj-poly[different versions] of this documentation.
 NOTE: Useful documentation starts at version `0.2.18`.
 
 | image:images/doc/clj-doc.png[]
