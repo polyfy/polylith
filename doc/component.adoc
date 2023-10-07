@@ -126,7 +126,7 @@ Add the `user` component to our workspace `./deps.edn`:
 
                                org.clojure/clojure {:mvn/version "1.11.1"}}}
 
-            :test {:extra-paths ["components/user/test"]} ;; <2>
+            :test {:extra-paths ["components/user/test"]}}} ;; <2>
 ----
 <1> Add the `user` component as a dependency
 <2> Add the `user` component tests
@@ -134,7 +134,7 @@ Add the `user` component to our workspace `./deps.edn`:
 All dependency keys must be unique.
 A good pattern is to prefix them with `poly/` followed by the brick name, e.g., `poly/user` as in this example.
 
-NOTE: Most IDEs now support adding components as a dependency, but if you are not using Cider, Calva, or a current version of Cursive, please review <<ide-extra-deps>>.
+NOTE: Most IDEs now support adding components as a `:local/root` dependency, but if you are not using Cider, Calva, or a current version of Cursive, please review <<ide-local-root>>.
 
 [TIP]
 ====
@@ -236,23 +236,24 @@ In this example, we had you put all your implementing code in one single namespa
 As a codebase grows, more namespaces can be added to the component as needed.
 There is no rule that the implementing namespace must be named `core`, but this is what the xref:commands.adoc#create-component[create component] command generates, and we stuck with this default for this example.
 
-[[ide-extra-deps]]
-== IDE Support for `:local/root` `:extra-deps`
-Specifying Polylith components as `:extra-deps` is now supported by https://github.com/clojure-emacs/cider[Cider], https://marketplace.visualstudio.com/items?itemName=betterthantomorrow.calva[Calva], and https://cursive-ide.com/[Cursive].
-Cursive users must use `1.13.0` or later.
+[[ide-local-root]]
+== IDE Support for `:local/root`
+https://github.com/clojure-emacs/cider[Cider], https://marketplace.visualstudio.com/items?itemName=betterthantomorrow.calva[Calva], and https://cursive-ide.com/[Cursive (v1.13.0 and later)] all include support `:local/root` dependencies.
 
-If your IDE doesn't support this, then you have to add the component paths instead:
+If your IDE doesn't include support for `:local/root` dependencies, and you are unable to switch to an IDE that has this support, then you have to add your components as `:extra-paths` instead of `:extra-deps` in your workspace `./deps.edn`:
 
 [source,clojure]
 ----
- :aliases  {:dev {:extra-paths ["development/src"
-                                "components/user/src"
-                                "components/user/resources"]
+{:aliases {:dev {:extra-paths ["development/src"
+                               "components/user/src"  ;; <1>
+                               "components/user/resources"]} ;; <2>
 
-            :test {:extra-paths ["components/user/test"]}
+           :test {:extra-paths ["components/user/test"]}}}
 ----
+<1> `user` component `src` added as a path
+<2> `user` component `resources` added as a path
 
-If at all possible, we recommend you add components as dependencies instead of paths for these reasons:
+If at all possible, we recommend you add xref:#add-to-deps-edn[components as dependencies] instead of paths for these reasons:
 
 * It's more readable.
 
@@ -263,5 +264,3 @@ If at all possible, we recommend you add components as dependencies instead of p
 * You can add or remove the `resources` directory from a brick without having to remember to update your workspace `./deps.edn`.
 
 If you want to compare the difference, take a look at how `article` was elegantly added as a single https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/5b6df23d63500a4540b75308379e06dfdeb8b767/deps.edn#L7[dependency] versus adding it as two https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/e6f7f200bc46e4e2595e123947eec442ad91c9ab/deps.edn#L7-L8[paths] in the RealWorld example app.
-
-
