@@ -1,4 +1,5 @@
 = Developing poly
+:toc:
 
 Here we will go through things that primarily have value if you are a developer of the `poly` tool itself.
 Feel free to read what's in here, and hopefully you will pick up something of value.
@@ -149,6 +150,28 @@ Among other https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sen
 
 We host our docs on https://cljdoc.org/d/polylith/clj-poly[cljdoc].
 
+
+=== Diagrams
+
+We create our diagrams with the ever-so-awesome https://inkscape.org/[InkScape].
+InkScape's native format is `.svg`.
+We export to `.png` for use in our documentation.
+We keep the source `.svg` beside the exported `.png` in our GitHub repo.
+
+We store doc images under `./doc/images/`, for example for the overview diagram in xref:/doc/doc.adoc[./doc/doc.adoc] doc:
+
+* InkScape source: link:/doc/images/doc/doc-overview.svg[./doc/images/doc/doc-overview.svg]
+* Exported png: link:/doc/images/doc/doc-overview.png[./doc/images/doc/doc-overview.png]
+
+Tips:
+
+* Use a transparent background.
+* We host our docs on https://cljdoc.org[cljdoc], which uses a light theme.
+Folks viewing our docs on GitHub might have opted for a dark theme, so choose colors that will also be dark-theme friendly.
+* Choose cross-platform friendly fonts.
+`Courier New` and `Arial` seem to be what existing diagrams use.
+If you are a Linux user, you can install these as part of Microsoft's fonts.
+
 === Run cljdoc locally
 
 If we are maintainers of the documentation, we may want to see how it looks in https://cljdoc.org[cljdoc].
@@ -286,3 +309,9 @@ This can be achieved by replacing the `:poly` alias, in e.g. `myws/deps.edn`:
 ----
 
 Make sure the "../polylith/projects/poly" path points to the `poly` project in the cloned `polylith` workspace directory.
+
+== SNAPSHOT Releases & Caching
+
+https://github.com/clojure/tools.deps[Clojure tools.deps] only checks for updates once per day by default.
+
+This caching behavior means users referencing a specific `SNAPSHOT` will be more likely to temporarily be on an older release if you frequently release under the same `SNAPSHOT` version.

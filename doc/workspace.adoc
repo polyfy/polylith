@@ -5,14 +5,14 @@ The workspace directory is where all your code and most of your xref:configurati
 
 [NOTE]
 ====
-Unless otherwise noted, our examples assume `poly` is xref:install.adoc[installed] as a stand-alone tool. 
+Unless otherwise noted, our examples assume `poly` is xref:install.adoc[installed] as a stand-alone tool.
 Adjust your command line if you've installed `poly` differently.
 
 See also: <<bootstrap>>.
 ====
 
 Let's create an example workspace with a top namespace of `se.example` using the xref:commands.adoc#create-workspace[create workspace] command.
-By default, this command also creates a git repository, so execute it outside any existing git repository: 
+By default, this command also creates a git repository, so execute it outside any existing git repository:
 
 [source,shell]
 ----
@@ -20,7 +20,7 @@ poly create workspace name:example top-ns:se.example :commit
 ----
 
 
-The `poly` tool has created an `example` workspace in the `main` branch of a new git repository and committed all files. 
+The `poly` tool has created an `example` workspace in the `main` branch of a new git repository and committed all files.
 
 TIP: The `se.example` top namespace is just an example.
 Stick with this name when following this example, but choose whatever name makes sense when creating your own Polylith workspaces.
@@ -157,7 +157,7 @@ my-git-repo-dir
     └── workspace.edn
 ----
 
-NOTE: In the above examples you'll notice we ommitted the `:commit` option. 
+NOTE: In the above examples you'll notice we ommitted the `:commit` option.
 It is not supported when creating a workspace in an existing git repository.
 You'll have to commit your new workspace files yourself.
 
@@ -174,7 +174,7 @@ poly info
 
 If you don't have a stand-alone version of `poly` xref:install.adoc[installed] and prefer to use `poly` xref:install.adoc#use-as-dependency[as a dependency], you can bootstrap your workspace.
 
-All techniques above still apply, but you will instead, for example:
+All techniques above still apply, but you will instead create a workspace like so:
 
 [source,shell]
 ----
