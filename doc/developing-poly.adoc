@@ -4,9 +4,9 @@
 Here we will go through things that primarily have value if you are a developer of the `poly` tool itself.
 Feel free to read what's in here, and hopefully you will pick up something of value.
 
-== Parameters
+== Arguments
 
-There are a few parameters that are either rarely used, added to simplify maintenance work with the https://github.com/polyfy/polylith[polylith] codebase, or used in special circumstances.
+There are a few arguments that are either rarely used, added to simplify maintenance work with the https://github.com/polyfy/polylith[polylith] codebase, or used in special circumstances.
 For these reasons, they are not suggested by the autocomplete when in a xref:commands.adoc#shell[shell].
 What most of them have in common is that they are used to control the output of the different `poly` commands.
 
@@ -27,12 +27,12 @@ If `:all` is passed in when starting a shell:
 poly :all
 ----
 
-...the autocomplete for all available parameters will be activated, including those that are rarely used (and are mostly in the way) and parameters that only make sense when developing the `poly` tool itself.
+...the autocomplete for all available arguments will be activated, including those that are rarely used (and are mostly in the way) and arguments that only make sense when developing the `poly` tool itself.
 For example, `:fake-poly` is only used to fake that we use a released version of the `poly` tool.
 
 === changed-files
 
-This parameter is used to fake changes of files, and is used for testing purposes when developing the `poly` tool itself, e.g:
+This argument is used to fake changes of files, and is used for testing purposes when developing the `poly` tool itself, e.g:
 
 [source,shell]
 ----
@@ -50,7 +50,7 @@ poly info changed-files:bases/mybase/:components/mycomponent/:projects/myproject
 
 === fake-sha
 
-This parameter can be passed in to fake a `sha` when executing the xref:commands.adoc#info[info] command, which is used when taking screenshots for this documentation.
+This argument can be passed in to fake a `sha` when executing the xref:commands.adoc#info[info] command, which is used when taking screenshots for this documentation.
 
 [source,shell]
 ----
@@ -59,7 +59,7 @@ poly info fake-sha:c91fdad
 
 === fake-tag
 
-This parameter can be passed in to fake a `tag` when executing the xref:commands.adoc#info[info] command, which sometimes is used when taking screenshots for this documentation, e.g.:
+This argument can be passed in to fake a `tag` when executing the xref:commands.adoc#info[info] command, which sometimes is used when taking screenshots for this documentation, e.g.:
 
 [source,shell]
 ----
@@ -75,7 +75,7 @@ poly info fake-tag:
 
 === fake-poly
 
-This parameter is used to fake that we are using a non-snapshot version of the `poly` tool, and not the `polyx` tool.
+This argument is used to fake that we are using a non-snapshot version of the `poly` tool, and not the `polyx` tool.
 
 [source,shell]
 ----
@@ -87,7 +87,7 @@ poly :fake-poly
 
 === latest-sha
 
-This parameter is used to tell the tool to fetch the latest sha from the git repo (otherwise it's not populated), e.g.:
+This argument is used to tell the tool to fetch the latest sha from the git repo (otherwise it's not populated), e.g.:
 
 [source,shell]
 ----
@@ -96,7 +96,7 @@ poly ws get:settings:vcs:polylith:latest-sha :latest-sha
 
 === no-changes
 
-This parameter can be used to fake that no changes have been made since the last stable point in time, and can be used when taking a screenshot of the xref:commands.adoc#info[info] command without getting the `*` characters.
+This argument can be used to fake that no changes have been made since the last stable point in time, and can be used when taking a screenshot of the xref:commands.adoc#info[info] command without getting the `*` characters.
 
 [source,shell]
 ----
@@ -118,7 +118,7 @@ If we execute e.g. `poly info :no-exit` we have to press `<ctrl>+C` to exit, whi
 
 === replace
 
-This parameter is used to manipulate the output from the xref:commands.adoc#ws[ws] command.
+This argument is used to manipulate the output from the xref:commands.adoc#ws[ws] command.
 When we execute `poly ws get:settings:user-home` it will return something like "/Users/joakimtengstrand".
 We can tell the xref:commands.adoc#ws[ws] command to search for strings (using regular expressions) and replace the occurrences with another string, e.g. (assumes that $HOME is set):
 

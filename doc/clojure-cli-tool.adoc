@@ -1,6 +1,6 @@
 = Clojure CLI Tool
 
-The `poly` tool uses its own syntax when passing in parameters.
+The `poly` tool uses its own syntax when passing in arguments.
 When using the `poly` command as a Clojure CLI Tool (see xref:install.adoc#_install_as_clojure_cli_tool[Install using Clojure CLI]) we instead use the standard way of passing in arguments as pairs.
 
 The "native" `poly` tool has the following argument structure:

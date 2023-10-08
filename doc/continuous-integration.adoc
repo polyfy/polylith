@@ -43,7 +43,7 @@ If the CI build is set up so that it builds all projects in one go, then we coul
 poly ws get:projects:keys skip:dev
 ----
 
-The `skip:dev` parameter tells the tool to ignore the `development` project
+The `skip:dev` argument tells the tool to ignore the `development` project
 (we are not interested in deploying that project).
 More than one project can be ignored, e.g. `skip:dev:invoicer`, where both project names and aliases can be used.
 

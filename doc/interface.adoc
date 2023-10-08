@@ -60,12 +60,12 @@ Luckily, the `poly` tool will help us keep them consistent and complain if they 
 |===
 |Check |Example mismatch| To protect against
 
-| Number of parameters
+| Number of arguments
 | `[a b]` +
 `[a b c]`
 | Incompatible signatures
 
-| Parameter order
+| Argument order
 | `[a b c]` +
 `[b c a]`
 | Accidental argument call order mismatches

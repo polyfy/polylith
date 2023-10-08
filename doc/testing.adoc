@@ -213,7 +213,7 @@ If we run the same command again:
 
 image::images/testing/info-brick-cli-no-changes.png[width=400]
 
-...we get the same result, and that's because the `brick:cli` parameter is just a filter that is applied after the other status calculations have been performed.
+...we get the same result, and that's because the `brick:cli` argument is just a filter that is applied after the other status calculations have been performed.
 
 If we want to force the cli tests to be executed, we need to pass in `:all-bricks` (or `:all` if we also want to execute the project tests):
 
@@ -514,7 +514,7 @@ We need to keep two things in mind:
 * Make sure the source code which contains our function, is accessible from the project it's executed from (the `command-line` project in this case).
 Here the project's own test directory was already added earlier by the xref:commands.adoc#create-project[create project] command, so we are fine.
 
-* Make sure the functions take exactly one parameter, the project name.
+* Make sure the functions take exactly one argument, the project name.
 
 We also need to specify the two functions in `workspace.edn`:
 

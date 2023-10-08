@@ -205,7 +205,7 @@ example$ doc ws:configs
 [[more]]
 == more
 
-The `more` parameter covers all other documentation and links that are not specifically about the `poly` tool:
+The `more` argument covers all other documentation and links that are not specifically about the `poly` tool:
 
 [source,text]
 ----

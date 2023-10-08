@@ -83,7 +83,7 @@ An example can be found https://github.com/polyfy/polylith/blob/a4d9d2f3e50a2b76
 
 a| `:interface-ns` a|
 All namespaces within a component with this name, `interface`, or `ifc`, will be considered the component's interface.
-The name set by this parameter is also used by the xref:commands.adoc#create-component[create component] command.
+The name set by this argument is also used by the xref:commands.adoc#create-component[create component] command.
 
 a| `:projects` a| A map that configures the projects in the workspace, see xref:ws-projects[projects] below.
 
