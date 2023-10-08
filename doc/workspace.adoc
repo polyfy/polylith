@@ -40,20 +40,20 @@ Your workspace directory structure should look like this:
 
 [source,shell]
 ----
-example                # workspace dir
-├── .git/              # git repository dir
-├── .gitignore         # ignored files and dirs in git
+example                # Workspace dir
+├── .git/              # Git repository dir
+├── .gitignore         # Files and dirs git should ignore
 ├── .vscode/
-│   └── settings.json  # configuration for Calva
-├── bases/             # bases dir
-├── components/        # components dir
-├── deps.edn           # development config file
+│   └── settings.json  # Configuration for Calva
+├── bases/             # Dir for poly bases
+├── components/        # Dir for poly components
+├── deps.edn           # Config for development project
 ├── development/
-│   └── src/           # development-specific code
-├── logo.png           # polylith logo
-├── projects/          # projects dir
-├── readme.md          # documentation
-└── workspace.edn      # workspace config file
+│   └── src/           # Development project sources
+├── logo.png           # Polylith logo
+├── projects/          # Dir for deployable projects
+├── readme.md          # Documentation
+└── workspace.edn      # Workspace config file
 ----
 
 We designed the directory structure for quick navigation and ease of use.
@@ -98,17 +98,17 @@ The `deps.edn` file:
 
 [source,clojure,subs="+attributes"]
 ----
-{:aliases  {:dev {:extra-paths ["development/src"]
+{:aliases  {:dev {:extra-paths ["development/src"] ;; <1>
                   :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}}}
 
-            :test {:extra-paths []}
+            :test {:extra-paths []} ;; <2>
 
-            :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+            :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"] ;; <3>
                    :extra-deps {polyfy/clj-poly {:mvn/version "{poly-version}"}}}}}
 ----
-
-The `:dev` alias supports your Polylith development environment, and the `:test` alias your tests.
-The `:poly` alias allows you to run `poly` as a local dependency, e.g., `clj -M:poly version`, and is not used by `poly` stand-alone.
+<1> The `:dev` alias supports your Polylith development environment
+<2> The `:test` alias supports your tests
+<3> The `:poly` alias allows you to run `poly` as a local dependency, e.g., `clj -M:poly version`, and isn't used by `poly` stand-alone.
 
 == Existing git Repository
 

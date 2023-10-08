@@ -23,33 +23,37 @@ The interface defines `def`, `defn`, or `defmacro` statements which form the con
 
 Let's pretend we have the interface namespace `user.interface` containing the functions `fun1` and `fun2` and that two components `user` and `admin` implement this interface, e.g,:
 
-[source,shell]
+[source,text]
 ----
 ▾ myworkspace
   ...
   ▾ components
-    ▾ user
+    ▾ user # <1>
       ▾ src
         ▾ com
           ▾ mycompany
-            ▾ user
+            ▾ user # <2>
                 interface.clj
                   fun1
                   fun2
                 ...
-    ▾ admin
+    ▾ admin # <3>
       ▾ src
         ▾ com
           ▾ mycompany
-            ▾ user
+            ▾ user # <4>
                 interface.clj
                   fun1
                   fun2
                 ...
   ...
 ----
+<1> `user` component
+<2> implements `user` interface
+<3> `admin` component
+<4> also implements `user` interface
 
-Because we are free to edit the `interface.clj` file for both user and admin, they can get out of sync if we are not careful. 
+Because we are free to edit the `interface.clj` file for both user and admin, they can get out of sync if we are not careful.
 Luckily, the `poly` tool will help us keep them consistent and complain if they differ when we run the xref:commands.adoc#check[check], xref:commands.adoc#info[info] or xref:commands.adoc#test[test] commands:
 
 [cols="25,25,50"]
@@ -128,7 +132,7 @@ You can see an example of this in the https://github.com/polyfy/polylith/blob/ma
 
 Ultimately, it's up to you to do what you think is best.
 
-Our experience has shown us many advantages to keeping interfaces tiny and having them only expose what is needed. 
+Our experience has shown us many advantages to keeping interfaces tiny and having them only expose what is needed.
 
 == Interface Definitions
 
@@ -162,7 +166,7 @@ This list of tips makes more sense when you have used Polylith for a while, so b
 
 * The interface docstrings should focus on what problem each function/macro solves, while the implementation docstrings can focus on concrete details.
 
-* Consider sorting interface namespace functions in alphabetical order for easy lookup. 
+* Consider sorting interface namespace functions in alphabetical order for easy lookup.
 Order functions in implementation namespaces freely.
 
 * The interface can expose the entity's name, e.g., `sell [car]`, while the implementing function can expose specific usage via destructuring, e.g., `sell [{:keys [model type color]}]`.
@@ -171,7 +175,7 @@ Order functions in implementation namespaces freely.
 +
 [source,clojure]
 ----
-(defn foo 
+(defn foo
   ([a b c] (some-impl/foo a b c)
   ([a b] (foo a b nil)))
 ----
@@ -202,7 +206,7 @@ In this case, you can either:
 *** set `:interface-ns` to `ifc`, `poly` will use `ifc` as the interface namespace name for generated code when you create a component
 *** or leave `interface` as the default and override by specifying `interface:ifc` as an option to xref:commands.adoc#create-component[create component] for components that will also run from ClojureScript.
 ** You want to consume Clojure code from another language on the JVM, e.g., Kotlin, where `interface` is a reserved word.
-You could set `:interface-ns` to anything that won't conflict, for the sake of this example, let's say `api`. 
+You could set `:interface-ns` to anything that won't conflict, for the sake of this example, let's say `api`.
 The `poly` tool would now use `api` for the interface namespace name when it generates code when you create a component, but also recognize `interface` and `ifc` as interface names.
 
 

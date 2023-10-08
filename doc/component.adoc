@@ -75,7 +75,7 @@ Your workspace directory structure will now look like this:
 example
 ├── bases
 ├── components
-│   └── user
+│   └── user # <1>
 │       ├── deps.edn
 │       ├── resources
 │       │   └── user
@@ -99,6 +99,7 @@ example
 ├── readme.md
 └── workspace.edn
 ----
+<1> new `user` component
 
 You'll notice the command also printed out this message:
 
