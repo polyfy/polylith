@@ -147,6 +147,7 @@ Among other https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sen
 ** `top-ns:my-ns`, `branch:my-branch` and `:commit` as arguments
 * Always link to referenced commands and concepts to make it easier for readers to explore and dig into details.
 * Use "we" when talking from the Polylith core team and "you" when directing the reader through some steps or a tutorial.
+* Try to maintain a casual and friendly tone.
 
 We host our docs on https://cljdoc.org/d/polylith/clj-poly[cljdoc].
 

@@ -111,7 +111,7 @@ When you start a shell from a workspace root directory (where the `workspace.edn
 
 You can switch to a different workspace without leaving the poly shell.
 
-NOTE: The xref:commands.adoc#create[create] and xref:commands.adoc#test[test] commands do not work on workspaces you have switched to.
+NOTE: The xref:commands.adoc#create[create] and xref:commands.adoc#test[test] commands don't work on workspaces you have switched to.
 
 ****
 If you want to play along, exit the shell, then clone https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[clojure-polylith-realworld-example-app] under the same parent directory as your `example` workspace:

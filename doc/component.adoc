@@ -182,7 +182,7 @@ example
 The reason you should put `myimage.png` under `resources/user` and not directly under `resources` is that you want to avoid name clashes.
 This would happen if the same filename existed in more than one component in a xref:project.adoc[project].
 
-If you do not need the `resources` directory, you can delete it and remove it from the corresponding component `deps.edn` file.
+If you don't need the `resources` directory, you can delete it and remove it from the corresponding component `deps.edn` file.
 That said, you should consider keeping it around.
 It offers a deliberately clash-resistant naming convention for any resources you or your team might add in the future.
 
