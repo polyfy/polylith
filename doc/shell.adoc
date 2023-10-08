@@ -6,7 +6,7 @@ It takes full advantage of https://github.com/jline/jline3[jline3] under the hoo
 
 Let's explore some shell features.
 
-TIP: Our examples assume you are exploring from our ongoing tutorial `example` xref:workspace.adoc[workspace].
+TIP: Our examples assume you are exploring from our ongoing xref:introduction.adoc[tutorial] `example` xref:workspace.adoc[workspace].
 
 [[launch]]
 == Launching

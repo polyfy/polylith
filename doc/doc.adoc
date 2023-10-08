@@ -16,6 +16,9 @@ Run the `doc` command to open the start page of the `poly` tool documentation:
 example$ doc
 ----
 
+TIP: The `example$` prompt shows that we are working from our xref:introduction.adoc[tutorial] `example` xref:workspace.adoc[workspace], but you can experiment with the `doc` command from any workspace.
+
+
 You should see the page open in your web browser:
 
 image::images/doc/top-doc.png[]

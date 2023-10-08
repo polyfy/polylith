@@ -8,7 +8,7 @@ Component interfaces give many benefits:
 
 * _Composability_. All components have access to all other components via their interfaces, and you can replace them as long as they use the same interface.
 
-When you created the `user` xref:component.adoc[component], `poly` also created the `user` interface.
+When you created the `user` xref:component.adoc#create-component[component] as part of our xref:introduction.adoc[tutorial], `poly` also created the `user` interface.
 
 So what is an `interface`, and what is it good for?
 

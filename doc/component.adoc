@@ -1,6 +1,11 @@
 = Component
 
-You should now have a working xref:development.adoc[development] environment, and you will soon create your first component.
+If you have been following our xref:introduction.adoc[tutorial], you should now have:
+
+* An example xref:workspace.adoc[workspace]
+* A working xref:development.adoc[development] environment
+
+You will soon create your first component.
 But before you do that, open `workspace.edn` in your editor and set `:auto-add` to `true`:
 
 [source,clojure]

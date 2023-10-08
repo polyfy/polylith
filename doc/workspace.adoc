@@ -11,7 +11,7 @@ Adjust your command line if you've installed `poly` differently.
 See also: <<bootstrap>>.
 ====
 
-Let's create an example workspace with a top namespace of `se.example` using the xref:commands.adoc#create-workspace[create workspace] command.
+Let's start our xref:introduction.adoc[tutorial] by creating an example workspace with a top namespace of `se.example` using the xref:commands.adoc#create-workspace[create workspace] command.
 By default, this command also creates a git repository, so execute it outside any existing git repository:
 
 [source,shell]
