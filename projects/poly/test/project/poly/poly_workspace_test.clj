@@ -206,7 +206,7 @@
           "  overview                  .  x  .  x  .  .  x  .  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  x  x  .  ."
           "  path-finder               .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  shell                     .  .  .  x  x  .  .  x  x  x  .  .  .  .  .  .  x  .  x  x  .  .  .  .  x  x  x  .  .  .  .  x  ."
+          "  shell                     .  .  .  x  .  .  .  x  x  x  .  .  .  .  .  .  x  .  x  x  .  .  .  .  x  x  x  .  .  .  .  x  ."
           "  system                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  system-x                  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
@@ -275,7 +275,7 @@
             "  overview                  +  x  .  x  +  .  x  .  +  +  .  x  x  .  .  +  +  .  +  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
             "  path-finder               .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  shell                     .  .  .  x  x  .  +  x  x  x  .  +  .  .  .  +  x  .  x  x  .  +  .  +  x  x  x  +  +  .  .  x  ."
+            "  shell                     .  .  .  x  .  .  .  x  x  x  .  +  .  .  .  .  x  .  x  x  .  .  .  +  x  x  x  .  +  .  .  x  ."
             "  system                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  test-helper               -  -  t  -  -  -  -  -  t  -  -  -  -  -  -  -  -  -  -  -  .  -  -  -  t  t  -  -  -  -  -  -  -"
@@ -343,7 +343,7 @@
             "  overview                  +  x  .  x  +  .  x  .  +  +  .  x  x  .  .  +  +  .  +  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
             "  path-finder               .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  shell                     .  .  .  x  x  .  +  x  x  x  .  +  .  .  .  +  x  .  x  x  .  +  .  +  x  x  x  +  +  .  .  x  ."
+            "  shell                     .  .  .  x  .  .  .  x  x  x  .  +  .  .  .  .  x  .  x  x  .  .  .  +  x  x  x  .  +  .  .  x  ."
             "  system                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  test-helper               -  -  t  -  -  -  -  -  t  -  -  -  -  -  -  -  -  -  -  -  .  -  -  -  t  t  -  -  -  -  -  -  -"
@@ -799,7 +799,6 @@
           "sh"                       {:src  {}
                                       :test {}}
           "shell"                    {:src  {:direct   ["common"
-                                                        "config-reader"
                                                         "doc"
                                                         "file"
                                                         "git"
@@ -810,15 +809,10 @@
                                                         "user-input"
                                                         "util"
                                                         "ws-explorer"]
-                                             :indirect ["deps"
-                                                        "image-creator"
-                                                        "path-finder"
-                                                        "test-runner-contract"
+                                             :indirect ["image-creator"
                                                         "text-table"
-                                                        "validator"
                                                         "version"]}
                                       :test {:direct   ["common"
-                                                        "config-reader"
                                                         "doc"
                                                         "file"
                                                         "git"
@@ -829,12 +823,8 @@
                                                         "user-input"
                                                         "util"
                                                         "ws-explorer"]
-                                             :indirect ["deps"
-                                                        "image-creator"
-                                                        "path-finder"
-                                                        "test-runner-contract"
+                                             :indirect ["image-creator"
                                                         "text-table"
-                                                        "validator"
                                                         "version"]}}
           "system"                   {:src  {}
                                       :test {}}
