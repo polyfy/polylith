@@ -81,7 +81,7 @@
    :interface
    {:name "invoicer",
     :definitions
-    [{:name "do-invoicing", :type "function", :parameters []}]},
+    [{:name "do-invoicing", :type "function", :arglist []}]},
    :namespaces
    {:src
     [{:name "interface",
@@ -161,10 +161,10 @@
    :interface
    {:name "util",
     :definitions
-    [{:name "date-midnight-2021", :type "function", :parameters []}
+    [{:name "date-midnight-2021", :type "function", :arglist []}
      {:name "do-stuff",
       :type "function",
-      :parameters [{:name "string1"} {:name "string2"}]}]},
+      :arglist [{:name "string1"} {:name "string2"}]}]},
    :namespaces
    {:src
     [{:name "interface",
@@ -207,41 +207,49 @@
    :lib-deps {}}],
  :configs
  {:components
-  [{:config
+  [{:deps
     {:paths ["src" "resources"],
      :aliases {:test {:extra-paths ["test"]}}},
-    :name "database"}
-   {:config
+    :name "database",
+    :type "component"}
+   {:deps
     {:paths ["src" "resources"],
      :aliases {:test {:extra-paths ["test"]}}},
-    :name "datomic-ions"}
-   {:config
+    :name "datomic-ions",
+    :type "component"}
+   {:deps
     {:paths ["src" "resources"],
      :aliases {:test {:extra-paths ["test"]}}},
-    :name "invoicer"}
-   {:config
+    :name "invoicer",
+    :type "component"}
+   {:deps
     {:paths ["src" "resources"],
      :aliases {:test {:extra-paths ["test"]}}},
-    :name "test-helper"}
-   {:config
+    :name "test-helper",
+    :type "component"}
+   {:deps
     {:paths ["src" "resources"],
      :aliases {:test {:extra-paths ["test"]}}},
-    :name "test-helper-db"}
-   {:config
+    :name "test-helper-db",
+    :type "component"}
+   {:deps
     {:paths ["src" "resources"],
      :aliases {:test {:extra-paths ["test"]}}},
-    :name "util"}
-   {:config
+    :name "util",
+    :type "component"}
+   {:deps
     {:paths ["src" "resources"],
      :aliases {:test {:extra-paths ["test"]}}},
-    :name "without-src"}],
+    :name "without-src",
+    :type "component"}],
   :bases
-  [{:config
+  [{:deps
     {:paths ["src" "resources"],
      :aliases {:test {:extra-paths ["test"]}}},
-    :name "invoicer-cli"}],
+    :name "invoicer-cli",
+    :type "base"}],
   :projects
-  [{:config
+  [{:deps
     {:polylith
      {:release-tag-pattern "v[0-9]*",
       :top-namespace "com.localdep",
@@ -292,8 +300,9 @@
         {:git/url "https://github.com/polyfy/polylith",
          :sha "bb594393e03bd97a03109775cb16815594a13748",
          :deps/root "projects/poly"}}}}},
-    :name "development"}
-   {:config
+    :name "development",
+    :type "project"}
+   {:deps
     {:mvn/repos
      {"datomic-cloud"
       {:url "s3://datomic-releases-1fc2183a/maven/releases"}},
@@ -324,20 +333,24 @@
         "../../bases/invoicer-cli/test"],
        :extra-deps
        {migrate-me/migrate-me {:local/root "../../migrate-me"}}}}},
-    :name "invoicing"}],
+    :name "invoicing",
+    :type "project"}],
   :user
   {:color-mode "dark", :empty-character ".", :thousand-separator ","},
-  :workspace
-  {:projects
-   {"development" {:alias "dev"}, "invoicing" {:alias "inv"}},
-   :release-tag-pattern "v[0-9]*",
-   :top-namespace "com.localdep",
-   :default-profile-name "default",
-   :compact-views #{},
-   :stable-tag-pattern "stable-*",
-   :interface-ns "interface",
-   :ns-to-lib {clj-time clj-time/clj-time},
-   :vcs "git"}},
+  :workspaces
+  [{:name "local-dep-old-format",
+    :type "workspace",
+    :config
+    {:projects
+     {"development" {:alias "dev"}, "invoicing" {:alias "inv"}},
+     :release-tag-pattern "v[0-9]*",
+     :top-namespace "com.localdep",
+     :default-profile-name "default",
+     :compact-views #{},
+     :stable-tag-pattern "stable-*",
+     :interface-ns "interface",
+     :ns-to-lib {clj-time clj-time/clj-time},
+     :vcs "git"}}]},
  :interfaces
  [{:name "database",
    :type "interface",
@@ -350,7 +363,7 @@
   {:name "invoicer",
    :type "interface",
    :definitions
-   [{:name "do-invoicing", :type "function", :parameters []}],
+   [{:name "do-invoicing", :type "function", :arglist []}],
    :implementing-components ["invoicer"]}
   {:name "test-helper",
    :type "interface",
@@ -363,10 +376,10 @@
   {:name "util",
    :type "interface",
    :definitions
-   [{:name "date-midnight-2021", :type "function", :parameters []}
+   [{:name "date-midnight-2021", :type "function", :arglist []}
     {:name "do-stuff",
      :type "function",
-     :parameters [{:name "string1"} {:name "string2"}]}],
+     :arglist [{:name "string1"} {:name "string2"}]}],
    :implementing-components ["util"]}
   {:name nil,
    :type "interface",
@@ -567,7 +580,7 @@
      {:local/root "../../migrate-me",
       :type "local",
       :path "migrate-me",
-      :size 310}}},
+      :size 4890}}},
    :config-filename
    "/privateWS-HOME/local-dep-old-format/projects/invoicing/deps.edn",
    :component-names
@@ -682,7 +695,7 @@
        {:local/root "migrate-me",
         :type "local",
         :path "migrate-me",
-        :size 310}]]}},
+        :size 4890}]]}},
    :lib-deps
    {:src
     {"org.clojure/clojure"
@@ -705,7 +718,7 @@
      {:local/root "migrate-me",
       :type "local",
       :path "migrate-me",
-      :size 310}}},
+      :size 4890}}},
    :config-filename "/privateWS-HOME/local-dep-old-format/deps.edn",
    :component-names
    {:src
@@ -786,12 +799,15 @@
    {:from "USER-HOME", :to "USER-HOME"}
    {:from "SHA", :to "SHA"}],
   :is-run-all-brick-tests false,
+  :is-fake-poly false,
   :is-verbose false,
   :is-latest-sha false,
   :selected-projects #{},
+  :is-github false,
   :is-no-changes false,
   :is-search-for-ws-dir false,
   :is-outdated false,
+  :is-local false,
   :out
   "USER-HOME/source/polylith/scripts/output/local-dep-old-format/ws.edn",
   :is-show-brick false,
@@ -807,16 +823,18 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "poly-0.2.18-issue205-01",
-   :system "poly",
+  {:name "0.2.18-SNAPSHOT",
+   :tool "poly",
    :major 0,
    :minor 2,
    :patch 18,
-   :revision "issue205-01",
-   :date "2023-07-14"},
+   :revision "SNAPSHOT",
+   :date "2023-10-09",
+   :snapshot 5},
+  :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
-  :ws {:type :toolsdeps2, :breaking 2, :non-breaking 0},
-  :from {:ws {:type :toolsdeps1, :breaking 0, :non-breaking 0}}},
+  :ws {:breaking 2, :non-breaking 0},
+  :from {:ws {:breaking 0, :non-breaking 0}}},
  :ws-dir "/privateWS-HOME/local-dep-old-format",
  :ws-reader
  {:name "polylith-clj",

@@ -18,8 +18,8 @@
 (defn read-deps-file [file-path filename]
   (deps-reader/read-deps-file file-path filename))
 
-(defn read-brick-config-files [ws-dir ws-type entity-type]
-  (config-reader/read-brick-config-files ws-dir ws-type entity-type))
+(defn read-or-use-default-brick-config-files [ws-dir ws-type entity-type]
+  (config-reader/read-or-use-default-brick-config-files ws-dir ws-type entity-type))
 
 (defn read-project-config-files [ws-dir ws-type]
   (config-reader/read-project-config-files ws-dir ws-type))

@@ -25,9 +25,9 @@
     (latest-with-sizes ws-dir entity-root-path (get-in config dep-keys) user-home)))
 
 (defn lib->deps [ws-dir ws-type]
-  (let [{:keys [config]} (config-reader/read-project-dev-config-file ws-dir ws-type)]
-    (util/stringify-and-sort-map (merge (-> config :aliases :test :extra-deps)
-                                        (-> config :aliases :dev :extra-deps)))))
+  (let [{:keys [deps]} (config-reader/read-project-dev-config-file ws-dir ws-type)]
+    (util/stringify-and-sort-map (merge (-> deps :aliases :test :extra-deps)
+                                        (-> deps :aliases :dev :extra-deps)))))
 
 (defn brick-lib-deps [ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home]
   (let [lib->deps (lib->deps ws-dir ws-type)

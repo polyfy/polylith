@@ -55,7 +55,6 @@
    "introduction" {}
    "libraries" {}
    "license" {}
-   "migrate" {}
    "naming" {}
    "polylith-ci-setup" {}
    "polyx" {}

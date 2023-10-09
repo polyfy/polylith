@@ -80,7 +80,7 @@
 ;; 1.1    0.2.14-alpha    added     settings:vcs:is-git-repo
 ;;                        deleted   projects:PROJECT:is-run-tests
 ;;
-;; 0.0    0.2.0-alpha9    Version 0.2.0-alpha9 and earlier, has from.ws set to 0.0 if read from file.
+;; 0.0    0.1.0-alpha9    Version 0.2.0-alpha9 and earlier, has from.ws set to 0.0 if read from file.
 ;;
 ;; ENTITIES = bases, components, or projects.
 ;; ENTITY = a base, component, or project name.

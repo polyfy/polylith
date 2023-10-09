@@ -28,7 +28,4 @@
                                  "projects/x-okay/test"]}
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
-                   :extra-deps {polyfy/polylith
-                                {:git/url   "https://github.com/polyfy/polylith"
-                                 :sha       "75140d3101805331ba40b7982a69702b11a858e8"
-                                 :deps/root "projects/poly"}}}}}
+                   :extra-deps {polylith/clj-poly {:local/root "../../projects/poly"}}}}}

@@ -367,7 +367,7 @@ git add --all
 poly info fake-sha:aaaaa :no-changes color-mode:none > $output/local-dep-old-format/info-migrated.txt
 poly libs color-mode:none > $output/local-dep-old-format/libs-migrated.txt
 poly deps color-mode:none > $output/local-dep-old-format/deps-migrated.txt
-poly test :de color-mode:none > $output/local-dep-old-format/test-migrated.txt
+poly test color-mode:none :all > $output/local-dep-old-format/test-migrated.txt
 echo "exit code: $?" >> $output/local-dep-old-format/test-migrated.txt
 sed -i '' -E "s/Execution time: [0-9]+/Execution time: x/g" $output/local-dep-old-format/test-migrated.txt
 
