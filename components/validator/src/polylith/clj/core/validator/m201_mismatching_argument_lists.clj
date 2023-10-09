@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.validator.m201-mismatching-parameters
+(ns ^:no-doc polylith.clj.core.validator.m201-mismatching-argument-lists
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.validator.shared :as shared]
@@ -23,7 +23,7 @@
             types (types->message (set [type (:type other-function)]))
             message (str types " in the " (color/component comp1 color-mode) " component "
                          "is also defined in " (color/component comp2 color-mode)
-                         " but with a different parameter list: "
+                         " but with a different argument list: "
                          (str/join ", " functions-and-macros))]
         [(util/ordered-map :type "warning"
                            :code 201

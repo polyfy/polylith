@@ -3,14 +3,14 @@
             [polylith.clj.core.user-input.interface :as user-input]))
 
 (defn test-params [& args]
-  (select-keys (user-input/extract-params args)
+  (select-keys (user-input/extract-arguments args)
                [:is-all
                 :is-run-all-brick-tests
                 :is-run-project-tests
                 :selected-projects]))
 
 (defn active-profiles-params [& args]
-  (select-keys (user-input/extract-params args)
+  (select-keys (user-input/extract-arguments args)
                [:selected-profiles]))
 
 (deftest parameters--no-arguments

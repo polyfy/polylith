@@ -17,19 +17,19 @@
             [polylith.clj.core.ws-explorer.core :as ws-explorer]))
 
 (defn workspace [& args]
-  (-> (user-input/extract-params (concat ["info" (str "ws-dir:.") "color-mode:none" "since:0aaeb58"] args))
+  (-> (user-input/extract-arguments (concat ["info" (str "ws-dir:.") "color-mode:none" "since:0aaeb58"] args))
       ws-clj/workspace-from-disk
       ws/enrich-workspace
       change/with-changes))
 
 (defn run-cmd [ws-dir cmd & args]
-  (let [input (user-input/extract-params (concat [cmd] args [(str "ws-dir:" ws-dir) "fake-sha:1234567" "fake-tag:" "color-mode:none"]))]
+  (let [input (user-input/extract-arguments (concat [cmd] args [(str "ws-dir:" ws-dir) "fake-sha:1234567" "fake-tag:" "color-mode:none"]))]
     (str/split-lines
       (with-out-str
         (-> input command/execute-command)))))
 
 (defn ws-get [ws-dir ws-param & args]
-  (let [workspace (-> (user-input/extract-params (concat ["version" (str "ws-dir:" ws-dir) "color-mode:none"] args))
+  (let [workspace (-> (user-input/extract-arguments (concat ["version" (str "ws-dir:" ws-dir) "color-mode:none"] args))
                       ws-clj/workspace-from-disk
                       ws/enrich-workspace
                       change/with-changes)]

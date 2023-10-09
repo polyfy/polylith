@@ -79,7 +79,7 @@
   internal arguments, and execute the command."
   [cmd exec-args]
   (let [args  (cons cmd (argument-mapping exec-args))
-        input (user-input/extract-params args)]
+        input (user-input/extract-arguments args)]
     ;; identical behavior to core/-main:
     (try
       (if (:is-no-exit input)

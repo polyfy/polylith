@@ -64,7 +64,7 @@
                                 canvas-areas nil)))
 
 (comment
-  (def input (user-input/extract-params ["overview" "ws-dir:examples/for-test"]))
+  (def input (user-input/extract-arguments ["overview" "ws-dir:examples/for-test"]))
   (def workspace (-> input
                      ws-clj/workspace-from-disk
                      ws/enrich-workspace
