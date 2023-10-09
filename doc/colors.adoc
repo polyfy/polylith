@@ -12,7 +12,7 @@ When we created the example workspace, the file `~/.config/polylith/config.edn` 
 For Windows systems the `color-mode` is set to "none" and for all other systems, "dark" will be used as default.
 Valid values are: "none", "light" and "dark".
 
-In this documentation we have used the `dark` color schema, but we can switch to `light` by giving the `color-mode` parameter (or by updating it in the xref:configuration.adoc#color-mode[user config]):
+In this documentation we have used the `dark` color schema, but we can switch to `light` by giving the `color-mode` argument (or by updating it in the xref:configuration.adoc#color-mode[user config]):
 
 [source,text]
 ----

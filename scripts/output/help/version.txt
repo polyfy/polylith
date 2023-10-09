@@ -13,6 +13,7 @@
   Example of a snapshot release:
     poly 0.2.18-SNAPSHOT #1 (2023-09-15)
 
-  The poly tool does not only version control releases but also the workspace
-  structure and the public API, which we can read more about by executing:
+  The poly tool does not only version control releases but also the public API,
+  the workspace structure, and the test runner API, which we can read more about
+  by executing:
     poly doc ws:version

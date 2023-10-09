@@ -203,7 +203,7 @@ poly ws get:components:user
 [source,clojure]
 ----
 {:interface {:definitions [{:name "hello",
-                            :parameters [{:name "name"}],
+                            :arglists [{:name "name"}],
                             :type "function"}],
              :name "user"},
  :interface-deps {:src [], :test []},
@@ -370,7 +370,7 @@ poly ws get:interfaces:user
 [source,clojure]
 ----
 {:definitions [{:name "hello",
-                :parameters [{:name "name"}],
+                :arglists [{:name "name"}],
                 :type "function"}],
  :implementing-components ["user" "user-remote"],
  :name "user",
@@ -380,9 +380,9 @@ poly ws get:interfaces:user
 * `:definitions` A list of the public `def`, `defn` and `defmacro` definitions that are part of the interface.
 ** `:name` the name of the `def`, `defn` or `defmacro` definition.
 If it's a multi-arity function or macro, then each arity will be stored separately.
-** `:parameters` Set for functions and macros.
-Specifies the function/macro parameters:
-*** `:name` The name of the parameter.
+** `:arglists` Set for functions and macros.
+Specifies the function/macro arguments:
+*** `:name` The name of the argument.
 *** `:type` If a type hint, e.g. `^String` is given, then this attribute is set.
 ** `:type` Set to "data", "function" or "macro".
 
@@ -784,7 +784,7 @@ poly ws get:user-input
  :unnamed-args []}
 ----
 
-We also have a number of arguments that are only populated if they are passed in as a parameter:
+We also have a number of arguments that are only populated if they are passed in as an argument:
 
 [source,clojure]
 ----
@@ -862,7 +862,7 @@ Used by the xref:commands.adoc#doc[doc] command to open the corresponding page o
 
 * `:is-local` Set to `true` if `:local` is given.
 If set, the xref:commands.adoc#doc[doc] command will use `localhost` instead of `cljdoc.org`, when opening cljdoc pages.
-The `:local` parameter can also be passed in when starting a xref:commands.adoc#shell[shell].
+The `:local` argument can also be passed in when starting a xref:commands.adoc#shell[shell].
 
 * `:is-no-changes` Set to `true` if `:no-changes` is given.
 Used to fake that no changes have been made since the last stable point in time.
@@ -930,10 +930,10 @@ So if we type `poly ws get:user-input:unnamed-args :flag arg xx:123` it will ret
 
 * `:ws-dir` If set, holds the workspace directory we have switched to.
 Can either be explicitly passed in together with the `poly` command,
-or implicitly set by the xref:commands.adoc#switch-ws command, using the `dir` parameter.
+or implicitly set by the xref:commands.adoc#switch-ws command, using the `dir` argument.
 
 * `:ws-file` If set, holds the filename of the exported workspace we have switched to.
-Can either be explicitly passed in together with the `poly` command, or implicitly set by the xref:commands.adoc#switch-ws, using the `file` parameter.
+Can either be explicitly passed in together with the `poly` command, or implicitly set by the xref:commands.adoc#switch-ws, using the `file` argument.
 
 [#version]
 == version

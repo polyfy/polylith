@@ -23,7 +23,8 @@ We discourage a `src` directory for deployable projects; all production code sho
 
 The `:project` key in `./workspace.edn` configures project aliases and, optionally, how `poly` should run your xref:testing.adoc[tests].
 
-Let's carry on with our tutorial.
+Let's continue with our xref:introduction.adoc[tutorial].
+The last thing you did was create a `cli` xref:base.adoc#create-component[base].
 Run the following xref:commands#create-project[create project] command:
 
 [source,shell]

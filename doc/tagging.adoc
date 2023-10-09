@@ -122,7 +122,7 @@ e7ebe683a775ec28b7c2b5d77e01e79d48149d13 (HEAD -> main, tag: v1.2.0, tag: stable
 c91fdad4a34927d9aacfe4b04ea2f304f3303282 (tag: v1.1.0) Workspace created.
 ----
 
-The `since` parameter is used by the CI server to run all tests since the previous release, e.g.:
+The `since` argument is used by the CI server to run all tests since the previous release, e.g.:
 
 [source,shell]
 ----

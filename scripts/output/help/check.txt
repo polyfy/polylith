@@ -55,10 +55,10 @@
     It's allowed to omit the deps.edn file entirely, except for development,
     and in that case the brick/project will be ignored.
 
-  Warning 201 - Mismatching parameter lists in function or macro.
+  Warning 201 - Mismatching argument lists in function or macro.
     Triggered if a function or macro is defined in the interface for a component
     but also defined in the same interface for another component but with a
-    different parameter list.
+    different argument list.
 
   Warning 202 - Missing paths in project.
     Triggered if a path in a project doesn't exist on disk.
