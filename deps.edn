@@ -74,8 +74,8 @@
                                  "bases/poly-cli/test"
                                  "projects/poly/test"]}
 
-            ;; master
-            :polym  {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+            ;; Any sha
+            :polys  {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                      :extra-deps {polyfy/polylith
                                   {:git/url   "https://github.com/polyfy/polylith"
                                    :sha       "48d8a14d31a02cd2229d99bca094fe383d3dcace"

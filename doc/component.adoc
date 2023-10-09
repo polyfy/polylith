@@ -1,6 +1,11 @@
 = Component
 
-You should now have a working xref:development.adoc[development] environment, and you will soon create your first component.
+If you have been following our xref:introduction.adoc[tutorial], you should now have:
+
+* An example xref:workspace.adoc[workspace]
+* A working xref:development.adoc[development] environment
+
+You will soon create your first component.
 But before you do that, open `workspace.edn` in your editor and set `:auto-add` to `true`:
 
 [source,clojure]
@@ -75,7 +80,7 @@ Your workspace directory structure will now look like this:
 example
 ├── bases
 ├── components
-│   └── user
+│   └── user # <1>
 │       ├── deps.edn
 │       ├── resources
 │       │   └── user
@@ -99,6 +104,7 @@ example
 ├── readme.md
 └── workspace.edn
 ----
+<1> new `user` component
 
 You'll notice the command also printed out this message:
 
@@ -182,7 +188,7 @@ example
 The reason you should put `myimage.png` under `resources/user` and not directly under `resources` is that you want to avoid name clashes.
 This would happen if the same filename existed in more than one component in a xref:project.adoc[project].
 
-If you do not need the `resources` directory, you can delete it and remove it from the corresponding component `deps.edn` file.
+If you don't need the `resources` directory, you can delete it and remove it from the corresponding component `deps.edn` file.
 That said, you should consider keeping it around.
 It offers a deliberately clash-resistant naming convention for any resources you or your team might add in the future.
 

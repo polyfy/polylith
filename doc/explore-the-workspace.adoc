@@ -139,7 +139,7 @@ poly ws get:components:user
 [source,clojure]
 ----
 {:interface {:definitions [{:name "hello"
-                            :parameters [{:name "name"}]
+                            :arglist [{:name "name"}]
                             :type "function"}]
              :name "user"}
  :interface-deps {:src [], :test []}
@@ -179,7 +179,7 @@ poly ws get:components:user-remote:lib-deps
  "slacker/slacker" {:size 28408, :type "maven", :version "0.17.0"}}
 ----
 
-There is a way to store the workspace structure to a file, and that is to give the `out` parameter, e.g.:
+There is a way to store the workspace structure to a file, and that is to give the `out` argument, e.g.:
 
 [source,shell]
 ----
@@ -194,7 +194,7 @@ poly ws color-mode:none > ws.edn
 ----
 
 This can be used to share the workspace structure with others without sending them the whole workspace including the code.
-To load this workspace, they have to give the `ws-file` parameter, e.g.:
+To load this workspace, they have to give the `ws-file` argument, e.g.:
 
 [source,shell]
 ----

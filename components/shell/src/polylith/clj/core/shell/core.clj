@@ -78,7 +78,7 @@
       (loop []
         (flush)
         (when-let [line (.readLine reader (prompt))]
-          (let [{:keys [branch cmd unnamed-args is-local is-github dir file color-mode] :as input} (user-input/extract-params (str-util/split-text line))
+          (let [{:keys [branch cmd unnamed-args is-local is-github dir file color-mode] :as input} (user-input/extract-arguments (str-util/split-text line))
                 color-mode (or color-mode (common/color-mode input))
                 is-local (or is-local local?)
                 is-github (or is-github github?)

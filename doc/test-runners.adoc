@@ -97,7 +97,7 @@ This map contains the following:
 | Key | Description
 
 | `:workspace` a| The workspace map.
-This map contains `:user-input` which can be used to receive additional parameters for runtime configuration.
+This map contains `:user-input` which can be used to receive additional arguments for runtime configuration.
 | `:project` a| A map that contains the details of the project that is currently being tested.
 | `:test-settings` a| Test settings for the project that is currently being tested.
 This information is extracted from `workspace.edn`.

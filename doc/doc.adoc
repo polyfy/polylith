@@ -16,6 +16,9 @@ Run the `doc` command to open the start page of the `poly` tool documentation:
 example$ doc
 ----
 
+TIP: The `example$` prompt shows that we are working from our xref:introduction.adoc[tutorial] `example` xref:workspace.adoc[workspace], but you can experiment with the `doc` command from any workspace.
+
+
 You should see the page open in your web browser:
 
 image::images/doc/top-doc.png[]
@@ -98,10 +101,10 @@ example$ doc page:
 artifacts                introduction
 base                     libraries
 build                    license
-clojure-cli-tool         migrate
-colors                   naming
-component                polylith-ci-setup
-configuration            polyx
+clojure-cli-tool         naming
+colors                   polylith-ci-setup
+component                polyx
+configuration            production-systems
 contact                  profile
 context                  project
 continuous-integration   readme
@@ -205,7 +208,7 @@ example$ doc ws:configs
 [[more]]
 == more
 
-The `more` parameter covers all other documentation and links that are not specifically about the `poly` tool:
+The `more` argument covers all other documentation and links that are not specifically about the `poly` tool:
 
 [source,text]
 ----

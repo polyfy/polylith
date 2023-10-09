@@ -26,7 +26,7 @@
    - The final workspace representation is then used by the given command that is stored in
      the 'user-input' representation."
   [& args]
-  (let [input (user-input/extract-params args)]
+  (let [input (user-input/extract-arguments args)]
     (try
       (if (:is-no-exit input)
         (-> input command/execute-command)

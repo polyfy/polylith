@@ -63,7 +63,7 @@
       (external-process-namespace [this] ...)))
   ```
   `workspace` passed to the constructor will contain `:user-input`, which
-  can be used to receive additional parameters for runtime configuration.
+  can be used to receive additional arguments for runtime configuration.
 
   Add your constructor function in the `workspace.edn`. To add a single global
   test runner, use the `:test` key:

@@ -1,7 +1,7 @@
 {:interface
  {:name "user",
   :definitions
-  [{:name "hello", :type "function", :parameters [{:name "name"}]}]},
+  [{:name "hello", :type "function", :arglist [{:name "name"}]}]},
  :interface-deps {:src [], :test []},
  :lib-deps {},
  :lib-imports {:test ["clojure.test"]},

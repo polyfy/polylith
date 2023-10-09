@@ -8,7 +8,7 @@
 
 (defn projects-to-deploy [since]
   (let [since-then (str "since:" (or since "stable"))
-        user-input (user-input/extract-params ["ws" since-then "skip:development"])
+        user-input (user-input/extract-arguments ["ws" since-then "skip:development"])
         workspace (-> user-input
                       ws-clj/workspace-from-disk
                       ws/enrich-workspace
@@ -27,7 +27,7 @@
         args (if (empty? keys-str)
                ["ws" since-str]
                ["ws" since-str (str "get:" (str/join ":" keys-str))])
-        user-input (user-input/extract-params args)
+        user-input (user-input/extract-arguments args)
         workspace (-> user-input
                       ws-clj/workspace-from-disk
                       ws/enrich-workspace

@@ -1,7 +1,7 @@
 (ns ^:no-doc polylith.clj.core.user-input.core
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]
-            [polylith.clj.core.user-input.params :as params]))
+            [polylith.clj.core.user-input.args :as args]))
 
 (defn profile? [arg]
   (str/starts-with? arg "+"))
@@ -32,30 +32,30 @@
 
 (defn extract [args]
   {:cmd (first args)
-   :params (-> args rest vec)})
+   :args (-> args rest vec)})
 
-(defn as-value [parameter]
-  (when parameter
-    (if (vector? parameter)
-      (first parameter)
-      parameter)))
+(defn as-value [arg]
+  (when arg
+    (if (vector? arg)
+      (first arg)
+      arg)))
 
-(defn as-vector [parameter]
-  (when parameter
-    (if (vector? parameter)
-      parameter
-      [parameter])))
+(defn as-vector [arg]
+  (when arg
+    (if (vector? arg)
+      arg
+      [arg])))
 
-(defn as-more [parameter]
-  (let [parameter (as-vector parameter)]
-    (if (and (seq parameter)
-             (-> parameter last empty?))
-      (vec (drop-last parameter))
-      parameter)))
+(defn as-more [arg]
+  (let [argument (as-vector arg)]
+    (if (and (seq argument)
+             (-> argument last empty?))
+      (vec (drop-last argument))
+      argument)))
 
-(defn extract-params [args single-arg-commands]
-  (let [{:keys [cmd params]} (extract args)
-        {:keys [named-args unnamed-args]} (params/extract params single-arg-commands)
+(defn extract-arguments [arguments single-arg-commands]
+  (let [{:keys [cmd args]} (extract arguments)
+        {:keys [named-args unnamed-args]} (args/extract args single-arg-commands)
         {:keys [all!
                 all-bricks!
                 brick
@@ -100,7 +100,7 @@
                 ws
                 ws-dir
                 ws-file]} named-args]
-    (util/ordered-map :args (vec args)
+    (util/ordered-map :args (vec arguments)
                       :cmd cmd
                       :get get
                       :branch branch
@@ -128,7 +128,7 @@
                                                   (= "true" all-bricks!))
                       :is-run-project-tests (or (= "true" all!)
                                                 (= "true" project!))
-                      :is-search-for-ws-dir (contains? (set args) "::")
+                      :is-search-for-ws-dir (contains? (set arguments) "::")
                       :is-show-brick (= "true" brick!)
                       :is-show-loc (= "true" loc!)
                       :is-show-project (= "true" project!)

@@ -5,8 +5,13 @@ ifndef::env-cljdoc[]
 TIP: For a richer experience, we recommend reading on {cljdoc-doc-url}/introduction[cljdoc].
 endif::[]
 
-This documentation aims to be a practical guide to this tool with lots of code examples.
-We encourage you to follow the code examples and try it out yourself.
+This documentation is a practical guide to the `poly` tool.
+
+We include many code examples.
+They act as an ongoing tutorial as you read sequentially through the documentation.
+We encourage you to follow the tutorial examples and try them out yourself.
+For your convenience, we provide the end result link:/examples/doc-example[here].
+
 We will guide you through the steps of creating a workspace with projects composed of components, bases, and libraries and how to work with them from the development environment and the interactive shell.
 
 We will give a short introduction to tools.deps and how to use tools.build to create deployable artifacts.

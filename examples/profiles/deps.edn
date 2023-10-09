@@ -19,4 +19,7 @@
                                  "components/test-helper1/test"
                                  "components/util1/test"
                                  "bases/base1/test"
-                                 "bases/base2/test"]}}}
+                                 "bases/base2/test"]}
+
+            :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                   :extra-deps {polylith/clj-poly {:local/root "../../projects/poly"}}}}}

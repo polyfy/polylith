@@ -7,7 +7,7 @@
    [polylith.clj.core.ws-explorer.interface :as ws-explorer]))
 
 (defn workspace [& args]
-  (-> (user-input/extract-params (concat ["info" (str "ws-dir:.") "color-mode:none"] args))
+  (-> (user-input/extract-arguments (concat ["info" (str "ws-dir:.") "color-mode:none"] args))
       ws-clj/workspace-from-disk
       ws/enrich-workspace))
 

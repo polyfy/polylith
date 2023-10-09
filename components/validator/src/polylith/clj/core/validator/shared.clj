@@ -14,19 +14,19 @@
     name
     (str sub-ns "." name)))
 
-(defn parameter [{:keys [name type]}]
+(defn argument [{:keys [name type]}]
   (if type
     (str type " " name)
     name))
 
 (defn ->function-or-macro
-  ([{:keys [sub-ns name parameters]}]
-   (->function-or-macro sub-ns name parameters))
-  ([sub-ns name parameters]
-   (str (with-ns sub-ns name) "[" (str/join " " (map parameter parameters)) "]")))
+  ([{:keys [sub-ns name arglist]}]
+   (->function-or-macro sub-ns name arglist))
+  ([sub-ns name arglist]
+   (str (with-ns sub-ns name) "[" (str/join " " (map argument arglist)) "]")))
 
-(defn function->id [{:keys [name sub-ns parameters]}]
-  [name sub-ns (count parameters)])
+(defn function->id [{:keys [name sub-ns arglist]}]
+  [name sub-ns (count arglist)])
 
 (defn id->functions-or-macro [{:keys [definitions]}]
   (group-by function->id

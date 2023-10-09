@@ -10,7 +10,7 @@
   (is (false?
         (t/run-tests? "dev" "development" true true false #{}))))
 
-(deftest run-tests?--run-project-tests-if-project-or-all-parameter-is-passed-in
+(deftest run-tests?--run-project-tests-if-project-or-all-argument-is-passed-in
   (is (true?
         (t/run-tests? "s" "service" false false true #{}))))
 

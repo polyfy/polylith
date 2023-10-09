@@ -37,7 +37,4 @@
                    :extra-deps {migrate-me/migrate-me {:local/root "migrate-me"}}}
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
-                   :extra-deps {polyfy/polylith
-                                {:git/url   "https://github.com/polyfy/polylith"
-                                 :sha       "bb594393e03bd97a03109775cb16815594a13748"
-                                 :deps/root "projects/poly"}}}}}
+                   :extra-deps {polylith/clj-poly {:local/root "../../projects/poly"}}}}}

@@ -31,7 +31,7 @@
                 (fn [] (str @root-dir "/" user-home "/.config/polylith/config.edn"))
                 user-config/legacy-config-file-path
                 (fn [] (str @root-dir "/" user-home "/.polylith/config.edn"))]
-    (let [input (user-input/extract-params args)]
+    (let [input (user-input/extract-arguments args)]
       (command/execute-command input))))
 
 (defn paths [dir]

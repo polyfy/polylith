@@ -17,19 +17,19 @@
             [polylith.clj.core.ws-explorer.core :as ws-explorer]))
 
 (defn workspace [& args]
-  (-> (user-input/extract-params (concat ["info" (str "ws-dir:.") "color-mode:none" "since:0aaeb58"] args))
+  (-> (user-input/extract-arguments (concat ["info" (str "ws-dir:.") "color-mode:none" "since:0aaeb58"] args))
       ws-clj/workspace-from-disk
       ws/enrich-workspace
       change/with-changes))
 
 (defn run-cmd [ws-dir cmd & args]
-  (let [input (user-input/extract-params (concat [cmd] args [(str "ws-dir:" ws-dir) "fake-sha:1234567" "fake-tag:" "color-mode:none"]))]
+  (let [input (user-input/extract-arguments (concat [cmd] args [(str "ws-dir:" ws-dir) "fake-sha:1234567" "fake-tag:" "color-mode:none"]))]
     (str/split-lines
       (with-out-str
         (-> input command/execute-command)))))
 
 (defn ws-get [ws-dir ws-param & args]
-  (let [workspace (-> (user-input/extract-params (concat ["version" (str "ws-dir:" ws-dir) "color-mode:none"] args))
+  (let [workspace (-> (user-input/extract-arguments (concat ["version" (str "ws-dir:" ws-dir) "color-mode:none"] args))
                       ws-clj/workspace-from-disk
                       ws/enrich-workspace
                       change/with-changes)]
@@ -112,9 +112,9 @@
           "  ----------------------------------------------------   -----------   ----------------------   ----------------------------"
           "  borkdude/edamame             1.3.23     maven     24    x      x      x      -         -      .  .  x  .  .  .  .  .  .  ."
           "  clj-commons/fs               1.6.310    maven     12    x      x      x      -         -      .  .  x  .  .  .  .  .  .  ."
-          "  com.github.liquidz/antq      2.5.1109   maven     50    x      x      x      -         -      x  .  .  .  .  .  .  .  .  ."
-          "  djblue/portal                0.46.0     maven  1,827    x      x      x      -         -      .  .  .  .  .  .  x  .  .  ."
-          "  metosin/malli                0.12.0     maven     85    x      x      x      -         -      .  .  .  .  .  .  .  x  .  ."
+          "  com.github.liquidz/antq      2.7.1133   maven     51    x      x      x      -         -      x  .  .  .  .  .  .  .  .  ."
+          "  djblue/portal                0.48.0     maven  1,838    x      x      x      -         -      .  .  .  .  .  .  x  .  .  ."
+          "  metosin/malli                0.13.0     maven     85    x      x      x      -         -      .  .  .  .  .  .  .  x  .  ."
           "  mount/mount                  0.1.17     maven      8    -      -      x      -         -      .  .  .  .  .  .  .  .  .  ."
           "  mvxcvi/puget                 1.3.4      maven     15    x      x      x      -         -      .  .  .  .  .  .  .  .  .  x"
           "  org.clojure/clojure          1.11.1     maven  4,008    x      x      x      -         -      .  .  .  .  .  .  .  .  .  ."
@@ -123,7 +123,7 @@
           "  org.slf4j/slf4j-nop          2.0.9      maven      4    x      x      x      -         -      .  .  .  .  .  .  .  .  .  ."
           "  pjstadig/humane-test-output  0.11.0     maven      7    t      -      -      -         -      .  .  .  .  .  .  .  .  .  ."
           "  rewrite-clj/rewrite-clj      1.1.47     maven     73    -      -      x      -         -      .  .  .  .  .  .  .  .  .  ."
-          "  zprint/zprint                1.2.7      maven    210    x      x      x      -         -      .  .  .  .  x  .  .  .  .  ."])))
+          "  zprint/zprint                1.2.8      maven    211    x      x      x      -         -      .  .  .  .  x  .  .  .  .  ."])))
 
 #_(deftest polylith-libs-outdated
     (is (= (keep-except "clojure2d"
@@ -206,7 +206,7 @@
           "  overview                  .  x  .  x  .  .  x  .  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  x  x  .  ."
           "  path-finder               .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  shell                     .  .  .  x  x  .  .  x  x  x  .  .  .  .  .  .  x  .  x  x  .  .  .  .  x  x  x  .  .  .  .  x  ."
+          "  shell                     .  .  .  x  .  .  .  x  x  x  .  .  .  .  .  .  x  .  x  x  .  .  .  .  x  x  x  .  .  .  .  x  ."
           "  system                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  system-x                  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
@@ -275,7 +275,7 @@
             "  overview                  +  x  .  x  +  .  x  .  +  +  .  x  x  .  .  +  +  .  +  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
             "  path-finder               .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  shell                     .  .  .  x  x  .  +  x  x  x  .  +  .  .  .  +  x  .  x  x  .  +  .  +  x  x  x  +  +  .  .  x  ."
+            "  shell                     .  .  .  x  .  .  .  x  x  x  .  +  .  .  .  .  x  .  x  x  .  .  .  +  x  x  x  .  +  .  .  x  ."
             "  system                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  test-helper               -  -  t  -  -  -  -  -  t  -  -  -  -  -  -  -  -  -  -  -  .  -  -  -  t  t  -  -  -  -  -  -  -"
@@ -343,7 +343,7 @@
             "  overview                  +  x  .  x  +  .  x  .  +  +  .  x  x  .  .  +  +  .  +  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
             "  path-finder               .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  shell                     .  .  .  x  x  .  +  x  x  x  .  +  .  .  .  +  x  .  x  x  .  +  .  +  x  x  x  +  +  .  .  x  ."
+            "  shell                     .  .  .  x  .  .  .  x  x  x  .  +  .  .  .  .  x  .  x  x  .  .  .  +  x  x  x  .  +  .  .  x  ."
             "  system                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  test-helper               -  -  t  -  -  -  -  -  t  -  -  -  -  -  -  -  -  -  -  -  .  -  -  -  t  t  -  -  -  -  -  -  -"
@@ -799,7 +799,6 @@
           "sh"                       {:src  {}
                                       :test {}}
           "shell"                    {:src  {:direct   ["common"
-                                                        "config-reader"
                                                         "doc"
                                                         "file"
                                                         "git"
@@ -810,15 +809,10 @@
                                                         "user-input"
                                                         "util"
                                                         "ws-explorer"]
-                                             :indirect ["deps"
-                                                        "image-creator"
-                                                        "path-finder"
-                                                        "test-runner-contract"
+                                             :indirect ["image-creator"
                                                         "text-table"
-                                                        "validator"
                                                         "version"]}
                                       :test {:direct   ["common"
-                                                        "config-reader"
                                                         "doc"
                                                         "file"
                                                         "git"
@@ -829,12 +823,8 @@
                                                         "user-input"
                                                         "util"
                                                         "ws-explorer"]
-                                             :indirect ["deps"
-                                                        "image-creator"
-                                                        "path-finder"
-                                                        "test-runner-contract"
+                                             :indirect ["image-creator"
                                                         "text-table"
-                                                        "validator"
                                                         "version"]}}
           "system"                   {:src  {}
                                       :test {}}

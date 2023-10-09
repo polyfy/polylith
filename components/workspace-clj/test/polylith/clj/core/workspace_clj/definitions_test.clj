@@ -17,8 +17,8 @@
                            "interface")
          [{:name "ordered-map"
            :type "function"
-           :parameters [{:name "&"}
-                        {:name "keyvals"}]}])))
+           :arglist [{:name "&"}
+                     {:name "keyvals"}]}])))
 
 (deftest definitions--a-single-arity-defn-statement-with-a-type-hint--returns-a-definition-including-type-hint
   (is (= (defs/definitions "interface"
@@ -26,8 +26,8 @@
                            "interface")
          [{:name "my-func"
            :type "function"
-           :parameters [{:name "arg1"}
-                        {:name "arg2", :type "^String"}]}])))
+           :arglist [{:name "arg1"}
+                     {:name "arg2", :type "^String"}]}])))
 
 (deftest definitions--a-multi-arity-defn-statement--returns-a-list-of-definitions
   (is (= (defs/definitions "interface"
@@ -40,8 +40,8 @@
 
          [{:name "pretty-messages"
            :type "function"
-           :parameters [{:name "workspace"}]}
+           :arglist [{:name "workspace"}]}
           {:name "pretty-messages"
            :type "function"
-           :parameters [{:name "messages"}
-                        {:name "color-mode"}]}])))
+           :arglist [{:name "messages"}
+                     {:name "color-mode"}]}])))

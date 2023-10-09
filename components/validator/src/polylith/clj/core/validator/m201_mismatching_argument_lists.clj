@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.validator.m201-mismatching-parameters
+(ns ^:no-doc polylith.clj.core.validator.m201-mismatching-argument-lists
   (:require [clojure.string :as str]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.validator.shared :as shared]
@@ -8,22 +8,22 @@
                      #{"macro"} "Macro"
                      #{"function" "macro"} "Function and macro"})
 
-(defn function-warnings [[id [{:keys [sub-ns name type parameters]}]] interface component-name name->component color-mode]
+(defn function-warnings [[id [{:keys [sub-ns name type arglist]}]] interface component-name name->component color-mode]
   (let [other-component-names (filterv #(not= % component-name)
                                        (:implementing-components interface))
         other-component (-> other-component-names first name->component)
         other-function (first ((-> other-component :interface shared/id->functions-or-macro) id))]
 
     (when (and (-> other-function nil? not)
-               (not= parameters (:parameters other-function)))
+               (not= arglist (:arglist other-function)))
       (let [[comp1 comp2] (sort [component-name (:name other-component)])
-            function-or-macro1 (shared/->function-or-macro sub-ns name parameters)
+            function-or-macro1 (shared/->function-or-macro sub-ns name arglist)
             function-or-macro2 (shared/->function-or-macro other-function)
             functions-and-macros (sort [function-or-macro1 function-or-macro2])
             types (types->message (set [type (:type other-function)]))
             message (str types " in the " (color/component comp1 color-mode) " component "
                          "is also defined in " (color/component comp2 color-mode)
-                         " but with a different parameter list: "
+                         " but with a different argument list: "
                          (str/join ", " functions-and-macros))]
         [(util/ordered-map :type "warning"
                            :code 201

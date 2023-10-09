@@ -39,7 +39,7 @@ is a snapshot, e.g. `0.2.19-SNAPSHOT`, which triggers a build in CircleCi that:
 * Releases the snapshot version of the {cljdoc-api-url}/polylith[clj-poly] library to Clojars.
 * Triggers a snapshot build of the web based https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc/readme[cljdoc] documentation.
 
-The same snapshot release can be triggered several times and will the overwrite the latest snapshot release.
+The same snapshot release can be triggered several times and will overwrite the latest snapshot release.
 
 ====
 NOTE: The https://github.com/polyfy/polylith/blob/issue-318/next-release.txt[next-release.txt] file lists what has been included in the SNAPSHOT release, since the previous final release.
@@ -61,7 +61,7 @@ This job runs the `create-version-txt` function in the `build.clj` file. The `cr
 This job runs the check command from the `poly` tool as follows: `clojure -M:poly check`.
 If there are any errors in the xref:workspace.adoc[workspace], it returns with a non-zero exit code and the CircleCI workflow stops at this stage.
 If there are any warnings printed by the tool, it will be visible in the job's output.
-If the current branch is the master branch, `since:previous-release` parameter is added to the command and run as: `clojure -M:poly check since:previous-release`.
+If the current branch is the master branch, `since:previous-release` argument is added to the command and run as: `clojure -M:poly check since:previous-release`.
 
 ==== info
 
@@ -76,7 +76,7 @@ This job runs the following commands, one after another:
 * `clojure -M:poly libs`
 ** Prints all libraries that are used in the workspace.
 
-If the current branch is the master branch, `since:previous-release` parameter is added to each command above.
+If the current branch is the master branch, `since:previous-release` argument is added to each command above.
 
 After this job is done, all this information will be available in the jobs output for debugging purposes, if needed.
 You can read more about available commands xref:commands.adoc[here].
@@ -88,7 +88,7 @@ The `poly` tool supports incremental testing out-of-the-box by using stable poin
 It runs the following command: `clojure -M:poly test :project`.
 If any of the tests fail, it will exit with a non-zero exit code and the CircleCI workflow stops at this stage.
 Information about the passed/failed tests will be printed in the job's output.
-If the current branch is the master branch, `since:previous-release` parameter is added to the command and run as: `clojure -M:poly test since:previous-release`.
+If the current branch is the master branch, `since:previous-release` argument is added to the command and run as: `clojure -M:poly test since:previous-release`.
 
 ==== mark-as-stable
 

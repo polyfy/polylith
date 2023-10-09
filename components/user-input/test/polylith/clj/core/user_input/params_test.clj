@@ -1,6 +1,6 @@
 (ns polylith.clj.core.user-input.params-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.user-input.params :as params]))
+            [polylith.clj.core.user-input.args :as params]))
 
 (deftest extract--named-and-unamed-arguments--returns-expected-result
   (is (= (params/extract ["w"
