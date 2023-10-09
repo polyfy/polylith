@@ -6,416 +6,416 @@
 (def workspace {:user-input {:selected-profiles #{"default"}}
                 :interfaces [{:name "workspace-clj",
                               :type "interface",
-                              :definitions [{:name "workspace-from-disk", :type "function", :parameters [{:name "ws-dir"}]}
+                              :definitions [{:name "workspace-from-disk", :type "function", :arglist [{:name "ws-dir"}]}
                                             {:name "workspace-from-disk",
                                              :type "function",
-                                             :parameters [{:name "ws-dir"} {:name "config"}]}],
+                                             :arglist [{:name "ws-dir"} {:name "config"}]}],
                               :implementing-components ["workspace-clj"]}
                              {:name "test-runner",
                               :type "interface",
-                              :definitions [{:name "run", :type "function", :parameters [{:name "workspace"}]}],
+                              :definitions [{:name "run", :type "function", :arglist [{:name "workspace"}]}],
                               :implementing-components ["test-runner"]}
                              {:name "command",
                               :type "interface",
                               :definitions [{:name "execute-command",
                                              :type "function",
-                                             :parameters [{:name "current-dir"} {:name "workspace"} {:name "cmd"} {:name "user-input"}]}],
+                                             :arglist [{:name "current-dir"} {:name "workspace"} {:name "cmd"} {:name "user-input"}]}],
                               :implementing-components ["command"]}
                              {:name "text-table",
                               :type "interface",
-                              :definitions [{:name "line", :type "function", :parameters [{:name "rows"}]}
-                                            {:name "line", :type "function", :parameters [{:name "rows"} {:name "visables"}]}
+                              :definitions [{:name "line", :type "function", :arglist [{:name "rows"}]}
+                                            {:name "line", :type "function", :arglist [{:name "rows"} {:name "visables"}]}
                                             {:name "table",
                                              :type "function",
-                                             :parameters [{:name "initial-spaces"}
-                                                          {:name "alignments"}
-                                                          {:name "colors"}
-                                                          {:name "rows"}
-                                                          {:name "color-mode"}]}
+                                             :arglist [{:name "initial-spaces"}
+                                                       {:name "alignments"}
+                                                       {:name "colors"}
+                                                       {:name "rows"}
+                                                       {:name "color-mode"}]}
                                             {:name "table",
                                              :type "function",
-                                             :parameters [{:name "initial-spaces"}
-                                                          {:name "alignments"}
-                                                          {:name "header-colors"}
-                                                          {:name "header-orientations"}
-                                                          {:name "colors"}
-                                                          {:name "headers"}
-                                                          {:name "rows"}
-                                                          {:name "color-mode"}]}
+                                             :arglist [{:name "initial-spaces"}
+                                                       {:name "alignments"}
+                                                       {:name "header-colors"}
+                                                       {:name "header-orientations"}
+                                                       {:name "colors"}
+                                                       {:name "headers"}
+                                                       {:name "rows"}
+                                                       {:name "color-mode"}]}
                                             {:name "table",
                                              :type "function",
-                                             :parameters [{:name "initial-spaces"}
-                                                          {:name "alignments"}
-                                                          {:name "header-colors"}
-                                                          {:name "header-orientations"}
-                                                          {:name "colors"}
-                                                          {:name "headers"}
-                                                          {:name "line-visables"}
-                                                          {:name "rows"}
-                                                          {:name "color-mode"}]}],
+                                             :arglist [{:name "initial-spaces"}
+                                                       {:name "alignments"}
+                                                       {:name "header-colors"}
+                                                       {:name "header-orientations"}
+                                                       {:name "colors"}
+                                                       {:name "headers"}
+                                                       {:name "line-visables"}
+                                                       {:name "rows"}
+                                                       {:name "color-mode"}]}],
                               :implementing-components ["text-table"]}
                              {:name "util",
                               :type "interface",
                               :definitions [{:name "find-first",
                                              :type "function",
-                                             :parameters [{:name "predicate"} {:name "sequence"}]}
-                                            {:name "first-as-vector", :type "function", :parameters [{:name "vals"}]}
-                                            {:name "ordered-map", :type "function", :parameters [{:name "&"} {:name "keyvals"}]}
-                                            {:name "stringify-and-sort-map", :type "function", :parameters [{:name "m"}]}
-                                            {:name "def-keys", :type "macro", :parameters [{:name "amap"} {:name "keys"}]}
+                                             :arglist [{:name "predicate"} {:name "sequence"}]}
+                                            {:name "first-as-vector", :type "function", :arglist [{:name "vals"}]}
+                                            {:name "ordered-map", :type "function", :arglist [{:name "&"} {:name "keyvals"}]}
+                                            {:name "stringify-and-sort-map", :type "function", :arglist [{:name "m"}]}
+                                            {:name "def-keys", :type "macro", :arglist [{:name "amap"} {:name "keys"}]}
                                             {:name "none", :type "data", :sub-ns "color"}
                                             {:name "base",
                                              :type "function",
-                                             :parameters [{:name "base"} {:name "color-mode"}],
+                                             :arglist [{:name "base"} {:name "color-mode"}],
                                              :sub-ns "color"}
                                             {:name "blue",
                                              :type "function",
-                                             :parameters [{:name "color-mode"} {:name "&"} {:name "messages"}],
+                                             :arglist [{:name "color-mode"} {:name "&"} {:name "messages"}],
                                              :sub-ns "color"}
                                             {:name "brick",
                                              :type "function",
-                                             :parameters [{:name "type"} {:name "brick"} {:name "color-mode"}],
+                                             :arglist [{:name "type"} {:name "brick"} {:name "color-mode"}],
                                              :sub-ns "color"}
-                                            {:name "clean-colors", :type "function", :parameters [{:name "message"}], :sub-ns "color"}
+                                            {:name "clean-colors", :type "function", :arglist [{:name "message"}], :sub-ns "color"}
                                             {:name "colored-text",
                                              :type "function",
-                                             :parameters [{:name "color"} {:name "color-mode"} {:name "messages"}],
+                                             :arglist [{:name "color"} {:name "color-mode"} {:name "messages"}],
                                              :sub-ns "color"}
                                             {:name "colored-text",
                                              :type "function",
-                                             :parameters [{:name "color-light"}
-                                                          {:name "color-dark"}
-                                                          {:name "color-mode"}
-                                                          {:name "messages"}],
+                                             :arglist [{:name "color-light"}
+                                                       {:name "color-dark"}
+                                                       {:name "color-mode"}
+                                                       {:name "messages"}],
                                              :sub-ns "color"}
                                             {:name "component",
                                              :type "function",
-                                             :parameters [{:name "component"} {:name "color-mode"}],
+                                             :arglist [{:name "component"} {:name "color-mode"}],
                                              :sub-ns "color"}
                                             {:name "cyan",
                                              :type "function",
-                                             :parameters [{:name "color-mode"} {:name "&"} {:name "messages"}],
+                                             :arglist [{:name "color-mode"} {:name "&"} {:name "messages"}],
                                              :sub-ns "color"}
                                             {:name "project",
                                              :type "function",
-                                             :parameters [{:name "project"} {:name "color-mode"}],
+                                             :arglist [{:name "project"} {:name "color-mode"}],
                                              :sub-ns "color"}
                                             {:name "error",
                                              :type "function",
-                                             :parameters [{:name "color-mode"} {:name "&"} {:name "messages"}],
+                                             :arglist [{:name "color-mode"} {:name "&"} {:name "messages"}],
                                              :sub-ns "color"}
                                             {:name "green",
                                              :type "function",
-                                             :parameters [{:name "color-mode"} {:name "&"} {:name "messages"}],
+                                             :arglist [{:name "color-mode"} {:name "&"} {:name "messages"}],
                                              :sub-ns "color"}
                                             {:name "grey",
                                              :type "function",
-                                             :parameters [{:name "color-mode"} {:name "&"} {:name "messages"}],
+                                             :arglist [{:name "color-mode"} {:name "&"} {:name "messages"}],
                                              :sub-ns "color"}
                                             {:name "interface",
                                              :type "function",
-                                             :parameters [{:name "ifc"} {:name "color-mode"}],
+                                             :arglist [{:name "ifc"} {:name "color-mode"}],
                                              :sub-ns "color"}
                                             {:name "namespc",
                                              :type "function",
-                                             :parameters [{:name "namespace"} {:name "color-mode"}],
+                                             :arglist [{:name "namespace"} {:name "color-mode"}],
                                              :sub-ns "color"}
                                             {:name "namespc",
                                              :type "function",
-                                             :parameters [{:name "interface"} {:name "namespace"} {:name "color-mode"}],
+                                             :arglist [{:name "interface"} {:name "namespace"} {:name "color-mode"}],
                                              :sub-ns "color"}
                                             {:name "ok",
                                              :type "function",
-                                             :parameters [{:name "color-mode"} {:name "&"} {:name "messages"}],
+                                             :arglist [{:name "color-mode"} {:name "&"} {:name "messages"}],
                                              :sub-ns "color"}
                                             {:name "purple",
                                              :type "function",
-                                             :parameters [{:name "color-mode"} {:name "&"} {:name "messages"}],
+                                             :arglist [{:name "color-mode"} {:name "&"} {:name "messages"}],
                                              :sub-ns "color"}
                                             {:name "red",
                                              :type "function",
-                                             :parameters [{:name "color-mode"} {:name "&"} {:name "messages"}],
+                                             :arglist [{:name "color-mode"} {:name "&"} {:name "messages"}],
                                              :sub-ns "color"}
                                             {:name "warning",
                                              :type "function",
-                                             :parameters [{:name "color-mode"} {:name "&"} {:name "messages"}],
+                                             :arglist [{:name "color-mode"} {:name "&"} {:name "messages"}],
                                              :sub-ns "color"}
                                             {:name "yellow",
                                              :type "function",
-                                             :parameters [{:name "color-mode"} {:name "&"} {:name "messages"}],
+                                             :arglist [{:name "color-mode"} {:name "&"} {:name "messages"}],
                                              :sub-ns "color"}
                                             {:name "print-error-message",
                                              :type "function",
-                                             :parameters [{:name "e"}],
+                                             :arglist [{:name "e"}],
                                              :sub-ns "exception"}
-                                            {:name "print-exception", :type "function", :parameters [{:name "e"}], :sub-ns "exception"}
+                                            {:name "print-exception", :type "function", :arglist [{:name "e"}], :sub-ns "exception"}
                                             {:name "print-stacktrace",
                                              :type "function",
-                                             :parameters [{:name "e"}],
+                                             :arglist [{:name "e"}],
                                              :sub-ns "exception"}
-                                            {:name "extract", :type "function", :parameters [{:name "args"}], :sub-ns "params"}
-                                            {:name "key-name", :type "function", :parameters [{:name "arg"}], :sub-ns "params"}
-                                            {:name "named?", :type "function", :parameters [{:name "arg"}], :sub-ns "params"}
-                                            {:name "unnamed?", :type "function", :parameters [{:name "arg"}], :sub-ns "params"}
+                                            {:name "extract", :type "function", :arglist [{:name "args"}], :sub-ns "params"}
+                                            {:name "key-name", :type "function", :arglist [{:name "arg"}], :sub-ns "params"}
+                                            {:name "named?", :type "function", :arglist [{:name "arg"}], :sub-ns "params"}
+                                            {:name "unnamed?", :type "function", :arglist [{:name "arg"}], :sub-ns "params"}
                                             {:name "count-things",
                                              :type "function",
-                                             :parameters [{:name "thing"} {:name "cnt"}],
+                                             :arglist [{:name "thing"} {:name "cnt"}],
                                              :sub-ns "str"}
-                                            {:name "line", :type "function", :parameters [{:name "length"}], :sub-ns "str"}
+                                            {:name "line", :type "function", :arglist [{:name "length"}], :sub-ns "str"}
                                             {:name "sep-1000",
                                              :type "function",
-                                             :parameters [{:name "number"} {:name "sep"}],
+                                             :arglist [{:name "number"} {:name "sep"}],
                                              :sub-ns "str"}
                                             {:name "skip-if-ends-with",
                                              :type "function",
-                                             :parameters [{:name "string"} {:name "ends-with"}],
+                                             :arglist [{:name "string"} {:name "ends-with"}],
                                              :sub-ns "str"}
                                             {:name "skip-prefix",
                                              :type "function",
-                                             :parameters [{:name "string"} {:name "prefix"}],
+                                             :arglist [{:name "string"} {:name "prefix"}],
                                              :sub-ns "str"}
                                             {:name "skip-suffix",
                                              :type "function",
-                                             :parameters [{:name "string"} {:name "suffix"}],
+                                             :arglist [{:name "string"} {:name "suffix"}],
                                              :sub-ns "str"}
                                             {:name "skip-suffixes",
                                              :type "function",
-                                             :parameters [{:name "string"} {:name "suffixes"}],
+                                             :arglist [{:name "string"} {:name "suffixes"}],
                                              :sub-ns "str"}
                                             {:name "skip-until",
                                              :type "function",
-                                             :parameters [{:name "string"} {:name "separator"}],
+                                             :arglist [{:name "string"} {:name "separator"}],
                                              :sub-ns "str"}
-                                            {:name "spaces", :type "function", :parameters [{:name "n#spaces"}], :sub-ns "str"}
+                                            {:name "spaces", :type "function", :arglist [{:name "n#spaces"}], :sub-ns "str"}
                                             {:name "take-until",
                                              :type "function",
-                                             :parameters [{:name "string"} {:name "separator"}],
+                                             :arglist [{:name "string"} {:name "separator"}],
                                              :sub-ns "str"}
-                                            {:name "current-time", :type "function", :parameters [], :sub-ns "time"}
+                                            {:name "current-time", :type "function", :arglist [], :sub-ns "time"}
                                             {:name "print-execution-time",
                                              :type "function",
-                                             :parameters [{:name "start-time"}],
+                                             :arglist [{:name "start-time"}],
                                              :sub-ns "time"}],
                               :implementing-components ["util"]}
                              {:name "validator",
                               :type "interface",
                               :definitions [{:name "messages",
                                              :type "function",
-                                             :parameters [{:name "ws-dir"}
-                                                          {:name "suffixed-top-ns"}
-                                                          {:name "interface-names"}
-                                                          {:name "interfaces"}
-                                                          {:name "components"}
-                                                          {:name "bases"}
-                                                          {:name "projects"}
-                                                          {:name "interface-ns"}
-                                                          {:name "ns-to-lib"}
-                                                          {:name "color-mode"}]}],
+                                             :arglist [{:name "ws-dir"}
+                                                       {:name "suffixed-top-ns"}
+                                                       {:name "interface-names"}
+                                                       {:name "interfaces"}
+                                                       {:name "components"}
+                                                       {:name "bases"}
+                                                       {:name "projects"}
+                                                       {:name "interface-ns"}
+                                                       {:name "ns-to-lib"}
+                                                       {:name "color-mode"}]}],
                               :implementing-components ["validator"]}
                              {:name "shell",
                               :type "interface",
-                              :definitions [{:name "sh", :type "function", :parameters [{:name "&"} {:name "args"}]}],
+                              :definitions [{:name "sh", :type "function", :arglist [{:name "&"} {:name "args"}]}],
                               :implementing-components ["shell"]}
                              {:name "workspace",
                               :type "interface",
                               :definitions [{:name "enrich-workspace",
                                              :type "function",
-                                             :parameters [{:name "workspace"} {:name "user-input"}]}
+                                             :arglist [{:name "workspace"} {:name "user-input"}]}
                                             {:name "enrich-workspace-str-keys",
                                              :type "function",
-                                             :parameters [{:name "workspace"} {:name "user-input"}]}
+                                             :arglist [{:name "workspace"} {:name "user-input"}]}
                                             {:name "print-info",
                                              :type "function",
-                                             :parameters [{:name "workspace"} {:name "is-show-loc"}]}
+                                             :arglist [{:name "workspace"} {:name "is-show-loc"}]}
                                             {:name "print-table-str-keys",
                                              :type "function",
-                                             :parameters [{:name "workspace"} {:name "is-show-loc"}]}],
+                                             :arglist [{:name "workspace"} {:name "is-show-loc"}]}],
                               :implementing-components ["workspace"]}
                              {:name "user-config",
                               :type "interface",
-                              :definitions [{:name "color-mode", :type "function", :parameters []}
-                                            {:name "config-content", :type "function", :parameters []}
-                                            {:name "home-dir", :type "function", :parameters []}
-                                            {:name "thousand-separator", :type "function", :parameters []}],
+                              :definitions [{:name "color-mode", :type "function", :arglist []}
+                                            {:name "config-content", :type "function", :arglist []}
+                                            {:name "home-dir", :type "function", :arglist []}
+                                            {:name "thousand-separator", :type "function", :arglist []}],
                               :implementing-components ["user-config"]}
                              {:name "git",
                               :type "interface",
-                              :definitions [{:name "add", :type "function", :parameters [{:name "ws-dir"} {:name "filename"}]}
-                                            {:name "current-sha", :type "function", :parameters [{:name "ws-dir"}]}
+                              :definitions [{:name "add", :type "function", :arglist [{:name "ws-dir"} {:name "filename"}]}
+                                            {:name "current-sha", :type "function", :arglist [{:name "ws-dir"}]}
                                             {:name "diff",
                                              :type "function",
-                                             :parameters [{:name "ws-dir"} {:name "sha1"} {:name "sha2"}]}
-                                            {:name "diff-command", :type "function", :parameters [{:name "sha1"} {:name "sha2"}]}
-                                            {:name "init", :type "function", :parameters [{:name "ws-dir"}]}],
+                                             :arglist [{:name "ws-dir"} {:name "sha1"} {:name "sha2"}]}
+                                            {:name "diff-command", :type "function", :arglist [{:name "sha1"} {:name "sha2"}]}
+                                            {:name "init", :type "function", :arglist [{:name "ws-dir"}]}],
                               :implementing-components ["git"]}
                              {:name "deps",
                               :type "interface",
                               :definitions [{:name "interface-deps",
                                              :type "function",
-                                             :parameters [{:name "suffixed-top-ns"} {:name "interface-names"} {:name "brick"}]}
+                                             :arglist [{:name "suffixed-top-ns"} {:name "interface-names"} {:name "brick"}]}
                                             {:name "interface-ns-deps",
                                              :type "function",
-                                             :parameters [{:name "top-ns"}
-                                                          {:name "interface-name"}
-                                                          {:name "interface-names"}
-                                                          {:name "brick-namespaces"}]}
+                                             :arglist [{:name "top-ns"}
+                                                       {:name "interface-name"}
+                                                       {:name "interface-names"}
+                                                       {:name "brick-namespaces"}]}
                                             {:name "print-brick-ifc-table",
                                              :type "function",
-                                             :parameters [{:name "workspace"} {:name "brick-name"} {:name "color-mode"}]}
+                                             :arglist [{:name "workspace"} {:name "brick-name"} {:name "color-mode"}]}
                                             {:name "print-brick-table",
                                              :type "function",
-                                             :parameters [{:name "workspace"}
-                                                          {:name "project-name"}
-                                                          {:name "brick-name"}
-                                                          {:name "color-mode"}]}
+                                             :arglist [{:name "workspace"}
+                                                       {:name "project-name"}
+                                                       {:name "brick-name"}
+                                                       {:name "color-mode"}]}
                                             {:name "print-workspace-brick-table",
                                              :type "function",
-                                             :parameters [{:name "workspace"} {:name "project-name"} {:name "color-mode"}]}
+                                             :arglist [{:name "workspace"} {:name "project-name"} {:name "color-mode"}]}
                                             {:name "print-workspace-ifc-table",
                                              :type "function",
-                                             :parameters [{:name "workspace"} {:name "color-mode"}]}],
+                                             :arglist [{:name "workspace"} {:name "color-mode"}]}],
                               :implementing-components ["deps"]}
                              {:name "help",
                               :type "interface",
-                              :definitions [{:name "print-help", :type "function", :parameters [{:name "cmd"} {:name "color-mode"}]}],
+                              :definitions [{:name "print-help", :type "function", :arglist [{:name "cmd"} {:name "color-mode"}]}],
                               :implementing-components ["help"]}
                              {:name "creator",
                               :type "interface",
                               :definitions [{:name "create-base",
                                              :type "function",
-                                             :parameters [{:name "workspace"} {:name "base-name"}]}
+                                             :arglist [{:name "workspace"} {:name "base-name"}]}
                                             {:name "create-component",
                                              :type "function",
-                                             :parameters [{:name "workspace"} {:name "component-name"} {:name "interface-name"}]}
+                                             :arglist [{:name "workspace"} {:name "component-name"} {:name "interface-name"}]}
                                             {:name "create-project",
                                              :type "function",
-                                             :parameters [{:name "workspace"} {:name "project"}]}
+                                             :arglist [{:name "workspace"} {:name "project"}]}
                                             {:name "create-workspace",
                                              :type "function",
-                                             :parameters [{:name "root-dir"} {:name "ws-name"} {:name "top-ns"}]}
+                                             :arglist [{:name "root-dir"} {:name "ws-name"} {:name "top-ns"}]}
                                             {:name "print-alias-message",
                                              :type "function",
-                                             :parameters [{:name "project"} {:name "color-mode"}]}],
+                                             :arglist [{:name "project"} {:name "color-mode"}]}],
                               :implementing-components ["creator"]}
                              {:name "file",
                               :type "interface",
-                              :definitions [{:name "absolute-path", :type "function", :parameters [{:name "path"}]}
+                              :definitions [{:name "absolute-path", :type "function", :arglist [{:name "path"}]}
                                             {:name "copy-resource-file!",
                                              :type "function",
-                                             :parameters [{:name "source"} {:name "target-path"}]}
-                                            {:name "create-dir", :type "function", :parameters [{:name "path", :type "^String"}]}
-                                            {:name "create-file", :type "function", :parameters [{:name "path"} {:name "rows"}]}
-                                            {:name "create-missing-dirs", :type "function", :parameters [{:name "filename"}]}
-                                            {:name "create-temp-dir", :type "function", :parameters [{:name "dir"}]}
-                                            {:name "current-dir", :type "function", :parameters []}
-                                            {:name "delete-dir", :type "function", :parameters [{:name "path"}]}
-                                            {:name "delete-file", :type "function", :parameters [{:name "path"}]}
-                                            {:name "delete-folder", :type "function", :parameters [{:name "file"}]}
-                                            {:name "directory-paths", :type "function", :parameters [{:name "dir"}]}
-                                            {:name "directory?", :type "function", :parameters [{:name "file", :type "^File"}]}
-                                            {:name "exists", :type "function", :parameters [{:name "path"}]}
-                                            {:name "file-name", :type "function", :parameters [{:name "file", :type "^File"}]}
-                                            {:name "files-recursively", :type "function", :parameters [{:name "dir-path"}]}
-                                            {:name "lines-of-code", :type "function", :parameters [{:name "file-path"}]}
-                                            {:name "paths-recursively", :type "function", :parameters [{:name "dir"}]}
-                                            {:name "read-file", :type "function", :parameters [{:name "path"}]}
-                                            {:name "relative-paths", :type "function", :parameters [{:name "path"}]}],
+                                             :arglist [{:name "source"} {:name "target-path"}]}
+                                            {:name "create-dir", :type "function", :arglist [{:name "path", :type "^String"}]}
+                                            {:name "create-file", :type "function", :arglist [{:name "path"} {:name "rows"}]}
+                                            {:name "create-missing-dirs", :type "function", :arglist [{:name "filename"}]}
+                                            {:name "create-temp-dir", :type "function", :arglist [{:name "dir"}]}
+                                            {:name "current-dir", :type "function", :arglist []}
+                                            {:name "delete-dir", :type "function", :arglist [{:name "path"}]}
+                                            {:name "delete-file", :type "function", :arglist [{:name "path"}]}
+                                            {:name "delete-folder", :type "function", :arglist [{:name "file"}]}
+                                            {:name "directory-paths", :type "function", :arglist [{:name "dir"}]}
+                                            {:name "directory?", :type "function", :arglist [{:name "file", :type "^File"}]}
+                                            {:name "exists", :type "function", :arglist [{:name "path"}]}
+                                            {:name "file-name", :type "function", :arglist [{:name "file", :type "^File"}]}
+                                            {:name "files-recursively", :type "function", :arglist [{:name "dir-path"}]}
+                                            {:name "lines-of-code", :type "function", :arglist [{:name "file-path"}]}
+                                            {:name "paths-recursively", :type "function", :arglist [{:name "dir"}]}
+                                            {:name "read-file", :type "function", :arglist [{:name "path"}]}
+                                            {:name "relative-paths", :type "function", :arglist [{:name "path"}]}],
                               :implementing-components ["file"]}
                              {:name "path-finder",
                               :type "interface",
-                              :definitions [{:name "all-src-deps", :type "function", :parameters [{:name "dep-entries"}]}
-                                            {:name "all-test-deps", :type "function", :parameters [{:name "dep-entries"}]}
+                              :definitions [{:name "all-src-deps", :type "function", :arglist [{:name "dep-entries"}]}
+                                            {:name "all-test-deps", :type "function", :arglist [{:name "dep-entries"}]}
                                             {:name "brick-status-flags",
                                              :type "function",
-                                             :parameters [{:name "path-entries"} {:name "brick-name"}]}
+                                             :arglist [{:name "path-entries"} {:name "brick-name"}]}
                                             {:name "deps-entries",
                                              :type "function",
-                                             :parameters [{:name "is-dev"} {:name "src-deps"} {:name "test-deps"} {:name "settings"}]}
+                                             :arglist [{:name "is-dev"} {:name "src-deps"} {:name "test-deps"} {:name "settings"}]}
                                             {:name "project-status-flags",
                                              :type "function",
-                                             :parameters [{:name "path-entries"} {:name "project-name"}]}
+                                             :arglist [{:name "path-entries"} {:name "project-name"}]}
                                             {:name "path-entries",
                                              :type "function",
-                                             :parameters [{:name "ws-dir"}
-                                                          {:name "is-dev"}
-                                                          {:name "src-paths"}
-                                                          {:name "test-paths"}
-                                                          {:name "settings"}]}
-                                            {:name "src-base-names", :type "function", :parameters [{:name "path-entries"}]}
-                                            {:name "src-brick-names", :type "function", :parameters [{:name "path-entries"}]}
-                                            {:name "src-component-names", :type "function", :parameters [{:name "path-entries"}]}
-                                            {:name "src-paths", :type "function", :parameters [{:name "path-entries"}]}
-                                            {:name "test-base-names", :type "function", :parameters [{:name "path-entries"}]}
-                                            {:name "test-component-names", :type "function", :parameters [{:name "path-entries"}]}
-                                            {:name "test-paths", :type "function", :parameters [{:name "path-entries"}]}],
+                                             :arglist [{:name "ws-dir"}
+                                                       {:name "is-dev"}
+                                                       {:name "src-paths"}
+                                                       {:name "test-paths"}
+                                                       {:name "settings"}]}
+                                            {:name "src-base-names", :type "function", :arglist [{:name "path-entries"}]}
+                                            {:name "src-brick-names", :type "function", :arglist [{:name "path-entries"}]}
+                                            {:name "src-component-names", :type "function", :arglist [{:name "path-entries"}]}
+                                            {:name "src-paths", :type "function", :arglist [{:name "path-entries"}]}
+                                            {:name "test-base-names", :type "function", :arglist [{:name "path-entries"}]}
+                                            {:name "test-component-names", :type "function", :arglist [{:name "path-entries"}]}
+                                            {:name "test-paths", :type "function", :arglist [{:name "path-entries"}]}],
                               :implementing-components ["path-finder"]}
                              {:name "test-helper",
                               :type "interface",
-                              :definitions [{:name "content", :type "function", :parameters [{:name "dir"} {:name "filename"}]}
+                              :definitions [{:name "content", :type "function", :arglist [{:name "dir"} {:name "filename"}]}
                                             {:name "execute-command",
                                              :type "function",
-                                             :parameters [{:name "current-dir"} {:name "cmd"} {:name "&"} {:name "[arg1 arg2 arg3]"}]}
-                                            {:name "paths", :type "function", :parameters [{:name "dir"}]}
-                                            {:name "root-dir", :type "function", :parameters []}
-                                            {:name "test-setup-and-tear-down", :type "function", :parameters [{:name "function"}]}
-                                            {:name "user-home", :type "function", :parameters []}],
+                                             :arglist [{:name "current-dir"} {:name "cmd"} {:name "&"} {:name "[arg1 arg2 arg3]"}]}
+                                            {:name "paths", :type "function", :arglist [{:name "dir"}]}
+                                            {:name "root-dir", :type "function", :arglist []}
+                                            {:name "test-setup-and-tear-down", :type "function", :arglist [{:name "function"}]}
+                                            {:name "user-home", :type "function", :arglist []}],
                               :implementing-components ["test-helper"]}
                              {:name "common",
                               :type "interface",
                               :definitions [{:name "create-class-loader",
                                              :type "function",
-                                             :parameters [{:name "paths"} {:name "color-mode"}]}
-                                            {:name "eval-in", :type "function", :parameters [{:name "class-loader"} {:name "form"}]}
-                                            {:name "filter-clojure-paths", :type "function", :parameters [{:name "paths"}]}
-                                            {:name "find-base", :type "function", :parameters [{:name "base-name"} {:name "bases"}]}
-                                            {:name "find-brick", :type "function", :parameters [{:name "name"} {:name "workspace"}]}
+                                             :arglist [{:name "paths"} {:name "color-mode"}]}
+                                            {:name "eval-in", :type "function", :arglist [{:name "class-loader"} {:name "form"}]}
+                                            {:name "filter-clojure-paths", :type "function", :arglist [{:name "paths"}]}
+                                            {:name "find-base", :type "function", :arglist [{:name "base-name"} {:name "bases"}]}
+                                            {:name "find-brick", :type "function", :arglist [{:name "name"} {:name "workspace"}]}
                                             {:name "find-component",
                                              :type "function",
-                                             :parameters [{:name "name"} {:name "components"}]}
+                                             :arglist [{:name "name"} {:name "components"}]}
                                             {:name "find-project",
                                              :type "function",
-                                             :parameters [{:name "project-name"} {:name "projects"}]}
-                                            {:name "messages-without-colors", :type "function", :parameters [{:name "workspace"}]}
-                                            {:name "ns-to-path", :type "function", :parameters [{:name "namespace"}]}
-                                            {:name "path-to-ns", :type "function", :parameters [{:name "namespace"}]}
-                                            {:name "pretty-messages", :type "function", :parameters [{:name "workspace"}]}
+                                             :arglist [{:name "project-name"} {:name "projects"}]}
+                                            {:name "messages-without-colors", :type "function", :arglist [{:name "workspace"}]}
+                                            {:name "ns-to-path", :type "function", :arglist [{:name "namespace"}]}
+                                            {:name "path-to-ns", :type "function", :arglist [{:name "namespace"}]}
+                                            {:name "pretty-messages", :type "function", :arglist [{:name "workspace"}]}
                                             {:name "pretty-messages",
                                              :type "function",
-                                             :parameters [{:name "messages"} {:name "color-mode"}]}
-                                            {:name "suffix-ns-with-dot", :type "function", :parameters [{:name "namespace"}]}
-                                            {:name "user-input", :type "function", :parameters [{:name "args"}]}
+                                             :arglist [{:name "messages"} {:name "color-mode"}]}
+                                            {:name "suffix-ns-with-dot", :type "function", :arglist [{:name "namespace"}]}
+                                            {:name "user-input", :type "function", :arglist [{:name "args"}]}
                                             {:name "validate-args",
                                              :type "function",
-                                             :parameters [{:name "unnamed-args"} {:name "example"}]}
-                                            {:name "base-paths", :type "function", :parameters [{:name "paths"}], :sub-ns "paths"}
+                                             :arglist [{:name "unnamed-args"} {:name "example"}]}
+                                            {:name "base-paths", :type "function", :arglist [{:name "paths"}], :sub-ns "paths"}
                                             {:name "bases-from-paths",
                                              :type "function",
-                                             :parameters [{:name "paths"}],
+                                             :arglist [{:name "paths"}],
                                              :sub-ns "paths"}
                                             {:name "bricks-from-paths",
                                              :type "function",
-                                             :parameters [{:name "paths"}],
+                                             :arglist [{:name "paths"}],
                                              :sub-ns "paths"}
-                                            {:name "component-paths", :type "function", :parameters [{:name "paths"}], :sub-ns "paths"}
+                                            {:name "component-paths", :type "function", :arglist [{:name "paths"}], :sub-ns "paths"}
                                             {:name "components-from-paths",
                                              :type "function",
-                                             :parameters [{:name "paths"}],
+                                             :arglist [{:name "paths"}],
                                              :sub-ns "paths"}
                                             {:name "projects-from-paths",
                                              :type "function",
-                                             :parameters [{:name "paths"}],
+                                             :arglist [{:name "paths"}],
                                              :sub-ns "paths"}
-                                            {:name "src-path?", :type "function", :parameters [{:name "path"}], :sub-ns "paths"}
-                                            {:name "test-path?", :type "function", :parameters [{:name "path"}], :sub-ns "paths"}],
+                                            {:name "src-path?", :type "function", :arglist [{:name "path"}], :sub-ns "paths"}
+                                            {:name "test-path?", :type "function", :arglist [{:name "path"}], :sub-ns "paths"}],
                               :implementing-components ["common"]}
                              {:name "change",
                               :type "interface",
                               :definitions [{:name "with-changes",
                                              :type "function",
-                                             :parameters [{:name "workspace"} {:name "user-input"}]}
+                                             :arglist [{:name "workspace"} {:name "user-input"}]}
                                             {:name "with-changes",
                                              :type "function",
-                                             :parameters [{:name "workspace"} {:name "changed-files"} {:name "user-input"}]}],
+                                             :arglist [{:name "workspace"} {:name "changed-files"} {:name "user-input"}]}],
                               :implementing-components ["change"]}],
                 :ws-dir ".",
                 :name "polylith",
@@ -861,10 +861,10 @@
                               :interface {:name "change",
                                           :definitions [{:name "with-changes",
                                                          :type "function",
-                                                         :parameters [{:name "workspace"} {:name "user-input"}]}
+                                                         :arglist [{:name "workspace"} {:name "user-input"}]}
                                                         {:name "with-changes",
                                                          :type "function",
-                                                         :parameters [{:name "workspace"} {:name "changed-files"} {:name "user-input"}]}]},
+                                                         :arglist [{:name "workspace"} {:name "changed-files"} {:name "user-input"}]}]},
                               :namespaces {:src [{:name "to-test",
                                                   :namespace "polylith.clj.core.change.to-test",
                                                   :file-path "./components/change/src/polylith/clj/core/change/to_test.clj",
@@ -925,10 +925,10 @@
                               :interface {:name "command",
                                           :definitions [{:name "execute-command",
                                                          :type "function",
-                                                         :parameters [{:name "current-dir"}
-                                                                      {:name "workspace"}
-                                                                      {:name "cmd"}
-                                                                      {:name "user-input"}]}]},
+                                                         :arglist [{:name "current-dir"}
+                                                                   {:name "workspace"}
+                                                                   {:name "cmd"}
+                                                                   {:name "user-input"}]}]},
                               :namespaces {:src [{:name "creator",
                                                   :namespace "polylith.clj.core.command.create",
                                                   :file-path "./components/command/src/polylith/clj/core/command/create.clj",
@@ -981,70 +981,70 @@
                               :interface {:name "common",
                                           :definitions [{:name "create-class-loader",
                                                          :type "function",
-                                                         :parameters [{:name "paths"} {:name "color-mode"}]}
+                                                         :arglist [{:name "paths"} {:name "color-mode"}]}
                                                         {:name "eval-in",
                                                          :type "function",
-                                                         :parameters [{:name "class-loader"} {:name "form"}]}
-                                                        {:name "filter-clojure-paths", :type "function", :parameters [{:name "paths"}]}
+                                                         :arglist [{:name "class-loader"} {:name "form"}]}
+                                                        {:name "filter-clojure-paths", :type "function", :arglist [{:name "paths"}]}
                                                         {:name "find-base",
                                                          :type "function",
-                                                         :parameters [{:name "base-name"} {:name "bases"}]}
+                                                         :arglist [{:name "base-name"} {:name "bases"}]}
                                                         {:name "find-brick",
                                                          :type "function",
-                                                         :parameters [{:name "name"} {:name "workspace"}]}
+                                                         :arglist [{:name "name"} {:name "workspace"}]}
                                                         {:name "find-component",
                                                          :type "function",
-                                                         :parameters [{:name "name"} {:name "components"}]}
+                                                         :arglist [{:name "name"} {:name "components"}]}
                                                         {:name "find-project",
                                                          :type "function",
-                                                         :parameters [{:name "project-name"} {:name "projects"}]}
+                                                         :arglist [{:name "project-name"} {:name "projects"}]}
                                                         {:name "messages-without-colors",
                                                          :type "function",
-                                                         :parameters [{:name "workspace"}]}
-                                                        {:name "ns-to-path", :type "function", :parameters [{:name "namespace"}]}
-                                                        {:name "path-to-ns", :type "function", :parameters [{:name "namespace"}]}
-                                                        {:name "pretty-messages", :type "function", :parameters [{:name "workspace"}]}
+                                                         :arglist [{:name "workspace"}]}
+                                                        {:name "ns-to-path", :type "function", :arglist [{:name "namespace"}]}
+                                                        {:name "path-to-ns", :type "function", :arglist [{:name "namespace"}]}
+                                                        {:name "pretty-messages", :type "function", :arglist [{:name "workspace"}]}
                                                         {:name "pretty-messages",
                                                          :type "function",
-                                                         :parameters [{:name "messages"} {:name "color-mode"}]}
+                                                         :arglist [{:name "messages"} {:name "color-mode"}]}
                                                         {:name "suffix-ns-with-dot",
                                                          :type "function",
-                                                         :parameters [{:name "namespace"}]}
-                                                        {:name "user-input", :type "function", :parameters [{:name "args"}]}
+                                                         :arglist [{:name "namespace"}]}
+                                                        {:name "user-input", :type "function", :arglist [{:name "args"}]}
                                                         {:name "validate-args",
                                                          :type "function",
-                                                         :parameters [{:name "unnamed-args"} {:name "example"}]}
+                                                         :arglist [{:name "unnamed-args"} {:name "example"}]}
                                                         {:name "base-paths",
                                                          :type "function",
-                                                         :parameters [{:name "paths"}],
+                                                         :arglist [{:name "paths"}],
                                                          :sub-ns "paths"}
                                                         {:name "bases-from-paths",
                                                          :type "function",
-                                                         :parameters [{:name "paths"}],
+                                                         :arglist [{:name "paths"}],
                                                          :sub-ns "paths"}
                                                         {:name "bricks-from-paths",
                                                          :type "function",
-                                                         :parameters [{:name "paths"}],
+                                                         :arglist [{:name "paths"}],
                                                          :sub-ns "paths"}
                                                         {:name "component-paths",
                                                          :type "function",
-                                                         :parameters [{:name "paths"}],
+                                                         :arglist [{:name "paths"}],
                                                          :sub-ns "paths"}
                                                         {:name "components-from-paths",
                                                          :type "function",
-                                                         :parameters [{:name "paths"}],
+                                                         :arglist [{:name "paths"}],
                                                          :sub-ns "paths"}
                                                         {:name "projects-from-paths",
                                                          :type "function",
-                                                         :parameters [{:name "paths"}],
+                                                         :arglist [{:name "paths"}],
                                                          :sub-ns "paths"}
                                                         {:name "src-path?",
                                                          :type "function",
-                                                         :parameters [{:name "path"}],
+                                                         :arglist [{:name "path"}],
                                                          :sub-ns "paths"}
                                                         {:name "test-path?",
                                                          :type "function",
-                                                         :parameters [{:name "path"}],
+                                                         :arglist [{:name "path"}],
                                                          :sub-ns "paths"}]},
                               :namespaces {:src [{:name "user-input",
                                                   :namespace "polylith.clj.core.common.user-input",
@@ -1095,21 +1095,21 @@
                               :interface {:name "creator",
                                           :definitions [{:name "create-base",
                                                          :type "function",
-                                                         :parameters [{:name "workspace"} {:name "base-name"}]}
+                                                         :arglist [{:name "workspace"} {:name "base-name"}]}
                                                         {:name "create-component",
                                                          :type "function",
-                                                         :parameters [{:name "workspace"}
-                                                                      {:name "component-name"}
-                                                                      {:name "interface-name"}]}
+                                                         :arglist [{:name "workspace"}
+                                                                   {:name "component-name"}
+                                                                   {:name "interface-name"}]}
                                                         {:name "create-project",
                                                          :type "function",
-                                                         :parameters [{:name "workspace"} {:name "project"}]}
+                                                         :arglist [{:name "workspace"} {:name "project"}]}
                                                         {:name "create-workspace",
                                                          :type "function",
-                                                         :parameters [{:name "root-dir"} {:name "ws-name"} {:name "top-ns"}]}
+                                                         :arglist [{:name "root-dir"} {:name "ws-name"} {:name "top-ns"}]}
                                                         {:name "print-alias-message",
                                                          :type "function",
-                                                         :parameters [{:name "project"} {:name "color-mode"}]}]},
+                                                         :arglist [{:name "project"} {:name "color-mode"}]}]},
                               :namespaces {:src [{:name "interface",
                                                   :namespace "polylith.clj.core.create.interface",
                                                   :file-path "./components/create/src/polylith/clj/core/create/interface.clj",
@@ -1170,32 +1170,32 @@
                               :interface {:name "deps",
                                           :definitions [{:name "interface-deps",
                                                          :type "function",
-                                                         :parameters [{:name "suffixed-top-ns"}
-                                                                      {:name "interface-names"}
-                                                                      {:name "brick"}]}
+                                                         :arglist [{:name "suffixed-top-ns"}
+                                                                   {:name "interface-names"}
+                                                                   {:name "brick"}]}
                                                         {:name "interface-ns-deps",
                                                          :type "function",
-                                                         :parameters [{:name "top-ns"}
-                                                                      {:name "interface-name"}
-                                                                      {:name "interface-names"}
-                                                                      {:name "brick-namespaces"}]}
+                                                         :arglist [{:name "top-ns"}
+                                                                   {:name "interface-name"}
+                                                                   {:name "interface-names"}
+                                                                   {:name "brick-namespaces"}]}
                                                         {:name "print-brick-ifc-table",
                                                          :type "function",
-                                                         :parameters [{:name "workspace"} {:name "brick-name"} {:name "color-mode"}]}
+                                                         :arglist [{:name "workspace"} {:name "brick-name"} {:name "color-mode"}]}
                                                         {:name "print-brick-table",
                                                          :type "function",
-                                                         :parameters [{:name "workspace"}
-                                                                      {:name "project-name"}
-                                                                      {:name "brick-name"}
-                                                                      {:name "color-mode"}]}
+                                                         :arglist [{:name "workspace"}
+                                                                   {:name "project-name"}
+                                                                   {:name "brick-name"}
+                                                                   {:name "color-mode"}]}
                                                         {:name "print-workspace-brick-table",
                                                          :type "function",
-                                                         :parameters [{:name "workspace"}
-                                                                      {:name "project-name"}
-                                                                      {:name "color-mode"}]}
+                                                         :arglist [{:name "workspace"}
+                                                                   {:name "project-name"}
+                                                                   {:name "color-mode"}]}
                                                         {:name "print-workspace-ifc-table",
                                                          :type "function",
-                                                         :parameters [{:name "workspace"} {:name "color-mode"}]}]},
+                                                         :arglist [{:name "workspace"} {:name "color-mode"}]}]},
                               :namespaces {:src [{:name "interface",
                                                   :namespace "polylith.clj.core.deps.interface",
                                                   :file-path "./components/deps/src/polylith/clj/core/deps/interface.clj",
@@ -1273,44 +1273,44 @@
                               :type "component",
                               :lines-of-code {:src 591, :test 343}
                               :interface {:name "path-finder",
-                                          :definitions [{:name "all-src-deps", :type "function", :parameters [{:name "dep-entries"}]}
-                                                        {:name "all-test-deps", :type "function", :parameters [{:name "dep-entries"}]}
+                                          :definitions [{:name "all-src-deps", :type "function", :arglist [{:name "dep-entries"}]}
+                                                        {:name "all-test-deps", :type "function", :arglist [{:name "dep-entries"}]}
                                                         {:name "brick-status-flags",
                                                          :type "function",
-                                                         :parameters [{:name "path-entries"} {:name "brick-name"}]}
+                                                         :arglist [{:name "path-entries"} {:name "brick-name"}]}
                                                         {:name "deps-entries",
                                                          :type "function",
-                                                         :parameters [{:name "is-dev"}
-                                                                      {:name "src-deps"}
-                                                                      {:name "test-deps"}
-                                                                      {:name "settings"}]}
+                                                         :arglist [{:name "is-dev"}
+                                                                   {:name "src-deps"}
+                                                                   {:name "test-deps"}
+                                                                   {:name "settings"}]}
                                                         {:name "project-status-flags",
                                                          :type "function",
-                                                         :parameters [{:name "path-entries"} {:name "project-name"}]}
+                                                         :arglist [{:name "path-entries"} {:name "project-name"}]}
                                                         {:name "path-entries",
                                                          :type "function",
-                                                         :parameters [{:name "ws-dir"}
-                                                                      {:name "is-dev"}
-                                                                      {:name "src-paths"}
-                                                                      {:name "test-paths"}
-                                                                      {:name "settings"}]}
+                                                         :arglist [{:name "ws-dir"}
+                                                                   {:name "is-dev"}
+                                                                   {:name "src-paths"}
+                                                                   {:name "test-paths"}
+                                                                   {:name "settings"}]}
                                                         {:name "src-base-names",
                                                          :type "function",
-                                                         :parameters [{:name "path-entries"}]}
+                                                         :arglist [{:name "path-entries"}]}
                                                         {:name "src-brick-names",
                                                          :type "function",
-                                                         :parameters [{:name "path-entries"}]}
+                                                         :arglist [{:name "path-entries"}]}
                                                         {:name "src-component-names",
                                                          :type "function",
-                                                         :parameters [{:name "path-entries"}]}
-                                                        {:name "src-paths", :type "function", :parameters [{:name "path-entries"}]}
+                                                         :arglist [{:name "path-entries"}]}
+                                                        {:name "src-paths", :type "function", :arglist [{:name "path-entries"}]}
                                                         {:name "test-base-names",
                                                          :type "function",
-                                                         :parameters [{:name "path-entries"}]}
+                                                         :arglist [{:name "path-entries"}]}
                                                         {:name "test-component-names",
                                                          :type "function",
-                                                         :parameters [{:name "path-entries"}]}
-                                                        {:name "test-paths", :type "function", :parameters [{:name "path-entries"}]}]},
+                                                         :arglist [{:name "path-entries"}]}
+                                                        {:name "test-paths", :type "function", :arglist [{:name "path-entries"}]}]},
                               :namespaces {:src [{:name "profile-extractor",
                                                   :namespace "polylith.clj.core.path-finder.profile-extractor",
                                                   :file-path "./components/path-finder/src/polylith/clj/core/path-finder/profile_extractor.clj",
@@ -1394,37 +1394,37 @@
                               :type "component",
                               :lines-of-code {:src 165, :test 2}
                               :interface {:name "file",
-                                          :definitions [{:name "absolute-path", :type "function", :parameters [{:name "path"}]}
+                                          :definitions [{:name "absolute-path", :type "function", :arglist [{:name "path"}]}
                                                         {:name "copy-resource-file!",
                                                          :type "function",
-                                                         :parameters [{:name "source"} {:name "target-path"}]}
+                                                         :arglist [{:name "source"} {:name "target-path"}]}
                                                         {:name "create-dir",
                                                          :type "function",
-                                                         :parameters [{:name "path", :type "^String"}]}
+                                                         :arglist [{:name "path", :type "^String"}]}
                                                         {:name "create-file",
                                                          :type "function",
-                                                         :parameters [{:name "path"} {:name "rows"}]}
+                                                         :arglist [{:name "path"} {:name "rows"}]}
                                                         {:name "create-missing-dirs",
                                                          :type "function",
-                                                         :parameters [{:name "filename"}]}
-                                                        {:name "create-temp-dir", :type "function", :parameters [{:name "dir"}]}
-                                                        {:name "current-dir", :type "function", :parameters []}
-                                                        {:name "delete-dir", :type "function", :parameters [{:name "path"}]}
-                                                        {:name "delete-file", :type "function", :parameters [{:name "path"}]}
-                                                        {:name "delete-folder", :type "function", :parameters [{:name "file"}]}
-                                                        {:name "directory-paths", :type "function", :parameters [{:name "dir"}]}
+                                                         :arglist [{:name "filename"}]}
+                                                        {:name "create-temp-dir", :type "function", :arglist [{:name "dir"}]}
+                                                        {:name "current-dir", :type "function", :arglist []}
+                                                        {:name "delete-dir", :type "function", :arglist [{:name "path"}]}
+                                                        {:name "delete-file", :type "function", :arglist [{:name "path"}]}
+                                                        {:name "delete-folder", :type "function", :arglist [{:name "file"}]}
+                                                        {:name "directory-paths", :type "function", :arglist [{:name "dir"}]}
                                                         {:name "directory?",
                                                          :type "function",
-                                                         :parameters [{:name "file", :type "^File"}]}
-                                                        {:name "exists", :type "function", :parameters [{:name "path"}]}
+                                                         :arglist [{:name "file", :type "^File"}]}
+                                                        {:name "exists", :type "function", :arglist [{:name "path"}]}
                                                         {:name "file-name",
                                                          :type "function",
-                                                         :parameters [{:name "file", :type "^File"}]}
-                                                        {:name "files-recursively", :type "function", :parameters [{:name "dir-path"}]}
-                                                        {:name "lines-of-code", :type "function", :parameters [{:name "file-path"}]}
-                                                        {:name "paths-recursively", :type "function", :parameters [{:name "dir"}]}
-                                                        {:name "read-file", :type "function", :parameters [{:name "path"}]}
-                                                        {:name "relative-paths", :type "function", :parameters [{:name "path"}]}]},
+                                                         :arglist [{:name "file", :type "^File"}]}
+                                                        {:name "files-recursively", :type "function", :arglist [{:name "dir-path"}]}
+                                                        {:name "lines-of-code", :type "function", :arglist [{:name "file-path"}]}
+                                                        {:name "paths-recursively", :type "function", :arglist [{:name "dir"}]}
+                                                        {:name "read-file", :type "function", :arglist [{:name "path"}]}
+                                                        {:name "relative-paths", :type "function", :arglist [{:name "path"}]}]},
                               :namespaces {:src [{:name "interfc",
                                                   :namespace "polylith.clj.core.file.interfc",
                                                   :file-path "./components/file/src/polylith/clj/core/file/interfc.clj",
@@ -1446,15 +1446,15 @@
                               :interface {:name "git",
                                           :definitions [{:name "add",
                                                          :type "function",
-                                                         :parameters [{:name "ws-dir"} {:name "filename"}]}
-                                                        {:name "current-sha", :type "function", :parameters [{:name "ws-dir"}]}
+                                                         :arglist [{:name "ws-dir"} {:name "filename"}]}
+                                                        {:name "current-sha", :type "function", :arglist [{:name "ws-dir"}]}
                                                         {:name "diff",
                                                          :type "function",
-                                                         :parameters [{:name "ws-dir"} {:name "sha1"} {:name "sha2"}]}
+                                                         :arglist [{:name "ws-dir"} {:name "sha1"} {:name "sha2"}]}
                                                         {:name "diff-command",
                                                          :type "function",
-                                                         :parameters [{:name "sha1"} {:name "sha2"}]}
-                                                        {:name "init", :type "function", :parameters [{:name "ws-dir"}]}]},
+                                                         :arglist [{:name "sha1"} {:name "sha2"}]}
+                                                        {:name "init", :type "function", :arglist [{:name "ws-dir"}]}]},
                               :namespaces {:src [{:name "interfc",
                                                   :namespace "polylith.clj.core.git.interfc",
                                                   :file-path "./components/git/src/polylith/clj/core/git/interfc.clj",
@@ -1476,7 +1476,7 @@
                               :interface {:name "help",
                                           :definitions [{:name "print-help",
                                                          :type "function",
-                                                         :parameters [{:name "cmd"} {:name "color-mode"}]}]},
+                                                         :arglist [{:name "cmd"} {:name "color-mode"}]}]},
                               :namespaces {:src [{:name "deps",
                                                   :namespace "polylith.clj.core.help.deps",
                                                   :file-path "./components/help/src/polylith/clj/core/help/deps.clj",
@@ -1520,7 +1520,7 @@
                               :type "component",
                               :lines-of-code {:src 19, :test 0}
                               :interface {:name "shell",
-                                          :definitions [{:name "sh", :type "function", :parameters [{:name "&"} {:name "args"}]}]},
+                                          :definitions [{:name "sh", :type "function", :arglist [{:name "&"} {:name "args"}]}]},
                               :namespaces {:src [{:name "interfc",
                                                   :namespace "polylith.clj.core.shell.interfc",
                                                   :file-path "./components/shell/src/polylith/clj/core/shell/interfc.clj",
@@ -1538,19 +1538,19 @@
                               :interface {:name "test-helper",
                                           :definitions [{:name "content",
                                                          :type "function",
-                                                         :parameters [{:name "dir"} {:name "filename"}]}
+                                                         :arglist [{:name "dir"} {:name "filename"}]}
                                                         {:name "execute-command",
                                                          :type "function",
-                                                         :parameters [{:name "current-dir"}
-                                                                      {:name "cmd"}
-                                                                      {:name "&"}
-                                                                      {:name "[arg1 arg2 arg3]"}]}
-                                                        {:name "paths", :type "function", :parameters [{:name "dir"}]}
-                                                        {:name "root-dir", :type "function", :parameters []}
+                                                         :arglist [{:name "current-dir"}
+                                                                   {:name "cmd"}
+                                                                   {:name "&"}
+                                                                   {:name "[arg1 arg2 arg3]"}]}
+                                                        {:name "paths", :type "function", :arglist [{:name "dir"}]}
+                                                        {:name "root-dir", :type "function", :arglist []}
                                                         {:name "test-setup-and-tear-down",
                                                          :type "function",
-                                                         :parameters [{:name "function"}]}
-                                                        {:name "user-home", :type "function", :parameters []}]},
+                                                         :arglist [{:name "function"}]}
+                                                        {:name "user-home", :type "function", :arglist []}]},
                               :namespaces {:src [{:name "interfc",
                                                   :namespace "polylith.clj.core.test-helper.interfc",
                                                   :file-path "./components/test-helper/src/polylith/clj/core/test_helper/interfc.clj",
@@ -1575,7 +1575,7 @@
                               :type "component",
                               :lines-of-code {:src 108, :test 0}
                               :interface {:name "test-runner",
-                                          :definitions [{:name "run", :type "function", :parameters [{:name "workspace"}]}]},
+                                          :definitions [{:name "run", :type "function", :arglist [{:name "workspace"}]}]},
                               :namespaces {:src [{:name "interfc",
                                                   :namespace "polylith.clj.core.test-runner.interfc",
                                                   :file-path "./components/test-runner/src/polylith/clj/core/test_runner/interfc.clj",
@@ -1596,38 +1596,38 @@
                               :type "component",
                               :lines-of-code {:src 145, :test 117}
                               :interface {:name "text-table",
-                                          :definitions [{:name "line", :type "function", :parameters [{:name "rows"}]}
+                                          :definitions [{:name "line", :type "function", :arglist [{:name "rows"}]}
                                                         {:name "line",
                                                          :type "function",
-                                                         :parameters [{:name "rows"} {:name "visables"}]}
+                                                         :arglist [{:name "rows"} {:name "visables"}]}
                                                         {:name "table",
                                                          :type "function",
-                                                         :parameters [{:name "initial-spaces"}
-                                                                      {:name "alignments"}
-                                                                      {:name "colors"}
-                                                                      {:name "rows"}
-                                                                      {:name "color-mode"}]}
+                                                         :arglist [{:name "initial-spaces"}
+                                                                   {:name "alignments"}
+                                                                   {:name "colors"}
+                                                                   {:name "rows"}
+                                                                   {:name "color-mode"}]}
                                                         {:name "table",
                                                          :type "function",
-                                                         :parameters [{:name "initial-spaces"}
-                                                                      {:name "alignments"}
-                                                                      {:name "header-colors"}
-                                                                      {:name "header-orientations"}
-                                                                      {:name "colors"}
-                                                                      {:name "headers"}
-                                                                      {:name "rows"}
-                                                                      {:name "color-mode"}]}
+                                                         :arglist [{:name "initial-spaces"}
+                                                                   {:name "alignments"}
+                                                                   {:name "header-colors"}
+                                                                   {:name "header-orientations"}
+                                                                   {:name "colors"}
+                                                                   {:name "headers"}
+                                                                   {:name "rows"}
+                                                                   {:name "color-mode"}]}
                                                         {:name "table",
                                                          :type "function",
-                                                         :parameters [{:name "initial-spaces"}
-                                                                      {:name "alignments"}
-                                                                      {:name "header-colors"}
-                                                                      {:name "header-orientations"}
-                                                                      {:name "colors"}
-                                                                      {:name "headers"}
-                                                                      {:name "line-visables"}
-                                                                      {:name "rows"}
-                                                                      {:name "color-mode"}]}]},
+                                                         :arglist [{:name "initial-spaces"}
+                                                                   {:name "alignments"}
+                                                                   {:name "header-colors"}
+                                                                   {:name "header-orientations"}
+                                                                   {:name "colors"}
+                                                                   {:name "headers"}
+                                                                   {:name "line-visables"}
+                                                                   {:name "rows"}
+                                                                   {:name "color-mode"}]}]},
                               :namespaces {:src [{:name "interfc",
                                                   :namespace "polylith.clj.core.text-table.interfc",
                                                   :file-path "./components/text-table/src/polylith/clj/core/text_table/interfc.clj",
@@ -1662,10 +1662,10 @@
                               :type "component",
                               :lines-of-code {:src 18, :test 0}
                               :interface {:name "user-config",
-                                          :definitions [{:name "color-mode", :type "function", :parameters []}
-                                                        {:name "config-content", :type "function", :parameters []}
-                                                        {:name "home-dir", :type "function", :parameters []}
-                                                        {:name "thousand-separator", :type "function", :parameters []}]},
+                                          :definitions [{:name "color-mode", :type "function", :arglist []}
+                                                        {:name "config-content", :type "function", :arglist []}
+                                                        {:name "home-dir", :type "function", :arglist []}
+                                                        {:name "thousand-separator", :type "function", :arglist []}]},
                               :namespaces {:src [{:name "interfc",
                                                   :namespace "polylith.clj.core.user-config.interfc",
                                                   :file-path "./components/user-config/src/polylith/clj/core/user_config/interfc.clj",
@@ -1679,166 +1679,166 @@
                               :interface {:name "util",
                                           :definitions [{:name "find-first",
                                                          :type "function",
-                                                         :parameters [{:name "predicate"} {:name "sequence"}]}
-                                                        {:name "first-as-vector", :type "function", :parameters [{:name "vals"}]}
+                                                         :arglist [{:name "predicate"} {:name "sequence"}]}
+                                                        {:name "first-as-vector", :type "function", :arglist [{:name "vals"}]}
                                                         {:name "ordered-map",
                                                          :type "function",
-                                                         :parameters [{:name "&"} {:name "keyvals"}]}
-                                                        {:name "stringify-and-sort-map", :type "function", :parameters [{:name "m"}]}
-                                                        {:name "def-keys", :type "macro", :parameters [{:name "amap"} {:name "keys"}]}
+                                                         :arglist [{:name "&"} {:name "keyvals"}]}
+                                                        {:name "stringify-and-sort-map", :type "function", :arglist [{:name "m"}]}
+                                                        {:name "def-keys", :type "macro", :arglist [{:name "amap"} {:name "keys"}]}
                                                         {:name "none", :type "data", :sub-ns "color"}
                                                         {:name "base",
                                                          :type "function",
-                                                         :parameters [{:name "base"} {:name "color-mode"}],
+                                                         :arglist [{:name "base"} {:name "color-mode"}],
                                                          :sub-ns "color"}
                                                         {:name "blue",
                                                          :type "function",
-                                                         :parameters [{:name "color-mode"} {:name "&"} {:name "messages"}],
+                                                         :arglist [{:name "color-mode"} {:name "&"} {:name "messages"}],
                                                          :sub-ns "color"}
                                                         {:name "brick",
                                                          :type "function",
-                                                         :parameters [{:name "type"} {:name "brick"} {:name "color-mode"}],
+                                                         :arglist [{:name "type"} {:name "brick"} {:name "color-mode"}],
                                                          :sub-ns "color"}
                                                         {:name "clean-colors",
                                                          :type "function",
-                                                         :parameters [{:name "message"}],
+                                                         :arglist [{:name "message"}],
                                                          :sub-ns "color"}
                                                         {:name "colored-text",
                                                          :type "function",
-                                                         :parameters [{:name "color"} {:name "color-mode"} {:name "messages"}],
+                                                         :arglist [{:name "color"} {:name "color-mode"} {:name "messages"}],
                                                          :sub-ns "color"}
                                                         {:name "colored-text",
                                                          :type "function",
-                                                         :parameters [{:name "color-light"}
-                                                                      {:name "color-dark"}
-                                                                      {:name "color-mode"}
-                                                                      {:name "messages"}],
+                                                         :arglist [{:name "color-light"}
+                                                                   {:name "color-dark"}
+                                                                   {:name "color-mode"}
+                                                                   {:name "messages"}],
                                                          :sub-ns "color"}
                                                         {:name "component",
                                                          :type "function",
-                                                         :parameters [{:name "component"} {:name "color-mode"}],
+                                                         :arglist [{:name "component"} {:name "color-mode"}],
                                                          :sub-ns "color"}
                                                         {:name "cyan",
                                                          :type "function",
-                                                         :parameters [{:name "color-mode"} {:name "&"} {:name "messages"}],
+                                                         :arglist [{:name "color-mode"} {:name "&"} {:name "messages"}],
                                                          :sub-ns "color"}
                                                         {:name "project",
                                                          :type "function",
-                                                         :parameters [{:name "project"} {:name "color-mode"}],
+                                                         :arglist [{:name "project"} {:name "color-mode"}],
                                                          :sub-ns "color"}
                                                         {:name "error",
                                                          :type "function",
-                                                         :parameters [{:name "color-mode"} {:name "&"} {:name "messages"}],
+                                                         :arglist [{:name "color-mode"} {:name "&"} {:name "messages"}],
                                                          :sub-ns "color"}
                                                         {:name "green",
                                                          :type "function",
-                                                         :parameters [{:name "color-mode"} {:name "&"} {:name "messages"}],
+                                                         :arglist [{:name "color-mode"} {:name "&"} {:name "messages"}],
                                                          :sub-ns "color"}
                                                         {:name "grey",
                                                          :type "function",
-                                                         :parameters [{:name "color-mode"} {:name "&"} {:name "messages"}],
+                                                         :arglist [{:name "color-mode"} {:name "&"} {:name "messages"}],
                                                          :sub-ns "color"}
                                                         {:name "interface",
                                                          :type "function",
-                                                         :parameters [{:name "ifc"} {:name "color-mode"}],
+                                                         :arglist [{:name "ifc"} {:name "color-mode"}],
                                                          :sub-ns "color"}
                                                         {:name "namespc",
                                                          :type "function",
-                                                         :parameters [{:name "namespace"} {:name "color-mode"}],
+                                                         :arglist [{:name "namespace"} {:name "color-mode"}],
                                                          :sub-ns "color"}
                                                         {:name "namespc",
                                                          :type "function",
-                                                         :parameters [{:name "interface"} {:name "namespace"} {:name "color-mode"}],
+                                                         :arglist [{:name "interface"} {:name "namespace"} {:name "color-mode"}],
                                                          :sub-ns "color"}
                                                         {:name "ok",
                                                          :type "function",
-                                                         :parameters [{:name "color-mode"} {:name "&"} {:name "messages"}],
+                                                         :arglist [{:name "color-mode"} {:name "&"} {:name "messages"}],
                                                          :sub-ns "color"}
                                                         {:name "purple",
                                                          :type "function",
-                                                         :parameters [{:name "color-mode"} {:name "&"} {:name "messages"}],
+                                                         :arglist [{:name "color-mode"} {:name "&"} {:name "messages"}],
                                                          :sub-ns "color"}
                                                         {:name "red",
                                                          :type "function",
-                                                         :parameters [{:name "color-mode"} {:name "&"} {:name "messages"}],
+                                                         :arglist [{:name "color-mode"} {:name "&"} {:name "messages"}],
                                                          :sub-ns "color"}
                                                         {:name "warning",
                                                          :type "function",
-                                                         :parameters [{:name "color-mode"} {:name "&"} {:name "messages"}],
+                                                         :arglist [{:name "color-mode"} {:name "&"} {:name "messages"}],
                                                          :sub-ns "color"}
                                                         {:name "yellow",
                                                          :type "function",
-                                                         :parameters [{:name "color-mode"} {:name "&"} {:name "messages"}],
+                                                         :arglist [{:name "color-mode"} {:name "&"} {:name "messages"}],
                                                          :sub-ns "color"}
                                                         {:name "print-error-message",
                                                          :type "function",
-                                                         :parameters [{:name "e"}],
+                                                         :arglist [{:name "e"}],
                                                          :sub-ns "exception"}
                                                         {:name "print-exception",
                                                          :type "function",
-                                                         :parameters [{:name "e"}],
+                                                         :arglist [{:name "e"}],
                                                          :sub-ns "exception"}
                                                         {:name "print-stacktrace",
                                                          :type "function",
-                                                         :parameters [{:name "e"}],
+                                                         :arglist [{:name "e"}],
                                                          :sub-ns "exception"}
                                                         {:name "extract",
                                                          :type "function",
-                                                         :parameters [{:name "args"}],
+                                                         :arglist [{:name "args"}],
                                                          :sub-ns "params"}
                                                         {:name "key-name",
                                                          :type "function",
-                                                         :parameters [{:name "arg"}],
+                                                         :arglist [{:name "arg"}],
                                                          :sub-ns "params"}
                                                         {:name "named?",
                                                          :type "function",
-                                                         :parameters [{:name "arg"}],
+                                                         :arglist [{:name "arg"}],
                                                          :sub-ns "params"}
                                                         {:name "unnamed?",
                                                          :type "function",
-                                                         :parameters [{:name "arg"}],
+                                                         :arglist [{:name "arg"}],
                                                          :sub-ns "params"}
                                                         {:name "count-things",
                                                          :type "function",
-                                                         :parameters [{:name "thing"} {:name "cnt"}],
+                                                         :arglist [{:name "thing"} {:name "cnt"}],
                                                          :sub-ns "str"}
-                                                        {:name "line", :type "function", :parameters [{:name "length"}], :sub-ns "str"}
+                                                        {:name "line", :type "function", :arglist [{:name "length"}], :sub-ns "str"}
                                                         {:name "sep-1000",
                                                          :type "function",
-                                                         :parameters [{:name "number"} {:name "sep"}],
+                                                         :arglist [{:name "number"} {:name "sep"}],
                                                          :sub-ns "str"}
                                                         {:name "skip-if-ends-with",
                                                          :type "function",
-                                                         :parameters [{:name "string"} {:name "ends-with"}],
+                                                         :arglist [{:name "string"} {:name "ends-with"}],
                                                          :sub-ns "str"}
                                                         {:name "skip-prefix",
                                                          :type "function",
-                                                         :parameters [{:name "string"} {:name "prefix"}],
+                                                         :arglist [{:name "string"} {:name "prefix"}],
                                                          :sub-ns "str"}
                                                         {:name "skip-suffix",
                                                          :type "function",
-                                                         :parameters [{:name "string"} {:name "suffix"}],
+                                                         :arglist [{:name "string"} {:name "suffix"}],
                                                          :sub-ns "str"}
                                                         {:name "skip-suffixes",
                                                          :type "function",
-                                                         :parameters [{:name "string"} {:name "suffixes"}],
+                                                         :arglist [{:name "string"} {:name "suffixes"}],
                                                          :sub-ns "str"}
                                                         {:name "skip-until",
                                                          :type "function",
-                                                         :parameters [{:name "string"} {:name "separator"}],
+                                                         :arglist [{:name "string"} {:name "separator"}],
                                                          :sub-ns "str"}
                                                         {:name "spaces",
                                                          :type "function",
-                                                         :parameters [{:name "n#spaces"}],
+                                                         :arglist [{:name "n#spaces"}],
                                                          :sub-ns "str"}
                                                         {:name "take-until",
                                                          :type "function",
-                                                         :parameters [{:name "string"} {:name "separator"}],
+                                                         :arglist [{:name "string"} {:name "separator"}],
                                                          :sub-ns "str"}
-                                                        {:name "current-time", :type "function", :parameters [], :sub-ns "time"}
+                                                        {:name "current-time", :type "function", :arglist [], :sub-ns "time"}
                                                         {:name "print-execution-time",
                                                          :type "function",
-                                                         :parameters [{:name "start-time"}],
+                                                         :arglist [{:name "start-time"}],
                                                          :sub-ns "time"}]},
                               :namespaces {:src [{:name "str",
                                                   :namespace "polylith.clj.core.util.str",
@@ -1897,16 +1897,16 @@
                               :interface {:name "validator",
                                           :definitions [{:name "messages",
                                                          :type "function",
-                                                         :parameters [{:name "ws-dir"}
-                                                                      {:name "suffixed-top-ns"}
-                                                                      {:name "interface-names"}
-                                                                      {:name "interfaces"}
-                                                                      {:name "components"}
-                                                                      {:name "bases"}
-                                                                      {:name "projects"}
-                                                                      {:name "interface-ns"}
-                                                                      {:name "ns-to-lib"}
-                                                                      {:name "color-mode"}]}]},
+                                                         :arglist [{:name "ws-dir"}
+                                                                   {:name "suffixed-top-ns"}
+                                                                   {:name "interface-names"}
+                                                                   {:name "interfaces"}
+                                                                   {:name "components"}
+                                                                   {:name "bases"}
+                                                                   {:name "projects"}
+                                                                   {:name "interface-ns"}
+                                                                   {:name "ns-to-lib"}
+                                                                   {:name "color-mode"}]}]},
                               :namespaces {:src [{:name "m104-circular-deps",
                                                   :namespace "polylith.clj.core.validate.m104-circular-deps",
                                                   :file-path "./components/validator/src/polylith/clj/core/validator/m104_circular_deps.clj",
@@ -1934,9 +1934,9 @@
                                                             "polylith.clj.core.util.interfc"
                                                             "polylith.clj.core.util.interfc.color"
                                                             "polylith.clj.core.validate.shared"]}
-                                                 {:name "m201-mismatching-parameters",
-                                                  :namespace "polylith.clj.core.validate.m201-mismatching-parameters",
-                                                  :file-path "./components/validator/src/polylith/clj/core/validator/m201_mismatching_parameters.clj",
+                                                 {:name "m201-mismatching-arguments",
+                                                  :namespace "polylith.clj.core.validate.m201-mismatching-arguments",
+                                                  :file-path "./components/validator/src/polylith/clj/core/validator/m201_mismatching_arguments.clj",
                                                   :imports ["clojure.string"
                                                             "polylith.clj.core.util.interfc"
                                                             "polylith.clj.core.util.interfc.color"
@@ -1951,7 +1951,7 @@
                                                             "polylith.clj.core.validate.m105-illegal-name-sharing"
                                                             "polylith.clj.core.validate.m106-multiple-interface-occurrences"
                                                             "polylith.clj.core.validate.m107-missing-componens-in-project"
-                                                            "polylith.clj.core.validate.m201-mismatching-parameters"
+                                                            "polylith.clj.core.validate.m201-mismatching-arguments"
                                                             "polylith.clj.core.validate.m202-missing-libraries"
                                                             "polylith.clj.core.validate.m203-invalid-src-reference"]}
                                                  {:name "m202-missing-libraries",
@@ -1994,9 +1994,9 @@
                                                             "polylith.clj.core.util.interfc"
                                                             "polylith.clj.core.util.interfc.color"
                                                             "polylith.clj.core.util.interfc.str"]}]
-                                           :test [{:name "m102-duplicated-parameter-lists-test",
-                                                   :namespace "polylith.clj.core.validate.m102-duplicated-parameter-lists-test",
-                                                   :file-path "./components/validator/test/polylith/clj/core/validator/m102_duplicated_parameter_lists_test.clj",
+                                           :test [{:name "m102-duplicated-arglists-test",
+                                                   :namespace "polylith.clj.core.validate.m102-duplicated-arglists-test",
+                                                   :file-path "./components/validator/test/polylith/clj/core/validator/m102_duplicated_arglists_test.clj",
                                                    :imports ["polylith.clj.core.util.interfc.color"
                                                              "polylith.clj.core.validate.m102-function-or-macro-is-defined-twice"]}
                                                   {:name "m101-illegal-namespace-deps-test",
@@ -2024,11 +2024,11 @@
                                                    :file-path "./components/validate/test/polylith/clj/core/validate/m106_multiple_interface_occurrences_test.clj",
                                                    :imports ["polylith.clj.core.util.interfc.color"
                                                              "polylith.clj.core.validate.m106-multiple-interface-occurrences"]}
-                                                  {:name "m201-mismatching-parameters-test",
-                                                   :namespace "polylith.clj.core.validate.m201-mismatching-parameters-test",
-                                                   :file-path "./components/validate/test/polylith/clj/core/validate/m201_mismatching_parameters_test.clj",
+                                                  {:name "m201-mismatching-arguments-test",
+                                                   :namespace "polylith.clj.core.validate.m201-mismatching-arguments-test",
+                                                   :file-path "./components/validate/test/polylith/clj/core/validate/m201_mismatching_arguments_test.clj",
                                                    :imports ["polylith.clj.core.util.interfc.color"
-                                                             "polylith.clj.core.validate.m201-mismatching-parameters"]}
+                                                             "polylith.clj.core.validate.m201-mismatching-arguments"]}
                                                   {:name "m103-missing-defs-test",
                                                    :namespace "polylith.clj.core.validate.m103-missing-defs-test",
                                                    :file-path "./components/validate/test/polylith/clj/core/validate/m103_missing_defs_test.clj",
@@ -2052,26 +2052,26 @@
                               :interface {:name "workspace",
                                           :definitions [{:name "enrich-workspace",
                                                          :type "function",
-                                                         :parameters [{:name "workspace"} {:name "user-input"}]}
+                                                         :arglist [{:name "workspace"} {:name "user-input"}]}
                                                         {:name "enrich-workspace-str-keys",
                                                          :type "function",
-                                                         :parameters [{:name "workspace"} {:name "user-input"}]}
+                                                         :arglist [{:name "workspace"} {:name "user-input"}]}
                                                         {:name "print-info",
                                                          :type "function",
-                                                         :parameters [{:name "workspace"} {:name "is-show-loc"}]}
+                                                         :arglist [{:name "workspace"} {:name "is-show-loc"}]}
                                                         {:name "print-table-str-keys",
                                                          :type "function",
-                                                         :parameters [{:name "workspace"} {:name "is-show-loc"}]}]},
+                                                         :arglist [{:name "workspace"} {:name "is-show-loc"}]}]},
                               :lib-imports {:src ["clojure.set" "clojure.string" "clojure.walk"]}
                               :lib-deps ["clojure"]}
                              {:name "workspace-clj",
                               :type "component",
                               :lines-of-code {:src 324, :test 150}
                               :interface {:name "workspace-clj",
-                                          :definitions [{:name "workspace-from-disk", :type "function", :parameters [{:name "ws-dir"}]}
+                                          :definitions [{:name "workspace-from-disk", :type "function", :arglist [{:name "ws-dir"}]}
                                                         {:name "workspace-from-disk",
                                                          :type "function",
-                                                         :parameters [{:name "ws-dir"} {:name "config"}]}]},
+                                                         :arglist [{:name "ws-dir"} {:name "config"}]}]},
                               :namespaces {:src [{:name "interface-defs-from-disk",
                                                   :namespace "polylith.clj.core.workspace-clj.interface-defs-from-disk",
                                                   :file-path "./components/workspace-clj/src/polylith/clj/core/workspace_clj/interface_defs_from_disk.clj",

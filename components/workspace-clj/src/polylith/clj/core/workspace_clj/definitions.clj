@@ -26,7 +26,7 @@
   (when (not (common/interface-ns? namespace interface-ns))
     (str/join "." (drop 1 (str/split namespace #"\.")))))
 
-(defn parameter [name]
+(defn argument [name]
   (let [type (-> name meta :tag)]
     (if type
       {:name (str name)
@@ -35,12 +35,12 @@
 
 (defn function [namespace type name code interface-ns]
   (let [sub-ns (sub-namespace namespace interface-ns)
-        parameters (mapv parameter (first code))
+        arglist (mapv argument (first code))
         str-name (str name)
         str-type (str type)]
     (util/ordered-map :name str-name
                       :type str-type
-                      :parameters parameters
+                      :arglist arglist
                       :sub-ns sub-ns)))
 
 (defn definitions

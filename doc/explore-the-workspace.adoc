@@ -139,7 +139,7 @@ poly ws get:components:user
 [source,clojure]
 ----
 {:interface {:definitions [{:name "hello"
-                            :arglists [{:name "name"}]
+                            :arglist [{:name "name"}]
                             :type "function"}]
              :name "user"}
  :interface-deps {:src [], :test []}

@@ -3,7 +3,7 @@
 (def workspace {:interfaces [{:name "database", :type "interface", :definitions [], :implementing-components ["database"]}
                              {:name "test-helper",
                               :type "interface",
-                              :definitions [{:name "do-stuff", :type "function", :parameters []}],
+                              :definitions [{:name "do-stuff", :type "function", :arglist []}],
                               :implementing-components ["test-helper"]}
                              {:name "user",
                               :type "interface",
@@ -157,7 +157,7 @@
                                                    :imports ["clojure.test" "se.example.database.interface"]}]}
                               :lib-deps {:src {}}
                               :lib-imports {:test ["clojure.test"]}}
-                             {:interface {:name "test-helper", :definitions [{:name "do-stuff", :type "function", :parameters []}]},
+                             {:interface {:name "test-helper", :definitions [{:name "do-stuff", :type "function", :arglist []}]},
                               :interface-deps {}
                               :lines-of-code {:src 3, :test 0}
                               :name "test-helper",

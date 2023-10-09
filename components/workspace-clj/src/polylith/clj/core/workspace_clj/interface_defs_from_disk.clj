@@ -31,8 +31,8 @@
     (mapcat #(defs/definitions sub-ns % interface-ns)
             (defs/filter-statements content))))
 
-(defn params [parameters]
-  (mapv :name parameters))
+(defn arglist [arguments]
+  (mapv :name arguments))
 
 (defn defs-from-disk
   "Example of a src-dir: ./components/workspace-clj/src/polylith/clj/core/workspace_clj"
@@ -42,5 +42,5 @@
              (comp
                (mapcat #(interface-namespaces % interface-ns))
                (mapcat #(interface-from-disk % interface-ns))))
-       (sort-by (juxt :sub-ns :type :name params))
+       (sort-by (juxt :sub-ns :type :name arglist))
        (vec)))

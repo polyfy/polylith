@@ -71,6 +71,7 @@
 ;;                        added     version:test-runner-api
 ;;                        added     version:release:snapshot
 ;;                        added     ws-type
+;;                        renamed   interfaces:definitions:DEFINITION:arglist                  Renamed from parameters.
 ;;                        renamed   projects:PROJECT:deps:BRICK:SOURCE:missing-ifc-and-bases   Renamed from missing-ifc.
 ;;                        added     ENTITIES:ENTITY:namespaces:SOURCE:NAMESPACE:is-ignored
 ;;                        added     ENTITIES:ENTITY:namespaces:SOURCE:NAMESPACE:is-invalid

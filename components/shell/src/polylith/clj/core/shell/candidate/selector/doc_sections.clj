@@ -51,9 +51,6 @@
                         :config :cljdoc.doc/tree))
   ;; pages
   (into (sorted-map) (mapv entry (sort (mapcat pages-info cljdoc-pages))))
-
-
-
   #__)
 
 (def commands {"check" [],
@@ -68,6 +65,7 @@
                "deps-project-brick" [],
                "deps-workspace" [],
                "diff" [],
+               "doc" [],
                "info" [],
                "libs" [],
                "migrate" [],
@@ -76,19 +74,24 @@
                "switch-ws" [],
                "tap" [],
                "test" [],
+               "version" [],
                "ws" []})
 
-(def pages {"base" {},
+(def pages {"artifacts" {},
+            "base" {},
             "build" {},
             "clojure-cli-tool" {},
             "colors" {},
             "commands" {},
             "component" {},
             "configuration" {},
+            "contact" {},
             "context" {},
             "continuous-integration" {},
             "dependencies" {},
+            "developing-poly" {},
             "development" {},
+            "doc" {},
             "example-systems" {},
             "explore-the-workspace" {},
             "flags" {},
@@ -98,10 +101,11 @@
             "interface" {},
             "introduction" {},
             "libraries" {},
-            "migrate" {},
+            "license" {},
             "naming" {},
-            "parameters" {},
+            "polylith-ci-setup" {},
             "polyx" {},
+            "production-systems" {},
             "profile" {},
             "project" {},
             "readme" {},
@@ -115,13 +119,13 @@
             "upgrade" {},
             "validations" {},
             "workspace" {},
-            "ws-structure" {}})
+            "workspace-structure" {}})
 
 (def ws-structure {"bases" [],
                    "changes" [],
                    "components" [],
                    "configs" [],
-                   "interface" [],
+                   "interfaces" [],
                    "messages" [],
                    "name" [],
                    "old" [],
