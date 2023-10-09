@@ -101,10 +101,10 @@ example$ doc page:
 artifacts                introduction
 base                     libraries
 build                    license
-clojure-cli-tool         migrate
-colors                   naming
-component                polylith-ci-setup
-configuration            polyx
+clojure-cli-tool         naming
+colors                   polylith-ci-setup
+component                polyx
+configuration            production-systems
 contact                  profile
 context                  project
 continuous-integration   readme
