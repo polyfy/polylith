@@ -112,9 +112,9 @@
           "  ----------------------------------------------------   -----------   ----------------------   ----------------------------"
           "  borkdude/edamame             1.3.23     maven     24    x      x      x      -         -      .  .  x  .  .  .  .  .  .  ."
           "  clj-commons/fs               1.6.310    maven     12    x      x      x      -         -      .  .  x  .  .  .  .  .  .  ."
-          "  com.github.liquidz/antq      2.5.1109   maven     50    x      x      x      -         -      x  .  .  .  .  .  .  .  .  ."
-          "  djblue/portal                0.46.0     maven  1,827    x      x      x      -         -      .  .  .  .  .  .  x  .  .  ."
-          "  metosin/malli                0.12.0     maven     85    x      x      x      -         -      .  .  .  .  .  .  .  x  .  ."
+          "  com.github.liquidz/antq      2.7.1133   maven     51    x      x      x      -         -      x  .  .  .  .  .  .  .  .  ."
+          "  djblue/portal                0.48.0     maven  1,838    x      x      x      -         -      .  .  .  .  .  .  x  .  .  ."
+          "  metosin/malli                0.13.0     maven     85    x      x      x      -         -      .  .  .  .  .  .  .  x  .  ."
           "  mount/mount                  0.1.17     maven      8    -      -      x      -         -      .  .  .  .  .  .  .  .  .  ."
           "  mvxcvi/puget                 1.3.4      maven     15    x      x      x      -         -      .  .  .  .  .  .  .  .  .  x"
           "  org.clojure/clojure          1.11.1     maven  4,008    x      x      x      -         -      .  .  .  .  .  .  .  .  .  ."
@@ -123,7 +123,7 @@
           "  org.slf4j/slf4j-nop          2.0.9      maven      4    x      x      x      -         -      .  .  .  .  .  .  .  .  .  ."
           "  pjstadig/humane-test-output  0.11.0     maven      7    t      -      -      -         -      .  .  .  .  .  .  .  .  .  ."
           "  rewrite-clj/rewrite-clj      1.1.47     maven     73    -      -      x      -         -      .  .  .  .  .  .  .  .  .  ."
-          "  zprint/zprint                1.2.7      maven    210    x      x      x      -         -      .  .  .  .  x  .  .  .  .  ."])))
+          "  zprint/zprint                1.2.8      maven    211    x      x      x      -         -      .  .  .  .  x  .  .  .  .  ."])))
 
 #_(deftest polylith-libs-outdated
     (is (= (keep-except "clojure2d"
