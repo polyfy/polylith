@@ -1,41 +1,40 @@
 = Tools.deps
 
-This `poly` tool is built on top of tools.deps.
-To get the most out of it, we recommend you to read its https://github.com/clojure/tools.deps.alpha[documentation].
+We created the `poly` tool on top of Clojure tools.deps.
+If you are unfamiliar with tools.deps, we recommend that you read its https://github.com/clojure/tools.deps[documentation].
 
-When we created the workspace with the xref:commands#create-workspace[create workspace] command, the `poly` alias was also be added to `./deps.edn`:
+== The `poly` Alias
 
-[source,clojure]
-----
-    :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
-           :extra-deps {polyfy/polylith
-                        {:git/url   "https://github.com/polyfy/polylith"
-                         :sha       "1b91de1cb96dd286c9f5f9bda6a97d62c40b67a7"
-                         :deps/root "projects/poly"}}}
-----
+When you xref:workspace.adoc[create a workspace], `poly` generates a workspace `deps.edn` that includes a `poly` alias.
+We cover details in our xref:install.adoc#use-as-dependency[install docs].
 
-This alias can now be used to execute the `poly` tool from the workspace root, e.g.:
+== clojure vs clj
 
-[source,shell]
-----
-cd ../..
-clojure -M:poly info
-----
-
-It takes longer to execute the `poly` tool this way, because it needs to compile the Clojure code first, but it also allows us to execute older or newer versions of the tool by selecting another `sha` from an https://github.com/polyfy/polylith/commits/master[existing commit].
-
-To speed things up we can always start a xref:commands.adoc#shell[shell]:
+Use `clojure` instead of `clj` when launching a `poly` xref:shell.adoc[shell] as xref:install.adoc#use-as-dependency[a clojure dependency]:
 
 [source,shell]
 ----
 clojure -M:poly
 ----
 
-== clojure vs clj
+****
+Or when using poly xref:install.adoc#install-as-clojure-cli-tool[as a Clojure tool]:
 
-In the example above, we started the `poly` tool using `clojure` which is preferable over `clj` when executing a program like the `poly` tool, and is well described https://betweentwoparens.com/blog/what-are-the-clojure-tools/#clj%2Fclojure[here].
+[source,shell]
+----
+clojure -Tpoly shell
+----
+****
 
-If we use `clj` instead, things will still work, but we will get a warning in some situations:
+****
+Why? There are two ways to run clojure:
+
+1. `clojure` - runs clojure programs
+2. `clj` - the same, but provides REPL command history support via `rlwrap`
+
+As described by https://betweentwoparens.com/blog/what-are-the-clojure-tools/#clj%2Fclojure[a "Between Two Parens" blog post], `rlwrap` can sometimes get in the way. This is the case for the `poly` shell.
+
+If you use `clj` instead of `clojure`, things will still work, but you will sometimes see warnings from `rlwrap`:
 
 [source,shell]
 ----
@@ -43,3 +42,6 @@ clj -M:poly
 ----
 
 image::images/toolsdeps/clj-poly-shell.png[width=600]
+
+You don't need that noise and confusion, so use `clojure` when launching a `poly` shell.
+****
