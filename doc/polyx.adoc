@@ -3,7 +3,7 @@
 Since version `0.2.18`, we have the new `polyx` tool which can do everything that `poly` can, plus create images from different commands.
 One more difference is that it's not released as an AOT compiled, stand-alone tool, as `poly` is.
 
-If we want to use `polyx`, then we need to add it as an alias to `./deps.edn`, e.g. by copying the existing `:poly` alias and change `:deps/root` from "projects/poly" to "projects/polyx":
+If you want to use `polyx`, then you need to add it as an alias to `./deps.edn`:
 
 [source,clojure]
 ----
@@ -13,6 +13,12 @@ If we want to use `polyx`, then we need to add it as an alias to `./deps.edn`, e
                       :sha       "155b55ab9e51ecd5ee0622a82a87468dac00bba3"
                       :deps/root "projects/polyx"}}}}}
 ----
+
+If you want to use a stable version, then click on a release (`0.2.18` or later) in xref:https://github.com/polyfy/polylith/tags[tags].
+Then select the first "Code" tab, and you will see that e.g. "v0.2.18" is selected as branch/version at the top left of the page.
+Now click the "commits" link and copy the full sha for the top commit on the page (which is the latest commit).
+
+If you want to use the latest SNAPSHOT version, copy the latest commit from the `master` branch instead.
 
 Now let's start a shell, using the `polyx` tool, by executing this from the workspace root:
 

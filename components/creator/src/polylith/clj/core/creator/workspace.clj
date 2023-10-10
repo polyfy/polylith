@@ -2,7 +2,8 @@
   (:require [clojure.string :as str]
             [polylith.clj.core.creator.shared :as shared]
             [polylith.clj.core.file.interface :as file]
-            [polylith.clj.core.git.interface :as git]))
+            [polylith.clj.core.git.interface :as git]
+            [polylith.clj.core.version.interface :as version]))
 
 (def gitignore-content
   ["**/classes"
@@ -71,12 +72,10 @@
    (str "                :release \"v[0-9]*\"}")
    (str " :projects {\"development\" {:alias \"dev\"}}}")])
 
-(defn latest-sha [branch]
-  (if-let [sha (git/latest-polylith-sha (or branch git/branch))]
-    [false sha]
-    [true "INSERT_LATEST_SHA_HERE"]))
+(defn mvn-version []
+  version/name)
 
-(defn deps-content [sha]
+(defn deps-content []
   [(str "{:aliases  {:dev {:extra-paths [\"development/src\"]")
    (str "")
    (str "                  :extra-deps {org.clojure/clojure {:mvn/version \"" shared/clojure-ver "\"}}}")
@@ -84,10 +83,7 @@
    (str "            :test {:extra-paths []}")
    (str "")
    (str "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly-cli.core\"]")
-   (str "                   :extra-deps {polyfy/polylith")
-   (str "                                {:git/url   \"https://github.com/polyfy/polylith\"")
-   (str "                                 :sha       \"" sha "\"")
-   (str "                                 :deps/root \"projects/poly\"}}}}}")])
+   (str "                   :extra-deps {polylith/clj-poly {:mvn/version \"" (mvn-version) "\"}}}}}")])
 
 (defn calva-settings-content [ws-name]
   [(str "{")
@@ -103,7 +99,7 @@
    (str "    ]")
    (str "}")])
 
-(defn create-ws [ws-dir ws-name top-ns create-ws-dir? git-repo? insert-sha? sha branch commit?]
+(defn create-ws [ws-dir ws-name top-ns create-ws-dir? git-repo? branch commit?]
   (when create-ws-dir?
     (file/create-dir ws-dir))
   (file/create-dir (str ws-dir "/bases"))
@@ -114,7 +110,7 @@
   (file/create-dir (str ws-dir "/.vscode"))
   (file/create-file-if-not-exists (str ws-dir "/.gitignore") gitignore-content)
   (file/create-file (str ws-dir "/workspace.edn") (workspace-content top-ns))
-  (file/create-file (str ws-dir "/deps.edn") (deps-content sha))
+  (file/create-file (str ws-dir "/deps.edn") (deps-content))
   (file/create-file (str ws-dir "/readme.md") (readme-content ws-name))
   (file/create-file-if-not-exists (str ws-dir "/.vscode/settings.json") (calva-settings-content ws-name))
   (file/create-file (str ws-dir "/development/src/.keep") [""])
@@ -125,15 +121,11 @@
   (when commit?
     (git/init ws-dir git-repo? branch))
   (when git-repo?
-    (println "  Workspace created in existing git repo."))
-  (when insert-sha?
-    (println (str "  Make sure to replace INSERT_LATEST_SHA_HERE in './deps.edn' with the latest SHA "
-                  "from https://github.com/polyfy/polylith/commits/" (git/current-branch) "."))))
+    (println "  Workspace created in existing git repo.")))
 
 (defn create [root-dir ws-name top-ns branch commit?]
   (let [create-ws-dir? (not (str/blank? ws-name))
         ws-dir (if create-ws-dir? (str root-dir "/" ws-name) root-dir)
-        [insert-sha? sha] (latest-sha branch)
         git-repo? (git/is-git-repo? root-dir)]
     (cond
       (and create-ws-dir?
@@ -141,4 +133,4 @@
       (and (not create-ws-dir?)
            (not git-repo?)) (println "  Current directory must be a git repo. Leave out :commit and try again.")
       (and commit? git-repo?) (println "  Can't commit a workspace inside an existing git repo.")
-      :else (create-ws ws-dir ws-name top-ns create-ws-dir? git-repo? insert-sha? sha branch commit?))))
+      :else (create-ws ws-dir ws-name top-ns create-ws-dir? git-repo? branch commit?))))
