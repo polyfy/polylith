@@ -13,9 +13,7 @@
   (:require [clojure.java.io :as io]
             [clojure.tools.build.api :as b]
             [clojure.tools.deps :as t]
-            [clojure.tools.deps.util.dir :refer [with-dir]]
-            [org.corfield.log4j2-conflict-handler
-             :refer [log4j2-conflict-handler]]))
+            [clojure.tools.deps.util.dir :refer [with-dir]]))
 
 (defn- get-project-aliases []
   (let [edn-fn (juxt :root-edn :project-edn)]
@@ -68,9 +66,6 @@
                              {:basis        (b/create-basis)
                               :class-dir    class-dir
                               :compile-opts {:direct-linking true}
-                              ;; if your project (or any of its dependencies)
-                              ;; uses log4j 2.x, you need this:
-                              :conflict-handlers log4j2-conflict-handler
                               :main         main
                               :ns-compile   [main]
                               :uber-file    uber-file})]

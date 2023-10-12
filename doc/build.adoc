@@ -1,70 +1,97 @@
 = Build
 
-The `poly` tool doesn’t include a `build` command.
-That’s because we don’t want the tool to restrict our build pipeline in any way.
-Instead, the tool lets us choose our own way to build our Polylith artifacts for our particular pipeline; which could be with simple build scripts, all the way to cloud-based build tools.
+The `poly` tool doesn't include any `build` commands.
+That's because we don't want `poly` to restrict your build pipeline in any way.
+Instead, `poly` lets you choose how to build your deployable artifacts for your particular pipeline.
+Whether you choose simple build scripts or cloud-based build tools, `poly` doesn't get in the way.
 
-Let's say we want to create an executable jar file out of the `command-line` project.
-Let's start by downloading https://github.com/polyfy/polylith/blob/master/examples/doc-example/build.clj[build.clj] and copy it to the workspace root:
+Let's continue with our xref:introduction.adoc[tutorial].
+The last thing you did was xref:project.adoc[create a command-line project].
+Let's add build support to create an executable jar file for the `command-line` project.
+
+Per its philosophy, you'll notice that `poly` did not generate any build scripts for your `example` workspace.
+
+We'll be using https://github.com/clojure/tools.build[Clojure tools.build] to build your jar.
+This is a common choice for xref:tools-deps.adoc[tools.deps] projects.
+We've created a sample link:/examples/doc-example/build.clj[build.clj] for you.
+Copy it to your `example` workspace root:
 
 [source,shell]
 ----
 example
 ├── build.clj
+...
 ----
 
-Now add the `:uberjar` alias to `projects/command-line/deps.edn`:
+Add the uberjar configuration expected by our `build.clj` to your `command-line` project by adding `:uberjar` alias to `projects/command-line/deps.edn`:
 
 [source,clojure]
 ----
-{...
- :aliases {:test {...}
+{:deps {poly/user {:local/root "../../components/user"}
+        poly/cli  {:local/root "../../bases/cli"}
 
-           :uberjar {:main se.example.cli.core}}}
+        org.clojure/clojure {:mvn/version "1.11.1"}}
+
+ :aliases {:test {:extra-paths []
+                  :extra-deps  {}}
+
+           :uberjar {:main se.example.cli.core}}} ;; <1>
 ----
+<1> Add `:uberjar` alias describing the main entry point
 
-Also add the `:build` alias to `./deps.edn`:
+Add a `:build` alias to your workspace `./deps.edn`:
 
 [source,clojure]
 ----
 {:aliases {...
-           :build {:deps {org.clojure/tools.deps {:mvn/version "0.16.1281"}
-                          io.github.clojure/tools.build {:mvn/version "0.9.5"}
-                          ;; because we use log4j 2.x:
-                          io.github.seancorfield/build-uber-log4j2-handler {:git/tag "v0.1.5" :git/sha "55fb6f6"}}
-                   :paths ["build/resources"]
-                   :ns-default build}}
+           :build {:deps {io.github.clojure/tools.build {:mvn/version "0.9.6"} ;; <1>
+                          org.clojure/tools.deps {:mvn/version "0.16.1281"}}  ;; <2>
+                   :paths ["build/resources"] ;; <3>
+                   :ns-default build} ;; <4>
 ----
+<1> Clojure `tools.build` support
+<2> Our `build.clj` happens to use `tools.deps`
+<3> An example of adding some resources to our classpath
+<4> Points to our `build.clj`
 
-Now select the `build` alias and refresh the IDE:
+[TIP]
+====
+*Cursive Users*:
+Select the `build` alias and refresh the IDE:
 
 image::images/build/aliases.png[width=400]
 
-Also add `build` to Options in the REPL settings + restart the REPL:
+Add `build` to Options in the REPL settings + restart the REPL:
 
 image::images/build/add-build-to-repl-settings.png[width=600]
 
-== Old Cursive versions
+*Older Versions of Cursive*
 
-If you use an older version of Cursive than `1.13.0`, then set Options to `dev,test,build` instead, and you may also need to add this to your `./deps.edn` if the IDE doesn't recognise `build.clj` as source code:
+If you are still using Cursive pre v1.13.0 we recommend that you upgrade.
+
+If you are unable to upgrade, you'll need to set Options to `dev,test,build` instead.
+
+You may also need to add the workspace root dir to your paths in your workspace `./deps.edn` if the IDE doesn't recognize `build.clj` as source code:
 
 [source,clojure]
 ----
 {:aliases  {...
             :build {...
-                    :extra-paths ["."]
+                    :extra-paths ["."] ;; <1>
 ----
+<1> Add workspace root dir to paths if necessary
+====
 
 == Try it out
 
-Let's try to build the `command-line` tool by executing this statement from the workspace root:
+Now that you have everything set up, build the `command-line` jar by executing the following from the `example` workspace root dir:
 
 [source,shell]
 ----
 clojure -T:build uberjar :project command-line
 ----
 
-This will output:
+You should see some output:
 
 [source,shell]
 ----
@@ -73,7 +100,9 @@ Building uberjar target/command-line.jar...
 Uberjar is built.
 ----
 
-Let's execute it:
+Congratulations!
+You've just built your first artifact from a deployable project.
+Try running it:
 
 [source,shell]
 ----
