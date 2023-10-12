@@ -3,7 +3,7 @@
 The `poly` tool doesn't include any `build` commands.
 That's because we don't want `poly` to restrict your build pipeline in any way.
 Instead, `poly` lets you choose how to build your deployable artifacts for your particular pipeline.
-Whether you choose simple build scripts or cloud-based build tools, `poly` does not get in the way.
+Whether you choose simple build scripts or cloud-based build tools, `poly` doesn't get in the way.
 
 Let's continue with our xref:introduction.adoc[tutorial].
 The last thing you did was xref:project.adoc[create a command-line project].
