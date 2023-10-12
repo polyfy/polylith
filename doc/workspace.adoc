@@ -135,6 +135,7 @@ my-git-repo-dir
 └── workspace.edn
 ----
 
+[[workspace-root-under-git-root]]
 ...or you create the workspace in a directory under the git repository root by executing e.g.,:
 
 [source,shell]
