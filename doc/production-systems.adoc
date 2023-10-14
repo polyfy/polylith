@@ -42,9 +42,11 @@ The concept of "swappable implementations" for component interfaces has allowed 
 
 image::images/example-systems/polylith.png[link="images/example-systems/polylith.png"]
 
+Polylith is mainly developed on a non-profit basis by Joakim Tengstrand with help from Furkan Bayraktar, James Trunk, and other contributors.
+
 The https://github.com/polyfy/polylith[polylith] codebase itself is structured as a Polylith workspace.
 We made our initial commit on June 9, 2019.
-The Polylith way of working gives us a range of benefits, such as decoupled building blocks that are easy to find, understand, change, and reuse.
+The Polylith way of working gives us a range of benefits, such as decoupled building blocks that are easy to find, change, reuse, and reason about.
 We combine these building blocks to create the `poly` and `polyx` command line tools, and the `clj-poly` library.
 
 == Add your Company Here!

@@ -1,7 +1,7 @@
 (ns polylith.clj.core.creator.workspace-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.git.interface :as git]
-            [polylith.clj.core.test-helper.interface :as helper]))
+            [polylith.clj.core.test-helper.interface :as helper]
+            [polylith.clj.core.creator.workspace :as workspace]))
 
 (use-fixtures :each helper/test-setup-and-tear-down)
 
@@ -68,7 +68,7 @@
            "  A top namespace must be given, e.g.: create w name:my-workspace top-ns:com.my-company\n"))))
 
 (deftest create-workspace--creates-empty-directories-and-a-deps-edn-config-file
-  (let [output (with-redefs [git/latest-polylith-sha (fn [_] "SHA")]
+  (let [output (with-redefs [workspace/mvn-version (fn [] "0.2.18")]
                  (with-out-str
                    (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example" "branch:create-deps-files" ":commit")))]
     (is (= output
@@ -116,10 +116,7 @@
             "            :test {:extra-paths []}"
             ""
             "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly-cli.core\"]"
-            "                   :extra-deps {polyfy/polylith"
-            "                                {:git/url   \"https://github.com/polyfy/polylith\""
-            "                                 :sha       \"SHA\""
-            "                                 :deps/root \"projects/poly\"}}}}}"]))
+            "                   :extra-deps {polylith/clj-poly {:mvn/version \"0.2.18\"}}}}}"]))
 
     (is (= (helper/content "ws1" ".vscode/settings.json")
            ["{"

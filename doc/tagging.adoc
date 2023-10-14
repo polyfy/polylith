@@ -1,92 +1,157 @@
 = Tagging
 
-Tags are used in Polylith to mark points in time when we consider the whole codebase (workspace) to be in a valid state, for example that everything compiles
-and that all the tests and the xref:commands.adoc#check[check] command executes without errors.
-This is then used by the xref:commands.adoc#test[test] command to run the tests incrementally, by only executing the affected tests, which substantially speeds up the tests.
+We touched on the concept of a _stable point in time_ in our xref:git.adoc[Git] docs.
+Now, we'll show how we use git tagging to mark and move a workspace's _stable point in time_.
 
-The way we mark a stable point in time is to tag it with git (`-f` tells git to reuse the tag if already exists):
+We consider a workspace stable when the whole workspace is in a valid state.
+For example, when all code compiles, all tests pass, and the xref:commands.adoc#check[check] command executes without error.
+
+The xref:commands.adoc[test] command leverages the concept of stability to support running tests incrementally.
+It can reduce a test run to only those tests affected by changes since the last known _stable point in time_.
+As you can imagine, skipping unnecessary tests can significantly reduce test run times!
+
+To mark a _stable point in time_, we use a git tag.
+
+Let's continue with our xref:introduction.adoc[tutorial].
+We last left off by xref:git.adoc#add-and-commit[adding and committing our workspace files to git].
+
+Mark your `example` workspace as stable by tagging it with git:
 
 [source,shell]
 ----
-git tag -f stable-lisa
+git tag -f stable-lisa # <1>
 ----
+<1> `-f` tells git to move the tag if it already exists
 
-image::images/tagging/info-01.png[width=400]
-
-If we now run `git log --pretty=oneline` again:
+Run `git log --pretty=format'%h %d%n %s`, you'll see something like:
 
 [source,shell]
 ----
-e7ebe683a775ec28b7c2b5d77e01e79d48149d13 (HEAD -> main, tag: stable-lisa) Created the user and cli bricks.
-c91fdad4a34927d9aacfe4b04ea2f304f3303282 Workspace created.
+e7ebe68  (HEAD -> main, tag: stable-lisa)  # <1>
+ Created the user and cli bricks.
+c91fdad
+ Workspace created.
 ----
+<1> Notice the `stable-lisa` tag you added is on the second commit.
 
-...we can see that the second commit has been tagged with `stable-lisa`.
-Note that your hash tags will be different and when we refer to e.g. `c91fdad` in the following examples, you should instead give your own corresponding hash code.
+NOTE: We used `git log --pretty=format'%h %d%n %s` for compact documentation-friendly output.
+Feel free to use `git log --pretty=oneline` or even `git log`.
 
-If we execute the xref:commands.adoc#info[info] command:
+Rerun the `poly xref:commands.adoc#info[info]` command, and you'll see something like this:
 
 image::images/tagging/info-01.png[width=400]
 
-...the `stable since` hash has been updated and is now tagged with `stable-lisa`.
-All the `*` signs are gone because no component, base or project has yet changed since the second commit (which can be verified by running `poly diff` again).
+****
+Remember that git hashes (SHAs and short-SHAs) are globally unique.
+Yours will differ from our `e7ebe68` and `c91fdad`.
+****
 
-We added the tag `stable-lisa` but we could have named the tag with anything that starts with `stable-`.
-We choose `stable-lisa` because Lisa is our name (let's pretend that at least!).
-The idea is that every developer could use their own unique tag name that doesn't conflict with other developers.
+Notice that:
 
-The CI build should also use its own pattern, like `stable-` plus branch name or build number, to mark successful builds.
-It may be enough to only use the stable points that the CI server creates.
-That is at least a good way to start out and only add custom tags per developer when needed.
+* The `stable since` line shows:
+** A short-SHA `e7ebe68` that matches the second commit.
+** The `stable-lisa` tag.
+* All the `*` (asterisk) markers xref:git.adoc#info-all-changed-example[you saw in the previous info output] are gone because no brick (component or base) or project has changed since our new _stable point in time_.
 
-The pattern is configured in `workspace.edn` and can be changed if we prefer something else:
+Run `poly diff`; you'll see no output because nothing has changed.
+
+Our example uses the git tag `stable-lisa`, but `poly` recognizes any tag that starts with `stable-`.
+We chose `stable-lisa` because Lisa is our name (let's pretend, at least!).
+This convention allows every developer to have their own unique _stable point in time_.
+
+Your continuous integration (CI) build should use its own unique git tag pattern to mark successful builds (and, therefore, stable workspaces).
+A convention like `stable-` plus branch name or `stable-` plus build number can work nicely.
+
+We recommend that you start with `stable-` tags created by your CI server and add developer-specific `stable-` tags when needed.
+
+We think that git tags that start with `stable-` is a magnificent naming convention, but if you really prefer something different, you can override this default in your `workspace.edn` file:
 
 [source,clojure]
 ----
- :tag-patterns {:stable "stable-*"
+ :tag-patterns {:stable "stable-*" ;; <1>
                 :release "v[0-9]*"}
 ----
+<1> Override the default `stable-*` regular expression to your own convention, if you wish
 
-The way the tool finds the latest tag is to execute this command internally:
+****
+Internally, `poly` finds the _stable point in time_ commit via:
 
 [source,shell]
 ----
 git log --pretty=format:'%H %d'
 ----
 
-Then it uses the first line of the output that matches the regular expression (e.g. `stable-*`) or if no match was found, the first commit in the repository.
+For our current example, this outputs:
+[source,shell]
+----
+e7ebe683a775ec28b7c2b5d77e01e79d48149d13 (HEAD -> master, tag: stable-lisa)
+c91fdad4a34927d9aacfe4b04ea2f304f3303282
+----
 
-Earlier when we changed a project by editing its `deps.edn` file, it got a trailing `*` to indicate that it was changed.
-But what happens if only some of its bricks have changed? Let's try that by adding a comment to the `user.core` namespace:
+The `poly` tool parses the output for the first line that matches the `:stable` tag pattern (by default `stable-*`).
+If it finds no matches, the first commit in the git repository is the _stable point in time_ commit.
+****
+
+You've seen the `info` command xref:git.adoc#info-all-changed-example[output when all bricks and projects have changed] since the _stable point in time_; all bricks and projects showed a trailing `*` (asterisk).
+
+What happens if only some bricks have changed?
+Let's find out.
+Add a comment to the `user.core` namespace by editing `./components/user/src/se/example/user/core.clj`:
 
 // scripts/sections/tagging/user-core-change.clj
 [source,clojure]
 ----
 (ns se.example.user.core)
 
-; hi!
+; hi! ;; <1>
 (defn hello [name]
-      (str "Hello " name "!"))
+  (str "Hello " name "!"))
 ----
+<1> Add a comment line
 
-...and execute the xref:commands.adoc#info[info] command again:
+Run `poly xref:commands.adoc#info[info]` again:
 
 image::images/tagging/info-02.png[width=400]
 
-Now the two projects are marked with a `+` which indicates that the projects themselves are unchanged but that at least one of their bricks has changed.
+As expected, the `user` component now shows a trailing `*`.
+// I was having trouble getting `+` to render so used `&#43;` instead.
+Notice that both `command-line` and `development` projects show a trailing `&#43;`.
+The `&#43;` indicates the projects have no changes, but at least one of their bricks has changed.
 
 == Release
 
-When we release, we probably want the CI server to tag the release.
-Here we tag the first commit as `v1.1.0` and the second as `v1.2.0` (make sure you replace `c91fdad` with your corresponding sha):
+When you release, we recommend your CI server git tag the release.
+But here, we'll have you experiment from your command line shell.
+
+Run `git log --pretty=format'%h %d%n %s` to look at your current commit history and tags:
+
+[source, shell]
+----
+e7ebe68  (HEAD -> master, tag: stable-lisa)
+ Created the user and cli bricks.
+c91fdad
+ Workspace created.
+----
+
+Tag the first commit as `v1.1.0` and the second as `v1.2.0`:
 
 [source,shell]
 ----
-git tag v1.1.0 c91fdad
+git tag v1.1.0 c91fdad # <1>
 git tag v1.2.0
 ----
+<1> replace `c91fdad` with your corresponding SHA for your first commit
 
-If we execute:
+Rerun `git log --pretty=format'%h %d%n %s` to verify your new tags:
+[source, shell]
+----
+e7ebe68  (HEAD -> master, tag: v1.2.0, tag: stable-lisa)
+ Created the user and cli bricks.
+c91fdad  (tag: v1.1.0)
+ Workspace created.
+----
+
+Now run `poly info` against your latest release:
 
 [source,shell]
 ----
@@ -95,15 +160,7 @@ poly info since:release
 
 image::images/tagging/info-03.png[width=400]
 
-...it picks the latest release tag that follows the pattern defined in `workspace.edn`:
-
-[source,clojure]
-----
- :tag-patterns {...
-                :release "v[0-9]*"}
-----
-
-If we execute:
+If you execute `poly info` against the previous release:
 
 [source,shell]
 ----
@@ -112,24 +169,32 @@ poly info since:previous-release
 
 image::images/tagging/info-04.png[width=400]
 
-...it picks the second latest release tag.
+The `poly` tool has picked up the second latest release tag.
 
-By executing `git log --pretty=oneline` we can verify that the tags are correctly set:
+The `poly` tool matches release tags as defined by your `workspace.edn`:
 
-[source,shell]
+[source,clojure]
 ----
-e7ebe683a775ec28b7c2b5d77e01e79d48149d13 (HEAD -> main, tag: v1.2.0, tag: stable-lisa) Created the user and cli bricks.
-c91fdad4a34927d9aacfe4b04ea2f304f3303282 (tag: v1.1.0) Workspace created.
+ :tag-patterns {:stable "stable-*"
+                :release "v[0-9]*"} ;; <1>
 ----
+<1> Default regular expression for git `:release` tags is `v[0-9]*`.
 
-The `since` argument is used by the CI server to run all tests since the previous release, e.g.:
+You can use the `since` argument on your CI server to run only the necessary tests since the previous release.
+Unaffected code does not need to be retested.
 
 [source,shell]
 ----
 poly test since:previous-release
 ----
 
-Depending on whether we tag before or after the build, we will choose `release` or `previous-release`.
-If `since` is not given, `stable` will be used by default.
+[TIP]
+====
+You'll use:
 
-Some other variants, like `since:e7ebe68v`, `since:head`, or `since:head~1` are also valid.
+* `since:previous-release` if your release process adds a release tag before your build.
+* `since:release` if it adds a release tag after your build
+====
+
+TIP: If the `since` argument is not specified, `since:stable` is used by default. +
+Other variants, like `since:e7ebe68v`, `since:head`, and `since:head~1` are also valid.

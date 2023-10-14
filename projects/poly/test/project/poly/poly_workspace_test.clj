@@ -193,7 +193,7 @@
           "  command                   .  x  .  x  x  x  x  x  x  x  x  .  x  x  x  .  .  x  .  x  .  .  x  .  x  .  x  x  x  x  x  x  x"
           "  common                    .  .  .  .  .  .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  x  .  .  .  ."
           "  config-reader             .  .  .  x  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  .  .  ."
-          "  creator                   .  .  .  x  .  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  t  .  .  .  .  .  x  .  .  .  .  .  ."
+          "  creator                   .  .  .  x  .  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  t  .  .  .  .  .  x  .  x  .  .  .  ."
           "  deps                      .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  x  .  .  .  .  .  ."
           "  doc                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  ."
           "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
@@ -263,7 +263,7 @@
             "  command                   +  x  .  x  x  x  x  x  x  x  x  +  x  x  x  +  +  x  +  x  .  +  x  +  x  +  x  x  x  x  x  x  x"
             "  common                    .  .  .  .  .  .  .  .  x  .  .  x  .  .  .  .  .  .  +  .  .  .  .  x  x  .  x  .  x  .  .  .  ."
             "  config-reader             .  .  .  x  .  .  +  .  x  .  .  +  .  .  .  +  .  .  +  .  .  +  .  +  +  .  x  x  +  .  .  .  ."
-            "  creator                   -  -  -  x  -  -  -  -  x  x  -  +  -  -  -  -  +  -  +  -  t  -  -  +  +  -  x  -  +  -  -  -  -"
+            "  creator                   -  -  -  x  -  -  -  -  x  x  -  +  -  -  -  -  +  -  +  -  t  -  -  +  +  -  x  -  x  -  -  -  -"
             "  deps                      .  .  .  x  .  .  .  .  +  .  .  +  .  .  .  .  .  .  +  .  .  .  .  x  x  .  x  .  +  .  .  .  ."
             "  doc                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  +  .  .  .  .  .  .  .  .  .  x  .  .  .  ."
             "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
@@ -331,7 +331,7 @@
             "  command                   +  x  .  x  x  x  x  x  x  x  x  +  x  x  x  +  +  x  +  x  .  +  x  +  x  +  x  x  x  x  x  x  x"
             "  common                    .  .  .  .  .  .  .  .  x  .  .  x  .  .  .  .  .  .  +  .  .  .  .  x  x  .  x  .  x  .  .  .  ."
             "  config-reader             .  .  .  x  .  .  +  .  x  .  .  +  .  .  .  +  .  .  +  .  .  +  .  +  +  .  x  x  +  .  .  .  ."
-            "  creator                   -  -  -  x  -  -  -  -  x  x  -  +  -  -  -  -  +  -  +  -  t  -  -  +  +  -  x  -  +  -  -  -  -"
+            "  creator                   -  -  -  x  -  -  -  -  x  x  -  +  -  -  -  -  +  -  +  -  t  -  -  +  +  -  x  -  x  -  -  -  -"
             "  deps                      .  .  .  x  .  .  .  .  +  .  .  +  .  .  .  .  .  .  +  .  .  .  .  x  x  .  x  .  +  .  .  .  ."
             "  doc                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  +  .  .  .  .  .  .  .  .  .  x  .  .  .  ."
             "  file                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
@@ -554,18 +554,19 @@
           "creator"                  {:src  {:direct   ["common"
                                                         "file"
                                                         "git"
-                                                        "util"]
+                                                        "util"
+                                                        "version"]
                                              :indirect ["image-creator"
                                                         "sh"
                                                         "system"
                                                         "text-table"
-                                                        "user-config"
-                                                        "version"]}
+                                                        "user-config"]}
                                       :test {:direct   ["common"
                                                         "file"
                                                         "git"
                                                         "test-helper"
-                                                        "util"]
+                                                        "util"
+                                                        "version"]
                                              :indirect ["antq"
                                                         "change"
                                                         "command"
@@ -589,7 +590,6 @@
                                                         "user-config"
                                                         "user-input"
                                                         "validator"
-                                                        "version"
                                                         "workspace"
                                                         "workspace-clj"
                                                         "ws-explorer"

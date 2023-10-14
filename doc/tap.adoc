@@ -1,14 +1,37 @@
 = Tap
 
-The `tap` command is mainly for `poly` tool development, but can also be used to browse the internal xref:workspace-structure.adoc[workspace structure].
+We created the `tap` command to support xref:developing-poly.adoc[developing poly], but
+you might find it an interesting way to browse the internal xref:workspace-structure.adoc[workspace structure].
 
-We can open a https://github.com/djblue/portal[portal] window by passing in `:tap` when starting a shell, e.g. `poly :tap` or by executing the xref:commands.adoc#tap[tap] command from a xref:shell[shell]:
+This command opens a separate https://github.com/djblue/portal[portal] window.
+
+TIP: Portal is an excellent Clojure tool that makes browsing data a joy.
+Whether or not you use our `tap` command, we recommend you check out https://github.com/djblue/portal[portal].
+
+The `tap` command only works with the `poly` xref:shell.adoc[shell].
+You can invoke it in two different ways:
+
+1. Via the `:tap` argument when xref:shell.adoc#launching[launching a poly shell]:
++
+[source,shell]
+----
+poly :tap
+----
+2. By running the xref:commands.adoc#tap[tap] command from a `poly` shell:
++
+[source,text]
+----
+example$ tap
+----
+
+You'll see a separate portal window open; here, we show it placed to the right of the `poly` shell:
 
 image::images/tap/tap-shell.png[]
 
-We can dig into the https://app.gitbook.com/o/-LAhrWK-mSHRqiTNUTDP/s/-Mj2L4VeP3frziYOoQWC/~/changes/124/workspace-structure[workspace structure] by clicking the `:workspace` key:
+Click on the `:worskpace` key to dig into the xref:workspace-structure.adoc[workspace structure]:
 
 image::images/tap/tap-workspace.png[width=400]
 
-The portal window outputs data from https://clojuredocs.org/clojure.core/tap%3E[tap>] statements produced by the `poly` tool itself.
-With start from version `0.2.18`, only the workspace structure is "logged", to keep it nice and clean for the user of the `poly` tool.
+Any time the `poly` tool invokes https://clojuredocs.org/clojure.core/tap%3E[tap>], you'll see the output in the portal window.
+Starting with version `0.2.18` of `poly`, we only `tap>` the workspace structure to keep output to portal minimal and clean.
+
