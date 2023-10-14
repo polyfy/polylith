@@ -1,4 +1,5 @@
 = Development
+:toc:
 
 When working with a Polylith codebase, you are free to choose any editor/IDE you like, for example:
 
@@ -8,6 +9,25 @@ When working with a Polylith codebase, you are free to choose any editor/IDE you
 
 * https://www.jetbrains.com/idea/[IntelliJ IDEA] with https://cursive-ide.com/[Cursive]
 
+== Generic Setup
+We only currently specifically describe <<idea-cursive>>.
+
+If you are using a different IDE, here's the generic goals:
+
+. Setup your IDE's REPL to startup with `dev` and `test` aliases
+. Notice that your xref:workspace.adoc[workspace] `./deps.edn` already has `development/src` on the path for the `dev` alias
+. Add sample source `development/src/dev/lisa.clj`:
++
+[source,clojure]
+----
+(ns dev.lisa)
+
+(+ 1 2 3)
+----
+. Evaluate `dev.lisa` in your IDE REPL to test.
+. Celebrate a successful IDE setup!
+
+[[idea-cursive]]
 == IntelliJ IDEA with Cursive Setup
 
 Here, we share some specific setup instructions when using Cursive.
@@ -40,7 +60,7 @@ Then click the `+` sign and select `Clojure REPL > Local`:
 
 image::images/development/create-local-repl.png[width=250]
 
-Configure like so: 
+Configure like so:
 
 * `Name:` type `REPL`
 * `Which type of REPL to run` choose `nREPL`
@@ -82,13 +102,14 @@ One way to structure dev code is to give each developer their own namespace unde
 Following this pattern, create the namespace `dev.lisa`: +
 Right-click on the `development/src` directory, select `New > Clojure Namespace`, and type `dev.lisa`.
 
+[[cursive-enable-auto-add]]
 A dialog will pop up and ask you if you want to add the file to git:
 
 image::images/development/add-file-to-git.png[width=600]
 
 Check `Don't ask again` and click the `Add` button.
 
-If the namespace is not recognized, you may need to click the icon with two arrows under the `Clojure Deps` tab to refresh: 
+If the namespace is not recognized, you may need to click the icon with two arrows under the `Clojure Deps` tab to refresh:
 
 image::images/development/refresh.png[width=150]
 
