@@ -10,10 +10,10 @@ The xref:commands.adoc[test] command leverages the concept of stability to suppo
 It can reduce a test run to only those tests affected by changes since the last known _stable point in time_.
 As you can imagine, skipping unnecessary tests can significantly reduce test run times!
 
-To mark a _stable point in time_, we use a git tag.
+To mark a _stable point in time_, we use a https://git-scm.com/book/en/v2/Git-Basics-Tagging[git tag].
 
 Let's continue with our xref:introduction.adoc[tutorial].
-We last left off by xref:git.adoc#add-and-commit[adding and committing our workspace files to git].
+We last left off by xref:git.adoc#add-and-commit[adding and committing your workspace files to git].
 
 Mark your `example` workspace as stable by tagging it with git:
 
@@ -55,7 +55,7 @@ Notice that:
 
 Run `poly diff`; you'll see no output because nothing has changed.
 
-Our example uses the git tag `stable-lisa`, but `poly` recognizes any tag that starts with `stable-`.
+Our example uses the git tag `stable-lisa`, but `poly` recognizes any tag that starts with `stable-` as a _stable point in time_.
 We chose `stable-lisa` because Lisa is our name (let's pretend, at least!).
 This convention allows every developer to have their own unique _stable point in time_.
 
@@ -94,6 +94,7 @@ If it finds no matches, the first commit in the git repository is the _stable po
 
 You've seen the `info` command xref:git.adoc#info-all-changed-example[output when all bricks and projects have changed] since the _stable point in time_; all bricks and projects showed a trailing `*` (asterisk).
 
+[[make-a-change]]
 What happens if only some bricks have changed?
 Let's find out.
 Add a comment to the `user.core` namespace by editing `./components/user/src/se/example/user/core.clj`:

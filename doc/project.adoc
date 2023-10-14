@@ -82,6 +82,7 @@ example
 ----
 <1> new `command-line` project
 
+[[project-alias]]
 The `poly` tool helpfully reminds us:
 
 [source,shell]
@@ -96,9 +97,9 @@ Go ahead and add an alias in your `./workspace.edn`:
 ----
   {...
    :projects {"development" {:alias "dev"}
-              "command-line" {:alias "cli"}}} <1>
+              "command-line" {:alias "cl"}}} <1>
 ----
-<1> Add the `cli` `alias` for the `command-line` project
+<1> Add the `cl` `alias` for the `command-line` project
 
 Add the `user` component and the `cli` base to your new project by editing `projects/command-line/deps.edn`:
 

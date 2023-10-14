@@ -1,72 +1,172 @@
 = Flags
+:toc:
 
-We have one more thing to cover regarding the xref:commands.adoc#info[info] command, and that is what the `-`, `s`, `t` and `x` flags mean:
+You've seen output from the xref:commands.adoc#info[info] command, but we haven't explained flags:
 
-image::images/flags/projects.png[width=350]
+image::images/flags/info-flags.png[width=475]
 
-Let's start with the _status_  column:
-
-[%autowidth]
-|===
-| status | Explanation
-
-| s-- a| The project has a `src` directory
-| -t- a| The project has a `test` directory
-| --x a| Run the tests for this project
-|===
-
-If the "to be tested" flag `--x` is marked for a project under the `status` column, it means that the tests for that project will be executed from at least one project, which often is the project itself and/or the `development` project.
-
-Under the `status` column, the `---` means we have a `projects/command-line` directory but no `src` or `test` directories in it and that no tests will be executed for this project.
-
-Under the `status` column, the `s--` means we have a `development/src` directory but no `development/test` directory and that no tests will be executed for this project.
-
-Each flag under `dev` has a slightly different meaning, where project refers to `development`:
+There are four possible flags:
 
 [%autowidth]
 |===
-| status | Explanation
+| Flag | Description
 
-| s-- a| The `src` directory is included in the `development` project
-| -t- a| The `test` directory is included in the `development` project
-| --x a| Run the tests for this brick from the `development` project
+a| `s`
+| Relates to source code
+
+a| `r`
+| Relates to resources xref:#r-flag[and is only shown when requested]
+
+a| `t`
+| Relates to tests
+
+a| `x`
+a| Indicates `poly` will e**x**ecute tests
+
 |===
 
-Under the `dev` column, the `---` means that neither `projects/command-line/src` or `projects/command-line/test` is added to `./deps.edn` and that no tests in `projects/command-line/test` will be executed from the `development` project.
+Fun flag facts:
 
-Under the `dev` column, the `s--` means that `development/src` is added to `./deps.edn` but not `development/test` and that no tests in `development/test` will be executed from the `development` project.
+* Flags are booleans, `poly` shows:
+** the flag when `true`.
+** the `-` (dash) character when `false`.
+* Flags always appear in order: `srtx`.
+* The `r` flag isn't included by default.
+* The specific meaning of a flag depends on where it appears.
 
-We also have this section:
+We'll cover the `x` flag in more detail when we get to xref:testing.adoc[Testing].
 
-image::images/flags/bricks.png[width=300]
+== Project Flags
 
-{nbsp} +
+From our example above:
 
-Here the flags have a slightly different meaning:
+image::images/flags/projects.png[width=299]
+
+The `info` command outputs a table summarizing xref:project.adoc[projects].
+There is one row for each project and a `status` and `dev` column for flags.
+
+=== Projects `status` Column Flags
 
 [%autowidth]
 |===
-| status | Explanation
+| Flag | Meaning
 
-| s-- a| The brick's `src` directory is included in this project
-| -t- a| The brick's `test` directory is included in this project
-| --x a| Run the tests for this brick from this project
+a| `s`
+a| The project has a `src` directory.
+a| `t`
+a| The project has a `test` directory.
+a| `x`
+a| The `poly test` command will run tests for this project
+
 |===
 
-The `st-` for the `user` component under the `dev` column tells that both `components/user/src` and `components/user/test` are included in the `development` projects, and that no brick tests will be executed.
+From our example above:
 
-The `./deps.edn` looks like this:
+image::images/flags/projects-status.png[width=350]
 
-[source,clojure]
-----
- :aliases  {:dev {:extra-deps {poly/user {:local/root "components/user"}
-  ...
-            :test {:extra-paths ["components/user/test"
-----
+The `status` flags `---` for `command-line` means `poly` sees:
 
-The `st-` for the `user` component under the `cl` column tells that `user` is included in the `command-line` project and that `user` has both a `src` and `test` directory specified in its `deps.edn` (probably indirectly included via a `:local/root` statement) and that no brick tests will be executed.
+. a `./projects/command-line` directory
+. no `./projects/command-line/src` directory
+. no `./projects/command-line/test` directory
+. no reason to run tests for this project
 
-The bricks for the `command-line` project is configured in `projects/command-line/deps.edn`:
+The `status` flags `s--` for `development` means `poly` sees:
+
+. a `./development/src` directory
+. no `./development/test` directory
+. no reasons to run tests for this project
+
+=== Projects `dev` Column Flags
+
+[%autowidth]
+|===
+| Flag | Meaning
+
+a| `s`
+a| The `src` directory of the project is referenced by the `development` project
+
+a| `t`
+a| The `test` directory of the project is referenced by the `development` project
+
+a| `x`
+a| The `poly test` command will run tests for the project from the `development` project
+
+|===
+
+From our example above:
+
+image::images/flags/projects-dev.png[width=350]
+
+The `dev` flags `---` for `command-line` means `poly` sees:
+
+. `./projects/command-line/src` isn't referenced in the workspace `./deps.edn`
+. `./projects/command-line/test` isn't referenced in the workspace `./deps.edn`
+. no reason to run tests for the `command-line` project from the `development` project
+
+The `dev` flags `s---` for `development` means `poly` sees:
+
+. `./development/src` is referenced in the workspace `./deps.edn`
+. `./development/test` isn't referenced in the workspace `./deps.edn`
+. no reason to run tests for the `development` project
+
+[TIP]
+====
+You might wonder about the `development` row intersecting with the `dev` column:
+
+. Isn't that talking about the `development` project referencing the `development` project?
+Yes.
+. So wouldn't `status` be the same as `dev` for the `development` row? Also, yes.
+====
+
+TIP: The `development` project exists to support development.
+It would be unusual for it to have tests of its own.
+
+== Brick Flags
+
+From our example above:
+
+image::images/flags/bricks.png[width=299]
+
+The `info` command outputs a table summarizing bricks (xref:component.adoc[components] and xref:base.adoc[bases]).
+There is one row for each brick and one column for each xref:project.adoc[project].
+You'll see one column for each deployable project and a `dev` column for the `development` project.
+Our `example` workspace only has the `command-line` deployable project, xref:project.adoc#project-alias[which you'll remember you aliased as cl].
+
+[%autowidth]
+|===
+| Flag | Meaning
+
+a| `s`
+a| The brick's `src` directory is referenced by the project in this column
+
+a| `t`
+a| The brick's `test` directory is referenced by the project in this column
+
+a| `x`
+a| The `poly test` command will run tests for this brick from the project in this column
+
+|===
+
+=== Bricks Deployable Projects Columns
+
+From our example above:
+
+image::images/flags/bricks-deployable-projects.png[width=299]
+
+We have a single deployable `command-line` project aliased as `cl`.
+
+The `cl` flags `st-` for the `user` component means `poly` sees:
+
+. the `command-line` project references the `user` component, and the `user` component has:
+.. a `src` directory specified in its `deps.edn`
+.. a `test` directory specified in its `deps.edn`
+. no reason to run tests for the `user` component for the `command-line` project
+
+The `cl` flags `st-` for the `cli` base follow the same pattern.
+
+****
+A reminder of relevant `projects/command-line/deps.edn` configuration:
 
 [source,clojure]
 ----
@@ -74,7 +174,7 @@ The bricks for the `command-line` project is configured in `projects/command-lin
         poly/cli    {:local/root "../../bases/cli"}
 ----
 
-...where the `src`, `resources`, and `test` folders for the bricks are specified in `components/user/deps.edn` and `bases/cli/deps.edn` where both have this content:
+And, in turn, the relevant `components/user/deps.edn` and `bases/cli/deps.edn` configuration:
 
 [source,clojure]
 ----
@@ -83,11 +183,39 @@ The bricks for the `command-line` project is configured in `projects/command-lin
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {}}}}
 ----
+****
 
-The `st-` for the `cli` base follows the same pattern as for the `user` component but for the `bases/cli` directory.
+=== Bricks `dev` Project Column
 
-If we execute `poly info :resources` (or the shorter `poly info :r`):
+From our example above:
+
+image::images/flags/bricks-dev.png[width=299]
+
+The `dev` flags `st-` for the `user` component means `poly` sees:
+
+. `./components/user/src` is referenced by the `development` project
+. `./components/user/test` is referenced by the `development` project
+. no reason to run tests for this brick for this project
+
+****
+To remind you of how `src` and `test` are referenced, the relevant portion of our `./deps.edn`:
+
+[source,clojure]
+----
+ :aliases  {:dev {:extra-deps {poly/user {:local/root "components/user"} ;; <1>
+  ...
+            :test {:extra-paths ["components/user/test" ;; <2>
+----
+<1> Development project referencing user component src via `:local/root` dep
+<2> Development project referencing user component test via `:extra-paths`
+****
+
+[[r-flag]]
+== The optional `r` flag
+
+If you execute `poly info :resources` (or the shorter `poly info :r`):
 
 image::images/flags/info.png[width=400]
 
-...then the resources directory is also included, where `r` stands for resources.
+Notice that `poly` has included the `r` (resources) flag.
+
