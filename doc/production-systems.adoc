@@ -49,6 +49,15 @@ We made our initial commit on June 9, 2019.
 The Polylith way of working gives us a range of benefits, such as decoupled building blocks that are easy to find, change, reuse, and reason about.
 We combine these building blocks to create the `poly` and `polyx` command line tools, and the `clj-poly` library.
 
+== Greenlabs
+
+https://greenlabs.co.kr[Greenlabs] is an Agtech startup from South Korea.
+
+We have been using Clojure since 2020 and adopted Polylith in March 2022.
+Our codebase is 93K lines of Clojure.
+We have chosen an event-driven architecture for their web services, with Kafka at the center and a bunch of AWS Lambdas around it.
+Thanks to Polylith, we've been able to easily manage and deploy multiple serverless projects from a single repository.
+
 == Add your Company Here!
 
 Please get in touch with us if you use Polylith and don't see your company here!
