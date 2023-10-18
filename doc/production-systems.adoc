@@ -42,12 +42,12 @@ The concept of "swappable implementations" for component interfaces has allowed 
 
 image::images/production-systems/greenlabs.png[link="images/production-systems/greenlabs.png"]
 
-https://greenlabs.co.kr[Greenlabs] is an Agtech startup from South Korea.
+https://greenlabs.co.kr[Greenlabs] is an agtech startup located in Seoul, South Korea.
 
 We have been using Clojure since 2020 and adopted Polylith in March 2022.
 Our codebase is 93K lines of Clojure.
-We have chosen an event-driven architecture for their web services, with Kafka at the center and a bunch of AWS Lambdas around it.
-Thanks to Polylith, we've been able to easily manage and deploy multiple serverless projects from a single repository.
+We have chosen an event-driven architecture for backend systems, with Kafka at the center and a bunch of AWS Lambdas around it.
+Thanks to Polylith, we've been able to easily manage and deploy multiple serverless projects from a single repository. It's especially helpful for modularizing code and understanding dependencies.
 
 == Polylith
 
