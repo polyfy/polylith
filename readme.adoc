@@ -53,11 +53,11 @@ image::doc/images/sponsors/adgoji.png[link=https://www.adgoji.com,alt=adgoji.com
 
 === Polylith Super Fans
 
-image::https://avatars.githubusercontent.com/u/59614667[link=https://github.com/fluent-development,alt=Multiply,width=40]
-
 === Polylith Fans
 
-image::https://avatars.githubusercontent.com/u/18068051[link=https://github.com/yyna,alt=Jungin Kwon,width=32]
+image:https://avatars.githubusercontent.com/u/18068051[link=https://github.com/yyna,alt=Jungin Kwon,width=32,role="left"]
+image:https://avatars.githubusercontent.com/u/59614667[link=https://github.com/fluent-development,alt=Multiply,width=32,role="left"]
+image:https://avatars.githubusercontent.com/u/6353427[link=https://github.com/anieri,alt=Anieri,width=32,role="left"]
 
 === Polylith Friends
 
