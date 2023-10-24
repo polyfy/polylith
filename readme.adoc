@@ -51,8 +51,6 @@ image::doc/images/sponsors/scrintal.png[link=https://www.scrintal.com,alt=scrint
 
 image::doc/images/sponsors/adgoji.png[link=https://www.adgoji.com,alt=adgoji.com,width=200]
 
-=== Polylith Super Fans
-
 === Polylith Fans
 
 image:https://avatars.githubusercontent.com/u/18068051[link=https://github.com/yyna,alt=Jungin Kwon,width=32,role="left"]
