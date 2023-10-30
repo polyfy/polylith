@@ -90,4 +90,5 @@ Ran 1 tests containing 1 assertions.
 Test results: 1 passes, 0 failures, 0 errors.
 
 Execution time: x seconds
-exit code: 0
+
+# Exit code: 0

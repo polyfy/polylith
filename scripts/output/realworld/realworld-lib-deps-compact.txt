@@ -7,6 +7,7 @@
                                                                               l n s o l e a e p
   library                                version   type       KB   rb   dev   e t e g e c g r i
   --------------------------------------------------------------   --   ---   -----------------
+  clj-http/clj-http                      3.12.3    maven      58   -     x    . . . . . . . . .
   clj-jwt/clj-jwt                        0.1.1     maven       7   x     x    . . . . . . . x .
   clj-time/clj-time                      0.15.2    maven      23   x     x    x x . . . . . x .
   com.github.seancorfield/honeysql       2.4.980   maven      30   x     x    x x x . x . x x .

@@ -164,6 +164,13 @@ We store doc images under `./doc/images/`, for example for the overview diagram 
 * InkScape source: link:/doc/images/doc/doc-overview.svg[./doc/images/doc/doc-overview.svg]
 * Exported png: link:/doc/images/doc/doc-overview.png[./doc/images/doc/doc-overview.png]
 
+Generated images (currently from `bb create-example` via `polyx`) are grouped with their related images but are prefixed with an `output` dir.
+This strategy helps us distinguish hand-crafted images from generated ones and reminds us not to edit images in the `output` dirs.
+
+Sometimes, we'll annotate a generated image.
+We do so via an InkScape SVG file and link (rather than embed) the generated image.
+As of this writing, if any of these images change, the `.svg` will have to be manually re-exported to its `.png`.
+
 Tips:
 
 * Use a transparent background.

@@ -3,7 +3,8 @@
  :min-bb-version "1.3.182"
  :paths ["." "scripts"]
  :deps {lread/status-line {:git/url "https://github.com/lread/status-line.git"
-                           :sha "cf44c15f30ea3867227fa61ceb823e5e942c707f"}}
+                           :sha "cf44c15f30ea3867227fa61ceb823e5e942c707f"}
+        version-clj/version-clj {:mvn/version "2.0.2"} }
  :tasks
  {;; setup
   :requires ([clojure.string :as string]
@@ -17,12 +18,40 @@
              (status/line :detail "\nTASK %s done." name)))
 
   ;; commands
-  doc-preview {:doc "preview what docs will look like on cljdoc, use help for args"
+  clean {:doc "Delete build work and artifacts"
+         :task clean/-main}
+
+  doc-preview {:doc "Preview what docs will look like on cljdoc, use help for args"
                :task cljdoc-preview/-main}
 
-  jar {:doc "Builds projects/poly/target/poly.jar"
-       :task (shell "clojure -T:build uberjar :project poly")}
+  poly-uberjar {:doc "Builds poly uberjar, if needed (run clean first to force)"
+            :requires [poly-jar]
+            :task (poly-jar/build "poly")}
+
+  polyx-uberjar {:doc "Builds polyx uberjar, if needed (run clean first to force)"
+             :requires [poly-jar]
+             :task (poly-jar/build "polyx")}
 
   poly-local {:doc "Installs the poly tool locally"
-              :depends [jar]
-              :task (shell "sudo cp projects/poly/target/poly.jar /usr/local/polylith/poly.jar")}}}
+              :depends [poly-uberjar]
+              :task (shell "sudo cp projects/poly/target/poly.jar /usr/local/polylith/poly.jar")}
+
+  help-txt {:doc "Generates doc text files via poly help command"
+            :depends [poly-uberjar]
+            :requires [help]
+            :task (help/help)}
+
+  help-doc {:doc "Assembles doc text into doc/commands.adoc"
+            :requires [help]
+            :task (help/update-command-doc)}
+
+  update-commands-doc {:doc "Run help-txt then help-doc"
+                       :depends [help-txt help-doc]}
+
+  create-example {:doc "Creates and exercises examples workspaces (also generates some doc images and doc code blocks)"
+                  :depends [poly-uberjar polyx-uberjar]
+                  :requires [create-example]
+                  :task (create-example/main)}
+
+  gen-all {:doc "Run update-commands-docs then create-example"
+           :depends [update-commands-doc create-example]}}}

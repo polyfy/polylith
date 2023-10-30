@@ -1,42 +1,42 @@
-example
-├── bases
-│   └── cli
+example/
+├── bases/
+│   └── cli/
 │       ├── deps.edn
-│       ├── resources
-│       │   └── cli
-│       ├── src
-│       │   └── se
-│       │       └── example
-│       │           └── cli
+│       ├── resources/
+│       │   └── cli/
+│       ├── src/
+│       │   └── se/
+│       │       └── example/
+│       │           └── cli/
 │       │               └── core.clj
-│       └── test
-│           └── se
-│               └── example
-│                   └── cli
+│       └── test/
+│           └── se/
+│               └── example/
+│                   └── cli/
 │                       └── core_test.clj
-├── components
-│   └── user
+├── components/
+│   └── user/
 │       ├── deps.edn
-│       ├── resources
-│       │   └── user
-│       ├── src
-│       │   └── se
-│       │       └── example
-│       │           └── user
+│       ├── resources/
+│       │   └── user/
+│       ├── src/
+│       │   └── se/
+│       │       └── example/
+│       │           └── user/
 │       │               ├── core.clj
 │       │               └── interface.clj
-│       └── test
-│           └── se
-│               └── example
-│                   └── user
+│       └── test/
+│           └── se/
+│               └── example/
+│                   └── user/
 │                       └── interface_test.clj
 ├── deps.edn
-├── development
-│   └── src
-│       └── dev
+├── development/
+│   └── src/
+│       └── dev/
 │           └── lisa.clj
 ├── logo.png
-├── projects
+├── projects/
 ├── readme.md
 └── workspace.edn
 

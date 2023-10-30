@@ -26,4 +26,5 @@ Test teardown for project: failing-test
 
 
 Test results: 0 passes, 1 failures, 0 errors.
-exit code: 1
+
+# Exit code: 1

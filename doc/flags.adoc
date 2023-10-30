@@ -218,7 +218,7 @@ To remind you of how `src` and `test` are referenced, the relevant portion of ou
 
 If you execute `poly info :resources` (or the shorter `poly info :r`):
 
-image::images/flags/info.png[width=400]
+image::images/flags/output/info.png[width=400]
 
 Notice that `poly` has included the `r` (resources) flag.
 

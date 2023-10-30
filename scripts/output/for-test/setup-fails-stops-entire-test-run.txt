@@ -47,4 +47,5 @@ Running test setup for the setup-fails project: project.setup-fails.test-setup/s
 
 Test setup failed: java.lang.Exception: Setup failed for project: setup-fails
 Test terminated due to setup failure
-exit code: 1
+
+# Exit code: 1

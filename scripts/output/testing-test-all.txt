@@ -37,5 +37,6 @@ Running test teardown for the command-line project: project.command-line.test-se
 --- test teardown for command-line ---
 
 
-Execution time: 2 seconds
-exit code: 0
+Execution time: x seconds
+
+# Exit code: 0
