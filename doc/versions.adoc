@@ -1,0 +1,40 @@
+= Versions
+
+There are three areas that are version controlled in Polylith,
+which is described xref:workspace-structure.adoc#version[here].
+
+Here are the changes to the workspace structure over time:
+
+|===
+| ws | release | action | attribute | description
+
+| 2.0 | 0.2.18 | added | configs |
+|  |  | added | bases:BASE:base-deps |
+|  |  | deleted | version.ws.type | Moved out to ws-type.
+|  |  | deleted | version.from.ws.type |
+|  |  | added | version:api |
+|  |  | added | version:tool |
+|  |  | added | version:test-runner-api |
+|  |  | added | version:release:snapshot |
+|  |  | added | ws-type |
+|  |  | renamed | interfaces:definitions:DEFINITION:arglist | Renamed from parameters.
+|  |  | renamed | projects:PROJECT:deps:BRICK:SOURCE:missing-ifc-and-bases | Renamed from missing-ifc.
+|  |  | added | ENTITIES:ENTITY:namespaces:SOURCE:NAMESPACE:is-ignored |
+|  |  | added | ENTITIES:ENTITY:namespaces:SOURCE:NAMESPACE:is-invalid |
+|  |  | changed | ENTITIES:ENTITY:namespaces:SOURCE:NAMESPACE:file-path | The ws-dir part is removed from the file path (data change).
+| 1.2 | 0.2.16-alpha | added | ENTITIES:ENTITY:namespaces:src:NAMESPACE:invalid |
+| 1.1 | 0.2.14-alpha | added | settings:vcs:is-git-repo |
+|  |  | deleted | projects:PROJECT:is-run-tests |
+| 0.0 | 0.1.0-alpha9 |  |  | Version 0.2.0-alpha9 and earlier, has from.ws set to 0.0 if read from file.
+|===
+
+Used in the above table:
+
+|===
+| What | Description
+
+| ENTITY | Bases, components, or projects.
+| ENTITIES | Bases, components, or projects.
+| NAMESPACE | A namespace name.
+| SOURCE | src or test.
+|===

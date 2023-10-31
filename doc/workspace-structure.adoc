@@ -988,7 +988,7 @@ Each subsequent snapshot release will increase this value by one.
 *** `:breaking` The breaking version of the original `ws` format.
 *** `:non-breaking` The non-breaking version of the original `ws` format.
 
-Changes to the xref:workspace-structure.adoc[workspace structure], is documented in the https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/components/version/src/polylith/clj/core/version/interface.clj#L37-L57[version] component.
+Changes to the xref:workspace-structure.adoc[workspace structure] is documented in the xref:versions.adoc[versions] page.
 
 [#ws-dir]
 == ws-dir

@@ -41,5 +41,6 @@
                    ["Reference" {}
                     ["Commands" {:file "doc/commands.adoc"}]
                     ["Workspace structure" {:file "doc/workspace-structure.adoc"}]]
+                   ["Versions" {:file "doc/versions.adoc"}]
                    ["Contact" {:file "doc/contact.adoc"}]
                    ["License" {:file "doc/license.adoc"}]]}
