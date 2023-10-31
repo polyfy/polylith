@@ -71,6 +71,7 @@
    "tools-deps" {}
    "upgrade" {}
    "validations" {}
+   "versions" {}
    "workspace" {}})
 
 (def ws-nav
