@@ -117,8 +117,8 @@ explore-the-workspace    testing
 flags                    tools-deps
 git-hooks                upgrade
 git                      validations
-install                  workspace
-interface
+install                  versions
+interface                workspace
 ----
 
 These are the same pages you see listed in the left menu in your web browser.
