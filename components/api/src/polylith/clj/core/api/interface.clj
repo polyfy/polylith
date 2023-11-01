@@ -68,7 +68,7 @@
   ```
   Any changes that only add functionality/attributes, will increase the `:non-breaking` number by one.
 
-  If we use a SNAPSHOT version, then we can check [next-release.txt](https://github.com/polyfy/polylith/blob/issue-318/next-release.txt)
+  If you use a SNAPSHOT version, then you can check [next-release.txt](https://github.com/polyfy/polylith/blob/issue-318/next-release.txt)
   to get a summary of all the changes that have been made since the last final release."
   {:api version/api-version
    :test-runner version/test-runner-api-version
@@ -76,7 +76,7 @@
 
 (defn projects-to-deploy
   "This function returns the projects that have changed (directly or indirectly) since the
-  _last stable point in time_, and is primarily used to know which projects we should build and deploy.
+  _last stable point in time_, and is primarily used to know which projects to build and deploy.
 
   If called with:
   ```clojure
