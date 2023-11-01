@@ -964,7 +964,7 @@ poly ws get:version
 
 * `:api`
 ** `:breaking` Increased by one if introducing a non-backward compatible change of the {cljdoc-api-url}[API].
-** `:non-breaking` Increased by one when a non-breaking change is made to the test runner API.
+** `:non-breaking` Increased by one when a non-breaking change is made to the {cljdoc-api-url}[API].
 * `:release`
 ** `:date` The date of the release in the format `yyyy-mm-dd`.
 ** `:major` The major version, set to zero.
@@ -978,9 +978,8 @@ The first snapshot release will have the value of 1.
 Each subsequent snapshot release will increase this value by one.
 ** `:tool` Set to "poly" if the `poly` tool, or "polyx" if the extended xref:polyx.adoc[polyx] tool.
 * `:test-runner-api` Versioning of the test runner API:
-** `:breaking` Increased by one if introducing a non-backward compatible change of the test runner API.
-** `:non-breaking` Increased by one when a non-breaking change is made to the test runner API.
-
+** `:breaking` Increased by one if introducing a non-backward compatible change of the {cljdoc-api-url}/polylith.clj.core.test-runner-contract.interface[test runner API].
+** `:non-breaking` Increased by one when a non-breaking change is made to the {cljdoc-api-url}/polylith.clj.core.test-runner-contract.interface[test runner API].
 * `:ws` Versioning of the internal workspace format, returned by `poly ws`.
 ** `:breaking` Increased by one if introducing a non-backward compatible change of the workspace format:
 *** If an attribute has changed name.
