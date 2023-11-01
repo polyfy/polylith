@@ -6,7 +6,7 @@ The polylith repository has a continuous integration and deployment setup via ht
 The setup has a workflow for validation, testing, and deployment.
 The workflow has several jobs that validate, test, and deploy the artifacts to https://clojars.org/search?q=polylith[Clojars], https://cljdoc.org/versions/polylith/clj-poly[cljdoc], and GitHub as https://github.com/polyfy/polylith/releases[releases].
 
-We can find the CircleCI configuration file link:../.circleci/config.yml[here].
+You can find the CircleCI configuration file link:../.circleci/config.yml[here].
 
 [#releases]
 == Releases
