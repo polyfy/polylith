@@ -4,6 +4,8 @@
 (def clojurescript-podcast-part1 "https://podcasts.apple.com/se/podcast/s4-e21-polylith-with-joakim-james-and-furkan-part-1/id1461500416?i=1000505948894")
 
 (def config {:high-level {:url "https://polylith.gitbook.io/polylith"
+                          :sharing-code {:url "https://polylith.gitbook.io/polylith/introduction/sharing-code"}
+                          :testing-incrementally {:url "https://polylith.gitbook.io/polylith/introduction/testing-incrementally"}
                           :polylith-in-a-nutshell {:url "https://polylith.gitbook.io/polylith/introduction/polylith-in-a-nutshell"}
                           :workspace {:url "https://polylith.gitbook.io/polylith/architecture/2.1.-workspace"}
                           :component {:url "https://polylith.gitbook.io/polylith/architecture/2.3.-component"}
@@ -24,6 +26,7 @@
              :slack {:url "https://clojurians.slack.com/archives/C013B7MQHJQ"}
              :python-tool {:url "https://davidvujic.github.io/python-polylith-docs"}
              :blog-posts {:url "https://polylith.gitbook.io/polylith/#read-a-blog-post"
+                          :understanding-polylith-through-the-lens-of-hexagonal-architecture {:url "https://medium.com/@joakimtengstrand/understanding-polylith-through-the-lens-of-hexagonal-architecture-8e7c8757dab1"}
                           :a-fresh-take-on-monorepos-in-python {:url "https://davidvujic.blogspot.com/2022/02/a-fresh-take-on-monorepos-in-python.html"}
                           :how-polylith-came-to-life {:url "https://medium.com/@joakimtengstrand/the-polylith-architecture-1eec55c5ebce"}
                           :the-monorepos-polylith-series {:url "https://corfield.org/blog/2021/04/21/deps-edn-monorepo-2"}
