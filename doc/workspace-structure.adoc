@@ -1,6 +1,7 @@
 = Workspace Structure
 :toc:
 :poly-version: 0.2.18
+:cljdoc-api-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/api
 
 The `poly` tool gives us access to the data structure that represents the workspace, which is the same structure that all the `poly` commands operate on internally.
 
@@ -945,7 +946,9 @@ poly ws get:version
 
 [source,clojure]
 ----
-{:release {:date "2023-07-24"
+{:api {:breaking 1
+       :non-breaking 0}
+ :release {:date "2023-07-24"
            :major 0
            :minor 2
            :name "0.2.18-SNAPSHOT"
@@ -959,6 +962,9 @@ poly ws get:version
       :non-breaking 0}}
 ----
 
+* `:api`
+** `:breaking` Increased by one if introducing a non-backward compatible change of the {cljdoc-api-url}[API].
+** `:non-breaking` Increased by one when a non-breaking change is made to the {cljdoc-api-url}[API].
 * `:release`
 ** `:date` The date of the release in the format `yyyy-mm-dd`.
 ** `:major` The major version, set to zero.
@@ -972,9 +978,8 @@ The first snapshot release will have the value of 1.
 Each subsequent snapshot release will increase this value by one.
 ** `:tool` Set to "poly" if the `poly` tool, or "polyx" if the extended xref:polyx.adoc[polyx] tool.
 * `:test-runner-api` Versioning of the test runner API:
-** `:breaking` Increased by one if introducing a non-backward compatible change of the test runner API.
-** `:non-breaking` Increased by one when a non-breaking change is made to the test runner API.
-
+** `:breaking` Increased by one if introducing a non-backward compatible change of the {cljdoc-api-url}/polylith.clj.core.test-runner-contract.interface[test runner API].
+** `:non-breaking` Increased by one when a non-breaking change is made to the {cljdoc-api-url}/polylith.clj.core.test-runner-contract.interface[test runner API].
 * `:ws` Versioning of the internal workspace format, returned by `poly ws`.
 ** `:breaking` Increased by one if introducing a non-backward compatible change of the workspace format:
 *** If an attribute has changed name.

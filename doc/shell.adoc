@@ -189,29 +189,11 @@ Notice that the prompt has changed to show the currently selected workspace (by 
 
 You can launch a shell and immediately switch to a workspace:
 
-[source,text,subs="+attributes"]
-----
-$ poly ws-dir:../clojure-polylith-realworld-example-app
-                  _      _ + _   _
-#####   _ __  ___| |_  _| |-| |_| |_
-#####  | '_ \/ _ \ | || | | |  _| ' \
-#####  | .__/\___/_|\_, |_|_|\__|_||_|
-       |_|          |__/ poly {poly-version}
-dir:clojure-polylith-realworld-example-app$
-----
+image::images/shell/shell-open-realworld.png[width=600]
 
 ...or load a workspace from an export file, e.g.:
 
-[source,text,subs="+attributes"]
-----
-$ poly ws-file:../usermanager-example/ws.edn
-                  _      _ + _   _
-#####   _ __  ___| |_  _| |-| |_| |_
-#####  | '_ \/ _ \ | || | | |  _| ' \
-#####  | .__/\___/_|\_, |_|_|\__|_||_|
-       |_|          |__/ poly  {poly-version}
-file:usermanager-example$
-----
+image::images/shell/shell-open-usermanager.png[width=600]
 
 === Workspace Switch Mechanics
 

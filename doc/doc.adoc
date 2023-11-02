@@ -117,8 +117,8 @@ explore-the-workspace    testing
 flags                    tools-deps
 git-hooks                upgrade
 git                      validations
-install                  workspace
-interface
+install                  versions
+interface                workspace
 ----
 
 These are the same pages you see listed in the left menu in your web browser.
@@ -233,23 +233,20 @@ how-polylith-came-to-life
 the-micro-monolith-architecture
 the-monorepos-polylith-series
 the-origin-of-complexity
+understanding-polylith-through-the-lens-of-hexagonal-architecture
 ----
 
 [%autowidth]
 |===
 | Blog post | What | Published
 
+| https://medium.com/@joakimtengstrand/understanding-polylith-through-the-lens-of-hexagonal-architecture-8e7c8757dab1[understanding-polylith-through-the-lens-of-hexagonal-architecture]
+| https://github.com/tengstrand[Joakim Tengstrand] explains the differences between the Hexagonal architecture and Polylith.
+| 2023
+
 | https://davidvujic.blogspot.com/2022/02/a-fresh-take-on-monorepos-in-python.html[a-fresh-take-on-monorepos-in-python]
 | https://github.com/DavidVujic[David Vujic] explains what would happen if they had Polylith in the Python community.
 | 2022
-
-| https://medium.com/@joakimtengstrand/the-polylith-architecture-1eec55c5ebce[how-polylith-came-to-life]
-| https://github.com/tengstrand[Joakim Tengstrand] explains how the Polylith architecture came to life.
-| 2018
-
-| https://medium.com/@joakimtengstrand/the-micro-monolith-architecture-d135d9cafbe[the-micro-monolith-architecture]
-| https://github.com/tengstrand[Joakim Tengstrand] explains the ideas behind Micro Monolith, a predecessor to Polylith.
-| 2016
 
 | https://corfield.org/blog/2021/04/21/deps-edn-monorepo-2/[the-monorepos-polylith-series]
 | https://github.com/seancorfield[Sean Corfield] describes his experience migrating a big production system to Polylith in a series of blog posts.
@@ -258,6 +255,14 @@ the-origin-of-complexity
 | https://itnext.io/the-origin-of-complexity-8ecb39130fc[the-origin-of-complexity]
 | https://github.com/tengstrand[Joakim Tengstrand] explains the foundational concepts that Polylith is built upon.
 | 2019
+
+| https://medium.com/@joakimtengstrand/the-polylith-architecture-1eec55c5ebce[how-polylith-came-to-life]
+| https://github.com/tengstrand[Joakim Tengstrand] explains how the Polylith architecture came to life.
+| 2018
+
+| https://medium.com/@joakimtengstrand/the-micro-monolith-architecture-d135d9cafbe[the-micro-monolith-architecture]
+| https://github.com/tengstrand[Joakim Tengstrand] explains the ideas behind Micro Monolith, a predecessor to Polylith.
+| 2016
 
 |===
 
@@ -285,7 +290,9 @@ faq
 polylith-in-a-nutshell
 production-systems
 project
+sharing-code
 simplicity
+testing-incrementally
 tool
 transitioning-to-polylith
 videos
@@ -370,6 +377,10 @@ the-last-architecture-you-will-ever-need
 | Sean Corfield is interviewed by the https://www.youtube.com/@losangelesclojureusersgrou5432[Los Angeles Clojure Users Group] about his experience with Polylith and how he uses the `poly` tool in production at https://polylith.gitbook.io/polylith/conclusion/production-systems#world-singles-networks[World Singles Network].
 | 2022
 
+| https://www.youtube.com/watch?v=pebwHmibla4[the-last-architecture-you-will-ever-need]
+| https://github.com/tengstrand[Joakim Tengstrand] and link:https://github.com/furkan3ayraktar[Furkan Bayraktar] try to convince people why Polylith is the last architecture they will ever need!
+| 2020
+
 | https://www.youtube.com/watch?v=Xz8slbpGvnk[polylith-in-a-nutshell]
 | https://www.linkedin.com/in/james-trunk/[James Trunk] explains the basic concepts of the Polylith architecture.
 | 2019
@@ -377,10 +388,6 @@ the-last-architecture-you-will-ever-need
 | https://www.youtube.com/watch?v=wy4LZykQBkY[polylith–a-software-architecture-based-on-lego-like-blocks]
 | https://github.com/tengstrand[Joakim Tengstrand] explains how Polylith is like building with LEGO bricks, at https://www.youtube.com/playlist?list=PLaSn8eiZ631nv68lHjZIfrSXOLIDsf726[ClojureD 2019].
 | 2019
-
-| https://www.youtube.com/watch?v=pebwHmibla4[the-last-architecture-you-will-ever-need]
-| https://github.com/tengstrand[Joakim Tengstrand] and link:https://github.com/furkan3ayraktar[Furkan Bayraktar] try to convince people why Polylith is the last architecture they will ever need!
-| 2020
 
 |===
 

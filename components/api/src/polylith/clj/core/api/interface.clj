@@ -25,9 +25,9 @@
    ```
 
    As an example, the `clj-poly` library is first specified in the
-   https://github.com/polyfy/polylith/blob/5ff79341e7dc3fc6a486584c6c2f2f46cb577d6e/deps.edn#L120[:build]
+   [build](https://github.com/polyfy/polylith/blob/5ff79341e7dc3fc6a486584c6c2f2f46cb577d6e/deps.edn#L120)
    alias in polylith's `build.clj` and then used in
-   https://github.com/polyfy/polylith/blob/5ff79341e7dc3fc6a486584c6c2f2f46cb577d6e/build.clj#L83[build.clj].
+   [build.clj](https://github.com/polyfy/polylith/blob/5ff79341e7dc3fc6a486584c6c2f2f46cb577d6e/build.clj#L83).
 
    If you need more access than is exposed by the API at the moment, just reach out to the
    Polylith team in [Slack](https://clojurians.slack.com/messages/C013B7MQHJQ)
@@ -68,7 +68,7 @@
   ```
   Any changes that only add functionality/attributes, will increase the `:non-breaking` number by one.
 
-  If we use a SNAPSHOT version, then we can check [next-release.txt](https://github.com/polyfy/polylith/blob/issue-318/next-release.txt)
+  If you use a SNAPSHOT version, then you can check [next-release.txt](https://github.com/polyfy/polylith/blob/issue-318/next-release.txt)
   to get a summary of all the changes that have been made since the last final release."
   {:api version/api-version
    :test-runner version/test-runner-api-version
@@ -76,7 +76,7 @@
 
 (defn projects-to-deploy
   "This function returns the projects that have changed (directly or indirectly) since the
-  _last stable point in time_, and is primarily used to know which projects we should build and deploy.
+  _last stable point in time_, and is primarily used to know which projects to build and deploy.
 
   If called with:
   ```clojure
