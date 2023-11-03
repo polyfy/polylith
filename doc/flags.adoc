@@ -100,14 +100,14 @@ image::images/flags/projects-dev.png[width=350]
 
 The `dev` flags `---` for `command-line` means `poly` sees:
 
-. `./projects/command-line/src` isn't referenced in the workspace `./deps.edn`
-. `./projects/command-line/test` isn't referenced in the workspace `./deps.edn`
+. `./projects/command-line/src` isn't referenced in ./deps.edn`
+. `./projects/command-line/test` isn't referenced in `./deps.edn`
 . no reason to run tests for the `command-line` project from the `development` project
 
 The `dev` flags `s---` for `development` means `poly` sees:
 
-. `./development/src` is referenced in the workspace `./deps.edn`
-. `./development/test` isn't referenced in the workspace `./deps.edn`
+. `./development/src` is referenced in `./deps.edn`
+. `./development/test` isn't referenced in `./deps.edn`
 . no reason to run tests for the `development` project
 
 [TIP]

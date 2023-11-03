@@ -68,7 +68,7 @@ example
 <1> new `cli` base
 
 [[add-to-deps-edn]]
-Edit your workspace `./deps.edn` to add your newly created base:
+Edit your `./deps.edn` to add your newly created base:
 
 [source,clojure]
 ----

@@ -330,7 +330,7 @@ Then add the `test` path to `projects/command-line/deps.edn`:
 ----
 <1> Add `test` path
 
-Now add this same path to your workspace `./deps.edn`:
+Now add this same path to your `./deps.edn`:
 
 [source,clojure]
 ----

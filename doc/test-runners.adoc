@@ -80,7 +80,7 @@ The external test runner must run these functions within the external process it
 == Use a Custom Test Runner
 
 To use a custom test runner, add it to your `poly` tool classpath.
-An ideal place to do this is the `:poly` alias in your workspace `./deps.edn` file:
+An ideal place to do this is the `:poly` alias in your `./deps.edn` file:
 
 [source,clojure,subs="+attributes"]
 ----

@@ -15,7 +15,7 @@ We only currently specifically describe <<idea-cursive>>.
 If you are using a different IDE, here's the generic goals:
 
 . Setup your IDE's REPL to startup with `dev` and `test` aliases
-. Notice that your xref:workspace.adoc[workspace] `./deps.edn` already has `development/src` on the path for the `dev` alias
+. Notice that your `./deps.edn` already has `development/src` on the path for the `dev` alias
 . Add sample source `development/src/dev/lisa.clj`:
 +
 [source,clojure]
@@ -39,7 +39,7 @@ To import a Polylith xref:workspace.adoc[workspace] as a project:
 
 . Select `File > New > Project from Existing Sources...` from the menu.
 . A wizard will guide you through the import:
-.. Start with selecting the workspace `deps.edn` file
+.. Start with selecting the `./deps.edn` file
 .. When asked, choose your desired version of the Java SDK
 .. Otherwise, hit `Next` and finally `Create`.
 
@@ -84,7 +84,7 @@ You have configured everything https://github.com/clojure/tools.deps[tools.deps]
 
 === Trying Out Your Development Environment
 
-Look at the xref:workspace.adoc[workspace] generated `deps.edn` file.
+Look at the generated `./deps.edn` file.
 Notice that it already includes `development/src` on the path under the `:dev` alias:
 
 [source,shell]

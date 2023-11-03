@@ -5,7 +5,7 @@ If you are unfamiliar with tools.deps, we recommend that you read its https://gi
 
 == The `poly` Alias
 
-When you xref:workspace.adoc[create a workspace], `poly` generates a workspace `deps.edn` that includes a `poly` alias.
+When you xref:workspace.adoc[create a workspace], `poly` generates a `./deps.edn` that includes a `poly` alias.
 We cover details in our xref:install.adoc#use-as-dependency[install docs].
 
 == clojure vs clj

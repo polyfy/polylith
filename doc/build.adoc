@@ -39,7 +39,7 @@ Add the uberjar configuration expected by our `build.clj` to your `command-line`
 ----
 <1> Add `:uberjar` alias describing the main entry point
 
-Add a `:build` alias to your workspace `./deps.edn`:
+Add a `:build` alias to your `./deps.edn`:
 
 [source,clojure]
 ----
@@ -71,7 +71,7 @@ If you are still using Cursive pre v1.13.0 we recommend that you upgrade.
 
 If you are unable to upgrade, you'll need to set Options to `dev,test,build` instead.
 
-You may also need to add the workspace root dir to your paths in your workspace `./deps.edn` if the IDE doesn't recognize `build.clj` as source code:
+You may also need to add the workspace root dir to your paths in your `./deps.edn` if the IDE doesn't recognize `build.clj` as source code:
 
 [source,clojure]
 ----
