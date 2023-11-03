@@ -36,6 +36,9 @@ Fun flag facts:
 
 We'll cover the `x` flag in more detail when we get to xref:testing.adoc[Testing].
 
+NOTE: For the sake of simplicity, we'll describe the presence of sources as a single `src` directory and the presence of tests as a single `test` directory.
+In reality, projects and bricks can choose to have multiple or different source and test paths.
+
 == Project Flags
 
 From our example above:
