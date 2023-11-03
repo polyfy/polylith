@@ -52,7 +52,7 @@ There is one row for each project and a `status` and `dev` column for flags.
 
 [%autowidth]
 |===
-| Flag | Meaning
+| Flag | Description
 
 a| `s`
 a| The project has a `src` directory.
@@ -84,7 +84,7 @@ The `status` flags `s--` for `development` means `poly` sees:
 
 [%autowidth]
 |===
-| Flag | Meaning
+| Flag | Description
 
 a| `s`
 a| The `src` directory of the project is referenced by the `development` project
@@ -138,7 +138,7 @@ Our `example` workspace only has the `command-line` deployable project, xref:pro
 
 [%autowidth]
 |===
-| Flag | Meaning
+| Flag | Description
 
 a| `s`
 a| The brick's `src` directory is referenced by the project in this column
