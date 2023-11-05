@@ -963,8 +963,8 @@ poly ws get:version
 ----
 
 * `:api`
-** `:breaking` Increased by one if introducing a non-backward compatible change of the {cljdoc-api-url}[API].
-** `:non-breaking` Increased by one when a non-breaking change is made to the {cljdoc-api-url}[API].
+** `:breaking` Increased by one if introducing a non-backward compatible change of the {cljdoc-api-url}/polylith[API].
+** `:non-breaking` Increased by one when a non-breaking change is made to the {cljdoc-api-url}/polylith[API].
 * `:release`
 ** `:date` The date of the release in the format `yyyy-mm-dd`.
 ** `:major` The major version, set to zero.
