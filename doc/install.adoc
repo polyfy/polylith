@@ -192,7 +192,7 @@ Test the installation by typing `poly help` from the command line.
 [#use-as-dependency]
 == Use as Dependency
 
-An alternative way to run the `poly` tool is as a dependency from the `:poly` alias in your workspace `./deps.edn` file.
+An alternative way to run the `poly` tool is as a dependency from the `:poly` alias in your `./deps.edn` file.
 
 {prerequisites}
 
@@ -220,7 +220,7 @@ For more details on how `poly` is released, see docs on xref:polylith-ci-setup.a
 [#github-dependency]
 === Using a Git Dependency
 If you wish, you can specify a git dep revision from the GitHub Polylith project.
-To do so, you'd adjust your workspace `./deps.edn` `:poly` alias to something like:
+To do so, you'd adjust your `./deps.edn` `:poly` alias to something like:
 
 [source,clojure]
 ----
@@ -238,7 +238,7 @@ Replace `INSERT-SHA-HERE` with a commit SHA from the Polylith repository, for ex
 2. Or some commit SHA from a work-in-progress branch you want to try
 
 === Specifying Logging Libraries
-You can add in the logging libraries you'd like to use with `poly` by adjusting your `:poly` alias in your workspace `./deps.edn` like so:
+You can add in the logging libraries you'd like to use with `poly` by adjusting your `:poly` alias in your `./deps.edn` like so:
 
 [source,clojure]
 ----
