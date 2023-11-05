@@ -113,7 +113,7 @@ You'll notice the command also printed out this message:
   Remember to add :local/root dependencies to dev and project 'deps.edn' files.
 ----
 
-This is a reminder to add the component to your workspace `deps.edn` file.
+This is a reminder to add the component to your `./deps.edn` file.
 If you don't, tools.deps and the development environment will not recognize your newly created component, which would be a pity!
 
 The `poly` tool leaves this task to you as a developer.
@@ -122,7 +122,7 @@ While we are happy to generate files for you, we want to give you complete contr
 
 [[add-to-deps-edn]]
 Let's listen to the helpful reminder.
-Add the `user` component to our workspace `./deps.edn`:
+Add the `user` component to your `./deps.edn`:
 
 [source,clojure]
 ----
@@ -246,7 +246,7 @@ There is no rule that the implementing namespace must be named `core`, but this 
 == IDE Support for `:local/root`
 https://github.com/clojure-emacs/cider[Cider], https://marketplace.visualstudio.com/items?itemName=betterthantomorrow.calva[Calva], and https://cursive-ide.com/[Cursive (v1.13.0 and later)] all include support `:local/root` dependencies.
 
-If your IDE doesn't include support for `:local/root` dependencies, and you are unable to switch to an IDE that has this support, then you have to add your components as `:extra-paths` instead of `:extra-deps` in your workspace `./deps.edn`:
+If your IDE doesn't include support for `:local/root` dependencies, and you are unable to switch to an IDE that has this support, then you have to add your components as `:extra-paths` instead of `:extra-deps` in your `./deps.edn`:
 
 [source,clojure]
 ----
@@ -265,8 +265,8 @@ If at all possible, we recommend you add xref:#add-to-deps-edn[components as dep
 
 * It's consistent with how xref:project.adoc[projects] are specified.
 
-* You won't have to duplicate the bricks library dependencies in your workspace `./deps.edn`.
+* You won't have to duplicate the bricks library dependencies in your `./deps.edn`.
 
-* You can add or remove the `resources` directory from a brick without having to remember to update your workspace `./deps.edn`.
+* You can add or remove the `resources` directory from a brick without having to remember to update your `./deps.edn`.
 
 If you want to compare the difference, take a look at how `article` was elegantly added as a single https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/5b6df23d63500a4540b75308379e06dfdeb8b767/deps.edn#L7[dependency] versus adding it as two https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/e6f7f200bc46e4e2595e123947eec442ad91c9ab/deps.edn#L7-L8[paths] in the RealWorld example app.
