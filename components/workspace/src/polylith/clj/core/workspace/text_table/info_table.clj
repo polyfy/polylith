@@ -49,9 +49,8 @@
 
 (defn print-messages [workspace messages]
   (when (seq messages)
-    (do
-      (println)
-      (validator/print-messages workspace))))
+    (println)
+    (validator/print-messages workspace)))
 
 (defn print-info [{:keys [messages] :as  workspace}]
   (common/print-or-save-table workspace table nil

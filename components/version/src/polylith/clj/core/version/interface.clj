@@ -12,6 +12,7 @@
 ;;    (triggered when 'clj-poly' is pushed to Clojars).
 ;;
 ;; If a SNAPSHOT release:
+;;  - make a pre-release of the 'poly' tool to https://github.com/polyfy/polylith.
 ;;  - build and release the 'clj-poly' library to https://clojars.org.
 ;;  - release the 'clj-poly-SNAPSHOT' documentation to cljdoc.org
 ;;    (triggered when 'clj-poly' is pushed to Clojars).
@@ -24,7 +25,7 @@
 (def minor 2)
 (def patch 18)
 (def revision SNAPSHOT) ;; Set to SNAPSHOT or RELEASE.
-(def snapshot 10) ;; Increase by one for every snapshot release, or set to 0 if a release.
+(def snapshot 11) ;; Increase by one for every snapshot release, or set to 0 if a release.
 (def snapshot? (= SNAPSHOT revision))
 
 (def name-without-rev (str major "." minor "." patch))
@@ -35,7 +36,7 @@
 
 (def tool (if system/extended? "polyx" "poly"))
 
-(def date "2023-11-05")
+(def date "2023-11-07")
 
 ;; Execute 'poly doc version' to see when different changes was introduced.
 (def api-version {:breaking 1, :non-breaking 0})
