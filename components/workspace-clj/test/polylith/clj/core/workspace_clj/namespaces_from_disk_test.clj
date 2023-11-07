@@ -96,7 +96,20 @@
   (with-redefs [file/read-file (fn [_] ['--])
                 from-disk/namespace-name (fn [_ _] "")]
     (is (= (from-disk/->namespace "." "" "" "" [] "path")
-           {:name "", :namespace "", :file-path "path", :imports [], :is-invalid true}))))
+           {:name ""
+            :namespace ""
+            :file-path "path"
+            :imports []
+            :is-invalid true}))))
+
+(deftest ->namespace--ignore-data-readers
+  (with-redefs [file/read-file (fn [_] ['--])
+                from-disk/namespace-name (fn [_ _] "")]
+    (is (= (from-disk/->namespace "." "" "" "" [] "path/data_readers.clj")
+           {:file-path "path/data_readers.clj"
+            :imports []
+            :name ""
+            :namespace ""}))))
 
 (deftest ->namespace--read-namespace
   (with-redefs [file/read-file (fn [_] file-content)
