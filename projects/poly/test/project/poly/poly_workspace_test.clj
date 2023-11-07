@@ -115,7 +115,6 @@
           "  com.github.liquidz/antq      2.7.1133   maven     51    x      x      x      -         -      x  .  .  .  .  .  .  .  .  ."
           "  djblue/portal                0.48.0     maven  1,838    x      x      x      -         -      .  .  .  .  .  .  x  .  .  ."
           "  metosin/malli                0.13.0     maven     85    x      x      x      -         -      .  .  .  .  .  .  .  x  .  ."
-          "  mount/mount                  0.1.17     maven      8    -      -      x      -         -      .  .  .  .  .  .  .  .  .  ."
           "  mvxcvi/puget                 1.3.4      maven     15    x      x      x      -         -      .  .  .  .  .  .  .  .  .  x"
           "  org.clojure/clojure          1.11.1     maven  4,008    x      x      x      -         -      .  .  .  .  .  .  .  .  .  ."
           "  org.clojure/tools.deps       0.18.1354  maven     58    x      x      x      -         -      .  x  x  .  .  .  .  .  x  ."
