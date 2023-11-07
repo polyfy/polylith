@@ -133,8 +133,9 @@
        :imports []}
       (let [imports (imports content suffixed-top-ns interface-ns)
             ignore? (ignore-file? file-path files-to-ignore)
-            invalid? (and (not ignore?)
-                          (-> content ns-with-name? not))]
+            invalid? (not (or ignore?
+                              (str/ends-with? relative-path "/data_readers.clj")
+                              (-> content ns-with-name?)))]
         (cond-> {:name ns-name
                  :namespace (if (ns-with-name? content)
                               (-> content second str)
