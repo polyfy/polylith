@@ -42,7 +42,7 @@ is a snapshot, e.g. `0.2.19-SNAPSHOT`, which triggers a build in CircleCi that:
 The same snapshot release can be triggered several times and will overwrite the latest snapshot release.
 
 ====
-NOTE: The https://github.com/polyfy/polylith/blob/issue-318/next-release.txt[next-release.txt] file lists what has been included in the SNAPSHOT release, since the previous final release.
+NOTE: The https://github.com/polyfy/polylith/blob/master/next-release.txt[next-release.txt] file lists what has been included in the SNAPSHOT release, since the previous final release.
 This file is cleared when making a final release.
 Changes to the workspace structure are listed in the xref:versions.adoc[versions] page.
 ====

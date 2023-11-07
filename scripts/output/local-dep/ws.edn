@@ -323,10 +323,7 @@
       :poly
       {:main-opts ["-m" "polylith.clj.core.poly-cli.core"],
        :extra-deps
-       {polyfy/polylith
-        {:git/url "https://github.com/polyfy/polylith",
-         :sha "bb594393e03bd97a03109775cb16815594a13748",
-         :deps/root "projects/poly"}}}}},
+       {polylith/clj-poly {:local/root "../../projects/poly"}}}}},
     :name "development",
     :type "project"}
    {:deps
@@ -745,8 +742,8 @@
    :minor 2,
    :patch 18,
    :revision "SNAPSHOT",
-   :date "2023-10-09",
-   :snapshot 5},
+   :date "2023-11-07",
+   :snapshot 11},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
   :ws {:breaking 2, :non-breaking 0}},

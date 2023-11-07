@@ -1,4 +1,4 @@
-{:paths ["src" "resources"]
+{:paths ["src"]
  :deps {com.github.liquidz/antq {:mvn/version "2.7.1133"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {}}}}
