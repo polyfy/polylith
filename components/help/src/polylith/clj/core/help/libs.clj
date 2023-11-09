@@ -1,16 +1,17 @@
 (ns ^:no-doc polylith.clj.core.help.libs
      (:require [polylith.clj.core.help.shared :as s]
-               [polylith.clj.core.system.interface :as system]
                [polylith.clj.core.util.interface.color :as color]))
 
 (defn help [extended? cm]
   (str "  Shows all libraries that are used in the workspace.\n"
        "\n"
-       "  poly libs [" (s/key ":compact" cm) "] [" (s/key ":outdated" cm) "] [out:" (s/key  "FILENAME" cm) "]\n"
+       "  poly libs [" (s/key ":compact" cm) "] [" (s/key ":outdated" cm) "] [" (s/key ":update" cm) "] [out:" (s/key  "FILENAME" cm) "]\n"
        "\n"
        "    " (s/key ":compact" cm) "  = Shows the table in a more compact way.\n"
        "\n"
        "    " (s/key ":outdated" cm) " = Shows the latest version of each library, or blank if up to date.\n"
+       "\n"
+       "    " (s/key ":update" cm) "   = Updates all libraries to the latest version.\n"
        "\n"
        (if extended?
             (str "    " (s/key "FILENAME" cm) "  = The name of the text or image file to create, containing the\n"
@@ -64,6 +65,7 @@
        "    poly libs\n"
        "    poly libs :compact\n"
        "    poly libs :outdated\n"
+       "    poly libs :update\n"
        "    poly libs out:libs.txt\n"
        "    poly doc page:libraries"
        (if extended?

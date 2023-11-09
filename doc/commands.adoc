@@ -14,7 +14,7 @@ poly help
 
 [source,text]
 ----
-  poly 0.2.18 (2023-11-07) - https://github.com/polyfy/polylith
+  poly 0.2.18 (2023-11-09) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -166,6 +166,7 @@ poly help
     poly libs
     poly libs :compact
     poly libs :outdated
+    poly libs :update
     poly libs out:libs.txt
     poly migrate
     poly shell
@@ -883,11 +884,13 @@ poly help
 ----
   Shows all libraries that are used in the workspace.
 
-  poly libs [:compact] [:outdated] [out:FILENAME]
+  poly libs [:compact] [:outdated] [:update] [out:FILENAME]
 
     :compact  = Shows the table in a more compact way.
 
     :outdated = Shows the latest version of each library, or blank if up to date.
+
+    :update   = Updates all libraries to the latest version.
 
     FILENAME  = The name of the text file to create, containing the
                 output from this command.
@@ -935,6 +938,7 @@ poly help
     poly libs
     poly libs :compact
     poly libs :outdated
+    poly libs :update
     poly libs out:libs.txt
     poly doc page:libraries
 ----

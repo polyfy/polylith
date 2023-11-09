@@ -126,15 +126,16 @@
             (when (or all? extended?) [info-out]))))
 
 ;; libs
-(def outdated (c/flag "outdated" :libs))
+(def libs-update (c/flag "update" :libs))
+(def libs-outdated (c/flag "outdated" :libs))
 (def libs-out (c/fn-explorer "out" :libs (file-explorer/select-fn)))
 (def libs-skip (c/fn-explorer "skip" :libs #'ws-projects/select))
 (def libs-color-mode (c/fn-values "color-mode" :libs #'color-modes/select))
 
 (defn libs [all? extended?]
   (c/single-txt "libs" :libs
-    (concat [outdated]
-            (when all? [outdated compact libs-skip libs-color-mode])
+    (concat [libs-update libs-outdated]
+            (when all? [compact libs-skip libs-color-mode])
             (when (or all? extended?) [libs-out]))))
 
 ;; test

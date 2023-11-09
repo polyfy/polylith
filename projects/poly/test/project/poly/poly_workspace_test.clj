@@ -113,7 +113,7 @@
           "  borkdude/edamame             1.3.23     maven     24    x      x      x      -         -      .  .  x  .  .  .  .  .  .  ."
           "  clj-commons/fs               1.6.310    maven     12    x      x      x      -         -      .  .  x  .  .  .  .  .  .  ."
           "  com.github.liquidz/antq      2.7.1133   maven     51    x      x      x      -         -      x  .  .  .  .  .  .  .  .  ."
-          "  djblue/portal                0.48.0     maven  1,838    x      x      x      -         -      .  .  .  .  .  .  x  .  .  ."
+          "  djblue/portal                0.49.1     maven  1,841    x      x      x      -         -      .  .  .  .  .  .  x  .  .  ."
           "  metosin/malli                0.13.0     maven     85    x      x      x      -         -      .  .  .  .  .  .  .  x  .  ."
           "  mvxcvi/puget                 1.3.4      maven     15    x      x      x      -         -      .  .  .  .  .  .  .  .  .  x"
           "  org.clojure/clojure          1.11.1     maven  4,008    x      x      x      -         -      .  .  .  .  .  .  .  .  .  ."
@@ -185,7 +185,7 @@
           "                            t  g  n  o  e  o  p  o  l  i  l  o  i  o  e  e  s  l  e  a  e  c  o  l  i  u  i  o  o  c  l  e  l"
           "  brick                     q  e  d  n  r  r  s  c  e  t  p  r  b  r  w  r  h  l  m  p  r  t  r  e  g  t  l  r  n  e  j  r  e"
           "  ---------------------------------------------------------------------------------------------------------------------------"
-          "  antq                      .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
+          "  antq                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  api                       .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  x  x  x  x  ."
           "  change                    .  .  .  x  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
@@ -255,7 +255,7 @@
             "                            t  g  n  o  e  o  p  o  l  i  l  o  i  o  e  e  s  l  e  a  e  c  o  l  i  u  i  o  o  c  l  e  l"
             "  brick                     q  e  d  n  r  r  s  c  e  t  p  r  b  r  w  r  h  l  m  p  r  t  r  e  g  t  l  r  n  e  j  r  e"
             "  ---------------------------------------------------------------------------------------------------------------------------"
-            "  antq                      .  .  .  x  .  .  .  .  +  .  .  +  .  .  .  .  .  .  +  .  .  .  .  +  +  .  +  .  +  .  .  .  ."
+            "  antq                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  api                       +  x  .  +  +  .  +  .  +  +  .  +  +  .  .  +  +  .  +  .  .  +  .  +  +  x  +  +  x  x  x  x  ."
             "  change                    .  .  .  x  .  .  .  .  +  x  .  +  .  .  .  x  +  .  +  .  .  .  .  +  +  .  x  .  +  .  .  .  ."
             "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
@@ -323,7 +323,7 @@
             "                            t  g  n  o  e  o  p  o  l  i  l  o  i  o  e  e  s  l  e  a  e  c  o  l  i  u  i  o  o  c  l  e  l"
             "  brick                     q  e  d  n  r  r  s  c  e  t  p  r  b  r  w  r  h  l  m  p  r  t  r  e  g  t  l  r  n  e  j  r  e"
             "  ---------------------------------------------------------------------------------------------------------------------------"
-            "  antq                      .  .  .  x  .  .  .  .  +  .  .  +  .  .  .  .  .  .  +  .  .  .  .  +  +  .  +  .  +  .  .  .  ."
+            "  antq                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  api                       +  x  .  +  +  .  +  .  +  +  .  +  +  .  .  +  +  .  +  .  .  +  .  +  +  x  +  +  x  x  x  x  ."
             "  change                    .  .  .  x  .  .  .  .  +  x  .  +  .  .  .  x  +  .  +  .  .  .  .  +  +  .  x  .  +  .  .  .  ."
             "  clojure-test-test-runner  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
@@ -392,14 +392,7 @@
 
 (deftest polylith-poly-project-deps
   (is (= (ws-explorer/extract (workspace) ["projects" "poly" "deps"])
-         {"antq"                     {:src  {:direct   ["common"]
-                                             :indirect ["file"
-                                                        "image-creator"
-                                                        "system"
-                                                        "text-table"
-                                                        "user-config"
-                                                        "util"
-                                                        "version"]}
+         {"antq"                     {:src  {:direct ["util"]}
                                       :test {}}
           "api"                      {:src  {:direct   ["change"
                                                         "user-input"

@@ -95,6 +95,7 @@
                 skip
                 tap!
                 top-ns
+                update!
                 verbose!
                 workspace!
                 ws
@@ -136,6 +137,7 @@
                                              (= "true" resources!))
                       :is-show-workspace (= "true" workspace!)
                       :is-tap (= "true" tap!)
+                      :is-update (= "true" update!)
                       :is-verbose (= "true" verbose!)
                       :more (as-more more)
                       :name name

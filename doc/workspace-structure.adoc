@@ -688,7 +688,8 @@ poly ws get:settings
 
 * `:bricks` A map with configuration information per brick where the keys are brick names, specified in `workspace.edn`:
 ** `:ignore-files` A vector containing file or file paths to ignore, e.g.: `["myfile.clj" "myns/another_file.clj" "com/myns/a-thrird-file.clj"]`.
-See xref:validations.adoc#ignore-files[Validations].
+** `:keep-lib-versions` A vector containing the library names (as symbols) that should not be affected when executing `poly libs :update`.
+See xref:libraries.adoc#update[update libs] and xref:validations.adoc#ignore-files[Validations].
 
 [#color-mode]
 * `:color-mode` The color mode specified in `~/.config/polylith/config.edn`.
@@ -716,6 +717,7 @@ Set to "~/.m2" by default, but can be overridden in `~/.config/polylith/config.e
 ** `:ignore-files` A vector containing file or file paths to ignore, e.g.: `["myfile.clj" "myns/another_file.clj" "com/myns/a-thrird-file.clj"]`.
 All files ending with the specified files () will be ignored, or to be exact, if it's an exact match or if it ends with `/` + the string.
 Dashes (-) will be replaced by underscores (_).
+** `:keep-lib-versions` A vector containing the library names (as symbols) that should not be affected when executing `poly libs :update`.
 ** `:necessary` If we get xref:validations.adoc#warning206[warning 206 - Unreadable namespace in brick/project] and know that the brick(s) has to be included in the project, then we can add the necessary bricks(s) to the project in a vector for this key.
 ** `:test`
 *** `:include` Specifies which bricks should be included when running the test command.
@@ -779,6 +781,7 @@ poly ws get:user-input
  :is-show-resources false
  :is-show-workspace false
  :is-tap false
+ :is-update false
  :is-verbose false
  :selected-profiles #{}
  :selected-projects #{}
@@ -897,6 +900,8 @@ This will tell the `info` command to show the `r` status flag.
 Used by `poly help deps :workspace` to show help for the deps command when `workspace:WORKSPACE` is given.
 
 * `:is-tap` Set to `true` if `:tap` is given.
+
+* `:is-update` Set to `true` if `:update` is given. Used by the xref:commands.adoc#libs[libs] command.
 
 * `:is-verbose` Used in combination with the `test` command to show extra information.
 
