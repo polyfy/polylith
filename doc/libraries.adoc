@@ -27,7 +27,7 @@ image::images/libraries/libs.png[]
 
 An  `x` means that the library is added to the `src` context, while `t` means that it's only used from the `test` context.
 
-We can list the outdated libraries by passing in `:outdated` (which uses https://github.com/liquidz/antq[antq] internally):
+We can list the outdated libraries by passing in `:outdated`:
 
 [source,shell]
 ----
@@ -37,6 +37,26 @@ poly libs :outdated
 image::images/libraries/libs-outdated.png[]
 
 {nbsp} +
+
+[#update]
+We can also tell the tool to update all libraries to the latest version, in all `deps.edn` files for all bricks and projects:
+
+[source,shell]
+----
+poly libs :update
+----
+
+If
+
+We can ignore updating libraries for a brick or project by adding the `:keep-lib-versions` in `workspace.edn`:
+
+[source,clojure]
+----
+{...
+ :bricks {"article" {:keep-lib-versions [djblue/portal]}}}
+ :projects {"realworld-backend" {:alias "rb"
+                                 :keep-lib-versions [clj-jwt/clj-jwt clj-time/clj-time]}
+----
 
 Libraries can be specified in three different ways in tools.deps:
 

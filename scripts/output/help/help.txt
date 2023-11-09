@@ -1,4 +1,4 @@
-  poly 0.2.18 (2023-11-07) - https://github.com/polyfy/polylith
+  poly 0.2.18 (2023-11-09) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -150,6 +150,7 @@
     poly libs
     poly libs :compact
     poly libs :outdated
+    poly libs :update
     poly libs out:libs.txt
     poly migrate
     poly shell

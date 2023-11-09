@@ -177,6 +177,7 @@
     "    poly libs\n"
     "    poly libs :compact\n"
     "    poly libs :outdated\n"
+    "    poly libs :update\n"
     "    poly libs out:libs.txt\n"
     (if extended?
       "    poly libs out:libs.png\n"

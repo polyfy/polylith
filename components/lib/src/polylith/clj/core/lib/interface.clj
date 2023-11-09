@@ -1,5 +1,6 @@
 (ns ^:no-doc polylith.clj.core.lib.interface
-  (:require [polylith.clj.core.lib.core :as core]
+  (:require [polylith.clj.core.antq.ifc :as antq]
+            [polylith.clj.core.lib.core :as core]
             [polylith.clj.core.lib.size :as size]
             [polylith.clj.core.lib.resolve-libs :as resolve-libs]
             [polylith.clj.core.lib.text-table.lib-table :as lib-table]))
@@ -18,6 +19,9 @@
 
 (defn resolve-libs [src-deps override-deps]
   (resolve-libs/resolve-libs src-deps override-deps))
+
+(defn update-all-libs! [workspace color-mode]
+  (antq/upgrade-all-libs! workspace color-mode))
 
 (defn table [workspace]
   (let [outdated? (-> workspace :user-input :is-outdated)]

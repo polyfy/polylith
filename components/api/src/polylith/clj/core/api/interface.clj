@@ -57,7 +57,7 @@
   any of the three APIs may change version, but the ambition is to never break `:api` and `:test-runner`.
 
   With `:ws` it's different, and we know that the workspace structure will change over time, so pay extra
-  attention every time you bump `clj-poly` and have a look in the `version` component's interface namespace,
+  attention every time you bump `clj-poly` and have a look at the [versions](https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc/versions) page,
   which lists all the changes for different versions.
 
   Examples of a breaking change of the workspace structure:
@@ -69,7 +69,7 @@
   Any changes that only add functionality/attributes, will increase the `:non-breaking` number by one.
 
   If you use a SNAPSHOT version, then you can check [next-release.txt](https://github.com/polyfy/polylith/blob/issue-318/next-release.txt)
-  to get a summary of all the changes that have been made since the last final release."
+  to get a summary of all the changes that have been made since the last stable/final release."
   {:api version/api-version
    :test-runner version/test-runner-api-version
    :ws version/ws-api-version})
