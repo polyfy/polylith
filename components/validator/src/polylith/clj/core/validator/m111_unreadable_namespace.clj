@@ -1,13 +1,13 @@
-(ns ^:no-doc polylith.clj.core.validator.m206-unreadable-namespace
+(ns ^:no-doc polylith.clj.core.validator.m111-unreadable-namespace
   (:require [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.util.interface.color :as color]))
 
 (defn unreadable-ns [{:keys [file-path is-invalid]} type name color-mode]
   (when is-invalid
     (let [message (str "Unreadable namespace in " (color/brick type name color-mode) ": " file-path ". "
-                       "To ignore this warning, execute 'poly help check' and follow the instructions for warning 206.")]
-      [(util/ordered-map :type "warning"
-                         :code 206
+                       "To ignore this error, execute 'poly help check' and follow the instructions for error 111.")]
+      [(util/ordered-map :type "error"
+                         :code 111
                          :message (color/clean-colors message)
                          :colorized-message message)])))
 
@@ -16,6 +16,6 @@
     (mapcat #(unreadable-ns % type name color-mode) (:src namespaces))
     (mapcat #(unreadable-ns % type name color-mode) (:test namespaces))))
 
-(defn warnings [components bases projects color-mode]
+(defn errors [components bases projects color-mode]
   (mapcat #(unreadable-nss % color-mode)
           (concat components bases projects)))

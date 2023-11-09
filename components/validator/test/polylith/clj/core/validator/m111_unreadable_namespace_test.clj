@@ -1,6 +1,6 @@
-(ns polylith.clj.core.validator.m206-unreadable-namespace-test
+(ns polylith.clj.core.validator.m111-unreadable-namespace-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.validator.m206-unreadable-namespace :as m206]))
+            [polylith.clj.core.validator.m111-unreadable-namespace :as m111]))
 
 (def bases [{:type "base"
              :name "poly-cli"
@@ -25,12 +25,12 @@
                                   :imports ["clojure.test" "polylith.clj.core.poly-cli.api"]}]}}])
 
 (deftest warning--when-having-unreadable-namespaces--returns-warnings
-  (is (= (m206/warnings nil bases nil "none")
-         [{:code              206
-           :colorized-message "Unreadable namespace in poly-cli: bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj. To ignore this warning, execute 'poly help check' and follow the instructions for warning 206."
-           :message           "Unreadable namespace in poly-cli: bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj. To ignore this warning, execute 'poly help check' and follow the instructions for warning 206."
-           :type              "warning"}
-          {:code              206
-           :colorized-message "Unreadable namespace in poly-cli: bases/poly-cli/test/polylith/clj/core/poly_cli/api_argument_mapping_test.clj. To ignore this warning, execute 'poly help check' and follow the instructions for warning 206."
-           :message           "Unreadable namespace in poly-cli: bases/poly-cli/test/polylith/clj/core/poly_cli/api_argument_mapping_test.clj. To ignore this warning, execute 'poly help check' and follow the instructions for warning 206."
-           :type              "warning"}])))
+  (is (= (m111/errors nil bases nil "none")
+         [{:code              111
+           :colorized-message "Unreadable namespace in poly-cli: bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj. To ignore this error, execute 'poly help check' and follow the instructions for error 111."
+           :message           "Unreadable namespace in poly-cli: bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj. To ignore this error, execute 'poly help check' and follow the instructions for error 111."
+           :type              "error"}
+          {:code              111
+           :colorized-message "Unreadable namespace in poly-cli: bases/poly-cli/test/polylith/clj/core/poly_cli/api_argument_mapping_test.clj. To ignore this error, execute 'poly help check' and follow the instructions for error 111."
+           :message           "Unreadable namespace in poly-cli: bases/poly-cli/test/polylith/clj/core/poly_cli/api_argument_mapping_test.clj. To ignore this error, execute 'poly help check' and follow the instructions for error 111."
+           :type              "error"}])))

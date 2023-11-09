@@ -46,7 +46,7 @@ We can also tell the tool to update all libraries to the latest version, in all 
 poly libs :update
 ----
 
-We can ignore updating libraries for a brick or project by adding the `:keep-lib-versions` in `workspace.edn`:
+We can ignore updating libraries for a brick or project by adding the `:keep-lib-versions` in `workspace.edn`, e.g.:
 
 [source,clojure]
 ----

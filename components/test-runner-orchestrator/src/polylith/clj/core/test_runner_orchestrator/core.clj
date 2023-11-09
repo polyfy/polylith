@@ -194,34 +194,24 @@
           bricks (str/join ", " (concat components bases))]
       (println (str "Bricks to run tests for: " bricks)))))
 
-(defn print-unreadable-namespace-warnings [workspace messages]
-  (let [warnings (filter #(= 206 (:code %)) messages)]
-    (when (seq warnings)
-      (println)
-      (validator/print-messages (assoc workspace :messages warnings)))))
-
 (defn run [{:keys [components bases projects changes settings messages] :as workspace} is-verbose color-mode]
   (if (validator/has-errors? messages)
     (do (validator/print-messages workspace)
         false)
-    (try
-      (let [start-time (time-util/current-time)
-            projects-to-test (sort-by :name (filterv #(affected-by-changes? % changes) projects))
-            bricks-to-test (-> workspace :user-input :selected-bricks)
-            component-names (into #{} (map :name) components)
-            base-names (into #{} (map :name) bases)]
-        (if (empty? projects-to-test)
-          (print-no-tests-to-run-if-only-dev-exists settings projects)
-          (do
-            (print-projects-to-test projects-to-test color-mode)
-            (print-bricks-to-test component-names base-names bricks-to-test color-mode)
-            (println)
-            (doseq [project projects-to-test]
-              (let [test-opts (->test-opts workspace settings changes project is-verbose color-mode)]
-                (run-tests-for-project test-opts)
-                (System/gc)))))
-        (print-execution-time start-time)
-        true)
-      (catch Throwable t
-        (print-unreadable-namespace-warnings workspace messages)
-        (throw t)))))
+    (let [start-time (time-util/current-time)
+          projects-to-test (sort-by :name (filterv #(affected-by-changes? % changes) projects))
+          bricks-to-test (-> workspace :user-input :selected-bricks)
+          component-names (into #{} (map :name) components)
+          base-names (into #{} (map :name) bases)]
+      (if (empty? projects-to-test)
+        (print-no-tests-to-run-if-only-dev-exists settings projects)
+        (do
+          (print-projects-to-test projects-to-test color-mode)
+          (print-bricks-to-test component-names base-names bricks-to-test color-mode)
+          (println)
+          (doseq [project projects-to-test]
+            (let [test-opts (->test-opts workspace settings changes project is-verbose color-mode)]
+              (run-tests-for-project test-opts)
+              (System/gc)))))
+      (print-execution-time start-time)
+      true)))
