@@ -2,7 +2,7 @@
 
 # for-test
 
-This workspace is used from `scripts/create-example.sh` for testing.
+This workspace is used from `bb create-example` for testing.
 
 
 ## Issues to test

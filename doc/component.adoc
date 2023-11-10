@@ -199,7 +199,7 @@ Let's continue by executing the xref:commands.adoc#info[info] command:
 poly info
 ----
 
-image::images/component/info.png[width=350]
+image::images/component/output/info.png[width=350]
 
 The output tells you you have one `development` project, one `user` component, and one `user` xref:interface.adoc[interface] but no xref:base.adoc[base] (yet).
 We refer to components and bases as _bricks_ (we will soon explain what a base is).

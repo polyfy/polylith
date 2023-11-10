@@ -1,3 +1,4 @@
 
 Execution time: x seconds
-exit code: 0
+
+# Exit code: 0

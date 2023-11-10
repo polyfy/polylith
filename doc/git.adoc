@@ -14,7 +14,7 @@ Rerun `info` to see the current state of your workspace:
 ----
 poly info
 ----
-image::images/git/info.png[width=400]
+image::images/git/output/info.png[width=400]
 
 At the top, you'll notice `stable since: c91fdad` (your git short-SHA will differ from our `c91fdad`).
 What does this mean?
@@ -62,7 +62,7 @@ git add --all
 
 Look at the `info` command output again:
 
-image::images/git/info.png[width=400]
+image::images/git/output/info.png[width=400]
 
 Notice that `poly` has marked all projects (`command-line` and `development`) and all bricks (`user` and `cli`) with a trailing `*` (asterisk), meaning they have changed after the current _stable point in time_ (as described by `stable since: c91fdad`).
 

@@ -1,11 +1,11 @@
-example
-├── bases
-├── components
+example/
+├── bases/
+├── components/
 ├── deps.edn
-├── development
-│   └── src
+├── development/
+│   └── src/
 ├── logo.png
-├── projects
+├── projects/
 ├── readme.md
 └── workspace.edn
 

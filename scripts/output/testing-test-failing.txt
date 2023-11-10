@@ -20,4 +20,5 @@ Ran 1 tests containing 1 assertions.
 1 failures, 0 errors.
 
 Test results: 0 passes, 1 failures, 0 errors.
-exit code: 1
+
+# Exit code: 1
