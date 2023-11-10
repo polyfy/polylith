@@ -79,6 +79,7 @@ This file ensures that git tracks these otherwise empty directories.
 You can delete the `.keep` files after you add other files.
 ****
 
+[[workspace-edn]]
 The `workspace.edn` file looks like:
 
 [source,clojure]

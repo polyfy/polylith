@@ -241,6 +241,7 @@ a| `:name` a| The component name.
 a| `:type` a| The type of configuration, set to `:component` for components.
 |===
 
+[[user]]
 == user
 
 Settings that are unique per developer/user are stored in `~/.config/polylith/config.edn`.

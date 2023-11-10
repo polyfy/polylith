@@ -1,0 +1,19 @@
+  stable since: e7ebe68 | stable-lisa                 
+                                                      
+  projects: 3   interfaces: 1                         
+  bases:    2   components: 2                         
+                                                      
+  active profiles: default                            
+                                                      
+  project         alias   status   dev  remote        
+  ------------------------------   -----------        
+  command-line *  cl       -t-     -t-    --          
+  user-service *  user-s   ---     ---    --          
+  development +   dev      s--     s--    --          
+                                                      
+  interface  brick           cl   user-s   dev  remote
+  ------------------------   -----------   -----------
+  user       user            ---   stx     st-    --  
+  user       user-remote *   stx   ---     ---    st  
+  -          cli             stx   ---     st-    --  
+  -          user-api *      ---   stx     st-    --  
