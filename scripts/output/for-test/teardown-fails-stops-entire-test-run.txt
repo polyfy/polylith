@@ -80,4 +80,5 @@ Running test teardown for the teardown-fails project: project.teardown-fails.tes
 
 Test teardown failed: java.lang.Exception: Teardown failed for project: teardown-fails
 Test terminated due to teardown failure
-exit code: 1
+
+# Exit code: 1

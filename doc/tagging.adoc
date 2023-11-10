@@ -39,7 +39,7 @@ Feel free to use `git log --pretty=oneline` or even `git log`.
 
 Rerun the `poly xref:commands.adoc#info[info]` command, and you'll see something like this:
 
-image::images/tagging/info-01.png[width=400]
+image::images/tagging/output/info-01.png[width=400]
 
 ****
 Remember that git hashes (SHAs and short-SHAs) are globally unique.
@@ -112,7 +112,7 @@ Add a comment to the `user.core` namespace by editing `./components/user/src/se/
 
 Run `poly xref:commands.adoc#info[info]` again:
 
-image::images/tagging/info-02.png[width=400]
+image::images/tagging/output/info-02.png[width=400]
 
 As expected, the `user` component now shows a trailing `*`.
 // I was having trouble getting `+` to render so used `&#43;` instead.
@@ -159,7 +159,7 @@ Now run `poly info` against your latest release:
 poly info since:release
 ----
 
-image::images/tagging/info-03.png[width=400]
+image::images/tagging/output/info-03.png[width=400]
 
 If you execute `poly info` against the previous release:
 
@@ -168,7 +168,7 @@ If you execute `poly info` against the previous release:
 poly info since:previous-release
 ----
 
-image::images/tagging/info-04.png[width=400]
+image::images/tagging/output/info-04.png[width=400]
 
 The `poly` tool has picked up the second latest release tag.
 

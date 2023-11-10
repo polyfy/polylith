@@ -430,7 +430,7 @@ If we want to switch profile when running a command, we need to pass them in, e.
 poly info +remote
 ----
 
-image::images/profile/info-with-remote-profile.png[width=500]
+image::images/profile/output/info-with-remote-profile.png[width=500]
 
 Now the `remote` profile is included in the `development` project and listed after `active profiles`.
 
@@ -441,7 +441,7 @@ It's possible to give more than one profile:
 poly info +default +remote
 ----
 
-image::images/profile/info-multiple-profiles.png[width=500]
+image::images/profile/output/info-multiple-profiles.png[width=500]
 
 The tool complains and doesn't like that we just included both `user` and `user-remote` in the `development` project!
 
@@ -455,7 +455,7 @@ This can be done by passing in `:loc`:
 poly info :loc
 ----
 
-image::images/profile/info-loc.png[width=500]
+image::images/profile/output/info-loc.png[width=500]
 
 Each project summarises the number of lines of code for each brick it contains.
 The `loc` column counts the number of lines of codes under the `src` directory, while `(t)` counts for the test directory.
