@@ -13,7 +13,7 @@ Included in 0.2.18-SNAPSHOT #11:
   272   The check command now also checks test dependencies (solved by issue 293 and 274).
   274   Support exclusion of bricks to test so that we support both :include and :exclude for projects in workspace.edn.
   277   Improved warning 205 by also showing non-top namespace files. Error 106 and 108 are not displayed in some edge cases.
-  279   Show warning 206 if a source file doesn't have a namespace, if the test command fails.
+  279   Trigger error 111 if a source file doesn't have a namespace.
   282   The check/info/test commands now report unnecessary components (warning 207). If a component is not referred
         to but still needed, it can be marked as :necessary by that project, see 'poly help check' (warning 207) for details.
   286   Make switch-ws available in the shell, outside a workspace.
