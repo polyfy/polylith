@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="210mm"
-   height="297mm"
-   viewBox="0 0 210 297"
+   width="124.08958mm"
+   height="100.80625mm"
+   viewBox="0 0 124.08958 100.80625"
    version="1.1"
    id="svg1"
    inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
@@ -28,8 +28,8 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      inkscape:zoom="1.0307169"
-     inkscape:cx="396.81119"
-     inkscape:cy="561.25984"
+     inkscape:cx="234.78804"
+     inkscape:cy="191.61421"
      inkscape:window-width="2560"
      inkscape:window-height="1355"
      inkscape:window-x="1920"
@@ -39,11 +39,12 @@
      id="defs1" /><g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1"><image
+     id="layer1"
+     transform="translate(-42.944839,-98.09687)"><image
        width="124.08958"
        height="100.80625"
        preserveAspectRatio="none"
-       xlink:href="info-brick-cli-no-changes.png"
+       xlink:href="output/info-brick-cli-no-changes.png"
        id="image1"
        x="42.944839"
        y="98.09687" /><rect

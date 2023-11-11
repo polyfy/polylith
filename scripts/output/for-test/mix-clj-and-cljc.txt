@@ -44,5 +44,6 @@ Running test teardown for the okay project: project.okay.test-setup/teardown
 Test teardown for project: okay
 
 
-Execution time: 4 seconds
-exit code: 0
+Execution time: x seconds
+
+# Exit code: 0
