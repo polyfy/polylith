@@ -20,8 +20,10 @@
 (defn resolve-libs [src-deps override-deps]
   (resolve-libs/resolve-libs src-deps override-deps))
 
-(defn update-all-libs! [workspace color-mode]
-  (antq/upgrade-all-libs! workspace color-mode))
+(defn update-all-libs!
+  "If libs-to-update is left empty, then update all libs."
+  [workspace libs-to-update color-mode]
+  (antq/upgrade-libs! workspace libs-to-update color-mode))
 
 (defn table [workspace]
   (let [outdated? (-> workspace :user-input :is-outdated)]

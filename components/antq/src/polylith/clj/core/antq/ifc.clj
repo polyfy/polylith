@@ -6,5 +6,7 @@
 (defn library->latest-version [configs]
   (latest/library->latest-version configs))
 
-(defn upgrade-all-libs! [workspace color-mode]
-  (upgrade/upgrade-all-libs! workspace color-mode))
+(defn upgrade-libs!
+  "If libs-to-update is left empty, then update all libs."
+  [workspace libs-to-update color-mode]
+  (upgrade/upgrade-libs! workspace libs-to-update color-mode))

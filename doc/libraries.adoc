@@ -46,6 +46,13 @@ We can also tell the tool to update all libraries to the latest version, in all 
 poly libs :update
 ----
 
+If one or more libraries is given, then only these libraries will be updated, e.g.:
+
+[source,shell]
+----
+poly libs :update djblue/portal com.taoensso/timbre
+----
+
 We can ignore updating libraries for a brick or project by adding the `:keep-lib-versions` in `workspace.edn`, e.g.:
 
 [source,clojure]
