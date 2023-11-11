@@ -36,11 +36,11 @@
     (doseq [lib (outdated-libs-in-config config outdated-libs)]
       (upgrade-dep-in-config name type filename lib lib->latest-version settings color-mode))))
 
-(defn upgrade-all-libs! [{:keys [ws-dir settings] :as workspace} color-mode]
-  (let [lib->latest-version (latest/library->latest-version workspace)
+(defn upgrade-all-libs! [{:keys [ws-dir configs settings]} color-mode]
+  (let [lib->latest-version (latest/library->latest-version configs)
         outdated-libs (set (mapv #(-> % first symbol)
                                  (keys lib->latest-version)))
         outdated-configs (filter #(outdated-libs-in-config % outdated-libs)
-                                 (latest/configs workspace))]
+                                 (latest/entity-configs configs))]
     (doseq [outdated-config outdated-configs]
       (upgrade-deps-in-config outdated-config outdated-libs lib->latest-version ws-dir settings color-mode))))

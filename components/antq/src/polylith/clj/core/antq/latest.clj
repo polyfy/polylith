@@ -10,15 +10,15 @@
   [[name (truncate version type)]
    (truncate latest-version type)])
 
-(defn configs [{:keys [configs]}]
+(defn entity-configs [configs]
   (let [{:keys [bases components projects]} configs]
     (concat bases components projects)))
 
 (defn library->latest-version
   "Returns a map where the key is [lib-name lib-version]
    and the value is the latest version of the library."
-  [workspace]
+  [configs]
   (into {} (map key-value)
         (antq/outdated-deps
-          {:deps (apply merge (mapv #(-> % :deps :deps)
-                                    (configs workspace)))})))
+          {:deps (into {} (set (mapcat #(map identity (-> % :deps :deps))
+                                       (entity-configs configs))))})))
