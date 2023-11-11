@@ -20,7 +20,7 @@
   (let [min-version "2.1.1"
         tree-exe (fs/which "tree")
         actual-version (->> (sh/shell {:out :string}
-                                     "tree --version")
+                                      "tree --version")
                             :out
                             (re-find #"^tree v(.*?) ")
                             second)]
@@ -53,7 +53,7 @@
 
 (defn output-dir-tree [from-dir dir out-file]
   (sh/shell {:dir from-dir :out out-file}
-         "tree -F" dir))
+            "tree -F" dir))
 
 (defn copy [& from-tos]
   (doseq [[from to] from-tos]
@@ -68,12 +68,12 @@
       (str "\n# Exit code: " exit "\n")))
 
 (defn fn-default-opts [f default-opts]
- (fn [& args]
-   (let [[opts & args] (if (map? (first args))
-                       args
-                       (conj args {}))
-         opts (merge default-opts opts)]
-     (apply f opts args))))
+  (fn [& args]
+    (let [[opts & args] (if (map? (first args))
+                          args
+                          (conj args {}))
+          opts (merge default-opts opts)]
+      (apply f opts args))))
 
 (defn poly-infos
   "Run poly once to generate txt and a second time to generate image"
@@ -92,7 +92,7 @@
   (fs/create-dir ws-parent-dir)
   (sh/poly {:dir ws-parent-dir}
            "create workspace name:example top-ns:se.example :git-add :commit")
-  (output-dir-tree ws-parent-dir "example" (fs/file output-dir "workspace-tree.txt") ))
+  (output-dir-tree ws-parent-dir "example" (fs/file output-dir "workspace-tree.txt")))
 
 (defn development [{:keys [ws-dir sections-dir]}]
   (fs/create-dirs (fs/file ws-dir "development/src/dev"))
@@ -104,7 +104,7 @@
         shell (fn-default-opts sh/shell {:dir ws-dir})
         polyx (fn-default-opts sh/polyx {:dir ws-dir})]
     (poly "create component name:user")
-    (output-dir-tree (fs/file ws-dir "..") "example" (fs/file output-dir "component-tree.txt") )
+    (output-dir-tree (fs/file ws-dir "..") "example" (fs/file output-dir "component-tree.txt"))
     (copy [(fs/file sections-dir "component/workspace.edn")      ws-dir]
           [(fs/file sections-dir "component/deps.edn")           ws-dir]
           [(fs/file sections-dir "component/user-core.clj")      (fs/file ws-dir "components/user/src/se/example/user/core.clj")]
@@ -116,13 +116,13 @@
 
 (defn base [{:keys [ws-dir sections-dir output-dir]}]
   (sh/poly {:dir ws-dir} "create base name:cli")
-  (output-dir-tree (fs/file ws-dir "..") "example" (fs/file output-dir "base-tree.txt") )
+  (output-dir-tree (fs/file ws-dir "..") "example" (fs/file output-dir "base-tree.txt"))
   (copy [(fs/file sections-dir "base/deps.edn")     ws-dir]
         [(fs/file sections-dir "base/cli-core.clj") (fs/file ws-dir "bases/cli/src/se/example/cli/core.clj")]))
 
 (defn project [{:keys [ws-dir sections-dir output-dir]}]
   (sh/poly {:dir ws-dir} "create project name:command-line")
-  (output-dir-tree (fs/file ws-dir "..") "example" (fs/file output-dir "project-tree.txt") )
+  (output-dir-tree (fs/file ws-dir "..") "example" (fs/file output-dir "project-tree.txt"))
   (copy [(fs/file sections-dir "project/deps.edn")              ws-dir]
         [(fs/file sections-dir "project/workspace.edn")         ws-dir]
         [(fs/file sections-dir "project/command-line-deps.edn") (fs/file ws-dir "projects/command-line/deps.edn")]))
@@ -130,7 +130,7 @@
 (defn polyx [{:keys [ws-dir fake-sha sections-dir images-dir] :as opts}]
   (copy [(fs/file sections-dir "polyx/deps.edn") ws-dir])
   (poly-infos opts "" "polyx-info.txt" "polyx/output/info.png")
-  (sh/polyx {:dir ws-dir }
+  (sh/polyx {:dir ws-dir}
             (format "overview :no-changes fake-sha:%s out:%s" fake-sha (fs/file images-dir "polyx/output/overview.png")))
   ;; restore deps.edn
   (copy [(fs/file sections-dir "project/deps.edn") ws-dir]))
@@ -204,7 +204,7 @@
     (poly-infos opts ":no-changes"           "testing-info-3c.txt" "testing/output/info-no-changes.png")
     (poly-infos opts "brick:cli :no-changes" "testing-info-3d.txt" "testing/output/info-brick-cli-no-changes.png")
     (poly-infos opts ":no-changes brick:cli :all-bricks"
-                                             "testing-info-3e.txt" "testing/output/info-brick-cli-no-changes-all-bricks.png")
+                "testing-info-3e.txt" "testing/output/info-brick-cli-no-changes-all-bricks.png")
 
     (fs/create-dir (fs/file ws-dir "projects/command-line/test"))
     (copy [(fs/file sections-dir "testing/deps.edn") ws-dir]
@@ -432,7 +432,7 @@
     (poly {:out (out "failing-test-runs-teardown-and-stops-entire-test-run.txt")}
           "test :all project:failing-test:okay color-mode:none")
     (poly {:out (out "failing-test-and-teardown-fails-stops-entire-test-run.txt")}
-          "test :all project:failing-test-teardown-fails:okay color-mode:none" )))
+          "test :all project:failing-test-teardown-fails:okay color-mode:none")))
 
 (defn main []
   (let [start-time-ms (System/currentTimeMillis)

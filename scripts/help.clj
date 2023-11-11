@@ -32,13 +32,13 @@
   (fs/file path
            (or file
                (str
-                 (str/join "-"
-                           (str/split cmd #" :?"))
-                 ".txt"))))
+                (str/join "-"
+                          (str/split cmd #" :?"))
+                ".txt"))))
 
 ;; Task entrypoints
 
-(defn help[]
+(defn help []
   (doseq [[cmd fname] cmds]
     (println "---" cmd "---")
     (poly {:out (help-fname "scripts/output/help" cmd fname)}

@@ -21,10 +21,10 @@
         {:keys [out dir alter-out-fn]} opts
         opts (assoc opts :pre-start-fn (fn [o]
                                          (let [cmd-str (->> (:cmd o)
-                                                               (mapv #(if (str/includes? % " ")
-                                                                        (format  "\"%s\"" %)
-                                                                        (homify %)))
-                                                               (str/join " "))
+                                                            (mapv #(if (str/includes? % " ")
+                                                                     (format  "\"%s\"" %)
+                                                                     (homify %)))
+                                                            (str/join " "))
                                                dir-str (if dir
                                                          (str dir)
                                                          (System/getProperty "user.dir"))
