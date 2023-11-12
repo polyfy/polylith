@@ -587,8 +587,8 @@ poly ws get:projects:user-service
 *** `:indirect` A vector with the indirect dependencies, from the `:src` directory, to components (component names).
 *** `:circular` A vector with the circular dependency chain, translated to the components in the project, e.g. ["a" "b" "c" "a"] from the `:src` directory.
 *** `:missing-ifc-and-bases`
-**** `:direct` A vector containing missing interface and brick names, that are directly accessed from the `:src` directory.
-**** `:indirect` A vector containing missing interface and brick names, that are indirectly accessed from the `:src` directory.
+**** `:direct` A vector containing missing interface and base names, that are directly accessed from the `:src` directory.
+**** `:indirect` A vector containing missing interface and base names, that are indirectly accessed from the `:src` directory.
 ** `:test` Keeps track of the dependencies from the `:test` context, with the same set of keys as the `:src` context.
 
 * `:is-dev` Set to `true` for the development project.
