@@ -5,7 +5,7 @@ In production, your deployable xref:project.adoc[projects], by their nature, run
 In development, you are running from a single REPL process, which can lead to classpath issues you will never encounter in production.
 Profiles allow you to work on all your projects from the `development` project without classpath issues.
 
-TIP: You likely don't need profiles if your xref:workspace.adoc[workspace] does not include xref:interface.adoc#one-interface-in-multiple-components[duplicate interfaces].
+TIP: You likely don't need profiles if your xref:workspace.adoc[workspace] does not xref:interface.adoc#one-interface-in-multiple-components[re-specify one interface].
 
 == An Example Scenario
 
@@ -23,7 +23,7 @@ The `cli` base now references a new `user-remote` component, which calls a new `
 
 The production environment looks good, but how about the `development` environment?
 We have a problem.
-The `user` and `user-remote` components duplicate the `user` xref:interface.adoc#one-interface-in-multiple-components[interface], resulting in two `se.example.user.interface` namespaces on the classpath.
+The `user` and `user-remote` components both specify the `user` xref:interface.adoc#one-interface-in-multiple-components[interface], resulting in two `se.example.user.interface` namespaces on the classpath.
 Duplicate items on the classpath will confuse classloaders and IDEs.
 
 [NOTE]
@@ -327,7 +327,7 @@ The extra alias, while unused (until now), would have been harmless.
 
 We now need to include the `+default` alias because we moved the `user` component from a default xref:tools-deps.adoc[tools.deps] dependency to a `default` polylith dependency.
 
-We have segregated the two components that duplicate the `user` interface via profiles.
+We have segregated the two components that specify a `user` interface via profiles.
 You might wonder why we chose the `user` component to be in the `default` profile and `user-remote` in the `remote` profile.
 Our rationale is that we wanted something simple by default.
 The `user` component only communicates in-process, whereas the `user-remote` component communicates out-of-process over-the-wire.
