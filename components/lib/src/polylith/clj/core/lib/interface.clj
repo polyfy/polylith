@@ -2,8 +2,13 @@
   (:require [polylith.clj.core.antq.ifc :as antq]
             [polylith.clj.core.lib.core :as core]
             [polylith.clj.core.lib.size :as size]
+            [polylith.clj.core.lib.outdated :as outdated]
+            [polylith.clj.core.lib.used-libs :as used-libs]
             [polylith.clj.core.lib.resolve-libs :as resolve-libs]
             [polylith.clj.core.lib.text-table.lib-table :as lib-table]))
+
+(defn outdated-libs [workspace]
+  (outdated/outdated-libs workspace))
 
 (defn latest-with-sizes [ws-dir entity-root-path libraries user-home]
   (core/latest-with-sizes ws-dir entity-root-path libraries user-home))
@@ -20,10 +25,11 @@
 (defn resolve-libs [src-deps override-deps]
   (resolve-libs/resolve-libs src-deps override-deps))
 
-(defn update-all-libs!
-  "If libs-to-update is left empty, then update all libs."
-  [workspace libs-to-update color-mode]
-  (antq/upgrade-libs! workspace libs-to-update color-mode))
+(defn update-libs!
+  "If libraries is empty, then update all libs, otherwise, only update selected libs."
+  [workspace libraries-to-update color-mode]
+  (let [type->name->lib->version (used-libs/type->name->lib->version workspace)]
+    (antq/upgrade-libs! workspace libraries-to-update type->name->lib->version color-mode)))
 
 (defn table [workspace]
   (let [outdated? (-> workspace :user-input :is-outdated)]

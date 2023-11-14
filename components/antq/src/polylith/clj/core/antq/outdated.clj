@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.antq.latest
+(ns ^:no-doc polylith.clj.core.antq.outdated
   (:require [antq.api :as antq]))
 
 (defn truncate [version type]
