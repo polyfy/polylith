@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="201.79051mm"
-   height="90.097229mm"
-   viewBox="0 0 201.79052 90.097229"
+   width="201.75513mm"
+   height="100.26415mm"
+   viewBox="0 0 201.75513 100.26415"
    version="1.1"
    id="svg1"
    inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
@@ -186,14 +186,14 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-0.59983007,-32.404072)">
+     transform="translate(-0.6175365,-32.385522)">
     <path
        id="rect4"
-       style="opacity:0.58;fill:#ffffff;fill-opacity:0.580392;stroke:#000000;stroke-width:0.676807;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1.00268, 1.00268;stroke-dashoffset:0;stroke-opacity:0.188235"
+       style="opacity:0.58;fill:#ffffff;fill-opacity:0.580392;stroke:#000000;stroke-width:0.641451;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:0.950299, 0.950299;stroke-dashoffset:0;stroke-opacity:0.188235"
        d="M 5.7548196,34.026138 H 197.68339 a 4.5923034,4.5923034 45 0 1 4.5923,4.592303 V 119.3374 a 4.5923034,4.5923034 135 0 1 -4.5923,4.5923 H 5.7548196 A 4.5923034,4.5923034 45 0 1 1.1625162,119.3374 V 38.618441 a 4.5923034,4.5923034 135 0 1 4.5923034,-4.592303 z"
        inkscape:path-effect="#path-effect5"
        inkscape:original-d="M 1.1625162,34.026138 H 202.27569 V 123.9297 H 1.1625162 Z"
-       transform="matrix(1,0,0,0.99466621,-0.22375788,-1.1039797)" />
+       transform="matrix(1,0,0,1.1073404,-0.22375788,-4.937843)" />
     <rect
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.625108;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.190283"
        id="rect4094"
@@ -380,90 +380,6 @@
          x="194.34192"
          y="61.184277"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">=</tspan></text>
-    <rect
-       style="fill:#a7d3fd;fill-opacity:1;stroke:#000000;stroke-width:0.362126;stroke-opacity:0.190283"
-       id="rect4636"
-       width="39.672161"
-       height="9.0240641"
-       x="75.675186"
-       y="94.368103"
-       inkscape:export-xdpi="87.633209"
-       inkscape:export-ydpi="87.633209"
-       inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="93.573402"
-       y="100.6914"
-       id="text4640"
-       inkscape:export-xdpi="87.633209"
-       inkscape:export-ydpi="87.633209"
-       inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png"><tspan
-         sodipodi:role="line"
-         id="tspan4638"
-         x="93.573402"
-         y="100.6914"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">cli</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="76.425446"
-       y="75.82061"
-       id="text4644"
-       inkscape:export-xdpi="87.633209"
-       inkscape:export-ydpi="87.633209"
-       inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png"><tspan
-         sodipodi:role="line"
-         id="tspan4642"
-         x="76.425446"
-         y="75.82061"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">development project</tspan></text>
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker4650)"
-       d="M 81.314885,98.934817 81.141415,93.28939"
-       id="path4646"
-       sodipodi:nodetypes="cc"
-       inkscape:export-xdpi="87.633209"
-       inkscape:export-ydpi="87.633209"
-       inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
-    <rect
-       style="fill:#bfefc5;fill-opacity:1;stroke:#000000;stroke-width:0.362126;stroke-opacity:0.190283"
-       id="rect4748"
-       width="39.672161"
-       height="9.0240679"
-       x="75.675186"
-       y="83.756889"
-       inkscape:export-xdpi="87.633209"
-       inkscape:export-ydpi="87.633209"
-       inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="91.229362"
-       y="90.108093"
-       id="text4752"
-       inkscape:export-xdpi="87.633209"
-       inkscape:export-ydpi="87.633209"
-       inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png"><tspan
-         sodipodi:role="line"
-         id="tspan4750"
-         x="91.229362"
-         y="90.108093"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">user</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="126.079"
-       y="99.284195"
-       id="text4756"
-       inkscape:export-xdpi="87.633209"
-       inkscape:export-ydpi="87.633209"
-       inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png"><tspan
-         sodipodi:role="line"
-         id="tspan4754"
-         x="126.079"
-         y="99.284195"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">or</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -502,159 +418,250 @@
          x="22.440695"
          y="72.528557"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">user-api</tspan></text>
-    <rect
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.745737;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.190283"
-       id="rect5530"
-       width="50.954159"
-       height="39.034458"
-       x="70.034187"
-       y="79.330963"
-       inkscape:export-xdpi="87.633209"
-       inkscape:export-ydpi="87.633209"
-       inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
-    <rect
-       style="fill:#a7d3fd;fill-opacity:1;stroke:#000000;stroke-width:0.362126;stroke-opacity:0.190283"
-       id="rect5532"
-       width="39.672161"
-       height="9.0240641"
-       x="75.675186"
-       y="104.95141"
-       inkscape:export-xdpi="87.633209"
-       inkscape:export-ydpi="87.633209"
-       inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="87.872459"
-       y="111.27474"
-       id="text5536"
-       inkscape:export-xdpi="87.633209"
-       inkscape:export-ydpi="87.633209"
-       inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png"><tspan
-         sodipodi:role="line"
-         id="tspan5534"
+    <g
+       id="g2"
+       transform="translate(0,10.583334)">
+      <rect
+         style="fill:#a7d3fd;fill-opacity:1;stroke:#000000;stroke-width:0.362126;stroke-opacity:0.190283"
+         id="rect4636"
+         width="39.672161"
+         height="9.0240641"
+         x="75.675186"
+         y="94.368103"
+         inkscape:export-xdpi="87.633209"
+         inkscape:export-ydpi="87.633209"
+         inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         x="93.573402"
+         y="100.6914"
+         id="text4640"
+         inkscape:export-xdpi="87.633209"
+         inkscape:export-ydpi="87.633209"
+         inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png"><tspan
+           sodipodi:role="line"
+           id="tspan4638"
+           x="93.573402"
+           y="100.6914"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">cli</tspan></text>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker4650)"
+         d="M 81.314885,98.934817 81.141415,93.28939"
+         id="path4646"
+         sodipodi:nodetypes="cc"
+         inkscape:export-xdpi="87.633209"
+         inkscape:export-ydpi="87.633209"
+         inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
+      <rect
+         style="fill:#bfefc5;fill-opacity:1;stroke:#000000;stroke-width:0.362126;stroke-opacity:0.190283"
+         id="rect4748"
+         width="39.672161"
+         height="9.0240679"
+         x="75.675186"
+         y="83.756889"
+         inkscape:export-xdpi="87.633209"
+         inkscape:export-ydpi="87.633209"
+         inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         x="91.229362"
+         y="90.108093"
+         id="text4752"
+         inkscape:export-xdpi="87.633209"
+         inkscape:export-ydpi="87.633209"
+         inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png"><tspan
+           sodipodi:role="line"
+           id="tspan4750"
+           x="91.229362"
+           y="90.108093"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">user</tspan></text>
+      <rect
+         style="fill:#a7d3fd;fill-opacity:1;stroke:#000000;stroke-width:0.362126;stroke-opacity:0.190283"
+         id="rect5532"
+         width="39.672161"
+         height="9.0240641"
+         x="75.675186"
+         y="104.95141"
+         inkscape:export-xdpi="87.633209"
+         inkscape:export-ydpi="87.633209"
+         inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
          x="87.872459"
          y="111.27474"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">user-api</tspan></text>
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker5560)"
-       d="M 109.41523,108.3798 109.24176,93.28939"
-       id="path5556"
-       sodipodi:nodetypes="cc"
-       inkscape:export-xdpi="87.633209"
-       inkscape:export-ydpi="87.633209"
-       inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
-    <rect
-       style="fill:#a7d3fd;fill-opacity:1;stroke:#000000;stroke-width:0.362126;stroke-opacity:0.190283"
-       id="rect5686"
-       width="39.672161"
-       height="9.0240641"
-       x="141.29218"
-       y="94.368103"
-       inkscape:export-xdpi="87.633209"
-       inkscape:export-ydpi="87.633209"
-       inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="159.19038"
-       y="100.6914"
-       id="text5690"
-       inkscape:export-xdpi="87.633209"
-       inkscape:export-ydpi="87.633209"
-       inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png"><tspan
-         sodipodi:role="line"
-         id="tspan5688"
+         id="text5536"
+         inkscape:export-xdpi="87.633209"
+         inkscape:export-ydpi="87.633209"
+         inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png"><tspan
+           sodipodi:role="line"
+           id="tspan5534"
+           x="87.872459"
+           y="111.27474"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">user-api</tspan></text>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker5560)"
+         d="M 109.41523,108.3798 109.24176,93.28939"
+         id="path5556"
+         sodipodi:nodetypes="cc"
+         inkscape:export-xdpi="87.633209"
+         inkscape:export-ydpi="87.633209"
+         inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
+      <rect
+         style="fill:#a7d3fd;fill-opacity:1;stroke:#000000;stroke-width:0.362126;stroke-opacity:0.190283"
+         id="rect5686"
+         width="39.672161"
+         height="9.0240641"
+         x="141.29218"
+         y="94.368103"
+         inkscape:export-xdpi="87.633209"
+         inkscape:export-ydpi="87.633209"
+         inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
          x="159.19038"
          y="100.6914"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">cli</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="142.04242"
-       y="75.82061"
-       id="text5694"
-       inkscape:export-xdpi="87.633209"
-       inkscape:export-ydpi="87.633209"
-       inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png"><tspan
-         sodipodi:role="line"
-         id="tspan5692"
-         x="142.04242"
-         y="75.82061"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">development project</tspan></text>
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker5726)"
-       d="M 146.93179,98.934817 146.75832,93.28939"
-       id="path5696"
-       sodipodi:nodetypes="cc"
-       inkscape:export-xdpi="87.633209"
-       inkscape:export-ydpi="87.633209"
-       inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
-    <rect
-       style="fill:#bfefc5;fill-opacity:1;stroke:#000000;stroke-width:0.362126;stroke-opacity:0.190283"
-       id="rect5698"
-       width="39.672161"
-       height="9.0240679"
-       x="141.29218"
-       y="83.756889"
-       inkscape:export-xdpi="87.633209"
-       inkscape:export-ydpi="87.633209"
-       inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="149.67056"
-       y="90.108093"
-       id="text5702"
-       inkscape:export-xdpi="87.633209"
-       inkscape:export-ydpi="87.633209"
-       inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png"><tspan
-         sodipodi:role="line"
-         id="tspan5700"
+         id="text5690"
+         inkscape:export-xdpi="87.633209"
+         inkscape:export-ydpi="87.633209"
+         inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png"><tspan
+           sodipodi:role="line"
+           id="tspan5688"
+           x="159.19038"
+           y="100.6914"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">cli</tspan></text>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker5726)"
+         d="M 146.93179,98.934817 146.75832,93.28939"
+         id="path5696"
+         sodipodi:nodetypes="cc"
+         inkscape:export-xdpi="87.633209"
+         inkscape:export-ydpi="87.633209"
+         inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
+      <rect
+         style="fill:#bfefc5;fill-opacity:1;stroke:#000000;stroke-width:0.362126;stroke-opacity:0.190283"
+         id="rect5698"
+         width="39.672161"
+         height="9.0240679"
+         x="141.29218"
+         y="83.756889"
+         inkscape:export-xdpi="87.633209"
+         inkscape:export-ydpi="87.633209"
+         inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
          x="149.67056"
          y="90.108093"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">user-remote</tspan></text>
-    <rect
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.745737;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.190283"
-       id="rect5704"
-       width="50.954159"
-       height="39.034458"
-       x="135.65117"
-       y="79.330963"
-       inkscape:export-xdpi="87.633209"
-       inkscape:export-ydpi="87.633209"
-       inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
-    <rect
-       style="fill:#a7d3fd;fill-opacity:1;stroke:#000000;stroke-width:0.362126;stroke-opacity:0.190283"
-       id="rect5706"
-       width="39.672161"
-       height="9.0240641"
-       x="141.29218"
-       y="104.95141"
-       inkscape:export-xdpi="87.633209"
-       inkscape:export-ydpi="87.633209"
-       inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="153.48944"
-       y="111.27474"
-       id="text5710"
-       inkscape:export-xdpi="87.633209"
-       inkscape:export-ydpi="87.633209"
-       inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png"><tspan
-         sodipodi:role="line"
-         id="tspan5708"
+         id="text5702"
+         inkscape:export-xdpi="87.633209"
+         inkscape:export-ydpi="87.633209"
+         inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png"><tspan
+           sodipodi:role="line"
+           id="tspan5700"
+           x="149.67056"
+           y="90.108093"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">user-remote</tspan></text>
+      <g
+         id="g1">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+           x="76.425446"
+           y="75.82061"
+           id="text4644"
+           inkscape:export-xdpi="87.633209"
+           inkscape:export-ydpi="87.633209"
+           inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png"><tspan
+             sodipodi:role="line"
+             id="tspan4642"
+             x="76.425446"
+             y="75.82061"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">development project</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+           x="126.079"
+           y="99.284195"
+           id="text4756"
+           inkscape:export-xdpi="87.633209"
+           inkscape:export-ydpi="87.633209"
+           inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png"><tspan
+             sodipodi:role="line"
+             id="tspan4754"
+             x="126.079"
+             y="99.284195"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">or</tspan></text>
+        <rect
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.745737;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.190283"
+           id="rect5530"
+           width="50.954159"
+           height="39.034458"
+           x="70.034187"
+           y="79.330963"
+           inkscape:export-xdpi="87.633209"
+           inkscape:export-ydpi="87.633209"
+           inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+           x="142.04242"
+           y="75.82061"
+           id="text5694"
+           inkscape:export-xdpi="87.633209"
+           inkscape:export-ydpi="87.633209"
+           inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png"><tspan
+             sodipodi:role="line"
+             id="tspan5692"
+             x="142.04242"
+             y="75.82061"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">development project</tspan></text>
+        <rect
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.745737;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.190283"
+           id="rect5704"
+           width="50.954159"
+           height="39.034458"
+           x="135.65117"
+           y="79.330963"
+           inkscape:export-xdpi="87.633209"
+           inkscape:export-ydpi="87.633209"
+           inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
+      </g>
+      <rect
+         style="fill:#a7d3fd;fill-opacity:1;stroke:#000000;stroke-width:0.362126;stroke-opacity:0.190283"
+         id="rect5706"
+         width="39.672161"
+         height="9.0240641"
+         x="141.29218"
+         y="104.95141"
+         inkscape:export-xdpi="87.633209"
+         inkscape:export-ydpi="87.633209"
+         inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
          x="153.48944"
          y="111.27474"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">user-api</tspan></text>
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker5716)"
-       d="M 175.56141,108.3798 175.38794,93.28939"
-       id="path5712"
-       sodipodi:nodetypes="cc"
-       inkscape:export-xdpi="87.633209"
-       inkscape:export-ydpi="87.633209"
-       inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
+         id="text5710"
+         inkscape:export-xdpi="87.633209"
+         inkscape:export-ydpi="87.633209"
+         inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png"><tspan
+           sodipodi:role="line"
+           id="tspan5708"
+           x="153.48944"
+           y="111.27474"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">user-api</tspan></text>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker5716)"
+         d="M 175.56141,108.3798 175.38794,93.28939"
+         id="path5712"
+         sodipodi:nodetypes="cc"
+         inkscape:export-xdpi="87.633209"
+         inkscape:export-ydpi="87.633209"
+         inkscape:export-filename="/Users/tengstrand/source/polylith/images/development.png" />
+    </g>
   </g>
 </svg>

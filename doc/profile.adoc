@@ -5,7 +5,7 @@ In production, your deployable xref:project.adoc[projects], by their nature, run
 In development, you are running from a single REPL process, which can lead to classpath issues you will never encounter in production.
 Profiles allow you to work on all your projects from the `development` project without classpath issues.
 
-TIP: You likely don't need porfiles if your xref:workspace.adoc[workspace] does not include xref:interface.adoc#one-interface-in-multiple-components[duplicate interfaces].
+TIP: You likely don't need profiles if your xref:workspace.adoc[workspace] does not include xref:interface.adoc#one-interface-in-multiple-components[duplicate interfaces].
 
 == An Example Scenario
 
@@ -28,9 +28,10 @@ Duplicate items on the classpath will confuse classloaders and IDEs.
 
 [NOTE]
 ====
+Classloader issues are only a `development` project concern.
 We don't have classloader issues:
 
-* in production because `command-line` and `user-remote` projects naturally run in separate processes.
+* in production because `command-line` and `user-service` projects naturally run in separate processes.
 * when xref:testing.adoc[testing] via `poly` because xref:test-runners.adoc[test-runners] provide classpath isolation at the project level.
 ====
 
@@ -362,7 +363,7 @@ Make the following changes to the `command-line` project `deps.edn`:
 ----
 <1> Rename `components/user` to `components/user-remote`.
 It's okay to leave `poly/user` as is; it's unique within the project.
-<2> Add logging libraries (slacker lib does some logging that we'll ignore)
+<2> Add logging library (slacker lib does some logging that we'll ignore)
 
 [[create-command-line-uberjar]]
 ==== b. Create `command-line` uberjar
@@ -413,7 +414,7 @@ Set the `user-service` project `deps.edn` content to:
 ----
 <1> Add `user` component
 <2> Add `user-api` base
-<3> Add logging libraries (slacker lib does some logging that we'll ignore)
+<3> Add logging library (slacker lib does some logging that we'll ignore)
 <4> Specify main for uberjar artifact
 
 [[add-user-service-project-alias]]
@@ -574,7 +575,7 @@ Notice:
 
 NOTE: Profiles can also contain dependencies and paths to projects, but we've done no such thing in our example; therefore, you'll see all profile flags as `--` in the project section.
 
-You can override the default protocol by specifying a protocol:
+You can override the default profile by specifying a profile:
 
 [source,text]
 ----
