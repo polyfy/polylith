@@ -264,8 +264,9 @@
     (shell "clojure -T:build uberjar :project command-line")
     (shell "clojure -T:build uberjar :project user-service")
 
-    (poly-infos opts "+"       "profile-info-1.txt" "profile/output/info-all-aliases.png")
-    (poly-infos opts "+remote" "profile-info-2.txt" "profile/output/info-with-remote-profile.png")
+    (poly-infos opts "+"       "profile-info-1.txt"  "profile/output/info-all-aliases.png")
+    (poly-infos opts ""        "profile-info-1b.txt" "profile/output/info-after-adding-profiles.png")
+    (poly-infos opts "+remote" "profile-info-2.txt"  "profile/output/info-with-remote-profile.png")
     ;; only doing text version because: We don't include the error message today, so we can't use the generated image.
     (poly {:continue true
            :out (fs/file output-dir "profile-info-3.txt")}
