@@ -110,7 +110,7 @@ poly deps project:rb brick:article
 
 image::images/dependencies/output/deps-component.png[width=350]
 
-== Accessability
+== Accessibility
 
 The `poly` tool restricts what can access what:
 
