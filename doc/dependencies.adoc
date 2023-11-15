@@ -1,10 +1,15 @@
 = Dependencies
+:toc:
 
-If you are looking for library dependencies, then visit the xref:libraries.adoc[Libraries] section.
+When we talk about `poly` dependencies, we refer to dependencies between bricks (xref:component.adoc[components] and xref:base.adoc[bases]).
+For 3rd-party library dependencies, see xref:libraries.adoc[Libraries].
 
-To explain dependencies, we will use the https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[RealWorld example app].
+== Setup for Tutorial
 
-Start by cloning the project by executing these commands from outside the example workspace, e.g. the parent folder of our example workspace:
+We'll switch from our `example` xref:introduction.adoc[tutorial] to the https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[RealWorld example app] to explore dependencies.
+
+If you've been following our ongoing `example` tutorial, first take a moment to ensure you aren't currently in the `example` workspace directory.
+Change directory, e.g., to the parent folder of your example workspace:
 
 [source,shell]
 ----
@@ -13,129 +18,131 @@ clone-from-here
 └── clojure-polylith-realworld-example-app
 ----
 
+Then run:
 [source,shell]
 ----
-git clone git@github.com:furkan3ayraktar/clojure-polylith-realworld-example-app.git
+git clone https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app.git
 cd clojure-polylith-realworld-example-app
 ----
 
-Before we continue, it may be worth mentioning that most commands, except the xref:commands.adoc#test[test] and xref:commands.adoc#create[create] commands, can be executed from other workspaces by giving `ws-dir`, e.g.:
+== Digging In
+
+Have a look at the Realworld example app workspace:
 
 [source,shell]
 ----
-poly check ws-dir:../example
-----
-
-Another way of giving the `ws-dir` is to pass in `::` which will set it to the first parent directory that contains a `workspace.edn` file, e.g.:
-
-[source,shell]
-----
-cd projects/realworld-backend
-poly info ::
-----
-
-...which in this case is the same as:
-
-[source,shell]
-----
-poly info ws-dir:../..
-----
-
-Now let's have a look at the workspace:
-
-[source,shell]
-----
-cd ../..
 poly info
 ----
 
-image::images/dependencies/info.png[width=400]
+image::images/dependencies/output/info.png[width=400]
 
-Now we have some bricks to play with!
+Look at all those lovely bricks we have to play with!
 
-Let's list all dependencies by executing the xref:commands.adoc#deps[deps] command:
+List all `poly` dependencies by running the xref:commands.adoc#deps[deps] command:
 
 [source,shell]
 ----
 poly deps
 ----
 
-image::images/dependencies/deps.png[width=370]
+image::images/dependencies/deps-interfaces-annotated.png[width=650]
 
-This lists all dependencies in the workspace.
-Notice the yellow color in the headers.
-They are yellow because components only depend on interfaces (bases can also depend on other bases).
-Each `x` is a `src` dependency, while a `t` means that we only use code from the `test` context (code that lives in any of the directories specified in `:aliases > :test > :extra-paths`).
+This is a summary of all brick dependencies in the workspace.
+xref:interface.adoc[Interfaces] are shown in yellow, xref:component.adoc[components] in green, and xref:base.adoc[bases] in blue.
 
-If we read the diagram horizontally, we can see that the `article` component uses the `database`, `profile`, and `spec` interfaces.
-If we read it vertically, we can see that the `article` is used by the `comment` and `rest-api` bricks.
+Notice the headers across the top are yellow (interfaces).
 
-This is also what is shown if we specify `article` as brick:
+Each `x` is a `src` dependency, `t` is a `test` only dependency (code that lives in any of the directories specified in `:aliases > :test > :extra-paths`).
+
+Reading the `article` component row, left to right, we see it _uses_ `database`, `profile`, and `spec` interfaces (and the `user` interface, but only for testing).
+Reading the `article` interface column, top to bottom, we see it _is used by_ the `comment` component and `rest-api` base.
+
+NOTE: Our example here does not show it, but xref:base.adoc[bases] can also depend on other bases.
+
+You can ask poly to hone in on the dependencies for a single brick.
+Ask `poly` to report on the `article` brick:
 
 [source,shell]
 ----
 poly deps brick:article
 ----
 
-image::images/dependencies/deps-brick.png[width=350]
+image::images/dependencies/output/deps-interface.png[width=350]
 
-To list the component dependencies, we need to specify a project:
+We've looked at brick ⇔ interface dependencies.
+To examine brick ⇔ brick dependencies, you need to specify a project:
 
 [source,shell]
 ----
 poly deps project:rb
 ----
 
-image::images/dependencies/deps-project.png[width=350]
+image::images/dependencies/output/deps-components.png[width=350]
 
-Now, all the headers are green, and that is because all the implementing components are known within the selected project.
-The `+` signs mark indirect dependencies, while `-` signs mark indirect test dependencies (not present here).
-An example is the `article` component that uses `log` indirectly: `article > database > log`.
+The header across the top is now green (components) instead of yellow (interfaces).
+This component reporting is possible because `poly` is aware of all the implementing components within the selected project.
+
+This report has extra symbols.
+The `+` sign indicates an indirect dependency, and the `-` sign indicates indirect test dependencies (not present in our example output).
+An example is the `article` component using the `log` component indirectly: `article` uses `database`, and `database` uses `log`.
 
 [#compact-view]
-If we have many libraries, they can be viewed in a more compact format:
+
+If you have many brick dependencies, you might prefer the compact format:
 
 [source,shell]
 ----
 poly deps project:rb :compact
 ----
 
-image::images/dependencies/deps-project-compact.png[width=300]
+image::images/dependencies/output/deps-components-compact.png[width=300]
 
-This can be set permanently by setting `:compact-views #{"deps"}` in `workspace.edn`.
+****
+You tell `poly` to always use the compact format for `deps` for your workspace by setting `:compact-views #{"deps"}` in your xref:workspace.adoc#workspace-edn[workspace.edn].
+****
 
-We can also show dependencies for a specific brick within a project:
+We can also show brick ⇔ brick dependencies for a specific brick within a project:
 
 [source,shell]
 ----
 poly deps project:rb brick:article
 ----
 
-image::images/dependencies/deps-brick-project.png[width=350]
+image::images/dependencies/output/deps-component.png[width=350]
 
 == Accessability
 
-The `poly` tool introduces restrictions on what code we can access:
+The `poly` tool restricts what can access what:
 
-[%autowidth]
+[cols="15,25,25,40"]
 |===
-| Entity | Accessible from the `:src` context | Accessible from the `:test` context | Caution
+| Entity | From the `:src` context | From the `:test` context | Caution
 
-| Component | Can only access xref:interface.adoc[interface] namespaces, but no other namespace. |
-Can access any namespace. |
-Accessing another component's test code from a test, will make it harder to swap out (replace) that component, as the replacing component must implement the same set of test functions. +
-A better strategy is to put the shared code in a separate test helper component, and depend on that component's interface.
+| xref:component.adoc[Component]
+a| Can **only** access:
 
-| Base | Can access xref:interface.adoc[interface] namespaces, but no other component namespace.
-Can access any `base` namespace. | Can access any namespace. |
+* xref:interface.adoc[interface] namespaces.
+| Can access any namespace.
+| If component `x` test code accesses test code from component `y`, it is harder to swap out (replace) component `x`; you must also implement all component `y` tests for the replacement. +
+A better strategy is to put any shared test code in a separate test helper component and depend on that component's interface.
 
-| Project | Can access any namespace. | Can access any namespace. |
-It's possible to create a `src` directory for a project that lives under the `projects` directory, and put production code in there.
-But try to avoid this, because this code will not be checked by the `poly` tool, and we need a really good reason for putting code here.
+| xref:base.adoc[Base]
+a| Can **only** access:
+
+* xref:interface.adoc[interface] namespaces
+* any xref:base.adoc[base] namespace
+| Can access any namespace.
+|
+
+| xref:project.adoc[Project]
+| Can access any namespace.
+| Can access any namespace.
+| While tests are fine, we recommend against including `src` for deployable `./projects`; the `poly` tool does no checks on deployable project source code.
+
 |===
 
 == Circular dependencies
 
-The `poly` tool is checking for circular dependencies.
-If we have a dependency chain like A > B > A, or A > B > C > A, then we will get an "Error 104 - Circular dependencies".
-To read more about this and other errors, execute the xref:commands.adoc#check[check] command.
+The `poly` tool reports on circular brick dependencies.
+If you have a dependency chain like A > B > A, or A > B > C > A, then `poly` will show `Error 104 - Circular dependencies`.
+To read more about this and other errors, see the xref:commands.adoc#check[check] command.

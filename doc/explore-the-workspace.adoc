@@ -1,5 +1,39 @@
 = Explore the workspace
 
+// TODO-being (from Lee Read): Moved from dependencies.adoc, re-edit and integrate when reviewing this doc
+// == Notes on `ws-dir`
+
+// Before we continue, it is relevant to mentioning that most commands, except the xref:commands.adoc#test[test] and xref:commands.adoc#create[create] commands, can be executed from other workspaces by specifying the `ws-dir` argument, e.g.:
+
+// [source,shell]
+// ----
+// poly check ws-dir:../example
+// ----
+
+// Another way of specifying the workspace dir is the `::` argument, this set the workspace dir to the first parent directory that contains a `workspace.edn` file, e.g.:
+
+// [source,shell]
+// ----
+// cd projects/realworld-backend # <1>
+// poly info :: # <2>
+// ----
+// <1> Move to two directories down
+// <2> Ask `poly` to find and use the workspace dir by looking upwards
+
+// Which is equivalent to the explicit:
+
+// [source,shell]
+// ----
+// poly info ws-dir:../..
+// ----
+
+// Navigate back to the workspace root dir:
+// [source,shell]
+// ----
+// cd ../..
+// ----
+// TODO-end
+
 There is a way to view the workspace structure, and that is to execute the xref:commands.adoc#ws[ws] command:
 
 [source,shell]
