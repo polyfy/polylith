@@ -8,7 +8,7 @@
             [polylith.clj.core.lib.text-table.lib-table :as lib-table]))
 
 (defn outdated-libs [workspace]
-  (outdated/outdated-libs workspace))
+  (outdated/outdated-libraries workspace))
 
 (defn latest-with-sizes [ws-dir entity-root-path libraries user-home]
   (core/latest-with-sizes ws-dir entity-root-path libraries user-home))
@@ -24,6 +24,9 @@
 
 (defn resolve-libs [src-deps override-deps]
   (resolve-libs/resolve-libs src-deps override-deps))
+
+(defn type->name->lib->version [workspace]
+  (used-libs/type->name->lib->version workspace))
 
 (defn update-libs!
   "If libraries is empty, then update all libs, otherwise, only update selected libs."
