@@ -75,13 +75,20 @@
           opts (merge default-opts opts)]
       (apply f opts args))))
 
-(defn poly-infos
-  "Run poly once to generate txt and a second time to generate image"
-  [{:keys [ws-dir output-dir images-dir fake-sha]} info-arg-str fname-txt fname-png]
+(defn polys
+  "Run poly once to generate txt and a second time to generate image.
+  Note that not all poly cmds support output to image."
+  [{:keys [ws-dir output-dir images-dir]} poly-cmd-str fname-txt fname-png]
   (sh/poly {:out (fs/file output-dir fname-txt) :dir ws-dir}
-           (format "info %s fake-sha:%s color-mode:none" info-arg-str fake-sha))
+           (format "%s color-mode:none" poly-cmd-str))
   (sh/polyx {:dir ws-dir}
-            (format "info %s fake-sha:%s out:%s" info-arg-str fake-sha (fs/file images-dir fname-png))))
+            (format "%s out:%s" poly-cmd-str (fs/file images-dir fname-png))))
+
+(defn poly-infos
+  "Run poly info once to generate txt and a second time to generate image"
+  [{:keys [fake-sha] :as opts} info-arg-str fname-txt fname-png]
+  (polys opts (format "info %s fake-sha:%s" info-arg-str fake-sha)
+         fname-txt fname-png))
 
 ;; task fns
 
@@ -312,22 +319,28 @@
     (fs/delete (fs/file examples-dir "doc-example" f)))
   (copy [(fs/file ws-parent-dir "readme.txt") (fs/file examples-dir "doc-example/readme.txt")]))
 
-(defn real-world-example [{:keys [ws-parent-dir scripts-dir output-dir]}]
+(defn real-world-example [{:keys [ws-parent-dir scripts-dir output-dir] :as opts}]
   (let [ws-dir (fs/file ws-parent-dir "clojure-polylith-realworld-example-app")
         shell (fn-default-opts sh/shell {:dir ws-dir})
         poly (fn-default-opts sh/poly {:dir ws-dir})
+        opts (assoc opts :ws-dir ws-dir)
         out #(fs/file output-dir "realworld" %)]
     (fs/create-dir ws-parent-dir)
     (shell {:dir ws-parent-dir} "git clone https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app.git")
     (shell "clojure -A:dev:test -P")
     (shell "git tag stable-lisa")
-    (poly {:out (out "realworld-info.txt")}                    "info fake-sha:f7082da color-mode:none")
-    (poly {:out (out "realworld-deps-interfaces.txt")}         "deps color-mode:none")
-    (poly {:out (out "realworld-deps-interface.txt")}          "deps brick:article color-mode:none")
-    (poly {:out (out "realworld-deps-components.txt")}         "deps project:rb color-mode:none")
-    (poly {:out (out "realworld-deps-components-compact.txt")} "deps project:rb :compact color-mode:none")
-    (poly {:out (out "realworld-deps-component.txt")}          "deps project:rb brick:article color-mode:none")
-    (poly {:out (out "realworld-lib-deps.txt")}                "libs color-mode:none")
+
+    (run! (fn [[cmd fname]]
+            (let [txt-fname (format "realworld/realworld-%s.txt" fname)
+                  png-fname (format "dependencies/output/%s.png" fname)]
+              (polys opts cmd txt-fname png-fname)))
+          [["info"                          "info"] ;; no faking the sha for this one, user will see real sha of repo, so we should show it
+           ["deps"                          "deps-interfaces"]
+           ["deps brick:article"            "deps-interface"]
+           ["deps project:rb"               "deps-components"]
+           ["deps project:rb :compact"      "deps-components-compact"]
+           ["deps project:rb brick:article" "deps-component"]])
+
     (copy [(fs/file scripts-dir "realworld/workspace-compact.edn") (fs/file ws-dir "workspace.edn")])
     (poly {:out (out "realworld-lib-deps-compact.txt")}        "libs color-mode:none")
     (copy [(fs/file scripts-dir "realworld/workspace.edn") ws-dir])))
