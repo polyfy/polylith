@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="714.11145"
+   height="273.98022"
+   viewBox="0 0 188.94198 72.490601"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   sodipodi:docname="new-service-in-prod.svg"
+   inkscape:export-filename="new-service-in-prod.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1"
+     inkscape:cx="322"
+     inkscape:cy="127.5"
+     inkscape:window-width="2055"
+     inkscape:window-height="827"
+     inkscape:window-x="2076"
+     inkscape:window-y="132"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect3"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,1.8302928,0,1 @ F,0,0,1,0,1.9656111,0,1 @ F,0,0,1,0,2.0916758,0,1 @ F,0,0,1,0,1.9811925,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <marker
+       style="overflow:visible"
+       id="marker3157"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path3155" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker3267"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path3265" />
+    </marker>
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect1"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,1.8302928,0,1 @ F,0,0,1,0,1.9656111,0,1 @ F,0,0,1,0,2.0916758,0,1 @ F,0,0,1,0,1.9811925,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect5"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,4.5923034,0,1 @ F,0,1,1,0,4.5923034,0,1 @ F,0,1,1,0,4.5923034,0,1 @ F,0,1,1,0,4.5923034,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect5-9"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,4.5923034,0,1 @ F,0,1,1,0,4.5923034,0,1 @ F,0,1,1,0,4.5923034,0,1 @ F,0,1,1,0,4.5923034,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(9.9700037,-112.06876)">
+    <path
+       id="rect4"
+       style="opacity:0.58;fill:#ffffff;fill-opacity:0.580392;stroke:#000000;stroke-width:1.40327;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2.07892, 2.07892;stroke-dashoffset:0;stroke-opacity:0.188235"
+       d="M 5.7548196,34.026138 H 197.68339 a 4.5923034,4.5923034 45 0 1 4.5923,4.592303 V 119.3374 a 4.5923034,4.5923034 135 0 1 -4.5923,4.5923 H 5.7548196 A 4.5923034,4.5923034 45 0 1 1.1625162,119.3374 V 38.618441 a 4.5923034,4.5923034 135 0 1 4.5923034,-4.592303 z"
+       inkscape:path-effect="#path-effect5"
+       inkscape:original-d="M 1.1625162,34.026138 H 202.27569 V 123.9297 H 1.1625162 Z"
+       transform="matrix(0.29144995,0,0,0.79389385,-10.103996,85.615313)" />
+    <path
+       id="rect4-2"
+       style="opacity:0.58;fill:#ffffff;fill-opacity:0.580392;stroke:#000000;stroke-width:0.966303;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1.43157, 1.43157;stroke-dashoffset:0;stroke-opacity:0.188235"
+       d="M 5.7548196,34.026138 H 197.68339 a 4.5923034,4.5923034 45 0 1 4.5923,4.592303 V 119.3374 a 4.5923034,4.5923034 135 0 1 -4.5923,4.5923 H 5.7548196 A 4.5923034,4.5923034 45 0 1 1.1625162,119.3374 V 38.618441 a 4.5923034,4.5923034 135 0 1 4.5923034,-4.592303 z"
+       inkscape:path-effect="#path-effect5-9"
+       inkscape:original-d="M 1.1625162,34.026138 H 202.27569 V 123.9297 H 1.1625162 Z"
+       transform="matrix(0.61169404,0,0,0.79771146,54.945616,85.311134)" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.745736;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.190283"
+       id="rect2937-1"
+       width="50.954159"
+       height="27.585417"
+       x="124.45084"
+       y="130.06715"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png" />
+    <rect
+       style="fill:#bfefc5;fill-opacity:1;stroke:#000000;stroke-width:0.360458;stroke-opacity:0.190283"
+       id="rect2925-6"
+       width="39.307365"
+       height="9.0240679"
+       x="130.27429"
+       y="134.49312"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="145.64606"
+       y="140.8443"
+       id="text2929-8"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png"><tspan
+         sodipodi:role="line"
+         id="tspan2927-6"
+         x="145.64606"
+         y="140.8443"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">user</tspan></text>
+    <rect
+       style="fill:#a7d3fd;fill-opacity:1;stroke:#000000;stroke-width:0.360458;stroke-opacity:0.190283"
+       id="rect2931-0"
+       width="39.307365"
+       height="9.024065"
+       x="130.27429"
+       y="145.10437"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="142.28915"
+       y="151.42764"
+       id="text2935-9"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png"><tspan
+         sodipodi:role="line"
+         id="tspan2933-3"
+         x="142.28915"
+         y="151.42764"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">user-api</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="131.33992"
+       y="126.55678"
+       id="text3007-8"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png"><tspan
+         sodipodi:role="line"
+         id="tspan3005-4"
+         x="131.33992"
+         y="126.55678"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">user-service project</tspan></text>
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.745737;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.190283"
+       id="rect3135"
+       width="50.954159"
+       height="27.585417"
+       x="58.88813"
+       y="130.39923"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png" />
+    <rect
+       style="fill:#bfefc5;fill-opacity:1;stroke:#000000;stroke-width:0.360458;stroke-opacity:0.190283"
+       id="rect3137"
+       width="39.307365"
+       height="9.0240679"
+       x="64.711525"
+       y="134.82516"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="72.907524"
+       y="141.17638"
+       id="text3141"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png"><tspan
+         sodipodi:role="line"
+         id="tspan3139"
+         x="72.907524"
+         y="141.17638"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">user-remote</tspan></text>
+    <rect
+       style="fill:#a7d3fd;fill-opacity:1;stroke:#000000;stroke-width:0.360458;stroke-opacity:0.190283"
+       id="rect3143"
+       width="39.307365"
+       height="9.0240641"
+       x="64.711525"
+       y="145.43639"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="82.427345"
+       y="151.75972"
+       id="text3147"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png"><tspan
+         sodipodi:role="line"
+         id="tspan3145"
+         x="82.427345"
+         y="151.75972"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">cli</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker3157)"
+       d="m 69.353678,150.53181 -0.17347,-5.81893"
+       id="path3149"
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="64.063622"
+       y="126.88885"
+       id="text3153"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png"><tspan
+         sodipodi:role="line"
+         id="tspan3151"
+         x="64.063622"
+         y="126.88885"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">command-line project</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.795, 0.795;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker3267)"
+       d="m 102.1746,139.35608 28.04473,10.04416"
+       id="path3263"
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="97.887962"
+       y="118.45892"
+       id="text3816"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png"><tspan
+         sodipodi:role="line"
+         id="tspan3814"
+         x="97.887962"
+         y="118.45892"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">Production Env</tspan></text>
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.744319;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.190283"
+       id="rect5002"
+       width="50.904995"
+       height="49.994217"
+       x="-5.9702458"
+       y="130.04004"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png" />
+    <rect
+       style="fill:#bfefc5;fill-opacity:1;stroke:#000000;stroke-width:0.360556;stroke-opacity:0.190283"
+       id="rect5004"
+       width="39.271633"
+       height="9.0371914"
+       x="-0.19857474"
+       y="134.27603"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="15.155336"
+       y="140.64696"
+       id="text5008"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png"><tspan
+         sodipodi:role="line"
+         id="tspan5006"
+         x="15.155336"
+         y="140.64696"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">user</tspan></text>
+    <rect
+       style="fill:#a7d3fd;fill-opacity:1;stroke:#000000;stroke-width:0.362137;stroke-opacity:0.190283"
+       id="rect5010"
+       width="39.639473"
+       height="9.0320444"
+       x="-0.38249466"
+       y="166.08461"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="11.798438"
+       y="172.39699"
+       id="text5014"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png"><tspan
+         sodipodi:role="line"
+         id="tspan5012"
+         x="11.798438"
+         y="172.39699"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">user-api</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="0.36405417"
+       y="126.35944"
+       id="text5018"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png"><tspan
+         sodipodi:role="line"
+         id="tspan5016"
+         x="0.36405417"
+         y="126.35944"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">development project</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="-3.0223947"
+       y="118.45892"
+       id="text5026"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png"><tspan
+         sodipodi:role="line"
+         id="tspan5024"
+         x="-3.0223947"
+         y="118.45892"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">Development Env</tspan></text>
+    <rect
+       style="fill:#a7d3fd;fill-opacity:1;stroke:#000000;stroke-width:0.362137;stroke-opacity:0.190283"
+       id="rect5156"
+       width="39.639473"
+       height="9.0320444"
+       x="-0.38249466"
+       y="155.4919"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="17.499378"
+       y="161.81364"
+       id="text5160"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png"><tspan
+         sodipodi:role="line"
+         id="tspan5158"
+         x="17.499378"
+         y="161.81364"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">cli</tspan></text>
+    <rect
+       style="fill:#bfefc5;fill-opacity:1;stroke:#000000;stroke-width:0.362137;stroke-opacity:0.190283"
+       id="rect5162"
+       width="39.639473"
+       height="9.0320482"
+       x="-0.38249466"
+       y="144.87129"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="7.9795527"
+       y="151.2303"
+       id="text5166"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png"><tspan
+         sodipodi:role="line"
+         id="tspan5164"
+         x="7.9795527"
+         y="151.2303"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">user-remote</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker3157)"
+       d="m 136.27689,150.0555 -0.17347,-5.81893"
+       id="path3"
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/Users/joakimtengstrand/source/polylith/images/dev-and-prod.png" />
+  </g>
+</svg>
