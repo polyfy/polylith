@@ -3,8 +3,8 @@
   (:require [polylith.clj.core.antq.outdated :as outdated]
             [polylith.clj.core.antq.upgrade :as upgrade]))
 
-(defn library->latest-version [configs]
-  (outdated/library->latest-version configs))
+(defn library->latest-version [configs user-input]
+  (outdated/library->latest-version configs user-input))
 
 (defn upgrade-libs!
   "If libs-to-update is left empty, then update all libs."

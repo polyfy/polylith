@@ -2,6 +2,7 @@
   (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.deps.interface :as proj-deps]
             [polylith.clj.core.file.interface :as file]
+            [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.path-finder.interface.select :as select]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.path-finder.interface.criterias :as c]
@@ -33,7 +34,9 @@
                       brick->loc
                       brick->lib-imports
                       disk-paths
-                      settings]
+                      settings
+                      outdated-libs
+                      library->latest-version]
   (let [alias (get-in settings [:projects name :alias])
         enriched-maven-repos (apply merge maven-repos (mapcat :maven-repos (concat components bases)))
         lib-entries (extract/from-library-deps is-dev lib-deps settings)
@@ -65,16 +68,17 @@
                              (seq test-paths) (assoc :test test-paths))
         merged-lib-deps (cond-> {}
                                 (seq src-lib-deps) (assoc :src src-lib-deps)
-                                (seq test-lib-deps) (assoc :test test-lib-deps))]
+                                (seq test-lib-deps) (assoc :test test-lib-deps)
+                                true (lib/lib-deps-with-latest-version outdated-libs library->latest-version))]
     (-> project
-        (merge {:alias            alias
-                :lines-of-code    lines-of-code
-                :component-names  component-names
-                :base-names       base-names
-                :deps             deps
-                :paths            merged-paths
-                :lib-deps         merged-lib-deps
-                :lib-imports      lib-imports})
+        (merge {:alias alias
+                :lines-of-code lines-of-code
+                :component-names component-names
+                :base-names base-names
+                :deps deps
+                :paths merged-paths
+                :lib-deps merged-lib-deps
+                :lib-imports lib-imports})
         (cond-> enriched-maven-repos (assoc :maven-repos  enriched-maven-repos)
-                is-dev (assoc :unmerged {:paths     paths
-                                         :lib-deps      lib-deps})))))
+                is-dev (assoc :unmerged {:paths paths
+                                         :lib-deps lib-deps})))))

@@ -99,7 +99,7 @@
                          :type "base"}]})
 
 (deftest table--show-brick-with-deps--returns-correct-table
-  (is (= (lib-table/table workspace false)
+  (is (= (lib-table/table workspace)
          ["                                                                                                                d   "
           "                                                                                                          a     a   "
           "                                                                                                          d     t   "
@@ -120,7 +120,7 @@
           "  zprint                                  0.5.4          maven      -    -     -     -      -       x     .  .  .  ."])))
 
 (deftest table--show-all-brick-deps--returns-correct-table
-  (is (= (lib-table/table workspace false)
+  (is (= (lib-table/table workspace)
          ["                                                                                                                d   "
           "                                                                                                          a     a   "
           "                                                                                                          d     t   "
@@ -141,7 +141,7 @@
           "  zprint                                  0.5.4          maven      -    -     -     -      -       x     .  .  .  ."])))
 
 (deftest table--show-source-dependencies
-  (is (= (lib-table/table data/workspace-01 false)
+  (is (= (lib-table/table data/workspace-01)
          ["                                                                              t"
           "                                                                              e"
           "                                                                              s"

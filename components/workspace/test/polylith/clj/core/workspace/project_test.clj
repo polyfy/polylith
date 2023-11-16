@@ -101,7 +101,9 @@
 (deftest paths--without-active-profile--returns-expected-map
   (is (= (dissoc (proj/enrich-project project "." components bases "se.example." brick->loc brick->lib-imports
                                       {:missing []}
-                                      {:projects {"development" {:alias "dev"}}})
+                                      {:projects {"development" {:alias "dev"}}}
+                                      #{}
+                                      {})
                  :deps)
          {:alias                    "dev"
           :base-names               {:src ["cli"], :test ["cli"]}
@@ -154,7 +156,9 @@
                                                                                 "components/user/test"]
                                                                         :lib-deps {"clojure.core.matrix"
                                                                                    "net.mikera/core.matrix"}}}
-                                       :projects {"development" {:alias "dev", :test []}}})
+                                       :projects {"development" {:alias "dev", :test []}}}
+                                      #{}
+                                      {})
                  :deps)
          {:alias                "dev"
           :base-names           {:src ["cli"],

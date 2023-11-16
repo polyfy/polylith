@@ -81,12 +81,12 @@
       ":local" ["shell" (assoc user-input :is-local true)]
       [cmd user-input])))
 
-(defn libs [workspace is-outdated is-update update color-mode]
+(defn libs [workspace is-update update color-mode]
   (if is-update
     (lib/update-libs! workspace update color-mode)
-    (lib/print-lib-table workspace is-outdated)))
+    (lib/print-lib-table workspace)))
 
-(defn execute [{:keys [cmd args name top-ns branch help is-local more page ws is-tap is-git-add is-github is-commit is-all is-outdated is-update is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly get out interface selected-bricks selected-projects unnamed-args update ws-file] :as user-input}]
+(defn execute [{:keys [cmd args name top-ns branch help is-local more page ws is-tap is-git-add is-github is-commit is-all is-update is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly get out interface selected-bricks selected-projects unnamed-args update ws-file] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (config-reader/workspace-dir user-input)
         workspace-fn (workspace-reader-fn)
@@ -111,7 +111,7 @@
           "diff" (diff workspace)
           "help" (open-help args is-all is-show-project is-show-brick is-show-workspace toolsdeps1? is-fake-poly color-mode)
           "info" (info/info workspace unnamed-args)
-          "libs" (libs workspace is-outdated is-update update color-mode)
+          "libs" (libs workspace is-update update color-mode)
           "migrate" (migrator/migrate ws-dir workspace)
           "overview" (overview/print-table workspace)
           "shell" (shell/start execute user-input workspace-fn workspace color-mode)
