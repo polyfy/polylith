@@ -5,6 +5,7 @@
             [clojure.edn :as edn]
             [clojure.string :as str]
             [lread.status-line :as status]
+            [borkdude.rewrite-edn :as r]
             [shell :as sh]
             [version-clj.core :as v]))
 
@@ -319,31 +320,43 @@
     (fs/delete (fs/file examples-dir "doc-example" f)))
   (copy [(fs/file ws-parent-dir "readme.txt") (fs/file examples-dir "doc-example/readme.txt")]))
 
-(defn real-world-example [{:keys [ws-parent-dir scripts-dir output-dir] :as opts}]
+(defn real-world-example [{:keys [ws-parent-dir scripts-dir] :as opts}]
   (let [ws-dir (fs/file ws-parent-dir "clojure-polylith-realworld-example-app")
         shell (fn-default-opts sh/shell {:dir ws-dir})
-        poly (fn-default-opts sh/poly {:dir ws-dir})
-        opts (assoc opts :ws-dir ws-dir)
-        out #(fs/file output-dir "realworld" %)]
+        opts (assoc opts :ws-dir ws-dir)]
     (fs/create-dir ws-parent-dir)
     (shell {:dir ws-parent-dir} "git clone https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app.git")
     (shell "clojure -A:dev:test -P")
     (shell "git tag stable-lisa")
 
-    (run! (fn [[cmd fname]]
-            (let [txt-fname (format "realworld/realworld-%s.txt" fname)
-                  png-fname (format "dependencies/output/%s.png" fname)]
-              (polys opts cmd txt-fname png-fname)))
-          [["info"                          "info"] ;; no faking the sha for this one, user will see real sha of repo, so we should show it
-           ["deps"                          "deps-interfaces"]
-           ["deps brick:article"            "deps-interface"]
-           ["deps project:rb"               "deps-components"]
-           ["deps project:rb :compact"      "deps-components-compact"]
-           ["deps project:rb brick:article" "deps-component"]])
+    (let [out-txt #(format "realworld/realworld-%s.txt" %)
+          out-png #(format "%s/output/%s.png" %1 %2)]
 
-    (copy [(fs/file scripts-dir "realworld/workspace-compact.edn") (fs/file ws-dir "workspace.edn")])
-    (poly {:out (out "realworld-lib-deps-compact.txt")}        "libs color-mode:none")
-    (copy [(fs/file scripts-dir "realworld/workspace.edn") ws-dir])))
+      (run! (fn [[cmd section fname]]
+              (polys opts cmd (out-txt fname) (out-png section fname)))
+            [["info"                          "dependencies" "info"] ;; no faking the sha for this one, user will see real sha of repo, so we should show it
+             ["deps"                          "dependencies" "deps-interfaces"]
+             ["deps brick:article"            "dependencies" "deps-interface"]
+             ["deps project:rb"               "dependencies" "deps-components"]
+             ["deps project:rb :compact"      "dependencies" "deps-components-compact"]
+             ["deps project:rb brick:article" "dependencies" "deps-component"]
+             ["libs"                          "libraries"    "libs"]])
+
+      ;; test out choosing compact format via workspace.edn
+      (copy [(fs/file scripts-dir "realworld/workspace-compact.edn") (fs/file ws-dir "workspace.edn")])
+      (let [fname "libs-compact"]
+        (polys opts "libs" (out-txt fname) (out-png "libraries" fname)))
+      (shell "git restore workspace.edn")
+      ;; show overriding a dep
+      (let [out-fname "libs-override"
+            deps-fname (str (fs/file ws-dir "projects/realworld-backend/deps.edn"))
+            new-content (-> deps-fname
+                            slurp
+                            r/parse-string (r/assoc :override-deps {'clj-time/clj-time {:mvn/version "0.15.1"}})
+                            str)]
+        (spit deps-fname new-content)
+        (polys opts "libs" (out-txt out-fname) (out-png "libraries" out-fname))
+        (shell "git restore" deps-fname)))))
 
 (defn polylith-toolsdeps1 [{:keys [ws-parent-dir output-dir]}]
   (let [ws-dir (fs/file ws-parent-dir "polylith")
@@ -448,8 +461,9 @@
     (poly {:out (out "failing-test-and-teardown-fails-stops-entire-test-run.txt")}
           "test :all project:failing-test-teardown-fails:okay color-mode:none")))
 
-(defn main []
-  (let [start-time-ms (System/currentTimeMillis)
+(defn -main [& args]
+  (let [ids (mapv #(if (keyword? %) % (keyword %)) args) ;; ids to run, all if non specified, handy for dev tests
+        start-time-ms (System/currentTimeMillis)
         root-dir (System/getProperty "user.dir")
         scripts-dir (fs/absolutize "scripts")
         timestamp (.format (java.time.LocalDateTime/now)
@@ -464,7 +478,6 @@
     (assert-tools-installed)
     (assert-min-tree-version)
     (assert-clojure-is-latest)
-    (download-deps)
 
     (let [ws-parent-dir (fs/file work-dir "ws")
           opts (merge default-opts
@@ -473,36 +486,53 @@
                        :fake-sha "c91fdad"
                        :fake-sha2 "e7ebe68"})
           ;; structure as tasks to allow x of n progress in headings
-          tasks [["Generate doc navigation, used by the shell" #(gen-nav)]
+          task-groups [[:gen-nav [["Generate doc navigation, used by the shell" #(gen-nav)]]]
 
-                 ;; doc example tutorial tasks (next task tends to rely on work of previous)
-                 ["Workspace" #(workspace opts)]
-                 ["Development" #(development opts)]
-                 ["Component" #(component opts)]
-                 ["Base" #(base opts)]
-                 ["Project" #(project opts)]
-                 ["Polyx" #(polyx opts)]
-                 ["Tools.deps" #(tools-deps opts)]
-                 ["Build" #(build opts)]
-                 ["Git" #(git opts)]
-                 ["Tagging" #(tagging opts)]
-                 ["Flags" #(flags opts)]
-                 ["Testing" #(testing opts)]
-                 ["Profile" #(profile opts)]
-                 ["Configuration" #(configuration opts)]
-                 ["Copy doc-example" #(copy-doc-example opts)]
+                       ;; doc example tutorial tasks (next task tends to rely on work of previous)
+                       [:example [["Workspace" #(workspace opts)]
+                                  ["Development" #(development opts)]
+                                  ["Component" #(component opts)]
+                                  ["Base" #(base opts)]
+                                  ["Project" #(project opts)]
+                                  ["Polyx" #(polyx opts)]
+                                  ["Tools.deps" #(tools-deps opts)]
+                                  ["Build" #(build opts)]
+                                  ["Git" #(git opts)]
+                                  ["Tagging" #(tagging opts)]
+                                  ["Flags" #(flags opts)]
+                                  ["Testing" #(testing opts)]
+                                  ["Profile" #(profile opts)]
+                                  ["Configuration" #(configuration opts)]
+                                  ["Copy doc-example" #(copy-doc-example opts)]]]
 
-                 ;; Stand-alone tasks (can run independently)
-                 ["Realworld example app" #(real-world-example (merge default-opts {:ws-parent-dir (fs/file work-dir "ws2")}))]
-                 ["Polylith toolsdeps1" #(polylith-toolsdeps1 (merge default-opts {:ws-parent-dir (fs/file work-dir "ws1")}))]
-                 ["Usermanager" #(usermanager (merge default-opts {:ws-parent-dir (fs/file work-dir "ws3")}))]
-                 ["examples/local-dep" #(example-localdep (merge default-opts {:ws-parent-dir (fs/file work-dir "ws4")}))]
-                 ["examples/for-test, issue 208 - Mix clj and cljc source directories"
-                  #(for-test default-opts)]]
-          task-count (count tasks)]
+                       ;; Stand-alone tasks (can run independently)
+                       [:realworld   [["Realworld example app" #(real-world-example (merge default-opts {:ws-parent-dir (fs/file work-dir "ws2")}))]]]
+                       [:poly        [["Polylith toolsdeps1" #(polylith-toolsdeps1 (merge default-opts {:ws-parent-dir (fs/file work-dir "ws1")}))]]]
+                       [:usermanager [["Usermanager" #(usermanager (merge default-opts {:ws-parent-dir (fs/file work-dir "ws3")}))]]]
+                       [:local-dep   [["examples/local-dep" #(example-localdep (merge default-opts {:ws-parent-dir (fs/file work-dir "ws4")}))]]]
+                       [:for-test    [["examples/for-test, issue 208 - Mix clj and cljc source directories" #(for-test default-opts)]]]]
 
-      (doseq [[ndx [title task-fn]] (map-indexed vector tasks)]
-        (status/line :head (format "%d/%d %s" (inc ndx) task-count title))
+          valid-ids (mapv first task-groups)
+
+          invalid-ids (into [] (remove #(some #{%} valid-ids) ids))
+          _ (when (seq invalid-ids)
+              (status/die 1 "Invalid task group ids: %s\nValid ids are: %s"
+                          (str/join ", " (mapv name invalid-ids))
+                          (str/join ", " (mapv name valid-ids))))
+
+          selected-task-groups (if (seq ids)
+                                 (filterv (fn [[id]] (some #{id} ids)) task-groups)
+                                 task-groups)
+          ;; flatten for running
+          selected-tasks (for [[id task-group] selected-task-groups
+                               task task-group]
+                           (do (println id)
+                               (cons id task)))
+
+          task-count (count selected-tasks)]
+      (download-deps)
+      (doseq [[ndx [group-id title task-fn]] (map-indexed vector selected-tasks)]
+        (status/line :head (format "%d/%d [%s] %s" (inc ndx) task-count (name group-id) title))
         (task-fn)))
 
     (let [elapsed-secs (long (/ (- (System/currentTimeMillis) start-time-ms)

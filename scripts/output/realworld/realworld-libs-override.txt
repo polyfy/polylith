@@ -1,0 +1,29 @@
+                                                                                    d                 r
+                                                                              a  c  a     p           e
+                                                                              r  o  t     r           s
+                                                                              t  m  a     o           t
+                                                                              i  m  b     f  s     u  -
+                                                                              c  e  a  l  i  p  t  s  a
+                                                                              l  n  s  o  l  e  a  e  p
+  library                                version   type       KB   rb   dev   e  t  e  g  e  c  g  r  i
+  --------------------------------------------------------------   --   ---   -------------------------
+  clj-http/clj-http                      3.12.3    maven      58   -     x    .  .  .  .  .  .  .  .  .
+  clj-jwt/clj-jwt                        0.1.1     maven       7   x     x    .  .  .  .  .  .  .  x  .
+  clj-time/clj-time                      0.15.1    maven      22   x     -    .  .  .  .  .  .  .  .  .
+  clj-time/clj-time                      0.15.2    maven      23   -     x    x  x  .  .  .  .  .  x  .
+  com.github.seancorfield/honeysql       2.4.980   maven      30   x     x    x  x  x  .  x  .  x  x  .
+  com.taoensso/timbre                    6.0.4     maven      54   x     x    .  .  .  x  .  .  .  .  .
+  compojure/compojure                    1.7.0     maven      14   x     x    .  .  .  .  .  .  .  .  x
+  crypto-password/crypto-password        0.3.0     maven       6   x     x    .  .  .  .  .  .  .  x  .
+  djblue/portal                          0.35.1    maven   1,790   -     x    .  .  .  .  .  .  .  .  .
+  metosin/spec-tools                     0.10.5    maven      41   x     x    x  x  .  .  x  x  .  x  .
+  org.clojure/clojure                    1.11.1    maven   4,008   x     x    .  .  .  .  .  .  .  .  .
+  org.clojure/data.json                  2.4.0     maven       8   x     x    .  .  .  .  .  .  .  .  x
+  org.clojure/java.jdbc                  0.7.12    maven      28   x     x    x  x  x  .  x  .  x  x  .
+  org.clojure/test.check                 1.1.1     maven      39   t     t    .  .  .  .  .  .  .  .  .
+  org.slf4j/slf4j-nop                    2.0.3     maven       3   -     x    .  .  .  .  .  .  .  .  .
+  org.xerial/sqlite-jdbc                 3.41.0.0  maven  12,536   x     x    .  .  x  .  .  .  .  .  .
+  ring-logger-timbre/ring-logger-timbre  0.7.6     maven       9   x     x    .  .  .  .  .  .  .  .  x
+  ring/ring-jetty-adapter                1.9.6     maven       5   x     x    .  .  .  .  .  .  .  .  x
+  ring/ring-json                         0.5.1     maven       5   x     x    .  .  .  .  .  .  .  .  x
+  slugger/slugger                        1.0.1     maven     774   x     x    x  .  .  .  .  .  .  .  .
