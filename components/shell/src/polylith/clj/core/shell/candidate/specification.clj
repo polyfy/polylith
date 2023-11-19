@@ -177,6 +177,7 @@
 (def ws-dev (c/flag "dev" :ws))
 (def ws-latest-sha (c/flag "latest-sha" :ws))
 (def ws-loc (c/flag "loc" :ws))
+(def ws-outdated (c/flag "outdated" :ws))
 (def ws-all-bricks (c/flag "all-bricks" :ws))
 (def ws-all (c/flag "all" :ws))
 (def ws-since (c/fn-explorer "since" :ws #'ws-tag-patterns/select))
@@ -191,7 +192,7 @@
     (vec (concat [ws-project ws-brick ws-project-flag ws-dev ws-latest-sha
                   ws-loc ws-all-bricks ws-all ws-get ws-out ws-since]
                  profiles
-                 (when all? [ws-branch ws-replace ws-no-changes ws-color-mode])))))
+                 (when all? [ws-branch ws-outdated ws-replace ws-no-changes ws-color-mode])))))
 
 ;; switch-ws
 (def switch-ws-dir (c/fn-explorer "dir" :switch-ws #'file-explorer/select-edn))
