@@ -195,10 +195,8 @@ If you only run tests with the built-in xref:commands.adoc#test[test] command, y
 The library dependencies for a project are the sum of all library dependencies that are indirectly included via its bricks, together with dependencies declared by the project itself.
 If different versions of the same library dependency exist, then `poly` will use the latest version.
 
-You override the library version used for a project in its `deps.edn` file.
+You can override the library version used for a project in its `deps.edn` file.
 For example:
-
-An exception is if a dependency is overridden with `:override-deps` in a project's `deps.edn` file, e.g. `projects/realworld-backend/deps.edn`:
 
 ../projects/realworld-backend/deps.edn
 [source,clojure]
