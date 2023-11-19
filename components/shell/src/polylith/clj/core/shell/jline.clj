@@ -14,25 +14,27 @@
            [org.jline.reader ParsedLine]
            [org.jline.reader LineReader$SuggestionType]))
 
-(defn split-word [word]
+(defn split-word [word slash-split?]
   (if (str/starts-with? word ":")
     (if (str/starts-with? ":project" word)
       [word]
       [(subs word 1)])
-    (let [splitted (str/split word #"[:/]")]
+    (let [separators (if slash-split? #"[:/]" #"[:]")
+          splitted (str/split word separators)]
       (if (or (str/ends-with? word ":")
               (str/ends-with? word "/"))
         (conj splitted "")
         splitted))))
 
-(defn append-words [{:keys [words split]} word]
-  (let [sub-words (split-word word)
+(defn append-words [{:keys [words split slash-split?]} word]
+  (let [sub-words (split-word word slash-split?)
         split-separator (when split [split])
         new-words (vec (concat words split-separator sub-words))]
-    {:split       :next
-     :words       (vec new-words)
-     :word-index  (dec (count new-words))
-     :word-cursor (-> sub-words last count)}))
+    {:split        :next
+     :slash-split? slash-split?
+     :words        (vec new-words)
+     :word-index   (dec (count new-words))
+     :word-cursor  (-> sub-words last count)}))
 
 (defn default-parser [line words word-index word-cursor cursor]
   (DefaultParser$ArgumentList.
@@ -43,11 +45,19 @@
     word-cursor
     cursor))
 
+(defn slash-split?
+  "This is an ugly hack, to allow libraries: to be followed by library names
+   that contains slashes. The whole jline integration will be rewritten sometime
+   in the future."
+  [line]
+  (not (str/starts-with? (last (str/split line #" ")) "libraries:")))
+
 (def parser (proxy [Parser] []
               (parse [^String line
                       ^Integer _
                       ^Parser$ParseContext _]
-                (let [{:keys [words word-index word-cursor]} (reduce append-words {:words []}
+                (let [{:keys [words word-index word-cursor]} (reduce append-words {:words []
+                                                                                   :slash-split? (slash-split? line)}
                                                                      (str-util/split-text line))
                       cursor (count line)
                       result (default-parser line words word-index word-cursor cursor)]

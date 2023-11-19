@@ -5,13 +5,16 @@
 (defn help [extended? cm]
   (str "  Shows all libraries that are used in the workspace.\n"
        "\n"
-       "  poly libs [" (s/key ":compact" cm) "] [" (s/key ":outdated" cm) "] [" (s/key ":update" cm) "] [out:" (s/key  "FILENAME" cm) "]\n"
+       "  poly libs [" (s/key ":compact" cm) "] [" (s/key ":outdated" cm) "] [" (s/key ":update" cm) "] [libraries:" (s/key "LIBS" cm) "] [out:" (s/key  "FILENAME" cm) "]\n"
        "\n"
        "    " (s/key ":compact" cm) "  = Shows the table in a more compact way.\n"
        "\n"
        "    " (s/key ":outdated" cm) " = Shows the latest version of each library, or blank if up to date.\n"
        "\n"
-       "    " (s/key ":update" cm) "   = Updates all libraries to the latest version.\n"
+       "    " (s/key ":update" cm) "   = Updates all libraries to the latest version. If " (s/key "LIBS" cm) " is given,\n"
+       "                then only update selected libraries.\n"
+       "                Old library versions can be kept by giving the library as a symbol in\n"
+       "                " (s/key ":keep-lib-versions" cm) " for bricks and projects in workspace.edn.\n"
        "\n"
        (if extended?
             (str "    " (s/key "FILENAME" cm) "  = The name of the text or image file to create, containing the\n"
@@ -66,6 +69,7 @@
        "    poly libs :compact\n"
        "    poly libs :outdated\n"
        "    poly libs :update\n"
+       "    poly libs :update libraries:metosin/malli:zprint/zprint\n"
        "    poly libs out:libs.txt\n"
        "    poly doc page:libraries"
        (if extended?

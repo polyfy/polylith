@@ -67,14 +67,16 @@
   "If :override-deps is given, then library versions will be overridden."
   [ws-dir project-name is-dev user-home name->brick project-src-deps override-src-deps]
   (let [src-brick-names (brick-deps/extract-brick-names is-dev project-src-deps)
-        entity-root-path (when (not is-dev) (str "projects/" project-name))]
-    (-> ws-dir
-        (lib/with-sizes-vec
-          entity-root-path
-          (filterv #(not (brick? % is-dev)) project-src-deps)
-          user-home)
-        (into (mapcat #(brick-libs name->brick % :src)) src-brick-names)
-        (lib/resolve-libs override-src-deps))))
+        entity-root-path (when (not is-dev) (str "projects/" project-name))
+        project-lib-deps (lib/with-sizes-vec
+                           ws-dir
+                           entity-root-path
+                           (filterv #(not (brick? % is-dev)) project-src-deps)
+                           user-home)
+        lib-deps (-> project-lib-deps
+                     (into (mapcat #(brick-libs name->brick % :src)) src-brick-names)
+                     (lib/resolve-libs override-src-deps))]
+    [lib-deps project-lib-deps]))
 
 (defn test-paths-from-bricks
   "Returns all test paths and test dependencies that are included from the test context
@@ -111,18 +113,20 @@
         src-brick-names (brick-deps/extract-brick-names is-dev project-src-deps)
         test-brick-names (brick-deps/extract-brick-names is-dev project-test-deps)
         src-only-brick-names (set/difference test-brick-names src-brick-names)
-        entity-root-path (when (not is-dev) (str "projects/" project-name))]
-    (-> ws-dir
-        (lib/with-sizes-vec
-          entity-root-path
-          (filterv #(not (brick? % is-dev)) project-test-deps)
-          user-home)
-        (into (mapcat #(brick-libs name->brick % :test)) all-brick-names)
-        (into (mapcat #(brick-libs name->brick % :src)) src-only-brick-names)
-        (lib/resolve-libs (merge override-src-deps override-test-deps))
-        set
-        sort
-        vec)))
+        entity-root-path (when (not is-dev) (str "projects/" project-name))
+        project-lib-deps (lib/with-sizes-vec
+                           ws-dir
+                           entity-root-path
+                           (filterv #(not (brick? % is-dev)) project-test-deps)
+                           user-home)
+        lib-deps (-> project-lib-deps
+                     (into (mapcat #(brick-libs name->brick % :test)) all-brick-names)
+                     (into (mapcat #(brick-libs name->brick % :src)) src-only-brick-names)
+                     (lib/resolve-libs (merge override-src-deps override-test-deps))
+                     set
+                     sort
+                     vec)]
+    [lib-deps project-lib-deps]))
 
 (defn skip-all-tests? [bricks-to-test]
   (and (-> bricks-to-test nil? not)
@@ -149,16 +153,19 @@
     project-test-deps override-src-deps override-test-deps suffixed-top-ns interface-ns
     files-to-ignore]
    (let [src-paths (src-paths-from-bricks project-name is-dev name->brick project-src-paths project-src-deps)
-         src-lib-deps (src-lib-deps-from-bricks ws-dir project-name is-dev user-home name->brick project-src-deps override-src-deps)
+         [src-lib-deps src-project-lib-deps] (src-lib-deps-from-bricks ws-dir project-name is-dev user-home name->brick project-src-deps override-src-deps)
          skip-all? (-> project-name project->settings :test :include skip-all-tests?)
          test-paths (if skip-all? [] (test-paths-from-bricks project-name is-dev name->brick project-test-paths project-src-deps project-test-deps))
-         test-lib-deps (if skip-all? [] (test-lib-deps-from-bricks ws-dir project-name is-dev name->brick user-home project-src-deps project-test-deps override-src-deps override-test-deps))
+         [test-lib-deps test-project-lib-deps] (if skip-all? [[][]] (test-lib-deps-from-bricks ws-dir project-name is-dev name->brick user-home project-src-deps project-test-deps override-src-deps override-test-deps))
          paths (cond-> {}
                        (seq src-paths) (assoc :src src-paths)
                        (seq test-paths) (assoc :test test-paths))
          lib-deps (cond-> {}
                           (seq src-lib-deps) (assoc :src src-lib-deps)
                           (seq test-lib-deps) (assoc :test test-lib-deps))
+         project-lib-deps (cond-> {}
+                                  (seq src-project-lib-deps) (assoc :src src-project-lib-deps)
+                                  (seq test-project-lib-deps) (assoc :test test-project-lib-deps))
          {:keys [src-dirs test-dirs]} (project-paths/project-source-dirs ws-dir project-name is-dev project-src-paths project-test-paths)
          namespaces (ns-from-disk/namespaces-from-disk ws-dir src-dirs test-dirs suffixed-top-ns interface-ns files-to-ignore)]
      (util/ordered-map :name project-name
@@ -168,6 +175,7 @@
                        :type "project"
                        :paths paths
                        :lib-deps lib-deps
+                       :project-lib-deps project-lib-deps
                        :maven-repos maven-repos
                        :namespaces namespaces))))
 

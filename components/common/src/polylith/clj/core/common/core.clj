@@ -92,6 +92,9 @@
   (or (nil? workspace)
       (boolean config-error)))
 
+(defn calculate-latest-version? [{:keys [is-update is-outdated]}]
+  (or is-update is-outdated))
+
 (defn brick-names-to-test
   "Returns the brick names to include for a project when running the tests.
    The dependencies that are calculated per project are used to test runner

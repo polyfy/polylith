@@ -116,9 +116,11 @@
 (defn profile-lib [[_ {:keys [lib-deps]}]]
   (mapcat lib lib-deps))
 
-(defn table [{:keys [configs settings components bases projects] :as workspace} is-outdated]
+(defn table [{:keys [configs settings user-input components bases projects] :as workspace}]
   (let [{:keys [profile-to-settings empty-character thousand-separator color-mode]} settings
-        lib->latest-version (if is-outdated (antq/library->latest-version configs) {})
+        is-outdated (:is-outdated user-input)
+        calculate-latest-version? (common/calculate-latest-version? user-input)
+        lib->latest-version (antq/library->latest-version configs calculate-latest-version?)
         entities (concat components bases projects)
         src-libs (set (concat (mapcat lib (mapcat #(-> % :lib-deps :src) entities))
                               (mapcat profile-lib profile-to-settings)))
@@ -158,12 +160,12 @@
         spaces (text-table/spaces 2 [section1 section2 section3] (repeat "   "))]
     (text-table/table "  " color-mode cells line spaces)))
 
-(defn print-table [workspace is-outdated]
+(defn print-table [workspace]
   (common/print-or-save-table workspace
-                              #(table % is-outdated)))
+                              #(table %)))
 
 (comment
   (require '[dev.jocke :as jocke])
-  (print-table jocke/workspace false)
-  (print-table jocke/workspace true)
+  (print-table jocke/workspace)
+  (print-table (assoc-in jocke/workspace [:user-input :is-outdated] true))
   #__)

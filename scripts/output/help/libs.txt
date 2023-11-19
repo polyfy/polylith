@@ -1,12 +1,15 @@
   Shows all libraries that are used in the workspace.
 
-  poly libs [:compact] [:outdated] [:update] [out:FILENAME]
+  poly libs [:compact] [:outdated] [:update] [libraries:LIBS] [out:FILENAME]
 
     :compact  = Shows the table in a more compact way.
 
     :outdated = Shows the latest version of each library, or blank if up to date.
 
-    :update   = Updates all libraries to the latest version.
+    :update   = Updates all libraries to the latest version. If LIBS is given,
+                then only update selected libraries.
+                Old library versions can be kept by giving the library as a symbol in
+                :keep-lib-versions for bricks and projects in workspace.edn.
 
     FILENAME  = The name of the text file to create, containing the
                 output from this command.
@@ -55,5 +58,6 @@
     poly libs :compact
     poly libs :outdated
     poly libs :update
+    poly libs :update libraries:metosin/malli:zprint/zprint
     poly libs out:libs.txt
     poly doc page:libraries

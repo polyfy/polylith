@@ -7,13 +7,13 @@ Included in 0.2.18-SNAPSHOT #11:
   205   The new polyx tool has been added that allow us to generate images from command's output. It includes all
         functionality in 'poly' plus the overview command that generates the info/deb/libs image.
   249   Include bases in the circular dependency check (error 104).
-  259   Added warning 206 'Unreadable namespace in brick/project' + support for excluding files to parse,
-        see 'poly help check' (warning 206) for details.
+  259   Added error 111 'Unreadable namespace in brick/project' + support for excluding files to parse,
+        see 'poly help check' (error 111) for details.
   264   Improved error messages for workspace.edn and deps.edn config files (we now use clojure.edn when reading edn files).
   272   The check command now also checks test dependencies (solved by issue 293 and 274).
   274   Support exclusion of bricks to test so that we support both :include and :exclude for projects in workspace.edn.
   277   Improved warning 205 by also showing non-top namespace files. Error 106 and 108 are not displayed in some edge cases.
-  279   Show warning 206 if a source file doesn't have a namespace, if the test command fails.
+  279   Trigger error 111 if a source file doesn't have a namespace.
   282   The check/info/test commands now report unnecessary components (warning 207). If a component is not referred
         to but still needed, it can be marked as :necessary by that project, see 'poly help check' (warning 207) for details.
   286   Make switch-ws available in the shell, outside a workspace.

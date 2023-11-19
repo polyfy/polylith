@@ -14,7 +14,7 @@ poly help
 
 [source,text]
 ----
-  poly 0.2.18 (2023-11-11) - https://github.com/polyfy/polylith
+  poly 0.2.18 (2023-11-16) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -167,6 +167,7 @@ poly help
     poly libs :compact
     poly libs :outdated
     poly libs :update
+    poly libs :update libraries:metosin/malli:zprint/zprint
     poly libs out:libs.txt
     poly migrate
     poly shell
@@ -884,13 +885,16 @@ poly help
 ----
   Shows all libraries that are used in the workspace.
 
-  poly libs [:compact] [:outdated] [:update] [out:FILENAME]
+  poly libs [:compact] [:outdated] [:update] [libraries:LIBS] [out:FILENAME]
 
     :compact  = Shows the table in a more compact way.
 
     :outdated = Shows the latest version of each library, or blank if up to date.
 
-    :update   = Updates all libraries to the latest version.
+    :update   = Updates all libraries to the latest version. If LIBS is given,
+                then only update selected libraries.
+                Old library versions can be kept by giving the library as a symbol in
+                :keep-lib-versions for bricks and projects in workspace.edn.
 
     FILENAME  = The name of the text file to create, containing the
                 output from this command.
@@ -939,6 +943,7 @@ poly help
     poly libs :compact
     poly libs :outdated
     poly libs :update
+    poly libs :update libraries:metosin/malli:zprint/zprint
     poly libs out:libs.txt
     poly doc page:libraries
 ----

@@ -77,6 +77,7 @@
                 help
                 interface
                 latest-sha!
+                libraries
                 loc!
                 local!
                 more
@@ -125,6 +126,7 @@
                       :is-no-changes (= "true" no-changes!)
                       :is-no-exit (= "true" no-exit!)
                       :is-outdated (= "true" outdated!)
+                      :is-update (= "true" update!)
                       :is-run-all-brick-tests (or (= "true" all!)
                                                   (= "true" all-bricks!))
                       :is-run-project-tests (or (= "true" all!)
@@ -137,8 +139,8 @@
                                              (= "true" resources!))
                       :is-show-workspace (= "true" workspace!)
                       :is-tap (= "true" tap!)
-                      :is-update (= "true" update!)
                       :is-verbose (= "true" verbose!)
+                      :libraries (as-vector libraries)
                       :more (as-more more)
                       :name name
                       :out (as-value out)

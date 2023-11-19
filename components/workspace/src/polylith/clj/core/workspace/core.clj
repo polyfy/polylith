@@ -1,5 +1,7 @@
 (ns ^:no-doc polylith.clj.core.workspace.core
-  (:require [polylith.clj.core.common.interface :as common]
+  (:require [polylith.clj.core.antq.ifc :as antq]
+            [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.workspace.settings :as s]
             [polylith.clj.core.workspace.base :as base]
@@ -16,20 +18,23 @@
 (defn project-sorter [{:keys [is-dev name]}]
   [is-dev name])
 
-(defn enrich-workspace [{:keys [ws-dir user-input settings components bases config-errors projects paths] :as workspace}]
+(defn enrich-workspace [{:keys [ws-dir user-input settings configs components bases config-errors projects paths] :as workspace}]
   (if (common/invalid-workspace? workspace)
     workspace
     (let [{:keys [top-namespace interface-ns color-mode]} settings
           suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
           interfaces (interfaces/calculate components)
           interface-names (into (sorted-set) (keep :name) interfaces)
-          enriched-components (mapv #(component/enrich ws-dir suffixed-top-ns interface-names %) components)
-          enriched-bases (mapv #(base/enrich ws-dir suffixed-top-ns bases interface-names %) bases)
+          calculate-latest-version? (common/calculate-latest-version? user-input)
+          library->latest-version (antq/library->latest-version configs calculate-latest-version?)
+          outdated-libs (lib/outdated-libs library->latest-version)
+          enriched-components (mapv #(component/enrich ws-dir suffixed-top-ns interface-names outdated-libs library->latest-version user-input settings %) components)
+          enriched-bases (mapv #(base/enrich ws-dir suffixed-top-ns bases interface-names outdated-libs library->latest-version user-input settings %) bases)
           enriched-bricks (into [] cat [enriched-components enriched-bases])
           brick->loc (brick->loc enriched-bricks)
           brick->lib-imports (brick->lib-imports enriched-bricks)
           enriched-settings (s/enrich-settings settings projects)
-          enriched-projects (vec (sort-by project-sorter (mapv #(project/enrich-project % ws-dir enriched-components enriched-bases suffixed-top-ns brick->loc brick->lib-imports paths enriched-settings) projects)))
+          enriched-projects (vec (sort-by project-sorter (mapv #(project/enrich-project % ws-dir enriched-components enriched-bases suffixed-top-ns brick->loc brick->lib-imports paths user-input enriched-settings outdated-libs library->latest-version) projects)))
           messages (validator/validate-ws suffixed-top-ns enriched-settings paths interface-names interfaces enriched-components enriched-bases enriched-projects config-errors interface-ns user-input color-mode)]
       (-> workspace
           (assoc :settings enriched-settings

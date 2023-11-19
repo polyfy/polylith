@@ -93,7 +93,7 @@
 
 (deftest polylith-libs
   (is (= (keep-except "clojure2d"
-                      (libs/table (workspace) false))
+                      (libs/table (workspace)))
          ["                                                                                                         i                  "
           "                                                                                                         m                  "
           "                                                                                                         a              w   "
@@ -118,7 +118,7 @@
           "  mvxcvi/puget                 1.3.4      maven     15    x      x      x      -         -      .  .  .  .  .  .  .  .  .  x"
           "  org.clojure/clojure          1.11.1     maven  4,008    x      x      x      -         -      .  .  .  .  .  .  .  .  .  ."
           "  org.clojure/tools.deps       0.18.1354  maven     58    x      x      x      -         -      .  x  x  .  .  .  .  .  x  ."
-          "  org.jline/jline              3.21.0     maven    971    x      x      x      -         -      .  .  .  .  .  x  .  .  .  ."
+          "  org.jline/jline              3.24.1     maven  1,118    x      x      x      -         -      .  .  .  .  .  x  .  .  .  ."
           "  org.slf4j/slf4j-nop          2.0.9      maven      4    x      x      x      -         -      .  .  .  .  .  .  .  .  .  ."
           "  pjstadig/humane-test-output  0.11.0     maven      7    t      -      -      -         -      .  .  .  .  .  .  .  .  .  ."
           "  rewrite-clj/rewrite-clj      1.1.47     maven     73    -      -      x      -         -      .  .  .  .  .  .  .  .  .  ."
@@ -126,7 +126,7 @@
 
 #_(deftest polylith-libs-outdated
     (is (= (keep-except "clojure2d"
-                        (libs/table (workspace) true))
+                        (libs/table (workspace)))
            ["                                                                                                                      i                  "
             "                                                                                                                      m                  "
             "                                                                                                                      a              w   "
@@ -205,7 +205,7 @@
           "  overview                  .  x  .  x  .  .  x  .  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  x  x  .  .  x  x  .  ."
           "  path-finder               .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  shell                     .  .  .  x  .  .  .  x  x  x  .  .  .  .  .  .  x  .  x  x  .  .  .  .  x  x  x  .  .  .  .  x  ."
+          "  shell                     x  .  .  x  .  .  .  x  x  x  .  .  x  .  .  .  x  .  x  x  .  .  .  .  x  x  x  .  .  .  .  x  ."
           "  system                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  system-x                  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
@@ -218,7 +218,7 @@
           "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
           "  validator                 .  .  .  x  .  .  x  .  .  .  .  .  .  .  .  x  .  .  .  .  .  x  .  .  .  .  x  .  .  .  .  .  ."
           "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-          "  workspace                 .  .  .  x  .  .  x  .  x  .  .  .  .  .  .  x  .  .  .  .  .  .  .  x  .  .  x  x  .  .  .  .  ."
+          "  workspace                 x  .  .  x  .  .  x  .  x  .  .  .  x  .  .  x  .  .  .  .  .  .  .  x  .  .  x  x  .  .  .  .  ."
           "  workspace-clj             .  .  .  x  x  .  x  .  x  x  .  .  x  .  .  x  .  .  .  .  .  .  .  .  x  .  x  .  x  .  .  .  ."
           "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  ws-file                   .  .  .  x  .  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
@@ -274,7 +274,7 @@
             "  overview                  +  x  .  x  +  .  x  .  +  +  .  x  x  .  .  +  +  .  +  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
             "  path-finder               .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  shell                     .  .  .  x  .  .  .  x  x  x  .  +  .  .  .  .  x  .  x  x  .  .  .  +  x  x  x  .  +  .  .  x  ."
+            "  shell                     x  .  .  x  +  .  +  x  x  x  .  +  x  .  .  +  x  .  x  x  .  +  .  +  x  x  x  +  +  .  .  x  ."
             "  system                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  test-helper               -  -  t  -  -  -  -  -  t  -  -  -  -  -  -  -  -  -  -  -  .  -  -  -  t  t  -  -  -  -  -  -  -"
@@ -286,7 +286,7 @@
             "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  validator                 .  .  .  x  .  .  x  .  +  .  .  +  .  .  .  x  .  .  +  .  .  x  .  +  +  .  x  .  +  .  .  .  ."
             "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  workspace                 .  .  .  x  .  .  x  .  x  .  .  +  .  .  .  x  .  .  +  .  .  +  .  x  +  .  x  x  +  .  .  .  ."
+            "  workspace                 x  .  .  x  +  .  x  .  x  .  .  +  x  .  .  x  .  .  +  .  .  +  .  x  +  .  x  x  +  .  .  .  ."
             "  workspace-clj             +  .  .  x  x  .  x  .  x  x  .  +  x  .  .  x  +  .  +  .  .  +  .  +  x  .  x  +  x  .  .  .  ."
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  ws-file                   .  .  .  x  .  .  .  .  x  x  .  +  .  .  .  .  +  .  +  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
@@ -342,7 +342,7 @@
             "  overview                  +  x  .  x  +  .  x  .  +  +  .  x  x  .  .  +  +  .  +  .  .  +  .  +  +  x  x  +  +  x  x  .  ."
             "  path-finder               .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  sh                        .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  shell                     .  .  .  x  .  .  .  x  x  x  .  +  .  .  .  .  x  .  x  x  .  .  .  +  x  x  x  .  +  .  .  x  ."
+            "  shell                     x  .  .  x  +  .  +  x  x  x  .  +  x  .  .  +  x  .  x  x  .  +  .  +  x  x  x  +  +  .  .  x  ."
             "  system                    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  tap                       .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  test-helper               -  -  t  -  -  -  -  -  t  -  -  -  -  -  -  -  -  -  -  -  .  -  -  -  t  t  -  -  -  -  -  -  -"
@@ -354,7 +354,7 @@
             "  util                      .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
             "  validator                 .  .  .  x  .  .  x  .  +  .  .  +  .  .  .  x  .  .  +  .  .  x  .  +  +  .  x  .  +  .  .  .  ."
             "  version                   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  ."
-            "  workspace                 .  .  .  x  .  .  x  .  x  .  .  +  .  .  .  x  .  .  +  .  .  +  .  x  +  .  x  x  +  .  .  .  ."
+            "  workspace                 x  .  .  x  +  .  x  .  x  .  .  +  x  .  .  x  .  .  +  .  .  +  .  x  +  .  x  x  +  .  .  .  ."
             "  workspace-clj             +  .  .  x  x  .  x  .  x  x  .  +  x  .  .  x  +  .  +  .  .  +  .  +  x  .  x  +  x  .  .  .  ."
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  ws-file                   .  .  .  x  .  .  .  .  x  x  .  +  .  .  .  .  +  .  +  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
@@ -368,9 +368,11 @@
     (is (= (brick-deps-table/table ws project brick "none")
            ["  used by   <  workspace  >  uses       "
             "  --------                   -----------"
-            "  api                        common     "
-            "  command                    deps       "
-            "  overview                   file       "
+            "  api                        antq       "
+            "  command                    common     "
+            "  overview                   deps       "
+            "                             file       "
+            "                             lib        "
             "                             path-finder"
             "                             text-table "
             "                             util       "
@@ -382,9 +384,11 @@
     (is (= (brick-ifc-deps/table ws brick)
            ["  used by   <  workspace  >  uses       "
             "  --------                   -----------"
-            "  api                        common     "
-            "  command                    deps       "
-            "  overview                   file       "
+            "  api                        antq       "
+            "  command                    common     "
+            "  overview                   deps       "
+            "                             file       "
+            "                             lib        "
             "                             path-finder"
             "                             text-table "
             "                             util       "
@@ -790,10 +794,12 @@
                                                         "ws-file"]}}
           "sh"                       {:src  {}
                                       :test {}}
-          "shell"                    {:src  {:direct   ["common"
+          "shell"                    {:src  {:direct   ["antq"
+                                                        "common"
                                                         "doc"
                                                         "file"
                                                         "git"
+                                                        "lib"
                                                         "sh"
                                                         "system"
                                                         "tap"
@@ -801,13 +807,20 @@
                                                         "user-input"
                                                         "util"
                                                         "ws-explorer"]
-                                             :indirect ["image-creator"
+                                             :indirect ["config-reader"
+                                                        "deps"
+                                                        "image-creator"
+                                                        "path-finder"
+                                                        "test-runner-contract"
                                                         "text-table"
+                                                        "validator"
                                                         "version"]}
-                                      :test {:direct   ["common"
+                                      :test {:direct   ["antq"
+                                                        "common"
                                                         "doc"
                                                         "file"
                                                         "git"
+                                                        "lib"
                                                         "sh"
                                                         "system"
                                                         "tap"
@@ -815,8 +828,13 @@
                                                         "user-input"
                                                         "util"
                                                         "ws-explorer"]
-                                             :indirect ["image-creator"
+                                             :indirect ["config-reader"
+                                                        "deps"
+                                                        "image-creator"
+                                                        "path-finder"
+                                                        "test-runner-contract"
                                                         "text-table"
+                                                        "validator"
                                                         "version"]}}
           "system"                   {:src  {}
                                       :test {}}
@@ -914,26 +932,32 @@
                                                         "version"]}}
           "version"                  {:src  {:direct ["system"]}
                                       :test {}}
-          "workspace"                {:src  {:direct   ["common"
+          "workspace"                {:src  {:direct   ["antq"
+                                                        "common"
                                                         "deps"
                                                         "file"
+                                                        "lib"
                                                         "path-finder"
                                                         "text-table"
                                                         "util"
                                                         "validator"]
-                                             :indirect ["image-creator"
+                                             :indirect ["config-reader"
+                                                        "image-creator"
                                                         "system"
                                                         "test-runner-contract"
                                                         "user-config"
                                                         "version"]}
-                                      :test {:direct   ["common"
+                                      :test {:direct   ["antq"
+                                                        "common"
                                                         "deps"
                                                         "file"
+                                                        "lib"
                                                         "path-finder"
                                                         "text-table"
                                                         "util"
                                                         "validator"]
-                                             :indirect ["image-creator"
+                                             :indirect ["config-reader"
+                                                        "image-creator"
                                                         "system"
                                                         "test-runner-contract"
                                                         "user-config"
@@ -1098,9 +1122,9 @@
 
 (deftest polylith-shell-component-lib-deps
   (is (= (ws-explorer/extract (workspace) ["components" "shell" "lib-deps"])
-         {:src {"org.jline/jline" {:size    994664
+         {:src {"org.jline/jline" {:size    1145741
                                    :type    "maven"
-                                   :version "3.21.0"}}})))
+                                   :version "3.24.1"}}})))
 
 (deftest profile-info
   (is (= (run-cmd "examples/profiles"

@@ -1,17 +1,18 @@
 (ns ^:no-doc polylith.clj.core.shell.candidate.specification
   [:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.shell.candidate.creators :as c]
-            [polylith.clj.core.shell.candidate.selector.remote-branches :as remote-branches]
-            [polylith.clj.core.shell.candidate.selector.ws-bricks :as ws-bricks]
-            [polylith.clj.core.shell.candidate.selector.ws-explore :as ws-explore]
-            [polylith.clj.core.shell.candidate.selector.file-explorer :as file-explorer]
-            [polylith.clj.core.shell.candidate.selector.ws-tag-patterns :as ws-tag-patterns]
-            [polylith.clj.core.shell.candidate.selector.ws-deps-entities :as ws-deps-entities]
             [polylith.clj.core.shell.candidate.selector.color-modes :as color-modes]
             [polylith.clj.core.shell.candidate.selector.doc.help :as doc-help]
             [polylith.clj.core.shell.candidate.selector.doc.more :as doc-more]
             [polylith.clj.core.shell.candidate.selector.doc.page :as doc-page]
             [polylith.clj.core.shell.candidate.selector.doc.ws :as doc-ws]
+            [polylith.clj.core.shell.candidate.selector.file-explorer :as file-explorer]
+            [polylith.clj.core.shell.candidate.selector.remote-branches :as remote-branches]
+            [polylith.clj.core.shell.candidate.selector.outdated-libs :as outdated-libs]
+            [polylith.clj.core.shell.candidate.selector.ws-bricks :as ws-bricks]
+            [polylith.clj.core.shell.candidate.selector.ws-explore :as ws-explore]
+            [polylith.clj.core.shell.candidate.selector.ws-tag-patterns :as ws-tag-patterns]
+            [polylith.clj.core.shell.candidate.selector.ws-deps-entities :as ws-deps-entities]
             [polylith.clj.core.shell.candidate.selector.ws-projects :as ws-projects]
             [polylith.clj.core.shell.candidate.selector.ws-projects-to-test :as ws-projects-to-test]
             [polylith.clj.core.system.interface :as system]]
@@ -126,15 +127,16 @@
             (when (or all? extended?) [info-out]))))
 
 ;; libs
-(def libs-update (c/flag "update" :libs))
 (def libs-outdated (c/flag "outdated" :libs))
+(def libs-update (c/flag "update" :libs))
+(def libs-libraries (c/fn-explorer "libraries" :libs #'outdated-libs/select))
 (def libs-out (c/fn-explorer "out" :libs (file-explorer/select-fn)))
 (def libs-skip (c/fn-explorer "skip" :libs #'ws-projects/select))
 (def libs-color-mode (c/fn-values "color-mode" :libs #'color-modes/select))
 
 (defn libs [all? extended?]
   (c/single-txt "libs" :libs
-    (concat [libs-update libs-outdated]
+    (concat [libs-outdated libs-update libs-libraries]
             (when all? [compact libs-skip libs-color-mode])
             (when (or all? extended?) [libs-out]))))
 
@@ -175,6 +177,7 @@
 (def ws-dev (c/flag "dev" :ws))
 (def ws-latest-sha (c/flag "latest-sha" :ws))
 (def ws-loc (c/flag "loc" :ws))
+(def ws-outdated (c/flag "outdated" :ws))
 (def ws-all-bricks (c/flag "all-bricks" :ws))
 (def ws-all (c/flag "all" :ws))
 (def ws-since (c/fn-explorer "since" :ws #'ws-tag-patterns/select))
@@ -189,7 +192,7 @@
     (vec (concat [ws-project ws-brick ws-project-flag ws-dev ws-latest-sha
                   ws-loc ws-all-bricks ws-all ws-get ws-out ws-since]
                  profiles
-                 (when all? [ws-branch ws-replace ws-no-changes ws-color-mode])))))
+                 (when all? [ws-branch ws-outdated ws-replace ws-no-changes ws-color-mode])))))
 
 ;; switch-ws
 (def switch-ws-dir (c/fn-explorer "dir" :switch-ws #'file-explorer/select-edn))

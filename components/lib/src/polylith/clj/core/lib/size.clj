@@ -18,4 +18,4 @@
 
 (defn with-sizes-vec [ws-dir entity-root-path libraries user-home]
   (mapv #(with-size ws-dir % entity-root-path user-home)
-       libraries))
+        libraries))

@@ -52,7 +52,7 @@
   "The split-text function will generate empty strings
    for initial separators (e.g. spaces) and if more than one
    space is repeated within the text, this function
-   helps removing these spaces, except for initial ones."
+   helps remove these spaces, except for initial ones."
   [[index word] words]
   (or (not= "" word)
       (zero? index)
@@ -61,7 +61,7 @@
 (defn split-text
   "Splits a text, similar to string/split, but with two difference:
    - when a quote is found in the text, it stops splitting spaces
-     utill a new quote is found.
+     until a new quote is found.
    - if the text ends with space (separator) then it will return
      an empty string, in the same way if the text starts with
      space(s)."

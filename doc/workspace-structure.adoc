@@ -81,8 +81,16 @@ Here it depends on the `user` interface from the `src` context.
 This is because the `se.example.user-api.api` namespace imports `se.example.user.interface`.
 No interfaces are imported from the test context in this example.
 
-* `:lib-deps` Lists the library dependencies this base depends on, defined in the `:deps` key in its `deps.edn` file for the `src` context, and the `:aliases > :test > :extra-deps` for the `test` context.
-The `:size` is in bytes.
+* `:lib-deps`
+** `:src` A map with the libraries that are used in this base's src context.
+*** `:latest-version` Set if there is a newer version of this library, except if xref:keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `update` is given for the libs command.
+*** `:size` The size of this library in bytes.
+*** `:type` The type of the library, "maven", "local" or "git" (`:mvn/version`, `:local/root` and `:git/url`).
+*** `:version` The library version:
+**** if type is `maven` then version is set to `groupId/artifactId`.
+**** if type is `local` then the version key is excluded (a `-` is shown in the output from the xref:commands.adoc#libs[libs] command).
+**** if type is `git` then the version is set to the first seven characters in the `sha`.
+** `:test` A map with the libraries that are used in this base's test context. Follows the same structure as the `:src` context.
 
 * `:lib-imports` The name is a bit misleading as internal namespaces for the base is also included.
 ** `:src` Lists all imports from the src context except component interfaces.
@@ -239,8 +247,16 @@ Here it depends on the `user` interface from the `src` context.
 This is because the `se.example.user-api.api` namespace imports `se.example.user.interface`. +
 No interfaces are imported from the test context in this example.
 
-* `:lib-deps` Lists the library dependencies this base depends on, defined in the `:deps` key in its `deps.edn` file for the `src` context, and the `:aliases > :test > :extra-deps` for the `test` context.
-The `:size` is in bytes.
+* `:lib-deps`
+** `:src` A map with the libraries that are used in this component's src context.
+*** `:latest-version` Set if there is a newer version of this library, except if xref:keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `update` is given for the libs command.
+*** `:size` The size of this library in bytes.
+*** `:type` The type of the library, "maven", "local" or "git" (`:mvn/version`, `:local/root` and `:git/url`).
+*** `:version` The library version:
+**** if type is `maven` then version is set to `groupId/artifactId`.
+**** if type is `local` then the version key is excluded (a `-` is shown in the output from the xref:commands.adoc#libs[libs] command).
+**** if type is `git` then the version is set to the first seven characters in the `sha`.
+** `:test` A map with the libraries that are used in this base's test context. Follows the same structure as the `:src` context.
 
 * `:lib-imports` The name is a bit misleading as internal namespaces for the base is also included.
 ** `src` Lists all imports from the src context except component interfaces.
@@ -533,10 +549,9 @@ poly ws get:projects:user-service
 {:alias "user-s",
  :base-names {:src ["user-api"], :test ["user-api"]},
  :component-names {:src ["user"], :test ["user"]},
- :config-filename "/Users/joakimtengstrand/source/polylith/examples/doc-example/projects/user-service/deps.edn",
+ :config-filename "examples/doc-example/projects/user-service/deps.edn",
  :deps {"user" {:src {}, :test {}},
-        "user-api" {:src {:direct ["user-remote"]},
-                    :test {:direct ["user-remote"]}}},
+        "user-api" {:src {:direct ["user"]}, :test {:direct ["user"]}}},
  :is-dev false,
  :lib-deps {:src {"org.apache.logging.log4j/log4j-core" {:size 1714164,
                                                          :type "maven",
@@ -544,12 +559,9 @@ poly ws get:projects:user-service
                   "org.apache.logging.log4j/log4j-slf4j-impl" {:size 23590,
                                                                :type "maven",
                                                                :version "2.13.3"},
-                  "org.clojure/clojure" {:size 3914649,
+                  "org.clojure/clojure" {:size 4105111,
                                          :type "maven",
-                                         :version "1.10.3"},
-                  "org.clojure/tools.deps.alpha" {:size 60953,
-                                                  :type "maven",
-                                                  :version "0.12.1003"},
+                                         :version "1.11.1"},
                   "slacker/slacker" {:size 28408,
                                      :type "maven",
                                      :version "0.17.0"}}},
@@ -565,7 +577,17 @@ poly ws get:projects:user-service
                "components/user/resources"
                "components/user/src"],
          :test ["bases/user-api/test" "components/user/test"]},
- :project-dir "/Users/joakimtengstrand/source/polylith/examples/doc-example/projects/user-service",
+ :project-dir "examples/doc-example/projects/user-service",
+ :project-lib-deps {:src {"org.apache.logging.log4j/log4j-core" {:size 1714164,
+                                                                 :type "maven",
+                                                                 :version "2.13.3"},
+                          "org.apache.logging.log4j/log4j-slf4j-impl" {:size 23590,
+                                                                       :type "maven",
+                                                                       :version "2.13.3"},
+                          "org.clojure/clojure" {:size 4105111,
+                                                 :type "maven",
+                                                 :version "1.11.1"}},
+                    :test {}},
  :type "project"}
 ----
 
@@ -587,21 +609,22 @@ poly ws get:projects:user-service
 *** `:indirect` A vector with the indirect dependencies, from the `:src` directory, to components (component names).
 *** `:circular` A vector with the circular dependency chain, translated to the components in the project, e.g. ["a" "b" "c" "a"] from the `:src` directory.
 *** `:missing-ifc-and-bases`
-**** `:direct` A vector containing missing interface and brick names, that are directly accessed from the `:src` directory.
-**** `:indirect` A vector containing missing interface and brick names, that are indirectly accessed from the `:src` directory.
+**** `:direct` A vector containing missing interface and base names, that are directly accessed from the `:src` directory.
+**** `:indirect` A vector containing missing interface and base names, that are indirectly accessed from the `:src` directory.
 ** `:test` Keeps track of the dependencies from the `:test` context, with the same set of keys as the `:src` context.
 
 * `:is-dev` Set to `true` for the development project.
 
 * `:lib-deps`
 ** `:src` Stores a map with the libraries that are used in the project for the src context.
+*** `:latest-version` Set if there is a newer version of this library, except if xref:keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `update` is given for the libs command.
 *** `:size` The size of this library in bytes.
 *** `:type` The type of the library, "maven", "local" or "git" (`:mvn/version`, `:local/root` and `:git/url`).
 *** `:version` The library version:
 **** if type is `maven` then version is set to `groupId/artifactId`.
 **** if type is `local` then the version key is excluded (a `-` is shown in the output from the xref:commands.adoc#libs[libs] command).
 **** if type is `git` then the version is set to the first seven characters in the `sha`.
-** `:test` Stores a map with the libraries that are used in the project for the test context.
+** `:test` A map with the libraries that are used in the project for the test context. Follows the same structure as the `:src` context.
 
 * `:lib-imports`
 ** `:src` All `:lib-imports` taken from the bricks that are included in this project for the `src` context.
@@ -688,6 +711,7 @@ poly ws get:settings
 
 * `:bricks` A map with configuration information per brick where the keys are brick names, specified in `workspace.edn`:
 ** `:ignore-files` A vector containing file or file paths to ignore, e.g.: `["myfile.clj" "myns/another_file.clj" "com/myns/a-thrird-file.clj"]`.
+[#keep-lib-versions]
 ** `:keep-lib-versions` A vector containing the library names (as symbols) that should not be affected when executing `poly libs :update`.
 See xref:libraries.adoc#update[update libs] and xref:validations.adoc#ignore-files[Validations].
 
@@ -803,6 +827,7 @@ We also have a number of arguments that are only populated if they are passed in
  :get "user-input"
  :interface "user"
  :is-git-add true
+ :libraries ["org.clojure/clojure"]
  :more ["blog-posts" "how-polylith-came-to-life"]
  :out "example.edn"
  :page "naming"
@@ -908,6 +933,8 @@ Used by `poly help deps :workspace` to show help for the deps command when `work
 * `:out` Mainly used by the xref:commands.adoc#ws[ws] command, but can also be passed in to the xref:commands.adoc#info[info], xref:commands.adoc#deps[deps], and xref:commands.adoc#libs[libs] commands to generate a text file from the output.
 This is also available in the xref:commands.adoc#overview[overview] command if using the xref:polyx.adoc[polyx] tool.
 
+* `:libraries` Used by the xref:commands.adoc#libs[libs] command.
+
 * `:replace` Used in tests when maintaining the `poly` tool itself, to make the output more stable.
 Set to e.g. `[{:from "this", :to "that"}]` if `replace:this:that` is given.
 More than one pair of values can be passed in, separated with :.
@@ -931,6 +958,8 @@ Often used to skip the development project, in e.g. the xref:commands.adoc#ws[ws
 
 * `:unnamed-args` All given arguments that don't contain a `:`.
 So if we type `poly ws get:user-input:unnamed-args :flag arg xx:123` it will return `["arg"]` but not `xx`.
+
+* `:update` Used by the xref:commands.adoc#libs[libs] command.
 
 * `:ws` Used by the xref:commands.adoc#doc[doc] command.
 
