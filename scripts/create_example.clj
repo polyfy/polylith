@@ -347,7 +347,7 @@
       (let [fname "libs-compact"]
         (polys opts "libs" (out-txt fname) (out-png "libraries" fname)))
       (shell "git restore workspace.edn")
-      ;; show overriding a dep
+      ;; show overriding a project lib
       (let [out-fname "libs-override"
             deps-fname (str (fs/file ws-dir "projects/realworld-backend/deps.edn"))
             new-content (-> deps-fname
