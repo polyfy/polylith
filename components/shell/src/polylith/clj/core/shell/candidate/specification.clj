@@ -128,14 +128,15 @@
 
 ;; libs
 (def libs-outdated (c/flag "outdated" :libs))
-(def libs-update (c/fn-explorer "update" :libs #'outdated-libs/select))
+(def libs-update (c/flag "update" :libs))
+(def libs-libraries (c/fn-explorer "libraries" :libs #'outdated-libs/select))
 (def libs-out (c/fn-explorer "out" :libs (file-explorer/select-fn)))
 (def libs-skip (c/fn-explorer "skip" :libs #'ws-projects/select))
 (def libs-color-mode (c/fn-values "color-mode" :libs #'color-modes/select))
 
 (defn libs [all? extended?]
   (c/single-txt "libs" :libs
-    (concat [libs-outdated libs-update]
+    (concat [libs-outdated libs-update libs-libraries]
             (when all? [compact libs-skip libs-color-mode])
             (when (or all? extended?) [libs-out]))))
 

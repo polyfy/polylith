@@ -5,8 +5,8 @@
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.shell.candidate.shared :as shared]))
 
-(defn select [{:keys [group]} groups {:keys [configs user-input]}]
-  (let [library->latest-version (antq/library->latest-version configs user-input)
+(defn select [{:keys [group]} groups {:keys [configs]}]
+  (let [library->latest-version (antq/library->latest-version configs true)
         libraries (lib/outdated-libs library->latest-version)]
     (mapv #(c/fn-explorer-child-plain % true group #'select)
           (sort (set/difference

@@ -17,8 +17,8 @@
 (defn library->latest-version
   "Returns a map where the key is [lib-name lib-version]
    and the value is the latest version of the library."
-  [configs {:keys [is-outdated]}]
-  (if is-outdated
+  [configs calculate?]
+  (if calculate?
     (into {} (map key-value)
           (antq/outdated-deps
             {:deps (into {} (set (mapcat #(map identity (-> % :deps :deps))

@@ -3,10 +3,8 @@
   (:require [polylith.clj.core.antq.outdated :as outdated]
             [polylith.clj.core.antq.upgrade :as upgrade]))
 
-(defn library->latest-version [configs user-input]
-  (outdated/library->latest-version configs user-input))
+(defn library->latest-version [configs calculate?]
+  (outdated/library->latest-version configs calculate?))
 
-(defn upgrade-libs!
-  "If libs-to-update is left empty, then update all libs."
-  [workspace libraries-to-update type->name->lib->version color-mode]
-  (upgrade/upgrade-libs! workspace libraries-to-update type->name->lib->version color-mode))
+(defn upgrade-lib [ws-dir color-mode entity-type entity-name lib]
+  (upgrade/upgrade-lib ws-dir color-mode entity-type entity-name lib))

@@ -53,14 +53,6 @@
       (vec (drop-last argument))
       argument)))
 
-(defn clean-unnamed-args [cmd unnamed-args]
-  (if (= "update" cmd)
-    (filterv #(and (not (str/blank? %))
-                   (not= "update" %))
-             unnamed-args)
-    (filterv #(not (str/blank? %))
-             unnamed-args)))
-
 (defn extract-arguments [arguments single-arg-commands]
   (let [{:keys [cmd args]} (extract arguments)
         {:keys [named-args unnamed-args]} (args/extract args single-arg-commands)
@@ -85,6 +77,7 @@
                 help
                 interface
                 latest-sha!
+                libraries
                 loc!
                 local!
                 more
@@ -103,7 +96,7 @@
                 skip
                 tap!
                 top-ns
-                update
+                update!
                 verbose!
                 workspace!
                 ws
@@ -133,8 +126,7 @@
                       :is-no-changes (= "true" no-changes!)
                       :is-no-exit (= "true" no-exit!)
                       :is-outdated (= "true" outdated!)
-                      :is-update (boolean (or (seq update)
-                                              (contains? (set unnamed-args) "update")))
+                      :is-update (= "true" update!)
                       :is-run-all-brick-tests (or (= "true" all!)
                                                   (= "true" all-bricks!))
                       :is-run-project-tests (or (= "true" all!)
@@ -148,6 +140,7 @@
                       :is-show-workspace (= "true" workspace!)
                       :is-tap (= "true" tap!)
                       :is-verbose (= "true" verbose!)
+                      :libraries (as-vector libraries)
                       :more (as-more more)
                       :name name
                       :out (as-value out)
@@ -159,8 +152,7 @@
                       :since since
                       :skip (as-vector skip)
                       :top-ns top-ns
-                      :update (as-vector update)
                       :ws (as-value ws)
                       :ws-dir ws-dir
                       :ws-file ws-file
-                      :unnamed-args (clean-unnamed-args cmd unnamed-args))))
+                      :unnamed-args (vec unnamed-args))))

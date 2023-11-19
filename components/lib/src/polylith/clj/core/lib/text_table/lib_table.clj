@@ -119,7 +119,8 @@
 (defn table [{:keys [configs settings user-input components bases projects] :as workspace}]
   (let [{:keys [profile-to-settings empty-character thousand-separator color-mode]} settings
         is-outdated (:is-outdated user-input)
-        lib->latest-version (antq/library->latest-version configs user-input)
+        calculate-latest-version? (common/calculate-latest-version? user-input)
+        lib->latest-version (antq/library->latest-version configs calculate-latest-version?)
         entities (concat components bases projects)
         src-libs (set (concat (mapcat lib (mapcat #(-> % :lib-deps :src) entities))
                               (mapcat profile-lib profile-to-settings)))

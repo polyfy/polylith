@@ -6,7 +6,6 @@
  :compact-views #{}
  :tag-patterns {:stable "stable-*"
                 :release "v[0-9]*"}
- :bricks {"shell" {:keep-lib-versions [org.jline/jline]}}
  :projects {"poly" {:alias "poly"
                     :necessary ["api" "clojure-test-test-runner"]
                     :test {:setup-fn project.poly.hto/activate!}}

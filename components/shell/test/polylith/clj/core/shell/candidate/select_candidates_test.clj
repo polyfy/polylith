@@ -300,11 +300,11 @@
 
 (deftest libs
   (is (= (candidates "libs")
-         [":outdated" "update"])))
+         [":outdated" ":update" "libraries"])))
 
 (deftest libs-
   (is (= (candidates "libs" :next "")
-         [":outdated" "update"])))
+         [":outdated" ":update" "libraries"])))
 
 (deftest test
   (is (= (candidates "test")

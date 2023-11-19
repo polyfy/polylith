@@ -26,7 +26,7 @@
             (seq src) (assoc :src src)
             (seq test) (assoc :test test))))
 
-(defn enrich-project [{:keys [name is-dev maven-repos namespaces paths lib-deps] :as project}
+(defn enrich-project [{:keys [name type is-dev maven-repos namespaces paths lib-deps project-lib-deps] :as project}
                       ws-dir
                       components
                       bases
@@ -34,12 +34,14 @@
                       brick->loc
                       brick->lib-imports
                       disk-paths
+                      user-input
                       settings
                       outdated-libs
                       library->latest-version]
   (let [alias (get-in settings [:projects name :alias])
         enriched-maven-repos (apply merge maven-repos (mapcat :maven-repos (concat components bases)))
         lib-entries (extract/from-library-deps is-dev lib-deps settings)
+        project-lib-entries (extract/from-library-deps is-dev project-lib-deps settings)
         path-entries (extract/from-unenriched-project is-dev paths disk-paths settings)
         component-names-src (select/names path-entries c/component? c/src? c/exists?)
         component-names-test (select/names path-entries c/component? c/test? c/exists?)
@@ -61,24 +63,31 @@
         lines-of-code (assoc (loc/lines-of-code ws-dir namespaces) :total lines-of-code-total)
         src-lib-deps (select/lib-deps lib-entries c/src?)
         test-lib-deps (select/lib-deps lib-entries c/test?)
+        project-lib-deps (lib/lib-deps-with-latest-version name
+                                                           type
+                                                           {:src (select/lib-deps project-lib-entries c/src?)
+                                                            :test (select/lib-deps project-lib-entries c/test?)}
+                                                           outdated-libs library->latest-version
+                                                           user-input
+                                                           settings)
         src-paths (select/paths path-entries c/src?)
         test-paths (select/paths path-entries c/test?)
-        merged-paths (cond-> {}
+        source-paths (cond-> {}
                              (seq src-paths) (assoc :src src-paths)
                              (seq test-paths) (assoc :test test-paths))
-        merged-lib-deps (cond-> {}
+        source-lib-deps (cond-> {}
                                 (seq src-lib-deps) (assoc :src src-lib-deps)
-                                (seq test-lib-deps) (assoc :test test-lib-deps)
-                                true (lib/lib-deps-with-latest-version outdated-libs library->latest-version))]
+                                (seq test-lib-deps) (assoc :test test-lib-deps))]
     (-> project
         (merge {:alias alias
                 :lines-of-code lines-of-code
                 :component-names component-names
                 :base-names base-names
                 :deps deps
-                :paths merged-paths
-                :lib-deps merged-lib-deps
+                :paths source-paths
+                :lib-deps source-lib-deps
+                :project-lib-deps project-lib-deps
                 :lib-imports lib-imports})
-        (cond-> enriched-maven-repos (assoc :maven-repos  enriched-maven-repos)
+        (cond-> enriched-maven-repos (assoc :maven-repos enriched-maven-repos)
                 is-dev (assoc :unmerged {:paths paths
                                          :lib-deps lib-deps})))))

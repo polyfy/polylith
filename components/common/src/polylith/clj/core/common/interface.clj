@@ -14,6 +14,9 @@
 (defn brick-names-to-test [settings project-name all-brick-names]
   (core/brick-names-to-test settings project-name all-brick-names))
 
+(defn calculate-latest-version? [user-input]
+  (core/calculate-latest-version? user-input))
+
 (defn color-mode [user-input]
   (core/color-mode user-input))
 

@@ -101,6 +101,7 @@
 (deftest paths--without-active-profile--returns-expected-map
   (is (= (dissoc (proj/enrich-project project "." components bases "se.example." brick->loc brick->lib-imports
                                       {:missing []}
+                                      {}
                                       {:projects {"development" {:alias "dev"}}}
                                       #{}
                                       {})
@@ -117,6 +118,8 @@
           :is-dev                   true
           :lib-deps                 {:src {"org.clojure/clojure"          #:mvn{:version "1.10.1"}
                                            "org.clojure/tools.deps"#:mvn{:version "0.16.1264"}}}
+          :project-lib-deps {:src  {}
+                             :test {}}
           :lib-imports              {:src ["clojure.java.io"
                                            "clojure.pprint"
                                            "clojure.set"
@@ -150,6 +153,7 @@
 (deftest paths--with-active-profile--includes-brick-in-profile
   (is (= (dissoc (proj/enrich-project project "." components bases "se.example." brick->loc brick->lib-imports
                                       {:missing []}
+                                      {}
                                       {:active-profiles ["default"]
                                        :profile-to-settings {"default" {:paths ["components/user/src"
                                                                                 "components/user/resources"
@@ -176,6 +180,8 @@
           :lib-deps             {:src {"clojure.core.matrix"          "net.mikera/core.matrix"
                                        "org.clojure/clojure"          #:mvn{:version "1.10.1"}
                                        "org.clojure/tools.deps"#:mvn{:version "0.16.1264"}}}
+          :project-lib-deps {:src  {"clojure.core.matrix" "net.mikera/core.matrix"}
+                             :test {}}
           :lib-imports          {:src ["clojure.java.io"
                                        "clojure.pprint"
                                        "clojure.set"
