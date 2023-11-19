@@ -46,11 +46,13 @@ We can also tell the tool to update all libraries to the latest version, in all 
 poly libs :update
 ----
 
-If one or more libraries is given, then only these libraries will be updated, e.g.:
+It's possible to specify which libraries to update.
+When `libraries:` is typed, the tool will go out and check for outdated libraries, which can take a second or two,
+but when that is done, you will get autocomplete for missing libraries:
 
 [source,shell]
 ----
-poly libs :update djblue/portal com.taoensso/timbre
+poly libs :update libraries:djblue/portal:com.taoensso/timbre
 ----
 
 We can ignore updating libraries for a brick or project by adding the `:keep-lib-versions` in `workspace.edn`, e.g.:

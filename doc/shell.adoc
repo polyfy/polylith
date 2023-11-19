@@ -230,6 +230,13 @@ example$ switch-ws dir:
 ../             bases/          components/     deps.edn        development/
 projects/       workspace.edn   ~/
 ----
+* Browse outdated libraries via the xref:commands.adoc#libs[libs] command:
++
+[source,text]
+----
+example$ libs library:
+org.clojure/clojure   org.slf4j/slf4j-nop   zprint/zprint
+----
 * Browse your workspace structure via the xref:commands.adoc#ws[ws] command:
 +
 [source,text]
