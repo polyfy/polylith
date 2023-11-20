@@ -83,7 +83,7 @@ No interfaces are imported from the test context in this example.
 
 * `:lib-deps`
 ** `:src` A map with the libraries that are used in this base's src context.
-*** `:latest-version` Set if there is a newer version of this library, except if xref:keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `update` is given for the libs command.
+*** `:latest-version` Set if there is a newer version of this library, except if xref:keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `:update` is given for the libs command.
 *** `:size` The size of this library in bytes.
 *** `:type` The type of the library, "maven", "local" or "git" (`:mvn/version`, `:local/root` and `:git/url`).
 *** `:version` The library version:
@@ -249,7 +249,7 @@ No interfaces are imported from the test context in this example.
 
 * `:lib-deps`
 ** `:src` A map with the libraries that are used in this component's src context.
-*** `:latest-version` Set if there is a newer version of this library, except if xref:keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `update` is given for the libs command.
+*** `:latest-version` Set if there is a newer version of this library, except if xref:keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `:update` is given for the libs command.
 *** `:size` The size of this library in bytes.
 *** `:type` The type of the library, "maven", "local" or "git" (`:mvn/version`, `:local/root` and `:git/url`).
 *** `:version` The library version:
@@ -617,7 +617,7 @@ poly ws get:projects:user-service
 
 * `:lib-deps`
 ** `:src` Stores a map with the libraries that are used in the project for the src context.
-*** `:latest-version` Set if there is a newer version of this library, except if xref:keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `update` is given for the libs command.
+*** `:latest-version` Set if there is a newer version of this library, except if xref:keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `:update` is given for the libs command.
 *** `:size` The size of this library in bytes.
 *** `:type` The type of the library, "maven", "local" or "git" (`:mvn/version`, `:local/root` and `:git/url`).
 *** `:version` The library version:
