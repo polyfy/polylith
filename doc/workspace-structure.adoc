@@ -996,6 +996,25 @@ poly ws get:version
       :non-breaking 0}}
 ----
 
+There are four areas that are version controlled in Polylith:
+
+[%autowidth]
+|===
+| Key | Description
+
+a| `:api`
+a| The `clj-poly` library {cljdoc-api-url}/polylith[API]
+
+a| `:release`
+a| link:https://github.com/polyfy/polylith/releases[Releases]
+
+a| `:test-runner-api`
+a| The xref:test-runners.adoc[test runner API]
+
+a| `:ws`
+a| The xref:workspace-structure.adoc[workspace structure]
+|===
+
 * `:api`
 ** `:breaking` Increased by one if introducing a non-backward compatible change of the {cljdoc-api-url}/polylith[API].
 ** `:non-breaking` Increased by one when a non-breaking change is made to the {cljdoc-api-url}/polylith[API].
