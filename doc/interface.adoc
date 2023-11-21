@@ -196,6 +196,7 @@ The `poly` tool validates these restrictions when running the xref:commands.adoc
 Because these "protected" functions are technically public, you can test and debug them more easily.
 For example, when stopping at a breakpoint to evaluate a "protected" function, you don't need to use the special syntax you would need to access a private function.
 
+[[interface-ns]]
 * Polylith will always recognize `interface` and `ifc` as interface namespace names.
 By default, it will generate code using `interface` as the interface namespace name when you create a component.
 You can override this default via `:interface-ns` in `./workspace.edn`.
