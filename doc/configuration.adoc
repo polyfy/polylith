@@ -211,7 +211,7 @@ Table notes:
 == Tools.deps `deps.edn` Files
 
 The various `poly create` commands create initial `deps.edn` files.
-You make changes via manual edits or the xref:libraries#update[libs update] command.
+You make changes via manual edits or the xref:libraries#update[libs :update] command.
 
 === Projects
 
@@ -221,7 +221,7 @@ You'll find:
 
 * The xref:development.adoc[development] project config in `./deps.edn`.
 The xref:commands.adoc#create-workspace[create workspace] command creates the initial file.
-* Deployable xref:project.adoc[projects] are configured in `projects/_PROJECT-DIR_/deps.edn` where `_PROJECT_DIR_` is the deployable project's directory (and name).
+* Deployable xref:project.adoc[projects] are configured in `projects/_PROJECT-DIR_/deps.edn` where `_PROJECT-DIR_` is the deployable project's directory (and name).
 The xref:commands.adoc#create-project[create project] command creates the initial file.
 
 You can retrieve a project's tools.deps config via, e.g.:
@@ -259,7 +259,7 @@ a| (derived) Always `"project"` for projects
 
 === Bases
 
-Each xref:base.adoc[base] tools.deps config is found in `bases/_BASE-DIR_/deps.edn` where `_BASE_DIR_` is the base's directory (and name).
+Each xref:base.adoc[base] tools.deps config is found in `bases/_BASE-DIR_/deps.edn` where `_BASE-DIR_` is the base's directory (and name).
 The xref:commands.adoc#create-base[create base] command creates the initial file.
 
 You can retrieve a base's tools.deps config via, e.g.:
@@ -294,7 +294,7 @@ a| (derived) Always `"base"` for bases.
 
 === Components
 
-Each xref:component.adoc[component] tools.deps config is found in `components/_COMPONENT-DIR_/deps.edn` where `_COMPONENT_DIR_` is the component's directory (and name).
+Each xref:component.adoc[component] tools.deps config is found in `components/_COMPONENT-DIR_/deps.edn` where `_COMPONENT-DIR_` is the component's directory (and name).
 
 You can retrieve a component's tools.deps config via, e.g.:
 
