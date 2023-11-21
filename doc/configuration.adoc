@@ -91,7 +91,7 @@ The workspace map keys are:
 | Key | Description
 
 a| `:bricks`
-a| Supports turning off `Warning 206` for one or more bricks; see xref:validations.adoc#ignore-files[Validations]. +
+a| Supports turning off `Error 111` for one or more bricks; see xref:validations.adoc#ignore-files[Validations]. +
 *Default:* absent, effectively `nil`
 
 a| `:compact-view`
@@ -169,7 +169,7 @@ You can use the alias instead of the full project name for various `poly` comman
 If not specified, the xref:commands.adoc#info[info] and xref:commands.adoc[libs] commands emit a `?` followed by a number (e.g. `?1`) for project column headings.
 
 a| [nowrap]`:necessary`
-a| Supports turning off `Warning 206` for one or more bricks; see xref:validations.adoc#ignore-files[Validations].
+a| Supports turning off `Error 111` for one or more bricks; see xref:validations.adoc#ignore-files[Validations].
 
 a| `:test`
 a| See next table below.

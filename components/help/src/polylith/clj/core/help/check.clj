@@ -63,7 +63,7 @@
        "\n"
        "  " (color/error cm "Error 111") " - Unreadable namespace in brick/project.\n"
        "    Triggered if a namespace can't be parsed or found for a brick or project.\n"
-       "    A way to ignore this warning is to add the " (s/key ":ignore-files" cm) " key to the brick\n"
+       "    A way to ignore this error is to add the " (s/key ":ignore-files" cm) " key to the brick\n"
        "    or project in ./workspace.edn. All dashes (-) will be replaced by underscores\n"
        "    (_). Paths that match exact and paths ending with the specified path(s),\n"
        "    prepended by a slash, will be ignored, e.g.:\n"

@@ -83,7 +83,7 @@ No interfaces are imported from the test context in this example.
 
 * `:lib-deps`
 ** `:src` A map with the libraries that are used in this base's src context.
-*** `:latest-version` Set if there is a newer version of this library, except if xref:keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `update` is given for the libs command.
+*** `:latest-version` Set if there is a newer version of this library, except if xref:keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `:update` is given for the libs command.
 *** `:size` The size of this library in bytes.
 *** `:type` The type of the library, "maven", "local" or "git" (`:mvn/version`, `:local/root` and `:git/url`).
 *** `:version` The library version:
@@ -105,7 +105,7 @@ No interfaces are imported from the test context in this example.
 *** `:file-path` The absolute path to the namespace.
 *** `:imports` Lists all its namespaces.
 *** `:is-ignored` Set to `true` if the namespace is ignored (by specifying it in the key `:ignored-files` in `workspace.edn`.
-If ignored, then xref:validations.adoc#warning206[warning 206 - Unreadable namespace in brick/project] will not be triggered.
+If ignored, then xref:validations.adoc#error111[Error 111 - Unreadable namespace in brick/project] will not be triggered.
 *** `:is-invalid` Set to `true` if the namespace is missing or if the file can't be parsed.
 *** `:name` The name of the namespace where top namespace + base name (`se.example` + `user-api` in this case) have been stripped away.
 *** `:namespace` The full name of the namespace.
@@ -249,7 +249,7 @@ No interfaces are imported from the test context in this example.
 
 * `:lib-deps`
 ** `:src` A map with the libraries that are used in this component's src context.
-*** `:latest-version` Set if there is a newer version of this library, except if xref:keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `update` is given for the libs command.
+*** `:latest-version` Set if there is a newer version of this library, except if xref:keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `:update` is given for the libs command.
 *** `:size` The size of this library in bytes.
 *** `:type` The type of the library, "maven", "local" or "git" (`:mvn/version`, `:local/root` and `:git/url`).
 *** `:version` The library version:
@@ -272,7 +272,7 @@ No interfaces are imported from the test context in this example.
 *** `:imports` Lists all its namespaces.
 *** `:is-ignored` Set to `true` if the namespace is ignored
 (by specifying it in the key `:ignored-files` in workspace.edn.
-If ignored, then xref:validations.adoc#warning206[warning 206 - Unreadable namespace in brick/project] will not be triggered.
+If ignored, then xref:validations.adoc#error111[Error 111 - Unreadable namespace in brick/project] will not be triggered.
 *** `:is-invalid` Set to `true` if the namespace is missing or if the file can't be parsed.
 *** `:name` The name of the namespace where top namespace + base name (`se.example` + `user-api` in this case) have been stripped away.
 *** `:namespace` The full name of the namespace.
@@ -617,7 +617,7 @@ poly ws get:projects:user-service
 
 * `:lib-deps`
 ** `:src` Stores a map with the libraries that are used in the project for the src context.
-*** `:latest-version` Set if there is a newer version of this library, except if xref:keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `update` is given for the libs command.
+*** `:latest-version` Set if there is a newer version of this library, except if xref:keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `:update` is given for the libs command.
 *** `:size` The size of this library in bytes.
 *** `:type` The type of the library, "maven", "local" or "git" (`:mvn/version`, `:local/root` and `:git/url`).
 *** `:version` The library version:
@@ -646,7 +646,7 @@ If `:mvn/repos` is specified by a brick that is included in this project, then i
 *** `:imports` Lists all its namespaces.
 *** `:is-ignored` Set to `true` if the namespace is ignored
 (by specifying it in the `:ignored-files` key in `workspace.edn`.
-If ignored, then xref:validations.adoc#warning206[warning 206 - Unreadable namespace in brick/project] will not be triggered.
+If ignored, then xref:validations.adoc#error111[Error 111 - Unreadable namespace in brick/project] will not be triggered.
 *** `:is-invalid` Set to `true` if the namespace is missing or if the file can't be parsed.
 *** `:name` The name of the namespace where top namespace + component name (`se.example` + `user` in this case) are stripped away.
 *** `namespace` The full name of the namespace.
@@ -742,7 +742,7 @@ Set to "~/.m2" by default, but can be overridden in `~/.config/polylith/config.e
 All files ending with the specified files () will be ignored, or to be exact, if it's an exact match or if it ends with `/` + the string.
 Dashes (-) will be replaced by underscores (_).
 ** `:keep-lib-versions` A vector containing the library names (as symbols) that should not be affected when executing `poly libs :update`.
-** `:necessary` If we get xref:validations.adoc#warning206[warning 206 - Unreadable namespace in brick/project] and know that the brick(s) has to be included in the project, then we can add the necessary bricks(s) to the project in a vector for this key.
+** `:necessary` If we get xref:validations.adoc#error111[Error 111 - Unreadable namespace in brick/project] and know that the brick(s) has to be included in the project, then we can add the necessary bricks(s) to the project in a vector for this key.
 ** `:test`
 *** `:include` Specifies which bricks should be included when running the test command.
 Empty if no bricks, missing if all bricks.
@@ -995,6 +995,25 @@ poly ws get:version
  :ws {:breaking 2
       :non-breaking 0}}
 ----
+
+There are four areas that are version controlled in Polylith:
+
+[%autowidth]
+|===
+| Key | Description
+
+a| `:api`
+a| The `clj-poly` library {cljdoc-api-url}/polylith[API]
+
+a| `:release`
+a| link:https://github.com/polyfy/polylith/releases[Releases]
+
+a| `:test-runner-api`
+a| The xref:test-runners.adoc[test runner API]
+
+a| `:ws`
+a| The xref:workspace-structure.adoc[workspace structure]
+|===
 
 * `:api`
 ** `:breaking` Increased by one if introducing a non-backward compatible change of the {cljdoc-api-url}/polylith[API].
