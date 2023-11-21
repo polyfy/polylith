@@ -74,7 +74,7 @@ A workspace contains these keys:
 |===
 | Key | Description
 
-a| `:bricks` a| Present if we want to turn off `Warning 206` for one or more bricks, see xref:validations.adoc[validations].
+a| `:bricks` a| Present if we want to turn off `Error 111` for one or more bricks, see xref:validations.adoc[validations].
 
 a| `:compact-view` a| Controls the xref:dependencies.adoc#compact-view[output] from the xref:commands#info[deps] and the xref:libraries.adoc#compact-view[output] from the xref:commands.adoc#libs[libs] command so that they can be viewed in a more compact way, e.g.: `#{"deps" "libs"}`.
 
@@ -126,7 +126,7 @@ Configuration for a specific project:
 
 a| `:alias` a| This value is used in the output of the xref:commands.adoc#info[info] command and various commands as an alternative value for the project name.
 
-a| `:necessary` a| Allows us to turn off `Warning 206` for one or more bricks in the project, see xref:validations.adoc[Validations].
+a| `:necessary` a| Allows you to turn off `Error 111` for one or more bricks in the project, see xref:validations.adoc[Validations].
 
 a| `:test` a| A map with test configuration for the project, see below.
 |===

@@ -10,10 +10,44 @@ poly help check
 
 The xref:commands.adoc#test[test] command will be interrupted if xref:commands.adoc#check[check] discovers any errors.
 
-[#warning206]
-=== Warning 206 - Unreadable namespace in brick/project
+=== Warning 207 - Unnecessary components were found in project
 
-If a source file (`.clj` or `.cljc`) can't be read or if the namespace is missing, we get `Warning 206 - Unreadable namespace in brick/project`.
+If there are any unnecessary components in a project (i.e. that are not used by any of the bricks in the project) then xref:commands.adoc#check[check] will return `Warning 207 - Unnecessary components were found in project`.
+
+By default, xref:commands.adoc#check[check] only runs for projects under the `projects` directory.
+To also check the `development` project, we have to pass in `:dev` when executing the xref:commands.adoc#check[check] command.
+Warning 207 will not be checked for the xref:commands.adoc#info[info] and xref:commands.adoc#test[test] commands.
+All other validations are performed when executing the xref:commands.adoc#check[check], xref:commands.adoc#info[info], or xref:commands.adoc#test[test] command.
+
+If we get warning 207 for a project, but we know that the component is needed (e.g. used in a dynamic way, but not explicitly called) then we can add a `:necessary` key to the project in `workspace.edn` to get rid of the warning (this example is taken from the `poly` tool itself):
+
+[source,clojure]
+----
+{ ...
+ :projects {...
+            "poly" {:alias "poly" :necessary ["clojure-test-test-runner"]}
+            ...}}
+}
+----
+
+All errors and warnings are also stored in the workspace structure and can be viewed by executing:
+
+[source,shell]
+----
+poly ws get:messages
+----
+
+If we don't have any warnings or errors, it will return an empty result:
+
+[source,shell]
+----
+[]
+----
+
+[#error111]
+=== Error 111 - Unreadable namespace in brick/project
+
+If a source file (`.clj` or `.cljc`) can't be read or if the namespace is missing, we get `Error 111 - Unreadable namespace in brick/project`.
 
 If we comment out the https://github.com/polyfy/polylith/blob/master/examples/doc-example/components/user/src/se/example/user/core.clj[core] namespace for the `user` component in the example app:
 
@@ -111,39 +145,4 @@ poly ws get:projects:command-line:namespaces:test:project.command-line.test-setu
  :is-ignored true,
  :name "project.command-line.test-setup",
  :namespace "project.command-line.test-setup"}
-----
-
-[#warning206]
-=== Warning 207 - Unnecessary components were found in project
-
-If there are any unnecessary components in a project (i.e. that are not used by any of the bricks in the project) then xref:commands.adoc#check[check] will return `Warning 207 - Unnecessary components were found in project`.
-
-By default, xref:commands.adoc#check[check] only runs for projects under the `projects` directory.
-To also check the `development` project, we have to pass in `:dev` when executing the xref:commands.adoc#check[check] command.
-Warning 207 will not be checked for the xref:commands.adoc#info[info] and xref:commands.adoc#test[test] commands.
-All other validations are performed when executing the xref:commands.adoc#check[check], xref:commands.adoc#info[info], or xref:commands.adoc#test[test] command.
-
-If we get warning 207 for a project, but we know that the component is needed (e.g. used in a dynamic way, but not explicitly called) then we can add a `:necessary` key to the project in `workspace.edn` to get rid of the warning (this example is taken from the `poly` tool itself):
-
-[source,clojure]
-----
-{ ...
- :projects {...
-            "poly" {:alias "poly" :necessary ["clojure-test-test-runner"]}
-            ...}}
-}
-----
-
-All errors and warnings are also stored in the workspace structure and can be viewed by executing:
-
-[source,shell]
-----
-poly ws get:messages
-----
-
-If we don't have any warnings or errors, it will return an empty result:
-
-[source,shell]
-----
-[]
 ----

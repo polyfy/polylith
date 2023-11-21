@@ -105,7 +105,7 @@ No interfaces are imported from the test context in this example.
 *** `:file-path` The absolute path to the namespace.
 *** `:imports` Lists all its namespaces.
 *** `:is-ignored` Set to `true` if the namespace is ignored (by specifying it in the key `:ignored-files` in `workspace.edn`.
-If ignored, then xref:validations.adoc#warning206[warning 206 - Unreadable namespace in brick/project] will not be triggered.
+If ignored, then xref:validations.adoc#error111[Error 111 - Unreadable namespace in brick/project] will not be triggered.
 *** `:is-invalid` Set to `true` if the namespace is missing or if the file can't be parsed.
 *** `:name` The name of the namespace where top namespace + base name (`se.example` + `user-api` in this case) have been stripped away.
 *** `:namespace` The full name of the namespace.
@@ -272,7 +272,7 @@ No interfaces are imported from the test context in this example.
 *** `:imports` Lists all its namespaces.
 *** `:is-ignored` Set to `true` if the namespace is ignored
 (by specifying it in the key `:ignored-files` in workspace.edn.
-If ignored, then xref:validations.adoc#warning206[warning 206 - Unreadable namespace in brick/project] will not be triggered.
+If ignored, then xref:validations.adoc#error111[Error 111 - Unreadable namespace in brick/project] will not be triggered.
 *** `:is-invalid` Set to `true` if the namespace is missing or if the file can't be parsed.
 *** `:name` The name of the namespace where top namespace + base name (`se.example` + `user-api` in this case) have been stripped away.
 *** `:namespace` The full name of the namespace.
@@ -646,7 +646,7 @@ If `:mvn/repos` is specified by a brick that is included in this project, then i
 *** `:imports` Lists all its namespaces.
 *** `:is-ignored` Set to `true` if the namespace is ignored
 (by specifying it in the `:ignored-files` key in `workspace.edn`.
-If ignored, then xref:validations.adoc#warning206[warning 206 - Unreadable namespace in brick/project] will not be triggered.
+If ignored, then xref:validations.adoc#error111[Error 111 - Unreadable namespace in brick/project] will not be triggered.
 *** `:is-invalid` Set to `true` if the namespace is missing or if the file can't be parsed.
 *** `:name` The name of the namespace where top namespace + component name (`se.example` + `user` in this case) are stripped away.
 *** `namespace` The full name of the namespace.
@@ -742,7 +742,7 @@ Set to "~/.m2" by default, but can be overridden in `~/.config/polylith/config.e
 All files ending with the specified files () will be ignored, or to be exact, if it's an exact match or if it ends with `/` + the string.
 Dashes (-) will be replaced by underscores (_).
 ** `:keep-lib-versions` A vector containing the library names (as symbols) that should not be affected when executing `poly libs :update`.
-** `:necessary` If we get xref:validations.adoc#warning206[warning 206 - Unreadable namespace in brick/project] and know that the brick(s) has to be included in the project, then we can add the necessary bricks(s) to the project in a vector for this key.
+** `:necessary` If we get xref:validations.adoc#error111[Error 111 - Unreadable namespace in brick/project] and know that the brick(s) has to be included in the project, then we can add the necessary bricks(s) to the project in a vector for this key.
 ** `:test`
 *** `:include` Specifies which bricks should be included when running the test command.
 Empty if no bricks, missing if all bricks.
