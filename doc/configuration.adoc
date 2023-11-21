@@ -89,10 +89,6 @@ The workspace map keys are:
 |===
 | Key | Description
 
-a| `:bricks`
-a| Supports turning off `Error 111` for one or more bricks. +
-*Default:* absent, effectively `nil`
-
 a| `:compact-view`
 a| Can tell `poly` to use a compact format for xref:commands.adoc#deps[deps] command xref:dependencies.adoc#compact-view[output] and xref:commands.adoc#libs[libs] command xref:libraries.adoc#compact-view[output].
 For example, to turn compact format on for both `deps` and `libs`, set to `+#{"deps" "libs"}+`. +
@@ -168,7 +164,8 @@ You can use the alias instead of the full project name for various `poly` comman
 If not specified, the xref:commands.adoc#info[info] and xref:commands.adoc[libs] commands emit a `?` followed by a number (e.g. `?1`) for project column headings.
 
 a| [nowrap]`:necessary`
-a| Supports turning off `Error 111` for one or more bricks.
+a| Supports turning off `Warning 207` for one or more bricks.
+See xref:validations.adoc#warning207[Validations].
 
 a| `:test`
 a| See next table below.
