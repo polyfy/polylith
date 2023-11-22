@@ -99,8 +99,7 @@
                          :type "base"}]})
 
 (deftest table--show-brick-with-deps--returns-correct-table
-  (is (= (lib-table/table workspace)
-         ["                                                                                                                d   "
+  (is (= ["                                                                                                                d   "
           "                                                                                                          a     a   "
           "                                                                                                          d     t   "
           "                                                                                                          d  a  a   "
@@ -117,11 +116,11 @@
           "  org.clojure/clojure                     1.10.2-alpha1  maven  3,817    x     -     -      -       -     .  .  .  ."
           "  org.clojure/tools.deps                  0.16.1264      maven     46    x     x     x      -       -     .  .  .  ."
           "  zprint                                  0.4.15         maven    125    -     x     -      x       -     .  x  x  x"
-          "  zprint                                  0.5.4          maven      -    -     -     -      -       x     .  .  .  ."])))
+          "  zprint                                  0.5.4          maven      -    -     -     -      -       x     .  .  .  ."]
+         (lib-table/table workspace))))
 
 (deftest table--show-all-brick-deps--returns-correct-table
-  (is (= (lib-table/table workspace)
-         ["                                                                                                                d   "
+  (is (= ["                                                                                                                d   "
           "                                                                                                          a     a   "
           "                                                                                                          d     t   "
           "                                                                                                          d  a  a   "
@@ -138,11 +137,11 @@
           "  org.clojure/clojure                     1.10.2-alpha1  maven  3,817    x     -     -      -       -     .  .  .  ."
           "  org.clojure/tools.deps                  0.16.1264      maven     46    x     x     x      -       -     .  .  .  ."
           "  zprint                                  0.4.15         maven    125    -     x     -      x       -     .  x  x  x"
-          "  zprint                                  0.5.4          maven      -    -     -     -      -       x     .  .  .  ."])))
+          "  zprint                                  0.5.4          maven      -    -     -     -      -       x     .  .  .  ."]
+         (lib-table/table workspace))))
 
 (deftest table--show-source-dependencies
-  (is (= (lib-table/table data/workspace-01)
-         ["                                                                              t"
+  (is (= ["                                                                              t"
           "                                                                              e"
           "                                                                              s"
           "                                                                              t"
@@ -157,4 +156,5 @@
           "  clj-commons/fs          1.6.310    maven     12   -    -      x       -     ."
           "  clj-time                0.15.2     maven      -   t    -      -       -     t"
           "  org.clojure/clojure     1.10.1     maven  3,816   x    x      -       -     ."
-          "  org.clojure/tools.deps  0.16.1264  maven     46   x    x      -       -     ."])))
+          "  org.clojure/tools.deps  0.16.1264  maven     46   x    x      -       -     ."]
+         (lib-table/table data/workspace-01))))

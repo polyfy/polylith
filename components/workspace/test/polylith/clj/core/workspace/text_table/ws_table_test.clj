@@ -2195,8 +2195,7 @@
 
 (deftest ws-table--without-loc-info--return-table-without-loc-info
   (with-redefs [file/exists (fn [_] true)]
-    (is (= (ws-table/table workspace false false)
-           ["  interface      brick           poly  core   dev"
+    (is (= ["  interface      brick           poly  core   dev"
             "  ----------------------------   ----------   ---"
             "  change         change          st-   s--    st-"
             "  command        command         stx   ---    st-"
@@ -2216,12 +2215,12 @@
             "  validator      validator       st-   s--    st-"
             "  workspace      workspace *     stx   s--    st-"
             "  workspace-clj  workspace-clj   st-   ---    st-"
-            "  -              poly-cli        st-   ---    st-"]))))
+            "  -              poly-cli        st-   ---    st-"]
+           (ws-table/table workspace false false)))))
 
 (deftest ws-table--with-loc-info--return-table-with-loc-info
   (with-redefs [file/exists (fn [_] true)]
-    (is (= (ws-table/table workspace true true)
-           ["  interface      brick           poly   core     dev      loc   (t)"
+    (is (= ["  interface      brick           poly   core     dev      loc   (t)"
             "  ----------------------------   ------------   -----   -----------"
             "  change         change          s-t-   s---    s-t-      134   343"
             "  command        command         s-tx   ----    s-t-      151     0"
@@ -2242,4 +2241,5 @@
             "  workspace      workspace *     s-tx   s---    s-t-      844 1,008"
             "  workspace-clj  workspace-clj   s-t-   ----    s-t-      324   150"
             "  -              poly-cli        s-t-   ----    s-t-       22     0"
-            "                                 4,322  3,463   3,976   4,322 3,518"]))))
+            "                                 4,322  3,463   3,976   4,322 3,518"]
+           (ws-table/table workspace true true)))))

@@ -83,9 +83,9 @@
                   :interface-deps ["auth"]}])
 
 (deftest errors--when-having-duplicated-arglists--return-error
-  (is (= (m102/errors components color/none)
-         [{:type "error",
+  (is (= [{:type "error",
            :code 102,
            :message "Function or macro is defined twice in payment: pay[a], pay[b]",
            :colorized-message "Function or macro is defined twice in payment: pay[a], pay[b]",
-           :components ["payment"]}])))
+           :components ["payment"]}]
+         (m102/errors components color/none))))

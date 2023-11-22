@@ -10,8 +10,8 @@
                  (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
                  (helper/execute-command "ws1" "create" "p" "name:"))]
 
-    (is (= (color/clean-colors output)
-           (str "  A project name must be given.\n")))))
+    (is (= (str "  A project name must be given.\n")
+           (color/clean-colors output)))))
 
 (deftest create-project--when-project-already-exists--return-error-message
   (let [output (with-out-str
@@ -19,9 +19,9 @@
                  (helper/execute-command "ws1" "create" "p" "name:proj1")
                  (helper/execute-command "ws1" "create" "project" "name:proj1"))]
 
-    (is (= (color/clean-colors output)
-           (str "  It's recommended to add an alias to :projects in ./workspace.edn for the proj1 project.\n"
-                "  Project proj1 (or alias) already exists.\n")))))
+    (is (= (str "  It's recommended to add an alias to :projects in ./workspace.edn for the proj1 project.\n"
+                "  Project proj1 (or alias) already exists.\n")
+           (color/clean-colors output)))))
 
 (deftest create-project--performs-expected-actions
   (let [dir "ws1/projects/proj1"
@@ -29,11 +29,10 @@
                  (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example" ":create")
                  (helper/execute-command "ws1" "create" "p" "name:proj1"))]
 
-    (is (= (color/clean-colors output)
-           "  It's recommended to add an alias to :projects in ./workspace.edn for the proj1 project.\n"))
+    (is (= "  It's recommended to add an alias to :projects in ./workspace.edn for the proj1 project.\n"
+           (color/clean-colors output)))
 
-    (is (= (helper/paths "ws1")
-           #{".gitignore"
+    (is (= #{".gitignore"
              ".vscode"
              ".vscode/settings.json"
              "bases"
@@ -50,10 +49,11 @@
              "projects/proj1"
              "projects/proj1/deps.edn"
              "readme.md"
-             "workspace.edn"}))
+             "workspace.edn"}
+           (helper/paths "ws1")))
 
-    (is (= (helper/content dir "deps.edn")
-           ["{:deps {org.clojure/clojure {:mvn/version \"1.11.1\"}}"
+    (is (= ["{:deps {org.clojure/clojure {:mvn/version \"1.11.1\"}}"
             ""
             " :aliases {:test {:extra-paths []"
-            "                  :extra-deps  {}}}}"]))))
+            "                  :extra-deps  {}}}}"]
+           (helper/content dir "deps.edn")))))

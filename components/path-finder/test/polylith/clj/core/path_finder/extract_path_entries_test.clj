@@ -34,16 +34,15 @@
                    "development/test"]})
 
 (deftest path-entries--lists-of-paths--returns-extracted-path-entries
-  (is (= (extract/from-unenriched-project
+  (is (= test-data/path-entries
+         (extract/from-unenriched-project
            true
            paths
            {:missing []}
-           settings)
-         test-data/path-entries)))
+           settings))))
 
 (deftest profile-entries--when-two-profiles-are-extracted--return-paths
-  (is (= (extract/from-profiles-paths [] settings "default")
-         [{:exists?    true
+  (is (= [{:exists?    true
            :name       "user"
            :path       "components/user/resources"
            :profile?   false
@@ -63,4 +62,5 @@
            :profile?   false
            :source-dir "test"
            :test?      true
-           :type       :component}])))
+           :type       :component}]
+         (extract/from-profiles-paths [] settings "default"))))

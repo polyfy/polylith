@@ -9,18 +9,17 @@
   (let [output (with-out-str
                  (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
                  (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example"))]
-    (is (= output
-           "  Workspace 'ws1' already exists.\n"))))
+    (is (= "  Workspace 'ws1' already exists.\n"
+           output))))
 
 (deftest create-workspace--trying-to-create-a-workspace-within-another-workspace--prints-out-error-messagex
   (let [output (with-out-str
                  (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example" ":commit")
                  (helper/execute-command "ws1" "create" "workspace" "name:ws2" "top-ns:com.example"))]
-    (is (= output
-           "  Workspace created in existing git repo.\n"))
+    (is (= "  Workspace created in existing git repo.\n"
+           output))
 
-    (is (= (helper/paths "ws1")
-           #{".git"
+    (is (= #{".git"
              ".gitignore"
              ".vscode"
              ".vscode/settings.json"
@@ -53,29 +52,29 @@
              "ws2/projects"
              "ws2/projects/.keep"
              "ws2/readme.md"
-             "ws2/workspace.edn"}))))
+             "ws2/workspace.edn"}
+           (helper/paths "ws1")))))
 
 (deftest create-workspace--incorrect-first-argument--prints-out-error-message
   (let [output (with-out-str
                  (helper/execute-command "" "create" "x" "name:ws1"))]
-    (is (= output
-           "  The first argument after 'create' is expected to be any of: w, p, b, c, workspace, project, base, component.\n"))))
+    (is (= "  The first argument after 'create' is expected to be any of: w, p, b, c, workspace, project, base, component.\n"
+           output))))
 
 (deftest create-workspace--missing-top-namespace--prints-out-error-message
   (let [output (with-out-str
                  (helper/execute-command "" "create" "w" "name:ws1"))]
-    (is (= output
-           "  A top namespace must be given, e.g.: create w name:my-workspace top-ns:com.my-company\n"))))
+    (is (= "  A top namespace must be given, e.g.: create w name:my-workspace top-ns:com.my-company\n"
+           output))))
 
 (deftest create-workspace--creates-empty-directories-and-a-deps-edn-config-file
   (let [output (with-redefs [workspace/mvn-version (fn [] "0.2.18")]
                  (with-out-str
                    (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example" "branch:create-deps-files" ":commit")))]
-    (is (= output
-           ""))
+    (is (= ""
+           output))
 
-    (is (= (helper/paths "ws1")
-           #{".git"
+    (is (= #{".git"
              ".gitignore"
              ".vscode"
              ".vscode/settings.json"
@@ -91,10 +90,10 @@
              "projects"
              "projects/.keep"
              "readme.md"
-             "workspace.edn"}))
+             "workspace.edn"}
+           (helper/paths "ws1")))
 
-    (is (= (helper/content "ws1" "readme.md")
-           ["<img src=\"logo.png\" width=\"30%\" alt=\"Polylith\" id=\"logo\">"
+    (is (= ["<img src=\"logo.png\" width=\"30%\" alt=\"Polylith\" id=\"logo\">"
             ""
             "The Polylith documentation can be found here:"
             ""
@@ -106,20 +105,20 @@
             ""
             "<h1>ws1</h1>"
             ""
-            "<p>Add your workspace documentation here...</p>"]))
+            "<p>Add your workspace documentation here...</p>"]
+           (helper/content "ws1" "readme.md")))
 
-    (is (= (helper/content "ws1" "deps.edn")
-           ["{:aliases  {:dev {:extra-paths [\"development/src\"]"
+    (is (= ["{:aliases  {:dev {:extra-paths [\"development/src\"]"
             ""
             "                  :extra-deps {org.clojure/clojure {:mvn/version \"1.11.1\"}}}"
             ""
             "            :test {:extra-paths []}"
             ""
             "            :poly {:main-opts [\"-m\" \"polylith.clj.core.poly-cli.core\"]"
-            "                   :extra-deps {polylith/clj-poly {:mvn/version \"0.2.18\"}}}}}"]))
+            "                   :extra-deps {polylith/clj-poly {:mvn/version \"0.2.18\"}}}}}"]
+           (helper/content "ws1" "deps.edn")))
 
-    (is (= (helper/content "ws1" ".vscode/settings.json")
-           ["{"
+    (is (= ["{"
             "    \"calva.replConnectSequences\": ["
             "        {"
             "            \"projectType\": \"deps.edn\","
@@ -130,10 +129,10 @@
             "            }"
             "        }"
             "    ]"
-            "}"]))
+            "}"]
+           (helper/content "ws1" ".vscode/settings.json")))
 
-    (is (= (helper/content "ws1" "workspace.edn")
-           ["{:top-namespace \"se.example\""
+    (is (= ["{:top-namespace \"se.example\""
             " :interface-ns \"interface\""
             " :default-profile-name \"default\""
             " :compact-views #{}"
@@ -141,10 +140,11 @@
             "       :auto-add false}"
             " :tag-patterns {:stable \"stable-*\""
             "                :release \"v[0-9]*\"}"
-            " :projects {\"development\" {:alias \"dev\"}}}"]))
+            " :projects {\"development\" {:alias \"dev\"}}}"]
+           (helper/content "ws1" "workspace.edn")))
 
     ;; no env vars checked in helper so use defaul XDG location:
-    (is (= (helper/content (helper/user-home) "/.config/polylith/config.edn")
-           ["{:color-mode \"dark\""
+    (is (= ["{:color-mode \"dark\""
             " :empty-character \".\""
-            " :thousand-separator \",\"}"]))))
+            " :thousand-separator \",\"}"]
+           (helper/content (helper/user-home) "/.config/polylith/config.edn")))))

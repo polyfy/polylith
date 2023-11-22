@@ -10,9 +10,9 @@
                  (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example")
                  (helper/execute-command "ws1" "create" "b" "name:my-base")
                  (helper/execute-command "ws1" "create" "base" "name:my-base"))]
-    (is (= output
-           (str brick/create-brick-message "\n"
-                "  The brick 'my-base' already exists.\n")))))
+    (is (= (str brick/create-brick-message "\n"
+                "  The brick 'my-base' already exists.\n")
+           output))))
 
 (deftest create-base--performs-expected-actions
   (let [src-api-dir "ws1/bases/my-base/src/se/example/my_base"
@@ -20,11 +20,10 @@
         output (with-out-str
                  (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example" ":commit")
                  (helper/execute-command "ws1" "create" "b" "name:my-base"))]
-    (is (= output
-           (str brick/create-brick-message "\n")))
+    (is (= (str brick/create-brick-message "\n")
+           output))
 
-    (is (= (helper/paths "ws1")
-           #{".git"
+    (is (= #{".git"
              ".gitignore"
              ".vscode"
              ".vscode/settings.json"
@@ -55,15 +54,16 @@
              "projects"
              "projects/.keep"
              "readme.md"
-             "workspace.edn"}))
+             "workspace.edn"}
+           (helper/paths "ws1")))
 
-    (is (= (helper/content src-api-dir "core.clj")
-           ["(ns se.example.my-base.core)"]))
+    (is (= ["(ns se.example.my-base.core)"]
+           (helper/content src-api-dir "core.clj")))
 
-    (is (= (helper/content test-api-dir "core_test.clj")
-           ["(ns se.example.my-base.core-test"
+    (is (= ["(ns se.example.my-base.core-test"
             "  (:require [clojure.test :as test :refer :all]"
             "            [se.example.my-base.core :as core]))"
             ""
             "(deftest dummy-test"
-            "  (is (= 1 1)))"]))))
+            "  (is (= 1 1)))"]
+           (helper/content test-api-dir "core_test.clj")))))

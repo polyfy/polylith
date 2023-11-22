@@ -20,9 +20,9 @@
                                    :main-opts  ["-m" "uberdeps.uberjar"]}}})
 
 (deftest validate-project-deployable-config--valid-config--returns-nil
-  (is (= (toolsdeps2/validate-project-deployable-config config "deps.edn")
-         nil)))
+  (is (= nil
+         (toolsdeps2/validate-project-deployable-config config "deps.edn"))))
 
 (deftest validate-project-deployable-config--valid-config-withoug-deps--returns-nil
-  (is (= (toolsdeps2/validate-project-deployable-config (dissoc config :deps) "deps.edn")
-         nil)))
+  (is (= nil
+         (toolsdeps2/validate-project-deployable-config (dissoc config :deps) "deps.edn"))))

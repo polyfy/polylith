@@ -72,43 +72,43 @@
                                                                                                 "projects/core/test"]}})))
 
 (deftest table--no-resources-flat--returns-correct-table
-  (is (= (env-table/table workspace false false)
-         ["  project      alias  status   dev"
+  (is (= ["  project      alias  status   dev"
           "  --------------------------   ---"
           "  core *       core    s--     s--"
           "  invoice *    inv     -t-     -t-"
-          "  development  dev     s--     s--"])))
+          "  development  dev     s--     s--"]
+         (env-table/table workspace false false))))
 
 (deftest table--with-resources-flag--returns-correct-table
-  (is (= (env-table/table workspace false true)
-         ["  project      alias  status   dev "
+  (is (= ["  project      alias  status   dev "
           "  --------------------------   ----"
           "  core *       core    sr--    s---"
           "  invoice *    inv     --t-    --t-"
-          "  development  dev     s---    s---"])))
+          "  development  dev     s---    s---"]
+         (env-table/table workspace false true))))
 
 (deftest table--projects-with-loc--returns-table-with-lines-of-code
-  (is (= (env-table/table workspace true false)
-         ["  project      alias  status   dev   loc  (t)"
+  (is (= ["  project      alias  status   dev   loc  (t)"
           "  --------------------------   ---   --------"
           "  core *       core    s--     s--     1    1"
           "  invoice *    inv     -t-     -t-     0    1"
           "  development  dev     s--     s--     4    0"
-          "                                       5    2"])))
+          "                                       5    2"]
+         (env-table/table workspace true false))))
 
 (deftest table--with-profile--returns-correct-table
-  (is (= (env-table/table workspace-with-profiles false false)
-         ["  project      alias  status   dev  default   "
+  (is (= ["  project      alias  status   dev  default   "
           "  --------------------------   ------------   "
           "  core *       core    s--     s--    -t      "
           "  invoice *    inv     -t-     -t-    --      "
-          "  development  dev     s--     s--    --      "])))
+          "  development  dev     s--     s--    --      "]
+         (env-table/table workspace-with-profiles false false))))
 
 (deftest table--with-profile-and-loc--returns-correct-table
-  (is (= (env-table/table workspace-with-profiles true false)
-         ["  project      alias  status   dev  default   loc  (t)"
+  (is (= ["  project      alias  status   dev  default   loc  (t)"
           "  --------------------------   ------------   --------"
           "  core *       core    s--     s--    -t        1    1"
           "  invoice *    inv     -t-     -t-    --        0    1"
           "  development  dev     s--     s--    --        4    0"
-          "                                                5    2"])))
+          "                                                5    2"]
+         (env-table/table workspace-with-profiles true false))))

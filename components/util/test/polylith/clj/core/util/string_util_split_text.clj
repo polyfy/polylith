@@ -8,33 +8,33 @@
   (str-util/split-text text))
 
 (deftest split-empty-word
-  (is (= (split-text "")
-         [""])))
+  (is (= [""]
+         (split-text ""))))
 
 (deftest split-empty-word2
-  (is (= (split-text " ")
-         [""])))
+  (is (= [""]
+         (split-text " "))))
 
 (deftest split-word
-  (is (= (split-text "hello")
-         ["hello"])))
+  (is (= ["hello"]
+         (split-text "hello"))))
 
 (deftest split-word-with-initial-space
-  (is (= (split-text " hello")
-         ["" "hello"])))
+  (is (= ["" "hello"]
+         (split-text " hello"))))
 
 (deftest split-word-ending-with-space
-  (is (= (split-text "hello ")
-         ["hello" ""])))
+  (is (= ["hello" ""]
+         (split-text "hello "))))
 
 (deftest split-several-words
-  (is (= (split-text "hello my friend")
-         ["hello" "my" "friend"])))
+  (is (= ["hello" "my" "friend"]
+         (split-text "hello my friend"))))
 
 (deftest split-several-words-where-some-are-quoted
-  (is (= (split-text "hello, \"you are my best\" friend")
-         ["hello," "\"you are my best\"" "friend"])))
+  (is (= ["hello," "\"you are my best\"" "friend"]
+         (split-text "hello, \"you are my best\" friend"))))
 
 (deftest split-several-words-containing-repeating-spaces
-  (is (= (split-text "hello  my friend")
-         ["hello" "my" "friend"])))
+  (is (= ["hello" "my" "friend"]
+         (split-text "hello  my friend"))))

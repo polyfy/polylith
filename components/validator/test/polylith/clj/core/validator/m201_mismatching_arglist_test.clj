@@ -177,9 +177,7 @@
                    :interface-deps {}}])
 
 (deftest warnings--when-having-functions-with-the-same-arity-but-with-different-arglists--return-warnings
-  (is (= (sort-by :message
-                  (m201/warnings interfaces components color/none))
-         [{:type "warning"
+  (is (= [{:type "warning"
            :code 201
            :colorized-message "Function in the invoice component is also defined in invoice2 but with a different argument list: func1[a b], func1[x y]"
            :message           "Function in the invoice component is also defined in invoice2 but with a different argument list: func1[a b], func1[x y]"
@@ -198,12 +196,12 @@
            :code 201
            :colorized-message "Function in the user1 component is also defined in user2 but with a different argument list: func3[a b c], func3[x y z]"
            :message           "Function in the user1 component is also defined in user2 but with a different argument list: func3[a b c], func3[x y z]"
-           :components ["user1" "user2"]}])))
+           :components ["user1" "user2"]}]
+         (sort-by :message
+                  (m201/warnings interfaces components color/none)))))
 
 (deftest warnings--when-having-macros-with-the-same-arity-but-with-different-argument-lists--return-warnings
-  (is (= (sort-by :message
-                  (m201/warnings interfaces2 components2 color/none))
-         [{:type "warning"
+  (is (= [{:type "warning"
            :code 201
            :colorized-message "Function in the invoice component is also defined in invoice2 but with a different argument list: func1[a b], func1[x y]"
            :message           "Function in the invoice component is also defined in invoice2 but with a different argument list: func1[a b], func1[x y]"
@@ -222,13 +220,15 @@
            :code 201
            :colorized-message "Macro in the invoice component is also defined in invoice2 but with a different argument list: sub.macro1[a], sub.macro1[b]"
            :message           "Macro in the invoice component is also defined in invoice2 but with a different argument list: sub.macro1[a], sub.macro1[b]"
-           :components ["invoice" "invoice2"]}])))
+           :components ["invoice" "invoice2"]}]
+         (sort-by :message
+                  (m201/warnings interfaces2 components2 color/none)))))
 
 (deftest warnings--when-having-functions-with-the-same-arity-but-with-a-type-hint-in-only-one-of-the-argument-lists--return-warning
-  (is (= (sort-by :message
-                  (m201/warnings interfaces3 components3 color/none))
-         [{:type "warning"
+  (is (= [{:type "warning"
            :code 201
            :colorized-message "Function in the auth1 component is also defined in auth2 but with a different argument list: hello[^String x], hello[x]"
            :message "Function in the auth1 component is also defined in auth2 but with a different argument list: hello[^String x], hello[x]"
-           :components ["auth1" "auth2"]}])))
+           :components ["auth1" "auth2"]}]
+         (sort-by :message
+                  (m201/warnings interfaces3 components3 color/none)))))

@@ -14,55 +14,55 @@
                 :map2 {"a-key" 123}})
 
 (deftest ws--extract-with-no-arguments
-  (is (= (ws/extract workspace [])
-         workspace)))
+  (is (= workspace
+         (ws/extract workspace []))))
 
 (deftest ws--extract-element-by-index
-  (is (= (ws/extract workspace ["projects" "0" "type"])
-         "project")))
+  (is (= "project"
+         (ws/extract workspace ["projects" "0" "type"]))))
 
 (deftest ws--extract-element-by-name
-  (is (= (ws/extract workspace ["projects" "development" "name"])
-         "development")))
+  (is (= "development"
+         (ws/extract workspace ["projects" "development" "name"]))))
 
 (deftest ws--extract-element-by-name
-  (is (= (ws/extract workspace ["projects" "dev" "alias"])
-         "dev")))
+  (is (= "dev"
+         (ws/extract workspace ["projects" "dev" "alias"]))))
 
 (deftest ws--extract-string-key
-  (is (= (ws/extract workspace ["map2" "a-key"])
-         123)))
+  (is (= 123
+         (ws/extract workspace ["map2" "a-key"]))))
 
 (deftest ws--extract-keys
-  (is (= (ws/extract workspace ["keys"])
-         [:map2
-          :projects])))
+  (is (= [:map2
+          :projects]
+         (ws/extract workspace ["keys"]))))
 
 (deftest ws--extract-keys-in-list-of-maps-with-keys-keyword
-  (is (= (ws/extract workspace ["projects" "keys"])
-         ["development" "delivery" "invoicer"])))
+  (is (= ["development" "delivery" "invoicer"]
+         (ws/extract workspace ["projects" "keys"]))))
 
 (deftest ws--extract-keys-in-list-of-maps-with-empty-key
-  (is (= (ws/extract workspace ["projects" ""])
-         ["development" "delivery" "invoicer"])))
+  (is (= ["development" "delivery" "invoicer"]
+         (ws/extract workspace ["projects" ""]))))
 
 (deftest ws--count
-  (is (= (ws/extract workspace ["count"])
-         2)))
+  (is (= 2
+         (ws/extract workspace ["count"]))))
 
 (deftest ws--extract-element-in-vector-by-index
-  (is (= (ws/extract workspace ["projects" "keys" "2"])
-         "invoicer")))
+  (is (= "invoicer"
+         (ws/extract workspace ["projects" "keys" "2"]))))
 
 (deftest ws--filter-project-keys
-  (is (= (ws/extract workspace ["projects" "de*" "keys"])
-         ["development" "delivery"])))
+  (is (= ["development" "delivery"]
+         (ws/extract workspace ["projects" "de*" "keys"]))))
 
 (deftest ws--filter-project-keys
-  (is (= (ws/extract {:name "car"
-                      :value "hello"} ["ca*" ""])
-         [:name :value])))
+  (is (= [:name :value]
+         (ws/extract {:name "car"
+                      :value "hello"} ["ca*" ""]))))
 
 (deftest ws--filter-project-keys
-  (is (= (ws/extract ["adam" "bert" "cecar" "david"] ["c*"])
-         ["cecar"])))
+  (is (= ["cecar"]
+         (ws/extract ["adam" "bert" "cecar" "david"] ["c*"]))))

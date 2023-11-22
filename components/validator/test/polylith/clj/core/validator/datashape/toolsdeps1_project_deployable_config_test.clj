@@ -23,13 +23,13 @@
                                    :main-opts  ["-m" "uberdeps.uberjar"]}}})
 
 (deftest validate-project-deployable-config--valid-config--returns-nil
-  (is (= (toolsdeps1/validate-project-deployable-config config "deps.edn")
-         nil)))
+  (is (= nil
+         (toolsdeps1/validate-project-deployable-config config "deps.edn"))))
 
 (deftest validate-project-deployable-config--valid-config-withoug-deps--returns-nil
-  (is (= (toolsdeps1/validate-project-deployable-config (dissoc config :deps) "deps.edn")
-         nil)))
+  (is (= nil
+         (toolsdeps1/validate-project-deployable-config (dissoc config :deps) "deps.edn"))))
 
 (deftest validate-project-deployable-config--invalid-nop-namespace--returns-error-message
-  (is (= (toolsdeps1/validate-project-deployable-config (assoc-in config [:aliases :test] 1) "deps.edn")
-         "Validation error in deps.edn: {:aliases {:test [\"invalid type\"]}}")))
+  (is (= "Validation error in deps.edn: {:aliases {:test [\"invalid type\"]}}"
+         (toolsdeps1/validate-project-deployable-config (assoc-in config [:aliases :test] 1) "deps.edn"))))
