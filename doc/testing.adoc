@@ -580,7 +580,7 @@ Execution time: 1 seconds
 Looks like it worked!
 
 [#setup-and-teardown]
-== Test setup and teardown
+== Test Setup and Teardown
 
 Sometimes, tests require some setup before being run and some teardown (or cleanup) after being run.
 
@@ -691,6 +691,7 @@ Execution time: 2 seconds
 
 Nice, it worked!
 
+[[include-exclude]]
 == Include and Exclude Bricks by Configuration
 
 There is a way to restrict what tests to run for a project by giving a list of bricks to include and/or exclude in `workspace.edn`, e.g.:

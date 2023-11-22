@@ -1,7 +1,18 @@
 = Versions
 
-There are three areas that are version controlled in Polylith,
-which is described xref:workspace-structure.adoc#version[here].
+There are four areas that are version controlled, which is described xref:workspace-structure.adoc#version[here].
+
+The version of the workspace structure can be viewed by:
+
+[source,shell]
+----
+poly ws get:version:ws
+----
+
+[source,clojure]
+----
+{:breaking 2, :non-breaking 0}
+----
 
 Here are the changes to the workspace structure over time:
 
