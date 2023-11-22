@@ -31,21 +31,21 @@
                            :test {:direct ["git" "path-finder" "util"], :indirect []}}}})
 
 (deftest dont-check-the-dev-project
-  (is (= (m207/warnings "check" settings [dev] false c/none)
-         [])))
+  (is (= []
+         (m207/warnings "check" settings [dev] false c/none))))
 
 (deftest check-the-dev-project
-  (is (= (m207/warnings "check" settings [dev] true c/none)
-         [{:code              207
+  (is (= [{:code              207
            :colorized-message "Unnecessary components were found in the development project and may be removed: api, clojure-test-test-runner. To ignore this warning, execute 'poly help check' and follow the instructions for warning 207."
            :message           "Unnecessary components were found in the development project and may be removed: api, clojure-test-test-runner. To ignore this warning, execute 'poly help check' and follow the instructions for warning 207."
-           :type              "warning"}])))
+           :type              "warning"}]
+         (m207/warnings "check" settings [dev] true c/none))))
 
 (deftest check-the-dev-project-exclude-necessary-components
   (let [settings (assoc-in settings [:projects "development" :necessary]
                            ["clojure-test-test-runner"])]
-    (is (= (m207/warnings "check" settings [dev] true c/none)
-           [{:code              207
+    (is (= [{:code              207
              :colorized-message "Unnecessary components were found in the development project and may be removed: api. To ignore this warning, execute 'poly help check' and follow the instructions for warning 207."
              :message           "Unnecessary components were found in the development project and may be removed: api. To ignore this warning, execute 'poly help check' and follow the instructions for warning 207."
-             :type              "warning"}]))))
+             :type              "warning"}]
+           (m207/warnings "check" settings [dev] true c/none)))))

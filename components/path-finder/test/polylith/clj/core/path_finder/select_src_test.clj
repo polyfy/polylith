@@ -5,8 +5,7 @@
             [polylith.clj.core.path-finder.test-data :as test-data]))
 
 (deftest all-src-paths--when-executed--returns-src-paths-from-all-components-bases-and-entities-including-profile-paths
-  (is (= (select/paths test-data/path-entries c/src?)
-         ["bases/cli/resources"
+  (is (= ["bases/cli/resources"
           "bases/cli/src"
           "components/address/resources"
           "components/address/src"
@@ -18,22 +17,22 @@
           "components/purchaser/src"
           "components/user/resources"
           "components/user/src"
-          "development/src"])))
+          "development/src"]
+         (select/paths test-data/path-entries c/src?))))
 
 (deftest all-test-paths--when-executed--returns-test-paths-from-all-components-bases-and-entities-including-profile-paths
-  (is (= (select/paths test-data/path-entries c/test?)
-         ["bases/cli/test"
+  (is (= ["bases/cli/test"
           "components/address/test"
           "components/database/test"
           "components/invoicer/test"
           "components/purchaser/test"
           "components/user/test"
           "development/test"
-          "projects/invoice/test"])))
+          "projects/invoice/test"]
+         (select/paths test-data/path-entries c/test?))))
 
 (deftest brick-src-entries--when-executed--returns-entries-collected-from-component-and-base-src-paths
-  (is (= (select/entries test-data/path-entries c/src? (c/=name "user"))
-         [{:exists?    true
+  (is (= [{:exists?    true
            :name       "user"
            :path       "components/user/resources"
            :profile?   false
@@ -60,12 +59,13 @@
            :profile?   true
            :source-dir "src"
            :test?      false
-           :type       :component}])))
+           :type       :component}]
+         (select/entries test-data/path-entries c/src? (c/=name "user")))))
 
 (deftest src-component-names--when-executed--returns-expected-result
-  (is (= (select/names test-data/path-entries c/component?)
-         ["address"
+  (is (= ["address"
           "database"
           "invoicer"
           "purchaser"
-          "user"])))
+          "user"]
+         (select/names test-data/path-entries c/component?))))

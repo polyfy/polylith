@@ -20,20 +20,20 @@
                                         :indirect ["file"]}}}}])
 
 (deftest errors--when-no-active-profiles--ignore-error
-  (is (= (m107/errors "info" settings bases projects color/none)
-         nil)))
+  (is (= nil
+         (m107/errors "info" settings bases projects color/none))))
 
 (deftest errors--when-projects-with-missing-components--return-error
-  (is (= (m107/errors "info" (assoc settings :active-profiles #{"default"}) bases projects color/none)
-
-         [{:bases             []
+  (is (= [{:bases             []
            :code              107
            :colorized-message "Missing components in the poly-migrator project for these interfaces: user-config, util"
            :interfaces        ["user-config"
                                "util"]
            :message           "Missing components in the poly-migrator project for these interfaces: user-config, util"
            :project           "poly-migrator"
-           :type              "error"}])))
+           :type              "error"}]
+
+         (m107/errors "info" (assoc settings :active-profiles #{"default"}) bases projects color/none))))
 
 
 (def settings2 {:projects {"development" {:alias "dev"}
@@ -45,11 +45,11 @@
                  :deps {"user" {:src {}, :test {:missing-ifc-and-bases {:direct ["test-helper"], :indirect []}}}}}])
 
 (deftest errors--when-projects-with-missing-components-in-test-context--return-error
-  (is (= (m107/errors "check" settings2 bases  projects2 color/none)
-         [{:bases             []
+  (is (= [{:bases             []
            :code              107
            :colorized-message "Missing components in the service project, for the test context, for these interfaces: test-helper"
            :interfaces        ["test-helper"]
            :message           "Missing components in the service project, for the test context, for these interfaces: test-helper"
            :project           "service"
-           :type              "error"}])))
+           :type              "error"}]
+         (m107/errors "check" settings2 bases  projects2 color/none))))

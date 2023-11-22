@@ -3,50 +3,49 @@
             [polylith.clj.core.workspace-clj.brick-deps :as brick-deps]))
 
 (deftest is-dev-component-project
-  (is (= (brick-deps/brick-name "../../components/invoicer" true)
-         false)))
+  (is (= false
+         (brick-deps/brick-name "../../components/invoicer" true))))
 
 (deftest is-not-dev-component-project
-  (is (= (brick-deps/brick-name "../../components/invoicer" false)
-         "invoicer")))
+  (is (= "invoicer"
+         (brick-deps/brick-name "../../components/invoicer" false))))
 
 (deftest is-dev-component-project
-  (is (= (brick-deps/brick-name "../../bases/mybase" true)
-         nil)))
+  (is (= nil
+         (brick-deps/brick-name "../../bases/mybase" true))))
 
 (deftest is-not-dev-component-project
-  (is (= (brick-deps/brick-name "../../bases/mybase" false)
-         "mybase")))
-
-
-(deftest is-dev-component
-  (is (= (brick-deps/brick-name "components/invoicer" true)
-         "invoicer")))
-
-(deftest is-not-dev-component
-  (is (= (brick-deps/brick-name "components/invoicer" false)
-         nil)))
+  (is (= "mybase"
+         (brick-deps/brick-name "../../bases/mybase" false))))
 
 (deftest is-dev-component
-  (is (= (brick-deps/brick-name "bases/mybase" true)
-         "mybase")))
+  (is (= "invoicer"
+         (brick-deps/brick-name "components/invoicer" true))))
 
 (deftest is-not-dev-component
-  (is (= (brick-deps/brick-name "bases/mybase" false)
-         nil)))
+  (is (= nil
+         (brick-deps/brick-name "components/invoicer" false))))
+
+(deftest is-dev-component
+  (is (= "mybase"
+         (brick-deps/brick-name "bases/mybase" true))))
+
+(deftest is-not-dev-component
+  (is (= nil
+         (brick-deps/brick-name "bases/mybase" false))))
 
 (deftest is-dev-component-local
-  (is (= (brick-deps/brick-name "./components/invoicer" true)
-         "invoicer")))
+  (is (= "invoicer"
+         (brick-deps/brick-name "./components/invoicer" true))))
 
 (deftest is-not-dev-component-local
-  (is (= (brick-deps/brick-name "./components/invoicer" false)
-         nil)))
+  (is (= nil
+         (brick-deps/brick-name "./components/invoicer" false))))
 
 (deftest is-dev-component-local
-  (is (= (brick-deps/brick-name "./bases/mybase" true)
-         "mybase")))
+  (is (= "mybase"
+         (brick-deps/brick-name "./bases/mybase" true))))
 
 (deftest is-not-dev-component-local
-  (is (= (brick-deps/brick-name "./bases/mybase" false)
-         nil)))
+  (is (= nil
+         (brick-deps/brick-name "./bases/mybase" false))))

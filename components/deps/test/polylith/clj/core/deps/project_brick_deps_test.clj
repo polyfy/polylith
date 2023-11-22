@@ -9,26 +9,26 @@
                               "b" {:direct ["a"]
                                    :indirect #{}
                                    :completed? false}})]
-    (is (= (pbd/update-deps! "a" "b"
-                             {"a" ["b"]
-                              "b" ["a"]}
-                             brick-id->deps
-                             #{"a"})
-           {"a" {:completed? true
+    (is (= {"a" {:completed? true
                  :direct     ["b"]
                  :indirect   #{"a" "b"}
                  :paths      [["b" "a"]]}
             "b" {:completed? true
                  :direct     ["a"]
                  :indirect   #{"b"}
-                 :paths      [["a"]]}}))))
+                 :paths      [["a"]]}}
+           (pbd/update-deps! "a" "b"
+                             {"a" ["b"]
+                              "b" ["a"]}
+                             brick-id->deps
+                             #{"a"})))))
 
 (deftest finalise-deps--check-for-circular-deps
   (let [brick-id->deps {"a" {:direct ["b"], :indirect #{"a" "b"}, :completed? true, :paths [["b" "a" "x"]]},
                         "b" {:direct ["a"], :indirect #{"b"}, :completed? true, :paths [["a"]]}}
         ifc->comp {"a" "a"
                    "b" "b"}]
-    (is (= (pbd/finalize-deps "a" brick-id->deps ifc->comp #{"a" "b"} #{"a" "b"} #{})
-           {:circular ["a" "b" "a"]
+    (is (= {:circular ["a" "b" "a"]
             :direct   ["b"]
-            :indirect ["a"]}))))
+            :indirect ["a"]}
+           (pbd/finalize-deps "a" brick-id->deps ifc->comp #{"a" "b"} #{"a" "b"} #{})))))

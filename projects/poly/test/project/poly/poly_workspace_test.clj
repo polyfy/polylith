@@ -36,19 +36,18 @@
     (get-in workspace ws-param)))
 
 (deftest polylith-project-table
-  (is (= (project-table/table (workspace) false false)
-         ["  project        alias  status   dev  extended   "
+  (is (= ["  project        alias  status   dev  extended   "
           "  ----------------------------   -------------   "
           "  poly *         poly    -t-     -t-     --      "
           "  polyx *        polyx   ---     ---     --      "
-          "  development *  dev     s--     s--     --      "])))
+          "  development *  dev     s--     s--     --      "]
+         (project-table/table (workspace) false false))))
 
 (deftest polylith-info
-  (is (= (ws-table/table (workspace) false false)
-         ["  interface                 brick                        poly  polyx   dev  extended"
+  (is (= ["  interface                 brick                        poly  polyx   dev  extended"
           "  ----------------------------------------------------   -----------   -------------"
           "  antq                      antq *                       s--    s--    s--     --   "
-          "  api                       api *                        stx    ---    st-     --   "
+          "  api                       api *                        s--    ---    s--     --   "
           "  change                    change *                     stx    s--    st-     --   "
           "  clojure-test-test-runner  clojure-test-test-runner *   stx    s--    st-     --   "
           "  command                   command *                    stx    s--    st-     --   "
@@ -57,13 +56,13 @@
           "  creator                   creator *                    stx    s--    st-     --   "
           "  deps                      deps *                       stx    s--    st-     --   "
           "  doc                       doc *                        s--    s--    s--     --   "
-          "  file                      file *                       stx    s--    st-     --   "
+          "  file                      file *                       s--    s--    s--     --   "
           "  git                       git *                        stx    s--    st-     --   "
           "  help                      help *                       s--    s--    s--     --   "
           "  image-creator             image-creator *              s--    ---    s--     --   "
           "  image-creator             image-creator-x *            ---    s--    ---     s-   "
           "  lib                       lib *                        stx    s--    st-     --   "
-          "  migrator                  migrator *                   stx    s--    st-     --   "
+          "  migrator                  migrator *                   s--    s--    s--     --   "
           "  overview                  overview *                   s--    s--    s--     --   "
           "  path-finder               path-finder *                stx    s--    st-     --   "
           "  sh                        sh *                         s--    s--    s--     --   "
@@ -85,16 +84,15 @@
           "  ws-explorer               ws-explorer *                stx    s--    st-     --   "
           "  ws-file                   ws-file *                    s--    s--    s--     --   "
           "  -                         nav-generator *              s--    ---    s--     --   "
-          "  -                         poly-cli *                   stx    s--    st-     --   "])))
+          "  -                         poly-cli *                   stx    s--    st-     --   "]
+         (ws-table/table (workspace) false false))))
 
 (defn keep-except [exclude rows]
   (filterv #(nil? (str/index-of % exclude))
            rows))
 
 (deftest polylith-libs
-  (is (= (keep-except "clojure2d"
-                      (libs/table (workspace)))
-         ["                                                                                                         i                  "
+  (is (= ["                                                                                                         i                  "
           "                                                                                                         m                  "
           "                                                                                                         a              w   "
           "                                                                                                         g              o   "
@@ -122,45 +120,12 @@
           "  org.slf4j/slf4j-nop          2.0.9      maven      4    x      x      x      -         -      .  .  .  .  .  .  .  .  .  ."
           "  pjstadig/humane-test-output  0.11.0     maven      7    t      -      -      -         -      .  .  .  .  .  .  .  .  .  ."
           "  rewrite-clj/rewrite-clj      1.1.47     maven     73    -      -      x      -         -      .  .  .  .  .  .  .  .  .  ."
-          "  zprint/zprint                1.2.8      maven    211    x      x      x      -         -      .  .  .  .  x  .  .  .  .  ."])))
-
-#_(deftest polylith-libs-outdated
-    (is (= (keep-except "clojure2d"
-                        (libs/table (workspace)))
-           ["                                                                                                                      i                  "
-            "                                                                                                                      m                  "
-            "                                                                                                                      a              w   "
-            "                                                                                                                      g              o   "
-            "                                                                                                                      e              r  w"
-            "                                                                                                                      -              k  s"
-            "                                                                                                                      c           v  s  -"
-            "                                                                                                                      r  m        a  p  e"
-            "                                                                                                                      e  i        l  a  x"
-            "                                                                                                                      a  g        i  c  p"
-            "                                                                                                                      t  r  s     d  e  l"
-            "                                                                                                             a  d  f  o  a  h     a  -  o"
-            "                                                                                                             n  e  i  r  t  e  t  t  c  r"
-            "                                                                                                             t  p  l  -  o  l  a  o  l  e"
-            "  library                      version    latest  type      KB   api  poly  polyx   dev  extended  default   q  s  e  x  r  l  p  r  j  r"
-            "  ------------------------------------------------------------   ----------------   ----------------------   ----------------------------"
-            "  borkdude/edamame             1.3.23             maven     24    x    x      x      x      -         -      .  .  x  .  .  .  .  .  .  ."
-            "  clj-commons/fs               1.6.310            maven     12    x    x      x      x      -         -      .  .  x  .  .  .  .  .  .  ."
-            "  com.github.liquidz/antq      2.5.1109           maven     50    x    x      x      x      -         -      x  .  .  .  .  .  .  .  .  ."
-            "  djblue/portal                0.42.1             maven  1,809    -    x      x      x      -         -      .  .  .  .  .  .  x  .  .  ."
-            "  metosin/malli                0.11.0             maven     85    x    x      x      x      -         -      .  .  .  .  .  .  .  x  .  ."
-            "  mount/mount                  0.1.17             maven      8    -    -      -      x      -         -      .  .  .  .  .  .  .  .  .  ."
-            "  mvxcvi/puget                 1.3.4              maven     15    x    x      x      x      -         -      .  .  .  .  .  .  .  .  .  x"
-            "  org.clojure/clojure          1.11.1             maven  4,008    x    x      x      x      -         -      .  .  .  .  .  .  .  .  .  ."
-            "  org.clojure/tools.deps       0.18.1354          maven     58    x    x      x      x      -         -      .  x  x  .  .  .  .  .  x  ."
-            "  org.jline/jline              3.21.0     3.23.0  maven    971    -    x      x      x      -         -      .  .  .  .  .  x  .  .  .  ."
-            "  org.slf4j/slf4j-nop          2.0.7              maven      4    -    x      x      x      -         -      .  .  .  .  .  .  .  .  .  ."
-            "  pjstadig/humane-test-output  0.11.0             maven      7    -    t      -      -      -         -      .  .  .  .  .  .  .  .  .  ."
-            "  rewrite-clj/rewrite-clj      1.1.47             maven     73    -    -      -      x      -         -      .  .  .  .  .  .  .  .  .  ."
-            "  zprint/zprint                1.2.7              maven    210    -    x      x      x      -         -      .  .  .  .  x  .  .  .  .  ."])))
+          "  zprint/zprint                1.2.8      maven    211    x      x      x      -         -      .  .  .  .  x  .  .  .  .  ."]
+         (keep-except "clojure2d"
+                      (libs/table (workspace))))))
 
 (deftest polylith-workspace-ifc-deps-table
-  (is (= (ws-ifc-deps-table/table (workspace))
-         ["                                                                                              t                              "
+  (is (= ["                                                                                              t                              "
           "                                                                                              e                              "
           "                                                                                              s                              "
           "                                                                                              t                              "
@@ -223,14 +188,14 @@
           "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
           "  ws-file                   .  .  .  x  .  .  .  .  x  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  x  .  .  .  ."
           "  nav-generator             .  .  .  .  x  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
-          "  poly-cli                  .  .  x  .  t  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  t  .  .  t  .  ."])))
+          "  poly-cli                  .  .  x  .  t  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  x  t  .  .  t  .  ."]
+         (ws-ifc-deps-table/table (workspace)))))
 
 (deftest polylith-workspace-project-deps-table
   (let [ws (workspace)
         projects (:projects ws)
         project (common/find-project "poly" projects)]
-    (is (= (ws-project-deps-table/table (workspace) project)
-           ["                                                                                              t                              "
+    (is (= ["                                                                                              t                              "
             "                                                                                              e                              "
             "                                                                                              s                              "
             "                                                                                              t                              "
@@ -291,14 +256,14 @@
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  ws-file                   .  .  .  x  .  .  .  .  x  x  .  +  .  .  .  .  +  .  +  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
             "  nav-generator             .  .  .  +  x  .  +  .  +  .  .  +  .  .  .  +  .  .  +  .  .  +  .  +  +  .  x  +  +  .  .  .  ."
-            "  poly-cli                  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  t  +  +"]))))
+            "  poly-cli                  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  t  +  +"]
+           (ws-project-deps-table/table (workspace) project)))))
 
 (deftest polylith-workspace-project-deps-table-indirect
   (let [ws (workspace)
         projects (:projects ws)
         project (common/find-project "poly" projects)]
-    (is (= (ws-project-deps-table/table (workspace) project)
-           ["                                                                                              t                              "
+    (is (= ["                                                                                              t                              "
             "                                                                                              e                              "
             "                                                                                              s                              "
             "                                                                                              t                              "
@@ -359,14 +324,14 @@
             "  ws-explorer               .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  x  .  .  .  .  .  ."
             "  ws-file                   .  .  .  x  .  .  .  .  x  x  .  +  .  .  .  .  +  .  +  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
             "  nav-generator             .  .  .  +  x  .  +  .  +  .  .  +  .  .  .  +  .  .  +  .  .  +  .  +  +  .  x  +  +  .  .  .  ."
-            "  poly-cli                  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  t  +  +"]))))
+            "  poly-cli                  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  t  +  +"]
+           (ws-project-deps-table/table (workspace) project)))))
 
 (deftest polylith-brick-and-project-deps
   (let [{:keys [components projects] :as ws} (workspace)
         project (common/find-project "poly" projects)
         brick (common/find-component "workspace" components)]
-    (is (= (brick-deps-table/table ws project brick "none")
-           ["  used by   <  workspace  >  uses       "
+    (is (= ["  used by   <  workspace  >  uses       "
             "  --------                   -----------"
             "  api                        antq       "
             "  command                    common     "
@@ -376,13 +341,13 @@
             "                             path-finder"
             "                             text-table "
             "                             util       "
-            "                             validator  "]))))
+            "                             validator  "]
+           (brick-deps-table/table ws project brick "none")))))
 
 (deftest polylith-project-brick-deps
   (let [{:keys [components] :as ws} (workspace)
         brick (common/find-component "workspace" components)]
-    (is (= (brick-ifc-deps/table ws brick)
-           ["  used by   <  workspace  >  uses       "
+    (is (= ["  used by   <  workspace  >  uses       "
             "  --------                   -----------"
             "  api                        antq       "
             "  command                    common     "
@@ -392,11 +357,11 @@
             "                             path-finder"
             "                             text-table "
             "                             util       "
-            "                             validator  "]))))
+            "                             validator  "]
+           (brick-ifc-deps/table ws brick)))))
 
 (deftest polylith-poly-project-deps
-  (is (= (ws-explorer/extract (workspace) ["projects" "poly" "deps"])
-         {"antq"                     {:src  {:direct ["util"]}
+  (is (= {"antq"                     {:src  {:direct ["util"]}
                                       :test {}}
           "api"                      {:src  {:direct   ["change"
                                                         "user-input"
@@ -1008,11 +973,11 @@
                                                         "system"
                                                         "text-table"
                                                         "user-config"]}
-                                      :test {}}})))
+                                      :test {}}}
+         (ws-explorer/extract (workspace) ["projects" "poly" "deps"]))))
 
 (deftest polylith-poly-project-src-paths
-  (is (= (ws-explorer/extract (workspace) ["projects" "poly" "paths" "src"])
-         ["bases/nav-generator/src"
+  (is (= ["bases/nav-generator/src"
           "bases/poly-cli/src"
           "components/antq/src"
           "components/api/src"
@@ -1048,12 +1013,11 @@
           "components/workspace-clj/src"
           "components/workspace/src"
           "components/ws-explorer/src"
-          "components/ws-file/src"])))
+          "components/ws-file/src"]
+         (ws-explorer/extract (workspace) ["projects" "poly" "paths" "src"]))))
 
 (deftest polylith-poly-project-test-paths
-  (is (= (ws-explorer/extract (workspace) ["projects" "poly" "paths" "test"])
-         ["bases/poly-cli/test"
-          "components/api/test"
+  (is (= ["bases/poly-cli/test"
           "components/change/test"
           "components/clojure-test-test-runner/test"
           "components/command/test"
@@ -1061,10 +1025,8 @@
           "components/config-reader/test"
           "components/creator/test"
           "components/deps/test"
-          "components/file/test"
           "components/git/test"
           "components/lib/test"
-          "components/migrator/test"
           "components/path-finder/test"
           "components/shell/test"
           "components/test-helper/resources"
@@ -1077,11 +1039,11 @@
           "components/workspace-clj/test"
           "components/workspace/test"
           "components/ws-explorer/test"
-          "projects/poly/test"])))
+          "projects/poly/test"]
+         (ws-explorer/extract (workspace) ["projects" "poly" "paths" "test"]))))
 
 (deftest polylith-poly-project-lib-imports
-  (is (= (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"])
-         {:src  ["antq.api"
+  (is (= {:src  ["antq.api"
                  "clojure.edn"
                  "clojure.java.browse"
                  "clojure.java.io"
@@ -1118,19 +1080,17 @@
                  "clojure.test"
                  "malli.core"
                  "polylith.clj.core.poly-cli.api"
-                 "polylith.clj.core.poly-cli.core"]})))
+                 "polylith.clj.core.poly-cli.core"]}
+         (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"]))))
 
 (deftest polylith-shell-component-lib-deps
-  (is (= (ws-explorer/extract (workspace) ["components" "shell" "lib-deps"])
-         {:src {"org.jline/jline" {:size    1145741
+  (is (= {:src {"org.jline/jline" {:size    1145741
                                    :type    "maven"
-                                   :version "3.24.1"}}})))
+                                   :version "3.24.1"}}}
+         (ws-explorer/extract (workspace) ["components" "shell" "lib-deps"]))))
 
 (deftest profile-info
-  (is (= (run-cmd "examples/profiles"
-                  "info"
-                  ":no-changes")
-         ["  stable since: 1234567                       "
+  (is (= ["  stable since: 1234567                       "
           "                                              "
           "  projects: 2   interfaces: 5                 "
           "  bases:    2   components: 6                 "
@@ -1153,13 +1113,13 @@
           "  -            base1          st-   st-   --  "
           "  -            base2          st-   st-   --  "
           ""
-          "  Error 107: Missing components in the service project for these interfaces: calculator"])))
+          "  Error 107: Missing components in the service project for these interfaces: calculator"]
+         (run-cmd "examples/profiles"
+                  "info"
+                  ":no-changes"))))
 
 (deftest profile-info-where-test-has-changed
-  (is (= (run-cmd "examples/profiles"
-                  "info"
-                  "changed-files:bases/base2/test/se/example/base2/core_test.clj")
-         ["  stable since: 1234567                       "
+  (is (= ["  stable since: 1234567                       "
           "                                              "
           "  projects: 2   interfaces: 5                 "
           "  bases:    2   components: 6                 "
@@ -1182,13 +1142,13 @@
           "  -            base1          stx   st-   --  "
           "  -            base2 *        stx   st-   --  "
           ""
-          "  Error 107: Missing components in the service project for these interfaces: calculator"])))
+          "  Error 107: Missing components in the service project for these interfaces: calculator"]
+         (run-cmd "examples/profiles"
+                  "info"
+                  "changed-files:bases/base2/test/se/example/base2/core_test.clj"))))
 
 (deftest profile-info-where-src-has-changed
-  (is (= (run-cmd "examples/profiles"
-                  "info"
-                  "changed-files:bases/base2/src/se/example/base2/core.clj")
-         ["  stable since: 1234567                       "
+  (is (= ["  stable since: 1234567                       "
           "                                              "
           "  projects: 2   interfaces: 5                 "
           "  bases:    2   components: 6                 "
@@ -1211,13 +1171,13 @@
           "  -            base1          stx   st-   --  "
           "  -            base2 *        stx   st-   --  "
           ""
-          "  Error 107: Missing components in the service project for these interfaces: calculator"])))
+          "  Error 107: Missing components in the service project for these interfaces: calculator"]
+         (run-cmd "examples/profiles"
+                  "info"
+                  "changed-files:bases/base2/src/se/example/base2/core.clj"))))
 
 (deftest profile-info-loc
-  (is (= (run-cmd "examples/profiles"
-                  "info" ":loc"
-                  ":no-changes")
-         ["  stable since: 1234567                                 "
+  (is (= ["  stable since: 1234567                                 "
           "                                                        "
           "  projects: 2   interfaces: 5                           "
           "  bases:    2   components: 6                           "
@@ -1242,13 +1202,13 @@
           "  -            base2          st-   st-   --       1   5"
           "                              12    13            16  38"
           ""
-          "  Error 107: Missing components in the service project for these interfaces: calculator"])))
+          "  Error 107: Missing components in the service project for these interfaces: calculator"]
+         (run-cmd "examples/profiles"
+                  "info" ":loc"
+                  ":no-changes"))))
 
 (deftest profile-info-skip-dev
-  (is (= (run-cmd "examples/profiles"
-                  "info" "skip:dev"
-                  ":no-changes")
-         ["  stable since: 1234567          "
+  (is (= ["  stable since: 1234567          "
           "                                 "
           "  projects: 1   interfaces: 5    "
           "  bases:    2   components: 6    "
@@ -1270,12 +1230,13 @@
           "  -            base1          st-"
           "  -            base2          st-"
           ""
-          "  Error 107: Missing components in the service project for these interfaces: calculator"])))
+          "  Error 107: Missing components in the service project for these interfaces: calculator"]
+         (run-cmd "examples/profiles"
+                  "info" "skip:dev"
+                  ":no-changes"))))
 
 (deftest profile-deps
-  (is (= (run-cmd "examples/profiles"
-                  "deps")
-         ["                      t      "
+  (is (= ["                      t      "
           "                c     e      "
           "                a     s      "
           "                l  d  t      "
@@ -1294,12 +1255,12 @@
           "  user1         .  t  t  .  ."
           "  util1         .  .  .  .  ."
           "  base1         .  .  .  .  t"
-          "  base2         .  .  .  .  ."])))
+          "  base2         .  .  .  .  ."]
+         (run-cmd "examples/profiles"
+                  "deps"))))
 
 (deftest profile-deps-project
-  (is (= (run-cmd "examples/profiles"
-                  "deps" "project:s")
-         ["                      t      "
+  (is (= ["                      t      "
           "                      e      "
           "                c     s      "
           "                a  d  t      "
@@ -1317,28 +1278,28 @@
           "  user1         .  t  t  -  ."
           "  util1         .  .  .  .  ."
           "  base1         .  .  .  .  t"
-          "  base2         .  .  .  .  ."])))
+          "  base2         .  .  .  .  ."]
+         (run-cmd "examples/profiles"
+                  "deps" "project:s"))))
 
 (deftest profile-deps-brick
-  (is (= (run-cmd "examples/profiles"
-                  "deps" "brick:database1")
-         ["  used by    <  database1  >  uses      "
+  (is (= ["  used by    <  database1  >  uses      "
           "  ---------                   ----------"
           "  user1 (t)                   calculator"
-          "                              util      "])))
+          "                              util      "]
+         (run-cmd "examples/profiles"
+                  "deps" "brick:database1"))))
 
 (deftest profile-deps-project-brick
-  (is (= (run-cmd "examples/profiles"
-                  "deps" "project:s" "brick:database1")
-         ["  used by    <  database1  >  uses      "
+  (is (= ["  used by    <  database1  >  uses      "
           "  ---------                   ----------"
           "  user1 (t)                   calculator"
-          "                              util1     "])))
+          "                              util1     "]
+         (run-cmd "examples/profiles"
+                  "deps" "project:s" "brick:database1"))))
 
 (deftest profile-libs
-  (is (= (run-cmd "examples/profiles"
-                  "libs")
-         ["                                                                         t"
+  (is (= ["                                                                         t"
           "                                                                         e"
           "                                                                         s"
           "                                                                         t"
@@ -1353,12 +1314,12 @@
           "  ------------------------------------------   -   -------------------   -"
           "  clj-commons/fs       1.6.310  maven     12   -    -      x       -     ."
           "  metosin/malli        0.11.1   maven      -   t    x      -       -     x"
-          "  org.clojure/clojure  1.11.1   maven  4,008   x    x      -       -     ."])))
+          "  org.clojure/clojure  1.11.1   maven  4,008   x    x      -       -     ."]
+         (run-cmd "examples/profiles"
+                  "libs"))))
 
 (deftest profile-libs-skip-dev
-  (is (= (run-cmd "examples/profiles"
-                  "libs" "skip:dev")
-         ["                                                   t"
+  (is (= ["                                                   t"
           "                                                   e"
           "                                                   s"
           "                                                   t"
@@ -1373,7 +1334,9 @@
           "  ------------------------------------------   -   -"
           "  clj-commons/fs       1.6.310  maven     12   -   ."
           "  metosin/malli        0.11.1   maven      -   t   x"
-          "  org.clojure/clojure  1.11.1   maven  4,008   x   ."])))
+          "  org.clojure/clojure  1.11.1   maven  4,008   x   ."]
+         (run-cmd "examples/profiles"
+                  "libs" "skip:dev"))))
 
 (defn clean-settings [ws]
   (let [vcs (dissoc (:vcs ws) :branch :stable-since)]
@@ -1385,8 +1348,7 @@
   (let [actual (clean-settings (ws-get "."
                                        [:settings]
                                        "ws-dir:examples/profiles"))]
-    (is (= actual
-           {:active-profiles #{"default"}
+    (is (= {:active-profiles #{"default"}
             :color-mode "none"
             :compact-views #{}
             :default-profile-name "default"
@@ -1421,4 +1383,5 @@
                   :auto-add true
                   :is-git-repo true
                   :polylith {:branch "master"
-                             :repo "https://github.com/polyfy/polylith.git"}}}))))
+                             :repo "https://github.com/polyfy/polylith.git"}}}
+           actual))))

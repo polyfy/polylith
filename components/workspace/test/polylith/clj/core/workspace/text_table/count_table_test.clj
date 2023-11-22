@@ -10,6 +10,6 @@
                 :interfaces (repeat 14 nil)})
 
 (deftest table--interfaces-components-bases-and-projects--returns-correct-list
-  (is (= (count-table/table workspace)
-         ["  projects: 2   interfaces: 14"
-          "  bases:    3   components: 15"])))
+  (is (= ["  projects: 2   interfaces: 14"
+          "  bases:    3   components: 15"]
+         (count-table/table workspace))))

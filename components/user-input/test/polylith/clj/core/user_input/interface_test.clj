@@ -14,47 +14,47 @@
                [:selected-profiles]))
 
 (deftest arguments--no-arguments
-  (is (= (test-arglist)
-         {:is-all false
+  (is (= {:is-all false
           :is-run-all-brick-tests false
           :is-run-project-tests false
-          :selected-projects #{}})))
+          :selected-projects #{}}
+         (test-arglist))))
 
 (deftest arguments--a-single-project
-  (is (= (test-arglist "cmd" "project:core")
-         {:is-all false
+  (is (= {:is-all false
           :is-run-all-brick-tests false
           :is-run-project-tests false
-          :selected-projects #{"core"}})))
+          :selected-projects #{"core"}}
+         (test-arglist "cmd" "project:core"))))
 
 (deftest arguments--a-list-of-projects
-  (is (= (test-arglist "cmd" "project:core:cli")
-         {:is-all false
+  (is (= {:is-all false
           :is-run-all-brick-tests false
           :is-run-project-tests false
-          :selected-projects #{"cli" "core"}})))
+          :selected-projects #{"cli" "core"}}
+         (test-arglist "cmd" "project:core:cli"))))
 
 (deftest arguments--single-project+all
-  (is (= (test-arglist "cmd" "project:core" ":all")
-         {:is-all true
+  (is (= {:is-all true
           :is-run-all-brick-tests true
           :is-run-project-tests true
-          :selected-projects #{"core"}})))
+          :selected-projects #{"core"}}
+         (test-arglist "cmd" "project:core" ":all"))))
 
 (deftest arguments--single-project+all-bricks
-  (is (= (test-arglist "cmd" "project:core" ":all-bricks")
-         {:is-all false
+  (is (= {:is-all false
           :is-run-all-brick-tests true
           :is-run-project-tests false
-          :selected-projects #{"core"}})))
+          :selected-projects #{"core"}}
+         (test-arglist "cmd" "project:core" ":all-bricks"))))
 
 (deftest arguments--test-project
-  (is (= (test-arglist "cmd" ":project")
-         {:is-all false
+  (is (= {:is-all false
           :is-run-all-brick-tests false
           :is-run-project-tests true
-          :selected-projects #{}})))
+          :selected-projects #{}}
+         (test-arglist "cmd" ":project"))))
 
 (deftest arguments--selected-profiles
-  (is (= (active-profiles-params "cmd" "+admin" "project:a" "+user")
-         {:selected-profiles #{"admin" "user"}})))
+  (is (= {:selected-profiles #{"admin" "user"}}
+         (active-profiles-params "cmd" "+admin" "project:a" "+user"))))

@@ -9,17 +9,17 @@
   (let [output (with-out-str
                  (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
                  (helper/execute-command "ws1" "create" "c" "name:"))]
-    (is (= output
-           "  A brick name must be given.\n"))))
+    (is (= "  A brick name must be given.\n"
+           output))))
 
 (deftest create-component--when-component-already-exists--return-error-message
   (let [output (with-out-str
                  (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
                  (helper/execute-command "ws1" "create" "c" "name:my-component")
                  (helper/execute-command "ws1" "create" "component" "name:my-component"))]
-    (is (= output
-           (str brick/create-brick-message "\n"
-                "  The brick 'my-component' already exists.\n")))))
+    (is (= (str brick/create-brick-message "\n"
+                "  The brick 'my-component' already exists.\n")
+           output))))
 
 (deftest create-component--without-giving-an-interface--performs-expected-actions
   (let [src-ifc-dir "ws1/components/my-component/src/se/example/my_component"
@@ -27,11 +27,10 @@
         output (with-out-str
                  (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example")
                  (helper/execute-command "ws1" "create" "c" "name:my-component"))]
-    (is (= output
-           (str brick/create-brick-message "\n")))
+    (is (= (str brick/create-brick-message "\n")
+           output))
 
-    (is (= (helper/paths "ws1")
-           #{".gitignore"
+    (is (= #{".gitignore"
              ".vscode"
              ".vscode/settings.json"
              "bases"
@@ -61,18 +60,19 @@
              "projects"
              "projects/.keep"
              "readme.md"
-             "workspace.edn"}))
+             "workspace.edn"}
+           (helper/paths "ws1")))
 
-    (is (= (helper/content src-ifc-dir "interface.clj")
-           ["(ns se.example.my-component.interface)"]))
+    (is (= ["(ns se.example.my-component.interface)"]
+           (helper/content src-ifc-dir "interface.clj")))
 
-    (is (= (helper/content test-ifc-dir "interface_test.clj")
-           ["(ns se.example.my-component.interface-test"
+    (is (= ["(ns se.example.my-component.interface-test"
             "  (:require [clojure.test :as test :refer :all]"
             "            [se.example.my-component.interface :as my-component]))"
             ""
             "(deftest dummy-test"
-            "  (is (= 1 1)))"]))))
+            "  (is (= 1 1)))"]
+           (helper/content test-ifc-dir "interface_test.clj")))))
 
 (deftest create-component--without-with-a-different-interface--performs-expected-actions
   (let [src-ifc-dir "ws1/components/my-component/src/se/example/my_interface"
@@ -80,11 +80,10 @@
         output (with-out-str
                  (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example")
                  (helper/execute-command "ws1" "create" "c" "name:my-component" "interface:my-interface"))]
-    (is (= output
-           (str brick/create-brick-message "\n")))
+    (is (= (str brick/create-brick-message "\n")
+           output))
 
-    (is (= (helper/paths "ws1")
-           #{".gitignore"
+    (is (= #{".gitignore"
              ".vscode"
              ".vscode/settings.json"
              "bases"
@@ -114,15 +113,16 @@
              "projects"
              "projects/.keep"
              "readme.md"
-             "workspace.edn"}))
+             "workspace.edn"}
+           (helper/paths "ws1")))
 
-    (is (= (helper/content src-ifc-dir "interface.clj")
-           ["(ns se.example.my-interface.interface)"]))
+    (is (= ["(ns se.example.my-interface.interface)"]
+           (helper/content src-ifc-dir "interface.clj")))
 
-    (is (= (helper/content test-ifc-dir "interface_test.clj")
-           ["(ns se.example.my-interface.interface-test"
+    (is (= ["(ns se.example.my-interface.interface-test"
             "  (:require [clojure.test :as test :refer :all]"
             "            [se.example.my-interface.interface :as my-interface]))"
             ""
             "(deftest dummy-test"
-            "  (is (= 1 1)))"]))))
+            "  (is (= 1 1)))"]
+           (helper/content test-ifc-dir "interface_test.clj")))))

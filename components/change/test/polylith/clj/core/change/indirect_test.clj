@@ -63,8 +63,7 @@
              "change" {:src {:direct ["git" "util"], :indirect ["shell"]}}}]])
 
 (deftest project-to-indirect-changes--based-on-dependencies-and-changed-components--return-indirectly-changed-bricks-per-project
-  (is (= (indirect/project-to-indirect-changes deps #{"change" "help"})
-         {"cli"  {:src  ["cli"
+  (is (= {"cli"  {:src  ["cli"
                          "command"
                          "z-jocke"]
                   :test []}
@@ -75,4 +74,6 @@
           "dev"  {:src  ["cli"
                          "command"
                          "z-jocke"]
-                  :test []}})))
+                  :test []}}
+         (indirect/project-to-indirect-changes deps #{"change" "help"}))))
+

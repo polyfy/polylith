@@ -7,65 +7,65 @@
   'polylith.clj.core.clojure-test-test-runner.interface/create)
 
 (deftest no-projects-no-project-settings
-  (is (= (sut/convert {})
-         {})))
+  (is (= {}
+         (sut/convert {}))))
 
 (deftest simple-project
-  (is (= (sut/convert {:projects {"foo" {}}})
-         {"foo" {}})))
+  (is (= {"foo" {}}
+         (sut/convert {:projects {"foo" {}}}))))
 
 (deftest legacy-test-vector
-  (is (= (sut/convert {:projects {"foo" {:test ["bar"]}}})
-         {"foo" {:test {:include ["bar"]}}})))
+  (is (= {"foo" {:test {:include ["bar"]}}}
+         (sut/convert {:projects {"foo" {:test ["bar"]}}}))))
 
 (deftest global-test-spec
-  (is (= (sut/convert
+  (is (= {"foo" {:test {:overridden :with-project
+                        :from-project :from-project
+                        :untouched :at-top}}}
+         (sut/convert
           {:projects {"foo" {:test {:overridden :with-project
                                     :from-project :from-project}}}
            :test {:overridden :not
-                  :untouched :at-top}})
-         {"foo" {:test {:overridden :with-project
-                        :from-project :from-project
-                        :untouched :at-top}}})))
+                  :untouched :at-top}}))))
 
 (deftest legacy-project+global-settings
-  (is (= (sut/convert
+  (is (= {"foo" {:test {:include ["bar"]
+                        :from-top :from-top}}}
+         (sut/convert
           {:projects {"foo" {:test ["bar"]}}
-           :test {:from-top :from-top}})
-         {"foo" {:test {:include ["bar"]
-                        :from-top :from-top}}})))
+           :test {:from-top :from-top}}))))
 
 (deftest test-runner-constructor-without-top-level
-  (is (= (sut/convert
+  (is (= {"foo" {}
+          "bar" {:test {:create-test-runner 'my.ns/create}}
+          "baz" {:test {:create-test-runner :default}}}
+         (sut/convert
           {:projects {"foo" {}
                       "bar" {:test {:create-test-runner 'my.ns/create}}
-                      "baz" {:test {:create-test-runner :default}}}})
-         {"foo" {}
-          "bar" {:test {:create-test-runner 'my.ns/create}}
-          "baz" {:test {:create-test-runner :default}}})))
+                      "baz" {:test {:create-test-runner :default}}}}))))
 
 (deftest test-runner-constructor-with-top-level
-  (is (= (sut/convert
+  (is (= {"foo" {:test {:create-test-runner 'global.test/create}}
+          "bar" {:test {:create-test-runner 'my.ns/create}}
+          "baz" {:test {:create-test-runner :default}}}
+         (sut/convert
           {:test {:create-test-runner 'global.test/create}
            :projects {"foo" {}
                       "bar" {:test {:create-test-runner 'my.ns/create}}
-                      "baz" {:test {:create-test-runner :default}}}})
-         {"foo" {:test {:create-test-runner 'global.test/create}}
-          "bar" {:test {:create-test-runner 'my.ns/create}}
-          "baz" {:test {:create-test-runner :default}}})))
+                      "baz" {:test {:create-test-runner :default}}}}))))
 
 (deftest multiple-test-runner-constructors
-  (is (= (sut/convert
+  (is (= {"foo" {:test {:create-test-runner ['global.test/create :default]}}
+          "bar" {:test {:create-test-runner 'my.ns/create}}
+          "baz" {:test {:create-test-runner :default}}
+          "qux" {:test {:create-test-runner ['other.ns/create
+                                             :default
+                                             'global.test/create]}}}
+         (sut/convert
           {:test {:create-test-runner ['global.test/create :default]}
            :projects {"foo" {}
                       "bar" {:test {:create-test-runner 'my.ns/create}}
                       "baz" {:test {:create-test-runner :default}}
                       "qux" {:test {:create-test-runner ['other.ns/create
                                                          :default
-                                                         'global.test/create]}}}})
-         {"foo" {:test {:create-test-runner ['global.test/create :default]}}
-          "bar" {:test {:create-test-runner 'my.ns/create}}
-          "baz" {:test {:create-test-runner :default}}
-          "qux" {:test {:create-test-runner ['other.ns/create
-                                             :default
-                                             'global.test/create]}}})))
+                                                         'global.test/create]}}}}))))

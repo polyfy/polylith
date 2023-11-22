@@ -26,11 +26,11 @@
                                               "slugger.core"]}]}})
 
 (deftest lib-imports-src--given-a-component-with-interface-and-library-imports--return-all-imports-except-components
-  (is (= (lib-imports/lib-imports "clojure.realworld." interface-names component)
-         {:src ["clj-time.coerce"
+  (is (= {:src ["clj-time.coerce"
                 "clj-time.core"
                 "clojure.java.jdbc"
                 "clojure.string"
                 "honeysql.core"
                 "slugger.core"
-                "spec-tools.data-spec"]})))
+                "spec-tools.data-spec"]}
+         (lib-imports/lib-imports "clojure.realworld." interface-names component))))

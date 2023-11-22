@@ -67,8 +67,7 @@
                                             {:name "func5", :type "function", :arglist [{:name "a"} {:name "b"} {:name "c"} {:name "d"}]}]}}])
 
 (deftest errors--when-having-a--component-with-missing-definitionss--return-error-message
-  (is (= (m103/errors interfaces components color/none)
-         [{:type "error",
+  (is (= [{:type "error",
            :code 103,
            :colorized-message "Missing definitions in invoice2's interface: abc",
            :message           "Missing definitions in invoice2's interface: abc",
@@ -77,4 +76,5 @@
            :code 103,
            :colorized-message "Missing definitions in user2's interface: data1, func1[], subns.func4[]",
            :message "Missing definitions in user2's interface: data1, func1[], subns.func4[]",
-           :components ["user2"]}])))
+           :components ["user2"]}]
+         (m103/errors interfaces components color/none))))

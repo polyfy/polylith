@@ -99,14 +99,7 @@
                          "change" {:src ["clojure.set" "clojure.string"]}})
 
 (deftest paths--without-active-profile--returns-expected-map
-  (is (= (dissoc (proj/enrich-project project "." components bases "se.example." brick->loc brick->lib-imports
-                                      {:missing []}
-                                      {}
-                                      {:projects {"development" {:alias "dev"}}}
-                                      #{}
-                                      {})
-                 :deps)
-         {:alias                    "dev"
+  (is (= {:alias                    "dev"
           :base-names               {:src ["cli"], :test ["cli"]}
           :component-names          {:src ["change"
                                            "command"
@@ -148,23 +141,17 @@
                                              :test ["bases/cli/test"
                                                     "components/change/test"
                                                     "components/command/test"
-                                                    "test"]}}})))
-
-(deftest paths--with-active-profile--includes-brick-in-profile
-  (is (= (dissoc (proj/enrich-project project "." components bases "se.example." brick->loc brick->lib-imports
+                                                    "test"]}}}
+         (dissoc (proj/enrich-project project "." components bases "se.example." brick->loc brick->lib-imports
                                       {:missing []}
                                       {}
-                                      {:active-profiles ["default"]
-                                       :profile-to-settings {"default" {:paths ["components/user/src"
-                                                                                "components/user/resources"
-                                                                                "components/user/test"]
-                                                                        :lib-deps {"clojure.core.matrix"
-                                                                                   "net.mikera/core.matrix"}}}
-                                       :projects {"development" {:alias "dev", :test []}}}
+                                      {:projects {"development" {:alias "dev"}}}
                                       #{}
                                       {})
-                 :deps)
-         {:alias                "dev"
+                 :deps))))
+
+(deftest paths--with-active-profile--includes-brick-in-profile
+  (is (= {:alias                "dev"
           :base-names           {:src ["cli"],
                                  :test ["cli"]}
           :component-names      {:src ["change"
@@ -213,4 +200,17 @@
                                          :test ["bases/cli/test"
                                                 "components/change/test"
                                                 "components/command/test"
-                                                "test"]}}})))
+                                                "test"]}}}
+         (dissoc (proj/enrich-project project "." components bases "se.example." brick->loc brick->lib-imports
+                                      {:missing []}
+                                      {}
+                                      {:active-profiles ["default"]
+                                       :profile-to-settings {"default" {:paths ["components/user/src"
+                                                                                "components/user/resources"
+                                                                                "components/user/test"]
+                                                                        :lib-deps {"clojure.core.matrix"
+                                                                                   "net.mikera/core.matrix"}}}
+                                       :projects {"development" {:alias "dev", :test []}}}
+                                      #{}
+                                      {})
+                 :deps))))

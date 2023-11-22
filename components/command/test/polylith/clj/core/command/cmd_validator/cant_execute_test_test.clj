@@ -3,17 +3,18 @@
             [polylith.clj.core.command.cmd-validator.executable :as executable]))
 
 (deftest when-executed-outside-the-workspace
-  (is (= (executable/cant-execute-test? nil "test" nil false)
-         true)))
+  (is (= true
+         (executable/cant-execute-test? nil "test" nil false))))
+
 
 (deftest when-test-command-and-none-of-ws-dir-or-ws-file-is-set
-  (is (= (executable/cant-execute-test? {} "test" nil false)
-         false)))
+  (is (= false
+         (executable/cant-execute-test? {} "test" nil false))))
 
 (deftest when-test-command-and-ws-dir-is-set
-  (is (= (executable/cant-execute-test? {} "test" ".." false)
-         true)))
+  (is (= true
+         (executable/cant-execute-test? {} "test" ".." false))))
 
 (deftest when-create-command-and-find-parent-dir-is-set
-  (is (= (executable/cant-execute-test? {} "test" nil true)
-         true)))
+  (is (= true
+         (executable/cant-execute-test? {} "test" nil true))))

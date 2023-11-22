@@ -12,36 +12,36 @@
            (defs/filter-statements code)))))
 
 (deftest definitions--a-single-arity-defn-statement--returns-a-definition
-  (is (= (defs/definitions "interface"
-                           '(defn ordered-map [& keyvals] (core/ordered-map keyvals))
-                           "interface")
-         [{:name "ordered-map"
+  (is (= [{:name "ordered-map"
            :type "function"
            :arglist [{:name "&"}
-                     {:name "keyvals"}]}])))
+                     {:name "keyvals"}]}]
+         (defs/definitions "interface"
+                           '(defn ordered-map [& keyvals] (core/ordered-map keyvals))
+                           "interface"))))
 
 (deftest definitions--a-single-arity-defn-statement-with-a-type-hint--returns-a-definition-including-type-hint
-  (is (= (defs/definitions "interface"
-                           '(defn my-func [arg1 ^String arg2] (core/my-func arg1 arg2))
-                           "interface")
-         [{:name "my-func"
+  (is (= [{:name "my-func"
            :type "function"
            :arglist [{:name "arg1"}
-                     {:name "arg2", :type "^String"}]}])))
+                     {:name "arg2", :type "^String"}]}]
+         (defs/definitions "interface"
+                           '(defn my-func [arg1 ^String arg2] (core/my-func arg1 arg2))
+                           "interface"))))
 
 (deftest definitions--a-multi-arity-defn-statement--returns-a-list-of-definitions
-  (is (= (defs/definitions "interface"
-                           '(defn pretty-messages
-                              ([workspace]
-                               (msg/pretty-messages workspace))
-                              ([messages color-mode]
-                               (msg/pretty-messages messages color-mode)))
-                           "interface")
-
-         [{:name "pretty-messages"
+  (is (= [{:name "pretty-messages"
            :type "function"
            :arglist [{:name "workspace"}]}
           {:name "pretty-messages"
            :type "function"
            :arglist [{:name "messages"}
-                     {:name "color-mode"}]}])))
+                     {:name "color-mode"}]}]
+
+         (defs/definitions "interface"
+                           '(defn pretty-messages
+                              ([workspace]
+                               (msg/pretty-messages workspace))
+                              ([messages color-mode]
+                               (msg/pretty-messages messages color-mode)))
+                           "interface"))))
