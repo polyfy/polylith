@@ -59,7 +59,6 @@ poly libs :compact
 
 image::images/libraries/output/libs-compact.png[]
 
-[#update]
 == Updating
 
 You can list outdated libraries:
@@ -74,6 +73,7 @@ Here's an example output where some libraries were out of date:
 
 image::images/libraries/libs-outdated.png[]
 
+[#update]
 You can ask `poly` to update all libraries to the `latest` version in all `deps.edn` for all bricks and projects via:
 
 [source,shell]
