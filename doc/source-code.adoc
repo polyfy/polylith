@@ -1,12 +1,17 @@
 = Source code
+:toc:
 
-In all our examples so far, the source code has been stored in two directories, `src` and `test`.
-xref:tools-deps.adoc[Tools.deps] supports splitting up the source and test code into several directories, and that is also supported by the `poly` tool.
+== Paths
 
-It's also worth mentioning that the `poly` tool understands `.cljc` files which can be used to share code between `.clj` and `.cljs`.
+In all our examples thus far, we've shown source code stored in two directories: `src` and `test`.
+xref:tools-deps.adoc[Tools.deps] supports splitting source and test code into several directories, as does `poly`.
 
-Let's say we have a `company` component that contains both `.clj` and `.cljc` files.
-Now we can choose to store both type of files in the same `src` directory:
+We've only shown `.clj` files in our examples, but `poly` also recognizes `.cljc` files, which you can use to share code between Clojure and ClojureScript.
+(See <<frontend>> below.)
+
+We'll contrive an example of splitting source code over multiple directories by exploring two ways of storing `.clj` and `.cljc` files.
+Imagine a `company` component that contains both `.clj` and `.cljc` files.
+You can choose to store both types of files in the same `src` directory:
 
 [source,shell]
 ----
@@ -15,7 +20,7 @@ Now we can choose to store both type of files in the same `src` directory:
 │   │   ├── src
 ----
 
-...and configure the component's `deps.edn` file like this:
+For this strategy, you'd configure the component's `deps.edn` file like so:
 
 [source,clojure]
 ----
@@ -33,7 +38,7 @@ An alternative is to store the source code in two separate directories:
 │   │   ├── cljc
 ----
 
-...and configure them like this in the component's `deps.edn` file:
+And configure `:paths` in the component's `deps.edn` file as:
 
 [source,clojure]
 ----
@@ -41,13 +46,15 @@ An alternative is to store the source code in two separate directories:
  ....
 ----
 
-This can facilitate code sharing, as it becomes clear where all the `cljc` code resides.
+Some prefer this scheme, as it clearly shows where all the `.cljc` code resides.
+We are not recommending one strategy over the other.
+Our focus is to illustrate splitting source code over multiple paths.
 
 == Resources
 
-The `resources` directory is used to store non-source files, e.g. images or data, and lives in bricks and projects.
-To avoid file naming conflicts, the tool creates a sub-directory under `resources`.
-For components, the name is the component's xref:interface.adoc[interface] name, and for bases, it's the base name, e.g.:
+The `resources` directory stores non-source files, e.g., images or data, and lives in bricks and, optionally, projects.
+To keep resource paths unique on the classpath, `poly` creates a sub-directory under `resources` when creating a brick.
+For xref:component.adoc[components], the sub-directory name is the component's xref:interface.adoc[interface] name, and for xref:base.asdoc[bases], it's the base name, e.g.:
 
 [source,shell]
 ----
@@ -59,28 +66,32 @@ For components, the name is the component's xref:interface.adoc[interface] name,
 ├── components
 │   ├── creator
 │   │   ├── resources
-│   │   │   └── creator
+│   │   │   └── creator ;; <1>
 │   │   │       └── logo.png
 ----
+<1> By default, the interface names match component names
 
-== Frontend
+[[frontend]]
+== Frontend Code Options
 
-The `poly` tool doesn't understand https://clojurescript.org/[ClojureScript] code (`.cljs`), but does understand `.cljc` code, which we can use if we want to share code between backend and frontend.
-To do so we have three alternatives:
+The `poly` tool doesn't understand https://clojurescript.org/[ClojureScript] `.cljs` files, but it recognizes `.cljc` files, which you can use to share code between your backend and frontend.
 
-==== 1. Put the frontend code in a base
+Three frontend code organization alternatives are:
 
-One option is to put all the frontend code in a base.
-The `poly` tool will recognise all `.cljc` code in the base, resulting in a "stripped" view of that component when used.
+=== 1. Frontend in Base or Components
 
-If we want to share the `cljc` code with the backend, then we should put that code in one or more components.
+This option puts all your frontend code in a xref:base.adoc[base].
 
-==== 2. Put the frontend code in a separate directory
+The `poly` tool recognizes `.cljc` files in the base, resulting in a ClojureScript view of the component when used from the frontend.
+
+If you want to share the `.cljc` code with the backend, you would put that code in one or more xref:component.adoc[components].
+
+=== 2. Frontend in a Non-`poly` Directory
 
 Another option is to put the frontend code in a separate directory.
-If we do that, we have two alternatives.
+Two alternatives are:
 
-===== a) Let the frontend code live in the same workspace
+==== a) Under the Workspace
 
 [source,shell]
 ----
@@ -88,35 +99,41 @@ myworkspace
 ├── bases
 ├── components
 ├── development
-├── myfrontend
+├── myfrontend ;; <1>
 └── projects
 ----
+<1> Not a base, not a component, just your frontend code referenced as `:local/root`
 
-Now we can include `.cljc` files from our backend code, by treating them as libraries and "import" them with `:local/root`.
-The drawback with this is that they will not be recognised as bricks, and changes to these files will not be recognised by the `poly` tool.
-There are plans to fix this, see https://github.com/polyfy/polylith/discussions/301[this] discussion.
+You would include `.cljc` files from your backend code by treating it as a library and referencing it via `:local/root`.
+A drawback is that changes to the frontend code files will not be detected by `poly` because they sit outside the `poly` directory structure and are, therefore, unknown to `poly`.
 
-===== b) Let the frontend code live outside the workspace
+NOTE: We are currently https://github.com/polyfy/polylith/discussions/301[discussing] how to properly recognize and support ClojureScript within a `poly` workspace.
 
-We can also put the backend and frontend code in two separate directories within the same git repo.
-The two directories can live anywhere in the repo, e.g. at the top level:
+==== b) Outside the Workspace
+
+Under this strategy, the frontend code sits within your git repository but physically outside of the workspace.
 
 [source,shell]
 ----
 myrepository
-├── mybackend
+├── mybackend ;; <1>
 │   ├── bases
 │   ├── components
 │   ├── development
 │   └── projects
-└── myfrontend
+└── myfrontend ;; <2>
 ----
+<1> mybackend `poly` workspace
+<2> myfrontend plain old Clojure `:local/root` library
 
-Here we can "import" `.cljc` files as libraries, in the same way as in alternative 2a.
-The `poly` tool can handle both situations, so it's more a matter of preference what you choose.
+You would reference frontend `.cljc` files as a `:local/root` library in the same way as in alternative 2a.
+The `poly` tool can handle both layouts; it's more a matter of preference what you choose.
 
-==== 3. Let the frontend code live in another repository
+=== 3. Frontend in Separate Repository
 
-The last alternative is to put the frontend code in a separate repository.
-If we do that we will lose the Polylith way of sharing "living" code, by automatically having access to the latest version of the code.
-Now we have to "freeze" the `.cljc` code by building a library of it, to be able to share the code.
+The last alternative is to put your frontend code in a separate git repository.
+
+Some downsides to this strategy are:
+
+* You are no longer working with a monolith and might even have separate frontend and backend releases
+* You have a greater risk of the frontend and backend code becoming out of synch
