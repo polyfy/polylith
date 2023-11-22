@@ -616,7 +616,7 @@ poly ws get:projects:user-service
 * `:is-dev` Set to `true` for the development project.
 
 * `:lib-deps`
-** `:src` Stores a map with the libraries that are used in the project for the src context.
+** `:src` Stores a map with the libraries that are used in the project for the src context. Contains libraries that are specified by the project and the included bricks.
 *** `:latest-version` Set if there is a newer version of this library, except if xref:keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `:update` is given for the libs command.
 *** `:size` The size of this library in bytes.
 *** `:type` The type of the library, "maven", "local" or "git" (`:mvn/version`, `:local/root` and `:git/url`).
@@ -657,6 +657,16 @@ If ignored, then xref:validations.adoc#error111[Error 111 - Unreadable namespace
 ** `:test` Lists the paths that are either explicitly defined as paths or implicitly defined as `:local/root` bricks, for the `test` context.
 * `:project-dir` The absolute path to the project directory.
 * `:type` Set to "project".
+
+* `:project-lib-deps`
+** `:src` Stores a map with the libraries that are specified by the project for the src context.
+*** `:size` The size of this library in bytes.
+*** `:type` The type of the library, "maven", "local" or "git" (`:mvn/version`, `:local/root` and `:git/url`).
+*** `:version` The library version:
+**** if type is `maven` then version is set to `groupId/artifactId`.
+**** if type is `local` then the version key is excluded (a `-` is shown in the output from the xref:commands.adoc#libs[libs] command).
+**** if type is `git` then the version is set to the first seven characters in the `sha`.
+** `:test` A map with the libraries that are used in the project for the test context. Follows the same structure as the `:src` context.
 
 [#settings]
 == settings
