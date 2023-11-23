@@ -1,9 +1,15 @@
 = Clojure CLI Tool
 
-The `poly` tool uses its own syntax when passing in arguments.
-When using the `poly` command as a Clojure CLI Tool (see xref:install.adoc#_install_as_clojure_cli_tool[Install using Clojure CLI]) we instead use the standard way of passing in arguments as pairs.
+The `poly` tool's native argument syntax isn't compatible with Clojure CLI Tools argument syntax.
+Using xref:install.adoc#install-as-clojure-cli-tool[poly as a Clojure CLI Tool] means using Clojure Tools key/value pair argument syntax.
 
-The "native" `poly` tool has the following argument structure:
+NOTE: Our `poly` documentation only documents the `poly` native syntax.
+This document acts as a small translation guide.
+
+TIP: If using `poly` as a Clojure CLI Tool, consider using it only to launch a `poly` xref:shell.adoc[shell].
+From there, you'll use the `poly` native argument syntax and avoid the mental tax of using a non-native argument syntax.
+
+The `poly` tool native argument syntax has the following structure:
 
 * the command, followed by
 ** zero or more entities (e.g., `create` can be followed by `component`), followed by:
@@ -11,13 +17,13 @@ The "native" `poly` tool has the following argument structure:
 *** flag arguments (e.g., `:loc`)
 *** profiles (e.g., `+remote`)
 
-Because "exec args" must follow key/value syntax, the argument structure for `-Tpoly` is:
+Because Clojure Tools CLI exec args follows a key/value syntax, the argument structure for `-Tpoly` is:
 
-* the command (which is the "exec fn"), followed by
-- entity to name the first argument(s) to create or help,
-- named arguments as key/value pairs (e.g., `project example`),
-- flag arguments as keys with true or false values (e.g., `loc true`),
-- profiles to list any profiles to enable, without the leading + (e.g., `profiles '[remote]'`).
+* the command (which is the `:exec-fn`), followed by
+** entity to name the first argument(s) to create or help,
+** named arguments as key/value pairs (e.g., `project example`),
+** flag arguments as keys with true or false values (e.g., `loc true`),
+** profiles to list any profiles to enable, without the leading + (e.g., `profiles '[remote]'`).
 
 For convenience, most arguments can be provided as symbols rather than requiring quoted strings:
 
@@ -50,7 +56,7 @@ clojure -Tpoly info project true # flag argument
 clojure -Tpoly info project cli # named argument
 ----
 
-Since the exec argument format for create becomes verbose, there are four shortcut arguments:
+Since the exec argument format for `create` is verbose, there are four shortcut arguments:
 
 [source,shell]
 ----
@@ -64,7 +70,8 @@ clojure -Tpoly create w next-gen top-ns com.my-company
 clojure -Tpoly create entity workspace name next-gen top-ns com.my-company
 ----
 
-Finally, for some commands, more than one "entity" can be provided for the entity exec argument, those can be `:`-separated (in a string), or use `entities` and a vector (which can have symbols instead of strings):
+Some commands allow you to specify multiple `entity` exec arguments.
+Either use a single argument with `:` separators or use `entities` and a vector:
 
 [source,shell]
 ----
