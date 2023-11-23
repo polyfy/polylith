@@ -135,5 +135,5 @@ The last alternative is to put your frontend code in a separate git repository.
 
 Some downsides to this strategy are:
 
-* You are no longer working with a monolith and might even have separate frontend and backend releases
+* You are no longer working with a monorepo and might even have separate frontend and backend releases
 * You have a greater risk of the frontend and backend code becoming out of synch
