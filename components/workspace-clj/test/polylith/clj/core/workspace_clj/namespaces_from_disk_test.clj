@@ -100,7 +100,7 @@
             :file-path "path"
             :imports []
             :is-invalid true}
-           (from-disk/->namespace "." "" "" "" [] "path")))))
+           (from-disk/->namespace "." "" "" "" "path")))))
 
 (deftest ->namespace--ignore-data-readers
   (with-redefs [file/read-file (fn [_] ['--])
@@ -109,7 +109,7 @@
             :imports []
             :name ""
             :namespace ""}
-           (from-disk/->namespace "." "" "" "" [] "path/data_readers.clj")))))
+           (from-disk/->namespace "." "" "" "" "path/data_readers.clj")))))
 
 (deftest ->namespace--read-namespace
   (with-redefs [file/read-file (fn [_] file-content)
@@ -122,14 +122,12 @@
                                   "components/version/src/polylith/clj/core/"
                                   "polylith.clj.core."
                                   "interface"
-                                  []
                                   "components/tap/src/polylith/clj/core/tap/core.clj")))))
 
 (deftest ->namespace--read-namespace--ignore-file
   (with-redefs [file/read-file (fn [_] file-content)
                 from-disk/namespace-name (fn [_ _] "core")]
     (is (= {:name "core"
-            :is-ignored true
             :namespace "polylith.clj.core.tap.core"
             :file-path "components/tap/src/polylith/clj/core/tap/core.clj"
             :imports ["clojure.string" "portal.api"]}
@@ -137,5 +135,4 @@
                                   "components/version/src/polylith/clj/core/"
                                   "polylith.clj.core."
                                   "interface"
-                                  ["core.clj"]
                                   "components/tap/src/polylith/clj/core/tap/core.clj")))))

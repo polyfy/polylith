@@ -4,8 +4,7 @@
 
 (defn unreadable-ns [{:keys [file-path is-invalid]} type name color-mode]
   (when is-invalid
-    (let [message (str "Unreadable namespace in " (color/brick type name color-mode) ": " file-path ". "
-                       "To ignore this error, execute 'poly help check' and follow the instructions for error 111.")]
+    (let [message (str "Unreadable namespace in " (color/brick type name color-mode) ": " file-path ".")]
       [(util/ordered-map :type "error"
                          :code 111
                          :message (color/clean-colors message)

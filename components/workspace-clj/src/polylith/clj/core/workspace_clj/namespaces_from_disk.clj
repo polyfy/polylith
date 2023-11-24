@@ -116,11 +116,7 @@
           (first content))
        (-> content second boolean)))
 
-(defn ignore-file? [file-path files-to-ignore]
-  (some #(str/ends-with? file-path (str "/" %))
-        files-to-ignore))
-
-(defn ->namespace [ws-dir source-dir suffixed-top-ns interface-ns files-to-ignore file-path]
+(defn ->namespace [ws-dir source-dir suffixed-top-ns interface-ns file-path]
   (let [all-content (file/read-file file-path)
         content (first (drop-while #(-> % ns-with-name? not)
                                    all-content))
@@ -132,9 +128,7 @@
        :file-path relative-path
        :imports []}
       (let [imports (imports content suffixed-top-ns interface-ns)
-            ignore? (ignore-file? file-path files-to-ignore)
-            invalid? (not (or ignore?
-                              (str/ends-with? relative-path "/data_readers.clj")
+            invalid? (not (or (str/ends-with? relative-path "/data_readers.clj")
                               (-> content ns-with-name?)))]
         (cond-> {:name ns-name
                  :namespace (if (ns-with-name? content)
@@ -142,7 +136,6 @@
                               "")
                  :file-path relative-path
                  :imports imports}
-                ignore? (assoc :is-ignored true)
                 invalid? (assoc :is-invalid true))))))
 
 (comment
@@ -156,16 +149,16 @@
   (->namespace "." source-dir "polylith.clj.core." "interface" file-path)
   #__)
 
-(defn source-namespaces-from-disk [ws-dir source-dir suffixed-top-ns interface-ns files-to-ignore]
-  (mapv #(->namespace ws-dir source-dir suffixed-top-ns interface-ns files-to-ignore %)
+(defn source-namespaces-from-disk [ws-dir source-dir suffixed-top-ns interface-ns]
+  (mapv #(->namespace ws-dir source-dir suffixed-top-ns interface-ns %)
         (-> source-dir
             file/paths-recursively
             common/filter-clojure-paths)))
 
-(defn namespaces-from-disk [ws-dir src-dirs test-dirs suffixed-top-ns interface-ns files-to-ignore]
-  (let [src (vec (mapcat #(source-namespaces-from-disk ws-dir % suffixed-top-ns interface-ns files-to-ignore)
+(defn namespaces-from-disk [ws-dir src-dirs test-dirs suffixed-top-ns interface-ns]
+  (let [src (vec (mapcat #(source-namespaces-from-disk ws-dir % suffixed-top-ns interface-ns)
                          src-dirs))
-        test (vec (mapcat #(source-namespaces-from-disk ws-dir % suffixed-top-ns interface-ns files-to-ignore)
+        test (vec (mapcat #(source-namespaces-from-disk ws-dir % suffixed-top-ns interface-ns)
                           test-dirs))]
     (cond-> {}
             (seq src) (assoc :src src)

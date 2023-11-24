@@ -15,7 +15,6 @@
                                  :imports []}
                                 {:name "api"
                                  :namespace "polylith.clj.core.poly-cli.api"
-                                 :is-ignored true
                                  :file-path "bases/poly-cli/src/polylith/clj/core/poly_cli/api.clj"
                                  :imports ["clojure.string"]}]
                           :test [{:name "api-argument-mapping-test"
@@ -26,11 +25,11 @@
 
 (deftest warning--when-having-unreadable-namespaces--returns-warnings
   (is (= [{:code              111
-           :colorized-message "Unreadable namespace in poly-cli: bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj. To ignore this error, execute 'poly help check' and follow the instructions for error 111."
-           :message           "Unreadable namespace in poly-cli: bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj. To ignore this error, execute 'poly help check' and follow the instructions for error 111."
+           :colorized-message "Unreadable namespace in poly-cli: bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj."
+           :message           "Unreadable namespace in poly-cli: bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj."
            :type              "error"}
           {:code              111
-           :colorized-message "Unreadable namespace in poly-cli: bases/poly-cli/test/polylith/clj/core/poly_cli/api_argument_mapping_test.clj. To ignore this error, execute 'poly help check' and follow the instructions for error 111."
-           :message           "Unreadable namespace in poly-cli: bases/poly-cli/test/polylith/clj/core/poly_cli/api_argument_mapping_test.clj. To ignore this error, execute 'poly help check' and follow the instructions for error 111."
+           :colorized-message "Unreadable namespace in poly-cli: bases/poly-cli/test/polylith/clj/core/poly_cli/api_argument_mapping_test.clj."
+           :message           "Unreadable namespace in poly-cli: bases/poly-cli/test/polylith/clj/core/poly_cli/api_argument_mapping_test.clj."
            :type              "error"}]
          (m111/errors nil bases nil "none"))))
