@@ -1,54 +1,36 @@
-= Explore the workspace
+= Explore the Workspace
+:toc:
 
-// TODO-being (from Lee Read): Moved from dependencies.adoc, re-edit and integrate when reviewing this doc
-// == Notes on `ws-dir`
+The `poly` tool stores the workspace structure internally in an in-memory map.
+It is used by `poly` internally to support all xref:commands.adoc[commands].
+All operations happen efficiently and directly on the map.
 
-// Before we continue, it is relevant to mentioning that most commands, except the xref:commands.adoc#test[test] and xref:commands.adoc#create[create] commands, can be executed from other workspaces by specifying the `ws-dir` argument, e.g.:
+We expose the workspace structure via `ws` to allow our users to explore the complete state of any workspace.
 
-// [source,shell]
-// ----
-// poly check ws-dir:../example
-// ----
+IMPORTANT: The workspace structure represents internal state and can change with new releases of `poly`.
+See xref:versions.adoc[Versions] for a changelog.
 
-// Another way of specifying the workspace dir is the `::` argument, this set the workspace dir to the first parent directory that contains a `workspace.edn` file, e.g.:
+This document is a guide, see xref:workspace-structure.adoc[workspace structure] for a complete reference.
 
-// [source,shell]
-// ----
-// cd projects/realworld-backend # <1>
-// poly info :: # <2>
-// ----
-// <1> Move to two directories down
-// <2> Ask `poly` to find and use the workspace dir by looking upwards
+All examples operate on our tutorial link:/examples/doc-example[example workspace].
 
-// Which is equivalent to the explicit:
+== Exploring With `ws`
 
-// [source,shell]
-// ----
-// poly info ws-dir:../..
-// ----
+TIP: We recommend you _always_ use the xref:shell.adoc[shell].
+Its command autocompletion really shines when exploring workspace structures with the xref:commands.adoc#ws[ws] command.
 
-// Navigate back to the workspace root dir:
-// [source,shell]
-// ----
-// cd ../..
-// ----
-// TODO-end
+=== The Basics
 
-There is a way to view the workspace structure, and that is to execute the xref:commands.adoc#ws[ws] command:
+To return the entire workspace structure:
 
 [source,shell]
 ----
 poly ws
 ----
 
-This will view the whole workspace as plain data.
-This data structure is produced by the tool itself and is used by all the commands internally.
-The commands only operate on this hash map and are not performing any io operations, such as touching the disk or executing git commands.
-Instead, everything is prepared so that all commands can be executed in memory.
-
-This will not only simplify the code of the tool itself but also gives us, as a user of the tool, a way to explore the complete state of the workspace (or other people's workspaces).
-
-We can limit the "query" by passing in `get`, here against the https://github.com/polyfy/polylith/tree/master/examples/doc-example[doc-example], e.g.:
+The workspace structure is large.
+You can limit what `poly` returns via the `get` argument.
+For example, to return `settings`:
 
 [source,shell]
 ----
@@ -111,7 +93,11 @@ poly ws get:settings
                       :tag "stable-master"}}}
 ----
 
-If we are only interested in a specific element in this structure, we can dig deeper into it:
+See the xref:workspace-structure.adoc#settings[workspace structure] reference for descriptions.
+
+=== Digging Deeper
+
+If you are only interested in a specific element in this structure, you can dig deeper, e.g.:
 [source,shell]
 ----
 poly ws get:settings:profile-to-settings:default:paths
@@ -122,7 +108,10 @@ poly ws get:settings:profile-to-settings:default:paths
 ["components/user/src" "components/user/resources" "components/user/test"]
 ----
 
-A good way to start digging into this data structure is to list all its keys:
+=== Learning What Data is Available
+
+When exploring, it is nice to know what is available.
+To list top level keys:
 
 [source,shell]
 ----
@@ -149,7 +138,7 @@ poly ws get:keys
  :ws-type]
 ----
 
-To list the components, type:
+To list the `components` keys:
 
 [source,shell]
 ----
@@ -160,8 +149,6 @@ poly ws get:components:keys
 ----
 ["user" "user-remote"]
 ----
-
-An even better way of exploring the data structure is to do it from a `shell` which we have already covered in the xref:shell[Shell] section.
 
 To show the `user` component:
 
@@ -197,8 +184,12 @@ poly ws get:components:user
  :type "component"}
 ----
 
-Earlier, we executed the xref:commands.adoc#libs[libs] command to show library usage.
-The same information is also stored in the xref:workspace-structure.adoc[workspace structure], e.g.:
+See the xref:workspace-structure.adoc#components[workspace structure] reference for descriptions.
+
+=== Fetching Library Usage
+
+We've shown you how the xref:commands.adoc#libs[libs] command xref:libraries.adoc#reporting[reports 3rd-party library usage].
+You can also retrieve library usage via `ws`, e.g.:
 
 [source,shell]
 ----
@@ -213,43 +204,78 @@ poly ws get:components:user-remote:lib-deps
  "slacker/slacker" {:size 28408, :type "maven", :version "0.17.0"}}
 ----
 
-There is a way to store the workspace structure to a file, and that is to give the `out` argument, e.g.:
+=== Saving the Workspace Structure
+
+To save output to a file:
 
 [source,shell]
 ----
 poly ws out:ws.edn
 ----
 
-An alternative way to reach the same result is to turn off the coloring and pipe to `ws.edn`:
+An alternative way to reach the same result from your OS shell (e.g. bash, redirection does not work from the poly shell) is to turn off the coloring and redirect to `ws.edn`:
 
 [source,shell]
 ----
 poly ws color-mode:none > ws.edn
 ----
 
-This can be used to share the workspace structure with others without sending them the whole workspace including the code.
-To load this workspace, they have to give the `ws-file` argument, e.g.:
+A saved workspace can be a convenient way to share the workspace structure with others without sharing the entire workspace codespace.
+
+[[ws-file]]
+== Referencing a Saved Workspace Structure
+
+To load a workspace structure from a file, specify the `ws-file` argument, e.g.:
 
 [source,shell]
 ----
 poly info ws-file:ws.edn
 ----
 
-This will give the exact same output as if we execute `poly info` on the machine that created `ws.edn`.
-All commands except `test` and `create` can be executed when `ws-file` or `ws-dir` is given.
+You'll see the same output as if you executed `poly info` from the machine that created `ws.edn`.
 
-Here is an example where we inspect the arguments used to produce the file:
+You can run all commands with `ws-file` except xref:commands.adoc#create[create] and xref:commands.adoc#test[test].
+
+To inspect the arguments used to produce the file:
 
 [source,shell]
 ----
 poly ws get:old:user-input:args ws-file:ws.edn
 ----
 
-Which returns:
-
 [source,shell]
 ----
 ["ws" "out:ws.edn"]
 ----
 
-A complete guide over the workspace structure can be found in the xref:workspace-structure.adoc[Workspace structure] section.
+== Referencing a Workspace in Another Dir
+
+Similar to xref:ws-file[ws-file] is the `ws-dir` argument.
+
+It allows you to explore workspaces in other directories.
+Like `ws-file`, you can run all commands with `ws-dir` except xref:commands.adoc#create[create] and xref:commands.adoc#test[test].
+
+Assuming you have a workspace in `../local-dep`, you could check it from your current directory like so:
+
+[source,shell]
+----
+poly check ws-dir:../local-dep
+----
+
+A shorthand syntax for specifying the workspace dir is the `::` argument, it sets the workspace dir to the first parent directory that contains a `workspace.edn` file, e.g.:
+
+[source,shell]
+----
+cd projects/command-line # <1>
+
+poly info :: # <2>
+----
+<1> Move to two directories down
+<2> Ask `poly` to find and use the workspace dir by looking upwards
+
+Which is equivalent to the explicit:
+
+[source,shell]
+----
+poly info ws-dir:../..
+----

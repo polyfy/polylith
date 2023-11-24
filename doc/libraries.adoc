@@ -10,6 +10,7 @@ The `poly` tool parses `deps.edn` files throughout your workspace to resolve 3rd
 
 We explored xref:dependencies.adoc#setup[brick dependencies using the Realworld example app]; we'll continue with the same workspace to explore `libraries`.
 
+[[reporting]]
 == Reporting
 
 Ask `poly` to report on 3rd-party libraries:
