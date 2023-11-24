@@ -10,6 +10,7 @@ The `poly` tool parses `deps.edn` files throughout your workspace to resolve 3rd
 
 We explored xref:dependencies.adoc#setup[brick dependencies using the Realworld example app]; we'll continue with the same workspace to explore `libraries`.
 
+[[reporting]]
 == Reporting
 
 Ask `poly` to report on 3rd-party libraries:
@@ -59,7 +60,6 @@ poly libs :compact
 
 image::images/libraries/output/libs-compact.png[]
 
-[#update]
 == Updating
 
 You can list outdated libraries:
@@ -74,6 +74,7 @@ Here's an example output where some libraries were out of date:
 
 image::images/libraries/libs-outdated.png[]
 
+[#update]
 You can ask `poly` to update all libraries to the `latest` version in all `deps.edn` for all bricks and projects via:
 
 [source,shell]

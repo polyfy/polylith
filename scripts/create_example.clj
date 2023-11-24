@@ -135,13 +135,10 @@
         [(fs/file sections-dir "project/workspace.edn")         ws-dir]
         [(fs/file sections-dir "project/command-line-deps.edn") (fs/file ws-dir "projects/command-line/deps.edn")]))
 
-(defn polyx [{:keys [ws-dir fake-sha sections-dir images-dir] :as opts}]
-  (copy [(fs/file sections-dir "polyx/deps.edn") ws-dir])
+(defn polyx [{:keys [ws-dir fake-sha images-dir] :as opts}]
   (poly-infos opts "" "polyx-info.txt" "polyx/output/info.png")
   (sh/polyx {:dir ws-dir}
-            (format "overview :no-changes fake-sha:%s out:%s" fake-sha (fs/file images-dir "polyx/output/overview.png")))
-  ;; restore deps.edn
-  (copy [(fs/file sections-dir "project/deps.edn") ws-dir]))
+            (format "overview :no-changes fake-sha:%s out:%s" fake-sha (fs/file images-dir "polyx/output/overview.png"))))
 
 (defn tools-deps [_]
   (status/line :detail "Nothing to do for now"))
