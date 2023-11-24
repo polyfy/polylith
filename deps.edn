@@ -48,18 +48,15 @@
             :+extended {:extra-deps {poly/image-creator-x {:local/root "components/image-creator-x"}
                                      poly/system-x {:local/root "components/system-x"}}}
 
-            :test {:extra-paths ["components/api/test"
-                                 "components/change/test"
+            :test {:extra-paths ["components/change/test"
                                  "components/clojure-test-test-runner/test"
                                  "components/command/test"
                                  "components/common/test"
                                  "components/config-reader/test"
                                  "components/creator/test"
                                  "components/deps/test"
-                                 "components/file/test"
                                  "components/git/test"
                                  "components/lib/test"
-                                 "components/migrator/test"
                                  "components/path-finder/test"
                                  "components/shell/test"
                                  "components/test-runner-contract/test"

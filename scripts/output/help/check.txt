@@ -57,14 +57,7 @@
 
   Error 111 - Unreadable namespace in brick/project.
     Triggered if a namespace can't be parsed or found for a brick or project.
-    A way to ignore this error is to add the :ignore-files key to the brick
-    or project in ./workspace.edn. All dashes (-) will be replaced by underscores
-    (_). Paths that match exact and paths ending with the specified path(s),
-    prepended by a slash, will be ignored, e.g.:
-    { ...
-      :bricks {"mybrick" {:ignore-files ["myfile.clj"]}}
-      :projects {"myproject" {:alias "mp" :ignore-files ["sub-ns/myfile.clj"]}}
-      ...}
+    The solution is to add the namespace if missing, or fix the problem.
 
   Warning 201 - Mismatching argument lists in function or macro.
     Triggered if a function or macro is defined in the interface for a component

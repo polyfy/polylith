@@ -266,15 +266,9 @@ poly help
     and in that case the brick/project will be ignored.
 
   Error 111 - Unreadable namespace in brick/project.
-    Triggered if a namespace can't be parsed or found for a brick or project.
-    A way to ignore this error is to add the :ignore-files key to the brick
-    or project in ./workspace.edn. All dashes (-) will be replaced by underscores
-    (_). Paths that match exact and paths ending with the specified path(s),
-    prepended by a slash, will be ignored, e.g.:
-    { ...
-      :bricks {"mybrick" {:ignore-files ["myfile.clj"]}}
-      :projects {"myproject" {:alias "mp" :ignore-files ["sub-ns/myfile.clj"]}}
-      ...}
+    Triggered if a namespace can't be parsed for a brick or project.
+    The solution is to fix the invalid namespace (add it if missing)
+    or move the file from 'src' to 'resources'.
 
   Warning 201 - Mismatching argument lists in function or macro.
     Triggered if a function or macro is defined in the interface for a component
@@ -290,8 +284,9 @@ poly help
     and a profile. The solution is to remove the path from dev or the profile.
 
   Warning 205 - Non top namespace was found in brick.
-    Triggered if a namespace in a brick doesn't start with the top namespaces
-    defined in :top-namespace in ./workspace.edn.
+    Triggered if a namespace can't be parsed for a brick or project.
+    The solution is to fix the invalid namespace (add it if missing)
+    or move the file from 'src' to 'resources'.
 
   Warning 207 - Unnecessary components were found in project.
     Triggered if components were defined in a project that are not used by any of

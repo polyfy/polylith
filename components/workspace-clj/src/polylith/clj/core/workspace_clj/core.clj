@@ -16,8 +16,7 @@
             [polylith.clj.core.workspace-clj.bases-from-disk :as bases-from-disk]
             [polylith.clj.core.workspace-clj.project-settings :as project-settings]
             [polylith.clj.core.workspace-clj.projects-from-disk :as projects-from-disk]
-            [polylith.clj.core.workspace-clj.components-from-disk :as components-from-disk]
-            [polylith.clj.core.workspace-clj.ignore-files-settings :as ignore-files-settings]))
+            [polylith.clj.core.workspace-clj.components-from-disk :as components-from-disk]))
 
 (def no-git-repo "NO-GIT-REPO")
 
@@ -110,13 +109,12 @@
         user-home (user-config/home-dir)
         thousand-separator (user-config/thousand-separator)
         user-config-filename (user-config/file-path)
-        project->settings (-> ws-config project-settings/convert ignore-files-settings/convert)
+        project->settings (-> ws-config project-settings/convert)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
-        brick->settings (ignore-files-settings/convert bricks)
         [component-configs component-errors] (config-reader/read-or-use-default-brick-config-files ws-dir ws-type "component")
-        components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns component-configs brick->settings)
+        components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns component-configs)
         [base-configs base-errors] (config-reader/read-or-use-default-brick-config-files ws-dir ws-type "base")
-        bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns base-configs brick->settings)
+        bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns base-configs)
         name->brick (into {} (comp cat (map (juxt :name identity))) [components bases])
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         [project-configs project-errors] (config-reader/read-project-config-files ws-dir ws-type)
@@ -140,7 +138,7 @@
                                    :empty-character empty-character
                                    :thousand-separator thousand-separator
                                    :profile-to-settings profile-to-settings
-                                   :bricks brick->settings
+                                   :bricks bricks
                                    :projects project->settings
                                    :ns-to-lib ns-to-lib-str
                                    :user-home user-home
