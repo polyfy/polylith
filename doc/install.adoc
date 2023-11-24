@@ -3,32 +3,27 @@
 :poly-version: 0.2.18
 :cljdoc-api-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/api
 
-There are 3 ways to install the `poly` tool:
+There are two ways to install the `poly` tool:
 
-[cols="20,27,27,27"]
+[cols="20,27,27"]
 |===
-| | 1. Stand-alone | 2. link:#use-as-dependency[Clojure CLI dep] | 3. link:#install-as-clojure-cli-tool[Clojure CLI tool]
+| | 1. Stand-alone | 2. link:#use-as-dependency[Clojure CLI dep]
 
 h| Example usage:
 | `poly help`
 | `clojure -M:poly help`
-a| `clojure -Tpoly help` +
-⚠️ xref:clojure-cli-tool.adoc[command line uses Clojure Tools exec args syntax]
 
 h| Installed via:
 | Homebrew on macOS, otherwise via Nix or a manual download
 | Adding a `:poly` alias in `./deps.edn`
-| Clojure Tools
 
 h| Can be invoked from:
 | Any directory
 | A Polylith xref:workspace.adoc[workspace] directory
-| Any directory
 
 h| Switch `poly` version via:
 | `@<version>` if using HomeBrew
 | Updating dependency for `:poly` alias in `./deps.edn`
-| Reinstalling with Clojure Tools
 
 h| Pre-compiled for faster startup? link:#startup-time[^1^]
 | Yes
@@ -40,9 +35,6 @@ h| Pre-compiled for faster startup? link:#startup-time[^1^]
 Table Notes:
 [[startup-time]]
 . If you follow our recommendation of using the `poly` xref:shell.adoc[shell], startup time is not much of a concern.
-
-We prefer to install `poly` as a stand-alone and/or as a Clojure CLI dep.
-Your preference is fine too; there are no wrong choices.
 
 :prerequisites: First, ensure that you have https://clojure.org/guides/getting_started[Clojure CLI] and https://git-scm.com/book/en/v2/Getting-Started-Installing-Git[git] installed. +
 If you are installing git for the first time, don't forget to configure your git https://docs.github.com/en/get-started/getting-started-with-git/setting-your-username-in-git[user.name] and https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-email-preferences/setting-your-commit-email-address#setting-your-commit-email-address-in-git[user.email].
@@ -248,102 +240,6 @@ You can add in the logging libraries you'd like to use with `poly` by adjusting 
                                org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.20.0"}}
                   :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}}
 ----
-
-[#install-as-clojure-cli-tool]
-== Install as Stand-alone via Clojure CLI Tool
-
-{prerequisites}
-
-Clojure tools was introduced in https://clojure.org/guides/getting_started[Clojure CLI] v1.10.3.933.
-Upgrade to current if you are using an older version.
-
-Installing `poly` as a Clojure Tool is not OS-specific.
-
-To install `poly` as a tool:
-
-[source,shell,subs="attributes+"]
-----
-clojure -Ttools install io.github.polyfy/polylith '{:git/tag "v{poly-version}" :deps/root "projects/poly"}' :as poly
-----
-
-An alternative to specifying a `:git/tag` is to specify a `:git/sha`.
-This allows you to install any git revision poly and is often used to test out a version that has not been officially released yet or is on some work-in-progress branch:
-
-[source,shell]
-----
-clojure -Ttools install io.github.polyfy/polylith '{:git/sha "5f74c8b8675dbb091258165d327af3958716a247" :deps/root "projects/poly"}' :as poly
-----
-
-IMPORTANT: Do not use the `install-latest` option for `clojure -Ttools` as it does not support `:deps/root`.
-
-Test the installation by typing `clojure -Tpoly help` from the command line.
-
-{post-install}
-
-=== Clojure Tool CLI Command Line Syntax
-
-The command-line argument syntax for Clojure CLI tools uses an "exec args" format, essentially Clojure keyword/value pairs.
-
-For this reason, it can be convenient to first launch a `poly` shell so you can use the conventional `poly` command-line argument syntax.
-Let's say you want to get info on lines of code.
-
-[source,shell]
-----
-clojure -Tpoly shell
-----
-
-After which you can specify standard Polylith arguments:
-[source,text,subs="attributes+"]
-----
-                  _      _ + _   _
-#####   _ __  ___| |_  _| |-| |_| |_
-#####  | '_ \/ _ \ | || | | |  _| ' \
-#####  | .__/\___/_|\_, |_|_|\__|_||_|
-       |_|          |__/ poly {poly-version}
-polylith$ info :loc
-----
-
-The tool "exec args" equivalent is:
-[source,shell]
-----
-clojure -Tpoly info loc true
-----
-
-=== Clojure Tool CLI Tips
-
-Installed versions of all Clojure tools can be listed with:
-
-[source,shell]
-----
-clojure -Ttools list
-----
-
-[TIP]
-====
-`clojure` can often be replaced with the shorter `clj`:
-
-[source,shell]
-----
-clj -Ttools list
-----
-
-But use `clojure` when launching a `poly` shell (see xref:tools-deps.adoc#clojure-vs-clj[clojure vs clj]):
-
-[source,shell]
-----
-clojure -Tpoly shell
-----
-====
-
-You can get basic built-in help via Clojure CLI's help machinery:
-
-[source,shell]
-----
-clojure -A:deps -Tpoly help/doc
-----
-
-How to use the `poly` command as a Clojure tool is described in the xref:clojure-cli-tool.adoc[Clojure CLI Tool] section.
-The official documentation for Clojure tools is https://clojure.org/reference/deps_and_cli#tool_install[here].
 
 == Use as a library
 [#use-as-a-library]

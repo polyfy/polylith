@@ -58,3 +58,4 @@ Other improvements
  - The test that executed 'libs :outdated' has been removed, so that it doesn't fail intermittently. Earlier, the tests for
    a PR could suddenly start failing if a newer version of a used library was released.
  - If we switch to a file using e.g. 'switch-ws file:ws.edn', the :no-changes will now work properly.
+ - Removed support for running `poly` as a Clojure Tool.

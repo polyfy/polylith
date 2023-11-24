@@ -34,7 +34,6 @@
   {"artifacts" {}
    "base" {}
    "build" {}
-   "clojure-cli-tool" {}
    "colors" {}
    "component" {}
    "configuration" {}
