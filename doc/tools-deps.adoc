@@ -18,15 +18,6 @@ clojure -M:poly
 ----
 
 ****
-Or when using poly xref:install.adoc#install-as-clojure-cli-tool[as a Clojure tool]:
-
-[source,shell]
-----
-clojure -Tpoly shell
-----
-****
-
-****
 Why? There are two ways to run clojure:
 
 1. `clojure` - runs clojure programs

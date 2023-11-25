@@ -98,10 +98,9 @@ Notice that the shell lists all pages:
 [source,text]
 ----
 example$ doc page:
-artifacts                introduction
-base                     libraries
-build                    license
-clojure-cli-tool         naming
+artifacts                libraries
+base                     license
+build                    naming
 colors                   polylith-ci-setup
 component                polyx
 configuration            production-systems
@@ -119,6 +118,7 @@ git-hooks                upgrade
 git                      validations
 install                  versions
 interface                workspace
+introduction
 ----
 
 These are the same pages you see listed in the left menu in your web browser.
