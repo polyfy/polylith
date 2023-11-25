@@ -1,40 +1,49 @@
 = Naming
 
-Every time we create an `interface`, `component`, `base`, `project` or `workspace`, we need to come up with a good name.
-Finding good names is one of the hardest and most important thing in software.
-Every time we fail to find a good name, it will make the system harder to reason about and change.
 
-The components are the core of Polylith, so let's start with them.
-If a component does _one thing_ then we can name it based on that, e.g. `validator`, `invoicer` or `purchaser`.
-Sometimes a component operates around a concept that we can name it after, e.g. `account` or `car`.
-This can be an alternative if the component does more than one thing, but always around that single concept.
+"There are two hard things in computer science: cache invalidation, naming things, and off-by-one errors."
+-- Phil Karlton (extended)
 
-If the component's main responsibility is to simplify access to a third-party API, then suffixing it with `-api` is a good pattern, like `externalsystem-api`.
-If we use a cloud service like https://aws.amazon.com/[AWS], we can drop the `-api` prefix and either use the plain service names, like `s3`, `dynamodb`, and `cloudwatch`, or prefix them like `aws-s3`, `aws-dynamodb`, and `aws-cloudwatch`, which will also group them nicely in different commands like the xref:commands.adoc#info[info] command.
+Every xref:interface.adoc[interface], xref:component.adoc[component], xref:base.adoc[base], xref:project.adoc[project], and xref:workspace.adoc[workspace] needs a name.
+Finding good names is both important and challenging.
+When we fail to find good names, our systems are harder to reason about and change.
 
-If we have two components that share the same interface, e.g. `invoicer`, where the `invoicer` component contains the business logic, while the other component only delegates to a service that includes the `invoicer` component, then we can name the component that does the remote call `invoicer-remote`.
+xref:components.adoc[Components] are the core of Polylith, so let's start with them.
+If a component does _one thing_,  consider basing its name on the one action it fulfills, e.g., `validator`, `invoicer`, or `purchaser`.
+A component sometimes operates around a concept or noun, e.g., `account` or `car`.
+This can be an alternative if the component does multiple things, but still ties it to a single concept.
 
-If we have found a good name for the component, then it's generally a good idea to keep the same name for the interface, which is also the default behavior when a component is created, e.g.:
+If a component's main responsibility is to simplify access to a third-party API, consider suffixing it with [nowrap]`-api`, e.g., `foobarcorp-api`.
+When using a well-known cloud service like https://aws.amazon.com/[AWS], consider dropping the `-api` suffix and using plain service names, like `s3`, `dynamodb`, and `cloudwatch`, or group them with a vendor prefix: `aws-s3`, `aws-dynamodb`, `aws-cloudwatch`.
+Grouping can work nicely for output from commands like xref:commands.adoc#info[info] and xref:commands.adoc#deps[deps].
+
+When you have found a good name for a component, we recommend you use the same name for its interface.
+The `poly` tool does this by default when you create a component:
 
 [source,shell]
 ----
 poly create component name:invoicer
 ----
 
-...which is the same as:
+Is equivalent to:
 
 [source,shell]
 ----
 poly create component name:invoicer interface:invoicer
 ----
 
-Bases are responsible for exposing a public API and delegating the incoming calls to components.
-A good way to name them is to start with what they do, followed by the type of the API.
+When you have two components that use the xref:interface.adoc#one-interface-in-multiple-components[same interface] where one is responsible for the business logic and the other is simply a delegator to that business logic, consider a naming scheme of, for example:
 
-If it's a REST API that takes care of invoicing, then we can name it `invoicer-rest-api`.
-If it's a lambda function that generates different reports, then `report-generator-lambda` can be a good name.
+* `invoicer` for interface name
+* `invoicer` for business logic component
+* `invoicer-remote` for the component that delegates to the `invoicer` component
 
-Projects represent the deployable artifacts (development excluded).
-Services can be named after what they are, like `invoicer` or `report-generator`.
-For tools, we can use the tool name.
+xref:base.adoc[Bases] are responsible for exposing a public API and delegating incoming calls to components.
+Consider naming them after what they do, followed by the type of the API.
+For example, if you have a REST API that takes care of invoicing, consider `invoicer-rest-api`.
+For a lambda function that generates different reports, consider `report-generator-lambda`.
+
+xref:project.adoc[Deployable projects] represent your deployable artifacts.
+Consider naming services after what they do, like `invoicer` or `report-generator`.
+A tool might do many things and therefore deserve a more generic name, like, for a great example, `poly`.
 
