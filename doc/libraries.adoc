@@ -91,6 +91,7 @@ poly libs :update libraries:djblue/portal:com.taoensso/timbre
 
 TIP: When using the xref:shell.adoc[shell], `poly` will, after a short pause, offer autocomplete suggestions for `libraries`!
 
+[[update-skip]]
 To skip updating specific libraries, specify `:keep-lib-versions` in your xref:workspace.adoc#workspace-edn[workspace.edn], e.g.:
 
 [source,clojure]
