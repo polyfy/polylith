@@ -1,18 +1,27 @@
-= Git hook
+= Git Hook
 
-We can ensure that we don't push code that puts the workspace in an invalid state, by adding a https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks[git hook] to our workspace, that executes the xref:commands.adoc#check[check] command.
+You can use https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks[git hooks] to have Git invoke custom scripts for specific Git events.
 
-To make this work, all developers should add `.git/hooks/commit-msg` to the root of the workspace on their local disk with the following content, e.g.:
+Some folks add a `commit-msg` hook to have Git automatically run the `poly` xref:commands.adoc#check[check] command to xref:validations.adoc[validate] their workspace on https://git-scm.com/docs/git-commit[git commit].
+If the `poly check` fails, the `git commit` is aborted.
 
+From your workspace root directory, you'd add an executable `./git/hooks/commit-msg` script, something like the following would work on macOS or Linux:
+
+../git/hooks/commit-msg
 [source,shell]
 ----
 #!/usr/bin/env bash
 
-exec /usr/bin/java -jar /usr/local/polylith/poly.jar check color-mode:none ws-dir:PATH-TO-WORKSPACE-DIRECTORY
+set -eou pipefail
 
-if [[ $? -ne 0 ]] ; then
-  exit 1
-fi
+clojure -M:poly check color-mode:none
 ----
 
-Replace `PATH-TO-WORKSPACE-DIRECTORY` with the path to the workspace root.
+TIP: Don't forget to `chmod +x ./get/hooks/commit-msg`.
+
+TIP: Client-side git hooks are developer-specific and not tracked by `git`.
+
+WARNING: Failing hooks can be mysterious when committing from an IDE.
+If the commit hook fails, the commit will fail, but you might not get a meaningful message as to why.
+
+TIP: Consider invoking a xref:install.adoc[poly stand-alone AOT-compiled jar] for a faster `check`.
