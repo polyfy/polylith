@@ -1,83 +1,114 @@
 = Validations
+:toc:
 
-Each time we execute the xref:commands.adoc#check[check], xref:commands.adoc#info[info], or xref:commands.adoc#test[test] command, the workspace is validated.
-The various checks that are executed can be listed by executing the help for the xref:commands.adoc#check[check] command:
+Each time you execute the xref:commands.adoc#check[check], xref:commands.adoc#info[info], or xref:commands.adoc#test[test] command, your workspace is validated.
+
+For a list of validations, see the xref:commands.adoc#check[check] command.
+You can show the same help at your terminal via:
 
 [source,shell]
 ----
 poly help check
 ----
 
-The xref:commands.adoc#test[test] command will be interrupted if xref:commands.adoc#check[check] discovers any errors.
+The `check` command returns a non-zero exit code on errors only (not warnings).
+See xref:commands.adoc#check[check] for details.
 
-=== Warning 207 - Unnecessary components were found in project
+The xref:commands.adoc#test[test] command fails fast on any xref:commands.adoc#check[check] errors.
+Warnings do not affect `test` outcome.
 
-If there are any unnecessary components in a project (i.e. that are not used by any of the bricks in the project) then xref:commands.adoc#check[check] will return `Warning 207 - Unnecessary components were found in project`.
+The xref:commands.adoc#info[info] command shows errors and warnings, but they do not affect its exit code.
 
-By default, xref:commands.adoc#check[check] only runs for projects under the `projects` directory.
-To also check the `development` project, we have to pass in `:dev` when executing the xref:commands.adoc#check[check] command.
-Warning 207 will not be checked for the xref:commands.adoc#info[info] and xref:commands.adoc#test[test] commands.
-All other validations are performed when executing the xref:commands.adoc#check[check], xref:commands.adoc#info[info], or xref:commands.adoc#test[test] command.
+TIP: By default, xref:commands.adoc#check[check] only runs against projects under the `projects` directory.
+Specify the `:dev` argument, and `poly` will also check your `development` project.
 
-If we get warning 207 for a project, but we know that the component is needed (e.g. used in a dynamic way, but not explicitly called) then we can add a `:necessary` key to the project in `workspace.edn` to get rid of the warning (this example is taken from the `poly` tool itself):
+== Viewing All Errors and Warnings
 
-[source,clojure]
-----
-{ ...
- :projects {...
-            "poly" {:alias "poly" :necessary ["clojure-test-test-runner"]}
-            ...}}
-}
-----
-
-All errors and warnings are also stored in the workspace structure and can be viewed by executing:
+The `poly` tool stores all errors and warnings in the xref:workspace-structure.adoc[workspace structure]; you can list them via the xref:commands.adoc#ws[ws] command:
 
 [source,shell]
 ----
 poly ws get:messages
 ----
 
-If we don't have any warnings or errors, it will return an empty result:
+An example output:
+
+image::images/validations/messages-example.png[width=600]
+
+If your workspace doesn't have any active warnings or errors, you will see an empty result:
 
 [source,shell]
 ----
 []
 ----
 
-[#error111]
-=== Error 111 - Unreadable namespace in brick/project
+[#warning207]
+== Marking a Brick as Necessary to Suppress Warning 207
 
-If a source file (`.clj` or `.cljc`) can't be read or if the namespace is missing, we get `Error 111 - Unreadable namespace in brick/project`.
+The xref:commands.adoc#check[check] command generates a `Warning 207 - Unnecessary components were found in project` when it finds components unused by any bricks in a project.
 
-If we comment out the https://github.com/polyfy/polylith/blob/master/examples/doc-example/components/user/src/se/example/user/core.clj[core] namespace for the `user` component in the example app:
+Suppose you get warning 207 for a project but know the component is needed (e.g., it is used dynamically but not explicitly called).
+In that case, you can suppress the warning by specifying that it is `:necessary` to the project in your `workspace.edn`:
 
 [source,clojure]
 ----
-;(ns se.example.user.core)
+{...
+ :projects {"poly" {:alias "poly"
+                    :necessary ["api" "clojure-test-test-runner"] ;; <1>
+                    :test {:setup-fn project.poly.hto/activate!}}
+            "polyx" {:alias "polyx" :test [] :necessary ["clojure-test-test-runner"]} ;; <1>
+            "development" {:alias "dev"}}
+...}
+----
+<1> Example usages from the `poly` tool link:https://github.com/polyfy/polylith/blob/969d3beea27e754fcaccbf52631449774a4d7e7c/workspace.edn#L9-L13[itself]
+
+
+[#error111]
+== Workspace Structure Reflects Error 111
+
+If `poly` finds that a `.clj` or `.cljc` source file is unreadable or its namespace is missing, you will see `Error 111: Unreadable namespace`.
+
+Let's explore this error with our `example` xref:introduction.adoc[tutorial] workspace.
+The `example` workspace source is link:/examples/doc-example[here] if you have not been following along.
+
+NOTE: If you follow along, remember to revert your changes to your `example` workspace afterward.
+
+Comment out the `se.example.user.core` namespace declaration in the `user` component:
+
+../components/user/src/se/example/user/core.clj
+[source,clojure]
+----
+;(ns se.example.user.core) ;; <1>
 
 (defn hello [name]
   (str "Hello " name "!!"))
 ----
+<1> Comment this line out
 
-...and execute the xref:commands.adoc#check[check] command, then this warning will be shown:
+Run:
+[source,shell]
+----
+poly check
+----
+You should see this error:
 
 image::images/validations/missing-or-unreadable-namespace.png[]
 
-{nbsp} +
-If we have a look at the namespace:
+Have a look at the namespace with the xref:commands.adoc#ws[ws] command:
 
 [source,shell]
 ----
 poly ws get:components:user:namespaces:src:core
 ----
 
-...we can see that it's marked as invalid:
+Notice that `poly` has marked it as invalid:
 
 [source,clojure]
 ----
 {:file-path "components/user/src/se/example/user/core.clj",
  :imports [],
- :is-invalid true,
+ :is-invalid true, ;; <1>
  :name "core",
  :namespace ""}
 ----
+<1> Marked as invalid
