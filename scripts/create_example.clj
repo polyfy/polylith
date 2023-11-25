@@ -523,8 +523,7 @@
           ;; flatten for running
           selected-tasks (for [[id task-group] selected-task-groups
                                task task-group]
-                           (do (println id)
-                               (cons id task)))
+                           (cons id task))
 
           task-count (count selected-tasks)]
       (download-deps)

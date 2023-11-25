@@ -1,75 +1,108 @@
 = Polyx
+:toc:
+:toclevels: 3
 
-Since version `0.2.18`, we have the new `polyx` tool which can do everything that `poly` can, plus create images from different commands.
-One more difference is that it's not released as an AOT compiled, stand-alone tool, as `poly` is.
+The `polyx` tool is the same as `poly` with one extra trick: it can output images for some commands.
 
-If you want to use `polyx`, then you need to add it as an alias to `./deps.edn`:
+[CAUTION]
+====
+The features and interface of this tool are subject to change.
+A future release may expose its functionality in some different way.
+====
+
+[NOTE]
+====
+We created the `polyx` tool separate from `poly` because:
+
+.  There have been reports of issues with Apple Silicon when using https://en.wikipedia.org/wiki/Abstract_Window_Toolkit[Java AWT] used by the underlying https://github.com/Clojure2D/clojure2d[Clojure2d] library used by `polyx` to output images.
+.  Java AWT starts a Java process:
++
+image:images/polyx/java.png[] +
++
+which is not ideal for a command line tool.
+====
+
+
+== Install via `:polyx` alias
+Unlike `poly`, we have no AOT-compiled `polyx` jar for you to download.
+If you want to use `polyx`, add it as an alias to your `./deps.edn` file:
 
 [source,clojure]
 ----
 :polyx {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
         :extra-deps {polyfy/polylith
                      {:git/url   "https://github.com/polyfy/polylith"
-                      :sha       "155b55ab9e51ecd5ee0622a82a87468dac00bba3"
+                      :sha       "155b55ab9e51ecd5ee0622a82a87468dac00bba3" ;; <1>
                       :deps/root "projects/polyx"}}}}}
 ----
+<1> Choose the revision via a Git SHA
 
-If you want to use a stable version, then click on a release (`0.2.18` or later) in xref:https://github.com/polyfy/polylith/tags[tags].
-Then select the first "Code" tab, and you will see that e.g. "v0.2.18" is selected as branch/version at the top left of the page.
-Now click the "commits" link and copy the full sha for the top commit on the page (which is the latest commit).
+=== Finding your Git SHA
 
-If you want to use the latest SNAPSHOT version, copy the latest commit from the `master` branch instead.
+==== Stable
 
-Now let's start a shell, using the `polyx` tool, by executing this from the workspace root:
+For the `sha` of the latest stable release, navigate to https://github.com/polyfy/polylith/releases/latest (versions will differ from images below, but the page layout should be the same):
+
+. click on the tag: +
+image:images/polyx/github-click-tag.png[]
+. click on commits: +
+image:images/polyx/github-click-commits.png[]
+. and finally copy the full sha: +
+image:images/polyx/github-copy-full-sha.png[]
+
+==== SNAPSHOT
+
+For the latest `SNAPSHOT` release, navigate to https://github.com/polyfy/polylith:
+
+. click on commits (as above)
+. and copy the full sha (as above)
+
+==== From Command Line
+
+Or, if you prefer the command line, this should give you the data you need:
+[source,shell]
+----
+git ls-remote --tags --refs --sort=-version:refname \
+    https://github.com/polyfy/polylith.git
+----
+
+== Using
+
+Start a xref:shell.adoc[shell] from the `example` workspace root dir:
 
 [source,shell]
 ----
 clojure -M:polyx
 ----
 
-Let's create an image by running the xref:commands.adoc#info[info] command (which can also be done from the xref:commands.adoc#[deps] and xref:commands.adoc#libs[libs] commands):
+The `polyx` tool can create output images for xref:commands.adoc#info[info], xref:commands.adoc#deps[deps] and xref:commands.adoc#libs[libs] commands.
+Let's create an create an output image from `info`:
 
 [source,shell]
 ----
 example$ info out:info.png
 ----
 
-This will create the `info.png` image containing the output from the xref:commands.adoc#info[info] command.
-If the file ends with any of the file formats listed https://clojure2d.github.io/clojure2d/docs/codox/clojure2d.core.html#var-img-writer-formats[here] then an image will be created in the specified format.
-It ends with something else, e.g. `.txt`, then a text file is created:
+Most people typically create `.png` images, but you can choose https://clojure2d.github.io/clojure2d/docs/codox/clojure2d.core.html#var-img-writer-formats[any image format Clojure2d supports].
+
+If you choose any other filename extension, e.g., `.txt`, `polyx` will output text:
 
 [source,shell]
 ----
-poly info out:info.txt
+example$ poly info out:info.txt
 ----
 
-[source,shell]
-----
-  stable since: [37mc91fdad[0m
-
-  [35mprojects:[0m 2   [33minterfaces:[0m 1
-  [34mbases:   [0m 1   [32mcomponents:[0m 1
-
-  project         alias  status   [35mdev[0m
-  -----------------------------   ---
-  [35mcommand-line[0m *  [35mcl[0m     [35m ---  [0m   [35m---[0m
-  [35mdevelopment[0m *   [35mdev[0m    [35m s--  [0m   [35ms--[0m
-
-  interface  brick    [35mcl [0m   [35mdev[0m
-  -----------------   ---   ---
-  [33muser     [0m  [32muser[0m *   [35mstx[0m   [35mst-[0m
-  -          [34mcli[0m *    [35mstx[0m   [35mst-[0m
-----
-
-This can be "printed" by executing `cat info.txt`:
+The output contains ANSI escape codes to colorize the text.
+If you `cat info.txt` you'll see colorful output:
 
 image::images/polyx/output/info.png[width=400]
 
-The color codes can be removed if we want:
+ANSI escape codes are not appropriate for some usages.
+Specify `color-mode:none` for plaintext output:
 
 [source,shell]
 ----
-poly info out:info.txt color-mode:none
+example$ info out:info.txt color-mode:none
 ----
 
 [source,shell]
@@ -90,26 +123,18 @@ poly info out:info.txt color-mode:none
   -          cli *    stx   st-
 ----
 
-The `polyx` tool also includes the new xref:commands.adoc#overview[overview] command:
+=== The `overview` Command
+
+The `polyx` tool includes an xref:commands.adoc#overview[overview] command:
 
 [source,shell]
 ----
 example$ overview out:overview.png :no-changes
 ----
 
-The generated image looks like this:
+Generates:
 
 image::images/polyx/output/overview.png[]
 
-This image can be used in our documentation to get an overview of the workspace.
+For some real world examples of overview images see xref:example-systems.adoc[Example Systems] and xref:production-systems.adoc[Production Systems].
 
-====
-NOTE: There are issues reported for Apple silicon when using https://en.wikipedia.org/wiki/Abstract_Window_Toolkit[Java AWT] (used by the underlying https://github.com/Clojure2D/clojure2d[clojure2d] library, to create the images) which is one of the reasons we don't include support for creating images in the `poly` tool.
-Another source of trouble may be that `polyx` starts a Java process, which is not always desirable in a command line tool: +
-image:images/polyx/java.png[]
-====
-
-[Caution]
-====
-CAUTION: The `polyx` tool may be converted to a custom command in the future, when we have support for that, and when that happens the `polyx` project may be deleted and configured in a different way.
-====

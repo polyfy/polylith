@@ -70,7 +70,8 @@ poly ws get:configs:workspaces:example:config
 
 [source,clojure]
 ----
-{:compact-views #{},
+{:bricks {"user-remote" {:keep-lib-versions [ring/ring slacker/slacker]}}
+ :compact-views #{},
  :default-profile-name "default",
  :interface-ns "interface",
  :projects {"command-line" {:alias "cl",
@@ -90,8 +91,9 @@ The workspace map keys are:
 | Key | Description
 
 a| `:bricks`
-a| Supports turning off `Error 111` for one or more bricks. +
-*Default:* absent, effectively `nil`
+a| Brick-specific configuration where the map key is the brick name.
+Specify `:keep-lib-versions` to tell `libs :update` to xref:libraries.adoc#update-skip[skip specified libraries]. +
+*Default:* absent, effectively `{}`
 
 a| `:compact-view`
 a| Can tell `poly` to use a compact format for xref:commands.adoc#deps[deps] command xref:dependencies.adoc#compact-view[output] and xref:commands.adoc#libs[libs] command xref:libraries.adoc#compact-view[output].
@@ -148,6 +150,7 @@ poly ws get:configs:workspaces:example:config:projects
  "development" {:alias "dev"},
  "user-service" {:alias "user-s"
                  :test {:exclude ["mybrick"]}
+                 :keep-lib-versions [org.slf4j/slf4j-nop]
                  :necessary ["helper"]}}
 ----
 
@@ -167,8 +170,12 @@ a| Specifies a short name for a project.
 You can use the alias instead of the full project name for various `poly` commands.
 If not specified, the xref:commands.adoc#info[info] and xref:commands.adoc[libs] commands emit a `?` followed by a number (e.g. `?1`) for project column headings.
 
+a| [nowrap]`:keep-lib-versions`
+a| Tells `libs :update` to xref:libraries.adoc#update-skip[skip specified libraries] for the project.
+
 a| [nowrap]`:necessary`
-a| Supports turning off `Error 111` for one or more bricks.
+a| Supports turning off `Warning 207` for one or more bricks.
+See xref:validations.adoc#warning207[Validations].
 
 a| `:test`
 a| See next table below.

@@ -28,7 +28,6 @@
                    ["Source code" {:file "doc/source-code.adoc"}]
                    ["Artifacts" {:file "doc/artifacts.adoc"}]
                    ["Explore the workspace" {:file "doc/explore-the-workspace.adoc"}]
-                   ["Clojure CLI tool" {:file "doc/clojure-cli-tool.adoc"}]
                    ["Polyx" {:file "doc/polyx.adoc"}]
                    ["Naming" {:file "doc/naming.adoc"}]
                    ["Context" {:file "doc/context.adoc"}]
