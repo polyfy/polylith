@@ -92,7 +92,8 @@ The workspace map keys are:
 
 a| `:bricks`
 a| Brick-specific configuration where the map key is the brick name.
-Specify `:keep-lib-versions` to tell `libs :update` to xref:libraries.adoc#update-skip[skip specified libraries].
+Specify `:keep-lib-versions` to tell `libs :update` to xref:libraries.adoc#update-skip[skip specified libraries]. +
+*Default:* absent, effectively `{}`
 
 a| `:compact-view`
 a| Can tell `poly` to use a compact format for xref:commands.adoc#deps[deps] command xref:dependencies.adoc#compact-view[output] and xref:commands.adoc#libs[libs] command xref:libraries.adoc#compact-view[output].
