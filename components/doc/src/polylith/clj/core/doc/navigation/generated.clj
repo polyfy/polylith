@@ -38,7 +38,6 @@
    "component" {}
    "configuration" {}
    "contact" {}
-   "context" {}
    "continuous-integration" {}
    "dependencies" {}
    "developing-poly" {}

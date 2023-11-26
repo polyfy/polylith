@@ -98,27 +98,20 @@ Notice that the shell lists all pages:
 [source,text]
 ----
 example$ doc page:
-artifacts                libraries
-base                     license
-build                    naming
-colors                   polylith-ci-setup
-component                polyx
-configuration            production-systems
-contact                  profile
-context                  project
-continuous-integration   readme
-dependencies             shell
-developing-poly          source-code
-development              tagging
-doc                      tap
-example-systems          test-runners
-explore-the-workspace    testing
-flags                    tools-deps
-git-hooks                upgrade
-git                      validations
-install                  versions
-interface                workspace
-introduction
+artifacts                flags                    readme
+base                     git-hooks                shell
+build                    git                      source-code
+colors                   install                  tagging
+component                interface                tap
+configuration            introduction             test-runners
+contact                  libraries                testing
+continuous-integration   license                  tools-deps
+dependencies             naming                   upgrade
+developing-poly          polylith-ci-setup        validations
+development              polyx                    versions
+doc                      production-systems       workspace
+example-systems          profile
+explore-the-workspace    project
 ----
 
 These are the same pages you see listed in the left menu in your web browser.
