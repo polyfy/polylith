@@ -83,6 +83,10 @@ Let's create an create an output image from `info`:
 example$ info out:info.png
 ----
 
+image::images/polyx/output/info.png[width=400]
+
+NOTE: The `polyx` tool always uses a dark-themed terminal style for image output.
+
 Most people typically create `.png` images, but you can choose https://clojure2d.github.io/clojure2d/docs/codox/clojure2d.core.html#var-img-writer-formats[any image format Clojure2d supports].
 
 If you choose any other filename extension, e.g., `.txt`, `polyx` will output text:
