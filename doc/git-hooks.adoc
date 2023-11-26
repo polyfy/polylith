@@ -24,4 +24,5 @@ TIP: Client-side git hooks are developer-specific and not tracked by `git`.
 WARNING: Failing hooks can be mysterious when committing from an IDE.
 If the commit hook fails, the commit will fail, but you might not get a meaningful message as to why.
 
-TIP: Consider invoking a xref:install.adoc[poly stand-alone AOT-compiled jar] for a faster `check`.
+TIP: The example git hook script above invokes `poly` via the `:poly` alias.
+For better performance, you might explore having your git hook script invoke xref:install.adoc[poly as a stand-alone AOT-compiled jar].
