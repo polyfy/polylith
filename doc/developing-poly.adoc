@@ -1,102 +1,136 @@
 = Developing poly
 :toc:
 
-Here we will go through things that primarily have value if you are a developer of the `poly` tool itself.
-Feel free to read what's in here, and hopefully you will pick up something of value.
+The curious are most welcome, but we wrote this document for folks who are (or want to) contribute to the development `poly` itself.
 
-== Arguments
+== Contributing
 
-There are a few arguments that are either rarely used, added to simplify maintenance work with the https://github.com/polyfy/polylith[polylith] codebase, or used in special circumstances.
-For these reasons, they are not suggested by the autocomplete when in a xref:commands.adoc#shell[shell].
-What most of them have in common is that they are used to control the output of the different `poly` commands.
+We very much appreciate contributions from the community.
 
-[[all]]
-=== all
+=== Issues First Please
 
-If passing in `:all` to the xref:commands.adoc[help] command, the help for the  xref:commands.adoc#migrate[migrate] command will also be included (it will also be included if the workspace needs to be migrated):
+If you have an idea or a fix, please do raise a GitHub issue before investing in any coding effort.
+That way, we can discuss first.
+Writing code is the easy part; maintaining it forever is the hard part!
+
+That said, if you notice a simple typo, a PR without an issue is fine.
+
+TIP: We are also happy to chat about your idea or fix on the Clojurians https://clojurians.slack.com/messages/C013B7MQHJQ[polylith] channel.
+
+=== Include Tests and Docs
+
+We expect you to include/update tests for your change.
+
+You've probably gotten the sense that providing good docs for our users is important to us.
+When your change affects our docs or needs to be described for our users, we expect you to do so.
+
+=== Submitting a Pull Request
+
+Please never force push on your PR, as this makes reviewing incremental changes impossible for us.
+When we merge your PR, we'll usually squash it, so that will clean up any rambling work-in-progress.
+
+== Special `poly` Arguments
+
+Some `poly` arguments are special-case or `poly` developer-focused.
+For this reason, the xref:commands.adoc#shell[shell] will not include these arguments in its autocomplete suggestions xref:#all-shell[by default].
+
+Most special arguments tweak the output of the various `poly` commands.
+
+=== `all` - `help`
+By default, the xref:commands.adoc[help] command only mentions the xref:commands.adoc#migrate[migrate] command when your workspace requires migration. Specifying the `:all` argument forces the mentioning of `migrate`:
 
 [source,shell]
 ----
 poly help :all
 ----
 
-If `:all` is passed in when starting a shell:
+[[all-shell]]
+=== `all` - `shell`
+By default, the xref:commands.adoc#shell[shell] does not suggest special `poly` arguments because they are irrelevant and inappropriate for typical users of `poly`.
+If you are developing `poly` itself, suggesting special `poly` arguments can be appropriate and meaningful.
+To start a shell with autocomplete suggestions enabled for all `poly` arguments:
 
 [source,shell]
 ----
 poly :all
 ----
 
-...the autocomplete for all available arguments will be activated, including those that are rarely used (and are mostly in the way) and arguments that only make sense when developing the `poly` tool itself.
-For example, `:fake-poly` is only used to fake that we use a released version of the `poly` tool.
+=== `changed-files`
 
-=== changed-files
-
-This argument is used to fake changes of files, and is used for testing purposes when developing the `poly` tool itself, e.g:
+Have `poly` react as if specified files have changed.
+We use this to support testing `poly` itself.
 
 [source,shell]
 ----
-poly info changed-files:components/file/polylith/clj/core/user_input/core.clj
+poly info changed-files:components/file/src/polylith/clj/core/file/core.clj
 ----
 
-More than one file can be marked as changed by separating them with colons (the autocomplete only works for the first file at the moment).
+More than one file can be faked as changed by separating them with colons.
 
-It's enough to include the brick or project name plus a slash, and the tool will treat the brick/project as changed, e.g.:
+****
+Although multiple files are supported, the `shell` autocomplete support works only for the first file.
+****
+
+Specify a brick or project path with a trailing forward slash, and `poly` will treat the brick or project as changed:
 
 [source,shell]
 ----
 poly info changed-files:bases/mybase/:components/mycomponent/:projects/myproject/
 ----
 
-=== fake-sha
+=== `fake-sha`
 
-This argument can be passed in to fake a `sha` when executing the xref:commands.adoc#info[info] command, which is used when taking screenshots for this documentation.
+Fake the Git `sha` output by the xref:commands.adoc#info[info] command.
+We use this to generate consistent `info` output and screenshots for our documentation.
 
 [source,shell]
 ----
 poly info fake-sha:c91fdad
 ----
 
-=== fake-tag
+=== `fake-tag`
 
-This argument can be passed in to fake a `tag` when executing the xref:commands.adoc#info[info] command, which sometimes is used when taking screenshots for this documentation, e.g.:
+Fake the Git `tag` for output by the xref:commands.adoc#info[info] command.
+We sometimes use this to generate consistent `info` output and screenshots for our documentation.
 
 [source,shell]
 ----
 poly info fake-tag:stable-lisa
 ----
 
-The tag can be removed with:
+If you want no Git `tag` to be shown in `info` output:
 
 [source,shell]
 ----
 poly info fake-tag:
 ----
 
-=== fake-poly
+=== `fake-poly`
 
-This argument is used to fake that we are using a non-snapshot version of the `poly` tool, and not the `polyx` tool.
+Fake that you are using a stable production release of `poly` when you might actually be using a `SNAPSHOT` release, ' polyx`, or both.
 
 [source,shell]
 ----
-# Excludes "-SNAPSHOT" from the version at the top of the help output:
-poly help :fake-poly
-# Excludes "-SNAPSHOT" from the Polylith ascii art logo:
-poly :fake-poly
+poly help :fake-polya # <1>
+polyx :fake-poly # <2>
 ----
+<1> Excludes `-SNAPSHOT` from the version at the top of the help output
+<2> Shows `poly` instead of `polyx` and excludes `-SNAPSHOT` from the Polylith ASCII art logo
 
-=== latest-sha
+This can be handy when capturing output for docs.
 
-This argument is used to tell the tool to fetch the latest sha from the git repo (otherwise it's not populated), e.g.:
+=== `latest-sha`
+
+Populate the `latest-sha` from your Git repository in your workspace structure (by default, `poly` does not populate this value).
 
 [source,shell]
 ----
 poly ws get:settings:vcs:polylith:latest-sha :latest-sha
 ----
 
-=== no-changes
+=== `no-changes`
 
-This argument can be used to fake that no changes have been made since the last stable point in time, and can be used when taking a screenshot of the xref:commands.adoc#info[info] command without getting the `*` characters.
+Fake that there are no changes to your workspace since the last xref:tagging.adoc[stable point in time]; can be useful when generating output for docs.
 
 [source,shell]
 ----
@@ -108,28 +142,86 @@ poly info :no-changes
 poly info changed-files:
 ----
 
-=== no-exit
+=== `no-exit`
 
-When the `poly` tool is executed, it exits with `System/exit` internally, see https://github.com/polyfy/polylith/blob/edaef89207c2852010132e863ae87ebba5bedc5b/bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj#L33[poly-cli].
-If executing the `poly` tool from a REPL, this will also exit the REPL.
-To avoid that, we can pass in https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj#L31-L32[:no-exit].
+By default, `poly` explicitly exits via `System/exit` .
+If executing `poly` from a REPL, this will also exit the REPL, which probably isn't what you want.
+To avoid that, specify `:no-exit`.
 
-If we execute e.g. `poly info :no-exit` we have to press `<ctrl>+C` to exit, which is not so useful!
+See link:/bases/poly-cli/src/polylith/clj/core/poly_cli/core.clj[poly-cli source] `comment` block for plenty of examples.
 
-=== replace
+****
+Outside of REPL support, `:no-exit` has little use.
+If you run, e.g.:
+[source,shell]
+----
+poly info :no-exit
+----
+You'll have to press kbd:[Ctrl+C] to exit!
+****
 
-This argument is used to manipulate the output from the xref:commands.adoc#ws[ws] command.
-When we execute `poly ws get:settings:user-home` it will return something like "/Users/joakimtengstrand".
-We can tell the xref:commands.adoc#ws[ws] command to search for strings (using regular expressions) and replace the occurrences with another string, e.g. (assumes that $HOME is set):
+=== `replace`
 
-* `poly ws get:settings:user-home replace:$HOME:MY-HOME` Outputs: "MY-HOME".
+Manipulate output from the xref:commands.adoc#ws[ws] command.
 
-* `poly ws get:settings:user-config-filename replace:$HOME:MY-HOME` Outputs: "MY-HOME/.polylith/config.edn".
+You can tell the `ws` command to search for strings (using regular expressions) and replace the occurrences with another string.
 
-* `poly ws get:settings:user-config-filename replace:$HOME:MY-HOME:config.edn:USER-CONFIG` Outputs: "MY-HOME/.polylith/USER-CONFIG".
+[source,shell]
+----
+poly ws get:settings:user-home
+----
+On Joakim's system, output is:
+[source,text]
+----
+"/Users/joakimtengstrand"
+----
 
-* `poly ws get:settings:vcs:stable-since:sha replace:"[0-9]+":"*"` Outputs "*e*d*b*cee*fb*e*ff*fafcf".
-Here we need to surround the regular expressions with "" for the terminal to ignore the special characters.
+But maybe we want some repeatable output for test or documentation purposes, regardless of which user is running the `ws`.
+Assuming that your `HOME` environment variable is set appropriately and that you are running from your OS shell (not poly's `shell`):
+
+**An example:**
+[source,shell]
+----
+poly ws get:settings:user-home replace:$HOME:MY-HOME
+----
+Outputs a user-generic:
+[source,text]
+----
+"MY-HOME"
+----
+
+**Another example:**
+[source,shell]
+----
+poly ws get:settings:user-config-filename replace:$HOME:MY-HOME
+----
+Outputs a user-generic:
+[source,text]
+----
+"MY-HOME/.polylith/config.edn"
+----
+
+**An example with multiple replacements:**
+[source,shell]
+----
+poly ws get:settings:user-config-filename replace:$HOME:MY-HOME:config.edn:USER-CONFIG
+----
+Outputs:
+[source,text]
+----
+"MY-HOME/.polylith/USER-CONFIG"
+----
+
+**Sometimes you need to deal with your OS shell escaping rules and add, for example, `""`.**
+[source,shell]
+----
+poly ws get:settings:vcs:stable-since:sha replace:"[0-9]+":"*"
+----
+The output will vary because git shas are unique, but on Joakim's system once:
+[source,text]
+----
+"*e*d*b*cee*fb*e*ff*fafcf"
+----
 
 == Documentation
 
@@ -145,30 +237,27 @@ Among other https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sen
 * For command-line `poly create workspace top-ns:my-ns branch:my-branch :commit` refer to:
 ** `create workspace` as a command
 ** `top-ns:my-ns`, `branch:my-branch` and `:commit` as arguments
-* Always link to referenced commands and concepts to make it easier for readers to explore and dig into details.
+* Link to referenced commands and concepts to make it easier for readers to explore and dig into details.
 * Use "we" when talking from the Polylith core team and "you" when directing the reader through some steps or a tutorial.
 * Try to maintain a casual and friendly tone.
 
-We host our docs on https://cljdoc.org/d/polylith/clj-poly[cljdoc].
-
-
 === Diagrams
 
-We create our diagrams with the ever-so-awesome https://inkscape.org/[InkScape].
-InkScape's native format is `.svg`.
+We create our diagrams with the ever-so-awesome https://inkscape.org/[Inkscape].
+Inkscape's native format is `.svg`.
 We export to `.png` for use in our documentation.
 We keep the source `.svg` beside the exported `.png` in our GitHub repo.
 
 We store doc images under `./doc/images/`, for example for the overview diagram in xref:/doc/doc.adoc[./doc/doc.adoc] doc:
 
-* InkScape source: link:/doc/images/doc/doc-overview.svg[./doc/images/doc/doc-overview.svg]
+* Inkscape source: link:/doc/images/doc/doc-overview.svg[./doc/images/doc/doc-overview.svg]
 * Exported png: link:/doc/images/doc/doc-overview.png[./doc/images/doc/doc-overview.png]
 
 Generated images (currently from `bb create-example` via `polyx`) are grouped with their related images but are prefixed with an `output` dir.
 This strategy helps us distinguish hand-crafted images from generated ones and reminds us not to edit images in the `output` dirs.
 
 Sometimes, we'll annotate a generated image.
-We do so via an InkScape SVG file and link (rather than embed) the generated image.
+We do so via an Inkscape SVG file and link (rather than embed) the generated image.
 As of this writing, if any of these images change, the `.svg` will have to be manually re-exported to its `.png`.
 
 Tips:
@@ -176,27 +265,38 @@ Tips:
 * Use a transparent background.
 * We host our docs on https://cljdoc.org[cljdoc], which uses a light theme.
 Folks viewing our docs on GitHub might have opted for a dark theme, so choose colors that will also be dark-theme friendly.
-* Choose cross-platform friendly fonts.
+* Choose cross-platform-friendly fonts.
 `Courier New` and `Arial` seem to be what existing diagrams use.
 If you are a Linux user, you can install these as part of Microsoft's fonts.
 
-=== Run cljdoc locally
+=== Cljdoc
 
-If we are maintainers of the documentation, we may want to see how it looks in https://cljdoc.org[cljdoc].
-To do that we can start by cloning the https://github.com/polyfy/polylith[polylith] repository:
+We host our docs on https://cljdoc.org/d/polylith/clj-poly[cljdoc], which generates docs for our:
+
+* API by analyzing our source code from our release jar
+* pages (which cljdoc calls "articles") which cljdoc finds under link:/doc[doc], and whose layout is defined by link:/doc/cljdoc.edn[doc/cljdoc.edn].
+
+We have cljdoc build our docs each time we release to clojars.
+This includes `SNAPSHOT` releases, which we create for every successful push to `master`.
+See xref:polylith-ci-setup.adoc#releases[Polylith CI Setup] for more details.
+
+[[local-cljdoc]]
+=== Previewing Cljdoc Locally
+
+When making changes to docs, you can preview what they will look like on https://cljdoc.org[cljdoc].
+If you have not already done so, clone the https://github.com/polyfy/polylith[polylith] repository:
 
 [source,shell]
 ----
 git clone git@github.com:polyfy/polylith.git
 ----
 
-This is how the help for the https://github.com/polyfy/polylith/blob/dae4bfb16e1e478ce815d1f223b57c269128d324/bb.edn#L20[doc-preview]
-command looks like:
+Take a look at the help for our babashka `doc-preview` task:
 
 [source,shell]
 ----
-cd polylith
-bb doc-preview help
+$ cd polylith
+$ bb doc-preview help
 
 Commands:
  start   Start docker containers supporting cljdoc preview
@@ -207,82 +307,41 @@ Commands:
  help    Show this help
 ----
 
-We can now start the server and publish the documentation locally (which takes a few minutes):
+Start the server and publish the documentation locally (the first `start` will take some time to download the cljdoc docker image, and `ingest` is on the slow side):
 
 [source,shell]
 ----
-bb doc-preview start
-bb doc-preview ingest
+$ bb doc-preview start
+$ bb doc-preview ingest
 ----
 
-Now we can start a shell from the `polylith` directory:
+TIP: Commit and push all your changes before you `ingest`.
 
-[source,clojure]
+Bring the docs up in your web browser with:
 ----
-poly :local
+bb doc-preview view
 ----
 
-Now we can start a xref:commands.adoc#shell[shell] from our workspace:
+[[local]]
+=== Poly Shell and Local Cljdoc
+
+If you are in the `polylith` workspace root directory (which is also the git repo root dir), you can start a xref:commands.adoc#shell[shell] specifying the `:local` argument to tell the xref:commands.adoc#doc[doc] command to open pages on `\https://localhost:8000` instead of `\https://cljdoc.org`.
 
 [source,shell]
 ----
-cd myws
 clojure -M:poly :local
 ----
 
-The `:local` flag will tell the xref:doc.adoc[doc] command to open pages on `http://localhost:8000` instead of `https://cljdoc.org`.
-
-=== Open pages in GitHub
-
-If we are in the `polylith` workspace root directory, we can start a shell with `:local` and then open the corresponding file in GitHub, e.g.:
-
+Now docs open in your browser against the xref:#local-cljdoc[locally running cljdoc]:
 [source,shell]
 ----
-cd polylith
-clojure -M:poly :local
-polylith$ doc page:component :github
-----
-
-If we have checked out another branch than `master`, the page will be opened in that branch.
-
-But if we start a xref:commands.adoc#shell[shell] from another workspace than `polylith`,
-we will need to tell on which branch the GitHub file should be opened up in, otherwise it will use `master` as default:
-
-[source,shell]
-----
-cd myws
-clojure -M:poly :local
-polylith$ doc page:component branch:issue-318 :github
-----
-
-If we don't run a local server, we may want to always open pages on GitHub instead of cljdoc, which can be achieved by passing in `:github` when starting a shell:
-
-[source,shell]
-----
-cd myws
-clojure -M:poly :github
 polylith$ doc page:component
 ----
 
-If the shell is started from the `polylith` repository as in this example, then pages will automatically be opened in the current branch, and we don't have to pass in `branch:BRANCH`, otherwise the `master` branch will be used as fallback.
+=== Refreshing Local Cljdoc Preview
 
-====
-NOTE: The documentation lives under the https://github.com/polyfy/polylith/tree/master/doc[doc] directory in the `polylith` repository from which the https://cljdoc.org/[cljdoc] based documentation is generated.
-The documentation is triggered when we release the `poly` tool and when we push commits to the `master` branch, which is described xref:polylith-ci-setup.adoc#releases[here].
-====
-
-If we want to open the pages in another branch, we have to give the branch, e.g.:
-
-[source,shell]
-----
-cd myws
-clojure -M:poly :github branch:issue-318
-polylith$ doc page:component
-----
-
-=== Reloading changes
-
-Sometimes the cljdoc platform that builds the documentation has been updated, and in that case we need to restart the Docker container to get the latest version:
+From time to time, there is a new release of cljdoc.
+To pick it up:
 
 [source,shell]
 ----
@@ -290,36 +349,84 @@ bb doc-preview stop
 bb doc-preview start
 ----
 
-If the polylith codebase has changed, we need to run `ingest` again (the server does not need to be restarted):
+When you've changed the polylith codebase, you need to run `ingest` again (no need to `stop` and `start`):
 
 [source,shell]
 ----
 bb doc-preview ingest
 ----
 
-Examples of when we might want to do this
+Examples of when you might want to `ingest` are when you have:
 
-* When we have switched branch with `git checkout`
-* When we have received more commits with `git pull`
-* When we have pushed commits with `git push` (commits have to be pushed for the `ingest` to work)
+* Switched to a different git branch.
+* Pulled changes down with `git pull`.
+* Pushed commits with `git push`.
+You must commit and push your changes for `ingest` to function; doing so from a branch is fine.
 
-== Use the local version of polylith
+=== Open Page Source in GitHub
 
-Now when the `polylith` workspace is cloned locally, it can be accessed directly from other workspaces if we want.
-This can be achieved by replacing the `:poly` alias, in e.g. `myws/deps.edn`:
+Fire up a xref:commands.adoc#shell[shell]:
+[source,shell]
+----
+clojure -M:poly :local
+----
+
+****
+In addition to xref:#local[opening pages locally instead of on cljdoc.org], the `:local` argument also enables, for convenience, `shell` autocompletion for the `:github` argument.
+Feel free to also specify xref:#all-shell[:all].
+****
+
+Specify the `:github` argument to bring up the page in your web browser on GitHub:
+[source,shell]
+----
+polylith$ doc page:component :github
+----
+
+If you started your shell from the `polylith` repository (not a fork), then pages will automatically be opened in your current working branch; otherwise, pages will open on the `master` branch.
+
+To choose a specific `branch`:
+[source,shell]
+----
+polylith$ doc page:component branch:issue-318 :github
+----
+
+If you aren't running cljdoc locally, you may want to always open pages on GitHub instead of cljdoc; specify the `:github` argument when starting a shell:
+
+[source,shell]
+----
+clojure -M:poly :github
+polylith$ doc page:component
+----
+
+== Referencing a Local `poly`
+
+So long as you've cloned the `polylith` workspace locally, you can access it from other workspaces.
+This can be convenient when testing another workspace but wanting to use a local `polylith` that has some work in progress.
+
+Let's say you have cloned the https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app[Realworld example app] as a sibling to the `polylith` repo in your directory tree.
+
+You could then replace the `:poly` alias in `clojure-polylith-realworld-example-app/deps.edn`:
 
 [source,clojure]
 ----
     ...
     :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
-           :extra-deps {polylith/clj-poly {:local/root "../polylith/projects/poly"}}}
+           :extra-deps {polylith/clj-poly {:local/root "../polylith/projects/poly"}}} ;; <1>
 
 ----
+<1> Notice the `..` relative path to `poly`
 
-Make sure the "../polylith/projects/poly" path points to the `poly` project in the cloned `polylith` workspace directory.
+And now, from the `clojure-polylith-realworld-example-app` dir, you can launch local `poly` via, e.g.:
+
+[source,shell]
+----
+clojure -M:poly
+----
 
 == SNAPSHOT Releases & Caching
 
 https://github.com/clojure/tools.deps[Clojure tools.deps] only checks for updates once per day by default.
 
 This caching behavior means users referencing a specific `SNAPSHOT` will be more likely to temporarily be on an older release if you frequently release under the same `SNAPSHOT` version.
+
+Users can https://clojure.org/reference/deps_and_cli#_classpath_caching[-Sforce] a check for an update, but most probably won't think to do that.

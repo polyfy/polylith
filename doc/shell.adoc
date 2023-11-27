@@ -263,7 +263,7 @@ create               diff                 shell
 example$ info since:
 previous-release   previous-stable    release            stable
 ----
-* Remote git branches are suggested for some commands for the `branch:` argument (for autocomplete to work here, you need to start your shell with xref:developing-poly.adoc#all[:all] e.g., `poly :all`):
+* Remote git branches are suggested for some commands for the `branch:` argument (for autocomplete to work here, you need to start your shell with xref:developing-poly.adoc#all-shell[:all] e.g., `poly :all`):
 +
 [source,text]
 ----
