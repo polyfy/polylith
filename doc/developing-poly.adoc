@@ -24,6 +24,9 @@ We expect you to include/update tests for your change.
 You've probably gotten the sense that providing good docs for our users is important to us.
 When your change affects our docs or needs to be described for our users, we expect you to do so.
 
+Add a brief line summarizing your change to link:/next-release.txt[next-release.txt].
+The `poly` core team moves the content in this file to the changelog for each stable https://github.com/polyfy/polylith/releases[release].
+
 === Submitting a Pull Request
 
 Please never force push on your PR, as this makes reviewing incremental changes impossible for us.
@@ -107,11 +110,11 @@ poly info fake-tag:
 
 === `fake-poly`
 
-Fake that you are using a stable production release of `poly` when you might actually be using a `SNAPSHOT` release, ' polyx`, or both.
+Fake that you are using a stable production release of `poly` when you might actually be using a `SNAPSHOT` release, `polyx`, or both.
 
 [source,shell]
 ----
-poly help :fake-polya # <1>
+poly help :fake-poly # <1>
 polyx :fake-poly # <2>
 ----
 <1> Excludes `-SNAPSHOT` from the version at the top of the help output
@@ -238,6 +241,8 @@ Among other https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sen
 ** `create workspace` as a command
 ** `top-ns:my-ns`, `branch:my-branch` and `:commit` as arguments
 * Link to referenced commands and concepts to make it easier for readers to explore and dig into details.
+* Use the https://docs.asciidoctor.org/asciidoc/latest/macros/keyboard-macro/[AsciiDoc keyboard macro] for keyboard shortcuts.
+For an example usage, see xref:shell.adoc#quit[Shell page].
 * Use "we" when talking from the Polylith core team and "you" when directing the reader through some steps or a tutorial.
 * Try to maintain a casual and friendly tone.
 
