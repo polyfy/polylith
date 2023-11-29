@@ -119,6 +119,7 @@ As expected, the `user` component now shows a trailing `*`.
 Notice that both `command-line` and `development` projects show a trailing `&#43;`.
 The `&#43;` indicates the projects have no changes, but at least one of their bricks has changed.
 
+[[release]]
 == Release
 
 When you release, we recommend your CI server git tag the release.
@@ -199,3 +200,5 @@ You'll use:
 
 TIP: If the `since` argument is not specified, `since:stable` is used by default. +
 Other variants, like `since:e7ebe68v`, `since:head`, and `since:head~1` are also valid.
+
+See xref:continuous-integration.adoc[Continuous Integration] for tagging and release strategies.
