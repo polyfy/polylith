@@ -80,7 +80,7 @@
          (candidates "create" :next "component" :next "name" "c1" :next "interface" "i1"))))
 
 (deftest deps
-  (is (= ["brick" "project"]
+  (is (= [":swap-axes" "brick" "project"]
          (candidates "deps"))))
 
 (deftest deps-brick
@@ -124,7 +124,7 @@
          (mapv color/clean-colors (candidates "deps" :next "brick" "test")))))
 
 (deftest deps-brick-test-helper
-  (is (= ["project"]
+  (is (= [":swap-axes" "project"]
          (candidates "deps" :next "brick" "test-helper" :next ""))))
 
 (deftest deps-brick-help
@@ -132,7 +132,7 @@
          (candidates "deps" :next "brick" "help"))))
 
 (deftest deps-brick-file-
-  (is (= ["project"]
+  (is (= [":swap-axes" "project"]
          (candidates "deps" :next "brick" "file" :next ""))))
 
 (deftest deps-brick-deployer-project-
@@ -156,7 +156,7 @@
          (candidates "deps" :next "project" "api"))))
 
 (deftest deps-project-api-
-  (is (= ["brick"]
+  (is (= [":swap-axes" "brick"]
          (candidates "deps" :next "project" "api" :next))))
 
 (deftest deps-project-deployer-brick-
@@ -183,7 +183,7 @@
          (clean-colors (candidates "deps" :next "project" "deployer" :next "brick" "")))))
 
 (deftest deps-project-api-brick-file-
-  (is (= []
+  (is (= [":swap-axes"]
          (candidates "deps" :next "project" "api" :next "brick" "file" :next))))
 
 (deftest diff

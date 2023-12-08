@@ -30,7 +30,6 @@
                    ["Explore the workspace" {:file "doc/explore-the-workspace.adoc"}]
                    ["Polyx" {:file "doc/polyx.adoc"}]
                    ["Naming" {:file "doc/naming.adoc"}]
-                   ["Context" {:file "doc/context.adoc"}]
                    ["Git hooks" {:file "doc/git-hooks.adoc"}]
                    ["Colors" {:file "doc/colors.adoc"}]
                    ["Developing poly" {:file "doc/developing-poly.adoc"}]

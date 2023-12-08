@@ -111,6 +111,7 @@
     "    poly deps brick:mybrick\n"
     "    poly deps project:myproject\n"
     "    poly deps project:myproject brick:mybrick\n"
+    "    poly deps :swap-axes\n"
     "    poly deps out:out.txt\n"
     (if extended?
       "    poly deps out:deps.png\n"

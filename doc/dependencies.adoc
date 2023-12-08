@@ -110,6 +110,17 @@ poly deps project:rb brick:article
 
 image::images/dependencies/output/deps-component.png[width=350]
 
+== Swap axes
+
+For large workspaces, it can sometimes make reading the diagram easier if you swap the axes:
+
+[source,shell]
+----
+poly deps :swap-axes
+----
+
+image::images/dependencies/deps-swapped-axes.png[width=350]
+
 == Accessibility
 
 The `poly` tool restricts what can access what:

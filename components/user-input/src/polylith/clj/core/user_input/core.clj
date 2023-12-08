@@ -94,6 +94,7 @@
                 resources!
                 since
                 skip
+                swap-axes!
                 tap!
                 top-ns
                 update!
@@ -126,6 +127,7 @@
                       :is-no-changes (= "true" no-changes!)
                       :is-no-exit (= "true" no-exit!)
                       :is-outdated (= "true" outdated!)
+                      :is-swap-axes (= "true" swap-axes!)
                       :is-update (= "true" update!)
                       :is-run-all-brick-tests (or (= "true" all!)
                                                   (= "true" all-bricks!))

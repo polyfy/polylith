@@ -76,12 +76,16 @@ clojure -M:polyx
 ----
 
 The `polyx` tool can create output images for xref:commands.adoc#info[info], xref:commands.adoc#deps[deps] and xref:commands.adoc#libs[libs] commands.
-Let's create an create an output image from `info`:
+Let's create an output image from `info`:
 
 [source,shell]
 ----
 example$ info out:info.png
 ----
+
+image::images/polyx/output/info.png[width=400]
+
+NOTE: The `polyx` tool always uses a dark-themed terminal style for image output.
 
 Most people typically create `.png` images, but you can choose https://clojure2d.github.io/clojure2d/docs/codox/clojure2d.core.html#var-img-writer-formats[any image format Clojure2d supports].
 

@@ -1,7 +1,7 @@
 = Tools.deps
 
 We created the `poly` tool on top of Clojure tools.deps.
-If you are unfamiliar with tools.deps, we recommend that you read its https://github.com/clojure/tools.deps[documentation].
+If you are unfamiliar with tools.deps, we recommend that you read its https://github.com/clojure/tools.deps[documentation] and https://clojure.org/reference/deps_edn[deps.edn Reference].
 
 == The `poly` Alias
 

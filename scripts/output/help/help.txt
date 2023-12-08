@@ -1,4 +1,4 @@
-  poly 0.2.18 (2023-11-16) - https://github.com/polyfy/polylith
+  poly 0.2.18 (2023-12-08) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -92,6 +92,7 @@
     poly deps brick:mybrick
     poly deps project:myproject
     poly deps project:myproject brick:mybrick
+    poly deps :swap-axes
     poly deps out:out.txt
     poly diff
     poly doc

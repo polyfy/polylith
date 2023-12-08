@@ -1,9 +1,11 @@
   Shows dependencies for the workspace.
 
-  poly deps [out:FILENAME]
+  poly deps [:swap-axes] [out:FILENAME]
 
-    FILENAME = The name of the text file to create, containing the
-               output from this command.
+    :swap-axes = Swaps the diagram's x and y axes.
+
+    FILENAME   = The name of the text file to create, containing the
+                 output from this command.
 
          p      
          a  u  u
@@ -22,4 +24,5 @@
 
   Example:
     poly deps
+    poly deps :swap-axes
     poly deps out:deps.txt
