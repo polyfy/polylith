@@ -120,7 +120,7 @@
           "  org.slf4j/slf4j-nop          2.0.9      maven      4    x      x      x      -         -      .  .  .  .  .  .  .  .  .  ."
           "  pjstadig/humane-test-output  0.11.0     maven      7    t      -      -      -         -      .  .  .  .  .  .  .  .  .  ."
           "  rewrite-clj/rewrite-clj      1.1.47     maven     73    -      -      x      -         -      .  .  .  .  .  .  .  .  .  ."
-          "  zprint/zprint                1.2.8      maven    211    x      x      x      -         -      .  .  .  .  x  .  .  .  .  ."]K
+          "  zprint/zprint                1.2.8      maven    211    x      x      x      -         -      .  .  .  .  x  .  .  .  .  ."]
          (keep-except "clojure2d"
                       (libs/table (workspace))))))
 
