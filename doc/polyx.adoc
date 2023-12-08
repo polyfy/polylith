@@ -76,7 +76,7 @@ clojure -M:polyx
 ----
 
 The `polyx` tool can create output images for xref:commands.adoc#info[info], xref:commands.adoc#deps[deps] and xref:commands.adoc#libs[libs] commands.
-Let's create an create an output image from `info`:
+Let's create an output image from `info`:
 
 [source,shell]
 ----

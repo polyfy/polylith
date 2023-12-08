@@ -5,15 +5,17 @@
 (defn help [extended? cm]
   (str "  Shows dependencies for the workspace.\n"
        "\n"
-       "  poly deps [out:" (s/key "FILENAME" cm) "]\n"
+       "  poly deps [" (s/key ":swap-axes" cm) "] [out:" (s/key "FILENAME" cm) "]\n"
+       "\n"
+       "    " (s/key ":swap-axes" cm) " = Swaps the diagram's x and y axes.\n"
        "\n"
        (if extended?
-         (str "    " (s/key "FILENAME" cm) " = The name of the text or image file to create, containing the\n"
-              "               output from this command. If " (s/key "FILENAME" cm) " ends with .bmp, .wbmp,\n"
-              "               .gif, .jpeg, .jpg, .png, .tif, or .tiff, then the file will\n"
-              "               be generated as an image, otherwise as text.\n")
-         (str "    " (s/key "FILENAME" cm) " = The name of the text file to create, containing the\n"
-              "               output from this command.\n"))
+         (str "    " (s/key "FILENAME" cm) "   = The name of the text or image file to create, containing the\n"
+              "                 output from this command. If " (s/key "FILENAME" cm) " ends with .bmp, .wbmp,\n"
+              "                 .gif, .jpeg, .jpg, .png, .tif, or .tiff, then the file will\n"
+              "                 be generated as an image, otherwise as text.\n")
+         (str "    " (s/key "FILENAME" cm) "   = The name of the text file to create, containing the\n"
+              "                 output from this command.\n"))
        "\n"
        "         " (color/yellow cm "p      \n")
        "         " (color/yellow cm "a  u  u\n")
@@ -32,6 +34,7 @@
        "\n"
        "  Example:\n"
        "    poly deps\n"
+       "    poly deps :swap-axes\n"
        "    poly deps out:deps.txt"
        (if extended?
          "\n    poly deps out:deps.png"

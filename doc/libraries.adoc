@@ -138,7 +138,7 @@ clj-time/clj-time {:git/url "https://github.com/clj-time/clj-time.git",
                    :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}
 ----
 [[key-path]]
-The `poly` tool will calculate the `KB` column for a Git dependency, only if the key path matches the path for the libary in under `~/.gitlibs/libs` (the Git owner and repo from the `:git/url`).
+The `poly` tool will calculate the `KB` column for a Git dependency, only if the key path matches the path for the libary under `~/.gitlibs/libs` (the Git owner and repo from the `:git/url`).
 |===
 
 == Configuration

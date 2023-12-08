@@ -1,5 +1,5 @@
 
-Included in 0.2.18-SNAPSHOT #11:
+Included in 0.2.18-SNAPSHOT:
 
  Issue  Description
  -----  --------------------------------------------------------------------------------------------------------------------
@@ -10,6 +10,7 @@ Included in 0.2.18-SNAPSHOT #11:
   259   Added error 111 'Unreadable namespace in brick/project' + support for excluding files to parse,
         see 'poly help check' (error 111) for details.
   264   Improved error messages for workspace.edn and deps.edn config files (we now use clojure.edn when reading edn files).
+  271   Option to display inverted deps grid, by swapping the x and y axes.
   272   The check command now also checks test dependencies (solved by issue 293 and 274).
   274   Support exclusion of bricks to test so that we support both :include and :exclude for projects in workspace.edn.
   277   Improved warning 205 by also showing non-top namespace files. Error 106 and 108 are not displayed in some edge cases.

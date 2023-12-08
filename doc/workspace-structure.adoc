@@ -802,6 +802,7 @@ poly ws get:user-input
  :is-show-project false
  :is-show-resources false
  :is-show-workspace false
+ :is-swap-axes false
  :is-tap false
  :is-update false
  :is-verbose false
@@ -921,6 +922,9 @@ This will tell the `info` command to show the `r` status flag.
 
 * `:is-show-workspace` Set to `true` if `:workspace` is given.
 Used by `poly help deps :workspace` to show help for the deps command when `workspace:WORKSPACE` is given.
+
+* `:is-swap-axes` Set to `true` if `:swap-axes` is given.
+Used by `poly deps :swap-axes` to swap the x and y axes.
 
 * `:is-tap` Set to `true` if `:tap` is given.
 

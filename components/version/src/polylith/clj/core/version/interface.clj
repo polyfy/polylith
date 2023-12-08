@@ -25,7 +25,7 @@
 (def minor 2)
 (def patch 18)
 (def revision SNAPSHOT) ;; Set to SNAPSHOT or RELEASE.
-(def snapshot 19) ;; Increase by one for every snapshot release, or set to 0 if a release.
+(def snapshot 20) ;; Increase by one for every snapshot release, or set to 0 if a release.
 (def snapshot? (= SNAPSHOT revision))
 
 (def name-without-rev (str major "." minor "." patch))
@@ -36,7 +36,7 @@
 
 (def tool (if system/extended? "polyx" "poly"))
 
-(def date "2023-11-25")
+(def date "2023-12-08")
 
 ;; Execute 'poly doc version' to see when different changes was introduced.
 (def api-version {:breaking 1, :non-breaking 0})

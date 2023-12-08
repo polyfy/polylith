@@ -43,7 +43,8 @@
          (column x cells))))
 
 (defn align-table [cells color-mode]
-  (into {} (mapcat #(align-column % cells color-mode) (set (map ffirst cells)))))
+  (into {} (mapcat #(align-column % cells color-mode)
+                   (set (map ffirst cells)))))
 
 (defn value [x y x->spaces cells]
   (if-let [{:keys [value]} (cells [x y])]

@@ -48,6 +48,7 @@
 (def compact (c/flag "compact" :compact))
 
 ;; deps
+(def deps-swap-axes (c/flag "swap-axes" :deps))
 (def deps-brick (c/fn-explorer "brick" :deps #'ws-deps-entities/select-bricks))
 (def deps-project (c/fn-explorer "project" :deps #'ws-deps-entities/select-projects))
 (def deps-out (c/fn-explorer "out" :deps (file-explorer/select-fn)))
@@ -55,7 +56,7 @@
 
 (defn deps [all? extended?]
   (c/single-txt "deps" :deps
-    (concat [deps-brick deps-project]
+    (concat [deps-swap-axes deps-brick deps-project]
             (when all? [compact deps-color-mode])
             (when (or all? extended?) [deps-out]))))
 
