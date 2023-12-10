@@ -1,4 +1,4 @@
-(ns polylith.clj.core.lib.antq.outdated)
+(ns ^:no-doc polylith.clj.core.lib.antq.outdated)
 
 (defn update? [entity-name lib libs entity-settings]
   (and (or (empty? libs)

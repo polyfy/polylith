@@ -1,4 +1,4 @@
-(ns polylith.clj.core.lib.antq.update
+(ns ^:no-doc polylith.clj.core.lib.antq.update
   (:require [polylith.clj.core.antq.ifc :as antq]))
 
 (defn update-lib? [dep]
