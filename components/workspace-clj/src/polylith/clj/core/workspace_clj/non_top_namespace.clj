@@ -34,7 +34,8 @@
 
 (defn non-top-namespaces [brick-type brick-name brick-dir top-src-dir source-paths]
   (let [namespaces (mapcat #(non-top-namespaces-for-source brick-type brick-name brick-dir top-src-dir %)
-                           (filter #(not= "resources" %)
+                           (filter #(not (contains? #{"resources"
+                                                      "test-resources"} %))
                                    source-paths))]
     (when (seq namespaces)
       (vec namespaces))))

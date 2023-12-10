@@ -23,6 +23,7 @@ Included in 0.2.18-SNAPSHOT:
   293   Handle bases that depend on other bases correctly.
   294   Support for showing outdated libraries by passing in :outdated to the libs command.
   304   Update outdated examples/docs (solved by 312).
+  305   Recognise test-resources as a resources directory.
   309   Improve the performance of the poly commands by optimising the dependency calculations.
   312   Build docs/example code should not use build-clj.
   313   NPE when importing Java sub namespace.
