@@ -71,6 +71,8 @@ For xref:component.adoc[components], the sub-directory name is the component's x
 ----
 <1> By default, the interface names match component names
 
+If you have resource files that are only used in the test context, then they can be put in a `test-resources` directory.
+
 [[frontend]]
 == Frontend Code Options
 
