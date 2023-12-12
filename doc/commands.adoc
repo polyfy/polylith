@@ -14,7 +14,7 @@ poly help
 
 [source,text]
 ----
-  poly 0.2.18 (2023-11-16) - https://github.com/polyfy/polylith
+  poly 0.2.18 (2023-12-08) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -108,6 +108,7 @@ poly help
     poly deps brick:mybrick
     poly deps project:myproject
     poly deps project:myproject brick:mybrick
+    poly deps :swap-axes
     poly deps out:out.txt
     poly diff
     poly doc
@@ -284,9 +285,8 @@ poly help
     and a profile. The solution is to remove the path from dev or the profile.
 
   Warning 205 - Non top namespace was found in brick.
-    Triggered if a namespace can't be parsed for a brick or project.
-    The solution is to fix the invalid namespace (add it if missing)
-    or move the file from 'src' to 'resources'.
+    Triggered if a namespace in a brick doesn't start with the top namespaces
+    defined in :top-namespace in ./workspace.edn.
 
   Warning 207 - Unnecessary components were found in project.
     Triggered if components were defined in a project that are not used by any of
@@ -531,10 +531,12 @@ poly help
 ----
   Shows dependencies for the workspace.
 
-  poly deps [out:FILENAME]
+  poly deps [:swap-axes] [out:FILENAME]
 
-    FILENAME = The name of the text file to create, containing the
-               output from this command.
+    :swap-axes = Swaps the diagram's x and y axes.
+
+    FILENAME   = The name of the text file to create, containing the
+                 output from this command.
 
          p      
          a  u  u
@@ -553,6 +555,7 @@ poly help
 
   Example:
     poly deps
+    poly deps :swap-axes
     poly deps out:deps.txt
 ----
 
