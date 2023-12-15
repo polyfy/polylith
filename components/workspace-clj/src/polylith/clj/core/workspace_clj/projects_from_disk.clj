@@ -168,7 +168,7 @@
      (util/ordered-map :name project-name
                        :is-dev is-dev
                        :project-dir project-dir
-                       :config-filename (str project-config-dir "/deps.edn")
+                       :deps-filename (str project-config-dir "/deps.edn")
                        :type "project"
                        :paths paths
                        :lib-deps lib-deps

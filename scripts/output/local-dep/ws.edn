@@ -497,7 +497,7 @@
       :type "local",
       :path "migrate-me",
       :size 310}}},
-   :config-filename
+   :deps-filename
    "USER-HOME/source/polylith/examples/local-dep/projects/invoicing/deps.edn",
    :component-names
    {:src ["database" "datomic-ions" "invoicer" "util"],
@@ -661,7 +661,7 @@
       :type "local",
       :path "migrate-me",
       :size 310}}},
-   :config-filename
+   :deps-filename
    "USER-HOME/source/polylith/examples/local-dep/deps.edn",
    :component-names
    {:src

@@ -30,6 +30,7 @@ Here are the changes to the workspace structure over time:
 |  |  | added | ws-type |
 |  |  | renamed | interfaces:definitions:DEFINITION:arglist | Renamed from parameters.
 |  |  | renamed | projects:PROJECT:deps:BRICK:SOURCE:missing-ifc-and-bases | Renamed from missing-ifc.
+|  |  | renamed | projects:PROJECT:deps-filename | Renamed from config-filename.
 |  |  | added | projects:PROJECT:project-lib-deps | Libraries defined by the project itself.
 |  |  | added | ENTITIES:ENTITY:namespaces:SOURCE:NAMESPACE:is-invalid |
 |  |  | changed | ENTITIES:ENTITY:namespaces:SOURCE:NAMESPACE:file-path | The ws-dir part is removed from the file path (data change).

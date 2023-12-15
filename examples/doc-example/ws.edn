@@ -361,13 +361,13 @@
      "ring/ring" {:version "1.8.1", :type "maven", :size 4621},
      "slacker/slacker"
      {:version "0.17.0", :type "maven", :size 28408}}},
-   :config-filename
-   "/private/var/folders/_d/7pv3mjnn18z3rkh7z7680xj40000gn/T/polylith-example-2023-11-19-164637/ws/example/projects/command-line/deps.edn",
    :component-names {:src ["user-remote"], :test ["user-remote"]},
    :deps
    {"cli"
     {:src {:direct ["user-remote"]}, :test {:direct ["user-remote"]}},
-    "user-remote" {:src {}, :test {}}}}
+    "user-remote" {:src {}, :test {}}}
+   :deps-filename
+   "/private/var/folders/_d/7pv3mjnn18z3rkh7z7680xj40000gn/T/polylith-example-2023-11-19-164637/ws/example/projects/command-line/deps.edn"}
   {:lines-of-code {:src 0, :test 0, :total {:src 44, :test 26}},
    :namespaces {},
    :base-names {:src ["user-api"], :test ["user-api"]},
@@ -409,12 +409,12 @@
      {:version "2.13.3", :type "maven", :size 23590},
      "slacker/slacker"
      {:version "0.17.0", :type "maven", :size 28408}}},
-   :config-filename
-   "/private/var/folders/_d/7pv3mjnn18z3rkh7z7680xj40000gn/T/polylith-example-2023-11-19-164637/ws/example/projects/user-service/deps.edn",
    :component-names {:src ["user"], :test ["user"]},
    :deps
    {"user-api" {:src {:direct ["user"]}, :test {:direct ["user"]}},
-    "user" {:src {}, :test {}}}}
+    "user" {:src {}, :test {}}}
+   :deps-filename
+   "/private/var/folders/_d/7pv3mjnn18z3rkh7z7680xj40000gn/T/polylith-example-2023-11-19-164637/ws/example/projects/user-service/deps.edn",}
   {:lines-of-code {:src 4, :test 0, :total {:src 58, :test 38}},
    :namespaces
    {:src
@@ -491,13 +491,13 @@
      {:version "2.13.3", :type "maven", :size 23590},
      "slacker/slacker"
      {:version "0.17.0", :type "maven", :size 28408}}},
-   :config-filename
-   "/private/var/folders/_d/7pv3mjnn18z3rkh7z7680xj40000gn/T/polylith-example-2023-11-19-164637/ws/example/deps.edn",
    :component-names {:src ["user"], :test ["user"]},
    :deps
    {"cli" {:src {:direct ["user"]}, :test {:direct ["user"]}},
     "user-api" {:src {:direct ["user"]}, :test {:direct ["user"]}},
-    "user" {:src {}, :test {}}}}],
+    "user" {:src {}, :test {}}}
+   :config-filename
+   "/private/var/folders/_d/7pv3mjnn18z3rkh7z7680xj40000gn/T/polylith-example-2023-11-19-164637/ws/example/deps.edn"}],
  :settings
  {:vcs
   {:name "git",

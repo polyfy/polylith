@@ -596,7 +596,7 @@
       :type "local",
       :path "migrate-me",
       :size 4890}}},
-   :config-filename
+   :deps-filename
    "/privateWS-HOME/local-dep-old-format/projects/invoicing/deps.edn",
    :component-names
    {:src ["database" "datomic-ions" "invoicer" "util"],
@@ -757,7 +757,6 @@
       :type "local",
       :path "migrate-me",
       :size 4890}}},
-   :config-filename "/privateWS-HOME/local-dep-old-format/deps.edn",
    :component-names
    {:src
     ["database"
@@ -785,7 +784,8 @@
     "test-helper-db"
     {:src {:direct ["database"], :indirect ["util"]}, :test {}},
     "util" {:src {}, :test {}},
-    "without-src" {:src {}, :test {}}}}],
+    "without-src" {:src {}, :test {}}}
+   :deps-filename "/privateWS-HOME/local-dep-old-format/deps.edn"}],
  :settings
  {:projects
   {"development"
