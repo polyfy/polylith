@@ -14,7 +14,7 @@
   interface                 brick                      poly  polyx   dev  extended
   --------------------------------------------------   -----------   -------------
   antq                      antq                       s--    s--    s--     --   
-  api                       api                        st-    ---    st-     --   
+  api                       api                        s--    ---    s--     --   
   change                    change                     st-    s--    st-     --   
   clojure-test-test-runner  clojure-test-test-runner   st-    s--    st-     --   
   command                   command                    st-    s--    st-     --   
@@ -23,13 +23,13 @@
   creator                   creator                    st-    s--    st-     --   
   deps                      deps                       st-    s--    st-     --   
   doc                       doc                        s--    s--    s--     --   
-  file                      file                       st-    s--    st-     --   
+  file                      file                       s--    s--    s--     --   
   git                       git                        st-    s--    st-     --   
   help                      help                       s--    s--    s--     --   
   image-creator             image-creator              s--    ---    s--     --   
   image-creator             image-creator-x            ---    s--    ---     s-   
   lib                       lib                        st-    s--    st-     --   
-  migrator                  migrator                   st-    s--    st-     --   
+  migrator                  migrator                   s--    s--    s--     --   
   overview                  overview                   s--    s--    s--     --   
   path-finder               path-finder                st-    s--    st-     --   
   sh                        sh                         s--    s--    s--     --   

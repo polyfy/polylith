@@ -4,12 +4,12 @@
             [polylith.clj.core.validator.interface :as validator]))
 
 (defn read-deps-edn-file [ws-type entity-name entity-type entity-dir entity-path validator]
-  (let [config-filename (str entity-path "/deps.edn")
-        short-config-filename (str entity-dir "/deps.edn")]
-    (-> (let [{:keys [config error]} (deps-reader/read-deps-file config-filename short-config-filename)]
+  (let [deps-filename (str entity-path "/deps.edn")
+        short-deps-filename (str entity-dir "/deps.edn")]
+    (-> (let [{:keys [config error]} (deps-reader/read-deps-file deps-filename short-deps-filename)]
           (if error
             {:error error}
-            (let [message (validator ws-type config short-config-filename)]
+            (let [message (validator ws-type config short-deps-filename)]
               (if message
                 {:error message}
                 {:deps config}))))

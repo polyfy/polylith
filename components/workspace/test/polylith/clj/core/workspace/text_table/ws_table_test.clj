@@ -446,7 +446,7 @@
                             :is-run-tests true,
                             :is-dev false,
                             :project-dir "./projects/poly",
-                            :config-filename "./projects/poly/deps.edn",
+                            :deps-filename "./projects/poly/deps.edn",
                             :lines-of-code {:src 0, :test 5, :total {:src 4558, :test 3520}}
                             :test-component-names ["change"
                                                    "command"
@@ -608,7 +608,7 @@
                             :is-run-tests true,
                             :is-dev false,
                             :project-dir "./projects/core",
-                            :config-filename "./projects/core/deps.edn",
+                            :deps-filename "./projects/core/deps.edn",
                             :lines-of-code {:src 0, :test 6, :total {:src 3699, :test 3088}}
                             :test-component-names [],
                             :component-names ["change"
@@ -692,7 +692,7 @@
                             :is-run-tests false,
                             :is-dev true,
                             :project-dir "./development",
-                            :config-filename "./deps.edn",
+                            :deps-filename "./deps.edn",
                             :lines-of-code {:src 100, :test 0, :total {:src 4558, :test 3520}}
                             :test-component-names ["change"
                                                    "command"

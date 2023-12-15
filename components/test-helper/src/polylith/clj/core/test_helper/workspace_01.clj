@@ -25,7 +25,7 @@
                                        :test {"org.clojure/clojure" {:version "1.10.1", :type "maven", :size 3908431},
                                               "org.clojure/tools.deps"{:version "0.16.1264", :type "maven", :size 47566},
                                               "clj-time" {:version "0.15.2", :type "maven"}}}
-                            :config-filename "../sandbox/ws02/projects/service/deps.edn",
+                            :deps-filename "../sandbox/ws02/projects/service/deps.edn",
                             :deps-test {"user" {:direct [], :direct-ifc [], :indirect []}},
                             :component-names {:src ["user"], :test ["user"]}
                             :paths {:src ["components/user/src"]
@@ -61,7 +61,7 @@
                                              "clj-commons/fs" {:version "1.6.310", :type "maven", :size 12819}}
                                        :test {"org.clojure/clojure" {:version "1.10.1", :type "maven", :size 3908431},
                                               "org.clojure/tools.deps"{:version "0.16.1264", :type "maven", :size 47566}}}
-                            :config-filename "../sandbox/ws02/deps.edn",
+                            :deps-filename "../sandbox/ws02/deps.edn",
                             :deps-test {"database" {:direct [], :direct-ifc [], :indirect []},
                                         "test-helper" {:direct [], :direct-ifc [], :indirect []},
                                         "user" {:direct ["database" "test-helper"], :direct-ifc [], :indirect []}},

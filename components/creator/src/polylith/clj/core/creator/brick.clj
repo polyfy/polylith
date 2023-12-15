@@ -8,12 +8,12 @@
   (str "  Remember to add :local/root dependencies to dev and project 'deps.edn' files."))
 
 (defn create-config-file [ws-dir bricks-dir brick-name is-git-add]
-  (let [config-filename (str ws-dir "/" bricks-dir "/" brick-name "/deps.edn")]
-    (file/create-file config-filename [(str "{:paths [\"src\" \"resources\"]")
-                                       (str " :deps {}")
-                                       (str " :aliases {:test {:extra-paths [\"test\"]")
-                                       (str "                  :extra-deps {}}}}")])
-    (git/add ws-dir config-filename is-git-add)))
+  (let [deps-filename (str ws-dir "/" bricks-dir "/" brick-name "/deps.edn")]
+    (file/create-file deps-filename [(str "{:paths [\"src\" \"resources\"]")
+                                     (str " :deps {}")
+                                     (str " :aliases {:test {:extra-paths [\"test\"]")
+                                     (str "                  :extra-deps {}}}}")])
+    (git/add ws-dir deps-filename is-git-add)))
 
 (defn validate [brick-name workspace]
   (cond

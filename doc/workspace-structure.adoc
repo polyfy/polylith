@@ -544,9 +544,9 @@ poly ws get:projects:user-service
 {:alias "user-s",
  :base-names {:src ["user-api"], :test ["user-api"]},
  :component-names {:src ["user"], :test ["user"]},
- :config-filename "examples/doc-example/projects/user-service/deps.edn",
  :deps {"user" {:src {}, :test {}},
         "user-api" {:src {:direct ["user"]}, :test {:direct ["user"]}}},
+ :deps-filename "examples/doc-example/projects/user-service/deps.edn",
  :is-dev false,
  :lib-deps {:src {"org.apache.logging.log4j/log4j-core" {:size 1714164,
                                                          :type "maven",
@@ -596,8 +596,6 @@ poly ws get:projects:user-service
 ** `:src` The components that are included in the project for the `src` context, either as paths or included as `:local/root`.
 ** `:test` The components that are included in the project for the `test` context, either as paths or included as `:local/root`.
 
-* `:config-filename` The absolute path to the `deps.edn` config file.
-
 * `:deps` A map with brick names as keys where each brick contains:
 ** `:src` Keeps track of the dependencies from the `:src` context.
 *** `:direct` A vector with the direct dependencies, from the `:src` directory, to components (component names).
@@ -607,6 +605,8 @@ poly ws get:projects:user-service
 **** `:direct` A vector containing missing interface and base names, that are directly accessed from the `:src` directory.
 **** `:indirect` A vector containing missing interface and base names, that are indirectly accessed from the `:src` directory.
 ** `:test` Keeps track of the dependencies from the `:test` context, with the same set of keys as the `:src` context.
+
+* `:deps-filename` The absolute path to the `deps.edn` config file.
 
 * `:is-dev` Set to `true` for the development project.
 

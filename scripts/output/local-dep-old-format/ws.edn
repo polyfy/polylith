@@ -428,6 +428,8 @@
    "components/without-src/test"]},
  :projects
  [{:lines-of-code {:src 33, :test 45, :total {:src 63, :test 63}},
+   :deps-filename
+   "/privateWS-HOME/local-dep-old-format/projects/invoicing/deps.edn",
    :namespaces
    {:src
     [{:name "com.localdep.invoicer-cli.core",
@@ -550,7 +552,7 @@
      {:local/root "../../migrate-me",
       :type "local",
       :path "migrate-me",
-      :size 4890}}},
+      :size 310}}},
    :paths
    {:src
     ["bases/invoicer-cli/src"
@@ -595,9 +597,7 @@
      {:local/root "../../migrate-me",
       :type "local",
       :path "migrate-me",
-      :size 4890}}},
-   :config-filename
-   "/privateWS-HOME/local-dep-old-format/projects/invoicing/deps.edn",
+      :size 310}}},
    :component-names
    {:src ["database" "datomic-ions" "invoicer" "util"],
     :test
@@ -627,6 +627,7 @@
     "util" {:src {}, :test {}},
     "without-src" {:src {}, :test {}}}}
   {:lines-of-code {:src 1, :test 0, :total {:src 67, :test 69}},
+   :deps-filename "/privateWS-HOME/local-dep-old-format/deps.edn",
    :namespaces
    {:src
     [{:name "dev.me",
@@ -664,7 +665,7 @@
      {:local/root "migrate-me",
       :type "local",
       :path "migrate-me",
-      :size 4890}}},
+      :size 310}}},
    :paths
    {:src
     ["bases/invoicer-cli/src"
@@ -733,7 +734,7 @@
        {:local/root "migrate-me",
         :type "local",
         :path "migrate-me",
-        :size 4890}]]}},
+        :size 310}]]}},
    :lib-deps
    {:src
     {"org.clojure/clojure"
@@ -756,8 +757,7 @@
      {:local/root "migrate-me",
       :type "local",
       :path "migrate-me",
-      :size 4890}}},
-   :config-filename "/privateWS-HOME/local-dep-old-format/deps.edn",
+      :size 310}}},
    :component-names
    {:src
     ["database"
@@ -811,7 +811,7 @@
   :vcs
   {:name "git",
    :is-git-repo true,
-   :branch "main",
+   :branch "master",
    :git-root "/privateWS-HOME/local-dep-old-format",
    :auto-add false,
    :stable-since {:tag "stable-jote", :sha "SHA"},
@@ -845,6 +845,7 @@
   :is-github false,
   :is-no-changes false,
   :is-search-for-ws-dir false,
+  :is-swap-axes false,
   :is-outdated false,
   :is-local false,
   :out
@@ -868,8 +869,8 @@
    :minor 2,
    :patch 18,
    :revision "SNAPSHOT",
-   :date "2023-11-16",
-   :snapshot 16},
+   :date "2023-12-15",
+   :snapshot 22},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
   :ws {:breaking 2, :non-breaking 0},
