@@ -31,13 +31,13 @@
    :base-names [],
    :project-names []}},
  :projects
- {"command-line"
-  {:alias "cl",
+ {"development"
+  {:alias "dev",
    :test
    {:create-test-runner
     [polylith.clj.core.clojure-test-test-runner.interface/create]}},
-  "development"
-  {:alias "dev",
+  "command-line"
+  {:alias "cl",
    :test
    {:create-test-runner
     [polylith.clj.core.clojure-test-test-runner.interface/create]}},
