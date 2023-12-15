@@ -74,8 +74,19 @@ image::images/testing/failing-test.png[]
 [TIP]
 ====
 *Cursive users*:
-If the test doesn't run at all, you may need to manually set the module to the root module (`example` in this case).
-We raised https://github.com/cursive-ide/cursive/issues/2828[an issue with Cursive] about this.
+
+You need to instruct Cursive to run tests from the root module (`example` in this case) by performing the following steps:
+
+* Select `Edit Configuration...` in the menu with configurations at the top of the IDE.
+
+* Select `Edit configuration templates...` at the bottom left corner.
+
+* Select `clojure.test` in the left menu.
+
+* Set `Module` under `Common Options` to `example` and press `OK`.
+
+You should now be able to run tests from the IDE.
+
 ====
 
 
