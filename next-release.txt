@@ -61,3 +61,5 @@ Other improvements
    a PR could suddenly start failing if a newer version of a used library was released.
  - If we switch to a file using e.g. 'switch-ws file:ws.edn', the :no-changes will now work properly.
  - Removed support for running `poly` as a Clojure Tool.
+ - Show size as dash (- instead of 0) in the libs command, if a library hasn't been downloaded yet. This stopped working in 0.2.17-alpha.
+ - Handle spacing between bricks correctly in the libs command when passing in skip:dev.
