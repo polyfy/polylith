@@ -30,7 +30,7 @@ Included in 0.2.18-SNAPSHOT:
   316   Don't validate data_readers.clj files.
   318   Use cljdoc for the poly tool documentation. Moved back all the poly tool documentation to the GitHib repository
         together with the source code + updated the documentation + added new pages:
-        Artifacts, Doc, Poly as a library, Tap, Test Runners, Validations, Source code, Polyx, and Maintenance.
+        Artifacts, Doc, Tap, Test Runners, Validations, Source code, Polylith CI setup, Polyx, and Versions.
         The new 'doc' command was added, giving us easy access all web based, Polylith related documentation.
   376   Support updating all libraries to the latest version, by using 'poly libs :update'.
 
@@ -41,7 +41,7 @@ Included in 0.2.18-SNAPSHOT:
   319   lread         Tweak bb doc task that offers cljdoc previews + the related PRs 320, 321 and 325.
   323   john-shaffer  Fix NPE when taking the size of a directory.
   324   j1mr10rd4n    Fix filename/namespace mismatch in profile.adoc.
-  327   lread         Reviews all the documentation, with one PR per page, starting with PR 327!
+  327   lread         Reviews most of the documentation, with one PR per page, starting with PR 327!
   332   lread         Add clj-kondo config exports.
 
 Other improvements
