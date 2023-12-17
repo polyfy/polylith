@@ -49,7 +49,7 @@
 
   Each key stores a map with two keys:
   ```clojure
-   :breaking       Increased by one if a breaking change + `:non-breaking` is set to zero.
+   :breaking       Increased by one if a breaking change + :non-breaking is set to zero.
    :non-breaking   Increased by one if a non-breaking change.
   ```
 
