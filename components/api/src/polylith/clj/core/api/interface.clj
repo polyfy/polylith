@@ -27,7 +27,7 @@
    As an example, the `clj-poly` library is first specified in the
    [build](https://github.com/polyfy/polylith/blob/5ff79341e7dc3fc6a486584c6c2f2f46cb577d6e/deps.edn#L120)
    alias in polylith's `build.clj` and then used in
-   [build.clj](https://github.com/polyfy/polylith/blob/5ff79341e7dc3fc6a486584c6c2f2f46cb577d6e/build.clj#L83).
+   [build.clj](https://github.com/polyfy/polylith/blob/9e79264981b0c5be6e6cb70c93a540a82c489510/build.clj#L83).
 
    If you need more access than is exposed by the API at the moment, just reach out to the
    Polylith team in [Slack](https://clojurians.slack.com/messages/C013B7MQHJQ)
@@ -49,7 +49,7 @@
 
   Each key stores a map with two keys:
   ```clojure
-   :breaking       Increased by one if a breaking change + `:non-breaking` is set to zero.
+   :breaking       Increased by one if a breaking change + :non-breaking is set to zero.
    :non-breaking   Increased by one if a non-breaking change.
   ```
 
@@ -68,7 +68,7 @@
   ```
   Any changes that only add functionality/attributes, will increase the `:non-breaking` number by one.
 
-  If you use a SNAPSHOT version, then you can check [next-release.txt](https://github.com/polyfy/polylith/blob/issue-318/next-release.txt)
+  If you use a SNAPSHOT version, then you can check [next-release.txt](https://github.com/polyfy/polylith/blob/master/next-release.txt)
   to get a summary of all the changes that have been made since the last stable/final release."
   {:api version/api-version
    :test-runner version/test-runner-api-version

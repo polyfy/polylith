@@ -9,4 +9,4 @@
                                  "bases/cli/test"]}
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
-                   :extra-deps {polylith/clj-poly {:mvn/version "0.2.18-SNAPSHOT"}}} }}
+                   :extra-deps {polylith/clj-poly {:mvn/version "0.2.18"}}}}}

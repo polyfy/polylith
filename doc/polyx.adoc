@@ -32,7 +32,7 @@ If you want to use `polyx`, add it as an alias to your `./deps.edn` file:
 :polyx {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
         :extra-deps {polyfy/polylith
                      {:git/url   "https://github.com/polyfy/polylith"
-                      :sha       "155b55ab9e51ecd5ee0622a82a87468dac00bba3" ;; <1>
+                      :sha       "9e79264981b0c5be6e6cb70c93a540a82c489510" ;; <1>
                       :deps/root "projects/polyx"}}}}}
 ----
 <1> Choose the revision via a Git SHA
