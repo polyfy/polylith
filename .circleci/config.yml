@@ -235,7 +235,7 @@ jobs:
 
             if [[ "$VERSION" == *-SNAPSHOT ]]; then
               STABLE_TAG="stable-$CIRCLE_BRANCH"
-              ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -n "Version ${VERSION}" -replace -prerelease ${STABLE_TAG} ./artifacts
+              ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -n "Version ${VERSION}" -replace -prerelease -recreate ${STABLE_TAG} ./artifacts
             else
               VERSION_TAG="v$VERSION"
               ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -n "Version ${VERSION}" ${VERSION_TAG} ./artifacts
