@@ -143,8 +143,11 @@ jobs:
           command: |
             TAG_NAME="stable-$CIRCLE_BRANCH"
 
-            git tag -d ${TAG_NAME}
-            git push origin --delete ${TAG_NAME}
+            if git rev-parse -q --verify "refs/tags/${TAG_NAME}" > /dev/null; then
+              git tag -d ${TAG_NAME}
+              git push origin --delete ${TAG_NAME}
+            fi
+
             git tag ${TAG_NAME} -m "[skip ci] Added Stable Polylith tag"
             git push origin ${TAG_NAME}
   add-version-tag:
@@ -173,8 +176,11 @@ jobs:
             else
               TAG_NAME="v$VERSION"
 
-              git tag -d ${TAG_NAME}
-              git push origin --delete ${TAG_NAME}
+              if git rev-parse -q --verify "refs/tags/${TAG_NAME}" > /dev/null; then
+                git tag -d ${TAG_NAME}
+                git push origin --delete ${TAG_NAME}
+              fi
+
               git tag ${TAG_NAME} -m "[skip ci] Added new version tag"
               git push origin ${TAG_NAME}
             fi
