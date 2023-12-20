@@ -177,12 +177,11 @@ jobs:
               TAG_NAME="v$VERSION"
 
               if git rev-parse -q --verify "refs/tags/${TAG_NAME}" > /dev/null; then
-                git tag -d ${TAG_NAME}
-                git push origin --delete ${TAG_NAME}
+                echo "Skip adding tag. Reason: Already deployed this version before"
+              else
+                git tag ${TAG_NAME} -m "[skip ci] Added new version tag"
+                git push origin ${TAG_NAME}
               fi
-
-              git tag ${TAG_NAME} -m "[skip ci] Added new version tag"
-              git push origin ${TAG_NAME}
             fi
   deploy:
     docker:
@@ -201,7 +200,13 @@ jobs:
             if [[ "$VERSION" == *-SNAPSHOT ]]; then
               clojure -T:build deploy-snapshot
             else
-              clojure -T:build deploy
+              TAG_NAME="v$VERSION"
+
+              if git rev-parse -q --verify "refs/tags/${TAG_NAME}" > /dev/null; then
+                echo "Skip deploying. Reason: Already deployed this version before"
+              else
+                clojure -T:build deploy
+              fi
             fi
   create-artifacts:
     docker:
@@ -238,7 +243,7 @@ jobs:
               ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -n "Version ${VERSION}" -replace -prerelease -recreate ${STABLE_TAG} ./artifacts
             else
               VERSION_TAG="v$VERSION"
-              ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -n "Version ${VERSION}" ${VERSION_TAG} ./artifacts
+              ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -n "Version ${VERSION}" -soft ${VERSION_TAG} ./artifacts
             fi
 
 workflows:
