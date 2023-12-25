@@ -151,7 +151,8 @@
     project-test-deps override-src-deps override-test-deps suffixed-top-ns interface-ns]
    (let [src-paths (src-paths-from-bricks project-name is-dev name->brick project-src-paths project-src-deps)
          [src-lib-deps src-project-lib-deps] (src-lib-deps-from-bricks ws-dir project-name is-dev user-home name->brick project-src-deps override-src-deps)
-         skip-all? (-> project-name project->settings :test :include skip-all-tests?)
+         project-setting (project->settings project-name)
+         skip-all? (-> project-setting :test :include skip-all-tests?)
          test-paths (if skip-all? [] (test-paths-from-bricks project-name is-dev name->brick project-test-paths project-src-deps project-test-deps))
          [test-lib-deps test-project-lib-deps] (if skip-all? [[][]] (test-lib-deps-from-bricks ws-dir project-name is-dev name->brick user-home project-src-deps project-test-deps override-src-deps override-test-deps))
          paths (cond-> {}
@@ -174,7 +175,8 @@
                        :lib-deps lib-deps
                        :project-lib-deps project-lib-deps
                        :maven-repos maven-repos
-                       :namespaces namespaces))))
+                       :namespaces namespaces
+                       :keep-lib-versions (:keep-lib-versions project-setting)))))
 
 (defn keep?
   "Skip projects that are passed in as e.g. skip:p1:p2."

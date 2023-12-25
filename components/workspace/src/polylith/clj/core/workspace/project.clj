@@ -26,7 +26,7 @@
             (seq src) (assoc :src src)
             (seq test) (assoc :test test))))
 
-(defn enrich-project [{:keys [name type is-dev maven-repos namespaces paths lib-deps project-lib-deps] :as project}
+(defn enrich-project [{:keys [name type is-dev maven-repos namespaces paths lib-deps project-lib-deps keep-lib-versions] :as project}
                       ws-dir
                       components
                       bases
@@ -89,5 +89,6 @@
                 :project-lib-deps project-lib-deps
                 :lib-imports lib-imports})
         (cond-> enriched-maven-repos (assoc :maven-repos enriched-maven-repos)
+                keep-lib-versions (assoc :keep-lib-versions keep-lib-versions)
                 is-dev (assoc :unmerged {:paths paths
                                          :lib-deps lib-deps})))))
