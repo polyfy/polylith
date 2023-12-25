@@ -81,6 +81,8 @@ Here it depends on the `user` interface from the `src` context.
 This is because the `se.example.user-api.api` namespace imports `se.example.user.interface`.
 No interfaces are imported from the test context in this example.
 
+* `:keep-lib-versions` A vector containing the library names that should not be affected when executing `poly libs :update`.
+
 * `:lib-deps`
 ** `:src` A map with the libraries that are used in this base's src context.
 *** `:latest-version` Set if there is a newer version of this library, except if xref:keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `:update` is given for the libs command.
@@ -244,6 +246,8 @@ If a type hint is given, then `:type` will also be set and be part of the contra
 Here it depends on the `user` interface from the `src` context.
 This is because the `se.example.user-api.api` namespace imports `se.example.user.interface`. +
 No interfaces are imported from the test context in this example.
+
+* `:keep-lib-versions` A vector containing the library names that should not be affected when executing `poly libs :update`.
 
 * `:lib-deps`
 ** `:src` A map with the libraries that are used in this component's src context.
@@ -609,6 +613,8 @@ poly ws get:projects:user-service
 * `:deps-filename` The absolute path to the `deps.edn` config file.
 
 * `:is-dev` Set to `true` for the development project.
+
+* `:keep-lib-versions` A vector containing the library names that should not be affected when executing `poly libs :update`.
 
 * `:lib-deps`
 ** `:src` Stores a map with the libraries that are used in the project for the src context. Contains libraries that are specified by the project and the included bricks.
