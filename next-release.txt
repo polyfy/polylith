@@ -1,65 +1,12 @@
 
-Included in 0.2.18-SNAPSHOT:
+Included in 0.2.19-SNAPSHOT:
 
  Issue  Description
  -----  --------------------------------------------------------------------------------------------------------------------
-  187   Support for more than one interface. Always accept 'interface' and 'ifc' + what's specified in :interface-ns.
-  205   The new polyx tool has been added that allow us to generate images from command's output. It includes all
-        functionality in 'poly' plus the overview command that generates the info/deb/libs image.
-  249   Include bases in the circular dependency check (error 104).
-  259   Added error 111 'Unreadable namespace in brick/project' + support for excluding files to parse,
-        see 'poly help check' (error 111) for details.
-  264   Improved error messages for workspace.edn and deps.edn config files (we now use clojure.edn when reading edn files).
-  271   Option to display inverted deps grid, by swapping the x and y axes.
-  272   The check command now also checks test dependencies (solved by issue 293 and 274).
-  274   Support exclusion of bricks to test so that we support both :include and :exclude for projects in workspace.edn.
-  277   Improved warning 205 by also showing non-top namespace files. Error 106 and 108 are not displayed in some edge cases.
-  279   Trigger error 111 if a source file doesn't have a namespace.
-  282   The check/info/test commands now report unnecessary components (warning 207). If a component is not referred
-        to but still needed, it can be marked as :necessary by that project, see 'poly help check' (warning 207) for details.
-  286   Make switch-ws available in the shell, outside a workspace.
-  289   Make it possible to show all available options in a shell.
-  290   Don't allow :commit when creating a workspace within an existing repo.
-  293   Handle bases that depend on other bases correctly.
-  294   Support for showing outdated libraries by passing in :outdated to the libs command.
-  304   Update outdated examples/docs (solved by 312).
-  305   Recognise test-resources as a resources directory.
-  309   Improve the performance of the poly commands by optimising the dependency calculations.
-  312   Build docs/example code should not use build-clj.
-  313   NPE when importing Java sub namespace.
-  316   Don't validate data_readers.clj files.
-  318   Use cljdoc for the poly tool documentation. Moved back all the poly tool documentation to the GitHib repository
-        together with the source code + updated the documentation + added new pages:
-        Artifacts, Doc, Tap, Test Runners, Validations, Source code, Polylith CI setup, Polyx, and Versions.
-        The new 'doc' command was added, giving us easy access all web based, Polylith related documentation.
-  376   Support updating all libraries to the latest version, by using 'poly libs :update'.
 
   PR    Author        Description
  -----  ------------  ----------------------------------------------------------------------------
-  268   seancorfield  Start using tools.deps instead of tools.deps.alpha + related PR 269.
-  275   sundbry       Require clojure.tools.deps correctly in build.clj.
-  319   lread         Tweak bb doc task that offers cljdoc previews + the related PRs 320, 321 and 325.
-  323   john-shaffer  Fix NPE when taking the size of a directory.
-  324   j1mr10rd4n    Fix filename/namespace mismatch in profile.adoc.
-  327   lread         Reviews most of the documentation, with one PR per page, starting with PR 327!
-  332   lread         Add clj-kondo config exports.
+
 
 Other improvements
  --------------------------------------------------------------------------------------------------------------------
- - Exclude license files when building an uberjar.
- - We no longer include tools.deps as a library when creating projects.
- - Removed the :all option for the deps and libs commands, so that we no longer include bricks that don't have a lib dep.
- - Also include missing bases in validation error 107.
- - A shell can be started using 'poly :tap' which is equivalent to 'poly shell :tap'. This will start a shell
-   and open up a portal window at the same time. Other valid first parameters: :all, :fake-poly, :github, :local, :ws-file, and :ws-dir.
- - The portal window now only includes the workspace structure, which makes it an alternative way to browse the workspace.
- - In the deps command, we now exclude empty columns (bricks that don't use any library).
- - If we use switch-ws in a shell and execute a command and give the color-mode, then it will be used by that command.
- - The autocomplete now works when starting a shell outside a workspace, which can be useful when creating a workspace,
-   or if we want to switch to another workspace.
- - The test that executed 'libs :outdated' has been removed, so that it doesn't fail intermittently. Earlier, the tests for
-   a PR could suddenly start failing if a newer version of a used library was released.
- - If we switch to a file using e.g. 'switch-ws file:ws.edn', the :no-changes will now work properly.
- - Removed support for running `poly` as a Clojure Tool.
- - Show size as dash (- instead of 0) in the libs command, if a library hasn't been downloaded yet. This stopped working in 0.2.17-alpha.
- - Handle spacing between bricks correctly in the libs command when passing in skip:dev.
