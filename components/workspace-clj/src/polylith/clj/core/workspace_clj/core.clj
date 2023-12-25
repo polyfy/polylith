@@ -109,15 +109,15 @@
         user-home (user-config/home-dir)
         thousand-separator (user-config/thousand-separator)
         user-config-filename (user-config/file-path)
-        project->settings (-> ws-config project-settings/convert)
+        project->settings (project-settings/convert ws-config)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
-        [component-configs component-errors] (config-reader/read-or-use-default-brick-config-files ws-dir ws-type "component")
-        components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns component-configs)
-        [base-configs base-errors] (config-reader/read-or-use-default-brick-config-files ws-dir ws-type "base")
-        bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns base-configs)
+        [component-dep-configs component-errors] (config-reader/read-or-use-default-brick-dep-files ws-dir ws-type "component")
+        components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns component-dep-configs bricks)
+        [base-dep-configs base-errors] (config-reader/read-or-use-default-brick-dep-files ws-dir ws-type "base")
+        bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns base-dep-configs bricks)
         name->brick (into {} (comp cat (map (juxt :name identity))) [components bases])
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
-        [project-configs project-errors] (config-reader/read-project-config-files ws-dir ws-type)
+        [project-configs project-errors] (config-reader/read-project-dep-config-files ws-dir ws-type)
         projects (projects-from-disk/read-projects ws-dir name->brick project->settings user-input user-home suffixed-top-ns interface-ns project-configs)
         profile-to-settings (profile/profile-to-settings ws-dir aliases name->brick user-home)
         ws-local-dir (->ws-local-dir ws-dir)
@@ -150,10 +150,10 @@
                       :ws-reader ws-reader/reader
                       :user-input user-input
                       :settings settings
-                      :configs {:components component-configs
-                                :bases base-configs
-                                :projects (config-reader/clean-project-configs project-configs)
-                                :user (user-config/content)
+                      :configs {:components component-dep-configs
+                                :bases      base-dep-configs
+                                :projects   (config-reader/clean-project-configs project-configs)
+                                :user       (user-config/content)
                                 :workspaces [{:name ws-name
                                               :type "workspace"
                                               :config ws-config}]}

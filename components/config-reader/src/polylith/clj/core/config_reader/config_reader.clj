@@ -54,13 +54,13 @@
       (assoc :name entity-name
              :type entity-type)))
 
-(defn read-or-use-default-brick-config-files [ws-dir ws-type entity-type]
+(defn read-or-use-default-brick-dep-files [ws-dir ws-type entity-type]
   (condp = ws-type
     :toolsdeps1 [(mapv #(default-brick-config-file % entity-type)
                        (dirs ws-dir entity-type)) []]
     :toolsdeps2 (read-brick-config-files ws-dir ws-type entity-type)))
 
-(defn read-project-deployable-config-files [ws-dir ws-type]
+(defn read-project-deployable-dep-config-files [ws-dir ws-type]
   (map #(assoc (read-deps-edn-file ws-type % "project"
                                    (str "projects/" %)
                                    (str ws-dir "/projects/" %)
@@ -71,7 +71,7 @@
           :project-config-dir (str ws-dir "/projects/" %))
        (dirs-with-deps-file ws-dir "project")))
 
-(defn read-project-dev-config-file [ws-dir ws-type]
+(defn read-project-dev-dep-config-file [ws-dir ws-type]
   (let [filename (str ws-dir "/deps.edn")]
     (let [{:keys [config error]} (deps-reader/read-deps-file filename "deps.edn")]
       (if error
@@ -95,9 +95,9 @@
                  :project-config-dir)
         configs))
 
-(defn read-project-config-files [ws-dir ws-type]
-  (-> (into [] cat [[(read-project-dev-config-file ws-dir ws-type)]
-                    (read-project-deployable-config-files ws-dir ws-type)])
+(defn read-project-dep-config-files [ws-dir ws-type]
+  (-> (into [] cat [[(read-project-dev-dep-config-file ws-dir ws-type)]
+                    (read-project-deployable-dep-config-files ws-dir ws-type)])
       (filter-config-files)))
 
 (defn read-workspace-config-file [ws-dir]

@@ -10,9 +10,9 @@
             [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]
             [polylith.clj.core.workspace-clj.interface-defs-from-disk :as defs-from-disk]))
 
-(defn read-component [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns component-deps-config]
-  (let [config (:deps component-deps-config)
-        component-name (:name component-deps-config)
+(defn read-component [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns brick->settings deps-config]
+  (let [config (:deps deps-config)
+        component-name (:name deps-config)
         component-dir (str ws-dir "/components/" component-name)
         component-top-src-dirs (brick-dirs/top-src-dirs component-dir top-src-dir config)
         component-top-test-dirs (brick-dirs/top-test-dirs component-dir top-src-dir config)
@@ -27,6 +27,7 @@
         lib-deps (lib/brick-lib-deps ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home)
         paths (brick-paths/source-paths component-dir config)
         source-paths (config/source-paths config)
+        component-settings (get brick->settings component-name)
         non-top-namespaces (non-top-ns/non-top-namespaces "component" component-name component-dir top-src-dir source-paths)]
     (util/ordered-map :name component-name
                       :type "component"
@@ -35,9 +36,10 @@
                       :namespaces namespaces
                       :non-top-namespaces non-top-namespaces
                       :lib-deps lib-deps
+                      :keep-lib-versions (:keep-lib-versions component-settings)
                       :interface (util/ordered-map :name interface-name
                                                    :definitions definitions))))
 
-(defn read-components [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns configs]
-  (vec (sort-by :name (map #(read-component ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns %)
-                           configs))))
+(defn read-components [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns component-dep-configs brick->settings]
+  (vec (sort-by :name (map #(read-component ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns brick->settings %)
+                           component-dep-configs))))
