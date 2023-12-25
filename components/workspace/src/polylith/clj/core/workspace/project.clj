@@ -36,6 +36,7 @@
                       disk-paths
                       user-input
                       settings
+                      name-type->keep-lib-version
                       outdated-libs
                       library->latest-version]
   (let [alias (get-in settings [:projects name :alias])
@@ -69,7 +70,7 @@
                                                             :test (select/lib-deps project-lib-entries c/test?)}
                                                            outdated-libs library->latest-version
                                                            user-input
-                                                           settings)
+                                                           name-type->keep-lib-version)
         src-paths (select/paths path-entries c/src?)
         test-paths (select/paths path-entries c/test?)
         source-paths (cond-> {}

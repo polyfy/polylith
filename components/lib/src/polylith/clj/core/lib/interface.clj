@@ -10,8 +10,8 @@
 (defn outdated-libs [library->latest-version]
   (outdated/outdated-libraries library->latest-version))
 
-(defn lib-deps-with-latest-version [entity-name entity-type lib-deps outdated-libs lib->latest-version user-input settings]
-  (outdated/lib-deps-with-latest-version lib-deps entity-name entity-type outdated-libs lib->latest-version user-input settings))
+(defn lib-deps-with-latest-version [entity-name entity-type lib-deps outdated-libs lib->latest-version user-input name-type->keep-lib-version]
+  (outdated/lib-deps-with-latest-version lib-deps entity-name entity-type outdated-libs lib->latest-version user-input name-type->keep-lib-version))
 
 (defn latest-with-sizes [ws-dir entity-root-path libraries user-home]
   (core/latest-with-sizes ws-dir entity-root-path libraries user-home))

@@ -2,6 +2,7 @@
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [clojure.tools.deps.util.maven :as mvn]
+            [polylith.clj.core.common.interface.config :as config]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.workspace-clj.brick-deps :as brick-deps]
@@ -176,7 +177,7 @@
                        :project-lib-deps project-lib-deps
                        :maven-repos maven-repos
                        :namespaces namespaces
-                       :keep-lib-versions (:keep-lib-versions project-settings)))))
+                       :keep-lib-versions (config/keep-lib-versions project-settings)))))
 
 (defn keep?
   "Skip projects that are passed in as e.g. skip:p1:p2."

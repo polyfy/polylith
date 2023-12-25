@@ -27,7 +27,7 @@
                       :paths (brick-paths/source-paths base-dir config)
                       :namespaces namespaces
                       :non-top-namespaces non-top-namespaces
-                      :keep-lib-versions (:keep-lib-versions base-settings)
+                      :keep-lib-versions (config/keep-lib-versions base-settings)
                       :lib-deps lib-deps)))
 
 (defn read-bases

@@ -31,13 +31,10 @@
           (map-indexed #(lib-cell 3 (+ 3 %1) %2)
                        (map :version libraries))))
 
-(defn latest-version [{:keys [name version]} lib->latest-version]
-  (or (lib->latest-version [name version]) ""))
-
 (defn latest-column [libraries lib->latest-version]
   (concat [(text-table/cell 5 1 "latest" :none :left :horizontal)]
           (map-indexed #(lib-cell 5 (+ 3 %1) %2)
-                       (map #(latest-version % lib->latest-version)
+                       (map #(lib->latest-version (:name %) "")
                             libraries))))
 
 (defn type-column [libraries]

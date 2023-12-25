@@ -146,6 +146,7 @@
                                       {:missing []}
                                       {}
                                       {:projects {"development" {:alias "dev"}}}
+                                      {}
                                       #{}
                                       {})
                  :deps))))
@@ -211,6 +212,7 @@
                                                                         :lib-deps {"clojure.core.matrix"
                                                                                    "net.mikera/core.matrix"}}}
                                        :projects {"development" {:alias "dev", :test []}}}
+                                      {}
                                       #{}
                                       {})
                  :deps))))

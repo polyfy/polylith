@@ -9,3 +9,7 @@
 (defn source-paths [config]
   (concat (src-paths config)
           (test-paths config)))
+
+(defn keep-lib-versions [{:keys [keep-lib-versions]}]
+  (when (sequential? keep-lib-versions)
+    (mapv str keep-lib-versions)))

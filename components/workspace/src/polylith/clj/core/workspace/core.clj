@@ -18,6 +18,11 @@
 (defn project-sorter [{:keys [is-dev name]}]
   [is-dev name])
 
+(defn ->name-type->keep-lib-version [bases components projects]
+  (into {}
+        (mapv (juxt #(vector (:name %) (:type %)) :keep-lib-versions)
+              (concat bases components projects))))
+
 (defn enrich-workspace [{:keys [ws-dir user-input settings configs components bases config-errors projects paths] :as workspace}]
   (if (common/invalid-workspace? workspace)
     workspace
@@ -28,13 +33,14 @@
           calculate-latest-version? (common/calculate-latest-version? user-input)
           library->latest-version (antq/library->latest-version configs calculate-latest-version?)
           outdated-libs (lib/outdated-libs library->latest-version)
-          enriched-components (mapv #(component/enrich ws-dir suffixed-top-ns interface-names outdated-libs library->latest-version user-input settings %) components)
-          enriched-bases (mapv #(base/enrich ws-dir suffixed-top-ns bases interface-names outdated-libs library->latest-version user-input settings %) bases)
+          name-type->keep-lib-version (->name-type->keep-lib-version bases components projects)
+          enriched-components (mapv #(component/enrich ws-dir suffixed-top-ns interface-names outdated-libs library->latest-version user-input name-type->keep-lib-version %) components)
+          enriched-bases (mapv #(base/enrich ws-dir suffixed-top-ns bases interface-names outdated-libs library->latest-version user-input name-type->keep-lib-version %) bases)
           enriched-bricks (into [] cat [enriched-components enriched-bases])
           brick->loc (brick->loc enriched-bricks)
           brick->lib-imports (brick->lib-imports enriched-bricks)
           enriched-settings (s/enrich-settings settings projects)
-          enriched-projects (vec (sort-by project-sorter (mapv #(project/enrich-project % ws-dir enriched-components enriched-bases suffixed-top-ns brick->loc brick->lib-imports paths user-input enriched-settings outdated-libs library->latest-version) projects)))
+          enriched-projects (vec (sort-by project-sorter (mapv #(project/enrich-project % ws-dir enriched-components enriched-bases suffixed-top-ns brick->loc brick->lib-imports paths user-input enriched-settings name-type->keep-lib-version outdated-libs library->latest-version) projects)))
           messages (validator/validate-ws suffixed-top-ns enriched-settings paths interface-names interfaces enriched-components enriched-bases enriched-projects config-errors interface-ns user-input color-mode)]
       (-> workspace
           (assoc :settings enriched-settings

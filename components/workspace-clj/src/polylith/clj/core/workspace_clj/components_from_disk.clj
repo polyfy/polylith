@@ -36,7 +36,7 @@
                       :namespaces namespaces
                       :non-top-namespaces non-top-namespaces
                       :lib-deps lib-deps
-                      :keep-lib-versions (:keep-lib-versions component-settings)
+                      :keep-lib-versions (config/keep-lib-versions component-settings)
                       :interface (util/ordered-map :name interface-name
                                                    :definitions definitions))))
 
