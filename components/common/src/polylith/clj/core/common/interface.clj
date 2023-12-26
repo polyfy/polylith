@@ -56,6 +56,9 @@
 (defn find-project [project-name projects]
   (core/find-project project-name projects))
 
+(defn find-entity-index [entity-name entities]
+  (core/find-entity-index entity-name entities))
+
 (defn ns-to-path [namespace]
   (core/ns-to-path namespace))
 

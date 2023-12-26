@@ -3,6 +3,10 @@
 (defn find-first [predicate sequence]
   (first (filter predicate sequence)))
 
+(defn find-first-index [predicate sequence]
+  (first (find-first #(-> % second predicate)
+                     (map-indexed vector sequence))))
+
 (defn ordered-map
   "Takes a vector of key/value pairs and returns
    an ordered map, except entries that has nil as a value"

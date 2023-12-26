@@ -81,6 +81,9 @@
 (defn find-project [name projects]
   (util/find-first #(=project % name) projects))
 
+(defn find-entity-index [entity-name entities]
+  (util/find-first-index #(= entity-name (:name %)) entities))
+
 (defn compact? [{:keys [user-input settings]} view]
   (or (:is-compact user-input)
       (contains? (:compact-views settings) view)))
