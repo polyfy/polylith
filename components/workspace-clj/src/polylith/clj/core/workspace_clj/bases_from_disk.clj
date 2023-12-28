@@ -11,7 +11,6 @@
 (defn read-base [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns brick->settings config]
   (let [deps-config (:deps config)
         base-name (:name config)
-        keep-lib-versions (-> config :config :keep-lib-versions)
         base-dir (str ws-dir "/bases/" base-name)
         base-src-dirs (brick-dirs/top-src-dirs base-dir top-src-dir deps-config)
         base-test-dirs (brick-dirs/top-test-dirs base-dir top-src-dir deps-config)
@@ -28,7 +27,8 @@
                       :paths (brick-paths/source-paths base-dir deps-config)
                       :namespaces namespaces
                       :non-top-namespaces non-top-namespaces
-                      :keep-lib-versions (config/keep-lib-versions keep-lib-versions base-settings)
+                      :necessary (config/settings-value :necessary config base-settings)
+                      :keep-lib-versions (config/settings-value :keep-lib-versions config base-settings)
                       :lib-deps lib-deps)))
 
 (defn read-bases

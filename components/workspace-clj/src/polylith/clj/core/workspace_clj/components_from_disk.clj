@@ -13,7 +13,6 @@
 (defn read-component [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns brick->settings config]
   (let [deps-config (:deps config)
         component-name (:name config)
-        keep-lib-versions (-> config :config :keep-lib-versions)
         component-dir (str ws-dir "/components/" component-name)
         component-top-src-dirs (brick-dirs/top-src-dirs component-dir top-src-dir deps-config)
         component-top-test-dirs (brick-dirs/top-test-dirs component-dir top-src-dir deps-config)
@@ -37,7 +36,8 @@
                       :namespaces namespaces
                       :non-top-namespaces non-top-namespaces
                       :lib-deps lib-deps
-                      :keep-lib-versions (config/keep-lib-versions keep-lib-versions component-settings)
+                      :necessary (config/settings-value :necessary config component-settings)
+                      :keep-lib-versions (config/settings-value :keep-lib-versions config component-settings)
                       :interface (util/ordered-map :name interface-name
                                                    :definitions definitions))))
 

@@ -10,7 +10,9 @@
   (concat (src-paths config)
           (test-paths config)))
 
-(defn keep-lib-versions [keep-lib-versions-from-config {:keys [keep-lib-versions]}]
-  (let [lib-versions (or keep-lib-versions-from-config keep-lib-versions)]
-    (when (sequential? lib-versions)
-      (mapv str lib-versions))))
+(defn settings-value [key entity-config settings-config]
+  (let [entity-value (-> entity-config :config key)
+        settings-value (key settings-config)
+        value (or entity-value settings-value)]
+    (when (sequential? value)
+      (mapv str value))))
