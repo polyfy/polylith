@@ -134,8 +134,9 @@
        (empty? bricks-to-test)))
 
 (defn read-project
-  ([{:keys [deps project-name project-dir project-config-dir is-dev]} ws-dir name->brick project->settings user-home suffixed-top-ns interface-ns]
+  ([{:keys [deps config project-name project-dir project-config-dir is-dev]} ws-dir name->brick project->settings user-home suffixed-top-ns interface-ns]
    (let [{:keys [paths deps override-deps aliases mvn/repos]} deps
+         keep-lib-versions (-> config :keep-lib-versions)
          project-src-paths (cond-> paths is-dev (concat (-> aliases :dev :extra-paths)))
          project-src-deps (cond-> deps is-dev (merge (-> aliases :dev :extra-deps)))
          project-test-paths (-> aliases :test :extra-paths)
@@ -146,10 +147,12 @@
          maven-repos (merge mvn/standard-repos repos)]
      (read-project ws-dir name->brick project-name project-dir project-config-dir is-dev maven-repos
                    project->settings user-home project-src-paths project-src-deps project-test-paths
-                   project-test-deps override-src-deps override-test-deps suffixed-top-ns interface-ns)))
+                   project-test-deps override-src-deps override-test-deps suffixed-top-ns interface-ns
+                   keep-lib-versions)))
   ([ws-dir name->brick project-name project-dir project-config-dir is-dev maven-repos
     project->settings user-home project-src-paths project-src-deps project-test-paths
-    project-test-deps override-src-deps override-test-deps suffixed-top-ns interface-ns]
+    project-test-deps override-src-deps override-test-deps suffixed-top-ns interface-ns
+    keep-lib-versions]
    (let [src-paths (src-paths-from-bricks project-name is-dev name->brick project-src-paths project-src-deps)
          [src-lib-deps src-project-lib-deps] (src-lib-deps-from-bricks ws-dir project-name is-dev user-home name->brick project-src-deps override-src-deps)
          project-settings (project->settings project-name)
@@ -177,7 +180,7 @@
                        :project-lib-deps project-lib-deps
                        :maven-repos maven-repos
                        :namespaces namespaces
-                       :keep-lib-versions (config/keep-lib-versions project-settings)))))
+                       :keep-lib-versions (config/keep-lib-versions keep-lib-versions project-settings)))))
 
 (defn keep?
   "Skip projects that are passed in as e.g. skip:p1:p2."

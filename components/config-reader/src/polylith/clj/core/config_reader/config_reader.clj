@@ -3,8 +3,10 @@
             [polylith.clj.core.config-reader.deps-reader :as deps-reader]
             [polylith.clj.core.validator.interface :as validator]))
 
-(defn read-deps-edn-file [ws-type entity-name entity-type entity-dir entity-path validator]
+(defn read-deps-and-config-files [ws-type entity-name entity-type entity-dir entity-path validator]
   (let [deps-filename (str entity-path "/deps.edn")
+        config-filename "config.edn"
+        config-filepath (str entity-path "/" config-filename)
         short-deps-filename (str entity-dir "/deps.edn")]
     (-> (let [{:keys [config error]} (deps-reader/read-deps-file deps-filename short-deps-filename)]
           (if error
@@ -12,7 +14,10 @@
             (let [message (validator ws-type config short-deps-filename)]
               (if message
                 {:error message}
-                {:deps config}))))
+                (let [deps-config config
+                      {:keys [config error]} (deps-reader/read-edn-file config-filepath config-filename)]
+                  (cond-> {:deps deps-config}
+                          (not error) (assoc :config config)))))))
         (assoc :name entity-name
                :type entity-type))))
 
@@ -39,18 +44,16 @@
          (sort))))
 
 (defn read-brick-config-files [ws-dir ws-type entity-type]
-  (-> (map #(read-deps-edn-file ws-type % entity-type
-                                (str entity-type "s/" %)
-                                (str ws-dir "/" entity-type "s/" %)
-                                validator/validate-brick-config)
+  (-> (map #(read-deps-and-config-files ws-type % entity-type
+                                        (str entity-type "s/" %)
+                                        (str ws-dir "/" entity-type "s/" %)
+                                        validator/validate-brick-config)
            (dirs-with-deps-file ws-dir entity-type))
       (filter-config-files)))
 
 (defn default-brick-config-file [entity-name entity-type]
-  (-> (if (= "project" entity-type)
-        {:deps {}}
-        {:deps {:paths ["src" "resources"]
-                :aliases {:test {:extra-paths ["test"]}}}})
+  (-> {:deps {:paths ["src" "resources"]
+              :aliases {:test {:extra-paths ["test"]}}}}
       (assoc :name entity-name
              :type entity-type)))
 
@@ -61,10 +64,10 @@
     :toolsdeps2 (read-brick-config-files ws-dir ws-type entity-type)))
 
 (defn read-project-deployable-dep-config-files [ws-dir ws-type]
-  (map #(assoc (read-deps-edn-file ws-type % "project"
-                                   (str "projects/" %)
-                                   (str ws-dir "/projects/" %)
-                                   validator/validate-project-deployable-config)
+  (map #(assoc (read-deps-and-config-files ws-type % "project"
+                                           (str "projects/" %)
+                                           (str ws-dir "/projects/" %)
+                                           validator/validate-project-deployable-config)
           :is-dev false
           :project-name %
           :project-dir (str ws-dir "/projects/" %)

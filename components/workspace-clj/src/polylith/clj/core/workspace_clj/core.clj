@@ -111,10 +111,10 @@
         user-config-filename (user-config/file-path)
         project->settings (project-settings/convert ws-config)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
-        [component-dep-configs component-errors] (config-reader/read-or-use-default-brick-dep-files ws-dir ws-type "component")
-        components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns component-dep-configs bricks)
-        [base-dep-configs base-errors] (config-reader/read-or-use-default-brick-dep-files ws-dir ws-type "base")
-        bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns base-dep-configs bricks)
+        [component-configs component-errors] (config-reader/read-brick-config-files ws-dir ws-type "component")
+        components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns component-configs bricks)
+        [base-configs base-errors] (config-reader/read-brick-config-files ws-dir ws-type "base")
+        bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns base-configs bricks)
         name->brick (into {} (comp cat (map (juxt :name identity))) [components bases])
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         [project-configs project-errors] (config-reader/read-project-dep-config-files ws-dir ws-type)
@@ -150,8 +150,8 @@
                       :ws-reader ws-reader/reader
                       :user-input user-input
                       :settings settings
-                      :configs {:components component-dep-configs
-                                :bases      base-dep-configs
+                      :configs {:components component-configs
+                                :bases      base-configs
                                 :projects   (config-reader/clean-project-configs project-configs)
                                 :user       (user-config/content)
                                 :workspaces [{:name ws-name

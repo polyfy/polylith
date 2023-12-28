@@ -10,6 +10,7 @@
   (concat (src-paths config)
           (test-paths config)))
 
-(defn keep-lib-versions [{:keys [keep-lib-versions]}]
-  (when (sequential? keep-lib-versions)
-    (mapv str keep-lib-versions)))
+(defn keep-lib-versions [keep-lib-versions-from-config {:keys [keep-lib-versions]}]
+  (let [lib-versions (or keep-lib-versions-from-config keep-lib-versions)]
+    (when (sequential? lib-versions)
+      (mapv str lib-versions))))
