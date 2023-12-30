@@ -26,8 +26,15 @@
             (seq src) (assoc :src src)
             (seq test) (assoc :test test))))
 
-(defn enrich-project [{:keys [name type is-dev maven-repos namespaces paths lib-deps project-lib-deps keep-lib-versions] :as project}
+(defn project-alias! [alias alias-id dev?]
+  (or alias
+      (if dev?
+        "dev"
+        (str "?" (swap! alias-id inc)))))
+
+(defn enrich-project [{:keys [alias name type is-dev maven-repos namespaces paths lib-deps project-lib-deps keep-lib-versions] :as project}
                       ws-dir
+                      alias-id
                       components
                       bases
                       suffixed-top-ns
@@ -39,8 +46,7 @@
                       name-type->keep-lib-version
                       outdated-libs
                       library->latest-version]
-  (let [alias (get-in settings [:projects name :alias])
-        enriched-maven-repos (apply merge maven-repos (mapcat :maven-repos (concat components bases)))
+  (let [enriched-maven-repos (apply merge maven-repos (mapcat :maven-repos (concat components bases)))
         lib-entries (extract/from-library-deps is-dev lib-deps settings)
         project-lib-entries (extract/from-library-deps is-dev project-lib-deps settings)
         path-entries (extract/from-unenriched-project is-dev paths disk-paths settings)
@@ -80,7 +86,7 @@
                                 (seq src-lib-deps) (assoc :src src-lib-deps)
                                 (seq test-lib-deps) (assoc :test test-lib-deps))]
     (-> project
-        (merge {:alias alias
+        (merge {:alias (project-alias! alias alias-id is-dev)
                 :lines-of-code lines-of-code
                 :component-names component-names
                 :base-names base-names

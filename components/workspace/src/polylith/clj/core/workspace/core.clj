@@ -39,8 +39,9 @@
           enriched-bricks (into [] cat [enriched-components enriched-bases])
           brick->loc (brick->loc enriched-bricks)
           brick->lib-imports (brick->lib-imports enriched-bricks)
-          enriched-settings (s/enrich-settings settings projects)
-          enriched-projects (vec (sort-by project-sorter (mapv #(project/enrich-project % ws-dir enriched-components enriched-bases suffixed-top-ns brick->loc brick->lib-imports paths user-input enriched-settings name-type->keep-lib-version outdated-libs library->latest-version) projects)))
+          enriched-settings (s/enrich-settings settings)
+          alias-id (atom 0)
+          enriched-projects (vec (sort-by project-sorter (mapv #(project/enrich-project % ws-dir alias-id enriched-components enriched-bases suffixed-top-ns brick->loc brick->lib-imports paths user-input enriched-settings name-type->keep-lib-version outdated-libs library->latest-version) projects)))
           messages (validator/validate-ws suffixed-top-ns enriched-settings paths interface-names interfaces enriched-components enriched-bases enriched-projects config-errors interface-ns user-input color-mode)]
       (-> workspace
           (assoc :settings enriched-settings

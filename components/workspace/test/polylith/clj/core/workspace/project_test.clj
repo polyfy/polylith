@@ -98,6 +98,29 @@
                          "common" {:src ["clojure.java.io" "clojure.string"]}
                          "change" {:src ["clojure.set" "clojure.string"]}})
 
+(defn enrich-project [project-name dev?]
+  (select-keys (proj/enrich-project {:name project-name :is-dev dev?}
+                                    "."
+                                    (atom 0)
+                                    components bases "se.example." brick->loc brick->lib-imports
+                                    {:missing []}
+                                    {}
+                                    {:projects {"development" {:alias "dev"}}}
+                                    {}
+                                    #{}
+                                    {})
+               [:alias :name]))
+
+(deftest missing-alias
+  (is (= {:alias "?1"
+          :name  "system"}
+         (enrich-project "system" false))))
+
+(deftest missing-dev-alias
+  (is (= {:alias "dev"
+          :name  "development"}
+         (enrich-project "development" true))))
+
 (deftest paths--without-active-profile--returns-expected-map
   (is (= {:alias                    "dev"
           :base-names               {:src ["cli"], :test ["cli"]}
@@ -142,7 +165,9 @@
                                                     "components/change/test"
                                                     "components/command/test"
                                                     "test"]}}}
-         (dissoc (proj/enrich-project project "." components bases "se.example." brick->loc brick->lib-imports
+         (dissoc (proj/enrich-project project "."
+                                      (atom 0)
+                                      components bases "se.example." brick->loc brick->lib-imports
                                       {:missing []}
                                       {}
                                       {:projects {"development" {:alias "dev"}}}
@@ -202,7 +227,9 @@
                                                 "components/change/test"
                                                 "components/command/test"
                                                 "test"]}}}
-         (dissoc (proj/enrich-project project "." components bases "se.example." brick->loc brick->lib-imports
+         (dissoc (proj/enrich-project project "."
+                                      (atom 0)
+                                      components bases "se.example." brick->loc brick->lib-imports
                                       {:missing []}
                                       {}
                                       {:active-profiles ["default"]

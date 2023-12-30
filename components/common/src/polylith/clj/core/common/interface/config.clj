@@ -14,5 +14,6 @@
   (let [entity-value (-> entity-config :config key)
         settings-value (key settings-config)
         value (or entity-value settings-value)]
-    (when (sequential? value)
-      (mapv str value))))
+    (if (sequential? value)
+      (mapv str value)
+      value)))

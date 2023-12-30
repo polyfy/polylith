@@ -1,1 +1,2 @@
-{:necessary ["api" "clojure-test-test-runner"]}
+{:alias "poly"
+ :necessary ["api" "clojure-test-test-runner"]}

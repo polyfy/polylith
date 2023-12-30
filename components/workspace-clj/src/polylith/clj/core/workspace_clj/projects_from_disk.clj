@@ -169,7 +169,8 @@
                                   (seq test-project-lib-deps) (assoc :test test-project-lib-deps))
          {:keys [src-dirs test-dirs]} (project-paths/project-source-dirs ws-dir project-name is-dev project-src-paths project-test-paths)
          namespaces (ns-from-disk/namespaces-from-disk ws-dir src-dirs test-dirs suffixed-top-ns interface-ns)]
-     (util/ordered-map :name project-name
+     (util/ordered-map :alias (config/settings-value :alias config project-settings)
+                       :name project-name
                        :is-dev is-dev
                        :project-dir project-dir
                        :deps-filename (str project-config-dir "/deps.edn")

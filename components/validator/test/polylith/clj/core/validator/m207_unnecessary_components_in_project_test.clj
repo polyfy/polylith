@@ -3,13 +3,11 @@
             [polylith.clj.core.validator.m207-unnecessary-components-in-project :as m207]
             [polylith.clj.core.util.interface.color :as c]))
 
-(def settings {:projects {"api" {}
-                          "development" {:necessary []}}})
-
 (def dev {:base-names {:src ["poly-cli"], :test ["poly-cli"]}
           :is-dev true
           :name "development"
           :type "project"
+          :necessary []
           :component-names {:src ["api"
                                   "change"
                                   "clojure-test-test-runner"
@@ -32,20 +30,19 @@
 
 (deftest dont-check-the-dev-project
   (is (= []
-         (m207/warnings "check" settings [dev] false c/none))))
+         (m207/warnings "check" [dev] false c/none))))
 
 (deftest check-the-dev-project
   (is (= [{:code              207
            :colorized-message "Unnecessary components were found in the development project and may be removed: api, clojure-test-test-runner. To ignore this warning, execute 'poly help check' and follow the instructions for warning 207."
            :message           "Unnecessary components were found in the development project and may be removed: api, clojure-test-test-runner. To ignore this warning, execute 'poly help check' and follow the instructions for warning 207."
            :type              "warning"}]
-         (m207/warnings "check" settings [dev] true c/none))))
+         (m207/warnings "check" [dev] true c/none))))
 
 (deftest check-the-dev-project-exclude-necessary-components
-  (let [settings (assoc-in settings [:projects "development" :necessary]
-                           ["clojure-test-test-runner"])]
+  (let [dev (assoc dev :necessary ["clojure-test-test-runner"])]
     (is (= [{:code              207
              :colorized-message "Unnecessary components were found in the development project and may be removed: api. To ignore this warning, execute 'poly help check' and follow the instructions for warning 207."
              :message           "Unnecessary components were found in the development project and may be removed: api. To ignore this warning, execute 'poly help check' and follow the instructions for warning 207."
              :type              "warning"}]
-           (m207/warnings "check" settings [dev] true c/none)))))
+           (m207/warnings "check" [dev] true c/none)))))
