@@ -3,8 +3,13 @@
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.path-finder.sources-on-disk :as sources]))
 
-(defn project-paths [{:keys [paths profile-src-paths profile-test-paths]}]
-  (concat (:src paths) (:test paths) profile-src-paths profile-test-paths))
+(defn project-paths [{:keys [paths
+                             profile-src-paths
+                             profile-test-paths]}]
+  (concat (:src paths)
+          (:test paths)
+          profile-src-paths
+          profile-test-paths))
 
 (def extract-project-paths-xf (mapcat project-paths))
 (def extract-profile-paths-xf (mapcat #(-> % second :paths)))

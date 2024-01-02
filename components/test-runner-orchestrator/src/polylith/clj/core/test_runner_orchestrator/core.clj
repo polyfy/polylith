@@ -114,15 +114,14 @@
                    e))))))
 
 (defn ->test-opts [workspace
-                   settings
                    changes
-                   {:keys [name] :as project}
+                   {:keys [test] :as project}
                    is-verbose
                    color-mode]
   {:workspace workspace
    :project project
    :changes changes
-   :test-settings (get-in settings [:projects name :test])
+   :test-settings test
    :is-verbose is-verbose
    :color-mode color-mode})
 
@@ -210,7 +209,7 @@
           (print-bricks-to-test component-names base-names bricks-to-test color-mode)
           (println)
           (doseq [project projects-to-test]
-            (let [test-opts (->test-opts workspace settings changes project is-verbose color-mode)]
+            (let [test-opts (->test-opts workspace changes project is-verbose color-mode)]
               (run-tests-for-project test-opts)
               (System/gc)))))
       (print-execution-time start-time)

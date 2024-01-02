@@ -273,7 +273,7 @@
    project. This can be useful if we e.g. only want to run tests for one of our projects (it's passed in as
    bricks-to-test). In this example we can specify :test to [] or {:include []} for all our projects except for one.
 
-   When all dependencies are calculated, we need to pass in bricks-to-test to brick-deps so make sure we don't
+   When all dependencies are calculated, we need to pass in bricks-to-test to brick-deps to make sure we don't
    treat bricks that are excluded from testing, as missing.
 
    One more thing to remember. Bricks are normally included in a project using the :local/root syntax,

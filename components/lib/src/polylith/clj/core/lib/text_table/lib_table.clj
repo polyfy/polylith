@@ -162,7 +162,7 @@
                               #(table %)))
 
 (comment
-  (require '[dev.jocke :as jocke])
-  (print-table jocke/workspace)
-  (print-table (assoc-in jocke/workspace [:user-input :is-outdated] true))
+  (require '[dev.jocke :as dev])
+  (print-table dev/workspace)
+  (print-table (assoc-in dev/workspace [:user-input :is-outdated] true))§
   #__)

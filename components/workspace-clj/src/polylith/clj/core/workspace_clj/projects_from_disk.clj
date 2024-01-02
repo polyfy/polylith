@@ -129,9 +129,10 @@
                      vec)]
     [lib-deps project-lib-deps]))
 
-(defn skip-all-tests? [bricks-to-test]
-  (and (-> bricks-to-test nil? not)
-       (empty? bricks-to-test)))
+(defn skip-all-tests? [{:keys [include] :as test}]
+  (or (vector? test)
+      (and (-> include nil? not)
+           (empty? include))))
 
 (defn read-project
   ([{:keys [deps project-name project-dir project-config-dir is-dev] :as config} ws-dir name->brick project->settings user-home suffixed-top-ns interface-ns]
@@ -154,8 +155,9 @@
     config]
    (let [src-paths (src-paths-from-bricks project-name is-dev name->brick project-src-paths project-src-deps)
          [src-lib-deps src-project-lib-deps] (src-lib-deps-from-bricks ws-dir project-name is-dev user-home name->brick project-src-deps override-src-deps)
-         project-settings (project->settings project-name)
-         skip-all? (-> project-settings :test :include skip-all-tests?)
+         project-settings (get project->settings project-name)
+         test (config/settings-value :test config project-settings)
+         skip-all? (skip-all-tests? test)
          test-paths (if skip-all? [] (test-paths-from-bricks project-name is-dev name->brick project-test-paths project-src-deps project-test-deps))
          [test-lib-deps test-project-lib-deps] (if skip-all? [[][]] (test-lib-deps-from-bricks ws-dir project-name is-dev name->brick user-home project-src-deps project-test-deps override-src-deps override-test-deps))
          paths (cond-> {}
@@ -180,6 +182,7 @@
                        :project-lib-deps project-lib-deps
                        :maven-repos maven-repos
                        :namespaces namespaces
+                       :test test
                        :necessary (config/settings-value :necessary config project-settings)
                        :keep-lib-versions (config/settings-value :keep-lib-versions config project-settings)))))
 
@@ -187,7 +190,7 @@
   "Skip projects that are passed in as e.g. skip:p1:p2."
   [{:keys [project-name]} project->settings skip]
   (not (or (contains? skip project-name)
-           (contains? skip (-> project-name project->settings :alias)))))
+           (contains? skip (get-in project->settings [project-name :alias])))))
 
 (defn read-projects [ws-dir name->brick project->settings user-input user-home suffixed-top-ns interface-ns configs]
   (let [skip (if user-input (-> user-input :skip set) #{})]

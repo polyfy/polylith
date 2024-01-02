@@ -21,6 +21,7 @@ Here are the changes to the workspace structure over time:
 
 | 3.0 | 0.2.19 | added | ENTITIES:ENTITY:keep-lib-versions |
 |  |  | added | ENTITIES:ENTITY:necessary |
+|  |  | deleted | settings:projects |
 | 2.0 | 0.2.18 | added | settings:projects:PROJECT:keep-lib-versions |
 |  |  | added | settings:projects:PROJECT:necessary |
 |  |  | added | bases:BASE:base-deps |

@@ -11,8 +11,8 @@
 (defn absolute-path [path entity-root-path]
   (core/absolute-path path entity-root-path))
 
-(defn brick-names-to-test [settings project-name all-brick-names]
-  (core/brick-names-to-test settings project-name all-brick-names))
+(defn brick-names-to-test [test all-brick-names]
+  (core/brick-names-to-test test all-brick-names))
 
 (defn calculate-latest-version? [user-input]
   (core/calculate-latest-version? user-input))

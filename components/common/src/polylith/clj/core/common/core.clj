@@ -103,12 +103,10 @@
    The dependencies that are calculated per project are used to test runner
    to decide which tests to run, which means that direct and indirect dependencies
    can sometimes be disabled if :include or :exclude is set."
-  [settings project-name all-brick-names]
-  (let [include (get-in settings [:projects project-name :test :include])
-        exclude (get-in settings [:projects project-name :test :exclude])]
-    (set/difference (if include
-                      (set include)
-                      (set all-brick-names))
-                    (if exclude
-                      (set exclude)
-                      #{}))))
+  [{:keys [include exclude]} all-brick-names]
+  (set/difference (if include
+                    (set include)
+                    (set all-brick-names))
+                  (if exclude
+                    (set exclude)
+                    #{})))

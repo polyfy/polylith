@@ -5,8 +5,4 @@
  :default-profile-name "default"
  :compact-views #{}
  :tag-patterns {:stable "stable-*"
-                :release "v[0-9]*"}
- :projects {"poly" {:alias "poly"
-                    :test {:setup-fn project.poly.hto/activate!}}
-            "polyx" {:alias "polyx" :test []}
-            "development" {:alias "dev"}}}
+                :release "v[0-9]*"}}

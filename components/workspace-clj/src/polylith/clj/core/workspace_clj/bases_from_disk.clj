@@ -27,6 +27,7 @@
                       :paths (brick-paths/source-paths base-dir deps-config)
                       :namespaces namespaces
                       :non-top-namespaces non-top-namespaces
+                      :test (config/settings-value :test config base-settings)
                       :necessary (config/settings-value :necessary config base-settings)
                       :keep-lib-versions (config/settings-value :keep-lib-versions config base-settings)
                       :lib-deps lib-deps)))

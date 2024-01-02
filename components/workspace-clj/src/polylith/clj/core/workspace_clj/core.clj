@@ -14,7 +14,6 @@
             [polylith.clj.core.workspace-clj.ws-config :as ws-config]
             [polylith.clj.core.workspace-clj.ws-reader :as ws-reader]
             [polylith.clj.core.workspace-clj.bases-from-disk :as bases-from-disk]
-            [polylith.clj.core.workspace-clj.project-settings :as project-settings]
             [polylith.clj.core.workspace-clj.projects-from-disk :as projects-from-disk]
             [polylith.clj.core.workspace-clj.components-from-disk :as components-from-disk]))
 
@@ -109,7 +108,7 @@
         user-home (user-config/home-dir)
         thousand-separator (user-config/thousand-separator)
         user-config-filename (user-config/file-path)
-        project->settings (project-settings/convert ws-config)
+        project->settings (:projects ws-config)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
         [component-configs component-errors] (config-reader/read-brick-config-files ws-dir ws-type "component")
         components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns component-configs bricks)
@@ -139,7 +138,6 @@
                                    :thousand-separator thousand-separator
                                    :profile-to-settings profile-to-settings
                                    :bricks bricks
-                                   :projects project->settings
                                    :ns-to-lib ns-to-lib-str
                                    :user-home user-home
                                    :m2-dir m2-dir)]

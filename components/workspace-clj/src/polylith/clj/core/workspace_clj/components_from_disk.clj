@@ -36,6 +36,7 @@
                       :namespaces namespaces
                       :non-top-namespaces non-top-namespaces
                       :lib-deps lib-deps
+                      :test (config/settings-value :test config component-settings)
                       :necessary (config/settings-value :necessary config component-settings)
                       :keep-lib-versions (config/settings-value :keep-lib-versions config component-settings)
                       :interface (util/ordered-map :name interface-name

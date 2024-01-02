@@ -1371,40 +1371,35 @@
   (let [actual (clean-settings (ws-get "."
                                        [:settings]
                                        "ws-dir:examples/profiles"))]
-    (is (= {:active-profiles #{"default"}
-            :color-mode "none"
-            :compact-views #{}
+    (is (= {:active-profiles      #{"default"}
+            :color-mode           "none"
+            :compact-views        #{}
             :default-profile-name "default"
-            :empty-character "."
-            :interface-ns "interface"
-            :m2-dir (str (System/getProperty "user.home") "/.m2")
-            :profile-to-settings  {"default" {:base-names []
+            :empty-character      "."
+            :interface-ns         "interface"
+            :m2-dir               "/Users/joakimtengstrand/.m2"
+            :profile-to-settings  {"default" {:base-names      []
                                               :component-names ["user1"]
-                                              :lib-deps {"clj-commons/fs" {:size 12819
-                                                                           :type "maven"
-                                                                           :version "1.6.310"}}
-                                              :paths ["components/user1/src"
-                                                      "components/user1/test"]
-                                              :project-names []}
-                                   "extra" {:base-names []
-                                            :component-names ["admin"]
-                                            :lib-deps {}
-                                            :paths ["components/admin/src"
-                                                    "components/admin/test"]
-                                            :project-names []}}
-            :projects {"development" {:alias "dev"
-                                      :test {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}
-                       "service" {:alias "s"
-                                  :necessary ["user1"]
-                                  :test {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}}
-            :tag-patterns {:release "v[0-9]*"
-                           :stable "stable-*"}
-            :thousand-separator ","
-            :top-namespace "se.example"
-            :vcs {:git-root (System/getProperty "user.dir")
-                  :name "git"
-                  :auto-add true
-                  :is-git-repo true
-                  :polylith {:branch "master"
-                             :repo "https://github.com/polyfy/polylith.git"}}}
+                                              :lib-deps        {"clj-commons/fs" {:size    12819
+                                                                                  :type    "maven"
+                                                                                  :version "1.6.310"}}
+                                              :paths           ["components/user1/src"
+                                                                "components/user1/test"]
+                                              :project-names   []}
+                                   "extra"   {:base-names      []
+                                              :component-names ["admin"]
+                                              :lib-deps        {}
+                                              :paths           ["components/admin/src"
+                                                                "components/admin/test"]
+                                              :project-names   []}}
+            :tag-patterns         {:release "v[0-9]*"
+                                   :stable  "stable-*"}
+            :thousand-separator   ","
+            :top-namespace        "se.example"
+            :vcs                  {:auto-add    true
+                                   :git-root    "/Users/joakimtengstrand/source/polylith"
+                                   :is-git-repo true
+                                   :name        "git"
+                                   :polylith    {:branch "master"
+                                                 :repo   "https://github.com/polyfy/polylith.git"}}}
            actual))))

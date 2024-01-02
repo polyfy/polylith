@@ -153,6 +153,7 @@
                           "components/change/test"
                           "components/command/test"]}
           :type                     "project"
+          :test             {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}
           :unmerged                 {:lib-deps      {:src {"org.clojure/clojure"          #:mvn{:version "1.10.1"}
                                                            "org.clojure/tools.deps"#:mvn{:version "0.16.1264"}}}
                                      :paths {:src ["bases/cli/src"
@@ -192,7 +193,7 @@
           :is-dev               true
           :lib-deps             {:src {"clojure.core.matrix"          "net.mikera/core.matrix"
                                        "org.clojure/clojure"          #:mvn{:version "1.10.1"}
-                                       "org.clojure/tools.deps"#:mvn{:version "0.16.1264"}}}
+                                       "org.clojure/tools.deps"       #:mvn{:version "0.16.1264"}}}
           :project-lib-deps {:src  {"clojure.core.matrix" "net.mikera/core.matrix"}
                              :test {}}
           :lib-imports          {:src ["clojure.java.io"
@@ -215,6 +216,7 @@
                                     "components/command/test"
                                     "components/user/test"]}
           :type                 "project"
+          :test             {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}
           :unmerged             {:lib-deps   {:src {"org.clojure/clojure"          #:mvn{:version "1.10.1"}
                                                     "org.clojure/tools.deps"#:mvn{:version "0.16.1264"}}}
                                  :paths {:src ["bases/cli/src"
@@ -243,3 +245,4 @@
                                       #{}
                                       {})
                  :deps))))
+

@@ -6,7 +6,8 @@
             [polylith.clj.core.path-finder.interface.select :as select]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.path-finder.interface.criterias :as c]
-            [polylith.clj.core.workspace.loc :as loc]))
+            [polylith.clj.core.workspace.loc :as loc]
+            [polylith.clj.core.workspace.project-test-settings :as test-settings]))
 
 (defn file-exists [ws-dir cleaned-path]
   (file/exists (str ws-dir "/" cleaned-path)))
@@ -32,7 +33,7 @@
         "dev"
         (str "?" (swap! alias-id inc)))))
 
-(defn enrich-project [{:keys [alias name type is-dev maven-repos namespaces paths lib-deps project-lib-deps keep-lib-versions] :as project}
+(defn enrich-project [{:keys [alias name type is-dev test maven-repos namespaces paths lib-deps project-lib-deps] :as project}
                       ws-dir
                       alias-id
                       components
@@ -61,7 +62,7 @@
                            (seq base-names-src) (assoc :src base-names-src)
                            (seq base-names-test) (assoc :test base-names-test))
         all-brick-names (concat component-names-src base-names-src component-names-test base-names-test)
-        brick-names-to-test (common/brick-names-to-test settings name all-brick-names)
+        brick-names-to-test (common/brick-names-to-test test all-brick-names)
         deps (proj-deps/project-deps components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test)
 
         lib-imports (project-lib-imports all-brick-names brick->lib-imports)
@@ -93,9 +94,9 @@
                 :deps deps
                 :paths source-paths
                 :lib-deps source-lib-deps
+                :test (test-settings/enrich test settings)
                 :project-lib-deps project-lib-deps
                 :lib-imports lib-imports})
         (cond-> enriched-maven-repos (assoc :maven-repos enriched-maven-repos)
-                keep-lib-versions (assoc :keep-lib-versions keep-lib-versions)
-                is-dev (assoc :unmerged {:paths paths
+                is-dev (assoc :unmerged {:paths    paths
                                          :lib-deps lib-deps})))))

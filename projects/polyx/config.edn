@@ -1,2 +1,3 @@
 {:alias "polyx"
- :necessary ["clojure-test-test-runner"]}
+ :necessary ["clojure-test-test-runner"]
+ :test []}

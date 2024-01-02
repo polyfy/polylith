@@ -5,17 +5,16 @@
   (:refer-clojure :exclude [test]))
 
 (defn test [{:keys [changed-projects
-                    settings
                     changed-components
                     changed-bases
+                    test
                     project-to-indirect-changes
                     selected-bricks
                     selected-projects
                     is-dev-user-input
                     is-run-all-brick-tests]}]
   (to-test/project-to-bricks-to-test changed-projects
-                                     data/projects
-                                     settings
+                                     (data/projects test)
                                      changed-components
                                      changed-bases
                                      project-to-indirect-changes
@@ -31,7 +30,6 @@
   (is (= {"core" ["article"]
           "development" []}
          (test {:changed-projects []
-                :settings {}
                 :changed-components ["article"]
                 :changed-bases []
                 :project-to-indirect-changes {}
@@ -44,7 +42,7 @@
   (is (= {"core" []
           "development" []}
          (test {:changed-projects []
-                :settings {:projects {"core" {:test {:include []}}}}
+                :test {:include []}
                 :changed-components ["article"]
                 :changed-bases []
                 :project-to-indirect-changes {}
@@ -61,7 +59,6 @@
                   "user"]
           "development" []}
          (test {:changed-projects []
-                :settings {}
                 :changed-components ["article"]
                 :changed-bases []
                 :project-to-indirect-changes {}
@@ -83,7 +80,6 @@
                          "tag"
                          "user"]}
          (test {:changed-projects []
-                :settings {}
                 :changed-components ["article"]
                 :changed-bases []
                 :project-to-indirect-changes {}
@@ -101,7 +97,6 @@
                          "tag"
                          "user"]}
          (test {:changed-projects []
-                :settings {}
                 :changed-components ["article"]
                 :changed-bases []
                 :project-to-indirect-changes {}
@@ -115,7 +110,7 @@
                   "user"]
           "development" []}
          (test {:changed-projects []
-                :settings {:projects {"core" {:test {:include ["tag" "user"]}}}}
+                :test {:include ["tag" "user"]}
                 :changed-components ["article" "comment" "rest-api" "tag" "user"]
                 :changed-bases []
                 :project-to-indirect-changes {}
@@ -132,7 +127,6 @@
                   "user"]
           "development" []}
          (test {:changed-projects ["core"]
-                :settings {}
                 :changed-components ["article"]
                 :changed-bases []
                 :project-to-indirect-changes {}
@@ -146,7 +140,6 @@
         {"core" ["user"]
          "development" []}
         (test {:changed-projects []
-               :settings {}
                :changed-components ["article" "user"]
                :changed-bases []
                :project-to-indirect-changes {}
@@ -159,7 +152,6 @@
   (is (= {"core" []
           "development" []}
          (test {:changed-projects []
-                :settings {}
                 :changed-components []
                 :changed-bases []
                 :project-to-indirect-changes {}
@@ -172,7 +164,6 @@
   (is (= {"core" ["tag"]
           "development" []}
          (test {:changed-projects []
-                :settings {}
                 :changed-components []
                 :changed-bases []
                 :project-to-indirect-changes {}
