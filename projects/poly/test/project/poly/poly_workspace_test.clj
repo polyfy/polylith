@@ -1377,7 +1377,6 @@
             :default-profile-name "default"
             :empty-character      "."
             :interface-ns         "interface"
-            :m2-dir               "/Users/joakimtengstrand/.m2"
             :profile-to-settings  {"default" {:base-names      []
                                               :component-names ["user1"]
                                               :lib-deps        {"clj-commons/fs" {:size    12819
@@ -1402,4 +1401,4 @@
                                    :name        "git"
                                    :polylith    {:branch "master"
                                                  :repo   "https://github.com/polyfy/polylith.git"}}}
-           actual))))
+           (dissoc actual :m2-dir)))))
