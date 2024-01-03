@@ -137,7 +137,6 @@
                                    :empty-character empty-character
                                    :thousand-separator thousand-separator
                                    :profile-to-settings profile-to-settings
-                                   :bricks bricks
                                    :ns-to-lib ns-to-lib-str
                                    :user-home user-home
                                    :m2-dir m2-dir)]

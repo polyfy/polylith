@@ -81,7 +81,7 @@ Here it depends on the `user` interface from the `src` context.
 This is because the `se.example.user-api.api` namespace imports `se.example.user.interface`.
 No interfaces are imported from the test context in this example.
 
-* `:keep-lib-versions` A vector containing the library names that should not be affected when executing `poly libs :update`.
+* `:keep-lib-versions` A vector containing the library names that should not be affected when executing `poly libs :update`. Configured in the base's config.edn file.
 
 * `:lib-deps`
 ** `:src` A map with the libraries that are used in this base's src context.
@@ -110,6 +110,7 @@ No interfaces are imported from the test context in this example.
 *** `:name` The name of the namespace where top namespace + base name (`se.example` + `user-api` in this case) have been stripped away.
 *** `:namespace` The full name of the namespace.
 ** `:test` Lists all the namespaces that live under the test directory (same keys as for the `:src`).
+
 * `:non-top-namespace` If the base contains any non-top namespaces, they will be stored in a vector with elements like this:
 ** `{:non-top-ns "com.wrong", :file "bases/cli/src/com/wrong/cli/interface.clj"}`
 * `:paths` The paths that are specified in its `deps.edn` file
@@ -247,7 +248,7 @@ Here it depends on the `user` interface from the `src` context.
 This is because the `se.example.user-api.api` namespace imports `se.example.user.interface`. +
 No interfaces are imported from the test context in this example.
 
-* `:keep-lib-versions` A vector containing the library names that should not be affected when executing `poly libs :update`.
+* `:keep-lib-versions` A vector containing the library names that should not be affected when executing `poly libs :update`. Configured in the component's config.edn file.
 
 * `:lib-deps`
 ** `:src` A map with the libraries that are used in this component's src context.
@@ -276,6 +277,7 @@ No interfaces are imported from the test context in this example.
 *** `:name` The name of the namespace where top namespace + base name (`se.example` + `user-api` in this case) have been stripped away.
 *** `:namespace` The full name of the namespace.
 ** `:test` Lists all the namespaces that live under the test directory (same keys as for the `:src`).
+
 * `:non-top-namespace` If the base contains any non-top namespaces, they will be stored in a vector with elements like this:
 ** {`:non-top-ns` "com.wrong", `:file` "bases/cli/src/com/wrong/cli/interface.clj"}
 * `:paths` The paths that are specified in its `deps.edn` file (paths for `src` and `resources` paths + `aliases > :test > :extra-paths` for test paths).
@@ -590,7 +592,7 @@ poly ws get:projects:user-service
  :type "project"}
 ----
 
-* `:alias` The alias that is specified in `:projects` in `workspace.edn` for this project.
+* `:alias` The alias that is specified in `:projects` in `workspace.edn` for this project. Configured in the project's config.edn file.
 
 * `:base-names`
 ** `:src` The bases that are included in the project for the `src` context, either as paths or included as `:local/root`.
@@ -614,7 +616,7 @@ poly ws get:projects:user-service
 
 * `:is-dev` Set to `true` for the development project.
 
-* `:keep-lib-versions` A vector containing the library names that should not be affected when executing `poly libs :update`.
+* `:keep-lib-versions` A vector containing the library names that should not be affected when executing `poly libs :update`. Configured in the project's config.edn file.
 
 * `:lib-deps`
 ** `:src` Stores a map with the libraries that are used in the project for the src context. Contains libraries that are specified by the project and the included bricks.
@@ -650,6 +652,8 @@ If `:mvn/repos` is specified by a brick that is included in this project, then i
 *** `namespace` The full name of the namespace.
 ** `:test` Lists all the namespaces that live under the `test` directory (same keys as for the `:src`).
 
+* `:necessary` If we get xref:validations.adoc#error111[Error 111 - Unreadable namespace in brick/project] and know that the brick(s) has to be included in the project, then we can add the necessary bricks(s) to a vector in the project's config.edn for this key.
+
 * `:paths`
 ** `:src` Lists the paths that are either explicitly defined as paths or implicitly defined as `:local/root` bricks, for the `src` context.
 ** `:test` Lists the paths that are either explicitly defined as paths or implicitly defined as `:local/root` bricks, for the `test` context.
@@ -665,6 +669,12 @@ If `:mvn/repos` is specified by a brick that is included in this project, then i
 **** if type is `local` then the version key is excluded (a `-` is shown in the output from the xref:commands.adoc#libs[libs] command).
 **** if type is `git` then the version is set to the first seven characters in the `sha`.
 ** `:test` A map with the libraries that are used in the project for the test context. Follows the same structure as the `:src` context.
+
+* `:test`
+** `:exclude` Specifies which brick should be excluded when running the test command.
+** `:include` Specifies which bricks should be included when running the test command.
+Empty if no bricks, missing if all bricks.
+** `:create-test-runner` A vector with one or more test runners, see xref:test-runners.adoc#create-test-runner[create test runner].
 
 [#settings]
 == settings
@@ -697,9 +707,6 @@ poly ws get:settings
                                          "components/user-remote/resources"
                                          "components/user-remote/test"],
                                  :project-names []}},
- :projects {"command-line" {:alias "cl"},
-            "development" {:alias "dev"},
-            "user-service" {:alias "user-s"}},
  :tag-patterns {:release "v[0-9]*", :stable "stable-*"},
  :thousand-separator ",",
  :top-namespace "se.example",
@@ -716,11 +723,6 @@ poly ws get:settings
 ----
 
 * `:active-profiles` If any profiles are defined in `./deps.edn` then the active profiles(s) are listed here.
-
-* `:bricks` A map with configuration information per brick where the keys are brick names, specified in `workspace.edn`:
-[#keep-lib-versions]
-** `:keep-lib-versions` A vector containing the library names (as symbols) that should not be affected when executing `poly libs :update`.
-See xref:libraries.adoc#update[update libs].
 
 [#color-mode]
 * `:color-mode` The color mode specified in `~/.config/polylith/config.edn`.
@@ -742,15 +744,6 @@ Set to "~/.m2" by default, but can be overridden in `~/.config/polylith/config.e
 ** `:lib-deps` The library dependencies specified by the key `:extra-deps`.
 ** `:paths` The paths specified by the key `:extra-paths`.
 ** `:project-names` The projects that are referenced from the specified paths.
-
-* `:projects` A map with extra information per project, specified in `workspace.edn`.
-** `:alias` The alias for a project, used by e.g. the `info` command.
-** `:keep-lib-versions` A vector containing the library names (as symbols) that should not be affected when executing `poly libs :update`.
-** `:necessary` If we get xref:validations.adoc#error111[Error 111 - Unreadable namespace in brick/project] and know that the brick(s) has to be included in the project, then we can add the necessary bricks(s) to the project in a vector for this key.
-** `:test`
-*** `:include` Specifies which bricks should be included when running the test command.
-Empty if no bricks, missing if all bricks.
-*** `:exclude` Specifies which brick should be excluded when running the test command.
 
 * `:tag-patterns` The tag patterns that are specified in `workspace.edn`.
 

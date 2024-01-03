@@ -68,6 +68,7 @@ example
 │               └── example
 │                   └── user
 │                       └── interface_test.clj
+├── config.edn
 ├── deps.edn
 ├── development
 │   └── src
@@ -76,6 +77,7 @@ example
 ├── logo.png
 ├── projects
 │   └── command-line # <1>
+│       ├── config.edn
 │       └── deps.edn
 ├── readme.md
 └── workspace.edn
@@ -87,19 +89,16 @@ The `poly` tool helpfully reminds us:
 
 [source,shell]
 ----
-  It's recommended to add an alias to :projects in ./workspace.edn for the command-line project.
+  It's recommended to rename the alias in config.edn for the command-line project.
 ----
 
 If you don't follow this advice, the `command-line` project heading will default to `?1` when running the xref:commands.adoc#info[info] command.
-Go ahead and add an alias in your `./workspace.edn`:
+Go ahead and update the alias in `projects/command-line/config.edn`:
 
 [source,clojure]
 ----
-  {...
-   :projects {"development" {:alias "dev"}
-              "command-line" {:alias "cl"}}} <1>
+{:alias "cl"}
 ----
-<1> Add the `cl` `alias` for the `command-line` project
 
 Add the `user` component and the `cli` base to your new project by editing `projects/command-line/deps.edn`:
 

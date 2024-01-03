@@ -418,16 +418,13 @@ Set the `user-service` project `deps.edn` content to:
 <4> Specify main for uberjar artifact
 
 [[add-user-service-project-alias]]
-==== c. Add a `poly` alias for the `user-service`
+==== c. Update the `poly` alias for the `user-service`
 
-../workspace.edn
+./projects/user-service/config.edn
 [source,clojure]
 ----
- :projects {"development" {:alias "dev"}
-            "command-line" {:alias "cl"}
-            "user-service" {:alias "user-s"}}} ;; <1>
+{:alias "user-s"}
 ----
-<1> Add `user-s` alias for your new `user-service`
 
 [[build-user-service]]
 === 5. Build the `user-service`

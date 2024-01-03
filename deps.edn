@@ -98,7 +98,7 @@
             :poly218  {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                        :extra-deps {polylith/clj-poly {:mvn/version "0.2.18"}}}
 
-            ;; ws version 3.0
+            ;; ws version 3.0 (work in progress)
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :extra-deps {polylith/clj-poly {:local/root "projects/poly"}}}
 
