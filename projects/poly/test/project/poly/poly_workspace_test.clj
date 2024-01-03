@@ -1396,9 +1396,11 @@
             :thousand-separator   ","
             :top-namespace        "se.example"
             :vcs                  {:auto-add    true
-                                   :git-root    "/Users/joakimtengstrand/source/polylith"
+                                   :git-root    ""
                                    :is-git-repo true
                                    :name        "git"
                                    :polylith    {:branch "master"
                                                  :repo   "https://github.com/polyfy/polylith.git"}}}
-           (dissoc actual :m2-dir)))))
+           (-> actual
+               (dissoc :m2-dir)
+               (update-in [:vcs :git-root] :git-root ""))))))
