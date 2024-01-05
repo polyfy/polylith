@@ -316,7 +316,10 @@ poly ws get:configs
                       :paths ["src" "resources"]},
                :name "user-remote",
                :type "component"}],
- :projects [{:deps {:aliases {:test {:extra-deps {}, :extra-paths ["test"]},
+ :projects [{:config {:alias "cl",
+                      :test {:setup-fn project.command-line.test-setup/setup,
+                             :teardown-fn project.command-line.test-setup/teardown}},
+             :deps {:aliases {:test {:extra-deps {}, :extra-paths ["test"]},
                               :uberjar {:main se.example.cli.core}},
                     :deps {org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"},
                            org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"},
@@ -325,7 +328,8 @@ poly ws get:configs
                            poly/user-remote {:local/root "../../components/user-remote"}}},
              :name "command-line",
              :type "project"}
-            {:deps {:aliases {:+default {:extra-deps {poly/user {:local/root "components/user"}},
+            {:config {:alias "dev"},
+             :deps {:aliases {:+default {:extra-deps {poly/user {:local/root "components/user"}},
                                          :extra-paths ["components/user/test"]},
                               :+remote {:extra-deps {poly/user-remote {:local/root "components/user-remote"}},
                                         :extra-paths ["components/user-remote/test"]},
@@ -341,9 +345,7 @@ poly ws get:configs
                                                  poly/cli {:local/root "bases/cli"},
                                                  poly/user-api {:local/root "bases/user-api"}},
                                     :extra-paths ["development/src"]},
-                              :poly {:extra-deps {polyfy/polylith {:sha "78b2c77c56d1b41109d68b451069affac935200e",
-                                                                   :deps/root "projects/poly",
-                                                                   :git/url "https://github.com/polyfy/polylith.git"}},
+                              :poly {:extra-deps {polylith/clj-poly {:mvn/version "0.2.18"}},
                                      :main-opts ["-m"
                                                  "polylith.clj.core.poly-cli.core"]},
                               :test {:extra-paths ["bases/cli/test"
@@ -351,7 +353,8 @@ poly ws get:configs
                                                    "projects/command-line/test"]}}},
              :name "development",
              :type "project"}
-            {:deps {:aliases {:test {:extra-deps {}, :extra-paths []},
+            {:config {:alias "user-s"},
+             :deps {:aliases {:test {:extra-deps {}, :extra-paths []},
                               :uberjar {:main se.example.user-api.core}},
                     :deps {org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"},
                            org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"},
@@ -364,14 +367,10 @@ poly ws get:configs
  :workspaces [{:config {:compact-views #{},
                         :default-profile-name "default",
                         :interface-ns "interface",
-                        :projects {"command-line" {:alias "cl"},
-                                   "development" {:alias "dev"},
-                                   "user-service" {:alias "user-s"}},
-                        :tag-patterns {:release "v[0-9]*"
-                                       :stable "stable-*"}
+                        :tag-patterns {:release "v[0-9]*", :stable "stable-*"},
                         :top-namespace "se.example",
                         :vcs {:auto-add true, :name "git"}},
-               :name "example",
+               :name "doc-example",
                :type "workspace"}]}
 ----
 
@@ -658,7 +657,6 @@ If `:mvn/repos` is specified by a brick that is included in this project, then i
 ** `:src` Lists the paths that are either explicitly defined as paths or implicitly defined as `:local/root` bricks, for the `src` context.
 ** `:test` Lists the paths that are either explicitly defined as paths or implicitly defined as `:local/root` bricks, for the `test` context.
 * `:project-dir` The absolute path to the project directory.
-* `:type` Set to "project".
 
 * `:project-lib-deps`
 ** `:src` Stores a map with the libraries that are specified by the project for the src context.
@@ -675,6 +673,9 @@ If `:mvn/repos` is specified by a brick that is included in this project, then i
 ** `:include` Specifies which bricks should be included when running the test command.
 Empty if no bricks, missing if all bricks.
 ** `:create-test-runner` A vector with one or more test runners, see xref:test-runners.adoc#create-test-runner[create test runner].
+
+* `:type` Set to "project".
+
 
 [#settings]
 == settings

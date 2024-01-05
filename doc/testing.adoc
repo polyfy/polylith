@@ -725,7 +725,7 @@ This configuration tells `poly` to include no brick tests for project `mytool` a
 TIP: The `:include` keyword is optional and assumed.
 
 You may wonder when this could be useful.
-A good example is the polylith codebase itself, where the `workspace.edn` looks similar to this:
+A good example is the polylith codebase itself, where the `dev`, `poly`, `polyx` projects are configured like this:
 
 ../projects/poly/config.edn
 [source,clojure]

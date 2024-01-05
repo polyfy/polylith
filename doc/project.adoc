@@ -5,6 +5,7 @@ There are two kinds of `projects` in Polylith: development and deployable.
 *The xref:development.adoc[development] project*:
 
 * Where you work with the code, often from a REPL.
+* Project-specific configuration is stored in `./development/config.edn`.
 * Described in the `./deps.edn` which:
 ** Specifies all bricks and project libraries used by the project.
 ** Optionally defines xref:profile.adoc[profiles].
@@ -14,14 +15,13 @@ There are two kinds of `projects` in Polylith: development and deployable.
 
 * Used to build deployable xref:artifacts.adoc[artifacts], e.g., lambda functions, REST APIs, tools, etc.
 * Has its own directory under the `./projects` directory (e.g., `my-project`), which:
+** Has a `config.edn` with project-specifying configurations, like project alias and, optionally, how `poly` should run your xref:testing.adoc[tests].
 ** Has a `deps.edn` specifying the bricks and libraries used by the deployable project.
 *** If the referenced bricks contain any tests, they are run when you execute the xref:commands.adoc#test[test] command.
 ** Can optionally have a `resources` directory.
 ** Can optionally have a `test` directory for project-specific tests.
 ** Doesn't have a `src` directory.
 We discourage a `src` directory for deployable projects; all production code should normally only live in bricks.
-
-The `:project` key in `./workspace.edn` configures project aliases and, optionally, how `poly` should run your xref:testing.adoc[tests].
 
 Let's continue with our xref:introduction.adoc[tutorial].
 The last thing you did was create a `cli` xref:base.adoc#create-component[base].
@@ -79,12 +79,13 @@ example
 ├── logo.png
 ├── projects
 │   └── command-line # <1>
-│       ├── config.edn
+│       ├── config.edn # <2>
 │       └── deps.edn
 ├── readme.md
 └── workspace.edn
 ----
 <1> new `command-line` project
+<2> If the `alias` is omitted in the `create project` statement, you can edit this file manually to set the alias.
 
 Add the `user` component and the `cli` base to your new project by editing `projects/command-line/deps.edn`:
 

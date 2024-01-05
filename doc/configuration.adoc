@@ -239,12 +239,16 @@ poly ws get:configs:projects:command-line
 
 [source,clojure]
 ----
-{:deps {:aliases {:test {:extra-deps {}, :extra-paths ["test"]},
+{:config {:alias "cl",
+          :test {:setup-fn project.command-line.test-setup/setup,
+                 :teardown-fn project.command-line.test-setup/teardown}},
+ :deps {:aliases {:test {:extra-deps {}, :extra-paths ["test"]},
                   :uberjar {:main se.example.cli.core}},
-        :deps {org.clojure/clojure {:mvn/version "1.11.1"},
-               org.slf4j/slf4j-nop {:mvn/version "2.0.9"},
+        :deps {org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"},
+               org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"},
+               org.clojure/clojure {:mvn/version "1.11.1"},
                poly/cli {:local/root "../../bases/cli"},
-               poly/user {:local/root "../../components/user-remote"}}},
+               poly/user-remote {:local/root "../../components/user-remote"}}},
  :name "command-line",
  :type "project"}
 ----
@@ -253,8 +257,11 @@ poly ws get:configs:projects:command-line
 |===
 | Key | Description
 
+a| `:configs`
+a| Content of project `config.edn`
+
 a| `:deps`
-a| Contents of project `deps.edn`
+a| Content of project `deps.edn`
 
 a| `:name`
 a| (derived) The project name
@@ -287,6 +294,9 @@ poly ws get:configs:bases:cli
 [%autowidth]
 |===
 | Key | Description
+
+a| `:config`
+a| Content of base `config.edn`.
 
 a| `:deps`
 a| Content of base `deps.edn`.
@@ -321,6 +331,9 @@ poly ws get:configs:components:user
 [%autowidth]
 |===
 | Key | Description
+
+a| `:config`
+a| The content of `config.edn`.
 
 a| `:deps`
 a| The content of `deps.edn`.
