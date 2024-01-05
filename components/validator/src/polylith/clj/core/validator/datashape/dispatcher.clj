@@ -5,14 +5,14 @@
 (defn throw-unknown-type [ws-type]
   (throw (Exception. (str "Unknown ws-type: " ws-type))))
 
-(defn validate-project-dev-config [ws-type config filename]
+(defn validate-project-dev-deps-config [ws-type config filename]
   (case ws-type
-    :toolsdeps1 (toolsdeps1/validate-dev-config config filename)
-    :toolsdeps2 (toolsdeps2/validate-project-dev-config config filename)
+    :toolsdeps1 (toolsdeps1/validate-dev-deps-config config filename)
+    :toolsdeps2 (toolsdeps2/validate-project-dev-deps-config config filename)
     (throw-unknown-type ws-type)))
 
-(defn validate-project-deployable-config [ws-type config filename]
+(defn validate-project-deployable-deps-config [ws-type config filename]
   (case ws-type
-    :toolsdeps1 (toolsdeps1/validate-project-deployable-config config filename)
-    :toolsdeps2 (toolsdeps2/validate-project-deployable-config config filename)
+    :toolsdeps1 (toolsdeps1/validate-project-deployable-deps-config config filename)
+    :toolsdeps2 (toolsdeps2/validate-project-deployable-deps-config config filename)
     (throw-unknown-type ws-type)))

@@ -27,9 +27,10 @@ Let's continue with our xref:introduction.adoc[tutorial].
 The last thing you did was create a `cli` xref:base.adoc#create-component[base].
 Run the following xref:commands#create-project[create project] command:
 
+[[project-alias]]
 [source,shell]
 ----
-poly create project name:command-line
+poly create project name:command-line alias:cl
 ----
 
 Your workspace should now look like this:
@@ -71,6 +72,7 @@ example
 ├── config.edn
 ├── deps.edn
 ├── development
+│   ├── config.edn
 │   └── src
 │       └── dev
 │           └── lisa.clj
@@ -83,22 +85,6 @@ example
 └── workspace.edn
 ----
 <1> new `command-line` project
-
-[[project-alias]]
-The `poly` tool helpfully reminds us:
-
-[source,shell]
-----
-  It's recommended to rename the alias in config.edn for the command-line project.
-----
-
-If you don't follow this advice, the `command-line` project heading will default to `?1` when running the xref:commands.adoc#info[info] command.
-Go ahead and update the alias in `projects/command-line/config.edn`:
-
-[source,clojure]
-----
-{:alias "cl"}
-----
 
 Add the `user` component and the `cli` base to your new project by editing `projects/command-line/deps.edn`:
 

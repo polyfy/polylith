@@ -25,7 +25,7 @@
   (config-reader/read-project-dep-config-files ws-dir ws-type))
 
 (defn read-project-dev-config-file [ws-dir ws-type]
-  (config-reader/read-project-dev-dep-config-file ws-dir ws-type))
+  (config-reader/read-project-dev-configs ws-dir ws-type))
 
 (defn read-workspace-config-file [ws-dir]
   (config-reader/read-workspace-config-file ws-dir))

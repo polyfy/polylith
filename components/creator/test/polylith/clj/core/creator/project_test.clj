@@ -19,7 +19,7 @@
                  (helper/execute-command "ws1" "create" "p" "name:proj1")
                  (helper/execute-command "ws1" "create" "project" "name:proj1"))]
 
-    (is (= (str "  It's recommended to rename the alias in config.edn for the proj1 project.\n"
+    (is (= (str "  It's recommended to set the alias in config.edn for the proj1 project.\n"
                 "  Project proj1 (or alias) already exists.\n")
            (color/clean-colors output)))))
 
@@ -29,7 +29,7 @@
                  (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example" ":create")
                  (helper/execute-command "ws1" "create" "p" "name:proj1"))]
 
-    (is (= "  It's recommended to rename the alias in config.edn for the proj1 project.\n"
+    (is (= "  It's recommended to set the alias in config.edn for the proj1 project.\n"
            (color/clean-colors output)))
 
     (is (= #{".gitignore"

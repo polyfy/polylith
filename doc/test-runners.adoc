@@ -122,26 +122,28 @@ The `poly` tool will run each test runner for each tested project.
 You can override the global test runner for a project.
 Add a `:test` key in the project's `config.edn` to select project-specific test runners:
 
-projects/foo/config.edn:
+../projects/foo/config.edn:
 [source,clojure]
 ----
-{...
+{:alias "foo"
  ; Use another test runner only for this project
  :test {:create-test-runner [polylith-kaocha.test-runner/create]}
 }
 ----
 
+../projects/bar/config.edn:
 [source,clojure]
 ----
-{...
+{:alias "bar"
  ; Use the poly default test runner instead of the global test-runner
  :test {:create-test-runner [:default]}
 }
 ----
 
+../projects/baz/config.edn:
 [source,clojure]
 ----
-{...
+{:alias "baz"
  ; Use both the poly default and the example test runner for this project
  :test {:create-test-runner [:default
                              org.corfield.external-test-runner.interface/create]}

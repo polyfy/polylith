@@ -63,32 +63,36 @@
                        (dirs ws-dir entity-type)) []]
     :toolsdeps2 (read-brick-config-files ws-dir ws-type entity-type)))
 
-(defn read-project-deployable-dep-config-files [ws-dir ws-type]
+(defn read-project-deployable-dep-configs [ws-dir ws-type]
   (map #(assoc (read-deps-and-config-files ws-type % "project"
                                            (str "projects/" %)
                                            (str ws-dir "/projects/" %)
-                                           validator/validate-project-deployable-config)
+                                           validator/validate-project-deployable-deps-config)
           :is-dev false
           :project-name %
           :project-dir (str ws-dir "/projects/" %)
           :project-config-dir (str ws-dir "/projects/" %))
        (dirs-with-deps-file ws-dir "project")))
 
-(defn read-project-dev-dep-config-file [ws-dir ws-type]
-  (let [filename (str ws-dir "/deps.edn")]
-    (let [{:keys [config error]} (deps-reader/read-deps-file filename "deps.edn")]
+(defn read-project-dev-configs [ws-dir ws-type]
+  (let [config-filename (str ws-dir "/development/config.edn")
+        deps-filename (str ws-dir "/deps.edn")]
+    (let [{:keys [config error]} (deps-reader/read-deps-file deps-filename "deps.edn")]
       (if error
         {:error error}
-        (let [message (validator/validate-project-dev-config ws-type config "./deps.edn")]
+        (let [message (validator/validate-project-dev-deps-config ws-type config "./deps.edn")]
           (if message
             {:error message}
-            {:deps config
-             :is-dev true
-             :name "development"
-             :type "project"
-             :project-name "development"
-             :project-dir (str ws-dir "/development")
-             :project-config-dir ws-dir}))))))
+            (let [deps config
+                  {:keys [config error]} (deps-reader/read-edn-file config-filename "config.edn")]
+              (cond-> {:deps deps
+                       :is-dev true
+                       :name "development"
+                       :type "project"
+                       :project-name "development"
+                       :project-dir (str ws-dir "/development")
+                       :project-config-dir ws-dir}
+                      (nil? error) (assoc :config config)))))))))
 
 (defn clean-project-configs [configs]
   (mapv #(dissoc %
@@ -99,8 +103,8 @@
         configs))
 
 (defn read-project-dep-config-files [ws-dir ws-type]
-  (-> (into [] cat [[(read-project-dev-dep-config-file ws-dir ws-type)]
-                    (read-project-deployable-dep-config-files ws-dir ws-type)])
+  (-> (into [] cat [[(read-project-dev-configs ws-dir ws-type)]
+                    (read-project-deployable-dep-configs ws-dir ws-type)])
       (filter-config-files)))
 
 (defn read-workspace-config-file [ws-dir]

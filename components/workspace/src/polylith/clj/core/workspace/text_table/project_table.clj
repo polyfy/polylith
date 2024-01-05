@@ -59,9 +59,10 @@
 
 (defn dev-column [projects {:keys [project-to-projects-to-test]} is-show-resources]
   (let [dev (common/find-project "development" projects)
+        alias (get dev :alias "dev")
         path-entries (extract/from-paths (:paths dev) nil)
         projects-to-test (set (-> "development" project-to-projects-to-test set))]
-    (concat [(text-table/cell 7 1 "dev" :purple)]
+    (concat [(text-table/cell 7 1 alias :purple)]
             (map-indexed #(dev-cell %1 %2 path-entries projects-to-test is-show-resources)
                          projects))))
 

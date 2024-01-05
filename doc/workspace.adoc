@@ -49,6 +49,7 @@ example                # Workspace dir
 ├── components/        # Dir for poly components
 ├── deps.edn           # Config for development project
 ├── development/
+│   ├── config.edn     # Development project configuraton
 │   └── src/           # Development project sources
 ├── logo.png           # Polylith logo
 ├── projects/          # Dir for deployable projects
@@ -91,8 +92,7 @@ The `workspace.edn` file looks like:
  :vcs {:name "git"
        :auto-add false}
  :tag-patterns {:stable "stable-*"
-                :release "v[0-9]*"}
- :projects {"development" {:alias "dev"}}}
+                :release "v[0-9]*"}}
 ----
 
 The `deps.edn` file:

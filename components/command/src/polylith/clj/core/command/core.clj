@@ -86,7 +86,7 @@
     (lib/update-libs! workspace)
     (lib/print-lib-table workspace)))
 
-(defn execute [{:keys [cmd args name top-ns branch help is-local more page ws is-tap is-git-add is-github is-commit is-all is-update is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
+(defn execute [{:keys [cmd args alias name top-ns branch help is-local more page ws is-tap is-git-add is-github is-commit is-all is-update is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (config-reader/workspace-dir user-input)
         workspace-fn (workspace-reader-fn)
@@ -105,7 +105,7 @@
       (if ok?
         (case cmd
           "check" (check workspace color-mode)
-          "create" (create/create ws-dir workspace args name top-ns interface branch is-git-add is-commit color-mode)
+          "create" (create/create ws-dir workspace args name alias top-ns interface branch is-git-add is-commit color-mode)
           "deps" (dependencies/deps workspace project-name brick-name unnamed-args)
           "doc" (doc/open-doc branch is-local is-github help more page ws unnamed-args)
           "diff" (diff workspace)

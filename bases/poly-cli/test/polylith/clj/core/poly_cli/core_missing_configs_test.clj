@@ -23,7 +23,7 @@
 
 (deftest check-a-workspace-with-missing-workspace-config-file
   (let [check-fn (fn [] (with-redefs [config-reader/file-exists? (fn [_ type] (not= :workspace type))
-                                      validator/validate-project-dev-config (fn [_ _ _] "Invalid file")
+                                      validator/validate-project-dev-deps-config (fn [_ _ _] "Invalid file")
                                       ws-config/ws-config-from-disk (fn [_] [nil "Missing workspace config"])]
                           (cli/-main "check" "ws-dir:examples/local-dep" "color-mode:none" ":no-exit")))
         output (with-out-str (check-fn))]
@@ -34,7 +34,7 @@
 
 (deftest check-a-workspace-with-missing-development-config-file
   (let [check-fn (fn [] (with-redefs [config-reader/file-exists? (fn [_ type] (not= :development type))
-                                      validator/validate-project-dev-config (fn [_ _ _] "Missing file")]
+                                      validator/validate-project-dev-deps-config (fn [_ _ _] "Missing file")]
                           (cli/-main "check" "ws-dir:examples/local-dep" "color-mode:none" ":no-exit")))
         output (with-out-str (check-fn))]
     (is (= "  Missing file\n"
@@ -43,7 +43,7 @@
            (check-fn)))))
 
 (deftest check-a-workspace-with-missing-project-config-file
-  (let [check-fn (fn [] (with-redefs [validator/validate-project-deployable-config (fn [_ _ _] "Invalid file")]
+  (let [check-fn (fn [] (with-redefs [validator/validate-project-deployable-deps-config (fn [_ _ _] "Invalid file")]
                           (cli/-main "check" "ws-dir:examples/local-dep" "color-mode:none" ":no-exit")))
         output (with-out-str (check-fn))]
     (is (= "  Error 110: Invalid file\n"

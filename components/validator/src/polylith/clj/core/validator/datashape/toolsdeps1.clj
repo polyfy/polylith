@@ -3,7 +3,7 @@
             [malli.error :as me]
             [polylith.clj.core.validator.datashape.shared :as shared]))
 
-(defn validate-dev-config [config filename]
+(defn validate-dev-deps-config [config filename]
   (-> [:map
        [:polylith
         [:map
@@ -26,7 +26,7 @@
       (me/humanize)
       (shared/error-message filename)))
 
-(defn validate-project-deployable-config [config filename]
+(defn validate-project-deployable-deps-config [config filename]
   (-> [:map
        [:paths
         [:vector string?]]

@@ -100,6 +100,7 @@
   (let [{:keys [vcs top-namespace interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views bricks]
          :or   {vcs {:name "git", :auto-add false}
                 compact-views {}
+                default-profile-name "default"
                 interface-ns "interface"}} ws-config
         patterns (tag-pattern/patterns tag-patterns stable-tag-pattern release-tag-pattern)
         top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
@@ -121,14 +122,13 @@
         profile-to-settings (profile/profile-to-settings ws-dir aliases name->brick user-home)
         ws-local-dir (->ws-local-dir ws-dir)
         paths (path-finder/paths ws-dir projects profile-to-settings)
-        default-profile (or default-profile-name "default")
-        active-profiles (profile/active-profiles user-input default-profile profile-to-settings)
+        active-profiles (profile/active-profiles user-input default-profile-name profile-to-settings)
         config-errors (into [] cat [component-errors base-errors project-errors])
         version (->version ws-type)
         settings (util/ordered-map :vcs (git-info ws-dir vcs patterns user-input)
                                    :top-namespace top-namespace
                                    :interface-ns interface-ns
-                                   :default-profile-name default-profile
+                                   :default-profile-name default-profile-name
                                    :active-profiles active-profiles
                                    :tag-patterns patterns
                                    :color-mode color-mode
