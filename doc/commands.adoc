@@ -14,7 +14,7 @@ poly help
 
 [source,text]
 ----
-  poly 0.2.18 (2023-12-08) - https://github.com/polyfy/polylith
+  poly 0.2.19 (2024-01-05) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -99,7 +99,9 @@ poly help
     poly create component name:admin interface:user
     poly create b name:mybase
     poly create base name:mybase
+    poly create p name:myproject
     poly create project name:myproject
+    poly create project name:myproject alias:mp
     poly create w top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company :commit
@@ -287,6 +289,7 @@ poly help
   Warning 205 - Non top namespace was found in brick.
     Triggered if a namespace in a brick doesn't start with the top namespaces
     defined in :top-namespace in ./workspace.edn.
+    Files that are put in 'resources' or 'test-resources' are not checked.
 
   Warning 207 - Unnecessary components were found in project.
     Triggered if components were defined in a project that are not used by any of
@@ -376,8 +379,9 @@ poly help
 ----
   Creates a project.
 
-  poly create project name:NAME [:git-add]
-    NAME = The name of the project to create.
+  poly create project name:NAME [alias:ALIAS] [:git-add]
+    NAME  = The name of the project to create.
+    ALIAS = The alias of the project, used in different commands.
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,
                then we can pass in this flag instead, to explicitly add the
@@ -386,6 +390,7 @@ poly help
   Example:
     poly create p name:myproject
     poly create project name:myproject
+    poly create project name:myproject alias:mp
     poly create project name:myproject :git-add
 ----
 

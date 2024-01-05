@@ -10,7 +10,7 @@
                                               
   interface       brick              um    dev
   --------------------------------   ---   ---
-  app-state       app-state          stx   st-
+  app-state       app-state *        stx   st-
   database        database *         stx   st-
   department      department *       stx   st-
   schema          schema *           stx   st-

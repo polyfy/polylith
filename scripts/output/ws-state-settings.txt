@@ -30,22 +30,6 @@
    :component-names ["user-remote"],
    :base-names [],
    :project-names []}},
- :projects
- {"development"
-  {:alias "dev",
-   :test
-   {:create-test-runner
-    [polylith.clj.core.clojure-test-test-runner.interface/create]}},
-  "command-line"
-  {:alias "cl",
-   :test
-   {:create-test-runner
-    [polylith.clj.core.clojure-test-test-runner.interface/create]}},
-  "user-service"
-  {:alias "user-s",
-   :test
-   {:create-test-runner
-    [polylith.clj.core.clojure-test-test-runner.interface/create]}}},
  :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
  :thousand-separator ",",
  :top-namespace "se.example",

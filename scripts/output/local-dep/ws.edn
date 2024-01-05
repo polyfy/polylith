@@ -23,18 +23,27 @@
    :base-deps {:src [], :test []}}],
  :changes
  {:since "stable",
-  :changed-projects [],
+  :changed-projects ["invoicing"],
   :changed-bases [],
   :project-to-indirect-changes
   {"invoicing" {:src [], :test []}, "development" {:src [], :test []}},
-  :project-to-bricks-to-test {"development" [], "invoicing" []},
+  :project-to-bricks-to-test
+  {"development" [],
+   "invoicing"
+   ["database"
+    "invoicer"
+    "invoicer-cli"
+    "test-helper"
+    "test-helper-db"
+    "util"
+    "without-src"]},
   :project-to-projects-to-test {"invoicing" [], "development" []},
   :since-sha "SHA",
-  :changed-files [],
+  :changed-files ["deps.edn" "projects/invoicing/deps.edn"],
   :git-diff-command "git diff SHA --name-only",
   :changed-components [],
   :since-tag "stable-master",
-  :changed-or-affected-projects []},
+  :changed-or-affected-projects ["invoicing"]},
  :components
  [{:lines-of-code {:src 4, :test 6},
    :interface {:name "database", :definitions []},
@@ -197,7 +206,8 @@
      {:git/url "https://github.com/clj-time/clj-time.git",
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
       :type "git",
-      :version "d9ed4e4"}}}}
+      :version "d9ed4e4",
+      :size 136433}}}}
   {:lines-of-code {:src 0, :test 5},
    :interface {:definitions []},
    :namespaces
@@ -291,8 +301,8 @@
         "components/util/src"
         "bases/invoicer-cli/src"],
        :extra-deps
-       {org.clojure/clojure {:mvn/version "1.10.1"},
-        org.clojure/tools.deps {:mvn/version "0.16.1281"},
+       {org.clojure/clojure {:mvn/version "1.11.1"},
+        org.clojure/tools.deps {:mvn/version "0.18.1374"},
         clj-time/clj-time
         {:git/url "https://github.com/clj-time/clj-time.git",
          :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"},
@@ -323,8 +333,8 @@
       poly/util {:local/root "../../components/util"},
       poly/without-src {:local/root "../../components/without-src"},
       poly/invoicer-cli {:local/root "../../bases/invoicer-cli"},
-      org.clojure/clojure {:mvn/version "1.10.1"},
-      org.clojure/tools.deps {:mvn/version "0.16.1281"}},
+      org.clojure/clojure {:mvn/version "1.11.1"},
+      org.clojure/tools.deps {:mvn/version "0.18.1374"}},
      :aliases
      {:test
       {:extra-paths [],
@@ -424,6 +434,7 @@
    "components/without-src/test"]},
  :projects
  [{:lines-of-code {:src 0, :test 0, :total {:src 63, :test 63}},
+   :necessary ["datomic-ions" "without-src"],
    :deps-filename
    "USER-HOME/source/polylith/examples/local-dep/projects/invoicing/deps.edn",
    :namespaces {},
@@ -438,9 +449,10 @@
    :name "invoicing",
    :project-lib-deps
    {:src
-    {"org.clojure/clojure" {:version "1.10.1", :type "maven"},
+    {"org.clojure/clojure"
+     {:version "1.11.1", :type "maven", :size 4105111},
      "org.clojure/tools.deps"
-     {:version "0.16.1281", :type "maven", :size 58704}},
+     {:version "0.18.1374", :type "maven", :size 59660}},
     :test {}},
    :paths
    {:src
@@ -471,14 +483,16 @@
    "USER-HOME/source/polylith/examples/local-dep/projects/invoicing",
    :lib-deps
    {:src
-    {"org.clojure/clojure" {:version "1.10.1", :type "maven"},
+    {"org.clojure/clojure"
+     {:version "1.11.1", :type "maven", :size 4105111},
      "org.clojure/tools.deps"
-     {:version "0.16.1281", :type "maven", :size 58704},
+     {:version "0.18.1374", :type "maven", :size 59660},
      "clj-time/clj-time"
      {:git/url "https://github.com/clj-time/clj-time.git",
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
       :type "git",
-      :version "d9ed4e4"}},
+      :version "d9ed4e4",
+      :size 136433}},
     :test
     {"migrate-me/migrate-me"
      {:local/root "../../migrate-me",
@@ -494,6 +508,9 @@
      "test-helper-db"
      "util"
      "without-src"]},
+   :test
+   {:create-test-runner
+    [polylith.clj.core.clojure-test-test-runner.interface/create]},
    :deps
    {"invoicer-cli"
     {:src {:direct ["invoicer"], :indirect ["util"]},
@@ -533,18 +550,21 @@
    :name "development",
    :project-lib-deps
    {:src
-    {"org.clojure/clojure" {:version "1.10.1", :type "maven"},
+    {"org.clojure/clojure"
+     {:version "1.11.1", :type "maven", :size 4105111},
      "org.clojure/tools.deps"
-     {:version "0.16.1281", :type "maven", :size 58704},
+     {:version "0.18.1374", :type "maven", :size 59660},
      "clj-time/clj-time"
      {:git/url "https://github.com/clj-time/clj-time.git",
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
       :type "git",
-      :version "d9ed4e4"},
+      :version "d9ed4e4",
+      :size 136433},
      "uncomplicate/neanderthal"
      {:version "0.41.0",
       :exclusions [org.jcuda/jcuda-natives org.jcuda/jcublas-natives],
-      :type "maven"}},
+      :type "maven",
+      :size 224783}},
     :test
     {"migrate-me/migrate-me"
      {:local/root "migrate-me",
@@ -602,18 +622,21 @@
       "components/without-src/test"]},
     :lib-deps
     {:src
-     {"org.clojure/clojure" {:version "1.10.1", :type "maven"},
+     {"org.clojure/clojure"
+      {:version "1.11.1", :type "maven", :size 4105111},
       "org.clojure/tools.deps"
-      {:version "0.16.1281", :type "maven", :size 58704},
+      {:version "0.18.1374", :type "maven", :size 59660},
       "clj-time/clj-time"
       {:git/url "https://github.com/clj-time/clj-time.git",
        :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
        :type "git",
-       :version "d9ed4e4"},
+       :version "d9ed4e4",
+       :size 136433},
       "uncomplicate/neanderthal"
       {:version "0.41.0",
        :exclusions [org.jcuda/jcuda-natives org.jcuda/jcublas-natives],
-       :type "maven"}},
+       :type "maven",
+       :size 224783}},
      :test
      [["migrate-me/migrate-me"
        {:local/root "migrate-me",
@@ -622,18 +645,21 @@
         :size 310}]]}},
    :lib-deps
    {:src
-    {"org.clojure/clojure" {:version "1.10.1", :type "maven"},
+    {"org.clojure/clojure"
+     {:version "1.11.1", :type "maven", :size 4105111},
      "org.clojure/tools.deps"
-     {:version "0.16.1281", :type "maven", :size 58704},
+     {:version "0.18.1374", :type "maven", :size 59660},
      "clj-time/clj-time"
      {:git/url "https://github.com/clj-time/clj-time.git",
       :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab",
       :type "git",
-      :version "d9ed4e4"},
+      :version "d9ed4e4",
+      :size 136433},
      "uncomplicate/neanderthal"
      {:version "0.41.0",
       :exclusions [org.jcuda/jcuda-natives org.jcuda/jcublas-natives],
-      :type "maven"}},
+      :type "maven",
+      :size 224783}},
     :test
     {"migrate-me/migrate-me"
      {:local/root "migrate-me",
@@ -649,6 +675,9 @@
      "test-helper-db"
      "util"],
     :test ["database" "invoicer" "test-helper" "util" "without-src"]},
+   :test
+   {:create-test-runner
+    [polylith.clj.core.clojure-test-test-runner.interface/create]},
    :deps
    {"invoicer-cli"
     {:src {:direct ["invoicer"], :indirect ["util"]},
@@ -669,19 +698,7 @@
     "util" {:src {}, :test {}},
     "without-src" {:src {}, :test {}}}}],
  :settings
- {:projects
-  {"development"
-   {:alias "dev",
-    :test
-    {:create-test-runner
-     [polylith.clj.core.clojure-test-test-runner.interface/create]}},
-   "invoicing"
-   {:alias "inv",
-    :necessary ["datomic-ions" "without-src"],
-    :test
-    {:create-test-runner
-     [polylith.clj.core.clojure-test-test-runner.interface/create]}}},
-  :user-config-filename "USER-HOME/.config/polylith/config.edn",
+ {:user-config-filename "USER-HOME/.config/polylith/config.edn",
   :top-namespace "com.localdep",
   :default-profile-name "default",
   :thousand-separator ",",
@@ -745,14 +762,14 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.18-SNAPSHOT",
+  {:name "0.2.19-SNAPSHOT",
    :tool "poly",
    :major 0,
    :minor 2,
-   :patch 18,
+   :patch 19,
    :revision "SNAPSHOT",
-   :date "2023-12-15",
-   :snapshot 22},
+   :date "2024-01-05",
+   :snapshot 1},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
   :ws {:breaking 2, :non-breaking 0}},

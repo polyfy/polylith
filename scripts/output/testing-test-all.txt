@@ -1,6 +1,6 @@
 Projects to run tests from: command-line
 
-Running test setup for the command-line project: project.command-line.test-setup/test-setup
+Running test setup for the command-line project: project.command-line.test-setup/setup
 --- test setup for command-line ---
 
 Running tests for the command-line project using test runner: Polylith built-in clojure.test runner...
@@ -33,7 +33,7 @@ Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
 Test results: 1 passes, 0 failures, 0 errors.
-Running test teardown for the command-line project: project.command-line.test-setup/test-teardown
+Running test teardown for the command-line project: project.command-line.test-setup/teardown
 --- test teardown for command-line ---
 
 

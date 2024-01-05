@@ -607,6 +607,9 @@
      "test-helper-db"
      "util"
      "without-src"]},
+   :test
+   {:create-test-runner
+    [polylith.clj.core.clojure-test-test-runner.interface/create]},
    :deps
    {"invoicer-cli"
     {:src {:direct ["invoicer"], :indirect ["util"]},
@@ -767,6 +770,9 @@
      "test-helper-db"
      "util"],
     :test ["database" "invoicer" "test-helper" "util" "without-src"]},
+   :test
+   {:create-test-runner
+    [polylith.clj.core.clojure-test-test-runner.interface/create]},
    :deps
    {"invoicer-cli"
     {:src {:direct ["invoicer"], :indirect ["util"]},
@@ -787,18 +793,7 @@
     "util" {:src {}, :test {}},
     "without-src" {:src {}, :test {}}}}],
  :settings
- {:projects
-  {"development"
-   {:alias "dev",
-    :test
-    {:create-test-runner
-     [polylith.clj.core.clojure-test-test-runner.interface/create]}},
-   "invoicing"
-   {:alias "inv",
-    :test
-    {:create-test-runner
-     [polylith.clj.core.clojure-test-test-runner.interface/create]}}},
-  :user-config-filename "USER-HOME/.config/polylith/config.edn",
+ {:user-config-filename "USER-HOME/.config/polylith/config.edn",
   :top-namespace "com.localdep",
   :default-profile-name "default",
   :thousand-separator ",",
@@ -863,14 +858,14 @@
   :is-no-exit false},
  :version
  {:release
-  {:name "0.2.18-SNAPSHOT",
+  {:name "0.2.19-SNAPSHOT",
    :tool "poly",
    :major 0,
    :minor 2,
-   :patch 18,
+   :patch 19,
    :revision "SNAPSHOT",
-   :date "2023-12-15",
-   :snapshot 22},
+   :date "2024-01-05",
+   :snapshot 1},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
   :ws {:breaking 2, :non-breaking 0},

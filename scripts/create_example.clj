@@ -235,16 +235,10 @@
            :out (fs/file output-dir "testing-test-all-dev.txt")}
           "test :all :dev color-mode:none")
     (copy [(fs/file sections-dir "testing/command-line-test-setup.clj") (fs/file ws-dir "projects/command-line/test/project/command_line/test_setup.clj")]
-          [(fs/file sections-dir "testing/command-line-config.edn") (fs/file ws-dir "projects/command-line/test/project/command_line/config.edn")])
+          [(fs/file sections-dir "testing/command-line-config.edn") (fs/file ws-dir "projects/command-line/config.edn")])
     (poly {:alter-out-fn test-result->output
            :out (fs/file output-dir "testing-test-all.txt")}
-          "test :all color-mode:none")
-
-    (poly {:out (fs/file output-dir "testing-info-exclude-tests.txt")}
-          (format "info :all :dev fake-sha:%s color-mode:none" fake-sha2))
-    (poly {:alter-out-fn test-result->output
-           :out (fs/file output-dir "testing-test-all-exclude-tests.txt")}
-          "test :all :dev color-mode:none")))
+          "test :all color-mode:none")))
 
 (defn profile [{:keys [ws-dir sections-dir fake-sha2 output-dir] :as opts}]
   (let [shell (fn-default-opts sh/shell {:dir ws-dir})
