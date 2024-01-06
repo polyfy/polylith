@@ -14,7 +14,7 @@ poly help
 
 [source,text]
 ----
-  poly 0.2.19 (2024-01-05) - https://github.com/polyfy/polylith
+  poly 0.2.19 (2024-01-06) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -295,8 +295,8 @@ poly help
     Triggered if components were defined in a project that are not used by any of
     its bricks. Development is only checked if :dev is passed in and is only performed
     by the check command (not test and info). To ignore this warning, put the component
-    name in the :necessary vector for a project in :projects in ./workspace.edn.
-    See an example here: https://github.com/polyfy/polylith/blob/master/workspace.edn
+    name in the :necessary vector for a project in its config.edn file. See an example
+    here: https://github.com/polyfy/polylith/blob/master/projects/poly/config.edn
 ----
 
 [#create]
