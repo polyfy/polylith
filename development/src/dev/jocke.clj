@@ -24,7 +24,7 @@
 
 ; clojure -A:dev:test -P
 
-
+;(def workspace (-> (dev-common/ws-from-file "../sandbox/oliver.edn")))
 
 (def workspace (-> (dev-common/dir ".")
                    ;(dev-common/dir "examples/doc-example")
@@ -33,19 +33,29 @@
                    ;(dev-common/dir "examples/local-dep-old-format")
                    ;(dev-common/dir "../poly-example/ws02")
                    ;(dev-common/dir "../clojure-polylith-realworld-example-app")
-                   ;(dev-common/dir "../sandbox/ws35")
-                   ;(dev-common/dir "../sandbox/ws03")
+                   ;(dev-common/dir "../sandbox/polylith218")
                    ;(dev-common/dir "../usermanager-example")
                    ws-clj/workspace-from-disk
                    ws/enrich-workspace
                    change/with-changes))
 
+;(-> workspace :projects count)
+
+;(mapv (juxt :name :keep-lib-versions) projects)
+;(mapv (juxt :name :keep-lib-versions) components)
+
+;(-> workspace :configs :projects)
+;(-> workspace :settings)
+;
+;(mapv (juxt :name :alias) (:projects workspace))
 
 ;(ws-explorer/ws workspace nil nil "dark")
 
 ;(spit "development/data/workspace.edn" (with-out-str (pp/pprint workspace)))
 
 ;(info/info workspace nil)
+
+;(command/execute-command (user-input/extract-arguments ["check" "ws-file:../sandbox/oliver.edn"]))
 
 ;(command/execute-command (user-input/extract-arguments ["libs" ":outdated"]))
 ;(command/execute-command (user-input/extract-arguments ["info" ":all" "project:poly" "brick:-"]))
@@ -73,20 +83,19 @@
 (def changes (:changes workspace))
 (def messages (:messages workspace))
 
-(map :name projects)
-
 (def project (common/find-project "dev" projects))
 (def project (common/find-project "api" projects))
 (def project (common/find-project "invoice" projects))
 (def project (common/find-project "invoicing" projects))
 (def project (common/find-project "poly-migrator" projects))
 (def project (common/find-project "um" projects))
-(def component (common/find-component "user" components))
+(def component (common/find-component "calculate" components))
 (def component (common/find-component "util" components))
 (def component (common/find-component "article" components))
-(def component (common/find-component "schema" components))
+(def component (common/find-component "shell" components))
 (def component (common/find-component "without-src" components))
 (def base (common/find-base "poly-cli" bases))
+(def base (common/find-base "invoicer-cli" bases))
 
 (def changed-components (-> workspace :changes :changed-components))
 (def changed-bases (-> workspace :changes :changed-bases))
