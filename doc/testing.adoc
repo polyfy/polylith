@@ -479,7 +479,7 @@ git tag -f stable-lisa
 
 Rerun `poly xref:commands.adoc#info[info]`, you should see output like:
 
-image::images/testing/info-added-tests.png[width=400]
+image::images/testing/output/info-added-tests.png[width=400]
 
 The `*` signs are gone, and no `x` flags means `poly` has marked nothing for testing.
 
