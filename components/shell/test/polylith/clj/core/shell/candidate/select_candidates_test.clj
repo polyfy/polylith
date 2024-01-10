@@ -14,7 +14,7 @@
   (mapv color/clean-colors entities))
 
 (deftest all-commands
-  (is (= (concat ["check" "create" "deps" "diff" "doc" "help" "info" "libs"]
+  (is (= (concat ["check" "create" "deps" "diff" "doc" "help" "info" "libs" "migrate"]
                  (if system/extended? ["overview"] [])
                  ["switch-ws" "test" "version" "ws"])
          (candidates ""))))
