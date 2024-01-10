@@ -212,7 +212,7 @@
 
 (defn candidates [{:keys [settings user-input] :as workspace}]
   (let [{:keys [ws-dir ws-file is-all is-local]} user-input
-        show-migrate? (common/toolsdeps1? workspace)
+        show-migrate? (common/need-migration? workspace)
         info-profiles (profiles :info settings is-all)
         test-profiles (profiles :test settings is-all)
         ws-profiles (profiles :ws settings is-all)
@@ -231,7 +231,6 @@
                   (libs is-all system/extended?)
                   (test test-profiles current-ws? is-all)
                   (ws ws-profiles is-all)
-                  (when show-migrate? (c/single-txt "migrate"))
                   (when show-migrate? (c/single-txt "migrate"))
                   (when system/extended? overview)]))))
 

@@ -12,8 +12,5 @@
 
 (defn settings-value [key entity-config settings-config]
   (let [entity-value (-> entity-config :config key)
-        settings-value (key settings-config)
-        value (or entity-value settings-value)]
-    (if (sequential? value)
-      (mapv str value)
-      value)))
+        settings-value (key settings-config)]
+    (or entity-value settings-value)))

@@ -92,6 +92,11 @@
 (defn interface-nss [interface-ns]
   (set ["ifc" "interface" interface-ns]))
 
+(defn need-migration? [workspace]
+  (-> (find-project "development" (-> workspace :configs :projects))
+      :config
+      not))
+
 (defn interface-ns? [namespace interface-ns]
   (contains? (interface-nss interface-ns)
              namespace))

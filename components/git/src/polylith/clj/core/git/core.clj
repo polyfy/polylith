@@ -28,8 +28,8 @@
       (println (str "Cannot create a git repository for the workspace.\n"
                     "Please try to create it manually instead: " (.getMessage e))))))
 
-(defn add [ws-dir filename is-git-add]
-  (when is-git-add
+(defn add [ws-dir filename git-add?]
+  (when git-add?
     (sh/execute "git" "add" filename :dir ws-dir)))
 
 (defn current-branch []
