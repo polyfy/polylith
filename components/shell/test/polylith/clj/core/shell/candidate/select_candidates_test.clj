@@ -211,7 +211,7 @@
          (candidates "doc" :next "ws" "settings" :next))))
 
 (deftest help
-  (is (= ["check" "create" "deps" "diff" "info" "libs" "shell" "switch-ws"
+  (is (= ["check" "create" "deps" "diff" "info" "libs" "migrate" "shell" "switch-ws"
           "tap" "test" "version" "ws"]
          (candidates "help"))))
 

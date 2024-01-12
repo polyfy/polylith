@@ -56,6 +56,9 @@
 (defn find-project [project-name projects]
   (core/find-project project-name projects))
 
+(defn find-workspace [name workspaces]
+  (core/find-workspace name workspaces))
+
 (defn find-entity-index [entity-name entities]
   (core/find-entity-index entity-name entities))
 

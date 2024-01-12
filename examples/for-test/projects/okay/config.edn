@@ -1,0 +1,2 @@
+{:alias "okay"
+ :necessary ["a-okay" "b-fail" "company" "util"]}

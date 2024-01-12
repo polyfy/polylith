@@ -15,8 +15,9 @@
           filepath (str dir "/config.edn")]
       (move-config filepath dir {:keep-lib-versions keep-lib-versions}))))
 
-(defn create-project-config [ws-dir {:keys [name alias is-dev test necessary keep-lib-versions]}]
-  (let [dir (if is-dev
+(defn create-project-config [ws-dir {:keys [name alias is-dev necessary keep-lib-versions]} project->settings]
+  (let [test (get-in project->settings [name :test])
+        dir (if is-dev
                (str ws-dir "/development")
                (str ws-dir "/projects/" name))
         filepath (str dir "/config.edn")
@@ -44,14 +45,19 @@
         (spit filepath content)
         (println (str "  Removed keys from: " filepath))))))
 
-(defn migrate [ws-dir {:keys [bases components projects] :as workspace}]
+(defn migrate-bricks [ws-dir bases components]
+  (doseq [brick (concat bases components)]
+    (create-brick-config ws-dir brick)))
+
+(defn migrate-projects [ws-dir projects {:keys [workspaces]}]
+  (let [project->settings (-> workspaces first :config :projects)]
+    (doseq [project projects]
+      (create-project-config ws-dir project project->settings))))
+
+(defn migrate [ws-dir {:keys [bases components projects configs] :as workspace}]
   (if (common/need-migration? workspace)
     (do
-      (doseq [brick (concat bases components)]
-        (create-brick-config ws-dir brick))
-
-      (doseq [project projects]
-        (create-project-config ws-dir project))
-
+      (migrate-bricks ws-dir bases components)
+      (migrate-projects ws-dir projects configs)
       (clean-workspace-config ws-dir))
     (println "  The workspace is already migrated")))

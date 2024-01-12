@@ -2,12 +2,13 @@
   (:require [polylith.clj.core.common.interface :as common]))
 
 (defn move-settings-key-to-entity [entities key name->settings]
-  (reduce-kv (fn [entities entity-name project-settings]
-               (let [index (common/find-entity-index entity-name entities)
-                     value (key project-settings)]
-                 (cond-> entities
-                         (and index value) (assoc-in [index key] value))))
-             entities name->settings))
+  (reduce-kv
+    (fn [entities entity-name project-settings]
+      (let [index (common/find-entity-index entity-name entities)
+            value (key project-settings)]
+        (cond-> entities
+                (and index value) (assoc-in [index key] value))))
+    entities name->settings))
 
 (defn convert-projects [projects projects-settings]
   (-> projects

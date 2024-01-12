@@ -1,11 +1,8 @@
-{:top-namespace "example"
+{:vcs {:auto-add false
+       :name "git"}
+ :top-namespace "example"
  :interface-ns "interface"
  :default-profile-name "default"
  :compact-views #{}
- :vcs {:name "git"
-       :auto-add false}
  :tag-patterns {:stable "stable-*"
-                :release "v[0-9]*"}
- :projects {"development" {:alias "dev"}
-            "service" {:alias "service"
-                       :necessary ["util"]}}}
+                :release "v[0-9]*"}}

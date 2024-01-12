@@ -1,11 +1,8 @@
-{:top-namespace "com.localdep"
+{:vcs {:auto-add false
+       :name "git"}
+ :top-namespace "com.localdep"
  :interface-ns "interface"
  :default-profile-name "default"
  :compact-views #{}
- :vcs {:name "git"
-       :auto-add false}
  :tag-patterns {:stable "stable-*"
-                :release "v[0-9]*"}
- :projects {"development" {:alias "dev"}
-            "invoicing" {:alias "inv"
-                         :necessary ["datomic-ions" "without-src"]}}}
+                :release "v[0-9]*"}}

@@ -188,8 +188,9 @@
 
 (defn keep?
   "Skip projects that are passed in as e.g. skip:p1:p2."
-  [{:keys [project-name]} project->settings skip]
+  [{:keys [project-name config]} project->settings skip]
   (not (or (contains? skip project-name)
+           (contains? skip (:alias config))
            (contains? skip (get-in project->settings [project-name :alias])))))
 
 (defn read-projects [ws-dir name->brick project->settings user-input user-home suffixed-top-ns interface-ns configs]

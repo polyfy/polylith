@@ -74,6 +74,9 @@
 (defn find-base [name bases]
   (util/find-first #(= name (:name %)) bases))
 
+(defn find-workspace [name workspaces]
+  (util/find-first #(= name (:name %)) workspaces))
+
 (defn- =project [{:keys [name alias]} project]
   (or (= project name)
       (= project alias)))

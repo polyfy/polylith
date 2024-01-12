@@ -1,0 +1,2 @@
+{:alias "failing-x2"
+ :necessary ["a-okay" "b-fail" "util"]}

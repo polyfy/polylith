@@ -960,26 +960,9 @@ poly help
 
   poly migrate
 
-  If the workspace hasn't been migrated already, then this command will create a new
-  ./workspace.edn file + a deps.edn file per brick. All project deps.edn files will be
-  updated. The libraries in each project's deps.edn file will be sorted, so it can be
-  an idea to manually change that order and put bricks first followed by the
-  libraries.
-
-  The migration tool will use the :ns-to-lib key to figure out what libraries are
-  used in each brick. After the migration, it's recommended to go through all the
-  bricks and make sure that all libraries it uses are also specified in each brick's
-  deps.edn file.
-
-  Continue by updating each project's deps.edn file and remove libraries that are
-  already indirectly included by bricks (via :local/root).
-  The paths in ./deps.edn is left untouched and the reason is that the :local/root
-  syntax is not supported by all IDE's.
-
-  Starting from version 0.2.0-alpha10, the tool supports specifying dependencies per
-  brick in its own deps.edn files. Workspace specific config is stored in
-  ./workspace.edn instead of the :polylith key in ./deps which was the case prior to
-  this version.
+  As of version 0.2.19, bases, components, and projects store their configuration in config.edn files.
+  This command will move configuration from the :bricks and :projects keys in workspace.edn
+  to corresponding config.edn files.
 ----
 
 [#overview]

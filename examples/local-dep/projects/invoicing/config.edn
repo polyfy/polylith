@@ -1,0 +1,2 @@
+{:alias "inv"
+ :necessary ["datomic-ions" "without-src"]}

@@ -15,8 +15,7 @@
                          :code 204
                          :message (color/clean-colors message)
                          :colorized-message message)])))
-(defn warnings [settings projects
-                color-mode]
+(defn warnings [settings projects color-mode]
   (let [profile-to-settings (:profile-to-settings settings)
         {:keys [unmerged]} (common/find-project "dev" projects)
         {:keys [lib-deps]} unmerged

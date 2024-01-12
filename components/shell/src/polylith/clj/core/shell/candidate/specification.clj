@@ -90,6 +90,7 @@
 (def help-create-component (c/single-txt "component"))
 (def help-create-project (c/single-txt "project"))
 (def help-create-workspace (c/single-txt "workspace"))
+(def help-migrate (c/single-txt "migrate"))
 (def help-create (c/single-txt "create" [help-create-base help-create-component help-create-project help-create-workspace]))
 (def help-deps-project (c/flag "project" :help-deps))
 (def help-deps-workspace (c/flag "workspace" :help-deps))
@@ -97,9 +98,10 @@
 (def help-deps (c/single-txt "deps" :help-deps [help-deps-brick help-deps-project help-deps-workspace]))
 (def help-fake-poly (c/flag "fake-poly" :help-deps))
 
-(defn help [all?]
+(defn help [all? show-migrate?]
   (c/single-txt "help" (vec (concat [help-create help-deps]
                                     (when all? [help-all help-fake-poly])
+                                    (when show-migrate? [help-migrate])
                                     (mapv #(c/single-txt %)
                                           (concat ["check" "diff" "info" "libs" "switch-ws" "shell" "tap" "test" "version" "ws"]
                                                   (if system/extended? ["overview"] [])))))))
@@ -226,7 +228,7 @@
                   (create current-ws? is-all)
                   (deps is-all system/extended?)
                   (doc is-all is-local)
-                  (help is-all)
+                  (help is-all show-migrate?)
                   (info info-profiles is-all system/extended?)
                   (libs is-all system/extended?)
                   (test test-profiles current-ws? is-all)
@@ -236,4 +238,4 @@
 
 (def create-outside-ws-root (c/single-txt "create" [create-workspace]))
 
-(def candidates-outside-ws-root [(help false) version create-outside-ws-root doc switch-ws])
+(def candidates-outside-ws-root [(help false false) version create-outside-ws-root doc switch-ws])
