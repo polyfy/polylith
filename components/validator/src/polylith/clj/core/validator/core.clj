@@ -14,7 +14,6 @@
             [polylith.clj.core.validator.m201-mismatching-argument-lists :as m201]
             [polylith.clj.core.validator.m202-missing-paths :as m202]
             [polylith.clj.core.validator.m203-path-exists-in-both-dev-and-profile :as m203]
-            [polylith.clj.core.validator.m204-lib-deps-exists-in-both-dev-and-profile :as m204]
             [polylith.clj.core.validator.m205-non-top-namespace :as m205]
             [polylith.clj.core.validator.m206-deprecated-workspace :as m206]
             [polylith.clj.core.validator.m207-unnecessary-components-in-project :as m207]))
@@ -39,7 +38,6 @@
         (m201/warnings interfaces components color-mode)
         (m202/warnings projects paths color-mode)
         (m203/warnings settings projects color-mode)
-        (m204/warnings settings projects color-mode)
         (m205/warnings components bases color-mode)
         (m206/warnings workspace)
         (m207/warnings cmd projects is-dev color-mode)]
