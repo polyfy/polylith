@@ -1,2 +1,5 @@
 {:alias "failing"
- :necessary ["a-okay" "b-fail" "util"]}
+ :necessary ["a-okay" "b-fail" "util"]
+ :test {:exclude ["exclude-me"]
+        :setup-fn project.failing-test.test-setup/setup
+        :teardown-fn project.failing-test.test-setup/teardown}}

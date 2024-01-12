@@ -27,9 +27,11 @@ components/util/test/com/localdep/util/interface_test.clj
 components/without-src/deps.edn
 components/without-src/test/com/localdep/without_src/dummy_test.clj
 deps.edn
+development/config.edn
 development/src/dev/me.clj
 migrate-me/deps.edn
 migrate-me/src/com/localdep/migrate_me/core.clj
+projects/invoicing/config.edn
 projects/invoicing/deps.edn
 readme.txt
 workspace.edn

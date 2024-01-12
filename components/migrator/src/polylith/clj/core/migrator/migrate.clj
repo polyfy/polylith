@@ -15,7 +15,7 @@
           filepath (str dir "/config.edn")]
       (move-config filepath dir {:keep-lib-versions keep-lib-versions}))))
 
-(defn create-project-config [ws-dir {:keys [name alias is-dev necessary keep-lib-versions]} project->settings]
+(defn create-project-config [ws-dir {:keys [name alias is-dev necessary keep-lib-versions exclude include]} project->settings]
   (let [test (get-in project->settings [name :test])
         dir (if is-dev
                (str ws-dir "/development")
@@ -26,6 +26,8 @@
                                           (cond-> {:alias alias}
                                                necessary (assoc :necessary necessary)
                                                keep-lib-versions (assoc :keep-lib-versions keep-lib-versions)
+                                               exclude (assoc :exclude exclude)
+                                               include (assoc :include include)
                                                test (assoc :test test)))]
     (move-config filepath dir content)))
 

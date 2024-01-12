@@ -96,9 +96,13 @@
   (set ["ifc" "interface" interface-ns]))
 
 (defn need-migration? [workspace]
-  (-> (find-project "development" (-> workspace :configs :projects))
-      :config
-      not))
+  (let [breaking (-> workspace :version :from :ws :breaking)]
+    (and
+      (-> (find-project "development" (-> workspace :configs :projects))
+          :config
+          not)
+      (or (-> breaking nil?)
+          (-> breaking zero? not)))))
 
 (defn interface-ns? [namespace interface-ns]
   (contains? (interface-nss interface-ns)

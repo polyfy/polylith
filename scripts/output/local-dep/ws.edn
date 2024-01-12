@@ -23,7 +23,7 @@
    :base-deps {:src [], :test []}}],
  :changes
  {:since "stable",
-  :changed-projects ["invoicing"],
+  :changed-projects ["development" "invoicing"],
   :changed-bases [],
   :project-to-indirect-changes
   {"invoicing" {:src [], :test []}, "development" {:src [], :test []}},
@@ -39,11 +39,16 @@
     "without-src"]},
   :project-to-projects-to-test {"invoicing" [], "development" []},
   :since-sha "SHA",
-  :changed-files ["deps.edn" "projects/invoicing/deps.edn"],
+  :changed-files
+  ["deps.edn"
+   "development/config.edn"
+   "projects/invoicing/config.edn"
+   "projects/invoicing/deps.edn"
+   "workspace.edn"],
   :git-diff-command "git diff SHA --name-only",
   :changed-components [],
   :since-tag "stable-master",
-  :changed-or-affected-projects ["invoicing"]},
+  :changed-or-affected-projects ["development" "invoicing"]},
  :components
  [{:lines-of-code {:src 4, :test 6},
    :interface {:name "database", :definitions []},
@@ -324,7 +329,8 @@
        :extra-deps
        {polylith/clj-poly {:local/root "../../projects/poly"}}}}},
     :name "development",
-    :type "project"}
+    :type "project",
+    :config {:alias "dev"}}
    {:deps
     {:deps
      {poly/database {:local/root "../../components/database"},
@@ -342,6 +348,10 @@
        {poly/test-helper {:local/root "../../components/test-helper"},
         poly/test-helper-db
         {:local/root "../../components/test-helper-db"}}}}},
+    :config
+    {:alias "inv",
+     :necessary ["datomic-ions" "without-src"],
+     :keep-lib-versions [clj-time/clj-time]},
     :name "invoicing",
     :type "project"}],
   :user
@@ -350,16 +360,12 @@
   [{:name "local-dep",
     :type "workspace",
     :config
-    {:top-namespace "com.localdep",
+    {:vcs {:auto-add false, :name "git"},
+     :top-namespace "com.localdep",
      :interface-ns "interface",
      :default-profile-name "default",
      :compact-views #{},
-     :vcs {:name "git", :auto-add false},
-     :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
-     :projects
-     {"development" {:alias "dev"},
-      "invoicing"
-      {:alias "inv", :necessary ["datomic-ions" "without-src"]}}}}]},
+     :tag-patterns {:release "v[0-9]*", :stable "stable-*"}}}]},
  :interfaces
  [{:name "database",
    :type "interface",
@@ -472,6 +478,7 @@
      "components/test-helper/test"
      "components/util/test"
      "components/without-src/test"]},
+   :keep-lib-versions [clj-time/clj-time],
    :type "project",
    :maven-repos
    {"central" {:url "https://repo1.maven.org/maven2/"},
@@ -716,7 +723,7 @@
    :stable-since {:tag "stable-master", :sha "SHA"},
    :polylith
    {:repo "https://github.com/polyfy/polylith.git", :branch "master"}},
-  :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
+  :tag-patterns {:release "v[0-9]*", :stable "stable-*"},
   :m2-dir "USER-HOME/.m2",
   :color-mode "none",
   :empty-character "."},
@@ -768,7 +775,7 @@
    :minor 2,
    :patch 19,
    :revision "SNAPSHOT",
-   :date "2024-01-05",
+   :date "2024-01-12",
    :snapshot 1},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},

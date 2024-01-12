@@ -78,6 +78,10 @@
     defined in :top-namespace in ./workspace.edn.
     Files that are put in 'resources' or 'test-resources' are not checked.
 
+  Warning 206 - Deprecated workspace.
+    Triggered if brick and project configuration are still stored in workspace.edn
+    instead of local config.edn files.
+
   Warning 207 - Unnecessary components were found in project.
     Triggered if components were defined in a project that are not used by any of
     its bricks. Development is only checked if :dev is passed in and is only performed
