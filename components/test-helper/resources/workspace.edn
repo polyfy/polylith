@@ -910,6 +910,8 @@
     :test ["clojure.java.shell" "clojure.string" "clojure.test"]},
    :is-dev false,
    :name "api",
+   :bricks-to-test []
+   :projects-to-test []
    :is-run-tests true,
    :paths
    {:src
@@ -1049,6 +1051,8 @@
   {:lines-of-code {:src 0, :test 0, :total {:src 4368, :test 5901}},
    :namespaces {},
    :base-names {},
+   :bricks-to-test []
+   :projects-to-test []
    :lib-imports
    {:src
     ["clojure.java.io"
@@ -1162,6 +1166,8 @@
      :test {}}}}
   {:lines-of-code {:src 0, :test 0, :total {:src 5517, :test 6100}},
    :namespaces {},
+   :bricks-to-test []
+   :projects-to-test []
    :base-names {:src ["deployer-cli"]},
    :lib-imports
    {:src
@@ -1426,6 +1432,25 @@
     :test ["clojure.java.shell" "clojure.string" "clojure.test"]},
    :is-dev false,
    :name "poly",
+   :bricks-to-test ["change"
+                    "command"
+                    "creator"
+                    "deps"
+                    "file"
+                    "git"
+                    "lib"
+                    "migrator"
+                    "path-finder"
+                    "shell"
+                    "test-helper"
+                    "test-runner"
+                    "user-input"
+                    "util"
+                    "validator"
+                    "workspace"
+                    "workspace-clj"
+                    "ws-explorer"]
+   :projects-to-test ["poly"]
    :is-run-tests true,
    :paths
    {:src
@@ -1901,6 +1926,8 @@
     :test ["clojure.java.shell" "clojure.string" "clojure.test"]},
    :is-dev true,
    :name "development",
+   :bricks-to-test []
+   :projects-to-test []
    :is-run-tests false,
    :paths
    {:src
@@ -6207,37 +6234,7 @@
      "user-input"
      "validator"
      "workspace"
-     "workspace-clj"]}},
-  :project-to-bricks-to-test
-  {"api" [],
-   "core" [],
-   "deployer" [],
-   "poly"
-   ["change"
-    "command"
-    "creator"
-    "deps"
-    "file"
-    "git"
-    "lib"
-    "migrator"
-    "path-finder"
-    "shell"
-    "test-helper"
-    "test-runner"
-    "user-input"
-    "util"
-    "validator"
-    "workspace"
-    "workspace-clj"
-    "ws-explorer"],
-   "development" []},
-  :project-to-projects-to-test
-  {"api" [],
-   "core" [],
-   "deployer" [],
-   "poly" ["poly"],
-   "development" []}},
+     "workspace-clj"]}}}
  :version
  {:release
   {:name "0.2.12-alpha",

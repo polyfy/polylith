@@ -13,20 +13,23 @@
                     selected-projects
                     is-dev-user-input
                     is-run-all-brick-tests]}]
-  (to-test/project-to-bricks-to-test changed-projects
-                                     (data/projects test)
-                                     changed-components
-                                     changed-bases
-                                     project-to-indirect-changes
-                                     selected-bricks
-                                     selected-projects
-                                     is-dev-user-input
-                                     is-run-all-brick-tests))
+  (let [projects (data/projects test)]
+    (into {}
+          (mapv (juxt :name :bricks-to-test)
+                (to-test/with-bricks-to-test projects
+                                             changed-projects
+                                             changed-components
+                                             changed-bases
+                                             project-to-indirect-changes
+                                             selected-bricks
+                                             selected-projects
+                                             is-dev-user-input
+                                             is-run-all-brick-tests)))))
 
 ;; The development project is only included in the tests if we pass in :dev,
 ;; or if we include it with project:dev.
 
-(deftest project-to-bricks-to-test--with-one-changed-component--returns-bricks-to-test-for-changed-projects
+(deftest with-bricks-to-test--with-one-changed-component--returns-bricks-to-test-for-changed-projects
   (is (= {"core" ["article"]
           "development" []}
          (test {:changed-projects []
@@ -38,7 +41,7 @@
                 :is-dev-user-input false
                 :is-run-all-brick-tests false}))))
 
-(deftest project-to-bricks-to-test--with-one-changed-component-that-is-excluded---returns-bricks-to-test-for-changed-projects
+(deftest with-bricks-to-test--with-one-changed-component-that-is-excluded---returns-bricks-to-test-for-changed-projects
   (is (= {"core" []
           "development" []}
          (test {:changed-projects []
@@ -51,7 +54,7 @@
                 :is-dev-user-input false
                 :is-run-all-brick-tests false}))))
 
-(deftest project-to-bricks-to-test--with-run-all-selected--returns-all-bricks
+(deftest with-bricks-to-test--with-run-all-selected--returns-all-bricks
   (is (= {"core" ["article"
                   "comment"
                   "rest-api"
@@ -67,7 +70,7 @@
                 :is-dev-user-input false
                 :is-run-all-brick-tests true}))))
 
-(deftest project-to-bricks-to-test--with-run-all-brick-tests-and-development-included--returns-all-bricks
+(deftest with-bricks-to-test--with-run-all-brick-tests-and-development-included--returns-all-bricks
   (is (= {"core" ["article"
                   "comment"
                   "rest-api"
@@ -88,7 +91,7 @@
                 :is-dev-user-input true
                 :is-run-all-brick-tests true}))))
 
-(deftest project-to-bricks-to-test--with-run-all-brick-tests-and-development-selected--returns-all-bricks-for-development
+(deftest with-bricks-to-test--with-run-all-brick-tests-and-development-selected--returns-all-bricks-for-development
   (is (= {"core" []
           "development" ["article"
                          "comment"
@@ -105,7 +108,7 @@
                 :is-dev-user-input false
                 :is-run-all-brick-tests true}))))
 
-(deftest project-to-bricks-to-test--include-two-bricks--returns-the-two-bricks
+(deftest with-bricks-to-test--include-two-bricks--returns-the-two-bricks
   (is (= {"core" ["tag"
                   "user"]
           "development" []}
@@ -119,7 +122,7 @@
                 :is-dev-user-input false
                 :is-run-all-brick-tests false}))))
 
-(deftest project-to-bricks-to-test--when-the-project-itself-has-changed--return-all-bricks-for-that-project
+(deftest with-bricks-to-test--when-the-project-itself-has-changed--return-all-bricks-for-that-project
   (is (= {"core" ["article"
                   "comment"
                   "rest-api"
@@ -135,7 +138,7 @@
                 :is-dev-user-input false
                 :is-run-all-brick-tests false}))))
 
-(deftest project-to-bricks-to-test--with-two-changed-components-and-one-selected-brick--returns-selected-bricks-that-are-also-changed
+(deftest with-bricks-to-test--with-two-changed-components-and-one-selected-brick--returns-selected-bricks-that-are-also-changed
   (is (=
         {"core" ["user"]
          "development" []}
@@ -148,7 +151,7 @@
                :is-dev-user-input false
                :is-run-all-brick-tests false}))))
 
-(deftest project-to-bricks-to-test--with-no-changed-components-and-one-selected-brick--returns-no-bricks
+(deftest with-bricks-to-test--with-no-changed-components-and-one-selected-brick--returns-no-bricks
   (is (= {"core" []
           "development" []}
          (test {:changed-projects []
@@ -160,7 +163,7 @@
                 :is-dev-user-input false
                 :is-run-all-brick-tests false}))))
 
-(deftest project-to-bricks-to-test--with-no-changed-components-and-one-selected-brick-with-run-all-brick-tests--returns-selected-brick
+(deftest with-bricks-to-test--with-no-changed-components-and-one-selected-brick-with-run-all-brick-tests--returns-selected-brick
   (is (= {"core" ["tag"]
           "development" []}
          (test {:changed-projects []

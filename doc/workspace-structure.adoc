@@ -161,15 +161,9 @@ poly ws get:changes since:b339c35
  :changed-or-affected-projects ["command-line" "development" "user-service"],
  :changed-projects ["command-line" "development" "user-service"],
  :git-diff-command "git diff b339c35 --name-only",
- :project-to-bricks-to-test {"command-line" ["cli" "user-remote"],
-                             "development" [],
-                             "user-service" ["user" "user-api"]},
  :project-to-indirect-changes {"command-line" {:src [], :test []},
                                "development" {:src [], :test []},
                                "user-service" {:src [], :test []}},
- :project-to-projects-to-test {"command-line" [],
-                               "development" [],
-                               "user-service" []},
  :since "b339c35",
  :since-sha "b339c35"}
 ----
@@ -189,12 +183,8 @@ A project will be marked as changed if a file in its project directory has chang
 
 * `:git-diff-command` The git command that was executed to calculate the `:changed-files` list.
 
-* `:project-to-bricks-to-test` A map that stores project names with a list of the bricks to test from that project if executing the test command.
-
 * `:project-to-indirect-changes` A map that stores project names with a list of the bricks that are indirectly changed (directly changed bricks excluded).
 E.g. if components `a` and `b` are included in the project, and `a` has not changed, but `b` has changed and `a` uses `b`, then `b` will be included in the list.
-
-* `:project-to-projects-to-test` A map that stores project names with a list of projects to test from that project if executing the xref:commands.adoc#test[test] command.
 
 * `:since` Set to "stable" if `since:SINCE` is not given.
 
@@ -548,6 +538,7 @@ poly ws get:projects:user-service
 ----
 {:alias "user-s",
  :base-names {:src ["user-api"], :test ["user-api"]},
+ :bricks-to-test ["user" "user-api"]
  :component-names {:src ["user"], :test ["user"]},
  :deps {"user" {:src {}, :test {}},
         "user-api" {:src {:direct ["user"]}, :test {:direct ["user"]}}},
@@ -588,6 +579,7 @@ poly ws get:projects:user-service
                                                  :type "maven",
                                                  :version "1.11.1"}},
                     :test {}},
+ :projects-to-test []
  :type "project"}
 ----
 
@@ -596,6 +588,8 @@ poly ws get:projects:user-service
 * `:base-names`
 ** `:src` The bases that are included in the project for the `src` context, either as paths or included as `:local/root`.
 ** `:test` The bases that are included in the project for the `test` context, either as paths or included as `:local/root`.
+
+* `:bricks-to-test` A vector with the bricks to test from this project if executing the xref:commands.adoc#test[test] command.
 
 * `:component-names`
 ** `:src` The components that are included in the project for the `src` context, either as paths or included as `:local/root`.
@@ -667,6 +661,8 @@ If `:mvn/repos` is specified by a brick that is included in this project, then i
 **** if type is `local` then the version key is excluded (a `-` is shown in the output from the xref:commands.adoc#libs[libs] command).
 **** if type is `git` then the version is set to the first seven characters in the `sha`.
 ** `:test` A map with the libraries that are used in the project for the test context. Follows the same structure as the `:src` context.
+
+* `:projects-to-test` A vector with the projects to test from this project if executing the xref:commands.adoc#test[test] command.
 
 * `:test`
 ** `:exclude` Specifies which brick should be excluded when running the test command.

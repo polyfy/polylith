@@ -22,7 +22,7 @@
         loc-start-column (+ profile-start-column (* 2 (count profiles)))
         ifc-column (ifc-column/column sorted-components bases)
         brick-column (brick-column/column bricks changes color-mode)
-        project-columns (proj-columns/columns projects bricks paths changes is-show-loc is-show-resources thousand-separator)
+        project-columns (proj-columns/columns projects bricks paths is-show-loc is-show-resources thousand-separator)
         profile-columns (profile-columns/columns profile-start-column bricks profiles paths settings is-show-resources)
         loc-columns (loc-columns/columns is-show-loc bricks loc-start-column thousand-separator)
         header-spaces (text-table/spaces 1 space-columns spaces)
@@ -39,7 +39,8 @@
   (text-table/print-table (table workspace is-show-loc is-show-resources)))
 
 (comment
-  (require '[dev.development :as dev])
   (require '[dev.jocke :as dev])
   (print-table dev/workspace false false)
+
+
   #__)

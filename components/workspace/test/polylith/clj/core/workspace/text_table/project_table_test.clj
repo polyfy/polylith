@@ -13,6 +13,7 @@
                             :alias "core"
                             :type "project"
                             :is-dev false
+                            :bricks-to-test []
                             :lines-of-code {:src 1, :test 1}
                             :paths {:src ["projects/core/resources"
                                           "projects/core/src"
@@ -21,6 +22,7 @@
                             :alias "inv"
                             :type "project"
                             :is-dev false
+                            :bricks-to-test ["admin" "cli" "database" "invoicer" "purchaser"]
                             :lines-of-code {:src 0, :test 1}
                             :paths {:src ["bases/cli/resources"
                                           "bases/cli/src"
@@ -42,6 +44,8 @@
                             :alias "dev"
                             :type "project"
                             :is-dev true
+                            :bricks-to-test []
+                            :projects-to-test []
                             :lines-of-code {:src 4, :test 0}
                             :paths {:src ["bases/cli/resources"
                                           "bases/cli/src"
@@ -59,11 +63,7 @@
                           :git-diff-command "git diff HEAD --name-only"
                           :changed-components ["address" "admin" "database" "invoicer" "purchaser" "user"]
                           :changed-bases ["cli"]
-                          :changed-projects ["core" "invoice"]
-                          :project-to-bricks-to-test {"core" []
-                                                      "development" []
-                                                      "invoice" ["admin" "cli" "database" "invoicer" "purchaser"]}
-                          :project-to-projects-to-test  {"development" []}}
+                          :changed-projects ["core" "invoice"]}
                 :paths {:missing []}})
 
 (def workspace-with-profiles (-> workspace

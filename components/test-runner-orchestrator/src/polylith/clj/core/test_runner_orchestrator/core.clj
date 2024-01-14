@@ -157,9 +157,8 @@
                  (merge opts)
                  (run-tests-for-project-with-test-runner))))))))
 
-(defn affected-by-changes? [{:keys [name]} {:keys [project-to-bricks-to-test project-to-projects-to-test]}]
-  (seq (concat (project-to-bricks-to-test name)
-               (project-to-projects-to-test name))))
+(defn affected-by-changes? [{:keys [bricks-to-test projects-to-test]}]
+  (seq (concat bricks-to-test projects-to-test)))
 
 (defn print-no-tests-to-run-if-only-dev-exists [settings projects]
   (let [git-repo? (-> settings :vcs :is-git-repo)]
@@ -198,7 +197,7 @@
     (do (validator/print-messages workspace)
         false)
     (let [start-time (time-util/current-time)
-          projects-to-test (sort-by :name (filterv #(affected-by-changes? % changes) projects))
+          projects-to-test (sort-by :name (filterv affected-by-changes? projects))
           bricks-to-test (-> workspace :user-input :selected-bricks)
           component-names (into #{} (map :name) components)
           base-names (into #{} (map :name) bases)]

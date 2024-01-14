@@ -38,7 +38,7 @@
             (map-indexed #(project-cell %2 project-key column (+ %1 3) (set changed-projects) affected-projects color-mode)
                          projects))))
 
-(defn status-cell [index {:keys [name paths]} disk-paths projects-to-test is-show-resources]
+(defn status-cell [index {:keys [name paths projects-to-test]} disk-paths is-show-resources]
   (let [path-entries (extract/from-paths paths disk-paths)
         satus-flags (str (status/project-status-flags path-entries name is-show-resources)
                          (if (contains? projects-to-test name) "x" "-"))]
@@ -46,24 +46,22 @@
 
 (defn status-column
   "The third '--x' column is marked if the project is marked to be tested from *any* project."
-  [projects disk-paths {:keys [project-to-projects-to-test]} is-show-resources]
-  (let [projects-to-test (set (mapcat second project-to-projects-to-test))]
-    (concat [(text-table/cell 5 "status")]
-            (map-indexed #(status-cell %1 %2 disk-paths projects-to-test is-show-resources)
-                         projects))))
+  [projects disk-paths is-show-resources]
+  (concat [(text-table/cell 5 "status")]
+          (map-indexed #(status-cell %1 %2 disk-paths is-show-resources)
+                       projects)))
 
-(defn dev-cell [index {:keys [name]} path-entries projects-to-test is-show-resources]
+(defn dev-cell [index {:keys [name projects-to-test]} path-entries is-show-resources]
   (let [status-flags (str (status/project-status-flags path-entries name is-show-resources)
                           (if (contains? projects-to-test name) "x" "-"))]
     (text-table/cell 7 (+ index 3) status-flags :purple :center)))
 
-(defn dev-column [projects {:keys [project-to-projects-to-test]} is-show-resources]
+(defn dev-column [projects is-show-resources]
   (let [dev (common/find-project "development" projects)
         alias (get dev :alias "dev")
-        path-entries (extract/from-paths (:paths dev) nil)
-        projects-to-test (set (-> "development" project-to-projects-to-test set))]
+        path-entries (extract/from-paths (:paths dev) nil)]
     (concat [(text-table/cell 7 1 alias :purple)]
-            (map-indexed #(dev-cell %1 %2 path-entries projects-to-test is-show-resources)
+            (map-indexed #(dev-cell %1 %2 path-entries is-show-resources)
                          projects))))
 
 (defn loc-cell [index lines-of-code column thousand-separator]
@@ -89,8 +87,8 @@
         total-loc-test (apply + (filter identity (map #(-> % :lines-of-code :test) projects)))
         project-col (project-column projects changes "project" :name 1 color-mode)
         alias-col (project-column projects {} "alias" :alias 3 color-mode)
-        status-col (status-column projects paths changes is-show-resources)
-        dev-col (if (zero? n#dev) [] (dev-column projects changes is-show-resources))
+        status-col (status-column projects paths is-show-resources)
+        dev-col (if (zero? n#dev) [] (dev-column projects is-show-resources))
         profile-cols (if (zero? n#dev) [] (profile-columns paths 9 projects profiles settings is-show-resources))
         loc-col (loc-columns is-show-loc projects n#profiles thousand-separator total-loc-src total-loc-test)
         space-columns (range 2 (* 2 (+ 3 n#dev n#profiles (if is-show-loc 2 0))) 2)
@@ -105,6 +103,6 @@
   (text-table/print-table (table workspace is-show-loc is-show-resources)))
 
 (comment
-  (require '[dev.development :as dev])
+  (require '[dev.jocke :as dev])
   (print-table dev/workspace false false)
   #__)
