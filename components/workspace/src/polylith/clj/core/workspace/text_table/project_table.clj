@@ -41,7 +41,7 @@
 (defn status-cell [index {:keys [name paths projects-to-test]} disk-paths is-show-resources]
   (let [path-entries (extract/from-paths paths disk-paths)
         satus-flags (str (status/project-status-flags path-entries name is-show-resources)
-                         (if (contains? projects-to-test name) "x" "-"))]
+                         (if (contains? (set projects-to-test) name) "x" "-"))]
     (text-table/cell 5 (+ index 3) satus-flags :purple :center)))
 
 (defn status-column
@@ -51,17 +51,17 @@
           (map-indexed #(status-cell %1 %2 disk-paths is-show-resources)
                        projects)))
 
-(defn dev-cell [index {:keys [name projects-to-test]} path-entries is-show-resources]
+(defn dev-cell [index {:keys [name]} {:keys [projects-to-test]} path-entries is-show-resources]
   (let [status-flags (str (status/project-status-flags path-entries name is-show-resources)
-                          (if (contains? projects-to-test name) "x" "-"))]
+                          (if (contains? (set projects-to-test) name) "x" "-"))]
     (text-table/cell 7 (+ index 3) status-flags :purple :center)))
 
 (defn dev-column [projects is-show-resources]
-  (let [dev (common/find-project "development" projects)
-        alias (get dev :alias "dev")
-        path-entries (extract/from-paths (:paths dev) nil)]
+  (let [development (common/find-project "development" projects)
+        alias (get development :alias "dev")
+        path-entries (extract/from-paths (:paths development) nil)]
     (concat [(text-table/cell 7 1 alias :purple)]
-            (map-indexed #(dev-cell %1 %2 path-entries is-show-resources)
+            (map-indexed #(dev-cell %1 %2 development path-entries is-show-resources)
                          projects))))
 
 (defn loc-cell [index lines-of-code column thousand-separator]
@@ -105,4 +105,12 @@
 (comment
   (require '[dev.jocke :as dev])
   (print-table dev/workspace false false)
+
+  (require '[polylith.clj.core.common.interface :as common])
+  (def project (common/find-project "cl" (:projects dev/workspace)))
+  (:changes dev/workspace)
+  (def projects (:projects dev/workspace))
+
+  (into {} (map (juxt :name :projects-to-test) projects))
+
   #__)

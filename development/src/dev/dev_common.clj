@@ -7,5 +7,5 @@
     (command/read-workspace filename input)))
 
 (defn dir [ws-dir & args]
-  (user-input/extract-arguments (concat ["info" (str "ws-dir:" ws-dir) "replace:/Users/joakimtengstrand:USER-HOME" "skip:dev:api"]
+  (user-input/extract-arguments (concat ["info" (str "ws-dir:" ws-dir) "replace:/Users/joakimtengstrand:USER-HOME"]
                                         args)))

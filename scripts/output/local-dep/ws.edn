@@ -27,17 +27,6 @@
   :changed-bases [],
   :project-to-indirect-changes
   {"invoicing" {:src [], :test []}, "development" {:src [], :test []}},
-  :project-to-bricks-to-test
-  {"development" [],
-   "invoicing"
-   ["database"
-    "invoicer"
-    "invoicer-cli"
-    "test-helper"
-    "test-helper-db"
-    "util"
-    "without-src"]},
-  :project-to-projects-to-test {"invoicing" [], "development" []},
   :since-sha "SHA",
   :changed-files
   ["deps.edn"
@@ -365,7 +354,7 @@
      :interface-ns "interface",
      :default-profile-name "default",
      :compact-views #{},
-     :tag-patterns {:release "v[0-9]*", :stable "stable-*"}}}]},
+     :tag-patterns {:stable "stable-*", :release "v[0-9]*"}}}]},
  :interfaces
  [{:name "database",
    :type "interface",
@@ -506,6 +495,7 @@
       :type "local",
       :path "migrate-me",
       :size 310}}},
+   :projects-to-test [],
    :component-names
    {:src ["database" "datomic-ions" "invoicer" "util"],
     :test
@@ -518,6 +508,14 @@
    :test
    {:create-test-runner
     [polylith.clj.core.clojure-test-test-runner.interface/create]},
+   :bricks-to-test
+   ["database"
+    "invoicer"
+    "invoicer-cli"
+    "test-helper"
+    "test-helper-db"
+    "util"
+    "without-src"],
    :deps
    {"invoicer-cli"
     {:src {:direct ["invoicer"], :indirect ["util"]},
@@ -673,6 +671,7 @@
       :type "local",
       :path "migrate-me",
       :size 310}}},
+   :projects-to-test [],
    :component-names
    {:src
     ["database"
@@ -685,6 +684,7 @@
    :test
    {:create-test-runner
     [polylith.clj.core.clojure-test-test-runner.interface/create]},
+   :bricks-to-test [],
    :deps
    {"invoicer-cli"
     {:src {:direct ["invoicer"], :indirect ["util"]},
@@ -723,7 +723,7 @@
    :stable-since {:tag "stable-master", :sha "SHA"},
    :polylith
    {:repo "https://github.com/polyfy/polylith.git", :branch "master"}},
-  :tag-patterns {:release "v[0-9]*", :stable "stable-*"},
+  :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
   :m2-dir "USER-HOME/.m2",
   :color-mode "none",
   :empty-character "."},
@@ -775,7 +775,7 @@
    :minor 2,
    :patch 19,
    :revision "SNAPSHOT",
-   :date "2024-01-12",
+   :date "2024-01-16",
    :snapshot 1},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
