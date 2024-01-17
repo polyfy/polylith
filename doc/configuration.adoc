@@ -90,11 +90,6 @@ The workspace map keys are:
 |===
 | Key | Description
 
-a| `:bricks`
-a| Brick-specific configuration where the map key is the brick name.
-Specify `:keep-lib-versions` to tell `libs :update` to xref:libraries.adoc#update-skip[skip specified libraries]. +
-*Default:* absent, effectively `{}`
-
 a| `:compact-view`
 a| Can tell `poly` to use a compact format for xref:commands.adoc#deps[deps] command xref:dependencies.adoc#compact-view[output] and xref:commands.adoc#libs[libs] command xref:libraries.adoc#compact-view[output].
 For example, to turn compact format on for both `deps` and `libs`, set to `+#{"deps" "libs"}+`. +
@@ -108,10 +103,6 @@ a| `:interface-ns`
 a| Tells `poly` when to consider a namespace an interface and what naming convention the xref:commands.adoc#create-component[create component] command should use.
 See xref:interface.adoc#interface-ns[Interface] for important details. +
 *Default:* `"interface"`
-
-a| `:projects`
-a| See xref:#ws-projects[projects] below. +
-*Default:* see below
 
 a| `:tag-patterns`
 a| Specifies the https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html[regex] patterns used when searching for the most recent tag in git.
@@ -130,89 +121,6 @@ a| A map with two keys describing your https://en.wikipedia.org/wiki/Version_con
 
 *Default:* `{:name "git" :auto-add false}`
 |===
-
-[#ws-projects]
-=== Projects
-
-You configure individual xref:project.adoc[projects] under the `:projects` key.
-You can retrieve projects config via:
-
-[source,shell]
-----
-poly ws get:configs:workspaces:example:config:projects
-----
-
-[source,clojure]
-----
-{"command-line" {:alias "cl",
-                 :test {:setup-fn project.command-line.test-setup/setup,
-                        :teardown-fn project.command-line.test-setup/teardown}},
- "development" {:alias "dev"},
- "user-service" {:alias "user-s"
-                 :test {:exclude ["mybrick"]}
-                 :keep-lib-versions [org.slf4j/slf4j-nop]
-                 :necessary ["helper"]}}
-----
-
-The keys are the full project names.
-
-The default alias for the `development` project is created for you when your xref:workspace.adoc[create your workspace].
-Deployable projects get no automatically generated config under `:projects`.
-
-Project map keys are:
-
-[%autowidth]
-|===
-| Key | Description
-
-a| `:alias`
-a| Specifies a short name for a project.
-You can use the alias instead of the full project name for various `poly` commands.
-If not specified, the xref:commands.adoc#info[info] and xref:commands.adoc[libs] commands emit a `?` followed by a number (e.g. `?1`) for project column headings.
-
-a| [nowrap]`:keep-lib-versions`
-a| Tells `libs :update` to xref:libraries.adoc#update-skip[skip specified libraries] for the project.
-
-a| [nowrap]`:necessary`
-a| Supports turning off `Warning 207` for one or more bricks.
-See xref:validations.adoc#warning207[Validations].
-
-a| `:test`
-a| See next table below.
-
-|===
-
-You specify xref:testing.adoc[test] configuration under the `:test` key for a specific project:
-
-[%autowidth]
-|===
-| Key | Description
-
-a| `:exclude`
-a| Lists the bricks to exclude when running tests for the project.
-^xref:#include-exclude[1]^
-
-
-a| `:include`
-a| Lists the bricks to include when running tests for the project.
-^xref:#include-exclude[1]^
-
-a| `:setup-fn`
-a| The function name (including namespace) to call before `poly` runs tests.
-^xref:#setup-teardown[2]^
-
-
-a| [nowrap]`:teardown-fn`
-a| The function name (including namespace) to call after `poly` runs tests.
-^xref:#setup-teardown[2]^
-
-|===
-
-Table notes:
-
-. [[include-exclude]] See xref:testing.adoc#include-exclude[Include and Exclude Bricks by Configuration].
-. [[setup-teardown]] See xref:testing#setup-and-teardown[Test Setup and Teardown].
-
 
 == Tools.deps `deps.edn` Files
 
@@ -296,7 +204,7 @@ poly ws get:configs:bases:cli
 | Key | Description
 
 a| `:config`
-a| Content of base `config.edn`.
+a| Content of the base's `config.edn`. This config file is only needed if we add a xref:libraries.adoc#keep-lib-versions[:keep-lib-versions] key to the base.
 
 a| `:deps`
 a| Content of base `deps.edn`.
@@ -333,7 +241,7 @@ poly ws get:configs:components:user
 | Key | Description
 
 a| `:config`
-a| The content of `config.edn`.
+a| Content of the component's `config.edn`. This config file is only needed if we add a xref:libraries.adoc#keep-lib-versions[:keep-lib-versions] key to the component.
 
 a| `:deps`
 a| The content of `deps.edn`.

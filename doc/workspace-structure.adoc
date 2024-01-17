@@ -613,7 +613,7 @@ poly ws get:projects:user-service
 
 * `:lib-deps`
 ** `:src` Stores a map with the libraries that are used in the project for the src context. Contains libraries that are specified by the project and the included bricks.
-*** `:latest-version` Set if there is a newer version of this library, except if xref:keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `:update` is given for the libs command.
+*** `:latest-version` Set if there is a newer version of this library, except if xref:libraries.adoc#keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `:update` is given for the libs command.
 *** `:size` The size of this library in bytes.
 *** `:type` The type of the library, "maven", "local" or "git" (`:mvn/version`, `:local/root` and `:git/url`).
 *** `:version` The library version:

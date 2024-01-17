@@ -91,7 +91,7 @@ poly libs :update libraries:djblue/portal:com.taoensso/timbre
 
 TIP: When using the xref:shell.adoc[shell], `poly` will, after a short pause, offer autocomplete suggestions for `libraries`!
 
-[[update-skip]]
+[[keep-lib-versions]]
 To skip updating specific libraries, specify `:keep-lib-versions` in your brick and project config files, e.g.:
 
 ../components/article/config.edn
