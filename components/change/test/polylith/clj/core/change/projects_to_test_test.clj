@@ -55,7 +55,7 @@
         (t/run-tests? "dev" "development" true true true #{}))))
 
 (defn with-to-test [project disk-paths affected-projects selected-projects is-dev-user-input is-run-project-tests is-all]
-  (:projects-to-test (t/with-to-test project disk-paths affected-projects selected-projects is-dev-user-input is-run-project-tests is-all)))
+  (:projects-to-test (t/with-projects-to-test project disk-paths affected-projects selected-projects is-dev-user-input is-run-project-tests is-all)))
 
 (deftest dont-run-project-tests--project-tests-are-not-activated-by-default
   (is (= []

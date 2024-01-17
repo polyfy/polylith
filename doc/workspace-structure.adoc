@@ -161,9 +161,6 @@ poly ws get:changes since:b339c35
  :changed-or-affected-projects ["command-line" "development" "user-service"],
  :changed-projects ["command-line" "development" "user-service"],
  :git-diff-command "git diff b339c35 --name-only",
- :project-to-indirect-changes {"command-line" {:src [], :test []},
-                               "development" {:src [], :test []},
-                               "user-service" {:src [], :test []}},
  :since "b339c35",
  :since-sha "b339c35"}
 ----
@@ -182,9 +179,6 @@ A project will be marked as changed if a file in its project directory has chang
 * `:changed-projects` Lists the changed projects since the sha `b339c35` (or last stable point in time if `:since` is not given).
 
 * `:git-diff-command` The git command that was executed to calculate the `:changed-files` list.
-
-* `:project-to-indirect-changes` A map that stores project names with a list of the bricks that are indirectly changed (directly changed bricks excluded).
-E.g. if components `a` and `b` are included in the project, and `a` has not changed, but `b` has changed and `a` uses `b`, then `b` will be included in the list.
 
 * `:since` Set to "stable" if `since:SINCE` is not given.
 
@@ -538,11 +532,12 @@ poly ws get:projects:user-service
 ----
 {:alias "user-s",
  :base-names {:src ["user-api"], :test ["user-api"]},
- :bricks-to-test ["user" "user-api"]
+ :bricks-to-test ["user" "user-api"],
  :component-names {:src ["user"], :test ["user"]},
  :deps {"user" {:src {}, :test {}},
         "user-api" {:src {:direct ["user"]}, :test {:direct ["user"]}}},
  :deps-filename "examples/doc-example/projects/user-service/deps.edn",
+ :indirect-changes {:src [], :test []},
  :is-dev false,
  :lib-deps {:src {"org.apache.logging.log4j/log4j-core" {:size 1714164,
                                                          :type "maven",
@@ -579,7 +574,8 @@ poly ws get:projects:user-service
                                                  :type "maven",
                                                  :version "1.11.1"}},
                     :test {}},
- :projects-to-test []
+ :projects-to-test [],
+ :test {:create-test-runner [polylith.clj.core.clojure-test-test-runner.interface/create]},
  :type "project"}
 ----
 
@@ -606,6 +602,9 @@ poly ws get:projects:user-service
 ** `:test` Keeps track of the dependencies from the `:test` context, with the same set of keys as the `:src` context.
 
 * `:deps-filename` The absolute path to the `deps.edn` config file.
+
+* `:indirect-changes` A vector of the bricks that are indirectly changed (directly changed bricks excluded).
+E.g. if components `a` and `b` are included in the project, and `a` has not changed, but `b` has changed and `a` uses `b`, then `b` will be included in this vector.
 
 * `:is-dev` Set to `true` for the development project.
 
@@ -671,7 +670,6 @@ Empty if no bricks, missing if all bricks.
 ** `:create-test-runner` A vector with one or more test runners, see xref:test-runners.adoc#create-test-runner[create test runner].
 
 * `:type` Set to "project".
-
 
 [#settings]
 == settings

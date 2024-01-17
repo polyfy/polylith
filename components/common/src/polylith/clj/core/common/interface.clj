@@ -53,8 +53,8 @@
 (defn find-component [name components]
   (core/find-component name components))
 
-(defn find-project [project-name projects]
-  (core/find-project project-name projects))
+(defn find-project [project-name-or-alias projects]
+  (core/find-project project-name-or-alias projects))
 
 (defn find-workspace [name workspaces]
   (core/find-workspace name workspaces))

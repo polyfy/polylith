@@ -912,6 +912,18 @@
    :name "api",
    :bricks-to-test []
    :projects-to-test []
+   :indirect-changes {:src
+                      ["api"
+                       "change"
+                       "lib"
+                       "path-finder"
+                       "text-table"
+                       "user-config"
+                       "user-input"
+                       "validator"
+                       "workspace"
+                       "workspace-clj"],
+                      :test []}
    :is-run-tests true,
    :paths
    {:src
@@ -1053,6 +1065,16 @@
    :base-names {},
    :bricks-to-test []
    :projects-to-test []
+   :indirect-changes {:src
+                      ["change"
+                       "lib"
+                       "path-finder"
+                       "text-table"
+                       "user-config"
+                       "user-input"
+                       "validator"
+                       "workspace"],
+                      :test []}
    :lib-imports
    {:src
     ["clojure.java.io"
@@ -1168,7 +1190,45 @@
    :namespaces {},
    :bricks-to-test []
    :projects-to-test []
-   :base-names {:src ["deployer-cli"]},
+   :indirect-changes   {"api"
+                        {:src
+                         ["api"
+                          "change"
+                          "lib"
+                          "path-finder"
+                          "text-table"
+                          "user-config"
+                          "user-input"
+                          "validator"
+                          "workspace"
+                          "workspace-clj"],
+                         :test []},
+                        "core"
+                        {:src
+                         ["change"
+                          "lib"
+                          "path-finder"
+                          "text-table"
+                          "user-config"
+                          "user-input"
+                          "validator"
+                          "workspace"],
+                         :test []},
+                        "deployer"
+                        {:src
+                         ["api"
+                          "change"
+                          "deployer-cli"
+                          "lib"
+                          "path-finder"
+                          "text-table"
+                          "user-config"
+                          "user-input"
+                          "validator"
+                          "workspace"
+                          "workspace-clj"],
+                         :test []},
+                        :base-names {:src ["deployer-cli"]},}
    :lib-imports
    {:src
     ["clojure.java.io"
@@ -1451,6 +1511,30 @@
                     "workspace-clj"
                     "ws-explorer"]
    :projects-to-test ["poly"]
+   :indirect-changes {:src
+                      ["api"
+                       "change"
+                       "deployer-cli"
+                       "lib"
+                       "migrator"
+                       "path-finder"
+                       "test-helper"
+                       "test-runner"
+                       "text-table"
+                       "user-config"
+                       "user-input"
+                       "validator"
+                       "workspace"
+                       "workspace-clj"
+                       "ws-file"],
+                      :test
+                      ["change"
+                       "lib"
+                       "path-finder"
+                       "user-input"
+                       "validator"
+                       "workspace"
+                       "workspace-clj"]}
    :is-run-tests true,
    :paths
    {:src
@@ -1928,6 +2012,30 @@
    :name "development",
    :bricks-to-test []
    :projects-to-test []
+   :indirect-changes {:src
+                      ["api"
+                       "change"
+                       "deployer-cli"
+                       "lib"
+                       "migrator"
+                       "path-finder"
+                       "test-helper"
+                       "test-runner"
+                       "text-table"
+                       "user-config"
+                       "user-input"
+                       "validator"
+                       "workspace"
+                       "workspace-clj"
+                       "ws-file"],
+                      :test
+                      ["change"
+                       "lib"
+                       "path-finder"
+                       "user-input"
+                       "validator"
+                       "workspace"
+                       "workspace-clj"]}
    :is-run-tests false,
    :paths
    {:src
@@ -6147,94 +6255,7 @@
   :changed-bases ["poly-cli"],
   :changed-projects ["api" "core" "deployer" "development" "poly"],
   :changed-or-affected-projects
-  ["api" "core" "deployer" "development" "poly"],
-  :project-to-indirect-changes
-  {"api"
-   {:src
-    ["api"
-     "change"
-     "lib"
-     "path-finder"
-     "text-table"
-     "user-config"
-     "user-input"
-     "validator"
-     "workspace"
-     "workspace-clj"],
-    :test []},
-   "core"
-   {:src
-    ["change"
-     "lib"
-     "path-finder"
-     "text-table"
-     "user-config"
-     "user-input"
-     "validator"
-     "workspace"],
-    :test []},
-   "deployer"
-   {:src
-    ["api"
-     "change"
-     "deployer-cli"
-     "lib"
-     "path-finder"
-     "text-table"
-     "user-config"
-     "user-input"
-     "validator"
-     "workspace"
-     "workspace-clj"],
-    :test []},
-   "poly"
-   {:src
-    ["change"
-     "lib"
-     "migrator"
-     "path-finder"
-     "test-runner"
-     "text-table"
-     "user-config"
-     "user-input"
-     "validator"
-     "workspace"
-     "workspace-clj"
-     "ws-file"],
-    :test
-    ["change"
-     "lib"
-     "path-finder"
-     "test-helper"
-     "user-input"
-     "validator"
-     "workspace"
-     "workspace-clj"]},
-   "development"
-   {:src
-    ["api"
-     "change"
-     "deployer-cli"
-     "lib"
-     "migrator"
-     "path-finder"
-     "test-helper"
-     "test-runner"
-     "text-table"
-     "user-config"
-     "user-input"
-     "validator"
-     "workspace"
-     "workspace-clj"
-     "ws-file"],
-    :test
-    ["change"
-     "lib"
-     "path-finder"
-     "user-input"
-     "validator"
-     "workspace"
-     "workspace-clj"]}}}
+  ["api" "core" "deployer" "development" "poly"],}
  :version
  {:release
   {:name "0.2.12-alpha",

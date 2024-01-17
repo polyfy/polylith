@@ -17,6 +17,7 @@
                             :type "project",
                             :bricks-to-test []
                             :projects-to-test []
+                            :indirect-changes []
                             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
                                           "clojars" {:url "https://repo.clojars.org/"}},
                             :alias "s",
@@ -38,6 +39,7 @@
                             :is-dev true,
                             :lines-of-code {:src 0, :test 0, :total {:src 9, :test 18}}
                             :name "development",
+                            :indirect-changes [],
                             :type "project",
                             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
                                           "clojars" {:url "https://repo.clojars.org/"}},
@@ -196,7 +198,6 @@
                           :changed-bases [],
                           :changed-projects [],
                           :changed-or-affected-projects ["development"],
-                          :project-to-indirect-changes {"service" [], "development" []},
                           :changed-files ["components/database/src/se/example/database/interface.clj"
                                           "components/test-helper/deps.edn"
                                           "deps.edn"]},

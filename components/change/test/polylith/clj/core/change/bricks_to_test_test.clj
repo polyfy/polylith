@@ -8,7 +8,6 @@
                     changed-components
                     changed-bases
                     test
-                    project-to-indirect-changes
                     selected-bricks
                     selected-projects
                     is-dev-user-input
@@ -16,15 +15,15 @@
   (let [projects (data/projects test)]
     (into {}
           (mapv (juxt :name :bricks-to-test)
-                (to-test/with-bricks-to-test projects
-                                             changed-projects
-                                             changed-components
-                                             changed-bases
-                                             project-to-indirect-changes
-                                             selected-bricks
-                                             selected-projects
-                                             is-dev-user-input
-                                             is-run-all-brick-tests)))))
+                (map #(to-test/with-bricks-to-test %
+                                                   changed-projects
+                                                   changed-components
+                                                   changed-bases
+                                                   selected-bricks
+                                                   selected-projects
+                                                   is-dev-user-input
+                                                   is-run-all-brick-tests)
+                     projects)))))
 
 ;; The development project is only included in the tests if we pass in :dev,
 ;; or if we include it with project:dev.
@@ -35,7 +34,6 @@
          (test {:changed-projects []
                 :changed-components ["article"]
                 :changed-bases []
-                :project-to-indirect-changes {}
                 :selected-bricks nil
                 :selected-projects #{}
                 :is-dev-user-input false
@@ -48,7 +46,6 @@
                 :test {:include []}
                 :changed-components ["article"]
                 :changed-bases []
-                :project-to-indirect-changes {}
                 :selected-bricks nil
                 :selected-projects #{}
                 :is-dev-user-input false
@@ -64,7 +61,6 @@
          (test {:changed-projects []
                 :changed-components ["article"]
                 :changed-bases []
-                :project-to-indirect-changes {}
                 :selected-bricks nil
                 :selected-projects #{}
                 :is-dev-user-input false
@@ -85,7 +81,6 @@
          (test {:changed-projects []
                 :changed-components ["article"]
                 :changed-bases []
-                :project-to-indirect-changes {}
                 :selected-bricks nil
                 :selected-projects #{}
                 :is-dev-user-input true
@@ -102,7 +97,6 @@
          (test {:changed-projects []
                 :changed-components ["article"]
                 :changed-bases []
-                :project-to-indirect-changes {}
                 :selected-bricks nil
                 :selected-projects #{"dev"}
                 :is-dev-user-input false
@@ -116,7 +110,6 @@
                 :test {:include ["tag" "user"]}
                 :changed-components ["article" "comment" "rest-api" "tag" "user"]
                 :changed-bases []
-                :project-to-indirect-changes {}
                 :selected-bricks nil
                 :selected-projects #{}
                 :is-dev-user-input false
@@ -132,7 +125,6 @@
          (test {:changed-projects ["core"]
                 :changed-components ["article"]
                 :changed-bases []
-                :project-to-indirect-changes {}
                 :selected-bricks nil
                 :selected-projects #{}
                 :is-dev-user-input false
@@ -145,7 +137,6 @@
         (test {:changed-projects []
                :changed-components ["article" "user"]
                :changed-bases []
-               :project-to-indirect-changes {}
                :selected-bricks ["user"]
                :selected-projects #{}
                :is-dev-user-input false
@@ -157,7 +148,6 @@
          (test {:changed-projects []
                 :changed-components []
                 :changed-bases []
-                :project-to-indirect-changes {}
                 :selected-bricks ["tag"]
                 :selected-projects #{}
                 :is-dev-user-input false
@@ -169,7 +159,6 @@
          (test {:changed-projects []
                 :changed-components []
                 :changed-bases []
-                :project-to-indirect-changes {}
                 :selected-bricks ["tag"]
                 :selected-projects #{}
                 :is-dev-user-input false

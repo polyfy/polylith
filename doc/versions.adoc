@@ -20,9 +20,11 @@ Here are the changes to the workspace structure over time:
 | ws | release | action | attribute | description
 
 | 3.0 | 0.2.19 | added | ENTITIES:ENTITY:keep-lib-versions |
-|  |  | added | projects:PROJECT:bricks-to-test | moved from changes:project-to-bricks-to-test.
-|  |  | added | projects:PROJECT:projects-to-test | moved from changes:project-to-projects-to-test.
+|  |  | added | projects:PROJECT:bricks-to-test | Moved from changes:project-to-bricks-to-test.
+|  |  | added | projects:PROJECT:indirect-changes | Moved from changes:project-to-indirect-changes.
+|  |  | added | projects:PROJECT:projects-to-test | Moved from changes:project-to-projects-to-test.
 |  |  | deleted | changes:project-to-bricks-to-test |
+|  |  | deleted | changes:project-to-indirect-changes |
 |  |  | deleted | changes:project-to-projects-to-test |
 |  |  | added | projects:PROJECT:necessary |
 |  |  | added | projects:PROJECT:test |

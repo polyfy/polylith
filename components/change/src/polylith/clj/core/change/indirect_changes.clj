@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.change.indirect
+(ns ^:no-doc polylith.clj.core.change.indirect-changes
   (:require [clojure.set :as set]))
 
 (defn brick-source-indirect-change [brick {:keys [direct indirect]} changed-bricks]
@@ -14,11 +14,7 @@
 (defn brick-indirect-test-change [[brick {:keys [test]}] changed-bricks]
   (brick-source-indirect-change brick test changed-bricks))
 
-(defn project-indirect-changes [[project-name deps] changed-bricks]
-  [project-name {:src (vec (sort (mapcat #(brick-indirect-src-change % changed-bricks) deps)))
-                 :test (vec (sort (mapcat #(brick-indirect-test-change % changed-bricks) deps)))}])
-
-(defn project-to-indirect-changes [projects-deps changed-bricks]
-  "Calculates the bricks that are indirectly changed within the given project,
-   directly changes excluded."
-  (into {} (map #(project-indirect-changes % changed-bricks) projects-deps)))
+(defn with-indirect-changes [{:keys [deps] :as project} changed-bricks]
+  (assoc project :indirect-changes
+                 {:src (vec (sort (mapcat #(brick-indirect-src-change % changed-bricks) deps)))
+                  :test (vec (sort (mapcat #(brick-indirect-test-change % changed-bricks) deps)))}))

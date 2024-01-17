@@ -81,8 +81,8 @@
   (or (= project name)
       (= project alias)))
 
-(defn find-project [name projects]
-  (util/find-first #(=project % name) projects))
+(defn find-project [name-or-alias projects]
+  (util/find-first #(=project % name-or-alias) projects))
 
 (defn find-entity-index [entity-name entities]
   (util/find-first-index #(= entity-name (:name %)) entities))

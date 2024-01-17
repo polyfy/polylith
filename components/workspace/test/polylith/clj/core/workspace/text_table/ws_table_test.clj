@@ -445,6 +445,7 @@
                             :type "project",
                             :bricks-to-test ["command" "path-finder" "workspace"]
                             :projects-to-test []
+                            :indirect-changes ["poly-cli" "command" "test-helper"]
                             :is-run-tests true,
                             :is-dev false,
                             :project-dir "./projects/poly",
@@ -609,6 +610,7 @@
                             :type "project",
                             :bricks-to-test []
                             :projects-to-test []
+                            :indirect-changes ["poly-cli" "command" "test-helper"]
                             :is-run-tests true,
                             :is-dev false,
                             :project-dir "./projects/core",
@@ -695,6 +697,7 @@
                             :type "project",
                             :bricks-to-test []
                             :projects-to-test []
+                            :indirect-changes ["poly-cli" "command" "test-helper"]
                             :is-run-tests false,
                             :is-dev true,
                             :project-dir "./development",
@@ -2164,9 +2167,6 @@
                           :changed-components ["path-finder" "workspace"],
                           :changed-bases [],
                           :changed-projects [],
-                          :project-to-indirect-changes {"poly" ["poly-cli" "command" "test-helper"],
-                                                        "core" ["poly-cli" "command" "test-helper"],
-                                                        "development" ["poly-cli" "command" "test-helper"]},
                           :changed-files ["components/path-finder/src/polylith/clj/core/path-finder/project_statuses.clj"
                                           "components/path-finder/src/polylith/clj/core/path-finder/interfc.clj"
                                           "components/path-finder/src/polylith/clj/core/path-finder/matchers.clj"
