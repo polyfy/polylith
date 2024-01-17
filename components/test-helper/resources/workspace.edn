@@ -1065,6 +1065,7 @@
    :base-names {},
    :bricks-to-test []
    :projects-to-test []
+   :name "core",
    :indirect-changes {:src
                       ["change"
                        "lib"
@@ -1095,7 +1096,6 @@
      "org.eclipse.aether.util.version"],
     :test ["clojure.java.shell" "clojure.string" "clojure.test"]},
    :is-dev false,
-   :name "core",
    :is-run-tests true,
    :paths
    {:src
@@ -1190,45 +1190,21 @@
    :namespaces {},
    :bricks-to-test []
    :projects-to-test []
-   :indirect-changes   {"api"
-                        {:src
-                         ["api"
-                          "change"
-                          "lib"
-                          "path-finder"
-                          "text-table"
-                          "user-config"
-                          "user-input"
-                          "validator"
-                          "workspace"
-                          "workspace-clj"],
-                         :test []},
-                        "core"
-                        {:src
-                         ["change"
-                          "lib"
-                          "path-finder"
-                          "text-table"
-                          "user-config"
-                          "user-input"
-                          "validator"
-                          "workspace"],
-                         :test []},
-                        "deployer"
-                        {:src
-                         ["api"
-                          "change"
-                          "deployer-cli"
-                          "lib"
-                          "path-finder"
-                          "text-table"
-                          "user-config"
-                          "user-input"
-                          "validator"
-                          "workspace"
-                          "workspace-clj"],
-                         :test []},
-                        :base-names {:src ["deployer-cli"]},}
+   :name "deployer",
+   :indirect-changes {:src
+                      ["api"
+                       "change"
+                       "deployer-cli"
+                       "lib"
+                       "path-finder"
+                       "text-table"
+                       "user-config"
+                       "user-input"
+                       "validator"
+                       "workspace"
+                       "workspace-clj"],
+                      :test []},
+   :base-names {:src ["deployer-cli"]}
    :lib-imports
    {:src
     ["clojure.java.io"
@@ -1252,7 +1228,6 @@
      "puget.printer"],
     :test ["clojure.java.shell" "clojure.string" "clojure.test"]},
    :is-dev false,
-   :name "deployer",
    :is-run-tests true,
    :paths
    {:src
@@ -1491,7 +1466,6 @@
      "zprint.core"],
     :test ["clojure.java.shell" "clojure.string" "clojure.test"]},
    :is-dev false,
-   :name "poly",
    :bricks-to-test ["change"
                     "command"
                     "creator"
@@ -1511,6 +1485,7 @@
                     "workspace-clj"
                     "ws-explorer"]
    :projects-to-test ["poly"]
+   :name "poly",
    :indirect-changes {:src
                       ["api"
                        "change"
