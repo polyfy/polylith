@@ -11,7 +11,7 @@ poly ws get:version:ws
 
 [source,clojure]
 ----
-{:breaking 2, :non-breaking 0}
+{:breaking 3, :non-breaking 0}
 ----
 
 Here are the changes to the workspace structure over time:

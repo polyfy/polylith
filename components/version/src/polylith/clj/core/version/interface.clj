@@ -41,7 +41,7 @@
 ;; Execute 'poly doc version' to see when different changes was introduced.
 (def api-version {:breaking 1, :non-breaking 0})
 (def test-runner-api-version {:breaking 1, :non-breaking 0})
-(def ws-api-version {:breaking 2, :non-breaking 0})
+(def workspace-version {:breaking 3, :non-breaking 0})
 
 (defn version
   ([]
@@ -56,6 +56,6 @@
                       :date date}
             :api api-version
             :test-runner-api test-runner-api-version
-            :ws ws-api-version}
+            :ws workspace-version}
            from-version (assoc :from from-version)
            snapshot? (assoc-in [:release :snapshot] snapshot))))
