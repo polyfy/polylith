@@ -995,7 +995,7 @@ poly ws get:version
            :tool "poly"}
  :test-runner-api {:breaking 1
                    :non-breaking 0}
- :ws {:breaking 2
+ :ws {:breaking 3
       :non-breaking 0}}
 ----
 
