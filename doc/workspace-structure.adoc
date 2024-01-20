@@ -26,7 +26,6 @@ poly ws get:keys
  :paths
  :profiles
  :projects
- :releases
  :settings
  :user-input
  :version
