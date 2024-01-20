@@ -5,31 +5,6 @@
  :empty-character ".",
  :interface-ns "interface",
  :m2-dir "/Users/joakimtengstrand/.m2",
- :profile-to-settings
- {"default"
-  {:paths
-   ["components/user/resources"
-    "components/user/src"
-    "components/user/test"],
-   :lib-deps {},
-   :component-names ["user"],
-   :base-names [],
-   :project-names []},
-  "remote"
-  {:paths
-   ["components/user-remote/resources"
-    "components/user-remote/src"
-    "components/user-remote/test"],
-   :lib-deps
-   {"compojure/compojure"
-    {:version "1.6.2", :type "maven", :size 15172},
-    "http-kit/http-kit"
-    {:version "2.4.0", :type "maven", :size 191467},
-    "ring/ring" {:version "1.8.1", :type "maven", :size 4621},
-    "slacker/slacker" {:version "0.17.0", :type "maven", :size 28408}},
-   :component-names ["user-remote"],
-   :base-names [],
-   :project-names []}},
  :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
  :thousand-separator ",",
  :top-namespace "se.example",

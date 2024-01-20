@@ -24,6 +24,7 @@ poly ws get:keys
  :messages
  :name
  :paths
+ :profiles
  :projects
  :releases
  :settings
@@ -520,6 +521,33 @@ poly ws get:paths
 
 * `:missing` All missing paths in the workspace that are used in bricks, projects, and profiles but don't exist on disk.
 
+[#profiles]
+== profiles
+
+[source,shell]
+----
+poly ws get:profiles:default
+----
+
+[source,clojure]
+----
+{:base-names [],
+ :component-names ["image-creator" "system"],
+ :lib-deps {},
+ :name "default",
+ :paths ["components/image-creator/src" "components/system/src"],
+ :project-names [],
+ :type "profile"}
+----
+
+* `:base-names` The bases that are referenced from the specified paths.
+* `:component-names` The components that are referenced from the specified paths.
+* `:lib-deps` The library dependencies specified by the key `:extra-deps`.
+* `:name` the profile name, taken from an alias name that starts with a `+` in `./deps.edn`.
+* `:paths` The paths specified by the key `:extra-paths`.
+* `:project-names` The projects that are referenced from the specified paths.
+* `:type` Set to "profile".
+
 [#projects]
 == projects
 
@@ -688,33 +716,20 @@ poly ws get:settings
  :empty-character ".",
  :interface-ns "interface",
  :m2-dir "/Users/joakimtengstrand/.m2",
- :profile-to-settings {"default" {:base-names [],
-                                  :component-names ["user"],
-                                  :lib-deps {},
-                                  :paths ["components/user/src"
-                                          "components/user/resources"
-                                          "components/user/test"],
-                                  :project-names []},
-                       "remote" {:base-names [],
-                                 :component-names ["user-remote"],
-                                 :lib-deps {},
-                                 :paths ["components/user-remote/src"
-                                         "components/user-remote/resources"
-                                         "components/user-remote/test"],
-                                 :project-names []}},
  :tag-patterns {:release "v[0-9]*", :stable "stable-*"},
  :thousand-separator ",",
- :top-namespace "se.example",
+ :top-namespace "polylith.clj.core",
  :user-config-filename "/Users/joakimtengstrand/.config/polylith/config.edn",
  :user-home "/Users/joakimtengstrand",
- :vcs {:auto-add true,
-       :branch "master",
+ :vcs {:auto-add false,
+       :branch "issue-315",
        :git-root "/Users/joakimtengstrand/source/polylith",
+       :is-git-repo true,
        :name "git",
        :polylith {:branch "master",
                   :repo "https://github.com/polyfy/polylith.git"},
-       :stable-since {:sha "f7e8cd7fe83f6d2fdfdedda35fed5806ac418964",
-                      :tag "stable-jote"}}}
+       :stable-since {:sha "15453ebc5a86f52ee1c75ec52ebb19da4b113c30",
+                      :tag "stable-master"}}}
 ----
 
 * `:active-profiles` If any profiles are defined in `./deps.edn` then the active profiles(s) are listed here.
@@ -732,13 +747,6 @@ poly ws get:settings
 
 * `:m2-dir` Maven user root directory.
 Set to "~/.m2" by default, but can be overridden in `~/.config/polylith/config.edn`.
-
-* `:profile-to-settings` A map with profile name as key and profile definition as value, specified as aliases starting with a + in `./deps.edn`:
-** `:base-names` The bases that are referenced from the specified paths.
-** `:component-names` The components that are referenced from the specified paths.
-** `:lib-deps` The library dependencies specified by the key `:extra-deps`.
-** `:paths` The paths specified by the key `:extra-paths`.
-** `:project-names` The projects that are referenced from the specified paths.
 
 * `:tag-patterns` The tag patterns that are specified in `workspace.edn`.
 

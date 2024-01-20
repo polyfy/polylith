@@ -283,7 +283,7 @@
           (format "ws get:settings replace:%s:WS-HOME:%s:SHA color-mode:none"
                   ws-parent-dir sha))
     (poly {:out (fs/file output-dir "ws-state-paths.txt")}
-          "ws get:settings:profile-to-settings:default:paths color-mode:none")
+          "ws get:profiles:default:paths color-mode:none")
     (poly {:out (fs/file output-dir "ws-state-keys.txt")}
           "ws get:keys color-mode:none")
     (poly {:out (fs/file output-dir "ws-state-components-keys.txt")}

@@ -25,8 +25,6 @@
  {:since "stable",
   :changed-projects [],
   :changed-bases [],
-  :project-to-indirect-changes
-  {"invoicing" {:src [], :test []}, "development" {:src [], :test []}},
   :since-sha "SHA",
   :changed-files [""],
   :git-diff-command "git diff SHA --name-only",
@@ -424,6 +422,7 @@
    "components/util/src"
    "components/util/test"
    "components/without-src/test"]},
+ :profiles [],
  :projects
  [{:lines-of-code {:src 33, :test 45, :total {:src 63, :test 63}},
    :deps-filename
@@ -570,6 +569,7 @@
      "components/util/test"
      "components/without-src/test"]},
    :type "project",
+   :indirect-changes {:src [], :test []},
    :maven-repos
    {"central" {:url "https://repo1.maven.org/maven2/"},
     "clojars" {:url "https://repo.clojars.org/"},
@@ -689,6 +689,7 @@
      "components/util/test"
      "components/without-src/test"]},
    :type "project",
+   :indirect-changes {:src [], :test []},
    :maven-repos
    {"central" {:url "https://repo1.maven.org/maven2/"},
     "clojars" {:url "https://repo.clojars.org/"}},
@@ -802,7 +803,6 @@
   :user-home "USER-HOME",
   :compact-views #{},
   :active-profiles #{},
-  :profile-to-settings {},
   :interface-ns "interface",
   :ns-to-lib {"clj-time" "clj-time/clj-time"},
   :vcs
@@ -866,11 +866,11 @@
    :minor 2,
    :patch 19,
    :revision "SNAPSHOT",
-   :date "2024-01-16",
+   :date "2024-01-20",
    :snapshot 1},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
-  :ws {:breaking 2, :non-breaking 0},
+  :ws {:breaking 3, :non-breaking 0},
   :from {:ws {:breaking 0, :non-breaking 0}}},
  :ws-dir "/privateWS-HOME/local-dep-old-format",
  :ws-reader

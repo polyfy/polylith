@@ -25,8 +25,6 @@
  {:since "stable",
   :changed-projects ["development" "invoicing"],
   :changed-bases [],
-  :project-to-indirect-changes
-  {"invoicing" {:src [], :test []}, "development" {:src [], :test []}},
   :since-sha "SHA",
   :changed-files
   ["deps.edn"
@@ -427,6 +425,7 @@
    "components/util/src"
    "components/util/test"
    "components/without-src/test"]},
+ :profiles [],
  :projects
  [{:lines-of-code {:src 0, :test 0, :total {:src 63, :test 63}},
    :necessary ["datomic-ions" "without-src"],
@@ -469,6 +468,7 @@
      "components/without-src/test"]},
    :keep-lib-versions [clj-time/clj-time],
    :type "project",
+   :indirect-changes {:src [], :test []},
    :maven-repos
    {"central" {:url "https://repo1.maven.org/maven2/"},
     "clojars" {:url "https://repo.clojars.org/"},
@@ -596,6 +596,7 @@
      "components/util/test"
      "components/without-src/test"]},
    :type "project",
+   :indirect-changes {:src [], :test []},
    :maven-repos
    {"central" {:url "https://repo1.maven.org/maven2/"},
     "clojars" {:url "https://repo.clojars.org/"},
@@ -712,7 +713,6 @@
   :user-home "USER-HOME",
   :compact-views #{},
   :active-profiles #{},
-  :profile-to-settings {},
   :interface-ns "interface",
   :vcs
   {:name "git",
@@ -775,11 +775,11 @@
    :minor 2,
    :patch 19,
    :revision "SNAPSHOT",
-   :date "2024-01-16",
+   :date "2024-01-20",
    :snapshot 1},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
-  :ws {:breaking 2, :non-breaking 0}},
+  :ws {:breaking 3, :non-breaking 0}},
  :ws-dir "USER-HOME/source/polylith/examples/local-dep",
  :ws-local-dir "examples/local-dep",
  :ws-reader
