@@ -220,9 +220,10 @@ Open blog posts via:
 
 [source,text]
 ----
-example$ doc more:blog-posts:
+polylith$ doc more:blog-posts:
 a-fresh-take-on-monorepos-in-python
 how-polylith-came-to-life
+leveraging-polylith-to-improve-consistency-reduce-complexity-and-increase-changeability
 the-micro-monolith-architecture
 the-monorepos-polylith-series
 the-origin-of-complexity
