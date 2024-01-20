@@ -327,6 +327,7 @@ poly help
     poly create component name:admin interface:user
     poly create base name:mybase
     poly create project name:myproject
+    poly create project name:myproject alias:mp
     poly create workspace name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company branch:master
 ----
