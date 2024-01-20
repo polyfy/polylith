@@ -5,11 +5,11 @@
 (defn from-paths [paths disk-paths]
   (path-extractor/from-paths paths disk-paths))
 
-(defn from-unenriched-project [is-dev paths disk-paths settings]
-  (path-extractor/from-unenriched-project is-dev paths disk-paths settings))
+(defn from-unenriched-project [is-dev paths disk-paths profiles settings]
+  (path-extractor/from-unenriched-project is-dev paths disk-paths profiles settings))
 
-(defn from-profiles-paths [disk-paths settings profile-name]
-  (path-extractor/from-profiles-paths disk-paths settings profile-name))
+(defn from-profiles-paths [disk-paths profile]
+  (path-extractor/from-profiles-paths disk-paths profile))
 
-(defn from-library-deps [is-dev deps settings]
-  (lib-dep-extractor/from-library-deps is-dev deps settings))
+(defn from-library-deps [is-dev deps profiles settings]
+  (lib-dep-extractor/from-library-deps is-dev deps profiles settings))

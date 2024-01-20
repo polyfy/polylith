@@ -23,9 +23,11 @@ Here are the changes to the workspace structure over time:
 |  |  | added | projects:PROJECT:bricks-to-test | Moved from changes:project-to-bricks-to-test.
 |  |  | added | projects:PROJECT:indirect-changes | Moved from changes:project-to-indirect-changes.
 |  |  | added | projects:PROJECT:projects-to-test | Moved from changes:project-to-projects-to-test.
+|  |  | added | profiles | Moved from settings:profile-to-settings.
 |  |  | deleted | changes:project-to-bricks-to-test |
 |  |  | deleted | changes:project-to-indirect-changes |
 |  |  | deleted | changes:project-to-projects-to-test |
+|  |  | deleted | settings:profile-to-settings |
 |  |  | added | projects:PROJECT:necessary |
 |  |  | added | projects:PROJECT:test |
 |  |  | deleted | settings:bricks |

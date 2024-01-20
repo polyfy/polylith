@@ -11,15 +11,15 @@
   (let [flags (status/project-status-flags path-entries project-name is-show-resources)]
     (text-table/cell column (+ index 3) flags :purple :center)))
 
-(defn profile-col [index profile disk-paths start-column settings projects is-show-resources]
+(defn profile-col [index {:keys [name] :as profile} disk-paths start-column projects is-show-resources]
   (let [column (+ start-column (* 2 index))
-        path-entries (extract/from-profiles-paths disk-paths settings profile)]
-    (concat [(text-table/cell column 1 profile :purple :center :horizontal)]
+        path-entries (extract/from-profiles-paths disk-paths profile)]
+    (concat [(text-table/cell column 1 name :purple :center :horizontal)]
             (map-indexed #(profile-cell %1 %2 column is-show-resources path-entries)
                          (map :name projects)))))
-(defn profile-columns [disk-paths start-column projects profiles settings is-show-resources]
+(defn profile-columns [disk-paths start-column projects profiles is-show-resources]
   (apply concat
-         (map-indexed #(profile-col %1 %2 disk-paths start-column settings projects is-show-resources)
+         (map-indexed #(profile-col %1 %2 disk-paths start-column projects is-show-resources)
                       profiles)))
 
 (defn project-cell [project project-key column row changed-projects affected-projects color-mode]
@@ -78,18 +78,18 @@
               (map-indexed #(loc-cell %1 %2 column2 thousand-separator) (map #(-> % :lines-of-code :test) projects))
               [(text-table/number-cell column2 (+ (count projects) 3) total-loc-test :right thousand-separator)]))))
 
-(defn table [{:keys [settings projects changes paths]} is-show-loc is-show-resources]
+(defn table [{:keys [settings projects changes profiles paths]} is-show-loc is-show-resources]
   (let [{:keys [color-mode thousand-separator]} settings
         n#dev (count (filter :is-dev projects))
-        profiles (if (zero? n#dev) [] (profile/inactive-profiles settings))
-        n#profiles (count profiles)
+        inactive-profiles (if (zero? n#dev) [] (profile/inactive-profiles settings profiles))
+        n#profiles (count inactive-profiles)
         total-loc-src (apply + (filter identity (map #(-> % :lines-of-code :src) projects)))
         total-loc-test (apply + (filter identity (map #(-> % :lines-of-code :test) projects)))
         project-col (project-column projects changes "project" :name 1 color-mode)
         alias-col (project-column projects {} "alias" :alias 3 color-mode)
         status-col (status-column projects paths is-show-resources)
         dev-col (if (zero? n#dev) [] (dev-column projects is-show-resources))
-        profile-cols (if (zero? n#dev) [] (profile-columns paths 9 projects profiles settings is-show-resources))
+        profile-cols (if (zero? n#dev) [] (profile-columns paths 9 projects inactive-profiles is-show-resources))
         loc-col (loc-columns is-show-loc projects n#profiles thousand-separator total-loc-src total-loc-test)
         space-columns (range 2 (* 2 (+ 3 n#dev n#profiles (if is-show-loc 2 0))) 2)
         header-spaces (text-table/spaces 1 space-columns (repeat "  "))

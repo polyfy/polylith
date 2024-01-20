@@ -910,6 +910,7 @@
     :test ["clojure.java.shell" "clojure.string" "clojure.test"]},
    :is-dev false,
    :name "api",
+   :test {:include []}
    :bricks-to-test []
    :projects-to-test []
    :indirect-changes {:src
@@ -1118,6 +1119,7 @@
    {"central" {:url "https://repo1.maven.org/maven2/"},
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "core",
+   :test {:include []},
    :project-dir
    "/Users/joakimtengstrand/source/polylith/projects/core",
    :lib-deps
@@ -1256,6 +1258,7 @@
    {"central" {:url "https://repo1.maven.org/maven2/"},
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "depl",
+   :test {:include []}
    :project-dir
    "/Users/joakimtengstrand/source/polylith/projects/deployer",
    :lib-deps
@@ -2586,6 +2589,7 @@
   :selected-profiles #{},
   :selected-projects #{},
   :unnamed-args []},
+ :profiles []
  :settings
  {:vcs
   {:name "git",
@@ -2607,14 +2611,6 @@
   :user-config-filename "/Users/joakimtengstrand/.config/polylith/config.edn",
   :empty-character ".",
   :thousand-separator ",",
-  :profile-to-settings {},
-  :projects
-  {"development" {:alias "dev"},
-   "api" {:alias "api", :test {:include []}},
-   "core" {:alias "core", :test {:include []}},
-   "deployer" {:alias "depl", :test {:include []}},
-   "poly-migrator" {:alias "migr", :test {:include []}},
-   "poly" {:alias "poly"}},
   :user-home "/Users/joakimtengstrand",
   :m2-dir "/Users/joakimtengstrand/.m2"},
  :ws-reader

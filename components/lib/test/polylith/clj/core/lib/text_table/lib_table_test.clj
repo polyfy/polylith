@@ -28,23 +28,27 @@
 (def dev-profile-lib-deps {"zprint" {:version "0.4.15", :type "maven", :size 128182}})
 
 (def workspace {:settings {:color-mode "none"
-                           :empty-character "."
-                           :profile-to-settings {"default" {:paths ["components/user/src"
-                                                                    "components/user/resources"
-                                                                    "components/user/test"
-                                                                    "projects/invoice/test"
-                                                                    "projects/core/test"]
-                                                            :lib-deps {"zprint" {:version "0.4.15" :type "maven" :size 128182}}
-                                                            :component-names ["user"]
-                                                            :base-names []
-                                                            :project-names ["core" "invoice"]}
-                                                 "admin" {:paths ["components/admin/src"
-                                                                  "components/admin/resources"
-                                                                  "components/admin/test"]
-                                                          :lib-deps {"zprint" {:version "0.5.4" :type "maven"}}
-                                                          :component-names ["admin"]
-                                                          :base-names []
-                                                          :project-names []}}}
+                           :empty-character "."}
+                :profiles [{:name "default"
+                            :type "profile"
+                            :paths ["components/user/src"
+                                    "components/user/resources"
+                                    "components/user/test"
+                                    "projects/invoice/test"
+                                    "projects/core/test"]
+                            :lib-deps {"zprint" {:version "0.4.15" :type "maven" :size 128182}}
+                            :component-names ["user"]
+                            :base-names []
+                            :project-names ["core" "invoice"]}
+                           {:name "admin"
+                            :type "profile"
+                            :paths ["components/admin/src"
+                                    "components/admin/resources"
+                                    "components/admin/test"]
+                            :lib-deps {"zprint" {:version "0.5.4" :type "maven"}}
+                            :component-names ["admin"]
+                            :base-names []
+                            :project-names []}]
                 :projects [{:base-names {}
                             :is-dev false
                             :name "core"

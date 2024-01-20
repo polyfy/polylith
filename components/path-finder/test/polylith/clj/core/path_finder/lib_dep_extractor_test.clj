@@ -9,17 +9,19 @@
 
 (def profile-deps {"net.mikera/core.matrix" {:mvn/version "0.62.0"}})
 
-(def settings {:active-profiles #{"default"}
-               :profile-to-settings {"default" {:lib-deps {"net.mikera/core.matrix" {:mvn/version "0.62.0"}}}}})
+(def settings {:active-profiles #{"default"}})
+
+(def profiles [{:name "default"
+                :lib-deps {"net.mikera/core.matrix" {:mvn/version "0.62.0"}}}])
 
 (deftest dep-entries
   (is (= test-data/dep-entries
-         (lib-dep-extractor/from-library-deps true deps settings))))
+         (lib-dep-extractor/from-library-deps true deps profiles settings))))
 
 (deftest extract-deps--from-non-dev-project--returns-no-dependencies
   (is (= {}
-         (lib-dep-extractor/extract-deps false settings))))
+         (lib-dep-extractor/extract-deps false profiles settings))))
 
 (deftest extract-deps--from-dev-project--returns-selected-profiles-dependencies
   (is (= {"net.mikera/core.matrix" #:mvn{:version "0.62.0"}}
-         (lib-dep-extractor/extract-deps true settings))))
+         (lib-dep-extractor/extract-deps true profiles settings))))

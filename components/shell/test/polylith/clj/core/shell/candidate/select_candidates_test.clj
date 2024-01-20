@@ -338,7 +338,7 @@
 
 (deftest ws-get
   (is (= ["bases" "changes" "components" "interfaces" "messages" "name" "paths"
-          "projects" "settings" "user-input" "version" "ws-dir" "ws-reader"]
+          "profiles" "projects" "settings" "user-input" "version" "ws-dir" "ws-reader"]
          (candidates "ws" :next "get" ""))))
 
 (deftest ws-get-bases

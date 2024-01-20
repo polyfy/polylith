@@ -32,22 +32,10 @@
   (group-by function->id
             (filter #(not= "data" (:type %)) definitions)))
 
-(defn- libs [{:keys [lib-deps]}]
-  (map first (concat (:src lib-deps)
-                     (:test lib-deps))))
-
-(defn profile-lib [[_ {:keys [lib-deps]}]]
-  (map first lib-deps))
-
-(defn used-libs [projects settings]
-  (set (concat (mapcat libs projects)
-               (mapcat profile-lib
-                       (:profile-to-settings settings)))))
-
-(defn show-error? [cmd profile-to-settings active-profiles]
+(defn show-error? [cmd profiles active-profiles]
   ; When we have at least one profile and the user has deselected all active
   ; profiles by passing in "+" as an argument, then don't show the error
   ; when running the 'info' command.
   (or (not= "info" cmd)
-      (-> profile-to-settings empty?)
+      (-> profiles empty?)
       (-> active-profiles empty? not)))

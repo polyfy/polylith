@@ -5,10 +5,10 @@
 (def workspace {:ws-dir "../poly-example/ws50"
                 :name "ws50"
                 :settings {:top-namespace "se.example"
-                           :profile-to-settings {}
                            :interface-ns "interface"
                            :thousand-separator ","
                            :color-mode "none"}
+                :profiles []
                 :projects [{:name "core"
                             :alias "core"
                             :type "project"
@@ -66,10 +66,11 @@
                           :changed-projects ["core" "invoice"]}
                 :paths {:missing []}})
 
-(def workspace-with-profiles (-> workspace
-                                 (assoc-in [:settings :profile-to-settings] {"default" {:paths ["components/file/src"
-                                                                                                "components/file/test"
-                                                                                                "projects/core/test"]}})))
+(def workspace-with-profiles (assoc workspace :profiles [{:name "default"
+                                                          :type "profile"
+                                                          :paths ["components/file/src"
+                                                                  "components/file/test"
+                                                                  "projects/core/test"]}]))
 
 (deftest table--no-resources-flat--returns-correct-table
   (is (= ["  project      alias  status   dev"

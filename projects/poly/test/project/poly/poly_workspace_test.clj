@@ -107,21 +107,21 @@
           "                                                                                                a  d  f  o  a  h     a  -  o"
           "                                                                                                n  e  i  r  t  e  t  t  c  r"
           "                                                                                                t  p  l  -  o  l  a  o  l  e"
-          "  library                      version    type      KB   poly  polyx   dev  extended  default   q  s  e  x  r  l  p  r  j  r"
+          "  library                      version    type      KB   poly  polyx   dev  default  extended   q  s  e  x  r  l  p  r  j  r"
           "  ----------------------------------------------------   -----------   ----------------------   ----------------------------"
-          "  borkdude/edamame             1.3.23     maven     24    x      x      x      -         -      .  .  x  .  .  .  .  .  .  ."
-          "  clj-commons/fs               1.6.310    maven     12    x      x      x      -         -      .  .  x  .  .  .  .  .  .  ."
-          "  com.github.liquidz/antq      2.7.1147   maven     52    x      x      x      -         -      x  .  .  .  .  .  .  .  .  ."
-          "  djblue/portal                0.51.0     maven  1,847    x      x      x      -         -      .  .  .  .  .  .  x  .  .  ."
-          "  metosin/malli                0.13.0     maven     85    x      x      x      -         -      .  .  .  .  .  .  .  x  .  ."
-          "  mvxcvi/puget                 1.3.4      maven     15    x      x      x      -         -      .  .  .  .  .  .  .  .  .  x"
-          "  org.clojure/clojure          1.11.1     maven  4,008    x      x      x      -         -      .  .  .  .  .  .  .  .  .  ."
-          "  org.clojure/tools.deps       0.18.1374  maven     58    x      x      x      -         -      .  x  x  .  .  .  .  .  x  ."
-          "  org.jline/jline              3.25.0     maven  1,226    x      x      x      -         -      .  .  .  .  .  x  .  .  .  ."
-          "  org.slf4j/slf4j-nop          2.0.9      maven      4    x      x      x      -         -      .  .  .  .  .  .  .  .  .  ."
-          "  pjstadig/humane-test-output  0.11.0     maven      7    t      -      -      -         -      .  .  .  .  .  .  .  .  .  ."
-          "  rewrite-clj/rewrite-clj      1.1.47     maven     73    -      -      x      -         -      .  .  .  .  .  .  .  .  .  ."
-          "  zprint/zprint                1.2.8      maven    211    x      x      x      -         -      .  .  .  .  x  .  .  .  .  ."]
+          "  borkdude/edamame             1.3.23     maven     24    x      x      x      -        -       .  .  x  .  .  .  .  .  .  ."
+          "  clj-commons/fs               1.6.310    maven     12    x      x      x      -        -       .  .  x  .  .  .  .  .  .  ."
+          "  com.github.liquidz/antq      2.7.1147   maven     52    x      x      x      -        -       x  .  .  .  .  .  .  .  .  ."
+          "  djblue/portal                0.51.0     maven  1,847    x      x      x      -        -       .  .  .  .  .  .  x  .  .  ."
+          "  metosin/malli                0.13.0     maven     85    x      x      x      -        -       .  .  .  .  .  .  .  x  .  ."
+          "  mvxcvi/puget                 1.3.4      maven     15    x      x      x      -        -       .  .  .  .  .  .  .  .  .  x"
+          "  org.clojure/clojure          1.11.1     maven  4,008    x      x      x      -        -       .  .  .  .  .  .  .  .  .  ."
+          "  org.clojure/tools.deps       0.18.1374  maven     58    x      x      x      -        -       .  x  x  .  .  .  .  .  x  ."
+          "  org.jline/jline              3.25.0     maven  1,226    x      x      x      -        -       .  .  .  .  .  x  .  .  .  ."
+          "  org.slf4j/slf4j-nop          2.0.9      maven      4    x      x      x      -        -       .  .  .  .  .  .  .  .  .  ."
+          "  pjstadig/humane-test-output  0.11.0     maven      7    t      -      -      -        -       .  .  .  .  .  .  .  .  .  ."
+          "  rewrite-clj/rewrite-clj      1.1.47     maven     73    -      -      x      -        -       .  .  .  .  .  .  .  .  .  ."
+          "  zprint/zprint                1.2.8      maven    211    x      x      x      -        -       .  .  .  .  x  .  .  .  .  ."]
          (keep-except "clojure2d"
                       (libs/table (workspace))))))
 
@@ -260,7 +260,7 @@
             "  ws-file                   .  .  .  x  .  .  .  .  x  x  .  +  .  .  .  .  .  +  .  +  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
             "  nav-generator             .  .  .  +  x  .  +  .  +  .  .  +  .  .  .  .  +  .  .  +  .  .  +  .  +  +  .  x  +  +  .  .  .  ."
             "  poly-cli                  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  t  +  +"]
-           (ws-project-deps-table/table (workspace) project)))))
+           (ws-project-deps-table/table ws project)))))
 
 (deftest polylith-workspace-project-deps-table-indirect
   (let [ws (workspace)
@@ -329,7 +329,7 @@
             "  ws-file                   .  .  .  x  .  .  .  .  x  x  .  +  .  .  .  .  .  +  .  +  .  .  .  .  +  +  .  x  .  x  .  .  .  ."
             "  nav-generator             .  .  .  +  x  .  +  .  +  .  .  +  .  .  .  .  +  .  .  +  .  .  +  .  +  +  .  x  +  +  .  .  .  ."
             "  poly-cli                  +  +  x  +  t  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  +  .  +  +  +  +  x  x  t  +  +  t  +  +"]
-           (ws-project-deps-table/table (workspace) project)))))
+           (ws-project-deps-table/table ws project)))))
 
 (deftest polylith-brick-and-project-deps
   (let [{:keys [components projects] :as ws} (workspace)
@@ -1379,20 +1379,6 @@
             :default-profile-name "default"
             :empty-character      "."
             :interface-ns         "interface"
-            :profile-to-settings  {"default" {:base-names      []
-                                              :component-names ["user1"]
-                                              :lib-deps        {"clj-commons/fs" {:size    12819
-                                                                                  :type    "maven"
-                                                                                  :version "1.6.310"}}
-                                              :paths           ["components/user1/src"
-                                                                "components/user1/test"]
-                                              :project-names   []}
-                                   "extra"   {:base-names      []
-                                              :component-names ["admin"]
-                                              :lib-deps        {}
-                                              :paths           ["components/admin/src"
-                                                                "components/admin/test"]
-                                              :project-names   []}}
             :tag-patterns         {:release "v[0-9]*"
                                    :stable  "stable-*"}
             :thousand-separator   ","

@@ -119,10 +119,10 @@
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         [project-configs project-errors] (config-reader/read-project-dep-config-files ws-dir ws-type)
         projects (projects-from-disk/read-projects ws-dir name->brick project->settings user-input user-home suffixed-top-ns interface-ns project-configs)
-        profile-to-settings (profile/profile-to-settings ws-dir aliases name->brick user-home)
+        profiles (profile/profiles ws-dir default-profile-name aliases name->brick user-home)
         ws-local-dir (->ws-local-dir ws-dir)
-        paths (path-finder/paths ws-dir projects profile-to-settings)
-        active-profiles (profile/active-profiles user-input default-profile-name profile-to-settings)
+        paths (path-finder/paths ws-dir projects profiles)
+        active-profiles (profile/active-profiles user-input default-profile-name profiles)
         config-errors (into [] cat [component-errors base-errors project-errors])
         version (->version ws-type)
         settings (util/ordered-map :vcs (git-info ws-dir vcs patterns user-input)
@@ -136,7 +136,6 @@
                                    :user-config-filename user-config-filename
                                    :empty-character empty-character
                                    :thousand-separator thousand-separator
-                                   :profile-to-settings profile-to-settings
                                    :ns-to-lib ns-to-lib-str
                                    :user-home user-home
                                    :m2-dir m2-dir)]
@@ -159,6 +158,7 @@
                       :bases bases
                       :projects projects
                       :paths paths
+                      :profiles profiles
                       :version version)))
 
 (defn workspace-name [ws-dir]

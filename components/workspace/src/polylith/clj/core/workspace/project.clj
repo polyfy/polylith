@@ -38,6 +38,7 @@
                       alias-id
                       components
                       bases
+                      profiles
                       suffixed-top-ns
                       brick->loc
                       brick->lib-imports
@@ -48,9 +49,9 @@
                       outdated-libs
                       library->latest-version]
   (let [enriched-maven-repos (apply merge maven-repos (mapcat :maven-repos (concat components bases)))
-        lib-entries (extract/from-library-deps is-dev lib-deps settings)
-        project-lib-entries (extract/from-library-deps is-dev project-lib-deps settings)
-        path-entries (extract/from-unenriched-project is-dev paths disk-paths settings)
+        lib-entries (extract/from-library-deps is-dev lib-deps profiles settings)
+        project-lib-entries (extract/from-library-deps is-dev project-lib-deps profiles settings)
+        path-entries (extract/from-unenriched-project is-dev paths disk-paths profiles settings)
         component-names-src (select/names path-entries c/component? c/src? c/exists?)
         component-names-test (select/names path-entries c/component? c/test? c/exists?)
         component-names (cond-> {}

@@ -70,10 +70,10 @@
 (defn from-paths [paths disk-paths]
   (path-entries (:src paths) (:test paths) nil nil disk-paths))
 
-(defn from-unenriched-project [is-dev paths disk-paths settings]
-  (let [{:keys [profile-src-paths profile-test-paths]} (profile-src-splitter/extract-active-profiles-paths is-dev settings)]
+(defn from-unenriched-project [is-dev paths disk-paths profiles settings]
+  (let [{:keys [profile-src-paths profile-test-paths]} (profile-src-splitter/extract-active-profiles-paths is-dev profiles settings)]
     (path-entries (:src paths) (:test paths) profile-src-paths profile-test-paths disk-paths)))
 
-(defn from-profiles-paths [disk-paths settings profile-name]
-  (let [{:keys [src-paths test-paths]} (profile-src-splitter/extract-profile-paths profile-name settings)]
+(defn from-profiles-paths [disk-paths profile]
+  (let [{:keys [src-paths test-paths]} (profile-src-splitter/extract-profile-paths profile)]
     (path-entries src-paths test-paths nil nil disk-paths)))

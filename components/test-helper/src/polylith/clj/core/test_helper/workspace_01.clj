@@ -114,12 +114,6 @@
                            :user-config-filename "/Users/joakimtengstrand/.config/polylith/config.edn",
                            :empty-character ".",
                            :thousand-separator ",",
-                           :profile-to-settings {"default" {:lib-deps {"clj-commons/fs" {:version "1.6.310", :type "maven", :size 12819}},
-                                                            :component-names [],
-                                                            :base-names [],
-                                                            :project-names []},
-                                                 "extra" {:lib-deps {}, :component-names [], :base-names [], :project-names []}},
-                           :projects {"development" {:alias "dev"}, "service" {:alias "s"}},
                            :user-home "/Users/joakimtengstrand",
                            :m2-dir "/Users/joakimtengstrand/.m2"},
                 :ws-reader {:name "polylith-clj",
@@ -201,4 +195,16 @@
                           :changed-files ["components/database/src/se/example/database/interface.clj"
                                           "components/test-helper/deps.edn"
                                           "deps.edn"]},
-                :bases []})
+                :bases []
+                :profiles [{:name "default"
+                            :type "profile"
+                            :lib-deps {"clj-commons/fs" {:version "1.6.310", :type "maven", :size 12819}},
+                            :component-names [],
+                            :base-names [],
+                            :project-names []}
+                           {:name "extra"
+                            :type "profile"
+                            :lib-deps {}
+                            :component-names []
+                            :base-names []
+                            :project-names []}]})
