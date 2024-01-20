@@ -13,5 +13,7 @@ Other improvements
  --------------------------------------------------------------------------------------------------------------------
   - The migrate command will migrate configuration from workspace.edn to separate config.edn files under
     each project (and sometimes under bricks).
+  - Show warning 206 - Deprecated workspace, if the workspace doesn't store project and brick configuration
+    in config.edn files.
   - An interface can be given when creating a project.
   - Fixed three broken images on the Testing page.
