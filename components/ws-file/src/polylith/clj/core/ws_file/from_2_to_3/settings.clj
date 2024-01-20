@@ -23,3 +23,7 @@
                      :components (move-settings-key-to-entity components :keep-lib-versions bricks-settings)
                      :projects (convert-projects projects projects-settings)
                      :settings (dissoc settings :bases :projects))))
+
+(comment
+  (def workspace dev.jocke/workspace)
+  #__)

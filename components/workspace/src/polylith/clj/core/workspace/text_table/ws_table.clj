@@ -39,6 +39,5 @@
   (text-table/print-table (table workspace is-show-loc is-show-resources)))
 
 (comment
-  (require '[dev.jocke :as dev])
-  (print-table dev/workspace false false)
+  (print-table dev.jocke/workspace false false)
   #__)

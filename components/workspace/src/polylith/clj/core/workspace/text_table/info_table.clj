@@ -57,8 +57,7 @@
                               (partial print-messages workspace messages)))
 
 (comment
-  (require '[dev.jocke :as dev])
-  (def workspace dev/workspace)
+  (def workspace dev.jocke/workspace)
   (def workspace (-> dev/workspace
                      (assoc-in [:user-input :fake-sha] "aaaaa")
                      (assoc-in [:user-input :fake-tag] "")))

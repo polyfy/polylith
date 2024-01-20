@@ -103,8 +103,7 @@
   (text-table/print-table (table workspace is-show-loc is-show-resources)))
 
 (comment
-  (require '[dev.jocke :as dev])
-  (print-table dev/workspace false false)
+  (print-table dev.jocke/workspace false false)
 
   (require '[polylith.clj.core.common.interface :as common])
   (def project (common/find-project "cl" (:projects dev/workspace)))

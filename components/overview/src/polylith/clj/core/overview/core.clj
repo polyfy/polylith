@@ -71,8 +71,7 @@
                      change/with-changes))
   (def workspace (assoc-in workspace [:user-input :out] "overview.png"))
 
-  (require '[dev.jocke :as dev])
-  (def workspace (-> dev/workspace
+  (def workspace (-> dev.jocke/workspace
                      (assoc-in [:user-input :out] "overview.png")))
 
   (print-table workspace)

@@ -117,8 +117,7 @@
     (common/print-or-save-table workspace table)))
 
 (comment
-  (require '[dev.jocke :as dev])
-  (def workspace dev/workspace)
+  (def workspace dev.jocke/workspace)
   (print-table workspace)
   (print-table (assoc-in workspace [:user-input :is-swap-axes] true))
   #__)
