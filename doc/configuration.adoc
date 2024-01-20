@@ -165,7 +165,7 @@ poly ws get:configs:projects:command-line
 |===
 | Key | Description
 
-a| `:configs`
+a| `:config`
 a| Content of project `config.edn`
 
 a| `:deps`

@@ -11,3 +11,5 @@ Included in 0.2.19-SNAPSHOT:
 
 Other improvements
  --------------------------------------------------------------------------------------------------------------------
+  - An interface can be given when creating a project.
+  - Fixed three broken images on the Testing page.
