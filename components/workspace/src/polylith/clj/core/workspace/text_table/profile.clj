@@ -1,9 +1,7 @@
-(ns ^:no-doc polylith.clj.core.workspace.text-table.profile)
-
-(defn profile-sorting [profile-name default-profile-name]
-  [(not= default-profile-name profile-name) profile-name])
+(ns ^:no-doc polylith.clj.core.workspace.text-table.profile
+  (:require [polylith.clj.core.common.interface :as common]))
 
 (defn inactive-profiles [{:keys [active-profiles default-profile-name]} profiles]
-  (sort-by #(profile-sorting % default-profile-name)
-           (filter #(not (contains? active-profiles (:name %)))
-                   profiles)))
+  (common/sort-profiles default-profile-name
+                        (filter #(not (contains? (set active-profiles) (:name %)))
+                                profiles)))

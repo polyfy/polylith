@@ -1,5 +1,6 @@
 (ns ^:no-doc polylith.clj.core.workspace-clj.profile
   (:require [clojure.string :as str]
+            [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.deps.interface :as deps]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.util.interface :as util]
@@ -69,9 +70,9 @@
   (str/starts-with? (name alias) "+"))
 
 (defn profiles [ws-dir default-profile-name aliases name->brick user-home]
-  (let [sorter (partial sort-by #(if (= (:name %) default-profile-name) "-" (:name %)))]
-    (vec (sorter (map #(profile ws-dir % name->brick user-home)
-                      (filterv profile? aliases))))))
+  (vec (common/sort-profiles default-profile-name
+                             (map #(profile ws-dir % name->brick user-home)
+                                  (filterv profile? aliases)))))
 
 (defn active-profiles [{:keys [selected-profiles]}
                        default-profile-name

@@ -3,6 +3,7 @@
             [polylith.clj.core.common.core :as core]
             [polylith.clj.core.common.file-output :as file-output]
             [polylith.clj.core.common.ns-extractor :as ns-extractor]
+            [polylith.clj.core.common.profile :as profile]
             [polylith.clj.core.common.validate-args :as validate-args]
             [polylith.clj.core.version.interface :as version]))
 
@@ -107,6 +108,9 @@
 (defn interface-ns? [namespace interface-ns]
   (contains? (interface-nss interface-ns)
              namespace))
+
+(defn sort-profiles [default-profile-name profiles]
+  (profile/sort-profiles default-profile-name profiles))
 
 (defn print-or-save-table
   ([workspace table-fn]
