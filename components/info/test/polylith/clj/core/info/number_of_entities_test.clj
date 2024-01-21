@@ -1,6 +1,6 @@
-(ns polylith.clj.core.workspace.text-table.count-table-test
+(ns polylith.clj.core.info.number-of-entities-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.workspace.text-table.number-of-entities :as count-table]))
+            [polylith.clj.core.info.table.number-of-entities :as number-of-entities]))
 
 (def workspace {:settings {:color-mode "none"
                            :thousand-separator ","}
@@ -12,4 +12,4 @@
 (deftest table--interfaces-components-bases-and-projects--returns-correct-list
   (is (= ["  projects: 2   interfaces: 14"
           "  bases:    3   components: 15"]
-         (count-table/table workspace))))
+         (number-of-entities/table workspace))))

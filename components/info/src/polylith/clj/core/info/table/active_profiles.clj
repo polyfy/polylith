@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.workspace.text-table.active-profiles
+(ns ^:no-doc polylith.clj.core.info.table.active-profiles
   (:require [clojure.string :as str]
             [polylith.clj.core.text-table.interface :as text-table]
             [polylith.clj.core.util.interface.color :as color]))

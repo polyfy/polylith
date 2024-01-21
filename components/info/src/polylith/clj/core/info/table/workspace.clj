@@ -1,13 +1,13 @@
-(ns ^:no-doc polylith.clj.core.workspace.text-table.info-table
+(ns ^:no-doc polylith.clj.core.info.table.workspace
   (:require [clojure.string :as str]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.interface :as validator]
-            [polylith.clj.core.workspace.text-table.active-profiles :as active-profiles]
-            [polylith.clj.core.workspace.text-table.number-of-entities :as number-of-entities]
-            [polylith.clj.core.workspace.text-table.stable-since :as stable-since]
-            [polylith.clj.core.workspace.text-table.project-table :as project-table]
-            [polylith.clj.core.workspace.text-table.ws-table :as ws-table]))
+            [polylith.clj.core.info.table.active-profiles :as active-profiles]
+            [polylith.clj.core.info.table.number-of-entities :as number-of-entities]
+            [polylith.clj.core.info.table.stable-since :as stable-since]
+            [polylith.clj.core.info.table.project :as project-table]
+            [polylith.clj.core.info.table.brick :as brick]))
 
 (def empty-line [""])
 
@@ -18,9 +18,9 @@
         since (stable-since/table (or fake-sha since-sha) (or fake-tag since-tag) color-mode)
         number-of-entities (number-of-entities/table workspace)
         profiles (active-profiles/table settings)
-        project (project-table/table workspace is-show-loc is-show-resources)
-        ws (ws-table/table workspace is-show-loc is-show-resources)]
-    [since number-of-entities profiles empty-line project empty-line ws]))
+        projects (project-table/table workspace is-show-loc is-show-resources)
+        bricks (brick/table workspace is-show-loc is-show-resources)]
+    [since number-of-entities profiles empty-line projects empty-line bricks]))
 
 (defn text-width [text]
   (-> text color/clean-colors count))
@@ -57,11 +57,10 @@
                               (partial print-messages workspace messages)))
 
 (comment
-  (def workspace dev.jocke/workspace)
-  (def workspace (-> dev/workspace
+  (def workspace (-> dev.jocke/workspace
                      (assoc-in [:user-input :fake-sha] "aaaaa")
                      (assoc-in [:user-input :fake-tag] "")))
-  (def workspace (assoc-in dev/workspace [:user-input :out] "info.png"))
+  (def workspace (assoc-in dev.jocke/workspace [:user-input :out] "info.png"))
 
   (print-info workspace)
   #__)

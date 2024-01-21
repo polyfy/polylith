@@ -1,7 +1,7 @@
-(ns polylith.clj.core.workspace.text-table.ws-table-test
+(ns polylith.clj.core.info.workspace-test
   (:require [clojure.test :refer :all]
             [polylith.clj.core.file.interface :as file]
-            [polylith.clj.core.workspace.text-table.ws-table :as ws-table]))
+            [polylith.clj.core.info.table.brick :as ws]))
 
 (def interfaces [{:name "workspace-clj",
                   :type "interface",
@@ -2233,7 +2233,7 @@
             "  workspace      workspace *     stx   s--    st-"
             "  workspace-clj  workspace-clj   st-   ---    st-"
             "  -              poly-cli        st-   ---    st-"]
-           (ws-table/table workspace false false)))))
+           (ws/table workspace false false)))))
 
 (deftest ws-table--with-loc-info--return-table-with-loc-info
   (with-redefs [file/exists (fn [_] true)]
@@ -2259,4 +2259,4 @@
             "  workspace-clj  workspace-clj   s-t-   ----    s-t-      324   150"
             "  -              poly-cli        s-t-   ----    s-t-       22     0"
             "                                 4,322  3,463   3,976   4,322 3,518"]
-           (ws-table/table workspace true true)))))
+           (ws/table workspace true true)))))

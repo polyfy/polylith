@@ -1,11 +1,11 @@
-(ns ^:no-doc polylith.clj.core.workspace.text-table.ws-table
+(ns ^:no-doc polylith.clj.core.info.table.brick
   (:require [polylith.clj.core.text-table.interface :as text-table]
-            [polylith.clj.core.workspace.text-table.profile :as profile]
-            [polylith.clj.core.workspace.text-table.ws-table-column.ifc-column :as ifc-column]
-            [polylith.clj.core.workspace.text-table.ws-table-column.brick-column :as brick-column]
-            [polylith.clj.core.workspace.text-table.ws-table-column.loc-columns :as loc-columns]
-            [polylith.clj.core.workspace.text-table.ws-table-column.profile-columns :as profile-columns]
-            [polylith.clj.core.workspace.text-table.ws-table-column.project-columns :as proj-columns]))
+            [polylith.clj.core.info.profile :as profile]
+            [polylith.clj.core.info.table.ws-column.ifc-column :as ifc-column]
+            [polylith.clj.core.info.table.ws-column.brick-column :as brick-column]
+            [polylith.clj.core.info.table.ws-column.loc-columns :as loc-columns]
+            [polylith.clj.core.info.table.ws-column.profile-columns :as profile-columns]
+            [polylith.clj.core.info.table.ws-column.project-columns :as proj-columns]))
 
 (defn component-sorter [{:keys [interface name]}]
   [(:name interface) name])

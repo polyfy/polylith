@@ -11,6 +11,7 @@
         poly/git                      {:local/root "../../components/git"}
         poly/help                     {:local/root "../../components/help"}
         poly/image-creator            {:local/root "../../components/image-creator-x"}
+        poly/info                     {:local/root "../../components/info"}
         poly/lib                      {:local/root "../../components/lib"}
         poly/maven                    {:local/root "../../components/maven"}
         poly/migrator                 {:local/root "../../components/migrator"}

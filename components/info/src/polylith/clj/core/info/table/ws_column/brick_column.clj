@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.workspace.text-table.ws-table-column.brick-column
+(ns ^:no-doc polylith.clj.core.info.table.ws-column.brick-column
   (:require [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.text-table.interface :as text-table]))
 

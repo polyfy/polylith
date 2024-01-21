@@ -24,20 +24,49 @@
 
 ; clojure -A:dev:test -P
 
-;(def workspace (-> (dev-common/ws-from-file "../sandbox/oliver.edn")))
 
-(def workspace (-> (dev-common/dir ".")
+
+(def workspace (-> (dev-common/ws-from-file "../sandbox/polylith218/ws.edn")))
+
+(:messages workspace)
+
+(:settings workspace)
+
+(read-string (slurp "../sandbox/polylith218/workspace.edn"))
+(read-string (slurp "../sandbox/polylith218/components/antq/config.edn"))
+
+
+(:changes (read-string (slurp "/Users/joakimtengstrand/source/sandbox/polylith218/ws218.edn")))
+
+
+(def workspace (-> (dev-common/dir "." "+")
                    ;(dev-common/dir "examples/doc-example")
                    ;(dev-common/dir "examples/for-test")
                    ;(dev-common/dir "examples/local-dep")
+                   ;(dev-common/dir "/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-01-14-114017/ws/example" ":all" ":dev") ;"skip:dev:user-s")
+                   ;(dev-common/dir "examples/profiles" "changed-files:bases/base2/src/se/example/base2/core.clj")
                    ;(dev-common/dir "examples/local-dep-old-format")
-                   ;(dev-common/dir "../poly-example/ws02")
+                   ;(dev-common/dir "../poly-example/ws04")
                    ;(dev-common/dir "../clojure-polylith-realworld-example-app")
                    ;(dev-common/dir "../sandbox/polylith218")
                    ;(dev-common/dir "../usermanager-example")
                    ws-clj/workspace-from-disk
                    ws/enrich-workspace
                    change/with-changes))
+
+(-> workspace :configs :projects first :config)
+
+(mapv :name (:projects workspace))
+
+(ws/enrich-workspace workspace)
+
+(mapv (juxt :name :bricks-to-test :projects-to-test)
+      (:projects workspace))
+
+;(command/execute-command (user-input/extract-arguments ["migrate" (str "ws-dir:../sandbox/polylith218")]))
+
+
+
 
 ;(-> workspace :projects count)
 
@@ -55,11 +84,11 @@
 
 ;(info/info workspace nil)
 
-;(command/execute-command (user-input/extract-arguments ["check" "ws-file:../sandbox/oliver.edn"]))
+(command/execute-command (user-input/extract-arguments ["info" "+"]))
 
+;(command/execute-command (user-input/extract-arguments ["check" "ws-file:../sandbox/oliver.edn"]))
 ;(command/execute-command (user-input/extract-arguments ["libs" ":outdated"]))
 ;(command/execute-command (user-input/extract-arguments ["info" ":all" "project:poly" "brick:-"]))
-;(command/execute-command (user-input/extract-arguments ["ws" "get:changes:project-to-projects-to-test:poly" ":all" "project:poly" "brick:-"]))
 ;(command/execute-command (user-input/extract-arguments ["test" ":all" "project:poly" "brick:-"]))
 
 ;(command/execute-command (user-input/extract-arguments ["test"]))
@@ -74,6 +103,7 @@
 (:user-input workspace)
 
 (def projects (:projects workspace))
+(def configs (:configs workspace))
 (def settings (:settings workspace))
 (def interfaces (:interfaces workspace))
 (def components (:components workspace))
@@ -84,6 +114,7 @@
 (def messages (:messages workspace))
 
 (def project (common/find-project "dev" projects))
+(def project (common/find-project "poly" projects))
 (def project (common/find-project "api" projects))
 (def project (common/find-project "invoice" projects))
 (def project (common/find-project "invoicing" projects))

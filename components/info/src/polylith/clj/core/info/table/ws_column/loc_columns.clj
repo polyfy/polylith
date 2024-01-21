@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.workspace.text-table.ws-table-column.loc-columns
+(ns ^:no-doc polylith.clj.core.info.table.ws-column.loc-columns
   (:require [polylith.clj.core.text-table.interface :as text-table]))
 
 (defn loc-column [header loc-key bricks column thousand-separator]

@@ -16,12 +16,13 @@
       <module fileurl="file://$PROJECT_DIR$/components/git/git.iml" filepath="$PROJECT_DIR$/components/git/git.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/help/help.iml" filepath="$PROJECT_DIR$/components/help/help.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/image-creator/image-creator.iml" filepath="$PROJECT_DIR$/components/image-creator/image-creator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/info/info.iml" filepath="$PROJECT_DIR$/components/info/info.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/lib/lib.iml" filepath="$PROJECT_DIR$/components/lib/lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/maven/maven.iml" filepath="$PROJECT_DIR$/components/maven/maven.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/migrator/migrator.iml" filepath="$PROJECT_DIR$/components/migrator/migrator.iml" />
       <module fileurl="file://$PROJECT_DIR$/bases/nav-generator/nav-generator.iml" filepath="$PROJECT_DIR$/bases/nav-generator/nav-generator.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/overview/overview.iml" filepath="$PROJECT_DIR$/components/overview/overview.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/path-finder/path-finder.iml" filepath="$PROJECT_DIR$/components/path-finder/path-finder.iml" />
-      <module fileurl="file://$PROJECT_DIR$/projects/poly/poly.iml" filepath="$PROJECT_DIR$/projects/poly/poly.iml" />
       <module fileurl="file://$PROJECT_DIR$/bases/poly-cli/poly-cli.iml" filepath="$PROJECT_DIR$/bases/poly-cli/poly-cli.iml" />
       <module fileurl="file://$PROJECT_DIR$/polylith.iml" filepath="$PROJECT_DIR$/polylith.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/sh/sh.iml" filepath="$PROJECT_DIR$/components/sh/sh.iml" />

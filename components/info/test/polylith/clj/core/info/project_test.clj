@@ -1,6 +1,6 @@
-(ns polylith.clj.core.workspace.text-table.project-table-test
+(ns polylith.clj.core.info.project-test
   (:require [clojure.test :refer :all]
-            [polylith.clj.core.workspace.text-table.project-table :as env-table]))
+            [polylith.clj.core.info.table.project :as project]))
 
 (def workspace {:ws-dir "../poly-example/ws50"
                 :name "ws50"
@@ -78,7 +78,7 @@
           "  core *       core    s--     s--"
           "  invoice *    inv     -t-     -t-"
           "  development  dev     s--     s--"]
-         (env-table/table workspace false false))))
+         (project/table workspace false false))))
 
 (deftest table--with-resources-flag--returns-correct-table
   (is (= ["  project      alias  status   dev "
@@ -86,7 +86,7 @@
           "  core *       core    sr--    s---"
           "  invoice *    inv     --t-    --t-"
           "  development  dev     s---    s---"]
-         (env-table/table workspace false true))))
+         (project/table workspace false true))))
 
 (deftest table--projects-with-loc--returns-table-with-lines-of-code
   (is (= ["  project      alias  status   dev   loc  (t)"
@@ -95,7 +95,7 @@
           "  invoice *    inv     -t-     -t-     0    1"
           "  development  dev     s--     s--     4    0"
           "                                       5    2"]
-         (env-table/table workspace true false))))
+         (project/table workspace true false))))
 
 (deftest table--with-profile--returns-correct-table
   (is (= ["  project      alias  status   dev  default   "
@@ -103,7 +103,7 @@
           "  core *       core    s--     s--    -t      "
           "  invoice *    inv     -t-     -t-    --      "
           "  development  dev     s--     s--    --      "]
-         (env-table/table workspace-with-profiles false false))))
+         (project/table workspace-with-profiles false false))))
 
 (deftest table--with-profile-and-loc--returns-correct-table
   (is (= ["  project      alias  status   dev  default   loc  (t)"
@@ -112,4 +112,4 @@
           "  invoice *    inv     -t-     -t-    --        0    1"
           "  development  dev     s--     s--    --        4    0"
           "                                                5    2"]
-         (env-table/table workspace-with-profiles true false))))
+         (project/table workspace-with-profiles true false))))

@@ -1,11 +1,11 @@
-(ns ^:no-doc polylith.clj.core.workspace.text-table.project-table
+(ns ^:no-doc polylith.clj.core.info.table.project
   (:require [clojure.set :as set]
+            [polylith.clj.core.info.profile :as profile]
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.path-finder.interface.status :as status]
             [polylith.clj.core.text-table.interface :as text-table]
-            [polylith.clj.core.util.interface.color :as color]
-            [polylith.clj.core.workspace.text-table.profile :as profile]))
+            [polylith.clj.core.util.interface.color :as color]))
 
 (defn profile-cell [index project-name column is-show-resources path-entries]
   (let [flags (status/project-status-flags path-entries project-name is-show-resources)]

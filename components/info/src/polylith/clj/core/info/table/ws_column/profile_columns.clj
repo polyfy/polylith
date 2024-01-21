@@ -1,4 +1,4 @@
-(ns ^:no-doc polylith.clj.core.workspace.text-table.ws-table-column.profile-columns
+(ns ^:no-doc polylith.clj.core.info.table.ws-column.profile-columns
   (:require [polylith.clj.core.text-table.interface :as text-table]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.path-finder.interface.status :as status]))
@@ -17,5 +17,5 @@
 
 (defn columns [start-column bricks profiles disk-paths is-show-resources]
   (apply concat
-    (map-indexed #(column %1 %2 start-column disk-paths bricks is-show-resources)
-                 profiles)))
+         (map-indexed #(column %1 %2 start-column disk-paths bricks is-show-resources)
+                      profiles)))
