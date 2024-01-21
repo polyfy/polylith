@@ -3,10 +3,11 @@ example/
 ├── components/
 ├── deps.edn
 ├── development/
+│   ├── config.edn
 │   └── src/
 ├── logo.png
 ├── projects/
 ├── readme.md
 └── workspace.edn
 
-6 directories, 4 files
+6 directories, 5 files

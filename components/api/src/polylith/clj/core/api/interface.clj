@@ -72,7 +72,7 @@
   to get a summary of all the changes that have been made since the last stable/final release."
   {:api version/api-version
    :test-runner version/test-runner-api-version
-   :ws version/ws-api-version})
+   :ws version/workspace-version})
 
 (defn projects-to-deploy
   "This function returns the projects that have changed (directly or indirectly) since the

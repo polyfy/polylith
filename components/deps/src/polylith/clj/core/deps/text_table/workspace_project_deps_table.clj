@@ -95,7 +95,6 @@
     (println (str "  Couldn't find the " (color/project project-name (:color-mode settings)) " project."))))
 
 (comment
-  (require '[dev.jocke :as dev])
-  (def workspace dev/workspace)
+  (def workspace dev.jocke/workspace)
   (print-table workspace "poly")
   #__)

@@ -53,7 +53,6 @@
   (-main "ws" "get:components:without-src:non-top-namespaces" "ws-dir:examples/local-dep" ":no-exit")
   (-main "check" "ws-dir:examples/local-dep-old-format" ":no-exit")
   (-main "check" "ws-dir:../sandbox/ws35" ":no-exit")
-  (-main "ws" "get:changes:project-to-bricks-to-test:poly" ":no-exit")
   (-main "version" ":no-exit")
   (-main "shell" ":no-exit")
   #__)

@@ -1,5 +1,6 @@
 (ns ^:no-doc polylith.clj.core.workspace-clj.profile
   (:require [clojure.string :as str]
+            [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.deps.interface :as deps]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.util.interface :as util]
@@ -57,25 +58,27 @@
                                         (concat brick-libs
                                                 (filter lib? extra-deps))
                                         user-home)]
-    [(subs (name profile-key) 1)
-     (util/ordered-map :paths paths
-                       :lib-deps lib-deps
-                       :component-names component-names
-                       :base-names base-names
-                       :project-names project-names)]))
+    (util/ordered-map :name (subs (name profile-key) 1)
+                      :type "profile"
+                      :paths paths
+                      :lib-deps lib-deps
+                      :component-names component-names
+                      :base-names base-names
+                      :project-names project-names)))
 
 (defn profile? [[alias]]
   (str/starts-with? (name alias) "+"))
 
-(defn profile-to-settings [ws-dir aliases name->brick user-home]
-  (into {} (map #(profile ws-dir % name->brick user-home)
-                (filterv profile? aliases))))
+(defn profiles [ws-dir default-profile-name aliases name->brick user-home]
+  (vec (common/sort-profiles default-profile-name
+                             (map #(profile ws-dir % name->brick user-home)
+                                  (filterv profile? aliases)))))
 
 (defn active-profiles [{:keys [selected-profiles]}
                        default-profile-name
-                       profile-to-settings]
+                       profiles]
   (if (empty? selected-profiles)
-    (if (empty? profile-to-settings)
+    (if (empty? profiles)
       #{}
       #{default-profile-name})
     (if (contains? (set selected-profiles) "")

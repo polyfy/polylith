@@ -82,6 +82,7 @@
    "name" []
    "old" []
    "paths" []
+   "profiles" []
    "projects" []
    "settings" []
    "user-input" []

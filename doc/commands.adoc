@@ -14,7 +14,7 @@ poly help
 
 [source,text]
 ----
-  poly 0.2.18 (2023-12-08) - https://github.com/polyfy/polylith
+  poly 0.2.19 (2024-01-20) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -99,7 +99,9 @@ poly help
     poly create component name:admin interface:user
     poly create b name:mybase
     poly create base name:mybase
+    poly create p name:myproject
     poly create project name:myproject
+    poly create project name:myproject alias:mp
     poly create w top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company :commit
@@ -287,13 +289,18 @@ poly help
   Warning 205 - Non top namespace was found in brick.
     Triggered if a namespace in a brick doesn't start with the top namespaces
     defined in :top-namespace in ./workspace.edn.
+    Files that are put in 'resources' or 'test-resources' are not checked.
+
+  Warning 206 - Deprecated workspace.
+    Triggered if brick and project configuration are still stored in workspace.edn
+    instead of local config.edn files.
 
   Warning 207 - Unnecessary components were found in project.
     Triggered if components were defined in a project that are not used by any of
     its bricks. Development is only checked if :dev is passed in and is only performed
     by the check command (not test and info). To ignore this warning, put the component
-    name in the :necessary vector for a project in :projects in ./workspace.edn.
-    See an example here: https://github.com/polyfy/polylith/blob/master/workspace.edn
+    name in the :necessary vector for a project in its config.edn file. See an example
+    here: https://github.com/polyfy/polylith/blob/master/projects/poly/config.edn
 ----
 
 [#create]
@@ -320,6 +327,7 @@ poly help
     poly create component name:admin interface:user
     poly create base name:mybase
     poly create project name:myproject
+    poly create project name:myproject alias:mp
     poly create workspace name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company branch:master
 ----
@@ -376,8 +384,9 @@ poly help
 ----
   Creates a project.
 
-  poly create project name:NAME [:git-add]
-    NAME = The name of the project to create.
+  poly create project name:NAME [alias:ALIAS] [:git-add]
+    NAME  = The name of the project to create.
+    ALIAS = The alias of the project, used in different commands.
 
     :git-add = If :vcs > :auto-add in workspace.edn is set to false,
                then we can pass in this flag instead, to explicitly add the
@@ -386,6 +395,7 @@ poly help
   Example:
     poly create p name:myproject
     poly create project name:myproject
+    poly create project name:myproject alias:mp
     poly create project name:myproject :git-add
 ----
 
@@ -955,26 +965,9 @@ poly help
 
   poly migrate
 
-  If the workspace hasn't been migrated already, then this command will create a new
-  ./workspace.edn file + a deps.edn file per brick. All project deps.edn files will be
-  updated. The libraries in each project's deps.edn file will be sorted, so it can be
-  an idea to manually change that order and put bricks first followed by the
-  libraries.
-
-  The migration tool will use the :ns-to-lib key to figure out what libraries are
-  used in each brick. After the migration, it's recommended to go through all the
-  bricks and make sure that all libraries it uses are also specified in each brick's
-  deps.edn file.
-
-  Continue by updating each project's deps.edn file and remove libraries that are
-  already indirectly included by bricks (via :local/root).
-  The paths in ./deps.edn is left untouched and the reason is that the :local/root
-  syntax is not supported by all IDE's.
-
-  Starting from version 0.2.0-alpha10, the tool supports specifying dependencies per
-  brick in its own deps.edn files. Workspace specific config is stored in
-  ./workspace.edn instead of the :polylith key in ./deps which was the case prior to
-  this version.
+  As of version 0.2.19, bases, components, and projects store their configuration in config.edn files.
+  This command will move configuration from the :bricks and :projects keys in workspace.edn
+  to corresponding config.edn files.
 ----
 
 [#overview]

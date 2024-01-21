@@ -68,15 +68,14 @@
       (println (str "\n" (color/ok color-mode result-str))))))
 
 (defn create
-  [{:keys [workspace project changes #_test-settings]}]
+  [{:keys [workspace project]}]
   (let [{:keys [bases components]} workspace
-        {:keys [name namespaces paths]} project
-        {:keys [project-to-bricks-to-test project-to-projects-to-test]} changes
+        {:keys [name bricks-to-test projects-to-test namespaces paths]} project
 
         ;; TODO: if the project tests aren't to be run, we might further narrow this down
         test-sources-present* (delay (-> paths :test seq))
-        bricks-to-test* (delay (project-to-bricks-to-test name))
-        projects-to-test* (delay (project-to-projects-to-test name))
+        bricks-to-test* (delay bricks-to-test)
+        projects-to-test* (delay projects-to-test)
         test-statements* (->> [(brick-test-namespaces (into components bases) @bricks-to-test*)
                                (project-test-namespaces name @projects-to-test* namespaces)]
                               (into [] (comp cat (map ->test-statement)))

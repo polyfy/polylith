@@ -2,16 +2,14 @@
   (:require [clojure.set :as set]
             [polylith.clj.core.common.interface :as common]))
 
-(defn bricks-to-test-for-project [{:keys [is-dev alias name base-names component-names]}
-                                  source
-                                  settings
-                                  changed-projects
-                                  changed-bricks-for-source
-                                  project-to-indirect-changes
-                                  selected-bricks
-                                  selected-projects
-                                  is-dev-user-input
-                                  is-run-all-brick-tests]
+(defn bricks-to-test [{:keys [is-dev alias name test base-names component-names indirect-changes]}
+                      source
+                      changed-projects
+                      changed-bricks
+                      selected-bricks
+                      selected-projects
+                      is-dev-user-input
+                      is-run-all-brick-tests]
   (let [include-project? (or (or (contains? selected-projects name)
                                  (contains? selected-projects alias))
                              (and (empty? selected-projects)
@@ -30,7 +28,7 @@
                                               (into #{} (mapcat :test) [base-names component-names])))
         ;; If the :test > :include or :test > :exclude keys are given for a project in workspace.edn,
         ;; then only include the specified bricks, otherwise, run tests for all bricks.
-        included-bricks (common/brick-names-to-test settings name bricks-for-source)
+        included-bricks (common/brick-names-to-test test bricks-for-source)
         selected-bricks (if selected-bricks
                           (set selected-bricks)
                           bricks-for-source)
@@ -41,26 +39,18 @@
                            (set/intersection included-bricks
                                              selected-bricks
                                              (into #{} cat
-                                                   [changed-bricks-for-source
-                                                    (-> name project-to-indirect-changes source)])))
-                         #{})
-        ;; And finally, if brick:BRICK is given, also filter on that, which means that if we
-        ;; pass in both brick:BRICK and :all, we will run the tests for all these bricks,
-        ;; whether they have changed or not (directly or indirectly).
-        bricks-to-test (set/intersection changed-bricks selected-bricks)]
-    [name (-> bricks-to-test sort set)]))
+                                                   [changed-bricks (source indirect-changes)])))
+                         #{})]
+    ;; And finally, if brick:BRICK is given, also filter on that, which means that if we
+    ;; pass in both brick:BRICK and :all, we will run the tests for all these bricks,
+    ;; whether they have changed or not (directly or indirectly).
+    (set/intersection changed-bricks selected-bricks)))
 
-(defn project-to-bricks-to-test-for-source [source changed-projects projects settings changed-bricks project-to-indirect-changes selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests]
-  (into (sorted-map)
-        (map #(bricks-to-test-for-project % source settings changed-projects changed-bricks project-to-indirect-changes selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests))
-        projects))
-
-(defn as-vec-val [[k v]]
-  [k (-> v sort vec)])
-
-(defn as-vec [m]
-  (into {} (map as-vec-val m)))
-
-(defn project-to-bricks-to-test [changed-projects projects settings changed-bricks-src changed-bricks-test project-to-indirect-changes selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests]
-  (as-vec (merge-with into (project-to-bricks-to-test-for-source :src changed-projects projects settings changed-bricks-src project-to-indirect-changes selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests)
-                           (project-to-bricks-to-test-for-source :test changed-projects projects settings changed-bricks-test project-to-indirect-changes selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests))))
+(defn with-bricks-to-test [project changed-projects changed-components changed-bases selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests]
+  (assoc project
+         :bricks-to-test
+         (-> (concat (bricks-to-test project :src changed-projects changed-bases selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests)
+                     (bricks-to-test project :src changed-projects changed-components selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests)
+                     (bricks-to-test project :test changed-projects changed-bases selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests)
+                     (bricks-to-test project :test changed-projects changed-components selected-bricks selected-projects is-dev-user-input is-run-all-brick-tests))
+             set sort vec)))

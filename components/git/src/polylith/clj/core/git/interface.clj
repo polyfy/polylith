@@ -17,8 +17,8 @@
 (defn add
   ([ws-dir filename]
    (core/add ws-dir filename true))
-  ([ws-dir filename is-git-add]
-   (core/add ws-dir filename is-git-add)))
+  ([ws-dir filename git-add?]
+   (core/add ws-dir filename git-add?)))
 
 (defn current-branch []
   (core/current-branch))

@@ -6,7 +6,8 @@
             [polylith.clj.core.path-finder.interface.select :as select]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.path-finder.interface.criterias :as c]
-            [polylith.clj.core.workspace.loc :as loc]))
+            [polylith.clj.core.workspace.loc :as loc]
+            [polylith.clj.core.workspace.project-test-settings :as test-settings]))
 
 (defn file-exists [ws-dir cleaned-path]
   (file/exists (str ws-dir "/" cleaned-path)))
@@ -26,23 +27,31 @@
             (seq src) (assoc :src src)
             (seq test) (assoc :test test))))
 
-(defn enrich-project [{:keys [name type is-dev maven-repos namespaces paths lib-deps project-lib-deps] :as project}
+(defn project-alias! [alias alias-id dev?]
+  (or alias
+      (if dev?
+        "dev"
+        (str "?" (swap! alias-id inc)))))
+
+(defn enrich-project [{:keys [alias name type is-dev test maven-repos namespaces paths lib-deps project-lib-deps] :as project}
                       ws-dir
+                      alias-id
                       components
                       bases
+                      profiles
                       suffixed-top-ns
                       brick->loc
                       brick->lib-imports
                       disk-paths
                       user-input
                       settings
+                      name-type->keep-lib-version
                       outdated-libs
                       library->latest-version]
-  (let [alias (get-in settings [:projects name :alias])
-        enriched-maven-repos (apply merge maven-repos (mapcat :maven-repos (concat components bases)))
-        lib-entries (extract/from-library-deps is-dev lib-deps settings)
-        project-lib-entries (extract/from-library-deps is-dev project-lib-deps settings)
-        path-entries (extract/from-unenriched-project is-dev paths disk-paths settings)
+  (let [enriched-maven-repos (apply merge maven-repos (mapcat :maven-repos (concat components bases)))
+        lib-entries (extract/from-library-deps is-dev lib-deps profiles settings)
+        project-lib-entries (extract/from-library-deps is-dev project-lib-deps profiles settings)
+        path-entries (extract/from-unenriched-project is-dev paths disk-paths profiles settings)
         component-names-src (select/names path-entries c/component? c/src? c/exists?)
         component-names-test (select/names path-entries c/component? c/test? c/exists?)
         component-names (cond-> {}
@@ -54,7 +63,7 @@
                            (seq base-names-src) (assoc :src base-names-src)
                            (seq base-names-test) (assoc :test base-names-test))
         all-brick-names (concat component-names-src base-names-src component-names-test base-names-test)
-        brick-names-to-test (common/brick-names-to-test settings name all-brick-names)
+        brick-names-to-test (common/brick-names-to-test test all-brick-names)
         deps (proj-deps/project-deps components bases component-names-src component-names-test base-names-src base-names-test suffixed-top-ns brick-names-to-test)
 
         lib-imports (project-lib-imports all-brick-names brick->lib-imports)
@@ -69,7 +78,7 @@
                                                             :test (select/lib-deps project-lib-entries c/test?)}
                                                            outdated-libs library->latest-version
                                                            user-input
-                                                           settings)
+                                                           name-type->keep-lib-version)
         src-paths (select/paths path-entries c/src?)
         test-paths (select/paths path-entries c/test?)
         source-paths (cond-> {}
@@ -79,15 +88,16 @@
                                 (seq src-lib-deps) (assoc :src src-lib-deps)
                                 (seq test-lib-deps) (assoc :test test-lib-deps))]
     (-> project
-        (merge {:alias alias
+        (merge {:alias (project-alias! alias alias-id is-dev)
                 :lines-of-code lines-of-code
                 :component-names component-names
                 :base-names base-names
                 :deps deps
                 :paths source-paths
                 :lib-deps source-lib-deps
+                :test (test-settings/enrich test settings)
                 :project-lib-deps project-lib-deps
                 :lib-imports lib-imports})
         (cond-> enriched-maven-repos (assoc :maven-repos enriched-maven-repos)
-                is-dev (assoc :unmerged {:paths paths
+                is-dev (assoc :unmerged {:paths    paths
                                          :lib-deps lib-deps})))))

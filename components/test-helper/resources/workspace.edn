@@ -910,6 +910,21 @@
     :test ["clojure.java.shell" "clojure.string" "clojure.test"]},
    :is-dev false,
    :name "api",
+   :test {:include []}
+   :bricks-to-test []
+   :projects-to-test []
+   :indirect-changes {:src
+                      ["api"
+                       "change"
+                       "lib"
+                       "path-finder"
+                       "text-table"
+                       "user-config"
+                       "user-input"
+                       "validator"
+                       "workspace"
+                       "workspace-clj"],
+                      :test []}
    :is-run-tests true,
    :paths
    {:src
@@ -1049,6 +1064,19 @@
   {:lines-of-code {:src 0, :test 0, :total {:src 4368, :test 5901}},
    :namespaces {},
    :base-names {},
+   :bricks-to-test []
+   :projects-to-test []
+   :name "core",
+   :indirect-changes {:src
+                      ["change"
+                       "lib"
+                       "path-finder"
+                       "text-table"
+                       "user-config"
+                       "user-input"
+                       "validator"
+                       "workspace"],
+                      :test []}
    :lib-imports
    {:src
     ["clojure.java.io"
@@ -1069,7 +1097,6 @@
      "org.eclipse.aether.util.version"],
     :test ["clojure.java.shell" "clojure.string" "clojure.test"]},
    :is-dev false,
-   :name "core",
    :is-run-tests true,
    :paths
    {:src
@@ -1092,6 +1119,7 @@
    {"central" {:url "https://repo1.maven.org/maven2/"},
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "core",
+   :test {:include []},
    :project-dir
    "/Users/joakimtengstrand/source/polylith/projects/core",
    :lib-deps
@@ -1162,7 +1190,23 @@
      :test {}}}}
   {:lines-of-code {:src 0, :test 0, :total {:src 5517, :test 6100}},
    :namespaces {},
-   :base-names {:src ["deployer-cli"]},
+   :bricks-to-test []
+   :projects-to-test []
+   :name "deployer",
+   :indirect-changes {:src
+                      ["api"
+                       "change"
+                       "deployer-cli"
+                       "lib"
+                       "path-finder"
+                       "text-table"
+                       "user-config"
+                       "user-input"
+                       "validator"
+                       "workspace"
+                       "workspace-clj"],
+                      :test []},
+   :base-names {:src ["deployer-cli"]}
    :lib-imports
    {:src
     ["clojure.java.io"
@@ -1186,7 +1230,6 @@
      "puget.printer"],
     :test ["clojure.java.shell" "clojure.string" "clojure.test"]},
    :is-dev false,
-   :name "deployer",
    :is-run-tests true,
    :paths
    {:src
@@ -1215,6 +1258,7 @@
    {"central" {:url "https://repo1.maven.org/maven2/"},
     "clojars" {:url "https://repo.clojars.org/"}},
    :alias "depl",
+   :test {:include []}
    :project-dir
    "/Users/joakimtengstrand/source/polylith/projects/deployer",
    :lib-deps
@@ -1425,7 +1469,50 @@
      "zprint.core"],
     :test ["clojure.java.shell" "clojure.string" "clojure.test"]},
    :is-dev false,
+   :bricks-to-test ["change"
+                    "command"
+                    "creator"
+                    "deps"
+                    "file"
+                    "git"
+                    "lib"
+                    "migrator"
+                    "path-finder"
+                    "shell"
+                    "test-helper"
+                    "test-runner"
+                    "user-input"
+                    "util"
+                    "validator"
+                    "workspace"
+                    "workspace-clj"
+                    "ws-explorer"]
+   :projects-to-test ["poly"]
    :name "poly",
+   :indirect-changes {:src
+                      ["api"
+                       "change"
+                       "deployer-cli"
+                       "lib"
+                       "migrator"
+                       "path-finder"
+                       "test-helper"
+                       "test-runner"
+                       "text-table"
+                       "user-config"
+                       "user-input"
+                       "validator"
+                       "workspace"
+                       "workspace-clj"
+                       "ws-file"],
+                      :test
+                      ["change"
+                       "lib"
+                       "path-finder"
+                       "user-input"
+                       "validator"
+                       "workspace"
+                       "workspace-clj"]}
    :is-run-tests true,
    :paths
    {:src
@@ -1901,6 +1988,32 @@
     :test ["clojure.java.shell" "clojure.string" "clojure.test"]},
    :is-dev true,
    :name "development",
+   :bricks-to-test []
+   :projects-to-test []
+   :indirect-changes {:src
+                      ["api"
+                       "change"
+                       "deployer-cli"
+                       "lib"
+                       "migrator"
+                       "path-finder"
+                       "test-helper"
+                       "test-runner"
+                       "text-table"
+                       "user-config"
+                       "user-input"
+                       "validator"
+                       "workspace"
+                       "workspace-clj"
+                       "ws-file"],
+                      :test
+                      ["change"
+                       "lib"
+                       "path-finder"
+                       "user-input"
+                       "validator"
+                       "workspace"
+                       "workspace-clj"]}
    :is-run-tests false,
    :paths
    {:src
@@ -2476,6 +2589,7 @@
   :selected-profiles #{},
   :selected-projects #{},
   :unnamed-args []},
+ :profiles []
  :settings
  {:vcs
   {:name "git",
@@ -2497,14 +2611,6 @@
   :user-config-filename "/Users/joakimtengstrand/.config/polylith/config.edn",
   :empty-character ".",
   :thousand-separator ",",
-  :profile-to-settings {},
-  :projects
-  {"development" {:alias "dev"},
-   "api" {:alias "api", :test {:include []}},
-   "core" {:alias "core", :test {:include []}},
-   "deployer" {:alias "depl", :test {:include []}},
-   "poly-migrator" {:alias "migr", :test {:include []}},
-   "poly" {:alias "poly"}},
   :user-home "/Users/joakimtengstrand",
   :m2-dir "/Users/joakimtengstrand/.m2"},
  :ws-reader
@@ -6120,124 +6226,7 @@
   :changed-bases ["poly-cli"],
   :changed-projects ["api" "core" "deployer" "development" "poly"],
   :changed-or-affected-projects
-  ["api" "core" "deployer" "development" "poly"],
-  :project-to-indirect-changes
-  {"api"
-   {:src
-    ["api"
-     "change"
-     "lib"
-     "path-finder"
-     "text-table"
-     "user-config"
-     "user-input"
-     "validator"
-     "workspace"
-     "workspace-clj"],
-    :test []},
-   "core"
-   {:src
-    ["change"
-     "lib"
-     "path-finder"
-     "text-table"
-     "user-config"
-     "user-input"
-     "validator"
-     "workspace"],
-    :test []},
-   "deployer"
-   {:src
-    ["api"
-     "change"
-     "deployer-cli"
-     "lib"
-     "path-finder"
-     "text-table"
-     "user-config"
-     "user-input"
-     "validator"
-     "workspace"
-     "workspace-clj"],
-    :test []},
-   "poly"
-   {:src
-    ["change"
-     "lib"
-     "migrator"
-     "path-finder"
-     "test-runner"
-     "text-table"
-     "user-config"
-     "user-input"
-     "validator"
-     "workspace"
-     "workspace-clj"
-     "ws-file"],
-    :test
-    ["change"
-     "lib"
-     "path-finder"
-     "test-helper"
-     "user-input"
-     "validator"
-     "workspace"
-     "workspace-clj"]},
-   "development"
-   {:src
-    ["api"
-     "change"
-     "deployer-cli"
-     "lib"
-     "migrator"
-     "path-finder"
-     "test-helper"
-     "test-runner"
-     "text-table"
-     "user-config"
-     "user-input"
-     "validator"
-     "workspace"
-     "workspace-clj"
-     "ws-file"],
-    :test
-    ["change"
-     "lib"
-     "path-finder"
-     "user-input"
-     "validator"
-     "workspace"
-     "workspace-clj"]}},
-  :project-to-bricks-to-test
-  {"api" [],
-   "core" [],
-   "deployer" [],
-   "poly"
-   ["change"
-    "command"
-    "creator"
-    "deps"
-    "file"
-    "git"
-    "lib"
-    "migrator"
-    "path-finder"
-    "shell"
-    "test-helper"
-    "test-runner"
-    "user-input"
-    "util"
-    "validator"
-    "workspace"
-    "workspace-clj"
-    "ws-explorer"],
-   "development" []},
-  :project-to-projects-to-test
-  {"api" [],
-   "core" [],
-   "deployer" [],
-   "poly" ["poly"],
-   "development" []}},
+  ["api" "core" "deployer" "development" "poly"],}
  :version
  {:release
   {:name "0.2.12-alpha",

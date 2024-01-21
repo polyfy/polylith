@@ -1,5 +1,8 @@
 Projects to run tests from: command-line, user-service
 
+Running test setup for the command-line project: project.command-line.test-setup/setup
+--- test setup for command-line ---
+
 Running tests for the command-line project using test runner: Polylith built-in clojure.test runner...
 Running tests from the command-line project, including 2 bricks and 1 project: user-remote, cli, command-line
 
@@ -30,6 +33,9 @@ Ran 1 tests containing 1 assertions.
 0 failures, 0 errors.
 
 Test results: 1 passes, 0 failures, 0 errors.
+Running test teardown for the command-line project: project.command-line.test-setup/teardown
+--- test teardown for command-line ---
+
 Running tests for the user-service project using test runner: Polylith built-in clojure.test runner...
 Running tests from the user-service project, including 2 bricks: user, user-api
 

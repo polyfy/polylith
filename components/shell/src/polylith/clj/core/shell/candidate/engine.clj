@@ -11,7 +11,6 @@
   (def workspace (-> "components/test-helper/resources/workspace.edn"
                      slurp read-string))
 
-  (require '[dev.jocke :as dev])
   (reset! ws workspace)
   (reset! groups specification/groups)
   #__)

@@ -13,7 +13,7 @@
       (me/humanize)
       (shared/error-message filename)))
 
-(defn validate-project-dev-config [config filename]
+(defn validate-project-dev-deps-config [config filename]
   (-> [:map
        [:aliases
         [:map
@@ -23,7 +23,7 @@
       (me/humanize)
       (shared/error-message filename)))
 
-(defn validate-project-deployable-config [config filename]
+(defn validate-project-deployable-deps-config [config filename]
   (-> [:map
        [:paths {:optional true}
         [:* [:alt keyword? string?]]]

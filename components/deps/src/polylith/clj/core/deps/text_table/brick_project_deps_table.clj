@@ -37,7 +37,6 @@
       (println message))))
 
 (comment
-  (require '[dev.jocke :as dev])
-  (def workspace dev/workspace)
+  (def workspace dev.jocke/workspace)
   (print-table workspace "poly" "deps")
   #__)

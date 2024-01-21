@@ -39,57 +39,26 @@ poly ws get:settings
 
 [source,clojure]
 ----
-{:active-profiles #{"default"}
- :color-mode "dark"
- :compact-views #{}
- :default-profile-name "default"
- :empty-character "."
- :interface-ns "interface"
- :m2-dir "/Users/joakimtengstrand/.m2"
- :profile-to-settings {"default" {:base-names []
-                                  :component-names ["user"]
-                                  :lib-deps {}
-                                  :paths ["components/user/resources"
-                                          "components/user/src"
-                                          "components/user/test"]
-                                  :project-names []}
-                       "remote" {:base-names []
-                                 :component-names ["user-remote"]
-                                 :lib-deps {"compojure/compojure" {:size 15172
-                                                                   :type "maven"
-                                                                   :version "1.6.2"}
-                                            "http-kit/http-kit" {:size 191467
-                                                                 :type "maven"
-                                                                 :version "2.4.0"}
-                                            "ring/ring" {:size 4621
-                                                         :type "maven"
-                                                         :version "1.8.1"}
-                                            "slacker/slacker" {:size 28408
-                                                               :type "maven"
-                                                               :version "0.17.0"}}
-                                 :paths ["components/user-remote/resources"
-                                         "components/user-remote/src"
-                                         "components/user-remote/test"]
-                                 :project-names []}},
- :projects {"command-line" {:alias "cl",
-                            :test {:create-test-runner [polylith.clj.core.clojure-test-test-runner.interface/create]}},
-            "development" {:alias "dev",
-                           :test {:create-test-runner [polylith.clj.core.clojure-test-test-runner.interface/create]}},
-            "user-service" {:alias "user-s",
-                            :test {:create-test-runner [polylith.clj.core.clojure-test-test-runner.interface/create]}}},
+{:active-profiles #{"default"},
+ :color-mode "dark",
+ :compact-views #{},
+ :default-profile-name "default",
+ :empty-character ".",
+ :interface-ns "interface",
+ :m2-dir "/Users/joakimtengstrand/.m2",
  :tag-patterns {:release "v[0-9]*", :stable "stable-*"},
  :thousand-separator ",",
  :top-namespace "se.example",
  :user-config-filename "/Users/joakimtengstrand/.config/polylith/config.edn",
  :user-home "/Users/joakimtengstrand",
  :vcs {:auto-add true,
-       :branch "issue-205",
+       :branch "issue-315",
        :git-root "/Users/joakimtengstrand/source/polylith",
        :is-git-repo true,
        :name "git",
        :polylith {:branch "master",
                   :repo "https://github.com/polyfy/polylith.git"},
-       :stable-since {:sha "b3b6e2ae3dfea55713312591313ef13c57858991",
+       :stable-since {:sha "15453ebc5a86f52ee1c75ec52ebb19da4b113c30",
                       :tag "stable-master"}}}
 ----
 
@@ -100,7 +69,7 @@ See the xref:workspace-structure.adoc#settings[workspace structure] reference fo
 If you are only interested in a specific element in this structure, you can dig deeper, e.g.:
 [source,shell]
 ----
-poly ws get:settings:profile-to-settings:default:paths
+poly ws get:profiles:default:paths
 ----
 
 [source,clojure]
@@ -128,6 +97,7 @@ poly ws get:keys
  :messages
  :name
  :paths
+ :profiles
  :projects
  :settings
  :user-input

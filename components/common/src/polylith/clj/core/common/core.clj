@@ -74,12 +74,18 @@
 (defn find-base [name bases]
   (util/find-first #(= name (:name %)) bases))
 
+(defn find-workspace [name workspaces]
+  (util/find-first #(= name (:name %)) workspaces))
+
 (defn- =project [{:keys [name alias]} project]
   (or (= project name)
       (= project alias)))
 
-(defn find-project [name projects]
-  (util/find-first #(=project % name) projects))
+(defn find-project [name-or-alias projects]
+  (util/find-first #(=project % name-or-alias) projects))
+
+(defn find-entity-index [entity-name entities]
+  (util/find-first-index #(= entity-name (:name %)) entities))
 
 (defn compact? [{:keys [user-input settings]} view]
   (or (:is-compact user-input)
@@ -100,12 +106,10 @@
    The dependencies that are calculated per project are used to test runner
    to decide which tests to run, which means that direct and indirect dependencies
    can sometimes be disabled if :include or :exclude is set."
-  [settings project-name all-brick-names]
-  (let [include (get-in settings [:projects project-name :test :include])
-        exclude (get-in settings [:projects project-name :test :exclude])]
-    (set/difference (if include
-                      (set include)
-                      (set all-brick-names))
-                    (if exclude
-                      (set exclude)
-                      #{}))))
+  [{:keys [include exclude]} all-brick-names]
+  (set/difference (if include
+                    (set include)
+                    (set all-brick-names))
+                  (if exclude
+                    (set exclude)
+                    #{})))

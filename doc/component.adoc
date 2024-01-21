@@ -26,29 +26,26 @@ When `:auto-add` is `false`, you have to either:
 
 == How to Execute Commands
 
-Before you create a component, let's recap the three ways of executing `poly` commands:
+Before you create a component, let's recap the two ways of executing `poly` commands:
 
 1. `poly help` - the stand-alone version of the tool.
 2. `clojure -M:poly help` - as a Clojure dep from the workspace directory.
-3. `clojure -Tpoly help` - as a Clojure CLI Tool.
 
 Which forms are available depends on how you xref:install.adoc[installed] `poly`.
 
-All the documentation refers to the first form, even though the other two are also valid.
+All the documentation refers to the first form, even though the other form is also valid.
 
-A fourth way to execute `poly` commands is through the `poly` shell.
+A third way to execute `poly` commands is through the `poly` shell.
 You start the poly shell via the xref:commands.adoc#shell[shell] command:
 
 1. `poly shell`
 2. `clojure -M:poly shell`
-3. `clojure -T:poly shell`
 
 [[shell-is-default]]
-The xref:commands.adoc#shell[shell] command is the default command for the first two forms but not the third:
+The xref:commands.adoc#shell[shell] command is the default command:
 
 1. `poly`
 2. `clojure -M:poly`
-3. `clojure -T:poly shell`
 
 image::images/component/start-a-shell.png[]
 
@@ -96,6 +93,7 @@ example
 │                       └── interface_test.clj
 ├── deps.edn
 ├── development
+│   ├── config.edn
 │   └── src
 │       └── dev
 │           └── lisa.clj

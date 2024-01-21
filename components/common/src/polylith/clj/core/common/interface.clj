@@ -3,6 +3,7 @@
             [polylith.clj.core.common.core :as core]
             [polylith.clj.core.common.file-output :as file-output]
             [polylith.clj.core.common.ns-extractor :as ns-extractor]
+            [polylith.clj.core.common.profile :as profile]
             [polylith.clj.core.common.validate-args :as validate-args]
             [polylith.clj.core.version.interface :as version]))
 
@@ -11,8 +12,8 @@
 (defn absolute-path [path entity-root-path]
   (core/absolute-path path entity-root-path))
 
-(defn brick-names-to-test [settings project-name all-brick-names]
-  (core/brick-names-to-test settings project-name all-brick-names))
+(defn brick-names-to-test [test all-brick-names]
+  (core/brick-names-to-test test all-brick-names))
 
 (defn calculate-latest-version? [user-input]
   (core/calculate-latest-version? user-input))
@@ -53,8 +54,14 @@
 (defn find-component [name components]
   (core/find-component name components))
 
-(defn find-project [project-name projects]
-  (core/find-project project-name projects))
+(defn find-project [project-name-or-alias projects]
+  (core/find-project project-name-or-alias projects))
+
+(defn find-workspace [name workspaces]
+  (core/find-workspace name workspaces))
+
+(defn find-entity-index [entity-name entities]
+  (core/find-entity-index entity-name entities))
 
 (defn ns-to-path [namespace]
   (core/ns-to-path namespace))
@@ -89,9 +96,15 @@
 (defn interface-nss [interface-ns]
   (set ["ifc" "interface" interface-ns]))
 
+(defn need-migration? [workspace]
+  (-> workspace :configs :projects first :config nil?))
+
 (defn interface-ns? [namespace interface-ns]
   (contains? (interface-nss interface-ns)
              namespace))
+
+(defn sort-profiles [default-profile-name profiles]
+  (profile/sort-profiles default-profile-name profiles))
 
 (defn print-or-save-table
   ([workspace table-fn]

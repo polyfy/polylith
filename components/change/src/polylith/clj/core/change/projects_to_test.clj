@@ -19,18 +19,13 @@
                 (or (not is-dev)
                     is-dev-user-input)))))
 
-(defn projects-to-test [{:keys [is-dev alias name paths]} disk-paths affected-projects selected-projects is-dev-user-input is-run-project-tests is-all]
+(defn with-projects-to-test [{:keys [is-dev alias name paths] :as project} disk-paths affected-projects selected-projects is-dev-user-input is-run-project-tests is-all]
   (let [run-tests? (run-tests? alias name is-dev is-dev-user-input is-run-project-tests selected-projects)
         included-projects (included-projects paths disk-paths is-dev)]
-    [name
-     (cond-> []
-       run-tests?
-       (into (cond
-               is-all (sort included-projects)
-               is-run-project-tests (sort (set/intersection (set affected-projects)
-                                                            (set included-projects))))))]))
-
-(defn project-to-projects-to-test [projects disk-paths affected-projects selected-projects is-dev-user-input is-run-project-tests is-all]
-  (into {}
-        (map #(projects-to-test % disk-paths affected-projects selected-projects is-dev-user-input is-run-project-tests is-all))
-        projects))
+    (assoc project :projects-to-test
+                   (cond-> []
+                           run-tests?
+                           (into (cond
+                                   is-all (sort included-projects)
+                                   is-run-project-tests (sort (set/intersection (set affected-projects)
+                                                                                (set included-projects)))))))))

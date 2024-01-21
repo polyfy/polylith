@@ -10,12 +10,12 @@
             [polylith.clj.core.workspace-clj.namespaces-from-disk :as ns-from-disk]
             [polylith.clj.core.workspace-clj.interface-defs-from-disk :as defs-from-disk]))
 
-(defn read-component [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns component-deps-config]
-  (let [config (:deps component-deps-config)
-        component-name (:name component-deps-config)
+(defn read-component [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns brick->settings config]
+  (let [deps-config (:deps config)
+        component-name (:name config)
         component-dir (str ws-dir "/components/" component-name)
-        component-top-src-dirs (brick-dirs/top-src-dirs component-dir top-src-dir config)
-        component-top-test-dirs (brick-dirs/top-test-dirs component-dir top-src-dir config)
+        component-top-src-dirs (brick-dirs/top-src-dirs component-dir top-src-dir deps-config)
+        component-top-test-dirs (brick-dirs/top-test-dirs component-dir top-src-dir deps-config)
         interface-path-name (first (mapcat file/directories component-top-src-dirs))
         interface-name (common/path-to-ns interface-path-name)
         src-dirs (mapv #(str % interface-path-name)
@@ -24,20 +24,24 @@
         namespaces (ns-from-disk/namespaces-from-disk ws-dir component-top-src-dirs component-top-test-dirs suffixed-top-ns interface-ns)
         definitions (defs-from-disk/defs-from-disk src-dirs interface-ns)
         entity-root-path (str "components/" component-name)
-        lib-deps (lib/brick-lib-deps ws-dir ws-type config top-namespace ns-to-lib namespaces entity-root-path user-home)
-        paths (brick-paths/source-paths component-dir config)
-        source-paths (config/source-paths config)
+        lib-deps (lib/brick-lib-deps ws-dir ws-type deps-config top-namespace ns-to-lib namespaces entity-root-path user-home)
+        paths (brick-paths/source-paths component-dir deps-config)
+        source-paths (config/source-paths deps-config)
+        component-settings (get brick->settings component-name)
         non-top-namespaces (non-top-ns/non-top-namespaces "component" component-name component-dir top-src-dir source-paths)]
     (util/ordered-map :name component-name
                       :type "component"
-                      :maven-repos (:mvn/repos config)
+                      :maven-repos (:mvn/repos deps-config)
                       :paths paths
                       :namespaces namespaces
                       :non-top-namespaces non-top-namespaces
                       :lib-deps lib-deps
+                      :test (config/settings-value :test config component-settings)
+                      :necessary (config/settings-value :necessary config component-settings)
+                      :keep-lib-versions (config/settings-value :keep-lib-versions config component-settings)
                       :interface (util/ordered-map :name interface-name
                                                    :definitions definitions))))
 
-(defn read-components [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns configs]
-  (vec (sort-by :name (map #(read-component ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns %)
-                           configs))))
+(defn read-components [ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns component-dep-configs brick->settings]
+  (vec (sort-by :name (map #(read-component ws-dir ws-type user-home top-namespace ns-to-lib top-src-dir interface-ns brick->settings %)
+                           component-dep-configs))))

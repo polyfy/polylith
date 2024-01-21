@@ -31,13 +31,10 @@
           (map-indexed #(lib-cell 3 (+ 3 %1) %2)
                        (map :version libraries))))
 
-(defn latest-version [{:keys [name version]} lib->latest-version]
-  (or (lib->latest-version [name version]) ""))
-
 (defn latest-column [libraries lib->latest-version]
   (concat [(text-table/cell 5 1 "latest" :none :left :horizontal)]
           (map-indexed #(lib-cell 5 (+ 3 %1) %2)
-                       (map #(latest-version % lib->latest-version)
+                       (map #(lib->latest-version (:name %) "")
                             libraries))))
 
 (defn type-column [libraries]
@@ -81,15 +78,15 @@
   (let [flag (if (contains? lib-deps lib-dep) "x" "-")]
     (text-table/cell column row flag :purple :center :horizontal)))
 
-(defn profile-column [column libraries [profile {:keys [lib-deps]}]]
+(defn profile-column [column libraries {:keys [name lib-deps]}]
   (let [deps (set (mapcat lib lib-deps))]
-    (concat [(text-table/cell column 1 profile :purple :center :horizontal)]
+    (concat [(text-table/cell column 1 name :purple :center :horizontal)]
             (map-indexed #(profile-flag-cell column (+ 3 %1) %2 deps)
                          libraries))))
 
-(defn profile-columns [column libraries profile-to-settings]
+(defn profile-columns [column libraries profiles]
   (apply concat (map-indexed #(profile-column (+ column (* 2 %1)) libraries %2)
-                             profile-to-settings)))
+                             profiles)))
 
 (defn contains-lib? [library libraries]
   (or (contains? libraries library)
@@ -113,17 +110,17 @@
   (apply concat (map-indexed #(brick-column (+ column (* 2 %1)) %2 libraries src-libs brick->libs empty-character)
                              bricks)))
 
-(defn profile-lib [[_ {:keys [lib-deps]}]]
+(defn profile-lib [{:keys [lib-deps]}]
   (mapcat lib lib-deps))
 
-(defn table [{:keys [configs settings user-input components bases projects] :as workspace}]
-  (let [{:keys [profile-to-settings empty-character thousand-separator color-mode]} settings
+(defn table [{:keys [configs settings user-input profiles components bases projects] :as workspace}]
+  (let [{:keys [empty-character thousand-separator color-mode]} settings
         is-outdated (:is-outdated user-input)
         calculate-latest-version? (common/calculate-latest-version? user-input)
         lib->latest-version (antq/library->latest-version configs calculate-latest-version?)
         entities (concat components bases projects)
         src-libs (set (concat (mapcat lib (mapcat #(-> % :lib-deps :src) entities))
-                              (mapcat profile-lib profile-to-settings)))
+                              (mapcat profile-lib profiles)))
         test-libs (set (mapcat lib (mapcat #(-> % :lib-deps :test) entities)))
         libraries (sort-by (juxt :name :version)
                            (set (concat src-libs test-libs)))
@@ -139,8 +136,8 @@
         n#dev (count (filter :is-dev projects))
         n#projects (- (count projects) n#dev)
         profile-col (+ 11 (* 2 (+ n#dev n#projects)))
-        profile-cols (if (zero? n#dev) [] (profile-columns profile-col libraries profile-to-settings))
-        n#profiles (if (zero? n#dev) 0 (count profile-to-settings))
+        profile-cols (if (zero? n#dev) [] (profile-columns profile-col libraries profiles))
+        n#profiles (if (zero? n#dev) 0 (count profiles))
         brick-col (+ profile-col (* 2 n#profiles))
         n#bricks (count bricks)
         brick-cols (brick-columns brick-col bricks libraries src-libs brick->libs empty-character)
@@ -165,7 +162,7 @@
                               #(table %)))
 
 (comment
-  (require '[dev.jocke :as jocke])
-  (print-table jocke/workspace)
-  (print-table (assoc-in jocke/workspace [:user-input :is-outdated] true))
+  (require '[dev.jocke :as dev])
+  (print-table dev/workspace)
+  (print-table (assoc-in dev/workspace [:user-input :is-outdated] true))§
   #__)

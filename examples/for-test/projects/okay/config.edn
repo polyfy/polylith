@@ -1,0 +1,5 @@
+{:alias "okay"
+ :necessary ["a-okay" "b-fail" "company" "util"]
+ :test {:exclude ["exclude-me"]
+        :setup-fn project.okay.test-setup/setup
+        :teardown-fn project.okay.test-setup/teardown}}

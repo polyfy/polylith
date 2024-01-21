@@ -54,63 +54,66 @@
   (is (true?
         (t/run-tests? "dev" "development" true true true #{}))))
 
+(defn with-to-test [project disk-paths affected-projects selected-projects is-dev-user-input is-run-project-tests is-all]
+  (:projects-to-test (t/with-projects-to-test project disk-paths affected-projects selected-projects is-dev-user-input is-run-project-tests is-all)))
+
 (deftest dont-run-project-tests--project-tests-are-not-activated-by-default
-  (is (= ["service" []]
-         (t/projects-to-test {:is-dev false
-                              :name "service"
-                              :paths {:test ["projects/service/test"]}}
-                             ["projects/service/test"] ; disk-paths
-                             ["service"] ; affected-projects
-                             #{} ; selected-projects
-                             false ; is-dev-user-input
-                             false ; is-run-project-tests
-                             false)))) ; is-all
+  (is (= []
+         (with-to-test {:is-dev false
+                        :name "service"
+                        :paths {:test ["projects/service/test"]}}
+                       ["projects/service/test"] ; disk-paths
+                       ["service"] ; affected-projects
+                       #{} ; selected-projects
+                       false ; is-dev-user-input
+                       false ; is-run-project-tests
+                       false)))) ; is-all
 
 (deftest not-dev--run-affected-projects
-  (is (= ["service" ["service"]]
-         (t/projects-to-test {:is-dev false
-                              :name "service"
-                              :paths {:test ["projects/service/test"]}}
-                             ["projects/service/test"] ; disk-paths
-                             ["service"] ; affected-projects
-                             #{} ; selected-projects
-                             false ; is-dev-user-input
-                             true ; is-run-project-tests
-                             false)))) ; is-all
+  (is (= ["service"]
+         (with-to-test {:is-dev false
+                        :name "service"
+                        :paths {:test ["projects/service/test"]}}
+                       ["projects/service/test"] ; disk-paths
+                       ["service"] ; affected-projects
+                       #{} ; selected-projects
+                       false ; is-dev-user-input
+                       true ; is-run-project-tests
+                       false)))) ; is-all
 
 (deftest dev--dont-run-affected-projects--development-is-excluded-by-default
-  (is (= ["development" []]
-         (t/projects-to-test {:is-dev true
-                              :name "development"
-                              :paths {:test ["projects/service/test"]}}
-                             ["projects/service/test"] ; disk-paths
-                             ["service"] ; affected-projects
-                             #{} ; selected-projects
-                             false ; is-dev-user-input
-                             true ; is-run-project-tests
-                             false)))) ; is-all
+  (is (= []
+         (with-to-test {:is-dev true
+                        :name "development"
+                        :paths {:test ["projects/service/test"]}}
+                       ["projects/service/test"] ; disk-paths
+                       ["service"] ; affected-projects
+                       #{} ; selected-projects
+                       false ; is-dev-user-input
+                       true ; is-run-project-tests
+                       false)))) ; is-all
 
 (deftest dev--run-affected-projects--dev-is-active
-  (is (= ["development" ["service"]]
-         (t/projects-to-test {:is-dev true
-                              :alias "dev"
-                              :name "development"
-                              :paths {:test ["projects/service/test"]}}
-                             ["projects/service/test"] ; disk-paths
-                             ["service"] ; affected-projects
-                             #{"dev"} ; selected-projects
-                             true ; is-dev-user-input
-                             true ; is-run-project-tests
-                             false)))) ; is-all
+  (is (= ["service"]
+         (with-to-test {:is-dev true
+                        :alias "dev"
+                        :name "development"
+                        :paths {:test ["projects/service/test"]}}
+                       ["projects/service/test"] ; disk-paths
+                       ["service"] ; affected-projects
+                       #{"dev"} ; selected-projects
+                       true ; is-dev-user-input
+                       true ; is-run-project-tests
+                       false)))) ; is-all
 
 (deftest not-dev--run-all-tests
-  (is (= ["service" ["service"]]
-         (t/projects-to-test {:is-dev false
-                              :name "service"
-                              :paths {:test ["projects/service/test"]}}
-                             ["projects/service/test"] ; disk-paths
-                             [] ; affected-projects
-                             #{} ; selected-projects
-                             false ; is-dev-user-input
-                             true ; is-run-project-tests
-                             true)))) ; is-all
+  (is (= ["service"]
+         (with-to-test {:is-dev false
+                        :name "service"
+                        :paths {:test ["projects/service/test"]}}
+                       ["projects/service/test"] ; disk-paths
+                       [] ; affected-projects
+                       #{} ; selected-projects
+                       false ; is-dev-user-input
+                       true ; is-run-project-tests
+                       true)))) ; is-all

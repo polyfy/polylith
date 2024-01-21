@@ -5,9 +5,4 @@
  :default-profile-name "default"
  :compact-views #{}
  :tag-patterns {:stable "stable-*"
-                :release "v[0-9]*"}
- :projects {"poly" {:alias "poly"
-                    :necessary ["api" "clojure-test-test-runner"]
-                    :test {:setup-fn project.poly.hto/activate!}}
-            "polyx" {:alias "polyx" :test [] :necessary ["clojure-test-test-runner"]}
-            "development" {:alias "dev"}}}
+                :release "v[0-9]*"}}

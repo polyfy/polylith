@@ -479,7 +479,7 @@ git tag -f stable-lisa
 
 Rerun `poly xref:commands.adoc#info[info]`, you should see output like:
 
-image::images/testing/info-added-tests.png[width=400]
+image::images/testing/output/info-added-tests.png[width=400]
 
 The `*` signs are gone, and no `x` flags means `poly` has marked nothing for testing.
 
@@ -631,15 +631,13 @@ You need to keep two things in mind:
 * Make sure your functions are accessible (in this case, from the `command-line` project)
 * Make sure the functions take exactly one argument, the project name
 
-Specify your new functions in `./workspace.edn` for the `command-line` project:
+Specify your new functions in `./projects/command-line/config.edn`:
 
 [source,clojure]
 ----
- ...
- :projects {"development" {:alias "dev"}
-            "command-line" {:alias "cl"
-                            :test {:setup-fn project.command-line.test-setup/setup
-                                   :teardown-fn project.command-line.test-setup/teardown}}}}
+{:alias "cl"
+ :test {:setup-fn project.command-line.test-setup/setup
+        :teardown-fn project.command-line.test-setup/teardown}}
 ----
 
 TIP: In practice, if you don't need a `:teardown-fn`, you can omit it.
@@ -705,32 +703,46 @@ Nice, it worked!
 [[include-exclude]]
 == Include and Exclude Bricks by Configuration
 
-There is a way to restrict what tests to run for a project by giving a list of bricks to include and/or exclude in `workspace.edn`, e.g.:
+There is a way to restrict what tests to run for a project by giving a list of bricks to include and/or exclude in the project's config.edn file, e.g.:
 
 [#include-exclude]
+../projects/mytool/config.edn
 [source,clojure]
 ----
-{...
- :projects {"mytool" {:alias "t"
-                      :test {:include []}}
-            "myservice" {:alias "s"
-                         :test {:exclude ["cli" "user"]}}
-            ...
+{:alias "t"
+ :test {:include []}}
 ----
+
+../projects/myservice/config.edn
+[source,clojure]
+----
+{:alias "s"
+ :test {:exclude ["cli" "user"]}}
+----
+
 This configuration tells `poly` to include no brick tests for project `mytool` and exclude `cli` and `user` brick tests for project `myservice`.
 
 TIP: The `:include` keyword is optional and assumed.
 
 You may wonder when this could be useful.
-A good example is the polylith codebase itself, where the `workspace.edn` looks similar to this:
+A good example is the polylith codebase itself, where the `dev`, `poly`, `polyx` projects are configured like this:
 
+../projects/poly/config.edn
 [source,clojure]
 ----
-...
-  :projects {"poly" {:alias "poly"} ;; <1>
-             "polyx" {:alias "polyx" :test []} ;; <2>
-             "development" {:alias "dev"} ;; <3>
-             ...
+{:alias "poly"} ;; <1>
+----
+
+../projects/polyx/config.edn
+[source,clojure]
+----
+{:alias "polyx" :test []} ;; <2>
+----
+
+../development/config.edn
+[source,clojure]
+----
+{:alias "dev"} ;; <3>
 ----
 <1> all brick tests for deployable projects are included by default
 <2> all brick tests excluded via `:test []`
@@ -777,7 +789,7 @@ By default, `poly test` runs tests for each deployable project's bricks.
 
 |===
 
-By specifying the ':dev' argument, you can also tell `poly` to include brick tests from the `development` project.
+By specifying the `:dev` argument, you can also tell `poly` to include brick tests from the `development` project.
 
 [cols="30,25,25,25"]
 |===

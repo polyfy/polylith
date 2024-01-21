@@ -58,6 +58,7 @@
         {:keys [named-args unnamed-args]} (args/extract args single-arg-commands)
         {:keys [all!
                 all-bricks!
+                alias
                 brick
                 branch
                 brick!
@@ -104,6 +105,7 @@
                 ws-dir
                 ws-file]} named-args]
     (util/ordered-map :args (vec arguments)
+                      :alias (as-value alias)
                       :cmd cmd
                       :get get
                       :branch branch

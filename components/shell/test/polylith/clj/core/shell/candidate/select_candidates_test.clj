@@ -14,7 +14,7 @@
   (mapv color/clean-colors entities))
 
 (deftest all-commands
-  (is (= (concat ["check" "create" "deps" "diff" "doc" "help" "info" "libs"]
+  (is (= (concat ["check" "create" "deps" "diff" "doc" "help" "info" "libs" "migrate"]
                  (if system/extended? ["overview"] [])
                  ["switch-ws" "test" "version" "ws"])
          (candidates ""))))
@@ -211,7 +211,7 @@
          (candidates "doc" :next "ws" "settings" :next))))
 
 (deftest help
-  (is (= ["check" "create" "deps" "diff" "info" "libs" "shell" "switch-ws"
+  (is (= ["check" "create" "deps" "diff" "info" "libs" "migrate" "shell" "switch-ws"
           "tap" "test" "version" "ws"]
          (candidates "help"))))
 
@@ -338,7 +338,7 @@
 
 (deftest ws-get
   (is (= ["bases" "changes" "components" "interfaces" "messages" "name" "paths"
-          "projects" "settings" "user-input" "version" "ws-dir" "ws-reader"]
+          "profiles" "projects" "settings" "user-input" "version" "ws-dir" "ws-reader"]
          (candidates "ws" :next "get" ""))))
 
 (deftest ws-get-bases

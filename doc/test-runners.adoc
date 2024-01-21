@@ -98,24 +98,21 @@ An ideal place to do this is the `:poly` alias in your `./deps.edn` file:
     {:git/tag "v0.8.2" :git/sha "d1fcd40"}
 ----
 <1> We've added xref:#sean-external-test-runner[Sean Corfield's external test runner], as one example
-<2> And xref:#imre-kaocha-test-runner[Imre Imre Kószó's kaocha test runner] as another example
+<2> And xref:#imre-kaocha-test-runner[Imre Imre Kószó's Kaocha test runner] as another example
 
 TIP: You can also have your custom test runner within the same Polylith workspace and depend on it via `:local/root`.
 
 Once you have your test runner on the classpath, add it to our workspace configuration so that the `poly` tool can use it instead of the default test runner.
 
-You can override the default global test runner under the `:test` key in your `workspace.edn`:
+You can override the default global test runner under the `:test` key in your `workspace.edn`. Here are three examples:
 
+[[create-test-runner]]
 [source,clojure]
 ----
 {...
  ; Global test configuration, used as default for every project.
  :test {:create-test-runner [org.corfield.external-test-runner.interface/create]} ;; <1>
-
- ; Project specific configurations
- :projects {"foo" {:alias "foo"}
-            "bar" {:alias "barr"}
-            "baz" {:alias "baz"}}}
+}
 ----
 <1> Override default global test runner
 
@@ -123,27 +120,34 @@ NOTE: You can specify multiple test runners.
 The `poly` tool will run each test runner for each tested project.
 
 You can override the global test runner for a project.
-Add a `:test` key in the project's configuration in your `workspace.edn` to select project-specific test runners:
+Add a `:test` key in the project's `config.edn` to select project-specific test runners:
 
+../projects/foo/config.edn:
 [source,clojure]
 ----
-{...
- ; Global test configuration, used as default for every project.
- :test {:create-test-runner [org.corfield.external-test-runner.interface/create]}
+{:alias "foo"
+ ; Use another test runner only for this project
+ :test {:create-test-runner [polylith-kaocha.test-runner/create]}
+}
+----
 
- ; Project specific configurations
- :projects {"foo" {:alias "foo"
-                   ; Use another test runner only for this project
-                   :test  {:create-test-runner [polylith-kaocha.test-runner/create]}}
+../projects/bar/config.edn:
+[source,clojure]
+----
+{:alias "bar"
+ ; Use the poly default test runner instead of the global test-runner
+ :test {:create-test-runner [:default]}
+}
+----
 
-            "bar" {:alias "bar"
-                   ; Use the poly default test runner instead of the global test-runner
-                   :test  {:create-test-runner [:default]}}
-
-            "baz" {:alias "bz"
-                   ; Use both the poly default and the example test runner for this project
-                   :test {:create-test-runner [:default
-                                               org.corfield.external-test-runner.interface/create]}}}}
+../projects/baz/config.edn:
+[source,clojure]
+----
+{:alias "baz"
+ ; Use both the poly default and the example test runner for this project
+ :test {:create-test-runner [:default
+                             org.corfield.external-test-runner.interface/create]}
+}
 ----
 
 [[write-your-own]]
@@ -200,7 +204,7 @@ a| A map containing details for the project that `poly` is currently testing.
 
 | `:test-settings`
 a| Test settings for the project that `poly` is currently testing.
-The `poly` tool extracts this information from `workspace.edn`.
+Taken from the current project's `:test` key.
 
 | `:is-verbose`
 a| When `true` the `poly` tool is running tests in verbose mode.

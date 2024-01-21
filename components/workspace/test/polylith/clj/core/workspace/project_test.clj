@@ -66,10 +66,13 @@
                                            "se.example.workspace.interface"
                                            "se.example.workspace-clj.interface"]}]}}])
 
+(def profiles [])
+
 (def project {:name "development"
               :alias "dev"
               :is-dev true
               :type "project"
+              :test []
               :paths {:src ["bases/cli/src"
                             "components/change/src"
                             "components/command/src"
@@ -97,6 +100,34 @@
                          "file" {:src ["clojure.java.io"]}
                          "common" {:src ["clojure.java.io" "clojure.string"]}
                          "change" {:src ["clojure.set" "clojure.string"]}})
+
+(defn enrich-project [project-name dev?]
+  (select-keys (proj/enrich-project {:name project-name :is-dev dev?}
+                                    "."
+                                    (atom 0)
+                                    components
+                                    bases
+                                    profiles
+                                    "se.example."
+                                    brick->loc
+                                    brick->lib-imports
+                                    {:missing []}
+                                    {}
+                                    {:projects {"development" {:alias "dev"}}}
+                                    {}
+                                    #{}
+                                    {})
+               [:alias :name]))
+
+(deftest missing-alias
+  (is (= {:alias "?1"
+          :name  "system"}
+         (enrich-project "system" false))))
+
+(deftest missing-dev-alias
+  (is (= {:alias "dev"
+          :name  "development"}
+         (enrich-project "development" true))))
 
 (deftest paths--without-active-profile--returns-expected-map
   (is (= {:alias                    "dev"
@@ -129,9 +160,11 @@
                    :test ["bases/cli/test"
                           "components/change/test"
                           "components/command/test"]}
-          :type                     "project"
-          :unmerged                 {:lib-deps      {:src {"org.clojure/clojure"          #:mvn{:version "1.10.1"}
-                                                           "org.clojure/tools.deps"#:mvn{:version "0.16.1264"}}}
+          :type           "project"
+          :test             {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]
+                             :include []}
+          :unmerged                 {:lib-deps   {:src {"org.clojure/clojure"    #:mvn{:version "1.10.1"}
+                                                        "org.clojure/tools.deps" #:mvn{:version "0.16.1264"}}}
                                      :paths {:src ["bases/cli/src"
                                                    "components/change/src"
                                                    "components/command/src"
@@ -142,10 +175,19 @@
                                                     "components/change/test"
                                                     "components/command/test"
                                                     "test"]}}}
-         (dissoc (proj/enrich-project project "." components bases "se.example." brick->loc brick->lib-imports
+         (dissoc (proj/enrich-project project
+                                      "."
+                                      (atom 0)
+                                      components
+                                      bases
+                                      profiles
+                                      "se.example."
+                                      brick->loc
+                                      brick->lib-imports
                                       {:missing []}
                                       {}
                                       {:projects {"development" {:alias "dev"}}}
+                                      {}
                                       #{}
                                       {})
                  :deps))))
@@ -164,16 +206,16 @@
                                         "command"
                                         "user"]}
           :is-dev               true
-          :lib-deps             {:src {"clojure.core.matrix"          "net.mikera/core.matrix"
-                                       "org.clojure/clojure"          #:mvn{:version "1.10.1"}
-                                       "org.clojure/tools.deps"#:mvn{:version "0.16.1264"}}}
-          :project-lib-deps {:src  {"clojure.core.matrix" "net.mikera/core.matrix"}
+          :lib-deps             {:src {"net.mikera/core.matrix" #:mvn{:version "0.63.0"}
+                                       "org.clojure/clojure"    #:mvn{:version "1.10.1"}
+                                       "org.clojure/tools.deps" #:mvn{:version "0.16.1264"}}}
+          :project-lib-deps {:src  {"net.mikera/core.matrix" #:mvn{:version "0.63.0"}}
                              :test {}}
           :lib-imports          {:src ["clojure.java.io"
                                        "clojure.pprint"
                                        "clojure.set"
                                        "clojure.string"]}
-          :lines-of-code        {:src  0, :test 0, :total  {:src  557, :test 101}}
+          :lines-of-code        {:src  0, :test 0, :total {:src  557, :test 101}}
           :maven-repos          {"central" {:url "https://repo1.maven.org/maven2/"}}
           :name                 "development"
           :paths            {:src ["bases/cli/src"
@@ -189,8 +231,10 @@
                                     "components/command/test"
                                     "components/user/test"]}
           :type                 "project"
-          :unmerged             {:lib-deps   {:src {"org.clojure/clojure"          #:mvn{:version "1.10.1"}
-                                                    "org.clojure/tools.deps"#:mvn{:version "0.16.1264"}}}
+          :test             {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]
+                             :include []}
+          :unmerged             {:lib-deps   {:src {"org.clojure/clojure"      #:mvn{:version "1.10.1"}
+                                                    "org.clojure/tools.deps"   #:mvn{:version "0.16.1264"}}}
                                  :paths {:src ["bases/cli/src"
                                                "components/change/src"
                                                "components/command/src"
@@ -201,16 +245,24 @@
                                                 "components/change/test"
                                                 "components/command/test"
                                                 "test"]}}}
-         (dissoc (proj/enrich-project project "." components bases "se.example." brick->loc brick->lib-imports
+         (dissoc (proj/enrich-project project
+                                      "."
+                                      (atom 0)
+                                      components
+                                      bases
+                                      [{:name "default"
+                                        :type "profile"
+                                        :paths ["components/user/src"
+                                                "components/user/resources"
+                                                "components/user/test"]
+                                        :lib-deps {"net.mikera/core.matrix" #:mvn{:version "0.63.0"}}}]
+                                      "se.example."
+                                      brick->loc
+                                      brick->lib-imports
                                       {:missing []}
                                       {}
-                                      {:active-profiles ["default"]
-                                       :profile-to-settings {"default" {:paths ["components/user/src"
-                                                                                "components/user/resources"
-                                                                                "components/user/test"]
-                                                                        :lib-deps {"clojure.core.matrix"
-                                                                                   "net.mikera/core.matrix"}}}
-                                       :projects {"development" {:alias "dev", :test []}}}
+                                      {:active-profiles #{"default"}}
+                                      {}
                                       #{}
                                       {})
                  :deps))))

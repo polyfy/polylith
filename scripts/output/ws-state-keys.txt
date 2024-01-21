@@ -6,6 +6,7 @@
  :messages
  :name
  :paths
+ :profiles
  :projects
  :settings
  :user-input

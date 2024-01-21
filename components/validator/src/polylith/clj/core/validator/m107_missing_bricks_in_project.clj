@@ -46,8 +46,8 @@
       (seq missing) (missing-bricks-error name missing base-names false color-mode)
       (seq missing-test) (missing-bricks-error name missing-test base-names true color-mode))))
 
-(defn errors [cmd {:keys [profile-to-settings active-profiles]} bases projects color-mode]
-  (when (shared/show-error? cmd profile-to-settings active-profiles)
+(defn errors [cmd {:keys [active-profiles]} profiles bases projects color-mode]
+  (when (shared/show-error? cmd profiles active-profiles)
     (let [base-names (set (map :name bases))]
       (mapcat #(project-error % base-names color-mode)
               projects))))

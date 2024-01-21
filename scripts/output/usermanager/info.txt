@@ -10,7 +10,7 @@
                                               
   interface       brick              um    dev
   --------------------------------   ---   ---
-  app-state       app-state          stx   st-
+  app-state       app-state *        stx   st-
   database        database *         stx   st-
   department      department *       stx   st-
   schema          schema *           stx   st-
@@ -18,3 +18,5 @@
   user            user *             stx   st-
   web-server      web-server *       stx   st-
   -               web *              stx   st-
+
+  Warning 206: This workspace is deprecated. As of version 0.2.19, brick and project configurations are stored in config.edn files under each base/component/project. Execute the 'migrate' command to migrate the workspace, or create those files manually and remove the :bricks and :projects keys from workspace.edn to get rid of this warning.

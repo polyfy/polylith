@@ -4,12 +4,12 @@
             [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.deps.interface :as deps]
             [polylith.clj.core.image-creator.interface :as ic]
+            [polylith.clj.core.info.interface :as info]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.util.interface.str :as str-util]
             [polylith.clj.core.user-input.interface :as user-input]
-            [polylith.clj.core.workspace-clj.interface :as ws-clj]
-            [polylith.clj.core.workspace.interface :as ws]))
+            [polylith.clj.core.workspace-clj.interface :as ws-clj]))
 
 (defn width [table]
   (-> table first color/clean-colors count))
@@ -25,7 +25,7 @@
   (str/join rows))
 
 (defn table [workspace]
-  (let [info-table (ws/table workspace)
+  (let [info-table (info/workspace-table workspace)
         deps-table (deps/table workspace)
         lib-table (lib/table workspace)
         tables [info-table deps-table lib-table]
@@ -71,8 +71,7 @@
                      change/with-changes))
   (def workspace (assoc-in workspace [:user-input :out] "overview.png"))
 
-  (require '[dev.jocke :as dev])
-  (def workspace (-> dev/workspace
+  (def workspace (-> dev.jocke/workspace
                      (assoc-in [:user-input :out] "overview.png")))
 
   (print-table workspace)

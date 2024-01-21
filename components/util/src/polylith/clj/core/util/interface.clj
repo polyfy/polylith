@@ -4,6 +4,9 @@
 (defn find-first [predicate sequence]
   (core/find-first predicate sequence))
 
+(defn find-first-index [predicate sequence]
+  (core/find-first-index predicate sequence))
+
 (defn ordered-map [& keyvals]
   (core/ordered-map keyvals))
 

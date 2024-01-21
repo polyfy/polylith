@@ -2,6 +2,7 @@
   (:require [clojure.set :as set]
             [clojure.string :as str]
             [clojure.tools.deps.util.maven :as mvn]
+            [polylith.clj.core.common.interface.config :as config]
             [polylith.clj.core.lib.interface :as lib]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.workspace-clj.brick-deps :as brick-deps]
@@ -128,12 +129,13 @@
                      vec)]
     [lib-deps project-lib-deps]))
 
-(defn skip-all-tests? [bricks-to-test]
-  (and (-> bricks-to-test nil? not)
-       (empty? bricks-to-test)))
+(defn skip-all-tests? [{:keys [include] :as test}]
+  (or (vector? test)
+      (and (-> include nil? not)
+           (empty? include))))
 
 (defn read-project
-  ([{:keys [deps project-name project-dir project-config-dir is-dev]} ws-dir name->brick project->settings user-home suffixed-top-ns interface-ns]
+  ([{:keys [deps project-name project-dir project-config-dir is-dev] :as config} ws-dir name->brick project->settings user-home suffixed-top-ns interface-ns]
    (let [{:keys [paths deps override-deps aliases mvn/repos]} deps
          project-src-paths (cond-> paths is-dev (concat (-> aliases :dev :extra-paths)))
          project-src-deps (cond-> deps is-dev (merge (-> aliases :dev :extra-deps)))
@@ -145,13 +147,17 @@
          maven-repos (merge mvn/standard-repos repos)]
      (read-project ws-dir name->brick project-name project-dir project-config-dir is-dev maven-repos
                    project->settings user-home project-src-paths project-src-deps project-test-paths
-                   project-test-deps override-src-deps override-test-deps suffixed-top-ns interface-ns)))
+                   project-test-deps override-src-deps override-test-deps suffixed-top-ns interface-ns
+                   config)))
   ([ws-dir name->brick project-name project-dir project-config-dir is-dev maven-repos
     project->settings user-home project-src-paths project-src-deps project-test-paths
-    project-test-deps override-src-deps override-test-deps suffixed-top-ns interface-ns]
+    project-test-deps override-src-deps override-test-deps suffixed-top-ns interface-ns
+    config]
    (let [src-paths (src-paths-from-bricks project-name is-dev name->brick project-src-paths project-src-deps)
          [src-lib-deps src-project-lib-deps] (src-lib-deps-from-bricks ws-dir project-name is-dev user-home name->brick project-src-deps override-src-deps)
-         skip-all? (-> project-name project->settings :test :include skip-all-tests?)
+         project-settings (get project->settings project-name)
+         test (config/settings-value :test config project-settings)
+         skip-all? (skip-all-tests? test)
          test-paths (if skip-all? [] (test-paths-from-bricks project-name is-dev name->brick project-test-paths project-src-deps project-test-deps))
          [test-lib-deps test-project-lib-deps] (if skip-all? [[][]] (test-lib-deps-from-bricks ws-dir project-name is-dev name->brick user-home project-src-deps project-test-deps override-src-deps override-test-deps))
          paths (cond-> {}
@@ -165,7 +171,8 @@
                                   (seq test-project-lib-deps) (assoc :test test-project-lib-deps))
          {:keys [src-dirs test-dirs]} (project-paths/project-source-dirs ws-dir project-name is-dev project-src-paths project-test-paths)
          namespaces (ns-from-disk/namespaces-from-disk ws-dir src-dirs test-dirs suffixed-top-ns interface-ns)]
-     (util/ordered-map :name project-name
+     (util/ordered-map :alias (config/settings-value :alias config project-settings)
+                       :name project-name
                        :is-dev is-dev
                        :project-dir project-dir
                        :deps-filename (str project-config-dir "/deps.edn")
@@ -174,13 +181,17 @@
                        :lib-deps lib-deps
                        :project-lib-deps project-lib-deps
                        :maven-repos maven-repos
-                       :namespaces namespaces))))
+                       :namespaces namespaces
+                       :test test
+                       :necessary (config/settings-value :necessary config project-settings)
+                       :keep-lib-versions (config/settings-value :keep-lib-versions config project-settings)))))
 
 (defn keep?
   "Skip projects that are passed in as e.g. skip:p1:p2."
-  [{:keys [project-name]} project->settings skip]
+  [{:keys [project-name config]} project->settings skip]
   (not (or (contains? skip project-name)
-           (contains? skip (-> project-name project->settings :alias)))))
+           (contains? skip (:alias config))
+           (contains? skip (get-in project->settings [project-name :alias])))))
 
 (defn read-projects [ws-dir name->brick project->settings user-input user-home suffixed-top-ns interface-ns configs]
   (let [skip (if user-input (-> user-input :skip set) #{})]

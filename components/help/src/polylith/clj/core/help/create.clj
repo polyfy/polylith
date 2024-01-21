@@ -26,6 +26,7 @@
        "    poly create component name:admin interface:user\n"
        "    poly create base name:mybase\n"
        "    poly create project name:myproject\n"
+       "    poly create project name:myproject alias:mp\n"
        "    poly create workspace name:myws top-ns:com.my.company\n"
        "    poly create workspace name:myws top-ns:com.my.company branch:master"))
 

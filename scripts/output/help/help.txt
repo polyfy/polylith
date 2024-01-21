@@ -1,4 +1,4 @@
-  poly 0.2.18 (2023-12-10) - https://github.com/polyfy/polylith
+  poly 0.2.19 (2024-01-20) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -83,7 +83,9 @@
     poly create component name:admin interface:user
     poly create b name:mybase
     poly create base name:mybase
+    poly create p name:myproject
     poly create project name:myproject
+    poly create project name:myproject alias:mp
     poly create w top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company :commit

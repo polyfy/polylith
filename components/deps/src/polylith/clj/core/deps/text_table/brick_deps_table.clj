@@ -60,7 +60,6 @@
       (println (str "  Couldn't find brick '" brick-name "'.")))))
 
 (comment
-  (require '[dev.jocke :as dev])
-  (def workspace dev/workspace)
+  (def workspace dev.jocke/workspace)
   (print-table workspace "deps")
   #__)

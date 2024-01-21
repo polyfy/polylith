@@ -51,7 +51,7 @@ Thanks to Polylith, we've been able to easily manage and deploy multiple serverl
 
 == Polylith
 
-image::images/example-systems/polylith.png[link="images/example-systems/polylith.png"]
+image::images/production-systems/polylith.png[link="images/production-systems/polylith.png"]
 
 Polylith is mainly developed on a non-profit basis by Joakim Tengstrand with help from Furkan Bayraktar, James Trunk, and other contributors.
 

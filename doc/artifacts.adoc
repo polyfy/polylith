@@ -30,11 +30,15 @@ For version `1.2.3` of libnames `foo` and `bar` under libfamily `thingorama`, yo
 * `thingorama-bar-1.2.3.jar`
 * `thingorama-foo-1.2.3.jar`
 
-Including a libfamily makes it easier to find/sort libraries and makes it clear they belong to the same family of libraries.
+Including a lib family makes it easier to find/sort libraries and makes it clear they belong to the same family of libraries.
 
 The burden of ensuring no version mismatches occur when using multiple libraries from a family of libraries falls on the user of those libraries.
 For example, a user may directly reference `thingorama-foo-1.2.3.jar`, but suppose some other library they depend on references `thingorama-bar-1.0.0.jar`.
 It is up to the user to ensure they bring in the compatible `thingorama-bar-1.2.3.jar`.
+
+Another possible approach is to build a single artifact for the lib family that includes all libraries:
+
+* `thingorama-1.2.3.jar`
 
 Issue https://github.com/polyfy/polylith/issues/212[212] explores the problems of isolating libraries that share components.
 See Sean Corfield's comments for an excellent explanation of the issue.

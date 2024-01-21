@@ -15,7 +15,9 @@
                                poly/file                     {:local/root "components/file"}
                                poly/git                      {:local/root "components/git"}
                                poly/help                     {:local/root "components/help"}
+                               poly/info                     {:local/root "components/info"}
                                poly/lib                      {:local/root "components/lib"}
+                               poly/maven                    {:local/root "components/maven"}
                                poly/migrator                 {:local/root "components/migrator"}
                                poly/overview                 {:local/root "components/overview"}
                                poly/path-finder              {:local/root "components/path-finder"}
@@ -94,6 +96,10 @@
                        :extra-deps {polylith/clj-poly {:mvn/version "0.2.17-alpha"}}}
 
             ;; ws version 2.0
+            :poly218  {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                       :extra-deps {polylith/clj-poly {:mvn/version "0.2.18"}}}
+
+            ;; ws version 3.0 (work in progress)
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :extra-deps {polylith/clj-poly {:local/root "projects/poly"}}}
 

@@ -1,6 +1,8 @@
 (ns ^:no-doc polylith.clj.core.ws-file.from-disk
   (:require [polylith.clj.core.ws-file.from-0-to-1 :as from-0-to-1]
             [polylith.clj.core.ws-file.from-1-to-2.converter :as from-1-to-2]
+            [polylith.clj.core.ws-file.from-2-to-3.converter :as from-2-to-3]
+            [polylith.clj.core.ws-file.messages :as messages]
             [polylith.clj.core.ws-file.version-converter :as version-converter]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.common.interface :as common]))
@@ -13,6 +15,7 @@
             breaking (or (-> ws :version :ws :breaking) 0)
             from-0-to-1? (-> ws :settings :project-to-alias)
             from-1-to-2? (<= breaking 1)
+            from-2-to-3? (<= breaking 2)
             old-user-input (-> ws :user-input)
             old-active-profiles (-> ws :settings :active-profiles)
             old (cond-> {:user-input old-user-input}
@@ -23,6 +26,8 @@
                               color-mode (assoc-in [:settings :color-mode] color-mode)
                               from-0-to-1? (from-0-to-1/convert)
                               from-1-to-2? (from-1-to-2/convert)
+                              from-2-to-3? (from-2-to-3/convert)
+                              true (messages/clean-messages)
                               true (version-converter/convert))]
         (if is-no-changes
           (-> workspace

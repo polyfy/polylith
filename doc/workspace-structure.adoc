@@ -24,8 +24,8 @@ poly ws get:keys
  :messages
  :name
  :paths
+ :profiles
  :projects
- :releases
  :settings
  :user-input
  :version
@@ -81,6 +81,8 @@ Here it depends on the `user` interface from the `src` context.
 This is because the `se.example.user-api.api` namespace imports `se.example.user.interface`.
 No interfaces are imported from the test context in this example.
 
+* `:keep-lib-versions` A vector containing the library names that should not be affected when executing `poly libs :update`. Configured in the base's config.edn file.
+
 * `:lib-deps`
 ** `:src` A map with the libraries that are used in this base's src context.
 *** `:latest-version` Set if there is a newer version of this library, except if xref:keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `:update` is given for the libs command.
@@ -108,6 +110,7 @@ No interfaces are imported from the test context in this example.
 *** `:name` The name of the namespace where top namespace + base name (`se.example` + `user-api` in this case) have been stripped away.
 *** `:namespace` The full name of the namespace.
 ** `:test` Lists all the namespaces that live under the test directory (same keys as for the `:src`).
+
 * `:non-top-namespace` If the base contains any non-top namespaces, they will be stored in a vector with elements like this:
 ** `{:non-top-ns "com.wrong", :file "bases/cli/src/com/wrong/cli/interface.clj"}`
 * `:paths` The paths that are specified in its `deps.edn` file
@@ -158,15 +161,6 @@ poly ws get:changes since:b339c35
  :changed-or-affected-projects ["command-line" "development" "user-service"],
  :changed-projects ["command-line" "development" "user-service"],
  :git-diff-command "git diff b339c35 --name-only",
- :project-to-bricks-to-test {"command-line" ["cli" "user-remote"],
-                             "development" [],
-                             "user-service" ["user" "user-api"]},
- :project-to-indirect-changes {"command-line" {:src [], :test []},
-                               "development" {:src [], :test []},
-                               "user-service" {:src [], :test []}},
- :project-to-projects-to-test {"command-line" [],
-                               "development" [],
-                               "user-service" []},
  :since "b339c35",
  :since-sha "b339c35"}
 ----
@@ -185,13 +179,6 @@ A project will be marked as changed if a file in its project directory has chang
 * `:changed-projects` Lists the changed projects since the sha `b339c35` (or last stable point in time if `:since` is not given).
 
 * `:git-diff-command` The git command that was executed to calculate the `:changed-files` list.
-
-* `:project-to-bricks-to-test` A map that stores project names with a list of the bricks to test from that project if executing the test command.
-
-* `:project-to-indirect-changes` A map that stores project names with a list of the bricks that are indirectly changed (directly changed bricks excluded).
-E.g. if components `a` and `b` are included in the project, and `a` has not changed, but `b` has changed and `a` uses `b`, then `b` will be included in the list.
-
-* `:project-to-projects-to-test` A map that stores project names with a list of projects to test from that project if executing the xref:commands.adoc#test[test] command.
 
 * `:since` Set to "stable" if `since:SINCE` is not given.
 
@@ -245,6 +232,8 @@ Here it depends on the `user` interface from the `src` context.
 This is because the `se.example.user-api.api` namespace imports `se.example.user.interface`. +
 No interfaces are imported from the test context in this example.
 
+* `:keep-lib-versions` A vector containing the library names that should not be affected when executing `poly libs :update`. Configured in the component's config.edn file.
+
 * `:lib-deps`
 ** `:src` A map with the libraries that are used in this component's src context.
 *** `:latest-version` Set if there is a newer version of this library, except if xref:keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `:update` is given for the libs command.
@@ -272,6 +261,7 @@ No interfaces are imported from the test context in this example.
 *** `:name` The name of the namespace where top namespace + base name (`se.example` + `user-api` in this case) have been stripped away.
 *** `:namespace` The full name of the namespace.
 ** `:test` Lists all the namespaces that live under the test directory (same keys as for the `:src`).
+
 * `:non-top-namespace` If the base contains any non-top namespaces, they will be stored in a vector with elements like this:
 ** {`:non-top-ns` "com.wrong", `:file` "bases/cli/src/com/wrong/cli/interface.clj"}
 * `:paths` The paths that are specified in its `deps.edn` file (paths for `src` and `resources` paths + `aliases > :test > :extra-paths` for test paths).
@@ -310,7 +300,10 @@ poly ws get:configs
                       :paths ["src" "resources"]},
                :name "user-remote",
                :type "component"}],
- :projects [{:deps {:aliases {:test {:extra-deps {}, :extra-paths ["test"]},
+ :projects [{:config {:alias "cl",
+                      :test {:setup-fn project.command-line.test-setup/setup,
+                             :teardown-fn project.command-line.test-setup/teardown}},
+             :deps {:aliases {:test {:extra-deps {}, :extra-paths ["test"]},
                               :uberjar {:main se.example.cli.core}},
                     :deps {org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"},
                            org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"},
@@ -319,7 +312,8 @@ poly ws get:configs
                            poly/user-remote {:local/root "../../components/user-remote"}}},
              :name "command-line",
              :type "project"}
-            {:deps {:aliases {:+default {:extra-deps {poly/user {:local/root "components/user"}},
+            {:config {:alias "dev"},
+             :deps {:aliases {:+default {:extra-deps {poly/user {:local/root "components/user"}},
                                          :extra-paths ["components/user/test"]},
                               :+remote {:extra-deps {poly/user-remote {:local/root "components/user-remote"}},
                                         :extra-paths ["components/user-remote/test"]},
@@ -335,9 +329,7 @@ poly ws get:configs
                                                  poly/cli {:local/root "bases/cli"},
                                                  poly/user-api {:local/root "bases/user-api"}},
                                     :extra-paths ["development/src"]},
-                              :poly {:extra-deps {polyfy/polylith {:sha "78b2c77c56d1b41109d68b451069affac935200e",
-                                                                   :deps/root "projects/poly",
-                                                                   :git/url "https://github.com/polyfy/polylith.git"}},
+                              :poly {:extra-deps {polylith/clj-poly {:mvn/version "0.2.18"}},
                                      :main-opts ["-m"
                                                  "polylith.clj.core.poly-cli.core"]},
                               :test {:extra-paths ["bases/cli/test"
@@ -345,7 +337,8 @@ poly ws get:configs
                                                    "projects/command-line/test"]}}},
              :name "development",
              :type "project"}
-            {:deps {:aliases {:test {:extra-deps {}, :extra-paths []},
+            {:config {:alias "user-s"},
+             :deps {:aliases {:test {:extra-deps {}, :extra-paths []},
                               :uberjar {:main se.example.user-api.core}},
                     :deps {org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"},
                            org.apache.logging.log4j/log4j-slf4j-impl {:mvn/version "2.13.3"},
@@ -358,14 +351,10 @@ poly ws get:configs
  :workspaces [{:config {:compact-views #{},
                         :default-profile-name "default",
                         :interface-ns "interface",
-                        :projects {"command-line" {:alias "cl"},
-                                   "development" {:alias "dev"},
-                                   "user-service" {:alias "user-s"}},
-                        :tag-patterns {:release "v[0-9]*"
-                                       :stable "stable-*"}
+                        :tag-patterns {:release "v[0-9]*", :stable "stable-*"},
                         :top-namespace "se.example",
                         :vcs {:auto-add true, :name "git"}},
-               :name "example",
+               :name "doc-example",
                :type "workspace"}]}
 ----
 
@@ -531,6 +520,33 @@ poly ws get:paths
 
 * `:missing` All missing paths in the workspace that are used in bricks, projects, and profiles but don't exist on disk.
 
+[#profiles]
+== profiles
+
+[source,shell]
+----
+poly ws get:profiles:default
+----
+
+[source,clojure]
+----
+{:base-names [],
+ :component-names ["image-creator" "system"],
+ :lib-deps {},
+ :name "default",
+ :paths ["components/image-creator/src" "components/system/src"],
+ :project-names [],
+ :type "profile"}
+----
+
+* `:base-names` The bases that are referenced from the specified paths.
+* `:component-names` The components that are referenced from the specified paths.
+* `:lib-deps` The library dependencies specified by the key `:extra-deps`.
+* `:name` the profile name, taken from an alias name that starts with a `+` in `./deps.edn`.
+* `:paths` The paths specified by the key `:extra-paths`.
+* `:project-names` The projects that are referenced from the specified paths.
+* `:type` Set to "profile".
+
 [#projects]
 == projects
 
@@ -543,10 +559,12 @@ poly ws get:projects:user-service
 ----
 {:alias "user-s",
  :base-names {:src ["user-api"], :test ["user-api"]},
+ :bricks-to-test ["user" "user-api"],
  :component-names {:src ["user"], :test ["user"]},
  :deps {"user" {:src {}, :test {}},
         "user-api" {:src {:direct ["user"]}, :test {:direct ["user"]}}},
  :deps-filename "examples/doc-example/projects/user-service/deps.edn",
+ :indirect-changes {:src [], :test []},
  :is-dev false,
  :lib-deps {:src {"org.apache.logging.log4j/log4j-core" {:size 1714164,
                                                          :type "maven",
@@ -583,14 +601,18 @@ poly ws get:projects:user-service
                                                  :type "maven",
                                                  :version "1.11.1"}},
                     :test {}},
+ :projects-to-test [],
+ :test {:create-test-runner [polylith.clj.core.clojure-test-test-runner.interface/create]},
  :type "project"}
 ----
 
-* `:alias` The alias that is specified in `:projects` in `workspace.edn` for this project.
+* `:alias` The alias that is specified in `:projects` in `workspace.edn` for this project. Configured in the project's config.edn file.
 
 * `:base-names`
 ** `:src` The bases that are included in the project for the `src` context, either as paths or included as `:local/root`.
 ** `:test` The bases that are included in the project for the `test` context, either as paths or included as `:local/root`.
+
+* `:bricks-to-test` A vector with the bricks to test from this project if executing the xref:commands.adoc#test[test] command.
 
 * `:component-names`
 ** `:src` The components that are included in the project for the `src` context, either as paths or included as `:local/root`.
@@ -608,11 +630,16 @@ poly ws get:projects:user-service
 
 * `:deps-filename` The absolute path to the `deps.edn` config file.
 
+* `:indirect-changes` A vector of the bricks that are indirectly changed (directly changed bricks excluded).
+E.g. if components `a` and `b` are included in the project, and `a` has not changed, but `b` has changed and `a` uses `b`, then `b` will be included in this vector.
+
 * `:is-dev` Set to `true` for the development project.
+
+* `:keep-lib-versions` A vector containing the library names that should not be affected when executing `poly libs :update`. Configured in the project's config.edn file.
 
 * `:lib-deps`
 ** `:src` Stores a map with the libraries that are used in the project for the src context. Contains libraries that are specified by the project and the included bricks.
-*** `:latest-version` Set if there is a newer version of this library, except if xref:keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `:update` is given for the libs command.
+*** `:latest-version` Set if there is a newer version of this library, except if xref:libraries.adoc#keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `:update` is given for the libs command.
 *** `:size` The size of this library in bytes.
 *** `:type` The type of the library, "maven", "local" or "git" (`:mvn/version`, `:local/root` and `:git/url`).
 *** `:version` The library version:
@@ -644,11 +671,12 @@ If `:mvn/repos` is specified by a brick that is included in this project, then i
 *** `namespace` The full name of the namespace.
 ** `:test` Lists all the namespaces that live under the `test` directory (same keys as for the `:src`).
 
+* `:necessary` If we get xref:validations.adoc#error111[Error 111 - Unreadable namespace in brick/project] and know that the brick(s) has to be included in the project, then we can add the necessary bricks(s) to a vector in the project's config.edn for this key.
+
 * `:paths`
 ** `:src` Lists the paths that are either explicitly defined as paths or implicitly defined as `:local/root` bricks, for the `src` context.
 ** `:test` Lists the paths that are either explicitly defined as paths or implicitly defined as `:local/root` bricks, for the `test` context.
 * `:project-dir` The absolute path to the project directory.
-* `:type` Set to "project".
 
 * `:project-lib-deps`
 ** `:src` Stores a map with the libraries that are specified by the project for the src context.
@@ -659,6 +687,16 @@ If `:mvn/repos` is specified by a brick that is included in this project, then i
 **** if type is `local` then the version key is excluded (a `-` is shown in the output from the xref:commands.adoc#libs[libs] command).
 **** if type is `git` then the version is set to the first seven characters in the `sha`.
 ** `:test` A map with the libraries that are used in the project for the test context. Follows the same structure as the `:src` context.
+
+* `:projects-to-test` A vector with the projects to test from this project if executing the xref:commands.adoc#test[test] command.
+
+* `:test`
+** `:exclude` Specifies which brick should be excluded when running the test command.
+** `:include` Specifies which bricks should be included when running the test command.
+Empty if no bricks, missing if all bricks.
+** `:create-test-runner` A vector with one or more test runners, see xref:test-runners.adoc#create-test-runner[create test runner].
+
+* `:type` Set to "project".
 
 [#settings]
 == settings
@@ -677,44 +715,23 @@ poly ws get:settings
  :empty-character ".",
  :interface-ns "interface",
  :m2-dir "/Users/joakimtengstrand/.m2",
- :profile-to-settings {"default" {:base-names [],
-                                  :component-names ["user"],
-                                  :lib-deps {},
-                                  :paths ["components/user/src"
-                                          "components/user/resources"
-                                          "components/user/test"],
-                                  :project-names []},
-                       "remote" {:base-names [],
-                                 :component-names ["user-remote"],
-                                 :lib-deps {},
-                                 :paths ["components/user-remote/src"
-                                         "components/user-remote/resources"
-                                         "components/user-remote/test"],
-                                 :project-names []}},
- :projects {"command-line" {:alias "cl"},
-            "development" {:alias "dev"},
-            "user-service" {:alias "user-s"}},
  :tag-patterns {:release "v[0-9]*", :stable "stable-*"},
  :thousand-separator ",",
- :top-namespace "se.example",
+ :top-namespace "polylith.clj.core",
  :user-config-filename "/Users/joakimtengstrand/.config/polylith/config.edn",
  :user-home "/Users/joakimtengstrand",
- :vcs {:auto-add true,
-       :branch "master",
+ :vcs {:auto-add false,
+       :branch "issue-315",
        :git-root "/Users/joakimtengstrand/source/polylith",
+       :is-git-repo true,
        :name "git",
        :polylith {:branch "master",
                   :repo "https://github.com/polyfy/polylith.git"},
-       :stable-since {:sha "f7e8cd7fe83f6d2fdfdedda35fed5806ac418964",
-                      :tag "stable-jote"}}}
+       :stable-since {:sha "15453ebc5a86f52ee1c75ec52ebb19da4b113c30",
+                      :tag "stable-master"}}}
 ----
 
 * `:active-profiles` If any profiles are defined in `./deps.edn` then the active profiles(s) are listed here.
-
-* `:bricks` A map with configuration information per brick where the keys are brick names, specified in `workspace.edn`:
-[#keep-lib-versions]
-** `:keep-lib-versions` A vector containing the library names (as symbols) that should not be affected when executing `poly libs :update`.
-See xref:libraries.adoc#update[update libs].
 
 [#color-mode]
 * `:color-mode` The color mode specified in `~/.config/polylith/config.edn`.
@@ -729,22 +746,6 @@ See xref:libraries.adoc#update[update libs].
 
 * `:m2-dir` Maven user root directory.
 Set to "~/.m2" by default, but can be overridden in `~/.config/polylith/config.edn`.
-
-* `:profile-to-settings` A map with profile name as key and profile definition as value, specified as aliases starting with a + in `./deps.edn`:
-** `:base-names` The bases that are referenced from the specified paths.
-** `:component-names` The components that are referenced from the specified paths.
-** `:lib-deps` The library dependencies specified by the key `:extra-deps`.
-** `:paths` The paths specified by the key `:extra-paths`.
-** `:project-names` The projects that are referenced from the specified paths.
-
-* `:projects` A map with extra information per project, specified in `workspace.edn`.
-** `:alias` The alias for a project, used by e.g. the `info` command.
-** `:keep-lib-versions` A vector containing the library names (as symbols) that should not be affected when executing `poly libs :update`.
-** `:necessary` If we get xref:validations.adoc#error111[Error 111 - Unreadable namespace in brick/project] and know that the brick(s) has to be included in the project, then we can add the necessary bricks(s) to the project in a vector for this key.
-** `:test`
-*** `:include` Specifies which bricks should be included when running the test command.
-Empty if no bricks, missing if all bricks.
-*** `:exclude` Specifies which brick should be excluded when running the test command.
 
 * `:tag-patterns` The tag patterns that are specified in `workspace.edn`.
 
@@ -994,7 +995,7 @@ poly ws get:version
            :tool "poly"}
  :test-runner-api {:breaking 1
                    :non-breaking 0}
- :ws {:breaking 2
+ :ws {:breaking 3
       :non-breaking 0}}
 ----
 

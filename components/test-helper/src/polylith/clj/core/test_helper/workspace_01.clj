@@ -15,6 +15,9 @@
                             :lines-of-code {:src 0, :test 0, :total {:src 3, :test 9}}
                             :name "service",
                             :type "project",
+                            :bricks-to-test []
+                            :projects-to-test []
+                            :indirect-changes []
                             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
                                           "clojars" {:url "https://repo.clojars.org/"}},
                             :alias "s",
@@ -36,6 +39,7 @@
                             :is-dev true,
                             :lines-of-code {:src 0, :test 0, :total {:src 9, :test 18}}
                             :name "development",
+                            :indirect-changes [],
                             :type "project",
                             :maven-repos {"central" {:url "https://repo1.maven.org/maven2/"},
                                           "clojars" {:url "https://repo.clojars.org/"}},
@@ -110,12 +114,6 @@
                            :user-config-filename "/Users/joakimtengstrand/.config/polylith/config.edn",
                            :empty-character ".",
                            :thousand-separator ",",
-                           :profile-to-settings {"default" {:lib-deps {"clj-commons/fs" {:version "1.6.310", :type "maven", :size 12819}},
-                                                            :component-names [],
-                                                            :base-names [],
-                                                            :project-names []},
-                                                 "extra" {:lib-deps {}, :component-names [], :base-names [], :project-names []}},
-                           :projects {"development" {:alias "dev"}, "service" {:alias "s"}},
                            :user-home "/Users/joakimtengstrand",
                            :m2-dir "/Users/joakimtengstrand/.m2"},
                 :ws-reader {:name "polylith-clj",
@@ -194,10 +192,19 @@
                           :changed-bases [],
                           :changed-projects [],
                           :changed-or-affected-projects ["development"],
-                          :project-to-indirect-changes {"service" [], "development" []},
-                          :project-to-bricks-to-test {"service" [], "development" []},
-                          :project-to-projects-to-test {"service" [], "development" []},
                           :changed-files ["components/database/src/se/example/database/interface.clj"
                                           "components/test-helper/deps.edn"
                                           "deps.edn"]},
-                :bases []})
+                :bases []
+                :profiles [{:name "default"
+                            :type "profile"
+                            :lib-deps {"clj-commons/fs" {:version "1.6.310", :type "maven", :size 12819}},
+                            :component-names [],
+                            :base-names [],
+                            :project-names []}
+                           {:name "extra"
+                            :type "profile"
+                            :lib-deps {}
+                            :component-names []
+                            :base-names []
+                            :project-names []}]})

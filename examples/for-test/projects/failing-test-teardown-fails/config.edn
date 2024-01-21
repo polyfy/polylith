@@ -1,0 +1,4 @@
+{:alias "failing-x2"
+ :necessary ["a-okay" "b-fail" "util"]
+ :test {:setup-fn project.failing-test-teardown-fails.test-setup/setup
+        :teardown-fn project.failing-test-teardown-fails.test-setup/teardown}}

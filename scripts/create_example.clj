@@ -129,10 +129,9 @@
         [(fs/file sections-dir "base/cli-core.clj") (fs/file ws-dir "bases/cli/src/se/example/cli/core.clj")]))
 
 (defn project [{:keys [ws-dir sections-dir output-dir]}]
-  (sh/poly {:dir ws-dir} "create project name:command-line")
+  (sh/poly {:dir ws-dir} "create project name:command-line alias:cl")
   (output-dir-tree (fs/file ws-dir "..") "example" (fs/file output-dir "project-tree.txt"))
   (copy [(fs/file sections-dir "project/deps.edn")              ws-dir]
-        [(fs/file sections-dir "project/workspace.edn")         ws-dir]
         [(fs/file sections-dir "project/command-line-deps.edn") (fs/file ws-dir "projects/command-line/deps.edn")]))
 
 (defn polyx [{:keys [ws-dir fake-sha images-dir] :as opts}]
@@ -236,24 +235,16 @@
            :out (fs/file output-dir "testing-test-all-dev.txt")}
           "test :all :dev color-mode:none")
     (copy [(fs/file sections-dir "testing/command-line-test-setup.clj") (fs/file ws-dir "projects/command-line/test/project/command_line/test_setup.clj")]
-          [(fs/file sections-dir "testing/workspace-test.edn")          (fs/file ws-dir "workspace.edn")])
+          [(fs/file sections-dir "testing/command-line-config.edn") (fs/file ws-dir "projects/command-line/config.edn")])
     (poly {:alter-out-fn test-result->output
            :out (fs/file output-dir "testing-test-all.txt")}
-          "test :all color-mode:none")
-
-    (copy [(fs/file sections-dir "testing/workspace.edn") ws-dir])
-    (poly {:out (fs/file output-dir "testing-info-exclude-tests.txt")}
-          (format "info :all :dev fake-sha:%s color-mode:none" fake-sha2))
-    (poly {:alter-out-fn test-result->output
-           :out (fs/file output-dir "testing-test-all-exclude-tests.txt")}
-          "test :all :dev color-mode:none")))
+          "test :all color-mode:none")))
 
 (defn profile [{:keys [ws-dir sections-dir fake-sha2 output-dir] :as opts}]
   (let [shell (fn-default-opts sh/shell {:dir ws-dir})
         poly (fn-default-opts sh/poly {:dir ws-dir})
         opts (assoc opts :fake-sha fake-sha2)]
-    (copy [(fs/file sections-dir "profile/workspace.edn") ws-dir])
-    (poly "create project name:user-service")
+    (poly "create project name:user-service alias:user-s")
     (poly "create base name:user-api")
     (copy [(fs/file sections-dir "profile/user-api-deps.edn")     (fs/file ws-dir "bases/user-api/deps.edn")]
           [(fs/file sections-dir "profile/user-api-core.clj")     (fs/file ws-dir "bases/user-api/src/se/example/user_api/core.clj")]
@@ -292,7 +283,7 @@
           (format "ws get:settings replace:%s:WS-HOME:%s:SHA color-mode:none"
                   ws-parent-dir sha))
     (poly {:out (fs/file output-dir "ws-state-paths.txt")}
-          "ws get:settings:profile-to-settings:default:paths color-mode:none")
+          "ws get:profiles:default:paths color-mode:none")
     (poly {:out (fs/file output-dir "ws-state-keys.txt")}
           "ws get:keys color-mode:none")
     (poly {:out (fs/file output-dir "ws-state-components-keys.txt")}
