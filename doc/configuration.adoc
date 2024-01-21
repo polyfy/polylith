@@ -292,3 +292,8 @@ a| Tells the xref:commands.adoc#libs[libs] where it can find your local Maven re
 *Default:* `~/.m2`
 
 |===
+
+[[custom]]
+== Custom configuration
+
+If you have custom configuration data, then we suggest that you put it in a `:custom` key in `workspace.edn` or in `config.edn` under each brick/project. If you put your custom data there, you can be sure the key will not collide with future keys introduced by the tool.
