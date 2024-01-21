@@ -74,11 +74,6 @@ poly ws get:configs:workspaces:example:config
  :compact-views #{},
  :default-profile-name "default",
  :interface-ns "interface",
- :projects {"command-line" {:alias "cl",
-                            :test {:setup-fn project.command-line.test-setup/setup,
-                                   :teardown-fn project.command-line.test-setup/teardown}},
-            "development" {:alias "dev"},
-            "user-service" {:alias "user-s"}},
  :tag-patterns {:release "v[0-9]*", :stable "stable-*"},
  :top-namespace "se.example",
  :vcs {:auto-add true, :name "git"}}
