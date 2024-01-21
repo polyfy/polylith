@@ -606,7 +606,7 @@ poly ws get:projects:user-service
  :type "project"}
 ----
 
-* `:alias` The alias that is specified in `:projects` in `workspace.edn` for this project. Configured in the project's config.edn file.
+* `:alias` The project alias, specified in the project's config.edn file.
 
 * `:base-names`
 ** `:src` The bases that are included in the project for the `src` context, either as paths or included as `:local/root`.
