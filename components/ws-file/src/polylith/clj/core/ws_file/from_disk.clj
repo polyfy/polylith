@@ -2,6 +2,7 @@
   (:require [polylith.clj.core.ws-file.from-0-to-1 :as from-0-to-1]
             [polylith.clj.core.ws-file.from-1-to-2.converter :as from-1-to-2]
             [polylith.clj.core.ws-file.from-2-to-3.converter :as from-2-to-3]
+            [polylith.clj.core.ws-file.messages :as messages]
             [polylith.clj.core.ws-file.version-converter :as version-converter]
             [polylith.clj.core.file.interface :as file]
             [polylith.clj.core.common.interface :as common]))
@@ -26,6 +27,7 @@
                               from-0-to-1? (from-0-to-1/convert)
                               from-1-to-2? (from-1-to-2/convert)
                               from-2-to-3? (from-2-to-3/convert)
+                              true (messages/clean-messages)
                               true (version-converter/convert))]
         (if is-no-changes
           (-> workspace
