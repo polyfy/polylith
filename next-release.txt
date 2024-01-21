@@ -17,4 +17,5 @@ Other improvements
   - An interface can be given when creating a project.
   - Fixed three broken images on the Testing page.
   - Custom data can be stored in the :custom key in workspace.edn and in config.edn files under each project or brick.
-  - The workspace structure is updated. Brick and project configurations have moved into each brick and project, and profile config has moved to :profiles at the root. Type 'poly doc page:versions' for details.
+  - The workspace structure is updated. Brick and project configurations have moved into each brick and project,
+    and profile config has moved to :profiles at the root. Type 'poly doc page:versions' for details.
