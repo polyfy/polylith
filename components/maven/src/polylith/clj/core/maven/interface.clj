@@ -1,4 +1,4 @@
-(ns polylith.clj.core.maven.interface
+(ns ^:no-doc polylith.clj.core.maven.interface
   (:require [polylith.clj.core.maven.core :as core]))
 
 (defn latest-lib [coord1 coord2 mvn-key]

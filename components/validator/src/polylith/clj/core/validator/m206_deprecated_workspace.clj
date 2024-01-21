@@ -1,4 +1,4 @@
-(ns polylith.clj.core.validator.m206-deprecated-workspace
+(ns ^:no-doc polylith.clj.core.validator.m206-deprecated-workspace
   (:require [polylith.clj.core.common.interface :as common]
             [polylith.clj.core.util.interface :as util]))
 

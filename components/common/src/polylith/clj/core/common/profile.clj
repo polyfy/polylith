@@ -1,4 +1,4 @@
-(ns polylith.clj.core.common.profile)
+(ns ^:no-doc polylith.clj.core.common.profile)
 
 (defn profile-sorting [{:keys [name]} default-profile-name]
   [(not= default-profile-name name) name])
