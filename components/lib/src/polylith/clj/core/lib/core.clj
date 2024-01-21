@@ -25,7 +25,7 @@
     (latest-with-sizes ws-dir entity-root-path (get-in config dep-keys) user-home)))
 
 (defn lib->deps [ws-dir ws-type]
-  (let [{:keys [deps]} (config-reader/read-project-dev-config-file ws-dir ws-type)]
+  (let [{:keys [deps]} (config-reader/read-development-config-files ws-dir ws-type)]
     (util/stringify-and-sort-map (merge (-> deps :aliases :test :extra-deps)
                                         (-> deps :aliases :dev :extra-deps)))))
 

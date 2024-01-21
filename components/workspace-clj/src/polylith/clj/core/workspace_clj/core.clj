@@ -117,7 +117,7 @@
         bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns base-configs bricks)
         name->brick (into {} (comp cat (map (juxt :name identity))) [components bases])
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
-        [project-configs project-errors] (config-reader/read-project-dep-config-files ws-dir ws-type)
+        [project-configs project-errors] (config-reader/read-project-config-files ws-dir ws-type)
         projects (projects-from-disk/read-projects ws-dir name->brick project->settings user-input user-home suffixed-top-ns interface-ns project-configs)
         profiles (profile/profiles ws-dir default-profile-name aliases name->brick user-home)
         ws-local-dir (->ws-local-dir ws-dir)
@@ -178,7 +178,7 @@
                   (config-reader/file-exists? ws-file :workspace) :toolsdeps2
                   (config-reader/file-exists? deps-file :development) :toolsdeps1)]
     (when ws-type
-      (let [{:keys [deps error]} (config-reader/read-project-dev-config-file ws-dir ws-type)
+      (let [{:keys [deps error]} (config-reader/read-development-config-files ws-dir ws-type)
             {:keys [aliases polylith]} deps
             [ws-config ws-error] (if (or error
                                          (= :toolsdeps2 ws-type))
