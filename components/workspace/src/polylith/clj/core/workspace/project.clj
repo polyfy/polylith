@@ -76,7 +76,8 @@
                                                            type
                                                            {:src (select/lib-deps project-lib-entries c/src?)
                                                             :test (select/lib-deps project-lib-entries c/test?)}
-                                                           outdated-libs library->latest-version
+                                                           outdated-libs
+                                                           library->latest-version
                                                            user-input
                                                            name-type->keep-lib-version)
         src-paths (select/paths path-entries c/src?)
