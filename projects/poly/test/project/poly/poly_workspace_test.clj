@@ -118,8 +118,7 @@
           "  org.clojure/clojure          1.11.1     maven  4,008    x      x      x      -        -       .  .  .  .  .  .  .  .  .  ."
           "  org.clojure/tools.deps       0.18.1398  maven     58    x      x      x      -        -       .  x  x  .  .  .  .  .  x  ."
           "  org.jline/jline              3.25.0     maven  1,226    x      x      x      -        -       .  .  .  .  .  x  .  .  .  ."
-          "  org.slf4j/slf4j-nop          2.0.11     maven      4    x      x      -      -        -       .  .  .  .  .  .  .  .  .  ."
-          "  org.slf4j/slf4j-nop          2.0.9      maven      4    -      -      x      -        -       .  .  .  .  .  .  .  .  .  ."
+          "  org.slf4j/slf4j-nop          2.0.11     maven      4    x      x      x      -        -       .  .  .  .  .  .  .  .  .  ."
           "  pjstadig/humane-test-output  0.11.0     maven      7    t      -      -      -        -       .  .  .  .  .  .  .  .  .  ."
           "  rewrite-clj/rewrite-clj      1.1.47     maven     73    -      -      x      -        -       .  .  .  .  .  .  .  .  .  ."
           "  zprint/zprint                1.2.8      maven    211    x      x      x      -        -       .  .  .  .  x  .  .  .  .  ."]
@@ -1125,7 +1124,6 @@
                  "malli.error"
                  "malli.util"
                  "me.raynes.fs"
-                 "org.eclipse.aether.util.version"
                  "org.jline.reader"
                  "org.jline.reader.impl"
                  "org.jline.terminal"
