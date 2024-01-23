@@ -1,4 +1,4 @@
 {:paths ["src"]
- :deps {metosin/malli {:mvn/version "0.13.0"}}
+ :deps {metosin/malli {:mvn/version "0.14.0"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {}}}}

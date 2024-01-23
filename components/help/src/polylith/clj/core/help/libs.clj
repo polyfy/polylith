@@ -14,7 +14,7 @@
        "    " (s/key ":update" cm) "   = Updates all libraries to the latest version. If " (s/key "LIBS" cm) " is given,\n"
        "                then only update selected libraries.\n"
        "                Old library versions can be kept by giving the library as a symbol in\n"
-       "                " (s/key ":keep-lib-versions" cm) " for bricks and projects in workspace.edn.\n"
+       "                " (s/key ":keep-lib-versions" cm) " for bricks and projects in their config.edn files.\n"
        "\n"
        (if extended?
             (str "    " (s/key "FILENAME" cm) "  = The name of the text or image file to create, containing the\n"

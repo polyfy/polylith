@@ -1,28 +1,33 @@
 (ns ^:no-doc polylith.clj.core.maven.core
-  (:import [org.eclipse.aether.util.version GenericVersionScheme]))
+  (:require [clojure.string :as str]))
 
-(defonce version-scheme (GenericVersionScheme.))
+(defn values [val]
+  (try
+    (Long/parseLong val)
+    (catch NumberFormatException _
+      val)))
 
-(defn version [ver]
-  (when ver
-    (.toString (.parseVersion ^GenericVersionScheme version-scheme ver))))
+(defn as-vals [version]
+  (when version
+    (mapv values (str/split (str version) #"\."))))
+
+(defn sort-libs [coord1 coord2 mvn-key]
+  (let [v1 (-> coord1 mvn-key as-vals)
+        v2 (-> coord2 mvn-key as-vals)]
+    (if (and v1 v2)
+      (if (< (compare v1 v2) 0)
+        [coord1 coord2]
+        [coord2 coord1])
+      (if v1
+        [coord1 coord2]
+        [coord2 coord1]))))
 
 (defn latest-lib
   "Return the latest Maven library version."
   [coord1 coord2 mvn-key]
-  (let [v1 (version (mvn-key coord1))
-        v2 (version (mvn-key coord2))]
-    (if (and v1 v2)
-      (if (< (compare v1 v2) 0)
-        coord2 coord1)
-      (if v1 coord1 coord2))))
+  (second (sort-libs coord1 coord2 mvn-key)))
 
 (defn oldest-lib
   "Return the oldest Maven library version."
   [coord1 coord2 mvn-key]
-  (let [v1 (version (mvn-key coord1))
-        v2 (version (mvn-key coord2))]
-    (if (and v1 v2)
-      (if (< (compare v1 v2) 0)
-        coord1 coord2)
-      (if v1 coord1 coord2))))
+  (first (sort-libs coord1 coord2 mvn-key)))

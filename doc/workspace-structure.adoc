@@ -606,7 +606,7 @@ poly ws get:projects:user-service
  :type "project"}
 ----
 
-* `:alias` The alias that is specified in `:projects` in `workspace.edn` for this project. Configured in the project's config.edn file.
+* `:alias` The project alias, specified in the project's config.edn file.
 
 * `:base-names`
 ** `:src` The bases that are included in the project for the `src` context, either as paths or included as `:local/root`.
@@ -680,6 +680,7 @@ If `:mvn/repos` is specified by a brick that is included in this project, then i
 
 * `:project-lib-deps`
 ** `:src` Stores a map with the libraries that are specified by the project for the src context.
+*** `:latest-version` Set if there is a newer version of this library, except if xref:keep-lib-versions[:keep-lib-versions] is set for this library. Calculated if `:outdated` is given for any command, or if `:update` is given for the libs command.
 *** `:size` The size of this library in bytes.
 *** `:type` The type of the library, "maven", "local" or "git" (`:mvn/version`, `:local/root` and `:git/url`).
 *** `:version` The library version:

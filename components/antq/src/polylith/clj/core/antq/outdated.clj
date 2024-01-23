@@ -15,12 +15,19 @@
   (let [{:keys [bases components projects]} configs]
     (concat bases components projects)))
 
-(defn oldest-lib-version [result [k v2]]
+(defn oldest-lib-version [result [lib v2]]
   (if (:mvn/version v2)
-    (let [v1 (result k v2)
+    (let [v1 (result lib v2)
           v (maven/oldest-lib v1 v2 :mvn/version)]
-      (assoc result k v))
-    (assoc result k v2)))
+      (assoc result lib v))
+    result))
+
+(defn dependencies [{:keys [name type deps]}]
+  (if (and (= "project" type)
+           (= "development" name))
+    (concat (-> deps :aliases :dev :extra-deps)
+            (-> deps :aliases :test :extra-deps))
+    (:deps deps)))
 
 (defn library->latest-version
   "Returns a map where the key is [lib-name lib-version]
@@ -30,6 +37,6 @@
     (into {} (map key-value)
           (antq/outdated-deps
             {:deps (into {} (reduce oldest-lib-version {}
-                                    (mapcat #(map identity (-> % :deps :deps))
+                                    (mapcat dependencies
                                             (entity-configs configs))))}))
     {}))
