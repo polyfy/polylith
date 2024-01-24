@@ -164,8 +164,6 @@
                          :class-dir class-dir
                          :jar-file jar-file
                          :lib lib
-                         :licenses {:license {:name "Eclipse Public License 1.0"
-                                              :url "https://opensource.org/license/epl-1-0"}}
                          :scm {:tag (if (= "SNAPSHOT" version/revision)
                                       (latest-committed-sha)
                                       (str "v" version/name))

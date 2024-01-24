@@ -11,4 +11,10 @@
   <scm>
     <tag></tag>
   </scm>
+  <licenses>
+    <license>
+      <name>Eclipse Public License 1.0</name>
+      <url>https://opensource.org/license/epl-1-0</url>
+    </license>
+</licenses>
 </project>
