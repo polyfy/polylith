@@ -68,6 +68,12 @@
       (println (str "\n" (color/ok color-mode result-str))))))
 
 (defn create
+  "The arguments to this function form an implicit contract with any third
+   party test runners. In particular, changes to this function need to be
+   reflected in:
+   * https://github.com/imrekoszo/polylith-kaocha
+   * https://github.com/seancorfield/polylith-external-test-runner
+   and any others that get built by the community."
   [{:keys [workspace project]}]
   (let [{:keys [bases components]} workspace
         {:keys [name bricks-to-test projects-to-test namespaces paths]} project
