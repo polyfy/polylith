@@ -9,7 +9,7 @@
     :update   = Updates all libraries to the latest version. If LIBS is given,
                 then only update selected libraries.
                 Old library versions can be kept by giving the library as a symbol in
-                :keep-lib-versions for bricks and projects in workspace.edn.
+                :keep-lib-versions for bricks and projects in their config.edn files.
 
     FILENAME  = The name of the text file to create, containing the
                 output from this command.

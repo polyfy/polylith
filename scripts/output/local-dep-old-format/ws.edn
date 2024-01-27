@@ -380,6 +380,12 @@
    :implementing-components ["without-src"]}],
  :messages
  [{:type "warning",
+   :code 206,
+   :message
+   "This workspace is deprecated. As of version 0.2.19, brick and project configurations are stored in config.edn files under each base/component/project. Execute the 'migrate' command to migrate the workspace, or create those files manually and remove the :bricks and :projects keys from workspace.edn to get rid of this warning.",
+   :colorized-message
+   "This workspace is deprecated. As of version 0.2.19, brick and project configurations are stored in config.edn files under each base/component/project. Execute the 'migrate' command to migrate the workspace, or create those files manually and remove the :bricks and :projects keys from workspace.edn to get rid of this warning."}
+  {:type "warning",
    :code 207,
    :message
    "Unnecessary components were found in the invoicing project and may be removed: datomic-ions, without-src. To ignore this warning, execute 'poly help check' and follow the instructions for warning 207.",
@@ -866,8 +872,8 @@
    :minor 2,
    :patch 19,
    :revision "SNAPSHOT",
-   :date "2024-01-20",
-   :snapshot 1},
+   :date "2024-01-23",
+   :snapshot 2},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
   :ws {:breaking 3, :non-breaking 0},

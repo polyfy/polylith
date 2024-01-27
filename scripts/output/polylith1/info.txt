@@ -1,7 +1,7 @@
   stable since: 40d2f62 | stable-master                                           
                                                                                   
-  projects: 3   interfaces: 35                                                    
-  bases:    2   components: 37                                                    
+  projects: 3   interfaces: 37                                                    
+  bases:    2   components: 39                                                    
                                                                                   
   active profiles: default                                                        
                                                                                   
@@ -28,7 +28,9 @@
   help                      help                       s--    s--    s--     --   
   image-creator             image-creator              s--    ---    s--     --   
   image-creator             image-creator-x            ---    s--    ---     s-   
+  info                      info                       st-    s--    st-     --   
   lib                       lib                        st-    s--    st-     --   
+  maven                     maven                      s--    s--    s--     --   
   migrator                  migrator                   s--    s--    s--     --   
   overview                  overview                   s--    s--    s--     --   
   path-finder               path-finder                st-    s--    st-     --   
@@ -52,5 +54,3 @@
   ws-file                   ws-file                    s--    s--    s--     --   
   -                         nav-generator              s--    ---    s--     --   
   -                         poly-cli                   st-    s--    st-     --   
-
-  Warning 206: This workspace is deprecated. As of version 0.2.19, brick and project configurations are stored in config.edn files under each base/component/project. Execute the 'migrate' command to migrate the workspace, or create those files manually and remove the :bricks and :projects keys from workspace.edn to get rid of this warning.
