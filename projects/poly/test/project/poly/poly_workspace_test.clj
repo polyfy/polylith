@@ -1394,6 +1394,19 @@
          (run-cmd "examples/profiles"
                   "libs" "skip:dev"))))
 
+(deftest test-runner-inherit-test-runner-from-global
+  (is (= ["{:create-test-runner"
+          " [org.corfield.external-test-runner.interface/create]}"]
+         (run-cmd "examples/test-runners"
+                  "ws"
+                  "get:projects:inherit-from-global:test"))))
+
+#_(deftest test-runner-override-global-test-runner
+    (is (= ["{:create-test-runner [polylith-kaocha.test-runner/create]}"]
+           (run-cmd "examples/test-runners"
+                    "ws"
+                    "get:projects:override:test"))))
+
 (defn clean-settings [ws]
   (let [vcs (dissoc (:vcs ws) :branch :stable-since)]
     (dissoc (assoc ws :vcs vcs)
