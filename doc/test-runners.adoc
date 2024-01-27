@@ -144,7 +144,7 @@ Add a `:test` key in the project's `config.edn` to select project-specific test 
 [source,clojure]
 ----
 {:alias "baz"
- ; Use both the poly default and the example test runner for this project
+ ; Use both the poly default and the external test runner for this project
  :test {:create-test-runner [:default
                              org.corfield.external-test-runner.interface/create]}
 }
