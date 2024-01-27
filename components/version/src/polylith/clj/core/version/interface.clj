@@ -25,7 +25,7 @@
 (def minor 2)
 (def patch 19)
 (def revision SNAPSHOT) ;; Set to SNAPSHOT or RELEASE.
-(def snapshot 1) ;; Increase by one for every snapshot release, or set to 0 if a release.
+(def snapshot 2) ;; Increase by one for every snapshot release, or set to 0 if a release.
 (def snapshot? (= SNAPSHOT revision))
 
 (def name-without-rev (str major "." minor "." patch))
