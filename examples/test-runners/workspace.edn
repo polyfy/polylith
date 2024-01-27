@@ -1,0 +1,9 @@
+{:top-namespace "se.external"
+ :interface-ns "interface"
+ :default-profile-name "default"
+ :compact-views #{}
+ :test {:create-test-runner [org.corfield.external-test-runner.interface/create]}
+ :vcs {:name "git"
+       :auto-add false}
+ :tag-patterns {:stable "stable-*"
+                :release "v[0-9]*"}}

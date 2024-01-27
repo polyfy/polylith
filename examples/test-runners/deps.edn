@@ -1,0 +1,13 @@
+{:aliases  {:dev {:extra-paths ["development/src"]
+
+                  :extra-deps {poly/invoicer {:local/root "components/invoicer"}
+
+                               org.clojure/clojure {:mvn/version "1.11.1"}}}
+
+            :test {:extra-paths []}
+
+            :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                   :extra-deps {io.github.seancorfield/polylith-external-test-runner
+                                {:git/tag "v0.4.0" :git/sha "eb954fe"
+                                 :deps/root "projects/runner"}
+                                polylith/clj-poly {:local/root "../../projects/poly"}}}}}
