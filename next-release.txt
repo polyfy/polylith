@@ -5,9 +5,10 @@ Included in 0.2.19-SNAPSHOT:
  -----  --------------------------------------------------------------------------------------------------------------------
   315   Store project and brick configuration in separate files.
 
-  PR    Author        Description
- -----  ------------  ----------------------------------------------------------------------------
-
+  PR    Author          Description
+ -----  --------------  ----------------------------------------------------------------------------
+  426   Sean Corfield   Link to affected 3rd party test runners in docstring
+  427   Sean Corfield   Restore global test configuration
 
 Other improvements
  --------------------------------------------------------------------------------------------------------------------
