@@ -1,0 +1,6 @@
+Projects to run tests from: multiple-test-runners
+
+Could not create valid test runner for the multiple-test-runners project: java.io.FileNotFoundException: Could not locate org/corfield/external_test_runner/interface__init.class, org/corfield/external_test_runner/interface.clj or org/corfield/external_test_runner/interface.cljc on classpath. Please check that namespaces with dashes use underscores in the Clojure file name.
+Could not locate org/corfield/external_test_runner/interface__init.class, org/corfield/external_test_runner/interface.clj or org/corfield/external_test_runner/interface.cljc on classpath. Please check that namespaces with dashes use underscores in the Clojure file name.
+
+# Exit code: 1
