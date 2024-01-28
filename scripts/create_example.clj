@@ -471,12 +471,10 @@
 
 (defn test-runners [{:keys [examples-dir output-dir]}]
   (let [ws-dir (fs/file examples-dir "test-runners")
+        poly (fn-default-opts sh/poly-clojure {:dir ws-dir :continue true :alter-out-fn test-result->output})
         out #(fs/file output-dir "test-runners" %)]
-    (sh/shell "clojure -M:poly test :all color-mode:none"
-              {:dir ws-dir
-               :continue true
-               :alter-out-fn test-result->output
-               :out (out "test-runners.txt")})))
+    (poly {:out (out "test-runners.txt")}
+          "test :all color-mode:none")))
 
 (defn -main [& args]
   (let [ids (mapv #(if (keyword? %) % (keyword %)) args) ;; ids to run, all if non specified, handy for dev tests

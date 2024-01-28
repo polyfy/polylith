@@ -1,6 +1,33 @@
-Projects to run tests from: multiple-test-runners
+Projects to run tests from: inherit-from-global, multiple-test-runners
 
-Could not create valid test runner for the multiple-test-runners project: java.io.FileNotFoundException: Could not locate org/corfield/external_test_runner/interface__init.class, org/corfield/external_test_runner/interface.clj or org/corfield/external_test_runner/interface.cljc on classpath. Please check that namespaces with dashes use underscores in the Clojure file name.
-Could not locate org/corfield/external_test_runner/interface__init.class, org/corfield/external_test_runner/interface.clj or org/corfield/external_test_runner/interface.cljc on classpath. Please check that namespaces with dashes use underscores in the Clojure file name.
+Running tests for the inherit-from-global project using test runner: Polylith org.corfield.external-test-runner...
+Running tests from the inherit-from-global project, including 1 brick: invoicer
 
-# Exit code: 1
+Testing se.external.invoicer.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+Running tests for the multiple-test-runners project using test runner: Polylith built-in clojure.test runner...
+Running tests from the multiple-test-runners project, including 1 brick: invoicer
+
+Testing se.external.invoicer.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+Running tests for the multiple-test-runners project using test runner: Polylith org.corfield.external-test-runner...
+Running tests from the multiple-test-runners project, including 1 brick: invoicer
+
+Testing se.external.invoicer.interface-test
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+
+Test results: 1 passes, 0 failures, 0 errors.
+
+Execution time: x seconds
+
+# Exit code: 0
