@@ -469,6 +469,15 @@
     (poly {:out (out "failing-test-and-teardown-fails-stops-entire-test-run.txt")}
           "test :all project:failing-test-teardown-fails:okay color-mode:none")))
 
+(defn test-runners [{:keys [examples-dir output-dir]}]
+  (let [ws-dir (fs/file examples-dir "test-runners")
+        out #(fs/file output-dir "test-runners" %)]
+    (sh/shell "clojure -M:poly test :all color-mode:none"
+              {:dir ws-dir
+               :continue true
+               :alter-out-fn test-result->output
+               :out (out "test-runners.txt")})))
+
 (defn -main [& args]
   (let [ids (mapv #(if (keyword? %) % (keyword %)) args) ;; ids to run, all if non specified, handy for dev tests
         start-time-ms (System/currentTimeMillis)
@@ -514,11 +523,12 @@
                                   ["Copy doc-example" #(copy-doc-example opts)]]]
 
                        ;; Stand-alone tasks (can run independently)
-                       [:realworld   [["Realworld example app" #(real-world-example (merge default-opts {:ws-parent-dir (fs/file work-dir "ws2")}))]]]
-                       [:migrate     [["Migrate polylith" #(migrate (merge default-opts {:ws-parent-dir (fs/file work-dir "ws1")}))]]]
-                       [:usermanager [["Usermanager" #(usermanager (merge default-opts {:ws-parent-dir (fs/file work-dir "ws3")}))]]]
-                       [:local-dep   [["examples/local-dep" #(example-localdep (merge default-opts {:ws-parent-dir (fs/file work-dir "ws4")}))]]]
-                       [:for-test    [["examples/for-test, issue 208 - Mix clj and cljc source directories" #(for-test default-opts)]]]]
+                       [:realworld    [["Realworld example app" #(real-world-example (merge default-opts {:ws-parent-dir (fs/file work-dir "ws2")}))]]]
+                       [:migrate      [["Migrate polylith" #(migrate (merge default-opts {:ws-parent-dir (fs/file work-dir "ws1")}))]]]
+                       [:usermanager  [["Usermanager" #(usermanager (merge default-opts {:ws-parent-dir (fs/file work-dir "ws3")}))]]]
+                       [:local-dep    [["examples/local-dep" #(example-localdep (merge default-opts {:ws-parent-dir (fs/file work-dir "ws4")}))]]]
+                       [:for-test     [["examples/for-test, issue 208 - Mix clj and cljc source directories" #(for-test default-opts)]]]
+                       [:test-runners [["examples/test-runners" #(test-runners default-opts)]]]]
 
           valid-ids (mapv first task-groups)
 
