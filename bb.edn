@@ -49,6 +49,8 @@
   update-commands-doc {:doc "Run help-txt then help-doc"
                        :depends [help-txt help-doc]}
 
+  ;; Example of stand-alone command (see end of create_example/-main for list of commands):
+  ;;   bb create-example migrate
   create-example {:doc "Creates and exercises examples workspaces (also generates some doc images and doc code blocks)"
                   :depends [poly-uberjar polyx-uberjar]
                   :requires [create-example]
