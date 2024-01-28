@@ -346,23 +346,41 @@
         (polys opts "libs" (out-txt out-fname) (out-png "libraries" out-fname))
         (shell "git restore" deps-fname)))))
 
-(defn polylith-toolsdeps1 [{:keys [ws-parent-dir output-dir]}]
+(defn migrate [{:keys [ws-parent-dir output-dir]}]
   (let [ws-dir (fs/file ws-parent-dir "polylith")
         shell (fn-default-opts sh/shell {:dir ws-dir})
         poly (fn-default-opts sh/poly {:dir ws-dir})
-        out #(fs/file output-dir "polylith1" %)]
+        out #(fs/file output-dir "migrate" %)]
     (fs/create-dir ws-parent-dir)
     (shell {:dir ws-parent-dir} "git clone https://github.com/polyfy/polylith.git")
-    (poly {:out (out "info.txt")} "info fake-sha:40d2f62 :no-changs color-mode:none")
+    ;; 1. Checkout latest workspace structure 0.x
+    (shell "git checkout v0.1.0-alpha9")
     (shell "clojure -A:dev:test -P")
-    (poly {:out (out "libs.txt")} "libs color-mode:none")
-    (poly {:out (out "deps.txt")} "deps color-mode:none")
+    (status/line :head "Read workspace 0.0")
+    (poly {:out (out "info-0.txt")} "info fake-sha:40d2f62 :no-changs color-mode:none")
+    (poly {:out (out "libs-0.txt")} "libs color-mode:none")
+    (poly {:out (out "deps-0.txt")} "deps color-mode:none")
 
-    (status/line :head "Polylith toolsdeps1 (migrated)")
+    ;; 2. Checkout latest workspace structure 1.x
+    (status/line :head "Read workspace 1.2")
+    (shell "git checkout v0.2.16-alpha")
+    (poly {:out (out "info-1.txt")} "info fake-sha:40d2f62 :no-changes color-mode:none")
+    (poly {:out (out "libs-1.txt")} "libs color-mode:none")
+    (poly {:out (out "deps-1.txt")} "deps color-mode:none")
+
+    ;; 3. Checkout latest workspace structure 2.x
+    (status/line :head "Read workspace 2.0")
+    (shell "git checkout v0.2.18")
+    (poly {:out (out "info-2.txt")} "info fake-sha:40d2f62 :no-changes color-mode:none")
+    (poly {:out (out "libs-2.txt")} "libs color-mode:none")
+    (poly {:out (out "deps-2.txt")} "deps color-mode:none")
+
+    ;; 4. Migrate from 2.x to 3.x
+    (status/line :head "Migrate from workspace structure 2.0 to 3.0")
     (poly "migrate")
-    (poly {:out (out "info-migrated.txt")} "info fake-sha:40d2f62 :no-changes color-mode:none")
-    (poly {:out (out "libs-migrated.txt")} "libs color-mode:none")
-    (poly {:out (out "deps-migrated.txt")} "deps color-mode:none")))
+    (poly {:out (out "info-3.txt")} "info fake-sha:40d2f62 :no-changes color-mode:none")
+    (poly {:out (out "libs-3.txt")} "libs color-mode:none")
+    (poly {:out (out "deps-3.txt")} "deps color-mode:none")))
 
 (defn usermanager [{:keys [ws-parent-dir output-dir]}]
   (let [ws-dir (fs/file ws-parent-dir "usermanager-example")
@@ -495,7 +513,7 @@
 
                        ;; Stand-alone tasks (can run independently)
                        [:realworld   [["Realworld example app" #(real-world-example (merge default-opts {:ws-parent-dir (fs/file work-dir "ws2")}))]]]
-                       [:poly        [["Polylith toolsdeps1" #(polylith-toolsdeps1 (merge default-opts {:ws-parent-dir (fs/file work-dir "ws1")}))]]]
+                       [:migrate     [["Migrate polylith" #(migrate (merge default-opts {:ws-parent-dir (fs/file work-dir "ws1")}))]]]
                        [:usermanager [["Usermanager" #(usermanager (merge default-opts {:ws-parent-dir (fs/file work-dir "ws3")}))]]]
                        [:local-dep   [["examples/local-dep" #(example-localdep (merge default-opts {:ws-parent-dir (fs/file work-dir "ws4")}))]]]
                        [:for-test    [["examples/for-test, issue 208 - Mix clj and cljc source directories" #(for-test default-opts)]]]]

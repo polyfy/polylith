@@ -1,7 +1,7 @@
-  stable since: 40d2f62 | stable-master                                           
+  stable since: 40d2f62                                                           
                                                                                   
-  projects: 3   interfaces: 37                                                    
-  bases:    2   components: 39                                                    
+  projects: 3   interfaces: 35                                                    
+  bases:    2   components: 37                                                    
                                                                                   
   active profiles: default                                                        
                                                                                   
@@ -28,9 +28,7 @@
   help                      help                       s--    s--    s--     --   
   image-creator             image-creator              s--    ---    s--     --   
   image-creator             image-creator-x            ---    s--    ---     s-   
-  info                      info                       st-    s--    st-     --   
   lib                       lib                        st-    s--    st-     --   
-  maven                     maven                      s--    s--    s--     --   
   migrator                  migrator                   s--    s--    s--     --   
   overview                  overview                   s--    s--    s--     --   
   path-finder               path-finder                st-    s--    st-     --   
