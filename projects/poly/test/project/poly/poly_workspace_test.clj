@@ -1401,6 +1401,7 @@
                   "ws"
                   "get:projects:inherit-from-global:test"))))
 
+;; todo: Activate this test when the Kaocha test runner support 0.2.19.
 #_(deftest test-runner-override-global-test-runner
     (is (= ["{:create-test-runner [polylith-kaocha.test-runner/create]}"]
            (run-cmd "examples/test-runners"

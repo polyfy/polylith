@@ -90,24 +90,6 @@
                            :non-breaking 0}})
     (version/version)))
 
-(defn- convert-test [global-test {:keys [test] :as project-settings}]
-  (cond-> project-settings
-
-    ;; Convert from the old test configuration format to the new one.
-    (vector? test)
-    (assoc :test {:include test})
-
-    ;; Merge with the global test configuration.
-    global-test
-    (update :test #(merge global-test %))))
-
-(defn- projects-with-global-test
-  "This function extracts projects from the overall configuration and also
-   augments the :test configuration in each project with any global :test
-   configuration (and converts from the old test settings format, if needed)."
-  [projects {:keys [test]}]
-  (map #(convert-test test %) projects))
-
 (defn toolsdeps-ws-from-disk [ws-name
                               ws-type
                               ws-dir
@@ -115,7 +97,7 @@
                               aliases
                               user-input
                               color-mode]
-  (let [{:keys [vcs top-namespace interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views bricks]
+  (let [{:keys [vcs top-namespace test interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views bricks]
          :or   {vcs {:name "git", :auto-add false}
                 compact-views {}
                 default-profile-name "default"
@@ -136,8 +118,7 @@
         name->brick (into {} (comp cat (map (juxt :name identity))) [components bases])
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         [project-configs project-errors] (config-reader/read-project-config-files ws-dir ws-type)
-        projects (-> (projects-from-disk/read-projects ws-dir name->brick project->settings user-input user-home suffixed-top-ns interface-ns project-configs)
-                     (projects-with-global-test ws-config))
+        projects (projects-from-disk/read-projects ws-dir name->brick project->settings user-input user-home suffixed-top-ns interface-ns project-configs test)
         profiles (profile/profiles ws-dir default-profile-name aliases name->brick user-home)
         ws-local-dir (->ws-local-dir ws-dir)
         paths (path-finder/paths ws-dir projects profiles)

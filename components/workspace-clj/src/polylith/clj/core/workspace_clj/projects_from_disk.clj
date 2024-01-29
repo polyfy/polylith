@@ -134,8 +134,14 @@
       (and (-> include nil? not)
            (empty? include))))
 
+(defn merge-with-global [project-test-settings global-test-settings]
+  (merge (if (vector? global-test-settings)
+           {:include test}
+           global-test-settings)
+         project-test-settings))
+
 (defn read-project
-  ([{:keys [deps project-name project-dir project-config-dir is-dev] :as config} ws-dir name->brick project->settings user-home suffixed-top-ns interface-ns]
+  ([{:keys [deps project-name project-dir project-config-dir is-dev] :as config} ws-dir name->brick project->settings user-home suffixed-top-ns interface-ns global-test-settings]
    (let [{:keys [paths deps override-deps aliases mvn/repos]} deps
          project-src-paths (cond-> paths is-dev (concat (-> aliases :dev :extra-paths)))
          project-src-deps (cond-> deps is-dev (merge (-> aliases :dev :extra-deps)))
@@ -148,15 +154,16 @@
      (read-project ws-dir name->brick project-name project-dir project-config-dir is-dev maven-repos
                    project->settings user-home project-src-paths project-src-deps project-test-paths
                    project-test-deps override-src-deps override-test-deps suffixed-top-ns interface-ns
-                   config)))
+                   config global-test-settings)))
   ([ws-dir name->brick project-name project-dir project-config-dir is-dev maven-repos
     project->settings user-home project-src-paths project-src-deps project-test-paths
     project-test-deps override-src-deps override-test-deps suffixed-top-ns interface-ns
-    config]
+    config global-test-settings]
    (let [src-paths (src-paths-from-bricks project-name is-dev name->brick project-src-paths project-src-deps)
          [src-lib-deps src-project-lib-deps] (src-lib-deps-from-bricks ws-dir project-name is-dev user-home name->brick project-src-deps override-src-deps)
          project-settings (get project->settings project-name)
-         test (config/settings-value :test config project-settings)
+         test (-> (config/settings-value :test config project-settings)
+                  (merge-with-global global-test-settings))
          skip-all? (skip-all-tests? test)
          test-paths (if skip-all? [] (test-paths-from-bricks project-name is-dev name->brick project-test-paths project-src-deps project-test-deps))
          [test-lib-deps test-project-lib-deps] (if skip-all? [[][]] (test-lib-deps-from-bricks ws-dir project-name is-dev name->brick user-home project-src-deps project-test-deps override-src-deps override-test-deps))
@@ -193,9 +200,9 @@
            (contains? skip (:alias config))
            (contains? skip (get-in project->settings [project-name :alias])))))
 
-(defn read-projects [ws-dir name->brick project->settings user-input user-home suffixed-top-ns interface-ns configs]
+(defn read-projects [ws-dir name->brick project->settings user-input user-home suffixed-top-ns interface-ns configs global-test-settings]
   (let [skip (if user-input (-> user-input :skip set) #{})]
     (into []
           (comp (filter #(keep? % project->settings skip))
-                (keep #(read-project % ws-dir name->brick project->settings user-home suffixed-top-ns interface-ns)))
+                (keep #(read-project % ws-dir name->brick project->settings user-home suffixed-top-ns interface-ns global-test-settings)))
           configs)))
