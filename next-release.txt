@@ -3,7 +3,8 @@ Included in 0.2.19-SNAPSHOT:
 
  Issue  Description
  -----  --------------------------------------------------------------------------------------------------------------------
-  315   Store project and brick configuration in separate files.
+  315   Store project and brick configuration in separate files. If you use another test runner than the default,
+        then you have to use the latest Kaocha and/or External test runner.
 
   PR    Author          Description
  -----  --------------  ----------------------------------------------------------------------------
