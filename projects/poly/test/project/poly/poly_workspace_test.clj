@@ -1399,14 +1399,13 @@
           " [org.corfield.external-test-runner.interface/create]}"]
          (run-cmd "examples/test-runners"
                   "ws"
-                  "get:projects:inherit-from-global:test"))))
+                  "get:projects:external-inherit-from-global:test"))))
 
-;; todo: Activate this test when the Kaocha test runner support 0.2.19.
-#_(deftest test-runner-override-global-test-runner
-    (is (= ["{:create-test-runner [polylith-kaocha.test-runner/create]}"]
-           (run-cmd "examples/test-runners"
-                    "ws"
-                    "get:projects:override:test"))))
+(deftest test-runner-override-global-test-runner
+  (is (= ["{:create-test-runner [polylith-kaocha.test-runner/create]}"]
+         (run-cmd "examples/test-runners"
+                  "ws"
+                  "get:projects:kaocha-override-global:test"))))
 
 (defn clean-settings [ws]
   (let [vcs (dissoc (:vcs ws) :branch :stable-since)]
