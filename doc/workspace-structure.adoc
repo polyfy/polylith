@@ -750,6 +750,12 @@ Set to "~/.m2" by default, but can be overridden in `~/.config/polylith/config.e
 
 * `:tag-patterns` The tag patterns that are specified in `workspace.edn`.
 
+* `:test` Global test configuration used as basis for project test configuration (projects will use these settings and override it with its own settings).
+** `:exclude` Specifies which brick should be excluded when running the test command.
+** `:include` Specifies which bricks should be included when running the test command.
+Empty if no bricks, missing if all bricks.
+** `:create-test-runner` A vector with one or more test runners, see xref:test-runners.adoc#create-test-runner[create test runner].
+
 * `:thousand-separator` Used by numbers >= 1000 (e.g. the KB column in the libs command) specified in `~/.config/polylith/config.edn`.
 
 * `:top-namespace` The top namespace for the workspace, specified in `workspace.edn`.
