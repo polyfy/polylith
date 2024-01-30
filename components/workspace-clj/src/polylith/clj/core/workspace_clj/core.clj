@@ -97,7 +97,7 @@
                               aliases
                               user-input
                               color-mode]
-  (let [{:keys [vcs top-namespace test interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views bricks]
+  (let [{:keys [vcs top-namespace interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views bricks test]
          :or   {vcs {:name "git", :auto-add false}
                 compact-views {}
                 default-profile-name "default"
@@ -118,7 +118,7 @@
         name->brick (into {} (comp cat (map (juxt :name identity))) [components bases])
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
         [project-configs project-errors] (config-reader/read-project-config-files ws-dir ws-type)
-        projects (projects-from-disk/read-projects ws-dir name->brick project->settings user-input user-home suffixed-top-ns interface-ns project-configs test)
+        projects (projects-from-disk/read-projects ws-dir name->brick project->settings user-input user-home suffixed-top-ns interface-ns project-configs)
         profiles (profile/profiles ws-dir default-profile-name aliases name->brick user-home)
         ws-local-dir (->ws-local-dir ws-dir)
         paths (path-finder/paths ws-dir projects profiles)
@@ -126,6 +126,7 @@
         config-errors (into [] cat [component-errors base-errors project-errors])
         version (->version ws-type)
         settings (util/ordered-map :vcs (git-info ws-dir vcs patterns user-input)
+                                   :test test
                                    :top-namespace top-namespace
                                    :interface-ns interface-ns
                                    :default-profile-name default-profile-name
