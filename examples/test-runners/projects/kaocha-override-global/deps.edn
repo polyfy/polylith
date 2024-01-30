@@ -3,4 +3,8 @@
         org.clojure/clojure {:mvn/version "1.11.1"}}
 
  :aliases {:test {:extra-paths []
-                  :extra-deps {}}}}
+                  :extra-deps {polylith-kaocha/kaocha-wrapper
+                               {:git/url "https://github.com/imrekoszo/polylith-kaocha"
+                                :git/tag "v0.8.4"
+                                :git/sha "f096de8"
+                                :deps/root "projects/kaocha-wrapper"}}}}}
