@@ -1,3 +1,5 @@
 {:alias "multiple"
  :necessary ["invoicer"]
- :test {:create-test-runner [:default org.corfield.external-test-runner.interface/create]}}
+ :test {:create-test-runner [;:default
+                             polylith-kaocha.test-runner/create]}}
+                             ;org.corfield.external-test-runner.interface/create]}}

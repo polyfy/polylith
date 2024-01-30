@@ -1,0 +1,3 @@
+{:alias "override"
+ :necessary ["invoicer"]
+ :test {:create-test-runner [polylith-kaocha.test-runner/create]}}
