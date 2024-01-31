@@ -47,6 +47,14 @@
          (str jar)
          (process/tokenize args)))
 
+(defn poly-clojure
+  "To include extra dependencies that is specified in e.g.
+   examples/test-runners/deps.edn > :aliases > :poly,
+   we need to execute the poly command with the clojure CLI."
+  [shell-opts poly-cmd]
+  (apply shell shell-opts
+         "clojure" "-M:poly" (str/split poly-cmd #" ")))
+
 (defn poly
   "Simulates poly stand-alone launcher"
   [shell-opts poly-cmd]

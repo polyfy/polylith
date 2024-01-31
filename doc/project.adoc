@@ -69,7 +69,6 @@ example
 │               └── example
 │                   └── user
 │                       └── interface_test.clj
-├── config.edn
 ├── deps.edn
 ├── development
 │   ├── config.edn

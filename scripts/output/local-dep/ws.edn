@@ -23,19 +23,14 @@
    :base-deps {:src [], :test []}}],
  :changes
  {:since "stable",
-  :changed-projects ["development" "invoicing"],
+  :changed-projects [],
   :changed-bases [],
   :since-sha "SHA",
-  :changed-files
-  ["deps.edn"
-   "development/config.edn"
-   "projects/invoicing/config.edn"
-   "projects/invoicing/deps.edn"
-   "workspace.edn"],
+  :changed-files [],
   :git-diff-command "git diff SHA --name-only",
   :changed-components [],
   :since-tag "stable-master",
-  :changed-or-affected-projects ["development" "invoicing"]},
+  :changed-or-affected-projects []},
  :components
  [{:lines-of-code {:src 4, :test 6},
    :interface {:name "database", :definitions []},
@@ -508,14 +503,7 @@
    :test
    {:create-test-runner
     [polylith.clj.core.clojure-test-test-runner.interface/create]},
-   :bricks-to-test
-   ["database"
-    "invoicer"
-    "invoicer-cli"
-    "test-helper"
-    "test-helper-db"
-    "util"
-    "without-src"],
+   :bricks-to-test [],
    :deps
    {"invoicer-cli"
     {:src {:direct ["invoicer"], :indirect ["util"]},
@@ -775,8 +763,8 @@
    :minor 2,
    :patch 19,
    :revision "SNAPSHOT",
-   :date "2024-01-20",
-   :snapshot 1},
+   :date "2024-01-30",
+   :snapshot 3},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
   :ws {:breaking 3, :non-breaking 0}},

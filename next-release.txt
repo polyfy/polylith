@@ -3,11 +3,13 @@ Included in 0.2.19-SNAPSHOT:
 
  Issue  Description
  -----  --------------------------------------------------------------------------------------------------------------------
-  315   Store project and brick configuration in separate files.
+  315   Store project and brick configuration in separate files. If you use another test runner than the default,
+        then you have to use the latest Kaocha and/or External test runner.
 
-  PR    Author        Description
- -----  ------------  ----------------------------------------------------------------------------
-
+  PR    Author          Description
+ -----  --------------  ----------------------------------------------------------------------------
+  426   Sean Corfield   Link to affected 3rd party test runners in docstring
+  427   Sean Corfield   Restore global test configuration
 
 Other improvements
  --------------------------------------------------------------------------------------------------------------------
@@ -15,8 +17,10 @@ Other improvements
     each project (and sometimes under bricks).
   - Show warning 206 - Deprecated workspace, if the workspace doesn't store project and brick configuration in config.edn files.
   - An alias can be given when creating a project.
+  - Reintroduced the global :test key in :settings in the workspace structure (taken from workspace.edn).
   - Fixed three broken images on the Testing page.
   - Custom data can be stored in the :custom key in workspace.edn and in config.edn files under each project or brick.
   - Make sure we also update libraries for the development project in the 'poly libs :update' command.
   - The workspace structure is updated. Brick and project configurations have moved into each brick and project,
     and profile config has moved to :profiles at the root. Type 'poly doc page:versions' for details.
+  - The example project examples/test-runners was added.

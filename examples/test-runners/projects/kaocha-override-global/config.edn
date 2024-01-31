@@ -1,0 +1,4 @@
+{:alias "override"
+ :necessary ["invoicer" "test-setup"]
+ :test {:setup-fn se.external.test-setup.interface/setup
+        :create-test-runner [polylith-kaocha.test-runner/create]}}

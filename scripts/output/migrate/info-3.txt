@@ -1,4 +1,4 @@
-  stable since: 40d2f62 | stable-master                                           
+  stable since: 40d2f62                                                           
                                                                                   
   projects: 3   interfaces: 35                                                    
   bases:    2   components: 37                                                    

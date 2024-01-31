@@ -5,6 +5,8 @@
 
 Starting with version `0.2.15`, the `poly` tool lets you choose your test runners.
 
+IMPORTANT: Starting with version `0.2.19`, you need at least `0.8.4` of the Kaocha test runner, and `0.4.0` of the External test runner.
+
 There are two types of test runners: xref:#in-process[in-process] and xref:#external[external].
 
 Polylith comes bundled with an in-process https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/components/clojure-test-test-runner/src/polylith/clj/core/clojure_test_test_runner/core.clj#L85-L99[test runner] that uses https://clojure.github.io/clojure/clojure.test-api.html[Clojure's testing framework].
@@ -91,14 +93,14 @@ An ideal place to do this is the `:poly` alias in your `./deps.edn` file:
     {:mvn/version "{poly-version}"}
 
     io.github.seancorfield/polylith-external-test-runner ;; <1>
-    {:git/tag "v0.3.0" :git/sha "9f6391a"
+    {:git/tag "v0.4.0" :git/sha "eb954fe"
      :deps/root "projects/runner"}
 
     io.github.imrekoszo/polylith-kaocha ;; <2>
-    {:git/tag "v0.8.2" :git/sha "d1fcd40"}
+    {:git/tag "v0.8.4" :git/sha "f096de8"}
 ----
 <1> We've added xref:#sean-external-test-runner[Sean Corfield's external test runner], as one example
-<2> And xref:#imre-kaocha-test-runner[Imre Imre Kószó's Kaocha test runner] as another example
+<2> And xref:#imre-kaocha-test-runner[Imre Imre Kószó's Kaocha test runner] as another example. Don't forget to configure the kaocha-wrapper at the project level, see the documentation or https://github.com/polyfy/polylith/tree/prepare-0219/examples/test-runners[this] example project.
 
 TIP: You can also have your custom test runner within the same Polylith workspace and depend on it via `:local/root`.
 
@@ -144,7 +146,7 @@ Add a `:test` key in the project's `config.edn` to select project-specific test 
 [source,clojure]
 ----
 {:alias "baz"
- ; Use both the poly default and the example test runner for this project
+ ; Use both the poly default and the external test runner for this project
  :test {:create-test-runner [:default
                              org.corfield.external-test-runner.interface/create]}
 }

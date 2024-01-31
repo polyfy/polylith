@@ -144,19 +144,11 @@
          entity-root-path (when (not is-dev) (str "projects/" project-name))
          override-src-deps (lib/latest-with-sizes ws-dir entity-root-path (if is-dev (-> aliases :dev :override-deps) override-deps) user-home)
          override-test-deps (lib/latest-with-sizes ws-dir entity-root-path (-> aliases :test :override-deps) user-home)
-         maven-repos (merge mvn/standard-repos repos)]
-     (read-project ws-dir name->brick project-name project-dir project-config-dir is-dev maven-repos
-                   project->settings user-home project-src-paths project-src-deps project-test-paths
-                   project-test-deps override-src-deps override-test-deps suffixed-top-ns interface-ns
-                   config)))
-  ([ws-dir name->brick project-name project-dir project-config-dir is-dev maven-repos
-    project->settings user-home project-src-paths project-src-deps project-test-paths
-    project-test-deps override-src-deps override-test-deps suffixed-top-ns interface-ns
-    config]
-   (let [src-paths (src-paths-from-bricks project-name is-dev name->brick project-src-paths project-src-deps)
+         maven-repos (merge mvn/standard-repos repos)
+         src-paths (src-paths-from-bricks project-name is-dev name->brick project-src-paths project-src-deps)
          [src-lib-deps src-project-lib-deps] (src-lib-deps-from-bricks ws-dir project-name is-dev user-home name->brick project-src-deps override-src-deps)
          project-settings (get project->settings project-name)
-         test (config/settings-value :test config project-settings)
+         test (-> (config/settings-value :test config project-settings))
          skip-all? (skip-all-tests? test)
          test-paths (if skip-all? [] (test-paths-from-bricks project-name is-dev name->brick project-test-paths project-src-deps project-test-deps))
          [test-lib-deps test-project-lib-deps] (if skip-all? [[][]] (test-lib-deps-from-bricks ws-dir project-name is-dev name->brick user-home project-src-deps project-test-deps override-src-deps override-test-deps))

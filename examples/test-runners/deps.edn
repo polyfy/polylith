@@ -1,0 +1,25 @@
+{:aliases  {:dev {:extra-paths ["development/src"]
+
+                  :extra-deps {poly/invoicer {:local/root "components/invoicer"}
+                               poly/test-setup {:local/root "components/test-setup"}
+
+                               org.clojure/clojure {:mvn/version "1.11.1"}}}
+
+            :test {:extra-paths ["components/invoicer/test"]
+                   :extra-deps {polylith-kaocha/kaocha-wrapper
+                                {:git/url "https://github.com/imrekoszo/polylith-kaocha"
+                                 :git/tag "v0.8.4"
+                                 :git/sha "f096de8"
+                                 :deps/root "projects/kaocha-wrapper"}}}
+
+            :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+                   :extra-deps {polylith-kaocha/test-runner
+                                {:git/url "https://github.com/imrekoszo/polylith-kaocha"
+                                 :git/tag "v0.8.4"
+                                 :git/sha "f096de8"
+                                 :deps/root "projects/test-runner"}
+                                io.github.seancorfield/polylith-external-test-runner
+                                {:git/tag "v0.4.0" :git/sha "eb954fe"
+                                 :deps/root "projects/runner"}
+                                polylith/clj-poly
+                                {:local/root "../../projects/poly"}}}}}

@@ -12,7 +12,7 @@
    ```clojure
    :aliases {:dostuff {...
                        :extra-deps {...
-                                    polylith/clj-poly {:mvn/version \"0.2.18\"}}
+                                    polylith/clj-poly {:mvn/version \"0.2.19\"}}
    ```
 
    ...or by selecting a [sha](https://github.com/polyfy/polylith/commits/master) from
