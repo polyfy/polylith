@@ -447,6 +447,7 @@
         (status/line :head "examples/local-dep-old-format (migrated)")
         (poly "migrate")
         (shell "git add --all")
+        (shell "clojure -A:dev:test -P")
         (poly {:out (out "info-migrated.txt")} "info fake-sha:aaaaa :no-changes color-mode:none")
         (poly {:out (out "libs-migrated.txt")} "libs color-mode:none")
         (poly {:out (out "deps-migrated.txt")} "deps color-mode:none")
