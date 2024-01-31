@@ -1396,13 +1396,15 @@
 
 (deftest test-runner-inherit-test-runner-from-global
   (is (= ["{:create-test-runner"
-          " [org.corfield.external-test-runner.interface/create]}"]
+          " [org.corfield.external-test-runner.interface/create],"
+          " :setup-fn se.external.test-setup.interface/setup}"]
          (run-cmd "examples/test-runners"
                   "ws"
                   "get:projects:external-inherit-from-global:test"))))
 
 (deftest test-runner-override-global-test-runner
-  (is (= ["{:create-test-runner [polylith-kaocha.test-runner/create]}"]
+  (is (= ["{:create-test-runner [polylith-kaocha.test-runner/create],"
+          " :setup-fn se.external.test-setup.interface/setup}"]
          (run-cmd "examples/test-runners"
                   "ws"
                   "get:projects:kaocha-override-global:test"))))
