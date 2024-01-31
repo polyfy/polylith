@@ -1,10 +1,11 @@
 {:aliases  {:dev {:extra-paths ["development/src"]
 
                   :extra-deps {poly/invoicer {:local/root "components/invoicer"}
+                               poly/test-setup {:local/root "components/test-setup"}
 
                                org.clojure/clojure {:mvn/version "1.11.1"}}}
 
-            :test {:extra-paths []
+            :test {:extra-paths ["components/invoicer/test"]
                    :extra-deps {polylith-kaocha/kaocha-wrapper
                                 {:git/url "https://github.com/imrekoszo/polylith-kaocha"
                                  :git/tag "v0.8.4"
