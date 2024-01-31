@@ -68,7 +68,7 @@ Each top-level directory contains a specific Polylith concept:
 
 * A xref:project.adoc[project] specifies a deployable artifact and what components and bases it contains.
 
-* The xref:development.adoc[development] project (`development/` + `deps.edn`) supports working on all code from one place.
+* The xref:development.adoc[development] project (`development/` + `deps.edn`) supports working on all code from one place. The `config.edn` file specifies the project alias ("dev").
 
 This structure gives a consistent shape to all Polylith projects.
 The familiar convention ensures that all developers, be they new or veterans, will quickly get started on Polylith systems that are new to them.
