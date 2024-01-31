@@ -5,6 +5,8 @@
 
 Starting with version `0.2.15`, the `poly` tool lets you choose your test runners.
 
+IMPORTANT: Starting with version `0.2.19`, you need at least `0.8.4` of the Kaocha test runner, and `0.4.0` of the External test runner.
+
 There are two types of test runners: xref:#in-process[in-process] and xref:#external[external].
 
 Polylith comes bundled with an in-process https://github.com/polyfy/polylith/blob/9053b190d5f3b0680ac4fe5c5f1851f7c0d40830/components/clojure-test-test-runner/src/polylith/clj/core/clojure_test_test_runner/core.clj#L85-L99[test runner] that uses https://clojure.github.io/clojure/clojure.test-api.html[Clojure's testing framework].
