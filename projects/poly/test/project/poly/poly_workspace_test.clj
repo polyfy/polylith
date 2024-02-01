@@ -17,9 +17,9 @@
 
 (defn workspace [& args]
   (-> (user-input/extract-arguments (concat ["info" (str "ws-dir:.") "color-mode:none" "since:0aaeb58"] args))
-      ws-clj/workspace-from-disk
-      ws/enrich-workspace
-      change/with-changes))
+      (ws-clj/workspace-from-disk)
+      (ws/enrich-workspace)
+      (change/with-changes)))
 
 (defn run-cmd [ws-dir cmd & args]
   (let [input (user-input/extract-arguments (concat [cmd] args [(str "ws-dir:" ws-dir) "fake-sha:1234567" "fake-tag:" "color-mode:none"]))]
@@ -29,9 +29,9 @@
 
 (defn ws-get [ws-dir ws-param & args]
   (let [workspace (-> (user-input/extract-arguments (concat ["version" (str "ws-dir:" ws-dir) "color-mode:none"] args))
-                      ws-clj/workspace-from-disk
-                      ws/enrich-workspace
-                      change/with-changes)]
+                      (ws-clj/workspace-from-disk)
+                      (ws/enrich-workspace)
+                      (change/with-changes))]
     (get-in workspace ws-param)))
 
 (deftest polylith-project-table
