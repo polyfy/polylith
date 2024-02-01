@@ -1,4 +1,4 @@
-(ns polylith.clj.core.check.interface
+(ns ^:no-doc polylith.clj.core.check.interface
   (:require [polylith.clj.core.check.core :as core]))
 
 (defn check [workspace]

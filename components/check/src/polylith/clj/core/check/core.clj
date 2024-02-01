@@ -1,4 +1,4 @@
-(ns polylith.clj.core.check.core
+(ns ^:no-doc polylith.clj.core.check.core
   (:require [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.validator.interface :as validator]))
 
