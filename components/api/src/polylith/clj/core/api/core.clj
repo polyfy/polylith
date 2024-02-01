@@ -1,6 +1,7 @@
 (ns ^:no-doc polylith.clj.core.api.core
   (:require [clojure.string :as str]
             [polylith.clj.core.change.interface :as change]
+            [polylith.clj.core.check.interface :as check]
             [polylith.clj.core.user-input.interface :as user-input]
             [polylith.clj.core.workspace.interface :as ws]
             [polylith.clj.core.workspace-clj.interface :as ws-clj]
@@ -35,3 +36,7 @@
     (if (empty? keys-str)
       workspace
       (ws-explorer/extract workspace keys-str))))
+
+(defn check [since]
+  (-> (workspace since [])
+      (check/check)))

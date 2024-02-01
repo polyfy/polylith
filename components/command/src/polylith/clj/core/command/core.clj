@@ -1,6 +1,7 @@
 (ns ^:no-doc polylith.clj.core.command.core
   (:require [clojure.string :as str]
             [polylith.clj.core.change.interface :as change]
+            [polylith.clj.core.check.interface :as check]
             [polylith.clj.core.command.cmd-validator.core :as cmd-validator]
             [polylith.clj.core.command.create :as create]
             [polylith.clj.core.command.dependencies :as dependencies]
@@ -17,19 +18,12 @@
             [polylith.clj.core.overview.interface :as overview]
             [polylith.clj.core.shell.interface :as shell]
             [polylith.clj.core.tap.interface :as tap]
-            [polylith.clj.core.util.interface.color :as color]
-            [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.version.interface :as ver]
             [polylith.clj.core.workspace-clj.interface :as ws-clj]
             [polylith.clj.core.workspace.interface :as workspace]
             [polylith.clj.core.ws-file.interface :as ws-file]
             [polylith.clj.core.ws-explorer.interface :as ws-explorer])
   (:refer-clojure :exclude [test]))
-
-(defn check [{:keys [messages] :as workspace} color-mode]
-  (if (empty? messages)
-    (println (color/ok color-mode "OK"))
-    (validator/print-messages workspace)))
 
 (defn diff [workspace]
   (doseq [file (-> workspace :changes :changed-files)]
@@ -104,7 +98,7 @@
           [ok? message] (cmd-validator/validate workspace user-input color-mode)]
       (if ok?
         (case cmd
-          "check" (check workspace color-mode)
+          "check" (check/print-check workspace color-mode)
           "create" (create/create ws-dir workspace args name alias top-ns interface branch is-git-add is-commit color-mode)
           "deps" (dependencies/deps workspace project-name brick-name unnamed-args)
           "doc" (doc/open-doc branch is-local is-github help more page ws unnamed-args)

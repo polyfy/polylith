@@ -74,9 +74,18 @@
    :test-runner version/test-runner-api-version
    :ws version/workspace-version})
 
+(defn check
+  "Returns true if no error messages + a vector of error messages.
+   ```clojure
+   {:ok? true
+    :error-messages []}
+   ```"
+  [since]
+  (core/check since))
+
 (defn projects-to-deploy
-  "This function returns the projects that have changed (directly or indirectly) since the
-  _last stable point in time_, and is primarily used to know which projects to build and deploy.
+  "Returns the projects that have changed (directly or indirectly) since the _last stable point in time_,
+   and is primarily used to know which projects to build and deploy.
 
   If called with:
   ```clojure
@@ -119,8 +128,8 @@
    `:components`, `:bases`, `:projects`, or elsewhere.
 
    Note that since version `0.2.18` we only publish `clj-poly` to Clojars and not the old `clj-api`."
-  [stable-point & keys]
-  (core/workspace stable-point keys))
+  [since & keys]
+  (core/workspace since keys))
 
 (comment
   (projects-to-deploy nil)

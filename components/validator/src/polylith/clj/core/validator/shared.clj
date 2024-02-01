@@ -1,6 +1,9 @@
 (ns ^:no-doc polylith.clj.core.validator.shared
   (:require [clojure.string :as str]))
 
+(defn error-message? [{:keys [type]}]
+  (= "error" type))
+
 (defn full-name
   ([{:keys [sub-ns name]}]
    (full-name sub-ns name))

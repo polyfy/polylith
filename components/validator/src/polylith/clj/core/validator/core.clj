@@ -1,5 +1,6 @@
 (ns ^:no-doc polylith.clj.core.validator.core
   (:require [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.validator.shared :as shared]
             [polylith.clj.core.validator.m101-illegal-namespace-deps :as m101]
             [polylith.clj.core.validator.m102-function-or-macro-is-defined-twice :as m102]
             [polylith.clj.core.validator.m103-missing-defs :as m103]
@@ -20,8 +21,11 @@
 
 (defn has-errors? [messages]
   (->> messages
-       (util/xf-some (keep #(= "error" (:type %))))
+       (util/xf-some (keep shared/error-message?))
        (boolean)))
+
+(defn error-messages [messages]
+  (filterv shared/error-message? messages))
 
 (defn validate-ws [suffixed-top-ns workspace settings paths interface-names interfaces profiles components bases projects config-errors interface-ns {:keys [cmd is-dev]} color-mode]
   (->> [(m101/errors suffixed-top-ns interface-names components bases interface-ns color-mode)
