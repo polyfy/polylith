@@ -55,7 +55,8 @@
   ```
 
   When a new version of the [clj-poly](https://clojars.org/polylith/clj-poly) library is released to Clojars,
-  any of the three APIs may change version, but the ambition is to never break `:api` and `:test-runner`.
+  any of the three APIs may change version, but the ambition is to never break `:api` and `:test-runner`
+  if we make major changes to the workspace structure.
 
   With `:ws` it's different, and we know that the workspace structure will change over time, so pay extra
   attention every time you bump `clj-poly` and have a look at the [versions](https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc/versions) page,
