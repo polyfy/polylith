@@ -15,7 +15,8 @@ Other improvements
  --------------------------------------------------------------------------------------------------------------------
   - The migrate command will migrate configuration from workspace.edn to separate config.edn files under
     each project (and sometimes under bricks). The parameter 'config-file:FILENAME' can be given if
-    you want to use another name than 'config.edn'.
+    you want to use another name than 'config.edn'. A migrated project will get the new key :config-files
+    in workspace.edn, that stores the filename to be used.
   - Show warning 206 - Deprecated workspace, if the workspace doesn't store project and brick configuration in config.edn files.
   - An alias can be given when creating a project.
   - Added 'check', 'test', and 'test-all' to the clj-poly API.
