@@ -14,7 +14,7 @@ poly help
 
 [source,text]
 ----
-  poly 0.2.19 (2024-01-30) - https://github.com/polyfy/polylith
+  poly 0.2.19 (2024-02-02) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -963,11 +963,19 @@ poly help
 ----
   Migrates a workspace to the latest version.
 
-  poly migrate
+  poly migrate [config-filename:FILENAME]
+
+    FILENAME = The name of the file that stores configuration for projects and bricks.
+               If not given, config.edn will be used.
 
   As of version 0.2.19, bases, components, and projects store their configuration in config.edn files.
   This command will move configuration from the :bricks and :projects keys in workspace.edn
   to corresponding config.edn files.
+
+  Example:
+    poly migrate
+    poly migrate config-filename:entity.edn
+
 ----
 
 [#overview]

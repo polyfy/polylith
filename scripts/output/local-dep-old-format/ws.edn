@@ -821,6 +821,7 @@
    :polylith
    {:repo "https://github.com/polyfy/polylith.git", :branch "master"}},
   :tag-patterns {:stable "stable-*", :release "v[0-9]*"},
+  :config-filename "config.edn",
   :m2-dir "USER-HOME/.m2",
   :color-mode "none",
   :empty-character "."},
@@ -872,8 +873,8 @@
    :minor 2,
    :patch 19,
    :revision "SNAPSHOT",
-   :date "2024-01-30",
-   :snapshot 3},
+   :date "2024-02-02",
+   :snapshot 4},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},
   :ws {:breaking 3, :non-breaking 0},
