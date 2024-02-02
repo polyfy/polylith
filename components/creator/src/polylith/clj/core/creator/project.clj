@@ -10,9 +10,9 @@
   (first (drop-while #(contains? aliases (str "?" %))
                      (range 1 999))))
 
-(defn create-project [ws-dir project-name project-alias aliases is-git-add]
+(defn create-project [ws-dir project-name project-alias aliases config-filename is-git-add]
   (let [project-path (str ws-dir "/projects/" project-name)
-        config-filename (str project-path "/config.edn")
+        config-filename (str project-path "/" config-filename)
         deps-filename (str project-path "/deps.edn")
         alias (or project-alias (str "?" (next-alias-number aliases)))]
     (file/create-dir project-path)
@@ -26,9 +26,9 @@
     (git/add ws-dir config-filename is-git-add)
     (git/add ws-dir deps-filename is-git-add)))
 
-(defn print-alias-message [project-name project-alias color-mode]
+(defn print-alias-message [project-name project-alias config-filename color-mode]
   (when (nil? project-alias)
-    (let [message (str "  It's recommended to set the alias in config.edn for the "
+    (let [message (str "  It's recommended to set the alias in " config-filename " for the "
                        (color/project project-name color-mode) " project.")]
       (println message))))
 
@@ -40,10 +40,11 @@
 
 (defn create [{:keys [ws-dir projects settings]} project-name project-alias is-git-add]
   (let [color-mode (:color-mode settings color/none)
+        config-filename (:config-filename settings)
         aliases (set (map :alias projects))
         [ok? message] (validate project-name projects color-mode)]
     (if (not ok?)
       (println message)
       (do
-        (create-project ws-dir project-name project-alias aliases is-git-add)
+        (create-project ws-dir project-name project-alias aliases config-filename is-git-add)
         :ok))))

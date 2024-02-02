@@ -1,16 +1,14 @@
 image::doc/images/logo.png[width=400]
+:snapshot-version 4
 :cljdoc-doc-url: https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc
 
 https://cljdoc.org/d/polylith/clj-poly/0.2.18/doc/readme[image:https://badgen.net/badge/doc/0.2.18/blue[]]
 ifdef::env-cljdoc[]
-https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT[image:https://badgen.net/badge/doc/0.2.19-SNAPSHOT/cyan[]]
+https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT[image:https://badgen.net/badge/doc/0.2.19-SNAPSHOT #{snapshot-version}/cyan[]]
 endif::[]
 https://clojurians.slack.com/messages/C013B7MQHJQ[image:https://badgen.net/badge/slack/join chat/green[]]
 
 == Welcome to the wonderful world of Polylith for Clojure!
-
-//NOTE: *Work in Progress*: While we are very proud of our documentation, we are currently working to make it even better!
-//To give you a sneak peek, we built this `{snapshot-version}` release from our https://github.com/polyfy/polylith/tree/master[master] branch.
 
 Polylith is made by developers for developers.
 Our goal is to maximize productivity and increase the quality of the systems we create.

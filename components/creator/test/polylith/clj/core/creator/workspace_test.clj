@@ -138,6 +138,7 @@
     (is (= ["{:top-namespace \"se.example\""
             " :interface-ns \"interface\""
             " :default-profile-name \"default\""
+            " :config-filename \"config.edn\""
             " :compact-views #{}"
             " :vcs {:name \"git\""
             "       :auto-add false}"

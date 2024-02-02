@@ -65,6 +65,7 @@
   [(str "{:top-namespace \"" top-ns "\"")
    (str " :interface-ns \"interface\"")
    (str " :default-profile-name \"default\"")
+   (str " :config-filename \"config.edn\"")
    (str " :compact-views #{}")
    (str " :vcs {:name \"git\"")
    (str "       :auto-add false}")

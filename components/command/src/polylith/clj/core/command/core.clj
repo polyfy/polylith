@@ -86,20 +86,18 @@
         workspace-fn (workspace-reader-fn)
         workspace (workspace-fn user-input ws-file)
         [cmd user-input] (with-shell cmd user-input)]
-    (tap> {:execute cmd
-           :is-local is-local
-           :branch branch})
     (user-config/create-user-config-if-not-exists)
     (when is-tap (tap/execute "open"))
     (let [brick-name (first selected-bricks)
           project-name (first selected-projects)
           toolsdeps1? (common/toolsdeps1? workspace)
           test-result (atom true)
+          config-filename (or (-> workspace :settings :config-filename) "config.edn")
           [ok? message] (cmd-validator/validate workspace user-input color-mode)]
       (if ok?
         (case cmd
           "check" (check/print-check workspace color-mode)
-          "create" (create/create ws-dir workspace args name alias top-ns interface branch is-git-add is-commit color-mode)
+          "create" (create/create ws-dir workspace args name alias top-ns interface branch is-git-add is-commit config-filename color-mode)
           "deps" (dependencies/deps workspace project-name brick-name unnamed-args)
           "doc" (doc/open-doc branch is-local is-github help more page ws unnamed-args)
           "diff" (diff workspace)

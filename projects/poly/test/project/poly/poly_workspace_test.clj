@@ -1449,6 +1449,7 @@
     (is (= {:active-profiles      #{"default"}
             :color-mode           "none"
             :compact-views        #{}
+            :config-filename      "config.edn"
             :default-profile-name "default"
             :empty-character      "."
             :interface-ns         "interface"

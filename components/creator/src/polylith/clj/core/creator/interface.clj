@@ -16,5 +16,5 @@
 (defn create-base [workspace base-name is-git-add]
   (base/create workspace base-name is-git-add))
 
-(defn print-alias-message [project-name project-alias color-mode]
-  (project/print-alias-message project-name project-alias color-mode))
+(defn print-alias-message [project-name project-alias config-filename color-mode]
+  (project/print-alias-message project-name project-alias config-filename color-mode))

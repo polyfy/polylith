@@ -62,10 +62,11 @@
                 brick
                 branch
                 brick!
+                changed-files
                 color-mode
                 commit!
-                changed-files
                 compact!
+                config-filename
                 dir
                 dev!
                 fake-poly!
@@ -111,6 +112,7 @@
                       :branch branch
                       :color-mode (as-value color-mode)
                       :changed-files (as-vector changed-files)
+                      :config-filename config-filename
                       :dir dir
                       :file file
                       :fake-sha fake-sha
