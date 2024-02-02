@@ -17,6 +17,7 @@ Other improvements
     each project (and sometimes under bricks).
   - Show warning 206 - Deprecated workspace, if the workspace doesn't store project and brick configuration in config.edn files.
   - An alias can be given when creating a project.
+  - Added 'check', 'test', and 'test-all' to the clj-poly API.
   - Reintroduced the global :test key in :settings in the workspace structure (taken from workspace.edn).
   - Fixed three broken images on the Testing page.
   - Custom data can be stored in the :custom key in workspace.edn and in config.edn files under each project or brick.
