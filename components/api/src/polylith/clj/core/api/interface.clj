@@ -36,6 +36,7 @@
    All other code that is not part of the public API, is used at your own risk,
    and may change in a breaking way between `clj-poly` versions."
   (:require [polylith.clj.core.api.core :as core]
+            [polylith.clj.core.api.test :as test]
             [polylith.clj.core.version.interface :as version])
   (:gen-class))
 
@@ -83,6 +84,23 @@
   [since]
   (core/check since))
 
+(defn test
+  "Runs all tests since the given stable point in time (since).
+   Additional arguments can be given, e.g.:
+   ```clojure
+   (test \"stable\" \":all\" \"project:myproject\"
+   ```"
+  [since & args]
+  (test/test since args))
+
+(defn test-all
+  "Runs all tests since the given stable point in time (since), e.g.:
+   ```clojure
+   (test-all \"stable\"
+   ```"
+  [since]
+  (test/test since [":all"]))
+
 (defn projects-to-deploy
   "Returns the projects that have changed (directly or indirectly) since the _last stable point in time_,
    and is primarily used to know which projects to build and deploy.
@@ -122,7 +140,8 @@
    (workspace nil \"settings\" \"interface-ns\")
    ```
 
-   Passing in `since` is only needed if we access things under the `:changes` top key.
+   Passing in `since` is only needed if we access things under the `:changes` top key
+   or `:bricks-to-test` and `:projects-to-test` under `:projects`.
 
    Avoid using things under `:configs`, if they can be found in e.g. `:settings`,
    `:components`, `:bases`, `:projects`, or elsewhere.
