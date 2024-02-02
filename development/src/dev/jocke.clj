@@ -28,6 +28,7 @@
 (dev-common/execute "info" ".")
 (dev-common/execute "libs" ".")
 (dev-common/execute "info" "../sandbox/polylith218")
+(dev-common/execute "test :all" ".")
 
 
 
@@ -37,6 +38,7 @@
                    ;(dev-common/dir "examples/doc-example")
                    ;(dev-common/dir "examples/for-test")
                    ;(dev-common/dir "examples/local-dep")
+                   ;(dev-common/dir "examples/test-runners")
                    ;(dev-common/dir "/var/folders/_0/7sl6982d6l7bzdlypmk308kw0000gn/T/polylith-example-2024-01-14-114017/ws/example" ":all" ":dev") ;"skip:dev:user-s")
                    ;(dev-common/dir "examples/profiles" "changed-files:bases/base2/src/se/example/base2/core.clj")
                    ;(dev-common/dir "examples/local-dep-old-format")
@@ -44,11 +46,9 @@
                    ;(dev-common/dir "../clojure-polylith-realworld-example-app")
                    ;(dev-common/dir "../sandbox/polylith218")
                    ;(dev-common/dir "../usermanager-example")
-                   ws-clj/workspace-from-disk
-                   ws/enrich-workspace
-                   change/with-changes))
-
-
+                   (ws-clj/workspace-from-disk)
+                   (ws/enrich-workspace)
+                   (change/with-changes)))
 
 (:messages workspace)
 (:configs workspace)
