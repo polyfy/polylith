@@ -20,7 +20,6 @@
     BRANCH = The name of the branch, or main if not given.
 
   Example:
-    poly create w name:myws top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company branch:master :commit

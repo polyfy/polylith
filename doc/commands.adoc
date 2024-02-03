@@ -14,7 +14,7 @@ poly help
 
 [source,text]
 ----
-  poly 0.2.19 (2024-02-02) - https://github.com/polyfy/polylith
+  poly 0.2.19 (2024-02-03) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -361,7 +361,6 @@ poly help
                created files to git.
 
   Example:
-    poly create b name:mybase
     poly create base name:mybase
     poly create base name:mybase :git-add
 ----
@@ -382,7 +381,6 @@ poly help
                created files to git.
 
   Example:
-    poly create p name:myproject
     poly create project name:myproject
     poly create project name:myproject alias:mp
     poly create project name:myproject :git-add
@@ -415,7 +413,6 @@ poly help
     BRANCH = The name of the branch, or main if not given.
 
   Example:
-    poly create w name:myws top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company branch:master :commit

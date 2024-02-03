@@ -873,7 +873,7 @@
    :minor 2,
    :patch 19,
    :revision "SNAPSHOT",
-   :date "2024-02-02",
+   :date "2024-02-03",
    :snapshot 4},
   :api {:breaking 1, :non-breaking 0},
   :test-runner-api {:breaking 1, :non-breaking 0},

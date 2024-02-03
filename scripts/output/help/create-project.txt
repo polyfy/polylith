@@ -9,7 +9,6 @@
                created files to git.
 
   Example:
-    poly create p name:myproject
     poly create project name:myproject
     poly create project name:myproject alias:mp
     poly create project name:myproject :git-add
