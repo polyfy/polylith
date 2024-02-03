@@ -26,3 +26,6 @@
     (if ok?
       (run-tests user-input)
       (print-argument-error message))))
+
+(defn test-all [since args]
+  (test since (conj ":all" args)))

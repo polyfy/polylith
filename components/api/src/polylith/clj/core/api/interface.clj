@@ -85,22 +85,18 @@
   [since]
   (core/check since))
 
-(defn test
-  "Runs all tests since the given stable point in time (since).
-   Additional arguments can be given, e.g.:
-   ```clojure
-   (test \"stable\" \":all\" \"project:myproject\"
-   ```"
-  [since & args]
-  (test/test since args))
-
 (defn test-all
-  "Runs all tests since the given stable point in time (since), e.g.:
+  "Runs all tests since the given stable point in time (since).
    ```clojure
    (test-all \"stable\"
+   ```
+
+   Additional arguments can be given, e.g.:
+   ```clojure
+   (test-all \"release\" \"project:myproject\"
    ```"
-  [since]
-  (test/test since [":all"]))
+  [since & args]
+  (test/test-all since args))
 
 (defn projects-to-deploy
   "Returns the projects that have changed (directly or indirectly) since the _last stable point in time_,
