@@ -55,10 +55,6 @@ poly help
   The ws-dir and ws-file arguments are replaced by switch-ws when executing commands
   from the shell.
 
-  If :: is passed in, then ws-dir is set to the first parent directory (or current)
-  that contains a 'workspace.edn' config file. The exception is the 'test' command
-  that has to be executed from the workspace root.
-
   If skip:PROJECTS is passed in, then the given project(s) will not be read from disk.
   Both project names and aliases can be used and should be separated by : if more than
   one.
@@ -158,7 +154,6 @@ poly help
     poly info :project :dev
     poly info :all
     poly info :all-bricks
-    poly info ::
     poly info out:info.txt
     poly info ws-dir:another-ws
     poly info ws-file:ws.edn

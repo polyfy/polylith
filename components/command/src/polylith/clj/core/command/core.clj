@@ -18,6 +18,7 @@
             [polylith.clj.core.overview.interface :as overview]
             [polylith.clj.core.shell.interface :as shell]
             [polylith.clj.core.tap.interface :as tap]
+            [polylith.clj.core.util.interface.color :as color]
             [polylith.clj.core.version.interface :as ver]
             [polylith.clj.core.workspace-clj.interface :as ws-clj]
             [polylith.clj.core.workspace.interface :as workspace]
@@ -80,7 +81,11 @@
     (lib/update-libs! workspace)
     (lib/print-lib-table workspace)))
 
-(defn execute [{:keys [cmd args alias name top-ns branch help is-local more page ws is-tap is-git-add is-github is-commit is-all is-update is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
+(defn print-deprecation-message [color-mode]
+  (println (str "  The use of :: is " (color/error color-mode "deprecated") " and support for it will probably be dropped in the future. "
+                "Please contact the Polylith team if you think it's important to keep!")))
+
+(defn execute [{:keys [cmd args alias name top-ns branch help is-local more page ws is-tap is-git-add is-github is-commit is-all is-update is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly is-search-for-ws-dir get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (config-reader/workspace-dir user-input)
         workspace-fn (workspace-reader-fn)
@@ -88,6 +93,7 @@
         [cmd user-input] (with-shell cmd user-input)]
     (user-config/create-user-config-if-not-exists)
     (when is-tap (tap/execute "open"))
+    (when is-search-for-ws-dir (print-deprecation-message color-mode))
     (let [brick-name (first selected-bricks)
           project-name (first selected-projects)
           toolsdeps1? (common/toolsdeps1? workspace)

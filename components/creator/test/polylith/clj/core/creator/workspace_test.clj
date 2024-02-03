@@ -14,7 +14,7 @@
 
 (deftest create-workspace--trying-to-create-a-workspace-within-another-workspace--prints-out-error-messagex
   (let [output (with-out-str
-                 (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example" ":commit")
+                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example" ":commit")
                  (helper/execute-command "ws1" "create" "workspace" "name:ws2" "top-ns:com.example"))]
     (is (= "  Workspace created in existing git repo.\n"
            output))

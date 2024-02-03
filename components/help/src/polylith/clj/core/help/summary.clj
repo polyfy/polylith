@@ -58,10 +58,6 @@
     "  The " (s/key "ws-dir" cm) " and " (s/key "ws-file" cm) " arguments are replaced by " (s/key "switch-ws" cm) " when executing commands\n"
     "  from the shell.\n"
     "\n"
-    "  If " (s/key "::" cm) " is passed in, then ws-dir is set to the first parent directory (or current)\n"
-    "  that contains a 'workspace.edn' config file. The exception is the 'test' command\n"
-    "  that has to be executed from the workspace root.\n"
-    "\n"
     "  If " (s/key "skip:PROJECTS" cm) " is passed in, then the given project(s) will not be read from disk.\n"
     "  Both project names and aliases can be used and should be separated by : if more than\n"
     "  one.\n"
@@ -166,7 +162,6 @@
     "    poly info :project :dev\n"
     "    poly info :all\n"
     "    poly info :all-bricks\n"
-    "    poly info ::\n"
     "    poly info out:info.txt\n"
     (if extended?
       "    poly info out:info.png\n"

@@ -79,8 +79,8 @@
   (let [src-ifc-dir "ws1/components/my-component/src/se/example/my_interface"
         test-ifc-dir "ws1/components/my-component/test/se/example/my_interface"
         output (with-out-str
-                 (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example")
-                 (helper/execute-command "ws1" "create" "c" "name:my-component" "interface:my-interface"))]
+                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
+                 (helper/execute-command "ws1" "create" "component" "name:my-component" "interface:my-interface"))]
     (is (= (str brick/create-brick-message "\n")
            output))
 
