@@ -4,7 +4,8 @@
             [polylith.clj.core.test-runner-orchestrator.interface :as test-runner-orchestrator]
             [polylith.clj.core.user-input.interface :as user-input]
             [polylith.clj.core.workspace-clj.interface :as ws-clj]
-            [polylith.clj.core.workspace.interface :as ws]))
+            [polylith.clj.core.workspace.interface :as ws])
+  (:refer-clojure :exclude [test]))
 
 (defn run-tests [user-input]
   (-> user-input
@@ -18,14 +19,11 @@
   (println message)
   {:ok? false})
 
-(defn test [since args]
-  (let [cmd-args (concat ["test" (str "since:" since)] args)
+(defn test [args]
+  (let [cmd-args (concat ["test"] args)
         user-input (user-input/extract-arguments cmd-args)
         unnamed-args (:unnamed-args user-input)
-        {:keys [ok? message]} (common/validate-args unnamed-args "test project:dev")]
+        {:keys [ok? message]} (common/validate-args unnamed-args "test :project since:release")]
     (if ok?
       (run-tests user-input)
       (print-argument-error message))))
-
-(defn test-all [since args]
-  (test since (conj ":all" args)))

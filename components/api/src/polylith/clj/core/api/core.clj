@@ -37,6 +37,6 @@
       workspace
       (ws-explorer/extract workspace keys-str))))
 
-(defn check [since]
-  (-> (workspace since [])
+(defn check []
+  (-> (workspace "stable" [])
       (check/check)))

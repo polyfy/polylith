@@ -38,6 +38,7 @@
   (:require [polylith.clj.core.api.core :as core]
             [polylith.clj.core.api.test :as test]
             [polylith.clj.core.version.interface :as version])
+  (:refer-clojure :exclude [test])
   (:gen-class))
 
 (def api-version
@@ -55,8 +56,8 @@
   ```
 
   When a new version of the [clj-poly](https://clojars.org/polylith/clj-poly) library is released to Clojars,
-  any of the three APIs may change version, but the ambition is to never break `:api` and `:test-runner`
-  if we make major changes to the workspace structure.
+  any of the three APIs may change version, but the ambition is to never break `:api` and `:test-runner`.
+  The exception is if we make a major changes to the workspace structure, e.g. add support for multiple workspaces.
 
   With `:ws` it's different, and we know that the workspace structure will change over time, so pay extra
   attention every time you bump `clj-poly` and have a look at the [versions](https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc/versions) page,
@@ -82,21 +83,25 @@
    {:ok? true
     :error-messages []}
    ```"
-  [since]
-  (core/check since))
+  []
+  (core/check))
 
-(defn test-all
-  "Runs all tests since the given stable point in time (since).
+(defn test
+  "Runs tests. If since is not given, then \"stable\" will be used.
+
+   How to also include project tests since latest release (run tests incrementally).
    ```clojure
-   (test-all \"release\"
+   (test :project \"since:release\")
    ```
 
-   Additional arguments can be given, e.g.:
+   How to run all tests since previous release for the 'myproject' project.
    ```clojure
-   (test-all \"release\" \"project:myproject\"
-   ```"
-  [since & args]
-  (test/test-all since args))
+   (test :all \"since:previous-release\" \"project:myproject\")
+   ```
+
+   The arguments can come in any order."
+  [& args]
+  (test/test args))
 
 (defn projects-to-deploy
   "Returns the projects that have changed (directly or indirectly) since the _last stable point in time_,
