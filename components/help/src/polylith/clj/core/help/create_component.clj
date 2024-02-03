@@ -15,7 +15,6 @@
        "    " (s/key "INTERFACE" cm) " = The name of the interface (namespace) or " (s/key "NAME" cm) " if not given.\n"
        "\n"
        "  Example:\n"
-       "    poly create c name:user\n"
        "    poly create component name:user\n"
        "    poly create component name:user :git-add\n"
        "    poly create component name:admin interface:user"))

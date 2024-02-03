@@ -94,15 +94,11 @@ poly help
     poly :tap
     poly check
     poly check :dev
-    poly create c name:user
     poly create component name:user
     poly create component name:admin interface:user
-    poly create b name:mybase
     poly create base name:mybase
-    poly create p name:myproject
     poly create project name:myproject
     poly create project name:myproject alias:mp
-    poly create w top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company branch:master :commit
@@ -322,7 +318,6 @@ poly help
   To get help for a specific TYPE, execute 'poly help create TYPE'.
 
   Example:
-    poly create c name:user
     poly create component name:user
     poly create component name:admin interface:user
     poly create base name:mybase
@@ -350,7 +345,6 @@ poly help
     INTERFACE = The name of the interface (namespace) or NAME if not given.
 
   Example:
-    poly create c name:user
     poly create component name:user
     poly create component name:user :git-add
     poly create component name:admin interface:user
