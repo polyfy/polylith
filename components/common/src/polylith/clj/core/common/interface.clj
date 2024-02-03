@@ -8,6 +8,7 @@
             [polylith.clj.core.version.interface :as version]))
 
 (def entity->short core/entity->short)
+(def entity->long core/entity->long)
 
 (defn absolute-path [path entity-root-path]
   (core/absolute-path path entity-root-path))

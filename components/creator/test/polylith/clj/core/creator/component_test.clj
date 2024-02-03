@@ -8,14 +8,14 @@
 (deftest create-component--with-missing-name--return-error-message
   (let [output (with-out-str
                  (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
-                 (helper/execute-command "ws1" "create" "c" "name:"))]
+                 (helper/execute-command "ws1" "create" "component" "name:"))]
     (is (= "  A brick name must be given.\n"
            output))))
 
 (deftest create-component--when-component-already-exists--return-error-message
   (let [output (with-out-str
                  (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
-                 (helper/execute-command "ws1" "create" "c" "name:my-component")
+                 (helper/execute-command "ws1" "create" "component" "name:my-component")
                  (helper/execute-command "ws1" "create" "component" "name:my-component"))]
     (is (= (str brick/create-brick-message "\n"
                 "  The brick 'my-component' already exists.\n")
@@ -25,8 +25,8 @@
   (let [src-ifc-dir "ws1/components/my-component/src/se/example/my_component"
         test-ifc-dir "ws1/components/my-component/test/se/example/my_component"
         output (with-out-str
-                 (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example")
-                 (helper/execute-command "ws1" "create" "c" "name:my-component"))]
+                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
+                 (helper/execute-command "ws1" "create" "component" "name:my-component"))]
     (is (= (str brick/create-brick-message "\n")
            output))
 

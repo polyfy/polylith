@@ -8,7 +8,7 @@
 (deftest create-project--whith-missing-name--return-error-message
   (let [output (with-out-str
                  (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
-                 (helper/execute-command "ws1" "create" "p" "name:"))]
+                 (helper/execute-command "ws1" "create" "project" "name:"))]
 
     (is (= (str "  A project name must be given.\n")
            (color/clean-colors output)))))
@@ -16,7 +16,7 @@
 (deftest create-project--when-project-already-exists--return-error-message
   (let [output (with-out-str
                  (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example")
-                 (helper/execute-command "ws1" "create" "p" "name:proj1")
+                 (helper/execute-command "ws1" "create" "project" "name:proj1")
                  (helper/execute-command "ws1" "create" "project" "name:proj1"))]
 
     (is (= (str "  It's recommended to set the alias in config.edn for the proj1 project.\n"
@@ -26,8 +26,8 @@
 (deftest create-project--performs-expected-actions
   (let [dir "ws1/projects/proj1"
         output (with-out-str
-                 (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example" ":create")
-                 (helper/execute-command "ws1" "create" "p" "name:proj1"))]
+                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example" ":create")
+                 (helper/execute-command "ws1" "create" "project" "name:proj1"))]
 
     (is (= "  It's recommended to set the alias in config.edn for the proj1 project.\n"
            (color/clean-colors output)))
