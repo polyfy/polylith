@@ -4,7 +4,7 @@ image::doc/images/logo.png[width=400]
 
 https://cljdoc.org/d/polylith/clj-poly/0.2.18/doc/readme[image:https://badgen.net/badge/doc/0.2.18/blue[]]
 ifdef::env-cljdoc[]
-https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT[image:https://badgen.net/badge/doc/0.2.19-SNAPSHOT #{snapshot-version}/cyan[]]
+https://cljdoc.org/d/polylith/clj-poly/0.2.19-SNAPSHOT[image:https://badgen.net/badge/doc/0.2.19-SNAPSHOT%20%23{snapshot-version}/cyan/cyan[]]
 endif::[]
 https://clojurians.slack.com/messages/C013B7MQHJQ[image:https://badgen.net/badge/slack/join chat/green[]]
 
