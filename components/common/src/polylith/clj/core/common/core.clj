@@ -13,6 +13,15 @@
                     "base" "b"
                     "component" "c"})
 
+(def entity->long {"w" "workspace"
+                   "p" "project"
+                   "b" "base"
+                   "c" "component"
+                   "workspace" "workspace"
+                   "project" "project"
+                   "base" "base"
+                   "component" "component"})
+
 (defn ns-to-path [namespace]
   (-> namespace
       (str/replace "." "/")

@@ -11,7 +11,6 @@
     INTERFACE = The name of the interface (namespace) or NAME if not given.
 
   Example:
-    poly create c name:user
     poly create component name:user
     poly create component name:user :git-add
     poly create component name:admin interface:user

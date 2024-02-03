@@ -7,6 +7,9 @@
 (defn has-errors? [messages]
   (core/has-errors? messages))
 
+(defn error-messages [messages]
+  (core/error-messages messages))
+
 (defn print-messages [workspace]
   (message-printer/print-messages workspace))
 

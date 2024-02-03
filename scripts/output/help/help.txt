@@ -1,4 +1,4 @@
-  poly 0.2.19 (2024-01-30) - https://github.com/polyfy/polylith
+  poly 0.2.19 (2024-02-03) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -39,10 +39,6 @@
   The ws-dir and ws-file arguments are replaced by switch-ws when executing commands
   from the shell.
 
-  If :: is passed in, then ws-dir is set to the first parent directory (or current)
-  that contains a 'workspace.edn' config file. The exception is the 'test' command
-  that has to be executed from the workspace root.
-
   If skip:PROJECTS is passed in, then the given project(s) will not be read from disk.
   Both project names and aliases can be used and should be separated by : if more than
   one.
@@ -78,15 +74,11 @@
     poly :tap
     poly check
     poly check :dev
-    poly create c name:user
     poly create component name:user
     poly create component name:admin interface:user
-    poly create b name:mybase
     poly create base name:mybase
-    poly create p name:myproject
     poly create project name:myproject
     poly create project name:myproject alias:mp
-    poly create w top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company branch:master :commit
@@ -146,7 +138,6 @@
     poly info :project :dev
     poly info :all
     poly info :all-bricks
-    poly info ::
     poly info out:info.txt
     poly info ws-dir:another-ws
     poly info ws-file:ws.edn

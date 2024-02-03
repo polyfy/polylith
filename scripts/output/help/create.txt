@@ -12,7 +12,6 @@
   To get help for a specific TYPE, execute 'poly help create TYPE'.
 
   Example:
-    poly create c name:user
     poly create component name:user
     poly create component name:admin interface:user
     poly create base name:mybase

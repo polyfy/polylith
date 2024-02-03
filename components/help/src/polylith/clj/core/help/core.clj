@@ -30,7 +30,7 @@
       "libs" (libs/print-help extended? color-mode)
       "overview" (overview/print-help color-mode)
       "switch-ws" (switch-ws/print-help color-mode)
-      "migrate" (migrate/print-help)
+      "migrate" (migrate/print-help color-mode)
       "shell" (shell/print-help color-mode)
       "tap" (tap/print-help color-mode)
       "test" (test/print-help color-mode)

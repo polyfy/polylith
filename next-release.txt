@@ -14,9 +14,12 @@ Included in 0.2.19-SNAPSHOT:
 Other improvements
  --------------------------------------------------------------------------------------------------------------------
   - The migrate command will migrate configuration from workspace.edn to separate config.edn files under
-    each project (and sometimes under bricks).
+    each project (and sometimes under bricks). The parameter 'config-file:FILENAME' can be given if
+    you want to use another name than 'config.edn'. A migrated project will get the new key :config-files
+    in workspace.edn, that stores the filename to be used.
   - Show warning 206 - Deprecated workspace, if the workspace doesn't store project and brick configuration in config.edn files.
   - An alias can be given when creating a project.
+  - Added 'check', 'test', and 'test-all' to the clj-poly API.
   - Reintroduced the global :test key in :settings in the workspace structure (taken from workspace.edn).
   - Fixed three broken images on the Testing page.
   - Custom data can be stored in the :custom key in workspace.edn and in config.edn files under each project or brick.
@@ -24,3 +27,10 @@ Other improvements
   - The workspace structure is updated. Brick and project configurations have moved into each brick and project,
     and profile config has moved to :profiles at the root. Type 'poly doc page:versions' for details.
   - The example project examples/test-runners was added.
+  - Show snapshot number, e.g. "0.2.19-SNAPSHOT #4" for the badge at the top of the start page.
+  - Added note in the documentation that you should use a more unique prefix in your libraries if they are exposed
+    outside the workspace.
+  - Changed "lib name" prefix from "poly" to "polyfy" in the polylith workspace itself, to minimise the risk of
+    name clashes for the users of the clj-poly library.
+  - Print a deprecation message if the shorter form of "create base/component/project/workspace" is used, e.g. "create c".
+  - print a deprecation message if :: is used (that looks up the workspace root).

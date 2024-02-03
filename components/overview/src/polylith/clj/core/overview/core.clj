@@ -66,9 +66,9 @@
 (comment
   (def input (user-input/extract-arguments ["overview" "ws-dir:examples/for-test"]))
   (def workspace (-> input
-                     ws-clj/workspace-from-disk
-                     ws/enrich-workspace
-                     change/with-changes))
+                     (ws-clj/workspace-from-disk)
+                     (ws/enrich-workspace)
+                     (change/with-changes)))
   (def workspace (assoc-in workspace [:user-input :out] "overview.png"))
 
   (def workspace (-> dev.jocke/workspace

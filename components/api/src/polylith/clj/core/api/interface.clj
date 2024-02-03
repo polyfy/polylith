@@ -36,6 +36,7 @@
    All other code that is not part of the public API, is used at your own risk,
    and may change in a breaking way between `clj-poly` versions."
   (:require [polylith.clj.core.api.core :as core]
+            [polylith.clj.core.api.test :as test]
             [polylith.clj.core.version.interface :as version])
   (:gen-class))
 
@@ -54,7 +55,8 @@
   ```
 
   When a new version of the [clj-poly](https://clojars.org/polylith/clj-poly) library is released to Clojars,
-  any of the three APIs may change version, but the ambition is to never break `:api` and `:test-runner`.
+  any of the three APIs may change version, but the ambition is to never break `:api` and `:test-runner`
+  if we make major changes to the workspace structure.
 
   With `:ws` it's different, and we know that the workspace structure will change over time, so pay extra
   attention every time you bump `clj-poly` and have a look at the [versions](https://cljdoc.org/d/polylith/clj-poly/CURRENT/doc/versions) page,
@@ -74,9 +76,35 @@
    :test-runner version/test-runner-api-version
    :ws version/workspace-version})
 
+(defn check
+  "Returns true if no error messages + a vector of error messages.
+   ```clojure
+   {:ok? true
+    :error-messages []}
+   ```"
+  [since]
+  (core/check since))
+
+(defn test
+  "Runs all tests since the given stable point in time (since).
+   Additional arguments can be given, e.g.:
+   ```clojure
+   (test \"stable\" \":all\" \"project:myproject\"
+   ```"
+  [since & args]
+  (test/test since args))
+
+(defn test-all
+  "Runs all tests since the given stable point in time (since), e.g.:
+   ```clojure
+   (test-all \"stable\"
+   ```"
+  [since]
+  (test/test since [":all"]))
+
 (defn projects-to-deploy
-  "This function returns the projects that have changed (directly or indirectly) since the
-  _last stable point in time_, and is primarily used to know which projects to build and deploy.
+  "Returns the projects that have changed (directly or indirectly) since the _last stable point in time_,
+   and is primarily used to know which projects to build and deploy.
 
   If called with:
   ```clojure
@@ -113,14 +141,15 @@
    (workspace nil \"settings\" \"interface-ns\")
    ```
 
-   Passing in `since` is only needed if we access things under the `:changes` top key.
+   Passing in `since` is only needed if we access things under the `:changes` top key
+   or `:bricks-to-test` and `:projects-to-test` under `:projects`.
 
    Avoid using things under `:configs`, if they can be found in e.g. `:settings`,
    `:components`, `:bases`, `:projects`, or elsewhere.
 
    Note that since version `0.2.18` we only publish `clj-poly` to Clojars and not the old `clj-api`."
-  [stable-point & keys]
-  (core/workspace stable-point keys))
+  [since & keys]
+  (core/workspace since keys))
 
 (comment
   (projects-to-deploy nil)

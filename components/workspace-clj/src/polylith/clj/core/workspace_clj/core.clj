@@ -97,11 +97,12 @@
                               aliases
                               user-input
                               color-mode]
-  (let [{:keys [vcs top-namespace interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views bricks test]
+  (let [{:keys [vcs top-namespace interface-ns default-profile-name tag-patterns release-tag-pattern stable-tag-pattern ns-to-lib compact-views bricks test config-filename]
          :or   {vcs {:name "git", :auto-add false}
                 compact-views {}
                 default-profile-name "default"
                 interface-ns "interface"}} ws-config
+        config-filename (or config-filename (:config-filename user-input) "config.edn")
         patterns (tag-pattern/patterns tag-patterns stable-tag-pattern release-tag-pattern)
         top-src-dir (-> top-namespace common/suffix-ns-with-dot common/ns-to-path)
         empty-character (user-config/empty-character)
@@ -111,13 +112,13 @@
         user-config-filename (user-config/file-path)
         project->settings (:projects ws-config)
         ns-to-lib-str (stringify ws-type (or ns-to-lib {}))
-        [component-configs component-errors] (config-reader/read-brick-config-files ws-dir ws-type "component")
+        [component-configs component-errors] (config-reader/read-brick-config-files ws-dir ws-type "component" config-filename)
         components (components-from-disk/read-components ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns component-configs bricks)
-        [base-configs base-errors] (config-reader/read-brick-config-files ws-dir ws-type "base")
+        [base-configs base-errors] (config-reader/read-brick-config-files ws-dir ws-type "base" config-filename)
         bases (bases-from-disk/read-bases ws-dir ws-type user-home top-namespace ns-to-lib-str top-src-dir interface-ns base-configs bricks)
         name->brick (into {} (comp cat (map (juxt :name identity))) [components bases])
         suffixed-top-ns (common/suffix-ns-with-dot top-namespace)
-        [project-configs project-errors] (config-reader/read-project-config-files ws-dir ws-type)
+        [project-configs project-errors] (config-reader/read-project-config-files ws-dir ws-type config-filename)
         projects (projects-from-disk/read-projects ws-dir name->brick project->settings user-input user-home suffixed-top-ns interface-ns project-configs)
         profiles (profile/profiles ws-dir default-profile-name aliases name->brick user-home)
         ws-local-dir (->ws-local-dir ws-dir)
@@ -130,6 +131,7 @@
                                    :top-namespace top-namespace
                                    :interface-ns interface-ns
                                    :default-profile-name default-profile-name
+                                   :config-filename config-filename
                                    :active-profiles active-profiles
                                    :tag-patterns patterns
                                    :color-mode color-mode
@@ -179,7 +181,7 @@
                   (config-reader/file-exists? ws-file :workspace) :toolsdeps2
                   (config-reader/file-exists? deps-file :development) :toolsdeps1)]
     (when ws-type
-      (let [{:keys [deps error]} (config-reader/read-development-config-files ws-dir ws-type)
+      (let [{:keys [deps error]} (config-reader/read-development-deps-file ws-dir ws-type)
             {:keys [aliases polylith]} deps
             [ws-config ws-error] (if (or error
                                          (= :toolsdeps2 ws-type))

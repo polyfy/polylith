@@ -29,7 +29,7 @@
   (let [ent (common/entity->short entity)]
     (if (= "create" cmd)
       (cond
-        (nil? ent) [false "  The first argument after 'create' is expected to be any of: w, p, b, c, workspace, project, base, component."]
+        (nil? ent) [false "  The first argument after 'create' is expected to be any of: base, component, project, workspace."]
         (and (base-or-comp? ent)
              (contains-char? name ".")) [false "  The . character is not allowed in brick names."]
         (and (base-or-comp? ent)
@@ -43,6 +43,6 @@
                  (and (workspace? ent)
                       (-> workspace git-repo? not)))) [false (str "  A name must be given, e.g.: create " ent " name:" (ent->name ent))]
         (and (workspace? ent)
-             (str/blank? top-ns)) [false (str "  A top namespace must be given, e.g.: create " ent " name:" (ent->name ent) " top-ns:com.my-company")]
+             (str/blank? top-ns)) [false (str "  A top namespace must be given, e.g.: create " (common/entity->long ent) " name:" (ent->name ent) " top-ns:com.my-company")]
         :else [true])
       [true])))

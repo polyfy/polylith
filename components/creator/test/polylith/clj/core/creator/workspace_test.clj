@@ -14,7 +14,7 @@
 
 (deftest create-workspace--trying-to-create-a-workspace-within-another-workspace--prints-out-error-messagex
   (let [output (with-out-str
-                 (helper/execute-command "" "create" "w" "name:ws1" "top-ns:se.example" ":commit")
+                 (helper/execute-command "" "create" "workspace" "name:ws1" "top-ns:se.example" ":commit")
                  (helper/execute-command "ws1" "create" "workspace" "name:ws2" "top-ns:com.example"))]
     (is (= "  Workspace created in existing git repo.\n"
            output))
@@ -60,13 +60,13 @@
 (deftest create-workspace--incorrect-first-argument--prints-out-error-message
   (let [output (with-out-str
                  (helper/execute-command "" "create" "x" "name:ws1"))]
-    (is (= "  The first argument after 'create' is expected to be any of: w, p, b, c, workspace, project, base, component.\n"
+    (is (= "  The first argument after 'create' is expected to be any of: base, component, project, workspace.\n"
            output))))
 
 (deftest create-workspace--missing-top-namespace--prints-out-error-message
   (let [output (with-out-str
-                 (helper/execute-command "" "create" "w" "name:ws1"))]
-    (is (= "  A top namespace must be given, e.g.: create w name:my-workspace top-ns:com.my-company\n"
+                 (helper/execute-command "" "create" "workspace" "name:ws1"))]
+    (is (= "  A top namespace must be given, e.g.: create workspace name:my-workspace top-ns:com.my-company\n"
            output))))
 
 (deftest create-workspace--creates-empty-directories-and-a-deps-edn-config-file
@@ -138,6 +138,7 @@
     (is (= ["{:top-namespace \"se.example\""
             " :interface-ns \"interface\""
             " :default-profile-name \"default\""
+            " :config-filename \"config.edn\""
             " :compact-views #{}"
             " :vcs {:name \"git\""
             "       :auto-add false}"

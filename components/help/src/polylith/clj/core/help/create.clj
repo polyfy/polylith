@@ -21,7 +21,6 @@
        "  To get help for a specific " (s/key "TYPE" cm) ", execute 'poly help create " (s/key "TYPE" cm) "'.\n"
        "\n"
        "  Example:\n"
-       "    poly create c name:user\n"
        "    poly create component name:user\n"
        "    poly create component name:admin interface:user\n"
        "    poly create base name:mybase\n"

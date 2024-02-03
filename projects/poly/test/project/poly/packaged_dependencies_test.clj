@@ -8,8 +8,8 @@
 
 (defn workspace [& args]
   (-> (user-input/extract-arguments (concat ["info" (str "ws-dir:.") "color-mode:none"] args))
-      ws-clj/workspace-from-disk
-      ws/enrich-workspace))
+      (ws-clj/workspace-from-disk)
+      (ws/enrich-workspace)))
 
 (deftest clojure-test-test-runner-is-shipped-with-poly
   (is (-> (workspace)

@@ -9,6 +9,5 @@
                created files to git.
 
   Example:
-    poly create b name:mybase
     poly create base name:mybase
     poly create base name:mybase :git-add

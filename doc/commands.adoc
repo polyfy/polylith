@@ -14,7 +14,7 @@ poly help
 
 [source,text]
 ----
-  poly 0.2.19 (2024-01-30) - https://github.com/polyfy/polylith
+  poly 0.2.19 (2024-02-03) - https://github.com/polyfy/polylith
 
   poly CMD [ARGS] - where CMD [ARGS] are:
 
@@ -55,10 +55,6 @@ poly help
   The ws-dir and ws-file arguments are replaced by switch-ws when executing commands
   from the shell.
 
-  If :: is passed in, then ws-dir is set to the first parent directory (or current)
-  that contains a 'workspace.edn' config file. The exception is the 'test' command
-  that has to be executed from the workspace root.
-
   If skip:PROJECTS is passed in, then the given project(s) will not be read from disk.
   Both project names and aliases can be used and should be separated by : if more than
   one.
@@ -94,15 +90,11 @@ poly help
     poly :tap
     poly check
     poly check :dev
-    poly create c name:user
     poly create component name:user
     poly create component name:admin interface:user
-    poly create b name:mybase
     poly create base name:mybase
-    poly create p name:myproject
     poly create project name:myproject
     poly create project name:myproject alias:mp
-    poly create w top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company branch:master :commit
@@ -162,7 +154,6 @@ poly help
     poly info :project :dev
     poly info :all
     poly info :all-bricks
-    poly info ::
     poly info out:info.txt
     poly info ws-dir:another-ws
     poly info ws-file:ws.edn
@@ -322,7 +313,6 @@ poly help
   To get help for a specific TYPE, execute 'poly help create TYPE'.
 
   Example:
-    poly create c name:user
     poly create component name:user
     poly create component name:admin interface:user
     poly create base name:mybase
@@ -350,7 +340,6 @@ poly help
     INTERFACE = The name of the interface (namespace) or NAME if not given.
 
   Example:
-    poly create c name:user
     poly create component name:user
     poly create component name:user :git-add
     poly create component name:admin interface:user
@@ -372,7 +361,6 @@ poly help
                created files to git.
 
   Example:
-    poly create b name:mybase
     poly create base name:mybase
     poly create base name:mybase :git-add
 ----
@@ -393,7 +381,6 @@ poly help
                created files to git.
 
   Example:
-    poly create p name:myproject
     poly create project name:myproject
     poly create project name:myproject alias:mp
     poly create project name:myproject :git-add
@@ -426,7 +413,6 @@ poly help
     BRANCH = The name of the branch, or main if not given.
 
   Example:
-    poly create w name:myws top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company
     poly create workspace name:myws top-ns:com.my.company :commit
     poly create workspace name:myws top-ns:com.my.company branch:master :commit
@@ -963,11 +949,19 @@ poly help
 ----
   Migrates a workspace to the latest version.
 
-  poly migrate
+  poly migrate [config-filename:FILENAME]
+
+    FILENAME = The name of the file that stores configuration for projects and bricks.
+               If not given, config.edn will be used.
 
   As of version 0.2.19, bases, components, and projects store their configuration in config.edn files.
   This command will move configuration from the :bricks and :projects keys in workspace.edn
   to corresponding config.edn files.
+
+  Example:
+    poly migrate
+    poly migrate config-filename:entity.edn
+
 ----
 
 [#overview]

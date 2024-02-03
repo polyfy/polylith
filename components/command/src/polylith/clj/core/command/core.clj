@@ -1,6 +1,7 @@
 (ns ^:no-doc polylith.clj.core.command.core
   (:require [clojure.string :as str]
             [polylith.clj.core.change.interface :as change]
+            [polylith.clj.core.check.interface :as check]
             [polylith.clj.core.command.cmd-validator.core :as cmd-validator]
             [polylith.clj.core.command.create :as create]
             [polylith.clj.core.command.dependencies :as dependencies]
@@ -18,18 +19,12 @@
             [polylith.clj.core.shell.interface :as shell]
             [polylith.clj.core.tap.interface :as tap]
             [polylith.clj.core.util.interface.color :as color]
-            [polylith.clj.core.validator.interface :as validator]
             [polylith.clj.core.version.interface :as ver]
             [polylith.clj.core.workspace-clj.interface :as ws-clj]
             [polylith.clj.core.workspace.interface :as workspace]
             [polylith.clj.core.ws-file.interface :as ws-file]
             [polylith.clj.core.ws-explorer.interface :as ws-explorer])
   (:refer-clojure :exclude [test]))
-
-(defn check [{:keys [messages] :as workspace} color-mode]
-  (if (empty? messages)
-    (println (color/ok color-mode "OK"))
-    (validator/print-messages workspace)))
 
 (defn diff [workspace]
   (doseq [file (-> workspace :changes :changed-files)]
@@ -86,26 +81,29 @@
     (lib/update-libs! workspace)
     (lib/print-lib-table workspace)))
 
-(defn execute [{:keys [cmd args alias name top-ns branch help is-local more page ws is-tap is-git-add is-github is-commit is-all is-update is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
+(defn print-deprecation-message [color-mode]
+  (println (str "  The use of :: is " (color/error color-mode "deprecated") " and support for it will probably be dropped in the future. "
+                "Please contact the Polylith team if you think it's important to keep!")))
+
+(defn execute [{:keys [cmd args alias name top-ns branch help is-local more page ws is-tap is-git-add is-github is-commit is-all is-update is-show-brick is-show-workspace is-show-project is-verbose is-fake-poly is-search-for-ws-dir get out interface selected-bricks selected-projects unnamed-args ws-file] :as user-input}]
   (let [color-mode (common/color-mode user-input)
         ws-dir (config-reader/workspace-dir user-input)
         workspace-fn (workspace-reader-fn)
         workspace (workspace-fn user-input ws-file)
         [cmd user-input] (with-shell cmd user-input)]
-    (tap> {:execute cmd
-           :is-local is-local
-           :branch branch})
     (user-config/create-user-config-if-not-exists)
     (when is-tap (tap/execute "open"))
+    (when is-search-for-ws-dir (print-deprecation-message color-mode))
     (let [brick-name (first selected-bricks)
           project-name (first selected-projects)
           toolsdeps1? (common/toolsdeps1? workspace)
           test-result (atom true)
+          config-filename (or (-> workspace :settings :config-filename) "config.edn")
           [ok? message] (cmd-validator/validate workspace user-input color-mode)]
       (if ok?
         (case cmd
-          "check" (check workspace color-mode)
-          "create" (create/create ws-dir workspace args name alias top-ns interface branch is-git-add is-commit color-mode)
+          "check" (check/print-check workspace color-mode)
+          "create" (create/create ws-dir workspace args name alias top-ns interface branch is-git-add is-commit config-filename color-mode)
           "deps" (dependencies/deps workspace project-name brick-name unnamed-args)
           "doc" (doc/open-doc branch is-local is-github help more page ws unnamed-args)
           "diff" (diff workspace)

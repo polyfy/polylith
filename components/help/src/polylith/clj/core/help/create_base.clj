@@ -13,7 +13,6 @@
        "               created files to git.\n"
        "\n"
        "  Example:\n"
-       "    poly create b name:mybase\n"
        "    poly create base name:mybase\n"
        "    poly create base name:mybase :git-add"))
 

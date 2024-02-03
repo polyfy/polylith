@@ -146,6 +146,10 @@
             (when all? [compact libs-skip libs-color-mode])
             (when (or all? extended?) [libs-out]))))
 
+;; migrate
+(def migrate-config-filename (c/multi-param "config-filename" :migrate (c/optional)))
+(def migrate (c/single-txt "migrate" :migrate [migrate-config-filename]))
+
 ;; test
 (def test-since (c/fn-explorer "since" :test #'ws-tag-patterns/select))
 (def test-project (c/fn-explorer "project" :test #'ws-projects-to-test/select))
@@ -233,7 +237,7 @@
                   (libs is-all system/extended?)
                   (test test-profiles current-ws? is-all)
                   (ws ws-profiles is-all)
-                  (when show-migrate? (c/single-txt "migrate"))
+                  (when show-migrate? migrate)
                   (when system/extended? overview)]))))
 
 (def create-outside-ws-root (c/single-txt "create" [create-workspace]))
